@@ -9,7 +9,7 @@ export var armor = {
     }),
     con: 20,
     value: 150,
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       var ref;
       return +((ref = u.backer) != null ? ref.tier : void 0) >= 45;
     })
@@ -24,7 +24,7 @@ export var armor = {
     per: 6,
     int: 6,
     value: 170,
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       var ref;
       return +((ref = u.contributor) != null ? ref.level : void 0) >= 2;
     })
@@ -37,7 +37,7 @@ export var armor = {
     int: 25,
     con: 25,
     value: 200,
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       var ref;
       return +((ref = u.backer) != null ? ref.tier : void 0) >= 300 || (u.items.gear.owned.armor_special_2 != null);
     })
@@ -49,7 +49,7 @@ export var armor = {
     }),
     str: 15,
     value: 130,
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_special_finnedOceanicArmor != null;
     })
   },
@@ -263,7 +263,7 @@ export var armor = {
     text: t('armorSpecialBirthday2015Text'),
     notes: t('armorSpecialBirthday2015Notes'),
     value: 0,
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_special_birthday2015 != null;
     })
   },

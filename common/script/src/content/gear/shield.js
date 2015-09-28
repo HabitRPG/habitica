@@ -24,7 +24,7 @@ let shield = {
       }),
       per: 20,
       value: 150,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         var ref;
         return +((ref = u.backer) != null ? ref.tier : void 0) >= 45;
       })
@@ -39,7 +39,7 @@ let shield = {
       per: 6,
       int: 6,
       value: 170,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         var ref;
         return +((ref = u.contributor) != null ? ref.level : void 0) >= 5;
       })
@@ -52,7 +52,7 @@ let shield = {
       con: 25,
       per: 25,
       value: 200,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.shield_special_goldenknight != null;
       })
     },
@@ -63,7 +63,7 @@ let shield = {
       }),
       con: 15,
       value: 130,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.shield_special_moonpearlShield != null;
       })
     },
@@ -327,7 +327,7 @@ let shield = {
       con: 5,
       str: 5,
       set: 'gladiator',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.shield_armoire_gladiatorShield != null;
       })
     }

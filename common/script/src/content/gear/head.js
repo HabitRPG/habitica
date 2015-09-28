@@ -24,7 +24,7 @@ let head = {
       }),
       int: 20,
       value: 150,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         var ref;
         return +((ref = u.backer) != null ? ref.tier : void 0) >= 45;
       })
@@ -39,7 +39,7 @@ let head = {
       per: 6,
       int: 6,
       value: 170,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         var ref;
         return +((ref = u.contributor) != null ? ref.level : void 0) >= 3;
       })
@@ -52,7 +52,7 @@ let head = {
       int: 25,
       str: 25,
       value: 200,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         var ref;
         return (+((ref = u.backer) != null ? ref.tier : void 0) >= 300) || (u.items.gear.owned.head_special_2 != null);
       })
@@ -64,7 +64,7 @@ let head = {
       }),
       per: 15,
       value: 130,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_special_fireCoralCirclet != null;
       })
     },
@@ -278,7 +278,7 @@ let head = {
       text: t('headSpecialNye2014Text'),
       notes: t('headSpecialNye2014Notes'),
       value: 0,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_special_nye2014 != null;
       })
     },
@@ -500,7 +500,7 @@ let head = {
       con: 7,
       per: 7,
       set: 'soothing',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_lunarCrown != null;
       })
     },
@@ -515,7 +515,7 @@ let head = {
       str: 5,
       int: 5,
       con: 5,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_redHairbow != null;
       })
     },
@@ -530,7 +530,7 @@ let head = {
       per: 5,
       int: 5,
       con: 5,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_violetFloppyHat != null;
       })
     },
@@ -544,7 +544,7 @@ let head = {
       per: 7,
       int: 7,
       set: 'gladiator',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_gladiatorHelm != null;
       })
     },
@@ -560,7 +560,7 @@ let head = {
       per: 5,
       int: 5,
       set: 'rancher',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_rancherHat != null;
       })
     },
@@ -571,7 +571,7 @@ let head = {
       }),
       value: 100,
       str: 10,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_royalCrown != null;
       })
     },
@@ -586,7 +586,7 @@ let head = {
       per: 5,
       int: 5,
       con: 5,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_blueHairbow != null;
       })
     },
@@ -599,7 +599,7 @@ let head = {
       per: 8,
       con: 8,
       set: 'goldenToga',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_goldenLaurels != null;
       })
     },
@@ -613,7 +613,7 @@ let head = {
       con: 9,
       str: 7,
       set: 'hornedIron',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_hornedIronHelm != null;
       })
     },
@@ -626,7 +626,7 @@ let head = {
       int: 5,
       per: 5,
       str: 5,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_yellowHairbow != null;
       })
     },
@@ -639,7 +639,7 @@ let head = {
       con: 6,
       int: 6,
       per: 6,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_redFloppyHat != null;
       })
     },
@@ -655,7 +655,7 @@ let head = {
       str: 6,
       con: 5,
       set: 'plagueDoctor',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.head_armoire_plagueDoctorHat != null;
       })
     }

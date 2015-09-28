@@ -76,7 +76,7 @@ let eyewear = {
       notes: t('eyewearArmoirePlagueDoctorMaskNotes'),
       value: 100,
       set: 'plagueDoctor',
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.eyewear_armoire_plagueDoctorMask != null;
       })
     }

@@ -72,7 +72,7 @@ let headAccessory = {
       text: t('headAccessoryBearEarsText'),
       notes: t('headAccessoryBearEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_bearEars != null;
       })
     },
@@ -81,7 +81,7 @@ let headAccessory = {
       text: t('headAccessoryCactusEarsText'),
       notes: t('headAccessoryCactusEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_cactusEars != null;
       })
     },
@@ -90,7 +90,7 @@ let headAccessory = {
       text: t('headAccessoryFoxEarsText'),
       notes: t('headAccessoryFoxEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_foxEars != null;
       })
     },
@@ -99,7 +99,7 @@ let headAccessory = {
       text: t('headAccessoryLionEarsText'),
       notes: t('headAccessoryLionEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_lionEars != null;
       })
     },
@@ -108,7 +108,7 @@ let headAccessory = {
       text: t('headAccessoryPandaEarsText'),
       notes: t('headAccessoryPandaEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_pandaEars != null;
       })
     },
@@ -117,7 +117,7 @@ let headAccessory = {
       text: t('headAccessoryPigEarsText'),
       notes: t('headAccessoryPigEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_pigEars != null;
       })
     },
@@ -126,7 +126,7 @@ let headAccessory = {
       text: t('headAccessoryTigerEarsText'),
       notes: t('headAccessoryTigerEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_tigerEars != null;
       })
     },
@@ -135,7 +135,7 @@ let headAccessory = {
       text: t('headAccessoryWolfEarsText'),
       notes: t('headAccessoryWolfEarsNotes'),
       value: 20,
-      canOwn: (function(u) {
+      canOwn: ((u) => {
         return u.items.gear.owned.headAccessory_special_wolfEars != null;
       })
     }

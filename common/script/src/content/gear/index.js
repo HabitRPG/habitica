@@ -32,11 +32,11 @@ let flat = {};
 // The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
 // they are needed in different forms at different points in the app
 
-each(GEAR_TYPES, function(type) {
+each(GEAR_TYPES, (type) => {
   let classTypes = classes.concat(['base', 'special', 'mystery', 'armoire']);
 
-  each(classTypes, function(klass) {
-    each(gear[type][klass], function(item, i) {
+  each(classTypes, (klass) => {
+    each(gear[type][klass], (item, i) => {
       let key = type + "_" + klass + "_" + i;
       defaults(item, {
         type: type,
@@ -49,15 +49,15 @@ each(GEAR_TYPES, function(type) {
         con: 0
       });
       if (item.event) {
-        let _canOwn = item.canOwn || (function() {
+        let _canOwn = item.canOwn || (() => {
           return true;
         });
-        item.canOwn = function(u) {
+        item.canOwn = (u) => {
           return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end))) && (item.specialClass ? u.stats["class"] === item.specialClass : true);
         };
       }
       if (item.mystery) {
-        item.canOwn = function(u) {
+        item.canOwn = (u) => {
           return u.items.gear.owned[key] != null;
         };
       }

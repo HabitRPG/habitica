@@ -12,7 +12,7 @@ export var armor = {
     str: 7,
     int: 7,
     set: 'soothing',
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_armoire_lunarArmor != null;
     })
   },
@@ -26,7 +26,7 @@ export var armor = {
     str: 7,
     per: 7,
     set: 'gladiator',
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_armoire_gladiatorArmor != null;
     })
   },
@@ -42,7 +42,7 @@ export var armor = {
     per: 5,
     int: 5,
     set: 'rancher',
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_armoire_rancherRobes != null;
     })
   },
@@ -55,7 +55,7 @@ export var armor = {
     str: 8,
     con: 8,
     set: 'goldenToga',
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_armoire_goldenToga != null;
     })
   },
@@ -69,7 +69,7 @@ export var armor = {
     con: 9,
     per: 7,
     set: 'hornedIron',
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_armoire_hornedIronArmor != null;
     })
   },
@@ -85,7 +85,7 @@ export var armor = {
     str: 5,
     con: 6,
     set: 'plagueDoctor',
-    canOwn: (function(u) {
+    canOwn: ((u) => {
       return u.items.gear.owned.armor_armoire_plagueDoctorOvercoat != null;
     })
   }
