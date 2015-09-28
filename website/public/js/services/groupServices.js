@@ -36,6 +36,7 @@
 
         syncParty: {method: "GET", url: '/api/v2/groups/party'},
         join: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/join'},
+        reject: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/reject'},
         leave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/leave'},
         invite: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/invite'},
         removeMember: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/removeMember'},
