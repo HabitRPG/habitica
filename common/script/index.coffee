@@ -1531,7 +1531,7 @@ api.wrap = (user, main=true) ->
 
           # Eggs: 30% chance
         else if rarity > .3
-          drop = user.fns.randomVal _.where(content.eggs,{canBuy:true})
+          drop = user.fns.randomVal content.dropEggs
           user.items.eggs[drop.key] ?= 0
           user.items.eggs[drop.key]++
           drop.type = 'Egg'
