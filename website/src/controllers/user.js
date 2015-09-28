@@ -113,8 +113,8 @@ api.score = function(req, res, next) {
   });
 
   async.parallel({
-    task: task.save,
-    user: user.save
+    task: task.save.bind(task),
+    user: user.save.bind(user)
   }, function(err, resuls){
     if(err) return next(err);
 
@@ -357,37 +357,60 @@ api.update = function(req, res, next) {
   });
 };
 
-api.cron = function(req, res, next) {
-  var user = res.locals.user,
-    progress = user.fns.cron({analytics:utils.analytics}),
-    ranCron = user.isModified(),
-    quest = shared.content.quests[user.party.quest.key];
-
-  if (ranCron) res.locals.wasModified = true;
-  if (!ranCron) return next(null,user);
-  Group.tavernBoss(user,progress);
-  if (!quest) return user.save(next);
-
-  // If user is on a quest, roll for boss & player, or handle collections
-  // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
-  async.waterfall([
-    function(cb){
-      user.save(cb); // make sure to save the cron effects
-    },
-    function(saved, count, cb){
-      var type = quest.boss ? 'boss' : 'collect';
-      Group[type+'Quest'](user,progress,cb);
-    },
-    function(){
-      var cb = arguments[arguments.length-1];
-      // User has been updated in boss-grapple, reload
-      User.findById(user._id, cb);
+var saveAfterCron = function(user, tasks, cb) {
+  async.parallel({
+    user: user.save.bind(user),
+    tasks: function(cb1) {
+      async.each(tasks, function(task, cb2){
+        task.isModified() ? task.save(cb2) : cb2();
+      }, cb1);
     }
-  ], function(err, saved) {
-    res.locals.user = saved;
-    next(err,saved);
-    user = progress = quest = null;
+  }, cb);
+};
+
+api.cron = function(req, res, next) {
+  var user = res.locals.user;
+
+  if (user.fns.shouldCronRun() !== true) return next(null, user);
+
+  user.getTasks(function(err, tasks) {
+    if(err) return next(err);
+
+    var progress = user.fns.cron({
+      tasks: tasks,
+      analytics: utils.analytics
+    });
+
+    var ranCron = user.isModified();
+    var quest = shared.content.quests[user.party.quest.key];
+
+    if (ranCron) res.locals.wasModified = true;
+    if (!ranCron) return next(null, user);
+    Group.tavernBoss(user, progress);
+    if (!quest) return saveAfterCron(user, tasks, next);
+
+    // If user is on a quest, roll for boss & player, or handle collections
+    // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+    async.waterfall([
+      function(cb){
+        return saveAfterCron(user, tasks, cb); // make sure to save the cron effects
+      },
+      function(saved, count, cb){
+        var type = quest.boss ? 'boss' : 'collect';
+        Group[type+'Quest'](user,progress,cb);
+      },
+      function(){
+        var cb = arguments[arguments.length-1];
+        // User has been updated in boss-grapple, reload
+        User.findById(user._id, cb);
+      }
+    ], function(err, saved) {
+      res.locals.user = saved;
+      next(err,saved);
+      user = progress = quest = null;
+    });
   });
+
 };
 
 // api.reroll // Shared.ops

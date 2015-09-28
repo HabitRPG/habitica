@@ -1230,7 +1230,7 @@ api.wrap = (user, main=true) ->
 
       score: (req, cb) ->
         {id, direction, task} = req.params # up or down
-        task = user.tasks[id]
+        task = task or user.tasks[id]
         options = req.query or {}; _.defaults(options, {times:1, cron:false})
 
         # This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
@@ -1375,10 +1375,9 @@ api.wrap = (user, main=true) ->
             th = (task.history ?= [])
             if th[th.length-1] and moment(th[th.length-1].date).isSame(new Date, 'day')
               th[th.length-1].value = task.value
-              task.markModified ? "history"
             else
               th.push {date: +new Date, value: task.value}
-            task.markModified ? "history" #TODO markModified only the last array element?
+            task.markModified? "history" #TODO markModified only the last array element?
 
           when 'daily'
             if options.cron
@@ -1679,16 +1678,8 @@ api.wrap = (user, main=true) ->
       ------------------------------------------------------
     ###
 
-    ###
-      At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-      For incomplete Dailys, deduct experience
-      Make sure to run this function once in a while as server will not take care of overnight calculations.
-      And you have to run it every time client connects.
-      {user}
-    ###
-    cron: (options={}) ->
-      now = +options.now || +new Date
-
+    # Run before cron to evaluate if it should run or not
+    shouldCronRun: () ->
       # They went to a different timezone
       # FIXME:
       # (1) This exit-early code isn't taking timezone into consideration!!
@@ -1698,10 +1689,33 @@ api.wrap = (user, main=true) ->
       #    user.lastCron = now
       #    return
 
+      now = +options.now || +new Date
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
-      return unless daysMissed > 0
+      return if daysMissed > 0 then true else false
 
-      user.auth.timestamps.loggedin = new Date()
+    ###
+      At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+      For incomplete Dailys, deduct experience
+      Make sure to run this function once in a while as server will not take care of overnight calculations.
+      And you have to run it every time client connects.
+      {user}
+
+      shouldCronRun must be called before this to evaluate if it has to run or not
+    ###
+    cron: (options={}) ->
+      now = +options.now || +new Date
+
+      tasks =
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [] # TODO we need rewards in cron?
+
+      options.tasks.forEach((task) -> 
+        tasks[task.type + 's'].push(task)
+      )
+
+      user.auth.timestamps.loggedin = now
 
       user.lastCron = now
 
@@ -1740,7 +1754,7 @@ api.wrap = (user, main=true) ->
       # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
-        user.dailys.forEach (daily) ->
+        tasks.dailys.forEach (daily) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
 
@@ -1755,17 +1769,16 @@ api.wrap = (user, main=true) ->
 
       # Tally each task
       todoTally = 0
-      user.todos.forEach (task) -> # make uncompleted todos redder
-        return unless task
+      tasks.todos.forEach (task) -> # make uncompleted todos redder
         {id, completed} = task
-        delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : daysMissed), cron:true}})
+        delta = user.ops.score({params:{task:task, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : daysMissed), cron:true}})
         absVal = if (completed) then Math.abs(task.value) else task.value
         todoTally += absVal
 
       dailyChecked = 0        # how many dailies were checked?
       dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
-      user.dailys.forEach (task) ->
+      tasks.dailys.forEach (task) ->
         return unless task
         {id, completed} = task
 
@@ -1795,7 +1808,7 @@ api.wrap = (user, main=true) ->
               dailyChecked += fractionChecked
             else
              dailyDueUnchecked += 1
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : (scheduleMisses-EvadeTask)), cron:true}})
+            delta = user.ops.score({params:{task:task, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : (scheduleMisses-EvadeTask)), cron:true}})
 
             # Apply damage from a boss, less damage for Trivial priority (difficulty)
             user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
@@ -1810,7 +1823,7 @@ api.wrap = (user, main=true) ->
         if completed || (scheduleMisses > 0)
           _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
 
-      user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
+      tasks.habits.forEach (task) -> # slowly reset 'onlies' value to 0
         if task.up is false or task.down is false
           if Math.abs(task.value) < 0.1
             task.value = 0
@@ -1830,9 +1843,8 @@ api.wrap = (user, main=true) ->
       # premium subscribers can keep their full history.
       # TODO figure out something performance-wise
       unless user.purchased?.plan?.customerId
-        user.fns.preenUserHistory()
+        user.fns.preenUserHistory(tasks)
         user.markModified? 'history'
-        user.markModified? 'dailys' # covers dailys.*.history
 
       user.stats.buffs =
         if perfect
@@ -1873,9 +1885,10 @@ api.wrap = (user, main=true) ->
       _progress
 
     # Registered users with some history
-    preenUserHistory: (minHistLen = 7) ->
-      _.each user.habits.concat(user.dailys), (task) ->
+    preenUserHistory: (tasks, minHistLen = 7) ->
+      _.each tasks.habits.concat(tasks.dailys), (task) ->
         task.history = preenHistory(task.history) if task.history?.length > minHistLen
+        task.markModified? 'history'
         true
 
       _.defaults user.history, {todos:[], exp: []}
@@ -1931,6 +1944,8 @@ api.wrap = (user, main=true) ->
       , {}
       computed.maxMP = computed.int*2 + 30
       computed
+  
+  # TODO if window? couldn't get this to work without causing coffescript to 'return' the exp
   Object.defineProperty user, 'tasks',
     get: ->
       tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
