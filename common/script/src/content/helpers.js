@@ -2,8 +2,7 @@ import {each, defaults, assign} from 'lodash';
 import capitalize from 'lodash.capitalize';
 import camelCase from 'lodash.camelcase';
 
-require('coffee-script');
-import i18n from '../../../script/i18n.coffee';
+import i18n from '../i18n';
 
 //----------------------------------------
 // Translator Helpers
