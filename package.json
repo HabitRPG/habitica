@@ -87,11 +87,11 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "$(npm bin)/gulp test",
-    "start": "$(npm bin)/gulp run:dev",
-    "sprites": "$(npm bin)/gulp sprites:compile",
-    "postinstall": "$(npm bin)/bower --config.interactive=false install -f; $(npm bin)/gulp build;",
-    "coverage": "COVERAGE=true $(npm bin)/mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
+    "test": "gulp test",
+    "start": "gulp run:dev",
+    "sprites": "gulp sprites:compile",
+    "postinstall": "bower --config.interactive=false install -f; gulp build;",
+    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
   "devDependencies": {
     "chai": "^2.3.0",
