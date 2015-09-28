@@ -9,7 +9,6 @@ var Schema = mongoose.Schema;
 var shared = require('../../../common');
 var _ = require('lodash');
 var Task = require('./task').model;
-var TaskHistory = require('./taskHistory').model;
 var Challenge = require('./challenge').model;
 var moment = require('moment');
 var async = require('async');
@@ -456,38 +455,13 @@ var UserSchema = new Schema({
 // Get all the tasks belonging to an user,
 // with their history
 UserSchema.methods.getTasks = function(cb) {
-  var self = this;
-
-  async.parallel({
-    tasks: function(cb1){
-      Task.find({
-        userId: self._id
-      }, cb1);
-    },
-
-    history: function(cb1){
-      TaskHistory.find({
-        userId: self._id
-      }, cb1);
-    }
-  }, function(err, results){
+  Task.find({
+    userId: this._id
+  }, function(err, tasks){
     if(err) return cb(err);
 
-
-    // Convert array of tasks and history to a map
-    var tasksObj = _.object(_.pluck(results.tasks, '_id'), results.tasks);
-    var historyObj = _.object(_.pluck(results.history, '_id'), results.history);
-
-    // Push history inside the task
-    _.each(tasksObj, function(task, key){
-      task = task.toJSON();
-      task.id = task._id;
-      task.history = historyObj[key].toJSON();
-    });
-
-    cb(null, tasksObj);
+    cb(null, tasks);
   });
-
 };
 
 UserSchema.methods.toJSON = function() {
@@ -513,8 +487,8 @@ UserSchema.methods.getTransformedData = function(cb) {
     obj.todos = [];
     obj.rewards = [];
 
-    _.each(tasks, function(task){
-      obj[task.type + 's'].push(task);
+    tasks.forEach(function(task){
+      obj[task.type + 's'].push(task.toJSON());
     });
 
     cb(null, obj);

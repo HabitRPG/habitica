@@ -255,7 +255,6 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {streak:0, repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
-  task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
   task
 
 api.percent = (x,y, dir) ->
@@ -1230,7 +1229,7 @@ api.wrap = (user, main=true) ->
       # ------
 
       score: (req, cb) ->
-        {id, direction} = req.params # up or down
+        {id, direction, task} = req.params # up or down
         task = user.tasks[id]
         options = req.query or {}; _.defaults(options, {times:1, cron:false})
 
@@ -1242,7 +1241,8 @@ api.wrap = (user, main=true) ->
         stats = {gp: +user.stats.gp, hp: +user.stats.hp, exp: +user.stats.exp}
         task.value = +task.value; task.streak = ~~task.streak; task.priority ?= 1
 
-        # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
+        # If they're trying to purchase a too-expensive reward, don't allow them to do that.
+        # FIXME actually the server doesn't support passing callback to this except in batchUpdate TODO
         if task.value > stats.gp and task.type is 'reward'
           return cb? {code:401,message:i18n.t('messageNotEnoughGold', req.language)}
 
@@ -1305,7 +1305,6 @@ api.wrap = (user, main=true) ->
             if task.type is 'todo'
               nextDelta *= (1 + _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0))
           nextDelta
-
 
         changeTaskValue = ->
           # If multiple days have passed, multiply times days missed
@@ -1376,9 +1375,10 @@ api.wrap = (user, main=true) ->
             th = (task.history ?= [])
             if th[th.length-1] and moment(th[th.length-1].date).isSame(new Date, 'day')
               th[th.length-1].value = task.value
+              task.markModified ? "history"
             else
               th.push {date: +new Date, value: task.value}
-            user.markModified? "habits.#{_.findIndex(user.habits, {id:task.id})}.history"
+            task.markModified ? "history" #TODO markModified only the last array element?
 
           when 'daily'
             if options.cron

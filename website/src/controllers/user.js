@@ -13,7 +13,6 @@ var analytics = utils.analytics;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var Task = require('./../models/task').model;
-var TaskHistory = require('./../models/taskHistory').model;
 var moment = require('moment');
 var logging = require('./../logging');
 var acceptablePUTPaths;
@@ -27,6 +26,7 @@ var webhook = require('../webhook');
 api.getContent = function(req, res, next) {
   var language = 'en';
 
+  // TODO use i18n getUserLanguage
   if (typeof req.query.language != 'undefined')
     language = req.query.language.toString(); //|| 'en' in i18n
 
@@ -63,13 +63,13 @@ api.getModelPaths = function(req,res,next){
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
   Export it also so we can call it from deprecated.coffee
 */
+
 api.score = function(req, res, next) {
   var id = req.params.id,
     direction = req.params.direction,
     user = res.locals.user,
+    body = req.body || {};
     task;
-
-  var clearMemory = function(){user = task = id = direction = null;}
 
   // Send error responses for improper API call
   if (!id) return res.json(400, {err: ':id required'});
@@ -77,31 +77,48 @@ api.score = function(req, res, next) {
     if (direction == 'unlink' || direction == 'sort') return next();
     return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
-  // If exists already, score it
-  if (task = user.tasks[id]) {
-    // Set completed if type is daily or todo and task exists
+
+  Task.findOne({
+    _id: id,
+    userId: user._id
+  }, function(err, task){
+    if(err) return next(err);
+
+    // If exists already, score it
+    if (!task) {
+      // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
+      // Defaults. Other defaults are handled in user.ops.addTask()
+      task = new Task({
+        _id: id, // TODO this might easily lead to conflicts as ids are now unique db-wide
+        type: body.type,
+        text: body.text,
+        notes: body.notes || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task." // TODO translate
+      });
+    }
+
+    // Set completed if type is daily or todo
     if (task.type === 'daily' || task.type === 'todo') {
       task.completed = direction === 'up';
     }
-  } else {
-    // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
-    // Defaults. Other defaults are handled in user.ops.addTask()
-    task = {
-      id: id,
-      type: req.body && req.body.type,
-      text: req.body && req.body.text,
-      notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
-    };
 
-    if (task.type === 'daily' || task.type === 'todo')
-      task.completed = direction === 'up';
+  });
 
-    task = user.ops.addTask({body:task});
-  }
-  var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
+  var delta = user.ops.score({
+    params: {
+      task: task, 
+      direction: direction
+    }, 
+    language: req.language,
+    user: user
+  });
 
-  user.save(function(err, saved){
-    if (err) return next(err);
+  async.parallel({
+    task: task.save,
+    user: user.save
+  }, function(err, resuls){
+    if(err) return next(err);
+
+    var saved = results.user;
 
     var userStats = saved.toJSON().stats;
     var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
@@ -113,22 +130,22 @@ api.score = function(req, res, next) {
     webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
 
     if (
-      (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
+      (!task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
       || (task.type == 'reward') // we don't want to update the reward GP cost
-    ) return clearMemory();
+    ) return;
 
     Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
       if (err) return next(err);
       if (!chal) {
         task.challenge.broken = 'CHALLENGE_DELETED';
-        user.save();
-        return clearMemory();
+        task.save();
+        return;
       }
       var t = chal.tasks[task.id];
       // this task was removed from the challenge, notify user
       if (!t) {
         chal.syncToUser(user);
-        return clearMemory();
+        return;
       }
 
       t.value += delta;
@@ -149,11 +166,11 @@ api.getTasks = function(req, res, next) {
     if(err) return next(err);
 
     if (req.query.type) {
-      return tasks.filter(function(task){
+      res.json(tasks.filter(function(task){
         return task.type === (req.query.type+'s');
-      });
+      }));
     } else {
-      return tasks;
+      res.json(tasks);
     }
   });
 };
@@ -166,13 +183,13 @@ api.getTask = function(req, res, next) {
 
   Task.findOne({
     _id: req.params.id,
-    'parent.user': user._id
+    userId: user._id
   }, function(err, task){
-    if (err) return next(err); 
-    if (!task) return res.json(404, {err: 'No task found.'});
+    if(err) return next(err);
+    if(!task) return res.json(404, {err: 'No task found.'});
 
-    return res.json(200, task);
-  }); 
+    res.json(task);
+  });
 };
 
 
@@ -405,12 +422,6 @@ api['delete'] = function(req, res, next) {
 
     function(cb){
       Task.remove({
-        userId: user._id
-      });
-    },
-
-    function(cb){
-      TaskHistory.remove({
         userId: user._id
       });
     }

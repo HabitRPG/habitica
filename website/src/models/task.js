@@ -17,7 +17,7 @@ var TaskSchema = new Schema({
   // TODO dictionary?
   tags: {type: Schema.Types.Mixed, default: {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
   value: {type: Number, default: 0}, // redness or price for rewards
-  priority: {type: Number, default: '1'},
+  priority: {type: Number, default: 1},
   attribute: {type: String, default: 'str', enum: ['str','con','int','per']},
 
   userId: {type: String, ref: 'User'},
@@ -32,6 +32,7 @@ var TaskSchema = new Schema({
   // Habits' fields
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
+  history: Array, // [{date:Date, value:Number}], // this causes major performance problems TODO revisit
 
   // Checklist fields (dailies and todos)
   collapseChecklist: {type: Boolean, default: false},
@@ -67,6 +68,9 @@ var TaskSchema = new Schema({
   dateCompleted: Date,
   date: String // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
 }, {minimize: false});
+
+// Make sure `ìd` is always avalaible for backward compatibility (TODO remove in api v3)
+TaskSchema.set('toObject', { getters: true });
 
 module.exports.schema = TaskSchema;
 module.exports.model = mongoose.model('Task', TaskSchema);
