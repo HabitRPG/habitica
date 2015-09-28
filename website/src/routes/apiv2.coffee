@@ -482,7 +482,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Reject an invitation to a group'
-        parameters: [path('gid','Id of the group to join','string')]
+        parameters: [path('gid','Id of the group invitation to reject','string')]
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.reject
 
