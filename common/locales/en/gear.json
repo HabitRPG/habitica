@@ -170,6 +170,8 @@
   "weaponArmoireIronCrookNotes": "Fiercely hammered from iron, this iron crook is good at herding sheep. Increases Perception and Strength by <%= attrs %> each. Enchanted Armoire: Horned Iron Set (Item 3 of 3)",
   "weaponArmoireGoldWingStaffText": "Gold Wing Staff",
   "weaponArmoireGoldWingStaffNotes": "The wings on this staff constantly flutter and twist. Increases all attributes by <%= attrs %> each. Enchanted Armoire: Independent Item.",
+  "weaponArmoireBatWandText": "Bat Wand",
+  "weaponArmoireBatWandNotes": "This wand can turn any task into a bat! Wave it about and watch them fly away. Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
 
@@ -542,6 +544,10 @@
   "headArmoireRedFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a radiant red color. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
   "headArmoirePlagueDoctorHatText": "Plague Doctor Hat",
   "headArmoirePlagueDoctorHatNotes": "An authentic hat worn by the doctors who battle the Plague of Procrastination! Increases Strength by <%= str %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Plague Doctor Set (Item 1 of 3).",
+  "headArmoireBlackCatText": "Black Cat Hat",
+  "headArmoireBlackCatNotes": "This black hat is... purring. And twitching its tail. And breathing? Yeah, you just have a sleeping cat on your head. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
+  "headArmoireOrangeCatText": "Orange Cat Hat",
+  "headArmoireOrangeCatNotes": "This orange hat is... purring. And twitching its tail. And breathing? Yeah, you just have a sleeping cat on your head. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Independent Item.",
 
   "offhand": "shield-hand item",
 
@@ -639,6 +645,8 @@
 
   "shieldArmoireGladiatorShieldText": "Gladiator Shield",
   "shieldArmoireGladiatorShieldNotes": "To be a gladiator you must.... eh, whatever, just bash them with your shield. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 3 of 3).",
+  "shieldArmoireMidnightShieldText": "Midnight Shield",
+  "shieldArmoireMidnightShieldNotes": "This shield is most powerful at the stroke of midnight! Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",

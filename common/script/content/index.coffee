@@ -167,6 +167,7 @@ gear =
       mythmakerSword:   text: t('weaponArmoireMythmakerSwordText'), notes: t('weaponArmoireMythmakerSwordNotes', {attrs: 6}), value: 100, str: 6, per: 6, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_mythmakerSword?)
       ironCrook:   text: t('weaponArmoireIronCrookText'), notes: t('weaponArmoireIronCrookNotes', {attrs: 7}), value: 100, str: 7, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_ironCrook?)
       goldWingStaff:  text: t('weaponArmoireGoldWingStaffText'), notes: t('weaponArmoireGoldWingStaffNotes', {attrs:4}), value: 100, con: 4, int: 4, per: 4, str: 4, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_goldWingStaff?)
+      batWand: text: t('weaponArmoireBatWandText'), notes: t('weaponArmoireBatWandNotes', {int: 10, per: 2}), value: 100, int: 10, per: 2, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_batWand?)
 
   armor:
     base:
@@ -374,6 +375,8 @@ gear =
       yellowHairbow: text: t('headArmoireYellowHairbowText'), notes: t('headArmoireYellowHairbowNotes', {attrs: 5}), value: 100, int: 5, per: 5, str: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_yellowHairbow?)
       redFloppyHat: text: t('headArmoireRedFloppyHatText'), notes: t('headArmoireRedFloppyHatNotes', {attrs: 6}), value: 100, con: 6, int: 6, per: 6, canOwn: ((u)-> u.items.gear.owned.head_armoire_redFloppyHat?)
       plagueDoctorHat: text: t('headArmoirePlagueDoctorHatText'), notes: t('headArmoirePlagueDoctorHatNotes', {int: 5, str: 6, con: 5}), value: 100, int: 5, str: 6, con: 5, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.head_armoire_plagueDoctorHat?)
+      blackCat: text: t('headArmoireBlackCatText'), notes: t('headArmoireBlackCatNotes', {attrs: 9}), value: 100, int: 9, per: 9, canOwn: ((u)-> u.items.gear.owned.head_armoire_blackCat?)
+      orangeCat: text: t('headArmoireOrangeCatText'), notes: t('headArmoireOrangeCatNotes', {attrs: 9}), value: 100, con: 9, str: 9, canOwn: ((u)-> u.items.gear.owned.head_armoire_orangeCat?)
 
   shield:
     base:
@@ -445,6 +448,7 @@ gear =
       301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:'301405', value: 0
     armoire:
       gladiatorShield: text: t('shieldArmoireGladiatorShieldText'), notes: t('shieldArmoireGladiatorShieldNotes', {con: 5, str: 5}), value: 100, con: 5, str: 5, set: 'gladiator', canOwn: ((u)-> u.items.gear.owned.shield_armoire_gladiatorShield?)
+      midnightShield: text: t('shieldArmoireMidnightShieldText'), notes: t('shieldArmoireMidnightShieldNotes', {con: 10, str: 2}), value: 100, con: 10, str: 2, canOwn: ((u)-> u.items.gear.owned.shield_armoire_midnightShield?)
 
   back:
     base:
