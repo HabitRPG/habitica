@@ -1168,7 +1168,7 @@ api.hatchingPotions =
   CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
   CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
   Golden:           value: 5, text: t('hatchingPotionGolden')
-  Spooky:           value: 3, text: t('hatchingPotionSpooky'), addlNotes: t('premiumPotionAddlNotes'), premium: true, limited: true
+  Spooky:           value: 2, text: t('hatchingPotionSpooky'), addlNotes: t('premiumPotionAddlNotes'), premium: true, limited: true
 
 _.each api.hatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: false, limited: false, canBuy: (()->true)}

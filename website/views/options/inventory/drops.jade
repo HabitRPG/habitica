@@ -125,7 +125,8 @@
                 span.Pet_Currency_Gem1x.inline-gems
 
         li.customize-menu
-          menu.pets-menu(label=env.t('magicHatchingPotions'))
+          menu.pets-menu!=env.t('magicHatchingPotions') + " - " + env.t('fallEventAvailability')
+            p.muted=env.t('premiumPotionAddlNotes')
             div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy(user)')
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
                 popover='{{::pot.notes()}} {{::pot.addlNotes()}}', popover-append-to-body='true',
