@@ -1,0 +1,7 @@
+--colors
+--reporter spec
+--timeout 8000
+--check-leaks
+--growl
+--compilers js:babel/register
+--require ./test/helpers/content.helper.js

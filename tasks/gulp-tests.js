@@ -11,8 +11,9 @@ const TEST_DB           = 'habitrpg_test'
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_TEST_COMMAND = 'mocha test/api';
+const API_TEST_COMMAND = 'mocha test/api --opts test/mocha.opts';
 const COMMON_TEST_COMMAND = 'mocha test/common';
+const CONTENT_TEST_COMMAND = 'mocha test/content --opts test/content/mocha.content.opts';
 const KARMA_TEST_COMMAND = 'karma start';
 const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
 
@@ -75,6 +76,40 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'Common Specs\t',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stderr, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+      cb();
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:content', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin(CONTENT_TEST_COMMAND),
+    (err, stdout, stderr) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:content:clean', (cb) => {
+  pipe(exec(testBin(CONTENT_TEST_COMMAND), () => cb()));
+});
+
+gulp.task('test:content:watch', ['test:content:clean'], () => {
+  gulp.watch(['common/script/src/content/**', 'test/**'], ['test:content:clean']);
+});
+
+gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin(CONTENT_TEST_COMMAND),
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'Content Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
@@ -243,6 +278,7 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
 
 gulp.task('test', [
   'test:common:safe',
+  'test:content:safe',
   'test:server_side:safe',
   'test:karma:safe',
   'test:api:safe',
