@@ -1,101 +1,84 @@
-import {translator as t} from '../../helpers';
-import events from '../../events';
+import {setGearSetDefaults} from '../../helpers';
 
-export var armor = {
-  201402: {
-    text: t('armorMystery201402Text'),
-    notes: t('armorMystery201402Notes'),
-    mystery: '201402',
-    value: 0
-  },
-  201403: {
-    text: t('armorMystery201403Text'),
-    notes: t('armorMystery201403Notes'),
-    mystery: '201403',
-    value: 0
-  },
-  201405: {
-    text: t('armorMystery201405Text'),
-    notes: t('armorMystery201405Notes'),
-    mystery: '201405',
-    value: 0
-  },
-  201406: {
-    text: t('armorMystery201406Text'),
-    notes: t('armorMystery201406Notes'),
-    mystery: '201406',
-    value: 0
-  },
-  201407: {
-    text: t('armorMystery201407Text'),
-    notes: t('armorMystery201407Notes'),
-    mystery: '201407',
-    value: 0
-  },
-  201408: {
-    text: t('armorMystery201408Text'),
-    notes: t('armorMystery201408Notes'),
-    mystery: '201408',
-    value: 0
-  },
-  201409: {
-    text: t('armorMystery201409Text'),
-    notes: t('armorMystery201409Notes'),
-    mystery: '201409',
-    value: 0
-  },
-  201410: {
-    text: t('armorMystery201410Text'),
-    notes: t('armorMystery201410Notes'),
-    mystery: '201410',
-    value: 0
-  },
-  201412: {
-    text: t('armorMystery201412Text'),
-    notes: t('armorMystery201412Notes'),
-    mystery: '201412',
-    value: 0
-  },
-  201501: {
-    text: t('armorMystery201501Text'),
-    notes: t('armorMystery201501Notes'),
-    mystery: '201501',
-    value: 0
-  },
-  201503: {
-    text: t('armorMystery201503Text'),
-    notes: t('armorMystery201503Notes'),
-    mystery: '201503',
-    value: 0
-  },
-  201504: {
-    text: t('armorMystery201504Text'),
-    notes: t('armorMystery201504Notes'),
-    mystery: '201504',
-    value: 0
-  },
-  201506: {
-    text: t('armorMystery201506Text'),
-    notes: t('armorMystery201506Notes'),
-    mystery: '201506',
-    value: 0
-  },
-  201508: {
-    text: t('armorMystery201508Text'),
-    notes: t('armorMystery201508Notes'),
-    mystery: '201508',
-    value: 0
-  },
-  201509: {
-    text: t('armorMystery201509Text'),
-    notes: t('armorMystery201509Notes'),
-    mystery: '201509',
-    value: 0
-  },
-  301404: {
-    text: t('armorMystery301404Text'),
-    notes: t('armorMystery301404Notes'),
-    mystery: '301404',
-    value: 0
-  }
+let armor = {
+  201402: { mystery: '201402', value: 0 },
+  201403: { mystery: '201403', value: 0 },
+  201405: { mystery: '201405', value: 0 },
+  201406: { mystery: '201406', value: 0 },
+  201407: { mystery: '201407', value: 0 },
+  201408: { mystery: '201408', value: 0 },
+  201409: { mystery: '201409', value: 0 },
+  201410: { mystery: '201410', value: 0 },
+  201412: { mystery: '201412', value: 0 },
+  201501: { mystery: '201501', value: 0 },
+  201503: { mystery: '201503', value: 0 },
+  201504: { mystery: '201504', value: 0 },
+  201506: { mystery: '201506', value: 0 },
+  201508: { mystery: '201508', value: 0 },
+  201509: { mystery: '201509', value: 0 },
+  301404: { mystery: '301404', value: 0 },
 };
+
+let back = {
+  201402: { mystery: '201402', value: 0 },
+  201404: { mystery: '201404', value: 0 },
+  201410: { mystery: '201410', value: 0 },
+  201504: { mystery: '201504', value: 0 },
+  201507: { mystery: '201507', value: 0 },
+};
+
+let eyewear = {
+  201503: { mystery: '201503', value: 0 },
+  201506: { mystery: '201506', value: 0 },
+  201507: { mystery: '201507', value: 0 },
+  301404: { mystery: '301404', value: 0 },
+  301405: { mystery: '301405', value: 0 },
+};
+
+let head = {
+  201402: { mystery: '201402', value: 0 },
+  201405: { mystery: '201405', value: 0 },
+  201406: { mystery: '201406', value: 0 },
+  201407: { mystery: '201407', value: 0 },
+  201408: { mystery: '201408', value: 0 },
+  201411: { mystery: '201411', value: 0 },
+  201412: { mystery: '201412', value: 0 },
+  201501: { mystery: '201501', value: 0 },
+  201505: { mystery: '201505', value: 0 },
+  201508: { mystery: '201508', value: 0 },
+  201509: { mystery:'201509', value: 0 },
+  301404: { mystery: '301404', value: 0 },
+  301405: { mystery: '301405', value: 0 },
+};
+
+let headAccessory = {
+  201403: { mystery: '201403', value: 0 },
+  201404: { mystery: '201404', value: 0 },
+  201409: { mystery: '201409', value: 0 },
+  201502: { mystery: '201502', value: 0 },
+  301405: { mystery: '301405', value: 0 },
+};
+
+let shield = {
+  301405: { mystery: '301405', value: 0 },
+};
+
+let weapon = {
+  201411: { mystery: '201411', value: 0 },
+  201502: { mystery: '201502', value: 0 },
+  201505: { mystery: '201505', value: 0 },
+  301404: { mystery: '301404', value: 0 },
+};
+
+let mysterySet = {
+  armor: armor,
+  eyewear: eyewear,
+  head: head,
+  headAccessory: headAccessory,
+  shield: shield,
+  weapon: weapon,
+};
+
+setGearSetDefaults(mysterySet, {setName: 'mystery'});
+
+export default mysterySet;

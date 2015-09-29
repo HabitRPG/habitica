@@ -8,6 +8,8 @@ import {weapon as rogueWeapon} from './sets/rogue';
 import {weapon as warriorWeapon} from './sets/warrior';
 import {weapon as wizardWeapon} from './sets/wizard';
 
+import {weapon as mysteryWeapon} from './sets/mystery';
+
 let weapon = {
   base: baseWeapon,
 
@@ -440,32 +442,7 @@ let weapon = {
       int: 9
     }
   },
-  mystery: {
-    201411: {
-      text: t('weaponMystery201411Text'),
-      notes: t('weaponMystery201411Notes'),
-      mystery: '201411',
-      value: 0
-    },
-    201502: {
-      text: t('weaponMystery201502Text'),
-      notes: t('weaponMystery201502Notes'),
-      mystery: '201502',
-      value: 0
-    },
-    201505: {
-      text: t('weaponMystery201505Text'),
-      notes: t('weaponMystery201505Notes'),
-      mystery: '201505',
-      value: 0
-    },
-    301404: {
-      text: t('weaponMystery301404Text'),
-      notes: t('weaponMystery301404Notes'),
-      mystery: '301404',
-      value: 0
-    }
-  },
+  mystery: mysteryWeapon,
   armoire: {
     basicCrossbow: {
       text: t('weaponArmoireBasicCrossbowText'),

@@ -8,6 +8,8 @@ import {head as rogueHead} from './sets/rogue';
 import {head as warriorHead} from './sets/warrior';
 import {head as wizardHead} from './sets/wizard';
 
+import {head as mysteryHead} from './sets/mystery';
+
 let head = {
   base: baseHead,
 
@@ -409,86 +411,7 @@ let head = {
       value: 0
     }
   },
-  mystery: {
-    201402: {
-      text: t('headMystery201402Text'),
-      notes: t('headMystery201402Notes'),
-      mystery: '201402',
-      value: 0
-    },
-    201405: {
-      text: t('headMystery201405Text'),
-      notes: t('headMystery201405Notes'),
-      mystery: '201405',
-      value: 0
-    },
-    201406: {
-      text: t('headMystery201406Text'),
-      notes: t('headMystery201406Notes'),
-      mystery: '201406',
-      value: 0
-    },
-    201407: {
-      text: t('headMystery201407Text'),
-      notes: t('headMystery201407Notes'),
-      mystery: '201407',
-      value: 0
-    },
-    201408: {
-      text: t('headMystery201408Text'),
-      notes: t('headMystery201408Notes'),
-      mystery: '201408',
-      value: 0
-    },
-    201411: {
-      text: t('headMystery201411Text'),
-      notes: t('headMystery201411Notes'),
-      mystery: '201411',
-      value: 0
-    },
-    201412: {
-      text: t('headMystery201412Text'),
-      notes: t('headMystery201412Notes'),
-      mystery: '201412',
-      value: 0
-    },
-    201501: {
-      text: t('headMystery201501Text'),
-      notes: t('headMystery201501Notes'),
-      mystery: '201501',
-      value: 0
-    },
-    201505: {
-      text: t('headMystery201505Text'),
-      notes: t('headMystery201505Notes'),
-      mystery: '201505',
-      value: 0
-    },
-    201508: {
-      text: t('headMystery201508Text'),
-      notes: t('headMystery201508Notes'),
-      mystery: '201508',
-      value: 0
-    },
-    201509: {
-      text: t('headMystery201509Text'),
-      notes: t('headMystery201509Notes'),
-      mystery:'201509',
-      value: 0
-    },
-    301404: {
-      text: t('headMystery301404Text'),
-      notes: t('headMystery301404Notes'),
-      mystery: '301404',
-      value: 0
-    },
-    301405: {
-      text: t('headMystery301405Text'),
-      notes: t('headMystery301405Notes'),
-      mystery: '301405',
-      value: 0
-    }
-  },
+  mystery: mysteryHead,
   armoire: {
     lunarCrown: {
       text: t('headArmoireLunarCrownText'),

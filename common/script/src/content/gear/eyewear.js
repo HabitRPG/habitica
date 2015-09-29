@@ -1,6 +1,8 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {eyewear as mysteryEyewear} from './sets/mystery';
+
 let eyewear = {
   base: {
     0: {
@@ -38,38 +40,7 @@ let eyewear = {
       value: 20
     }
   },
-  mystery: {
-    201503: {
-      text: t('eyewearMystery201503Text'),
-      notes: t('eyewearMystery201503Notes'),
-      mystery: '201503',
-      value: 0
-    },
-    201506: {
-      text: t('eyewearMystery201506Text'),
-      notes: t('eyewearMystery201506Notes'),
-      mystery: '201506',
-      value: 0
-    },
-    201507: {
-      text: t('eyewearMystery201507Text'),
-      notes: t('eyewearMystery201507Notes'),
-      mystery: '201507',
-      value: 0
-    },
-    301404: {
-      text: t('eyewearMystery301404Text'),
-      notes: t('eyewearMystery301404Notes'),
-      mystery: '301404',
-      value: 0
-    },
-    301405: {
-      text: t('eyewearMystery301405Text'),
-      notes: t('eyewearMystery301405Notes'),
-      mystery: '301405',
-      value: 0
-    }
-  },
+  mystery: mysteryEyewear,
   armoire: {
     plagueDoctorMask: {
       text: t('eyewearArmoirePlagueDoctorMaskText'),
