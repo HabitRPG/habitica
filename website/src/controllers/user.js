@@ -611,6 +611,30 @@ api.sessionPartyInvite = function(req,res,next){
   ], next);
 }
 
+// Migrated from common because new user model doesn't have access to tasks under user object
+api.reset = function(req, res, next) {
+  var user = res.locals.user;
+
+  user.fns.resetUser();
+
+  async.parallel({
+    saveUser: user.save.bind(user),
+    removeTasks: function(cb) {
+      Task.remove({ // TODO what about challenge tasks? we shouldn't remove them!
+        userId: user._id
+      }, cb);
+    }
+  }, function(err, results){
+    if(err) return next(err);
+
+    user.getTransformedData(function(err, userTransformed){
+      if(err) return next(err);
+
+      res.json(userTransformed);
+    });
+  });
+};
+
 /**
  * All other user.ops which can easily be mapped to habitrpg-shared/index.coffee, not requiring custom API-wrapping
  */

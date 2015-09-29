@@ -30,7 +30,7 @@ var UserSchema = new Schema({
   // ### Mongoose Update Object
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
-  _v: { type: Number, 'default': 0},
+  _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
@@ -452,6 +452,10 @@ var UserSchema = new Schema({
   minimize: false // So empty objects are returned
 });
 
+UserSchema.post('init', function(doc){
+  shared.wrap(doc);
+});
+
 // Get all the tasks belonging to an user,
 // with their history
 UserSchema.methods.getTasks = function(cb) {
@@ -506,8 +510,9 @@ UserSchema.pre('save', function(next) {
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
       newTag.id = shared.uuid();
+
       // Render tag's name in user's language
-      newTag.name = newTask.name(self.preferences.language);
+      newTag.name = newTag.name(self.preferences.language);
 
       return newTag;
     });

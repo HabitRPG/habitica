@@ -486,26 +486,8 @@ api.wrap = (user, main=true) ->
         cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
-        user.habits = []
-        user.dailys = []
-        user.todos = []
-        user.rewards = []
-        user.stats.hp = 50
-        user.stats.lvl = 1
-        user.stats.gp = 0
-        user.stats.exp = 0
-        # TODO handle MP
-        gear = user.items.gear
-        _.each ['equipped', 'costume'], (type) ->
-          gear[type].armor  = 'armor_base_0'
-          gear[type].weapon = 'weapon_base_0'
-          gear[type].head   = 'head_base_0'
-          gear[type].shield = 'shield_base_0'
-        gear.owned = {} if typeof gear.owned == 'undefined'
-        _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
-        gear.owned.weapon_warrior_0 = true
-        user.markModified? 'items.gear.owned'
-        user.preferences.costume = false
+        user.fns.resetTasks()
+        user.fns.resetUser()
         cb? null, user
 
       reroll: (req, cb, analytics) ->
@@ -1442,6 +1424,30 @@ api.wrap = (user, main=true) ->
 
   user.fns =
 
+    resetUser: ->
+      user.stats.hp = 50
+      user.stats.lvl = 1
+      user.stats.gp = 0
+      user.stats.exp = 0
+      # TODO handle MP
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_base_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      gear.owned = {} if typeof gear.owned == 'undefined'
+      _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
+      gear.owned.weapon_warrior_0 = true
+      user.markModified? 'items.gear.owned'
+      user.preferences.costume = false
+
+    resetTasks: ->
+      user.habits = []
+      user.dailys = []
+      user.todos = []
+      user.rewards = []
+
     getItem: (type) ->
       item = content.gear.flat[user.items.gear.equipped[type]]
       return content.gear.flat["#{type}_base_0"] unless item
@@ -1679,7 +1685,7 @@ api.wrap = (user, main=true) ->
     ###
 
     # Run before cron to evaluate if it should run or not
-    shouldCronRun: () ->
+    shouldCronRun: (options={}) ->
       # They went to a different timezone
       # FIXME:
       # (1) This exit-early code isn't taking timezone into consideration!!
@@ -1925,6 +1931,13 @@ api.wrap = (user, main=true) ->
   # Virtual Attributes
   # ----------------------------------------------------------------------
 
+  if window?
+    # TODO if window? couldn't get this to work without causing coffescript to 'return' the exp
+    Object.defineProperty user, 'tasks',
+      get: ->
+        tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
+        _.object(_.pluck(tasks, "id"), tasks)
+
   # Aggregate all intrinsic stats, buffs, weapon, & armor into computed stats
   Object.defineProperty user, '_statsComputed',
     get: ->
@@ -1944,9 +1957,3 @@ api.wrap = (user, main=true) ->
       , {}
       computed.maxMP = computed.int*2 + 30
       computed
-  
-  # TODO if window? couldn't get this to work without causing coffescript to 'return' the exp
-  Object.defineProperty user, 'tasks',
-    get: ->
-      tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
-      _.object(_.pluck(tasks, "id"), tasks)
