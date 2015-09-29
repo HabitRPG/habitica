@@ -1,3 +1,3 @@
-describe.only('Spells Locales', () => {
+describe('Spells Locales', () => {
   runTestsInDirectory('spells');
 });
