@@ -6,6 +6,9 @@ import {
 
 let holidayQuests = {
   evilsanta: {
+    text: t('questEvilSantaText'),
+    notes: t('questEvilSantaNotes'),
+    completion: t('questEvilSantaCompletion'),
     boss: {
       name: t('questEvilSantaBoss'),
       hp: 300,
@@ -24,6 +27,9 @@ let holidayQuests = {
     }
   },
   evilsanta2: {
+    text: t('questEvilSanta2Text'),
+    notes: t('questEvilSanta2Notes'),
+    completion: t('questEvilSanta2Completion'),
     previous: 'evilsanta',
     collect: {
       tracks: {
