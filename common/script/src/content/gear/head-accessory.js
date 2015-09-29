@@ -1,15 +1,12 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {headAccessory as baseHeadAccessory} from './sets/base';
+
+import {headAccessory as mysteryHeadAccessory} from './sets/mystery';
+
 let headAccessory = {
-  base: {
-    0: {
-      text: t('headAccessoryBase0Text'),
-      notes: t('headAccessoryBase0Notes'),
-      value: 0,
-      last: true
-    }
-  },
+  base: baseHeadAccessory,
   special: {
     springRogue: {
       event: events.spring,
@@ -140,38 +137,7 @@ let headAccessory = {
       })
     }
   },
-  mystery: {
-    201403: {
-      text: t('headAccessoryMystery201403Text'),
-      notes: t('headAccessoryMystery201403Notes'),
-      mystery: '201403',
-      value: 0
-    },
-    201404: {
-      text: t('headAccessoryMystery201404Text'),
-      notes: t('headAccessoryMystery201404Notes'),
-      mystery: '201404',
-      value: 0
-    },
-    201409: {
-      text: t('headAccessoryMystery201409Text'),
-      notes: t('headAccessoryMystery201409Notes'),
-      mystery: '201409',
-      value: 0
-    },
-    201502: {
-      text: t('headAccessoryMystery201502Text'),
-      notes: t('headAccessoryMystery201502Notes'),
-      mystery: '201502',
-      value: 0
-    },
-    301405: {
-      text: t('headAccessoryMystery301405Text'),
-      notes: t('headAccessoryMystery301405Notes'),
-      mystery: '301405',
-      value: 0
-    }
-  }
+  mystery: mysteryHeadAccessory
 };
 
 export default headAccessory;

@@ -1,14 +1,10 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {back as baseBody} from './sets/base';
+
 let body = {
-  base: {
-    0: {
-      text: t('bodyBase0Text'),
-      notes: t('bodyBase0Notes'),
-      value: 0
-    }
-  },
+  base: baseBody,
   special: {
     wondercon_red: {
       text: t('bodySpecialWonderconRedText'),

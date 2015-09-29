@@ -1,17 +1,12 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {eyewear as baseEyewear} from './sets/base';
+
 import {eyewear as mysteryEyewear} from './sets/mystery';
 
 let eyewear = {
-  base: {
-    0: {
-      text: t('eyewearBase0Text'),
-      notes: t('eyewearBase0Notes'),
-      value: 0,
-      last: true
-    }
-  },
+  base: baseEyewear,
   special: {
     wondercon_red: {
       text: t('eyewearSpecialWonderconRedText'),

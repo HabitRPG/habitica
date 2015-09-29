@@ -1,16 +1,12 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {back as baseBack} from './sets/base';
+
 import {back as mysteryBack} from './sets/mystery';
 
 let back = {
-  base: {
-    0: {
-      text: t('backBase0Text'),
-      notes: t('backBase0Notes'),
-      value: 0
-    }
-  },
+  base: baseBack,
   mystery: mysteryBack,
   special: {
     wondercon_red: {
