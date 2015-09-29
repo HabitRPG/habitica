@@ -497,7 +497,6 @@ api.wrap = (user, main=true) ->
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
             task.value = 0
-        user.stats.hp = 50
 
         analyticsData = {
           uuid: user._id,
@@ -653,7 +652,6 @@ api.wrap = (user, main=true) ->
         return cb?('?to=__&from=__ are required') unless to? and from?
         user.tags.splice to, 0, user.tags.splice(from, 1)[0]
         cb? null, user.tags
-
 
       updateTag: (req, cb) ->
         tid = req.params.id

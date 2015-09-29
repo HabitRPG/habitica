@@ -413,9 +413,6 @@ api.cron = function(req, res, next) {
 
 };
 
-// api.reroll // Shared.ops
-// api.reset // Shared.ops
-
 api['delete'] = function(req, res, next) {
   var user = res.locals.user;
   var plan = user.purchased.plan;
@@ -612,6 +609,7 @@ api.sessionPartyInvite = function(req,res,next){
 }
 
 // Migrated from common because new user model doesn't have access to tasks under user object
+// Code is shared where possible, otherwise copied, make sure you update the logic in both places
 api.reset = function(req, res, next) {
   var user = res.locals.user;
 
@@ -627,10 +625,59 @@ api.reset = function(req, res, next) {
   }, function(err, results){
     if(err) return next(err);
 
-    user.getTransformedData(function(err, userTransformed){
+    results.saveUser.getTransformedData(function(err, userTransformed){
       if(err) return next(err);
 
       res.json(userTransformed);
+    });
+  });
+};
+
+api.reroll = function(req, res, next) {
+  var user = res.locals.user;
+
+  if(user.balance < 1){
+    return res.json(401, {err: shared.i18n.t('notEnoughGems', req.language)})
+  }
+
+  user.balance--;
+
+  // TODO don't load rewards
+  user.getTasks(function(err, tasks){
+    if(err) return next(err);
+
+    var tasksToSave = tasks.filter(function(task){
+      if(task.type !== 'reward'){
+        task.value = 0;
+        return true;
+      }else{
+        return false;
+      }
+    });
+
+    var analyticsData = {
+      uuid: user._id,
+      acquireMethod: 'Gems',
+      gemCost: 4,
+      category: 'behavior'
+    };
+    analytics.track('Fortify Potion', analyticsData);
+
+    async.parallel({
+      saveUser: user.save.bind(user),
+      saveTasks: function(cb) {
+        async.each(tasksToSave, function(task, cb1){
+          task.save(cb1);
+        }, cb1);
+      }
+    }, function(err, results){
+      if(err) return next(err);
+
+      results.saveUser.getTransformedData(function(err, userTransformed){
+        if(err) return next(err);
+
+        res.json(userTransformed);
+      });
     });
   });
 };
