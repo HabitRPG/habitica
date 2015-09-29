@@ -1,12 +1,15 @@
 import {translator as t} from '../helpers';
+import {cloneDeep} from 'lodash';
 import events from '../events';
 
 import {base as baseShield} from './sets/base';
 
 import {shield as healerShield} from './sets/healer';
-import {shield as rogueShield} from './sets/rogue';
+import {weapon as rogueWeapon} from './sets/rogue';
 import {shield as warriorShield} from './sets/warrior';
 import {shield as wizardShield} from './sets/wizard';
+
+let rogueShield = cloneDeep(rogueWeapon);
 
 let shield = {
   base: baseShield,
