@@ -458,7 +458,11 @@ UserSchema.post('init', function(doc){
 
 // Get all the tasks belonging to an user,
 // with their history
-UserSchema.methods.getTasks = function(cb) {
+// TODO filter just one or more types of tasks
+UserSchema.methods.getTasks = function(cb, types) {
+  var query = {
+    userId: this._id
+  };
   Task.find({
     userId: this._id
   }, function(err, tasks){

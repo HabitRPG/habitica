@@ -509,74 +509,12 @@ api.wrap = (user, main=true) ->
         cb? null, user
 
       rebirth: (req, cb, analytics) ->
-        # Cost is 8 Gems ($2)
-        if (user.balance < 2 && user.stats.lvl < api.maxLevel)
-          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+        user.fns.rebirthUser(req, ((err) ->
+          if err then return cb? err
 
-        analyticsData = {
-          uuid: user._id,
-          category: 'behavior'
-        }
-        # only charge people if they are under the max level - ryan
-        if user.stats.lvl < api.maxLevel
-          user.balance -= 2
-          analyticsData.acquireMethod = 'Gems'
-          analyticsData.gemCost = 8
-        else
-          analyticsData.gemCost = 0
-          analyticsData.acquireMethod = '> 100'
-
-        analytics?.track('Rebirth', analyticsData)
-
-        # Save off user's level, for calculating achievement eligibility later
-        lvl = api.capByLevel(user.stats.lvl)
-        # Turn tasks yellow, zero out streaks
-        _.each user.tasks, (task) ->
-          unless task.type is 'reward'
-            task.value = 0
-          if task.type is 'daily'
-            task.streak = 0
-        # Reset all dynamic stats
-        stats = user.stats
-        stats.buffs = {}
-        stats.hp = 50
-        stats.lvl = 1
-        stats.class = 'warrior'
-        _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
-          stats[value] = 0
-        # Deequip character, set back to base armor and training sword
-        gear = user.items.gear
-        _.each ['equipped', 'costume'], (type) ->
-          gear[type] = {}; # deequip weapon, eyewear, headAccessory, etc, plus future new types
-          gear[type].armor  = 'armor_base_0'
-          gear[type].weapon = 'weapon_warrior_0'
-          gear[type].head   = 'head_base_0'
-          gear[type].shield = 'shield_base_0'
-        if user.items.currentPet then user.ops.equip({params:{type: 'pet', key: user.items.currentPet}})
-        if user.items.currentMount then user.ops.equip({params:{type: 'mount', key: user.items.currentMount}})
-        # Strip owned gear down to the training sword and free items (zero gold value), but preserve purchase history so user can re-purchase limited edition equipment
-        _.each gear.owned, (v, k) -> if gear.owned[k] and content.gear.flat[k].value then gear.owned[k] = false; true
-        gear.owned.weapon_warrior_0 = true
-        user.markModified? 'items.gear.owned'
-        user.preferences.costume = false
-        # Remove unlocked features
-        flags = user.flags
-        if not user.achievements.beastMaster
-          flags.rebirthEnabled = false
-        flags.itemsEnabled = false
-        flags.dropsEnabled = false
-        flags.classSelected = false
-        flags.levelDrops = {}
-        # Award an achievement if this is their first Rebirth, or if they made it further than last time
-        if not (user.achievements.rebirths)
-          user.achievements.rebirths = 1
-          user.achievements.rebirthLevel = lvl
-        else if (lvl > user.achievements.rebirthLevel or lvl is 100)
-          user.achievements.rebirths++
-          user.achievements.rebirthLevel = lvl
-        user.stats.buffs = {}
-        # user.markModified? 'stats'
-        cb? null, user
+          rebirthTasks()
+          cb? null, user
+        ), analytics);
 
       allocateNow: (req, cb) ->
         _.times user.stats.points, user.fns.autoAllocate
@@ -613,7 +551,8 @@ api.wrap = (user, main=true) ->
         cb? null, tasks
 
       updateTask: (req, cb) ->
-        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task = user.tasks[req.params?.id]
+        task = req.task or user.tasks?[req.params?.id]
+        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task 
         _.merge task, _.omit(req.body,['checklist','id', 'type'])
         task.checklist = req.body.checklist if req.body.checklist
         task.markModified? 'tags'
@@ -1445,6 +1384,79 @@ api.wrap = (user, main=true) ->
       user.dailys = []
       user.todos = []
       user.rewards = []
+
+    rebirthUser: (req, cb, analytics) ->
+      # Cost is 8 Gems ($2)
+      if (user.balance < 2 && user.stats.lvl < api.maxLevel)
+        return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+
+      # only charge people if they are under the max level - ryan
+      if user.stats.lvl < api.maxLevel
+        user.balance -= 2
+        analyticsData.acquireMethod = 'Gems'
+        analyticsData.gemCost = 8
+      else
+        analyticsData.gemCost = 0
+        analyticsData.acquireMethod = '> 100'
+
+      analyticsData = {
+        uuid: user._id,
+        category: 'behavior'
+      }
+      analytics?.track('Rebirth', analyticsData)
+
+      # Save off user's level, for calculating achievement eligibility later
+      lvl = api.capByLevel(user.stats.lvl)
+
+      # Reset all dynamic stats
+      stats = user.stats
+      stats.buffs = {}
+      stats.hp = 50
+      stats.lvl = 1
+      stats.class = 'warrior'
+      _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
+        stats[value] = 0
+      # Deequip character, set back to base armor and training sword
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type] = {}; # deequip weapon, eyewear, headAccessory, etc, plus future new types
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_warrior_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      if user.items.currentPet then user.ops.equip({params:{type: 'pet', key: user.items.currentPet}})
+      if user.items.currentMount then user.ops.equip({params:{type: 'mount', key: user.items.currentMount}})
+      # Strip owned gear down to the training sword and free items (zero gold value), but preserve purchase history so user can re-purchase limited edition equipment
+      _.each gear.owned, (v, k) -> if gear.owned[k] and content.gear.flat[k].value then gear.owned[k] = false; true
+      gear.owned.weapon_warrior_0 = true
+      user.markModified? 'items.gear.owned'
+      user.preferences.costume = false
+      # Remove unlocked features
+      flags = user.flags
+      if not user.achievements.beastMaster
+        flags.rebirthEnabled = false
+      flags.itemsEnabled = false
+      flags.dropsEnabled = false
+      flags.classSelected = false
+      flags.levelDrops = {}
+      # Award an achievement if this is their first Rebirth, or if they made it further than last time
+      if not (user.achievements.rebirths)
+        user.achievements.rebirths = 1
+        user.achievements.rebirthLevel = lvl
+      else if (lvl > user.achievements.rebirthLevel or lvl is 100)
+        user.achievements.rebirths++
+        user.achievements.rebirthLevel = lvl
+      user.stats.buffs = {}
+      # user.markModified? 'stats'
+      cb? null
+
+    rebirthTasks: ->
+      # Turn tasks yellow, zero out streaks
+      _.each user.tasks, (task) ->
+        unless task.type is 'reward'
+          task.value = 0
+        if task.type is 'daily'
+          task.streak = 0
 
     getItem: (type) ->
       item = content.gear.flat[user.items.gear.equipped[type]]

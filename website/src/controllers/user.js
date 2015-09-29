@@ -115,7 +115,7 @@ api.score = function(req, res, next) {
   async.parallel({
     task: task.save.bind(task),
     user: user.save.bind(user)
-  }, function(err, resuls){
+  }, function(err, results){
     if(err) return next(err);
 
     var saved = results.user;
@@ -197,10 +197,6 @@ api.getTask = function(req, res, next) {
   Update Task
 */
 
-//api.deleteTask // see Shared.ops
-// api.updateTask // handled in Shared.ops
-// api.addTask // handled in Shared.ops
-// api.sortTask // handled in Shared.ops #TODO updated api, mention in docs
 
 /*
   ------------------------------------------------------------------------
@@ -679,6 +675,108 @@ api.reroll = function(req, res, next) {
         res.json(userTransformed);
       });
     });
+  });
+};
+
+api.rebirth = function(req, res, next) {
+  user.fns.rebirthUser(req, function(err){
+    if(err) return res.json(err.code, {err: err.message});
+
+    user.getTasks(function(err, tasks){
+      if(err) return next(err);
+
+      var tasksToSave = tasks.filter(function(task){
+        if(task.type === 'reward') return false;
+
+        task.value = 0;
+        if(task.type === 'daily') task.streak = 0;
+
+        return true;
+      });
+
+      async.parallel({
+        saveUser: user.save.bind(user),
+        saveTasks: function(cb) {
+          async.each(tasksToSave, function(task, cb1){
+            task.save(cb1);
+          }, cb1);
+        }
+      }, function(err, results){
+        if(err) return next(err);
+
+        results.saveUser.getTransformedData(function(err, userTransformed){
+          if(err) return next(err);
+
+          res.json(userTransformed);
+        });
+      });
+    });
+  }, analytics);
+};
+
+api.clearCompleted = function(req, res, next) {
+  Task.remove({
+    userId: user._id,
+    type: 'todo',
+    completed: true,
+    'challenge.id': {
+      $exists: false // TODO any case where challenge.id is null?
+    }
+  }, function(err) {
+    if(err) return next(err);
+
+    res.locals.user.getTransformedData(function(err, user){
+      if(err) return next(err);
+
+      res.json(user);
+    });
+  });
+};
+
+// TODO sortTask
+
+api.updateTask = function(req, res, next) {
+  var user = res.locals.user;
+
+  Task.findOne({
+    _id: req.params.id,
+    userId: user._id
+  }, function(err, task) {
+    if(err) return next(err);
+
+    req.task = task;
+    user.ops.updateTask(req, function(err) {
+      if(err) return res.json(err.code, {err: err.message});
+
+      task.save(function(err, task){
+        if(err) return next(err);
+
+        return res.json(task);
+      });
+    });
+  });
+};
+
+api.deleteTask = function(req, res, next) {
+  Task.remove({
+    _id: req.params && req.params.id,
+    userId: res.locals.user._id
+  }, function(err, result){
+    if(err) return next(err);
+
+    if(results.n < 1){
+      return res.json(404, shared.i18n.t('messageTaskNotFound', req.language))
+    }
+
+    res.json(200, {});
+  });
+};
+
+api.addTask = function(req, res, next) {
+  Task.create(req.body, function(err, task){
+    if(err) return next(err);
+
+    res.json(task);
   });
 };
 
