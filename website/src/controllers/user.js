@@ -94,6 +94,8 @@ api.score = function(req, res, next) {
         text: body.text,
         notes: body.notes || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task." // TODO translate
       });
+
+      user.tasksOrder[task.type + 's'].push(task._id);
     }
 
     // Set completed if type is daily or todo
@@ -611,6 +613,8 @@ api.reset = function(req, res, next) {
 
   user.fns.resetUser();
 
+  user.tasksOrder = [];
+
   async.parallel({
     saveUser: user.save.bind(user),
     removeTasks: function(cb) {
@@ -715,25 +719,80 @@ api.rebirth = function(req, res, next) {
 };
 
 api.clearCompleted = function(req, res, next) {
-  Task.remove({
+  var user = res.locals.user;
+
+  Task.find({
     userId: user._id,
     type: 'todo',
-    completed: true,
     'challenge.id': {
       $exists: false // TODO any case where challenge.id is null?
     }
-  }, function(err) {
+  }, function(err, todos) {
     if(err) return next(err);
 
-    res.locals.user.getTransformedData(function(err, user){
+    var completed = [];
+    var uncompleted = [];
+
+    todos.forEach(function(todo){
+      todo.completed ? completed.push(todo) : uncompleted.push(todo);
+    });
+
+    _.pull.apply(null, [user.tasksOrder.todos].concat(completed));
+    async.parallel({
+      user: user.save.bind(user),
+      tasks: function(cb){
+        async.each(completed, function(todo, cb1){
+          completed.remove(cb1);
+        }, cb);
+      }
+    }, function(err){
       if(err) return next(err);
 
-      res.json(user);
+      res.json(uncompleted);
     });
   });
 };
 
 // TODO sortTask
+api.sortTask = function(req, res, next) {
+  var id = req.params && req.params.id;
+  var to = req.query && req.query.to;
+  var from = req.query && req.query.from;
+
+  if(!id) return res.json(400, {err: 'Missing task id parameter.'});
+  if(!to || !from) return res.json(400, {err: '?to=__&from=__ are required'});
+
+  var user = res.locals.user;
+  Task.findOne({
+    _id: id,
+    userId: user._id
+  }, '_id type', function(err, task){
+    if(err) return next(err);
+    if(!task) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
+
+    var orders = user.tasksOrder[task.type + 's'];
+    var movedTask = orders.splice(from, 1)[0]
+    if (to === -1) { // we've used the Push To Bottom feature
+      orders.push(movedTask);
+    } else { // any other sort method uses only positive 'to' values
+      orders.splice(to, 0, movedTask)
+    }
+
+    async.parallel({
+      getTasks: function(cb){
+        Task.find({
+          type: task.type,
+          userId: user._id
+        }, cb)
+      },
+      user: user.save.bind(user)
+    }, function(err, results){
+      if(err) return next(err);
+
+      res.json(results.getTasks);
+    });
+  });
+};
 
 api.updateTask = function(req, res, next) {
   var user = res.locals.user;
@@ -758,13 +817,28 @@ api.updateTask = function(req, res, next) {
 };
 
 api.deleteTask = function(req, res, next) {
-  Task.remove({
-    _id: req.params && req.params.id,
-    userId: res.locals.user._id
-  }, function(err, result){
+  var user = res.locals.user;
+  if(!req.params || !req.params.id) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
+
+  var id = req.params.id;
+  // Try removing from all orders since we don't know the task's type
+  var removeTaskFromOrder = function(array) {
+    _.pull(array, id);
+  };
+
+  ['habits', 'dailys', 'todos', 'rewards'].forEach(function (type){
+    removeTaskFromOrder(user.tasksOrder[type])
+  });
+
+  async.parallel({
+    user: user.save.bind(user),
+    task: function(cb) {
+      Task.remove({_id: id, userId: user._id}, cb);
+    }
+  }, function(err, results) {
     if(err) return next(err);
 
-    if(results.n < 1){
+    if(results.task.n < 1){
       return res.json(404, shared.i18n.t('messageTaskNotFound', req.language))
     }
 
@@ -773,10 +847,16 @@ api.deleteTask = function(req, res, next) {
 };
 
 api.addTask = function(req, res, next) {
-  Task.create(req.body, function(err, task){
+  var task = new Task(req.body);
+  user.tasksOrder[task.type + 's'].push(task._id);
+
+  async.parallel({
+    task: task.save.bind(task),
+    user: user.save.bind(user)
+  }, function(err, results){
     if(err) return next(err);
 
-    res.json(task);
+    res.json(results.task);
   });
 };
 
