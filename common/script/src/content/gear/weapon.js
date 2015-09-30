@@ -8,6 +8,7 @@ import {weapon as rogueWeapon} from './sets/rogue';
 import {weapon as warriorWeapon} from './sets/warrior';
 import {weapon as wizardWeapon} from './sets/wizard';
 
+import {weapon as armoireWeapon} from './sets/armoire';
 import {weapon as mysteryWeapon} from './sets/mystery';
 
 let weapon = {
@@ -443,94 +444,7 @@ let weapon = {
     }
   },
   mystery: mysteryWeapon,
-  armoire: {
-    basicCrossbow: {
-      text: t('weaponArmoireBasicCrossbowText'),
-      notes: t('weaponArmoireBasicCrossbowNotes', {
-        str: 5,
-        per: 5,
-        con: 5
-      }),
-      value: 100,
-      str: 5,
-      per: 5,
-      con: 5,
-      canOwn: (function(u) {
-        return u.items.gear.owned.weapon_armoire_basicCrossbow != null;
-      })
-    },
-    lunarSceptre: {
-      text: t('weaponArmoireLunarSceptreText'),
-      notes: t('weaponArmoireLunarSceptreNotes', {
-        con: 7,
-        int: 7
-      }),
-      value: 100,
-      con: 7,
-      int: 7,
-      set: 'soothing',
-      canOwn: (function(u) {
-        return u.items.gear.owned.weapon_armoire_lunarSceptre != null;
-      })
-    },
-    rancherLasso: {
-      twoHanded: true,
-      text: t('weaponArmoireRancherLassoText'),
-      notes: t('weaponArmoireRancherLassoNotes', {
-        str: 5,
-        per: 5,
-        int: 5
-      }),
-      value: 100,
-      str: 5,
-      per: 5,
-      int: 5,
-      set: 'rancher',
-      canOwn: (function(u) {
-        return u.items.gear.owned.weapon_armoire_rancherLasso != null;
-      })
-    },
-    mythmakerSword: {
-      text: t('weaponArmoireMythmakerSwordText'),
-      notes: t('weaponArmoireMythmakerSwordNotes', {
-        attrs: 6
-      }),
-      value: 100,
-      str: 6,
-      per: 6,
-      set: 'goldenToga',
-      canOwn: (function(u) {
-        return u.items.gear.owned.weapon_armoire_mythmakerSword != null;
-      })
-    },
-    ironCrook: {
-      text: t('weaponArmoireIronCrookText'),
-      notes: t('weaponArmoireIronCrookNotes', {
-        attrs: 7
-      }),
-      value: 100,
-      str: 7,
-      per: 7,
-      set: 'hornedIron',
-      canOwn: (function(u) {
-        return u.items.gear.owned.weapon_armoire_ironCrook != null;
-      })
-    },
-    goldWingStaff: {
-      text: t('weaponArmoireGoldWingStaffText'),
-      notes: t('weaponArmoireGoldWingStaffNotes', {
-        attrs: 4
-      }),
-      value: 100,
-      con: 4,
-      int: 4,
-      per: 4,
-      str: 4,
-      canOwn: (function(u) {
-        return u.items.gear.owned.weapon_armoire_goldWingStaff != null;
-      })
-    }
-  }
+  armoire: armoireWeapon,
 };
 
 export default weapon;

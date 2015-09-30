@@ -140,9 +140,11 @@ export function setGearSetDefaults(gearSet, options={}) {
   let setName = formatForTranslator(options.setName);
 
   each(gearSet, (gear, gearType) => {
-    each(gear, (item, number) => {
-      let text = `${gearType}${setName}${number}Text`;
-      let notes = `${gearType}${setName}${number}Notes`;
+    each(gear, (item, key) => {
+      let formattedName = formatForTranslator(key);
+
+      let text = `${gearType}${setName}${formattedName}Text`;
+      let notes = `${gearType}${setName}${formattedName}Notes`;
       let attributes = _getGearAttributes(item);
       let gearDefaults = {
         text: translator(text),

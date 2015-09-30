@@ -9,6 +9,7 @@ import {weapon as rogueWeapon} from './sets/rogue';
 import {shield as warriorShield} from './sets/warrior';
 import {shield as wizardShield} from './sets/wizard';
 
+import {shield as armoireShield} from './sets/armoire';
 import {shield as mysteryShield} from './sets/mystery';
 
 let rogueShield = cloneDeep(rogueWeapon);
@@ -314,22 +315,7 @@ let shield = {
     }
   },
   mystery: mysteryShield,
-  armoire: {
-    gladiatorShield: {
-      text: t('shieldArmoireGladiatorShieldText'),
-      notes: t('shieldArmoireGladiatorShieldNotes', {
-        con: 5,
-        str: 5
-      }),
-      value: 100,
-      con: 5,
-      str: 5,
-      set: 'gladiator',
-      canOwn: ((u) => {
-        return u.items.gear.owned.shield_armoire_gladiatorShield != null;
-      })
-    }
-  }
+  armoire: armoireShield,
 };
 
 export default shield;

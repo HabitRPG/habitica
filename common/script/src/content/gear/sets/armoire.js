@@ -1,13 +1,10 @@
-import {translator as t} from '../../helpers';
-import events from '../../events';
+import {
+  translator as t,
+  setGearSetDefaults
+} from '../../helpers';
 
-export var armor = {
+let armor = {
   lunarArmor: {
-    text: t('armorArmoireLunarArmorText'),
-    notes: t('armorArmoireLunarArmorNotes', {
-      str: 7,
-      int: 7
-    }),
     value: 100,
     str: 7,
     int: 7,
@@ -17,11 +14,6 @@ export var armor = {
     })
   },
   gladiatorArmor: {
-    text: t('armorArmoireGladiatorArmorText'),
-    notes: t('armorArmoireGladiatorArmorNotes', {
-      str: 7,
-      per: 7
-    }),
     value: 100,
     str: 7,
     per: 7,
@@ -31,12 +23,6 @@ export var armor = {
     })
   },
   rancherRobes: {
-    text: t('armorArmoireRancherRobesText'),
-    notes: t('armorArmoireRancherRobesNotes', {
-      str: 5,
-      per: 5,
-      int: 5
-    }),
     value: 100,
     str: 5,
     per: 5,
@@ -60,11 +46,6 @@ export var armor = {
     })
   },
   hornedIronArmor: {
-    text: t('armorArmoireHornedIronArmorText'),
-    notes: t('armorArmoireHornedIronArmorNotes', {
-      con: 9,
-      per: 7
-    }),
     value: 100,
     con: 9,
     per: 7,
@@ -74,12 +55,6 @@ export var armor = {
     })
   },
   plagueDoctorOvercoat: {
-    text: t('armorArmoirePlagueDoctorOvercoatText'),
-    notes: t('armorArmoirePlagueDoctorOvercoatNotes', {
-      int: 6,
-      str: 5,
-      con: 6
-    }),
     value: 100,
     int: 6,
     str: 5,
@@ -90,3 +65,220 @@ export var armor = {
     })
   }
 };
+
+let head = {
+  lunarCrown: {
+    value: 100,
+    con: 7,
+    per: 7,
+    set: 'soothing',
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_lunarCrown != null;
+    })
+  },
+  redHairbow: {
+    value: 100,
+    str: 5,
+    int: 5,
+    con: 5,
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_redHairbow != null;
+    })
+  },
+  violetFloppyHat: {
+    value: 100,
+    per: 5,
+    int: 5,
+    con: 5,
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_violetFloppyHat != null;
+    })
+  },
+  gladiatorHelm: {
+    value: 100,
+    per: 7,
+    int: 7,
+    set: 'gladiator',
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_gladiatorHelm != null;
+    })
+  },
+  rancherHat: {
+    value: 100,
+    str: 5,
+    per: 5,
+    int: 5,
+    set: 'rancher',
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_rancherHat != null;
+    })
+  },
+  royalCrown: {
+    value: 100,
+    str: 10,
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_royalCrown != null;
+    })
+  },
+  blueHairbow: {
+    value: 100,
+    per: 5,
+    int: 5,
+    con: 5,
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_blueHairbow != null;
+    })
+  },
+  goldenLaurels: {
+    text: t('headArmoireGoldenLaurelsText'),
+    notes: t('headArmoireGoldenLaurelsNotes', {
+      attrs: 8
+    }),
+    value: 100,
+    per: 8,
+    con: 8,
+    set: 'goldenToga',
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_goldenLaurels != null;
+    })
+  },
+  hornedIronHelm: {
+    value: 100,
+    con: 9,
+    str: 7,
+    set: 'hornedIron',
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_hornedIronHelm != null;
+    })
+  },
+  yellowHairbow: {
+    notes: t('headArmoireYellowHairbowNotes', {
+      attrs: 5
+    }),
+    value: 100,
+    int: 5,
+    per: 5,
+    str: 5,
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_yellowHairbow != null;
+    })
+  },
+  redFloppyHat: {
+    notes: t('headArmoireRedFloppyHatNotes', {
+      attrs: 6
+    }),
+    value: 100,
+    con: 6,
+    int: 6,
+    per: 6,
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_redFloppyHat != null;
+    })
+  },
+  plagueDoctorHat: {
+    value: 100,
+    int: 5,
+    str: 6,
+    con: 5,
+    set: 'plagueDoctor',
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_plagueDoctorHat != null;
+    })
+  }
+};
+
+let shield = {
+  gladiatorShield: {
+    value: 100,
+    con: 5,
+    str: 5,
+    set: 'gladiator',
+    canOwn: ((u) => {
+      return u.items.gear.owned.shield_armoire_gladiatorShield != null;
+    })
+  }
+};
+
+let weapon = {
+  basicCrossbow: {
+    value: 100,
+    str: 5,
+    per: 5,
+    con: 5,
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_basicCrossbow != null;
+    })
+  },
+  lunarSceptre: {
+    value: 100,
+    con: 7,
+    int: 7,
+    set: 'soothing',
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_lunarSceptre != null;
+    })
+  },
+  rancherLasso: {
+    notes: t('weaponArmoireRancherLassoNotes', {
+      str: 5,
+      per: 5,
+      int: 5
+    }),
+    value: 100,
+    str: 5,
+    per: 5,
+    int: 5,
+    set: 'rancher',
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_rancherLasso != null;
+    })
+  },
+  mythmakerSword: {
+    notes: t('weaponArmoireMythmakerSwordNotes', {
+      attrs: 6
+    }),
+    value: 100,
+    str: 6,
+    per: 6,
+    set: 'goldenToga',
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_mythmakerSword != null;
+    })
+  },
+  ironCrook: {
+    notes: t('weaponArmoireIronCrookNotes', {
+      attrs: 7
+    }),
+    value: 100,
+    str: 7,
+    per: 7,
+    set: 'hornedIron',
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_ironCrook != null;
+    })
+  },
+  goldWingStaff: {
+    notes: t('weaponArmoireGoldWingStaffNotes', {
+      attrs: 4
+    }),
+    value: 100,
+    con: 4,
+    int: 4,
+    per: 4,
+    str: 4,
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_goldWingStaff != null;
+    })
+  }
+};
+
+let armoireSet = {
+  armor: armor,
+  head: head,
+  shield: shield,
+  weapon: weapon,
+};
+
+setGearSetDefaults(armoireSet, {setName: 'armoire'});
+
+export default armoireSet;
