@@ -1157,7 +1157,7 @@ api.timeTravelStable =
     'Mammoth-Base': t('mammoth')
     'MantisShrimp-Base': t('mantisShrimp')
 
-api.hatchingPotions =
+api.dropHatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
   White:            value: 2, text: t('hatchingPotionWhite')
   Desert:           value: 2, text: t('hatchingPotionDesert')
@@ -1168,10 +1168,18 @@ api.hatchingPotions =
   CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
   CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
   Golden:           value: 5, text: t('hatchingPotionGolden')
+
+api.premiumHatchingPotions =
   Spooky:           value: 2, text: t('hatchingPotionSpooky'), addlNotes: t('premiumPotionAddlNotes'), premium: true, limited: true
 
-_.each api.hatchingPotions, (pot,key) ->
+_.each api.dropHatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: false, limited: false, canBuy: (()->true)}
+
+_.each api.premiumHatchingPotions, (pot,key) ->
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: true, limited: false, canBuy: (()->true)}
+
+api.hatchingPotions = _.merge(api.dropHatchingPotions, api.premiumPotionAddlNotes)
+
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->

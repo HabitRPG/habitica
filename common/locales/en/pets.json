@@ -1,11 +1,13 @@
 {
     "pets": "Pets",
     "petsFound": "Pets Found",
+    "magicPets": "Magic Potion Pets",
     "rarePets": "Rare Pets",
     "questPets": "Quest Pets",
     "mounts": "Mounts",
     "mountsTamed": "Mounts Tamed",
     "questMounts": "Quest Mounts",
+    "magicMounts": "Magic Potion Mounts",
     "rareMounts": "Rare Mounts",
     "etherealLion": "Ethereal Lion",
     "veteranWolf": "Veteran Wolf",
