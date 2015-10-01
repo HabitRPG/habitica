@@ -66,6 +66,16 @@ let armor = {
   }
 };
 
+let eyewear = {
+  plagueDoctorMask: {
+    value: 100,
+    set: 'plagueDoctor',
+    canOwn: ((u) => {
+      return u.items.gear.owned.eyewear_armoire_plagueDoctorMask != null;
+    })
+  }
+};
+
 let head = {
   lunarCrown: {
     value: 100,
@@ -274,6 +284,7 @@ let weapon = {
 
 let armoireSet = {
   armor: armor,
+  eyewear: eyewear,
   head: head,
   shield: shield,
   weapon: weapon,
