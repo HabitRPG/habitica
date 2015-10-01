@@ -61,12 +61,12 @@ export function setFoodDefaults(food, options={}) {
     let formattedName = formatForTranslator(name);
 
     defaults(item, {
+      key: name,
+      text: translator(`food${formattedName}`),
+      notes: translator('foodNotes'),
+      value: 1,
       canBuy: options.canBuy || false,
       canDrop: options.canDrop || false,
-      text: translator(`food${formattedName}`),
-      value: 1,
-      key: name,
-      notes: translator('foodNotes'),
     });
   });
 };
