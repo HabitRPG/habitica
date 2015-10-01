@@ -488,38 +488,44 @@ UserSchema.methods.toJSON = function() {
   return doc;
 };
 
-// Return the data maintaining backward compatibility
-UserSchema.methods.getTransformedData = function(cb) {
+// Given user and an array of tasks, return an API compatible user + tasks obj
+UserSchema.methods.addTasksToUser = function(tasks) {
   var obj = this.toJSON();
   var tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
 
+  obj.habits = [];
+  obj.dailys = [];
+  obj.todos = [];
+  obj.rewards = [];
+
+  obj.tasksOrder = undefined;
+  var unordered = [];
+
+  tasks.forEach(function(task){
+    // We want to push the task at the same position where it's stored in tasksOrder
+    var pos = tasksOrder[task.type + 's'].indexOf(task._id);
+    if(pos === -1) { // Should never happen, it means the lists got out of sync
+      unordered.push(task.toJSON());
+    } else {
+      obj[task.type + 's'][pos] = task.toJSON();
+    }
+    
+  });
+
+  // Reconcile unordered items
+  unordered.forEach(function(task){
+    obj[task.type + 's'].push(task);
+  });
+
+  return obj;
+};
+
+// Return the data maintaining backward compatibility
+UserSchema.methods.getTransformedData = function(cb) {
+  var self = this;
   this.getTasks(function(err, tasks) {
     if(err) return cb(err);
-
-    obj.habits = [];
-    obj.dailys = [];
-    obj.todos = [];
-    obj.rewards = [];
-
-    obj.tasksOrder = undefined;
-    var unordered = [];
-
-    tasks.forEach(function(task){
-      // We want to push the task at the same position where it's stored in tasksOrder
-      var pos = tasksOrder[task.type + 's'].indexOf(task._id);
-      if(pos === -1) { // Should never happen, it means the lists got out of sync
-        unordered.push(task.toJSON());
-      } else {
-        obj[task.type + 's'][pos] = task.toJSON();
-      }
-      
-    });
-
-    // Reconcile unordered items
-    unordered.forEach(function(task){
-      obj[task.type + 's'].push(task);
-    });
-
+    self.addTasksToUser(tasks);
     cb(null, obj);
   });
 };

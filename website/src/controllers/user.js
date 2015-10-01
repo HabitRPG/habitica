@@ -510,65 +510,109 @@ api.cast = function(req, res, next) {
   if (!spell) return res.json(404, {err: 'Spell "' + req.params.spell + '" not found.'});
   if (spell.mana > user.stats.mp) return res.json(400, {err: 'Not enough mana to cast spell'});
 
-  var done = function(){
-    var err = arguments[0];
-    var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
+  var done = function(err, user, tasks){
     if (err) return next(err);
-    res.json(saved);
-    user = targetType = targetId = klass = spell = null;
-  }
 
-  switch (targetType) {
-    case 'task':
-      if (!user.tasks[targetId]) return res.json(404, {err: 'Task "' + targetId + '" not found.'});
-      spell.cast(user, user.tasks[targetId]);
-      user.save(done);
-      break;
-
-    case 'self':
-      spell.cast(user);
-      user.save(done);
-      break;
-
-    case 'party':
-    case 'user':
-      async.waterfall([
-        function(cb){
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements items.special').exec(cb);
-        },
-        function(group, cb) {
-          // Solo player? let's just create a faux group for simpler code
-          var g = group ? group : {members:[user]};
-          var series = [], found;
-          if (targetType == 'party') {
-            spell.cast(user, g.members);
-            series = _.transform(g.members, function(m,v,k){
-              m.push(function(cb2){v.save(cb2)});
+    async.parallel({
+      // Saving modified tasks
+      tasks: function(cb) {
+        // asybc.each doesn't support passing the index of the item being processed,
+        // so we convert it to an object of {index, value}
+        // taken from https://github.com/caolan/async/issues/669#issuecomment-65004297
+        var tasksMap = tasks.map(function(task, index){
+          return {index: index, value: task};
+        });
+        async.each(tasksMap, function(item, cb1){
+          var task = tasks[item.index]
+          if(task.isModified()){
+            task.save(function(err, savedTask){
+              if(err) return cb1(err);
+              tasks[item.index] = savedTask;
+              cb1();
             });
-          } else {
-            found = _.find(g.members, {_id: targetId})
-            spell.cast(user, found);
-            series.push(function(cb2){found.save(cb2)});
+          }else{
+            cb1();
           }
+        }, cb);
+      },
+      user: user.save.bind(user)
+    }, function(err, results){
+      if(err) return next(err);
 
-          if (group && !spell.silent) {
-            series.push(function(cb2){
-              var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
-              group.sendChat(message);
-              group.save(cb2);
-            })
+      res.json(results.user.addTasksToUser(tasks));
+    });    
+  };
+
+  // We load all the tasks even if not needed because they'll have to be returned later
+  // TODO fix in API v3
+  user.getTasks(function(err, tasks) {
+    if(err) return next(err);
+
+    switch (targetType) {
+      case 'task':
+        var task = _.find(tasks, {_id: targetId});
+        if(!task) return res.json(404, {err: 'Task "' + targetId + '" not found.'});
+
+        spell.cast(user, task);
+        done(null, user, tasks);
+        break;
+
+      case 'self':
+        // IMPORTANT NOTE we attach {tasks, dailys, todos, habits, rewards}
+        // to the user object to maintain compatibility with the cast functions
+        // in common/scripts/content/index.coffee even though they are not part anymore
+        // of the user object, Mongoose will remove them as soon as the user is saved
+        user.tasks = tasks;
+        user.habits = []; user.dailys = []; user.todos = []; user.rewards = [];
+        tasks.forEach(function(task){
+          user[task.type + 's'] = task;
+        });
+        
+        spell.cast(user);
+        done(null, user, tasks);
+        break;
+
+      case 'party':
+      case 'user':
+        async.waterfall([
+          function(cb){
+            Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements items.special').exec(cb);
+          },
+          function(group, cb) {
+            // Solo player? let's just create a faux group for simpler code
+            var g = group ? group : {members:[user]};
+            var series = [], found;
+            if (targetType == 'party') {
+              spell.cast(user, g.members);
+              series = _.transform(g.members, function(m,v,k){
+                m.push(function(cb2){v.save(cb2)});
+              });
+            } else {
+              found = _.find(g.members, {_id: targetId})
+              spell.cast(user, found);
+              series.push(function(cb2){found.save(cb2)});
+            }
+
+            if (group && !spell.silent) {
+              series.push(function(cb2){
+                var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
+                group.sendChat(message);
+                group.save(cb2);
+              })
+            }
+
+            series.push(function(cb2){g = group = series = found = null;cb2();})
+
+            async.series(series, cb);
           }
+        ], function(err) {
+          done(err, user, tasks);
+        });
+        break;
+    }
 
-          series.push(function(cb2){g = group = series = found = null;cb2();})
+  });
 
-          async.series(series, cb);
-        },
-        function(whatever, cb){
-          user.save(cb);
-        }
-      ], done);
-      break;
-  }
 }
 
 // It supports guild too now but we'll stick to partyInvite for backward compatibility
@@ -769,13 +813,15 @@ api.sortTask = function(req, res, next) {
   }, '_id type', function(err, task){
     if(err) return next(err);
     if(!task) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
-
+    // TODO should fail in case of id of task at position !== from req.params.id
     var orders = user.tasksOrder[task.type + 's'];
-    var movedTask = orders.splice(from, 1)[0]
+    // In case of task not ordered, do not move any existing task
+    var movedTask = orders[from] ? orders.splice(from, 1)[0] : task._id;
     if (to === -1) { // we've used the Push To Bottom feature
       orders.push(movedTask);
     } else { // any other sort method uses only positive 'to' values
-      orders.splice(to, 0, movedTask)
+      // If task moved to non existing index, just push at the bottom
+      orders[to] ? orders.splice(to, 0, movedTask) : order.push(tasksOrder);
     }
 
     async.parallel({
