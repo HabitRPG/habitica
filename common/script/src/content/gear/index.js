@@ -2,6 +2,53 @@ import {translator as t} from '../helpers';
 import {each, defaults} from 'lodash';
 import moment from 'moment';
 
+//--------------------------------------------------
+// Gear is structured by equipment type, but organized by set. Each set exports the equipment for each type that it has
+//
+// The class sets have numbered key values, as they are purchased sequentially
+//
+// <equipment_key> : {
+//  key: <gear_type>_<set_name>_<index>,
+//  type: <gear_type>,
+//  klass: <set_name>,
+//  index: <index>,
+//  text: t(<gear_type><set_name><formatted_equipment_key>Text),
+//  notes: t(<gear_type><set_name><formatted_equipment_key>Notes {
+//    <gear_attributes>
+//  }),
+//  con: <con_value>,
+//  int: <int_value>,
+//  per: <per_value>,
+//  str: <str_value>,
+//  value: <value>,
+//  last: <last_boolean>,
+//
+//  event: <event>,
+//  canOwn: <canOwn_function>,
+//  mystery: <mystery_set_key>
+// }
+//
+//  <gear_type> - What type of euqipment it is (armor, head, weapon, etc)
+//  <set_name> - What set this gear is a part of (special, mystery, warrior, etc)
+//  <index> - The order in this particular set
+//  <formatted_equipment_key> - CamelCased version of key
+//
+//  <gear_attributes> - if gear has stat bonuses, they are automatically applied to notes
+//
+//  <con_value> - Boost to con, defaults to 0
+//  <int_value> - Boost to int, defaults to 0
+//  <per_value> - Boost to per, defaults to 0
+//  <str_value> - Boost to str, defaults to 0
+//
+//  <value> - Price in gold
+//  <last_boolean> - whether this is the last in a particular class set
+//
+//  <event> - the event key, present if gear is part of an event
+//  <canOwn_function> - a function that determines whether or not gear can be purchased in the rewards column
+//  <mystery_set_key> - the mystery set key, present if item is a mystery item
+//
+//--------------------------------------------------
+
 import classes from '../classes';
 
 import weapon from './weapon';
