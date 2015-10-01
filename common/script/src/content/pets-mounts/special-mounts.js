@@ -1,5 +1,3 @@
-// special mounts are {key:i18n}
-
 let specialMounts = {
   'BearCub-Polar':       'polarBear',
   'LionCub-Ethereal':    'etherealLion',

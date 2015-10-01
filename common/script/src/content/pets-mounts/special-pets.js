@@ -1,5 +1,3 @@
-// special mounts are {key:i18n}
-
 let specialPets = {
   'Wolf-Veteran':      'veteranWolf',
   'Wolf-Cerberus':     'cerberusPup',
