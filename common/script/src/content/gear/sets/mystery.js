@@ -72,6 +72,7 @@ let weapon = {
 
 let mysterySet = {
   armor: armor,
+  back: back,
   eyewear: eyewear,
   head: head,
   headAccessory: headAccessory,
