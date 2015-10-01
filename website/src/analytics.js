@@ -1,5 +1,6 @@
 var _ = require('lodash');
-var Content = require('../../common/script').content;
+require('./i18n');
+var Content = require('../../common').content;
 var Amplitude = require('amplitude');
 var googleAnalytics = require('universal-analytics');
 
