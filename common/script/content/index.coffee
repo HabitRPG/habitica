@@ -1182,8 +1182,9 @@ _.each api.dropHatchingPotions, (pot,key) ->
 _.each api.premiumHatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: true, limited: false, canBuy: (()->true)}
 
-api.hatchingPotions = _.merge(api.dropHatchingPotions, api.premiumHatchingPotions)
-
+api.hatchingPotions = {}
+_.merge(api.hatchingPotions, api.dropHatchingPotions)
+_.merge(api.hatchingPotions, api.premiumHatchingPotions)
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
