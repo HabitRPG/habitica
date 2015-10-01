@@ -19,7 +19,7 @@ include ../../shared/mixins
         h3.equipment-title=env.t('questsForSale')
         div(ng-repeat='type in Content.userCanOwnQuestCategories')
           menu.pets-menu(label='{{env.t(type + "Quests")}}')
-            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy && quest.category === type')
+            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy(user) && quest.category === type')
               button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
                 data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
                 popover-title='{{::quest.text()}}', popover-append-to-body="true",

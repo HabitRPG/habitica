@@ -232,10 +232,10 @@ var UserSchema = new Schema({
     _.defaults(
       // First transform to a 1D eggs/potions mapping
       _.transform(shared.content.pets, function(m,v,k){ m[k] = Number; }),
-      // Then add quest pets
+      // Then add additional pets (quest, backer, contributor, premium)
       _.transform(shared.content.questPets, function(m,v,k){ m[k] = Number; }),
-      // Then add additional pets (backer, contributor)
-      _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; })
+      _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; }),
+      _.transform(shared.content.premiumPets, function(m,v,k){ m[k] = Number; })
     ),
     currentPet: String, // Cactus-Desert
 
@@ -265,9 +265,10 @@ var UserSchema = new Schema({
     mounts: _.defaults(
       // First transform to a 1D eggs/potions mapping
       _.transform(shared.content.pets, function(m,v,k){ m[k] = Boolean; }),
-      // Then add quest pets
+      // Then add quest and premium pets
       _.transform(shared.content.questPets, function(m,v,k){ m[k] = Boolean; }),
-      // Then add additional pets (backer, contributor)
+      _.transform(shared.content.premiumPets, function(m,v,k){ m[k] = Boolean; }),
+      // Then add additional mounts (backer, contributor)
       _.transform(shared.content.specialMounts, function(m,v,k){ m[k] = Boolean; })
     ),
     currentMount: String,

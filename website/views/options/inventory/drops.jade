@@ -10,7 +10,7 @@
             p.muted(ng-show='eggCount < 1')=env.t('noEggs')
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               button.customize-option(class='Pet_Egg_{{::egg}}',
-                ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0)}',
+                ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0) && (Content.dropEggs[egg] || !selectedPotion.premium)}',
                 popover='{{::Content.eggs[egg].notes()}}', popover-append-to-body='true',
                 popover-title!=env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"}),
                 popover-trigger='mouseenter', popover-placement='right',
@@ -18,12 +18,12 @@
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
-          menu.hatchingPotion-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
+          menu.pets-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
             p.muted(ng-show='potCount < 1')=env.t('noHatchingPotions')
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
               button.customize-option(class='Pet_HatchingPotion_{{::pot}}',
-                ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0)}',
-                popover='{{::Content.hatchingPotions[pot].notes()}}',
+                ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0) && (Content.dropEggs[selectedEgg.key] || !Content.hatchingPotions[pot].premium)}',
+                popover='{{::Content.hatchingPotions[pot].notes()}} {{::Content.hatchingPotions[pot].addlNotes()}}',
                 popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"}),
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
@@ -102,7 +102,7 @@
           menu.pets-menu(label=env.t('eggs'))
             p.muted!=env.t('dropsExplanation')
 
-            div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
+            div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy(user)')
               button.customize-option(class='Pet_Egg_{{::egg.key}}',
                 popover='{{::egg.notes()}}', popover-append-to-body='true',
                 popover-title!=env.t("egg", {eggType: "{{::egg.text()}}"}),
@@ -110,31 +110,11 @@
                 ng-click='purchase("eggs", egg)')
               p {{::egg.value}}&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems
-            //- buyable quest eggs. TODO: Get this from a collection so we don't have to maintain this ridiculous comma-delimited list
-            //- The hard part will be the trex stuff, since it is allowed to exist with two quests
-            each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime',sheep:'Sheep',kraken:'Cuttlefish',whale:'Whale',cheetah:'Cheetah',horse:'Horse'}
-              div(ng-show='user.achievements.quests.#{quest} > 0')
-                button.customize-option(class='Pet_Egg_#{egg}',
-                  popover='{{::Content.eggs.#{egg}.notes()}}', popover-append-to-body='true',
-                  popover-title!=env.t("egg", {eggType: "{{::Content.eggs.#{egg}.text()}}"}),
-                  popover-trigger='mouseenter', popover-placement='top',
-                  ng-click='purchase("eggs", Content.eggs.#{egg})')
-                p {{::Content.eggs.#{egg}.value}}&nbsp;
-                  span.Pet_Currency_Gem1x.inline-gems
-
-            div(ng-show='(user.achievements.quests.trex + user.achievements.quests.trex_undead) > 0')
-              button.customize-option(class='Pet_Egg_TRex',
-                popover='{{::Content.eggs.TRex.notes()}}', popover-append-to-body='true',
-                popover-title!=env.t("egg", {eggType: "{{Content.eggs.TRex.text()}}"}),
-                popover-trigger='mouseenter', popover-placement='top',
-                ng-click='purchase("eggs", Content.eggs.TRex)')
-              p {{::Content.eggs.TRex.value}}&nbsp;
-                span.Pet_Currency_Gem1x.inline-gems
 
         li.customize-menu
           menu.pets-menu(label=env.t('hatchingPotions'))
             p.muted!=env.t('dropsExplanation')
-            div(ng-repeat='pot in Content.hatchingPotions')
+            div(ng-repeat='pot in Content.hatchingPotions', ng-if='!pot.premium')
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
                 popover='{{::pot.notes()}}', popover-append-to-body='true',
                 popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
@@ -145,9 +125,22 @@
                 span.Pet_Currency_Gem1x.inline-gems
 
         li.customize-menu
+          menu.pets-menu!=env.t('magicHatchingPotions') + " - " + env.t('fallEventAvailability')
+            p.muted=env.t('premiumPotionNoDropExplanation')
+            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy(user)')
+              button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
+                popover='{{::pot.notes()}} {{::pot.addlNotes()}}', popover-append-to-body='true',
+                popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
+                popover-trigger='mouseenter', popover-placement='top',
+                ng-click='purchase("hatchingPotions", pot)')
+              p
+                |  {{::pot.value}}&nbsp;
+                span.Pet_Currency_Gem1x.inline-gems
+
+        li.customize-menu
           menu.pets-menu(label=env.t('food'))
             p.muted!=env.t('dropsExplanation')
-            div(ng-repeat='food in Content.food', ng-if='food.canBuy')
+            div(ng-repeat='food in Content.food', ng-if='food.canBuy(user)')
               button.customize-option(class='Pet_Food_{{::food.key}}',
                 popover='{{::food.notes()}}', popover-title='{{::food.text()}}',
                 popover-trigger='mouseenter', popover-placement='top',

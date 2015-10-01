@@ -544,7 +544,7 @@ describe 'User', ->
         expect(quest.notes()).to.be.an('string')
         expect(quest.completion()).to.be.an('string') if quest.completion
         expect(quest.previous).to.be.an('string') if quest.previous
-        expect(quest.value).to.be.greaterThan 0 if quest.canBuy
+        expect(quest.value).to.be.greaterThan 0 if quest.canBuy()
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
         expect(quest.category).to.match(/pet|unlockable|gold|world/)

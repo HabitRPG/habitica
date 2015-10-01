@@ -131,10 +131,10 @@ gear =
       summerMage:     event: events.summer, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialSummerMageText'), notes: t('weaponSpecialSummerMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('weaponSpecialSummerHealerText'), notes: t('weaponSpecialSummerHealerNotes', {int: 9}), value: 90, int: 9
       # Fall Festival
-      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('weaponSpecialFallRogueText'), notes: t('weaponSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
-      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('weaponSpecialFallWarriorText'), notes: t('weaponSpecialFallWarriorNotes', {str: 15}), value: 90, str: 15
-      fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
-      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('weaponSpecialFallRogueText'), notes: t('weaponSpecialFallRogueNotes', {str: 8}), value: 80, str: 8, canBuy: (()->true)
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('weaponSpecialFallWarriorText'), notes: t('weaponSpecialFallWarriorNotes', {str: 15}), value: 90, str: 15, canBuy: (()->true)
+      fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7, canBuy: (()->true)
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9, canBuy: (()->true)
       # Winter 2015
       winter2015Rogue:    event: events.winter2015, specialClass: 'rogue', text: t('weaponSpecialWinter2015RogueText'), notes: t('weaponSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('weaponSpecialWinter2015WarriorText'), notes: t('weaponSpecialWinter2015WarriorNotes', {str: 15}), value: 90, str: 15
@@ -218,10 +218,10 @@ gear =
       summerMage:     event: events.summer, specialClass: 'wizard',    text: t('armorSpecialSummerMageText'), notes: t('armorSpecialSummerMageNotes', {int: 9}), value: 90, int: 9
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('armorSpecialSummerHealerText'), notes: t('armorSpecialSummerHealerNotes', {con: 15}), value: 90, con: 15
       # Fall Festival
-      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('armorSpecialFallRogueText'), notes: t('armorSpecialFallRogueNotes', {per: 15}), value: 90, per: 15
-      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('armorSpecialFallWarriorText'), notes: t('armorSpecialFallWarriorNotes', {con: 9}), value: 90, con: 9
-      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('armorSpecialFallMageText'), notes: t('armorSpecialFallMageNotes', {int: 9}), value: 90, int: 9
-      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('armorSpecialFallHealerText'), notes: t('armorSpecialFallHealerNotes', {con: 15}), value: 90, con: 15
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('armorSpecialFallRogueText'), notes: t('armorSpecialFallRogueNotes', {per: 15}), value: 90, per: 15, canBuy: (()->true)
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('armorSpecialFallWarriorText'), notes: t('armorSpecialFallWarriorNotes', {con: 9}), value: 90, con: 9, canBuy: (()->true)
+      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('armorSpecialFallMageText'), notes: t('armorSpecialFallMageNotes', {int: 9}), value: 90, int: 9, canBuy: (()->true)
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('armorSpecialFallHealerText'), notes: t('armorSpecialFallHealerNotes', {con: 15}), value: 90, con: 15, canBuy: (()->true)
       # Winter 2015
       winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('armorSpecialWinter2015RogueText'), notes: t('armorSpecialWinter2015RogueNotes', {per: 15}), value: 90, per: 15
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('armorSpecialWinter2015WarriorText'), notes: t('armorSpecialWinter2015WarriorNotes', {con: 9}), value: 90, con: 9
@@ -320,10 +320,10 @@ gear =
       summerMage:     event: events.summer, specialClass: 'wizard',    text: t('headSpecialSummerMageText'), notes: t('headSpecialSummerMageNotes', {per: 7}),value: 60,per: 7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('headSpecialSummerHealerText'), notes: t('headSpecialSummerHealerNotes', {int: 7}), value: 60, int: 7
       # Fall Festival
-      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('headSpecialFallRogueText'), notes: t('headSpecialFallRogueNotes', {per: 9}),value: 60,per: 9
-      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('headSpecialFallWarriorText'), notes: t('headSpecialFallWarriorNotes', {str: 9}),value: 60,str: 9
-      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('headSpecialFallMageText'), notes: t('headSpecialFallMageNotes', {per: 7}),value: 60,per: 7
-      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('headSpecialFallHealerText'), notes: t('headSpecialFallHealerNotes', {int: 7}), value: 60, int: 7
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('headSpecialFallRogueText'), notes: t('headSpecialFallRogueNotes', {per: 9}),value: 60,per: 9, canBuy: (()->true)
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('headSpecialFallWarriorText'), notes: t('headSpecialFallWarriorNotes', {str: 9}),value: 60,str: 9, canBuy: (()->true)
+      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('headSpecialFallMageText'), notes: t('headSpecialFallMageNotes', {per: 7}),value: 60,per: 7, canBuy: (()->true)
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('headSpecialFallHealerText'), notes: t('headSpecialFallHealerNotes', {int: 7}), value: 60, int: 7, canBuy: (()->true)
       # Winter 2015
       winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('headSpecialWinter2015RogueText'), notes: t('headSpecialWinter2015RogueNotes', {per: 9}),value: 60,per: 9
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('headSpecialWinter2015WarriorText'), notes: t('headSpecialWinter2015WarriorNotes', {str: 9}),value: 60,str: 9
@@ -422,9 +422,9 @@ gear =
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('shieldSpecialSummerWarriorText'), notes: t('shieldSpecialSummerWarriorNotes', {con: 7}), value: 70, con: 7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('shieldSpecialSummerHealerText'), notes: t('shieldSpecialSummerHealerNotes', {con: 9}), value: 70, con: 9
       # Fall Festival
-      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('shieldSpecialFallRogueText'), notes: t('shieldSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
-      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7
-      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('shieldSpecialFallRogueText'), notes: t('shieldSpecialFallRogueNotes', {str: 8}), value: 80, str: 8, canBuy: (()->true)
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7, canBuy: (()->true)
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9, canBuy: (()->true)
       # Winter 2015
       winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('shieldSpecialWinter2015RogueText'), notes: t('shieldSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('shieldSpecialWinter2015WarriorText'), notes: t('shieldSpecialWinter2015WarriorNotes', {con: 7}), value: 70, con: 7
@@ -490,14 +490,14 @@ gear =
       spring2015Mage:    event: events.spring2015, specialClass: 'wizard',  text: t('headAccessorySpecialSpring2015MageText'), notes: t('headAccessorySpecialSpring2015MageNotes'), value: 20
       spring2015Healer:  event: events.spring2015, specialClass: 'healer',  text: t('headAccessorySpecialSpring2015HealerText'), notes: t('headAccessorySpecialSpring2015HealerNotes'), value: 20
       # Animal ears
-      bearEars: gearSet: 'animal', text: t('headAccessoryBearEarsText'), notes: t('headAccessoryBearEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_bearEars?)
-      cactusEars: gearSet: 'animal', text: t('headAccessoryCactusEarsText'), notes: t('headAccessoryCactusEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_cactusEars?)
-      foxEars: gearSet: 'animal', text: t('headAccessoryFoxEarsText'), notes: t('headAccessoryFoxEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_foxEars?)
-      lionEars: gearSet: 'animal', text: t('headAccessoryLionEarsText'), notes: t('headAccessoryLionEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_lionEars?)
-      pandaEars: gearSet: 'animal', text: t('headAccessoryPandaEarsText'), notes: t('headAccessoryPandaEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_pandaEars?)
-      pigEars: gearSet: 'animal', text: t('headAccessoryPigEarsText'), notes: t('headAccessoryPigEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_pigEars?)
-      tigerEars: gearSet: 'animal', text: t('headAccessoryTigerEarsText'), notes: t('headAccessoryTigerEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_tigerEars?)
-      wolfEars: gearSet: 'animal', text: t('headAccessoryWolfEarsText'), notes: t('headAccessoryWolfEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_wolfEars?)
+      bearEars: gearSet: 'animal', text: t('headAccessoryBearEarsText'), notes: t('headAccessoryBearEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_bearEars?), canBuy: (()->true)
+      cactusEars: gearSet: 'animal', text: t('headAccessoryCactusEarsText'), notes: t('headAccessoryCactusEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_cactusEars?), canBuy: (()->true)
+      foxEars: gearSet: 'animal', text: t('headAccessoryFoxEarsText'), notes: t('headAccessoryFoxEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_foxEars?), canBuy: (()->true)
+      lionEars: gearSet: 'animal', text: t('headAccessoryLionEarsText'), notes: t('headAccessoryLionEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_lionEars?), canBuy: (()->true)
+      pandaEars: gearSet: 'animal', text: t('headAccessoryPandaEarsText'), notes: t('headAccessoryPandaEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_pandaEars?), canBuy: (()->true)
+      pigEars: gearSet: 'animal', text: t('headAccessoryPigEarsText'), notes: t('headAccessoryPigEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_pigEars?), canBuy: (()->true)
+      tigerEars: gearSet: 'animal', text: t('headAccessoryTigerEarsText'), notes: t('headAccessoryTigerEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_tigerEars?), canBuy: (()->true)
+      wolfEars: gearSet: 'animal', text: t('headAccessoryWolfEarsText'), notes: t('headAccessoryWolfEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_wolfEars?), canBuy: (()->true)
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -536,7 +536,7 @@ _.each gearTypes, (type) ->
     # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
     _.each gear[type][klass], (item, i) ->
       key = "#{type}_#{klass}_#{i}"
-      _.defaults item, {type, key, klass, index: i, str:0, int:0, per:0, con:0}
+      _.defaults item, {type, key, klass, index: i, str:0, int:0, per:0, con:0, canBuy:(()->false)}
 
       if item.event
         #? indicates null/undefined. true means they own currently, false means they once owned - and false is what we're
@@ -1088,7 +1088,7 @@ api.dropEggs =
 
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
-    canBuy:true
+    canBuy: (()->true)
     value: 3
     key: key
     notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
@@ -1096,31 +1096,31 @@ _.each api.dropEggs, (egg,key) ->
 
 api.questEggs =
   # value & other defaults set below
-  Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: false
-  Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: false
-  Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: false
-  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false, mountText: t('questEggEggMountText')
-  Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
-  Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
-  Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
-  Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: false
-  Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: false
-  Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
-  Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
-  Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
-  TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
-  Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
-  Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
-  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
-  Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
-  Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
-  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
-  Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: false
-  Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: false
+  Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: ((u)-> u.achievements.quests.gryphon? > 0)
+  Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: ((u)-> u.achievements.quests.hedgehog? > 0)
+  Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: ((u)-> u.achievements.quests.ghost_stag? > 0)
+  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), mountText: t('questEggEggMountText')
+  Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: ((u)-> u.achievements.quests.rat? > 0)
+  Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: ((u)-> u.achievements.quests.octopus? > 0)
+  Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: ((u)-> u.achievements.quests.dilatory_derby? > 0)
+  Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: ((u)-> u.achievements.quests.harpy? > 0)
+  Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: ((u)-> u.achievements.quests.rooster? > 0)
+  Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: ((u)-> u.achievements.quests.spider? > 0)
+  Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: ((u)-> u.achievements.quests.owl? > 0)
+  Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: ((u)-> u.achievements.quests.penguin? > 0)
+  TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: ((u)-> (u.achievements.quests.trex? > 0 or u.achievements.quests.trex_undead? > 0))
+  Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: ((u)-> u.achievements.quests.rock? > 0)
+  Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: ((u)-> u.achievements.quests.bunny? > 0)
+  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: ((u)-> u.achievements.quests.slime? > 0)
+  Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: ((u)-> u.achievements.quests.sheep? > 0)
+  Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: ((u)-> u.achievements.quests.kraken? > 0)
+  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: ((u)-> u.achievements.quests.whale? > 0)
+  Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: ((u)-> u.achievements.quests.cheetah? > 0)
+  Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: ((u)-> u.achievements.quests.horse? > 0)
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
-    canBuy:false
+    canBuy: (()->false)
     value: 3
     key: key
     notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
@@ -1157,7 +1157,7 @@ api.timeTravelStable =
     'Mammoth-Base': t('mammoth')
     'MantisShrimp-Base': t('mantisShrimp')
 
-api.hatchingPotions =
+api.dropHatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
   White:            value: 2, text: t('hatchingPotionWhite')
   Desert:           value: 2, text: t('hatchingPotionDesert')
@@ -1168,67 +1168,85 @@ api.hatchingPotions =
   CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
   CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
   Golden:           value: 5, text: t('hatchingPotionGolden')
-_.each api.hatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text})}
+
+api.premiumHatchingPotions =
+  Spooky:           value: 2, text: t('hatchingPotionSpooky'), addlNotes: t('premiumPotionAddlNotes'), premium: true, limited: true
+
+_.each api.dropHatchingPotions, (pot,key) ->
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: false, limited: false, canBuy: (()->true)}
+
+_.each api.premiumHatchingPotions, (pot,key) ->
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: true, limited: false, canBuy: (()->true)}
+
+api.hatchingPotions = _.merge(api.dropHatchingPotions, api.premiumHatchingPotions)
+
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
+
+api.premiumPets = _.transform api.dropEggs, (m, egg) ->
+  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
+    if pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
 api.questPets = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
-## added for mountmaster -- yes, the transforms are correct, since the same strings are used for both pets and mounts
 api.mounts = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
 api.questMounts = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
 api.food =
   # Base
-  Meat:                 canBuy:false, canDrop:false, text: t('foodMeat'), target: 'Base', article: ''
-  Milk:                 canBuy:false, canDrop:false, text: t('foodMilk'), target: 'White', article: ''
-  Potatoe:              canBuy:false, canDrop:false, text: t('foodPotatoe'), target: 'Desert', article: 'a '
-  Strawberry:           canBuy:false, canDrop:false, text: t('foodStrawberry'), target: 'Red', article: 'a '
-  Chocolate:            canBuy:false, canDrop:false, text: t('foodChocolate'), target: 'Shade', article: ''
-  Fish:                 canBuy:false, canDrop:false, text: t('foodFish'), target: 'Skeleton', article: 'a '
-  RottenMeat:           canBuy:false, canDrop:false, text: t('foodRottenMeat'), target: 'Zombie', article: ''
-  CottonCandyPink:      canBuy:false, canDrop:false, text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:      canBuy:false, canDrop:false, text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Honey:                canBuy:false, canDrop:false, text: t('foodHoney'), target: 'Golden', article: ''
+  Meat:                 text: t('foodMeat'), target: 'Base', article: ''
+  Milk:                 text: t('foodMilk'), target: 'White', article: ''
+  Potatoe:              text: t('foodPotatoe'), target: 'Desert', article: 'a '
+  Strawberry:           text: t('foodStrawberry'), target: 'Red', article: 'a '
+  Chocolate:            text: t('foodChocolate'), target: 'Shade', article: ''
+  Fish:                 text: t('foodFish'), target: 'Skeleton', article: 'a '
+  RottenMeat:           text: t('foodRottenMeat'), target: 'Zombie', article: ''
+  CottonCandyPink:      text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:      text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Honey:                text: t('foodHoney'), target: 'Golden', article: ''
 
-  Saddle:               canBuy:true, canDrop:false, text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
+  Saddle:               canBuy:(()->true), text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 
   # Cake
-  Cake_Skeleton:        canBuy:false, canDrop:false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
-  Cake_Base:            canBuy:false, canDrop:false, text: t('foodCakeBase'), target: 'Base', article: ''
-  Cake_CottonCandyBlue: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Cake_CottonCandyPink: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  Cake_Shade:           canBuy:false, canDrop:false, text: t('foodCakeShade'), target: 'Shade', article: ''
-  Cake_White:           canBuy:false, canDrop:false, text: t('foodCakeWhite'), target: 'White', article: ''
-  Cake_Golden:          canBuy:false, canDrop:false, text: t('foodCakeGolden'), target: 'Golden', article: ''
-  Cake_Zombie:          canBuy:false, canDrop:false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
-  Cake_Desert:          canBuy:false, canDrop:false, text: t('foodCakeDesert'), target: 'Desert', article: ''
-  Cake_Red:             canBuy:false, canDrop:false, text: t('foodCakeRed'), target: 'Red', article: ''
+  Cake_Skeleton:        text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
+  Cake_Base:            text: t('foodCakeBase'), target: 'Base', article: ''
+  Cake_CottonCandyBlue: text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Cake_Shade:           text: t('foodCakeShade'), target: 'Shade', article: ''
+  Cake_White:           text: t('foodCakeWhite'), target: 'White', article: ''
+  Cake_Golden:          text: t('foodCakeGolden'), target: 'Golden', article: ''
+  Cake_Zombie:          text: t('foodCakeZombie'), target: 'Zombie', article: ''
+  Cake_Desert:          text: t('foodCakeDesert'), target: 'Desert', article: ''
+  Cake_Red:             text: t('foodCakeRed'), target: 'Red', article: ''
 
   # Fall
-  Candy_Skeleton:        canBuy:true, canDrop:true, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
-  Candy_Base:            canBuy:true, canDrop:true, text: t('foodCandyBase'), target: 'Base', article: ''
-  Candy_CottonCandyBlue: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Candy_CottonCandyPink: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  Candy_Shade:           canBuy:true, canDrop:true, text: t('foodCandyShade'), target: 'Shade', article: ''
-  Candy_White:           canBuy:true, canDrop:true, text: t('foodCandyWhite'), target: 'White', article: ''
-  Candy_Golden:          canBuy:true, canDrop:true, text: t('foodCandyGolden'), target: 'Golden', article: ''
-  Candy_Zombie:          canBuy:true, canDrop:true, text: t('foodCandyZombie'), target: 'Zombie', article: ''
-  Candy_Desert:          canBuy:true, canDrop:true, text: t('foodCandyDesert'), target: 'Desert', article: ''
-  Candy_Red:             canBuy:true, canDrop:true, text: t('foodCandyRed'), target: 'Red', article: ''
+  Candy_Skeleton:        canBuy:(()->true), canDrop:true, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
+  Candy_Base:            canBuy:(()->true), canDrop:true, text: t('foodCandyBase'), target: 'Base', article: ''
+  Candy_CottonCandyBlue: canBuy:(()->true), canDrop:true, text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Candy_CottonCandyPink: canBuy:(()->true), canDrop:true, text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Candy_Shade:           canBuy:(()->true), canDrop:true, text: t('foodCandyShade'), target: 'Shade', article: ''
+  Candy_White:           canBuy:(()->true), canDrop:true, text: t('foodCandyWhite'), target: 'White', article: ''
+  Candy_Golden:          canBuy:(()->true), canDrop:true, text: t('foodCandyGolden'), target: 'Golden', article: ''
+  Candy_Zombie:          canBuy:(()->true), canDrop:true, text: t('foodCandyZombie'), target: 'Zombie', article: ''
+  Candy_Desert:          canBuy:(()->true), canDrop:true, text: t('foodCandyDesert'), target: 'Desert', article: ''
+  Candy_Red:             canBuy:(()->true), canDrop:true, text: t('foodCandyRed'), target: 'Red', article: ''
 
 _.each api.food, (food,key) ->
-  _.defaults food, {value: 1, key, notes: t('foodNotes')}
+  _.defaults food, {value: 1, key, notes: t('foodNotes'), canBuy:(()->false), canDrop:false}
 
 api.userCanOwnQuestCategories = [
   'unlockable'
@@ -1243,7 +1261,7 @@ api.quests =
     notes: t("questDilatoryNotes")
     completion: t("questDilatoryCompletion")
     value: 0
-    canBuy: false
+    canBuy: (()->false)
     category: 'world'
     boss:
       name: t("questDilatoryBoss")
@@ -1286,7 +1304,7 @@ api.quests =
     completion: t("questStressbeastCompletion")
     completionChat: t("questStressbeastCompletionChat")
     value: 0
-    canBuy: false
+    canBuy: (()->false)
     category: 'world'
     boss:
       name: t("questStressbeastBoss")
@@ -1326,7 +1344,7 @@ api.quests =
       exp: 0
 
   evilsanta:
-    canBuy:false
+    canBuy: (()->false)
     text: t('questEvilSantaText') # title of the quest (eg, Deep into Vice's Layer)
     notes: t('questEvilSantaNotes')
     completion: t('questEvilSantaCompletion')
@@ -1344,7 +1362,7 @@ api.quests =
       exp: 100 # Exp bonus from defeating the boss
 
   evilsanta2:
-    canBuy:false
+    canBuy: (()->false)
     text: t('questEvilSanta2Text')
     notes: t('questEvilSanta2Notes')
     completion: t('questEvilSanta2Completion')
@@ -1482,7 +1500,7 @@ api.quests =
     notes: t('questEggHuntNotes')
     completion: t('questEggHuntCompletion')
     value: 1
-    canBuy: false
+    canBuy: (()->false)
     category: 'pet'
     collect:
       plainEgg: text: t('questEggHuntCollectPlainEgg'), count: 100
@@ -2115,7 +2133,7 @@ api.quests =
       unlock: t('questHorseUnlockText')
 
 _.each api.quests, (v,key) ->
-  _.defaults v, {key,canBuy:true}
+  _.defaults v, {key,canBuy:(()->true)}
   b = v.boss
   if b
     _.defaults b, {str:1,def:1}
