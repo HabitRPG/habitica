@@ -1,5 +1,7 @@
-var _ = require('lodash');
+require('coffee-script');
 require('./i18n');
+
+var _ = require('lodash');
 var Content = require('../../common').content;
 var Amplitude = require('amplitude');
 var googleAnalytics = require('universal-analytics');
