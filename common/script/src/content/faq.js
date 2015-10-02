@@ -1,16 +1,13 @@
-'use strict';
+import {translator as t} from './helpers';
 
-require('coffee-script');
-var t = require('./translation.js');
+const NUMBER_OF_QUESTIONS = 12;
 
-var NUMBER_OF_QUESTIONS = 12;
-
-var faq = {};
+let faq = {};
 
 faq.questions = [];
 
 for (var i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-  var question = {
+  let question = {
     question: t('faqQuestion' + i),
     ios: t('iosFaqAnswer' + i),
     web: t('webFaqAnswer' + i)
@@ -24,4 +21,4 @@ faq.stillNeedHelp = {
   web: t('webFaqStillNeedHelp')
 };
 
-module.exports = faq;
+export default faq;
