@@ -62,7 +62,7 @@
     "timeTravelersPopoverNoSub": "Para convocar a los misteriosos viajeros del tiempo, necesitarás un reloj de arena místico. Los <%= linkStart %>suscriptores<%= linkEnd %> reciben uno por cada tres meses consecutivos de suscripción. Cuando tengas un reloj de arena místico, vuelve aquí y los viajeros del tiempo te conseguirán algo excepcional: una mascota, una montura, un conjunto de artículos de suscriptor del pasado... ¡o puede que hasta del futuro!",
     "timeTravelersPopover": "Vemos que posees un reloj de arena místico, de modo que estaremos encantados de viajar al pasado para ti. Por favor, elige la mascota, la montura o el conjunto de artículos misteriosos que más te guste. <%= linkStart %>Aquí<%= linkEnd %> puedes ver una lista de los conjuntos de objetos del pasado. Si no te convencen, ¿tal vez te interese alguno de nuestros elegantes conjuntos de artículos retrofuturistas?",
     "timeTravelersAlreadyOwned": "¡Enhorabuena! Ya tienes todo lo que ofrecen actualmente los viajeros del tiempo. ¡Gracias por hacer esto posible!",
-    "mysticHourglassPopover": "A Mystic Hourglass allows you to purchase certain limited-time items, such as monthly Mystery Item Sets and awards from world bosses, from the past!",
+    "mysticHourglassPopover": "Con el Reloj de arena místico, puedes comprar ciertos artículos del pasado que estuvieron disponibles por tiempo limitado, como los conjuntos mensuales de artículos misteriosos y los premios de jefes mundiales.",
     "subUpdateCard": "Actualiza la tarjeta",
     "subUpdateTitle": "Actualización",
     "subUpdateDescription": "Actualiza la tarjeta para poder cobrar.",
