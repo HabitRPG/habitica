@@ -164,23 +164,18 @@ export function setGearSetDefaults(gearSet, options={}) {
 //----------------------------------------
 
 export function generateBackgrounds(sets) {
-  let backgrounds = {};
-
   each(sets, (names, set) => {
-    let setName = `backgrounds${set}`;
-    backgrounds[setName] = {};
+    sets[set] = {};
 
     each(names, (name) => {
       let formattedName = formatForTranslator(name);
 
-      backgrounds[setName][name] = {
+      sets[set][name] = {
         text: translator(`background${formattedName}Text`),
         notes: translator(`background${formattedName}Notes`),
       };
     });
   });
-
-  return backgrounds;
 };
 
 export function generateEggs(set, options={}) {
