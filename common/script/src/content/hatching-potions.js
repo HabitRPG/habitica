@@ -1,6 +1,10 @@
-import {setHatchingPotionDefaults} from './helpers';
+import {
+  merge,
+  translator as t,
+  setHatchingPotionDefaults
+} from './helpers';
 
-let hatchingPotions = {
+let dropPotions = {
   Base: {
     value: 2,
   },
@@ -30,9 +34,25 @@ let hatchingPotions = {
   },
   Golden: {
     value: 5,
-  }
+  },
 };
 
-setHatchingPotionDefaults(hatchingPotions);
+let premiumPotions = {
+  Spooky: {
+    value: 2,
+    addlNotes: t('premiumPotionAddlNotes'),
+    premium: true,
+    limited: true,
+  },
+};
 
-export default hatchingPotions;
+setHatchingPotionDefaults(dropPotions);
+setHatchingPotionDefaults(premiumPotions);
+
+let allPotions = merge([dropPotions, premiumPotions]);
+
+export default {
+  all: allPotions,
+  drop: dropPotions,
+  premium: premiumPotions,
+};

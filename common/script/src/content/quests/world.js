@@ -160,7 +160,7 @@ let questDefaults = (name) => {
   return {
     completion: t(`quest${name}Completion`),
     value: 0,
-    canBuy: false,
+    canBuy: () => { return false; },
     category: 'world',
   }
 };

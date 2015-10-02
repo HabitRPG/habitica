@@ -194,7 +194,29 @@ let head = {
     canOwn: ((u) => {
       return u.items.gear.owned.head_armoire_plagueDoctorHat != null;
     })
-  }
+  },
+  blackCat: {
+    notes: t('headArmoireBlackCatNotes', {
+      attrs: 9
+    }),
+    value: 100,
+    int: 9,
+    per: 9,
+    canOwn: (function(u) {
+      return u.items.gear.owned.head_armoire_blackCat != null;
+    })
+  },
+  orangeCat: {
+    notes: t('headArmoireOrangeCatNotes', {
+      attrs: 9
+    }),
+    value: 100,
+    con: 9,
+    str: 9,
+    canOwn: (function(u) {
+      return u.items.gear.owned.head_armoire_orangeCat != null;
+    })
+  },
 };
 
 let shield = {
@@ -278,6 +300,14 @@ let weapon = {
     str: 4,
     canOwn: (function(u) {
       return u.items.gear.owned.weapon_armoire_goldWingStaff != null;
+    })
+  },
+  batWand: {
+    value: 100,
+    int: 10,
+    per: 2,
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_batWand != null;
     })
   }
 };

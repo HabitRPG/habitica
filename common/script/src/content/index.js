@@ -26,7 +26,11 @@ import {
   specialMounts,
 } from './pets-mounts/index';
 import timeTravelStable from './time-traveler-stable';
-import hatchingPotions from './hatching-potions';
+import {
+   all as allHatchingPotions,
+   drop as dropHatchingPotions,
+   premium as premiumHatchingPotions,
+} from './hatching-potions';
 import food from './food/index';
 import {
   all as allQuests,
@@ -66,7 +70,9 @@ export default {
   special: special,
 
   // Item Drops
-  hatchingPotions: hatchingPotions,
+  dropHatchingPotions: dropHatchingPotions,
+  premiumHatchingPotions: premiumHatchingPotions,
+  hatchingPotions: allHatchingPotions,
   food: food,
 
   // Eggs

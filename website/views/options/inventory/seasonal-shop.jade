@@ -33,7 +33,7 @@
             span.Pet_Currency_Gem1x.inline-gems
     menu.pets-menu(label=env.t('seasonalItems'))
       div
-        button.customize-option(class='shop_spookDust',
+        button.customize-option(class='inventory_special_spookDust',
           popover='{{::Content.spells.special.spookDust.notes()}}',
           popover-title='{{::Content.spells.special.spookDust.text()}}',
           popover-trigger='mouseenter', popover-placement='right',
@@ -41,6 +41,15 @@
           ng-click='purchase("special", Content.spells.special.spookDust)')
         p {{::Content.spells.special.spookDust.value}}
           span(class='shop_gold')
+      div
+        button.customize-option(class='Pet_HatchingPotion_Spooky',
+          popover='{{::Content.hatchingPotions.Spooky.notes()}}',
+          popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions.Spooky.text()}}"}),
+          popover-trigger='mouseenter', popover-placement='right',
+          popover-append-to-body='true',
+          ng-click='purchase("hatchingPotions", Content.hatchingPotions.Spooky)')
+        p {{::Content.hatchingPotions.Spooky.value}}&nbsp;
+          span.Pet_Currency_Gem1x.inline-gems
 
       // div
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')

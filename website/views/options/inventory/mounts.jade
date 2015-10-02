@@ -1,15 +1,14 @@
-mixin mountList(source)
+mixin mountList(eggSource, potionSource)
   menu.pets(type='list')
-    each egg in source
+    each egg in eggSource
       -if(!egg.noMount) {
         li.customize-menu
           menu
-            each potion in env.Content.hatchingPotions
+            each potion in potionSource
               - mount = egg.key+"-"+potion.key
               div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
                 button(class="pet-button Mount_Head_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
-                  //div(class='Mount_Head_{{mount}}')
-                button(class="pet-button mount-not-owned", ng-hide='user.items.mounts["#{mount}"]')
+                button(class="pet-button mount-not-owned", ng-if='!user.items.mounts["#{mount}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"] || user.items.pets["#{mount}"])')
                   .PixelPaw
       -}
 
@@ -24,10 +23,23 @@ mixin mountList(source)
         p=env.t('mattShall', {name: "{{user.profile.name}}"})
         h4 {{:: env.t('stableMountMasterProgress', { number: mountMasterProgress }) }}
   .row: .col-md-12
-    +mountList(env.Content.dropEggs)
+    +mountList(env.Content.dropEggs,env.Content.dropHatchingPotions)
+
+  .row: .col-md-12
+    h4=env.t('magicMounts')
+    menu.pets(type='list')
+      each potion in env.Content.premiumHatchingPotions
+        li.customize-menu
+          menu
+            each egg in env.Content.dropEggs
+              - mount = egg.key+"-"+potion.key
+              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
+                button(class="pet-button Mount_Head_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
+                button(class="pet-button mount-not-owned", ng-if='!user.items.mounts["#{mount}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"] || user.items.pets["#{mount}"])')
+                  .PixelPaw
   .row: .col-md-12
     h4=env.t('questMounts')
-    +mountList(env.Content.questEggs)
+    +mountList(env.Content.questEggs,env.Content.dropHatchingPotions)
   .row: .col-md-12
     h4=env.t('rareMounts')
     menu

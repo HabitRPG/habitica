@@ -16,21 +16,26 @@ import {transform, defaults} from 'lodash';
 // <fake_potion> - if a unique animal, potion is Base, if it's a special version of an existing animal, the fake potion is a different from a normal hatching potion
 //--------------------------------------------------
 
-import hatchingPotions from '../hatching-potions';
+import {
+  drop as dropHatchingPotions,
+  premium as premiumHatchingPotions,
+} from '../hatching-potions';
 import dropEggs from '../eggs/drops';
 import questEggs from '../eggs/quest';
 
 import specialPets from './special-pets';
 import specialMounts from './special-mounts';
 
-let dropPets = generateAnimalSet(dropEggs);
-let questPets = generateAnimalSet(questEggs);
-let dropMounts = generateAnimalSet(dropEggs);
-let questMounts = generateAnimalSet(questEggs);
+let dropPets = generateAnimalSet(dropEggs, dropHatchingPotions);
+let premiumPets = generateAnimalSet(dropEggs, premiumHatchingPotions);
+let questPets = generateAnimalSet(questEggs, dropHatchingPotions);
+let dropMounts = generateAnimalSet(dropEggs, dropHatchingPotions);
+let premiumMounts = generateAnimalSet(dropEggs, premiumHatchingPotions);
+let questMounts = generateAnimalSet(questEggs, dropHatchingPotions);
 
-function generateAnimalSet(set) {
-  return transform(set, (m, egg) => {
-    defaults(m, transform(hatchingPotions, (m2, pot) => {
+function generateAnimalSet(eggSet, potionSet) {
+  return transform(eggSet, (m, egg) => {
+    defaults(m, transform(potionSet, (m2, pot) => {
       return m2[egg.key + "-" + pot.key] = true;
     }));
   });
@@ -39,6 +44,8 @@ function generateAnimalSet(set) {
 export default {
   dropPets: dropPets,
   dropMounts: dropMounts,
+  premiumPets: premiumPets,
+  premiumMounts: premiumMounts,
   questPets: questPets,
   questMounts: questMounts,
   specialPets: specialPets,

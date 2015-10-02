@@ -117,7 +117,7 @@ let holidayQuests = {
 let questDefaults = (name) => {
   return  {
     completion: t(`quest${name}Completion`),
-    canBuy: false,
+    canBuy: () => { return false; },
     category: 'pet',
   }
 };

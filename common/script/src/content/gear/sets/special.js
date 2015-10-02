@@ -126,24 +126,28 @@ let armor = {
     event: events.fall,
     specialClass: 'rogue',
     value: 90,
+    canBuy: () => { return true; },
     per: 15
   },
   fallWarrior: {
     event: events.fall,
     specialClass: 'warrior',
     value: 90,
+    canBuy: () => { return true; },
     con: 9
   },
   fallMage: {
     event: events.fall,
     specialClass: 'wizard',
     value: 90,
+    canBuy: () => { return true; },
     int: 9
   },
   fallHealer: {
     event: events.fall,
     specialClass: 'healer',
     value: 90,
+    canBuy: () => { return true; },
     con: 15
   },
   winter2015Rogue: {
@@ -453,24 +457,28 @@ let head = {
     event: events.fall,
     specialClass: 'rogue',
     value: 60,
+    canBuy: () => { return true; },
     per: 9
   },
   fallWarrior: {
     event: events.fall,
     specialClass: 'warrior',
     value: 60,
+    canBuy: () => { return true; },
     str: 9
   },
   fallMage: {
     event: events.fall,
     specialClass: 'wizard',
     value: 60,
+    canBuy: () => { return true; },
     per: 7
   },
   fallHealer: {
     event: events.fall,
     specialClass: 'healer',
     value: 60,
+    canBuy: () => { return true; },
     int: 7
   },
   winter2015Rogue: {
@@ -627,6 +635,7 @@ let headAccessory = {
     text: t('headAccessoryBearEarsText'),
     notes: t('headAccessoryBearEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_bearEars != null;
     })
@@ -636,6 +645,7 @@ let headAccessory = {
     text: t('headAccessoryCactusEarsText'),
     notes: t('headAccessoryCactusEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_cactusEars != null;
     })
@@ -645,6 +655,7 @@ let headAccessory = {
     text: t('headAccessoryFoxEarsText'),
     notes: t('headAccessoryFoxEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_foxEars != null;
     })
@@ -654,6 +665,7 @@ let headAccessory = {
     text: t('headAccessoryLionEarsText'),
     notes: t('headAccessoryLionEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_lionEars != null;
     })
@@ -663,6 +675,7 @@ let headAccessory = {
     text: t('headAccessoryPandaEarsText'),
     notes: t('headAccessoryPandaEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_pandaEars != null;
     })
@@ -672,6 +685,7 @@ let headAccessory = {
     text: t('headAccessoryPigEarsText'),
     notes: t('headAccessoryPigEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_pigEars != null;
     })
@@ -681,6 +695,7 @@ let headAccessory = {
     text: t('headAccessoryTigerEarsText'),
     notes: t('headAccessoryTigerEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_tigerEars != null;
     })
@@ -690,6 +705,7 @@ let headAccessory = {
     text: t('headAccessoryWolfEarsText'),
     notes: t('headAccessoryWolfEarsNotes'),
     value: 20,
+    canBuy: () => { return true; },
     canOwn: ((u) => {
       return u.items.gear.owned.headAccessory_special_wolfEars != null;
     })
@@ -799,18 +815,21 @@ let shield = {
     event: events.fall,
     specialClass: 'rogue',
     value: 80,
+    canBuy: () => { return true; },
     str: 8
   },
   fallWarrior: {
     event: events.fall,
     specialClass: 'warrior',
     value: 70,
+    canBuy: () => { return true; },
     con: 7
   },
   fallHealer: {
     event: events.fall,
     specialClass: 'healer',
     value: 70,
+    canBuy: () => { return true; },
     con: 9
   },
   winter2015Rogue: {
@@ -1036,12 +1055,14 @@ let weapon = {
     event: events.fall,
     specialClass: 'rogue',
     value: 80,
+    canBuy: () => { return true; },
     str: 8
   },
   fallWarrior: {
     event: events.fall,
     specialClass: 'warrior',
     value: 90,
+    canBuy: () => { return true; },
     str: 15
   },
   fallMage: {
@@ -1049,6 +1070,7 @@ let weapon = {
     specialClass: 'wizard',
     twoHanded: true,
     value: 160,
+    canBuy: () => { return true; },
     int: 15,
     per: 7
   },
@@ -1056,6 +1078,7 @@ let weapon = {
     event: events.fall,
     specialClass: 'healer',
     value: 90,
+    canBuy: () => { return true; },
     int: 9
   },
   winter2015Rogue: {

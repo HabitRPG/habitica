@@ -59,13 +59,14 @@ export function setSpellDefaults (className, spells) {
 export function setFoodDefaults(food, options={}) {
   each(food, (item, name) => {
     let formattedName = formatForTranslator(name);
+    let canBuy = () => { return options.canBuy; };
 
     defaults(item, {
       key: name,
       text: translator(`food${formattedName}`),
       notes: translator('foodNotes'),
       value: 1,
-      canBuy: options.canBuy || false,
+      canBuy: canBuy,
       canDrop: options.canDrop || false,
     });
   });
@@ -78,6 +79,7 @@ export function setHatchingPotionDefaults(hatchingPotions) {
       key: key,
       value: 2,
       text: text,
+      canBuy: () => { return true },
       notes: translator('hatchingPotionNotes', {
         potText: text
       }),
@@ -93,7 +95,7 @@ export function setQuestDefaults(quests) {
       key: key,
       text: translator(`quest${formattedName}Text`),
       notes: translator(`quest${formattedName}Notes`),
-      canBuy: true,
+      canBuy: () => { return true; },
       value: 4,
     };
 
@@ -149,6 +151,7 @@ export function setGearSetDefaults(gearSet, options={}) {
       let gearDefaults = {
         text: translator(text),
         notes: translator(notes, attributes),
+        canBuy: () => { return false; },
       }
 
       defaults(item, gearDefaults);
@@ -183,11 +186,11 @@ export function generateBackgrounds(sets) {
 export function generateEggs(set, options={}) {
   let eggs = {};
   let type = options.type;
-  let canBuy = options.canBuy;
 
   each(set, (pet) => {
     let text = translator(`${type}Egg${pet}Text`);
     let adj = translator(`${type}Egg${pet}Adjective`);
+    let canBuy = options.canBuy(pet);
 
     eggs[pet] = {
       text: text,
