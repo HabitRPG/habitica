@@ -67,7 +67,8 @@ let healer = {
   heal: heal,
   brightness: brightness,
   protectAura: protectAura,
-  healAll: healAll,
+  // @TODO APIv3 - correct to healAll
+  heallAll: healAll,
 };
 
 setSpellDefaults('healer', healer);
