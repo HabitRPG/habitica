@@ -11,7 +11,7 @@ const TEST_DB           = 'habitrpg_test'
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_TEST_COMMAND = 'mocha test/api --opts test/mocha.opts';
+const API_TEST_COMMAND = 'mocha test/api';
 const COMMON_TEST_COMMAND = 'mocha test/common';
 const CONTENT_TEST_COMMAND = 'mocha test/content --opts test/content/mocha.content.opts';
 const KARMA_TEST_COMMAND = 'karma start';
