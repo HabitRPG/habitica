@@ -52,6 +52,8 @@ let protectAura = {
 let healAll = {
   mana: 25,
   lvl: 14,
+  text: t('spellHealerHealAllText'),
+  notes: t('spellHealerHealAllNotes'),
   target: 'party',
   cast: (user, target) => {
     return each(target, (member) => {
