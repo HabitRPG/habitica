@@ -34,7 +34,7 @@
     "companyVideos": "Vídeos",
     "contribUse": "Contribuidores do Habitica usam",
     "dragonsilverQuote": "Eu perdi as contas de quantos gerenciadores de tempo e tarefas eu tentei ao longo das décadas... [Habitica] é a única coisa que usei que realmente me ajuda a fazer as coisas, ao invés de só listá-las.",
-    "dreimQuote": "Quando eu descobri [Habitica] no último verão, eu tinha acabado de falhar em cerca de metade das minhas provas. Graças às tarefas diárias... Eu pude organizar-me e disciplinar-me, e eu cheguei a passar em todas as provas com notas muito boas no mês passado.",
+    "dreimQuote": "Quando eu descobri [Habitica] no último verão, eu tinha acabado de falhar em cerca de metade das minhas provas. Graças às tarefas diárias... Eu pude me organizar e disciplinar e cheguei a passar em todas as provas com notas muito boas no mês passado.",
     "elmiQuote": "Toda manhã eu me apresso em levantar para conseguir mais ouro!",
     "email": "Email",
     "emailNewPass": "Enviar Nova Senha",
@@ -160,7 +160,7 @@
     "tasks": "Tarefas",
     "teamSample1": "Definir Roteiro de Reunião para Terça",
     "teamSample2": "Brainstorm sobre Crescimento",
-    "teamSample3": "Discuss this week's KPIs",
+    "teamSample3": "Discutir os KPIs desta semana",
     "teams": "Equipes",
     "terms": "Termos e Condições",
     "testimonialHeading": "O que as pessoas estão dizendo...",
@@ -178,5 +178,6 @@
     "generalQuestionsSite": "Perguntas Gerais sobre o Site",
     "businessInquiries": "Consultas de Negócios",
     "merchandiseInquiries": "Consultas de Merchandise",
-    "marketingInquiries": "Consultas de Marketing/Mídias Sociais"
+    "marketingInquiries": "Consultas de Marketing/Mídias Sociais",
+    "tweet": "Tweet"
 }

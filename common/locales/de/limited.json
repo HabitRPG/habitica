@@ -29,6 +29,7 @@
     "seasonalShopClosedText": "Der Saisonale Shop ist gerade geschlossen!! Ich weiß nicht, wo die Saisonzauberin gerade ist, aber ich wette sie wird während der nächsten <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a> wieder zurück sein!",
     "seasonalShopText": "Willkommen zum Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Frühlingsgegenstände</a> auf Lager. Alles hier wird während des Frühlingsevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 30. April, also stocke jetzt auf, ansonsten musst du bis nächstes Jahr warten.",
     "seasonalShopSummerText": "Willkommen zum Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>jahreszeitlich wechselnde</a> Gegenstände auf Lager. Alles hier wird während des Sommerevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Juli, also stocke jetzt auf, ansonsten musst du bis nächstes Jahr warten.",
+    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Zuckerstange (Magier)",
     "skiSet": "Ski-Attentäter (Schurke)",
@@ -36,7 +37,7 @@
     "yetiSet": "Yeti Zähmer (Krieger)",
     "toAndFromCard": "An: <%= toName %>, Von: <%= fromName %>",
     "nyeCard": "Neujahrskarte",
-    "nyeCardExplanation": "For celebrating the new year together, you both receive the \"Auld Acquaintance\" badge!",
+    "nyeCardExplanation": "Dafür, dass ihr gemeinsam Neujahr gefeiert habt, erhaltet ihr beide die \"Alte Bekannte\" Auszeichnung!",
     "nyeCardNotes": "Einem Gruppenmitglied eine Neujahrskarte schicken.",
     "seasonalItems": "Saisonaler Artikel",
     "nyeCardAchievementTitle": "Alte(r) Bekannte(r)",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "Kühner Haudegen (Krieger)",
     "emeraldMermageSet": "Smaragdgrüner Meermagier (Magier)",
     "reefSeahealerSet": "Riff-Seeheiler (Heiler)",
-    "roguishPirateSet": "Schurkischer Pirat (Schurke)"
+    "roguishPirateSet": "Schurkischer Pirat (Schurke)",
+    "monsterOfScienceSet": "Monster of Science (Warrior)",
+    "witchyWizardSet": "Witchy Wizard (Mage)",
+    "mummyMedicSet": "Mummy Medic (Healer)",
+    "vampireSmiterSet": "Vampire Smiter (Rogue)",
+    "fallEventAvailability": "Available until October 31"
 }

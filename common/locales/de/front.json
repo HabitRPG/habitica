@@ -34,7 +34,7 @@
     "companyVideos": "Videos",
     "contribUse": "Habitica Mitwirkende nutze",
     "dragonsilverQuote": "Ich habe unzählige Zeit- und Aufgabenerfassungssysteme ausprobiert… [Habitica] ist das einzige, das mir wirklich hilft Dinge zu erledigen, anstatt sie nur aufzuschreiben.",
-    "dreimQuote": "When I discovered [Habitica] last summer, I had just failed about half of my exams. Thanks to the Dailies... I was able to organize and discipline myself, and I actually passed all my exams with really good grades a month ago.",
+    "dreimQuote": "Bevor ich [Habitica] letzten Sommer entdeckt habe, war ich bereits durch die Hälfte meiner Prüfungen gefallen. Dank den Täglichen Aufgaben war ich fähig, mich zu organisieren und zu disziplinieren und ich habe letzten Monat wirklich alle meine Prüfungen mit sehr guten Noten bestanden.",
     "elmiQuote": "Jeden Morgen freue ich mich aufzustehen und etwas Gold zu verdienen!",
     "email": "E-Mail",
     "emailNewPass": "E-Mail neues Passwort",
@@ -172,11 +172,12 @@
     "username": "Benutzername",
     "watchVideos": "Sehen Sie sich die Videos an",
     "work": "Arbeit",
-    "zelahQuote": "With [Habitica], I can be persuaded to go to bed on time by the thought of gaining points for an early night or losing health for a late one!",
+    "zelahQuote": "Mit [Habitica] kann ich mich überzeugen, rechtzeitig ins Bett zu gehen, dank dem Gedanken daran, Punkte zu verdienen, wenn ich früh ins Bett gehe und Leben zu verlieren, wenn ich lange aufbleibe.",
     "reportAccountProblems": "Melde Probleme mit deinem Konto",
     "reportCommunityIssues": "Melde Community-Probleme",
     "generalQuestionsSite": "Generelle Fragen über die Webseite.",
     "businessInquiries": "Geschäftsanfragen.",
     "merchandiseInquiries": "Anfragen zu Handelswaren und Vermarktung",
-    "marketingInquiries": "Marketing-/Soziale Netzwerke Anfragen"
+    "marketingInquiries": "Marketing-/Soziale Netzwerke Anfragen",
+    "tweet": "Tweet"
 }
