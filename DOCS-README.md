@@ -66,7 +66,7 @@ It's that easy!
 
 ## Tech Info
 
-The generator we are using is [Docker](https://github.com/jbt/docker), which is a fork of [Docco](http://jashkenas.github.io/docco/). Docker supports the same wide-range of filetypes, including being able to generate documentation for a whole project, including an index.
+The generator we are using is [Docker](https://github.com/jbt/docker), which is a fork of [Docco](http://jashkenas.github.io/docco/). Docker supports the same wide range of file types and can generate documentation for a whole project, including an index.
 
 We also use the [Grunt-Docker](https://github.com/Prevole/grunt-docker) node module for automatic processing.
 
