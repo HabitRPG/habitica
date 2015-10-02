@@ -632,7 +632,7 @@
   "shieldSpecialFall2015WarriorText": "Birdseed Bag",
   "shieldSpecialFall2015WarriorNotes": "It's true that you're supposed to be SCARING the crows, but there's nothing wrong with making friends! Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
   "shieldSpecialFall2015HealerText": "Stirring Stick",
-  "shieldSpecialFall2015HealerNotes": "This stick can stir anything without melting, dissolving, or bursting into flame! It can also be used to poke enemy tasks fiercely. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
+  "shieldSpecialFall2015HealerNotes": "This stick can stir anything without melting, dissolving, or bursting into flame! It can also be used to fiercely poke enemy tasks. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
   
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
