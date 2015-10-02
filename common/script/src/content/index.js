@@ -19,8 +19,10 @@ import {
 } from './eggs/index';
 import {
   dropPets,
+  premiumPets,
   questPets,
   dropMounts,
+  premiumMounts,
   questMounts,
   specialPets,
   specialMounts,
@@ -82,8 +84,10 @@ export default {
 
   // Pets And Mounts
   pets: dropPets,
+  premiumPets: premiumPets,
   questPets: questPets,
   mounts: dropMounts,
+  premiumMounts: premiumMounts,
   questMounts: questMounts,
   specialPets: specialPets,
   specialMounts: specialMounts,
