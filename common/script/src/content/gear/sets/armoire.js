@@ -228,7 +228,15 @@ let shield = {
     canOwn: ((u) => {
       return u.items.gear.owned.shield_armoire_gladiatorShield != null;
     })
-  }
+  },
+  midnightShield: {
+    value: 100,
+    con: 10,
+    str: 2,
+    canOwn: ((u) => {
+      return u.items.gear.owned.shield_armoire_midnightShield != null;
+    })
+  },
 };
 
 let weapon = {
