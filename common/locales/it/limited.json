@@ -29,7 +29,7 @@
     "seasonalShopClosedText": "Il Negozio Stagionale è attualmente chiuso! Non so dove sia la Maga Stagionale ora, ma scommetto che sarà di ritorno durante il prossimo <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a>!!",
     "seasonalShopText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti primaverili in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Spring Fling\" ogni anno, ma siamo aperti solo fino al 30 aprile! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
     "seasonalShopSummerText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti estivi in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Summer Splash\" ogni anno, ma siamo aperti solo fino al 31 luglio! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
-    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
+    "seasonalShopFallText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti autunnali in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Fall Festival\" ogni anno, ma siamo aperti solo fino al 31 ottobre! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
     "seasonalShopRebirth": "Se hai usato la Sfera della Rinascita, potrai riacquistare questo equipaggiamento dalla colonna delle Ricompense. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero, se non l'hai ancora scelta/cambiata), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
     "candycaneSet": "Caramello (Mago)",
     "skiSet": "Nevassassino (Assassino)",
@@ -56,9 +56,9 @@
     "emeraldMermageSet": "Magisirena di Smeraldo (Mago)",
     "reefSeahealerSet": "Marguaritore Corallino (Guaritore)",
     "roguishPirateSet": "Pirata Furfante (Assassino)",
-    "monsterOfScienceSet": "Monster of Science (Warrior)",
+    "monsterOfScienceSet": "Mostro della Scienza (Guerriero)",
     "witchyWizardSet": "Witchy Wizard (Mage)",
-    "mummyMedicSet": "Mummy Medic (Healer)",
+    "mummyMedicSet": "Medico Mummia (Guaritore)",
     "vampireSmiterSet": "Vampire Smiter (Rogue)",
-    "fallEventAvailability": "Available until October 31"
+    "fallEventAvailability": "Disponibile fino al 31 ottobre"
 }

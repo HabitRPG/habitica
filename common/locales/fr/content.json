@@ -106,7 +106,7 @@
     "hatchingPotionCottonCandyPink": "Rose Barbe à Papa",
     "hatchingPotionCottonCandyBlue": "Bleu Barbe à Papa",
     "hatchingPotionGolden": "Doré",
-    "hatchingPotionSpooky": "Effrayante",
+    "hatchingPotionSpooky": "Effrayant",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête.",
     "foodMeat": "Viande",
