@@ -33,7 +33,7 @@ function checkGearAttributes(set) {
         expect(gear.str).to.be.at.least(0);
       });
 
-      it('has a canBy function', () => {
+      it('has a canBuy function', () => {
         expect(gear.canBuy).to.be.a('function');
       });
 
