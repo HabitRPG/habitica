@@ -2310,6 +2310,16 @@ api.backgrounds =
     tavern:
       text: t('backgroundTavernText')
       notes: t('backgroundTavernNotes')
+  backgrounds102015:
+    harvest_moon:
+      text: t('backgroundHarvestMoonText')
+      notes: t('backgroundHarvestMoonNotes')
+    slimy_swamp:
+      text: t('backgroundSlimySwampText')
+      notes: t('backgroundSlimySwampNotes')
+    swarming_darkness:
+      text: t('backgroundSwarmingDarknessText')
+      notes: t('backgroundSwarmingDarknessNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
