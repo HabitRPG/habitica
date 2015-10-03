@@ -1,7 +1,4 @@
-import {translator as t} from '../helpers';
-import events from '../events';
-
-import {base as baseHead} from './sets/base';
+import {head as baseHead} from './sets/base';
 
 import {head as healerHead} from './sets/healer';
 import {head as rogueHead} from './sets/rogue';

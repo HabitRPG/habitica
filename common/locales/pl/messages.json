@@ -5,7 +5,7 @@
     "messageTagNotFound": "Nie znaleziono taga.",
     "messagePetNotFound": ":pet nie znaleziono w user.items.pets",
     "messageFoodNotFound": ":food nie znaleziono w user.items.food",
-    "messageNotAvailable": "This item is not currently available for purchase.",
+    "messageNotAvailable": "Tego przedmiotu nie można obecnie zakupić.",
     "messageCannotFeedPet": "Nie możesz nakarmić tego chowańca.",
     "messageAlreadyMount": "Już masz tego wierzchowca. Spróbuj nakarmić innego chowańca.",
     "messageEvolve": "Oswoiłeś: <%= egg %>, chodźmy na przejażdżkę!",

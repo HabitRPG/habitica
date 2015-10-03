@@ -244,10 +244,10 @@
     "questCheetahBoss": "Gepard",
     "questCheetahDropCheetahEgg": "Gepard (jajo)",
     "questCheetahUnlockText": "Odblokowuje dostęp do kupna gepardzich jaj na Targu",
-    "questHorseText": "Ride the Night-Mare",
-    "questHorseNotes": "While relaxing in the Tavern with @beffymaroo and @JessicaChase, the talk turns to good-natured boasting about your adventuring accomplishments. Proud of your deeds, and perhaps getting a bit carried away, you brag that you can tame any task around. A nearby stranger turns toward you and smiles. One eye twinkles as he invites you to prove your claim by riding his horse.\nAs you all head for the stables, @UncommonCriminal whispers, \"You may have bitten off more than you can chew. That's no horse - that's a Night-Mare!\" Looking at its stamping hooves, you begin to regret your words...",
-    "questHorseCompletion": "It takes all your skill, but finally the horse stamps a couple of hooves and nuzzles you in the shoulder before allowing you to mount. You ride briefly but proudly around the Tavern grounds while your friends cheer. The stranger breaks into a broad grin.\n\"I can see that was no idle boast! Your determination is truly impressive. Take these eggs to raise horses of your own, and perhaps we'll meet again one day.\" You take the eggs, the stranger tips his hat... and vanishes.",
-    "questHorseBoss": "Night-Mare",
+    "questHorseText": "Ujeżdżaj Konia-Marę",
+    "questHorseNotes": "Podczas relaksowania się w Tawernie z @beffymaroo i @JessicaChase, rozmowa schodzi na przechwałki o swoich dokonaniach podczas przygód. Dumny ze czynów, ale pewnie też trochę poniesiony emocjami, chełpisz się że potrafisz poskromić każde zadanie w okolicy. Przysłuchujący się nieznajomy zwraca się w twoim kierunku i uśmiecha się. Mrugając jednym okiem zachęca cię abyś dowiódł swego poprzez ujeżdżanie jego konia.\nKiedy kierowaliście się do stajni @UncommonCriminal szepcze, \"Być może ugryzłeś więcej niż jesteś w stanie przełknąć. To nie jest zwykły koń - to Koń-Mara!\" Patrząc jak depcze kopytami, zaczynasz żałować swoich słów...",
+    "questHorseCompletion": "Wymagało to całej twojej wprawy, ale w końcu koń uderza parę razy kopytami i popycha cię nosem w ramię zanim pozwala ci się dosiąść. Jedziesz krótko, ale dumnie wokół Tawerny podczas twoi przyjaciele wiwatują. Nieznajomy uśmiecha się szeroko.\n\"Widzę że nie były to czcze przechwałki! Twoja determinacja jest na prawdę imponujące. Weź te jajka aby wychować własne konie, a może kiedyś znów się spotkamy.\" Przyjmujesz jajka, nieznajomy uchyla kapelusza... i znika.",
+    "questHorseBoss": "Koń-Mara",
     "questHorseDropHorseEgg": "Koń (jajo)",
-    "questHorseUnlockText": "Unlocks purchasable Horse eggs in the Market"
+    "questHorseUnlockText": "Odblokowuje dostęp do kupna końskich jaj na Targu"
 }

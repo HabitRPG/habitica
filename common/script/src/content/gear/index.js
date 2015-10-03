@@ -1,4 +1,3 @@
-import {translator as t} from '../helpers';
 import {each, defaults} from 'lodash';
 import moment from 'moment';
 

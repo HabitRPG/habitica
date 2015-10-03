@@ -1,6 +1,3 @@
-import {translator as t} from '../helpers';
-import events from '../events';
-
 import {armor as baseArmor} from './sets/base';
 
 import {armor as warriorArmor} from './sets/warrior';

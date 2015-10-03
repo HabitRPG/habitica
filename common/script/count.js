@@ -1,7 +1,8 @@
 'use strict';
 
+require('coffee-script');
 var _ = require('lodash');
-var content = require('../dist/scripts/content/index');
+var content = require('./content/index.coffee');
 
 var DROP_ANIMALS = _.keys(content.pets);
 
