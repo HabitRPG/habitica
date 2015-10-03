@@ -107,7 +107,7 @@ let questDefaults = (name) => {
 
 let dropDefaults = () => {
   return {
-    gold: 0,
+    gp: 0,
   }
 };
 
