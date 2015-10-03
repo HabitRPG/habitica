@@ -1,3 +1,4 @@
+import {STRING_ERROR_MSG, STRING_DOES_NOT_EXIST_MSG} from '../helpers/content.helper';
 import {translator} from '../../common/script/src/content/helpers';
 
 describe('Translator', () => {

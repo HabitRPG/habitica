@@ -7,8 +7,8 @@ import i18n from '../../common/script/src/i18n';
 require('coffee-script');
 i18n.translations = require('../../website/src/i18n.js').translations;
 
-global.STRING_ERROR_MSG = 'Error processing the string. Please see Help > Report a Bug.';
-global.STRING_DOES_NOT_EXIST_MSG = /^String '.*' not found.$/;
+export const STRING_ERROR_MSG = 'Error processing the string. Please see Help > Report a Bug.';
+export const STRING_DOES_NOT_EXIST_MSG = /^String '.*' not found.$/;
 
 global.expectValidTranslationString = (attribute) => {
   expect(attribute).to.be.a('function');
