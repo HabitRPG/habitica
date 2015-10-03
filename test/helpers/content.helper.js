@@ -1,6 +1,7 @@
 require('./globals.helper');
 import {readdirSync} from 'fs';
 import {resolve} from 'path';
+import {each} from 'lodash';
 
 import i18n from '../../common/script/src/i18n';
 require('coffee-script');
@@ -29,3 +30,26 @@ global.runTestsInDirectory = (directory) => {
     require(filePath);
   });
 };
+
+global.describeEachItem = (testDescription, set, cb, describeFunction) => {
+  // describeFunction allows you to pass in 'only' or 'skip'
+  // as the last argument for writing/debugging tests.
+  // This should only be used with the helper functions .only and .skip below
+  let describeBlock = describe[describeFunction] || describe;
+
+  describeBlock(testDescription, () => {
+    each(set, (item, key) => {
+      describe(key, () => {
+        cb(item, key);
+      });
+    });
+  });
+}
+
+describeEachItem.only = (des, set, cb) => {
+  describeEachItem(des, set, cb, 'only');
+}
+
+describeEachItem.skip = (des, set, cb) => {
+  describeEachItem(des, set, cb, 'skip');
+}
