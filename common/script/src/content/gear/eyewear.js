@@ -1,6 +1,3 @@
-import {translator as t} from '../helpers';
-import events from '../events';
-
 import {eyewear as baseEyewear} from './sets/base';
 
 import {eyewear as armoireEyewear} from './sets/armoire';

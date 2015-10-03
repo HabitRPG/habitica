@@ -1,8 +1,6 @@
-import {translator as t} from '../helpers';
 import {cloneDeep} from 'lodash';
-import events from '../events';
 
-import {base as baseShield} from './sets/base';
+import {shield as baseShield} from './sets/base';
 
 import {shield as healerShield} from './sets/healer';
 import {weapon as rogueWeapon} from './sets/rogue';

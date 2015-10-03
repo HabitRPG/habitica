@@ -1,6 +1,3 @@
-import {translator as t} from '../helpers';
-import events from '../events';
-
 import {headAccessory as baseHeadAccessory} from './sets/base';
 
 import {headAccessory as specialHeadAccessory} from './sets/special';
