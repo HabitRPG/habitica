@@ -2,7 +2,7 @@
 
 require('coffee-script');
 var _ = require('lodash');
-var content = require('./content.coffee');
+var content = require('./content/index.coffee');
 
 var DROP_ANIMALS = _.keys(content.pets);
 
@@ -27,7 +27,6 @@ function dropPetsCurrentlyOwned(pets) {
   return count;
 }
 
-
 function mountMasterProgress(mounts) {
   var count = 0;
   _(DROP_ANIMALS).each(function(animal) {
@@ -51,9 +50,23 @@ function remainingGearInSet(userGear, set) {
   return count;
 }
 
+function questsOfCategory(userQuests, category) {
+  var quests = _.filter(content.quests, function(quest) {
+    var categoryMatches = quest.category === category;
+    var hasQuest = userQuests[quest.key];
+
+    return categoryMatches && hasQuest;
+  });
+
+  var count = _.size(quests);
+
+  return count;
+}
+
 module.exports = {
   beastMasterProgress: beastMasterProgress,
   dropPetsCurrentlyOwned: dropPetsCurrentlyOwned,
   mountMasterProgress: mountMasterProgress,
-  remainingGearInSet: remainingGearInSet
+  remainingGearInSet: remainingGearInSet,
+  questsOfCategory: questsOfCategory
 };

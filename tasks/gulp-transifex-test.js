@@ -1,19 +1,18 @@
-import fs      from 'fs';
-import _       from 'lodash';
-import nconf   from 'nconf';
-import gulp    from 'gulp';
-import request from 'superagent';
+import fs       from 'fs';
+import _        from 'lodash';
+import nconf    from 'nconf';
+import gulp     from 'gulp';
+import { postToSlack, conf } from './taskHelper';
 
-nconf.argv().env().file({ file: 'config.json' });
+const SLACK_CONFIG = {
+  channel: conf.get('TRANSIFEX_SLACK_CHANNEL'),
+  username: 'Transifex',
+  emoji: 'transifex'
+}
 
 const LOCALES = './common/locales/';
 const ENGLISH_LOCALE = `${LOCALES}en/`;
 const ALL_LANGUAGES = getArrayOfLanguages();
-
-const SLACK_URL = nconf.get('TRANSIFEX_SLACK:url');
-const SLACK_CHANNEL = '#' + (nconf.get('TRANSIFEX_SLACK:channel') || 'general');
-const SLACK_USERNAME = 'Transifex';
-const SLACK_EMOJI = ':transifex:';
 
 const malformedStringExceptions = {
   messageDropFood: true,
@@ -35,7 +34,8 @@ gulp.task('transifex:missingFiles', () => {
 
   if (!_.isEmpty(missingStrings)) {
     let message = 'the following files were missing from the translations folder';
-    post(message, missingStrings);
+    let formattedMessage = formatMessageForPosting(message, missingStrings);
+    postToSlack(formattedMessage, SLACK_CONFIG);
   }
 });
 
@@ -52,7 +52,8 @@ gulp.task('transifex:missingStrings', () => {
 
   if (!_.isEmpty(missingStrings)) {
     let message = 'The following strings are not translated';
-    post(message, missingStrings);
+    let formattedMessage = formatMessageForPosting(message, missingStrings);
+    postToSlack(formattedMessage, SLACK_CONFIG);
   }
 });
 
@@ -92,12 +93,14 @@ gulp.task('transifex:malformedStrings', () => {
 
   if (!_.isEmpty(stringsWithMalformedInterpolations)) {
     let message = 'The following strings have malformed or missing interpolations';
-    post(message, stringsWithMalformedInterpolations);
+    let formattedMessage = formatMessageForPosting(message, stringsWithMalformedInterpolations);
+    postToSlack(formattedMessage, SLACK_CONFIG);
   }
 
   if (!_.isEmpty(stringsWithIncorrectNumberOfInterpolations)) {
     let message = 'The following strings have a different number of string interpolations';
-    post(message, stringsWithIncorrectNumberOfInterpolations);
+    let formattedMessage = formatMessageForPosting(message, stringsWithIncorrectNumberOfInterpolations);
+    postToSlack(formattedMessage, SLACK_CONFIG);
   }
 });
 
@@ -136,21 +139,6 @@ function eachTranslationString(languages, cb) {
       cb(language, filename, key, string, translationString);
     });
   });
-}
-
-function post(message, items) {
-  let formattedMessage = formatMessageForPosting(message, items);
-
-  request.post(SLACK_URL)
-    .send({
-      channel: SLACK_CHANNEL,
-      username: SLACK_USERNAME,
-      text: formattedMessage,
-      icon_emoji: SLACK_EMOJI
-    })
-    .end((err, res) => {
-      if (err) console.error('Unable to post to slack', err);
-    });
 }
 
 function formatMessageForPosting(msg, items) {

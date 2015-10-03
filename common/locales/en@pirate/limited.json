@@ -29,6 +29,7 @@
     "seasonalShopClosedText": "The Seasonal Shop currently be closed!! I don't know where th' Seasonal Sorceress be now, but I bet she'll be back during th' next <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a>!",
     "seasonalShopText": "Welcome t' th' Seasonal Shop!! We're stockin' springtime <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at th' moment. Everything here will be available t' purchase durin' th' Spring Fling event each year, but we're only open until April 30th, so be sure t' stock up now, or you'll have t' wait a year t' buy these items again!",
     "seasonalShopSummerText": "Welcome t' th' Seasonal Shop!! We be stockin' summertime <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at th' moment. Everything here will be available t' purchase during th' Summer Splash event each year, but we're only open until July 31st, so be sure t' stock up now, or you'll have t' wait a year t' buy these items again!",
+    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Scallywag)",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
     "emeraldMermageSet": "Emerald Mermage (Mage)",
     "reefSeahealerSet": "Reef Seahealer (Doc)",
-    "roguishPirateSet": "Roguish Pirate (Rogue)"
+    "roguishPirateSet": "Roguish Pirate (Rogue)",
+    "monsterOfScienceSet": "Monster of Science (Warrior)",
+    "witchyWizardSet": "Witchy Wizard (Mage)",
+    "mummyMedicSet": "Mummy Medic (Healer)",
+    "vampireSmiterSet": "Vampire Smiter (Rogue)",
+    "fallEventAvailability": "Available until October 31"
 }

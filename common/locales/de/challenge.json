@@ -33,7 +33,7 @@
     "challengeTagPop": "Wettbewerbe erscheinen als Tag-Liste und Aufgabenbeschreibungen. Also ist es einerseits sinnvoll, oben einen beschreibenden Titel zu wählen, andererseits brauchst Du aber auch eine \"Kurzfassung\". Dazu kannst Du zum Beispiel \"Verliere 5 Kilo in 3 Monaten\" mit \"-5kg\" abkürzen. (Klicke auf das '?' für mehr Informationen).",
     "challengeDescr": "Beschreibung",
     "prize": "Preis",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "Wenn jemand Deinen Wettbewerb 'gewinnen' kann, dann kannst Du, wenn Du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst Du alle Edelsteine, die Du hast, ausschreiben (und zusätzlich alle Edelsteine der Gilde, wenn Du die Gilde dieses Wettbewerbes gegründet hast). Achtung: Diese Preise können später nicht mehr geändert werden.",
     "prizePopTavern": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst du alle Edelsteine, die du hast, ausschreiben. Achtung: Diese Preise können später nicht mehr geändert werden und bei Gasthaus-Wettbewerben werden sie nicht ersetzt, wenn der Wettbewerb abgebrochen wird.",
     "publicChallenges": "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
     "officialChallenge": "Offizieller Habitica-Wettbewerb",
@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Exportieren nach CSV",
     "selectGroup": "Bitte wähle die Gruppe",
     "challengeCreated": "Wettbewerb erstellt",
-    "sureDelCha": "Are you sure you want to delete this challenge?",
-    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
+    "sureDelCha": "Willst Du diesen Wetbewerb wirklich löschen?",
+    "sureDelChaTavern": "Willst Du diesen Wetbewerb wirklich löschen? Deine Edelsteine werden nicht erstattet.",
     "removeTasks": "Aufgabe entfernen",
     "keepTasks": "Aufgabe behalten",
     "closeCha": "Wettbewerb auswählen und...",
@@ -57,7 +57,7 @@
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Preis",
     "clone": "Klonen",
     "challengeNotEnoughGems": "Du besitzt nicht genügend Edelsteine, um diesen Wettbewerb zu erstellen.",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "noPermissionEditChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu ändern.",
+    "noPermissionDeleteChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu löschen.",
+    "noPermissionCloseChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu schließen."
 }

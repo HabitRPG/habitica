@@ -1,7 +1,7 @@
 {
     "languageName": "Română",
     "stringNotFound": "Bucata de text '<%= string %>' nu a fost găsită.",
-    "titleIndex": "Habitica | Viaţa ta ca un joc de rol (RPG)",
+    "titleIndex": "Habitica | Viața ta ca un joc de rol (RPG)",
     "habitica": "Habitica",
     "expandToolbar": "Desfășoară Bara de unelte",
     "collapseToolbar": "Restrânge Bara de unelte",
@@ -91,6 +91,7 @@
     "audioTheme_danielTheBard": "Daniel Lăutarul",
     "audioTheme_wattsTheme": "Watts' Theme",
     "audioTheme_gokulTheme": "Gokul Theme",
+    "audioTheme_luneFoxTheme": "LuneFox's Theme",
     "askQuestion": "Pune o întrebare",
     "reportBug": "Semnalează un defect",
     "contributeToHRPG": "Contribuie la Habitica",

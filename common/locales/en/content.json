@@ -8,98 +8,134 @@
   "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Food!",
 
   "dropEggWolfText": "Wolf",
-  "dropEggWolfAdjective": "loyal",
+  "dropEggWolfMountText": "Wolf",
+  "dropEggWolfAdjective": "a loyal",
 
   "dropEggTigerCubText": "Tiger Cub",
   "dropEggTigerCubMountText": "Tiger",
-  "dropEggTigerCubAdjective": "fierce",
+  "dropEggTigerCubAdjective": "a fierce",
 
   "dropEggPandaCubText": "Panda Cub",
   "dropEggPandaCubMountText": "Panda",
-  "dropEggPandaCubAdjective": "gentle",
+  "dropEggPandaCubAdjective": "a gentle",
 
   "dropEggLionCubText": "Lion Cub",
   "dropEggLionCubMountText": "Lion",
-  "dropEggLionCubAdjective": "regal",
+  "dropEggLionCubAdjective": "a regal",
 
   "dropEggFoxText": "Fox",
-  "dropEggFoxAdjective": "wily",
+  "dropEggFoxMountText": "Fox",
+  "dropEggFoxAdjective": "a wily",
 
   "dropEggFlyingPigText": "Flying Pig",
-  "dropEggFlyingPigAdjective": "whimsical",
+  "dropEggFlyingPigMountText": "Flying Pig",
+  "dropEggFlyingPigAdjective": "a whimsical",
 
   "dropEggDragonText": "Dragon",
-  "dropEggDragonAdjective": "mighty",
+  "dropEggDragonMountText": "Dragon",
+  "dropEggDragonAdjective": "a mighty",
 
   "dropEggCactusText": "Cactus",
-  "dropEggCactusAdjective": "prickly",
+  "dropEggCactusMountText": "Cactus",
+  "dropEggCactusAdjective": "a prickly",
+
+  "dropEggFlyingPigText": "Flying Pig",
+  "dropEggFlyingPigAdjective": "a whimsical",
+
+  "dropEggDragonText": "Dragon",
+  "dropEggDragonAdjective": "a mighty",
+
+  "dropEggCactusText": "Cactus",
 
   "dropEggBearCubText": "Bear Cub",
   "dropEggBearCubMountText": "Bear",
-  "dropEggBearCubAdjective": "cuddly",
+  "dropEggBearCubAdjective": "a cuddly",
 
   "questEggGryphonText": "Gryphon",
-  "questEggGryphonAdjective": "proud",
+  "questEggGryphonMountText": "Gryphon",
+  "questEggGryphonAdjective": "a proud",
 
   "questEggHedgehogText": "Hedgehog",
-  "questEggHedgehogAdjective": "spiky",
+  "questEggHedgehogMountText": "Hedgehog",
+  "questEggHedgehogAdjective": "a spiky",
 
   "questEggDeerText": "Deer",
-  "questEggDeerAdjective": "elegant",
+  "questEggDeerMountText": "Deer",
+  "questEggDeerAdjective": "an elegant",
 
   "questEggEggText": "Egg",
   "questEggEggMountText": "Egg Basket",
-  "questEggEggAdjective": "colorful",
+  "questEggEggAdjective": "a colorful",
 
   "questEggRatText": "Rat",
-  "questEggRatAdjective": "dirty",
+  "questEggRatMountText": "Rat",
+  "questEggRatAdjective": "a dirty",
 
   "questEggOctopusText": "Octopus",
-  "questEggOctopusAdjective": "slippery",
+  "questEggOctopusMountText": "Octopus",
+  "questEggOctopusAdjective": "a slippery",
 
   "questEggSeahorseText": "Seahorse",
-  "questEggSeahorseAdjective": "prize",
+  "questEggSeahorseMountText": "Seahorse",
+  "questEggSeahorseAdjective": "a prize",
 
   "questEggParrotText": "Parrot",
-  "questEggParrotAdjective": "vibrant",
+  "questEggParrotMountText": "Parrot",
+  "questEggParrotAdjective": "a vibrant",
 
   "questEggRoosterText": "Rooster",
-  "questEggRoosterAdjective": "strutting",
+  "questEggRoosterMountText": "Rooster",
+  "questEggRoosterAdjective": "a strutting",
 
   "questEggSpiderText": "Spider",
-  "questEggSpiderAdjective": "creepy",
+  "questEggSpiderMountText": "Spider",
+  "questEggSpiderAdjective": "a creepy",
 
   "questEggOwlText": "Owl",
-  "questEggOwlAdjective": "wise",
+  "questEggOwlMountText": "Owl",
+  "questEggOwlAdjective": "a wise",
 
   "questEggPenguinText": "Penguin",
-  "questEggPenguinAdjective": "perspicacious",
+  "questEggPenguinMountText": "Penguin",
+  "questEggPenguinAdjective": "a perspicacious",
 
   "questEggTRexText": "Tyrannosaur",
-  "questEggTRexAdjective": "tiny-armed",
+  "questEggTRexMountText": "Tyrannosaur",
+  "questEggTRexAdjective": "a tiny-armed",
 
   "questEggRockText": "Rock",
-  "questEggRockAdjective": "lively",
+  "questEggRockMountText": "Rock",
+  "questEggRockAdjective": "a lively",
 
   "questEggBunnyText": "Bunny",
-  "questEggBunnyAdjective": "snuggly",
+  "questEggBunnyMountText": "Bunny",
+  "questEggBunnyAdjective": "a snuggly",
 
   "questEggSlimeText": "Marshmallow Slime",
-  "questEggSlimeAdjective": "sweet",
+  "questEggSlimeMountText": "Marshmallow Slime",
+  "questEggSlimeAdjective": "a sweet",
 
   "questEggSheepText": "Sheep",
-  "questEggSheepAdjective": "woolly",
+  "questEggSheepMountText": "Sheep",
+  "questEggSheepAdjective": "a woolly",
 
   "questEggCuttlefishText": "Cuttlefish",
-  "questEggCuttlefishAdjective": "cuddly",
+  "questEggCuttlefishMountText": "Cuttlefish",
+  "questEggCuttlefishAdjective": "a cuddly",
 
   "questEggWhaleText": "Whale",
-  "questEggWhaleAdjective": "splashy",
+  "questEggWhaleMountText": "Whale",
+  "questEggWhaleAdjective": "a splashy",
 
   "questEggCheetahText": "Cheetah",
-  "questEggCheetahAdjective": "honest",
+  "questEggCheetahMountText": "Cheetah",
+  "questEggCheetahAdjective": "an honest",
 
-  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+  "questEggHorseText": "Horse",
+  "questEggHorseMountText": "Horse",
+  "questEggHorseAdjective": "a galloping",
+
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
   "hatchingPotionWhite": "White",
@@ -111,8 +147,10 @@
   "hatchingPotionCottonCandyPink": "Cotton Candy Pink",
   "hatchingPotionCottonCandyBlue": "Cotton Candy Blue",
   "hatchingPotionGolden": "Golden",
+  "hatchingPotionSpooky": "Spooky",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
+  "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
 
   "foodMeat": "Meat",
   "foodMilk": "Milk",

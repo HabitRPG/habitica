@@ -57,7 +57,7 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
       .col-sm-3
-        if (env.NODE_ENV == 'production' && !env.IS_MOBILE)
+        if (env.NODE_ENV === 'production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
           .addthis_toolbox.addthis_default_style(addthis:url='https://habitica.com', addthis:title=env.t('socialTitle'))
             table
@@ -66,7 +66,7 @@ footer.footer(ng-controller='FooterCtrl')
                   a.addthis_button_facebook_like(fb:like:layout='button_count')
               tr
                 td
-                  a.addthis_button_tweet(tw:via='habitica')
+                  a.twitter-share-button(href='https://twitter.com/intent/tweet?text=Improve+yourself+in+the+land+of+Habitica!&via=habitica&url=https://habitica.com/&count=none')=env.t('tweet')
               tr
                 td
                   iframe(src='/bower_components/github-buttons/github-btn.html?user=habitrpg&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
@@ -80,7 +80,8 @@ footer.footer(ng-controller='FooterCtrl')
             a.btn.btn-default(ng-click='addMissedDay(1)') +1 Missed Day
             a.btn.btn-default(ng-click='addMissedDay(2)') +2 Missed Days
             a.btn.btn-default(ng-click='addTenGems()') +10 Gems
-            a.btn.btn-default(ng-click='addGold()') +GP
+            a.btn.btn-default(ng-click='addHourglass()') +1 Mystic Hourglass
+            a.btn.btn-default(ng-click='addGold()') +500GP
             a.btn.btn-default(ng-click='addMana()') +MP
             a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP +MP
             a.btn.btn-default(ng-click='addOneLevel()') +1 Level

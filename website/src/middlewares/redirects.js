@@ -1,7 +1,7 @@
 var nconf = require('nconf');
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 var ignoreRedirect = nconf.get('IGNORE_REDIRECT');
-var BASE_URL = nconf.get("BASE_URL");
+var BASE_URL = nconf.get('BASE_URL');
 
 function isHTTP(req) {
   return (
@@ -35,7 +35,7 @@ function nonApiUrl(req) {
 
 module.exports.forceHabitica = function(req, res, next) {
   if (IS_PROD && !ignoreRedirect && !isProxied(req) && nonApiUrl(req)) {
-    return res.redirect(BASE_URL + req.url);
+    return res.redirect(301, BASE_URL + req.url);
   }
   next();
 };

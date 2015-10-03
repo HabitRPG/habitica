@@ -29,7 +29,8 @@
     "seasonalShopClosedText": "Sezónní obchod je momentálně zavřený!! Nevím, kde se momentálně Sezonní Kouzelnice nachází, ale vsadím se, že bude zpět na další <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Velkolepé Gala</a>!",
     "seasonalShopText": "Vítej v Sezonním obchodě! Zrovna tu máme jarní <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Sezonní edici</a> zboží. Všechno zde je možné zakoupit v průběhu Jarního flámu každý rok, ale máme otevřeno pouze do 30. dubna, tak si nakup teď nebo budeš muset čekat další rok!",
     "seasonalShopSummerText": "Vítej v Sezonním obchodě! Zrovna tu máme jarní <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Sezonní edici</a> zboží. Všechno zde je možné zakoupit v průběhu Letního šplouchání každý rok, ale máme otevřeno pouze do 31. července, tak si nakup teď, nebo budeš muset čekat další rok!",
-    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
+    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
+    "seasonalShopRebirth": "Pokud jsi použil Kouli znovuzrození, můžeš si znovu zakoupit toto vybavení ve sloupci s odměnami, jakmile odemkneš Obchod. Ze začátku si budeš moci koupit pouze vybavení pro tvou momentální třídu (výchozí je Válečník), ale neboj, další vybavení pro další třídy bude přístupné jakmile si tuto třídu vybereš.",
     "candycaneSet": "Cukrátková hůl (mág)",
     "skiSet": "Lyžovrah (zloděj)",
     "snowflakeSet": "Sněhová vločka (léčitel)",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "Smělý dobrodruh (Válečník)",
     "emeraldMermageSet": "Smaragdový mořský mág (Mág)",
     "reefSeahealerSet": "Útesový mořský léčitel (Léčitel)",
-    "roguishPirateSet": "Ničemný pirát (Zloděj)"
+    "roguishPirateSet": "Ničemný pirát (Zloděj)",
+    "monsterOfScienceSet": "Monster of Science (Warrior)",
+    "witchyWizardSet": "Witchy Wizard (Mage)",
+    "mummyMedicSet": "Mummy Medic (Healer)",
+    "vampireSmiterSet": "Vampire Smiter (Rogue)",
+    "fallEventAvailability": "Dostupné do 31. října"
 }

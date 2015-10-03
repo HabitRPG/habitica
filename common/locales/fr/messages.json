@@ -5,6 +5,7 @@
     "messageTagNotFound": "Étiquette non trouvée.",
     "messagePetNotFound": ":pet non trouvé dans user.items.pets",
     "messageFoodNotFound": ":food non trouvé dans user.items.food",
+    "messageNotAvailable": "Cet objet n'est actuellement pas disponible à l'achat.",
     "messageCannotFeedPet": "Vous ne pouvez pas nourrir ce familier.",
     "messageAlreadyMount": "Vous avez déjà cette monture. Essayez de nourrir un autre familier.",
     "messageEvolve": "Vous avez dompté <%= egg %>, allez faire un tour !",
@@ -14,6 +15,7 @@
     "messageEquipped": "<%= itemText %> équipé·e",
     "messageUnEquipped": "<%= itemText %> retiré·e·s.",
     "messageMissingEggPotion": "Il vous manque au choix cet œuf ou cette potion.",
+    "messageInvalidEggPotionCombo": "Vous ne pouvez pas faire éclore un Œuf de Quête avec des potions d'éclosion magiques. Essayez avec un œuf différent.",
     "messageAlreadyPet": "Vous avez déjà ce familier. Essayez de faire éclore une combinaison différente !",
     "messageHatched": "Votre œuf a éclos ! Allez voir à l’Écurie pour équiper votre familier.",
     "messageNotEnoughGold": "Pas assez d'Or",
@@ -26,7 +28,7 @@
     "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText %>\" !",
     "messageAlreadyPurchasedGear": "Vous avez acheté cet équipement auparavant mais ne le possédez actuellement pas. Vous pouvez l'acheter à nouveau dans la colonne Récompenses sur la page des tâches.",
     "messageAlreadyOwnGear": "Vous possédez déjà cet objet. Équipez le depuis la page d'équipement.",
-    "armoireEquipment": "<%= image %> Vous avez trouvé une pièce d'équipement rare dans l'Armoire: <%= dropText %>! Génial!",
-    "armoireFood": "<%= image %> Vous farfouillez dans l'Armoire et trouvez du/de la <%= dropArticle %><%= dropText %>. Qu'est-ce que ça fait là?",
-    "armoireExp": "Vous luttez contre l'Armoire et gagnez de l'Expérience. Prends ça!"
+    "armoireEquipment": "<%= image %> Vous avez trouvé une pièce d'équipement rare dans l'Armoire : <%= dropText %> ! Génial !",
+    "armoireFood": "<%= image %> Vous farfouillez dans l'Armoire et trouvez du/de la <%= dropArticle %><%= dropText %>. Qu'est-ce que ça fait là ?",
+    "armoireExp": "Vous luttez contre l'Armoire et gagnez de l'Expérience. Prends ça !"
 }

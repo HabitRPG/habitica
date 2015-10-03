@@ -1,7 +1,7 @@
 {
     "languageName": "Русский",
     "stringNotFound": "Строка '<%= string %>' не найдена.",
-    "titleIndex": "Habitica | Ваша жизнь ролевая игра",
+    "titleIndex": "Habitica | Ваша жизнь — ролевая игра",
     "habitica": "Habitica",
     "expandToolbar": "Показать панель",
     "collapseToolbar": "Скрыть панель",
@@ -91,6 +91,7 @@
     "audioTheme_danielTheBard": "Бард Даниэль",
     "audioTheme_wattsTheme": "Тема Уоттса",
     "audioTheme_gokulTheme": "Тема Гокула",
+    "audioTheme_luneFoxTheme": "Тема от LuneFox",
     "askQuestion": "Задать вопрос",
     "reportBug": "Сообщить о проблеме",
     "contributeToHRPG": "Участвовать в развитии Habitica",
@@ -121,7 +122,7 @@
     "greeting2": "`энергично машет рукой`",
     "greeting3": "Эй, вы! ",
     "greetingCardAchievementTitle": "Весельчак",
-    "greetingCardAchievementText": "Хай! Привет! Здравствуйте! Отправьте или получите <%= cards %> Приветственное письмо!",
+    "greetingCardAchievementText": "Хай! Привет! Здравствуйте! Отправлено или получено <%= cards %> Приветственных писем.",
     "thankyouCard": "Благодарственное письмо",
     "thankyouCardExplanation": "Вы оба получили достижение «Благодарный»!",
     "thankyouCardNotes": "Отправьте Благодарственное письмо члену своей команды!",
@@ -130,5 +131,5 @@
     "thankyou2": "Тысяча благодарностей!",
     "thankyou3": "Я очень признателен. Спасибо тебе!",
     "thankyouCardAchievementTitle": "Благодарный",
-    "thankyouCardAchievementText": "Спасибо за спасибо! Отправьте или получите <%= cards %> Благодарственное письмо."
+    "thankyouCardAchievementText": "Спасибо за спасибо! Отправлено или получено <%= cards %> Благодарственных писем."
 }

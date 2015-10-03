@@ -43,8 +43,8 @@
     "exportChallengeCSV": "导出为 CSV",
     "selectGroup": "请选择小组",
     "challengeCreated": "挑战创建成功",
-    "sureDelCha": "Are you sure you want to delete this challenge?",
-    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
+    "sureDelCha": "你确定要删除这个挑战吗？",
+    "sureDelChaTavern": "你确定要删除这个挑战吗？你的宝石将不会退还。",
     "removeTasks": "移除任务",
     "keepTasks": "保留任务",
     "closeCha": "关闭挑战并且……",
@@ -57,7 +57,7 @@
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> 奖励",
     "clone": "复制",
     "challengeNotEnoughGems": "你没有足够的宝石来发布这一挑战。",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "noPermissionEditChallenge": "你没有权限修改这个挑战。",
+    "noPermissionDeleteChallenge": "你没有权限删除这个挑战。",
+    "noPermissionCloseChallenge": "你没有权限关闭这个挑战。"
 }

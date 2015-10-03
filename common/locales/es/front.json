@@ -32,9 +32,9 @@
     "companyPrivacy": "Privacidad",
     "companyTerms": "Condiciones",
     "companyVideos": "Vídeos",
-    "contribUse": "Habitica contributors use",
+    "contribUse": "Los colaboradores de Habitica utilizan:",
     "dragonsilverQuote": "No puedo decir cuánto tiempo y sistemas de seguimiento de tareas he probado a lo largo de las décadas...[Habitica] es lo único que he utilizado que realmente me ayuda a terminar mis tareas más allá de simplemente listarlas.",
-    "dreimQuote": "When I discovered [Habitica] last summer, I had just failed about half of my exams. Thanks to the Dailies... I was able to organize and discipline myself, and I actually passed all my exams with really good grades a month ago.",
+    "dreimQuote": "Cuando descubrí [Habitica] el verano pasado, acababa de suspender la mitad de mis exámenes. Gracias a las tareas diarias, conseguí organizarme y tener disciplina y, hace un mes, aprobé todo.",
     "elmiQuote": "¡Cada mañana estoy deseando levantarme para ganar un poco de oro!",
     "email": "Correo Electrónico",
     "emailNewPass": "Enviar Nueva Contraseña",
@@ -107,7 +107,7 @@
     "marketing2Lead3": "<strong>Retos</strong> te permite competir con amigos y desconocidos. El que consiga los mejores resultados al final del reto gana precios especiales.",
     "marketing3Header": "Aplicaciones",
     "marketing3Lead1": "Los apps de <strong>iPhone y Android</strong> te permiten tratar tus responsabilidades inmediatamente. Ya que somos conscientes que entrar en la web solamente para clicar unos botones puede ser tedioso.",
-    "marketing3Lead2": "Other <strong>3rd Party Tools</strong> tie Habitica into various aspects of your life. Our API provides easy integration for things like the <a href='https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US' target='_blank'>Chrome Extension</a>, for which you lose points when browsing unproductive websites, and gain points when on productive ones. <a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>See more here</a>",
+    "marketing3Lead2": "Hay otras <strong>herramientas externas</strong> que vinculan Habitica a diversos aspectos de tu vida. Nuestra API facilita la integración, por ejemplo, de la <a href='https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=es-ES' target='_blank'>extensión para Chrome</a>, que hace que pierdas puntos al navegar por sitios web poco productivos y ganes puntos al visitar los que sí debes. <a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Más información, aquí</a>.",
     "marketing4Header": "Uso Organizacional",
     "marketing4Lead1": "La educación es uno de los mejores sectores para la gamificación. Todos sabemos lo enganchados que están los estudiantes a los teléfonos y a los juegos hoy en día; ¡Aprovechemos ese poder! Enfrenta a tus estudiantes en competiciones amistosas. Recompensa el buen comportamiento con premios excepcionales. Observa cómo sus notas y su comportamiento se disparan.",
     "marketing4Lead1Title": "Juegos en la Educación",
@@ -178,5 +178,6 @@
     "generalQuestionsSite": "Preguntas Generales sobre la Web",
     "businessInquiries": "Consultas de Empresas",
     "merchandiseInquiries": "Consultas de Merchandise",
-    "marketingInquiries": "Consultas de Marketing/Social Media"
+    "marketingInquiries": "Consultas de Marketing/Social Media",
+    "tweet": "Tuitear"
 }

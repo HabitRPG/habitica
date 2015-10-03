@@ -242,6 +242,12 @@
     "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
     "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
     "questCheetahBoss": "Cheetah",
-    "questCheetahDropCheetahEgg": "Cheetah (Egg)",
-    "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market"
+    "questCheetahDropCheetahEgg": "Cheetah (ei)",
+    "questCheetahUnlockText": "Maakt het kopen van cheetah eieren in de markt mogelijk",
+    "questHorseText": "Ride the Night-Mare",
+    "questHorseNotes": "While relaxing in the Tavern with @beffymaroo and @JessicaChase, the talk turns to good-natured boasting about your adventuring accomplishments. Proud of your deeds, and perhaps getting a bit carried away, you brag that you can tame any task around. A nearby stranger turns toward you and smiles. One eye twinkles as he invites you to prove your claim by riding his horse.\nAs you all head for the stables, @UncommonCriminal whispers, \"You may have bitten off more than you can chew. That's no horse - that's a Night-Mare!\" Looking at its stamping hooves, you begin to regret your words...",
+    "questHorseCompletion": "It takes all your skill, but finally the horse stamps a couple of hooves and nuzzles you in the shoulder before allowing you to mount. You ride briefly but proudly around the Tavern grounds while your friends cheer. The stranger breaks into a broad grin.\n\"I can see that was no idle boast! Your determination is truly impressive. Take these eggs to raise horses of your own, and perhaps we'll meet again one day.\" You take the eggs, the stranger tips his hat... and vanishes.",
+    "questHorseBoss": "Night-Mare",
+    "questHorseDropHorseEgg": "Horse (Egg)",
+    "questHorseUnlockText": "Unlocks purchasable Horse eggs in the Market"
 }

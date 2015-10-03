@@ -26,6 +26,16 @@ describe('count', function() {
       expect(beastMasterTotal).to.eql(1);
     });
 
+    it('does not count pets hatched with premium potions', function() {
+      var pets = { 
+        "Wolf-Spooky": 5, 
+        "Dragon-Spooky": 5, 
+        "FlyingPig-Base": 5
+      }
+      var beastMasterTotal = count.beastMasterProgress(pets);
+      expect(beastMasterTotal).to.eql(1);
+    });
+
     it('does not count special pets', function() {
       var pets = {
         "Wolf-Base": 2,
@@ -63,6 +73,15 @@ describe('count', function() {
       var mounts = { "Dragon-Red": true, "Wolf-Base": true };
       var mountMasterTotal = count.mountMasterProgress(mounts);
       expect(mountMasterTotal).to.eql(2);
+    });
+
+    it('does not count premium mounts', function() {
+      var mounts = {
+        "Dragon-Red": true,
+        "FlyingPig-Spooky": true
+      }
+      var mountMasterTotal = count.mountMasterProgress(mounts);
+      expect(mountMasterTotal).to.eql(1);
     });
 
     it('does not count quest mounts', function() {
@@ -152,6 +171,25 @@ describe('count', function() {
       };
       var dropPets = count.dropPetsCurrentlyOwned(pets);
       expect(dropPets).to.eql(2);
+    });
+  });
+
+  describe('questsOfCategory', function() {
+
+    it('counts user quest scrolls of a particular category', function() {
+      var quests = {
+        "atom1": 2,
+        "whale": 4,
+        "kraken": 2,
+        "sheep": 1,
+        "goldenknight2": 1
+      };
+      var petQuestCount = count.questsOfCategory(quests, 'pet');
+      var unlockableQuestCount = count.questsOfCategory(quests, 'unlockable');
+      var goldQuestCount = count.questsOfCategory(quests, 'gold');
+      expect(petQuestCount).to.eql(3);
+      expect(unlockableQuestCount).to.eql(2);
+      expect(goldQuestCount).to.eql(0);
     });
   });
 });

@@ -210,7 +210,7 @@
     "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
     "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market",
     "questWhaleText": "Wail of the Whale",
-    "questWhaleNotes": "You arrive at the Diligent Docks, hoping to take a submarine to watch the Dilatory Derby. Suddenly, a deafening bellow forces you to stop and cover your ears. \"Thar she blows!\" cries Captain @krazjega, pointing to a huge, wailing whale. \"It's not safe to send out the submarines while she's thrashing around!\"<br><br>\"Quick,\" calls @UncommonCriminal. \"Help me calm the poor creature so we can figure out why she's making all this noise!\"",
+    "questWhaleNotes": "你到達勤勉碼頭，希望能搭潛水艇前往觀看Dilatory Derby。突然，一聲震耳欲聾的咆嘯直竄耳膜並逼迫你停了下來。\"Thar 她噴水了!\" 船長 @krazjega 尖叫，並指向一隻哀號中的巨大的鯨魚。\"我們不能在她失去控制亂撞時發送潛水艇，這樣太危險了!\"<br><br>\"快點\"@UncommonCriminal 大喊。\"先幫我鎮定那隻可憐的動物，我們才能了解為什麼她一直嚎叫!\"",
     "questWhaleBoss": "Wailing Whale",
     "questWhaleCompletion": "After much hard work, the whale finally ceases her thunderous cry. \"Looks like she was drowning in waves of negative habits,\" @zoebeagle explains. \"Thanks to your consistent effort, we were able to turn the tides!\" As you step into the submarine, several whale eggs bob towards you, and you scoop them up.",
     "questWhaleDropWhaleEgg": "Whale (Egg)",
@@ -223,7 +223,7 @@
     "questDilatoryDistress1DropArmor": "Finned Oceanic Armor (Armor)",
     "questDilatoryDistress2Text": "Dilatory Distress, Part 2: Creatures of the Crevasse",
     "questDilatoryDistress2Notes": "The siege can be seen from miles away: thousands of disembodied skulls rushing through a portal in the crevasse walls and making their way towards Dilatory.<br><br>When you meet King Manta in his war room, his eyes seem sunken, and his face is worried. \"My daughter Adva disappeared into the Dark Crevasse just before this siege began. Please find her and bring her back home safely! I will lend you my Fire Coral Circlet to aid you. If you succeed, it is yours.\"",
-    "questDilatoryDistress2Completion": "You vanquish the nightmarish horde of skulls, but you feel no closer to finding Adva. You speak to @Kiwibot, the royal tracker, to see if she has any ideas. \"The mantis shrimps that defend the city must have seen Adva escape,\" @Kiwibot says. \"Try following them into the Dark Crevasse.\"",
+    "questDilatoryDistress2Completion": "你擊敗了這群夢魘般的骷髏，但是你感覺距離找到Adva仍然遙遙無期。於是你向皇家追蹤者@Kiwibot詢問是否有任何頭緒。\"守護城市的蝦蛄們一定有看到Adva逃跑，\"試著跟著牠們去 Dark Crevasse吧。\"@Kiwibot說。",
     "questDilatoryDistress2Boss": "Water Skull Swarm",
     "questDilatoryDistress2RageTitle": "Swarm Respawn",
     "questDilatoryDistress2RageDescription": "Swarm Respawn: This bar fills when you don't complete your Dailies. When it is full, the Water Skull Swarm will heal 30% of its remaining health!",
@@ -241,7 +241,13 @@
     "questCheetahText": "Such a Cheetah",
     "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
     "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
-    "questCheetahBoss": "Cheetah",
+    "questCheetahBoss": "獵豹",
     "questCheetahDropCheetahEgg": "Cheetah (Egg)",
-    "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market"
+    "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market",
+    "questHorseText": "Ride the Night-Mare",
+    "questHorseNotes": "While relaxing in the Tavern with @beffymaroo and @JessicaChase, the talk turns to good-natured boasting about your adventuring accomplishments. Proud of your deeds, and perhaps getting a bit carried away, you brag that you can tame any task around. A nearby stranger turns toward you and smiles. One eye twinkles as he invites you to prove your claim by riding his horse.\nAs you all head for the stables, @UncommonCriminal whispers, \"You may have bitten off more than you can chew. That's no horse - that's a Night-Mare!\" Looking at its stamping hooves, you begin to regret your words...",
+    "questHorseCompletion": "It takes all your skill, but finally the horse stamps a couple of hooves and nuzzles you in the shoulder before allowing you to mount. You ride briefly but proudly around the Tavern grounds while your friends cheer. The stranger breaks into a broad grin.\n\"I can see that was no idle boast! Your determination is truly impressive. Take these eggs to raise horses of your own, and perhaps we'll meet again one day.\" You take the eggs, the stranger tips his hat... and vanishes.",
+    "questHorseBoss": "Night-Mare",
+    "questHorseDropHorseEgg": "Horse (Egg)",
+    "questHorseUnlockText": "Unlocks purchasable Horse eggs in the Market"
 }

@@ -11,7 +11,7 @@ describe "Guilds", ->
       registerNewUser ->
         User.findByIdAndUpdate user._id,
           $set:
-            "balance": 10
+            "balance": 40
           , (err, _user) ->
             done()
       , true
@@ -150,8 +150,122 @@ describe "Guilds", ->
           expectCode res, 204
           done()
 
+    it "deletes a group when the last member leaves", (done) ->
+      groupToDeleteAfterLeave = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGroupToDeleteAfteLeave"
+        type: "guild"
+        privacy: "private"
+      ).end (res) ->
+        groupToDeleteAfterLeave = res.body
+        async.waterfall [
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id + "/leave")
+            .end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id)
+            .end (res) ->
+              expectCode res, 404
+              cb()
+        ], done
+
+    it "deletes all invites to a group (guild) when the last member leaves", (done) ->
+      groupToDeleteAfterLeave = undefined
+      userToRemoveInvite = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGroupToDeleteAfterLeave"
+        type: "guild"
+        privacy: "private"
+      ).end (res) ->
+        groupToDeleteAfterLeave = res.body
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToRemoveInvite = _members[0]
+            inviteURL = baseURL + "/groups/" + groupToDeleteAfterLeave._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToRemoveInvite._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id + "/leave")
+            .end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.get(baseURL + '/user')
+              .set("X-API-User", userToRemoveInvite._id)
+              .set("X-API-Key", userToRemoveInvite.apiToken)
+              .end (err, res) ->
+                expectCode res, 200
+                groupInvitation = _.find(res.body.invitations.guilds, {id: groupToDeleteAfterLeave._id})
+                expect(groupInvitation).to.not.exist
+                cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id)
+            .end (res) ->
+              expectCode res, 404
+              cb()
+        ], done
+
+    it "deletes all invites to a group (party) when the last member leaves", (done) ->
+      partyToDeleteAfterLeave = undefined
+      userToRemovePartyInvite = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestPartyToDeleteAfterLeave"
+        type: "party"
+      ).end (res) ->
+        partyToDeleteAfterLeave = res.body
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToRemovePartyInvite = _members[0]
+            inviteURL = baseURL + "/groups/" + partyToDeleteAfterLeave._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToRemovePartyInvite._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + partyToDeleteAfterLeave._id + "/leave")
+            .end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.get(baseURL + '/user')
+              .set("X-API-User", userToRemovePartyInvite._id)
+              .set("X-API-Key", userToRemovePartyInvite.apiToken)
+              .end (err, res) ->
+                expectCode res, 200
+                party = partyToDeleteAfterLeave
+                partyInvitation = _.find(res.body.invitations.party, (invite) ->
+                  return invite == party._id
+                )
+                expect(partyInvitation).to.not.exist
+                cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + partyToDeleteAfterLeave._id)
+            .end (res) ->
+              expectCode res, 404
+              cb()
+        ], done
+
   context "removing users groups", ->
-    it "allows guild leaders to remove a member", (done) ->
+    it "allows guild leaders to remove a member (but not themselves)", (done) ->
       guildToRemoveMember = undefined
       members = undefined
       userToRemove = undefined
@@ -181,6 +295,11 @@ describe "Guilds", ->
               .set("X-API-Key", userToRemove.apiToken)
               .end (res) ->
                 cb()
+          (cb) ->
+            request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + guildToRemoveMember.leader)
+            .send().end (res) ->
+              expectCode res, 401
+              cb()
 
           (cb) ->
             request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + userToRemove._id)
@@ -249,7 +368,6 @@ describe "Guilds", ->
             done()
 
   describe "Public Guilds", ->
-    guild = undefined
     before (done) ->
       async.waterfall [
         (cb) ->
@@ -257,62 +375,126 @@ describe "Guilds", ->
             User.findByIdAndUpdate user._id, {$set: { "balance": 10 } }, (err, _user) ->
               cb()
           , true
-        (cb) ->
-          request.post(baseURL + "/groups").send(
-            name: "TestPublicGroup"
-            type: "guild"
-            privacy: "public"
-          ).end (res) ->
-            guild = res.body
-            expect(guild.members.length).to.equal 1
-            expect(guild.leader).to.equal user._id
-            #Add members to guild
-            cb()
-
-        (cb) ->
-          registerManyUsers 15, cb
-
-        (_members, cb) ->
-          members = _members
-
-          joinGuild = (member, callback) ->
-            request.post(baseURL + "/groups/" + guild._id + "/join")
-              .set("X-API-User", member._id)
-              .set("X-API-Key", member.apiToken)
-              .end ->
-                callback(null, null)
-
-          async.map members, joinGuild, (err, results) -> cb()
-
       ], done
 
-    context "is a member", ->
+    context "joining groups", ->
+      it "makes user a group leader when group is empty", (done) ->
+        guildToEmptyAndAssignLeader = undefined
+        members = undefined
+        userToBecomeLeader = undefined
+        request.post(baseURL + "/groups").send(
+          name: "TestGuildToEmptyAndAssignLeader"
+          type: "guild",
+          privacy: "public"
+        ).end (res) ->
+          guildToEmptyAndAssignLeader = res.body
+          #Add members to guild
+          async.waterfall [
+            (cb) ->
+              registerManyUsers 1, cb
+
+            (_members, cb) ->
+              userToBecomeLeader = _members[0]
+              members = _members
+              inviteURL = baseURL + "/groups/" + guildToEmptyAndAssignLeader._id + "/invite"
+              request.post(inviteURL).send(
+                uuids: [userToBecomeLeader._id]
+              )
+              .end ->
+                cb()
+
+            (cb) ->
+              request.post(baseURL + "/groups/" + guildToEmptyAndAssignLeader._id + "/leave")
+                .send()
+                .end (res) ->
+                  expectCode res, 204
+                  cb()
+
+            (cb) ->
+              request.post(baseURL + "/groups/" + guildToEmptyAndAssignLeader._id + "/join")
+                .set("X-API-User", userToBecomeLeader._id)
+                .set("X-API-Key", userToBecomeLeader.apiToken)
+                .end (res) ->
+                  expectCode res, 200
+                  cb()
+
+            (cb) ->
+              request.get(baseURL + "/groups/" + guildToEmptyAndAssignLeader._id)
+              .set("X-API-User", userToBecomeLeader._id)
+              .set("X-API-Key", userToBecomeLeader.apiToken)
+              .send()
+              .end (res) ->
+                expectCode res, 200
+                g = res.body
+                expect(g.leader._id).to.equal(userToBecomeLeader._id)
+                cb()
+
+          ], done
+
+    context "viewing", ->
+      guild = undefined
       before (done) ->
-        registerNewUser ->
-          request.post(baseURL + "/groups/" + guild._id + "/join")
-            .end (res)->
+        async.waterfall [
+          (cb) ->
+            registerNewUser ->
+              User.findByIdAndUpdate user._id, {$set: { "balance": 10 } }, (err, _user) ->
+                cb()
+            , true
+          (cb) ->
+            request.post(baseURL + "/groups").send(
+              name: "TestPublicGroup"
+              type: "guild"
+              privacy: "public"
+            ).end (res) ->
+              guild = res.body
+              expect(guild.members.length).to.equal 1
+              expect(guild.leader).to.equal user._id
+              #Add members to guild
+              cb()
+
+          (cb) ->
+            registerManyUsers 15, cb
+
+          (_members, cb) ->
+            members = _members
+
+            joinGuild = (member, callback) ->
+              request.post(baseURL + "/groups/" + guild._id + "/join")
+                .set("X-API-User", member._id)
+                .set("X-API-Key", member.apiToken)
+                .end ->
+                  callback(null, null)
+
+            async.map members, joinGuild, (err, results) -> cb()
+
+        ], done
+
+      context "is a member", ->
+        before (done) ->
+          registerNewUser ->
+            request.post(baseURL + "/groups/" + guild._id + "/join")
+              .end (res)->
+                done()
+          , true
+
+        it "includes user in public group member list", (done) ->
+          request.get(baseURL + "/groups/" + guild._id)
+            .end (res) ->
+              g = res.body
+              expect(g.members.length).to.equal 15
+              userInGroup = _.find g.members, (member) -> return member._id == user._id
+              expect(userInGroup).to.exist
               done()
-        , true
 
-      it "includes user in public group member list", (done) ->
-        request.get(baseURL + "/groups/" + guild._id)
-          .end (res) ->
-            g = res.body
-            expect(g.members.length).to.equal 15
-            userInGroup = _.find g.members, (member) -> return member._id == user._id
-            expect(userInGroup).to.exist
-            done()
+      context "is not a member", ->
+        before (done) ->
+          registerNewUser done, true
 
-
-    context "is not a member", ->
-      before (done) ->
-        registerNewUser done, true
-
-      it "excludes user in public group member list", (done) ->
-        request.get(baseURL + "/groups/" + guild._id)
-          .end (res) ->
-            g = res.body
-            expect(g.members.length).to.equal 15
-            userInGroup = _.find g.members, (member) -> return member._id == user._id
-            expect(userInGroup).to.not.exist
-            done()
+        it "excludes user in public group member list", (done) ->
+          request.get(baseURL + "/groups/" + guild._id)
+            .end (res) ->
+              g = res.body
+              expect(g.members.length).to.equal 15
+              userInGroup = _.find g.members, (member) -> return member._id == user._id
+              expect(userInGroup).to.not.exist
+              done()

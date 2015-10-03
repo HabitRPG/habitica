@@ -238,10 +238,16 @@
     "questDilatoryDistress3DropFish": "Ryba (jedzenie)",
     "questDilatoryDistress3DropWeapon": "Trójząb miażdżących fal (broń)",
     "questDilatoryDistress3DropShield": "Tarcza z księżycowych pereł (tarcza)",
-    "questCheetahText": "Such a Cheetah",
+    "questCheetahText": "Taki gepard",
     "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
     "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
-    "questCheetahBoss": "Cheetah",
-    "questCheetahDropCheetahEgg": "Cheetah (Egg)",
-    "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market"
+    "questCheetahBoss": "Gepard",
+    "questCheetahDropCheetahEgg": "Gepard (jajo)",
+    "questCheetahUnlockText": "Odblokowuje dostęp do kupna gepardzich jaj na Targu",
+    "questHorseText": "Ujeżdżaj Konia-Marę",
+    "questHorseNotes": "Podczas relaksowania się w Tawernie z @beffymaroo i @JessicaChase, rozmowa schodzi na przechwałki o swoich dokonaniach podczas przygód. Dumny ze czynów, ale pewnie też trochę poniesiony emocjami, chełpisz się że potrafisz poskromić każde zadanie w okolicy. Przysłuchujący się nieznajomy zwraca się w twoim kierunku i uśmiecha się. Mrugając jednym okiem zachęca cię abyś dowiódł swego poprzez ujeżdżanie jego konia.\nKiedy kierowaliście się do stajni @UncommonCriminal szepcze, \"Być może ugryzłeś więcej niż jesteś w stanie przełknąć. To nie jest zwykły koń - to Koń-Mara!\" Patrząc jak depcze kopytami, zaczynasz żałować swoich słów...",
+    "questHorseCompletion": "Wymagało to całej twojej wprawy, ale w końcu koń uderza parę razy kopytami i popycha cię nosem w ramię zanim pozwala ci się dosiąść. Jedziesz krótko, ale dumnie wokół Tawerny podczas twoi przyjaciele wiwatują. Nieznajomy uśmiecha się szeroko.\n\"Widzę że nie były to czcze przechwałki! Twoja determinacja jest na prawdę imponujące. Weź te jajka aby wychować własne konie, a może kiedyś znów się spotkamy.\" Przyjmujesz jajka, nieznajomy uchyla kapelusza... i znika.",
+    "questHorseBoss": "Koń-Mara",
+    "questHorseDropHorseEgg": "Koń (jajo)",
+    "questHorseUnlockText": "Odblokowuje dostęp do kupna końskich jaj na Targu"
 }

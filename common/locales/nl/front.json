@@ -34,7 +34,7 @@
     "companyVideos": "Video's",
     "contribUse": "Tools die worden gebruikt om aan Habitica bij te dragen",
     "dragonsilverQuote": "Je wil niet weten hoeveel tijd- en taakmanagementprogramma's ik al heb geprobeerd over de jaren... [Habitica] is de enige die ik heb gebruikt die daadwerkelijk helpt om dingen gedaan te krijgen en niet alleen alles op een lijstje te zetten.",
-    "dreimQuote": "When I discovered [Habitica] last summer, I had just failed about half of my exams. Thanks to the Dailies... I was able to organize and discipline myself, and I actually passed all my exams with really good grades a month ago.",
+    "dreimQuote": "Toen ik [Habitica] afgelopen zomer ontdekte, was ik net gezakt voor de helft van mijn examens. Dankzij de dagelijkse taken kon ik mezelf discipline aanleren, zo ben ik een maand geleden daadwerkelijk voor al mijn examens geslaagd met heel goede cijfers.",
     "elmiQuote": "Elke ochtend heb ik zin om ' s ochtends op te staan zodat ik wat goud kan verdienen!",
     "email": "E-mail",
     "emailNewPass": "Nieuw wachtwoord e-mailen",
@@ -160,7 +160,7 @@
     "tasks": "Taken",
     "teamSample1": "Vergaderagenda opstellen voor dinsdag",
     "teamSample2": "Brainstormen over growth hacking",
-    "teamSample3": "Discuss this week's KPIs",
+    "teamSample3": "KPIs discussie van de week",
     "teams": "Teams",
     "terms": "algemene voorwaarden",
     "testimonialHeading": "Wat mensen zeggen...",
@@ -178,5 +178,6 @@
     "generalQuestionsSite": "Algemene vragen over de site",
     "businessInquiries": "Zakelijke aanvragen",
     "merchandiseInquiries": "Vragen over merchandise",
-    "marketingInquiries": "Vragen over marketing/social media"
+    "marketingInquiries": "Vragen over marketing/social media",
+    "tweet": "Tweet"
 }

@@ -13,11 +13,33 @@ habitrpg.controller("InventoryCtrl",
 
     // Functions from Quests service
     $scope.lockQuest = Quests.lockQuest;
-    $scope.buyQuest = Quests.buyQuest;
+
+    $scope.buyQuest = function(questScroll) {
+      Quests.buyQuest(questScroll)
+        .then(function(quest) {
+          $rootScope.selectedQuest = quest;
+          $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
+        });
+    };
+
     $scope.questPopover = Quests.questPopover;
-    $scope.showQuest = Quests.showQuest;
-    $scope.closeQuest = Quests.closeQuest;
-    $scope.questInit = Quests.questInit;
+
+    $scope.showQuest = function(questScroll) {
+      Quests.showQuest(questScroll)
+        .then(function(quest) {
+          $rootScope.selectedQuest = quest;
+          $rootScope.openModal('showQuest', {controller:'InventoryCtrl'});
+        });
+    };
+
+    $scope.questInit = function() {
+      var key = $rootScope.selectedQuest.key;
+
+      Quests.initQuest(key).then(function() {
+        $rootScope.selectedQuest = undefined;
+        $scope.$close();
+      });
+    };
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
@@ -238,6 +260,35 @@ habitrpg.controller("InventoryCtrl",
       $rootScope.openModal('cards', {
         scope: cardsModalScope
       });
+    };
+
+    $scope.hasAllTimeTravelerItems = function() {
+      return ($scope.hasAllTimeTravelerItemsOfType('mystery') &&
+        $scope.hasAllTimeTravelerItemsOfType('pets') &&
+        $scope.hasAllTimeTravelerItemsOfType('mounts'));
+    };
+
+    $scope.hasAllTimeTravelerItemsOfType = function(type) {
+      if (type === 'mystery') {
+        var itemsLeftInTimeTravelerStore = Content.timeTravelerStore(user.items.gear.owned);
+        var keys = Object.keys(itemsLeftInTimeTravelerStore);
+
+        return keys.length === 0;
+      }
+
+      if (type === 'pets' || type === 'mounts') {
+        for (var key in Content.timeTravelStable[type]) {
+          if (!user.items[type][key]) return false;
+        }
+        return true;
+      }
+      else return Console.log('Time Traveler item type must be in ["pets","mounts","mystery"]');
+    };
+
+    $scope.clickTimeTravelItem = function(type,key) {
+      if (user.purchased.plan.consecutive.trinkets < 1) return user.ops.hourglassPurchase({params:{type:type,key:key}});
+      if (!window.confirm(window.env.t('hourglassBuyItemConfirm'))) return;
+      user.ops.hourglassPurchase({params:{type:type,key:key}});
     };
 
     function _updateDropAnimalCount(items) {

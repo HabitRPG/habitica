@@ -39,10 +39,8 @@
         "accessKeyId":"accessKeyId",
         "secretAccessKey":"secretAccessKey"
     },
-    "TRANSIFEX_SLACK": {
-      "url": "https://hooks.slack.com/services/some-url",
-      "channel": "general"
-    },
+    "SLACK_URL": "https://hooks.slack.com/services/some-url",
+    "TRANSIFEX_SLACK_CHANNEL": "transifex",
     "PAYPAL":{
         "billing_plans": {
             "basic_earned":"basic_earned",
@@ -69,5 +67,10 @@
           "KEY": "key.pem",
           "CERT": "cert.pem"
         }
+    },
+    "FIREBASE": {
+        "APP": "app-name",
+        "SECRET": "secret",
+        "ENABLED": "false"
     }
 }

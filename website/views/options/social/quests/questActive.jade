@@ -1,4 +1,4 @@
-div(ng-if='group.quest.active==true')
+div(ng-if='group.quest.active===true')
   unless tavern
     tabset
       tab(heading=env.t('questDetails'))
@@ -20,5 +20,7 @@ div(ng-if='group.quest.active==true')
   include ./ianQuestInfo
 
   unless tavern
-    button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group))', 
-      ng-click='questAbort(party)')=env.t('abort')
+    button.btn.btn-sm.btn-warning(ng-if='::canEditQuest(party)',
+      ng-click='questAbort()')=env.t('abort')
+    button.btn.btn-sm.btn-warning(ng-if='!(group.quest.leader && group.quest.leader === user._id) && isMemberOfRunningQuest(user._id,group)',
+      ng-click='questLeave()')=env.t('leaveQuest')

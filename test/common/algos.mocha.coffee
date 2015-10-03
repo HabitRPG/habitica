@@ -490,40 +490,45 @@ describe 'User', ->
 
   describe 'drop system', ->
     user = null
+    MIN_RANGE_FOR_POTION = 0
+    MAX_RANGE_FOR_POTION = .3
+    MIN_RANGE_FOR_EGG = .4
+    MAX_RANGE_FOR_EGG = .6
+    MIN_RANGE_FOR_FOOD = .7
+    MAX_RANGE_FOR_FOOD = 1
 
     beforeEach ->
       user = newUser()
       user.flags.dropsEnabled = true
-      # too many predictableRandom calls to stub, let's return the last element
-      sinon.stub(user.fns, 'randomVal', (obj)->
-        result = undefined
-        for key, val of obj
-          result = val
-        result
-      )
       @task_id = shared.uuid()
       user.ops.addTask({body: {type: 'daily', id: @task_id}})
 
-    it 'gets a golden potion', ->
-      sinon.stub(user.fns, 'predictableRandom').returns 0
-      user.ops.score {params: { id: @task_id, direction: 'up'}}
-      expect(user.items.eggs).to.eql {}
-      expect(user.items.hatchingPotions).to.eql {'Golden': 1}
-      expect(user.items.food).to.eql {}
+    it 'drops a hatching potion', ->
+      for random in [MIN_RANGE_FOR_POTION..MAX_RANGE_FOR_POTION] by .1
+        sinon.stub(user.fns, 'predictableRandom').returns random
+        user.ops.score {params: { id: @task_id, direction: 'up'}}
+        expect(user.items.eggs).to.be.empty
+        expect(user.items.hatchingPotions).to.not.be.empty
+        expect(user.items.food).to.be.empty
+        user.fns.predictableRandom.restore()
 
-    it 'gets a bear cub egg', ->
-      sinon.stub(user.fns, 'predictableRandom', cycle [0, 0, 0.55])
-      user.ops.score {params: { id: @task_id, direction: 'up'}}
-      expect(user.items.eggs).to.eql {'BearCub': 1}
-      expect(user.items.hatchingPotions).to.eql {}
-      expect(user.items.food).to.eql {}
+    it 'drops a pet egg', ->
+      for random in [MIN_RANGE_FOR_EGG..MAX_RANGE_FOR_EGG] by .1
+        sinon.stub(user.fns, 'predictableRandom').returns random
+        user.ops.score {params: { id: @task_id, direction: 'up'}}
+        expect(user.items.eggs).to.not.be.empty
+        expect(user.items.hatchingPotions).to.be.empty
+        expect(user.items.food).to.be.empty
+        user.fns.predictableRandom.restore()
 
-    it 'gets honey', ->
-      sinon.stub(user.fns, 'predictableRandom', cycle [0, 0, 0.9])
-      user.ops.score {params: { id: @task_id, direction: 'up'}}
-      expect(user.items.eggs).to.eql {}
-      expect(user.items.hatchingPotions).to.eql {}
-      expect(user.items.food).to.eql {'Honey': 1}
+    it 'drops food', ->
+      for random in [MIN_RANGE_FOR_FOOD..MAX_RANGE_FOR_FOOD] by .1
+        sinon.stub(user.fns, 'predictableRandom').returns random
+        user.ops.score {params: { id: @task_id, direction: 'up'}}
+        expect(user.items.eggs).to.be.empty
+        expect(user.items.hatchingPotions).to.be.empty
+        expect(user.items.food).to.not.be.empty
+        user.fns.predictableRandom.restore()
 
     it 'does not get a drop', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0.5
@@ -531,9 +536,6 @@ describe 'User', ->
       expect(user.items.eggs).to.eql {}
       expect(user.items.hatchingPotions).to.eql {}
       expect(user.items.food).to.eql {}
-
-    afterEach ->
-      user.fns.randomVal.restore()
       user.fns.predictableRandom.restore()
 
   describe 'Quests', ->
@@ -542,7 +544,7 @@ describe 'User', ->
         expect(quest.notes()).to.be.an('string')
         expect(quest.completion()).to.be.an('string') if quest.completion
         expect(quest.previous).to.be.an('string') if quest.previous
-        expect(quest.value).to.be.greaterThan 0 if quest.canBuy
+        expect(quest.value).to.be.greaterThan 0 if quest.canBuy()
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
         expect(quest.category).to.match(/pet|unlockable|gold|world/)

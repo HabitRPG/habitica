@@ -1,10 +1,15 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var User = require('./user').model;
 var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
 var logging = require('../logging');
+var Challenge = require('./../models/challenge').model;
+var firebase = require('../libs/firebase');
 
+// NOTE any change to groups' members in MongoDB will have to be run through the API
+// changes made directly to the db will cause Firebase to get out of sync
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
   name: String,
@@ -79,6 +84,38 @@ GroupSchema.pre('save', function(next){
   this.challengeCount = _.size(this.challenges);
   next();
 })
+
+GroupSchema.pre('remove', function(next) {
+  var group = this;
+  async.waterfall([
+    function(cb) {
+      var invitationQuery = {};
+      var groupType = group.type;
+      //Add an 's' to group type guild because the model has the plural version
+      if (group.type == "guild") groupType += "s";
+      invitationQuery['invitations.' + groupType + '.id'] = group._id;
+      User.find(invitationQuery, cb);
+    },
+    function(users, cb) {
+      if (users) {
+        users.forEach(function (user, index, array) {
+          if ( group.type == "party" ) {
+            user.invitations.party = {};
+          } else {
+            var i = _.findIndex(user.invitations.guilds, {id: group._id});
+            user.invitations.guilds.splice(i, 1);
+          }
+          user.save();
+        });
+      }
+      cb();
+    }
+  ], next);
+});
+
+GroupSchema.post('remove', function(group) {
+  firebase.deleteGroup(group._id);
+});
 
 GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
@@ -239,7 +276,8 @@ process.nextTick(function(){
     // Using _assign so we don't lose the reference to the exported tavern
     _.assign(module.exports.tavern, tavern);
   });
-})
+});
+
 GroupSchema.statics.tavernBoss = function(user,progress) {
   if (!progress) return;
 
@@ -342,6 +380,94 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
   })
 }
 
+// Remove user from this group
+GroupSchema.methods.leave = function(user, keep, mainCb){
+  if(!user) return mainCb(new Error('Missing user.'));
+
+  if(keep && typeof keep === 'function'){
+    mainCb = keep;
+    keep = null;
+  }
+  if(typeof keep !== 'string') keep = 'keep-all'; // can be also 'remove-all'
+
+  var group = this;
+
+  async.parallel([
+    // Remove user from group challenges
+    function(cb){
+      async.waterfall([
+        // Find relevant challenges
+        function(cb2) {
+          Challenge.find({
+            _id: {$in: user.challenges}, // Challenges I am in
+            group: group._id // that belong to the group I am leaving
+          }, cb2);
+        },
+
+        // Update each challenge
+        function(challenges, cb2) {
+          Challenge.update(
+            {_id: {$in: _.pluck(challenges, '_id')}},
+            {$pull: {members: user._id}},
+            {multi: true},
+            function(err) {
+             cb2(err, challenges); // pass `challenges` above to cb
+            }
+          );
+        },
+
+        // Unlink the challenge tasks from user
+        function(challenges, cb2) {
+          async.waterfall(challenges.map(function(chal) {
+            return function(cb3) {
+              var i = user.challenges.indexOf(chal._id)
+              if (~i) user.challenges.splice(i,1);
+              user.unlink({cid: chal._id, keep: keep}, cb3);
+            }
+          }), cb2);
+        }
+      ], cb);
+    },
+
+    // Update the group
+    function(cb){
+      // If user is the last one in group and group is private, delete it
+      if(group.members.length === 1 && (
+          group.type === 'party' ||
+          (group.type === 'guild' && group.privacy === 'private')
+      )){
+        group.remove(cb)
+      }else{ // otherwise just remove a member
+        var update = {$pull: {members: user._id}};
+
+        // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+        var leader = group.leader;
+
+        if(leader == user._id || !~group.members.indexOf(leader)){
+          var seniorMember = _.find(group.members, function (m) {return m != user._id});
+
+          // could not exist in case of public guild with 1 member who is leaving
+          if(seniorMember){
+            if (leader == user._id || !~group.members.indexOf(leader)) {
+              update['$set'] = update['$set'] || {};
+              update['$set'].leader = seniorMember;
+            }
+          }
+        }
+
+        update['$inc'] = {memberCount: -1};
+        Group.update({_id: group._id}, update, cb);
+      }
+    }
+  ], function(err){
+    if(err) return mainCb(err);
+
+    firebase.removeUserFromGroup(group._id, user._id);
+    return mainCb();
+  });
+};
+
+
 GroupSchema.methods.toJSON = function() {
   var doc = this.toObject();
   if(doc.chat){
@@ -358,14 +484,15 @@ module.exports.schema = GroupSchema;
 var Group = module.exports.model = mongoose.model("Group", GroupSchema);
 
 // initialize tavern if !exists (fresh installs)
-Group.count({_id:'habitrpg'},function(err,ct){
+Group.count({_id: 'habitrpg'}, function(err, ct){
   if (ct > 0) return;
+
   new Group({
     _id: 'habitrpg',
     chat: [],
     leader: '9',
     name: 'HabitRPG',
     type: 'guild',
-    privacy:'public'
+    privacy: 'public'
   }).save();
-})
+});

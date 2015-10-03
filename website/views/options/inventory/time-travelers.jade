@@ -1,29 +1,38 @@
 .container-fluid
-  .stable.row(ng-if='user.purchased.plan.consecutive.trinkets <= 0'): .col-xs-12
-    .npc_timetravelers.pull-left-sm.col-centered
+  .stable.row: .col-xs-12
+    - var hasTrinkets = 'user.purchased.plan.consecutive.trinkets > 0'
+    .pull-left-sm.col-centered(ng-class='#{hasTrinkets} ? "npc_timetravelers_active" : "npc_timetravelers"')
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
-      h3.popover-title!=env.t('timeTravelersTitleNoSub', {linkStartTyler: "<a href='https://github.com/lefnire' target='_blank'>", linkStartVicky: "<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
-      .popover-content
+      h3.popover-title(ng-if='#{hasTrinkets}')=env.t('timeTravelersTitle')
+      h3.popover-title(ng-if='!(#{hasTrinkets})')!=env.t('timeTravelersTitleNoSub', {linkStartTyler: "<a href='https://github.com/lefnire' target='_blank'>", linkStartVicky: "<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+      .popover-content(ng-if='!(#{hasTrinkets})')
         p!=env.t('timeTravelersPopoverNoSub', {linkStart: "<a href='https://habitica.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"})
-
-  .stable.row(ng-if='user.purchased.plan.consecutive.trinkets > 0'): .col-xs-12
-    .npc_timetravelers_active.pull-left-sm.col-centered
-    .popover.static-popover.fade.right.in.pull-left-sm.col-centered
-      .arrow.hidden-xs
-      h3.popover-title=env.t('timeTravelersTitle')
-      .popover-content
+      .popover-content(ng-if='#{hasTrinkets}')
         .pull-right
           span.inventory_special_trinket.inline-gems
           b x{{user.purchased.plan.consecutive.trinkets}}
         p!=env.t('timeTravelersPopover', {linkStart: "<a href='http://habitica.wikia.com/wiki/Mystery_Item' target='_blank'>", linkEnd: "</a>"})
 
-  .row: .col-md-12
-    li.customize-menu.inventory-gear
-      menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
-        div(ng-repeat='item in set.items')
-          button.customize-option(class='shop_{{::item.key}}',
-            popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
-            popover-trigger='mouseenter', popover-placement='right',
-            popover-append-to-body='true',
-            ng-click='user.ops.buyMysterySet({params:{key:set.key}})')
+  .row: .col-md-7
+    .alert.alert-info(ng-if='hasAllTimeTravelerItems()')=env.t('timeTravelersAlreadyOwned')
+
+  .row
+    .col-md-12
+      li.customize-menu.inventory-gear
+        each prepend, type in {pets:'Pet-', mounts:'Mount_Head_'}
+          menu.pets-menu(label=env.t('#{type}'), ng-if='!hasAllTimeTravelerItemsOfType("#{type}")')
+            div(ng-repeat='(item, text) in Content.timeTravelStable["#{type}"]', style='margin-top:0')
+              button.pet-button(class='#{prepend}{{::item}}', style='margin-top:0',
+                ng-if='!user.items["#{type}"][item]',
+                popover='{{::text()}}', popover-trigger='mouseenter', 
+                popover-placement='right', popover-append-to-body='true',
+                ng-click='clickTimeTravelItem("#{type}",item)')
+      li.customize-menu.inventory-gear
+        menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
+          div(ng-repeat='item in set.items')
+            button.customize-option(class='shop_{{::item.key}}',
+              popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+              popover-trigger='mouseenter', popover-placement='right',
+              popover-append-to-body='true',
+              ng-click='user.ops.buyMysterySet({params:{key:set.key}})')

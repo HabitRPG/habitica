@@ -6,7 +6,7 @@ var nconf = require('nconf');
 var inAppPurchase = require('in-app-purchase');
 inAppPurchase.config({
   // this is the path to the directory containing iap-sanbox/iap-live files
-  googlePublicKeyPath: nconf.get("IAP_GOOGLE_KEYDIR")
+  googlePublicKeyPath: nconf.get('IAP_GOOGLE_KEYDIR')
 });
 
 // Validation ERROR Codes
@@ -101,7 +101,7 @@ exports.iosVerify = function(req, res, next) {
       if (iap.isValidated(appleRes)) {
         var purchaseDataList = iap.getPurchaseData(appleRes);
         if (purchaseDataList.length > 0) {
-          if (purchaseDataList[0].productId === "com.habitrpg.ios.Habitica.20gems") {
+          if (purchaseDataList[0].productId === 'com.habitrpg.ios.Habitica.20gems') {
             //Correct receipt
             payments.buyGems({user:user, paymentMethod:'IAP AppleStore'});
             var resObj = {
@@ -117,7 +117,7 @@ exports.iosVerify = function(req, res, next) {
           ok: false,
           data: {
             code: INVALID_PAYLOAD,
-            message: "Incorrect receipt content"
+            message: 'Incorrect receipt content'
           }
         };
         return res.json(resObj);
@@ -127,7 +127,7 @@ exports.iosVerify = function(req, res, next) {
         ok: false,
         data: {
           code: INVALID_PAYLOAD,
-          message: "Invalid receipt"
+          message: 'Invalid receipt'
         }
       };
 

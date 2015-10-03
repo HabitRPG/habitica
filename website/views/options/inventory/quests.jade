@@ -1,37 +1,25 @@
-//- If this variable gets any bigger, please move it out of this jade template and into common/script/content
-- var questCategories = {'unlockable':'unlockableQuests','gold':'goldQuests','pet':'petQuests'}
+include ../../shared/mixins
 
 .container-fluid
-  .row: .col-xs-12
-    .npc_ian.pull-left-sm.col-centered
-    .popover.static-popover.fade.right.in.pull-left-sm.col-centered
-      .arrow.hidden-xs
-      h3.popover-title=env.t('ian')
-      .popover-content
-        p=env.t('ianText')
-
   .row
     .col-md-6
+      .clearfix
+        .npc_ian.pull-left-sm.col-centered
+        .popover.static-popover.fade.right.in.pull-left-sm.col-centered
+          .arrow.hidden-xs
+          h3.popover-title=env.t('ian')
+          .popover-content
+            p=env.t('ianText')
+
       h3.equipment-title=env.t('yourQuests')
-      menu.inventory-list
-        li.customize-menu
-          p.muted(ng-show='questCount < 1')=env.t('noScrolls')
-          each caption,type in questCategories
-            menu.pets-menu(label=env.t(caption))
-              div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-if='Content.quests[quest_key].category === "#{type}"')
-                button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
-                  ng-click='showQuest(quest_key)',
-                  data-popover-html="{{::lockQuest(quest) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
-                  popover-title='{{::quest.text()}}', popover-trigger='mouseenter',
-                  popover-placement='right', popover-append-to-body='true')
-                  .badge.badge-info.stack-count {{points}}
+      +ownedQuests(true,'right')
 
     .col-md-6.border-left
       li.customize-menu
         h3.equipment-title=env.t('questsForSale')
-        each caption,type in questCategories
-          menu.pets-menu(label=env.t(caption))
-            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy && quest.category === "#{type}"')
+        div(ng-repeat='type in Content.userCanOwnQuestCategories')
+          menu.pets-menu(label='{{env.t(type + "Quests")}}')
+            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy(user) && quest.category === type')
               button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
                 data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
                 popover-title='{{::quest.text()}}', popover-append-to-body="true",

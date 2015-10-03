@@ -29,6 +29,7 @@
     "seasonalShopClosedText": "A Loja Sazonal está fechada atualmente! Eu não sei onde a Feiticeira Sazonal está agora, mas eu aposto que ela estará de volta durante a próxima <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grande Gala</a>!",
     "seasonalShopText": "Bem vindo a Loja Sazonal!! Nós estamos vendendo mercadorias <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edição Sazonal</a> de primavera no momento. Tudo aqui estará disponível para compra durante o Festival de Primavera todos os  anos, mas nós só estaremos abertos até 30 de abril, então certifique-se de estocar agora ou você vai ter que esperar um ano para comprar esses items de novo!",
     "seasonalShopSummerText": "Bem-vindo à Loja Sazonal! No momento temos em estoque itens da <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edição Sazonal</a> de verão.  Todos os itens daqui estarão disponíveis para compra durante o evento Splash de Verão de cada ano, mas ficaremos abertos somente até o dia 31 de julho, portanto certifique-se de garantir seus equipamentos agora, ou você terá que esperar um ano para comprar estes itens novamente.",
+    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Se você usou o Orbe de Renascimento, você pode recomprar esse equipamento na Coluna de Recompensas. Inicialmente, você só poderá comprar itens de sua classe atual(Guerreiro por padrão), mas não tema, os outros itens específicos de classe ficarão disponíveis se você trocar para aquela classe.",
     "candycaneSet": "Bastão Doce (Mago)",
     "skiSet": "Assa-ski-no (Ladino)",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "Marujo Ousado (Guerreiro)",
     "emeraldMermageSet": "Sereia Esmeralda (Mago)",
     "reefSeahealerSet": "Curandeiro dos Corais (Curandeiro)",
-    "roguishPirateSet": "Pirata Malandro (Ladino)"
+    "roguishPirateSet": "Pirata Malandro (Ladino)",
+    "monsterOfScienceSet": "Monster of Science (Warrior)",
+    "witchyWizardSet": "Witchy Wizard (Mage)",
+    "mummyMedicSet": "Mummy Medic (Healer)",
+    "vampireSmiterSet": "Vampire Smiter (Rogue)",
+    "fallEventAvailability": "Available until October 31"
 }

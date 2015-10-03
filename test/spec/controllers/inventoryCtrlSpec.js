@@ -12,6 +12,7 @@ describe('Inventory Controller', function() {
       user = specHelper.newUser({
         balance: 4,
         items: {
+          gear: { owned: {} },
           eggs: { Cactus: 1 },
           hatchingPotions: { Base: 1 },
           food: { Meat: 1 },
@@ -154,5 +155,133 @@ describe('Inventory Controller', function() {
 
       expect(possibleValues).to.contain(cardsModalScope.cardMessage);
     });
+  });
+
+  describe('#buyQuest', function() {
+    var quests, questObject;
+
+    beforeEach(inject(function(Quests) {
+      quests = Quests;
+      questObject = { key: 'whale' };
+
+      sandbox.stub(quests, 'buyQuest').returns({ then: function(res) { res(questObject); } });
+    }));
+
+    it('calls Quests.buyQuest', function() {
+      scope.buyQuest('foo');
+
+      expect(quests.buyQuest).to.be.calledOnce;
+      expect(quests.buyQuest).to.be.calledWith('foo');
+    });
+
+    it('sets selectedQuest to resolved quest object', function() {
+      scope.buyQuest('whale');
+
+      expect(rootScope.selectedQuest).to.eql(questObject);
+    });
+
+    it('opens buyQuest modal', function() {
+      sandbox.spy(rootScope, 'openModal');
+
+      scope.buyQuest('whale');
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('buyQuest', {controller: 'InventoryCtrl'});
+    });
+  });
+
+  describe('#showQuest', function() {
+    var quests, questObject;
+
+    beforeEach(inject(function(Quests) {
+      quests = Quests;
+      questObject = { key: 'whale' };
+
+      sandbox.stub(quests, 'showQuest').returns({ then: function(res) { res(questObject); } });
+    }));
+
+    it('calls Quests.showQuest', function() {
+      scope.showQuest('foo');
+
+      expect(quests.showQuest).to.be.calledOnce;
+      expect(quests.showQuest).to.be.calledWith('foo');
+    });
+
+    it('sets selectedQuest to resolved quest object', function() {
+      scope.showQuest('whale');
+
+      expect(rootScope.selectedQuest).to.eql(questObject);
+    });
+
+    it('opens showQuest modal', function() {
+      sandbox.spy(rootScope, 'openModal');
+
+      scope.showQuest('whale');
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('showQuest', {controller: 'InventoryCtrl'});
+    });
+  });
+
+  describe('#hasAllTimeTravelerItems', function() {
+    it('returns false if items remain for purchase with Mystic Hourglasses', function() {
+      expect(scope.hasAllTimeTravelerItems()).to.eql(false);
+    });
+
+    it('returns true if there are no items left to purchase', inject(function(Content) {
+      _.forEach(Content.gear.flat, function(v,item) {
+        if (item.indexOf('mystery') > -1) {
+          user.items.gear.owned[item] = true;
+        }
+      });
+      _.forEach(Content.timeTravelStable.pets, function(v,pet) {
+        user.items.pets[pet] = 5;
+      });
+      _.forEach(Content.timeTravelStable.mounts, function(v,mount) {
+        user.items.mounts[mount] = true;
+      });
+
+      expect(scope.hasAllTimeTravelerItems()).to.eql(true);
+    }));
+  });
+
+  describe('#hasAllTimeTravelerItemsOfType', function() {
+    it('returns false for Mystery Sets if there are sets left in the time traveler store', function() {
+      expect(scope.hasAllTimeTravelerItemsOfType('mystery')).to.eql(false);
+    });
+
+    it('returns true for Mystery Sets if there are no sets left to purchase', inject(function(Content) {
+      _.forEach(Content.gear.flat, function(v,item) {
+        if (item.indexOf('mystery') > -1) {
+          user.items.gear.owned[item] = true;
+        }
+      });
+
+      expect(scope.hasAllTimeTravelerItemsOfType('mystery')).to.eql(true);
+    }));
+
+    it('returns false for pets if user does not own all pets in the Time Travel Stable', function() {
+      expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(false);
+    });
+
+    it('returns true for pets if user owns all pets in the Time Travel Stable', inject(function(Content) {
+      _.forEach(Content.timeTravelStable.pets, function(v,pet) {
+        user.items.pets[pet] = 5;
+      });
+
+      expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(true);
+    }));
+
+    it('returns false for mounts if user does not own all mounts in the Time Travel Stable', function() {
+      expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(false);
+    });
+
+    it('returns true for mounts if user owns all mounts in the Time Travel Stable', inject(function(Content) {
+      _.forEach(Content.timeTravelStable.mounts, function(v,mount) {
+        user.items.mounts[mount] = true;
+      });
+
+      expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(true);
+    }));
   });
 });

@@ -34,7 +34,7 @@
     "companyVideos": "Video",
     "contribUse": "I collaboratori di Habitica usano:",
     "dragonsilverQuote": "Non vi dico quanti sistemi di monitoraggio di attività e di tempo ho provato negli anni... [Habitica] è l'unico che mi abbia davvero aiutato a fare le cose, invece di limitarsi a metterle in una lista.",
-    "dreimQuote": "When I discovered [Habitica] last summer, I had just failed about half of my exams. Thanks to the Dailies... I was able to organize and discipline myself, and I actually passed all my exams with really good grades a month ago.",
+    "dreimQuote": "Quando ho scoperto [Habitica] l'estate scorsa, avevo appena fallito circa la metà dei miei esami. Grazie alle Daily... ho imparato ad organizzarmi e disciplinarmi, e ho passato tutti i miei esami con ottimi voti il mese scorso.",
     "elmiQuote": "Ogni giorno non vedo l'ora di alzarmi per guadagnare dell'oro!",
     "email": "Email",
     "emailNewPass": "Inviami per email la nuova password",
@@ -160,7 +160,7 @@
     "tasks": "Attività",
     "teamSample1": "Delinea scaletta per l'incontro di martedì",
     "teamSample2": "Discuti la tecnica di Growth Hacking",
-    "teamSample3": "Discuss this week's KPIs",
+    "teamSample3": "Discuti i KPI di questa settimana",
     "teams": "Squadre",
     "terms": "Termini e condizioni",
     "testimonialHeading": "Cosa dicono gli utenti...",
@@ -178,5 +178,6 @@
     "generalQuestionsSite": "Domande generiche sul sito",
     "businessInquiries": "Informazioni sul Business",
     "merchandiseInquiries": "Informazioni sui Prodotti",
-    "marketingInquiries": "Informazioni su Marketing e Social Media"
+    "marketingInquiries": "Informazioni su Marketing e Social Media",
+    "tweet": "Tweet"
 }

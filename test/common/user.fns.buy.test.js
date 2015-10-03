@@ -6,7 +6,6 @@ var _ = require('lodash');
 
 require('coffee-script');
 var shared = require('../../common/script/index.coffee');
-var Content = require('../../common/script/content.coffee');
 
 describe('user.fns.buy', function() {
   var user;
@@ -63,8 +62,8 @@ describe('user.fns.buy', function() {
 
     var fullArmoire = {}
 
-    _(Content.gearTypes).each(function(type) {
-      _(Content.gear.tree[type].armoire).each(function(gearObject, gearName) {
+    _(shared.content.gearTypes).each(function(type) {
+      _(shared.content.gear.tree[type].armoire).each(function(gearObject, gearName) {
         armoireKey = gearObject.key;
         fullArmoire[armoireKey] = true;
       });
@@ -118,7 +117,7 @@ describe('user.fns.buy', function() {
       });
 
       it('gives food', function() {
-        var honey = Content.food.Honey;
+        var honey = shared.content.food.Honey;
         user.fns.randomVal.returns(honey);
         user.fns.predictableRandom.returns(YIELD_FOOD);
 
@@ -148,7 +147,7 @@ describe('user.fns.buy', function() {
 
     context('gear awards', function() {
       beforeEach(function() {
-        var shield = Content.gear.tree.shield.armoire.gladiatorShield;
+        var shield = shared.content.gear.tree.shield.armoire.gladiatorShield;
         user.fns.randomVal.returns(shield);
       });
 

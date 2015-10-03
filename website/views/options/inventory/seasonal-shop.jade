@@ -1,16 +1,16 @@
 .container-fluid
   .stable.row: .col-xs-12
-    .seasonalshop_closed.pull-left-sm.col-centered
+    .seasonalshop_open.pull-left-sm.col-centered
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
-      h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+      h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
       .popover-content
-        p!=env.t('seasonalShopClosedText')
+        p!=env.t('seasonalShopFallText')
 
-  // .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
+  .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
 
-  // li.customize-menu.inventory-gear
-    menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{summerWarrior:env.t("daringSwashbucklerSet"), summerMage:env.t("emeraldMermageSet"), summerHealer:env.t("reefSeahealerSet"), summerRogue:env.t("roguishPirateSet")}')
+  li.customize-menu.inventory-gear
+    menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{fallWarrior:env.t("monsterOfScienceSet"), fallMage:env.t("witchyWizardSet"), fallHealer:env.t("mummyMedicSet"), fallRogue:env.t("vampireSmiterSet")}')
       div(ng-repeat='item in ::getSeasonalShopArray(set)',
         ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}")
         button.customize-option(class='shop_{{::item.key}}',
@@ -22,7 +22,7 @@
           | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
 
-    menu.pets-menu(label=env.t('quests'))
+    // menu.pets-menu(label=env.t('quests'))
       div(ng-repeat='quest in ::getSeasonalShopQuests()')
         button.customize-option(ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"'
           data-popover-html="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
@@ -33,16 +33,25 @@
             span.Pet_Currency_Gem1x.inline-gems
     menu.pets-menu(label=env.t('seasonalItems'))
       div
-        button.customize-option(class='shop_seafoam',
-          popover='{{::Content.spells.special.seafoam.notes()}}',
-          popover-title='{{::Content.spells.special.seafoam.text()}}',
+        button.customize-option(class='inventory_special_spookDust',
+          popover='{{::Content.spells.special.spookDust.notes()}}',
+          popover-title='{{::Content.spells.special.spookDust.text()}}',
           popover-trigger='mouseenter', popover-placement='right',
           popover-append-to-body='true',
-          ng-click='purchase("special", Content.spells.special.seafoam)')
-        p {{::Content.spells.special.seafoam.value}}
+          ng-click='purchase("special", Content.spells.special.spookDust)')
+        p {{::Content.spells.special.spookDust.value}}
           span(class='shop_gold')
-
       div
+        button.customize-option(class='Pet_HatchingPotion_Spooky',
+          popover='{{::Content.hatchingPotions.Spooky.notes()}}',
+          popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions.Spooky.text()}}"}),
+          popover-trigger='mouseenter', popover-placement='right',
+          popover-append-to-body='true',
+          ng-click='purchase("hatchingPotions", Content.hatchingPotions.Spooky)')
+        p {{::Content.hatchingPotions.Spooky.value}}&nbsp;
+          span.Pet_Currency_Gem1x.inline-gems
+
+      // div
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
           p {{Content.spells.special.nye.value}}
             span(class='shop_gold')

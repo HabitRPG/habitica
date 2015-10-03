@@ -17,3 +17,19 @@ mixin previewMarkdown(text)
     .panel-heading=env.t('msgPreviewHeading')
     .panel-body.markdown-preview
       markdown(text='#{text}')
+
+mixin ownedQuests(popoverAppend, popoverPlacement)
+  menu.inventory-list
+    li.customize-menu
+      p.muted(ng-show='questCount < 1')=env.t('noScrolls')
+      div(ng-repeat='type in Content.userCanOwnQuestCategories track by $index')
+        menu.pets-menu(ng-if='Shared.count.questsOfCategory(user.items.quests,type) > 0', label='{{::env.t(type + "Quests")}}')
+          div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-if='Content.quests[quest_key].category === type')
+            button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
+            ng-click='$close(); showQuest(quest_key)',
+            data-popover-html="{{::lockQuest(quest) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
+            popover-title='{{::quest.text()}}',
+            popover-trigger='mouseenter',
+            popover-append-to-body='#{popoverAppend}',
+            popover-placement='#{popoverPlacement}')
+              .badge.badge-info.stack-count {{points}}

@@ -56,9 +56,9 @@
     "footerSocial": "社交",
     "forgotPass": "找回密码",
     "frabjabulousQuote": "[Habitica] is the reason I got a killer, high-paying job... and even more miraculous, I'm now a daily flosser!",
-    "free": "Join for free",
+    "free": "免费加入",
     "gamifyButton": "Gamify your life today!",
-    "goalSample1": "Practice Piano for 1 Hour",
+    "goalSample1": "练习钢琴1小时",
     "goalSample2": "Work on article for publication",
     "goalSample3": "Work on blog post",
     "goalSample4": "Japanese lesson on Duolingo",
@@ -178,5 +178,6 @@
     "generalQuestionsSite": "General Questions about the Site",
     "businessInquiries": "Business Inquiries",
     "merchandiseInquiries": "Merchandise Inquiries",
-    "marketingInquiries": "Marketing/Social Media Inquiries"
+    "marketingInquiries": "Marketing/Social Media Inquiries",
+    "tweet": "Tweet"
 }

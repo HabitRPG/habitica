@@ -1,24 +1,27 @@
 include ./quest-rewards
+include ../mixins
 
 mixin questInfo
   .pull-right-sm.text-center
     .col-centered(class='quest_{{::selectedQuest.key}}')
     div(ng-if='::selectedQuest.boss')
       h4 {{::selectedQuest.boss.name()}}
-      p
-        strong=env.t('bossHP') + ': '
-        | {{::selectedQuest.boss.hp}}
-      p
-        strong=env.t('bossStrength') + ': '
-        | {{::selectedQuest.boss.str}}
+      .well.well-sm
+        p
+          strong=env.t('bossHP') + ': '
+          | {{::selectedQuest.boss.hp}}
+        p
+          strong=env.t('bossStrength') + ': '
+          | {{::selectedQuest.boss.str}}
     div(ng-if='::selectedQuest.collect')
-      p(ng-repeat='(k,v) in ::selectedQuest.collect')
-        strong=env.t('collect') + ': '
-        | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}}
+      h4=env.t('itemsToCollect')
+      .well.well-sm
+        p(ng-repeat='(k,v) in ::selectedQuest.collect')
+          | {{:: env.t('collectionItems', { number: selectedQuest.collect[k].count, items: selectedQuest.collect[k].text() })}}
   div(ng-bind-html='::selectedQuest.notes()')
   quest-rewards(key='{{::selectedQuest.key}}', header=env.t('rewards'))
 
-script(type='text/ng-template', id='modals/questCompleted.html')  
+script(type='text/ng-template', id='modals/questCompleted.html')
   .modal-header
     h4 "{{::Content.quests[user.party.quest.completed].text()}}"
       =env.t('completed')
@@ -29,7 +32,7 @@ script(type='text/ng-template', id='modals/questCompleted.html')
   .modal-footer
     button.btn.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('ok')
 
-script(type='text/ng-template', id='modals/showQuest.html')  
+script(type='text/ng-template', id='modals/showQuest.html')
   .modal-header
     h4 {{::selectedQuest.text()}}
   .modal-body
@@ -40,9 +43,10 @@ script(type='text/ng-template', id='modals/showQuest.html')
     p=env.t('questWarning')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
-    button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
+    button.btn.btn-primary(ng-click='questInit()')
+      | {{:: party.memberCount > 1  ? env.t('inviteParty') : env.t('startQuest')}}
 
-script(type='text/ng-template', id='modals/buyQuest.html')  
+script(type='text/ng-template', id='modals/buyQuest.html')
   .modal-header
     h4 {{::selectedQuest.text()}}
   .modal-body
@@ -52,7 +56,7 @@ script(type='text/ng-template', id='modals/buyQuest.html')
     button.btn.btn-primary(ng-if='::selectedQuest.category !== "gold"', ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest') + ': {{::selectedQuest.value}} ' + env.t('gems')
     button.btn.btn-primary(ng-if='::selectedQuest.category === "gold"', ng-click='user.ops.buyQuest({params:{key:selectedQuest.key}}); closeQuest(); $close()')=env.t('buyQuest') + ': {{::selectedQuest.goldValue}} ' + env.t('gold')
 
-script(type='text/ng-template', id='modals/questInvitation.html')  
+script(type='text/ng-template', id='modals/questInvitation.html')
   .modal-header
     h4=env.t('questInvitation')
       |&nbsp;{{::Content.quests[user.party.quest.key].text()}}
@@ -62,7 +66,7 @@ script(type='text/ng-template', id='modals/questInvitation.html')
       div(ng-if='::Content.quests[user.party.quest.key].boss')
         h4 {{::Content.quests[user.party.quest.key].boss.name()}}
         p
-          strong=env.t('bossHP') + ': ' 
+          strong=env.t('bossHP') + ': '
           | {{::Content.quests[user.party.quest.key].boss.hp}}
         p
           strong=env.t('bossStrength') + ': '
@@ -70,13 +74,13 @@ script(type='text/ng-template', id='modals/questInvitation.html')
       div(ng-if='::Content.quests[user.party.quest.key].collect')
         p(ng-repeat='(k,v) in ::Content.quests[user.party.quest.key].collect')
           strong=env.t('collect') + ': '
-          | {{::Content.quests[user.party.quest.key].collect[k].count}} {{::Content.quests[user.party.quest.key].collect[k].text()}} 
+          | {{::Content.quests[user.party.quest.key].collect[k].count}} {{::Content.quests[user.party.quest.key].collect[k].text()}}
     div(ng-bind-html='::Content.quests[user.party.quest.key].notes()')
     quest-rewards(key='{{::user.party.quest.key}}', header=env.t('rewards'))
   .modal-footer
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
-    button.btn.btn-default(ng-click='questReject(party); $close()')=env.t('reject')
-    button.btn.btn-primary(ng-click='questAccept(party); $close()')=env.t('accept')
+    button.btn.btn-default(ng-click='questReject(); $close()')=env.t('reject')
+    button.btn.btn-primary(ng-click='questAccept(); $close()')=env.t('accept')
 
 script(type='text/ng-template', id='modals/questDrop.html')
   .quest-icon.pull-right(class='inventory_quest_scroll_{{::selectedQuest.key}}')
@@ -91,4 +95,14 @@ script(type='text/ng-template', id='modals/questDrop.html')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
     button.btn.btn-primary(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
-    button.btn.btn-primary(ng-click='questInit(); $close()', ng-if='party.members')=env.t('inviteParty')
+    button.btn.btn-primary(ng-click='questInit()', ng-if='party.members')=env.t('inviteParty')
+
+script(type='text/ng-template', id='modals/ownedQuests.html')
+  .modal-header
+    h4=env.t('whichQuestStart')
+  .modal-body
+    +ownedQuests(false,'top')
+  .modal-footer
+    h4.pull-left
+      a(ui-sref='options.inventory.quests', ng-click='$close()')=env.t('getMoreQuests')
+    button.btn.btn-default.pull-right(ng-click='$close()')=env.t('neverMind')

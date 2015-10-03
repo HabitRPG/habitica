@@ -34,7 +34,7 @@
     "companyVideos": "Filmy",
     "contribUse": "Używane przez współpracowników Habitica",
     "dragonsilverQuote": "Nie jestem w stanie określić, przez dekady ile razy i jakie systemy śledzenia wypróbowałem... [Habitica] jest jedyną używaną przeze mnie rzeczą, która faktycznie pomaga mi załatwiać sprawy zamiast tylko je planować.",
-    "dreimQuote": "When I discovered [Habitica] last summer, I had just failed about half of my exams. Thanks to the Dailies... I was able to organize and discipline myself, and I actually passed all my exams with really good grades a month ago.",
+    "dreimQuote": "Kiedy odkryłem [Habitikę] ostatniego lata, właśnie oblałem około połowę swoich egzaminów. Dzięki Codziennym... byłem w stanie się zorganizować i zdyscyplinować, a miesiąc temu faktycznie zdałem wszystkie egzaminy z naprawdę dobrymi ocenami.",
     "elmiQuote": "Codziennie rano nie mogę się doczekać, by wstać i zarobić trochę złota!",
     "email": "E-mail",
     "emailNewPass": "Wyślij nowe hasło mailem",
@@ -64,7 +64,7 @@
     "goalSample4": "Lekcja japońskiego na Duolingo",
     "goalSample5": "Przeczytaj pouczający artykuł",
     "goals": "Celami",
-    "health": "Zdrowiem",
+    "health": "Zdrowie",
     "healthSample1": "Wybierz zwykłą wodę/napój gazowany",
     "healthSample2": "Żuj gumę/pal papierosy",
     "healthSample3": "Wejdź schodami/pojedź windą",
@@ -160,7 +160,7 @@
     "tasks": "Zadania",
     "teamSample1": "Zarys przewodnika po spotkaniu na wtorek",
     "teamSample2": "Burza mózgów o growth hackingu",
-    "teamSample3": "Discuss this week's KPIs",
+    "teamSample3": "Dyskusja na temat KPI z bieżącego tygodnia",
     "teams": "Zespołami",
     "terms": "Zasadami użytkowania",
     "testimonialHeading": "Co mówią ludzie...",
@@ -178,5 +178,6 @@
     "generalQuestionsSite": "Ogólne pytania na temat strony",
     "businessInquiries": "Zapytania biznesowe",
     "merchandiseInquiries": "Zapytania handlowe",
-    "marketingInquiries": "Zapytania marketingowe/społecznościowe"
+    "marketingInquiries": "Zapytania marketingowe/społecznościowe",
+    "tweet": "Tweetuj"
 }

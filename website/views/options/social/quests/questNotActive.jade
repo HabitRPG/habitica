@@ -1,4 +1,4 @@
-div(ng-if='group.quest.active==false')
+div(ng-if='group.quest.active===false')
   tabset
     tab(heading=env.t('invitations'))
       +participants(false)
@@ -22,9 +22,9 @@ div(ng-if='group.quest.active==false')
   p=env.t('questStart')
 
   span(ng-if='user.party.quest.RSVPNeeded')
-    button.btn.btn-sm.btn-success(ng-click='questAccept(party)')=env.t('accept')
-    button.btn.btn-sm.btn-danger(ng-click='questReject(party)')=env.t('reject')
+    button.btn.btn-sm.btn-success(ng-click='questAccept()')=env.t('accept')
+    button.btn.btn-sm.btn-danger(ng-click='questReject()')=env.t('reject')
 
-  span(ng-if='::group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)')
-    button.btn.btn-sm.btn-warning(ng-click='party.$questAccept({"force":true})')=env.t('begin')
-    button.btn.btn-sm.btn-danger(ng-click='questCancel(party)')=env.t('cancel')
+  span(ng-if='::canEditQuest(party)')
+    button.btn.btn-sm.btn-warning(ng-click='party.$startQuest({"force":true})')=env.t('begin')
+    button.btn.btn-sm.btn-danger(ng-click='questCancel()')=env.t('cancel')

@@ -1,0 +1,1464 @@
+.Mount_Body_Cheetah-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Cuttlefish-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -378px -115px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -260px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -378px -230px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -260px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -272px 0px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -272px -115px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -260px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -484px 0px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -136px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Cuttlefish-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -378px 0px;
+  width: 105px;
+  height: 114px;
+}
+.Mount_Body_Deer-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -848px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -1647px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -484px -115px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -484px -221px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -221px -375px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -327px -375px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -433px -375px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Deer-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -481px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -481px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -481px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -481px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -481px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -590px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -590px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -590px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -590px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Spooky {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -590px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -587px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Dragon-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -587px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -587px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -587px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -587px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -587px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -696px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -696px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -696px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -696px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -696px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Egg-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -696px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -693px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -693px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -693px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -693px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -693px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -693px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -693px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -802px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Spooky {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -802px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -802px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_FlyingPig-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -802px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -802px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -802px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -802px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Spooky {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Fox-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -799px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-RoyalPurple {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -908px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Gryphon-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -848px -905px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Hedgehog-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1014px -848px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Horse-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -848px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Ethereal {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -954px -1011px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -375px;
+  width: 111px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Spooky {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_LionCub-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Mammoth-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -136px;
+  width: 105px;
+  height: 123px;
+}
+.Mount_Body_MantisShrimp-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -112px -375px;
+  width: 108px;
+  height: 105px;
+}
+.Mount_Body_Octopus-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1120px -954px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Octopus-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -848px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Orca-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -954px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1060px -1117px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -1647px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Owl-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -848px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -954px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1226px -1060px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Spooky {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_PandaCub-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -848px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -954px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1060px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1166px -1223px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Parrot-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -848px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -954px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -1060px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1332px -1166px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Penguin-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -848px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -954px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1060px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1166px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1272px -1329px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rat-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -848px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -954px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -1060px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rock-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -1166px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1438px -1272px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Rooster-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -848px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -954px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1060px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1166px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1272px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1378px -1435px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Seahorse-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -848px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -954px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -1060px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -1166px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -1272px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1544px -1378px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Sheep-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -212px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -318px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -424px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -530px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -636px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -742px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -848px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -954px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Slime-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1060px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1166px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1272px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1378px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1484px -1541px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px 0px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -106px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -212px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -318px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -424px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_Spider-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -530px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TRex-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -136px 0px;
+  width: 135px;
+  height: 135px;
+}
+.Mount_Body_TRex-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px 0px;
+  width: 135px;
+  height: 135px;
+}
+.Mount_Body_TigerCub-Base {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -636px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-CottonCandyBlue {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -742px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-CottonCandyPink {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -848px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-Desert {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -954px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-Golden {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -1060px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-Red {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -1166px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-Shade {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -1272px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-Skeleton {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -1378px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-Spooky {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -1650px -1484px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-White {
+  background-image: url(spritesmith-main-6.png);
+  background-position: 0px -1647px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Body_TigerCub-Zombie {
+  background-image: url(spritesmith-main-6.png);
+  background-position: -106px -1647px;
+  width: 105px;
+  height: 105px;
+}

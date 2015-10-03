@@ -180,13 +180,31 @@ module.exports = (swagger, v2) ->
     "/user/inventory/purchase/{type}/{key}":
       spec:
         method: 'POST'
-        description: "Purchase a gem-purchaseable item from Alexander"
+        description: "Purchase a Gem-purchasable item from Alexander"
         parameters:[
           path('type',"The type of object you're purchasing.",'string',['eggs','hatchingPotions','food','quests','special'])
           path('key',"The object key you're purchasing (call /content route for available keys)",'string')
         ]
       action: user.purchase
 
+    "/user/inventory/hourglass/{type}/{key}":
+      spec:
+        method: 'POST'
+        description: "Purchase a pet or mount using a Mystic Hourglass"
+        parameters:[
+          path('type',"The type of object you're purchasing.",'string',['pets','mounts'])
+          path('key',"The object key you're purchasing (call /content route for available keys)",'string')
+        ]
+      action: user.hourglassPurchase
+
+    "/user/inventory/mystery/{key}":
+      spec:
+        method: 'POST'
+        description: "Purchase a Mystery Item Set using a Mystic Hourglass"
+        parameters:[
+          path('key',"The key for the Mystery Set you're purchasing (call /content route for available keys)",'string')
+        ]
+      action: user.buyMysterySet
 
     "/user/inventory/feed/{pet}/{food}":
       spec:
@@ -302,7 +320,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Casts a spell on a target."
         parameters: [
-          path 'spell',"The key of the spell to cast (see ../../common#content.coffee)",'string'
+          path 'spell',"The key of the spell to cast (see ../../common#content/index.coffee)",'string'
           query 'targetType',"The type of object you're targeting",'string',['party','self','user','task']
           query 'targetId',"The ID of the object you're targeting",'string'
 
@@ -526,6 +544,14 @@ module.exports = (swagger, v2) ->
         parameters: [path('gid','Group to abort quest in','string')]
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questAbort
+
+    "/groups/{gid}/questLeave":
+      spec:
+        method: 'POST'
+        description: 'Leave an active quest (Quest leaders cannot leave active quests. They must abort the quest to leave)'
+        parameters: [path('gid','Group to leave quest in','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.questLeave
 
     #TODO PUT  /groups/:gid/chat/:messageId
 
@@ -774,6 +800,10 @@ module.exports = (swagger, v2) ->
     api["/user/addTenGems"] =
       spec: method:'POST'
       action: user.addTenGems
+
+    api["/user/addHourglass"] =
+      spec: method:'POST'
+      action: user.addHourglass
 
   _.each api, (route, path) ->
     ## Spec format is:
