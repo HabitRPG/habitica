@@ -14,6 +14,7 @@ const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 const API_TEST_COMMAND = 'mocha test/api';
 const COMMON_TEST_COMMAND = 'mocha test/common';
 const CONTENT_TEST_COMMAND = 'mocha test/content --opts test/content/mocha.content.opts';
+const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
 const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
 
@@ -89,6 +90,7 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
 gulp.task('test:content', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(CONTENT_TEST_COMMAND),
+    CONTENT_OPTIONS,
     (err, stdout, stderr) => {
     	cb(err);
     }
@@ -97,7 +99,7 @@ gulp.task('test:content', ['test:prepare:build'], (cb) => {
 });
 
 gulp.task('test:content:clean', (cb) => {
-  pipe(exec(testBin(CONTENT_TEST_COMMAND), () => cb()));
+  pipe(exec(testBin(CONTENT_TEST_COMMAND), CONTENT_OPTIONS, () => cb()));
 });
 
 gulp.task('test:content:watch', ['test:content:clean'], () => {
@@ -107,6 +109,7 @@ gulp.task('test:content:watch', ['test:content:clean'], () => {
 gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(CONTENT_TEST_COMMAND),
+    CONTENT_OPTIONS,
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'Content Specs\t',

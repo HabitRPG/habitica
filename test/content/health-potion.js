@@ -1,3 +1,7 @@
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
+
 import healthPotion from '../../common/script/src/content/health-potion';
 
 describe('Health Potion Locales', () => {

@@ -1,3 +1,7 @@
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
+
 import armoire from '../../common/script/src/content/armoire';
 
 describe('Armoire Locales', () => {
