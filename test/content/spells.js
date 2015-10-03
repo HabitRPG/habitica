@@ -1,5 +1,10 @@
-import spells from '../../common/script/src/content/spells';
+import {
+  expectValidTranslationString,
+  describeEachItem
+} from '../helpers/content.helper';
 import {each} from 'lodash';
+
+import spells from '../../common/script/src/content/spells';
 
 describe('Spells', () => {
   each(spells, (spellSet, klass) => {

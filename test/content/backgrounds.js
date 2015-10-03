@@ -1,3 +1,7 @@
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
+
 import backgroundSets from '../../common/script/src/content/backgrounds';
 import {each} from 'lodash';
 

@@ -1,5 +1,10 @@
-import {tree as allGear} from '../../common/script/src/content/gear';
+import {
+  expectValidTranslationString,
+  describeEachItem
+} from '../helpers/content.helper';
 import {each} from 'lodash';
+
+import {tree as allGear} from '../../common/script/src/content/gear';
 
 describe('Gear', () => {
   each(allGear, (piece, type) => {

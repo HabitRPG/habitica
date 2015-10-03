@@ -1,3 +1,7 @@
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
+
 import { all as potions } from '../../common/script/src/content/hatching-potions';
 import {each} from 'lodash';
 

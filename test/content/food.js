@@ -1,3 +1,7 @@
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
+
 import allFood from '../../common/script/src/content/food';
 import {each} from 'lodash';
 

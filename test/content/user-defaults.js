@@ -1,3 +1,7 @@
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
+
 import userDefaults from '../../common/script/src/content/user-defaults';
 import {each} from 'lodash';
 

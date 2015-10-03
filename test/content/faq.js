@@ -1,5 +1,9 @@
-import {questions, stillNeedHelp} from '../../common/script/src/content/faq';
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
 import {each} from 'lodash';
+
+import {questions, stillNeedHelp} from '../../common/script/src/content/faq';
 
 describe('FAQ Locales', () => {
   describe('Questions', () => {

@@ -1,3 +1,7 @@
+import {
+  expectValidTranslationString
+} from '../helpers/content.helper';
+
 import {allEggs} from '../../common/script/src/content/eggs';
 import {each} from 'lodash';
 
