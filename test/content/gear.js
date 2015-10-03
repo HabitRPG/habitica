@@ -1,3 +1,3 @@
-describe('Gear Locales', () => {
+describe('Gear', () => {
   runTestsInDirectory('gear');
 });
