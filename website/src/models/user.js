@@ -324,6 +324,7 @@ var UserSchema = new Schema({
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
+    autoEquip: {type: Boolean, 'default': true},
     costume: Boolean,
     dateFormat: {type: String, enum:['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'], 'default': 'MM/dd/yyyy'},
     sleep: {type: Boolean, 'default': false},
@@ -579,7 +580,7 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
-// Initially export an empty object so external requires will get 
+// Initially export an empty object so external requires will get
 // the right object by reference when it's defined later
 // Otherwise it would remain undefined if requested before the query executes
 module.exports.mods = [];
