@@ -640,7 +640,7 @@ api.wrap = (user, main=true) ->
         user["#{task.type}s"].unshift(task)
         if user.preferences.newTaskEdit then task._editing = true
         if user.preferences.tagsCollapsed then task._tags = true
-        if user.preferences.advancedCollapsed then task._advanced = true
+        if !user.preferences.advancedCollapsed then task._advanced = true
         cb? null, task
         task
 
