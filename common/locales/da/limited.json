@@ -29,7 +29,8 @@
     "seasonalShopClosedText": "Sæson-markedet er lukket! Jeg ved ikke hvor Sæson-heksen er lige nu, men hun kommer sikkert tilbage til den næste <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Store Fest</a>!",
     "seasonalShopText": "Velkommen til Sæson-markedet! Vi har forårs-<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alt her kan købes under Forårsflirt-eventet hvert år, men vi holder kun åbent indtil 30. april, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
     "seasonalShopSummerText": "Velkommen til Sæson-markedet! Vi har sommer-<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alt her kan købes under Sommerplask-eventet hvert år, men vi holder kun åbent indtil 31. juli, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
-    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
+    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
+    "seasonalShopRebirth": "Hvis du har brugt Genfødselskuglen kan du genkøbe dette udstyr i Belønningskolonnen efter du har fået adgang til Udstyrsbutikken. I starten vil du kun kunne købe tingene, der passer til din nuværende klasse (Kriger som standard), men frygt ej, de andre klasse-specifikke varer bliver tilgængelige hvis du skifter til den klasse.",
     "candycaneSet": "Slikstok (Magiker)",
     "skiSet": "Ski-morder (Slyngel)",
     "snowflakeSet": "Snefnug (Helbreder)",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "Modig Vovehals (Kriger)",
     "emeraldMermageSet": "Smaragd Havmagiker (Magiker)",
     "reefSeahealerSet": "Havhelbreder fra Revet (Helbreder)",
-    "roguishPirateSet": "Slyngelagtig Pirat (Slyngel)"
+    "roguishPirateSet": "Slyngelagtig Pirat (Slyngel)",
+    "monsterOfScienceSet": "Videnskabeligt Monster (Kriger)",
+    "witchyWizardSet": "Forheksende Heks (Magiker)",
+    "mummyMedicSet": "Mumie-mediciner (Helbreder)",
+    "vampireSmiterSet": "Vampyrjæger (Slyngel)",
+    "fallEventAvailability": "Tilgængelig indtil 31. oktober"
 }

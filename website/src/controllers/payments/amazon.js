@@ -7,7 +7,7 @@ var User = require('mongoose').model('User');
 var shared = require('../../../../common');
 var payments = require('./index');
 var cc = require('coupon-code');
-var isProd = nconf.get("NODE_ENV") === 'production';
+var isProd = nconf.get('NODE_ENV') === 'production';
 
 var amzPayment = amazonPayments.connect({
   environment: amazonPayments.Environment[isProd ? 'Production' : 'Sandbox'],
@@ -122,7 +122,7 @@ exports.checkout = function(req, res, next){
 
     executePayment: function(cb){
       async.waterfall([
-        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2) },
+        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2); },
         function(member, cb2){
           var data = {user:user, paymentMethod:'Amazon Payments'};
           var method = 'buyGems';
@@ -151,7 +151,7 @@ exports.subscribe = function(req, res, next){
     return res.json(400, {err: 'Billing Agreement Id not supplied.'});
   }
 
-  var billingAgreementId = req.body.billingAgreementId
+  var billingAgreementId = req.body.billingAgreementId;
   var sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
   var coupon = req.body.coupon;
   var user = res.locals.user;
@@ -167,7 +167,7 @@ exports.subscribe = function(req, res, next){
       mongoose.model('Coupon').findOne({_id:cc.validate(coupon), event:sub.key}, function(err, coupon){
         if(err) return cb(err);
         if(!coupon) return cb(new Error('Coupon code not found.'));
-        cb()
+        cb();
       });
     },
 
@@ -236,7 +236,7 @@ exports.subscribe = function(req, res, next){
 exports.subscribeCancel = function(req, res, next){
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
-    return res.json(401, {err: "User does not have a plan subscription"});
+    return res.json(401, {err: 'User does not have a plan subscription'});
 
   var billingAgreementId = user.purchased.plan.customerId;
 

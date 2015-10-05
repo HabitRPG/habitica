@@ -5,6 +5,7 @@
     "messageTagNotFound": "Etiqueta no encontrada.",
     "messagePetNotFound": ":pet no encontrado en user.items.pets",
     "messageFoodNotFound": ":food no encontrado en user.items.food",
+    "messageNotAvailable": "This item is not currently available for purchase.",
     "messageCannotFeedPet": "No se pudo alimentar a esta mascota.",
     "messageAlreadyMount": "Ya posees esta montura. Intenta alimentar a otra mascota.",
     "messageEvolve": "Has domesticado a <%= egg %>, ¡vamos a dar una vuelta!",
@@ -14,6 +15,7 @@
     "messageEquipped": "<%= itemText %> equipado.",
     "messageUnEquipped": "<%= itemText %> no está equipado.",
     "messageMissingEggPotion": "Te hace falta o el huevo o la poción.",
+    "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",
     "messageAlreadyPet": "Ya tienes esa mascota. ¡Intenta incubar una combinación diferente!",
     "messageHatched": "¡Tu huevo eclosionó! Visita tu establo para equipar a tu mascota.",
     "messageNotEnoughGold": "No tienes oro suficiente",
@@ -25,8 +27,8 @@
     "messageDropMysteryItem": "¡Abres la caja y encuentras <%= dropText %>!",
     "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
-    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
-    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "messageAlreadyOwnGear": "Ya posees este item. Equípalo yendo a la página de equipamiento.",
+    "armoireEquipment": "<%= image %> Hallaste una pieza de Equipamiento raro en el Armario: <%= dropText %> ¡Genial!",
     "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
     "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

@@ -96,7 +96,7 @@
   "weaponSpecialSpringHealerNotes": "FETCH! Increases Intelligence by <%= int %>. Limited Edition 2014 Spring Gear.",
 
   "weaponSpecialSummerRogueText": "Pirate Cutlass",
-  "weaponSpecialSummerRogueNotes": "Avast! You'll make those Dailies walk the plank!  Increases Strength by <%= str %>. Limited Edition 2014 Summer Gear.",
+  "weaponSpecialSummerRogueNotes": "Avast! You'll make those Dailies walk the plank! Increases Strength by <%= str %>. Limited Edition 2014 Summer Gear.",
   "weaponSpecialSummerWarriorText": "Seafaring Slicer",
   "weaponSpecialSummerWarriorNotes": "There isn't a task in any To-Do list willing to tangle with this gnarly knife! Increases Strength by <%= str %>. Limited Edition 2014 Summer Gear.",
   "weaponSpecialSummerMageText": "Kelp Catcher",
@@ -127,7 +127,7 @@
   "weaponSpecialSpring2015WarriorText": "Bone Club",
   "weaponSpecialSpring2015WarriorNotes": "It is a real bone club for real fierce doggies and is definitely not a chew toy that the Seasonal Sorceress gave you because who's a good doggy? Whoooo's a good doggy?? It's you!!! You're a good doggy!!! Increases Strength by <%= str %>. Limited Edition 2015 Spring Gear.",
   "weaponSpecialSpring2015MageText": "Magician's Wand",
-  "weaponSpecialSpring2015MageNotes": "Conjure yourself up a carrot with this fancy wand. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
+  "weaponSpecialSpring2015MageNotes": "Conjure up a carrot for yourself with this fancy wand. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
   "weaponSpecialSpring2015HealerText": "Cat Rattle",
   "weaponSpecialSpring2015HealerNotes": "When you wave it, it makes a fascinating clickety noise that would keep ANYONE entertained for hours. Increases Intelligence by <%= int %>. Limited Edition 2015 Spring Gear.",
 
@@ -170,6 +170,8 @@
   "weaponArmoireIronCrookNotes": "Fiercely hammered from iron, this iron crook is good at herding sheep. Increases Perception and Strength by <%= attrs %> each. Enchanted Armoire: Horned Iron Set (Item 3 of 3)",
   "weaponArmoireGoldWingStaffText": "Gold Wing Staff",
   "weaponArmoireGoldWingStaffNotes": "The wings on this staff constantly flutter and twist. Increases all attributes by <%= attrs %> each. Enchanted Armoire: Independent Item.",
+  "weaponArmoireBatWandText": "Bat Wand",
+  "weaponArmoireBatWandNotes": "This wand can turn any task into a bat! Wave it about and watch them fly away. Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
 
@@ -542,6 +544,10 @@
   "headArmoireRedFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a radiant red color. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
   "headArmoirePlagueDoctorHatText": "Plague Doctor Hat",
   "headArmoirePlagueDoctorHatNotes": "An authentic hat worn by the doctors who battle the Plague of Procrastination! Increases Strength by <%= str %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Plague Doctor Set (Item 1 of 3).",
+  "headArmoireBlackCatText": "Black Cat Hat",
+  "headArmoireBlackCatNotes": "This black hat is... purring. And twitching its tail. And breathing? Yeah, you just have a sleeping cat on your head. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
+  "headArmoireOrangeCatText": "Orange Cat Hat",
+  "headArmoireOrangeCatNotes": "This orange hat is... purring. And twitching its tail. And breathing? Yeah, you just have a sleeping cat on your head. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Independent Item.",
 
   "offhand": "shield-hand item",
 
@@ -639,6 +645,8 @@
 
   "shieldArmoireGladiatorShieldText": "Gladiator Shield",
   "shieldArmoireGladiatorShieldNotes": "To be a gladiator you must.... eh, whatever, just bash them with your shield. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 3 of 3).",
+  "shieldArmoireMidnightShieldText": "Midnight Shield",
+  "shieldArmoireMidnightShieldNotes": "This shield is most powerful at the stroke of midnight! Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",

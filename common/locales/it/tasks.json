@@ -5,7 +5,7 @@
     "beeminderDeleteWarning": "Utenti Beeminder: Leggere<strong> prima </strong><a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Cancellare i To-Do completati senza confondere Beeminder</a>! (in inglese)",
     "addmultiple": "Aggiungi multiple",
     "addsingle": "Aggiungi singola",
-    "habits": "Habits",
+    "habits": "Abitudini",
     "newHabit": "Nuova Habit",
     "newHabitBulk": "Nuove Habit (una per linea)",
     "yellowred": "Trascurate",
@@ -108,6 +108,6 @@
     "rewardHelp1": "L'equipaggiamento che compri per il tuo avatar viene messo in <%= linkStart %>Inventario > Equipaggiamento<%= linkEnd %>.",
     "rewardHelp2": "L'equipaggiamento condiziona le tue statistiche (<%= linkStart %>Utente > Statistiche<%= linkEnd %>).",
     "rewardHelp3": "Equipaggiamenti speciali compariranno qui durante gli Eventi Globali.",
-    "rewardHelp4": "Don't be afraid to set custom Rewards! Check out <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>some samples here</a>.",
+    "rewardHelp4": "Non aver paura di impostare le tue ricompense! guarda <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>qualche esempio qui</a>.",
     "clickForHelp": "Fai click per suggerimenti"
 }

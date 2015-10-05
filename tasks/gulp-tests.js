@@ -11,6 +11,15 @@ const TEST_DB           = 'habitrpg_test'
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
+const API_TEST_COMMAND = 'mocha test/api';
+const COMMON_TEST_COMMAND = 'mocha test/common';
+const CONTENT_TEST_COMMAND = 'mocha test/content --opts test/content/mocha.content.opts';
+const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
+const KARMA_TEST_COMMAND = 'karma start';
+const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
+
+const INSTANBUL_TEST_COMMAND = `istanbul cover -i "website/src/**" --dir coverage/api $(npm bin)/${API_TEST_COMMAND}`;
+
 /* Helper methods for reporting test summary */
 let testResults = [];
 let testCount = (stdout, regexp) => {
@@ -46,7 +55,7 @@ gulp.task('test:prepare', [
 
 gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('mocha test/common'),
+    testBin(COMMON_TEST_COMMAND),
     (err, stdout, stderr) => {
     	cb(err);
     }
@@ -55,7 +64,7 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
 });
 
 gulp.task('test:common:clean', (cb) => {
-  pipe(exec(testBin("mocha test/common"), () => cb()));
+  pipe(exec(testBin(COMMON_TEST_COMMAND), () => cb()));
 });
 
 gulp.task('test:common:watch', ['test:common:clean'], () => {
@@ -64,7 +73,7 @@ gulp.task('test:common:watch', ['test:common:clean'], () => {
 
 gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('mocha test/common'),
+    testBin(COMMON_TEST_COMMAND),
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'Common Specs\t',
@@ -78,9 +87,45 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:content', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin(CONTENT_TEST_COMMAND),
+    CONTENT_OPTIONS,
+    (err, stdout, stderr) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:content:clean', (cb) => {
+  pipe(exec(testBin(CONTENT_TEST_COMMAND), CONTENT_OPTIONS, () => cb()));
+});
+
+gulp.task('test:content:watch', ['test:content:clean'], () => {
+  gulp.watch(['common/script/src/content/**', 'test/**'], ['test:content:clean']);
+});
+
+gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin(CONTENT_TEST_COMMAND),
+    CONTENT_OPTIONS,
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'Content Specs\t',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stderr, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+      cb();
+    }
+  );
+  pipe(runner);
+});
+
 gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('mocha test/server_side'),
+    testBin(SERVER_SIDE_TEST_COMMAND),
     (err, stdout, stderr) => {
     	cb(err);
     }
@@ -90,7 +135,7 @@ gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('mocha test/server_side'),
+    testBin(SERVER_SIDE_TEST_COMMAND),
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'Server Side Specs',
@@ -106,7 +151,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin("istanbul cover -i 'website/src/**' --dir coverage/api ./node_modules/.bin/_mocha -- test/api"),
+    testBin(INSTANBUL_TEST_COMMAND),
     (err, stdout, stderr) => {
       cb(err);
     }
@@ -116,7 +161,7 @@ gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
 
 gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin("istanbul cover -i 'website/src/**' --dir coverage/api ./node_modules/.bin/_mocha -- test/api"),
+    testBin(INSTANBUL_TEST_COMMAND),
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'API Specs\t',
@@ -131,7 +176,7 @@ gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
 });
 
 gulp.task('test:api:clean', (cb) => {
-  pipe(exec(testBin("mocha test/api"), () => cb()));
+  pipe(exec(testBin(API_TEST_COMMAND), () => cb()));
 });
 
 gulp.task('test:api:watch', [
@@ -143,7 +188,7 @@ gulp.task('test:api:watch', [
 
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('karma start --single-run'),
+    testBin(`${KARMA_TEST_COMMAND} --single-run`),
     (err, stdout) => {
     	cb(err);
     }
@@ -153,7 +198,7 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('karma start'),
+    testBin(KARMA_TEST_COMMAND),
     (err, stdout) => {
     	cb(err);
     }
@@ -163,7 +208,7 @@ gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('karma start --single-run'),
+    testBin(`${KARMA_TEST_COMMAND} --single-run`),
     (err, stdout) => {
       testResults.push({
         suite: 'Karma Specs\t',
@@ -236,6 +281,7 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
 
 gulp.task('test', [
   'test:common:safe',
+  'test:content:safe',
   'test:server_side:safe',
   'test:karma:safe',
   'test:api:safe',

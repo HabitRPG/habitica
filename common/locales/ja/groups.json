@@ -51,7 +51,7 @@
     "groupDescr": "公共ギルドリストに表示される説明 (マークダウン OK)",
     "logoUrl": "ロゴＵＲＬ",
     "assignLeader": "グループリーダー指定",
-    "members": "Members",
+    "members": "メンバー",
     "partyList": "Order for party members in header",
     "banTip": "メンバーを解雇",
     "moreMembers": "メンバー一覧",

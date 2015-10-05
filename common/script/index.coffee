@@ -640,7 +640,7 @@ api.wrap = (user, main=true) ->
         user["#{task.type}s"].unshift(task)
         if user.preferences.newTaskEdit then task._editing = true
         if user.preferences.tagsCollapsed then task._tags = true
-        if user.preferences.advancedCollapsed then task._advanced = true
+        if !user.preferences.advancedCollapsed then task._advanced = true
         cb? null, task
         task
 
@@ -766,7 +766,7 @@ api.wrap = (user, main=true) ->
         if food.key is 'Saddle'
           evolve()
         else
-          if food.target is potion
+          if food.target is potion or content.hatchingPotions[potion].premium
             userPets[pet] += 5
             message = i18n.t('messageLikesFood', {egg: petDisplayName, foodText: food.text(req.language)}, req.language)
           else
@@ -822,7 +822,8 @@ api.wrap = (user, main=true) ->
           item = content[type][key]
           price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
+        return cb?({code:403, message: i18n.t('messageNotAvailable', req.language)}) if not item.canBuy(user)
+        return cb?({code:403, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
         user.balance -= price
         if type is 'gear' then user.items.gear.owned[key] = true
         else
@@ -1070,10 +1071,11 @@ api.wrap = (user, main=true) ->
 
       hatch: (req, cb) ->
         {egg, hatchingPotion} = req.params
-        return cb?({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
-        return cb?({code:401,message:i18n.t('messageMissingEggPotion', req.language)}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+        return cb?({code:400,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
+        return cb?({code:403,message:i18n.t('messageMissingEggPotion', req.language)}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+        return cb?({code:403,message:i18n.t('messageInvalidEggPotionCombo', req.language)}) if content.hatchingPotions[hatchingPotion].premium and not content.dropEggs[egg]
         pet = "#{egg}-#{hatchingPotion}"
-        return cb?({code:401, message:i18n.t('messageAlreadyPet', req.language)}) if user.items.pets[pet] and user.items.pets[pet] > 0
+        return cb?({code:403, message:i18n.t('messageAlreadyPet', req.language)}) if user.items.pets[pet] and user.items.pets[pet] > 0
         user.items.pets[pet] = 5
         user.items.eggs[egg]--
         user.items.hatchingPotions[hatchingPotion]--
@@ -1529,7 +1531,7 @@ api.wrap = (user, main=true) ->
 
           # Eggs: 30% chance
         else if rarity > .3
-          drop = user.fns.randomVal _.where(content.eggs,{canBuy:true})
+          drop = user.fns.randomVal content.dropEggs
           user.items.eggs[drop.key] ?= 0
           user.items.eggs[drop.key]++
           drop.type = 'Egg'
@@ -1834,6 +1836,11 @@ api.wrap = (user, main=true) ->
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
+      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
+      progress = user.party.quest.progress; _progress = _.cloneDeep progress
+      _.merge progress, {down:0,up:0}
+      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
+
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
@@ -1845,14 +1852,12 @@ api.wrap = (user, main=true) ->
         uuid: user._id,
         user: user,
         resting: user.preferences.sleep,
-        cronCount: user.flags.cronCount
+        cronCount: user.flags.cronCount,
+        progressUp: _progress.up,
+        progressDown: _progress.down
       }
       options.analytics?.track('Cron', analyticsData)
 
-      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
-      progress = user.party.quest.progress; _progress = _.cloneDeep progress
-      _.merge progress, {down:0,up:0}
-      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
       _progress
 
     # Registered users with some history

@@ -35,7 +35,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var server = http.createServer();
 
   // ------------  MongoDB Configuration ------------
-  mongoose = require('mongoose');
+  var mongoose = require('mongoose');
   var mongooseOptions = !isProd ? {} : {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }

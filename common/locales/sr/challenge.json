@@ -56,8 +56,8 @@
     "backToChallenges": "Povratak na sve izazove",
     "prizeValue": "Nagrada: <%= gemcount %>&nbsp;<%= gemicon %>",
     "clone": "Klon",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge.",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "challengeNotEnoughGems": "Nemate dovoljno dragulja da postavite ovaj izazov.",
+    "noPermissionEditChallenge": "Nemate ovlašćenje da prepravite ovaj izazov.",
+    "noPermissionDeleteChallenge": "Nemate ovlašćenje da izbrišete ovaj izazov.",
+    "noPermissionCloseChallenge": "Nemate ovlašćenje da zatvorite ovaj izazov."
 }

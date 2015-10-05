@@ -1,7 +1,7 @@
 var nconf = require('nconf');
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 var ignoreRedirect = nconf.get('IGNORE_REDIRECT');
-var BASE_URL = nconf.get("BASE_URL");
+var BASE_URL = nconf.get('BASE_URL');
 
 function isHTTP(req) {
   return (

@@ -1,15 +1,15 @@
-mixin petList(source)
+mixin petList(eggSource, potionSource)
   menu.pets(type='list')
-    each egg in source
+    each egg in eggSource
       li.customize-menu
         menu
-          each potion in env.Content.hatchingPotions
+          each potion in potionSource
             - pet = egg.key+"-"+potion.key
             div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
               button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
                 .progress(ng-show='!user.items.mounts["#{pet}"]')
                   .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{pet}"]/.5 + "%"}')
-              button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
+              button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"])')
                 .PixelPaw
               button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
 
@@ -24,10 +24,25 @@ mixin petList(source)
         p=env.t('mattBochText1')
         h4 {{:: env.t('stableBeastMasterProgress', { number: beastMasterProgress }) }}
   .row: .col-md-12
-    +petList(env.Content.dropEggs)
+    +petList(env.Content.dropEggs,env.Content.dropHatchingPotions)
+  .row: .col-md-12
+    h4=env.t('magicPets')
+    menu.pets(type='list')
+      each potion in env.Content.premiumHatchingPotions
+        li.customize-menu
+          menu
+            each egg in env.Content.dropEggs
+              - pet = egg.key+"-"+potion.key
+              div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
+                button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
+                  .progress(ng-show='!user.items.mounts["#{pet}"]')
+                    .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{pet}"]/.5 + "%"}')
+                button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"])')
+                  .PixelPaw
+                button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
   .row: .col-md-12
     h4=env.t('questPets')
-    +petList(env.Content.questEggs)
+    +petList(env.Content.questEggs,env.Content.dropHatchingPotions)
 
   .row: .col-md-12
     h4=env.t('rarePets')

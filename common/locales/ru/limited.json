@@ -14,7 +14,7 @@
     "valentineCardExplanation": "За проявленную терпеливость к настолько слащавым стихотворениям каждый из вас двоих получает значок «любимые друзья»!",
     "valentineCardNotes": "Отправьте валентинку члену команды.",
     "valentine0": "«Я помню чудное мгновенье:\nВ одной команде — я и ты,\nС твоей поддержкой, без сомненья,\nПривычки сложные — просты.»",
-    "valentine1": "«Я помню чудное мгновенье:\nС тобою вместе, бок о бок,\nМы много дней боролись с ленью\nИ победили злой порок!»",
+    "valentine1": "«Я помню чудное мгновенье:\nС тобою вместе, бок о бок,\nМы каждый день боролись с ленью\nИ победили злой порок!»",
     "valentine2": "«Я помню чудное мгновенье:\nТебе понравился мой стих.\nЯ на его приобретенье\nПотратил десять золотых!»",
     "valentine3": "«Я помню чудное мгновенье:\nНашёл сокровищ полный таз.\nНо с ними не идёт в сравненье\nС тобою проведённый час!»",
     "valentineCardAchievementTitle": "Любимые друзья",
@@ -29,6 +29,7 @@
     "seasonalShopClosedText": "Сезонная лавка сейчас закрыта!! Я понятия не имею, куда ушла Сезонная Чародейка, но она уж точно вернется к следующему <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>большому событию</a>!",
     "seasonalShopText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары весеннего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно в дни Весенней Веселухи, но мы открыты только до 30 апреля, так что спешите закупиться сейчас, иначе придется ждать целый год!",
     "seasonalShopSummerText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары летнего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно в дни Летнего Всплеска, но мы открыты только до 31 июля, так что спешите закупиться сейчас, иначе придется ждать целый год!",
+    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Использовав шар возрождения, вы сможете повторно купить это снаряжение в колонке наград. Поначалу вы сможете купить только предметы для вашего текущего класса (класс по умолчанию – воин), но не волнуйтесь: после смены класса вам станут доступны другие классовые предметы.",
     "candycaneSet": "Карамельная палочка (Маг)",
     "skiSet": "Лыжник-ассасин (Разбойник)",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "Дерзкий Головорез (Воин)",
     "emeraldMermageSet": "Изумрудный Русалколдун (Маг)",
     "reefSeahealerSet": "Рифовый Морской Целитель (Целитель)",
-    "roguishPirateSet": "Коварный Пират (Разбойник)"
+    "roguishPirateSet": "Коварный Пират (Разбойник)",
+    "monsterOfScienceSet": "Monster of Science (Warrior)",
+    "witchyWizardSet": "Witchy Wizard (Mage)",
+    "mummyMedicSet": "Mummy Medic (Healer)",
+    "vampireSmiterSet": "Vampire Smiter (Rogue)",
+    "fallEventAvailability": "Available until October 31"
 }

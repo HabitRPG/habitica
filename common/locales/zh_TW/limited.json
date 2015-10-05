@@ -29,6 +29,7 @@
     "seasonalShopClosedText": "季節限定商店目前沒有營業！我不知道店主人在哪，不過我想下個<a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>盛大宴會</a>他會回來的。",
     "seasonalShopText": "歡迎來到季節限定商店！！我們正要把春天 <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a> 的商品上架呢。這裡的每樣物品都會在每年歡慶春日的時節開放購買，但只到四月30日為止，所以趕快趁現在採購，不然你可得等到明年才能再買囉。",
     "seasonalShopSummerText": "歡迎來到季節商店!! 我們在夏令有<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節性版本</a> 商品。 每年的夏季特賣我們都會提供相關商品販售，只賣到7/31而已喔，所以請趕快購買，錯過要等明年了!",
+    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "拐杖糖 ( 法師 )",
     "skiSet": "滑雪杖 ( 盜賊 )",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "親愛的劍客 (戰士)",
     "emeraldMermageSet": "翡翠法器 (魔法師)",
     "reefSeahealerSet": "海礁完復劑 (醫者)",
-    "roguishPirateSet": "流氓海盜 (盜賊)"
+    "roguishPirateSet": "流氓海盜 (盜賊)",
+    "monsterOfScienceSet": "Monster of Science (Warrior)",
+    "witchyWizardSet": "Witchy Wizard (Mage)",
+    "mummyMedicSet": "Mummy Medic (Healer)",
+    "vampireSmiterSet": "Vampire Smiter (Rogue)",
+    "fallEventAvailability": "Available until October 31"
 }

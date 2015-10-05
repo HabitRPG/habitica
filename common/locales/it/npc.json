@@ -46,7 +46,7 @@
     "tourHabits": "Questa colonna è per la buone e cattive abitudini (Habit) con cui hai a che fare diverse volte al giorno! Per procedere, clicca sulla matita per modificare i nomi, poi clicca sull'icona con la spunta per salvare le tue modifiche.",
     "tourStats": "Le buone abitudini conferiscono esperienza ed oro! Quelle cattive danneggiano la salute.",
     "tourGP": "Per procedere, compra la Spada da Allenamento con l'oro che hai appena guadagnato!",
-    "tourAvatar": "<strong>Personalizza il tuo avatar</strong><ul><li>Il tuo avatar rappresenta...te.</li><li>Personalizzalo ora, oppure torna più tardi.</li><li>Potrai abbellire ulteriormente il tuo avatar non appena otterrai dell'equipaggiamento!</li></ul>",
+    "tourAvatar": "<strong>Personalizza il tuo avatar</strong><ul><li>Il tuo avatar rappresenta...te stesso.</li><li>Personalizzalo ora, oppure torna più tardi.</li><li>Potrai abbellire ulteriormente il tuo avatar non appena otterrai dell'equipaggiamento!</li></ul>",
     "tourScrollDown": "Assicurati di scorrere la pagina fino alla fine per vedere tutte le opzioni! Fai di nuovo click sul tuo avatar per tornare alla pagina delle attività.",
     "tourMuchMore": "Quando hai finito con le attività, puoi creare una Squadra insieme ai tuoi amici, chattare nelle Gilde di interessi comuni, partecipare alle Sfide, e tanto altro ancora!",
     "tourStatsPage": "Questa è la pagina delle tue Statistiche! Guadagna delle medaglie compiendo le azioni elencate.",
@@ -72,13 +72,13 @@
     "tourRewardsBrief": "<strong>Lista Ricompense</strong><ul><li>Qui puoi spendere l'oro che hai guadagnato!</li><li>Acquista equipaggiamento per il tuo avatar, oppure crea delle Ricompense personalizzate.</li></ul>",
     "tourRewardsProceed": "E' tutto!",
     "welcomeToHabit": "Benvenuto ad Habitica!",
-    "welcome1": "Create a basic avatar.",
-    "welcome1notes": "This avatar will represent you as you progress.",
-    "welcome2": "Set up your tasks.",
+    "welcome1": "Crea un semplice avatar.",
+    "welcome1notes": "Questo avatar rappresenta te e i tuoi progressi nel gioco.",
+    "welcome2": "Crea e personalizza le tue attività.",
     "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
     "welcome3": "Progress in life and the game!",
     "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "Evita le cattive abitudini che ti fanno perdere Salute (HP), o il tuo avatar morirà!",
     "welcome5": "Ora personalizzerai il tuo avatar e imposterai le tue attività...",
-    "imReady": "Enter Habitica"
+    "imReady": "Entra in Habitica"
 }
