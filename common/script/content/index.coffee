@@ -1354,7 +1354,7 @@ api.quests =
     completion: t('questBurnoutCompletion')
     completionChat: t('questBurnoutCompletionChat')
     value: 0
-    canBuy: false
+    canBuy: (()->false)
     category: 'world'
     boss:
       name: t('questBurnoutBoss')
