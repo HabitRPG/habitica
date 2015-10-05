@@ -1,5 +1,6 @@
 div(ng-if='::task.type!="reward"')
   button.advanced-options-toggle.option-title.mega(type='button',
+    ng-class='{active: task._advanced}',
     ng-click='task._advanced = !task._advanced', tooltip=env.t('expandCollapse'))
     =env.t('advancedOptions')
 
