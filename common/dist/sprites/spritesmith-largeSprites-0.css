@@ -42,7 +42,7 @@
 }
 .promo_dilatoryDistress {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -291px -843px;
+  background-position: -837px -843px;
   width: 90px;
   height: 90px;
 }
@@ -66,7 +66,7 @@
 }
 .promo_enchanted_armoire_201509 {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -837px -843px;
+  background-position: -291px -843px;
   width: 90px;
   height: 90px;
 }
@@ -216,7 +216,7 @@
 }
 .promo_pastel_skin {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -331px -668px;
+  background-position: 0px -668px;
   width: 330px;
   height: 83px;
 }
@@ -240,7 +240,7 @@
 }
 .promo_shimmer_hair {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: 0px -668px;
+  background-position: -331px -668px;
   width: 330px;
   height: 83px;
 }

@@ -127,6 +127,14 @@
   "backgroundStableText": "Habitica Stable",
   "backgroundStableNotes": "Tend mounts in the Habitica Stable.",
   "backgroundTavernText": "Habitica Tavern",
-  "backgroundTavernNotes": "Visit the Habitica Tavern."
+  "backgroundTavernNotes": "Visit the Habitica Tavern.",
+
+  "backgrounds102015": "SET 17: Released October 2015",
+  "backgroundHarvestMoonText": "Harvest Moon",
+  "backgroundHarvestMoonNotes": "Cackle under the Harvest Moon.",
+  "backgroundSlimySwampText": "Slimy Swamp",
+  "backgroundSlimySwampNotes": "Slog through a Slimy Swamp.",
+  "backgroundSwarmingDarknessText": "Swarming Darkness",
+  "backgroundSwarmingDarknessNotes": "Shiver in the Swarming Darkness."
 }
 
