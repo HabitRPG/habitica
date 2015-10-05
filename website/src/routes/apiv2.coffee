@@ -497,6 +497,17 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action:groups.invite
 
+    "/groups/{gid}/members":
+      spec:
+        method: 'Get'
+        description: "Get list of group members"
+        parameters: [
+          path 'gid',"Group id",'string'
+          body '','include body.limit and/or body.offset to page members','number'
+        ]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action:groups.members
+
     "/groups/{gid}/removeMember":
       spec:
         method: 'POST'

@@ -318,6 +318,52 @@ describe "Guilds", ->
 
         ], done
 
+  context "getting members", ->
+    it "gets members for a group", (done) ->
+      guildToPageUsers = undefined
+      members = undefined
+      userToJoin = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGuildToPageUsers"
+        type: "guild"
+      ).end (res) ->
+        guildToPageUsers = res.body
+        #Add members to guild
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToJoin = _members[0]
+            members = _members
+            inviteURL = baseURL + "/groups/" + guildToPageUsers._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToJoin._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + guildToPageUsers._id + "/join")
+              .set("X-API-User", userToJoin._id)
+              .set("X-API-Key", userToJoin.apiToken)
+              .end (res) ->
+                cb()
+
+          (cb) ->
+            request.get(baseURL + "/groups/" + guildToPageUsers._id + "/members")
+            .send({
+              "limit": 1,
+              "offset": 1,
+              })
+            .end (res) ->
+              g = res.body
+              expect(res.body.members.length).to.eql(1)
+              expect(res.body.members[0]._id).to.eql(userToJoin._id)
+              cb()
+
+        ], done
+
   describe "Private Guilds", ->
     guild = undefined
     before (done) ->
