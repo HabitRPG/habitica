@@ -298,7 +298,9 @@
   "questBurnoutCompletion": "Placeholder",
   "questBurnoutCompletionChat": "Placeholder",
   "questBurnoutBoss": "Burnout",
-  "questBurnoutBossRageTitle": "Placeholder",
-  "questBurnoutBossRageDescription": "Placeholder",
-  "questBurnoutDesperation": "Placeholder"
+  "questBurnoutBossRageTitle": "Exhaust Strike",
+  "questBurnoutBossRageDescription": "When this gauge fills, Burnout will unleash its Exhaust Strike on Habitica!",
+  "questBurnoutBossRageQuests": "`Burnout uses EXHAUST STRIKE!`\n\nOh no! Despite our best efforts, we've let some Dailies get away from us, and now Burnout is inflamed with energy! With a crackling snarl, it engulfs Ian the Quest Master in a surge of spectral fire. As fallen quest scrolls smolder, the smoke clears, and you see that Ian has been drained of energy and turned into a drifting Exhaust Spirit!\n\nOnly defeating Burnout can break the spell and restore our beloved Quest Master. Let's keep our Dailies in check and defeat this monster before it attacks again!",
+  "questBurnoutBossRageSeasonalShop": "`Burnout uses EXHAUST STRIKE!`\n\nAhh!!! Our incomplete Dailies have fed the flames of Burnout, and now it has enough energy to strike again! It lets loose a gout of spectral flame that sears the Seasonal Shop. You're horrified to see that the cheery Seasonal Sorceress has been transformed into a drooping Exhaust Spirit.\n\nWe have to rescue our NPCs! Hurry, Habiticans, complete your tasks and defeat Burnout before it strikes for a third time!",
+  "questBurnoutBossRageTavern": "`Burnout uses EXHAUST STRIKE!`\n\nMany Habiticans have been hiding from Burnout in the Tavern, but no longer! With a screeching howl, Burnout rakes the Tavern with its white-hot hands. As the Tavern patrons flee, Daniel is caught in Burnout's grip, and transforms into an Exhaust Spirit right in front of you!\n\nThis hot-headed horror has gone on for too long. Don't give up... we're so close to vanquishing Burnout for once and for all!"
 }

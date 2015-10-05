@@ -308,8 +308,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
         if (tavern.quest.progress.rage >= quest.boss.rage.value) {
           if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
           var wd = tavern.quest.extra.worldDmg;
-          // var scene = wd.tavern ? wd.stables ? wd.market ? false : 'market' : 'stables' : 'tavern'; // Dilatory attacks tavern, stables, market
-          var scene = wd.stables ? wd.bailey ? wd.guide ? false : 'guide' : 'bailey' : 'stables'; // Stressbeast attacks stables, Bailey, Justin
+          var scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // Burnout attacks Ian, Seasonal Sorceress, tavern
           if (!scene) {
             tavern.sendChat('`'+quest.boss.name('en')+' tries to unleash '+quest.boss.rage.title('en')+', but is too tired.`');
             tavern.quest.progress.rage = 0 //quest.boss.rage.value;

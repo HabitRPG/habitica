@@ -1349,30 +1349,40 @@ api.quests =
       exp: 0
 
   burnout:
-    text: t("questBurnoutText")
-    notes: t("questBurnoutNotes")
-    completion: t("questBurnoutCompletion")
-    completionChat: t("questBurnoutCompletionChat")
+    text: t('questBurnoutText')
+    notes: t('questBurnoutNotes')
+    completion: t('questBurnoutCompletion')
+    completionChat: t('questBurnoutCompletionChat')
     value: 0
     canBuy: false
     category: 'world'
     boss:
-      name: t("questBurnoutBoss")
-      hp: 5000000
-      str: 1
+      name: t('questBurnoutBoss')
+      hp: 11000000
+      str: 2.5
       def: 1
       rage:
-        title: t("questBurnoutBossRageTitle")
-        description: t("questBurnoutBossRageDescription")
-        value: 5000000
-        healing: .3
-      desperation:
-        threshold: 500000
-        str: 3.5
-        def: 2
-        text:t('questBurnoutDesperation')
+        title: t('questBurnoutBossRageTitle')
+        description: t('questBurnoutBossRageDescription')
+        value: 1000000
+        quests: t('questBurnoutBossRageQuests')
+        seasonalShop: t('questBurnoutBossRageSeasonalShop')
+        tavern: t('questBurnoutBossRageTavern')
     drop:
       items: [
+        {type: 'pets', key: 'Phoenix-Base', text: t('questBurnoutDropPhoenixPet')}
+        {type: 'mounts', key: 'Phoenix-Base', text: t('questBurnoutDropPhoenixMount')}
+
+        {type: 'food', key: 'Candy_Base', text: t('foodCandyBase')}
+        {type: 'food', key: 'Candy_White', text: t('foodCandyWhite')}
+        {type: 'food', key: 'Candy_Desert', text: t('foodCandyDesert')}
+        {type: 'food', key: 'Candy_Red', text: t('foodCandyRed')}
+        {type: 'food', key: 'Candy_Shade', text: t('foodCandyShade')}
+        {type: 'food', key: 'Candy_Skeleton', text: t('foodCandySkeleton')}
+        {type: 'food', key: 'Candy_Zombie', text: t('foodCandyZombie')}
+        {type: 'food', key: 'Candy_CottonCandyPink', text: t('foodCandyCottonCandyPink')}
+        {type: 'food', key: 'Candy_CottonCandyBlue', text: t('foodCandyCottonCandyBlue')}
+        {type: 'food', key: 'Candy_Golden', text: t('foodCandyGolden')}
       ]
       gp: 0
       exp: 0

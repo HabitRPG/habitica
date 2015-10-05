@@ -38,7 +38,7 @@ script(type='text/ng-template', id='modals/showQuest.html')
   .modal-body
     +questInfo
     hr
-    .npc_ian.pull-left
+    div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
     p=env.t('questSend')
     p=env.t('questWarning')
   .modal-footer

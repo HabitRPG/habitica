@@ -18,7 +18,7 @@ div(ng-if='group.quest.active===false')
 
   hr
 
-  .npc_ian.pull-left
+  div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
   p=env.t('questStart')
 
   span(ng-if='user.party.quest.RSVPNeeded')
