@@ -6,6 +6,7 @@ var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
+var Task = require('./../models/task').model;
 var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
 var csv = require('express-csv');
@@ -68,10 +69,14 @@ api.get = function(req, res, next) {
     .exec(function(err, challenge){
       if(err) return next(err);
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
-      challenge._isMember = !!(_.find(challenge.members, function(member) {
-        return member._id === user._id;
-      }));
-      res.json(challenge);
+
+      challenge.getTransformedData(function(err, challenge) {
+        if(err) return next(err);
+        challenge._isMember = !!(_.find(challenge.members, function(member) {
+          return member._id === user._id;
+        }));
+        res.json(challenge);
+      });
     });
 }
 
@@ -194,23 +199,41 @@ api.create = function(req, res, next){
       }
       req.body.leader = user._id;
       req.body.official = user.contributor.admin && req.body.official;
+
       var chal = new Challenge(req.body); // FIXME sanitize
       chal.members.push(user._id);
-      chal.save(cb);
+
+      var tasks = req.body.habits.concat(req.body.rewards)
+                    .concat(req.body.dailys).concat(req.body.todos);
+
+      tasks.forEach(function(task) {
+        task = new Task(task);
+        task.challenge.id = chal._id;
+      });
+
+      async.parallel({
+        chal: chal.save.bind(chal),
+        tasks: function(cb1) {
+          async.map(tasks, function(task, cb2){
+            task.save(cb2)
+          }, cb1);
+        }
+      }, cb);
+
     }],
     save_group: ['save_chal', function(cb, results){
-      results.get_group.challenges.push(results.save_chal[0]._id);
+      results.get_group.challenges.push(results.save_chal[0].chal._id);
       results.get_group.save(cb);
     }],
     sync_user: ['save_group', function(cb, results){
       // Auto-join creator to challenge (see members.push above)
-      results.save_chal[0].syncToUser(user, cb);
+      results.save_chal[0].chal.syncToUser(user, results.save_chal[0].tasks, cb);
     }]
   }, function(err, results){
     if (err) return err.code? res.json(err.code, err) : next(err);
-    return res.json(results.save_chal[0]);
+    return res.json(results.save_chal[0].chal.addTasksToChallenge(results.save_chal[0].tasks));
     user = null;
-  })
+  });
 }
 
 // UPDATE
@@ -223,18 +246,43 @@ api.update = function(req, res, next){
       // We first need the original challenge data, since we're going to compare against new & decide to sync users
       Challenge.findById(cid, cb);
     },
+    function(chal, cb){
+      if(!chal) return cb({chal: null});
+
+      chal.getTasks(function(err, tasks){
+        cb(err, {
+          chal: chal,
+          tasks: tasks
+        });
+      });
+    },
     function(_before, cb) {
-      if (!_before) return cb('Challenge ' + cid + ' not found');
-      if (_before.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionEditChallenge', req.language));
+      if (!_before.chal) return cb('Challenge ' + cid + ' not found');
+      if (_before.chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionEditChallenge', req.language));
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
       before = _before;
-      var attrs = _.pick(req.body, 'name shortName description habits dailys todos rewards date'.split(' '));
-      Challenge.findByIdAndUpdate(cid, {$set:attrs}, cb);
+      var chalAttrs = _.pick(req.body, 'name shortName description date'.split(' '));
+      async.parallel({
+        chal: function(cb1){
+          Challenge.findByIdAndUpdate(cid, {$set:chalAttrs}, cb1);
+        },
+        tasks: function(cb1) {
+          // Convert to map of {id: task} so we can easily match them
+          var oldTasksObj = _.object(_.pluck(before.tasks, '_id'), before.tasks);
+          var newTasks = req.body.habits.concat(req.body.dailys)
+                          .concat(req.body.todos).concat(req.body.rewards);
+
+          var newTasksObj = _.object(_.pluck(newTasks, '_id'), newTasks);
+          async.forEachOf(newTasksObj, function(newTask, key, cb2){
+            
+          });
+        }
+      }, cb);
     },
     function(saved, cb) {
-
       // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
+      // TODO isOutdated seems to check only for differences in tasks, what about other changes?
       if (before.isOutdated(req.body)) {
         User.find({_id: {$in: saved.members}}, function(err, users){
           logging.info('Challenge updated, sync to subscribers');
@@ -376,6 +424,7 @@ api.join = function(req, res, next){
 
       // Trigger updating challenge member count in the background. We can't do it above because we don't have
       // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
+      // TODO why not just use mongo `inc` operation?
       Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
 
       if (!~user.challenges.indexOf(cid))

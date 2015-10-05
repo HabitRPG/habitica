@@ -68,7 +68,7 @@ api.score = function(req, res, next) {
   var id = req.params.id,
     direction = req.params.direction,
     user = res.locals.user,
-    body = req.body || {};
+    body = req.body || {},
     task;
 
   // Send error responses for improper API call
@@ -893,6 +893,7 @@ api.deleteTask = function(req, res, next) {
 };
 
 api.addTask = function(req, res, next) {
+  var user = res.locals.user;
   var task = new Task(req.body);
   user.tasksOrder[task.type + 's'].push(task._id);
 
@@ -936,8 +937,6 @@ _.each(shared.wrap({}).ops, function(op,k){
 */
 api.batchUpdate = function(req, res, next) {
   if (_.isEmpty(req.body)) req.body = []; // cases of {} or null
-  if (req.body[0] && req.body[0].data)
-    return res.json(501, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
 
   var user = res.locals.user;
   var oldSend = res.send;
@@ -977,26 +976,30 @@ api.batchUpdate = function(req, res, next) {
     res.send = oldSend;
     if (err) return next(err);
 
-    var response = _user.toJSON();
-    response.wasModified = res.locals.wasModified;
-
-    user.fns.nullify();
-    user = res.locals.user = oldSend = oldJson = oldSave = null;
-
+    var response;
     // return only drops & streaks
-    if (response._tmp && response._tmp.drop){
+    if (_user._tmp && _user._tmp.drop){
+      response = _user.toJSON();
       res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
-    } else if (response.wasModified){
+    } else if (res.locals.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
-      response.todos = shared.preenTodos(response.todos);
-      res.json(200, response);
+      _user.getTransformedData(function(err, transformedData){
+        response = transformedData;
+
+        response.todos = shared.preenTodos(response.todos);
+        res.json(200, response);
+      });
 
     // return only the version number
     } else{
+      response = _user.toJSON();
       res.json(200, {_v: response._v});
     }
+
+    user.fns.nullify();
+    user = res.locals.user = oldSend = oldJson = oldSave = null;
   });
 };
 

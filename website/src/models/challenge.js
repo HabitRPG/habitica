@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var shared = require('../../../common');
+var async = require('async');
 var _ = require('lodash');
 var Task = require('./task').model;
 
@@ -15,8 +16,30 @@ var ChallengeSchema = new Schema({
   timestamp: {type: Date, 'default': Date.now},
   members: [{type: String, ref: 'User'}],
   memberCount: {type: Number, 'default': 0},
-  prize: {type: Number, 'default': 0}
+  prize: {type: Number, 'default': 0},
+  // List of habits/dailys/todos/rewards IDs to keep track of order
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}]
+  }
 });
+
+// Get all the tasks belonging to a challenge,
+// with their history
+// TODO filter just one or more types of tasks
+ChallengeSchema.methods.getTasks = function(cb) {
+  Task.find({
+    // TODO $or should be avoided, revisit once discriminators are in place
+    userId: {$exists: false},
+    'challenge.id': this.challenge._id
+  }, function(err, tasks){
+    if(err) return cb(err);
+
+    cb(null, tasks);
+  });
+};
 
 ChallengeSchema.methods.toJSON = function(){
   var doc = this.toObject();
@@ -24,30 +47,46 @@ ChallengeSchema.methods.toJSON = function(){
   return doc;
 };
 
-ChallengeSchema.methods.getTemplateTasks = function(cb) {
+// Given a challenge and an array of tasks, return an API compatible challenge + tasks obj
+ChallengeSchema.methods.addTasksToChallenge = function(tasks) {
+  var obj = this.toJSON();
+  var tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
 
+  obj.habits = [];
+  obj.dailys = [];
+  obj.todos = [];
+  obj.rewards = [];
+
+  obj.tasksOrder = undefined;
+  var unordered = [];
+
+  tasks.forEach(function(task){
+    // We want to push the task at the same position where it's stored in tasksOrder
+    var pos = tasksOrder[task.type + 's'].indexOf(task._id);
+    if(pos === -1) { // Should never happen, it means the lists got out of sync
+      unordered.push(task.toJSON());
+    } else {
+      obj[task.type + 's'][pos] = task.toJSON();
+    }
+    
+  });
+
+  // Reconcile unordered items
+  unordered.forEach(function(task){
+    obj[task.type + 's'].push(task);
+  });
+
+  return obj;
 };
 
 // Return the data maintaining backward compatibility
 ChallengeSchema.methods.getTransformedData = function(cb) {
-  var obj = this.toJSON();
-
+  var self = this;
   this.getTasks(function(err, tasks) {
     if(err) return cb(err);
-
-    obj.habits = [];
-    obj.dailys = [];
-    obj.todos = [];
-    obj.rewards = [];
-
-    tasks.forEach(function(task){
-      obj[task.type + 's'].push(task.toJSON());
-    });
-
-    cb(null, obj);
+    cb(null, self.addTasksToChallenge(tasks));
   });
 };
-
 
 // --------------
 // Syncing logic
