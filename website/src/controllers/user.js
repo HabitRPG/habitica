@@ -92,6 +92,7 @@ api.score = function(req, res, next) {
         _id: id, // TODO this might easily lead to conflicts as ids are now unique db-wide
         type: body.type,
         text: body.text,
+        userId: user._id,
         notes: body.notes || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task." // TODO translate
       });
 
@@ -103,59 +104,61 @@ api.score = function(req, res, next) {
       task.completed = direction === 'up';
     }
 
-  });
+    var delta = user.ops.score({
+      params: {
+        task: task, 
+        direction: direction
+      }, 
+      language: req.language,
+      user: user
+    });
 
-  var delta = user.ops.score({
-    params: {
-      task: task, 
-      direction: direction
-    }, 
-    language: req.language,
-    user: user
-  });
+    async.parallel({
+      task: task.save.bind(task),
+      user: user.save.bind(user)
+    }, function(err, results){
+      if(err) return next(err);
 
-  async.parallel({
-    task: task.save.bind(task),
-    user: user.save.bind(user)
-  }, function(err, results){
-    if(err) return next(err);
+      // FIXME this is suuuper strange, sometimes results.user is an array, sometimes user directly
+      var saved = Array.isArray(results.user) ? results.user[0] : results.user;
+      var task = results.task[0];
 
-    var saved = results.user;
+      var userStats = saved.toJSON().stats;
+      var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
+      res.json(200, resJsonData);
 
-    var userStats = saved.toJSON().stats;
-    var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
-    res.json(200, resJsonData);
+      var webhookData = _generateWebhookTaskData(
+        task, direction, delta, userStats, user
+      );
+      webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
 
-    var webhookData = _generateWebhookTaskData(
-      task, direction, delta, userStats, user
-    );
-    webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
+      if (
+        (!task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
+        || (task.type == 'reward') // we don't want to update the reward GP cost
+      ) return;
 
-    if (
-      (!task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
-      || (task.type == 'reward') // we don't want to update the reward GP cost
-    ) return;
+      Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
+        if (err) return next(err);
+        if (!chal) {
+          task.challenge.broken = 'CHALLENGE_DELETED';
+          task.save();
+          return;
+        }
+        var t = chal.tasks[task.id];
+        // this task was removed from the challenge, notify user
+        if (!t) {
+          chal.syncToUser(user);
+          return;
+        }
 
-    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
-      if (err) return next(err);
-      if (!chal) {
-        task.challenge.broken = 'CHALLENGE_DELETED';
-        task.save();
-        return;
-      }
-      var t = chal.tasks[task.id];
-      // this task was removed from the challenge, notify user
-      if (!t) {
-        chal.syncToUser(user);
-        return;
-      }
-
-      t.value += delta;
-      if (t.type == 'habit' || t.type == 'daily')
-        t.history.push({value: t.value, date: +new Date});
-      chal.save();
+        t.value += delta;
+        if (t.type == 'habit' || t.type == 'daily')
+          t.history.push({value: t.value, date: +new Date});
+        chal.save();
+      });
     });
   });
+
 };
 
 /**
@@ -395,7 +398,7 @@ api.cron = function(req, res, next) {
       },
       function(saved, count, cb){
         var type = quest.boss ? 'boss' : 'collect';
-        Group[type+'Quest'](user,progress,cb);
+        Group[type+'Quest'](saved.user[0],progress,cb);
       },
       function(){
         var cb = arguments[arguments.length-1];
@@ -516,7 +519,7 @@ api.cast = function(req, res, next) {
     async.parallel({
       // Saving modified tasks
       tasks: function(cb) {
-        // asybc.each doesn't support passing the index of the item being processed,
+        // async.each doesn't support passing the index of the item being processed,
         // so we convert it to an object of {index, value}
         // taken from https://github.com/caolan/async/issues/669#issuecomment-65004297
         var tasksMap = tasks.map(function(task, index){
@@ -539,7 +542,7 @@ api.cast = function(req, res, next) {
     }, function(err, results){
       if(err) return next(err);
 
-      res.json(results.user.addTasksToUser(tasks));
+      res.json(results.user[0].addTasksToUser(tasks));
     });    
   };
 
@@ -669,7 +672,7 @@ api.reset = function(req, res, next) {
   }, function(err, results){
     if(err) return next(err);
 
-    results.saveUser.getTransformedData(function(err, userTransformed){
+    results.saveUser[0].getTransformedData(function(err, userTransformed){
       if(err) return next(err);
 
       res.json(userTransformed);
@@ -690,12 +693,9 @@ api.reroll = function(req, res, next) {
   user.getTasks(function(err, tasks){
     if(err) return next(err);
 
-    var tasksToSave = tasks.filter(function(task){
+    tasks.forEach(function(task){
       if(task.type !== 'reward'){
         task.value = 0;
-        return true;
-      }else{
-        return false;
       }
     });
 
@@ -710,18 +710,29 @@ api.reroll = function(req, res, next) {
     async.parallel({
       saveUser: user.save.bind(user),
       saveTasks: function(cb) {
-        async.each(tasksToSave, function(task, cb1){
-          task.save(cb1);
-        }, cb1);
+        // async.each doesn't support passing the index of the item being processed,
+        // so we convert it to an object of {index, value}
+        // taken from https://github.com/caolan/async/issues/669#issuecomment-65004297
+        var tasksMap = tasks.map(function(task, index){
+          return {index: index, value: task};
+        });
+        async.each(tasksMap, function(item, cb1){
+          var task = tasks[item.index]
+          if(task.isModified()){
+            task.save(function(err, savedTask){
+              if(err) return cb1(err);
+              tasks[item.index] = savedTask;
+              cb1();
+            });
+          }else{
+            cb1();
+          }
+        }, cb);
       }
     }, function(err, results){
       if(err) return next(err);
 
-      results.saveUser.getTransformedData(function(err, userTransformed){
-        if(err) return next(err);
-
-        res.json(userTransformed);
-      });
+      res.json(results.saveUser[0].addTasksToUser(tasks));
     });
   });
 };
@@ -733,30 +744,39 @@ api.rebirth = function(req, res, next) {
     user.getTasks(function(err, tasks){
       if(err) return next(err);
 
-      var tasksToSave = tasks.filter(function(task){
-        if(task.type === 'reward') return false;
+      tasks.forEach(function(task){
+        if(task.type === 'reward') return;
 
         task.value = 0;
         if(task.type === 'daily') task.streak = 0;
-
-        return true;
       });
 
       async.parallel({
         saveUser: user.save.bind(user),
         saveTasks: function(cb) {
-          async.each(tasksToSave, function(task, cb1){
-            task.save(cb1);
-          }, cb1);
+          // async.each doesn't support passing the index of the item being processed,
+          // so we convert it to an object of {index, value}
+          // taken from https://github.com/caolan/async/issues/669#issuecomment-65004297
+          var tasksMap = tasks.map(function(task, index){
+            return {index: index, value: task};
+          });
+          async.each(tasksMap, function(item, cb1){
+            var task = tasks[item.index]
+            if(task.isModified()){
+              task.save(function(err, savedTask){
+                if(err) return cb1(err);
+                tasks[item.index] = savedTask;
+                cb1();
+              });
+            }else{
+              cb1();
+            }
+          }, cb);
         }
       }, function(err, results){
         if(err) return next(err);
 
-        results.saveUser.getTransformedData(function(err, userTransformed){
-          if(err) return next(err);
-
-          res.json(userTransformed);
-        });
+        res.json(results.saveUser[0].addTasksToUser(tasks));
       });
     });
   }, analytics);
@@ -835,7 +855,7 @@ api.sortTask = function(req, res, next) {
     }, function(err, results){
       if(err) return next(err);
 
-      res.json(results.getTasks);
+      res.json(results.getTasks[0]);
     });
   });
 };
@@ -848,10 +868,13 @@ api.updateTask = function(req, res, next) {
     userId: user._id
   }, function(err, task) {
     if(err) return next(err);
+    if(!task) return res.json(404, {err: 'Task not found.'})
 
     req.task = task;
     user.ops.updateTask(req, function(err) {
       if(err) return res.json(err.code, {err: err.message});
+
+      if(task.userId !== user._id) res.json(401, {err: 'Cannot change task owner.'});
 
       task.save(function(err, task){
         if(err) return next(err);
@@ -884,8 +907,8 @@ api.deleteTask = function(req, res, next) {
   }, function(err, results) {
     if(err) return next(err);
 
-    if(results.task.n < 1){
-      return res.json(404, shared.i18n.t('messageTaskNotFound', req.language))
+    if(results.task.result.n < 1){
+      return res.json(404, {err: shared.i18n.t('messageTaskNotFound', req.language)})
     }
 
     res.json(200, {});
@@ -894,7 +917,17 @@ api.deleteTask = function(req, res, next) {
 
 api.addTask = function(req, res, next) {
   var user = res.locals.user;
+  
+  // Support passing custom id
+  if(req.body.id) req.body._id = req.body.id;
   var task = new Task(req.body);
+
+  // Very rudimentary existence test ported from index.coffee to avoid duplicates errors
+  if(user.tasksOrder[task.type + 's'].indexOf(task._id) !== -1) {
+    return res.json(409, {err: shared.i18n.t('messageDuplicateTaskID', req.language)});
+  }
+
+  task.userId = user._id;
   user.tasksOrder[task.type + 's'].push(task._id);
 
   async.parallel({
@@ -903,7 +936,7 @@ api.addTask = function(req, res, next) {
   }, function(err, results){
     if(err) return next(err);
 
-    res.json(results.task);
+    res.json(results.task[0]);
   });
 };
 

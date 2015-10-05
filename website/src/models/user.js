@@ -508,8 +508,7 @@ UserSchema.methods.addTasksToUser = function(tasks) {
       unordered.push(task.toJSON());
     } else {
       obj[task.type + 's'][pos] = task.toJSON();
-    }
-    
+    }    
   });
 
   // Reconcile unordered items

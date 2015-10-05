@@ -222,16 +222,16 @@ api.create = function(req, res, next){
 
     }],
     save_group: ['save_chal', function(cb, results){
-      results.get_group.challenges.push(results.save_chal[0].chal._id);
+      results.get_group.challenges.push(results.save_chal[0].chal[0]._id);
       results.get_group.save(cb);
     }],
     sync_user: ['save_group', function(cb, results){
       // Auto-join creator to challenge (see members.push above)
-      results.save_chal[0].chal.syncToUser(user, results.save_chal[0].tasks, cb);
+      results.save_chal[0].chal[0].syncToUser(user, results.save_chal[0].tasks[0], cb);
     }]
   }, function(err, results){
     if (err) return err.code? res.json(err.code, err) : next(err);
-    return res.json(results.save_chal[0].chal.addTasksToChallenge(results.save_chal[0].tasks));
+    return res.json(results.save_chal[0].chal[0].addTasksToChallenge(results.save_chal[0].tasks[0]));
     user = null;
   });
 }

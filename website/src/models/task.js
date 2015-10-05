@@ -70,7 +70,15 @@ var TaskSchema = new Schema({
 }, {minimize: false});
 
 // Make sure `ìd` is always avalaible for backward compatibility (TODO remove in api v3)
-TaskSchema.set('toObject', { getters: true });
+//TaskSchema.set('toObject', { getters: true });
+//TaskSchema.set('toJSON', { getters: true });
+// TODO toJSON seems to break everything!
+
+TaskSchema.methods.toJSON = function() {
+  var doc = this.toObject();
+  doc.id = doc._id;
+  return doc;
+};
 
 module.exports.schema = TaskSchema;
 module.exports.model = mongoose.model('Task', TaskSchema);

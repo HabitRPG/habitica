@@ -61,6 +61,7 @@ describe "Score", ->
       ).end (err, res) ->
         expectCode res, 200
         unCompletedTodo = res.body
+        console.log('unCompletedTodo', res.body._id);
         expect(unCompletedTodo.completed).to.equal false
         request.post(baseURL + "/user/tasks/"+unCompletedTodo._id+"/up").end (err, res) ->
           expectCode res, 200

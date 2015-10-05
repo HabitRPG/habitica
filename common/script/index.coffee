@@ -1942,7 +1942,6 @@ api.wrap = (user, main=true) ->
   # ----------------------------------------------------------------------
 
   if window?
-    # TODO if window? couldn't get this to work without causing coffescript to 'return' the exp
     Object.defineProperty user, 'tasks',
       get: ->
         tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
