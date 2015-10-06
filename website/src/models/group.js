@@ -318,10 +318,12 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
             tavern.quest.extra.worldDmg.recent = scene;
             tavern.markModified('quest.extra.worldDmg');
             tavern.quest.progress.rage = 0;
-            tavern.quest.progress.hp += (quest.boss.rage.healing * tavern.quest.progress.hp);
+            if (quest.boss.rage.healing) {
+              tavern.quest.progress.hp += (quest.boss.rage.healing * tavern.quest.progress.hp);
+            }
           }
         }
-        if ((tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
+        if (quest.boss.desperation && (tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
           tavern.sendChat(quest.boss.desperation.text('en'));
           tavern.quest.extra.desperate = true;
           tavern.quest.extra.def = quest.boss.desperation.def;

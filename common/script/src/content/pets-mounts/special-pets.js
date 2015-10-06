@@ -8,6 +8,7 @@ let specialPets = {
   'JackOLantern-Base': 'jackolantern',
   'Mammoth-Base':      'mammoth',
   'Tiger-Veteran':     'veteranTiger',
+  'Phoenix-Base':      'phoenix'
 }
 
 export default specialPets;

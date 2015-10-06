@@ -1143,6 +1143,7 @@ api.specialPets =
   'JackOLantern-Base':  'jackolantern'
   'Mammoth-Base':       'mammoth'
   'Tiger-Veteran':      'veteranTiger'
+  'Phoenix-Base':       'phoenix'
 
 api.specialMounts =
   'BearCub-Polar':       'polarBear'
@@ -1152,6 +1153,7 @@ api.specialMounts =
   'Mammoth-Base':        'mammoth'
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
+  'Phoenix-Base':        'phoenix'
 
 api.timeTravelStable =
   pets:

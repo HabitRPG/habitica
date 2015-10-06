@@ -16,6 +16,7 @@ div(ng-if='group.quest.active===true')
 
   if tavern
     include ./bossStats
+    div(ng-bind-html='::Content.quests[group.quest.key].notes()')
 
   hr
 
