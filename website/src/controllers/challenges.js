@@ -328,23 +328,46 @@ function closeChal(cid, broken, cb) {
     function(_removed, cb2) {
       removed = _removed;
       var pull = {'$pull':{}}; pull['$pull'][_removed._id] = 1;
-      Group.findByIdAndUpdate(_removed.group, pull);
-      User.find({_id:{$in: removed.members}}, cb2);
+      async.parallel({
+        updateGroup: function(cb3) {
+          Group.findByIdAndUpdate(_removed.group, pull, cb3);
+        },
+        findUsers: function(cb3) {
+          User.find({_id:{$in: removed.members}}, cb3);
+        },
+        removeTasks: function(cb3) {
+          Task.remove({
+            'challenge.id': cid,
+            userId: {$exists: false}
+          }, cb3);
+        },
+        findUsersTasks: function(cb3) {
+          Task.find({
+            'challenge.id': cid,
+            userId: {$exists: true}
+          }, cb3);
+        }
+      }, cb2);     
     },
-    function(users, cb2) {
+    function(results, cb2) {
       var parallel = [];
-      _.each(users, function(user){
+      _.each(results.findUsers, function(user){
         var tag = _.find(user.tags, {id:cid});
         if (tag) tag.challenge = undefined;
-        _.each(user.tasks, function(task){
-          if (task.challenge && task.challenge.id == removed._id) {
-            _.merge(task.challenge, broken);
-          }
-        })
         parallel.push(function(cb3){
           user.save(cb3);
         })
-      })
+      });
+
+      _.each(results.findUsersTasks, function(task){
+        if (task.challenge && task.challenge.id == removed._id) {
+          _.merge(task.challenge, broken);
+          parallel.push(function(cb3) {
+            task.save(cb3);
+          });
+        }
+      });
+
       async.parallel(parallel, cb2);
       removed = null;
     }
