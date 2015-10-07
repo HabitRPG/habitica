@@ -113,8 +113,8 @@ function comparableData(obj) {
       .value())
 }
 
-ChallengeSchema.methods.isOutdated = function(newData) {
-  return comparableData(this) !== comparableData(newData);
+ChallengeSchema.methods.isOutdated = function(oldData, newData) {
+  return comparableData(oldData) !== comparableData(newData);
 }
 
 /**
@@ -122,8 +122,9 @@ ChallengeSchema.methods.isOutdated = function(newData) {
  * @param user
  * @return nothing, user is modified directly. REMEMBER to save the user!
  */
-ChallengeSchema.methods.syncToUser = function(user, cb) {
+ChallengeSchema.methods.syncToUser = function(tasks, user, cb) {
   if (!user) return;
+  if(Array.isArray(tasks)) tasks = _.object(_.pluck(tasks, '_id'), tasks);
   var self = this;
   self.shortName = self.shortName || self.name;
 
@@ -148,25 +149,49 @@ ChallengeSchema.methods.syncToUser = function(user, cb) {
     });
   }
 
-  // Sync new tasks and updated tasks
-  _.each(self.tasks, function(task){
-    var list = user[task.type+'s'];
-    var userTask = user.tasks[task.id] || (list.push(syncableAttrs(task)), list[list.length-1]);
-    if (!userTask.notes) userTask.notes = task.notes; // don't override the notes, but provide it if not provided
-    userTask.challenge = {id:self._id};
-    userTask.tags = userTask.tags || {};
-    userTask.tags[self._id] = true;
-    _.merge(userTask, syncableAttrs(task));
-  })
+  user.getTasks(function(err, userTasks) {
+    if(err) return cb(err);
+    var tasksToSave = [];
 
-  // Flag deleted tasks as "broken"
-  _.each(user.tasks, function(task){
-    if (task.challenge && task.challenge.id==self._id && !self.tasks[task.id]) {
-      task.challenge.broken = 'TASK_DELETED';
-    }
-  })
+    var userTasksObj = _.object(_.pluck(userTasks, '_id'), userTasks);
 
-  user.save(cb);
+    // Sync new tasks and updated tasks
+    _.each(tasks, function(task, taskId){
+      var userTask;
+
+      if(!userTasks[taskId]){
+        userTask = new Task(syncableAttrs(task));
+        userTask.challenge = {
+          id: self._id,
+          taskId: task._id,
+        };
+        userTask.userId = user._id;
+      } else {
+        userTask = userTasks[taskId];
+        userTask.challenge = {id: self._id, taskId: taskId}
+        userTask.tags = task.tags || {};
+        userTask.tags[self._id] = true;
+        _.merge(userTask, syncableAttrs(task));
+      }
+
+      tasksToSave.push(userTask);
+    });
+
+    // Flag deleted tasks as "broken"
+    _.each(userTasks, function(task){
+      if (task.challenge && task.challenge.id==self._id && !tasks[task.id]) {
+        task.challenge.broken = 'TASK_DELETED';
+        tasksToSave.push(task);
+      }
+    });
+
+    // save user too
+    tasksToSave.push(user)
+    async.series(tasksToSave, function(toSave, cb1) {
+      toSave.save(cb1);
+    }, cb);
+
+  });
 };
 
 
