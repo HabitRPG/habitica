@@ -542,7 +542,7 @@ api.wrap = (user, main=true) ->
         analytics?.track('Rebirth', analyticsData)
 
         # Save off user's level, for calculating achievement eligibility later
-        lvl = api.capByLevel(user.stats.lvl)
+        lvl = user.stats.lvl
         # Turn tasks yellow, zero out streaks
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
@@ -1108,7 +1108,7 @@ api.wrap = (user, main=true) ->
           user.fns.dotSet "purchased." + path, true
         user.balance -= cost
         if ~path.indexOf('gear.') then user.markModified? 'gear.owned' else user.markModified? 'purchased'
-        
+
         analyticsData = {
           uuid: user._id,
           itemKey: path,
