@@ -94,6 +94,7 @@
           .popover-content
             p=env.t('welcomeMarket')
             p
+              hr(ng-show='selectedEgg || selectedPotion || selectedFood')
               button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellEggForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
               button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellPotionForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
               button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
