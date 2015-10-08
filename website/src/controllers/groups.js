@@ -452,28 +452,25 @@ api.members = function(req, res, next) {
   var limit = req.body.limit;
   var offset = req.body.offset;
 
-  var q = (gid == 'party')
-    ? Group.findOne({type: 'party', members: {'$in': [user._id]}})
-    : Group.findOne({$or:[
-        {_id:gid, privacy:'public'},
-        {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
-      ]});
+  if (limit > 15) {
+    return res.send(401, {err: "Limit too high"});
+  }
+
+  var q = Group.findOne({
+    $or:[
+      {_id:gid, privacy:'public'},
+      {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
+    ]
+  }, {members: 1});
 
   q.populate({
     path: 'members',
     select: 'name _id',
     options: { limit: limit, offset: offset },
   });
-  
+
   q.exec(function(err, group){
     if (err) return next(err);
-    if(!group){
-      if(gid !== 'party') return res.json(404,{err: "Group not found or you don't have access."});
-
-      // Don't send a 404 when querying for a party even if it doesn't exist
-      // so that users with no party don't get a 404 on every access to the site
-      return res.json(group);
-    }
     return res.json(group);
     gid = null;
   });

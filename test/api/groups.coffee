@@ -321,21 +321,18 @@ describe "Guilds", ->
   context "getting members", ->
     it "gets members for a group", (done) ->
       guildToPageUsers = undefined
-      members = undefined
       userToJoin = undefined
       request.post(baseURL + "/groups").send(
         name: "TestGuildToPageUsers"
         type: "guild"
       ).end (res) ->
         guildToPageUsers = res.body
-        #Add members to guild
         async.waterfall [
           (cb) ->
             registerManyUsers 1, cb
 
           (_members, cb) ->
             userToJoin = _members[0]
-            members = _members
             inviteURL = baseURL + "/groups/" + guildToPageUsers._id + "/invite"
             request.post(inviteURL).send(
               uuids: [userToJoin._id]
@@ -353,13 +350,25 @@ describe "Guilds", ->
           (cb) ->
             request.get(baseURL + "/groups/" + guildToPageUsers._id + "/members")
             .send({
+              "limit": 16,
+              "offset": 1,
+              })
+            .end (res) ->
+              g = res.body
+              expectCode res, 401
+              expect(res.body.err).to.equal "Limit too high"
+              cb()
+
+          (cb) ->
+            request.get(baseURL + "/groups/" + guildToPageUsers._id + "/members")
+            .send({
               "limit": 1,
               "offset": 1,
               })
             .end (res) ->
               g = res.body
               expect(res.body.members.length).to.eql(1)
-              expect(res.body.members[0]._id).to.eql(userToJoin._id)
+              expect(res.body.members[0]._id).to.satisfy((id) -> return (id == userToJoin._id || id == user._id))
               cb()
 
         ], done
