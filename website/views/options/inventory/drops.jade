@@ -96,7 +96,8 @@
             hr(ng-show='selectedEgg || selectedPotion || selectedFood')
             div(ng-show='selectedEgg || selectedPotion || selectedFood')
               div.customize-option.Pet_Egg_Wolf(style='float:left;' ng-show='selectedEgg')
-              div(style='float:left;width:70%' ng-show='selectedEgg')=env.t('displayEggForGold', {itemType: "{{selectedEgg.text()}}"})
+              div(style='float:left;width:70%' ng-show='selectedEgg')
+                p!=env.t('displayEggForGold', {itemType: "{{selectedEgg.text()}}"})
             div
               button.btn.btn-primary.btn-sell(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellEggForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
               button.btn.btn-primary.btn-sell(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellPotionForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
