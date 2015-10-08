@@ -6,6 +6,7 @@ let specialMounts = {
   'Mammoth-Base':        'mammoth',
   'Orca-Base':           'orca',
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
+  'Phoenix-Base':        'phoenix'
 }
 
 export default specialMounts;

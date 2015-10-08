@@ -219,6 +219,13 @@ div(ng-if='::profile.achievements.quests.stressbeast')
     =env.t('achievementStressbeastText')
   hr
 
+div(ng-if='::profile.achievements.quests.burnout')
+  .achievement.achievement-burnout
+  h5=env.t('achievementBurnout')
+  small
+    =env.t('achievementBurnoutText')
+  hr
+
 div(ng-if='::profile.achievements.costumeContest')
   .achievement.achievement-costumeContest
   h5=env.t('costumeContest')

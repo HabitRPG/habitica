@@ -269,12 +269,15 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
 }
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
-module.exports.tavern = {};
+module.exports.tavernQuest = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
-  mongoose.model('Group').findOne(tavernQ,function(err,tavern){
-    // Using _assign so we don't lose the reference to the exported tavern
-    _.assign(module.exports.tavern, tavern);
+  mongoose.model('Group').findOne(tavernQ, function(err,tavern){
+    if (!tavern) return; // No tavern quest
+
+    var quest = tavern.quest.toObject();
+    // Using _assign so we don't lose the reference to the exported tavernQuest
+    _.assign(module.exports.tavernQuest, quest);
   });
 });
 
@@ -291,14 +294,13 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
     },
     function(tavern,cb){
       if (!(tavern && tavern.quest && tavern.quest.key)) return cb(true);
-      module.exports.tavern = tavern;
 
       var quest = shared.content.quests[tavern.quest.key];
       if (tavern.quest.progress.hp <= 0) {
         tavern.sendChat(quest.completionChat('en'));
         tavern.finishQuest(quest, function(){});
         tavern.save(cb);
-        module.exports.tavern = undefined;
+        _.assign(module.exports.tavernQuest, {extra: null});
       } else {
         // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
         // use those first - which allows us to update the boss on the go if things are too easy/hard.
@@ -308,8 +310,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
         if (tavern.quest.progress.rage >= quest.boss.rage.value) {
           if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
           var wd = tavern.quest.extra.worldDmg;
-          // var scene = wd.tavern ? wd.stables ? wd.market ? false : 'market' : 'stables' : 'tavern'; // Dilatory attacks tavern, stables, market
-          var scene = wd.stables ? wd.bailey ? wd.guide ? false : 'guide' : 'bailey' : 'stables'; // Stressbeast attacks stables, Bailey, Justin
+          var scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // Burnout attacks Ian, Seasonal Sorceress, tavern
           if (!scene) {
             tavern.sendChat('`'+quest.boss.name('en')+' tries to unleash '+quest.boss.rage.title('en')+', but is too tired.`');
             tavern.quest.progress.rage = 0 //quest.boss.rage.value;
@@ -319,16 +320,20 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
             tavern.quest.extra.worldDmg.recent = scene;
             tavern.markModified('quest.extra.worldDmg');
             tavern.quest.progress.rage = 0;
-            tavern.quest.progress.hp += (quest.boss.rage.healing * tavern.quest.progress.hp);
+            if (quest.boss.rage.healing) {
+              tavern.quest.progress.hp += (quest.boss.rage.healing * tavern.quest.progress.hp);
+            }
           }
         }
-        if ((tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
+        if (quest.boss.desperation && (tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
           tavern.sendChat(quest.boss.desperation.text('en'));
           tavern.quest.extra.desperate = true;
           tavern.quest.extra.def = quest.boss.desperation.def;
           tavern.quest.extra.str = quest.boss.desperation.str;
           tavern.markModified('quest.extra');
         }
+
+        _.assign(module.exports.tavernQuest, tavern.quest.toObject());
         tavern.save(cb);
       }
     }
