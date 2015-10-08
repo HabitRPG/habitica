@@ -269,12 +269,13 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
 }
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
-module.exports.tavern = {};
+module.exports.tavernQuest = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
-  mongoose.model('Group').findOne(tavernQ,function(err,tavern){
-    // Using _assign so we don't lose the reference to the exported tavern
-    _.assign(module.exports.tavern, tavern);
+  mongoose.model('Group').findOne(tavernQ, function(err,tavern){
+    var quest = tavern.quest.toObject();
+    // Using _assign so we don't lose the reference to the exported tavernQuest
+    _.assign(module.exports.tavernQuest, quest);
   });
 });
 
@@ -291,7 +292,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
     },
     function(tavern,cb){
       if (!(tavern && tavern.quest && tavern.quest.key)) return cb(true);
-      module.exports.tavern = tavern;
+      module.exports.tavernQuest = tavern.quest.toObject();
 
       var quest = shared.content.quests[tavern.quest.key];
       if (tavern.quest.progress.hp <= 0) {
