@@ -443,18 +443,14 @@ api['delete'] = function(req, res, next) {
 
         async.each(groups, function(group, cb1){
           group.leave(user, 'remove-all', cb1);
-        }, function(err){
-          if(err) return cb(err);
-
-          return cb();
-        });
+        }, cb);
       })
     },
 
     function(cb){
       Task.remove({
         userId: user._id
-      });
+      }, cb);
     }
   ], function(err, results){
     if(err) return next(err);
