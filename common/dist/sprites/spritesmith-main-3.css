@@ -468,7 +468,7 @@
 }
 .skin_0ff591 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -273px -546px;
+  background-position: -364px -546px;
   width: 90px;
   height: 90px;
 }
@@ -480,7 +480,7 @@
 }
 .skin_0ff591_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -364px -546px;
+  background-position: -273px -546px;
   width: 90px;
   height: 90px;
 }
@@ -492,7 +492,7 @@
 }
 .skin_2b43f6 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -455px -546px;
+  background-position: -546px -546px;
   width: 90px;
   height: 90px;
 }
@@ -504,7 +504,7 @@
 }
 .skin_2b43f6_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -546px -546px;
+  background-position: -455px -546px;
   width: 90px;
   height: 90px;
 }
@@ -516,7 +516,7 @@
 }
 .skin_6bd049 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -639px 0px;
+  background-position: -639px -91px;
   width: 90px;
   height: 90px;
 }
@@ -528,7 +528,7 @@
 }
 .skin_6bd049_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -639px -91px;
+  background-position: -639px 0px;
   width: 90px;
   height: 90px;
 }
@@ -540,7 +540,7 @@
 }
 .skin_800ed0 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -639px -182px;
+  background-position: -639px -273px;
   width: 90px;
   height: 90px;
 }
@@ -552,7 +552,7 @@
 }
 .skin_800ed0_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -639px -273px;
+  background-position: -639px -182px;
   width: 90px;
   height: 90px;
 }
@@ -564,7 +564,7 @@
 }
 .skin_915533 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -639px -364px;
+  background-position: -639px -455px;
   width: 90px;
   height: 90px;
 }
@@ -576,7 +576,7 @@
 }
 .skin_915533_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -639px -455px;
+  background-position: -639px -364px;
   width: 90px;
   height: 90px;
 }
@@ -588,7 +588,7 @@
 }
 .skin_98461a {
   background-image: url(spritesmith-main-3.png);
-  background-position: -639px -546px;
+  background-position: 0px -637px;
   width: 90px;
   height: 90px;
 }
@@ -600,7 +600,7 @@
 }
 .skin_98461a_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: 0px -637px;
+  background-position: -639px -546px;
   width: 90px;
   height: 90px;
 }
@@ -612,7 +612,7 @@
 }
 .skin_bear {
   background-image: url(spritesmith-main-3.png);
-  background-position: -91px -637px;
+  background-position: -182px -637px;
   width: 90px;
   height: 90px;
 }
@@ -624,7 +624,7 @@
 }
 .skin_bear_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -182px -637px;
+  background-position: -91px -637px;
   width: 90px;
   height: 90px;
 }
@@ -636,7 +636,7 @@
 }
 .skin_c06534 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -273px -637px;
+  background-position: -364px -637px;
   width: 90px;
   height: 90px;
 }
@@ -648,7 +648,7 @@
 }
 .skin_c06534_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -364px -637px;
+  background-position: -273px -637px;
   width: 90px;
   height: 90px;
 }
@@ -660,7 +660,7 @@
 }
 .skin_c3e1dc {
   background-image: url(spritesmith-main-3.png);
-  background-position: -455px -637px;
+  background-position: -546px -637px;
   width: 90px;
   height: 90px;
 }
@@ -672,7 +672,7 @@
 }
 .skin_c3e1dc_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -546px -637px;
+  background-position: -455px -637px;
   width: 90px;
   height: 90px;
 }
@@ -684,7 +684,7 @@
 }
 .skin_cactus {
   background-image: url(spritesmith-main-3.png);
-  background-position: -637px -637px;
+  background-position: -730px 0px;
   width: 90px;
   height: 90px;
 }
@@ -696,7 +696,7 @@
 }
 .skin_cactus_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px 0px;
+  background-position: -637px -637px;
   width: 90px;
   height: 90px;
 }
@@ -708,7 +708,7 @@
 }
 .skin_candycorn {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px -91px;
+  background-position: -730px -182px;
   width: 90px;
   height: 90px;
 }
@@ -720,7 +720,7 @@
 }
 .skin_candycorn_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px -182px;
+  background-position: -730px -91px;
   width: 90px;
   height: 90px;
 }
@@ -732,7 +732,7 @@
 }
 .skin_clownfish {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px -273px;
+  background-position: -730px -364px;
   width: 90px;
   height: 90px;
 }
@@ -744,7 +744,7 @@
 }
 .skin_clownfish_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px -364px;
+  background-position: -730px -273px;
   width: 90px;
   height: 90px;
 }
@@ -756,7 +756,7 @@
 }
 .skin_d7a9f7 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px -455px;
+  background-position: -730px -546px;
   width: 90px;
   height: 90px;
 }
@@ -768,7 +768,7 @@
 }
 .skin_d7a9f7_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px -546px;
+  background-position: -730px -455px;
   width: 90px;
   height: 90px;
 }
@@ -780,7 +780,7 @@
 }
 .skin_ddc994 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -730px -637px;
+  background-position: 0px -728px;
   width: 90px;
   height: 90px;
 }
@@ -792,7 +792,7 @@
 }
 .skin_ddc994_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: 0px -728px;
+  background-position: -730px -637px;
   width: 90px;
   height: 90px;
 }
@@ -804,7 +804,7 @@
 }
 .skin_deepocean {
   background-image: url(spritesmith-main-3.png);
-  background-position: -91px -728px;
+  background-position: -182px -728px;
   width: 90px;
   height: 90px;
 }
@@ -816,7 +816,7 @@
 }
 .skin_deepocean_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -182px -728px;
+  background-position: -91px -728px;
   width: 90px;
   height: 90px;
 }
@@ -828,7 +828,7 @@
 }
 .skin_ea8349 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -273px -728px;
+  background-position: -364px -728px;
   width: 90px;
   height: 90px;
 }
@@ -840,7 +840,7 @@
 }
 .skin_ea8349_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -364px -728px;
+  background-position: -273px -728px;
   width: 90px;
   height: 90px;
 }
@@ -852,7 +852,7 @@
 }
 .skin_eb052b {
   background-image: url(spritesmith-main-3.png);
-  background-position: -455px -728px;
+  background-position: -546px -728px;
   width: 90px;
   height: 90px;
 }
@@ -864,7 +864,7 @@
 }
 .skin_eb052b_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -546px -728px;
+  background-position: -455px -728px;
   width: 90px;
   height: 90px;
 }
@@ -876,7 +876,7 @@
 }
 .skin_f5a76e {
   background-image: url(spritesmith-main-3.png);
-  background-position: -637px -728px;
+  background-position: -728px -728px;
   width: 90px;
   height: 90px;
 }
@@ -888,7 +888,7 @@
 }
 .skin_f5a76e_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -728px -728px;
+  background-position: -637px -728px;
   width: 90px;
   height: 90px;
 }
@@ -900,7 +900,7 @@
 }
 .skin_f5d70f {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px 0px;
+  background-position: -821px -91px;
   width: 90px;
   height: 90px;
 }
@@ -912,7 +912,7 @@
 }
 .skin_f5d70f_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -91px;
+  background-position: -821px 0px;
   width: 90px;
   height: 90px;
 }
@@ -924,7 +924,7 @@
 }
 .skin_f69922 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -182px;
+  background-position: -821px -273px;
   width: 90px;
   height: 90px;
 }
@@ -936,7 +936,7 @@
 }
 .skin_f69922_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -273px;
+  background-position: -821px -182px;
   width: 90px;
   height: 90px;
 }
@@ -948,7 +948,7 @@
 }
 .skin_fox {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -364px;
+  background-position: -821px -455px;
   width: 90px;
   height: 90px;
 }
@@ -960,7 +960,7 @@
 }
 .skin_fox_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -455px;
+  background-position: -821px -364px;
   width: 90px;
   height: 90px;
 }
@@ -972,7 +972,7 @@
 }
 .skin_ghost {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -546px;
+  background-position: -821px -637px;
   width: 90px;
   height: 90px;
 }
@@ -984,7 +984,7 @@
 }
 .skin_ghost_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -637px;
+  background-position: -821px -546px;
   width: 90px;
   height: 90px;
 }
@@ -996,7 +996,7 @@
 }
 .skin_lion {
   background-image: url(spritesmith-main-3.png);
-  background-position: -821px -728px;
+  background-position: 0px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1008,7 +1008,7 @@
 }
 .skin_lion_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: 0px -819px;
+  background-position: -821px -728px;
   width: 90px;
   height: 90px;
 }
@@ -1020,7 +1020,7 @@
 }
 .skin_merblue {
   background-image: url(spritesmith-main-3.png);
-  background-position: -91px -819px;
+  background-position: -182px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1032,7 +1032,7 @@
 }
 .skin_merblue_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -182px -819px;
+  background-position: -91px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1044,7 +1044,7 @@
 }
 .skin_mergold {
   background-image: url(spritesmith-main-3.png);
-  background-position: -273px -819px;
+  background-position: -364px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1056,7 +1056,7 @@
 }
 .skin_mergold_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -364px -819px;
+  background-position: -273px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1068,7 +1068,7 @@
 }
 .skin_mergreen {
   background-image: url(spritesmith-main-3.png);
-  background-position: -455px -819px;
+  background-position: -546px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1080,7 +1080,7 @@
 }
 .skin_mergreen_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -546px -819px;
+  background-position: -455px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1092,7 +1092,7 @@
 }
 .skin_merruby {
   background-image: url(spritesmith-main-3.png);
-  background-position: -637px -819px;
+  background-position: -728px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1104,7 +1104,7 @@
 }
 .skin_merruby_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -728px -819px;
+  background-position: -637px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1116,7 +1116,7 @@
 }
 .skin_monster {
   background-image: url(spritesmith-main-3.png);
-  background-position: -819px -819px;
+  background-position: -912px 0px;
   width: 90px;
   height: 90px;
 }
@@ -1128,7 +1128,7 @@
 }
 .skin_monster_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px 0px;
+  background-position: -819px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1140,7 +1140,7 @@
 }
 .skin_ogre {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -91px;
+  background-position: -912px -182px;
   width: 90px;
   height: 90px;
 }
@@ -1152,7 +1152,7 @@
 }
 .skin_ogre_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -182px;
+  background-position: -912px -91px;
   width: 90px;
   height: 90px;
 }
@@ -1164,7 +1164,7 @@
 }
 .skin_panda {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -273px;
+  background-position: -912px -364px;
   width: 90px;
   height: 90px;
 }
@@ -1176,7 +1176,7 @@
 }
 .skin_panda_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -364px;
+  background-position: -912px -273px;
   width: 90px;
   height: 90px;
 }
@@ -1188,7 +1188,7 @@
 }
 .skin_pastelBlue {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -455px;
+  background-position: -912px -546px;
   width: 90px;
   height: 90px;
 }
@@ -1200,7 +1200,7 @@
 }
 .skin_pastelBlue_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -546px;
+  background-position: -912px -455px;
   width: 90px;
   height: 90px;
 }
@@ -1212,7 +1212,7 @@
 }
 .skin_pastelGreen {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -637px;
+  background-position: -912px -728px;
   width: 90px;
   height: 90px;
 }
@@ -1224,7 +1224,7 @@
 }
 .skin_pastelGreen_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -728px;
+  background-position: -912px -637px;
   width: 90px;
   height: 90px;
 }
@@ -1236,7 +1236,7 @@
 }
 .skin_pastelOrange {
   background-image: url(spritesmith-main-3.png);
-  background-position: -912px -819px;
+  background-position: 0px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1248,7 +1248,7 @@
 }
 .skin_pastelOrange_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: 0px -910px;
+  background-position: -912px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1260,7 +1260,7 @@
 }
 .skin_pastelPink {
   background-image: url(spritesmith-main-3.png);
-  background-position: -91px -910px;
+  background-position: -182px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1272,7 +1272,7 @@
 }
 .skin_pastelPink_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -182px -910px;
+  background-position: -91px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1284,7 +1284,7 @@
 }
 .skin_pastelPurple {
   background-image: url(spritesmith-main-3.png);
-  background-position: -273px -910px;
+  background-position: -364px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1296,7 +1296,7 @@
 }
 .skin_pastelPurple_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -364px -910px;
+  background-position: -273px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1308,7 +1308,7 @@
 }
 .skin_pastelRainbowChevron {
   background-image: url(spritesmith-main-3.png);
-  background-position: -455px -910px;
+  background-position: -546px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1320,7 +1320,7 @@
 }
 .skin_pastelRainbowChevron_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -546px -910px;
+  background-position: -455px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1332,7 +1332,7 @@
 }
 .skin_pastelRainbowDiagonal {
   background-image: url(spritesmith-main-3.png);
-  background-position: -637px -910px;
+  background-position: -728px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1344,7 +1344,7 @@
 }
 .skin_pastelRainbowDiagonal_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -728px -910px;
+  background-position: -637px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1356,7 +1356,7 @@
 }
 .skin_pastelYellow {
   background-image: url(spritesmith-main-3.png);
-  background-position: -819px -910px;
+  background-position: -910px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1368,7 +1368,7 @@
 }
 .skin_pastelYellow_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -910px -910px;
+  background-position: -819px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1380,7 +1380,7 @@
 }
 .skin_pig {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px 0px;
+  background-position: -1003px -91px;
   width: 90px;
   height: 90px;
 }
@@ -1392,7 +1392,7 @@
 }
 .skin_pig_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -91px;
+  background-position: -1003px 0px;
   width: 90px;
   height: 90px;
 }
@@ -1404,7 +1404,7 @@
 }
 .skin_pumpkin {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -182px;
+  background-position: -1003px -273px;
   width: 90px;
   height: 90px;
 }
@@ -1416,7 +1416,7 @@
 }
 .skin_pumpkin2 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -273px;
+  background-position: -1003px -455px;
   width: 90px;
   height: 90px;
 }
@@ -1440,7 +1440,7 @@
 }
 .skin_pumpkin_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -455px;
+  background-position: -1003px -182px;
   width: 90px;
   height: 90px;
 }
@@ -1452,7 +1452,7 @@
 }
 .skin_rainbow {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -546px;
+  background-position: -1003px -637px;
   width: 90px;
   height: 90px;
 }
@@ -1464,7 +1464,7 @@
 }
 .skin_rainbow_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -637px;
+  background-position: -1003px -546px;
   width: 90px;
   height: 90px;
 }
@@ -1476,7 +1476,7 @@
 }
 .skin_reptile {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -728px;
+  background-position: -1003px -819px;
   width: 90px;
   height: 90px;
 }
@@ -1488,7 +1488,7 @@
 }
 .skin_reptile_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -819px;
+  background-position: -1003px -728px;
   width: 90px;
   height: 90px;
 }
@@ -1500,7 +1500,7 @@
 }
 .skin_shadow {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1003px -910px;
+  background-position: 0px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1512,7 +1512,7 @@
 }
 .skin_shadow2 {
   background-image: url(spritesmith-main-3.png);
-  background-position: 0px -1001px;
+  background-position: -182px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1536,7 +1536,7 @@
 }
 .skin_shadow_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -182px -1001px;
+  background-position: -1003px -910px;
   width: 90px;
   height: 90px;
 }
@@ -1548,7 +1548,7 @@
 }
 .skin_shark {
   background-image: url(spritesmith-main-3.png);
-  background-position: -273px -1001px;
+  background-position: -364px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1560,7 +1560,7 @@
 }
 .skin_shark_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -364px -1001px;
+  background-position: -273px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1572,7 +1572,7 @@
 }
 .skin_skeleton {
   background-image: url(spritesmith-main-3.png);
-  background-position: -455px -1001px;
+  background-position: -546px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1584,7 +1584,7 @@
 }
 .skin_skeleton2 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -546px -1001px;
+  background-position: -728px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1608,7 +1608,7 @@
 }
 .skin_skeleton_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -728px -1001px;
+  background-position: -455px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1620,7 +1620,7 @@
 }
 .skin_tiger {
   background-image: url(spritesmith-main-3.png);
-  background-position: -819px -1001px;
+  background-position: -910px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1632,7 +1632,7 @@
 }
 .skin_tiger_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -910px -1001px;
+  background-position: -819px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1644,7 +1644,7 @@
 }
 .skin_transparent {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1001px -1001px;
+  background-position: -1094px 0px;
   width: 90px;
   height: 90px;
 }
@@ -1656,7 +1656,7 @@
 }
 .skin_transparent_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px 0px;
+  background-position: -1001px -1001px;
   width: 90px;
   height: 90px;
 }
@@ -1668,7 +1668,7 @@
 }
 .skin_tropicalwater {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px -91px;
+  background-position: -1094px -182px;
   width: 90px;
   height: 90px;
 }
@@ -1680,7 +1680,7 @@
 }
 .skin_tropicalwater_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px -182px;
+  background-position: -1094px -91px;
   width: 90px;
   height: 90px;
 }
@@ -1692,7 +1692,7 @@
 }
 .skin_wolf {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px -273px;
+  background-position: -1094px -364px;
   width: 90px;
   height: 90px;
 }
@@ -1704,7 +1704,7 @@
 }
 .skin_wolf_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px -364px;
+  background-position: -1094px -273px;
   width: 90px;
   height: 90px;
 }
@@ -1716,7 +1716,7 @@
 }
 .skin_zombie {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px -455px;
+  background-position: -1094px -546px;
   width: 90px;
   height: 90px;
 }
@@ -1728,7 +1728,7 @@
 }
 .skin_zombie2 {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px -546px;
+  background-position: -1094px -728px;
   width: 90px;
   height: 90px;
 }
@@ -1752,7 +1752,7 @@
 }
 .skin_zombie_sleep {
   background-image: url(spritesmith-main-3.png);
-  background-position: -1094px -728px;
+  background-position: -1094px -455px;
   width: 90px;
   height: 90px;
 }
