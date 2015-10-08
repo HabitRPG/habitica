@@ -269,12 +269,15 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
 }
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
-module.exports.tavern = {};
+module.exports.tavernQuest = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
-  mongoose.model('Group').findOne(tavernQ,function(err,tavern){
-    // Using _assign so we don't lose the reference to the exported tavern
-    _.assign(module.exports.tavern, tavern);
+  mongoose.model('Group').findOne(tavernQ, function(err,tavern){
+    if (!tavern) return; // No tavern quest
+
+    var quest = tavern.quest.toObject();
+    // Using _assign so we don't lose the reference to the exported tavernQuest
+    _.assign(module.exports.tavernQuest, quest);
   });
 });
 
@@ -291,14 +294,13 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
     },
     function(tavern,cb){
       if (!(tavern && tavern.quest && tavern.quest.key)) return cb(true);
-      module.exports.tavern = tavern;
 
       var quest = shared.content.quests[tavern.quest.key];
       if (tavern.quest.progress.hp <= 0) {
         tavern.sendChat(quest.completionChat('en'));
         tavern.finishQuest(quest, function(){});
         tavern.save(cb);
-        module.exports.tavern = undefined;
+        _.assign(module.exports.tavernQuest, {extra: null});
       } else {
         // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
         // use those first - which allows us to update the boss on the go if things are too easy/hard.
@@ -330,6 +332,8 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
           tavern.quest.extra.str = quest.boss.desperation.str;
           tavern.markModified('quest.extra');
         }
+
+        _.assign(module.exports.tavernQuest, tavern.quest.toObject());
         tavern.save(cb);
       }
     }
