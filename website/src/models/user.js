@@ -642,31 +642,42 @@ UserSchema.methods.unlink = function(options, cb) {
   var self = this;
   switch (keep) {
     case 'keep':
-      self.tasks[tid].challenge = {};
+      Task.update({
+        userId: self._id,
+        'challenge.taskId': tid
+      }, {$set: {challenge: {}}}, cb);
       break;
     case 'remove':
-      self.ops.deleteTask({params: {id: tid}});
+      async.parallel({
+        removeTask: function(cb1) {
+          Task.remove({
+            userId: self._id,
+            'challenge.taskId': tid
+          }, cb1);
+        },
+        removeTaskFromUser: function(cb1) {
+          // We don't know the type of the task, so we try removing it from all the types
+          ['habits', 'dailys', 'todos', 'rewards'].forEach(function (taskType){
+            _.pull(self.tasksOrder[taskType], tid);
+          });
+          self.save(cb1);
+        }
+      }, cb);
       break;
     case 'keep-all':
-      _.each(self.tasks, function(t){
-        if (t.challenge && t.challenge.id == cid) {
-          t.challenge = {};
-        }
-      });
+      Task.update({
+        userId: self._id,
+        'challenge.id': cid
+      }, {$set: {challenge: {}}}, {multi: true}, cb);
       break;
     case 'remove-all':
-      _.each(self.tasks, function(t){
-        if (t.challenge && t.challenge.id == cid) {
-          self.ops.deleteTask({params: {id: t.id}});
-        }
-      })
+      async.each(tasks, function(task, cb1){
+        if(!task.challenge || !(task.challenge.id === cid)) return cb1();
+        _.pull(self.tasksOrder[task.type + 's'], task._id);
+        task.remove(cb1);
+      }, cb);
       break;
   }
-  self.markModified('habits');
-  self.markModified('dailys');
-  self.markModified('todos');
-  self.markModified('rewards');
-  self.save(cb);
 }
 
 module.exports.schema = UserSchema;

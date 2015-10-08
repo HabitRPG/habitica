@@ -137,24 +137,34 @@ api.score = function(req, res, next) {
         || (task.type == 'reward') // we don't want to update the reward GP cost
       ) return;
 
-      Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
+        // select name and shortName because they can be synced on syncToUser
+      Challenge.findById(task.challenge.id, 'name shortName', function(err, chal) {
         if (err) return next(err);
         if (!chal) {
           task.challenge.broken = 'CHALLENGE_DELETED';
           task.save();
           return;
         }
-        var t = chal.tasks[task.id];
-        // this task was removed from the challenge, notify user
-        if (!t) {
-          chal.syncToUser(user);
-          return;
-        }
 
-        t.value += delta;
-        if (t.type == 'habit' || t.type == 'daily')
-          t.history.push({value: t.value, date: +new Date});
-        chal.save();
+        Task.find({
+          'challenge.id': task.challenge.id,
+          '_id': task.challenge.taskId,
+          userId: {$exists: false}
+        }, function(err, chalTask){
+          if(err) return; //FIXME
+          // this task was removed from the challenge, notify user
+          if(!chalTask) {
+            chal.getTasks(function(err, chalTasks){
+              if(err) return; //FIXME
+              chal.syncToUser(user, chalTasks);
+            });
+          } else {
+            chalTask.value += delta;
+            if (chalTask.type == 'habit' || chalTask.type == 'daily')
+              chalTask.history.push({value: chalTask.value, date: +new Date});
+            chalTask.save();
+          }
+        });
       });
     });
   });

@@ -447,6 +447,7 @@ api.selectWinner = function(req, res, next) {
 api.join = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
+  var chalTasks;
 
   async.waterfall([
     function(cb) {
@@ -461,16 +462,22 @@ api.join = function(req, res, next){
 
       if (!~user.challenges.indexOf(cid))
         user.challenges.unshift(cid);
-      // Add all challenge's tasks to user's tasks
-      chal.syncToUser(user, function(err){
-        if (err) return cb(err);
-        cb(null, chal); // we want the saved challenge in the return results, due to ng-resource
+
+      chal.getTasks(function(err, tasks){
+        // Add all challenge's tasks to user's tasks
+        chalTasks = tasks;
+        chal.syncToUser(user, tasks, function(err){
+          if (err) return cb(err);
+          cb(null, chal); // we want the saved challenge in the return results, due to ng-resource
+        });
+
       });
+
     }
   ], function(err, chal){
     if(err) return next(err);
     chal._isMember = true;
-    res.json(chal);
+    res.json(chal.addTasksToChallenge(chalTasks));
     user = cid = null;
   });
 }

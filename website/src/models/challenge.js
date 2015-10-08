@@ -130,7 +130,7 @@ ChallengeSchema.methods.syncToUser = function(tasks, user, cb) {
 
   // Add challenge to user.challenges
   if (!_.contains(user.challenges, self._id)) {
-      user.challenges.push(self._id);
+    user.challenges.push(self._id);
   }
 
   // Sync tags
@@ -166,6 +166,7 @@ ChallengeSchema.methods.syncToUser = function(tasks, user, cb) {
           taskId: task._id,
         };
         userTask.userId = user._id;
+        user.tasksOrder[userTask.type + 's'].push(userTask._id);
       } else {
         userTask = userTasks[taskId];
         userTask.challenge = {id: self._id, taskId: taskId}
