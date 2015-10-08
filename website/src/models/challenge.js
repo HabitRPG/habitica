@@ -33,7 +33,7 @@ ChallengeSchema.methods.getTasks = function(cb) {
   Task.find({
     // TODO $or should be avoided, revisit once discriminators are in place
     userId: {$exists: false},
-    'challenge.id': this.challenge._id
+    'challenge.id': this._id
   }, function(err, tasks){
     if(err) return cb(err);
 
@@ -95,7 +95,7 @@ ChallengeSchema.methods.getTransformedData = function(cb) {
 function syncableAttrs(task) {
   var t = (task.toObject) ? task.toObject() : task; // lodash doesn't seem to like _.omit on EmbeddedDocument
   // only sync/compare important attrs
-  var omitAttrs = 'challenge history tags completed streak notes'.split(' ');
+  var omitAttrs = '_id challenge history tags completed streak notes'.split(' ');
   if (t.type != 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -104,8 +104,14 @@ function syncableAttrs(task) {
  * Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
  */
 function comparableData(obj) {
+  if(obj && obj[0] && obj[0].toJSON){
+    obj = obj.map(function(doc) {
+      return doc.toJSON();
+    });
+  }
+
   return JSON.stringify(
-    _(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
+    _(obj)
       .sortBy('id') // we don't want to update if they're sort-order is different
       .transform(function(result, task){
         result.push(syncableAttrs(task));
@@ -122,7 +128,7 @@ ChallengeSchema.methods.isOutdated = function(oldData, newData) {
  * @param user
  * @return nothing, user is modified directly. REMEMBER to save the user!
  */
-ChallengeSchema.methods.syncToUser = function(tasks, user, cb) {
+ChallengeSchema.methods.syncToUser = function(user, tasks, cb) {
   if (!user) return;
   if(Array.isArray(tasks)) tasks = _.object(_.pluck(tasks, '_id'), tasks);
   var self = this;
@@ -161,19 +167,17 @@ ChallengeSchema.methods.syncToUser = function(tasks, user, cb) {
 
       if(!userTasks[taskId]){
         userTask = new Task(syncableAttrs(task));
-        userTask.challenge = {
-          id: self._id,
-          taskId: task._id,
-        };
         userTask.userId = user._id;
         user.tasksOrder[userTask.type + 's'].push(userTask._id);
       } else {
         userTask = userTasks[taskId];
-        userTask.challenge = {id: self._id, taskId: taskId}
-        userTask.tags = task.tags || {};
-        userTask.tags[self._id] = true;
-        _.merge(userTask, syncableAttrs(task));
       }
+
+      userTask.challenge = {id: self._id, taskId: taskId};
+      if (!userTask.notes) userTask.notes = task.notes;
+      userTask.tags = task.tags || {};
+      userTask.tags[self._id] = true;
+      _.merge(userTask, syncableAttrs(task));
 
       tasksToSave.push(userTask);
     });
@@ -188,10 +192,9 @@ ChallengeSchema.methods.syncToUser = function(tasks, user, cb) {
 
     // save user too
     tasksToSave.push(user)
-    async.series(tasksToSave, function(toSave, cb1) {
+    async.each(tasksToSave, function(toSave, cb1) {
       toSave.save(cb1);
     }, cb);
-
   });
 };
 

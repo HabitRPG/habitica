@@ -880,8 +880,6 @@ api.updateTask = function(req, res, next) {
     user.ops.updateTask(req, function(err) {
       if(err) return res.json(err.code, {err: err.message});
 
-      if(task.userId !== user._id) res.json(401, {err: 'Cannot change task owner.'});
-
       task.save(function(err, task){
         if(err) return next(err);
 

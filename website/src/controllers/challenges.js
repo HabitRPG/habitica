@@ -206,32 +206,36 @@ api.create = function(req, res, next){
       var tasks = req.body.habits.concat(req.body.rewards)
                     .concat(req.body.dailys).concat(req.body.todos);
 
-      tasks.forEach(function(task) {
-        task = new Task(task);
-        task.challenge.id = chal._id;
+      tasks = tasks.map(function(task) {
+        var newTask = new Task(task);
+        newTask.challenge.id = chal._id;
+        return newTask;
       });
 
       async.parallel({
         chal: chal.save.bind(chal),
         tasks: function(cb1) {
-          async.each(tasks, function(task, cb2){
-            task.save(cb2)
+          async.map(tasks, function(task, cb2){
+            task.save(cb2);
           }, cb1);
         },
       }, cb);
 
     }],
     save_group: ['save_chal', function(cb, results){
-      results.get_group.challenges.push(results.save_chal[0].chal[0]._id);
+      results.get_group.challenges.push(results.save_chal.chal[0]._id);
       results.get_group.save(cb);
     }],
     sync_user: ['save_group', function(cb, results){
       // Auto-join creator to challenge (see members.push above)
-      results.save_chal[0].chal[0].syncToUser(user, results.save_chal[0].tasks, cb);
+      results.save_chal.chal[0].syncToUser(user, results.save_chal.tasks, cb);
     }]
   }, function(err, results){
-    if (err) return err.code? res.json(err.code, err) : next(err);
-    return res.json(results.save_chal[0].chal[0].addTasksToChallenge(results.save_chal[0].tasks));
+    if (err) {
+      return err.code ? res.json(err.code, err) : next(err);
+    }
+    
+    return res.json(results.save_chal.chal[0].addTasksToChallenge(results.save_chal.tasks));
     user = null;
   });
 }
@@ -263,7 +267,7 @@ api.update = function(req, res, next){
       if (_before.chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionEditChallenge', req.language));
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
-      before = {chal: _before.chal, tasks: _.cloneDeep(_before.tasks)};
+      before = {chal: _before.chal, tasks: _before.tasks};
       var chalAttrs = _.pick(req.body, 'name shortName description date'.split(' '));
       async.parallel({
         chal: function(cb1){
@@ -271,8 +275,11 @@ api.update = function(req, res, next){
         },
         tasks: function(cb1) {
           // Convert to map of {id: task} so we can easily match them
-          updatedTasks = _.object(_.pluck(_before.tasks, '_id'), _before.tasks);
-          var newTasksObj = req.body.habits.concat(req.body.dailys)
+          var _beforeClonedTasks = _.cloneDeep(_before.tasks.map(function(t) {
+            return t.toObject();
+          }));
+          updatedTasks = _.object(_.pluck(_beforeClonedTasks, '_id'), _beforeClonedTasks);
+          var newTasks = req.body.habits.concat(req.body.dailys)
                           .concat(req.body.todos).concat(req.body.rewards);
 
           var newTasksObj = _.object(_.pluck(newTasks, '_id'), newTasks);
@@ -292,7 +299,7 @@ api.update = function(req, res, next){
       // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
       if (before.chal.isOutdated(before.tasks, req.body)) {
         // Sometimes mongoose return an array
-        savedChal = Array.isArray(saved.chal) ? saved.chal[0] : saved.chal;
+        var savedChal = Array.isArray(saved.chal) ? saved.chal[0] : saved.chal;
         User.find({_id: {$in: savedChal.members}}, function(err, users){
           logging.info('Challenge updated, sync to subscribers');
           if (err) throw err;
@@ -307,9 +314,12 @@ api.update = function(req, res, next){
     }
   ], function(err, saved){
     if(err) next(err);
-    res.json(saved);
+    saved.chal.getTransformedData(function(err, newChal){
+      if(err) return next(err);
+      res.json(newChal);
+    })
     cid = user = before = null;
-  })
+  });
 }
 
 /**

@@ -7,7 +7,7 @@
     "accepts": "^1.2.12",
     "amazon-payments": "0.0.4",
     "amplitude": "^2.0.1",
-    "async": "~0.9.0",
+    "async": "~1.4.2",
     "aws-sdk": "^2.0.25",
     "babel": "^5.5.4",
     "gulp-babel": "^5.2.1",
