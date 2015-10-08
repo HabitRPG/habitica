@@ -300,7 +300,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
         tavern.sendChat(quest.completionChat('en'));
         tavern.finishQuest(quest, function(){});
         tavern.save(cb);
-        module.exports.tavern = undefined;
+        _.assign(module.exports.tavernQuest, {extra: null});
       } else {
         // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
         // use those first - which allows us to update the boss on the go if things are too easy/hard.
