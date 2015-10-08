@@ -5,7 +5,7 @@
     "messageTagNotFound": "找不到標籤",
     "messagePetNotFound": "找不到寵物",
     "messageFoodNotFound": "找不到食物",
-    "messageNotAvailable": "This item is not currently available for purchase.",
+    "messageNotAvailable": "這個物品目前無法購得。",
     "messageCannotFeedPet": "無法餵食這隻寵物",
     "messageAlreadyMount": "你已經擁有這個坐騎了，試著給其他的寵物。",
     "messageEvolve": "你已經馴服 <%= egg %>，出去兜兜風吧！",
@@ -15,7 +15,7 @@
     "messageEquipped": "裝備了 <%= itemText %>。",
     "messageUnEquipped": "取下 <%= itemText %> 了。",
     "messageMissingEggPotion": "缺少蛋或是藥劑",
-    "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",
+    "messageInvalidEggPotionCombo": "你不能使用魔法孵化藥水在任務寵物蛋上，請試試別種蛋吧。",
     "messageAlreadyPet": "你已經有這隻寵物了，請試試別的組合！",
     "messageHatched": "你的蛋孵化了！去馬廄裝備你的寵物",
     "messageNotEnoughGold": "金幣不足",
@@ -28,7 +28,7 @@
     "messageFoundQuest": "你找到了新任務\"<%= questText %>\"！",
     "messageAlreadyPurchasedGear": " 你曾經買過某個裝備，但是現在沒有了，你可在工作頁裡重買一次。",
     "messageAlreadyOwnGear": "你已經有這個東西了。到裝備頁裡裝備它吧。",
-    "armoireEquipment": "<%= image %> 你在衣櫥裡找到稀有的裝備 <%= dropText %>! 好棒!",
-    "armoireFood": "<%= image %> 你在衣櫥裡找到 <%= dropArticle %><%= dropText %>. 這是什麼啊?",
-    "armoireExp": "你打開衣櫥而且得到經驗值。"
+    "armoireEquipment": "<%= image %> 你在神祕寶箱裡找到稀有的裝備 <%= dropText %>! 好棒!",
+    "armoireFood": "<%= image %> 你在神祕寶箱裡找到 <%= dropArticle %><%= dropText %>. 這是什麼東東啊？",
+    "armoireExp": "你打開神祕寶箱⋯⋯只得到經驗值。"
 }
