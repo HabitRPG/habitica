@@ -273,6 +273,8 @@ module.exports.tavernQuest = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
   mongoose.model('Group').findOne(tavernQ, function(err,tavern){
+    if (!tavern) return; // No tavern quest
+
     var quest = tavern.quest.toObject();
     // Using _assign so we don't lose the reference to the exported tavernQuest
     _.assign(module.exports.tavernQuest, quest);
@@ -292,7 +294,6 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
     },
     function(tavern,cb){
       if (!(tavern && tavern.quest && tavern.quest.key)) return cb(true);
-      module.exports.tavernQuest = tavern.quest.toObject();
 
       var quest = shared.content.quests[tavern.quest.key];
       if (tavern.quest.progress.hp <= 0) {
@@ -331,6 +332,8 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
           tavern.quest.extra.str = quest.boss.desperation.str;
           tavern.markModified('quest.extra');
         }
+
+        _.assign(module.exports.tavernQuest, tavern.quest.toObject());
         tavern.save(cb);
       }
     }
