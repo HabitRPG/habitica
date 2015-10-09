@@ -635,9 +635,7 @@ api.batchUpdate = function(req, res, next) {
     // Fetch full user object
     } else if (response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
-      response.todos = _.where(response.todos, function(t) {
-        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3}));
-      });
+      response.todos = shared.preenTodos(response.todos);
       res.json(200, response);
 
     // return only the version number

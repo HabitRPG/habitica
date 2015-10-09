@@ -186,6 +186,13 @@ preenHistory = (history) ->
 
   newHistory
 
+
+###
+  Preen 3-day past-completed To-Dos from Angular & mobile app
+###
+api.preenTodos = (tasks) ->
+  _.where(tasks, (t) -> !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3})))
+
 ###
   Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
 ###
@@ -613,6 +620,11 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message: i18n.t('messageTaskNotFound', req.language)}) unless task
         return cb?('?to=__&from=__ are required') unless to? and from?
         tasks = user["#{task.type}s"]
+        if task.type is 'todo' and tasks[from] isnt task # client indices don't match because of preened tasks
+          preenedTasks = api.preenTodos(tasks);
+          to = tasks.indexOf(preenedTasks[to]) unless to == -1 # Push To Bottom doesn't require readjustment
+          from = tasks.indexOf(preenedTasks[from])
+        return cb?({code:404, message: i18n.t('messageTaskNotFound', req.language)}) unless tasks[from] is task
         movedTask = tasks.splice(from, 1)[0]
         if to == -1 # we've used the Push To Bottom feature
           tasks.push(movedTask)
