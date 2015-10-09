@@ -98,7 +98,7 @@ habitrpg.controller('NotificationCtrl',
         Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
       } else if (after.type === 'Quest') {
         $rootScope.selectedQuest = Content.quests[after.key];
-        $rootScope.openModal('questDrop', {controller:'PartyCtrl'});
+        $rootScope.openModal('questDrop', {controller:'PartyCtrl',size:'sm'});
       } else if (after.notificationType === 'Mystery') {
         text = Content.gear.flat[after.key].text();
         Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), after);
