@@ -67,7 +67,7 @@ var findTask = function(req, res) {
 */
 
 /**
-  This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
+  This is called from deprecated.coffee's score function, and the req.headers are setup properly to handle the login
   Export it also so we can call it from deprecated.coffee
 */
 api.score = function(req, res, next) {
