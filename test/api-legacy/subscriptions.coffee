@@ -5,13 +5,19 @@ app = require("../../website/src/server")
 
 describe "Subscriptions", ->
 
+  tasks = []
+
   before (done) ->
-    registerNewUser(done, true)
+    registerNewUser((-> 
+      user.getTasks (err, userTasks) -> 
+        done(err) if err
+        tasks = userTasks
+        done()), true)
 
   it "Handles unsubscription", (done) ->
     cron = ->
       user.lastCron = moment().subtract(1, "d")
-      user.fns.cron()
+      user.fns.cron({tasks: tasks}) if user.fns.shouldCronRun() is true
 
     expect(user.purchased.plan.customerId).to.not.exist
     payments.createSubscription
