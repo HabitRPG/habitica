@@ -159,18 +159,24 @@ ChallengeSchema.methods.syncToUser = function(user, tasks, cb) {
     if(err) return cb(err);
     var tasksToSave = [];
 
-    var userTasksObj = _.object(_.pluck(userTasks, '_id'), userTasks);
+    // Map of userTasks belonging to this challenge with keyy task.challenge.taskId
+    var userTasksObj = {};
+    userTasks.forEach(function(task){
+      if(task.challenge && task.challenge.id === self._id){
+        userTasksObj[task.challenge.taskId] = task;
+      }
+    });
 
     // Sync new tasks and updated tasks
     _.each(tasks, function(task, taskId){
       var userTask;
 
-      if(!userTasks[taskId]){
+      if(!userTasksObj[taskId]){
         userTask = new Task(syncableAttrs(task));
         userTask.userId = user._id;
         user.tasksOrder[userTask.type + 's'].push(userTask._id);
       } else {
-        userTask = userTasks[taskId];
+        userTask = userTasksObj[taskId];
       }
 
       userTask.challenge = {id: self._id, taskId: taskId};
@@ -183,8 +189,8 @@ ChallengeSchema.methods.syncToUser = function(user, tasks, cb) {
     });
 
     // Flag deleted tasks as "broken"
-    _.each(userTasks, function(task){
-      if (task.challenge && task.challenge.id==self._id && !tasks[task.id]) {
+    _.each(userTasksObj, function(task){
+      if (task.challenge && task.challenge.id==self._id && !tasks[task.challenge.taskId]) {
         task.challenge.broken = 'TASK_DELETED';
         tasksToSave.push(task);
       }

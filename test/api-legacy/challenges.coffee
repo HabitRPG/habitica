@@ -35,7 +35,7 @@ describe "Challenges", ->
           todos: [{
             type: "todo"
             text: "Challenge Todo 1"
-            notes: "Challenge Notes"
+            notes: "Challenge Notes Todo 1"
           }]
           rewards: []
           habits: []
@@ -56,11 +56,11 @@ describe "Challenges", ->
         todos: [{
           type: "todo"
           text: "Challenge Todo 1"
-          notes: "Challenge Notes"
+          notes: "Challenge Notes Todo 1"
         }, {
           type: "todo"
           text: "Challenge Todo 2"
-          notes: "Challenge Notes"
+          notes: "Challenge Notes Todo 2"
         }]
         rewards: []
         habits: []
@@ -73,7 +73,8 @@ describe "Challenges", ->
               return cb(err) if err
               user.getTransformedData(cb)
           (cb) ->
-            Challenge.findById res.body._id, cb
+            Challenge.findById res.body._id, (err, _chal) ->
+              _chal.getTransformedData cb
         ], (err, results) ->
           user = results[0]
           challenge = results[1]
@@ -102,7 +103,7 @@ describe "Challenges", ->
               return cb(err) if err
               chal.getTransformedData(cb)
         , (chal, cb) ->
-          expect(chal.todos[0].notes).to.eql("Challenge Notes")
+          expect(chal.todos[0].notes).to.eql("Challenge Notes Todo 1")
           cb()
         , (cb) ->
           request.get(baseURL + "/user/tasks/" + userTodoId)
@@ -123,7 +124,7 @@ describe "Challenges", ->
               expectCode res, 200
               expect(_user.dailys[_user.dailys.length - 1].text).to.equal "Updated Daily"
               done()
-###
+
     it "does not changes user's notes on tasks when challenge task notes are updated", (done) ->
       challenge.todos[0].notes = "Challenge Updated Todo Notes"
       request.post(baseURL + "/challenges/" + challenge._id)
@@ -132,9 +133,10 @@ describe "Challenges", ->
           challenge = res.body
           expect(challenge.todos[0].notes).to.equal "Challenge Updated Todo Notes"
           User.findById user._id, (err, _user) ->
-            expectCode res, 200
-            expect(_user.todos[_user.todos.length - 1].notes).to.equal "Challenge Notes"
-            done()
+            _user.getTransformedData (err, _user) ->
+              expectCode res, 200
+              expect(_user.todos[_user.todos.length - 1].notes).to.equal "Challenge Notes Todo 1"
+              done()
 
 
     it "shows user notes on challenge page", (done) ->
@@ -142,20 +144,29 @@ describe "Challenges", ->
       updateTodo.notes = "User overriden notes"
       async.waterfall [
         (cb) ->
-          request.put(baseURL + "/user/tasks/" + updateTodo.id).send(updateTodo).end (err, res) ->
+          Task.findOne {
+              userId: user._id,
+              type: 'todo',
+              'challenge.id': challenge._id
+            }, cb
+        , (todo, cb) ->
+          request.put(baseURL + "/user/tasks/" + todo._id).send(updateTodo).end (res) ->
             cb()
         , (cb) ->
-          Challenge.findById challenge._id, cb
+          Challenge.findById challenge._id, (err, _chal) ->
+            _chal.getTransformedData (err, chal) ->
+              challenge = chal
+              cb(null, chal)
         , (chal, cb) ->
-          expect(chal.todos[0].notes).to.eql("Challenge Notes")
+          expect(chal.todos[0].notes).to.eql("Challenge Notes Todo 1")
           cb()
         , (cb) ->
-          request.get(baseURL + "/challenges/" + challenge._id + "/member/" + user._id).end (err, res) ->
+          request.get(baseURL + "/challenges/" + challenge._id + "/member/" + user._id).end (res) ->
             expect(res.body.todos[res.body.todos.length - 1].notes).to.equal "User overriden notes"
             done()
       ]
 
-  it "Complete To-Dos", (done) ->
+  ###it "Complete To-Dos", (done) ->
     User.findById user._id, (err, _user) ->
       u = _user
       numTasks = (_.size(u.todos))
