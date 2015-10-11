@@ -516,6 +516,11 @@ UserSchema.methods.addTasksToUser = function(tasks) {
     obj[task.type + 's'].push(task);
   });
 
+  //Remove null values that can be created when inserting tasks at an index > length
+  ['habits', 'dailys', 'rewards', 'todos'].forEach(function(type){
+    obj[type] = _.compact(obj[type]);
+  }); 
+
   return obj;
 };
 
@@ -571,7 +576,6 @@ UserSchema.pre('save', function(next) {
 
       // Saving the order of tasks
       self.tasksOrder[newTask.type + 's'].push(newTask._id);
-
       return newTask;
     }), next);
   } else {

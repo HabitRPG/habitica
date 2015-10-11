@@ -166,16 +166,17 @@ describe "Challenges", ->
             done()
       ]
 
-  ###it "Complete To-Dos", (done) ->
+  it "Complete To-Dos", (done) ->
     User.findById user._id, (err, _user) ->
       u = _user
-      numTasks = (_.size(u.todos))
-      request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (err, res) ->
-        request.post(baseURL + "/user/tasks/clear-completed").end (err, res) ->
-          expect(_.size(res.body)).to.equal numTasks - 1
-          done()
+      u.getTransformedData (err, u) ->
+        numTasks = (_.size(u.todos))
+        request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (res) ->
+          request.post(baseURL + "/user/tasks/clear-completed").end (res) ->
+            expect(_.size(res.body)).to.equal(numTasks - 1)
+            done()
 
-  it "Challenge deleted, breaks task link", (done) ->
+  ###it "Challenge deleted, breaks task link", (done) ->
     itThis = this
     request.del(baseURL + "/challenges/" + challenge._id).end (err, res) ->
       User.findById user._id, (err, user) ->

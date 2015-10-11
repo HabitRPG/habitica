@@ -130,30 +130,24 @@ api.getMember = function(req, res, next) {
   // We need to start using the aggregation framework instead of in-app filtering, see http://docs.mongodb.org/manual/aggregation/
   // See code at 32c0e75 for unwind/group example
 
+  // TODO add security layer here?
+
+  User.findOne({_id: uid}, {'profile.name': 1, tasksOrder: 1}, function(err, user){
+    if(err) return next(err);
+    if(!user) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
+    Task.find({
+      userId: uid,
+      'challenge.id': cid
+    }, function(err, tasks){
+      if(err) return next(err);
+
+      uid = cid = null;
+      return res.json(user.addTasksToUser(tasks));
+    });
+  });
+
+  // Previously used aggregation
   //http://stackoverflow.com/questions/24027213/how-to-match-multiple-array-elements-without-using-unwind
-  var proj = {'profile.name':'$profile.name'};
-  _.each(['habits','dailys','todos','rewards'], function(type){
-    proj[type] = {
-      $setDifference: [{
-        $map: {
-          input: '$'+type,
-          as: "el",
-          in: {
-            $cond: [{$eq: ["$$el.challenge.id", cid]}, '$$el', false]
-          }
-        }
-      }, [false]]
-    }
-  });
-  User.aggregate()
-  .match({_id: uid})
-  .project(proj)
-  .exec(function(err, member){
-    if (err) return next(err);
-    if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
-    res.json(member[0]);
-    uid = cid = null;
-  });
 }
 
 // CREATE
@@ -209,6 +203,7 @@ api.create = function(req, res, next){
       tasks = tasks.map(function(task) {
         var newTask = new Task(task);
         newTask.challenge.id = chal._id;
+        user.tasksOrder[task.type + 's'].push(newTask._id);
         return newTask;
       });
 

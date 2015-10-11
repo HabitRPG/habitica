@@ -793,10 +793,7 @@ api.clearCompleted = function(req, res, next) {
 
   Task.find({
     userId: user._id,
-    type: 'todo',
-    'challenge.id': {
-      $exists: false // TODO any case where challenge.id is null?
-    }
+    type: 'todo'
   }, function(err, todos) {
     if(err) return next(err);
 
@@ -812,7 +809,7 @@ api.clearCompleted = function(req, res, next) {
       user: user.save.bind(user),
       tasks: function(cb){
         async.each(completed, function(todo, cb1){
-          completed.remove(cb1);
+          todo.remove(cb1);
         }, cb);
       }
     }, function(err){
