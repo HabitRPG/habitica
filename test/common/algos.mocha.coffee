@@ -31,6 +31,7 @@ newUser = (addTasks=true)->
         progress:
           down: 0
     preferences: {}
+    habits: []
     dailys: []
     todos: []
     rewards: []
@@ -47,6 +48,10 @@ newUser = (addTasks=true)->
     _.each ['habit', 'todo', 'daily'], (task)->
       user.ops.addTask {body: {type: task, id: shared.uuid()}}
   user
+
+getTasksForUser = (user) ->
+  return user.habits.concat(user.dailys)
+          .concat(user.todos).concat(user.rewards)
 
 rewrapUser = (user)->
   user._wrapped = false
@@ -97,6 +102,7 @@ expectGainedPoints = (before, after, taskType) ->
 
 expectNoChange = (before,after) ->
   _.each $w('stats items gear dailys todos rewards preferences'), (attr)->
+    console.log(after[attr], before[attr], after[attr] == before[attr]);
     expect(after[attr]).to.eql before[attr]
 
 expectClosePoints = (before, after, taskType) ->
@@ -162,7 +168,11 @@ describe 'User', ->
     user = newUser()
     user.dailys = []
     _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
-    cron = -> user.lastCron = moment().subtract(1,'days');user.fns.cron()
+    cron = -> 
+      user.lastCron = moment().subtract(1,'days')
+      daysMissed = user.fns.shouldCronRun()
+      if daysMissed isnt 0 
+        user.fns.cron({tasks: getTasksForUser(user), daysMissed: daysMissed})
 
     cron()
     expect(user.stats.buffs.str).to.be 0
@@ -193,7 +203,11 @@ describe 'User', ->
     beforeEach ->
       user = newUser()
       user.preferences.sleep = true
-      cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
+      cron = -> 
+        user.lastCron = moment().subtract(1,'days')
+        daysMissed = user.fns.shouldCronRun()
+        if daysMissed isnt 0 
+          user.fns.cron({tasks: getTasksForUser(user), daysMissed: daysMissed})
       user.dailys = []
       _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
 
@@ -658,12 +672,22 @@ describe 'Cron', ->
   it 'computes shouldCron', ->
     user = newUser()
 
-    paths = {};user.fns.cron {paths}
+    daysMissed = user.fns.shouldCronRun()
+    paths = {
+      daysMissed: daysMissed,
+      tasks: getTasksForUser(user)
+    }
+    user.fns.cron paths if daysMissed isnt 0
     expect(user.lastCron).to.not.be.ok # it setup the cron property now
 
     user.lastCron = +moment().subtract(1,'days')
 
-    paths = {};user.fns.cron {paths}
+    daysMissed = user.fns.shouldCronRun()
+    paths = {
+      daysMissed: daysMissed,
+      tasks: getTasksForUser(user)
+    }
+    user.fns.cron paths if daysMissed isnt 0
     expect(user.lastCron).to.be.greaterThan 0
 
 #    user.lastCron = +moment().add(1,'days')
@@ -673,7 +697,12 @@ describe 'Cron', ->
   it 'only dailies & todos are affected', ->
     {before,after} = beforeAfter({daysAgo:1})
     before.dailys = before.todos = after.dailys = after.todos = []
-    after.fns.cron()
+    daysMissed = after.fns.shouldCronRun()
+    paths = {
+      daysMissed: daysMissed,
+      tasks: getTasksForUser(after)
+    }
+    after.fns.cron(paths)
     before.stats.mp=after.stats.mp #FIXME
     expect(after.lastCron).to.not.be before.lastCron # make sure cron was run
     delete after.stats.buffs;delete before.stats.buffs
@@ -737,7 +766,12 @@ describe 'Cron', ->
       ]
       after.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)}
       after.habits[0].history = _.cloneDeep(history)
-      after.fns.cron()
+      daysMissed = after.fns.shouldCronRun()
+      paths = {
+        daysMissed: daysMissed,
+        tasks: getTasksForUser(after)
+      }
+      after.fns.cron(paths)
 
       # remove history entries created by cron
       after.history.exp.pop()
@@ -750,7 +784,12 @@ describe 'Cron', ->
     it '1 day missed', ->
       {before,after} = beforeAfter({daysAgo:1})
       before.dailys = after.dailys = []
-      after.fns.cron()
+      daysMissed = after.fns.shouldCronRun()
+      paths = {
+        daysMissed: daysMissed,
+        tasks: getTasksForUser(after)
+      }
+      after.fns.cron(paths)
 
       # todos don't effect stats
       expect(after).toHaveHP 50
@@ -765,7 +804,12 @@ describe 'Cron', ->
     it '2 days missed', ->
       {before,after} = beforeAfter({daysAgo:2})
       before.dailys = after.dailys = []
-      after.fns.cron()
+      daysMissed = after.fns.shouldCronRun()
+      paths = {
+        daysMissed: daysMissed,
+        tasks: getTasksForUser(after)
+      }
+      after.fns.cron(paths)
 
       # todos devalue by only one day's worth of devaluation
       expect(before.todos[0].value).to.be 0  # sanity check for task setup
@@ -853,8 +897,11 @@ describe 'Cron', ->
           before.dailys[0].startDate = after.dailys[0].startDate = moment().subtract(30, 'days')
           if options.shouldDo
             expect(shared.shouldDo(now.toDate(), after.dailys[0], {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
-          after.fns.cron {now}
+          daysMissed = after.fns.shouldCronRun({now})
+          tasks = getTasksForUser(after);
+          if daysMissed isnt 0 then after.fns.cron({now, daysMissed, tasks})
           before.stats.mp=after.stats.mp #FIXME
+          console.log(options.expect)
           switch options.expect
             when 'losePoints' then expectLostPoints(before,after,'daily')
             when 'noChange' then expectNoChange(before,after)

@@ -17,7 +17,8 @@ describe "Subscriptions", ->
   it "Handles unsubscription", (done) ->
     cron = ->
       user.lastCron = moment().subtract(1, "d")
-      user.fns.cron({tasks: tasks}) if user.fns.shouldCronRun() is true
+      daysMissed = user.fns.shouldCronRun()
+      user.fns.cron({tasks: tasks, daysMissed: daysMissed}) if daysMissed isnt 0
 
     expect(user.purchased.plan.customerId).to.not.exist
     payments.createSubscription

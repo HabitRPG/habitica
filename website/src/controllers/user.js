@@ -382,12 +382,15 @@ var saveAfterCron = function(user, tasks, cb) {
 api.cron = function(req, res, next) {
   var user = res.locals.user;
 
-  if (user.fns.shouldCronRun() !== true) return next(null, user);
+  var daysMissed = user.fns.shouldCronRun();
+
+  if (daysMissed !== 0) return next(null, user);
 
   user.getTasks(function(err, tasks) {
     if(err) return next(err);
 
     var progress = user.fns.cron({
+      daysMissed: daysMissed,
       tasks: tasks,
       analytics: utils.analytics
     });

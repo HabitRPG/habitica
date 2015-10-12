@@ -512,7 +512,7 @@ api.wrap = (user, main=true) ->
         user.fns.rebirthUser(req, ((err) ->
           if err then return cb? err
 
-          rebirthTasks()
+          user.fns.rebirthTasks()
           cb? null, user
         ), analytics);
 
@@ -1390,6 +1390,11 @@ api.wrap = (user, main=true) ->
       if (user.balance < 2 && user.stats.lvl < api.maxLevel)
         return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
 
+      analyticsData = {
+        uuid: user._id,
+        category: 'behavior'
+      }
+
       # only charge people if they are under the max level - ryan
       if user.stats.lvl < api.maxLevel
         user.balance -= 2
@@ -1399,10 +1404,6 @@ api.wrap = (user, main=true) ->
         analyticsData.gemCost = 0
         analyticsData.acquireMethod = '> 100'
 
-      analyticsData = {
-        uuid: user._id,
-        category: 'behavior'
-      }
       analytics?.track('Rebirth', analyticsData)
 
       # Save off user's level, for calculating achievement eligibility later
@@ -1694,7 +1695,8 @@ api.wrap = (user, main=true) ->
       ------------------------------------------------------
     ###
 
-    # Run before cron to evaluate if it should run or not
+    # Run before cron to evaluate if it should run or not, returns 0 if cron should not run,
+    # otherwise the number of missed days
     shouldCronRun: (options={}) ->
       # They went to a different timezone
       # FIXME:
@@ -1716,10 +1718,12 @@ api.wrap = (user, main=true) ->
       And you have to run it every time client connects.
       {user}
 
-      shouldCronRun must be called before this to evaluate if it has to run or not
+      shouldCronRun must be called before this to evaluate if it has to run or not and the number of
+      missed days returned should be passed 
     ###
     cron: (options={}) ->
       now = +options.now || +new Date
+      daysMissed = options.daysMissed
 
       tasks =
         habits: [],
@@ -1941,7 +1945,8 @@ api.wrap = (user, main=true) ->
   # Virtual Attributes
   # ----------------------------------------------------------------------
 
-  if window?
+  #if window? FIXME must comment this out because needed in tests where window is undefined
+  if user.habits
     Object.defineProperty user, 'tasks',
       get: ->
         tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
