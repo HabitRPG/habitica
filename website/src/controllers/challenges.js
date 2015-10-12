@@ -197,6 +197,11 @@ api.create = function(req, res, next){
       var chal = new Challenge(req.body); // FIXME sanitize
       chal.members.push(user._id);
 
+      req.body.habits = req.body.habits || [];
+      req.body.todos = req.body.todos || [];
+      req.body.dailys = req.body.dailys || [];
+      req.body.rewards = req.body.rewards || [];
+
       var tasks = req.body.habits.concat(req.body.rewards)
                     .concat(req.body.dailys).concat(req.body.todos);
 
@@ -259,14 +264,14 @@ api.update = function(req, res, next){
     },
     function(_before, cb) {
       if (!_before.chal) return cb('Challenge ' + cid + ' not found');
-      if (_before.chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionEditChallenge', req.language));
+      if (_before.chal.leader != user._id && !user.contributor.admin) return cb({code: 401, err: shared.i18n.t('noPermissionEditChallenge', req.language)});
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
       before = {chal: _before.chal, tasks: _before.tasks};
       var chalAttrs = _.pick(req.body, 'name shortName description date'.split(' '));
       async.parallel({
         chal: function(cb1){
-          Challenge.findByIdAndUpdate(cid, {$set:chalAttrs}, cb1);
+          Challenge.findByIdAndUpdate(cid, {$set:chalAttrs}, {new: true}, cb1);
         },
         tasks: function(cb1) {
           // Convert to map of {id: task} so we can easily match them
@@ -308,7 +313,10 @@ api.update = function(req, res, next){
       cb(null, saved);
     }
   ], function(err, saved){
-    if(err) next(err);
+    if(err) {
+      return err.code ? res.json(err.code, err) : next(err);
+    }
+
     saved.chal.getTransformedData(function(err, newChal){
       if(err) return next(err);
       res.json(newChal);
@@ -332,10 +340,10 @@ function closeChal(cid, broken, cb) {
     },
     function(_removed, cb2) {
       removed = _removed;
-      var pull = {'$pull':{}}; pull['$pull'][_removed._id] = 1;
+      var pull = {'$pull':{challenges: _removed._id}};
       async.parallel({
         updateGroup: function(cb3) {
-          Group.findByIdAndUpdate(_removed.group, pull, cb3);
+          Group.findByIdAndUpdate(_removed.group, pull, {new:true}, cb3);
         },
         findUsers: function(cb3) {
           User.find({_id:{$in: removed.members}}, cb3);
@@ -392,7 +400,7 @@ api['delete'] = function(req, res, next){
     },
     function(chal, cb){
       if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionDeleteChallenge', req.language));
+      if (chal.leader != user._id && !user.contributor.admin) return cb({code: 401, err: shared.i18n.t('noPermissionDeleteChallenge', req.language)});
       if (chal.group != 'habitrpg') user.balance += chal.prize/4; // Refund gems to user if a non-tavern challenge
       user.save(cb);
     },
@@ -400,7 +408,7 @@ api['delete'] = function(req, res, next){
       closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
     }
   ], function(err){
-    if (err) return next(err);
+    if (err) return err.code ? res.json(err.code, err) : next(err);
     res.send(200);
     user = cid = null;
   });
@@ -421,7 +429,7 @@ api.selectWinner = function(req, res, next) {
     function(_chal, cb){
       chal = _chal;
       if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionCloseChallenge', req.language));
+      if (chal.leader != user._id && !user.contributor.admin) return cb({code: 401, err: shared.i18n.t('noPermissionCloseChallenge', req.language)});
       User.findById(req.query.uid, cb)
     },
     function(winner, cb){
@@ -443,7 +451,7 @@ api.selectWinner = function(req, res, next) {
       closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
   ], function(err){
-    if (err) return next(err);
+    if (err) return err.code ? res.json(err.code, err) : next(err);
     res.send(200);
     user = cid = chal = null;
   })
@@ -456,7 +464,7 @@ api.join = function(req, res, next){
 
   async.waterfall([
     function(cb) {
-      Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, cb);
+      Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, {new: true}, cb);
     },
     function(chal, cb) {
 
@@ -496,7 +504,7 @@ api.leave = function(req, res, next){
 
   async.waterfall([
     function(cb){
-      Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, cb);
+      Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, {new: true}, cb);
     },
     function(chal, cb){
 

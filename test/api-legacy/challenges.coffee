@@ -176,26 +176,30 @@ describe "Challenges", ->
             expect(_.size(res.body)).to.equal(numTasks - 1)
             done()
 
-  ###it "Challenge deleted, breaks task link", (done) ->
+  it "Challenge deleted, breaks task link", (done) ->
     itThis = this
     request.del(baseURL + "/challenges/" + challenge._id).end (err, res) ->
       User.findById user._id, (err, user) ->
-        len = user.dailys.length - 1
-        daily = user.dailys[user.dailys.length - 1]
-        expect(daily.challenge.broken).to.equal "CHALLENGE_DELETED"
+        user.getTransformedData (err, user) ->
+          len = user.dailys.length - 1
+          daily = user.dailys[user.dailys.length - 1]
+          dailyId = daily._id
+          expect(daily.challenge.broken).to.equal "CHALLENGE_DELETED"
 
-        # Now let's handle if challenge was deleted, but didn't get to update all the users (an error)
-        unset = $unset: {}
-        unset["$unset"]["dailys." + len + ".challenge.broken"] = 1
-        User.findByIdAndUpdate user._id, unset, (err, user) ->
-          expect(err).to.not.exist
-          expect(user.dailys[len].challenge.broken).to.not.exist
-          request.post(baseURL + "/user/tasks/" + daily.id + "/up").end (err, res) ->
-            setTimeout (->
-              User.findById user._id, (err, user) ->
-                expect(user.dailys[len].challenge.broken).to.equal "CHALLENGE_DELETED"
-                done()
-            ), 100 # we need to wait for challenge to update user, it's a background job for perf reasons
+          # Now let's handle if challenge was deleted, but didn't get to update all the users (an error)
+          unset = $unset: {
+            'challenge.broken': 1
+          }
+          Task.findByIdAndUpdate dailyId, unset, {new: true}, (err, daily) ->
+            expect(err).to.not.exist
+            expect(daily.challenge.broken).to.not.exist
+            request.post(baseURL + "/user/tasks/" + daily.id + "/up").end (res) ->
+              setTimeout (->
+                User.findById user._id, (err, user) ->
+                  user.getTransformedData (err, user) ->
+                    expect(user.dailys[len].challenge.broken).to.equal "CHALLENGE_DELETED"
+                    done()
+              ), 100 # we need to wait for challenge to update user, it's a background job for perf reasons
 
   it "admin creates a challenge", (done) ->
     User.findByIdAndUpdate user._id,
@@ -366,4 +370,4 @@ describe "Challenges", ->
               .end (err, res) ->
                 error = res.body.err
                 expect(error).to.eql("Challenge #{challenge._id} not found")
-                done()###
+                done()
