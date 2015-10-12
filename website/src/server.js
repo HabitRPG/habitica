@@ -12,7 +12,7 @@ var cores = +nconf.get('WEB_CONCURRENCY') || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
-  for (var i = 0, n = cores; i < n; i += 1) {
+  for (var i = 0; i < cores; i += 1) {
     cluster.fork();
   }
 
