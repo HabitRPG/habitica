@@ -12,7 +12,9 @@ var cores = +nconf.get('WEB_CONCURRENCY') || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
-  _.times(cores, cluster.fork);
+  for (var i = 0, n = cores; i < n; i += 1) {
+    cluster.fork();
+  }
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
