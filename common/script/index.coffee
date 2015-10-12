@@ -1735,7 +1735,7 @@ api.wrap = (user, main=true) ->
         tasks[task.type + 's'].push(task)
       )
 
-      user.auth.timestamps.loggedin = now
+      user.auth.timestamps.loggedin = new Date()
 
       user.lastCron = now
 
@@ -1777,7 +1777,6 @@ api.wrap = (user, main=true) ->
         tasks.dailys.forEach (daily) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
-
           if api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed
             _.each daily.checklist, ((box)->box.completed=false;true)
           daily.completed = false

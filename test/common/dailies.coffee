@@ -35,6 +35,7 @@ newUser = (addTasks=true)->
         progress:
           down: 0
     preferences: {}
+    habits: []
     dailys: []
     todos: []
     rewards: []
@@ -49,9 +50,15 @@ newUser = (addTasks=true)->
       user.ops.addTask {body: {type: task, id: shared.uuid()}}
   user
 
+getTasksForUser = (user) ->
+  return user.habits.concat(user.dailys)
+          .concat(user.todos).concat(user.rewards)
+
 cron = (usr, missedDays=1) ->
   usr.lastCron = moment().subtract(missedDays,'days')
-  usr.fns.cron()
+  daysMissed = usr.fns.shouldCronRun()
+  if daysMissed isnt 0 
+    usr.fns.cron({tasks: getTasksForUser(usr), daysMissed: daysMissed})
 
 describe 'daily/weekly that repeats everyday (default)', ->
   user = null
