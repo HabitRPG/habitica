@@ -53,6 +53,15 @@ habitrpg.controller('NotificationCtrl',
        Notification.mp(mana);
     });
 
+    $rootScope.$watch('user.stats.lvl', function(after, before) {
+      if ((after === before) || (User.user._tmp && User.user._tmp.drop && (User.user._tmp.drop.type === 'Quest'))) return;
+      if (after > before) {
+        Notification.lvl();
+        $rootScope.playSound('Level_Up');
+        $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
+      }
+    });
+
     $rootScope.$watch('user._tmp.crit', function(after, before){
        if (after == before || !after) return;
        var amount = User.user._tmp.crit * 100 - 100;
@@ -145,15 +154,6 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
       if(after){
         $rootScope.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
-      }
-    });
-
-    $rootScope.$watch('user.stats.lvl', function(after, before) {
-      if (after == before) return;
-      if (after > before) {
-        Notification.lvl();
-        $rootScope.playSound('Level_Up');
-        $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
       }
     });
 
