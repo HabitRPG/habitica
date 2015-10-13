@@ -1,0 +1,18 @@
+include ../avatar/generated_avatar
+
+script(type='text/ng-template', id='modals/levelUp.html')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('gainedLevel')
+      .container-fluid
+        .row
+          .herobox(style='margin:auto 8.5em; width: 6em; height: 9em; padding-top: 0')
+            .character-sprites(style='margin: 0; width: 0')
+              +generatedAvatar
+        .row
+          .herobox(style='margin:auto 9em; width: 6em; height: 0; padding-top: 0')
+            .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'
+      h4(style='margin-top: 1em')!=env.t('leveledUp', {level:'{{user.stats.lvl}}'})
+      p=env.t('fullyHealed')
+    .modal-footer(style='margin-top:0')
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
