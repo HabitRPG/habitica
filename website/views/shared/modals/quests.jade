@@ -84,25 +84,26 @@ script(type='text/ng-template', id='modals/questInvitation.html')
     button.btn.btn-primary(ng-click='questAccept(); $close()')=env.t('accept')
 
 script(type='text/ng-template', id='modals/questDrop.html')
-  .modal-body.text-center
-    h3=env.t('unlockedAQuest')
-    h4 {{::selectedQuest.text()}}
-    .container-fluid
-      .row(style='margin-bottom:1em', ng-controller='UserCtrl')
-        .col-xs-4(style='padding:0')
-          .herobox(style='padding:0; width: 0; height: 0')
-            .character-sprites(style='width:0')
-              +generatedAvatar
-        .col-xs-4(style='padding:0')
-          .herobox(style='width: 0; height: 5em; position: initial')
-            .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'
-        .col-xs-4(style='margin-top:1.5em')
-          .quest-icon(class='inventory_quest_scroll_{{::selectedQuest.key}}')
-    h4!=env.t('leveledUpReceivedQuest', {level:'{{user.stats.lvl}}'})
-  .modal-footer(style='margin-top:0')
-    button.btn.btn-primary.btn-sm(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
-    button.btn.btn-primary.btn-sm(ng-click='questInit(); $close()', ng-if='party.members')=env.t('inviteParty')
-    button.btn.btn-default.btn-sm(ng-click='closeQuest(); $close()')=env.t('questLater')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3=env.t('unlockedAQuest')
+      p {{::selectedQuest.text()}}
+      .container-fluid
+        .row(style='margin-bottom:1em', ng-controller='UserCtrl')
+          .col-xs-4(style='padding:0')
+            .herobox(style='padding:0; width: 0; height: 0')
+              .character-sprites(style='width:0')
+                +generatedAvatar
+          .col-xs-4(style='padding:0')
+            .herobox(style='width: 6.7em; height: 5em; position: absolute')
+              .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'
+          .col-xs-4(style='margin-top:1.5em')
+            .quest-icon(class='inventory_quest_scroll_{{::selectedQuest.key}}')
+      h4!=env.t('leveledUpReceivedQuest', {level:'{{user.stats.lvl}}'})
+    .modal-footer(style='margin-top:0')
+      button.btn.btn-primary(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
+      button.btn.btn-primary(ng-click='questInit(); $close()', ng-if='party.members')=env.t('inviteParty')
+      button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
 
 script(type='text/ng-template', id='modals/ownedQuests.html')
   .modal-header
