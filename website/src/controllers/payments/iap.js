@@ -104,15 +104,13 @@ exports.iosVerify = function(req, res, next) {
           var correctReceipt = true;
           for (var index in purchaseDataList) {
             switch (purchaseDataList[index].productId) {
-              case 'com.habitrpg.ios.Habitica.20gems':
-                payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 5});
-                break;
               case 'com.habitrpg.ios.Habitica.4gems':
                 payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 1});
                 break;
               case 'com.habitrpg.ios.Habitica.8gems':
                 payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 2});
                 break;
+              case 'com.habitrpg.ios.Habitica.20gems':
               case 'com.habitrpg.ios.Habitica.21gems':
                 payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 5.25});
                 break;
