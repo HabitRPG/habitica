@@ -102,7 +102,7 @@ exports.iosVerify = function(req, res, next) {
         var purchaseDataList = iap.getPurchaseData(appleRes);
         if (purchaseDataList.length > 0) {
           var correctReceipt = true;
-          for (index in purchaseDataList) {
+          for (var index in purchaseDataList) {
             switch (purchaseDataList[index].productId) {
               case 'com.habitrpg.ios.Habitica.20gems':
                 payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 5});
