@@ -68,6 +68,7 @@ api.authWithUrl = function(req, res, next) {
 
 api.registerUser = function(req, res, next) {
   var regUname = RegexEscape(req.body.username);
+  var email = req.body.email && req.body.email.toLowerCase();
   async.auto({
     validate: function(cb) {
       if (!(req.body.username && req.body.password && req.body.email))
@@ -79,14 +80,14 @@ api.registerUser = function(req, res, next) {
       cb();
     },
     findReg: function(cb) {
-      User.findOne({$or:[{'auth.local.email': req.body.email}, {'auth.local.username': regUname}]}, {'auth.local':1}, cb);
+      User.findOne({$or:[{'auth.local.email': email}, {'auth.local.username': regUname}]}, {'auth.local':1}, cb);
     },
     findFacebook: function(cb){
       User.findOne({_id: req.headers['x-api-user'], apiToken: req.headers['x-api-key']}, {auth:1}, cb);
     },
     register: ['validate', 'findReg', 'findFacebook', function(cb, data) {
       if (data.findReg) {
-        if (req.body.email === data.findReg.auth.local.email) return cb({code:401, err:"Email already taken"});
+        if (email === data.findReg.auth.local.email) return cb({code:401, err:"Email already taken"});
         if (regUname.test(data.findReg.auth.local.username)) return cb({code:401, err:"Username already taken"});
       }
       var salt = utils.makeSalt();
@@ -94,7 +95,7 @@ api.registerUser = function(req, res, next) {
         auth: {
           local: {
             username: req.body.username,
-            email: req.body.email.toLowerCase(),
+            email: email,
             salt: salt,
             hashed_password: utils.encryptPassword(req.body.password, salt)
           },
