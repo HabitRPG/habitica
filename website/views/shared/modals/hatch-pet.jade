@@ -1,0 +1,20 @@
+include ../avatar/generated_avatar
+
+script(type='text/ng-template', id='modals/hatchPet.html')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('hatchedPet',{egg:'{{::hatchedPet.egg}}', potion:'{{::hatchedPet.potion}}'})
+      .container-fluid
+        .row(style='margin-bottom:1em', ng-controller='UserCtrl')
+          .col-xs-4(style='padding:0')
+            div(class='{{::hatchedPet.pet}}').pull-right
+          .col-xs-3
+            .empty_bottles(style='margin-top:2.8em')
+          .col-xs-5(style='padding:0')
+            .herobox(style='padding:0; width:0; height:0')
+              .character-sprites(style='width:0; margin-top:.5em')
+                +generatedAvatar
+      p=env.t('earnedCompanion')
+    .modal-footer(style='margin-top:0')
+      button.btn.btn-primary(ng-click='choosePet(hatchedPet.egg, hatchedPet.potion); $close()')=env.t('displayNow')
+      button.btn.btn-default(ng-click='$close()')=env.t('displayLater')
