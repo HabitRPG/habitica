@@ -9,7 +9,8 @@ include ../../shared/mixins
           .arrow.hidden-xs
           h3.popover-title=env.t('ian')
           .popover-content
-            p=env.t('ianText')
+            p(ng-if='env.worldDmg.quests')=env.t('ianBrokenText')
+            p(ng-if='!env.worldDmg.quests')=env.t('ianText')
 
       h3.equipment-title=env.t('yourQuests')
       +ownedQuests(true,'right')
