@@ -67,8 +67,7 @@ api.authWithUrl = function(req, res, next) {
 }
 
 api.registerUser = function(req, res, next) {
-  var regEmail = RegexEscape(req.body.email),
-    regUname = RegexEscape(req.body.username);
+  var regUname = RegexEscape(req.body.username);
   async.auto({
     validate: function(cb) {
       if (!(req.body.username && req.body.password && req.body.email))
@@ -80,14 +79,14 @@ api.registerUser = function(req, res, next) {
       cb();
     },
     findReg: function(cb) {
-      User.findOne({$or:[{'auth.local.email': regEmail}, {'auth.local.username': regUname}]}, {'auth.local':1}, cb);
+      User.findOne({$or:[{'auth.local.email': req.body.email}, {'auth.local.username': regUname}]}, {'auth.local':1}, cb);
     },
     findFacebook: function(cb){
       User.findOne({_id: req.headers['x-api-user'], apiToken: req.headers['x-api-key']}, {auth:1}, cb);
     },
     register: ['validate', 'findReg', 'findFacebook', function(cb, data) {
       if (data.findReg) {
-        if (regEmail.test(data.findReg.auth.local.email)) return cb({code:401, err:"Email already taken"});
+        if (req.body.email === data.findReg.auth.local.email) return cb({code:401, err:"Email already taken"});
         if (regUname.test(data.findReg.auth.local.username)) return cb({code:401, err:"Username already taken"});
       }
       var salt = utils.makeSalt();
@@ -95,7 +94,7 @@ api.registerUser = function(req, res, next) {
         auth: {
           local: {
             username: req.body.username,
-            email: req.body.email,
+            email: req.body.email.toLowerCase(),
             salt: salt,
             hashed_password: utils.encryptPassword(req.body.password, salt)
           },
@@ -143,7 +142,7 @@ api.loginLocal = function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
   if (!(username && password)) return res.json(401, {err:'Missing :username or :password in request body, please provide both'});
-  var login = validator.isEmail(username) ? {'auth.local.email':username} : {'auth.local.username':username};
+  var login = validator.isEmail(username) ? {'auth.local.email':username.toLowerCase()} : {'auth.local.username':username};
   User.findOne(login, {auth:1}, function(err, user){
     if (err) return next(err);
     if (!user) return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
@@ -233,12 +232,12 @@ api.deleteSocial = function(req,res,next){
 }
 
 api.resetPassword = function(req, res, next){
-  var email = req.body.email,
+  var email = req.body.email && req.body.email.toLowerCase(),
     salt = utils.makeSalt(),
     newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
     hashed_password = utils.encryptPassword(newPassword, salt);
 
-  User.findOne({'auth.local.email': RegexEscape(email)}, function(err, user){
+  User.findOne({'auth.local.email': email}, function(err, user){
     if (err) return next(err);
     if (!user) return res.send(401, {err:"Sorry, we can't find a user registered with email " + email + "\n- Make sure your email address is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login."});
     user.auth.local.salt = salt;
@@ -283,14 +282,15 @@ api.changeUsername = function(req, res, next) {
 }
 
 api.changeEmail = function(req, res, next){
+  var email = req.body.email && req.body.email.toLowerCase()
   async.waterfall([
     function(cb){
-      User.findOne({'auth.local.email': RegexEscape(req.body.email)}, {auth:1}, cb);
+      User.findOne({'auth.local.email': email}, {auth:1}, cb);
     },
     function(found, cb){
       if(found) return cb({code:401, err: "Email already taken"});
       if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
-      res.locals.user.auth.local.email = req.body.email;
+      res.locals.user.auth.local.email = email;
       res.locals.user.save(cb);
     }
   ], function(err){
