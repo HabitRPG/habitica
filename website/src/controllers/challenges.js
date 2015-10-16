@@ -90,14 +90,24 @@ api.csv = function(req, res, next) {
     function(_challenge,cb) {
       challenge = _challenge;
       if (!challenge) return cb('Challenge ' + cid + ' not found');
-      User.aggregate([
-        {$match:{'_id':{ '$in': challenge.members}}}, //yes, we want members
-        {$project:{'profile.name':1,tasks:{$setUnion:["$habits","$dailys","$todos","$rewards"]}}},
-          {$unwind:"$tasks"},
-           {$match:{"tasks.challenge.id":cid}},
-           {$sort:{'tasks.type':1,'tasks.id':1}},
-           {$group:{_id:"$_id", "tasks":{$push:"$tasks"},"name":{$first:"$profile.name"}}}
-      ], cb);
+      User.find({_id: {$in: ch.members}}, {'profile.name': 1, tasksOrder: 1}, function(err, users){
+        if(err) return cb(err);
+
+        async.each(users, function(user, cb1){
+          Task.find({
+            userId: user._id,
+            'challenge.id': cid
+          }, function(err, tasks){
+            if(err) return cb1(err);
+            user = user.toJSON();
+            user.tasks = tasks;
+            cb1();
+          });
+        }, function(err){
+          if(err) return cb(err);
+          return cb(null, users);
+        });
+      });
     }
   ],function(err,users){
     if(err) return next(err);
@@ -111,7 +121,7 @@ api.csv = function(req, res, next) {
     })
     output = [output];
     _.each(users, function(u){
-      var uData = [u._id,u.name];
+      var uData = [u._id,u.profile.name];
       _.each(u.tasks,function(t){
         uData = uData.concat([t.type+':'+t.text, t.value, t.notes]);
       })
