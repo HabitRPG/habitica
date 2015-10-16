@@ -26,6 +26,6 @@ website/public/docs
 *.sublime-workspace
 coverage
 coverage.html
-common/dist/scripts/habitrpg-shared.js
+common/dist/scripts/*
 
 test/spec/mocks/translations.js

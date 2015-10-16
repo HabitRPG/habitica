@@ -26,6 +26,16 @@ describe('count', function() {
       expect(beastMasterTotal).to.eql(1);
     });
 
+    it('does not count pets hatched with premium potions', function() {
+      var pets = { 
+        "Wolf-Spooky": 5, 
+        "Dragon-Spooky": 5, 
+        "FlyingPig-Base": 5
+      }
+      var beastMasterTotal = count.beastMasterProgress(pets);
+      expect(beastMasterTotal).to.eql(1);
+    });
+
     it('does not count special pets', function() {
       var pets = {
         "Wolf-Base": 2,
@@ -63,6 +73,15 @@ describe('count', function() {
       var mounts = { "Dragon-Red": true, "Wolf-Base": true };
       var mountMasterTotal = count.mountMasterProgress(mounts);
       expect(mountMasterTotal).to.eql(2);
+    });
+
+    it('does not count premium mounts', function() {
+      var mounts = {
+        "Dragon-Red": true,
+        "FlyingPig-Spooky": true
+      }
+      var mountMasterTotal = count.mountMasterProgress(mounts);
+      expect(mountMasterTotal).to.eql(1);
     });
 
     it('does not count quest mounts', function() {

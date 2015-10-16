@@ -6,14 +6,14 @@ var i18n = require('../i18n.js');
 var buildManifest = require('../libs/buildManifest');
 var shared = require('../../../common');
 var forceRefresh = require('./forceRefresh');
-var tavern = require('../models/group').tavern;
+var tavernQuest = require('../models/group').tavernQuest;
 var mods = require('../models/user').mods;
 
 // To avoid stringifying more data then we need,
 // items from `env` used on the client will have to be specified in this array
 var clientVars = ['language', 'isStaticPage', 'avalaibleLanguages', 'translations',
                   'FACEBOOK_KEY', 'NODE_ENV', 'BASE_URL', 'GA_ID',
-                  'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY', 
+                  'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
                   'worldDmg', 'mods', 'IS_MOBILE'];
 
 var env = {
@@ -21,7 +21,6 @@ var env = {
   getBuildUrl: buildManifest.getBuildUrl,
   _: _,
   clientVars: clientVars,
-  tavern: tavern, // for world boss
   mods: mods,
   Content: shared.content,
   siteVersion: forceRefresh.siteVersion,
@@ -53,9 +52,9 @@ module.exports = function(req, res, next) {
       args.push(language.code);
       return shared.i18n.t.apply(null, args);
     },
-    // Defined here and not outside of the middleware because tavern might be an
+    // Defined here and not outside of the middleware because tavernQuest might be an
     // empty object until the query to fetch it finishes
-    worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {},
+    worldDmg: (tavernQuest && tavernQuest.extra && tavernQuest.extra.worldDmg) || {},
   });
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)

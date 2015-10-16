@@ -186,6 +186,13 @@ preenHistory = (history) ->
 
   newHistory
 
+
+###
+  Preen 3-day past-completed To-Dos from Angular & mobile app
+###
+api.preenTodos = (tasks) ->
+  _.where(tasks, (t) -> !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3})))
+
 ###
   Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
 ###
@@ -613,6 +620,11 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message: i18n.t('messageTaskNotFound', req.language)}) unless task
         return cb?('?to=__&from=__ are required') unless to? and from?
         tasks = user["#{task.type}s"]
+        if task.type is 'todo' and tasks[from] isnt task # client indices don't match because of preened tasks
+          preenedTasks = api.preenTodos(tasks);
+          to = tasks.indexOf(preenedTasks[to]) unless to == -1 # Push To Bottom doesn't require readjustment
+          from = tasks.indexOf(preenedTasks[from])
+        return cb?({code:404, message: i18n.t('messageTaskNotFound', req.language)}) unless tasks[from] is task
         movedTask = tasks.splice(from, 1)[0]
         if to == -1 # we've used the Push To Bottom feature
           tasks.push(movedTask)
@@ -640,7 +652,7 @@ api.wrap = (user, main=true) ->
         user["#{task.type}s"].unshift(task)
         if user.preferences.newTaskEdit then task._editing = true
         if user.preferences.tagsCollapsed then task._tags = true
-        if user.preferences.advancedCollapsed then task._advanced = true
+        if !user.preferences.advancedCollapsed then task._advanced = true
         cb? null, task
         task
 
@@ -766,7 +778,7 @@ api.wrap = (user, main=true) ->
         if food.key is 'Saddle'
           evolve()
         else
-          if food.target is potion
+          if food.target is potion or content.hatchingPotions[potion].premium
             userPets[pet] += 5
             message = i18n.t('messageLikesFood', {egg: petDisplayName, foodText: food.text(req.language)}, req.language)
           else
@@ -822,7 +834,8 @@ api.wrap = (user, main=true) ->
           item = content[type][key]
           price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
+        return cb?({code:403, message: i18n.t('messageNotAvailable', req.language)}) if not item.canBuy(user)
+        return cb?({code:403, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
         user.balance -= price
         if type is 'gear' then user.items.gear.owned[key] = true
         else
@@ -999,10 +1012,10 @@ api.wrap = (user, main=true) ->
         cb? {code:200, message}, user.items.quests
 
       buyMysterySet: (req, cb, analytics)->
-        return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
+        return cb?({code:401, message:i18n.t('notEnoughHourglasses', req.language)}) unless user.purchased.plan.consecutive.trinkets > 0
         mysterySet = content.timeTravelerStore(user.items.gear.owned)?[req.params.key]
         if window?.confirm?
-          return unless window.confirm("Buy this full set of items for 1 Mystic Hourglass?")
+          return unless window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))
         return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
         _.each mysterySet.items, (i)->
           user.items.gear.owned[i.key]=true
@@ -1016,7 +1029,28 @@ api.wrap = (user, main=true) ->
           analytics?.track('acquire item', analyticsData)
 
         user.purchased.plan.consecutive.trinkets--
-        cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
+        cb? {code:200, message:i18n.t('hourglassPurchaseSet', req.language)}, _.pick(user,$w 'items purchased.plan.consecutive')
+
+      hourglassPurchase: (req, cb, analytics)->
+        {type, key} = req.params
+        return cb?({code:403, message:i18n.t('typeNotAllowedHourglass', req.language) + JSON.stringify(_.keys(content.timeTravelStable))}) unless content.timeTravelStable[type]
+        return cb?({code:403, message:i18n.t(type+'NotAllowedHourglass', req.language)}) unless _.contains(_.keys(content.timeTravelStable[type]), key)
+        return cb?({code:403, message:i18n.t(type+'AlreadyOwned', req.language)}) if user.items[type][key]
+        return cb?({code:403, message:i18n.t('notEnoughHourglasses', req.language)}) unless user.purchased.plan.consecutive.trinkets > 0
+        user.purchased.plan.consecutive.trinkets--
+        if type is 'pets'
+          user.items.pets[key] = 5
+        if type is 'mounts'
+          user.items.mounts[key] = true
+        analyticsData = {
+          uuid: user._id,
+          itemKey: key,
+          itemType: type,
+          acquireMethod: 'Hourglass',
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+        cb? {code:200, message:i18n.t('hourglassPurchase', req.language)}, _.pick(user,$w 'items purchased.plan.consecutive')
 
       sell: (req, cb) ->
         {key, type} = req.params
@@ -1049,10 +1083,11 @@ api.wrap = (user, main=true) ->
 
       hatch: (req, cb) ->
         {egg, hatchingPotion} = req.params
-        return cb?({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
-        return cb?({code:401,message:i18n.t('messageMissingEggPotion', req.language)}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+        return cb?({code:400,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
+        return cb?({code:403,message:i18n.t('messageMissingEggPotion', req.language)}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+        return cb?({code:403,message:i18n.t('messageInvalidEggPotionCombo', req.language)}) if content.hatchingPotions[hatchingPotion].premium and not content.dropEggs[egg]
         pet = "#{egg}-#{hatchingPotion}"
-        return cb?({code:401, message:i18n.t('messageAlreadyPet', req.language)}) if user.items.pets[pet] and user.items.pets[pet] > 0
+        return cb?({code:403, message:i18n.t('messageAlreadyPet', req.language)}) if user.items.pets[pet] and user.items.pets[pet] > 0
         user.items.pets[pet] = 5
         user.items.eggs[egg]--
         user.items.hatchingPotions[hatchingPotion]--
@@ -1496,8 +1531,6 @@ api.wrap = (user, main=true) ->
       return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level or 0)))
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
-        # current breakdown - 1% (adjustable) chance on drop
-        # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
         rarity = user.fns.predictableRandom(user.stats.gp)
 
         # Food: 40% chance
@@ -1510,7 +1543,7 @@ api.wrap = (user, main=true) ->
 
           # Eggs: 30% chance
         else if rarity > .3
-          drop = user.fns.randomVal _.where(content.eggs,{canBuy:true})
+          drop = user.fns.randomVal content.dropEggs
           user.items.eggs[drop.key] ?= 0
           user.items.eggs[drop.key]++
           drop.type = 'Egg'
@@ -1815,6 +1848,11 @@ api.wrap = (user, main=true) ->
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
+      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
+      progress = user.party.quest.progress; _progress = _.cloneDeep progress
+      _.merge progress, {down:0,up:0}
+      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
+
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
@@ -1826,14 +1864,12 @@ api.wrap = (user, main=true) ->
         uuid: user._id,
         user: user,
         resting: user.preferences.sleep,
-        cronCount: user.flags.cronCount
+        cronCount: user.flags.cronCount,
+        progressUp: _.min([_progress.up, 900]),
+        progressDown: _progress.down
       }
       options.analytics?.track('Cron', analyticsData)
 
-      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
-      progress = user.party.quest.progress; _progress = _.cloneDeep progress
-      _.merge progress, {down:0,up:0}
-      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
       _progress
 
     # Registered users with some history

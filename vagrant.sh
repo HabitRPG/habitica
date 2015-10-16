@@ -68,6 +68,8 @@ echo Updating repositories...
 apt-get update -qq
 echo Installing node.js
 apt-get install -qq nodejs
+echo Updating npm...
+npm install -g npm
 
 cd /vagrant
 
@@ -75,7 +77,7 @@ echo Installing gulp/bower...
 npm install -g gulp grunt-cli bower
 
 echo Installing Habitica
-npm install --no-bin-link
+npm install --no-bin-links
 
 echo Installing Bower packages
 sudo -H -u vagrant bower --config.interactive=false install -f

@@ -4,12 +4,13 @@ include ../../shared/mixins
   .row
     .col-md-6
       .clearfix
-        .npc_ian.pull-left-sm.col-centered
+        div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left-sm.col-centered
         .popover.static-popover.fade.right.in.pull-left-sm.col-centered
           .arrow.hidden-xs
           h3.popover-title=env.t('ian')
           .popover-content
-            p=env.t('ianText')
+            p(ng-if='env.worldDmg.quests')=env.t('ianBrokenText')
+            p(ng-if='!env.worldDmg.quests')=env.t('ianText')
 
       h3.equipment-title=env.t('yourQuests')
       +ownedQuests(true,'right')
@@ -19,7 +20,7 @@ include ../../shared/mixins
         h3.equipment-title=env.t('questsForSale')
         div(ng-repeat='type in Content.userCanOwnQuestCategories')
           menu.pets-menu(label='{{env.t(type + "Quests")}}')
-            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy && quest.category === type')
+            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy(user) && quest.category === type')
               button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
                 data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
                 popover-title='{{::quest.text()}}', popover-append-to-body="true",

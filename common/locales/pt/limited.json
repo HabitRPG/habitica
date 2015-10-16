@@ -29,6 +29,7 @@
     "seasonalShopClosedText": "A Loja Sazonal está fechada atualmente! Eu não sei onde a Feiticeira Sazonal está agora, mas eu aposto que ela estará de volta durante a próxima <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grande Gala</a>!",
     "seasonalShopText": "Bem vindo a Loja Sazonal!! Nós estamos vendendo mercadorias <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edição Sazonal</a> de primavera no momento. Tudo aqui estará disponível para compra durante o Festival de Primavera todos os  anos, mas nós só estaremos abertos até 30 de abril, então certifique-se de estocar agora ou você vai ter que esperar um ano para comprar esses items de novo!",
     "seasonalShopSummerText": "Bem-vindo à Loja Sazonal! No momento temos em estoque itens da <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edição Sazonal</a> de verão.  Todos os itens daqui estarão disponíveis para compra durante o evento Splash de Verão de cada ano, mas ficaremos abertos somente até o dia 31 de julho, portanto certifique-se de garantir seus equipamentos agora, ou você terá que esperar um ano para comprar estes itens novamente.",
+    "seasonalShopFallText": "Bem-vindo à Loja Sazonal!! Estamos estocando itens de <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edição Sazonal</a> de Outono no momento. Tudo aqui ficará a disposição para compra durante o Festival de Outono anual, mas ficaremos abertos apenas até o dia 31 de Outubro, então é melhor fazer seu próprio estoque agora ou você terá que esperar o ano que vem para comprar estes itens de novo.",
     "seasonalShopRebirth": "Se você usou o Orbe de Renascimento, você pode recomprar esse equipamento na Coluna de Recompensas. Inicialmente, você só poderá comprar itens de sua classe atual(Guerreiro por padrão), mas não tema, os outros itens específicos de classe ficarão disponíveis se você trocar para aquela classe.",
     "candycaneSet": "Bastão Doce (Mago)",
     "skiSet": "Assa-ski-no (Ladino)",
@@ -54,5 +55,10 @@
     "daringSwashbucklerSet": "Marujo Ousado (Guerreiro)",
     "emeraldMermageSet": "Sereia Esmeralda (Mago)",
     "reefSeahealerSet": "Curandeiro dos Corais (Curandeiro)",
-    "roguishPirateSet": "Pirata Malandro (Ladino)"
+    "roguishPirateSet": "Pirata Malandro (Ladino)",
+    "monsterOfScienceSet": "Monstro da Ciência (Guerreiro)",
+    "witchyWizardSet": "Bruxo Bruxólico (Mago)",
+    "mummyMedicSet": "Médico Múmia (Curandeiro)",
+    "vampireSmiterSet": "Vampiro Violento (Ladino)",
+    "fallEventAvailability": "Disponível até 31 de Outubro."
 }

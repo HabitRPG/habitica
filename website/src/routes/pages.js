@@ -10,7 +10,7 @@ var i18n = require('../i18n');
 // -------- App --------
 router.get('/', i18n.getUserLanguage, locals, function(req, res) {
   if (!req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
-    return res.redirect('/static/front')
+    return res.redirect('/static/front');
 
   return res.render('index', {
     title: 'Habitica | Your Life The Role Playing Game',
@@ -29,7 +29,7 @@ _.each(pages, function(name){
       marked: require('marked')
     });
   });
-})
+});
 
 // --------- Redirects --------
 

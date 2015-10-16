@@ -1,5 +1,5 @@
 var nconf = require('nconf');
-var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
+var stripe = require('stripe')(nconf.get('STRIPE_API_KEY'));
 var async = require('async');
 var payments = require('./index');
 var User = require('mongoose').model('User');
@@ -38,10 +38,10 @@ exports.checkout = function(req, res, next) {
         ], cb);
       } else {
         stripe.charges.create({
-          amount: !gift ? "500" //"500" = $5
-            : gift.type=='subscription' ? ""+shared.content.subscriptionBlocks[gift.subscription.key].price*100
-            : ""+gift.gems.amount/4*100,
-          currency: "usd",
+          amount: !gift ? '500' //"500" = $5
+            : gift.type=='subscription' ? ''+shared.content.subscriptionBlocks[gift.subscription.key].price*100
+            : ''+gift.gems.amount/4*100,
+          currency: 'usd',
           card: token
         }, cb);
       }
@@ -49,7 +49,7 @@ exports.checkout = function(req, res, next) {
     function(response, cb) {
       if (sub) return payments.createSubscription({user:user, customerId:response.id, paymentMethod:'Stripe', sub:sub}, cb);
       async.waterfall([
-        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2) },
+        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2); },
         function(member, cb2){
           var data = {user:user, customerId:response.id, paymentMethod:'Stripe', gift:gift};
           var method = 'buyGems';
@@ -72,7 +72,7 @@ exports.checkout = function(req, res, next) {
 exports.subscribeCancel = function(req, res, next) {
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
-    return res.json(401, {err: "User does not have a plan subscription"});
+    return res.json(401, {err: 'User does not have a plan subscription'});
 
   async.auto({
     get_cus: function(cb){
