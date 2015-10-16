@@ -279,6 +279,15 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
   });
 });
 
+gulp.task('test:startServer', (done) => {
+  process.env.NODE_DB_URI = TEST_DB_URI;
+  process.env.DISABLE_REQUEST_LOGGING = true;
+  process.env.PORT = TEST_SERVER_PORT;
+
+  let server = require('../website/src/server.js');
+  server.listen(TEST_SERVER_PORT, done);
+});
+
 gulp.task('test', [
   'test:common:safe',
   'test:content:safe',
