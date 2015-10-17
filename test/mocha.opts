@@ -5,4 +5,4 @@
 --growl
 --debug
 --globals io
---require test/helpers/globals.helper
+--require ./test/helpers/globals.helper

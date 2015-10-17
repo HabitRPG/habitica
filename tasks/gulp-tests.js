@@ -284,7 +284,8 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
 });
 
 gulp.task('test:api', ['test:startServer', 'test:prepare:mongo'], (done) => {
-  let mocha = new Mocha();
+  require('../test/helpers/globals.helper');
+  let mocha = new Mocha({reporter: 'spec'});
   let tests = glob('./test/api/**/*.js');
 
   tests.forEach((test) => {
