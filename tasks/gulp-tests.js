@@ -4,18 +4,19 @@ import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
-import {sync as glob}             from 'glob';
+import { sync as glob }           from 'glob';
 import Q                          from 'q';
 import Mocha                      from 'mocha';
+import { resolve }                from 'path';
 
 const TEST_SERVER_PORT  = 3001
 const TEST_DB           = 'habitrpg_test'
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_TEST_COMMAND = 'mocha test/api';
+const API_TEST_COMMAND = 'mocha test/api --opts test/content/mocha.api.opts';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
-const COMMON_TEST_COMMAND = 'mocha test/common';
+const COMMON_TEST_COMMAND = 'mocha test/common --compilers coffee:coffee-script';
 const CONTENT_TEST_COMMAND = 'mocha test/content --opts test/content/mocha.content.opts';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
@@ -315,7 +316,7 @@ gulp.task('test:api:safe', ['test:startServer', 'test:prepare:mongo'], (done) =>
 gulp.task('test:startServer', (done) => {
   process.env.NODE_DB_URI = `mongodb://localhost/${TEST_DB}-api`;
   process.env.DISABLE_REQUEST_LOGGING = true;
-  process.env.PORT = 3002;
+  process.env.PORT = 3003;
 
   let server = require('../website/src/server.js');
   server.listen(TEST_SERVER_PORT, done);
