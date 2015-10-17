@@ -293,6 +293,9 @@ gulp.task('test:api', ['test:startServer', 'test:prepare:mongo'], (done) => {
   });
 
   mocha.run((numberOfFailures) => {
+    if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
+      process.exit(numberOfFailures);
+    }
     done();
   });
 });
