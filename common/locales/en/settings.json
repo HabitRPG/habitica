@@ -89,7 +89,7 @@
     "loginNameDescription2": "User->Profile",
     "loginNameDescription3": "to change the name that appears in your avatar and chat messages.",
     "emailNotifications": "Email Notifications",
-    "wonChallenge": "You Won a Challenge",
+    "wonChallenge": "You won a Challenge!",
     "newPM": "Received Private Message",
     "giftedGems": "Gifted Gems",
     "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",

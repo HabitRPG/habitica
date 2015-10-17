@@ -27,6 +27,13 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.playSound('Achievement_Unlocked');
     }, true);
 
+    $rootScope.$watch('user.achievements.challenges.length', function(after, before) {
+      if (after === before) return;
+      if (after > before) {
+        $rootScope.openModal('wonChallenge', {controller: 'UserCtrl', size: 'sm'});
+      }
+    });
+
     $rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
