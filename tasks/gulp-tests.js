@@ -9,12 +9,13 @@ import Q                          from 'q';
 import Mocha                      from 'mocha';
 import { resolve }                from 'path';
 
-const TEST_SERVER_PORT  = 3001
+const E2E_TEST_SERVER_PORT  = 3001
+const API_TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_TEST_COMMAND = 'mocha test/api --compilers js:babel/register';
+const API_TEST_COMMAND = 'mocha test/api --recursive --compilers js:babel/register';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
 const COMMON_TEST_COMMAND = 'mocha test/common --compilers coffee:coffee-script';
 const CONTENT_TEST_COMMAND = 'mocha test/content --compilers js:babel/register';
@@ -229,7 +230,7 @@ gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
 gulp.task('test:e2e', ['test:prepare'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    `NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`,
+    `NODE_DB_URI="${TEST_DB_URI}" PORT="${E2E_TEST_SERVER_PORT}" node ./website/src/server.js`,
     './node_modules/protractor/bin/webdriver-manager start',
   ].map(exec);
 
@@ -254,7 +255,7 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
 gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    `NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`,
+    `NODE_DB_URI="${TEST_DB_URI}" PORT="${E2E_TEST_SERVER_PORT}" node ./website/src/server.js`,
     './node_modules/protractor/bin/webdriver-manager start',
   ].map(exec);
 
@@ -283,47 +284,48 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
   });
 });
 
-gulp.task('test:api', ['test:startServer', 'test:prepare:mongo'], (done) => {
+gulp.task('test:api', ['test:prepare:mongo'], (done) => {
   require('../test/helpers/globals.helper');
-  let mocha = new Mocha({reporter: 'spec'});
-  let tests = glob('./test/api/**/*.js');
 
-  tests.forEach((test) => {
-    delete require.cache[resolve(test)];
-    mocha.addFile(test);
-  });
+  let server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${API_TEST_SERVER_PORT}" node ./website/src/server.js`);
 
-  mocha.run((numberOfFailures) => {
-    if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
-      process.exit(numberOfFailures);
-    }
-    done();
-  });
-});
+  awaitPort(API_TEST_SERVER_PORT).then(() => {
+    let mocha = new Mocha({reporter: 'spec'});
+    let tests = glob('./test/api/**/*.js');
 
-gulp.task('test:api:safe', ['test:startServer', 'test:prepare:mongo'], (done) => {
-  let runner = exec(
-    testBin(API_TEST_COMMAND),
-    (err, stdout, stderr) => {
-      testResults.push({
-        suite: 'API Specs',
-        pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
-        pend: testCount(stdout, /(\d+) pending/)
-      });
+    tests.forEach((test) => {
+      delete require.cache[resolve(test)];
+      mocha.addFile(test);
+    });
+
+    mocha.run((numberOfFailures) => {
+      if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
+        kill(server);
+      }
       done();
-    }
-  );
-  pipe(runner);
+    });
+  });
 });
 
-gulp.task('test:startServer', (done) => {
-  process.env.NODE_DB_URI = `mongodb://localhost/${TEST_DB}-api`;
-  process.env.DISABLE_REQUEST_LOGGING = true;
-  process.env.PORT = 3003;
+gulp.task('test:api:safe', ['test:prepare:mongo'], (done) => {
+  let server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${API_TEST_SERVER_PORT}" node ./website/src/server.js`);
 
-  let server = require('../website/src/server.js');
-  server.listen(TEST_SERVER_PORT, done);
+  awaitPort(API_TEST_SERVER_PORT).then(() => {
+    let runner = exec(
+      testBin(API_TEST_COMMAND),
+      (err, stdout, stderr) => {
+        testResults.push({
+          suite: 'API Specs\t',
+          pass: testCount(stdout, /(\d+) passing/),
+          fail: testCount(stderr, /(\d+) failing/),
+          pend: testCount(stdout, /(\d+) pending/)
+        });
+        kill(server);
+        done();
+      }
+    );
+    pipe(runner);
+  });
 });
 
 gulp.task('test', [
