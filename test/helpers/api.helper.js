@@ -1,5 +1,7 @@
 import superagent from 'superagent';
 
+const API_TEST_SERVER_PORT = 3003;
+
 export function requester(user={}) {
   return {
     get: _requestMaker(user, 'get'),
@@ -10,9 +12,9 @@ export function requester(user={}) {
 }
 
 function _requestMaker(user, method) {
-  return (route, options={}) => {
+  return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:3003/api/v2${route}`)
+      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v2${route}`)
         .accept('application/json');
 
       if (user._id && user.apiToken) {
@@ -22,17 +24,12 @@ function _requestMaker(user, method) {
       }
 
       request
-        .query(options.query)
-        .send(options.send)
+        .query(query)
+        .send(send)
         .end((err, response) => {
           if (err) { return reject(err); }
 
-          let res = {
-            code: response.statusCode,
-            body: response.body,
-          }
-
-          resolve(res);
+          resolve(response.body);
         });
     });
   }

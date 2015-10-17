@@ -10,8 +10,7 @@ describe('Status', () => {
   it('returns a status of up when server is up', (done) => {
     api.get('/status')
       .then((res) => {
-        expect(res.code).to.eql(200);
-        expect(res.body.status).to.eql('up');
+        expect(res.status).to.eql('up');
         done();
       })
       .catch((err) => {
