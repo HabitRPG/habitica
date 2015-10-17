@@ -14,10 +14,10 @@ const TEST_DB           = 'habitrpg_test'
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_TEST_COMMAND = 'mocha test/api --opts test/content/mocha.api.opts';
+const API_TEST_COMMAND = 'mocha test/api --compilers js:babel/register';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
 const COMMON_TEST_COMMAND = 'mocha test/common --compilers coffee:coffee-script';
-const CONTENT_TEST_COMMAND = 'mocha test/content --opts test/content/mocha.content.opts';
+const CONTENT_TEST_COMMAND = 'mocha test/content --compilers js:babel/register';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
 const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
