@@ -1,3 +1,5 @@
+import {isEmpty} from 'lodash';
+import {v4 as generateRandomUserName} from 'uuid';
 import superagent from 'superagent';
 
 const API_TEST_SERVER_PORT = 3003;
@@ -10,6 +12,25 @@ export function requester(user={}) {
     del: _requestMaker(user, 'del'),
   }
 }
+
+export function generateUser(update={}) {
+  let username = generateRandomUserName();
+  let password = 'password'
+  let email = username + '@example.com';
+
+  let request = _requestMaker({}, 'post');
+
+  return new Promise((resolve, reject) => {
+    request('/register', {
+      username: username,
+      email: email,
+      password: password,
+      confirmPassword: password,
+    }).then((user) => {
+      resolve(user);
+    });
+  });
+};
 
 function _requestMaker(user, method) {
   return (route, send, query) => {
