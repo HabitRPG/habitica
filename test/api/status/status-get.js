@@ -1,4 +1,4 @@
-import {requester} from '../helpers/api.helper';
+import {requester} from '../../helpers/api.helper';
 
 describe('Status', () => {
   let api;
