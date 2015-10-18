@@ -1,4 +1,7 @@
-import {isEmpty} from 'lodash';
+import {
+  assign,
+  isEmpty,
+} from 'lodash';
 import {MongoClient as mongo} from 'mongodb';
 import {v4 as generateUUID} from 'uuid';
 import superagent from 'superagent';
@@ -28,7 +31,7 @@ export function generateUser(update={}) {
       password: password,
       confirmPassword: password,
     }).then((user) => {
-      _updateDocument('users', user._id, update, () => {
+      _updateDocument('users', user, update, () => {
         resolve(user);
       });
     });
@@ -40,7 +43,7 @@ export function generateGroup(leader, update={}) {
 
   return new Promise((resolve, reject) => {
     request('/groups').then((group) => {
-      _updateDocument('groups', group._id, update, () => {
+      _updateDocument('groups', group, update, () => {
         resolve(group);
       });
     });
@@ -77,7 +80,7 @@ function _requestMaker(user, method) {
   }
 }
 
-function _updateDocument(collectionName, uuid, update, cb) {
+function _updateDocument(collectionName, doc, update, cb) {
   if (isEmpty(update)) { return cb(); }
 
   mongo.connect('mongodb://localhost/habitrpg_test', (err, db) => {
@@ -85,8 +88,9 @@ function _updateDocument(collectionName, uuid, update, cb) {
 
     let collection = db.collection(collectionName);
 
-    collection.update({ _id: uuid }, { $set: update }, (err, result) => {
+    collection.update({ _id: doc._id }, { $set: update }, (err, result) => {
       if (err) throw `Error updating ${collectionName}: ${err}`;
+      assign(doc, update);
       cb();
     });
   });
