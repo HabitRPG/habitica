@@ -17,33 +17,6 @@ describe "Guilds", ->
         guild = res.body
         done()
 
-    it "can find a guild", (done) ->
-      request.get(baseURL + "/groups/" + guild._id)
-        .end (res) ->
-          expectCode res, 200
-          expect(res.body._id).to.equal res.body._id
-          done()
-
-    it "transforms members array to an arrray of user objects", (done) ->
-      request.get(baseURL + "/groups/" + guild._id)
-        .end (res) ->
-          expectCode res, 200
-          members = res.body.members
-          # @TODO: would be more instructive if it had more members in guild :(
-          _(members).each (member) ->
-            expect(member).to.be.an 'object'
-            expect(member.profile.name).to.exist
-          done()
-
-    it "transforms leader id to a user object", (done) ->
-      request.get(baseURL + "/groups/" + guild._id)
-        .end (res) ->
-          expectCode res, 200
-          leader = res.body.leader
-          expect(leader).to.be.an 'object'
-          expect(leader.profile.name).to.exist
-          done()
-
     it "can list guilds", (done) ->
       request.get(baseURL + "/groups").send()
       .end (res) ->
