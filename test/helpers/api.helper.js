@@ -12,7 +12,7 @@ export function requester(user={}) {
     put: _requestMaker(user, 'put'),
     del: _requestMaker(user, 'del'),
   }
-}
+};
 
 export function generateUser(update={}) {
   let username = generateRandomUserName();
