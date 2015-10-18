@@ -301,10 +301,16 @@ gulp.task('test:api', ['test:prepare:mongo'], (done) => {
     mocha.run((numberOfFailures) => {
       if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
         kill(server);
+        process.exit(numberOfFailures);
       }
       done();
     });
   });
+});
+
+gulp.task('test:api:watch', () => {
+  process.env.RUN_INTEGRATION_TEST_FOREVER = true;
+  gulp.watch(['website/src/**', 'test/api/**'], ['test:api']);
 });
 
 gulp.task('test:api:safe', ['test:prepare:mongo'], (done) => {
