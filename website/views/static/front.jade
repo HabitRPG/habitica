@@ -24,7 +24,8 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     meta(name='twitter:image' content='https://s3.amazonaws.com/habitica-assets/assets/gryphon_logo.png')
     meta(name='apple-itunes-app' content='app-id=994882113')
     link(rel='canonical', href='', type='text/html')
-    link(rel='shortcut icon', href='/favicon.ico')
+    link(rel='shortcut icon', sizes="32x32", href='/favicon.ico')
+    link(rel='shortcut icon', sizes="144x144", href='/favicon_192x192.png')
 
     link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css')
 
@@ -648,4 +649,3 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
       }]).directive('carousel', [function () {
         return {}
       }]);
-
