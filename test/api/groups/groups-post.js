@@ -17,6 +17,18 @@ describe('POST /groups', () => {
       }).catch(done);
     });
 
+    xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', (done) => {
+      api.post('/groups').then((group) => {
+        expect(group._id).to.exist;
+        expect(group.name).to.eql(`${leader.profile.name}'s group`);
+        expect(group.type).to.eql('party');
+        expect(group.privacy).to.eql('private');
+        done();
+      }).catch((err) => {
+        done(err);
+      });
+    });
+
     it('returns a group object', (done) => {
       let group = {
         name: 'Test Group',
@@ -104,6 +116,21 @@ describe('POST /groups', () => {
         done();
       });
     })
+
+    xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', (done) => {
+      api.post('/groups', {
+        type: 'party',
+        privacy: 'public',
+      })
+      .then((group) => {
+        done('Unexpected success');
+      })
+      .catch((err) => {
+        expect(err.code).to.eql(400);
+        expect(err.text).to.eql('Parties must be private');
+        done();
+      });
+    });
   });
 
   context('Guilds', () => {
