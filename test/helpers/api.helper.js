@@ -1,6 +1,6 @@
 import {isEmpty} from 'lodash';
 import {MongoClient as mongo} from 'mongodb';
-import {v4 as generateRandomUserName} from 'uuid';
+import {v4 as generateUUID} from 'uuid';
 import superagent from 'superagent';
 
 const API_TEST_SERVER_PORT = 3003;
@@ -15,7 +15,7 @@ export function requester(user={}) {
 };
 
 export function generateUser(update={}) {
-  let username = generateRandomUserName();
+  let username = generateUUID();
   let password = 'password'
   let email = username + '@example.com';
 
