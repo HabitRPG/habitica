@@ -35,6 +35,18 @@ export function generateUser(update={}) {
   });
 };
 
+export function generateGroup(leader, update={}) {
+  let request = _requestMaker(leader, 'post');
+
+  return new Promise((resolve, reject) => {
+    request('/groups').then((group) => {
+      _updateDocument('groups', group._id, update, () => {
+        resolve(group);
+      });
+    });
+  });
+};
+
 function _requestMaker(user, method) {
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
