@@ -6,25 +6,6 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe "Guilds", ->
-  context "get guilds", ->
-    guild = undefined
-
-    beforeEach (done)->
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup2"
-        type: "guild"
-      ).end (res) ->
-        guild = res.body
-        done()
-
-    it "can list guilds", (done) ->
-      request.get(baseURL + "/groups").send()
-      .end (res) ->
-        expectCode res, 200
-        guild = res.body[0]
-        expect(guild).to.exist
-        done()
-
   context "updating groups", ->
     groupToUpdate = undefined
     before (done) ->
