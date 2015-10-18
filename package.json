@@ -121,6 +121,7 @@
     "karma-script-launcher": "~0.1.0",
     "lcov-result-merger": "^1.0.2",
     "mocha": "~1.12.1",
+    "mongodb": "^2.0.46",
     "mongoskin": "~0.6.1",
     "protractor": "~2.0.0",
     "rewire": "^2.3.3",

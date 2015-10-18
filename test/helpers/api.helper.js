@@ -1,4 +1,5 @@
 import {isEmpty} from 'lodash';
+import {MongoClient as mongo} from 'mongodb';
 import {v4 as generateRandomUserName} from 'uuid';
 import superagent from 'superagent';
 
@@ -27,7 +28,9 @@ export function generateUser(update={}) {
       password: password,
       confirmPassword: password,
     }).then((user) => {
-      resolve(user);
+      _updateDocument('users', user._id, update, () => {
+        resolve(user);
+      });
     });
   });
 };
@@ -54,4 +57,19 @@ function _requestMaker(user, method) {
         });
     });
   }
+}
+
+function _updateDocument(collectionName, uuid, update, cb) {
+  if (isEmpty(update)) { return cb(); }
+
+  mongo.connect('mongodb://localhost/habitrpg_test', (err, db) => {
+    if (err) throw `Error connecting to database when updating ${collectionName} collection: ${err}`;
+
+    let collection = db.collection(collectionName);
+
+    collection.update({ _id: uuid }, { $set: update }, (err, result) => {
+      if (err) throw `Error updating ${collectionName}: ${err}`;
+      cb();
+    });
+  });
 }
