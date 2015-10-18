@@ -6,53 +6,6 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe "Guilds", ->
-  context "creating groups", ->
-    before (done) ->
-      registerNewUser ->
-        User.findByIdAndUpdate user._id,
-          $set:
-            "balance": 40
-          , (err, _user) ->
-            done()
-      , true
-
-    it "can create a public guild", (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup"
-        type: "guild",
-        privacy: "public"
-      ).end (res) ->
-        expectCode res, 200
-        guild = res.body
-        expect(guild.members.length).to.equal 1
-        expect(guild.leader).to.equal user._id
-        done()
-
-    it "can create a private guild", (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup"
-        type: "guild",
-        privacy: "private"
-      ).end (res) ->
-        expectCode res, 200
-        guild = res.body
-        expect(guild.members.length).to.equal 1
-        expect(guild.leader).to.equal user._id
-        done()
-
-    it "prevents user from creating a guild when the user has 0 gems", (done) ->
-      registerNewUser (err, user_with_0_gems) ->
-        request.post(baseURL + "/groups").send(
-            name: "TestGroup"
-            type: "guild",
-        )
-        .set("X-API-User", user_with_0_gems._id)
-        .set("X-API-Key", user_with_0_gems.apiToken)
-        .end (res) ->
-          expectCode res, 401
-          done()
-      , false
-
   context "get guilds", ->
     guild = undefined
 
