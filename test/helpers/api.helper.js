@@ -67,6 +67,7 @@ function _requestMaker(user, method) {
         .send(send)
         .end((err, response) => {
           if (err) {
+            if (!err.response) return reject(err);
             let errorString = JSON.parse(err.response.text).err;
             return reject({
               code: err.response.statusCode,
