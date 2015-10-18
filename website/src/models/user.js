@@ -139,7 +139,7 @@ var UserSchema = new Schema({
       equipment: {type: Number,   'default': -1}
     },
     tutorial: {
-      ios: {
+      common: {
         habits: {type: Boolean, 'default': false},
         dailies: {type: Boolean, 'default': false},
         todos: {type: Boolean, 'default': false},
@@ -152,13 +152,16 @@ var UserSchema = new Schema({
         tavern: {type: Boolean, 'default': false},
         equipment: {type: Boolean, 'default': false},
         items: {type: Boolean, 'default': false},
+      },
+      ios: {
+        
         addTask: {type: Boolean, 'default': false},
         editTask: {type: Boolean, 'default': false},
         deleteTask: {type: Boolean, 'default': false},
         filterTask: {type: Boolean, 'default': false},
         groupPets: {type: Boolean, 'default': false},
       }
-    }
+    },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
