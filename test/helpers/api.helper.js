@@ -50,6 +50,31 @@ export function generateGroup(leader, update={}) {
   });
 };
 
+export function resetHabiticaDB() {
+  return new Promise((resolve, reject) => {
+    mongo.connect('mongodb://localhost/habitrpg_test', (err, db) => {
+      if (err) return reject(err);
+
+      db.dropDatabase((err) => {
+        if (err) return reject(err);
+        // A fresh install of Habitica has a tavern group
+        let groups = db.collection('groups');
+        groups.insertOne({
+          _id: 'habitrpg',
+          chat: [],
+          leader: '9',
+          name: 'HabitRPG',
+          type: 'guild',
+          privacy: 'public',
+        }, (err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+    });
+  });
+}
+
 function _requestMaker(user, method) {
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
