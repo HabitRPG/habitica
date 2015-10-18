@@ -7,7 +7,6 @@ describe('GET /user', () => {
   let api, user;
 
   beforeEach((done) => {
-    api = requester();
     generateUser().then((usr) => {
       user = usr;
       api = requester(usr);
