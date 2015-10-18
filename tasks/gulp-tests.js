@@ -336,7 +336,7 @@ gulp.task('test:api:safe', ['test:prepare:mongo'], (done) => {
 
 gulp.task('test', [
   'test:common:safe',
-  'test:content:safe',
+  // 'test:content:safe',
   'test:server_side:safe',
   'test:karma:safe',
   // 'test:api-legacy:safe',
