@@ -51,7 +51,13 @@ function _requestMaker(user, method) {
         .query(query)
         .send(send)
         .end((err, response) => {
-          if (err) { return reject(err); }
+          if (err) {
+            let errorString = JSON.parse(err.response.text).err;
+            return reject({
+              code: err.response.statusCode,
+              text: errorString,
+            });
+          }
 
           resolve(response.body);
         });

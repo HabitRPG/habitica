@@ -22,7 +22,7 @@ describe('DELETE /user', () => {
         done('Unexpected user');
       })
       .catch((err) => {
-        expect(err.response.status).to.eql(401);
+        expect(err.code).to.eql(401);
         done();
       });
   });
