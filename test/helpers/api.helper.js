@@ -66,6 +66,7 @@ export function resetHabiticaDB() {
           name: 'HabitRPG',
           type: 'guild',
           privacy: 'public',
+          members: [],
         }, (err) => {
           if (err) return reject(err);
           resolve();
