@@ -59,7 +59,7 @@
     "method-override": "~2.2.0",
     "moment": "~2.8.3",
     "mongoose": "~4.1.8",
-    "mongoose-id-autoinc": "~2013.7.14-4",
+    "mongoose-id-autoinc": "HabitRPG/mongoose-id-autoinc#161552bbc5f9d208c4abc639cb1bbf0bf36d0765",
     "morgan": "^1.6.1",
     "nconf": "~0.6.9",
     "newrelic": "~1.11.2",
