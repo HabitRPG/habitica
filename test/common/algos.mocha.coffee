@@ -30,7 +30,9 @@ newUser = (addTasks=true)->
       quest:
         progress:
           down: 0
-    preferences: {}
+    preferences: {
+      autoEquip: true
+    }
     dailys: []
     todos: []
     rewards: []
@@ -145,7 +147,7 @@ describe 'User', ->
     buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false}
     expect(user.stats).to.eql { str: 1, con: 1, per: 1, int: 1, hp: 50, mp: 32, lvl: 1, exp: 0, gp: 0, class: 'warrior', buffs: buffs }
     expect(user.items.gear).to.eql { equipped: base_gear, costume: base_gear, owned: {weapon_warrior_0: true} }
-    expect(user.preferences).to.eql { costume: false }
+    expect(user.preferences).to.eql { autoEquip: true, costume: false }
 
   it 'calculates max MP', ->
     user = newUser()
@@ -411,6 +413,17 @@ describe 'User', ->
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, armor_warrior_1: true }
       expect(user.items.gear.equipped).to.eql { armor: 'armor_warrior_1', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
+    
+    it 'buys equipment but does not auto-equip', ->
+      user = newUser()
+      user.stats.gp = 31
+      user.preferences.autoEquip = false
+      user.ops.buy {params: {key: 'armor_warrior_1'}}
+      expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, armor_warrior_1: true }
+      expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
+      expect(user).toHaveGP 1
+    
+
 
     it 'does not buy equipment without enough Gold', ->
       user = newUser()

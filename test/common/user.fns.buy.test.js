@@ -41,6 +41,7 @@ describe('user.fns.buy', function() {
 
   context('Gear', function() {
     it('buys equipment');
+    it('buys equipment but does not auto-equip');
 
     it('does not buy equipment without enough Gold');
   });
