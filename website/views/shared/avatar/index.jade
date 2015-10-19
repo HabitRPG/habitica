@@ -26,5 +26,7 @@ mixin herobox(opts)
       span.glyphicon.glyphicon-circle-arrow-up(tooltip=env.t('buffed'), tooltip-append-to-body="true",
         ng-show='#{buffs}.str || #{buffs}.per || #{buffs}.con || #{buffs}.int || #{buffs}.stealth')
       span(tooltip=env.t('level'), tooltip-append-to-body="true") {{profile.stats.lvl}}
-      span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths',
+      span.glyphicon.glyphicon-plus-sign(ng-if='::profile.achievements.rebirthLevel < 100', ng-show='profile.achievements.rebirths',
         tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}), tooltip-append-to-body="true")
+      span.glyphicon.glyphicon-plus-sign(ng-if='::profile.achievements.rebirthLevel >= 100', ng-show='profile.achievements.rebirths',
+        tooltip=env.t('reborn100'), tooltip-append-to-body="true")
