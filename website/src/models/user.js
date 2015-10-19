@@ -154,7 +154,6 @@ var UserSchema = new Schema({
         items: {type: Boolean, 'default': false},
       },
       ios: {
-        
         addTask: {type: Boolean, 'default': false},
         editTask: {type: Boolean, 'default': false},
         deleteTask: {type: Boolean, 'default': false},
