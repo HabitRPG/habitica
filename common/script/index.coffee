@@ -1,5 +1,6 @@
 moment = require('moment')
 _ = require('lodash')
+uuid = require('uuid')
 content = require('./content/index.coffee')
 i18n = require('./i18n.coffee')
 api = module.exports = {}
@@ -227,10 +228,7 @@ Misc Helpers
 ###
 
 api.uuid = ->
-  "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
-    r = Math.random() * 16 | 0
-    v = (if c is "x" then r else (r & 0x3 | 0x8))
-    v.toString 16
+  uuid.v4()
 
 api.countExists = (items)-> _.reduce(items,((m,v)->m+(if v then 1 else 0)),0)
 
