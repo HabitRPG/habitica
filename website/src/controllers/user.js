@@ -839,7 +839,6 @@ api.sortTask = function(req, res, next) {
   }, '_id type', function(err, task){
     if(err) return next(err);
     if(!task) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
-    // TODO should fail in case of id of task at position !== from req.params.id
     var orders = user.tasksOrder[task.type + 's'];
     var movedTask;
 
