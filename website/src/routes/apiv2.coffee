@@ -347,14 +347,32 @@ module.exports = (swagger, v2) ->
       action: user.batchUpdate
 
     # Tags
-    "/user/tags":
+    "/user/tags/{id}:GET":
       spec:
+        path: '/user/tags/{id}'
+        method: 'GET'
+        description: "Get a tag"
+        parameters: [
+          path 'id','The id of the tag to get','string'
+        ]
+      action: user.getTag
+
+    "/user/tags:POST":
+      spec:
+        path: "/user/tags"
         method: 'POST'
         description: 'Create a new tag'
         parameters: [
           body '','New tag (see UserSchema.tags)','object'
         ]
       action: user.addTag
+
+    "/user/tags:GET":
+      spec:
+        path: "/user/tags"
+        method: 'GET'
+        description: 'List all of a user\'s tags'
+      action: user.getTags
 
     "/user/tags/sort":
       spec:

@@ -1,0 +1,25 @@
+import {
+  generateUser,
+  requester,
+} from '../../helpers/api.helper';
+
+describe('GET /user/tags/id', () => {
+  let api, user;
+
+  beforeEach(() => {
+    return generateUser().then((usr) => {
+      user = usr;
+      api = requester(usr);
+    });
+  });
+
+  it('gets a user\'s tag by id', () => {
+    return expect(api.get('/user/tags/' + user.tags[0].id))
+      .to.eventually.eql(user.tags[0]);
+  });
+
+  it('fails for non-existent tags', () => {
+    return expect(api.get('/user/tags/not-an-id'))
+      .to.eventually.be.rejected.with.property('code', 404);
+  });
+});

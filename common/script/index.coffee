@@ -673,6 +673,14 @@ api.wrap = (user, main=true) ->
         user.tags.splice to, 0, user.tags.splice(from, 1)[0]
         cb? null, user.tags
 
+      getTags: (req, cb) ->
+        cb? null, user.tags
+
+      getTag: (req, cb) ->
+        tid = req.params.id
+        i = _.findIndex user.tags, {id: tid}
+        return cb?({code:404,message:i18n.t('messageTagNotFound', req.language)}) if !~i
+        cb? null, user.tags[i]
 
       updateTag: (req, cb) ->
         tid = req.params.id
