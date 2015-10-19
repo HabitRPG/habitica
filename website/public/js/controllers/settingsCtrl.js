@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Notification', 'Shared',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Notification, Shared) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -196,7 +196,7 @@ habitrpg.controller('SettingsCtrl',
       $http.get(ApiUrl.get() + '/api/v2/coupons/valid-discount/'+coupon)
       .success(function(){
         Notification.text("Coupon applied!");
-        var subs = $scope.Content.subscriptionBlocks;
+        var subs = Content.subscriptionBlocks;
         subs["basic_6mo"].discount = true;
         subs["google_6mo"].discount = false;
       });
