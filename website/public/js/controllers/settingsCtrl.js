@@ -150,6 +150,7 @@ habitrpg.controller('SettingsCtrl',
         Notification.text(env.t('promoCodeApplied'));
       });
     }
+
     $scope.generateCodes = function(codes){
       $http.post(ApiUrl.get() + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
         .success(function(res,code){
@@ -158,6 +159,7 @@ habitrpg.controller('SettingsCtrl',
           window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
         })
     }
+
     $scope.releasePets = function() {
       User.user.ops.releasePets({});
       $rootScope.$state.go('tasks');
