@@ -970,7 +970,7 @@ api.wrap = (user, main=true) ->
             message = i18n.t('armoireExp', req.language)
             armoireResp = {"type": "experience", "value": armoireExp}
         else
-          user.items.gear.equipped[item.type] = item.key
+          if user.preferences.autoEquip then user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
           message = user.fns.handleTwoHanded(item, null, req)
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
