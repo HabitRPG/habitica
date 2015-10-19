@@ -137,7 +137,7 @@ exports.cancelSubscription = function(data, cb) {
 }
 
 exports.buyGems = function(data, cb) {
-  var amt = data.amount ? data.amount : 5;
+  var amt = data.amount || 5;
   amt = data.gift ? data.gift.gems.amount/4 : amt;
   (data.gift ? data.gift.member : data.user).balance += amt;
   data.user.purchased.txnCount++;
