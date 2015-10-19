@@ -841,13 +841,26 @@ api.sortTask = function(req, res, next) {
     if(!task) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
     // TODO should fail in case of id of task at position !== from req.params.id
     var orders = user.tasksOrder[task.type + 's'];
-    // In case of task not ordered, do not move any existing task
-    var movedTask = orders[from] ? orders.splice(from, 1)[0] : task._id;
+    var movedTask;
+
+    // handle the case where the position on the site is different (preened or done todos)
+    if(orders[from] === task._id) {
+      movedTask = orders.splice(from, 1)[0];
+    } else {
+      var indexToMove = orders.indexOf(task._id);
+      if (indexToMove === -1) { // task not found
+        to = -1; // then just push to bottom
+        movedTask = task._id;
+      } else {
+        movedTask = orders.splice(indexToMove, 1)[0];
+      }
+    }
+
     if (to === -1) { // we've used the Push To Bottom feature
       orders.push(movedTask);
     } else { // any other sort method uses only positive 'to' values
       // If task moved to non existing index, just push at the bottom
-      orders[to] ? orders.splice(to, 0, movedTask) : order.push(tasksOrder);
+      orders[to] ? orders.splice(to, 0, movedTask) : order.push(movedTask);
     }
 
     async.parallel({
