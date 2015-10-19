@@ -213,7 +213,12 @@ habitrpg.controller('SettingsCtrl',
       var maxDropCap = 50;
 
       return [userTotalDropCap, maxDropCap];
-    }
+    };
+
+    $scope.numberOfMysticHourglasses = function(subscription) {
+      var numberOfHourglasses = Content.subscriptionBlocks[subscription.key].months / 3;
+      return Math.floor(numberOfHourglasses);
+    };
 
     function _calculateNextCron() {
       $scope.dayStart;

@@ -269,7 +269,7 @@ mixin subPerks()
       td
         span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
         div(ng-show='_subscription.key!="basic_earned"')
-          .badge.badge-success +{{Math.floor(Content.subscriptionBlocks[_subscription.key].months/3)}} #{env.t('mysticHourglass')}
+          .badge.badge-success=env.t('mysticHourglass', {amount: '+{{:: numberOfMysticHourglasses(_subscription)}}'})
           .small.muted=env.t('mysticHourglassText')
     tr
       td
