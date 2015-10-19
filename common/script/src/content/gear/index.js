@@ -27,7 +27,7 @@ import moment from 'moment';
 //  mystery: <mystery_set_key>
 // }
 //
-//  <gear_type> - What type of euqipment it is (armor, head, weapon, etc)
+//  <gear_type> - What type of equipment it is (armor, head, weapon, etc)
 //  <set_name> - What set this gear is a part of (special, mystery, warrior, etc)
 //  <index> - The order in this particular set
 //  <formatted_equipment_key> - CamelCased version of key

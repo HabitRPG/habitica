@@ -68,6 +68,8 @@ echo Updating repositories...
 apt-get update -qq
 echo Installing node.js
 apt-get install -qq nodejs
+echo Updating npm...
+npm install -g npm
 
 cd /vagrant
 

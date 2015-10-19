@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Notification', 'Shared',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Notification, Shared) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -150,6 +150,7 @@ habitrpg.controller('SettingsCtrl',
         Notification.text(env.t('promoCodeApplied'));
       });
     }
+
     $scope.generateCodes = function(codes){
       $http.post(ApiUrl.get() + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
         .success(function(res,code){
@@ -158,6 +159,7 @@ habitrpg.controller('SettingsCtrl',
           window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
         })
     }
+
     $scope.releasePets = function() {
       User.user.ops.releasePets({});
       $rootScope.$state.go('tasks');
@@ -194,11 +196,29 @@ habitrpg.controller('SettingsCtrl',
       $http.get(ApiUrl.get() + '/api/v2/coupons/valid-discount/'+coupon)
       .success(function(){
         Notification.text("Coupon applied!");
-        var subs = $scope.Content.subscriptionBlocks;
+        var subs = Content.subscriptionBlocks;
         subs["basic_6mo"].discount = true;
         subs["google_6mo"].discount = false;
       });
     }
+
+    $scope.gemGoldCap = function(subscription) {
+      var baseCap = 25;
+      var gemCapExtra = User.user.purchased.plan.consecutive.gemCapExtra;
+      // @TODO: What are these magic numbers? 3? 5?
+      var blocks = Content.subscriptionBlocks[subscription.key].months / 3 * 5;
+      var flooredBlocks = Math.floor(blocks);
+
+      var userTotalDropCap = baseCap + gemCapExtra + flooredBlocks;
+      var maxDropCap = 50;
+
+      return [userTotalDropCap, maxDropCap];
+    };
+
+    $scope.numberOfMysticHourglasses = function(subscription) {
+      var numberOfHourglasses = Content.subscriptionBlocks[subscription.key].months / 3;
+      return Math.floor(numberOfHourglasses);
+    };
 
     function _calculateNextCron() {
       $scope.dayStart;
