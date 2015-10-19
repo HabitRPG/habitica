@@ -155,7 +155,7 @@ describe 'In-App Purchases', ->
         inApp.iosVerify(req, res, next)
 
         expect(paymentSpy).to.be.calledOnce
-        expect(paymentSpy).to.be.calledWith({user: res.locals.user, paymentMethod:'IAP AppleStore'})
+        expect(paymentSpy).to.be.calledWith({user: res.locals.user, paymentMethod:'IAP AppleStore', amount: 5.25})
 
     context 'error in setup', ->
       before ->
