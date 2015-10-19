@@ -202,6 +202,18 @@ habitrpg.controller('SettingsCtrl',
       });
     }
 
+    $scope.gemGoldCap = function(subscription) {
+      var baseCap = 25;
+      var gemCapExtra = User.user.purchased.plan.consecutive.gemCapExtra;
+      var blocks = Content.subscriptionBlocks[subscription.key].months / 3 * 5;
+      var flooredBlocks = Math.floor(blocks);
+
+      var userTotalDropCap = baseCap + gemCapExtra + flooredBlocks;
+      var maxDropCap = 50;
+
+      return [userTotalDropCap, maxDropCap];
+    }
+
     function _calculateNextCron() {
       $scope.dayStart;
 
