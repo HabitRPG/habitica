@@ -31,7 +31,7 @@ var ChallengeSchema = new Schema({
 // TODO filter just one or more types of tasks
 ChallengeSchema.methods.getTasks = function(cb) {
   Task.find({
-    // TODO $or should be avoided, revisit once discriminators are in place
+    // TODO $or for userId: null?
     userId: {$exists: false},
     'challenge.id': this._id
   }, function(err, tasks){
@@ -206,4 +206,4 @@ ChallengeSchema.methods.syncToUser = function(user, tasks, cb) {
 
 
 module.exports.schema = ChallengeSchema;
-module.exports.model = mongoose.model("Challenge", ChallengeSchema);
+module.exports.model = mongoose.model("NewChallenge", ChallengeSchema);
