@@ -325,6 +325,16 @@ let petQuests = {
       gp: 37,
       exp: 275,
     }
+  },
+  frog: {
+    boss: {
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      gp: 25,
+      exp: 125,
+    }
   }
 };
 
