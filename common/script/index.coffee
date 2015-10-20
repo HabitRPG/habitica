@@ -1865,7 +1865,7 @@ api.wrap = (user, main=true) ->
         user: user,
         resting: user.preferences.sleep,
         cronCount: user.flags.cronCount,
-        progressUp: _progress.up,
+        progressUp: _.min([_progress.up, 900]),
         progressDown: _progress.down
       }
       options.analytics?.track('Cron', analyticsData)

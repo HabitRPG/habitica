@@ -135,7 +135,7 @@ describe('Stats Service', function() {
   });
 
   describe('equipmentStatBonus', function() {
-    it('tallies up stats from euqipment that is equipped', function() {
+    it('tallies up stats from equipment that is equipped', function() {
       var equippedGear = {
         "weapon" : "weapon_special_1",
         "shield" : "shield_special_1",
