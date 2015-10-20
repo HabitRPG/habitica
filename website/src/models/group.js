@@ -449,19 +449,45 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
         var leader = group.leader;
 
         if(leader == user._id || !~group.members.indexOf(leader)){
-          var seniorMember = _.find(group.members, function (m) {return m != user._id});
 
-          // could not exist in case of public guild with 1 member who is leaving
-          if(seniorMember){
-            if (leader == user._id || !~group.members.indexOf(leader)) {
-              update['$set'] = update['$set'] || {};
-              update['$set'].leader = seniorMember;
+          var seniorMember = undefined;
+          var today = new Date();
+          var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+
+          User.findOne({
+            '_id': { $in : group.members, $ne : leader },
+            'auth.blocked' : { $exists: false },
+            'flags.chatRevoked': { $exists: false },
+            'lastCron': { $gt: lastWeek }
+          })
+          .sort({'lastCron': -1})
+          .exec( function(err, userToBecomeLeader) {
+            if (err) return next(err);
+
+            if (!userToBecomeLeader) {
+              // no applicable member is found, assign first member of group.members
+              var seniorMember = _.find(group.members, function (m) {return m != user._id});
+            } else {
+              // Assign matching user id to leader
+              seniorMember = userToBecomeLeader;
             }
-          }
-        }
+            // could not exist in case of public guild with 1 member who is leaving
+            if(seniorMember){
+              if (leader == user._id || !~group.members.indexOf(leader)) {
+                update['$set'] = update['$set'] || {};
+                update['$set'].leader = seniorMember._id;
+              }
+            }
 
-        update['$inc'] = {memberCount: -1};
-        Group.update({_id: group._id}, update, cb);
+            // Save group
+            update['$inc'] = {memberCount: -1};
+            Group.update({_id: group._id}, update, cb);
+          });
+        } else {
+          // Save group
+          update['$inc'] = {memberCount: -1};
+          Group.update({_id: group._id}, update, cb);
+        }
       }
     }
   ], function(err){
