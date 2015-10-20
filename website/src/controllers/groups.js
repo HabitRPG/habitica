@@ -443,6 +443,39 @@ api.likeChatMessage = function(req, res, next) {
   })
 }
 
+/**
+ * Get group members
+ */
+api.members = function(req, res, next) {
+  var user = res.locals.user;
+  var gid = req.params.gid;
+  var limit = req.body.limit;
+  var offset = req.body.offset;
+
+  if (limit > 15) {
+    return res.send(401, {err: "Limit too high"});
+  }
+
+  var q = Group.findOne({
+    $or:[
+      {_id:gid, privacy:'public'},
+      {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
+    ]
+  }, {members: 1});
+
+  q.populate({
+    path: 'members',
+    select: 'name _id',
+    options: { limit: limit, offset: offset },
+  });
+
+  q.exec(function(err, group){
+    if (err) return next(err);
+    return res.json(group);
+    gid = null;
+  });
+};
+
 api.join = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group,
