@@ -83,4 +83,136 @@ describe('Settings Controller', function() {
       });
     });
   });
+
+  describe('common tests', function () {
+    function alertTest(fnName, tKey) {
+      scope[fnName]();
+      expect(window.confirm).to.be.calledWith(window.env.t(tKey));
+    }
+
+    function notConfirmedTest(fnName) {
+      window.confirm.returns(false);
+      scope[fnName]();
+      expect(user.ops[fnName]).to.not.be.called;
+      expect(scope.$close).to.not.be.called;
+    }
+
+    function confirmedTest(fnName) {
+      window.confirm.returns(true);
+      scope[fnName]();
+      var op = user.ops[fnName];
+      expect(op).to.be.calledOnce;
+      expect(scope.$close).to.be.calledAfter(op);
+    }
+
+    beforeEach(function() {
+      sandbox.stub(window, 'confirm');
+      scope.$close = sinon.stub();
+    });
+
+    describe('#releasePets', function() {
+
+      beforeEach(function() {
+        user.ops = {
+          releasePets: sandbox.stub()
+        };
+      });
+
+      it('displays alert if pets are released', function() {
+        alertTest('releasePets', 'petKeyPetsSure');
+      });
+
+      it('does not release pets if not confirmed', function() {
+        notConfirmedTest('releasePets');
+      });
+
+      it('releases pets if confirmed', function() {
+        confirmedTest('releasePets');
+      });
+    });
+
+    describe('#releaseMounts', function() {
+
+      beforeEach(function() {
+        user.ops = {
+          releaseMounts: sandbox.stub()
+        };
+      });
+
+      it('displays alert if mounts are released', function() {
+        alertTest('releaseMounts', 'petKeyMountsSure');
+      });
+
+      it('does not release mounts if not confirmed', function() {
+        notConfirmedTest('releaseMounts');
+      });
+
+      it('releases mounts if confirmed', function() {
+        confirmedTest('releaseMounts');
+      });
+    });
+
+    describe('#releaseBoth', function() {
+
+      beforeEach(function() {
+        user.ops = {
+          releaseBoth: sandbox.stub()
+        };
+      });
+
+      it('displays alert if both pets and mounts are released', function() {
+        alertTest('releaseBoth', 'petKeyBothSure');
+      });
+
+      it('does not release both pets and mounts if not confirmed', function() {
+        notConfirmedTest('releaseBoth');
+      });
+
+      it('releases both pets and mounts if confirmed', function() {
+        confirmedTest('releaseBoth');
+      });
+    });
+
+    describe('#rebirth', function() {
+
+      beforeEach(function () {
+        user.ops = {
+          rebirth: sinon.stub()
+        };
+      });
+
+      it('displays alert if orb of rebirth is bought', function() {
+        alertTest('rebirth', 'rebirthSure');
+      });
+
+      it('does not process rebirth if not confirmed', function() {
+        notConfirmedTest('rebirth');
+      });
+
+      it('processes rebirth if confirmed', function() {
+        confirmedTest('rebirth');
+      });
+    });
+
+    describe('#reroll', function() {
+
+      beforeEach(function () {
+        user.ops = {
+          reroll: sinon.stub()
+        };
+      });
+
+      it('displays alert if fortify potion is bought', function() {
+        alertTest('reroll', 'fortifySure');
+      });
+
+      it('does not reroll if not confirmed', function() {
+        notConfirmedTest('reroll');
+      });
+
+      it('rerolls if confirmed', function() {
+        confirmedTest('reroll');
+      });
+    });
+  });
 });

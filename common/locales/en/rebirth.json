@@ -21,5 +21,6 @@
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level",
     "rebirthPop": "Begin a new character at Level 1 while retaining achievements, collectibles, and tasks with history.",
     "rebirthName": "Orb of Rebirth",
+    "rebirthSure": "Are you sure you want to begin a new character?",
     "reborn": "Reborn, max level <%= reLevel %>"
 }
