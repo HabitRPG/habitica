@@ -4,7 +4,7 @@
 
 ## Documentation
 
-- **rebirth:** Bullet point about repurchase of limited ed gear after Rebirth
+- **rebirth:** Bullet point about repurchase of limited gear after Rebirth
   ([d3f4a561](https://github.com/habitrpg/habitrpg/commits/d3f4a561fdf137e5d8f406bae03be4fef1caff22))
 
 
@@ -61,4 +61,4 @@
   - include select2 in test manifest
   ([38b4cea7](https://github.com/habitrpg/habitrpg/commits/38b4cea73299f51c4db7f6b2eb12533d219745f8))
   - don't use cluster in tests, else we get "connection refused"
-  ([7a479098](https://github.com/habitrpg/habitrpg/commits/7a479098dc6535654e322c737d80813790967941)
+  ([7a479098](https://github.com/habitrpg/habitrpg/commits/7a479098dc6535654e322c737d80813790967941))
