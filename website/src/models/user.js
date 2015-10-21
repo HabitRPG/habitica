@@ -66,7 +66,8 @@ var UserSchema = new Schema({
       email: String,
       hashed_password: String,
       salt: String,
-      username: String
+      username: String,
+      lowerCaseUsername: String // Store a lowercase version of username to check for duplicates
     },
     timestamps: {
       created: {type: Date,'default': Date.now},

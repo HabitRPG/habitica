@@ -67,8 +67,12 @@ api.authWithUrl = function(req, res, next) {
 }
 
 api.registerUser = function(req, res, next) {
-  var regEmail = RegexEscape(req.body.email),
-    regUname = RegexEscape(req.body.username);
+  var regEmail = RegexEscape(req.body.email);
+  var regUname = RegexEscape(req.body.username);
+
+  // Get the lowercase version of username to check that we do not have duplicates
+  // So we can search for it in the database and then reject the choosen username if 1 or more results are found
+  var lowerCaseUsername = req.body.username.toLowerCase();
   async.auto({
     validate: function(cb) {
       if (!(req.body.username && req.body.password && req.body.email))
@@ -95,7 +99,8 @@ api.registerUser = function(req, res, next) {
         auth: {
           local: {
             username: req.body.username,
-            email: req.body.email,
+            lowerCaseUsername: lowerCaseUsername, // Store the lowercase version of the username
+            email: req.body.email.toLowerCase(), // Store email as lowercase
             salt: salt,
             hashed_password: utils.encryptPassword(req.body.password, salt)
           },
@@ -266,15 +271,19 @@ var invalidPassword = function(user, password){
 }
 
 api.changeUsername = function(req, res, next) {
+  var user = res.locals.user;
+  var username = req.body.username;
   async.waterfall([
     function(cb){
-      User.findOne({'auth.local.username': RegexEscape(req.body.username)}, {auth:1}, cb);
+      User.findOne({'auth.local.username': RegexEscape(username)}, {auth:1}, cb);
     },
     function(found, cb){
       if (found) return cb({code:401, err: "Username already taken"});
-      if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
-      res.locals.user.auth.local.username = req.body.username;
-      res.locals.user.save(cb);
+      if (invalidPassword(user, req.body.password)) return cb(invalidPassword(user, req.body.password));
+      user.auth.local.username = username;
+      user.auth.local.lowerCaseUsername = username.toLowerCase();
+
+      user.save(cb);
     }
   ], function(err){
     if (err) return err.code ? res.json(err.code, err) : next(err);
