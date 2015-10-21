@@ -31,7 +31,7 @@ describe "Todos", ->
         body:
           type: "todo"
       }
-    ]).end (res) ->
+    ]).end (err, res) ->
       expectCode res, 200
       # Expect number of todos to be 3 greater than the number the user started with
       expect(_.size(res.body.todos)).to.equal numTasks + 3
@@ -56,7 +56,7 @@ describe "Todos", ->
             direction: "up"
             id: res.body.todos[2].id
         }
-      ]).end (res) ->
+      ]).end (err, res) ->
         expectCode res, 200
         expect(_.size(res.body.todos)).to.equal numTasks
         request.post(baseURL + "/user/batch-update?_v=997").send([
@@ -76,7 +76,7 @@ describe "Todos", ->
             body:
               dateCompleted: moment().subtract(4, "days")
           }
-        ]).end (res) ->
+        ]).end (err, res) ->
           # Expect todos to be 2 less than the total count
           expect(_.size(res.body.todos)).to.equal numTasks - 2
           done()
@@ -89,7 +89,7 @@ describe "Todos", ->
         request.post(baseURL + "/user/tasks").send(
             type: "todo"
             text: "Sample Todo"
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 200
           todo = res.body
           expect(todo.text).to.equal "Sample Todo"
@@ -110,10 +110,10 @@ describe "Todos", ->
         }
         request.post(baseURL + "/user/tasks").send(
           original_todo
-        ).end (res) ->
+        ).end (err, res) ->
           request.post(baseURL + "/user/tasks").send(
             duplicate_id_todo
-          ).end (res) ->
+          ).end (err, res) ->
             expectCode res, 409
             expect(res.body.err).to.eql('A task with that ID already exists.')
             done()
@@ -122,7 +122,7 @@ describe "Todos", ->
       it "Does not update id of todo", (done) ->
         request.put(baseURL + "/user/tasks/" + todo.id).send(
           id: "a-new-id"
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 200
           updateTodo = res.body
           expect(updateTodo.id).to.equal todo.id
@@ -131,7 +131,7 @@ describe "Todos", ->
       it "Does not update type of todo", (done) ->
         request.put(baseURL + "/user/tasks/" + todo.id).send(
           type: "habit"
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 200
           updateTodo = res.body
           expect(updateTodo.type).to.equal todo.type
@@ -144,7 +144,7 @@ describe "Todos", ->
           priority: 1.5
           value: 5
           notes: "Some notes"
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 200
           todo = res.body
           expect(todo.text).to.equal "Changed Title"
@@ -157,7 +157,7 @@ describe "Todos", ->
     describe "Deleting todos", ->
       it "Does delete todo", (done) ->
         request.del(baseURL + "/user/tasks/" + todo.id).send(
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 200
           body = res.body
           expect(body).to.be.empty
@@ -165,7 +165,7 @@ describe "Todos", ->
 
       it "Does not delete already deleted todo", (done) ->
         request.del(baseURL + "/user/tasks/" + todo.id).send(
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 404
           body = res.body
           expect(body.err).to.equal "Task not found."
@@ -178,7 +178,7 @@ describe "Todos", ->
           priority: 1
           value: 4
           notes: "Other notes"
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 404
           body = res.body
           expect(body.err).to.equal "Task not found."

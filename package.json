@@ -128,7 +128,7 @@
     "shelljs": "^0.4.0",
     "sinon": "1.15.4",
     "sinon-chai": "^2.7.0",
-    "superagent-defaults": "~0.1.5",
+    "superagent-defaults": "^0.1.13",
     "uuid": "^2.0.1",
     "vinyl-source-stream": "^1.0.0",
     "vinyl-transform": "^1.0.0"

@@ -22,10 +22,10 @@ describe "Users", ->
           request.del(baseURL + "/user")
           .set("X-API-User", userToDelete._id)
           .set("X-API-Key", userToDelete.apiToken)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 200
             request.get(baseURL + "/user/" + userToDelete._id)
-            .end (res) ->
+            .end (err, res) ->
               expectCode res, 404
               cb()
 
@@ -56,7 +56,7 @@ describe "Users", ->
             )
             .set("X-API-User", userToDelete._id)
             .set("X-API-Key", userToDelete.apiToken)
-            .end (res) ->
+            .end (err, res) ->
               expectCode res, 200
               guildToHaveNewLeader = res.body
               expect(guildToHaveNewLeader.leader).to.eql(userToDelete._id)
@@ -66,7 +66,7 @@ describe "Users", ->
             inviteURL = baseURL + "/groups/" + guildToHaveNewLeader._id + "/invite"
             request.post(inviteURL)
               .send( uuids: [userToBecomeLeader._id])
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 cb()
 
@@ -74,7 +74,7 @@ describe "Users", ->
             request.post(baseURL + "/groups/" + guildToHaveNewLeader._id + "/join")
               .set("X-API-User", userToBecomeLeader._id)
               .set("X-API-Key", userToBecomeLeader.apiToken)
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 cb()
 
@@ -82,7 +82,7 @@ describe "Users", ->
             request.del(baseURL + "/user")
             .set("X-API-User", userToDelete._id)
             .set("X-API-Key", userToDelete.apiToken)
-            .end (res) ->
+            .end (err, res) ->
               expectCode res, 200
               cb()
 
@@ -90,7 +90,7 @@ describe "Users", ->
             request.get(baseURL + "/groups/" + guildToHaveNewLeader._id)
             .set("X-API-User", userToBecomeLeader._id)
             .set("X-API-Key", userToBecomeLeader.apiToken)
-            .end (res) ->
+            .end (err, res) ->
               expectCode res, 200
               g = res.body
               userInGroup = _.find(g.members, (member) -> return member._id == userToDelete._id; )
@@ -114,7 +114,7 @@ describe "Users", ->
                     name: "TestPrivateGroup"
                     type: "party"
                   )
-                  .end (res) ->
+                  .end (err, res) ->
                     expectCode res, 200
                     party = res.body
                     cb()
@@ -124,7 +124,7 @@ describe "Users", ->
                     name: "TestPrivateGroup"
                     type: "guild"
                   )
-                  .end (res) ->
+                  .end (err, res) ->
                     expectCode res, 200
                     guild = res.body
                     cb()
@@ -143,7 +143,7 @@ describe "Users", ->
               inviteURL = baseURL + "/groups/" + party._id + "/invite"
               request.post(inviteURL)
                 .send( uuids: [userToDelete._id])
-                .end (res) ->
+                .end (err, res) ->
                   expectCode res, 200
                   cb()
 
@@ -151,7 +151,7 @@ describe "Users", ->
               inviteURL = baseURL + "/groups/" + guild._id + "/invite"
               request.post(inviteURL)
                 .send( uuids: [userToDelete._id])
-                .end (res) ->
+                .end (err, res) ->
                   expectCode res, 200
                   cb()
 
@@ -159,7 +159,7 @@ describe "Users", ->
               request.post(baseURL + "/groups/" + party._id + "/join")
                 .set("X-API-User", userToDelete._id)
                 .set("X-API-Key", userToDelete.apiToken)
-                .end (res) ->
+                .end (err, res) ->
                   expectCode res, 200
                   cb()
 
@@ -167,7 +167,7 @@ describe "Users", ->
               request.post(baseURL + "/groups/" + guild._id + "/join")
                 .set("X-API-User", userToDelete._id)
                 .set("X-API-Key", userToDelete.apiToken)
-                .end (res) ->
+                .end (err, res) ->
                   expectCode res, 200
                   cb()
 
@@ -175,13 +175,13 @@ describe "Users", ->
               request.del(baseURL + "/user")
               .set("X-API-User", userToDelete._id)
               .set("X-API-Key", userToDelete.apiToken)
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 cb()
 
             (cb) ->
               request.get(baseURL + "/groups/" + party._id)
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 g = res.body
                 userInGroup = _.find(g.members, (member) -> return member._id == userToDelete._id; )
@@ -190,7 +190,7 @@ describe "Users", ->
 
             (cb) ->
               request.get(baseURL + "/groups/" + guild._id)
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 g = res.body
                 userInGroup = _.find(g.members, (member) -> return member._id == userToDelete._id; );
@@ -211,7 +211,7 @@ describe "Users", ->
               inviteURL = baseURL + "/groups/" + party._id + "/invite"
               request.post(inviteURL)
                 .send( uuids: [userToDeleteInvites._id])
-                .end (res) ->
+                .end (err, res) ->
                   expectCode res, 200
                   cb()
 
@@ -219,7 +219,7 @@ describe "Users", ->
               inviteURL = baseURL + "/groups/" + guild._id + "/invite"
               request.post(inviteURL)
                 .send( uuids: [userToDeleteInvites._id])
-                .end (res) ->
+                .end (err, res) ->
                   expectCode res, 200
                   cb()
 
@@ -227,13 +227,13 @@ describe "Users", ->
               request.del(baseURL + "/user")
               .set("X-API-User", userToDeleteInvites._id)
               .set("X-API-Key", userToDeleteInvites.apiToken)
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 cb()
 
             (cb) ->
               request.get(baseURL + "/groups/" + party._id)
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 g = res.body
                 userInviteForGroup = _.find(g.invites, (invite) -> return invite._id == userToDeleteInvites._id; )
@@ -242,7 +242,7 @@ describe "Users", ->
 
             (cb) ->
               request.get(baseURL + "/groups/" + guild._id)
-              .end (res) ->
+              .end (err, res) ->
                 expectCode res, 200
                 g = res.body
                 userInviteForGroup = _.find(g.invites, (invite) -> return invite._id == userToDeleteInvites._id; )

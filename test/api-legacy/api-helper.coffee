@@ -26,7 +26,7 @@ conf.set "PORT", "1337"
 ##############################
 # Node ENV and global variables
 ##############################
-process.env.NODE_DB_URI = "mongodb://localhost/habitrpg_test"
+process.env.NODE_DB_URI = "mongodb://localhost/habitrpg_test_api_legacy"
 global.baseURL = "http://localhost:" + conf.get("PORT") + "/api/v2"
 global.user = undefined
 
@@ -51,7 +51,7 @@ global.registerNewUser = (cb, main) ->
       password: randomID
       confirmPassword: randomID
       email: randomID + "@gmail.com"
-    .end (res) ->
+    .end (err, res) ->
       return cb(null, res.body)  unless main
       _id = res.body._id
       apiToken = res.body.apiToken

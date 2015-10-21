@@ -34,7 +34,7 @@ describe "Coupons", ->
         queries = '?count=10'
         request
           .post(baseURL + '/coupons/generate/wondercon' + queries)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 200
             Coupon.find { event: 'wondercon' }, (err, _coupons) ->
               coupons = _coupons
@@ -52,7 +52,7 @@ describe "Coupons", ->
         queries = '?count=10'
         request
           .post(baseURL + '/coupons/generate/wondercon' + queries)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 401
             expect(res.body.err).to.equal 'You don\'t have admin access'
             done()
@@ -68,7 +68,7 @@ describe "Coupons", ->
         queries = '?_id=' + user._id + '&apiToken=' + user.apiToken
         request
           .get(baseURL + '/coupons' + queries)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 200
             codes = res.text
             expect(codes).to.contain('code')
@@ -81,7 +81,7 @@ describe "Coupons", ->
         queries = '?_id=' + user._id + '&apiToken=' + user.apiToken + '&limit=5'
         request
           .get(baseURL + '/coupons' + queries)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 200
             codes = res.text
             sortedCoupons = _.sortBy(coupons, 'seq')
@@ -98,7 +98,7 @@ describe "Coupons", ->
         queries = '?_id=' + user._id + '&apiToken=' + user.apiToken + '&skip=5'
         request
           .get(baseURL + '/coupons' + queries)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 200
             codes = res.text
             sortedCoupons = _.sortBy(coupons, 'seq')
@@ -121,7 +121,7 @@ describe "Coupons", ->
         queries = '?_id=' + user._id + '&apiToken=' + user.apiToken
         request
           .get(baseURL + '/coupons' + queries)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 401
             expect(res.body.err).to.equal 'You don\'t have admin access'
             done()
@@ -156,7 +156,7 @@ describe "Coupons", ->
         code = coupons[0]._id
         request
           .post(baseURL + '/user/coupon/' + code)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 200
             gear = res.body.items.gear.owned
             specialGear(gear, true)
@@ -168,7 +168,7 @@ describe "Coupons", ->
         code = coupons[0]._id
         request
           .post(baseURL + '/user/coupon/' + code)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 400
             expect(res.body.err).to.equal "Coupon already used"
             User.findById user._id, (err, _user) ->
@@ -182,7 +182,7 @@ describe "Coupons", ->
         code = "not-a-real-coupon"
         request
           .post(baseURL + '/user/coupon/' + code)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 400
             expect(res.body.err).to.equal "Invalid coupon code"
             User.findById user._id, (err, _user) ->

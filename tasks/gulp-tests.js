@@ -339,7 +339,7 @@ gulp.task('test', [
   // 'test:content:safe',
   'test:server_side:safe',
   'test:karma:safe',
-  // 'test:api-legacy:safe',
+  'test:api-legacy:safe',
   'test:api:safe',
   'test:e2e:safe'
 ], () => {
