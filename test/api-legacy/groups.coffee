@@ -6,43 +6,6 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe.skip "Guilds", ->
-  context "updating groups", ->
-    groupToUpdate = undefined
-    before (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup"
-        type: "guild"
-        description: "notUpdatedDesc"
-      ).end (err, res) ->
-        groupToUpdate = res.body
-        done()
-
-    it "prevents user from updating a party when they aren't the leader", (done) ->
-      registerNewUser (err, tmpUser) ->
-        request.post(baseURL + "/groups/" + groupToUpdate._id).send(
-            name: "TestGroupName"
-            description: "updatedDesc"
-        )
-        .set("X-API-User", tmpUser._id)
-        .set("X-API-Key", tmpUser.apiToken)
-        .end (err, res) ->
-          expectCode res, 401
-          expect(res.body.err).to.equal "Only the group leader can update the group!"
-          done()
-      , false
-
-    it "allows user to update a group", (done) ->
-      request.post(baseURL + "/groups/" + groupToUpdate._id).send(
-          description: "updatedDesc"
-      )
-      .end (err, res) ->
-        expectCode res, 204
-        request.get(baseURL + "/groups/" + groupToUpdate._id).send()
-        .end (err, res) ->
-          updatedGroup = res.body
-          expect(updatedGroup.description).to.equal "updatedDesc"
-          done()
-
   context "leaving groups", ->
     it "can leave a guild", (done) ->
       guildToLeave = undefined
