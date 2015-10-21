@@ -3,8 +3,9 @@
 habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats',
   function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats) {
     $scope.profile = User.user;
-
     $scope.statCalc = Stats;
+
+    $.getScript('https://platform.twitter.com/widgets.js');
 
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
