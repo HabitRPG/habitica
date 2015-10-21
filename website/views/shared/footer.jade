@@ -1,4 +1,5 @@
 footer.footer(ng-controller='FooterCtrl')
+  div(id='fb-root')
   .container
     .row
       .col-sm-3
@@ -63,7 +64,7 @@ footer.footer(ng-controller='FooterCtrl')
             table
               tr
                 td
-                  a.addthis_button_facebook_like(fb:like:layout='button_count')
+                  .fb-like(data-href='https://habitica.com/', data-layout='button', data-action='like', data-show-faces='true', data-share='true')
               tr
                 td
                   a.twitter-share-button(href='https://twitter.com/intent/tweet?text=Improve+yourself+in+the+land+of+Habitica!&via=habitica&url=https://habitica.com/&count=none')=env.t('tweet')
