@@ -6,7 +6,7 @@ import {
 
 describe('GET /groups/:id', () => {
 
-  context('All Groups', () => {
+  context('All types of groups', () => {
     let api, leader, createdGroup;
 
     beforeEach((done) => {
