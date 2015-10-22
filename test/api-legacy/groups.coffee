@@ -6,60 +6,6 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe.skip "Guilds", ->
-  context "removing users groups", ->
-    it "allows guild leaders to remove a member (but not themselves)", (done) ->
-      guildToRemoveMember = undefined
-      members = undefined
-      userToRemove = undefined
-      request.post(baseURL + "/groups").send(
-        name: "TestGuildToRemoveMember"
-        type: "guild"
-      ).end (err, res) ->
-        guildToRemoveMember = res.body
-        #Add members to guild
-        async.waterfall [
-          (cb) ->
-            registerManyUsers 1, cb
-
-          (_members, cb) ->
-            userToRemove = _members[0]
-            members = _members
-            inviteURL = baseURL + "/groups/" + guildToRemoveMember._id + "/invite"
-            request.post(inviteURL).send(
-              uuids: [userToRemove._id]
-            )
-            .end ->
-              cb()
-
-          (cb) ->
-            request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/join")
-              .set("X-API-User", userToRemove._id)
-              .set("X-API-Key", userToRemove.apiToken)
-              .end (err, res) ->
-                cb()
-          (cb) ->
-            request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + guildToRemoveMember.leader)
-            .send().end (err, res) ->
-              expectCode res, 401
-              cb()
-
-          (cb) ->
-            request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + userToRemove._id)
-            .send().end (err, res) ->
-              expectCode res, 204
-              cb()
-
-          (cb) ->
-            request.get(baseURL + "/groups/" + guildToRemoveMember._id)
-            .send()
-            .end (err, res) ->
-              g = res.body
-              userInGroup = _.find g.members, (member) -> return member._id == userToRemove._id
-              expect(userInGroup).to.not.exist
-              cb()
-
-        ], done
-
   describe "Private Guilds", ->
     guild = undefined
     before (done) ->
