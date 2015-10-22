@@ -501,6 +501,34 @@ api.join = function(req, res, next) {
   });
 }
 
+api.reject = function(req, res, next) {
+  var user = res.locals.user,
+    group = res.locals.group,
+    isUserInvited = false;
+
+  if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
+    user.invitations.party = undefined;
+    user.save();
+  } else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
+    var i = _.findIndex(user.invitations.guilds, {id:group._id});
+    if (~i){
+      user.invitations.guilds.splice(i,1);
+      user.save();
+    }
+  }
+
+  if (group.invites.length > 0) {
+   group.invites.splice(_.indexOf(group.invites, user._id), 1);
+  }
+
+  group.save(function(err, results){
+    if (err) return next(err);
+    res.json(results[1]);
+    group = null;
+  });
+
+}
+
 api.leave = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;

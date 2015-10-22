@@ -86,6 +86,7 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
         if (~i){
           User.user.invitations.guilds.splice(i, 1);
           User.set({'invitations.guilds':User.user.invitations.guilds});
+          Groups.Group.reject({gid: guild.id}, undefined, null);
         }
       }
     }

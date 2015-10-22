@@ -102,6 +102,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.reject = function(){
         User.set({'invitations.party':{}});
+        Groups.Group.reject({gid: $scope.group._id}, undefined, null);
       }
 
       $scope.questCancel = function(){

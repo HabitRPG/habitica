@@ -318,6 +318,84 @@ describe "Guilds", ->
 
         ], done
 
+  context "inviting users to groups", ->
+    it "allows guild leaders to invite a member", (done) ->
+      userToInvite = undefined
+      members = undefined
+      guildToInviteUserTo = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGuildToInviteUserTo"
+        type: "guild"
+      ).end (res) ->
+        guildToInviteUserTo = res.body
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToInvite = _members[0]
+            members = _members
+            inviteURL = baseURL + "/groups/" + guildToInviteUserTo._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToInvite._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.get(baseURL + "/groups/" + guildToInviteUserTo._id)
+              .end (res) ->
+                expect(res.body.invites.length).to.eql(1)
+                cb()
+
+        ], done
+
+    it "user to reject an invite", (done) ->
+      userToRejectInvite = undefined
+      members = undefined
+      guildForUserToRejectInvite = undefined
+      request.post(baseURL + "/groups").send(
+        name: "GuildForUserToRejectInvite"
+        type: "guild"
+      ).end (res) ->
+        guildForUserToRejectInvite = res.body
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToRejectInvite = _members[0]
+            members = _members
+            inviteURL = baseURL + "/groups/" + guildForUserToRejectInvite._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToRejectInvite._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + guildForUserToRejectInvite._id + "/reject")
+              .set("X-API-User", userToRejectInvite._id)
+              .set("X-API-Key", userToRejectInvite.apiToken)
+              .end (res) ->
+                cb()
+
+          (cb) ->
+            request.get(baseURL + "/groups/" + guildForUserToRejectInvite._id)
+              .end (res) ->
+                expect(res.body.invites.length).to.eql(0)
+                cb()
+
+          (cb) ->
+            request.get(baseURL + "/user")
+              .set("X-API-User", userToRejectInvite._id)
+              .set("X-API-Key", userToRejectInvite.apiToken)
+              .end (res) ->
+                expect(res.body.invitations.guilds.length).to.eql(0)
+                cb()
+
+        ], done
+
   describe "Private Guilds", ->
     guild = undefined
     before (done) ->
