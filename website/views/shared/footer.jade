@@ -60,7 +60,7 @@ footer.footer(ng-controller='FooterCtrl')
       .col-sm-3
         if (env.NODE_ENV === 'production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
-          .addthis_toolbox.addthis_default_style(addthis:url='https://habitica.com', addthis:title=env.t('socialTitle'))
+          .addthis_toolbox.addthis_default_style(addthis:url='https://habitica.com', addthis:title=env.t('socialTitle'), ng-init='loadWidgets()')
             table
               tr
                 td

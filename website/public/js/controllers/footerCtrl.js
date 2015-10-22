@@ -33,9 +33,6 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
-    // Social sharing buttons
-    loadWidgets();
-
     /* Google Content Experiments
     if (window.env.NODE_ENV === 'production') {
       $.getScript('//www.google-analytics.com/cx/api.js?experiment=boVO4eEyRfysNE5D53nCMQ', function(){

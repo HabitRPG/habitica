@@ -1,22 +1,28 @@
 include ../avatar/generated_avatar
 
 script(type='text/ng-template', id='modals/levelUp.html')
+  div(id='fb-root')
   .modal-content(style='min-width:28em')
     .modal-body.text-center
       h3(style='margin-bottom: 0')=env.t('gainedLevel')
       .container-fluid
         .row
-          .herobox(style='margin:auto 8.2em; width: 6em; height: 9em; padding-top: 0')
+          .herobox(style='margin:auto 8.3em; width: 6em; height: 9em; padding-top: 0')
             .character-sprites(style='margin: 0; width: 0')
               +generatedAvatar
         .row
-          .herobox(style='margin:auto 8.6em; width: 6em; height: 0; padding-top: 0')
+          .herobox(style='margin:auto 8.9em; width: 6em; height: 0; padding-top: 0')
             .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'
       h4(style='margin-top: 1em')!=env.t('leveledUp', {level:'{{user.stats.lvl}}'})
       p=env.t('fullyHealed')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
     .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
-      a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I+got+to+Level+{{::user.stats.lvl}}+in+Habitica+by+improving+my+real-life+habits!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/level-up&count=none')=env.t('tweet')
-      .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/level-up', data-layout='button')
-      a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/level-up', data-notes='none')
+      .container-fluid
+        .row
+          .col-xs-4
+            a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I+got+to+Level+{{::user.stats.lvl}}+in+Habitica+by+improving+my+real-life+habits!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/level-up&count=none')=env.t('tweet')
+          .col-xs-4
+            .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/level-up', data-layout='button')
+          .col-xs-4
+            a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/level-up', data-notes='none')

@@ -25,5 +25,9 @@
       // Twitter
       $.getScript('https://platform.twitter.com/widgets.js');
     }
+
+    return {
+      loadWidgets: loadWidgets
+    }
   }
 }());
