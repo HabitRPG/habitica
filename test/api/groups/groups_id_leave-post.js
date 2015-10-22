@@ -118,7 +118,7 @@ describe('POST /groups/:id/leave', () => {
       }).catch(done);
     });
 
-    xit('@TODO: private guilds are not being deleted. Figure out why. deletes the group invitations from users', (done) => {
+    it('deletes the group invitations from users', (done) => {
       api.post(`/groups/${group._id}/leave`).then((result) => {
         return Promise.all([
           inviteeRequest1.get(`/user`),
@@ -153,7 +153,7 @@ describe('POST /groups/:id/leave', () => {
       }).catch(done);
     });
 
-    xit('@TODO: private guilds are not being deleted. Figure out why. deletes the group invitations from users', (done) => {
+    it('deletes the group invitations from users', (done) => {
       api.post(`/groups/${group._id}/leave`).then((result) => {
         return Promise.all([
           inviteeRequest1.get(`/user`),

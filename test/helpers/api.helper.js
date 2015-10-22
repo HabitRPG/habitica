@@ -81,7 +81,7 @@ export function createAndPopulateGroup(settings={}) {
       return memberPromises;
     }).then((users) => {
       members = users;
-      groupDetails.members = groupDetails.members || [];
+      groupDetails.members = groupDetails.members || [leader._id];
 
       each(members, (member) => {
         groupDetails.members.push(member._id);
