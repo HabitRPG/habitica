@@ -1,8 +1,10 @@
 "use strict";
 
 angular.module('habitrpg').controller("FooterCtrl",
-['$scope', '$rootScope', 'User', '$http', 'Notification', 'ApiUrl',
-function($scope, $rootScope, User, $http, Notification, ApiUrl) {
+['$scope', '$rootScope', 'User', '$http', 'Notification', 'ApiUrl', 'Social',
+function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
+
+  $scope.loadWidgets = Social.loadWidgets;
 
   if(env.isStaticPage){
     $scope.languages = env.avalaibleLanguages;
@@ -31,20 +33,8 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
-    // Twitter
-    $.getScript('https://platform.twitter.com/widgets.js');
-
-    // Facebook
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    // Tumblr
-    $.getScript('https://assets.tumblr.com/share-button.js');
+    // Social sharing buttons
+    loadWidgets();
 
     /* Google Content Experiments
     if (window.env.NODE_ENV === 'production') {

@@ -16,5 +16,7 @@ script(type='text/ng-template', id='modals/levelUp.html')
       p=env.t('fullyHealed')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
-    .modal-footer(style='margin-top:0')
+    .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
       a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I+got+to+Level+{{::user.stats.lvl}}+in+Habitica+by+improving+my+real-life+habits!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/level-up&count=none')=env.t('tweet')
+      .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/level-up', data-layout='button')
+      a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/level-up', data-notes='none')
