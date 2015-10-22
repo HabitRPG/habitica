@@ -1121,6 +1121,7 @@ api.questEggs =
   Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.whale? > 0)
   Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.cheetah? > 0)
   Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.horse? > 0)
+  Frog:             text: t('questEggFrogText'), adjective: t('questEggFrogAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.frog? > 0)
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -2178,6 +2179,26 @@ api.quests =
       gp: 37
       exp: 275
       unlock: t('questHorseUnlockText')
+
+  frog:
+    text: t('questFrogText')
+    notes: t('questFrogNotes')
+    completion: t('questFrogCompletion')
+    value: 4
+    category: 'pet'
+    boss:
+      name: t('questFrogBoss')
+      hp: 300
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+      ]
+      gp: 25
+      exp: 125
+      unlock: t('questFrogUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:(()->true)}

@@ -25,10 +25,6 @@ var accountSuspended = function(uuid){
     code: 'ACCOUNT_SUSPENDED'
   };
 }
-// Allow case-insensitive regex searching for Mongo queries. See http://stackoverflow.com/a/3561711/362790
-var RegexEscape = function(s){
-  return new RegExp('^' + s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
-}
 
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
@@ -67,35 +63,42 @@ api.authWithUrl = function(req, res, next) {
 }
 
 api.registerUser = function(req, res, next) {
-  var regEmail = RegexEscape(req.body.email),
-    regUname = RegexEscape(req.body.username);
+  var email = req.body.email && req.body.email.toLowerCase();
+  var username = req.body.username;
+  // Get the lowercase version of username to check that we do not have duplicates
+  // So we can search for it in the database and then reject the choosen username if 1 or more results are found
+  var lowerCaseUsername = username && username.toLowerCase();
+
   async.auto({
     validate: function(cb) {
-      if (!(req.body.username && req.body.password && req.body.email))
+      if (!(username && req.body.password && email))
         return cb({code:401, err: ":username, :email, :password, :confirmPassword required"});
       if (req.body.password !== req.body.confirmPassword)
         return cb({code:401, err: ":password and :confirmPassword don't match"});
-      if (!validator.isEmail(req.body.email))
+      if (!validator.isEmail(email))
         return cb({code:401, err: ":email invalid"});
       cb();
     },
     findReg: function(cb) {
-      User.findOne({$or:[{'auth.local.email': regEmail}, {'auth.local.username': regUname}]}, {'auth.local':1}, cb);
+      // Search for duplicates using lowercase version of username
+      User.findOne({$or:[{'auth.local.email': email}, {'auth.local.lowerCaseUsername': lowerCaseUsername}]}, {'auth.local':1}, cb);
     },
     findFacebook: function(cb){
       User.findOne({_id: req.headers['x-api-user'], apiToken: req.headers['x-api-key']}, {auth:1}, cb);
     },
     register: ['validate', 'findReg', 'findFacebook', function(cb, data) {
       if (data.findReg) {
-        if (regEmail.test(data.findReg.auth.local.email)) return cb({code:401, err:"Email already taken"});
-        if (regUname.test(data.findReg.auth.local.username)) return cb({code:401, err:"Username already taken"});
+        if (email === data.findReg.auth.local.email) return cb({code:401, err:"Email already taken"});
+        // Check that the lowercase username isn't already used
+        if (lowerCaseUsername === data.findReg.auth.local.lowerCaseUsername) return cb({code:401, err:"Username already taken"});
       }
       var salt = utils.makeSalt();
       var newUser = {
         auth: {
           local: {
-            username: req.body.username,
-            email: req.body.email,
+            username: username,
+            lowerCaseUsername: lowerCaseUsername, // Store the lowercase version of the username
+            email: email, // Store email as lowercase
             salt: salt,
             hashed_password: utils.encryptPassword(req.body.password, salt)
           },
@@ -121,6 +124,7 @@ api.registerUser = function(req, res, next) {
 
         user.save(function(err, savedUser){
           // Clean previous email preferences
+          // TODO when emails added to EmailUnsubcription they should use lowercase version
           EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){
             utils.txnEmail(savedUser, 'welcome');
           });
@@ -141,9 +145,12 @@ api.registerUser = function(req, res, next) {
 
 api.loginLocal = function(req, res, next) {
   var username = req.body.username;
-  var password = req.body.password;
+  var password = req.body.password; 
   if (!(username && password)) return res.json(401, {err:'Missing :username or :password in request body, please provide both'});
-  var login = validator.isEmail(username) ? {'auth.local.email':username} : {'auth.local.username':username};
+  var login = validator.isEmail(username) ? 
+    {'auth.local.email':username.toLowerCase()} : // Emails are all lowercase
+    {'auth.local.username':username}; // Use the username as the user typed it
+
   User.findOne(login, {auth:1}, function(err, user){
     if (err) return next(err);
     if (!user) return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
@@ -233,12 +240,14 @@ api.deleteSocial = function(req,res,next){
 }
 
 api.resetPassword = function(req, res, next){
-  var email = req.body.email,
+  var email = req.body.email && req.body.email.toLowerCase(), // Emails are all lowercase
     salt = utils.makeSalt(),
     newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
     hashed_password = utils.encryptPassword(newPassword, salt);
 
-  User.findOne({'auth.local.email': RegexEscape(email)}, function(err, user){
+  if(!email) return res.json(400, {err: "Email not provided"});
+
+  User.findOne({'auth.local.email': email}, function(err, user){
     if (err) return next(err);
     if (!user) return res.send(401, {err:"Sorry, we can't find a user registered with email " + email + "\n- Make sure your email address is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login."});
     user.auth.local.salt = salt;
@@ -266,15 +275,22 @@ var invalidPassword = function(user, password){
 }
 
 api.changeUsername = function(req, res, next) {
+  var user = res.locals.user;
+  var username = req.body.username; 
+  var lowerCaseUsername = username && username.toLowerCase(); // we search for the lowercased version to intercept duplicates
+  
+  if(!username) return res.json(400, {err: "Username not provided"});
   async.waterfall([
     function(cb){
-      User.findOne({'auth.local.username': RegexEscape(req.body.username)}, {auth:1}, cb);
+      User.findOne({'auth.local.lowerCaseUsername': lowerCaseUsername}, {auth:1}, cb);
     },
     function(found, cb){
       if (found) return cb({code:401, err: "Username already taken"});
-      if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
-      res.locals.user.auth.local.username = req.body.username;
-      res.locals.user.save(cb);
+      if (invalidPassword(user, req.body.password)) return cb(invalidPassword(user, req.body.password));
+      user.auth.local.username = username;
+      user.auth.local.lowerCaseUsername = lowerCaseUsername;
+
+      user.save(cb);
     }
   ], function(err){
     if (err) return err.code ? res.json(err.code, err) : next(err);
@@ -283,14 +299,17 @@ api.changeUsername = function(req, res, next) {
 }
 
 api.changeEmail = function(req, res, next){
+  var email = req.body.email && req.body.email.toLowerCase(); // emails are all lowercase
+  if(!email) return res.json(400, {err: "Email not provided"});
+
   async.waterfall([
     function(cb){
-      User.findOne({'auth.local.email': RegexEscape(req.body.email)}, {auth:1}, cb);
+      User.findOne({'auth.local.email': email}, {auth:1}, cb);
     },
     function(found, cb){
       if(found) return cb({code:401, err: "Email already taken"});
       if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
-      res.locals.user.auth.local.email = req.body.email;
+      res.locals.user.auth.local.email = email;
       res.locals.user.save(cb);
     }
   ], function(err){
