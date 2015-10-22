@@ -6,55 +6,6 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe.skip "Guilds", ->
-  describe "Private Guilds", ->
-    guild = undefined
-    before (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestPrivateGroup"
-        type: "guild"
-        privacy: "private"
-      ).end (err, res) ->
-        expectCode res, 200
-        guild = res.body
-        expect(guild.members.length).to.equal 1
-        expect(guild.leader).to.equal user._id
-        #Add members to guild
-        async.waterfall [
-          (cb) ->
-            registerManyUsers 15, cb
-
-          (_members, cb) ->
-            members = _members
-
-            joinGuild = (member, callback) ->
-              request.post(baseURL + "/groups/" + guild._id + "/join")
-                .set("X-API-User", member._id)
-                .set("X-API-Key", member.apiToken)
-                .end ->
-                  callback(null, null)
-
-            async.map members, joinGuild, (err, results) -> cb()
-
-        ], done
-
-    it "includes user in private group member list when user is a member", (done) ->
-
-      request.get(baseURL + "/groups/" + guild._id)
-      .end (err, res) ->
-        g = res.body
-        userInGroup = _.find g.members, (member) -> return member._id == user._id
-        expect(userInGroup).to.exist
-        done()
-
-    it "excludes user from viewing private group member list when user is not a member", (done) ->
-
-      request.post(baseURL + "/groups/" + guild._id + "/leave")
-        .end (err, res) ->
-          request.get(baseURL + "/groups/" + guild._id)
-          .end (err, res) ->
-            expect res, 404
-            done()
-
   describe "Public Guilds", ->
     before (done) ->
       async.waterfall [
