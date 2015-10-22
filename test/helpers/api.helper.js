@@ -1,6 +1,8 @@
 import {
   assign,
+  each,
   isEmpty,
+  times,
 } from 'lodash';
 import {MongoClient as mongo} from 'mongodb';
 import {v4 as generateUUID} from 'uuid';
@@ -47,6 +49,69 @@ export function generateGroup(leader, update={}) {
         resolve(group);
       });
     });
+  });
+};
+
+export function createAndPopulateGroup(settings={}) {
+  let request, leader, members, invitees, group;
+
+  let numberOfMembers = settings.members || 0;
+  let numberOfInvites = settings.invites || 0;
+  let groupDetails = settings.groupDetails;
+  let leaderDetails = settings.leaderDetails || { balance: 10 };
+
+  let leaderPromise = generateUser(leaderDetails);
+
+  let memberPromises = Promise.all(
+    times(numberOfMembers, () => {
+      return generateUser();
+    })
+  );
+
+  let invitePromises = Promise.all(
+    times(numberOfInvites, () => {
+      return generateUser();
+    })
+  );
+
+  return new Promise((resolve, reject) => {
+    return leaderPromise.then((user) => {
+      leader = user;
+      request = _requestMaker(leader, 'post');
+      return memberPromises;
+    }).then((users) => {
+      members = users;
+      groupDetails.members = groupDetails.members || [];
+
+      each(members, (member) => {
+        groupDetails.members.push(member._id);
+      });
+
+      return generateGroup(leader, groupDetails);
+    }).then((createdGroup) => {
+      group = createdGroup;
+      return invitePromises;
+    }).then((users) => {
+      invitees = users;
+
+      let invitePromises = [];
+
+      each(invitees, (invitee) => {
+        let invitePromise = request(`/groups/${group._id}/invite`, {
+          uuids: [invitee._id]
+        });
+       invitePromises.push(invitePromise);
+      });
+
+      return Promise.all(invitePromises);
+    }).then((inviteResults) => {
+      resolve({
+        leader: leader,
+        group: group,
+        members: members,
+        invitees: invitees,
+      });
+    }).catch(reject);
   });
 };
 
