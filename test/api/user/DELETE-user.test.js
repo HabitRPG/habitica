@@ -9,7 +9,7 @@ describe('DELETE /user', () => {
   beforeEach(() => {
     return generateUser().then((user) => {
       api = requester(user);
-    })
+    });
   });
 
   it('deletes the user', () => {
