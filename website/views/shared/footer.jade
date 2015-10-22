@@ -64,16 +64,19 @@ footer.footer(ng-controller='FooterCtrl')
             table
               tr
                 td
-                  .fb-like(data-href='https://habitica.com/', data-layout='button', data-action='like', data-show-faces='true', data-share='true')
+                  .fb-like(data-href='https://habitica.com/static/front', data-layout='button', data-action='like', data-share='true')
               tr
                 td
                   a.twitter-share-button(href='https://twitter.com/intent/tweet?text=Improve+yourself+in+the+land+of+Habitica!&via=habitica&url=https://habitica.com/&count=none')=env.t('tweet')
               tr
                 td
-                  iframe(src='/bower_components/github-buttons/github-btn.html?user=habitrpg&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
+                  a.tumblr-share-button(data-href='https://habitica.com/static/front', data-notes='none')
               tr
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
+              tr
+                td
+                  iframe(src='/bower_components/github-buttons/github-btn.html?user=habitrpg&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
         else if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
           h4 Debug
           .btn-group-vertical

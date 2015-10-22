@@ -43,6 +43,9 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+    // Tumblr
+    $.getScript('https://assets.tumblr.com/share-button.js');
+
     /* Google Content Experiments
     if (window.env.NODE_ENV === 'production') {
       $.getScript('//www.google-analytics.com/cx/api.js?experiment=boVO4eEyRfysNE5D53nCMQ', function(){
