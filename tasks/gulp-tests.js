@@ -23,7 +23,7 @@ const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
 const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
 
-const ISTANBUL_TEST_COMMAND = `istanbul cover -i "website/src/**" --dir coverage/api $(npm bin)/${LEGACY_API_TEST_COMMAND}`;
+const ISTANBUL_TEST_COMMAND = `istanbul cover -i "website/src/**" --dir coverage/api ./node_modules/.bin/${LEGACY_API_TEST_COMMAND}`;
 
 /* Helper methods for reporting test summary */
 let testResults = [];
@@ -33,7 +33,7 @@ let testCount = (stdout, regexp) => {
 }
 
 let testBin = (string) => {
-  return `NODE_ENV=testing $(npm bin)/${string}`;
+  return `NODE_ENV=testing ./node_modules/.bin/${string}`;
 };
 
 gulp.task('test:prepare:mongo', (cb) => {
