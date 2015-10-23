@@ -336,13 +336,13 @@ gulp.task('test:api:safe', ['test:prepare:mongo'], (done) => {
 });
 
 gulp.task('test', [
+  'test:e2e:safe',
   'test:common:safe',
   // 'test:content:safe',
   'test:server_side:safe',
   'test:karma:safe',
   'test:api-legacy:safe',
   'test:api:safe',
-  'test:e2e:safe'
 ], () => {
   let totals = [0,0,0];
 
