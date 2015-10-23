@@ -1,8 +1,9 @@
 div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAccepted')
-  p If you would like to post messages in the Tavern or any party or guild chat, please first read our
+  p=env.t('requestAcceptGuidelines1')
     |&nbsp;
     a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
-    |&nbsp;and then click the button below to indicate that you accept them.
+    |&nbsp;
+    =env.t('requestAcceptGuidelines2')
   .chat-controls
     div
       button.btn.btn-warning(ng-click='acceptCommunityGuidelines()')=env.t('iAcceptCommunityGuidelines')
