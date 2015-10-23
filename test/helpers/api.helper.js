@@ -10,6 +10,9 @@ import superagent from 'superagent';
 
 const API_TEST_SERVER_PORT = 3003;
 
+// Sets up an abject that can make all REST requests
+// If a user is passed in, the uuid and api token of
+// the user are used to make the requests
 export function requester(user={}) {
   return {
     get: _requestMaker(user, 'get'),
@@ -19,6 +22,13 @@ export function requester(user={}) {
   }
 };
 
+// Creates a new user and returns it
+// If you need the user to have specific requirements,
+// such as a balance > 0, just pass in the adjustment
+// to the update object. If you want to adjust a nested
+// paramter, such as the number of wolf eggs the user has,
+// , you can do so by passing in the full path as a string:
+// { 'items.eggs.Wolf': 10 }
 export function generateUser(update={}) {
   let username = generateUUID();
   let password = 'password'
@@ -40,6 +50,9 @@ export function generateUser(update={}) {
   });
 };
 
+// Generates a new group. Requires a user object, which
+// will will become the groups leader. Takes an update
+// argument which will update group
 export function generateGroup(leader, update={}) {
   let request = _requestMaker(leader, 'post');
 
@@ -52,6 +65,20 @@ export function generateGroup(leader, update={}) {
   });
 };
 
+// This is generate group + the ability to create
+// real users to populate it. The settings object
+// takes in:
+// members: Number - the number of group members to create. Defaults to 0.
+// inivtes: Number - the number of users to create and invite to the group. Defaults to 0.
+// groupDetails: Object - how to initialize the group
+// leaderDetails: Object - defaults for the leader, defaults with a gem balance so the user
+// can create the group
+//
+// Returns an object with
+// members: an array of user objects that correspond to the members of the group
+// invitees: an array of user objects that correspond to the invitees of the group
+// leader: the leader user object
+// group: the group object
 export function createAndPopulateGroup(settings={}) {
   let request, leader, members, invitees, group;
 
@@ -115,6 +142,8 @@ export function createAndPopulateGroup(settings={}) {
   });
 };
 
+// Specifically helpful for the GET /groups tests,
+// resets the db to an empty state and creates a tavern document
 export function resetHabiticaDB() {
   return new Promise((resolve, reject) => {
     mongo.connect('mongodb://localhost/habitrpg_test', (err, db) => {
@@ -122,7 +151,6 @@ export function resetHabiticaDB() {
 
       db.dropDatabase((err) => {
         if (err) return reject(err);
-        // A fresh install of Habitica has a tavern group
         let groups = db.collection('groups');
         groups.insertOne({
           _id: 'habitrpg',
