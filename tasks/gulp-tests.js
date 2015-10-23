@@ -37,7 +37,8 @@ let testBin = (string) => {
 };
 
 gulp.task('test:prepare:mongo', (cb) => {
-  mongoose.connect(TEST_DB_URI, () => {
+  mongoose.connect(TEST_DB_URI, (err) => {
+    if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
     mongoose.connection.db.dropDatabase();
     mongoose.connection.close();
     cb();
