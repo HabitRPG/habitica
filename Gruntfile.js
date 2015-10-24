@@ -17,10 +17,6 @@ module.exports = function(grunt) {
       }
     },
 
-    clean: {
-      build: ['website/build']
-    },
-
     cssmin: {
       dist: {
         options: {

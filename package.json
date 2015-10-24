@@ -124,6 +124,7 @@
     "mongoskin": "~0.6.1",
     "protractor": "~2.0.0",
     "rewire": "^2.3.3",
+    "rimraf": "^2.4.3",
     "shelljs": "^0.4.0",
     "sinon": "1.15.4",
     "sinon-chai": "^2.7.0",
