@@ -3,6 +3,7 @@ import browserify from 'browserify';
 
 let source = require('vinyl-source-stream');
 let rename = require("gulp-rename");
+let minifyCss = require('gulp-minify-css');
 
 require('gulp-grunt')(gulp);
 
@@ -22,6 +23,14 @@ gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
 	b.transform('coffeeify').bundle().pipe(source('index.js')).pipe(rename('habitrpg-shared.js'))
 		.pipe(gulp.dest('common/dist/scripts/'))
   //gulp.start('grunt-build:dev', done);
+  //
+	gulp.src(["common/dist/sprites/spritesmith*.css",
+            "common/css/backer.css",
+            "common/css/Mounts.css",
+            "common/css/index.css"], {base: 'common/'})
+	.pipe(minifyCss({compatibility: 'ie8'}))
+	.pipe(rename('habitrpg-shared.css'))
+	.pipe(gulp.dest('common/dist/sprites'));
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
