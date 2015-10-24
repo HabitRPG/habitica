@@ -105,6 +105,7 @@
     "event-stream": "^3.2.2",
     "expect.js": "~0.2.0",
     "gulp-minify-css": "^1.2.1",
+    "gulp-stylus": "^2.1.0",
     "istanbul": "^0.3.14",
     "karma": "~0.10.2",
     "karma-chai-plugins": "~0.1.0",
