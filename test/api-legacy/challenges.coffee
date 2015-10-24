@@ -96,7 +96,7 @@ describe "Challenges", ->
             }, cb
         , (task, cb) ->
           userTodoId = task.id
-          request.put(baseURL + "/user/tasks/" + task.id).send(updateTodo).end (res) ->
+          request.put(baseURL + "/user/tasks/" + task.id).send(updateTodo).end () ->
             cb()
         , (cb) ->
           Challenge.findById challenge._id, (err, chal) ->
@@ -107,7 +107,7 @@ describe "Challenges", ->
           cb()
         , (cb) ->
           request.get(baseURL + "/user/tasks/" + userTodoId)
-            .end (res) ->
+            .end (err, res) ->
               expect(res.body.notes).to.eql("User overriden notes")
               done()
       ]
@@ -150,7 +150,7 @@ describe "Challenges", ->
               'challenge.id': challenge._id
             }, cb
         , (todo, cb) ->
-          request.put(baseURL + "/user/tasks/" + todo._id).send(updateTodo).end (res) ->
+          request.put(baseURL + "/user/tasks/" + todo._id).send(updateTodo).end () ->
             cb()
         , (cb) ->
           Challenge.findById challenge._id, (err, _chal) ->
@@ -161,7 +161,7 @@ describe "Challenges", ->
           expect(chal.todos[0].notes).to.eql("Challenge Notes Todo 1")
           cb()
         , (cb) ->
-          request.get(baseURL + "/challenges/" + challenge._id + "/member/" + user._id).end (res) ->
+          request.get(baseURL + "/challenges/" + challenge._id + "/member/" + user._id).end (err, res) ->
             expect(res.body.todos[res.body.todos.length - 1].notes).to.equal "User overriden notes"
             done()
       ]
@@ -171,8 +171,8 @@ describe "Challenges", ->
       u = _user
       u.getTransformedData (err, u) ->
         numTasks = (_.size(u.todos))
-        request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (res) ->
-          request.post(baseURL + "/user/tasks/clear-completed").end (res) ->
+        request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end () ->
+          request.post(baseURL + "/user/tasks/clear-completed").end (err, res) ->
             expect(_.size(res.body)).to.equal(numTasks - 1)
             done()
 
