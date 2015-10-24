@@ -10,7 +10,10 @@ var moment = require('moment');
 
 var TaskSchema = new Schema({
   _id: {type: String, default: shared.uuid},
-  type: {type: String, enum: ['habit', 'todo', 'daily', 'reward']},
+  // Old id stored in user model, to keep API v2 compatibility, should not modified
+  // if new task, it'll match _id
+  legacyId: {type: String},
+  type: {type: String, enum: ['habit', 'todo', 'daily', 'reward'], required: true, default: 'habit'},
   dateCreated: {type: Date, default: Date.now},
   text: String,
   notes: {type: String, default: ''},
@@ -68,6 +71,16 @@ var TaskSchema = new Schema({
   dateCompleted: Date,
   date: String // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
 }, {minimize: false});
+
+TaskSchema.pre('save', function(next){
+  // Should be removed when legacyId is removed
+  // If the task is a new, post migration task, make sure it legacyId matched _id
+  if(!this.legacyId){
+    this.legacyId = this._id;
+  }
+
+  next();
+});
 
 // Make sure `ìd` is always avalaible for backward compatibility (TODO remove in api v3)
 //TaskSchema.set('toObject', { getters: true });

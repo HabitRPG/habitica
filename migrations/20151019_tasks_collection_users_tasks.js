@@ -9,8 +9,11 @@ var nconf = require('nconf');
 var utils = require('../website/src/utils');
 utils.setupConfig();
 
+// Load async
+var async = require('async');
+
 // Initialize mongoose
-require('mongoose');
+var mongoose = require('mongoose');
 
 var mongooseOptions = {
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
@@ -18,68 +21,146 @@ var mongooseOptions = {
 };
 var db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, function(err) {
   if (err) throw err;
-  logging.info('Connected with Mongoose');
+  console.log('Connected with Mongoose');
 });
 
 //...
 
 var shared = require('../common/script');
+var _ = require('lodash');
 
-// Load models
-var UserModel = require('../website/src/models/user').model;
+// Load models 
+// oldUser will map to original users collection, 
+// newUser to the new collection
+var OldUserModel = require('../website/src/models/userOld').model; // The originals user model
+var NewUserModel = require('../website/src/models/user').model // The new user model
 var TaskModel = require('../website/src/models/task').model;
 
-// ... given an user
+var challengeTasksChangedId = {};
+// ... given a user
 
-// add tasks order arrays
+var processed = 0;
+var batchSize = 1000;
 
-user.tasksOrder = {
-  habits: [],
-  rewards: [],
-  todos: [],
-  dailys: []
-};
+var db; // defined later by MongoClient
+var dbNewUsers;
+var dbTasks;
 
-// ... convert tasks to individual models
-var tasks = user.dailys
-  .concat(user.habits)
-  .concat(user.rewards)
-  .concat(user.todos)
-  .map(function(task) {
-    task._id = task.id;
-    delete task.id;
+var processUser = function(gt) {
+  var query = {
+    _id: {}
+  };
+  if(gt) query._id.$gt = gt;
 
-    task.userId = user._id;
-    task = new TaskModel(task); // this should also fix dailies that wen to the habits array or vice-versa
+  console.log('Launching query', query);
 
-    // In case of a challenge task, assign a new id and link the original task
-    if(task.challenge && task.challenge.id) {
-      task.challenge.taskId = task._id;
-      task._id = shared.uuid();
-    }
-
-    TaskModel.findOne({_id: task._id}, function(err, taskSameId){
+  // take batchsize docs from users and process them
+  OldUserModel
+    .find(query)
+    .lean() // Use plain JS objects as old user data won't match the new model
+    .limit(batchSize)
+    .sort({_id: 1})
+    .exec(function(err, users) {
       if(err) throw err;
 
-      // We already have a task with the same id, change this one
-      if(taskSameId) {
-        task._id = shared.uuid();
+      console.log('Processing ' + users.length + ' users.', 'Already processed: ' + processed);
+
+      var lastUser = null;
+      if(users.length === batchSize){
+        lastUser = users[users.length - 1];
       }
 
-      task.save(function(err, savedTask){
-        if(err) throw err;
+      var tasksToSave = 0;
 
-        user.tasksOrder[savedTask.type + 's'].push(savedTask._id);
+      // Initialize batch operation for later
+      var batchInsertUsers = dbNewUsers.initializeUnorderedBulkOp();
+      var batchInsertTasks = dbTasks.initializeUnorderedBulkOp();
+
+      users.forEach(function(user){
+        // user obj is a plain js object because we used .lean()
+
+        // add tasks order arrays
+        user.tasksOrder = {
+          habits: [],
+          rewards: [],
+          todos: [],
+          dailys: []
+        };
+
+        // ... convert tasks to individual models
+
+        var tasksArr = user.dailys
+                          .concat(user.habits)
+                          .concat(user.todos)
+                          .concat(user.rewards);
+
+        // free memory?
+        user.dailys = user.habits = user.todos = user.rewards = undefined;
+
+        tasksArr.forEach(function(task){
+          task.userId = user._id;
+
+          task._id = shared.uuid(); // we rely on these to be unique... hopefully!
+          task.legacyId = task.id;
+          task.id = undefined;
+
+          task.challenge = task.challenge || {};
+          if(task.challenge.id) {
+            // If challengeTasksChangedId[task._id] then we got on of the duplicates from the challenges migration
+            if (challengeTasksChangedId[task.legacyId]) {
+              var res = _.find(challengeTasksChangedId[task.legacyId], function(arr){
+                return arr[1] === task.challenge.id;
+              });
+
+              // If res, id changed, otherwise matches the original one
+              task.challenge.taskId = res ? res[0] : task.legacyId;
+            } else {
+              task.challenge.taskId = task.legacyId;
+            }
+          }
+
+          if(!task.type) console.log('Task without type ', task._id, ' user ', user._id);
+          
+          task = new TaskModel(task); // this should also fix dailies that wen to the habits array or vice-versa
+          user.tasksOrder[task.type + 's'].push(task._id);
+          tasksToSave++;
+          batchInsertTasks.insert(task.toObject());
+        });
+
+        batchInsertUsers.insert((new NewUserModel(user)).toObject());
       });
+
+      console.log('Saving', users.length, 'users and', tasksToSave, 'tasks');
+
+      // Save in the background and dispatch another processUser();
+
+      batchInsertUsers.execute(function(err, result){
+        if(err) throw err // we can't simply accept errors
+        console.log('Saved', result.nInserted, 'users')
+      });
+
+      batchInsertTasks.execute(function(err, result){
+        if(err) throw err // we can't simply accept errors
+        console.log('Saved', result.nInserted, 'tasks')
+      });
+
+      processed = processed + users.length;
+      if(lastUser && lastUser._id){
+        processUser(lastUser._id);
+      } else {
+        console.log('Done!');
+      }
     });
-  });
+};
 
-delete user.habits;
-delete user.dailys;
-delete user.todos;
-delete user.rewards;
+var MongoClient = require('mongodb').MongoClient;
 
-UserModel.update({_id: user._id}, {
-  $set: {tasksOrder: user.tasksOrder},
-  $unset: {habits: 1, dailys: 1, rewards: 1, todos: 1}
+MongoClient.connect(nconf.get('NODE_DB_URI'), function(err, dbInstance) {
+  if(err) throw err;
+
+  db = dbInstance;
+  dbNewUsers = db.collection('newusers');
+  dbTasks = db.collection('tasks');
+
+  processUser("77777777-7777-7777-7777-777777777777");
 });

@@ -206,4 +206,4 @@ ChallengeSchema.methods.syncToUser = function(user, tasks, cb) {
 
 
 module.exports.schema = ChallengeSchema;
-module.exports.model = mongoose.model("NewChallenge", ChallengeSchema);
+module.exports.model = mongoose.model("Challenge", ChallengeSchema);
