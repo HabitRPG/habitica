@@ -1,4 +1,9 @@
 import gulp from 'gulp';
+import browserify from 'browserify';
+
+let source = require('vinyl-source-stream');
+let rename = require("gulp-rename");
+
 require('gulp-grunt')(gulp);
 
 gulp.task('build', () => {
@@ -10,7 +15,13 @@ gulp.task('build', () => {
 });
 
 gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
-  gulp.start('grunt-build:dev', done);
+	let b = browserify({
+		entries: ['./common/index.js'],
+	});
+
+	b.transform('coffeeify').bundle().pipe(source('index.js')).pipe(rename('habitrpg-shared.js'))
+		.pipe(gulp.dest('common/dist/scripts/'))
+  //gulp.start('grunt-build:dev', done);
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
