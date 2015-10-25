@@ -47,7 +47,10 @@ gulp.task('test:prepare:mongo', (cb) => {
 
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
-    server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" ./node_modules/.bin/nodemon ./website/src/server.js`);
+    server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`, (error, stdout, stderr) => {
+      if (error) { throw `Problem with the server: ${error}`; }
+      if (stderr) { console.error(stderr); }
+    });
   }
 });
 
