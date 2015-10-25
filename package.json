@@ -98,6 +98,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.0",
+    "chai-as-promised": "^5.1.0",
     "coffee-coverage": "~0.4.2",
     "coveralls": "^2.11.2",
     "csv": "~0.3.6",
