@@ -27,6 +27,6 @@ if (_id) {
   db.users.update({_id:_id}, update);
 } else {
   // multiple (once @ start of event)
-  db.users.update({'purchased.plan.customerId':{$ne:null}}, update, {multi:true});
+  db.users.update({$and: [{'purchased.plan.customerId':{$ne:null}},{$or: [{'purchased.plan.dateTerminated':{$gte:new Date()}},{'purchased.plan.dateTerminated':{$eq:null}}]}]}, update, {multi:true});
 }
 
