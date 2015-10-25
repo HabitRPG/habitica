@@ -9,9 +9,9 @@ import Q                          from 'q';
 import Mocha                      from 'mocha';
 import { resolve }                from 'path';
 
-const E2E_TEST_SERVER_PORT  = 3001
-const API_TEST_SERVER_PORT  = 3003
+const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
+let server;
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
@@ -43,6 +43,12 @@ gulp.task('test:prepare:mongo', (cb) => {
     mongoose.connection.close();
     cb();
   });
+});
+
+gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
+  if (!server) {
+    server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`);
+  }
 });
 
 gulp.task('test:prepare:build', (cb) => {
@@ -228,15 +234,15 @@ gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:e2e', ['test:prepare'], (cb) => {
+gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    `NODE_DB_URI="${TEST_DB_URI}" PORT="${E2E_TEST_SERVER_PORT}" node ./website/src/server.js`,
     './node_modules/protractor/bin/webdriver-manager start',
   ].map(exec);
+  support.push(server);
 
   Q.all([
-    awaitPort(3001),
+    awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
     let runner = exec(
@@ -253,15 +259,14 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
   });
 });
 
-gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
+gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    `NODE_DB_URI="${TEST_DB_URI}" PORT="${E2E_TEST_SERVER_PORT}" node ./website/src/server.js`,
     './node_modules/protractor/bin/webdriver-manager start',
   ].map(exec);
 
   Q.all([
-    awaitPort(3001),
+    awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
     let runner = exec(
@@ -285,12 +290,10 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
   });
 });
 
-gulp.task('test:api', ['test:prepare:mongo'], (done) => {
+gulp.task('test:api', ['test:prepare:server'], (done) => {
   require('../test/helpers/globals.helper');
 
-  let server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${API_TEST_SERVER_PORT}" node ./website/src/server.js`);
-
-  awaitPort(API_TEST_SERVER_PORT).then(() => {
+  awaitPort(TEST_SERVER_PORT).then(() => {
     let mocha = new Mocha({reporter: 'spec'});
     let tests = glob('./test/api/**/*.js');
 
@@ -314,10 +317,8 @@ gulp.task('test:api:watch', () => {
   gulp.watch(['website/src/**', 'test/api/**'], ['test:api']);
 });
 
-gulp.task('test:api:safe', ['test:prepare:mongo'], (done) => {
-  let server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${API_TEST_SERVER_PORT}" node ./website/src/server.js`);
-
-  awaitPort(API_TEST_SERVER_PORT).then(() => {
+gulp.task('test:api:safe', ['test:prepare:server'], (done) => {
+  awaitPort(TEST_SERVER_PORT).then(() => {
     let runner = exec(
       testBin(API_TEST_COMMAND),
       (err, stdout, stderr) => {
@@ -327,7 +328,6 @@ gulp.task('test:api:safe', ['test:prepare:mongo'], (done) => {
           fail: testCount(stderr, /(\d+) failing/),
           pend: testCount(stdout, /(\d+) pending/)
         });
-        kill(server);
         done();
       }
     );
@@ -368,6 +368,7 @@ gulp.task('test', [
 
   if (totals[1] > 0) throw "ERROR: There are failing tests!"
   else {
+    kill(server);
     console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
     process.exit();
   }
