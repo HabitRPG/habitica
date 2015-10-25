@@ -9,8 +9,8 @@ describe('POST /groups/:id', () => {
   context('user is not the leader of the group', () => {
     let api, user, otherUser, groupUserDoesNotOwn;
 
-    beforeEach((done) => {
-      Promise.all([
+    beforeEach(() => {
+      return Promise.all([
         generateUser({ balance: 10 }),
         generateUser({ balance: 10 }),
       ]).then((users) => {
@@ -26,25 +26,21 @@ describe('POST /groups/:id', () => {
         });
       }).then((group) => {
         groupUserDoesNotOwn = group;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('does not allow user to update group', (done) => {
-      api.post(`/groups/${groupUserDoesNotOwn._id}`, {
+    it('does not allow user to update group', () => {
+      return expect(api.post(`/groups/${groupUserDoesNotOwn._id}`, {
         name: 'Change'
-      }).then(done).catch((err) => {
-        expect(err).to.eql('Only the group leader can update the group!');
-        done();
-      });
+      })).to.be.rejectedWith('Only the group leader can update the group!');
     });
   });
 
   context('user is the leader of the group', () => {
     let api, user, usersGroup;
 
-    beforeEach((done) => {
-      generateUser({
+    beforeEach(() => {
+      return generateUser({
         balance: 10,
       }).then((_user) => {
         user = _user;
@@ -57,21 +53,19 @@ describe('POST /groups/:id', () => {
         });
       }).then((group) => {
         usersGroup = group;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('allows user to update group', (done) => {
-      api.post(`/groups/${usersGroup._id}`, {
+    it('allows user to update group', () => {
+      return expect(api.post(`/groups/${usersGroup._id}`, {
         name: 'New Group Title',
         description: 'New group description',
       }).then((group) => {
         return api.get(`/groups/${usersGroup._id}`);
-      }).then((group) => {
-        expect(group.name).to.eql('New Group Title');
-        expect(group.description).to.eql('New group description');
-        done();
-      }).catch(done);
+      })).to.eventually.shallowDeepEqual({
+        name: 'New Group Title',
+        description: 'New group description',
+      });
     });
   });
 });
