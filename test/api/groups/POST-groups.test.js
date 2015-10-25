@@ -9,12 +9,11 @@ describe('POST /groups', () => {
   context('All groups', () => {
     let api, leader;
 
-    beforeEach((done) => {
-      generateUser().then((user) => {
+    beforeEach(() => {
+      return generateUser().then((user) => {
         leader = user;
         api = requester(user);
-        done();
-      }).catch(done);
+      });
     });
 
     xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', (done) => {
@@ -29,7 +28,7 @@ describe('POST /groups', () => {
       });
     });
 
-    it('returns a group object', (done) => {
+    it('returns a group object', () => {
       let group = {
         name: 'Test Group',
         type: 'party',
@@ -38,82 +37,53 @@ describe('POST /groups', () => {
         leaderMessage: 'Test Group Message',
       };
 
-      api.post('/groups',
-        group
-      ).then((createdGroup) => {
-        expect(createdGroup._id).to.exist;
-        expect(createdGroup.leader).to.eql(leader._id);
-        expect(createdGroup.name).to.eql(group.name);
-        expect(createdGroup.description).to.eql(group.description);
-        expect(createdGroup.leaderMessage).to.eql(group.leaderMessage);
-        expect(createdGroup.leaderOnly.challenges).to.eql(group.leaderOnly.challenges);
-        expect(createdGroup.memberCount).to.eql(1);
-        expect(createdGroup.members).to.have.a.lengthOf(1);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+      return expect(api.post('/groups', group))
+        .to.eventually.shallowDeepEqual({
+          leader: leader._id,
+          name: group.name,
+          description: group.description,
+          leaderMessage: group.leaderMessage,
+          leaderOnly: group.leaderOnly,
+          memberCount: 1,
+        }).and.to.have.property('_id');
     });
 
-    it('returns a populated members array', (done) => {
-      api.post('/groups', {
+    it('returns a populated members array', () => {
+      return expect(api.post('/groups', {
         type: 'party',
-      }).then((createdGroup) => {
-        let member = createdGroup.members[0];
-
-        expect(member._id).to.eql(leader._id);
-        expect(member.profile.name).to.eql(leader.profile.name);
-        expect(member.items).to.exist;
-        expect(member.stats).to.exist;
-        expect(member.achievements).to.exist;
-        expect(member.contributor).to.exist;
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+      })).to.eventually.have.deep.property('members[0]')
+        .and.to.shallowDeepEqual({
+          _id: leader._id,
+          profile: leader.profile,
+          contributor: leader.contributor,
+        });
     });
   });
 
   context('Parties', () => {
     let api, leader;
 
-    beforeEach((done) => {
-      generateUser().then((user) => {
+    beforeEach(() => {
+      return generateUser().then((user) => {
         leader = user;
         api = requester(user);
-        done();
-      }).catch(done);
-    });
-
-    it('allows party creation without gems', (done) => {
-      api.post('/groups', {
-        type: 'party',
-      })
-      .then((group) => {
-        expect(group._id).to.exist;
-        done();
-      })
-      .catch((err) => {
-        done(err);
       });
     });
 
-    it('prevents party creation if user is already in party', (done) => {
-      generateGroup(leader, {
+    it('allows party creation without gems', () => {
+      return expect(api.post('/groups', {
+        type: 'party',
+      })).to.eventually.have.property('_id');
+    });
+
+    it('prevents party creation if user is already in party', () => {
+      return expect(generateGroup(leader, {
         type: 'party',
       }).then((group) => {
         return api.post('/groups', {
           type: 'party',
         });
-      }).then((group) => {
-        done('Unexpected success');
-      })
-      .catch((err) => {
-        expect(err).to.eql('Already in a party, try refreshing.');
-        done();
-      });
+      })).to.be.rejectedWith('Already in a party, try refreshing.');
     })
 
     xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', (done) => {
@@ -134,73 +104,49 @@ describe('POST /groups', () => {
   context('Guilds', () => {
     let api, leader;
 
-    beforeEach((done) => {
-      generateUser({
+    beforeEach(() => {
+      return generateUser({
         balance: 2,
       }).then((user) => {
         leader = user;
         api = requester(user);
-        done();
-      }).catch(done);
+      });
     });
 
-    it('prevents guild creation when user does not have enough gems', (done) => {
-      generateUser({
+    it('prevents guild creation when user does not have enough gems', () => {
+      return expect(generateUser({
         balance: 0.75,
       }).then((user) => {
         api = requester(user);
         return api.post('/groups', {
           type: 'guild',
         });
-      }).then((group) => {
-        done('Unexpected success');
-      }).catch((err) => {
-        expect(err).to.eql('Not enough gems!');
-        done();
-      });
+      })).to.be.rejectedWith('Not enough gems!');
     });
 
 
-    it('can create a public guild', (done) => {
-      api.post('/groups', {
+    it('can create a public guild', () => {
+      return expect(api.post('/groups', {
         type: 'guild',
         privacy: 'public',
-      }).then((group) => {
-        expect(group.leader).to.eql(leader._id);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+      })).to.eventually.have.property('leader', leader._id);
     });
 
-    it('can create a private guild', (done) => {
-      api.post('/groups', {
+    it('can create a private guild', () => {
+      return expect(api.post('/groups', {
         type: 'guild',
         privacy: 'private',
-      }).then((group) => {
-        expect(group.leader).to.eql(leader._id);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+      })).to.eventually.have.property('leader', leader._id);
     });
 
-    it('deducts gems from user and adds them to guild bank', (done) => {
-      api.post('/groups', {
+    it('deducts gems from user and adds them to guild bank', () => {
+      return expect(api.post('/groups', {
         type: 'guild',
         privacy: 'private',
       }).then((group) => {
         expect(group.balance).to.eql(1);
         return api.get('/user');
-      }).then((user) => {
-        expect(user.balance).to.eql(1);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+      })).to.eventually.have.deep.property('balance', 1);
     });
   });
 });
