@@ -6,14 +6,17 @@ import {
 } from '../../helpers/api.helper';
 
 describe('GET /groups', () => {
+  const NUMBER_OF_PUBLIC_GUILDS = 3;
+  const NUMBER_OF_USERS_GUILDS = 2;
+
   let user, api;
 
-  before((done) => {
+  before(() => {
     let leader, createdGroup;
 
     // Set up a world with a mixture of public and private guilds
     // Invite user to a few of them
-    resetHabiticaDB().then(() => {
+    return resetHabiticaDB().then(() => {
       return generateUser();
     }).then((_user) => {
       user = _user;
@@ -73,10 +76,7 @@ describe('GET /groups', () => {
         name: 'user\'s party',
         privacy: 'private',
       });
-    })
-    .then((party) => {
-      done();
-    }).catch(done);
+    });
   });
 
   context('no query passed in', () => {
@@ -91,52 +91,37 @@ describe('GET /groups', () => {
 
   context('tavern passed in as query', () => {
 
-    it('returns only the tavern', (done) => {
-      api.get('/groups', null, {type: 'tavern'}).then((groups) => {
-        expect(groups).to.have.a.lengthOf(1);
-
-        let tavern = groups[0];
-        expect(tavern._id).to.eql('habitrpg');
-        done();
-      }).catch((err) => {
-        done(err);
-      });
+    it('returns only the tavern', () => {
+      return expect(api.get('/groups', null, {type: 'tavern'}))
+        .to.eventually.have.a.lengthOf(1)
+        .and.to.have.deep.property('[0]')
+        .and.to.have.property('_id', 'habitrpg');
     });
   });
 
   context('party passed in as query', () => {
 
-    it('returns only the user\'s party', (done) => {
-      api.get('/groups', null, {type: 'party'}).then((groups) => {
-        expect(groups).to.have.a.lengthOf(1);
-
-        let party = groups[0];
-        expect(party.leader).to.eql(user._id);
-
-        done();
-      }).catch(done);
+    it('returns only the user\'s party', () => {
+      return expect(api.get('/groups', null, {type: 'party'}))
+        .to.eventually.have.a.lengthOf(1)
+        .and.to.have.deep.property('[0]')
+        .and.to.have.property('leader', user._id);
     });
   });
 
   context('public passed in as query', () => {
 
-    it('returns all public guilds', (done) => {
-      api.get('/groups', null, {type: 'public'}).then((groups) => {
-        expect(groups).to.have.a.lengthOf(3);
-
-        done();
-      }).catch(done);
+    it('returns all public guilds', () => {
+      return expect(api.get('/groups', null, {type: 'public'}))
+        .to.eventually.have.a.lengthOf(NUMBER_OF_PUBLIC_GUILDS);
     });
   });
 
   context('guilds passed in as query', () => {
 
-    it('returns all guilds user is a part of ', (done) => {
-      api.get('/groups', null, {type: 'guilds'}).then((groups) => {
-        expect(groups).to.have.a.lengthOf(2);
-
-        done();
-      }).catch(done);
+    it('returns all guilds user is a part of ', () => {
+      return expect(api.get('/groups', null, {type: 'guilds'}))
+        .to.eventually.have.a.lengthOf(NUMBER_OF_USERS_GUILDS);
     });
   });
 });
