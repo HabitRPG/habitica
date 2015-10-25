@@ -13,8 +13,8 @@ describe('POST /groups/:id/join', () => {
   context('public guild has no leader', () => {
     let user, group;
 
-    beforeEach((done) => {
-      createAndPopulateGroup({
+    beforeEach(() => {
+      return createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
           type: 'guild',
@@ -27,18 +27,14 @@ describe('POST /groups/:id/join', () => {
         return generateUser();
       }).then((generatedUser) => {
         user = generatedUser;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('makes the joining user the leader', (done) => {
+    it('makes the joining user the leader', () => {
       let api = requester(user);
-      api.post(`/groups/${group._id}/join`).then((result) => {
+      return expect(api.post(`/groups/${group._id}/join`).then((result) => {
         return api.get(`/groups/${group._id}`);
-      }).then((group) => {
-        expect(group.leader._id).to.eql(user._id);
-        done();
-      }).catch(done);
+      })).to.eventually.have.deep.property('leader._id', user._id);
     });
   });
 });
