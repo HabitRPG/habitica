@@ -57,14 +57,14 @@ describe('POST /groups/:id', () => {
     });
 
     it('allows user to update group', () => {
-      return expect(api.post(`/groups/${usersGroup._id}`, {
+      return api.post(`/groups/${usersGroup._id}`, {
         name: 'New Group Title',
         description: 'New group description',
       }).then((group) => {
         return api.get(`/groups/${usersGroup._id}`);
-      })).to.eventually.shallowDeepEqual({
-        name: 'New Group Title',
-        description: 'New group description',
+      }).then((group) => {
+        expect(group.name).to.eql('New Group Title');
+        expect(group.description).to.eql('New group description');
       });
     });
   });

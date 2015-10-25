@@ -34,26 +34,26 @@ describe('POST /groups', () => {
         leaderMessage: 'Test Group Message',
       };
 
-      return expect(api.post('/groups', group))
-        .to.eventually.shallowDeepEqual({
-          leader: leader._id,
-          name: group.name,
-          description: group.description,
-          leaderMessage: group.leaderMessage,
-          leaderOnly: group.leaderOnly,
-          memberCount: 1,
-        }).and.to.have.property('_id');
+      return api.post('/groups', group).then((createdGroup) => {
+        expect(createdGroup._id).to.exist;
+        expect(createdGroup.leader).to.eql(leader._id);
+        expect(createdGroup.name).to.eql(group.name);
+        expect(createdGroup.description).to.eql(group.description);
+        expect(createdGroup.leaderMessage).to.eql(group.leaderMessage);
+        expect(createdGroup.leaderOnly).to.eql(group.leaderOnly);
+        expect(createdGroup.memberCount).to.eql(1);
+      });
     });
 
     it('returns a populated members array', () => {
-      return expect(api.post('/groups', {
+      return api.post('/groups', {
         type: 'party',
-      })).to.eventually.have.deep.property('members[0]')
-        .and.to.shallowDeepEqual({
-          _id: leader._id,
-          profile: leader.profile,
-          contributor: leader.contributor,
-        });
+      }).then((party) => {
+        let member = party.members[0];
+        expect(member._id).to.eql(leader._id);
+        expect(member.profile).to.eql(leader.profile);
+        expect(member.contributor).to.eql(leader.contributor);
+      });
     });
   });
 

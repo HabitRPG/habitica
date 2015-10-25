@@ -36,13 +36,12 @@ describe('GET /groups/:id', () => {
 
       it('returns the group object', () => {
         let api = requester(member);
-        return expect(api.get(`/groups/${createdGroup._id}`))
-          .to.eventually.shallowDeepEqual({
-            _id: createdGroup._id,
-            name: createdGroup.name,
-            type: createdGroup.type,
-            privacy: createdGroup.privacy,
-          });
+        return api.get(`/groups/${createdGroup._id}`).then((group) => {
+          expect(group._id).to.eql(createdGroup._id);
+          expect(group.name).to.eql(createdGroup.name);
+          expect(group.type).to.eql(createdGroup.type);
+          expect(group.privacy).to.eql(createdGroup.privacy);
+        });
       });
 
       it('transforms members array to an array of user objects', () => {
