@@ -99,7 +99,6 @@ describe('GET /groups', () => {
         expect(tavern._id).to.eql('habitrpg');
         done();
       }).catch((err) => {
-        console.log(err);
         done(err);
       });
     });

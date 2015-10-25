@@ -40,8 +40,7 @@ describe('POST /groups/:id/removeMember', () => {
       api.post(`/groups/${group._id}/removeMember`, null, {
         uuid: leader._id,
       }).then(done).catch((err) => {
-        expect(err.code).to.eql(401);
-        expect(err.text).to.eql('You cannot remove yourself!');
+        expect(err).to.eql('You cannot remove yourself!');
         done();
       });
     });

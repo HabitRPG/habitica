@@ -159,8 +159,7 @@ describe('GET /groups/:id', () => {
       let api = requester(nonMember);
       api.get(`/groups/${createdGroup._id}`)
         .then((done)).catch((err) => {
-          expect(err.code).to.eql(404);
-          expect(err.text).to.eql('Group not found or you don\'t have access.');
+          expect(err).to.eql('Group not found or you don\'t have access.');
           done()
       });
     });
@@ -191,8 +190,7 @@ describe('GET /groups/:id', () => {
       let api = requester(nonMember);
       api.get(`/groups/${createdGroup._id}`)
         .then((done)).catch((err) => {
-          expect(err.code).to.eql(404);
-          expect(err.text).to.eql('Group not found or you don\'t have access.');
+          expect(err).to.eql('Group not found or you don\'t have access.');
           done()
         });
     });
@@ -244,8 +242,7 @@ describe('GET /groups/:id', () => {
       let api = requester(user);
       api.get('/groups/group-that-does-not-exist')
         .then((done)).catch((err) => {
-          expect(err.code).to.eql(404);
-          expect(err.text).to.eql('Group not found or you don\'t have access.');
+          expect(err).to.eql('Group not found or you don\'t have access.');
           done()
         });
     });

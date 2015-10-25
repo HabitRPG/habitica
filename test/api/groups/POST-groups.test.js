@@ -111,8 +111,7 @@ describe('POST /groups', () => {
         done('Unexpected success');
       })
       .catch((err) => {
-        expect(err.code).to.eql(400);
-        expect(err.text).to.eql('Already in a party, try refreshing.');
+        expect(err).to.eql('Already in a party, try refreshing.');
         done();
       });
     })
@@ -126,8 +125,7 @@ describe('POST /groups', () => {
         done('Unexpected success');
       })
       .catch((err) => {
-        expect(err.code).to.eql(400);
-        expect(err.text).to.eql('Parties must be private');
+        expect(err).to.eql('Parties must be private');
         done();
       });
     });
@@ -157,8 +155,7 @@ describe('POST /groups', () => {
       }).then((group) => {
         done('Unexpected success');
       }).catch((err) => {
-        expect(err.code).to.eql(401);
-        expect(err.text).to.eql('Not enough gems!');
+        expect(err).to.eql('Not enough gems!');
         done();
       });
     });

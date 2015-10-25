@@ -16,13 +16,13 @@ describe('DELETE /user', () => {
   it('deletes the user', (done) => {
     api.del('/user')
       .then((fetchedUser) => {
-        return api.get('/user')
+        return api.get('/user');
       })
       .then((deletedUser) => {
         done('Unexpected user');
       })
       .catch((err) => {
-        expect(err.code).to.eql(401);
+        expect(err).to.eql('No user found.');
         done();
       });
   });

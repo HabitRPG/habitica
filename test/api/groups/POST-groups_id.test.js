@@ -34,8 +34,7 @@ describe('POST /groups/:id', () => {
       api.post(`/groups/${groupUserDoesNotOwn._id}`, {
         name: 'Change'
       }).then(done).catch((err) => {
-        expect(err.code).to.eql(401);
-        expect(err.text).to.eql('Only the group leader can update the group!');
+        expect(err).to.eql('Only the group leader can update the group!');
         done();
       });
     });

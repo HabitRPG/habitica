@@ -90,8 +90,7 @@ describe('POST /groups/:id/leave', () => {
       api.post(`/groups/${group._id}/leave`).then((result) => {
         return api.get(`/groups/${group._id}`);
       }).then(done).catch((err) => {
-        expect(err.code).to.eql(404);
-        expect(err.text).to.eql('Group not found or you don\'t have access.');
+        expect(err).to.eql('Group not found or you don\'t have access.');
         done();
       });
     });
