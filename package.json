@@ -125,6 +125,7 @@
     "mocha": "^2.3.3",
     "mongodb": "^2.0.46",
     "mongoskin": "~0.6.1",
+    "nodemon": "^1.8.0",
     "protractor": "~2.0.0",
     "rewire": "^2.3.3",
     "shelljs": "^0.4.0",

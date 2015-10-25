@@ -47,7 +47,7 @@ gulp.task('test:prepare:mongo', (cb) => {
 
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
-    server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`);
+    server = exec(`NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" ./node_modules/.bin/nodemon ./website/src/server.js`);
   }
 });
 
@@ -312,7 +312,7 @@ gulp.task('test:api', ['test:prepare:server'], (done) => {
   });
 });
 
-gulp.task('test:api:watch', () => {
+gulp.task('test:api:watch', ['test:prepare:server'], () => {
   process.env.RUN_INTEGRATION_TEST_FOREVER = true;
   gulp.watch(['website/src/**', 'test/api/**'], ['test:api']);
 });
