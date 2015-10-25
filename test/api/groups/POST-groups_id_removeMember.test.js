@@ -41,15 +41,14 @@ describe('POST /groups/:id/removeMember', () => {
       })).to.be.rejectedWith('You cannot remove yourself!');
     });
 
-    it('can remove other members of guild', (done) => {
-      api.post(`/groups/${group._id}/removeMember`, null, {
+    it('can remove other members of guild', () => {
+      return api.post(`/groups/${group._id}/removeMember`, null, {
         uuid: member._id,
       }).then((res) => {
         return api.get(`/groups/${group._id}`);
       }).then((guild) => {
         expect(guild.members).to.have.a.lengthOf(1);
         expect(guild.members[0]._id).to.not.eql(member._id);
-        done();
       });
     });
   });

@@ -12,14 +12,13 @@ describe('GET /user', () => {
     });
   });
 
-  it('gets the user object', (done) => {
+  it('gets the user object', () => {
     let api = requester(user);
-    api.get('/user').then((fetchedUser) => {
+    return api.get('/user').then((fetchedUser) => {
       expect(fetchedUser._id).to.eql(user._id);
       expect(fetchedUser.auth.local.username).to.eql(user.auth.local.username);
       expect(fetchedUser.todos).to.eql(user.todos);
       expect(fetchedUser.items).to.eql(user.items);
-      done();
     });
   });
 });

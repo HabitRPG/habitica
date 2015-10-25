@@ -30,16 +30,15 @@ describe('POST /groups/:id/leave', () => {
       });
     });
 
-    it('leaves the group', (done) => {
-      api.post(`/groups/${group._id}/leave`).then((result) => {
+    it('leaves the group', () => {
+      return api.post(`/groups/${group._id}/leave`).then((result) => {
         return api.get(`/groups/${group._id}`);
       }).then((group) => {
         let userInGroup = find(group.members, (member) => {
           return member._id === user._id;
         });
         expect(userInGroup).to.not.be.ok;
-        done();
-      }).catch(done);
+      });
     });
   });
 

@@ -7,13 +7,13 @@ import {v4 as generateRandomUserName} from 'uuid';
 describe('POST /register', () => {
 
   context('username and email are free', () => {
-    it('registers a new user', (done) => {
+    it('registers a new user', () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';
 
-      api.post('/register', {
+      return api.post('/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -22,7 +22,6 @@ describe('POST /register', () => {
         expect(user._id).to.exist;
         expect(user.apiToken).to.exist;
         expect(user.auth.local.username).to.eql(username);
-        done();
       });
     });
 
