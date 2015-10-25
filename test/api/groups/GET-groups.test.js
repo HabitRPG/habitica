@@ -81,12 +81,7 @@ describe('GET /groups', () => {
 
   context('no query passed in', () => {
 
-    xit('lists all public guilds, the tavern, user\'s party, and any private guilds that user is a part of - TODO query includes duplicates - IE, tavern is included as tavern and part of public guilds. Refactor so this is not the case', (done) => {
-      api.get('/groups').then((groups) => {
-        expect(groups.length).to.eql(4);
-        done();
-      }).catch(done);
-    });
+    xit('lists all public guilds, the tavern, user\'s party, and any private guilds that user is a part of - TODO query includes duplicates - IE, tavern is included as tavern and part of public guilds. Refactor so this is not the case');
   });
 
   context('tavern passed in as query', () => {

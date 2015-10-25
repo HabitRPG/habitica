@@ -16,15 +16,12 @@ describe('POST /groups', () => {
       });
     });
 
-    xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', (done) => {
-      api.post('/groups').then((group) => {
+    xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', () => {
+      return api.post('/groups').then((group) => {
         expect(group._id).to.exist;
         expect(group.name).to.eql(`${leader.profile.name}'s group`);
         expect(group.type).to.eql('party');
         expect(group.privacy).to.eql('private');
-        done();
-      }).catch((err) => {
-        done(err);
       });
     });
 
@@ -86,18 +83,11 @@ describe('POST /groups', () => {
       })).to.be.rejectedWith('Already in a party, try refreshing.');
     })
 
-    xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', (done) => {
-      api.post('/groups', {
+    xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', () => {
+      return expect(api.post('/groups', {
         type: 'party',
         privacy: 'public',
-      })
-      .then((group) => {
-        done('Unexpected success');
-      })
-      .catch((err) => {
-        expect(err).to.eql('Parties must be private');
-        done();
-      });
+      })).to.be.rejectedWith('Parties must be private');
     });
   });
 
