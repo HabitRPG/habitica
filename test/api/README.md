@@ -30,7 +30,7 @@ You can also run a watch command for the api tests. This will allow the tests to
 $ gulp test:api:watch
 ```
 
-One caveat. If you have a severe syntax error in your files the tests may fail to run, but they won't alert you that they are not running. If you ever find your test hanging for a while, run this to get the stackstrace. Once you've fixed the problem, you can resume running the watch comand.
+One caveat. If you have a severe syntax error in your files, the tests may fail to run, but they won't alert you that they are not running. If you ever find your test hanging for a while, run this to get the stackstrace. Once you've fixed the problem, you can resume running the watch comand.
 
 ```bash
 $ gulp test:api:safe
@@ -55,12 +55,12 @@ POST-groups_id_leave.test.js
 
 ## Promises
 
-To mitigate [callback hell](http://callbackhell.com/) :imp:, we've written helper methods that [return promises](https://babeljs.io/docs/learn-es2015/#promises). This makes it very easy to chain together commands. All you need to do to make a subsequent request is return another promise and then call `.then((result) => {})` on the surrounding block, like so:
+To mitigate [callback hell](http://callbackhell.com/) :imp:, we've written helper methods that [return promises](https://babeljs.io/docs/learn-es2015/#promises).  This makes it very easy to chain together commands. All you need to do to make a subsequent request is return another promise and then call `.then((result) => {})` on the surrounding block, like so:
 
 ```js
-it('does something', (done) => { // Since it's an asynronous test, we need to pass the done callback
+it('does something', () => { 
   let request;
-  generateUser().then((user) => {
+  return generateUser().then((user) => { // We return the initial promise so this test can be run asyncronously
     request = requester(user);
     return request.post('/groups', {
       type: 'party',
@@ -73,8 +73,28 @@ it('does something', (done) => { // Since it's an asynronous test, we need to pa
     return request.get('/groups/party');
   }).then((party) => {
     expect(party.name).to.eql('My party');
-    done(); // Call this function to end the test
-  }).catch(done); // If there is an error, it'll call the function done with that error, which will fail the test
+  });
+});
+```
+
+If the test is simple, you can use the [chai-as-promised](http://chaijs.com/plugins/chai-as-promised) `return expect(somePromise).to.eventually` syntax to make your assertion.
+
+```js
+it('makes the party creator the leader automatically', () => { 
+  let api = requester(user);
+  return expect(request.post('/groups', {
+    type: 'party',
+  })).to.eventually.have.deep.property('leader._id', user._id);
+});
+```
+
+If the test is checking that the request returns an error, use the `rejectedWith` syntax.
+
+```js
+it('returns an error', () => { 
+  let api = requester(user);
+  return expect(request.get('/groups/id-of-a-party-that-user-does-not-belong-to'))
+    .to.be.rejectedWith('Group not found or you don\'t have access.');
 });
 ```
 
