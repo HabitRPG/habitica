@@ -18,8 +18,8 @@ describe('POST /groups/:id/removeMember', () => {
   context('user is the leader of a guild', () => {
     let api, leader, member, group;
 
-    beforeEach((done) => {
-      createAndPopulateGroup({
+    beforeEach(() => {
+      return createAndPopulateGroup({
         members: 1,
         groupDetails: {
           name: 'test group',
@@ -32,17 +32,13 @@ describe('POST /groups/:id/removeMember', () => {
         group = res.group;
 
         api = requester(leader);
-        done();
-      }).catch(done);
+      });
     });
 
-    it('does not allow leader to remove themselves', (done) => {
-      api.post(`/groups/${group._id}/removeMember`, null, {
+    it('does not allow leader to remove themselves', () => {
+      return expect(api.post(`/groups/${group._id}/removeMember`, null, {
         uuid: leader._id,
-      }).then(done).catch((err) => {
-        expect(err).to.eql('You cannot remove yourself!');
-        done();
-      });
+      })).to.be.rejectedWith('You cannot remove yourself!');
     });
 
     it('can remove other members of guild', (done) => {
@@ -54,7 +50,7 @@ describe('POST /groups/:id/removeMember', () => {
         expect(guild.members).to.have.a.lengthOf(1);
         expect(guild.members[0]._id).to.not.eql(member._id);
         done();
-      }).catch(done);
+      });
     });
   });
 });
