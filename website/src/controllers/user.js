@@ -298,10 +298,9 @@ acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function
   return m;
 }, {})
 
-//// Uncomment this if we we want to disable GP-restoring (eg, holiday events)
-//_.each('stats.gp'.split(' '), function(removePath){
-//  delete acceptablePUTPaths[removePath];
-//})
+_.each('stats.class'.split(' '), function(removePath){
+ delete acceptablePUTPaths[removePath];
+})
 
 /**
  * Update user
