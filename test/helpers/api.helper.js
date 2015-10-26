@@ -188,7 +188,10 @@ function _requestMaker(user, method) {
           if (err) {
             if (!err.response) return reject(err);
             let errorString = JSON.parse(err.response.text).err;
-            return reject(errorString);
+            return reject({
+              code: err.response.statusCode,
+              text: errorString,
+            });
           }
 
           resolve(response.body);

@@ -80,14 +80,20 @@ describe('POST /groups', () => {
         return api.post('/groups', {
           type: 'party',
         });
-      })).to.be.rejectedWith('Already in a party, try refreshing.');
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        text: 'Already in a party, try refreshing.',
+      });
     })
 
     xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', () => {
       return expect(api.post('/groups', {
         type: 'party',
         privacy: 'public',
-      })).to.be.rejectedWith('Parties must be private');
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        text: 'Parties must be private',
+      });
     });
   });
 
@@ -111,7 +117,10 @@ describe('POST /groups', () => {
         return api.post('/groups', {
           type: 'guild',
         });
-      })).to.be.rejectedWith('Not enough gems!');
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: 'Not enough gems!',
+      });
     });
 
 

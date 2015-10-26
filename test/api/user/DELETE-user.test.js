@@ -15,7 +15,10 @@ describe('DELETE /user', () => {
   it('deletes the user', () => {
     return expect(api.del('/user').then((fetchedUser) => {
       return api.get('/user');
-    })).to.be.rejectedWith('No user found.');
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      text: 'No user found.',
+    });
   });
 
   context('user in solo group', () => {

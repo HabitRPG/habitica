@@ -86,7 +86,10 @@ describe('POST /groups/:id/leave', () => {
     it('group is not accessible after leaving', () => {
       return expect(api.post(`/groups/${group._id}/leave`).then((result) => {
         return api.get(`/groups/${group._id}`);
-      })).to.be.rejectedWith('Group not found or you don\'t have access.');
+      })).to.eventually.be.rejected.and.eql({
+        code: 404,
+        text: 'Group not found or you don\'t have access.',
+      });
     });
   });
 

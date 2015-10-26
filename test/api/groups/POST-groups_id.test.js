@@ -32,7 +32,10 @@ describe('POST /groups/:id', () => {
     it('does not allow user to update group', () => {
       return expect(api.post(`/groups/${groupUserDoesNotOwn._id}`, {
         name: 'Change'
-      })).to.be.rejectedWith('Only the group leader can update the group!');
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: 'Only the group leader can update the group!',
+      });
     });
   });
 
