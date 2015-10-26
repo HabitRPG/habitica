@@ -299,7 +299,7 @@ acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function
 }, {})
 
 _.each('stats.class'.split(' '), function(removePath){
- delete acceptablePUTPaths[removePath];
+  delete acceptablePUTPaths[removePath];
 })
 
 /**
@@ -317,7 +317,7 @@ api.update = function(req, res, next) {
     if (acceptablePUTPaths[k])
       user.fns.dotSet(k, v);
     else
-      errors.push("path `" + k + "` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.");
+      errors.push("path `" + k + "` was not saved, as it's a protected path.");
     return true;
   });
   user.save(function(err) {

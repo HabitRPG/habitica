@@ -44,7 +44,7 @@ describe.only('PUT /user', () => {
       it(`does not allow updating ${testName}`, () => {
         let errorText = [];
         each(data, (value, path) => {
-          errorText.push(`path \`${path}\` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.`);
+          errorText.push(`path \`${path}\` was not saved, as it's a protected path.`);
         });
         return expect(api.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,
@@ -63,7 +63,7 @@ describe.only('PUT /user', () => {
       it(`does not allow updating ${testName}`, () => {
         let errorText = [];
         each(data, (value, path) => {
-          errorText.push(`path \`${path}\` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.`);
+          errorText.push(`path \`${path}\` was not saved, as it's a protected path.`);
         });
         return expect(api.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,
