@@ -1,9 +1,5 @@
 div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAccepted')
-  p=env.t('requestAcceptGuidelines1')
-    |&nbsp;
-    a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
-    |&nbsp;
-    =env.t('requestAcceptGuidelines2')
+  p!=env.t('requestAcceptGuidelines', {linkStart: '<a target="_blank", href="/static/community-guidelines">', linkEnd: '</a>'})
   .chat-controls
     div
       button.btn.btn-warning(ng-click='acceptCommunityGuidelines()')=env.t('iAcceptCommunityGuidelines')
