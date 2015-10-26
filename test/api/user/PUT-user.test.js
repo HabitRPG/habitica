@@ -20,9 +20,11 @@ describe.only('PUT /user', () => {
       return api.put('/user', {
         'profile.name' : 'Frodo',
         'preferences.costume': true,
+        'stats.hp': 14,
       }).then((updatedUser) => {
         expect(updatedUser.profile.name).to.eql('Frodo');
         expect(updatedUser.preferences.costume).to.eql(true);
+        expect(updatedUser.stats.hp).to.eql(14);
       });
     });
   });
