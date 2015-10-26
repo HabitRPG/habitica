@@ -29,7 +29,7 @@ describe.only('PUT /user', () => {
     });
   });
 
-  context('protected paths', () => {
+  context('top level protected paths', () => {
     let protectedPaths = {
       'gem balance': {balance: 100},
       'auth': {'auth.blocked': true, 'auth.timestamps.created': new Date()},
