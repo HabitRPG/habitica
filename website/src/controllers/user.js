@@ -298,10 +298,9 @@ acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function
   return m;
 }, {})
 
-//// Uncomment this if we we want to disable GP-restoring (eg, holiday events)
-//_.each('stats.gp'.split(' '), function(removePath){
-//  delete acceptablePUTPaths[removePath];
-//})
+_.each('stats.class'.split(' '), function(removePath){
+  delete acceptablePUTPaths[removePath];
+})
 
 /**
  * Update user
@@ -318,7 +317,7 @@ api.update = function(req, res, next) {
     if (acceptablePUTPaths[k])
       user.fns.dotSet(k, v);
     else
-      errors.push("path `" + k + "` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.");
+      errors.push("path `" + k + "` was not saved, as it's a protected path.");
     return true;
   });
   user.save(function(err) {

@@ -16,7 +16,7 @@ describe "Chat", ->
         request.post(baseURL + "/groups").send(
           name: "TestGroup"
           type: "party"
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 200
           group = res.body
           expect(group.members.length).to.equal 1
@@ -28,7 +28,7 @@ describe "Chat", ->
   chat = undefined
   it "posts a message to party chat", (done) ->
     msg = "TestMsg"
-    request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).end (res) ->
+    request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).end (err, res) ->
       expectCode res, 200
       chat = res.body.message
       expect(chat.id).to.be.ok
@@ -47,14 +47,14 @@ describe "Chat", ->
   it "does not post an empty message", (done) ->
     msg = ""
     request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
-    ).end (res) ->
+    ).end (err, res) ->
       expectCode res, 400
       expect(res.body.err).to.equal 'You cannot send a blank message'
       done()
 
   it "can not like own chat message", (done) ->
     request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/like").send(
-    ).end (res) ->
+    ).end (err, res) ->
       expectCode res, 401
       body = res.body
       expect(body.err).to.equal "Can't like your own message. Don't be that person."
@@ -62,7 +62,7 @@ describe "Chat", ->
 
   it "can not flag own message", (done) ->
     request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/flag").send(
-    ).end (res) ->
+    ).end (err, res) ->
       expectCode res, 401
       body = res.body
       expect(body.err).to.equal "Can't report your own message."
@@ -70,7 +70,7 @@ describe "Chat", ->
 
   it "gets chat messages from party chat", (done) ->
     request.get(baseURL + "/groups/" + group._id + "/chat").send(
-    ).end (res) ->
+    ).end (err, res) ->
       expectCode res, 200
       message = res.body[0]
       expect(message.id).to.equal chat.id
@@ -86,14 +86,14 @@ describe "Chat", ->
 
   it "deletes a chat messages from party chat", (done) ->
     request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
-    ).end (res) ->
+    ).end (err, res) ->
       expectCode res, 204
       expect(res.body).to.be.empty
       done()
 
   it "can not delete already deleted message", (done) ->
     request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
-    ).end (res) ->
+    ).end (err, res) ->
       expectCode res, 404
       body = res.body
       expect(body.err).to.equal "Message not found!"
@@ -116,30 +116,30 @@ describe "Chat", ->
         request.post(baseURL + "/groups/" + group._id + "/join")
           .set("X-API-User", userToRemove._id)
           .set("X-API-Key", userToRemove.apiToken)
-          .end (res) -> cb()
+          .end (err, res) -> cb()
 
       (cb) ->
         msg = "TestMsg"
         request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg)
-          .end (res) -> cb()
+          .end (err, res) -> cb()
 
       (cb) ->
         request.get(baseURL + "/user")
           .set("X-API-User", userToRemove._id)
           .set("X-API-Key", userToRemove.apiToken)
-          .end (res) ->
+          .end (err, res) ->
             expect(res.body.newMessages[group._id]).to.exist
             cb()
 
       (cb) ->
         request.post(baseURL + "/groups/" + group._id + "/removeMember?uuid=" + userToRemove._id)
-          .end (res) -> cb()
+          .end (err, res) -> cb()
 
       (cb) ->
         request.get(baseURL + "/user")
           .set("X-API-User", userToRemove._id)
           .set("X-API-Key", userToRemove.apiToken)
-          .end (res) ->
+          .end (err, res) ->
             expect(res.body.newMessages[group._id]).to.not.exist
             cb()
     ], done

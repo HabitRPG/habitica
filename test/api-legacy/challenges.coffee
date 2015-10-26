@@ -18,7 +18,7 @@ describe "Challenges", ->
         request.post(baseURL + "/groups").send(
           name: "TestGroup"
           type: "party"
-        ).end (res) ->
+        ).end (err, res) ->
           expectCode res, 200
           group = res.body
           expect(group.members.length).to.equal 1
@@ -38,7 +38,7 @@ describe "Challenges", ->
           }]
           rewards: []
           habits: []
-        ).end (res) ->
+        ).end (err, res) ->
           challenge = res.body
           done()
       ]
@@ -64,7 +64,7 @@ describe "Challenges", ->
         rewards: []
         habits: []
         official: true
-      ).end (res) ->
+      ).end (err, res) ->
         expectCode res, 200
         async.parallel [
           (cb) ->
@@ -84,7 +84,7 @@ describe "Challenges", ->
       updateTodo.notes = "User overriden notes"
       async.waterfall [
         (cb) ->
-          request.put(baseURL + "/user/tasks/" + updateTodo.id).send(updateTodo).end (res) ->
+          request.put(baseURL + "/user/tasks/" + updateTodo.id).send(updateTodo).end (err, res) ->
             cb()
         , (cb) ->
           Challenge.findById challenge._id, cb
@@ -93,7 +93,7 @@ describe "Challenges", ->
           cb()
         , (cb) ->
           request.get(baseURL + "/user/tasks/" + updateTodo.id)
-            .end (res) ->
+            .end (err, res) ->
               expect(res.body.notes).to.eql("User overriden notes")
               done()
       ]
@@ -102,7 +102,7 @@ describe "Challenges", ->
       challenge.dailys[0].text = "Updated Daily"
       request.post(baseURL + "/challenges/" + challenge._id)
         .send(challenge)
-        .end (res) ->
+        .end (err, res) ->
           challenge = res.body
           expect(challenge.dailys[0].text).to.equal "Updated Daily"
           User.findById user._id, (err, _user) ->
@@ -114,7 +114,7 @@ describe "Challenges", ->
       challenge.todos[0].notes = "Challenge Updated Todo Notes"
       request.post(baseURL + "/challenges/" + challenge._id)
         .send(challenge)
-        .end (res) ->
+        .end (err, res) ->
           challenge = res.body
           expect(challenge.todos[0].notes).to.equal "Challenge Updated Todo Notes"
           User.findById user._id, (err, _user) ->
@@ -128,7 +128,7 @@ describe "Challenges", ->
       updateTodo.notes = "User overriden notes"
       async.waterfall [
         (cb) ->
-          request.put(baseURL + "/user/tasks/" + updateTodo.id).send(updateTodo).end (res) ->
+          request.put(baseURL + "/user/tasks/" + updateTodo.id).send(updateTodo).end (err, res) ->
             cb()
         , (cb) ->
           Challenge.findById challenge._id, cb
@@ -136,7 +136,7 @@ describe "Challenges", ->
           expect(chal.todos[0].notes).to.eql("Challenge Notes")
           cb()
         , (cb) ->
-          request.get(baseURL + "/challenges/" + challenge._id + "/member/" + user._id).end (res) ->
+          request.get(baseURL + "/challenges/" + challenge._id + "/member/" + user._id).end (err, res) ->
             expect(res.body.todos[res.body.todos.length - 1].notes).to.equal "User overriden notes"
             done()
       ]
@@ -145,14 +145,14 @@ describe "Challenges", ->
     User.findById user._id, (err, _user) ->
       u = _user
       numTasks = (_.size(u.todos))
-      request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (res) ->
-        request.post(baseURL + "/user/tasks/clear-completed").end (res) ->
+      request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (err, res) ->
+        request.post(baseURL + "/user/tasks/clear-completed").end (err, res) ->
           expect(_.size(res.body)).to.equal numTasks - 1
           done()
 
   it "Challenge deleted, breaks task link", (done) ->
     itThis = this
-    request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
+    request.del(baseURL + "/challenges/" + challenge._id).end (err, res) ->
       User.findById user._id, (err, user) ->
         len = user.dailys.length - 1
         daily = user.dailys[user.dailys.length - 1]
@@ -164,7 +164,7 @@ describe "Challenges", ->
         User.findByIdAndUpdate user._id, unset, (err, user) ->
           expect(err).to.not.exist
           expect(user.dailys[len].challenge.broken).to.not.exist
-          request.post(baseURL + "/user/tasks/" + daily.id + "/up").end (res) ->
+          request.post(baseURL + "/user/tasks/" + daily.id + "/up").end (err, res) ->
             setTimeout (->
               User.findById user._id, (err, user) ->
                 expect(user.dailys[len].challenge.broken).to.equal "CHALLENGE_DELETED"
@@ -186,7 +186,7 @@ describe "Challenges", ->
             rewards: []
             habits: []
             official: false
-          ).end (res) ->
+          ).end (err, res) ->
             expect(res.body.official).to.equal false
             cb()
         (cb) ->
@@ -197,7 +197,7 @@ describe "Challenges", ->
             rewards: []
             habits: []
             official: true
-          ).end (res) ->
+          ).end (err, res) ->
             expect(res.body.official).to.equal true
             cb()
       ], done
@@ -215,7 +215,7 @@ describe "Challenges", ->
         rewards: []
         habits: []
         prize: 10
-      ).end (res) ->
+      ).end (err, res) ->
         expect(res.body.prize).to.equal 10
         async.parallel [
           (cb) ->
@@ -226,7 +226,7 @@ describe "Challenges", ->
           user = results[0]
           challenge = results[1]
           expect(user.balance).to.equal 5.5
-          request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
+          request.del(baseURL + "/challenges/" + challenge._id).end (err, res) ->
             User.findById user._id, (err, _user) ->
               expect(_user.balance).to.equal 8
               done()
@@ -244,7 +244,7 @@ describe "Challenges", ->
         rewards: []
         habits: []
         prize: 10
-      ).end (res) ->
+      ).end (err, res) ->
         expect(res.body.prize).to.equal 10
         async.parallel [
           (cb) ->
@@ -255,7 +255,7 @@ describe "Challenges", ->
           user = results[0]
           challenge = results[1]
           expect(user.balance).to.equal 5.5
-          request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
+          request.del(baseURL + "/challenges/" + challenge._id).end (err, res) ->
             User.findById user._id, (err, _user) ->
               expect(_user.balance).to.equal 5.5
               done()
@@ -273,7 +273,7 @@ describe "Challenges", ->
               type: "daily"
               text: "Challenge Daily"
             ]
-          ).end (res) ->
+          ).end (err, res) ->
             challenge = res.body
             cb()
 
@@ -287,7 +287,7 @@ describe "Challenges", ->
         challenge.name = 'foobar'
         request.post(baseURL + "/challenges/" + challenge._id)
           .send(challenge)
-          .end (res) ->
+          .end (err, res) ->
             error = res.body.err
 
             expect(error).to.eql("You don't have permissions to edit this challenge")
@@ -295,7 +295,7 @@ describe "Challenges", ->
 
       it 'can not close challenge', (done) ->
         request.post(baseURL + "/challenges/" + challenge._id + "/close?uid=" + user._id)
-          .end (res) ->
+          .end (err, res) ->
             error = res.body.err
 
             expect(error).to.eql("You don't have permissions to close this challenge")
@@ -303,7 +303,7 @@ describe "Challenges", ->
 
       it 'can not delete challenge', (done) ->
         request.del(baseURL + "/challenges/" + challenge._id)
-          .end (res) ->
+          .end (err, res) ->
             error = res.body.err
 
             expect(error).to.eql("You don't have permissions to delete this challenge")
@@ -318,7 +318,7 @@ describe "Challenges", ->
         challenge.name = 'foobar'
         request.post(baseURL + "/challenges/" + challenge._id)
           .send(challenge)
-          .end (res) ->
+          .end (err, res) ->
             expect(res.body.err).to.not.exist
             Challenge.findById challenge._id, (err, chal) ->
               expect(chal.name).to.eql('foobar')
@@ -326,7 +326,7 @@ describe "Challenges", ->
 
       it 'can close challenge', (done) ->
         request.post(baseURL + "/challenges/" + challenge._id + "/close?uid=" + user._id)
-          .end (res) ->
+          .end (err, res) ->
             expect(res.body.err).to.not.exist
             User.findById user._id, (err, usr) ->
               expect(usr.achievements.challenges[0]).to.eql(challenge.name)
@@ -334,10 +334,10 @@ describe "Challenges", ->
 
       it 'can delete challenge', (done) ->
         request.del(baseURL + "/challenges/" + challenge._id)
-          .end (res) ->
+          .end (err, res) ->
             expect(res.body.err).to.not.exist
             request.get(baseURL + "/challenges/" + challenge._id)
-              .end (res) ->
+              .end (err, res) ->
                 error = res.body.err
                 expect(error).to.eql("Challenge #{challenge._id} not found")
                 done()

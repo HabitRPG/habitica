@@ -10,7 +10,7 @@ describe "GET /api/v2/user/anonymized", ->
     # TODO: Seed user with messages, rewards, dailys, checklists, webhooks, etc
     registerNewUser ->
       request.get(baseURL + "/user/anonymized")
-        .end (res) ->
+        .end (err, res) ->
           anon = res.body
           done()
     , true
