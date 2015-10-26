@@ -50,6 +50,7 @@ api.mystery =
   201507: {start:'2015-07-24',end:'2015-08-02', text:'Rad Surfer Set'}
   201508: {start:'2015-08-23',end:'2015-09-02', text:'Cheetah Costume Set'}
   201509: {start:'2015-09-24',end:'2015-10-02', text:'Werewolf Set'}
+  201510: {start:'2015-10-26',end:'2015-11-02', text:'Horned Goblin Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -459,6 +460,7 @@ gear =
       201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:'201410', value: 0
       201504: text: t('backMystery201504Text'), notes: t('backMystery201504Notes'), mystery:'201504', value: 0
       201507: text: t('backMystery201507Text'), notes: t('backMystery201507Notes'), mystery:'201507', value: 0
+      201510: text: t('backMystery201510Text'), notes: t('backMystery201510Notes'), mystery:'201510', value: 0
     special:
       wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
       wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
@@ -507,6 +509,7 @@ gear =
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
       201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:'201409', value: 0
       201502: text: t('headAccessoryMystery201502Text'), notes: t('headAccessoryMystery201502Notes'), mystery:'201502', value: 0
+      201510: text: t('headAccessoryMystery201510Text'), notes: t('headAccessoryMystery201510Notes'), mystery:'201510', value: 0
       301405: text: t('headAccessoryMystery301405Text'), notes: t('headAccessoryMystery301405Notes'), mystery:'301405', value: 0
 
   eyewear:

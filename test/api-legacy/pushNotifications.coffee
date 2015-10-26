@@ -15,7 +15,7 @@ describe "Push-Notifications", ->
     it "Registers a DeviceID", (done) ->
       request.post(baseURL + "/user/pushDevice").send(
         { regId: "123123", type: "android"}
-      ).end (res) ->
+      ).end (err, res) ->
         expectCode res, 200
 
         User.findOne

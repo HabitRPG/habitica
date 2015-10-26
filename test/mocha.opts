@@ -6,4 +6,5 @@
 --debug
 --compilers coffee:coffee-script
 --globals io
---require test/api/api-helper
+--require test/api-legacy/api-helper
+--require ./test/helpers/globals.helper
