@@ -38,7 +38,10 @@ describe('POST /groups/:id/removeMember', () => {
     it('does not allow leader to remove themselves', () => {
       return expect(api.post(`/groups/${group._id}/removeMember`, null, {
         uuid: leader._id,
-      })).to.be.rejectedWith('You cannot remove yourself!');
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: 'You cannot remove yourself!',
+      });
     });
 
     it('can remove other members of guild', () => {

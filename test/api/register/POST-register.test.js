@@ -37,7 +37,10 @@ describe('POST /register', () => {
         email:           email,
         password:        password,
         confirmPassword: confirmPassword,
-      })).to.be.rejectedWith(':password and :confirmPassword don\'t match');
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: ':password and :confirmPassword don\'t match',
+      });
     });
   });
 
@@ -63,7 +66,10 @@ describe('POST /register', () => {
         email:           uniqueEmail,
         password:        password,
         confirmPassword: password,
-      })).to.be.rejectedWith('Username already taken');
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: 'Username already taken',
+      });
     });
 
     it('rejects if email is already taken', () => {
@@ -76,7 +82,10 @@ describe('POST /register', () => {
         email:           email,
         password:        password,
         confirmPassword: password,
-      })).to.be.rejectedWith('Email already taken');
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: 'Email already taken',
+      });
     });
   });
 });
