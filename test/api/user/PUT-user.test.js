@@ -5,7 +5,7 @@ import {
 
 import { each } from 'lodash';
 
-describe.only('PUT /user', () => {
+describe('PUT /user', () => {
   let api, user;
 
   beforeEach(() => {
