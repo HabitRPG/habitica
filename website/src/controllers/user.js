@@ -402,14 +402,14 @@ api['delete'] = function(req, res, next) {
 
 // api.unlock // see Shared.ops
 
-api.addTenGems = function(req, res, next) {
+"development" === nconf.get("NODE_ENV") && (api.addTenGems = function(req, res, next) {
   var user = res.locals.user;
   user.balance += 2.5;
   user.save(function(err){
     if (err) return next(err);
     res.send(204);
-  })
-}
+  });
+});
 
 /*
  ------------------------------------------------------------------------
@@ -419,7 +419,7 @@ api.addTenGems = function(req, res, next) {
 
 // api.unlock // see Shared.ops
 
-api.addHourglass = function(req, res, next) {
+"development" === nconf.get("NODE_ENV") && (api.addHourglass = function(req, res, next) {
   var user = res.locals.user;
 
   user.purchased.plan.consecutive.trinkets += 1;
@@ -427,8 +427,8 @@ api.addHourglass = function(req, res, next) {
   user.save(function(err){
     if (err) return next(err);
     res.send(204);
-  })
-}
+  });
+});
 
 /*
  ------------------------------------------------------------------------
