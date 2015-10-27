@@ -24,7 +24,7 @@ function init(options) {
 }
 
 function track(eventType, data) {
-  _sendDataToAmplitude(eventType, data);
+  //_sendDataToAmplitude(eventType, data);
   _sendDataToGoogle(eventType, data);
 }
 
@@ -78,7 +78,7 @@ function _generateValueForGoogleAnalytics(data) {
 }
 
 function trackPurchase(data) {
-  _sendPurchaseDataToAmplitude(data);
+  //_sendPurchaseDataToAmplitude(data);
   _sendPurchaseDataToGoogle(data);
 }
 
