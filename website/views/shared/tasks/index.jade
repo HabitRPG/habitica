@@ -1,0 +1,39 @@
+// Note here, we need this part of Habit to be a directive since we're going to be passing it variables from various
+// parts of the app. The alternative would be to create new scopes for different containing sections, but that
+// started to get unwieldy
+
+include ./task_view/mixins
+script(id='templates/habitrpg-tasks.html', type="text/ng-template")
+  .tasks-lists.container-fluid
+    .row
+      .col-md-3.col-sm-6(ng-repeat='list in lists', ng-class='::{"rewards-module": list.type==="reward"}')
+        .task-column(class='{{::list.type}}s')
+
+          include ./task_view/graph
+
+          h2.task-column_title(class='{{::list.type}}-title') {{::list.header}}
+
+          include ./task_view/help
+
+          .todos-chart(ng-if='::list.type == "todo"', ng-show='charts.todos')
+
+          include ./task_view/add_new
+
+          alert.alert-warning.dailiesRestingInInn(ng-if='list.type == "daily" && user.preferences.sleep && !$state.includes("options.social.challenges")')
+            i.glyphicon.glyphicon-warning-sign &nbsp;
+            =env.t('dailiesRestingInInn')
+
+          +taskColumnTabs('top')
+
+          // Actual List
+          ul(class='{{::list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks, ng-if='!$state.includes("options.social.challenges")')
+            include ./task
+          //Loads the non-sortable lists for challenges
+          ul(class='{{::list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', ng-if='$state.includes("options.social.challenges")')
+            include ./task
+
+          include ./task_view/static_rewards
+
+          include ./task_view/spells
+
+          +taskColumnTabs('bottom')

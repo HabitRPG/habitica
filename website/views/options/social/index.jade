@@ -3,10 +3,14 @@
 
 include ./challenges
 include ./hall
-include ./boss
+include ./quests/index
 include ./chat-message
+include ./party
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
+  .options-blurbmenu
+    small.muted=env.t('blurbInbox')
+
   .container-fluid
     .row
       .col-md-12
@@ -23,24 +27,10 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
 
-script(type='text/ng-template', id='partials/options.social.party.html')
-  div(ng-if='group._id')
-    include ./group
-  div(ng-if='!group._id')
-    div(ng-show='user.invitations.party.id').container-fluid
-      h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
-      a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
-      a.btn.btn-danger(ng-click='reject()')=env.t('reject')
-    div(ng-hide='user.invitations.party.id').container-fluid
-      h2=env.t('createAParty')
-      p
-        =env.t('noPartyText')
-      pre.prettyprint.
-        {{user.id}}
-      p!=env.t('LFG', {linkStart: "<a href='https://habitrpg.com/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'>", linkEnd: "</a>"})
-      include ./create-group
-
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
+  .options-blurbmenu
+    small.muted=env.t('blurbGuildsPage')
+
   div.col-xs-12(ng-repeat='invitation in user.invitations.guilds' style='margin-bottom: 1.5em')
     h3=env.t('invitedTo', {name: '{{invitation.name}}'})
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
@@ -61,7 +51,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
             a.btn.btn-sm.btn-success(ng-if="::!group._isMember", ng-click='join(group)')
               span.glyphicon.glyphicon-ok
               =env.t('join')
-        h4 {{::group.name}}
+        h4: a(href='/#/options/groups/guilds/{{::group._id}}') {{::group.name}}
         p {{::group.description}}
 
 script(type='text/ng-template', id='partials/options.social.guilds.detail.html')
@@ -91,9 +81,9 @@ script(type='text/ng-template', id='partials/options.social.html')
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.social.inbox') }")
       a(ui-sref='options.social.inbox')
-        =env.t("inbox")
-        | &nbsp;
         span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
+        | &nbsp;
+        =env.t("inbox")
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')
         =env.t('tavern')
@@ -104,7 +94,7 @@ script(type='text/ng-template', id='partials/options.social.html')
       a(ui-sref='options.social.guilds.public')
         =env.t('guilds')
     li(ng-class="{ active: $state.includes('options.social.challenges') }")
-      a(ui-sref='options.social.challenges')
+      a(ui-sref='options.social.challenges', ui-sref-opts='{reload: true}')
         =env.t('challenges')
     li(ng-class="{ active: $state.includes('options.social.hall') }")
       a(ui-sref='options.social.hall.heroes')
@@ -113,3 +103,33 @@ script(type='text/ng-template', id='partials/options.social.html')
   .tab-content
     .tab-pane.active
       div(ui-view)
+
+script(type='text/ng-template', id='modals/copyChatToDo.html')
+  .modal-header
+    h4=env.t('copyMessageAsToDo')
+  .modal-body
+    .form-group
+      input.form-control(type='text',ng-model='text', ng-model-options="{debounce: 1000}")
+    .form-group
+      textarea.form-control(rows='5',ng-model='notes', ng-model-options="{debounce: 1000}", focus-element='true')
+
+    hr
+
+    div.task-column.preview
+      div(ng-init='popoverOpen = false', class='task todo uncompleted color-neutral', popover-trigger='mouseenter', data-popover-html="{{popoverOpen ? '' : notes | markdown}}", popover-placement="top")
+        // right-hand side control buttons
+        .task-meta-controls
+          // Icons only available if you own the tasks (aka, hidden from challenge stats)
+          span(ng-if='!obj._locked')
+            // notes
+            span.task-notes(ng-show='notes', ng-click='popoverOpen = !popoverOpen', popover-trigger='click', data-popover-html="{{notes | markdown}}", popover-placement="top")
+              span.glyphicon.glyphicon-comment
+              | &nbsp;
+
+        // main content
+        div.task-text
+          markdown(text='text',target='_blank')
+
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
+    button.btn.btn-primary(ng-click='saveTodo()')=env.t('submit')

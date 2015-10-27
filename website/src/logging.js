@@ -1,7 +1,7 @@
 var nconf = require('nconf');
 var winston = require('winston');
 require('winston-mail').Mail;
-require('winston-newrelic');
+//require('winston-newrelic');
 
 var logger, loggly;
 

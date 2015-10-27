@@ -1,0 +1,28 @@
+legend.option-title
+  span.hint(popover-trigger='mouseenter', popover-title=env.t('repeatHelpTitle'),
+    popover='{{env.t(task.frequency + "RepeatHelpContent")}}')=env.t('repeatEvery')
+
+// If frequency is daily
+ng-form.form-group(name='everyX' ng-if='task.frequency=="daily"')
+  .input-group
+    input.form-control(type='number', ng-model='task.everyX', ng-disabled='task.challenge.id', min='0', required)
+    span.input-group-addon {{task.everyX == 1 ? env.t('day') : env.t('days')}}
+
+// If frequency is weekly
+.form-group(ng-if='task.frequency=="weekly"')
+  ul.repeat-days
+    // note, does not use data-toggle="buttons-checkbox" - it would interfere with our own click binding
+    mixin dayOfWeek(day, num)
+      li
+        button(type='button', ng-class='{active: task.repeat.#{day}}',
+          ng-disabled='task.challenge.id', ng-click='task.repeat.#{day} = !task.repeat.#{day}',
+          tooltip='{{env.t((task.repeat.#{day}) ? "due" : "notDue")}}')
+          | {{::moment.weekdaysMin(#{num})}}
+
+    +dayOfWeek('su', 0)
+    +dayOfWeek('m', 1)
+    +dayOfWeek('t', 2)
+    +dayOfWeek('w', 3)
+    +dayOfWeek('th', 4)
+    +dayOfWeek('f', 5)
+    +dayOfWeek('s', 6)

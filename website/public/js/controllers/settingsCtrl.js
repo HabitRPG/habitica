@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Notification', 'Shared',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Notification, Shared) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -20,7 +20,7 @@ habitrpg.controller('SettingsCtrl',
     var mapPrefToEmailString = {
       'importantAnnouncements': 'inactivityEmails'
     };
-    
+
     // If ?unsubFrom param is passed with valid email type,
     // automatically unsubscribe users from that email and
     // show an alert
@@ -42,7 +42,7 @@ habitrpg.controller('SettingsCtrl',
         User.set({"preferences.stickyHeader":false});
         $rootScope.$on('userSynced', function(){
           window.location.reload();
-        });           
+        });
       }
     }
 
@@ -58,22 +58,25 @@ habitrpg.controller('SettingsCtrl',
       Guide.goto('intro', 0, true);
     }
 
-    $scope.showClassesTour = function(){
-      Guide.goto('classes', 0, true);
-    }
-
     $scope.showBailey = function(){
       User.set({'flags.newStuff':true});
     }
 
-    $scope.saveDayStart = function(){
-      var dayStart = +User.user.preferences.dayStart;
-      if (_.isNaN(dayStart) || dayStart < 0 || dayStart > 24) {
-        dayStart = 0;
-        return alert(window.env.t('enterNumber'));
-      }
-      User.set({'preferences.dayStart': dayStart});
-    }
+    $scope.dayStart = User.user.preferences.dayStart;
+
+    $scope.openDayStartModal = function(dayStart) {
+      $scope.dayStart = +dayStart;
+      $scope.nextCron = _calculateNextCron();
+
+      $rootScope.openModal('change-day-start', { scope: $scope });
+    };
+
+    $scope.saveDayStart = function() {
+      User.set({
+        'preferences.dayStart': Math.floor($scope.dayStart),
+        'lastCron': +new Date
+      });
+    };
 
     $scope.language = window.env.language;
     $scope.avalaibleLanguages = window.env.avalaibleLanguages;
@@ -144,9 +147,10 @@ habitrpg.controller('SettingsCtrl',
       $http.post(ApiUrl.get() + '/api/v2/user/coupon/' + code).success(function(res,code){
         if (code!==200) return;
         User.sync();
-        Notification.text('Coupon applied! Check your inventory');
+        Notification.text(env.t('promoCodeApplied'));
       });
     }
+
     $scope.generateCodes = function(codes){
       $http.post(ApiUrl.get() + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
         .success(function(res,code){
@@ -155,6 +159,7 @@ habitrpg.controller('SettingsCtrl',
           window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
         })
     }
+
     $scope.releasePets = function() {
       User.user.ops.releasePets({});
       $rootScope.$state.go('tasks');
@@ -162,13 +167,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.releaseMounts = function() {
       User.user.ops.releaseMounts({});
-      $rootScope.mountCount = 0;
       $rootScope.$state.go('tasks');
     }
 
     $scope.releaseBoth = function() {
       User.user.ops.releaseBoth({});
-      $rootScope.mountCount = 0;
       $rootScope.$state.go('tasks');
     }
 
@@ -193,10 +196,41 @@ habitrpg.controller('SettingsCtrl',
       $http.get(ApiUrl.get() + '/api/v2/coupons/valid-discount/'+coupon)
       .success(function(){
         Notification.text("Coupon applied!");
-        var subs = $scope.Content.subscriptionBlocks;
+        var subs = Content.subscriptionBlocks;
         subs["basic_6mo"].discount = true;
         subs["google_6mo"].discount = false;
       });
+    }
+
+    $scope.gemGoldCap = function(subscription) {
+      var baseCap = 25;
+      var gemCapExtra = User.user.purchased.plan.consecutive.gemCapExtra;
+      // @TODO: What are these magic numbers? 3? 5?
+      var blocks = Content.subscriptionBlocks[subscription.key].months / 3 * 5;
+      var flooredBlocks = Math.floor(blocks);
+
+      var userTotalDropCap = baseCap + gemCapExtra + flooredBlocks;
+      var maxDropCap = 50;
+
+      return [userTotalDropCap, maxDropCap];
+    };
+
+    $scope.numberOfMysticHourglasses = function(subscription) {
+      var numberOfHourglasses = Content.subscriptionBlocks[subscription.key].months / 3;
+      return Math.floor(numberOfHourglasses);
+    };
+
+    function _calculateNextCron() {
+      $scope.dayStart;
+
+      var nextCron = moment().hours($scope.dayStart).minutes(0).seconds(0).milliseconds(0);
+
+      var currentHour = moment().format('H');
+      if (currentHour >= $scope.dayStart) {
+        nextCron = nextCron.add(1, 'day');;
+      }
+
+      return +nextCron.format('x');
     }
   }
 ]);

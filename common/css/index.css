@@ -1,13 +1,15 @@
-/*[class*='Pet_'] {
-  margin-left: 1.25em;
-}*/
-
-/* Comment out for holiday events */
-/* .npc_ian {
+/* Comment out for holiday events
+.npc_ian {
   background: url("/common/img/sprites/npc_ian.gif") no-repeat;
   width: 78px;
   height: 135px;
 } */
+
+.quest_burnout {
+  background: url("/common/img/sprites/quest_burnout.gif") no-repeat;
+  width: 219px;
+  height: 249px;
+}
 
 .Gems {
   display:inline-block;
@@ -35,6 +37,12 @@
   float:left;
   clear:right;
   margin-right: 10px;
+}
+
+.multi-achievement {
+  margin: auto;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 
 [class*="Mount_Head_"], [class*="Mount_Body_"]{

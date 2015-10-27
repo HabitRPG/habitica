@@ -1,0 +1,15 @@
+{
+    "defaultHabit1Text": "生産的な仕事 (鉛筆をクリックして編集する)",
+    "defaultHabit1Notes": "良い習慣の例: + 野菜を食べる +15分 生産的な仕事をする",
+    "defaultHabit2Text": "おやつを食べる(鉛筆アイコンをクリックして編集)",
+    "defaultHabit2Notes": "悪い習慣の例: - たばこ - 先延ばし",
+    "defaultHabit3Text": "階段を使う(鉛筆アイコンをクリックして編集)",
+    "defaultHabit3Notes": "良い/悪い習慣の例: +/- 階段を昇る/エレベーターにのる; +/- 水を飲む/ソーダを飲む",
+    "defaultTodoNotes": "このTo-Doは、完了、編集、または削除する事が可能です。",
+    "defaultTodo1Text": "Habiticaに参入する(チェックして完了しましょう！)",
+    "defaultReward1Text": "15分間の休憩",
+    "defaultReward1Notes": "カスタム報酬に設定できるものは様々です。例えば、お気に入りのテレビ番組を見るために一定のゴールドを支払わなければならないように設定する事もできます。",
+    "defaultTag1": "朝",
+    "defaultTag2": "昼",
+    "defaultTag3": "夜"
+}

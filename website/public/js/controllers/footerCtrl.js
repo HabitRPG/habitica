@@ -20,27 +20,39 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
    JS files not needed right away (google charts) or entirely optional (analytics)
    Each file gets loaded async via $.getScript, so it doesn't bog page-load
   */
+
   $scope.deferredScripts = function(){
+
+    // Amazon Payments
+    var amazonPaymentsUrl = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/' +
+                        (window.env.NODE_ENV === 'production' ? '' : 'sandbox/') + 'js/Widgets.js';
+    $.getScript(amazonPaymentsUrl);
 
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
-    // Google Analytics, only in production
-    if (window.env.NODE_ENV === 'production') {
-      // Get experiments API
-      $.getScript('//www.google-analytics.com/cx/api.js?experiment=OPMHlSzSTj2gVYwUS72wlQ', function(){
-        $rootScope.chosenVariation = cxApi.chooseVariation();
-        $rootScope.$apply();
+    // Twitter
+    $.getScript('https://platform.twitter.com/widgets.js');
 
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', window.env.GA_ID, {userId:User.user._id});
-        ga('require', 'displayfeatures');
-        ga('send', 'pageview');
+    // Facebook
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // Tumblr
+    $.getScript('https://assets.tumblr.com/share-button.js');
+
+    /* Google Content Experiments
+    if (window.env.NODE_ENV === 'production') {
+      $.getScript('//www.google-analytics.com/cx/api.js?experiment=boVO4eEyRfysNE5D53nCMQ', function(){
+        $rootScope.variant = cxApi.chooseVariation();
+        $rootScope.$apply();
       })
-    }
+    } */
 
     // Scripts only for desktop
     if (!window.env.IS_MOBILE) {
@@ -72,48 +84,62 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
    * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
    */
   if (_.contains(['development','test'],window.env.NODE_ENV)) {
+
     $scope.setHealthLow = function(){
       User.set({
         'stats.hp': 1
       });
-    }
+    };
+
     $scope.addMissedDay = function(numberOfDays){
       if (!confirm("Are you sure you want to reset the day by " + numberOfDays + " day(s)?")) return;
       var dayBefore = moment(User.user.lastCron).subtract(numberOfDays, 'days').toDate();
       User.set({'lastCron': dayBefore});
       Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
-    }
+    };
+
     $scope.addTenGems = function(){
       $http.post(ApiUrl.get() + '/api/v2/user/addTenGems').success(function(){
         User.log({});
       })
-    }
+    };
+
+    $scope.addHourglass = function(){
+      $http.post(ApiUrl.get() + '/api/v2/user/addHourglass').success(function(){
+        User.log({});
+      })
+    };
+
     $scope.addGold = function(){
       User.set({
         'stats.gp': User.user.stats.gp + 500,
       });
-    }
+    };
+
     $scope.addMana = function(){
       User.set({
         'stats.mp': User.user.stats.mp + 500,
       });
-    }
+    };
+
     $scope.addLevelsAndGold = function(){
       User.set({
         'stats.exp': User.user.stats.exp + 10000,
         'stats.gp':  User.user.stats.gp  + 10000,
         'stats.mp':  User.user.stats.mp  + 10000
       });
-    }
+    };
+
     $scope.addOneLevel = function(){
       User.set({
         'stats.exp': User.user.stats.exp + (Math.round(((Math.pow(User.user.stats.lvl, 2) * 0.25) + (10 * User.user.stats.lvl) + 139.75) / 10) * 10)
       });
-    }
+    };
+
     $scope.addBossQuestProgressUp = function(){
       User.set({
         'party.quest.progress.up': User.user.party.quest.progress.up + 1000
       });
-    }
+    };
   }
 }])

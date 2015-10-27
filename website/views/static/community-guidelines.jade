@@ -17,7 +17,7 @@ block vars
   - var layoutEnv = env
 
 block title
-  title HabitRPG &VerticalLine;&nbsp;
+  title Habitica &VerticalLine;&nbsp;
     =env.t('communityGuidelines')
 
 block content
@@ -26,28 +26,29 @@ block content
       .page-header
         h1=env.t('communityGuidelines')
       p.pagemeta
-        |Last updated&nbsp;
-        =env.t('February')
-        |&nbsp;9&comma; 2015
-      h2=env.t('commGuideHeadingWelcome')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/intro.png', alt='')
+        =env.t('lastUpdated')
+        |&nbsp;
+        =env.t('May')
+        |&nbsp;27&comma; 2015
+      h2#welcome=env.t('commGuideHeadingWelcome')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/intro.png', alt='')
         p=env.t('commGuidePara001')
         p=env.t('commGuidePara002')
         p=env.t('commGuidePara003')
         p=env.t('commGuidePara004')
-        h2=env.t('commGuideHeadingBeing')
+        h2#being-habitican=env.t('commGuideHeadingBeing')
         p=env.t('commGuidePara005')
 
-      div(class='clearfix')
-        img(class='pull-right', src='/community-guidelines-images/beingHabitican.png', alt='')
+      .clearfix
+        img.pull-right(src='/community-guidelines-images/beingHabitican.png', alt='')
         ul
           li!=env.t('commGuideList01A')
           li!=env.t('commGuideList01B')
           li!=env.t('commGuideList01C')
           li!=env.t('commGuideList01D')
 
-      h2=env.t('commGuideHeadingMeet')
+      h2#meet-the-mods=env.t('commGuideHeadingMeet')
       p=env.t('commGuidePara006')
       p
         strong=env.t('commGuidePara007')
@@ -55,9 +56,9 @@ block content
         strong=env.t('commGuidePara008')
       p
         strong=env.t('commGuidePara009')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/staff.png', alt='')
-        ul(class='pull-left list-unstyled')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/staff.png', alt='')
+        ul.pull-left.list-unstyled
           li
             strong Lefnire (Tyler Renelle)
           li
@@ -76,9 +77,11 @@ block content
       p=env.t('commGuidePara010')
       p
         strong=env.t('commGuidePara011')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/moderators.png', alt='')
-        ul(class='pull-left list-unstyled')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/moderators.png', alt='')
+        ul.pull-left.list-unstyled
+          li
+            strong beffymaroo
           li
             strong Bailey (It's Bailey&nbsp;
               =env.t('commGuidePara011a')
@@ -91,6 +94,8 @@ block content
             strong Alys (LadyAlys&nbsp;
               =env.t('commGuidePara011c')
               |)
+          li
+            strong Cantras
           li
             strong Blade (crookedneighbor&nbsp;
               =env.t('commGuidePara011d')
@@ -106,9 +111,9 @@ block content
       p=env.t('commGuidePara014')
         |&nbsp;
         em Slappybag, litenull, Shaner, Bobbyroberts99, wc8
-      h2=env.t('commGuideHeadingPublicSpaces')
-      div(class='clearfix')
-        img(class='pull-right', src='/community-guidelines-images/publicSpaces.png', alt='')
+      h2#public-spaces=env.t('commGuideHeadingPublicSpaces')
+      .clearfix
+        img.pull-right(src='/community-guidelines-images/publicSpaces.png', alt='')
         p=env.t('commGuidePara015')
         p=env.t('commGuidePara016')
         p!=env.t('commGuidePara017')
@@ -127,18 +132,18 @@ block content
         p &nbsp;
         p=env.t('commGuidePara021')
 
-      h3=env.t('commGuideHeadingTavern')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/tavern.png', alt='')
+      h3#tavern=env.t('commGuideHeadingTavern')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/tavern.png', alt='')
         p=env.t('commGuidePara022')
         p
           strong=env.t('commGuidePara023')
         p!=env.t('commGuidePara024')
         p!=env.t('commGuidePara027')
 
-      h3=env.t('commGuideHeadingPublicGuilds')
-      div(class='clearfix')
-        img(class='pull-right', src='/community-guidelines-images/publicGuilds.png', alt='')
+      h3#guilds=env.t('commGuideHeadingPublicGuilds')
+      .clearfix
+        img.pull-right(src='/community-guidelines-images/publicGuilds.png', alt='')
         p!=env.t('commGuidePara029')
         p!=env.t('commGuidePara031')
         p!=env.t('commGuidePara033')
@@ -146,15 +151,15 @@ block content
         p
           strong=env.t('commGuidePara037')
 
-      h3=env.t('commGuideHeadingBackCorner')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/backCorner.png', alt='')
+      h3#back-corner=env.t('commGuideHeadingBackCorner')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/backCorner.png', alt='')
         p!=env.t('commGuidePara038')
         p!=env.t('commGuidePara039')
 
-      h3=env.t('commGuideHeadingTrello')
-      div(class='clearfix')
-        img(class='pull-right', src='/community-guidelines-images/trello.png', alt='')
+      h3#trello=env.t('commGuideHeadingTrello')
+      .clearfix
+        img.pull-right(src='/community-guidelines-images/trello.png', alt='')
         p!=env.t('commGuidePara040')
         p
           strong=env.t('commGuidePara041')
@@ -166,13 +171,13 @@ block content
           li!=env.t('commGuideList03E')
         p!=env.t('commGuidePara042')
 
-      h3=env.t('commGuideHeadingGitHub')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/github.gif', alt='')
+      h3#github=env.t('commGuideHeadingGitHub')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/github.gif', alt='')
         p!=env.t('commGuidePara043')
         p
           strong=env.t('commGuidePara044')
-        ul(class='listColumns2 peopleList')
+        ul.listColumns2.peopleList
           li lefnire (Tyler)
           li Alys
           li benmanley (Pixel)
@@ -195,9 +200,9 @@ block content
           li MagicMicky
           li viirus
 
-      h3=env.t('commGuideHeadingWiki')
-      div(class='clearfix')
-        img(class='pull-right', src='/community-guidelines-images/wiki.png', alt='')
+      h3#wiki=env.t('commGuideHeadingWiki')
+      .clearfix
+        img.pull-right(src='/community-guidelines-images/wiki.png', alt='')
         p!=env.t('commGuidePara045')
         p=env.t('commGuidePara046')
         p
@@ -214,7 +219,7 @@ block content
           li=env.t('commGuideList04H')
         p
           strong=env.t('commGuidePara049')
-        ul(class='peopleList')
+        ul.peopleList
           li Breadstrings (bureaucrat)
           li JiggerD
           li LadyAlys
@@ -224,10 +229,10 @@ block content
           |:&nbsp;
           em Bobbyroberts99 (founder and bureaucrat), wc8 (bureaucrat)
 
-      h2=env.t('commGuideHeadingInfractionsEtc')
-      h3=env.t('commGuideHeadingInfractions')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/infractions.png', alt='')
+      h2#infractions-consequences-restoration=env.t('commGuideHeadingInfractionsEtc')
+      h3#infractions=env.t('commGuideHeadingInfractions')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/infractions.png', alt='')
         p=env.t('commGuidePara050')
         p!=env.t('commGuidePara051')
         h4=env.t('commGuideHeadingSevereInfractions')
@@ -255,9 +260,9 @@ block content
           li=env.t('commGuideList07A')
           li=env.t('commGuideList07B')
 
-      h3=env.t('commGuideHeadingConsequences')
-      div(class='clearfix')
-        img(class='pull-right', src='/community-guidelines-images/consequences.png', alt='')
+      h3#consequences=env.t('commGuideHeadingConsequences')
+      .clearfix
+        img.pull-right(src='/community-guidelines-images/consequences.png', alt='')
         p=env.t('commGuidePara058')
         p!=env.t('commGuidePara059')
         p
@@ -287,16 +292,16 @@ block content
           li=env.t('commGuideList11D')
           li=env.t('commGuideList11E')
 
-      h3=env.t('commGuideHeadingRestoration')
-      div(class='clearfix')
-        img(class='pull-left', src='/community-guidelines-images/restoration.png', alt='')
+      h3#restoration=env.t('commGuideHeadingRestoration')
+      .clearfix
+        img.pull-left(src='/community-guidelines-images/restoration.png', alt='')
         p!=env.t('commGuidePara061')
         p!=env.t('commGuidePara062')
         p!=env.t('commGuidePara063')
 
-      h2=env.t('commGuideHeadingContributing')
-      div(class='clearfix')
-        img(class='pull-right', src='/community-guidelines-images/contributing.png', alt='')
+      h2#contributing=env.t('commGuideHeadingContributing')
+      .clearfix
+        img.pull-right(src='/community-guidelines-images/contributing.png', alt='')
         p=env.t('commGuidePara064')
         ol
           li=env.t('commGuideList12A')
@@ -314,22 +319,22 @@ block content
           li!=env.t('commGuideList13C')
           li!=env.t('commGuideList13D')
 
-      h2=env.t('commGuideHeadingFinal')
+      h2#final=env.t('commGuideHeadingFinal')
       p!=env.t('commGuidePara067')
       p=env.t('commGuidePara068')
 
-      h2=env.t('commGuideHeadingLinks')
+      h2#links=env.t('commGuideHeadingLinks')
       ul
        li
-         a(href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank')=env.t('commGuideLink01')
+         a(href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank')=env.t('commGuideLink01')
          |:&nbsp;
          =env.t('commGuideLink01description')
        li
-         a(href='https://habitrpg.com/#/options/groups/guilds/426c2c1a-eed0-4997-9b73-d30fc1397688' target='_blank')=env.t('commGuideLink02')
+         a(href='https://habitica.com/#/options/groups/guilds/426c2c1a-eed0-4997-9b73-d30fc1397688' target='_blank')=env.t('commGuideLink02')
          |:&nbsp;
          =env.t('commGuideLink02description')
        li
-         a(href='http://habitrpg.wikia.com/wiki/HabitRPG_Wiki' target='_blank')=env.t('commGuideLink03')
+         a(href='http://habitica.wikia.com/wiki/Habitica_Wiki' target='_blank')=env.t('commGuideLink03')
          |:&nbsp;
          =env.t('commGuideLink03description')
        li
@@ -337,25 +342,25 @@ block content
          |:&nbsp;
          =env.t('commGuideLink04description')
        li
-         a(href='https://trello.com/b/EpoYEYod/habitrpg' target='_blank')=env.t('commGuideLink05')
+         a(href='https://trello.com/b/EpoYEYod/' target='_blank')=env.t('commGuideLink05')
          |:&nbsp;
          =env.t('commGuideLink05description')
        li
-         a(href='https://trello.com/b/mXK3Eavg/habitrpg-mobile' target='_blank')=env.t('commGuideLink06')
+         a(href='https://trello.com/b/mXK3Eavg/' target='_blank')=env.t('commGuideLink06')
          |:&nbsp;
          =env.t('commGuideLink06description')
        li
-         a(href='https://trello.com/b/vwuE9fbO/habitrpg-pixel-art' target='_blank')=env.t('commGuideLink07')
+         a(href='https://trello.com/b/vwuE9fbO/' target='_blank')=env.t('commGuideLink07')
          |:&nbsp;
          =env.t('commGuideLink07description')
        li
-         a(href='https://trello.com/b/nnv4QIRX/habitrpg-quests' target='_blank')=env.t('commGuideLink08')
+         a(href='https://trello.com/b/nnv4QIRX/' target='_blank')=env.t('commGuideLink08')
          |:&nbsp;
          =env.t('commGuideLink08description')
 
       p
         strong=env.t('commGuidePara069')
-      ul(class='listColumns2 peopleList')
+      ul.listColumns2.peopleList
         li Breadstrings
         li Draayder
         li Kiwibot

@@ -5,78 +5,59 @@
  */
 
 angular.module('habitrpg').factory('Guide',
-['$rootScope', 'User', '$timeout', '$state',
-function($rootScope, User, $timeout, $state) {
+['$rootScope', 'User', '$timeout', '$state', 'Analytics',
+function($rootScope, User, $timeout, $state, Analytics) {
 
   var chapters = {
     intro: [
-      [ //0
+      [
+        {
+          state: 'options.profile.avatar',
+          element: '.tab-content.ng-scope',
+          content: window.env.t('tourAvatar'),
+          placement: "top",
+          proceed: window.env.t('tourAvatarProceed'),
+          backdrop: false,
+          orphan: true,
+          gold: 4,
+          experience: 29
+        },
         {
           state: 'tasks',
           element: ".task-column.todos",
-          content: window.env.t('tourWelcome'),
-          placement: "top"
-        }
-      ], [ //1
+          content: window.env.t('tourToDosBrief'),
+          placement: "top",
+          proceed: window.env.t('tourOkay'),
+          gold: 4,
+          experience: 29
+        },
         {
-          state: 'tasks',
-          element: '.sticky-wrapper',
-          content: window.env.t('tourExp'),
-          placement: 'bottom'
-        }, {
           state: 'tasks',
           element: ".task-column.dailys",
-          content: window.env.t('tourDailies'),
-          placement: "top"
-        }
-      ], [ //2
+          content: window.env.t('tourDailiesBrief'),
+          placement: "top",
+          proceed: window.env.t('tourDailiesProceed'),
+          gold: 4,
+          experience: 29
+        },
         {
-          orphan: true,
-          content: window.env.t('tourCron'),
-          placement: 'bottom'
-        }, {
-          state: 'tasks',
-          element: '.meter.health',
-          content: window.env.t('tourHP'),
-          placement: 'bottom'
-        }, {
           state: 'tasks',
           element: ".task-column.habits",
-          content: window.env.t('tourHabits'),
-          placement: "right"
-        }
-      ], [ //3
+          content: window.env.t('tourHabitsBrief'),
+          placement: "top",
+          proceed: window.env.t('tourHabitsProceed'),
+          gold: 4,
+          experience: 29
+        },
         {
           state: 'tasks',
-          element: ".hero-stats",
-          content: window.env.t('tourStats')
-        }, {
-          state: 'tasks',
-          element: ".task-column.rewards",
-          content: window.env.t('tourGP'),
-          placement: 'left'
-        }
-      ], [ //4
-        {
-          state: 'tasks',
-          element: '.main-herobox',
-          content: window.env.t('tourAvatar'),
-          placement: 'bottom'
-        }
-      ], [ //5
-        {
-          state: 'options.profile.avatar',
-          orphan: true,
-          content: window.env.t('tourScrollDown')
-        }, {
-          element: "ul.toolbar-nav",
-          backdrop:false,
-          content: window.env.t('tourMuchMore'),
-          placement: "bottom",
-          final: true,
-          //onHidden: function(){
-          //  $rootScope.$watch('user.flags.customizationsNotification', _.partial(goto, 'intro', 4));
-          //}
+          element: "h2.task-column_title.reward-title",
+          content: window.env.t('tourRewardsBrief'),
+          placement: "left",
+          proceed: window.env.t('tourRewardsProceed'),
+          gold: 4,
+          experience: 29,
+          final: true
         }
       ]
     ],
@@ -101,11 +82,11 @@ function($rootScope, User, $timeout, $state) {
         }, {
           element: ".meter.mana",
           title: window.env.t('spells'),
-          content: window.env.t('spellsText') + " <a target='_blank' href='http://habitrpg.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
+          content: window.env.t('spellsText') + " <a target='_blank' href='http://habitica.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
         }, {
           orphan: true,
           title: window.env.t('readMore'),
-          content: window.env.t('moreClass') + " <a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
+          content: window.env.t('moreClass') + " <a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
           final: true
         }
       ]
@@ -114,42 +95,90 @@ function($rootScope, User, $timeout, $state) {
       {
         orphan: true,
         content: window.env.t('tourStatsPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay'),
+        hideNavigation: true
       }
     ]],
     tavern: [[
       {
         orphan: true,
         content: window.env.t('tourTavernPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourAwesome'),
+        hideNavigation: true
       }
     ]],
     party: [[
       {
         orphan: true,
         content: window.env.t('tourPartyPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourSplendid'),
+        hideNavigation: true
       }
     ]],
     guilds: [[
       {
         orphan: true,
         content: window.env.t('tourGuildsPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourNifty'),
+        hideNavigation: true
       }
     ]],
     challenges: [[
       {
         orphan: true,
         content: window.env.t('tourChallengesPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay'),
+        hideNavigation: true
       }
     ]],
     market: [[
       {
         orphan: true,
         content: window.env.t('tourMarketPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourAwesome'),
+        hideNavigation: true
+      }
+    ]],
+    hall: [[
+      {
+        orphan: true,
+        content: window.env.t('tourHallPage'),
+        final: true,
+        proceed: window.env.t('tourSplendid'),
+        hideNavigation: true
+      }
+    ]],
+    pets: [[
+      {
+        orphan: true,
+        content: window.env.t('tourPetsPage'),
+        final: true,
+        proceed: window.env.t('tourNifty'),
+        hideNavigation: true
+      }
+    ]],
+    mounts: [[
+      {
+        orphan: true,
+        content: window.env.t('tourMountsPage'),
+        final: true,
+        proceed: window.env.t('tourOkay'),
+        hideNavigation: true
+      }
+    ]],
+    equipment: [[
+      {
+        orphan: true,
+        content: window.env.t('tourEquipmentPage'),
+        final: true,
+        proceed: window.env.t('tourAwesome'),
+        hideNavigation: true
       }
     ]]
   }
@@ -159,22 +188,29 @@ function($rootScope, User, $timeout, $state) {
       step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
-        // step.path doesn't work in Angular do to async ui-router. Our custom solution:
+        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':false});
         if (step.state && !$state.is(step.state)) {
-          // $state.go() returns a promise, necessary for async tour steps; however, that's not working here - have to use timeout instead :/
           $state.go(step.state);
           return $timeout(function(){});
         }
-        window.ga && ga('send', 'event', 'tour', k, i+1);
-      }
+      };
       step.onHide = function(){
-        if (step.final) { // -2 indicates complete
-          var ups={};ups['flags.tour.'+k] = -2;
-          User.set(ups);
+        var ups={};
+        if (!$rootScope.stepAwarded) $rootScope.stepAwarded = {};
+        if (!$rootScope.stepAwarded[i]) {
+          $rootScope.stepAwarded[i] = true;
+          ups['stats.gp'] = User.user.stats.gp + (step.gold || 0);
+          ups['stats.exp'] = User.user.stats.exp + (step.experience || 0);
         }
+        if (step.final) { // -2 indicates complete
+          ups['flags.tour.'+k] = -2;
+          $rootScope.stepAwarded = null;
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
+        }
+        User.set(ups);
       }
     })
-  })
+  });
 
   var tour = {};
   _.each(chapters, function(v,k){
@@ -182,30 +218,31 @@ function($rootScope, User, $timeout, $state) {
       name: k,
       backdrop: true,
       template: function(i,step){
+        var showFinish = step.final || k == 'classes';
+        var showCounter = k=='intro' && !step.final;
+
         return '<div class="popover" role="tooltip">' +
           '<div class="arrow"></div>' +
           '<h3 class="popover-title"></h3>' +
           '<div class="popover-content"></div>' +
           '<div class="popover-navigation"> ' +
-            //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>' +
-            ((step.final || k == 'classes') ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '') +
-            (k=='intro' && !step.final ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
+            (showCounter ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
             '<div class="btn-group">' +
-              '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button>' +
-              '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button>' +
+              (step.hideNavigation ? '' : '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>') +
+              (showFinish ? ('<button class="btn btn-sm btn-primary" data-role="end" style="float:none;">' + (step.proceed ? step.proceed : "Finish Tour") + '</button>') :
+                (step.hideNavigation ? '' : ('<button class="btn btn-sm btn-primary" data-role="next">' + (step.proceed ? step.proceed : "Next") + ' &raquo;</button>'))) +
               '<button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button>' +
             '</div>' +
           '</div>' +
           '</div>';
       },
-      storage: false,
-      //onEnd: function(){
-      //  User.set({'flags.showTour': false});
-      //}
+      storage: false
     });
   });
 
   var goto = function(chapter, page, force) {
+    if (chapter == 'intro') User.set({'flags.welcomed': true});
+    if (page === -1) page = 0;
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
     var updates = {};updates['flags.tour.'+chapter] = page;
@@ -231,21 +268,27 @@ function($rootScope, User, $timeout, $state) {
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
     if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
-    goto('intro', 0); // kick off first step on first visit
+    if (User.user.flags.welcomed == false) {
+      $rootScope.openModal('welcome', {size: 'lg', backdrop: 'static', keyboard: false});
+    }
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
     //$rootScope.$watch('user.flags.dropsEnabled', _.flow(alreadyShown, function(already) { //FIXME requires lodash@~3.2.0
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
       switch (toState.name) {
-        case 'options.profile.avatar':   return goto('intro', 5);
-        case 'options.profile.stats':    return goto('stats', 0);
-        case 'options.social.tavern':    return goto('tavern', 0);
-        case 'options.social.party':     return goto('party', 0);
-        case 'options.social.guilds':    return goto('guilds', 0);
-        case 'options.social.challenges':return goto('challenges', 0);
-        case 'options.inventory.drops':  return goto('market', 0);
+        // case 'options.profile.avatar':   return goto('intro', 5);
+        case 'options.profile.stats':        return goto('stats', 0);
+        case 'options.social.tavern':        return goto('tavern', 0);
+        case 'options.social.party':         return goto('party', 0);
+        case 'options.social.guilds.public': return goto('guilds', 0);
+        case 'options.social.challenges':    return goto('challenges', 0);
+        case 'options.social.hall.heroes':   return goto('hall', 0);
+        case 'options.inventory.drops':      return goto('market', 0);
+        case 'options.inventory.pets':       return goto('pets', 0);
+        case 'options.inventory.mounts':     return goto('mounts', 0);
+        case 'options.inventory.equipment':  return goto('equipment', 0);
       }
-    })
+    });
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before,after)) return;
       var eggs = User.user.items.eggs || {};

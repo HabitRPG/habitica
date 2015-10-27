@@ -6,6 +6,8 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
     $scope.Math = window.Math;
     $scope.user = User.user;
 
+    $scope.inviteOrStartParty = Groups.inviteOrStartParty;
+
     $scope.party = Groups.party(function(){
         var triggerResort = function() {
             $scope.partyMinusSelf = resortParty();

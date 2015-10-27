@@ -2,16 +2,16 @@ script(id='partials/options.settings.html', type="text/ng-template")
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
-        =env.t('settings')
+        =env.t('site')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
         =env.t('API')
     li(ng-class="{ active: $state.includes('options.settings.export') }")
       a(ui-sref='options.settings.export')
         =env.t('dataExport')
-    li(ng-class="{ active: $state.includes('options.settings.coupon') }")
-      a(ui-sref='options.settings.coupon')
-        =env.t('coupon')
+    li(ng-class="{ active: $state.includes('options.settings.promo') }")
+      a(ui-sref='options.settings.promo')
+        =env.t('promoCode')
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
       a(ui-sref='options.settings.subscription')=env.t('subscription')
     li(ng-class="{ active: $state.includes('options.settings.notifications') }")
@@ -39,9 +39,14 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 strong
                   !=env.t('helpWithTranslation')
 
+            hr
+
             .form-horizontal
               h5=env.t('dateFormat')
               select.form-control(ng-model='user.preferences.dateFormat', ng-options='DF for DF in availableFormats', ng-change='set({"preferences.dateFormat": user.preferences.dateFormat})')
+
+            hr
+
             .checkbox
               label
                 input(type='checkbox', ng-click='hideHeader() ', ng-checked='user.preferences.hideHeader!==true')
@@ -66,37 +71,51 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               label
                 input(type='checkbox', ng-model='user.preferences.dailyDueDefaultView', ng-change='set({"preferences.dailyDueDefaultView": user.preferences.dailyDueDefaultView?true: false})')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('dailyDueDefaultViewPop'))=env.t('dailyDueDefaultView')
+            .checkbox(ng-if='party.memberCount === 1')
+              label
+                input(type='checkbox', ng-model='user.preferences.displayInviteToPartyWhenPartyIs1', ng-change='set({"preferences.displayInviteToPartyWhenPartyIs1": user.preferences.displayInviteToPartyWhenPartyIs1 ? true : false})')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('displayInviteToPartyWhenPartyIs1'))=env.t('displayInviteToPartyWhenPartyIs1')
             // button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
+
+            hr
+
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
-            button.btn.btn-default(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})") Invite Friends
             button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-            button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
-            div.alert.alert-warning(style='padding:2px;margin-top:7px')
-              h5.hint(popover=env.t('clockInfo'), popover-trigger='mouseenter')=env.t('customDayStart')
+            hr
+
+            h5=env.t('customDayStart')
+            alert.alert-warning=env.t('customDayStartInfo1')
+
+            .form-horizontal
               .form-group
-                .input-group
-                  input.form-control(type='number', min='0', max='23', ng-model='user.preferences.dayStart', ng-blur='saveDayStart()')
-                  span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
-              small
-                  =env.t('subWarning1')
-                  |&nbsp;
-                  a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
-                  |&nbsp;
-                  =env.t('subWarning3')
+                .col-sm-7
+                  select.form-control(ng-model='dayStart')
+                    - var number = 0
+                    while number < 24
+                      - var value = number
+                      - var meridian = number < 12 ? 'AM' : 'PM'
+                      - var hour = number++ % 12
+                      option(value=value) #{hour ? hour : 12}:00 #{meridian}
+
+                .col-sm-5
+                  br.visible-xs
+                  button.btn.btn-block.btn-primary(ng-click='openDayStartModal(dayStart)',
+                    ng-disabled='dayStart == user.preferences.dayStart')
+                    =env.t('saveCustomDayStart')
 
       .personal-options.col-md-6
         .panel.panel-default
           .panel-heading
-            span Registration
+            span=env.t('registration')
           .panel-body
             div(ng-if='user.auth.facebook.id')
               button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
               button.btn.btn-danger(ng-click='http("delete","/api/v2/user/auth/social",null,"detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
               hr
               div(ng-if='!user.auth.local.username')
-                p Add local authentication:
+                p=env.t('addLocalAuth')
                 form(ng-submit='http("post","/api/v2/register",localAuth,"addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
                   //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted')=env.t('fillAll')
                   .form-group
@@ -158,29 +177,27 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
             a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
-script(type='text/ng-template', id='partials/options.settings.coupon.html')
+script(type='text/ng-template', id='partials/options.settings.promo.html')
   .container-fluid
     .row
       .col-md-6
-        h2= env.t('coupon')
+        h2=env.t('promoCode')
         form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
-          input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('couponPlaceholder'))
-          button.btn.btn-primary(type='submit') Submit
+          input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('promoPlaceholder'))
+          button.btn.btn-primary(type='submit')= env.t('submit')
         div
           small= env.t('couponText')
         div(ng-if='user.contributor.sudo')
           hr
-          h4 Generate Codes
+          h4=env.t('generateCodes')
           form.form(role='form',ng-submit='generateCodes(_codes)',ng-init='_codes={}')
             .form-group
               input.form-control(type='text',ng-model='_codes.event',placeholder="Event code (eg, 'wondercon')")
             .form-group
               input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
             .form-group
-              button.btn.btn-primary(type='submit') Generate
-              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}') Get Codes
-
-
+              button.btn.btn-primary(type='submit')=env.t('generate')
+              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}')=env.t('getCodes')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .container-fluid
@@ -193,16 +210,16 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h6=env.t('APIToken')
         pre.prettyprint {{user.apiToken}}
         h6=env.t('qrCode')
-        img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+        img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
         hr
 
-        h2 Webhooks
+        h2=env.t('webhooks')
         table.table.table-striped
           thead(ng-if='hasWebhooks')
             tr
-              th Enabled
-              th Webhook URL
+              th=env.t('enabled')
+              th=env.t('webhookURL')
               th
           tbody
             tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort'")
@@ -218,9 +235,9 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
               td(colspan=2)
                 form.form-horizontal(ng-submit='addWebhook(_newWebhook.url)')
                   .form-group.col-sm-10
-                    input.form-control(type='url', ng-model='_newWebhook.url', placeholder='Webhook URL')
+                    input.form-control(type='url', ng-model='_newWebhook.url', placeholder=env.t('webhookURL'))
                   .col-sm-2
-                    button.btn.btn-sm.btn-primary(type='submit') Add
+                    button.btn.btn-sm.btn-primary(type='submit')=env.t('add')
 
 script(id='partials/options.settings.export.html', type="text/ng-template")
   .container-fluid
@@ -241,7 +258,7 @@ mixin subPerks()
     tr
       td
         span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
-        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"') Cap raised to {{ [25 + user.purchased.plan.consecutive.gemCapExtra + Math.floor(Content.subscriptionBlocks[_subscription.key].months/3*5), 50]  | min }}
+        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"')=env.t('buyGemsGoldCap', {amount: '{{:: gemGoldCap(_subscription)  | min }}'})
     tr
       td
         span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
@@ -252,8 +269,8 @@ mixin subPerks()
       td
         span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
         div(ng-show='_subscription.key!="basic_earned"')
-          .badge.badge-success +{{Math.floor(Content.subscriptionBlocks[_subscription.key].months/3)}} Mystic Hourglass
-          .small.muted Mystic Hourglasses allow purchasing a previous month's Mystery Item set.
+          .badge.badge-success=env.t('mysticHourglass', {amount: '+{{:: numberOfMysticHourglasses(_subscription)}}'})
+          .small.muted=env.t('mysticHourglassText')
     tr
       td
         span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
@@ -272,61 +289,16 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
             =env.t('emailNotifications')
           .panel-body
 
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.newPM', ng-change='set({"preferences.emailNotifications.newPM": user.preferences.emailNotifications.newPM ? true: false})')
-                span=env.t('newPM')
+            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps']
+              -var preference = 'user.preferences.emailNotifications.' + notification
+              -var unsubscribeFromAll = 'user.preferences.emailNotifications.unsubscribeFromAll'
 
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.wonChallenge', ng-change='set({"preferences.emailNotifications.wonChallenge": user.preferences.emailNotifications.wonChallenge ? true: false})')
-                span=env.t('wonChallenge')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedGems', ng-change='set({"preferences.emailNotifications.giftedGems": user.preferences.emailNotifications.giftedGems ? true: false})')
-                span=env.t('giftedGems')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedSubscription', ng-change='set({"preferences.emailNotifications.giftedSubscription": user.preferences.emailNotifications.giftedSubscription ? true: false})')
-                span=env.t('giftedSubscription')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedParty', ng-change='set({"preferences.emailNotifications.invitedParty": user.preferences.emailNotifications.invitedParty ? true: false})')
-                span=env.t('invitedParty')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedGuild', ng-change='set({"preferences.emailNotifications.invitedGuild": user.preferences.emailNotifications.invitedGuild ? true: false})')
-                span=env.t('invitedGuild')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.kickedGroup', ng-change='set({"preferences.emailNotifications.kickedGroup": user.preferences.emailNotifications.kickedGroup ? true: false})')
-                span=env.t('kickedGroup')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.questStarted', ng-change='set({"preferences.emailNotifications.questStarted": user.preferences.emailNotifications.questStarted ? true: false})')
-                span=env.t('questStarted')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedQuest', ng-change='set({"preferences.emailNotifications.invitedQuest": user.preferences.emailNotifications.invitedQuest ? true: false})')
-                span=env.t('invitedQuest')
-
-            //.checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.remindersToLogin', ng-change='set({"preferences.emailNotifications.remindersToLogin": user.preferences.emailNotifications.remindersToLogin ? true: false})')
-                span=env.t('remindersToLogin')
-
-            // These are the recapture emails, important announcements was the previous name used for them
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
-                span=env.t('inactivityEmails')
+              .checkbox: label
+                input(type='checkbox', ng-model='#{preference}',
+                  ng-disabled='#{unsubscribeFromAll} === true',
+                  ng-checked='#{unsubscribeFromAll} === false && #{preference} === true',
+                  ng-change='set({"preferences.emailNotifications.#{notification}": #{preference} ? true: false})')
+                span=env.t(notification)
 
             hr
 
@@ -352,17 +324,17 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
             |  #{env.t('subCanceled')} <strong>{{moment(user.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
           tr(ng-if='!user.purchased.plan.dateTerminated'): td
             h4=env.t('subscribed')
-            p(ng-if='user.purchased.plan.planId') Recurring ${{Content.subscriptionBlocks[user.purchased.plan.planId].price}} each {{Content.subscriptionBlocks[user.purchased.plan.planId].months}} Month(s) ({{user.purchased.plan.paymentMethod}})
+            p(ng-if='user.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
           tr(ng-if='user.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
-            |  You have {{user.purchased.plan.extraMonths | number:2}} months of subscription credit.
+            | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{user.purchased.plan.extraMonths | number:2}}'})}
           tr(ng-if='user.purchased.plan.consecutive.count || user.purchased.plan.consecutive.offset'): td
             span.glyphicon.glyphicon-forward
-            | &nbsp;Consecutive Subscription
+            | &nbsp;#{env.t('consecutiveSubscription')}
             ul.list-unstyled
-              li Consecutive Months: {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li Gem Cap Extra: {{user.purchased.plan.consecutive.gemCapExtra}}
-              li Mystic Hourglasses: {{user.purchased.plan.consecutive.trinkets}}
+              li #{env.t('consecutiveMonths')} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
+              li #{env.t('gemCapExtra')} {{user.purchased.plan.consecutive.gemCapExtra}}
+              li #{env.t('mysticHourglasses')} {{user.purchased.plan.consecutive.trinkets}}
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           .form-group
             .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"')
@@ -377,13 +349,14 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
           .form-inline
             .form-group
-              input.form-control(type='text', ng-model='_subscription.coupon', placeholder='Promo Code')
+              input.form-control(type='text', ng-model='_subscription.coupon', placeholder= env.t('couponPlaceholder'))
             .form-group
-              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)') Apply
+              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
 
-          h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)') Resubscribe
-          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key') Card
-          a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
+          h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
+          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
+          a.btn.btn-success(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')=env.t('paypal')
+          a.btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")=env.t('amazonPayments')
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')

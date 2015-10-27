@@ -41,8 +41,17 @@ a.hint:hover
 .popover
   hr
     margin: 10px 0
-  ul
-    padding-left: 10px
+
+ul
+  list-style-position: inside;
+
+li.spaced
+  margin: auto auto .5em 3em
+
+.group-leave-join
+  .glyphicon-ban-circle
+    color: white;
+    margin-right: 5px;
 
 @media (max-width: 768px)
   .container-fluid
@@ -54,3 +63,10 @@ a.hint:hover
   .tasks-lists .row .col-md-3
     padding-right: 0
     padding-left: 0
+
+.flex-column
+  display: flex
+  flex-direction: column
+
+.row-margin
+  margin: auto auto 1em auto

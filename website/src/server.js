@@ -7,6 +7,7 @@ utils.setupConfig();
 var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
+var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 var cores = +nconf.get("WEB_CONCURRENCY") || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
@@ -30,14 +31,12 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Setup translations
   var i18n = require('./i18n');
 
-  var middleware = require('./middleware');
-
   var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
   var app = express();
   var server = http.createServer();
 
   // ------------  MongoDB Configuration ------------
-  mongoose = require('mongoose');
+  var mongoose = require('mongoose');
   var mongooseOptions = !isProd ? {} : {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
@@ -47,6 +46,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
     logging.info('Connected with Mongoose');
   });
   autoinc.init(db);
+
+  require('./libs/firebase');
 
   // load schemas & models
   require('./models/challenge');
@@ -89,15 +90,18 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var publicDir = path.join(__dirname, "/../public");
 
   app.set("port", nconf.get('PORT'));
-  middleware.apiThrottle(app);
-  app.use(middleware.domainMiddleware(server,mongoose));
-  if (!isProd) app.use(express.logger("dev"));
+  require('./middlewares/apiThrottle')(app);
+  app.use(require('./middlewares/domain')(server,mongoose));
+  if (!isProd && !DISABLE_LOGGING) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");
   app.use(express.favicon(publicDir + '/favicon.ico'));
-  app.use(middleware.cors);
-  app.use(middleware.forceSSL);
+  app.use(require('./middlewares/cors'));
+
+  var redirects = require('./middlewares/redirects');
+  app.use(redirects.forceHabitica);
+  app.use(redirects.forceSSL);
   app.use(express.urlencoded());
   app.use(express.json());
   app.use(require('method-override')());
@@ -127,12 +131,13 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.use(require('./routes/payments').middleware);
   app.use(require('./routes/auth').middleware);
   app.use(require('./routes/coupon').middleware);
+  app.use(require('./routes/unsubscription').middleware);
   var v2 = express();
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
   require('./routes/apiv2.coffee')(swagger, v2);
-  app.use(middleware.errorHandler);
+  app.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);
   server.listen(app.get("port"), function() {

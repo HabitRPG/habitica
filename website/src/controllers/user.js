@@ -8,7 +8,7 @@ var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
-var ga = utils.ga;
+var analytics = utils.analytics;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
@@ -16,22 +16,22 @@ var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var qs = require('qs');
-var request = require('request');
-var validator = require('validator');
+var firebase = require('../libs/firebase');
+var webhook = require('../webhook');
 
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
   var language = 'en';
 
-  if(typeof req.query.language != 'undefined')
+  if (typeof req.query.language != 'undefined')
     language = req.query.language.toString(); //|| 'en' in i18n
 
   var content = _.cloneDeep(shared.content);
   var walk = function(obj, lang){
     _.each(obj, function(item, key, source){
-      if(_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
-      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
+      if (_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
+      if (_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
     });
   }
   walk(content, language);
@@ -99,36 +99,32 @@ api.score = function(req, res, next) {
       text: req.body && req.body.text,
       notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
     };
-    task = user.ops.addTask({body:task});
+
     if (task.type === 'daily' || task.type === 'todo')
       task.completed = direction === 'up';
+
+    task = user.ops.addTask({body:task});
   }
   var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
 
-  user.save(function(err,saved){
+  user.save(function(err, saved){
     if (err) return next(err);
-    // TODO this should be return {_v,task,stats,_tmp}, instead of merging everything togther at top-level response
-    // However, this is the most commonly used API route, and changing it will mess with all 3rd party consumers. Bad idea :(
-    res.json(200, _.extend({
-      delta: delta,
-      _tmp: user._tmp
-    }, saved.toJSON().stats));
 
-    // Webhooks
-    _.each(user.preferences.webhooks, function(h){
-      if (!h.enabled || !validator.isURL(h.url)) return;
-      request.post({
-        url: h.url,
-        //form: {task: task, delta: delta, user: _.pick(user, ['stats', '_tmp'])} // this is causing "Maximum Call Stack Exceeded"
-        body: {direction:direction, task: task, delta: delta, user: _.pick(user, ['_id', 'stats', '_tmp'])}, json:true
-      });
-    });
+    var userStats = saved.toJSON().stats;
+    var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
+    res.json(200, resJsonData);
+
+    var webhookData = _generateWebhookTaskData(
+      task, direction, delta, userStats, user
+    );
+    webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
 
     if (
       (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
       || (task.type == 'reward') // we don't want to update the reward GP cost
     ) return clearMemory();
-    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal){
+
+    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
       if (err) return next(err);
       if (!chal) {
         task.challenge.broken = 'CHALLENGE_DELETED';
@@ -141,6 +137,7 @@ api.score = function(req, res, next) {
         chal.syncToUser(user);
         return clearMemory();
       }
+
       t.value += delta;
       if (t.type == 'habit' || t.type == 'daily')
         t.history.push({value: t.value, date: +new Date});
@@ -205,16 +202,88 @@ api.getBuyList = function (req, res, next) {
 api.getUser = function(req, res, next) {
   var user = res.locals.user.toJSON();
   user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = 50;
+  user.stats.maxHealth = shared.maxHealth;
   user.stats.maxMP = res.locals.user._statsComputed.maxMP;
   delete user.apiToken;
-  if (user.auth) {
-    delete user.auth.hashed_password;
-    delete user.auth.salt;
+  if (user.auth && user.auth.local) {
+    delete user.auth.local.hashed_password;
+    delete user.auth.local.salt;
   }
   return res.json(200, user);
 };
 
+/**
+ * Get anonymized User
+ */
+api.getUserAnonymized = function(req, res, next) {
+  var user = res.locals.user.toJSON();
+  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+  user.stats.maxHealth = shared.maxHealth;
+  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+
+  delete user.apiToken;
+
+  if (user.auth) {
+    delete user.auth.local;
+    delete user.auth.facebook;
+  }
+
+  delete user.newMessages;
+
+  delete user.profile;
+  delete user.purchased.plan;
+  delete user.contributor;
+  delete user.invitations;
+
+  delete user.items.special.nyeReceived;
+  delete user.items.special.valentineReceived;
+
+  delete user.webhooks;
+  delete user.achievements.challenges;
+
+  _.forEach(user.inbox.messages, function(msg){
+    msg.text = "inbox message text";
+  });
+
+  _.forEach(user.tags, function(tag){
+    tag.name = "tag";
+    tag.challenge = "challenge";
+  });
+
+  function cleanChecklist(task){
+    var checklistIndex = 0;
+
+    _.forEach(task.checklist, function(c){
+      c.text = "item" + checklistIndex++;
+    });
+  }
+
+  _.forEach(user.habits, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+  });
+
+  _.forEach(user.rewards, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+  });
+
+  _.forEach(user.dailys, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+
+    cleanChecklist(task);
+  });
+
+  _.forEach(user.todos, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+
+    cleanChecklist(task);
+  });
+
+  return res.json(200, user);
+};
 
 /**
  * This tells us for which paths users can call `PUT /user` (or batch-update equiv, which use `User.set()` on our client).
@@ -229,10 +298,9 @@ acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function
   return m;
 }, {})
 
-//// Uncomment this if we we want to disable GP-restoring (eg, holiday events)
-//_.each('stats.gp'.split(' '), function(removePath){
-//  delete acceptablePUTPaths[removePath];
-//})
+_.each('stats.class'.split(' '), function(removePath){
+  delete acceptablePUTPaths[removePath];
+})
 
 /**
  * Update user
@@ -249,7 +317,7 @@ api.update = function(req, res, next) {
     if (acceptablePUTPaths[k])
       user.fns.dotSet(k, v);
     else
-      errors.push("path `" + k + "` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.");
+      errors.push("path `" + k + "` was not saved, as it's a protected path.");
     return true;
   });
   user.save(function(err) {
@@ -262,7 +330,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    progress = user.fns.cron({ga:ga}),
+    progress = user.fns.cron({analytics:utils.analytics}),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
@@ -297,13 +365,33 @@ api.cron = function(req, res, next) {
 // api.reset // Shared.ops
 
 api['delete'] = function(req, res, next) {
-  var plan = res.locals.user.purchased.plan;
-  if (plan && plan.customerId && !plan.dateTerminated)
+  var user = res.locals.user;
+  var plan = user.purchased.plan;
+
+  if (plan && plan.customerId && !plan.dateTerminated){
     return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
-  res.locals.user.remove(function(err){
-    if (err) return next(err);
-    res.send(200);
-  })
+  }
+
+  Group.find({
+    members: {
+      '$in': [user._id]
+    }
+  }, function(err, groups){
+    if(err) return next(err);
+
+    async.each(groups, function(group, cb){
+      group.leave(user, 'remove-all', cb);
+    }, function(err){
+      if(err) return next(err);
+
+      user.remove(function(err){
+        if(err) return next(err);
+
+        firebase.deleteUser(user._id);
+        res.send(200);
+      });
+    });
+  });
 }
 
 /*
@@ -314,14 +402,33 @@ api['delete'] = function(req, res, next) {
 
 // api.unlock // see Shared.ops
 
-api.addTenGems = function(req, res, next) {
+"development" === nconf.get("NODE_ENV") && (api.addTenGems = function(req, res, next) {
   var user = res.locals.user;
   user.balance += 2.5;
   user.save(function(err){
     if (err) return next(err);
     res.send(204);
-  })
-}
+  });
+});
+
+/*
+ ------------------------------------------------------------------------
+ Hourglass
+ ------------------------------------------------------------------------
+ */
+
+// api.unlock // see Shared.ops
+
+"development" === nconf.get("NODE_ENV") && (api.addHourglass = function(req, res, next) {
+  var user = res.locals.user;
+
+  user.purchased.plan.consecutive.trinkets += 1;
+
+  user.save(function(err){
+    if (err) return next(err);
+    res.send(204);
+  });
+});
 
 /*
  ------------------------------------------------------------------------
@@ -426,9 +533,9 @@ api.sessionPartyInvite = function(req,res,next){
         return cb();
       }
 
-      if(group.type == 'guild'){
+      if (group.type == 'guild'){
         inv.guilds.push(req.session.partyInvite);
-      }else{
+      } else{
         //req.body.type in 'guild', 'party'
         inv.party = req.session.partyInvite;
       }
@@ -461,7 +568,7 @@ _.each(shared.wrap({}).ops, function(op,k){
           if (err) return next(err);
           res.json(200,response);
         })
-      }, ga);
+      }, analytics);
     }
   }
 })
@@ -525,16 +632,39 @@ api.batchUpdate = function(req, res, next) {
       res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
-    }else if(response.wasModified){
+    } else if (response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
-      response.todos = _.where(response.todos, function(t) {
-        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3}));
-      });
+      response.todos = shared.preenTodos(response.todos);
       res.json(200, response);
 
     // return only the version number
-    }else{
+    } else{
       res.json(200, {_v: response._v});
     }
   });
 };
+
+function _generateWebhookTaskData(task, direction, delta, stats, user) {
+  var extendedStats = _.extend(stats, {
+    toNextLevel: shared.tnl(user.stats.lvl),
+    maxHealth: shared.maxHealth,
+    maxMP: user._statsComputed.maxMP
+  });
+
+  var userData = {
+    _id: user._id,
+    _tmp: user._tmp,
+    stats: extendedStats
+  };
+
+  var taskData = {
+    details: task,
+    direction: direction,
+    delta: delta
+  }
+
+  return {
+    task: taskData,
+    user: userData
+  }
+}

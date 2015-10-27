@@ -5,15 +5,17 @@ node_modules
 *.swp
 .idea*
 config.json
-npm-debug.log
+npm-debug.log*
 lib
 website/public/bower_components
+website/public/new-stuff.html
 website/build
 newrelic_agent.log
 .bower-tmp
 .bower-registry
 .bower-cache
 .vagrant
+Vagrantfile
 
 *.log
 src/*/*.map
@@ -22,4 +24,8 @@ test/*.js
 test/*.map
 website/public/docs
 *.sublime-workspace
+coverage
 coverage.html
+common/dist/scripts/*
+
+test/spec/mocks/translations.js

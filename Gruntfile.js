@@ -2,79 +2,9 @@
 var _ = require('lodash');
 module.exports = function(grunt) {
 
-  // Ported from shared
-  // So this sucks. Mobile Safari can't render image files > 1024x1024*3, so we have to break it down to multiple
-  // files in this hack approach. See https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
-  var images = grunt.file.expand('common/img/sprites/spritesmith/**/*.png');
-//  var totalDims = {width:0,height:0};
-//  _.each(images, function(img){
-//    var dims = sizeOf(img);
-//    if(!dims.width || !dims.height) console.log(dims);
-//    totalDims.width += dims.width;
-//    totalDims.height += dims.height;
-//  })
-  var COUNT = 6;//Math.ceil( (totalDims.width * totalDims.height) / (1024*1024*3) );
-  //console.log({totalDims:totalDims,COUNT:COUNT});
-
-  var sprite = {};
-  _.times(COUNT, function(i){
-    var sliced = images.slice(i * (images.length/COUNT), (i+1) * images.length/COUNT)
-    sprite[''+i] = {
-      src: sliced,
-      dest: 'common/dist/sprites/spritesmith'+i+'.png',
-      destCss: 'common/dist/sprites/spritesmith'+i+'.css',
-      engine: 'phantomjssmith',
-      algorithm: 'binary-tree',
-      padding:1,
-      cssTemplate: 'common/css/css.template.mustache',
-      cssVarMap: function (sprite) {
-        // For hair, skins, beards, etc. we want to output a '.customize-options.WHATEVER' class, which works as a
-        // 60x60 image pointing at the proper part of the 90x90 sprite.
-        // We set up the custom info here, and the template makes use of it.
-        if (sprite.name.match(/hair|skin|beard|mustach|shirt|flower/) || sprite.name=='head_0') {
-          sprite.custom = {
-            px: {
-              offset_x: "-" + (sprite.x + 25) + "px",
-              offset_y: "-" + (sprite.y + 15) + "px",
-              width: "" + 60 + "px",
-              height: "" + 60 + "px"
-            }
-          }
-        }
-        if (~sprite.name.indexOf('shirt'))
-          sprite.custom.px.offset_y = "-" + (sprite.y + 30) + "px"; // even more for shirts
-      }
-      /*,cssOpts: {
-       cssClass: function (item) {
-       return '.' + item.name; //'.sprite-' + item.name;
-       }
-       }*/
-    }
-  });
-
-
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
-    git_changelog: {
-        minimal: {
-            options: {
-                repo_url: 'https://github.com/habitrpg/habitrpg',
-                appName : 'HabitRPG',
-                branch_name: 'develop'
-            }
-        },
-        extended: {
-            options: {
-                file: 'EXTENDEDCHANGELOG.md',
-                repo_url: 'https://github.com/habitrpg/habitrpg',
-                appName : 'HabitRPG',
-                branch_name: 'develop',
-                grep_commits: '^perf|^style|^fix|^feat|^docs|^refactor|^chore|BREAKING'
-            }
-        }
-    },
 
     karma: {
       unit: {
@@ -88,11 +18,8 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      build: ['website/build'],
-      sprite: ['common/dist/sprites']
+      build: ['website/build']
     },
-
-    sprite: sprite,
 
     cssmin: {
       dist: {
@@ -142,6 +69,7 @@ module.exports = function(grunt) {
           {expand: true, cwd: '', src: 'common/dist/sprites/spritesmith*.png', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/backer-only/*.gif', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/npc_ian.gif', dest: 'website/build/'},
+          {expand: true, cwd: '', src: 'common/img/sprites/quest_burnout.gif', dest: 'website/build/'},
           {expand: true, cwd: 'website/public/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
         ]
       }
@@ -154,38 +82,16 @@ module.exports = function(grunt) {
           fileNameFormat: '${name}-${hash}.${ext}'
         },
         src: [
-          'website/build/*.js', 
-          'website/build/*.css', 
+          'website/build/*.js',
+          'website/build/*.css',
           'website/build/favicon.ico',
           'website/build/common/dist/sprites/*.png',
           'website/build/common/img/sprites/backer-only/*.gif',
           'website/build/common/img/sprites/npc_ian.gif',
+          'website/build/common/img/sprites/quest_burnout.gif',
           'website/build/bower_components/bootstrap/dist/fonts/*'
         ],
         dest: 'website/build/*.css'
-      }
-    },
-
-    nodemon: { 
-      dev: {
-        script: '<%= pkg.main %>'
-      }
-    },
-
-    watch: {
-      dev: {
-        files: ['website/public/**/*.styl'], // 'public/**/*.js' Not needed because not in production
-        tasks:  [ 'build:dev' ],
-        options: {
-          nospawn: true
-        }
-      }
-    },
-
-    concurrent: {
-      dev: ['nodemon', 'watch'],
-      options: {
-        logConcurrentOutput: true
       }
     }
   });
@@ -202,7 +108,7 @@ module.exports = function(grunt) {
 
       _.each(files[key].js, function(val){
         var path = "./";
-        if( val.indexOf('common/') == -1) 
+        if( val.indexOf('common/') == -1)
           path = './website/public/';
         js.push(path + val);
       });
@@ -213,7 +119,7 @@ module.exports = function(grunt) {
         var path = "./";
         if( val.indexOf('common/') == -1) {
           path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/public/';
-        } 
+        }
         css.push(path + val)
       });
 
@@ -228,16 +134,18 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'cssmin']);
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['browserify', 'stylus']);
+  grunt.registerTask('build:dev', ['browserify', 'cssmin', 'stylus']);
+  grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
-  grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
-
-  if(process.env.NODE_ENV == 'production')
-    grunt.registerTask('default', ['build:prod']);
-  else
-    grunt.registerTask('default', ['build:dev']);
+  grunt.registerTask('test:prepare:translations', function() {
+    require('coffee-script');
+    var i18n  = require('./website/src/i18n'),
+        fs    = require('fs');
+    fs.writeFileSync('test/spec/mocks/translations.js',
+      "if(!window.env) window.env = {};\n" +
+      "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
+  });
 
   // Load tasks
   grunt.loadNpmTasks('grunt-browserify');
@@ -246,12 +154,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('git-changelog');
 
 };

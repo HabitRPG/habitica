@@ -8,8 +8,15 @@ html(ng-app="habitrpg")
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='apple-mobile-web-app-capable', content='yes')
 
+    // .slice(0).push('user') is to clone the array, 
+    // to be surethat  `user` is never avalaible to other requests' env
+    // TODO does it need only `user` in clientVars, not the others?
+    -
+      clientVars = env.clientVars.slice(0);
+      clientVars.push('user');
+      
     script(type='text/javascript').
-      window.env = !{JSON.stringify(env)};
+      window.env = !{JSON.stringify(env._.pick(env, clientVars))};
 
     != env.getManifestFiles("app")
 
@@ -23,6 +30,6 @@ html(ng-app="habitrpg")
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
 
   body(ng-cloak)
-    include ./shared/header/avatar
+    include ./shared/avatar/index
     div(ng-controller='StaticAvatarCtrl')
       +herobox({main:true})

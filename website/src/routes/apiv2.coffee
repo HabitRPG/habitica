@@ -16,12 +16,11 @@ hall = require("../controllers/hall")
 challenges = require("../controllers/challenges")
 dataexport = require("../controllers/dataexport")
 nconf = require("nconf")
-middleware = require("../middleware")
 cron = user.cron
 _ = require('lodash')
 content = require('../../../common').content
 i18n = require('../i18n')
-
+forceRefresh = require('../middlewares/forceRefresh').middleware
 
 module.exports = (swagger, v2) ->
   [path,body,query] = [swagger.pathParam, swagger.bodyParam, swagger.queryParam]
@@ -35,13 +34,13 @@ module.exports = (swagger, v2) ->
 
     '/status':
       spec:
-        description: "Returns the status of the server (up or down)"
+        description: "Returns the status of the server (up or down). Does not require authentication."
       action: (req, res) ->
         res.json status: "up"
 
     '/content':
       spec:
-        description: "Get all available content objects. This is essential, since Habit often depends on item keys (eg, when purchasing a weapon)."
+        description: "Get all available content objects. This is essential, since Habit often depends on item keys (eg, when purchasing a weapon). Does not require authentication."
         parameters: [
           query("language","Optional language to use for content's strings. Default is english.","string")
         ]
@@ -49,7 +48,7 @@ module.exports = (swagger, v2) ->
 
     '/content/paths':
       spec:
-        description: "Show user model tree"
+        description: "Show user model tree. Does not require authentication."
       action: user.getModelPaths
 
     "/export/history":
@@ -68,7 +67,7 @@ module.exports = (swagger, v2) ->
     "/user/tasks/{id}/{direction}":
       spec:
         #notes: "Simple scoring of a task."
-        description: "Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you. When random events occur, the <b>user._tmp</b> variable will be filled. Critical hits can be accessed through <b>user._tmp.crit</b>. The Streakbonus can be accessed through <b>user._tmp.streakBonus</b>. Both will contain the multiplier value. When random drops occur, the following values are available: <b>user._tmp.drop = {text,type,dialog,value,key,notes}</b>"
+        description: "Simple scoring of a task (Habit, Daily, To-Do, or Reward). This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you. When random events occur, the <b>user._tmp</b> variable will be filled. Critical hits can be accessed through <b>user._tmp.crit</b>. The Streakbonus can be accessed through <b>user._tmp.streakBonus</b>. Both will contain the multiplier value. When random drops occur, the following values are available: <b>user._tmp.drop = {text,type,dialog,value,key,notes}</b>"
         parameters: [
           path("id", "ID of the task to score. If this task doesn't exist, a task will be created automatically", "string")
           path("direction", "Either 'up' or 'down'", "string")
@@ -181,13 +180,31 @@ module.exports = (swagger, v2) ->
     "/user/inventory/purchase/{type}/{key}":
       spec:
         method: 'POST'
-        description: "Purchase a gem-purchaseable item from Alexander"
+        description: "Purchase a Gem-purchasable item from Alexander"
         parameters:[
           path('type',"The type of object you're purchasing.",'string',['eggs','hatchingPotions','food','quests','special'])
           path('key',"The object key you're purchasing (call /content route for available keys)",'string')
         ]
       action: user.purchase
 
+    "/user/inventory/hourglass/{type}/{key}":
+      spec:
+        method: 'POST'
+        description: "Purchase a pet or mount using a Mystic Hourglass"
+        parameters:[
+          path('type',"The type of object you're purchasing.",'string',['pets','mounts'])
+          path('key',"The object key you're purchasing (call /content route for available keys)",'string')
+        ]
+      action: user.hourglassPurchase
+
+    "/user/inventory/mystery/{key}":
+      spec:
+        method: 'POST'
+        description: "Purchase a Mystery Item Set using a Mystic Hourglass"
+        parameters:[
+          path('key',"The key for the Mystery Set you're purchasing (call /content route for available keys)",'string')
+        ]
+      action: user.buyMysterySet
 
     "/user/inventory/feed/{pet}/{food}":
       spec:
@@ -226,6 +243,11 @@ module.exports = (swagger, v2) ->
         path: '/user'
         description: "Get the full user object"
       action: user.getUser
+
+    "/user/anonymized":
+      spec:
+        description: "Get the user object without any personal data"
+      action: user.getUserAnonymized
 
     "/user:PUT":
       spec:
@@ -298,7 +320,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Casts a spell on a target."
         parameters: [
-          path 'spell',"The key of the spell to cast (see ../../common#content.coffee)",'string'
+          path 'spell',"The key of the spell to cast (see ../../common#content/index.coffee)",'string'
           query 'targetType',"The type of object you're targeting",'string',['party','self','user','task']
           query 'targetId',"The ID of the object you're targeting",'string'
 
@@ -321,7 +343,7 @@ module.exports = (swagger, v2) ->
         parameters:[
           body '','The array of batch-operations to perform','object'
         ]
-      middleware: [middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron, user.sessionPartyInvite]
+      middleware: [forceRefresh, auth.auth, i18n.getUserLanguage, cron, user.sessionPartyInvite]
       action: user.batchUpdate
 
     # Tags
@@ -395,6 +417,16 @@ module.exports = (swagger, v2) ->
           path 'id','Id of webhook to delete','string'
         ]
       action: user.deleteWebhook
+
+    # Push Notifications
+    "/user/pushDevice":
+      spec:
+        method: 'POST'
+        description: 'Add a new push devices registration ID'
+        parameters: [
+          body '','New push registration { regId: "123123", type: "android"}','object'
+        ]
+      action: user.addPushDevice
 
     # ---------------------------------
     # Groups
@@ -512,6 +544,14 @@ module.exports = (swagger, v2) ->
         parameters: [path('gid','Group to abort quest in','string')]
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questAbort
+
+    "/groups/{gid}/questLeave":
+      spec:
+        method: 'POST'
+        description: 'Leave an active quest (Quest leaders cannot leave active quests. They must abort the quest to leave)'
+        parameters: [path('gid','Group to leave quest in','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.questLeave
 
     #TODO PUT  /groups/:gid/chat/:messageId
 
@@ -688,6 +728,7 @@ module.exports = (swagger, v2) ->
         path: '/challenges/{cid}'
         description: 'Get a challenge'
         parameters: [path('cid','Challenge id','string')]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.get
 
     "/challenges/{cid}/csv":
@@ -759,6 +800,10 @@ module.exports = (swagger, v2) ->
     api["/user/addTenGems"] =
       spec: method:'POST'
       action: user.addTenGems
+
+    api["/user/addHourglass"] =
+      spec: method:'POST'
+      action: user.addHourglass
 
   _.each api, (route, path) ->
     ## Spec format is:

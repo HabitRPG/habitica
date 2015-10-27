@@ -1,9 +1,11 @@
 {
     "messageLostItem": "A(z) <%= itemText %> eltörött.",
     "messageTaskNotFound": "A feladat nem található.",
+    "messageDuplicateTaskID": "Feladat ezzel az azonosítóval már létezik.",
     "messageTagNotFound": "A cimke nem található.",
     "messagePetNotFound": ":pet nem található a(z) user.items.pets -ben",
     "messageFoodNotFound": ":food nem található a(z) user.items.food -ben",
+    "messageNotAvailable": "Ez a tárgy jelenleg nem megvásárolható.",
     "messageCannotFeedPet": "Nem etetheted ezt a háziállatot.",
     "messageAlreadyMount": "Már megvan ez a hátas. Próbálj egy másik háziállatot etetni.",
     "messageEvolve": "Megszelidítettél egy <%= egg %>-t, menj egy körre vele!",
@@ -13,6 +15,7 @@
     "messageEquipped": "Felvetted <%= itemText %>-t.",
     "messageUnEquipped": "<%= itemText %>-t levetted magadról.",
     "messageMissingEggPotion": "Hiányzik a tojás vagy a főzet",
+    "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",
     "messageAlreadyPet": "Már megvan ez a háziállat. Próbálj egy másik kombinációt.",
     "messageHatched": "A tojásod kikelt! Látogasd meg az istállóban ha használni szeretnéd.",
     "messageNotEnoughGold": "Nincs elég aranyad",
@@ -20,5 +23,12 @@
     "messageDropFood": "Találtál egy <%= dropArticle %><%= dropText %>-t! <%= dropNotes %>",
     "messageDropEgg": "Találtál egy <%= dropText %> tojást! <%= dropNotes %>",
     "messageDropPotion": "Találtál egy <%= dropText %> keltetőfőzetet! <%= dropNotes %>",
-    "messageFoundQuest": "Megtaláltad a \"<%= questText %>\" küldetést!"
+    "messageDropQuest": "Találtál egy küldetést!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "Megtaláltad a \"<%= questText %>\" küldetést!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

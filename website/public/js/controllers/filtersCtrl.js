@@ -4,6 +4,8 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
   function($scope, $rootScope, User, Shared) {
     var user = User.user;
     $scope._editing = false;
+    $scope._newTag = {name:''};
+    $scope.filterQuery = '';
 
     var tagsSnap; // used to compare which tags need updating
 
@@ -29,8 +31,13 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
       // User.save();
     };
 
-    $scope.createTag = function(name) {
-      User.user.ops.addTag({body:{name:name, id:Shared.uuid()}});
-      $scope._newTag = '';
+    $scope.updateTaskFilter = function(){
+      user.filterQuery = $scope.filterQuery;
+    };
+    $scope.updateTaskFilter();
+
+    $scope.createTag = function() {
+      User.user.ops.addTag({body:{name:$scope._newTag.name, id:Shared.uuid()}});
+      $scope._newTag.name = '';
     };
 }]);

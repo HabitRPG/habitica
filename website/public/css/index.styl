@@ -110,8 +110,10 @@ html, body
 //move
 
 .new-stuff-modal // a .modal-body
-  h5
+  h2, h3
     font-weight: 700
+    font-size: 14px
+    margin-top: 10px
 
 .modal-fixed-height
   overflow-y: auto
@@ -163,6 +165,10 @@ a.label
 .btn-group .btn
   margin-right: 0px
 
+// Class for buttons with long text allowing wrapping
+.btn-wrap
+  white-space: normal
+
 .modal-indented-list
   margin-left: 10px;
   padding-left: 10px;
@@ -187,3 +193,14 @@ a.label
   color: #fff !important
 .line-through
   text-decoration line-through
+
+.markdown-preview markdown code
+  white-space inherit
+
+// By default everything should render as pixelart, except images from img tags (which tend to be things like gravatars, 
+// screenshots and so on)
+*
+  image-rendering: pixelated
+
+.img-rendering-auto, .emoji
+  image-rendering: auto

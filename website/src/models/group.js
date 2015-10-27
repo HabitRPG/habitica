@@ -1,10 +1,15 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var User = require('./user').model;
 var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
 var logging = require('../logging');
+var Challenge = require('./../models/challenge').model;
+var firebase = require('../libs/firebase');
 
+// NOTE any change to groups' members in MongoDB will have to be run through the API
+// changes made directly to the db will cause Firebase to get out of sync
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
   name: String,
@@ -80,6 +85,38 @@ GroupSchema.pre('save', function(next){
   next();
 })
 
+GroupSchema.pre('remove', function(next) {
+  var group = this;
+  async.waterfall([
+    function(cb) {
+      var invitationQuery = {};
+      var groupType = group.type;
+      //Add an 's' to group type guild because the model has the plural version
+      if (group.type == "guild") groupType += "s";
+      invitationQuery['invitations.' + groupType + '.id'] = group._id;
+      User.find(invitationQuery, cb);
+    },
+    function(users, cb) {
+      if (users) {
+        users.forEach(function (user, index, array) {
+          if ( group.type == "party" ) {
+            user.invitations.party = {};
+          } else {
+            var i = _.findIndex(user.invitations.guilds, {id: group._id});
+            user.invitations.guilds.splice(i, 1);
+          }
+          user.save();
+        });
+      }
+      cb();
+    }
+  ], next);
+});
+
+GroupSchema.post('remove', function(group) {
+  firebase.deleteGroup(group._id);
+});
+
 GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
   removeDuplicates(doc);
@@ -141,7 +178,8 @@ var cleanQuestProgress = function(merge){
       down: 0,
       collect: {}
     },
-    completed: null
+    completed: null,
+    RSVPNeeded: false
   };
   merge = merge || {progress:{}};
   _.merge(clean, _.omit(merge,'progress'));
@@ -192,9 +230,8 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   mongoose.model('User').update(q, updates, {multi:true}, cb);
 }
 
-// FIXME this is a temporary measure, we need to remove quests from users when they traverse parties
 function isOnQuest(user,progress,group){
-  return group && progress && user.party.quest.key && user.party.quest.key == group.quest.key;
+  return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {
@@ -232,13 +269,18 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
 }
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
-module.exports.tavern = {};
+module.exports.tavernQuest = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
-  mongoose.model('Group').findOne(tavernQ,function(err,tavern){
-    module.exports.tavern = tavern;
+  mongoose.model('Group').findOne(tavernQ, function(err,tavern){
+    if (!tavern) return; // No tavern quest
+
+    var quest = tavern.quest.toObject();
+    // Using _assign so we don't lose the reference to the exported tavernQuest
+    _.assign(module.exports.tavernQuest, quest);
   });
-})
+});
+
 GroupSchema.statics.tavernBoss = function(user,progress) {
   if (!progress) return;
 
@@ -252,14 +294,13 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
     },
     function(tavern,cb){
       if (!(tavern && tavern.quest && tavern.quest.key)) return cb(true);
-      module.exports.tavern = tavern;
 
       var quest = shared.content.quests[tavern.quest.key];
       if (tavern.quest.progress.hp <= 0) {
         tavern.sendChat(quest.completionChat('en'));
         tavern.finishQuest(quest, function(){});
         tavern.save(cb);
-        module.exports.tavern = undefined;
+        _.assign(module.exports.tavernQuest, {extra: null});
       } else {
         // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
         // use those first - which allows us to update the boss on the go if things are too easy/hard.
@@ -269,8 +310,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
         if (tavern.quest.progress.rage >= quest.boss.rage.value) {
           if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
           var wd = tavern.quest.extra.worldDmg;
-          // var scene = wd.tavern ? wd.stables ? wd.market ? false : 'market' : 'stables' : 'tavern'; // Dilatory attacks tavern, stables, market
-          var scene = wd.stables ? wd.bailey ? wd.guide ? false : 'guide' : 'bailey' : 'stables'; // Stressbeast attacks stables, Bailey, Justin
+          var scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // Burnout attacks Ian, Seasonal Sorceress, tavern
           if (!scene) {
             tavern.sendChat('`'+quest.boss.name('en')+' tries to unleash '+quest.boss.rage.title('en')+', but is too tired.`');
             tavern.quest.progress.rage = 0 //quest.boss.rage.value;
@@ -280,16 +320,20 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
             tavern.quest.extra.worldDmg.recent = scene;
             tavern.markModified('quest.extra.worldDmg');
             tavern.quest.progress.rage = 0;
-            tavern.quest.progress.hp += (quest.boss.rage.healing * tavern.quest.progress.hp);
+            if (quest.boss.rage.healing) {
+              tavern.quest.progress.hp += (quest.boss.rage.healing * tavern.quest.progress.hp);
+            }
           }
         }
-        if ((tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
+        if (quest.boss.desperation && (tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
           tavern.sendChat(quest.boss.desperation.text('en'));
           tavern.quest.extra.desperate = true;
           tavern.quest.extra.def = quest.boss.desperation.def;
           tavern.quest.extra.str = quest.boss.desperation.str;
           tavern.markModified('quest.extra');
         }
+
+        _.assign(module.exports.tavernQuest, tavern.quest.toObject());
         tavern.save(cb);
       }
     }
@@ -341,6 +385,94 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
   })
 }
 
+// Remove user from this group
+GroupSchema.methods.leave = function(user, keep, mainCb){
+  if(!user) return mainCb(new Error('Missing user.'));
+
+  if(keep && typeof keep === 'function'){
+    mainCb = keep;
+    keep = null;
+  }
+  if(typeof keep !== 'string') keep = 'keep-all'; // can be also 'remove-all'
+
+  var group = this;
+
+  async.parallel([
+    // Remove user from group challenges
+    function(cb){
+      async.waterfall([
+        // Find relevant challenges
+        function(cb2) {
+          Challenge.find({
+            _id: {$in: user.challenges}, // Challenges I am in
+            group: group._id // that belong to the group I am leaving
+          }, cb2);
+        },
+
+        // Update each challenge
+        function(challenges, cb2) {
+          Challenge.update(
+            {_id: {$in: _.pluck(challenges, '_id')}},
+            {$pull: {members: user._id}},
+            {multi: true},
+            function(err) {
+             cb2(err, challenges); // pass `challenges` above to cb
+            }
+          );
+        },
+
+        // Unlink the challenge tasks from user
+        function(challenges, cb2) {
+          async.waterfall(challenges.map(function(chal) {
+            return function(cb3) {
+              var i = user.challenges.indexOf(chal._id)
+              if (~i) user.challenges.splice(i,1);
+              user.unlink({cid: chal._id, keep: keep}, cb3);
+            }
+          }), cb2);
+        }
+      ], cb);
+    },
+
+    // Update the group
+    function(cb){
+      // If user is the last one in group and group is private, delete it
+      if(group.members.length === 1 && (
+          group.type === 'party' ||
+          (group.type === 'guild' && group.privacy === 'private')
+      )){
+        group.remove(cb)
+      }else{ // otherwise just remove a member
+        var update = {$pull: {members: user._id}};
+
+        // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+        var leader = group.leader;
+
+        if(leader == user._id || !~group.members.indexOf(leader)){
+          var seniorMember = _.find(group.members, function (m) {return m != user._id});
+
+          // could not exist in case of public guild with 1 member who is leaving
+          if(seniorMember){
+            if (leader == user._id || !~group.members.indexOf(leader)) {
+              update['$set'] = update['$set'] || {};
+              update['$set'].leader = seniorMember;
+            }
+          }
+        }
+
+        update['$inc'] = {memberCount: -1};
+        Group.update({_id: group._id}, update, cb);
+      }
+    }
+  ], function(err){
+    if(err) return mainCb(err);
+
+    firebase.removeUserFromGroup(group._id, user._id);
+    return mainCb();
+  });
+};
+
+
 GroupSchema.methods.toJSON = function() {
   var doc = this.toObject();
   if(doc.chat){
@@ -357,14 +489,15 @@ module.exports.schema = GroupSchema;
 var Group = module.exports.model = mongoose.model("Group", GroupSchema);
 
 // initialize tavern if !exists (fresh installs)
-Group.count({_id:'habitrpg'},function(err,ct){
+Group.count({_id: 'habitrpg'}, function(err, ct){
   if (ct > 0) return;
+
   new Group({
     _id: 'habitrpg',
     chat: [],
     leader: '9',
     name: 'HabitRPG',
     type: 'guild',
-    privacy:'public'
+    privacy: 'public'
   }).save();
-})
+});

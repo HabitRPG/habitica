@@ -3,6 +3,7 @@ include ./reroll
 include ./death
 include ./new-stuff
 include ./buy-gems
+include ./amazon-payments
 include ./members
 include ./settings
 include ./drops
@@ -11,3 +12,9 @@ include ./quests
 include ./rebirth
 include ./limited
 include ./invite-friends
+include ./welcome.jade
+include ./low-health.jade
+
+//- Settings
+script(type='text/ng-template', id='modals/change-day-start.html')
+  include ./settings/change-day-start.jade

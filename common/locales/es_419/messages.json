@@ -1,9 +1,11 @@
 {
     "messageLostItem": "Tu <%= itemText %> se rompió.",
     "messageTaskNotFound": "Tarea no encontrada.",
+    "messageDuplicateTaskID": "Ya existe una Tarea con ese ID.",
     "messageTagNotFound": "Etiqueta no encontrada.",
     "messagePetNotFound": ":pet no encontrado en user.items.pets",
     "messageFoodNotFound": ":food no encontrado en user.items.food",
+    "messageNotAvailable": "This item is not currently available for purchase.",
     "messageCannotFeedPet": "No se pudo alimentar a esta mascota.",
     "messageAlreadyMount": "Ya posees esta montura. Intenta alimentar a otra mascota.",
     "messageEvolve": "Has domesticado a <%= egg %>, ¡vamos a dar una vuelta!",
@@ -13,6 +15,7 @@
     "messageEquipped": "<%= itemText %> equipado.",
     "messageUnEquipped": "<%= itemText %> no está equipado.",
     "messageMissingEggPotion": "Te hace falta o el huevo o la poción.",
+    "messageInvalidEggPotionCombo": "¡No puedes eclosionar Huevos de Mascota de Misión con Pociones Eclosionadoras Mágicas! Prueba con otro huevo.",
     "messageAlreadyPet": "Ya tienes esa mascota. ¡Intenta incubar una combinación diferente!",
     "messageHatched": "¡Tu huevo eclosionó! Visita tu establo para equipar a tu mascota.",
     "messageNotEnoughGold": "No tienes oro suficiente",
@@ -20,5 +23,12 @@
     "messageDropFood": "¡Has encontrado <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "¡Has encontrado un Huevo de <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "¡Has encontrado una Poción de eclosión <%= dropText %> ! <%= dropNotes %>",
-    "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!"
+    "messageDropQuest": "¡Has encontrado una misión!",
+    "messageDropMysteryItem": "¡Abres la caja y encuentras <%= dropText %>!",
+    "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "Ya posees este item. Equípalo yendo a la página de equipamiento.",
+    "armoireEquipment": "<%= image %> Hallaste una pieza de Equipamiento raro en el Armario: <%= dropText %> ¡Genial!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

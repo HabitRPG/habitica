@@ -1,0 +1,37 @@
+include ../../shared/mixins
+
+.container-fluid
+  .row
+    .col-md-6
+      .clearfix
+        div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left-sm.col-centered
+        .popover.static-popover.fade.right.in.pull-left-sm.col-centered
+          .arrow.hidden-xs
+          h3.popover-title=env.t('ian')
+          .popover-content
+            p(ng-if='env.worldDmg.quests')=env.t('ianBrokenText')
+            p(ng-if='!env.worldDmg.quests')=env.t('ianText')
+
+      h3.equipment-title=env.t('yourQuests')
+      +ownedQuests(true,'right')
+
+    .col-md-6.border-left
+      li.customize-menu
+        h3.equipment-title=env.t('questsForSale')
+        div(ng-repeat='type in Content.userCanOwnQuestCategories')
+          menu.pets-menu(label='{{env.t(type + "Quests")}}')
+            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy(user) && quest.category === type')
+              button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
+                data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
+                popover-title='{{::quest.text()}}', popover-append-to-body="true",
+                popover-trigger='mouseenter', ng-click='buyQuest(quest.key)')
+              p(ng-if='quest.unlockCondition')
+                |  {{::quest.unlockCondition.text()}}
+              p(ng-if='!quest.unlockCondition && quest.category !== "gold" && !lockQuest(quest)')
+                |  {{::quest.value}}&nbsp;
+                span.Pet_Currency_Gem1x.inline-gems
+              p(ng-if='quest.category === "gold" && !lockQuest(quest)')
+                |  {{::quest.goldValue}}&nbsp;
+                span.shop_gold
+              p(ng-if='quest.lvl && lockQuest(quest)')=env.t('level')
+                |  {{::quest.lvl}}
