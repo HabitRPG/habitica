@@ -85,7 +85,7 @@ exports.createSubscription = function(data, cb) {
       gift: !!data.gift, // coerced into a boolean
       purchaseValue: block.price
     }
-    utils.analytics.trackPurchase(analyticsData);
+    //utils.analytics.trackPurchase(analyticsData);
   }
   data.user.purchased.txnCount++;
   if (data.gift){
@@ -133,7 +133,7 @@ exports.cancelSubscription = function(data, cb) {
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod
   }
-  utils.analytics.track('unsubscribe', analyticsData);
+  //utils.analytics.track('unsubscribe', analyticsData);
 }
 
 exports.buyGems = function(data, cb) {
@@ -154,7 +154,7 @@ exports.buyGems = function(data, cb) {
       gift: !!data.gift, // coerced into a boolean
       purchaseValue: amt
     }
-    utils.analytics.trackPurchase(analyticsData);
+    //utils.analytics.trackPurchase(analyticsData);
   }
 
   if (data.gift){

@@ -914,7 +914,7 @@ api.questAccept = function(req, res, next) {
           gaLabel: 'accept',
           questName: key
         };
-        analytics.track('quest',analyticsData);
+        //analytics.track('quest',analyticsData);
         group.quest.members[m] = true;
         group.quest.leader = user._id;
       } else {
@@ -960,7 +960,7 @@ api.questAccept = function(req, res, next) {
       gaLabel: 'accept',
       questName: group.quest.key
     };
-    analytics.track('quest',analyticsData);
+    //analytics.track('quest',analyticsData);
     group.quest.members[user._id] = true;
     User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false}}).exec();
     questStart(req,res,next);
@@ -979,7 +979,7 @@ api.questReject = function(req, res, next) {
     gaLabel: 'reject',
     questName: group.quest.key
   };
-  analytics.track('quest',analyticsData);
+  //analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
   User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
   questStart(req,res,next);
