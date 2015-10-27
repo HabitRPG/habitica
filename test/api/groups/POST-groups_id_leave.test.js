@@ -4,6 +4,7 @@ import {
   generateUser,
   requester,
 } from '../../helpers/api.helper';
+import { find } from 'lodash';
 
 describe('POST /groups/:id/leave', () => {
 
@@ -14,8 +15,8 @@ describe('POST /groups/:id/leave', () => {
   context('user is a non-leader member of a guild', () => {
     let api, user, group;
 
-    beforeEach((done) => {
-      createAndPopulateGroup({
+    beforeEach(() => {
+      return createAndPopulateGroup({
         members: 3,
         groupDetails: {
           name: 'test guild',
@@ -26,25 +27,26 @@ describe('POST /groups/:id/leave', () => {
         user = res.members[0];
         api = requester(user);
         group = res.group;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('leaves the group', (done) => {
-      api.post(`/groups/${group._id}/leave`).then((result) => {
+    it('leaves the group', () => {
+      return api.post(`/groups/${group._id}/leave`).then((result) => {
         return api.get(`/groups/${group._id}`);
       }).then((group) => {
-        expect(group.members).to.not.include(user._id);
-        done();
-      }).catch(done);
+        let userInGroup = find(group.members, (member) => {
+          return member._id === user._id;
+        });
+        expect(userInGroup).to.not.be.ok;
+      });
     });
   });
 
   context('user is the last member of a public guild', () => {
     let api, user, group;
 
-    beforeEach((done) => {
-      createAndPopulateGroup({
+    beforeEach(() => {
+      return createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
           type: 'guild',
@@ -54,25 +56,21 @@ describe('POST /groups/:id/leave', () => {
         user = res.leader;
         api = requester(user);
         group = res.group;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('leaves the group accessible', (done) => {
-      api.post(`/groups/${group._id}/leave`).then((result) => {
+    it('leaves the group accessible', () => {
+      return expect(api.post(`/groups/${group._id}/leave`).then((result) => {
         return api.get(`/groups/${group._id}`);
-      }).then((group) => {
-        expect(group._id).to.eql(group._id);
-        done();
-      }).catch(done);
+      })).to.eventually.have.property('_id', group._id);
     });
   });
 
   context('user is the last member of a private group', () => {
     let api, user, group;
 
-    beforeEach((done) => {
-      createAndPopulateGroup({
+    beforeEach(() => {
+      return createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
           type: 'guild',
@@ -82,17 +80,15 @@ describe('POST /groups/:id/leave', () => {
         user = res.leader;
         api = requester(user);
         group = res.group;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('group is not accessible after leaving', (done) => {
-      api.post(`/groups/${group._id}/leave`).then((result) => {
+    it('group is not accessible after leaving', () => {
+      return expect(api.post(`/groups/${group._id}/leave`).then((result) => {
         return api.get(`/groups/${group._id}`);
-      }).then(done).catch((err) => {
-        expect(err.code).to.eql(404);
-        expect(err.text).to.eql('Group not found or you don\'t have access.');
-        done();
+      })).to.eventually.be.rejected.and.eql({
+        code: 404,
+        text: 'Group not found or you don\'t have access.',
       });
     });
   });
@@ -100,8 +96,8 @@ describe('POST /groups/:id/leave', () => {
   context('user is the last member of a private group with pending invites', () => {
     let api, user, inviteeRequest1, inviteeRequest2, group;
 
-    beforeEach((done) => {
-      createAndPopulateGroup({
+    beforeEach(() => {
+      return createAndPopulateGroup({
         invites: 2,
         groupDetails: {
           name: 'test guild',
@@ -114,29 +110,28 @@ describe('POST /groups/:id/leave', () => {
         inviteeRequest2 = requester(res.invitees[1]);
         api = requester(user);
         group = res.group;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('deletes the group invitations from users', (done) => {
-      api.post(`/groups/${group._id}/leave`).then((result) => {
+    it('deletes the group invitations from users', () => {
+      return api.post(`/groups/${group._id}/leave`).then((result) => {
         return Promise.all([
-          inviteeRequest1.get(`/user`),
-          inviteeRequest2.get(`/user`),
+          expect(inviteeRequest1.get(`/user`))
+            .to.eventually.have.deep.property('invitations.guilds')
+            .and.to.be.empty,
+          expect(inviteeRequest2.get(`/user`))
+            .to.eventually.have.deep.property('invitations.guilds')
+            .and.to.be.empty,
         ]);
-      }).then((users) => {
-        expect(users[0].invitations.guilds[0]).to.not.exist;
-        expect(users[1].invitations.guilds[0]).to.not.exist;
-        done();
-      }).catch(done);
+      });
     });
   });
 
   context('user is the last member of a party with pending invites', () => {
     let api, user, inviteeRequest1, inviteeRequest2, group;
 
-    beforeEach((done) => {
-      createAndPopulateGroup({
+    beforeEach(() => {
+      return createAndPopulateGroup({
         invites: 2,
         groupDetails: {
           name: 'test party',
@@ -149,21 +144,20 @@ describe('POST /groups/:id/leave', () => {
         inviteeRequest2 = requester(res.invitees[1]);
         api = requester(user);
         group = res.group;
-        done();
-      }).catch(done);
+      });
     });
 
-    it('deletes the group invitations from users', (done) => {
-      api.post(`/groups/${group._id}/leave`).then((result) => {
+    it('deletes the group invitations from users', () => {
+      return api.post(`/groups/${group._id}/leave`).then((result) => {
         return Promise.all([
-          inviteeRequest1.get(`/user`),
-          inviteeRequest2.get(`/user`),
+          expect(inviteeRequest1.get(`/user`))
+            .to.eventually.have.deep.property('invitations.party')
+            .and.to.be.empty,
+          expect(inviteeRequest2.get(`/user`))
+            .to.eventually.have.deep.property('invitations.party')
+            .and.to.be.empty,
         ]);
-      }).then((users) => {
-        expect(users[0].invitations.party).to.be.empty;
-        expect(users[1].invitations.party).to.be.empty;
-        done();
-      }).catch(done);
+      });
     });
   });
 });

@@ -6,25 +6,19 @@ import {
 describe('DELETE /user', () => {
   let api;
 
-  beforeEach((done) => {
-    generateUser().then((usr) => {
-      api = requester(usr);
-      done();
-    }).catch(done);
+  beforeEach(() => {
+    return generateUser().then((user) => {
+      api = requester(user);
+    });
   });
 
-  it('deletes the user', (done) => {
-    api.del('/user')
-      .then((fetchedUser) => {
-        return api.get('/user')
-      })
-      .then((deletedUser) => {
-        done('Unexpected user');
-      })
-      .catch((err) => {
-        expect(err.code).to.eql(401);
-        done();
-      });
+  it('deletes the user', () => {
+    return expect(api.del('/user').then((fetchedUser) => {
+      return api.get('/user');
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      text: 'No user found.',
+    });
   });
 
   context('user in solo group', () => {
