@@ -1029,7 +1029,7 @@ api.batchUpdate = function(req, res, next) {
     // return only drops & streaks
     if (_user._tmp && _user._tmp.drop){
       response = _user.toJSON();
-      res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+      res.status(200).json({_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
     } else if (res.locals.wasModified){
@@ -1038,13 +1038,13 @@ api.batchUpdate = function(req, res, next) {
         response = transformedData;
 
         response.todos = shared.preenTodos(response.todos);
-        res.json(200, response);
+        res.status(200).json(response);
       });
 
     // return only the version number
     } else{
       response = _user.toJSON();
-      res.json(200, {_v: response._v});
+      res.status(200).json({_v: response._v});
     }
 
     user.fns.nullify();
