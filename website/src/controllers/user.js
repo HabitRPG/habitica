@@ -396,39 +396,33 @@ api['delete'] = function(req, res, next) {
 
 /*
  ------------------------------------------------------------------------
- Gems
+ Development Only Operations
  ------------------------------------------------------------------------
  */
+if (nconf.get('NODE_ENV') === 'development') {
 
-// api.unlock // see Shared.ops
+  api.addTenGems = function(req, res, next) {
+    var user = res.locals.user;
 
-"development" === nconf.get("NODE_ENV") && (api.addTenGems = function(req, res, next) {
-  var user = res.locals.user;
-  user.balance += 2.5;
-  user.save(function(err){
-    if (err) return next(err);
-    res.send(204);
-  });
-});
+    user.balance += 2.5;
 
-/*
- ------------------------------------------------------------------------
- Hourglass
- ------------------------------------------------------------------------
- */
+    user.save(function(err){
+      if (err) return next(err);
+      res.send(204);
+    });
+  };
 
-// api.unlock // see Shared.ops
+  api.addHourglass = function(req, res, next) {
+    var user = res.locals.user;
 
-"development" === nconf.get("NODE_ENV") && (api.addHourglass = function(req, res, next) {
-  var user = res.locals.user;
+    user.purchased.plan.consecutive.trinkets += 1;
 
-  user.purchased.plan.consecutive.trinkets += 1;
-
-  user.save(function(err){
-    if (err) return next(err);
-    res.send(204);
-  });
-});
+    user.save(function(err){
+      if (err) return next(err);
+      res.send(204);
+    });
+  };
+}
 
 /*
  ------------------------------------------------------------------------
