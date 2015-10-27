@@ -85,7 +85,7 @@ describe('POST /groups', () => {
         code: 400,
         text: t('messageGroupAlreadyInParty'),
       });
-    })
+    });
 
     xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', () => {
       return expect(api.post('/groups', {

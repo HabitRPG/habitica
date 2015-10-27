@@ -1,7 +1,6 @@
 import {
   checkExistence,
   createAndPopulateGroup,
-  generateGroup,
   generateUser,
   requester,
   translate as t,

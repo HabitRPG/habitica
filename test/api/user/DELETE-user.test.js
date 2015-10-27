@@ -1,15 +1,18 @@
 import {
+  checkExistence,
+  generateGroup,
   generateUser,
   requester,
   translate as t,
 } from '../../helpers/api.helper';
 
 describe('DELETE /user', () => {
-  let api;
+  let api, user;
 
   beforeEach(() => {
-    return generateUser().then((user) => {
-      api = requester(user);
+    return generateUser().then((usr) => {
+      api = requester(usr);
+      user = usr;
     });
   });
 
@@ -26,11 +29,47 @@ describe('DELETE /user', () => {
     it('does not delete account');
   });
 
-  context('user in solo group', () => {
-
-    it('deletes party when user is the only member');
-
-    it('deletes private guild when user is the only member');
+  context('user in', () => {
+    
+    context('solo group', () => {
+      let group;
+      
+      beforeEach(() => {
+        return generateGroup(user, {
+          type: 'party',
+          privacy: 'private'
+        })
+        .then((grp) => {
+          group = grp;
+        });
+      });
+      
+      it('deletes party when user is the only member', () => {
+      return expect(api.del('/user').then((duser) => {
+          return checkExistence('groups', group._id);
+        })).to.eventually.eql(false);
+      });  
+    });
+    
+    context('private guild', () => {
+      let guild;
+      
+      beforeEach(() => {
+        return generateGroup(user, {
+          type: 'guild',
+          privacy: 'private'
+        })
+        .then((gld) => {
+          guild = gld;
+        });
+      });
+      
+      it('deletes private guild when user is the only member', () => {
+      return expect(api.del('/user').then((duser) => {
+          return checkExistence('groups', guild._id);
+        })).to.eventually.eql(false);
+      });
+    });
   });
 
   context('user in group with members', () => {
