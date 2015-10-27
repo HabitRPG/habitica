@@ -188,7 +188,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     | {{challenge.group.name}}
                 li
                   =env.t('by') + ' '
-                  a(ng-click='clickMember(challenge.leader._id, true)') {{challenge.leader.profile.name}}
+                  a(ng-click='clickMember(challenge.leader._id, true)') {{challenge.leader.profile.name || env.t('noChallengeOwner')}}
                 li
                   =env.t('participants', {membercount: "{{challenge.memberCount}}"})
                 li(ng-show='challenge.prize')
