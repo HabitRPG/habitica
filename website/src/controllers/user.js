@@ -392,7 +392,7 @@ api['delete'] = function(req, res, next) {
       });
     });
   });
-}
+};
 
 /*
  ------------------------------------------------------------------------
@@ -402,14 +402,14 @@ api['delete'] = function(req, res, next) {
 
 // api.unlock // see Shared.ops
 
-api.addTenGems = function(req, res, next) {
+"development" === nconf.get("NODE_ENV") && (api.addTenGems = function(req, res, next) {
   var user = res.locals.user;
   user.balance += 2.5;
   user.save(function(err){
     if (err) return next(err);
     res.send(204);
-  })
-}
+  });
+});
 
 /*
  ------------------------------------------------------------------------
