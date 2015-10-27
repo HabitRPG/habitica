@@ -606,6 +606,7 @@ api.batchUpdate = function(req, res, next) {
           return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
         return cb();
       };
+      if(!api[_req.op]) { return cb(_req.op + ' operation not found'); }
       api[_req.op](_req, res, cb);
     });
   })
