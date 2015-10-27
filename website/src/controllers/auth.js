@@ -120,7 +120,7 @@ api.registerUser = function(req, res, next) {
           type: 'local',
           gaLabel: 'local'
         };
-        //analytics.track('register', analyticsData)
+        analytics.track('register', analyticsData)
 
         user.save(function(err, savedUser){
           // Clean previous email preferences
@@ -214,7 +214,7 @@ api.loginSocial = function(req, res, next) {
         type: network,
         gaLabel: network
       };
-      //analytics.track('register', analyticsData)
+      analytics.track('register', analyticsData)
     }]
   }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
