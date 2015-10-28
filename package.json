@@ -106,6 +106,7 @@
     "event-stream": "^3.2.2",
     "expect.js": "~0.2.0",
     "gulp-minify-css": "^1.2.1",
+    "gulp-rename": "^1.2.2",
     "gulp-stylus": "^2.1.0",
     "istanbul": "^0.3.14",
     "karma": "~0.10.2",
@@ -130,11 +131,11 @@
     "rewire": "^2.3.3",
     "rimraf": "^2.4.3",
     "shelljs": "^0.4.0",
-    "vinyl-source-stream": "^1.1.0",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "superagent-defaults": "^0.1.13",
     "uuid": "^2.0.1",
+    "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0"
   }
 }
