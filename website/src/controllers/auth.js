@@ -118,7 +118,8 @@ api.registerUser = function(req, res, next) {
         var analyticsData = {
           category: 'acquisition',
           type: 'local',
-          gaLabel: 'local'
+          gaLabel: 'local',
+          uuid: user._id,
         };
         analytics.track('register', analyticsData)
 
@@ -145,9 +146,9 @@ api.registerUser = function(req, res, next) {
 
 api.loginLocal = function(req, res, next) {
   var username = req.body.username;
-  var password = req.body.password; 
+  var password = req.body.password;
   if (!(username && password)) return res.json(401, {err:'Missing :username or :password in request body, please provide both'});
-  var login = validator.isEmail(username) ? 
+  var login = validator.isEmail(username) ?
     {'auth.local.email':username.toLowerCase()} : // Emails are all lowercase
     {'auth.local.username':username}; // Use the username as the user typed it
 
@@ -212,7 +213,8 @@ api.loginSocial = function(req, res, next) {
       var analyticsData = {
         category: 'acquisition',
         type: network,
-        gaLabel: network
+        gaLabel: network,
+        uuid: user._id,
       };
       analytics.track('register', analyticsData)
     }]
@@ -276,9 +278,9 @@ var invalidPassword = function(user, password){
 
 api.changeUsername = function(req, res, next) {
   var user = res.locals.user;
-  var username = req.body.username; 
+  var username = req.body.username;
   var lowerCaseUsername = username && username.toLowerCase(); // we search for the lowercased version to intercept duplicates
-  
+
   if(!username) return res.json(400, {err: "Username not provided"});
   async.waterfall([
     function(cb){
@@ -352,7 +354,7 @@ api.getFirebaseToken = function(req, res, next) {
     .createToken({
       uid: user._id,
       isHabiticaUser: true
-    }, {      
+    }, {
       expires: expires
     });
 

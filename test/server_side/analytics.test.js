@@ -8,7 +8,9 @@ describe('analytics', function() {
   // Mocks
   var amplitudeMock = sinon.stub();
   var googleAnalyticsMock = sinon.stub();
-  var amplitudeTrack = sinon.stub();
+  var amplitudeTrack = sinon.stub().returns({
+    catch: function () { return true; }
+  });
   var googleEvent = sinon.stub().returns({
     send: function() { }
   });
