@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Inventory Controller', function() {
+describe.only('Inventory Controller', function() {
   var scope, ctrl, user, rootScope;
 
   beforeEach(function() {
@@ -18,6 +18,9 @@ describe('Inventory Controller', function() {
           food: { Meat: 1 },
           pets: {},
           mounts: {}
+        },
+        preferences: {
+          suppressModals: {}
         }
       });
 
@@ -53,14 +56,36 @@ describe('Inventory Controller', function() {
     expect(scope.selectedPotion.key).to.eql('Base');
   });
 
-  it('hatches a pet', function(){
-    scope.chooseEgg('Cactus');
-    scope.choosePotion('Base');
-    expect(user.items.eggs).to.eql({Cactus: 0});
-    expect(user.items.hatchingPotions).to.eql({Base: 0});
-    expect(user.items.pets).to.eql({'Cactus-Base': 5});
-    expect(scope.selectedEgg).to.eql(null);
-    expect(scope.selectedPotion).to.eql(null);
+  describe('Hatching Pets', function(){
+    beforeEach(function() {
+      sandbox.stub(rootScope, 'openModal');
+    });
+
+    it('hatches a pet', function(){
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+      expect(user.items.eggs).to.eql({Cactus: 0});
+      expect(user.items.hatchingPotions).to.eql({Base: 0});
+      expect(user.items.pets).to.eql({'Cactus-Base': 5});
+      expect(scope.selectedEgg).to.eql(null);
+      expect(scope.selectedPotion).to.eql(null);
+    });
+
+    it('shows a modal for pet hatching', function(){
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+
+      expect(rootScope.openModal).to.have.been.calledOnce;
+      expect(rootScope.openModal).to.have.been.calledWith('hatchPet');
+    });
+    
+    it('does not show pet hatching modal if user has opted out', function(){
+      user.preferences.suppressModals.hatchPet = true;
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+
+      expect(rootScope.openModal).to.not.be.called;
+    });
   });
 
   it('sells an egg', function(){

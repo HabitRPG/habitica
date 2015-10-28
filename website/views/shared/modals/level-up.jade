@@ -17,6 +17,9 @@ script(type='text/ng-template', id='modals/levelUp.html')
       p=env.t('fullyHealed')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.levelUp', ng-change='set({"preferences.suppressModals.levelUp": user.preferences.suppressModals.levelUp?true: false})')
     .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
       .container-fluid
         .row

@@ -75,7 +75,18 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               label
                 input(type='checkbox', ng-model='user.preferences.displayInviteToPartyWhenPartyIs1', ng-change='set({"preferences.displayInviteToPartyWhenPartyIs1": user.preferences.displayInviteToPartyWhenPartyIs1 ? true : false})')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('displayInviteToPartyWhenPartyIs1'))=env.t('displayInviteToPartyWhenPartyIs1')
-            // button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
+            .checkbox
+              label=env.t('suppressLevelUpModal')
+                input(type='checkbox', ng-model='user.preferences.suppressModals.levelUp', ng-change='set({"preferences.suppressModals.levelUp": user.preferences.suppressModals.levelUp?true: false})')
+            .checkbox
+              label=env.t('suppressHatchPetModal')
+                input(type='checkbox', ng-model='user.preferences.suppressModals.hatchPet', ng-change='set({"preferences.suppressModals.hatchPet": user.preferences.suppressModals.hatchPet?true: false})')
+            .checkbox
+              label=env.t('suppressRaisePetModal')
+                input(type='checkbox', ng-model='user.preferences.suppressModals.raisePet', ng-change='set({"preferences.suppressModals.raisePet": user.preferences.suppressModals.raisePet?true: false})')
+            .checkbox
+              label=env.t('suppressStreakModal')
+                input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
 
             hr
 
