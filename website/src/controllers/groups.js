@@ -912,7 +912,8 @@ api.questAccept = function(req, res, next) {
           owner: true,
           response: 'accept',
           gaLabel: 'accept',
-          questName: key
+          questName: key,
+          uuid: user._id,
         };
         analytics.track('quest',analyticsData);
         group.quest.members[m] = true;
@@ -958,7 +959,8 @@ api.questAccept = function(req, res, next) {
       owner: false,
       response: 'accept',
       gaLabel: 'accept',
-      questName: group.quest.key
+      questName: group.quest.key,
+      uuid: user._id,
     };
     analytics.track('quest',analyticsData);
     group.quest.members[user._id] = true;
@@ -977,7 +979,8 @@ api.questReject = function(req, res, next) {
     owner: false,
     response: 'reject',
     gaLabel: 'reject',
-    questName: group.quest.key
+    questName: group.quest.key,
+    uuid: user._id,
   };
   analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
