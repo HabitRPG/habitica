@@ -59,5 +59,7 @@
     "challengeNotEnoughGems": "You do not have enough gems to post this challenge.",
     "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
     "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "noPermissionCloseChallenge": "You don't have permissions to close this challenge",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the user who created the challenge deleted their account."
 }
