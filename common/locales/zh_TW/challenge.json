@@ -61,5 +61,5 @@
     "noPermissionDeleteChallenge": "你沒有權限撤回這個挑戰要求",
     "noPermissionCloseChallenge": "你沒有權限關閉這個挑戰",
     "noChallengeOwner": "no owner",
-    "noChallengeOwnerPopover": "This challenge does not have an owner because the player who created the challenge deleted their account."
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }

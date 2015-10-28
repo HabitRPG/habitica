@@ -61,5 +61,5 @@
     "noPermissionDeleteChallenge": "Du har inte tillstånd att ta bort den här utmaningen.",
     "noPermissionCloseChallenge": "Du har inte tillstånd att stänga den här utmaningen.",
     "noChallengeOwner": "no owner",
-    "noChallengeOwnerPopover": "This challenge does not have an owner because the player who created the challenge deleted their account."
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }
