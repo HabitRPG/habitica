@@ -59,5 +59,7 @@
     "challengeNotEnoughGems": "У вас недостаточно самоцветов, чтобы разместить это испытание.",
     "noPermissionEditChallenge": "У вас нет прав на редактирование этого испытания.",
     "noPermissionDeleteChallenge": "У вас нет прав на удаление этого испытания.",
-    "noPermissionCloseChallenge": "У вас нет прав на закрытие этого испытания."
+    "noPermissionCloseChallenge": "У вас нет прав на закрытие этого испытания.",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }

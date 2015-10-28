@@ -15,7 +15,7 @@
     "messageEquipped": "<%= itemText %> equipaggiato.",
     "messageUnEquipped": "<%= itemText %> non è più equipaggiato.",
     "messageMissingEggPotion": "Ti manca un uovo o una pozione.",
-    "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",
+    "messageInvalidEggPotionCombo": "Non puoi schiudere le Uova di animale delle missioni con le Pozioni di schiusura magiche! Prova un uovo diverso.",
     "messageAlreadyPet": "Possiedi già quell'animale. Prova un'altra combinazione!",
     "messageHatched": "Il tuo uovo si è schiuso! Vai alla Scuderia per equipaggiarlo.",
     "messageNotEnoughGold": "Non hai abbastanza Oro",

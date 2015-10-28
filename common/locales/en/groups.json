@@ -146,6 +146,7 @@
     "partyEmpty": "You're the only one in your party. Invite your friends!",
     "partyChatEmpty": "Your party chat is empty! Type a message in the box above to start chatting.",
     "guildChatEmpty": "This guild's chat is empty! Type a message in the box above to start chatting.",
-    "possessiveParty": "<%= name %>'s Party"
+    "possessiveParty": "<%= name %>'s Party",
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }
 
