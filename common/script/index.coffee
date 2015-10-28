@@ -1707,7 +1707,7 @@ api.wrap = (user, main=true) ->
 
       now = +options.now || +new Date
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
-      return if daysMissed > 0 then true else false
+      return daysMissed
 
     ###
       At end of day, add value to all incomplete Daily & Todo tasks (further incentive)

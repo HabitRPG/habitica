@@ -121,7 +121,7 @@ api.score = function(req, res, next) {
 
       // FIXME this is suuuper strange, sometimes results.user is an array, sometimes user directly
       var saved = Array.isArray(results.user) ? results.user[0] : results.user;
-      var task = results.task[0];
+      var task = Array.isArray(results.task) ? results.task[0] : results.task;;
 
       var userStats = saved.toJSON().stats;
       var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
@@ -384,7 +384,7 @@ api.cron = function(req, res, next) {
 
   var daysMissed = user.fns.shouldCronRun();
 
-  if (daysMissed !== 0) return next(null, user);
+  if (daysMissed <= 0) return next(null, user);
 
   user.getTasks(function(err, tasks) {
     if(err) return next(err);
