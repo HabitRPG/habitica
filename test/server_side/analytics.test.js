@@ -98,6 +98,24 @@ describe('analytics', function() {
         });
       });
 
+      it('uses a dummy user id if none is provided', function() {
+        delete analyticsData.uuid;
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'no-user-id-was-provided',
+          platform: 'server',
+          event_properties: {
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
       it('sends english item name for gear if itemKey is provided', function() {
         analyticsData.itemKey = 'headAccessory_special_foxEars'
 
