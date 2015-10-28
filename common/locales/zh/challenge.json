@@ -59,5 +59,7 @@
     "challengeNotEnoughGems": "你没有足够的宝石来发布这一挑战。",
     "noPermissionEditChallenge": "你没有权限修改这个挑战。",
     "noPermissionDeleteChallenge": "你没有权限删除这个挑战。",
-    "noPermissionCloseChallenge": "你没有权限关闭这个挑战。"
+    "noPermissionCloseChallenge": "你没有权限关闭这个挑战。",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the player who created the challenge deleted their account."
 }

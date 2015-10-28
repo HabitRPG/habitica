@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Eksportuj do pliku CSV",
     "selectGroup": "Wybierz grupę",
     "challengeCreated": "Wyzwanie zostało stworzone",
-    "sureDelCha": "Are you sure you want to delete this challenge?",
-    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
+    "sureDelCha": "Czy na pewno chcesz usunąć to wyzwanie?",
+    "sureDelChaTavern": "Czy na pewno chcesz usunąć to wyzwanie? Twoje klejnoty nie zostaną zwrócone.",
     "removeTasks": "Usuń zadania",
     "keepTasks": "Zachowaj zadania",
     "closeCha": "Zakończ wyzwanie i...",
@@ -57,7 +57,9 @@
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Nagroda",
     "clone": "Klon",
     "challengeNotEnoughGems": "Nie masz wystarczającej ilości klejnotów, by wystawić to wyzwanie.",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "noPermissionEditChallenge": "Nie posiadasz uprawnień, by edytować to wyzwanie",
+    "noPermissionDeleteChallenge": "Nie posiadasz uprawnień, by usunąć to wyzwanie",
+    "noPermissionCloseChallenge": "Nie posiadasz uprawnień, by zamknąć to wyzwanie",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the player who created the challenge deleted their account."
 }

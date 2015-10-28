@@ -3,6 +3,7 @@
     "innCheckOut": "離開旅館",
     "innCheckIn": "在旅館休息",
     "innText": "你正在旅館內休息! 當你進住，你的每日任務將凍結，但是每天仍會刷新，而且如果你有參加打怪任務，怪物仍可以傷害你跟你一樣在旅館裡的，打怪時產生的傷害(與掉落下來的東西)要等離開旅館才能被收集。",
+    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
     "lfgPosts": "尋找隊伍( 隊伍徵人 ) 貼文",
     "tutorial": "教學",
     "glossary": "常用詞彙",
@@ -145,5 +146,6 @@
     "partyEmpty": "你現在孤零零的在隊伍裡，趕快邀請朋友加入吧！",
     "partyChatEmpty": "你的隊伍聊天室太安靜了！趕快發送訊息打破沉默吧。",
     "guildChatEmpty": "This guild's chat is empty! Type a message in the box above to start chatting.",
-    "possessiveParty": "<%= name %>的隊伍"
+    "possessiveParty": "<%= name %>的隊伍",
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

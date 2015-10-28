@@ -15,7 +15,7 @@
     "messageEquipped": "<%= itemText %> equipped.",
     "messageUnEquipped": "<%= itemText %> un-equipped.",
     "messageMissingEggPotion": "Yer missin' either that egg er that potion",
-    "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",
+    "messageInvalidEggPotionCombo": "Ye can't hatch Adventure Pet Eggs wi' Magic Hatching Potions! Try a different egg.",
     "messageAlreadyPet": "Ye already 'ave that pet. Try yer hand in hatchin' a different combination!",
     "messageHatched": "Yer egg hatched! Visit yer stable t' equip yer pet.",
     "messageNotEnoughGold": "Not Enough Doubloons",

@@ -59,5 +59,7 @@
     "challengeNotEnoughGems": "No tienes suficientes Gemas para publicar este Desafío.",
     "noPermissionEditChallenge": "No tienes permiso para editar este desafío",
     "noPermissionDeleteChallenge": "No tienes permiso para eliminar este desafío",
-    "noPermissionCloseChallenge": "No tienes permiso para cerrar este desafío"
+    "noPermissionCloseChallenge": "No tienes permiso para cerrar este desafío",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the player who created the challenge deleted their account."
 }
