@@ -186,11 +186,13 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     | {{challenge.group.name}}
                   a(ui-sref="options.social.party" ng-if="challenge.group.type=='party'")
                     | {{challenge.group.name}}
-                li
+                li(ng-if='challenge.leader.profile.name')
                   =env.t('by') + ' '
-                  a(ng-click='clickMember(challenge.leader._id, true)') {{challenge.leader.profile.name || env.t('noChallengeOwner')}}
-                li
-                  =env.t('participants', {membercount: "{{challenge.memberCount}}"})
+                  a(ng-click='clickMember(challenge.leader._id, true)') {{::challenge.leader.profile.name}}
+                li(ng-if='!challenge.leader.profile.name',
+                  popover=env.t('noChallengeOwnerPopover'),
+                  popover-trigger='mouseenter')=env.t('noChallengeOwner')
+                li=env.t('participants', {membercount: "{{challenge.memberCount}}"})
                 li(ng-show='challenge.prize')
                   p!=env.t('prizeValue', {gemcount: "{{challenge.prize}}", gemicon: "<span class='inline-block Pet_Currency_Gem1x'></span>"})
                 li.bg-transparent
