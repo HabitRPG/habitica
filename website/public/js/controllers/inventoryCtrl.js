@@ -116,7 +116,7 @@ habitrpg.controller("InventoryCtrl",
       if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       if (!user.preferences.suppressModals.hatchPet) {
-        $rootScope.hatchedPet = {egg: eggName, potion: potName, pet: 'Pet-' + egg.key + '-' + potion.key};
+        $rootScope.hatchedPet = {egg: eggName, potion: potName, eggKey: egg.key, pet: 'Pet-' + egg.key + '-' + potion.key};
         $rootScope.openModal('hatchPet', {controller: 'InventoryCtrl', size: 'sm'});
       }
       $scope.selectedEgg = null;
@@ -160,7 +160,7 @@ habitrpg.controller("InventoryCtrl",
         $scope.selectedFood = null;
 
         _updateDropAnimalCount(user.items);
-        if ($scope.mountCount > startingMounts) {
+        if ($scope.mountCount > startingMounts && !user.preferences.suppressModals.raisePet) {
           $rootScope.raisedPet = {displayName: petDisplayName, spriteName: pet, egg: egg, potion: potion}
           $rootScope.openModal('raisePet', {controller:'InventoryCtrl',size:'sm'});
         }

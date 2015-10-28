@@ -2,7 +2,7 @@ include ../avatar/generated_avatar
 
 script(type='text/ng-template', id='modals/raisePet.html')
   .modal-content(style='min-width:28em')
-    .modal-body.text-center
+    .modal-body.text-center(style='padding-bottom:0')
       h3(style='margin-bottom: 0')=env.t('raisedPet',{pet:'{{::raisedPet.displayName}}'})
       .container-fluid
         .row(style='margin-bottom:1em', ng-controller='UserCtrl')
@@ -15,7 +15,18 @@ script(type='text/ng-template', id='modals/raisePet.html')
                   +generatedAvatar
                 span(class='Mount_Head_{{::raisedPet.spriteName}}')
       p=env.t('earnedSteed')
-    .modal-footer(style='margin-top:0')
+      br
       button.btn.btn-primary(ng-click='chooseMount(raisedPet.egg, raisedPet.potion); $close()')=env.t('rideNow')
       button.btn.btn-default(ng-click='$close()')=env.t('rideLater')
-
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.raisePet', ng-change='set({"preferences.suppressModals.raisePet": user.preferences.suppressModals.raisePet?true: false})')
+    .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
+      .container-fluid
+        .row
+          .col-xs-3
+            a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I just raised a {{::raisedPet.displayName}} mount by completing my real-life tasks!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/raise-pet&count=none')=env.t('tweet')
+          .col-xs-4(style='margin-left:.8em')
+            .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/raise-pet', data-layout='button')
+          .col-xs-4(style='margin-left:.8em')
+            a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/raise-pet', data-notes='none')

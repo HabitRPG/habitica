@@ -65,7 +65,7 @@ habitrpg.controller('NotificationCtrl',
       if (after > before) {
         Notification.lvl();
         $rootScope.playSound('Level_Up');
-        $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
+        if (!User.user.preferences.suppressModals.levelUp) $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
       }
     });
 

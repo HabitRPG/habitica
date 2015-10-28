@@ -33,7 +33,7 @@ _.each(pages, function(name){
 
 // -------- Social Media Sharing --------
 
-var shareables = ['level-up','hatch-pet'];
+var shareables = ['level-up','hatch-pet','raise-pet'];
 
 _.each(shareables, function(name){
   router.get('/social/' + name, i18n.getUserLanguage, locals, function(req, res) {
