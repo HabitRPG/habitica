@@ -1,7 +1,7 @@
 {
     "potionText": "Эликсир здоровья",
     "potionNotes": "Восстанавливает 15 здоровья (мгновенно)",
-    "armoireText": "Волшебный сундук",
+    "armoireText": "Зачарованная Кладовая",
     "armoireNotesFull": "Откройте сундук, чтобы случайным образом получить особое снаряжение, опыт или еду! Осталось снаряжения:",
     "armoireLastItem": "Вы получили последний редкий предмет из волшебного сундука.",
     "armoireNotesEmpty": "Новое снаряжение будет появляться в сундуке в начале каждого месяца. А пока что продолжайте кликать ради опыта и еды!",
@@ -95,6 +95,9 @@
     "questEggHorseText": "Конь",
     "questEggHorseMountText": "Конь",
     "questEggHorseAdjective": "быстрый",
+    "questEggFrogText": "Frog",
+    "questEggFrogMountText": "Frog",
+    "questEggFrogAdjective": "a princely",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить им это яйцо, и из него вылупится <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

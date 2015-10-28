@@ -59,5 +59,7 @@
     "challengeNotEnoughGems": "Non hai abbastanza gemme per creare questa sfida.",
     "noPermissionEditChallenge": "Non hai i permessi per modificare questa sfida",
     "noPermissionDeleteChallenge": "Non hai i permessi per eliminare questa sfida",
-    "noPermissionCloseChallenge": "Non hai i permessi per concludere questa sfida"
+    "noPermissionCloseChallenge": "Non hai i permessi per concludere questa sfida",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }

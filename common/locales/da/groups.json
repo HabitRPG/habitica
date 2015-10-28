@@ -3,6 +3,7 @@
     "innCheckOut": "Forlad Kroen",
     "innCheckIn": "Slap af på Kroen",
     "innText": "Du hviler på Kroen. Mens du hviler på Kroen tager du ikke skade fra Daglige, men de bliver stadig nulstillet hver dag. Advarsel: Hvis du deltager i en Boss Quest vil du stadig tage skade fra de Daglige de andre i gruppen ikke får udført, med mindre de også er på Kroen. Derudover kan du ikke skade Bossen eller samle ting før du forlader Kroen.",
+    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
     "lfgPosts": "Leder efter Gruppe (Gruppe Søges) Poster",
     "tutorial": "Vejledning",
     "glossary": "Ordliste",
@@ -145,5 +146,6 @@
     "partyEmpty": "Du er det eneste medlem i din gruppe. Invitér dine venner!",
     "partyChatEmpty": "Din gruppechat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "guildChatEmpty": "Denne klanchat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
-    "possessiveParty": "<%= name %>s Gruppe"
+    "possessiveParty": "<%= name %>s Gruppe",
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

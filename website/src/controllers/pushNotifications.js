@@ -13,14 +13,14 @@ var gcm = gcmApiKey ? pushNotify.gcm({
 
 if(gcm){
   gcm.on('transmitted', function (result, message, registrationId) {
-    console.info("transmitted", result, message, registrationId);
+    //console.info("transmitted", result, message, registrationId);
   });
 
   gcm.on('transmissionError', function (error, message, registrationId) {
-    console.info("transmissionError", error, message, registrationId);
+    //console.info("transmissionError", error, message, registrationId);
   });
   gcm.on('updated', function (result, registrationId) {
-    console.info("updated", result, registrationId);
+    //console.info("updated", result, registrationId);
   });
 }
 
