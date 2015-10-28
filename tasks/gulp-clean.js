@@ -1,6 +1,6 @@
 import gulp from 'gulp';
 
-let rimraf = require('rimraf');
+import rimraf from 'rimraf';
 
 gulp.task('clean', (cb) => {
   rimraf('website/build', cb);
