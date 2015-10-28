@@ -24,7 +24,7 @@ gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
     .pipe(gulp.dest('common/dist/scripts/'));
   
 gulp.src(["common/dist/sprites/spritesmith*.css",
-          g  "common/css/backer.css",
+            "common/css/backer.css",
             "common/css/Mounts.css",
             "common/css/index.css"], {base: 'common/'})
   .pipe(minifyCss({compatibility: 'ie8'}))
