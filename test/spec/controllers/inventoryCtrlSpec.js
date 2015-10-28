@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('Inventory Controller', function() {
+describe('Inventory Controller', function() {
   var scope, ctrl, user, rootScope;
 
   beforeEach(function() {

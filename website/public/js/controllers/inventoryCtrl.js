@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social) {
 
     var user = User.user;
 
@@ -10,6 +10,9 @@ habitrpg.controller("InventoryCtrl",
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
 
     _updateDropAnimalCount(user.items);
+
+    // Social sharing buttons
+    $scope.loadWidgets = Social.loadWidgets;
 
     // Functions from Quests service
     $scope.lockQuest = Quests.lockQuest;
