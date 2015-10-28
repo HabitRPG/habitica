@@ -99,7 +99,6 @@ module.exports = function(grunt) {
     var cssmin = {};
 
     _.each(files, function(val, key){
-
       var js = uglify['website/build/' + key + '.js'] = [];
 
       _.each(files[key].js, function(val){
@@ -120,7 +119,6 @@ module.exports = function(grunt) {
       });
 
     });
-
     grunt.config.set('uglify.build.files', uglify);
     grunt.config.set('uglify.build.options', {compress: false});
 
@@ -130,7 +128,7 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
   grunt.registerTask('build:dev', ['browserify', 'cssmin', 'stylus']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
