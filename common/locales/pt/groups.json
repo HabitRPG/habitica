@@ -3,6 +3,7 @@
     "innCheckOut": "Sair da Pousada",
     "innCheckIn": "Descansar na Pousada",
     "innText": "Você está descansando na Pousada! Enquanto estiver hospedado por aqui, suas Tarefas Diárias não lhe causarão dano na virada do dia, mas serão atualizadas normalmente todos os dias. Mas atenção: Se você estiver participando de uma Missão, Chefões continuarão a machucá-lo pelas Tarefas Perdidas de seus companheiros de equipe, a não ser que eles também estejam na Pousada! Além disso, seu dano no Chefão (ou itens coletados) não serão aplicados enquanto você não sair da Pousada.",
+    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
     "lfgPosts": "Mensagens de Procura de Grupo (Equipe Desejada)",
     "tutorial": "Tutorial",
     "glossary": "Glossário",
@@ -145,5 +146,6 @@
     "partyEmpty": "Você é o único na sua equipe. Convide seus amigos!",
     "partyChatEmpty": "Seu bate-papo da equipe está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
     "guildChatEmpty": "O bate-papo desta guilda está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
-    "possessiveParty": "Equipe de <%= name %>"
+    "possessiveParty": "Equipe de <%= name %>",
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

@@ -16,7 +16,7 @@ describe "Party", ->
           request.post(baseURL + "/groups").send(
             name: "TestGroup"
             type: "party"
-          ).end (res) ->
+          ).end (err, res) ->
             expectCode res, 200
             group = res.body
             expect(group.members.length).to.equal 1
@@ -28,7 +28,7 @@ describe "Party", ->
       request.post(baseURL + "/groups").send(
         name: "TestGroup"
         type: "party"
-      ).end (res) ->
+      ).end (err, res) ->
         expectCode res, 400
         expect(res.body.err).to.equal "Already in a party, try refreshing."
         done()
@@ -44,7 +44,7 @@ describe "Party", ->
           request.post(baseURL + "/groups").send(
             name: "TestGroup"
             type: "party"
-          ).end (res) ->
+          ).end (err, res) ->
             expectCode res, 200
             group = res.body
             expect(group.members.length).to.equal 1
@@ -55,7 +55,7 @@ describe "Party", ->
     it "can be found by querying for group type party", (done) ->
       request.get(baseURL + "/groups/").send(
         type: "party"
-      ).end (res) ->
+      ).end (err, res) ->
         expectCode res, 200
         party = _.find res.body, (g) -> return g._id == group._id
         expect(party._id).to.equal group._id
@@ -76,7 +76,7 @@ describe "Party", ->
           request.post(baseURL + "/groups").send(
             name: "TestGroup"
             type: "party"
-          ).end (res) ->
+          ).end (err, res) ->
             expectCode res, 200
             group = res.body
             expect(group.members.length).to.equal 1
@@ -89,7 +89,7 @@ describe "Party", ->
         request.post(baseURL + "/groups/" + group._id + "/join").send()
         .set("X-API-User", user._id)
         .set("X-API-Key", user.apiToken)
-        .end (res) ->
+        .end (err, res) ->
           expectCode res, 401
           expect(res.body.err).to.equal "Can't join a group you're not invited to."
           done()
@@ -114,7 +114,7 @@ describe "Party", ->
           request.post(baseURL + "/groups/" + group._id + "/join")
           .set("X-API-User", tmpUser._id)
           .set("X-API-Key", tmpUser.apiToken)
-          .end (res) ->
+          .end (err, res) ->
             expectCode res, 200
             cb()
 
@@ -153,7 +153,7 @@ describe "Party", ->
           request.post(baseURL + "/groups").send(
             name: "TestGroup"
             type: "party"
-          ).end (res) ->
+          ).end (err, res) ->
             expectCode res, 200
             group = res.body
             expect(group.members.length).to.equal 1
@@ -164,13 +164,13 @@ describe "Party", ->
           request.post(baseURL + '/user/tasks').send({
             type: 'daily'
             text: 'daily one'
-          }).end (res) ->
+          }).end (err, res) ->
             cb()
         (cb) ->
           request.post(baseURL + '/user/tasks').send({
             type: 'daily'
             text: 'daily two'
-          }).end (res) ->
+          }).end (err, res) ->
             cb()
         (cb) ->
           User.findByIdAndUpdate user._id,
@@ -198,7 +198,7 @@ describe "Party", ->
               body:
                 "stats.lvl": 50
             }
-          ]).end (res) ->
+          ]).end (err, res) ->
             user = res.body
             expect(user.party.quest.progress.up).to.be.above 0
 
@@ -227,7 +227,7 @@ describe "Party", ->
                   (cb2) ->
                     request.post(inviteURL).send(
                       uuids: [party[2]._id]
-                    ).end (res)->
+                    ).end (err, res)->
                       cb2()
                 ], cb
 
@@ -255,7 +255,7 @@ describe "Party", ->
               # Start the quest
               async.waterfall [
                 (cb) ->
-                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3").end (res) ->
+                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3").end (err, res) ->
                     expectCode res, 400
                     User.findByIdAndUpdate user._id,
                       $set:
@@ -263,7 +263,7 @@ describe "Party", ->
                     , cb
 
                 (_user, cb) ->
-                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3").end (res) ->
+                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3").end (err, res) ->
                     expectCode res, 200
                     Group.findById group._id, cb
 
@@ -271,8 +271,8 @@ describe "Party", ->
                   expect(_group.quest.key).to.equal "vice3"
                   expect(_group.quest.active).to.equal false
                   request.post(baseURL + "/groups/" + group._id + "/questAccept").set("X-API-User", party[0]._id).set("X-API-Key", party[0].apiToken).end ->
-                    request.post(baseURL + "/groups/" + group._id + "/questAccept").set("X-API-User", party[1]._id).set("X-API-Key", party[1].apiToken).end (res) ->
-                      request.post(baseURL + "/groups/" + group._id + "/questReject").set("X-API-User", party[2]._id).set("X-API-Key", party[2].apiToken).end (res) ->
+                    request.post(baseURL + "/groups/" + group._id + "/questAccept").set("X-API-User", party[1]._id).set("X-API-Key", party[1].apiToken).end (err, res) ->
+                      request.post(baseURL + "/groups/" + group._id + "/questReject").set("X-API-User", party[2]._id).set("X-API-Key", party[2].apiToken).end (err, res) ->
                         group = res.body
                         expect(group.quest.active).to.equal true
                         cb()
@@ -282,12 +282,12 @@ describe "Party", ->
 
     it "Casts a spell", (done) ->
       mp = user.stats.mp
-      request.get(baseURL + "/members/" + party[0]._id).end (res) ->
+      request.get(baseURL + "/members/" + party[0]._id).end (err, res) ->
         party[0] = res.body
-        request.post(baseURL + "/user/class/cast/snowball?targetType=user&targetId=" + party[0]._id).end (res) ->
+        request.post(baseURL + "/user/class/cast/snowball?targetType=user&targetId=" + party[0]._id).end (err, res) ->
 
           #expect(res.body.stats.mp).to.be.below(mp);
-          request.get(baseURL + "/members/" + party[0]._id).end (res) ->
+          request.get(baseURL + "/members/" + party[0]._id).end (err, res) ->
             member = res.body
             expect(member.achievements.snowball).to.equal 1
             expect(member.stats.buffs.snowball).to.exist
@@ -295,18 +295,18 @@ describe "Party", ->
             expect(_.size(difference)).to.equal 2
 
             # level up user so str is > 0
-            request.put(baseURL + "/user").send("stats.lvl": 5).end (res) ->
+            request.put(baseURL + "/user").send("stats.lvl": 5).end (err, res) ->
 
               # Refill mana so user can cast
-              request.put(baseURL + "/user").send("stats.mp": 100).end (res) ->
-                request.post(baseURL + "/user/class/cast/valorousPresence?targetType=party").end (res) ->
-                  request.get(baseURL + "/members/" + member._id).end (res) ->
+              request.put(baseURL + "/user").send("stats.mp": 100).end (err, res) ->
+                request.post(baseURL + "/user/class/cast/valorousPresence?targetType=party").end (err, res) ->
+                  request.get(baseURL + "/members/" + member._id).end (err, res) ->
                     expect(res.body.stats.buffs.str).to.be.above 0
                     expect(diff(res.body, member).length).to.equal 1
                     done()
 
     it "Doesn't include people who aren't participating", (done) ->
-      request.get(baseURL + "/groups/" + group._id).end (res) ->
+      request.get(baseURL + "/groups/" + group._id).end (err, res) ->
         expect(_.size(res.body.quest.members)).to.equal 3
         done()
 
@@ -325,7 +325,7 @@ describe "Party", ->
               done()
 
     xit "Hurts the boss", (done) ->
-      request.post(baseURL + "/user/batch-update").end (res) ->
+      request.post(baseURL + "/user/batch-update").end (err, res) ->
         user = res.body
         up = user.party.quest.progress.up
         expect(up).to.be.above 0
@@ -344,10 +344,10 @@ describe "Party", ->
             body:
               lastCron: moment().subtract(1, "days")
           }
-        ]).end (res) ->
+        ]).end (err, res) ->
           expect(res.body.party.quest.progress.up).to.be.above up
           request.post(baseURL + "/user/batch-update").end ->
-            request.get(baseURL + "/groups/party").end (res) ->
+            request.get(baseURL + "/groups/party").end (err, res) ->
 
               # Check boss damage
               async.waterfall [
@@ -419,7 +419,7 @@ describe "Party", ->
                     cb()
 
                 (cb) ->
-                  request.post(baseURL + "/user/batch-update").end (res) ->
+                  request.post(baseURL + "/user/batch-update").end (err, res) ->
                     cb null, res.body
 
                 (_user, cb) ->

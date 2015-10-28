@@ -43,8 +43,8 @@
     "exportChallengeCSV": "匯出為 CSV",
     "selectGroup": "請選擇群組",
     "challengeCreated": "挑戰已建立",
-    "sureDelCha": "Are you sure you want to delete this challenge?",
-    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
+    "sureDelCha": "你確定要收回挑戰嗎？",
+    "sureDelChaTavern": "你確定要收回挑戰嗎？你付出的寶石不會退還喔!",
     "removeTasks": "移除任務",
     "keepTasks": "保留任務",
     "closeCha": "關閉挑戰並且……",
@@ -56,8 +56,10 @@
     "backToChallenges": "回到挑戰",
     "prizeValue": "<%= gemcount %> <%= gemicon %> 禮物",
     "clone": "複製",
-    "challengeNotEnoughGems": "沒有足夠的寶石來產生這個挑戰。",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "challengeNotEnoughGems": "沒有足夠的寶石來產生這個挑戰",
+    "noPermissionEditChallenge": "你沒有權限更動這個挑戰的內容",
+    "noPermissionDeleteChallenge": "你沒有權限撤回這個挑戰要求",
+    "noPermissionCloseChallenge": "你沒有權限關閉這個挑戰",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }

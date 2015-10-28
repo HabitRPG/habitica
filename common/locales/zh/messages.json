@@ -5,7 +5,7 @@
     "messageTagNotFound": "找不到标签。",
     "messagePetNotFound": "找不到该宠物。",
     "messageFoodNotFound": "找不到该食物。",
-    "messageNotAvailable": "This item is not currently available for purchase.",
+    "messageNotAvailable": "这样东西目前不能被购买.",
     "messageCannotFeedPet": "不能喂这只宠物。",
     "messageAlreadyMount": "你已经有这个坐骑了。请喂另一只宠物。",
     "messageEvolve": "你驯养了<%= egg %>，去骑几圈吧！",
@@ -15,7 +15,7 @@
     "messageEquipped": "装备了<%= itemText %>",
     "messageUnEquipped": "卸下了 <%= itemText %>",
     "messageMissingEggPotion": "你没选择药水或者宠物蛋",
-    "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",
+    "messageInvalidEggPotionCombo": "你不能用孵化药水孵化这个宠物蛋,试试其他的蛋.",
     "messageAlreadyPet": "你已经拥有这只宠物了，试着用另一种方案孵化吧。",
     "messageHatched": "你的蛋孵化了，造访你的马厩来配备你的宠物吧。",
     "messageNotEnoughGold": "金币不够",
@@ -26,9 +26,9 @@
     "messageDropQuest": "你找到一个任务！",
     "messageDropMysteryItem": "你打开一个盒子找到<%= dropText %>！",
     "messageFoundQuest": "你有个新剧情任务\"<%= questText %>\"!",
-    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
-    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
-    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
-    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
-    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
+    "messageAlreadyPurchasedGear": "你之前已经购买了这件装备，但现在它已经不属于你了。你可以重新在任务页面的奖励栏里购买它。",
+    "messageAlreadyOwnGear": "你已经拥有了这个道具，可以在装备页面上装配它。",
+    "armoireEquipment": "<%= image %> 你发现了一件稀有装备!恭喜你 <%= dropText %>! ",
+    "armoireFood": "<%= image %> 你找到了 <%= dropArticle %><%= dropText %>. 它是用来做什么的?",
+    "armoireExp": "你和大衣柜展开了殊死搏斗，并赢得了经验，尝尝这个吧！"
 }

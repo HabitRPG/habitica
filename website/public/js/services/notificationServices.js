@@ -108,13 +108,14 @@ angular.module("habitrpg").factory("Notification",
   var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
 
   function _notify(html, type, icon) {
+      console.log(type)
     var notice = $.pnotify({
       type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
       text: html,
       opacity: 1,
       addclass: 'alert-' + type,
       delay: 7000,
-      hide: (type == 'error') ? false : true,
+      hide: (type == 'error' || type == 'danger') ? false : true,
       mouse_reset: false,
       width: "250px",
       stack: stack_topright,
