@@ -376,7 +376,12 @@ var saveAfterCron = function(user, tasks, cb) {
         task.isModified() ? task.save(cb2) : cb2();
       }, cb1);
     }
-  }, cb);
+  }, function(err, results){
+    if(err) return cb(err);
+
+    // FIXME this is suuuper strange, sometimes results.user is an array, sometimes user directly
+    cb(null, Array.isArray(results.user) ? results.user[0] : results.user);
+  });
 };
 
 api.cron = function(req, res, next) {
@@ -409,9 +414,9 @@ api.cron = function(req, res, next) {
       function(cb){
         return saveAfterCron(user, tasks, cb); // make sure to save the cron effects
       },
-      function(saved, count, cb){
+      function(saved, cb){
         var type = quest.boss ? 'boss' : 'collect';
-        Group[type+'Quest'](saved.user[0],progress,cb);
+        Group[type+'Quest'](saved,progress,cb);
       },
       function(){
         var cb = arguments[arguments.length-1];
