@@ -146,7 +146,7 @@ api.score = function(req, res, next) {
           return;
         }
 
-        Task.find({
+        Task.findOne({
           'challenge.id': task.challenge.id,
           '_id': task.challenge.taskId,
           userId: {$exists: false}
