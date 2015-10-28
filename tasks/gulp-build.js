@@ -8,11 +8,11 @@ let stylus = require('gulp-stylus');
 let nib = require('nib');
 
 gulp.task('build', () => {
-  if (process.env.NODE_ENV === 'production') {
-    gulp.start('build:prod');
-  } else {
-    gulp.start('build:dev');
-  }
+	if (process.env.NODE_ENV === 'production') {
+		gulp.start('build:prod');
+	} else {
+		gulp.start('build:dev');
+	}
 });
 
 gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
@@ -24,9 +24,9 @@ gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
 		.pipe(gulp.dest('common/dist/scripts/'));
 	
 gulp.src(["common/dist/sprites/spritesmith*.css",
-            "common/css/backer.css",
-            "common/css/Mounts.css",
-            "common/css/index.css"], {base: 'common/'})
+						"common/css/backer.css",
+						"common/css/Mounts.css",
+						"common/css/index.css"], {base: 'common/'})
 	.pipe(minifyCss({compatibility: 'ie8'}))
 	.pipe(rename('habitrpg-shared.css'))
 	.pipe(gulp.dest('common/dist/sprites'));
@@ -48,9 +48,11 @@ gulp.src(["common/dist/sprites/spritesmith*.css",
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
-  gulp.watch(['website/public/**/*.styl', 'common/script/*']);
+	gulp.watch(['website/public/**/*.styl', 'common/script/*']);
 });
 
 gulp.task('build:prod', ['babel:common', 'prepare:staticNewStuff'], (done) => {
-  gulp.start('grunt-build:prod', done);
+	gulp.start('grunt-build:prod', done);
 });
+
+
