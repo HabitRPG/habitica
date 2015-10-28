@@ -7,8 +7,6 @@ let minifyCss = require('gulp-minify-css');
 let stylus = require('gulp-stylus');
 let nib = require('nib');
 
-require('gulp-grunt')(gulp);
-
 gulp.task('build', () => {
   if (process.env.NODE_ENV === 'production') {
     gulp.start('build:prod');
@@ -23,10 +21,9 @@ gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
 	});
 
 	b.transform('coffeeify').bundle().pipe(source('index.js')).pipe(rename('habitrpg-shared.js'))
-		.pipe(gulp.dest('common/dist/scripts/'))
-  //gulp.start('grunt-build:dev', done);
-  //
-	gulp.src(["common/dist/sprites/spritesmith*.css",
+		.pipe(gulp.dest('common/dist/scripts/'));
+	
+gulp.src(["common/dist/sprites/spritesmith*.css",
             "common/css/backer.css",
             "common/css/Mounts.css",
             "common/css/index.css"], {base: 'common/'})
@@ -43,11 +40,11 @@ gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
 	gulp.src('website/public/css/index.styl')
 		.pipe(stylus(stylusOptions))
 		.pipe(rename('app.css'))
-		.pipe(gulp.dest('website/build'))
+		.pipe(gulp.dest('website/build'));
 
 	gulp.src('website/public/css/static.styl')
 		.pipe(stylus(stylusOptions))
-		.pipe(gulp.dest('website/build'))
+		.pipe(gulp.dest('website/build'));
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
