@@ -35,9 +35,9 @@ angular.module('habitrpg').config(['$httpProvider', function($httpProvider){
 
         // Error
         } else {
-          var error = '<strong>Please reload</strong>, ' +
-            '"'+window.env.t('error')+' '+(response.data.err || response.data || 'something went wrong')+'" ' +
-            window.env.t('seeConsole');
+          var error = window.env.t('requestError') + '<br><br>"' + 
+          window.env.t('error') + ' ' + (response.data.err || response.data || 'something went wrong') + 
+          '" <br><br>' + window.env.t('seeConsole');
           if (mobileApp) error = 'Error contacting the server. Please try again in a few minutes.';
           $rootScope.$broadcast('responseError', error);
           console.error(response);
