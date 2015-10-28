@@ -1,5 +1,6 @@
 moment = require('moment')
 _ = require('lodash')
+uuid = require('uuid')
 content = require('./content/index.coffee')
 i18n = require('./i18n.coffee')
 api = module.exports = {}
@@ -227,10 +228,7 @@ Misc Helpers
 ###
 
 api.uuid = ->
-  "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
-    r = Math.random() * 16 | 0
-    v = (if c is "x" then r else (r & 0x3 | 0x8))
-    v.toString 16
+  uuid.v4()
 
 api.countExists = (items)-> _.reduce(items,((m,v)->m+(if v then 1 else 0)),0)
 
@@ -255,7 +253,6 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {streak:0, repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
-  task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
   task
 
 api.percent = (x,y, dir) ->
@@ -487,26 +484,8 @@ api.wrap = (user, main=true) ->
         cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
-        user.habits = []
-        user.dailys = []
-        user.todos = []
-        user.rewards = []
-        user.stats.hp = 50
-        user.stats.lvl = 1
-        user.stats.gp = 0
-        user.stats.exp = 0
-        # TODO handle MP
-        gear = user.items.gear
-        _.each ['equipped', 'costume'], (type) ->
-          gear[type].armor  = 'armor_base_0'
-          gear[type].weapon = 'weapon_base_0'
-          gear[type].head   = 'head_base_0'
-          gear[type].shield = 'shield_base_0'
-        gear.owned = {} if typeof gear.owned == 'undefined'
-        _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
-        gear.owned.weapon_warrior_0 = true
-        user.markModified? 'items.gear.owned'
-        user.preferences.costume = false
+        user.fns.resetTasks()
+        user.fns.resetUser()
         cb? null, user
 
       reroll: (req, cb, analytics) ->
@@ -516,7 +495,6 @@ api.wrap = (user, main=true) ->
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
             task.value = 0
-        user.stats.hp = 50
 
         analyticsData = {
           uuid: user._id,
@@ -529,74 +507,12 @@ api.wrap = (user, main=true) ->
         cb? null, user
 
       rebirth: (req, cb, analytics) ->
-        # Cost is 8 Gems ($2)
-        if (user.balance < 2 && user.stats.lvl < api.maxLevel)
-          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+        user.fns.rebirthUser(req, ((err) ->
+          if err then return cb? err
 
-        analyticsData = {
-          uuid: user._id,
-          category: 'behavior'
-        }
-        # only charge people if they are under the max level - ryan
-        if user.stats.lvl < api.maxLevel
-          user.balance -= 2
-          analyticsData.acquireMethod = 'Gems'
-          analyticsData.gemCost = 8
-        else
-          analyticsData.gemCost = 0
-          analyticsData.acquireMethod = '> 100'
-
-        analytics?.track('Rebirth', analyticsData)
-
-        # Save off user's level, for calculating achievement eligibility later
-        lvl = api.capByLevel(user.stats.lvl)
-        # Turn tasks yellow, zero out streaks
-        _.each user.tasks, (task) ->
-          unless task.type is 'reward'
-            task.value = 0
-          if task.type is 'daily'
-            task.streak = 0
-        # Reset all dynamic stats
-        stats = user.stats
-        stats.buffs = {}
-        stats.hp = 50
-        stats.lvl = 1
-        stats.class = 'warrior'
-        _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
-          stats[value] = 0
-        # Deequip character, set back to base armor and training sword
-        gear = user.items.gear
-        _.each ['equipped', 'costume'], (type) ->
-          gear[type] = {}; # deequip weapon, eyewear, headAccessory, etc, plus future new types
-          gear[type].armor  = 'armor_base_0'
-          gear[type].weapon = 'weapon_warrior_0'
-          gear[type].head   = 'head_base_0'
-          gear[type].shield = 'shield_base_0'
-        if user.items.currentPet then user.ops.equip({params:{type: 'pet', key: user.items.currentPet}})
-        if user.items.currentMount then user.ops.equip({params:{type: 'mount', key: user.items.currentMount}})
-        # Strip owned gear down to the training sword and free items (zero gold value), but preserve purchase history so user can re-purchase limited edition equipment
-        _.each gear.owned, (v, k) -> if gear.owned[k] and content.gear.flat[k].value then gear.owned[k] = false; true
-        gear.owned.weapon_warrior_0 = true
-        user.markModified? 'items.gear.owned'
-        user.preferences.costume = false
-        # Remove unlocked features
-        flags = user.flags
-        if not user.achievements.beastMaster
-          flags.rebirthEnabled = false
-        flags.itemsEnabled = false
-        flags.dropsEnabled = false
-        flags.classSelected = false
-        flags.levelDrops = {}
-        # Award an achievement if this is their first Rebirth, or if they made it further than last time
-        if not (user.achievements.rebirths)
-          user.achievements.rebirths = 1
-          user.achievements.rebirthLevel = lvl
-        else if (lvl > user.achievements.rebirthLevel or lvl is 100)
-          user.achievements.rebirths++
-          user.achievements.rebirthLevel = lvl
-        user.stats.buffs = {}
-        # user.markModified? 'stats'
-        cb? null, user
+          user.fns.rebirthTasks()
+          cb? null, user
+        ), analytics);
 
       allocateNow: (req, cb) ->
         _.times user.stats.points, user.fns.autoAllocate
@@ -633,8 +549,9 @@ api.wrap = (user, main=true) ->
         cb? null, tasks
 
       updateTask: (req, cb) ->
-        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task = user.tasks[req.params?.id]
-        _.merge task, _.omit(req.body,['checklist','id', 'type'])
+        task = req.task or user.tasks?[req.params?.id]
+        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task 
+        _.merge task, _.omit(req.body,['checklist','id', 'type', '_id', 'userId'])
         task.checklist = req.body.checklist if req.body.checklist
         task.markModified? 'tags'
         cb? null, task
@@ -672,7 +589,6 @@ api.wrap = (user, main=true) ->
         return cb?('?to=__&from=__ are required') unless to? and from?
         user.tags.splice to, 0, user.tags.splice(from, 1)[0]
         cb? null, user.tags
-
 
       updateTag: (req, cb) ->
         tid = req.params.id
@@ -1230,8 +1146,8 @@ api.wrap = (user, main=true) ->
       # ------
 
       score: (req, cb) ->
-        {id, direction} = req.params # up or down
-        task = user.tasks[id]
+        {id, direction, task} = req.params # up or down
+        task = task or user.tasks[id]
         options = req.query or {}; _.defaults(options, {times:1, cron:false})
 
         # This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
@@ -1242,7 +1158,8 @@ api.wrap = (user, main=true) ->
         stats = {gp: +user.stats.gp, hp: +user.stats.hp, exp: +user.stats.exp}
         task.value = +task.value; task.streak = ~~task.streak; task.priority ?= 1
 
-        # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
+        # If they're trying to purchase a too-expensive reward, don't allow them to do that.
+        # FIXME actually the server doesn't support passing callback to this except in batchUpdate TODO
         if task.value > stats.gp and task.type is 'reward'
           return cb? {code:401,message:i18n.t('messageNotEnoughGold', req.language)}
 
@@ -1305,7 +1222,6 @@ api.wrap = (user, main=true) ->
             if task.type is 'todo'
               nextDelta *= (1 + _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0))
           nextDelta
-
 
         changeTaskValue = ->
           # If multiple days have passed, multiply times days missed
@@ -1378,7 +1294,7 @@ api.wrap = (user, main=true) ->
               th[th.length-1].value = task.value
             else
               th.push {date: +new Date, value: task.value}
-            user.markModified? "habits.#{_.findIndex(user.habits, {id:task.id})}.history"
+            task.markModified? "history" #TODO markModified only the last array element?
 
           when 'daily'
             if options.cron
@@ -1442,6 +1358,104 @@ api.wrap = (user, main=true) ->
   # ----------------------------------------------------------------------
 
   user.fns =
+
+    resetUser: ->
+      user.stats.hp = 50
+      user.stats.lvl = 1
+      user.stats.gp = 0
+      user.stats.exp = 0
+      # TODO handle MP
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_base_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      gear.owned = {} if typeof gear.owned == 'undefined'
+      _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
+      gear.owned.weapon_warrior_0 = true
+      user.markModified? 'items.gear.owned'
+      user.preferences.costume = false
+
+    resetTasks: ->
+      user.habits = []
+      user.dailys = []
+      user.todos = []
+      user.rewards = []
+
+    rebirthUser: (req, cb, analytics) ->
+      # Cost is 8 Gems ($2)
+      if (user.balance < 2 && user.stats.lvl < api.maxLevel)
+        return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+
+      analyticsData = {
+        uuid: user._id,
+        category: 'behavior'
+      }
+
+      # only charge people if they are under the max level - ryan
+      if user.stats.lvl < api.maxLevel
+        user.balance -= 2
+        analyticsData.acquireMethod = 'Gems'
+        analyticsData.gemCost = 8
+      else
+        analyticsData.gemCost = 0
+        analyticsData.acquireMethod = '> 100'
+
+      analytics?.track('Rebirth', analyticsData)
+
+      # Save off user's level, for calculating achievement eligibility later
+      lvl = api.capByLevel(user.stats.lvl)
+
+      # Reset all dynamic stats
+      stats = user.stats
+      stats.buffs = {}
+      stats.hp = 50
+      stats.lvl = 1
+      stats.class = 'warrior'
+      _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
+        stats[value] = 0
+      # Deequip character, set back to base armor and training sword
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type] = {}; # deequip weapon, eyewear, headAccessory, etc, plus future new types
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_warrior_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      if user.items.currentPet then user.ops.equip({params:{type: 'pet', key: user.items.currentPet}})
+      if user.items.currentMount then user.ops.equip({params:{type: 'mount', key: user.items.currentMount}})
+      # Strip owned gear down to the training sword and free items (zero gold value), but preserve purchase history so user can re-purchase limited edition equipment
+      _.each gear.owned, (v, k) -> if gear.owned[k] and content.gear.flat[k].value then gear.owned[k] = false; true
+      gear.owned.weapon_warrior_0 = true
+      user.markModified? 'items.gear.owned'
+      user.preferences.costume = false
+      # Remove unlocked features
+      flags = user.flags
+      if not user.achievements.beastMaster
+        flags.rebirthEnabled = false
+      flags.itemsEnabled = false
+      flags.dropsEnabled = false
+      flags.classSelected = false
+      flags.levelDrops = {}
+      # Award an achievement if this is their first Rebirth, or if they made it further than last time
+      if not (user.achievements.rebirths)
+        user.achievements.rebirths = 1
+        user.achievements.rebirthLevel = lvl
+      else if (lvl > user.achievements.rebirthLevel or lvl is 100)
+        user.achievements.rebirths++
+        user.achievements.rebirthLevel = lvl
+      user.stats.buffs = {}
+      # user.markModified? 'stats'
+      cb? null
+
+    rebirthTasks: ->
+      # Turn tasks yellow, zero out streaks
+      _.each user.tasks, (task) ->
+        unless task.type is 'reward'
+          task.value = 0
+        if task.type is 'daily'
+          task.streak = 0
 
     getItem: (type) ->
       item = content.gear.flat[user.items.gear.equipped[type]]
@@ -1679,16 +1693,9 @@ api.wrap = (user, main=true) ->
       ------------------------------------------------------
     ###
 
-    ###
-      At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-      For incomplete Dailys, deduct experience
-      Make sure to run this function once in a while as server will not take care of overnight calculations.
-      And you have to run it every time client connects.
-      {user}
-    ###
-    cron: (options={}) ->
-      now = +options.now || +new Date
-
+    # Run before cron to evaluate if it should run or not, returns 0 if cron should not run,
+    # otherwise the number of missed days
+    shouldCronRun: (options={}) ->
       # They went to a different timezone
       # FIXME:
       # (1) This exit-early code isn't taking timezone into consideration!!
@@ -1698,8 +1705,33 @@ api.wrap = (user, main=true) ->
       #    user.lastCron = now
       #    return
 
+      now = +options.now || +new Date
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
-      return unless daysMissed > 0
+      return daysMissed
+
+    ###
+      At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+      For incomplete Dailys, deduct experience
+      Make sure to run this function once in a while as server will not take care of overnight calculations.
+      And you have to run it every time client connects.
+      {user}
+
+      shouldCronRun must be called before this to evaluate if it has to run or not and the number of
+      missed days returned should be passed 
+    ###
+    cron: (options={}) ->
+      now = +options.now || +new Date
+      daysMissed = options.daysMissed
+
+      tasks =
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [] # TODO we need rewards in cron?
+
+      options.tasks.forEach((task) -> 
+        tasks[task.type + 's'].push(task)
+      )
 
       user.auth.timestamps.loggedin = new Date()
 
@@ -1740,10 +1772,9 @@ api.wrap = (user, main=true) ->
       # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
-        user.dailys.forEach (daily) ->
+        tasks.dailys.forEach (daily) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
-
           if api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed
             _.each daily.checklist, ((box)->box.completed=false;true)
           daily.completed = false
@@ -1755,17 +1786,16 @@ api.wrap = (user, main=true) ->
 
       # Tally each task
       todoTally = 0
-      user.todos.forEach (task) -> # make uncompleted todos redder
-        return unless task
+      tasks.todos.forEach (task) -> # make uncompleted todos redder
         {id, completed} = task
-        delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : daysMissed), cron:true}})
+        delta = user.ops.score({params:{task:task, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : daysMissed), cron:true}})
         absVal = if (completed) then Math.abs(task.value) else task.value
         todoTally += absVal
 
       dailyChecked = 0        # how many dailies were checked?
       dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
-      user.dailys.forEach (task) ->
+      tasks.dailys.forEach (task) ->
         return unless task
         {id, completed} = task
 
@@ -1795,7 +1825,7 @@ api.wrap = (user, main=true) ->
               dailyChecked += fractionChecked
             else
              dailyDueUnchecked += 1
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : (scheduleMisses-EvadeTask)), cron:true}})
+            delta = user.ops.score({params:{task:task, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : (scheduleMisses-EvadeTask)), cron:true}})
 
             # Apply damage from a boss, less damage for Trivial priority (difficulty)
             user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
@@ -1810,7 +1840,7 @@ api.wrap = (user, main=true) ->
         if completed || (scheduleMisses > 0)
           _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
 
-      user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
+      tasks.habits.forEach (task) -> # slowly reset 'onlies' value to 0
         if task.up is false or task.down is false
           if Math.abs(task.value) < 0.1
             task.value = 0
@@ -1830,9 +1860,8 @@ api.wrap = (user, main=true) ->
       # premium subscribers can keep their full history.
       # TODO figure out something performance-wise
       unless user.purchased?.plan?.customerId
-        user.fns.preenUserHistory()
+        user.fns.preenUserHistory(tasks)
         user.markModified? 'history'
-        user.markModified? 'dailys' # covers dailys.*.history
 
       user.stats.buffs =
         if perfect
@@ -1873,9 +1902,10 @@ api.wrap = (user, main=true) ->
       _progress
 
     # Registered users with some history
-    preenUserHistory: (minHistLen = 7) ->
-      _.each user.habits.concat(user.dailys), (task) ->
+    preenUserHistory: (tasks, minHistLen = 7) ->
+      _.each tasks.habits.concat(tasks.dailys), (task) ->
         task.history = preenHistory(task.history) if task.history?.length > minHistLen
+        task.markModified? 'history'
         true
 
       _.defaults user.history, {todos:[], exp: []}
@@ -1912,6 +1942,13 @@ api.wrap = (user, main=true) ->
   # Virtual Attributes
   # ----------------------------------------------------------------------
 
+  #if window? FIXME must comment this out because needed in tests where window is undefined
+  if user.habits
+    Object.defineProperty user, 'tasks',
+      get: ->
+        tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
+        _.object(_.pluck(tasks, "id"), tasks)
+
   # Aggregate all intrinsic stats, buffs, weapon, & armor into computed stats
   Object.defineProperty user, '_statsComputed',
     get: ->
@@ -1931,7 +1968,3 @@ api.wrap = (user, main=true) ->
       , {}
       computed.maxMP = computed.int*2 + 30
       computed
-  Object.defineProperty user, 'tasks',
-    get: ->
-      tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
-      _.object(_.pluck(tasks, "id"), tasks)

@@ -7,10 +7,12 @@ var nconf = require('nconf');
 var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
+var Task = require('./../models/task').model;
 var utils = require('./../utils');
 var analytics = utils.analytics;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var Task = require('./../models/task').model;
 var moment = require('moment');
 var logging = require('./../logging');
 var acceptablePUTPaths;
@@ -24,6 +26,7 @@ var webhook = require('../webhook');
 api.getContent = function(req, res, next) {
   var language = 'en';
 
+  // TODO use i18n getUserLanguage
   if (typeof req.query.language != 'undefined')
     language = req.query.language.toString(); //|| 'en' in i18n
 
@@ -51,16 +54,6 @@ api.getModelPaths = function(req,res,next){
   ------------------------------------------------------------------------
 */
 
-
-/*
-  Local Methods
-  ---------------
-*/
-
-var findTask = function(req, res) {
-  return res.locals.user.tasks[req.params.id];
-};
-
 /*
   API Routes
   ---------------
@@ -70,13 +63,13 @@ var findTask = function(req, res) {
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
   Export it also so we can call it from deprecated.coffee
 */
+
 api.score = function(req, res, next) {
   var id = req.params.id,
     direction = req.params.direction,
     user = res.locals.user,
+    body = req.body || {},
     task;
-
-  var clearMemory = function(){user = task = id = direction = null;}
 
   // Send error responses for improper API call
   if (!id) return res.json(400, {err: ':id required'});
@@ -84,67 +77,98 @@ api.score = function(req, res, next) {
     if (direction == 'unlink' || direction == 'sort') return next();
     return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
-  // If exists already, score it
-  if (task = user.tasks[id]) {
-    // Set completed if type is daily or todo and task exists
+
+  Task.findOne({
+    _id: id,
+    userId: user._id
+  }, function(err, task){
+    if(err) return next(err);
+
+    // If exists already, score it
+    if (!task) {
+      // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
+      // Defaults. Other defaults are handled in user.ops.addTask()
+      task = new Task({
+        _id: id, // TODO this might easily lead to conflicts as ids are now unique db-wide
+        type: body.type,
+        text: body.text,
+        userId: user._id,
+        notes: body.notes || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task." // TODO translate
+      });
+
+      user.tasksOrder[task.type + 's'].push(task._id);
+    }
+
+    // Set completed if type is daily or todo
     if (task.type === 'daily' || task.type === 'todo') {
       task.completed = direction === 'up';
     }
-  } else {
-    // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
-    // Defaults. Other defaults are handled in user.ops.addTask()
-    task = {
-      id: id,
-      type: req.body && req.body.type,
-      text: req.body && req.body.text,
-      notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
-    };
 
-    if (task.type === 'daily' || task.type === 'todo')
-      task.completed = direction === 'up';
+    var delta = user.ops.score({
+      params: {
+        task: task, 
+        direction: direction
+      }, 
+      language: req.language,
+      user: user
+    });
 
-    task = user.ops.addTask({body:task});
-  }
-  var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
+    async.parallel({
+      task: task.save.bind(task),
+      user: user.save.bind(user)
+    }, function(err, results){
+      if(err) return next(err);
 
-  user.save(function(err, saved){
-    if (err) return next(err);
+      // FIXME this is suuuper strange, sometimes results.user is an array, sometimes user directly
+      var saved = Array.isArray(results.user) ? results.user[0] : results.user;
+      var task = Array.isArray(results.task) ? results.task[0] : results.task;;
 
-    var userStats = saved.toJSON().stats;
-    var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
-    res.json(200, resJsonData);
+      var userStats = saved.toJSON().stats;
+      var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
+      res.json(200, resJsonData);
 
-    var webhookData = _generateWebhookTaskData(
-      task, direction, delta, userStats, user
-    );
-    webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
+      var webhookData = _generateWebhookTaskData(
+        task, direction, delta, userStats, user
+      );
+      webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
 
-    if (
-      (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
-      || (task.type == 'reward') // we don't want to update the reward GP cost
-    ) return clearMemory();
+      if (
+        (!task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
+        || (task.type == 'reward') // we don't want to update the reward GP cost
+      ) return;
 
-    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
-      if (err) return next(err);
-      if (!chal) {
-        task.challenge.broken = 'CHALLENGE_DELETED';
-        user.save();
-        return clearMemory();
-      }
-      var t = chal.tasks[task.id];
-      // this task was removed from the challenge, notify user
-      if (!t) {
-        chal.syncToUser(user);
-        return clearMemory();
-      }
+        // select name and shortName because they can be synced on syncToUser
+      Challenge.findById(task.challenge.id, 'name shortName', function(err, chal) {
+        if (err) return next(err);
+        if (!chal) {
+          task.challenge.broken = 'CHALLENGE_DELETED';
+          task.save();
+          return;
+        }
 
-      t.value += delta;
-      if (t.type == 'habit' || t.type == 'daily')
-        t.history.push({value: t.value, date: +new Date});
-      chal.save();
-      clearMemory();
+        Task.findOne({
+          'challenge.id': task.challenge.id,
+          '_id': task.challenge.taskId,
+          userId: {$exists: false}
+        }, function(err, chalTask){
+          if(err) return; //FIXME
+          // this task was removed from the challenge, notify user
+          if(!chalTask) {
+            chal.getTasks(function(err, chalTasks){
+              if(err) return; //FIXME
+              chal.syncToUser(user, chalTasks);
+            });
+          } else {
+            chalTask.value += delta;
+            if (chalTask.type == 'habit' || chalTask.type == 'daily')
+              chalTask.history.push({value: chalTask.value, date: +new Date});
+            chalTask.save();
+          }
+        });
+      });
     });
   });
+
 };
 
 /**
@@ -152,20 +176,35 @@ api.score = function(req, res, next) {
  */
 api.getTasks = function(req, res, next) {
   var user = res.locals.user;
-  if (req.query.type) {
-    return res.json(user[req.query.type+'s']);
-  } else {
-    return res.json(_.toArray(user.tasks));
-  }
+
+  user.getTasks(function(err, tasks){
+    if(err) return next(err);
+
+    if (req.query.type) {
+      res.json(tasks.filter(function(task){
+        return task.type === (req.query.type+'s');
+      }));
+    } else {
+      res.json(tasks);
+    }
+  });
 };
 
 /**
  * Get Task
  */
 api.getTask = function(req, res, next) {
-  var task = findTask(req,res);
-  if (!task) return res.json(404, {err: "No task found."});
-  return res.json(200, task);
+  var user = res.locals.user;
+
+  Task.findOne({
+    _id: req.params.id,
+    userId: user._id
+  }, function(err, task){
+    if(err) return next(err);
+    if(!task) return res.json(404, {err: 'No task found.'});
+
+    res.json(task);
+  });
 };
 
 
@@ -173,10 +212,6 @@ api.getTask = function(req, res, next) {
   Update Task
 */
 
-//api.deleteTask // see Shared.ops
-// api.updateTask // handled in Shared.ops
-// api.addTask // handled in Shared.ops
-// api.sortTask // handled in Shared.ops #TODO updated api, mention in docs
 
 /*
   ------------------------------------------------------------------------
@@ -200,89 +235,94 @@ api.getBuyList = function (req, res, next) {
  * Get User
  */
 api.getUser = function(req, res, next) {
-  var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = shared.maxHealth;
-  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
-  delete user.apiToken;
-  if (user.auth && user.auth.local) {
-    delete user.auth.local.hashed_password;
-    delete user.auth.local.salt;
-  }
-  return res.json(200, user);
+  res.locals.user.getTransformedData(function(err, user){
+    if(err) return next(err);
+
+    user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+    user.stats.maxHealth = shared.maxHealth;
+    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    delete user.apiToken;
+    if (user.auth && user.auth.local) {
+      delete user.auth.local.hashed_password;
+      delete user.auth.local.salt;
+    }
+
+    return res.json(200, user);
+  });
 };
 
 /**
  * Get anonymized User
  */
 api.getUserAnonymized = function(req, res, next) {
-  var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = shared.maxHealth;
-  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+  res.locals.user.getTransformedData(function(err, user){
+    user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+    user.stats.maxHealth = shared.maxHealth;
+    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
-  delete user.apiToken;
+    delete user.apiToken;
 
-  if (user.auth) {
-    delete user.auth.local;
-    delete user.auth.facebook;
-  }
+    if (user.auth) {
+      delete user.auth.local;
+      delete user.auth.facebook;
+    }
 
-  delete user.newMessages;
+    delete user.newMessages;
 
-  delete user.profile;
-  delete user.purchased.plan;
-  delete user.contributor;
-  delete user.invitations;
+    delete user.profile;
+    delete user.purchased.plan;
+    delete user.contributor;
+    delete user.invitations;
 
-  delete user.items.special.nyeReceived;
-  delete user.items.special.valentineReceived;
+    delete user.items.special.nyeReceived;
+    delete user.items.special.valentineReceived;
 
-  delete user.webhooks;
-  delete user.achievements.challenges;
+    delete user.webhooks;
+    delete user.achievements.challenges;
 
-  _.forEach(user.inbox.messages, function(msg){
-    msg.text = "inbox message text";
-  });
-
-  _.forEach(user.tags, function(tag){
-    tag.name = "tag";
-    tag.challenge = "challenge";
-  });
-
-  function cleanChecklist(task){
-    var checklistIndex = 0;
-
-    _.forEach(task.checklist, function(c){
-      c.text = "item" + checklistIndex++;
+    _.forEach(user.inbox.messages, function(msg){
+      msg.text = "inbox message text";
     });
-  }
 
-  _.forEach(user.habits, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
+    _.forEach(user.tags, function(tag){
+      tag.name = "tag";
+      tag.challenge = "challenge";
+    });
+
+    function cleanChecklist(task){
+      var checklistIndex = 0;
+
+      _.forEach(task.checklist, function(c){
+        c.text = "item" + checklistIndex++;
+      });
+    }
+
+    _.forEach(user.habits, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+    });
+
+    _.forEach(user.rewards, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+    });
+
+    _.forEach(user.dailys, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+
+      cleanChecklist(task);
+    });
+
+    _.forEach(user.todos, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+
+      cleanChecklist(task);
+    });
+
+    return res.json(200, user);
   });
-
-  _.forEach(user.rewards, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-  });
-
-  _.forEach(user.dailys, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-
-    cleanChecklist(task);
-  });
-
-  _.forEach(user.todos, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-
-    cleanChecklist(task);
-  });
-
-  return res.json(200, user);
 };
 
 /**
@@ -328,41 +368,69 @@ api.update = function(req, res, next) {
   });
 };
 
-api.cron = function(req, res, next) {
-  var user = res.locals.user,
-    progress = user.fns.cron({analytics:utils.analytics}),
-    ranCron = user.isModified(),
-    quest = shared.content.quests[user.party.quest.key];
-
-  if (ranCron) res.locals.wasModified = true;
-  if (!ranCron) return next(null,user);
-  Group.tavernBoss(user,progress);
-  if (!quest) return user.save(next);
-
-  // If user is on a quest, roll for boss & player, or handle collections
-  // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
-  async.waterfall([
-    function(cb){
-      user.save(cb); // make sure to save the cron effects
-    },
-    function(saved, count, cb){
-      var type = quest.boss ? 'boss' : 'collect';
-      Group[type+'Quest'](user,progress,cb);
-    },
-    function(){
-      var cb = arguments[arguments.length-1];
-      // User has been updated in boss-grapple, reload
-      User.findById(user._id, cb);
+var saveAfterCron = function(user, tasks, cb) {
+  async.parallel({
+    user: user.save.bind(user),
+    tasks: function(cb1) {
+      async.each(tasks, function(task, cb2){
+        task.isModified() ? task.save(cb2) : cb2();
+      }, cb1);
     }
-  ], function(err, saved) {
-    res.locals.user = saved;
-    next(err,saved);
-    user = progress = quest = null;
+  }, function(err, results){
+    if(err) return cb(err);
+
+    // FIXME this is suuuper strange, sometimes results.user is an array, sometimes user directly
+    cb(null, Array.isArray(results.user) ? results.user[0] : results.user);
   });
 };
 
-// api.reroll // Shared.ops
-// api.reset // Shared.ops
+api.cron = function(req, res, next) {
+  var user = res.locals.user;
+
+  var daysMissed = user.fns.shouldCronRun();
+
+  if (daysMissed <= 0) return next(null, user);
+
+  user.getTasks(function(err, tasks) {
+    if(err) return next(err);
+
+    var progress = user.fns.cron({
+      daysMissed: daysMissed,
+      tasks: tasks,
+      analytics: utils.analytics
+    });
+
+    var ranCron = user.isModified();
+    var quest = shared.content.quests[user.party.quest.key];
+
+    if (ranCron) res.locals.wasModified = true;
+    if (!ranCron) return next(null, user);
+    Group.tavernBoss(user, progress);
+    if (!quest) return saveAfterCron(user, tasks, next);
+
+    // If user is on a quest, roll for boss & player, or handle collections
+    // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+    async.waterfall([
+      function(cb){
+        return saveAfterCron(user, tasks, cb); // make sure to save the cron effects
+      },
+      function(saved, cb){
+        var type = quest.boss ? 'boss' : 'collect';
+        Group[type+'Quest'](saved,progress,cb);
+      },
+      function(){
+        var cb = arguments[arguments.length-1];
+        // User has been updated in boss-grapple, reload
+        User.findById(user._id, cb);
+      }
+    ], function(err, saved) {
+      res.locals.user = saved;
+      next(err,saved);
+      user = progress = quest = null;
+    });
+  });
+
+};
 
 api['delete'] = function(req, res, next) {
   var user = res.locals.user;
@@ -372,24 +440,34 @@ api['delete'] = function(req, res, next) {
     return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
   }
 
-  Group.find({
-    members: {
-      '$in': [user._id]
+  async.parallel([
+    function(cb){
+      Group.find({
+        members: {
+          '$in': [user._id]
+        }
+      }, function(err, groups){
+        if(err) return cb(err);
+
+        async.each(groups, function(group, cb1){
+          group.leave(user, 'remove-all', cb1);
+        }, cb);
+      })
+    },
+
+    function(cb){
+      Task.remove({
+        userId: user._id
+      }, cb);
     }
-  }, function(err, groups){
+  ], function(err, results){
     if(err) return next(err);
 
-    async.each(groups, function(group, cb){
-      group.leave(user, 'remove-all', cb);
-    }, function(err){
+    user.remove(function(err){
       if(err) return next(err);
 
-      user.remove(function(err){
-        if(err) return next(err);
-
-        firebase.deleteUser(user._id);
-        res.send(200);
-      });
+      firebase.deleteUser(user._id);
+      res.send(200);
     });
   });
 }
@@ -449,65 +527,109 @@ api.cast = function(req, res, next) {
   if (!spell) return res.json(404, {err: 'Spell "' + req.params.spell + '" not found.'});
   if (spell.mana > user.stats.mp) return res.json(400, {err: 'Not enough mana to cast spell'});
 
-  var done = function(){
-    var err = arguments[0];
-    var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
+  var done = function(err, user, tasks){
     if (err) return next(err);
-    res.json(saved);
-    user = targetType = targetId = klass = spell = null;
-  }
 
-  switch (targetType) {
-    case 'task':
-      if (!user.tasks[targetId]) return res.json(404, {err: 'Task "' + targetId + '" not found.'});
-      spell.cast(user, user.tasks[targetId]);
-      user.save(done);
-      break;
-
-    case 'self':
-      spell.cast(user);
-      user.save(done);
-      break;
-
-    case 'party':
-    case 'user':
-      async.waterfall([
-        function(cb){
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements items.special').exec(cb);
-        },
-        function(group, cb) {
-          // Solo player? let's just create a faux group for simpler code
-          var g = group ? group : {members:[user]};
-          var series = [], found;
-          if (targetType == 'party') {
-            spell.cast(user, g.members);
-            series = _.transform(g.members, function(m,v,k){
-              m.push(function(cb2){v.save(cb2)});
+    async.parallel({
+      // Saving modified tasks
+      tasks: function(cb) {
+        // async.each doesn't support passing the index of the item being processed,
+        // so we convert it to an object of {index, value}
+        // taken from https://github.com/caolan/async/issues/669#issuecomment-65004297
+        var tasksMap = tasks.map(function(task, index){
+          return {index: index, value: task};
+        });
+        async.each(tasksMap, function(item, cb1){
+          var task = tasks[item.index]
+          if(task.isModified()){
+            task.save(function(err, savedTask){
+              if(err) return cb1(err);
+              tasks[item.index] = savedTask;
+              cb1();
             });
-          } else {
-            found = _.find(g.members, {_id: targetId})
-            spell.cast(user, found);
-            series.push(function(cb2){found.save(cb2)});
+          }else{
+            cb1();
           }
+        }, cb);
+      },
+      user: user.save.bind(user)
+    }, function(err, results){
+      if(err) return next(err);
 
-          if (group && !spell.silent) {
-            series.push(function(cb2){
-              var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
-              group.sendChat(message);
-              group.save(cb2);
-            })
+      res.json(results.user[0].addTasksToUser(tasks));
+    });    
+  };
+
+  // We load all the tasks even if not needed because they'll have to be returned later
+  // TODO fix in API v3
+  user.getTasks(function(err, tasks) {
+    if(err) return next(err);
+
+    switch (targetType) {
+      case 'task':
+        var task = _.find(tasks, {_id: targetId});
+        if(!task) return res.json(404, {err: 'Task "' + targetId + '" not found.'});
+
+        spell.cast(user, task);
+        done(null, user, tasks);
+        break;
+
+      case 'self':
+        // IMPORTANT NOTE we attach {tasks, dailys, todos, habits, rewards}
+        // to the user object to maintain compatibility with the cast functions
+        // in common/scripts/content/index.coffee even though they are not part anymore
+        // of the user object, Mongoose will remove them as soon as the user is saved
+        user.tasks = tasks;
+        user.habits = []; user.dailys = []; user.todos = []; user.rewards = [];
+        tasks.forEach(function(task){
+          user[task.type + 's'] = task;
+        });
+        
+        spell.cast(user);
+        done(null, user, tasks);
+        break;
+
+      case 'party':
+      case 'user':
+        async.waterfall([
+          function(cb){
+            Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements items.special').exec(cb);
+          },
+          function(group, cb) {
+            // Solo player? let's just create a faux group for simpler code
+            var g = group ? group : {members:[user]};
+            var series = [], found;
+            if (targetType == 'party') {
+              spell.cast(user, g.members);
+              series = _.transform(g.members, function(m,v,k){
+                m.push(function(cb2){v.save(cb2)});
+              });
+            } else {
+              found = _.find(g.members, {_id: targetId})
+              spell.cast(user, found);
+              series.push(function(cb2){found.save(cb2)});
+            }
+
+            if (group && !spell.silent) {
+              series.push(function(cb2){
+                var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
+                group.sendChat(message);
+                group.save(cb2);
+              })
+            }
+
+            series.push(function(cb2){g = group = series = found = null;cb2();})
+
+            async.series(series, cb);
           }
+        ], function(err) {
+          done(err, user, tasks);
+        });
+        break;
+    }
 
-          series.push(function(cb2){g = group = series = found = null;cb2();})
+  });
 
-          async.series(series, cb);
-        },
-        function(whatever, cb){
-          user.save(cb);
-        }
-      ], done);
-      break;
-  }
 }
 
 // It supports guild too now but we'll stick to partyInvite for backward compatibility
@@ -545,6 +667,300 @@ api.sessionPartyInvite = function(req,res,next){
   ], next);
 }
 
+// Migrated from common because new user model doesn't have access to tasks under user object
+// Code is shared where possible, otherwise copied, make sure you update the logic in both places
+api.reset = function(req, res, next) {
+  var user = res.locals.user;
+
+  user.fns.resetUser();
+
+  user.tasksOrder = [];
+
+  async.parallel({
+    saveUser: user.save.bind(user),
+    removeTasks: function(cb) {
+      Task.remove({ // TODO what about challenge tasks? we shouldn't remove them!
+        userId: user._id
+      }, cb);
+    }
+  }, function(err, results){
+    if(err) return next(err);
+
+    results.saveUser[0].getTransformedData(function(err, userTransformed){
+      if(err) return next(err);
+
+      res.json(userTransformed);
+    });
+  });
+};
+
+api.reroll = function(req, res, next) {
+  var user = res.locals.user;
+
+  if(user.balance < 1){
+    return res.json(401, {err: shared.i18n.t('notEnoughGems', req.language)})
+  }
+
+  user.balance--;
+
+  // TODO don't load rewards
+  user.getTasks(function(err, tasks){
+    if(err) return next(err);
+
+    tasks.forEach(function(task){
+      if(task.type !== 'reward'){
+        task.value = 0;
+      }
+    });
+
+    var analyticsData = {
+      uuid: user._id,
+      acquireMethod: 'Gems',
+      gemCost: 4,
+      category: 'behavior'
+    };
+    analytics.track('Fortify Potion', analyticsData);
+
+    async.parallel({
+      saveUser: user.save.bind(user),
+      saveTasks: function(cb) {
+        // async.each doesn't support passing the index of the item being processed,
+        // so we convert it to an object of {index, value}
+        // taken from https://github.com/caolan/async/issues/669#issuecomment-65004297
+        var tasksMap = tasks.map(function(task, index){
+          return {index: index, value: task};
+        });
+        async.each(tasksMap, function(item, cb1){
+          var task = tasks[item.index]
+          if(task.isModified()){
+            task.save(function(err, savedTask){
+              if(err) return cb1(err);
+              tasks[item.index] = savedTask;
+              cb1();
+            });
+          }else{
+            cb1();
+          }
+        }, cb);
+      }
+    }, function(err, results){
+      if(err) return next(err);
+
+      res.json(results.saveUser[0].addTasksToUser(tasks));
+    });
+  });
+};
+
+api.rebirth = function(req, res, next) {
+  user.fns.rebirthUser(req, function(err){
+    if(err) return res.json(err.code, {err: err.message});
+
+    user.getTasks(function(err, tasks){
+      if(err) return next(err);
+
+      tasks.forEach(function(task){
+        if(task.type === 'reward') return;
+
+        task.value = 0;
+        if(task.type === 'daily') task.streak = 0;
+      });
+
+      async.parallel({
+        saveUser: user.save.bind(user),
+        saveTasks: function(cb) {
+          // async.each doesn't support passing the index of the item being processed,
+          // so we convert it to an object of {index, value}
+          // taken from https://github.com/caolan/async/issues/669#issuecomment-65004297
+          var tasksMap = tasks.map(function(task, index){
+            return {index: index, value: task};
+          });
+          async.each(tasksMap, function(item, cb1){
+            var task = tasks[item.index]
+            if(task.isModified()){
+              task.save(function(err, savedTask){
+                if(err) return cb1(err);
+                tasks[item.index] = savedTask;
+                cb1();
+              });
+            }else{
+              cb1();
+            }
+          }, cb);
+        }
+      }, function(err, results){
+        if(err) return next(err);
+
+        res.json(results.saveUser[0].addTasksToUser(tasks));
+      });
+    });
+  }, analytics);
+};
+
+api.clearCompleted = function(req, res, next) {
+  var user = res.locals.user;
+
+  Task.find({
+    userId: user._id,
+    type: 'todo'
+  }, function(err, todos) {
+    if(err) return next(err);
+
+    var completed = [];
+    var uncompleted = [];
+
+    todos.forEach(function(todo){
+      todo.completed ? completed.push(todo) : uncompleted.push(todo);
+    });
+
+    _.pull.apply(null, [user.tasksOrder.todos].concat(completed));
+    async.parallel({
+      user: user.save.bind(user),
+      tasks: function(cb){
+        async.each(completed, function(todo, cb1){
+          todo.remove(cb1);
+        }, cb);
+      }
+    }, function(err){
+      if(err) return next(err);
+
+      res.json(uncompleted);
+    });
+  });
+};
+
+// TODO sortTask
+api.sortTask = function(req, res, next) {
+  var id = req.params && req.params.id;
+  var to = req.query && req.query.to;
+  var from = req.query && req.query.from;
+
+  if(!id) return res.json(400, {err: 'Missing task id parameter.'});
+  if(!to || !from) return res.json(400, {err: '?to=__&from=__ are required'});
+
+  var user = res.locals.user;
+  Task.findOne({
+    _id: id,
+    userId: user._id
+  }, '_id type', function(err, task){
+    if(err) return next(err);
+    if(!task) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
+    var orders = user.tasksOrder[task.type + 's'];
+    var movedTask;
+
+    // handle the case where the position on the site is different (preened or done todos)
+    if(orders[from] === task._id) {
+      movedTask = orders.splice(from, 1)[0];
+    } else {
+      var indexToMove = orders.indexOf(task._id);
+      if (indexToMove === -1) { // task not found
+        to = -1; // then just push to bottom
+        movedTask = task._id;
+      } else {
+        movedTask = orders.splice(indexToMove, 1)[0];
+      }
+    }
+
+    if (to === -1) { // we've used the Push To Bottom feature
+      orders.push(movedTask);
+    } else { // any other sort method uses only positive 'to' values
+      // If task moved to non existing index, just push at the bottom
+      orders[to] ? orders.splice(to, 0, movedTask) : order.push(movedTask);
+    }
+
+    async.parallel({
+      getTasks: function(cb){
+        Task.find({
+          type: task.type,
+          userId: user._id
+        }, cb)
+      },
+      user: user.save.bind(user)
+    }, function(err, results){
+      if(err) return next(err);
+
+      res.json(results.getTasks[0]);
+    });
+  });
+};
+
+api.updateTask = function(req, res, next) {
+  var user = res.locals.user;
+
+  Task.findOne({
+    _id: req.params.id,
+    userId: user._id
+  }, function(err, task) {
+    if(err) return next(err);
+    if(!task) return res.json(404, {err: 'Task not found.'})
+
+    req.task = task;
+    user.ops.updateTask(req, function(err) {
+      if(err) return res.json(err.code, {err: err.message});
+
+      task.save(function(err, task){
+        if(err) return next(err);
+
+        return res.json(task);
+      });
+    });
+  });
+};
+
+api.deleteTask = function(req, res, next) {
+  var user = res.locals.user;
+  if(!req.params || !req.params.id) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
+
+  var id = req.params.id;
+  // Try removing from all orders since we don't know the task's type
+  var removeTaskFromOrder = function(array) {
+    _.pull(array, id);
+  };
+
+  ['habits', 'dailys', 'todos', 'rewards'].forEach(function (type){
+    removeTaskFromOrder(user.tasksOrder[type])
+  });
+
+  async.parallel({
+    user: user.save.bind(user),
+    task: function(cb) {
+      Task.remove({_id: id, userId: user._id}, cb);
+    }
+  }, function(err, results) {
+    if(err) return next(err);
+
+    if(results.task.result.n < 1){
+      return res.json(404, {err: shared.i18n.t('messageTaskNotFound', req.language)})
+    }
+
+    res.json(200, {});
+  });
+};
+
+api.addTask = function(req, res, next) {
+  var user = res.locals.user;
+  
+  // Support passing custom id
+  if(req.body.id) req.body._id = req.body.id;
+  var task = new Task(req.body);
+
+  // Very rudimentary existence test ported from index.coffee to avoid duplicates errors
+  if(user.tasksOrder[task.type + 's'].indexOf(task._id) !== -1) {
+    return res.json(409, {err: shared.i18n.t('messageDuplicateTaskID', req.language)});
+  }
+
+  task.userId = user._id;
+  user.tasksOrder[task.type + 's'].push(task._id);
+
+  async.parallel({
+    task: task.save.bind(task),
+    user: user.save.bind(user)
+  }, function(err, results){
+    if(err) return next(err);
+
+    res.json(results.task[0]);
+  });
+};
+
 /**
  * All other user.ops which can easily be mapped to habitrpg-shared/index.coffee, not requiring custom API-wrapping
  */
@@ -575,8 +991,6 @@ _.each(shared.wrap({}).ops, function(op,k){
 */
 api.batchUpdate = function(req, res, next) {
   if (_.isEmpty(req.body)) req.body = []; // cases of {} or null
-  if (req.body[0] && req.body[0].data)
-    return res.json(501, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
 
   var user = res.locals.user;
   var oldSend = res.send;
@@ -616,26 +1030,30 @@ api.batchUpdate = function(req, res, next) {
     res.send = oldSend;
     if (err) return next(err);
 
-    var response = _user.toJSON();
-    response.wasModified = res.locals.wasModified;
-
-    user.fns.nullify();
-    user = res.locals.user = oldSend = oldJson = oldSave = null;
-
+    var response;
     // return only drops & streaks
-    if (response._tmp && response._tmp.drop){
-      res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+    if (_user._tmp && _user._tmp.drop){
+      response = _user.toJSON();
+      res.status(200).json({_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
-    } else if (response.wasModified){
+    } else if (res.locals.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
-      response.todos = shared.preenTodos(response.todos);
-      res.json(200, response);
+      _user.getTransformedData(function(err, transformedData){
+        response = transformedData;
+
+        response.todos = shared.preenTodos(response.todos);
+        res.status(200).json(response);
+      });
 
     // return only the version number
     } else{
-      res.json(200, {_v: response._v});
+      response = _user.toJSON();
+      res.status(200).json({_v: response._v});
     }
+
+    user.fns.nullify();
+    user = res.locals.user = oldSend = oldJson = oldSave = null;
   });
 };
 

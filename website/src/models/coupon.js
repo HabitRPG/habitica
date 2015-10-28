@@ -12,7 +12,7 @@ var CouponSchema = new mongoose.Schema({
 });
 
 CouponSchema.statics.generate = function(event, count, callback) {
-  async.times(count, function(n,cb){
+  async.times(+count, function(n,cb){
     mongoose.model('Coupon').create({event: event}, cb);
   }, callback);
 }

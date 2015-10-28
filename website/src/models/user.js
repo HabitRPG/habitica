@@ -8,9 +8,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var shared = require('../../../common');
 var _ = require('lodash');
-var TaskSchemas = require('./task');
+var Task = require('./task').model;
 var Challenge = require('./challenge').model;
 var moment = require('moment');
+var async = require('async');
 
 // User Schema
 // -----------
@@ -59,6 +60,7 @@ var UserSchema = new Schema({
     greeting: Number,
     thankyou: Number
   },
+
   auth: {
     blocked: Boolean,
     facebook: Schema.Types.Mixed,
@@ -418,42 +420,61 @@ var UserSchema = new Schema({
     }
   },
 
-  tags: {type: [{
+  tags: [{
     _id: false,
-    id: { type: String, 'default': shared.uuid },
+    id: {type: String, default: shared.uuid},
     name: String,
     challenge: String
-  }]},
+  }],
 
-  challenges: [{type: 'String', ref:'Challenge'}],
+  challenges: [{
+    type: String, 
+    ref: 'Challenge'
+  }],
+
+  // List of habits/dailys/todos/rewards IDs to keep track of order
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}]
+  },
 
   inbox: {
     newMessages: {type:Number, 'default':0},
-    blocks: {type:Array, 'default':[]},
-    messages: {type:Schema.Types.Mixed, 'default':{}}, //reflist
+    blocks: {type: Array},
+    messages: {type: Schema.Types.Mixed, 'default':{}}, //reflist
     optOut: {type:Boolean, 'default':false}
   },
 
-  habits:   {type:[TaskSchemas.HabitSchema]},
-  dailys:   {type:[TaskSchemas.DailySchema]},
-  todos:    {type:[TaskSchemas.TodoSchema]},
-  rewards:  {type:[TaskSchemas.RewardSchema]},
-
   extra: Schema.Types.Mixed,
 
-  pushDevices: {type: [{
+  pushDevices: [{
     regId: {type: String},
     type: {type: String}
-  }],'default': []}
+  }]
 
 }, {
   strict: true,
   minimize: false // So empty objects are returned
 });
 
-UserSchema.methods.deleteTask = function(tid) {
-  this.ops.deleteTask({params:{id:tid}},function(){}); // TODO remove this whole method, since it just proxies, and change all references to this method
-}
+UserSchema.post('init', function(doc){
+  shared.wrap(doc);
+});
+
+// Get all the tasks belonging to an user,
+// with their history
+// TODO filter just one or more types of tasks
+UserSchema.methods.getTasks = function(cb) {
+  Task.find({
+    userId: this._id
+  }, function(err, tasks){
+    if(err) return cb(err);
+
+    cb(null, tasks);
+  });
+};
 
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
@@ -466,51 +487,102 @@ UserSchema.methods.toJSON = function() {
   return doc;
 };
 
-//UserSchema.virtual('tasks').get(function () {
-//  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
-//  var tasks = _.object(_.pluck(tasks,'id'), tasks);
-//  return tasks;
-//});
+// Given user and an array of tasks, return an API compatible user + tasks obj
+UserSchema.methods.addTasksToUser = function(tasks) {
+  var obj = this.toJSON();
+  var tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
 
-UserSchema.post('init', function(doc){
-  shared.wrap(doc);
-})
+  obj.habits = [];
+  obj.dailys = [];
+  obj.todos = [];
+  obj.rewards = [];
 
+  obj.tasksOrder = undefined;
+  var unordered = [];
+
+  tasks.forEach(function(task){
+    // We want to push the task at the same position where it's stored in tasksOrder
+    var pos = tasksOrder[task.type + 's'].indexOf(task._id);
+    if(pos === -1) { // Should never happen, it means the lists got out of sync
+      unordered.push(task.toJSON());
+    } else {
+      obj[task.type + 's'][pos] = task.toJSON();
+    }    
+  });
+
+  // Reconcile unordered items
+  unordered.forEach(function(task){
+    obj[task.type + 's'].push(task);
+  });
+
+  //Remove null values that can be created when inserting tasks at an index > length
+  ['habits', 'dailys', 'rewards', 'todos'].forEach(function(type){
+    obj[type] = _.compact(obj[type]);
+  }); 
+
+  return obj;
+};
+
+// Return the data maintaining backward compatibility
+UserSchema.methods.getTransformedData = function(cb) {
+  var self = this;
+  this.getTasks(function(err, tasks) {
+    if(err) return cb(err);
+    cb(null, self.addTasksToUser(tasks));
+  });
+};
+
+// Populate new users with default content
 UserSchema.pre('save', function(next) {
-
-  // Populate new users with default content
   if (this.isNew){
     //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
     var self = this;
-    _.each(['habits', 'dailys', 'todos', 'rewards', 'tags'], function(taskType){
-      self[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
-        var newTask = _.cloneDeep(task);
 
-        // Render task's text and notes in user's language
-        if(taskType === 'tags'){
-          // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-          newTask.id = shared.uuid();
-          newTask.name = newTask.name(self.preferences.language);
-        }else{
-          newTask.text = newTask.text(self.preferences.language);
-          if(newTask.notes) {
-            newTask.notes = newTask.notes(self.preferences.language);
-          }
+    self.tags = _.map(shared.content.userDefaults.tags, function(tag){
+      var newTag = _.cloneDeep(tag);
 
-          if(newTask.checklist){
-            newTask.checklist = _.map(newTask.checklist, function(checklistItem){
-              checklistItem.text = checklistItem.text(self.preferences.language);
-              return checklistItem;
-            });
-          }
-        }
+      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+      newTag.id = shared.uuid();
 
-        return newTask;
-      });
+      // Render tag's name in user's language
+      newTag.name = newTag.name(self.preferences.language);
+
+      return newTag;
     });
-  }
 
-  //this.markModified('tasks');
+    var defaultTasks = shared.content.userDefaults.habits
+                  .concat(shared.content.userDefaults.dailys)
+                  .concat(shared.content.userDefaults.todos)
+                  .concat(shared.content.userDefaults.rewards);
+
+    Task.create(defaultTasks.map(function(task) {
+      var newTask = _.cloneDeep(task);
+      newTask.userId = self._id;
+      newTask._id = shared.uuid(); // Setting the id here because we need to access it for tasksOrder
+
+      // Render task's text and notes in user's language
+      newTask.text = newTask.text(self.preferences.language);
+      if(newTask.notes) {
+        newTask.notes = newTask.notes(self.preferences.language);
+      }
+
+      if(newTask.checklist){
+        newTask.checklist = _.map(newTask.checklist, function(checklistItem){
+          checklistItem.text = checklistItem.text(self.preferences.language);
+          return checklistItem;
+        });
+      }
+
+      // Saving the order of tasks
+      self.tasksOrder[newTask.type + 's'].push(newTask._id);
+      return newTask;
+    }), next);
+  } else {
+    next();
+  }
+});
+
+UserSchema.pre('save', function(next) {
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
   }
@@ -573,31 +645,42 @@ UserSchema.methods.unlink = function(options, cb) {
   var self = this;
   switch (keep) {
     case 'keep':
-      self.tasks[tid].challenge = {};
+      Task.update({
+        userId: self._id,
+        'challenge.taskId': tid
+      }, {$set: {challenge: {}}}, cb);
       break;
     case 'remove':
-      self.deleteTask(tid);
+      async.parallel({
+        removeTask: function(cb1) {
+          Task.remove({
+            userId: self._id,
+            'challenge.taskId': tid
+          }, cb1);
+        },
+        removeTaskFromUser: function(cb1) {
+          // We don't know the type of the task, so we try removing it from all the types
+          ['habits', 'dailys', 'todos', 'rewards'].forEach(function (taskType){
+            _.pull(self.tasksOrder[taskType], tid);
+          });
+          self.save(cb1);
+        }
+      }, cb);
       break;
     case 'keep-all':
-      _.each(self.tasks, function(t){
-        if (t.challenge && t.challenge.id == cid) {
-          t.challenge = {};
-        }
-      });
+      Task.update({
+        userId: self._id,
+        'challenge.id': cid
+      }, {$set: {challenge: {}}}, {multi: true}, cb);
       break;
     case 'remove-all':
-      _.each(self.tasks, function(t){
-        if (t.challenge && t.challenge.id == cid) {
-          self.deleteTask(t.id);
-        }
-      })
+      async.each(tasks, function(task, cb1){
+        if(!task.challenge || !(task.challenge.id === cid)) return cb1();
+        _.pull(self.tasksOrder[task.type + 's'], task._id);
+        task.remove(cb1);
+      }, cb);
       break;
   }
-  self.markModified('habits');
-  self.markModified('dailys');
-  self.markModified('todos');
-  self.markModified('rewards');
-  self.save(cb);
 }
 
 module.exports.schema = UserSchema;

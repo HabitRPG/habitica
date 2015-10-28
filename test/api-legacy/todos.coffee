@@ -14,7 +14,7 @@ describe "Todos", ->
       done()
 
   it "Archives old todos", (done) ->
-    numTasks = _.size(user.todos)
+    numTasks = _.size(user.tasksOrder.todos)
     request.post(baseURL + "/user/batch-update?_v=999").send([
       {
         op: "addTask"
@@ -182,4 +182,5 @@ describe "Todos", ->
           expectCode res, 404
           body = res.body
           expect(body.err).to.equal "Task not found."
-          done()
+          done()###
+

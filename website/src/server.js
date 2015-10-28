@@ -8,11 +8,13 @@ var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
-var cores = +nconf.get("WEB_CONCURRENCY") || 0;
+var cores = +nconf.get('WEB_CONCURRENCY') || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
-  _.times(cores, cluster.fork);
+  for (var i = 0; i < cores; i += 1) {
+    cluster.fork();
+  }
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
@@ -92,51 +94,65 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.set("port", nconf.get('PORT'));
   require('./middlewares/apiThrottle')(app);
   app.use(require('./middlewares/domain')(server,mongoose));
-  if (!isProd && !DISABLE_LOGGING) app.use(express.logger("dev"));
-  app.use(express.compress());
+  if (!isProd && !DISABLE_LOGGING) app.use(require('morgan')('dev'));
+  app.use(require('compression')());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");
-  app.use(express.favicon(publicDir + '/favicon.ico'));
+  app.use(require('serve-favicon')(publicDir + '/favicon.ico'));
   app.use(require('./middlewares/cors'));
 
   var redirects = require('./middlewares/redirects');
   app.use(redirects.forceHabitica);
   app.use(redirects.forceSSL);
-  app.use(express.urlencoded());
-  app.use(express.json());
+
+  var bodyParser = require('body-parser');
+  // Default limit is 100kb, need that because we actually send whole groups to the server
+  // FIXME as soon as possible (need to move on the client from $resource -> $http)    
+  app.use(bodyParser.urlencoded({
+    limit: '1mb',
+    parameterLimit: 10000, // Upped for safety from 1k, FIXME as above
+    extended: true // Uses 'qs' library as old connect middleware
+  }));
+  app.use(bodyParser.json({
+    limit: '1mb'
+  }));
+
   app.use(require('method-override')());
   //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-  app.use(express.cookieParser());
-  app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
-  //app.use(express.session());
+  app.use(require('cookie-parser')());
+  app.use(require('cookie-session')({
+    name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
+    secret: nconf.get('SESSION_SECRET'),
+    httpOnly: false,
+    maxAge: TWO_WEEKS
+  }));
 
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use(app.router);
+  // Custom Directives
+  app.use(require('./routes/pages'));
+  app.use(require('./routes/payments'));
+  app.use(require('./routes/auth'));
+  app.use(require('./routes/coupon'));
+  app.use(require('./routes/unsubscription'));
+  var v2 = express();
+  app.use('/api/v2', v2);
+  app.use('/api/v1', require('./routes/apiv1'));
+  app.use('/export', require('./routes/dataexport'));
+  require('./routes/apiv2.coffee')(swagger, v2);
 
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
-  app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-  app.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
-  app.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
-  app.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
-  app.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
-  app.use(express['static'](publicDir));
+  app.use(express.static(path.join(__dirname, '/../build'), { maxAge: maxAge }));
+  app.use('/common/dist', express.static(publicDir + '/../../common/dist', { maxAge: maxAge }));
+  app.use('/common/audio', express.static(publicDir + '/../../common/audio', { maxAge: maxAge }));
+  app.use('/common/script/public', express.static(publicDir + '/../../common/script/public', { maxAge: maxAge }));
+  app.use('/common/img', express.static(publicDir + '/../../common/img', { maxAge: maxAge }));
+  app.use(express.static(publicDir));
 
-  // Custom Directives
-  app.use(require('./routes/pages').middleware);
-  app.use(require('./routes/payments').middleware);
-  app.use(require('./routes/auth').middleware);
-  app.use(require('./routes/coupon').middleware);
-  app.use(require('./routes/unsubscription').middleware);
-  var v2 = express();
-  app.use('/api/v2', v2);
-  app.use('/api/v1', require('./routes/apiv1').middleware);
-  app.use('/export', require('./routes/dataexport').middleware);
-  require('./routes/apiv2.coffee')(swagger, v2);
   app.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);

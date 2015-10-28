@@ -3,6 +3,7 @@
 app = require("../../website/src/server")
 Group = require("../../website/src/models/group").model
 Challenge = require("../../website/src/models/challenge").model
+Task = require("../../website/src/models/task").model
 
 describe "Challenges", ->
 
@@ -34,7 +35,7 @@ describe "Challenges", ->
           todos: [{
             type: "todo"
             text: "Challenge Todo 1"
-            notes: "Challenge Notes"
+            notes: "Challenge Notes Todo 1"
           }]
           rewards: []
           habits: []
@@ -55,11 +56,11 @@ describe "Challenges", ->
         todos: [{
           type: "todo"
           text: "Challenge Todo 1"
-          notes: "Challenge Notes"
+          notes: "Challenge Notes Todo 1"
         }, {
           type: "todo"
           text: "Challenge Todo 2"
-          notes: "Challenge Notes"
+          notes: "Challenge Notes Todo 2"
         }]
         rewards: []
         habits: []
@@ -68,9 +69,12 @@ describe "Challenges", ->
         expectCode res, 200
         async.parallel [
           (cb) ->
-            User.findById user._id, cb
+            User.findById user._id, (err, user) ->
+              return cb(err) if err
+              user.getTransformedData(cb)
           (cb) ->
-            Challenge.findById res.body._id, cb
+            Challenge.findById res.body._id, (err, _chal) ->
+              _chal.getTransformedData cb
         ], (err, results) ->
           user = results[0]
           challenge = results[1]
@@ -81,18 +85,28 @@ describe "Challenges", ->
   describe 'POST /challenge/:cid', ->
     it "updates the notes on user's version of a challenge task's note without updating the challenge", (done) ->
       updateTodo = challenge.todos[0]
+      userTodoId = null;
       updateTodo.notes = "User overriden notes"
       async.waterfall [
         (cb) ->
-          request.put(baseURL + "/user/tasks/" + updateTodo.id).send(updateTodo).end (err, res) ->
+          Task.findOne {
+              userId: user._id,
+              type: 'todo',
+              'challenge.id': challenge._id
+            }, cb
+        , (task, cb) ->
+          userTodoId = task.id
+          request.put(baseURL + "/user/tasks/" + task.id).send(updateTodo).end () ->
             cb()
         , (cb) ->
-          Challenge.findById challenge._id, cb
+          Challenge.findById challenge._id, (err, chal) ->
+              return cb(err) if err
+              chal.getTransformedData(cb)
         , (chal, cb) ->
-          expect(chal.todos[0].notes).to.eql("Challenge Notes")
+          expect(chal.todos[0].notes).to.eql("Challenge Notes Todo 1")
           cb()
         , (cb) ->
-          request.get(baseURL + "/user/tasks/" + updateTodo.id)
+          request.get(baseURL + "/user/tasks/" + userTodoId)
             .end (err, res) ->
               expect(res.body.notes).to.eql("User overriden notes")
               done()
@@ -106,9 +120,10 @@ describe "Challenges", ->
           challenge = res.body
           expect(challenge.dailys[0].text).to.equal "Updated Daily"
           User.findById user._id, (err, _user) ->
-            expectCode res, 200
-            expect(_user.dailys[_user.dailys.length - 1].text).to.equal "Updated Daily"
-            done()
+            _user.getTransformedData (err, _user) ->              
+              expectCode res, 200
+              expect(_user.dailys[_user.dailys.length - 1].text).to.equal "Updated Daily"
+              done()
 
     it "does not changes user's notes on tasks when challenge task notes are updated", (done) ->
       challenge.todos[0].notes = "Challenge Updated Todo Notes"
@@ -118,9 +133,10 @@ describe "Challenges", ->
           challenge = res.body
           expect(challenge.todos[0].notes).to.equal "Challenge Updated Todo Notes"
           User.findById user._id, (err, _user) ->
-            expectCode res, 200
-            expect(_user.todos[_user.todos.length - 1].notes).to.equal "Challenge Notes"
-            done()
+            _user.getTransformedData (err, _user) ->
+              expectCode res, 200
+              expect(_user.todos[_user.todos.length - 1].notes).to.equal "Challenge Notes Todo 1"
+              done()
 
 
     it "shows user notes on challenge page", (done) ->
@@ -128,12 +144,21 @@ describe "Challenges", ->
       updateTodo.notes = "User overriden notes"
       async.waterfall [
         (cb) ->
-          request.put(baseURL + "/user/tasks/" + updateTodo.id).send(updateTodo).end (err, res) ->
+          Task.findOne {
+              userId: user._id,
+              type: 'todo',
+              'challenge.id': challenge._id
+            }, cb
+        , (todo, cb) ->
+          request.put(baseURL + "/user/tasks/" + todo._id).send(updateTodo).end () ->
             cb()
         , (cb) ->
-          Challenge.findById challenge._id, cb
+          Challenge.findById challenge._id, (err, _chal) ->
+            _chal.getTransformedData (err, chal) ->
+              challenge = chal
+              cb(null, chal)
         , (chal, cb) ->
-          expect(chal.todos[0].notes).to.eql("Challenge Notes")
+          expect(chal.todos[0].notes).to.eql("Challenge Notes Todo 1")
           cb()
         , (cb) ->
           request.get(baseURL + "/challenges/" + challenge._id + "/member/" + user._id).end (err, res) ->
@@ -144,32 +169,37 @@ describe "Challenges", ->
   it "Complete To-Dos", (done) ->
     User.findById user._id, (err, _user) ->
       u = _user
-      numTasks = (_.size(u.todos))
-      request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (err, res) ->
-        request.post(baseURL + "/user/tasks/clear-completed").end (err, res) ->
-          expect(_.size(res.body)).to.equal numTasks - 1
-          done()
+      u.getTransformedData (err, u) ->
+        numTasks = (_.size(u.todos))
+        request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end () ->
+          request.post(baseURL + "/user/tasks/clear-completed").end (err, res) ->
+            expect(_.size(res.body)).to.equal(numTasks - 1)
+            done()
 
   it "Challenge deleted, breaks task link", (done) ->
     itThis = this
     request.del(baseURL + "/challenges/" + challenge._id).end (err, res) ->
       User.findById user._id, (err, user) ->
-        len = user.dailys.length - 1
-        daily = user.dailys[user.dailys.length - 1]
-        expect(daily.challenge.broken).to.equal "CHALLENGE_DELETED"
+        user.getTransformedData (err, user) ->
+          len = user.dailys.length - 1
+          daily = user.dailys[user.dailys.length - 1]
+          dailyId = daily._id
+          expect(daily.challenge.broken).to.equal "CHALLENGE_DELETED"
 
-        # Now let's handle if challenge was deleted, but didn't get to update all the users (an error)
-        unset = $unset: {}
-        unset["$unset"]["dailys." + len + ".challenge.broken"] = 1
-        User.findByIdAndUpdate user._id, unset, (err, user) ->
-          expect(err).to.not.exist
-          expect(user.dailys[len].challenge.broken).to.not.exist
-          request.post(baseURL + "/user/tasks/" + daily.id + "/up").end (err, res) ->
-            setTimeout (->
-              User.findById user._id, (err, user) ->
-                expect(user.dailys[len].challenge.broken).to.equal "CHALLENGE_DELETED"
-                done()
-            ), 100 # we need to wait for challenge to update user, it's a background job for perf reasons
+          # Now let's handle if challenge was deleted, but didn't get to update all the users (an error)
+          unset = $unset: {
+            'challenge.broken': 1
+          }
+          Task.findByIdAndUpdate dailyId, unset, {new: true}, (err, daily) ->
+            expect(err).to.not.exist
+            expect(daily.challenge.broken).to.not.exist
+            request.post(baseURL + "/user/tasks/" + daily.id + "/up").end (res) ->
+              setTimeout (->
+                User.findById user._id, (err, user) ->
+                  user.getTransformedData (err, user) ->
+                    expect(user.dailys[len].challenge.broken).to.equal "CHALLENGE_DELETED"
+                    done()
+              ), 100 # we need to wait for challenge to update user, it's a background job for perf reasons
 
   it "admin creates a challenge", (done) ->
     User.findByIdAndUpdate user._id,

@@ -6,6 +6,7 @@ var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
+var Task = require('./../models/task').model;
 var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
 var csv = require('express-csv');
@@ -68,10 +69,14 @@ api.get = function(req, res, next) {
     .exec(function(err, challenge){
       if(err) return next(err);
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
-      challenge._isMember = !!(_.find(challenge.members, function(member) {
-        return member._id === user._id;
-      }));
-      res.json(challenge);
+
+      challenge.getTransformedData(function(err, challenge) {
+        if(err) return next(err);
+        challenge._isMember = !!(_.find(challenge.members, function(member) {
+          return member._id === user._id;
+        }));
+        res.json(challenge);
+      });
     });
 }
 
@@ -85,14 +90,24 @@ api.csv = function(req, res, next) {
     function(_challenge,cb) {
       challenge = _challenge;
       if (!challenge) return cb('Challenge ' + cid + ' not found');
-      User.aggregate([
-        {$match:{'_id':{ '$in': challenge.members}}}, //yes, we want members
-        {$project:{'profile.name':1,tasks:{$setUnion:["$habits","$dailys","$todos","$rewards"]}}},
-          {$unwind:"$tasks"},
-           {$match:{"tasks.challenge.id":cid}},
-           {$sort:{'tasks.type':1,'tasks.id':1}},
-           {$group:{_id:"$_id", "tasks":{$push:"$tasks"},"name":{$first:"$profile.name"}}}
-      ], cb);
+      User.find({_id: {$in: ch.members}}, {'profile.name': 1, tasksOrder: 1}, function(err, users){
+        if(err) return cb(err);
+
+        async.each(users, function(user, cb1){
+          Task.find({
+            userId: user._id,
+            'challenge.id': cid
+          }, function(err, tasks){
+            if(err) return cb1(err);
+            user = user.toJSON();
+            user.tasks = tasks;
+            cb1();
+          });
+        }, function(err){
+          if(err) return cb(err);
+          return cb(null, users);
+        });
+      });
     }
   ],function(err,users){
     if(err) return next(err);
@@ -106,7 +121,7 @@ api.csv = function(req, res, next) {
     })
     output = [output];
     _.each(users, function(u){
-      var uData = [u._id,u.name];
+      var uData = [u._id,u.profile.name];
       _.each(u.tasks,function(t){
         uData = uData.concat([t.type+':'+t.text, t.value, t.notes]);
       })
@@ -125,30 +140,24 @@ api.getMember = function(req, res, next) {
   // We need to start using the aggregation framework instead of in-app filtering, see http://docs.mongodb.org/manual/aggregation/
   // See code at 32c0e75 for unwind/group example
 
+  // TODO add security layer here?
+
+  User.findOne({_id: uid}, {'profile.name': 1, tasksOrder: 1}, function(err, user){
+    if(err) return next(err);
+    if(!user) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
+    Task.find({
+      userId: uid,
+      'challenge.id': cid
+    }, function(err, tasks){
+      if(err) return next(err);
+
+      uid = cid = null;
+      return res.json(user.addTasksToUser(tasks));
+    });
+  });
+
+  // Previously used aggregation
   //http://stackoverflow.com/questions/24027213/how-to-match-multiple-array-elements-without-using-unwind
-  var proj = {'profile.name':'$profile.name'};
-  _.each(['habits','dailys','todos','rewards'], function(type){
-    proj[type] = {
-      $setDifference: [{
-        $map: {
-          input: '$'+type,
-          as: "el",
-          in: {
-            $cond: [{$eq: ["$$el.challenge.id", cid]}, '$$el', false]
-          }
-        }
-      }, [false]]
-    }
-  });
-  User.aggregate()
-  .match({_id: uid})
-  .project(proj)
-  .exec(function(err, member){
-    if (err) return next(err);
-    if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
-    res.json(member[0]);
-    uid = cid = null;
-  });
 }
 
 // CREATE
@@ -194,23 +203,51 @@ api.create = function(req, res, next){
       }
       req.body.leader = user._id;
       req.body.official = user.contributor.admin && req.body.official;
+
       var chal = new Challenge(req.body); // FIXME sanitize
       chal.members.push(user._id);
-      chal.save(cb);
+
+      req.body.habits = req.body.habits || [];
+      req.body.todos = req.body.todos || [];
+      req.body.dailys = req.body.dailys || [];
+      req.body.rewards = req.body.rewards || [];
+
+      var tasks = req.body.habits.concat(req.body.rewards)
+                    .concat(req.body.dailys).concat(req.body.todos);
+
+      tasks = tasks.map(function(task) {
+        var newTask = new Task(task);
+        newTask.challenge.id = chal._id;
+        user.tasksOrder[task.type + 's'].push(newTask._id);
+        return newTask;
+      });
+
+      async.parallel({
+        chal: chal.save.bind(chal),
+        tasks: function(cb1) {
+          async.map(tasks, function(task, cb2){
+            task.save(cb2);
+          }, cb1);
+        },
+      }, cb);
+
     }],
     save_group: ['save_chal', function(cb, results){
-      results.get_group.challenges.push(results.save_chal[0]._id);
+      results.get_group.challenges.push(results.save_chal.chal[0]._id);
       results.get_group.save(cb);
     }],
     sync_user: ['save_group', function(cb, results){
       // Auto-join creator to challenge (see members.push above)
-      results.save_chal[0].syncToUser(user, cb);
+      results.save_chal.chal[0].syncToUser(user, results.save_chal.tasks, cb);
     }]
   }, function(err, results){
-    if (err) return err.code? res.json(err.code, err) : next(err);
-    return res.json(results.save_chal[0]);
+    if (err) {
+      return err.code ? res.json(err.code, err) : next(err);
+    }
+    
+    return res.json(results.save_chal.chal[0].addTasksToChallenge(results.save_chal.tasks));
     user = null;
-  })
+  });
 }
 
 // UPDATE
@@ -218,30 +255,67 @@ api.update = function(req, res, next){
   var cid = req.params.cid;
   var user = res.locals.user;
   var before;
+  var updatedTasks;
+
   async.waterfall([
     function(cb){
       // We first need the original challenge data, since we're going to compare against new & decide to sync users
       Challenge.findById(cid, cb);
     },
+    function(chal, cb){
+      if(!chal) return cb({chal: null});
+
+      chal.getTasks(function(err, tasks){
+        cb(err, {
+          chal: chal,
+          tasks: tasks
+        });
+      });
+    },
     function(_before, cb) {
-      if (!_before) return cb('Challenge ' + cid + ' not found');
-      if (_before.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionEditChallenge', req.language));
+      if (!_before.chal) return cb('Challenge ' + cid + ' not found');
+      if (_before.chal.leader != user._id && !user.contributor.admin) return cb({code: 401, err: shared.i18n.t('noPermissionEditChallenge', req.language)});
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
-      before = _before;
-      var attrs = _.pick(req.body, 'name shortName description habits dailys todos rewards date'.split(' '));
-      Challenge.findByIdAndUpdate(cid, {$set:attrs}, cb);
+      before = {chal: _before.chal, tasks: _before.tasks};
+      var chalAttrs = _.pick(req.body, 'name shortName description date'.split(' '));
+      async.parallel({
+        chal: function(cb1){
+          Challenge.findByIdAndUpdate(cid, {$set:chalAttrs}, {new: true}, cb1);
+        },
+        tasks: function(cb1) {
+          // Convert to map of {id: task} so we can easily match them
+          var _beforeClonedTasks = _.cloneDeep(_before.tasks.map(function(t) {
+            return t.toObject();
+          }));
+          updatedTasks = _.object(_.pluck(_beforeClonedTasks, '_id'), _beforeClonedTasks);
+          var newTasks = req.body.habits.concat(req.body.dailys)
+                          .concat(req.body.todos).concat(req.body.rewards);
+
+          var newTasksObj = _.object(_.pluck(newTasks, '_id'), newTasks);
+          async.forEachOf(newTasksObj, function(newTask, taskId, cb2){
+            // some properties can't be changed
+            var updatable = _.omit(newTask, '_id', 'challenge'); 
+            _.assign(updatedTasks[taskId], updatable);
+            Task.update({
+              _id: taskId,
+              'challenge.id': cid
+            }, {$set: updatable}, cb2);
+          }, cb1);
+        }
+      }, cb);
     },
     function(saved, cb) {
-
       // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
-      if (before.isOutdated(req.body)) {
-        User.find({_id: {$in: saved.members}}, function(err, users){
+      if (before.chal.isOutdated(before.tasks, req.body)) {
+        // Sometimes mongoose return an array
+        var savedChal = Array.isArray(saved.chal) ? saved.chal[0] : saved.chal;
+        User.find({_id: {$in: savedChal.members}}, function(err, users){
           logging.info('Challenge updated, sync to subscribers');
           if (err) throw err;
           _.each(users, function(user){
-            saved.syncToUser(user);
-          })
+            savedChal.syncToUser(user, updatedTasks);
+          });
         })
       }
 
@@ -249,10 +323,16 @@ api.update = function(req, res, next){
       cb(null, saved);
     }
   ], function(err, saved){
-    if(err) next(err);
-    res.json(saved);
+    if(err) {
+      return err.code ? res.json(err.code, err) : next(err);
+    }
+
+    saved.chal.getTransformedData(function(err, newChal){
+      if(err) return next(err);
+      res.json(newChal);
+    })
     cid = user = before = null;
-  })
+  });
 }
 
 /**
@@ -270,24 +350,47 @@ function closeChal(cid, broken, cb) {
     },
     function(_removed, cb2) {
       removed = _removed;
-      var pull = {'$pull':{}}; pull['$pull'][_removed._id] = 1;
-      Group.findByIdAndUpdate(_removed.group, pull);
-      User.find({_id:{$in: removed.members}}, cb2);
+      var pull = {'$pull':{challenges: _removed._id}};
+      async.parallel({
+        updateGroup: function(cb3) {
+          Group.findByIdAndUpdate(_removed.group, pull, {new:true}, cb3);
+        },
+        findUsers: function(cb3) {
+          User.find({_id:{$in: removed.members}}, cb3);
+        },
+        removeTasks: function(cb3) {
+          Task.remove({
+            'challenge.id': cid,
+            userId: {$exists: false}
+          }, cb3);
+        },
+        findUsersTasks: function(cb3) {
+          Task.find({
+            'challenge.id': cid,
+            userId: {$exists: true}
+          }, cb3);
+        }
+      }, cb2);     
     },
-    function(users, cb2) {
+    function(results, cb2) {
       var parallel = [];
-      _.each(users, function(user){
+      _.each(results.findUsers, function(user){
         var tag = _.find(user.tags, {id:cid});
         if (tag) tag.challenge = undefined;
-        _.each(user.tasks, function(task){
-          if (task.challenge && task.challenge.id == removed._id) {
-            _.merge(task.challenge, broken);
-          }
-        })
         parallel.push(function(cb3){
           user.save(cb3);
         })
-      })
+      });
+
+      _.each(results.findUsersTasks, function(task){
+        if (task.challenge && task.challenge.id == removed._id) {
+          _.merge(task.challenge, broken);
+          parallel.push(function(cb3) {
+            task.save(cb3);
+          });
+        }
+      });
+
       async.parallel(parallel, cb2);
       removed = null;
     }
@@ -307,7 +410,7 @@ api['delete'] = function(req, res, next){
     },
     function(chal, cb){
       if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionDeleteChallenge', req.language));
+      if (chal.leader != user._id && !user.contributor.admin) return cb({code: 401, err: shared.i18n.t('noPermissionDeleteChallenge', req.language)});
       if (chal.group != 'habitrpg') user.balance += chal.prize/4; // Refund gems to user if a non-tavern challenge
       user.save(cb);
     },
@@ -315,7 +418,7 @@ api['delete'] = function(req, res, next){
       closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
     }
   ], function(err){
-    if (err) return next(err);
+    if (err) return err.code ? res.json(err.code, err) : next(err);
     res.send(200);
     user = cid = null;
   });
@@ -336,7 +439,7 @@ api.selectWinner = function(req, res, next) {
     function(_chal, cb){
       chal = _chal;
       if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionCloseChallenge', req.language));
+      if (chal.leader != user._id && !user.contributor.admin) return cb({code: 401, err: shared.i18n.t('noPermissionCloseChallenge', req.language)});
       User.findById(req.query.uid, cb)
     },
     function(winner, cb){
@@ -358,7 +461,7 @@ api.selectWinner = function(req, res, next) {
       closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
   ], function(err){
-    if (err) return next(err);
+    if (err) return err.code ? res.json(err.code, err) : next(err);
     res.send(200);
     user = cid = chal = null;
   })
@@ -367,29 +470,37 @@ api.selectWinner = function(req, res, next) {
 api.join = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
+  var chalTasks;
 
   async.waterfall([
     function(cb) {
-      Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, cb);
+      Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, {new: true}, cb);
     },
     function(chal, cb) {
 
       // Trigger updating challenge member count in the background. We can't do it above because we don't have
       // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
+      // TODO why not just use mongo `inc` operation?
       Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
 
       if (!~user.challenges.indexOf(cid))
         user.challenges.unshift(cid);
-      // Add all challenge's tasks to user's tasks
-      chal.syncToUser(user, function(err){
-        if (err) return cb(err);
-        cb(null, chal); // we want the saved challenge in the return results, due to ng-resource
+
+      chal.getTasks(function(err, tasks){
+        // Add all challenge's tasks to user's tasks
+        chalTasks = tasks;
+        chal.syncToUser(user, tasks, function(err){
+          if (err) return cb(err);
+          cb(null, chal); // we want the saved challenge in the return results, due to ng-resource
+        });
+
       });
+
     }
   ], function(err, chal){
     if(err) return next(err);
     chal._isMember = true;
-    res.json(chal);
+    res.json(chal.addTasksToChallenge(chalTasks));
     user = cid = null;
   });
 }
@@ -403,7 +514,7 @@ api.leave = function(req, res, next){
 
   async.waterfall([
     function(cb){
-      Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, cb);
+      Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, {new: true}, cb);
     },
     function(chal, cb){
 
