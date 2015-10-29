@@ -1,13 +1,10 @@
 language: node_js
 sudo: false
+services:
+  - mongodb
 node_js:
   - '4.1'
 before_script:
-  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.7.tgz -O /tmp/mongodb.tgz
-  - tar -xvf /tmp/mongodb.tgz
-  - mkdir /tmp/data
-  - ${PWD}/mongodb-linux-x86_64-3.0.4/bin/mongod --dbpath /tmp/data --bind_ip 127.0.0.1 --auth &> /dev/null &
-  - until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done
   - 'npm install -g grunt-cli mocha'
   - cp config.json.example config.json
   - "until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done"
