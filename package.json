@@ -62,7 +62,7 @@
     "mongoose-id-autoinc": "~2013.7.14-4",
     "morgan": "^1.6.1",
     "nconf": "~0.6.9",
-    "newrelic": "~1.11.2",
+    "newrelic": "~1.22.2",
     "nib": "~1.0.1",
     "nodemailer": "~0.5.2",
     "pageres": "^1.0.1",
@@ -89,7 +89,8 @@
   },
   "private": true,
   "engines": {
-    "node": "0.10.x"
+    "node": "~4.1.1",
+    "npm": "^3.3.4"
   },
   "scripts": {
     "test": "gulp test",
