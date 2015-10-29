@@ -403,6 +403,14 @@ api.leave = function(req, res, next){
 
   async.waterfall([
     function(cb){
+      var i = user.challenges.indexOf(cid)
+      if (~i) user.challenges.splice(i,1);
+      user.unlink({cid:cid, keep:keep}, function(err){
+        if (err) return cb(err);
+        cb(null);
+      });
+    },
+    function(cb){
       Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, cb);
     },
     function(chal, cb){
@@ -411,13 +419,8 @@ api.leave = function(req, res, next){
       // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
       if (chal)
         Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
-
-      var i = user.challenges.indexOf(cid)
-      if (~i) user.challenges.splice(i,1);
-      user.unlink({cid:cid, keep:keep}, function(err){
-        if (err) return cb(err);
-        cb(null, chal);
-      })
+        
+      cb(null, chal);
     }
   ], function(err, chal){
     if(err) return next(err);
