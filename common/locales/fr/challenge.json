@@ -59,5 +59,7 @@
     "challengeNotEnoughGems": "Vous n'avez pas assez de gemmes pour proposer ce défi.",
     "noPermissionEditChallenge": "Vous n'avez pas le droit d'éditer ce défi.",
     "noPermissionDeleteChallenge": "Vous n'avez pas le droit de supprimer ce défi.",
-    "noPermissionCloseChallenge": "Vous n'avez pas le droit de fermer ce défi."
+    "noPermissionCloseChallenge": "Vous n'avez pas le droit de fermer ce défi.",
+    "noChallengeOwner": "no owner",
+    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }

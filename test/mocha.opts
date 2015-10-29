@@ -3,7 +3,6 @@
 --timeout 8000
 --check-leaks
 --growl
---debug
 --compilers coffee:coffee-script
 --globals io
 --require test/api-legacy/api-helper
