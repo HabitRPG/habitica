@@ -12,7 +12,8 @@ import { resolve }                from 'path';
 const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
 let server;
-
+let runSequence = require('run-sequence')
+;
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
 const API_TEST_COMMAND = 'mocha test/api --recursive --compilers js:babel/register';
@@ -55,7 +56,8 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
 });
 
 gulp.task('test:prepare:build', (cb) => {
-  exec(testBin('gulp test:prepare:translations && gulp build:dev'), cb);
+  runSequence('test:prepare:translations', 'build:dev');
+  //exec(testBin('gulp test:prepare:translations && gulp build:dev'), cb);
 });
 
 gulp.task('test:prepare:webdriver', (cb) => {
