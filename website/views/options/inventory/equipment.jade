@@ -4,6 +4,13 @@
       h3.equipment-title.hint(popover-trigger='mouseenter',
         popover-placement='right', popover-append-to-body='true',
         popover=env.t('battleGearText'))=env.t('battleGear')
+      
+      .checkbox.equipment-title
+        label
+          input(type="checkbox", ng-model="user.preferences.autoEquip",
+            ng-change='set({"preferences.autoEquip":user.preferences.autoEquip ? true : false})')
+          | &nbsp;
+          =env.t('autoEquipBattleGear')
 
       div
         button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}

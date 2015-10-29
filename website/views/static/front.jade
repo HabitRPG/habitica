@@ -2,9 +2,6 @@ doctype html
 html(ng-app='habitrpg', ng-controller='RootCtrl')
   head
     meta(charset='utf-8')
-    script(type='text/javascript').
-      window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
-    != env.getManifestFiles("tmp_static_front")
     link(href='//fonts.googleapis.com/css?family=Lato:400,700', rel='stylesheet', type='text/css')
     title Habitica | Your Life the Role Playing Game
     meta(name='description', content='')

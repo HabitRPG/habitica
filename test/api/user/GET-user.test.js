@@ -6,19 +6,28 @@ import {
 describe('GET /user', () => {
   let user;
 
-  beforeEach(() => {
+  before(() => {
     return generateUser().then((usr) => {
-      user = usr;
+      let api = requester(usr);
+      return api.get('/user');
+    }).then((fetchedUser) => {
+      user = fetchedUser;
     });
   });
 
   it('gets the user object', () => {
-    let api = requester(user);
-    return api.get('/user').then((fetchedUser) => {
-      expect(fetchedUser._id).to.eql(user._id);
-      expect(fetchedUser.auth.local.username).to.eql(user.auth.local.username);
-      expect(fetchedUser.todos).to.eql(user.todos);
-      expect(fetchedUser.items).to.eql(user.items);
-    });
+    expect(user._id).to.eql(user._id);
+    expect(user.auth.local.username).to.eql(user.auth.local.username);
+    expect(user.todos).to.eql(user.todos);
+    expect(user.items).to.eql(user.items);
+  });
+
+  it('does not include password information', () => {
+    expect(user.auth.local.hashed_password).to.not.exist
+    expect(user.auth.local.salt).to.not.exist
+  });
+
+  it('does not include api token', () => {
+    expect(user.apiToken).to.not.exist
   });
 });
