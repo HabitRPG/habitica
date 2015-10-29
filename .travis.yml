@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - '4.1'
 before_install:
-  - "npm install -g npm@3.3.8"
+  - "npm install -g npm@3"
   - "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10"
   - "sudo wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.4.tgz -O /tmp/mongodb.tgz"
   - "sudo tar -xvf /tmp/mongodb.tgz"
