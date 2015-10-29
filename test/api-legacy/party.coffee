@@ -58,6 +58,7 @@ describe "Party", ->
           User.findByIdAndUpdate user._id,
             $set:
               "stats.lvl": 50
+          , {new: true}
           , (err, _user) ->
             cb(null, _user)
         (_user, cb) ->
@@ -142,6 +143,7 @@ describe "Party", ->
                     User.findByIdAndUpdate user._id,
                       $set:
                         "items.quests.vice3": 1
+                    , {new: true}
                     , cb
 
                 (_user, cb) ->
@@ -281,6 +283,7 @@ describe "Party", ->
                       Group.findByIdAndUpdate group._id,
                         $set:
                           "quest.progress.hp": 0
+                      , {new: true}
                       , cb2
                   ], cb
                 (_group, cb) ->
