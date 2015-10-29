@@ -1,7 +1,7 @@
 import gulp from 'gulp';
 let rev = require('gulp-rev');
 
-gulp.task('hashres', (cb) => {
+gulp.task('hashres', () => {
   return gulp.src([
     'website/build/*.js',
     'website/build/*.css',

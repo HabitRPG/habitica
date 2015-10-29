@@ -91,3 +91,18 @@ export function postToSlack(msg, config={}) {
       if (err) console.error('Unable to post to slack', err);
     });
 }
+
+/*
+ * Extract basename from file path
+ */
+export function basename(path) {
+    return path.replace(/\\/g,'/').replace( /.*\//, '' );
+}
+
+/*
+ * Extract directory name from file path
+ */
+export function dirname(path) {
+    return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');;
+}
+
