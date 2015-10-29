@@ -13,9 +13,9 @@ api.unsubscribe = function(req, res, next){
   if(data._id){
     User.update({_id: data._id}, {
       $set: {'preferences.emailNotifications.unsubscribeFromAll': true}
-    }, {multi: false}, function(err, nAffected){
+    }, {multi: false}, function(err, updateRes){
       if(err) return next(err);
-      if(nAffected !== 1) return res.json(404, {err: 'User not found'});
+      if(updateRes.n !== 1) return res.json(404, {err: 'User not found'});
 
       res.send('<h1>' + i18n.t('unsubscribedSuccessfully', null, req.language) + '</h1>' + i18n.t('unsubscribedTextUsers', null, req.language));
     });

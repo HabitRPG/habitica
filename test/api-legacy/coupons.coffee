@@ -6,7 +6,7 @@ Coupon = require("../../website/src/models/coupon").model
 makeSudoUser = (usr, cb) ->
   registerNewUser ->
     sudoUpdate = { "$set" : { "contributor.sudo" : true } }
-    User.findByIdAndUpdate user._id, sudoUpdate, (err, _user) ->
+    User.findByIdAndUpdate user._id, sudoUpdate, {new: true}, (err, _user) ->
       usr = _user
       cb()
   , true

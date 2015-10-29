@@ -27,6 +27,7 @@ describe "Users", ->
             User.findByIdAndUpdate userToDelete._id,
               $set:
                 "balance": 4
+              , {new: true}
               , (err, _user) ->
                 cb()
 
@@ -88,6 +89,7 @@ describe "Users", ->
           User.findByIdAndUpdate user._id,
             $set:
               "balance": 4
+            , {new: true}
             , (err, _user) ->
               async.waterfall [
                 (cb) ->

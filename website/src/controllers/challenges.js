@@ -230,7 +230,7 @@ api.update = function(req, res, next){
       // before-save / after-save comparison to determine if we need to sync to users
       before = _before;
       var attrs = _.pick(req.body, 'name shortName description habits dailys todos rewards date'.split(' '));
-      Challenge.findByIdAndUpdate(cid, {$set:attrs}, cb);
+      Challenge.findByIdAndUpdate(cid, {$set:attrs}, {new: true}, cb);
     },
     function(saved, cb) {
 
@@ -271,7 +271,7 @@ function closeChal(cid, broken, cb) {
     function(_removed, cb2) {
       removed = _removed;
       var pull = {'$pull':{}}; pull['$pull'][_removed._id] = 1;
-      Group.findByIdAndUpdate(_removed.group, pull);
+      Group.findByIdAndUpdate(_removed.group, {new: true}, pull);
       User.find({_id:{$in: removed.members}}, cb2);
     },
     function(users, cb2) {
@@ -297,7 +297,7 @@ function closeChal(cid, broken, cb) {
 /**
  * Delete & close
  */
-api['delete'] = function(req, res, next){
+api.delete = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
 
@@ -370,7 +370,7 @@ api.join = function(req, res, next){
 
   async.waterfall([
     function(cb) {
-      Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, cb);
+      Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, {new: true}, cb);
     },
     function(chal, cb) {
 
@@ -403,7 +403,7 @@ api.leave = function(req, res, next){
 
   async.waterfall([
     function(cb){
-      Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, cb);
+      Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, {new: true}, cb);
     },
     function(chal, cb){
 
