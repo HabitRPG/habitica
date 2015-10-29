@@ -55,11 +55,19 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
 });
 
 gulp.task('test:prepare:build', (cb) => {
-  exec(testBin('grunt build:test'), cb);
+  exec(testBin('gulp test:prepare:translations && gulp build:dev'), cb);
 });
 
 gulp.task('test:prepare:webdriver', (cb) => {
   exec('./node_modules/protractor/bin/webdriver-manager update', cb);
+});
+
+gulp.task('test:prepare:translations', (cb) => {
+  let i18n  = require('../website/src/i18n.js'),
+      fs    = require('fs');
+  fs.writeFileSync('test/spec/mocks/translations.js',
+    "if(!window.env) window.env = {};\n" +
+    "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
 });
 
 gulp.task('test:prepare', [
@@ -72,7 +80,7 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(COMMON_TEST_COMMAND),
     (err, stdout, stderr) => {
-    	cb(err);
+      cb(err);
     }
   );
   pipe(runner);
@@ -107,7 +115,7 @@ gulp.task('test:content', ['test:prepare:build'], (cb) => {
     testBin(CONTENT_TEST_COMMAND),
     CONTENT_OPTIONS,
     (err, stdout, stderr) => {
-    	cb(err);
+      cb(err);
     }
   );
   pipe(runner);
@@ -142,7 +150,7 @@ gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(SERVER_SIDE_TEST_COMMAND),
     (err, stdout, stderr) => {
-    	cb(err);
+      cb(err);
     }
   );
   pipe(runner);
@@ -184,7 +192,7 @@ gulp.task('test:api-legacy:safe', ['test:prepare:mongo'], (cb) => {
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
-	  cb();
+    cb();
     }
   );
   pipe(runner);
@@ -205,7 +213,7 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(`${KARMA_TEST_COMMAND} --single-run`),
     (err, stdout) => {
-    	cb(err);
+      cb(err);
     }
   );
   pipe(runner);
@@ -215,7 +223,7 @@ gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(KARMA_TEST_COMMAND),
     (err, stdout) => {
-    	cb(err);
+      cb(err);
     }
   );
   pipe(runner);
