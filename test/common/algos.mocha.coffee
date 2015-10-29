@@ -394,44 +394,6 @@ describe 'User', ->
         }
 
   describe 'store', ->
-    it 'recovers hp buying potions', ->
-      user = newUser()
-      user.stats.hp = 30
-      user.stats.gp = 50
-      user.ops.buy {params: {key: 'potion'}}
-      expect(user).toHaveHP 45
-      expect(user).toHaveGP 25
-
-      user.ops.buy {params: {key: 'potion'}}
-      expect(user).toHaveHP 50 # don't exceed max hp
-      expect(user).toHaveGP 0
-
-    it 'buys equipment', ->
-      user = newUser()
-      user.stats.gp = 31
-      user.ops.buy {params: {key: 'armor_warrior_1'}}
-      expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, armor_warrior_1: true }
-      expect(user.items.gear.equipped).to.eql { armor: 'armor_warrior_1', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
-      expect(user).toHaveGP 1
-    
-    it 'buys equipment but does not auto-equip', ->
-      user = newUser()
-      user.stats.gp = 31
-      user.preferences.autoEquip = false
-      user.ops.buy {params: {key: 'armor_warrior_1'}}
-      expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, armor_warrior_1: true }
-      expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
-      expect(user).toHaveGP 1
-    
-
-
-    it 'does not buy equipment without enough Gold', ->
-      user = newUser()
-      user.stats.gp = 1
-      user.ops.buy {params: {key: 'armor_warrior_1'}}
-      expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
-      expect(user).toHaveGP 1
-
     it 'buys a Quest scroll', ->
       user = newUser()
       user.stats.gp = 205
