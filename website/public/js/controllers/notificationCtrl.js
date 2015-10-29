@@ -61,7 +61,11 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.stats.lvl', function(after, before) {
-      if ((after === before) || (User.user._tmp && User.user._tmp.drop && (User.user._tmp.drop.type === 'Quest'))) return;
+      if (after === before) return; 
+      if (User.user._tmp && User.user._tmp.drop && (User.user._tmp.drop.type === 'Quest')) return;
+      if (after === 3) return; // Drop system unlock. FIXME can we do this without hardcoding?
+      if (after === 50) return; // Orb of Rebirth unlock FIXME as above
+      if (!User.user.flags.classSelected && User.user.stats.lvl >= 10) return $rootScope.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
       if (after > before) {
         Notification.lvl();
         $rootScope.playSound('Level_Up');
@@ -155,13 +159,6 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('user.flags.contributor', function(after, before){
       if (after === before || after !== true) return;
       $rootScope.openModal('achievements/contributor');
-    });
-
-    // Classes modal
-    $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
-      if(after){
-        $rootScope.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
-      }
     });
 
     // Completed quest modal

@@ -24,5 +24,14 @@ script(type='text/ng-template', id='modals/wonChallenge.html')
                 .col-xs-4(style='padding:0')
                   .achievement-karaoke-2x(style='margin-top: 2em')
       p=env.t('congratulations')
-    .modal-footer(style='margin-top:0')
+      br
       button.btn.btn-primary(ng-click='$close()')=env.t('hurray')
+    .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
+      .container-fluid
+        .row
+          .col-xs-3
+            a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I just won the Challenge {{::user.achievements.challenges[user.achievements.challenges.length - 1]}} in Habitica!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/won-challenge&count=none')=env.t('tweet')
+          .col-xs-4(style='margin-left:.8em')
+            .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/won-challenge', data-layout='button')
+          .col-xs-4(style='margin-left:.8em')
+            a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/won-challenge', data-notes='none')
