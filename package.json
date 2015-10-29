@@ -90,7 +90,7 @@
   "private": true,
   "engines": {
     "node": "~4.1.1",
-    "npm": "^3.3.4"
+    "npm": "^3.3.8"
   },
   "scripts": {
     "test": "gulp test",
