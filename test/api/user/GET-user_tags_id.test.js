@@ -20,6 +20,9 @@ describe('GET /user/tags/id', () => {
 
   it('fails for non-existent tags', () => {
     return expect(api.get('/user/tags/not-an-id'))
-      .to.eventually.be.rejected.with.property('code', 404);
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        text: 'Tag not found.'
+      });
   });
 });
