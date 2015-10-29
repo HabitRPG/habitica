@@ -12,25 +12,6 @@ describe "Users", ->
         done()
       , true
 
-    it 'Should delete a user', (done) ->
-      async.waterfall [
-        (cb) ->
-          registerManyUsers 1, cb
-
-        (_userToDelete, cb) ->
-          userToDelete = _userToDelete[0]
-          request.del(baseURL + "/user")
-          .set("X-API-User", userToDelete._id)
-          .set("X-API-Key", userToDelete.apiToken)
-          .end (err, res) ->
-            expectCode res, 200
-            request.get(baseURL + "/user/" + userToDelete._id)
-            .end (err, res) ->
-              expectCode res, 404
-              cb()
-
-      ], done
-
     context "handle group changes when user cancels", ->
       it "Should choose a new group leader when deleting a user", (done) ->
         userToDelete = undefined
