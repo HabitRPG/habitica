@@ -1697,14 +1697,10 @@ api.wrap = (user, main=true) ->
     cron: (options={}) ->
       now = +options.now || +new Date
 
-      # They went to a different timezone
-      # FIXME:
-      # (1) This exit-early code isn't taking timezone into consideration!!
-      # (2) Won't switching timezones be handled automatically client-side anyway? (aka, can we just remove this code?)
-      # (3) And if not, is this the correct way to handle switching timezones
-      #  if moment(user.lastCron).isAfter(now)
-      #    user.lastCron = now
-      #    return
+      if moment(user.lastCron).isAfter(now)
+        # This might not be taking timezone into consideration.
+        user.lastCron = now
+        return
 
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
       return unless daysMissed > 0
