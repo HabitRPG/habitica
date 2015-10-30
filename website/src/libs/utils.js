@@ -170,7 +170,7 @@ module.exports.setupConfig = function(){
   nconf.argv()
     .env()
     //.file('defaults', path.join(path.resolve(__dirname, '../config.json.example')))
-    .file('user', path.join(path.resolve(__dirname, './../../config.json')));
+    .file('user', path.join(path.resolve(__dirname, './../../../config.json')));
 
   if (nconf.get('NODE_ENV') === "development")
     Error.stackTraceLimit = Infinity;

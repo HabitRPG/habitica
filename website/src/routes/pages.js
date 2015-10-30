@@ -3,9 +3,7 @@ var express = require('express');
 var router = new express.Router();
 var _ = require('lodash');
 var locals = require('../middlewares/locals');
-var user = require('../controllers/user');
-var auth = require('../controllers/auth');
-var i18n = require('../i18n');
+var i18n = require('../libs/i18n');
 
 // -------- App --------
 router.get('/', i18n.getUserLanguage, locals, function(req, res) {

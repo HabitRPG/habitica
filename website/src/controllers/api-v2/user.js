@@ -5,19 +5,19 @@ var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var shared = require('../../../common');
-var User = require('./../models/user').model;
-var utils = require('./../utils');
+var shared = require('../../../../common');
+var User = require('./../../models/user').model;
+var utils = require('./../../libs/utils');
 var analytics = utils.analytics;
-var Group = require('./../models/group').model;
-var Challenge = require('./../models/challenge').model;
+var Group = require('./../../models/group').model;
+var Challenge = require('./../../models/challenge').model;
 var moment = require('moment');
-var logging = require('./../logging');
+var logging = require('./../../libs/logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var qs = require('qs');
-var firebase = require('../libs/firebase');
-var webhook = require('../webhook');
+var firebase = require('../../libs/firebase');
+var webhook = require('../../libs/webhook');
 
 // api.purchase // Shared.ops
 
@@ -290,7 +290,7 @@ api.getUserAnonymized = function(req, res, next) {
  * The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
  * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
  */
-acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
+acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, function(m,v,leaf){
   var found= _.find('achievements filters flags invitations lastCron party preferences profile stats inbox'.split(' '), function(root){
     return leaf.indexOf(root) == 0;
   });

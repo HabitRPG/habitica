@@ -1,9 +1,9 @@
 var nconf = require('nconf');
 var express = require('express');
 var router = new express.Router();
-var auth = require('../controllers/auth');
+var auth = require('../controllers/api-v2/auth');
 var payments = require('../controllers/payments');
-var i18n = require('../i18n');
+var i18n = require('../libs/i18n');
 
 router.get('/paypal/checkout', auth.authWithUrl, i18n.getUserLanguage, payments.paypalCheckout);
 router.get('/paypal/checkout/success', i18n.getUserLanguage, payments.paypalCheckoutSuccess);

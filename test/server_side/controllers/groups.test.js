@@ -5,10 +5,10 @@ var expect = chai.expect;
 
 var Q = require('q');
 var Group = require('../../../website/src/models/group').model;
-var groupsController = require('../../../website/src/controllers/groups');
+var groupsController = require('../../../website/src/controllers/api-v2/groups');
 
 describe('Groups Controller', function() {
-  var utils = require('../../../website/src/utils');
+  var utils = require('../../../website/src/libs/utils');
 
   describe('#invite', function() {
     var res, req, user, group;

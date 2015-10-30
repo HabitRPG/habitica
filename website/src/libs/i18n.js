@@ -1,11 +1,11 @@
 var fs = require('fs'),
     path = require('path'),
     _ = require('lodash'),
-    User = require('./models/user').model,
-    shared = require('../../common'),
+    User = require('../models/user').model,
+    shared = require('../../../common'),
     translations = {};
 
-var localePath = path.join(__dirname, "/../../common/locales/")
+var localePath = path.join(__dirname, "/../../../common/locales/")
 
 var loadTranslations = function(locale){
   var files = fs.readdirSync(path.join(localePath, locale));
@@ -54,7 +54,7 @@ _.each(langCodes, function(code){
   lang.momentLangCode = (momentLangsMapping[code] || code);
   try{
     // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
-    var f = fs.readFileSync(path.join(__dirname, '/../../node_modules/moment/locale/' + lang.momentLangCode + '.js'), 'utf8');
+    var f = fs.readFileSync(path.join(__dirname, '/../../../node_modules/moment/locale/' + lang.momentLangCode + '.js'), 'utf8');
     momentLangs[code] = f;
   }catch (e){}
 });

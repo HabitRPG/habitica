@@ -1,13 +1,13 @@
 var User = require('mongoose').model('User');
-var groups = require('../models/group');
+var groups = require('../../models/group');
 var partyFields = require('./groups').partyFields
 var api = module.exports;
 var async = require('async');
 var _ = require('lodash');
-var shared = require('../../../common');
-var utils = require('../utils');
+var shared = require('../../../../common');
+var utils = require('../../libs/utils');
 var nconf = require('nconf');
-var pushNotify = require('./pushNotifications');
+var pushNotify = require('./../pushNotifications');
 
 var fetchMember = function(uuid, restrict){
   return function(cb){

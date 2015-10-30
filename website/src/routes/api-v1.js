@@ -3,10 +3,10 @@ var router = new express.Router();
 var _ = require('lodash');
 var async = require('async');
 var icalendar = require('icalendar');
-var api = require('./../controllers/user');
-var auth = require('./../controllers/auth');
-var logging = require('./../logging');
-var i18n = require('./../i18n');
+var api = require('./../controllers/api-v2/user');
+var auth = require('./../controllers/api-v2/auth');
+var logging = require('./../libs/logging');
+var i18n = require('./../libs/i18n');
 var forceRefresh = require('../middlewares/forceRefresh').middleware;
 
 /* ---------- Deprecated API ------------*/

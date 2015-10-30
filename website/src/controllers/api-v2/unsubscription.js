@@ -1,7 +1,7 @@
-var User = require('../models/user').model;
-var EmailUnsubscription = require('../models/emailUnsubscription').model;
-var utils = require('../utils');
-var i18n = require('../../../common').i18n;
+var User = require('../../models/user').model;
+var EmailUnsubscription = require('../../models/emailUnsubscription').model;
+var utils = require('../../libs/utils');
+var i18n = require('../../../../common').i18n;
 
 var api = module.exports = {};
 
