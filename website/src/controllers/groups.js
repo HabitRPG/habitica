@@ -281,7 +281,7 @@ api.getChat = function(req, res, next) {
  */
 api.postChat = function(req, res, next) {
   if(!req.query.message) {
-    return res.json(400,{err:'You cannot send a blank message'});
+    return res.json(400,{err: shared.i18n.t('messageGroupChatBlankMessage')});
   } else {
     var user = res.locals.user
     var group = res.locals.group;
@@ -329,15 +329,15 @@ api.flagChatMessage = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
 
-  if(!message) return res.json(404, {err: "Message not found!"});
-  if(message.uuid == user._id) return res.json(401, {err: "Can't report your own message."});
+  if(!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
+  if(message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatFlagOwnMessage')});
 
   User.findOne({_id: message.uuid}, {auth: 1}, function(err, author){
     if(err) return next(err);
 
     // Log user ids that have flagged the message
     if(!message.flags) message.flags = {};
-    if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: "You have already reported this message"});
+    if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: shared.i18n.t('messageGroupChatFlagAlreadyReported')});
     message.flags[user._id] = true;
 
     // Log total number of flags (publicly viewable)
@@ -394,7 +394,7 @@ api.clearFlagCount = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
 
-  if(!message) return res.json(404, {err: "Message not found!"});
+  if(!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
 
   if(user.contributor.admin){
     message.flagCount = 0;
@@ -405,7 +405,7 @@ api.clearFlagCount = function(req, res, next){
       return res.send(204);
     });
   }else{
-    return res.json(401, {err: "Only an admin can clear the flag count!"})
+    return res.json(401, {err: shared.i18n.t('messageGroupChatAdminClearFlagCount')})
   }
 
 }
@@ -425,8 +425,8 @@ api.likeChatMessage = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
-  if (!message) return res.json(404, {err: "Message not found!"});
-  if (message.uuid == user._id) return res.json(401, {err: "Can't like your own message. Don't be that person."});
+  if (!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
+  if (message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatLikeOwnMessage')});
   if (!message.likes) message.likes = {};
   if (message.likes[user._id]) {
     delete message.likes[user._id];
