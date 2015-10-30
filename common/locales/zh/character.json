@@ -52,6 +52,7 @@
     "classEquipBonus": "职业奖励",
     "battleGear": "战斗装备",
     "battleGearText": "这是你在战斗中的装备；这会影响您在任务重的各项数值",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "服装",
     "costumeText": "如果你更喜欢其它装备的样子，勾选\"显示服装\"的按钮，在装备战斗装备的情况下换一个造型。",
     "useCostume": "显示服装",

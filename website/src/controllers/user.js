@@ -164,7 +164,7 @@ api.getTasks = function(req, res, next) {
  */
 api.getTask = function(req, res, next) {
   var task = findTask(req,res);
-  if (!task) return res.json(404, {err: "No task found."});
+  if (!task) return res.json(404, {err: shared.i18n.t('messageTaskNotFound')});
   return res.json(200, task);
 };
 
@@ -317,7 +317,7 @@ api.update = function(req, res, next) {
     if (acceptablePUTPaths[k])
       user.fns.dotSet(k, v);
     else
-      errors.push("path `" + k + "` was not saved, as it's a protected path.");
+      errors.push(shared.i18n.t('messageUserOperationProtected', { operation: k }));
     return true;
   });
   user.save(function(err) {
@@ -600,7 +600,7 @@ api.batchUpdate = function(req, res, next) {
           return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
         return cb();
       };
-      if(!api[_req.op]) { return cb(_req.op + ' operation not found'); }
+      if(!api[_req.op]) { return cb(shared.i18n.t('messageUserOperationNotFound', { operation: _req.op })); }
       api[_req.op](_req, res, cb);
     });
   })

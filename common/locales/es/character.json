@@ -52,6 +52,7 @@
     "classEquipBonus": "Bonus de Clase",
     "battleGear": "Equipo de Batalla",
     "battleGearText": "Este es el equipo que llevarás en batalla; los puntos que otorguen se tendrán en cuenta cuando interactúes con tus tareas.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Disfraz",
     "costumeText": "Si prefieres el aspecto de otro equipo al que estás usando, marca la casilla «Usar Disfraz» para llevarlo como disfraz mientras usas tu equipo de batalla debajo.",
     "useCostume": "Llevar Disfraz",

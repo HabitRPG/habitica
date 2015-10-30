@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../../helpers/api.helper';
 
 describe('POST /user/tasks', () => {
@@ -46,7 +47,7 @@ describe('POST /user/tasks', () => {
       id: todo.id,
     })).to.eventually.be.rejected.and.eql({
       code: 409,
-      text: 'A task with that ID already exists.',
+      text: t('messageDuplicateTaskID'),
     });
   });
 

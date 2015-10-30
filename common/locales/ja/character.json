@@ -52,6 +52,7 @@
     "classEquipBonus": "クラスボーナス",
     "battleGear": "バトルギア",
     "battleGearText": "これは身につけるバトル用の道具です。タスクに接するときの数字に影響を及ぼす。",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "衣装",
     "costumeText": "もし装備中のギアより他のギアの見た目が好ましい場合、「衣装する」のボックスをチェックしてください。そうすると、バトルギアを着たまま衣装が表れます。",
     "useCostume": "衣装する",

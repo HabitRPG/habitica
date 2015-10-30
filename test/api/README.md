@@ -88,13 +88,16 @@ it('makes the party creator the leader automatically', () => {
 });
 ```
 
-If the test is checking that the request returns an error, use the `rejectedWith` syntax.
+If the test is checking that the request returns an error, use the `.eventually.be.rejected.and.eql` syntax.
 
 ```js
 it('returns an error', () => { 
   let api = requester(user);
   return expect(request.get('/groups/id-of-a-party-that-user-does-not-belong-to'))
-    .to.be.rejectedWith('Group not found or you don\'t have access.');
+    .to.eventually.be.rejected.and.eql({
+      code: 404,
+      text: t('messageGroupNotFound'),
+    });
 });
 ```
 

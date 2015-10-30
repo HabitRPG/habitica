@@ -52,6 +52,7 @@
     "classEquipBonus": "Class Bonus",
     "battleGear": "Echipament de luptă",
     "battleGearText": "This is the gear you wear into battle; it affects numbers when interacting with your tasks.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Costum",
     "costumeText": "Dacă preferi aspectul altui echipament în loc de ce ai echipat, bifează cutiuța \"Poartă Costum\" ca să îmbraci la vedere un costum în timp ce porți îmbrăcămintea de luptă pe dedesubt.",
     "useCostume": "Poartă costum",

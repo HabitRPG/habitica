@@ -2,6 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 import { each, find } from 'lodash';
 
@@ -75,7 +76,7 @@ describe('POST /groups/:id/join', () => {
           return api.get(`/groups/${group._id}`);
         })).to.eventually.be.rejected.and.eql({
           code: 401,
-          text: 'Can\'t join a group you\'re not invited to.',
+          text: t('messageGroupRequiresInvite'),
         });
       });
     });

@@ -52,6 +52,7 @@
     "classEquipBonus": "職業加成",
     "battleGear": "戰鬥裝備",
     "battleGearText": "這是你帶上戰場的裝備，在你做任務時會影響一些數值。",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "服裝",
     "costumeText": "如果你喜歡其他裝備的外觀更勝於你現在的裝備，勾選\"使用服裝\"框穿上想被看到的服裝，而你的戰鬥裝備會穿在裡面。",
     "useCostume": "使用服裝",

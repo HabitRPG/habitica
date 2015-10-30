@@ -30,5 +30,20 @@
     "messageAlreadyOwnGear": "你已經有這個東西了。到裝備頁裡裝備它吧。",
     "armoireEquipment": "<%= image %> 你在神祕寶箱裡找到稀有的裝備 <%= dropText %>! 好棒!",
     "armoireFood": "<%= image %> 你在神祕寶箱裡找到 <%= dropArticle %><%= dropText %>. 這是什麼東東啊？",
-    "armoireExp": "你打開神祕寶箱⋯⋯只得到經驗值。"
+    "armoireExp": "你打開神祕寶箱⋯⋯只得到經驗值。",
+    "messageInsufficientGems": "Not enough gems!",
+    "messageAuthPasswordMustMatch": ":password and :confirmPassword don't match",
+    "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
+    "messageAuthUsernameTaken": "Username already taken",
+    "messageAuthEmailTaken": "Email already taken",
+    "messageAuthNoUserFound": "No user found.",
+    "messageAuthMustBeLoggedIn": "You must be logged in.",
+    "messageAuthMustIncludeTokens": "You must include a token and uid (user id) in your request",
+    "messageGroupNotFound": "Group not found or you don't have access.",
+    "messageGroupAlreadyInParty": "Already in a party, try refreshing.",
+    "messageGroupOnlyLeaderCanUpdate": "Only the group leader can update the group!",
+    "messageGroupRequiresInvite": "Can't join a group you're not invited to.",
+    "messageGroupCannotRemoveSelf": "You cannot remove yourself!",
+    "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
+    "messageUserOperationNotFound": "<%= operation %> operation not found"
 }
