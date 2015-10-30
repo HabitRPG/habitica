@@ -174,7 +174,7 @@ module.exports.setupConfig = function(){
 
   if (nconf.get('NODE_ENV') === "development")
     Error.stackTraceLimit = Infinity;
-  if (nconf.get('NODE_ENV') === 'production')
+  //if (nconf.get('NODE_ENV') === 'production')
     //require('newrelic');
 
   isProd = nconf.get('NODE_ENV') === 'production';
