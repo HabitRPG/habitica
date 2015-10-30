@@ -2,6 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 import {
   find,
@@ -148,7 +149,7 @@ describe('GET /groups/:id', () => {
       return expect(api.get(`/groups/${createdGroup._id}`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
-          text: 'Group not found or you don\'t have access.',
+          text: t('messageGroupNotFound'),
         });
     });
   });
@@ -178,7 +179,7 @@ describe('GET /groups/:id', () => {
       return expect(api.get(`/groups/${createdGroup._id}`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
-          text: 'Group not found or you don\'t have access.',
+          text: t('messageGroupNotFound'),
         });
     });
   });
@@ -227,7 +228,7 @@ describe('GET /groups/:id', () => {
       return expect(api.get('/groups/group-that-does-not-exist'))
         .to.eventually.be.rejected.and.eql({
           code: 404,
-          text: 'Group not found or you don\'t have access.',
+          text: t('messageGroupNotFound'),
         });
     });
   });

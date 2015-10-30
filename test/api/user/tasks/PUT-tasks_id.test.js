@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../../helpers/api.helper';
 
 describe('PUT /user/tasks/:id', () => {

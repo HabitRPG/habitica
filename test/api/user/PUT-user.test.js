@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 
 import { each } from 'lodash';
@@ -15,7 +16,7 @@ describe('PUT /user', () => {
     });
   });
 
-  context('allowed paths', () => {
+  context('allowed operations', () => {
     it('updates the user', () => {
       return api.put('/user', {
         'profile.name' : 'Frodo',
@@ -29,8 +30,8 @@ describe('PUT /user', () => {
     });
   });
 
-  context('top level protected paths', () => {
-    let protectedPaths = {
+  context('top level protected operations', () => {
+    let protectedOperations = {
       'gem balance': {balance: 100},
       'auth': {'auth.blocked': true, 'auth.timestamps.created': new Date()},
       'contributor': {'contributor.level': 9, 'contributor.admin': true, 'contributor.text': 'some text'},
@@ -40,11 +41,11 @@ describe('PUT /user', () => {
       'tasks': {todos: [], habits: [], dailys: [], rewards: []},
     };
 
-    each(protectedPaths, (data, testName) => {
+    each(protectedOperations, (data, testName) => {
       it(`does not allow updating ${testName}`, () => {
         let errorText = [];
-        each(data, (value, path) => {
-          errorText.push(`path \`${path}\` was not saved, as it's a protected path.`);
+        each(data, (value, operation) => {
+          errorText.push(t('messageUserOperationProtected', { operation: operation }));
         });
         return expect(api.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,
@@ -54,16 +55,16 @@ describe('PUT /user', () => {
     });
   });
 
-  context('sub-level protected paths', () => {
-    let protectedPaths = {
+  context('sub-level protected operations', () => {
+    let protectedOperations = {
       'class stat': {'stats.class': 'wizard'},
     };
 
-    each(protectedPaths, (data, testName) => {
+    each(protectedOperations, (data, testName) => {
       it(`does not allow updating ${testName}`, () => {
         let errorText = [];
-        each(data, (value, path) => {
-          errorText.push(`path \`${path}\` was not saved, as it's a protected path.`);
+        each(data, (value, operation) => {
+          errorText.push(t('messageUserOperationProtected', { operation: operation }));
         });
         return expect(api.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,

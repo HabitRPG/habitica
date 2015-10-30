@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../../helpers/api.helper';
 
 describe('DELETE /user/tasks/:id', () => {
@@ -20,7 +21,7 @@ describe('DELETE /user/tasks/:id', () => {
         return api.get(`/user/tasks/${task.id}`);
       })).to.eventually.be.rejected.and.eql({
         code: 404,
-        text: 'No task found.',
+        text: t('messageTaskNotFound'),
     });
   });
 
@@ -28,7 +29,7 @@ describe('DELETE /user/tasks/:id', () => {
     return expect(api.del('/user/tasks/task-that-does-not-exist'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
-        text: 'Task not found.',
+        text: t('messageTaskNotFound'),
     });
   });
 
