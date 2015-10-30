@@ -95,19 +95,20 @@
             p=env.t('welcomeMarket')
             hr(ng-show='selectedEgg || selectedPotion || selectedFood')
             div(ng-show='selectedEgg || selectedPotion || selectedFood')
-              div.customize-option.Pet_Egg_Wolf(style='float:left;' ng-show='selectedEgg')
+              div.customize-option(class='Pet_Egg_{{selectedEgg.key}}' style='float:left;' ng-show='selectedEgg')
               div(style='float:left;width:70%' ng-show='selectedEgg')
                 p!=env.t('displayEggForGold', {itemType: "{{selectedEgg.text()}}"})
-              div.customize-option.inventory_special_opaquePotion(style='float:left;' ng-show='selectedPotion')
+              div.customize-option(class='Pet_HatchingPotion_{{selectedPotion.key}}' style='float:left;' ng-show='selectedPotion')
               div(style='float:left;width:70%' ng-show='selectedPotion')
                 p!=env.t('displayPotionForGold', {itemType: "{{selectedPotion.text()}}"})
-              div.customize-option.inventory_special_opaquePotion(style='float:left;' ng-show='selectedFood')
+              div.customize-option(class='Pet_Food_{{selectedFood.key}}' style='float:left;' ng-show='selectedFood')
               div(style='float:left;width:70%' ng-show='selectedFood')
                 p!=env.t('displayItemForGold', {itemType: "{{selectedFood.text()}}"})
             div
               button.btn.btn-primary.btn-sell(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
               button.btn.btn-primary.btn-sell(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
               button.btn.btn-primary.btn-sell(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
+              
       menu.inventory-list(type='list')
         li.customize-menu
           menu.pets-menu(label=env.t('eggs'))
