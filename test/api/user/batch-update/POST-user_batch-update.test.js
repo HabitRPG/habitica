@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../../helpers/api.helper';
 
 import { each } from 'lodash';
@@ -49,7 +50,7 @@ describe('POST /user/batch-update', () => {
           {op: operation},
         ])).to.eventually.be.rejected.and.eql({
             code: 500,
-            text: `${operation} operation not found`,
+            text: t('messageUserOperationNotFound', { operation: operation}),
           });
       });
     });
@@ -61,7 +62,7 @@ describe('POST /user/batch-update', () => {
         {op: 'aNotRealOperation'},
       ])).to.eventually.be.rejected.and.eql({
           code: 500,
-          text: 'aNotRealOperation operation not found',
+          text: t('messageUserOperationNotFound', { operation: 'aNotRealOperation' }),
         });
     });
   });

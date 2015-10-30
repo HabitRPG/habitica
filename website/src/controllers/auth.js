@@ -16,9 +16,9 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 
 var api = module.exports;
 
-var NO_TOKEN_OR_UID = { err: "You must include a token and uid (user id) in your request"};
-var NO_USER_FOUND = {err: "No user found."};
-var NO_SESSION_FOUND = { err: "You must be logged in." };
+var NO_TOKEN_OR_UID = { err: shared.i18n.t('messageAuthMustIncludeTokens') };
+var NO_USER_FOUND = {err: shared.i18n.t('messageAuthNoUserFound') };
+var NO_SESSION_FOUND = { err: shared.i18n.t('messageAuthMustBeLoggedIn') };
 var accountSuspended = function(uuid){
   return {
     err: 'Account has been suspended, please contact leslie@habitica.com with your UUID ('+uuid+') for assistance.',
@@ -72,9 +72,9 @@ api.registerUser = function(req, res, next) {
   async.auto({
     validate: function(cb) {
       if (!(username && req.body.password && email))
-        return cb({code:401, err: ":username, :email, :password, :confirmPassword required"});
+        return cb({code:401, err: shared.i18n.t('messageAuthCredentialsRequired')});
       if (req.body.password !== req.body.confirmPassword)
-        return cb({code:401, err: ":password and :confirmPassword don't match"});
+        return cb({code:401, err: shared.i18n.t('messageAuthPasswordMustMatch')});
       if (!validator.isEmail(email))
         return cb({code:401, err: ":email invalid"});
       cb();
@@ -90,7 +90,7 @@ api.registerUser = function(req, res, next) {
       if (data.findReg) {
         if (email === data.findReg.auth.local.email) return cb({code:401, err:"Email already taken"});
         // Check that the lowercase username isn't already used
-        if (lowerCaseUsername === data.findReg.auth.local.lowerCaseUsername) return cb({code:401, err:"Username already taken"});
+        if (lowerCaseUsername === data.findReg.auth.local.lowerCaseUsername) return cb({code:401, err: shared.i18n.t('messageAuthUsernameTaken')});
       }
       var salt = utils.makeSalt();
       var newUser = {
@@ -309,7 +309,7 @@ api.changeEmail = function(req, res, next){
       User.findOne({'auth.local.email': email}, {auth:1}, cb);
     },
     function(found, cb){
-      if(found) return cb({code:401, err: "Email already taken"});
+      if(found) return cb({code:401, err: shared.i18n.t('messageAuthEmailTaken')});
       if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
       res.locals.user.auth.local.email = email;
       res.locals.user.save(cb);
