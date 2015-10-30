@@ -6,7 +6,7 @@ let faq = {};
 
 faq.questions = [];
 
-for (var i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+for (var i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
   let question = {
     question: t('faqQuestion' + i),
     ios: t('iosFaqAnswer' + i),

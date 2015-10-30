@@ -1,9 +1,10 @@
-var fs = require('fs'),
-    path = require('path'),
-    _ = require('lodash'),
-    User = require('./models/user').model,
-    shared = require('../../common'),
-    translations = {};
+var fs = require('fs');
+var path = require('path');
+var _ = require('lodash');
+var accepts = require('accepts');
+var User = require('./models/user').model;
+var shared = require('../../common');
+var translations = {};
 
 var localePath = path.join(__dirname, "/../../common/locales/")
 
@@ -74,7 +75,9 @@ var chineseVersions = ['zh-tw'];
 
 var getUserLanguage = function(req, res, next){
   var getFromBrowser = function(){
-    var acceptable = _(req.acceptedLanguages).map(function(lang){
+    var acceptedLanguages = accepts(req).languages();
+
+    var acceptable = _(acceptedLanguages).map(function(lang){
       return lang.slice(0, 2);
     }).uniq().value();
 
@@ -83,7 +86,7 @@ var getUserLanguage = function(req, res, next){
     var iAcceptedCompleteLang = (matches.length > 0) ? multipleVersionsLanguages.indexOf(matches[0].toLowerCase()) : -1;
 
     if(iAcceptedCompleteLang !== -1){
-      var acceptedCompleteLang = _.find(req.acceptedLanguages, function(accepted){
+      var acceptedCompleteLang = _.find(acceptedLanguages, function(accepted){
         return accepted.slice(0, 2) == multipleVersionsLanguages[iAcceptedCompleteLang];
       });
 

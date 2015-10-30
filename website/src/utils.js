@@ -159,6 +159,10 @@ module.exports.makeSalt = function() {
   return crypto.randomBytes(Math.ceil(len / 2)).toString('hex').substring(0, len);
 }
 
+// Prepare to export analytics object
+// Export emoty methods until the right ones are ready
+module.exports.analytics = { track: function() { }, trackPurchase: function() { } };
+
 /**
  * Load nconf and define default configuration values if config.json or ENV vars are not found
  */
@@ -170,8 +174,8 @@ module.exports.setupConfig = function(){
 
   if (nconf.get('NODE_ENV') === "development")
     Error.stackTraceLimit = Infinity;
-  //if (nconf.get('NODE_ENV') === 'production')
-  //  require('newrelic');
+  if (nconf.get('NODE_ENV') === 'production')
+    require('newrelic');
 
   isProd = nconf.get('NODE_ENV') === 'production';
   baseUrl = nconf.get('BASE_URL');
@@ -182,9 +186,13 @@ module.exports.setupConfig = function(){
     googleAnalytics: nconf.get('GA_ID')
   }
 
-  module.exports.analytics = analytics
-    ? analytics(analyticsTokens)
-    : { track: function() { }, trackPurchase: function() { } };
+  if(analytics){
+    analytics = analytics(analyticsTokens);
+    // Use the right analytics methods, don't substitute the entire object
+    // or all the require() across the code will keep the empty methods
+    module.exports.analytics.track = analytics.track;
+    module.exports.analytics.trackPurchase = analytics.trackPurchase;
+  }
 };
 
 var algorithm = 'aes-256-ctr';

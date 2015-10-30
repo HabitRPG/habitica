@@ -29,7 +29,8 @@
     "seasonalShopClosedText": "Сезонная лавка сейчас закрыта!! Я понятия не имею, куда ушла Сезонная Чародейка, но она уж точно вернется к следующему <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>большому событию</a>!",
     "seasonalShopText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары весеннего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно в дни Весенней Веселухи, но мы открыты только до 30 апреля, так что спешите закупиться сейчас, иначе придется ждать целый год!",
     "seasonalShopSummerText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары летнего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно в дни Летнего Всплеска, но мы открыты только до 31 июля, так что спешите закупиться сейчас, иначе придется ждать целый год!",
-    "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
+    "seasonalShopFallText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары осеннего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно во время Осеннего Фестиваля, но только до 31 октября, так что спешите закупиться сейчас, иначе придется ждать целый год!",
+    "seasonalShopFallTextBroken": "Oh.... Welcome to the Seasonal Shop... We're stocking autumn Seasonal Edition goodies, or something... Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31... I guess you should to stock up now, or you'll have to wait... and wait... and wait... <strong>*sigh*</strong>",
     "seasonalShopRebirth": "Использовав шар возрождения, вы сможете повторно купить это снаряжение в колонке наград. Поначалу вы сможете купить только предметы для вашего текущего класса (класс по умолчанию – воин), но не волнуйтесь: после смены класса вам станут доступны другие классовые предметы.",
     "candycaneSet": "Карамельная палочка (Маг)",
     "skiSet": "Лыжник-ассасин (Разбойник)",
@@ -56,9 +57,9 @@
     "emeraldMermageSet": "Изумрудный Русалколдун (Маг)",
     "reefSeahealerSet": "Рифовый Морской Целитель (Целитель)",
     "roguishPirateSet": "Коварный Пират (Разбойник)",
-    "monsterOfScienceSet": "Monster of Science (Warrior)",
-    "witchyWizardSet": "Witchy Wizard (Mage)",
-    "mummyMedicSet": "Mummy Medic (Healer)",
-    "vampireSmiterSet": "Vampire Smiter (Rogue)",
-    "fallEventAvailability": "Available until October 31"
+    "monsterOfScienceSet": "Монстр науки (воин)",
+    "witchyWizardSet": "Ведь-маг (маг)",
+    "mummyMedicSet": "Мумифицированный доктор (целитель)",
+    "vampireSmiterSet": "Вампир-убийца (разбойник)",
+    "fallEventAvailability": "Доступно до 31 октября"
 }

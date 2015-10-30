@@ -50,6 +50,7 @@ api.mystery =
   201507: {start:'2015-07-24',end:'2015-08-02', text:'Rad Surfer Set'}
   201508: {start:'2015-08-23',end:'2015-09-02', text:'Cheetah Costume Set'}
   201509: {start:'2015-09-24',end:'2015-10-02', text:'Werewolf Set'}
+  201510: {start:'2015-10-26',end:'2015-11-02', text:'Horned Goblin Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -459,6 +460,7 @@ gear =
       201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:'201410', value: 0
       201504: text: t('backMystery201504Text'), notes: t('backMystery201504Notes'), mystery:'201504', value: 0
       201507: text: t('backMystery201507Text'), notes: t('backMystery201507Notes'), mystery:'201507', value: 0
+      201510: text: t('backMystery201510Text'), notes: t('backMystery201510Notes'), mystery:'201510', value: 0
     special:
       wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
       wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
@@ -507,6 +509,7 @@ gear =
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
       201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:'201409', value: 0
       201502: text: t('headAccessoryMystery201502Text'), notes: t('headAccessoryMystery201502Notes'), mystery:'201502', value: 0
+      201510: text: t('headAccessoryMystery201510Text'), notes: t('headAccessoryMystery201510Notes'), mystery:'201510', value: 0
       301405: text: t('headAccessoryMystery301405Text'), notes: t('headAccessoryMystery301405Notes'), mystery:'301405', value: 0
 
   eyewear:
@@ -1121,6 +1124,7 @@ api.questEggs =
   Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.whale? > 0)
   Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.cheetah? > 0)
   Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.horse? > 0)
+  Frog:             text: t('questEggFrogText'), adjective: t('questEggFrogAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.frog? > 0)
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1143,6 +1147,7 @@ api.specialPets =
   'JackOLantern-Base':  'jackolantern'
   'Mammoth-Base':       'mammoth'
   'Tiger-Veteran':      'veteranTiger'
+  'Phoenix-Base':       'phoenix'
 
 api.specialMounts =
   'BearCub-Polar':       'polarBear'
@@ -1152,6 +1157,8 @@ api.specialMounts =
   'Mammoth-Base':        'mammoth'
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
+  'Phoenix-Base':        'phoenix'
+  'JackOLantern-Base':   'jackolantern'
 
 api.timeTravelStable =
   pets:
@@ -1344,6 +1351,45 @@ api.quests =
         {type: 'food', key: 'CottonCandyPink', text: t('foodCottonCandyPink')}
         {type: 'food', key: 'CottonCandyBlue', text: t('foodCottonCandyBlue')}
         {type: 'food', key: 'Honey', text: t('foodHoney')}
+      ]
+      gp: 0
+      exp: 0
+
+  burnout:
+    text: t('questBurnoutText')
+    notes: t('questBurnoutNotes')
+    completion: t('questBurnoutCompletion')
+    completionChat: t('questBurnoutCompletionChat')
+    value: 0
+    canBuy: (()->false)
+    category: 'world'
+    boss:
+      name: t('questBurnoutBoss')
+      hp: 11000000
+      str: 2.5
+      def: 1
+      rage:
+        title: t('questBurnoutBossRageTitle')
+        description: t('questBurnoutBossRageDescription')
+        value: 1000000
+        quests: t('questBurnoutBossRageQuests')
+        seasonalShop: t('questBurnoutBossRageSeasonalShop')
+        tavern: t('questBurnoutBossRageTavern')
+    drop:
+      items: [
+        {type: 'pets', key: 'Phoenix-Base', text: t('questBurnoutDropPhoenixPet')}
+        {type: 'mounts', key: 'Phoenix-Base', text: t('questBurnoutDropPhoenixMount')}
+
+        {type: 'food', key: 'Candy_Base', text: t('foodCandyBase')}
+        {type: 'food', key: 'Candy_White', text: t('foodCandyWhite')}
+        {type: 'food', key: 'Candy_Desert', text: t('foodCandyDesert')}
+        {type: 'food', key: 'Candy_Red', text: t('foodCandyRed')}
+        {type: 'food', key: 'Candy_Shade', text: t('foodCandyShade')}
+        {type: 'food', key: 'Candy_Skeleton', text: t('foodCandySkeleton')}
+        {type: 'food', key: 'Candy_Zombie', text: t('foodCandyZombie')}
+        {type: 'food', key: 'Candy_CottonCandyPink', text: t('foodCandyCottonCandyPink')}
+        {type: 'food', key: 'Candy_CottonCandyBlue', text: t('foodCandyCottonCandyBlue')}
+        {type: 'food', key: 'Candy_Golden', text: t('foodCandyGolden')}
       ]
       gp: 0
       exp: 0
@@ -2136,6 +2182,26 @@ api.quests =
       gp: 37
       exp: 275
       unlock: t('questHorseUnlockText')
+
+  frog:
+    text: t('questFrogText')
+    notes: t('questFrogNotes')
+    completion: t('questFrogCompletion')
+    value: 4
+    category: 'pet'
+    boss:
+      name: t('questFrogBoss')
+      hp: 300
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+      ]
+      gp: 25
+      exp: 125
+      unlock: t('questFrogUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:(()->true)}

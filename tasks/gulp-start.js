@@ -8,6 +8,10 @@ gulp.task('run:dev', ['nodemon', 'build:dev:watch']);
 gulp.task('nodemon', () => {
   nodemon({
     script: pkg.main,
-    ignore: ['website/public/*', 'website/views/*']
+    ignore: [
+      'website/public/*',
+      'website/views/*',
+      'common/dist/script/content/*',
+    ]
   });
 });

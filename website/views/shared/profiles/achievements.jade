@@ -21,7 +21,7 @@ div(ng-if='::profile.backer.npc')
   hr
 
 div(ng-if='::profile.contributor.level || user._id == profile._id')
-  .achievement.achievement-firefox(ng-if='::profile.contributor.level')
+  .achievement.achievement-boot(ng-if='::profile.contributor.level')
   div(ng-class='::{muted: !profile.contributor.level}')
     h5
       span.label.label-default(ng-if='::profile.contributor.level', class='label-contributor-{{::profile.contributor.level}}') {{::contribText(profile.contributor, profile.backer)}}
@@ -217,6 +217,13 @@ div(ng-if='::profile.achievements.quests.stressbeast')
   h5=env.t('achievementStressbeast')
   small
     =env.t('achievementStressbeastText')
+  hr
+
+div(ng-if='::profile.achievements.quests.burnout')
+  .achievement.achievement-burnout
+  h5=env.t('achievementBurnout')
+  small
+    =env.t('achievementBurnoutText')
   hr
 
 div(ng-if='::profile.achievements.costumeContest')

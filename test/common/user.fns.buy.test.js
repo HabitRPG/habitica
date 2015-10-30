@@ -16,9 +16,13 @@ describe('user.fns.buy', function() {
         gear: {
           owned: {
             weapon_warrior_0: true
+          },
+          equipped: {
+            weapon_warrior_0: true
           }
         }
       },
+      preferences: {},
       stats: { gp: 200 },
       achievements: { },
       flags: { }
@@ -36,13 +40,77 @@ describe('user.fns.buy', function() {
   });
 
   context('Potion', function() {
-    it('recovers hp');
+    it('recovers 15 hp', function() {
+      user.stats.hp = 30;
+      user.ops.buy({params: {key: 'potion'}});
+      expect(user.stats.hp).to.eql(45);
+    });
+
+    it('does not increase hp above 50', function() {
+      user.stats.hp = 45;
+      user.ops.buy({params: {key: 'potion'}});
+      expect(user.stats.hp).to.eql(50);
+    });
+
+    it('deducts 25 gp', function() {
+      user.stats.hp = 45;
+      user.ops.buy({params: {key: 'potion'}});
+
+      expect(user.stats.gp).to.eql(175);
+    });
+
+    it('does not purchase if not enough gp', function() {
+      user.stats.hp = 45;
+      user.stats.gp = 5;
+      user.ops.buy({params: {key: 'potion'}});
+
+      expect(user.stats.hp).to.eql(45);
+      expect(user.stats.gp).to.eql(5);
+    });
   });
 
   context('Gear', function() {
-    it('buys equipment');
+    it('adds equipment to inventory', function() {
+      user.stats.gp = 31;
 
-    it('does not buy equipment without enough Gold');
+      user.ops.buy({params: {key: 'armor_warrior_1'}});
+
+      expect(user.items.gear.owned).to.eql({ weapon_warrior_0: true, armor_warrior_1: true });
+    });
+
+    it('deducts gold from user', function() {
+      user.stats.gp = 31;
+
+      user.ops.buy({params: {key: 'armor_warrior_1'}});
+
+      expect(user.stats.gp).to.eql(1);
+    });
+
+    it('auto equips equipment if user has auto-equip preference turned on', function() {
+      user.stats.gp = 31;
+      user.preferences.autoEquip = true;
+
+      user.ops.buy({params: {key: 'armor_warrior_1'}});
+
+      expect(user.items.gear.equipped).to.have.property('armor', 'armor_warrior_1');
+    });
+
+    it('buys equipment but does not auto-equip', function() {
+      user.stats.gp = 31;
+      user.preferences.autoEquip = false;
+
+      user.ops.buy({params: {key: 'armor_warrior_1'}});
+
+      expect(user.items.gear.equipped).to.not.have.property('armor');
+    });
+
+    it('does not buy equipment without enough Gold', function() {
+      user.stats.gp = 20;
+
+      user.ops.buy({params: {key: 'armor_warrior_1'}});
+
+      expect(user.items.gear.owned).to.not.have.property('armor_warrior_1');
+    });
   });
 
   context('Quests', function() {

@@ -103,19 +103,19 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                   br.visible-xs
                   button.btn.btn-block.btn-primary(ng-click='openDayStartModal(dayStart)',
                     ng-disabled='dayStart == user.preferences.dayStart')
-                    | Save Custom Day Start
+                    =env.t('saveCustomDayStart')
 
       .personal-options.col-md-6
         .panel.panel-default
           .panel-heading
-            span Registration
+            span=env.t('registration')
           .panel-body
             div(ng-if='user.auth.facebook.id')
               button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
               button.btn.btn-danger(ng-click='http("delete","/api/v2/user/auth/social",null,"detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
               hr
               div(ng-if='!user.auth.local.username')
-                p Add local authentication:
+                p=env.t('addLocalAuth')
                 form(ng-submit='http("post","/api/v2/register",localAuth,"addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
                   //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted')=env.t('fillAll')
                   .form-group
@@ -189,15 +189,15 @@ script(type='text/ng-template', id='partials/options.settings.promo.html')
           small= env.t('couponText')
         div(ng-if='user.contributor.sudo')
           hr
-          h4 Generate Codes
+          h4=env.t('generateCodes')
           form.form(role='form',ng-submit='generateCodes(_codes)',ng-init='_codes={}')
             .form-group
               input.form-control(type='text',ng-model='_codes.event',placeholder="Event code (eg, 'wondercon')")
             .form-group
               input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
             .form-group
-              button.btn.btn-primary(type='submit') Generate
-              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}') Get Codes
+              button.btn.btn-primary(type='submit')=env.t('generate')
+              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}')=env.t('getCodes')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .container-fluid
@@ -214,12 +214,12 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
 
         hr
 
-        h2 Webhooks
+        h2=env.t('webhooks')
         table.table.table-striped
           thead(ng-if='hasWebhooks')
             tr
-              th Enabled
-              th Webhook URL
+              th=env.t('enabled')
+              th=env.t('webhookURL')
               th
           tbody
             tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort'")
@@ -235,9 +235,9 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
               td(colspan=2)
                 form.form-horizontal(ng-submit='addWebhook(_newWebhook.url)')
                   .form-group.col-sm-10
-                    input.form-control(type='url', ng-model='_newWebhook.url', placeholder='Webhook URL')
+                    input.form-control(type='url', ng-model='_newWebhook.url', placeholder=env.t('webhookURL'))
                   .col-sm-2
-                    button.btn.btn-sm.btn-primary(type='submit') Add
+                    button.btn.btn-sm.btn-primary(type='submit')=env.t('add')
 
 script(id='partials/options.settings.export.html', type="text/ng-template")
   .container-fluid
@@ -258,7 +258,7 @@ mixin subPerks()
     tr
       td
         span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
-        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"') Cap raised to {{ [25 + user.purchased.plan.consecutive.gemCapExtra + Math.floor(Content.subscriptionBlocks[_subscription.key].months/3*5), 50]  | min }}
+        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"')=env.t('buyGemsGoldCap', {amount: '{{:: gemGoldCap(_subscription)  | min }}'})
     tr
       td
         span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
@@ -269,8 +269,8 @@ mixin subPerks()
       td
         span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
         div(ng-show='_subscription.key!="basic_earned"')
-          .badge.badge-success +{{Math.floor(Content.subscriptionBlocks[_subscription.key].months/3)}} Mystic Hourglass
-          .small.muted Mystic Hourglasses allow purchasing a previous month's Mystery Item set.
+          .badge.badge-success=env.t('mysticHourglass', {amount: '+{{:: numberOfMysticHourglasses(_subscription)}}'})
+          .small.muted=env.t('mysticHourglassText')
     tr
       td
         span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
@@ -324,17 +324,17 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
             |  #{env.t('subCanceled')} <strong>{{moment(user.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
           tr(ng-if='!user.purchased.plan.dateTerminated'): td
             h4=env.t('subscribed')
-            p(ng-if='user.purchased.plan.planId') Recurring ${{Content.subscriptionBlocks[user.purchased.plan.planId].price}} each {{Content.subscriptionBlocks[user.purchased.plan.planId].months}} Month(s) ({{user.purchased.plan.paymentMethod}})
+            p(ng-if='user.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
           tr(ng-if='user.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
-            |  You have {{user.purchased.plan.extraMonths | number:2}} months of subscription credit.
+            | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{user.purchased.plan.extraMonths | number:2}}'})}
           tr(ng-if='user.purchased.plan.consecutive.count || user.purchased.plan.consecutive.offset'): td
             span.glyphicon.glyphicon-forward
-            | &nbsp;Consecutive Subscription
+            | &nbsp;#{env.t('consecutiveSubscription')}
             ul.list-unstyled
-              li Consecutive Months: {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li Gem Cap Extra: {{user.purchased.plan.consecutive.gemCapExtra}}
-              li Mystic Hourglasses: {{user.purchased.plan.consecutive.trinkets}}
+              li #{env.t('consecutiveMonths')} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
+              li #{env.t('gemCapExtra')} {{user.purchased.plan.consecutive.gemCapExtra}}
+              li #{env.t('mysticHourglasses')} {{user.purchased.plan.consecutive.trinkets}}
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           .form-group
             .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"')
@@ -355,8 +355,8 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
           h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
           a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
-          a.btn.btn-success(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
-          a.btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})") Amazon Payments
+          a.btn.btn-success(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')=env.t('paypal')
+          a.btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")=env.t('amazonPayments')
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')

@@ -4,12 +4,13 @@ include ../../shared/mixins
   .row
     .col-md-6
       .clearfix
-        .npc_ian.pull-left-sm.col-centered
+        div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left-sm.col-centered
         .popover.static-popover.fade.right.in.pull-left-sm.col-centered
           .arrow.hidden-xs
           h3.popover-title=env.t('ian')
           .popover-content
-            p=env.t('ianText')
+            p(ng-if='env.worldDmg.quests')=env.t('ianBrokenText')
+            p(ng-if='!env.worldDmg.quests')=env.t('ianText')
 
       h3.equipment-title=env.t('yourQuests')
       +ownedQuests(true,'right')

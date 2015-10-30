@@ -106,10 +106,17 @@
     "backgroundTwinklyPartyLightsText": "Feestlampjes",
     "backgroundTwinklyPartyLightsNotes": "Dans onder de feestlampjes!",
     "backgrounds092015": "SET 16: Uitgebracht in september 2015",
-    "backgroundMarketText": "Habitica markt",
-    "backgroundMarketNotes": "Inkopen bij de Habitica markt",
-    "backgroundStableText": "Habitica stal",
-    "backgroundStableNotes": "Verzorg de rijdieren in de Habitica stal.",
-    "backgroundTavernText": "Habitica herberg",
-    "backgroundTavernNotes": "Bezoek de Habitica herberg"
+    "backgroundMarketText": "De markt van Habitica",
+    "backgroundMarketNotes": "Inkopen doen bij de markt van Habitica",
+    "backgroundStableText": "De stal van Habitica",
+    "backgroundStableNotes": "Verzorg rijdieren in de stal van Habitica",
+    "backgroundTavernText": "De herberg van Habitica",
+    "backgroundTavernNotes": "Bezoek de herberg van Habitica",
+    "backgrounds102015": "Set 17: Uitgebracht in oktober 2015",
+    "backgroundHarvestMoonText": "Oogstmaan",
+    "backgroundHarvestMoonNotes": "Kom kakelen onder de oogstmaan",
+    "backgroundSlimySwampText": "Slijmerig moeras",
+    "backgroundSlimySwampNotes": "Ploeter door een slijmerig moeras",
+    "backgroundSwarmingDarknessText": "Allesverhullende duisternis",
+    "backgroundSwarmingDarknessNotes": "Bibber in de allesverhullende duisternis."
 }
