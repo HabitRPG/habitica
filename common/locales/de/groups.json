@@ -3,7 +3,7 @@
     "innCheckOut": "Das Gasthaus verlassen",
     "innCheckIn": "Im Gasthaus erholen",
     "innText": "Du erholst dich im Gasthaus! Während du dort verweilst, werden dir deine täglichen Aufgaben keinen Schaden zufügen, aber trotzdem täglich aktualisiert werden. Vorsicht: Wenn du an einem Bosskampf teilnimmst, erhältst du weiterhin Schaden für die verpassten Aufgaben deiner Gruppenmitglieder, sofern sich diese nicht auch im Gasthaus befinden! Außerdem wird der Schaden, den Du dem Boss zufügst, (und gefundene Gegenstände) erst angewendet, wenn du das Gasthaus verlässt.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "Du erholst dich im Gasthaus, schätze ich... Während du dort verweilst, werden dir deine täglichen Aufgaben keinen Schaden zufügen, aber trotzdem täglich aktualisiert... Wenn du an einem Bosskampf teilnimmst, erhältst du weiterhin Schaden für die verpassten Aufgaben deiner Gruppenmitglieder... sofern sich diese nicht auch im Gasthaus befinden... Außerdem wird dein Schaden am Boss (oder gesammelte Gegenstände) nicht berücksichtigt, bis du das Gasthaus verlässt.... So müde...",
     "lfgPosts": "Nach Gruppeneinträgen suchen",
     "tutorial": "Anleitung",
     "glossary": "Nomenklatur",

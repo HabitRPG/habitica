@@ -2,8 +2,8 @@
     "tavern": "Krčma",
     "innCheckOut": "Odhlásit se z hostince",
     "innCheckIn": "Odpočívat v hostinci",
-    "innText": "Odpočíváš v Hostinci! Zatímco tu budeš, tvé Denní úkoly ti na konci dne nijak neublíží, ale vždy se resetují. Ale pozor: pokud jsi v boji s Bossem, ublíží ti nesplněné úkoly tvých přátel v družině, pokud také nejsou v Hostinci! Navíc, jakákoliv újma, kterou uštědříš Bossovi (nebo nasbírané předměty) se ti nepřipíšou dokud se z Hostince neodhlásíš.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innText": "Odpočíváš v Hostinci! Zatímco tu budeš, tvé Denní úkoly ti na konci dne nijak neublíží, ale vždy se resetují. Ale pozor: pokud jsi v boji s příšerou, ublíží ti nesplněné úkoly tvých přátel v družině, pokud také nejsou v Hostinci! Navíc, jakákoliv újma, kterou uštědříš příšeře (nebo nasbírané předměty) se ti nepřipíšou dokud se z Hostince neodhlásíš.",
+    "innTextBroken": "Odpočíváš v Hostinci, asi... Zatímco tu budeš, tvé Denní úkoly ti na konci dne nijak neublíží, ale vždy se resetují... Pokud jsi v boji s příšerou, ublíží ti nesplněné úkoly tvých přátel v družině... Pokud také nejsou v Hostinci... Navíc, jakákoliv újma, kterou uštědříš příšeře (nebo nasbírané předměty) se ti nepřipíšou dokud se z Hostince neodhlásíš... Jsem tak unavený...",
     "lfgPosts": "Hledá se skupina (družina)",
     "tutorial": "Průvodce",
     "glossary": "Slovník",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "Chat tvé družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "guildChatEmpty": "Chat této družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "possessiveParty": "Družina <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Pokud chceš přidávat zprávy v Krčmě nebo v chatu v  jakékoliv družině nebo cechu, prosíme, nejprve si přečti <%= linkStart %>Zásady komunity<%= linkEnd %> a poté klikni na tlačítko \"Přijmout zásady\" níže na znamení, že jim rozumíš."
 }

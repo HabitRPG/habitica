@@ -3,7 +3,7 @@
     "innCheckOut": "离开客栈",
     "innCheckIn": "在客栈休息",
     "innText": "你正在客栈中休息！当你在客栈中时，你没完成的日常任务不会在一天结束时伤害你，但是它们仍然会每天刷新。注意：如果你正在参与一个Boss战任务，你仍然会因为队友未完成的每日任务受到boss的伤害！同样，你对Boss的伤害(或者收集的道具道具)在你离开客栈之前不会结算。",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "你正在客栈中休息，我想是的……入住客栈以后，你的每日任务不会在每天结束时因为没完成而减少你的生命值，但它们仍然会每天刷新……如果你正在一场BOSS战中，BOSS仍然会因为你所在队伍中的队友没完成每日任务而伤害到你……除非你的队友也在客栈中休息。同样，你对BOSS的伤害(或是收集的道具)在从客栈离开前页不会起效……唉好累啊……",
     "lfgPosts": "寻找小组 (队伍招募) 帖",
     "tutorial": "教学",
     "glossary": "词汇表",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "队伍聊天框里空空如也！在上面的聊天框打字来开始聊天。",
     "guildChatEmpty": "公会聊天框里空空如也！在上面的聊天框打字来开始聊天。",
     "possessiveParty": "<%= name %>的队伍",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "如果你想在酒馆里，或是队伍和公会里张贴信息，请先阅读<%= linkStart %>交流须知<%= linkEnd %>并点击按钮，表示接受其中的条款。 "
 }

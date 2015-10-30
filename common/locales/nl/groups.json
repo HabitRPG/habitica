@@ -3,7 +3,7 @@
     "innCheckOut": "Uitchecken bij de herberg",
     "innCheckIn": "Rusten in de herberg",
     "innText": "Je ben aan het uitrusten in de herberg! Zolang je hier verblijft, zullen je dagelijkse taken je geen pijn doen aan het eind van de dag, maar ze zullen wel elke dag verversen. Wees gewaarschuwd: als je meedoet aan een queeste met een eindbaas, zal de eindbaas je nog steeds pijn doen voor de dagelijkse taken die je groepsgenoten missen, tenzij ze ook in de herberg verblijven! Je zult zelf ook geen schade toebrengen aan de eindbaas (of  voorwerpen krijgen) totdat je de herberg verlaat.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "Je ben aan het uitrusten in de herberg... Waarschijnlijk.. Zolang je hier verblijft, zullen je dagelijkse taken je geen pijn doen aan het eind van de dag, maar ze zullen wel elke dag verversen... Wees gewaarschuwd: als je meedoet aan een queeste met een eindbaas, zal de eindbaas je nog steeds pijn doen voor de dagelijkse taken die je groepsgenoten missen... tenzij ze ook in de herberg verblijven... Je zult zelf ook geen schade toebrengen aan de eindbaas (of voorwerpen krijgen) totdat je de herberg verlaat... Ik ben zo moe...",
     "lfgPosts": "Berichten: groep gezocht",
     "tutorial": "Handleiding",
     "glossary": "Woordenlijst",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "Je groepschat is leeg! Typ een bericht in het bovenstaande vak om een conversatie te beginnen.",
     "guildChatEmpty": "De gildechat is leeg! Typ een bericht in het bovenstaande vak om een conversatie te beginnen.",
     "possessiveParty": "<%= name %>s groep",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Als je berichten in de Herberg of een groep- of gildechat wilt plaatsen, lees dan eerst onze <%= linkStart %>Gemeenschapsrichtlijnen<%= linkEnd %> en klik dan op de knop onderaan om aan te geven dat je ze accepteert."
 }

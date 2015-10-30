@@ -52,6 +52,7 @@
     "classEquipBonus": "Klassebonus",
     "battleGear": "Kampudstyr",
     "battleGearText": "Dette er den udrustning du bærer i kamp. Den påvirker resultaterne når du interagerer med dine opgaver.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Kostume",
     "costumeText": "Hvis du foretrækker udseendet af andet udstyr end hvad du bærer, tjek \"Brug Kostume\"-feltet for at visuelt bære et kostume, mens du bærer dit kampudstyr nedenunder.",
     "useCostume": "Brug kostume",
