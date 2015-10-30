@@ -2,6 +2,7 @@ import {
   generateGroup,
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 
 describe('POST /groups', () => {
@@ -82,7 +83,7 @@ describe('POST /groups', () => {
         });
       })).to.eventually.be.rejected.and.eql({
         code: 400,
-        text: 'Already in a party, try refreshing.',
+        text: t('messageGroupAlreadyInParty'),
       });
     })
 
@@ -119,10 +120,9 @@ describe('POST /groups', () => {
         });
       })).to.eventually.be.rejected.and.eql({
         code: 401,
-        text: 'Not enough gems!',
+        text: t('messageInsufficientGems'),
       });
     });
-
 
     it('can create a public guild', () => {
       return expect(api.post('/groups', {

@@ -161,7 +161,7 @@ describe "Challenges", ->
         # Now let's handle if challenge was deleted, but didn't get to update all the users (an error)
         unset = $unset: {}
         unset["$unset"]["dailys." + len + ".challenge.broken"] = 1
-        User.findByIdAndUpdate user._id, unset, (err, user) ->
+        User.findByIdAndUpdate user._id, unset, {new: true}, (err, user) ->
           expect(err).to.not.exist
           expect(user.dailys[len].challenge.broken).to.not.exist
           request.post(baseURL + "/user/tasks/" + daily.id + "/up").end (err, res) ->
@@ -175,6 +175,7 @@ describe "Challenges", ->
     User.findByIdAndUpdate user._id,
       $set:
         "contributor.admin": true
+    , {new: true}
     , (err, _user) ->
       expect(err).to.not.exist
       async.parallel [
@@ -205,7 +206,8 @@ describe "Challenges", ->
   it "User creates a non-tavern challenge with prize, deletes it, gets refund", (done) ->
     User.findByIdAndUpdate user._id,
       $set:
-        "balance": 8
+        "balance": 8,
+    , {new: true}
     , (err, user) ->
       expect(err).to.not.be.ok
       request.post(baseURL + "/challenges").send(
@@ -234,7 +236,8 @@ describe "Challenges", ->
   it "User creates a tavern challenge with prize, deletes it, and does not get refund", (done) ->
     User.findByIdAndUpdate user._id,
       $set:
-        "balance": 8
+        "balance": 8,
+    , {new: true}
     , (err, user) ->
       expect(err).to.not.be.ok
       request.post(baseURL + "/challenges").send(
@@ -312,7 +315,7 @@ describe "Challenges", ->
     context "non-owner that is an admin", () ->
 
       beforeEach (done) ->
-        User.findByIdAndUpdate(user._id, { 'contributor.admin': true }, done)
+        User.findByIdAndUpdate(user._id, { 'contributor.admin': true }, {new: true}, done)
           
       it 'can edit challenge', (done) ->
         challenge.name = 'foobar'

@@ -52,6 +52,7 @@
     "classEquipBonus": "Bonus classe",
     "battleGear": "Assetto di battaglia",
     "battleGearText": "Questo è l'equipaggiamento che indossi in battaglia, esso modifica alcuni valori quando interagisci con le tue attività.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Costume",
     "costumeText": "Se preferisci il look di oggetti diversi da quelli equipaggiati, metti una spunta su \"Usa costume\" per visualizzare un costume anzichè l'equipaggiamento da battaglia (nonostante il cambio di aspetto, rimangono tutti i bonus delle armi e delle armature).",
     "useCostume": "Usa costume",

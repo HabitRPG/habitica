@@ -52,6 +52,7 @@
     "classEquipBonus": "Bonus klase",
     "battleGear": "Borbena oprema",
     "battleGearText": "Oprema u kojoj se borite. Utiče na interakciju sa zadacima.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Kostim",
     "costumeText": "Ako niste zadovoljni izgledom svoje opreme, izaberite „Koristi kostim“ da biste obukli kostim preko borbene opreme.",
     "useCostume": "Kostim",

@@ -52,6 +52,7 @@
     "classEquipBonus": "Premia klasowa",
     "battleGear": "Wyposażenie bojowe",
     "battleGearText": "Z tym wyposażeniem ruszasz do boju. Ma ono wpływ na punkty podczas interakcji z zadaniami.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Kostium",
     "costumeText": "Jeśli podoba Ci się inny strój, niż ten, w którym chcesz walczyć, zaznacz \"Załóż kostium\". Odziana w kostium, Twoja postać będzie nadal miała pod spodem wybrany strój bojowy.",
     "useCostume": "Załóż kostium",

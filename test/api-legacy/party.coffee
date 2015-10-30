@@ -6,124 +6,6 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe "Party", ->
-  context "creating a party", ->
-    it "creates a party", (done) ->
-      async.waterfall [
-        (cb) ->
-          registerNewUser(cb, true)
-
-        (user, cb) ->
-          request.post(baseURL + "/groups").send(
-            name: "TestGroup"
-            type: "party"
-          ).end (err, res) ->
-            expectCode res, 200
-            group = res.body
-            expect(group.members.length).to.equal 1
-            expect(group.leader).to.equal user._id
-            cb()
-      ], done
-
-    it "prevents user from creating a second party", (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup"
-        type: "party"
-      ).end (err, res) ->
-        expectCode res, 400
-        expect(res.body.err).to.equal "Already in a party, try refreshing."
-        done()
-
-  context "Searching for a party", ->
-    group = undefined
-    beforeEach (done) ->
-      async.waterfall [
-        (cb) ->
-          registerNewUser(cb, true)
-
-        (user, cb) ->
-          request.post(baseURL + "/groups").send(
-            name: "TestGroup"
-            type: "party"
-          ).end (err, res) ->
-            expectCode res, 200
-            group = res.body
-            expect(group.members.length).to.equal 1
-            expect(group.leader).to.equal user._id
-            cb()
-      ], done
-
-    it "can be found by querying for group type party", (done) ->
-      request.get(baseURL + "/groups/").send(
-        type: "party"
-      ).end (err, res) ->
-        expectCode res, 200
-        party = _.find res.body, (g) -> return g._id == group._id
-        expect(party._id).to.equal group._id
-        expect(party.leader).to.equal user._id
-        expect(party.name).to.equal group.name
-        expect(party.quest).to.deep.equal { progress: {} }
-        expect(party.memberCount).to.equal group.memberCount
-        done()
-
-  context "joining a party", ->
-    group = undefined
-    beforeEach (done) ->
-      async.waterfall [
-        (cb) ->
-          registerNewUser(cb, true)
-
-        (user, cb) ->
-          request.post(baseURL + "/groups").send(
-            name: "TestGroup"
-            type: "party"
-          ).end (err, res) ->
-            expectCode res, 200
-            group = res.body
-            expect(group.members.length).to.equal 1
-            expect(group.leader).to.equal user._id
-            cb()
-      ], done
-
-    it "prevents user from joining a party when they haven't been invited", (done) ->
-      registerNewUser (err, user) ->
-        request.post(baseURL + "/groups/" + group._id + "/join").send()
-        .set("X-API-User", user._id)
-        .set("X-API-Key", user.apiToken)
-        .end (err, res) ->
-          expectCode res, 401
-          expect(res.body.err).to.equal "Can't join a group you're not invited to."
-          done()
-      , false
-
-    it "allows users to join a party when they have been invited", (done) ->
-      tmpUser = undefined
-      async.waterfall [
-        (cb) ->
-          registerNewUser(cb, false)
-
-        (user, cb) ->
-          tmpUser = user
-          inviteURL = baseURL + "/groups/" + group._id + "/invite"
-          request.post(inviteURL).send(
-            uuids: [tmpUser._id]
-          )
-          .end ->
-            cb()
-
-        (cb) ->
-          request.post(baseURL + "/groups/" + group._id + "/join")
-          .set("X-API-User", tmpUser._id)
-          .set("X-API-Key", tmpUser.apiToken)
-          .end (err, res) ->
-            expectCode res, 200
-            cb()
-
-        (cb) ->
-          Group.findById group._id, (err, grp) ->
-            expect(grp.members).to.include(tmpUser._id)
-            cb()
-      ], done
-
   context "Quests", ->
     party = undefined
     group = undefined
@@ -176,6 +58,7 @@ describe "Party", ->
           User.findByIdAndUpdate user._id,
             $set:
               "stats.lvl": 50
+          , {new: true}
           , (err, _user) ->
             cb(null, _user)
         (_user, cb) ->
@@ -260,6 +143,7 @@ describe "Party", ->
                     User.findByIdAndUpdate user._id,
                       $set:
                         "items.quests.vice3": 1
+                    , {new: true}
                     , cb
 
                 (_user, cb) ->
@@ -399,6 +283,7 @@ describe "Party", ->
                       Group.findByIdAndUpdate group._id,
                         $set:
                           "quest.progress.hp": 0
+                      , {new: true}
                       , cb2
                   ], cb
                 (_group, cb) ->

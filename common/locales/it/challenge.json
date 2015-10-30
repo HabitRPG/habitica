@@ -60,6 +60,6 @@
     "noPermissionEditChallenge": "Non hai i permessi per modificare questa sfida",
     "noPermissionDeleteChallenge": "Non hai i permessi per eliminare questa sfida",
     "noPermissionCloseChallenge": "Non hai i permessi per concludere questa sfida",
-    "noChallengeOwner": "no owner",
-    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
+    "noChallengeOwner": "nessun proprietario",
+    "noChallengeOwnerPopover": "Questa sfida non ha un proprietario perché la persona che ha creato la sfida ha eliminato il suo account."
 }

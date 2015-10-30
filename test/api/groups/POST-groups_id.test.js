@@ -2,6 +2,7 @@ import {
   generateGroup,
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 
 describe('POST /groups/:id', () => {
@@ -34,7 +35,7 @@ describe('POST /groups/:id', () => {
         name: 'Change'
       })).to.eventually.be.rejected.and.eql({
         code: 401,
-        text: 'Only the group leader can update the group!',
+        text: t('messageGroupOnlyLeaderCanUpdate'),
       });
     });
   });

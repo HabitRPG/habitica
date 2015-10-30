@@ -56,7 +56,7 @@
     "mongoose": "~3.8.23",
     "mongoose-id-autoinc": "~2013.7.14-4",
     "nconf": "~0.6.9",
-    "newrelic": "~1.11.2",
+    "newrelic": "~1.23.0",
     "nib": "~1.0.1",
     "nodemailer": "~0.5.2",
     "pageres": "^1.0.1",
@@ -81,13 +81,9 @@
     "winston-newrelic": "~0.1.4"
   },
   "private": true,
-  "subdomain": "habitrpg",
-  "domains": [
-    "habitrpg.com",
-    "www.habitrpg.com"
-  ],
   "engines": {
-    "node": "0.10.x"
+    "node": "^0.10.40",
+    "npm": "^2.14.9"
   },
   "scripts": {
     "test": "gulp test",

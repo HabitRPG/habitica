@@ -130,7 +130,7 @@
     "webhookURL": "Webhook URL",
     "add": "Add",
     "buyGemsGoldCap": "Cap raised to <%= amount %>",
-    "mysticHourglass": "<%= amount %> Mystic Hourglass",
+    "mysticHourglass": "<%= amount %> Clessidra Mistica",
     "mysticHourglassText": "Mystic Hourglasses allow purchasing a previous month's Mystery Item set.",
     "purchasedPlanId": "Recurring $<%= price %> each <%= months %> Month(s) (<%= plan %>)",
     "purchasedPlanExtraMonths": "You have <%= months %> months of subscription credit.",

@@ -673,6 +673,14 @@ api.wrap = (user, main=true) ->
         user.tags.splice to, 0, user.tags.splice(from, 1)[0]
         cb? null, user.tags
 
+      getTags: (req, cb) ->
+        cb? null, user.tags
+
+      getTag: (req, cb) ->
+        tid = req.params.id
+        i = _.findIndex user.tags, {id: tid}
+        return cb?({code:404,message:i18n.t('messageTagNotFound', req.language)}) if !~i
+        cb? null, user.tags[i]
 
       updateTag: (req, cb) ->
         tid = req.params.id
@@ -970,7 +978,7 @@ api.wrap = (user, main=true) ->
             message = i18n.t('armoireExp', req.language)
             armoireResp = {"type": "experience", "value": armoireExp}
         else
-          user.items.gear.equipped[item.type] = item.key
+          if user.preferences.autoEquip then user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
           message = user.fns.handleTwoHanded(item, null, req)
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
@@ -1689,14 +1697,10 @@ api.wrap = (user, main=true) ->
     cron: (options={}) ->
       now = +options.now || +new Date
 
-      # They went to a different timezone
-      # FIXME:
-      # (1) This exit-early code isn't taking timezone into consideration!!
-      # (2) Won't switching timezones be handled automatically client-side anyway? (aka, can we just remove this code?)
-      # (3) And if not, is this the correct way to handle switching timezones
-      #  if moment(user.lastCron).isAfter(now)
-      #    user.lastCron = now
-      #    return
+      if moment(user.lastCron).isAfter(now)
+        # This might not be taking timezone into consideration.
+        user.lastCron = now
+        return
 
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
       return unless daysMissed > 0
