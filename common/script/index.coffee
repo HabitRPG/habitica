@@ -1699,15 +1699,16 @@ api.wrap = (user, main=true) ->
 
       # If the user's timezone has changed (due to travel or daylight savings),
       # cron can be triggered twice in one day. So if a zone change is detected,
-      # we ASSUME cron has already run today and prevent a second one.
+      # we ASSUME cron might have already run today and prevent some parts of
+      # a second cron (e.g., prevent damage from missed Dailies).
       # FIXME: This can probably also prevent the day's first cron under some
-      # circumstances (but that's less serious than damage from an extra cron).
+      # circumstances, and in those cases all cron code should be run.
+      partialCron = false
       userTimezoneOffset = +user.preferences.timezoneOffset || 0
       browserTimezoneOffset = +options.timezoneOffset || userTimezoneOffset
       if userTimezoneOffset != browserTimezoneOffset
-        user.lastCron = now
+        partialCron = true
         user.preferences.timezoneOffset = browserTimezoneOffset
-        return
 
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
       return unless daysMissed > 0
@@ -1747,10 +1748,10 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn.
-      # On cron, buffs are cleared and all dailies are reset without performing damage
-      if user.preferences.sleep is true
-        user.stats.buffs = clearBuffs
+      # User is resting at the inn or is going through what might be their second cron of the day due to a timezone change.
+      # Buffs are cleared (only if resting) and all dailies are reset without performing damage
+      if user.preferences.sleep or partialCron
+        user.stats.buffs = clearBuffs unless partialCron
         user.dailys.forEach (daily) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
