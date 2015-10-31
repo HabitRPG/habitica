@@ -41,6 +41,23 @@ export function translate(key, variables) {
   return translatedString;
 };
 
+// Useful for checking things that have been deleted,
+// but you no longer have access to,
+// like private parties or users
+export function checkExistence(collectionName, id) {
+  return new Promise((resolve, reject) => {
+    mongo.connect('mongodb://localhost/habitrpg_test', (err, db) => {
+      if (err) return reject(err);
+      let collection = db.collection(collectionName);
+      collection.find({_id: id}, {_id: 1}).limit(1).toArray((err, docs) => {
+        let exists = docs.length > 0;
+        db.close();
+        resolve(exists);
+      });
+    });
+  });
+}
+
 // Creates a new user and returns it
 // If you need the user to have specific requirements,
 // such as a balance > 0, just pass in the adjustment

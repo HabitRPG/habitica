@@ -1,4 +1,5 @@
 import {
+  checkExistence,
   createAndPopulateGroup,
   generateGroup,
   generateUser,
@@ -84,13 +85,10 @@ describe('POST /groups/:id/leave', () => {
       });
     });
 
-    it('group is not accessible after leaving', () => {
+    it('group is deleted', () => {
       return expect(api.post(`/groups/${group._id}/leave`).then((result) => {
-        return api.get(`/groups/${group._id}`);
-      })).to.eventually.be.rejected.and.eql({
-        code: 404,
-        text: t('messageGroupNotFound'),
-      });
+        return checkExistence('groups', group._id);
+      })).to.eventually.eql(false);
     });
   });
 
