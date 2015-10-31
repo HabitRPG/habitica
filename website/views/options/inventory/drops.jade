@@ -104,7 +104,7 @@
               .pull-left.customize-option(class='Pet_Food_{{selectedFood.key}}' ng-show='selectedFood')
               p(ng-show='selectedFood')
                 !=env.t('displayItemForGold', {itemType: "{{selectedFood.text()}}"})
-            div.clearfix
+            .clearfix
               button.btn.btn-primary.btn-block(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
               button.btn.btn-primary.btn-block(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
               button.btn.btn-primary.btn-block(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
