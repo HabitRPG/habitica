@@ -182,13 +182,7 @@ angular.module('habitrpg')
               // If they don't have timezone, set it
               var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
               if (user.preferences.timezoneOffset !== offset)
-                // User's timezone has changed, which can trigger a second
-                // cron in one day - bad! Prevent it by setting lastCron to
-                // now (plus a little bit of time in case login is slow).
-                // FIXME: This can also prevent a cron that should run (but
-                // that's less serious than damage from an extra cron).
-                var soon = moment().add(1, 'day');
-                userServices.set({'lastCron': soon, 'preferences.timezoneOffset': offset});
+                userServices.set({'preferences.timezoneOffset': offset});
               cb && cb();
             });
           } else {
