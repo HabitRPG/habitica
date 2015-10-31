@@ -273,6 +273,7 @@ module.exports.tavernQuest = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
   mongoose.model('Group').findOne(tavernQ, function(err,tavern){
+    return; // No tavern quest // FIXME do this properly!
     if (!tavern) return; // No tavern quest
 
     var quest = tavern.quest.toObject();
