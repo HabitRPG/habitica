@@ -73,7 +73,7 @@ api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 ###
 api.daysSince = (yesterday, options = {}) ->
   o = sanitizeOptions options
-  Math.abs api.startOfDay(_.defaults {now:yesterday}, o).diff(api.startOfDay(_.defaults {now:o.now}, o), 'days')
+  api.startOfDay(_.defaults {now:o.now}, o).diff(api.startOfDay(_.defaults {now:yesterday}, o), 'days')
 
 ###
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
