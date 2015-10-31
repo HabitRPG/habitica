@@ -1,3 +1,6 @@
+/**
+ * Finds existing Users with dayStart 1 and sets the correct value.
+ */
 db.users.find({'preferences.dayStart':{$exists:1}},{'preferences.dayStart':1}).forEach(function(user){
   var dayStart = +user.preferences.dayStart;
   dayStart = (_.isNaN(dayStart) || dayStart < 0 || dayStart > 24) ? 0 : dayStart;
