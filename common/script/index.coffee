@@ -1697,11 +1697,6 @@ api.wrap = (user, main=true) ->
     cron: (options={}) ->
       now = +options.now || +new Date
 
-      if moment(user.lastCron).isAfter(now)
-        # This might not be taking timezone into consideration.
-        user.lastCron = now
-        return
-
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
       return unless daysMissed > 0
 
