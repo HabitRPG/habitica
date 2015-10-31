@@ -1,15 +1,9 @@
-doctype html
-html
-  head
-    meta(name='twitter:card' content='summary')
-    meta(name='twitter:site' content='@habitica')
-    meta(name='twitter:title' content='Unlocked a Quest!')
-    meta(name='twitter:description' content='In Habitica, you can defeat fearsome monsters and devious villains with real-life productivity. I\'ve earned just such a Quest with my progress!')
-    meta(name='twitter:image' content='https://s3.amazonaws.com/habitica-assets/assets/gryphon_logo.png')
-    meta(property='og:url', content='https://habitica.com/social/level-up')
-    meta(property='og:type', content='website')
-    meta(property='og:title', content='Unlocked a Quest!')
-    meta(property='og:description', content='In Habitica, you can defeat fearsome monsters and devious villains with real-life productivity. I\'ve earned just such a Quest with my progress!')
-    meta(property='og:site_name', content='Habitica')
-    meta(property='og:image', content='https://s3.amazonaws.com/habitica-assets/assets/gryphon_logo_300x300.png')
-    meta(property='fb:app_id', content='128307497299777')
+extends ./layout
+
+block extraHead
+  - var spcialPage = 'unlock-quest'
+  - var socialTitle = 'Unlocked a Quest!'
+  - var socialDescription = 'In Habitica, you can defeat fearsome monsters and devious villains with real-life productivity. I\'ve earned just such a Quest with my progress!'
+
+block content
+  include ./landing-page
