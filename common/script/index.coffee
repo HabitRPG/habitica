@@ -1697,6 +1697,18 @@ api.wrap = (user, main=true) ->
     cron: (options={}) ->
       now = +options.now || +new Date
 
+      # If the user's timezone has changed (due to travel or daylight savings),
+      # cron can be triggered twice in one day. So if a zone change is detected,
+      # we ASSUME cron has already run today and prevent a second one.
+      # FIXME: This can probably also prevent the day's first cron under some
+      # circumstances (but that's less serious than damage from an extra cron).
+      userTimezoneOffset = +user.preferences.timezoneOffset || 0
+      browserTimezoneOffset = +options.timezoneOffset || userTimezoneOffset
+      if userTimezoneOffset != browserTimezoneOffset
+        user.lastCron = now
+        user.preferences.timezoneOffset = browserTimezoneOffset
+        return
+
       daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
       return unless daysMissed > 0
 
