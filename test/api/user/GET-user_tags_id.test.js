@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 
 describe('GET /user/tags/id', () => {
@@ -22,7 +23,7 @@ describe('GET /user/tags/id', () => {
     return expect(api.get('/user/tags/not-an-id'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
-        text: 'Tag not found.'
+        text: t('messageTagNotFound'),
       });
   });
 });

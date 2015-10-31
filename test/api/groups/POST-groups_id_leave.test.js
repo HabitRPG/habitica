@@ -3,6 +3,7 @@ import {
   generateGroup,
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 import { find } from 'lodash';
 
@@ -88,7 +89,7 @@ describe('POST /groups/:id/leave', () => {
         return api.get(`/groups/${group._id}`);
       })).to.eventually.be.rejected.and.eql({
         code: 404,
-        text: 'Group not found or you don\'t have access.',
+        text: t('messageGroupNotFound'),
       });
     });
   });

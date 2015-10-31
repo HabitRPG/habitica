@@ -3,6 +3,7 @@ import {
   generateGroup,
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 
 describe('POST /groups/:id/removeMember', () => {
@@ -40,7 +41,7 @@ describe('POST /groups/:id/removeMember', () => {
         uuid: leader._id,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
-        text: 'You cannot remove yourself!',
+        text: t('messageGroupCannotRemoveSelf'),
       });
     });
 

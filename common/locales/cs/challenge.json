@@ -60,6 +60,6 @@
     "noPermissionEditChallenge": "Nemáš oprávnění k upravování této výzvy",
     "noPermissionDeleteChallenge": "Nemáš oprávnění ke smazání této výzvy",
     "noPermissionCloseChallenge": "Nemáš oprávnění k ukončení této výzvy",
-    "noChallengeOwner": "no owner",
-    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
+    "noChallengeOwner": "bez majitele",
+    "noChallengeOwnerPopover": "Tato Výzva nemá majitele, jelikož uživatel, který ji vytvořil, si smazal účet."
 }

@@ -52,6 +52,7 @@
     "classEquipBonus": "Class Bonus",
     "battleGear": "Battle Gear",
     "battleGearText": "This be th' gear ye wear into battle; it affects numbers when interactin' with ye tasks.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Costume",
     "costumeText": "If ye prefer th' look 'o other gear to what ye have equipped, check th' \"Use Costume\" box to visually don a costume while wearin' ye battle gear underneath.",
     "useCostume": "Use Costume",

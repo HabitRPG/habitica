@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 import {v4 as generateRandomUserName} from 'uuid';
 
@@ -39,7 +40,55 @@ describe('POST /register', () => {
         confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
-        text: ':password and :confirmPassword don\'t match',
+        text: t('messageAuthPasswordMustMatch'),
+      });
+    });
+
+    it('requires a username', () => {
+      let api = requester();
+      let email = `${generateRandomUserName()}@example.com`;
+      let password = 'password';
+      let confirmPassword = 'password';
+
+      return expect(api.post('/register', {
+        email:           email,
+        password:        password,
+        confirmPassword: confirmPassword,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: t('messageAuthCredentialsRequired'),
+      });
+    });
+
+    it('requires an email', () => {
+      let api = requester();
+      let username = generateRandomUserName();
+      let password = 'password';
+      let confirmPassword = 'password';
+
+      return expect(api.post('/register', {
+        username:        username,
+        password:        password,
+        confirmPassword: confirmPassword,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: t('messageAuthCredentialsRequired'),
+      });
+    });
+
+    it('requires a password', () => {
+      let api = requester();
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let confirmPassword = 'password';
+
+      return expect(api.post('/register', {
+        username:        username,
+        email:           email,
+        confirmPassword: confirmPassword,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: t('messageAuthCredentialsRequired'),
       });
     });
   });
@@ -68,7 +117,7 @@ describe('POST /register', () => {
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
-        text: 'Username already taken',
+        text: t('messageAuthUsernameTaken'),
       });
     });
 
@@ -84,7 +133,7 @@ describe('POST /register', () => {
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
-        text: 'Email already taken',
+        text: t('messageAuthEmailTaken'),
       });
     });
   });

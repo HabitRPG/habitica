@@ -1,6 +1,7 @@
 import {
   generateUser,
   requester,
+  translate as t,
 } from '../../helpers/api.helper';
 
 describe('DELETE /user', () => {
@@ -17,8 +18,12 @@ describe('DELETE /user', () => {
       return api.get('/user');
     })).to.eventually.be.rejected.and.eql({
       code: 401,
-      text: 'No user found.',
+      text: t('messageAuthNoUserFound'),
     });
+  });
+
+  context('user has active subscription', () => {
+    it('does not delete account');
   });
 
   context('user in solo group', () => {

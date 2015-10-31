@@ -3,7 +3,7 @@
     "innCheckOut": "Wymelduj się z Gospody",
     "innCheckIn": "Odpoczywaj w Gospodzie",
     "innText": "Odpoczywasz w Gospodzie! Dopóki jesteś zameldowany, twoje Codzienne nie zadadzą ci obrażeń na koniec dnia, jednak w dalszym ciągu codziennie będą się odświeżać. Uważaj: Jeśli uczestniczysz w misji z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej drużyny ominą Codzienne, chyba że również odpoczywają w Gospodzie! Również twoje obrażenia zadane bossowi (lub zebrane przedmioty) nie zostaną uwzględnione, dopóki nie wymeldujesz się z Gospody.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "Odpoczywasz w gospodzie, czy jakoś tak... Dopóki jesteś zameldowany, twoje Codzienne nie zadadzą ci obrażeń na koniec dnia, jednak w dalszym ciągu codziennie będą się odświeżać... Jeśli uczestniczysz w misji z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej drużyny ominą Codzienne... chyba że również odpoczywają w gospodzie... Również twoje obrażenia zadane bossowi (lub zebrane przedmioty) nie zostaną uwzględnione, dopóki nie wymeldujesz się z gospody... jestem taki zmęczony...",
     "lfgPosts": "Sekcja dla poszukujących drużyny",
     "tutorial": "Samouczek",
     "glossary": "Słownik",
@@ -137,7 +137,7 @@
     "startAParty": "Utwórz drużynę",
     "addToParty": "Dodaj kogoś do swojej drużyny",
     "likePost": "Kliknij jeśli lubisz ten post!",
-    "partyExplanation1": "Play Habitica with friends to stay accountable!",
+    "partyExplanation1": "Graj w Habitikę z przyjaciółmi, by być odpowiedzialnym!",
     "partyExplanation2": "Walcz z bossami i twórz Wyzwania!",
     "partyExplanation3": "Zaproś przyjaciół by zdobyć Zwój Misji!",
     "wantToStartParty": "Czy chcesz założyć drużynę?",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "Twój czat drużynowy jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
     "guildChatEmpty": "Czat tej gildii jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
     "possessiveParty": "Drużyna należąca do <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Jeśli chcesz opublikować wiadomość w Karczmie lub na czacie dowolnej drużyny lub gildii, to najpierw przeczytaj <%= linkStart %>wytyczne wspólnotowe<%= linkEnd %>, a następnie kliknij przycisk poniżej, by je zaakceptować."
 }
