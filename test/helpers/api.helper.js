@@ -181,6 +181,8 @@ export function resetHabiticaDB() {
           members: [],
         }, (err) => {
           if (err) return reject(err);
+
+          db.close();
           resolve();
         });
       });
@@ -230,6 +232,7 @@ function _updateDocument(collectionName, doc, update, cb) {
     collection.update({ _id: doc._id }, { $set: update }, (err, result) => {
       if (err) throw `Error updating ${collectionName}: ${err}`;
       assign(doc, update);
+      db.close();
       cb();
     });
   });
