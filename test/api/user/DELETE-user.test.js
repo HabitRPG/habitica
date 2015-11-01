@@ -18,11 +18,8 @@ describe('DELETE /user', () => {
 
   it('deletes the user', () => {
     return expect(api.del('/user').then((fetchedUser) => {
-      return api.get('/user');
-    })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      text: t('messageAuthNoUserFound'),
-    });
+      return checkExistence('users', user._id);
+    })).to.eventually.eql(false);
   });
 
   context('user has active subscription', () => {
