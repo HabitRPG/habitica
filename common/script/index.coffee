@@ -47,11 +47,7 @@ api.planGemLimits =
 sanitizeOptions = (o) ->
   dayStart = if (!_.isNaN(+o.dayStart) and 0 <= +o.dayStart <= 24) then +o.dayStart else 0
   timezoneOffset = if o.timezoneOffset then +(o.timezoneOffset) else +moment().zone()
-  # console.log("     - sanitizeOptions -")
-  # console.log {timezoneOffset}
-  # console.log {oNow:moment(o.now).format('YYYY-MM-DD HH:mm:ss')}
   now = if o.now then moment(o.now).zone(timezoneOffset) else moment(+new Date).zone(timezoneOffset)
-  console.log {nowWithOffset:moment(now).format('YYYY-MM-DD HH:mm:ss')}
   # return a new object, we don't want to add "now" to user object
   {dayStart, timezoneOffset, now}
 
@@ -64,12 +60,7 @@ api.startOfDay = (options={}) ->
   # It changes the time portion of the date-time to be the Custom Day Start hour, so that the date-time is now the user's correct start of day.
   # It SUBTRACTS a day if the date-time's original hour is before CDS (e.g., if your CDS is 5am and it's currently 4am, it's still the previous day).
   # This is NOT suitable for manipulating any dates that are displayed to the user as a date with no time portion, such as a Daily's Start Dates (e.g., a Start Date of today shows only the date, so it should be considered to be today even if the hidden time portion is before CDS).
-  console.log("   --- startOfDay sanitizeOptions ---")
   o = sanitizeOptions(options)
-  # console.log {o}
-  console.log("------ startOfDay (first is now, second is lastCron -------")
-  # console.log {now:moment(o.now).format('YYYY-MM-DD HH:mm:ss')}
-  # console.log {o_dayStart:o.dayStart}
   dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
   if moment(o.now).hour() < o.dayStart
     dayStart.subtract({days:1})
@@ -81,7 +72,6 @@ api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
   Absolute diff from "yesterday" till now
 ###
 api.daysSince = (yesterday, options = {}) ->
-  console.log("   --- daysSince sanitizeOptions ---")
   o = sanitizeOptions options
   api.startOfDay(_.defaults {now:o.now}, o).diff(api.startOfDay(_.defaults {now:yesterday}, o), 'days')
 
@@ -1546,8 +1536,6 @@ api.wrap = (user, main=true) ->
         #console.log {progress:user.party.quest.progress}
 
       dropMultiplier = if user.purchased?.plan?.customerId then 2 else 1
-      return
-      # XXX TST remove that!
       return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level or 0)))
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
@@ -1707,9 +1695,9 @@ api.wrap = (user, main=true) ->
       {user}
     ###
     cron: (options={}) ->
-      console.log("\n\n------ cron -------")
+      # console.log("\n\n------ cron -------")
       now = +options.now || +new Date
-      console.log {now:moment(now).format('YYYY-MM-DD HH:mm:ss')}
+      # console.log {now:moment(now).format('YYYY-MM-DD HH:mm:ss')}
 
       # If the user's timezone has changed (due to travel or daylight savings),
       # cron can be triggered twice in one day. So if a zone change is detected,
@@ -1718,10 +1706,9 @@ api.wrap = (user, main=true) ->
       # FIXME: This can probably also prevent the day's first cron under some
       # circumstances, and in those cases all cron code should be run.
       userTimezoneOffset = +user.preferences.timezoneOffset || 0
-      console.log {userTimezoneOffset}
       browserTimezoneOffset = +options.timezoneOffset || userTimezoneOffset
-      console.log {browserTimezoneOffset}
-
+      # console.log {userTimezoneOffset}
+      # console.log {browserTimezoneOffset}
 
       # This considers the case where the timezone is changing so that time
       # goes backwards (e.g., at 2am the clocks change to 1am). More work is
@@ -1729,73 +1716,72 @@ api.wrap = (user, main=true) ->
 
       # How many days have we missed using the timezone stored in the user's Habitica preferences:
       daysMissedOldZone = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
-      console.log {daysMissedOldZone:daysMissedOldZone}
+      # console.log {daysMissedOldZone:daysMissedOldZone}
 
       daysMissed = 0
       if userTimezoneOffset == browserTimezoneOffset
         # No timezone change; normal cron processing.
         daysMissed = daysMissedOldZone
-        console.log("same zones")
+        # console.log("\nsame zones:")
       else
-        console.log("different zones")
-        endOfDay = moment( api.startOfDay(_.defaults {now}) ).valueOf() + userTimezoneOffset * 60 * 1000  # I'm sorry.
-        console.log {endOfDay:moment(endOfDay).format('YYYY-MM-DD HH:mm:ss')}
+        # console.log("\ndifferent zones:")
+        # console.log {userTimezoneOffset}
+
+        endOfDay = api.startOfDay(_.defaults {now}, user.preferences)
+        endOfDay = moment(endOfDay).add({days:1})
+        endOfDay = endOfDay.subtract({minutes:1})
+        # endOfDay = moment(endOfDay.valueOf() + browserTimezoneOffset * 60 * 1000)
+        # Ugh. Sorry.
+        # console.log {endOfDay:moment(endOfDay).format('YYYY-MM-DD HH:mm:ss')}
 
         # The user's timezone has changed (according to timezone data found in their browser), so store the new value in their Habitica preferences:
         user.preferences.timezoneOffset = browserTimezoneOffset
 
         # How many days have we missed using the new timezone:
         daysMissedNewZone = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
-        console.log {daysMissedNewZone}
+        # console.log {daysMissedNewZone}
 
         # We run cron only if both timezones indicate that we should.
         daysMissed = 0
         if daysMissedOldZone > 0 and daysMissedNewZone > 0
-          console.log("different zones - 1 - run cron")
           # Both old and new timezones indicate that we should run cron, so
           # it is safe to do so.
+          # console.log("different zones - 1 - run cron")
           daysMissed = daysMissedOldZone
         else if daysMissedOldZone > 0
-          console.log("different zones - 2 - no cron but set nothing")
           # The old timezone indicates that cron should run (i.e., cron has not
           # yet run for that timezone), but the new timezone does not indicate
           # cron. This means the new one will indicate it in future,
           # when the Custom Day Start time is reached again.
           # Since we're abandoning the old timezone now, we don't need to
           # worry about what it says. Just don't run cron now.
+          # console.log("different zones - 2 - no cron but set nothing")
           daysMissed = 0
         else if daysMissedNewZone > 0
-          console.log("different zones - 3 - set lastCron ahead")
           # The old timezone indicates that cron should NOT run (i.e., cron has
           # already run for that timezone), but the new timezone indicates
           # that cron should run. However that would produce two crons in
           # one day. We set last cron to just AFTER CDS for the new timezone
           # to prevent the second cron.
+          # console.log("different zones - 3 - set lastCron ahead")
           daysMissed = 0
           user.lastCron = endOfDay
-          console.log {lastCronEndOfDay:user.lastCron}
         else
-          console.log("different zones - 4 - set lastCron ahead")
           # The old timezone indicates that cron should NOT run (i.e., cron has
           # already run for that timezone), and the new timezone also does not
           # indicate cron. This means the new one will indicate it in future,
           # when the Custom Day Start time is reached again. BUT we that would
           # be a second cron so we prevent that.
+          # console.log("different zones - 4 - set lastCron ahead")
           daysMissed = 0
           user.lastCron = endOfDay
-          console.log {lastCronEndOfDay:user.lastCron}
-        console.log("end zones")
 
-      console.log {daysMissedCombined:daysMissed}
-
-      console.log {userPreferencesTimezoneOffset: user.preferences.timezoneOffset}
-
-      console.log {userlastCron: moment(user.lastCron).format('YYYY-MM-DD HH:mm:ss')}
-      console.log(".....")
-      console.log(".....")
-      console.log("======================== CRON RUNS OR NOT =================")
+      # console.log {daysMissedCombined:daysMissed}
+      # console.log {userPreferencesTimezoneOffset: user.preferences.timezoneOffset}
+      # console.log {userlastCron: moment(user.lastCron).format('YYYY-MM-DD HH:mm:ss')}
+      # console.log("===================== CRON MIGHT RUN ===================")
       return unless daysMissed > 0
-      console.log("======================== CRON RUNS ========================")
+      # console.log("===================== CRON RUNS ========================")
 
       user.auth.timestamps.loggedin = new Date()
 
