@@ -26,55 +26,51 @@ describe('DELETE /user', () => {
     it('does not delete account');
   });
 
-  context('user in', () => {
-    
-    context('solo group', () => {
-      let group;
-      
-      beforeEach(() => {
-        return generateGroup(user, {
-          type: 'party',
-          privacy: 'private'
-        })
-        .then((grp) => {
-          group = grp;
-        });
+  context('last member of a party', () => {
+    let party;
+
+    beforeEach(() => {
+      return generateGroup(user, {
+        type: 'party',
+        privacy: 'private'
+      }).then((group) => {
+        party = group;
       });
-      
-      it('deletes party when user is the only member', () => {
-      return expect(api.del('/user').then((duser) => {
-          return checkExistence('groups', group._id);
-        })).to.eventually.eql(false);
-      });  
     });
-    
-    context('private guild', () => {
-      let guild;
-      
-      beforeEach(() => {
-        return generateGroup(user, {
-          type: 'guild',
-          privacy: 'private'
-        })
-        .then((gld) => {
-          guild = gld;
-        });
-      });
-      
-      it('deletes private guild when user is the only member', () => {
-      return expect(api.del('/user').then((duser) => {
-          return checkExistence('groups', guild._id);
-        })).to.eventually.eql(false);
-      });
+
+    it('deletes party when user is the only member', () => {
+    return expect(api.del('/user').then((result) => {
+        return checkExistence('groups', party._id);
+      })).to.eventually.eql(false);
     });
   });
 
-  context('user in group with members', () => {
+  context('last member of a private guild', () => {
+    let guild;
 
+    beforeEach(() => {
+      return generateGroup(user, {
+        type: 'guild',
+        privacy: 'private'
+      }).then((group) => {
+        guild = group;
+      });
+    });
+
+    it('deletes guild when user is the only member', () => {
+    return expect(api.del('/user').then((result) => {
+        return checkExistence('groups', guild._id);
+      })).to.eventually.eql(false);
+    });
+  });
+
+  context('groups with multiple members', () => {
     it('removes user from all groups user was a part of');
 
     it('chooses new group leader for any group user was the leader of');
+  });
 
+  context('pending invitation to group', () => {
     it('removes invitations from groups');
   });
 });
