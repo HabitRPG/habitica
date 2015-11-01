@@ -52,9 +52,8 @@ sanitizeOptions = (o) ->
   # console.log {oNow:moment(o.now).format('YYYY-MM-DD HH:mm:ss')}
   now = if o.now then moment(o.now).zone(timezoneOffset) else moment(+new Date).zone(timezoneOffset)
   console.log {nowWithOffset:moment(now).format('YYYY-MM-DD HH:mm:ss')}
-  setAhead = o.setAhead || false
   # return a new object, we don't want to add "now" to user object
-  {dayStart, timezoneOffset, now, setAhead}
+  {dayStart, timezoneOffset, now}
 
 api.startOfWeek = api.startOfWeek = (options={}) ->
   o = sanitizeOptions(options)
@@ -67,16 +66,13 @@ api.startOfDay = (options={}) ->
   # This is NOT suitable for manipulating any dates that are displayed to the user as a date with no time portion, such as a Daily's Start Dates (e.g., a Start Date of today shows only the date, so it should be considered to be today even if the hidden time portion is before CDS).
   console.log("   --- startOfDay sanitizeOptions ---")
   o = sanitizeOptions(options)
+  # console.log {o}
   console.log("------ startOfDay (first is now, second is lastCron -------")
-  console.log {now:moment(o.now).format('YYYY-MM-DD HH:mm:ss')}
-  console.log {o_dayStart:o.dayStart}
+  # console.log {now:moment(o.now).format('YYYY-MM-DD HH:mm:ss')}
+  # console.log {o_dayStart:o.dayStart}
   dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
-  console.log("======================== dayStart1: " + moment(dayStart).format('YYYY-MM-DD HH:mm:ss'))
-  if o.setAhead
-    dayStart.add({days:1}).add({minutes:1}) # set to just after next CDS time
-  else if moment(o.now).hour() < o.dayStart
+  if moment(o.now).hour() < o.dayStart
     dayStart.subtract({days:1})
-    console.log("======================== dayStart2: " + moment(dayStart).format('YYYY-MM-DD HH:mm:ss'))
   dayStart
 
 api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
@@ -1742,6 +1738,9 @@ api.wrap = (user, main=true) ->
         console.log("same zones")
       else
         console.log("different zones")
+        endOfDay = moment( api.startOfDay(_.defaults {now}) ).valueOf() + userTimezoneOffset * 60 * 1000  # I'm sorry.
+        console.log {endOfDay:moment(endOfDay).format('YYYY-MM-DD HH:mm:ss')}
+
         # The user's timezone has changed (according to timezone data found in their browser), so store the new value in their Habitica preferences:
         user.preferences.timezoneOffset = browserTimezoneOffset
 
@@ -1773,10 +1772,8 @@ api.wrap = (user, main=true) ->
           # one day. We set last cron to just AFTER CDS for the new timezone
           # to prevent the second cron.
           daysMissed = 0
-          TSTvalue = api.startOfDay(_.defaults {now})
-          console.log {lastCronBeforeSetAhead:moment(TSTvalue).format('YYYY-MM-DD HH:mm:ss')}
-          user.lastCron = api.startOfDay(_.defaults {now, setAhead:true})
-          console.log {lastCronSetAhead:user.lastCron}
+          user.lastCron = endOfDay
+          console.log {lastCronEndOfDay:user.lastCron}
         else
           console.log("different zones - 4 - set lastCron ahead")
           # The old timezone indicates that cron should NOT run (i.e., cron has
@@ -1785,10 +1782,8 @@ api.wrap = (user, main=true) ->
           # when the Custom Day Start time is reached again. BUT we that would
           # be a second cron so we prevent that.
           daysMissed = 0
-          TSTvalue = api.startOfDay(_.defaults {now})
-          console.log {lastCronBeforeSetAhead:moment(TSTvalue).format('YYYY-MM-DD HH:mm:ss')}
-          user.lastCron = api.startOfDay(_.defaults {now, setAhead:true})
-          console.log {lastCronSetAhead:user.lastCron}
+          user.lastCron = endOfDay
+          console.log {lastCronEndOfDay:user.lastCron}
         console.log("end zones")
 
       console.log {daysMissedCombined:daysMissed}
@@ -1801,8 +1796,6 @@ api.wrap = (user, main=true) ->
       console.log("======================== CRON RUNS OR NOT =================")
       return unless daysMissed > 0
       console.log("======================== CRON RUNS ========================")
-      # return
-      # XXX TST remove that!
 
       user.auth.timestamps.loggedin = new Date()
 
@@ -1839,10 +1832,10 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting in the inn or is going through what might be their second cron of the day due to a timezone change.
-      # Buffs are cleared (only if resting) and all dailies are reset without performing damage
-      if user.preferences.sleep # or partialCron
-        user.stats.buffs = clearBuffs # unless partialCron
+      # User is resting at the inn.
+      # On cron, buffs are cleared and all dailies are reset without performing damage
+      if user.preferences.sleep is true
+        user.stats.buffs = clearBuffs
         user.dailys.forEach (daily) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
