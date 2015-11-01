@@ -12,13 +12,14 @@ var cores = +nconf.get("WEB_CONCURRENCY") || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
-  _.times(cores, cluster.fork);
+  for (var i = 0; i < cores; i += 1) {
+    cluster.fork();
+  }
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
     logging.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
-
 } else {
   require('coffee-script'); // remove this once we've fully converted over
   var express = require("express");
@@ -98,38 +99,60 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var newApp = express(); // api v3
 
   // Route requests to the right app
-  app.use(app.router);
   // Matches all request except the ones going to /api/v3/**
   app.all(/^(?!\/api\/v3).+/i, oldApp);  
   // Matches all requests going to /api/v3
   app.all('/api/v3', newApp);
 
-  require('./middlewares/apiThrottle')(oldApp);
+  //require('./middlewares/apiThrottle')(oldApp);
   oldApp.use(require('./middlewares/domain')(server,mongoose));
-  if (!isProd && !DISABLE_LOGGING) oldApp.use(express.logger("dev"));
-  oldApp.use(express.compress());
+  if (!isProd && !DISABLE_LOGGING) oldApp.use(require('morgan')("dev"));
+  oldApp.use(require('compression')());
   oldApp.set("views", __dirname + "/../views");
   oldApp.set("view engine", "jade");
-  oldApp.use(express.favicon(publicDir + '/favicon.ico'));
+  oldApp.use(require('serve-favicon')(publicDir + '/favicon.ico'));
   oldApp.use(require('./middlewares/cors'));
 
   var redirects = require('./middlewares/redirects');
   oldApp.use(redirects.forceHabitica);
   oldApp.use(redirects.forceSSL);
-  oldApp.use(express.urlencoded());
-  oldApp.use(express.json());
+  var bodyParser = require('body-parser');
+  // Default limit is 100kb, need that because we actually send whole groups to the server
+  // FIXME as soon as possible (need to move on the client from $resource -> $http)    
+  oldApp.use(bodyParser.urlencoded({
+    limit: '1mb',
+    parameterLimit: 10000, // Upped for safety from 1k, FIXME as above
+    extended: true // Uses 'qs' library as old connect middleware
+  }));
+  oldApp.use(bodyParser.json({
+    limit: '1mb'
+  }));  
   oldApp.use(require('method-override')());
-  //oldApp.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-  oldApp.use(express.cookieParser());
-  oldApp.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
-  //oldApp.use(express.session());
+
+  oldApp.use(require('cookie-parser')());
+  oldApp.use(require('cookie-session')({
+    name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
+    secret: nconf.get('SESSION_SECRET'),
+    httpOnly: false,
+    maxAge: TWO_WEEKS
+  })); 
 
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   oldApp.use(passport.initialize());
   oldApp.use(passport.session());
 
-  oldApp.use(oldApp.router);
+  // Custom Directives
+  oldApp.use(require('./routes/pages'));
+  oldApp.use(require('./routes/payments'));
+  oldApp.use(require('./routes/api-v2/auth'));
+  oldApp.use(require('./routes/api-v2/coupon'));
+  oldApp.use(require('./routes/api-v2/unsubscription'));
+  var v2 = express();
+  oldApp.use('/api/v2', v2);
+  oldApp.use('/api/v1', require('./routes/api-v1'));
+  oldApp.use('/export', require('./routes/dataexport'));
+  require('./routes/api-v2/swagger')(swagger, v2);
 
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
@@ -140,17 +163,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
   oldApp.use(express['static'](publicDir));
 
-  // Custom Directives
-  oldApp.use(require('./routes/pages').middleware);
-  oldApp.use(require('./routes/payments').middleware);
-  oldApp.use(require('./routes/api-v2/auth').middleware);
-  oldApp.use(require('./routes/api-v2/coupon').middleware);
-  oldApp.use(require('./routes/api-v2/unsubscription').middleware);
-  var v2 = express();
-  oldApp.use('/api/v2', v2);
-  oldApp.use('/api/v1', require('./routes/api-v1').middleware);
-  oldApp.use('/export', require('./routes/dataexport').middleware);
-  require('./routes/api-v2/swagger')(swagger, v2);
   oldApp.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);
