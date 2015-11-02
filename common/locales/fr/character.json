@@ -52,6 +52,7 @@
     "classEquipBonus": "Bonus de Classe",
     "battleGear": "Équipement de combat",
     "battleGearText": "Voici l'équipement que vous portez au combat ; il affecte les chiffres obtenus lorsque vous interagissez avec vos tâches.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Costume",
     "costumeText": "Si vous préférez l'apparence d'un équipement différent de celui que vous avez équipé, choisissez \"Utiliser un Costume\" pour le porter en costume tout en conservant les bonus de votre équipement.",
     "useCostume": "Utiliser un Costume",

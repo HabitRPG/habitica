@@ -93,10 +93,22 @@
             a(target='_blank', href='http://www.kickstarter.com/profile/523661924')=env.t('alexander')
           .popover-content
             p=env.t('welcomeMarket')
-            p
-              button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellEggForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
-              button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellPotionForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
-              button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
+            hr(ng-show='selectedEgg || selectedPotion || selectedFood')
+            div(ng-show='selectedEgg || selectedPotion || selectedFood')
+              .pull-left.customize-option(class='Pet_Egg_{{selectedEgg.key}}' ng-show='selectedEgg')
+              p(ng-show='selectedEgg')
+                !=env.t('displayEggForGold', {itemType: "{{selectedEgg.text()}}"})
+              .pull-left.customize-option(class='Pet_HatchingPotion_{{selectedPotion.key}}' ng-show='selectedPotion')
+              p(ng-show='selectedPotion')
+                !=env.t('displayPotionForGold', {itemType: "{{selectedPotion.text()}}"})
+              .pull-left.customize-option(class='Pet_Food_{{selectedFood.key}}' ng-show='selectedFood')
+              p(ng-show='selectedFood')
+                !=env.t('displayItemForGold', {itemType: "{{selectedFood.text()}}"})
+            .clearfix
+              button.btn.btn-primary.btn-block(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
+              button.btn.btn-primary.btn-block(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
+              button.btn.btn-primary.btn-block(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
+
       menu.inventory-list(type='list')
         li.customize-menu
           menu.pets-menu(label=env.t('eggs'))

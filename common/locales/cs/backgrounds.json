@@ -106,10 +106,17 @@
     "backgroundTwinklyPartyLightsText": "Třpytivá party světýlka",
     "backgroundTwinklyPartyLightsNotes": "Zatancuj si po třpytivými party světýlky",
     "backgrounds092015": "SET 16: Vydán v září 2015",
-    "backgroundMarketText": "Tržiště Habitica",
+    "backgroundMarketText": "Tržiště města Habitica",
     "backgroundMarketNotes": "Nakupuj na Tržišti Habitica",
-    "backgroundStableText": "Stáje Habitica",
-    "backgroundStableNotes": "Starej se o zvířata ve Stájích Habitica.",
-    "backgroundTavernText": "Krčma Habitica",
-    "backgroundTavernNotes": "Navštiv Krčmu Habitica."
+    "backgroundStableText": "Stáje města Habitica",
+    "backgroundStableNotes": "Starej se o zvířata ve Stájích města Habitica.",
+    "backgroundTavernText": "Krčma města Habitica",
+    "backgroundTavernNotes": "Navštiv Krčmu města Habitica.",
+    "backgrounds102015": "SET 17: Vydán v říjnu 2015",
+    "backgroundHarvestMoonText": "Měsíc při sklizni",
+    "backgroundHarvestMoonNotes": "Zasměj se po měsícem při sklizni",
+    "backgroundSlimySwampText": "Slizká bažina",
+    "backgroundSlimySwampNotes": "Přebroď se slizkou bažinou",
+    "backgroundSwarmingDarknessText": "Valící se temnota",
+    "backgroundSwarmingDarknessNotes": "Třes se před valící se temnotou"
 }

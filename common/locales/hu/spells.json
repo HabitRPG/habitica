@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Lángcsóva",
-    "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
+    "spellWizardFireballNotes": "Lángcsóva teríti be a kezeid. TP-t szereztél és többet sebzel a Főellenségekre! Kattints egy feladatra a varázsláshoz (INT alapján)",
     "spellWizardMPHealText": "Éterhullám",
     "spellWizardMPHealNotes": "Feláldozod a manád egy részét, hogy segíts a barátaidnak. A csoportod tagjai MP-t kapnak! (INT befolyásolja)",
     "spellWizardEarthText": "Földrengés",
@@ -45,6 +45,6 @@
     "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed.",
     "spellSpecialSeafoamText": "Seafoam",
     "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
-    "spellSpecialSandText": "Sand",
+    "spellSpecialSandText": "Homok",
     "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

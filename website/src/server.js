@@ -7,6 +7,7 @@ utils.setupConfig();
 var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
+var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 var cores = +nconf.get("WEB_CONCURRENCY") || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
@@ -91,7 +92,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.set("port", nconf.get('PORT'));
   require('./middlewares/apiThrottle')(app);
   app.use(require('./middlewares/domain')(server,mongoose));
-  if (!isProd) app.use(express.logger("dev"));
+  if (!isProd && !DISABLE_LOGGING) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");

@@ -52,6 +52,7 @@
     "classEquipBonus": "Kaszt Tárgy Bónusz",
     "battleGear": "Harci felszerelés",
     "battleGearText": "Ez itt a felszerelésed, amit a csatákban viselsz; hatással van számokra, amikor a feladataidat teljesíted.",
+    "autoEquipBattleGear": "Auto-equip new gear",
     "costume": "Ruha",
     "costumeText": "Ha tetszenek a ruhák, amiket hordasz, akkor pipáld ki a \"Ruha használata\" gombot, hogy felöltsd őket és a harci felszereléseid felett látszódjanak.",
     "useCostume": "Ruha használata",
@@ -152,7 +153,7 @@
     "healerWiki": "<a href='http://habitica.wikia.com/wiki/Healer' target='_blank'>Gyógyító</a>",
     "chooseClassLearn": "<a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Tudj meg többet a kasztokról</a>",
     "str": "ERŐ",
-    "con": "CON",
+    "con": "ÁLL",
     "per": "ÉSZ",
     "int": "INT"
 }

@@ -18,7 +18,7 @@ block content
         =env.t('September')
         |&nbsp;4&comma; 2015
 
-      - var headings = ['overview', 'set-up-tasks', 'sample-tasks', 'task-color', 'health', 'party-with-friends', 'pets-mounts', 'character-classes', 'blue-mana-bar', 'monsters-quests', 'gems', 'bugs-features']
+      - var headings = ['overview', 'set-up-tasks', 'sample-tasks', 'task-color', 'health', 'party-with-friends', 'pets-mounts', 'character-classes', 'blue-mana-bar', 'monsters-quests', 'gems', 'bugs-features', 'world-boss']
       - for heading, index in headings
         a.h2.accordion.collapsed(ng-href='#' + heading, data-toggle='collapse')=env.t('faqQuestion' + index)
         .clearfix.collapse(id=heading)

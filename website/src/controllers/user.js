@@ -164,7 +164,7 @@ api.getTasks = function(req, res, next) {
  */
 api.getTask = function(req, res, next) {
   var task = findTask(req,res);
-  if (!task) return res.json(404, {err: "No task found."});
+  if (!task) return res.json(404, {err: shared.i18n.t('messageTaskNotFound')});
   return res.json(200, task);
 };
 
@@ -298,10 +298,9 @@ acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function
   return m;
 }, {})
 
-//// Uncomment this if we we want to disable GP-restoring (eg, holiday events)
-//_.each('stats.gp'.split(' '), function(removePath){
-//  delete acceptablePUTPaths[removePath];
-//})
+_.each('stats.class'.split(' '), function(removePath){
+  delete acceptablePUTPaths[removePath];
+})
 
 /**
  * Update user
@@ -318,7 +317,7 @@ api.update = function(req, res, next) {
     if (acceptablePUTPaths[k])
       user.fns.dotSet(k, v);
     else
-      errors.push("path `" + k + "` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.");
+      errors.push(shared.i18n.t('messageUserOperationProtected', { operation: k }));
     return true;
   });
   user.save(function(err) {
@@ -365,7 +364,7 @@ api.cron = function(req, res, next) {
 // api.reroll // Shared.ops
 // api.reset // Shared.ops
 
-api['delete'] = function(req, res, next) {
+api.delete = function(req, res, next) {
   var user = res.locals.user;
   var plan = user.purchased.plan;
 
@@ -397,38 +396,32 @@ api['delete'] = function(req, res, next) {
 
 /*
  ------------------------------------------------------------------------
- Gems
+ Development Only Operations
  ------------------------------------------------------------------------
  */
+if (nconf.get('NODE_ENV') === 'development') {
 
-// api.unlock // see Shared.ops
+  api.addTenGems = function(req, res, next) {
+    var user = res.locals.user;
 
-api.addTenGems = function(req, res, next) {
-  var user = res.locals.user;
-  user.balance += 2.5;
-  user.save(function(err){
-    if (err) return next(err);
-    res.send(204);
-  })
-}
+    user.balance += 2.5;
 
-/*
- ------------------------------------------------------------------------
- Hourglass
- ------------------------------------------------------------------------
- */
+    user.save(function(err){
+      if (err) return next(err);
+      res.send(204);
+    });
+  };
 
-// api.unlock // see Shared.ops
+  api.addHourglass = function(req, res, next) {
+    var user = res.locals.user;
 
-api.addHourglass = function(req, res, next) {
-  var user = res.locals.user;
+    user.purchased.plan.consecutive.trinkets += 1;
 
-  user.purchased.plan.consecutive.trinkets += 1;
-
-  user.save(function(err){
-    if (err) return next(err);
-    res.send(204);
-  })
+    user.save(function(err){
+      if (err) return next(err);
+      res.send(204);
+    });
+  };
 }
 
 /*
@@ -607,6 +600,7 @@ api.batchUpdate = function(req, res, next) {
           return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
         return cb();
       };
+      if(!api[_req.op]) { return cb(shared.i18n.t('messageUserOperationNotFound', { operation: _req.op })); }
       api[_req.op](_req, res, cb);
     });
   })
@@ -635,9 +629,7 @@ api.batchUpdate = function(req, res, next) {
     // Fetch full user object
     } else if (response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
-      response.todos = _.where(response.todos, function(t) {
-        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3}));
-      });
+      response.todos = shared.preenTodos(response.todos);
       res.json(200, response);
 
     // return only the version number

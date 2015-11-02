@@ -143,7 +143,7 @@ api.get = function(req, res, next) {
   q.exec(function(err, group){
     if (err) return next(err);
     if(!group){
-      if(gid !== 'party') return res.json(404,{err: "Group not found or you don't have access."});
+      if(gid !== 'party') return res.json(404,{err: shared.i18n.t('messageGroupNotFound')});
 
       // Don't send a 404 when querying for a party even if it doesn't exist
       // so that users with no party don't get a 404 on every access to the site
@@ -188,7 +188,7 @@ api.create = function(req, res, next) {
   group.leader = user._id;
 
   if(group.type === 'guild'){
-    if(user.balance < 1) return res.json(401, {err: 'Not enough gems!'});
+    if(user.balance < 1) return res.json(401, {err: shared.i18n.t('messageInsufficientGems')});
 
     group.balance = 1;
     user.balance--;
@@ -213,7 +213,7 @@ api.create = function(req, res, next) {
         Group.findOne({type:'party',members:{$in:[user._id]}},cb);
       },
       function(found, cb){
-        if (found) return cb('Already in a party, try refreshing.');
+        if (found) return cb(shared.i18n.t('messageGroupAlreadyInParty'));
         group.save(cb);
       },
       function(saved, count, cb){
@@ -222,7 +222,7 @@ api.create = function(req, res, next) {
         saved.populate('members', nameFields, cb);
       }
     ], function(err, populated){
-      if (err == 'Already in a party, try refreshing.') return res.json(400,{err:err});
+      if (err === shared.i18n.t('messageGroupAlreadyInParty')) return res.json(400,{err:err});
       if (err) return next(err);
       group = user = null;
       return res.json(populated);
@@ -235,7 +235,7 @@ api.update = function(req, res, next) {
   var user = res.locals.user;
 
   if(group.leader !== user._id)
-    return res.json(401, {err: "Only the group leader can update the group!"});
+    return res.json(401, {err: shared.i18n.t('messageGroupOnlyLeaderCanUpdate')});
 
   'name description logo logo leaderMessage leader leaderOnly'.split(' ').forEach(function(attr){
     group[attr] = req.body[attr];
@@ -255,7 +255,7 @@ api.attachGroup = function(req, res, next) {
   var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
   q.exec(function(err, group){
     if(err) return next(err);
-    if(!group) return res.json(404, {err: "Group not found"});
+    if(!group) return res.json(404, {err: shared.i18n.t('messageGroupNotFound')});
     res.locals.group = group;
     next();
   });
@@ -274,7 +274,7 @@ api.getChat = function(req, res, next) {
   populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
+    if (!group && gid!=='party') return res.json(404,{err: shared.i18n.t('messageGroupNotFound')});
     //Remove flagged messages if the user is not mod
     if (!user.contributor.admin) {
       group.chat = _.filter(group.chat, function(message) { return !message.flagCount || message.flagCount < 2; });
@@ -289,7 +289,7 @@ api.getChat = function(req, res, next) {
  */
 api.postChat = function(req, res, next) {
   if(!req.query.message) {
-    return res.json(400,{err:'You cannot send a blank message'});
+    return res.json(400,{err: shared.i18n.t('messageGroupChatBlankMessage')});
   } else {
     var user = res.locals.user
     var group = res.locals.group;
@@ -337,15 +337,15 @@ api.flagChatMessage = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
 
-  if(!message) return res.json(404, {err: "Message not found!"});
-  if(message.uuid == user._id) return res.json(401, {err: "Can't report your own message."});
+  if(!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
+  if(message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatFlagOwnMessage')});
 
   User.findOne({_id: message.uuid}, {auth: 1}, function(err, author){
     if(err) return next(err);
 
     // Log user ids that have flagged the message
     if(!message.flags) message.flags = {};
-    if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: "You have already reported this message"});
+    if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: shared.i18n.t('messageGroupChatFlagAlreadyReported')});
     message.flags[user._id] = true;
 
     // Log total number of flags (publicly viewable)
@@ -402,7 +402,7 @@ api.clearFlagCount = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
 
-  if(!message) return res.json(404, {err: "Message not found!"});
+  if(!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
 
   if(user.contributor.admin){
     message.flagCount = 0;
@@ -413,7 +413,7 @@ api.clearFlagCount = function(req, res, next){
       return res.send(204);
     });
   }else{
-    return res.json(401, {err: "Only an admin can clear the flag count!"})
+    return res.json(401, {err: shared.i18n.t('messageGroupChatAdminClearFlagCount')})
   }
 
 }
@@ -433,8 +433,8 @@ api.likeChatMessage = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
-  if (!message) return res.json(404, {err: "Message not found!"});
-  if (message.uuid == user._id) return res.json(401, {err: "Can't like your own message. Don't be that person."});
+  if (!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
+  if (message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatLikeOwnMessage')});
   if (!message.likes) message.likes = {};
   if (message.likes[user._id]) {
     delete message.likes[user._id];
@@ -478,7 +478,7 @@ api.join = function(req, res, next) {
     }
   }
 
-  if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
+  if(!isUserInvited) return res.json(401, {err: shared.i18n.t('messageGroupRequiresInvite')});
 
   if (!_.contains(group.members, user._id)){
     if (group.members.length === 0) {
@@ -529,6 +529,7 @@ api.leave = function(req, res, next) {
   group.leave(user, keep, function(err){
     if (err) return next(err);
     user = group = keep = null;
+
     return res.send(204);
   });
 };
@@ -691,7 +692,7 @@ api.invite = function(req, res, next){
   } else if (req.body.emails) {
     inviteByEmails(req.body.emails, group, req, res, next)
   } else {
-    return res.json(400,{err: "Can invite only by email or uuid"});
+    return res.json(400, {err: "Can only invite by email or uuid"});
   }
 }
 
@@ -920,7 +921,8 @@ api.questAccept = function(req, res, next) {
           owner: true,
           response: 'accept',
           gaLabel: 'accept',
-          questName: key
+          questName: key,
+          uuid: user._id,
         };
         analytics.track('quest',analyticsData);
         group.quest.members[m] = true;
@@ -966,7 +968,8 @@ api.questAccept = function(req, res, next) {
       owner: false,
       response: 'accept',
       gaLabel: 'accept',
-      questName: group.quest.key
+      questName: group.quest.key,
+      uuid: user._id,
     };
     analytics.track('quest',analyticsData);
     group.quest.members[user._id] = true;
@@ -985,7 +988,8 @@ api.questReject = function(req, res, next) {
     owner: false,
     response: 'reject',
     gaLabel: 'reject',
-    questName: group.quest.key
+    questName: group.quest.key,
+    uuid: user._id,
   };
   analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;

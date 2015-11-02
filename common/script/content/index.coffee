@@ -27,7 +27,7 @@ events =
   winter2015: {start:'2014-12-21',end:'2015-02-02'}
   spring2015: {start:'2015-03-20',end:'2015-05-02'}
   summer2015: {start:'2015-06-20',end:'2015-08-02'}
-  fall2015: {start:'2015-09-21',end:'2015-11-01'}
+  fall2015: {start:'2015-09-21',end:'2015-11-02'}
 
 api.mystery =
   201402: {start:'2014-02-22',end:'2014-02-28', text:'Winged Messenger Set'}
@@ -50,6 +50,7 @@ api.mystery =
   201507: {start:'2015-07-24',end:'2015-08-02', text:'Rad Surfer Set'}
   201508: {start:'2015-08-23',end:'2015-09-02', text:'Cheetah Costume Set'}
   201509: {start:'2015-09-24',end:'2015-10-02', text:'Werewolf Set'}
+  201510: {start:'2015-10-26',end:'2015-11-02', text:'Horned Goblin Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -459,6 +460,7 @@ gear =
       201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:'201410', value: 0
       201504: text: t('backMystery201504Text'), notes: t('backMystery201504Notes'), mystery:'201504', value: 0
       201507: text: t('backMystery201507Text'), notes: t('backMystery201507Notes'), mystery:'201507', value: 0
+      201510: text: t('backMystery201510Text'), notes: t('backMystery201510Notes'), mystery:'201510', value: 0
     special:
       wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
       wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
@@ -507,6 +509,7 @@ gear =
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
       201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:'201409', value: 0
       201502: text: t('headAccessoryMystery201502Text'), notes: t('headAccessoryMystery201502Notes'), mystery:'201502', value: 0
+      201510: text: t('headAccessoryMystery201510Text'), notes: t('headAccessoryMystery201510Notes'), mystery:'201510', value: 0
       301405: text: t('headAccessoryMystery301405Text'), notes: t('headAccessoryMystery301405Notes'), mystery:'301405', value: 0
 
   eyewear:
@@ -1121,6 +1124,7 @@ api.questEggs =
   Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.whale? > 0)
   Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.cheetah? > 0)
   Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.horse? > 0)
+  Frog:             text: t('questEggFrogText'), adjective: t('questEggFrogAdjective'), canBuy: ((u)-> u.achievements.quests && u.achievements.quests.frog? > 0)
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1154,6 +1158,7 @@ api.specialMounts =
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
   'Phoenix-Base':        'phoenix'
+  'JackOLantern-Base':   'jackolantern'
 
 api.timeTravelStable =
   pets:
@@ -2177,6 +2182,26 @@ api.quests =
       gp: 37
       exp: 275
       unlock: t('questHorseUnlockText')
+
+  frog:
+    text: t('questFrogText')
+    notes: t('questFrogNotes')
+    completion: t('questFrogCompletion')
+    value: 4
+    category: 'pet'
+    boss:
+      name: t('questFrogBoss')
+      hp: 300
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+        {type: 'eggs', key: 'Frog', text: t('questFrogDropFrogEgg')}
+      ]
+      gp: 25
+      exp: 125
+      unlock: t('questFrogUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:(()->true)}

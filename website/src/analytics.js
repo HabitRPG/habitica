@@ -31,7 +31,9 @@ function track(eventType, data) {
 function _sendDataToAmplitude(eventType, data) {
   var amplitudeData = _formatDataForAmplitude(data);
   amplitudeData.event_type = eventType;
-  amplitude.track(amplitudeData);
+  amplitude.track(amplitudeData).catch(function(error) {
+    // @TODO log error with new relic
+  });
 }
 
 function _sendDataToGoogle(eventType, data) {
@@ -87,7 +89,9 @@ function _sendPurchaseDataToAmplitude(data) {
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
-  amplitude.track(amplitudeData)
+  amplitude.track(amplitudeData).catch(function(error) {
+    // @TODO log error with new relic
+  });
 }
 
 function _formatDataForAmplitude(data) {
@@ -95,7 +99,7 @@ function _formatDataForAmplitude(data) {
   var event_properties = _.omit(data, PROPERTIES_TO_SCRUB);
 
   var ampData = {
-    user_id: data.uuid,
+    user_id: data.uuid || 'no-user-id-was-provided',
     platform: 'server',
     event_properties: event_properties
   }

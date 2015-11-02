@@ -39,8 +39,10 @@ script(type='text/ng-template', id='modals/showQuest.html')
     +questInfo
     hr
     div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
-    p=env.t('questSend')
-    p=env.t('questWarning')
+    p(ng-if='!env.worldDmg.quests')=env.t('questSend')
+    p(ng-if='!env.worldDmg.quests')=env.t('questWarning')
+    p(ng-if='env.worldDmg.quests')=env.t('questSendBroken')
+    p(ng-if='env.worldDmg.quests')=env.t('questWarningBroken')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
     button.btn.btn-primary(ng-click='questInit()')

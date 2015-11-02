@@ -19,7 +19,8 @@ div(ng-if='group.quest.active===false')
   hr
 
   div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
-  p=env.t('questStart')
+  p(ng-if='!env.worldDmg.quests')=env.t('questStart')
+  p(ng-if='env.worldDmg.quests')=env.t('questStartBroken')
 
   span(ng-if='user.party.quest.RSVPNeeded')
     button.btn.btn-sm.btn-success(ng-click='questAccept()')=env.t('accept')

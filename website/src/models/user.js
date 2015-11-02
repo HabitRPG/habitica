@@ -66,7 +66,8 @@ var UserSchema = new Schema({
       email: String,
       hashed_password: String,
       salt: String,
-      username: String
+      username: String,
+      lowerCaseUsername: String // Store a lowercase version of username to check for duplicates
     },
     timestamps: {
       created: {type: Date,'default': Date.now},
@@ -138,6 +139,29 @@ var UserSchema = new Schema({
       hall: {type: Number,        'default': -1},
       equipment: {type: Number,   'default': -1}
     },
+    tutorial: {
+      common: {
+        habits: {type: Boolean, 'default': false},
+        dailies: {type: Boolean, 'default': false},
+        todos: {type: Boolean, 'default': false},
+        rewards: {type: Boolean, 'default': false},
+        party: {type: Boolean, 'default': false},
+        pets: {type: Boolean, 'default': false},
+        gems: {type: Boolean, 'default': false},
+        skills: {type: Boolean, 'default': false},
+        classes: {type: Boolean, 'default': false},
+        tavern: {type: Boolean, 'default': false},
+        equipment: {type: Boolean, 'default': false},
+        items: {type: Boolean, 'default': false},
+      },
+      ios: {
+        addTask: {type: Boolean, 'default': false},
+        editTask: {type: Boolean, 'default': false},
+        deleteTask: {type: Boolean, 'default': false},
+        filterTask: {type: Boolean, 'default': false},
+        groupPets: {type: Boolean, 'default': false},
+      }
+    },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
@@ -171,7 +195,6 @@ var UserSchema = new Schema({
     todos: Array //[{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
-  // FIXME remove?
   invitations: {
     guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
@@ -324,6 +347,7 @@ var UserSchema = new Schema({
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
+    autoEquip: {type: Boolean, 'default': true},
     costume: Boolean,
     dateFormat: {type: String, enum:['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'], 'default': 'MM/dd/yyyy'},
     sleep: {type: Boolean, 'default': false},
@@ -579,7 +603,7 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
-// Initially export an empty object so external requires will get 
+// Initially export an empty object so external requires will get
 // the right object by reference when it's defined later
 // Otherwise it would remain undefined if requested before the query executes
 module.exports.mods = [];

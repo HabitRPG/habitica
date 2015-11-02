@@ -102,6 +102,11 @@ let mysterySets = {
     end:'2015-10-02',
     text:'Werewolf Set'
   },
+  201510: {
+    start:'2015-10-26',
+    end:'2015-11-02',
+    text:'Horned Goblin Set'
+  },
   301404: {
     start: '3014-03-24',
     end: '3014-04-02',
