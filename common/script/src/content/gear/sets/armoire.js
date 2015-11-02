@@ -78,8 +78,9 @@ let armor = {
   },
   royalRobes: {
     value: 100,
-    str: 9,
-    per: 9,
+    con: 5,
+    int: 5,
+    per: 5,
     notes: t('armorArmoireRoyalRobesNotes', {
       attrs: 9
     }),
