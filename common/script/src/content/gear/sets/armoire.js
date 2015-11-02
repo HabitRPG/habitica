@@ -150,6 +150,7 @@ let head = {
   royalCrown: {
     value: 100,
     str: 10,
+    set: 'royal',
     canOwn: ((u) => {
       return u.items.gear.owned.head_armoire_royalCrown != null;
     })
@@ -281,6 +282,19 @@ let shield = {
       return u.items.gear.owned.shield_armoire_midnightShield != null;
     })
   },
+  royalCane: {
+    notes: t('shieldArmoireRoyalCaneNotes', {
+      attrs: 5
+    }),
+    value: 100,
+    con: 5,
+    int: 5,
+    per: 5,
+    set: 'royal',
+    canOwn: ((u) => {
+      return u.items.gear.owned.shield_armoire_royalCane != null;
+    })
+  }
 };
 
 let weapon = {
