@@ -1181,13 +1181,13 @@ api.dropHatchingPotions =
   Golden:           value: 5, text: t('hatchingPotionGolden')
 
 api.premiumHatchingPotions =
-  Spooky:           value: 2, text: t('hatchingPotionSpooky'), addlNotes: t('premiumPotionAddlNotes'), premium: true, limited: true
+  Spooky:           value: 2, text: t('hatchingPotionSpooky'), limited: true, canBuy: (()->false)
 
 _.each api.dropHatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: false, limited: false, canBuy: (()->true)}
 
 _.each api.premiumHatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: true, limited: false, canBuy: (()->true)}
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), addlNotes: t('premiumPotionAddlNotes'), premium: true, limited: false, canBuy: (()->true)}
 
 api.hatchingPotions = {}
 _.merge(api.hatchingPotions, api.dropHatchingPotions)
@@ -1220,16 +1220,16 @@ api.questMounts = _.transform api.questEggs, (m, egg) ->
 
 api.food =
   # Base
-  Meat:                 text: t('foodMeat'), target: 'Base', article: ''
-  Milk:                 text: t('foodMilk'), target: 'White', article: ''
-  Potatoe:              text: t('foodPotatoe'), target: 'Desert', article: 'a '
-  Strawberry:           text: t('foodStrawberry'), target: 'Red', article: 'a '
-  Chocolate:            text: t('foodChocolate'), target: 'Shade', article: ''
-  Fish:                 text: t('foodFish'), target: 'Skeleton', article: 'a '
-  RottenMeat:           text: t('foodRottenMeat'), target: 'Zombie', article: ''
-  CottonCandyPink:      text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:      text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Honey:                text: t('foodHoney'), target: 'Golden', article: ''
+  Meat:                 text: t('foodMeat'),            canBuy:(()->true), canDrop:true, target: 'Base', article: ''
+  Milk:                 text: t('foodMilk'),            canBuy:(()->true), canDrop:true, target: 'White', article: ''
+  Potatoe:              text: t('foodPotatoe'),         canBuy:(()->true), canDrop:true, target: 'Desert', article: 'a '
+  Strawberry:           text: t('foodStrawberry'),      canBuy:(()->true), canDrop:true, target: 'Red', article: 'a '
+  Chocolate:            text: t('foodChocolate'),       canBuy:(()->true), canDrop:true, target: 'Shade', article: ''
+  Fish:                 text: t('foodFish'),            canBuy:(()->true), canDrop:true, target: 'Skeleton', article: 'a '
+  RottenMeat:           text: t('foodRottenMeat'),      canBuy:(()->true), canDrop:true, target: 'Zombie', article: ''
+  CottonCandyPink:      text: t('foodCottonCandyPink'), canBuy:(()->true), canDrop:true, target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:      text: t('foodCottonCandyBlue'), canBuy:(()->true), canDrop:true, target: 'CottonCandyBlue', article: ''
+  Honey:                text: t('foodHoney'),           canBuy:(()->true), canDrop:true, target: 'Golden', article: ''
 
   Saddle:               canBuy:(()->true), text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 
@@ -1246,16 +1246,16 @@ api.food =
   Cake_Red:             text: t('foodCakeRed'), target: 'Red', article: ''
 
   # Fall
-  Candy_Skeleton:        canBuy:(()->true), canDrop:true, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
-  Candy_Base:            canBuy:(()->true), canDrop:true, text: t('foodCandyBase'), target: 'Base', article: ''
-  Candy_CottonCandyBlue: canBuy:(()->true), canDrop:true, text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Candy_CottonCandyPink: canBuy:(()->true), canDrop:true, text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  Candy_Shade:           canBuy:(()->true), canDrop:true, text: t('foodCandyShade'), target: 'Shade', article: ''
-  Candy_White:           canBuy:(()->true), canDrop:true, text: t('foodCandyWhite'), target: 'White', article: ''
-  Candy_Golden:          canBuy:(()->true), canDrop:true, text: t('foodCandyGolden'), target: 'Golden', article: ''
-  Candy_Zombie:          canBuy:(()->true), canDrop:true, text: t('foodCandyZombie'), target: 'Zombie', article: ''
-  Candy_Desert:          canBuy:(()->true), canDrop:true, text: t('foodCandyDesert'), target: 'Desert', article: ''
-  Candy_Red:             canBuy:(()->true), canDrop:true, text: t('foodCandyRed'), target: 'Red', article: ''
+  Candy_Skeleton:        text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
+  Candy_Base:            text: t('foodCandyBase'), target: 'Base', article: ''
+  Candy_CottonCandyBlue: text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Candy_CottonCandyPink: text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Candy_Shade:           text: t('foodCandyShade'), target: 'Shade', article: ''
+  Candy_White:           text: t('foodCandyWhite'), target: 'White', article: ''
+  Candy_Golden:          text: t('foodCandyGolden'), target: 'Golden', article: ''
+  Candy_Zombie:          text: t('foodCandyZombie'), target: 'Zombie', article: ''
+  Candy_Desert:          text: t('foodCandyDesert'), target: 'Desert', article: ''
+  Candy_Red:             text: t('foodCandyRed'), target: 'Red', article: ''
 
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: t('foodNotes'), canBuy:(()->false), canDrop:false}
