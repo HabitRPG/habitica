@@ -330,7 +330,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    progress = user.fns.cron({analytics:utils.analytics}),
+    progress = user.fns.cron({analytics:utils.analytics, timezoneOffset:req.headers['x-user-timezoneoffset']}),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
