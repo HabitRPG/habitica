@@ -82,6 +82,132 @@ describe('GET /groups/:id', () => {
     });
   });
 
+  context('flagged messages', () => {
+    let group;
+
+    let chat1 = {
+      id: 'chat1',
+      text: 'chat 1',
+      flags: {},
+    };
+
+    let chat2 = {
+      id: 'chat2',
+      text: 'chat 2',
+      flags: {},
+      flagCount: 0,
+    };
+
+    let chat3 = {
+      id: 'chat3',
+      text: 'chat 3',
+      flags: {
+        'user-id': true,
+      },
+      flagCount: 1,
+    };
+
+    let chat4 = {
+      id: 'chat4',
+      text: 'chat 4',
+      flags: {
+        'user-id': true,
+        'other-user-id': true,
+      },
+      flagCount: 2,
+    };
+
+    let chat5 = {
+      id: 'chat5',
+      text: 'chat 5',
+      flags: {
+        'user-id': true,
+        'other-user-id': true,
+        'yet-another-user-id': true,
+      },
+      flagCount: 3,
+    };
+
+    beforeEach(() => {
+      return createAndPopulateGroup({
+        groupDetails: {
+          name: 'test guild',
+          type: 'guild',
+          privacy: 'public',
+          chat: [
+            chat1,
+            chat2,
+            chat3,
+            chat4,
+            chat5,
+          ],
+        },
+      }).then((res) => {
+        group = res.group;
+      });
+    });
+
+    context('non-admin', () => {
+      let api;
+
+      beforeEach(() => {
+        return generateUser().then((user) => {
+          api = requester(user);
+        });
+      });
+
+      it('does not include messages with a flag count of 2 or greater', () => {
+        return api.get(`/groups/${group._id}`).then((_group) => {
+          expect(_group.chat).to.have.lengthOf(3);
+          expect(_group.chat[0].id).to.eql(chat1.id);
+          expect(_group.chat[1].id).to.eql(chat2.id);
+          expect(_group.chat[2].id).to.eql(chat3.id);
+        });
+      });
+
+      it('does not include user ids in flags object', () => {
+        return api.get(`/groups/${group._id}`).then((_group) => {
+          let chatWithOneFlag = _group.chat[2];
+          expect(chatWithOneFlag.id).to.eql(chat3.id);
+          expect(chat3.flags).to.eql({ 'user-id': true });
+          expect(chatWithOneFlag.flags).to.eql({});
+        });
+      });
+    });
+
+    context('admin', () => {
+      let api;
+
+      beforeEach(() => {
+        return generateUser({
+          'contributor.admin': true,
+        }).then((user) => {
+          api = requester(user);
+        });
+      });
+
+      it('includes all messages', () => {
+        return api.get(`/groups/${group._id}`).then((_group) => {
+          expect(_group.chat).to.have.lengthOf(5);
+          expect(_group.chat[0].id).to.eql(chat1.id);
+          expect(_group.chat[1].id).to.eql(chat2.id);
+          expect(_group.chat[2].id).to.eql(chat3.id);
+          expect(_group.chat[3].id).to.eql(chat4.id);
+          expect(_group.chat[4].id).to.eql(chat5.id);
+        });
+      });
+
+      xit('TODO: Not yet implimented - includes user ids in flags object', () => {
+        return api.get(`/groups/${group._id}`).then((_group) => {
+          let chatWithOneFlag = _group.chat[2];
+          expect(chatWithOneFlag.id).to.eql(chat3.id);
+          expect(chat3.flags).to.eql({ 'user-id': true });
+          expect(chatWithOneFlag.flags).to.eql(chat3.flags);
+        });
+      });
+    });
+  });
+
   context('Non-member of a public guild', () => {
     let leader, nonMember, createdGroup;
 
