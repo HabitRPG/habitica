@@ -3,7 +3,7 @@
     "innCheckOut": "Dejar la posada",
     "innCheckIn": "Descansar en la posada",
     "innText": "¡Has entrado a descansar en la Posada! Mientras permanezcas aquí tus Diarias no te dañarán al finalizar el día, pero sí se renovarán cada día.\nTen cuidado: si tu equipo está en medio de una Batalla contra un Jefe ¡sus Diarias incompletas te seguirán haciendo daño! Además, tú no dañarás al jefe (ni obtendrás los objetos recolectados) hasta que no hayas salido de la Posada.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "Te quedarás en la Posada supongo.... Mientras estés aquí , tus diarias no reducirán tu salud al acabar el dia, pero sí se refrescarán... Si estás participando en una misión contra un Jefe, él te hará daño igualmente si tus compañeros no realizan sus diarias... a menos que ellos también estén en la Posada... Además, tu daño contra el Jefe (o inventario que hayas obtenido) no será aplicado hasta que dejes la Posada... que cansancio....",
     "lfgPosts": "Publicaciones en la búsqueda de un grupo (Se busca Equipo)",
     "tutorial": "Tutoría",
     "glossary": "Glosario",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "¡El chat de tu equipo está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "guildChatEmpty": "¡El chat de este gremio está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "possessiveParty": "El equipo de <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en cualquier chat de grupo o gremio, por favor primero lee nuestras Normas de la Comunidad y selecciona el botón \"Acepto las Normas\" para indicar que las aceptas."
 }

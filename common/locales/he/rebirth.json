@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "את/ה גם מקבל/ת הישג מכך שהתחלת הרפתקה חדשה!",
     "beReborn": "היוולד מחדש",
     "rebirthAchievement": "התחלת הרפתקה חדשה! זוהי הלידה ה<%= number %> שלך מחדש, והרמה הכי גבוהה אליה הגעת היא <%= level %>. כדי לשבור שיא זה, נסה/י להגיע לרמה גבוהה יותר לפני שתתחיל/י מחדש שוב!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
     "rebirthBegan": "התחיל/ה הרפתקה חדשה",
     "rebirthText": "התחיל/ה <%= rebirths %> הרפתקאות חדשות",
     "rebirthOrb": "השתמש/ה בכדור הלידה מחדש כדי להתחיל מהתחלה אחרי רמה",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "התחיל/י דמות חדשה ברמה 1 עם אותם הישגים, חפצי אספנות, משימות והיסטוריה.",
     "rebirthName": "כדור הלידה מחדש",
     "reborn": "היוולד/י מחדש. רמה מירבית: <%= reLevel %>"
