@@ -54,7 +54,23 @@
         "no-undef-init": 2,
         "no-undef": [2, { typeof: true }],
         "no-unused-vars": 2,
-        "no-use-before-define": 2
+        "no-use-before-define": 2,
+        "global-require": 2,
+        "handle-callback-err": [2, "^.*(e|E)rr"]
+        "no-path-concat": 2,
+        "arrow-spacing": 2,
+        "constructor-super": 2,
+        "generator-star-spacing": 2,
+        "no-arrow-condition": 2,
+        "no-class-assign": 2,
+        "no-const-assign": 2,
+        "no-dupe-class-members": 2,
+        "no-this-before-super": 2,
+        "no-var": 2,
+        "object-shorthand": 2,
+        "prefer-const": 2,
+        "prefer-spread": 2,
+        "prefer-template": 2
     },
     "env": {
         "es6": true,
