@@ -169,6 +169,7 @@ gear =
       ironCrook:   text: t('weaponArmoireIronCrookText'), notes: t('weaponArmoireIronCrookNotes', {attrs: 7}), value: 100, str: 7, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_ironCrook?)
       goldWingStaff:  text: t('weaponArmoireGoldWingStaffText'), notes: t('weaponArmoireGoldWingStaffNotes', {attrs:4}), value: 100, con: 4, int: 4, per: 4, str: 4, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_goldWingStaff?)
       batWand: text: t('weaponArmoireBatWandText'), notes: t('weaponArmoireBatWandNotes', {int: 10, per: 2}), value: 100, int: 10, per: 2, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_batWand?)
+      shepherdsCrook: text: t('weaponArmoireShepherdsCrookText'), notes: t('weaponArmoireShepherdsCrookNotes', {con: 9}), value: 100, con: 9, set: 'shepherd', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_shepherdsCrook?)
 
   armor:
     base:
@@ -271,6 +272,8 @@ gear =
       goldenToga: text: t('armorArmoireGoldenTogaText'), notes: t('armorArmoireGoldenTogaNotes', {attrs: 8}), value: 100, str: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.armor_armoire_goldenToga?)
       hornedIronArmor: text: t('armorArmoireHornedIronArmorText'), notes: t('armorArmoireHornedIronArmorNotes', {con: 9, per: 7}), value: 100, con: 9, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.armor_armoire_hornedIronArmor?)
       plagueDoctorOvercoat: text: t('armorArmoirePlagueDoctorOvercoatText'), notes: t('armorArmoirePlagueDoctorOvercoatNotes', {int: 6, str: 5, con: 6}), value: 100, int: 6, str: 5, con: 6, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.armor_armoire_plagueDoctorOvercoat?)
+      shepherdRobes: text: t('armorArmoireShepherdRobesText'), notes: t('armorArmoireShepherdRobesNotes', {attrs: 9}), value: 100, str: 9, per: 9, set: 'shepherd', canOwn: ((u)-> u.items.gear.owned.armor_armoire_shepherdRobes?)
+      royalRobes: text: t('armorArmoireRoyalRobesText'), notes: t('armorArmoireRoyalRobesNotes', {attrs: 5}), value: 100, con: 5, per: 5, int: 5, set: 'royal', canOwn: ((u)-> u.items.gear.owned.armor_armoire_royalRobes?)
 
   head:
     base:
@@ -369,7 +372,7 @@ gear =
       violetFloppyHat: text: t('headArmoireVioletFloppyHatText'), notes: t('headArmoireVioletFloppyHatNotes', {per: 5, int: 5, con: 5}), value: 100, per: 5, int: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_violetFloppyHat?)
       gladiatorHelm: text: t('headArmoireGladiatorHelmText'), notes: t('headArmoireGladiatorHelmNotes', {per: 7, int: 7}), value: 100, per: 7, int: 7, set: 'gladiator', canOwn: ((u)-> u.items.gear.owned.head_armoire_gladiatorHelm?)
       rancherHat: text: t('headArmoireRancherHatText'), notes: t('headArmoireRancherHatNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.head_armoire_rancherHat?)
-      royalCrown: text: t('headArmoireRoyalCrownText'), notes: t('headArmoireRoyalCrownNotes', {str: 10}), value: 100, str: 10, canOwn: ((u)-> u.items.gear.owned.head_armoire_royalCrown?)
+      royalCrown: text: t('headArmoireRoyalCrownText'), notes: t('headArmoireRoyalCrownNotes', {str: 10}), value: 100, str: 10, set: 'royal', canOwn: ((u)-> u.items.gear.owned.head_armoire_royalCrown?)
       blueHairbow: text: t('headArmoireBlueHairbowText'), notes: t('headArmoireBlueHairbowNotes', {per: 5, int: 5, con: 5}), value: 100, per: 5, int: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_blueHairbow?)
       goldenLaurels: text: t('headArmoireGoldenLaurelsText'), notes: t('headArmoireGoldenLaurelsNotes', {attrs: 8}), value: 100, per: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.head_armoire_goldenLaurels?)
       hornedIronHelm: text: t('headArmoireHornedIronHelmText'), notes: t('headArmoireHornedIronHelmNotes', {con: 9, str: 7}), value: 100, con: 9, str:7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.head_armoire_hornedIronHelm?)
@@ -378,6 +381,8 @@ gear =
       plagueDoctorHat: text: t('headArmoirePlagueDoctorHatText'), notes: t('headArmoirePlagueDoctorHatNotes', {int: 5, str: 6, con: 5}), value: 100, int: 5, str: 6, con: 5, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.head_armoire_plagueDoctorHat?)
       blackCat: text: t('headArmoireBlackCatText'), notes: t('headArmoireBlackCatNotes', {attrs: 9}), value: 100, int: 9, per: 9, canOwn: ((u)-> u.items.gear.owned.head_armoire_blackCat?)
       orangeCat: text: t('headArmoireOrangeCatText'), notes: t('headArmoireOrangeCatNotes', {attrs: 9}), value: 100, con: 9, str: 9, canOwn: ((u)-> u.items.gear.owned.head_armoire_orangeCat?)
+      blueFloppyHat: text: t('headArmoireBlueFloppyHatText'), notes: t('headArmoireBlueFloppyHatNotes', {attrs: 7}), value: 100, per: 7, int: 7, con: 7, canOwn: ((u)-> u.items.gear.owned.head_armoire_blueFloppyHat?)
+      shepherdHeaddress: text: t('headArmoireShepherdHeaddressText'), notes: t('headArmoireShepherdHeaddressNotes', {int: 9}), value: 100, int: 9, set: 'shepherd', canOwn: ((u)-> u.items.gear.owned.head_armoire_shepherdHeaddress?)
 
   shield:
     base:
@@ -450,6 +455,7 @@ gear =
     armoire:
       gladiatorShield: text: t('shieldArmoireGladiatorShieldText'), notes: t('shieldArmoireGladiatorShieldNotes', {con: 5, str: 5}), value: 100, con: 5, str: 5, set: 'gladiator', canOwn: ((u)-> u.items.gear.owned.shield_armoire_gladiatorShield?)
       midnightShield: text: t('shieldArmoireMidnightShieldText'), notes: t('shieldArmoireMidnightShieldNotes', {con: 10, str: 2}), value: 100, con: 10, str: 2, canOwn: ((u)-> u.items.gear.owned.shield_armoire_midnightShield?)
+      royalCane: text: t('shieldArmoireRoyalCaneText'), notes: t('shieldArmoireRoyalCaneNotes', {attrs: 5}), value: 100, con: 5, int: 5, per: 5, set: 'royal', canOwn: ((u)-> u.items.gear.owned.shield_armoire_royalCane?)
 
   back:
     base:
@@ -2386,6 +2392,16 @@ api.backgrounds =
     swarming_darkness:
       text: t('backgroundSwarmingDarknessText')
       notes: t('backgroundSwarmingDarknessNotes')
+  backgrounds112015:
+    floating_islands:
+      text: t('backgroundFloatingIslandsText')
+      notes: t('backgroundFloatingIslandsNotes')
+    night_dunes:
+      text: t('backgroundNightDunesText')
+      notes: t('backgroundNightDunesNotes')
+    sunset_oasis:
+      text: t('backgroundSunsetOasisText')
+      notes: t('backgroundSunsetOasisNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
