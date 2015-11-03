@@ -19,7 +19,7 @@ mixin registrationForm
         a(href='/static/privacy' target='_blank')=env.t('privacy')
         | .
     .form-group
-      input.btn.btn-block.btn-lg.btn-primary(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('register'))
+      input.btn.btn-block.btn-lg.btn-success(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('getStartedNow'))
 
 script(id='modals/login.html', type='text/ng-template')
   .modal-header

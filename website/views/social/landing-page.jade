@@ -1,7 +1,7 @@
 .text-center
-  #intro
+  #intro(style='padding-bottom:3rem')
     h1=env.t('imagine1')
-    ul
+    ul.lead
       li=env.t('landingCopy1')
       li=env.t('landingCopy2')
       li=env.t('landingCopy3')
@@ -10,8 +10,7 @@
       .col-md-6
         img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/intro.png')
       .col-md-6
-        .row
-          +registrationForm
+        +registrationForm
         .row
           a(ng-click='playButtonClick()')=env.t('alreadyHaveAccount')
     .row
