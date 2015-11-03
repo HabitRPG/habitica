@@ -104,6 +104,9 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Matches all requests going to /api/v3
   app.all('/api/v3', newApp);
 
+  // Mount middlewares for the new app
+  require('./middlewares/api-v3/index')(newApp);
+
   //require('./middlewares/apiThrottle')(oldApp);
   oldApp.use(require('./middlewares/domain')(server,mongoose));
   if (!isProd && !DISABLE_LOGGING) oldApp.use(require('morgan')("dev"));
