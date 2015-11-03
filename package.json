@@ -83,9 +83,7 @@
     "swagger-node-express": "lefnire/swagger-node-express#habitrpg",
     "universal-analytics": "~0.3.2",
     "validator": "~3.19.0",
-    "winston": "~2.0.1",
-    "winston-mail": "~0.2.9",
-    "winston-newrelic": "~0.1.4"
+    "winston": "~2.0.1"
   },
   "private": true,
   "engines": {
