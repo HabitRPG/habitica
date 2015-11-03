@@ -2,13 +2,13 @@
 var _ = require('lodash');
 var shared = require('../../../../common');
 var nconf = require('nconf');
-var utils = require('./../../utils');
+var utils = require('./../../libs/utils');
 var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
 var amazon = require('./amazon');
-var members = require('../members')
+var members = require('../api-v2/members')
 var async = require('async');
 var iap = require('./iap');
 var mongoose= require('mongoose');

@@ -3,8 +3,8 @@ import {
   setFoodDefaults
 } from '../helpers';
 
-const CAN_BUY = true;
-const CAN_DROP = true;
+const CAN_BUY = false;
+const CAN_DROP = false;
 
 let candy = {
   Candy_Skeleton: {

@@ -44,6 +44,12 @@
     "messageGroupOnlyLeaderCanUpdate": "Only the group leader can update the group!",
     "messageGroupRequiresInvite": "Can't join a group you're not invited to.",
     "messageGroupCannotRemoveSelf": "You cannot remove yourself!",
+    "messageGroupChatBlankMessage": "You cannot send a blank message",
+    "messageGroupChatLikeOwnMessage": "Can't like your own message. Don't be that person.",
+    "messageGroupChatFlagOwnMessage": "Can't report your own message.",
+    "messageGroupChatFlagAlreadyReported": "You have already reported this message",
+    "messageGroupChatNotFound": "Message not found!",
+    "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",
     "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
     "messageUserOperationNotFound": "<%= operation %> operation not found"
 }

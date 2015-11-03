@@ -3,7 +3,7 @@
     "innCheckOut": "Esci dalla Locanda",
     "innCheckIn": "Riposa nella Locanda",
     "innText": "Stai riposando nella Locanda! Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno. Fai attenzione: se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily mancate dei tuoi compagni di squadra a meno che non stiano riposando anche loro nella Locanda! Inoltre, il tuo danno al Boss (o la raccolta di oggetti) non avrà effetto finchè non lasci la Locanda.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "Stai riposando nella Locanda, credo... Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno... Se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily mancate dei tuoi compagni di squadra... a meno che non stiano riposando anche loro nella Locanda... Inoltre, il tuo danno al Boss (o gli oggetti raccolti) non avrà effetto finché non lasci la Locanda... sono così stanco...",
     "lfgPosts": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
     "tutorial": "Tutorial",
     "glossary": "Glossario",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "La chat della squadra è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
     "guildChatEmpty": "La chat della gilda è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
     "possessiveParty": "Squadra di <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Se si desidera inviare messaggi in taverna o di qualsiasi partito o la chat della gilda, si prega di leggere prima la nostra <%= linkStart %>Orientamenti Comunitari<%= linkEnd %> e quindi fare clic sul pulsante qui sotto per indicare di accettarle."
 }

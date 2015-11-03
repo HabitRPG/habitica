@@ -1,9 +1,9 @@
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var shared = require('../../../common');
-var User = require('./../models/user').model;
-var Group = require('./../models/group').model;
+var shared = require('../../../../common');
+var User = require('./../../models/user').model;
+var Group = require('./../../models/group').model;
 var api = module.exports;
 
 api.ensureAdmin = function(req, res, next) {

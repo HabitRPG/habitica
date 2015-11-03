@@ -140,7 +140,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test:prepare:translations', function() {
     require('coffee-script');
-    var i18n  = require('./website/src/i18n'),
+    var i18n  = require('./website/src/libs/i18n'),
         fs    = require('fs');
     fs.writeFileSync('test/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +

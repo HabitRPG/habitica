@@ -4,7 +4,7 @@ var User = require('./user').model;
 var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
-var logging = require('../logging');
+var logging = require('../libs/logging');
 var Challenge = require('./../models/challenge').model;
 var firebase = require('../libs/firebase');
 

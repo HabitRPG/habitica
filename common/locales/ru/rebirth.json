@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "А еще вы получите достижение за начало нового приключения!",
     "beReborn": "Родитесь заново",
     "rebirthAchievement": "Вы начали новое приключение! Это ваше возрождение <%= number %> и самый высокий уровень, который вы достигали — <%= level %>. Чтобы увеличить это достижение, начните свое следующее новое приключение после того, как достигните еще более высокого уровня!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
     "rebirthBegan": "Начато новое приключение",
     "rebirthText": "Начато новых приключений: <%= rebirths %>",
     "rebirthOrb": "Использован шар возрождения, чтобы начать заново после достижения уровня",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Начните заново с персонажем 1 уровня, сохранив достижения, коллекционные предметы и задания с историей.",
     "rebirthName": "Шар возрождения",
     "reborn": "Возрождение, макс. уровень <%= reLevel %>"
