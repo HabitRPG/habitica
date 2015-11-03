@@ -10,7 +10,7 @@ let InternalServerError = errors.InternalServerError;
 module.exports = function (err, req, res, next) {
   // Log the original error with some metadata
   let stack = err.stack || err.message || err;
-  logging.error(stack, {
+  logger.error(stack, {
     originalUrl: req.originalUrl,
     headers: req.headers,
     body: req.body
