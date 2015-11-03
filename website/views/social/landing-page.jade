@@ -1,17 +1,19 @@
 .text-center
-  h1=env.t('imagine1')
-  ul
-    li=env.t('landingCopy1')
-    li=env.t('landingCopy2')
-    li=env.t('landingCopy3')
-  .container-fluid
+  #intro
+    h1=env.t('imagine1')
+    ul
+      li=env.t('landingCopy1')
+      li=env.t('landingCopy2')
+      li=env.t('landingCopy3')
+  .mobile-container
     .row
       .col-md-6
         img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/intro.png')
       .col-md-6
-        p Login form here
-        button.btn.btn-primary.btn-lg Get Started Now!
-        a I already have an account!
+        .row
+          +registrationForm
+        .row
+          a(ng-click='playButtonClick()')=env.t('alreadyHaveAccount')
     .row
       .presslogos
         =env.t('featuredIn')

@@ -1,3 +1,26 @@
+mixin registrationForm
+  form#registrationForm(ng-submit='register()', name='registrationForm')
+    .form-group
+      input.form-control(type='text', ng-model='registerVals.username', placeholder=env.t('username'), spellcheck='false', required)
+    .form-group
+      input.form-control(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
+    .form-group
+      input.form-control(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
+    .form-group
+      input.form-control(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
+    .form-group
+      small
+        =env.t('accept1Terms')
+        |&nbsp;
+        a(href='/static/terms' target='_blank')=env.t('terms')
+        |&nbsp;
+        =env.t('accept2Terms')
+        |&nbsp;
+        a(href='/static/privacy' target='_blank')=env.t('privacy')
+        | .
+    .form-group
+      input.btn.btn-block.btn-lg.btn-primary(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('register'))
+
 script(id='modals/login.html', type='text/ng-template')
   .modal-header
     button.close(type='button', ng-click='$close()') ×
@@ -45,24 +68,4 @@ script(id='modals/login.html', type='text/ng-template')
                   input.btn.btn-default(type='submit', value=env.t('submit'))
 
       tab(heading=env.t('register'))
-        form#registrationForm(ng-submit='register()', name='registrationForm')
-          .form-group
-            input.form-control(type='text', ng-model='registerVals.username', placeholder=env.t('username'), spellcheck='false', required)
-          .form-group
-            input.form-control(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
-          .form-group
-            input.form-control(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
-          .form-group
-            input.form-control(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
-          .form-group
-            small
-              =env.t('accept1Terms')
-              |&nbsp;
-              a(href='/static/terms' target='_blank')=env.t('terms')
-              |&nbsp;
-              =env.t('accept2Terms')
-              |&nbsp;
-              a(href='/static/privacy' target='_blank')=env.t('privacy')
-              | .
-          .form-group
-            input.btn.btn-block.btn-lg.btn-primary(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('register'))
+        +registrationForm
