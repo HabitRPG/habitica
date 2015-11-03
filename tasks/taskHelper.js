@@ -4,6 +4,9 @@ import nconf    from 'nconf';
 import net      from 'net';
 import Q        from 'q';
 import { post } from 'superagent';
+import { sync as glob }           from 'glob';
+import Mocha                      from 'mocha';
+import { resolve }                from 'path';
 
 /*
  * Get access to configruable values
@@ -91,3 +94,26 @@ export function postToSlack(msg, config={}) {
       if (err) console.error('Unable to post to slack', err);
     });
 }
+
+export function runIntegrationTestsWithMocha(files, port, server) {
+  require('../test/helpers/globals.helper');
+
+  awaitPort(port).then(() => {
+    let mocha = new Mocha({reporter: 'spec'});
+    let tests = glob(files);
+
+    tests.forEach((test) => {
+      delete require.cache[resolve(test)];
+      mocha.addFile(test);
+    });
+
+    mocha.run((numberOfFailures) => {
+      if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
+        kill(server);
+        process.exit(numberOfFailures);
+      }
+      done();
+    });
+  });
+}
+

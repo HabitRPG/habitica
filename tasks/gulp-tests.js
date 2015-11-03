@@ -1,13 +1,15 @@
-import { pipe, awaitPort, kill }  from './taskHelper';
+import {
+  pipe,
+  awaitPort,
+  kill,
+  runIntegrationTestsWithMocha,
+}  from './taskHelper';
 import { server as karma }        from 'karma';
 import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
-import { sync as glob }           from 'glob';
 import Q                          from 'q';
-import Mocha                      from 'mocha';
-import { resolve }                from 'path';
 
 const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
@@ -294,34 +296,12 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 });
 
 gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
-  runIntegrationTestsWithMocha('./test/api/v2/**/*.js')
+  runIntegrationTestsWithMocha('./test/api/v2/**/*.js', TEST_SERVER_PORT, server)
 });
-
-function runIntegrationTestsWithMocha(files) {
-  require('../test/helpers/globals.helper');
-
-  awaitPort(TEST_SERVER_PORT).then(() => {
-    let mocha = new Mocha({reporter: 'spec'});
-    let tests = glob(files);
-
-    tests.forEach((test) => {
-      delete require.cache[resolve(test)];
-      mocha.addFile(test);
-    });
-
-    mocha.run((numberOfFailures) => {
-      if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
-        kill(server);
-        process.exit(numberOfFailures);
-      }
-      done();
-    });
-  });
-}
 
 gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
   process.env.RUN_INTEGRATION_TEST_FOREVER = true;
-  gulp.watch(['website/src/**', 'test/api/**'], ['test:api']);
+  gulp.watch(['website/src/**', 'test/api/v2/**'], ['test:api']);
 });
 
 gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
