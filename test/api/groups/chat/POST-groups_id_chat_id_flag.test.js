@@ -36,7 +36,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         return api.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         let message = messages[0];
-        expect(message.flags[user._id]).to.eql(true);
+        expect(message.flagCount).to.eql(1);
       });
     });
   });

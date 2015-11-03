@@ -197,7 +197,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      xit('TODO: Not yet implimented - includes user ids in flags object', () => {
+      it('includes user ids in flags object', () => {
         return api.get(`/groups/${group._id}`).then((_group) => {
           let chatWithOneFlag = _group.chat[2];
           expect(chatWithOneFlag.id).to.eql(chat3.id);

@@ -475,11 +475,6 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
 
 GroupSchema.methods.toJSON = function() {
   var doc = this.toObject();
-  if(doc.chat){
-    doc.chat.forEach(function(msg){
-      msg.flags = {};
-    });
-  }
 
   return doc;
 };
