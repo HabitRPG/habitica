@@ -2,9 +2,9 @@
 var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
-var utils = require('./utils');
+var utils = require('./libs/utils');
 utils.setupConfig();
-var logging = require('./logging');
+var logging = require('./libs/logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
@@ -29,7 +29,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var shared = require('../../common');
 
   // Setup translations
-  var i18n = require('./i18n');
+  var i18n = require('./libs/i18n');
 
   var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
   var app = express();
@@ -90,54 +90,68 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var publicDir = path.join(__dirname, "/../public");
 
   app.set("port", nconf.get('PORT'));
-  require('./middlewares/apiThrottle')(app);
-  app.use(require('./middlewares/domain')(server,mongoose));
-  if (!isProd && !DISABLE_LOGGING) app.use(express.logger("dev"));
-  app.use(express.compress());
-  app.set("views", __dirname + "/../views");
-  app.set("view engine", "jade");
-  app.use(express.favicon(publicDir + '/favicon.ico'));
-  app.use(require('./middlewares/cors'));
+
+  // Setup two different Express apps, one that matches everything except '/api/v3'
+  // and the other for /api/v3 routes, so we can keep the old an new api versions completely separate
+  // not sharing a single middleware if we don't want to
+  var oldApp = express(); // api v1 and v2, and not scoped routes
+  var newApp = express(); // api v3
+
+  // Route requests to the right app
+  app.use(app.router);
+  // Matches all request except the ones going to /api/v3/**
+  app.all(/^(?!\/api\/v3).+/i, oldApp);  
+  // Matches all requests going to /api/v3
+  app.all('/api/v3', newApp);
+
+  require('./middlewares/apiThrottle')(oldApp);
+  oldApp.use(require('./middlewares/domain')(server,mongoose));
+  if (!isProd && !DISABLE_LOGGING) oldApp.use(express.logger("dev"));
+  oldApp.use(express.compress());
+  oldApp.set("views", __dirname + "/../views");
+  oldApp.set("view engine", "jade");
+  oldApp.use(express.favicon(publicDir + '/favicon.ico'));
+  oldApp.use(require('./middlewares/cors'));
 
   var redirects = require('./middlewares/redirects');
-  app.use(redirects.forceHabitica);
-  app.use(redirects.forceSSL);
-  app.use(express.urlencoded());
-  app.use(express.json());
-  app.use(require('method-override')());
-  //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-  app.use(express.cookieParser());
-  app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
-  //app.use(express.session());
+  oldApp.use(redirects.forceHabitica);
+  oldApp.use(redirects.forceSSL);
+  oldApp.use(express.urlencoded());
+  oldApp.use(express.json());
+  oldApp.use(require('method-override')());
+  //oldApp.use(express.cookieParser(nconf.get('SESSION_SECRET')));
+  oldApp.use(express.cookieParser());
+  oldApp.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
+  //oldApp.use(express.session());
 
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
-  app.use(passport.initialize());
-  app.use(passport.session());
+  oldApp.use(passport.initialize());
+  oldApp.use(passport.session());
 
-  app.use(app.router);
+  oldApp.use(oldApp.router);
 
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
-  app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-  app.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
-  app.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
-  app.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
-  app.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
-  app.use(express['static'](publicDir));
+  oldApp.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
+  oldApp.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
+  oldApp.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
+  oldApp.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
+  oldApp.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
+  oldApp.use(express['static'](publicDir));
 
   // Custom Directives
-  app.use(require('./routes/pages').middleware);
-  app.use(require('./routes/payments').middleware);
-  app.use(require('./routes/auth').middleware);
-  app.use(require('./routes/coupon').middleware);
-  app.use(require('./routes/unsubscription').middleware);
+  oldApp.use(require('./routes/pages').middleware);
+  oldApp.use(require('./routes/payments').middleware);
+  oldApp.use(require('./routes/api-v2/auth').middleware);
+  oldApp.use(require('./routes/api-v2/coupon').middleware);
+  oldApp.use(require('./routes/api-v2/unsubscription').middleware);
   var v2 = express();
-  app.use('/api/v2', v2);
-  app.use('/api/v1', require('./routes/apiv1').middleware);
-  app.use('/export', require('./routes/dataexport').middleware);
-  require('./routes/apiv2.coffee')(swagger, v2);
-  app.use(require('./middlewares/errorHandler'));
+  oldApp.use('/api/v2', v2);
+  oldApp.use('/api/v1', require('./routes/api-v1').middleware);
+  oldApp.use('/export', require('./routes/dataexport').middleware);
+  require('./routes/api-v2/swagger')(swagger, v2);
+  oldApp.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);
   server.listen(app.get("port"), function() {

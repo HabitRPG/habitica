@@ -1,7 +1,7 @@
 'use strict';
 
 var shared = require('../../common/script/index.coffee');
-shared.i18n.translations = require('../../website/src/i18n.js').translations
+shared.i18n.translations = require('../../website/src/libs/i18n.js').translations
 
 require('./test_helper');
 

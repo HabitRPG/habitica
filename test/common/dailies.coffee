@@ -3,7 +3,7 @@ expect = require 'expect.js'
 sinon = require 'sinon'
 moment = require 'moment'
 shared = require '../../common/script/index.coffee'
-shared.i18n.translations = require('../../website/src/i18n.js').translations
+shared.i18n.translations = require('../../website/src/libs/i18n.js').translations
 
 repeatWithoutLastWeekday = ()->
   repeat = {su:true,m:true,t:true,w:true,th:true,f:true,s:true}

@@ -1,13 +1,15 @@
-import { pipe, awaitPort, kill }  from './taskHelper';
+import {
+  pipe,
+  awaitPort,
+  kill,
+  runIntegrationTestsWithMocha,
+}  from './taskHelper';
 import { server as karma }        from 'karma';
 import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
-import { sync as glob }           from 'glob';
 import Q                          from 'q';
-import Mocha                      from 'mocha';
-import { resolve }                from 'path';
 
 const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
@@ -15,7 +17,7 @@ let server;
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_TEST_COMMAND = 'mocha test/api --recursive --compilers js:babel/register';
+const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive --compilers js:babel/register';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
 const COMMON_TEST_COMMAND = 'mocha test/common --compilers coffee:coffee-script';
 const CONTENT_TEST_COMMAND = 'mocha test/content --compilers js:babel/register';
@@ -293,37 +295,19 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
   });
 });
 
-gulp.task('test:api', ['test:prepare:server'], (done) => {
-  require('../test/helpers/globals.helper');
-
-  awaitPort(TEST_SERVER_PORT).then(() => {
-    let mocha = new Mocha({reporter: 'spec'});
-    let tests = glob('./test/api/**/*.js');
-
-    tests.forEach((test) => {
-      delete require.cache[resolve(test)];
-      mocha.addFile(test);
-    });
-
-    mocha.run((numberOfFailures) => {
-      if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
-        kill(server);
-        process.exit(numberOfFailures);
-      }
-      done();
-    });
-  });
+gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
+  runIntegrationTestsWithMocha('./test/api/v2/**/*.js', TEST_SERVER_PORT, server)
 });
 
-gulp.task('test:api:watch', ['test:prepare:server'], () => {
+gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
   process.env.RUN_INTEGRATION_TEST_FOREVER = true;
-  gulp.watch(['website/src/**', 'test/api/**'], ['test:api']);
+  gulp.watch(['website/src/**', 'test/api/v2/**'], ['test:api-v2']);
 });
 
-gulp.task('test:api:safe', ['test:prepare:server'], (done) => {
+gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
   awaitPort(TEST_SERVER_PORT).then(() => {
     let runner = exec(
-      testBin(API_TEST_COMMAND),
+      testBin(API_V2_TEST_COMMAND),
       (err, stdout, stderr) => {
         testResults.push({
           suite: 'API Specs\t',
@@ -345,7 +329,7 @@ gulp.task('test', [
   'test:server_side:safe',
   'test:karma:safe',
   'test:api-legacy:safe',
-  'test:api:safe',
+  'test:api-v2:safe',
 ], () => {
   let totals = [0,0,0];
 

@@ -91,6 +91,9 @@ script(id='modals/achievements/rebirth.html', type='text/ng-template')
     h4=env.t('modalAchievement')
   .modal-body
     .achievement.achievement-sun
-    =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
+    div(ng-if='user.achievements.rebirthLevel < 100')
+      =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
+    div(ng-if='user.achievements.rebirthLevel >= 100')
+      =env.t('rebirthAchievement100', {number: "{{user.achievements.rebirths}}"})
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('ok')

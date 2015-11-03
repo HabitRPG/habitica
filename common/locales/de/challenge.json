@@ -60,6 +60,6 @@
     "noPermissionEditChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu ändern.",
     "noPermissionDeleteChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu löschen.",
     "noPermissionCloseChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu schließen.",
-    "noChallengeOwner": "no owner",
-    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
+    "noChallengeOwner": "Kein Besitzer",
+    "noChallengeOwnerPopover": "Dieser Wettbewerb hat keinen Besitzer, da der Spieler, der den Wettbewerb erstellt hat, sein Benutzerkonto gelöscht hat."
 }

@@ -16,6 +16,8 @@ mixin herobox(opts)
   - var name = '{{profile.profile.name}}'
   - var buffs = 'profile.stats.buffs'
 
+  - var rebirthLevel = '{{profile.achievements.rebirthLevel < 100 ? profile.achievements.rebirthLevel : "100+"}}'
+
   figure.herobox(ng-click=ngClick, data-name=name, class=klass, ng-class=ngKlass)
 
     .avatar-name(ng-class='userLevelStyle(profile)')=name
@@ -27,4 +29,4 @@ mixin herobox(opts)
         ng-show='#{buffs}.str || #{buffs}.per || #{buffs}.con || #{buffs}.int || #{buffs}.stealth')
       span(tooltip=env.t('level'), tooltip-append-to-body="true") {{profile.stats.lvl}}
       span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths',
-        tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}), tooltip-append-to-body="true")
+        tooltip=env.t('reborn', {reLevel: rebirthLevel}), tooltip-append-to-body="true")

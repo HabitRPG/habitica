@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "Vei primi de asemenea o Realizare pentru începerea unei noi aventuri!",
     "beReborn": "Renaște-te",
     "rebirthAchievement": "Ai început o aventură nouă! Asta este Renașterea cu numărul <%= number %> pentru tine, iar cel mai înalt Nivel pe care l-ai atins este <%= level %>. Pentru a primi această Realizare din nou, începe-ți următoarea aventură când ai atins un Nivel și mai înalt!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
     "rebirthBegan": "Începe un nou joc",
     "rebirthText": "A început <%= rebirths %> Aventuri Noi",
     "rebirthOrb": "A folosit un Glob al Renașterii pentru a o lua de la început după ce a atins Nivelul",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Începe un nou personaj la Nivelul 1 păstrând realizările, obiectele de colecție și țelurile cu istoric.",
     "rebirthName": "Globul Renașterii",
     "reborn": "Renăscut, nivel maxim <%= reLevel %>"

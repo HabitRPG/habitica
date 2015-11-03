@@ -52,7 +52,7 @@
     "classEquipBonus": "Bonus třídy",
     "battleGear": "Bojová výzbroj",
     "battleGearText": "Tohle je tvé vybavení, které máš na sobě do bitvy; ovlivňuje čísla, když pracuješ se svými úkoly.",
-    "autoEquipBattleGear": "Auto-equip new gear",
+    "autoEquipBattleGear": "Automaticky použít nové vybavení",
     "costume": "Kostým",
     "costumeText": "Pokud se ti více líbí vzhled jiného vybavení, než toho, které máš na sobě, zaškrtni \"použít kostým\". Kostým se ti zobrazí na tvém právě používaném vybavení, které tak hezky schová.",
     "useCostume": "Použít kostým",

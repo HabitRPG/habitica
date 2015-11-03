@@ -3,7 +3,7 @@ expect = require 'expect.js'
 sinon = require 'sinon'
 moment = require 'moment'
 shared = require '../../common/script/index.coffee'
-shared.i18n.translations = require('../../website/src/i18n.js').translations
+shared.i18n.translations = require('../../website/src/libs/i18n.js').translations
 test_helper = require './test_helper'
 test_helper.addCustomMatchers()
 $w = (s)->s.split(' ')

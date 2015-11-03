@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "You also earn an Achievement for beginning a new adventure!",
     "beReborn": "Be Reborn",
     "rebirthAchievement": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is <%= level %>. To stack this Achievement, begin your next new adventure when you've reached an even higher Level!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
     "rebirthBegan": "Began a New Adventure",
     "rebirthText": "Began <%= rebirths %> New Adventures",
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Begin a new character at Level 1 while retaining achievements, collectibles, and tasks with history.",
     "rebirthName": "Orb of Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>"

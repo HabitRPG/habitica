@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "Za začatie nového dobrodružstva získavaš aj špeciálny odznak!",
     "beReborn": "Znovu sa zrodiť",
     "rebirthAchievement": "Začal si nové dobrodružstvo! Toto je tvoje znovuzrodenie čislo <%= number %> a najvušší level, ktorý si dosiahol je <%= level %>. Ak chceš tento odznak vylepšiť, začni nové dobrodružstvo po dosiahnutí ešte vyššieho levelu!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
     "rebirthBegan": "Začal nové dobrodružstvo",
     "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %>",
     "rebirthOrb": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Začni s novou postavou na leveli 1, pričom ti ostanú odznaky, zberateľské predmety, a úlohy.",
     "rebirthName": "Orb znovuzrodenia",
     "reborn": "Znovuzrodený, najvyšší dosiahnutý level: <%= reLevel %>"
