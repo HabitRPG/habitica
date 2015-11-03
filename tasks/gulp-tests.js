@@ -301,7 +301,7 @@ gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
 
 gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
   process.env.RUN_INTEGRATION_TEST_FOREVER = true;
-  gulp.watch(['website/src/**', 'test/api/v2/**'], ['test:api']);
+  gulp.watch(['website/src/**', 'test/api/v2/**'], ['test:api-v2']);
 });
 
 gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
