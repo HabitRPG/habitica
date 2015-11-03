@@ -2,13 +2,19 @@
 
 // The error handler middleware that handles all errors 
 // and respond to the client
-
+let logger = require('../../libs/api-v3/logger');
 let errors = require('../../libs/api-v3/errors');
 let CustomError = errors.CustomError;
 let InternalServerError = errors.InternalServerError;
 
 module.exports = function (err, req, res, next) {
-  // TODO add logging
+  // Log the original error with some metadata
+  let stack = err.stack || err.message || err;
+  logging.error(stack, {
+    originalUrl: req.originalUrl,
+    headers: req.headers,
+    body: req.body
+  });
   
   // In case of a CustomError class, use it's data
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
