@@ -515,6 +515,34 @@ UserSchema.pre('save', function(next) {
         return newTask;
       });
     });
+    if (self.registeredThrough === "habitica-web") {
+      this.flags.tutorial.common.habits = true;
+      this.flags.tutorial.common.dailies = true;
+      this.flags.tutorial.common.todos = true;
+      this.flags.tutorial.common.rewards = true;
+      this.flags.tutorial.common.party = true;
+      this.flags.tutorial.common.pets = true;
+      this.flags.tutorial.common.gems = true;
+      this.flags.tutorial.common.skills = true;
+      this.flags.tutorial.common.classes = true;
+      this.flags.tutorial.common.tavern = true;
+      this.flags.tutorial.common.equipment = true;
+      this.flags.tutorial.common.items = true;
+    } else {
+      self.flags.showTour = false;
+      self.flags.tour.intro = -2;
+      self.flags.tour.classes = -2;
+      self.flags.tour.stats = -2;
+      self.flags.tour.tavern = -2;
+      self.flags.tour.party = -2;
+      self.flags.tour.guilds = -2;
+      self.flags.tour.challenges = -2;
+      self.flags.tour.market = -2;
+      self.flags.tour.pets = -2;
+      self.flags.tour.mounts = -2;
+      self.flags.tour.hall = -2;
+      self.flags.tour.equipment = -2;
+    }
   }
 
   //this.markModified('tasks');
