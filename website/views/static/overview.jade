@@ -18,7 +18,7 @@ block content
       - for step in stepsNum
         h3=env.t('step'+step)
         p
-          !=marked(env.t('step'+step+'Text'))
+          !=marked(env.t('webStep'+step+'Text'))
         br
       br
       !=marked(env.t('overviewQuestions'))
