@@ -483,7 +483,13 @@ UserSchema.pre('save', function(next) {
   if (this.isNew){
     //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
     var self = this;
-    _.each(['habits', 'dailys', 'todos', 'rewards', 'tags'], function(taskType){
+    var taskTypes;
+    if (self.registeredThrough === "habitica-web") {
+      taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
+    } else {
+      taskTypes = ['todos', 'tags']
+    }
+    _.each(taskTypes, function(taskType){
       self[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
         var newTask = _.cloneDeep(task);
 
