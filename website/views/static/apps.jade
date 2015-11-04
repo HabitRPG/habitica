@@ -1,0 +1,19 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title Habitica &VerticalLine;&nbsp;
+    =env.t('apps')
+
+block content
+  #ibb-widget-root-994882113
+    script.
+      (function(t,e,i,d){var o=t.getElementById(i),n=t.createElement(e);o.style.height=90;o.style.width=728;o.style.display='inline-block';n.id='ibb-widget',n.setAttribute('src',('https:'===t.location.protocol?'https://':'http://')+d),n.setAttribute('width','728'),n.setAttribute('height','90'),n.setAttribute('frameborder','0'),n.setAttribute('scrolling','no'),o.appendChild(n)})(document,'iframe','ibb-widget-root-994882113',"banners.itunes.apple.com/banner.html?partnerId=&aId=&bt=catalog&t=catalog_white&id=994882113&c=us&l=en-US&w=728&h=90&store=apps");
+  .lead
+    =env.t('notifyAndroidApp')
+  .sendgrid-subscription-widget(data-token='WEc2mXZw9YqemYAJp3a%2FO%2FxyvSWuFCFS2x88bbdMa%2FJjEH%2FlDdpc%2Flbz4PPZZRZMnTmr8kNOzI6ypw%2Br3r55wQ%3D%3D')
+    script.
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://s3.amazonaws.com/subscription-cdn/0.2/widget.min.js";fjs.parentNode.insertBefore(js,fjs);}}(document, "script", "sendgrid-subscription-widget-js");
+
