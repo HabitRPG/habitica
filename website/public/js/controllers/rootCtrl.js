@@ -36,6 +36,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.toJson = angular.toJson;
     $rootScope.Payments = Payments;
 
+    $http.defaults.headers.common['x-client'] = "habitica-web";
+
     // Angular UI Router
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
