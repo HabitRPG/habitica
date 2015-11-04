@@ -21,6 +21,7 @@
     "cookie-session": "^1.2.0",
     "coupon-code": "~0.3.0",
     "domain-middleware": "~0.1.0",
+    "estraverse": "^4.1.1",
     "express": "~4.13.3",
     "express-csv": "~0.6.0",
     "firebase": "^2.2.9",

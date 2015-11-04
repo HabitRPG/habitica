@@ -68,12 +68,12 @@
         "no-this-before-super": 2,
         "no-var": 2,
         "object-shorthand": 2,
-        "prefer-const": 2,
+        "prefer-const": 0,
         "prefer-spread": 2,
         "prefer-template": 2,
         "array-bracket-spacing": [2, "never"],
         "brace-style": [2, "1tbs", { "allowSingleLine": false }],
-        "camel-case": 2,
+        "camelcase": 2,
         "comma-spacing": 2,
         "comma-style": [2, "last"],
         "computed-property-spacing": [2, "never"],
@@ -98,7 +98,7 @@
         "operator-linebreak": [2, "after"],
         "quote-props": [2, "as-needed", { "keywords": true }],
         "semi-spacing": [2, {"before": false, "after": true}],
-        "space-after-keyword": 2,
+        "space-after-keywords": 2,
         "space-before-blocks": 2,
         "space-before-function-paren": 2,
         "space-before-keywords": 2,
@@ -109,7 +109,7 @@
         "spaced-comment": [2, "always", { exceptions: ["-"]}],
         "padded-blocks": [2, "never"],
         "no-multiple-empty-lines": [2, {max: 2}],
-        "lines-around-comment": [2, { "beforeBlockComment": true, "beforeLineComment": true }]
+        "lines-around-comment": [2, { "beforeBlockComment": true, "beforeLineComment": true, "allowBlockStart": true }]
     },
     "env": {
         "es6": true,

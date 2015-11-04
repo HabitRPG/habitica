@@ -4,8 +4,7 @@
 
 let errorHandler = require('./errorHandler');
 
-module.exports = function (app) {
-
+module.exports = function attachMiddlewares (app) {
   // Error handler middleware, define as the last one
   app.use(errorHandler);
 };

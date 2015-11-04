@@ -5,7 +5,7 @@
 let winston = require('winston');
 let nconf = require('nconf');
 
-// TODO use const? 
+// TODO use const?
 // TODO move isProd to a single location
 let isProd = nconf.get('NODE_ENV') === 'production';
 
