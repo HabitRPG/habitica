@@ -99,4 +99,42 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         });
     });
   });
+
+  context('admin flagging a message', () => {
+    let group, member, message, user;
+
+    beforeEach(() => {
+      return createAndPopulateGroup({
+        groupDetails: {
+          type: 'guild',
+          privacy: 'public',
+        },
+        leaderDetails: {
+          'contributor.admin': true,
+          balance: 10,
+        },
+        members: 1,
+      }).then((res) => {
+        group = res.group;
+        user = res.leader;
+        member = res.members[0];
+
+        return requester(member)
+          .post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
+      }).then((res) => {
+        message = res.message;
+      });
+    });
+
+    it('sets flagCount to 5', () => {
+      let api = requester(user);
+
+      return api.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+        return api.get(`/groups/${group._id}/chat`);
+      }).then((messages) => {
+        let message = messages[0];
+        expect(message.flagCount).to.eql(5);
+      });
+    });
+  });
 });
