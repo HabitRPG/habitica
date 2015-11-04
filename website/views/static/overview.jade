@@ -15,18 +15,10 @@ block content
         =env.t('needTips')
 
       - var stepsNum = ['1', '2', '3']
-      - var substeps = ['a', 'b', 'c', 'd']
       - for step in stepsNum
         h3=env.t('step'+step)
-        !=marked(env.t('step'+step+'Text'))
-        if step == 1
-          ul
-          - for substep in substeps
-            li.h4=env.t('step'+step+substep)
-            p
-              =env.t('step'+step+substep+'Text')
-          br
-          !=marked(env.t('step'+step+'Bonus'))
-      br
+        p
+          !=marked(env.t('step'+step+'Text'))
+        br
       br
       !=marked(env.t('overviewQuestions'))
