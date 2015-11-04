@@ -333,6 +333,7 @@ gulp.task('test', [
   'test:karma:safe',
   'test:api-legacy:safe',
   'test:api-v2:safe',
+  'lint'
 ], () => {
   let totals = [0,0,0];
 
