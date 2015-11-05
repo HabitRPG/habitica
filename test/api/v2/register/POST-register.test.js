@@ -3,7 +3,8 @@ import {
   requester,
   translate as t,
 } from '../../../helpers/api-integration.helper';
-import {v4 as generateRandomUserName} from 'uuid';
+import { v4 as generateRandomUserName } from 'uuid';
+import { each } from 'lodash';
 
 describe('POST /register', () => {
 
@@ -134,6 +135,108 @@ describe('POST /register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageAuthEmailTaken'),
+      });
+    });
+  });
+
+  context('successful login via api', () => {
+    let api, username, email, password;
+
+    beforeEach(() => {
+      api = requester();
+      username = generateRandomUserName();
+      email = `${username}@example.com`;
+      password = 'password';
+    });
+
+    it('sets all site tour values to -2 (already seen)', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.flags.tour).to.not.be.empty;
+
+        each(user.flags.tour, (value, attribute) => {
+          expect(value).to.eql(-2);
+        });
+      });
+    });
+
+    it('populates user with default todos, not no other task types', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.todos).to.not.be.empty;
+        expect(user.dailys).to.be.empty;
+        expect(user.habits).to.be.empty;
+        expect(user.rewards).to.be.empty;
+      });
+    });
+
+    it('populates user with default tags', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.tags).to.not.be.empty;
+      });
+    });
+  });
+
+  context('successful login with habitica-web header', () => {
+    let api, username, email, password;
+
+    beforeEach(() => {
+      api = requester({}, {'x-client': 'habitica-web'});
+      username = generateRandomUserName();
+      email = `${username}@example.com`;
+      password = 'password';
+    });
+
+    it('sets all common tutorial flags to true', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.flags.tour).to.not.be.empty;
+
+        each(user.flags.tutorial.common, (value, attribute) => {
+          expect(value).to.eql(true);
+        });
+      });
+    });
+
+    it('populates user with default todos, habits, and rewards', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.todos).to.not.be.empty;
+        expect(user.dailys).to.be.empty;
+        expect(user.habits).to.not.be.empty;
+        expect(user.rewards).to.not.be.empty;
+      });
+    });
+
+    it('populates user with default tags', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.tags).to.not.be.empty;
       });
     });
   });
