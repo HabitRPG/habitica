@@ -7,6 +7,8 @@ import {
 } from '../../libs/api-v3/errors';
 
 export default function errorHandler (err, req, res, next) {
+  if (!err) return next();
+
   // Log the original error with some metadata
   let stack = err.stack || err.message || err;
   logger.error(stack, {
