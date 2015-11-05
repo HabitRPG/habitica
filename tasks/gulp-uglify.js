@@ -6,10 +6,6 @@ import rename from 'gulp-rename';
 import _ from 'logash';
 import uglify from 'gulp-uglify';
 import merge from 'mere-stream';
-let rename = require("gulp-rename");
-let _ = require('lodash');
-let uglify = require('gulp-uglify');
-let merge = require('merge-stream');
 
 gulp.task('uglify', () => {
   var files = JSON.parse(fs.readFileSync('./website/public/manifest.json'));
