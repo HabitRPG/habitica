@@ -11,6 +11,7 @@ export default function errorHandler (err, req, res, next) {
 
   // Log the original error with some metadata
   let stack = err.stack || err.message || err;
+
   logger.error(stack, {
     originalUrl: req.originalUrl,
     headers: req.headers,
@@ -35,6 +36,6 @@ export default function errorHandler (err, req, res, next) {
     .status(responseErr.httpCode)
     .json({
       error: responseErr.name,
-      message: responseErr.message
+      message: responseErr.message,
     });
-};
+}
