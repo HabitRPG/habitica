@@ -16,12 +16,12 @@ const API_TEST_SERVER_PORT = 3003;
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
 // the user are used to make the requests
-export function requester(user={}) {
+export function requester(user={}, additionalSets) {
   return {
-    get: _requestMaker(user, 'get'),
-    post: _requestMaker(user, 'post'),
-    put: _requestMaker(user, 'put'),
-    del: _requestMaker(user, 'del'),
+    get: _requestMaker(user, 'get', additionalSets),
+    post: _requestMaker(user, 'post', additionalSets),
+    put: _requestMaker(user, 'put', additionalSets),
+    del: _requestMaker(user, 'del', additionalSets),
   }
 };
 
@@ -207,16 +207,20 @@ export function resetHabiticaDB() {
   });
 }
 
-function _requestMaker(user, method) {
+function _requestMaker(user, method, additionalSets) {
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
       let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v2${route}`)
         .accept('application/json');
 
-      if (user._id && user.apiToken) {
+      if (user && user._id && user.apiToken) {
         request
           .set('x-api-user', user._id)
           .set('x-api-key', user.apiToken);
+      }
+
+      if (additionalSets) {
+        request.set(additionalSets);
       }
 
       request
