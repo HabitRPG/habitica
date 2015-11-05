@@ -179,5 +179,8 @@
     "businessInquiries": "Business Inquiries",
     "merchandiseInquiries": "Merchandise Inquiries",
     "marketingInquiries": "Marketing/Social Media Inquiries",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Apps",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Check out our new iOS App!"
 }
