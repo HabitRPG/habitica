@@ -1,9 +1,8 @@
 import gulp from 'gulp';
-
-let stylus = require('gulp-stylus');
-let nib = require('nib');
-let rename = require("gulp-rename");
-let merge = require('merge-stream');
+import stylus from 'gulp-stylus';
+import nib from 'nib';
+import rename from 'gulp-rename';
+import merge from 'merge-stream';
 
 gulp.task('stylus', () => {
   let stylusOptions = {

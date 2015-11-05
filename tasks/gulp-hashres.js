@@ -1,5 +1,5 @@
 import gulp from 'gulp';
-let rev = require('gulp-rev');
+import rev from 'gulp-rev';
 
 gulp.task('hashres', () => {
   return gulp.src([

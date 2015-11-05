@@ -1,8 +1,7 @@
 import gulp from 'gulp';
 import browserify from 'browserify';
-
-let source = require('vinyl-source-stream');
-let rename = require("gulp-rename");
+import source from 'vinyl-source-stream';
+import rename from 'gulp-rename';
 
 gulp.task('browserify', () => {
   let b = browserify({

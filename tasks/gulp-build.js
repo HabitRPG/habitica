@@ -1,6 +1,5 @@
 import gulp from 'gulp';
-
-let runSequence = require('run-sequence');
+import runSequence from 'run-sequence';
 
 gulp.task('build', () => {
   if (process.env.NODE_ENV === 'production') {

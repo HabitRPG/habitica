@@ -1,6 +1,5 @@
 import gulp from 'gulp';
-
-let merge = require('merge-stream');
+import merge from 'merge-stream';
 
 gulp.task('copy', () => {
   let favicon = gulp.src('website/public/favicon.ico').pipe(gulp.dest('website/build'));
