@@ -9,7 +9,7 @@ angular.module('habitrpg')
     function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
       $scope.Analytics = Analytics;
 
-      $http.defaults.headers.common['x-client'] = "habitica-web";
+      $http.defaults.headers.common['x-client'] = 'habitica-web';
 
       $scope.logout = function() {
         localStorage.clear();
