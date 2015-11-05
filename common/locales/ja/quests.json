@@ -73,8 +73,8 @@
     "questWarningBroken": "If new players join the party before the quest starts, they will also receive an invitation... However once the quest has started, no new party members can join the quest...",
     "bossRageTitle": "怒り",
     "bossRageDescription": "もしこのバーが満タンになると、ボスは特殊攻撃を放ちます！",
-    "startAQuest": "START A QUEST",
+    "startAQuest": "クエストを始める",
     "startQuest": "クエストを始めよう",
-    "whichQuestStart": "Which quest do you want to start?",
+    "whichQuestStart": "どのクエストを始めますか？",
     "getMoreQuests": "Get more quests"
 }

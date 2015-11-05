@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] m'a vraiment aidé à définir une structure à mon quotidien à l'université.",
     "invalidEmail": "Une adresse mail valide est nécessaire pour lancer une réinitialisation du mot de passe.",
     "irishfeet123Quote": "J'ai de terribles habitudes avec le nettoyage de ma place à table après le repas, et je laissais mes tasses partout. [Habitica] a réglé ça !",
-    "joinOthers": "Rejoignez 250.000 personnes qui s'amusent en réalisant leurs objectifs !",
+    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
     "kazuiQuote": "Avant [Habitica], j'étais coincé sur ma thèse, et insatisfait avec ma discipline personnelle à propos des tâches ménagère, et des choses comme apprendre le vocabulaire ou étudier la théorie de Go. Il s'avère que découper toutes ces tâches en petites listes de vérification gérables m'a permis de rester motivé et continuellement actif.",
     "landingadminlink": "solutions administratives",
     "landingend": "Pas encore convaincu·e ?",
@@ -113,7 +113,7 @@
     "marketing4Lead1Title": "La ludification dans l'éducation",
     "marketing4Lead2": "Les coûts liés à la santé augmentent et quelqu'un doit forcément les payer. Des centaines de programmes sont conçus pour réduire ces coûts et améliorer le bien-être général. Nous sommes convaincus qu'Habitica peut apporter une réelle solution vers un mode de vie plus sain.",
     "marketing4Lead2Title": "La ludification dans la santé et le bien-être",
-    "marketing4Lead3-1": "Vous voulez faire un jeu de votre vie ?",
+    "marketing4Lead3-1": "Vous voulez faire de votre vie un jeu ?",
     "marketing4Lead3-2": "Intéressé par la gestion d'un groupe dans l'éducation, le bien-être, et davantage ?",
     "marketing4Lead3-3": "Vous voulez en savoir plus ?",
     "marketing4Lead3Title": "Transformez tout en jeu",
@@ -179,5 +179,8 @@
     "businessInquiries": "Demandes pour les entreprises",
     "merchandiseInquiries": "Demandes commerciales",
     "marketingInquiries": "Demandes pour le marketing/les réseaux sociaux",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Apps",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Check out our new iOS App!"
 }
