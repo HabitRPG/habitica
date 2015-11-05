@@ -1,0 +1,25 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title Habitica &VerticalLine;&nbsp;
+    =env.t('apps')
+
+block content
+  .lead
+    =env.t('checkOutIOSApp')
+  .row.text-center
+    a(href='https://geo.itunes.apple.com/us/app/habitica/id994882113?mt=8')
+      .promo_habitica(style='border-radius:25px;margin:auto')
+  .row.text-center
+    a(href='https://geo.itunes.apple.com/us/app/habitica/id994882113?mt=8', style='display:inline-block;overflow:hidden;background:url(http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;width:165px;height:40px;margin-left:30px')
+  br
+  .lead
+    =env.t('notifyAndroidApp')
+  .row.text-center
+    .sendgrid-subscription-widget(data-token='WEc2mXZw9YqemYAJp3a%2FO%2FxyvSWuFCFS2x88bbdMa%2FJjEH%2FlDdpc%2Flbz4PPZZRZMnTmr8kNOzI6ypw%2Br3r55wQ%3D%3D')
+      script.
+          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://s3.amazonaws.com/subscription-cdn/0.2/widget.min.js";fjs.parentNode.insertBefore(js,fjs);}}(document, "script", "sendgrid-subscription-widget-js");
+

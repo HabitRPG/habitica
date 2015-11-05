@@ -16,11 +16,11 @@
     "rebirthEarnAchievement": "Ottieni inoltre una Medaglia per aver iniziato una nuova avventura!",
     "beReborn": "Rinasci",
     "rebirthAchievement": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è <%= level %>. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto un livello ancora più alto!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è 100 o superiore. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto almeno il livello 100!",
     "rebirthBegan": "Ha cominciato una nuova avventura",
     "rebirthText": "Ha cominciato <%= rebirths %> nuove avventure",
     "rebirthOrb": "Ha utilizzato una Sfera della Rinascita al livello",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "Ha utilizzato una Sfera della Rinascita al livello 100 o superiore.",
     "rebirthPop": "Ricomincia con un nuovo personaggio al livello 1 mantenendo medaglie, oggetti, attività e cronologia.",
     "rebirthName": "Sfera della Rinascita",
     "reborn": "Rinasci, livello massimo <%= reLevel %>"

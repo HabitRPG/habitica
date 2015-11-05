@@ -2,7 +2,7 @@ import {
   pipe,
   awaitPort,
   kill,
-  runIntegrationTestsWithMocha,
+  runMochaTests,
 }  from './taskHelper';
 import { server as karma }        from 'karma';
 import mongoose                   from 'mongoose';
@@ -296,7 +296,10 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 });
 
 gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
-  runIntegrationTestsWithMocha('./test/api/v2/**/*.js', TEST_SERVER_PORT, server)
+
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    runMochaTests('./test/api/v2/**/*.js', server, done)
+  });
 });
 
 gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
