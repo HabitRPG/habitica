@@ -1,13 +1,10 @@
-'use strict';
-
 // Logger utility
 // TODO remove winston-mail and winston-newrelic if not used
-let winston = require('winston');
-let nconf = require('nconf');
+import winston from 'winston';
+import nconf from 'nconf';
 
-// TODO use const?
 // TODO move isProd to a single location
-let isProd = nconf.get('NODE_ENV') === 'production';
+const isProd = nconf.get('NODE_ENV') === 'production';
 
 let logger = new winston.Logger();
 
@@ -19,4 +16,4 @@ if (isProd) {
     .add(winston.transports.Console);
 }
 
-module.exports = logger;
+export default logger;
