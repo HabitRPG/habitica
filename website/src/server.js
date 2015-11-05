@@ -100,7 +100,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
   // Route requests to the right app
   // Matches all request except the ones going to /api/v3/**
-  app.all(/^(?!\/api\/v3).+/i, oldApp);  
+  app.all(/^(?!\/api\/v3).+/i, oldApp);
   // Matches all requests going to /api/v3
   app.all('/api/v3', newApp);
 
@@ -121,7 +121,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(redirects.forceSSL);
   var bodyParser = require('body-parser');
   // Default limit is 100kb, need that because we actually send whole groups to the server
-  // FIXME as soon as possible (need to move on the client from $resource -> $http)    
+  // FIXME as soon as possible (need to move on the client from $resource -> $http)
   oldApp.use(bodyParser.urlencoded({
     limit: '1mb',
     parameterLimit: 10000, // Upped for safety from 1k, FIXME as above
@@ -129,7 +129,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   }));
   oldApp.use(bodyParser.json({
     limit: '1mb'
-  }));  
+  }));
   oldApp.use(require('method-override')());
 
   oldApp.use(require('cookie-parser')());
@@ -138,7 +138,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
     secret: nconf.get('SESSION_SECRET'),
     httpOnly: false,
     maxAge: TWO_WEEKS
-  })); 
+  }));
 
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
