@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "Você também ganha uma Conquista por começar uma nova aventura!",
     "beReborn": "Renasça",
     "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>, e o nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",
+    "rebirthAchievement100": "Você iniciou uma nova aventura! Esse é seu <%= number %> º Renascimento, e o nível mais alto que você atingiu foi 100 ou mais. Para acumular essa Conquista, comece sua próxima aventura quando atingir pelo menos nível 100!",
     "rebirthBegan": "Iniciou uma Nova Aventura",
     "rebirthText": "Iniciou <%= rebirths %> Novas Aventuras",
     "rebirthOrb": "Usou um Orbe do Renascimento para recomeçar depois de alcançar Nível",
+    "rebirthOrb100": "Usou um Orbe do Renascimento para recomeçar depois de alcançar nível 100 ou mais",
     "rebirthPop": "Comece um novo personagem do Nível 1 mantendo conquistas, colecionáveis, e tarefas com histórico.",
     "rebirthName": "Orbe do Renascimento",
     "reborn": "Renascido, nível max <%= reLevel %>"

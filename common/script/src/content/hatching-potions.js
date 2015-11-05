@@ -43,6 +43,7 @@ let premiumPotions = {
     addlNotes: t('premiumPotionAddlNotes'),
     premium: true,
     limited: true,
+    canBuy: () => { return false },
   },
 };
 

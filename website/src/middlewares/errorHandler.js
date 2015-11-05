@@ -1,4 +1,4 @@
-var logging = require('../logging');
+var logging = require('../libs/logging');
 
 module.exports = function(err, req, res, next) {
   //res.locals.domain.emit('error', err);

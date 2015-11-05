@@ -3,7 +3,7 @@
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
     "innText": "Vous êtes installé à l'Auberge ! Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours. Attention : si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Equipe, sauf s'ils séjournent aussi à l'Auberge ! Et vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "Vous êtes installé à l'Auberge, je suppose... Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours... Si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Équipe... sauf s'ils séjournent aussi à l'Auberge... De plus, vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge... si fatigué...",
     "lfgPosts": "Sujets de recherche de Groupe (Recherche d'Équipe)",
     "tutorial": "Tutoriel",
     "glossary": "Glossaire",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "Votre discussion d'équipe est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
     "guildChatEmpty": "La discussion de cette guilde est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
     "possessiveParty": "Équipe de <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Avant de poster un message dans la Taverne, dans votre Équipe ou dans une Guilde, veuillez lire nos <%= linkStart %>Règles de Vie en Communauté<%= linkEnd %> et cliquer sur le bouton ci-dessous pour indiquer que vous les avez compris ."
 }

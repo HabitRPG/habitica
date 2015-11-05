@@ -4,7 +4,7 @@ chai.use(require("sinon-chai"))
 var expect = chai.expect
 var rewire = require('rewire');
 
-var userController = rewire('../../../website/src/controllers/user');
+var userController = rewire('../../../website/src/controllers/api-v2/user');
 
 describe('User Controller', function() {
 
@@ -359,7 +359,7 @@ describe('User Controller', function() {
       });
 
       it('sends webhooks', function() {
-        var webhook = require('../../../website/src/webhook');
+        var webhook = require('../../../website/src/libs/webhook');
         sinon.spy(webhook, 'sendTaskWebhook');
 
         userController.score(req, res);

@@ -63,6 +63,31 @@ let armor = {
     canOwn: ((u) => {
       return u.items.gear.owned.armor_armoire_plagueDoctorOvercoat != null;
     })
+  },
+  shepherdRobes: {
+    value: 100,
+    str: 9,
+    per: 9,
+    notes: t('armorArmoireShepherdRobesNotes', {
+      attrs: 9
+    }),
+    set: 'shepherd',
+    canOwn: ((u) => {
+      return u.items.gear.owned.armor_armoire_shepherdRobes != null;
+    })
+  },
+  royalRobes: {
+    value: 100,
+    con: 5,
+    int: 5,
+    per: 5,
+    notes: t('armorArmoireRoyalRobesNotes', {
+      attrs: 9
+    }),
+    set: 'royal',
+    canOwn: ((u) => {
+      return u.items.gear.owned.armor_armoire_royalRobes != null;
+    })
   }
 };
 
@@ -126,6 +151,7 @@ let head = {
   royalCrown: {
     value: 100,
     str: 10,
+    set: 'royal',
     canOwn: ((u) => {
       return u.items.gear.owned.head_armoire_royalCrown != null;
     })
@@ -217,6 +243,26 @@ let head = {
       return u.items.gear.owned.head_armoire_orangeCat != null;
     })
   },
+  blueFloppyHat: {
+    notes: t('headArmoireBlueFloppyHatNotes', {
+      attrs: 7
+    }),
+    value: 100,
+    con: 7,
+    int: 7,
+    per: 7,
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_blueFloppyHat != null;
+    })
+  },
+  shepherdHeaddress: {
+    value: 100,
+    int: 9,
+    set: 'shepherd',
+    canOwn: ((u) => {
+      return u.items.gear.owned.head_armoire_shepherdHeaddress != null;
+    })
+  },
 };
 
 let shield = {
@@ -237,6 +283,19 @@ let shield = {
       return u.items.gear.owned.shield_armoire_midnightShield != null;
     })
   },
+  royalCane: {
+    notes: t('shieldArmoireRoyalCaneNotes', {
+      attrs: 5
+    }),
+    value: 100,
+    con: 5,
+    int: 5,
+    per: 5,
+    set: 'royal',
+    canOwn: ((u) => {
+      return u.items.gear.owned.shield_armoire_royalCane != null;
+    })
+  }
 };
 
 let weapon = {
@@ -316,6 +375,14 @@ let weapon = {
     per: 2,
     canOwn: (function(u) {
       return u.items.gear.owned.weapon_armoire_batWand != null;
+    })
+  },
+  shepherdsCrook: {
+    value: 100,
+    con: 9,
+    set: 'shepherd',
+    canOwn: (function(u) {
+      return u.items.gear.owned.weapon_armoire_shepherdsCrook != null;
     })
   }
 };

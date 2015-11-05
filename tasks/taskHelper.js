@@ -4,6 +4,9 @@ import nconf    from 'nconf';
 import net      from 'net';
 import Q        from 'q';
 import { post } from 'superagent';
+import { sync as glob }           from 'glob';
+import Mocha                      from 'mocha';
+import { resolve }                from 'path';
 
 /*
  * Get access to configruable values
@@ -106,3 +109,22 @@ export function dirname(path) {
     return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');;
 }
 
+export function runMochaTests(files, server, cb) {
+  require('../test/helpers/globals.helper');
+
+  let mocha = new Mocha({reporter: 'spec'});
+  let tests = glob(files);
+
+  tests.forEach((test) => {
+    delete require.cache[resolve(test)];
+    mocha.addFile(test);
+  });
+
+  mocha.run((numberOfFailures) => {
+    if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
+      if (server) kill(server);
+      process.exit(numberOfFailures);
+    }
+    cb();
+  });
+}

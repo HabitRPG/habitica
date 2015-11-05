@@ -2,9 +2,9 @@ import 'coffee-script';
 
 import mongoose from 'mongoose';
 import autoinc  from 'mongoose-id-autoinc';
-import logging  from '../website/src/logging';
+import logging  from '../website/src/libs/logging';
 import nconf    from 'nconf';
-import utils    from '../website/src/utils';
+import utils    from '../website/src/libs/utils';
 import repl     from 'repl';
 import gulp     from 'gulp';
 

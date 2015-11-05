@@ -129,7 +129,7 @@
     "enabled": "Włączone",
     "webhookURL": "Webhook URL",
     "add": "Dodaj",
-    "buyGemsGoldCap": "Cap raised to <%= amount %>",
+    "buyGemsGoldCap": "Limit podniesiony do <%= amount %>",
     "mysticHourglass": "<%= amount %> Mistyczne Klepsydry",
     "mysticHourglassText": "Mistyczna Klepsydra pozwala na zakup Zestawów tajemniczych przedmiotów z poprzednich miesięcy.",
     "purchasedPlanId": "<%= price %> dolarów będzie pobierane z konta co każde <%= months %> miesięcy (<%= plan %>)",

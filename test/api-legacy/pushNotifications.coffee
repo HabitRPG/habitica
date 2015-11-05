@@ -19,7 +19,7 @@ describe "Push-Notifications", ->
       done()
 
     context "Challenges", ->
-      challenges = rewire("../../website/src/controllers/challenges")
+      challenges = rewire("../../website/src/controllers/api-v2/challenges")
       challenges.__set__('pushNotify', pushSpy)
       challengeMock = {
         findById: (arg, cb) ->
@@ -65,7 +65,7 @@ describe "Push-Notifications", ->
 
       recipient = null
 
-      groups = rewire("../../website/src/controllers/groups")
+      groups = rewire("../../website/src/controllers/api-v2/groups")
       groups.__set__('pushNotify', pushSpy)
 
       before (done) ->
@@ -226,7 +226,7 @@ describe "Push-Notifications", ->
         , false
 
       context "sending gems from balance", ->
-        members = rewire("../../website/src/controllers/members")
+        members = rewire("../../website/src/controllers/api-v2/members")
         members.sendMessage = -> true
 
         members.__set__('pushNotify', pushSpy)

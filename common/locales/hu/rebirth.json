@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "Kapsz továbbá egy Kitűntetést, amiért új kalandot kezdesz!",
     "beReborn": "Szüless Újjá",
     "rebirthAchievement": "Új kalandot kezdtél! Ez a(z) <%= number %>. Újjászületésed. A legmagasabb szint, amit elértél: <%= level %>. Ahhoz, hogy halmozd ezt a Kitüntetést kezdj új kalandot, amikor elértél egy még magasabb Szintet!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
     "rebirthBegan": "Új Kalandot kezdtél",
     "rebirthText": "Eddig <%= rebirths %> Új Kalandot kezdtél",
     "rebirthOrb": "Az Újjászületés Gömbjét használtad, hogy újrakezdj miután elérted ezt a Szintet",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Kezdj új karaktert 1-es Szinttől, megtartva a kitűntetéseidet, a gyűjteményeidet, a feladataidat és a történetedet.",
     "rebirthName": "Az Újjászületés Gömbje",
     "reborn": "Újjászülettél, maximális szint <%= reLevel %>"

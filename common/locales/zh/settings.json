@@ -133,11 +133,11 @@
     "mysticHourglass": "<%= amount %> 个神秘沙漏",
     "mysticHourglassText": "神秘沙漏能让你购买几个月之前的神秘道具套装。",
     "purchasedPlanId": "Recurring $<%= price %> each <%= months %> Month(s) (<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of subscription credit.",
-    "consecutiveSubscription": "Consecutive Subscription",
-    "consecutiveMonths": "Consecutive Months:",
+    "purchasedPlanExtraMonths": "你的剩余捐助时长为： <%= months %> 个月",
+    "consecutiveSubscription": "连续捐助",
+    "consecutiveMonths": "持续的月份：",
     "gemCapExtra": "Gem Cap Extra:",
-    "mysticHourglasses": "Mystic Hourglasses:",
+    "mysticHourglasses": "神秘沙漏：",
     "paypal": "PayPal",
-    "amazonPayments": "Amazon Payments"
+    "amazonPayments": "亚马逊支付"
 }
