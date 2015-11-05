@@ -580,7 +580,22 @@ function _populateDefaultsForNewUser(user) {
   if (user.registeredThrough === "habitica-web") {
     taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
 
-    _.each(user.flags.tutorial.common, function(value, section) {
+    var tutorialCommonSections = [
+      'habits',
+      'dailies',
+      'todos',
+      'rewards',
+      'party',
+      'pets',
+      'gems',
+      'skills',
+      'classes',
+      'tavern',
+      'equipment',
+      'items',
+    ];
+
+    _.each(tutorialCommonSections, function(section) {
       user.flags.tutorial.common[section] = true;
     });
   } else {
@@ -588,7 +603,23 @@ function _populateDefaultsForNewUser(user) {
 
     user.flags.showTour = false;
 
-    _.each(user.flags.tour, function(value, section) {
+    var tourSections = [
+      'showTour',
+      'intro',
+      'classes',
+      'stats',
+      'tavern',
+      'party',
+      'guilds',
+      'challenges',
+      'market',
+      'pets',
+      'mounts',
+      'hall',
+      'equipment',
+    ];
+
+    _.each(tourSections, function(section) {
       user.flags.tour[section] = -2;
     });
   }
