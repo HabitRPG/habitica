@@ -2,7 +2,10 @@ import gulp from 'gulp';
 import fs from 'fs';
 
 import {basename, dirname } from "./taskHelper.js";
-
+import rename from 'gulp-rename';
+import _ from 'logash';
+import uglify from 'gulp-uglify';
+import merge from 'mere-stream';
 let rename = require("gulp-rename");
 let _ = require('lodash');
 let uglify = require('gulp-uglify');
