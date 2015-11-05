@@ -9,7 +9,7 @@ var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
  */
 
 // var dbserver = 'localhost:27017' // FOR TEST DATABASE
-var dbserver = 'alys:legO,legere,lEgI,lEctus1@ds031379-a0.mongolab.com:31379' // FOR PRODUCTION DATABASE
+var dbserver = 'alys:@ds031379-a0.mongolab.com:31379' // FOR PRODUCTION DATABASE
 var dbname = 'habitrpg';
 
 var mongo = require('mongoskin');
