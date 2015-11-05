@@ -64,7 +64,7 @@ gulp.task('test:prepare:webdriver', (cb) => {
 });
 
 gulp.task('test:prepare:translations', (cb) => {
-  let i18n  = require('../website/src/i18n.js'),
+  let i18n  = require('../website/src/libs/i18n.js'),
       fs    = require('fs');
   fs.writeFileSync('test/spec/mocks/translations.js',
     "if(!window.env) window.env = {};\n" +
