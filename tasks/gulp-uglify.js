@@ -5,7 +5,7 @@ import {basename, dirname } from "./taskHelper.js";
 import rename from 'gulp-rename';
 import _ from 'lodash';
 import uglify from 'gulp-uglify';
-import merge from 'mere-stream';
+import merge from 'merge-stream';
 
 gulp.task('uglify', () => {
   var files = JSON.parse(fs.readFileSync('./website/public/manifest.json'));
