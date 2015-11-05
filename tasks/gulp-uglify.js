@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import {basename, dirname } from "./taskHelper.js";
 import rename from 'gulp-rename';
-import _ from 'logash';
+import _ from 'lodash';
 import uglify from 'gulp-uglify';
 import merge from 'mere-stream';
 
