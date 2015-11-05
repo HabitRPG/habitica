@@ -1,20 +1,18 @@
-'use strict';
-
 // The error handler middleware that handles all errors
 // and respond to the client
-let logger = require('../../libs/api-v3/logger');
-let errors = require('../../libs/api-v3/errors');
-let CustomError = errors.CustomError;
-let InternalServerError = errors.InternalServerError;
+import logger from '../../libs/api-v3/logger';
+import {
+  CustomError,
+  InternalServerError,
+} from '../../libs/api-v3/errors';
 
-module.exports = function errorHandlerMiddleware (err, req, res, next) {
+export default function errorHandler (err, req, res, next) {
   // Log the original error with some metadata
   let stack = err.stack || err.message || err;
-
   logger.error(stack, {
     originalUrl: req.originalUrl,
     headers: req.headers,
-    body: req.body
+    body: req.body,
   });
 
   // In case of a CustomError class, use it's data
