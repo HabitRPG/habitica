@@ -91,12 +91,16 @@ habitrpg.controller('SettingsCtrl',
     $scope.availableFormats = ['MM/dd/yyyy','dd/MM/yyyy', 'yyyy/MM/dd'];
 
     $scope.reroll = function(){
+      if (!confirm(window.env.t('fortifySure'))) return;
       User.user.ops.reroll({});
+      $scope.$close();
       $rootScope.$state.go('tasks');
     }
 
     $scope.rebirth = function(){
+      if (!confirm(window.env.t('rebirthSure'))) return;
       User.user.ops.rebirth({});
+      $scope.$close();
       $rootScope.$state.go('tasks');
     }
 
@@ -161,17 +165,23 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.releasePets = function() {
+      if (!confirm(window.env.t('petKeyPetsSure'))) return;
       User.user.ops.releasePets({});
+      $scope.$close();
       $rootScope.$state.go('tasks');
     }
 
     $scope.releaseMounts = function() {
+      if (!confirm(window.env.t('petKeyMountsSure'))) return;
       User.user.ops.releaseMounts({});
+      $scope.$close();
       $rootScope.$state.go('tasks');
     }
 
     $scope.releaseBoth = function() {
+      if (!confirm(window.env.t('petKeyBothSure'))) return;
       User.user.ops.releaseBoth({});
+      $scope.$close();
       $rootScope.$state.go('tasks');
     }
 
