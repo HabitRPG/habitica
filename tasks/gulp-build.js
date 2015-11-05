@@ -10,7 +10,10 @@ gulp.task('build', () => {
 });
 
 gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
-  runSequence('browserify', 'stylus', 'cssmin:dev', done);
+  runSequence('browserify', 'stylus', 'cssmin:dev', () => {
+    done();
+  });
+
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
@@ -18,6 +21,8 @@ gulp.task('build:dev:watch', ['build:dev'], () => {
 });
 
 gulp.task('build:prod', ['babel:common', 'prepare:staticNewStuff'], (done) => {
-  runSequence('clean', 'browserify', 'uglify', 'cssmin:prod', 'stylus', 'copy', 'hashres', done);
+  runSequence('clean', 'browserify', 'uglify', 'cssmin:prod', 'stylus', 'copy', 'hashres', () => {
+    done();
+  });
 });
 
