@@ -56,8 +56,8 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   }
 });
 
-gulp.task('test:prepare:build', ['test:prepare:translations', 'build:dev'], (cb) => {
-  cb();
+gulp.task('test:prepare:build', (cb) => {
+  exec(testBin('gulp test:prepare:translations && gulp build:dev'), cb);
 });
 
 gulp.task('test:prepare:webdriver', (cb) => {
