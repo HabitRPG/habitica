@@ -1,12 +1,40 @@
+include ../avatar/generated_avatar
+mixin achievementFooter
+  .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
+    .container-fluid
+      .row
+        .col-xs-3
+          a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I earned a new achievement in Habitica!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/achievement&count=none')=env.t('tweet')
+        .col-xs-4(style='margin-left:.8em')
+          .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/achievement', data-layout='button')
+        .col-xs-4(style='margin-left:.8em')
+          a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/achievement', data-notes='none')
+
 // Streak
 script(id='modals/achievements/streak.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    .achievement.achievement-thermometer
-    =env.t('streakerAchievement')
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('streakAchievement')
+      .container-fluid
+        .row
+          .col-xs-4(style='padding:0')
+            .achievement-thermometer2x(style='margin: 2em auto')
+          .col-xs-4(style='padding:0')
+            .herobox(style='padding:0; width:0; height:7em; margin:auto 2.5em')
+              .character-sprites(style='width:0')
+                +generatedAvatar
+          .col-xs-4(style='padding:0')
+            .achievement-thermometer2x(style='margin: 2em auto')
+      h4(ng-if='user.achievements.streak === 1')=env.t('firstStreakAchievement')
+      h4(ng-if='user.achievements.streak > 1')=env.t('streakAchievementCount', {streaks:'{{::user.achievements.streak}}'})
+      p=env.t('twentyOneDays')
+      p=env.t('dontBreakStreak')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('dontStop')
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
+    +achievementFooter
 
 // Max Gear
 script(id='modals/achievements/ultimateGear.html', type='text/ng-template')

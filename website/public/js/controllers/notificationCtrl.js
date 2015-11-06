@@ -61,16 +61,14 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.stats.lvl', function(after, before) {
-      if (after === before) return; 
+      if (after <= before) return; 
       if (User.user._tmp && User.user._tmp.drop && (User.user._tmp.drop.type === 'Quest')) return;
       if (after === 3) return; // Drop system unlock. FIXME can we do this without hardcoding?
       if (after === 50) return; // Orb of Rebirth unlock FIXME as above
       if (!User.user.flags.classSelected && User.user.stats.lvl >= 10) return $rootScope.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
-      if (after > before) {
-        Notification.lvl();
-        $rootScope.playSound('Level_Up');
-        if (!User.user.preferences.suppressModals.levelUp) $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
-      }
+      Notification.lvl();
+      $rootScope.playSound('Level_Up');
+      if (!User.user.preferences.suppressModals.levelUp) $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
     });
 
     $rootScope.$watch('user._tmp.crit', function(after, before){
@@ -131,13 +129,11 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
-      if(before == undefined || after == before || after < before) return;
-      if (User.user.achievements.streak > 1) {
-        Notification.streak(User.user.achievements.streak);
-        $rootScope.playSound('Achievement_Unlocked');
-      }
-      else {
-        $rootScope.openModal('achievements/streak');
+      if(before == undefined || after <= before) return;
+      Notification.streak(User.user.achievements.streak);
+      $rootScope.playSound('Achievement_Unlocked');
+      if (!User.user.preferences.suppressModals.streak) {
+        $rootScope.openModal('achievements/streak', {controller:'UserCtrl'});
       }
     });
 
