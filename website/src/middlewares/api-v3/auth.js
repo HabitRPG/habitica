@@ -48,14 +48,12 @@ export function authWithHeaders (req, res, next) {
 // Authenticate a request through a valid session
 // TODO should use json web token
 export function authWithSession (req, res, next) {
-  let session = req.session;
+  let userId = req.session.userId;
 
-  if (!session || !session.userId) {
-    return next(new NotAuthorized(userNotFound));
-  }
+  if (!userId) return next(new NotAuthorized(userNotFound));
 
   User.findOne({
-    _id: session.userId,
+    _id: userId,
   }, (err, user) => {
     if (err) return next(err);
     if (!user) return next(new NotAuthorized(userNotFound));
