@@ -11,11 +11,11 @@ afterEach(() => {
 });
 
 export function generateUser(options={}) {
-  return new User(options)._doc;
+  return new User(options).toObject();
 }
 
 export function generateGroup(options={}) {
-  return new Group(options)._doc;
+  return new Group(options).toObject();
 }
 
 export function generateRes(options={}) {
