@@ -1,11 +1,11 @@
-import config from '../../../../../website/src/libs/api-v3/constants';
+import constants from '../../../../../website/src/libs/api-v3/constants';
 
-describe('constants', () => {
+describe.only('constants', () => {
   it('exports IS_PROD constant', () => {
-    expect(config).to.have.property('IS_PROD');
+    expect(constants).to.have.property('IS_PROD');
   });
 
   it('exports IS_DEV constant', () => {
-    expect(config).to.have.property('IS_DEV');
+    expect(constants).to.have.property('IS_DEV');
   });
 });
