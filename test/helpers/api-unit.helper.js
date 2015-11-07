@@ -39,3 +39,7 @@ export function generateReq(options={}) {
 
   return defaults(options, defaultReq);
 }
+
+export function generateNext(func) {
+  return func || sandbox.stub();
+}
