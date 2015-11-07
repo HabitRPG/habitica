@@ -21,7 +21,6 @@ export default function errorHandler (err, req, res, next) {
   // In case of a CustomError class, use it's data
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
   // If we can't identify it, respond with a generic 500 error
-
   let responseErr = err instanceof CustomError ? err : null;
 
   if (!responseErr) {
