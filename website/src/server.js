@@ -108,6 +108,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Mount middlewares for the new app
   require('./middlewares/api-v3/index')(newApp);
 
+  /* OLD APP IS DISABLED UNTIL COMPATIBLE WITH NEW MODELS
   //require('./middlewares/apiThrottle')(oldApp);
   oldApp.use(require('./middlewares/domain')(server,mongoose));
   if (!isProd && !DISABLE_LOGGING) oldApp.use(require('morgan')("dev"));
@@ -168,7 +169,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(express['static'](publicDir));
 
   oldApp.use(require('./middlewares/errorHandler'));
-
+  */
+  
   server.on('request', app);
   server.listen(app.get("port"), function() {
     return logging.info("Express server listening on port " + app.get("port"));

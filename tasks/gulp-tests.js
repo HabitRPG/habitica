@@ -368,13 +368,13 @@ gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
 
 gulp.task('test', [
   'lint',
-  'test:e2e:safe',
+  //'test:e2e:safe',
   'test:common:safe',
   // 'test:content:safe',
   'test:server_side:safe',
-  'test:karma:safe',
-  'test:api-legacy:safe',
-  'test:api-v2:safe',
+  //'test:karma:safe',
+  //'test:api-legacy:safe',
+  //'test:api-v2:safe',
   'test:api-v3:safe',
 ], () => {
   let totals = [0,0,0];
