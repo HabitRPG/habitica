@@ -1,33 +1,29 @@
+import {
+  generateRes,
+  generateReq,
+  generateNext,
+} from '../../../../helpers/api-unit.helper';
+
 import errorHandler from '../../../../../website/src/middlewares/api-v3/errorHandler';
 
 import { BadRequest } from '../../../../../website/src/libs/api-v3/errors';
 import logger from '../../../../../website/src/libs/api-v3/logger';
 
 describe('errorHandler', () => {
-  let res, req;
+  let res, req, next;
 
   beforeEach(() => {
-    res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
-    };
-    req = {
-      originalUrl: 'foo',
-      headers: {},
-      body: {},
-    };
+    res = generateRes();
+    req = generateReq();
+    next = generateNext();
 
-    sinon.stub(logger, 'error');
-  });
-
-  afterEach(() => {
-    logger.error.restore();
+    sandbox.stub(logger, 'error');
   });
 
   it('sends internal server error if error is not a CustomError', () => {
     let error = new Error();
 
-    errorHandler(error, req, res);
+    errorHandler(error, req, res, next);
 
     expect(res.status).to.be.calledOnce;
     expect(res.json).to.be.calledOnce;
@@ -42,7 +38,7 @@ describe('errorHandler', () => {
   it('sends CustomError', () => {
     let error = new BadRequest();
 
-    errorHandler(error, req, res);
+    errorHandler(error, req, res, next);
 
     expect(res.status).to.be.calledOnce;
     expect(res.json).to.be.calledOnce;
@@ -57,7 +53,7 @@ describe('errorHandler', () => {
   it('logs error', () => {
     let error = new BadRequest();
 
-    errorHandler(error, req, res);
+    errorHandler(error, req, res, next);
 
     expect(logger.error).to.be.calledOnce;
     expect(logger.error).to.be.calledWith(error.stack, {
@@ -68,7 +64,6 @@ describe('errorHandler', () => {
   });
 
   it('does not send error if error is not defined', () => {
-    let next = sinon.stub();
     errorHandler(null, req, res, next);
 
     expect(next).to.be.calledOnce;
