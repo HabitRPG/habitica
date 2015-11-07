@@ -97,7 +97,7 @@
     "questEggHorseAdjective": "un galopant",
     "questEggFrogText": "Grenouille",
     "questEggFrogMountText": "Grenouille",
-    "questEggFrogAdjective": "un prestigieux",
+    "questEggFrogAdjective": "un princier",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "de Base",
     "hatchingPotionWhite": "Blanc",

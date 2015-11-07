@@ -79,7 +79,7 @@
     "errorUpCase": "BŁĄD:",
     "newPassSent": "Nowe hasło zostało wysłane.",
     "serverUnreach": "Serwer jest obecnie nieosiągalny.",
-    "requestError": "Yikes, an error occurred! <strong>Please reload the page,</strong> your last action may not have been saved correctly.",
+    "requestError": "Ups, wystąpił błąd! <strong>Odśwież stronę</strong>, twoja ostatnia czynność mogła nie zostać poprawnie zapisana.",
     "seeConsole": "Jeśli błąd się powtarza, zgłoś go przez Pomoc > Zgłoś błąd. Jeśli jesteś zaznajomiony z konsolą przeglądarki, dołącz wszelkie komunikaty błędów.",
     "error": "Błąd",
     "menu": "Menu",

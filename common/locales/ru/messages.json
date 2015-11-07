@@ -44,12 +44,12 @@
     "messageGroupOnlyLeaderCanUpdate": "Только лидер группы может обновить её!",
     "messageGroupRequiresInvite": "Невозможно присоединиться к группе, в которую вы не приглашены.",
     "messageGroupCannotRemoveSelf": "Вы не можете удалить себя!",
-    "messageGroupChatBlankMessage": "You cannot send a blank message",
-    "messageGroupChatLikeOwnMessage": "Can't like your own message. Don't be that person.",
-    "messageGroupChatFlagOwnMessage": "Can't report your own message.",
-    "messageGroupChatFlagAlreadyReported": "You have already reported this message",
-    "messageGroupChatNotFound": "Message not found!",
-    "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",
+    "messageGroupChatBlankMessage": "Вы не можете отправить пустое сообщение.",
+    "messageGroupChatLikeOwnMessage": "Не стоит ставить лайк на своём сообщении. Не будьте таким человеком.",
+    "messageGroupChatFlagOwnMessage": "Вы не можете пожаловаться на своё сообщение.",
+    "messageGroupChatFlagAlreadyReported": "Вы уже отправили жалобу на это сообщение.",
+    "messageGroupChatNotFound": "Сообщение не найдено!",
+    "messageGroupChatAdminClearFlagCount": "Только администратор может очистить счётчик отметок.",
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена"
 }

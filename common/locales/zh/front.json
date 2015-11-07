@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica]真的帮了我，让我把研究生生活整理得井井有条。",
     "invalidEmail": "执行密码重置需要一个有效的电子邮件地址。",
     "irishfeet123Quote": "I've had horrible habits with clearing my place completely after meals and leaving cups all over the place. [Habitica] has cured that!",
-    "joinOthers": "加入250,000个游戏人生的伙伴！",
+    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
     "kazuiQuote": "Before [Habitica], I was stuck with my thesis, as well as dissatisfied with my personal discipline regarding housework and things like learning vocabulary and studying Go theory.  It turns out breaking down these tasks into smaller manageable checklists is quite the thing to keep me motivated and constantly working.",
     "landingadminlink": "管理包",
     "landingend": "还没被说服？",
@@ -179,5 +179,8 @@
     "businessInquiries": "Business Inquiries",
     "merchandiseInquiries": "Merchandise Inquiries",
     "marketingInquiries": "Marketing/Social Media Inquiries",
-    "tweet": "发布推特"
+    "tweet": "发布推特",
+    "apps": "Apps",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Check out our new iOS App!"
 }
