@@ -39,6 +39,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
   // ------------  MongoDB Configuration ------------
   var mongoose = require('mongoose');
+  // Use Q promises instead of mpromise in mongoose
+  mongoose.Promise = require('q');
   var mongooseOptions = !isProd ? {} : {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }

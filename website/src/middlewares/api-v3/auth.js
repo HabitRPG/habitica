@@ -4,7 +4,7 @@ import {
 } from '../../libs/api-v3/errors';
 
 import {
-  UserModel as User,
+  model as User,
 } from '../../models/user';
 
 // TODO use i18n
@@ -27,12 +27,12 @@ export function authWithHeaders (req, res, next) {
     return next(new NotAuthorized(missingAuthHeaders));
   }
 
-  // TODO use promises?
   User.findOne({
     _id: userId,
     apiToken,
-  }, (err, user) => {
-    if (err) return next(err);
+  })
+  .exec()
+  .then((user) => {
     if (!user) return next(new NotAuthorized(userNotFound));
 
     // TODO better handling for this case
@@ -42,7 +42,8 @@ export function authWithHeaders (req, res, next) {
     // TODO use either session/cookie or headers, not both
     req.session.userId = user._id;
     return next();
-  });
+  })
+  .catch(next);
 }
 
 // Authenticate a request through a valid session
@@ -54,11 +55,13 @@ export function authWithSession (req, res, next) {
 
   User.findOne({
     _id: userId,
-  }, (err, user) => {
-    if (err) return next(err);
+  })
+  .exec()
+  .then((user) => {
     if (!user) return next(new NotAuthorized(userNotFound));
 
     res.locals.user = user;
     return next();
-  });
+  })
+  .catch(next);
 }
