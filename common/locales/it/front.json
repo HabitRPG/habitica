@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] mi ha davvero aiutato a dare una struttura alla mia vita universitaria.",
     "invalidEmail": "Per resettare la password è necessario un indirizzo email valido.",
     "irishfeet123Quote": "Avevo l'orribile abitudine di non ripulire completamente il mio posto dopo mangiato e lasciare tazze ovunque. [Habitica] si è rivelato essere la cura!",
-    "joinOthers": "Unisciti a 250.000 persone che si divertono raggiungendo i propri obiettivi!",
+    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
     "kazuiQuote": "Prima di [Habitica] ero bloccata con la mia tesi, nonchè insoddisfatta della mia disciplina riguardo i lavori di casa e cose come imparare vocaboli e studiare la teoria del Go. A quanto pare separare queste attività in liste più piccole e maneggevoli è il modo giusto per mantenermi motivata e costantemente al lavoro.",
     "landingadminlink": "pacchetti amministrativi",
     "landingend": "Non sei ancora convinto?",
@@ -179,5 +179,8 @@
     "businessInquiries": "Informazioni sul Business",
     "merchandiseInquiries": "Informazioni sui Prodotti",
     "marketingInquiries": "Informazioni su Marketing e Social Media",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Apps",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Check out our new iOS App!"
 }

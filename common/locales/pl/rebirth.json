@@ -16,11 +16,11 @@
     "rebirthEarnAchievement": "Dodatkowo otrzymujesz nowe Osiągnięcie za rozpoczęcie nowej przygody!",
     "beReborn": "Odródź się.",
     "rebirthAchievement": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to <%= level %>.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę, gdy osiągnąłeś jeszcze wyższy Poziom!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to 100 lub więcej.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę, gdy osiągnąłeś przynajmniej poziom 100!",
     "rebirthBegan": "Rozpoczął nową przygodę",
     "rebirthText": "Rozpoczął <%= rebirths %> nowych przygód.",
     "rebirthOrb": "Wykorzystał Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "Wykorzystano Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu 100 lub większego",
     "rebirthPop": "Stwórz nową postać na Poziomie 1 zachowując osiągnięcia, przedmioty kolekcjonerskie oraz zadania wraz z historią.",
     "rebirthName": "Kula Odrodzenia",
     "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>"

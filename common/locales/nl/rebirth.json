@@ -16,11 +16,11 @@
     "rebirthEarnAchievement": "Je kunt ook een prestatie verdienen voor het beginnen van een nieuw avontuur!",
     "beReborn": "Herboren worden",
     "rebirthAchievement": "Je bent een nieuw avontuur begonnen! Dit is hergeboorte <%= number %> voor jou, en het hoogste niveau dat je behaald hebt is <%= level %>.  Begin je volgende nieuwe avontuur als je een nog hoger niveau hebt bereikt om deze prestatie nog een keer te behalen!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "Je bent een nieuw avontuur begonnen! Dit is hergeboorte <%= number %> voor je en het hoogste niveau dat je hebt bereikt is 100 of hoger. Om deze prestatie te stapelen, begin dan je nieuwe avontuur wanneer je op zijn minst level 100 hebt bereikt!",
     "rebirthBegan": "Is een nieuw avontuur begonnen",
     "rebirthText": "Is <%= rebirths %> nieuwe avonturen begonnen",
     "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na level 100 of hoger te hebben bereikt",
     "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt.",
     "rebirthName": "Bol der Hergeboorte",
     "reborn": "Herboren, maximale niveau <%= reLevel %>"
