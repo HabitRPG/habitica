@@ -297,6 +297,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 });
 
 gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
+  process.env.API_VERSION = 'v2';
   awaitPort(TEST_SERVER_PORT).then(() => {
     runMochaTests('./test/api/v2/**/*.js', server, done)
   });
@@ -329,15 +330,16 @@ gulp.task('test:api-v3', ['test:api-v3:unit', 'test:api-v3:integration']);
 
 gulp.task('test:api-v3:watch', ['test:api-v3:unit:watch', 'test:api-v3:integration:watch']);
 
-gulp.task('test:api-v3:unit', ['test:prepare:server'], (done) => {
+gulp.task('test:api-v3:unit', (done) => {
   runMochaTests('./test/api/v3/unit/**/*.js', null, done)
 });
 
-gulp.task('test:api-v3:unit:watch', ['test:prepare:server'], () => {
+gulp.task('test:api-v3:unit:watch', () => {
   gulp.watch(['website/src/**', 'test/api/v3/unit/**'], ['test:api-v3:unit']);
 });
 
 gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
+  process.env.API_VERSION = 'v3';
   awaitPort(TEST_SERVER_PORT).then(() => {
     runMochaTests('./test/api/v3/unit/**/*.js', server, done)
   });
