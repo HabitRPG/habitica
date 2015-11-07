@@ -21,6 +21,7 @@ export function generateGroup(options={}) {
 export function generateRes(options={}) {
   let defaultRes = {
     send: sandbox.stub(),
+    status: sandbox.stub().returnsThis(),
     json: sandbox.stub(),
     locals: {
       user: generateUser(options.localsUser),
