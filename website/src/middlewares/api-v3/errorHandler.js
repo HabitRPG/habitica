@@ -23,11 +23,20 @@ export default function errorHandler (err, req, res, next) {
   // If we can't identify it, respond with a generic 500 error
   let responseErr = err instanceof CustomError ? err : null;
 
-  if (!responseErr) {
+  // Handle errors created with 'http-errors' or similar that have a status/statusCode property
+  if (err.statusCode && typeof err.statusCode === 'number') {
+    responseErr = new CustomError();
+    responseErr.httpCode = err.statusCode;
+    responseErr.error = err.name;
+    responseErr.message = err.message;
+  }
+
+  if (!responseErr || responseErr.httpCode >= 500) {
     // Try to identify the error...
     // ...
     // Otherwise create an InternalServerError and use it
     // we don't want to leak anything, just a generic error message
+    // Use it also in case of identified errors but with httpCode === 500
     responseErr = new InternalServerError();
   }
 

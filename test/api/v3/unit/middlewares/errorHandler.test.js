@@ -20,8 +20,40 @@ describe('errorHandler', () => {
     sandbox.stub(logger, 'error');
   });
 
-  it('sends internal server error if error is not a CustomError', () => {
+  it('sends internal server error if error is not a CustomError and is not identified', () => {
     let error = new Error();
+
+    errorHandler(error, req, res, next);
+
+    expect(res.status).to.be.calledOnce;
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.status).to.be.calledWith(500);
+    expect(res.json).to.be.calledWith({
+      error: 'InternalServerError',
+      message: 'Internal server error.',
+    });
+  });
+
+  it('identifies errors with statusCode property and format them correctly', () => {
+    let error = new Error('Error message');
+    error.statusCode = 400;
+
+    errorHandler(error, req, res, next);
+
+    expect(res.status).to.be.calledOnce;
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.status).to.be.calledWith(400);
+    expect(res.json).to.be.calledWith({
+      error: 'Error',
+      message: 'Error message',
+    });
+  });
+
+  it('doesn\'t leak info about 500 errors', () => {
+    let error = new Error('Some secret error message');
+    error.statusCode = 500;
 
     errorHandler(error, req, res, next);
 
