@@ -27,7 +27,7 @@ export let schema = new Schema({
     facebook: Schema.Types.Mixed, // TODO validate
     local: {
       email: String,
-      hashed_password: String,
+      hashed_password: String, // eslint-disable-line camelcase
       salt: String,
       username: String,
       // Store a lowercase version of username to check for duplicates
