@@ -569,6 +569,16 @@ function _populateDefaultsForNewUser (user) {
   _populateDefaultTasks(user, taskTypes);
 }
 
+function _setProfileName (user) {
+  let fb = user.auth.facebook;
+
+  let localUsername = user.auth.local && user.auth.local.username;
+  let facebookUsername = fb && (fb.displayName || fb.name || fb.username || `${fb.first_name && fb.first_name} ${fb.last_name}`);
+  let anonymous = 'Anonymous';
+
+  return localUsername || facebookUsername || anonymous;
+}
+
 schema.pre('save', function postSaveUser (next) {
   // Populate new users with default content
   if (this.isNew) {
@@ -581,12 +591,7 @@ schema.pre('save', function postSaveUser (next) {
   }
 
   if (!this.profile.name) {
-    let fb = this.auth.facebook;
-
-    this.profile.name =
-      (this.auth.local && this.auth.local.username) ||
-      (fb && (fb.displayName || fb.name || fb.username || `${fb.first_name && fb.first_name} ${fb.last_name}`)) ||
-      'Anonymous';
+    this.profile.name = _setProfileName(this);
   }
 
   // Determines if Beast Master should be awarded
