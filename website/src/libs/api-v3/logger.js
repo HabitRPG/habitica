@@ -3,12 +3,11 @@
 import winston from 'winston';
 import nconf from 'nconf';
 
-// TODO move isProd to a single location
-const isProd = nconf.get('NODE_ENV') === 'production';
+const IS_PROD = nconf.get('IS_PROD');
 
 let logger = new winston.Logger();
 
-if (isProd) {
+if (IS_PROD) {
   // TODO production logging, use loggly
   // log errors to console too
 } else {
