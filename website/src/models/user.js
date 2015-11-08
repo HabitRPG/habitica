@@ -461,11 +461,11 @@ export let schema = new Schema({
   minimize: false, // So empty objects are returned
 });
 
-schema.methods.deleteTask = function (tid) {
+schema.methods.deleteTask = function deleteTask (tid) {
   this.ops.deleteTask({params: {id: tid}}, () => {}); // TODO remove this whole method, since it just proxies, and change all references to this method
 };
 
-schema.methods.toJSON = function () {
+schema.methods.toJSON = function toJSON () {
   let doc = this.toObject();
 
   doc.id = doc._id;
@@ -632,7 +632,7 @@ schema.pre('save', function postSaveUser (next) {
   next();
 });
 
-schema.methods.unlink = function (options, cb) {
+schema.methods.unlink = function unlink (options, cb) {
   let cid = options.cid;
   let keep = options.keep;
   let tid = options.tid;
