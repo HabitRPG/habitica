@@ -3,31 +3,21 @@ import setupNconf from '../../../../../website/src/libs/api-v3/setupNconf';
 import nconf from 'nconf';
 
 describe('setupNconf', () => {
-  afterEach(() => {
-    sandbox.restore();
-  });
-
-  it('sets up nconf to load command line arguments', () => {
+  before(() => {
     sandbox.spy(nconf, 'argv');
-
-    setupNconf();
-
-    expect(nconf.argv).to.be.calledOnce;
-  });
-
-  it('sets up nconf to load environmental variables', () => {
     sandbox.spy(nconf, 'env');
-
-    setupNconf();
-
-    expect(nconf.env).to.be.calledOnce;
-  });
-
-  it('sets up nconf to load variables from config file', () => {
     sandbox.spy(nconf, 'file');
 
     setupNconf();
+  });
 
+  after(() => {
+    sandbox.restore();
+  });
+
+  it('sets up nconf', () => {
+    expect(nconf.argv).to.be.calledOnce;
+    expect(nconf.env).to.be.calledOnce;
     expect(nconf.file).to.be.calledOnce;
   });
 
