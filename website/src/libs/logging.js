@@ -1,6 +1,6 @@
 var nconf = require('nconf');
 var winston = require('winston');
-require('winston-mail').Mail;
+//require('winston-mail').Mail;
 //require('winston-newrelic');
 
 var logger, loggly;
@@ -26,7 +26,7 @@ if (logger == null) {
     logger = new (winston.Logger)({});
     if (nconf.get('NODE_ENV') == 'production') {
         //logger.add(winston.transports.newrelic, {});
-        if (!nconf.get('DISABLE_ERROR_EMAILS')) {
+        if (!nconf.get('DISABLE_ERROR_EMAILS') && false) {
           logger.add(winston.transports.Mail, {
               to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
               from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
