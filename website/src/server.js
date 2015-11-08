@@ -1,4 +1,5 @@
 require('babel/register');
+require('./libs/api-v3/setupNconf')();
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require("cluster");
 var _ = require('lodash');
@@ -6,12 +7,12 @@ var nconf = require('nconf');
 var utils = require('./libs/utils');
 utils.setupConfig();
 var logging = require('./libs/logging');
-var isProd = nconf.get('NODE_ENV') === 'production';
-var isDev = nconf.get('NODE_ENV') === 'development';
+var IS_PROD = nconf.get('IS_PROD');
+var IS_DEV = nconf.get('IS_DEV');
 var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 var cores = +nconf.get("WEB_CONCURRENCY") || 0;
 
-if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
+if (cores!==0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
   for (var i = 0; i < cores; i += 1) {
     cluster.fork();
@@ -41,7 +42,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var mongoose = require('mongoose');
   // Use Q promises instead of mpromise in mongoose
   mongoose.Promise = require('q');
-  var mongooseOptions = !isProd ? {} : {
+  var mongooseOptions = !IS_PROD ? {} : {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
   };
@@ -113,7 +114,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   /* OLD APP IS DISABLED UNTIL COMPATIBLE WITH NEW MODELS
   //require('./middlewares/apiThrottle')(oldApp);
   oldApp.use(require('./middlewares/domain')(server,mongoose));
-  if (!isProd && !DISABLE_LOGGING) oldApp.use(require('morgan')("dev"));
+  if (!IS_PROD && !DISABLE_LOGGING) oldApp.use(require('morgan')("dev"));
   oldApp.use(require('compression')());
   oldApp.set("views", __dirname + "/../views");
   oldApp.set("view engine", "jade");
@@ -161,7 +162,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use('/export', require('./routes/dataexport'));
   require('./routes/api-v2/swagger')(swagger, v2);
 
-  var maxAge = isProd ? 31536000000 : 0;
+  var maxAge = IS_PROD ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
   oldApp.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
   oldApp.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
@@ -172,7 +173,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
   oldApp.use(require('./middlewares/errorHandler'));
   */
-  
+
   server.on('request', app);
   server.listen(app.get("port"), function() {
     return logging.info("Express server listening on port " + app.get("port"));
