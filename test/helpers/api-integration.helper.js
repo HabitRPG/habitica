@@ -208,9 +208,10 @@ export function resetHabiticaDB() {
 }
 
 function _requestMaker(user, method, additionalSets) {
+  const API_V = process.env.API_VERSION || 'v2'
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v2${route}`)
+      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${API_V}${route}`)
         .accept('application/json');
 
       if (user && user._id && user.apiToken) {
