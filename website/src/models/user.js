@@ -643,27 +643,22 @@ schema.methods.unlink = function unlink (options, cb) {
 
   let self = this;
 
-  switch (keep) {
-    case 'keep':
-      self.tasks[tid].challenge = {};
-      break;
-    case 'remove':
-      self.deleteTask(tid);
-      break;
-    case 'keep-all':
-      _.each(self.tasks, (t) => {
-        if (t.challenge && t.challenge.id === cid) {
-          t.challenge = {};
-        }
-      });
-      break;
-    case 'remove-all':
-      _.each(self.tasks, (t) => {
-        if (t.challenge && t.challenge.id === cid) {
-          self.deleteTask(t.id);
-        }
-      });
-      break;
+  if (keep === 'keep') {
+    self.tasks[tid].challenge = {};
+  } else if (keep === 'remove') {
+    self.deleteTask(tid);
+  } else if (keep === 'keep-all') {
+    _.each(self.tasks, (t) => {
+      if (t.challenge && t.challenge.id === cid) {
+        t.challenge = {};
+      }
+    });
+  } else if (keep === 'remove-all') {
+    _.each(self.tasks, (t) => {
+      if (t.challenge && t.challenge.id === cid) {
+        self.deleteTask(t.id);
+      }
+    });
   }
 
   self.markModified('habits');
