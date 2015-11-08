@@ -9,7 +9,10 @@ import eslint from 'gulp-eslint';
 gulp.task('lint:server', () => {
   // Ignore .coffee files
   return gulp
-    .src(['./website/src/**/api-v3/**/*.js'])
+    .src([
+      './website/src/**/api-v3/**/*.js',
+      './website/src/models/user.js'
+    ])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
