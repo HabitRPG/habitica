@@ -208,7 +208,7 @@ export let schema = new Schema({
 
   items: {
     gear: {
-      owned: _.transform(shared.content.gear.flat, (m, v, k) => {
+      owned: _.transform(shared.content.gear.flat, (m, v) => {
         m[v.key] = {type: Boolean};
         if (v.key.match(/[armor|head|shield]_warrior_0/)) {
           m[v.key].default = true;
