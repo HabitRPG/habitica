@@ -7,7 +7,7 @@ export default function attachMiddlewares (app) {
 
   // Parse query parameters and json bodies
   // TODO handle errors
-  app.use(bodyParser.urlencoded(
+  app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
   }));
   app.use(bodyParser.json());
