@@ -689,5 +689,6 @@ mongoose.model('User')
     // Using push to maintain the reference to mods
     mods.push(...foundMods);
   }, (err) => {
+    // @TODO convert this to a catch
     throw err; // TODO ?
   });
