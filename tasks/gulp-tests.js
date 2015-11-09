@@ -10,6 +10,7 @@ import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
 import Q                          from 'q';
+import runSequence                from 'run-sequence';
 
 const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
@@ -368,17 +369,21 @@ gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
   });
 });
 
-gulp.task('test', [
+gulp.task('test:all', (done) => {
+  runSequence(
   'lint',
-  //'test:e2e:safe',
+  // 'test:e2e:safe',
   'test:common:safe',
   // 'test:content:safe',
   'test:server_side:safe',
-  //'test:karma:safe',
-  //'test:api-legacy:safe',
-  //'test:api-v2:safe',
+  // 'test:karma:safe',
+  // 'test:api-legacy:safe',
+  // 'test:api-v2:safe',
   'test:api-v3:safe',
-], () => {
+  done);
+});
+
+gulp.task('test', ['test:all'], () => {
   let totals = [0,0,0];
 
   console.log('\n\x1b[36m\x1b[4mHabitica Test Summary\x1b[0m\n');

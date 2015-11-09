@@ -122,6 +122,7 @@
     "protractor": "~2.5.1",
     "rewire": "^2.3.3",
     "rimraf": "^2.4.3",
+    "run-sequence": "^1.1.4",
     "shelljs": "^0.4.0",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
