@@ -71,7 +71,7 @@
     "hourglassBuyItemConfirm": "Kupić ten przedmiot za 1 Mistyczną Klepsydrę?",
     "petsAlreadyOwned": "Chowaniec obecnie posiadany.",
     "mountsAlreadyOwned": "Wierzchowiec obecnie posiadany.",
-    "typeNotAllowedHourglass": "Item type not supported for purchase with Mystic Hourglass. Allowed types:",
+    "typeNotAllowedHourglass": "Tego przedmiotu nie można kupić za Mistyczne Klepsydry. Dostępne typy przedmiotów:",
     "petsNotAllowedHourglass": "Tego chowańca nie można kupić za Mistyczne Klepsydry.",
     "mountsNotAllowedHourglass": "Tego wierzchowca nie można kupić za Mistyczne Klepsydry.",
     "hourglassPurchase": "Kupiłeś przedmiot używając Mistycznej Klepsydry!",

@@ -74,7 +74,7 @@
     "infhQuote": "[Program Habitica] mi opravdu pomohla dát mému životu nějakou strukturu.",
     "invalidEmail": "Aby mohlo proběhnout resetování hesla, musí být zadán platný email.",
     "irishfeet123Quote": "Měla jsem problém s úklidem. Nechávala jsem všude nádobí a skleničky. [Program Habitica] mi pomohla!",
-    "joinOthers": "Přidej se k 250 000 lidí, kteří dosahují svých cílů zábavným způsobem!",
+    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
     "kazuiQuote": "Před tím, než jsem objevila [program Habitica] jsem se zasekla s diplomkou a byla jsem nespokojena se svou disciplínou ohledně domácích prací a věcí, jako učením se slovíček. Ukázalo se, že když si tyhle cíle rozdělím na menší, je mnohem snazší se motivovat a neustále pracovat.",
     "landingadminlink": "administrační balíčky",
     "landingend": "Stále nejsi přesvědčen?",
@@ -179,5 +179,8 @@
     "businessInquiries": "Obchodní poptávka",
     "merchandiseInquiries": "Poptávka po zboží",
     "marketingInquiries": "Poptávka marketing/sociální média",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Apps",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Check out our new iOS App!"
 }
