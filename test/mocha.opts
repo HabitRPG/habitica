@@ -4,6 +4,7 @@
 --check-leaks
 --growl
 --compilers coffee:coffee-script
+--compilers js:babel/register
 --globals io
 --require test/api-legacy/api-helper
 --require ./test/helpers/globals.helper
