@@ -4,7 +4,6 @@ import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
 
 export default function attachMiddlewares (app) {
-
   // Parse query parameters and json bodies
   // TODO handle errors
   app.use(bodyParser.urlencoded({
