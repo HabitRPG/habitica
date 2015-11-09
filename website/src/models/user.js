@@ -27,7 +27,7 @@ export let schema = new Schema({
     facebook: Schema.Types.Mixed, // TODO validate
     local: {
       email: String,
-      hashed_password: String,
+      hashed_password: String, // eslint-disable-line camelcase
       salt: String,
       username: String,
       // Store a lowercase version of username to check for duplicates
@@ -208,7 +208,7 @@ export let schema = new Schema({
 
   items: {
     gear: {
-      owned: _.transform(shared.content.gear.flat, (m, v, k) => {
+      owned: _.transform(shared.content.gear.flat, (m, v) => {
         m[v.key] = {type: Boolean};
         if (v.key.match(/[armor|head|shield]_warrior_0/)) {
           m[v.key].default = true;
@@ -461,11 +461,11 @@ export let schema = new Schema({
   minimize: false, // So empty objects are returned
 });
 
-schema.methods.deleteTask = function (tid) {
+schema.methods.deleteTask = function deleteTask (tid) {
   this.ops.deleteTask({params: {id: tid}}, () => {}); // TODO remove this whole method, since it just proxies, and change all references to this method
 };
 
-schema.methods.toJSON = function () {
+schema.methods.toJSON = function toJSON () {
   let doc = this.toObject();
 
   doc.id = doc._id;
@@ -569,6 +569,16 @@ function _populateDefaultsForNewUser (user) {
   _populateDefaultTasks(user, taskTypes);
 }
 
+function _setProfileName (user) {
+  let fb = user.auth.facebook;
+
+  let localUsername = user.auth.local && user.auth.local.username;
+  let facebookUsername = fb && (fb.displayName || fb.name || fb.username || `${fb.first_name && fb.first_name} ${fb.last_name}`);
+  let anonymous = 'Anonymous';
+
+  return localUsername || facebookUsername || anonymous;
+}
+
 schema.pre('save', function postSaveUser (next) {
   // Populate new users with default content
   if (this.isNew) {
@@ -581,12 +591,7 @@ schema.pre('save', function postSaveUser (next) {
   }
 
   if (!this.profile.name) {
-    let fb = this.auth.facebook;
-
-    this.profile.name =
-      (this.auth.local && this.auth.local.username) ||
-      (fb && (fb.displayName || fb.name || fb.username || `${fb.first_name && fb.first_name} ${fb.last_name}`)) ||
-      'Anonymous';
+    this.profile.name = _setProfileName(this);
   }
 
   // Determines if Beast Master should be awarded
@@ -632,7 +637,7 @@ schema.pre('save', function postSaveUser (next) {
   next();
 });
 
-schema.methods.unlink = function (options, cb) {
+schema.methods.unlink = function unlink (options, cb) {
   let cid = options.cid;
   let keep = options.keep;
   let tid = options.tid;
@@ -643,27 +648,22 @@ schema.methods.unlink = function (options, cb) {
 
   let self = this;
 
-  switch (keep) {
-    case 'keep':
-      self.tasks[tid].challenge = {};
-      break;
-    case 'remove':
-      self.deleteTask(tid);
-      break;
-    case 'keep-all':
-      _.each(self.tasks, (t) => {
-        if (t.challenge && t.challenge.id === cid) {
-          t.challenge = {};
-        }
-      });
-      break;
-    case 'remove-all':
-      _.each(self.tasks, (t) => {
-        if (t.challenge && t.challenge.id === cid) {
-          self.deleteTask(t.id);
-        }
-      });
-      break;
+  if (keep === 'keep') {
+    self.tasks[tid].challenge = {};
+  } else if (keep === 'remove') {
+    self.deleteTask(tid);
+  } else if (keep === 'keep-all') {
+    _.each(self.tasks, (t) => {
+      if (t.challenge && t.challenge.id === cid) {
+        t.challenge = {};
+      }
+    });
+  } else if (keep === 'remove-all') {
+    _.each(self.tasks, (t) => {
+      if (t.challenge && t.challenge.id === cid) {
+        self.deleteTask(t.id);
+      }
+    });
   }
 
   self.markModified('habits');
