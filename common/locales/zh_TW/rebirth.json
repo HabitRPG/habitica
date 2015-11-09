@@ -16,7 +16,7 @@
     "rebirthEarnAchievement": "你會因為開始一段新冒險，而獲得一個成就！",
     "beReborn": "重生",
     "rebirthAchievement": "你開始了一段新冒險！這是你的第<%= number %>次冒險，你曾經獲得的最高級別是<%= level %>級。要累積這個成就，你要在獲得更高等級之後，再開始下一次冒險！",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "開始了一趟新的冒險旅程！這是你第 <%= number %> 次重生，而你的最高等級達到了 100 以上。要完成這個成就，在你等級至少 100 後開啟新的一趟旅程吧！",
     "rebirthBegan": "開始新的冒險",
     "rebirthText": "開始<%= rebirths %> 次新的冒險",
     "rebirthOrb": "使用重生之球來歸零曾經到達的級別，重新開始遊戲",

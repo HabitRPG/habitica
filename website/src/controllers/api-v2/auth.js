@@ -123,6 +123,8 @@ api.registerUser = function(req, res, next) {
         };
         analytics.track('register', analyticsData)
 
+        user.registeredThrough = req.headers['x-client']
+
         user.save(function(err, savedUser){
           // Clean previous email preferences
           // TODO when emails added to EmailUnsubcription they should use lowercase version

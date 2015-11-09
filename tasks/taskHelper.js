@@ -95,25 +95,22 @@ export function postToSlack(msg, config={}) {
     });
 }
 
-export function runIntegrationTestsWithMocha(files, port, server) {
+export function runMochaTests(files, server, cb) {
   require('../test/helpers/globals.helper');
 
-  awaitPort(port).then(() => {
-    let mocha = new Mocha({reporter: 'spec'});
-    let tests = glob(files);
+  let mocha = new Mocha({reporter: 'spec'});
+  let tests = glob(files);
 
-    tests.forEach((test) => {
-      delete require.cache[resolve(test)];
-      mocha.addFile(test);
-    });
+  tests.forEach((test) => {
+    delete require.cache[resolve(test)];
+    mocha.addFile(test);
+  });
 
-    mocha.run((numberOfFailures) => {
-      if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
-        kill(server);
-        process.exit(numberOfFailures);
-      }
-      done();
-    });
+  mocha.run((numberOfFailures) => {
+    if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
+      if (server) kill(server);
+      process.exit(numberOfFailures);
+    }
+    cb();
   });
 }
-
