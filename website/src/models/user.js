@@ -688,7 +688,6 @@ mongoose.model('User')
   .then((foundMods) => {
     // Using push to maintain the reference to mods
     mods.push(...foundMods);
-  }, (err) => {
-    // @TODO convert this to a catch
+  }, (err) => { // TODO replace with .catch which for some reason was throwing an error
     throw err; // TODO ?
   });
