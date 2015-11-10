@@ -25,7 +25,7 @@ script(type='text/ng-template', id='modals/hatchPet.html')
       .container-fluid
         .row
           .col-xs-3
-            a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I just hatched a {{::hatchedPet.potion}} {{::hatchedPet.egg}} by completing my real-life tasks!&via=habitica&url=#{env.BASE_URL}/social/hatch-pet&count=none')=env.t('tweet')
+            a.twitter-share-button(href='https://twitter.com/intent/tweet?text="I just hatched a {{::hatchedPet.potion}} {{::hatchedPet.egg}} by completing my real-life tasks!"&via=habitica&url=#{env.BASE_URL}/social/hatch-pet&count=none')=env.t('tweet')
           .col-xs-4(style='margin-left:.8em')
             .fb-share-button(data-href='#{env.BASE_URL}/social/hatch-pet', data-layout='button')
           .col-xs-4(style='margin-left:.8em')

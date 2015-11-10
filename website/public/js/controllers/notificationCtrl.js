@@ -66,6 +66,7 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.playSound('Level_Up');
       if (User.user._tmp && User.user._tmp.drop && (User.user._tmp.drop.type === 'Quest')) return;
       if (after === 3) return; // Drop system unlock. FIXME can we do this without hardcoding?
+      if (after === 10) return; // Class system unlock. FIXME as above
       if (after === 50) return; // Orb of Rebirth unlock FIXME as above
       if (!User.user.preferences.suppressModals.levelUp) $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
     });
