@@ -2,29 +2,32 @@ include ../avatar/generated_avatar
 mixin achievementFooter
   .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
     .container-fluid
-      .row
-        .col-xs-3
+      .row.text-center
+        .col-xs-4
           a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I earned a new achievement in Habitica!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/achievement&count=none')=env.t('tweet')
-        .col-xs-4(style='margin-left:.8em')
+        .col-xs-4
           .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/achievement', data-layout='button')
-        .col-xs-4(style='margin-left:.8em')
+        .col-xs-4
           a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/achievement', data-notes='none')
+
+mixin achievementAvatar(badge,margin)
+  .container-fluid
+    .row
+      .col-xs-4(style='padding:0')
+        div(class='achievement-#{badge}2x' style='margin: 2em auto')
+      .col-xs-4(style='padding:0')
+        .herobox(style='padding:0; width:0; height:7em; margin:auto #{margin}em')
+          .character-sprites(style='width:0')
+            +generatedAvatar
+      .col-xs-4(style='padding:0')
+        div(class='achievement-#{badge}2x' style='margin: 2em auto')
 
 // Streak
 script(id='modals/achievements/streak.html', type='text/ng-template')
   .modal-content(style='min-width:28em')
     .modal-body.text-center
       h3(style='margin-bottom: 0')=env.t('streakAchievement')
-      .container-fluid
-        .row
-          .col-xs-4(style='padding:0')
-            .achievement-thermometer2x(style='margin: 2em auto')
-          .col-xs-4(style='padding:0')
-            .herobox(style='padding:0; width:0; height:7em; margin:auto 2.5em')
-              .character-sprites(style='width:0')
-                +generatedAvatar
-          .col-xs-4(style='padding:0')
-            .achievement-thermometer2x(style='margin: 2em auto')
+      +achievementAvatar('thermometer',2.5)
       h4(ng-if='user.achievements.streak === 1')=env.t('firstStreakAchievement')
       h4(ng-if='user.achievements.streak > 1')=env.t('streakAchievementCount', {streaks:'{{::user.achievements.streak}}'})
       p=env.t('twentyOneDays')
@@ -38,44 +41,46 @@ script(id='modals/achievements/streak.html', type='text/ng-template')
 
 // Max Gear
 script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    .achievement.achievement-armor
-    p=env.t('gearAchievement')
-    br
-    table.multi-achievement
-      tr
-        td(ng-if='::user.achievements.ultimateGearSets.healer').multi-achievement
-          .achievement-ultimate-healer.multi-achievement
-          =env.t('healer')
-        td(ng-if='::user.achievements.ultimateGearSets.wizard').multi-achievement
-          .achievement-ultimate-mage.multi-achievement
-          =env.t('mage')
-        td(ng-if='::user.achievements.ultimateGearSets.rogue').multi-achievement
-          .achievement-ultimate-rogue.multi-achievement
-          =env.t('rogue')
-        td(ng-if='::user.achievements.ultimateGearSets.warrior').multi-achievement
-          .achievement-ultimate-warrior.multi-achievement
-          =env.t('warrior')
-    br
-    p(ng-if='!(user.achievements.ultimateGearSets.healer && user.achievements.ultimateGearSets.wizard && user.achievements.ultimateGearSets.rogue && user.achievements.ultimateGearSets.warrior)')!=env.t('moreGearAchievements')
-    br
-    .shop_armoire.pull-right
-    p!=env.t("armoireUnlocked")
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('armor',2.5)
+      p=env.t('gearAchievement')
+      br
+      table.multi-achievement
+        tr
+          td(ng-if='::user.achievements.ultimateGearSets.healer').multi-achievement
+            .achievement-ultimate-healer2x.multi-achievement
+            =env.t('healer')
+          td(ng-if='::user.achievements.ultimateGearSets.wizard').multi-achievement
+            .achievement-ultimate-mage2x.multi-achievement
+            =env.t('mage')
+          td(ng-if='::user.achievements.ultimateGearSets.rogue').multi-achievement
+            .achievement-ultimate-rogue2x.multi-achievement
+            =env.t('rogue')
+          td(ng-if='::user.achievements.ultimateGearSets.warrior').multi-achievement
+            .achievement-ultimate-warrior2x.multi-achievement
+            =env.t('warrior')
+      br
+      div(ng-if='!(user.achievements.ultimateGearSets.healer && user.achievements.ultimateGearSets.wizard && user.achievements.ultimateGearSets.rogue && user.achievements.ultimateGearSets.warrior)')
+        p!=env.t('moreGearAchievements')
+        br
+      .shop_armoire.pull-right
+      p!=env.t("armoireUnlocked")
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('ok')
+    +achievementFooter
 
 // Beast Master
 script(id='modals/achievements/beastMaster.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    p
-      .achievement.achievement-rat
-      =env.t('beastAchievement')
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('rat',0)
+      p=env.t('beastAchievement')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('ok')
+    +achievementFooter
 
 
 // Mount Master

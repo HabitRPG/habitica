@@ -128,7 +128,7 @@ habitrpg.controller("InventoryCtrl",
       if(!user.achievements.beastMaster
           && $scope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
-        $rootScope.openModal('achievements/beastMaster');
+        $rootScope.openModal('achievements/beastMaster', {controller:'UserCtrl'});
       }
 
       // Checks if Triad Bingo has been reached for the first time
