@@ -154,12 +154,12 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
-      $rootScope.openModal('achievements/rebirth');
+      $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
     });
 
     $rootScope.$watch('user.flags.contributor', function(after, before){
       if (after === before || after !== true) return;
-      $rootScope.openModal('achievements/contributor');
+      $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
     });
 
     // Completed quest modal

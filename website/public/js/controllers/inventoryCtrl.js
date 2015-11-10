@@ -128,7 +128,7 @@ habitrpg.controller("InventoryCtrl",
       if(!user.achievements.beastMaster
           && $scope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
-        $rootScope.openModal('achievements/beastMaster', {controller:'UserCtrl'});
+        $rootScope.openModal('achievements/beastMaster', {controller:'UserCtrl', size:'sm'});
       }
 
       // Checks if Triad Bingo has been reached for the first time
@@ -136,7 +136,7 @@ habitrpg.controller("InventoryCtrl",
           && $scope.mountCount >= 90
           && Shared.count.dropPetsCurrentlyOwned(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
-        $rootScope.openModal('achievements/triadBingo');
+        $rootScope.openModal('achievements/triadBingo', {controller:'UserCtrl', size:'sm'});
       }
     }
 
@@ -169,7 +169,7 @@ habitrpg.controller("InventoryCtrl",
         if(!user.achievements.mountMaster
             && $scope.mountCount >= 90) {
           User.user.achievements.mountMaster = true;
-          $rootScope.openModal('achievements/mountMaster');
+          $rootScope.openModal('achievements/mountMaster', {controller:'UserCtrl', size:'sm'});
         }
 
       // Selecting Pet
