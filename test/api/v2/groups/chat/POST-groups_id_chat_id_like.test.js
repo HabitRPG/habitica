@@ -82,6 +82,66 @@ describe('POST /groups/:id/chat/:id/like', () => {
     });
   });
 
+  context('group with multiple messages', () => {
+    let admin, author, group, member, message, user;
+
+    beforeEach(() => {
+      return generateUser().then((user) => {
+        author = user;
+
+        return createAndPopulateGroup({
+          groupDetails: {
+            type: 'guild',
+            privacy: 'public',
+            chat: [
+              { id: 'message-to-be-liked', likes: {}, uuid: author._id, flagCount: 0, flags: {} },
+              { id: '1-like-message', likes: { 'id': true }, uuid: author._id, flagCount: 1, flags: { 'id1': true } },
+              { id: '2-like-message', likes: { 'id': true, 'id2': true }, uuid: author._id, flagCount: 2, flags: { 'id1': true, 'id2': true } },
+              { id: 'no-likes', likes: {}, uuid: author._id, flagCount: 0, flags: {} },
+            ],
+          },
+          members: 1,
+        });
+      }).then((res) => {
+        group = res.group;
+        user = res.leader;
+        member = res.members[0];
+        return generateUser({
+          'contributor.admin': true,
+        });
+      }).then((user) => {
+        admin = user;
+      });
+    });
+
+    it('changes only the message that is liked', () => {
+      let api = requester(user);
+
+      return api.post(`/groups/${group._id}/chat/message-to-be-liked/like`).then((messages) => {
+        return requester(admin).get(`/groups/${group._id}/chat`);
+      }).then((messages) => {
+        expect(messages).to.have.lengthOf(4);
+
+        let messageThatWasLiked = messages[0];
+        let messageWith1Like = messages[1];
+        let messageWith2Like = messages[2];
+        let messageWithoutLike = messages[3];
+
+        expect(messageThatWasLiked.likes).to.have.property(user._id, true);
+
+        expect(messageWith1Like.flagCount).to.eql(1);
+        expect(messageWith1Like.flags).to.have.property('id1', true);
+
+        expect(messageWith2Like.flagCount).to.eql(2);
+        expect(messageWith2Like.flags).to.have.property('id1', true);
+        expect(messageWith2Like.flags).to.have.property('id2', true);
+
+        expect(messageWithoutLike.flagCount).to.eql(0);
+        expect(messageWithoutLike.flags).to.eql({});
+      });
+    });
+  });
+
   context('nonexistant message', () => {
     let api, group, message, user;
 

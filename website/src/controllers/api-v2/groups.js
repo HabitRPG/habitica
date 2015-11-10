@@ -259,11 +259,14 @@ api.attachGroup = function(req, res, next) {
     if(err) return next(err);
     if(!group) return res.json(404, {err: shared.i18n.t('messageGroupNotFound')});
 
+    var unchangedChat = _.cloneDeep(group.chat);
+
     if (!user.contributor.admin) {
       _purgeFlagInfoFromChat(group, user);
     }
 
     res.locals.group = group;
+    res.locals.unchangedGroupChat = unchangedChat;
     next();
   });
 }
@@ -339,7 +342,9 @@ api.deleteChatMessage = function(req, res, next){
 api.flagChatMessage = function(req, res, next){
   var user = res.locals.user
   var group = res.locals.group;
-  var message = _.find(group.chat, {id: req.params.mid});
+  var chat = res.locals.unchangedGroupChat;
+
+  var message = _.find(chat, {id: req.params.mid});
 
   if(!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
   if(message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatFlagOwnMessage')});
@@ -361,6 +366,7 @@ api.flagChatMessage = function(req, res, next){
       message.flagCount++
     }
 
+    group.chat = chat;
     group.markModified('chat');
     group.save(function(err,_saved){
       if(err) return next(err);
@@ -436,7 +442,8 @@ api.seenMessage = function(req,res,next){
 api.likeChatMessage = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
-  var message = _.find(group.chat, {id: req.params.mid});
+  var chat = res.locals.unchangedGroupChat;
+  var message = _.find(chat, {id: req.params.mid});
   if (!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
   if (message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatLikeOwnMessage')});
   if (!message.likes) message.likes = {};
@@ -445,12 +452,14 @@ api.likeChatMessage = function(req, res, next) {
   } else {
     message.likes[user._id] = true;
   }
+  group.chat = chat;
   group.markModified('chat');
   group.save(function(err,_saved){
     if (err) return next(err);
     // @TODO: We're sending back the entire array of chats back
     // Should we just send back the object of the single chat message?
     // If not, should we update the group chat when a chat is liked?
+    _purgeFlagInfoFromChat(_saved, user);
     return res.send(_saved.chat);
   })
 }
