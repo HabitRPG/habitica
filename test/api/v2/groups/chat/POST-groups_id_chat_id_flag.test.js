@@ -111,6 +111,66 @@ describe('POST /groups/:id/chat/:id/flag', () => {
     });
   });
 
+  context('group with multiple messages', () => {
+    let admin, author, group, member, message, user;
+
+    beforeEach(() => {
+      return generateUser().then((user) => {
+        author = user;
+
+        return createAndPopulateGroup({
+          groupDetails: {
+            type: 'guild',
+            privacy: 'public',
+            chat: [
+              { id: 'message-to-be-flagged', uuid: author._id, flagCount: 0, flags: {} },
+              { id: '1-flag-message', uuid: author._id, flagCount: 1, flags: { 'id1': true } },
+              { id: '2-flag-message', uuid: author._id, flagCount: 2, flags: { 'id1': true, 'id2': true } },
+              { id: 'no-flags', uuid: author._id, flagCount: 0, flags: {} },
+            ],
+          },
+          members: 1,
+        });
+      }).then((res) => {
+        group = res.group;
+        user = res.leader;
+        member = res.members[0];
+        return generateUser({
+          'contributor.admin': true,
+        });
+      }).then((user) => {
+        admin = user;
+      });
+    });
+
+    it('changes only the message that is flagged', () => {
+      let api = requester(user);
+
+      return api.post(`/groups/${group._id}/chat/message-to-be-flagged/flag`).then((messages) => {
+        return requester(admin).get(`/groups/${group._id}/chat`);
+      }).then((messages) => {
+        expect(messages).to.have.lengthOf(4);
+
+        let messageThatWasFlagged = messages[0];
+        let messageWith1Flag = messages[1];
+        let messageWith2Flag = messages[2];
+        let messageWithoutFlags = messages[3];
+
+        expect(messageThatWasFlagged.flagCount).to.eql(1);
+        expect(messageThatWasFlagged.flags).to.have.property(user._id, true);
+
+        expect(messageWith1Flag.flagCount).to.eql(1);
+        expect(messageWith1Flag.flags).to.have.property('id1', true);
+
+        expect(messageWith2Flag.flagCount).to.eql(2);
+        expect(messageWith2Flag.flags).to.have.property('id1', true);
+
+        expect(messageWithoutFlags.flagCount).to.eql(0);
+        expect(messageWithoutFlags.flags).to.eql({});
+      });
+    });
+  });
+
   context('admin flagging a message', () => {
     let group, member, message, user;
 
