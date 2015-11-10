@@ -39,6 +39,17 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         expect(message.flagCount).to.eql(1);
       });
     });
+
+    it('cannot flag the same message twice', () => {
+      let api = requester(user);
+
+      return expect(api.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+        return api.post(`/groups/${group._id}/chat/${message.id}/flag`);
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: t('messageGroupChatFlagAlreadyReported'),
+      });
+    });
   });
 
   context('own message', () => {

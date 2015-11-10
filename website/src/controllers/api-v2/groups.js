@@ -151,7 +151,7 @@ api.get = function(req, res, next) {
     }
 
     if (!user.contributor.admin) {
-      _purgeFlagInfoFromChat(group);
+      _purgeFlagInfoFromChat(group, user);
     }
 
     //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
@@ -260,7 +260,7 @@ api.attachGroup = function(req, res, next) {
     if(!group) return res.json(404, {err: shared.i18n.t('messageGroupNotFound')});
 
     if (!user.contributor.admin) {
-      _purgeFlagInfoFromChat(group);
+      _purgeFlagInfoFromChat(group, user);
     }
 
     res.locals.group = group;
@@ -1100,9 +1100,12 @@ api.questLeave = function(req, res, next) {
     });
 }
 
-function _purgeFlagInfoFromChat(group) {
+function _purgeFlagInfoFromChat(group, user) {
   group.chat = _.filter(group.chat, function(message) { return !message.flagCount || message.flagCount < 2; });
   _.each(group.chat, function (message) {
+    var userHasFlagged = message.flags[user._id];
     message.flags = {};
+
+    if (userHasFlagged) message.flags[user._id] = userHasFlagged;
   });
 }
