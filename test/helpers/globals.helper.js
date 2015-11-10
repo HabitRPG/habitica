@@ -14,4 +14,4 @@ global.sandbox = sinon.sandbox.create();
 //------------------------------
 // Load nconf for unit tests
 //------------------------------
-require('../../website/src/libs/api-v3/setupNconf')();
+require('../../website/src/libs/api-v3/setupNconf')('./config.json.example');
