@@ -4,11 +4,11 @@ mixin achievementFooter
     .container-fluid
       .row.text-center
         .col-xs-4
-          a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I earned a new achievement in Habitica!&via=habitica&url=https://habitrpg-gamma.herokuapp.com/social/achievement&count=none')=env.t('tweet')
+          a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I earned a new achievement in Habitica!&via=habitica&url=#{env.BASE_URL}/social/achievement&count=none')=env.t('tweet')
         .col-xs-4
-          .fb-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/achievement', data-layout='button')
+          .fb-share-button(data-href='#{env.BASE_URL}/social/achievement', data-layout='button')
         .col-xs-4
-          a.tumblr-share-button(data-href='https://habitrpg-gamma.herokuapp.com/social/achievement', data-notes='none')
+          a.tumblr-share-button(data-href='#{env.BASE_URL}/social/achievement', data-notes='none')
 
 mixin achievementAvatar(badge,margin)
   .container-fluid
