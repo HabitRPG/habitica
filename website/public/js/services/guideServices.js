@@ -209,7 +209,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }
         User.set(ups);
       }
-    })
+    }).value();
   });
 
   var tour = {};

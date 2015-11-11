@@ -134,8 +134,8 @@ describe('user.fns.buy', function() {
       _(shared.content.gear.tree[type].armoire).each(function(gearObject, gearName) {
         var armoireKey = gearObject.key;
         fullArmoire[armoireKey] = true;
-      });
-    });
+      }).value();
+    }).value();
 
     beforeEach(function() {
       user.achievements.ultimateGearSets = { rogue: true };
