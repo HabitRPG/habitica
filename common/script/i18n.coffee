@@ -27,7 +27,7 @@ module.exports =
 
     if string
       try
-        _.template(string, (clonedVars))
+        _.template(string)((clonedVars))
       catch e
         'Error processing the string. Please see Help > Report a Bug.'
     else
@@ -39,6 +39,6 @@ module.exports =
           module.exports.translations[locale].stringNotFound
 
       try
-        _.template(stringNotFound, {string: stringName})
+        _.template(stringNotFound)({string: stringName})
       catch e
         'Error processing the string. Please see Help > Report a Bug.'
