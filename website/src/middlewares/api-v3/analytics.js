@@ -5,23 +5,19 @@ import {
  mockAnalyticsService,
 } from '../../libs/api-v3/analyticsService';
 
-function _generateService () {
-  let service;
+let service;
 
-  if (nconf.get('IS_PROD')) {
-    service = {
-      track,
-      trackPurchase,
-    };
-  } else {
-    service = mockAnalyticsService;
-  }
-
-  return service;
+if (nconf.get('IS_PROD')) {
+  service = {
+    track,
+    trackPurchase,
+  };
+} else {
+  service = mockAnalyticsService;
 }
 
 export default function attachAnalytics (req, res, next) {
-  res.analytics = _generateService();
+  res.analytics = service;
 
   next();
 }

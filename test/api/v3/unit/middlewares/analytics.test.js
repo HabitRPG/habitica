@@ -22,42 +22,11 @@ describe('analytics middleware', function() {
     expect(res.analytics).to.exist;
   });
 
-  context('non-prod', () => {
-    let old_is_prod = nconf.get('IS_PROD');
+  it('attaches stubbed methods for non-prod environments', () => {
+    attachAnalytics(req, res, next);
 
-    beforeEach(() => {
-      nconf.set('IS_PROD', false);
-    });
-
-    afterEach(() => {
-      nconf.set('IS_PROD', old_is_prod);
-    });
-
-    it('attaches stubbed methods', () => {
-      attachAnalytics(req, res, next);
-
-      expect(res.analytics.track).to.eql(analyticsService.mockAnalyticsService.track);
-      expect(res.analytics.trackPurchase).to.eql(analyticsService.mockAnalyticsService.trackPurchase);
-    });
-  });
-
-  context('prod', () => {
-    let old_is_prod = nconf.get('IS_PROD');
-
-    beforeEach(() => {
-      nconf.set('IS_PROD', true);
-    });
-
-    afterEach(() => {
-      nconf.set('IS_PROD', old_is_prod);
-    });
-
-    it('attaches stubbed methods', () => {
-      attachAnalytics(req, res, next);
-
-      expect(res.analytics.track).to.eql(analyticsService.track);
-      expect(res.analytics.trackPurchase).to.eql(analyticsService.trackPurchase);
-    });
+    expect(res.analytics.track).to.eql(analyticsService.mockAnalyticsService.track);
+    expect(res.analytics.trackPurchase).to.eql(analyticsService.mockAnalyticsService.trackPurchase);
   });
 });
 
