@@ -1,5 +1,4 @@
-// @TODO: remove when lodash can be upgraded
-import defaults from 'lodash.defaultsdeep';
+import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user'
 import { model as Group } from '../../website/src/models/group'
 import i18n from '../../common/script/src/i18n';

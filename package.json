@@ -112,7 +112,6 @@
     "karma-mocha-reporter": "^1.1.1",
     "karma-phantomjs-launcher": "~0.2.1",
     "lcov-result-merger": "^1.0.2",
-    "lodash.defaultsdeep": "^3.10.0",
     "mocha": "^2.3.3",
     "mongodb": "^2.0.46",
     "mongoskin": "~0.6.1",
