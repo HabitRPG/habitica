@@ -259,14 +259,11 @@ api.attachGroup = function(req, res, next) {
     if(err) return next(err);
     if(!group) return res.json(404, {err: shared.i18n.t('messageGroupNotFound')});
 
-    var unchangedChat = _.cloneDeep(group.chat);
-
     if (!user.contributor.admin) {
       _purgeFlagInfoFromChat(group, user);
     }
 
     res.locals.group = group;
-    res.locals.unchangedGroupChat = unchangedChat;
     next();
   });
 }
