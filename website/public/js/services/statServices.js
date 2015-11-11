@@ -48,7 +48,7 @@
 
           total += equipmentStat;
         }
-      });
+      }).value();
 
       return total;
     }

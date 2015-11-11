@@ -60,7 +60,7 @@ exports.createSubscription = function(data, cb) {
     }).defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date(),
       mysteryItems: []
-    });
+    }).value();
   }
 
   // Block sub perks

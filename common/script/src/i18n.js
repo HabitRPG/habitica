@@ -25,7 +25,7 @@ module.exports = {
     clonedVars.locale = locale;
     if (string) {
       try {
-        return _.template(string, clonedVars);
+        return _.template(string)(clonedVars);
       } catch (_error) {
         e = _error;
         return 'Error processing the string. Please see Help > Report a Bug.';
@@ -37,7 +37,7 @@ module.exports = {
         stringNotFound = module.exports.translations[locale] && module.exports.translations[locale].stringNotFound;
       }
       try {
-        return _.template(stringNotFound, {
+        return _.template(stringNotFound)({
           string: stringName
         });
       } catch (_error) {

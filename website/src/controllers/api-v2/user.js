@@ -15,7 +15,6 @@ var moment = require('moment');
 var logging = require('./../../libs/logging');
 var acceptablePUTPaths;
 var api = module.exports;
-var qs = require('qs');
 var firebase = require('../../libs/firebase');
 var webhook = require('../../libs/webhook');
 
