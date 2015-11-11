@@ -1,16 +1,31 @@
 import gulp from 'gulp';
-import babel from 'gulp-babel';
+import browserify from 'browserify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import uglify from 'gulp-uglify';
+import sourcemaps from 'gulp-sourcemaps';
+import babel from 'babelify';
 
-const ES2015_SOURCE = 'common/script/src/**/*.js';
-const ES2015_DIST = 'common/dist/scripts/';
+gulp.task('browserify', function () {
+  let bundler = browserify({
+    entries: './common/index.js',
+    debug: true,
+    transform: [[babel, { compact: false }]]
+  });
 
-gulp.task('babel:common', () => {
-  return gulp.src(ES2015_SOURCE)
-    .pipe(babel())
-    .pipe(gulp.dest(ES2015_DIST));
+  return bundler.bundle()
+    .pipe(source('habitrpg-shared.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify())
+    .on('error', function (err) {
+      console.error(err);
+      this.emit('end');
+    })
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./common/dist/scripts/'));
 });
 
-gulp.task('babel:common:watch', () => {
-  gulp.watch([ES2015_SOURCE], ['babel:common']);
+gulp.task('browserify:watch', () => {
+  gulp.watch('./common/script/**/*.js', ['browserify']);
 });
-
