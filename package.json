@@ -115,6 +115,7 @@
     "mocha": "^2.3.3",
     "mongodb": "^2.0.46",
     "mongoskin": "~0.6.1",
+    "nock": "^2.17.0",
     "protractor": "~2.5.1",
     "rewire": "^2.3.3",
     "rimraf": "^2.4.3",
