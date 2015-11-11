@@ -1,4 +1,3 @@
-require('coffee-script');
 var path, superagentDefaults;
 
 superagentDefaults = require("superagent-defaults");

@@ -1,6 +1,5 @@
 _ = require 'lodash'
 expect = require 'expect.js'
-require 'coffee-script'
 async = require 'async'
 superagentDefaults = require 'superagent-defaults'
 
