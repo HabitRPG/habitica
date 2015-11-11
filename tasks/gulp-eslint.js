@@ -11,7 +11,8 @@ gulp.task('lint:server', () => {
   return gulp
     .src([
       './website/src/**/api-v3/**/*.js',
-      './website/src/models/user.js'
+      './website/src/models/user.js',
+      './website/src/server.js'
     ])
     .pipe(eslint())
     .pipe(eslint.format())
