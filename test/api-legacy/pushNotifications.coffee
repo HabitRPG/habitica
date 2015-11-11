@@ -55,7 +55,7 @@ describe "Push-Notifications", ->
           expect(pushSpy.sendNotify).to.have.been.calledOnce
           expect(pushSpy.sendNotify).to.have.been.calledWith(
             user,
-            'You Won a Challenge',
+            'You won a Challenge!',
             'challenge-name'
           )
           done()
