@@ -1,4 +1,3 @@
-/* @see ./routes.coffee for routing*/
 var _ = require('lodash');
 var shared = require('../../../../common');
 var nconf = require('nconf');
