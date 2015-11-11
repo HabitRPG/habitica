@@ -140,5 +140,11 @@
     "streakAchievementCount": "<%= streaks %> 21-Day Streaks",
     "twentyOneDays": "You've completed your Daily for 21 days in a row!",
     "dontBreakStreak": "Amazing job. Don't break the streak!",
-    "dontStop": "Don't Stop Now!"
+    "dontStop": "Don't Stop Now!",
+    "levelUpShare": "I leveled up in Habitica by improving my real-life habits!",
+    "questUnlockShare": "I unlocked a new quest in Habitica!",
+    "hatchPetShare": "I hatched a new pet by completing my real-life tasks!",
+    "raisePetShare": "I raised a pet into a mount by completing my real-life tasks!",
+    "wonChallengeShare": "I won a challenge in Habitica!",
+    "achievementShare": "I earned a new achievement in Habitica!"
 }
