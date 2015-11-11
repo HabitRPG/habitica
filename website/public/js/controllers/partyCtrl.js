@@ -1,12 +1,13 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests',
-    function($rootScope,$scope,Groups,Chat,User,Challenges,$state,$compile,Analytics,Quests) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social',
+    function($rootScope,$scope,Groups,Chat,User,Challenges,$state,$compile,Analytics,Quests,Social) {
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
+      $scope.loadWidgets = Social.loadWidgets;
 
       if ($state.is('options.social.party')) {
         $scope.group.$syncParty(); // Sync party automatically when navigating to party page
