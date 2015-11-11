@@ -92,6 +92,7 @@ describe('errorHandler', () => {
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,
+      fullError: error,
     });
   });
 

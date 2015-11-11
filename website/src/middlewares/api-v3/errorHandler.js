@@ -3,6 +3,7 @@
 import logger from '../../libs/api-v3/logger';
 import {
   CustomError,
+  BadRequest,
   InternalServerError,
 } from '../../libs/api-v3/errors';
 
@@ -16,6 +17,7 @@ export default function errorHandler (err, req, res, next) {
     originalUrl: req.originalUrl,
     headers: req.headers,
     body: req.body,
+    fullError: err,
   });
 
   // In case of a CustomError class, use it's data
@@ -31,6 +33,12 @@ export default function errorHandler (err, req, res, next) {
     responseErr.message = err.message;
   }
 
+  // Handle errors by express-validator
+  if (Array.isArray(err) && err[0].param && err[0].msg) {
+    responseErr = new BadRequest('Invalid request parameters.');
+    responseErr.errors = err;
+  }
+
   if (!responseErr || responseErr.httpCode >= 500) {
     // Try to identify the error...
     // ...
@@ -40,6 +48,7 @@ export default function errorHandler (err, req, res, next) {
     responseErr = new InternalServerError();
   }
 
+  // TODO unless status >= 500 return data attached to errors
   return res
     .status(responseErr.httpCode)
     .json({
