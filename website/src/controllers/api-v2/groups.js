@@ -412,8 +412,9 @@ api.clearFlagCount = function(req, res, next){
   if(user.contributor.admin){
     message.flagCount = 0;
 
-    group.markModified('chat');
-    group.save(function(err,_saved){
+    Group.update({_id: group._id, 'chat.id': message.id}, {'$set': {
+      'chat.$.flagCount': message.flagCount,
+    }}, function(err) {
       if(err) return next(err);
       return res.send(204);
     });
