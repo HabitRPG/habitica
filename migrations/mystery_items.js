@@ -1,8 +1,8 @@
 var _id = '';
 var update = {
   $addToSet: {
-    'purchased.plan.mysteryItems':{
-      $each:['head_mystery_201509','armor_mystery_201509']
+    'purchased.plan.mysteryItems': {
+      $each: ['head_mystery_201509', 'armor_mystery_201509']
     }
   }
 };
@@ -24,17 +24,17 @@ var update = {
 
 if (_id) {
   // singular (missing items)
-  db.users.update({_id:_id}, update);
+  db.users.update({_id: _id}, update);
 } else {
   // multiple (once @ start of event)
   db.users.update([
     {$and: [
-      { 'purchased.plan.customerId': { $ne:null } },
+      { 'purchased.plan.customerId': { $ne: null } },
       {$or: [
         { 'purchased.plan.dateTerminated': { $gte: new Date() } },
-        { 'purchased.plan.dateTerminated': { $exists:false } },
-        { 'purchased.plan.dateTerminated': { $eq:null } }
+        { 'purchased.plan.dateTerminated': { $exists: false } },
+        { 'purchased.plan.dateTerminated': { $eq: null } }
       ]}
     ]}
-  ], update, { multi:true });
+  ], update, { multi: true });
 }
