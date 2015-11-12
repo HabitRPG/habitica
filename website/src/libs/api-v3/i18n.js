@@ -3,7 +3,7 @@ import path from 'path';
 import _ from 'lodash';
 import shared from '../../../../common';
 
-const localePath = path.join(__dirname, '/../../../../common/locales/');
+export const localePath = path.join(__dirname, '/../../../../common/locales/');
 
 // Store translations
 export let translations = {};

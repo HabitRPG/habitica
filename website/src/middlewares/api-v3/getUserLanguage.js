@@ -75,6 +75,7 @@ export default function getUserLanguage (req, res, next) {
     .exec()
     .then((user) => {
       req.language = _getFromUser(user, req);
+      console.log(req.language);
       return next();
     })
     .catch(next);
