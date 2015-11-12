@@ -103,11 +103,13 @@ api.registerUser = function(req, res, next) {
             hashed_password: utils.encryptPassword(req.body.password, salt)
           },
           timestamps: {created: +new Date(), loggedIn: +new Date()}
-        }
+        },
+        registeredThrough: req.headers['x-client']
       };
       // existing user, allow them to add local authentication
       if (data.findFacebook) {
         data.findFacebook.auth.local = newUser.auth.local;
+        data.findFacebook.registeredThrough = newUser.registeredThrough;
         data.findFacebook.save(cb);
       // new user, register them
       } else {
@@ -122,8 +124,6 @@ api.registerUser = function(req, res, next) {
           uuid: user._id,
         };
         analytics.track('register', analyticsData)
-
-        user.registeredThrough = req.headers['x-client']
 
         user.save(function(err, savedUser){
           // Clean previous email preferences
