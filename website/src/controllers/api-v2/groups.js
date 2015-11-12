@@ -1104,9 +1104,11 @@ api.questLeave = function(req, res, next) {
 function _purgeFlagInfoFromChat(group, user) {
   group.chat = _.filter(group.chat, function(message) { return !message.flagCount || message.flagCount < 2; });
   _.each(group.chat, function (message) {
-    var userHasFlagged = message.flags && message.flags[user._id];
-    message.flags = {};
+    if (message.flags) {
+      var userHasFlagged = message.flags[user._id];
+      message.flags = {};
 
-    if (userHasFlagged) message.flags[user._id] = userHasFlagged;
+      if (userHasFlagged) message.flags[user._id] = userHasFlagged;
+    }
   });
 }
