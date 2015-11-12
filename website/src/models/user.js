@@ -387,11 +387,11 @@ export let schema = new Schema({
       weeklyRecaps: {type: Boolean, default: true},
     },
     suppressModals: {
-      levelUp: {type: Boolean, 'default': false},
-      hatchPet: {type: Boolean, 'default': false},
-      raisePet: {type: Boolean, 'default': false},
-      streak: {type: Boolean, 'default': false}
-    }
+      levelUp: {type: Boolean, default: false},
+      hatchPet: {type: Boolean, default: false},
+      raisePet: {type: Boolean, default: false},
+      streak: {type: Boolean, default: false},
+    },
   },
   profile: {
     blurb: String,
