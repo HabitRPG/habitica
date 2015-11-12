@@ -16,7 +16,7 @@ module.exports.sendEmail = function(mailData) {
     }
   });
   smtpTransport.sendMail(mailData, function(error, response){
-      var logging = require('./logging');
+      var logging = require('./api-v2/logging');
     if(error) logging.error(error);
     else logging.info("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
@@ -172,7 +172,7 @@ module.exports.setupConfig = function(){
   //if (nconf.get('IS_PROD'))
     //require('newrelic');
 
-  var analytics = IS_PROD && require('./analytics');
+  var analytics = IS_PROD && require('./api-v2/analytics');
   var analyticsTokens = {
     amplitudeToken: nconf.get('AMPLITUDE_KEY'),
     googleAnalytics: nconf.get('GA_ID')
