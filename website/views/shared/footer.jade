@@ -60,11 +60,11 @@ footer.footer(ng-controller='FooterCtrl')
       .col-sm-3
         if (env.NODE_ENV === 'production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
-          .addthis_toolbox.addthis_default_style(addthis:url='https://habitica.com', addthis:title=env.t('socialTitle'))
+          .addthis_toolbox.addthis_default_style(addthis:url='https://habitica.com', addthis:title=env.t('socialTitle'), ng-init='loadWidgets()')
             table
               tr
                 td
-                  .fb-like(data-href='https://habitica.com/static/front', data-layout='button', data-action='like', data-share='true')
+                  .fb-like(data-href='https://habitica.com/static/front', data-layout='button', data-action='like', data-share='true', data-show-faces='true')
               tr
                 td
                   a.twitter-share-button(href='https://twitter.com/intent/tweet?text=Improve+yourself+in+the+land+of+Habitica!&via=habitica&url=https://habitica.com/&count=none')=env.t('tweet')

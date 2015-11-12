@@ -151,7 +151,7 @@ api.get = function(req, res, next) {
     }
 
     if (!user.contributor.admin) {
-      _purgeFlagInfoFromChat(group);
+      _purgeFlagInfoFromChat(group, user);
     }
 
     //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
@@ -260,7 +260,7 @@ api.attachGroup = function(req, res, next) {
     if(!group) return res.json(404, {err: shared.i18n.t('messageGroupNotFound')});
 
     if (!user.contributor.admin) {
-      _purgeFlagInfoFromChat(group);
+      _purgeFlagInfoFromChat(group, user);
     }
 
     res.locals.group = group;
@@ -361,44 +361,45 @@ api.flagChatMessage = function(req, res, next){
       message.flagCount++
     }
 
-    group.markModified('chat');
-    group.save(function(err,_saved){
-      if(err) return next(err);
-        var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
-        addressesToSendTo = (typeof addressesToSendTo == 'string') ? JSON.parse(addressesToSendTo) : addressesToSendTo;
+    Group.update({_id: group._id, 'chat.id': message.id}, {'$set': {
+      'chat.$.flags': message.flags,
+      'chat.$.flagCount': message.flagCount,
+    }}, function(err) {
+      if (err) return next(err);
+      var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
+      addressesToSendTo = (typeof addressesToSendTo == 'string') ? JSON.parse(addressesToSendTo) : addressesToSendTo;
 
-        if(Array.isArray(addressesToSendTo)){
-          addressesToSendTo = addressesToSendTo.map(function(email){
-            return {email: email, canSend: true}
-          });
-        }else{
-          addressesToSendTo = {email: addressesToSendTo}
-        }
+      if(Array.isArray(addressesToSendTo)){
+        addressesToSendTo = addressesToSendTo.map(function(email){
+          return {email: email, canSend: true}
+        });
+      }else{
+        addressesToSendTo = {email: addressesToSendTo}
+      }
 
-        utils.txnEmail(addressesToSendTo, 'flag-report-to-mods', [
-          {name: "MESSAGE_TIME", content: (new Date(message.timestamp)).toString()},
-          {name: "MESSAGE_TEXT", content: message.text},
+      utils.txnEmail(addressesToSendTo, 'flag-report-to-mods', [
+        {name: "MESSAGE_TIME", content: (new Date(message.timestamp)).toString()},
+        {name: "MESSAGE_TEXT", content: message.text},
 
-          {name: "REPORTER_USERNAME", content: user.profile.name},
-          {name: "REPORTER_UUID", content: user._id},
-          {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
-          {name: "REPORTER_MODAL_URL", content: "/static/front/#?memberId=" + user._id},
+        {name: "REPORTER_USERNAME", content: user.profile.name},
+        {name: "REPORTER_UUID", content: user._id},
+        {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
+        {name: "REPORTER_MODAL_URL", content: "/static/front/#?memberId=" + user._id},
 
-          {name: "AUTHOR_USERNAME", content: message.user},
-          {name: "AUTHOR_UUID", content: message.uuid},
-          {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
-          {name: "AUTHOR_MODAL_URL", content: "/static/front/#?memberId=" + message.uuid},
+        {name: "AUTHOR_USERNAME", content: message.user},
+        {name: "AUTHOR_UUID", content: message.uuid},
+        {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
+        {name: "AUTHOR_MODAL_URL", content: "/static/front/#?memberId=" + message.uuid},
 
-          {name: "GROUP_NAME", content: group.name},
-          {name: "GROUP_TYPE", content: group.type},
-          {name: "GROUP_ID", content: group._id},
-          {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
-        ]);
+        {name: "GROUP_NAME", content: group.name},
+        {name: "GROUP_TYPE", content: group.type},
+        {name: "GROUP_ID", content: group._id},
+        {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
+      ]);
 
       return res.send(204);
     });
   });
-
 }
 
 api.clearFlagCount = function(req, res, next){
@@ -411,15 +412,15 @@ api.clearFlagCount = function(req, res, next){
   if(user.contributor.admin){
     message.flagCount = 0;
 
-    group.markModified('chat');
-    group.save(function(err,_saved){
+    Group.update({_id: group._id, 'chat.id': message.id}, {'$set': {
+      'chat.$.flagCount': message.flagCount,
+    }}, function(err) {
       if(err) return next(err);
       return res.send(204);
     });
-  }else{
+  } else {
     return res.json(401, {err: shared.i18n.t('messageGroupChatAdminClearFlagCount')})
   }
-
 }
 
 api.seenMessage = function(req,res,next){
@@ -437,6 +438,7 @@ api.likeChatMessage = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
+
   if (!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
   if (message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatLikeOwnMessage')});
   if (!message.likes) message.likes = {};
@@ -445,14 +447,13 @@ api.likeChatMessage = function(req, res, next) {
   } else {
     message.likes[user._id] = true;
   }
-  group.markModified('chat');
-  group.save(function(err,_saved){
+
+  Group.update({_id: group._id, 'chat.id': message.id}, {'$set': {
+    'chat.$.likes': message.likes
+  }}, function(err) {
     if (err) return next(err);
-    // @TODO: We're sending back the entire array of chats back
-    // Should we just send back the object of the single chat message?
-    // If not, should we update the group chat when a chat is liked?
-    return res.send(_saved.chat);
-  })
+    return res.send(group.chat);
+  });
 }
 
 api.join = function(req, res, next) {
@@ -1100,9 +1101,14 @@ api.questLeave = function(req, res, next) {
     });
 }
 
-function _purgeFlagInfoFromChat(group) {
+function _purgeFlagInfoFromChat(group, user) {
   group.chat = _.filter(group.chat, function(message) { return !message.flagCount || message.flagCount < 2; });
   _.each(group.chat, function (message) {
-    message.flags = {};
+    if (message.flags) {
+      var userHasFlagged = message.flags[user._id];
+      message.flags = {};
+
+      if (userHasFlagged) message.flags[user._id] = userHasFlagged;
+    }
   });
 }
