@@ -16,7 +16,7 @@ var logging = require('./../../libs/api-v2/logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var firebase = require('../../libs/firebase');
-var webhook = require('../../libs/webhook');
+var webhook = require('../../libs/api-v2/webhook');
 
 // api.purchase // Shared.ops
 
