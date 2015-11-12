@@ -140,5 +140,8 @@
     "gemCapExtra": "Gem Cap Extra:",
     "mysticHourglasses": "Mystic Hourglasses:",
     "paypal": "PayPal",
-    "amazonPayments": "Amazon Payments"
+    "amazonPayments": "Amazon Payments",
+    "timezone": "Timezone",
+    "timezoneUTC": "Your timezone is: <b><%= utc %></b>",
+    "timezoneInfo": "<ul><li> Habitica uses the timezone set on your PC / mobile device.</li><li> If you use two or more PCs / devices, the timezone sholid be the same on them all otherwise cron will be unpredictable.</li><li> The timezone displayed here is the one that Habitica currently believes is yours.</li><li> If that timezone is wrong, first reload the website to ensure that Habitica is reading the most recent timezone information from your PC. If it is still wrong, adjust the timezone on your PC.</li></ul>"
 }
