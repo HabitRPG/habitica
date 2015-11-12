@@ -76,5 +76,7 @@
     "startAQuest": "START EN QUEST",
     "startQuest": "Start Quest",
     "whichQuestStart": "Hvilken quest vil du starte?",
-    "getMoreQuests": "Få flere quests"
+    "getMoreQuests": "Få flere quests",
+    "unlockedAQuest": "You unlocked a quest!",
+    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
 }

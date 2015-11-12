@@ -141,10 +141,10 @@
     "partyExplanation2": "Lute contra monstros e crie Desafios!",
     "partyExplanation3": "Convide amigos agora para ganha um Pergaminho de Missão!",
     "wantToStartParty": "Você quer começar uma equipe?",
-    "exclusiveQuestScroll": "Convidar um amigo para a sua equipe lhe garantirá um exclusivo Pergaminho de Missão para lutar a Basi-Lista juntos!",
+    "exclusiveQuestScroll": "Convidar um amigo para a sua equipe lhe garantirá um exclusivo Pergaminho de Missão para que enfrentem a Basi-Lista juntos!",
     "nameYourParty": "Dê nome a sua nova equipe!",
     "partyEmpty": "Você é o único na sua equipe. Convide seus amigos!",
-    "partyChatEmpty": "Seu bate-papo da equipe está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
+    "partyChatEmpty": "Seu bate-papo da equipe está vazio! Digite uma mensagem na caixa acima para começar a conversar.",
     "guildChatEmpty": "O bate-papo desta guilda está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
     "possessiveParty": "Equipe de <%= name %>",
     "requestAcceptGuidelines": "Se você quiser publicar mensagens na Taverna, em qualquer equipe ou chat de guild, primeiro leia nossas <%= linkStart %>Diretrizes da Comunidade<%= linkEnd %> e depois clique no botão abaixo para indicar que você as aceita."

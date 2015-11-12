@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] naprawdę pomogła mi poukładać sobie życie na studiach.",
     "invalidEmail": "Do zresetowania hasła potrzebny jest ważny adres e-mail.",
     "irishfeet123Quote": "Miałam okropne nawyki związane z porządnym sprzątaniem po posiłkach i rozstawianiem wszędzie kubków. [Habitica] to wyleczyła!",
-    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
+    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
     "kazuiQuote": "Przed [Habitiką] utknęłam na swojej pracy dyplomowej, byłam też niezadowolona ze stanu swojej osobistej dyscypliny wykonywania prac domowych i prowadzenia spraw takich jak nauka słówek czy studiowanie teorii go. Okazało się, że rozbicie zadań na łatwiejsze do wykonania kroki jest wyjątkowo dobrym sposobem na podtrzymywanie motywacji i nieporzucanie pracy.",
     "landingadminlink": "pakietami dla administratorów",
     "landingend": "Wciąż nieprzekonany?",
@@ -181,6 +181,12 @@
     "marketingInquiries": "Zapytania marketingowe/społecznościowe",
     "tweet": "Tweetuj",
     "apps": "Apps",
-    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
-    "checkOutIOSApp": "Check out our new iOS App!"
+    "notifyAndroidApp": "Chcesz, żebyśmy cię powiadomili, kiedy aplikacja na Androida będzie gotowa? Zapisz się na naszą listę mailingową!",
+    "checkOutIOSApp": "Wypróbuj naszą nową aplikację na system iOS!",
+    "imagine1": "Imagine if improving your life were as fun as playing a game.",
+    "landingCopy1": "Advance in the game by completing your real-life tasks.",
+    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
+    "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
+    "alreadyHaveAccount": "I already have an account!",
+    "getStartedNow": "Get Started Now!"
 }

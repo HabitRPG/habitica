@@ -32,7 +32,7 @@
     "armoireFood": "<%= image %> Przeszukując Zaczarowaną Szafę znaleziono <%= dropArticle %><%= dropText %>. Co to tutaj robi?",
     "armoireExp": "Mocujesz się z Zaczarowaną Szafą i zyskujesz doświadczenie. Masz za swoje!",
     "messageInsufficientGems": "Masz za mało klejnotów!",
-    "messageAuthPasswordMustMatch": ":password and :confirmPassword don't match",
+    "messageAuthPasswordMustMatch": "Hasło i potwierdzenie hasła nie są identyczne",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
     "messageAuthUsernameTaken": "Nazwa użytkownika już zajęta",
     "messageAuthEmailTaken": "Adres e-mail już zajęty.",

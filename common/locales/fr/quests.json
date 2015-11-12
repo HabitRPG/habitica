@@ -13,7 +13,7 @@
     "youReceived": "Vous remportez",
     "dropQuestCongrats": "Félicitations d'avoir gagné ce parchemin de quête ! Vous pouvez inviter votre équipe à commencer la quête maintenant, ou y revenir à n'importe quel moment dans votre Inventaire > Quêtes.",
     "questSend": "En cliquant sur \"Inviter\", vous enverrez une invitation aux membres de votre équipe. Lorsque tous les membres auront accepté ou refusé, la quête commencera. Vous pouvez suivre le statut de l'invitation sous Social > Équipe.",
-    "questSendBroken": "En cliquant sur \"Inviter\", vous enverrez une invitation aux membres de votre équipe. Lorsque tous les membres auront accepté ou refusé, la quête commencera. Vous pouvez suivre le statut de l'invitation sous Social > Équipe.",
+    "questSendBroken": "En cliquant sur « Inviter », vous enverrez une invitation aux membres de votre équipe. Lorsque tous les membres auront accepté ou refusé, la quête commencera. Vous pouvez suivre le statut de l'invitation sous Social > Équipe.",
     "inviteParty": "Inviter l’Equipe dans une Quête",
     "questInvitation": "Invitation à une Quête :",
     "questInvitationTitle": "Invitation à une Quête",
@@ -76,5 +76,7 @@
     "startAQuest": "COMMENCER UNE QUÊTE",
     "startQuest": "Commencer la Quête",
     "whichQuestStart": "Quelle quête voulez-vous démarrer ?",
-    "getMoreQuests": "Obtenez plus de quêtes"
+    "getMoreQuests": "Obtenez plus de quêtes",
+    "unlockedAQuest": "You unlocked a quest!",
+    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
 }

@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] heeft me echt geholpen om structuur aan te brengen in mijn leven op de universiteit.",
     "invalidEmail": "Om het wachtwoord te resetten is een geldig e-mailadres vereist.",
     "irishfeet123Quote": "Ik had verschrikkelijke gewoontes wat betreft opruimen na het eten en liet overal kopjes slingeren. [Habitica] heeft me daarvan genezen!",
-    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
+    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
     "kazuiQuote": "Voor [Habitica] zat ik vast met mijn thesis en was ik ontevreden met mijn persoonlijke discipline op het gebied van het huishouden en dingen zoals vocabulaire leren en Go-theorie leren. Het blijkt dat deze taken opbreken in kleinere, behapbare checklijsten precies is wat nodig was om me gemotiveerd te houden.",
     "landingadminlink": "administratieve pakketten",
     "landingend": "Nog niet overtuigd?",
@@ -101,7 +101,7 @@
     "marketing1Lead3": "<strong>Maak kans om prijzen te vinden</strong>. Voor sommigen is het motiverend om op willekeurige momenten beloningen te krijgen (dit heet \"stochastische beloning\") . Habitica gebruikt alle typen motiveringstactieken: positief, negatief, voorspelbaar en willekeurig.",
     "marketing1Lead3Title": "Maak kans om prijzen te vinden",
     "marketing2Header": "Doe wedstrijden met vrienden, sluit je aan bij interessegroepen",
-    "marketing2Lead1": "Hoewel je Habitica solo kunt spelen, wordt het pas echt leuk als je gaat samenwerken en concurreren, en als je elkaar bij de les houdt. Het meest effectieve deel van een zelfverbeteringsprogramma is sociale verantwoordelijkheid, en welke omgeving is nou beter voor competitie en vertantwoording afleggen dan een computerspel?",
+    "marketing2Lead1": "Hoewel je Habitica solo kunt spelen, wordt het pas echt leuk als je gaat samenwerken en concurreren, en als je elkaar bij de les houdt. Het meest effectieve deel van een zelfverbeteringsprogramma is sociale verantwoordelijkheid, en welke omgeving is nou beter voor competitie en verantwoording afleggen dan een computerspel?",
     "marketing2Lead2": "<strong>Vecht tegen Eindbazen</strong>. Wat is een Rollenspel zonder battles? Vecht tegen eindbazen met je groep. Eindbazen houden je \"superverantwoordelijk\" - als jij een dag geen zin hebt om te sporten, raakt de baas <em>iedereen</em>.",
     "marketing2Lead2Title": "Eindbazen",
     "marketing2Lead3": "<strong>Uitdagingen</strong> laten je concurreren met vrienden en onbekenden. Wie het het beste heeft gedaan aan het einde van een uitdaging wint speciale prijzen.",
@@ -181,6 +181,12 @@
     "marketingInquiries": "Vragen over marketing/social media",
     "tweet": "Tweet",
     "apps": "Apps",
-    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
-    "checkOutIOSApp": "Check out our new iOS App!"
+    "notifyAndroidApp": "Wil je bericht van ons ontvangen als de Android app klaar is? Schrijf je in op deze mailinglijst!",
+    "checkOutIOSApp": "Probeer onze nieuwe iOS App uit!",
+    "imagine1": "Imagine if improving your life were as fun as playing a game.",
+    "landingCopy1": "Advance in the game by completing your real-life tasks.",
+    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
+    "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
+    "alreadyHaveAccount": "I already have an account!",
+    "getStartedNow": "Get Started Now!"
 }
