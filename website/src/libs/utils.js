@@ -172,7 +172,7 @@ module.exports.setupConfig = function(){
   //if (nconf.get('IS_PROD'))
     //require('newrelic');
 
-  var analytics = IS_PROD && require('./analytics');
+  var analytics = IS_PROD && require('./api-v2/analytics');
   var analyticsTokens = {
     amplitudeToken: nconf.get('AMPLITUDE_KEY'),
     googleAnalytics: nconf.get('GA_ID')
