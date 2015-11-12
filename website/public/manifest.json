@@ -57,6 +57,7 @@
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",
             "js/filters/taskOrdering.js",
+            "js/filters/timezoneOffsetToUtc.js",
 
             "js/directives/close-menu.directive.js",
             "js/directives/expand-menu.directive.js",
