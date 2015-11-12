@@ -1,5 +1,5 @@
 require('coffee-script');
-require('./i18n');
+require('./api-v2/i18n');
 
 var _ = require('lodash');
 var Content = require('../../../common').content;

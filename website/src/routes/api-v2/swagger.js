@@ -20,7 +20,7 @@ var nconf = require("nconf");
 var cron = user.cron;
 var _ = require('lodash');
 var content = require('../../../../common').content;
-var i18n = require('../../libs/i18n');
+var i18n = require('../../libs/api-v2/i18n');
 var forceRefresh = require('../../middlewares/forceRefresh').middleware;
 
 module.exports = function(swagger, v2) {
