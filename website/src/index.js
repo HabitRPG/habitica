@@ -2,12 +2,12 @@
 require('babel/register');
 
 // TODO remove this once we've fully converted over
-require('coffee-script'); 
+require('coffee-script');
 
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require('cluster');
 var nconf = require('nconf');
-var logging = require('./libs/logging');
+var logging = require('./libs/api-v2/logging');
 
 // Initialize configuration
 var setupNconf = require('./libs/api-v3/setupNconf');

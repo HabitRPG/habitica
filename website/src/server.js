@@ -1,7 +1,7 @@
 // TODO cleanup all comments when finished API v3
 
 import nconf from 'nconf';
-import logging from './libs/logging';
+import logging from './libs/api-v2/logging';
 import utils from './libs/utils';
 import express from 'express';
 import http from 'http';

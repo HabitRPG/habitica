@@ -12,7 +12,7 @@ var analytics = utils.analytics;
 var Group = require('./../../models/group').model;
 var Challenge = require('./../../models/challenge').model;
 var moment = require('moment');
-var logging = require('./../../libs/logging');
+var logging = require('./../../libs/api-v2/logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var firebase = require('../../libs/firebase');
