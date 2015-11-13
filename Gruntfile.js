@@ -51,17 +51,6 @@ module.exports = function(grunt) {
       }
     },
 
-    browserify: {
-      dist: {
-        src: ["common/index.js"],
-        dest: "common/dist/scripts/habitrpg-shared.js"
-      },
-      options: {
-        transform: ['coffeeify']
-        //debug: true Huge data uri source map (400kb!)
-      }
-    },
-
     copy: {
       build: {
         files: [
@@ -134,12 +123,11 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['browserify', 'cssmin', 'stylus']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:dev', ['cssmin', 'stylus']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('test:prepare:translations', function() {
-    require('coffee-script');
     var i18n  = require('./website/src/libs/i18n'),
         fs    = require('fs');
     fs.writeFileSync('test/spec/mocks/translations.js',
@@ -148,7 +136,6 @@ module.exports = function(grunt) {
   });
 
   // Load tasks
-  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-stylus');

@@ -1,5 +1,3 @@
-import 'coffee-script';
-
 import mongoose from 'mongoose';
 import autoinc  from 'mongoose-id-autoinc';
 import logging  from '../website/src/libs/logging';

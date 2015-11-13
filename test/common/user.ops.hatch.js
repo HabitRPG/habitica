@@ -3,9 +3,8 @@ var chai = require('chai');
 chai.use(require('sinon-chai'))
 var expect = chai.expect
 
-require('coffee-script');
-var shared = require('../../common/script/index.coffee');
-var content = require('../../common/script/content/index.coffee');
+var shared = require('../../common/script/index.js');
+var content = require('../../common/script/content/index.js');
 
 describe('user.ops.hatch', function() {
   var user;

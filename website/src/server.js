@@ -20,7 +20,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   });
 
 } else {
-  require('coffee-script'); // remove this once we've fully converted over
   var express = require("express");
   var http = require("http");
   var path = require("path");
@@ -100,7 +99,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Route requests to the right app
   app.use(app.router);
   // Matches all request except the ones going to /api/v3/**
-  app.all(/^(?!\/api\/v3).+/i, oldApp);  
+  app.all(/^(?!\/api\/v3).+/i, oldApp);
   // Matches all requests going to /api/v3
   app.all('/api/v3', newApp);
 

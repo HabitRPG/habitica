@@ -2,7 +2,6 @@
 // payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
 // file will be used once for initing your billing plan (then you get the resultant plan.id to store in config.json),
 // and once for any time you need to edit the plan thereafter
-require('coffee-script');
 var path = require('path');
 var nconf = require('nconf');
 _ = require('lodash');

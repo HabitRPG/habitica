@@ -2,7 +2,7 @@ import gulp from 'gulp';
 import eslint from 'gulp-eslint';
 import _ from 'lodash';
 
-// TODO remove once we upgrade to lodash 3 
+// TODO remove once we upgrade to lodash 3
 const defaultsDeep = _.partialRight(_.merge, _.defaults);
 
 const shared = {
@@ -19,7 +19,6 @@ const shared = {
 };
 
 gulp.task('lint:client', () => {
-  // Ignore .coffee files
   return gulp.src(['./website/public/js/**/*.js'])
     .pipe(eslint(defaultsDeep({
       env: {
@@ -31,7 +30,6 @@ gulp.task('lint:client', () => {
 });
 
 gulp.task('lint:server', () => {
-  // Ignore .coffee files
   return gulp.src(['./website/src/**/*.js'])
     .pipe(eslint(defaultsDeep({
       env: {
