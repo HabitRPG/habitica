@@ -62,7 +62,7 @@ describe('getUserLanguage', () => {
       expect(req.language).to.equal('it');
     });
 
-    xit('falls back to english if the user preferred language is not avalaible', () => {
+    it('falls back to english if the user preferred language is not avalaible', (done) => {
       req.locals = {
         user: {
           preferences: {
@@ -71,8 +71,10 @@ describe('getUserLanguage', () => {
         },
       };
 
-      getUserLanguage(req, res, next);
-      expect(req.language).to.equal('en');
+      getUserLanguage(req, res, () => {
+        expect(req.language).to.equal('en');
+        done();
+      });
     });
   });
 

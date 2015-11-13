@@ -35,6 +35,7 @@ export function generateReq(options={}) {
   let defaultReq = {
     body: {},
     query: {},
+    headers: {},
   };
 
   return defaults(options, defaultReq);
