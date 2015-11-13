@@ -82,8 +82,9 @@ describe('getUserLanguage', () => {
         userId: 123
       };
 
-      getUserLanguage(req, res, next);
-      expect(req.language).to.equal('it');
+      getUserLanguage(req, res, () => {
+        expect(req.language).to.equal('it');
+      });
     });
   });
 });
