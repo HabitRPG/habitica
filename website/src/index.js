@@ -4,7 +4,7 @@ require('babel/register');
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require('cluster');
 var nconf = require('nconf');
-var logging = require('./libs/api-v2/logging');
+var logger = require('./libs/api-v3/logger');
 
 // Initialize configuration
 var setupNconf = require('./libs/api-v3/setupNconf');
@@ -26,7 +26,7 @@ if (cores !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
   cluster.on('disconnect', (worker) => {
     var w = cluster.fork(); // replace the dead worker
 
-    logging.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+    logger.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
 } else {
   module.exports = require('./server.js');

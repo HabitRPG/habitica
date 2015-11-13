@@ -1,7 +1,7 @@
 // TODO cleanup all comments when finished API v3
 
 import nconf from 'nconf';
-import logging from './libs/api-v2/logging';
+import logger from './libs/api-v3/logger';
 import utils from './libs/utils';
 import express from 'express';
 import http from 'http';
@@ -37,7 +37,7 @@ let mongooseOptions = !IS_PROD ? {} : {
 };
 let db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, (err) => {
   if (err) throw err;
-  logging.info('Connected with Mongoose');
+  logger.info('Connected with Mongoose');
 });
 
 autoinc.init(db);
@@ -158,7 +158,7 @@ oldApp.use(require('./middlewares/errorHandler'));
 
 server.on('request', app);
 server.listen(app.get('port'), () => {
-  return logging.info(`Express server listening on port ${app.get('port')}`);
+  return logger.info(`Express server listening on port ${app.get('port')}`);
 });
 
 export default server;

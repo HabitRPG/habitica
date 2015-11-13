@@ -6,7 +6,7 @@ module.exports = {
   strings: null,
   translations: {},
   t: function(stringName) {
-    var clonedVars, e, locale, string, stringNotFound, vars;
+    var clonedVars, e, error, error1, locale, string, stringNotFound, vars;
     vars = arguments[1];
     if (_.isString(arguments[1])) {
       vars = null;
@@ -27,9 +27,9 @@ module.exports = {
     clonedVars.locale = locale;
     if (string) {
       try {
-        return _.template(string, clonedVars);
-      } catch (_error) {
-        e = _error;
+        return _.template(string)(clonedVars);
+      } catch (error) {
+        e = error;
         return 'Error processing the string. Please see Help > Report a Bug.';
       }
     } else {
@@ -39,11 +39,11 @@ module.exports = {
         stringNotFound = module.exports.translations[locale] && module.exports.translations[locale].stringNotFound;
       }
       try {
-        return _.template(stringNotFound, {
+        return _.template(stringNotFound)({
           string: stringName
         });
-      } catch (_error) {
-        e = _error;
+      } catch (error1) {
+        e = error1;
         return 'Error processing the string. Please see Help > Report a Bug.';
       }
     }

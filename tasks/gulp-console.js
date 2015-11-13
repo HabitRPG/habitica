@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import autoinc  from 'mongoose-id-autoinc';
-import logging  from '../website/src/libs/api-v2/logging';
+import logger  from '../website/src/libs/api-v3/logger';
 import nconf    from 'nconf';
 import utils    from '../website/src/libs/utils';
 import repl     from 'repl';
@@ -36,7 +36,7 @@ let improveRepl = (context) => {
       mongooseOptions,
       function(err) {
         if (err) throw err;
-        logging.info('Connected with Mongoose');
+        logger.info('Connected with Mongoose');
       }
     )
   );
