@@ -11,14 +11,16 @@ describe('analytics middleware', function() {
   let pathToAnalyticsMiddleware = '../../../../../website/src/middlewares/api-v3/analytics';
 
   beforeEach(() => {
+    res = generateRes();
+    req = generateReq();
+    next = generateNext();
+  });
+
+  afterEach(() => {
     // The nconf.get('IS_PROD') occurs when the file is required
     // Since node caches IS_PROD, we have to delete it from the cache
     // to test prod vs non-prod behaviors
     delete require.cache[require.resolve(pathToAnalyticsMiddleware)];
-
-    res = generateRes();
-    req = generateReq();
-    next = generateNext();
   });
 
   it('attaches analytics object res.locals', function() {
