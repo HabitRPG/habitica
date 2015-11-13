@@ -28,7 +28,7 @@ describe('getUserLanguage', () => {
     });
   });
 
-  describe('query parameter', () => {
+  context('query parameter', () => {
     it('uses the language in the query parameter if avalaible', () => {
       req.query = {
         lang: 'es',
@@ -48,7 +48,7 @@ describe('getUserLanguage', () => {
     });
   });
 
-  describe('authorized request', () => {
+  context('authorized request', () => {
     it('uses the user preferred language if avalaible', () => {
       req.locals = {
         user: {
