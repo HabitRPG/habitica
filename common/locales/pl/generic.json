@@ -28,7 +28,7 @@
     "market": "Targ",
     "subscriberItem": "Tajemniczy przedmiot",
     "newSubscriberItem": "Nowy tajemniczy przedmiot",
-    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
+    "subscriberItemText": "W każdym miesiącu  abonenci otrzymają tajemniczy przedmiot. Zazwyczaj jest on wydawany około tygodnia przed końcem miesiąca. Aby uzyskać więcej informacji, zobacz stronę \"Mystery Item\" w wiki.",
     "all": "Wszystkie",
     "none": "Żadne",
     "or": "Lub",
@@ -134,5 +134,17 @@
     "thankyou2": "Wysyłam Ci tysiąc podziękowań.",
     "thankyou3": "Jestem bardzo wdzięczny - dziękuję!",
     "thankyouCardAchievementTitle": "Ogromnie wdzięczny",
-    "thankyouCardAchievementText": "Dzięki za bycie wdzięcznym! Wysłał lub otrzymał <%= cards %> kartek z podziękowaniem."
+    "thankyouCardAchievementText": "Dzięki za bycie wdzięcznym! Wysłał lub otrzymał <%= cards %> kartek z podziękowaniem.",
+    "streakAchievement": "You earned a streak achievement!",
+    "firstStreakAchievement": "21-Day Streak",
+    "streakAchievementCount": "<%= streaks %> 21-Day Streaks",
+    "twentyOneDays": "You've completed your Daily for 21 days in a row!",
+    "dontBreakStreak": "Amazing job. Don't break the streak!",
+    "dontStop": "Don't Stop Now!",
+    "levelUpShare": "I leveled up in Habitica by improving my real-life habits!",
+    "questUnlockShare": "I unlocked a new quest in Habitica!",
+    "hatchPetShare": "I hatched a new pet by completing my real-life tasks!",
+    "raisePetShare": "I raised a pet into a mount by completing my real-life tasks!",
+    "wonChallengeShare": "I won a challenge in Habitica!",
+    "achievementShare": "I earned a new achievement in Habitica!"
 }

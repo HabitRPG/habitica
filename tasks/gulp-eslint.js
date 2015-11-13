@@ -7,7 +7,6 @@ import eslint from 'gulp-eslint';
 // TODO what about prefer-const rule?
 // TODO remove estraverse dependency once https://github.com/adametry/gulp-eslint/issues/117 sorted out
 gulp.task('lint:server', () => {
-  // Ignore .coffee files
   return gulp
     .src([
       './website/src/**/api-v3/**/*.js',

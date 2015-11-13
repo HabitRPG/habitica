@@ -684,7 +684,7 @@ var inviteByEmails = function(invites, group, req, res, next){
 
       // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
-      res.send(200);
+      res.json(200, {});
     }
   });
 };

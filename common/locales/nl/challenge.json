@@ -60,6 +60,8 @@
     "noPermissionEditChallenge": "Je hebt geen toestemming om deze uitdaging te bewerken",
     "noPermissionDeleteChallenge": "Je hebt geen toestemming om deze uitdaging te verwijderen",
     "noPermissionCloseChallenge": "Je hebt geen toestemming om deze uitdaging te sluiten",
+    "congratulations": "Congratulations!",
+    "hurray": "Hurray!",
     "noChallengeOwner": "geen eigenaar",
-    "noChallengeOwnerPopover": "Deze uitdaging heeft geen eigenaar, omdat de eigenaar zijn account heeft verwijdert."
+    "noChallengeOwnerPopover": "Deze uitdaging heeft geen eigenaar omdat de eigenaar zijn of haar account heeft verwijderd."
 }

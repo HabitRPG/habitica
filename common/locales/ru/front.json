@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] действительно помогла мне организовать структурный подход к своей жизни во время учёбы в аспирантуре.",
     "invalidEmail": "Для изменения пароля необходимо указать существующий адрес электронной почты.",
     "irishfeet123Quote": "У меня была ужасная привычка не мыть за собой посуду после еды и оставлять везде кружки. [Habitica] полностью меня исправила!",
-    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
+    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
     "kazuiQuote": "До [Habitica] работа с моей диссертацией никак не продвигалась. Кроме того, вызывала недовольство моя недисциплинированность в отношении домашних дел и таких задач, как изучение новых слов и обучение игре Го. Оказывается, разбивка этих задач на списки из небольших подзаданий – как раз то, что мне нужно, чтобы сохранять мотивацию и постоянную работоспособность.",
     "landingadminlink": "административные пакеты,",
     "landingend": "Еще не уверены?",
@@ -182,5 +182,11 @@
     "tweet": "Твитнуть",
     "apps": "Apps",
     "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
-    "checkOutIOSApp": "Check out our new iOS App!"
+    "checkOutIOSApp": "Check out our new iOS App!",
+    "imagine1": "Imagine if improving your life were as fun as playing a game.",
+    "landingCopy1": "Advance in the game by completing your real-life tasks.",
+    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
+    "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
+    "alreadyHaveAccount": "I already have an account!",
+    "getStartedNow": "Get Started Now!"
 }

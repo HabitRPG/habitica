@@ -1,9 +1,6 @@
 // Register babel hook so we can write the real entry file (server.js) in ES6
 require('babel/register');
 
-// TODO remove this once we've fully converted over
-require('coffee-script');
-
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require('cluster');
 var nconf = require('nconf');

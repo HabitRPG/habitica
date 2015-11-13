@@ -255,4 +255,6 @@ window.habitrpg = angular.module('habitrpg',
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
         $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiToken;
       }
+
+      $httpProvider.defaults.headers.common['x-client'] = 'habitica-web';
   }]);

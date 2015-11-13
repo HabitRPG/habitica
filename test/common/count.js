@@ -3,7 +3,6 @@ var chai = require("chai")
 chai.use(require("sinon-chai"))
 var expect = chai.expect
 
-require('coffee-script');
 var count = require('../../common/script/count');
 
 describe('count', function() {
@@ -27,9 +26,9 @@ describe('count', function() {
     });
 
     it('does not count pets hatched with premium potions', function() {
-      var pets = { 
-        "Wolf-Spooky": 5, 
-        "Dragon-Spooky": 5, 
+      var pets = {
+        "Wolf-Spooky": 5,
+        "Dragon-Spooky": 5,
         "FlyingPig-Base": 5
       }
       var beastMasterTotal = count.beastMasterProgress(pets);

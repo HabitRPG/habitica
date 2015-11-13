@@ -14,7 +14,7 @@
     "displayItemForGold": "Wil je een <strong><%= itemType %></strong> verkopen?",
     "displayEggForGold": "Wil je een <strong><%= itemType %> Ei </strong> verkopen?",
     "displayPotionForGold": "Wil je een <strong><%= itemType %> Toverdrank</strong> verkopen?",
-    "sellForGold": "Verkoop het voor <%= gold %> Goud",
+    "sellForGold": "Verkopen voor <%= gold %> Goud",
     "buyGems": "Koop edelstenen",
     "justin": "Justin",
     "ian": "Ian",

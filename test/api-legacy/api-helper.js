@@ -1,4 +1,3 @@
-require('coffee-script');
 require('babel/register');
 var path, superagentDefaults;
 

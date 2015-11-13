@@ -1,4 +1,4 @@
-module.exports = require('./script/index.coffee');
+module.exports = require('./script/index');
 var _ = require('lodash');
 var moment = require('moment');
 
