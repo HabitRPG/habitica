@@ -103,8 +103,7 @@ api.registerUser = function(req, res, next) {
             hashed_password: utils.encryptPassword(req.body.password, salt)
           },
           timestamps: {created: +new Date(), loggedIn: +new Date()}
-        },
-        registeredThrough: req.headers['x-client']
+        }
       };
       // existing user, allow them to add local authentication
       if (data.findFacebook) {
@@ -117,6 +116,7 @@ api.registerUser = function(req, res, next) {
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
 
+        user.registeredThrough = req.headers['x-client'];
         var analyticsData = {
           category: 'acquisition',
           type: 'local',
@@ -202,6 +202,8 @@ api.loginSocial = function(req, res, next) {
       };
       user.auth[network] = prof;
       user = new User(user);
+      user.registeredThrough = req.headers['x-client'];
+
       user.save(function(err, savedUser){
         // Clean previous email preferences
         if(savedUser.auth.facebook.emails && savedUser.auth.facebook.emails[0] && savedUser.auth.facebook.emails[0].value){
