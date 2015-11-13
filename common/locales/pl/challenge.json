@@ -60,6 +60,8 @@
     "noPermissionEditChallenge": "Nie posiadasz uprawnień, by edytować to wyzwanie",
     "noPermissionDeleteChallenge": "Nie posiadasz uprawnień, by usunąć to wyzwanie",
     "noPermissionCloseChallenge": "Nie posiadasz uprawnień, by zamknąć to wyzwanie",
+    "congratulations": "Congratulations!",
+    "hurray": "Hurray!",
     "noChallengeOwner": "brak właściciela",
     "noChallengeOwnerPopover": "To wyzwanie nie posiada właściciela, ponieważ osoba zakładająca to wyzwanie usunęła swoje konto."
 }

@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] realmente me ha ayudado a estructurar mi vida en la universidad.",
     "invalidEmail": "Se requiere una dirección válida de correo electrónico para poder restablecer una contraseña.",
     "irishfeet123Quote": "He tenido horribles hábitos respecto a limpiar mi puesto completamente despues de comer y dejar todos pos platos sobre la mesa. [Habitica] curó eso!",
-    "joinOthers": "Join 850,000 people making it fun to achieve goals!",
+    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
     "kazuiQuote": "Antes de [Habitica], estaba estancado con mi tesis, del mismo modo decepcionado con mi disciplina personal respecto al aseo del hogar, cosas como aprender vocabulario y estudiar teoría del Go. El romper todas esas tareas en listas pequeñas y manejables es prácticamente lo que me mantiene motivado y trabajando constantemente.",
     "landingadminlink": "paquetes administrativos",
     "landingend": "¿Todavía no estás convencido?",
@@ -180,7 +180,13 @@
     "merchandiseInquiries": "Preguntas sobre márketing y merchandising",
     "marketingInquiries": "Preguntas sobre márketing y redes sociales",
     "tweet": "Tweetear",
-    "apps": "Apps",
-    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
-    "checkOutIOSApp": "Check out our new iOS App!"
+    "apps": "Aplicaciones",
+    "notifyAndroidApp": "¿Quieres que te avisemos cuando la aplicación para Android esté lista? ¡Regístrate en esta lista de envío!",
+    "checkOutIOSApp": "¡Chequea nuestra nueva aplicación para iOS!",
+    "imagine1": "Imagine if improving your life were as fun as playing a game.",
+    "landingCopy1": "Advance in the game by completing your real-life tasks.",
+    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
+    "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
+    "alreadyHaveAccount": "I already have an account!",
+    "getStartedNow": "Get Started Now!"
 }

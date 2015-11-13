@@ -19,6 +19,8 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
         });
       })
     }
+
+    $http.defaults.headers.common['x-client'] = 'habitica-web';
   }])
 
 .controller("PlansCtrl", ['$rootScope','Analytics',
@@ -56,4 +58,4 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
   $(document).ready(function(){
     openHashAccordion();
   });
-})  
+})

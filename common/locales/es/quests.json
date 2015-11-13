@@ -76,5 +76,7 @@
     "startAQuest": "EMPRENDER UNA MISIÓN",
     "startQuest": "Emprender misión",
     "whichQuestStart": "¿Qué misión quieres emprender?",
-    "getMoreQuests": "Conseguir más misiones"
+    "getMoreQuests": "Conseguir más misiones",
+    "unlockedAQuest": "You unlocked a quest!",
+    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
 }

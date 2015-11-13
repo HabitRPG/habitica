@@ -2,13 +2,11 @@
 ---------- /api/v2 API ------------
 see https://github.com/wordnik/swagger-node-express
 Every url added to router is prefaced by /api/v2
-Note: Many user-route ops exist in ../../common/script/index.coffee#user.ops, so that they can (1) be called both
+Note: Many user-route ops exist in ../../common/script/index.js#user.ops, so that they can (1) be called both
 client and server.
 v1 user. Requires x-api-user (user id) and x-api-key (api key) headers, Test with:
-$ mocha test/user.mocha.coffee
  */
 
-require('coffee-script');
 var user = require("../../controllers/api-v2/user");
 var groups = require("../../controllers/api-v2/groups");
 var members = require("../../controllers/api-v2/members");
@@ -295,7 +293,7 @@ module.exports = function(swagger, v2) {
       spec: {
         method: 'POST',
         description: "Casts a spell on a target.",
-        parameters: [path('spell', "The key of the spell to cast (see ../../common#content/index.coffee)", 'string'), query('targetType', "The type of object you're targeting", 'string', ['party', 'self', 'user', 'task']), query('targetId', "The ID of the object you're targeting", 'string')]
+        parameters: [path('spell', "The key of the spell to cast (see ../../common#content/index.js)", 'string'), query('targetType', "The type of object you're targeting", 'string', ['party', 'self', 'user', 'task']), query('targetId', "The ID of the object you're targeting", 'string')]
       },
       action: user.cast
     },
@@ -772,6 +770,6 @@ module.exports = function(swagger, v2) {
     swagger["add" + route.spec.method](route);
     return true;
   });
-  
+
   return swagger.configure((nconf.get('BASE_URL')) + "/api/v2", "2");
 };

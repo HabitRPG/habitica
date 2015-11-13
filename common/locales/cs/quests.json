@@ -76,5 +76,7 @@
     "startAQuest": "VYDEJ SE NA VÝPRAVU",
     "startQuest": "Začít Výpravu",
     "whichQuestStart": "Na kterou výpravu se chceš vydat?",
-    "getMoreQuests": "Získej více výprav"
+    "getMoreQuests": "Získej více výprav",
+    "unlockedAQuest": "You unlocked a quest!",
+    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
 }

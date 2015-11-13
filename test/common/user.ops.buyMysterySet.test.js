@@ -3,9 +3,8 @@ var chai = require("chai")
 chai.use(require("sinon-chai"))
 var expect = chai.expect
 
-require('coffee-script');
-var shared = require('../../common/script/index.coffee');
-var Content = require('../../common/script/content/index.coffee');
+var shared = require('../../common/script/index.js');
+var Content = require('../../common/script/content/index.js');
 
 describe('user.ops.buyMysterySet', function() {
   var user;
@@ -51,7 +50,7 @@ describe('user.ops.buyMysterySet', function() {
           armor_mystery_301404: true,
           head_mystery_301404: true,
           eyewear_mystery_301404: true
-        };   
+        };
 
         user.ops.buyMysterySet({params:{key:'301404'}}, function(response) {
           expect(response.message).to.eql("Mystery set not found, or set already owned");

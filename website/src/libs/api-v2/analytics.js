@@ -1,4 +1,3 @@
-require('coffee-script');
 require('./api-v2/i18n');
 
 var _ = require('lodash');

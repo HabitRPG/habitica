@@ -60,6 +60,8 @@
     "noPermissionEditChallenge": "Nemate ovlašćenje da prepravite ovaj izazov.",
     "noPermissionDeleteChallenge": "Nemate ovlašćenje da izbrišete ovaj izazov.",
     "noPermissionCloseChallenge": "Nemate ovlašćenje da zatvorite ovaj izazov.",
+    "congratulations": "Congratulations!",
+    "hurray": "Hurray!",
     "noChallengeOwner": "no owner",
     "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }

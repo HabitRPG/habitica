@@ -16,11 +16,11 @@
     "rebirthEarnAchievement": "¡También recibirás un Logro por haber empezado una nueva aventura!",
     "beReborn": "Ser renacido",
     "rebirthAchievement": "¡Has comenzado una nueva aventura! Este es tu <%= number %> Renacimiento, y el Nivel más alto que has logrado es <%= level %>. Para apilar este Logro, ¡empieza tu aventura siguiente después de haber conseguido un nivel aún más alto!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "¡Haz comenzado una nueva aventura! Este es el Renacimiento <%= number %> para ti, y el Nivel más alto que has adquirido es 100 o más alto. Para acumular este Logro, ¡empieza tu nueva aventura cuando hayas alcanzado como mínimo el nivel 100!",
     "rebirthBegan": "Comienzo una aventura nueva",
     "rebirthText": "Comenzó <%= rebirths %>  aventuras nuevas",
     "rebirthOrb": "Uso una Esfera derenacimiento para comenzar de nuevo después de conseguir Nivel",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "Utilizó una Esfera de Renacimiento para comenzar de nuevo luego de adquirir el Nivel 100 or más alto",
     "rebirthPop": "Comenzar con un personaje nuevo a Nivel 1, mientras manteniendo logros, lo coleccionable, y tareas con historial.",
     "rebirthName": "Esfera de renacimiento",
     "reborn": "Renacido, nivel máximo <%= reLevel %>"

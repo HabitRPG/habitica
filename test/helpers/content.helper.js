@@ -2,7 +2,6 @@ require('./globals.helper');
 import {each} from 'lodash';
 
 import i18n from '../../common/script/src/i18n';
-require('coffee-script');
 i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 export const STRING_ERROR_MSG = 'Error processing the string. Please see Help > Report a Bug.';

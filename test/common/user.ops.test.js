@@ -4,8 +4,7 @@ chai.use(require("sinon-chai"))
 var expect = chai.expect
 var _ = require('lodash');
 
-require('coffee-script');
-var shared = require('../../common/script/index.coffee');
+var shared = require('../../common/script/index.js');
 
 describe('user.ops', function() {
   var user;

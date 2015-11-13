@@ -76,5 +76,7 @@
     "startAQuest": "クエストを始める",
     "startQuest": "クエストを始めよう",
     "whichQuestStart": "どのクエストを始めますか？",
-    "getMoreQuests": "Get more quests"
+    "getMoreQuests": "Get more quests",
+    "unlockedAQuest": "You unlocked a quest!",
+    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
 }

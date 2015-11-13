@@ -60,6 +60,8 @@
     "noPermissionEditChallenge": "У вас немає дозволу редагувати це випробування",
     "noPermissionDeleteChallenge": "У вас немає дозволу видаляти це випробування",
     "noPermissionCloseChallenge": "У вас немає дозволу закривати це випробування",
+    "congratulations": "Congratulations!",
+    "hurray": "Hurray!",
     "noChallengeOwner": "немає власника",
     "noChallengeOwnerPopover": "У цього випробування немає власника, тому що людина, що створила його, вилучила свій акаунт."
 }

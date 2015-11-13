@@ -76,5 +76,7 @@
     "startAQuest": "START AN ADVENTURE",
     "startQuest": "Start Adventure",
     "whichQuestStart": "Which adventure do ye want t' start?",
-    "getMoreQuests": "Get more adventures"
+    "getMoreQuests": "Get more adventures",
+    "unlockedAQuest": "You unlocked a quest!",
+    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
 }

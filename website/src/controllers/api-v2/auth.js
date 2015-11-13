@@ -109,6 +109,7 @@ api.registerUser = function(req, res, next) {
       // existing user, allow them to add local authentication
       if (data.findFacebook) {
         data.findFacebook.auth.local = newUser.auth.local;
+        data.findFacebook.registeredThrough = newUser.registeredThrough;
         data.findFacebook.save(cb);
       // new user, register them
       } else {
@@ -116,6 +117,7 @@ api.registerUser = function(req, res, next) {
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
 
+        user.registeredThrough = req.headers['x-client'];
         var analyticsData = {
           category: 'acquisition',
           type: 'local',
@@ -123,8 +125,6 @@ api.registerUser = function(req, res, next) {
           uuid: user._id,
         };
         analytics.track('register', analyticsData)
-
-        user.registeredThrough = req.headers['x-client']
 
         user.save(function(err, savedUser){
           // Clean previous email preferences
@@ -203,6 +203,8 @@ api.loginSocial = function(req, res, next) {
       };
       user.auth[network] = prof;
       user = new User(user);
+      user.registeredThrough = req.headers['x-client'];
+
       user.save(function(err, savedUser){
         // Clean previous email preferences
         if(savedUser.auth.facebook.emails && savedUser.auth.facebook.emails[0] && savedUser.auth.facebook.emails[0].value){
