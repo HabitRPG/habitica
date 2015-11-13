@@ -2,7 +2,6 @@
 
 import nconf from 'nconf';
 import logger from './libs/api-v3/logger';
-import utils from './libs/api-v2/utils';
 import express from 'express';
 import http from 'http';
 // import path from 'path';
@@ -14,7 +13,6 @@ import passportFacebook from 'passport-facebook';
 import mongoose from 'mongoose';
 import Q from 'q';
 import attachMiddlewares from './middlewares/api-v3/index';
-utils.setupConfig();
 
 // Setup translations
 // let i18n = require('./libs/api-v2/i18n');
