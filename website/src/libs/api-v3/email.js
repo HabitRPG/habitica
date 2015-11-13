@@ -30,14 +30,18 @@ export function send (mailData) {
     .catch((error) => logger.error(error));
 }
 
-export function getUserInfo (user, fields) {
+export function getUserInfo (user, fields = []) {
   let info = {};
 
   if (fields.indexOf('name') !== -1) {
-    if (user.auth.local) {
-      info.name = user.profile.name || user.auth.local.username;
-    } else if (user.auth.facebook) {
-      info.name = user.profile.name || user.auth.facebook.displayName || user.auth.facebook.username;
+    info.name = user.profile && user.profile.name;
+
+    if (!info.name) {
+      if (user.auth.local && user.auth.local.username) {
+        info.name = user.auth.local.username;
+      } else if (user.auth.facebook) {
+        info.name = user.auth.facebook.displayName || user.auth.facebook.username;
+      }
     }
   }
 
@@ -54,14 +58,16 @@ export function getUserInfo (user, fields) {
   }
 
   if (fields.indexOf('canSend') !== -1) {
-    info.canSend = user.preferences.emailNotifications.unsubscribeFromAll !== true;
+    if (user.preferences && user.preferences.emailNotifications) {
+      info.canSend = user.preferences.emailNotifications.unsubscribeFromAll !== true;
+    }
   }
 
   return info;
 }
 
 // Send a transactional email using Mandrill through the external email server
-export function txnEmail (mailingInfoArray, emailType, variables, personalVariables) {
+export function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
   mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
 
   variables = [
@@ -127,9 +133,8 @@ export function txnEmail (mailingInfoArray, emailType, variables, personalVariab
   }
 
   if (IS_PROD && mailingInfoArray.length > 0) {
-    request({
+    request.post({
       url: `${EMAIL_SERVER.url}/job`,
-      method: 'POST',
       auth: {
         user: EMAIL_SERVER.auth.user,
         pass: EMAIL_SERVER.auth.password,
