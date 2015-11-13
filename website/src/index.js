@@ -4,7 +4,7 @@ require('babel/register');
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require('cluster');
 var nconf = require('nconf');
-var logger = require('./libs/api-v2/logger');
+var logger = require('./libs/api-v3/logger');
 
 // Initialize configuration
 var setupNconf = require('./libs/api-v3/setupNconf');
