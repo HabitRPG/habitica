@@ -16,16 +16,6 @@ describe('getUserLanguage', () => {
     res = generateRes();
     req = generateReq();
     next = generateNext();
-
-    sandbox.stub(User, 'findOne').returns({
-      exec() {
-        return Q.resolve({
-          preferences: {
-            language: 'it',
-          }
-        });
-      }
-    });
   });
 
   context('query parameter', () => {
@@ -80,6 +70,16 @@ describe('getUserLanguage', () => {
 
   describe('request with session', () => {
     it('uses the user preferred language if avalaible', (done) => {
+      sandbox.stub(User, 'findOne').returns({
+        exec() {
+          return Q.resolve({
+            preferences: {
+              language: 'it',
+            }
+          });
+        }
+      });
+
       req.session = {
         userId: 123
       };
