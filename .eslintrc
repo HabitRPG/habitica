@@ -28,7 +28,6 @@
         "no-new": 2,
         "no-octal-escape": 2,
         "no-octal": 2,
-        "no-param-reassign": 2,
         "no-process-env": 2,
         "no-proto": 2,
         "no-implied-eval": 2,

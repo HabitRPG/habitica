@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var shared = require('../../../../common');
 var nconf = require('nconf');
-var utils = require('./../../libs/utils');
+var utils = require('./../../libs/api-v2/utils');
 var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');

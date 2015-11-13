@@ -1,6 +1,6 @@
 var nconf = require('nconf');
 var _ = require('lodash');
-var utils = require('../libs/utils');
+var utils = require('../libs/api-v2/utils');
 var shared = require('../../../common');
 var i18n = require('../libs/api-v2/i18n');
 var buildManifest = require('../libs/buildManifest');
