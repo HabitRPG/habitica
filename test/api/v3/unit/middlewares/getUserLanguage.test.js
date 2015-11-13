@@ -36,6 +36,27 @@ describe('getUserLanguage', () => {
       getUserLanguage(req, res, next);
       expect(req.language).to.equal('en');
     });
+
+    it('uses query even if the request includes a user and session', () => {
+      req.query = {
+        lang: 'es',
+      };
+
+      req.locals = {
+        user: {
+          preferences: {
+            language: 'it',
+          },
+        },
+      };
+
+      req.session = {
+        userId: 123
+      };
+
+      getUserLanguage(req, res, next);
+      expect(req.language).to.equal('es');
+    });
   });
 
   context('authorized request', () => {
@@ -66,9 +87,26 @@ describe('getUserLanguage', () => {
         done();
       });
     });
+
+    it('uses the user preferred language even if a session is included in request', () => {
+      req.locals = {
+        user: {
+          preferences: {
+            language: 'it',
+          },
+        },
+      };
+
+      req.session = {
+        userId: 123
+      };
+
+      getUserLanguage(req, res, next);
+      expect(req.language).to.equal('it');
+    });
   });
 
-  describe('request with session', () => {
+  context('request with session', () => {
     it('uses the user preferred language if avalaible', (done) => {
       sandbox.stub(User, 'findOne').returns({
         exec() {
