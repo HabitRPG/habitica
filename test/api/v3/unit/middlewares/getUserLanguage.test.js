@@ -77,13 +77,14 @@ describe('getUserLanguage', () => {
   });
 
   describe('request with session', () => {
-    it('uses the user preferred language if avalaible', () => {
+    it('uses the user preferred language if avalaible', (done) => {
       req.session = {
         userId: 123
       };
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('it');
+        done();
       });
     });
   });
