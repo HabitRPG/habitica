@@ -102,7 +102,7 @@ export let multipleVersionsLanguages = {
   },
   zh: {
     'zh-tw': 'zh_TW',
-  }
+  },
 };
 
 // Export en strings only, temporary solution for mobile

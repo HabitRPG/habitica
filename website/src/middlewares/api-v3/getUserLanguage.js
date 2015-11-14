@@ -20,6 +20,7 @@ function _getUniqueListOfLanguages (languages) {
 function _checkForApplicableLanguageVariant (originalLanguageOptions) {
   let languageVariant = _.find(originalLanguageOptions, (accepted) => {
     let trimmedAccepted = accepted.slice(0, 2);
+
     return multipleVersionsLanguages[trimmedAccepted];
   });
 
