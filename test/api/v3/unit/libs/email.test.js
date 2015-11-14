@@ -35,11 +35,6 @@ describe('emails', () => {
 
   beforeEach(() => {
     delete require.cache[require.resolve(pathToEmailLib)];
-    sandbox.stub(request, 'post');
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   describe('sendEmail', () => {
@@ -127,6 +122,96 @@ describe('emails', () => {
   });
 
   describe('sendTxnEmail', () => {
-    it
+    beforeEach(() => {
+      sandbox.stub(request, 'post');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('can send a txn email to one recipient', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      let attachEmail = require(pathToEmailLib);
+      let sendTxnEmail = attachEmail.sendTxn;
+      let emailType = 'an email type';
+      let mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+
+      sendTxnEmail(mailingInfo, emailType);
+      expect(request.post).to.be.calledWith(sinon.match({
+        json: {
+          data: {
+            emailType: sinon.match.same(emailType),
+            to: sinon.match((value) => {
+              return Array.isArray(value) && value[0].name === mailingInfo.name;
+            }, 'matches mailing info array'),
+          }
+        }
+      }));
+    });
+
+    it('does not send email if address is missing', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      let attachEmail = require(pathToEmailLib);
+      let sendTxnEmail = attachEmail.sendTxn;
+      let emailType = 'an email type';
+      let mailingInfo = {
+        name: 'my name',
+        //email: 'my@email',
+      };
+
+      sendTxnEmail(mailingInfo, emailType);
+      expect(request.post).not.to.be.called;
+    });
+
+    it('uses getUserInfo in case of user data', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      let attachEmail = require(pathToEmailLib);
+      let sendTxnEmail = attachEmail.sendTxn;
+      let emailType = 'an email type';
+      let mailingInfo = getUser();
+
+      sendTxnEmail(mailingInfo, emailType);
+      expect(request.post).to.be.calledWith(sinon.match({
+        json: {
+          data: {
+            emailType: sinon.match.same(emailType),
+            to: sinon.match(val => val[0]._id === mailingInfo._id),
+          }
+        }
+      }));
+    });
+
+    it('sends email with some default variables', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      let attachEmail = require(pathToEmailLib);
+      let sendTxnEmail = attachEmail.sendTxn;
+      let emailType = 'an email type';
+      let mailingInfo = {
+        name: 'my name',
+        email: 'my@email',
+      };
+      let variables = [1,2,3];
+
+      sendTxnEmail(mailingInfo, emailType, variables);
+      expect(request.post).to.be.calledWith(sinon.match({
+        json: {
+          data: {
+            variables: sinon.match((value) => {
+              return value[0].name === 'BASE_URL';
+            }, 'matches variables'),
+            personalVariables: sinon.match((value) => {
+              return (value[0].rcpt === mailingInfo.email 
+                && value[0].vars[0].name === 'RECIPIENT_NAME' 
+                && value[0].vars[1].name === 'RECIPIENT_UNSUB_URL'
+              );
+            }, 'matches personal variables'),
+          }
+        }
+      }));
+    });
   });
 });
