@@ -53,6 +53,7 @@ api.authWithSession = function(req, res, next) { //[todo] there is probably a mo
   });
 };
 
+// TODO passing auth params as query params is not safe as they are logged by browser history, ...
 api.authWithUrl = function(req, res, next) {
   User.findOne({_id:req.query._id, apiToken:req.query.apiToken}, function(err,user){
     if (err) return next(err);

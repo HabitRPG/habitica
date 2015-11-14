@@ -1,7 +1,7 @@
-require('./i18n');
+require('../i18n');
 
 var _ = require('lodash');
-var Content = require('../../../common').content;
+var Content = require('../../../../common').content;
 var Amplitude = require('amplitude');
 var googleAnalytics = require('universal-analytics');
 
@@ -59,7 +59,7 @@ function _generateLabelForGoogleAnalytics(data) {
       label = data[key];
       return false; // exit _.each early
     }
-  });
+  }).value();
 
   return label;
 }
@@ -73,7 +73,7 @@ function _generateValueForGoogleAnalytics(data) {
       value = data[key];
       return false; // exit _.each early
     }
-  });
+  }).value();
 
   return value;
 }

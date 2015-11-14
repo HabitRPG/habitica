@@ -41,6 +41,7 @@ describe "Coupons", ->
               expect(coupons.length).to.equal 10
               _(coupons).each (c)->
                 expect(c.event).to.equal 'wondercon'
+              .value()
               done()
 
     context "while regular user", ->
@@ -73,7 +74,9 @@ describe "Coupons", ->
             codes = res.text
             expect(codes).to.contain('code')
             # Expect each coupon code _id to exist in response
-            _(coupons).each (c) -> expect(codes).to.contain(c._id)
+            _(coupons).each (c) -> 
+              expect(codes).to.contain(c._id)
+            .value()
 
             done()
 
@@ -89,9 +92,13 @@ describe "Coupons", ->
             secondHalf = sortedCoupons[5..9]
 
             # First five coupons should be present in codes
-            _(firstHalf).each (c) -> expect(codes).to.contain(c._id)
+            _(firstHalf).each (c) -> 
+              expect(codes).to.contain(c._id)
+            .value()
             # Second five coupons should not be present in codes
-            _(secondHalf).each (c) -> expect(codes).to.not.contain(c._id)
+            _(secondHalf).each (c) -> 
+              expect(codes).to.not.contain(c._id)
+            .value()
             done()
 
       it "gets last 5 coupons out of 10 when a limit of 5 is set", (done) ->
@@ -106,9 +113,13 @@ describe "Coupons", ->
             secondHalf = sortedCoupons[5..9]
 
             # First five coupons should not be present in codes
-            _(firstHalf).each (c) -> expect(codes).to.not.contain(c._id)
+            _(firstHalf).each (c) -> 
+              expect(codes).to.not.contain(c._id)
+            .value()
             # Second five coupons should be present in codes
-            _(secondHalf).each (c) -> expect(codes).to.contain(c._id)
+            _(secondHalf).each (c) -> 
+              expect(codes).to.contain(c._id)
+            .value()
             done()
 
     context "while regular user", ->
@@ -142,6 +153,7 @@ describe "Coupons", ->
           expect(gear[i]).to.exist
         else
           expect(gear[i]).to.not.exist
+      .value()
 
     beforeEach (done) ->
       registerNewUser ->
