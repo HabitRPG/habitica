@@ -1,4 +1,4 @@
-require('./api-v2/i18n');
+require('./i18n');
 
 var _ = require('lodash');
 var Content = require('../../../../common').content;
