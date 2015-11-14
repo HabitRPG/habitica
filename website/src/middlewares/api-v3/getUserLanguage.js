@@ -49,15 +49,8 @@ function _getFromBrowser (req) {
 }
 
 function _getFromUser (user, req) {
-  let lang;
-
-  if (user && user.preferences.language && translations[user.preferences.language]) {
-    lang = user.preferences.language;
-  } else {
-    let preferred = _getFromBrowser(req);
-
-    lang = translations[preferred] ? preferred : 'en';
-  }
+  let preferredLang = user && user.preferences && user.preferences.language;
+  let lang = translations[preferredLang] ? preferredLang : _getFromBrowser(req);
 
   return lang;
 }
