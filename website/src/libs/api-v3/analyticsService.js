@@ -10,7 +10,6 @@ import {
 import { content as Content } from '../../../../common';
 
 require('coffee-script');
-require('../../libs/i18n');
 
 const AMPLIUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');

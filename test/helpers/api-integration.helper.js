@@ -8,7 +8,7 @@ import {MongoClient as mongo} from 'mongodb';
 import {v4 as generateUUID} from 'uuid';
 import superagent from 'superagent';
 import i18n from '../../common/script/src/i18n';
-i18n.translations = require('../../website/src/libs/i18n.js').translations;
+i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 const API_TEST_SERVER_PORT = 3003;
 

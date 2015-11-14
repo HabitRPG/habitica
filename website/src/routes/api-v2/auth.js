@@ -1,6 +1,6 @@
 var auth = require('../../controllers/api-v2/auth');
 var express = require('express');
-var i18n = require('../../libs/i18n');
+var i18n = require('../../libs/api-v2/i18n');
 var router = new express.Router();
 
 /* auth.auth*/

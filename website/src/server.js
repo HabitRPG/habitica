@@ -17,7 +17,7 @@ import attachMiddlewares from './middlewares/api-v3/index';
 utils.setupConfig();
 
 // Setup translations
-// let i18n = require('./libs/i18n');
+// let i18n = require('./libs/api-v2/i18n');
 
 const IS_PROD = nconf.get('IS_PROD');
 // const IS_DEV = nconf.get('IS_DEV');
