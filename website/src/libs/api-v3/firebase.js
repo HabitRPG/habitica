@@ -2,7 +2,7 @@ import Firebase from 'firebase';
 import nconf from 'nconf';
 const IS_PROD = nconf.get('IS_PROD');
 const FIREBASE_CONFIG = nconf.get('FIREBASE');
-const FIREBASE_ENABLED = IS_PROD && FIREBASE_CONFIG.ENABLED === 'true';
+const FIREBASE_ENABLED = FIREBASE_CONFIG.ENABLED === 'true';
 
 let firebaseRef;
 
