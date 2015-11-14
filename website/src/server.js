@@ -42,7 +42,7 @@ let db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, (err) => {
 
 autoinc.init(db);
 
-import './libs/firebase';
+import './libs/api-v3/firebase';
 
 // load schemas & models
 import './models/challenge';
