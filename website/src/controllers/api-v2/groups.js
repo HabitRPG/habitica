@@ -19,7 +19,7 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./../pushNotifications');
 var analytics = utils.analytics;
-var firebase = require('../../libs/firebase');
+var firebase = require('../../libs/api-v2/firebase');
 
 /*
   ------------------------------------------------------------------------

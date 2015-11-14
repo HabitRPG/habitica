@@ -6,7 +6,7 @@ var _ = require('lodash');
 var async = require('async');
 var logging = require('../libs/api-v2/logging');
 var Challenge = require('./../models/challenge').model;
-var firebase = require('../libs/firebase');
+var firebase = require('../libs/api-v2/firebase');
 
 // NOTE any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
