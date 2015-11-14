@@ -7,42 +7,43 @@ import {
   multipleVersionsLanguages,
 } from '../../libs/api-v3/i18n';
 
-function _getFromBrowser (req) {
-  let acceptedLanguages = accepts(req).languages();
-
-  let acceptable = _(acceptedLanguages).map((lang) => {
+function _getUniqueListOfLanguages (languages) {
+  let acceptableLanguages = _(languages).map((lang) => {
     return lang.slice(0, 2);
   }).uniq().value();
 
-  let matches = _.intersection(acceptable, defaultLangCodes);
+  let uniqueListOfLanguages = _.intersection(acceptableLanguages, defaultLangCodes);
 
-  let iAcceptedCompleteLang = matches.length > 0 ? multipleVersionsLanguages.indexOf(matches[0].toLowerCase()) : -1;
+  return uniqueListOfLanguages;
+}
 
-  if (iAcceptedCompleteLang !== -1) {
-    let acceptedCompleteLang = _.find(acceptedLanguages, (accepted) => {
-      return accepted.slice(0, 2) === multipleVersionsLanguages[iAcceptedCompleteLang];
-    });
+function _checkForApplicableLanguageVariant (originalLanguageOptions) {
+  let languageVariant = _.find(originalLanguageOptions, (accepted) => {
+    let trimmedAccepted = accepted.slice(0, 2);
+    return multipleVersionsLanguages[trimmedAccepted];
+  });
 
-    if (acceptedCompleteLang) {
-      acceptedCompleteLang = acceptedCompleteLang.toLowerCase();
+  return languageVariant;
+}
+
+function _getFromBrowser (req) {
+  let originalLanguageOptions = accepts(req).languages();
+  let uniqueListOfLanguages = _getUniqueListOfLanguages(originalLanguageOptions);
+  let baseLanguage = (uniqueListOfLanguages[0] || '').toLowerCase();
+  let languageMapping = multipleVersionsLanguages[baseLanguage];
+
+  if (languageMapping) {
+    let languageVariant = _checkForApplicableLanguageVariant(originalLanguageOptions);
+
+    if (languageVariant) {
+      languageVariant = languageVariant.toLowerCase();
     } else {
       return 'en';
     }
 
-    if (matches[0] === 'es') {
-      // In case of a Latin American version of Spanish use 'es_419'
-      return multipleVersionsLanguages.es.indexOf(acceptedCompleteLang !== -1) ? 'es_419' : 'es';
-    } else if (matches[0] === 'zh') {
-      let iChinese = multipleVersionsLanguages.zh.indexOf(acceptedCompleteLang.toLowerCase());
-
-      return iChinese !== -1 ? multipleVersionsLanguages.zh[iChinese] : 'zh';
-    } else {
-      return 'en';
-    }
-  } else if (matches.length > 0) {
-    return matches[0].toLowerCase();
+    return languageMapping[languageVariant] || baseLanguage;
   } else {
-    return 'en';
+    return baseLanguage || 'en';
   }
 }
 
