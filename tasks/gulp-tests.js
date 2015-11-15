@@ -328,6 +328,7 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
 
 gulp.task('test:all', (done) => {
   runSequence(
+  'lint',
   'test:e2e:safe',
   'test:common:safe',
   // 'test:content:safe',
