@@ -7,7 +7,7 @@ api.exampleRoute = {
   middlewares: [],
   handler (req, res) {
     res.status(200).send({
-      status: 'ok'
+      status: 'ok',
     });
   },
 };
