@@ -18,10 +18,10 @@ let server;
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive --compilers js:babel/register';
+const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
-const COMMON_TEST_COMMAND = 'mocha test/common --compilers js:babel/register';
-const CONTENT_TEST_COMMAND = 'mocha test/content --compilers js:babel/register';
+const COMMON_TEST_COMMAND = 'mocha test/common';
+const CONTENT_TEST_COMMAND = 'mocha test/content';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
 const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
