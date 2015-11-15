@@ -1,43 +1,37 @@
 import gulp from 'gulp';
 import eslint from 'gulp-eslint';
-import _ from 'lodash';
 
-// TODO remove once we upgrade to lodash 3
-const defaultsDeep = _.partialRight(_.merge, _.defaults);
-
-const shared = {
-  rules: {
-    indent: [2, 2],
-    quotes: [2, 'single'],
-    'linebreak-style': [2, 'unix'],
-    semi: [2, 'always']
-  },
-  extends: 'eslint:recommended',
-  env: {
-    es6: true
-  }
-};
-
-gulp.task('lint:client', () => {
-  return gulp.src(['./website/public/js/**/*.js'])
-    .pipe(eslint(defaultsDeep({
-      env: {
-        node: true
-      }
-    }, shared)))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
-});
-
+// TODO lint client
+// TDOO separate linting cong between
+// TODO lint gulp tasks, tests, ...?
+// TODO what about prefer-const rule?
+// TODO remove estraverse dependency once https://github.com/adametry/gulp-eslint/issues/117 sorted out
 gulp.task('lint:server', () => {
-  return gulp.src(['./website/src/**/*.js'])
-    .pipe(eslint(defaultsDeep({
-      env: {
-        browser: true
-      }
-    }, shared)))
+  return gulp
+    .src([
+      './website/src/**/api-v3/**/*.js',
+      // Comment these out in develop, uncomment them in api-v3
+      // './website/src/models/user.js',
+      // './website/src/server.js'
+    ])
+    .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('lint', ['lint:server', 'lint:client']);
+gulp.task('lint:common', () => {
+  return gulp
+    .src([
+      './common/script/**/*.js',
+      // @TODO remove these negations as the files are converted over.
+      '!./common/script/index.js',
+      '!./common/script/content/index.js',
+      '!./common/script/src/**/*.js',
+      '!./common/script/public/**/*.js',
+    ])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
+
+gulp.task('lint', ['lint:server', 'lint:common']);
