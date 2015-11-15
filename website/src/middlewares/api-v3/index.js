@@ -3,6 +3,7 @@
 import analytics from './analytics';
 import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
+import routes from '../../libs/api-v3/setupRoutes';
 
 export default function attachMiddlewares (app) {
   // Parse query parameters and json bodies
@@ -14,6 +15,7 @@ export default function attachMiddlewares (app) {
 
   app.use(analytics);
 
+  app.use(routes);
   // Error handler middleware, define as the last one
   app.use(errorHandler);
 }
