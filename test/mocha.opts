@@ -3,7 +3,6 @@
 --timeout 8000
 --check-leaks
 --growl
---compilers js:babel/register
 --globals io
 --compilers js:babel-core/register
 --require test/api-legacy/api-helper
