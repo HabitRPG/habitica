@@ -7,7 +7,7 @@ describe('Build Manifest', () => {
     it('returns an html string', () => {
       let htmlCode = getManifestFiles('app');
 
-      expect(htmlCode).to.be.a.String;
+      expect(htmlCode.startsWith('<script') || htmlCode.startsWith('<link')).to.be.true;
     });
 
     it('throws an error in case the page does not exist', () => {
