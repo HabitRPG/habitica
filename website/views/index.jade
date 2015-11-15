@@ -30,6 +30,7 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
 
 
   body(ng-cloak, ng-controller='GroupsCtrl')
+    include ./shared/no-script
     include ./shared/mixins
     include ./shared/avatar/index
     include ./shared/header/menu
@@ -38,21 +39,6 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     include ./shared/tasks/index
     include ./main/index
     include ./options/index
-
-    // For those who have JavaScript disabled
-    noscript
-      style.
-        div, footer {
-          display: none;
-        }
-      
-      h3
-        | Alas! Your browser doesn't have JavaScript enabled
-      img(src='/front/images/coding_by_phoneix_faerie.png', alt='Coding placeholder image')  
-      p
-        | Habitica can't properly display the site without it!
-        a(href='http://www.enable-javascript.com/', target='_blank')
-          | Please Enable JavaScript to continue!
 
     #notification-area(ng-controller='NotificationCtrl')
     #wrap.container-fluid
