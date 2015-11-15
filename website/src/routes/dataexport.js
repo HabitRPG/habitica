@@ -3,7 +3,7 @@ var router = new express.Router();
 var dataexport = require('../controllers/dataexport');
 var auth = require('../controllers/api-v2/auth');
 var nconf = require('nconf');
-var i18n = require('../libs/i18n');
+var i18n = require('../libs/api-v2/i18n');
 var locals = require('../middlewares/locals');
 
 /* Data export */

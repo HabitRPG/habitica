@@ -3,14 +3,14 @@ var validator = require('validator');
 var passport = require('passport');
 var shared = require('../../../../common');
 var async = require('async');
-var utils = require('../../libs/utils');
+var utils = require('../../libs/api-v2/utils');
 var nconf = require('nconf');
 var request = require('request');
 var FirebaseTokenGenerator = require('firebase-token-generator');
 var User = require('../../models/user').model;
 var EmailUnsubscription = require('../../models/emailUnsubscription').model;
 var analytics = utils.analytics;
-var i18n = require('./../../libs/i18n');
+var i18n = require('./../../libs/api-v2/i18n');
 
 var isProd = nconf.get('NODE_ENV') === 'production';
 

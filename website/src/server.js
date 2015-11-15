@@ -2,7 +2,6 @@
 
 import nconf from 'nconf';
 import logger from './libs/api-v3/logger';
-import utils from './libs/utils';
 import express from 'express';
 import http from 'http';
 // import path from 'path';
@@ -13,11 +12,11 @@ import passport from 'passport';
 import passportFacebook from 'passport-facebook';
 import mongoose from 'mongoose';
 import Q from 'q';
+import domainMiddleware from './middlewares/api-v3/domain';
 import attachMiddlewares from './middlewares/api-v3/index';
-utils.setupConfig();
 
 // Setup translations
-// let i18n = require('./libs/i18n');
+// let i18n = require('./libs/api-v2/i18n');
 
 const IS_PROD = nconf.get('IS_PROD');
 // const IS_DEV = nconf.get('IS_DEV');
@@ -42,7 +41,7 @@ let db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, (err) => {
 
 autoinc.init(db);
 
-import './libs/firebase';
+import './libs/api-v3/firebase';
 
 // load schemas & models
 import './models/challenge';
@@ -84,6 +83,7 @@ app.set('port', nconf.get('PORT'));
 let oldApp = express(); // api v1 and v2, and not scoped routes
 let newApp = express(); // api v3
 
+app.use(domainMiddleware(server, mongoose));
 // Route requests to the right app
 // Matches all request except the ones going to /api/v3/**
 app.all(/^(?!\/api\/v3).+/i, oldApp);
@@ -95,7 +95,7 @@ attachMiddlewares(newApp);
 
 /* OLD APP IS DISABLED UNTIL COMPATIBLE WITH NEW MODELS
 //require('./middlewares/apiThrottle')(oldApp);
-oldApp.use(require('./middlewares/domain')(server,mongoose));
+oldApp.use(require('./middlewares/api-v2/domain')(server,mongoose));
 if (!IS_PROD && !DISABLE_LOGGING) oldApp.use(require('morgan')("dev"));
 oldApp.use(require('compression')());
 oldApp.set("views", __dirname + "/../views");
@@ -153,7 +153,7 @@ oldApp.use('/common/script/public', express['static'](publicDir + "/../../common
 oldApp.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
 oldApp.use(express['static'](publicDir));
 
-oldApp.use(require('./middlewares/errorHandler'));
+oldApp.use(require('./middlewares/api-v2/errorHandler'));
 */
 
 server.on('request', app);
