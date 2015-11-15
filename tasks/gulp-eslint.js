@@ -18,4 +18,19 @@ gulp.task('lint:server', () => {
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('lint', ['lint:server']);
+gulp.task('lint:common', () => {
+  return gulp
+    .src([
+      './common/script/**/*.js',
+      // @TODO remove these negations as the files are converted over.
+      '!./common/script/index.js',
+      '!./common/script/content/index.js',
+      '!./common/script/src/**/*.js',
+      '!./common/script/public/**/*.js',
+    ])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
+
+gulp.task('lint', ['lint:server', 'lint:common']);

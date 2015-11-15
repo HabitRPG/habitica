@@ -10,7 +10,7 @@ gulp.task('browserify', function () {
   let bundler = browserify({
     entries: './common/index.js',
     debug: true,
-    transform: [[babel, { compact: false }]]
+    transform: [[babel, { compact: false }]],
   });
 
   return bundler.bundle()

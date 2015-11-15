@@ -3,8 +3,8 @@
 --timeout 8000
 --check-leaks
 --growl
---compilers coffee:coffee-script
 --compilers js:babel/register
 --globals io
+--compilers js:babel-core/register
 --require test/api-legacy/api-helper
 --require ./test/helpers/globals.helper
