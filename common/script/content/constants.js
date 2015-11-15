@@ -50,3 +50,9 @@ export const ITEM_LIST = {
   food:            { localeKey: 'foodText',       isEquipment: false },
   Saddle:          { localeKey: 'foodSaddleText', isEquipment: false },
 };
+
+export const USER_CAN_OWN_QUEST_CATEGORIES = [
+  'unlockable',
+  'gold',
+  'pet',
+];

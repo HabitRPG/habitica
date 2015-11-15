@@ -13,6 +13,7 @@ import {
   EVENTS,
   GEAR_TYPES,
   ITEM_LIST,
+  USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
 import mysterySets from './mystery-sets';
@@ -4810,7 +4811,7 @@ _.each(api.food, function(food, key) {
   });
 });
 
-api.userCanOwnQuestCategories = ['unlockable', 'gold', 'pet'];
+api.userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
 api.quests = {
   dilatory: {
