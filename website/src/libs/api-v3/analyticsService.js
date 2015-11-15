@@ -9,8 +9,6 @@ import {
 } from 'lodash';
 import { content as Content } from '../../../../common';
 
-require('coffee-script');
-
 const AMPLIUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
