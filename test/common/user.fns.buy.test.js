@@ -131,7 +131,7 @@ describe('user.fns.buy', function() {
 
     _(shared.content.gearTypes).each(function(type) {
       _(shared.content.gear.tree[type].armoire).each(function(gearObject, gearName) {
-        armoireKey = gearObject.key;
+        let armoireKey = gearObject.key;
         fullArmoire[armoireKey] = true;
       });
     });
