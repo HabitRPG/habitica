@@ -97,7 +97,7 @@ attachMiddlewares(newApp);
 
 /* OLD APP IS DISABLED UNTIL COMPATIBLE WITH NEW MODELS
 //require('./middlewares/apiThrottle')(oldApp);
-oldApp.use(require('./middlewares/domain')(server,mongoose));
+oldApp.use(require('./middlewares/api-v2/domain')(server,mongoose));
 if (!IS_PROD && !DISABLE_LOGGING) oldApp.use(require('morgan')("dev"));
 oldApp.use(require('compression')());
 oldApp.set("views", __dirname + "/../views");
@@ -155,7 +155,7 @@ oldApp.use('/common/script/public', express['static'](publicDir + "/../../common
 oldApp.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
 oldApp.use(express['static'](publicDir));
 
-oldApp.use(require('./middlewares/errorHandler'));
+oldApp.use(require('./middlewares/api-v2/errorHandler'));
 */
 
 server.on('request', app);
