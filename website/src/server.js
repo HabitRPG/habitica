@@ -2,7 +2,6 @@
 
 import nconf from 'nconf';
 import logger from './libs/api-v3/logger';
-import utils from './libs/utils';
 import express from 'express';
 import http from 'http';
 // import path from 'path';
@@ -15,7 +14,6 @@ import mongoose from 'mongoose';
 import Q from 'q';
 import domainMiddleware from './middlewares/api-v3/domain';
 import attachMiddlewares from './middlewares/api-v3/index';
-utils.setupConfig();
 
 // Setup translations
 // let i18n = require('./libs/api-v2/i18n');

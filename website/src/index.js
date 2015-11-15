@@ -9,12 +9,12 @@ var logger = require('./libs/api-v3/logger');
 // Initialize configuration
 var setupNconf = require('./libs/api-v3/setupNconf');
 setupNconf();
-var utils = require('./libs/utils');
-utils.setupConfig();
 
 var IS_PROD = nconf.get('IS_PROD');
 var IS_DEV = nconf.get('IS_DEV');
 var cores = Number(nconf.get('WEB_CONCURRENCY')) || 0;
+
+if (IS_DEV) Error.stackTraceLimit = Infinity;
 
 // Setup the cluster module
 if (cores !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {

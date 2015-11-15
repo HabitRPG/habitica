@@ -12,7 +12,9 @@ if (IS_PROD) {
   // log errors to console too
 } else {
   logger
-    .add(winston.transports.Console);
+    .add(winston.transports.Console, {
+      colorize: true,
+    });
 }
 
 export default logger;

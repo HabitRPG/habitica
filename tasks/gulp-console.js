@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import autoinc  from 'mongoose-id-autoinc';
 import logger  from '../website/src/libs/api-v3/logger';
 import nconf    from 'nconf';
-import utils    from '../website/src/libs/utils';
 import repl     from 'repl';
 import gulp     from 'gulp';
 
@@ -18,8 +17,6 @@ let improveRepl = (context) => {
   Object.defineProperty(context, 'clear', { get() {
     process.stdout.write('\u001B[2J\u001B[0;0f');
   }});
-
-  utils.setupConfig();
 
   context.Challenge = require('../website/src/models/challenge').model;
   context.Group     = require('../website/src/models/group').model;
