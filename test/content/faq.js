@@ -1,22 +1,28 @@
+import { each } from 'lodash';
 import {
   expectValidTranslationString,
-  describeEachItem
 } from '../helpers/content.helper';
 
 import {questions, stillNeedHelp} from '../../common/script/src/content/faq';
 
 describe('FAQ Locales', () => {
-  describeEachItem('Questions', questions, (question, index) => {
-    it('has a valid question', () => {
-      expectValidTranslationString(question.question);
+  describe('Questions', () => {
+    it('has a valid questions', () => {
+      each(questions, (question, key) => {
+        expectValidTranslationString(question.question);
+      });
     });
 
-    it('has a valid ios answer', () => {
-      expectValidTranslationString(question.ios);
+    it('has a valid ios answers', () => {
+      each(questions, (question, key) => {
+        expectValidTranslationString(question.ios);
+      });
     });
 
-    it('has a valid web answer', () => {
-      expectValidTranslationString(question.web);
+    it('has a valid web answers', () => {
+      each(questions, (question, key) => {
+        expectValidTranslationString(question.web);
+      });
     });
   });
 
