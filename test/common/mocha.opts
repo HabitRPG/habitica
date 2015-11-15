@@ -5,4 +5,5 @@
 --growl
 --debug
 --compilers coffee:coffee-script
+--compilers js:babel/register
 --globals io
