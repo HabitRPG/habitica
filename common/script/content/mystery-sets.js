@@ -123,7 +123,7 @@ let mysterySets = {
 };
 
 each(mysterySets, (value, key) => {
-  return value.key = key;
+  value.key = key;
 });
 
 export default mysterySets;
