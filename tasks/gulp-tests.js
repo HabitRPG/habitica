@@ -20,7 +20,7 @@ const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
 const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive --compilers js:babel/register';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
-const COMMON_TEST_COMMAND = 'mocha test/common --compilers coffee:coffee-script';
+const COMMON_TEST_COMMAND = 'mocha test/common --compilers js:babel/register';
 const CONTENT_TEST_COMMAND = 'mocha test/content --compilers js:babel/register';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
