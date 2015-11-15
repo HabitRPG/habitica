@@ -13,6 +13,7 @@ import passport from 'passport';
 import passportFacebook from 'passport-facebook';
 import mongoose from 'mongoose';
 import Q from 'q';
+import domainMiddleware from './middlewares/api-v3/domain';
 import attachMiddlewares from './middlewares/api-v3/index';
 utils.setupConfig();
 
@@ -84,6 +85,7 @@ app.set('port', nconf.get('PORT'));
 let oldApp = express(); // api v1 and v2, and not scoped routes
 let newApp = express(); // api v3
 
+app.use(domainMiddleware(server, mongoose));
 // Route requests to the right app
 // Matches all request except the ones going to /api/v3/**
 app.all(/^(?!\/api\/v3).+/i, oldApp);
