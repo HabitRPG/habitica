@@ -1,17 +1,14 @@
 angular.module('habitrpg')
   .filter('timezoneOffsetToUtc', function () {
     return function (offset) {
-      if (offset > 0) {
-        var sign = '-';
-      } else {
-        var sign = '+';
-      }
+      var sign = offset > 0 ? '-' : '+';
 
       offset = Math.abs(offset) / 60;
 
       var hour = Math.floor(offset);
 
-      var minutes = (offset - hour) * 60;
+      var minutes_int = (offset - hour) * 60;
+      var minutes = minutes_int < 10 ? '0'+minutes_int : minutes_int;
 
       return 'UTC' + sign + hour + ':' + minutes;
     }
