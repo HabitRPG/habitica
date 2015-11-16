@@ -1,5 +1,6 @@
 import {
   each,
+  filter,
   keys,
   size,
 } from 'lodash';
@@ -41,7 +42,7 @@ function mountMasterProgress (mounts) {
 }
 
 function remainingGearInSet (userGear, set) {
-  let gear = _.filter(content.gear.flat, (item) => {
+  let gear = filter(content.gear.flat, (item) => {
     let setMatches = item.klass === set;
     let hasItem = userGear[item.key];
 
@@ -54,7 +55,7 @@ function remainingGearInSet (userGear, set) {
 }
 
 function questsOfCategory (userQuests, category) {
-  let quests = _.filter(content.quests, (quest) => {
+  let quests = filter(content.quests, (quest) => {
     let categoryMatches = quest.category === category;
     let hasQuest = userQuests[quest.key];
 
