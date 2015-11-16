@@ -1,9 +1,9 @@
-var migrationName = '20151013_jackolanterns.js';
+var migrationName = '20151116_costume_contest_to_number.js';
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 /*
- * Award Jack-O'-Lantern mounts to users who already have the pet version, award pet if they don't
+ * Change Costume Contest achievement from Boolean to Number, so people can win repeatedly
  */
 
 var dbserver = 'localhost:27017'; // FOR TEST DATABASE
@@ -17,11 +17,12 @@ var dbUsers = mongo.db(dbserver + '/' + dbname + '?auto_reconnect').collection('
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
+  'achievements.costumeContest':true
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'items.pets.JackOLantern-Base':1
+  'achievements.costumeContest':1
 };
 
 console.warn('Updating users...');
@@ -36,12 +37,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   count++;
 
   // specify user data to change:
-  var set = {};
-  if (user.items.pets['JackOLantern-Base']) {
-    set = {'migration':migrationName, 'items.mounts.JackOLantern-Base':true};
-  } else {
-    set = {'migration':migrationName, 'items.pets.JackOLantern-Base':5}; 
-  }
+  var set = {'achievements.costumeContests':1};
 
   dbUsers.update({_id:user._id}, {$set:set});
 
@@ -65,3 +61,4 @@ function exiting(code, msg) {
   }
   process.exit(code);
 }
+

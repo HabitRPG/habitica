@@ -66,11 +66,12 @@ export let schema = new Schema({
     perfect: Number,
     habitBirthdays: Number,
     valentine: Number,
-    costumeContest: Boolean,
+    costumeContest: Boolean, // Superseded by costumeContests
     nye: Number,
     habiticaDays: Number,
     greeting: Number,
     thankyou: Number,
+    costumeContests: Number
   },
 
   backer: {

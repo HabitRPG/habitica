@@ -406,9 +406,12 @@ gulp.task('test', ['test:all'], () => {
     `\x1b[36mPending: ${totals[2]}\t`
   );
 
-  if (totals[1] > 0) throw "ERROR: There are failing tests!"
-  else {
-    kill(server);
+  kill(server);
+
+  if (totals[1] > 0) {
+    console.error('ERROR: There are failing tests!');
+    process.exit(1);
+  } else {
     console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
     process.exit();
   }
