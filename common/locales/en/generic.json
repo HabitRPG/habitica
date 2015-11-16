@@ -69,7 +69,7 @@
     "habiticaDayPluralText": "Celebrated <%= number %> Naming Days! Thanks for being a fantastic user.",
     "achievementDilatory": "Savior of Dilatory",
     "achievementDilatoryText": "Helped defeat the Dread Drag'on of Dilatory during the 2014 Summer Splash Event!",
-    "costumeContest": "Costume Contest",
+    "costumeContest": "Costume Contestant",
     "costumeContestText": "Participated in the Habitoween Costume Contest. See some of the entries <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>on the Habitica blog</a>!",
     "costumeContestPluralText": "Participated in <%= number %> Habitoween Costume Contests. See some of the entries <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>on the Habitica blog</a>!",
     "memberSince": "- Member since",
