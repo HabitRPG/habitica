@@ -111,11 +111,9 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             .form-horizontal
               .form-group
                 .col-sm-12
-                  p
-                    !=env.t('timezoneUTC', {utc: "{{ user.preferences.timezoneOffset | timezoneOffsetToUtc }}"})
+                  p!=env.t('timezoneUTC', {utc: "{{ user.preferences.timezoneOffset | timezoneOffsetToUtc }}"})
                   br
-                  p
-                    !=env.t('timezoneInfo')
+                  p!=env.t('timezoneInfo')
 
       .personal-options.col-md-6
         .panel.panel-default
