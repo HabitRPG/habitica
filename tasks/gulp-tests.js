@@ -96,7 +96,7 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Common Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -132,7 +132,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Content Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -158,7 +158,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Server Side Specs',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -184,7 +184,7 @@ gulp.task('test:api-legacy:safe', ['test:prepare:mongo'], (cb) => {
       testResults.push({
         suite: 'API (legacy) Specs',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
 	  cb();
@@ -316,7 +316,7 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
         testResults.push({
           suite: 'API Specs\t',
           pass: testCount(stdout, /(\d+) passing/),
-          fail: testCount(stderr, /(\d+) failing/),
+          fail: testCount(stdout, /(\d+) failing/),
           pend: testCount(stdout, /(\d+) pending/)
         });
         done();
