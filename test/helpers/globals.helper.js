@@ -1,5 +1,4 @@
 require('babel-core/register');
-require('../../website/src/libs/api-v3/i18n');
 //------------------------------
 // Global modules
 //------------------------------

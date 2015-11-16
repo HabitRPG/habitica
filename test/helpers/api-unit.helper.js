@@ -1,9 +1,7 @@
+import '../../website/src/libs/api-v3/i18n';
 import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user'
 import { model as Group } from '../../website/src/models/group'
-import i18n from '../../common/script/src/i18n';
-require('coffee-script');
-i18n.translations = require('../../website/src/libs/api-v3/i18n.js').translations;
 
 afterEach(() => {
   sandbox.restore();
