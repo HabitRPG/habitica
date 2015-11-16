@@ -235,7 +235,7 @@ div(ng-if='::profile.achievements.costumeContests')
   small(ng-if='::profile.achievements.costumeContests === 1')
     !=env.t('costumeContestText')
   small(ng-if='::profile.achievements.costumeContests > 1')
-    !=env.t('costumeContestPluralText', {number: "{{::profile.achievements.costumeContests}}"})
+    !=env.t('costumeContestTextPlural', {number: "{{::profile.achievements.costumeContests}}"})
   hr
 
 each card in ['greeting', 'thankyou', 'nye', 'valentine']
