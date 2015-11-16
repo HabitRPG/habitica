@@ -1,12 +1,16 @@
-import _ from 'lodash';
+import {
+  each,
+  keys,
+  size,
+} from 'lodash';
 import content from './content/index';
 
-const DROP_ANIMALS = _.keys(content.pets);
+const DROP_ANIMALS = keys(content.pets);
 
 function beastMasterProgress (pets) {
   let count = 0;
 
-  _(DROP_ANIMALS).each((animal) => {
+  each(DROP_ANIMALS, (animal) => {
     if (pets[animal] > 0 || pets[animal] === -1)
       count++;
   });
@@ -17,7 +21,7 @@ function beastMasterProgress (pets) {
 function dropPetsCurrentlyOwned (pets) {
   let count = 0;
 
-  _(DROP_ANIMALS).each((animal) => {
+  each(DROP_ANIMALS, (animal) => {
     if (pets[animal] > 0)
       count++;
   });
@@ -28,7 +32,7 @@ function dropPetsCurrentlyOwned (pets) {
 function mountMasterProgress (mounts) {
   let count = 0;
 
-  _(DROP_ANIMALS).each((animal) => {
+  each(DROP_ANIMALS, (animal) => {
     if (mounts[animal])
       count++;
   });
@@ -44,7 +48,7 @@ function remainingGearInSet (userGear, set) {
     return setMatches && !hasItem;
   });
 
-  let count = _.size(gear);
+  let count = size(gear);
 
   return count;
 }
@@ -57,7 +61,7 @@ function questsOfCategory (userQuests, category) {
     return categoryMatches && hasQuest;
   });
 
-  let count = _.size(quests);
+  let count = size(quests);
 
   return count;
 }
