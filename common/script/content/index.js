@@ -1,4 +1,4 @@
-var _, api, calculateBonus, classes, diminishingReturns, events, gear, gearTypes, moment, t;
+var _, api, calculateBonus, diminishingReturns, gear, moment, t;
 
 api = module.exports;
 
@@ -8,6 +8,15 @@ moment = require('moment');
 
 t = require('./translation.js');
 
+import {
+  CLASSES,
+  EVENTS,
+  GEAR_TYPES,
+  ITEM_LIST,
+  USER_CAN_OWN_QUEST_CATEGORIES,
+} from './constants';
+
+import mysterySets from './mystery-sets';
 
 /*
   ---------------------------------------------------------------
@@ -16,233 +25,9 @@ t = require('./translation.js');
   ---------------------------------------------------------------
  */
 
-classes = ['warrior', 'rogue', 'healer', 'wizard'];
+api.mystery = mysterySets;
 
-gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear'];
-
-events = {
-  winter: {
-    start: '2013-12-31',
-    end: '2014-02-01'
-  },
-  birthday: {
-    start: '2013-01-30',
-    end: '2014-02-01'
-  },
-  spring: {
-    start: '2014-03-21',
-    end: '2014-05-01'
-  },
-  summer: {
-    start: '2014-06-20',
-    end: '2014-08-01'
-  },
-  gaymerx: {
-    start: '2014-07-02',
-    end: '2014-08-01'
-  },
-  fall: {
-    start: '2014-09-21',
-    end: '2014-11-01'
-  },
-  winter2015: {
-    start: '2014-12-21',
-    end: '2015-02-02'
-  },
-  spring2015: {
-    start: '2015-03-20',
-    end: '2015-05-02'
-  },
-  summer2015: {
-    start: '2015-06-20',
-    end: '2015-08-02'
-  },
-  fall2015: {
-    start: '2015-09-21',
-    end: '2015-11-02'
-  }
-};
-
-api.mystery = {
-  201402: {
-    start: '2014-02-22',
-    end: '2014-02-28',
-    text: 'Winged Messenger Set'
-  },
-  201403: {
-    start: '2014-03-24',
-    end: '2014-04-02',
-    text: 'Forest Walker Set'
-  },
-  201404: {
-    start: '2014-04-24',
-    end: '2014-05-02',
-    text: 'Twilight Butterfly Set'
-  },
-  201405: {
-    start: '2014-05-21',
-    end: '2014-06-02',
-    text: 'Flame Wielder Set'
-  },
-  201406: {
-    start: '2014-06-23',
-    end: '2014-07-02',
-    text: 'Octomage Set'
-  },
-  201407: {
-    start: '2014-07-23',
-    end: '2014-08-02',
-    text: 'Undersea Explorer Set'
-  },
-  201408: {
-    start: '2014-08-23',
-    end: '2014-09-02',
-    text: 'Sun Sorcerer Set'
-  },
-  201409: {
-    start: '2014-09-24',
-    end: '2014-10-02',
-    text: 'Autumn Strider Set'
-  },
-  201410: {
-    start: '2014-10-24',
-    end: '2014-11-02',
-    text: 'Winged Goblin Set'
-  },
-  201411: {
-    start: '2014-11-24',
-    end: '2014-12-02',
-    text: 'Feast and Fun Set'
-  },
-  201412: {
-    start: '2014-12-25',
-    end: '2015-01-02',
-    text: 'Penguin Set'
-  },
-  201501: {
-    start: '2015-01-26',
-    end: '2015-02-02',
-    text: 'Starry Knight Set'
-  },
-  201502: {
-    start: '2015-02-24',
-    end: '2015-03-02',
-    text: 'Winged Enchanter Set'
-  },
-  201503: {
-    start: '2015-03-25',
-    end: '2015-04-02',
-    text: 'Aquamarine Set'
-  },
-  201504: {
-    start: '2015-04-24',
-    end: '2015-05-02',
-    text: 'Busy Bee Set'
-  },
-  201505: {
-    start: '2015-05-25',
-    end: '2015-06-02',
-    text: 'Green Knight Set'
-  },
-  201506: {
-    start: '2015-06-25',
-    end: '2015-07-02',
-    text: 'Neon Snorkeler Set'
-  },
-  201507: {
-    start: '2015-07-24',
-    end: '2015-08-02',
-    text: 'Rad Surfer Set'
-  },
-  201508: {
-    start: '2015-08-23',
-    end: '2015-09-02',
-    text: 'Cheetah Costume Set'
-  },
-  201509: {
-    start: '2015-09-24',
-    end: '2015-10-02',
-    text: 'Werewolf Set'
-  },
-  201510: {
-    start: '2015-10-26',
-    end: '2015-11-02',
-    text: 'Horned Goblin Set'
-  },
-  301404: {
-    start: '3014-03-24',
-    end: '3014-04-02',
-    text: 'Steampunk Standard Set'
-  },
-  301405: {
-    start: '3014-04-24',
-    end: '3014-05-02',
-    text: 'Steampunk Accessories Set'
-  },
-  wondercon: {
-    start: '2014-03-24',
-    end: '2014-04-01'
-  }
-};
-
-_.each(api.mystery, function(v, k) {
-  return v.key = k;
-});
-
-api.itemList = {
-  'weapon': {
-    localeKey: 'weapon',
-    isEquipment: true
-  },
-  'armor': {
-    localeKey: 'armor',
-    isEquipment: true
-  },
-  'head': {
-    localeKey: 'headgear',
-    isEquipment: true
-  },
-  'shield': {
-    localeKey: 'offhand',
-    isEquipment: true
-  },
-  'back': {
-    localeKey: 'back',
-    isEquipment: true
-  },
-  'body': {
-    localeKey: 'body',
-    isEquipment: true
-  },
-  'headAccessory': {
-    localeKey: 'headAccessory',
-    isEquipment: true
-  },
-  'eyewear': {
-    localeKey: 'eyewear',
-    isEquipment: true
-  },
-  'hatchingPotions': {
-    localeKey: 'hatchingPotion',
-    isEquipment: false
-  },
-  'eggs': {
-    localeKey: 'eggSingular',
-    isEquipment: false
-  },
-  'quests': {
-    localeKey: 'quest',
-    isEquipment: false
-  },
-  'food': {
-    localeKey: 'foodText',
-    isEquipment: false
-  },
-  'Saddle': {
-    localeKey: 'foodSaddleText',
-    isEquipment: false
-  }
-};
+api.itemList = ITEM_LIST;
 
 gear = {
   weapon: {
@@ -577,7 +362,7 @@ gear = {
         })
       },
       yeti: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'warrior',
         text: t('weaponSpecialYetiText'),
         notes: t('weaponSpecialYetiNotes', {
@@ -587,7 +372,7 @@ gear = {
         value: 90
       },
       ski: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'rogue',
         text: t('weaponSpecialSkiText'),
         notes: t('weaponSpecialSkiNotes', {
@@ -597,7 +382,7 @@ gear = {
         value: 90
       },
       candycane: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialCandycaneText'),
@@ -610,7 +395,7 @@ gear = {
         value: 160
       },
       snowflake: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'healer',
         text: t('weaponSpecialSnowflakeText'),
         notes: t('weaponSpecialSnowflakeNotes', {
@@ -620,7 +405,7 @@ gear = {
         value: 90
       },
       springRogue: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'rogue',
         text: t('weaponSpecialSpringRogueText'),
         notes: t('weaponSpecialSpringRogueNotes', {
@@ -630,7 +415,7 @@ gear = {
         str: 8
       },
       springWarrior: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'warrior',
         text: t('weaponSpecialSpringWarriorText'),
         notes: t('weaponSpecialSpringWarriorNotes', {
@@ -640,7 +425,7 @@ gear = {
         str: 15
       },
       springMage: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialSpringMageText'),
@@ -653,7 +438,7 @@ gear = {
         per: 7
       },
       springHealer: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'healer',
         text: t('weaponSpecialSpringHealerText'),
         notes: t('weaponSpecialSpringHealerNotes', {
@@ -663,7 +448,7 @@ gear = {
         int: 9
       },
       summerRogue: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'rogue',
         text: t('weaponSpecialSummerRogueText'),
         notes: t('weaponSpecialSummerRogueNotes', {
@@ -673,7 +458,7 @@ gear = {
         str: 8
       },
       summerWarrior: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'warrior',
         text: t('weaponSpecialSummerWarriorText'),
         notes: t('weaponSpecialSummerWarriorNotes', {
@@ -683,7 +468,7 @@ gear = {
         str: 15
       },
       summerMage: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialSummerMageText'),
@@ -696,7 +481,7 @@ gear = {
         per: 7
       },
       summerHealer: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'healer',
         text: t('weaponSpecialSummerHealerText'),
         notes: t('weaponSpecialSummerHealerNotes', {
@@ -706,7 +491,7 @@ gear = {
         int: 9
       },
       fallRogue: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'rogue',
         text: t('weaponSpecialFallRogueText'),
         notes: t('weaponSpecialFallRogueNotes', {
@@ -719,7 +504,7 @@ gear = {
         })
       },
       fallWarrior: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'warrior',
         text: t('weaponSpecialFallWarriorText'),
         notes: t('weaponSpecialFallWarriorNotes', {
@@ -732,7 +517,7 @@ gear = {
         })
       },
       fallMage: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialFallMageText'),
@@ -748,7 +533,7 @@ gear = {
         })
       },
       fallHealer: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'healer',
         text: t('weaponSpecialFallHealerText'),
         notes: t('weaponSpecialFallHealerNotes', {
@@ -761,7 +546,7 @@ gear = {
         })
       },
       winter2015Rogue: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'rogue',
         text: t('weaponSpecialWinter2015RogueText'),
         notes: t('weaponSpecialWinter2015RogueNotes', {
@@ -771,7 +556,7 @@ gear = {
         str: 8
       },
       winter2015Warrior: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'warrior',
         text: t('weaponSpecialWinter2015WarriorText'),
         notes: t('weaponSpecialWinter2015WarriorNotes', {
@@ -781,7 +566,7 @@ gear = {
         str: 15
       },
       winter2015Mage: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialWinter2015MageText'),
@@ -794,7 +579,7 @@ gear = {
         per: 7
       },
       winter2015Healer: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'healer',
         text: t('weaponSpecialWinter2015HealerText'),
         notes: t('weaponSpecialWinter2015HealerNotes', {
@@ -804,7 +589,7 @@ gear = {
         int: 9
       },
       spring2015Rogue: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'rogue',
         text: t('weaponSpecialSpring2015RogueText'),
         notes: t('weaponSpecialSpring2015RogueNotes', {
@@ -814,7 +599,7 @@ gear = {
         str: 8
       },
       spring2015Warrior: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'warrior',
         text: t('weaponSpecialSpring2015WarriorText'),
         notes: t('weaponSpecialSpring2015WarriorNotes', {
@@ -824,7 +609,7 @@ gear = {
         str: 15
       },
       spring2015Mage: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialSpring2015MageText'),
@@ -837,7 +622,7 @@ gear = {
         per: 7
       },
       spring2015Healer: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'healer',
         text: t('weaponSpecialSpring2015HealerText'),
         notes: t('weaponSpecialSpring2015HealerNotes', {
@@ -847,7 +632,7 @@ gear = {
         int: 9
       },
       summer2015Rogue: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'rogue',
         text: t('weaponSpecialSummer2015RogueText'),
         notes: t('weaponSpecialSummer2015RogueNotes', {
@@ -857,7 +642,7 @@ gear = {
         str: 8
       },
       summer2015Warrior: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'warrior',
         text: t('weaponSpecialSummer2015WarriorText'),
         notes: t('weaponSpecialSummer2015WarriorNotes', {
@@ -867,7 +652,7 @@ gear = {
         str: 15
       },
       summer2015Mage: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialSummer2015MageText'),
@@ -880,7 +665,7 @@ gear = {
         per: 7
       },
       summer2015Healer: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'healer',
         text: t('weaponSpecialSummer2015HealerText'),
         notes: t('weaponSpecialSummer2015HealerNotes', {
@@ -890,7 +675,7 @@ gear = {
         int: 9
       },
       fall2015Rogue: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'rogue',
         text: t('weaponSpecialFall2015RogueText'),
         notes: t('weaponSpecialFall2015RogueNotes', {
@@ -900,7 +685,7 @@ gear = {
         str: 8
       },
       fall2015Warrior: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'warrior',
         text: t('weaponSpecialFall2015WarriorText'),
         notes: t('weaponSpecialFall2015WarriorNotes', {
@@ -910,7 +695,7 @@ gear = {
         str: 15
       },
       fall2015Mage: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialFall2015MageText'),
@@ -923,7 +708,7 @@ gear = {
         per: 7
       },
       fall2015Healer: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'healer',
         text: t('weaponSpecialFall2015HealerText'),
         notes: t('weaponSpecialFall2015HealerNotes', {
@@ -1306,7 +1091,7 @@ gear = {
         })
       },
       yeti: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'warrior',
         text: t('armorSpecialYetiText'),
         notes: t('armorSpecialYetiNotes', {
@@ -1316,7 +1101,7 @@ gear = {
         value: 90
       },
       ski: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'rogue',
         text: t('armorSpecialSkiText'),
         notes: t('armorSpecialSkiNotes', {
@@ -1326,7 +1111,7 @@ gear = {
         value: 90
       },
       candycane: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'wizard',
         text: t('armorSpecialCandycaneText'),
         notes: t('armorSpecialCandycaneNotes', {
@@ -1336,7 +1121,7 @@ gear = {
         value: 90
       },
       snowflake: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'healer',
         text: t('armorSpecialSnowflakeText'),
         notes: t('armorSpecialSnowflakeNotes', {
@@ -1346,13 +1131,13 @@ gear = {
         value: 90
       },
       birthday: {
-        event: events.birthday,
+        event: EVENTS.birthday,
         text: t('armorSpecialBirthdayText'),
         notes: t('armorSpecialBirthdayNotes'),
         value: 0
       },
       springRogue: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'rogue',
         text: t('armorSpecialSpringRogueText'),
         notes: t('armorSpecialSpringRogueNotes', {
@@ -1362,7 +1147,7 @@ gear = {
         per: 15
       },
       springWarrior: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'warrior',
         text: t('armorSpecialSpringWarriorText'),
         notes: t('armorSpecialSpringWarriorNotes', {
@@ -1372,7 +1157,7 @@ gear = {
         con: 9
       },
       springMage: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'wizard',
         text: t('armorSpecialSpringMageText'),
         notes: t('armorSpecialSpringMageNotes', {
@@ -1382,7 +1167,7 @@ gear = {
         int: 9
       },
       springHealer: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'healer',
         text: t('armorSpecialSpringHealerText'),
         notes: t('armorSpecialSpringHealerNotes', {
@@ -1392,7 +1177,7 @@ gear = {
         con: 15
       },
       summerRogue: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'rogue',
         text: t('armorSpecialSummerRogueText'),
         notes: t('armorSpecialSummerRogueNotes', {
@@ -1402,7 +1187,7 @@ gear = {
         per: 15
       },
       summerWarrior: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'warrior',
         text: t('armorSpecialSummerWarriorText'),
         notes: t('armorSpecialSummerWarriorNotes', {
@@ -1412,7 +1197,7 @@ gear = {
         con: 9
       },
       summerMage: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'wizard',
         text: t('armorSpecialSummerMageText'),
         notes: t('armorSpecialSummerMageNotes', {
@@ -1422,7 +1207,7 @@ gear = {
         int: 9
       },
       summerHealer: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'healer',
         text: t('armorSpecialSummerHealerText'),
         notes: t('armorSpecialSummerHealerNotes', {
@@ -1432,7 +1217,7 @@ gear = {
         con: 15
       },
       fallRogue: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'rogue',
         text: t('armorSpecialFallRogueText'),
         notes: t('armorSpecialFallRogueNotes', {
@@ -1445,7 +1230,7 @@ gear = {
         })
       },
       fallWarrior: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'warrior',
         text: t('armorSpecialFallWarriorText'),
         notes: t('armorSpecialFallWarriorNotes', {
@@ -1458,7 +1243,7 @@ gear = {
         })
       },
       fallMage: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'wizard',
         text: t('armorSpecialFallMageText'),
         notes: t('armorSpecialFallMageNotes', {
@@ -1471,7 +1256,7 @@ gear = {
         })
       },
       fallHealer: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'healer',
         text: t('armorSpecialFallHealerText'),
         notes: t('armorSpecialFallHealerNotes', {
@@ -1484,7 +1269,7 @@ gear = {
         })
       },
       winter2015Rogue: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'rogue',
         text: t('armorSpecialWinter2015RogueText'),
         notes: t('armorSpecialWinter2015RogueNotes', {
@@ -1494,7 +1279,7 @@ gear = {
         per: 15
       },
       winter2015Warrior: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'warrior',
         text: t('armorSpecialWinter2015WarriorText'),
         notes: t('armorSpecialWinter2015WarriorNotes', {
@@ -1504,7 +1289,7 @@ gear = {
         con: 9
       },
       winter2015Mage: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'wizard',
         text: t('armorSpecialWinter2015MageText'),
         notes: t('armorSpecialWinter2015MageNotes', {
@@ -1514,7 +1299,7 @@ gear = {
         int: 9
       },
       winter2015Healer: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'healer',
         text: t('armorSpecialWinter2015HealerText'),
         notes: t('armorSpecialWinter2015HealerNotes', {
@@ -1532,7 +1317,7 @@ gear = {
         })
       },
       spring2015Rogue: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'rogue',
         text: t('armorSpecialSpring2015RogueText'),
         notes: t('armorSpecialSpring2015RogueNotes', {
@@ -1542,7 +1327,7 @@ gear = {
         per: 15
       },
       spring2015Warrior: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'warrior',
         text: t('armorSpecialSpring2015WarriorText'),
         notes: t('armorSpecialSpring2015WarriorNotes', {
@@ -1552,7 +1337,7 @@ gear = {
         con: 9
       },
       spring2015Mage: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'wizard',
         text: t('armorSpecialSpring2015MageText'),
         notes: t('armorSpecialSpring2015MageNotes', {
@@ -1562,7 +1347,7 @@ gear = {
         int: 9
       },
       spring2015Healer: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'healer',
         text: t('armorSpecialSpring2015HealerText'),
         notes: t('armorSpecialSpring2015HealerNotes', {
@@ -1572,7 +1357,7 @@ gear = {
         con: 15
       },
       summer2015Rogue: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'rogue',
         text: t('armorSpecialSummer2015RogueText'),
         notes: t('armorSpecialSummer2015RogueNotes', {
@@ -1582,7 +1367,7 @@ gear = {
         per: 15
       },
       summer2015Warrior: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'warrior',
         text: t('armorSpecialSummer2015WarriorText'),
         notes: t('armorSpecialSummer2015WarriorNotes', {
@@ -1592,7 +1377,7 @@ gear = {
         con: 9
       },
       summer2015Mage: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'wizard',
         text: t('armorSpecialSummer2015MageText'),
         notes: t('armorSpecialSummer2015MageNotes', {
@@ -1602,7 +1387,7 @@ gear = {
         int: 9
       },
       summer2015Healer: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'healer',
         text: t('armorSpecialSummer2015HealerText'),
         notes: t('armorSpecialSummer2015HealerNotes', {
@@ -1612,7 +1397,7 @@ gear = {
         con: 15
       },
       fall2015Rogue: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'rogue',
         text: t('armorSpecialFall2015RogueText'),
         notes: t('armorSpecialFall2015RogueNotes', {
@@ -1622,7 +1407,7 @@ gear = {
         per: 15
       },
       fall2015Warrior: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'warrior',
         text: t('armorSpecialFall2015WarriorText'),
         notes: t('armorSpecialFall2015WarriorNotes', {
@@ -1632,7 +1417,7 @@ gear = {
         con: 9
       },
       fall2015Mage: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'wizard',
         text: t('armorSpecialFall2015MageText'),
         notes: t('armorSpecialFall2015MageNotes', {
@@ -1642,7 +1427,7 @@ gear = {
         int: 9
       },
       fall2015Healer: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'healer',
         text: t('armorSpecialFall2015HealerText'),
         notes: t('armorSpecialFall2015HealerNotes', {
@@ -1652,7 +1437,7 @@ gear = {
         con: 15
       },
       gaymerx: {
-        event: events.gaymerx,
+        event: EVENTS.gaymerx,
         text: t('armorSpecialGaymerxText'),
         notes: t('armorSpecialGaymerxNotes'),
         value: 0
@@ -2106,13 +1891,13 @@ gear = {
         })
       },
       nye: {
-        event: events.winter,
+        event: EVENTS.winter,
         text: t('headSpecialNyeText'),
         notes: t('headSpecialNyeNotes'),
         value: 0
       },
       yeti: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'warrior',
         text: t('headSpecialYetiText'),
         notes: t('headSpecialYetiNotes', {
@@ -2122,7 +1907,7 @@ gear = {
         value: 60
       },
       ski: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'rogue',
         text: t('headSpecialSkiText'),
         notes: t('headSpecialSkiNotes', {
@@ -2132,7 +1917,7 @@ gear = {
         value: 60
       },
       candycane: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'wizard',
         text: t('headSpecialCandycaneText'),
         notes: t('headSpecialCandycaneNotes', {
@@ -2142,7 +1927,7 @@ gear = {
         value: 60
       },
       snowflake: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'healer',
         text: t('headSpecialSnowflakeText'),
         notes: t('headSpecialSnowflakeNotes', {
@@ -2152,7 +1937,7 @@ gear = {
         value: 60
       },
       springRogue: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'rogue',
         text: t('headSpecialSpringRogueText'),
         notes: t('headSpecialSpringRogueNotes', {
@@ -2162,7 +1947,7 @@ gear = {
         per: 9
       },
       springWarrior: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'warrior',
         text: t('headSpecialSpringWarriorText'),
         notes: t('headSpecialSpringWarriorNotes', {
@@ -2172,7 +1957,7 @@ gear = {
         str: 9
       },
       springMage: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'wizard',
         text: t('headSpecialSpringMageText'),
         notes: t('headSpecialSpringMageNotes', {
@@ -2182,7 +1967,7 @@ gear = {
         per: 7
       },
       springHealer: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'healer',
         text: t('headSpecialSpringHealerText'),
         notes: t('headSpecialSpringHealerNotes', {
@@ -2192,7 +1977,7 @@ gear = {
         int: 7
       },
       summerRogue: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'rogue',
         text: t('headSpecialSummerRogueText'),
         notes: t('headSpecialSummerRogueNotes', {
@@ -2202,7 +1987,7 @@ gear = {
         per: 9
       },
       summerWarrior: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'warrior',
         text: t('headSpecialSummerWarriorText'),
         notes: t('headSpecialSummerWarriorNotes', {
@@ -2212,7 +1997,7 @@ gear = {
         str: 9
       },
       summerMage: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'wizard',
         text: t('headSpecialSummerMageText'),
         notes: t('headSpecialSummerMageNotes', {
@@ -2222,7 +2007,7 @@ gear = {
         per: 7
       },
       summerHealer: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'healer',
         text: t('headSpecialSummerHealerText'),
         notes: t('headSpecialSummerHealerNotes', {
@@ -2232,7 +2017,7 @@ gear = {
         int: 7
       },
       fallRogue: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'rogue',
         text: t('headSpecialFallRogueText'),
         notes: t('headSpecialFallRogueNotes', {
@@ -2245,7 +2030,7 @@ gear = {
         })
       },
       fallWarrior: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'warrior',
         text: t('headSpecialFallWarriorText'),
         notes: t('headSpecialFallWarriorNotes', {
@@ -2258,7 +2043,7 @@ gear = {
         })
       },
       fallMage: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'wizard',
         text: t('headSpecialFallMageText'),
         notes: t('headSpecialFallMageNotes', {
@@ -2271,7 +2056,7 @@ gear = {
         })
       },
       fallHealer: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'healer',
         text: t('headSpecialFallHealerText'),
         notes: t('headSpecialFallHealerNotes', {
@@ -2284,7 +2069,7 @@ gear = {
         })
       },
       winter2015Rogue: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'rogue',
         text: t('headSpecialWinter2015RogueText'),
         notes: t('headSpecialWinter2015RogueNotes', {
@@ -2294,7 +2079,7 @@ gear = {
         per: 9
       },
       winter2015Warrior: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'warrior',
         text: t('headSpecialWinter2015WarriorText'),
         notes: t('headSpecialWinter2015WarriorNotes', {
@@ -2304,7 +2089,7 @@ gear = {
         str: 9
       },
       winter2015Mage: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'wizard',
         text: t('headSpecialWinter2015MageText'),
         notes: t('headSpecialWinter2015MageNotes', {
@@ -2314,7 +2099,7 @@ gear = {
         per: 7
       },
       winter2015Healer: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'healer',
         text: t('headSpecialWinter2015HealerText'),
         notes: t('headSpecialWinter2015HealerNotes', {
@@ -2332,7 +2117,7 @@ gear = {
         })
       },
       spring2015Rogue: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'rogue',
         text: t('headSpecialSpring2015RogueText'),
         notes: t('headSpecialSpring2015RogueNotes', {
@@ -2342,7 +2127,7 @@ gear = {
         per: 9
       },
       spring2015Warrior: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'warrior',
         text: t('headSpecialSpring2015WarriorText'),
         notes: t('headSpecialSpring2015WarriorNotes', {
@@ -2352,7 +2137,7 @@ gear = {
         str: 9
       },
       spring2015Mage: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'wizard',
         text: t('headSpecialSpring2015MageText'),
         notes: t('headSpecialSpring2015MageNotes', {
@@ -2362,7 +2147,7 @@ gear = {
         per: 7
       },
       spring2015Healer: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'healer',
         text: t('headSpecialSpring2015HealerText'),
         notes: t('headSpecialSpring2015HealerNotes', {
@@ -2372,7 +2157,7 @@ gear = {
         int: 7
       },
       summer2015Rogue: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'rogue',
         text: t('headSpecialSummer2015RogueText'),
         notes: t('headSpecialSummer2015RogueNotes', {
@@ -2382,7 +2167,7 @@ gear = {
         per: 9
       },
       summer2015Warrior: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'warrior',
         text: t('headSpecialSummer2015WarriorText'),
         notes: t('headSpecialSummer2015WarriorNotes', {
@@ -2392,7 +2177,7 @@ gear = {
         str: 9
       },
       summer2015Mage: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'wizard',
         text: t('headSpecialSummer2015MageText'),
         notes: t('headSpecialSummer2015MageNotes', {
@@ -2402,7 +2187,7 @@ gear = {
         per: 7
       },
       summer2015Healer: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'healer',
         text: t('headSpecialSummer2015HealerText'),
         notes: t('headSpecialSummer2015HealerNotes', {
@@ -2412,7 +2197,7 @@ gear = {
         int: 7
       },
       fall2015Rogue: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'rogue',
         text: t('headSpecialFall2015RogueText'),
         notes: t('headSpecialFall2015RogueNotes', {
@@ -2422,7 +2207,7 @@ gear = {
         per: 9
       },
       fall2015Warrior: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'warrior',
         text: t('headSpecialFall2015WarriorText'),
         notes: t('headSpecialFall2015WarriorNotes', {
@@ -2432,7 +2217,7 @@ gear = {
         str: 9
       },
       fall2015Mage: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'wizard',
         text: t('headSpecialFall2015MageText'),
         notes: t('headSpecialFall2015MageNotes', {
@@ -2442,7 +2227,7 @@ gear = {
         per: 7
       },
       fall2015Healer: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'healer',
         text: t('headSpecialFall2015HealerText'),
         notes: t('headSpecialFall2015HealerNotes', {
@@ -2452,7 +2237,7 @@ gear = {
         int: 7
       },
       gaymerx: {
-        event: events.gaymerx,
+        event: EVENTS.gaymerx,
         text: t('headSpecialGaymerxText'),
         notes: t('headSpecialGaymerxNotes'),
         value: 0
@@ -2964,7 +2749,7 @@ gear = {
         })
       },
       yeti: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'warrior',
         text: t('shieldSpecialYetiText'),
         notes: t('shieldSpecialYetiNotes', {
@@ -2974,7 +2759,7 @@ gear = {
         value: 70
       },
       ski: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'rogue',
         text: t('weaponSpecialSkiText'),
         notes: t('weaponSpecialSkiNotes', {
@@ -2984,7 +2769,7 @@ gear = {
         value: 90
       },
       snowflake: {
-        event: events.winter,
+        event: EVENTS.winter,
         specialClass: 'healer',
         text: t('shieldSpecialSnowflakeText'),
         notes: t('shieldSpecialSnowflakeNotes', {
@@ -2994,7 +2779,7 @@ gear = {
         value: 70
       },
       springRogue: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'rogue',
         text: t('shieldSpecialSpringRogueText'),
         notes: t('shieldSpecialSpringRogueNotes', {
@@ -3004,7 +2789,7 @@ gear = {
         str: 8
       },
       springWarrior: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'warrior',
         text: t('shieldSpecialSpringWarriorText'),
         notes: t('shieldSpecialSpringWarriorNotes', {
@@ -3014,7 +2799,7 @@ gear = {
         con: 7
       },
       springHealer: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'healer',
         text: t('shieldSpecialSpringHealerText'),
         notes: t('shieldSpecialSpringHealerNotes', {
@@ -3024,7 +2809,7 @@ gear = {
         con: 9
       },
       summerRogue: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'rogue',
         text: t('shieldSpecialSummerRogueText'),
         notes: t('shieldSpecialSummerRogueNotes', {
@@ -3034,7 +2819,7 @@ gear = {
         str: 8
       },
       summerWarrior: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'warrior',
         text: t('shieldSpecialSummerWarriorText'),
         notes: t('shieldSpecialSummerWarriorNotes', {
@@ -3044,7 +2829,7 @@ gear = {
         con: 7
       },
       summerHealer: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'healer',
         text: t('shieldSpecialSummerHealerText'),
         notes: t('shieldSpecialSummerHealerNotes', {
@@ -3054,7 +2839,7 @@ gear = {
         con: 9
       },
       fallRogue: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'rogue',
         text: t('shieldSpecialFallRogueText'),
         notes: t('shieldSpecialFallRogueNotes', {
@@ -3067,7 +2852,7 @@ gear = {
         })
       },
       fallWarrior: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'warrior',
         text: t('shieldSpecialFallWarriorText'),
         notes: t('shieldSpecialFallWarriorNotes', {
@@ -3080,7 +2865,7 @@ gear = {
         })
       },
       fallHealer: {
-        event: events.fall,
+        event: EVENTS.fall,
         specialClass: 'healer',
         text: t('shieldSpecialFallHealerText'),
         notes: t('shieldSpecialFallHealerNotes', {
@@ -3093,7 +2878,7 @@ gear = {
         })
       },
       winter2015Rogue: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'rogue',
         text: t('shieldSpecialWinter2015RogueText'),
         notes: t('shieldSpecialWinter2015RogueNotes', {
@@ -3103,7 +2888,7 @@ gear = {
         str: 8
       },
       winter2015Warrior: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'warrior',
         text: t('shieldSpecialWinter2015WarriorText'),
         notes: t('shieldSpecialWinter2015WarriorNotes', {
@@ -3113,7 +2898,7 @@ gear = {
         con: 7
       },
       winter2015Healer: {
-        event: events.winter2015,
+        event: EVENTS.winter2015,
         specialClass: 'healer',
         text: t('shieldSpecialWinter2015HealerText'),
         notes: t('shieldSpecialWinter2015HealerNotes', {
@@ -3123,7 +2908,7 @@ gear = {
         con: 9
       },
       spring2015Rogue: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'rogue',
         text: t('shieldSpecialSpring2015RogueText'),
         notes: t('shieldSpecialSpring2015RogueNotes', {
@@ -3133,7 +2918,7 @@ gear = {
         str: 8
       },
       spring2015Warrior: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'warrior',
         text: t('shieldSpecialSpring2015WarriorText'),
         notes: t('shieldSpecialSpring2015WarriorNotes', {
@@ -3143,7 +2928,7 @@ gear = {
         con: 7
       },
       spring2015Healer: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'healer',
         text: t('shieldSpecialSpring2015HealerText'),
         notes: t('shieldSpecialSpring2015HealerNotes', {
@@ -3153,7 +2938,7 @@ gear = {
         con: 9
       },
       summer2015Rogue: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'rogue',
         text: t('shieldSpecialSummer2015RogueText'),
         notes: t('shieldSpecialSummer2015RogueNotes', {
@@ -3163,7 +2948,7 @@ gear = {
         str: 8
       },
       summer2015Warrior: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'warrior',
         text: t('shieldSpecialSummer2015WarriorText'),
         notes: t('shieldSpecialSummer2015WarriorNotes', {
@@ -3173,7 +2958,7 @@ gear = {
         con: 7
       },
       summer2015Healer: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'healer',
         text: t('shieldSpecialSummer2015HealerText'),
         notes: t('shieldSpecialSummer2015HealerNotes', {
@@ -3183,7 +2968,7 @@ gear = {
         con: 9
       },
       fall2015Rogue: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'rogue',
         text: t('shieldSpecialFall2015RogueText'),
         notes: t('shieldSpecialFall2015RogueNotes', {
@@ -3193,7 +2978,7 @@ gear = {
         str: 8
       },
       fall2015Warrior: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'warrior',
         text: t('shieldSpecialFall2015WarriorText'),
         notes: t('shieldSpecialFall2015WarriorNotes', {
@@ -3203,7 +2988,7 @@ gear = {
         con: 7
       },
       fall2015Healer: {
-        event: events.fall2015,
+        event: EVENTS.fall2015,
         specialClass: 'healer',
         text: t('shieldSpecialFall2015HealerText'),
         notes: t('shieldSpecialFall2015HealerNotes', {
@@ -3354,42 +3139,42 @@ gear = {
         mystery: 'wondercon'
       },
       summerHealer: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'healer',
         text: t('bodySpecialSummerHealerText'),
         notes: t('bodySpecialSummerHealerNotes'),
         value: 20
       },
       summerMage: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'wizard',
         text: t('bodySpecialSummerMageText'),
         notes: t('bodySpecialSummerMageNotes'),
         value: 20
       },
       summer2015Healer: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'healer',
         text: t('bodySpecialSummer2015HealerText'),
         notes: t('bodySpecialSummer2015HealerNotes'),
         value: 20
       },
       summer2015Mage: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'wizard',
         text: t('bodySpecialSummer2015MageText'),
         notes: t('bodySpecialSummer2015MageNotes'),
         value: 20
       },
       summer2015Rogue: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'rogue',
         text: t('bodySpecialSummer2015RogueText'),
         notes: t('bodySpecialSummer2015RogueNotes'),
         value: 20
       },
       summer2015Warrior: {
-        event: events.summer2015,
+        event: EVENTS.summer2015,
         specialClass: 'warrior',
         text: t('bodySpecialSummer2015WarriorText'),
         notes: t('bodySpecialSummer2015WarriorNotes'),
@@ -3408,56 +3193,56 @@ gear = {
     },
     special: {
       springRogue: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'rogue',
         text: t('headAccessorySpecialSpringRogueText'),
         notes: t('headAccessorySpecialSpringRogueNotes'),
         value: 20
       },
       springWarrior: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'warrior',
         text: t('headAccessorySpecialSpringWarriorText'),
         notes: t('headAccessorySpecialSpringWarriorNotes'),
         value: 20
       },
       springMage: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'wizard',
         text: t('headAccessorySpecialSpringMageText'),
         notes: t('headAccessorySpecialSpringMageNotes'),
         value: 20
       },
       springHealer: {
-        event: events.spring,
+        event: EVENTS.spring,
         specialClass: 'healer',
         text: t('headAccessorySpecialSpringHealerText'),
         notes: t('headAccessorySpecialSpringHealerNotes'),
         value: 20
       },
       spring2015Rogue: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'rogue',
         text: t('headAccessorySpecialSpring2015RogueText'),
         notes: t('headAccessorySpecialSpring2015RogueNotes'),
         value: 20
       },
       spring2015Warrior: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'warrior',
         text: t('headAccessorySpecialSpring2015WarriorText'),
         notes: t('headAccessorySpecialSpring2015WarriorNotes'),
         value: 20
       },
       spring2015Mage: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'wizard',
         text: t('headAccessorySpecialSpring2015MageText'),
         notes: t('headAccessorySpecialSpring2015MageNotes'),
         value: 20
       },
       spring2015Healer: {
-        event: events.spring2015,
+        event: EVENTS.spring2015,
         specialClass: 'healer',
         text: t('headAccessorySpecialSpring2015HealerText'),
         notes: t('headAccessorySpecialSpring2015HealerNotes'),
@@ -3622,14 +3407,14 @@ gear = {
         mystery: 'wondercon'
       },
       summerRogue: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'rogue',
         text: t('eyewearSpecialSummerRogueText'),
         notes: t('eyewearSpecialSummerRogueNotes'),
         value: 20
       },
       summerWarrior: {
-        event: events.summer,
+        event: EVENTS.summer,
         specialClass: 'warrior',
         text: t('eyewearSpecialSummerWarriorText'),
         notes: t('eyewearSpecialSummerWarriorNotes'),
@@ -3693,8 +3478,8 @@ api.gear = {
   flat: {}
 };
 
-_.each(gearTypes, function(type) {
-  return _.each(classes.concat(['base', 'special', 'mystery', 'armoire']), function(klass) {
+_.each(GEAR_TYPES, function(type) {
+  return _.each(CLASSES.concat(['base', 'special', 'mystery', 'armoire']), function(klass) {
     return _.each(gear[type][klass], function(item, i) {
       var _canOwn, key;
       key = type + "_" + klass + "_" + i;
@@ -3790,7 +3575,7 @@ api.armoire = {
    ---------------------------------------------------------------
  */
 
-api.classes = classes;
+api.classes = CLASSES;
 
 
 /*
@@ -3799,7 +3584,7 @@ api.classes = classes;
    ---------------------------------------------------------------
  */
 
-api.gearTypes = gearTypes;
+api.gearTypes = GEAR_TYPES;
 
 
 /*
@@ -5026,7 +4811,7 @@ _.each(api.food, function(food, key) {
   });
 });
 
-api.userCanOwnQuestCategories = ['unlockable', 'gold', 'pet'];
+api.userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
 api.quests = {
   dilatory: {
