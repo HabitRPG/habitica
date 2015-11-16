@@ -73,9 +73,11 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   count++;
 
   // specify user data to change:
-  var set = {'migration':migrationName, 'achievements.costumeContest':true};
+  var set = {'migration':migrationName};
+  var inc = {'achievements.costumeContests':1};
 
   dbUsers.update({_id:user._id}, {$set:set});
+  dbUsers.update({_id:user._id}, {$inc:inc});
 
   if (count%progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');

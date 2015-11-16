@@ -53,11 +53,12 @@ var UserSchema = new Schema({
     perfect: Number,
     habitBirthdays: Number,
     valentine: Number,
-    costumeContest: Boolean,
+    costumeContest: Boolean, // Superseded by costumeContests
     nye: Number,
     habiticaDays: Number,
     greeting: Number,
-    thankyou: Number
+    thankyou: Number,
+    costumeContests: Number
   },
   auth: {
     blocked: Boolean,
