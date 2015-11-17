@@ -40,7 +40,7 @@ function tnl (lvl) {
  */
 
 function diminishingReturns (bonus, max, halfway) {
-  if (halfway === null) {
+  if (!halfway) {
     halfway = max / 2;
   }
   return max * (bonus / (bonus + halfway));
