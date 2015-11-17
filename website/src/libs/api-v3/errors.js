@@ -38,7 +38,7 @@ export class NotAuthorized extends CustomError {
  *       "message": "Bad request."
  *     }
  */
- export class BadRequest extends CustomError {
+export class BadRequest extends CustomError {
   constructor (customMessage) {
     super();
     this.name = this.constructor.name;
