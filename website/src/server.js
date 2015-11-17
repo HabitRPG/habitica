@@ -4,7 +4,7 @@ import nconf from 'nconf';
 import logger from './libs/api-v3/logger';
 import express from 'express';
 import http from 'http';
-import path from 'path';
+// import path from 'path';
 // let swagger = require('swagger-node-express');
 import autoinc from 'mongoose-id-autoinc';
 import passport from 'passport';
@@ -14,6 +14,7 @@ import mongoose from 'mongoose';
 import Q from 'q';
 import domainMiddleware from './middlewares/api-v3/domain';
 import attachMiddlewares from './middlewares/api-v3/index';
+import staticMiddleware from './middlewares/api-v3/static';
 
 // Setup translations
 // let i18n = require('./libs/api-v2/i18n');
@@ -73,7 +74,7 @@ passport.use(new FacebookStrategy({
 }, (accessToken, refreshToken, profile, done) => done(null, profile)));
 
 // ------------  Server Configuration ------------
-let publicDir = path.join(__dirname, '/../public');
+// let publicDir = path.join(__dirname, '/../public');
 
 app.set('port', nconf.get('PORT'));
 
@@ -147,7 +148,7 @@ require('./routes/api-v2/swagger')(swagger, v2);
 // Cache emojis without copying them to build, they are too many
 
 oldApp.use(require('./middlewares/api-v2/errorHandler'));
-*/
+*
 let maxAge = IS_PROD ? 31536000000 : 0;
 
 oldApp.use(express.static(path.join(__dirname, '/../build'), { maxAge }));
@@ -156,6 +157,9 @@ oldApp.use('/common/audio', express.static(`${publicDir}/../../common/audio`, { 
 oldApp.use('/common/script/public', express.static(`${publicDir}/../../common/script/public`, { maxAge }));
 oldApp.use('/common/img', express.static(`${publicDir}/../../common/img`, { maxAge }));
 oldApp.use(express.static(publicDir));
+*/
+
+staticMiddleware(app);
 
 server.on('request', app);
 server.listen(app.get('port'), () => {
