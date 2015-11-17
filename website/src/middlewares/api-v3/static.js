@@ -15,4 +15,4 @@ export default function staticMiddleware (expressApp) {
   expressApp.use('/common/script/public', express.static(`${PUBLIC_DIR}/../../common/script/public`, { maxAge: MAX_AGE }));
   expressApp.use('/common/img', express.static(`${PUBLIC_DIR}/../../common/img`, { maxAge: MAX_AGE }));
   expressApp.use(express.static(PUBLIC_DIR));
-};
+}
