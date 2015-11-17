@@ -1,5 +1,5 @@
-import { ownsItem } from '../gear-helper';
-import t from '../../translation';
+import { ownsItem } from '../../gear-helper';
+import t from '../../../translation';
 
 let isBackerOfLevel = (tierRequirement, ownedItem) => {
   return (user) => {

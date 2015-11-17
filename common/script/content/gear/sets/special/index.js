@@ -1,10 +1,10 @@
 import {
   EVENTS,
-} from '../../constants';
-import { ownsItem } from '../gear-helper';
+} from '../../../constants';
+import { ownsItem } from '../../gear-helper';
 import backerGear from './special-backer';
 import contributorGear from './special-contributor';
-import t from '../../translation';
+import t from '../../../translation';
 
 let armor = {
   0: backerGear.armorSpecial0,

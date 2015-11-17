@@ -5,8 +5,8 @@ import { each } from 'lodash';
 import camelCase from 'lodash.camelcase';
 
 import { tree as allGear } from '../../common/script/content/gear';
-import backerGear from '../../common/script/content/gear/sets/special-backer';
-import contributorGear from '../../common/script/content/gear/sets/special-contributor';
+import backerGear from '../../common/script/content/gear/sets/special/special-backer';
+import contributorGear from '../../common/script/content/gear/sets/special/special-contributor';
 
 describe('Gear', () => {
   each(allGear, (piece, gearType) => {
