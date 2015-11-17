@@ -28,7 +28,10 @@ module.exports = function(server,mongoose) {
       });*/
       var memory = os.freemem() / os.totalmem(),
           memoryHigh = memory < 0.1;
-      if (memoryHigh) throw '[Memory Leak] Memory='+parseFloat(memory).toFixed(3)+' Time='+moment().format();
+      if (memoryHigh) {
+        var memoryLeakMessage = '[Memory Leak] Memory='+parseFloat(memory).toFixed(3)+' Time='+moment().format();
+        throw memoryLeakMessage;
+      }
     }, mins*60*1000);
   }
 
