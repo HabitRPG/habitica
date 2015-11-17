@@ -71,7 +71,7 @@ export let schema = new Schema({
     habiticaDays: Number,
     greeting: Number,
     thankyou: Number,
-    costumeContests: Number
+    costumeContests: Number,
   },
 
   backer: {
