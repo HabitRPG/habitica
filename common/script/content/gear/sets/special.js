@@ -10,8 +10,7 @@ let isBackerOfLevel = (tierRequirement, ownedItem) => {
   return (user) => {
     let backer = user.backer;
     let tier = backer && backer.tier;
-
-    return Number(tier) >= tierRequirement || ownsItem(ownedItem);
+    return Number(tier) >= tierRequirement || ownsItem(ownedItem)(user);
   };
 };
 
@@ -20,7 +19,7 @@ let isContributorOfLevel = (tierRequirement, ownedItem) => {
     let contributor = user.contributor;
     let tier = contributor && contributor.level;
 
-    return Number(tier) >= tierRequirement || ownsItem(ownedItem);
+    return Number(tier) >= tierRequirement || ownsItem(ownedItem)(user);
   };
 };
 
