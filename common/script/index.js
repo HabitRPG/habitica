@@ -13,6 +13,14 @@ api = module.exports = {};
 
 api.i18n = i18n;
 
+import statHelpers from './statHelpers.js'
+
+api.maxLevel = statHelpers.maxLevel;
+api.capByLevel = statHelpers.capByLevel;
+api.maxHealth = statHelpers.maxHealth;
+api.tnl = statHelpers.tnl;
+api.diminishingReturns = statHelpers.diminishingReturns;
+
 $w = api.$w = function(s) {
   return s.split(' ');
 };
@@ -181,63 +189,6 @@ api.shouldDo = function(day, dailyTask, options) {
     return false;
   }
 };
-
-
-/*
-  ------------------------------------------------------
-  Level cap
-  ------------------------------------------------------
- */
-
-api.maxLevel = 100;
-
-api.capByLevel = function(lvl) {
-  if (lvl > api.maxLevel) {
-    return api.maxLevel;
-  } else {
-    return lvl;
-  }
-};
-
-
-/*
-  ------------------------------------------------------
-  Health cap
-  ------------------------------------------------------
- */
-
-api.maxHealth = 50;
-
-
-/*
-  ------------------------------------------------------
-  Scoring
-  ------------------------------------------------------
- */
-
-api.tnl = function(lvl) {
-  return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
-};
-
-
-/*
-  A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
-  {max} The asymptote
-  {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
-  {halfway} (optional) the point at which the graph starts bending
- */
-
-api.diminishingReturns = function(bonus, max, halfway) {
-  if (halfway == null) {
-    halfway = max / 2;
-  }
-  return max * (bonus / (bonus + halfway));
-};
-
-api.monod = function(bonus, rateOfIncrease, max) {
-  return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
-};
-
 
 /*
 Preen history for users with > 7 history entries
