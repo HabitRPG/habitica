@@ -30,6 +30,25 @@ export class BadRequest extends CustomError {
   }
 }
 
+/**
+ * @apiDefine NotFound
+ * @apiError NotFound The requested resource was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "NotFound"
+ *     }
+ */
+export class NotFound extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 401;
+    this.message = customMessage || 'Not found.';
+  }
+}
+
 // InternalError error with a 500 http error code
 // used when an unexpected, internal server error is thrown
 export class InternalServerError extends CustomError {

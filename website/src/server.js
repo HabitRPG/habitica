@@ -4,7 +4,7 @@ import nconf from 'nconf';
 import logger from './libs/api-v3/logger';
 import express from 'express';
 import http from 'http';
-// import path from 'path';
+import path from 'path';
 // let swagger = require('swagger-node-express');
 import autoinc from 'mongoose-id-autoinc';
 import passport from 'passport';
@@ -73,7 +73,7 @@ passport.use(new FacebookStrategy({
 }, (accessToken, refreshToken, profile, done) => done(null, profile)));
 
 // ------------  Server Configuration ------------
-// let publicDir = path.join(__dirname, '/../public');
+let publicDir = path.join(__dirname, '/../public');
 
 app.set('port', nconf.get('PORT'));
 
@@ -144,17 +144,18 @@ oldApp.use('/api/v1', require('./routes/api-v1'));
 oldApp.use('/export', require('./routes/dataexport'));
 require('./routes/api-v2/swagger')(swagger, v2);
 
-var maxAge = IS_PROD ? 31536000000 : 0;
 // Cache emojis without copying them to build, they are too many
-oldApp.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-oldApp.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
-oldApp.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
-oldApp.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
-oldApp.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
-oldApp.use(express['static'](publicDir));
 
 oldApp.use(require('./middlewares/api-v2/errorHandler'));
 */
+let maxAge = IS_PROD ? 31536000000 : 0;
+
+oldApp.use(express.static(path.join(__dirname, '/../build'), { maxAge }));
+oldApp.use('/common/dist', express.static(`${publicDir}/../../common/dist`, { maxAge }));
+oldApp.use('/common/audio', express.static(`${publicDir}/../../common/audio`, { maxAge }));
+oldApp.use('/common/script/public', express.static(`${publicDir}/../../common/script/public`, { maxAge }));
+oldApp.use('/common/img', express.static(`${publicDir}/../../common/img`, { maxAge }));
+oldApp.use(express.static(publicDir));
 
 server.on('request', app);
 server.listen(app.get('port'), () => {

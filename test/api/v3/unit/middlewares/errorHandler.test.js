@@ -88,7 +88,7 @@ describe('errorHandler', () => {
     errorHandler(error, req, res, next);
 
     expect(logger.error).to.be.calledOnce;
-    expect(logger.error).to.be.calledWith(error.stack, {
+    expect(logger.error).to.be.calledWithExactly(error.stack, {
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,

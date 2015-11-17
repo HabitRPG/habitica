@@ -4,6 +4,7 @@ import analytics from './analytics';
 import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
 import routes from '../../libs/api-v3/setupRoutes';
+import notFoundHandler from './notFound';
 
 export default function attachMiddlewares (app) {
   // Parse query parameters and json bodies
@@ -15,6 +16,7 @@ export default function attachMiddlewares (app) {
   app.use(analytics);
 
   app.use(routes);
+  app.use(notFoundHandler);
 
   // Error handler middleware, define as the last one
   app.use(errorHandler);

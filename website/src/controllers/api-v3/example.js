@@ -1,6 +1,25 @@
 // An example file to show how a controller should be structured
 let api = {};
 
+/**
+ * @api {get} /example/:id Request Example information
+ * @apiName GetExample
+ * @apiGroup Example
+ *
+ * @apiParam {Number} id Examples unique ID.
+ *
+ * @apiSuccess {String} firstname Firstname of the Example.
+ * @apiSuccess {String} lastname  Lastname of the Example.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "firstname": "John",
+ *       "lastname": "Doe"
+ *     }
+ *
+ * @apiUse NotFound
+ */
 api.exampleRoute = {
   method: 'GET',
   url: '/example/:param',
