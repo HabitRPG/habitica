@@ -31,7 +31,7 @@ describe('errorHandler', () => {
     expect(res.status).to.be.calledWith(500);
     expect(res.json).to.be.calledWith({
       error: 'InternalServerError',
-      message: 'Internal server error.',
+      message: 'An unexpected error occurred.',
     });
   });
 
@@ -63,7 +63,7 @@ describe('errorHandler', () => {
     expect(res.status).to.be.calledWith(500);
     expect(res.json).to.be.calledWith({
       error: 'InternalServerError',
-      message: 'Internal server error.',
+      message: 'An unexpected error occurred.',
     });
   });
 

@@ -10,6 +10,16 @@ import {
 export default function errorHandler (err, req, res, next) {
   if (!err) return next();
 
+  // Log the original error with some metadata
+  let stack = err.stack || err.message || err;
+
+  logger.error(stack, {
+    originalUrl: req.originalUrl,
+    headers: req.headers,
+    body: req.body,
+    fullError: err,
+  });
+
   // In case of a CustomError class, use it's data
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
   // If we can't identify it, respond with a generic 500 error
@@ -37,16 +47,6 @@ export default function errorHandler (err, req, res, next) {
     // Use it also in case of identified errors but with httpCode === 500
     responseErr = new InternalServerError();
   }
-
-  // Log the original error with some metadata
-  let stack = err.stack || err.message || err;
-
-  logger.error(stack, {
-    originalUrl: req.originalUrl,
-    headers: req.headers,
-    body: req.body,
-    fullError: err,
-  });
 
   // TODO unless status >= 500 return data attached to errors
   return res
