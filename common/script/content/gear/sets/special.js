@@ -3,29 +3,12 @@ import {
 } from '../../constants';
 import { ownsItem } from '../gear-helper';
 import backerGear from './special-backer';
+import contributorGear from './special-contributor';
 import t from '../../translation';
-
-let isContributorOfLevel = (tierRequirement, ownedItem) => {
-  return (user) => {
-    let contributor = user.contributor;
-    let tier = contributor && contributor.level;
-
-    return Number(tier) >= tierRequirement || ownsItem(ownedItem)(user);
-  };
-};
 
 let armor = {
   0: backerGear.armorSpecial0,
-  1: {
-    text: t('armorSpecial1Text'),
-    notes: t('armorSpecial1Notes', { attrs: 6 }),
-    con: 6,
-    str: 6,
-    per: 6,
-    int: 6,
-    value: 170,
-    canOwn: isContributorOfLevel(2),
-  },
+  1: contributorGear.armorSpecial1,
   2: backerGear.armorSpecial2,
   finnedOceanicArmor: {
     text: t('armorSpecialFinnedOceanicArmorText'),
@@ -429,16 +412,7 @@ let eyewear = {
 
 let head = {
   0: backerGear.headSpecial0,
-  1: {
-    text: t('headSpecial1Text'),
-    notes: t('headSpecial1Notes', { attrs: 6 }),
-    con: 6,
-    str: 6,
-    per: 6,
-    int: 6,
-    value: 170,
-    canOwn: isContributorOfLevel(3),
-  },
+  1: contributorGear.headSpecial1,
   2: backerGear.headSpecial2,
   fireCoralCirclet: {
     text: t('headSpecialFireCoralCircletText'),
@@ -876,16 +850,7 @@ let headAccessory = {
 
 let shield = {
   0: backerGear.shieldSpecial0,
-  1: {
-    text: t('shieldSpecial1Text'),
-    notes: t('shieldSpecial1Notes', { attrs: 6 }),
-    con: 6,
-    str: 6,
-    per: 6,
-    int: 6,
-    value: 170,
-    canOwn: isContributorOfLevel(5),
-  },
+  1: contributorGear.shieldSpecial1,
   goldenknight: {
     text: t('shieldSpecialGoldenknightText'),
     notes: t('shieldSpecialGoldenknightNotes', { attrs: 25 }),
@@ -1106,30 +1071,10 @@ let shield = {
 
 let weapon = {
   0: backerGear.weaponSpecial0,
-  1: {
-    text: t('weaponSpecial1Text'),
-    notes: t('weaponSpecial1Notes', { attrs: 6 }),
-    str: 6,
-    per: 6,
-    con: 6,
-    int: 6,
-    value: 170,
-    canOwn: isContributorOfLevel(4),
-  },
+  1: contributorGear.weaponSpecial1,
   2: backerGear.weaponSpecial2,
   3: backerGear.weaponSpecial3,
-  critical: {
-    text: t('weaponSpecialCriticalText'),
-    notes: t('weaponSpecialCriticalNotes', { attrs: 40 }),
-    str: 40,
-    per: 40,
-    value: 200,
-    canOwn: (user) => {
-      let hasCritical = user.contributor && user.contributor.critical;
-
-      return hasCritical;
-    },
-  },
+  critical: contributorGear.weaponSpecialCritical,
   tridentOfCrashingTides: {
     text: t('weaponSpecialTridentOfCrashingTidesText'),
     notes: t('weaponSpecialTridentOfCrashingTidesNotes', { int: 15 }),

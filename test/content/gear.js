@@ -6,6 +6,7 @@ import camelCase from 'lodash.camelcase';
 
 import { tree as allGear } from '../../common/script/content/gear';
 import backerGear from '../../common/script/content/gear/sets/special-backer';
+import contributorGear from '../../common/script/content/gear/sets/special-contributor';
 
 describe('Gear', () => {
   each(allGear, (piece, gearType) => {
@@ -89,6 +90,73 @@ describe('Gear', () => {
         it('canOwn returns false if user does not have tier requirement and did not previously own the item', () => {
           expect(backerGear[camelCaseKey].canOwn(user)).to.eql(false);
         });
+      });
+    });
+  });
+
+  describe('contributor gear', () => {
+    let user;
+
+    beforeEach(() => {
+      user = {
+        contributor: {},
+        items: { gear: { owned: {} } },
+      };
+    });
+
+    let cases = {
+      armor_special_1: 2,
+      head_special_1: 3,
+      shield_special_1: 5,
+      weapon_special_1: 4,
+    };
+
+    each(cases, (tierRequirement, key) => {
+      context(key, () => {
+        let camelCaseKey = camelCase(key);
+
+        it(`canOwn returns true if user has a contributor tier of ${tierRequirement} or higher`, () => {
+          user.contributor.level = tierRequirement;
+          expect(contributorGear[camelCaseKey].canOwn(user)).to.eql(true);
+
+          user.contributor.level = tierRequirement + 1;
+          expect(contributorGear[camelCaseKey].canOwn(user)).to.eql(true);
+        });
+
+        it('canOwn returns true if user already owns the item', () => {
+          user.items.gear.owned[key] = true;
+          expect(contributorGear[camelCaseKey].canOwn(user)).to.eql(true);
+        });
+
+        it('canOwn returns true if user has previously owned the item', () => {
+          user.items.gear.owned[key] = false;
+          expect(contributorGear[camelCaseKey].canOwn(user)).to.eql(true);
+        });
+
+        it('canOwn returns false if user does not have tier requirement and did not previously own the item', () => {
+          expect(contributorGear[camelCaseKey].canOwn(user)).to.eql(false);
+        });
+      });
+    });
+
+    context('hammer of bug smashing', () => {
+      it('canOwn returns true if user has a critical flag on their contributor object', () => {
+        user.contributor.critical = true;
+        expect(contributorGear.weaponSpecialCritical.canOwn(user)).to.eql(true);
+      });
+
+      it('canOwn returns true if user already owns the item', () => {
+        user.items.gear.owned.weapon_special_critical = true;
+        expect(contributorGear.weaponSpecialCritical.canOwn(user)).to.eql(true);
+      });
+
+      it('canOwn returns true if user has previously owned the item', () => {
+        user.items.gear.owned.weapon_special_critical = false;
+        expect(contributorGear.weaponSpecialCritical.canOwn(user)).to.eql(true);
+      });
+
+      it('canOwn returns false if user does not have tier requirement and did not previously own the item', () => {
+        expect(contributorGear.weaponSpecialCritical.canOwn(user)).to.eql(false);
       });
     });
   });
