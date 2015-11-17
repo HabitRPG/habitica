@@ -1,18 +1,9 @@
-/* eslint-disable camelcase */
-
 import {
   EVENTS,
 } from '../../constants';
 import { ownsItem } from '../gear-helper';
+import backerGear from './special-backer';
 import t from '../../translation';
-
-let isBackerOfLevel = (tierRequirement, ownedItem) => {
-  return (user) => {
-    let backer = user.backer;
-    let tier = backer && backer.tier;
-    return Number(tier) >= tierRequirement || ownsItem(ownedItem)(user);
-  };
-};
 
 let isContributorOfLevel = (tierRequirement, ownedItem) => {
   return (user) => {
@@ -24,13 +15,7 @@ let isContributorOfLevel = (tierRequirement, ownedItem) => {
 };
 
 let armor = {
-  0: {
-    text: t('armorSpecial0Text'),
-    notes: t('armorSpecial0Notes', { con: 20 }),
-    con: 20,
-    value: 150,
-    canOwn: isBackerOfLevel(45),
-  },
+  0: backerGear.armorSpecial0,
   1: {
     text: t('armorSpecial1Text'),
     notes: t('armorSpecial1Notes', { attrs: 6 }),
@@ -41,14 +26,7 @@ let armor = {
     value: 170,
     canOwn: isContributorOfLevel(2),
   },
-  2: {
-    text: t('armorSpecial2Text'),
-    notes: t('armorSpecial2Notes', { attrs: 25 }),
-    int: 25,
-    con: 25,
-    value: 200,
-    canOwn: isBackerOfLevel(300, 'armor_special_2'),
-  },
+  2: backerGear.armorSpecial2,
   finnedOceanicArmor: {
     text: t('armorSpecialFinnedOceanicArmorText'),
     notes: t('armorSpecialFinnedOceanicArmorNotes', { str: 15 }),
@@ -343,13 +321,13 @@ let armor = {
 };
 
 let back = {
-  wondercon_red: {
+  wondercon_red: {  // eslint-disable-line camelcase
     text: t('backSpecialWonderconRedText'),
     notes: t('backSpecialWonderconRedNotes'),
     value: 0,
     mystery: 'wondercon',
   },
-  wondercon_black: {
+  wondercon_black: {  // eslint-disable-line camelcase
     text: t('backSpecialWonderconBlackText'),
     notes: t('backSpecialWonderconBlackNotes'),
     value: 0,
@@ -358,19 +336,19 @@ let back = {
 };
 
 let body = {
-  wondercon_red: {
+  wondercon_red: {  // eslint-disable-line camelcase
     text: t('bodySpecialWonderconRedText'),
     notes: t('bodySpecialWonderconRedNotes'),
     value: 0,
     mystery: 'wondercon',
   },
-  wondercon_gold: {
+  wondercon_gold: {  // eslint-disable-line camelcase
     text: t('bodySpecialWonderconGoldText'),
     notes: t('bodySpecialWonderconGoldNotes'),
     value: 0,
     mystery: 'wondercon',
   },
-  wondercon_black: {
+  wondercon_black: {  // eslint-disable-line camelcase
     text: t('bodySpecialWonderconBlackText'),
     notes: t('bodySpecialWonderconBlackNotes'),
     value: 0,
@@ -421,13 +399,13 @@ let body = {
 };
 
 let eyewear = {
-  wondercon_red: {
+  wondercon_red: {  // eslint-disable-line camelcase
     text: t('eyewearSpecialWonderconRedText'),
     notes: t('eyewearSpecialWonderconRedNotes'),
     value: 0,
     mystery: 'wondercon',
   },
-  wondercon_black: {
+  wondercon_black: {  // eslint-disable-line camelcase
     text: t('eyewearSpecialWonderconBlackText'),
     notes: t('eyewearSpecialWonderconBlackNotes'),
     value: 0,
@@ -450,13 +428,7 @@ let eyewear = {
 };
 
 let head = {
-  0: {
-    text: t('headSpecial0Text'),
-    notes: t('headSpecial0Notes', { int: 20 }),
-    int: 20,
-    value: 150,
-    canOwn: isBackerOfLevel(45),
-  },
+  0: backerGear.headSpecial0,
   1: {
     text: t('headSpecial1Text'),
     notes: t('headSpecial1Notes', { attrs: 6 }),
@@ -467,14 +439,7 @@ let head = {
     value: 170,
     canOwn: isContributorOfLevel(3),
   },
-  2: {
-    text: t('headSpecial2Text'),
-    notes: t('headSpecial2Notes', { attrs: 25 }),
-    int: 25,
-    str: 25,
-    value: 200,
-    canOwn: isBackerOfLevel(300, 'head_special_2'),
-  },
+  2: backerGear.headSpecial2,
   fireCoralCirclet: {
     text: t('headSpecialFireCoralCircletText'),
     notes: t('headSpecialFireCoralCircletNotes', { per: 15 }),
@@ -910,13 +875,7 @@ let headAccessory = {
 };
 
 let shield = {
-  0: {
-    text: t('shieldSpecial0Text'),
-    notes: t('shieldSpecial0Notes', { per: 20 }),
-    per: 20,
-    value: 150,
-    canOwn: isBackerOfLevel(45),
-  },
+  0: backerGear.shieldSpecial0,
   1: {
     text: t('shieldSpecial1Text'),
     notes: t('shieldSpecial1Notes', { attrs: 6 }),
@@ -1146,13 +1105,7 @@ let shield = {
 };
 
 let weapon = {
-  0: {
-    text: t('weaponSpecial0Text'),
-    notes: t('weaponSpecial0Notes', { str: 20 }),
-    str: 20,
-    value: 150,
-    canOwn: isBackerOfLevel(70),
-  },
+  0: backerGear.weaponSpecial0,
   1: {
     text: t('weaponSpecial1Text'),
     notes: t('weaponSpecial1Notes', { attrs: 6 }),
@@ -1163,23 +1116,8 @@ let weapon = {
     value: 170,
     canOwn: isContributorOfLevel(4),
   },
-  2: {
-    text: t('weaponSpecial2Text'),
-    notes: t('weaponSpecial2Notes', { attrs: 25 }),
-    str: 25,
-    per: 25,
-    value: 200,
-    canOwn: isBackerOfLevel(300, 'weapon_special_2'),
-  },
-  3: {
-    text: t('weaponSpecial3Text'),
-    notes: t('weaponSpecial3Notes', { attrs: 17 }),
-    str: 17,
-    int: 17,
-    con: 17,
-    value: 200,
-    canOwn: isBackerOfLevel(300, 'weapon_special_3'),
-  },
+  2: backerGear.weaponSpecial2,
+  3: backerGear.weaponSpecial3,
   critical: {
     text: t('weaponSpecialCriticalText'),
     notes: t('weaponSpecialCriticalNotes', { attrs: 40 }),
