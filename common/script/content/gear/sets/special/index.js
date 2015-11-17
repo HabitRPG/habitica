@@ -4,6 +4,7 @@ import {
 import { ownsItem } from '../../gear-helper';
 import backerGear from './special-backer';
 import contributorGear from './special-contributor';
+import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
 let armor = {
@@ -304,39 +305,14 @@ let armor = {
 };
 
 let back = {
-  wondercon_red: {  // eslint-disable-line camelcase
-    text: t('backSpecialWonderconRedText'),
-    notes: t('backSpecialWonderconRedNotes'),
-    value: 0,
-    mystery: 'wondercon',
-  },
-  wondercon_black: {  // eslint-disable-line camelcase
-    text: t('backSpecialWonderconBlackText'),
-    notes: t('backSpecialWonderconBlackNotes'),
-    value: 0,
-    mystery: 'wondercon',
-  },
+  wondercon_red: wonderconGear.backSpecialWonderconRed,  // eslint-disable-line camelcase
+  wondercon_black: wonderconGear.backSpecialWonderconBlack,  // eslint-disable-line camelcase
 };
 
 let body = {
-  wondercon_red: {  // eslint-disable-line camelcase
-    text: t('bodySpecialWonderconRedText'),
-    notes: t('bodySpecialWonderconRedNotes'),
-    value: 0,
-    mystery: 'wondercon',
-  },
-  wondercon_gold: {  // eslint-disable-line camelcase
-    text: t('bodySpecialWonderconGoldText'),
-    notes: t('bodySpecialWonderconGoldNotes'),
-    value: 0,
-    mystery: 'wondercon',
-  },
-  wondercon_black: {  // eslint-disable-line camelcase
-    text: t('bodySpecialWonderconBlackText'),
-    notes: t('bodySpecialWonderconBlackNotes'),
-    value: 0,
-    mystery: 'wondercon',
-  },
+  wondercon_red: wonderconGear.bodySpecialWonderconRed,  // eslint-disable-line camelcase
+  wondercon_gold: wonderconGear.bodySpecialWonderconGold,  // eslint-disable-line camelcase
+  wondercon_black: wonderconGear.bodySpecialWonderconBlack,  // eslint-disable-line camelcase
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
@@ -382,18 +358,8 @@ let body = {
 };
 
 let eyewear = {
-  wondercon_red: {  // eslint-disable-line camelcase
-    text: t('eyewearSpecialWonderconRedText'),
-    notes: t('eyewearSpecialWonderconRedNotes'),
-    value: 0,
-    mystery: 'wondercon',
-  },
-  wondercon_black: {  // eslint-disable-line camelcase
-    text: t('eyewearSpecialWonderconBlackText'),
-    notes: t('eyewearSpecialWonderconBlackNotes'),
-    value: 0,
-    mystery: 'wondercon',
-  },
+  wondercon_red: wonderconGear.eyewearSpecialWonderconRed,  // eslint-disable-line camelcase
+  wondercon_black: wonderconGear.eyewearSpecialWonderconBlack,  // eslint-disable-line camelcase
   summerRogue: {
     event: EVENTS.summer,
     specialClass: 'rogue',
