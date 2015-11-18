@@ -147,5 +147,5 @@
     "partyChatEmpty": "La chat della squadra è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
     "guildChatEmpty": "La chat della gilda è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
     "possessiveParty": "Squadra di <%= name %>",
-    "requestAcceptGuidelines": "Se si desidera inviare messaggi in taverna o di qualsiasi partito o la chat della gilda, si prega di leggere prima la nostra <%= linkStart %>Orientamenti Comunitari<%= linkEnd %> e quindi fare clic sul pulsante qui sotto per indicare di accettarle."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }
