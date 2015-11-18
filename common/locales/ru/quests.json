@@ -77,6 +77,6 @@
     "startQuest": "Начать квест",
     "whichQuestStart": "Какой квест вы хотите начать?",
     "getMoreQuests": "Получить больше квестов",
-    "unlockedAQuest": "You unlocked a quest!",
+    "unlockedAQuest": "Вы разблокировали квест!",
     "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
 }

@@ -93,7 +93,7 @@
     "loginNameDescription2": "Пользователь->Профиль",
     "loginNameDescription3": "чтобы изменить имя, которое появляется на вашем аватаре и в чате.",
     "emailNotifications": "Уведомления по электронной почте",
-    "wonChallenge": "You won a Challenge!",
+    "wonChallenge": "Вы выиграли испытание",
     "newPM": "Получено личное сообщение",
     "giftedGems": "Подаренные самоцветы",
     "giftedGemsInfo": "<%= amount %> самоцветов от <%= name %>",

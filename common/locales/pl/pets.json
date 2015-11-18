@@ -65,7 +65,7 @@
     "feedPet": "Nakarmić <%= text %> twojego <%= name %>?",
     "useSaddle": "Osiodłać <%= pet %>?",
     "raisedPet": "You grew a <%= pet %>!",
-    "earnedSteed": "By completing your tasks, you've earned a faithful steed!",
+    "earnedSteed": "Dzięki ukończeniu swoich zadań masz teraz wiernego wierzchowca!",
     "rideNow": "Ride Now",
     "rideLater": "Ride Later",
     "petName": "<%= potion %> <%= egg %>",

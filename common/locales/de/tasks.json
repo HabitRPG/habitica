@@ -77,7 +77,7 @@
     "streakText": "Hat <%= streaks %> 21-tägige Strähnen von täglichen Aufgaben erreicht",
     "streakSingular": "Perfektionist",
     "streakSingularText": "Hat eine 21-tägige Strähne bei einer täglichen Aufgaben erreicht",
-    "perfectName": "Perfekt(e) Tag(e)",
+    "perfectName": "Perfekte Tage",
     "perfectText": "Du hast alle täglichen Aufgaben an <%= perfects %> Tagen erfüllt. Mit diesem Erfolg erhältst Du eine Level/2 Stärkung aller Attribute für den nächsten Tag. Alle Level über 100 haben keine zusätzliche Auswirkung auf die Attribute.",
     "perfectSingular": "Perfekt(e) Tag(e)",
     "perfectSingularText": "Du hast alle täglichen Aufgaben an einem Tag erfüllt. Mit diesem Erfolg erhältst Du eine Level/2 Stärkung aller Attribute für den nächsten Tag. Alle Level über 100 haben keine zusätzliche Auswirkung auf die Attribute.",
