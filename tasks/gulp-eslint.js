@@ -34,4 +34,21 @@ gulp.task('lint:common', () => {
     .pipe(eslint.failAfterError());
 });
 
+gulp.task('lint:tests', () => {
+  return gulp
+    .src([
+      './test/**/*.js',
+      // @TODO remove these negations as the test files are cleaned up.
+      '!./test/api-legacy/**/*',
+      '!./test/common/**/*',
+      '!./test/content/**/*',
+      '!./test/e2e/**/*',
+      '!./test/server_side/**/*',
+      '!./test/spec/**/*',
+    ])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
+
 gulp.task('lint', ['lint:server', 'lint:common']);

@@ -98,6 +98,8 @@
     "coveralls": "^2.11.2",
     "csv": "~0.3.6",
     "deep-diff": "~0.1.4",
+    "eslint": "^1.9.0",
+    "eslint-plugin-mocha": "^1.1.0",
     "event-stream": "^3.2.2",
     "expect.js": "~0.2.0",
     "istanbul": "^0.3.14",
