@@ -1,4 +1,4 @@
-import {each, defaults, isBoolean} from 'lodash';
+import {each, defaults} from 'lodash';
 import moment from 'moment';
 
 import {
