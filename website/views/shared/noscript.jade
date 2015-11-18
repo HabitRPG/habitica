@@ -4,9 +4,10 @@ noscript
     div, footer {
       display: none;
     }
-  
-  h3= env.t('jsDisabledHeading')
-  img(src='/front/images/coding_by_phoneix_faerie.png', alt='Coding placeholder image')  
-  p= env.t('jsDisabledText')
-    br
-    a(href='http://www.enable-javascript.com/', target='_blank')= env.t('jsDisabledLink')
+
+  h3=env.t('jsDisabledHeading')
+  img(src='/front/images/coding_by_phoneix_faerie.png', alt='Coding placeholder image')
+  p=env.t('jsDisabledText')
+  br
+  a.btn.btn-lg.btn-success(href='http://www.enable-javascript.com/', target='_blank')
+    =env.t('jsDisabledLink')
