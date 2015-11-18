@@ -4,11 +4,11 @@
   ------------------------------------------------------
  */
 
-export const maxLevel = 100;
+export const MAX_LEVEL = 100;
 
 export function capByLevel (lvl) {
-  if (lvl > maxLevel) {
-    return maxLevel;
+  if (lvl > MAX_LEVEL) {
+    return MAX_LEVEL;
   } else {
     return lvl;
   }

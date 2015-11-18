@@ -15,7 +15,7 @@ api.i18n = i18n;
 
 import * as statHelpers from './statHelpers';
 
-api.maxLevel = statHelpers.maxLevel;
+api.maxLevel = statHelpers.MAX_LEVEL;
 api.capByLevel = statHelpers.capByLevel;
 api.maxHealth = statHelpers.MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
