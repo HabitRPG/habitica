@@ -147,5 +147,5 @@
     "partyChatEmpty": "Votre discussion d'équipe est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
     "guildChatEmpty": "La discussion de cette guilde est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
     "possessiveParty": "Équipe de <%= name %>",
-    "requestAcceptGuidelines": "Avant de poster un message dans la Taverne, dans votre Équipe ou dans une Guilde, veuillez lire nos <%= linkStart %>Règles de Vie en Communauté<%= linkEnd %> et cliquer sur le bouton ci-dessous pour indiquer que vous les avez compris ."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

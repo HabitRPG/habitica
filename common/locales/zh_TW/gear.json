@@ -320,7 +320,7 @@
     "armorArmoireGoldenTogaText": "黃金長袍",
     "armorArmoireGoldenTogaNotes": "這件閃閃發光的長袍只有真英雄才夠格穿戴。增加力量和體質各<%= attrs %>點。神祕寶箱：黃金袍系列(1/3)。",
     "armorArmoireHornedIronArmorText": "鐵角鎧甲",
-    "armorArmoireHornedIronArmorNotes": "用鐵激烈地鍛造而成，這件角盔甲無懈可擊！增加<%= con %>點體質和<%= per %>點感知。神祕寶箱：鐵角系列 (2/3)。",
+    "armorArmoireHornedIronArmorNotes": "用鐵鍛造而成，這件角盔甲無懈可擊！增加<%= con %>點體質和<%= per %>點感知。神祕寶箱：鐵角系列 (2/3)。",
     "armorArmoirePlagueDoctorOvercoatText": "瘟疫醫袍",
     "armorArmoirePlagueDoctorOvercoatNotes": "和拖拉瘟疫戰鬥的醫生，值得一件真真正正的大衣！增加<%= int %>點智力，<%= str %>點力量和<%= con %>點體質。神祕寶箱：瘟疫醫師系列(3/3)。",
     "armorArmoireShepherdRobesText": "牧羊人長袍",

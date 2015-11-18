@@ -60,8 +60,8 @@
     "noPermissionEditChallenge": "你没有权限修改这个挑战。",
     "noPermissionDeleteChallenge": "你没有权限删除这个挑战。",
     "noPermissionCloseChallenge": "你没有权限关闭这个挑战。",
-    "congratulations": "Congratulations!",
-    "hurray": "Hurray!",
+    "congratulations": "恭喜！",
+    "hurray": "好哇！",
     "noChallengeOwner": "没有主持人",
     "noChallengeOwnerPopover": "这项挑战没有主持人，因为创建了这个挑战项目的用户删除了他们的帐号"
 }

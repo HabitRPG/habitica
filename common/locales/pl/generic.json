@@ -69,8 +69,9 @@
     "habiticaDayPluralText": "Świętował <%= number %> dni nadania nazwy! Dzięki za bycie fantastycznym użytkownikiem.",
     "achievementDilatory": "Zbawca Atleńtydy",
     "achievementDilatoryText": "Pomógł pokonać Straszliwego Smoka Atleńtydy podczas Obchodów Letniego Plusku 2014!",
-    "costumeContest": "Konkurs Kostiumowy 2014",
-    "costumeContestText": "Brał udział w Konkursie Kostiumów Halloweenowych w 2014. Przejrzyj niektóre zgłoszenia na blog.habitica.com/tagged/cosplay!",
+    "costumeContest": "Costume Contestant",
+    "costumeContestText": "Participated in the Habitoween Costume Contest. See some of the entries <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>on the Habitica blog</a>!",
+    "costumeContestTextPlural": "Participated in <%= number %> Habitoween Costume Contests. See some of the entries <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>on the Habitica blog</a>!",
     "memberSince": "- Członek od",
     "lastLoggedIn": "- Ostatnio zalogowany",
     "notPorted": "Ta funkcja nie jest jeszcze zaimportowana z oryginalnej strony.",
@@ -136,8 +137,8 @@
     "thankyouCardAchievementTitle": "Ogromnie wdzięczny",
     "thankyouCardAchievementText": "Dzięki za bycie wdzięcznym! Wysłał lub otrzymał <%= cards %> kartek z podziękowaniem.",
     "streakAchievement": "You earned a streak achievement!",
-    "firstStreakAchievement": "21-Day Streak",
-    "streakAchievementCount": "<%= streaks %> 21-Day Streaks",
+    "firstStreakAchievement": "21-dniowa seria",
+    "streakAchievementCount": "<%= streaks %> 21-dniowych serii",
     "twentyOneDays": "You've completed your Daily for 21 days in a row!",
     "dontBreakStreak": "Amazing job. Don't break the streak!",
     "dontStop": "Don't Stop Now!",
@@ -146,5 +147,5 @@
     "hatchPetShare": "I hatched a new pet by completing my real-life tasks!",
     "raisePetShare": "I raised a pet into a mount by completing my real-life tasks!",
     "wonChallengeShare": "I won a challenge in Habitica!",
-    "achievementShare": "I earned a new achievement in Habitica!"
+    "achievementShare": "Zdobyto nowe osiągnięcie w Habitice!"
 }

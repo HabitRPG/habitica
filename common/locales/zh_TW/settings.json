@@ -14,7 +14,7 @@
     "startCollapsedPop": "選擇這個選項後，展開編輯新任務時，標籤列表是隱藏的。",
     "startAdvCollapsed": "預設隱藏進階選項",
     "startAdvCollapsedPop": "選擇這個選項後，展開編輯新任務時，進階選項是隱藏的。",
-    "dontShowAgain": "Don't show this again",
+    "dontShowAgain": "不要再顯示",
     "suppressLevelUpModal": "Don't show popup when gaining a level",
     "suppressHatchPetModal": "Don't show popup when hatching a pet",
     "suppressRaisePetModal": "Don't show popup when raising a pet into a mount",

@@ -14,7 +14,7 @@
     "startCollapsedPop": "Jeśli ta opcja jest włączona, lista tagów w zadaniach będzie ukryta, gdy po raz pierwszy otworzysz zadanie do edycji.",
     "startAdvCollapsed": "Zaawansowane Opcje w zadaniach startują zwinięte",
     "startAdvCollapsedPop": "Jeśli ta opcja jest włączona, Zaawansowane Opcje będą ukryte, gdy po raz pierwszy otworzysz zadanie do edycji.",
-    "dontShowAgain": "Don't show this again",
+    "dontShowAgain": "Nie pokazuj mi tego więcej",
     "suppressLevelUpModal": "Don't show popup when gaining a level",
     "suppressHatchPetModal": "Don't show popup when hatching a pet",
     "suppressRaisePetModal": "Don't show popup when raising a pet into a mount",

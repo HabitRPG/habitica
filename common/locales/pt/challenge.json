@@ -60,8 +60,8 @@
     "noPermissionEditChallenge": "Você não têm permissões para editar esse desafio",
     "noPermissionDeleteChallenge": "Você não têm permissões para deletar esse desafio",
     "noPermissionCloseChallenge": "Você não têm permissões para fechar esse desafio",
-    "congratulations": "Congratulations!",
-    "hurray": "Hurray!",
+    "congratulations": "Parabéns!",
+    "hurray": "Hurra!",
     "noChallengeOwner": "sem dono",
     "noChallengeOwnerPopover": "Esse desafio não possui um dono porque quem criou o desafio apagou sua conta."
 }

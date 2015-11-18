@@ -147,5 +147,5 @@
     "partyChatEmpty": "Din gruppechat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "guildChatEmpty": "Denne klanchat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "possessiveParty": "<%= name %>s Gruppe",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

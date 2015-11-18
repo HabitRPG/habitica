@@ -10,6 +10,7 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='apple-mobile-web-app-capable', content='yes')
 
+
     //- Disable NewRelic until we add it again on the server
     if(env.NODE_ENV == 'production' && false)
         script(type='text/javascript').
@@ -29,6 +30,7 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
 
 
   body(ng-cloak, ng-controller='GroupsCtrl')
+    include ./shared/noscript
     include ./shared/mixins
     include ./shared/avatar/index
     include ./shared/header/menu

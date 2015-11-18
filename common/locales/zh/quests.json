@@ -77,6 +77,6 @@
     "startQuest": "开始探索任务",
     "whichQuestStart": "你想要开始哪个探索任务？",
     "getMoreQuests": "获取更多探索任务",
-    "unlockedAQuest": "You unlocked a quest!",
-    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
+    "unlockedAQuest": "你解锁了一个任务！",
+    "leveledUpReceivedQuest": "你达到了 <strong>第 <%= level %> 级</strong> ，并且收到了一个任务卷轴！"
 }
