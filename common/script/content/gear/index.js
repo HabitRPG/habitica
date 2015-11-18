@@ -1,4 +1,4 @@
-import {each, defaults} from 'lodash';
+import {each, defaults, isBoolean} from 'lodash';
 import moment from 'moment';
 
 import {
@@ -61,11 +61,11 @@ each(GEAR_TYPES, (type) => {
         let _canOwn = item.canOwn || canOwnFuncTrue;
 
         item.canOwn = (user) => {
-          let userOwnsItem = Boolean(user.items.gear.owned[key]);
+          let userHasOwnedItem = ownsItem(key)(user);
           let eventIsCurrent = moment().isAfter(item.event.start) && moment().isBefore(item.event.end);
           let compatibleWithUserClass = item.specialClass ? user.stats.class === item.specialClass : true;
 
-          return _canOwn(user) && (userOwnsItem || eventIsCurrent) && compatibleWithUserClass;
+          return _canOwn(user) && (userHasOwnedItem || eventIsCurrent) && compatibleWithUserClass;
         };
       }
 
