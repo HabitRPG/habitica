@@ -1,12 +1,13 @@
 {
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "0.0.0-152",
+  "version": "3.0.0-alpha",
   "main": "./website/src/index.js",
   "dependencies": {
     "accepts": "^1.3.0",
     "amazon-payments": "0.0.4",
     "amplitude": "^2.0.3",
+    "apidoc": "^0.13.1",
     "async": "^1.5.0",
     "aws-sdk": "^2.0.25",
     "babel-core": "^5.8.34",
@@ -117,6 +118,7 @@
     "mongodb": "^2.0.46",
     "mongoskin": "~0.6.1",
     "nock": "^2.17.0",
+    "phantomjs": "^1.9.18",
     "protractor": "~2.5.1",
     "rewire": "^2.3.3",
     "rimraf": "^2.4.3",
@@ -128,5 +130,12 @@
     "uuid": "^2.0.1",
     "vinyl-source-stream": "^1.0.0",
     "vinyl-transform": "^1.0.0"
+  },
+  "apidoc": {
+    "name": "habitica",
+    "title": "Habitica",
+    "version": "3.0.0",
+    "url": "https://habitica.com/api/v3",
+    "sampleUrl": "https://habitica.com/api/v3"
   }
 }

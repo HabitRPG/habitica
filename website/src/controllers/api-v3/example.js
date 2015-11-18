@@ -1,8 +1,8 @@
-// An example file to show how a controller should be structured
 let api = {};
 
 /**
  * @api {get} /example/:id Request Example information
+ * @apiVersion 3.0.0
  * @apiName GetExample
  * @apiGroup Example
  *
