@@ -18,10 +18,10 @@ let server;
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive --compilers js:babel/register';
+const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
-const COMMON_TEST_COMMAND = 'mocha test/common --compilers coffee:coffee-script';
-const CONTENT_TEST_COMMAND = 'mocha test/content --compilers js:babel/register';
+const COMMON_TEST_COMMAND = 'mocha test/common';
+const CONTENT_TEST_COMMAND = 'mocha test/content';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
 const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
@@ -96,7 +96,7 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Common Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -132,7 +132,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Content Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -158,7 +158,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Server Side Specs',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -184,7 +184,7 @@ gulp.task('test:api-legacy:safe', ['test:prepare:mongo'], (cb) => {
       testResults.push({
         suite: 'API (legacy) Specs',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
 	  cb();
@@ -316,7 +316,7 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
         testResults.push({
           suite: 'API Specs\t',
           pass: testCount(stdout, /(\d+) passing/),
-          fail: testCount(stderr, /(\d+) failing/),
+          fail: testCount(stdout, /(\d+) failing/),
           pend: testCount(stdout, /(\d+) pending/)
         });
         done();
@@ -328,10 +328,11 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
 
 gulp.task('test:all', (done) => {
   runSequence(
+  'lint',
   'test:e2e:safe',
   'test:common:safe',
   // 'test:content:safe',
-  'test:server_side:safe',
+  // 'test:server_side:safe',
   'test:karma:safe',
   'test:api-legacy:safe',
   'test:api-v2:safe',
@@ -361,9 +362,12 @@ gulp.task('test', ['test:all'], () => {
     `\x1b[36mPending: ${totals[2]}\t`
   );
 
-  if (totals[1] > 0) throw "ERROR: There are failing tests!"
-  else {
-    kill(server);
+  kill(server);
+
+  if (totals[1] > 0) {
+    console.error('ERROR: There are failing tests!');
+    process.exit(1);
+  } else {
     console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
     process.exit();
   }

@@ -17,7 +17,7 @@ script(type='text/ng-template', id='modals/hatchPet.html')
                 +generatedAvatar
       p=env.t('earnedCompanion')
       br
-      button.btn.btn-primary(ng-click='choosePet(hatchedPet.eggKey, hatchedPet.potion); $close()')=env.t('displayNow')
+      button.btn.btn-primary(ng-click='choosePet(hatchedPet.eggKey, hatchedPet.potionKey); $close()')=env.t('displayNow')
       button.btn.btn-default(ng-click='$close()')=env.t('displayLater')
       .checkbox
         label(style='display:inline-block')=env.t('dontShowAgain')

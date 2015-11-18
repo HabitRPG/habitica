@@ -116,8 +116,17 @@ habitrpg.controller("InventoryCtrl",
       if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       if (!user.preferences.suppressModals.hatchPet) {
-        $rootScope.hatchedPet = {egg: eggName, potion: potName, eggKey: egg.key, pet: 'Pet-' + egg.key + '-' + potion.key};
-        $rootScope.openModal('hatchPet', {controller: 'InventoryCtrl', size: 'sm'});
+        $scope.hatchedPet = {
+          egg: eggName,
+          potion: potName,
+          potionKey:potion.key,
+          eggKey: egg.key,
+          pet: 'Pet-' + egg.key + '-' + potion.key
+        };
+        $rootScope.openModal('hatchPet', {
+          scope: $scope,
+          size: 'sm'
+        });
       }
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
@@ -150,7 +159,7 @@ habitrpg.controller("InventoryCtrl",
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood;
-        var startingMounts = $scope.mountCount;
+        var startingMounts = Stats.totalCount(user.items.mounts);
         if (food.key === 'Saddle') {
           if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
@@ -160,9 +169,17 @@ habitrpg.controller("InventoryCtrl",
         $scope.selectedFood = null;
 
         _updateDropAnimalCount(user.items);
-        if ($scope.mountCount > startingMounts && !user.preferences.suppressModals.raisePet) {
-          $rootScope.raisedPet = {displayName: petDisplayName, spriteName: pet, egg: egg, potion: potion}
-          $rootScope.openModal('raisePet', {controller:'InventoryCtrl',size:'sm'});
+        if (Stats.totalCount(user.items.mounts) > startingMounts && !user.preferences.suppressModals.raisePet) {
+          $scope.raisedPet = {
+            displayName: petDisplayName,
+            spriteName: pet,
+            egg: egg,
+            potion: potion
+          }
+          $rootScope.openModal('raisePet', {
+            scope: $scope,
+            size:'sm'
+          });
         }
 
         // Checks if mountmaster has been reached for the first time
