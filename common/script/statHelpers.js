@@ -39,6 +39,6 @@ export function toNextLevel (lvl) {
   {halfway} (optional) the point at which the graph starts bending
  */
 
-export function diminishingReturns (bonus, max, halfway = max/2) {
+export function diminishingReturns (bonus, max, halfway = max / 2) {
   return max * (bonus / (bonus + halfway));
 }
