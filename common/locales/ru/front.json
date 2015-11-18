@@ -187,6 +187,6 @@
     "landingCopy1": "Advance in the game by completing your real-life tasks.",
     "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
     "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
-    "alreadyHaveAccount": "I already have an account!",
+    "alreadyHaveAccount": "У меня уже есть аккаунт!",
     "getStartedNow": "Get Started Now!"
 }
