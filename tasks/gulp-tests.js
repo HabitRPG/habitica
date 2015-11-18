@@ -19,6 +19,7 @@ let server;
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
 const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive';
+const API_V3_TEST_COMMAND = 'mocha test/api/v3 --recursive';
 const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
 const COMMON_TEST_COMMAND = 'mocha test/common';
 const CONTENT_TEST_COMMAND = 'mocha test/content';
@@ -50,7 +51,7 @@ gulp.task('test:prepare:mongo', (cb) => {
 
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
-    server = exec(`NODE_ENV="TESTING" NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`, (error, stdout, stderr) => {
+    server = exec(`NODE_ENV="TESTING" NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/index.js`, (error, stdout, stderr) => {
       if (error) { throw `Problem with the server: ${error}`; }
       if (stderr) { console.error(stderr); }
     });
@@ -297,7 +298,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 });
 
 gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
-
+  process.env.API_VERSION = 'v2';
   awaitPort(TEST_SERVER_PORT).then(() => {
     runMochaTests('./test/api/v2/**/*.js', server, done)
   });
@@ -314,7 +315,49 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
       testBin(API_V2_TEST_COMMAND),
       (err, stdout, stderr) => {
         testResults.push({
-          suite: 'API Specs\t',
+          suite: 'API V2 Specs\t',
+          pass: testCount(stdout, /(\d+) passing/),
+          fail: testCount(stderr, /(\d+) failing/),
+          pend: testCount(stdout, /(\d+) pending/)
+        });
+        done();
+      }
+    );
+    pipe(runner);
+  });
+});
+
+gulp.task('test:api-v3', ['test:api-v3:unit', 'test:api-v3:integration']);
+
+gulp.task('test:api-v3:watch', ['test:api-v3:unit:watch', 'test:api-v3:integration:watch']);
+
+gulp.task('test:api-v3:unit', (done) => {
+  runMochaTests('./test/api/v3/unit/**/*.js', null, done)
+});
+
+gulp.task('test:api-v3:unit:watch', () => {
+  gulp.watch(['website/src/**', 'test/api/v3/unit/**'], ['test:api-v3:unit']);
+});
+
+gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
+  process.env.API_VERSION = 'v3';
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    runMochaTests('./test/api/v3/unit/**/*.js', server, done)
+  });
+});
+
+gulp.task('test:api-v3:integration:watch', ['test:prepare:server'], () => {
+  process.env.RUN_INTEGRATION_TEST_FOREVER = true;
+  gulp.watch(['website/src/**', 'test/api/v3/integration/**'], ['test:api-v3:integration']);
+});
+
+gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    let runner = exec(
+      testBin(API_V3_TEST_COMMAND),
+      (err, stdout, stderr) => {
+        testResults.push({
+          suite: 'API V3 Specs\t',
           pass: testCount(stdout, /(\d+) passing/),
           fail: testCount(stdout, /(\d+) failing/),
           pend: testCount(stdout, /(\d+) pending/)
@@ -329,13 +372,14 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
 gulp.task('test:all', (done) => {
   runSequence(
   'lint',
-  'test:e2e:safe',
+  // 'test:e2e:safe',
   'test:common:safe',
   // 'test:content:safe',
-  // 'test:server_side:safe',
-  'test:karma:safe',
-  'test:api-legacy:safe',
-  'test:api-v2:safe',
+  'test:server_side:safe',
+  // 'test:karma:safe',
+  // 'test:api-legacy:safe',
+  // 'test:api-v2:safe',
+  'test:api-v3:safe',
   done);
 });
 

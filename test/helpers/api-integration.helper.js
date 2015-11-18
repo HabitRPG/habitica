@@ -10,7 +10,7 @@ import { MongoClient as mongo } from 'mongodb';
 import { v4 as generateUUID } from 'uuid';
 import superagent from 'superagent';
 import i18n from '../../common/script/src/i18n';
-i18n.translations = require('../../website/src/libs/i18n.js').translations;
+i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 const API_TEST_SERVER_PORT = 3003;
 
@@ -218,10 +218,12 @@ export function resetHabiticaDB () {
   });
 }
 
-function _requestMaker (user, method, additionalSets) {
+function _requestMaker(user, method, additionalSets) {
+  const API_V = process.env.API_VERSION || 'v2'
+
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v2${route}`)
+      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${API_V}${route}`)
         .accept('application/json');
 
       if (user && user._id && user.apiToken) {

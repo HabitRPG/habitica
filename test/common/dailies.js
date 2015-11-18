@@ -10,7 +10,7 @@ moment = require('moment');
 
 shared = require('../../common/script/index.js');
 
-shared.i18n.translations = require('../../website/src/libs/i18n.js').translations;
+shared.i18n.translations = require('../../website/src/libs/api-v2/i18n.js').translations;
 
 repeatWithoutLastWeekday = function() {
   var repeat;

@@ -1,0 +1,8 @@
+{
+  "missingAuthHeaders": "Missing authentication headers.",
+  "missingUsernameEmail": "Missing username or email.",
+  "missingPassword": "Missing password.",
+  "invalidLoginCredentials": "Incorrect username / email and / or password.",
+  "invalidCredentials": "User not found with given auth credentials.",
+  "accountSuspended": "Account has been suspended, please contact leslie@habitica.com with your UUID \"<%= userId %>\" for assistance."
+}

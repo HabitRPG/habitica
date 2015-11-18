@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 import autoinc  from 'mongoose-id-autoinc';
-import logging  from '../website/src/libs/logging';
+import logger  from '../website/src/libs/api-v3/logger';
 import nconf    from 'nconf';
-import utils    from '../website/src/libs/utils';
 import repl     from 'repl';
 import gulp     from 'gulp';
 
@@ -19,8 +18,6 @@ let improveRepl = (context) => {
     process.stdout.write('\u001B[2J\u001B[0;0f');
   }});
 
-  utils.setupConfig();
-
   context.Challenge = require('../website/src/models/challenge').model;
   context.Group     = require('../website/src/models/group').model;
   context.User      = require('../website/src/models/user').model;
@@ -36,7 +33,7 @@ let improveRepl = (context) => {
       mongooseOptions,
       function(err) {
         if (err) throw err;
-        logging.info('Connected with Mongoose');
+        logger.info('Connected with Mongoose');
       }
     )
   );
