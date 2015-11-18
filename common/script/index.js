@@ -13,12 +13,12 @@ api = module.exports = {};
 
 api.i18n = i18n;
 
-import statHelpers from './statHelpers.js'
+import * as statHelpers from './statHelpers';
 
 api.maxLevel = statHelpers.maxLevel;
 api.capByLevel = statHelpers.capByLevel;
-api.maxHealth = statHelpers.maxHealth;
-api.tnl = statHelpers.tnl;
+api.maxHealth = statHelpers.MAX_HEALTH;
+api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
 $w = api.$w = function(s) {
