@@ -45,7 +45,18 @@ gulp.task('lint:tests', () => {
       '!./test/server_side/**/*',
       '!./test/spec/**/*',
     ])
-    .pipe(eslint())
+    .pipe(eslint({
+      rules: {
+        'no-unused-expressions': 0,
+        'mocha/no-exclusive-tests': 2,
+        'mocha/no-global-tests': 2,
+        'mocha/handle-done-callback': 2,
+      },
+      globals: {
+        'expect': true,
+      },
+      plugins: [ 'mocha' ],
+    }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
