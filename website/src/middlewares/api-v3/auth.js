@@ -1,30 +1,19 @@
-// Middlewares used to authenticate requests
 import {
   NotAuthorized,
+  BadRequest,
 } from '../../libs/api-v3/errors';
-
+import i18n from '../../../../common/script/i18n';
 import {
   model as User,
 } from '../../models/user';
 
-// TODO use i18n
-const missingAuthHeaders = 'Missing authentication headers.';
-const userNotFound = 'User not found.';
-const accountSuspended = (user) => {
-  return `Account has been suspended, please contact leslie@habitica.com
-   with your UUID ${user._id} for assistance.`;
-};
-
-// TODO adopt JSDoc syntax?
 // Authenticate a request through the x-api-user and x-api key header
 export function authWithHeaders (req, res, next) {
   let userId = req.header['x-api-user'];
   let apiToken = req.header['x-api-key'];
 
   if (!userId || !apiToken) {
-    // TODO use i18n?
-    // TODO use badrequest error?
-    return next(new NotAuthorized(missingAuthHeaders));
+    return next(new BadRequest(i18n.t('missingAuthHeaders')));
   }
 
   User.findOne({
@@ -33,10 +22,8 @@ export function authWithHeaders (req, res, next) {
   })
   .exec()
   .then((user) => {
-    if (!user) return next(new NotAuthorized(userNotFound));
-
-    // TODO better handling for this case
-    if (user.blocked) return next(new NotAuthorized(accountSuspended(user)));
+    if (!user) return next(new NotAuthorized(i18n.t('invalidCredentials')));
+    if (user.blocked) return next(new NotAuthorized(i18n.t('accountSuspended', {userId: user._id})));
 
     res.locals.user = user;
     // TODO use either session/cookie or headers, not both
@@ -51,14 +38,14 @@ export function authWithHeaders (req, res, next) {
 export function authWithSession (req, res, next) {
   let userId = req.session.userId;
 
-  if (!userId) return next(new NotAuthorized(userNotFound));
+  if (!userId) return next(new NotAuthorized(i18n.t('invalidCredentials')));
 
   User.findOne({
     _id: userId,
   })
   .exec()
   .then((user) => {
-    if (!user) return next(new NotAuthorized(userNotFound));
+    if (!user) return next(new NotAuthorized(i18n.t('invalidCredentials')));
 
     res.locals.user = user;
     return next();
