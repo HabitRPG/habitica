@@ -102,7 +102,35 @@ describe('user.fns.buy', function() {
 
       expect(user.items.gear.equipped).to.not.have.property('armor');
     });
+      
+   it('removes one-handed weapon and shield if auto-equip is on and a two-hander is bought', function() {
+      user.stats.gp = 100;
+      user.preferences.autoEquip = true;
+      user.ops.buy({params: {key: 'shield_warrior_1'}});
+      user.ops.equip({params: {key: 'shield_warrior_1'}});   
+      user.ops.buy({params: {key: 'weapon_warrior_1'}});
+      user.ops.equip({params: {key: 'weapon_warrior_1'}}); 
+       
+      user.ops.buy({params: {key: 'weapon_wizard_1'}});
 
+      expect(user.items.gear.equipped).to.have.property('shield', 'shield_base_0');
+      expect(user.items.gear.equipped).to.have.property('weapon', 'weapon_wizard_1');
+    }); 
+
+    it('buys two-handed equipment but does not automatically remove sword or shield', function() {
+      user.stats.gp = 100;
+      user.preferences.autoEquip = false;
+      user.ops.buy({params: {key: 'shield_warrior_1'}});
+      user.ops.equip({params: {key: 'shield_warrior_1'}});   
+      user.ops.buy({params: {key: 'weapon_warrior_1'}});
+      user.ops.equip({params: {key: 'weapon_warrior_1'}}); 
+        
+      user.ops.buy({params: {key: 'weapon_wizard_1'}});
+
+      expect(user.items.gear.equipped).to.have.property('shield', 'shield_warrior_1');
+      expect(user.items.gear.equipped).to.have.property('weapon', 'weapon_warrior_1');
+    });
+      
     it('does not buy equipment without enough Gold', function() {
       user.stats.gp = 20;
 
