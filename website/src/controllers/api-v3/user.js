@@ -1,6 +1,3 @@
-import i18n from '../../../../common/script/i18n';
-// TODO add getUserLanguage as a global middleware?
-import getUserLanguage from '../../middlewares/api-v3/getUserLanguage';
 import validator from 'validator';
 import {
   NotAuthorized,
@@ -11,39 +8,52 @@ import User from '../../models/user';
 let api = {};
 
 /**
- * @api {get} /user/login/local Login a user with email / username and password
+ * @api {post} /user/register/local Register a new user with email, username and password
+ * @apiVersion 3.0.0
+ * @apiName UserRegisterLocal
+ * @apiGroup User
+ *
+ * @apiParam {String} username Username of the new user
+ * @apiParam {String} email Email address of the new user
+ * @apiParam {String} password Password for the new user account
+ * @apiParam {String} passwordConfirmation Password confirmation
+ *
+ * @apiSuccess {Object} user The user public fields
+ *
+ *
+ * @apiUse NotAuthorized
+ */
+api.registerLocal = {
+  method: 'POST',
+  url: '/user/register/local',
+};
+
+/**
+ * @api {post} /user/login/local Login an user with email / username and password
  * @apiVersion 3.0.0
  * @apiName UserLoginLocal
  * @apiGroup User
  *
- * @apiParam {String} username Username or email of the User.
+ * @apiParam {String} username Username or email of the user
  * @apiParam {String} password The user's password
  *
  * @apiSuccess {String} _id The user's unique identifier
  * @apiSuccess {String} apiToken The user's api token that must be used to authenticate requests.
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
- *       "apiToken": "1234567890"
- *     }
  *
  * @apiUse NotAuthorized
  */
 api.loginLocal = {
   method: 'POST',
   url: '/user/login/local',
-  middlewares: [getUserLanguage],
   handler (req, res, next) {
     req.checkBody({
       username: {
         notEmpty: true,
-        errorMessage: i18n.t('missingUsernameEmail'),
+        errorMessage: req.t('missingUsernameEmail'),
       },
       password: {
         notEmpty: true,
-        errorMessage: i18n.t('missingPassword'),
+        errorMessage: req.t('missingPassword'),
       },
     });
 
@@ -71,7 +81,7 @@ api.loginLocal = {
       // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
       let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
 
-      if (!isValidPassword) return next(new NotAuthorized(i18n.t('invalidLoginCredentials')));
+      if (!isValidPassword) return next(new NotAuthorized(req.t('invalidLoginCredentials')));
 
       res
         .status(200)

@@ -1,5 +1,6 @@
 // This module is only used to attach middlewares to the express app
 import expressValidator from 'express-validator';
+import getUserLanguage from './getUserLanguage';
 import analytics from './analytics';
 import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
@@ -21,6 +22,7 @@ export default function attachMiddlewares (app) {
   app.use(bodyParser.json());
   app.use(expressValidator()); // TODO config
   app.use(analytics);
+  app.use(getUserLanguage);
 
   app.use('/api/v3', routes);
   app.use(notFoundHandler);
