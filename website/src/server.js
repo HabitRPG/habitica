@@ -14,6 +14,7 @@ import mongoose from 'mongoose';
 import Q from 'q';
 import domainMiddleware from './middlewares/api-v3/domain';
 import attachMiddlewares from './middlewares/api-v3/index';
+import staticMiddleware from './middlewares/api-v3/static';
 
 // Setup translations
 // let i18n = require('./libs/api-v2/i18n');
@@ -88,7 +89,7 @@ app.use(domainMiddleware(server, mongoose));
 // Matches all request except the ones going to /api/v3/**
 app.all(/^(?!\/api\/v3).+/i, oldApp);
 // Matches all requests going to /api/v3
-app.all('/api/v3', newApp);
+app.all('/api/*', newApp);
 
 // Mount middlewares for the new app
 attachMiddlewares(newApp);
@@ -144,17 +145,21 @@ oldApp.use('/api/v1', require('./routes/api-v1'));
 oldApp.use('/export', require('./routes/dataexport'));
 require('./routes/api-v2/swagger')(swagger, v2);
 
-var maxAge = IS_PROD ? 31536000000 : 0;
 // Cache emojis without copying them to build, they are too many
-oldApp.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-oldApp.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
-oldApp.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
-oldApp.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
-oldApp.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
-oldApp.use(express['static'](publicDir));
 
 oldApp.use(require('./middlewares/api-v2/errorHandler'));
+*
+let maxAge = IS_PROD ? 31536000000 : 0;
+
+oldApp.use(express.static(path.join(__dirname, '/../build'), { maxAge }));
+oldApp.use('/common/dist', express.static(`${publicDir}/../../common/dist`, { maxAge }));
+oldApp.use('/common/audio', express.static(`${publicDir}/../../common/audio`, { maxAge }));
+oldApp.use('/common/script/public', express.static(`${publicDir}/../../common/script/public`, { maxAge }));
+oldApp.use('/common/img', express.static(`${publicDir}/../../common/img`, { maxAge }));
+oldApp.use(express.static(publicDir));
 */
+
+staticMiddleware(app);
 
 server.on('request', app);
 server.listen(app.get('port'), () => {

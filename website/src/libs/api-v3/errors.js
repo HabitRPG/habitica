@@ -7,8 +7,17 @@ export class CustomError extends Error {
   }
 }
 
-// NotAuthorized error with a 401 http error code
-// used when a request is not authorized
+/**
+ * @apiDefine NotFound
+ * @apiError NotFound The client is not authorized to make this request.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "error": "NotAuthorized",
+ *       "message": "Not authorized."
+ *     }
+ */
 export class NotAuthorized extends CustomError {
   constructor (customMessage) {
     super();
@@ -18,9 +27,17 @@ export class NotAuthorized extends CustomError {
   }
 }
 
-// BadRequest error with a 400 http error code
-// used for requests not formatted correctly
-// TODO use for validation errors too?
+/**
+ * @apiDefine BadRequest
+ * @apiError BadRequest The request wasn't formatted correctly.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "error": "BadRequest",
+ *       "message": "Bad request."
+ *     }
+ */
 export class BadRequest extends CustomError {
   constructor (customMessage) {
     super();
@@ -30,13 +47,42 @@ export class BadRequest extends CustomError {
   }
 }
 
-// InternalError error with a 500 http error code
-// used when an unexpected, internal server error is thrown
+/**
+ * @apiDefine NotFound
+ * @apiError NotFound The requested resource was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "NotFound",
+ *       "message": "Not found."
+ *     }
+ */
+export class NotFound extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 404;
+    this.message = customMessage || 'Not found.';
+  }
+}
+
+/**
+ * @apiDefine InternalServerError
+ * @apiError InternalServerError An unexpected error occurred.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *       "error": "InternalServerError",
+ *       "message": "An unexpected error occurred."
+ *     }
+ */
 export class InternalServerError extends CustomError {
   constructor (customMessage) {
     super();
     this.name = this.constructor.name;
     this.httpCode = 500;
-    this.message = customMessage || 'Internal server error.';
+    this.message = customMessage || 'An unexpected error occurred.';
   }
 }

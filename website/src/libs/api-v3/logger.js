@@ -14,6 +14,7 @@ if (IS_PROD) {
   logger
     .add(winston.transports.Console, {
       colorize: true,
+      prettyPrint: true,
     });
 }
 
