@@ -63,3 +63,11 @@ gulp.task('lint:tests', () => {
 });
 
 gulp.task('lint', ['lint:server', 'lint:common']);
+
+gulp.task('lint:watch', () => {
+  gulp.watch([
+    './website/src/**/*.js',
+    './common/script/**/*.js',
+    './test/**/*.js',
+  ], ['lint']);
+});
