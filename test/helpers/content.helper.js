@@ -15,7 +15,7 @@ export function expectValidTranslationString (attribute) {
   expect(translatedString).to.not.be.empty;
   expect(translatedString).to.not.eql(STRING_ERROR_MSG);
   expect(translatedString).to.not.match(STRING_DOES_NOT_EXIST_MSG);
-};
+}
 
 export function describeEachItem (testDescription, set, cb, describeFunction) {
   // describeFunction allows you to pass in 'only' or 'skip'
@@ -34,8 +34,8 @@ export function describeEachItem (testDescription, set, cb, describeFunction) {
 
 describeEachItem.only = (des, set, cb) => {
   describeEachItem(des, set, cb, 'only');
-}
+};
 
 describeEachItem.skip = (des, set, cb) => {
   describeEachItem(des, set, cb, 'skip');
-}
+};
