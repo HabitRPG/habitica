@@ -22,11 +22,11 @@ let api = {};
  */
 api.exampleRoute = {
   method: 'GET',
-  url: '/example/:param',
+  url: '/example/:id',
   middlewares: [],
   handler (req, res) {
     res.status(200).send({
-      status: 'ok',
+      status: req.params.id,
     });
   },
 };

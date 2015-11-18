@@ -14,8 +14,6 @@ var IS_PROD = nconf.get('IS_PROD');
 var IS_DEV = nconf.get('IS_DEV');
 var cores = Number(nconf.get('WEB_CONCURRENCY')) || 0;
 
-if (IS_DEV) Error.stackTraceLimit = Infinity;
-
 // Setup the cluster module
 if (cores !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)

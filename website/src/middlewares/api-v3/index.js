@@ -5,9 +5,15 @@ import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
 import routes from '../../libs/api-v3/setupRoutes';
 import notFoundHandler from './notFound';
+import nconf from 'nconf';
+import morgan from 'morgan';
+
+const IS_PROD = nconf.get('IS_PROD');
+const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 
 export default function attachMiddlewares (app) {
-  // Parse query parameters and json bodies
+  if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
+
   // TODO handle errors
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
@@ -15,7 +21,7 @@ export default function attachMiddlewares (app) {
   app.use(bodyParser.json());
   app.use(analytics);
 
-  app.use(routes);
+  app.use('/api/v3', routes);
   app.use(notFoundHandler);
 
   // Error handler middleware, define as the last one

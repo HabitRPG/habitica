@@ -89,7 +89,7 @@ app.use(domainMiddleware(server, mongoose));
 // Matches all request except the ones going to /api/v3/**
 app.all(/^(?!\/api\/v3).+/i, oldApp);
 // Matches all requests going to /api/v3
-app.all('/api/v3', newApp);
+app.all('/api/*', newApp);
 
 // Mount middlewares for the new app
 attachMiddlewares(newApp);
