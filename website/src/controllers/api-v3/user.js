@@ -32,7 +32,7 @@ let api = {};
  * @apiUse NotAuthorized
  */
 api.loginLocal = {
-  method: 'GET',
+  method: 'POST',
   url: '/user/login/local',
   middlewares: [getUserLanguage],
   handler (req, res, next) {
