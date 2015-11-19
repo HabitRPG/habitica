@@ -57,6 +57,7 @@ function _getFromUser (user, req) {
 }
 
 function _attachTranslateFunction (req, next) {
+  // TODO attach to res?
   req.t = function reqTranslation () {
     return i18n.t(...arguments, req.language);
   };

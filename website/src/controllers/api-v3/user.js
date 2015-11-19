@@ -4,7 +4,9 @@ import {
 } from '../../libs/api-v3/errors';
 import passwordUtils from '../../libs/api-v3/password';
 import User from '../../models/user';
-
+import EmailUnsubscription from '../../models/emailUnsubscription';
+import Q from 'q';
+import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 let api = {};
 
 /**
@@ -18,14 +20,115 @@ let api = {};
  * @apiParam {String} password Password for the new user account
  * @apiParam {String} passwordConfirmation Password confirmation
  *
- * @apiSuccess {Object} user The user public fields
- *
+ * @apiSuccess {Object} user The user profile
  *
  * @apiUse NotAuthorized
  */
 api.registerLocal = {
   method: 'POST',
   url: '/user/register/local',
+  handler (req, res, next) {
+    req.checkBody({
+      username: {
+        notEmpty: true,
+        errorMessage: req.t('missingEmail'),
+      },
+      email: {
+        notEmpty: true,
+        isEmail: true,
+        errorMessage: req.t('invalidEmail'),
+      },
+      password: {
+        notEmpty: true,
+        errorMessage: req.t('missingPassword'),
+      },
+      passwordConfirmation: {
+        notEmpty: true,
+        equals: {
+          options: [req.body.password],
+        },
+        errorMessage: req.t('passwordConfirmationMatch'),
+      },
+    });
+
+    let validationErrors = req.validationErrors();
+
+    if (validationErrors) return next(validationErrors);
+
+    req.sanitizeBody('username').trim();
+    req.sanitizeBody('email').trim();
+    req.sanitizeBody('password').trim();
+    req.sanitizeBody('passwordConfirmation').trim();
+
+    let email = req.body.email.toLowerCase();
+    let username = req.body.username;
+    // Get the lowercase version of username to check that we do not have duplicates
+    // So we can search for it in the database and then reject the choosen username if 1 or more results are found
+    let lowerCaseUsername = username.toLowerCase();
+
+    Q.all([
+      // Search for duplicates using lowercase version of username
+      User.findOne({$or: [
+        {'auth.local.email': email},
+        {'auth.local.lowerCaseUsername': lowerCaseUsername},
+      ]}, {'auth.local': 1})
+      .exec(),
+
+      // If the request is made by an authenticated Facebook user, find it
+      // TODO move to a separate route
+      // TODO automatically merge?
+      /* User.findOne({
+        _id: req.headers['x-api-user'],
+        apiToken: req.headers['x-api-key']
+      }, {auth:1})
+      .exec();  */
+    ])
+    .then((results) => {
+      if (results[0]) {
+        if (email === results[0].auth.local.email) return next(new NotAuthorized(req.t('emailTaken')));
+        // Check that the lowercase username isn't already used
+        if (lowerCaseUsername === results[0].auth.local.lowerCaseUsername) return next(new NotAuthorized(req.t('usernameTaken')));
+      }
+
+      let salt = passwordUtils.makeSalt();
+      let newUser = new User({
+        auth: {
+          local: {
+            username,
+            lowerCaseUsername, // Store the lowercase version of the username
+            email, // Store email as lowercase
+            salt,
+            hashed_password: passwordUtils.encrypt(req.body.password, salt), // eslint-disable-line camelcase
+          },
+        },
+        preferences: {
+          language: req.language,
+        },
+      });
+
+      newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
+
+      res.analytics.track('register', {
+        category: 'acquisition',
+        type: 'local',
+        gaLabel: 'local',
+        uuid: newUser._id,
+      });
+
+      return newUser.save();
+    })
+    .then((savedUser) => {
+      res.status(201).json(savedUser);
+
+      // Clean previous email preferences
+      EmailUnsubscription
+      .remove({email: savedUser.auth.local.email})
+      .then(() => {
+        sendTxnEmail(savedUser, 'welcome');
+      });
+    })
+    .catch(next);
+  },
 };
 
 /**

@@ -11,6 +11,7 @@ gulp.task('lint:server', () => {
     .src([
       './website/src/**/api-v3/**/*.js',
       './website/src/models/user.js',
+      './website/src/models/emailUnsubscription.js',
       './website/src/server.js'
     ])
     .pipe(eslint())
