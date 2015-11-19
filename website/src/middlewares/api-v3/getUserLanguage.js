@@ -56,9 +56,8 @@ function _getFromUser (user, req) {
   return lang;
 }
 
-function _attachTranslateFunction (req, next) {
-  // TODO attach to res?
-  req.t = function reqTranslation () {
+function _attachTranslateFunction (req, res, next) {
+  res.t = function reqTranslation () {
     return i18n.t(...arguments, req.language);
   };
 
@@ -68,10 +67,10 @@ function _attachTranslateFunction (req, next) {
 export default function getUserLanguage (req, res, next) {
   if (req.query.lang) { // In case the language is specified in the request url, use it
     req.language = translations[req.query.lang] ? req.query.lang : 'en';
-    return _attachTranslateFunction(req, next);
+    return _attachTranslateFunction(...arguments);
   } else if (req.locals && req.locals.user) { // If the request is authenticated, use the user's preferred language
     req.language = _getFromUser(req.locals.user, req);
-    return _attachTranslateFunction(req, next);
+    return _attachTranslateFunction(...arguments);
   } else if (req.session && req.session.userId) { // Same thing if the user has a valid session
     User.findOne({
       _id: req.session.userId,
@@ -79,11 +78,11 @@ export default function getUserLanguage (req, res, next) {
     .exec()
     .then((user) => {
       req.language = _getFromUser(user, req);
-      return _attachTranslateFunction(req, next);
+      return _attachTranslateFunction(...arguments);
     })
     .catch(next);
   } else { // Otherwise get from browser
     req.language = _getFromUser(null, req);
-    return _attachTranslateFunction(req, next);
+    return _attachTranslateFunction(...arguments);
   }
 }

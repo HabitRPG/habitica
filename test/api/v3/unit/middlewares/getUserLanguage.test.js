@@ -14,8 +14,8 @@ describe('getUserLanguage', () => {
   let res, req, next;
 
   let checkReqT = (req) => {
-    expect(req.t).to.be.a('function');
-    expect(req.t('help')).to.equal(i18n.t('help', req.language));
+    expect(res.t).to.be.a('function');
+    expect(res.t('help')).to.equal(i18n.t('help', req.language));
   };
 
   beforeEach(() => {

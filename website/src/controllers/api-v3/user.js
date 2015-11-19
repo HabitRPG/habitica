@@ -31,23 +31,23 @@ api.registerLocal = {
     req.checkBody({
       username: {
         notEmpty: true,
-        errorMessage: req.t('missingEmail'),
+        errorMessage: res.t('missingEmail'),
       },
       email: {
         notEmpty: true,
         isEmail: true,
-        errorMessage: req.t('invalidEmail'),
+        errorMessage: res.t('invalidEmail'),
       },
       password: {
         notEmpty: true,
-        errorMessage: req.t('missingPassword'),
+        errorMessage: res.t('missingPassword'),
       },
       passwordConfirmation: {
         notEmpty: true,
         equals: {
           options: [req.body.password],
         },
-        errorMessage: req.t('passwordConfirmationMatch'),
+        errorMessage: res.t('passwordConfirmationMatch'),
       },
     });
 
@@ -85,9 +85,9 @@ api.registerLocal = {
     ])
     .then((results) => {
       if (results[0]) {
-        if (email === results[0].auth.local.email) return next(new NotAuthorized(req.t('emailTaken')));
+        if (email === results[0].auth.local.email) return next(new NotAuthorized(res.t('emailTaken')));
         // Check that the lowercase username isn't already used
-        if (lowerCaseUsername === results[0].auth.local.lowerCaseUsername) return next(new NotAuthorized(req.t('usernameTaken')));
+        if (lowerCaseUsername === results[0].auth.local.lowerCaseUsername) return next(new NotAuthorized(res.t('usernameTaken')));
       }
 
       let salt = passwordUtils.makeSalt();
@@ -152,11 +152,11 @@ api.loginLocal = {
     req.checkBody({
       username: {
         notEmpty: true,
-        errorMessage: req.t('missingUsernameEmail'),
+        errorMessage: res.t('missingUsernameEmail'),
       },
       password: {
         notEmpty: true,
-        errorMessage: req.t('missingPassword'),
+        errorMessage: res.t('missingPassword'),
       },
     });
 
@@ -184,7 +184,7 @@ api.loginLocal = {
       // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
       let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
 
-      if (!isValidPassword) return next(new NotAuthorized(req.t('invalidLoginCredentials')));
+      if (!isValidPassword) return next(new NotAuthorized(res.t('invalidLoginCredentials')));
 
       res
         .status(200)
