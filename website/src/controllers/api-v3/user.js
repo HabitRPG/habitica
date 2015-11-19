@@ -145,7 +145,7 @@ api.loginLocal = {
 // Called as a callback by Facebook (or other social providers)
 api.loginSocial = {
   method: 'POST',
-  url: '/user/aurh/social',
+  url: '/user/auth/social',
   handler (req, res, next) {
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
@@ -204,13 +204,13 @@ api.loginSocial = {
   },
 };
 
-api.attachSocial = {
+/* api.attachSocial = {
 
 };
 
 api.deleteSocial = {
 
-};
+};*/
 
 
 export default api;
