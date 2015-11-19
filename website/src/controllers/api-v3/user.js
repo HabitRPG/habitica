@@ -1,4 +1,5 @@
 import validator from 'validator';
+import passport from 'passport';
 import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
@@ -6,6 +7,7 @@ import passwordUtils from '../../libs/api-v3/password';
 import User from '../../models/user';
 import EmailUnsubscription from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
+
 let api = {};
 
 /**
@@ -62,13 +64,6 @@ api.registerLocal = {
 
       newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
 
-      res.analytics.track('register', {
-        category: 'acquisition',
-        type: 'local',
-        gaLabel: 'local',
-        uuid: newUser._id,
-      });
-
       return newUser.save();
     })
     .then((savedUser) => {
@@ -77,8 +72,13 @@ api.registerLocal = {
       // Clean previous email preferences
       EmailUnsubscription
       .remove({email: savedUser.auth.local.email})
-      .then(() => {
-        sendTxnEmail(savedUser, 'welcome');
+      .then(() => sendTxnEmail(savedUser, 'welcome'));
+
+      res.analytics.track('register', {
+        category: 'acquisition',
+        type: 'local',
+        gaLabel: 'local',
+        uuid: savedUser._id,
       });
     })
     .catch(next);
@@ -96,7 +96,6 @@ api.registerLocal = {
  *
  * @apiSuccess {String} _id The user's unique identifier
  * @apiSuccess {String} apiToken The user's api token that must be used to authenticate requests.
- *
  */
 api.loginLocal = {
   method: 'POST',
@@ -130,19 +129,88 @@ api.loginLocal = {
     }
 
     User
-    .findOne(login, {auth: 1, apiToken: 1})
-    .exec()
+    .findOne(login, {auth: 1, apiToken: 1}).exec()
     .then((user) => {
-      // TODO abstract isnce it's also used in auth middlewares if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
       // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
       let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
 
+      if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {userId: user._id})));
       if (!isValidPassword) return next(new NotAuthorized(res.t('invalidLoginCredentials')));
-
       res.status(200).json({id: user._id, apiToken: user.apiToken});
     })
     .catch(next);
   },
 };
+
+// Called as a callback by Facebook (or other social providers)
+api.loginSocial = {
+  method: 'POST',
+  url: '/user/aurh/social',
+  handler (req, res, next) {
+    let accessToken = req.body.authResponse.access_token;
+    let network = req.body.network;
+
+    if (network !== 'facebook') return next(new NotAuthorized('Only Facebook supported currently.'));
+
+    passport._strategies[network].userProfile(accessToken, (err, profile) => {
+      if (err) return next(err);
+
+      function _respond (user) {
+        if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {userId: user._id})));
+        return res.status(200).json({_id: user._id, apiToken: user.apiToken});
+      }
+
+      User.findOne({
+        [`auth.${network}.id`]: profile.id,
+      }, {_id: 1, apiToken: 1, auth: 1}).exec()
+      .then((user) => {
+        // User already signed up
+        if (user) {
+          return _respond(user);
+        } else { // Create new user
+          user = new User({
+            auth: {
+              [network]: profile,
+            },
+            preferences: {
+              language: req.language,
+            },
+          });
+          user.registeredThrough = req.headers['x-client'];
+
+          user.save()
+          .then((savedUser) => {
+            _respond(savedUser);
+
+            // Clean previous email preferences
+            if (savedUser.auth[network].emails && savedUser.auth.facebook.emails[0] && savedUser.auth[network].emails[0].value) {
+              EmailUnsubscription
+              .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
+              .then(() => sendTxnEmail(savedUser, 'welcome')); // eslint-disable-line max-nested-callbacks
+            }
+
+            res.analytics.track('register', {
+              category: 'acquisition',
+              type: network,
+              gaLabel: network,
+              uuid: savedUser._id,
+            });
+          })
+          .catch(next);
+        }
+      })
+      .catch(next);
+    });
+  },
+};
+
+api.attachSocial = {
+
+};
+
+api.deleteSocial = {
+
+};
+
 
 export default api;

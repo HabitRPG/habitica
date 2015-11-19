@@ -13,7 +13,7 @@ export function authWithHeaders (req, res, next) {
   let apiToken = req.header['x-api-key'];
 
   if (!userId || !apiToken) {
-    return next(new BadRequest(i18n.t('missingAuthHeaders')));
+    return next(new BadRequest(res.t('missingAuthHeaders')));
   }
 
   User.findOne({
@@ -23,7 +23,7 @@ export function authWithHeaders (req, res, next) {
   .exec()
   .then((user) => {
     if (!user) return next(new NotAuthorized(i18n.t('invalidCredentials')));
-    if (user.blocked) return next(new NotAuthorized(i18n.t('accountSuspended', {userId: user._id})));
+    if (user.auth.blocked) return next(new NotAuthorized(i18n.t('accountSuspended', {userId: user._id})));
 
     res.locals.user = user;
     // TODO use either session/cookie or headers, not both
