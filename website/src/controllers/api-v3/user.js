@@ -5,7 +5,6 @@ import {
 import passwordUtils from '../../libs/api-v3/password';
 import User from '../../models/user';
 import EmailUnsubscription from '../../models/emailUnsubscription';
-import Q from 'q';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 let api = {};
 
