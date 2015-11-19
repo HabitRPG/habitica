@@ -20,7 +20,7 @@ let api = {};
  * @apiParam {String} password Password for the new user account
  * @apiParam {String} passwordConfirmation Password confirmation
  *
- * @apiSuccess {Object} user The user profile
+ * @apiSuccess {Object} user The user object
  *
  * @apiUse NotAuthorized
  */
@@ -66,23 +66,12 @@ api.registerLocal = {
     // So we can search for it in the database and then reject the choosen username if 1 or more results are found
     let lowerCaseUsername = username.toLowerCase();
 
-    Q.all([
-      // Search for duplicates using lowercase version of username
-      User.findOne({$or: [
-        {'auth.local.email': email},
-        {'auth.local.lowerCaseUsername': lowerCaseUsername},
-      ]}, {'auth.local': 1})
-      .exec(),
-
-      // If the request is made by an authenticated Facebook user, find it
-      // TODO move to a separate route
-      // TODO automatically merge?
-      /* User.findOne({
-        _id: req.headers['x-api-user'],
-        apiToken: req.headers['x-api-key']
-      }, {auth:1})
-      .exec();  */
-    ])
+    // Search for duplicates using lowercase version of username
+    User.findOne({$or: [
+      {'auth.local.email': email},
+      {'auth.local.lowerCaseUsername': lowerCaseUsername},
+    ]}, {'auth.local': 1})
+    .exec()
     .then((results) => {
       if (results[0]) {
         if (email === results[0].auth.local.email) return next(new NotAuthorized(res.t('emailTaken')));
@@ -186,9 +175,7 @@ api.loginLocal = {
 
       if (!isValidPassword) return next(new NotAuthorized(res.t('invalidLoginCredentials')));
 
-      res
-        .status(200)
-        .json({id: user._id, apiToken: user.apiToken});
+      res.status(200).json({id: user._id, apiToken: user.apiToken});
     })
     .catch(next);
   },
