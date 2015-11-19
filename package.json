@@ -46,6 +46,8 @@
     "lodash": "~2.4.1",
     "lodash.camelcase": "^3.0.1",
     "lodash.capitalize": "^3.0.0",
+    "lodash.get": "^3.7.0",
+    "lodash.set": "^3.7.4",
     "loggly": "~1.0.8",
     "marked": "^0.3.5",
     "merge-stream": "^1.0.0",

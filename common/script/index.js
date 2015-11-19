@@ -1,9 +1,11 @@
-var $w, _, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder,
+var $w, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
 
-_ = require('lodash');
+import _ from 'lodash';
+import get from 'lodash.get';
+import set from 'lodash.set'; 
 
 content = require('./content/index');
 
@@ -16,25 +18,8 @@ api.i18n = i18n;
 import * as codeHelpers from './codeHelpers';
 
 $w = api.$w = codeHelpers.$w;
-api.dotGet = codeHelpers.dotGet;
-api.dotSet = codeHelpers.dotSet;
-
-/*
-  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
-  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
-  no problem. To maintain sorting, we use these helper functions:
- */
-
-api.refPush = function(reflist, item, prune) {
-  if (prune == null) {
-    prune = 0;
-  }
-  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
-  if (!(item.id && !reflist[item.id])) {
-    item.id = api.uuid();
-  }
-  return reflist[item.id] = item;
-};
+api.refPush = codeHelpers.refPush;
+api.uuid = codeHelpers.uuid;
 
 api.planGemLimits = {
   convRate: 20,
@@ -324,14 +309,6 @@ Misc Helpers
 ------------------------------------------------------
  */
 
-api.uuid = function() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-    var r, v;
-    r = Math.random() * 16 | 0;
-    v = (c === "x" ? r : r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-};
 
 api.countExists = function(items) {
   return _.reduce(items, (function(m, v) {
@@ -2282,10 +2259,10 @@ api.wrap = function(user, main) {
     Angular sets object properties directly - in which case, this function will be used.
      */
     dotSet: function(path, val) {
-      return api.dotSet(user, path, val);
+      return set(user, path, val);
     },
     dotGet: function(path) {
-      return api.dotGet(user, path);
+      return get(user, path);
     },
     randomDrop: function(modifiers, req) {
       var acceptableDrops, base, base1, base2, chance, drop, dropK, dropMultiplier, name, name1, name2, quest, rarity, ref, ref1, ref2, ref3, task;

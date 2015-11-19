@@ -1,26 +1,29 @@
-import _ from 'lodash';
-
 export function $w (s) {
   return s.split(' ');
 }
 
-export function dotGet (obj, path) {
-  return _.reduce(path.split('.'), ((function () {
-    return function (curr, next) {
-      return curr != null ? curr[next] : void 0;
-    };
-  })(this)), obj);
-}
+export function uuid () {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r, v;
+    r = Math.random() * 16 | 0;
+    v = (c === "x" ? r : r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
 
-export function dotSet (obj, path, val) {
-  let arr = path.split('.');
+/*
+  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
+  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
+  no problem. To maintain sorting, we use these helper functions:
+ */
 
-  return _.reduce(arr, (function () {
-    return function (curr, next, index) {
-      if (arr.length - 1 === index) {
-        curr[next] = val;
-      }
-      return curr[next] != null ? curr[next] : curr[next] = {};
-    };
-  })(this), obj);
-}
+export function refPush (reflist, item, prune) {
+  if (prune == null) {
+    prune = 0;
+  }
+  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
+  if (!(item.id && !reflist[item.id])) {
+    item.id = uuid();
+  }
+  return reflist[item.id] = item;
+};
