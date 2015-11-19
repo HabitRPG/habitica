@@ -20,45 +20,11 @@ let api = {};
  * @apiParam {String} passwordConfirmation Password confirmation
  *
  * @apiSuccess {Object} user The user object
- *
- * @apiUse NotAuthorized
  */
 api.registerLocal = {
   method: 'POST',
   url: '/user/register/local',
   handler (req, res, next) {
-    req.checkBody({
-      username: {
-        notEmpty: true,
-        errorMessage: res.t('missingEmail'),
-      },
-      email: {
-        notEmpty: true,
-        isEmail: true,
-        errorMessage: res.t('invalidEmail'),
-      },
-      password: {
-        notEmpty: true,
-        errorMessage: res.t('missingPassword'),
-      },
-      passwordConfirmation: {
-        notEmpty: true,
-        equals: {
-          options: [req.body.password],
-        },
-        errorMessage: res.t('passwordConfirmationMatch'),
-      },
-    });
-
-    let validationErrors = req.validationErrors();
-
-    if (validationErrors) return next(validationErrors);
-
-    req.sanitizeBody('username').trim();
-    req.sanitizeBody('email').trim();
-    req.sanitizeBody('password').trim();
-    req.sanitizeBody('passwordConfirmation').trim();
-
     let email = req.body.email.toLowerCase();
     let username = req.body.username;
     // Get the lowercase version of username to check that we do not have duplicates
@@ -71,22 +37,22 @@ api.registerLocal = {
       {'auth.local.lowerCaseUsername': lowerCaseUsername},
     ]}, {'auth.local': 1})
     .exec()
-    .then((results) => {
-      if (results[0]) {
-        if (email === results[0].auth.local.email) return next(new NotAuthorized(res.t('emailTaken')));
+    .then((user) => {
+      if (user) {
+        if (email === user.auth.local.email) return next(new NotAuthorized(res.t('emailTaken')));
         // Check that the lowercase username isn't already used
-        if (lowerCaseUsername === results[0].auth.local.lowerCaseUsername) return next(new NotAuthorized(res.t('usernameTaken')));
+        if (lowerCaseUsername === user.auth.local.lowerCaseUsername) return next(new NotAuthorized(res.t('usernameTaken')));
       }
 
-      let salt = passwordUtils.makeSalt();
       let newUser = new User({
         auth: {
           local: {
             username,
             lowerCaseUsername, // Store the lowercase version of the username
             email, // Store email as lowercase
-            salt,
-            hashed_password: passwordUtils.encrypt(req.body.password, salt), // eslint-disable-line camelcase
+            salt: passwordUtils.makeSalt(),
+            password: req.body.password,
+            passwordConfirmation: req.body.passwordConfirmation,
           },
         },
         preferences: {
@@ -131,7 +97,6 @@ api.registerLocal = {
  * @apiSuccess {String} _id The user's unique identifier
  * @apiSuccess {String} apiToken The user's api token that must be used to authenticate requests.
  *
- * @apiUse NotAuthorized
  */
 api.loginLocal = {
   method: 'POST',

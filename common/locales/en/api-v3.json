@@ -1,6 +1,8 @@
 {
   "missingAuthHeaders": "Missing authentication headers.",
   "missingUsernameEmail": "Missing username or email.",
+  "missingEmail": "Missing email.",
+  "missingUsername": "Missing username.",
   "missingPassword": "Missing password.",
   "invalidEmail": "Invalid email address.",
   "emailTaken": "Email already taken.",

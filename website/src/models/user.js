@@ -1,7 +1,9 @@
 // User schema and model
 import mongoose from 'mongoose';
 import shared from '../../../common';
+import passwordUtils from '../libs/api-v3/password';
 import _ from 'lodash';
+import validator from 'validator';
 import moment from 'moment';
 import TaskSchemas from './task';
 // import {model as Challenge} from './challenge';
@@ -26,12 +28,29 @@ export let schema = new Schema({
     blocked: Boolean,
     facebook: Schema.Types.Mixed, // TODO validate
     local: {
-      email: String,
-      hashed_password: String, // eslint-disable-line camelcase
-      salt: String,
-      username: String,
+      email: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        validate: [validator.isEmail, shared.i18n.t('invalidEmail')], // TODO translate error messages here, use preferences.language?
+      },
+      username: {
+        type: String,
+        trim: true,
+      },
       // Store a lowercase version of username to check for duplicates
       lowerCaseUsername: String,
+      hashed_password: String, // eslint-disable-line camelcase
+      salt: String,
+      // password and passwordConfirmation are not stored in the database, used only for validation
+      password: {
+        type: String,
+        trim: true,
+      },
+      passwordConfirmation: {
+        type: String,
+        trim: true,
+      },
     },
     timestamps: {
       created: {type: Date, default: Date.now},
@@ -208,6 +227,7 @@ export let schema = new Schema({
     party: Schema.Types.Mixed, // TODO dictionary
   },
 
+  // TODO we're storing too many fields here, find a way to reduce them
   items: {
     gear: {
       owned: _.transform(shared.content.gear.flat, (m, v) => {
@@ -328,6 +348,7 @@ export let schema = new Schema({
     orderAscending: {type: String, default: 'ascending'},
     quest: {
       key: String,
+      // TODO why are we storing quest progress here too and not only on party object?
       progress: {
         up: {type: Number, default: 0},
         down: {type: Number, default: 0},
@@ -589,6 +610,37 @@ function _setProfileName (user) {
 }
 
 schema.pre('save', function postSaveUser (next) {
+  // Validate the auth path (doesn't work with schema.path('auth').validate)
+  if (!this.auth.facebook.id) {
+    if (!this.auth.local.email) {
+      this.invalidate('auth.local.email', shared.i18n.t('missingEmail'));
+      return next();
+    }
+
+    if (!this.auth.local.email) {
+      this.invalidate('auth.local.username', shared.i18n.t('missingUsername'));
+      return next();
+    }
+  }
+
+  // Validate password and password confirmation and create hashed version
+  if (this.isModified('auth.local.password') || this.isNew() && !this.auth.facebook.id) {
+    if (!this.auth.local.password) {
+      this.invalidate('auth.local.password', shared.i18n.t('missingPassword'));
+      return next();
+    }
+
+    if (this.auth.local.password !== this.auth.local.passwordConfirmation) {
+      this.invalidate('auth.local.passwordConfirmation', shared.i18n.t('passwordConfirmationMatch'));
+      return next();
+    }
+
+    this.hashed_password = passwordUtils.encrypt(this.auth.local.password, this.auth.local.salt); // eslint-disable-line camelcase
+  }
+
+  // Do not store password and passwordConfirmation
+  this.auth.local.password = this.local.auth.passwordConfirmation = undefined;
+
   // Populate new users with default content
   if (this.isNew) {
     _populateDefaultsForNewUser(this);
