@@ -13,31 +13,11 @@ api = module.exports = {};
 
 api.i18n = i18n;
 
-$w = api.$w = function(s) {
-  return s.split(' ');
-};
+import * as codeHelpers from './codeHelpers';
 
-api.dotSet = function(obj, path, val) {
-  var arr;
-  arr = path.split('.');
-  return _.reduce(arr, (function(_this) {
-    return function(curr, next, index) {
-      if ((arr.length - 1) === index) {
-        curr[next] = val;
-      }
-      return curr[next] != null ? curr[next] : curr[next] = {};
-    };
-  })(this), obj);
-};
-
-api.dotGet = function(obj, path) {
-  return _.reduce(path.split('.'), ((function(_this) {
-    return function(curr, next) {
-      return curr != null ? curr[next] : void 0;
-    };
-  })(this)), obj);
-};
-
+$w = api.$w = codeHelpers.$w;
+api.dotGet = codeHelpers.dotGet;
+api.dotSet = codeHelpers.dotSet;
 
 /*
   Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
