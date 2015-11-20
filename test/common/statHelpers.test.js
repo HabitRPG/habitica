@@ -6,7 +6,7 @@ import {
   diminishingReturns,
 } from '../../common/script/index';
 
-describe.only('helper functions used in stat calculations', () => {
+describe('helper functions used in stat calculations', () => {
   describe('maxHealth', () => {
     it('provides a maximum Health value', () => {
       const HEALTH_CAP = 50;
