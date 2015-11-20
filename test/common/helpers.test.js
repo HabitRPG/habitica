@@ -4,6 +4,7 @@ import {
 
 import {
   $w,
+  countExists,
 } from '../../common/script/helpers';
 
 import {
@@ -76,6 +77,25 @@ describe('convenience functions', () => {
 
       expect(GENERATED_UUID).to.not.eql(UUID_2);
       expect(testObject[GENERATED_UUID].data).to.eql(ITEM_WITH_UUID_2.data);
+    });
+  });
+
+  describe('countExists', () => {
+    it('counts the truthy values in an object', () => {
+      const TEST_COLLECTION = {
+        booleanTrue: true,
+        booleanFalse: false,
+        numericPositive: 8,
+        numericZero: 0,
+        numericNegative: -3,
+        nothing: null,
+        emptyString: '',
+        fullString: 'stuff',
+        object: {id: 338, data: 'info'},
+        array: [12, 48, 3939],
+      };
+
+      expect(countExists(TEST_COLLECTION)).to.eql(6);
     });
   });
 });

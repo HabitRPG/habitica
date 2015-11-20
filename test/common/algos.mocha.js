@@ -8,6 +8,10 @@ let $w = (s) => {
   return s.split(' ');
 };
 
+import {
+  countExists,
+} from '../../common/script/helpers';
+
 shared.i18n.translations = require('../../website/src/libs/i18n.js').translations;
 test_helper.addCustomMatchers();
 
@@ -477,9 +481,8 @@ describe('User', () => {
     });
 
     it('doesn\'t break unbreakables', () => {
-      let ce;
+      let ce = countExists;
 
-      ce = shared.countExists;
       user.items.gear.owned.shield_warrior_1 = true;
       user.items.gear.owned.shield_rogue_1 = true;
       user.items.gear.owned.head_special_nye = true;

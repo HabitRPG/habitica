@@ -312,14 +312,6 @@ Misc Helpers
 ------------------------------------------------------
  */
 
-
-api.countExists = function(items) {
-  return _.reduce(items, (function(m, v) {
-    return m + (v ? 1 : 0);
-  }), 0);
-};
-
-
 /*
 Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
 sending up to the server for performance
@@ -403,18 +395,6 @@ api.percent = function(x, y, dir) {
     x = 1;
   }
   return Math.max(0, roundFn(x / y * 100));
-};
-
-
-/*
-Remove whitespace #FIXME are we using this anywwhere? Should we be?
- */
-
-api.removeWhitespace = function(str) {
-  if (!str) {
-    return '';
-  }
-  return str.replace(/\s/g, '');
 };
 
 
