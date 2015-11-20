@@ -6,11 +6,11 @@ import {
   diminishingReturns,
 } from '../../common/script/index';
 
-describe('helper functions used in stat calculations', () => {
-
+describe.only('helper functions used in stat calculations', () => {
   describe('maxHealth', () => {
     it('provides a maximum Health value', () => {
       const HEALTH_CAP = 50;
+
       expect(maxHealth).to.eql(HEALTH_CAP);
     });
   });
@@ -40,7 +40,9 @@ describe('helper functions used in stat calculations', () => {
 
   describe('toNextLevel', () => {
     it('increases Experience target from one level to the next', () => {
-      expect(tnl(LEVEL + 1)).to.be.greaterThan(shared.tnl(LEVEL));
+      _.times(110, (level) => {
+        expect(tnl(level + 1)).to.be.greaterThan(tnl(level));
+      });
     });
   });
 
@@ -48,7 +50,7 @@ describe('helper functions used in stat calculations', () => {
     const BONUS = 600;
     const MAXIMUM = 200;
     const HALFWAY = 75;
-    
+
     it('provides a value under the maximum, given a bonus and maximum', () => {
       expect(diminishingReturns(BONUS, MAXIMUM)).to.be.lessThan(MAXIMUM);
     });
@@ -58,7 +60,7 @@ describe('helper functions used in stat calculations', () => {
     });
 
     it('provides a different curve if a halfway point is defined', () => {
-      expect(diminishingReturns(BONUS, MAXIMUM, HALFWAY)).to.not.eql(shared.diminishingReturns(BONUS, MAXIMUM));
+      expect(diminishingReturns(BONUS, MAXIMUM, HALFWAY)).to.not.eql(diminishingReturns(BONUS, MAXIMUM));
     });
   });
 });
