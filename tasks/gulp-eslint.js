@@ -40,7 +40,8 @@ gulp.task('lint:tests', () => {
       './test/**/*.js',
       // @TODO remove these negations as the test files are cleaned up.
       '!./test/api-legacy/**/*',
-      '!./test/common/**/*',
+      '!./test/api/**/*',
+      '!./test/common/simulations/**/*',
       '!./test/content/**/*',
       '!./test/e2e/**/*',
       '!./test/server_side/**/*',
@@ -48,6 +49,7 @@ gulp.task('lint:tests', () => {
     ])
     .pipe(eslint({
       rules: {
+        'max-nested-callbacks': 0,
         'no-unused-expressions': 0,
         'mocha/no-exclusive-tests': 2,
         'mocha/no-global-tests': 2,
@@ -55,6 +57,8 @@ gulp.task('lint:tests', () => {
       },
       globals: {
         'expect': true,
+        '_': true,
+        'sinon': true,
       },
       plugins: [ 'mocha' ],
     }))
@@ -62,7 +66,7 @@ gulp.task('lint:tests', () => {
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('lint', ['lint:server', 'lint:common']);
+gulp.task('lint', ['lint:server', 'lint:common', 'lint:tests']);
 
 gulp.task('lint:watch', () => {
   gulp.watch([
