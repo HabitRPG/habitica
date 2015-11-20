@@ -15,11 +15,11 @@ api = module.exports = {};
 
 api.i18n = i18n;
 
-import * as codeHelpers from './codeHelpers';
+import * as helpers from './helpers';
 
-$w = api.$w = codeHelpers.$w;
-api.refPush = codeHelpers.refPush;
-api.uuid = codeHelpers.uuid;
+$w = helpers.$w;
+api.refPush = helpers.refPush;
+api.uuid = helpers.uuid;
 
 api.planGemLimits = {
   convRate: 20,
