@@ -147,5 +147,5 @@
     "partyChatEmpty": "Twój czat drużynowy jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
     "guildChatEmpty": "Czat tej gildii jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
     "possessiveParty": "Drużyna należąca do <%= name %>",
-    "requestAcceptGuidelines": "Jeśli chcesz opublikować wiadomość w Karczmie lub na czacie dowolnej drużyny lub gildii, to najpierw przeczytaj <%= linkStart %>wytyczne wspólnotowe<%= linkEnd %>, a następnie kliknij przycisk poniżej, by je zaakceptować."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

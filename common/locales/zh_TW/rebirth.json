@@ -20,7 +20,7 @@
     "rebirthBegan": "開始新的冒險",
     "rebirthText": "開始<%= rebirths %> 次新的冒險",
     "rebirthOrb": "使用重生之球來歸零曾經到達的級別，重新開始遊戲",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "到達級別 100 後，使用重生之球來重生遊戲。",
     "rebirthPop": "開始一個等級 1 的新角色，並保留成就、物品和任務歷史。",
     "rebirthName": "重生之球",
     "reborn": "重生，最高級別 <%= reLevel %>"

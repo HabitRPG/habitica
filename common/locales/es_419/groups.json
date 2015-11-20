@@ -147,5 +147,5 @@
     "partyChatEmpty": "¡El chat de tu equipo está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "guildChatEmpty": "¡El chat de este gremio está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "possessiveParty": "El equipo de <%= name %>",
-    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en cualquier chat de grupo o gremio, por favor primero lee nuestras Normas de la Comunidad y selecciona el botón \"Acepto las Normas\" para indicar que las aceptas."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

@@ -110,10 +110,11 @@
     },
     "env": {
         "es6": true,
+        "mocha": true,
         "node": true
     },
-    ecmaFeatures : { 
-        modules: true 
+    ecmaFeatures : {
+        modules: true
     },
     "extends": "eslint:recommended"
 }

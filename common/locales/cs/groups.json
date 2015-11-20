@@ -147,5 +147,5 @@
     "partyChatEmpty": "Chat tvé družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "guildChatEmpty": "Chat této družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "possessiveParty": "Družina <%= name %>",
-    "requestAcceptGuidelines": "Pokud chceš přidávat zprávy v Krčmě nebo v chatu v  jakékoliv družině nebo cechu, prosíme, nejprve si přečti <%= linkStart %>Zásady komunity<%= linkEnd %> a poté klikni na tlačítko \"Přijmout zásady\" níže na znamení, že jim rozumíš."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

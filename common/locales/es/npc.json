@@ -14,7 +14,7 @@
     "displayItemForGold": "Do you want to sell a <strong><%= itemType %></strong>?",
     "displayEggForGold": "Do you want to sell a <strong><%= itemType %> Egg</strong>?",
     "displayPotionForGold": "Do you want to sell a <strong><%= itemType %> Potion</strong>?",
-    "sellForGold": "Sell it for <%= gold %> Gold",
+    "sellForGold": "Véndelo por <%= gold %> de oro",
     "buyGems": "Comprar Gemas",
     "justin": "Justin",
     "ian": "Ian",

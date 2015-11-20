@@ -60,8 +60,8 @@
     "noPermissionEditChallenge": "你沒有權限更動這個挑戰的內容",
     "noPermissionDeleteChallenge": "你沒有權限撤回這個挑戰要求",
     "noPermissionCloseChallenge": "你沒有權限關閉這個挑戰",
-    "congratulations": "Congratulations!",
-    "hurray": "Hurray!",
+    "congratulations": "恭喜！",
+    "hurray": "太好了！",
     "noChallengeOwner": "無人擁有",
     "noChallengeOwnerPopover": "由於開創這個挑戰的人已經刪除他們的帳號，所以這個挑戰無人擁有。"
 }

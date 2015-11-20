@@ -14,7 +14,7 @@
     "startCollapsedPop": "Mit dieser Option wird die Liste der Tags verdeckt, wenn Du eine Aufgabe das erste mal bearbeitest.",
     "startAdvCollapsed": "Erweiterte Optionen standartmäßig verdecken",
     "startAdvCollapsedPop": "Mit dieser Option werden die erweiterten Optionen verdeckt, wenn Du eine Aufgabe das erste mal bearbeitest.",
-    "dontShowAgain": "Don't show this again",
+    "dontShowAgain": "Nicht mehr anzeigen",
     "suppressLevelUpModal": "Don't show popup when gaining a level",
     "suppressHatchPetModal": "Don't show popup when hatching a pet",
     "suppressRaisePetModal": "Don't show popup when raising a pet into a mount",
@@ -143,5 +143,5 @@
     "gemCapExtra": "Gem Cap Extra:",
     "mysticHourglasses": "Mystische Stundengläser",
     "paypal": "PayPal",
-    "amazonPayments": "Amazon Payments"
+    "amazonPayments": "Amazon-Zahlungen"
 }
