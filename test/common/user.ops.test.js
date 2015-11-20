@@ -1,36 +1,30 @@
-var sinon = require('sinon');
-var chai = require("chai")
-chai.use(require("sinon-chai"))
-var expect = chai.expect
-var _ = require('lodash');
+let shared = require('../../common/script/index.js');
 
-var shared = require('../../common/script/index.js');
+describe('user.ops', () => {
+  let user;
 
-describe('user.ops', function() {
-  var user;
-
-  beforeEach(function() {
+  beforeEach(() => {
     user = {
       items: {
         gear: { },
-        special: { }
+        special: { },
       },
       achievements: { },
-      flags: { }
+      flags: { },
     };
 
     shared.wrap(user);
   });
 
-  describe('readCard', function() {
-    it('removes card from invitation array', function() {
+  describe('readCard', () => {
+    it('removes card from invitation array', () => {
       user.items.special.valentineReceived = ['Leslie'];
       user.ops.readCard({ params: { cardType: 'valentine' } });
 
       expect(user.items.special.valentineReceived).to.be.empty;
     });
 
-    it('removes the first card from invitation array', function() {
+    it('removes the first card from invitation array', () => {
       user.items.special.valentineReceived = ['Leslie', 'Vicky'];
       user.ops.readCard({ params: { cardType: 'valentine' } });
 

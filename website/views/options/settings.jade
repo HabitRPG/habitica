@@ -269,7 +269,7 @@ mixin subPerks()
     tr
       td
         span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
-        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"')=env.t('buyGemsGoldCap', {amount: '{{:: gemGoldCap(_subscription)  | min }}'})
+        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"')=env.t('buyGemsGoldCap', {amount: '{{gemGoldCap(_subscription)  | min }}'})
     tr
       td
         span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
@@ -280,7 +280,7 @@ mixin subPerks()
       td
         span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
         div(ng-show='_subscription.key!="basic_earned"')
-          .badge.badge-success=env.t('mysticHourglass', {amount: '+{{:: numberOfMysticHourglasses(_subscription)}}'})
+          .badge.badge-success=env.t('mysticHourglass', {amount: '+{{numberOfMysticHourglasses(_subscription)}}'})
           .small.muted=env.t('mysticHourglassText')
     tr
       td

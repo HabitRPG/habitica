@@ -1,57 +1,50 @@
-var _, cron, expect, moment, newUser, repeatWithoutLastWeekday, shared, sinon;
+/* eslint-disable camelcase */
 
-_ = require('lodash');
-
-expect = require('expect.js');
-
-sinon = require('sinon');
-
-moment = require('moment');
-
-shared = require('../../common/script/index.js');
+let expect = require('expect.js'); // eslint-disable-line no-shadow
+let moment = require('moment');
+let shared = require('../../common/script/index.js');
 
 shared.i18n.translations = require('../../website/src/libs/i18n.js').translations;
 
-repeatWithoutLastWeekday = function() {
-  var repeat;
-  repeat = {
+let repeatWithoutLastWeekday = () => { // eslint-disable-line no-unused-vars
+  let repeat = {
     su: true,
     m: true,
     t: true,
     w: true,
     th: true,
     f: true,
-    s: true
+    s: true,
   };
+
   if (shared.startOfWeek(moment().zone(0)).isoWeekday() === 1) {
     repeat.su = false;
   } else {
     repeat.s = false;
   }
   return {
-    repeat: repeat
+    repeat,
   };
 };
 
 
 /* Helper Functions */
 
-newUser = function(addTasks) {
-  var buffs, user;
-  if (addTasks == null) {
-    addTasks = true;
-  }
+let newUser = (addTasks = true) => {
+  let buffs;
+  let user;
+
   buffs = {
     per: 0,
     int: 0,
     con: 0,
     str: 0,
     stealth: 0,
-    streaks: false
+    streaks: false,
   };
   user = {
     auth: {
-      timestamps: {}
+      timestamps: {},
     },
     stats: {
       str: 1,
@@ -59,27 +52,27 @@ newUser = function(addTasks) {
       per: 1,
       int: 1,
       mp: 32,
-      "class": 'warrior',
-      buffs: buffs
+      class: 'warrior',
+      buffs,
     },
     items: {
       lastDrop: {
-        count: 0
+        count: 0,
       },
       hatchingPotions: {},
       eggs: {},
       food: {},
       gear: {
         equipped: {},
-        costume: {}
-      }
+        costume: {},
+      },
     },
     party: {
       quest: {
         progress: {
-          down: 0
-        }
-      }
+          down: 0,
+        },
+      },
     },
     preferences: {},
     dailys: [],
@@ -88,45 +81,42 @@ newUser = function(addTasks) {
     flags: {},
     achievements: {},
     contributor: {
-      level: 2
-    }
+      level: 2,
+    },
   };
   shared.wrap(user);
-  user.ops.reset(null, function() {});
+  user.ops.reset(null, () => {});
   if (addTasks) {
-    _.each(['habit', 'todo', 'daily'], function(task) {
-      return user.ops.addTask({
+    _.each(['habit', 'todo', 'daily'], (task) => {
+      user.ops.addTask({
         body: {
           type: task,
-          id: shared.uuid()
-        }
+          id: shared.uuid(),
+        },
       });
     });
   }
   return user;
 };
 
-cron = function(usr, missedDays) {
-  if (missedDays == null) {
-    missedDays = 1;
-  }
+let cron = (usr, missedDays = 1) => {
   usr.lastCron = moment().subtract(missedDays, 'days');
-  return usr.fns.cron();
+  usr.fns.cron();
 };
 
-describe('daily/weekly that repeats everyday (default)', function() {
-  var daily, user, weekly;
-  user = null;
-  daily = null;
-  weekly = null;
-  describe('when startDate is in the future', function() {
-    beforeEach(function() {
+describe('daily/weekly that repeats everyday (default)', () => {
+  let user = null;
+  let daily = null;
+  let weekly = null;
+
+  describe('when startDate is in the future', () => {
+    beforeEach(() => {
       user = newUser();
       user.dailys = [
         shared.taskDefaults({
           type: 'daily',
           startDate: moment().add(7, 'days'),
-          frequency: 'daily'
+          frequency: 'daily',
         }), shared.taskDefaults({
           type: 'daily',
           startDate: moment().add(7, 'days'),
@@ -138,39 +128,39 @@ describe('daily/weekly that repeats everyday (default)', function() {
             w: true,
             th: true,
             f: true,
-            s: true
-          }
-        })
+            s: true,
+          },
+        }),
       ];
       daily = user.dailys[0];
-      return weekly = user.dailys[1];
+      weekly = user.dailys[1];
     });
-    it('does not damage user for not completing it', function() {
+    it('does not damage user for not completing it', () => {
       cron(user);
-      return expect(user.stats.hp).to.be(50);
+      expect(user.stats.hp).to.be(50);
     });
-    it('does not change value on cron if daily is incomplete', function() {
+    it('does not change value on cron if daily is incomplete', () => {
       cron(user);
       expect(daily.value).to.be(0);
-      return expect(weekly.value).to.be(0);
+      expect(weekly.value).to.be(0);
     });
-    it('does not reset checklists if daily is not marked as complete', function() {
-      var checklist;
-      checklist = [
+    it('does not reset checklists if daily is not marked as complete', () => {
+      let checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
         }, {
-          'text': '2',
-          'id': 'checklist-two',
-          'completed': true
+          text: '2',
+          id: 'checklist-two',
+          completed: true,
         }, {
-          'text': '3',
-          'id': 'checklist-three',
-          'completed': false
-        }
+          text: '3',
+          id: 'checklist-three',
+          completed: false,
+        },
       ];
+
       daily.checklist = checklist;
       weekly.checklist = checklist;
       cron(user);
@@ -179,359 +169,369 @@ describe('daily/weekly that repeats everyday (default)', function() {
       expect(daily.checklist[2].completed).to.be(false);
       expect(weekly.checklist[0].completed).to.be(true);
       expect(weekly.checklist[1].completed).to.be(true);
-      return expect(weekly.checklist[2].completed).to.be(false);
+      expect(weekly.checklist[2].completed).to.be(false);
     });
-    it('resets checklists if daily is marked as complete', function() {
-      var checklist;
-      checklist = [
+    it('resets checklists if daily is marked as complete', () => {
+      let checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
         }, {
-          'text': '2',
-          'id': 'checklist-two',
-          'completed': true
+          text: '2',
+          id: 'checklist-two',
+          completed: true,
         }, {
-          'text': '3',
-          'id': 'checklist-three',
-          'completed': false
-        }
+          text: '3',
+          id: 'checklist-three',
+          completed: false,
+        },
       ];
+
       daily.checklist = checklist;
       weekly.checklist = checklist;
       daily.completed = true;
       weekly.completed = true;
       cron(user);
-      _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
-      return _.each(weekly.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(weekly.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
-    return it('is due on startDate', function() {
-      var daily_due_on_start_date, daily_due_today, weekly_due_on_start_date, weekly_due_today;
-      daily_due_today = shared.shouldDo(moment(), daily);
-      daily_due_on_start_date = shared.shouldDo(moment().add(7, 'days'), daily);
+    it('is due on startDate', () => {
+      let daily_due_today = shared.shouldDo(moment(), daily);
+      let daily_due_on_start_date = shared.shouldDo(moment().add(7, 'days'), daily);
+
       expect(daily_due_today).to.be(false);
       expect(daily_due_on_start_date).to.be(true);
-      weekly_due_today = shared.shouldDo(moment(), weekly);
-      weekly_due_on_start_date = shared.shouldDo(moment().add(7, 'days'), weekly);
+
+      let weekly_due_today = shared.shouldDo(moment(), weekly);
+      let weekly_due_on_start_date = shared.shouldDo(moment().add(7, 'days'), weekly);
+
       expect(weekly_due_today).to.be(false);
-      return expect(weekly_due_on_start_date).to.be(true);
+      expect(weekly_due_on_start_date).to.be(true);
     });
   });
-  describe('when startDate is in the past', function() {
-    beforeEach(function() {
+  describe('when startDate is in the past', () => {
+    beforeEach(() => {
       user = newUser();
       user.dailys = [
         shared.taskDefaults({
           type: 'daily',
           startDate: moment().subtract(7, 'days'),
-          frequency: 'daily'
+          frequency: 'daily',
         }), shared.taskDefaults({
           type: 'daily',
           startDate: moment().subtract(7, 'days'),
-          frequency: 'weekly'
-        })
+          frequency: 'weekly',
+        }),
       ];
       daily = user.dailys[0];
-      return weekly = user.dailys[1];
+      weekly = user.dailys[1];
     });
-    it('does damage user for not completing it', function() {
+    it('does damage user for not completing it', () => {
       cron(user);
-      return expect(user.stats.hp).to.be.lessThan(50);
+      expect(user.stats.hp).to.be.lessThan(50);
     });
-    it('decreases value on cron if daily is incomplete', function() {
+    it('decreases value on cron if daily is incomplete', () => {
       cron(user, 1);
       expect(daily.value).to.be(-1);
-      return expect(weekly.value).to.be(-1);
+      expect(weekly.value).to.be(-1);
     });
-    it('decreases value on cron once only if daily is incomplete and multiple days are missed', function() {
+    it('decreases value on cron once only if daily is incomplete and multiple days are missed', () => {
       cron(user, 7);
       expect(daily.value).to.be(-1);
-      return expect(weekly.value).to.be(-1);
+      expect(weekly.value).to.be(-1);
     });
-    it('resets checklists if daily is not marked as complete', function() {
-      var checklist;
+    it('resets checklists if daily is not marked as complete', () => {
+      let checklist;
+
       checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
         }, {
-          'text': '2',
-          'id': 'checklist-two',
-          'completed': true
+          text: '2',
+          id: 'checklist-two',
+          completed: true,
         }, {
-          'text': '3',
-          'id': 'checklist-three',
-          'completed': false
-        }
+          text: '3',
+          id: 'checklist-three',
+          completed: false,
+        },
       ];
       daily.checklist = checklist;
       weekly.checklist = checklist;
       cron(user);
-      _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
-      return _.each(weekly.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(weekly.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
-    return it('resets checklists if daily is marked as complete', function() {
-      var checklist;
-      checklist = [
+    it('resets checklists if daily is marked as complete', () => {
+      let checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
         }, {
-          'text': '2',
-          'id': 'checklist-two',
-          'completed': true
+          text: '2',
+          id: 'checklist-two',
+          completed: true,
         }, {
-          'text': '3',
-          'id': 'checklist-three',
-          'completed': false
-        }
+          text: '3',
+          id: 'checklist-three',
+          completed: false,
+        },
       ];
+
       daily.checklist = checklist;
       daily.completed = true;
       weekly.checklist = checklist;
       weekly.completed = true;
       cron(user);
-      _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
-      return _.each(weekly.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(weekly.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
   });
-  return describe('when startDate is today', function() {
-    beforeEach(function() {
+  describe('when startDate is today', () => {
+    beforeEach(() => {
       user = newUser();
       user.dailys = [
         shared.taskDefaults({
           type: 'daily',
           startDate: moment().subtract(1, 'days'),
-          frequency: 'daily'
+          frequency: 'daily',
         }), shared.taskDefaults({
           type: 'daily',
           startDate: moment().subtract(1, 'days'),
-          frequency: 'weekly'
-        })
+          frequency: 'weekly',
+        }),
       ];
       daily = user.dailys[0];
-      return weekly = user.dailys[1];
+      weekly = user.dailys[1];
     });
-    it('does damage user for not completing it', function() {
+    it('does damage user for not completing it', () => {
       cron(user);
-      return expect(user.stats.hp).to.be.lessThan(50);
+      expect(user.stats.hp).to.be.lessThan(50);
     });
-    it('decreases value on cron if daily is incomplete', function() {
+    it('decreases value on cron if daily is incomplete', () => {
       cron(user);
       expect(daily.value).to.be.lessThan(0);
-      return expect(weekly.value).to.be.lessThan(0);
+      expect(weekly.value).to.be.lessThan(0);
     });
-    it('resets checklists if daily is not marked as complete', function() {
-      var checklist;
+    it('resets checklists if daily is not marked as complete', () => {
+      let checklist;
+
       checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
         }, {
-          'text': '2',
-          'id': 'checklist-two',
-          'completed': true
+          text: '2',
+          id: 'checklist-two',
+          completed: true,
         }, {
-          'text': '3',
-          'id': 'checklist-three',
-          'completed': false
-        }
+          text: '3',
+          id: 'checklist-three',
+          completed: false,
+        },
       ];
       daily.checklist = checklist;
       weekly.checklist = checklist;
       cron(user);
-      _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
-      return _.each(weekly.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(weekly.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
-    return it('resets checklists if daily is marked as complete', function() {
-      var checklist;
+    it('resets checklists if daily is marked as complete', () => {
+      let checklist;
+
       checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
         }, {
-          'text': '2',
-          'id': 'checklist-two',
-          'completed': true
+          text: '2',
+          id: 'checklist-two',
+          completed: true,
         }, {
-          'text': '3',
-          'id': 'checklist-three',
-          'completed': false
-        }
+          text: '3',
+          id: 'checklist-three',
+          completed: false,
+        },
       ];
       daily.checklist = checklist;
       daily.completed = true;
       weekly.checklist = checklist;
       weekly.completed = true;
       cron(user);
-      _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
-      return _.each(weekly.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(weekly.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
   });
 });
 
-describe('daily that repeats every x days', function() {
-  var daily, user;
-  user = null;
-  daily = null;
-  beforeEach(function() {
+describe('daily that repeats every x days', () => {
+  let user = null;
+  let daily = null;
+
+  beforeEach(() => {
     user = newUser();
     user.dailys = [
       shared.taskDefaults({
         type: 'daily',
         startDate: moment(),
-        frequency: 'daily'
-      })
+        frequency: 'daily',
+      }),
     ];
-    return daily = user.dailys[0];
+    daily = user.dailys[0];
   });
-  return _.times(11, function(due) {
-    return it('where x equals ' + due, function() {
+  _.times(11, (due) => {
+    it(`where x equals ${due}`, () => {
       daily.everyX = due;
-      return _.times(30, function(day) {
-        var isDue;
+      _.times(30, (day) => {
+        let isDue;
+
         isDue = shared.shouldDo(moment().add(day, 'days'), daily);
         if (day % due === 0) {
           expect(isDue).to.be(true);
         }
         if (day % due !== 0) {
-          return expect(isDue).to.be(false);
+          expect(isDue).to.be(false);
         }
       });
     });
   });
 });
 
-describe('daily that repeats every X days when multiple days are missed', function() {
-  var daily, everyX, startDateDaysAgo, user;
-  everyX = 3;
-  startDateDaysAgo = everyX * 3;
-  user = null;
-  daily = null;
-  describe('including missing a due date', function() {
-    var missedDays;
-    missedDays = everyX * 2 + 1;
-    beforeEach(function() {
+describe('daily that repeats every X days when multiple days are missed', () => {
+  let everyX = 3;
+  let startDateDaysAgo = everyX * 3;
+  let user = null;
+  let daily = null;
+
+  describe('including missing a due date', () => {
+    let missedDays = everyX * 2 + 1;
+
+    beforeEach(() => {
       user = newUser();
       user.dailys = [
         shared.taskDefaults({
           type: 'daily',
           startDate: moment().subtract(startDateDaysAgo, 'days'),
           frequency: 'daily',
-          everyX: everyX
-        })
+          everyX,
+        }),
       ];
-      return daily = user.dailys[0];
+      daily = user.dailys[0];
     });
-    it('decreases value on cron once only if daily is incomplete', function() {
+    it('decreases value on cron once only if daily is incomplete', () => {
       cron(user, missedDays);
-      return expect(daily.value).to.be(-1);
+      expect(daily.value).to.be(-1);
     });
-    it('resets checklists if daily is incomplete', function() {
-      var checklist;
-      checklist = [
+    it('resets checklists if daily is incomplete', () => {
+      let checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
-        }
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
+        },
       ];
+
       daily.checklist = checklist;
       cron(user, missedDays);
-      return _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
-    return it('resets checklists if daily is marked as complete', function() {
-      var checklist;
+    it('resets checklists if daily is marked as complete', () => {
+      let checklist;
+
       checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
-        }
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
+        },
       ];
       daily.checklist = checklist;
       daily.completed = true;
       cron(user, missedDays);
-      return _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
   });
-  return describe('but not missing a due date', function() {
-    var missedDays;
+  describe('but not missing a due date', () => {
+    let missedDays;
+
     missedDays = everyX - 1;
-    beforeEach(function() {
+    beforeEach(() => {
       user = newUser();
       user.dailys = [
         shared.taskDefaults({
           type: 'daily',
           startDate: moment().subtract(startDateDaysAgo, 'days'),
           frequency: 'daily',
-          everyX: everyX
-        })
+          everyX,
+        }),
       ];
-      return daily = user.dailys[0];
+      daily = user.dailys[0];
     });
-    it('does not decrease value on cron', function() {
+    it('does not decrease value on cron', () => {
       cron(user, missedDays);
-      return expect(daily.value).to.be(0);
+      expect(daily.value).to.be(0);
     });
-    it('does not reset checklists if daily is incomplete', function() {
-      var checklist;
+    it('does not reset checklists if daily is incomplete', () => {
+      let checklist;
+
       checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
-        }
+          text: '1',
+          id: 'checklist-one',
+          completed: true,
+        },
       ];
       daily.checklist = checklist;
       cron(user, missedDays);
-      return _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(true);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(true);
       });
     });
-    return it('resets checklists if daily is marked as complete', function() {
-      var checklist;
+    it('resets checklists if daily is marked as complete', () => {
+      let checklist;
+
       checklist = [
         {
-          'text': '1',
-          'id': 'checklist-one',
-          'completed': true
-        }
+          text: 1,
+          id: 'checklist-one',
+          completed: true,
+        },
       ];
       daily.checklist = checklist;
       daily.completed = true;
       cron(user, missedDays);
-      return _.each(daily.checklist, function(box) {
-        return expect(box.completed).to.be(false);
+      _.each(daily.checklist, (box) => {
+        expect(box.completed).to.be(false);
       });
     });
   });
