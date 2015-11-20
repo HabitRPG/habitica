@@ -3,17 +3,10 @@ import {
   max,
 } from 'lodash';
 
+import uuid from 'uuid';
+
 export function $w (s) {
   return s.split(' ');
-}
-
-export function uuid () {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function genID (c) {
-    let r = Math.random() * 16 | 0;
-    let v = c === 'x' ? r : r & 0x3 | 0x8;
-
-    return v.toString(16);
-  });
 }
 
 /*
@@ -25,7 +18,7 @@ export function uuid () {
 export function refPush (reflist, item) {
   item.sort = isEmpty(reflist) ? 0 : max(reflist, 'sort').sort + 1;
   if (!(item.id && !reflist[item.id])) {
-    item.id = uuid();
+    item.id = uuid.v4();
   }
   reflist[item.id] = item;
   return reflist[item.id];

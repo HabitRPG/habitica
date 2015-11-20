@@ -19,7 +19,10 @@ import * as helpers from './helpers';
 
 $w = helpers.$w;
 api.refPush = helpers.refPush;
-api.uuid = helpers.uuid;
+
+import uuid from 'uuid';
+
+api.uuid = uuid.v4;
 
 api.planGemLimits = {
   convRate: 20,

@@ -75,6 +75,7 @@
     "superagent": "~1.4.0",
     "swagger-node-express": "lefnire/swagger-node-express#habitrpg",
     "universal-analytics": "~0.3.2",
+    "uuid": "^2.0.1",
     "validator": "~3.19.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
