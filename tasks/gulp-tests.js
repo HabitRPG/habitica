@@ -36,8 +36,8 @@ let testCount = (stdout, regexp) => {
   return parseInt(match && match[1] || 0);
 }
 
-let testBin = (string) => {
-  return `NODE_ENV=testing ./node_modules/.bin/${string}`;
+let testBin = (string, additionalEnvVariables = '') => {
+  return `NODE_ENV=testing ${additionalEnvVariables} ./node_modules/.bin/${string}`;
 };
 
 gulp.task('test:nodemon', (done) => {
@@ -361,7 +361,7 @@ gulp.task('test:api-v3:integration:watch', ['test:prepare:server'], () => {
 gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
   awaitPort(TEST_SERVER_PORT).then(() => {
     let runner = exec(
-      testBin(API_V3_TEST_COMMAND),
+      testBin(API_V3_TEST_COMMAND, 'API_VERSION=v3'),
       (err, stdout, stderr) => {
         testResults.push({
           suite: 'API V3 Specs\t',
