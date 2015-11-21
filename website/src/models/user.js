@@ -609,37 +609,6 @@ function _setProfileName (user) {
   return localUsername || facebookUsername || anonymous;
 }
 
-schema.pre('validate', function beforeValidateUser (next) {
-  if (!this.auth.facebook.id || this.auth.local.email || this.auth.local.username) {
-    if (!this.auth.local.email) {
-      this.invalidate('auth.local.email', shared.i18n.t('missingEmail'));
-      return next();
-    }
-
-    if (!this.auth.local.username) {
-      this.invalidate('auth.local.username', shared.i18n.t('missingUsername'));
-      return next();
-    }
-  }
-
-  // Validate password and password confirmation and create hashed version
-  if (this.isModified('auth.local.password') || this.isNew() && !this.auth.facebook.id) { // TODO this does not catch when you already have social auth and password isn't passedß
-    if (!this.auth.local.password) {
-      this.invalidate('auth.local.password', shared.i18n.t('missingPassword'));
-      return next();
-    }
-
-    if (this.auth.local.password !== this.auth.local.passwordConfirmation) {
-      this.invalidate('auth.local.passwordConfirmation', shared.i18n.t('passwordConfirmationMatch'));
-      return next();
-    }
-
-    this.hashed_password = passwordUtils.encrypt(this.auth.local.password, this.auth.local.salt); // eslint-disable-line camelcase
-  }
-
-  next();
-});
-
 schema.pre('save', function postSaveUser (next) {
   // Do not store password and passwordConfirmation
   this.auth.local.password = this.local.auth.passwordConfirmation = undefined;
