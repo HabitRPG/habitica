@@ -204,12 +204,13 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.gemGoldCap = function(subscription) {
       var baseCap = 25;
+      var gemCapIncrement = 5;
+      var capIncrementThreshold = 3;
       var gemCapExtra = User.user.purchased.plan.consecutive.gemCapExtra;
-      // @TODO: What are these magic numbers? 3? 5?
-      var blocks = Content.subscriptionBlocks[subscription.key].months / 3 * 5;
+      var blocks = Content.subscriptionBlocks[subscription.key].months / capIncrementThreshold;
       var flooredBlocks = Math.floor(blocks);
 
-      var userTotalDropCap = baseCap + gemCapExtra + flooredBlocks;
+      var userTotalDropCap = baseCap + gemCapExtra + flooredBlocks * gemCapIncrement;
       var maxDropCap = 50;
 
       return [userTotalDropCap, maxDropCap];
