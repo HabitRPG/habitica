@@ -50,11 +50,9 @@ api.registerLocal = {
     .exec()
     .then((user) => {
       if (user) {
-        if (email === user.auth.local.email) return next(new NotAuthorized(res.t('emailTaken')));
+        if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
         // Check that the lowercase username isn't already used
-        if (lowerCaseUsername === user.auth.local.lowerCaseUsername) {
-          return next(new NotAuthorized(res.t('usernameTaken')));
-        }
+        if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
       }
 
       let salt = passwordUtils.makeSalt();
@@ -79,21 +77,19 @@ api.registerLocal = {
       return newUser.save();
     })
     .then((savedUser) => {
-      if (savedUser) {
-        res.status(201).json(savedUser);
+      res.status(201).json(savedUser);
 
-        // Clean previous email preferences
-        EmailUnsubscription
-          .remove({email: savedUser.auth.local.email})
-          .then(() => sendTxnEmail(savedUser, 'welcome'));
+      // Clean previous email preferences
+      EmailUnsubscription
+        .remove({email: savedUser.auth.local.email})
+        .then(() => sendTxnEmail(savedUser, 'welcome'));
 
-        res.analytics.track('register', {
-          category: 'acquisition',
-          type: 'local',
-          gaLabel: 'local',
-          uuid: savedUser._id,
-        });
-      }
+      res.analytics.track('register', {
+        category: 'acquisition',
+        type: 'local',
+        gaLabel: 'local',
+        uuid: savedUser._id,
+      });
     })
     .catch(next);
   },
