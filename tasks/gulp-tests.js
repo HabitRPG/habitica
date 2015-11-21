@@ -40,6 +40,13 @@ let testBin = (string) => {
   return `NODE_ENV=testing ./node_modules/.bin/${string}`;
 };
 
+gulp.task('test:nodemon', (done) => {
+  process.env.PORT = TEST_SERVER_PORT;
+  process.env.NODE_DB_URI=TEST_DB_URI;
+
+  runSequence('nodemon')
+});
+
 gulp.task('test:prepare:mongo', (cb) => {
   mongoose.connect(TEST_DB_URI, (err) => {
     if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
