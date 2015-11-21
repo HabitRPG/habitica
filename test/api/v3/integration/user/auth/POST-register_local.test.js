@@ -78,6 +78,24 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
+    it('requires a valid email', () => {
+      let api = requester();
+      let username = generateRandomUserName();
+      let email = 'notanemail@sdf';
+      let password = 'password';
+
+      return expect(api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('invalidEmail'),
+      });
+    });
+
     it('requires a password', () => {
       let api = requester();
       let username = generateRandomUserName();
