@@ -13,6 +13,15 @@ import i18n from '../../common/script/src/i18n';
 i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 const API_TEST_SERVER_PORT = 3003;
+const API_V = process.env.API_VERSION || 'v2'; // eslint-disable-line no-process-env
+const ROUTES = {
+  v2: {
+    register: '/register',
+  },
+  v3: {
+    register: '/user/auth/local/register',
+  },
+};
 
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
@@ -78,7 +87,7 @@ export function generateUser (update = {}) {
   let request = _requestMaker({}, 'post');
 
   return new Promise((resolve, reject) => {
-    request('/register', {
+    request(ROUTES[API_V].register, {
       username,
       email,
       password,
@@ -219,8 +228,6 @@ export function resetHabiticaDB () {
 }
 
 function _requestMaker (user, method, additionalSets) {
-  const API_V = process.env.API_VERSION || 'v2'; // eslint-disable-line no-process-env
-
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
       let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${API_V}${route}`)
