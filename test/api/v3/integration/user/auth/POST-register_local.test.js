@@ -6,7 +6,7 @@ import {
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
 
-describe('POST /user/register/local', () => {
+describe('POST /user/auth/local/register', () => {
   context('username and email are free', () => {
     it('registers a new user', () => {
       let api = requester();
@@ -14,7 +14,7 @@ describe('POST /user/register/local', () => {
       let email = `${username}@example.com`;
       let password = 'password';
 
-      return api.post('/user/register/local', {
+      return api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -33,7 +33,7 @@ describe('POST /user/register/local', () => {
       let password = 'password';
       let confirmPassword = 'not password';
 
-      return expect(api.post('/user/register/local', {
+      return expect(api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -51,7 +51,7 @@ describe('POST /user/register/local', () => {
       let password = 'password';
       let confirmPassword = 'password';
 
-      return expect(api.post('/user/register/local', {
+      return expect(api.post('/user/auth/local/register', {
         email:           email,
         password:        password,
         confirmPassword: confirmPassword,
@@ -68,7 +68,7 @@ describe('POST /user/register/local', () => {
       let password = 'password';
       let confirmPassword = 'password';
 
-      return expect(api.post('/user/register/local', {
+      return expect(api.post('/user/auth/local/register', {
         username:        username,
         password:        password,
         confirmPassword: confirmPassword,
@@ -85,7 +85,7 @@ describe('POST /user/register/local', () => {
       let email = `${username}@example.com`;
       let confirmPassword = 'password';
 
-      return expect(api.post('/user/register/local', {
+      return expect(api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         confirmPassword: confirmPassword,
@@ -115,7 +115,7 @@ describe('POST /user/register/local', () => {
       let uniqueEmail = `${generateRandomUserName()}@exampe.com`;
       let password = 'password';
 
-      return expect(api.post('/user/register/local', {
+      return expect(api.post('/user/auth/local/register', {
         username:        username,
         email:           uniqueEmail,
         password:        password,
@@ -132,7 +132,7 @@ describe('POST /user/register/local', () => {
       let uniqueUsername = generateRandomUserName();
       let password = 'password';
 
-      return expect(api.post('/user/register/local', {
+      return expect(api.post('/user/auth/local/register', {
         username:        uniqueUsername,
         email:           email,
         password:        password,
@@ -156,7 +156,7 @@ describe('POST /user/register/local', () => {
     });
 
     it('sets all site tour values to -2 (already seen)', () => {
-      return api.post('/user/register/local', {
+      return api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -171,7 +171,7 @@ describe('POST /user/register/local', () => {
     });
 
     it('populates user with default todos, not no other task types', () => {
-      return api.post('/user/register/local', {
+      return api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -185,7 +185,7 @@ describe('POST /user/register/local', () => {
     });
 
     it('populates user with default tags', () => {
-      return api.post('/user/register/local', {
+      return api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -207,7 +207,7 @@ describe('POST /user/register/local', () => {
     });
 
     it('sets all common tutorial flags to true', () => {
-      return api.post('/user/register/local', {
+      return api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -222,7 +222,7 @@ describe('POST /user/register/local', () => {
     });
 
     it('populates user with default todos, habits, and rewards', () => {
-      return api.post('/user/register/local', {
+      return api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,
@@ -236,7 +236,7 @@ describe('POST /user/register/local', () => {
     });
 
     it('populates user with default tags', () => {
-      return api.post('/user/register/local', {
+      return api.post('/user/auth/local/register', {
         username:        username,
         email:           email,
         password:        password,

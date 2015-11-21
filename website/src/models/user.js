@@ -26,7 +26,7 @@ export let schema = new Schema({
 
   auth: {
     blocked: Boolean,
-    facebook: Schema.Types.Mixed, // TODO validate
+    facebook: {type: Schema.Types.Mixed, default: {}}, // TODO validate, IMPORTANT make sure the {} default isn't shared across all user objects
     local: {
       email: {
         type: String,
@@ -610,8 +610,7 @@ function _setProfileName (user) {
 }
 
 schema.pre('validate', function beforeValidateUser (next) {
-  // Validate the auth path (doesn't work with schema.path('auth').validate)
-  if (!this.auth.facebook.id) {
+  if (!this.auth.facebook.id || this.auth.local.email || this.auth.local.username) {
     if (!this.auth.local.email) {
       this.invalidate('auth.local.email', shared.i18n.t('missingEmail'));
       return next();
@@ -624,7 +623,7 @@ schema.pre('validate', function beforeValidateUser (next) {
   }
 
   // Validate password and password confirmation and create hashed version
-  if (this.isModified('auth.local.password') || this.isNew() && !this.auth.facebook.id) {
+  if (this.isModified('auth.local.password') || this.isNew() && !this.auth.facebook.id) { // TODO this does not catch when you already have social auth and password isn't passedß
     if (!this.auth.local.password) {
       this.invalidate('auth.local.password', shared.i18n.t('missingPassword'));
       return next();
