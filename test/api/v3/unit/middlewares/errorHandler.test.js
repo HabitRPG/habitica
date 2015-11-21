@@ -82,6 +82,65 @@ describe('errorHandler', () => {
     });
   });
 
+  it('handle http-errors errors', () => {
+    let error = new Error('custom message');
+    error.statusCode = 422;
+
+    errorHandler(error, req, res, next);
+
+    expect(res.status).to.be.calledOnce;
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.status).to.be.calledWith(error.statusCode);
+    expect(res.json).to.be.calledWith({
+      error: error.name,
+      message: error.message,
+    });
+  });
+
+  it('handle express-validator errors', () => {
+    let error = [{param: 'param', msg: 'invalid param'}];
+
+    errorHandler(error, req, res, next);
+
+    expect(res.status).to.be.calledOnce;
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.status).to.be.calledWith(400);
+    expect(res.json).to.be.calledWith({
+      error: 'BadRequest',
+      message: 'Invalid request parameters.',
+      errors: error,
+    });
+  });
+
+  it('handle Mongoose Validation errors', () => {
+    let error = new Error('User validation failed.');
+    error.name = 'ValidationError';
+
+    error.errors = {
+      'auth.local.email': {
+        path: 'auth.local.email',
+        message: 'Invalid email.',
+        value: 'not an email',
+      },
+    };
+
+    errorHandler(error, req, res, next);
+
+    expect(res.status).to.be.calledOnce;
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.status).to.be.calledWith(400);
+    expect(res.json).to.be.calledWith({
+      error: 'BadRequest',
+      message: 'User validation failed.',
+      errors: [
+        {path: 'auth.local.email', message: 'Invalid email.', value: 'not an email'}
+      ]
+    });
+  });
+
   it('logs error', () => {
     let error = new BadRequest();
 

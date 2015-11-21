@@ -4,7 +4,7 @@ import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
-import passwordUtils from '../../libs/api-v3/password';
+import * as passwordUtils from '../../libs/api-v3/password';
 import { model as User } from '../../models/user';
 import EmailUnsubscription from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
