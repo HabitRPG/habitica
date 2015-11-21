@@ -15,9 +15,9 @@ describe('POST /user/auth/local/register', () => {
       let password = 'password';
 
       return api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user._id).to.exist;
@@ -34,9 +34,9 @@ describe('POST /user/auth/local/register', () => {
       let confirmPassword = 'not password';
 
       return expect(api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -52,13 +52,13 @@ describe('POST /user/auth/local/register', () => {
       let confirmPassword = 'password';
 
       return expect(api.post('/user/auth/local/register', {
-        email:           email,
-        password:        password,
-        confirmPassword: confirmPassword,
+        email,
+        password,
+        confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('missingUsernameEmail'),
+        message: t('missingUsername'),
       });
     });
 
@@ -66,16 +66,15 @@ describe('POST /user/auth/local/register', () => {
       let api = requester();
       let username = generateRandomUserName();
       let password = 'password';
-      let confirmPassword = 'password';
 
       return expect(api.post('/user/auth/local/register', {
-        username:        username,
-        password:        password,
-        confirmPassword: confirmPassword,
+        username,
+        password,
+        confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('missingUsernameEmail'),
+        message: t('missingEmail'),
       });
     });
 
@@ -86,7 +85,7 @@ describe('POST /user/auth/local/register', () => {
       let confirmPassword = 'password';
 
       return expect(api.post('/user/auth/local/register', {
-        username:        username,
+        username,
         email:           email,
         confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
@@ -123,7 +122,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('usernameTake'),
+        message: t('usernameTaken'),
       });
     });
 
@@ -133,9 +132,9 @@ describe('POST /user/auth/local/register', () => {
       let password = 'password';
 
       return expect(api.post('/user/auth/local/register', {
-        username:        uniqueUsername,
-        email:           email,
-        password:        password,
+        username: uniqueUsername,
+        email,
+        password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -157,9 +156,9 @@ describe('POST /user/auth/local/register', () => {
 
     it('sets all site tour values to -2 (already seen)', () => {
       return api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.flags.tour).to.not.be.empty;
@@ -172,9 +171,9 @@ describe('POST /user/auth/local/register', () => {
 
     it('populates user with default todos, not no other task types', () => {
       return api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.todos).to.not.be.empty;
@@ -186,9 +185,9 @@ describe('POST /user/auth/local/register', () => {
 
     it('populates user with default tags', () => {
       return api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.tags).to.not.be.empty;
@@ -208,9 +207,9 @@ describe('POST /user/auth/local/register', () => {
 
     it('sets all common tutorial flags to true', () => {
       return api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.flags.tour).to.not.be.empty;
@@ -223,9 +222,9 @@ describe('POST /user/auth/local/register', () => {
 
     it('populates user with default todos, habits, and rewards', () => {
       return api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.todos).to.not.be.empty;
@@ -237,9 +236,9 @@ describe('POST /user/auth/local/register', () => {
 
     it('populates user with default tags', () => {
       return api.post('/user/auth/local/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.tags).to.not.be.empty;
