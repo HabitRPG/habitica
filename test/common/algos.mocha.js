@@ -2,6 +2,7 @@
 import {
   DAY_MAPPING,
   startOfWeek,
+  startOfDay,
 } from '../../common/script/cron';
 
 let expect = require('expect.js');
@@ -1190,7 +1191,7 @@ describe('Cron', () => {
     let fstr = 'YYYY-MM-DD HH: mm: ss';
 
     it('startOfDay before dayStart', () => {
-      let start = shared.startOfDay({
+      let start = startOfDay({
         now: moment('2014-10-09 02: 30: 00'),
         dayStart,
       });
@@ -1198,7 +1199,7 @@ describe('Cron', () => {
       expect(start.format(fstr)).to.eql('2014-10-08 04: 00: 00');
     });
     it('startOfDay after dayStart', () => {
-      let start = shared.startOfDay({
+      let start = startOfDay({
         now: moment('2014-10-09 05: 30: 00'),
         dayStart,
       });
@@ -1501,17 +1502,17 @@ describe('Helper', () => {
     let today = '2013-01-01 00: 00: 00';
     let zone = moment(today).zone();
 
-    expect(shared.startOfDay({
+    expect(startOfDay({
       now: new Date(2013, 0, 1, 0),
     }, {
       timezoneOffset: zone,
     }).format(fstr)).to.eql(today);
-    expect(shared.startOfDay({
+    expect(startOfDay({
       now: new Date(2013, 0, 1, 5),
     }, {
       timezoneOffset: zone,
     }).format(fstr)).to.eql(today);
-    expect(shared.startOfDay({
+    expect(startOfDay({
       now: new Date(2013, 0, 1, 23, 59, 59),
       timezoneOffset: zone,
     }).format(fstr)).to.eql(today);

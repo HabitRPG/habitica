@@ -1,6 +1,7 @@
 import {
   DAY_MAPPING,     // temporary, pending further refactoring
   sanitizeOptions, // temporary, pending further refactoring
+  startOfDay,      // temporary, pending further refactoring
 } from '../../common/script/cron';
 
 var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
@@ -73,23 +74,6 @@ api.planGemLimits = {
   ------------------------------------------------------
  */
 
-api.startOfDay = function(options) {
-  var dayStart, o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  dayStart = moment(o.now).startOf('day').add({
-    hours: o.dayStart
-  });
-  if (moment(o.now).hour() < o.dayStart) {
-    dayStart.subtract({
-      days: 1
-    });
-  }
-  return dayStart;
-};
-
 /*
   Absolute diff from "yesterday" till now
  */
@@ -100,9 +84,9 @@ api.daysSince = function(yesterday, options) {
     options = {};
   }
   o = sanitizeOptions(options);
-  return api.startOfDay(_.defaults({
+  return startOfDay(_.defaults({
     now: o.now
-  }, o)).diff(api.startOfDay(_.defaults({
+  }, o)).diff(startOfDay(_.defaults({
     now: yesterday
   }, o)), 'days');
 };
@@ -121,7 +105,7 @@ api.shouldDo = function(day, dailyTask, options) {
     return false;
   }
   o = sanitizeOptions(options);
-  startOfDayWithCDSTime = api.startOfDay(_.defaults({
+  startOfDayWithCDSTime = startOfDay(_.defaults({
     now: day
   }, o));
   taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
