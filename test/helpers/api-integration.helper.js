@@ -218,8 +218,8 @@ export function resetHabiticaDB () {
   });
 }
 
-function _requestMaker(user, method, additionalSets) {
-  const API_V = process.env.API_VERSION || 'v2'
+function _requestMaker (user, method, additionalSets) {
+  const API_V = process.env.API_VERSION || 'v2'; // eslint-disable-line no-process-env
 
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
