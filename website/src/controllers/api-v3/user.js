@@ -5,7 +5,7 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import passwordUtils from '../../libs/api-v3/password';
-import User from '../../models/user';
+import { model as User } from '../../models/user';
 import EmailUnsubscription from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 
