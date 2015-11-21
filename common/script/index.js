@@ -1,8 +1,9 @@
 import {
-  DAY_MAPPING   // temporary, pending further refactoring
+  DAY_MAPPING,     // temporary, pending further refactoring
+  sanitizeOptions, // temporary, pending further refactoring
 } from '../../common/script/cron';
 
-var $w, _, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder,
+var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
@@ -71,25 +72,6 @@ api.planGemLimits = {
   Time / Day
   ------------------------------------------------------
  */
-
-
-/*
-  Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
-  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
-  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
- */
-
-sanitizeOptions = function(o) {
-  var dayStart, now, ref, timezoneOffset;
-  dayStart = !_.isNaN(+o.dayStart) && (0 <= (ref = +o.dayStart) && ref <= 24) ? +o.dayStart : 0;
-  timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
-  now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
-  return {
-    dayStart: dayStart,
-    timezoneOffset: timezoneOffset,
-    now: now
-  };
-};
 
 api.startOfWeek = api.startOfWeek = function(options) {
   var o;
