@@ -1,7 +1,6 @@
 // User schema and model
 import mongoose from 'mongoose';
 import shared from '../../../common';
-import passwordUtils from '../libs/api-v3/password';
 import _ from 'lodash';
 import validator from 'validator';
 import moment from 'moment';
