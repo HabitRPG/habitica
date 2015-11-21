@@ -61,6 +61,7 @@ gulp.task('lint:tests', () => {
       'expect': true,
       '_': true,
       'sinon': true,
+      'sandbox': true,
     },
     plugins: [ 'mocha' ],
   };

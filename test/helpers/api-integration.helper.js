@@ -218,8 +218,8 @@ export function resetHabiticaDB () {
   });
 }
 
-function _requestMaker(user, method, additionalSets) {
-  const API_V = process.env.API_VERSION || 'v2'
+function _requestMaker (user, method, additionalSets) {
+  const API_V = process.env.API_VERSION || 'v2'; // eslint-disable-line no-process-env
 
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
@@ -243,11 +243,20 @@ function _requestMaker(user, method, additionalSets) {
           if (err) {
             if (!err.response) return reject(err);
 
-            return reject({
-              code: err.status,
-              error: err.response.body.error,
-              message: err.response.body.message,
-            });
+            if (API_V === 'v3') {
+              return reject({
+                code: err.status,
+                error: err.response.body.error,
+                message: err.response.body.message,
+              });
+            } else if (API_V === 'v2') {
+              return reject({
+                code: err.status,
+                text: err.response.body.err,
+              });
+            }
+
+            return reject(err);
           }
 
           resolve(response.body);
