@@ -1,6 +1,7 @@
 /* eslint-disable camelcase, func-names, no-shadow */
 import {
   DAY_MAPPING,
+  startOfWeek,
 } from '../../common/script/cron';
 
 let expect = require('expect.js');
@@ -209,7 +210,7 @@ let repeatWithoutLastWeekday = () => {
     s: true,
   };
 
-  if (shared.startOfWeek(moment().zone(0)).isoWeekday() === 1) {
+  if (startOfWeek(moment().zone(0)).isoWeekday() === 1) {
     repeat.su = false;
   } else {
     repeat.s = false;
@@ -1270,7 +1271,7 @@ describe('Cron', () => {
 
       function runCron (options) {
         _.each([480, 240, 0, -120], function (timezoneOffset) {
-          let now = shared.startOfWeek({
+          let now = startOfWeek({
             timezoneOffset,
           }).add(options.currentHour || 0, 'hours');
 

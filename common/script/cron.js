@@ -37,3 +37,13 @@ export function sanitizeOptions (o) {
     now,
   };
 }
+
+export function startOfWeek (options) {
+  if (options === null) {
+    options = {};
+  }
+  let o = sanitizeOptions(options);
+
+  return moment(o.now).startOf('week');
+}
+

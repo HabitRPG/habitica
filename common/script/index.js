@@ -73,15 +73,6 @@ api.planGemLimits = {
   ------------------------------------------------------
  */
 
-api.startOfWeek = api.startOfWeek = function(options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return moment(o.now).startOf('week');
-};
-
 api.startOfDay = function(options) {
   var dayStart, o;
   if (options == null) {
