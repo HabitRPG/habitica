@@ -47,7 +47,6 @@ export function startOfWeek (options) {
   return moment(o.now).startOf('week');
 }
 
-
 /*
   This is designed for use with any date that has an important time portion (e.g., when comparing the current date-time with the previous cron's date-time for determing if cron should run now).
   It changes the time portion of the date-time to be the Custom Day Start hour, so that the date-time is now the user's correct start of day.
@@ -66,5 +65,15 @@ export function startOfDay (options) {
     dayStart.subtract({ days: 1 });
   }
   return dayStart;
+}
+
+/*
+  Absolute diff from "yesterday" till now
+ */
+
+export function daysSince (yesterday, options = {}) {
+  let o = sanitizeOptions(options);
+
+  return startOfDay(_.defaults({ now: o.now }, o)).diff(startOfDay(_.defaults({ now: yesterday }, o)), 'days');
 }
 

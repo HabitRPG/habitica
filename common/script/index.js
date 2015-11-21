@@ -2,6 +2,7 @@ import {
   DAY_MAPPING,     // temporary, pending further refactoring
   sanitizeOptions, // temporary, pending further refactoring
   startOfDay,      // temporary, pending further refactoring
+  daysSince,
 } from '../../common/script/cron';
 
 var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
@@ -73,24 +74,6 @@ api.planGemLimits = {
   Time / Day
   ------------------------------------------------------
  */
-
-/*
-  Absolute diff from "yesterday" till now
- */
-
-api.daysSince = function(yesterday, options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return startOfDay(_.defaults({
-    now: o.now
-  }, o)).diff(startOfDay(_.defaults({
-    now: yesterday
-  }, o)), 'days');
-};
-
 
 /*
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
@@ -2276,7 +2259,7 @@ api.wrap = function(user, main) {
         }
       }
       dropMultiplier = ((ref1 = user.purchased) != null ? (ref2 = ref1.plan) != null ? ref2.customerId : void 0 : void 0) ? 2 : 1;
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
+      if ((daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
         return;
       }
       if (((ref3 = user.flags) != null ? ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
@@ -2483,7 +2466,7 @@ api.wrap = function(user, main) {
         options = {};
       }
       now = +options.now || +(new Date);
-      daysMissed = api.daysSince(user.lastCron, _.defaults({
+      daysMissed = daysSince(user.lastCron, _.defaults({
         now: now
       }, user.preferences));
       if (!(daysMissed > 0)) {

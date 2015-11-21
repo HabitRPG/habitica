@@ -3,6 +3,7 @@ import {
   DAY_MAPPING,
   startOfWeek,
   startOfDay,
+  daysSince,
 } from '../../common/script/cron';
 
 let expect = require('expect.js');
@@ -1208,7 +1209,7 @@ describe('Cron', () => {
     });
     it('daysSince cron before, now after', () => {
       let lastCron = moment('2014-10-09 02: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 11: 30: 00'),
         dayStart,
       });
@@ -1217,7 +1218,7 @@ describe('Cron', () => {
     });
     it('daysSince cron before, now before', () => {
       let lastCron = moment('2014-10-09 02: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 03: 30: 00'),
         dayStart,
       });
@@ -1226,7 +1227,7 @@ describe('Cron', () => {
     });
     it('daysSince cron after, now after', () => {
       let lastCron = moment('2014-10-09 05: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 06: 30: 00'),
         dayStart,
       });
@@ -1235,7 +1236,7 @@ describe('Cron', () => {
     });
     it('daysSince cron after, now tomorrow before', () => {
       let lastCron = moment('2014-10-09 12: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-10 01: 30: 00'),
         dayStart,
       });
@@ -1244,7 +1245,7 @@ describe('Cron', () => {
     });
     it('daysSince cron after, now tomorrow after', () => {
       let lastCron = moment('2014-10-09 12: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-10 10: 30: 00'),
         dayStart,
       });
@@ -1253,7 +1254,7 @@ describe('Cron', () => {
     });
     xit('daysSince, last cron before new dayStart', () => {
       let lastCron = moment('2014-10-09 01: 00: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 05: 00: 00'),
         dayStart,
       });
