@@ -6,7 +6,7 @@ import {
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
 
-describe.skip('POST /user/register/local', () => {
+describe('POST /user/register/local', () => {
   context('username and email are free', () => {
     it('registers a new user', () => {
       let api = requester();

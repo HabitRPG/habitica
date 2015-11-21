@@ -28,11 +28,32 @@ api.registerLocal = {
   method: 'POST',
   url: '/user/auth/local/register',
   handler (req, res, next) {
-    let email = req.body.email.toLowerCase();
+    let email = req.body.email && req.body.email.toLowerCase();
     let username = req.body.username;
     // Get the lowercase version of username to check that we do not have duplicates
     // So we can search for it in the database and then reject the choosen username if 1 or more results are found
-    let lowerCaseUsername = username.toLowerCase();
+    let lowerCaseUsername = username && username.toLowerCase();
+
+    let newUser = new User({
+      auth: {
+        local: {
+          username,
+          lowerCaseUsername, // Store the lowercase version of the username
+          email, // Store email as lowercase
+          salt: passwordUtils.makeSalt(),
+          password: req.body.password,
+          passwordConfirmation: req.body.passwordConfirmation,
+        },
+      },
+      preferences: {
+        language: req.language,
+      },
+    });
+
+    newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
+    let validationErrors = newUser.validateSync(); // Validate synchronously for speed, remove if we add any async validator
+
+    if (validationErrors) return next(validationErrors);
 
     // Search for duplicates using lowercase version of username
     User.findOne({$or: [
@@ -46,24 +67,6 @@ api.registerLocal = {
         // Check that the lowercase username isn't already used
         if (lowerCaseUsername === user.auth.local.lowerCaseUsername) return next(new NotAuthorized(res.t('usernameTaken')));
       }
-
-      let newUser = new User({
-        auth: {
-          local: {
-            username,
-            lowerCaseUsername, // Store the lowercase version of the username
-            email, // Store email as lowercase
-            salt: passwordUtils.makeSalt(),
-            password: req.body.password,
-            passwordConfirmation: req.body.passwordConfirmation,
-          },
-        },
-        preferences: {
-          language: req.language,
-        },
-      });
-
-      newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
 
       return newUser.save();
     })

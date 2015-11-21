@@ -609,7 +609,7 @@ function _setProfileName (user) {
   return localUsername || facebookUsername || anonymous;
 }
 
-schema.pre('save', function postSaveUser (next) {
+schema.pre('validate', function beforeValidateUser (next) {
   // Validate the auth path (doesn't work with schema.path('auth').validate)
   if (!this.auth.facebook.id) {
     if (!this.auth.local.email) {
@@ -617,7 +617,7 @@ schema.pre('save', function postSaveUser (next) {
       return next();
     }
 
-    if (!this.auth.local.email) {
+    if (!this.auth.local.username) {
       this.invalidate('auth.local.username', shared.i18n.t('missingUsername'));
       return next();
     }
@@ -638,6 +638,10 @@ schema.pre('save', function postSaveUser (next) {
     this.hashed_password = passwordUtils.encrypt(this.auth.local.password, this.auth.local.salt); // eslint-disable-line camelcase
   }
 
+  next();
+});
+
+schema.pre('save', function postSaveUser (next) {
   // Do not store password and passwordConfirmation
   this.auth.local.password = this.local.auth.passwordConfirmation = undefined;
 
