@@ -42,15 +42,6 @@ export let schema = new Schema({
       lowerCaseUsername: String,
       hashed_password: String, // eslint-disable-line camelcase
       salt: String,
-      // password and passwordConfirmation are not stored in the database, used only for validation
-      password: {
-        type: String,
-        trim: true,
-      },
-      passwordConfirmation: {
-        type: String,
-        trim: true,
-      },
     },
     timestamps: {
       created: {type: Date, default: Date.now},
@@ -610,9 +601,6 @@ function _setProfileName (user) {
 }
 
 schema.pre('save', function postSaveUser (next) {
-  // Do not store password and passwordConfirmation
-  this.auth.local.password = this.local.auth.passwordConfirmation = undefined;
-
   // Populate new users with default content
   if (this.isNew) {
     _populateDefaultsForNewUser(this);
