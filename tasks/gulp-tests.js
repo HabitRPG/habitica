@@ -342,7 +342,7 @@ gulp.task('test:api-v3:unit:watch', () => {
 gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
   process.env.API_VERSION = 'v3';
   awaitPort(TEST_SERVER_PORT).then(() => {
-    runMochaTests('./test/api/v3/unit/**/*.js', server, done)
+    runMochaTests('./test/api/v3/integration/**/*.js', server, done)
   });
 });
 

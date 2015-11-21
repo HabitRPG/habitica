@@ -244,8 +244,9 @@ function _requestMaker(user, method, additionalSets) {
             if (!err.response) return reject(err);
 
             return reject({
-              code: err.response.status,
-              text: err.response.body.err,
+              code: err.status,
+              error: err.response.body.error,
+              message: err.response.body.message,
             });
           }
 
