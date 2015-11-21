@@ -1,5 +1,6 @@
 import validator from 'validator';
 import passport from 'passport';
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
@@ -11,7 +12,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 let api = {};
 
 /**
- * @api {post} /user/register/local Register a new user with email, username and password
+ * @api {post} /user/auth/local/register Register a new user with email, username and password or add local authentication to a social user
  * @apiVersion 3.0.0
  * @apiName UserRegisterLocal
  * @apiGroup User
@@ -25,7 +26,7 @@ let api = {};
  */
 api.registerLocal = {
   method: 'POST',
-  url: '/user/register/local',
+  url: '/user/auth/local/register',
   handler (req, res, next) {
     let email = req.body.email.toLowerCase();
     let username = req.body.username;
@@ -85,8 +86,13 @@ api.registerLocal = {
   },
 };
 
+function _loginRes (user, req, res, next) {
+  if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {userId: user._id})));
+  res.status(200).json({id: user._id, apiToken: user.apiToken});
+}
+
 /**
- * @api {post} /user/login/local Login an user with email / username and password
+ * @api {post} /user/auth/local/login Login an user with email / username and password
  * @apiVersion 3.0.0
  * @apiName UserLoginLocal
  * @apiGroup User
@@ -99,7 +105,7 @@ api.registerLocal = {
  */
 api.loginLocal = {
   method: 'POST',
-  url: '/user/login/local',
+  url: '/user/auth/local/login',
   handler (req, res, next) {
     req.checkBody({
       username: {
@@ -134,9 +140,8 @@ api.loginLocal = {
       // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
       let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
 
-      if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {userId: user._id})));
       if (!isValidPassword) return next(new NotAuthorized(res.t('invalidLoginCredentials')));
-      res.status(200).json({id: user._id, apiToken: user.apiToken});
+      _loginRes(user, ...arguments);
     })
     .catch(next);
   },
@@ -145,20 +150,15 @@ api.loginLocal = {
 // Called as a callback by Facebook (or other social providers)
 api.loginSocial = {
   method: 'POST',
-  url: '/user/auth/social',
+  url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
   handler (req, res, next) {
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
 
-    if (network !== 'facebook') return next(new NotAuthorized('Only Facebook supported currently.'));
+    if (network !== 'facebook') return next(new NotAuthorized(res.t('onlyFbSupported')));
 
     passport._strategies[network].userProfile(accessToken, (err, profile) => {
       if (err) return next(err);
-
-      function _respond (user) {
-        if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {userId: user._id})));
-        return res.status(200).json({_id: user._id, apiToken: user.apiToken});
-      }
 
       User.findOne({
         [`auth.${network}.id`]: profile.id,
@@ -166,7 +166,7 @@ api.loginSocial = {
       .then((user) => {
         // User already signed up
         if (user) {
-          return _respond(user);
+          return _loginRes(user, ...arguments);
         } else { // Create new user
           user = new User({
             auth: {
@@ -180,7 +180,7 @@ api.loginSocial = {
 
           user.save()
           .then((savedUser) => {
-            _respond(savedUser);
+            _loginRes(user, ...arguments);
 
             // Clean previous email preferences
             if (savedUser.auth[network].emails && savedUser.auth.facebook.emails[0] && savedUser.auth[network].emails[0].value) {
@@ -204,13 +204,30 @@ api.loginSocial = {
   },
 };
 
-/* api.attachSocial = {
-
-};
-
+/**
+ * @api {delete} /user/auth/social/:network Delete a social authentication method (only facebook supported)
+ * @apiVersion 3.0.0
+ * @apiName UserDeleteSocial
+ * @apiGroup User
+ *
+ * @apiSuccess {Boolean=true} success Always true
+ */
 api.deleteSocial = {
+  method: 'DELETE',
+  url: '/user/auth/social/:network',
+  middlewares: [authWithHeaders],
+  handler (req, res, next) {
+    let user = res.locals.user;
+    let network = req.params.network;
 
-};*/
+    if (network !== 'facebook') return next(new NotAuthorized(res.t('onlyFbSupported')));
+    if (!user.auth.local.username) return next(new NotAuthorized(res.t('cantDetachFb'))); // TODO move to model validation?
+
+    User.update({_id: user._id}, {$unset: {'auth.facebook': 1}})
+    .then(() => res.status(200).json({ok: true})) // TODO standardize this type of response
+    .catch(next);
+  },
+};
 
 
 export default api;
