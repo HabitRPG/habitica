@@ -1,3 +1,7 @@
+import {
+  DAY_MAPPING   // temporary, pending further refactoring
+} from '../../common/script/cron';
+
 var $w, _, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
@@ -113,17 +117,6 @@ api.startOfDay = function(options) {
   return dayStart;
 };
 
-api.dayMapping = {
-  0: 'su',
-  1: 'm',
-  2: 't',
-  3: 'w',
-  4: 'th',
-  5: 'f',
-  6: 's'
-};
-
-
 /*
   Absolute diff from "yesterday" till now
  */
@@ -175,7 +168,7 @@ api.shouldDo = function(day, dailyTask, options) {
       return false;
     }
     dayOfWeekNum = startOfDayWithCDSTime.day();
-    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]];
+    dayOfWeekCheck = dailyTask.repeat[DAY_MAPPING[dayOfWeekNum]];
     return dayOfWeekCheck;
   } else {
     return false;

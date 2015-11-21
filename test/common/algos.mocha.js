@@ -1,4 +1,8 @@
 /* eslint-disable camelcase, func-names, no-shadow */
+import {
+  DAY_MAPPING,
+} from '../../common/script/cron';
+
 let expect = require('expect.js');
 let sinon = require('sinon');
 let moment = require('moment');
@@ -301,7 +305,7 @@ describe('User', () => {
 
     let yesterday = moment().subtract(1, 'days');
 
-    user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false;
+    user.dailys[0].repeat[DAY_MAPPING[yesterday.day()]] = false;
     _.each(user.dailys.slice(1), (d) => {
       d.completed = true;
     });
@@ -383,7 +387,7 @@ describe('User', () => {
     it('does not reset checklist on grey incomplete dailies', () => {
       let yesterday = moment().subtract(1, 'days');
 
-      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false;
+      user.dailys[0].repeat[DAY_MAPPING[yesterday.day()]] = false;
       user.dailys[0].checklist = [
         {
           text: '1',
@@ -407,7 +411,7 @@ describe('User', () => {
     it('resets checklist on complete grey complete dailies', () => {
       let yesterday = moment().subtract(1, 'days');
 
-      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false;
+      user.dailys[0].repeat[DAY_MAPPING[yesterday.day()]] = false;
       user.dailys[0].checklist = [
         {
           text: '1',
