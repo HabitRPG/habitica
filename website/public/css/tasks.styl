@@ -394,6 +394,11 @@ for $stage in $stages
   a.badge
     position: relative; top:-2px
 
+  a.push-down span
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+
 .task:hover .task-meta-controls
   opacity: 1
 
