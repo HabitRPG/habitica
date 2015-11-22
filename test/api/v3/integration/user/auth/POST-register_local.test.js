@@ -100,12 +100,10 @@ describe('POST /user/auth/local/register', () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
-      let confirmPassword = 'password';
 
       return expect(api.post('/user/auth/local/register', {
         username,
         email:           email,
-        confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',

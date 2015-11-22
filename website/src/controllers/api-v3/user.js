@@ -30,12 +30,31 @@ api.registerLocal = {
   handler (req, res, next) {
     let { email, username, password, confirmPassword } = req.body;
 
-    // Validate required params
-    if (!username) return next(new NotAuthorized(res.t('missingUsername')));
-    if (!email) return next(new NotAuthorized(res.t('missingEmail')));
-    if (!validator.isEmail(email)) return next(new NotAuthorized(res.t('invalidEmail')));
-    if (!password) return next(new NotAuthorized(res.t('missingPassword')));
-    if (password !== confirmPassword) return next(new NotAuthorized(res.t('passwordConfirmationMatch')));
+    req.checkBody({
+      username: {
+        notEmpty: true,
+        errorMessage: res.t('missingUsername'),
+      },
+      email: {
+        notEmpty: true,
+        isEmail: {
+          errorMessage: res.t('invalidEmail'),
+        },
+        errorMessage: res.t('missingEmail'),
+      },
+      password: {
+        notEmpty: true,
+        isEqual: {
+          options: [confirmPassword],
+          errorMessage: res.t('passwordConfirmationMatch'),
+        },
+        errorMessage: res.t('missingPassword'),
+      },
+    });
+
+    let validationErrors = req.validationErrors();
+
+    if (validationErrors) return next(new NotAuthorized(validationErrors[0].msg));
 
     // Get the lowercase version of username to check that we do not have duplicates
     // So we can search for it in the database and then reject the choosen username if 1 or more results are found
