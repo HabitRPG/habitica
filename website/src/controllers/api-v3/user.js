@@ -20,7 +20,7 @@ let api = {};
  * @apiParam {String} username Username of the new user
  * @apiParam {String} email Email address of the new user
  * @apiParam {String} password Password for the new user account
- * @apiParam {String} passwordConfirmation Password confirmation
+ * @apiParam {String} confirmPassword Password confirmation
  *
  * @apiSuccess {Object} user The user object
  */
@@ -28,32 +28,19 @@ api.registerLocal = {
   method: 'POST',
   url: '/user/auth/local/register',
   handler (req, res, next) {
-    let email = req.body.email && req.body.email.toLowerCase();
-    let username = req.body.username;
+    let { email, username, password, confirmPassword } = req.body;
+
+    // Validate required params
+    if (!username) return next(new NotAuthorized(res.t('missingUsername')));
+    if (!email) return next(new NotAuthorized(res.t('missingEmail')));
+    if (!validator.isEmail(email)) return next(new NotAuthorized(res.t('invalidEmail')));
+    if (!password) return next(new NotAuthorized(res.t('missingPassword')));
+    if (password !== confirmPassword) return next(new NotAuthorized(res.t('passwordConfirmationMatch')));
+
     // Get the lowercase version of username to check that we do not have duplicates
     // So we can search for it in the database and then reject the choosen username if 1 or more results are found
-    let lowerCaseUsername = username && username.toLowerCase();
-
-    let newUser = new User({
-      auth: {
-        local: {
-          username,
-          lowerCaseUsername, // Store the lowercase version of the username
-          email, // Store email as lowercase
-          salt: passwordUtils.makeSalt(),
-          password: req.body.password,
-          passwordConfirmation: req.body.passwordConfirmation,
-        },
-      },
-      preferences: {
-        language: req.language,
-      },
-    });
-
-    newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
-    let validationErrors = newUser.validateSync(); // Validate synchronously for speed, remove if we add any async validator
-
-    if (validationErrors) return next(validationErrors);
+    email = email.toLowerCase();
+    let lowerCaseUsername = username.toLowerCase();
 
     // Search for duplicates using lowercase version of username
     User.findOne({$or: [
@@ -63,10 +50,29 @@ api.registerLocal = {
     .exec()
     .then((user) => {
       if (user) {
-        if (email === user.auth.local.email) return next(new NotAuthorized(res.t('emailTaken')));
+        if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
         // Check that the lowercase username isn't already used
-        if (lowerCaseUsername === user.auth.local.lowerCaseUsername) return next(new NotAuthorized(res.t('usernameTaken')));
+        if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
       }
+
+      let salt = passwordUtils.makeSalt();
+      let hashed_password = passwordUtils.encrypt(password, salt); // eslint-disable-line camelcase
+      let newUser = new User({
+        auth: {
+          local: {
+            username,
+            lowerCaseUsername,
+            email,
+            salt,
+            hashed_password, // eslint-disable-line camelcase
+          },
+        },
+        preferences: {
+          language: req.language,
+        },
+      });
+
+      newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
 
       return newUser.save();
     })
@@ -75,8 +81,8 @@ api.registerLocal = {
 
       // Clean previous email preferences
       EmailUnsubscription
-      .remove({email: savedUser.auth.local.email})
-      .then(() => sendTxnEmail(savedUser, 'welcome'));
+        .remove({email: savedUser.auth.local.email})
+        .then(() => sendTxnEmail(savedUser, 'welcome'));
 
       res.analytics.track('register', {
         category: 'acquisition',
