@@ -122,7 +122,8 @@ export function preenHistory (history) {
     return Boolean(h); // nulls are from corruption somehow - TODO is this still needed?
   });
   let newHistory = [];
-  let preen = function preener (amount, groupBy) {
+
+  function preen (amount, groupBy) {
     let groups = _.chain(history).groupBy(function getDateGroupings (h) {
       return moment(h.date).format(groupBy);
     }).sortBy(function sortByDate (h, k) {
@@ -140,7 +141,7 @@ export function preenHistory (history) {
       });
       return true;
     });
-  };
+  }
 
   // Keep the last:
   preen(50, 'YYYY'); // 50 years (habit will toootally be around that long!)
@@ -154,25 +155,3 @@ export function preenHistory (history) {
   }));
   return newHistory;
 }
-
-/*
-export function preenUserHistory (minHistLen = 7) {
-  _.each(user.habits.concat(user.dailys), function(task) {
-    var ref;
-    if (((ref = task.history) != null ? ref.length : void 0) > minHistLen) {
-      task.history = preenHistory(task.history);
-    }
-    return true;
-  });
-  _.defaults(user.history, {
-    todos: [],
-    exp: []
-  });
-  if (user.history.exp.length > minHistLen) {
-    user.history.exp = preenHistory(user.history.exp);
-  }
-  if (user.history.todos.length > minHistLen) {
-    return user.history.todos = preenHistory(user.history.todos);
-  }
-}
-*/
