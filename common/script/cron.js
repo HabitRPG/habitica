@@ -4,8 +4,7 @@
   ------------------------------------------------------
  */
 import _ from 'lodash';
-
-let moment = require('moment');
+import moment from 'moment';
 
 export const DAY_MAPPING = {
   0: 'su',
@@ -38,10 +37,7 @@ export function sanitizeOptions (o) {
   };
 }
 
-export function startOfWeek (options) {
-  if (options === null) {
-    options = {};
-  }
+export function startOfWeek (options = {}) {
   let o = sanitizeOptions(options);
 
   return moment(o.now).startOf('week');
@@ -54,10 +50,7 @@ export function startOfWeek (options) {
   This is NOT suitable for manipulating any dates that are displayed to the user as a date with no time portion, such as a Daily's Start Dates (e.g., a Start Date of today shows only the date, so it should be considered to be today even if the hidden time portion is before CDS).
  */
 
-export function startOfDay (options) {
-  if (options === null) {
-    options = {};
-  }
+export function startOfDay (options = {}) {
   let o = sanitizeOptions(options);
   let dayStart = moment(o.now).startOf('day').add({ hours: o.dayStart });
 
