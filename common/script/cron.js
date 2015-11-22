@@ -22,8 +22,8 @@ export const DAY_MAPPING = {
   {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times.
  */
 
-export function sanitizeOptions (o) {
-  let ref = Number(o.dayStart);
+function sanitizeOptions (o) {
+  let ref = Number(o.dayStart || 0);
   let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
   let timezoneOffset = o.timezoneOffset ? Number(o.timezoneOffset) : Number(moment().zone());
   // TODO: check and clean timezoneOffset as for dayStart (e.g., might not be a number)
@@ -70,3 +70,41 @@ export function daysSince (yesterday, options = {}) {
   return startOfDay(_.defaults({ now: o.now }, o)).diff(startOfDay(_.defaults({ now: yesterday }, o)), 'days');
 }
 
+/*
+  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
+ */
+
+export function shouldDo (day, dailyTask, options = {}) {
+  if (dailyTask.type !== 'daily') {
+    return false;
+  }
+  let o = sanitizeOptions(options);
+  let startOfDayWithCDSTime = startOfDay(_.defaults({ now: day }, o));
+
+  // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
+  // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
+  // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
+  let taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
+
+  taskStartDate = moment(taskStartDate).startOf('day');
+  if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
+    return false; // Daily starts in the future
+  }
+  if (dailyTask.frequency === 'daily') { // "Every X Days"
+    if (!dailyTask.everyX) {
+      return false; // error condition
+    }
+    let daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
+
+    return daysSinceTaskStart % dailyTask.everyX === 0;
+  } else if (dailyTask.frequency === 'weekly') { // "On Certain Days of the Week"
+    if (!dailyTask.repeat) {
+      return false; // error condition
+    }
+    let dayOfWeekNum = startOfDayWithCDSTime.day(); // e.g., 0 for Sunday
+
+    return dailyTask.repeat[DAY_MAPPING[dayOfWeekNum]];
+  } else {
+    return false; // error condition - unexpected frequency string
+  }
+}

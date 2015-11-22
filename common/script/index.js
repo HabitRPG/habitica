@@ -1,8 +1,6 @@
 import {
-  DAY_MAPPING,     // temporary, pending further refactoring
-  sanitizeOptions, // temporary, pending further refactoring
-  startOfDay,      // temporary, pending further refactoring
   daysSince,
+  shouldDo,
 } from '../../common/script/cron';
 
 var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
@@ -19,6 +17,7 @@ i18n = require('./i18n');
 api = module.exports = {};
 
 api.i18n = i18n;
+api.shouldDo = shouldDo;
 
 $w = api.$w = function(s) {
   return s.split(' ');
@@ -74,47 +73,6 @@ api.planGemLimits = {
   Time / Day
   ------------------------------------------------------
  */
-
-/*
-  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
- */
-
-api.shouldDo = function(day, dailyTask, options) {
-  var dayOfWeekCheck, dayOfWeekNum, daysSinceTaskStart, everyXCheck, o, startOfDayWithCDSTime, taskStartDate;
-  if (options == null) {
-    options = {};
-  }
-  if (dailyTask.type !== 'daily') {
-    return false;
-  }
-  o = sanitizeOptions(options);
-  startOfDayWithCDSTime = startOfDay(_.defaults({
-    now: day
-  }, o));
-  taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
-  taskStartDate = moment(taskStartDate).startOf('day');
-  if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
-    return false;
-  }
-  if (dailyTask.frequency === 'daily') {
-    if (!dailyTask.everyX) {
-      return false;
-    }
-    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
-    everyXCheck = daysSinceTaskStart % dailyTask.everyX === 0;
-    return everyXCheck;
-  } else if (dailyTask.frequency === 'weekly') {
-    if (!dailyTask.repeat) {
-      return false;
-    }
-    dayOfWeekNum = startOfDayWithCDSTime.day();
-    dayOfWeekCheck = dailyTask.repeat[DAY_MAPPING[dayOfWeekNum]];
-    return dayOfWeekCheck;
-  } else {
-    return false;
-  }
-};
-
 
 /*
   ------------------------------------------------------
@@ -468,7 +426,7 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     classes += " beingEdited";
   }
   if (type === 'todo' || type === 'daily') {
-    if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task, {
+    if (completed || (type === 'daily' && !shouldDo(+(new Date), task, {
       dayStart: dayStart
     }))) {
       classes += " completed";
@@ -2532,7 +2490,7 @@ api.wrap = function(user, main) {
           thatDay = moment(now).subtract({
             days: 1
           });
-          if (api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
+          if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
             _.each(daily.checklist, (function(box) {
               box.completed = false;
               return true;
@@ -2586,7 +2544,7 @@ api.wrap = function(user, main) {
             thatDay = moment(now).subtract({
               days: n + 1
             });
-            if (api.shouldDo(thatDay.toDate(), task, user.preferences)) {
+            if (shouldDo(thatDay.toDate(), task, user.preferences)) {
               scheduleMisses++;
               if (user.stats.buffs.stealth) {
                 user.stats.buffs.stealth--;
