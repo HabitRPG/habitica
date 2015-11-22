@@ -108,3 +108,71 @@ export function shouldDo (day, dailyTask, options = {}) {
     return false; // error condition - unexpected frequency string
   }
 }
+
+
+/*
+  Preen history for users with > 7 history entries
+  This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array of averages, condensing more the further back in time we go.
+  Eg, 7 entries each for last 7 days; 1 entry each week of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
+ */
+
+export function preenHistory (history) {
+  // 'export' is temporary pending further refactoring
+  history = _.filter(history, function discardNulls (h) {
+    return Boolean(h); // nulls are from corruption somehow - TODO is this still needed?
+  });
+  let newHistory = [];
+  let preen = function preener (amount, groupBy) {
+    let groups = _.chain(history).groupBy(function getDateGroupings (h) {
+      return moment(h.date).format(groupBy);
+    }).sortBy(function sortByDate (h, k) {
+      return k;
+    }).value(); // turn into an array
+
+    groups = groups.slice(-amount);
+    groups.pop(); // get rid of 'this week', 'this month', etc (except for case of days)
+    return _.each(groups, function recreateHistory (group) {
+      newHistory.push({
+        date: moment(group[0].date).toDate(),
+        value: _.reduce(group, function makeAverage (m, obj) {
+          return m + obj.value;
+        }, 0) / group.length,
+      });
+      return true;
+    });
+  };
+
+  // Keep the last:
+  preen(50, 'YYYY'); // 50 years (habit will toootally be around that long!)
+  preen(moment().format('MM'), 'YYYYMM'); // last MM months (eg, if today is 05, keep the last 5 months)
+  // Then keep all days of this month. Note, the extra logic is to account for Habits, which can be counted multiple times per day
+  // FIXME I'd rather keep 1-entry/week of this month, then last 'd' days in this week. However, I'm having issues where the 1st starts mid week
+  let thisMonth = moment().format('YYYYMM');
+
+  newHistory = newHistory.concat(_.filter(history, function keepThisMonthsData (h) {
+    return moment(h.date).format('YYYYMM') === thisMonth;
+  }));
+  return newHistory;
+}
+
+/*
+export function preenUserHistory (minHistLen = 7) {
+  _.each(user.habits.concat(user.dailys), function(task) {
+    var ref;
+    if (((ref = task.history) != null ? ref.length : void 0) > minHistLen) {
+      task.history = preenHistory(task.history);
+    }
+    return true;
+  });
+  _.defaults(user.history, {
+    todos: [],
+    exp: []
+  });
+  if (user.history.exp.length > minHistLen) {
+    user.history.exp = preenHistory(user.history.exp);
+  }
+  if (user.history.todos.length > minHistLen) {
+    return user.history.todos = preenHistory(user.history.todos);
+  }
+}
+*/
