@@ -31,7 +31,6 @@ describe('response middleware', function() {
     expect(res.status).to.be.calledWith(200);
     expect(res.json).to.be.calledWith({
       field: 1,
-      success: true,
     });
   });
 
@@ -45,7 +44,6 @@ describe('response middleware', function() {
     expect(res.status).to.be.calledWith(403);
     expect(res.json).to.be.calledWith({
       field: 1,
-      success: false,
     });
   });
 });

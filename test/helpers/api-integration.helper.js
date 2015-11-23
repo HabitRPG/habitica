@@ -252,7 +252,6 @@ function _requestMaker (user, method, additionalSets) {
 
             if (API_V === 'v3') {
               return reject({
-                success: err.response.body.success,
                 code: err.status,
                 error: err.response.body.error,
                 message: err.response.body.message,
