@@ -6,10 +6,9 @@ import {
   BadRequest,
   InternalServerError,
 } from '../../libs/api-v3/errors';
+import { map } from 'lodash';
 
-export default function errorHandler (err, req, res, next) {
-  if (!err) return next();
-
+export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
   // Log the original error with some metadata
   let stack = err.stack || err.message || err;
 
@@ -33,10 +32,30 @@ export default function errorHandler (err, req, res, next) {
     responseErr.message = err.message;
   }
 
+  // TODO make mongoose and express-validator errors more recognizable
+
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {
-    responseErr = new BadRequest('Invalid request parameters.');
-    responseErr.errors = err;
+    responseErr = new BadRequest(res.t('invalidReqParams'));
+    responseErr.errors = err.map((paramErr) => {
+      return {
+        message: paramErr.msg,
+        param: paramErr.param,
+        value: paramErr.value,
+      };
+    });
+  }
+
+  // Handle mongoose validation errors
+  if (err.name === 'ValidationError') {
+    responseErr = new BadRequest(err.message);
+    responseErr.errors = map(err.errors, (mongooseErr) => {
+      return {
+        message: mongooseErr.message,
+        path: mongooseErr.path,
+        value: mongooseErr.value,
+      };
+    });
   }
 
   if (!responseErr || responseErr.httpCode >= 500) {
@@ -48,11 +67,12 @@ export default function errorHandler (err, req, res, next) {
     responseErr = new InternalServerError();
   }
 
-  // TODO unless status >= 500 return data attached to errors
-  return res
-    .status(responseErr.httpCode)
-    .json({
-      error: responseErr.name,
-      message: responseErr.message,
-    });
+  let jsonRes = {
+    error: responseErr.name,
+    message: responseErr.message,
+  };
+
+  if (responseErr.errors) jsonRes.errors = responseErr.errors;
+
+  return res.respond(responseErr.httpCode, jsonRes);
 }

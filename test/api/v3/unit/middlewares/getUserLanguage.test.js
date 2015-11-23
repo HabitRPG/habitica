@@ -4,6 +4,7 @@ import {
   generateNext,
 } from '../../../../helpers/api-unit.helper';
 import getUserLanguage from '../../../../../website/src/middlewares/api-v3/getUserLanguage';
+import { i18n } from '../../../../../common';
 import Q from 'q';
 import { model as User } from '../../../../../website/src/models/user';
 import { translations } from '../../../../../website/src/libs/api-v3/i18n';
@@ -11,6 +12,11 @@ import accepts from 'accepts';
 
 describe('getUserLanguage', () => {
   let res, req, next;
+
+  let checkResT = (req) => {
+    expect(res.t).to.be.a('function');
+    expect(res.t('help')).to.equal(i18n.t('help', req.language));
+  };
 
   beforeEach(() => {
     res = generateRes();
@@ -26,6 +32,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, next);
       expect(req.language).to.equal('es');
+      checkResT(req);
     });
 
     it('falls back to english if the query parameter language does not exists', () => {
@@ -35,6 +42,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, next);
       expect(req.language).to.equal('en');
+      checkResT(req);
     });
 
     it('uses query even if the request includes a user and session', () => {
@@ -56,6 +64,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, next);
       expect(req.language).to.equal('es');
+      checkResT(req);
     });
   });
 
@@ -71,6 +80,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, next);
       expect(req.language).to.equal('it');
+      checkResT(req);
     });
 
     it('falls back to english if the user preferred language is not avalaible', (done) => {
@@ -84,6 +94,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('en');
+        checkResT(req);
         done();
       });
     });
@@ -103,6 +114,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, next);
       expect(req.language).to.equal('it');
+      checkResT(req);
     });
   });
 
@@ -124,6 +136,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('it');
+        checkResT(req);
         done();
       });
     });
@@ -135,6 +148,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('pt');
+        checkResT(req);
         done();
       });
     });
@@ -144,6 +158,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('he');
+        checkResT(req);
         done();
       });
     });
@@ -153,6 +168,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('he');
+        checkResT(req);
         done();
       });
     });
@@ -162,6 +178,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('fr');
+        checkResT(req);
         done();
       });
     });
@@ -171,6 +188,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('fr');
+        checkResT(req);
         done();
       });
     });
@@ -180,6 +198,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('es');
+        checkResT(req);
         done();
       });
     });
@@ -189,6 +208,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('es_419');
+        checkResT(req);
         done();
       });
     });
@@ -198,6 +218,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('es_419');
+        checkResT(req);
         done();
       });
     });
@@ -207,6 +228,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('zh_TW');
+        checkResT(req);
         done();
       });
     });
@@ -216,6 +238,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('en');
+        checkResT(req);
         done();
       });
     });
@@ -225,6 +248,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('en');
+        checkResT(req);
         done();
       });
     });
@@ -234,6 +258,7 @@ describe('getUserLanguage', () => {
 
       getUserLanguage(req, res, () => {
         expect(req.language).to.equal('en');
+        checkResT(req);
         done();
       });
     });

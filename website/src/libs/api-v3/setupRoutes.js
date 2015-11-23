@@ -14,7 +14,7 @@ fs
     let controller = require(CONTROLLERS_PATH + fileName); // eslint-disable-line global-require
 
     _.each(controller, (action) => {
-      let {method, url, middlewares, handler} = action;
+      let {method, url, middlewares = [], handler} = action;
 
       method = method.toLowerCase();
       router[method](url, ...middlewares, handler);

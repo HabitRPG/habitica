@@ -30,7 +30,7 @@ let app = express();
 // Mongoose configuration
 
 // Use Q promises instead of mpromise in mongoose
-mongoose.Promise = Q;
+mongoose.Promise = Q.Promise;
 let mongooseOptions = !IS_PROD ? {} : {
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
   server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },

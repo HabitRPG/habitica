@@ -8,8 +8,8 @@ export class CustomError extends Error {
 }
 
 /**
- * @apiDefine NotFound
- * @apiError NotFound The client is not authorized to make this request.
+ * @apiDefine NotAuthorized
+ * @apiError NotAuthorized The client is not authorized to make this request.
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 401 Unauthorized

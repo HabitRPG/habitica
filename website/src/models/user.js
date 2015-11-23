@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 import shared from '../../../common';
 import _ from 'lodash';
+import validator from 'validator';
 import moment from 'moment';
 import TaskSchemas from './task';
 // import {model as Challenge} from './challenge';
@@ -24,14 +25,22 @@ export let schema = new Schema({
 
   auth: {
     blocked: Boolean,
-    facebook: Schema.Types.Mixed, // TODO validate
+    facebook: {type: Schema.Types.Mixed, default: {}}, // TODO validate, IMPORTANT make sure the {} default isn't shared across all user objects
     local: {
-      email: String,
-      hashed_password: String, // eslint-disable-line camelcase
-      salt: String,
-      username: String,
+      email: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        validate: [validator.isEmail, shared.i18n.t('invalidEmail')], // TODO translate error messages here, use preferences.language?
+      },
+      username: {
+        type: String,
+        trim: true,
+      },
       // Store a lowercase version of username to check for duplicates
       lowerCaseUsername: String,
+      hashed_password: String, // eslint-disable-line camelcase
+      salt: String,
     },
     timestamps: {
       created: {type: Date, default: Date.now},
@@ -208,6 +217,7 @@ export let schema = new Schema({
     party: Schema.Types.Mixed, // TODO dictionary
   },
 
+  // TODO we're storing too many fields here, find a way to reduce them
   items: {
     gear: {
       owned: _.transform(shared.content.gear.flat, (m, v) => {
@@ -328,6 +338,7 @@ export let schema = new Schema({
     orderAscending: {type: String, default: 'ascending'},
     quest: {
       key: String,
+      // TODO why are we storing quest progress here too and not only on party object?
       progress: {
         up: {type: Number, default: 0},
         down: {type: Number, default: 0},
