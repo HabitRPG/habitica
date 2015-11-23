@@ -4,7 +4,7 @@
   "missingEmail": "Missing email.",
   "missingUsername": "Missing username.",
   "missingPassword": "Missing password.",
-  "invalidEmail": "Invalid email address.",
+  "notAnEmail": "Invalid email address.",
   "emailTaken": "Email already taken.",
   "usernameTaken": "Username already taken.",
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
@@ -12,5 +12,7 @@
   "invalidCredentials": "User not found with given auth credentials.",
   "accountSuspended": "Account has been suspended, please contact leslie@habitica.com with your UUID \"<%= userId %>\" for assistance.",
   "onlyFbSupported": "Only Facebook supported currently.",
-  "cantDetachFb": "Account lacks another authentication method, can't detach Facebook."
+  "cantDetachFb": "Account lacks another authentication method, can't detach Facebook.",
+  "onlySocialAttachLocal": "Local auth can only be added to a social account.",
+  "invalidReqParams": "Invalid request parameters."
 }

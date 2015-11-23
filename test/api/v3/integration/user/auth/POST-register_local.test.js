@@ -39,9 +39,9 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('passwordConfirmationMatch'),
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
       });
     });
 
@@ -56,9 +56,9 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('missingUsername'),
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
       });
     });
 
@@ -72,9 +72,9 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('missingEmail'),
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
       });
     });
 
@@ -90,9 +90,9 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('invalidEmail'),
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
       });
     });
 
@@ -107,9 +107,9 @@ describe('POST /user/auth/local/register', () => {
         email:           email,
         confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('missingPassword'),
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
       });
     });
   });

@@ -12,7 +12,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 let api = {};
 
 /**
- * @api {post} /user/auth/local/register Register a new user with email, username and password or add local authentication to a social user
+ * @api {post} /user/auth/local/register Register a new user with email, username and password or attach local auth to a social user
  * @apiVersion 3.0.0
  * @apiName UserRegisterLocal
  * @apiGroup User
@@ -22,21 +22,32 @@ let api = {};
  * @apiParam {String} password Password for the new user account
  * @apiParam {String} confirmPassword Password confirmation
  *
- * @apiSuccess {Object} user The user object
+ * @apiSuccess {Object} user The user object, if we just attached local auth to a social user then only user.auth.local
  */
 api.registerLocal = {
   method: 'POST',
+  middlewares: [authWithHeaders(true)],
   url: '/user/auth/local/register',
   handler (req, res, next) {
-    let { email, username, password, confirmPassword } = req.body;
+    let fbUser = res.locals.user; // If adding local auth to social user
 
-    // Validate required params
-    if (!username) return next(new NotAuthorized(res.t('missingUsername')));
-    if (!email) return next(new NotAuthorized(res.t('missingEmail')));
-    if (!validator.isEmail(email)) return next(new NotAuthorized(res.t('invalidEmail')));
-    if (!password) return next(new NotAuthorized(res.t('missingPassword')));
-    if (password !== confirmPassword) return next(new NotAuthorized(res.t('passwordConfirmationMatch')));
+    req.checkBody({
+      email: {
+        notEmpty: {errorMessage: res.t('missingEmail')},
+        isEmail: {errorMessage: res.t('notAnEmail')},
+      },
+      username: {notEmpty: {errorMessage: res.t('missingUsername')}},
+      password: {
+        notEmpty: {errorMessage: res.t('missingPassword')},
+        equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
+      },
+    });
 
+    let validationErrors = req.validationErrors();
+
+    if (validationErrors) return next(validationErrors);
+
+    let { email, username, password } = req.body;
     // Get the lowercase version of username to check that we do not have duplicates
     // So we can search for it in the database and then reject the choosen username if 1 or more results are found
     email = email.toLowerCase();
@@ -57,7 +68,7 @@ api.registerLocal = {
 
       let salt = passwordUtils.makeSalt();
       let hashed_password = passwordUtils.encrypt(password, salt); // eslint-disable-line camelcase
-      let newUser = new User({
+      let newUser = {
         auth: {
           local: {
             username,
@@ -70,11 +81,17 @@ api.registerLocal = {
         preferences: {
           language: req.language,
         },
-      });
+      };
 
-      newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
-
-      return newUser.save();
+      if (fbUser) {
+        if (!fbUser.auth.facebook.id) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+        fbUser.auth.local = newUser;
+        return fbUser.save();
+      } else {
+        newUser = new User(newUser);
+        newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
+        return newUser.save();
+      }
     })
     .then((savedUser) => {
       res.status(201).json(savedUser);
@@ -84,12 +101,14 @@ api.registerLocal = {
         .remove({email: savedUser.auth.local.email})
         .then(() => sendTxnEmail(savedUser, 'welcome'));
 
-      res.analytics.track('register', {
-        category: 'acquisition',
-        type: 'local',
-        gaLabel: 'local',
-        uuid: savedUser._id,
-      });
+      if (!savedUser.auth.facebook.id) {
+        res.analytics.track('register', {
+          category: 'acquisition',
+          type: 'local',
+          gaLabel: 'local',
+          uuid: savedUser._id,
+        });
+      }
     })
     .catch(next);
   },
@@ -225,7 +244,7 @@ api.loginSocial = {
 api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
-  middlewares: [authWithHeaders],
+  middlewares: [authWithHeaders()],
   handler (req, res, next) {
     let user = res.locals.user;
     let network = req.params.network;

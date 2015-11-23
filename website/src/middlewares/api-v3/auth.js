@@ -8,29 +8,33 @@ import {
 } from '../../models/user';
 
 // Authenticate a request through the x-api-user and x-api key header
-export function authWithHeaders (req, res, next) {
-  let userId = req.header['x-api-user'];
-  let apiToken = req.header['x-api-key'];
+// If optional is true, don't error on missing authentication
+export function authWithHeaders (optional = false) {
+  return function authWithHeadersHandler (req, res, next) {
+    let userId = req.header['x-api-user'];
+    let apiToken = req.header['x-api-key'];
 
-  if (!userId || !apiToken) {
-    return next(new BadRequest(res.t('missingAuthHeaders')));
+    if (!userId || !apiToken) {
+      if (optional) return next();
+      return next(new BadRequest(res.t('missingAuthHeaders')));
+    }
+
+    User.findOne({
+      _id: userId,
+      apiToken,
+    })
+    .exec()
+    .then((user) => {
+      if (!user) throw new NotAuthorized(i18n.t('invalidCredentials'));
+      if (user.auth.blocked) throw new NotAuthorized(i18n.t('accountSuspended', {userId: user._id}));
+
+      res.locals.user = user;
+      // TODO use either session/cookie or headers, not both
+      req.session.userId = user._id;
+      next();
+    })
+    .catch(next);
   }
-
-  User.findOne({
-    _id: userId,
-    apiToken,
-  })
-  .exec()
-  .then((user) => {
-    if (!user) throw new NotAuthorized(i18n.t('invalidCredentials'));
-    if (user.auth.blocked) throw new NotAuthorized(i18n.t('accountSuspended', {userId: user._id}));
-
-    res.locals.user = user;
-    // TODO use either session/cookie or headers, not both
-    req.session.userId = user._id;
-    next();
-  })
-  .catch(next);
 }
 
 // Authenticate a request through a valid session

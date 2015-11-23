@@ -36,7 +36,7 @@ export default function errorHandler (err, req, res, next) {
 
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {
-    responseErr = new BadRequest('Invalid request parameters.');
+    responseErr = new BadRequest(res.t('invalidReqParams'));
     responseErr.errors = err; // TODO format
   }
 
