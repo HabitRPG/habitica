@@ -1,4 +1,11 @@
-var $w, _, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder,
+import {
+  daysSince,
+  shouldDo,
+  preenHistory, // temporary pending further refactoring
+} from '../../common/script/cron';
+import * as statHelpers from './statHelpers';
+
+var $w, _, api, content, i18n, moment, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
@@ -12,8 +19,7 @@ i18n = require('./i18n');
 api = module.exports = {};
 
 api.i18n = i18n;
-
-import * as statHelpers from './statHelpers';
+api.shouldDo = shouldDo;
 
 api.maxLevel = statHelpers.MAX_LEVEL;
 api.capByLevel = statHelpers.capByLevel;
@@ -69,169 +75,6 @@ api.planGemLimits = {
   convCap: 25
 };
 
-
-/*
-  ------------------------------------------------------
-  Time / Day
-  ------------------------------------------------------
- */
-
-
-/*
-  Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
-  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
-  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
- */
-
-sanitizeOptions = function(o) {
-  var dayStart, now, ref, timezoneOffset;
-  dayStart = !_.isNaN(+o.dayStart) && (0 <= (ref = +o.dayStart) && ref <= 24) ? +o.dayStart : 0;
-  timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
-  now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
-  return {
-    dayStart: dayStart,
-    timezoneOffset: timezoneOffset,
-    now: now
-  };
-};
-
-api.startOfWeek = api.startOfWeek = function(options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return moment(o.now).startOf('week');
-};
-
-api.startOfDay = function(options) {
-  var dayStart, o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  dayStart = moment(o.now).startOf('day').add({
-    hours: o.dayStart
-  });
-  if (moment(o.now).hour() < o.dayStart) {
-    dayStart.subtract({
-      days: 1
-    });
-  }
-  return dayStart;
-};
-
-api.dayMapping = {
-  0: 'su',
-  1: 'm',
-  2: 't',
-  3: 'w',
-  4: 'th',
-  5: 'f',
-  6: 's'
-};
-
-
-/*
-  Absolute diff from "yesterday" till now
- */
-
-api.daysSince = function(yesterday, options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return api.startOfDay(_.defaults({
-    now: o.now
-  }, o)).diff(api.startOfDay(_.defaults({
-    now: yesterday
-  }, o)), 'days');
-};
-
-
-/*
-  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
- */
-
-api.shouldDo = function(day, dailyTask, options) {
-  var dayOfWeekCheck, dayOfWeekNum, daysSinceTaskStart, everyXCheck, o, startOfDayWithCDSTime, taskStartDate;
-  if (options == null) {
-    options = {};
-  }
-  if (dailyTask.type !== 'daily') {
-    return false;
-  }
-  o = sanitizeOptions(options);
-  startOfDayWithCDSTime = api.startOfDay(_.defaults({
-    now: day
-  }, o));
-  taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
-  taskStartDate = moment(taskStartDate).startOf('day');
-  if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
-    return false;
-  }
-  if (dailyTask.frequency === 'daily') {
-    if (!dailyTask.everyX) {
-      return false;
-    }
-    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
-    everyXCheck = daysSinceTaskStart % dailyTask.everyX === 0;
-    return everyXCheck;
-  } else if (dailyTask.frequency === 'weekly') {
-    if (!dailyTask.repeat) {
-      return false;
-    }
-    dayOfWeekNum = startOfDayWithCDSTime.day();
-    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]];
-    return dayOfWeekCheck;
-  } else {
-    return false;
-  }
-};
-
-/*
-Preen history for users with > 7 history entries
-This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
-of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
-of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
- */
-
-preenHistory = function(history) {
-  var newHistory, preen, thisMonth;
-  history = _.filter(history, function(h) {
-    return !!h;
-  });
-  newHistory = [];
-  preen = function(amount, groupBy) {
-    var groups;
-    groups = _.chain(history).groupBy(function(h) {
-      return moment(h.date).format(groupBy);
-    }).sortBy(function(h, k) {
-      return k;
-    }).value();
-    groups = groups.slice(-amount);
-    groups.pop();
-    return _.each(groups, function(group) {
-      newHistory.push({
-        date: moment(group[0].date).toDate(),
-        value: _.reduce(group, (function(m, obj) {
-          return m + obj.value;
-        }), 0) / group.length
-      });
-      return true;
-    });
-  };
-  preen(50, "YYYY");
-  preen(moment().format('MM'), "YYYYMM");
-  thisMonth = moment().format('YYYYMM');
-  newHistory = newHistory.concat(_.filter(history, function(h) {
-    return moment(h.date).format('YYYYMM') === thisMonth;
-  }));
-  return newHistory;
-};
-
-
 /*
   Preen 3-day past-completed To-Dos from Angular & mobile app
  */
@@ -243,7 +86,6 @@ api.preenTodos = function(tasks) {
     }));
   });
 };
-
 
 /*
   Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
@@ -486,7 +328,7 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     classes += " beingEdited";
   }
   if (type === 'todo' || type === 'daily') {
-    if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task, {
+    if (completed || (type === 'daily' && !shouldDo(+(new Date), task, {
       dayStart: dayStart
     }))) {
       classes += " completed";
@@ -2277,7 +2119,7 @@ api.wrap = function(user, main) {
         }
       }
       dropMultiplier = ((ref1 = user.purchased) != null ? (ref2 = ref1.plan) != null ? ref2.customerId : void 0 : void 0) ? 2 : 1;
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
+      if ((daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
         return;
       }
       if (((ref3 = user.flags) != null ? ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
@@ -2484,7 +2326,7 @@ api.wrap = function(user, main) {
         options = {};
       }
       now = +options.now || +(new Date);
-      daysMissed = api.daysSince(user.lastCron, _.defaults({
+      daysMissed = daysSince(user.lastCron, _.defaults({
         now: now
       }, user.preferences));
       if (!(daysMissed > 0)) {
@@ -2550,7 +2392,7 @@ api.wrap = function(user, main) {
           thatDay = moment(now).subtract({
             days: 1
           });
-          if (api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
+          if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
             _.each(daily.checklist, (function(box) {
               box.completed = false;
               return true;
@@ -2604,7 +2446,7 @@ api.wrap = function(user, main) {
             thatDay = moment(now).subtract({
               days: n + 1
             });
-            if (api.shouldDo(thatDay.toDate(), task, user.preferences)) {
+            if (shouldDo(thatDay.toDate(), task, user.preferences)) {
               scheduleMisses++;
               if (user.stats.buffs.stealth) {
                 user.stats.buffs.stealth--;
