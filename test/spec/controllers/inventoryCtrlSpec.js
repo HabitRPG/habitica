@@ -78,7 +78,21 @@ describe('Inventory Controller', function() {
       expect(rootScope.openModal).to.have.been.calledOnce;
       expect(rootScope.openModal).to.have.been.calledWith('hatchPet');
     });
-    
+
+    it('does not show modal if user tries to hatch a pet they own', function(){
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+      expect(user.items.eggs).to.eql({Cactus: 0});
+      expect(user.items.hatchingPotions).to.eql({Base: 0});
+      expect(user.items.pets).to.eql({'Cactus-Base': 5});
+      expect(scope.selectedEgg).to.eql(null);
+      expect(scope.selectedPotion).to.eql(null);
+      expect(rootScope.openModal).to.have.been.calledOnce;
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+      expect(rootScope.openModal).to.not.have.been.calledTwice;
+    });
+
     it('does not show pet hatching modal if user has opted out', function(){
       user.preferences.suppressModals.hatchPet = true;
       scope.chooseEgg('Cactus');
