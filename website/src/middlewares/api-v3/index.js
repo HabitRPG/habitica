@@ -5,6 +5,7 @@ import analytics from './analytics';
 import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
 import routes from '../../libs/api-v3/setupRoutes';
+import * as customExpressValidators from '../../libs/api-v3/customExpressValidators';
 import notFoundHandler from './notFound';
 import nconf from 'nconf';
 import morgan from 'morgan';
@@ -20,7 +21,12 @@ export default function attachMiddlewares (app) {
     extended: true, // Uses 'qs' library as old connect middleware
   }));
   app.use(bodyParser.json());
-  app.use(expressValidator()); // TODO config
+  app.use(expressValidator({
+    customValidators: customExpressValidators,
+    errorFormatter: (param, msg) => {
+      return msg;
+    },
+  }));
   app.use(analytics);
   app.use(getUserLanguage);
 
