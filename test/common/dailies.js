@@ -1,4 +1,7 @@
 /* eslint-disable camelcase */
+import {
+  startOfWeek,
+} from '../../common/script/cron';
 
 let expect = require('expect.js'); // eslint-disable-line no-shadow
 let moment = require('moment');
@@ -17,7 +20,7 @@ let repeatWithoutLastWeekday = () => { // eslint-disable-line no-unused-vars
     s: true,
   };
 
-  if (shared.startOfWeek(moment().zone(0)).isoWeekday() === 1) {
+  if (startOfWeek(moment().zone(0)).isoWeekday() === 1) {
     repeat.su = false;
   } else {
     repeat.s = false;
