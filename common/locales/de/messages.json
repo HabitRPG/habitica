@@ -44,12 +44,12 @@
     "messageGroupOnlyLeaderCanUpdate": "Nur der Gruppenleiter kann die Gruppe aktualisieren!",
     "messageGroupRequiresInvite": "Du kannst keiner Gruppe beitreten, zu der du nicht eingeladen wurdest.",
     "messageGroupCannotRemoveSelf": "Du kannst dich nicht selbst entfernen!",
-    "messageGroupChatBlankMessage": "You cannot send a blank message",
-    "messageGroupChatLikeOwnMessage": "Can't like your own message. Don't be that person.",
-    "messageGroupChatFlagOwnMessage": "Can't report your own message.",
-    "messageGroupChatFlagAlreadyReported": "You have already reported this message",
-    "messageGroupChatNotFound": "Message not found!",
-    "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",
+    "messageGroupChatBlankMessage": "Du kannst keine leere Nachricht versenden",
+    "messageGroupChatLikeOwnMessage": "\"Gefällt mir\" funktioniert nicht bei eigenen Nachrichten. Sei nicht so einer.",
+    "messageGroupChatFlagOwnMessage": "Du kannst deine eigene Nachricht nicht melden.",
+    "messageGroupChatFlagAlreadyReported": "Du hast diese Nachricht bereits gemeldet.",
+    "messageGroupChatNotFound": "Nachricht wurde nicht gefunden!",
+    "messageGroupChatAdminClearFlagCount": "Nur Admins können den Zählmarker zurücksetzen!",
     "messageUserOperationProtected": "Pfad `<%= operation %>` nicht gespeichert, da dieser geschützt ist.",
     "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden"
 }

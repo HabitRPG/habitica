@@ -147,5 +147,5 @@
     "partyChatEmpty": "Чат вашей команды пустует! Наберите сообщение в поле сверху, чтобы начать общаться.",
     "guildChatEmpty": "Чат этой гильдии пустует! Наберите сообщение в поле сверху, чтобы начать общаться.",
     "possessiveParty": "Команда игрока <%= name %>.",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

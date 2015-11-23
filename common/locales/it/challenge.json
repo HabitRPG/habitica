@@ -60,6 +60,8 @@
     "noPermissionEditChallenge": "Non hai i permessi per modificare questa sfida",
     "noPermissionDeleteChallenge": "Non hai i permessi per eliminare questa sfida",
     "noPermissionCloseChallenge": "Non hai i permessi per concludere questa sfida",
+    "congratulations": "Congratulazioni!",
+    "hurray": "Evviva!",
     "noChallengeOwner": "nessun proprietario",
-    "noChallengeOwnerPopover": "Questa sfida non ha un proprietario perché la persona che ha creato la sfida ha eliminato il suo account."
+    "noChallengeOwnerPopover": "Questa sfida non ha un proprietario perché la persona che ha creato la sfida ha eliminato il proprio account."
 }

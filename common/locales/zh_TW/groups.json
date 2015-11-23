@@ -121,7 +121,7 @@
     "inviteAlertInfo": "If you have friends already using Habitica, invite them by <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
     "inviteExistUser": "Invite Existing Users",
     "byColon": "作者：",
-    "inviteNewUsers": "Invite New Users",
+    "inviteNewUsers": "邀請新玩家",
     "sendInvitations": "發送邀請",
     "invitationsSent": "邀請已發送",
     "inviteAlertInfo2": "或者分享這個連接(複製／粘貼):",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "你的隊伍聊天室太安靜了！趕快發送訊息打破沉默吧。",
     "guildChatEmpty": "This guild's chat is empty! Type a message in the box above to start chatting.",
     "possessiveParty": "<%= name %>的隊伍",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Communit Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
 }

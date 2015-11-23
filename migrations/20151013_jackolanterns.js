@@ -1,4 +1,4 @@
-var migrationName = 'new_stuff.js';
+var migrationName = '20151013_jackolanterns.js';
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 

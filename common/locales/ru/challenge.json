@@ -60,6 +60,8 @@
     "noPermissionEditChallenge": "У вас нет прав на редактирование этого испытания.",
     "noPermissionDeleteChallenge": "У вас нет прав на удаление этого испытания.",
     "noPermissionCloseChallenge": "У вас нет прав на закрытие этого испытания.",
+    "congratulations": "Поздравляю!",
+    "hurray": "Ура!",
     "noChallengeOwner": "нет владельца",
     "noChallengeOwnerPopover": "Это испытание не имеет владельца, потому что игрок, который его создал, удалил свой аккаунт."
 }

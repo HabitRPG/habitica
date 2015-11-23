@@ -76,5 +76,7 @@
     "startAQuest": "INICIAR UMA MISSÃO",
     "startQuest": "Iniciar missão",
     "whichQuestStart": "Que missão deseja iniciar?",
-    "getMoreQuests": "Conseguir mais missões"
+    "getMoreQuests": "Conseguir mais missões",
+    "unlockedAQuest": "Você desbloqueou uma missão!",
+    "leveledUpReceivedQuest": "Você subiu para o <strong>nível <%= level %></strong> e recebeu um pergaminho de missão!"
 }

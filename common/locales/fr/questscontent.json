@@ -267,5 +267,11 @@
     "questFrogCompletion": "La grenouille se replie dans la vase, vaincue. Tandis qu'elle s'éloigne en titubant, la vase bleue disparaît, laissant la voie libre. <br><br> Au beau milieu du chemin se trouvent trois oeufs immaculés. \"L'enveloppe est tellement claire qu'on peut même voir les têtards au travers!\" dit @Breadstrings. \"Tiens, tu devrais les prendre.\"",
     "questFrogBoss": "La Grenouille du Désordre",
     "questFrogDropFrogEgg": "Grenouille (Œuf)",
-    "questFrogUnlockText": "Déverrouille l'achat d’œufs de grenouilles au Marché"
+    "questFrogUnlockText": "Déverrouille l'achat d’œufs de grenouille au Marché",
+    "questSnakeText": "Le Serpent de la Distraction",
+    "questSnakeNotes": "Vivre dans les Dunes sablonneuses de la Distraction requiert une âme vaillante. En effet, le désert aride n'encourage que trop peu la productivité et les dunes scintillantes ont détourné plus d'un voyageur du droit chemin. Toutefois, une chose effraie même les gens du coin : le désert change et retourne des villages entiers. Les résidents déclarent qu'un monstre au long corps sinueux se cache, en attente, sous les sables du désert. Pour récompenser celui ou celle qui leur viendra en aide en trouvant et en arrêtant cette créature, ils ont mis en commun un butin. Les très célèbres charmeurs de serpent @EmeraldOx et @PainterProphet ont accepté de vous aider à invoquer la bête. Arriverez-vous à arrêter le Serpent de la Distraction?",
+    "questSnakeCompletion": "Grâce à l'assistance des charmeurs, vous bannissez le Serpent de la Distraction. Même si vous êtes heureux d'avoir aidé les habitants des Dunes, vous ne pouvez vous empêcher de ressentir un peu de tristesse pour votre ennemi tombé au combat. Alors que vous contemplez la vue, @LordDarkly vous approche : « Merci ! C'est peu, mais j'espère que ça l'exprime bien notre reconnaissance. » Il vous remet un peu d'Or et... des œufs de serpent ! Vous reverrez donc ce majestueux animal après tout.",
+    "questSnakeBoss": "Serpent de Distraction",
+    "questSnakeDropSnakeEgg": "Serpent (Œuf)",
+    "questSnakeUnlockText": "Déverrouille l'achat d’œufs de serpent au Marché"
 }

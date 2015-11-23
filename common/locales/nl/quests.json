@@ -76,5 +76,7 @@
     "startAQuest": "START EEN QUEESTE",
     "startQuest": "Queeste starten",
     "whichQuestStart": "Welke queeste wil je beginnen?",
-    "getMoreQuests": "Verkrijg meer queesten"
+    "getMoreQuests": "Verkrijg meer queesten",
+    "unlockedAQuest": "Je hebt een queeste vrijgespeeld!",
+    "leveledUpReceivedQuest": "Je hebt <strong>niveau <%= level %></strong> bereikt en hebt een queeste ontvangen!"
 }

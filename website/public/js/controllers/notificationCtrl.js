@@ -27,6 +27,13 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.playSound('Achievement_Unlocked');
     }, true);
 
+    $rootScope.$watch('user.achievements.challenges.length', function(after, before) {
+      if (after === before) return;
+      if (after > before) {
+        $rootScope.openModal('wonChallenge', {controller: 'UserCtrl', size: 'sm'});
+      }
+    });
+
     $rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
@@ -51,6 +58,28 @@ habitrpg.controller('NotificationCtrl',
        if (!User.user.flags.classSelected || User.user.preferences.disableClasses) return;
        var mana = after - before;
        Notification.mp(mana);
+    });
+
+    // Levels that already display modals and should not trigger generic Level Up
+    var unlockLevels = {
+      '3': 'drop system',
+      '10': 'class system',
+      '50': 'Orb of Rebirth'
+    }
+
+    $rootScope.$watch('user.stats.lvl', function(after, before) {
+      if (after <= before) return; 
+      Notification.lvl();
+      $rootScope.playSound('Level_Up');
+      if (User.user._tmp && User.user._tmp.drop && (User.user._tmp.drop.type === 'Quest')) return;
+      if (unlockLevels['' + after]) return;
+      if (!User.user.preferences.suppressModals.levelUp) $rootScope.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
+    });
+
+    $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
+      if(after){
+        $rootScope.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
+      }
     });
 
     $rootScope.$watch('user._tmp.crit', function(after, before){
@@ -98,7 +127,7 @@ habitrpg.controller('NotificationCtrl',
         Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
       } else if (after.type === 'Quest') {
         $rootScope.selectedQuest = Content.quests[after.key];
-        $rootScope.openModal('questDrop', {controller:'PartyCtrl'});
+        $rootScope.openModal('questDrop', {controller:'PartyCtrl',size:'sm'});
       } else if (after.notificationType === 'Mystery') {
         text = Content.gear.flat[after.key].text();
         Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), after);
@@ -111,19 +140,17 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
-      if(before == undefined || after == before || after < before) return;
-      if (User.user.achievements.streak > 1) {
-        Notification.streak(User.user.achievements.streak);
-        $rootScope.playSound('Achievement_Unlocked');
-      }
-      else {
-        $rootScope.openModal('achievements/streak');
+      if(before == undefined || after <= before) return;
+      Notification.streak(User.user.achievements.streak);
+      $rootScope.playSound('Achievement_Unlocked');
+      if (!User.user.preferences.suppressModals.streak) {
+        $rootScope.openModal('achievements/streak', {controller:'UserCtrl'});
       }
     });
 
     $rootScope.$watch('user.achievements.ultimateGearSets', function(after, before){
       if (_.isEqual(after,before) || !_.contains(User.user.achievements.ultimateGearSets, true)) return;
-      $rootScope.openModal('achievements/ultimateGear');
+      $rootScope.openModal('achievements/ultimateGear', {controller:'UserCtrl'});
     }, true);
 
     $rootScope.$watch('user.flags.armoireEmpty', function(after,before){
@@ -133,27 +160,12 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
-      $rootScope.openModal('achievements/rebirth');
+      $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
     });
 
     $rootScope.$watch('user.flags.contributor', function(after, before){
       if (after === before || after !== true) return;
-      $rootScope.openModal('achievements/contributor');
-    });
-
-    // Classes modal
-    $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
-      if(after){
-        $rootScope.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
-      }
-    });
-
-    $rootScope.$watch('user.stats.lvl', function(after, before) {
-      if (after == before) return;
-      if (after > before) {
-        Notification.lvl();
-        $rootScope.playSound('Level_Up');
-      }
+      $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
     });
 
     // Completed quest modal

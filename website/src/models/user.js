@@ -53,11 +53,12 @@ var UserSchema = new Schema({
     perfect: Number,
     habitBirthdays: Number,
     valentine: Number,
-    costumeContest: Boolean,
+    costumeContest: Boolean, // Superseded by costumeContests
     nye: Number,
     habiticaDays: Number,
     greeting: Number,
-    thankyou: Number
+    thankyou: Number,
+    costumeContests: Number
   },
   auth: {
     blocked: Boolean,
@@ -153,6 +154,7 @@ var UserSchema = new Schema({
         tavern: {type: Boolean, 'default': false},
         equipment: {type: Boolean, 'default': false},
         items: {type: Boolean, 'default': false},
+        inviteParty: {type: Boolean, 'default': false},
       },
       ios: {
         addTask: {type: Boolean, 'default': false},
@@ -378,6 +380,12 @@ var UserSchema = new Schema({
       // Those importantAnnouncements are in fact the recapture emails
       importantAnnouncements: {type: Boolean, 'default': true},
       weeklyRecaps: {type: Boolean, 'default': true}
+    },
+    suppressModals: {
+      levelUp: {type: Boolean, 'default': false},
+      hatchPet: {type: Boolean, 'default': false},
+      raisePet: {type: Boolean, 'default': false},
+      streak: {type: Boolean, 'default': false}
     }
   },
   profile: {
@@ -593,6 +601,7 @@ function _populateDefaultsForNewUser(user) {
       'tavern',
       'equipment',
       'items',
+      'inviteParty',
     ];
 
     _.each(tutorialCommonSections, function(section) {

@@ -1,19 +1,16 @@
-'use strict';
+let t = require('./translation.js');
 
-require('coffee-script');
-var t = require('./translation.js');
+let NUMBER_OF_QUESTIONS = 12;
 
-var NUMBER_OF_QUESTIONS = 12;
-
-var faq = {};
+let faq = {};
 
 faq.questions = [];
 
-for (var i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
-  var question = {
-    question: t('faqQuestion' + i),
-    ios: t('iosFaqAnswer' + i),
-    web: t('webFaqAnswer' + i)
+for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
+  let question = {
+    question: t(`faqQuestion${i}`),
+    ios: t(`iosFaqAnswer${i}`),
+    web: t(`webFaqAnswer${i}`),
   };
 
   faq.questions.push(question);
@@ -21,7 +18,7 @@ for (var i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
 
 faq.stillNeedHelp = {
   ios: t('iosFaqStillNeedHelp'),
-  web: t('webFaqStillNeedHelp')
+  web: t('webFaqStillNeedHelp'),
 };
 
 module.exports = faq;

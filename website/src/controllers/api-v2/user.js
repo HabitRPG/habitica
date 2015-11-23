@@ -1,5 +1,3 @@
-/* @see ./routes.coffee for routing*/
-
 var url = require('url');
 var ipn = require('paypal-ipn');
 var _ = require('lodash');
@@ -66,10 +64,6 @@ var findTask = function(req, res) {
   ---------------
 */
 
-/**
-  This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
-  Export it also so we can call it from deprecated.coffee
-*/
 api.score = function(req, res, next) {
   var id = req.params.id,
     direction = req.params.direction,
@@ -546,7 +540,7 @@ api.sessionPartyInvite = function(req,res,next){
 }
 
 /**
- * All other user.ops which can easily be mapped to habitrpg-shared/index.coffee, not requiring custom API-wrapping
+ * All other user.ops which can easily be mapped to common/script/index.js, not requiring custom API-wrapping
  */
 _.each(shared.wrap({}).ops, function(op,k){
   if (!api[k]) {

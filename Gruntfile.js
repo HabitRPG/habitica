@@ -1,4 +1,6 @@
 /*global module:false*/
+require('babel-core/register');
+var _ = require('lodash');
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -17,7 +19,6 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load tasks
   grunt.loadNpmTasks('grunt-karma');
 
 };
