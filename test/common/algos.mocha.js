@@ -1,4 +1,11 @@
 /* eslint-disable camelcase, func-names, no-shadow */
+import {
+  DAY_MAPPING,
+  startOfWeek,
+  startOfDay,
+  daysSince,
+} from '../../common/script/cron';
+
 let expect = require('expect.js');
 let sinon = require('sinon');
 let moment = require('moment');
@@ -209,7 +216,7 @@ let repeatWithoutLastWeekday = () => {
     s: true,
   };
 
-  if (shared.startOfWeek(moment().zone(0)).isoWeekday() === 1) {
+  if (startOfWeek(moment().zone(0)).isoWeekday() === 1) {
     repeat.su = false;
   } else {
     repeat.s = false;
@@ -305,7 +312,7 @@ describe('User', () => {
 
     let yesterday = moment().subtract(1, 'days');
 
-    user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false;
+    user.dailys[0].repeat[DAY_MAPPING[yesterday.day()]] = false;
     _.each(user.dailys.slice(1), (d) => {
       d.completed = true;
     });
@@ -387,7 +394,7 @@ describe('User', () => {
     it('does not reset checklist on grey incomplete dailies', () => {
       let yesterday = moment().subtract(1, 'days');
 
-      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false;
+      user.dailys[0].repeat[DAY_MAPPING[yesterday.day()]] = false;
       user.dailys[0].checklist = [
         {
           text: '1',
@@ -411,7 +418,7 @@ describe('User', () => {
     it('resets checklist on complete grey complete dailies', () => {
       let yesterday = moment().subtract(1, 'days');
 
-      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false;
+      user.dailys[0].repeat[DAY_MAPPING[yesterday.day()]] = false;
       user.dailys[0].checklist = [
         {
           text: '1',
@@ -1188,7 +1195,7 @@ describe('Cron', () => {
     let fstr = 'YYYY-MM-DD HH: mm: ss';
 
     it('startOfDay before dayStart', () => {
-      let start = shared.startOfDay({
+      let start = startOfDay({
         now: moment('2014-10-09 02: 30: 00'),
         dayStart,
       });
@@ -1196,7 +1203,7 @@ describe('Cron', () => {
       expect(start.format(fstr)).to.eql('2014-10-08 04: 00: 00');
     });
     it('startOfDay after dayStart', () => {
-      let start = shared.startOfDay({
+      let start = startOfDay({
         now: moment('2014-10-09 05: 30: 00'),
         dayStart,
       });
@@ -1205,7 +1212,7 @@ describe('Cron', () => {
     });
     it('daysSince cron before, now after', () => {
       let lastCron = moment('2014-10-09 02: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 11: 30: 00'),
         dayStart,
       });
@@ -1214,7 +1221,7 @@ describe('Cron', () => {
     });
     it('daysSince cron before, now before', () => {
       let lastCron = moment('2014-10-09 02: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 03: 30: 00'),
         dayStart,
       });
@@ -1223,7 +1230,7 @@ describe('Cron', () => {
     });
     it('daysSince cron after, now after', () => {
       let lastCron = moment('2014-10-09 05: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 06: 30: 00'),
         dayStart,
       });
@@ -1232,7 +1239,7 @@ describe('Cron', () => {
     });
     it('daysSince cron after, now tomorrow before', () => {
       let lastCron = moment('2014-10-09 12: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-10 01: 30: 00'),
         dayStart,
       });
@@ -1241,7 +1248,7 @@ describe('Cron', () => {
     });
     it('daysSince cron after, now tomorrow after', () => {
       let lastCron = moment('2014-10-09 12: 30: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-10 10: 30: 00'),
         dayStart,
       });
@@ -1250,7 +1257,7 @@ describe('Cron', () => {
     });
     xit('daysSince, last cron before new dayStart', () => {
       let lastCron = moment('2014-10-09 01: 00: 00');
-      let days = shared.daysSince(lastCron, {
+      let days = daysSince(lastCron, {
         now: moment('2014-10-09 05: 00: 00'),
         dayStart,
       });
@@ -1269,7 +1276,7 @@ describe('Cron', () => {
 
       function runCron (options) {
         _.each([480, 240, 0, -120], function (timezoneOffset) {
-          let now = shared.startOfWeek({
+          let now = startOfWeek({
             timezoneOffset,
           }).add(options.currentHour || 0, 'hours');
 
@@ -1499,17 +1506,17 @@ describe('Helper', () => {
     let today = '2013-01-01 00: 00: 00';
     let zone = moment(today).zone();
 
-    expect(shared.startOfDay({
+    expect(startOfDay({
       now: new Date(2013, 0, 1, 0),
     }, {
       timezoneOffset: zone,
     }).format(fstr)).to.eql(today);
-    expect(shared.startOfDay({
+    expect(startOfDay({
       now: new Date(2013, 0, 1, 5),
     }, {
       timezoneOffset: zone,
     }).format(fstr)).to.eql(today);
-    expect(shared.startOfDay({
+    expect(startOfDay({
       now: new Date(2013, 0, 1, 23, 59, 59),
       timezoneOffset: zone,
     }).format(fstr)).to.eql(today);
