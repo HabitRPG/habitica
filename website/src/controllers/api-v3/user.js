@@ -95,7 +95,11 @@ api.registerLocal = {
       }
     })
     .then((savedUser) => {
-      res.status(201).json(savedUser);
+      if (savedUser.auth.facebook.id) {
+        res.respond(200, savedUser.auth.local); // TODO make sure this used .toJSON and removes private fields
+      } else {
+        res.respond(201, savedUser);
+      }
 
       // Clean previous email preferences
       EmailUnsubscription
@@ -117,7 +121,7 @@ api.registerLocal = {
 
 function _loginRes (user, req, res, next) {
   if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {userId: user._id})));
-  res.status(200).json({id: user._id, apiToken: user.apiToken});
+  res.respond(200, {id: user._id, apiToken: user.apiToken});
 }
 
 /**
@@ -254,7 +258,7 @@ api.deleteSocial = {
     if (!user.auth.local.username) return next(new NotAuthorized(res.t('cantDetachFb'))); // TODO move to model validation?
 
     User.update({_id: user._id}, {$unset: {'auth.facebook': 1}})
-    .then(() => res.status(200).json({ok: true})) // TODO standardize this type of response
+    .then(() => res.respond(200))
     .catch(next);
   },
 };
