@@ -39,6 +39,7 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
+        success: false,
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -56,6 +57,7 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword,
       })).to.eventually.be.rejected.and.eql({
+        success: false,
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -72,6 +74,7 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
+        success: false,
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -90,6 +93,7 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
+        success: false,
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -107,6 +111,7 @@ describe('POST /user/auth/local/register', () => {
         email:           email,
         confirmPassword: confirmPassword,
       })).to.eventually.be.rejected.and.eql({
+        success: false,
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -138,6 +143,7 @@ describe('POST /user/auth/local/register', () => {
         password:        password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
+        success: false,
         code: 401,
         error: 'NotAuthorized',
         message: t('usernameTaken'),
@@ -155,6 +161,7 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
+        success: false,
         code: 401,
         error: 'NotAuthorized',
         message: t('emailTaken'),

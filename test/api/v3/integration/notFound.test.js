@@ -5,6 +5,7 @@ describe('notFound Middleware', () => {
     let request = requester().get('/api/v3/dummy-url');
 
     return expect(request).to.eventually.be.rejected.and.eql({
+      success: false,
       code: 404,
       error: 'NotFound',
       message: 'Not found.',

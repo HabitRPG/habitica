@@ -8,6 +8,7 @@ import routes from '../../libs/api-v3/setupRoutes';
 import notFoundHandler from './notFound';
 import nconf from 'nconf';
 import morgan from 'morgan';
+import responseHandler from './response';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
@@ -22,6 +23,7 @@ export default function attachMiddlewares (app) {
   app.use(bodyParser.json());
   app.use(expressValidator()); // TODO config
   app.use(analytics);
+  app.use(responseHandler);
   app.use(getUserLanguage);
 
   app.use('/api/v3', routes);

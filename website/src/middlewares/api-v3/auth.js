@@ -34,7 +34,7 @@ export function authWithHeaders (optional = false) {
       next();
     })
     .catch(next);
-  }
+  };
 }
 
 // Authenticate a request through a valid session

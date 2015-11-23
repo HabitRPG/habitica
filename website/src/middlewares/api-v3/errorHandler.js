@@ -68,7 +68,5 @@ export default function errorHandler (err, req, res, next) {
 
   if (responseErr.errors) jsonRes.errors = responseErr.errors;
 
-  return res
-    .status(responseErr.httpCode)
-    .json(jsonRes);
+  return res.respond(responseErr.httpCode, jsonRes);
 }

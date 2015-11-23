@@ -48,6 +48,7 @@ api.registerLocal = {
     if (validationErrors) return next(validationErrors);
 
     let { email, username, password } = req.body;
+
     // Get the lowercase version of username to check that we do not have duplicates
     // So we can search for it in the database and then reject the choosen username if 1 or more results are found
     email = email.toLowerCase();
