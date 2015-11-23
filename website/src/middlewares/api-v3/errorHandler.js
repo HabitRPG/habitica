@@ -8,9 +8,7 @@ import {
 } from '../../libs/api-v3/errors';
 import { map } from 'lodash';
 
-export default function errorHandler (err, req, res, next) {
-  if (!err) return next();
-
+export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
   // Log the original error with some metadata
   let stack = err.stack || err.message || err;
 
