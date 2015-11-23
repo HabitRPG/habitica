@@ -103,7 +103,7 @@ describe('errorHandler', () => {
   });
 
   it('handle express-validator errors', () => {
-    let error = [{param: 'param', msg: 'invalid param'}];
+    let error = [{param: 'param', msg: 'invalid param', value: 123}];
 
     errorHandler(error, req, res, next);
 
@@ -114,7 +114,9 @@ describe('errorHandler', () => {
     expect(res.json).to.be.calledWith({
       error: 'BadRequest',
       message: 'Invalid request parameters.',
-      errors: error,
+      errors: [
+        {param: error[0].param, value: error[0].value, message: error[0].msg}
+      ],
     });
   });
 

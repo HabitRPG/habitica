@@ -21,7 +21,7 @@ export default function attachMiddlewares (app) {
     extended: true, // Uses 'qs' library as old connect middleware
   }));
   app.use(bodyParser.json());
-  app.use(expressValidator()); // TODO config
+  app.use(expressValidator());
   app.use(analytics);
   app.use(responseHandler);
   app.use(getUserLanguage);

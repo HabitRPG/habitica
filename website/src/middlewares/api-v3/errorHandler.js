@@ -35,7 +35,13 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {
     responseErr = new BadRequest(res.t('invalidReqParams'));
-    responseErr.errors = err; // TODO format
+    responseErr.errors = err.map((paramErr) => {
+      return {
+        message: paramErr.msg,
+        param: paramErr.param,
+        value: paramErr.value,
+      }
+    });
   }
 
   // Handle mongoose validation errors
@@ -43,8 +49,8 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     responseErr = new BadRequest(err.message);
     responseErr.errors = map(err.errors, (mongooseErr) => {
       return {
-        path: mongooseErr.path,
         message: mongooseErr.message,
+        path: mongooseErr.path,
         value: mongooseErr.value,
       };
     });
