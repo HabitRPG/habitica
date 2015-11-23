@@ -22,13 +22,13 @@ export function authWithHeaders (req, res, next) {
   })
   .exec()
   .then((user) => {
-    if (!user) return next(new NotAuthorized(i18n.t('invalidCredentials')));
-    if (user.auth.blocked) return next(new NotAuthorized(i18n.t('accountSuspended', {userId: user._id})));
+    if (!user) throw new NotAuthorized(i18n.t('invalidCredentials'));
+    if (user.auth.blocked) throw new NotAuthorized(i18n.t('accountSuspended', {userId: user._id}));
 
     res.locals.user = user;
     // TODO use either session/cookie or headers, not both
     req.session.userId = user._id;
-    return next();
+    next();
   })
   .catch(next);
 }
@@ -45,10 +45,10 @@ export function authWithSession (req, res, next) {
   })
   .exec()
   .then((user) => {
-    if (!user) return next(new NotAuthorized(i18n.t('invalidCredentials')));
+    if (!user) throw new NotAuthorized(i18n.t('invalidCredentials'));
 
     res.locals.user = user;
-    return next();
+    next();
   })
   .catch(next);
 }

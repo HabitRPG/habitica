@@ -149,7 +149,7 @@ api.loginLocal = {
       // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
       let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
 
-      if (!isValidPassword) return next(new NotAuthorized(res.t('invalidLoginCredentials')));
+      if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentials'));
       _loginRes(user, ...arguments);
     })
     .catch(next);
@@ -195,6 +195,7 @@ api.loginSocial = {
             if (savedUser.auth[network].emails && savedUser.auth.facebook.emails[0] && savedUser.auth[network].emails[0].value) {
               EmailUnsubscription
               .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
+              .exec()
               .then(() => sendTxnEmail(savedUser, 'welcome')); // eslint-disable-line max-nested-callbacks
             }
 
