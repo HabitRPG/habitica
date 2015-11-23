@@ -41,7 +41,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('passwordConfirmationMatch'),
+        message: [t('passwordConfirmationMatch')],
       });
     });
 
@@ -58,7 +58,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('missingUsername'),
+        message: [t('missingUsername')],
       });
     });
 
@@ -74,7 +74,10 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('missingEmail'),
+        message: [
+          t('missingEmail'),
+          t('invalidEmail'),
+        ],
       });
     });
 
@@ -92,7 +95,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('invalidEmail'),
+        message: [t('invalidEmail')],
       });
     });
 
@@ -107,7 +110,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('missingPassword'),
+        message: [t('missingPassword')],
       });
     });
   });
@@ -138,7 +141,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('usernameTaken'),
+        message: [t('usernameTaken')],
       });
     });
 
@@ -155,7 +158,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('emailTaken'),
+        message: [t('emailTaken')],
       });
     });
   });

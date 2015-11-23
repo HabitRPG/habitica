@@ -23,6 +23,9 @@ export default function attachMiddlewares (app) {
   app.use(bodyParser.json());
   app.use(expressValidator({
     customValidators: customExpressValidators,
+    errorFormatter: (param, msg) => {
+      return msg;
+    },
   }));
   app.use(analytics);
   app.use(getUserLanguage);

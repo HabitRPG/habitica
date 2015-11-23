@@ -33,12 +33,18 @@ api.registerLocal = {
     req.checkBody({
       username: {
         notEmpty: true,
+        isUniqueUsername: {
+          errorMessage: res.t('usernameTaken'),
+        },
         errorMessage: res.t('missingUsername'),
       },
       email: {
         notEmpty: true,
         isEmail: {
           errorMessage: res.t('invalidEmail'),
+        },
+        isUniqueEmail: {
+          errorMessage: res.t('emailTaken'),
         },
         errorMessage: res.t('missingEmail'),
       },
@@ -52,28 +58,9 @@ api.registerLocal = {
       },
     });
 
-    let validationErrors = req.validationErrors();
-
-    if (validationErrors) return next(new NotAuthorized(validationErrors[0].msg));
-
-    // Get the lowercase version of username to check that we do not have duplicates
-    // So we can search for it in the database and then reject the choosen username if 1 or more results are found
-    email = email.toLowerCase();
-    let lowerCaseUsername = username.toLowerCase();
-
-    // Search for duplicates using lowercase version of username
-    User.findOne({$or: [
-      {'auth.local.email': email},
-      {'auth.local.lowerCaseUsername': lowerCaseUsername},
-    ]}, {'auth.local': 1})
-    .exec()
-    .then((user) => {
-      if (user) {
-        if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
-        // Check that the lowercase username isn't already used
-        if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
-      }
-
+    req.asyncValidationErrors().then(() => {
+      email = email.toLowerCase();
+      let lowerCaseUsername = username.toLowerCase();
       let salt = passwordUtils.makeSalt();
       let hashed_password = passwordUtils.encrypt(password, salt); // eslint-disable-line camelcase
       let newUser = new User({
@@ -109,8 +96,9 @@ api.registerLocal = {
         gaLabel: 'local',
         uuid: savedUser._id,
       });
-    })
-    .catch(next);
+    }).catch((errors) => {
+      next(new NotAuthorized(errors));
+    });
   },
 };
 
