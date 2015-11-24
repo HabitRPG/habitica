@@ -27,6 +27,9 @@ if (_id) {
   db.users.update({_id:_id}, update);
 } else {
   // multiple (once @ start of event)
-  db.users.update({'purchased.plan.customerId':{$ne:null}}, update, {multi:true});
+  var query = {
+    'purchased.plan.customerId': { $ne:null },
+    'purchased.plan.dateTerminated': { $gt : new Date() }
+  }
+  db.users.update({query, update, {multi:true});
 }
-
