@@ -116,6 +116,16 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                     ng-disabled='dayStart == user.preferences.dayStart')
                     =env.t('saveCustomDayStart')
 
+            hr
+
+            h5=env.t('timezone')
+            .form-horizontal
+              .form-group
+                .col-sm-12
+                  p!=env.t('timezoneUTC', {utc: "{{ user.preferences.timezoneOffset | timezoneOffsetToUtc }}"})
+                  br
+                  p!=env.t('timezoneInfo')
+
       .personal-options.col-md-6
         .panel.panel-default
           .panel-heading
