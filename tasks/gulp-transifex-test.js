@@ -89,7 +89,7 @@ gulp.task('transifex:malformedStrings', () => {
         }
       });
     });
-  });
+  }).value();
 
   if (!_.isEmpty(stringsWithMalformedInterpolations)) {
     let message = 'The following strings have malformed or missing interpolations';
@@ -128,7 +128,7 @@ function eachTranslationFile(languages, cb) {
 
       cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile)
     });
-  });
+  }).value();
 }
 
 function eachTranslationString(languages, cb) {
@@ -162,7 +162,7 @@ function getStringsWith(json, interpolationRegex) {
       var match = value.match(interpolationRegex);
       if(match) strings[file_name][key] = match;
     });
-  });
+  }).value();
 
   return strings;
 }

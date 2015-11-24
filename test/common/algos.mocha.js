@@ -10,12 +10,12 @@ let expect = require('expect.js');
 let sinon = require('sinon');
 let moment = require('moment');
 let test_helper = require('./test_helper');
-let shared = require('../../common/script/index.js');
+let shared = require('../../common/script/index');
 let $w = (s) => {
   return s.split(' ');
 };
 
-shared.i18n.translations = require('../../website/src/libs/i18n.js').translations;
+shared.i18n.translations = require('../../website/src/libs/api-v2/i18n').translations;
 test_helper.addCustomMatchers();
 
 /* Helper Functions */
