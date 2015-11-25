@@ -81,9 +81,6 @@
         "block-spacing": [2, "always"],
         "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
         "max-nested-callbacks": [2, 3],
-        "mocha/no-exclusive-tests": 2,
-        "mocha/no-global-tests": 2,
-        "mocha/handle-done-callback": 2,
         "new-cap": 2,
         "new-parens": 2,
         "newline-after-var": 2,
@@ -119,11 +116,5 @@
     ecmaFeatures : {
         modules: true
     },
-    "extends": "eslint:recommended",
-    "globals": {
-        "expect": true
-    },
-    "plugins": [
-        "mocha"
-    ]
+    "extends": "eslint:recommended"
 }

@@ -1,4 +1,10 @@
-var $w, _, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder,
+import {
+  daysSince,
+  shouldDo,
+} from '../../common/script/cron';
+import * as statHelpers from './statHelpers';
+
+var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
@@ -12,6 +18,13 @@ i18n = require('./i18n');
 api = module.exports = {};
 
 api.i18n = i18n;
+api.shouldDo = shouldDo;
+
+api.maxLevel = statHelpers.MAX_LEVEL;
+api.capByLevel = statHelpers.capByLevel;
+api.maxHealth = statHelpers.MAX_HEALTH;
+api.tnl = statHelpers.toNextLevel;
+api.diminishingReturns = statHelpers.diminishingReturns;
 
 $w = api.$w = function(s) {
   return s.split(' ');
@@ -60,184 +73,6 @@ api.planGemLimits = {
   convRate: 20,
   convCap: 25
 };
-
-
-/*
-  ------------------------------------------------------
-  Time / Day
-  ------------------------------------------------------
- */
-
-
-/*
-  Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
-  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
-  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
- */
-
-sanitizeOptions = function(o) {
-  var dayStart, now, ref, timezoneOffset;
-  dayStart = !_.isNaN(+o.dayStart) && (0 <= (ref = +o.dayStart) && ref <= 24) ? +o.dayStart : 0;
-  timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
-  now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
-  return {
-    dayStart: dayStart,
-    timezoneOffset: timezoneOffset,
-    now: now
-  };
-};
-
-api.startOfWeek = api.startOfWeek = function(options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return moment(o.now).startOf('week');
-};
-
-api.startOfDay = function(options) {
-  var dayStart, o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  dayStart = moment(o.now).startOf('day').add({
-    hours: o.dayStart
-  });
-  if (moment(o.now).hour() < o.dayStart) {
-    dayStart.subtract({
-      days: 1
-    });
-  }
-  return dayStart;
-};
-
-api.dayMapping = {
-  0: 'su',
-  1: 'm',
-  2: 't',
-  3: 'w',
-  4: 'th',
-  5: 'f',
-  6: 's'
-};
-
-
-/*
-  Absolute diff from "yesterday" till now
- */
-
-api.daysSince = function(yesterday, options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return api.startOfDay(_.defaults({
-    now: o.now
-  }, o)).diff(api.startOfDay(_.defaults({
-    now: yesterday
-  }, o)), 'days');
-};
-
-
-/*
-  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
- */
-
-api.shouldDo = function(day, dailyTask, options) {
-  var dayOfWeekCheck, dayOfWeekNum, daysSinceTaskStart, everyXCheck, o, startOfDayWithCDSTime, taskStartDate;
-  if (options == null) {
-    options = {};
-  }
-  if (dailyTask.type !== 'daily') {
-    return false;
-  }
-  o = sanitizeOptions(options);
-  startOfDayWithCDSTime = api.startOfDay(_.defaults({
-    now: day
-  }, o));
-  taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
-  taskStartDate = moment(taskStartDate).startOf('day');
-  if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
-    return false;
-  }
-  if (dailyTask.frequency === 'daily') {
-    if (!dailyTask.everyX) {
-      return false;
-    }
-    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
-    everyXCheck = daysSinceTaskStart % dailyTask.everyX === 0;
-    return everyXCheck;
-  } else if (dailyTask.frequency === 'weekly') {
-    if (!dailyTask.repeat) {
-      return false;
-    }
-    dayOfWeekNum = startOfDayWithCDSTime.day();
-    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]];
-    return dayOfWeekCheck;
-  } else {
-    return false;
-  }
-};
-
-
-/*
-  ------------------------------------------------------
-  Level cap
-  ------------------------------------------------------
- */
-
-api.maxLevel = 100;
-
-api.capByLevel = function(lvl) {
-  if (lvl > api.maxLevel) {
-    return api.maxLevel;
-  } else {
-    return lvl;
-  }
-};
-
-
-/*
-  ------------------------------------------------------
-  Health cap
-  ------------------------------------------------------
- */
-
-api.maxHealth = 50;
-
-
-/*
-  ------------------------------------------------------
-  Scoring
-  ------------------------------------------------------
- */
-
-api.tnl = function(lvl) {
-  return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
-};
-
-
-/*
-  A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
-  {max} The asymptote
-  {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
-  {halfway} (optional) the point at which the graph starts bending
- */
-
-api.diminishingReturns = function(bonus, max, halfway) {
-  if (halfway == null) {
-    halfway = max / 2;
-  }
-  return max * (bonus / (bonus + halfway));
-};
-
-api.monod = function(bonus, rateOfIncrease, max) {
-  return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
-};
-
 
 /*
 Preen history for users with > 7 history entries
@@ -292,7 +127,6 @@ api.preenTodos = function(tasks) {
     }));
   });
 };
-
 
 /*
   Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
@@ -535,7 +369,7 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     classes += " beingEdited";
   }
   if (type === 'todo' || type === 'daily') {
-    if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task, {
+    if (completed || (type === 'daily' && !shouldDo(+(new Date), task, {
       dayStart: dayStart
     }))) {
       classes += " completed";
@@ -2326,7 +2160,7 @@ api.wrap = function(user, main) {
         }
       }
       dropMultiplier = ((ref1 = user.purchased) != null ? (ref2 = ref1.plan) != null ? ref2.customerId : void 0 : void 0) ? 2 : 1;
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
+      if ((daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
         return;
       }
       if (((ref3 = user.flags) != null ? ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
@@ -2533,7 +2367,7 @@ api.wrap = function(user, main) {
         options = {};
       }
       now = +options.now || +(new Date);
-      daysMissed = api.daysSince(user.lastCron, _.defaults({
+      daysMissed = daysSince(user.lastCron, _.defaults({
         now: now
       }, user.preferences));
       if (!(daysMissed > 0)) {
@@ -2599,7 +2433,7 @@ api.wrap = function(user, main) {
           thatDay = moment(now).subtract({
             days: 1
           });
-          if (api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
+          if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
             _.each(daily.checklist, (function(box) {
               box.completed = false;
               return true;
@@ -2653,7 +2487,7 @@ api.wrap = function(user, main) {
             thatDay = moment(now).subtract({
               days: n + 1
             });
-            if (api.shouldDo(thatDay.toDate(), task, user.preferences)) {
+            if (shouldDo(thatDay.toDate(), task, user.preferences)) {
               scheduleMisses++;
               if (user.stats.buffs.stealth) {
                 user.stats.buffs.stealth--;

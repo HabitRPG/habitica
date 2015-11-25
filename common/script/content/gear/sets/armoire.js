@@ -18,7 +18,7 @@ let armor = {
     str: 7,
     per: 7,
     set: 'gladiator',
-    canOwn: ownsItem('armor_armoire_gladiatorArmor '),
+    canOwn: ownsItem('armor_armoire_gladiatorArmor'),
   },
   rancherRobes: {
     text: t('armorArmoireRancherRobesText'),
@@ -28,7 +28,7 @@ let armor = {
     per: 5,
     int: 5,
     set: 'rancher',
-    canOwn: ownsItem('armor_armoire_rancherRobes '),
+    canOwn: ownsItem('armor_armoire_rancherRobes'),
   },
   goldenToga: {
     text: t('armorArmoireGoldenTogaText'),
@@ -37,7 +37,7 @@ let armor = {
     str: 8,
     con: 8,
     set: 'goldenToga',
-    canOwn: ownsItem('armor_armoire_goldenToga '),
+    canOwn: ownsItem('armor_armoire_goldenToga'),
   },
   hornedIronArmor: {
     text: t('armorArmoireHornedIronArmorText'),
@@ -46,7 +46,7 @@ let armor = {
     con: 9,
     per: 7,
     set: 'hornedIron',
-    canOwn: ownsItem('armor_armoire_hornedIronArmor '),
+    canOwn: ownsItem('armor_armoire_hornedIronArmor'),
   },
   plagueDoctorOvercoat: {
     text: t('armorArmoirePlagueDoctorOvercoatText'),
@@ -56,7 +56,7 @@ let armor = {
     str: 5,
     con: 6,
     set: 'plagueDoctor',
-    canOwn: ownsItem('armor_armoire_plagueDoctorOvercoat '),
+    canOwn: ownsItem('armor_armoire_plagueDoctorOvercoat'),
   },
   shepherdRobes: {
     text: t('armorArmoireShepherdRobesText'),
@@ -65,7 +65,7 @@ let armor = {
     str: 9,
     per: 9,
     set: 'shepherd',
-    canOwn: ownsItem('armor_armoire_shepherdRobes '),
+    canOwn: ownsItem('armor_armoire_shepherdRobes'),
   },
   royalRobes: {
     text: t('armorArmoireRoyalRobesText'),
@@ -75,7 +75,7 @@ let armor = {
     per: 5,
     int: 5,
     set: 'royal',
-    canOwn: ownsItem('armor_armoire_royalRobes '),
+    canOwn: ownsItem('armor_armoire_royalRobes'),
   },
 };
 
@@ -85,7 +85,7 @@ let eyewear = {
     notes: t('eyewearArmoirePlagueDoctorMaskNotes'),
     value: 100,
     set: 'plagueDoctor',
-    canOwn: ownsItem('eyewear_armoire_plagueDoctorMask '),
+    canOwn: ownsItem('eyewear_armoire_plagueDoctorMask'),
   },
 };
 
@@ -97,7 +97,7 @@ let head = {
     con: 7,
     per: 7,
     set: 'soothing',
-    canOwn: ownsItem('head_armoire_lunarCrown '),
+    canOwn: ownsItem('head_armoire_lunarCrown'),
   },
   redHairbow: {
     text: t('headArmoireRedHairbowText'),
@@ -106,7 +106,7 @@ let head = {
     str: 5,
     int: 5,
     con: 5,
-    canOwn: ownsItem('head_armoire_redHairbow '),
+    canOwn: ownsItem('head_armoire_redHairbow'),
   },
   violetFloppyHat: {
     text: t('headArmoireVioletFloppyHatText'),
@@ -115,7 +115,7 @@ let head = {
     per: 5,
     int: 5,
     con: 5,
-    canOwn: ownsItem('head_armoire_violetFloppyHat '),
+    canOwn: ownsItem('head_armoire_violetFloppyHat'),
   },
   gladiatorHelm: {
     text: t('headArmoireGladiatorHelmText'),
@@ -124,7 +124,7 @@ let head = {
     per: 7,
     int: 7,
     set: 'gladiator',
-    canOwn: ownsItem('head_armoire_gladiatorHelm '),
+    canOwn: ownsItem('head_armoire_gladiatorHelm'),
   },
   rancherHat: {
     text: t('headArmoireRancherHatText'),
@@ -134,7 +134,7 @@ let head = {
     per: 5,
     int: 5,
     set: 'rancher',
-    canOwn: ownsItem('head_armoire_rancherHat '),
+    canOwn: ownsItem('head_armoire_rancherHat'),
   },
   royalCrown: {
     text: t('headArmoireRoyalCrownText'),
@@ -142,7 +142,7 @@ let head = {
     value: 100,
     str: 10,
     set: 'royal',
-    canOwn: ownsItem('head_armoire_royalCrown '),
+    canOwn: ownsItem('head_armoire_royalCrown'),
   },
   blueHairbow: {
     text: t('headArmoireBlueHairbowText'),
@@ -151,7 +151,7 @@ let head = {
     per: 5,
     int: 5,
     con: 5,
-    canOwn: ownsItem('head_armoire_blueHairbow '),
+    canOwn: ownsItem('head_armoire_blueHairbow'),
   },
   goldenLaurels: {
     text: t('headArmoireGoldenLaurelsText'),
@@ -160,7 +160,7 @@ let head = {
     per: 8,
     con: 8,
     set: 'goldenToga',
-    canOwn: ownsItem('head_armoire_goldenLaurels '),
+    canOwn: ownsItem('head_armoire_goldenLaurels'),
   },
   hornedIronHelm: {
     text: t('headArmoireHornedIronHelmText'),
@@ -169,7 +169,7 @@ let head = {
     con: 9,
     str: 7,
     set: 'hornedIron',
-    canOwn: ownsItem('head_armoire_hornedIronHelm '),
+    canOwn: ownsItem('head_armoire_hornedIronHelm'),
   },
   yellowHairbow: {
     text: t('headArmoireYellowHairbowText'),
@@ -178,7 +178,7 @@ let head = {
     int: 5,
     per: 5,
     str: 5,
-    canOwn: ownsItem('head_armoire_yellowHairbow '),
+    canOwn: ownsItem('head_armoire_yellowHairbow'),
   },
   redFloppyHat: {
     text: t('headArmoireRedFloppyHatText'),
@@ -187,7 +187,7 @@ let head = {
     con: 6,
     int: 6,
     per: 6,
-    canOwn: ownsItem('head_armoire_redFloppyHat '),
+    canOwn: ownsItem('head_armoire_redFloppyHat'),
   },
   plagueDoctorHat: {
     text: t('headArmoirePlagueDoctorHatText'),
@@ -197,7 +197,7 @@ let head = {
     str: 6,
     con: 5,
     set: 'plagueDoctor',
-    canOwn: ownsItem('head_armoire_plagueDoctorHat '),
+    canOwn: ownsItem('head_armoire_plagueDoctorHat'),
   },
   blackCat: {
     text: t('headArmoireBlackCatText'),
@@ -205,7 +205,7 @@ let head = {
     value: 100,
     int: 9,
     per: 9,
-    canOwn: ownsItem('head_armoire_blackCat '),
+    canOwn: ownsItem('head_armoire_blackCat'),
   },
   orangeCat: {
     text: t('headArmoireOrangeCatText'),
@@ -213,7 +213,7 @@ let head = {
     value: 100,
     con: 9,
     str: 9,
-    canOwn: ownsItem('head_armoire_orangeCat '),
+    canOwn: ownsItem('head_armoire_orangeCat'),
   },
   blueFloppyHat: {
     text: t('headArmoireBlueFloppyHatText'),
@@ -222,7 +222,7 @@ let head = {
     per: 7,
     int: 7,
     con: 7,
-    canOwn: ownsItem('head_armoire_blueFloppyHat '),
+    canOwn: ownsItem('head_armoire_blueFloppyHat'),
   },
   shepherdHeaddress: {
     text: t('headArmoireShepherdHeaddressText'),
@@ -230,7 +230,7 @@ let head = {
     value: 100,
     int: 9,
     set: 'shepherd',
-    canOwn: ownsItem('head_armoire_shepherdHeaddress '),
+    canOwn: ownsItem('head_armoire_shepherdHeaddress'),
   },
 };
 
@@ -242,7 +242,7 @@ let shield = {
     con: 5,
     str: 5,
     set: 'gladiator',
-    canOwn: ownsItem('shield_armoire_gladiatorShield '),
+    canOwn: ownsItem('shield_armoire_gladiatorShield'),
   },
   midnightShield: {
     text: t('shieldArmoireMidnightShieldText'),
@@ -250,7 +250,7 @@ let shield = {
     value: 100,
     con: 10,
     str: 2,
-    canOwn: ownsItem('shield_armoire_midnightShield '),
+    canOwn: ownsItem('shield_armoire_midnightShield'),
   },
   royalCane: {
     text: t('shieldArmoireRoyalCaneText'),
@@ -260,7 +260,7 @@ let shield = {
     int: 5,
     per: 5,
     set: 'royal',
-    canOwn: ownsItem('shield_armoire_royalCane '),
+    canOwn: ownsItem('shield_armoire_royalCane'),
   },
 };
 
@@ -272,7 +272,7 @@ let weapon = {
     str: 5,
     per: 5,
     con: 5,
-    canOwn: ownsItem('weapon_armoire_basicCrossbow '),
+    canOwn: ownsItem('weapon_armoire_basicCrossbow'),
   },
   lunarSceptre: {
     text: t('weaponArmoireLunarSceptreText'),
@@ -281,7 +281,7 @@ let weapon = {
     con: 7,
     int: 7,
     set: 'soothing',
-    canOwn: ownsItem('weapon_armoire_lunarSceptre '),
+    canOwn: ownsItem('weapon_armoire_lunarSceptre'),
   },
   rancherLasso: {
     twoHanded: true,
@@ -292,7 +292,7 @@ let weapon = {
     per: 5,
     int: 5,
     set: 'rancher',
-    canOwn: ownsItem('weapon_armoire_rancherLasso '),
+    canOwn: ownsItem('weapon_armoire_rancherLasso'),
   },
   mythmakerSword: {
     text: t('weaponArmoireMythmakerSwordText'),
@@ -301,7 +301,7 @@ let weapon = {
     str: 6,
     per: 6,
     set: 'goldenToga',
-    canOwn: ownsItem('weapon_armoire_mythmakerSword '),
+    canOwn: ownsItem('weapon_armoire_mythmakerSword'),
   },
   ironCrook: {
     text: t('weaponArmoireIronCrookText'),
@@ -310,7 +310,7 @@ let weapon = {
     str: 7,
     per: 7,
     set: 'hornedIron',
-    canOwn: ownsItem('weapon_armoire_ironCrook '),
+    canOwn: ownsItem('weapon_armoire_ironCrook'),
   },
   goldWingStaff: {
     text: t('weaponArmoireGoldWingStaffText'),
@@ -320,7 +320,7 @@ let weapon = {
     int: 4,
     per: 4,
     str: 4,
-    canOwn: ownsItem('weapon_armoire_goldWingStaff '),
+    canOwn: ownsItem('weapon_armoire_goldWingStaff'),
   },
   batWand: {
     text: t('weaponArmoireBatWandText'),
@@ -328,7 +328,7 @@ let weapon = {
     value: 100,
     int: 10,
     per: 2,
-    canOwn: ownsItem('weapon_armoire_batWand '),
+    canOwn: ownsItem('weapon_armoire_batWand'),
   },
   shepherdsCrook: {
     text: t('weaponArmoireShepherdsCrookText'),
@@ -336,7 +336,7 @@ let weapon = {
     value: 100,
     con: 9,
     set: 'shepherd',
-    canOwn: ownsItem('weapon_armoire_shepherdsCrook '),
+    canOwn: ownsItem('weapon_armoire_shepherdsCrook'),
   },
 };
 
