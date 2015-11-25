@@ -6,7 +6,7 @@ export default function baseModel (schema, options = {}) {
   schema.add({
     _id: {
       type: String,
-      default: uuid.v4,
+      default: uuid,
       validate: [validator.isUUID, 'Invalid uuid.'], // TODO check for UUID version
     },
   });
