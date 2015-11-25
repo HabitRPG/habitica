@@ -40,7 +40,8 @@ export default function baseModel (schema, options = {}) {
       objectPath.del(objToSanitize, fieldPath);
     });
 
-    return objToSanitize;
+    // Allow a sanitize transform function to be used
+    return options.sanitizeTransform ? options.sanitizeTransform(objToSanitize) : objToSanitize;
   };
 
   if (!schema.options.toJSON) schema.options.toJSON = {};
@@ -49,5 +50,8 @@ export default function baseModel (schema, options = {}) {
     privateFields.forEach((fieldPath) => {
       objectPath.del(plainObj, fieldPath);
     });
+
+    // Allow an additional toJSON transform function to be used
+    return options.toJSONTransform ? options.toJSONTransform(plainObj) : plainObj;
   };
 }

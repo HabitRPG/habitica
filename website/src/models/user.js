@@ -477,22 +477,19 @@ export let schema = new Schema({
 schema.plugin(baseModel, {
   noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
+  toJSONTransform: function toJSON (doc) {
+    doc.id = doc._id;
+
+    // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
+    doc.filters = {};
+    doc._tmp = this._tmp; // be sure to send down drop notifs
+
+    return doc;
+  },
 });
 
 schema.methods.deleteTask = function deleteTask (tid) {
   this.ops.deleteTask({params: {id: tid}}, () => {}); // TODO remove this whole method, since it just proxies, and change all references to this method
-};
-
-schema.methods.toJSON = function toJSON () {
-  let doc = this.toObject();
-
-  doc.id = doc._id;
-
-  // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
-  doc.filters = {};
-  doc._tmp = this._tmp; // be sure to send down drop notifs
-
-  return doc;
 };
 
 // schema.virtual('tasks').get(function () {
