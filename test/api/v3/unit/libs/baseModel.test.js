@@ -39,7 +39,7 @@ describe('Base model plugin', () => {
     let sanitized = schema.statics.sanitize({ok: true, noUpdateForMe: true});
 
     expect(sanitized).to.have.property('ok');
-    expect(sanitized).to.have.property('noUpdateForMe');
+    expect(sanitized).not.to.have.property('noUpdateForMe');
     expect(sanitized.noUpdateForMe).to.equal(undefined);
   });
 
@@ -48,12 +48,12 @@ describe('Base model plugin', () => {
       private: ['amPrivate']
     });
 
-    expect(schema.options.toObject.transform).to.exist;
+    expect(schema.options.toJSON.transform).to.exist;
     let objToTransform = {ok: true, amPrivate: true};
-    let privatized = schema.options.toObject.transform({}, objToTransform);
+    let privatized = schema.options.toJSON.transform({}, objToTransform);
 
     expect(objToTransform).to.have.property('ok');
-    expect(objToTransform).to.have.property('amPrivate');
+    expect(objToTransform).not.to.have.property('amPrivate');
     expect(objToTransform.amPrivate).to.equal(undefined);
   });
 });

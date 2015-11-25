@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import { uuid } from '../../../../common';
 import validator from 'validator';
+import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
 
 export default function baseModel (schema, options = {}) {
   schema.add({
@@ -37,17 +37,17 @@ export default function baseModel (schema, options = {}) {
   if (Array.isArray(options.noSet)) noSetFields.push(...options.noSet);
   schema.statics.sanitize = function sanitize (objToSanitize = {}) {
     noSetFields.forEach((fieldPath) => {
-      _.set(objToSanitize, fieldPath, undefined); // TODO decide wheter to use delete here
+      objectPath.del(objToSanitize, fieldPath);
     });
 
     return objToSanitize;
   };
 
+  if (!schema.options.toJSON) schema.options.toJSON = {};
   if (Array.isArray(options.private)) privateFields.push(...options.private);
-  if (!schema.options.toObject) schema.options.toObject = {};
-  schema.options.toObject.transform = function transformToObject (doc, plainObj) {
+  schema.options.toJSON.transform = function transformToObject (doc, plainObj) {
     privateFields.forEach((fieldPath) => {
-      _.set(plainObj, fieldPath, undefined); // TODO decide wheter to use delete here
+      objectPath.del(plainObj, fieldPath);
     });
   };
 }
