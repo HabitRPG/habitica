@@ -589,8 +589,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
       #footercall
         .container-fluid
           .row
-            .col-md-10
-              h3= env.t('joinOthers')
+              h3= env.t('joinOthers', {userCount:'900,000'})
           .row
             .col-md-4.col-md-offset-4
               button.btn.btn-primary.btn-lg.btn-block(ng-click='playButtonClick()')= env.t('free')
