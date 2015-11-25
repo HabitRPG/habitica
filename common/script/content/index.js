@@ -952,7 +952,8 @@ api.specialPets = {
   'JackOLantern-Base': 'jackolantern',
   'Mammoth-Base': 'mammoth',
   'Tiger-Veteran': 'veteranTiger',
-  'Phoenix-Base': 'phoenix'
+  'Phoenix-Base': 'phoenix',
+  'Turkey-Gilded': 'gildedTurkey',
 };
 
 api.specialMounts = {
