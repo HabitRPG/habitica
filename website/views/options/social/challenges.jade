@@ -203,7 +203,8 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   a.btn.btn-sm.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
-              a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)') {{challenge.name}}
+              a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)') 
+                markdown(text='challenge.name')
             .panel-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
               .accordion-inner(ng-if='$stateParams.cid == challenge._id')
                 div(ui-view)
