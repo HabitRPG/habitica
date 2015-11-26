@@ -1,5 +1,14 @@
 extends ./layout
 
+// Merchandise page : when adding a merch make sure to add following resources
+    + image of merchandise  --   env.t("merch-*-name").png       -- eg. teespring.png
+    + logo of seller        --   env.t("merch-*-name")-logo.png  -- eg. teespring-logo.png
+    + update merch.json with extra info about merchandise
+        - merch-*-name     ->  Teespring
+        - merch-*-summary  ->  Teespring is and will always be...
+        - merch-*-link     ->  https://teespring.com/habitica-gryphon-t-shirt | link to the merchandise not the seller
+        - merch-*-goto     ->  Get myself a Habitica T-Shirts
+
 block vars
     - var layoutEnv = env
     - var merchNumbers = 2 // update the amount of merchandise attributes that are available
