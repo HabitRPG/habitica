@@ -162,6 +162,7 @@ var UserSchema = new Schema({
         deleteTask: {type: Boolean, 'default': false},
         filterTask: {type: Boolean, 'default': false},
         groupPets: {type: Boolean, 'default': false},
+        inviteParty: {type: Boolean, 'default': false},
       }
     },
     dropsEnabled: {type: Boolean, 'default': false},
