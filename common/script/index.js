@@ -695,6 +695,7 @@ api.wrap = function(user, main) {
         _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
           return stats[value] = 0;
         });
+        // TODO during refactoring: move all gear code from rebirth() to its own function and then call it in reset() as well
         gear = user.items.gear;
         _.each(['equipped', 'costume'], function(type) {
           gear[type] = {};
