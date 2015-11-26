@@ -1392,9 +1392,9 @@ api.wrap = function(user, main) {
         } else {
           if (user.preferences.autoEquip) {
             user.items.gear.equipped[item.type] = item.key;
+            message = user.fns.handleTwoHanded(item, null, req);
           }
           user.items.gear.owned[item.key] = true;
-          message = user.fns.handleTwoHanded(item, null, req);
           if (message == null) {
             message = i18n.t('messageBought', {
               itemText: item.text(req.language)
