@@ -5,19 +5,13 @@ import _ from 'lodash';
 import validator from 'validator';
 import moment from 'moment';
 import TaskSchemas from './task';
+import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
 let Schema = mongoose.Schema;
 
 // User schema definition
 export let schema = new Schema({
-  // The user _id, stored as a string
-  // TODO validation
-  _id: {
-    type: String,
-    default: shared.uuid,
-  },
-  // TODO validation
   apiToken: {
     type: String,
     default: shared.uuid,
@@ -480,20 +474,22 @@ export let schema = new Schema({
   minimize: false, // So empty objects are returned
 });
 
+schema.plugin(baseModel, {
+  noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt'],
+  private: ['auth.local.hashed_password', 'auth.local.salt'],
+  toJSONTransform: function toJSON (doc) {
+    doc.id = doc._id;
+
+    // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
+    doc.filters = {};
+    doc._tmp = this._tmp; // be sure to send down drop notifs
+
+    return doc;
+  },
+});
+
 schema.methods.deleteTask = function deleteTask (tid) {
   this.ops.deleteTask({params: {id: tid}}, () => {}); // TODO remove this whole method, since it just proxies, and change all references to this method
-};
-
-schema.methods.toJSON = function toJSON () {
-  let doc = this.toObject();
-
-  doc.id = doc._id;
-
-  // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
-  doc.filters = {};
-  doc._tmp = this._tmp; // be sure to send down drop notifs
-
-  return doc;
 };
 
 // schema.virtual('tasks').get(function () {

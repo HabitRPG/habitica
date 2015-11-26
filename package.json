@@ -65,6 +65,7 @@
     "newrelic": "~1.23.0",
     "nib": "~1.0.1",
     "nodemailer": "^1.9.0",
+    "object-path": "^0.9.2",
     "pageres": "^1.0.1",
     "passport": "~0.2.1",
     "passport-facebook": "2.0.0",
