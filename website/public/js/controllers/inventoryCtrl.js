@@ -114,8 +114,12 @@ habitrpg.controller("InventoryCtrl",
       var eggName = Content.eggs[egg.key].text();
       var potName = Content.hatchingPotions[potion.key].text();
       if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
+
+      var userHasPet = user.items.pets[egg.key + '-' + potion.key];
+
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
-      if (!user.preferences.suppressModals.hatchPet) {
+
+      if (!user.preferences.suppressModals.hatchPet && !userHasPet) {
         $scope.hatchedPet = {
           egg: eggName,
           potion: potName,
