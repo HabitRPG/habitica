@@ -140,31 +140,33 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   ng-disabled='insufficientGemsForTavernChallenge()')
 
               .form-group
-                input.form-control(type='text', minlength="3", maxlength="16",
-                  ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
-                  ng-disabled='insufficientGemsForTavernChallenge()')
-                |&nbsp;
-                a.hint.vertical-20(target='_blank', href='http://habitica.wikia.com/wiki/Tags',
-                  popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
-                  =env.t('moreInfo')
-
-              .form-group
                 textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description'
                   ng-disabled='insufficientGemsForTavernChallenge()')
 
-              .form-group
-                .input-group
-                  span.input-group-addon
-                    .Pet_Currency_Gem1x
-                  input.form-control(type='number', placeholder=env.t('prize'),
-                    ng-disabled='insufficientGemsForTavernChallenge()'
-                    min="{{newChallenge.group=='habitrpg' ? 1 : 0}}",
-                    max="{{maxPrize}}", ng-model='newChallenge.prize')
-                a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}",
-                  popover-trigger='mouseenter', popover-placement='right')
-                  =env.t('moreInfo')
-                .pull-right(ng-show='newChallenge.group=="habitrpg"')
-                  !=env.t('publicChallenges')
+              .row
+                .form-group.col-md-6.col-sm-12
+                  input.form-control(type='text', minlength="3",
+                    ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
+                    ng-disabled='insufficientGemsForTavernChallenge()')
+                  |&nbsp;
+                  a.hint.vertical-20(target='_blank', href='http://habitica.wikia.com/wiki/Tags',
+                    popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
+                    =env.t('moreInfo')
+
+              .row
+                .form-group.col-md-6.col-sm-12
+                  .input-group
+                    span.input-group-addon
+                      .Pet_Currency_Gem1x
+                    input.form-control(type='number', placeholder=env.t('prize'),
+                      ng-disabled='insufficientGemsForTavernChallenge()'
+                      min="{{newChallenge.group=='habitrpg' ? 1 : 0}}",
+                      max="{{maxPrize}}", ng-model='newChallenge.prize')
+                  a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}",
+                    popover-trigger='mouseenter', popover-placement='right')
+                    =env.t('moreInfo')
+                  div(ng-show='newChallenge.group=="habitrpg"')
+                    !=env.t('publicChallenges')
 
               .form-group(ng-if='user.contributor.admin')
                 .checkbox
