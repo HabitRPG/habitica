@@ -11,7 +11,7 @@ extends ./layout
 
 block vars
     - var layoutEnv = env
-    - var merchNumbers = 2 // update the amount of merchandise attributes that are available
+    - var merchNumbers = 4 // update the amount of merchandise attributes that are available
 
 block title
     title=env.t('merch')
@@ -23,6 +23,7 @@ block extraHead
             border: 1px dotted #553889;
             border-radius: 6px;
             padding: 15px;
+            margin-bottom: 20px;
         }
         .merch-block:hover {
             background: #ececec;
@@ -65,8 +66,9 @@ block content
 
 
     // Merchandise block - START
-    .row
     - for (var i = 1; i <= merchNumbers; ++i) {
+        if i%2!==0
+            .row=test
         .col-lg-6.col-md-6.col-sm-12
             .merch-block
                 div.merch-header: img(src="/merch/"+env.t('merch-' + i + '-name')+"-logo.png")
