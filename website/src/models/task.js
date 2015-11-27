@@ -5,9 +5,10 @@ import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
 
 let Schema = mongoose.Schema;
-let discriminatorOptions = () => {
-  return {discriminatorKey: 'type'}; // the key that distinguishes task types
+let discriminatorOptions = {
+  discriminatorKey: 'type', // the key that distinguishes task types
 };
+let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {_id: false});
 
 // TODO make sure a task can only update the fields belonging to its type
 // We could use discriminators but it looks like when loading from the parent
@@ -29,10 +30,10 @@ export let TaskSchema = new Schema({
     broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED TODO enum
     winner: String, // user.profile.name TODO necessary?
   },
-}, _.default({
+}, _.defaults({
   minimize: true, // So empty objects are returned
   strict: true,
-}, discriminatorOptions()));
+}, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
   noSet: [],
@@ -66,7 +67,7 @@ let dailyTodoSchema = () => {
 export let Habit = Task.discriminator('Habit', new Schema(_.defaults({
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
-}, habitDailySchema())), discriminatorOptions());
+}, habitDailySchema()), subDiscriminatorOptions));
 
 export let Daily = Task.discriminator('Daily', new Schema(_.defaults({
   frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly']},
@@ -87,13 +88,13 @@ export let Daily = Task.discriminator('Daily', new Schema(_.defaults({
     su: {type: Boolean, default: true},
   },
   streak: {type: Number, default: 0},
-}, habitDailySchema(), dailyTodoSchema())), discriminatorOptions());
+}, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions));
 
 export let Todo = Task.discriminator('Todo', new Schema(_.defaults({
   dateCompleted: Date,
   // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
   // TODO change field name
   date: String, // due date for todos
-}, dailyTodoSchema())), discriminatorOptions());
+}, dailyTodoSchema()), subDiscriminatorOptions));
 
-export let Reward = Task.discriminator('Reward', new Schema({}), discriminatorOptions());
+export let Reward = Task.discriminator('Reward', new Schema({}, subDiscriminatorOptions));

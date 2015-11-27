@@ -3,6 +3,7 @@ import shared from '../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import moment from 'moment';
+import Q from 'q';
 import { model as Task } from './task';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
@@ -491,36 +492,37 @@ schema.post('init', function postInitUser (doc) {
 });
 
 function _populateDefaultTasks (user, taskTypes) {
-  _.each(taskTypes, (taskType) => {
-    // TODO save in own documents
-    user[taskType] = _.map(shared.content.userDefaults[taskType], (taskDefaults) => {
-      let newTask;
+  if ('tags' in taskTypes) {
+    user.tags = _.map(shared.content.userDefaults.tags, function(tag){
+      let newTag = _.cloneDeep(tag);
 
-      // Render task's text and notes in user's language
-      if (taskType === 'tags') {
-        newTask = _.cloneDeep(taskDefaults);
-        // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-        newTask.id = shared.uuid();
-        newTask.name = newTask.name(user.preferences.language);
-      } else {
-        newTask = new Task(taskDefaults);
-        newTask.userId = user._id;
-        newTask.text = newTask.text(user.preferences.language);
-        if (newTask.notes) {
-          newTask.notes = newTask.notes(user.preferences.language);
-        }
-
-        if (newTask.checklist) {
-          newTask.checklist = _.map(newTask.checklist, (checklistItem) => {
-            checklistItem.text = checklistItem.text(user.preferences.language);
-            return checklistItem;
-          });
-        }
-      }
-
-      return newTask;
+      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+      newTag.id = shared.uuid();
+      // Render tag's name in user's language
+      newTag.name = newTag.name(user.preferences.language);
+      return newTag;
     });
+  }
+
+  let tasksToCreate = [];
+  _.each(taskTypes, (taskType) => {
+    let tasksOfType = _.map(shared.content.userDefaults[taskType], (taskDefaults) => {
+      let newTask = new Task(taskDefaults);
+      newTask.userId = user._id;
+      newTask.text = newTask.text(user.preferences.language);
+      if (newTask.notes) newTask.notes = newTask.notes(user.preferences.language);
+      if (newTask.checklist) {
+        newTask.checklist = _.map(newTask.checklist, (checklistItem) => {
+          checklistItem.text = checklistItem.text(user.preferences.language);
+          return checklistItem;
+        });
+      }
+    });
+
+    tasksToCreate.push(...tasksOfType);
   });
+
+  return Task.create(tasksToCreate);
 }
 
 function _populateDefaultsForNewUser (user) {
@@ -543,7 +545,7 @@ function _populateDefaultsForNewUser (user) {
     });
   }
 
-  _populateDefaultTasks(user, taskTypes);
+  return _populateDefaultTasks(user, taskTypes);
 }
 
 function _setProfileName (user) {
@@ -556,13 +558,10 @@ function _setProfileName (user) {
   return localUsername || facebookUsername || anonymous;
 }
 
-schema.pre('save', function postSaveUser (next) {
-  // Populate new users with default content
-  if (this.isNew) {
-    _populateDefaultsForNewUser(this);
-  }
+schema.pre('save', function postSaveUser (next, done) {
+  next();
 
-  // this.markModified('tasks');
+  // TODO remove all unnecessary checks
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
   }
@@ -611,7 +610,12 @@ schema.pre('save', function postSaveUser (next) {
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
   this._v++;
 
-  next();
+  // Populate new users with default content
+  if (this.isNew) {
+    _populateDefaultsForNewUser(this)
+      .then((tasks) => done())
+      .catch(done);
+  }
 });
 
 schema.methods.unlink = function unlink (options, cb) {
