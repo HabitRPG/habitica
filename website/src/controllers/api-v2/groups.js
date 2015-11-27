@@ -524,7 +524,7 @@ api.leave = function(req, res, next) {
     }
 
     if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
-      return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+      return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first.');
     }
   }
 

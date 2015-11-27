@@ -164,12 +164,22 @@ export let schema = new Schema({
         inviteParty: {type: Boolean, default: false},
       },
       ios: {
+<<<<<<< HEAD
         addTask: {type: Boolean, default: false},
         editTask: {type: Boolean, default: false},
         deleteTask: {type: Boolean, default: false},
         filterTask: {type: Boolean, default: false},
         groupPets: {type: Boolean, default: false},
       },
+=======
+        addTask: {type: Boolean, 'default': false},
+        editTask: {type: Boolean, 'default': false},
+        deleteTask: {type: Boolean, 'default': false},
+        filterTask: {type: Boolean, 'default': false},
+        groupPets: {type: Boolean, 'default': false},
+        inviteParty: {type: Boolean, 'default': false},
+      }
+>>>>>>> develop
     },
     dropsEnabled: {type: Boolean, default: false},
     itemsEnabled: {type: Boolean, default: false},

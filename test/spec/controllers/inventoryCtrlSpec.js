@@ -78,13 +78,103 @@ describe('Inventory Controller', function() {
       expect(rootScope.openModal).to.have.been.calledOnce;
       expect(rootScope.openModal).to.have.been.calledWith('hatchPet');
     });
-    
+
+    it('does not show modal if user tries to hatch a pet they own', function(){
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+      expect(user.items.eggs).to.eql({Cactus: 0});
+      expect(user.items.hatchingPotions).to.eql({Base: 0});
+      expect(user.items.pets).to.eql({'Cactus-Base': 5});
+      expect(scope.selectedEgg).to.eql(null);
+      expect(scope.selectedPotion).to.eql(null);
+      expect(rootScope.openModal).to.have.been.calledOnce;
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+      expect(rootScope.openModal).to.not.have.been.calledTwice;
+    });
+
     it('does not show pet hatching modal if user has opted out', function(){
       user.preferences.suppressModals.hatchPet = true;
       scope.chooseEgg('Cactus');
       scope.choosePotion('Base');
 
       expect(rootScope.openModal).to.not.be.called;
+    });
+  });
+
+  describe('Feeding and Raising Pets', function() {
+    beforeEach(function() {
+      sandbox.stub(rootScope, 'openModal');
+      user.items.pets = {'PandaCub-Base':5};
+      user.items.mounts = {'PandaCub-Base':false};
+    });
+
+    it('feeds a pet', function() {
+      scope.chooseFood('Meat');
+      scope.choosePet('PandaCub','Base');
+
+      expect(user.items.pets['PandaCub-Base']).to.eql(10);
+    });
+
+    it('gives weaker benefit when feeding inappropriate food', function() {
+      user.items.food.Honey = 1;
+
+      scope.chooseFood('Honey');
+      scope.choosePet('PandaCub','Base');
+
+      expect(user.items.pets['PandaCub-Base']).to.eql(7);
+    });
+
+    it('raises pet to a mount when feeding gauge maxes out', function() {
+      user.items.pets['PandaCub-Base'] = 45;
+
+      scope.chooseFood('Meat');
+      scope.choosePet('PandaCub','Base');
+
+      expect(user.items.pets['PandaCub-Base']).to.eql(-1);
+      expect(user.items.mounts['PandaCub-Base']).to.exist;
+    });
+
+    it('raises pet to a mount instantly when using a Saddle', function() {
+      user.items.food.Saddle = 1;
+
+      scope.chooseFood('Saddle');
+      scope.choosePet('PandaCub','Base');
+
+      expect(user.items.pets['PandaCub-Base']).to.eql(-1);
+      expect(user.items.mounts['PandaCub-Base']).to.exist;
+    });
+
+    it('displays mount raising modal for drop pets', function() {
+      user.items.food.Saddle = 1;
+
+      scope.chooseFood('Saddle');
+      scope.choosePet('PandaCub','Base');
+
+      expect(rootScope.openModal).to.have.been.calledOnce;
+      expect(rootScope.openModal).to.have.been.calledWith('raisePet');
+    });
+
+    it('displays mount raising modal for quest pets', function() {
+      user.items.food.Saddle = 1;
+      user.items.pets['Snake-Base'] = 1;
+
+      scope.chooseFood('Saddle');
+      scope.choosePet('Snake','Base');
+
+      expect(rootScope.openModal).to.have.been.calledOnce;
+      expect(rootScope.openModal).to.have.been.calledWith('raisePet');
+    });
+
+    it('displays mount raising modal for premium pets', function() {
+      user.items.food.Saddle = 1;
+      user.items.pets['TigerCub-Spooky'] = 1;
+
+      scope.chooseFood('Saddle');
+      scope.choosePet('TigerCub','Spooky');
+
+      expect(rootScope.openModal).to.have.been.calledOnce;
+      expect(rootScope.openModal).to.have.been.calledWith('raisePet');
     });
   });
 
