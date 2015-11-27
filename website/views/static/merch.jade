@@ -1,79 +1,37 @@
 extends ./layout
 
 // Merchandise page : when adding a merch make sure to add following resources
-    + image of merchandise  --   env.t("merch-*-name").png       -- eg. teespring.png
-    + logo of seller        --   env.t("merch-*-name")-logo.png  -- eg. teespring-logo.png
-    + update merch.json with extra info about merchandise
-        - merch-*-name     ->  Teespring
-        - merch-*-summary  ->  Teespring is and will always be...
-        - merch-*-link     ->  https://teespring.com/habitica-gryphon-t-shirt | link to the merchandise not the seller
-        - merch-*-goto     ->  Get myself a Habitica T-Shirts
+  + image of merchandise  --   env.t("merch-*-name").png       -- eg. teespring.png
+  + logo of seller        --   env.t("merch-*-name")-logo.png  -- eg. teespring-logo.png
+  + update merch.json with extra info about merchandise
+    - merch-*-name     ->  Teespring
+    - merch-*-summary  ->  Teespring is and will always be...
+    - merch-*-link     ->  https://teespring.com/habitica-gryphon-t-shirt | link to the merchandise not the seller
+    - merch-*-goto     ->  Get myself a Habitica T-Shirts
 
 block vars
-    - var layoutEnv = env
-    - var merchNumbers = 2 // update the amount of merchandise attributes that are available
+  - var layoutEnv = env
+  - var merchNumbers = 2 // update the amount of merchandise attributes that are available
 
 block title
-    title=env.t('merch')
-
-
-block extraHead
-    style.
-        .merch-block {
-            border: 1px dotted #553889;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        .merch-block:hover {
-            background: #ececec;
-
-        }
-        .merch-header {
-            font-size: 24px;
-
-        }
-        .merch-header img {
-            display: block;
-            max-width: 200px;
-        }
-        .img-con {
-            text-align: center;
-        }
-        .img-con .merch-img {
-            max-width: 350px;
-            padding: 30px 0;
-        }
-        .merch-link {
-            margin-top: 20px;
-        }
-
-        .btn-habitica {
-            background-color: #553889;
-            color: #ffffff;
-        }
-        .btn.btn-habitica:hover {
-            color: #ffffff;
-            background-color: #452d6e;
-            border-color: #342253;
-        }
+  title=env.t('merch')
 
 block content
-    .row
-        .col-md-12
-            .page-header
-                h3=env.t('merch')
+  .row
+    .col-md-12
+      .page-header
+        h3=env.t('merch')
 
 
-    // Merchandise block - START
-    - for (var i = 1; i <= merchNumbers; ++i) {
-        if i%2!==0
-            .row=test
-        .col-lg-6.col-md-6.col-sm-12
-            .merch-block
-                div.merch-header: img(src="/merch/"+env.t('merch-' + i + '-name')+"-logo.png")
-                div.img-con: a(href=env.t('merch-' + i + '-link') target='_blank'): img.img-rendering-auto.merch-img(src="/merch/" + env.t('merch-' + i + '-name') + ".png")
-                p=env.t('merch-' + i + '-summary')
-                a.btn.btn-habitica.merch-link(href=env.t('merch-' + i + '-link') target='_blank')=env.t('merch-' + i + '-goto')
-    -}
-    // Merchandise block - END
+  // Merchandise block - START
+  - for (var i = 1; i <= merchNumbers; ++i) {
+  if i % 2 !== 0
+    .row=test
+  .col-lg-6.col-md-6.col-sm-12
+    .merch-block
+      div.merch-header: img(src="/merch/" + env.t('merch-' + i + '-name') + "-logo.png")
+      div.merch-img-con: a(href=env.t('merch-' + i + '-link') target='_blank'): img.img-rendering-auto.merch-img(src="/merch/" + env.t('merch-' + i + '-name') + ".png")
+      p=env.t('merch-' + i + '-summary')
+      a.btn.btn-habitica.merch-link(href=env.t('merch-' + i + '-link') target='_blank')=env.t('merch-' + i + '-goto')
+  -}
+  // Merchandise block - END
