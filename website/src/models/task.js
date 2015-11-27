@@ -1,108 +1,99 @@
-// User.js
-// =======
-// Defines the user data model (schema) for use via the API.
+import mongoose from 'mongoose';
+import shared from '../../../common';
+import moment from 'moment';
+import baseModel from '../libs/api-v3/baseModel';
+import _ from 'lodash';
 
-// Dependencies
-// ------------
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-var shared = require('../../../common');
-var _ = require('lodash');
-var moment = require('moment');
-
-// Task Schema
-// -----------
-
-var TaskSchema = {
-  //_id:{type: String,'default': helpers.uuid},
-  id: {type: String,'default': shared.uuid},
-  dateCreated: {type:Date, 'default':Date.now},
-  text: String,
-  notes: {type: String, 'default': ''},
-  tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
-  value: {type: Number, 'default': 0}, // redness
-  priority: {type: Number, 'default': '1'},
-  attribute: {type: String, 'default': "str", enum: ['str','con','int','per']},
-  challenge: {
-    id: {type: 'String', ref:'Challenge'},
-    broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED
-    winner: String // user.profile.name
-    // group: {type: 'Strign', ref: 'Group'} // if we restore this, rename `id` above to `challenge`
-  }
+let Schema = mongoose.Schema;
+let discriminatorOptions = () => {
+  return {discriminatorKey: 'type'}; // the key that distinguishes task types
 };
 
-var HabitSchema = new Schema(
-  _.defaults({
-    type: {type:String, 'default': 'habit'},
-    history: Array, // [{date:Date, value:Number}], // this causes major performance problems
-    up: {type: Boolean, 'default': true},
-    down: {type: Boolean, 'default': true}
-  }, TaskSchema)
-  , { _id: false, minimize:false }
-);
+// TODO make sure a task can only update the fields belonging to its type
+// We could use discriminators but it looks like when loading from the parent
+// Task model the subclasses are not applied - check twice
 
-var collapseChecklist = {type:Boolean, 'default':false};
-var checklist = [{
-  completed:{type:Boolean,'default':false},
+export let TaskSchema = new Schema({
+  type: {type: String, enum: ['habit', 'todo', 'daily', 'reward'], required: true, default: 'habit'},
   text: String,
-  _id:false,
-  id: {type:String,'default':shared.uuid}
-}];
+  notes: {type: String, default: ''},
+  tags: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary? { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
+  value: {type: Number, default: 0}, // redness
+  priority: {type: Number, default: 1},
+  attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
+  userId: {type: String, ref: 'User'}, // When null it belongs to a challenge
 
-var DailySchema = new Schema(
-  _.defaults({
-    type: {type: String, 'default': 'daily'},
-    frequency: {type: String, 'default': 'weekly', enum: ['daily', 'weekly']},
-    everyX: {type: Number, 'default': 1}, // e.g. once every X weeks
-    startDate: {type: Date, 'default': moment().startOf('day').toDate()},
-    history: Array,
-    completed: {type: Boolean, 'default': false},
-    repeat: { // used only for 'weekly' frequency,
-      m:  {type: Boolean, 'default': true},
-      t:  {type: Boolean, 'default': true},
-      w:  {type: Boolean, 'default': true},
-      th: {type: Boolean, 'default': true},
-      f:  {type: Boolean, 'default': true},
-      s:  {type: Boolean, 'default': true},
-      su: {type: Boolean, 'default': true}
+  challenge: {
+    id: {type: String, ref: 'Challenge'},
+    taskId: {type: String, ref: 'Task'}, // When null but challenge.id defined it's the original task
+    broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED TODO enum
+    winner: String, // user.profile.name TODO necessary?
+  },
+}, _.default({
+  minimize: true, // So empty objects are returned
+  strict: true,
+}, discriminatorOptions()));
+
+TaskSchema.plugin(baseModel, {
+  noSet: [],
+  private: [],
+  timestamps: true,
+});
+
+export let Task = mongoose.model('Task', TaskSchema);
+
+// TODO discriminators: it's very important to check that the options and plugins of the parent schema are used in the sub-schemas too
+
+// habits and dailies shared fields
+let habitDailySchema = () => {
+  return {history: Array}; // [{date:Date, value:Number}], // this causes major performance problems TODO revisit
+};
+
+// dailys and todos shared fields
+let dailyTodoSchema = () => {
+  return {
+    completed: {type: Boolean, default: false},
+    // Checklist fields (dailies and todos)
+    collapseChecklist: {type: Boolean, default: false},
+    checklist: [{
+      completed: {type: Boolean, default: false},
+      text: String,
+      _id: {type: String, default: shared.uuid},
+    }],
+  };
+};
+
+export let Habit = Task.discriminator('Habit', new Schema(_.defaults({
+  up: {type: Boolean, default: true},
+  down: {type: Boolean, default: true},
+}, habitDailySchema())), discriminatorOptions());
+
+export let Daily = Task.discriminator('Daily', new Schema(_.defaults({
+  frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly']},
+  everyX: {type: Number, default: 1}, // e.g. once every X weeks
+  startDate: {
+    type: Date,
+    default () {
+      return moment().startOf('day').toDate();
     },
-    collapseChecklist:collapseChecklist,
-    checklist:checklist,
-    streak: {type: Number, 'default': 0}
-  }, TaskSchema)
-  , { _id: false, minimize:false }
-)
+  },
+  repeat: { // used only for 'weekly' frequency,
+    m: {type: Boolean, default: true},
+    t: {type: Boolean, default: true},
+    w: {type: Boolean, default: true},
+    th: {type: Boolean, default: true},
+    f: {type: Boolean, default: true},
+    s: {type: Boolean, default: true},
+    su: {type: Boolean, default: true},
+  },
+  streak: {type: Number, default: 0},
+}, habitDailySchema(), dailyTodoSchema())), discriminatorOptions());
 
-var TodoSchema = new Schema(
-  _.defaults({
-    type: {type:String, 'default': 'todo'},
-    completed: {type: Boolean, 'default': false},
-    dateCompleted: Date,
-    date: String, // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
-    collapseChecklist:collapseChecklist,
-    checklist:checklist
-  }, TaskSchema)
-  , { _id: false, minimize:false }
-);
+export let Todo = Task.discriminator('Todo', new Schema(_.defaults({
+  dateCompleted: Date,
+  // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
+  // TODO change field name
+  date: String, // due date for todos
+}, dailyTodoSchema())), discriminatorOptions());
 
-var RewardSchema = new Schema(
-  _.defaults({
-    type: {type:String, 'default': 'reward'}
-  }, TaskSchema)
-  , { _id: false, minimize:false }
-);
-
-/**
- * Workaround for bug when _id & id were out of sync, we can remove this after challenges has been running for a while
- */
-//_.each([HabitSchema, DailySchema, TodoSchema, RewardSchema], function(schema){
-//  schema.post('init', function(doc){
-//    if (!doc.id && doc._id) doc.id = doc._id;
-//  })
-//})
-
-module.exports.TaskSchema = TaskSchema;
-module.exports.HabitSchema = HabitSchema;
-module.exports.DailySchema = DailySchema;
-module.exports.TodoSchema = TodoSchema;
-module.exports.RewardSchema = RewardSchema;
+export let Reward = Task.discriminator('Reward', new Schema({}), discriminatorOptions());
