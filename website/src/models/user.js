@@ -3,7 +3,6 @@ import shared from '../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import moment from 'moment';
-import Q from 'q';
 import { model as Task } from './task';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
@@ -493,7 +492,7 @@ schema.post('init', function postInitUser (doc) {
 
 function _populateDefaultTasks (user, taskTypes) {
   if ('tags' in taskTypes) {
-    user.tags = _.map(shared.content.userDefaults.tags, function(tag){
+    user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
       let newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
@@ -505,9 +504,11 @@ function _populateDefaultTasks (user, taskTypes) {
   }
 
   let tasksToCreate = [];
+
   _.each(taskTypes, (taskType) => {
     let tasksOfType = _.map(shared.content.userDefaults[taskType], (taskDefaults) => {
       let newTask = new Task(taskDefaults);
+
       newTask.userId = user._id;
       newTask.text = newTask.text(user.preferences.language);
       if (newTask.notes) newTask.notes = newTask.notes(user.preferences.language);
@@ -613,7 +614,7 @@ schema.pre('save', function postSaveUser (next, done) {
   // Populate new users with default content
   if (this.isNew) {
     _populateDefaultsForNewUser(this)
-      .then((tasks) => done())
+      .then(() => done())
       .catch(done);
   }
 });
