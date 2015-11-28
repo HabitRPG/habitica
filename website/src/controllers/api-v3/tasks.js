@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import * as Tasks from '../../models/tasks';
-import { NotFound } from '../../libs/errors';
+import * as Tasks from '../../models/task';
+import { NotFound } from '../../libs/api-v3/errors';
 
 let api = {};
 
