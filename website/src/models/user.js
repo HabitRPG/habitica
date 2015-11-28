@@ -544,15 +544,14 @@ function _populateDefaultsForNewUser (user) {
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
 
-    _.each(iterableFlags.tutorial.common, (section) => {
+    _.each(iterableFlags.tutorial.common, (val, section) => {
       user.flags.tutorial.common[section] = true;
     });
   } else {
     taskTypes = ['todos', 'tags'];
-
     user.flags.showTour = false;
 
-    _.each(iterableFlags.tour, (section) => {
+    _.each(iterableFlags.tour, (val, section) => {
       user.flags.tour[section] = -2;
     });
   }
