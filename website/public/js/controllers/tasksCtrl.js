@@ -76,22 +76,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      * Pushes task to top or bottom of list
      */
     $scope.pushTask = function(task, index, location) {
-      var to = (location === 'bottom' || $scope.pushLocation === 'bottom') ? -1 : 0;
+      var to = (location === 'bottom' || $scope.ctrlPressed) ? -1 : 0;
       User.user.ops.sortTask({params:{id:task.id},query:{from:index, to:to}})
     };
-
-    var ctrlKeys = [17, 224, 91];
-    $scope.$on("habit:keydown", function (e, keyEvent) {
-      if (ctrlKeys.indexOf(keyEvent.keyCode) !== -1) {
-        $scope.pushLocation = "bottom";
-      }
-    });
-
-    $scope.$on("habit:keyup", function (e, keyEvent) {
-      if (ctrlKeys.indexOf(keyEvent.keyCode) !== -1) {
-        $scope.pushLocation = "top";
-      }
-    });
 
     /**
      * This is calculated post-change, so task.completed=true if they just checked it
