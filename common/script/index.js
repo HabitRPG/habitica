@@ -2281,13 +2281,14 @@ api.wrap = function(user, main) {
           user.stats.lvl++;
           tnl = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
-          if (user.stats.lvl > api.maxLevel) {
+          var totalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
+          if (user.stats.lvl > api.maxLevel && totalPoints >= 100 ) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = user.stats.lvl - totalStatPoints;
             if (user.stats.points < 0) {
               user.stats.points = 0;
             }
