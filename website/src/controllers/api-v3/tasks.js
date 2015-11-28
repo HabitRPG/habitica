@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import * as Tasks from '../../models/task';
 import { NotFound } from '../../libs/api-v3/errors';
+import Q from 'q';
 
 let api = {};
 
@@ -25,8 +26,13 @@ api.createTask = {
     let newTask = new Tasks[`${taskType.charAt(0).toUpperCase() + taskType.slice(1)}Model`](Tasks.Task.sanitize(req.body));
     newTask.userId = user._id;
 
-    newTask.save()
-      .then((task) => res.respond(201, task))
+    user.tasksOrder[taskType].unshift(newTask._id);
+
+    Q.all([
+      newTask.save(),
+      user.save(),
+    ])
+      .then(([task]) => res.respond(201, task))
       .catch(next);
   },
 };
