@@ -539,7 +539,7 @@ function _populateDefaultTasks (user, taskTypes) {
 
 function _populateDefaultsForNewUser (user) {
   let taskTypes;
-  let iterableFlags = user.toObject().flags;
+  let iterableFlags = user.flags.toObject();
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];

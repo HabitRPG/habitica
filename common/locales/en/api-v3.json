@@ -14,5 +14,8 @@
   "onlyFbSupported": "Only Facebook supported currently.",
   "cantDetachFb": "Account lacks another authentication method, can't detach Facebook.",
   "onlySocialAttachLocal": "Local auth can only be added to a social account.",
-  "invalidReqParams": "Invalid request parameters."
+  "invalidReqParams": "Invalid request parameters.",
+  "taskIdRequired": "\"taskId\" must be a valid UUID",
+  "taskNotFound": "Task not found.",
+  "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\"."
 }

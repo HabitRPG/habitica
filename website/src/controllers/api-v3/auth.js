@@ -244,7 +244,7 @@ api.loginSocial = {
  * @apiName UserDeleteSocial
  * @apiGroup User
  *
- * @apiSuccess {Boolean=true} success Always true
+ * @apiSuccess {Object} response Empty object
  */
 api.deleteSocial = {
   method: 'DELETE',
