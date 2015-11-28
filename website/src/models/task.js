@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import shared from '../../../common';
+import validator from 'validator';
 import moment from 'moment';
 import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
@@ -15,10 +16,10 @@ let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {_id
 // Task model the subclasses are not applied - check twice
 
 export let TaskSchema = new Schema({
-  type: {type: String, enum: ['habit', 'todo', 'daily', 'reward'], required: true, default: 'habit'},
-  text: String,
+  type: {type: String, enum: ['Habit', 'Todo', 'Daily', 'Reward'], required: true, default: 'Habit'},
+  text: {type: String, required: true},
   notes: {type: String, default: ''},
-  tags: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary? { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
+  tags: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary? { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true }, validate
   value: {type: Number, default: 0}, // redness
   priority: {type: Number, default: 1},
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
@@ -36,12 +37,12 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: [],
+  noSet: ['challenge', 'userId', 'value', 'completed', 'history', 'streak', 'dateCompleted'], // TODO checklist fields editable?
   private: [],
   timestamps: true,
 });
 
-export let Task = mongoose.model('Task', TaskSchema);
+export let TaskModel = mongoose.model('Task', TaskSchema);
 
 // TODO discriminators: it's very important to check that the options and plugins of the parent schema are used in the sub-schemas too
 
@@ -58,18 +59,19 @@ let dailyTodoSchema = () => {
     collapseChecklist: {type: Boolean, default: false},
     checklist: [{
       completed: {type: Boolean, default: false},
-      text: String,
-      _id: {type: String, default: shared.uuid},
+      text: {type: String, required: true},
+      _id: {type: String, default: shared.uuid, validate: [validator.isUUID, 'Invalid uuid.']},
     }],
   };
 };
 
-export let Habit = Task.discriminator('Habit', new Schema(_.defaults({
+export let HabitSchema = new Schema(_.defaults({
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
-}, habitDailySchema()), subDiscriminatorOptions));
+}, habitDailySchema()), subDiscriminatorOptions);
+export let HabitModel = TaskModel.discriminator('Habit', HabitSchema);
 
-export let Daily = Task.discriminator('Daily', new Schema(_.defaults({
+export let DailySchema = new Schema(_.defaults({
   frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly']},
   everyX: {type: Number, default: 1}, // e.g. once every X weeks
   startDate: {
@@ -88,13 +90,16 @@ export let Daily = Task.discriminator('Daily', new Schema(_.defaults({
     su: {type: Boolean, default: true},
   },
   streak: {type: Number, default: 0},
-}, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions));
+}, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
+export let DailyModel = TaskModel.discriminator('Daily', DailySchema);
 
-export let Todo = Task.discriminator('Todo', new Schema(_.defaults({
+export let TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
   // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
   // TODO change field name
   date: String, // due date for todos
-}, dailyTodoSchema()), subDiscriminatorOptions));
+}, dailyTodoSchema()), subDiscriminatorOptions);
+export let TodoModel = TaskModel.discriminator('Todo', TodoSchema);
 
-export let Reward = Task.discriminator('Reward', new Schema({}, subDiscriminatorOptions));
+export let RewardSchema = new Schema({}, subDiscriminatorOptions);
+export let RewardModel = TaskModel.discriminator('Reward', RewardSchema);

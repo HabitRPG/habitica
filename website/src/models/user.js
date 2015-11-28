@@ -3,7 +3,8 @@ import shared from '../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import moment from 'moment';
-import { model as Task } from './task';
+import * as Tasks from './task';
+import Q from 'q';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
@@ -491,7 +492,9 @@ schema.post('init', function postInitUser (doc) {
 });
 
 function _populateDefaultTasks (user, taskTypes) {
-  if ('tags' in taskTypes) {
+  let tagsI = taskTypes.indexOf('tags');
+
+  if (tagsI !== -1) {
     user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
       let newTag = _.cloneDeep(tag);
 
@@ -505,9 +508,10 @@ function _populateDefaultTasks (user, taskTypes) {
 
   let tasksToCreate = [];
 
+  taskTypes = tagsI !== -1 ? _.clone(taskTypes).slice(tagsI, 1) : taskTypes;
   _.each(taskTypes, (taskType) => {
     let tasksOfType = _.map(shared.content.userDefaults[taskType], (taskDefaults) => {
-      let newTask = new Task(taskDefaults);
+      let newTask = new Tasks[taskType.charAt(0).toUpperCase() + taskType.slice(1)](taskDefaults);
 
       newTask.userId = user._id;
       newTask.text = newTask.text(user.preferences.language);
@@ -518,12 +522,19 @@ function _populateDefaultTasks (user, taskTypes) {
           return checklistItem;
         });
       }
+
+      return newTask.save();
     });
 
-    tasksToCreate.push(...tasksOfType);
+    tasksToCreate.push(...tasksOfType); // TODO find better way since this creates each task individually
   });
 
-  return Task.create(tasksToCreate);
+  return Q.all(tasksToCreate)
+    .then((tasksCreated) => {
+      _.each(tasksCreated, (task) => {
+        user.tasksOrder[`${task.type.toLowerCase()}s`].push(task._id);
+      });
+    });
 }
 
 function _populateDefaultsForNewUser (user) {
@@ -559,7 +570,7 @@ function _setProfileName (user) {
   return localUsername || facebookUsername || anonymous;
 }
 
-schema.pre('save', function postSaveUser (next, done) {
+schema.pre('save', true, function preSaveUser (next, done) {
   next();
 
   // TODO remove all unnecessary checks
