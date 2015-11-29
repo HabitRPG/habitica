@@ -35,8 +35,9 @@ export default function baseModel (schema, options = {}) {
   let privateFields = ['__v'];
 
   if (Array.isArray(options.noSet)) noSetFields.push(...options.noSet);
-  schema.statics.sanitize = function sanitize (objToSanitize = {}) {
-    noSetFields.forEach((fieldPath) => {
+  // This method accepts an additional array of fields to be sanitized that can be passed at runtime
+  schema.statics.sanitize = function sanitize (objToSanitize = {}, additionalFields = []) {
+    noSetFields.concat(additionalFields).forEach((fieldPath) => {
       objectPath.del(objToSanitize, fieldPath);
     });
 

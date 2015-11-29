@@ -42,9 +42,13 @@ TaskSchema.plugin(baseModel, {
   timestamps: true,
 });
 
-export let TaskModel = mongoose.model('Task', TaskSchema);
+// A list of additional fields that cannot be updated (but can be set on creation)
+let noUpdate = ['_id', 'type'];
+TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
+  return TaskModel.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
+};
 
-// TODO discriminators: it's very important to check that the options and plugins of the parent schema are used in the sub-schemas too
+export let TaskModel = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
 let habitDailySchema = () => {

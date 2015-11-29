@@ -5,6 +5,7 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import Q from 'q';
+import _ from 'lodash';
 
 let api = {};
 
@@ -26,7 +27,7 @@ api.createTask = {
     let user = res.locals.user;
     let taskType = req.body.type;
 
-    let newTask = new Tasks[`${taskType.charAt(0).toUpperCase() + taskType.slice(1)}Model`](Tasks.Task.sanitize(req.body));
+    let newTask = new Tasks[`${taskType.charAt(0).toUpperCase() + taskType.slice(1)}Model`](Tasks.TaskModel.sanitize(req.body));
     newTask.userId = user._id;
 
     user.tasksOrder[taskType].unshift(newTask._id);
@@ -35,8 +36,8 @@ api.createTask = {
       newTask.save(),
       user.save(),
     ])
-      .then(([task]) => res.respond(201, task))
-      .catch(next);
+    .then(([task]) => res.respond(201, task))
+    .catch(next);
   },
 };
 
@@ -95,6 +96,40 @@ api.getTask = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
       res.respond(200, task);
     })
+    .catch(next);
+  },
+};
+
+/**
+ * @api {put} /task/:taskId Update a task
+ * @apiVersion 3.0.0
+ * @apiName GetTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ *
+ * @apiSuccess {object} task The updated task
+ */
+api.updateTask = {
+  method: 'GET',
+  url: '/tasks/:taskId',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+
+    Tasks.TaskModel.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      // TODO merge goes deep into objects, it's ok?
+      // TODO also check that array fields are updated correctly without marking modified
+      _.merge(task, Tasks.TaskModel.sanitizeUpdate(req.body));
+      return task.save();
+    })
+    .then((savedTask) => res.respond(200, savedTask))
     .catch(next);
   },
 };

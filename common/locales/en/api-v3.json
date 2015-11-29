@@ -17,5 +17,6 @@
   "invalidReqParams": "Invalid request parameters.",
   "taskIdRequired": "\"taskId\" must be a valid UUID",
   "taskNotFound": "Task not found.",
-  "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\"."
+  "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
+  "cantDeleteChallengeTasks": "A task belonging to a challenge can't be deleted."
 }

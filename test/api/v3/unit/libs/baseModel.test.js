@@ -43,6 +43,20 @@ describe('Base model plugin', () => {
     expect(sanitized.noUpdateForMe).to.equal(undefined);
   });
 
+  it('accepts an array of additional fields to sanitize at runtime', () => {
+    baseModel(schema, {
+      noSet: ['noUpdateForMe']
+    });
+
+    expect(schema.statics.sanitize).to.exist;
+    let sanitized = schema.statics.sanitize({ok: true, noUpdateForMe: true, usuallySettable: true}, ['usuallySettable']);
+
+    expect(sanitized).to.have.property('ok');
+    expect(sanitized).not.to.have.property('noUpdateForMe');
+    expect(sanitized).not.to.have.property('usuallySettable');
+  });
+
+
   it('can make fields private', () => {
     baseModel(schema, {
       private: ['amPrivate']
