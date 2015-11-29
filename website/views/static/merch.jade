@@ -2,16 +2,16 @@ extends ./layout
 
 // Merchandise page : when adding a merchandise make sure to add following resources
   + image of merchandise -- eg. teespring.png
-  + logo of seller       -- eg. teespring-logo.png
+  + logo of merchant     -- eg. teespring-logo.png
   + update merch.json with extra info about merchandise
-    - merch-*-summary  ->  Teespring is and will always be...
-    - merch-*-goto     ->  Get myself a Habitica T-Shirts
+    - merch-*-summary    -> Teespring is and will always be...
+    - merch-*-goto       -> Get myself a Habitica T-Shirts
   + update this page with an extra merchant (var merchants)
-    - merchants.push({name: 'Teespring', link: 'https://teespring.com/habitica-gryphon-t-shirt', image: 'teespring.png', logo: 'teespring-logo.png'})
     - name
     - link
     - image
     - logo
+    eg. -> merchants.push({name: 'Teespring', link: 'https://teespring.com/habitica-gryphon-t-shirt', image: 'teespring.png', logo: 'teespring-logo.png'})
 
 block vars
   - var layoutEnv = env
