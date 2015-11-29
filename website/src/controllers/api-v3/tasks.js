@@ -95,9 +95,57 @@ api.getTask = {
     .catch(next);
   },
 };
-// api.updateTask
-// api.deleteTask
-// api.score
-// api.scoreChecklist
+
+// Remove a task from user.tasksOrder
+function _removeTaskTasksOrder (user, taskId) {
+  let types = ['habits', 'dailys', 'todos', 'rewards'];
+
+  // Loop through all lists and when the task is found, remove it and return
+  for (let i = 0; i < types.length; i++) {
+    let list = user.tasksOrder[types[i]];
+    let index = list.indexOf(taskId);
+
+    if (index !== -1) {
+      list.splice(index, 1);
+      break;
+    }
+  }
+
+  return;
+}
+
+/**
+ * @api {delete} /task/:taskId Delete a task given its id
+ * @apiVersion 3.0.0
+ * @apiName DeleteTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.deleteTask = {
+  method: 'GET',
+  url: '/tasks/:taskId',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    _removeTaskTasksOrder(user, req.params.taskId);
+
+    // TODO should we block deleting challenges tasks? both when userId is defined and when not
+    // Remove the task and save the user
+    Q.all([
+      Tasks.TaskModel.remove({
+        _id: req.params.taskId,
+        userId: user._id,
+      }),
+      user.save(),
+    ])
+    .then(() => res.respond(200, {}))
+    .catch(next);
+  },
+};
 
 export default api;
