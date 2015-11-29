@@ -2282,7 +2282,7 @@ api.wrap = function(user, main) {
           tnl = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
           var totalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
-          if (user.stats.lvl > api.maxLevel && totalPoints >= 100 ) {
+          if (totalStatPoints >= api.maxLevel) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
