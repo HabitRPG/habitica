@@ -1,6 +1,9 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import * as Tasks from '../../models/task';
-import { NotFound } from '../../libs/api-v3/errors';
+import {
+  NotFound,
+  NotAuthorized,
+} from '../../libs/api-v3/errors';
 import Q from 'q';
 
 let api = {};
@@ -115,7 +118,7 @@ function _removeTaskTasksOrder (user, taskId) {
 }
 
 /**
- * @api {delete} /task/:taskId Delete a task given its id
+ * @api {delete} /task/:taskId Delete a user task given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task
@@ -132,17 +135,21 @@ api.deleteTask = {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    _removeTaskTasksOrder(user, req.params.taskId);
 
-    // TODO should we block deleting challenges tasks? both when userId is defined and when not
-    // Remove the task and save the user
-    Q.all([
-      Tasks.TaskModel.remove({
-        _id: req.params.taskId,
-        userId: user._id,
-      }),
-      user.save(),
-    ])
+    Tasks.TaskModel.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      if (task.challenge.id) throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+
+      _removeTaskTasksOrder(user, req.params.taskId);
+      return Q.all([
+        user.save(),
+        task.remove(),
+      ]);
+    })
     .then(() => res.respond(200, {}))
     .catch(next);
   },
