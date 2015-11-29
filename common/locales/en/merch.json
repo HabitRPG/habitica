@@ -1,14 +1,10 @@
 {
-  "merch" : "Merch",
+  "merch" : "Merchandise",
 
-  "merch-1-name" : "Teespring",
-  "merch-1-summary" : "Teespring is a platform that makes it easy for anyone to create and sell high-quality products people love, with no cost or risk.",
-  "merch-1-link" : "https://teespring.com/habitica-gryphon-t-shirt",
-  "merch-1-goto" : "Get myself a Habitica T-Shirts",
+  "merch-0-summary" : "Teespring is a platform that makes it easy for anyone to create and sell high-quality products people love, with no cost or risk.",
+  "merch-0-goto" : "Get myself a Habitica T-Shirts",
 
-  "merch-2-name" : "Stickermule",
-  "merch-2-summary" : "Stick proud Melior wherever you (or someone else) need a reminder of both present and future accomplishments!",
-  "merch-2-link" : "https://www.stickermule.com/uk/marketplace/9317-habitica-gryphon-sticker",
-  "merch-2-goto" : "Get myself a Habitica Sticker"
+  "merch-1-summary" : "Stick proud Melior wherever you (or someone else) need a reminder of both present and future accomplishments!",
+  "merch-1-goto" : "Get myself a Habitica Sticker"
 
 }
