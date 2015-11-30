@@ -172,6 +172,7 @@ api.moveTask = {
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
+      if (task.type === 'todo' && task.completed) throw new NotFound(res.t('cantMoveCompletedTodo'));
       let order = user.tasksOrder[`${task.type}s`];
       let currentIndex = order.indexOf(task._id);
 
