@@ -48,7 +48,8 @@ api.createTask = {
  * @apiName GetTasks
  * @apiGroup Task
  *
- * @apiParam {string="habit","daily","todo","reward"} type Optional queyr parameter to return just a type of tasks
+ * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
+ * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo"
  *
  * @apiSuccess {Array} tasks An array of task objects
  */
@@ -62,11 +63,36 @@ api.getTasks = {
     let user = res.locals.user;
     let query = {userId: user._id};
     let type = req.query.type;
-    if (type) query.type = type;
 
-    Tasks.Task.find(query).exec()
-      .then((tasks) => res.respond(200, tasks))
-      .catch(next);
+    if (type) {
+      query.type = type;
+      if (type === 'todo') query.completed = false; // Exclude completed todos
+    } else {
+      query.$and = [ // Exclude completed todos
+        {type: 'todo', completed: false},
+        {type: {$in: ['habit', 'daily', 'reward']}},
+      ];
+    }
+
+    if (req.query.includeCompletedTodos === 'true' && (!type || type === 'todo')) {
+      let queryCompleted = Tasks.Task.find({
+        type: 'todo',
+        completed: true,
+      }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
+        dateCompleted: 1,
+      });
+
+      Q.all([
+        queryCompleted.exec(),
+        Tasks.Task.find(query).exec(),
+      ])
+        .then((results) => res.respond(200, results[1].concat(results[0])))
+        .catch(next);
+    } else {
+      Tasks.Task.find(query).exec()
+        .then((tasks) => res.respond(200, tasks))
+        .catch(next);
+    }
   },
 };
 
