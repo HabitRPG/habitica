@@ -143,6 +143,56 @@ api.updateTask = {
   },
 };
 
+// completed todos cannot be moved, they'll be returned ordered by date of completion
+/**
+ * @api {put} /tasks/move/:taskId/to/:position Move a task to a new position
+ * @apiVersion 3.0.0
+ * @apiName MoveTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {Number} position Where to move the task (-1 means push to bottom)
+ *
+ * @apiSuccess {object} emoty An empty object
+ */
+api.moveTask = {
+  method: 'POST',
+  url: '/tasks/move/:taskId/to/:position',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let user = res.locals.user;
+    let to = Number(req.params.position);
+
+    Tasks.Task.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      let order = user.tasksOrder[`${task.type}s`];
+      let currentIndex = order.indexOf(task._id);
+
+      // If for some reason the task isn't ordered (should never happen)
+      // or if the task is moved to a non existing position
+      // or if the task is moved to postion -1 (push to bottom)
+      // -> push task at end of list
+      if (currentIndex === -1 || !order[to] || to === -1) {
+        order.push(task._id);
+      } else {
+        let taskToMove = order.splice(currentIndex, 1)[0];
+        order.splice(to, 0, taskToMove);
+      }
+
+      return user.save();
+    })
+    .then(() => res.respond(200, {})) // TODO what to return
+    .catch(next);
+  },
+};
+
 /**
  * @api {post} /tasks/:taskId/checklist/addItem Add an item to a checklist, creating the checklist if it doesn't exist
  * @apiVersion 3.0.0
