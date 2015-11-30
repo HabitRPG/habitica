@@ -3,6 +3,7 @@ import * as Tasks from '../../models/task';
 import {
   NotFound,
   NotAuthorized,
+  BadRequest,
 } from '../../libs/api-v3/errors';
 import Q from 'q';
 import _ from 'lodash';
@@ -103,7 +104,7 @@ api.getTask = {
 /**
  * @api {put} /task/:taskId Update a task
  * @apiVersion 3.0.0
- * @apiName GetTask
+ * @apiName UpdateTask
  * @apiGroup Task
  *
  * @apiParam {UUID} taskId The task _id
@@ -111,12 +112,14 @@ api.getTask = {
  * @apiSuccess {object} task The updated task
  */
 api.updateTask = {
-  method: 'GET',
+  method: 'PUT',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
     let user = res.locals.user;
+
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    // TODO check that req.body isn't empty
 
     Tasks.TaskModel.findOne({
       _id: req.params.taskId,
@@ -124,12 +127,175 @@ api.updateTask = {
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
+
+      // If checklist is updated -> replace the original one
+      if (req.body.checklist) {
+        delete req.body.checklist;
+        task.checklist = req.body.checklist;
+      }
       // TODO merge goes deep into objects, it's ok?
       // TODO also check that array fields are updated correctly without marking modified
       _.merge(task, Tasks.TaskModel.sanitizeUpdate(req.body));
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask))
+    .catch(next);
+  },
+};
+
+/**
+ * @api {post} /tasks/:taskId/checklist/addItem Add an item to a checklist, creating the checklist if it doesn't exist
+ * @apiVersion 3.0.0
+ * @apiName AddChecklistItem
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ *
+ * @apiSuccess {object} task The updated task
+ */
+api.addChecklistItem = {
+  method: 'POST',
+  url: '/tasks/:taskId/checklist/addItem',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    // TODO check that req.body isn't empty and is an array
+
+    Tasks.TaskModel.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+
+      task.checklist.push(req.body);
+      return task.save();
+    })
+    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
+    .catch(next);
+  },
+};
+
+/**
+ * @api {post} /tasks/:taskId/checklist/:itemId/score Score a checklist item
+ * @apiVersion 3.0.0
+ * @apiName ScoreChecklistItem
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID} itemId The checklist item _id
+ *
+ * @apiSuccess {object} task The updated task
+ */
+api.scoreCheckListItem = {
+  method: 'POST',
+  url: '/tasks/:taskId/checklist/:itemId/score',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+
+    Tasks.TaskModel.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+
+      let item = _.find(task.checklist, {_id: req.params.itemId});
+
+      if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+      item.completed = !item.completed;
+      return task.save();
+    })
+    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
+    .catch(next);
+  },
+};
+
+/**
+ * @api {put} /tasks/:taskId/checklist/:itemId Update a checklist item
+ * @apiVersion 3.0.0
+ * @apiName UpdateChecklistItem
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID} itemId The checklist item _id
+ *
+ * @apiSuccess {object} task The updated task
+ */
+api.updateChecklistItem = {
+  method: 'PUT',
+  url: '/tasks/:taskId/checklist/:itemId',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+
+    Tasks.TaskModel.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+
+      let item = _.find(task.checklist, {_id: req.params.itemId});
+      if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+
+      delete req.body.id; // Simple sanitization to prevent the ID to be changed
+      _.merge(item, req.body);
+      return task.save();
+    })
+    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
+    .catch(next);
+  },
+};
+
+/**
+ * @api {delete} /tasks/:taskId/checklist/:itemId Remove a checklist item
+ * @apiVersion 3.0.0
+ * @apiName RemoveChecklistItem
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID} itemId The checklist item _id
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.removeChecklistItem = {
+  method: 'DELETE',
+  url: '/tasks/:taskId/checklist/:itemId',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+
+    Tasks.TaskModel.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+
+      let itemI = _.findIndex(task.checklist, {_id: req.params.itemId});
+      if (itemI === -1) throw new NotFound(res.t('checklistItemNotFound'));
+
+      task.checklist.splice(itemI, 1);
+      return task.save();
+    })
+    .then(() => res.respond(200, {})) // TODO what to return
     .catch(next);
   },
 };
