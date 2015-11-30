@@ -4,21 +4,22 @@ extends ./layout
   + image of merchandise -- eg. teespring.png
   + logo of merchant     -- eg. teespring-logo.png
   + update merch.json with extra info about merchandise
-    - merch-*-summary    -> Teespring is and will always be...
-    - merch-*-goto       -> Get myself a Habitica T-Shirts
+    - merch-MERCHANT.KEY-summary   -- eg. merch-teespring-summary  -> Teespring is and will always be...
+    - merch-MERCHANT.KEY-goto      -- eg. merch-teespring-goto     -> Get myself a Habitica T-Shirts
   + update this page with an extra merchant (var merchants)
-    - name
+    - key (used in locale files)
+    - name (if no logo, this will be shown instead)
     - link
     - image
-    - logo
-    eg. -> merchants.push({name: 'Teespring', link: 'https://teespring.com/habitica-gryphon-t-shirt', image: 'teespring.png', logo: 'teespring-logo.png'})
+    - logo (if non provided, name will be shown)
+    eg. -> merchants.push({key: 'teespring', name: 'Teespring', link: 'https://teespring.com/habitica-gryphon-t-shirt', image: 'teespring.png', logo: 'teespring-logo.png'})
 
 block vars
   - var layoutEnv = env
 
   - var merchants = []
-  - merchants.push({name: 'Teespring', link: 'https://teespring.com/habitica-gryphon-t-shirt', image: 'teespring.png', logo: 'teespring-logo.png'})
-  - merchants.push({name: 'Stickermule', link: 'https://teespring.com/habitica-gryphon-t-shirt', image: 'stickermule.png', logo: 'stickermule-logo.png'})
+  - merchants.push({key: 'teespring', name: 'Teespring', link: 'https://teespring.com/habitica-gryphon-t-shirt', image: 'teespring.png', logo: 'teespring-logo.png'})
+  - merchants.push({key: 'stickermule', name: 'Stickermule', link: 'https://www.stickermule.com/uk/marketplace/9317-habitica-gryphon-sticker', image: 'stickermule.png', logo: 'stickermule-logo.png'})
 
 block title
   title=env.t('merch')
@@ -30,14 +31,17 @@ block content
         h3=env.t('merch')
 
   // Merchandise block - START
-  each item, index in merchants
+  each merchant, index in merchants
     if (index+1) % 2 !== 0
       .row
 
     .col-lg-6.col-md-6.col-sm-12
       .merch-block
-        div.merch-header: img(src="/merch/" + "#{item.logo}")
-        div.merch-img-con: a(href="#{item.link}" target='_blank'): img.img-rendering-auto.merch-img(src="/merch/" + "#{item.image}")
-        p=env.t('merch-' + index + '-summary')
-        a.btn.btn-habitica.merch-link(href="#{item.link}" target='_blank')=env.t('merch-' + index + '-goto')
+        if merchant.logo
+          img(src="/merch/" + "#{merchant.logo}")
+        else
+          h3=merchant.name
+        div: a(href="#{merchant.link}" target='_blank'): img.img-rendering-auto(src="/merch/" + "#{merchant.image}")
+        p=env.t('merch-' + merchant.key + '-summary')
+        a.btn(href="#{merchant.link}" target='_blank')=env.t('merch-' + merchant.key + '-goto')
   // Merchandise block - END
