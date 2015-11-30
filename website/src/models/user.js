@@ -511,7 +511,7 @@ function _populateDefaultTasks (user, taskTypes) {
   taskTypes = tagsI !== -1 ? _.clone(taskTypes).slice(tagsI, 1) : taskTypes;
   _.each(taskTypes, (taskType) => {
     let tasksOfType = _.map(shared.content.userDefaults[taskType], (taskDefaults) => {
-      let newTask = new Tasks[taskType.charAt(0).toUpperCase() + taskType.slice(1)](taskDefaults);
+      let newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
       newTask.text = newTask.text(user.preferences.language);
@@ -532,7 +532,7 @@ function _populateDefaultTasks (user, taskTypes) {
   return Q.all(tasksToCreate)
     .then((tasksCreated) => {
       _.each(tasksCreated, (task) => {
-        user.tasksOrder[`${task.type.toLowerCase()}s`].push(task._id);
+        user.tasksOrder[`${task.type}s`].push(task._id);
       });
     });
 }

@@ -11,12 +11,10 @@ let discriminatorOptions = {
 };
 let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {_id: false});
 
-// TODO make sure a task can only update the fields belonging to its type
-// We could use discriminators but it looks like when loading from the parent
-// Task model the subclasses are not applied - check twice
+export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
 export let TaskSchema = new Schema({
-  type: {type: String, enum: ['Habit', 'Todo', 'Daily', 'Reward'], required: true, default: 'Habit'},
+  type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
   tags: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary? { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true }, validate
@@ -45,10 +43,10 @@ TaskSchema.plugin(baseModel, {
 // A list of additional fields that cannot be updated (but can be set on creation)
 let noUpdate = ['_id', 'type'];
 TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
-  return TaskModel.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
+  return Task.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
 };
 
-export let TaskModel = mongoose.model('Task', TaskSchema);
+export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
 let habitDailySchema = () => {
@@ -73,7 +71,7 @@ export let HabitSchema = new Schema(_.defaults({
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
 }, habitDailySchema()), subDiscriminatorOptions);
-export let HabitModel = TaskModel.discriminator('Habit', HabitSchema);
+export let Habit = Task.discriminator('habit', HabitSchema);
 
 export let DailySchema = new Schema(_.defaults({
   frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly']},
@@ -95,7 +93,7 @@ export let DailySchema = new Schema(_.defaults({
   },
   streak: {type: Number, default: 0},
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
-export let DailyModel = TaskModel.discriminator('Daily', DailySchema);
+export let Daily = Task.discriminator('daily', DailySchema);
 
 export let TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
@@ -103,7 +101,7 @@ export let TodoSchema = new Schema(_.defaults({
   // TODO change field name
   date: String, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
-export let TodoModel = TaskModel.discriminator('Todo', TodoSchema);
+export let Todo = Task.discriminator('todo', TodoSchema);
 
 export let RewardSchema = new Schema({}, subDiscriminatorOptions);
-export let RewardModel = TaskModel.discriminator('Reward', RewardSchema);
+export let Reward = Task.discriminator('reward', RewardSchema);

@@ -23,12 +23,12 @@ api.createTask = {
   url: '/tasks',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
-    req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(['habit', 'daily', 'todo', 'reward']);
+    req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(Tasks.tasksTypes);
 
     let user = res.locals.user;
     let taskType = req.body.type;
 
-    let newTask = new Tasks[`${taskType.charAt(0).toUpperCase() + taskType.slice(1)}Model`](Tasks.TaskModel.sanitize(req.body));
+    let newTask = new Tasks[taskType](Tasks.Task.sanitize(req.body));
     newTask.userId = user._id;
 
     user.tasksOrder[taskType].unshift(newTask._id);
@@ -57,14 +57,14 @@ api.getTasks = {
   url: '/tasks',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
-    req.checkQuery('type', res.t('invalidTaskType')).isIn(['habit', 'daily', 'todo', 'reward']);
+    req.checkQuery('type', res.t('invalidTaskType')).isIn(Tasks.tasksTypes);
 
     let user = res.locals.user;
     let query = {userId: user._id};
     let type = req.query.type;
-    if (type) query.type = type.charAt(0).toUpperCase() + type.slice(1); // task.ype is stored with firt uppercase letter
+    if (type) query.type = type;
 
-    Tasks.TaskModel.find(query).exec()
+    Tasks.Task.find(query).exec()
       .then((tasks) => res.respond(200, tasks))
       .catch(next);
   },
@@ -89,7 +89,7 @@ api.getTask = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
-    Tasks.TaskModel.findOne({
+    Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
     }).exec()
@@ -121,7 +121,7 @@ api.updateTask = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty
 
-    Tasks.TaskModel.findOne({
+    Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
     }).exec()
@@ -135,7 +135,7 @@ api.updateTask = {
       }
       // TODO merge goes deep into objects, it's ok?
       // TODO also check that array fields are updated correctly without marking modified
-      _.merge(task, Tasks.TaskModel.sanitizeUpdate(req.body));
+      _.merge(task, Tasks.Task.sanitizeUpdate(req.body));
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask))
@@ -163,13 +163,13 @@ api.addChecklistItem = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty and is an array
 
-    Tasks.TaskModel.findOne({
+    Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
       task.checklist.push(req.body);
       return task.save();
@@ -200,13 +200,13 @@ api.scoreCheckListItem = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
-    Tasks.TaskModel.findOne({
+    Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
       let item = _.find(task.checklist, {_id: req.params.itemId});
 
@@ -240,13 +240,13 @@ api.updateChecklistItem = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
-    Tasks.TaskModel.findOne({
+    Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
       let item = _.find(task.checklist, {_id: req.params.itemId});
       if (!item) throw new NotFound(res.t('checklistItemNotFound'));
@@ -281,13 +281,13 @@ api.removeChecklistItem = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
-    Tasks.TaskModel.findOne({
+    Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'Daily' && task.type !== 'Todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
       let itemI = _.findIndex(task.checklist, {_id: req.params.itemId});
       if (itemI === -1) throw new NotFound(res.t('checklistItemNotFound'));
@@ -302,11 +302,9 @@ api.removeChecklistItem = {
 
 // Remove a task from user.tasksOrder
 function _removeTaskTasksOrder (user, taskId) {
-  let types = ['habits', 'dailys', 'todos', 'rewards'];
-
   // Loop through all lists and when the task is found, remove it and return
-  for (let i = 0; i < types.length; i++) {
-    let list = user.tasksOrder[types[i]];
+  for (let i = 0; i < Tasks.tasksTypes.length; i++) {
+    let list = user.tasksOrder[Tasks.tasksTypes[i]];
     let index = list.indexOf(taskId);
 
     if (index !== -1) {
@@ -337,7 +335,7 @@ api.deleteTask = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
-    Tasks.TaskModel.findOne({
+    Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
     }).exec()
