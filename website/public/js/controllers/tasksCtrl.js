@@ -76,7 +76,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      * Pushes task to top or bottom of list
      */
     $scope.pushTask = function(task, index, location) {
-      var to = (location === 'bottom') ? -1 : 0;
+      var to = (location === 'bottom' || $scope.ctrlPressed) ? -1 : 0;
       User.user.ops.sortTask({params:{id:task.id},query:{from:index, to:to}})
     };
 

@@ -261,7 +261,7 @@ habitrpg.controller("InventoryCtrl",
       }
     };
 
-    $scope.$on("habit:keyup", function (e, keyEvent) {
+    $scope.$on("habit:keydown", function (e, keyEvent) {
       if (keyEvent.keyCode == "27") {
         $scope.deselectItem();
       }
