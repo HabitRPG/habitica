@@ -196,8 +196,6 @@ api.scoreTask = {
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
-      
-      let delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
     })
     .then(() => res.respond(200, {})) // TODO what to return
     .catch(next);

@@ -509,11 +509,11 @@ function _populateDefaultTasks (user, taskTypes) {
   if (tagsI !== -1) {
     taskTypes = _.clone(taskTypes);
     taskTypes.splice(tagsI, 1);
-  };
+  }
 
   _.each(taskTypes, (taskType) => {
     let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
-      let newTask = new (Tasks[taskType])(taskDefaults);
+      let newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
       newTask.text = taskDefaults.text(user.preferences.language);
