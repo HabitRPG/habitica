@@ -23,5 +23,6 @@
   "checklistItemNotFound": "No checklist item was wound with given id.",
   "itemIdRequired": "\"itemId\" must be a valid UUID",
   "positionRequired": "\"position\" is required and must be a number.",
-  "cantMoveCompletedTodo": "Can't move a completed todo."
+  "cantMoveCompletedTodo": "Can't move a completed todo.",
+  "directionUpDown": "\"direction\" is required and must be 'up' or 'down'"
 }

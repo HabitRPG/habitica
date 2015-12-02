@@ -477,8 +477,6 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function toJSON (doc) {
-    doc.id = doc._id; // TODO remove?
-
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
     doc.filters = {};
     doc._tmp = this._tmp; // be sure to send down drop notifs
@@ -492,7 +490,7 @@ schema.post('init', function postInitUser (doc) {
 });
 
 function _populateDefaultTasks (user, taskTypes) {
-  let tagsI = taskTypes.indexOf('tags');
+  let tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
     user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
@@ -508,16 +506,20 @@ function _populateDefaultTasks (user, taskTypes) {
 
   let tasksToCreate = [];
 
-  taskTypes = tagsI !== -1 ? _.clone(taskTypes).slice(tagsI, 1) : taskTypes;
+  if (tagsI !== -1) {
+    taskTypes = _.clone(taskTypes);
+    taskTypes.splice(tagsI, 1);
+  };
+
   _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(shared.content.userDefaults[taskType], (taskDefaults) => {
-      let newTask = new Tasks[taskType](taskDefaults);
+    let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
+      let newTask = new (Tasks[taskType])(taskDefaults);
 
       newTask.userId = user._id;
-      newTask.text = newTask.text(user.preferences.language);
-      if (newTask.notes) newTask.notes = newTask.notes(user.preferences.language);
-      if (newTask.checklist) {
-        newTask.checklist = _.map(newTask.checklist, (checklistItem) => {
+      newTask.text = taskDefaults.text(user.preferences.language);
+      if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
+      if (taskDefaults.checklist) {
+        newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
           checklistItem.text = checklistItem.text(user.preferences.language);
           return checklistItem;
         });
@@ -542,13 +544,13 @@ function _populateDefaultsForNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   if (user.registeredThrough === 'habitica-web') {
-    taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
+    taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
     _.each(iterableFlags.tutorial.common, (val, section) => {
       user.flags.tutorial.common[section] = true;
     });
   } else {
-    taskTypes = ['todos', 'tags'];
+    taskTypes = ['todo', 'tag'];
     user.flags.showTour = false;
 
     _.each(iterableFlags.tour, (val, section) => {

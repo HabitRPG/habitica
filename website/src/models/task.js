@@ -19,7 +19,7 @@ export let TaskSchema = new Schema({
   notes: {type: String, default: ''},
   tags: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary? { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true }, validate
   value: {type: Number, default: 0}, // redness
-  priority: {type: Number, default: 1},
+  priority: {type: Number, default: 1, required: true},
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
   userId: {type: String, ref: 'User'}, // When null it belongs to a challenge
 
@@ -71,7 +71,7 @@ export let HabitSchema = new Schema(_.defaults({
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
 }, habitDailySchema()), subDiscriminatorOptions);
-export let Habit = Task.discriminator('habit', HabitSchema);
+export let habit = Task.discriminator('habit', HabitSchema);
 
 export let DailySchema = new Schema(_.defaults({
   frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly']},
@@ -93,7 +93,7 @@ export let DailySchema = new Schema(_.defaults({
   },
   streak: {type: Number, default: 0},
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
-export let Daily = Task.discriminator('daily', DailySchema);
+export let daily = Task.discriminator('daily', DailySchema);
 
 export let TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
@@ -101,7 +101,7 @@ export let TodoSchema = new Schema(_.defaults({
   // TODO change field name
   date: String, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
-export let Todo = Task.discriminator('todo', TodoSchema);
+export let todo = Task.discriminator('todo', TodoSchema);
 
 export let RewardSchema = new Schema({}, subDiscriminatorOptions);
-export let Reward = Task.discriminator('reward', RewardSchema);
+export let reward = Task.discriminator('reward', RewardSchema);

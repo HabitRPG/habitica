@@ -169,9 +169,45 @@ api.updateTask = {
   },
 };
 
-// completed todos cannot be moved, they'll be returned ordered by date of completion
 /**
- * @api {put} /tasks/move/:taskId/to/:position Move a task to a new position
+ * @api {put} /tasks/score/:taskId/:direction Score a task
+ * @apiVersion 3.0.0
+ * @apiName ScoreTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {string="up","down"} direction The direction for scoring the task
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.scoreTask = {
+  method: 'POST',
+  url: 'tasks/score/:taskId/:direction',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
+
+    let user = res.locals.user;
+
+    Tasks.Task.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      
+      let delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
+    })
+    .then(() => res.respond(200, {})) // TODO what to return
+    .catch(next);
+  },
+};
+
+// completed todos cannot be moved, they'll be returned ordered by date of completion
+// TODO check that it works when a tag is selected or todos are split between dated and due
+/**
+ * @api {post} /tasks/move/:taskId/to/:position Move a task to a new position
  * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task
@@ -179,7 +215,7 @@ api.updateTask = {
  * @apiParam {UUID} taskId The task _id
  * @apiParam {Number} position Where to move the task (-1 means push to bottom)
  *
- * @apiSuccess {object} emoty An empty object
+ * @apiSuccess {object} empty An empty object
  */
 api.moveTask = {
   method: 'POST',
