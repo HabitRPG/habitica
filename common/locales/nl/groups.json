@@ -137,7 +137,7 @@
     "startAParty": "Een groep beginnen",
     "addToParty": "Iemand aan je groep toevoegen",
     "likePost": "Klik hier als je dit bericht leuk vindt!",
-    "partyExplanation1": "Speel Habitica met vrienden en blijf verantwoordelijk!",
+    "partyExplanation1": "Speel Habitica met vrienden om verantwoordelijk te blijven!",
     "partyExplanation2": "Strijd tegen monsters en maak uitdagingen!",
     "partyExplanation3": "Nodig je vrienden uit om een queeste-perkamentrol te krijgen!",
     "wantToStartParty": "Wil je een groep oprichten?",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "Je groepschat is leeg! Typ een bericht in het bovenstaande vak om een conversatie te beginnen.",
     "guildChatEmpty": "De gildechat is leeg! Typ een bericht in het bovenstaande vak om een conversatie te beginnen.",
     "possessiveParty": "<%= name %>s groep",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Als je berichten in de herberg of een groep- of gildechat wilt plaatsen, lees dan eerst onze <%= linkStart %>Gemeenschapsrichtlijnen<%= linkEnd %> en klik dan op de knop onderaan om aan te geven dat je ze accepteert."
 }
