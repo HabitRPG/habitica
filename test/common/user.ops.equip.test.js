@@ -78,10 +78,8 @@ describe('user.ops.equip', () => {
       // equipping two-hander
       user.ops.equip({params: {key: 'weapon_wizard_1'}}, spy);
       let weapon = content.gear.flat.weapon_wizard_1;
-      let message = [i18n.t('messageTwoHandled', {gearText: weapon.text(null)})];
       let item = content.gear.flat.shield_warrior_1;
-
-      message.push(i18n.t('messageUnEquipped', {itemText: item.text(null)}));
+      let message = i18n.t('messageTwoHandedEquip', {twoHandedText: weapon.text(null), offHandedText: item.text(null)});
 
       assert.calledOnce(spy);
       assert.calledWith(spy, {code: 200, message});
@@ -90,13 +88,12 @@ describe('user.ops.equip', () => {
     it('should send messages if equipping an off-hand item causes a two-handed weapon to be unequipped', () => {
       // equipping two-hander
       user.ops.equip({params: {key: 'weapon_wizard_1'}});
-      let item = content.gear.flat.weapon_wizard_1;
+      let weapon = content.gear.flat.weapon_wizard_1;
+      let shield = content.gear.flat.shield_warrior_1;
 
       user.ops.equip({params: {key: 'shield_warrior_1'}}, spy);
 
-      let message = [i18n.t('messageTwoHandled', {gearText: item.text(null)})];
-
-      message.push(i18n.t('messageUnEquipped', {itemText: item.text(null)}));
+      let message = i18n.t('messageTwoHandedUnequip', {twoHandedText: weapon.text(null), offHandedText: shield.text(null)});
 
       assert.calledOnce(spy);
       assert.calledWith(spy, {code: 200, message});

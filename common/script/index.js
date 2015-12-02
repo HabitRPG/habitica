@@ -2065,31 +2065,23 @@ api.wrap = function(user, main) {
       return item;
     },   
     handleTwoHanded: function(item, type, req) {
-      var message, ref, weapon, shield;
+      var message, currentWeapon, currentShield;
       if (type == null) {
         type = 'equipped';
       }
-      if (item.type === "shield" && ((ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? ref.twoHanded : void 0)) {
+      currentShield = content.gear.flat[user.items.gear[type].shield];
+      currentWeapon = content.gear.flat[user.items.gear[type].weapon];
+      
+      if (item.type === "shield" && (currentWeapon ? currentWeapon.twoHanded : false)) {
         user.items.gear[type].weapon = 'weapon_base_0';
-        message = [i18n.t('messageTwoHandled', {
-          gearText: weapon.text(req.language)
-        }, req.language)];
-        message.push(i18n.t('messageUnEquipped', {
-          itemText: weapon.text(req.language)
-        }, req.language));
-      }
-      if (item.twoHanded) {
-        shield = content.gear.flat[user.items.gear.equipped.shield];
-        if(shield && user.items.gear.equipped.shield != "shield_base_0"){
-          user.items.gear[type].shield = "shield_base_0";
-          
-          message = [i18n.t('messageTwoHandled', {
-            gearText: item.text(req.language)
-          }, req.language)];
-          message.push(i18n.t('messageUnEquipped', {
-            itemText: shield.text(req.language)
-          }, req.language));
-        }
+        message = i18n.t('messageTwoHandedUnequip', {
+          twoHandedText: currentWeapon.text(req.language), offHandedText: item.text(req.language),
+        }, req.language);
+      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {    
+        user.items.gear[type].shield = "shield_base_0";   
+        message = i18n.t('messageTwoHandedEquip', {
+          twoHandedText: item.text(req.language), offHandedText: currentShield.text(req.language),
+        }, req.language);       
       }
       return message;
     },
