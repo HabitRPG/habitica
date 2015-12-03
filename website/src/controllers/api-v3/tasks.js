@@ -25,6 +25,9 @@ api.createTask = {
   handler (req, res, next) {
     req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(Tasks.tasksTypes);
 
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
     let user = res.locals.user;
     let taskType = req.body.type;
 
@@ -59,6 +62,9 @@ api.getTasks = {
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
     req.checkQuery('type', res.t('invalidTaskType')).isIn(Tasks.tasksTypes);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
 
     let user = res.locals.user;
     let query = {userId: user._id};
@@ -115,6 +121,9 @@ api.getTask = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
     Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
@@ -146,6 +155,9 @@ api.updateTask = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
 
     Tasks.Task.findOne({
       _id: req.params.taskId,
@@ -188,6 +200,9 @@ api.scoreTask = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
     let user = res.locals.user;
 
     Tasks.Task.findOne({
@@ -222,6 +237,9 @@ api.moveTask = {
   handler (req, res, next) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
 
     let user = res.locals.user;
     let to = Number(req.params.position);
@@ -274,6 +292,9 @@ api.addChecklistItem = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty and is an array
 
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
     Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
@@ -310,6 +331,9 @@ api.scoreCheckListItem = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
 
     Tasks.Task.findOne({
       _id: req.params.taskId,
@@ -351,6 +375,9 @@ api.updateChecklistItem = {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
     Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
@@ -391,6 +418,9 @@ api.removeChecklistItem = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
 
     Tasks.Task.findOne({
       _id: req.params.taskId,
@@ -446,6 +476,9 @@ api.deleteTask = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+    
     Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,

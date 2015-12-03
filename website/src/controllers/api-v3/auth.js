@@ -44,7 +44,6 @@ api.registerLocal = {
     });
 
     let validationErrors = req.validationErrors();
-
     if (validationErrors) return next(validationErrors);
 
     let { email, username, password } = req.body;
@@ -152,7 +151,6 @@ api.loginLocal = {
     });
 
     let validationErrors = req.validationErrors();
-
     if (validationErrors) return next(validationErrors);
 
     req.sanitizeBody('username').trim();
