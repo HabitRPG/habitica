@@ -2063,23 +2063,25 @@ api.wrap = function(user, main) {
         return content.gear.flat[type + "_base_0"];
       }
       return item;
-    },
+    },   
     handleTwoHanded: function(item, type, req) {
-      var message, ref, weapon;
+      var message, currentWeapon, currentShield;
       if (type == null) {
         type = 'equipped';
       }
-      if (item.type === "shield" && ((ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? ref.twoHanded : void 0)) {
+      currentShield = content.gear.flat[user.items.gear[type].shield];
+      currentWeapon = content.gear.flat[user.items.gear[type].weapon];
+      
+      if (item.type === "shield" && (currentWeapon ? currentWeapon.twoHanded : false)) {
         user.items.gear[type].weapon = 'weapon_base_0';
-        message = i18n.t('messageTwoHandled', {
-          gearText: weapon.text(req.language)
+        message = i18n.t('messageTwoHandedUnequip', {
+          twoHandedText: currentWeapon.text(req.language), offHandedText: item.text(req.language),
         }, req.language);
-      }
-      if (item.twoHanded) {
-        user.items.gear[type].shield = "shield_base_0";
-        message = i18n.t('messageTwoHandled', {
-          gearText: item.text(req.language)
-        }, req.language);
+      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {    
+        user.items.gear[type].shield = "shield_base_0";   
+        message = i18n.t('messageTwoHandedEquip', {
+          twoHandedText: item.text(req.language), offHandedText: currentShield.text(req.language),
+        }, req.language);       
       }
       return message;
     },
