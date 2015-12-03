@@ -18,7 +18,7 @@ export let TaskSchema = new Schema({
   text: {type: String, required: true},
   notes: {type: String, default: ''},
   tags: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary? { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true }, validate
-  value: {type: Number, default: 0}, // redness
+  value: {type: Number, default: 0}, // redness or cost for rewards
   priority: {type: Number, default: 1, required: true},
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
   userId: {type: String, ref: 'User'}, // When null it belongs to a challenge
@@ -40,8 +40,14 @@ TaskSchema.plugin(baseModel, {
   timestamps: true,
 });
 
+// A list of additional fields that cannot be set on creation (but can be set on updare)
+let noCreate = ['completed'];
+TaskSchema.statics.sanitizeCreate = function sanitizeCreate (createObj) {
+  return Task.sanitize(createObj, noCreate); // eslint-disable-line no-use-before-define
+};
+
 // A list of additional fields that cannot be updated (but can be set on creation)
-let noUpdate = ['_id', 'type'];
+let noUpdate = ['_id', 'type']; // TODO should prevent changes to checlist.*.id
 TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return Task.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
 };

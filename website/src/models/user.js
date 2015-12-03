@@ -628,6 +628,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
     _populateDefaultsForNewUser(this)
       .then(() => done())
       .catch(done);
+  } else {
+    done();
   }
 });
 

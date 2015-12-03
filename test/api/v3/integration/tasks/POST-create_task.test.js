@@ -17,7 +17,7 @@ describe('POST /tasks', () => {
     });
   });
 
-  context('checks "type" is present and a valid value', () => {
+  context('checks "req.body.type"', () => {
     it('returns an error if req.body.type is absent', () => {
       expect(api.post('/tasks', {
         notType: 'habit',
@@ -25,6 +25,27 @@ describe('POST /tasks', () => {
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
+      });
+    });
+
+    it('returns an error if req.body.type is not valid', () => {
+      expect(api.post('/tasks', {
+        type: 'habitF',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+    });
+  });
+
+  context('checks "task.userId"', () => {
+    it('sets "task.userId" to valid value', () => {
+      return api.post('/tasks', {
+        text: 'test habit',
+        type: 'habit',
+      }).then((task) => {
+        expect(task.userId).to.equal(user._id);
       });
     });
   });

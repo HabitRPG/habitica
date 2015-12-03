@@ -31,16 +31,16 @@ api.createTask = {
     let user = res.locals.user;
     let taskType = req.body.type;
 
-    let newTask = new Tasks[taskType](Tasks.Task.sanitize(req.body));
+    let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(req.body));
     newTask.userId = user._id;
 
-    user.tasksOrder[taskType].unshift(newTask._id);
+    user.tasksOrder[taskType + 's'].unshift(newTask._id);
 
     Q.all([
       newTask.save(),
       user.save(),
     ])
-    .then(([task]) => res.respond(201, task))
+    .then((results) => res.respond(201, results[0]))
     .catch(next);
   },
 };
@@ -478,7 +478,7 @@ api.deleteTask = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
-    
+
     Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
