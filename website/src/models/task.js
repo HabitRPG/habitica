@@ -17,9 +17,12 @@ export let TaskSchema = new Schema({
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
-  tags: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary? { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true }, validate
+  tags: [{
+    type: String,
+    validate: [validator.isUUID, 'Invalid uuid.'],
+  }],
   value: {type: Number, default: 0}, // redness or cost for rewards
-  priority: {type: Number, default: 1, required: true},
+  priority: {type: Number, default: 1, required: true}, // TODO enum?
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
   userId: {type: String, ref: 'User'}, // When null it belongs to a challenge
 

@@ -49,4 +49,19 @@ describe('POST /tasks', () => {
       });
     });
   });
+
+  context('correctly creates new tasks', () => {
+    it('habit', () => {
+      return api.post('/tasks', {
+        text: 'test habit',
+        type: 'habit',
+        up: false,
+        down: true,
+        history: 'i cannot be set',
+        notes: 1976,
+      }).then((task) => {
+        expect(task.userId).to.equal(user._id);
+      });
+    });
+  });
 });

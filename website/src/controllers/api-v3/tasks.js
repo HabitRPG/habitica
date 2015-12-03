@@ -34,7 +34,7 @@ api.createTask = {
     let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(req.body));
     newTask.userId = user._id;
 
-    user.tasksOrder[taskType + 's'].unshift(newTask._id);
+    user.tasksOrder[`${taskType}s`].unshift(newTask._id);
 
     Q.all([
       newTask.save(),
@@ -155,6 +155,7 @@ api.updateTask = {
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty
+    // TODO make sure tags are updated correctly (they aren't set as modified!) maybe use specific routes
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
@@ -172,7 +173,7 @@ api.updateTask = {
         task.checklist = req.body.checklist;
       }
       // TODO merge goes deep into objects, it's ok?
-      // TODO also check that array fields are updated correctly without marking modified
+      // TODO also check that array and mixed fields are updated correctly without marking modified
       _.merge(task, Tasks.Task.sanitizeUpdate(req.body));
       return task.save();
     })
@@ -273,7 +274,7 @@ api.moveTask = {
 };
 
 /**
- * @api {post} /tasks/:taskId/checklist/addItem Add an item to a checklist, creating the checklist if it doesn't exist
+ * @api {post} /tasks/:taskId/checklist Add an item to a checklist, creating the checklist if it doesn't exist
  * @apiVersion 3.0.0
  * @apiName AddChecklistItem
  * @apiGroup Task
@@ -284,7 +285,7 @@ api.moveTask = {
  */
 api.addChecklistItem = {
   method: 'POST',
-  url: '/tasks/:taskId/checklist/addItem',
+  url: '/tasks/:taskId/checklist',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
     let user = res.locals.user;
@@ -434,6 +435,92 @@ api.removeChecklistItem = {
       if (itemI === -1) throw new NotFound(res.t('checklistItemNotFound'));
 
       task.checklist.splice(itemI, 1);
+      return task.save();
+    })
+    .then(() => res.respond(200, {})) // TODO what to return
+    .catch(next);
+  },
+};
+
+/**
+ * @api {post} /tasks/:taskId/tags/:tagId Add a tag to a task
+ * @apiVersion 3.0.0
+ * @apiName AddTagToTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID} tagId The tag id
+ *
+ * @apiSuccess {object} task The updated task
+ */
+api.addTagToTask = {
+  method: 'POST',
+  url: '/tasks/:taskId/tags',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    let userTags = user.tags.map(tag => tag._id);
+    req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Tasks.Task.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+      let tagId = req.params.tagId;
+
+      let alreadyTagged = task.tags.indexOf(tagId) === -1;
+      if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
+
+      task.tags.push(tagId);
+      return task.save();
+    })
+    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
+    .catch(next);
+  },
+};
+
+/**
+ * @api {delete} /tasks/:taskId/tags/:tagId Remove a tag
+ * @apiVersion 3.0.0
+ * @apiName RemoveTagFromTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID} tagId The tag id
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.removeTagFromTask = {
+  method: 'DELETE',
+  url: '/tasks/:taskId/tags/:tagId',
+  middlewares: [authWithHeaders()],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Tasks.Task.findOne({
+      _id: req.params.taskId,
+      userId: user._id,
+    }).exec()
+    .then((task) => {
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+
+      let tagI = _.findIndex(task.tags, {_id: req.params.tagId});
+      if (tagI === -1) throw new NotFound(res.t('tagNotFound'));
+
+      task.tags.splice(tagI, 1);
       return task.save();
     })
     .then(() => res.respond(200, {})) // TODO what to return
