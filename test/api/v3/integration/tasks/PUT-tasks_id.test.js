@@ -3,8 +3,6 @@ import {
   requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
-import { v4 as generateRandomUserName } from 'uuid';
-import { each } from 'lodash';
 
 describe('PUT /tasks/:id', () => {
   let user, api;
