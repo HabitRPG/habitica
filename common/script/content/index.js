@@ -1030,6 +1030,14 @@ api.premiumHatchingPotions = {
     canBuy: (function() {
       return false;
     })
+  },
+  Peppermint: {
+    value: 2,
+    text: t('hatchingPotionPeppermint'),
+    limited: true,
+    canBuy: (function() {
+      return true;
+    })
   }
 };
 
