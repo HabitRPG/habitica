@@ -19,7 +19,7 @@ describe('POST /tasks', () => {
 
   context('checks "req.body.type"', () => {
     it('returns an error if req.body.type is absent', () => {
-      expect(api.post('/tasks', {
+      return expect(api.post('/tasks', {
         notType: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -29,7 +29,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.type is not valid', () => {
-      expect(api.post('/tasks', {
+      return expect(api.post('/tasks', {
         type: 'habitF',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
