@@ -158,6 +158,8 @@ describe('POST /tasks', () => {
 
     it('defaults to a 0 value');
 
+    it('requires value to be coerced into a number');
+
     it('cannot create checklists');
   });
 });
