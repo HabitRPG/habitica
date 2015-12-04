@@ -5,6 +5,7 @@ import validator from 'validator';
 import moment from 'moment';
 import * as Tasks from './task';
 import Q from 'q';
+import { schema as TagSchema } from './tag';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
@@ -438,13 +439,7 @@ export let schema = new Schema({
     },
   },
 
-  tags: {type: [{
-    _id: false,
-    id: {type: String, default: shared.uuid},
-    name: String,
-    challenge: String,
-  }]},
-
+  tags: [TagSchema],
   challenges: [{type: String, ref: 'Challenge'}],
 
   inbox: {
@@ -474,7 +469,7 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder'],
+  noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function toJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
