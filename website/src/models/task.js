@@ -38,7 +38,9 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: ['challenge', 'userId', 'value', 'completed', 'history', 'streak', 'dateCompleted'], // TODO checklist fields editable?
+   // TODO checklist fields editable?
+   // TODO value should be settable only for rewards
+  noSet: ['challenge', 'userId', 'completed', 'history', 'streak', 'dateCompleted'],
   private: [],
   timestamps: true,
 });

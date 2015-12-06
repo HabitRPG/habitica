@@ -58,8 +58,6 @@ describe('POST /tasks', () => {
 
     it('ignores setting challenge field');
 
-    it('ignores setting value field');
-
     it('ignores setting completed field');
 
     it('ignores setting streak field');
@@ -127,7 +125,7 @@ describe('POST /tasks', () => {
         expect(task.type).to.eql('daily');
         expect(task.frequency).to.eql('daily');
         expect(task.everyX).to.eql(5);
-        expect(task.startDate).to.eql(now);
+        expect(new Date(task.startDate)).to.eql(now);
       });
     });
 

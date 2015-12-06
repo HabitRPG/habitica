@@ -22,15 +22,7 @@ describe('PUT /tasks/:id', () => {
       // task = createdTask
     });
 
-    it('returns an error if req.body.type is not valid', () => {
-      return expect(api.put(`/tasks/${task._id}`, {
-        type: 'habitF',
-      })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('invalidReqParams'),
-      });
-    });
+    it('ignores setting type field');
 
     it('ignores setting userId field');
 
@@ -57,8 +49,13 @@ describe('PUT /tasks/:id', () => {
     let habit;
 
     beforeEach(() => {
-      // create existing habit
-      // habit = createdHabit;
+      return api.post('/tasks', {
+        text: 'test habit',
+        type: 'habit',
+        notes: 1976,
+      }).then((createdHabit) => {
+        habit = createdHabit;
+      });
     });
 
     it('updates a habit', () => {
@@ -80,8 +77,13 @@ describe('PUT /tasks/:id', () => {
     let todo;
 
     beforeEach(() => {
-      // create existing todo
-      // todo = createdTodo;
+      return api.post('/tasks', {
+        text: 'test todo',
+        type: 'todo',
+        notes: 1976,
+      }).then((createdTodo) => {
+        todo = createdTodo;
+      });
     });
 
     it('updates a todo', () => {
@@ -101,8 +103,13 @@ describe('PUT /tasks/:id', () => {
     let daily;
 
     beforeEach(() => {
-      // create existing daily
-      // daily = createdDaily;
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+        notes: 1976,
+      }).then((createdDaily) => {
+        daily = createdDaily;
+      });
     });
 
     it('updates a daily', () => {
@@ -134,8 +141,14 @@ describe('PUT /tasks/:id', () => {
     let reward;
 
     beforeEach(() => {
-      // create existing reward
-      // reward = createdReward;
+      return api.post('/tasks', {
+        text: 'test reward',
+        type: 'reward',
+        notes: 1976,
+        value: 10,
+      }).then((createdReward) => {
+        reward = createdReward;
+      });
     });
 
     it('updates a reward', () => {
