@@ -15,4 +15,4 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'challenge'],
 });
 
-export let model = mongoose.model('Tag', TagSchema);
+export let model = mongoose.model('Tag', schema);

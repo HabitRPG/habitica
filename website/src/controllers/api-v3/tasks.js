@@ -18,6 +18,8 @@ let api = {};
  *
  * @apiSuccess {Object} task The newly created task
  */
+// TODO should allow to create multiple tasks at once
+// TODO gives problems when creating tasks concurrently because of how mongoose treats arrays (VersionErrors - treated as 500s)
 api.createTask = {
   method: 'POST',
   url: '/tasks',
@@ -61,7 +63,7 @@ api.getTasks = {
   url: '/tasks',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
-    req.checkQuery('type', res.t('invalidTaskType')).isIn(Tasks.tasksTypes);
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
@@ -74,7 +76,7 @@ api.getTasks = {
       query.type = type;
       if (type === 'todo') query.completed = false; // Exclude completed todos
     } else {
-      query.$and = [ // Exclude completed todos
+      query.$or = [ // Exclude completed todos
         {type: 'todo', completed: false},
         {type: {$in: ['habit', 'daily', 'reward']}},
       ];
@@ -532,7 +534,7 @@ api.removeTagFromTask = {
 function _removeTaskTasksOrder (user, taskId) {
   // Loop through all lists and when the task is found, remove it and return
   for (let i = 0; i < Tasks.tasksTypes.length; i++) {
-    let list = user.tasksOrder[Tasks.tasksTypes[i]];
+    let list = user.tasksOrder[`${Tasks.tasksTypes[i]}s`];
     let index = list.indexOf(taskId);
 
     if (index !== -1) {
@@ -555,7 +557,7 @@ function _removeTaskTasksOrder (user, taskId) {
  * @apiSuccess {object} empty An empty object
  */
 api.deleteTask = {
-  method: 'GET',
+  method: 'DELETE',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
