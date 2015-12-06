@@ -1,11 +1,12 @@
 var fs = require('fs'),
     path = require('path'),
     _ = require('lodash'),
-    User = require('../models/user').model,
-    shared = require('../../../common'),
+    User = require('../../models/user').model,
+    accepts = require('accepts'),
+    shared = require('../../../../common'),
     translations = {};
 
-var localePath = path.join(__dirname, "/../../../common/locales/")
+var localePath = path.join(__dirname, "/../../../../common/locales/")
 
 var loadTranslations = function(locale){
   var files = fs.readdirSync(path.join(localePath, locale));
@@ -54,7 +55,7 @@ _.each(langCodes, function(code){
   lang.momentLangCode = (momentLangsMapping[code] || code);
   try{
     // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
-    var f = fs.readFileSync(path.join(__dirname, '/../../../node_modules/moment/locale/' + lang.momentLangCode + '.js'), 'utf8');
+    var f = fs.readFileSync(path.join(__dirname, '/../../node_modules/moment/locale/' + lang.momentLangCode + '.js'), 'utf8');
     momentLangs[code] = f;
   }catch (e){}
 });
@@ -94,7 +95,9 @@ var chineseVersions = {
 
 var getUserLanguage = function(req, res, next){
   var getFromBrowser = function(){
-    var acceptable = _(req.acceptedLanguages).map(function(lang){
+    var acceptedLanguages = accepts(req).languages();
+
+    var acceptable = _(acceptedLanguages).map(function(lang){
       return lang.slice(0, 2);
     }).uniq().value();
 
@@ -103,7 +106,7 @@ var getUserLanguage = function(req, res, next){
     var iAcceptedCompleteLang = (matches.length > 0) ? multipleVersionsLanguages.indexOf(matches[0].toLowerCase()) : -1;
 
     if(iAcceptedCompleteLang !== -1){
-      var acceptedCompleteLang = _.find(req.acceptedLanguages, function(accepted){
+      var acceptedCompleteLang = _.find(acceptedLanguages, function(accepted){
         return accepted.slice(0, 2) == multipleVersionsLanguages[iAcceptedCompleteLang];
       });
 

@@ -1,3 +1,4 @@
+require('babel-core/register');
 var path, superagentDefaults;
 
 superagentDefaults = require("superagent-defaults");

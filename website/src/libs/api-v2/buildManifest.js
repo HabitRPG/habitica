@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var nconf = require('nconf');
 var _ = require('lodash');
-var manifestFiles = require("../../public/manifest.json");
+var manifestFiles = require("../../../public/manifest.json");
 
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 var buildFiles = [];
@@ -15,7 +15,7 @@ var walk = function(folder){
     if(fs.statSync(file).isDirectory()){
       walk(file);
     }else{
-      var relFolder = path.relative(path.join(__dirname, "/../../build"), folder);
+      var relFolder = path.relative(path.join(__dirname, "/../../../build"), folder);
       var old = fileName.replace(/-.{8}(\.[\d\w]+)$/, '$1');
 
       if(relFolder){
@@ -28,7 +28,7 @@ var walk = function(folder){
   });
 };
 
-walk(path.join(__dirname, "/../../build"));
+walk(path.join(__dirname, "/../../../build"));
 
 var getBuildUrl = module.exports.getBuildUrl = function(url){
   if(buildFiles[url]) return '/' + buildFiles[url];
