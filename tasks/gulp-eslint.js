@@ -4,6 +4,7 @@ import eslint from 'gulp-eslint';
 const SERVER_FILES = [
   './website/src/**/api-v3/**/*.js',
   './website/src/models/user.js',
+  './website/src/models/task.js',
   './website/src/models/emailUnsubscription.js',
   './website/src/server.js',
 ];

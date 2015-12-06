@@ -194,10 +194,10 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       }).then((user) => {
-        expect(user.todos).to.not.be.empty;
-        expect(user.dailys).to.be.empty;
-        expect(user.habits).to.be.empty;
-        expect(user.rewards).to.be.empty;
+        expect(user.tasksOrder.todos).to.not.be.empty;
+        expect(user.tasksOrder.dailys).to.be.empty;
+        expect(user.tasksOrder.habits).to.be.empty;
+        expect(user.tasksOrder.rewards).to.be.empty;
       });
     });
 
@@ -245,10 +245,10 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       }).then((user) => {
-        expect(user.todos).to.not.be.empty;
-        expect(user.dailys).to.be.empty;
-        expect(user.habits).to.not.be.empty;
-        expect(user.rewards).to.not.be.empty;
+        expect(user.tasksOrder.todos).to.not.be.empty;
+        expect(user.tasksOrder.dailys).to.be.empty;
+        expect(user.tasksOrder.habits).to.not.be.empty;
+        expect(user.tasksOrder.rewards).to.not.be.empty;
       });
     });
 

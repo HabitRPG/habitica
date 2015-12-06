@@ -44,7 +44,6 @@ api.registerLocal = {
     });
 
     let validationErrors = req.validationErrors();
-
     if (validationErrors) return next(validationErrors);
 
     let { email, username, password } = req.body;
@@ -152,7 +151,6 @@ api.loginLocal = {
     });
 
     let validationErrors = req.validationErrors();
-
     if (validationErrors) return next(validationErrors);
 
     req.sanitizeBody('username').trim();
@@ -244,7 +242,7 @@ api.loginSocial = {
  * @apiName UserDeleteSocial
  * @apiGroup User
  *
- * @apiSuccess {Boolean=true} success Always true
+ * @apiSuccess {Object} response Empty object
  */
 api.deleteSocial = {
   method: 'DELETE',

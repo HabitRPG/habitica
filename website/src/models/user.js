@@ -1,10 +1,11 @@
-// User schema and model
 import mongoose from 'mongoose';
 import shared from '../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import moment from 'moment';
-import TaskSchemas from './task';
+import * as Tasks from './task';
+import Q from 'q';
+import { schema as TagSchema } from './tag';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
@@ -41,11 +42,9 @@ export let schema = new Schema({
       loggedin: {type: Date, default: Date.now},
     },
   },
-
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: { type: Number, default: 0 },
-
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
@@ -440,13 +439,7 @@ export let schema = new Schema({
     },
   },
 
-  tags: {type: [{
-    _id: false,
-    id: {type: String, default: shared.uuid},
-    name: String,
-    challenge: String,
-  }]},
-
+  tags: [TagSchema],
   challenges: [{type: String, ref: 'Challenge'}],
 
   inbox: {
@@ -455,14 +448,14 @@ export let schema = new Schema({
     messages: {type: Schema.Types.Mixed, default: {}},
     optOut: {type: Boolean, default: false},
   },
-
-  habits: {type: [TaskSchemas.HabitSchema]},
-  dailys: {type: [TaskSchemas.DailySchema]},
-  todos: {type: [TaskSchemas.TodoSchema]},
-  rewards: {type: [TaskSchemas.RewardSchema]},
-
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    completedTodos: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+  },
   extra: Schema.Types.Mixed,
-
   pushDevices: {
     type: [{
       regId: {type: String},
@@ -476,11 +469,9 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt'],
+  noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function toJSON (doc) {
-    doc.id = doc._id;
-
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
     doc.filters = {};
     doc._tmp = this._tmp; // be sure to send down drop notifs
@@ -489,101 +480,80 @@ schema.plugin(baseModel, {
   },
 });
 
-schema.methods.deleteTask = function deleteTask (tid) {
-  this.ops.deleteTask({params: {id: tid}}, () => {}); // TODO remove this whole method, since it just proxies, and change all references to this method
-};
-
-// schema.virtual('tasks').get(function () {
-//   var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
-//   var tasks = _.object(_.pluck(tasks,'id'), tasks);
-//   return tasks;
-// });
-
 schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
 });
 
 function _populateDefaultTasks (user, taskTypes) {
+  let tagsI = taskTypes.indexOf('tag');
+
+  if (tagsI !== -1) {
+    user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
+      let newTag = _.cloneDeep(tag);
+
+      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+      newTag.id = shared.uuid();
+      // Render tag's name in user's language
+      newTag.name = newTag.name(user.preferences.language);
+      return newTag;
+    });
+  }
+
+  let tasksToCreate = [];
+
+  if (tagsI !== -1) {
+    taskTypes = _.clone(taskTypes);
+    taskTypes.splice(tagsI, 1);
+  }
+
   _.each(taskTypes, (taskType) => {
-    user[taskType] = _.map(shared.content.userDefaults[taskType], (task) => {
-      let newTask = _.cloneDeep(task);
+    let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
+      let newTask = new Tasks[taskType](taskDefaults);
 
-      // Render task's text and notes in user's language
-      if (taskType === 'tags') {
-        // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-        newTask.id = shared.uuid();
-        newTask.name = newTask.name(user.preferences.language);
-      } else {
-        newTask.text = newTask.text(user.preferences.language);
-        if (newTask.notes) {
-          newTask.notes = newTask.notes(user.preferences.language);
-        }
-
-        if (newTask.checklist) {
-          newTask.checklist = _.map(newTask.checklist, (checklistItem) => {
-            checklistItem.text = checklistItem.text(user.preferences.language);
-            return checklistItem;
-          });
-        }
+      newTask.userId = user._id;
+      newTask.text = taskDefaults.text(user.preferences.language);
+      if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
+      if (taskDefaults.checklist) {
+        newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
+          checklistItem.text = checklistItem.text(user.preferences.language);
+          return checklistItem;
+        });
       }
 
-      return newTask;
+      return newTask.save();
     });
+
+    tasksToCreate.push(...tasksOfType); // TODO find better way since this creates each task individually
   });
+
+  return Q.all(tasksToCreate)
+    .then((tasksCreated) => {
+      _.each(tasksCreated, (task) => {
+        user.tasksOrder[`${task.type}s`].push(task._id);
+      });
+    });
 }
 
 function _populateDefaultsForNewUser (user) {
   let taskTypes;
+  let iterableFlags = user.flags.toObject();
 
   if (user.registeredThrough === 'habitica-web') {
-    taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
+    taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
-    let tutorialCommonSections = [
-      'habits',
-      'dailies',
-      'todos',
-      'rewards',
-      'party',
-      'pets',
-      'gems',
-      'skills',
-      'classes',
-      'tavern',
-      'equipment',
-      'items',
-      'inviteParty',
-    ];
-
-    _.each(tutorialCommonSections, (section) => {
+    _.each(iterableFlags.tutorial.common, (val, section) => {
       user.flags.tutorial.common[section] = true;
     });
   } else {
-    taskTypes = ['todos', 'tags'];
-
+    taskTypes = ['todo', 'tag'];
     user.flags.showTour = false;
 
-    let tourSections = [
-      'showTour',
-      'intro',
-      'classes',
-      'stats',
-      'tavern',
-      'party',
-      'guilds',
-      'challenges',
-      'market',
-      'pets',
-      'mounts',
-      'hall',
-      'equipment',
-    ];
-
-    _.each(tourSections, (section) => {
+    _.each(iterableFlags.tour, (val, section) => {
       user.flags.tour[section] = -2;
     });
   }
 
-  _populateDefaultTasks(user, taskTypes);
+  return _populateDefaultTasks(user, taskTypes);
 }
 
 function _setProfileName (user) {
@@ -596,13 +566,10 @@ function _setProfileName (user) {
   return localUsername || facebookUsername || anonymous;
 }
 
-schema.pre('save', function postSaveUser (next) {
-  // Populate new users with default content
-  if (this.isNew) {
-    _populateDefaultsForNewUser(this);
-  }
+schema.pre('save', true, function preSaveUser (next, done) {
+  next();
 
-  // this.markModified('tasks');
+  // TODO remove all unnecessary checks
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
   }
@@ -651,7 +618,14 @@ schema.pre('save', function postSaveUser (next) {
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
   this._v++;
 
-  next();
+  // Populate new users with default content
+  if (this.isNew) {
+    _populateDefaultsForNewUser(this)
+      .then(() => done())
+      .catch(done);
+  } else {
+    done();
+  }
 });
 
 schema.methods.unlink = function unlink (options, cb) {
@@ -668,7 +642,7 @@ schema.methods.unlink = function unlink (options, cb) {
   if (keep === 'keep') {
     self.tasks[tid].challenge = {};
   } else if (keep === 'remove') {
-    self.deleteTask(tid);
+    self.ops.deleteTask({params: {id: tid}}, () => {});
   } else if (keep === 'keep-all') {
     _.each(self.tasks, (t) => {
       if (t.challenge && t.challenge.id === cid) {
@@ -678,7 +652,7 @@ schema.methods.unlink = function unlink (options, cb) {
   } else if (keep === 'remove-all') {
     _.each(self.tasks, (t) => {
       if (t.challenge && t.challenge.id === cid) {
-        self.deleteTask(t.id);
+        this.ops.deleteTask({params: {id: tid}}, () => {});
       }
     });
   }

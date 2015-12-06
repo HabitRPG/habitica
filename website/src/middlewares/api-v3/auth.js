@@ -11,8 +11,8 @@ import {
 // If optional is true, don't error on missing authentication
 export function authWithHeaders (optional = false) {
   return function authWithHeadersHandler (req, res, next) {
-    let userId = req.header['x-api-user'];
-    let apiToken = req.header['x-api-key'];
+    let userId = req.header('x-api-user');
+    let apiToken = req.header('x-api-key');
 
     if (!userId || !apiToken) {
       if (optional) return next();
@@ -30,6 +30,7 @@ export function authWithHeaders (optional = false) {
 
       res.locals.user = user;
       // TODO use either session/cookie or headers, not both
+      req.session = req.session || {};
       req.session.userId = user._id;
       next();
     })
