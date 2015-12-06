@@ -50,19 +50,9 @@ describe('POST /tasks', () => {
       });
     });
 
-    it('ignores setting history field');
-
-    it('ignores setting createdAt field');
-
-    it('ignores setting updatedAt field');
-
-    it('ignores setting challenge field');
-
-    it('ignores setting completed field');
-
-    it('ignores setting streak field');
-
-    it('ignores setting dateCompleted field');
+    it(`ignores setting userId, history, createdAt,
+                        updatedAt, challenge, completed, streak,
+                        dateCompleted fields`);
 
     it('ignores invalid fields');
   });

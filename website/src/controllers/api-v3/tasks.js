@@ -174,6 +174,13 @@ api.updateTask = {
         delete req.body.checklist;
         task.checklist = req.body.checklist;
       }
+
+      // If tags are updated -> replace the original ones
+      if (req.body.tags) {
+        delete req.body.tags;
+        task.tags = req.body.tags;
+      }
+
       // TODO merge goes deep into objects, it's ok?
       // TODO also check that array and mixed fields are updated correctly without marking modified
       _.merge(task, Tasks.Task.sanitizeUpdate(req.body));

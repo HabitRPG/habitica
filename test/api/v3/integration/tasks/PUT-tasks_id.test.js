@@ -22,25 +22,9 @@ describe('PUT /tasks/:id', () => {
       // task = createdTask
     });
 
-    it('ignores setting type field');
-
-    it('ignores setting userId field');
-
-    it('ignores setting history field');
-
-    it('ignores setting createdAt field');
-
-    it('ignores setting updatedAt field');
-
-    it('ignores setting challenge field');
-
-    it('ignores setting value field');
-
-    it('ignores setting completed field');
-
-    it('ignores setting streak field');
-
-    it('ignores setting dateCompleted field');
+    it(`ignores setting _id, type, userId, history, createdAt,
+                        updatedAt, challenge, completed, streak,
+                        dateCompleted fields`);
 
     it('ignores invalid fields');
   });
@@ -97,6 +81,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('can update checklists'); // Can it?
+    it('can update tags'); // Can it?
   });
 
   context('dailys', () => {
@@ -129,6 +114,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('can update checklists'); // Can it?
+    it('can update tags'); // Can it?
 
     it('updates repeat, even if frequency is set to daily');
 
