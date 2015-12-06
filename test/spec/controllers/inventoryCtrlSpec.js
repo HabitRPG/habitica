@@ -79,6 +79,15 @@ describe('Inventory Controller', function() {
       expect(rootScope.openModal).to.have.been.calledWith('hatchPet');
     });
 
+    it('shows modal even if user has raised that pet to a mount', function(){
+      user.items.pets['Cactus-Base'] = -1;
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+
+      expect(rootScope.openModal).to.have.been.calledOnce;
+      expect(rootScope.openModal).to.have.been.calledWith('hatchPet');
+    });
+
     it('does not show modal if user tries to hatch a pet they own', function(){
       scope.chooseEgg('Cactus');
       scope.choosePotion('Base');

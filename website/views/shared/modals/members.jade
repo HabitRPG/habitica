@@ -108,7 +108,7 @@ script(type='text/ng-template', id='modals/abuse-flag.html')
       markdown(text="abuseObject.text")
     p!=env.t('abuseFlagModalBody', {firstLinkStart: "<a href='/static/community-guidelines' target='_blank'>", secondLinkStart: "<a href='/static/terms' target='_blank'>", linkEnd: "</a>"})
   .modal-footer
-    button.pull-left.btn.btn-danger(ng-click='clearFlagCount(abuseObject, groupId)', ng-if='user.contributor.admin && abuseObject.flagCount >= 2')
+    button.pull-left.btn.btn-danger(ng-click='clearFlagCount(abuseObject, groupId)', ng-if='user.contributor.admin && abuseObject.flagCount > 0')
       | Reset Flag Count
     button.btn.btn-primary(ng-click='$close()')=env.t('cancel')
     button.btn.btn-danger(ng-click='reportAbuse(user, abuseObject, groupId)')=env.t("abuseFlagModalButton")

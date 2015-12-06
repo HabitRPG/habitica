@@ -3214,7 +3214,21 @@ api.backgrounds = {
       text: t('backgroundSunsetOasisText'),
       notes: t('backgroundSunsetOasisNotes')
     }
-  }
+  },
+  backgrounds122015: {
+    alpine_slopes: {
+      text: t('backgroundAlpineSlopesText'),
+      notes: t('backgroundAlpineSlopesNotes')
+    },
+    snowy_sunrise: {
+      text: t('backgroundSnowySunriseText'),
+      notes: t('backgroundSnowySunriseNotes')
+    },
+    winter_town: {
+      text: t('backgroundWinterTownText'),
+      notes: t('backgroundWinterTownNotes')
+    }
+  },
 };
 
 api.subscriptionBlocks = {

@@ -147,5 +147,5 @@
     "partyChatEmpty": "Seu bate-papo da equipe está vazio! Digite uma mensagem na caixa acima para começar a conversar.",
     "guildChatEmpty": "O bate-papo desta guilda está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
     "possessiveParty": "Equipe de <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Se você quiser postar mensagens na Taverna ou em qualquer chat de equipe ou guilda, por favor leia nossas <%= linkStart %>Diretrizes de Comunidade<%= linkEnd %> e então clique no botão abaixo para indicar que você as aceita."
 }

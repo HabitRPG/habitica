@@ -160,7 +160,6 @@ export let schema = new Schema({
         tavern: {type: Boolean, default: false},
         equipment: {type: Boolean, default: false},
         items: {type: Boolean, default: false},
-        inviteParty: {type: Boolean, default: false},
       },
       ios: {
         addTask: {type: Boolean, default: false},
