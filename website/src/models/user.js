@@ -373,7 +373,7 @@ export let schema = new Schema({
     toolbarCollapsed: {type: Boolean, default: false},
     background: String,
     displayInviteToPartyWhenPartyIs1: {type: Boolean, default: true},
-    webhooks: {type: Schema.Types.Mixed, default: {}},
+    webhooks: {type: Schema.Types.Mixed, default: {}}, // TODO array? and proper controller... unless VersionError becomes problematic
     // For the following fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
     emailNotifications: {

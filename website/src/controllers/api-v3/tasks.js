@@ -1,10 +1,12 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import webhook from '../../libs/api-v3/webhook';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
   NotAuthorized,
   BadRequest,
 } from '../../libs/api-v3/errors';
+import shared from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
 
@@ -191,6 +193,31 @@ api.updateTask = {
   },
 };
 
+function _generateWebhookTaskData (task, direction, delta, stats, user) {
+  let extendedStats = _.extend(stats, {
+    toNextLevel: shared.tnl(user.stats.lvl),
+    maxHealth: shared.maxHealth,
+    maxMP: user._statsComputed.maxMP, // TODO refactor as method not getter
+  });
+
+  let userData = {
+    _id: user._id,
+    _tmp: user._tmp,
+    stats: extendedStats,
+  };
+
+  let taskData = {
+    details: task,
+    direction,
+    delta,
+  };
+
+  return {
+    task: taskData,
+    user: userData,
+  };
+}
+
 /**
  * @api {put} /tasks/score/:taskId/:direction Score a task
  * @apiVersion 3.0.0
@@ -214,6 +241,7 @@ api.scoreTask = {
     if (validationErrors) return next(validationErrors);
 
     let user = res.locals.user;
+    let direction = req.params.direction;
 
     Tasks.Task.findOne({
       _id: req.params.taskId,
@@ -221,8 +249,28 @@ api.scoreTask = {
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
+
+      if (task.type === 'daily' || task.type === 'todo') {
+        task.completed = direction === 'up';
+      }
+
+      let delta = user.ops.score({params: {id: task._id, direction}, language: req.language});
+
+      return Q.all([
+        user.save(),
+        task.save(),
+      ]).then((results) => {
+        let savedUser = results[0];
+
+        let userStats = savedUser.toJSON().stats;
+        let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+        res.respond(200, resJsonData);
+
+        webhook.sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+
+        // TODO sync challenge
+      });
     })
-    .then(() => res.respond(200, {})) // TODO what to return
     .catch(next);
   },
 };
