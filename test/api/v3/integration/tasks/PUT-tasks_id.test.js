@@ -3,6 +3,7 @@ import {
   requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
+import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:id', () => {
   let user, api;
@@ -14,22 +15,56 @@ describe('PUT /tasks/:id', () => {
     });
   });
 
-  context('validates params', () => {
+  xcontext('validates params', () => {
     let task;
 
     beforeEach(() => {
-      // create sample task
-      // task = createdTask
+      return api.post('/tasks', {
+        text: 'test habit',
+        type: 'habit',
+      }).then((createdTask) => {
+        task = createdTask;
+      });
     });
 
     it(`ignores setting _id, type, userId, history, createdAt,
                         updatedAt, challenge, completed, streak,
-                        dateCompleted fields`);
+                        dateCompleted fields`, () => {
+      api.put('/tasks/' + task._id, {
+        _id: 123,
+        type: 'daily',
+        userId: 123,
+        history: [123],
+        createdAt: 'yesterday',
+        updatedAt: 'tomorrow',
+        challenge: 'no',
+        completed: true,
+        streak: 25,
+        dateCompleted: 'never',
+      }).then((savedTask) => {
+        expect(savedTask._id).to.equal(task._id);
+        expect(savedTask.type).to.equal(task.type);
+        expect(savedTask.userId).to.equal(user._id);
+        expect(savedTask.history).to.eql([]);
+        expect(savedTask.createdAt).not.to.equal('yesterday');
+        expect(savedTask.updatedAt).not.to.equal('tomorrow');
+        expect(savedTask.challenge).not.to.equal('no');
+        expect(savedTask.completed).to.equal(false);
+        expect(savedTask.streak).to.equal(0);
+        expect(savedTask.streak).not.to.equal('never');
+      });
+    });
 
-    it('ignores invalid fields');
+    it('ignores invalid fields', () => {
+      api.put('/tasks/' + task._id, {
+        notValid: true,
+      }).then((savedTask) => {
+        expect(savedTask.notValid).to.be.a('undefined');
+      });
+    });
   });
 
-  context('habits', () => {
+  xcontext('habits', () => {
     let habit;
 
     beforeEach(() => {
@@ -57,7 +92,7 @@ describe('PUT /tasks/:id', () => {
     });
   });
 
-  context('todos', () => {
+  xcontext('todos', () => {
     let todo;
 
     beforeEach(() => {
@@ -80,8 +115,38 @@ describe('PUT /tasks/:id', () => {
       });
     });
 
-    it('can update checklists'); // Can it?
-    it('can update tags'); // Can it?
+    it('can update checklists (replace it)', () => {
+      return api.put(`/tasks/${todo._id}`, {
+        checklist: [
+          {text: 123, completed: false},
+          {text: 456, completed: true},
+        ]
+      }).then((savedTodo) => {
+        return api.put(`/tasks/${todo._id}`, {
+          checklist: [
+            {text: 789, completed: false},
+          ]
+        });
+      }).then((savedTodo2) => {
+        expect(savedTodo2.checklist.length).to.equal(1);
+        expect(savedTodo2.checklist[0].text).to.equal("789");
+        expect(savedTodo2.checklist[0].completed).to.equal(false);
+      });
+    });
+
+    it('can update tags (replace them)', () => {
+      let finalUUID = generateUUID();
+      return api.put(`/tasks/${todo._id}`, {
+        tags: [generateUUID(), generateUUID()],
+      }).then((savedTodo) => {
+        return api.put(`/tasks/${todo._id}`, {
+          tags: [finalUUID]
+        });
+      }).then((savedTodo2) => {
+        expect(savedTodo2.tags.length).to.equal(1);
+        expect(savedTodo2.tags[0]).to.equal(finalUUID);
+      });
+    });
   });
 
   context('dailys', () => {
@@ -113,17 +178,84 @@ describe('PUT /tasks/:id', () => {
       });
     });
 
-    it('can update checklists'); // Can it?
-    it('can update tags'); // Can it?
+    it('can update checklists (replace it)', () => {
+      return api.put(`/tasks/${daily._id}`, {
+        checklist: [
+          {text: 123, completed: false},
+          {text: 456, completed: true},
+        ]
+      }).then((savedDaily) => {
+        return api.put(`/tasks/${daily._id}`, {
+          checklist: [
+            {text: 789, completed: false},
+          ]
+        });
+      }).then((savedDaily2) => {
+        expect(savedDaily2.checklist.length).to.equal(1);
+        expect(savedDaily2.checklist[0].text).to.equal("789");
+        expect(savedDaily2.checklist[0].completed).to.equal(false);
+      });
+    });
 
-    it('updates repeat, even if frequency is set to daily');
+    it('can update tags (replace them)', () => {
+      let finalUUID = generateUUID();
+      return api.put(`/tasks/${daily._id}`, {
+        tags: [generateUUID(), generateUUID()],
+      }).then((savedDaily) => {
+        return api.put(`/tasks/${daily._id}`, {
+          tags: [finalUUID]
+        });
+      }).then((savedDaily2) => {
+        expect(savedDaily2.tags.length).to.equal(1);
+        expect(savedDaily2.tags[0]).to.equal(finalUUID);
+      });
+    });
 
-    it('updates everyX, even if frequency is set to weekly');
+    it('updates repeat, even if frequency is set to daily', () => {
+      return api.put(`/tasks/${daily._id}`, {
+        frequency: 'daily',
+      }).then((savedDaily) => {
+        return api.put(`/tasks/${daily._id}`, {
+          repeat: {
+            m: false,
+            su: false
+          }
+        });
+      }).then((savedDaily2) => {
+        expect(savedDaily2.repeat).to.eql({
+          m: false,
+          t: true,
+          w: true,
+          th: true,
+          f: true,
+          s: true,
+          su: false,
+        });
+      });
+    });
 
-    it('defaults startDate to today if none date object is passed in');
+    it('updates everyX, even if frequency is set to weekly', () => {
+      return api.put(`/tasks/${daily._id}`, {
+        frequency: 'weekly',
+      }).then((savedDaily) => {
+        return api.put(`/tasks/${daily._id}`, {
+          everyX: 5,
+        });
+      }).then((savedDaily2) => {
+        expect(savedDaily2.everyX).to.eql(5);
+      });
+    });
+
+    it('defaults startDate to today if none date object is passed in', () => {
+      return api.put(`/tasks/${daily._id}`, {
+        frequency: 'weekly',
+      }).then((savedDaily2) => {
+        expect((new Date(savedDaily2.startDate)).getDay()).to.eql((new Date()).getDay());
+      });
+    });
   });
 
-  context('rewards', () => {
+  xcontext('rewards', () => {
     let reward;
 
     beforeEach(() => {
@@ -149,6 +281,12 @@ describe('PUT /tasks/:id', () => {
       });
     });
 
-    it('requires value to be coerced into a number');
+    it('requires value to be coerced into a number', () => {
+      return api.put(`/tasks/${reward._id}`, {
+        value: "100",
+      }).then((task) => {
+        expect(task.value).to.eql(100);
+      });
+    });
   });
 });

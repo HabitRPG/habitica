@@ -173,19 +173,22 @@ api.updateTask = {
 
       // If checklist is updated -> replace the original one
       if (req.body.checklist) {
-        delete req.body.checklist;
         task.checklist = req.body.checklist;
+        delete req.body.checklist;
       }
 
       // If tags are updated -> replace the original ones
       if (req.body.tags) {
-        delete req.body.tags;
         task.tags = req.body.tags;
+        delete req.body.tags;
       }
 
-      // TODO merge goes deep into objects, it's ok?
-      // TODO also check that array and mixed fields are updated correctly without marking modified
-      _.merge(task, Tasks.Task.sanitizeUpdate(req.body));
+      // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, very bad for performances
+      // TODO regarding comment above make sure other models with nested fields are using this trick too
+      _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
+      // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
+      // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
+      // see https://github.com/Automattic/mongoose/issues/2749
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask))

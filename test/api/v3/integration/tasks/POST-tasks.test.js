@@ -43,16 +43,7 @@ describe('POST /tasks', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-      });
-    });
-
-    it('ignores setting userId field', () => {
-      return api.post('/tasks', {
-        text: 'test habit',
-        type: 'habit',
-        userId: 123,
-      }).then((task) => {
-        expect(task.userId).to.equal(user._id);
+        message: 'habit validation failed',
       });
     });
 
