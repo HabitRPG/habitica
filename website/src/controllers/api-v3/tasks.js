@@ -9,6 +9,7 @@ import {
 import shared from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
+import scoreTask from '../../../../common/script/api-v3/scoreTask';
 
 let api = {};
 
@@ -257,7 +258,15 @@ api.scoreTask = {
         task.completed = direction === 'up';
       }
 
-      let delta = user.ops.score({params: {id: task._id, direction}, language: req.language});
+      let delta;
+      try {
+        delta = scoreTask({task, user, direction}, req);
+      } catch (e) {
+        throw e;
+      }
+
+      // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+      if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
       return Q.all([
         user.save(),
@@ -265,7 +274,7 @@ api.scoreTask = {
       ]).then((results) => {
         let savedUser = results[0];
 
-        let userStats = savedUser.toJSON().stats;
+        let userStats = savedUser.stats.toJSON();
         let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
         res.respond(200, resJsonData);
 
