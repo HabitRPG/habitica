@@ -3,7 +3,7 @@ mixin buyGemsDropdown()
     .row
       .col-md-4.col-md-offset-4.alert.alert-info $5&nbsp;
         =env.t('USD')
-        span#TotalGemPrice.dashed-underline(popover=env.t('donateText1'),popover-trigger='mouseenter',popover-placement='right') = +20 <span class="Pet_Currency_Gem1x inline-gems"/>
+        span#TotalGemPrice.dashed-underline(popover=env.t('donateText1'),popover-trigger='mouseenter',popover-placement='bottom') = +20 <span class="Pet_Currency_Gem1x inline-gems"/>
   .container-fluid
     .row
       .col-md-10.col-md-offset-2
@@ -25,9 +25,6 @@ script(id='modals/buyGems.html', type='text/ng-template')
           .panel-body
               h3=env.t('buyGemsGold')
               p=env.t('maxBuyGems')
-        .well
-          h3=env.t('purchaseGemsSeparately')
-          +buyGemsDropdown()
 
       div(ng-if='user.purchased.plan.customerId && (user.purchased.plan.gemsBought < User.user.purchased.plan.consecutive.gemCapExtra + Shared.planGemLimits.convCap)')
         .panel.panel-default
@@ -48,17 +45,24 @@ script(id='modals/buyGems.html', type='text/ng-template')
                     .arrow
                     .popover-content
                       p=env.t('buyGemsAllow1')
-                        &nbsp;{{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}&nbsp; 
+                        | &nbsp;{{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}&nbsp; 
                         =env.t('buyGemsAllow2')
-
+      div(ng-if='user.purchased.plan.customerId')
+        .well
+          h3=env.t('purchaseGemsSeparately')
+          +buyGemsDropdown()
       div(ng-if='!user.purchased.plan.customerId')
         .panel.panel-default
           .panel-body
             h3=env.t('purchaseGems')
             .small 
-              span.dashed-underline(popover=env.t('donateText3'),popover-trigger='mouseenter',popover-placement='right')
-                  =env.t('donateText2')
+              span.dashed-underline(popover=env.t('donateText3'),popover-trigger='mouseenter',popover-placement='bottom')
+                =env.t('donateText2')
             +buyGemsDropdown()
+
+          .container-fluid
+            h3=env.t('freeGemsTitle')
+            p!=env.t('subFreeGemsHow')
 
           .well
             h3
@@ -66,10 +70,6 @@ script(id='modals/buyGems.html', type='text/ng-template')
             h3=env.t('becomeSubscriber')
           
             div(ng-include="'partials/options.settings.subscription.html'")
-
-          .container-fluid
-            h3=env.t('freeGemsTitle')
-            p!=env.t('subFreeGemsHow')
 
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
