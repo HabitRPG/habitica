@@ -30,8 +30,10 @@ RUN cd /habitrpg && bower install --allow-root
 
 # Create environment config file and build directory
 RUN cd /habitrpg && cp config.json.example config.json
-RUN cd /habitrpg && sed -i 's/localhost/0.0.0.0/g' config.json # CHANGE IP TO MONGO CONTAINER IP
 RUN mkdir -p /habitrpg/website/build
+
+# Point config.json to Mongo instance. Edit the IP address to your running Mongo container's IP before running.
+RUN cd /habitrpg && sed -i 's/localhost/0.0.0.0/g' config.json
 
 # Start Habitica
 EXPOSE 3000
