@@ -585,7 +585,7 @@ UserSchema.methods.unlink = function(options, cb) {
 function _populateDefaultsForNewUser(user) {
   var taskTypes;
 
-  if (user.registeredThrough === "habitica-web") {
+  if (user.registeredThrough === "habitica-web" || user.registeredThrough === "habitica-android") {
     taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
 
     var tutorialCommonSections = [
