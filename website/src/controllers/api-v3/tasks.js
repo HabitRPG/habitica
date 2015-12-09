@@ -235,7 +235,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  */
 api.scoreTask = {
   method: 'POST',
-  url: 'tasks/score/:taskId/:direction',
+  url: '/tasks/score/:taskId/:direction',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();

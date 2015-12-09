@@ -3,6 +3,7 @@ import {
   requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
+import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/score/:id/:direction', () => {
   let user, api;
@@ -15,9 +16,21 @@ describe('POST /tasks/score/:id/:direction', () => {
   });
 
   context('all', () => {
-    it('requires a task id');
+    it('requires a task id', () => {
+      return expect(api.post('/tasks/score/123/up')).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+    });
 
-    it('requires a task direction');
+    it('requires a task direction', () => {
+      return expect(api.post(`/tasks/score/${generateUUID()}/tt`)).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+    });
   });
 
   context('todos', () => {
