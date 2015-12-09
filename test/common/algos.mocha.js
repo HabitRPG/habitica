@@ -5,6 +5,7 @@ import {
   startOfDay,
   daysSince,
 } from '../../common/script/cron';
+import scoreTask from '../../common/script/api-v3/scoreTask';
 
 let expect = require('expect.js');
 let sinon = require('sinon');
@@ -720,12 +721,9 @@ describe('User', () => {
 
       for (let random = MIN_RANGE_FOR_POTION; random <= MAX_RANGE_FOR_POTION; random += 0.1) {
         sinon.stub(user.fns, 'predictableRandom').returns(random);
-        user.ops.score({
-          params: {
-            id: this.task_id,
-            direction: 'up',
-          },
-        });
+
+        let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+        user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
         expect(user.items.eggs).to.be.empty;
         expect(user.items.hatchingPotions).to.not.be.empty;
         expect(user.items.food).to.be.empty;
@@ -738,12 +736,8 @@ describe('User', () => {
 
       for (let random = MIN_RANGE_FOR_EGG; random <= MAX_RANGE_FOR_EGG; random += 0.1) {
         sinon.stub(user.fns, 'predictableRandom').returns(random);
-        user.ops.score({
-          params: {
-            id: this.task_id,
-            direction: 'up',
-          },
-        });
+        let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+        user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
         expect(user.items.eggs).to.not.be.empty;
         expect(user.items.hatchingPotions).to.be.empty;
         expect(user.items.food).to.be.empty;
@@ -757,12 +751,8 @@ describe('User', () => {
 
       for (let random = MIN_RANGE_FOR_FOOD; random <= MAX_RANGE_FOR_FOOD; random += 0.1) {
         sinon.stub(user.fns, 'predictableRandom').returns(random);
-        user.ops.score({
-          params: {
-            id: this.task_id,
-            direction: 'up',
-          },
-        });
+        let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+        user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
         expect(user.items.eggs).to.be.empty;
         expect(user.items.hatchingPotions).to.be.empty;
         expect(user.items.food).to.not.be.empty;
@@ -773,12 +763,8 @@ describe('User', () => {
 
     it('does not get a drop', function () {
       sinon.stub(user.fns, 'predictableRandom').returns(0.5);
-      user.ops.score({
-        params: {
-          id: this.task_id,
-          direction: 'up',
-        },
-      });
+      let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+      user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
       expect(user.items.eggs).to.eql({});
       expect(user.items.hatchingPotions).to.eql({});
       expect(user.items.food).to.eql({});
@@ -930,76 +916,38 @@ describe('Simple Scoring', () => {
   });
 
   it('Habits : Up', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.habits[0].id,
-        direction: 'down',
-      },
-      query: {
-        times: 5,
-      },
-    });
+    let delta = scoreTask({task: this.after.habits[0], user: this.after, direction: 'down', times: 5});
+    this.after.fns.randomDrop({task: this.after.habits[0], delta}, {});
     expectLostPoints(this.before, this.after, 'habit');
   });
   it('Habits : Down', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.habits[0].id,
-        direction: 'up',
-      },
-      query: {
-        times: 5,
-      },
-    });
+    let delta = scoreTask({task: this.after.habits[0], user: this.after, direction: 'up', times: 5});
+    this.after.fns.randomDrop({task: this.after.habits[0], delta}, {});
     expectGainedPoints(this.before, this.after, 'habit');
   });
   it('Dailys : Up', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.dailys[0].id,
-        direction: 'up',
-      },
-    });
+    let delta = scoreTask({task: this.after.dailys[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.dailys[0], delta}, {});
     expectGainedPoints(this.before, this.after, 'daily');
   });
   it('Dailys : Up, Down', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.dailys[0].id,
-        direction: 'up',
-      },
-    });
-    this.after.ops.score({
-      params: {
-        id: this.after.dailys[0].id,
-        direction: 'down',
-      },
-    });
+    let delta = scoreTask({task: this.after.dailys[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.dailys[0], delta}, {});
+    let delta2 = scoreTask({task: this.after.dailys[0], user: this.after, direction: 'down'});
+    this.after.fns.randomDrop({task: this.after.dailys[0], delta2}, {});
     expectClosePoints(this.before, this.after, 'daily');
   });
   it('Todos : Up', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.todos[0].id,
-        direction: 'up',
-      },
-    });
+    let delta = scoreTask({task: this.after.todos[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.todos[0], delta}, {});
     expectGainedPoints(this.before, this.after, 'todo');
   });
 
   it('Todos : Up, Down', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.todos[0].id,
-        direction: 'up',
-      },
-    });
-    this.after.ops.score({
-      params: {
-        id: this.after.todos[0].id,
-        direction: 'down',
-      },
-    });
+    let delta = scoreTask({task: this.after.todos[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.todos[0], delta}, {});
+    let delta2 = scoreTask({task: this.after.todos[0], user: this.after, direction: 'down'});
+    this.after.fns.randomDrop({task: this.after.todos[0], delta2}, {});
     expectClosePoints(this.before, this.after, 'todo');
   });
 });

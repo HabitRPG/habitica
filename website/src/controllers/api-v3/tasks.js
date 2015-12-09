@@ -258,13 +258,7 @@ api.scoreTask = {
         task.completed = direction === 'up';
       }
 
-      let delta;
-      try {
-        delta = scoreTask({task, user, direction}, req);
-      } catch (e) {
-        throw e;
-      }
-
+      let delta = scoreTask({task, user, direction}, req);
       // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
       if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 

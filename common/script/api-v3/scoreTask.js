@@ -12,7 +12,7 @@ const CLOSE_ENOUGH = 0.00001;
 function _getTaskValue (taskValue) {
   if (taskValue < MIN_TASK_VALUE) {
     return MIN_TASK_VALUE;
-  } else if (taskValue < MAX_TASK_VALUE) {
+  } else if (taskValue > MAX_TASK_VALUE) {
     return MAX_TASK_VALUE;
   } else {
     return taskValue;
@@ -167,7 +167,7 @@ function _changeTaskValue (user, task, direction, times, cron) {
   return addToDelta;
 }
 
-export default function scoreTask (options = {}, req) {
+export default function scoreTask (options = {}, req = {}) {
   let {user, task, direction, times = 1, cron = false} = options;
   let delta = 0;
   let stats = {
@@ -200,7 +200,7 @@ export default function scoreTask (options = {}, req) {
     let thl = task.history.length;
 
     if (th[thl - 1] && moment(th[thl - 1].date).isSame(new Date(), 'day')) {
-      th[thl - 1].value = task.value;
+      th[thl - 1].value = task.value; // TODO mark modified?
     } else {
       th.push({
         date: Number(new Date()), // TODO are we going to cast history entries?
