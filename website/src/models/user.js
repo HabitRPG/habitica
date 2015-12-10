@@ -45,6 +45,7 @@ export let schema = new Schema({
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: { type: Number, default: 0 },
+  // TODO give all this a default of 0?
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
@@ -65,7 +66,7 @@ export let schema = new Schema({
     quests: Schema.Types.Mixed, // TODO remove, use dictionary?
     rebirths: Number,
     rebirthLevel: Number,
-    perfect: Number,
+    perfect: {type: Number, default: 0},
     habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean, // Superseded by costumeContests
@@ -626,6 +627,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
     done();
   }
 });
+
+// TODO unit test this?
+schema.methods.isSubscribed = function isSubscribed () {
+  return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
+};
 
 schema.methods.unlink = function unlink (options, cb) {
   let cid = options.cid;

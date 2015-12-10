@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import moment from 'moment';
 import {
   NotAuthorized,
 } from '../../../website/src/libs/api-v3/errors';
@@ -195,18 +194,11 @@ export default function scoreTask (options = {}, req = {}) {
     }
     _gainMP(user, _.max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
-    // history
-    let th = task.history;
-    let thl = task.history.length;
-
-    if (th[thl - 1] && moment(th[thl - 1].date).isSame(new Date(), 'day')) {
-      th[thl - 1].value = task.value; // TODO mark modified?
-    } else {
-      th.push({
-        date: Number(new Date()), // TODO are we going to cast history entries?
-        value: task.value,
-      });
-    }
+    // Add history entry, even more than 1 per day
+    task.history.push({
+      date: Number(new Date()), // TODO are we going to cast history entries?
+      value: task.value,
+    });
   } else if (task.type === 'daily') {
     if (cron) {
       delta += _changeTaskValue(user, task, direction, times, cron);
