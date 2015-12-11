@@ -223,7 +223,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
 }
 
 /**
- * @api {put} /tasks/score/:taskId/:direction Score a task
+ * @api {put} /tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task
@@ -235,11 +235,11 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  */
 api.scoreTask = {
   method: 'POST',
-  url: '/tasks/score/:taskId/:direction',
+  url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
+    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
@@ -255,7 +255,7 @@ api.scoreTask = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
 
       if (task.type === 'daily' || task.type === 'todo') {
-        task.completed = direction === 'up';
+        task.completed = direction === 'up'; // TODO move into scoreTask
       }
 
       let delta = scoreTask({task, user, direction}, req);

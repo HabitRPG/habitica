@@ -4,8 +4,9 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import Q from 'q';
 
-describe('POST /tasks/score/:id/:direction', () => {
+describe('POST /tasks/:id/score/:direction', () => {
   let user, api;
 
   before(() => {
@@ -17,7 +18,7 @@ describe('POST /tasks/score/:id/:direction', () => {
 
   context('all', () => {
     it('requires a task id', () => {
-      return expect(api.post('/tasks/score/123/up')).to.eventually.be.rejected.and.eql({
+      return expect(api.post('/tasks/123/score/up')).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -25,7 +26,7 @@ describe('POST /tasks/score/:id/:direction', () => {
     });
 
     it('requires a task direction', () => {
-      return expect(api.post(`/tasks/score/${generateUUID()}/tt`)).to.eventually.be.rejected.and.eql({
+      return expect(api.post(`/tasks/${generateUUID()}/score/tt`)).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -37,7 +38,12 @@ describe('POST /tasks/score/:id/:direction', () => {
     let todo;
 
     beforeEach(() => {
-      // todo = createdTodo
+      return api.post('/tasks', {
+        text: 'test todo',
+        type: 'todo',
+      }).then((task) => {
+        todo = task;
+      });
     });
 
     it('completes todo when direction is up');
@@ -65,7 +71,12 @@ describe('POST /tasks/score/:id/:direction', () => {
     let daily;
 
     beforeEach(() => {
-      // daily = createdDaily
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+      }).then((task) => {
+        daily = task;
+      });
     });
 
     it('completes daily when direction is up');
@@ -93,10 +104,33 @@ describe('POST /tasks/score/:id/:direction', () => {
     let habit, minusHabit, plusHabit, neitherHabit;
 
     beforeEach(() => {
-      // habit = createdHabit
-      // plusHabit = createdPlusHabit
-      // minusHabit = createdMinusHabit
-      // neitherHabit = createdNeitherHabit
+      return Q.all([
+        api.post('/tasks', {
+          text: 'test habit',
+          type: 'habit',
+        }),
+        api.post('/tasks', {
+          text: 'test min habit',
+          type: 'habit',
+          up: false,
+        }),
+        api.post('/tasks', {
+          text: 'test plus habit',
+          type: 'habit',
+          down: false,
+        }),
+        api.post('/tasks', {
+          text: 'test neither habit',
+          type: 'habit',
+          up: false,
+          down: false,
+        }),
+      ]).then(tasks => {
+        habit = tasks[0];
+        minusHabit = tasks[1];
+        plusHabit = tasks[2];
+        neitherHabit = tasks[3];
+      });
     });
 
     it('prevents plus only habit from scoring down'); // Yes?
@@ -120,7 +154,12 @@ describe('POST /tasks/score/:id/:direction', () => {
     let reward;
 
     beforeEach(() => {
-      // reward = createdReward
+      return api.post('/tasks', {
+        text: 'test reward',
+        type: 'reward',
+      }).then((task) => {
+        reward = task;
+      });
     });
 
     it('purchases reward');
