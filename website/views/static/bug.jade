@@ -1,0 +1,21 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+  - var menuItem = 'bug'
+
+block title
+  title Habitica &VerticalLine;&nbsp;
+    =env.t('communityBug')
+
+block content
+  .row
+    .col-md-12
+      .page-header
+        h1=env.t('communityBug')
+      p
+        =env.t('tryFirst')
+        button(onclick='localStorage.clear()') Clear local storage
+        br
+        =env.t('tryNext')
+        a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760') Report a Bug
