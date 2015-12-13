@@ -140,12 +140,12 @@
     "firstStreakAchievement": "Serie di 21 giorni",
     "streakAchievementCount": "<%= streaks %> Serie di 21 giorni",
     "twentyOneDays": "Hai completato la tua Daily per 21 giorni di fila!",
-    "dontBreakStreak": "Amazing job. Don't break the streak!",
-    "dontStop": "Non Fermarti Ora!",
+    "dontBreakStreak": "Ottimo lavoro. Non interrompere la serie!",
+    "dontStop": "Non fermarti ora!",
     "levelUpShare": "Sono salito di livello in Habitica migliorando le mie abitudini nella vita reale!",
     "questUnlockShare": "Ho sbloccato una nuova missione in Habitica!",
-    "hatchPetShare": "I hatched a new pet by completing my real-life tasks!",
-    "raisePetShare": "I raised a pet into a mount by completing my real-life tasks!",
+    "hatchPetShare": "Ho fatto nascere un nuovo animaletto completando le mie attività nella vita reale!",
+    "raisePetShare": "Ho fatto crescere un animaletto completando le mie attività nella vita reale!",
     "wonChallengeShare": "Ho vinto una sfida in Habitica!",
     "achievementShare": "Ho guadagnato una nuova medaglia in Habitica!"
 }

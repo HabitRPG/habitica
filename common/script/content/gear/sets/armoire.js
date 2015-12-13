@@ -77,6 +77,15 @@ let armor = {
     set: 'royal',
     canOwn: ownsItem('armor_armoire_royalRobes'),
   },
+  crystalCrescentRobes: {
+    text: t('armorArmoireCrystalCrescentRobesText'),
+    notes: t('armorArmoireCrystalCrescentRobesNotes', { attrs: 7 }),
+    value: 100,
+    per: 7,
+    con: 7,
+    set: 'crystalCrescent',
+    canOwn: ownsItem('armor_armoire_crystalCrescentRobes'),
+  },
 };
 
 let eyewear = {
@@ -232,6 +241,15 @@ let head = {
     set: 'shepherd',
     canOwn: ownsItem('head_armoire_shepherdHeaddress'),
   },
+  crystalCrescentHat: {
+    text: t('headArmoireCrystalCrescentHatText'),
+    notes: t('headArmoireCrystalCrescentHatNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    per: 7,
+    set: 'crystalCrescent',
+    canOwn: ownsItem('head_armoire_crystalCrescentHat'),
+  },
 };
 
 let shield = {
@@ -337,6 +355,25 @@ let weapon = {
     con: 9,
     set: 'shepherd',
     canOwn: ownsItem('weapon_armoire_shepherdsCrook'),
+  },
+  crystalCrescentStaff: {
+    text: t('weaponArmoireCrystalCrescentStaffText'),
+    notes: t('weaponArmoireCrystalCrescentStaffNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    str: 7,
+    set: 'crystalCrescent',
+    canOwn: ownsItem('weapon_armoire_crystalCrescentStaff'),
+  },
+  blueLongbow: {
+    text: t('weaponArmoireBlueLongbowText'),
+    notes: t('weaponArmoireBlueLongbowNotes', { per: 9, con: 8, str: 7 }),
+    value: 100,
+    per: 9,
+    con: 8,
+    str: 7,
+    twoHanded: true,
+    canOwn: ownsItem('weapon_armoire_blueLongbow'),
   },
 };
 

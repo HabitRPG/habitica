@@ -3,7 +3,7 @@
     "innCheckOut": "Esci dalla Locanda",
     "innCheckIn": "Riposa nella Locanda",
     "innText": "Stai riposando nella Locanda! Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno. Fai attenzione: se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily mancate dei tuoi compagni di squadra a meno che non stiano riposando anche loro nella Locanda! Inoltre, il tuo danno al Boss (o la raccolta di oggetti) non avrà effetto finchè non lasci la Locanda.",
-    "innTextBroken": "Stai riposando nella Locanda, credo... Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno... Se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily mancate dei tuoi compagni di squadra... a meno che non stiano riposando anche loro nella Locanda... Inoltre, il tuo danno al Boss (o gli oggetti raccolti) non avrà effetto finché non lasci la Locanda... sono così stanco...",
+    "innTextBroken": "Stai riposando nella Locanda, credo... Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno... Se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily mancate dei tuoi compagni di squadra... a meno che non stiano riposando anche loro nella Locanda... Inoltre, il tuo danno al Boss (o gli oggetti raccolti) non avrà effetto finché non lasci la Locanda... che stanchezza...",
     "lfgPosts": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
     "tutorial": "Tutorial",
     "glossary": "Glossario",
@@ -90,7 +90,7 @@
     "leaveParty": "Lasciare la squadra?",
     "sendPM": "Invia messaggio privato",
     "send": "Invia",
-    "messageSentAlert": "Messaggio inviato",
+    "messageSentAlert": "Messaggio inviato!",
     "pmHeading": "Messaggio privato a <%= name %>",
     "clearAll": "Cancella tutti i messaggi",
     "confirmDeleteAllMessages": "Vuoi davvero cancellare tutti i messaggi ricevuti? Gli altri utenti potranno ancora vedere i messaggi che gli hai inviato.",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "La chat della squadra è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
     "guildChatEmpty": "La chat della gilda è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
     "possessiveParty": "Squadra di <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Se vuoi pubblicare messaggi nella chat della Taverna o di una qualsiasi squadra o gilda, per favore prima leggi le <%= linkStart %>Linee guida della community<%= linkEnd %> e successivamente clicca sul pulsante qui sotto per indicare che le accetti."
 }

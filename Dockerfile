@@ -1,41 +1,41 @@
 FROM ubuntu:trusty
 
-MAINTAINER Thibault Cohen <titilambert@gmail.com>
+MAINTAINER Sabe Jones <sabe@habitica.com>
 
-ENV DEBIAN_FRONTEND noninteractive
+# Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
+RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
-### Init
-
+# Install prerequisites
 RUN apt-get update
+RUN apt-get install -y \
+    build-essential \
+    curl \
+    git \
+    libkrb5-dev \
+    python
 
-### Utils
+# Install NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+RUN apt-get install -y nodejs
 
-RUN apt-get install -y git vim graphicsmagick nodejs phantomjs npm pkgconf libcairo2-dev libjpeg8-dev
+# Clean up package management
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
 
-### Installation
+# Clone Habitica repo and install dependencies
+RUN git clone https://github.com/HabitRPG/habitrpg.git
+RUN npm install -g gulp grunt-cli bower
+RUN cd /habitrpg && npm install
+RUN cd /habitrpg && bower install --allow-root
 
-RUN cd /opt && git clone https://github.com/HabitRPG/habitrpg.git
+# Create environment config file and build directory
+RUN cd /habitrpg && cp config.json.example config.json
+RUN mkdir -p /habitrpg/website/build
 
-#RUN cd /opt/habitrpg && git checkout -t origin/develop
+# Point config.json to Mongo instance. Edit the IP address to your running Mongo container's IP before running.
+RUN cd /habitrpg && sed -i 's/localhost/0.0.0.0/g' config.json
 
-RUN cd /opt/habitrpg && git pull
-
-RUN cd /opt/habitrpg && npm install -g grunt-cli bower nodemon
-
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-
-RUN cd /opt/habitrpg && npm install
-
-# Add config file
-
-ADD ./config.json /opt/habitrpg/
-
-RUN mkdir -p /opt/habitrpg/build
-
-RUN cd /opt/habitrpg && bower install --allow-root
-
-# Run server
-
-RUN cd /opt/habitrpg && grunt build:prod 
-
-CMD cd /opt/habitrpg && grunt nodemon
+# Start Habitica
+EXPOSE 3000
+WORKDIR /habitrpg/
+CMD ["npm", "start"]
