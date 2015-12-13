@@ -35,9 +35,6 @@ let repeatWithoutLastWeekday = () => { // eslint-disable-line no-unused-vars
 
 import {
   generateUser,
-  generateDaily,
-  generateHabit,
-  generateTodo,
 } from '../helpers/common.helper';
 
 let cron = (usr, missedDays = 1) => {
