@@ -70,7 +70,8 @@ describe('In-App Purchases', function() {
         expect(paymentSpy).to.be.calledOnce;
         return expect(paymentSpy).to.be.calledWith({
           user: res.locals.user,
-          paymentMethod: 'IAP GooglePlay'
+          paymentMethod: 'IAP GooglePlay',
+          amount: 5.25
         });
       });
     });

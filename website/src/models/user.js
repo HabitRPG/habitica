@@ -154,7 +154,6 @@ var UserSchema = new Schema({
         tavern: {type: Boolean, 'default': false},
         equipment: {type: Boolean, 'default': false},
         items: {type: Boolean, 'default': false},
-        inviteParty: {type: Boolean, 'default': false},
       },
       ios: {
         addTask: {type: Boolean, 'default': false},
@@ -586,7 +585,7 @@ UserSchema.methods.unlink = function(options, cb) {
 function _populateDefaultsForNewUser(user) {
   var taskTypes;
 
-  if (user.registeredThrough === "habitica-web") {
+  if (user.registeredThrough === "habitica-web" || user.registeredThrough === "habitica-android") {
     taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
 
     var tutorialCommonSections = [

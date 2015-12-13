@@ -132,14 +132,15 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
     .col-md-8
       div
         textarea.form-control(ng-show='group._editing', rows=6, placeholder=env.t('leaderMsg'), ng-model='group.leaderMessage')
-      table(ng-show='group.leaderMessage')
-        tr
-          td
-            .popover.static-popover.fade.right.in.wide-popover
-              .arrow
-              h3.popover-title {{group.leader.profile.name}}
-              .popover-content
-                markdown(text='group.leaderMessage')
+      .slight-vertical-padding
+        table(ng-show='group.leaderMessage')
+          tr
+            td
+              .popover.static-popover.fade.right.in.wide-popover
+                .arrow
+                h3.popover-title {{group.leader.profile.name}}
+                .popover-content
+                  markdown(text='group.leaderMessage')
       div(ng-controller='ChatCtrl')
         h3=env.t('chat')
         include ./chat-box

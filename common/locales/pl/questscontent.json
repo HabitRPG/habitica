@@ -268,10 +268,10 @@
     "questFrogBoss": "Śmieciowa Żaba",
     "questFrogDropFrogEgg": "Żaba (jajo)",
     "questFrogUnlockText": "Odblokowuje dostęp do kupna żabich jaj na Targu",
-    "questSnakeText": "The Serpent of Distraction",
-    "questSnakeNotes": "It takes a hardy soul to live in the Sand Dunes of Distraction. The arid desert is hardly a productive place, and the shimmering dunes have led many a traveler astray. However, something has even the locals spooked. The sands have been shifting and upturning entire villages. Residents claim a monster with an enormous serpentine body lies in wait under the sands, and they have all pooled together a reward for whomever will help them find and stop it. The much-lauded snake charmers @EmeraldOx and @PainterProphet have agreed to help you summon the beast. Can you stop the Serpent of Distraction?",
-    "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
-    "questSnakeBoss": "Serpent of Distraction",
+    "questSnakeText": "Wąż Rozproszenia",
+    "questSnakeNotes": "Trzeba mieć silnego ducha, by żyć na Wydmach Rozproszenia. Spieczona słońcem pustynia jest mało produktywnym miejscem, a na lśniących wydmach niejeden wędrowiec się zagubił. Jednak nawet miejscowi boją się czegoś. Piaski przesuwają i wywracają całe wioski. Mieszkańcy twierdzą, że potwór o ogromnym wężowatym cielsku czatuje na nich pod piaskami. Wszyscy razem ustalili nagrodę dla kogoś, kto pomoże im znaleźć i zatrzymać potwora. Znani i chwaleni zaklinacze węży, @EmeraldOx i @PainterProphet, zgodzili się pomóc ci wezwać bestię. Czy zdołasz ją pokonać?",
+    "questSnakeCompletion": "Z pomocą zaklinaczy wygnaliście Węża Rozproszenia. Cieszysz się, że pomogłeś mieszkańcom Wydm, jednak jest ci smutno z powodu pokonanego przeciwnika. Podczas gdy podziwiasz widoki, podchodzi do ciebie @LordDarkly. \"Dziękuję! To może nie jest wiele, ale mam nadzieję, że wystarczająco wyraża naszą wdzięczność.\" Wręcza ci trochę złota i... kilka jaj węża! Ostatecznie zobaczysz znowu to wspaniałe zwierzę.",
+    "questSnakeBoss": "Wąż rozproszenia",
     "questSnakeDropSnakeEgg": "Wąż (jajo)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Odblokowuje dostęp do kupna jaj Węża na Targu"
 }

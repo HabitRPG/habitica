@@ -8,7 +8,7 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank')=env.t('mobileIOS')
           li
-            a(href='/static/apps')=env.t('mobileAndroid')
+            a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')=env.t('mobileAndroid')
         if env.isStaticPage
           h4=env.t('language')
           select(ng-change='changeLang()', ng-model='selectedLanguage', ng-options='language.name for language in languages')
