@@ -157,7 +157,7 @@ api.loginLocal = function(req, res, next) {
 
   User.findOne(login, {auth:1}, function(err, user){
     if (err) return next(err);
-    if (!user) return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
+    if (!user) return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\" on the habitica.com website's login form."});
     if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
     // We needed the whole user object first so we can get his salt to encrypt password comparison
     User.findOne(
@@ -165,7 +165,7 @@ api.loginLocal = function(req, res, next) {
     , {_id:1, apiToken:1}
     , function(err, user){
       if (err) return next(err);
-      if (!user) return res.json(401,{err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
+      if (!user) return res.json(401,{err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\" on the habitica.com website's login form."});
       res.json({id: user._id,token: user.apiToken});
       password = null;
     });

@@ -56,6 +56,7 @@ module.exports = function(grunt) {
       build: {
         files: [
           {expand: true, cwd: 'website/public/', src: 'favicon.ico', dest: 'website/build/'},
+          {expand: true, cwd: 'website/public/', src: 'favicon_192x192.png', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/dist/sprites/spritesmith*.png', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/backer-only/*.gif', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/npc_ian.gif', dest: 'website/build/'},
@@ -75,6 +76,7 @@ module.exports = function(grunt) {
           'website/build/*.js',
           'website/build/*.css',
           'website/build/favicon.ico',
+          'website/build/favicon_192x192.png',
           'website/build/common/dist/sprites/*.png',
           'website/build/common/img/sprites/backer-only/*.gif',
           'website/build/common/img/sprites/npc_ian.gif',

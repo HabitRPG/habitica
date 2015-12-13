@@ -537,7 +537,7 @@ function _populateDefaultsForNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
 
-  if (user.registeredThrough === 'habitica-web') {
+  if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
     _.each(iterableFlags.tutorial.common, (val, section) => {
