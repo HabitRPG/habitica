@@ -5,7 +5,6 @@ let mysterySets = {
     start: '2014-02-22',
     end: '2014-02-28',
     text: 'wingedMessengerSet', 
-    //text: 'timeTravelersPopoverNoSub',
   },
   201403: {
     start: '2014-03-24',
