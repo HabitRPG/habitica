@@ -26,7 +26,7 @@ api.getUser = {
     user.stats.maxHealth = common.maxHealth;
     user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
-    return res.json(200, user);
+    return res.respond(200, user);
   },
 };
 
