@@ -469,7 +469,7 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags'],
+  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function toJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?

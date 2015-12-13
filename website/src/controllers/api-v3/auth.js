@@ -30,7 +30,7 @@ api.registerLocal = {
   url: '/user/auth/local/register',
   handler (req, res, next) {
     let fbUser = res.locals.user; // If adding local auth to social user
-
+    // TODO check user doesn't have local auth
     req.checkBody({
       email: {
         notEmpty: {errorMessage: res.t('missingEmail')},
