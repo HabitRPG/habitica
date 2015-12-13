@@ -28,58 +28,41 @@ describe('Spells', () => {
       user.stats.class = 'rogue';
     });
 
-    it('Should add exp and gp to user when backstab is used', () => {
-      const PREVIOUS_EXP = user.stats.exp;
-      const PREVIOUS_GP = user.stats.gp;
+    describe('#backstab', () => {
+      it('adds exp to user', () => {
+        const PREVIOUS_EXP = user.stats.exp;
 
-      shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
-      expect(user.stats.exp).to.be.greaterThan(PREVIOUS_EXP);
-      expect(user.stats.gp).to.be.greaterThan(PREVIOUS_GP);
-    });
+        shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
 
-    it('Should level user from 14 to 15 when backstab is used and user is about to level', () => {
-      user.stats.exp = 349;
-      user.stats.lvl = 14;
-      user.stats.str = 5;
-      user.stats.int = 5;
-      user.stats.con = 4;
-      user.stats.per = 0;
+        expect(user.stats.exp).to.be.greaterThan(PREVIOUS_EXP);
+      });
 
-      shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(15);
-    });
+      it('adds gp to user', () => {
+        const PREVIOUS_GP = user.stats.gp;
 
-    it('Should level user from 29 to 30 when backstab is used and user is about to level', () => {
-      user.stats.exp = 659;
-      user.stats.lvl = 29;
-      user.stats.str = 9;
-      user.stats.int = 5;
-      user.stats.con = 5;
-      user.stats.per = 5;
-      shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(30);
-    });
+        shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
 
-    it('Should level user from 39 to 40 when backstab is used and user is about to level', () => {
-      user.stats.exp = 939;
-      user.stats.lvl = 39;
-      user.stats.str = 10;
-      user.stats.int = 10;
-      user.stats.con = 10;
-      user.stats.per = 9;
-      shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(40);
-    });
+        expect(user.stats.gp).to.be.greaterThan(PREVIOUS_GP);
+      });
 
-    it('Should level user from 59 to 60 when backstab is used and user is about to level', () => {
-      user.stats.exp = 1639;
-      user.stats.lvl = 59;
-      user.stats.str = 15;
-      user.stats.int = 15;
-      user.stats.con = 15;
-      user.stats.per = 14;
-      shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(60);
+      it('levels up user if the gain in experience will level up the user', () => {
+        user.stats.exp = 399;
+        user.stats.lvl = 17;
+
+        shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
+        expect(user.stats.lvl).to.eql(18);
+      });
+
+      it('adds quest scroll to inventory when passing level milestone', () => {
+        user.stats.exp = 329;
+        user.stats.lvl = 14;
+
+        expect(user.items.quests).to.not.have.property('atom1');
+
+        shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
+
+        expect(user.items.quests).to.have.property('atom1', 1);
+      });
     });
   });
 
@@ -88,55 +71,33 @@ describe('Spells', () => {
       user.stats.class = 'wizard';
     });
 
-    it('Should add exp to user when fireball (Burst of Flames) is used', () => {
-      const PREVIOUS_EXP = user.stats.exp;
+    describe('#fireball (Burst of flames)', () => {
+      it('adds exp to user', () => {
+        const PREVIOUS_EXP = user.stats.exp;
 
-      shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
-      expect(user.stats.exp).to.be.greaterThan(PREVIOUS_EXP);
-    });
+        shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
 
-    it('Should level user from 14 to 15 when fireball (Burst of Flames) is used and user is about to level', () => {
-      user.stats.exp = 349;
-      user.stats.lvl = 14;
-      user.stats.str = 5;
-      user.stats.int = 5;
-      user.stats.con = 4;
-      user.stats.per = 0;
-      shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(15);
-    });
+        expect(user.stats.exp).to.be.greaterThan(PREVIOUS_EXP);
+      });
 
-    it('Should level user from 29 to 30 when fireball (Burst of Flames) is used and user is about to level', () => {
-      user.stats.exp = 659;
-      user.stats.lvl = 29;
-      user.stats.str = 9;
-      user.stats.int = 5;
-      user.stats.con = 5;
-      user.stats.per = 5;
-      shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(30);
-    });
+      it('levels up user if the gain in experience will level up the user', () => {
+        user.stats.exp = 399;
+        user.stats.lvl = 17;
 
-    it('Should level user from 39 to 40 when fireball (Burst of Flames) is used and user is about to level', () => {
-      user.stats.exp = 939;
-      user.stats.lvl = 39;
-      user.stats.str = 10;
-      user.stats.int = 10;
-      user.stats.con = 10;
-      user.stats.per = 9;
-      shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(40);
-    });
+        shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
+        expect(user.stats.lvl).to.eql(18);
+      });
 
-    it('Should level user from 59 to 60 when fireball (Burst of Flames) is used and user is about to level', () => {
-      user.stats.exp = 1639;
-      user.stats.lvl = 59;
-      user.stats.str = 15;
-      user.stats.int = 15;
-      user.stats.con = 15;
-      user.stats.per = 14;
-      shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
-      expect(user.stats.lvl).to.eql(60);
+      it('adds quest scroll to inventory when passing level milestone', () => {
+        user.stats.exp = 329;
+        user.stats.lvl = 14;
+
+        expect(user.items.quests).to.not.have.property('atom1');
+
+        shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
+
+        expect(user.items.quests).to.have.property('atom1', 1);
+      });
     });
   });
 });
