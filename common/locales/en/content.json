@@ -135,6 +135,14 @@
   "questEggHorseMountText": "Horse",
   "questEggHorseAdjective": "a galloping",
 
+  "questEggFrogText": "Frog",
+  "questEggFrogMountText": "Frog",
+  "questEggFrogAdjective": "a princely",
+
+  "questEggSnakeText": "Snake",
+  "questEggSnakeMountText": "Snake",
+  "questEggSnakeAdjective": "a slithering",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -148,6 +156,7 @@
   "hatchingPotionCottonCandyBlue": "Cotton Candy Blue",
   "hatchingPotionGolden": "Golden",
   "hatchingPotionSpooky": "Spooky",
+  "hatchingPotionPeppermint": "Peppermint",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

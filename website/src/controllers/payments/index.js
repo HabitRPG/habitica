@@ -1,14 +1,13 @@
-/* @see ./routes.coffee for routing*/
 var _ = require('lodash');
 var shared = require('../../../../common');
 var nconf = require('nconf');
-var utils = require('./../../utils');
+var utils = require('./../../libs/utils');
 var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
 var amazon = require('./amazon');
-var members = require('../members')
+var members = require('../api-v2/members')
 var async = require('async');
 var iap = require('./iap');
 var mongoose= require('mongoose');
@@ -137,7 +136,8 @@ exports.cancelSubscription = function(data, cb) {
 }
 
 exports.buyGems = function(data, cb) {
-  var amt = data.gift ? data.gift.gems.amount/4 : 5;
+  var amt = data.amount || 5;
+  amt = data.gift ? data.gift.gems.amount/4 : amt;
   (data.gift ? data.gift.member : data.user).balance += amt;
   data.user.purchased.txnCount++;
   if(isProduction) {

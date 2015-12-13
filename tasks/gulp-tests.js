@@ -1,24 +1,32 @@
-import { pipe, awaitPort, kill }  from './taskHelper';
+import {
+  pipe,
+  awaitPort,
+  kill,
+  runMochaTests,
+}  from './taskHelper';
 import { server as karma }        from 'karma';
 import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
 import Q                          from 'q';
+import runSequence                from 'run-sequence';
 
-const TEST_SERVER_PORT  = 3001
+const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
+let server;
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_TEST_COMMAND = 'mocha test/api';
+const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive';
+const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
 const COMMON_TEST_COMMAND = 'mocha test/common';
-const CONTENT_TEST_COMMAND = 'mocha test/content --opts test/content/mocha.content.opts';
+const CONTENT_TEST_COMMAND = 'mocha test/content';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'karma start';
 const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
 
-const INSTANBUL_TEST_COMMAND = `istanbul cover -i "website/src/**" --dir coverage/api $(npm bin)/${API_TEST_COMMAND}`;
+const ISTANBUL_TEST_COMMAND = `istanbul cover -i "website/src/**" --dir coverage/api ./node_modules/.bin/${LEGACY_API_TEST_COMMAND}`;
 
 /* Helper methods for reporting test summary */
 let testResults = [];
@@ -31,12 +39,29 @@ let testBin = (string) => {
   return `NODE_ENV=testing ./node_modules/.bin/${string}`;
 };
 
+gulp.task('test:nodemon', (done) => {
+  process.env.PORT = TEST_SERVER_PORT;
+  process.env.NODE_DB_URI=TEST_DB_URI;
+
+  runSequence('nodemon')
+});
+
 gulp.task('test:prepare:mongo', (cb) => {
-  mongoose.connect(TEST_DB_URI, () => {
+  mongoose.connect(TEST_DB_URI, (err) => {
+    if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
     mongoose.connection.db.dropDatabase();
     mongoose.connection.close();
     cb();
   });
+});
+
+gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
+  if (!server) {
+    server = exec(`NODE_ENV="TESTING" NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`, (error, stdout, stderr) => {
+      if (error) { throw `Problem with the server: ${error}`; }
+      if (stderr) { console.error(stderr); }
+    });
+  }
 });
 
 gulp.task('test:prepare:build', (cb) => {
@@ -78,7 +103,7 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Common Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -114,7 +139,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Content Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -140,7 +165,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
       testResults.push({
         suite: 'Server Side Specs',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
       cb();
@@ -149,9 +174,9 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
+gulp.task('test:api-legacy', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin(INSTANBUL_TEST_COMMAND),
+    testBin(ISTANBUL_TEST_COMMAND),
     (err, stdout, stderr) => {
       cb(err);
     }
@@ -159,14 +184,14 @@ gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
+gulp.task('test:api-legacy:safe', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin(INSTANBUL_TEST_COMMAND),
+    testBin(ISTANBUL_TEST_COMMAND),
     (err, stdout, stderr) => {
       testResults.push({
-        suite: 'API Specs\t',
+        suite: 'API (legacy) Specs',
         pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stderr, /(\d+) failing/),
+        fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
 	  cb();
@@ -175,15 +200,15 @@ gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:api:clean', (cb) => {
-  pipe(exec(testBin(API_TEST_COMMAND), () => cb()));
+gulp.task('test:api-legacy:clean', (cb) => {
+  pipe(exec(testBin(LEGACY_API_TEST_COMMAND), () => cb()));
 });
 
-gulp.task('test:api:watch', [
+gulp.task('test:api-legacy:watch', [
   'test:prepare:mongo',
-  'test:api:clean'
+  'test:api-legacy:clean'
 ], () => {
-  gulp.watch(['website/src/**', 'test/api/**'], ['test:api:clean']);
+  gulp.watch(['website/src/**', 'test/api-legacy/**'], ['test:api-legacy:clean']);
 });
 
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
@@ -222,15 +247,15 @@ gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:e2e', ['test:prepare'], (cb) => {
+gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    `NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`,
     './node_modules/protractor/bin/webdriver-manager start',
   ].map(exec);
+  support.push(server);
 
   Q.all([
-    awaitPort(3001),
+    awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
     let runner = exec(
@@ -247,15 +272,14 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
   });
 });
 
-gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
+gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    `NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`,
     './node_modules/protractor/bin/webdriver-manager start',
   ].map(exec);
 
   Q.all([
-    awaitPort(3001),
+    awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
     let runner = exec(
@@ -279,14 +303,50 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
   });
 });
 
-gulp.task('test', [
+gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
+
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    runMochaTests('./test/api/v2/**/*.js', server, done)
+  });
+});
+
+gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
+  process.env.RUN_INTEGRATION_TEST_FOREVER = true;
+  gulp.watch(['website/src/**', 'test/api/v2/**'], ['test:api-v2']);
+});
+
+gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    let runner = exec(
+      testBin(API_V2_TEST_COMMAND),
+      (err, stdout, stderr) => {
+        testResults.push({
+          suite: 'API Specs\t',
+          pass: testCount(stdout, /(\d+) passing/),
+          fail: testCount(stdout, /(\d+) failing/),
+          pend: testCount(stdout, /(\d+) pending/)
+        });
+        done();
+      }
+    );
+    pipe(runner);
+  });
+});
+
+gulp.task('test:all', (done) => {
+  runSequence(
+  'lint',
+  'test:e2e:safe',
   'test:common:safe',
-  'test:content:safe',
-  'test:server_side:safe',
+  // 'test:content:safe',
+  // 'test:server_side:safe',
   'test:karma:safe',
-  'test:api:safe',
-  'test:e2e:safe'
-], () => {
+  'test:api-legacy:safe',
+  'test:api-v2:safe',
+  done);
+});
+
+gulp.task('test', ['test:all'], () => {
   let totals = [0,0,0];
 
   console.log('\n\x1b[36m\x1b[4mHabitica Test Summary\x1b[0m\n');
@@ -309,8 +369,13 @@ gulp.task('test', [
     `\x1b[36mPending: ${totals[2]}\t`
   );
 
-  if (totals[1] > 0) throw "ERROR: There are failing tests!"
-  else {
+  kill(server);
+
+  if (totals[1] > 0) {
+    console.error('ERROR: There are failing tests!');
+    process.exit(1);
+  } else {
     console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
+    process.exit();
   }
 });

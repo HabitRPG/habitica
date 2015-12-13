@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social) {
 
     var user = User.user;
 
@@ -10,6 +10,9 @@ habitrpg.controller("InventoryCtrl",
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
 
     _updateDropAnimalCount(user.items);
+
+    // Social sharing buttons
+    $scope.loadWidgets = Social.loadWidgets;
 
     // Functions from Quests service
     $scope.lockQuest = Quests.lockQuest;
@@ -111,7 +114,25 @@ habitrpg.controller("InventoryCtrl",
       var eggName = Content.eggs[egg.key].text();
       var potName = Content.hatchingPotions[potion.key].text();
       if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
+
+      var userHasPet = user.items.pets[egg.key + '-' + potion.key] > 0;
+      var isPremiumPet = Content.hatchingPotions[potion.key].premium && !Content.dropEggs[egg.key];
+
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
+
+      if (!user.preferences.suppressModals.hatchPet && !userHasPet && !isPremiumPet) {
+        $scope.hatchedPet = {
+          egg: eggName,
+          potion: potName,
+          potionKey:potion.key,
+          eggKey: egg.key,
+          pet: 'Pet-' + egg.key + '-' + potion.key
+        };
+        $rootScope.openModal('hatchPet', {
+          scope: $scope,
+          size: 'sm'
+        });
+      }
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
 
@@ -121,7 +142,7 @@ habitrpg.controller("InventoryCtrl",
       if(!user.achievements.beastMaster
           && $scope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
-        $rootScope.openModal('achievements/beastMaster');
+        $rootScope.openModal('achievements/beastMaster', {controller:'UserCtrl', size:'sm'});
       }
 
       // Checks if Triad Bingo has been reached for the first time
@@ -129,7 +150,7 @@ habitrpg.controller("InventoryCtrl",
           && $scope.mountCount >= 90
           && Shared.count.dropPetsCurrentlyOwned(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
-        $rootScope.openModal('achievements/triadBingo');
+        $rootScope.openModal('achievements/triadBingo', {controller:'UserCtrl', size:'sm'});
       }
     }
 
@@ -142,8 +163,9 @@ habitrpg.controller("InventoryCtrl",
 
       // Feeding Pet
       if ($scope.selectedFood) {
-        var food = $scope.selectedFood
-        if (food.key == 'Saddle') {
+        var food = $scope.selectedFood;
+        var startingMounts = $rootScope.countExists(user.items.mounts);
+        if (food.key === 'Saddle') {
           if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
           return;
@@ -152,12 +174,24 @@ habitrpg.controller("InventoryCtrl",
         $scope.selectedFood = null;
 
         _updateDropAnimalCount(user.items);
+        if ($rootScope.countExists(user.items.mounts) > startingMounts && !user.preferences.suppressModals.raisePet) {
+          $scope.raisedPet = {
+            displayName: petDisplayName,
+            spriteName: pet,
+            egg: egg,
+            potion: potion
+          }
+          $rootScope.openModal('raisePet', {
+            scope: $scope,
+            size:'sm'
+          });
+        }
 
         // Checks if mountmaster has been reached for the first time
         if(!user.achievements.mountMaster
             && $scope.mountCount >= 90) {
           User.user.achievements.mountMaster = true;
-          $rootScope.openModal('achievements/mountMaster');
+          $rootScope.openModal('achievements/mountMaster', {controller:'UserCtrl', size:'sm'});
         }
 
       // Selecting Pet
@@ -228,7 +262,7 @@ habitrpg.controller("InventoryCtrl",
       }
     };
 
-    $scope.$on("habit:keyup", function (e, keyEvent) {
+    $scope.$on("habit:keydown", function (e, keyEvent) {
       if (keyEvent.keyCode == "27") {
         $scope.deselectItem();
       }

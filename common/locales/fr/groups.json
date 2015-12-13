@@ -3,6 +3,7 @@
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
     "innText": "Vous êtes installé à l'Auberge ! Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours. Attention : si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Equipe, sauf s'ils séjournent aussi à l'Auberge ! Et vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge.",
+    "innTextBroken": "Vous êtes installé à l'Auberge, je suppose... Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours... Si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Équipe... sauf s'ils séjournent aussi à l'Auberge... De plus, vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge... si fatigué...",
     "lfgPosts": "Sujets de recherche de Groupe (Recherche d'Équipe)",
     "tutorial": "Tutoriel",
     "glossary": "Glossaire",
@@ -145,5 +146,6 @@
     "partyEmpty": "Vous êtes seul·e dans votre équipe. Invitez vos amis !",
     "partyChatEmpty": "Votre discussion d'équipe est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
     "guildChatEmpty": "La discussion de cette guilde est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
-    "possessiveParty": "Équipe de <%= name %>"
+    "possessiveParty": "Équipe de <%= name %>",
+    "requestAcceptGuidelines": "Si vous souhaitez envoyer des messages dans la Taverne ou dans le chat d'une équipe ou d'une guilde, veuillez d'abord s'il vous plait lire nos <%= linkStart %>Règles de Vie en Communauté<%= linkEnd %> et cliquez sur le bouton ci-dessous pour indiquer que vous les acceptez."
 }

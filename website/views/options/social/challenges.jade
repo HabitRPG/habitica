@@ -140,31 +140,33 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   ng-disabled='insufficientGemsForTavernChallenge()')
 
               .form-group
-                input.form-control(type='text', minlength="3", maxlength="16",
-                  ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
-                  ng-disabled='insufficientGemsForTavernChallenge()')
-                |&nbsp;
-                a.hint.vertical-20(target='_blank', href='http://habitica.wikia.com/wiki/Tags',
-                  popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
-                  =env.t('moreInfo')
-
-              .form-group
                 textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description'
                   ng-disabled='insufficientGemsForTavernChallenge()')
 
-              .form-group
-                .input-group
-                  span.input-group-addon
-                    .Pet_Currency_Gem1x
-                  input.form-control(type='number', placeholder=env.t('prize'),
-                    ng-disabled='insufficientGemsForTavernChallenge()'
-                    min="{{newChallenge.group=='habitrpg' ? 1 : 0}}",
-                    max="{{maxPrize}}", ng-model='newChallenge.prize')
-                a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}",
-                  popover-trigger='mouseenter', popover-placement='right')
-                  =env.t('moreInfo')
-                .pull-right(ng-show='newChallenge.group=="habitrpg"')
-                  !=env.t('publicChallenges')
+              .row
+                .form-group.col-md-6.col-sm-12
+                  input.form-control(type='text', minlength="3",
+                    ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
+                    ng-disabled='insufficientGemsForTavernChallenge()')
+                  |&nbsp;
+                  a.hint.vertical-20(target='_blank', href='http://habitica.wikia.com/wiki/Tags',
+                    popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
+                    =env.t('moreInfo')
+
+              .row
+                .form-group.col-md-6.col-sm-12
+                  .input-group
+                    span.input-group-addon
+                      .Pet_Currency_Gem1x
+                    input.form-control(type='number', placeholder=env.t('prize'),
+                      ng-disabled='insufficientGemsForTavernChallenge()'
+                      min="{{newChallenge.group=='habitrpg' ? 1 : 0}}",
+                      max="{{maxPrize}}", ng-model='newChallenge.prize')
+                  a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}",
+                    popover-trigger='mouseenter', popover-placement='right')
+                    =env.t('moreInfo')
+                  div(ng-show='newChallenge.group=="habitrpg"')
+                    !=env.t('publicChallenges')
 
               .form-group(ng-if='user.contributor.admin')
                 .checkbox
@@ -186,11 +188,13 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     | {{challenge.group.name}}
                   a(ui-sref="options.social.party" ng-if="challenge.group.type=='party'")
                     | {{challenge.group.name}}
-                li
+                li(ng-if='challenge.leader.profile.name')
                   =env.t('by') + ' '
-                  a(ng-click='clickMember(challenge.leader._id, true)') {{challenge.leader.profile.name}}
-                li
-                  =env.t('participants', {membercount: "{{challenge.memberCount}}"})
+                  a(ng-click='clickMember(challenge.leader._id, true)') {{::challenge.leader.profile.name}}
+                li(ng-if='!challenge.leader.profile.name',
+                  popover=env.t('noChallengeOwnerPopover'),
+                  popover-trigger='mouseenter')=env.t('noChallengeOwner')
+                li=env.t('participants', {membercount: "{{challenge.memberCount}}"})
                 li(ng-show='challenge.prize')
                   p!=env.t('prizeValue', {gemcount: "{{challenge.prize}}", gemicon: "<span class='inline-block Pet_Currency_Gem1x'></span>"})
                 li.bg-transparent
@@ -201,7 +205,8 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   a.btn.btn-sm.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
-              a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)') {{challenge.name}}
+              a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)')
+                markdown(text='challenge.name')
             .panel-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
               .accordion-inner(ng-if='$stateParams.cid == challenge._id')
                 div(ui-view)

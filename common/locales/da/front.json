@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] har virkelig hjulpet mig med at indføre struktur i min studietid på universitetet.",
     "invalidEmail": "Det kræver en valid emailadresse for at få nulstillet dit kodeord.",
     "irishfeet123Quote": "Jeg havde en forfærdelig vane med ikke at rydde ud efter jeg havde spist. Jeg efterlod tallerkener og glas alle vegne. Den dårlige vane har [Habitica] hjulpet mig med af med!",
-    "joinOthers": "Slut dig til 250.000 mennesker, der har det sjovt mens de opnår deres mål!",
+    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
     "kazuiQuote": "Inden jeg opdagede [Habitica] var jeg gået i stå i min afhandling. Jeg var også utilfreds med min manglende disciplin omkring huslige pligter og ting som at udvide mit ordforråd eller dykke ned i skak-teori. Det viste sig, at det holder mig motiveret at bryde disse opgaver ned i mindre Tjeklister, der er mere overskuelige.",
     "landingadminlink": "administrative pakker",
     "landingend": "Ikke overbevist endnu?",
@@ -179,5 +179,14 @@
     "businessInquiries": "Erhvervs-henvendelser",
     "merchandiseInquiries": "Merchandise-henvendelser",
     "marketingInquiries": "Marketing/Social Media-henvendelser",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Apps",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Check out our new iOS App!",
+    "imagine1": "Imagine if improving your life were as fun as playing a game.",
+    "landingCopy1": "Advance in the game by completing your real-life tasks.",
+    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
+    "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
+    "alreadyHaveAccount": "I already have an account!",
+    "getStartedNow": "Get Started Now!"
 }

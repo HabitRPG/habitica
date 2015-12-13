@@ -1,45 +1,79 @@
 import gulp from 'gulp';
 import eslint from 'gulp-eslint';
-import _ from 'lodash';
 
-// TODO remove once we upgrade to lodash 3 
-const defaultsDeep = _.partialRight(_.merge, _.defaults);
+const SERVER_FILES = [
+  './website/src/**/api-v3/**/*.js',
+  // Comment these out in develop, uncomment them in api-v3
+  // './website/src/models/user.js',
+  // './website/src/server.js'
+];
+const COMMON_FILES = [
+  './common/script/**/*.js',
+  // @TODO remove these negations as the files are converted over.
+  '!./common/script/index.js',
+  '!./common/script/content/index.js',
+  '!./common/script/src/**/*.js',
+  '!./common/script/public/**/*.js',
+];
+const TEST_FILES = [
+  './test/**/*.js',
+  // @TODO remove these negations as the test files are cleaned up.
+  '!./test/api-legacy/**/*',
+  '!./test/api/**/*',
+  '!./test/common/simulations/**/*',
+  '!./test/content/**/*',
+  '!./test/e2e/**/*',
+  '!./test/server_side/**/*',
+  '!./test/spec/**/*',
+];
 
-const shared = {
-  rules: {
-    indent: [2, 2],
-    quotes: [2, 'single'],
-    'linebreak-style': [2, 'unix'],
-    semi: [2, 'always']
-  },
-  extends: 'eslint:recommended',
-  env: {
-    es6: true
-  }
-};
-
-gulp.task('lint:client', () => {
-  // Ignore .coffee files
-  return gulp.src(['./website/public/js/**/*.js'])
-    .pipe(eslint(defaultsDeep({
-      env: {
-        node: true
-      }
-    }, shared)))
+let linter = (src, options) => {
+  return gulp
+    .src(src)
+    .pipe(eslint(options))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
-});
+}
 
+// TODO lint client
+// TDOO separate linting cong between
+// TODO lint gulp tasks, tests, ...?
+// TODO what about prefer-const rule?
+// TODO remove estraverse dependency once https://github.com/adametry/gulp-eslint/issues/117 sorted out
 gulp.task('lint:server', () => {
-  // Ignore .coffee files
-  return gulp.src(['./website/src/**/*.js'])
-    .pipe(eslint(defaultsDeep({
-      env: {
-        browser: true
-      }
-    }, shared)))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+  return linter(SERVER_FILES);
 });
 
-gulp.task('lint', ['lint:server', 'lint:client']);
+gulp.task('lint:common', () => {
+  return linter(COMMON_FILES);
+});
+
+gulp.task('lint:tests', () => {
+  let options = {
+    rules: {
+      'max-nested-callbacks': 0,
+      'no-unused-expressions': 0,
+      'mocha/no-exclusive-tests': 2,
+      'mocha/no-global-tests': 2,
+      'mocha/handle-done-callback': 2,
+    },
+    globals: {
+      'expect': true,
+      '_': true,
+      'sinon': true,
+    },
+    plugins: [ 'mocha' ],
+  };
+
+  return linter(TEST_FILES, options);
+});
+
+gulp.task('lint', ['lint:server', 'lint:common', 'lint:tests']);
+
+gulp.task('lint:watch', () => {
+  gulp.watch([
+    SERVER_FILES,
+    COMMON_FILES,
+    TEST_FILES,
+  ], ['lint']);
+});

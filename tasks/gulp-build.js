@@ -9,7 +9,7 @@ gulp.task('build', () => {
   }
 });
 
-gulp.task('build:dev', ['babel:common', 'prepare:staticNewStuff'], (done) => {
+gulp.task('build:dev', ['browserify', 'prepare:staticNewStuff'], (done) => {
   gulp.start('grunt-build:dev', done);
 });
 
@@ -17,6 +17,6 @@ gulp.task('build:dev:watch', ['build:dev'], () => {
   gulp.watch(['website/public/**/*.styl', 'common/script/*']);
 });
 
-gulp.task('build:prod', ['babel:common', 'prepare:staticNewStuff'], (done) => {
+gulp.task('build:prod', ['browserify', 'prepare:staticNewStuff'], (done) => {
   gulp.start('grunt-build:prod', done);
 });

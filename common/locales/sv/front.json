@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] has really helped me impart structure to my life in graduate school.",
     "invalidEmail": "En giltig e-postadress krävs för att kunna utföra en lösenordsåterställning.",
     "irishfeet123Quote": "I've had horrible habits with clearing my place completely after meals and leaving cups all over the place. [Habitica] has cured that!",
-    "joinOthers": "Join 250,000 people making it fun to achieve goals!",
+    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
     "kazuiQuote": "Before [Habitica], I was stuck with my thesis, as well as dissatisfied with my personal discipline regarding housework and things like learning vocabulary and studying Go theory.  It turns out breaking down these tasks into smaller manageable checklists is quite the thing to keep me motivated and constantly working.",
     "landingadminlink": "adminpaket",
     "landingend": "Inte övertalad än?",
@@ -179,5 +179,14 @@
     "businessInquiries": "Företagsfrågor",
     "merchandiseInquiries": "Varufrågor",
     "marketingInquiries": "Reklam/Sociala media-frågor",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Apps",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Check out our new iOS App!",
+    "imagine1": "Imagine if improving your life were as fun as playing a game.",
+    "landingCopy1": "Advance in the game by completing your real-life tasks.",
+    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
+    "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
+    "alreadyHaveAccount": "I already have an account!",
+    "getStartedNow": "Get Started Now!"
 }

@@ -21,7 +21,8 @@ let sets = {
   'backgrounds072015': ['dilatory_ruins', 'giant_wave', 'sunken_ship'],
   'backgrounds082015': ['pyramids', 'sunset_savannah', 'twinkly_party_lights'],
   'backgrounds092015': ['market', 'stable', 'tavern'],
-  'backgrounds102015': ['harvest_moon', 'slimy_swamp', 'swarming_darkness']
+  'backgrounds102015': ['harvest_moon', 'slimy_swamp', 'swarming_darkness'],
+  'backgrounds112015': ['floating_islands', 'night_dunes', 'sunset_oasis']
 };
 
 generateBackgrounds(sets);

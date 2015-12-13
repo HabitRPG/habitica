@@ -4,7 +4,7 @@ var User = require('./user').model;
 var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
-var logging = require('../logging');
+var logging = require('../libs/logging');
 var Challenge = require('./../models/challenge').model;
 var firebase = require('../libs/firebase');
 
@@ -475,11 +475,6 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
 
 GroupSchema.methods.toJSON = function() {
   var doc = this.toObject();
-  if(doc.chat){
-    doc.chat.forEach(function(msg){
-      msg.flags = {};
-    });
-  }
 
   return doc;
 };

@@ -2,9 +2,6 @@ doctype html
 html(ng-app='habitrpg', ng-controller='RootCtrl')
   head
     meta(charset='utf-8')
-    script(type='text/javascript').
-      window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
-    != env.getManifestFiles("tmp_static_front")
     link(href='//fonts.googleapis.com/css?family=Lato:400,700', rel='stylesheet', type='text/css')
     title Habitica | Your Life the Role Playing Game
     meta(name='description', content='')
@@ -12,11 +9,13 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     meta(name='author', content='')
     meta(name='geo.placename', content='')
     meta(name='viewport', content='width=device-width, maximum-scale=1')
-    meta(property='og:title', content='')
-    meta(property='og:description', content='')
-    meta(property='og:url', content='')
-    meta(property='og:image', content='')
-    meta(property='og:site_name', content='')
+    meta(property='og:url', content='https://habitica.com/static/front')
+    meta(property='og:type', content='website')
+    meta(property='og:title', content='Habitica: Your Life the Role Playing Game')
+    meta(property='og:description', content='Habitica is a free habit building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, Habitica can help you achieve your goals to become healthy, hard-working, and happy.')
+    meta(property='og:site_name', content='Habitica')
+    meta(property='og:image', content='https://s3.amazonaws.com/habitica-assets/assets/gryphon_logo_300x300.png')
+    meta(property='fb:app_id', content='128307497299777')
     meta(name='twitter:card' content='summary')
     meta(name='twitter:site' content='@habitica')
     meta(name='twitter:title' content='Habitica: Your Life the Role Playing Game')
@@ -42,6 +41,11 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     include ../shared/avatar/index
     include ../shared/mixins
     include ../shared/modals/members
+
+    noscript.banner= env.t('jsDisabledHeadingFull')
+      br
+      a(href='http://www.enable-javascript.com/', target='_blank')= env.t('jsDisabledLink')
+
     .mobile-container
       div(ng-init='Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/static/front"});')
       header#header
@@ -76,7 +80,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
         img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/intro.png')
         // insert intro images
         .introcall.bg-success
-          h4= env.t('joinOthers')
+          h4= env.t('joinOthers', {userCount:'900,000'})
             small
               button#play-btn.btn.btn-primary.btn-lg.gamifybutton(ng-click='playButtonClick()')= env.t('free')
         .presslogos.text-center
@@ -586,8 +590,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
       #footercall
         .container-fluid
           .row
-            .col-md-10
-              h3= env.t('joinOthers')
+              h3= env.t('joinOthers', {userCount:'900,000'})
           .row
             .col-md-4.col-md-offset-4
               button.btn.btn-primary.btn-lg.btn-block(ng-click='playButtonClick()')= env.t('free')

@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] me ajudou muito a atribuir estrutura à minha vida durante a graduação.",
     "invalidEmail": "Um endereço de e-mail válido é necessário para recuperar senha.",
     "irishfeet123Quote": "Eu tinha dificuldade em lavar a louça depois das refeições e hábitos horríveis de deixar copos por todo o lugar. [Habitica] resolveu isso!",
-    "joinOthers": "Junte-se a 250,000 pessoas atingindo metas de forma divertida!",
+    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
     "kazuiQuote": "Antes do [Habitica], eu estava empacado com minha tese, além de insatisfeito com minha disciplina nas atividades domésticas e coisas como aprendizado de vocabulário e estudo da teoria Go. No final das contas, dividir estas tarefas em pequenas listas foi a coisa certa para me manter motivado e constantemente trabalhando.",
     "landingadminlink": "pacotes administrativos",
     "landingend": "Ainda não está convencido?",
@@ -179,5 +179,14 @@
     "businessInquiries": "Consultas de Negócios",
     "merchandiseInquiries": "Consultas de Merchandise",
     "marketingInquiries": "Consultas de Marketing/Mídias Sociais",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Aplicativos",
+    "notifyAndroidApp": "Want us to notify you when the Android app is ready? Sign up for this mailing list!",
+    "checkOutIOSApp": "Confira o nosso novo aplicativo para iOS!",
+    "imagine1": "Imagine se melhorar a sua vida fosse tão divertido quanto jogar um jogo.",
+    "landingCopy1": "Advance in the game by completing your real-life tasks.",
+    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
+    "landingCopy3": "Junte-se a <%= userCount %> pessoas se divertindo enquanto melhoram as suas vidas!",
+    "alreadyHaveAccount": "Eu já tenho uma conta!",
+    "getStartedNow": "Comece agora!"
 }

@@ -22,6 +22,7 @@ const QUEST_EGGS = [
   'Whale',
   'Cheetah',
   'Horse',
+  'Frog'
 ];
 
 let eggDefaults = {

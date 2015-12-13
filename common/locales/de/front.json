@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] hat mir geholfen Struktur in mein Leben an der Universität zu bringen.",
     "invalidEmail": "Um das Passwort zurückzusetzen, ist eine gültige Email-Adresse notwendig.",
     "irishfeet123Quote": "Ich hatte die schrecklichen Angewohnheiten, nach Mahlzeiten nicht aufzuräumen und Tassen in der ganzen Wohnung stehen zu lassen. [Habitica] hat mich davon geheilt!",
-    "joinOthers": "Schließe dich 250.000 Leuten an, die Spaß dabei haben, ihre Ziele zu erreichen!",
+    "joinOthers": "Schließe dich <%= userCount %> Leuten an, die Spaß dabei haben, ihre Ziele zu erreichen!",
     "kazuiQuote": "Vor [Habitica] kam ich mit meiner Dissertation nicht weiter und war unzufrieden mit meiner Selbstdisziplin bei Hausarbeiten, Vokabellernen und dem Studium der Go-Theorie. Es hat sich herausgestellt, dass das Aufteilen der Aufgaben in kleinere, machbare Checklisten etwas ist, das mich motiviert und zum konstanten Arbeiten anregt.",
     "landingadminlink": "Verwaltungspakete",
     "landingend": "Noch nicht überzeugt?",
@@ -179,5 +179,14 @@
     "businessInquiries": "Geschäftsanfragen.",
     "merchandiseInquiries": "Anfragen zu Handelswaren und Vermarktung",
     "marketingInquiries": "Marketing-/Soziale Netzwerke Anfragen",
-    "tweet": "Tweet"
+    "tweet": "Tweet",
+    "apps": "Apps",
+    "notifyAndroidApp": "Möchtest du, dass wir dir mitteilen, wenn die Android app fertig ist? Trage dich in unsere E-Mail-Liste ein!",
+    "checkOutIOSApp": "Schau dir unsere neue iOS App an!",
+    "imagine1": "Stell dir vor dein Leben zu verbessern wäre so unterhaltsam wie ein Spiel zu spielen.",
+    "landingCopy1": "Mache Fortschritte im Spiel, indem du deine Aufgaben im echten Leben erledigst.",
+    "landingCopy2": "Wenn du mit Freunden Monster bekämpfst, bleibst du für das Erreichen deiner Ziele verantwortlich.",
+    "landingCopy3": "Schließe dich <%= userCount %> Leuten an, die Spaß dabei haben, ihr Leben zu verbessern.",
+    "alreadyHaveAccount": "Ich habe bereits ein Konto!",
+    "getStartedNow": "Jetzt loslegen!"
 }

@@ -1,4 +1,5 @@
 /*global module:false*/
+require('babel-core/register');
 var _ = require('lodash');
 module.exports = function(grunt) {
 
@@ -48,17 +49,6 @@ module.exports = function(grunt) {
           'website/build/app.css': ['website/public/css/index.styl'],
           'website/build/static.css': ['website/public/css/static.styl']
         }
-      }
-    },
-
-    browserify: {
-      dist: {
-        src: ["common/index.js"],
-        dest: "common/dist/scripts/habitrpg-shared.js"
-      },
-      options: {
-        transform: ['coffeeify']
-        //debug: true Huge data uri source map (400kb!)
       }
     },
 
@@ -136,13 +126,12 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['browserify', 'cssmin', 'stylus']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:dev', ['cssmin', 'stylus']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('test:prepare:translations', function() {
-    require('coffee-script');
-    var i18n  = require('./website/src/i18n'),
+    var i18n  = require('./website/src/libs/i18n'),
         fs    = require('fs');
     fs.writeFileSync('test/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +
@@ -150,7 +139,6 @@ module.exports = function(grunt) {
   });
 
   // Load tasks
-  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-stylus');

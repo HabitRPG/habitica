@@ -1,8 +1,10 @@
 "use strict";
 
 angular.module('habitrpg').controller("FooterCtrl",
-['$scope', '$rootScope', 'User', '$http', 'Notification', 'ApiUrl',
-function($scope, $rootScope, User, $http, Notification, ApiUrl) {
+['$scope', '$rootScope', 'User', '$http', 'Notification', 'ApiUrl', 'Social',
+function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
+
+  $scope.loadWidgets = Social.loadWidgets;
 
   if(env.isStaticPage){
     $scope.languages = env.avalaibleLanguages;
@@ -30,9 +32,6 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
 
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
-
-    // Twitter
-    $.getScript('https://platform.twitter.com/widgets.js');
 
     /* Google Content Experiments
     if (window.env.NODE_ENV === 'production') {

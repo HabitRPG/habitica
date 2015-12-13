@@ -148,6 +148,19 @@ describe('Challenges Controller', function() {
         expect(scope.filterChallenges(notOwnMem)).to.eql(false);
         expect(scope.filterChallenges(notOwnNotMem)).to.eql(true);
       });
+
+      it('it filters challenges to a single group when group id filter is set', inject(function($controller) {
+        scope.search = { };
+        scope.groups = {
+          0: specHelper.newGroup({_id: 'group-one'}),
+          1: specHelper.newGroup({_id: 'group-two'}),
+          2: specHelper.newGroup({_id: 'group-three'})
+        };
+
+        scope.groupIdFilter = 'group-one';
+        scope.filterInitialChallenges();
+        expect(scope.search.group).to.eql({'group-one': true});
+      }));
     });
 
     describe('selectAll', function() {

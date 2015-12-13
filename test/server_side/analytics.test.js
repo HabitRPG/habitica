@@ -8,7 +8,9 @@ describe('analytics', function() {
   // Mocks
   var amplitudeMock = sinon.stub();
   var googleAnalyticsMock = sinon.stub();
-  var amplitudeTrack = sinon.stub();
+  var amplitudeTrack = sinon.stub().returns({
+    catch: function () { return true; }
+  });
   var googleEvent = sinon.stub().returns({
     send: function() { }
   });
@@ -28,7 +30,7 @@ describe('analytics', function() {
   });
 
   describe('init', function() {
-    var analytics = rewire('../../website/src/analytics');
+    var analytics = rewire('../../website/src/libs/analytics');
 
     it('throws an error if no options are passed in', function() {
       expect(analytics).to.throw('No options provided');
@@ -60,7 +62,7 @@ describe('analytics', function() {
   describe('track', function() {
 
     var analyticsData, event_type;
-    var analytics = rewire('../../website/src/analytics');
+    var analytics = rewire('../../website/src/libs/analytics');
     var initializedAnalytics;
 
     beforeEach(function() {
@@ -87,6 +89,24 @@ describe('analytics', function() {
         expect(amplitudeTrack).to.be.calledWith({
           event_type: 'Cron',
           user_id: 'unique-user-id',
+          platform: 'server',
+          event_properties: {
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
+      it('uses a dummy user id if none is provided', function() {
+        delete analyticsData.uuid;
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'no-user-id-was-provided',
           platform: 'server',
           event_properties: {
             category: 'behavior',
@@ -350,7 +370,7 @@ describe('analytics', function() {
 
     var purchaseData;
 
-    var analytics = rewire('../../website/src/analytics');
+    var analytics = rewire('../../website/src/libs/analytics');
     var initializedAnalytics;
 
     beforeEach(function() {

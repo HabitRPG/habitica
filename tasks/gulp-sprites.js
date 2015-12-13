@@ -1,7 +1,7 @@
 import gulp from 'gulp';
 import imagemin from 'gulp-imagemin';
 import spritesmith from 'gulp.spritesmith';
-import clean from 'gulp-clean';
+import clean from 'rimraf';
 import sizeOf from 'image-size';
 import mergeStream from 'merge-stream';
 import {basename} from 'path';
@@ -25,10 +25,7 @@ gulp.task('sprites:largeSprites', () => {
 });
 
 gulp.task('sprites:clean', (done) => {
-  gulp.src(`${DIST_PATH}spritesmith*`)
-    .pipe(clean());
-
-  done();
+  clean(`${DIST_PATH}spritesmith*`, done);
 });
 
 gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSprites'], () => {

@@ -1,96 +1,134 @@
+include ../avatar/generated_avatar
+mixin achievementFooter
+  - var tweet = env.t('achievementShare');
+  .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
+    .container-fluid
+      .row.text-center
+        .col-xs-4
+          a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/achievement&count=none')=env.t('tweet')
+        .col-xs-4
+          .fb-share-button(data-href='#{env.BASE_URL}/social/achievement', data-layout='button')
+        .col-xs-4
+          a.tumblr-share-button(data-href='#{env.BASE_URL}/social/achievement', data-notes='none')
+
+mixin achievementAvatar(badge,margin)
+  .container-fluid
+    .row
+      .col-xs-4(style='padding:0')
+        div(class='achievement-#{badge}2x' style='margin: 2em auto')
+      .col-xs-4(style='padding:0')
+        .herobox(style='padding:0; width:0; height:7em; margin:auto #{margin}em')
+          .character-sprites(style='width:0')
+            +generatedAvatar
+      .col-xs-4(style='padding:0')
+        div(class='achievement-#{badge}2x' style='margin: 2em auto')
+
 // Streak
 script(id='modals/achievements/streak.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    .achievement.achievement-thermometer
-    =env.t('streakerAchievement')
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('streakAchievement')
+      +achievementAvatar('thermometer',2.5)
+      h4(ng-if='user.achievements.streak === 1')=env.t('firstStreakAchievement')
+      h4(ng-if='user.achievements.streak > 1')=env.t('streakAchievementCount', {streaks:'{{::user.achievements.streak}}'})
+      p=env.t('twentyOneDays')
+      p=env.t('dontBreakStreak')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('dontStop')
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
+    +achievementFooter
 
 // Max Gear
 script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    .achievement.achievement-armor
-    p=env.t('gearAchievement')
-    br
-    table.multi-achievement
-      tr
-        td(ng-if='::user.achievements.ultimateGearSets.healer').multi-achievement
-          .achievement-ultimate-healer.multi-achievement
-          =env.t('healer')
-        td(ng-if='::user.achievements.ultimateGearSets.wizard').multi-achievement
-          .achievement-ultimate-mage.multi-achievement
-          =env.t('mage')
-        td(ng-if='::user.achievements.ultimateGearSets.rogue').multi-achievement
-          .achievement-ultimate-rogue.multi-achievement
-          =env.t('rogue')
-        td(ng-if='::user.achievements.ultimateGearSets.warrior').multi-achievement
-          .achievement-ultimate-warrior.multi-achievement
-          =env.t('warrior')
-    br
-    p(ng-if='!(user.achievements.ultimateGearSets.healer && user.achievements.ultimateGearSets.wizard && user.achievements.ultimateGearSets.rogue && user.achievements.ultimateGearSets.warrior)')!=env.t('moreGearAchievements')
-    br
-    .shop_armoire.pull-right
-    p!=env.t("armoireUnlocked")
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('armor',2.5)
+      p=env.t('gearAchievement')
+      br
+      table.multi-achievement
+        tr
+          td(ng-if='::user.achievements.ultimateGearSets.healer').multi-achievement
+            .achievement-ultimate-healer2x.multi-achievement
+            =env.t('healer')
+          td(ng-if='::user.achievements.ultimateGearSets.wizard').multi-achievement
+            .achievement-ultimate-mage2x.multi-achievement
+            =env.t('mage')
+          td(ng-if='::user.achievements.ultimateGearSets.rogue').multi-achievement
+            .achievement-ultimate-rogue2x.multi-achievement
+            =env.t('rogue')
+          td(ng-if='::user.achievements.ultimateGearSets.warrior').multi-achievement
+            .achievement-ultimate-warrior2x.multi-achievement
+            =env.t('warrior')
+      br
+      div(ng-if='!(user.achievements.ultimateGearSets.healer && user.achievements.ultimateGearSets.wizard && user.achievements.ultimateGearSets.rogue && user.achievements.ultimateGearSets.warrior)')
+        p!=env.t('moreGearAchievements')
+        br
+      .shop_armoire.pull-right
+      p!=env.t("armoireUnlocked")
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
 
 // Beast Master
 script(id='modals/achievements/beastMaster.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    p
-      .achievement.achievement-rat
-      =env.t('beastAchievement')
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('rat',0)
+      p=env.t('beastAchievement')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
 
 
 // Mount Master
 script(id='modals/achievements/mountMaster.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    p
-      .achievement.achievement-wolf
-      =env.t('mountAchievement')
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('wolf',0)
+      p=env.t('mountAchievement')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
 
 // Triad Bingo
 script(id='modals/achievements/triadBingo.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    p
-      .achievement.achievement-triadbingo
-      =env.t('triadBingoAchievement')
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('triadbingo',0)
+      p=env.t('triadBingoAchievement')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
 
 // Contributor
 // activated by user.flags.contributor
 script(id='modals/achievements/contributor.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalContribAchievement')
-  .modal-body
-    div(class="#{env.worldDmg.guide ? 'npc_justin_broken.float-left' : 'npc_justin.float-left'}")
-    p
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalContribAchievement')
+      +achievementAvatar('boot',0)
       !=env.t('contribModal', {name: "{{user.profile.name}}", level: "{{user.contributor.level}}"}) + ' '
       a(href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank')=env.t('contribLink')
-  .modal-footer
-    button.btn.btn-default(ng-click='set({"flags.contributor":false}); $close()')=env.t('ok')
+      br
+      button.btn.btn-primary(style='margin-top:1em' ng-click='set({"flags.contributor":false}); $close()')=env.t('huzzah')
+    +achievementFooter
 
 //Rebirth
 script(id='modals/achievements/rebirth.html', type='text/ng-template')
-  .modal-header
-    h4=env.t('modalAchievement')
-  .modal-body
-    .achievement.achievement-sun
-    =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('sun',0)
+      div(ng-if='user.achievements.rebirthLevel < 100')
+        =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
+      div(ng-if='user.achievements.rebirthLevel >= 100')
+        =env.t('rebirthAchievement100', {number: "{{user.achievements.rebirths}}"})
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter

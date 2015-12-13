@@ -3,6 +3,7 @@
     "innCheckOut": "Sair da Pousada",
     "innCheckIn": "Descansar na Pousada",
     "innText": "Você está descansando na Pousada! Enquanto estiver hospedado por aqui, suas Tarefas Diárias não lhe causarão dano na virada do dia, mas serão atualizadas normalmente todos os dias. Mas atenção: Se você estiver participando de uma Missão, Chefões continuarão a machucá-lo pelas Tarefas Perdidas de seus companheiros de equipe, a não ser que eles também estejam na Pousada! Além disso, seu dano no Chefão (ou itens coletados) não serão aplicados enquanto você não sair da Pousada.",
+    "innTextBroken": "Você está descansando na Pousada, eu acho... Enquanto estiver hospedado por aqui, suas Tarefas Diárias não lhe causarão dano na virada do dia, mas serão atualizadas normalmente todos os dias... Se você estiver participando de uma Missão, Chefões continuarão a machucá-lo pelas Tarefas Perdidas de seus companheiros de equipe... a não ser que eles também estejam na Pousada... Além disso, seu dano no Chefão (ou itens coletados) não serão aplicados enquanto você não sair da Pousada... tão cansado...",
     "lfgPosts": "Mensagens de Procura de Grupo (Equipe Desejada)",
     "tutorial": "Tutorial",
     "glossary": "Glossário",
@@ -140,10 +141,11 @@
     "partyExplanation2": "Lute contra monstros e crie Desafios!",
     "partyExplanation3": "Convide amigos agora para ganha um Pergaminho de Missão!",
     "wantToStartParty": "Você quer começar uma equipe?",
-    "exclusiveQuestScroll": "Convidar um amigo para a sua equipe lhe garantirá um exclusivo Pergaminho de Missão para lutar a Basi-Lista juntos!",
+    "exclusiveQuestScroll": "Convidar um amigo para a sua equipe lhe garantirá um exclusivo Pergaminho de Missão para que enfrentem a Basi-Lista juntos!",
     "nameYourParty": "Dê nome a sua nova equipe!",
     "partyEmpty": "Você é o único na sua equipe. Convide seus amigos!",
-    "partyChatEmpty": "Seu bate-papo da equipe está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
+    "partyChatEmpty": "Seu bate-papo da equipe está vazio! Digite uma mensagem na caixa acima para começar a conversar.",
     "guildChatEmpty": "O bate-papo desta guilda está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
-    "possessiveParty": "Equipe de <%= name %>"
+    "possessiveParty": "Equipe de <%= name %>",
+    "requestAcceptGuidelines": "Se você quiser postar mensagens na Taverna ou em qualquer chat de equipe ou guilda, por favor leia nossas <%= linkStart %>Diretrizes de Comunidade<%= linkEnd %> e então clique no botão abaixo para indicar que você as aceita."
 }

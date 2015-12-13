@@ -16,9 +16,11 @@
     "rebirthEarnAchievement": "Ви отримали досягнення за початок нової пригоди!",
     "beReborn": "Переродись-но!",
     "rebirthAchievement": "Ви почали нову пригоду! Це Ваше <%= number %> переродження, Ви досягали найбільше <%= level %> рівня. Аби збільшити це досягнення, почніть свою нову пригоду після того, як досягнете вищого рівня!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
     "rebirthBegan": "Нова пригода починається",
     "rebirthText": "Нова пригода <%= rebirths %> починається",
     "rebirthOrb": "Куля переродження була використана, аби почати заново після досягнення рівня",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Розпочніть заново з персонажем 1 рівня, зберігши досягнення, колекційні предмети та завдання з історією.",
     "rebirthName": "Куля переродження",
     "reborn": "Переродження, максимальний рівень <%= reLevel %>"

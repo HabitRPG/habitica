@@ -53,11 +53,12 @@ var UserSchema = new Schema({
     perfect: Number,
     habitBirthdays: Number,
     valentine: Number,
-    costumeContest: Boolean,
+    costumeContest: Boolean, // Superseded by costumeContests
     nye: Number,
     habiticaDays: Number,
     greeting: Number,
-    thankyou: Number
+    thankyou: Number,
+    costumeContests: Number
   },
   auth: {
     blocked: Boolean,
@@ -66,7 +67,8 @@ var UserSchema = new Schema({
       email: String,
       hashed_password: String,
       salt: String,
-      username: String
+      username: String,
+      lowerCaseUsername: String // Store a lowercase version of username to check for duplicates
     },
     timestamps: {
       created: {type: Date,'default': Date.now},
@@ -138,6 +140,30 @@ var UserSchema = new Schema({
       hall: {type: Number,        'default': -1},
       equipment: {type: Number,   'default': -1}
     },
+    tutorial: {
+      common: {
+        habits: {type: Boolean, 'default': false},
+        dailies: {type: Boolean, 'default': false},
+        todos: {type: Boolean, 'default': false},
+        rewards: {type: Boolean, 'default': false},
+        party: {type: Boolean, 'default': false},
+        pets: {type: Boolean, 'default': false},
+        gems: {type: Boolean, 'default': false},
+        skills: {type: Boolean, 'default': false},
+        classes: {type: Boolean, 'default': false},
+        tavern: {type: Boolean, 'default': false},
+        equipment: {type: Boolean, 'default': false},
+        items: {type: Boolean, 'default': false},
+      },
+      ios: {
+        addTask: {type: Boolean, 'default': false},
+        editTask: {type: Boolean, 'default': false},
+        deleteTask: {type: Boolean, 'default': false},
+        filterTask: {type: Boolean, 'default': false},
+        groupPets: {type: Boolean, 'default': false},
+        inviteParty: {type: Boolean, 'default': false},
+      }
+    },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
@@ -171,7 +197,6 @@ var UserSchema = new Schema({
     todos: Array //[{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
-  // FIXME remove?
   invitations: {
     guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
@@ -324,6 +349,7 @@ var UserSchema = new Schema({
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
+    autoEquip: {type: Boolean, 'default': true},
     costume: Boolean,
     dateFormat: {type: String, enum:['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'], 'default': 'MM/dd/yyyy'},
     sleep: {type: Boolean, 'default': false},
@@ -354,6 +380,12 @@ var UserSchema = new Schema({
       // Those importantAnnouncements are in fact the recapture emails
       importantAnnouncements: {type: Boolean, 'default': true},
       weeklyRecaps: {type: Boolean, 'default': true}
+    },
+    suppressModals: {
+      levelUp: {type: Boolean, 'default': false},
+      hatchPet: {type: Boolean, 'default': false},
+      raisePet: {type: Boolean, 'default': false},
+      streak: {type: Boolean, 'default': false}
     }
   },
   profile: {
@@ -457,34 +489,7 @@ UserSchema.pre('save', function(next) {
 
   // Populate new users with default content
   if (this.isNew){
-    //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
-    var self = this;
-    _.each(['habits', 'dailys', 'todos', 'rewards', 'tags'], function(taskType){
-      self[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
-        var newTask = _.cloneDeep(task);
-
-        // Render task's text and notes in user's language
-        if(taskType === 'tags'){
-          // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-          newTask.id = shared.uuid();
-          newTask.name = newTask.name(self.preferences.language);
-        }else{
-          newTask.text = newTask.text(self.preferences.language);
-          if(newTask.notes) {
-            newTask.notes = newTask.notes(self.preferences.language);
-          }
-
-          if(newTask.checklist){
-            newTask.checklist = _.map(newTask.checklist, function(checklistItem){
-              checklistItem.text = checklistItem.text(self.preferences.language);
-              return checklistItem;
-            });
-          }
-        }
-
-        return newTask;
-      });
-    });
+    _populateDefaultsForNewUser(this);
   }
 
   //this.markModified('tasks');
@@ -577,9 +582,92 @@ UserSchema.methods.unlink = function(options, cb) {
   self.save(cb);
 }
 
+function _populateDefaultsForNewUser(user) {
+  var taskTypes;
+
+  if (user.registeredThrough === "habitica-web" || user.registeredThrough === "habitica-android") {
+    taskTypes = ['habits', 'dailys', 'todos', 'rewards', 'tags'];
+
+    var tutorialCommonSections = [
+      'habits',
+      'dailies',
+      'todos',
+      'rewards',
+      'party',
+      'pets',
+      'gems',
+      'skills',
+      'classes',
+      'tavern',
+      'equipment',
+      'items',
+      'inviteParty',
+    ];
+
+    _.each(tutorialCommonSections, function(section) {
+      user.flags.tutorial.common[section] = true;
+    });
+  } else {
+    taskTypes = ['todos', 'tags']
+
+    user.flags.showTour = false;
+
+    var tourSections = [
+      'showTour',
+      'intro',
+      'classes',
+      'stats',
+      'tavern',
+      'party',
+      'guilds',
+      'challenges',
+      'market',
+      'pets',
+      'mounts',
+      'hall',
+      'equipment',
+    ];
+
+    _.each(tourSections, function(section) {
+      user.flags.tour[section] = -2;
+    });
+  }
+
+  _populateDefaultTasks(user, taskTypes);
+}
+
+function _populateDefaultTasks (user, taskTypes) {
+  _.each(taskTypes, function(taskType){
+    user[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
+      var newTask = _.cloneDeep(task);
+
+      // Render task's text and notes in user's language
+      if(taskType === 'tags'){
+        // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+        newTask.id = shared.uuid();
+        newTask.name = newTask.name(user.preferences.language);
+      }else{
+        newTask.text = newTask.text(user.preferences.language);
+        if(newTask.notes) {
+          newTask.notes = newTask.notes(user.preferences.language);
+        }
+
+        if(newTask.checklist){
+          newTask.checklist = _.map(newTask.checklist, function(checklistItem){
+            checklistItem.text = checklistItem.text(user.preferences.language);
+            return checklistItem;
+          });
+        }
+      }
+
+      return newTask;
+    });
+  });
+}
+
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
-// Initially export an empty object so external requires will get 
+// Initially export an empty object so external requires will get
 // the right object by reference when it's defined later
 // Otherwise it would remain undefined if requested before the query executes
 module.exports.mods = [];

@@ -1,5 +1,6 @@
 include ./quest-rewards
 include ../mixins
+include ../avatar/generated_avatar
 
 mixin questInfo
   .pull-right-sm.text-center
@@ -85,19 +86,36 @@ script(type='text/ng-template', id='modals/questInvitation.html')
     button.btn.btn-primary(ng-click='questAccept(); $close()')=env.t('accept')
 
 script(type='text/ng-template', id='modals/questDrop.html')
-  .quest-icon.pull-right(class='inventory_quest_scroll_{{::selectedQuest.key}}')
-  .modal-header
-    h4=env.t('messageDropQuest')
-  .modal-body
-    h4 {{::selectedQuest.text()}}
-    +questInfo
-    hr
-    .npc_ian.pull-left
-    p=env.t('dropQuestCongrats')
-  .modal-footer
-    button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
-    button.btn.btn-primary(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
-    button.btn.btn-primary(ng-click='questInit()', ng-if='party.members')=env.t('inviteParty')
+  - var tweet = env.t('questUnlockShare');
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3=env.t('unlockedAQuest')
+      p {{::selectedQuest.text()}}
+      .container-fluid
+        .row(style='margin-bottom:1em', ng-controller='UserCtrl')
+          .col-xs-4(style='padding:0')
+            .herobox(style='padding:0; width: 0; height: 0')
+              .character-sprites(style='width:0')
+                +generatedAvatar
+          .col-xs-4(style='padding:0')
+            .herobox(style='width: 6.7em; height: 5em; position: absolute')
+              .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'
+          .col-xs-4(style='margin-top:1.5em')
+            .quest-icon(class='inventory_quest_scroll_{{::selectedQuest.key}}')
+      h4!=env.t('leveledUpReceivedQuest', {level:'{{user.stats.lvl}}'})
+      .row(style='margin-top:2em')
+        button.btn.btn-primary(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
+        button.btn.btn-primary(ng-click='questInit(); $close()', ng-if='party.members')=env.t('inviteParty')
+        button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
+    .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
+      .container-fluid
+        .row
+          .col-xs-3
+            a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/unlock-quest&count=none')=env.t('tweet')
+          .col-xs-4(style='margin-left:.8em')
+            .fb-share-button(data-href='#{env.BASE_URL}/social/unlock-quest', data-layout='button')
+          .col-xs-4(style='margin-left:.8em')
+            a.tumblr-share-button(data-href='#{env.BASE_URL}/social/unlock-quest', data-notes='none')
 
 script(type='text/ng-template', id='modals/ownedQuests.html')
   .modal-header

@@ -5,10 +5,10 @@ var expect = chai.expect;
 
 var Q = require('q');
 var Group = require('../../../website/src/models/group').model;
-var groupsController = require('../../../website/src/controllers/groups');
+var groupsController = require('../../../website/src/controllers/api-v2/groups');
 
 describe('Groups Controller', function() {
-  var utils = require('../../../website/src/utils');
+  var utils = require('../../../website/src/libs/utils');
 
   describe('#invite', function() {
     var res, req, user, group;
@@ -194,7 +194,7 @@ describe('Groups Controller', function() {
 
         expect(group.leave).to.not.be.called;
         expect(res.json).to.be.calledOnce;
-        expect(res.json).to.be.calledWith(403, 'You cannot leave party during an active quest. Please leave the quest first');
+        expect(res.json).to.be.calledWith(403, 'You cannot leave party during an active quest. Please leave the quest first.');
       });
 
       it('prevents quest leader from leaving a party if they have started a quest', function() {

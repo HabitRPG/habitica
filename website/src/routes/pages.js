@@ -3,9 +3,7 @@ var express = require('express');
 var router = new express.Router();
 var _ = require('lodash');
 var locals = require('../middlewares/locals');
-var user = require('../controllers/user');
-var auth = require('../controllers/auth');
-var i18n = require('../i18n');
+var i18n = require('../libs/i18n');
 
 // -------- App --------
 router.get('/', i18n.getUserLanguage, locals, function(req, res) {
@@ -18,13 +16,26 @@ router.get('/', i18n.getUserLanguage, locals, function(req, res) {
   });
 });
 
-// -------- Marketing --------
+// -------- Static Pages --------
 
-var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines', 'old-news', 'press-kit', 'faq'];
+var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines', 'old-news', 'press-kit', 'faq', 'overview', 'apps'];
 
 _.each(pages, function(name){
   router.get('/static/' + name, i18n.getUserLanguage, locals, function(req, res) {
     res.render( 'static/' + name, {
+      env: res.locals.habitrpg,
+      marked: require('marked')
+    });
+  });
+});
+
+// -------- Social Media Sharing --------
+
+var shareables = ['level-up','hatch-pet','raise-pet','unlock-quest','won-challenge','achievement'];
+
+_.each(shareables, function(name){
+  router.get('/social/' + name, i18n.getUserLanguage, locals, function(req, res) {
+    res.render( 'social/' + name, {
       env: res.locals.habitrpg,
       marked: require('marked')
     });

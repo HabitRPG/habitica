@@ -59,5 +59,9 @@
     "challengeNotEnoughGems": "Du besitzt nicht genügend Edelsteine, um diesen Wettbewerb zu erstellen.",
     "noPermissionEditChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu ändern.",
     "noPermissionDeleteChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu löschen.",
-    "noPermissionCloseChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu schließen."
+    "noPermissionCloseChallenge": "Du hast keine Berechtigung, um diesen Wettbewerb zu schließen.",
+    "congratulations": "Gratulation!",
+    "hurray": "Hurra!",
+    "noChallengeOwner": "Kein Besitzer",
+    "noChallengeOwnerPopover": "Dieser Wettbewerb hat keinen Besitzer, da der Spieler, der den Wettbewerb erstellt hat, sein Benutzerkonto gelöscht hat."
 }
