@@ -74,7 +74,7 @@
     "infhQuote": "[Habitica] hat mir geholfen Struktur in mein Leben an der Universität zu bringen.",
     "invalidEmail": "Um das Passwort zurückzusetzen, ist eine gültige Email-Adresse notwendig.",
     "irishfeet123Quote": "Ich hatte die schrecklichen Angewohnheiten, nach Mahlzeiten nicht aufzuräumen und Tassen in der ganzen Wohnung stehen zu lassen. [Habitica] hat mich davon geheilt!",
-    "joinOthers": "Join <%= userCount %> people making it fun to achieve goals!",
+    "joinOthers": "Schließe dich <%= userCount %> Leuten an, die Spaß dabei haben, ihre Ziele zu erreichen!",
     "kazuiQuote": "Vor [Habitica] kam ich mit meiner Dissertation nicht weiter und war unzufrieden mit meiner Selbstdisziplin bei Hausarbeiten, Vokabellernen und dem Studium der Go-Theorie. Es hat sich herausgestellt, dass das Aufteilen der Aufgaben in kleinere, machbare Checklisten etwas ist, das mich motiviert und zum konstanten Arbeiten anregt.",
     "landingadminlink": "Verwaltungspakete",
     "landingend": "Noch nicht überzeugt?",
@@ -183,10 +183,10 @@
     "apps": "Apps",
     "notifyAndroidApp": "Möchtest du, dass wir dir mitteilen, wenn die Android app fertig ist? Trage dich in unsere E-Mail-Liste ein!",
     "checkOutIOSApp": "Schau dir unsere neue iOS App an!",
-    "imagine1": "Imagine if improving your life were as fun as playing a game.",
-    "landingCopy1": "Advance in the game by completing your real-life tasks.",
-    "landingCopy2": "Battle monsters with friends to stay accountable to your goals.",
-    "landingCopy3": "Join over <%= userCount %> people having fun as they improve their lives.",
-    "alreadyHaveAccount": "I already have an account!",
-    "getStartedNow": "Get Started Now!"
+    "imagine1": "Stell dir vor dein Leben zu verbessern wäre so unterhaltsam wie ein Spiel zu spielen.",
+    "landingCopy1": "Mache Fortschritte im Spiel, indem du deine Aufgaben im echten Leben erledigst.",
+    "landingCopy2": "Wenn du mit Freunden Monster bekämpfst, bleibst du für das Erreichen deiner Ziele verantwortlich.",
+    "landingCopy3": "Schließe dich <%= userCount %> Leuten an, die Spaß dabei haben, ihr Leben zu verbessern.",
+    "alreadyHaveAccount": "Ich habe bereits ein Konto!",
+    "getStartedNow": "Jetzt loslegen!"
 }

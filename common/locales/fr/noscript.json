@@ -1,6 +1,6 @@
 {
-    "jsDisabledHeading": "Alas! Your browser doesn't have JavaScript enabled",
-    "jsDisabledHeadingFull": "Alas! Your browser doesn't have JavaScript enabled and without it, Habitica can't work properly",
-    "jsDisabledText": "Habitica can't properly display the site without it!",
-    "jsDisabledLink": "Please enable JavaScript to continue!"
+    "jsDisabledHeading": "Hélas ! JavaScript n'est pas activé sur votre navigateur.",
+    "jsDisabledHeadingFull": "Hélas ! JavaScript n'est pas activé sur votre navigateur. Sans lui, Habitica ne peut fonctionner correctement.",
+    "jsDisabledText": "Habitica ne peut pas s'afficher correctement sans lui !",
+    "jsDisabledLink": "Veuillez s'il vous plait activer JavaScript pour continuer !"
 }

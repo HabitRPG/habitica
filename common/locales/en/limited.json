@@ -62,5 +62,6 @@
     "witchyWizardSet": "Witchy Wizard (Mage)",
     "mummyMedicSet": "Mummy Medic (Healer)",
     "vampireSmiterSet": "Vampire Smiter (Rogue)",
-    "fallEventAvailability": "Available until October 31"
+    "fallEventAvailability": "Available until October 31",
+    "winterEventAvailability": "Available until December 31"
 }

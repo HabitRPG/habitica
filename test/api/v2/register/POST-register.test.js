@@ -240,4 +240,55 @@ describe('POST /register', () => {
       });
     });
   });
+
+  context('successful login with habitica-android header', () => {
+    let api, username, email, password;
+
+    beforeEach(() => {
+      api = requester({}, {'x-client': 'habitica-android'});
+      username = generateRandomUserName();
+      email = `${username}@example.com`;
+      password = 'password';
+    });
+
+    it('sets all common tutorial flags to true', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.flags.tour).to.not.be.empty;
+
+        each(user.flags.tutorial.common, (value, attribute) => {
+          expect(value).to.eql(true);
+        });
+      });
+    });
+
+    it('populates user with default todos, habits, and rewards', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.todos).to.not.be.empty;
+        expect(user.dailys).to.be.empty;
+        expect(user.habits).to.not.be.empty;
+        expect(user.rewards).to.not.be.empty;
+      });
+    });
+
+    it('populates user with default tags', () => {
+      return api.post('/register', {
+        username:        username,
+        email:           email,
+        password:        password,
+        confirmPassword: password,
+      }).then((user) => {
+        expect(user.tags).to.not.be.empty;
+      });
+    });
+  });
 });

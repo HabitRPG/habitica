@@ -77,6 +77,6 @@
     "startQuest": "任務開始",
     "whichQuestStart": "你要開始哪個任務？",
     "getMoreQuests": "取得更多任務",
-    "unlockedAQuest": "You unlocked a quest!",
-    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
+    "unlockedAQuest": "你解鎖了一個任務！",
+    "leveledUpReceivedQuest": "您升級為<strong>等級 <％= 級別 ％></strong> 並獲得一個任務捲軸！"
 }

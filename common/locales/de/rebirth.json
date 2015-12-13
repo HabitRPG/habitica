@@ -16,7 +16,7 @@
     "rebirthEarnAchievement": "Du erhältst den Erfolg für das Beginnen eines neuen Abenteuers!",
     "beReborn": "Werde wiedergeboren",
     "rebirthAchievement": "Du hast ein neues Abenteuer begonnen! Das ist Wiedergeburt Nummer <%= number %> für Dich, Dein höchstes jemals erreichtes Level ist <%= level %>. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du ein noch höheres Level erreicht hast!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "Du hast ein neues Abenteuer begonnen! Das ist deine <%= number %> Wiedergeburt. Dein höchstes jemals erreichtes Level ist 100 oder mehr. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du mindestens Level 100 erreicht hast!",
     "rebirthBegan": "Hat ein neues Abenteuer begonnen",
     "rebirthText": "Hat <%= rebirths %> neue Abenteuer begonnen",
     "rebirthOrb": "Hat eine Sphäre der Wiedergeburt verwendet nachdem er folgendes Level erreicht hatte:",
