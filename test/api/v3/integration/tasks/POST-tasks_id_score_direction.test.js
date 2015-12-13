@@ -46,25 +46,77 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
     });
 
-    it('completes todo when direction is up');
+    it('completes todo when direction is up', () => {
+      return api.post(`/tasks/${todo._id}/score/up`)
+      .then((res) => api.get(`/tasks/${todo._id}`))
+      .then((task) => expect(task.completed).to.equal(true));
+    });
 
-    it('uncompletes todo when direction is down');
+    it('uncompletes todo when direction is down', () => {
+      return api.post(`/tasks/${todo._id}/score/down`)
+      .then((res) => api.get(`/tasks/${todo._id}`))
+      .then((updatedTask) => {
+        expect(updatedTask.completed).to.equal(false);
+      });
+    });
 
     it('scores up todo even if it is already completed'); // Yes?
 
     it('scores down todo even if it is already uncompleted'); // Yes?
 
-    it('increases user\'s mp when direction is up');
+    it('increases user\'s mp when direction is up', () => {
+      return api.post(`/tasks/${todo._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s mp when direction is down');
+    it('decreases user\'s mp when direction is down', () => {
+      return api.post(`/tasks/${todo._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('increases user\'s exp when direction is up');
+    it('increases user\'s exp when direction is up', () => {
+      return api.post(`/tasks/${todo._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s exp when direction is down');
+    it('decreases user\'s exp when direction is down', () => {
+      return api.post(`/tasks/${todo._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('increases user\'s gold when direction is up');
+    it('increases user\'s gold when direction is up', () => {
+      return api.post(`/tasks/${todo._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s gold when direction is down');
+    it('decreases user\'s gold when direction is down', () => {
+      return api.post(`/tasks/${todo._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
+        user = updatedUser;
+      });
+    });
   });
 
   context('dailys', () => {
@@ -79,57 +131,108 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
     });
 
-    it('completes daily when direction is up');
+    it('completes daily when direction is up', () => {
+      return api.post(`/tasks/${daily._id}/score/up`)
+      .then((res) => api.get(`/tasks/${daily._id}`))
+      .then((task) => expect(task.completed).to.equal(true));
+    });
 
-    it('uncompletes daily when direction is down');
+    it('uncompletes daily when direction is down', () => {
+      return api.post(`/tasks/${daily._id}/score/down`)
+      .then((res) => api.get(`/tasks/${daily._id}`))
+      .then((task) => expect(task.completed).to.equal(false));
+    });
 
     it('scores up daily even if it is already completed'); // Yes?
 
     it('scores down daily even if it is already uncompleted'); // Yes?
 
-    it('increases user\'s mp when direction is up');
+    it('increases user\'s mp when direction is up', () => {
+      return api.post(`/tasks/${daily._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s mp when direction is down');
+    it('decreases user\'s mp when direction is down', () => {
+      return api.post(`/tasks/${daily._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('increases user\'s exp when direction is up');
+    it('increases user\'s exp when direction is up', () => {
+      return api.post(`/tasks/${daily._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s exp when direction is down');
+    it('decreases user\'s exp when direction is down', () => {
+      return api.post(`/tasks/${daily._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('increases user\'s gold when direction is up');
+    it('increases user\'s gold when direction is up', () => {
+      return api.post(`/tasks/${daily._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s gold when direction is down');
+    it('decreases user\'s gold when direction is down', () => {
+      return api.post(`/tasks/${daily._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
+        user = updatedUser;
+      });
+    });
   });
 
   context('habits', () => {
     let habit, minusHabit, plusHabit, neitherHabit;
 
     beforeEach(() => {
-      return Q.all([
-        api.post('/tasks', {
-          text: 'test habit',
-          type: 'habit',
-        }),
-        api.post('/tasks', {
+      return api.post('/tasks', {
+        text: 'test habit',
+        type: 'habit',
+      }).then((task) => {
+        habit = task;
+        return api.post('/tasks', {
           text: 'test min habit',
           type: 'habit',
           up: false,
-        }),
-        api.post('/tasks', {
+        });
+      }).then((task) => {
+        minusHabit = task;
+        return api.post('/tasks', {
           text: 'test plus habit',
           type: 'habit',
           down: false,
-        }),
+        })
+      }).then((task) => {
+        plusHabit = task;
         api.post('/tasks', {
           text: 'test neither habit',
           type: 'habit',
           up: false,
           down: false,
-        }),
-      ]).then(tasks => {
-        habit = tasks[0];
-        minusHabit = tasks[1];
-        plusHabit = tasks[2];
-        neitherHabit = tasks[3];
+        })
+      }).then((task) => {
+        neitherHabit = task;
       });
     });
 
@@ -137,17 +240,59 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('prevents minus only habit from scoring up'); // Yes?
 
-    it('increases user\'s mp when direction is up');
+    it('increases user\'s mp when direction is up', () => {
+      return api.post(`/tasks/${habit._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s mp when direction is down');
+    it('decreases user\'s mp when direction is down', () => {
+      return api.post(`/tasks/${habit._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('increases user\'s exp when direction is up');
+    it('increases user\'s exp when direction is up', () => {
+      return api.post(`/tasks/${habit._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s exp when direction is down');
+    it('decreases user\'s exp when direction is down', () => {
+      return api.post(`/tasks/${habit._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('increases user\'s gold when direction is up');
+    it('increases user\'s gold when direction is up', () => {
+      return api.post(`/tasks/${habit._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
+        user = updatedUser;
+      });
+    });
 
-    it('decreases user\'s gold when direction is down');
+    it('decreases user\'s gold when direction is down', () => {
+      return api.post(`/tasks/${habit._id}/score/down`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
+        user = updatedUser;
+      });
+    });
   });
 
   context('reward', () => {
@@ -157,17 +302,46 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post('/tasks', {
         text: 'test reward',
         type: 'reward',
+        value: 5,
       }).then((task) => {
         reward = task;
       });
     });
 
-    it('purchases reward');
+    it('purchases reward', () => {
+      return api.post(`/tasks/${reward._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.hp).to.equal(updatedUser.stats.mp + 5);
+        user = updatedUser;
+      });
+    });
 
-    it('does not change user\'s mp');
+    it('does not change user\'s mp', () => {
+      return api.post(`/tasks/${reward._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp).to.equal(updatedUser.stats.mp);
+        user = updatedUser;
+      });
+    });
 
-    it('does not change user\'s exp');
+    it('does not change user\'s exp', () => {
+      return api.post(`/tasks/${reward._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.exp).to.equal(updatedUser.stats.exp);
+        user = updatedUser;
+      });
+    });
 
-    it('does not allow a down direction');
+    it('does not allow a down direction', () => {
+      return api.post(`/tasks/${reward._id}/score/up`)
+      .then((res) => api.get(`/user`))
+      .then((updatedUser) => {
+        expect(user.stats.mp).to.equal(updatedUser.stats.mp);
+        user = updatedUser;
+      });
+    });
   });
 });
