@@ -147,5 +147,5 @@
     "partyChatEmpty": "Dein Gruppenchat ist leer. Tippe eine Nachricht in der Box und beginne mit dem Chat.",
     "guildChatEmpty": "Dieser Gildenchat ist leer. Gib eine Nachricht ein und beginne mit dem Chat.",
     "possessiveParty": "<%= name %>s Gruppe",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Wenn du Nachrichten in der Schenke oder in irgendeinem Gruppen- oder Gilden-Chat posten willst, bitte lies zuerst unsere <%= linkStart %>Community-Richtlinien<%= linkEnd %>. Klicke danach unten auf den Button, um sie zu akzeptieren."
 }

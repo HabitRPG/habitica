@@ -1,87 +1,33 @@
-/* eslint-disable camelcase */
-let shared = require('../../common/script/index.js');
+import shared from '../../common/script/index.js';
+import {
+  generateUser,
+  generateTodo,
+} from '../helpers/common.helper';
 
-let newUser = (addTasks = true) => {
-  let buffs;
-  let user;
-
-  buffs = {
-    per: 0,
-    int: 0,
-    con: 0,
-    str: 0,
-    stealth: 0,
-    streaks: false,
-  };
-  user = {
-    // auth: {
-    //   timestamps: {},
-    // },
-    stats: {
-      str: 1,
-      con: 1,
-      per: 1,
-      int: 1,
-      mp: 32,
-      lvl: 1,
-      class: 'rogue',
-      buffs,
-    },
-    items: {
-      // lastDrop: {
-      //   count: 0,
-      // },
-      // hatchingPotions: {},
-      eggs: {},
-      // food: {},
-      gear: {
-        equipped: {},
-        costume: {},
-      },
-      quests: {},
-    },
-    party: {
-      quest: {
-        progress: {
-          down: 0,
-        },
-      },
-    },
-    preferences: {},
-    habits: [],
-    dailys: [],
-    todos: [],
-    rewards: [],
-    // flags: {},
-    achievements: {},
-    // contributor: {
-    //   level: 100,
-    // },
-  };
-  shared.wrap(user);
-  user.ops.reset(null, () => {});
-  if (addTasks) {
-    _.each(['habit', 'todo', 'daily'], (task) => {
-      user.ops.addTask({
-        body: {
-          type: task,
-          id: shared.uuid(),
-        },
-      });
-    });
-  }
-  return user;
-};
 
 describe('Spells', () => {
   let user;
 
   beforeEach(() => {
-    user = newUser();
-    shared.wrap(user);
+    let todo = generateTodo();
+
+    user = generateUser({
+      stats: {
+        int: 20,
+        str: 20,
+        con: 20,
+        per: 20,
+        lvl: 20,
+      },
+    });
+    user.todos.push(todo);
   });
 
   context('Rogue Spells', () => {
+    beforeEach(() => {
+      user.stats.class = 'rogue';
+    });
+
     it('Should add exp and gp to user when backstab is used', () => {
       const PREVIOUS_EXP = user.stats.exp;
       const PREVIOUS_GP = user.stats.gp;
@@ -98,6 +44,7 @@ describe('Spells', () => {
       user.stats.int = 5;
       user.stats.con = 4;
       user.stats.per = 0;
+
       shared.content.spells.rogue.backStab.cast(user, user.todos[0]);
       expect(user.stats.lvl).to.eql(15);
     });
@@ -142,7 +89,7 @@ describe('Spells', () => {
     });
 
     it('Should add exp to user when fireball (Burst of Flames) is used', () => {
-      let PREVIOUS_EXP = user.stats.exp;
+      const PREVIOUS_EXP = user.stats.exp;
 
       shared.content.spells.wizard.fireball.cast(user, user.todos[0]);
       expect(user.stats.exp).to.be.greaterThan(PREVIOUS_EXP);

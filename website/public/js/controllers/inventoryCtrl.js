@@ -115,11 +115,12 @@ habitrpg.controller("InventoryCtrl",
       var potName = Content.hatchingPotions[potion.key].text();
       if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
 
-      var userHasPet = user.items.pets[egg.key + '-' + potion.key];
+      var userHasPet = user.items.pets[egg.key + '-' + potion.key] > 0;
+      var isPremiumPet = Content.hatchingPotions[potion.key].premium && !Content.dropEggs[egg.key];
 
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
 
-      if (!user.preferences.suppressModals.hatchPet && !userHasPet) {
+      if (!user.preferences.suppressModals.hatchPet && !userHasPet && !isPremiumPet) {
         $scope.hatchedPet = {
           egg: eggName,
           potion: potName,
@@ -261,7 +262,7 @@ habitrpg.controller("InventoryCtrl",
       }
     };
 
-    $scope.$on("habit:keyup", function (e, keyEvent) {
+    $scope.$on("habit:keydown", function (e, keyEvent) {
       if (keyEvent.keyCode == "27") {
         $scope.deselectItem();
       }

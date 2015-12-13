@@ -190,6 +190,9 @@ for $stage in $stages
     float: right
     font-size: 0.85em
   .empty-task-notification
+    // @TODO: This causes weird centering behavior (see #6332)
+    // however, this is required to show the tooltip on the task button
+    // Figure out how to fix the centering behavior while preserving the tooltip
     height: 100%;
 
 // message in Dailies column when Resting in Inn
