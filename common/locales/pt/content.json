@@ -100,7 +100,7 @@
     "questEggFrogAdjective": "um principesco",
     "questEggSnakeText": "Cobra",
     "questEggSnakeMountText": "Cobra",
-    "questEggSnakeAdjective": "a escorregar",
+    "questEggSnakeAdjective": "uma escorregadia",
     "eggNotes": "Ache uma poção de eclosão para usar nesse ovo e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",

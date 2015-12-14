@@ -3,7 +3,7 @@
     "innCheckOut": "Покинуть гостиницу",
     "innCheckIn": "В гостиницу",
     "innText": "Вы отдыхаете в Гостинице! Пропущенные Ежедневные задания не будут причинять вам вреда в конце дня, но отметки об их выполнении будут сбрасываться каждый день. Будьте осторожны: если ваша команда сражается с Боссом, он все же будет наносить вам урон за Ежедневные задания, пропущенные вашими товарищами, если только они также не в гостинице! Кроме того, нанесенный вами урон Боссу или найденные предметы не будут зарегистрированы, пока вы не покинете Гостиницу.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innTextBroken": "Вы отдыхаете в Гостинице, я так полагаю...  Пропущенные Ежедневные задания не будут причинять вам вреда в конце дня, но отметки об их выполнении будут сбрасываться каждый день... Если вы участвуете в квесте с Боссом, он все же будет наносить вам урон за ежедневные задания, пропущенные вашими товарищами... Если только они не тоже находятся в Гостинице... Также, нанесённый вами урон Боссу (или найденные предметы) не будут засчитаны, пока вы не выпишитесь из Гостиницы... так устал...",
     "lfgPosts": "Объявления о поиске команды",
     "tutorial": "Обучение",
     "glossary": "Терминология",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "Чат вашей команды пустует! Наберите сообщение в поле сверху, чтобы начать общаться.",
     "guildChatEmpty": "Чат этой гильдии пустует! Наберите сообщение в поле сверху, чтобы начать общаться.",
     "possessiveParty": "Команда игрока <%= name %>.",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Если вы хотите оставить сообщение в Таверне или в чате любой гильдии, сперва прочитайте Принципы Сообщества и нажмите кнопку \"Принять Принципы\" внизу. Это будет означать, что вы их принимаете и обязуетесь выполнять."
 }

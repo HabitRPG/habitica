@@ -60,8 +60,8 @@
     "noPermissionEditChallenge": "Nincs jogod szerkeszteni ezt a kihívást",
     "noPermissionDeleteChallenge": "Nincs jogod törölni ezt a kihívást",
     "noPermissionCloseChallenge": "Nincs jogod lezárni ezt a kihívást",
-    "congratulations": "Congratulations!",
-    "hurray": "Hurray!",
+    "congratulations": "Gratulálok!",
+    "hurray": "Hurrá!",
     "noChallengeOwner": "nincs tulajdonosa",
     "noChallengeOwnerPopover": "Ennek a kihívásnak nincs tulajdonosa, mert a személy aki létrehozta törölte fiókját."
 }

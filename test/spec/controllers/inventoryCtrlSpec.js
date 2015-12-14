@@ -79,18 +79,28 @@ describe('Inventory Controller', function() {
       expect(rootScope.openModal).to.have.been.calledWith('hatchPet');
     });
 
-    it('does not show modal if user tries to hatch a pet they own', function(){
+    it('shows modal even if user has raised that pet to a mount', function(){
+      user.items.pets['Cactus-Base'] = -1;
       scope.chooseEgg('Cactus');
       scope.choosePotion('Base');
-      expect(user.items.eggs).to.eql({Cactus: 0});
-      expect(user.items.hatchingPotions).to.eql({Base: 0});
-      expect(user.items.pets).to.eql({'Cactus-Base': 5});
-      expect(scope.selectedEgg).to.eql(null);
-      expect(scope.selectedPotion).to.eql(null);
+
       expect(rootScope.openModal).to.have.been.calledOnce;
+      expect(rootScope.openModal).to.have.been.calledWith('hatchPet');
+    });
+
+    it('does not show modal if user tries to hatch a pet they own', function(){
+      user.items.pets['Cactus-Base'] = 5;
       scope.chooseEgg('Cactus');
       scope.choosePotion('Base');
-      expect(rootScope.openModal).to.not.have.been.calledTwice;
+      expect(rootScope.openModal).to.not.have.been.called;
+    });
+
+    it('does not show modal if user tries to hatch a premium quest pet', function(){
+      user.items.eggs = {Snake: 1};
+      user.items.hatchingPotions = {Peppermint: 1};
+      scope.chooseEgg('Snake');
+      scope.choosePotion('Peppermint');
+      expect(rootScope.openModal).to.not.have.been.called;
     });
 
     it('does not show pet hatching modal if user has opted out', function(){

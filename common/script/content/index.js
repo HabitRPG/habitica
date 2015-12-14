@@ -1030,6 +1030,14 @@ api.premiumHatchingPotions = {
     canBuy: (function() {
       return false;
     })
+  },
+  Peppermint: {
+    value: 2,
+    text: t('hatchingPotionPeppermint'),
+    limited: true,
+    canBuy: (function() {
+      return true;
+    })
   }
 };
 
@@ -3214,7 +3222,21 @@ api.backgrounds = {
       text: t('backgroundSunsetOasisText'),
       notes: t('backgroundSunsetOasisNotes')
     }
-  }
+  },
+  backgrounds122015: {
+    alpine_slopes: {
+      text: t('backgroundAlpineSlopesText'),
+      notes: t('backgroundAlpineSlopesNotes')
+    },
+    snowy_sunrise: {
+      text: t('backgroundSnowySunriseText'),
+      notes: t('backgroundSnowySunriseNotes')
+    },
+    winter_town: {
+      text: t('backgroundWinterTownText'),
+      notes: t('backgroundWinterTownNotes')
+    }
+  },
 };
 
 api.subscriptionBlocks = {
