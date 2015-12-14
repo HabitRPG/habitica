@@ -69,7 +69,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${todo._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
+        expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
     });
 
@@ -77,7 +77,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${todo._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
+        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
       });
     });
 
@@ -85,7 +85,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${todo._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
+        expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
     });
 
@@ -93,7 +93,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${todo._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
+        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
       });
     });
 
@@ -101,7 +101,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${todo._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
+        expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
     });
 
@@ -109,7 +109,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${todo._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
+        expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
     });
   });
@@ -146,7 +146,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${daily._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
+        expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
     });
 
@@ -154,7 +154,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${daily._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
+        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
       });
     });
 
@@ -162,7 +162,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${daily._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
+        expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
     });
 
@@ -170,7 +170,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${daily._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
+        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
       });
     });
 
@@ -178,7 +178,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${daily._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
+        expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
     });
 
@@ -186,7 +186,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${daily._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
+        expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
     });
   });
@@ -233,7 +233,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${habit._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
+        expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
     });
 
@@ -241,7 +241,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${habit._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
+        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
       });
     });
 
@@ -249,7 +249,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${habit._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
+        expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
     });
 
@@ -257,7 +257,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${habit._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
+        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
       });
     });
 
@@ -265,7 +265,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${habit._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
+        expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
     });
 
@@ -273,7 +273,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${habit._id}/score/down`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
+        expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
     });
   });
