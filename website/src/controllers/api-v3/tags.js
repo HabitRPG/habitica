@@ -69,7 +69,7 @@ api.getTag = {
   handler (req, res, next) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('tagIdRequired')).notEmpty().isUUID();
+    req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
@@ -100,7 +100,7 @@ api.updateTag = {
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty
 
-    let tagId = req.params.id;
+    let tagId = req.params.tagId;
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
@@ -127,7 +127,7 @@ api.updateTag = {
  * @apiSuccess {object} empty An empty object
  */
 api.deleteTag = {
-  method: 'GET',
+  method: 'DELETE',
   url: '/tags/:tagId',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {

@@ -277,6 +277,7 @@ function _updateDocument (collectionName, doc, update, cb) {
     return cb();
   }
 
+  // TODO use config for db url?
   mongo.connect('mongodb://localhost/habitrpg_test', (connectErr, db) => {
     if (connectErr) throw new Error(`Error connecting to database when updating ${collectionName} collection: ${connectErr}`);
 
