@@ -518,7 +518,7 @@ api.removeChecklistItem = {
  */
 api.addTagToTask = {
   method: 'POST',
-  url: '/tasks/:taskId/tags',
+  url: '/tasks/:taskId/tags/:tagId',
   middlewares: [authWithHeaders()],
   handler (req, res, next) {
     let user = res.locals.user;
@@ -538,7 +538,7 @@ api.addTagToTask = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
       let tagId = req.params.tagId;
 
-      let alreadyTagged = task.tags.indexOf(tagId) === -1;
+      let alreadyTagged = task.tags.indexOf(tagId) !== -1;
       if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
 
       task.tags.push(tagId);
@@ -580,7 +580,7 @@ api.removeTagFromTask = {
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
 
-      let tagI = _.findIndex(task.tags, {_id: req.params.tagId});
+      let tagI = task.tags.indexOf(req.params.tagId);
       if (tagI === -1) throw new NotFound(res.t('tagNotFound'));
 
       task.tags.splice(tagI, 1);
