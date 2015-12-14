@@ -8,8 +8,10 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /tasks/:id/score/:direction', () => {
   let user, api;
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
+  beforeEach(() => {
+    return generateUser({
+      'stats.gp': 100,
+    }).then((generatedUser) => {
       user = generatedUser;
       api = requester(user);
     });
@@ -68,7 +70,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -77,7 +78,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -86,7 +86,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -95,7 +94,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -104,7 +102,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -113,7 +110,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
-        user = updatedUser;
       });
     });
   });
@@ -151,7 +147,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -160,7 +155,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -169,7 +163,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -178,7 +171,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -187,7 +179,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -196,7 +187,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
-        user = updatedUser;
       });
     });
   });
@@ -244,7 +234,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp < updatedUser.stats.mp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -253,7 +242,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp > updatedUser.stats.mp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -262,7 +250,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp < updatedUser.stats.exp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -271,7 +258,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp > updatedUser.stats.exp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -280,7 +266,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.gp < updatedUser.stats.gp).to.equal(true);
-        user = updatedUser;
       });
     });
 
@@ -289,7 +274,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.gp > updatedUser.stats.gp).to.equal(true);
-        user = updatedUser;
       });
     });
   });
@@ -311,8 +295,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       return api.post(`/tasks/${reward._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
-        expect(user.stats.hp).to.equal(updatedUser.stats.mp + 5);
-        user = updatedUser;
+        expect(user.stats.gp).to.equal(updatedUser.stats.gp + 5);
       });
     });
 
@@ -321,7 +304,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp).to.equal(updatedUser.stats.mp);
-        user = updatedUser;
       });
     });
 
@@ -330,7 +312,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp).to.equal(updatedUser.stats.exp);
-        user = updatedUser;
       });
     });
 
@@ -339,7 +320,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp).to.equal(updatedUser.stats.mp);
-        user = updatedUser;
       });
     });
   });
