@@ -2691,11 +2691,14 @@ api.wrap = function(user, main) {
       return computed;
     }
   });
-  /*return Object.defineProperty(user, 'tasks', {
-    get: function() {
-      var tasks;
-      tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
-      return _.object(_.pluck(tasks, "id"), tasks);
-    }
-  });*/
+
+  if (typeof window !== 'undefined') {
+    Object.defineProperty(user, 'tasks', {
+      get: function() {
+        var tasks;
+        tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
+        return _.object(_.pluck(tasks, "id"), tasks);
+      }
+    });
+  }
 };
