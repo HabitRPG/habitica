@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import webhook from '../../libs/api-v3/webhook';
+import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
@@ -272,7 +272,7 @@ api.scoreTask = {
         let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
         res.respond(200, resJsonData);
 
-        webhook.sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+        sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
 
         // TODO sync challenge
       });
