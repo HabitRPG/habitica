@@ -4,7 +4,6 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-import Q from 'q';
 
 describe('POST /tasks/:id/score/:direction', () => {
   let user, api;
