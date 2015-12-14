@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import {
-  assign,
+  set,
   each,
   isEmpty,
   times,
@@ -282,11 +282,17 @@ function _updateDocument (collectionName, doc, update, cb) {
 
     let collection = db.collection(collectionName);
 
-    collection.update({ _id: doc._id }, { $set: update }, (updateErr) => {
+    collection.updateOne({ _id: doc._id }, { $set: update }, (updateErr) => {
       if (updateErr) throw new Error(`Error updating ${collectionName}: ${updateErr}`);
-      assign(doc, update);
+      _updateLocalDocument(doc, update);
       db.close();
       cb();
     });
+  });
+}
+
+function _updateLocalDocument (doc, update) {
+  each(update, (value, param) => {
+    set(doc, param, value);
   });
 }
