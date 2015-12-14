@@ -253,27 +253,11 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
     });
 
-    it('decreases user\'s exp when direction is down', () => {
-      return api.post(`/tasks/${habit._id}/score/down`)
-      .then((res) => api.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
-      });
-    });
-
     it('increases user\'s gold when direction is up', () => {
       return api.post(`/tasks/${habit._id}/score/up`)
       .then((res) => api.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
-      });
-    });
-
-    it('decreases user\'s gold when direction is down', () => {
-      return api.post(`/tasks/${habit._id}/score/down`)
-      .then((res) => api.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
     });
   });
