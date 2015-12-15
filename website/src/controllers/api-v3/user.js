@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
 
 let api = {};
@@ -13,7 +14,7 @@ let api = {};
  */
 api.getUser = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   url: '/user',
   handler (req, res) {
     let user = res.locals.user.toJSON();

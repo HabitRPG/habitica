@@ -7,6 +7,7 @@ import common from '../../../../common';
 import Task from '../../models/task';
 // import Group from '../../models/group';
 
+// TODO check that it's usef everywhere
 export default function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   let analytics = res.analytics;

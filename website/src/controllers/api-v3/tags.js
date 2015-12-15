@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import cron from '../../middlewares/api-v3/cron';
 import { model as Tag } from '../../models/tag';
 import {
   NotFound,
@@ -18,7 +19,7 @@ let api = {};
 api.createTag = {
   method: 'POST',
   url: '/tags',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -45,7 +46,7 @@ api.createTag = {
 api.getTags = {
   method: 'GET',
   url: '/tags',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res) {
     let user = res.locals.user;
     res.respond(200, user.tags);
@@ -65,7 +66,7 @@ api.getTags = {
 api.getTag = {
   method: 'GET',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -93,7 +94,7 @@ api.getTag = {
 api.updateTag = {
   method: 'PUT',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -129,7 +130,7 @@ api.updateTag = {
 api.deleteTag = {
   method: 'DELETE',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 

@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import * as Tasks from '../../models/task';
 import {
@@ -26,7 +27,7 @@ let api = {};
 api.createTask = {
   method: 'POST',
   url: '/tasks',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(Tasks.tasksTypes);
 
@@ -64,7 +65,7 @@ api.createTask = {
 api.getTasks = {
   method: 'GET',
   url: '/tasks',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
 
@@ -120,7 +121,7 @@ api.getTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -154,7 +155,7 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -236,7 +237,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
@@ -297,7 +298,7 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/move/:taskId/to/:position',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
@@ -349,7 +350,7 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -389,7 +390,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -432,7 +433,7 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -476,7 +477,7 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -519,7 +520,7 @@ api.removeChecklistItem = {
 api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -563,7 +564,7 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -620,7 +621,7 @@ function _removeTaskTasksOrder (user, taskId) {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
