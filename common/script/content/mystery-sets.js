@@ -132,7 +132,7 @@ let mysterySets = {
 
 each(mysterySets, (value, key) => {
   value.key = key;
-  value.text = t(`mysterySet${key}`);
+  value.text = t('mysterySet${key}'');
 });
 
 export default mysterySets;
