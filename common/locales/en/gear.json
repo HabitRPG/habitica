@@ -149,6 +149,15 @@
   "weaponSpecialFall2015HealerText": "Swamp-Slime Potion",
   "weaponSpecialFall2015HealerNotes": "Brewed to perfection! Now you just have to convince yourself to drink it. Increases Intelligence by <%= int %>. Limited Edition 2015 Autumn Gear.",
 
+  "weaponSpecialWinter2016RogueText": "Cocoa Mug",
+  "weaponSpecialWinter2016RogueNotes": "Warming drink, or boiling projectile? You decide... Increases Strength by <%= str %>. Limited Edition 2015-2016 Winter Gear.",
+  "weaponSpecialWinter2016WarriorText": "Gumdrop Sword",
+  "weaponSpecialWinter2016WarriorNotes": "This delicious sword probably attracts monsters... but you're up for the challenge! Increases Strength by <%= str %>. Limited Edition 2015-2016 Winter Gear.",
+  "weaponSpecialWinter2016MageText": "Sorcerous Snowboard",
+  "weaponSpecialWinter2016MageNotes": "Your moves are so sick, they must be magic! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
+  "weaponSpecialWinter2016HealerText": "Soothing Scepter",
+  "weaponSpecialWinter2016HealerNotes": "This scepter warms sore muscles and soothes away stress. Increases Intelligence by <%= int %>. Limited Edition 2015-2016 Winter Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -316,6 +325,15 @@
   "armorSpecialFall2015HealerText": "Potioner Robes",
   "armorSpecialFall2015HealerNotes": "What? Of course that was a potion of constitution. No, you are definitely not turning into a frog! Don't be ribbiticulous. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
   
+  "armorSpecialWinter2016RogueText": "Cocoa Armor",
+  "armorSpecialWinter2016RogueNotes": "This leather armor keeps you nice and toasty. Is it actually made from cocoa? You'll never tell. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
+  "armorSpecialWinter2016WarriorText": "Gingerbread Armor",
+  "armorSpecialWinter2016WarriorNotes": "Cozy and warm, straight from the oven! Increases Constitution by <%= con %>. Limited Edition 2015-2016 Winter Gear.",
+  "armorSpecialWinter2016MageText": "Snowboarder Parka",
+  "armorSpecialWinter2016MageNotes": "The wisest wizard keeps well-bundled in the winter wind. Increases Intelligence by <%= int %>. Limited Edition 2015-2016 Winter Gear.",
+  "armorSpecialWinter2016HealerText": "Skating Outfit",
+  "armorSpecialWinter2016HealerNotes": "Ice-skating is very relaxing, but you shouldn't try it without this protective gear in case you get attacked by the icicle drakes. Increases Constitution by <%= con %>. Limited Edition 2015-2016 Winter Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -504,6 +522,15 @@
   "headSpecialFall2015HealerText": "Hat of Frog",
   "headSpecialFall2015HealerNotes": "This is an extremely serious hat that is worthy of only the most advanced potioners. Increases Intelligence by <%= int %>. Limited Edition 2015 Autumn Gear.",
 
+  "headSpecialWinter2016RogueText": "Cocoa Helm",
+  "headSpecialWinter2016RogueNotes": "The protective scarf on this cozy helm is only removed to sip warm winter beverages. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
+  "headSpecialWinter2016WarriorText": "Gingerbread Helm",
+  "headSpecialWinter2016WarriorNotes": "Think, think, think as hard as you can. Increases Strength by <%= str %>. Limited Edition 2015-2016 Winter Gear.",
+  "headSpecialWinter2016MageText": "Snowboarder Hood",
+  "headSpecialWinter2016MageNotes": "Keeps the snow out of your eyes while you're casting spells. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
+  "headSpecialWinter2016HealerText": "Snuggly Earmuffs",
+  "headSpecialWinter2016HealerNotes": "These warm earmuffs keep out chills and distracting noises. Increases Intelligence by <%= int %>. Limited Edition 2015-2016 Winter Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -662,6 +689,13 @@
   "shieldSpecialFall2015HealerText": "Stirring Stick",
   "shieldSpecialFall2015HealerNotes": "This stick can stir anything without melting, dissolving, or bursting into flame! It can also be used to fiercely poke enemy tasks. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
   
+  "shieldSpecialWinter2016RogueText": "Cocoa Mug",
+  "shieldSpecialWinter2016RogueNotes": "Warming drink, or boiling projectile? You decide... Increases Strength by <%= str %>. Limited Edition 2015-2016 Winter Gear.",
+  "shieldSpecialWinter2016WarriorText": "Gumdrop Shield",
+  "shieldSpecialWinter2016WarriorNotes": "This seemingly-sugary shield is actually made of nutritious, gelatinous vegetables. Increases Constitution by <%= con %>. Limited Edition 2015-2016 Winter Gear.",
+  "shieldSpecialWinter2016HealerText": "Soothing Shield",
+  "shieldSpecialWinter2016HealerNotes": "This shield deflects the freezing wind. Increases Constitution by <%= con %>. Limited Edition 2015-2016 Winter Gear.",
+
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
 
