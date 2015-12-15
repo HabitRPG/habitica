@@ -30,7 +30,6 @@
                 ng-click='clickTimeTravelItem("#{type}",item)')
       li.customize-menu.inventory-gear
         menu.pets-menu(label={{::set.text()}}, ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
-        //menu.pets-menu(label=env.t('{{::set.text}}'), ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
           div(ng-repeat='item in set.items')
             button.customize-option(class='shop_{{::item.key}}',
               popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
