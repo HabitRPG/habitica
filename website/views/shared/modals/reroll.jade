@@ -12,7 +12,7 @@ script(type='text/ng-template', id='modals/reroll.html')
       a.btn.btn-success(ng-click='openModal("buyGems",{track:"Gems > Reroll"})')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
-      a.btn.btn-danger(ng-click='$close(); reroll()')=env.t('fortify')
+      a.btn.btn-danger(ng-click='clickReroll($event)')=env.t('fortify')
       span.gem-cost
         | 4&nbsp;
         = env.t('gems')
