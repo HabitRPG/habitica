@@ -21,6 +21,7 @@ api.i18n = i18n;
 api.shouldDo = shouldDo;
 
 api.maxLevel = statHelpers.MAX_LEVEL;
+api.maxStatPoints = statHelpers.MAX_STAT_POINTS;
 api.capByLevel = statHelpers.capByLevel;
 api.maxHealth = statHelpers.MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
@@ -2063,7 +2064,7 @@ api.wrap = function(user, main) {
         return content.gear.flat[type + "_base_0"];
       }
       return item;
-    },   
+    },
     handleTwoHanded: function(item, type, req) {
       var message, currentWeapon, currentShield;
       if (type == null) {
@@ -2071,17 +2072,17 @@ api.wrap = function(user, main) {
       }
       currentShield = content.gear.flat[user.items.gear[type].shield];
       currentWeapon = content.gear.flat[user.items.gear[type].weapon];
-      
+
       if (item.type === "shield" && (currentWeapon ? currentWeapon.twoHanded : false)) {
         user.items.gear[type].weapon = 'weapon_base_0';
         message = i18n.t('messageTwoHandedUnequip', {
           twoHandedText: currentWeapon.text(req.language), offHandedText: item.text(req.language),
         }, req.language);
-      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {    
-        user.items.gear[type].shield = "shield_base_0";   
+      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {
+        user.items.gear[type].shield = "shield_base_0";
         message = i18n.t('messageTwoHandedEquip', {
           twoHandedText: item.text(req.language), offHandedText: currentShield.text(req.language),
-        }, req.language);       
+        }, req.language);
       }
       return message;
     },
@@ -2281,14 +2282,14 @@ api.wrap = function(user, main) {
           user.stats.lvl++;
           tnl = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
-          var totalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
-          if (totalStatPoints >= api.maxLevel) {
+          var userTotalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
+          if (userTotalStatPoints >= api.maxStatPoints) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = user.stats.lvl - totalStatPoints;
+            user.stats.points = user.stats.lvl - userTotalStatPoints;
             if (user.stats.points < 0) {
               user.stats.points = 0;
             }
