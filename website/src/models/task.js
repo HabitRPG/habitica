@@ -57,6 +57,12 @@ TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return Task.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
 };
 
+// Sanitize checklist objects (disallowing _id)
+TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
+  delete checklistObj._id;
+  return checklistObj;
+};
+
 export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields

@@ -368,7 +368,7 @@ api.addChecklistItem = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
       if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      task.checklist.push(req.body);
+      task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
@@ -454,8 +454,7 @@ api.updateChecklistItem = {
       let item = _.find(task.checklist, {_id: req.params.itemId});
       if (!item) throw new NotFound(res.t('checklistItemNotFound'));
 
-      delete req.body.id; // Simple sanitization to prevent the ID to be changed
-      _.merge(item, req.body);
+      _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
