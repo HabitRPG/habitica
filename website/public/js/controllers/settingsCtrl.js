@@ -4,6 +4,11 @@
 habitrpg.controller('SettingsCtrl',
   ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', '$compile',
   function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, $compile) {
+    var RELEASE_ANIMAL_TYPES = {
+      pets: 'releasePets',
+      mounts: 'releaseMounts',
+      both: 'releaseBoth',
+    };
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -91,7 +96,7 @@ habitrpg.controller('SettingsCtrl',
     $scope.availableFormats = ['MM/dd/yyyy','dd/MM/yyyy', 'yyyy/MM/dd'];
 
     $scope.reroll = function(confirm){
-      $scope.popoverEl.popover('destroy')
+      $scope.popoverEl.popover('destroy');
 
       if (confirm) {
         User.user.ops.reroll({});
@@ -116,7 +121,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.rebirth = function(confirm){
-      $scope.popoverEl.popover('destroy')
+      $scope.popoverEl.popover('destroy');
 
       if (confirm) {
         User.user.ops.rebirth({});
@@ -200,19 +205,39 @@ habitrpg.controller('SettingsCtrl',
         })
     }
 
-    $scope.releasePets = function() {
-      User.user.ops.releasePets({});
-      $rootScope.$state.go('tasks');
+    $scope.clickRelease = function(type, $event){
+      // Close other popovers if they're open
+      $(".release_popover").not($event.target).popover('destroy');
+
+      // Handle clicking on the gem icon
+      if ($event.target.nodeName == "SPAN") {
+        $scope.releasePopoverEl = $($event.target.parentNode);
+      } else {
+        $scope.releasePopoverEl = $($event.target);
+      }
+
+      var html = $compile(
+          '<a ng-controller="SettingsCtrl" ng-click="$close(); releaseAnimals(\'' + type + '\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="releaseAnimals()">' + window.env.t('cancel') + '</a><br/>'
+      )($scope);
+
+      $scope.releasePopoverEl.popover('destroy').popover({
+        html: true,
+        placement: 'top',
+        trigger: 'manual',
+        title: window.env.t('confirmPetKey'),
+        content: html
+      }).popover('show');
     }
 
-    $scope.releaseMounts = function() {
-      User.user.ops.releaseMounts({});
-      $rootScope.$state.go('tasks');
-    }
+    $scope.releaseAnimals = function (type) {
+      $scope.releasePopoverEl.popover('destroy');
 
-    $scope.releaseBoth = function() {
-      User.user.ops.releaseBoth({});
-      $rootScope.$state.go('tasks');
+      var releaseFunction = RELEASE_ANIMAL_TYPES[type];
+
+      if (releaseFunction) {
+        User.user.ops[releaseFunction]({});
+        $rootScope.$state.go('tasks');
+      }
     }
 
     // ---- Webhooks ------
