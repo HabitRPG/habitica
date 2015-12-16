@@ -1,6 +1,7 @@
 import validator from 'validator';
 import passport from 'passport';
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import cron from '../../middlewares/api-v3/cron';
 import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
@@ -30,7 +31,7 @@ api.registerLocal = {
   url: '/user/auth/local/register',
   handler (req, res, next) {
     let fbUser = res.locals.user; // If adding local auth to social user
-
+    // TODO check user doesn't have local auth
     req.checkBody({
       email: {
         notEmpty: {errorMessage: res.t('missingEmail')},
@@ -138,6 +139,7 @@ function _loginRes (user, req, res, next) {
 api.loginLocal = {
   method: 'POST',
   url: '/user/auth/local/login',
+  middlewares: [cron],
   handler (req, res, next) {
     req.checkBody({
       username: {
@@ -182,6 +184,7 @@ api.loginLocal = {
 api.loginSocial = {
   method: 'POST',
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
+  middlewares: [cron],
   handler (req, res, next) {
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
@@ -247,7 +250,7 @@ api.loginSocial = {
 api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
     let network = req.params.network;

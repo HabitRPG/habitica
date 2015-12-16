@@ -1,12 +1,16 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import cron from '../../middlewares/api-v3/cron';
+import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
   NotAuthorized,
   BadRequest,
 } from '../../libs/api-v3/errors';
+import shared from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
+import scoreTask from '../../../../common/script/api-v3/scoreTask';
 
 let api = {};
 
@@ -23,7 +27,7 @@ let api = {};
 api.createTask = {
   method: 'POST',
   url: '/tasks',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(Tasks.tasksTypes);
 
@@ -61,7 +65,7 @@ api.createTask = {
 api.getTasks = {
   method: 'GET',
   url: '/tasks',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
 
@@ -117,7 +121,7 @@ api.getTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -151,7 +155,7 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -171,12 +175,22 @@ api.updateTask = {
 
       // If checklist is updated -> replace the original one
       if (req.body.checklist) {
-        delete req.body.checklist;
         task.checklist = req.body.checklist;
+        delete req.body.checklist;
       }
-      // TODO merge goes deep into objects, it's ok?
-      // TODO also check that array and mixed fields are updated correctly without marking modified
-      _.merge(task, Tasks.Task.sanitizeUpdate(req.body));
+
+      // If tags are updated -> replace the original ones
+      if (req.body.tags) {
+        task.tags = req.body.tags;
+        delete req.body.tags;
+      }
+
+      // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, very bad for performances
+      // TODO regarding comment above make sure other models with nested fields are using this trick too
+      _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
+      // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
+      // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
+      // see https://github.com/Automattic/mongoose/issues/2749
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask))
@@ -184,8 +198,33 @@ api.updateTask = {
   },
 };
 
+function _generateWebhookTaskData (task, direction, delta, stats, user) {
+  let extendedStats = _.extend(stats, {
+    toNextLevel: shared.tnl(user.stats.lvl),
+    maxHealth: shared.maxHealth,
+    maxMP: user._statsComputed.maxMP, // TODO refactor as method not getter
+  });
+
+  let userData = {
+    _id: user._id,
+    _tmp: user._tmp,
+    stats: extendedStats,
+  };
+
+  let taskData = {
+    details: task,
+    direction,
+    delta,
+  };
+
+  return {
+    task: taskData,
+    user: userData,
+  };
+}
+
 /**
- * @api {put} /tasks/score/:taskId/:direction Score a task
+ * @api {put} /tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task
@@ -197,16 +236,17 @@ api.updateTask = {
  */
 api.scoreTask = {
   method: 'POST',
-  url: 'tasks/score/:taskId/:direction',
-  middlewares: [authWithHeaders()],
+  url: '/tasks/:taskId/score/:direction',
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
+    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
 
     let user = res.locals.user;
+    let direction = req.params.direction;
 
     Tasks.Task.findOne({
       _id: req.params.taskId,
@@ -214,8 +254,47 @@ api.scoreTask = {
     }).exec()
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
+
+      let wasCompleted = task.completed;
+      if (task.type === 'daily' || task.type === 'todo') {
+        task.completed = direction === 'up'; // TODO move into scoreTask
+      }
+
+      let delta = scoreTask({task, user, direction}, req);
+      // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+      if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+      // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+      if (task.type === 'todo') {
+        if (!wasCompleted && task.completed) {
+          let i = user.tasksOrder.todos.indexOf(task._id);
+          if (i !== -1) user.tasksOrder.todos.splice(i, 1);
+        } else if (wasCompleted && !task.completed) {
+          let i = user.tasksOrder.todos.indexOf(task._id);
+          if (i === -1) {
+            user.tasksOrder.todos.push(task._id); // TODO push at the top?
+          } else { // If for some reason it hadn't been removed TODO ok?
+            user.tasksOrder.todos.splice(i, 1);
+            user.tasksOrder.push(task._id);
+          }
+        }
+      }
+
+      return Q.all([
+        user.save(),
+        task.save(),
+      ]).then((results) => {
+        let savedUser = results[0];
+
+        let userStats = savedUser.stats.toJSON();
+        let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+        res.respond(200, resJsonData);
+
+        sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+
+        // TODO sync challenge
+      });
     })
-    .then(() => res.respond(200, {})) // TODO what to return
     .catch(next);
   },
 };
@@ -236,7 +315,7 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/move/:taskId/to/:position',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
@@ -288,7 +367,7 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -306,7 +385,7 @@ api.addChecklistItem = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
       if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      task.checklist.push(req.body);
+      task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
@@ -328,7 +407,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -371,7 +450,7 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -392,8 +471,7 @@ api.updateChecklistItem = {
       let item = _.find(task.checklist, {_id: req.params.itemId});
       if (!item) throw new NotFound(res.t('checklistItemNotFound'));
 
-      delete req.body.id; // Simple sanitization to prevent the ID to be changed
-      _.merge(item, req.body);
+      _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
       return task.save();
     })
     .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
@@ -415,7 +493,7 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -457,8 +535,8 @@ api.removeChecklistItem = {
  */
 api.addTagToTask = {
   method: 'POST',
-  url: '/tasks/:taskId/tags',
-  middlewares: [authWithHeaders()],
+  url: '/tasks/:taskId/tags/:tagId',
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -477,7 +555,7 @@ api.addTagToTask = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
       let tagId = req.params.tagId;
 
-      let alreadyTagged = task.tags.indexOf(tagId) === -1;
+      let alreadyTagged = task.tags.indexOf(tagId) !== -1;
       if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
 
       task.tags.push(tagId);
@@ -502,7 +580,7 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -519,7 +597,7 @@ api.removeTagFromTask = {
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
 
-      let tagI = _.findIndex(task.tags, {_id: req.params.tagId});
+      let tagI = task.tags.indexOf(req.params.tagId);
       if (tagI === -1) throw new NotFound(res.t('tagNotFound'));
 
       task.tags.splice(tagI, 1);
@@ -559,7 +637,7 @@ function _removeTaskTasksOrder (user, taskId) {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 

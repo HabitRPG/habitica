@@ -380,9 +380,9 @@ gulp.task('test:all', (done) => {
   runSequence(
   'lint',
   // 'test:e2e:safe',
-  'test:common:safe',
+  //'test:common:safe',
   // 'test:content:safe',
-  'test:server_side:safe',
+  //'test:server_side:safe',
   // 'test:karma:safe',
   // 'test:api-legacy:safe',
   // 'test:api-v2:safe',

@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import cron from '../../middlewares/api-v3/cron';
 import { model as Tag } from '../../models/tag';
 import {
   NotFound,
@@ -18,7 +19,7 @@ let api = {};
 api.createTag = {
   method: 'POST',
   url: '/tags',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
@@ -45,7 +46,7 @@ api.createTag = {
 api.getTags = {
   method: 'GET',
   url: '/tags',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res) {
     let user = res.locals.user;
     res.respond(200, user.tags);
@@ -65,11 +66,11 @@ api.getTags = {
 api.getTag = {
   method: 'GET',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('tagIdRequired')).notEmpty().isUUID();
+    req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
@@ -93,14 +94,14 @@ api.getTag = {
 api.updateTag = {
   method: 'PUT',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty
 
-    let tagId = req.params.id;
+    let tagId = req.params.tagId;
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
@@ -127,9 +128,9 @@ api.updateTag = {
  * @apiSuccess {object} empty An empty object
  */
 api.deleteTag = {
-  method: 'GET',
+  method: 'DELETE',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
 

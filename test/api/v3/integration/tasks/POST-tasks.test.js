@@ -37,9 +37,15 @@ describe('POST /tasks', () => {
       });
     });
 
-    it('returns an error if req.body.text is absent');
-
-    it('ignores setting userId field');
+    it('returns an error if req.body.text is absent', () => {
+      return expect(api.post('/tasks', {
+        type: 'habit',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'habit validation failed',
+      });
+    });
 
     it('automatically sets "task.userId" to user\'s uuid', () => {
       return api.post('/tasks', {
@@ -50,21 +56,41 @@ describe('POST /tasks', () => {
       });
     });
 
-    it('ignores setting history field');
+    it(`ignores setting userId, history, createdAt,
+                        updatedAt, challenge, completed, streak,
+                        dateCompleted fields`, () => {
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+        userId: 123,
+        history: [123],
+        createdAt: 'yesterday',
+        updatedAt: 'tomorrow',
+        challenge: 'no',
+        completed: true,
+        streak: 25,
+        dateCompleted: 'never',
+      }).then((task) => {
+        expect(task.userId).to.equal(user._id);
+        expect(task.history).to.eql([]);
+        expect(task.createdAt).not.to.equal('yesterday');
+        expect(task.updatedAt).not.to.equal('tomorrow');
+        expect(task.challenge).not.to.equal('no');
+        expect(task.completed).to.equal(false);
+        expect(task.streak).to.equal(0);
+        expect(task.streak).not.to.equal('never');
+      });
+    });
 
-    it('ignores setting createdAt field');
-
-    it('ignores setting updatedAt field');
-
-    it('ignores setting challenge field');
-
-    it('ignores setting completed field');
-
-    it('ignores setting streak field');
-
-    it('ignores setting dateCompleted field');
-
-    it('ignores invalid fields');
+    it('ignores invalid fields', () => {
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+        notValid: true,
+      }).then((task) => {
+        expect(task).not.to.have.property('notValid');
+      });
+    });
   });
 
   context('habits', () => {
@@ -85,9 +111,28 @@ describe('POST /tasks', () => {
       });
     });
 
-    it('defaults to setting up and down to true');
+    it('defaults to setting up and down to true', () => {
+      return api.post('/tasks', {
+        text: 'test habit',
+        type: 'habit',
+        notes: 1976,
+      }).then((task) => {
+        expect(task.up).to.eql(true);
+        expect(task.down).to.eql(true);
+      });
+    });
 
-    it('cannot create checklists');
+    it('cannot create checklists', () => {
+      return api.post('/tasks', {
+        text: 'test habit',
+        type: 'habit',
+        checklist: [
+          {_id: 123, completed: false, text: 'checklist'},
+        ],
+      }).then((task) => {
+        expect(task).not.to.have.property('checklist');
+      });
+    });
   });
 
   context('todos', () => {
@@ -104,7 +149,22 @@ describe('POST /tasks', () => {
       });
     });
 
-    it('can create checklists');
+    it('can create checklists', () => {
+      return api.post('/tasks', {
+        text: 'test todo',
+        type: 'todo',
+        checklist: [
+          {completed: false, text: 'checklist'},
+        ],
+      }).then((task) => {
+        expect(task.checklist).to.be.an('array');
+        expect(task.checklist.length).to.eql(1);
+        expect(task.checklist[0]).to.be.an('object');
+        expect(task.checklist[0].text).to.eql('checklist');
+        expect(task.checklist[0].completed).to.eql(false);
+        expect(task.checklist[0]._id).to.be.a('string');
+      });
+    });
   });
 
   context('dailys', () => {
@@ -129,13 +189,74 @@ describe('POST /tasks', () => {
       });
     });
 
-    it('defaults to a weekly frequency, with every day set');
+    it('defaults to a weekly frequency, with every day set', () => {
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+      }).then((task) => {
+        expect(task.frequency).to.eql('weekly');
+        expect(task.everyX).to.eql(1);
+        expect(task.repeat).to.eql({
+          m: true,
+          t: true,
+          w: true,
+          th: true,
+          f: true,
+          s: true,
+          su: true,
+        });
+      });
+    });
 
-    it('allows repeat field to be configured');
+    it('allows repeat field to be configured', () => {
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+        repeat: {
+          m: false,
+          w: false,
+          su: false,
+        },
+      }).then((task) => {
+        expect(task.repeat).to.eql({
+          m: false,
+          t: true,
+          w: false,
+          th: true,
+          f: true,
+          s: true,
+          su: false,
+        });
+      });
+    });
 
-    it('defaults startDate to today');
+    it('defaults startDate to today', () => {
+      let today = (new Date()).getDay();
 
-    it('can create checklists');
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+      }).then((task) => {
+        expect((new Date(task.startDate)).getDay()).to.eql(today);
+      });
+    });
+
+    it('can create checklists', () => {
+      return api.post('/tasks', {
+        text: 'test daily',
+        type: 'daily',
+        checklist: [
+          {completed: false, text: 'checklist'},
+        ],
+      }).then((task) => {
+        expect(task.checklist).to.be.an('array');
+        expect(task.checklist.length).to.eql(1);
+        expect(task.checklist[0]).to.be.an('object');
+        expect(task.checklist[0].text).to.eql('checklist');
+        expect(task.checklist[0].completed).to.eql(false);
+        expect(task.checklist[0]._id).to.be.a('string');
+      });
+    });
   });
 
   context('rewards', () => {
@@ -154,10 +275,35 @@ describe('POST /tasks', () => {
       });
     });
 
-    it('defaults to a 0 value');
+    it('defaults to a 0 value', () => {
+      return api.post('/tasks', {
+        text: 'test reward',
+        type: 'reward',
+      }).then((task) => {
+        expect(task.value).to.eql(0);
+      });
+    });
 
-    it('requires value to be coerced into a number');
+    it('requires value to be coerced into a number', () => {
+      return api.post('/tasks', {
+        text: 'test reward',
+        type: 'reward',
+        value: "10",
+      }).then((task) => {
+        expect(task.value).to.eql(10);
+      });
+    });
 
-    it('cannot create checklists');
+    it('cannot create checklists', () => {
+      return api.post('/tasks', {
+        text: 'test reward',
+        type: 'reward',
+        checklist: [
+          {_id: 123, completed: false, text: 'checklist'},
+        ],
+      }).then((task) => {
+        expect(task).not.to.have.property('checklist');
+      });
+    });
   });
 });

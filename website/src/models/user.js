@@ -45,6 +45,7 @@ export let schema = new Schema({
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: { type: Number, default: 0 },
+  // TODO give all this a default of 0?
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
@@ -65,7 +66,7 @@ export let schema = new Schema({
     quests: Schema.Types.Mixed, // TODO remove, use dictionary?
     rebirths: Number,
     rebirthLevel: Number,
-    perfect: Number,
+    perfect: {type: Number, default: 0},
     habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean, // Superseded by costumeContests
@@ -373,7 +374,7 @@ export let schema = new Schema({
     toolbarCollapsed: {type: Boolean, default: false},
     background: String,
     displayInviteToPartyWhenPartyIs1: {type: Boolean, default: true},
-    webhooks: {type: Schema.Types.Mixed, default: {}},
+    webhooks: {type: Schema.Types.Mixed, default: {}}, // TODO array? and proper controller... unless VersionError becomes problematic
     // For the following fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
     emailNotifications: {
@@ -468,7 +469,8 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'apikey', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags'],
+  // TODO revisit a lot of things are missing
+  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags', 'stats'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function toJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
@@ -626,6 +628,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
     done();
   }
 });
+
+// TODO unit test this?
+schema.methods.isSubscribed = function isSubscribed () {
+  return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
+};
 
 schema.methods.unlink = function unlink (options, cb) {
   let cid = options.cid;
