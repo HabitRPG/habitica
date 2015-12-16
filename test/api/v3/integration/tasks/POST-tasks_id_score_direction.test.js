@@ -53,6 +53,39 @@ describe('POST /tasks/:id/score/:direction', () => {
       .then((task) => expect(task.completed).to.equal(true));
     });
 
+    it('moves completed todos out of user.tasksOrder.todos', () => {
+      return api.get('/user')
+      .then(user => {
+        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1)
+      }).then(() => api.post(`/tasks/${todo._id}/score/up`))
+      .then(() => api.get(`/tasks/${todo._id}`))
+      .then((updatedTask) => {
+        expect(updatedTask.completed).to.equal(true);
+        return api.get('/user');
+      })
+      .then((user) => {
+        expect(user.tasksOrder.todos.indexOf(todo._id)).to.equal(-1)
+      });
+    });
+
+    it('moves un-completed todos back into user.tasksOrder.todos', () => {
+      return api.get('/user')
+      .then(user => {
+        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1)
+      }).then(() => api.post(`/tasks/${todo._id}/score/up`))
+      .then(() => api.post(`/tasks/${todo._id}/score/down`))
+      .then(() => api.get(`/tasks/${todo._id}`))
+      .then((updatedTask) => {
+        expect(updatedTask.completed).to.equal(false);
+        return api.get('/user');
+      })
+      .then((user) => {
+        let l = user.tasksOrder.todos.length;
+        expect(user.tasksOrder.todos.indexOf(todo._id)).not.to.equal(-1);
+        expect(user.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1); // Check that it was pushed at the bottom
+      });
+    });
+
     it('uncompletes todo when direction is down', () => {
       return api.post(`/tasks/${todo._id}/score/down`)
       .then((res) => api.get(`/tasks/${todo._id}`))

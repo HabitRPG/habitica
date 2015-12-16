@@ -15,7 +15,7 @@ describe('PUT /tasks/:id', () => {
     });
   });
 
-  xcontext('validates params', () => {
+  context('validates params', () => {
     let task;
 
     beforeEach(() => {
@@ -64,7 +64,7 @@ describe('PUT /tasks/:id', () => {
     });
   });
 
-  xcontext('habits', () => {
+  context('habits', () => {
     let habit;
 
     beforeEach(() => {
@@ -92,7 +92,7 @@ describe('PUT /tasks/:id', () => {
     });
   });
 
-  xcontext('todos', () => {
+  context('todos', () => {
     let todo;
 
     beforeEach(() => {
@@ -255,7 +255,7 @@ describe('PUT /tasks/:id', () => {
     });
   });
 
-  xcontext('rewards', () => {
+  context('rewards', () => {
     let reward;
 
     beforeEach(() => {

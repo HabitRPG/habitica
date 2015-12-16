@@ -255,6 +255,7 @@ api.scoreTask = {
     .then((task) => {
       if (!task) throw new NotFound(res.t('taskNotFound'));
 
+      let wasCompleted = task.completed;
       if (task.type === 'daily' || task.type === 'todo') {
         task.completed = direction === 'up'; // TODO move into scoreTask
       }
@@ -262,6 +263,22 @@ api.scoreTask = {
       let delta = scoreTask({task, user, direction}, req);
       // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
       if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+      // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+      if (task.type === 'todo') {
+        if (!wasCompleted && task.completed) {
+          let i = user.tasksOrder.todos.indexOf(task._id);
+          if (i !== -1) user.tasksOrder.todos.splice(i, 1);
+        } else if (wasCompleted && !task.completed) {
+          let i = user.tasksOrder.todos.indexOf(task._id);
+          if (i === -1) {
+            user.tasksOrder.todos.push(task._id); // TODO push at the top?
+          } else { // If for some reason it hadn't been removed TODO ok?
+            user.tasksOrder.todos.splice(i, 1);
+            user.tasksOrder.push(task._id);
+          }
+        }
+      }
 
       return Q.all([
         user.save(),
