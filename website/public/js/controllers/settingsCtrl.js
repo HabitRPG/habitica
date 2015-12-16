@@ -90,9 +90,29 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.availableFormats = ['MM/dd/yyyy','dd/MM/yyyy', 'yyyy/MM/dd'];
 
-    $scope.reroll = function(){
-      User.user.ops.reroll({});
-      $rootScope.$state.go('tasks');
+    $scope.reroll = function(confirm){
+      $scope.popoverEl.popover('destroy')
+
+      if (confirm) {
+        User.user.ops.reroll({});
+        $rootScope.$state.go('tasks');
+      }
+    }
+
+    $scope.clickReroll = function($event){
+      $scope.popoverEl = $($event.target);
+
+      var html = $compile(
+          '<a ng-controller="SettingsCtrl" ng-click="$close(); reroll(true)">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="reroll(false)">' + window.env.t('cancel') + '</a><br/>'
+      )($scope);
+
+      $scope.popoverEl.popover('destroy').popover({
+        html: true,
+        placement: 'top',
+        trigger: 'manual',
+        title: window.env.t('confirmFortify'),
+        content: html
+      }).popover('show');
     }
 
     $scope.rebirth = function(confirm){
