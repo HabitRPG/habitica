@@ -1,26 +1,28 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-var User = require('./user').model;
-var shared = require('../../../common');
-var _ = require('lodash');
-var async = require('async');
-var logging = require('../libs/api-v2/logging');
-var Challenge = require('./../models/challenge').model;
-var firebase = require('../libs/api-v2/firebase');
+import mongoose from 'mongoose';
+import { model as User} from './user';
+import shared from '../../../common';
+import _  from 'lodash';
+// var async = require('async');
+import logger from '../libs/api-v3/logger';
+// var Challenge = require('./../models/challenge').model;
+import firebase from '../libs/api-v2/firebase';
+import baseModel from '../libs/api-v3/baseModel';
+import Q from 'q';
 
-// NOTE any change to groups' members in MongoDB will have to be run through the API
+let Schema = mongoose.Schema;
+
+// NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
-var GroupSchema = new Schema({
-  _id: {type: String, 'default': shared.uuid},
-  name: String,
+export let schema = new Schema({
+  name: {type: String, required: true},
   description: String,
   leader: {type: String, ref: 'User'},
-  members: [{type: String, ref: 'User'}],
-  invites: [{type: String, ref: 'User'}],
-  type: {type: String, "enum": ['guild', 'party']},
-  privacy: {type: String, "enum": ['private', 'public'], 'default':'private'},
-  //_v: {type: Number,'default': 0},
-  chat: Array,
+  members: [{type: String, ref: 'User'}], // TODO do we need this? could depend on back-ref instead (User.find({group:GID})
+  invites: [{type: String, ref: 'User'}], // TODO do we need this? could depend on back-ref instead (User.find({group:GID})
+  type: {type: String, enum: ['guild', 'party'], required: true},
+  privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
+  // _v: {type: Number,'default': 0}, // TODO ?
+  chat: Array, // TODO ?
   /*
   #    [{
   #      timestamp: Date
@@ -32,41 +34,52 @@ var GroupSchema = new Schema({
   #    }]
   */
   leaderOnly: { // restrict group actions to leader (members can't do them)
-    challenges: {type:Boolean, 'default':false},
-    //invites: {type:Boolean, 'default':false}
+    challenges: {type: Boolean, default: false, required: true},
+    // invites: {type:Boolean, 'default':false} // TODO ?
   },
-  memberCount: {type: Number, 'default': 0},
-  challengeCount: {type: Number, 'default': 0},
-  balance: Number,
+  memberCount: {type: Number, default: 0},
+  challengeCount: {type: Number, default: 0},
+  balance: {type: Number, default: 0},
   logo: String,
   leaderMessage: String,
-  challenges: [{type:'String', ref:'Challenge'}], // do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
+  challenges: [{type: String, ref: 'Challenge'}], // TODO do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
   quest: {
     key: String,
-    active: {type:Boolean, 'default':false},
-    leader: {type:String, ref:'User'},
-    progress:{
+    active: {type: Boolean, default: false},
+    leader: {type: String, ref: 'User'},
+    progress: {
       hp: Number,
-      collect: {type:Schema.Types.Mixed, 'default':{}}, // {feather: 5, ingot: 3}
+      collect: {type: Schema.Types.Mixed, default: () => {
+        return {};
+      }}, // {feather: 5, ingot: 3}
       rage: Number, // limit break / "energy stored in shell", for explosion-attacks
     },
 
-    //Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
-    //'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
-    //TODO when booting user, remove from .joined and check again if we can now start the quest
-    members: Schema.Types.Mixed,
-    extra: Schema.Types.Mixed
-  }
+    // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
+    // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
+    // TODO when booting user, remove from .joined and check again if we can now start the quest
+    members: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
+    extra: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
+  },
 }, {
-  strict: 'throw',
-  minimize: false // So empty objects are returned
+  strict: true,
+  minimize: false, // So empty objects are returned
 });
 
+schema.plugin(baseModel, {
+  noSet: ['_id'],
+});
+
+// TODO migration
 /**
  * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration
  * to remove duplicates, then take these fucntions out
  */
-function removeDuplicates(doc){
+/* function removeDuplicates(doc){
   // Remove duplicate members
   if (doc.members) {
     var uniqMembers = _.uniq(doc.members);
@@ -74,219 +87,238 @@ function removeDuplicates(doc){
       doc.members = uniqMembers;
     }
   }
-}
+}*/
 
 // FIXME this isn't always triggered, since we sometimes use update() or findByIdAndUpdate()
-// @see https://github.com/LearnBoost/mongoose/issues/964
-GroupSchema.pre('save', function(next){
-  removeDuplicates(this);
+// @see https://github.com/LearnBoost/mongoose/issues/964 -> Add update pre?
+// TODO necessary?
+schema.pre('save', function preSaveGroup (next) {
+  // removeDuplicates(this);
   this.memberCount = _.size(this.members);
   this.challengeCount = _.size(this.challenges);
-  next();
-})
-
-GroupSchema.pre('remove', function(next) {
-  var group = this;
-  async.waterfall([
-    function(cb) {
-      var invitationQuery = {};
-      var groupType = group.type;
-      //Add an 's' to group type guild because the model has the plural version
-      if (group.type == "guild") groupType += "s";
-      invitationQuery['invitations.' + groupType + '.id'] = group._id;
-      User.find(invitationQuery, cb);
-    },
-    function(users, cb) {
-      if (users) {
-        users.forEach(function (user, index, array) {
-          if ( group.type == "party" ) {
-            user.invitations.party = {};
-          } else {
-            var i = _.findIndex(user.invitations.guilds, {id: group._id});
-            user.invitations.guilds.splice(i, 1);
-          }
-          user.save();
-        });
-      }
-      cb();
-    }
-  ], next);
+  return next();
 });
 
-GroupSchema.post('remove', function(group) {
+schema.pre('remove', true, function preRemoveGroup (next, done) {
+  next();
+  let group = this;
+
+  // Remove invitations when group is deleted
+  // TODO verify it works fir everything
+  User.find({
+    // TODO remove need for guilds s in migration? same for id -> _id
+    [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
+  }).exec()
+  .then(users => {
+    return Q.all(users.map(user => {
+      if (group.type === 'party') {
+        user.invitations.party = {};
+      } else {
+        let i = _.findIndex(user.invitations.guilds, {id: group._id});
+        user.invitations.guilds.splice(i, 1);
+      }
+      return user.save(); // TODO update?
+    }));
+  })
+  .then(done)
+  .catch(done);
+});
+
+schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
-GroupSchema.methods.toJSON = function(){
-  var doc = this.toObject();
-  removeDuplicates(doc);
-  doc._isMember = this._isMember;
+schema.methods.toJSON = function groupToJSON () {
+  let doc = this.toObject();
+  // removeDuplicates(doc);
+  doc._isMember = this._isMember; // TODO ?
 
-  //fix(groups): temp fix to remove chat entries stored as strings (not sure why that's happening..).
+  // TODO migration
+  // fix(groups): temp fix to remove chat entries stored as strings (not sure why that's happening..).
   // Required as angular 1.3 is strict on dupes, and no message.id to `track by`
-  _.remove(doc.chat,function(msg){return !msg.id});
+  _.remove(doc.chat, msg => !msg.id);
 
+  // TODO should not be needed here
   // @see pre('save') comment above
   this.memberCount = _.size(this.members);
   this.challengeCount = _.size(this.challenges);
 
   return doc;
-}
+};
 
-var chatDefaults = module.exports.chatDefaults = function(msg,user){
-  var message = {
+// TODO move to its own model
+export function chatDefaults (msg, user) {
+  let message = {
     id: shared.uuid(),
     text: msg,
-    timestamp: +new Date,
+    timestamp: Number(new Date()),
     likes: {},
     flags: {},
-    flagCount: 0
+    flagCount: 0,
   };
+
   if (user) {
     _.defaults(message, {
       uuid: user._id,
       contributor: user.contributor && user.contributor.toObject(),
       backer: user.backer && user.backer.toObject(),
-      user: user.profile.name
+      user: user.profile.name,
     });
   } else {
     message.uuid = 'system';
   }
+
   return message;
 }
-GroupSchema.methods.sendChat = function(message, user){
-  var group = this;
-  group.chat.unshift(chatDefaults(message,user));
-  group.chat.splice(200);
-  // Kick off chat notifications in the background.
-  var lastSeenUpdate = {$set:{}, $inc:{_v:1}};
-  lastSeenUpdate['$set']['newMessages.'+group._id] = {name:group.name,value:true};
-  if (group._id == 'habitrpg') {
+
+schema.methods.sendChat = function sendChat (message, user) {
+  this.chat.unshift(chatDefaults(message, user));
+  this.chat.splice(200);
+
+  // Kick off chat notifications in the background. // TODO refactor
+  let lastSeenUpdate = {$set: {}, $inc: {_v: 1}}; // TODO standardize this _v inc at the user level
+  lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
+
+  if (this._id === 'habitrpg') {
     // TODO For Tavern, only notify them if their name was mentioned
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
   } else {
-    mongoose.model('User').update({_id:{$in:group.members, $ne: user ? user._id : ''}},lastSeenUpdate,{multi:true}).exec();
+    User.update({
+      _id: {$in: this.members, $ne: user ? user._id : ''},
+    }, lastSeenUpdate, {multi: true}).exec();
   }
-}
+};
 
-var cleanQuestProgress = function(merge){
-  var clean = {
+function _cleanQuestProgress (merge) {
+  // TODO clone? (also in sendChat message)
+  let clean = {
     key: null,
     progress: {
       up: 0,
       down: 0,
-      collect: {}
+      collect: {},
     },
     completed: null,
-    RSVPNeeded: false
+    RSVPNeeded: false, // TODO absolutely change this cryptic name
   };
-  merge = merge || {progress:{}};
-  _.merge(clean, _.omit(merge,'progress'));
-  _.merge(clean.progress, merge.progress);
-  return clean;
-}
-GroupSchema.statics.cleanQuestProgress = cleanQuestProgress;
 
-// Participants: Grant rewards & achievements, finish quest
-GroupSchema.methods.finishQuest = function(quest, cb) {
-  var group = this;
-  var questK = quest.key;
-  var updates = {$inc:{},$set:{}};
-
-  updates['$inc']['achievements.quests.' + questK] = 1;
-  updates['$inc']['stats.gp'] = +quest.drop.gp;
-  updates['$inc']['stats.exp'] = +quest.drop.exp;
-  updates['$inc']['_v'] = 1;
-  if (group._id == 'habitrpg') {
-    updates['$set']['party.quest.completed'] = questK; // Just show the notif
-  } else {
-    updates['$set']['party.quest'] = cleanQuestProgress({completed: questK}); // clear quest progress
+  if (merge) { // TODO why does it do 2 merges?
+    _.merge(clean, _.omit(merge, 'progress'));
+    _.merge(clean.progress, merge.progress);
   }
 
-  _.each(quest.drop.items, function(item){
-    var dropK = item.key;
+  return clean;
+}
+
+schema.statics.cleanQuestProgress = _cleanQuestProgress;
+
+// Participants: Grant rewards & achievements, finish quest
+// TODO transform in promise
+schema.methods.finishQuest = function finishQuest (quest, cb) {
+  let questK = quest.key;
+  let updates = {$inc: {}, $set: {}};
+
+  updates.$inc[`achievements.quests.${questK}`] = 1;
+  updates.$inc['stats.gp'] = Number(quest.drop.gp); // TODO are this castings necessary?
+  updates.$inc['stats.exp'] = Number(quest.drop.exp);
+  updates.$inc._v = 1;
+
+  if (this._id === 'habitrpg') {
+    updates.$set['party.quest.completed'] = questK; // Just show the notif
+  } else {
+    updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
+  }
+
+  _.each(quest.drop.items, (item) => {
+    let dropK = item.key;
+
     switch (item.type) {
       case 'gear':
         // TODO This means they can lose their new gear on death, is that what we want?
-        updates['$set']['items.gear.owned.'+dropK] = true;
+        updates.$set[`items.gear.owned.${dropK}`] = true;
         break;
       case 'eggs':
       case 'food':
       case 'hatchingPotions':
       case 'quests':
-        updates['$inc']['items.'+item.type+'.'+dropK] = _.where(quest.drop.items,{type:item.type,key:item.key}).length;
+        updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
         break;
       case 'pets':
-        updates['$set']['items.pets.'+dropK] = 5;
+        updates.$set[`items.pets.${dropK}`] = 5;
         break;
       case 'mounts':
-        updates['$set']['items.mounts.'+dropK] = true;
+        updates.$set[`items.mounts.${dropK}`] = true;
         break;
     }
-  })
-  var q = group._id === 'habitrpg' ? {} : {_id:{$in:_.keys(group.quest.members)}};
-  group.quest = {};group.markModified('quest');
-  mongoose.model('User').update(q, updates, {multi:true}, cb);
-}
+  });
 
-function isOnQuest(user,progress,group){
+  let q = this._id === 'habitrpg' ? {} : {_id: {$in: _.keys(this.quest.members)}};
+  this.quest = {};
+  this.markModified('quest');
+  User.update(q, updates, {multi: true}, cb);
+};
+
+function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-GroupSchema.statics.collectQuest = function(user, progress, cb) {
-  this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(user,progress,group)) return cb(null);
-    var quest = shared.content.quests[group.quest.key];
+// TODO use promise
+schema.statics.collectQuest = function collectQuest (user, progress, cb) {
+  this.findOne({
+    type: 'party',
+    members: {$in: [user._id]},
+  }).then(group => {
+    if (!_isOnQuest(user, progress, group)) return cb();
+    let quest = shared.content.quests[group.quest.key];
 
-    _.each(progress.collect,function(v,k){
+    _.each(progress.collect, (v, k) => {
       group.quest.progress.collect[k] += v;
     });
 
-    var foundText = _.reduce(progress.collect, function(m,v,k){
-      m.push(v + ' ' + quest.collect[k].text('en'));
+    let foundText = _.reduce(progress.collect, (m, v, k) => {
+      m.push(`${v} ${quest.collect[k].text('en')}`);
       return m;
     }, []);
+
     foundText = foundText ? foundText.join(', ') : 'nothing';
-    group.sendChat("`" + user.profile.name + " found "+foundText+".`");
+    group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
     group.markModified('quest.progress.collect');
 
     // Still needs completing
-    if (_.find(shared.content.quests[group.quest.key].collect, function(v,k){
+    if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
       return group.quest.progress.collect[k] < v.count;
     })) return group.save(cb);
 
-    async.series([
-      function(cb2){
-        group.finishQuest(quest,cb2);
-      },
-      function(cb2){
-        group.sendChat('`All items found! Party has received their rewards.`');
-        group.save(cb2);
-      }
-    ],cb);
+    // TODO use promise
+    group.finishQuest(quest, () => {
+      group.sendChat('`All items found! Party has received their rewards.`');
+      group.save(cb);
+    });
   })
-}
+  .catch(cb);
+};
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
-module.exports.tavernQuest = {};
-var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
+// we export an empty object that is then populated with the query-returned data
+export let tavernQuest = {};
+
 process.nextTick(function(){
-  mongoose.model('Group').findOne(tavernQ, function(err,tavern){
+  mongoose.model('Group').findOne({_id: 'habitrpg', 'quest.key': {$ne: null}}, (err, tavern) => {
+    // TODO handle error?
     if (!tavern) return; // No tavern quest
 
-    var quest = tavern.quest.toObject();
     // Using _assign so we don't lose the reference to the exported tavernQuest
-    _.assign(module.exports.tavernQuest, quest);
+    _.assign(tavernQuest, tavern.quest.toObject());
   });
 });
 
-GroupSchema.statics.tavernBoss = function(user,progress) {
+schema.statics.tavernBoss = function tavernBoss (user, progress) {
   if (!progress) return;
 
   // hack: prevent crazy damage to world boss
-  var dmg = Math.min(900, Math.abs(progress.up||0)),
-    rage = -Math.min(900, Math.abs(progress.down||0));
+  let dmg = Math.min(900, Math.abs(progress.up || 0));
+  let rage = -Math.min(900, Math.abs(progress.down || 0));
 
   async.waterfall([
     function(cb){
@@ -339,12 +371,12 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
     }
   ],function(err,res){
     if (err === true) return; // no current quest
-    if (err) return logging.error(err);
+    if (err) return logger.error(err);
     dmg = rage = null;
   })
 }
 
-GroupSchema.statics.bossQuest = function(user, progress, cb) {
+schema.statics.bossQuest = function bossQuest (user, progress, cb) {
   this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
     if (!isOnQuest(user,progress,group)) return cb(null);
     var quest = shared.content.quests[group.quest.key];
@@ -386,7 +418,7 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
 }
 
 // Remove user from this group
-GroupSchema.methods.leave = function(user, keep, mainCb){
+schema.methods.leave = function leaveGroup (user, keep, mainCb){
   if(!user) return mainCb(new Error('Missing user.'));
 
   if(keep && typeof keep === 'function'){
@@ -472,22 +504,14 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
   });
 };
 
-
-GroupSchema.methods.toJSON = function() {
-  var doc = this.toObject();
-
-  return doc;
-};
-
-
-module.exports.schema = GroupSchema;
-var Group = module.exports.model = mongoose.model("Group", GroupSchema);
+export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
-Group.count({_id: 'habitrpg'}, function(err, ct){
+// TODO use promise
+model.count({_id: 'habitrpg'}, (err, ct) => {
   if (ct > 0) return;
 
-  new Group({
+  new model({
     _id: 'habitrpg',
     chat: [],
     leader: '9',

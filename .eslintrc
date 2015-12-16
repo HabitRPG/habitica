@@ -75,7 +75,7 @@
         "comma-style": [2, "last"],
         "comma-dangle": [2, "always-multiline"],
         "computed-property-spacing": [2, "never"],
-        "consistent-this": [2, "self"],
+        "consistent-this": [0, "self"],
         "func-names": 2,
         "func-style": [2, "declaration", { "allowArrowFunctions": true }],
         "block-spacing": [2, "always"],
