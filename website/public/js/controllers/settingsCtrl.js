@@ -91,7 +91,7 @@ habitrpg.controller('SettingsCtrl',
     $scope.availableFormats = ['MM/dd/yyyy','dd/MM/yyyy', 'yyyy/MM/dd'];
 
     $scope.reroll = function(confirm){
-      $scope.popoverEl.popover('destroy')
+      $scope.popoverEl.popover('destroy');
 
       if (confirm) {
         User.user.ops.reroll({});
@@ -116,7 +116,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.rebirth = function(confirm){
-      $scope.popoverEl.popover('destroy')
+      $scope.popoverEl.popover('destroy');
 
       if (confirm) {
         User.user.ops.rebirth({});
@@ -198,6 +198,43 @@ habitrpg.controller('SettingsCtrl',
           if (code!==200) return;
           window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
         })
+    }
+
+    $scope.clickRelease = function(type, $event){
+      // Close other popovers if they're open
+      $(".release_popover").not($event.target).popover('destroy');
+
+      // Handle clicking on the gem icon
+      if ($event.target.nodeName == "SPAN") {
+        $scope.releasePopoverEl = $($event.target.parentNode);
+      } else {
+        $scope.releasePopoverEl = $($event.target);
+      }
+
+      var html = $compile(
+          '<a ng-controller="SettingsCtrl" ng-click="$close(); release(\'' + type + '\', true)">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="release(\'' + type + '\', false)">' + window.env.t('cancel') + '</a><br/>'
+      )($scope);
+
+      $scope.releasePopoverEl.popover('destroy').popover({
+        html: true,
+        placement: 'top',
+        trigger: 'manual',
+        title: window.env.t('confirmPetKey'),
+        content: html
+      }).popover('show');
+    }
+
+    $scope.release = function(type, confirm) {
+      $scope.releasePopoverEl.popover('destroy');
+
+      if (confirm) {
+        switch (type) {
+          case "pets": $scope.releasePets();
+          case "mounts": $scope.releaseMounts();
+          case "both": $scope.releaseBoth();
+          default: return;
+        }
+      }
     }
 
     $scope.releasePets = function() {
