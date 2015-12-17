@@ -3,8 +3,7 @@ import { model as User} from './user';
 import shared from '../../../common';
 import _  from 'lodash';
 // var async = require('async');
-import logger from '../libs/api-v3/logger';
-// var Challenge = require('./../models/challenge').model;
+import { model as Challenge} from './challenge';
 import firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import Q from 'q';
@@ -214,8 +213,7 @@ function _cleanQuestProgress (merge) {
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
 
 // Participants: Grant rewards & achievements, finish quest
-// TODO transform in promise
-schema.methods.finishQuest = function finishQuest (quest, cb) {
+schema.methods.finishQuest = function finishQuest (quest) {
   let questK = quest.key;
   let updates = {$inc: {}, $set: {}};
 
@@ -256,20 +254,19 @@ schema.methods.finishQuest = function finishQuest (quest, cb) {
   let q = this._id === 'habitrpg' ? {} : {_id: {$in: _.keys(this.quest.members)}};
   this.quest = {};
   this.markModified('quest');
-  User.update(q, updates, {multi: true}, cb);
+  return User.update(q, updates, {multi: true});
 };
 
 function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-// TODO use promise
-schema.statics.collectQuest = function collectQuest (user, progress, cb) {
-  this.findOne({
+schema.statics.collectQuest = function collectQuest (user, progress) {
+  return this.findOne({
     type: 'party',
     members: {$in: [user._id]},
   }).then(group => {
-    if (!_isOnQuest(user, progress, group)) return cb();
+    if (!_isOnQuest(user, progress, group)) return;
     let quest = shared.content.quests[group.quest.key];
 
     _.each(progress.collect, (v, k) => {
@@ -288,31 +285,40 @@ schema.statics.collectQuest = function collectQuest (user, progress, cb) {
     // Still needs completing
     if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
       return group.quest.progress.collect[k] < v.count;
-    })) return group.save(cb);
+    })) return group.save();
 
     // TODO use promise
-    group.finishQuest(quest, () => {
+    return group.finishQuest(quest)
+    .then(() => {
       group.sendChat('`All items found! Party has received their rewards.`');
-      group.save(cb);
+      return group.save();
     });
   })
-  .catch(cb);
+  // TODO ok to catch even if we're returning a promise?
+  .catch();
 };
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
 // we export an empty object that is then populated with the query-returned data
 export let tavernQuest = {};
+let tavernQ = {_id: 'habitrpg', 'quest.key': {$ne: null}};
 
-process.nextTick(function(){
-  mongoose.model('Group').findOne({_id: 'habitrpg', 'quest.key': {$ne: null}}, (err, tavern) => {
-    // TODO handle error?
+// we use process.nextTick because at this point the model is not yet avalaible
+process.nextTick(() => {
+  mongoose.model('Group')
+  .findOne(tavernQ).exec()
+  .then(tavern => {
     if (!tavern) return; // No tavern quest
 
     // Using _assign so we don't lose the reference to the exported tavernQuest
     _.assign(tavernQuest, tavern.quest.toObject());
+  })
+  .catch(err => {
+    throw err;
   });
 });
 
+// TODO promise?
 schema.statics.tavernBoss = function tavernBoss (user, progress) {
   if (!progress) return;
 
@@ -320,71 +326,78 @@ schema.statics.tavernBoss = function tavernBoss (user, progress) {
   let dmg = Math.min(900, Math.abs(progress.up || 0));
   let rage = -Math.min(900, Math.abs(progress.down || 0));
 
-  async.waterfall([
-    function(cb){
-      mongoose.model('Group').findOne(tavernQ,cb);
-    },
-    function(tavern,cb){
-      if (!(tavern && tavern.quest && tavern.quest.key)) return cb(true);
+  this.findOne(tavernQ).exec()
+  .then(tavern => {
+    if (!(tavern && tavern.quest && tavern.quest.key)) return;
 
-      var quest = shared.content.quests[tavern.quest.key];
-      if (tavern.quest.progress.hp <= 0) {
-        tavern.sendChat(quest.completionChat('en'));
-        tavern.finishQuest(quest, function(){});
-        tavern.save(cb);
-        _.assign(module.exports.tavernQuest, {extra: null});
-      } else {
-        // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
-        // use those first - which allows us to update the boss on the go if things are too easy/hard.
-        if (!tavern.quest.extra) tavern.quest.extra = {};
-        tavern.quest.progress.hp -= dmg / (tavern.quest.extra.def || quest.boss.def);
-        tavern.quest.progress.rage -= rage * (tavern.quest.extra.str || quest.boss.str);
-        if (tavern.quest.progress.rage >= quest.boss.rage.value) {
-          if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
-          var wd = tavern.quest.extra.worldDmg;
-          var scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // Burnout attacks Ian, Seasonal Sorceress, tavern
-          if (!scene) {
-            tavern.sendChat('`'+quest.boss.name('en')+' tries to unleash '+quest.boss.rage.title('en')+', but is too tired.`');
-            tavern.quest.progress.rage = 0 //quest.boss.rage.value;
-          } else {
-            tavern.sendChat(quest.boss.rage[scene]('en'));
-            tavern.quest.extra.worldDmg[scene] = true;
-            tavern.quest.extra.worldDmg.recent = scene;
-            tavern.markModified('quest.extra.worldDmg');
-            tavern.quest.progress.rage = 0;
-            if (quest.boss.rage.healing) {
-              tavern.quest.progress.hp += (quest.boss.rage.healing * tavern.quest.progress.hp);
-            }
+    let quest = shared.content.quests[tavern.quest.key];
+
+    if (tavern.quest.progress.hp <= 0) {
+      tavern.sendChat(quest.completionChat('en'));
+      tavern.finishQuest(quest, () => {});
+      _.assign(tavernQuest, {extra: null});
+      return tavern.save();
+    } else {
+      // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
+      // use those first - which allows us to update the boss on the go if things are too easy/hard.
+      if (!tavern.quest.extra) tavern.quest.extra = {};
+      tavern.quest.progress.hp -= dmg / (tavern.quest.extra.def || quest.boss.def);
+      tavern.quest.progress.rage -= rage * (tavern.quest.extra.str || quest.boss.str);
+
+      if (tavern.quest.progress.rage >= quest.boss.rage.value) {
+        if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
+
+        let wd = tavern.quest.extra.worldDmg;
+        // Burnout attacks Ian, Seasonal Sorceress, tavern
+        let scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // eslint-disable-line no-nested-ternary
+
+        if (!scene) {
+          tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
+          tavern.quest.progress.rage = 0; // quest.boss.rage.value;
+        } else {
+          tavern.sendChat(quest.boss.rage[scene]('en'));
+          tavern.quest.extra.worldDmg[scene] = true;
+          tavern.quest.extra.worldDmg.recent = scene;
+          tavern.markModified('quest.extra.worldDmg');
+          tavern.quest.progress.rage = 0;
+          if (quest.boss.rage.healing) {
+            tavern.quest.progress.hp += quest.boss.rage.healing * tavern.quest.progress.hp;
           }
         }
-        if (quest.boss.desperation && (tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
-          tavern.sendChat(quest.boss.desperation.text('en'));
-          tavern.quest.extra.desperate = true;
-          tavern.quest.extra.def = quest.boss.desperation.def;
-          tavern.quest.extra.str = quest.boss.desperation.str;
-          tavern.markModified('quest.extra');
-        }
-
-        _.assign(module.exports.tavernQuest, tavern.quest.toObject());
-        tavern.save(cb);
       }
-    }
-  ],function(err,res){
-    if (err === true) return; // no current quest
-    if (err) return logger.error(err);
-    dmg = rage = null;
-  })
-}
 
-schema.statics.bossQuest = function bossQuest (user, progress, cb) {
-  this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(user,progress,group)) return cb(null);
-    var quest = shared.content.quests[group.quest.key];
-    if (!progress || !quest) return cb(null); // FIXME why is this ever happening, progress should be defined at this point
-    var down = progress.down * quest.boss.str; // multiply by boss strength
+      if (quest.boss.desperation && tavern.quest.progress.hp < quest.boss.desperation.threshold && !tavern.quest.extra.desperate) {
+        tavern.sendChat(quest.boss.desperation.text('en'));
+        tavern.quest.extra.desperate = true;
+        tavern.quest.extra.def = quest.boss.desperation.def;
+        tavern.quest.extra.str = quest.boss.desperation.str;
+        tavern.markModified('quest.extra');
+      }
+
+      _.assign(module.exports.tavernQuest, tavern.quest.toObject());
+      return tavern.save();
+    }
+  })
+  .catch(err => {
+    throw err;
+  });
+};
+
+schema.statics.bossQuest = function bossQuest (user, progress) {
+  return this.findOne({
+    type: 'party',
+    members: {$in: [user._id]},
+  }).exec()
+  .then(group => {
+    if (!_isOnQuest(user, progress, group)) return;
+
+    let quest = shared.content.quests[group.quest.key];
+    if (!progress || !quest) return; // FIXME why is this ever happening, progress should be defined at this point
+
+    let down = progress.down * quest.boss.str; // multiply by boss strength
 
     group.quest.progress.hp -= progress.up;
-    group.sendChat("`" + user.profile.name + " attacks " + quest.boss.name('en') + " for " + (progress.up.toFixed(1)) + " damage, " + quest.boss.name('en') + " attacks party for " + Math.abs(down).toFixed(1) + " damage.`"); //TODO Create a party preferred language option so emits like this can be localized
+    group.sendChat(`\`${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage, ${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.\``); // TODO Create a party preferred language option so emits like this can be localized
 
     // If boss has Rage, increment Rage as well
     if (quest.boss.rage) {
@@ -392,131 +405,109 @@ schema.statics.bossQuest = function bossQuest (user, progress, cb) {
       if (group.quest.progress.rage >= quest.boss.rage.value) {
         group.sendChat(quest.boss.rage.effect('en'));
         group.quest.progress.rage = 0;
-        if (quest.boss.rage.healing) group.quest.progress.hp += (group.quest.progress.hp * quest.boss.rage.healing); //TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
+
+        // TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
+        if (quest.boss.rage.healing) group.quest.progress.hp += group.quest.progress.hp * quest.boss.rage.healing;
         if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
       }
     }
+
     // Everyone takes damage
-    var series = [
-      function(cb2){
-        mongoose.models.User.update({_id:{$in: _.keys(group.quest.members)}}, {$inc:{'stats.hp':down, _v:1}}, {multi:true}, cb2);
-      }
-    ]
+    let promise = User.update({
+      _id: {$in: _.keys(group.quest.members)},
+    }, {
+      $inc: {'stats.hp': down, _v: 1},
+    }, {multi: true});
 
     // Boss slain, finish quest
     if (group.quest.progress.hp <= 0) {
-      group.sendChat('`You defeated ' + quest.boss.name('en') + '! Questing party members receive the rewards of victory.`');
+      group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
       // Participants: Grant rewards & achievements, finish quest
-      series.push(function(cb2){
-        group.finishQuest(quest,cb2);
-      });
+
+      return promise
+      .then(() => group.finishQuest())
+      .then(() => group.save());
     }
 
-    series.push(function(cb2){group.save(cb2)});
-    async.series(series,cb);
+    return promise.then(() => group.save());
   })
-}
+  // TODO necessary to catch if we're returning a promise?
+  .catch(err => {
+    throw err;
+  });
+};
 
 // Remove user from this group
-schema.methods.leave = function leaveGroup (user, keep, mainCb){
-  if(!user) return mainCb(new Error('Missing user.'));
+// TODO this is highly inefficient
+schema.methods.leave = function leaveGroup (user, keep = 'keep-all') {
+  let group = this;
 
-  if(keep && typeof keep === 'function'){
-    mainCb = keep;
-    keep = null;
-  }
-  if(typeof keep !== 'string') keep = 'keep-all'; // can be also 'remove-all'
-
-  var group = this;
-
-  async.parallel([
+  return Q.all([
     // Remove user from group challenges
-    function(cb){
-      async.waterfall([
-        // Find relevant challenges
-        function(cb2) {
-          Challenge.find({
-            _id: {$in: user.challenges}, // Challenges I am in
-            group: group._id // that belong to the group I am leaving
-          }, cb2);
-        },
 
-        // Update each challenge
-        function(challenges, cb2) {
-          Challenge.update(
-            {_id: {$in: _.pluck(challenges, '_id')}},
-            {$pull: {members: user._id}},
-            {multi: true},
-            function(err) {
-             cb2(err, challenges); // pass `challenges` above to cb
-            }
-          );
-        },
-
-        // Unlink the challenge tasks from user
-        function(challenges, cb2) {
-          async.waterfall(challenges.map(function(chal) {
-            return function(cb3) {
-              var i = user.challenges.indexOf(chal._id)
-              if (~i) user.challenges.splice(i,1);
-              user.unlink({cid: chal._id, keep: keep}, cb3);
-            }
-          }), cb2);
-        }
-      ], cb);
-    },
+    // First find relevant Challenges
+    Challenge.find({
+      _id: {$in: user.challenges}, // Challenges I am in
+      group: group._id, // that belong to the group I am leaving
+    }).then(challenges => {
+      // Update each challenge
+      return Challenge.update(
+        {_id: {$in: _.pluck(challenges, '_id')}},
+        {$pull: {members: user._id}},
+        {multi: true}
+      ).then(() => challenges); // pass `challenges` above to next promise TODO ok to return a non-promise?
+    }).then(challenges => {
+      return Q.all(challenges.map(chal => {
+        let i = user.challenges.indexOf(chal._id);
+        if (i !== -1) user.challenges.splice(i, 1);
+        return user.unlink({cid: chal._id, keep});
+      }));
+    }),
 
     // Update the group
-    function(cb){
+    (() => {
       // If user is the last one in group and group is private, delete it
-      if(group.members.length === 1 && (
+      if (group.members.length === 1 && (
           group.type === 'party' ||
-          (group.type === 'guild' && group.privacy === 'private')
-      )){
-        group.remove(cb)
-      }else{ // otherwise just remove a member
-        var update = {$pull: {members: user._id}};
+          group.type === 'guild' && group.privacy === 'private'
+      )) return group.remove();
 
-        // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-        var leader = group.leader;
+      // otherwise just remove a member
+      let update = {$pull: {members: user._id}};
+      // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+      let leader = group.leader;
 
-        if(leader == user._id || !~group.members.indexOf(leader)){
-          var seniorMember = _.find(group.members, function (m) {return m != user._id});
+      if (leader === user._id || group.members.indexOf(leader) === -1) {
+        let seniorMember = _.find(group.members, m => m !== user._id);
 
-          // could not exist in case of public guild with 1 member who is leaving
-          if(seniorMember){
-            if (leader == user._id || !~group.members.indexOf(leader)) {
-              update['$set'] = update['$set'] || {};
-              update['$set'].leader = seniorMember;
-            }
-          }
-        }
-
-        update['$inc'] = {memberCount: -1};
-        Group.update({_id: group._id}, update, cb);
+        // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+        if (seniorMember) update.$set = {leader: seniorMember};
       }
-    }
-  ], function(err){
-    if(err) return mainCb(err);
 
+      update.$inc = {memberCount: -1};
+      return mongoose.model('Group').update({_id: group._id}, update);
+    })(),
+  ]).then(() => {
     firebase.removeUserFromGroup(group._id, user._id);
-    return mainCb();
+    return; // TODO ok not to return promise?
+  }).catch(err => { // TODO do we have to catch err if we return the promise?
+    throw err;
   });
 };
 
 export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
-// TODO use promise
 model.count({_id: 'habitrpg'}, (err, ct) => {
+  if (err) throw err;
   if (ct > 0) return;
 
-  new model({
+  new model({ // eslint-disable-line new-cap
     _id: 'habitrpg',
     chat: [],
     leader: '9',
     name: 'HabitRPG',
     type: 'guild',
-    privacy: 'public'
+    privacy: 'public',
   }).save();
 });
