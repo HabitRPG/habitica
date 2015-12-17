@@ -305,7 +305,7 @@ let tavernQ = {_id: 'habitrpg', 'quest.key': {$ne: null}};
 
 // we use process.nextTick because at this point the model is not yet avalaible
 process.nextTick(() => {
-  mongoose.model('Group')
+  model // eslint-disable-line no-use-before-define
   .findOne(tavernQ).exec()
   .then(tavern => {
     if (!tavern) return; // No tavern quest
@@ -485,7 +485,7 @@ schema.methods.leave = function leaveGroup (user, keep = 'keep-all') {
       }
 
       update.$inc = {memberCount: -1};
-      return mongoose.model('Group').update({_id: group._id}, update);
+      return model.update({_id: group._id}, update); // eslint-disable-line no-use-before-define
     })(),
   ]).then(() => {
     firebase.removeUserFromGroup(group._id, user._id);
