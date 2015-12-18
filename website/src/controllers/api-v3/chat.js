@@ -30,16 +30,21 @@ api.getChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
 
-    let query = groupId === 'party' ?
-      Group.findOne({type: 'party', members: {$in: [user._id]}}) :
-      Group.findOne({$or: [
-        {_id: groupId, privacy: 'public'},
-        {_id: groupId, privacy: 'private', members: {$in: [user._id]}},
-      ]});
+    let query;
 
-    query.exec()
-    .then((group) => {
+    if (groupId === 'party' || user.party._id === groupId) {
+      query = {type: 'party', _id: user.party._id};
+    } else if (user.guilds.indexOf(groupId)) {
+      query = {type: 'guild', _id: groupId};
+    } else {
+      query = {type: 'guild', privacy: 'public', _id: groupId};
+    }
+
+    Group
+    .findOne(query, 'chat').exec()
+    .then(group => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
+
       res.respond(200, group.chat);
     })
     .catch(next);

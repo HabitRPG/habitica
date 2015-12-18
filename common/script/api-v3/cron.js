@@ -232,6 +232,7 @@ export default function cron (options = {}) {
   progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
 
   // Clean PMs - keep 200 for subscribers and 50 for free users
+  // TODO tests
   let maxPMs = user.isSubscribed() ? 200 : 50; // TODO 200 limit for contributors too
   let numberOfPMs = Object.keys(user.inbox.messages).length;
   if (Object.keys(user.inbox.messages).length > maxPMs) {

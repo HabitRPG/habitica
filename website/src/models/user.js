@@ -479,7 +479,7 @@ schema.plugin(baseModel, {
   // TODO revisit a lot of things are missing
   noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest', 'invitations'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
-  toJSONTransform: function toJSON (doc) {
+  toJSONTransform: function userToJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
     doc.filters = {};
     doc._tmp = this._tmp; // be sure to send down drop notifs
