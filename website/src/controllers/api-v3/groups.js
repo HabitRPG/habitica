@@ -6,9 +6,55 @@ import { model as Group } from '../../models/group';
 import {
   NotFound,
   BadRequest,
+  NotAuthorized,
 } from '../../libs/api-v3/errors';
+import firebase from '../../libs/api-v3/firebase';
 
 let api = {};
+
+/**
+ * @api {post} /groups Create group
+ * @apiVersion 3.0.0
+ * @apiName CreateGroup
+ * @apiGroup Group
+ *
+ * @apiSuccess {Object} group The group object
+ */
+api.createGroup = {
+  method: 'POST',
+  url: '/groups',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+    let group = new Group(req.body); // TODO validate empty body
+
+    group.leader = user._id;
+
+    if (group.type === 'guild') {
+      if (user.balance < 1) return next(new NotAuthorized(res.t('messageInsufficientGems')));
+
+      group.balance = 1;
+      user.balance--;
+
+      user.guilds.push(group._id);
+    } else {
+      if (user.party._id) return next(new NotAuthorized(res.t('messageGroupAlreadyInParty')));
+      user.party._id = group._id;
+    }
+
+    Q.all([
+      user.save(),
+      group.save(),
+    ]).then(results => {
+      let savedGroup = results[1];
+
+      firebase.updateGroupData(savedGroup);
+      firebase.addUserToGroup(savedGroup._id, user._id);
+      return res.respond(201, savedGroup); // TODO populate
+    })
+    .catch(next);
+  },
+};
 
 /**
  * @api {get} /groups Get groups
