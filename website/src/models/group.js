@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 import { model as User} from './user';
 import shared from '../../../common';
 import _  from 'lodash';
-// var async = require('async');
 import { model as Challenge} from './challenge';
+import validator from 'validator';
 import firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import Q from 'q';
@@ -41,7 +41,7 @@ export let schema = new Schema({
   balance: {type: Number, default: 0},
   logo: String,
   leaderMessage: String,
-  challenges: [{type: String, ref: 'Challenge'}], // TODO do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
+  challenges: [{type: String, validate: [validator.isUUID, 'Invalid uuid.'], ref: 'Challenge'}], // TODO do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
   quest: {
     key: String,
     active: {type: Boolean, default: false},

@@ -206,11 +206,6 @@ export let schema = new Schema({
     todos: Array, // [{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
-  invitations: {
-    guilds: {type: Array, default: []},
-    party: Schema.Types.Mixed, // TODO dictionary
-  },
-
   // TODO we're storing too many fields here, find a way to reduce them
   items: {
     gear: {
@@ -324,10 +319,21 @@ export let schema = new Schema({
   lastCron: {type: Date, default: Date.now},
 
   // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
-  newMessages: {type: Schema.Types.Mixed, default: {}},
+  newMessages: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
+
+  challenges: [{type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}],
+
+  invitations: {
+    guilds: {type: Array}, // TODO what are we storing here
+    party: Schema.Types.Mixed, // TODO dictionary TODO what are we storing here?
+  },
+
+  guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
 
   party: {
-    // id // FIXME can we use a populated doc instead of fetching party separate from user?
+    _id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], ref: 'Group'},
     order: {type: String, default: 'level'},
     orderAscending: {type: String, default: 'ascending'},
     quest: {
@@ -440,7 +446,6 @@ export let schema = new Schema({
   },
 
   tags: [TagSchema],
-  challenges: [{type: String, ref: 'Challenge'}],
 
   inbox: {
     newMessages: {type: Number, default: 0},
@@ -470,7 +475,7 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   // TODO revisit a lot of things are missing
-  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags', 'stats'],
+  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest', 'invitations'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function toJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
