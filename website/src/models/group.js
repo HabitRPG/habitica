@@ -145,6 +145,7 @@ schema.post('remove', function postRemoveGroup (group) {
   return doc;
 };*/
 
+// TODO populate, isMember?
 schema.statics.getGroup = function getGroup (user, groupId, fields) {
   let query;
 

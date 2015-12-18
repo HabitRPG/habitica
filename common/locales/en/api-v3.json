@@ -29,5 +29,6 @@
   "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
   "alreadyTagged": "The task is already tagged with given tag.",
   "groupIdRequired": "\"groupId\" must be a valid UUID",
-  "groupNotFound": "Group not found."
+  "groupNotFound": "Group not found.",
+  "groupTypesRequired": "You must supply a valid \"type\" query string."
 }
