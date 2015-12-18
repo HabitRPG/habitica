@@ -127,7 +127,7 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
-/*schema.methods.toJSON = function groupToJSON () {
+/* schema.methods.toJSON = function groupToJSON () {
   let doc = this.toObject();
   // removeDuplicates(doc);
   doc._isMember = this._isMember; // TODO ?

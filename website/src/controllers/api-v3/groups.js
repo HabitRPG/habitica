@@ -8,18 +8,18 @@ import {
 let api = {};
 
 /**
- * @api {get} /groups/:groupId/chat Get chat messages from a group
+ * @api {get} /groups/:groupId Get group
  * @apiVersion 3.0.0
- * @apiName GetChat
- * @apiGroup Chat
+ * @apiName GetGroup
+ * @apiGroup Group
  *
  * @apiParam {UUID} groupId The group _id
  *
- * @apiSuccess {Array} chat An array of chat messages
+ * @apiSuccess {Object} group The group object
  */
-api.getChat = {
+api.getGroup = {
   method: 'GET',
-  url: '/groups/:groupId/chat',
+  url: '/groups/:groupId',
   middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
@@ -41,11 +41,11 @@ api.getChat = {
     }
 
     Group
-    .findOne(query, 'chat').exec()
+    .findOne(query).exec()
     .then(group => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      res.respond(200, group.chat);
+      res.respond(200, group);
     })
     .catch(next);
   },
