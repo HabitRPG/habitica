@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import {
   daysSince,
 } from '../../../../common/script/cron';
@@ -15,7 +16,7 @@ export default function cronMiddleware (req, res, next) {
   let now = new Date();
   let daysMissed = daysSince(user.lastCron, _.defaults({now}, user.preferences));
 
-  if (daysMissed <= 0) return next(null, user); // TODO why are we passing user down here?
+  if (daysMissed <= 0) return next();
 
   // Fetch active tasks (no completed todos)
   Task.find({
@@ -30,13 +31,23 @@ export default function cronMiddleware (req, res, next) {
     tasks.forEach(task => tasksByType[`${task.type}s`].push(task));
 
     // Run cron
-    cron({user, tasks, tasksByType, now, daysMissed, analytics});
+    cron({user, tasksByType, now, daysMissed, analytics});
+
+    // Clean completed todos - 30 days for free users, 90 for subscribers
+    Task.remove({
+      userId: user._id,
+      type: 'todo',
+      completed: true,
+      dateCompleted: {
+        $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days'),
+      },
+    }).exec(); // TODO catch error or at least log it
 
     let ranCron = user.isModified();
     let quest = common.content.quests[user.party.quest.key];
 
     // if (ranCron) res.locals.wasModified = true; // TODO remove?
-    if (!ranCron) return next(null, user); // TODO why are we passing user to next?
+    if (!ranCron) return next();
     // TODO Group.tavernBoss(user, progress);
     if (!quest || true /* TODO remove */) return user.save(next);
 

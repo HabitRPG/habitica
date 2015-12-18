@@ -1,6 +1,7 @@
 import moment from 'moment';
 import _ from 'lodash';
 import scoreTask from './scoreTask';
+import preenUserHistory from './preenHistory';
 import common from '../../';
 import {
   shouldDo,
@@ -20,7 +21,7 @@ let clearBuffs = {
 // Make sure to run this function once in a while as server will not take care of overnight calculations.
 // And you have to run it every time client connects.
 export default function cron (options = {}) {
-  let {user, tasks, tasksByType, analytics, now, daysMissed} = options;
+  let {user, tasksByType, analytics, now, daysMissed} = options;
 
   user.auth.timestamps.loggedin = now;
   user.lastCron = now;
@@ -93,8 +94,7 @@ export default function cron (options = {}) {
   // Tally each task
   let todoTally = 0;
 
-  tasksByType.todos.forEach((task) => { // make uncompleted todos redder
-    let completed = task.completed;
+  tasksByType.todos.forEach(task => { // make uncompleted todos redder
     scoreTask({
       task,
       user,
@@ -104,8 +104,7 @@ export default function cron (options = {}) {
       // TODO pass req for analytics?
     });
 
-    let absVal = completed ? Math.abs(task.value) : task.value;
-    todoTally += absVal;
+    todoTally += task.value;
   });
 
   let dailyChecked = 0; // how many dailies were checked?
@@ -184,7 +183,8 @@ export default function cron (options = {}) {
   });
 
   // Finished tallying
-  user.history.todos({date: now, value: todoTally});
+  user.history.todos.push({date: now, value: todoTally});
+
   // tally experience
   let expTally = user.stats.exp;
   let lvl = 0; // iterator
@@ -197,7 +197,7 @@ export default function cron (options = {}) {
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differentyly
   // premium subscribers can keep their full history.
-  user.fns.preenUserHistory(tasks);
+  preenUserHistory(user, tasksByType);
 
   if (perfect) {
     user.achievements.perfect++;
@@ -231,6 +231,19 @@ export default function cron (options = {}) {
   _.merge(progress, {down: 0, up: 0});
   progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
 
+  // Clean PMs - keep 200 for subscribers and 50 for free users
+  let maxPMs = user.isSubscribed() ? 200 : 50; // TODO 200 limit for contributors too
+  let numberOfPMs = Object.keys(user.inbox.messages).length;
+  if (Object.keys(user.inbox.messages).length > maxPMs) {
+    _(user.inbox.messages)
+      .sortBy('timestamp')
+      .takeRight(numberOfPMs - maxPMs)
+      .each(pm => {
+        user.inbox.messages[pm.id] = undefined;
+      }).value();
+
+    user.markModified('inbox.messages');
+  }
 
   // Analytics
   user.flags.cronCount++;
