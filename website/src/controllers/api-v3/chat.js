@@ -23,25 +23,13 @@ api.getChat = {
   middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
-    let groupId = req.params.groupId;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
 
-    let query;
-
-    if (groupId === 'party' || user.party._id === groupId) {
-      query = {type: 'party', _id: user.party._id};
-    } else if (user.guilds.indexOf(groupId) !== -1) {
-      query = {type: 'guild', _id: groupId};
-    } else {
-      query = {type: 'guild', privacy: 'public', _id: groupId};
-    }
-
-    Group
-    .findOne(query, 'chat').exec()
+    Group.getGroup(user, req.params.groupId, 'chat')
     .then(group => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
 

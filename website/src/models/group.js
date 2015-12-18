@@ -145,6 +145,20 @@ schema.post('remove', function postRemoveGroup (group) {
   return doc;
 };*/
 
+schema.statics.getGroup = function getGroup (user, groupId, fields) {
+  let query;
+
+  if (groupId === 'party' || user.party._id === groupId) {
+    query = {type: 'party', _id: user.party._id};
+  } else if (user.guilds.indexOf(groupId) !== -1) {
+    query = {type: 'guild', _id: groupId};
+  } else {
+    query = {type: 'guild', privacy: 'public', _id: groupId};
+  }
+
+  return this.findOne(query, fields).exec(); // TODO catch errors here?
+};
+
 // TODO move to its own model
 export function chatDefaults (msg, user) {
   let message = {
