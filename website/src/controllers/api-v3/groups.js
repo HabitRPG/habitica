@@ -26,19 +26,20 @@ api.createGroup = {
   middlewares: [authWithHeaders(), cron],
   handler (req, res, next) {
     let user = res.locals.user;
-    let group = new Group(req.body); // TODO validate empty body
 
+    let group = new Group(Group.sanitize(req.body)); // TODO validate empty req.body
     group.leader = user._id;
 
     if (group.type === 'guild') {
       if (user.balance < 1) return next(new NotAuthorized(res.t('messageInsufficientGems')));
 
       group.balance = 1;
-      user.balance--;
 
+      user.balance--;
       user.guilds.push(group._id);
     } else {
       if (user.party._id) return next(new NotAuthorized(res.t('messageGroupAlreadyInParty')));
+
       user.party._id = group._id;
     }
 

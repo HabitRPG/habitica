@@ -15,9 +15,7 @@ let Schema = mongoose.Schema;
 export let schema = new Schema({
   name: {type: String, required: true},
   description: String,
-  leader: {type: String, ref: 'User'},
-  members: [{type: String, ref: 'User'}], // TODO do we need this? could depend on back-ref instead (User.find({group:GID})
-  invites: [{type: String, ref: 'User'}], // TODO do we need this? could depend on back-ref instead (User.find({group:GID})
+  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   type: {type: String, enum: ['guild', 'party'], required: true},
   privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
   // _v: {type: Number,'default': 0}, // TODO ?
@@ -41,7 +39,7 @@ export let schema = new Schema({
   balance: {type: Number, default: 0},
   logo: String,
   leaderMessage: String,
-  challenges: [{type: String, validate: [validator.isUUID, 'Invalid uuid.'], ref: 'Challenge'}], // TODO do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
+  // challenges: [{type: String, validate: [validator.isUUID, 'Invalid uuid.'], ref: 'Challenge'}], // TODO do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
   quest: {
     key: String,
     active: {type: Boolean, default: false},
@@ -57,6 +55,7 @@ export let schema = new Schema({
     // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
+    // TODO as long as quests are party only we can keep it here
     members: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
@@ -70,7 +69,7 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount'],
 });
 
 // TODO migration
@@ -145,7 +144,7 @@ schema.post('remove', function postRemoveGroup (group) {
   return doc;
 };*/
 
-// TODO populate, isMember?
+// TODO populate (invites too), isMember?
 schema.statics.getGroup = function getGroup (user, groupId, fields) {
   let query;
 
