@@ -1590,7 +1590,7 @@ api.quests = {
   },
   evilsanta: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -1616,7 +1616,7 @@ api.quests = {
   },
   evilsanta2: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
