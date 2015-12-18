@@ -65,7 +65,7 @@ let armor = {
   birthday: {
     event: EVENTS.birthday,
     text: t('armorSpecialBirthdayText'),
-    notes: t('armorSpecialBirthdayNotes'), value: 0 
+    notes: t('armorSpecialBirthdayNotes'), value: 0,
   },
   springRogue: {
     event: EVENTS.spring,
