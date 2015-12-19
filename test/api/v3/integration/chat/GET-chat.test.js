@@ -11,7 +11,6 @@ describe('GET /groups/:groupId/chat', () => {
   before(() => {
     return generateUser({balance: 2}).then((generatedUser) => {
       user = generatedUser;
-      console.log(user._id, user.balance)
       api = requester(user);
     });
   });
@@ -24,6 +23,7 @@ describe('GET /groups/:groupId/chat', () => {
         name: 'test group',
         type: 'guild',
         privacy: 'public',
+      }, {
         chat: [
           'Hello',
           'Welcome to the Guild',
@@ -40,5 +40,7 @@ describe('GET /groups/:groupId/chat', () => {
         expect(getChat).to.eql(group.chat);
       });
     });
+
+    // TODO tests that you can only access your groups' chat
   });
 });

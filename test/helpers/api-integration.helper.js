@@ -110,7 +110,7 @@ export function generateGroup (leader, details = {}, update = {}) {
     request('/groups', details).then((group) => {
       _updateDocument('groups', group, update, () => {
         resolve(group);
-      }).catch(reject);
+      });
     }).catch(reject);
   });
 }
