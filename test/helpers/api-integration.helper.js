@@ -103,15 +103,15 @@ export function generateUser (update = {}) {
 // Generates a new group. Requires a user object, which
 // will will become the groups leader. Takes an update
 // argument which will update group
-export function generateGroup (leader, update = {}) {
+export function generateGroup (leader, details = {}, update = {}) {
   let request = _requestMaker(leader, 'post');
 
   return new Promise((resolve, reject) => {
-    request('/groups').then((group) => {
+    request('/groups', details).then((group) => {
       _updateDocument('groups', group, update, () => {
         resolve(group);
       }).catch(reject);
-    });
+    }).catch(reject);
   });
 }
 

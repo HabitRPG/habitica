@@ -8,7 +8,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
-import firebase from '../../libs/api-v3/firebase';
+import * as firebase from '../../libs/api-v3/firebase';
 
 let api = {};
 
@@ -31,6 +31,7 @@ api.createGroup = {
     group.leader = user._id;
 
     if (group.type === 'guild') {
+      console.log(user._id, user.balance)
       if (user.balance < 1) return next(new NotAuthorized(res.t('messageInsufficientGems')));
 
       group.balance = 1;

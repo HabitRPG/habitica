@@ -4,7 +4,7 @@ import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
-import firebase from '../libs/api-v2/firebase';
+import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import Q from 'q';
 

@@ -1,6 +1,7 @@
 import {
   createAndPopulateGroup,
   generateUser,
+  generateGroup,
   requester,
 } from '../../../../helpers/api-integration.helper';
 
@@ -8,8 +9,9 @@ describe('GET /groups/:groupId/chat', () => {
   let user, api;
 
   before(() => {
-    return generateUser().then((generatedUser) => {
+    return generateUser({balance: 2}).then((generatedUser) => {
       user = generatedUser;
+      console.log(user._id, user.balance)
       api = requester(user);
     });
   });
@@ -18,14 +20,15 @@ describe('GET /groups/:groupId/chat', () => {
     let group;
 
     before(() => {
-      return createAndPopulateGroup({groupDetails: {
+      return generateGroup(user, {
+        name: 'test group',
         type: 'guild',
         privacy: 'public',
         chat: [
           'Hello',
           'Welcome to the Guild',
         ],
-      }})
+      })
       .then((createdGroup) => {
         group = createdGroup;
       });
