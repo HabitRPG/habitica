@@ -5,11 +5,11 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
-describe('GET /groups/:groupId/chat', () => {
+describe.only('GET /groups/:groupId/chat', () => {
   let user, api;
 
   before(() => {
-    return generateUser({balance: 2}).then((generatedUser) => {
+    return generateUser().then((generatedUser) => {
       user = generatedUser;
       api = requester(user);
     });
@@ -21,7 +21,7 @@ describe('GET /groups/:groupId/chat', () => {
     before(() => {
       return generateUser({balance: 2})
       .then((generatedLeader) => {
-        generateGroup(generatedLeader, {
+        return generateGroup(generatedLeader, {
           name: 'test group',
           type: 'guild',
           privacy: 'public',
@@ -49,15 +49,18 @@ describe('GET /groups/:groupId/chat', () => {
     let group;
 
     before(() => {
-      return generateGroup(user, {
-        name: 'test group',
-        type: 'guild',
-        privacy: 'private',
-      }, {
-        chat: [
-          'Hello',
-          'Welcome to the Guild',
-        ],
+      return generateUser({balance: 2})
+      .then((generatedLeader) => {
+        return generateGroup(generatedLeader, {
+          name: 'test group',
+          type: 'guild',
+          privacy: 'private',
+        }, {
+          chat: [
+            'Hello',
+            'Welcome to the Guild',
+          ],
+        });
       })
       .then((createdGroup) => {
         group = createdGroup;
