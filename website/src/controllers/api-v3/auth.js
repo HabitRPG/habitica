@@ -259,6 +259,7 @@ api.deleteSocial = {
     if (!user.auth.local.username) return next(new NotAuthorized(res.t('cantDetachFb'))); // TODO move to model validation?
 
     User.update({_id: user._id}, {$unset: {'auth.facebook': 1}})
+    .exec()
     .then(() => res.respond(200))
     .catch(next);
   },

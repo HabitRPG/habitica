@@ -186,7 +186,7 @@ api.joinGroup = {
       let isUserInvited = false;
 
       if (group.type === 'party' && group._id === (user.invitations.party && user.invitations.party.id)) {
-        user.invitations.party = undefined; // Clear invite
+        user.invitations.party = {}; // Clear invite TODO mark modified?
 
         // invite new user to pending quest
         if (group.quest.key && !group.quest.active) {
@@ -319,7 +319,7 @@ api.removeGroupMember = {
     }).then(member => {
       // We're removing the user from a guild or a party? is the user invited only?
       let isInGroup = member.party._id === group._id ? 'party' : member.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
-      let isInvited = member.invitations.party._id === group._id ? 'party' : member.invitations.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
+      let isInvited = member.invitations.party.id === group._id ? 'party' : _.findIndex(member.invitations.guilds, {id: group._id}) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
 
       if (isInGroup) {
         group.memberCount -= 1;
@@ -338,11 +338,14 @@ api.removeGroupMember = {
         member.newMessages.group._id = undefined;
 
         if (group.quest && group.quest.active && group.quest.leader === member._id) {
-          user.items.quests[group.quest.key] += 1; // TODO why this?
+          member.items.quests[group.quest.key] += 1; // TODO why this?
         }
-      } if (isInvited) {
-        if (isInvited === 'guild') _.pull(user.invitations.guilds, group._id);
-        if (isInvited === 'party') user.invitations.party._id = undefined; // TODO remove quest information too?
+      } else if (isInvited) {
+        if (isInvited === 'guild') {
+          let i = _.findIndex(member.invitations.guilds, {id: group._id});
+          if (i !== -1) member.invitations.guilds.splice(i, 1);
+        }
+        if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
       } else {
         throw new NotFound(res.t('groupMemberNotFound'));
       }

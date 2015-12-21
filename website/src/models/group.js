@@ -97,6 +97,7 @@ schema.pre('save', function preSaveGroup (next) {
   return next();
 });
 
+// TODO test
 schema.pre('remove', true, function preRemoveGroup (next, done) {
   next();
   let group = this;
@@ -104,18 +105,19 @@ schema.pre('remove', true, function preRemoveGroup (next, done) {
   // Remove invitations when group is deleted
   // TODO verify it works fir everything
   User.find({
-    // TODO remove need for guilds s in migration? same for id -> _id
+    // TODO id -> _id ?
     [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
   }).exec()
   .then(users => {
     return Q.all(users.map(user => {
       if (group.type === 'party') {
-        user.invitations.party = {};
+        user.invitations.party = {}; // TODO mark modified
       } else {
         let i = _.findIndex(user.invitations.guilds, {id: group._id});
         user.invitations.guilds.splice(i, 1);
       }
-      return user.save(); // TODO update?
+
+      return user.save();
     }));
   })
   .then(done)
@@ -489,8 +491,14 @@ schema.methods.leave = function leaveGroup (user, keep = 'keep-all') {
           group.type === 'guild' && group.privacy === 'private'
       )) return group.remove();
 
-      // otherwise just remove a member
-      let update = {$pull: {members: user._id}};
+      let update = {};
+      // otherwise just remove a member TODO create User.methods.removeFromGroup?
+      if (group.type === 'guild') {
+        _.pull(user.guilds, group._id);
+      } else {
+        user.party._id = undefined;
+      }
+
       // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
       let leader = group.leader;
 
@@ -502,7 +510,10 @@ schema.methods.leave = function leaveGroup (user, keep = 'keep-all') {
       }
 
       update.$inc = {memberCount: -1};
-      return model.update({_id: group._id}, update); // eslint-disable-line no-use-before-define
+      return Q.all([
+        model.update({_id: group._id}, update).exec(), // eslint-disable-line no-use-before-define
+        user.save(),
+      ]);
     })(),
   ]).then(() => {
     firebase.removeUserFromGroup(group._id, user._id);
