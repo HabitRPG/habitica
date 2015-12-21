@@ -30,5 +30,11 @@
   "alreadyTagged": "The task is already tagged with given tag.",
   "groupIdRequired": "\"groupId\" must be a valid UUID",
   "groupNotFound": "Group not found.",
-  "groupTypesRequired": "You must supply a valid \"type\" query string."
+  "groupTypesRequired": "You must supply a valid \"type\" query string.",
+  "questLeaderCannotLeaveGroup": "You cannot leave your party when you have started a quest. Abort the quest first.",
+  "cannotLeaveWhileActiveQuest": "You cannot leave party during an active quest. Please leave the quest first.",
+  "onlyLeaderCanRemoveMember": "Only group leader can remove a member!",
+  "memberCannotRemoveYourself": "You cannot remove yourself!",
+  "groupMemberNotFound": "User not found among group's members",
+  "keepOrRemoveAll": "req.query.keep must be either \"keep-all\" or \"remove-all\""
 }

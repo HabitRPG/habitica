@@ -156,7 +156,10 @@ schema.statics.getGroup = function getGroup (user, groupId, fields) {
     query = {type: 'guild', privacy: 'public', _id: groupId};
   }
 
-  return this.findOne(query, fields).exec(); // TODO catch errors here?
+  return this
+    .findOne(query)
+    .select(fields)
+    .exec(); // TODO catch errors here?
 };
 
 // TODO move to its own model

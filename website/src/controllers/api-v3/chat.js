@@ -13,7 +13,7 @@ let api = {};
  * @apiName GetChat
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id
+ * @apiParam {string} groupId The group _id (or 'party')
  *
  * @apiSuccess {Array} chat An array of chat messages
  */

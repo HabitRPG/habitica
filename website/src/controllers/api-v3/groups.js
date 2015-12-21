@@ -3,12 +3,14 @@ import Q from 'q';
 import _ from 'lodash';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import {
   NotFound,
   BadRequest,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import * as firebase from '../../libs/api-v3/firebase';
+import txnEmail from '../../libs/api-v3/email';
 
 let api = {};
 
@@ -129,7 +131,7 @@ api.getGroups = {
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id
+ * @apiParam {string} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} group The group object
  */
@@ -145,12 +147,215 @@ api.getGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
 
-    Group.getGroup(user, req.params.groupId, true)
+    Group.getGroup(user, req.params.groupId)
     .then(group => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
 
       res.respond(200, group);
     })
+    .catch(next);
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/join Join a group
+ * @apiVersion 3.0.0
+ * @apiName JoinGroup
+ * @apiGroup Group
+ *
+ * @apiParam {UUID} groupId The group _id
+ *
+ * @apiSuccess {Object} empty An empty object
+ */
+api.joinGroup = {
+  method: 'POST',
+  url: '/groups/:groupId/join',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
+    .then(group => {
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+
+      let isUserInvited = false;
+
+      if (group.type === 'party' && group._id === (user.invitations.party && user.invitations.party.id)) {
+        user.invitations.party = undefined; // Clear invite
+
+        // invite new user to pending quest
+        if (group.quest.key && !group.quest.active) {
+          user.party.quest.RSVPNeeded = true;
+          user.party.quest.key = group.quest.key;
+          group.quest.members[user._id] = undefined;
+          group.markModified('quest.members');
+        }
+
+        user.party._id = group._id; // Set group as user's party
+
+        isUserInvited = true;
+      } else if (group.type === 'guild' && user.invitations.guilds) {
+        let i = _.findIndex(user.invitations.guilds, {id: group._id});
+
+        if (i !== -1) {
+          isUserInvited = true;
+          user.invitations.guilds.splice(i, 1); // Remove invitation
+        } else {
+          isUserInvited = group.privacy === 'private' ? false : true;
+        }
+      }
+
+      if (isUserInvited && group.type === 'guild') user.guilds.push(group._id); // Add group to user's guilds
+      if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
+
+      if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
+
+      Q.all([
+        group.save(),
+        user.save(),
+        User.update({_id: user.invitations.party.inviter}, {$inc: {'items.quests.basilist': 1}}).exec(), // Reward inviter
+      ]).then(() => {
+        firebase.addUserToGroup(group._id, user._id);
+        res.respond(200, {}); // TODO what to return?
+      });
+    })
+    .catch(next);
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/leave Leave a group
+ * @apiVersion 3.0.0
+ * @apiName LeaveGroup
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string="remove-all","keep-all"} keep Wheter to keep or not challenges' tasks, as an optional query string
+ *
+ * @apiSuccess {Object} empty An empty object
+ */
+api.leaveGroup = {
+  method: 'POST',
+  url: '/groups/:groupId/leave',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    // When removing the user from challenges, should we keep the tasks?
+    req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+
+    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
+    .then(group => {
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+
+      // During quests, checke wheter user can leave
+      if (group.type === 'party') {
+        if (group.quest && group.quest.leader === user._id) {
+          throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
+        }
+
+        if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
+          throw new NotAuthorized(res.t('cannotLeaveWhileActiveQuest'));
+        }
+      }
+
+      return group.leave(user, req.query.keep);
+    })
+    .then(() => res.respond(200, {}))
+    .catch(next);
+  },
+};
+
+// Send an email to the removed user with an optional message from the leader
+function _sendMessageToRemoved (group, removedUser, message) {
+  if (removedUser.preferences.emailNotifications.kickedGroup !== false) {
+    txnEmail(removedUser, `kicked-from-${group.type}`, [
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'MESSAGE', content: message},
+      {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
+      {name: 'PARTY_WANTED_GUILD', content: '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
+    ]);
+  }
+}
+
+/**
+ * @api {post} /groups/:groupId/removeMember/:memberId Remove a member from a group
+ * @apiVersion 3.0.0
+ * @apiName RemoveGroupMember
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {UUID} memberId The _id of the member to remove
+ * @apiParam {string} message The message to send to the removed members, as a query string // TODO in req.body?
+ *
+ * @apiSuccess {Object} empty An empty object
+ */
+api.removeGroupMember = {
+  method: 'POST',
+  url: '/groups/:groupId/removeMember/:memberId',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+    let group;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('userIdRequired')).notEmpty().isUUID();
+
+    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
+    .then(foundGroup => {
+      group = foundGroup;
+      let uuid = req.query.memberId;
+
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+      if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
+
+      return User.findOne({_id: uuid}).select('party guilds invitations newMessages').exec();
+    }).then(member => {
+      // We're removing the user from a guild or a party? is the user invited only?
+      let isInGroup = member.party._id === group._id ? 'party' : member.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
+      let isInvited = member.invitations.party._id === group._id ? 'party' : member.invitations.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
+
+      if (isInGroup) {
+        group.memberCount -= 1;
+
+        if (group.quest && group.quest.leader === member._id) {
+          group.quest.key = null;
+          group.quest.leader = null; // TODO markmodified?
+        } else if (group.quest && group.quest.members) {
+          // remove member from quest
+          group.quest.members[member._id] = undefined;
+        }
+
+        if (isInGroup === 'guild') _.pull(member.guilds, group._id);
+        if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
+
+        member.newMessages.group._id = undefined;
+
+        if (group.quest && group.quest.active && group.quest.leader === member._id) {
+          user.items.quests[group.quest.key] += 1; // TODO why this?
+        }
+      } if (isInvited) {
+        if (isInvited === 'guild') _.pull(user.invitations.guilds, group._id);
+        if (isInvited === 'party') user.invitations.party._id = undefined; // TODO remove quest information too?
+      } else {
+        throw new NotFound(res.t('groupMemberNotFound'));
+      }
+
+      let message = req.query.message;
+      if (message) _sendMessageToRemoved(group, member, message);
+
+      return Q.all([
+        member.save(),
+        group.save(),
+      ]);
+    })
+    .then(() => res.respond(200, {}))
     .catch(next);
   },
 };
