@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import {
-  assign,
+  set,
   each,
   isEmpty,
   times,
@@ -10,9 +10,18 @@ import { MongoClient as mongo } from 'mongodb';
 import { v4 as generateUUID } from 'uuid';
 import superagent from 'superagent';
 import i18n from '../../common/script/src/i18n';
-i18n.translations = require('../../website/src/libs/i18n.js').translations;
+i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 const API_TEST_SERVER_PORT = 3003;
+const API_V = process.env.API_VERSION || 'v2'; // eslint-disable-line no-process-env
+const ROUTES = {
+  v2: {
+    register: '/register',
+  },
+  v3: {
+    register: '/user/auth/local/register',
+  },
+};
 
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
@@ -78,7 +87,7 @@ export function generateUser (update = {}) {
   let request = _requestMaker({}, 'post');
 
   return new Promise((resolve, reject) => {
-    request('/register', {
+    request(ROUTES[API_V].register, {
       username,
       email,
       password,
@@ -94,15 +103,15 @@ export function generateUser (update = {}) {
 // Generates a new group. Requires a user object, which
 // will will become the groups leader. Takes an update
 // argument which will update group
-export function generateGroup (leader, update = {}) {
+export function generateGroup (leader, details = {}, update = {}) {
   let request = _requestMaker(leader, 'post');
 
   return new Promise((resolve, reject) => {
-    request('/groups').then((group) => {
+    request('/groups', details).then((group) => {
       _updateDocument('groups', group, update, () => {
         resolve(group);
-      }).catch(reject);
-    });
+      });
+    }).catch(reject);
   });
 }
 
@@ -221,7 +230,7 @@ export function resetHabiticaDB () {
 function _requestMaker (user, method, additionalSets) {
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v2${route}`)
+      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${API_V}${route}`)
         .accept('application/json');
 
       if (user && user._id && user.apiToken) {
@@ -241,10 +250,20 @@ function _requestMaker (user, method, additionalSets) {
           if (err) {
             if (!err.response) return reject(err);
 
-            return reject({
-              code: err.response.status,
-              text: err.response.body.err,
-            });
+            if (API_V === 'v3') {
+              return reject({
+                code: err.status,
+                error: err.response.body.error,
+                message: err.response.body.message,
+              });
+            } else if (API_V === 'v2') {
+              return reject({
+                code: err.status,
+                text: err.response.body.err,
+              });
+            }
+
+            return reject(err);
           }
 
           resolve(response.body);
@@ -258,16 +277,23 @@ function _updateDocument (collectionName, doc, update, cb) {
     return cb();
   }
 
+  // TODO use config for db url?
   mongo.connect('mongodb://localhost/habitrpg_test', (connectErr, db) => {
     if (connectErr) throw new Error(`Error connecting to database when updating ${collectionName} collection: ${connectErr}`);
 
     let collection = db.collection(collectionName);
 
-    collection.update({ _id: doc._id }, { $set: update }, (updateErr) => {
+    collection.updateOne({ _id: doc._id }, { $set: update }, (updateErr) => {
       if (updateErr) throw new Error(`Error updating ${collectionName}: ${updateErr}`);
-      assign(doc, update);
+      _updateLocalDocument(doc, update);
       db.close();
       cb();
     });
+  });
+}
+
+function _updateLocalDocument (doc, update) {
+  each(update, (value, param) => {
+    set(doc, param, value);
   });
 }

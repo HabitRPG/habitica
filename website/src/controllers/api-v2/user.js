@@ -5,17 +5,16 @@ var nconf = require('nconf');
 var async = require('async');
 var shared = require('../../../../common');
 var User = require('./../../models/user').model;
-var utils = require('./../../libs/utils');
+var utils = require('./../../libs/api-v2/utils');
 var analytics = utils.analytics;
 var Group = require('./../../models/group').model;
 var Challenge = require('./../../models/challenge').model;
 var moment = require('moment');
-var logging = require('./../../libs/logging');
+var logging = require('./../../libs/api-v2/logging');
 var acceptablePUTPaths;
 var api = module.exports;
-var qs = require('qs');
-var firebase = require('../../libs/firebase');
-var webhook = require('../../libs/webhook');
+var firebase = require('../../libs/api-v2/firebase');
+var webhook = require('../../libs/api-v2/webhook');
 
 // api.purchase // Shared.ops
 
