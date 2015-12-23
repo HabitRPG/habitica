@@ -2340,6 +2340,7 @@ api.wrap = function(user, main) {
           if (analytics != null) {
             analytics.track('acquire item', analyticsData);
           }
+          if (!user._tmp) user._tmp = {}
           return user._tmp.drop = {
             type: 'Quest',
             key: k
