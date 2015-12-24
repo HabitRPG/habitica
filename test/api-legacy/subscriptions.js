@@ -4,7 +4,7 @@ payments = require("../../website/src/controllers/payments");
 
 app = require("../../website/src/server");
 
-xdescribe("Subscriptions", function() {
+describe("Subscriptions", function() {
   before(function(done) {
     return registerNewUser(done, true);
   });

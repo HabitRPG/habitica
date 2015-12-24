@@ -387,7 +387,7 @@ describe("Push-Notifications", function() {
             }, 100);
           });
         });
-        return xcontext("sending a subscription as a purchased gift", function() {
+        return context("sending a subscription as a purchased gift", function() {
           it("sends a push notification", function(done) {
             var data;
             data = {
