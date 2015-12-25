@@ -4,6 +4,7 @@ import { model as Group } from '../../models/group';
 import {
   NotFound,
 } from '../../libs/api-v3/errors';
+import _ from 'lodash';
 
 let api = {};
 
@@ -90,6 +91,59 @@ api.postChat = {
       } else {
         res.respond(200, {message: group.chat[0]});
       }
+    })
+    .catch(next);
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/chat/:chatId/like Like a group chat message
+ * @apiVersion 3.0.0
+ * @apiName LikeChat
+ * @apiGroup Chat
+ *
+ * @apiParam {groupId} groupId The group _id
+ * @apiParam {chatId} chatId The chat message _id
+ *
+ * @apiSuccess {Array} chat An array of chat messages
+ */
+api.likeChat = {
+  method: 'Post',
+  url: '/groups/:groupId/chat/:chatId/like',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Group.getGroup(user, groupId)
+    .then((group) => {
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      let message = _.find(group.chat, {id: req.params.chatId});
+      if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+
+      if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
+
+      if (!message.likes) message.likes = {};
+      if (message.likes[user._id]) {
+        delete message.likes[user._id];
+      } else {
+        message.likes[user._id] = true;
+      }
+
+      let messageIndex = group.chat.indexOf(message);
+      group.chat[messageIndex].likes = message.likes;
+
+      return group.save();
+    })
+    .then((group) => {
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      res.respond(200, group.chat);
     })
     .catch(next);
   },
