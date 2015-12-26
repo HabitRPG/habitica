@@ -121,7 +121,7 @@ preenHistory = function(history) {
  */
 
 api.preenTodos = function(tasks) {
-  return _.where(tasks, function(t) {
+  return _.filter(tasks, function(t) {
     return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({
       days: 3
     }));
@@ -2063,7 +2063,7 @@ api.wrap = function(user, main) {
         return content.gear.flat[type + "_base_0"];
       }
       return item;
-    },   
+    },
     handleTwoHanded: function(item, type, req) {
       var message, currentWeapon, currentShield;
       if (type == null) {
@@ -2071,17 +2071,17 @@ api.wrap = function(user, main) {
       }
       currentShield = content.gear.flat[user.items.gear[type].shield];
       currentWeapon = content.gear.flat[user.items.gear[type].weapon];
-      
+
       if (item.type === "shield" && (currentWeapon ? currentWeapon.twoHanded : false)) {
         user.items.gear[type].weapon = 'weapon_base_0';
         message = i18n.t('messageTwoHandedUnequip', {
           twoHandedText: currentWeapon.text(req.language), offHandedText: item.text(req.language),
         }, req.language);
-      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {    
-        user.items.gear[type].shield = "shield_base_0";   
+      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {
+        user.items.gear[type].shield = "shield_base_0";
         message = i18n.t('messageTwoHandedEquip', {
           twoHandedText: item.text(req.language), offHandedText: currentShield.text(req.language),
-        }, req.language);       
+        }, req.language);
       }
       return message;
     },
