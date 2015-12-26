@@ -70,4 +70,139 @@ describe('Groups Controller', function() {
       expect(myGuilds).to.be.calledOnce;
     });
   });
+
+  describe('editGroup', () => {
+    var guild;
+
+    beforeEach(() => {
+      guild = specHelper.newGroup({
+        _id: 'unique-guild-id',
+        leader: 'old leader',
+        type: 'guild',
+        members: ['not-user-id'],
+        $save: sandbox.spy(),
+      });
+    });
+
+    it('marks group as being in edit mode', () => {
+      scope.editGroup(guild);
+
+      expect(guild._editing).to.eql(true);
+    });
+
+    it('copies group to groupCopy', () => {
+      scope.editGroup(guild);
+
+      for (var key in scope.groupCopy) {
+        expect(scope.groupCopy[key]).to.eql(guild[key]);
+      }
+    });
+
+    it('does not change original group when groupCopy is changed', () => {
+      scope.editGroup(guild);
+
+      scope.groupCopy.leader = 'new leader';
+      expect(scope.groupCopy.leader).to.not.eql(guild.leader);
+    });
+
+    //   scope.cancelEdit(guild);
+    //   expect(scope.groupCopy).to.eql({});
+    //   expect(guild._editing).to.eql(false);
+  });
+
+  describe('saveEdit', () => {
+    let guild;
+
+    beforeEach(() => {
+      guild = specHelper.newGroup({
+        _id: 'unique-guild-id',
+        name: 'old name',
+        leader: 'old leader',
+        type: 'guild',
+        members: ['not-user-id'],
+        $save: () => {},
+      });
+
+      scope.editGroup(guild);
+    });
+
+    it('calls group.save', () => {
+      let guildSave = sandbox.spy(scope.groupCopy, '$save');
+
+      scope.saveEdit(guild);
+
+      expect(guildSave).to.be.calledOnce;
+    });
+
+    it('calls cancelEdit', () => {
+      sandbox.stub(scope, 'cancelEdit');
+
+      scope.saveEdit(guild);
+
+      expect(scope.cancelEdit).to.be.calledOnce;
+    });
+
+    it('applies changes to groupCopy to original group', () => {
+      scope.groupCopy.name = 'new name';
+
+      scope.saveEdit(guild);
+
+      expect(guild.name).to.eql('new name');
+    });
+
+    it('assigns leader id to group if leader has changed', () => {
+      scope.groupCopy._newLeader = { _id: 'some leader id' };
+
+      scope.saveEdit(guild);
+
+      expect(guild.leader).to.eql('some leader id');
+    });
+
+    it('does not assign new leader id if leader object is not passed in', () => {
+      scope.groupCopy._newLeader = 'not an object';
+
+      scope.saveEdit(guild);
+
+      expect(guild.leader).to.eql('old leader');
+    });
+  });
+
+  describe('cancelEdit', () => {
+    beforeEach(() => {
+      guild = specHelper.newGroup({
+        _id: 'unique-guild-id',
+        name: 'old name',
+        leader: 'old leader',
+        type: 'guild',
+        members: ['not-user-id'],
+        $save: () => {},
+      });
+
+      scope.editGroup(guild);
+    });
+
+    it('sets _editing to false on group', () => {
+      expect(guild._editing).to.eql(true);
+
+      scope.cancelEdit(guild);
+
+      expect(guild._editing).to.eql(false);
+    });
+
+    it('reset groupCopy to an empty object', () => {
+      expect(scope.groupCopy).to.not.eql({});
+
+      scope.cancelEdit(guild);
+
+      expect(scope.groupCopy).to.eql({});
+    });
+  });
+
+  /* TODO: Modal testing */
+  describe.skip("deleteAllMessages", function() { });
+  describe.skip("clickMember", function() { });
+  describe.skip("removeMember", function() { });
+  describe.skip("confirmRemoveMember", function() { });
+  describe.skip("openInviteModal", function() { });
+  describe.skip("quickReply", function() { });
 });
