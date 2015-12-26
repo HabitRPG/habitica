@@ -238,7 +238,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
       },
       storage: false
     });
-  });
+  }).value();
 
   var goto = function(chapter, page, force) {
     if (chapter == 'intro') User.set({'flags.welcomed': true});

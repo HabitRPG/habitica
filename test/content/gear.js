@@ -1,8 +1,7 @@
 import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
-import { each } from 'lodash';
-import camelCase from 'lodash.camelcase';
+import { each, camelCase } from 'lodash';
 
 import { tree as allGear } from '../../common/script/content/gear';
 import backerGear from '../../common/script/content/gear/sets/special/special-backer';

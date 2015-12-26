@@ -110,6 +110,7 @@
     "event-stream": "^3.2.2",
     "expect.js": "~0.2.0",
     "istanbul": "^0.3.14",
+    "phantomjs": "^1.9",
     "karma": "~0.13.15",
     "karma-chai-plugins": "~0.6.0",
     "karma-coverage": "^0.5.3",

@@ -36,6 +36,22 @@ One caveat. If you have a severe syntax error in your files, the tests may fail 
 $ gulp test:api:safe
 ```
 
+If you'd like to run the tests individually and inspect the output from the server, in one pane you can run:
+
+```bash
+$ export PORT=3003; export NODE_DB_URI="mongodb://localhost/habitrpgtest"
+$ gulp nodemon
+```
+
+And run your tests in another pane:
+
+```bash
+$ mocha path/to/file.js
+
+# Mark a test with the `.only` attribute
+$ mocha
+```
+
 ## Structure
 
 Each top level route has it's own directory. So, all the routes that begin with `/groups/` live in `/test/api/groups/`.

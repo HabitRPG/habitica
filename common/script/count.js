@@ -14,7 +14,7 @@ function beastMasterProgress (pets) {
   each(DROP_ANIMALS, (animal) => {
     if (pets[animal] > 0 || pets[animal] === -1)
       count++;
-  });
+  }).value();
 
   return count;
 }
@@ -25,7 +25,7 @@ function dropPetsCurrentlyOwned (pets) {
   each(DROP_ANIMALS, (animal) => {
     if (pets[animal] > 0)
       count++;
-  });
+  }).value();
 
   return count;
 }
@@ -36,7 +36,7 @@ function mountMasterProgress (mounts) {
   each(DROP_ANIMALS, (animal) => {
     if (mounts[animal])
       count++;
-  });
+  }).value();
 
   return count;
 }
