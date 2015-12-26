@@ -47,6 +47,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       group._editing = false;
     };
 
+    $scope.cancelSave = function(group) {
+      group = group.$get();
+      group._editing = false;
+    }
+
     $scope.deleteAllMessages = function() {
       if (confirm(window.env.t('confirmDeleteAllMessages'))) {
         User.user.ops.clearPMs({});
