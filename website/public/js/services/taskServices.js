@@ -36,7 +36,7 @@
       _(cleansedTask.checklist).forEach(function(item) {
         item.completed = false;
         item.id = Shared.uuid();
-      });
+      }).value();
 
       if (cleansedTask.type !== 'reward') {
         delete cleansedTask.value;
