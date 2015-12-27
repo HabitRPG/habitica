@@ -11,7 +11,7 @@ angular.module('habitrpg')
 
       $scope.logout = function() {
         localStorage.clear();
-        window.location.href = '/logout';
+        $window.location.href = '/logout';
       };
 
       var runAuth = function(id, token) {
@@ -105,6 +105,23 @@ angular.module('habitrpg')
         }, function( e ){
           alert("Signin error: " + e.error.message );
         });
-      }
+      };
+
+      $scope.clearLocalStorage = function () {
+        $scope.messageModal = {
+          title: window.env.t('localStorageClearing'),
+          body: window.env.t('localStorageClearingExplanation'),
+          noFooter: true,
+        };
+
+        $modal.open({
+          templateUrl: 'modals/message-modal.html',
+          scope: $scope
+        });
+
+        var threeSecondsForUsersToReadClearLocalStorageMessage = 3000;
+
+        setTimeout($scope.logout, threeSecondsForUsersToReadClearLocalStorageMessage);
+      };
     }
 ]);
