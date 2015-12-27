@@ -19,11 +19,9 @@ let sinon = require('sinon');
 let moment = require('moment');
 let test_helper = require('./test_helper');
 let shared = require('../../common/script/index.js');
-let $w = (s) => {
-  return s.split(' ');
-};
 
 import {
+  $w,
   countExists,
 } from '../../common/script/helpers';
 
