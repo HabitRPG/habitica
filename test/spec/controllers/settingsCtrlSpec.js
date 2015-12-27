@@ -10,6 +10,12 @@ describe('Settings Controller', function() {
         set: sandbox.stub(),
         user: user
       };
+
+      User.user.ops = {
+        reroll: sandbox.stub(),
+        rebirth: sandbox.stub(),
+      };
+
       $provide.value('User', User);
       $provide.value('Guide', sandbox.stub());
     });
@@ -83,4 +89,81 @@ describe('Settings Controller', function() {
       });
     });
   });
+
+  describe('#reroll', function() {
+    beforeEach(function() {
+      scope.clickReroll(document.createElement('div'));
+    });
+
+    it('destroys the previous popover if it exists', function() {
+      expect(scope.popoverEl).to.exist;
+      sandbox.spy($.fn, 'popover');
+      scope.reroll(false);
+
+      $.fn.popover.should.have.been.calledWith('destroy');
+    });
+
+    it('doesn\'t call reroll when not confirmed', function() {
+      scope.reroll(false); 
+      user.ops.reroll.should.not.have.been.called;
+    });
+
+    it('calls reroll on the user when confirmed and navigates to tasks', function() {
+      sandbox.stub(rootScope.$state, 'go');
+      scope.reroll(true);
+
+      user.ops.reroll.should.have.been.calledWith({});
+      rootScope.$state.go.should.have.been.calledWith('tasks');
+    });
+  });
+
+  describe('#clickReroll', function() {
+    it('displays a confirmation popover for the user', function() {
+      sandbox.spy($.fn, 'popover');
+      scope.clickReroll(document.createElement('div'));
+
+      $.fn.popover.should.have.been.calledWith('destroy');
+      $.fn.popover.should.have.been.called;
+      $.fn.popover.should.have.been.calledWith('show');
+    });
+  });
+
+  describe('#rebirth', function() {
+    beforeEach(function() {
+      scope.clickRebirth(document.createElement('div'));
+    });
+
+    it('destroys the previous popover if it exists', function() {
+      expect(scope.popoverEl).to.exist;
+      sandbox.spy($.fn, 'popover');
+      scope.rebirth(false);
+
+      $.fn.popover.should.have.been.calledWith('destroy');
+    });
+
+    it('doesn\'t call rebirth when not confirmed', function() {
+      scope.rebirth(false); 
+      user.ops.rebirth.should.not.have.been.called;
+    });
+
+    it('calls rebirth on the user when confirmed and navigates to tasks', function() {
+      sandbox.stub(rootScope.$state, 'go');
+      scope.rebirth(true);
+
+      user.ops.rebirth.should.have.been.calledWith({});
+      rootScope.$state.go.should.have.been.calledWith('tasks');
+    });
+  });
+
+  describe('#clickRebirth', function() {
+    it('displays a confirmation popover for the user', function() {
+      sandbox.spy($.fn, 'popover');
+      scope.clickRebirth(document.createElement('div'));
+
+      $.fn.popover.should.have.been.calledWith('destroy');
+      $.fn.popover.should.have.been.called;
+      $.fn.popover.should.have.been.calledWith('show');
+    });
+  });
+
 });
