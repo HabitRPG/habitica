@@ -114,6 +114,7 @@ api.likeChat = {
   handler (req, res, next) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
+    let message;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
@@ -124,7 +125,7 @@ api.likeChat = {
     Group.getGroup(user, groupId)
     .then((group) => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      let message = _.find(group.chat, {id: req.params.chatId});
+      message = _.find(group.chat, {id: req.params.chatId});
       if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
       if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
@@ -136,14 +137,11 @@ api.likeChat = {
         message.likes[user._id] = true;
       }
 
-      let messageIndex = group.chat.indexOf(message);
-      group.chat[messageIndex].likes = message.likes;
-
       return group.save();
     })
     .then((group) => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      res.respond(200, group.chat);
+      res.respond(200, message);
     })
     .catch(next);
   },

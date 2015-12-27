@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
-describe('POST /chat', () => {
+describe('POST /chat/:chatId/like', () => {
   let user;
   let api;
   let group;
@@ -62,7 +62,7 @@ describe('POST /chat', () => {
       return api.post(`/groups/${group._id}/chat/${result.message.id}/like`);
     })
     .then((result) => {
-      expect(result[0].likes[user._id]).to.equal(true);
+      expect(result.likes[user._id]).to.equal(true);
     });
   });
 });
