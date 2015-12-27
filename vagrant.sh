@@ -26,6 +26,8 @@ function autostart_habitrpg {
 # Main provisioning
 echo Setting up Habitica...
 echo cd /vagrant >> /home/vagrant/.bashrc
+# Needed for running e2e tests
+echo export DISPLAY=:99 >> /home/vagrant/.bashrc
 
 # Prevent warnings: "dpkg-preconfigure: unable to re-open stdin ..."
 export DEBIAN_FRONTEND=noninteractive
@@ -70,6 +72,15 @@ echo Installing node.js
 apt-get install -qq nodejs
 echo Updating npm...
 npm install -g npm
+echo Installing Xvfb...
+apt-get install -qq xvfb
+echo Installing Java7...
+apt-get install -qq openjdk-7-jre 
+echo Downloading Firefox...
+wget http://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_40.0.3-0ubuntu1_amd64.deb/download -O firefox.deb >/dev/null 2>&1
+echo Installing Firefox...
+dpkg -i firefox.deb
+rm firefox.deb
 
 cd /vagrant
 
