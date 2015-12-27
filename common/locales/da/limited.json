@@ -31,12 +31,17 @@
     "seasonalShopText": "Velkommen til Sæson-markedet! Vi har forårs-<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alt her kan købes under Forårsflirt-eventet hvert år, men vi holder kun åbent indtil 30. april, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
     "seasonalShopSummerText": "Velkommen til Sæson-markedet! Vi har sommer-<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alt her kan købes under Sommerplask-eventet hvert år, men vi holder kun åbent indtil 31. juli, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
     "seasonalShopFallText": "Velkommen til Sæson-markedet! Vi har efterårs-<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alting her kan købes under Efterårsfestival-eventet hvert år, men vi holder kun åbent indtil 31. oktober, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
+    "seasonalShopWinterText": "Welcome to the Seasonal Shop!! We're stocking winter <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Winter Wonderland event each year, but we're only open until January 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopFallTextBroken": "Oh.... Welcome to the Seasonal Shop... We're stocking autumn Seasonal Edition goodies, or something... Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31... I guess you should to stock up now, or you'll have to wait... and wait... and wait... <strong>*sigh*</strong>",
     "seasonalShopRebirth": "Hvis du har brugt Genfødselskuglen kan du genkøbe dette udstyr i Belønningskolonnen efter du har fået adgang til Udstyrsbutikken. I starten vil du kun kunne købe tingene, der passer til din nuværende klasse (Kriger som standard), men frygt ej, de andre klasse-specifikke varer bliver tilgængelige hvis du skifter til den klasse.",
     "candycaneSet": "Slikstok (Magiker)",
     "skiSet": "Ski-morder (Slyngel)",
     "snowflakeSet": "Snefnug (Helbreder)",
     "yetiSet": "Yeti-tæmmer (Kriger)",
+    "northMageSet": "Mage of the North (Mage)",
+    "icicleDrakeSet": "Icicle Drake (Rogue)",
+    "soothingSkaterSet": "Soothing Skater (Healer)",
+    "gingerbreadSet": "Gingerbread Warrior (Warrior)",
     "toAndFromCard": "Til: <%= toName %>, Fra: <%= fromName %>",
     "nyeCard": "Nytårskort",
     "nyeCardExplanation": "Da I har fejret nytår sammen, modtager I begge \"Gammel Kending\"-emblemet!",
@@ -62,5 +67,6 @@
     "witchyWizardSet": "Forheksende Heks (Magiker)",
     "mummyMedicSet": "Mumie-mediciner (Helbreder)",
     "vampireSmiterSet": "Vampyrjæger (Slyngel)",
-    "fallEventAvailability": "Tilgængelig indtil 31. oktober"
+    "fallEventAvailability": "Tilgængelig indtil 31. oktober",
+    "winterEventAvailability": "Available until December 31"
 }

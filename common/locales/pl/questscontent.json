@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Święty Mikołaj-Myśliwy",
-    "questEvilSantaNotes": "W oddali, na lodowych pustkowiach słychać przeraźliwe ryki. Podążacie za odgłosami, przerywanymi chichotem innego głosu, aż znajdujecie polanę w lesie, na której widzicie dorosłą białą niedźwiedzicę. Jest zamknięta w klatce i skrępowana, rycząc błaga o życie. Na klatce tańczy mały złośliwy karzełek, ubrany w wyrzucone bożonarodzeniowe kostiumy. Pokonajcie Świętego Mikołaja-Myśliwego i uratujcie bestię!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Święty Mikołaj-Myśliwy piszczy z gniewu i odskakuje w ciemność. Wdzięczna niedźwiedzica przez ryki i warki próbuje Wam coś przekazać. Zabieracie ją do stajni, gdzie zaklinacz Matt Boch wysłuchuje jej historii z przerażeniem. Ona ma syna! Uciekł na połacie lodu, kiedy jego mama została złapana. Pomóżcie jej odnaleźć dziecko!",
     "questEvilSantaBoss": "Święty Mikołaj-Myśliwy",
     "questEvilSantaDropBearCubPolarMount": "Niedźwiedź polarny (wierzchowiec)",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "Z pomocą zaklinaczy wygnaliście Węża Rozproszenia. Cieszysz się, że pomogłeś mieszkańcom Wydm, jednak jest ci smutno z powodu pokonanego przeciwnika. Podczas gdy podziwiasz widoki, podchodzi do ciebie @LordDarkly. \"Dziękuję! To może nie jest wiele, ale mam nadzieję, że wystarczająco wyraża naszą wdzięczność.\" Wręcza ci trochę złota i... kilka jaj węża! Ostatecznie zobaczysz znowu to wspaniałe zwierzę.",
     "questSnakeBoss": "Wąż rozproszenia",
     "questSnakeDropSnakeEgg": "Wąż (jajo)",
-    "questSnakeUnlockText": "Odblokowuje dostęp do kupna jaj Węża na Targu"
+    "questSnakeUnlockText": "Odblokowuje dostęp do kupna jaj Węża na Targu",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

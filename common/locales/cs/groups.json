@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Z bilance",
     "sendGiftPurchase": "Koupit",
     "sendGiftMessagePlaceholder": "Osobní zpráva (volitelné)",
-    "sendGiftSubscription": "<%= months %> měsíc(e/ů): $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
     "battleWithFriends": "Bojuj s přáteli proti příšerám",
     "startPartyWithFriends": "Založ družinu se svými přáteli!",
     "startAParty": "Založ družinu",
