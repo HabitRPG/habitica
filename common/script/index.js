@@ -2272,13 +2272,12 @@ api.wrap = function(user, main) {
       })()]++;
     },
     updateStats: function(stats, req, analytics) {
-      var tnl;
       if (stats.hp <= 0) {
         return user.stats.hp = 0;
       }
       user.stats.hp = stats.hp;
       user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-      tnl = api.tnl(user.stats.lvl);
+      var tnl = api.tnl(user.stats.lvl);
       if (stats.exp >= tnl) {
         user.stats.exp = stats.exp;
         while (stats.exp >= tnl) {
