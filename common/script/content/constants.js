@@ -22,6 +22,7 @@ export const EVENTS = {
   summer2015: { start: '2015-06-20', end: '2015-08-02' },
   fall2015:   { start: '2015-09-21', end: '2015-11-01' },
   gaymerx:    { start: '2015-12-01', end: '2015-12-14' },
+  winter2016: { start: '2015-12-18', end: '2016-02-02' },
 };
 
 export const GEAR_TYPES = [

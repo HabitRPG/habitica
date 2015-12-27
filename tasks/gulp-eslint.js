@@ -51,6 +51,7 @@ gulp.task('lint:common', () => {
 gulp.task('lint:tests', () => {
   let options = {
     rules: {
+      'one-var': 0,
       'max-nested-callbacks': 0,
       'no-unused-expressions': 0,
       'mocha/no-exclusive-tests': 2,
