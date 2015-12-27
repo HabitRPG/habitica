@@ -41,7 +41,7 @@ describe('Auth Controller', function() {
     });
   });
 
-  describe.only('#clearLocalStorage', function () {
+  describe('#clearLocalStorage', function () {
     var timer;
 
     beforeEach(function () {
