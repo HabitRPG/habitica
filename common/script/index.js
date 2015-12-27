@@ -16,7 +16,7 @@ moment = require('moment');
 
 import _ from 'lodash';
 import get from 'lodash.get';
-import set from 'lodash.set'; 
+import set from 'lodash.set';
 
 content = require('./content/index');
 
@@ -33,10 +33,10 @@ api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
-import * as helpers from './helpers';
-
-$w = helpers.$w;
-api.refPush = helpers.refPush;
+import {
+  $w,
+  refPush,
+} from './helpers';
 
 import uuid from 'uuid';
 
