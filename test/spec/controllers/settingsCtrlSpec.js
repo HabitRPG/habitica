@@ -106,24 +106,24 @@ describe('Settings Controller', function() {
       });
 
       it('destroys the previous popover if it exists', function() {
-        expect(scope.popoverEl).to.exist;
         sandbox.spy($.fn, 'popover');
         scope.reroll(false);
 
-        $.fn.popover.should.have.been.calledWith('destroy');
+        expect(scope.popoverEl).to.exist;
+        expect($.fn.popover).to.be.calledWith('destroy');
       });
 
       it('doesn\'t call reroll when not confirmed', function() {
         scope.reroll(false);
-        user.ops.reroll.should.not.have.been.called;
+        expect(user.ops.reroll).to.not.be.calledOnce;
       });
 
       it('calls reroll on the user when confirmed and navigates to tasks', function() {
         sandbox.stub(rootScope.$state, 'go');
         scope.reroll(true);
 
-        user.ops.reroll.should.have.been.calledWith({});
-        rootScope.$state.go.should.have.been.calledWith('tasks');
+        expect(user.ops.reroll).to.be.calledWith({});
+        expect(rootScope.$state.go).to.be.calledWith('tasks');
       });
     });
 
@@ -132,9 +132,9 @@ describe('Settings Controller', function() {
         sandbox.spy($.fn, 'popover');
         scope.clickReroll(actionClickEvent);
 
-        $.fn.popover.should.have.been.calledWith('destroy');
-        $.fn.popover.should.have.been.called;
-        $.fn.popover.should.have.been.calledWith('show');
+        expect($.fn.popover).to.be.calledWith('destroy');
+        expect($.fn.popover).to.be.called;
+        expect($.fn.popover).to.be.calledWith('show');
       });
     });
   });
@@ -146,24 +146,24 @@ describe('Settings Controller', function() {
       });
 
       it('destroys the previous popover if it exists', function() {
-        expect(scope.popoverEl).to.exist;
         sandbox.spy($.fn, 'popover');
         scope.rebirth(false);
 
-        $.fn.popover.should.have.been.calledWith('destroy');
+        expect(scope.popoverEl).to.exist;
+        expect($.fn.popover).to.be.calledWith('destroy');
       });
 
       it('doesn\'t call rebirth when not confirmed', function() {
         scope.rebirth(false);
-        user.ops.rebirth.should.not.have.been.called;
+        expect(user.ops.rebirth).to.not.be.calledOnce;
       });
 
       it('calls rebirth on the user when confirmed and navigates to tasks', function() {
         sandbox.stub(rootScope.$state, 'go');
         scope.rebirth(true);
 
-        user.ops.rebirth.should.have.been.calledWith({});
-        rootScope.$state.go.should.have.been.calledWith('tasks');
+        expect(user.ops.rebirth).to.be.calledWith({});
+        expect(rootScope.$state.go).to.be.calledWith('tasks');
       });
     });
 
@@ -172,9 +172,9 @@ describe('Settings Controller', function() {
         sandbox.spy($.fn, 'popover');
         scope.clickRebirth(actionClickEvent);
 
-        $.fn.popover.should.have.been.calledWith('destroy');
-        $.fn.popover.should.have.been.called;
-        $.fn.popover.should.have.been.calledWith('show');
+        expect($.fn.popover).to.be.calledWith('destroy');
+        expect($.fn.popover).to.be.called;
+        expect($.fn.popover).to.be.calledWith('show');
       });
     });
   })
@@ -189,7 +189,7 @@ describe('Settings Controller', function() {
         sandbox.spy($.fn, 'popover');
         scope.release('', false);
 
-        $.fn.popover.should.have.been.calledWith('destroy');
+        expect($.fn.popover).to.be.calledWith('destroy');
       });
 
       it('doesn\'t call any release methods if not confirmed', function() {
@@ -202,9 +202,9 @@ describe('Settings Controller', function() {
         scope.release('both', false);
         scope.release('dummy', false);
 
-        petsSpy.should.not.have.been.called;
-        mountsSpy.should.not.have.been.called;
-        bothSpy.should.not.have.been.called;
+        expect(petsSpy).to.not.be.called;
+        expect(mountsSpy).to.not.be.called;
+        expect(bothSpy).to.not.be.called;
       });
 
       it('calls the correct release method based on it\'s input', function() {
@@ -213,24 +213,25 @@ describe('Settings Controller', function() {
         var bothSpy = sandbox.spy(scope, 'releaseBoth');
 
         scope.release('pets', true);
-        petsSpy.should.have.been.calledOnce;
+        expect(petsSpy).to.be.calledOnce;
+        expect(mountsSpy).to.not.be.called;
         petsSpy.reset();
 
         scope.release('mounts', true);
-        mountsSpy.should.have.been.calledOnce;
-        petsSpy.should.not.have.been.called;
+        expect(mountsSpy).to.be.calledOnce;
+        expect(petsSpy).to.not.be.called;
         mountsSpy.reset();
 
         scope.release('both', true);
-        bothSpy.should.have.been.calledOnce;
-        mountsSpy.should.not.have.been.called;
-        petsSpy.should.not.have.been.called;
+        expect(petsSpy).to.not.be.called;
+        expect(mountsSpy).to.not.be.called;
+        expect(bothSpy).to.be.calledOnce;
         bothSpy.reset();
 
         scope.release('dummy', true);
-        petsSpy.should.not.have.been.called;
-        mountsSpy.should.not.have.been.called;
-        bothSpy.should.not.have.been.called;
+        expect(petsSpy).to.not.be.called;
+        expect(mountsSpy).to.not.be.called;
+        expect(bothSpy).to.not.be.called;
       });
     });
 
@@ -239,8 +240,8 @@ describe('Settings Controller', function() {
         sandbox.stub(rootScope.$state, 'go');
         scope.releasePets();
 
-        user.ops.releasePets.should.have.been.calledWith({});
-        rootScope.$state.go.should.have.been.calledWith('tasks');
+        expect(user.ops.releasePets).to.be.calledWith({});
+        expect(rootScope.$state.go).to.be.calledWith('tasks');
       });
     });
 
@@ -249,8 +250,8 @@ describe('Settings Controller', function() {
         sandbox.stub(rootScope.$state, 'go');
         scope.releaseMounts();
 
-        user.ops.releaseMounts.should.have.been.calledWith({});
-        rootScope.$state.go.should.have.been.calledWith('tasks');
+        expect(user.ops.releaseMounts).to.be.calledWith({});
+        expect(rootScope.$state.go).to.be.calledWith('tasks');
       });
     });
 
@@ -259,19 +260,19 @@ describe('Settings Controller', function() {
         sandbox.stub(rootScope.$state, 'go');
         scope.releaseBoth();
 
-        user.ops.releaseBoth.should.have.been.calledWith({});
-        rootScope.$state.go.should.have.been.calledWith('tasks');
+        expect(user.ops.releaseBoth).to.be.calledWith({});
+        expect(rootScope.$state.go).to.be.calledWith('tasks');
       });
     });
 
     describe('#clickRelease', function() {
       it('displays a confirmation popover for the user', function() {
         sandbox.spy($.fn, 'popover');
-        scope.clickRelease("dummy", actionClickEvent);
+        scope.clickRelease('dummy', actionClickEvent);
 
-        $.fn.popover.should.have.been.calledWith('destroy');
-        $.fn.popover.should.have.been.called;
-        $.fn.popover.should.have.been.calledWith('show');
+        expect($.fn.popover).to.be.calledWith('destroy');
+        expect($.fn.popover).to.be.called;
+        expect($.fn.popover).to.be.calledWith('show');
       });
     });
   });
