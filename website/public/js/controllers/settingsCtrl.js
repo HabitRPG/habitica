@@ -229,9 +229,9 @@ habitrpg.controller('SettingsCtrl',
 
       if (confirm) {
         switch (type) {
-          case "pets": $scope.releasePets();
-          case "mounts": $scope.releaseMounts();
-          case "both": $scope.releaseBoth();
+          case "pets": $scope.releasePets(); break;
+          case "mounts": $scope.releaseMounts(); break;
+          case "both": $scope.releaseBoth(); break;
           default: return;
         }
       }
