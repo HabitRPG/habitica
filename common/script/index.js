@@ -9,7 +9,7 @@ import {
 } from './constants';
 import * as statHelpers from './statHelpers';
 
-var $w, api, content, i18n, moment, preenHistory, sortOrder,
+var api, content, i18n, moment, preenHistory, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
@@ -35,12 +35,16 @@ api.diminishingReturns = statHelpers.diminishingReturns;
 
 import {
   $w,
+  countExists,
   refPush,
 } from './helpers';
 
 import uuid from 'uuid';
 
 api.uuid = uuid.v4;
+
+api.refPush = refPush;
+api.countExists = countExists;
 
 api.planGemLimits = {
   convRate: 20,
@@ -881,7 +885,7 @@ api.wrap = function(user, main) {
       addWebhook: function(req, cb) {
         var wh;
         wh = user.preferences.webhooks;
-        api.refPush(wh, {
+        refPush(wh, {
           url: req.body.url,
           enabled: req.body.enabled || true,
           id: req.body.id
