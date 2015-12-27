@@ -2,6 +2,11 @@ import {
   daysSince,
   shouldDo,
 } from '../../common/script/cron';
+import {
+  MAX_HEALTH,
+  MAX_LEVEL,
+  MAX_STAT_POINTS,
+} from './constants';
 import * as statHelpers from './statHelpers';
 
 var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
@@ -20,10 +25,9 @@ api = module.exports = {};
 api.i18n = i18n;
 api.shouldDo = shouldDo;
 
-api.maxLevel = statHelpers.MAX_LEVEL;
-api.maxStatPoints = statHelpers.MAX_STAT_POINTS;
+api.maxLevel = MAX_LEVEL;
 api.capByLevel = statHelpers.capByLevel;
-api.maxHealth = statHelpers.MAX_HEALTH;
+api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
@@ -2283,7 +2287,8 @@ api.wrap = function(user, main) {
           tnl = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
           var userTotalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
-          if (userTotalStatPoints >= api.maxStatPoints) {
+
+          if (userTotalStatPoints >= MAX_STAT_POINTS) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
