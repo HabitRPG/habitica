@@ -16,12 +16,13 @@ export const EVENTS = {
   birthday:   { start: '2013-01-30', end: '2014-02-01' },
   spring:     { start: '2014-03-21', end: '2014-05-01' },
   summer:     { start: '2014-06-20', end: '2014-08-01' },
-  gaymerx:    { start: '2014-07-02', end: '2014-08-01' },
   fall:       { start: '2014-09-21', end: '2014-11-01' },
   winter2015: { start: '2014-12-21', end: '2015-02-02' },
   spring2015: { start: '2015-03-20', end: '2015-05-02' },
   summer2015: { start: '2015-06-20', end: '2015-08-02' },
   fall2015:   { start: '2015-09-21', end: '2015-11-01' },
+  gaymerx:    { start: '2015-12-01', end: '2015-12-14' },
+  winter2016: { start: '2015-12-18', end: '2016-02-02' },
 };
 
 export const GEAR_TYPES = [

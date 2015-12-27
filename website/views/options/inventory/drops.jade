@@ -137,6 +137,19 @@
                 span.Pet_Currency_Gem1x.inline-gems
 
         li.customize-menu
+          menu.pets-menu!=env.t('magicHatchingPotions') + " - " + env.t('winterEventAvailability')
+            p.muted=env.t('premiumPotionNoDropExplanation')
+            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy(user)')
+              button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
+                popover='{{::pot.notes()}} {{::pot.addlNotes()}}', popover-append-to-body='true',
+                popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
+                popover-trigger='mouseenter', popover-placement='top',
+                ng-click='purchase("hatchingPotions", pot)')
+              p
+                | {{::pot.value}}&nbsp;
+                span.Pet_Currency_Gem1x.inline-gems
+
+        li.customize-menu
           menu.pets-menu(label=env.t('food'))
             p.muted!=env.t('dropsExplanation')
             div(ng-repeat='food in Content.food', ng-if='food.canBuy(user)')

@@ -2,6 +2,11 @@ import {
   daysSince,
   shouldDo,
 } from '../../common/script/cron';
+import {
+  MAX_HEALTH,
+  MAX_LEVEL,
+  MAX_STAT_POINTS,
+} from './constants';
 import * as statHelpers from './statHelpers';
 
 var $w, api, content, i18n, moment, preenHistory, sortOrder,
@@ -22,9 +27,9 @@ api = module.exports = {};
 api.i18n = i18n;
 api.shouldDo = shouldDo;
 
-api.maxLevel = statHelpers.MAX_LEVEL;
+api.maxLevel = MAX_LEVEL;
 api.capByLevel = statHelpers.capByLevel;
-api.maxHealth = statHelpers.MAX_HEALTH;
+api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
@@ -635,6 +640,7 @@ api.wrap = function(user, main) {
         _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
           return stats[value] = 0;
         });
+        // TODO during refactoring: move all gear code from rebirth() to its own function and then call it in reset() as well
         gear = user.items.gear;
         _.each(['equipped', 'costume'], function(type) {
           gear[type] = {};
@@ -1332,9 +1338,9 @@ api.wrap = function(user, main) {
         } else {
           if (user.preferences.autoEquip) {
             user.items.gear.equipped[item.type] = item.key;
+            message = user.fns.handleTwoHanded(item, null, req);
           }
           user.items.gear.owned[item.key] = true;
-          message = user.fns.handleTwoHanded(item, null, req);
           if (message == null) {
             message = i18n.t('messageBought', {
               itemText: item.text(req.language)
@@ -2004,20 +2010,22 @@ api.wrap = function(user, main) {
       return item;
     },
     handleTwoHanded: function(item, type, req) {
-      var message, ref, weapon;
+      var message, currentWeapon, currentShield;
       if (type == null) {
         type = 'equipped';
       }
-      if (item.type === "shield" && ((ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? ref.twoHanded : void 0)) {
+      currentShield = content.gear.flat[user.items.gear[type].shield];
+      currentWeapon = content.gear.flat[user.items.gear[type].weapon];
+
+      if (item.type === "shield" && (currentWeapon ? currentWeapon.twoHanded : false)) {
         user.items.gear[type].weapon = 'weapon_base_0';
-        message = i18n.t('messageTwoHandled', {
-          gearText: weapon.text(req.language)
+        message = i18n.t('messageTwoHandedUnequip', {
+          twoHandedText: currentWeapon.text(req.language), offHandedText: item.text(req.language),
         }, req.language);
-      }
-      if (item.twoHanded) {
+      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {
         user.items.gear[type].shield = "shield_base_0";
-        message = i18n.t('messageTwoHandled', {
-          gearText: item.text(req.language)
+        message = i18n.t('messageTwoHandedEquip', {
+          twoHandedText: item.text(req.language), offHandedText: currentShield.text(req.language),
         }, req.language);
       }
       return message;
@@ -2204,27 +2212,30 @@ api.wrap = function(user, main) {
       })()]++;
     },
     updateStats: function(stats, req, analytics) {
-      var tnl;
       if (stats.hp <= 0) {
         return user.stats.hp = 0;
       }
       user.stats.hp = stats.hp;
       user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-      tnl = api.tnl(user.stats.lvl);
-      if (stats.exp >= tnl) {
+
+      var experienceToNextLevel = api.tnl(user.stats.lvl);
+
+      if (stats.exp >= experienceToNextLevel) {
         user.stats.exp = stats.exp;
-        while (stats.exp >= tnl) {
-          stats.exp -= tnl;
+        while (stats.exp >= experienceToNextLevel) {
+          stats.exp -= experienceToNextLevel;
           user.stats.lvl++;
-          tnl = api.tnl(user.stats.lvl);
+          experienceToNextLevel = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
-          if (user.stats.lvl > api.maxLevel) {
+          var userTotalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
+
+          if (userTotalStatPoints >= MAX_STAT_POINTS) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = user.stats.lvl - userTotalStatPoints;
             if (user.stats.points < 0) {
               user.stats.points = 0;
             }
@@ -2277,6 +2288,7 @@ api.wrap = function(user, main) {
           if (analytics != null) {
             analytics.track('acquire item', analyticsData);
           }
+          if (!user._tmp) user._tmp = {}
           return user._tmp.drop = {
             type: 'Quest',
             key: k

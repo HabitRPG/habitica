@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "来自结余",
     "sendGiftPurchase": "支付",
     "sendGiftMessagePlaceholder": "私信(可选)",
-    "sendGiftSubscription": "<%= months %>月(或多个月)： $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
     "battleWithFriends": "与朋友一起大战怪兽",
     "startPartyWithFriends": "和你的朋友们组建新队伍",
     "startAParty": "创建一个队伍",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "队伍聊天框里空空如也！在上面的聊天框打字来开始聊天。",
     "guildChatEmpty": "公会聊天框里空空如也！在上面的聊天框打字来开始聊天。",
     "possessiveParty": "<%= name %>的队伍",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "如果你想在酒馆里，或是队伍和公会里张贴信息，请先阅读<%= linkStart %>交流须知<%= linkEnd %>并点击按钮，表示接受其中的条款。 "
 }

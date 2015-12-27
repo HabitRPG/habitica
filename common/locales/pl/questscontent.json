@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Święty Mikołaj-Myśliwy",
-    "questEvilSantaNotes": "W oddali, na lodowych pustkowiach słychać przeraźliwe ryki. Podążacie za odgłosami, przerywanymi chichotem innego głosu, aż znajdujecie polanę w lesie, na której widzicie dorosłą białą niedźwiedzicę. Jest zamknięta w klatce i skrępowana, rycząc błaga o życie. Na klatce tańczy mały złośliwy karzełek, ubrany w wyrzucone bożonarodzeniowe kostiumy. Pokonajcie Świętego Mikołaja-Myśliwego i uratujcie bestię!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Święty Mikołaj-Myśliwy piszczy z gniewu i odskakuje w ciemność. Wdzięczna niedźwiedzica przez ryki i warki próbuje Wam coś przekazać. Zabieracie ją do stajni, gdzie zaklinacz Matt Boch wysłuchuje jej historii z przerażeniem. Ona ma syna! Uciekł na połacie lodu, kiedy jego mama została złapana. Pomóżcie jej odnaleźć dziecko!",
     "questEvilSantaBoss": "Święty Mikołaj-Myśliwy",
     "questEvilSantaDropBearCubPolarMount": "Niedźwiedź polarny (wierzchowiec)",
@@ -268,10 +268,16 @@
     "questFrogBoss": "Śmieciowa Żaba",
     "questFrogDropFrogEgg": "Żaba (jajo)",
     "questFrogUnlockText": "Odblokowuje dostęp do kupna żabich jaj na Targu",
-    "questSnakeText": "The Serpent of Distraction",
-    "questSnakeNotes": "It takes a hardy soul to live in the Sand Dunes of Distraction. The arid desert is hardly a productive place, and the shimmering dunes have led many a traveler astray. However, something has even the locals spooked. The sands have been shifting and upturning entire villages. Residents claim a monster with an enormous serpentine body lies in wait under the sands, and they have all pooled together a reward for whomever will help them find and stop it. The much-lauded snake charmers @EmeraldOx and @PainterProphet have agreed to help you summon the beast. Can you stop the Serpent of Distraction?",
-    "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
-    "questSnakeBoss": "Serpent of Distraction",
+    "questSnakeText": "Wąż Rozproszenia",
+    "questSnakeNotes": "Trzeba mieć silnego ducha, by żyć na Wydmach Rozproszenia. Spieczona słońcem pustynia jest mało produktywnym miejscem, a na lśniących wydmach niejeden wędrowiec się zagubił. Jednak nawet miejscowi boją się czegoś. Piaski przesuwają i wywracają całe wioski. Mieszkańcy twierdzą, że potwór o ogromnym wężowatym cielsku czatuje na nich pod piaskami. Wszyscy razem ustalili nagrodę dla kogoś, kto pomoże im znaleźć i zatrzymać potwora. Znani i chwaleni zaklinacze węży, @EmeraldOx i @PainterProphet, zgodzili się pomóc ci wezwać bestię. Czy zdołasz ją pokonać?",
+    "questSnakeCompletion": "Z pomocą zaklinaczy wygnaliście Węża Rozproszenia. Cieszysz się, że pomogłeś mieszkańcom Wydm, jednak jest ci smutno z powodu pokonanego przeciwnika. Podczas gdy podziwiasz widoki, podchodzi do ciebie @LordDarkly. \"Dziękuję! To może nie jest wiele, ale mam nadzieję, że wystarczająco wyraża naszą wdzięczność.\" Wręcza ci trochę złota i... kilka jaj węża! Ostatecznie zobaczysz znowu to wspaniałe zwierzę.",
+    "questSnakeBoss": "Wąż rozproszenia",
     "questSnakeDropSnakeEgg": "Wąż (jajo)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Odblokowuje dostęp do kupna jaj Węża na Targu",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

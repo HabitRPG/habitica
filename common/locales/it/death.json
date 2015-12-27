@@ -5,12 +5,12 @@
     "refillHealthTryAgain": "Ripristina salute e riprovaci",
     "dyingOftenTips": "Succede spesso? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Qui trovi qualche consiglio! (in inglese)</a>",
     "losingHealthWarning": "Attenzione - stai perdendo Salute!",
-    "losingHealthWarning2": "Non lasciare che i tuoi punti salute scendano a zero! Se lo farai, perderai un livello, il tuo Oro e un pezzo di equipaggiamento.",
+    "losingHealthWarning2": "Non lasciare che la tua Salute scenda a zero! Se lo farai, perderai un livello, il tuo Oro e un pezzo di equipaggiamento.",
     "toRegainHealth": "Per ripristinare la Salute:",
     "lowHealthTips1": "Sali di livello per curarti completamente!",
     "lowHealthTips2": "Compra una Pozione di Salute nella colonna delle Ricompense per ripristinare 15 punti Salute.",
-    "losingHealthQuickly": "Perdi punti Salute rapidamente?",
-    "lowHealthTips3": "Le Daily incomplete ti danneggiano a fine giornata, quindi fai attenzione a non aggiungerne troppe tutte insieme!",
-    "lowHealthTips4": "Se una Daily non va completata in un certo giorno, puoi disattivarla cliccando sull'icona a forma di matita.",
+    "losingHealthQuickly": "Perdi Salute rapidamente?",
+    "lowHealthTips3": "Le Giornaliere incomplete ti danneggiano a fine giornata, quindi fai attenzione a non aggiungerne troppe all'inizio!",
+    "lowHealthTips4": "Se una Giornaliera non va completata in un certo giorno, puoi disattivarla cliccando sull'icona a forma di matita.",
     "goodLuck": "Buona fortuna!"
 }

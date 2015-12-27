@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Gerilă Braconieru'",
-    "questEvilSantaNotes": "Auzi răcnete schelălăite în depărtările cîmpului de gheață. Urmărești răcnetele și mârâiturile - accentuate de râsul înfundat al unei alte voci - până la un luminiș din codru unde vezi o ursoaică polară. E încătușată înăuntrul unei cuști, răcnind pentru propria viață. Dansând deasupra cuștii e un drăcușor îmbrăcat într-un costum de Crăciun din zdrențe. Învinge-l pe Gerilă Braconierul și salvează fiara!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Gerilă Braconierul scâncește de furie și dispare în întuneric. O ursoaică recunoscătoare, răcnind și mârâind, încearcă să-ți spună ceva. O duci înapoi la grajduri, unde șoptitorul Matt Boch îi ascultă povestea cu un icnet de spaimă. Are un pui! A fugit în câmpurile de gheață atunci când ursoaica a fost capturată. Ajut-o să-și găsească puiul!",
     "questEvilSantaBoss": "Gerilă Braconieru'",
     "questEvilSantaDropBearCubPolarMount": "Urs polar (Călare)",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

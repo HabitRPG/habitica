@@ -21,6 +21,7 @@
     "valentineCardAchievementText": "Aww, tu e il tuo amico dovete volervi proprio bene! Inviati o ricevuti <%= cards %> biglietti di San Valentino.",
     "polarBear": "Orso Polare",
     "turkey": "Tacchino",
+    "gildedTurkey": "Tacchino Dorato",
     "polarBearPup": "Cucciolo di Orso Polare",
     "jackolantern": "Zucca di Halloween",
     "seasonalShop": "Negozio Stagionale",
@@ -30,12 +31,17 @@
     "seasonalShopText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti primaverili in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Spring Fling\" ogni anno, ma siamo aperti solo fino al 30 aprile! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
     "seasonalShopSummerText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti estivi in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Summer Splash\" ogni anno, ma siamo aperti solo fino al 31 luglio! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
     "seasonalShopFallText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti autunnali in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Fall Festival\" ogni anno, ma siamo aperti solo fino al 31 ottobre! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
+    "seasonalShopWinterText": "Welcome to the Seasonal Shop!! We're stocking winter <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Winter Wonderland event each year, but we're only open until January 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopFallTextBroken": "Oh... Benvenuto al Negozio Stagionale... Abbiamo in vendita oggetti dell'Edizione Stagionale autunnale, o qualcosa del genere... Tutto quello che vedi qui sarà disponibile per l'acquisto durante l'evento Festival d'Autunno di ogni anno, ma siamo aperti sono fino al 31 Ottobre... Penso che dovresti rifornirti ora altrimenti dovrai aspettare... e aspettare... e aspettare...  <strong>*sigh*</strong>",
     "seasonalShopRebirth": "Se hai usato la Sfera della Rinascita, potrai riacquistare questo equipaggiamento dalla colonna delle Ricompense. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero, se non l'hai ancora scelta/cambiata), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
     "candycaneSet": "Caramello (Mago)",
     "skiSet": "Nevassassino (Assassino)",
     "snowflakeSet": "Fioccodineve (Guaritore)",
     "yetiSet": "Addestra-Yeti (Guerriero)",
+    "northMageSet": "Mage of the North (Mage)",
+    "icicleDrakeSet": "Icicle Drake (Rogue)",
+    "soothingSkaterSet": "Soothing Skater (Healer)",
+    "gingerbreadSet": "Gingerbread Warrior (Warrior)",
     "toAndFromCard": "A: <%= toName %>, Da: <%= fromName %>",
     "nyeCard": "Biglietto d'auguri per il nuovo anno",
     "nyeCardExplanation": "Per aver celebrato insieme il nuovo anno, ricevete entrambi la medaglia \"Vecchia conoscenza\"!",
@@ -61,5 +67,6 @@
     "witchyWizardSet": "Incantesimi Stregone (Mago)",
     "mummyMedicSet": "Medico Mummia (Guaritore)",
     "vampireSmiterSet": "Vampiro Castigatore (Assassino)",
-    "fallEventAvailability": "Disponibile fino al 31 ottobre"
+    "fallEventAvailability": "Disponibile fino al 31 ottobre",
+    "winterEventAvailability": "Available until December 31"
 }

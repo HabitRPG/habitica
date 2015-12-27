@@ -5,6 +5,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // challenge
     $scope.cid = $state.params.cid;
 
+    $scope.groupIdFilter = $stateParams.groupIdFilter;
+
     _getChallenges();
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
@@ -210,7 +212,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.removeTask = function(task, list) {
-      if (!confirm(window.env.t('sureDelete'))) return;
+      if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
       //TODO persist
       // User.log({op: "delTask", data: task});
       _.remove(list, task);
@@ -325,6 +327,21 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       });
     };
 
+    $scope.filterInitialChallenges = function() {
+      $scope.groupsFilter = _.uniq(_.pluck($scope.challenges, 'group'), function(g){return g._id});
+      $scope.search = {
+        group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
+        _isMember: "either",
+        _isOwner: "either"
+      };
+      //If we game from a group, then override the filter to that group
+
+      if ($scope.groupIdFilter) {
+        $scope.search.group = {};
+        $scope.search.group[$scope.groupIdFilter] = true ;
+      }
+    }
+
     function _calculateMaxPrize(gid) {
 
       var userBalance = User.getBalanceInGems() || 0;
@@ -375,12 +392,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       } else {
         Challenges.Challenge.query(function(challenges){
           $scope.challenges = challenges;
-          $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
-          $scope.search = {
-            group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
-            _isMember: "either",
-            _isOwner: "either"
-          };
+          $scope.filterInitialChallenges();
         });
       }
     };

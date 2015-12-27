@@ -37,7 +37,7 @@ describe('front page', function() {
     var login = element(by.css("#loginForm input[value='Login']"));
     login.click();
     var alertDialog = browser.switchTo().alert();
-    expect(alertDialog.getText()).toMatch("Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\".");
+    expect(alertDialog.getText()).toMatch("Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\" on the habitica.com website's login form.");
     alertDialog.accept();
   });
 

@@ -922,7 +922,15 @@ api.questEggs = {
     canBuy: (function(u) {
       return u.achievements.quests && (u.achievements.quests.snake != null) > 0;
     })
-  }
+  },
+  Unicorn: {
+    text: t('questEggUnicornText'),
+    mountText: t('questEggUnicornMountText'),
+    adjective: t('questEggUnicornAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.unicorn != null) > 0;
+    })
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -952,7 +960,8 @@ api.specialPets = {
   'JackOLantern-Base': 'jackolantern',
   'Mammoth-Base': 'mammoth',
   'Tiger-Veteran': 'veteranTiger',
-  'Phoenix-Base': 'phoenix'
+  'Phoenix-Base': 'phoenix',
+  'Turkey-Gilded': 'gildedTurkey',
 };
 
 api.specialMounts = {
@@ -1028,6 +1037,14 @@ api.premiumHatchingPotions = {
     limited: true,
     canBuy: (function() {
       return false;
+    })
+  },
+  Peppermint: {
+    value: 2,
+    text: t('hatchingPotionPeppermint'),
+    limited: true,
+    canBuy: (function() {
+      return true;
     })
   }
 };
@@ -1573,7 +1590,7 @@ api.quests = {
   },
   evilsanta: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -1599,7 +1616,7 @@ api.quests = {
   },
   evilsanta2: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -2931,7 +2948,39 @@ api.quests = {
       exp: 725,
       unlock: t('questSnakeUnlockText')
     }
-  }
+  },
+  unicorn: {
+    text: t('questUnicornText'),
+    notes: t('questUnicornNotes'),
+    completion: t('questUnicornCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questUnicornBoss'),
+      hp: 600,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }, {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }, {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questUnicornUnlockText')
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {
@@ -3213,7 +3262,21 @@ api.backgrounds = {
       text: t('backgroundSunsetOasisText'),
       notes: t('backgroundSunsetOasisNotes')
     }
-  }
+  },
+  backgrounds122015: {
+    alpine_slopes: {
+      text: t('backgroundAlpineSlopesText'),
+      notes: t('backgroundAlpineSlopesNotes')
+    },
+    snowy_sunrise: {
+      text: t('backgroundSnowySunriseText'),
+      notes: t('backgroundSnowySunriseNotes')
+    },
+    winter_town: {
+      text: t('backgroundWinterTownText'),
+      notes: t('backgroundWinterTownNotes')
+    }
+  },
 };
 
 api.subscriptionBlocks = {

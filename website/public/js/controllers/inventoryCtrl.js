@@ -114,8 +114,13 @@ habitrpg.controller("InventoryCtrl",
       var eggName = Content.eggs[egg.key].text();
       var potName = Content.hatchingPotions[potion.key].text();
       if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
+
+      var userHasPet = user.items.pets[egg.key + '-' + potion.key] > 0;
+      var isPremiumPet = Content.hatchingPotions[potion.key].premium && !Content.dropEggs[egg.key];
+
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
-      if (!user.preferences.suppressModals.hatchPet) {
+
+      if (!user.preferences.suppressModals.hatchPet && !userHasPet && !isPremiumPet) {
         $scope.hatchedPet = {
           egg: eggName,
           potion: potName,
@@ -159,7 +164,7 @@ habitrpg.controller("InventoryCtrl",
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood;
-        var startingMounts = Stats.totalCount(user.items.mounts);
+        var startingMounts = $rootScope.countExists(user.items.mounts);
         if (food.key === 'Saddle') {
           if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
@@ -169,7 +174,7 @@ habitrpg.controller("InventoryCtrl",
         $scope.selectedFood = null;
 
         _updateDropAnimalCount(user.items);
-        if (Stats.totalCount(user.items.mounts) > startingMounts && !user.preferences.suppressModals.raisePet) {
+        if ($rootScope.countExists(user.items.mounts) > startingMounts && !user.preferences.suppressModals.raisePet) {
           $scope.raisedPet = {
             displayName: petDisplayName,
             spriteName: pet,
@@ -211,7 +216,7 @@ habitrpg.controller("InventoryCtrl",
       var questArray = _.toArray(Content.quests);
 
       var filteredArray = _.filter(questArray, function(q){
-        return q.key == "egg";
+        return q.key.indexOf('evilsanta') !== -1;
       });
 
       return filteredArray;
@@ -257,7 +262,7 @@ habitrpg.controller("InventoryCtrl",
       }
     };
 
-    $scope.$on("habit:keyup", function (e, keyEvent) {
+    $scope.$on("habit:keydown", function (e, keyEvent) {
       if (keyEvent.keyCode == "27") {
         $scope.deselectItem();
       }

@@ -1,4 +1,12 @@
 /* eslint-disable camelcase, func-names, no-shadow */
+
+import {
+  generateUser,
+  generateDaily,
+  generateHabit,
+  generateTodo,
+} from '../helpers/common.helper';
+
 import {
   DAY_MAPPING,
   startOfWeek,
@@ -23,81 +31,6 @@ shared.i18n.translations = require('../../website/src/libs/i18n.js').translation
 test_helper.addCustomMatchers();
 
 /* Helper Functions */
-
-let newUser = (addTasks = true) => {
-  let buffs = {
-    per: 0,
-    int: 0,
-    con: 0,
-    str: 0,
-    stealth: 0,
-    streaks: false,
-  };
-  let user = {
-    auth: {
-      timestamps: {},
-    },
-    stats: {
-      str: 1,
-      con: 1,
-      per: 1,
-      int: 1,
-      mp: 32,
-      class: 'warrior',
-      buffs,
-    },
-    items: {
-      lastDrop: {
-        count: 0,
-      },
-      hatchingPotions: {},
-      eggs: {},
-      food: {},
-      gear: {
-        equipped: {},
-        costume: {},
-        owned: {},
-      },
-      quests: {},
-    },
-    party: {
-      quest: {
-        progress: {
-          down: 0,
-        },
-      },
-    },
-    preferences: {
-      autoEquip: true,
-    },
-    dailys: [],
-    todos: [],
-    rewards: [],
-    flags: {},
-    achievements: {
-      ultimateGearSets: {},
-    },
-    contributor: {
-      level: 2,
-    },
-    _tmp: {},
-  };
-
-  shared.wrap(user);
-  user.ops.reset(null, () => {});
-  if (addTasks) {
-    _.each(['habit', 'todo', 'daily'], (task) => {
-      user.ops.addTask({
-        body: {
-          type: task,
-          id: shared.uuid(),
-        },
-      });
-    });
-  }
-  return user;
-};
-
 let rewrapUser = (user) => {
   user._wrapped = false;
   shared.wrap(user);
@@ -106,7 +39,15 @@ let rewrapUser = (user) => {
 
 let beforeAfter = (options = {}) => {
   let lastCron;
-  let user = newUser();
+  let user = generateUser();
+  let daily = generateDaily();
+  let habit = generateHabit();
+  let todo = generateTodo();
+
+  user.dailys.push(daily);
+  user.habits.push(habit);
+  user.todos.push(todo);
+
   let ref = [user, _.cloneDeep(user)];
   let before = ref[0];
   let after = ref[1];
@@ -227,52 +168,10 @@ let repeatWithoutLastWeekday = () => {
 };
 
 describe('User', () => {
-  it('sets correct user defaults', () => {
-    let user = newUser();
-    let base_gear = {
-      armor: 'armor_base_0',
-      weapon: 'weapon_base_0',
-      head: 'head_base_0',
-      shield: 'shield_base_0',
-    };
-    let buffs = {
-      per: 0,
-      int: 0,
-      con: 0,
-      str: 0,
-      stealth: 0,
-      streaks: false,
-    };
-
-    expect(user.stats).to.eql({
-      str: 1,
-      con: 1,
-      per: 1,
-      int: 1,
-      hp: 50,
-      mp: 32,
-      lvl: 1,
-      exp: 0,
-      gp: 0,
-      class: 'warrior',
-      buffs,
-    });
-    expect(user.items.gear).to.eql({
-      equipped: base_gear,
-      costume: base_gear,
-      owned: {
-        weapon_warrior_0: true,
-      },
-    });
-    expect(user.preferences).to.eql({
-      autoEquip: true,
-      costume: false,
-    });
-  });
   it('calculates max MP', () => {
-    let user = newUser();
+    let user = generateUser();
 
-    expect(user).toHaveMaxMP(32);
+    expect(user).toHaveMaxMP(30);
     user.stats.int = 10;
     expect(user).toHaveMaxMP(50);
     user.stats.lvl = 5;
@@ -281,8 +180,9 @@ describe('User', () => {
     user.items.gear.equipped.weapon = 'weapon_wizard_1';
     expect(user).toHaveMaxMP(63);
   });
+
   it('handles perfect days', () => {
-    let user = newUser();
+    let user = generateUser();
 
     user.dailys = [];
     _.times(3, () => {
@@ -320,12 +220,13 @@ describe('User', () => {
     expect(user.stats.buffs.str).to.be(1);
     expect(user.achievements.perfect).to.be(2);
   });
+
   describe('Resting in the Inn', () => {
     let user = null;
     let cron = null;
 
     beforeEach(() => {
-      user = newUser();
+      user = generateUser();
       user.preferences.sleep = true;
       cron = () => {
         user.lastCron = moment().subtract(1, 'days');
@@ -339,15 +240,18 @@ describe('User', () => {
         }));
       });
     });
+
     it('remains in the inn on cron', () => {
       cron();
       expect(user.preferences.sleep).to.be(true);
     });
+
     it('resets dailies', () => {
       user.dailys[0].completed = true;
       cron();
       expect(user.dailys[0].completed).to.be(false);
     });
+
     it('resets checklist on incomplete dailies', () => {
       user.dailys[0].checklist = [
         {
@@ -369,6 +273,7 @@ describe('User', () => {
         expect(box.completed).to.be(false);
       });
     });
+
     it('resets checklist on complete dailies', () => {
       user.dailys[0].checklist = [
         {
@@ -391,6 +296,7 @@ describe('User', () => {
         expect(box.completed).to.be(false);
       });
     });
+
     it('does not reset checklist on grey incomplete dailies', () => {
       let yesterday = moment().subtract(1, 'days');
 
@@ -415,6 +321,7 @@ describe('User', () => {
         expect(box.completed).to.be(true);
       });
     });
+
     it('resets checklist on complete grey complete dailies', () => {
       let yesterday = moment().subtract(1, 'days');
 
@@ -440,6 +347,7 @@ describe('User', () => {
         expect(box.completed).to.be(false);
       });
     });
+
     it('does not damage user for incomplete dailies', () => {
       expect(user).toHaveHP(50);
       user.dailys[0].completed = true;
@@ -447,12 +355,14 @@ describe('User', () => {
       cron();
       expect(user).toHaveHP(50);
     });
+
     it('gives credit for complete dailies', () => {
       user.dailys[0].completed = true;
       expect(user.dailys[0].history).to.be.empty;
       cron();
       expect(user.dailys[0].history).to.not.be.empty;
     });
+
     it('damages user for incomplete dailies after checkout', () => {
       expect(user).toHaveHP(50);
       user.dailys[0].completed = true;
@@ -462,11 +372,12 @@ describe('User', () => {
       expect(user.stats.hp).to.be.lessThan(50);
     });
   });
+
   describe('Death', () => {
     let user;
 
     beforeEach(() => {
-      user = newUser();
+      user = generateUser();
     });
 
     it('revives correctly', () => {
@@ -477,7 +388,9 @@ describe('User', () => {
         hp: 0,
         class: 'warrior',
       };
+      user.items.gear.owned.weapon_warrior_0 = true;
       user.ops.revive();
+
       expect(user).toHaveGP(0);
       expect(user).toHaveExp(0);
       expect(user).toHaveLevel(1);
@@ -490,18 +403,28 @@ describe('User', () => {
     it('doesn\'t break unbreakables', () => {
       let ce = countExists;
 
-      user.items.gear.owned.shield_warrior_1 = true;
-      user.items.gear.owned.shield_rogue_1 = true;
-      user.items.gear.owned.head_special_nye = true;
+      user.items.gear.owned = {
+        weapon_warrior_0: true,
+        shield_warrior_1: true,
+        shield_rogue_1: true,
+        head_special_nye: true,
+      };
+
       expect(ce(user.items.gear.owned)).to.be(4);
+
       user.stats.hp = 0;
       user.ops.revive();
+
       expect(ce(user.items.gear.owned)).to.be(3);
+
       user.stats.hp = 0;
       user.ops.revive();
+
       expect(ce(user.items.gear.owned)).to.be(2);
+
       user.stats.hp = 0;
       user.ops.revive();
+
       expect(ce(user.items.gear.owned)).to.be(2);
       expect(user.items.gear.owned).to.eql({
         weapon_warrior_0: false,
@@ -524,9 +447,10 @@ describe('User', () => {
       expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be(true);
     });
   });
+
   describe('Rebirth', () => {
     it('removes correct gear', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.stats.lvl = 100;
       user.items.gear.owned = {
@@ -550,9 +474,10 @@ describe('User', () => {
       });
     });
   });
+
   describe('store', () => {
     it('buys a Quest scroll', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.stats.gp = 205;
       user.ops.buyQuest({
@@ -565,8 +490,9 @@ describe('User', () => {
       });
       expect(user).toHaveGP(5);
     });
+
     it('does not buy Quests without enough Gold', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.stats.gp = 1;
       user.ops.buyQuest({
@@ -577,8 +503,9 @@ describe('User', () => {
       expect(user.items.quests).to.eql({});
       expect(user).toHaveGP(1);
     });
+
     it('does not buy nonexistent Quests', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.stats.gp = 9999;
       user.ops.buyQuest({
@@ -589,8 +516,9 @@ describe('User', () => {
       expect(user.items.quests).to.eql({});
       expect(user).toHaveGP(9999);
     });
+
     it('does not buy Gem-premium Quests', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.stats.gp = 9999;
       user.ops.buyQuest({
@@ -602,9 +530,13 @@ describe('User', () => {
       expect(user).toHaveGP(9999);
     });
   });
+
   describe('Gem purchases', () => {
     it('does not purchase items without enough Gems', () => {
-      let user = newUser();
+      let user = generateUser();
+
+      user.items.eggs = {};
+      user.items.gear.owned = {};
 
       user.ops.purchase({
         params: {
@@ -624,12 +556,11 @@ describe('User', () => {
         },
       });
       expect(user.items.eggs).to.eql({});
-      expect(user.items.gear.owned).to.eql({
-        weapon_warrior_0: true,
-      });
+      expect(user.items.gear.owned).to.eql({});
     });
+
     it('purchases an egg', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.balance = 1;
       user.ops.purchase({
@@ -643,8 +574,9 @@ describe('User', () => {
       });
       expect(user.balance).to.eql(0.25);
     });
+
     it('purchases fox ears', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.balance = 1;
       user.ops.purchase({
@@ -653,14 +585,13 @@ describe('User', () => {
           key: 'headAccessory_special_foxEars',
         },
       });
-      expect(user.items.gear.owned).to.eql({
-        weapon_warrior_0: true,
-        headAccessory_special_foxEars: true,
-      });
+
+      expect(user.items.gear.owned.headAccessory_special_foxEars).to.eql(true);
       expect(user.balance).to.eql(0.5);
     });
+
     it('unlocks all the animal ears at once', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.balance = 2;
       user.ops.unlock({
@@ -668,20 +599,19 @@ describe('User', () => {
           path: 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars',
         },
       });
-      expect(user.items.gear.owned).to.eql({
-        weapon_warrior_0: true,
-        headAccessory_special_bearEars: true,
-        headAccessory_special_cactusEars: true,
-        headAccessory_special_foxEars: true,
-        headAccessory_special_lionEars: true,
-        headAccessory_special_pandaEars: true,
-        headAccessory_special_pigEars: true,
-        headAccessory_special_tigerEars: true,
-        headAccessory_special_wolfEars: true,
-      });
+
+      expect(user.items.gear.owned.headAccessory_special_bearEars).to.eql(true);
+      expect(user.items.gear.owned.headAccessory_special_cactusEars).to.eql(true);
+      expect(user.items.gear.owned.headAccessory_special_foxEars).to.eql(true);
+      expect(user.items.gear.owned.headAccessory_special_lionEars).to.eql(true);
+      expect(user.items.gear.owned.headAccessory_special_pandaEars).to.eql(true);
+      expect(user.items.gear.owned.headAccessory_special_pigEars).to.eql(true);
+      expect(user.items.gear.owned.headAccessory_special_tigerEars).to.eql(true);
+      expect(user.items.gear.owned.headAccessory_special_wolfEars).to.eql(true);
       expect(user.balance).to.eql(0.75);
     });
   });
+
   describe('spells', () => {
     _.each(shared.content.spells, (spellClass) => {
       _.each(spellClass, (spell) => {
@@ -697,6 +627,7 @@ describe('User', () => {
       });
     });
   });
+
   describe('drop system', () => {
     let user = null;
     const MIN_RANGE_FOR_POTION = 0;
@@ -707,7 +638,7 @@ describe('User', () => {
     const MAX_RANGE_FOR_FOOD = 1;
 
     beforeEach(function () {
-      user = newUser();
+      user = generateUser();
       user.flags.dropsEnabled = true;
       this.task_id = shared.uuid();
       return user.ops.addTask({
@@ -736,6 +667,7 @@ describe('User', () => {
       }
       return results;
     });
+
     it('drops a pet egg', function () {
       let results = [];
 
@@ -789,6 +721,7 @@ describe('User', () => {
       user.fns.predictableRandom.restore();
     });
   });
+
   describe('Quests', () => {
     _.each(shared.content.quests, (quest) => {
       it(`${ quest.text() } has valid values`, () => {
@@ -821,9 +754,12 @@ describe('User', () => {
       });
     });
   });
+
   describe('Achievements', () => {
     _.each(shared.content.classes, (klass) => {
-      let user = newUser();
+      let user = generateUser();
+
+      user.achievements.ultimateGearSets = {};
 
       user.stats.gp = 10000;
       _.each(shared.content.gearTypes, (type) => {
@@ -847,8 +783,9 @@ describe('User', () => {
         expect(user.achievements.ultimateGearSets[klass]).to.be.ok();
       });
     });
+
     it('does not remove existing Ultimate Gear achievements', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.achievements.ultimateGearSets = {
         healer: true,
@@ -869,24 +806,27 @@ describe('User', () => {
       });
     });
   });
+
   describe('unlocking features', () => {
     it('unlocks drops at level 3', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.stats.lvl = 3;
       user.fns.updateStats(user.stats);
       expect(user.flags.dropsEnabled).to.be.ok();
     });
+
     it('unlocks Rebirth at level 50', () => {
-      let user = newUser();
+      let user = generateUser();
 
       user.stats.lvl = 50;
       user.fns.updateStats(user.stats);
       expect(user.flags.rebirthEnabled).to.be.ok();
     });
+
     describe('level-awarded Quests', () => {
       it('gets Attack of the Mundane at level 15', () => {
-        let user = newUser();
+        let user = generateUser();
 
         user.stats.lvl = 15;
         user.fns.updateStats(user.stats);
@@ -895,7 +835,7 @@ describe('User', () => {
       });
 
       it('gets Vice at level 30', () => {
-        let user = newUser();
+        let user = generateUser();
 
         user.stats.lvl = 30;
         user.fns.updateStats(user.stats);
@@ -904,7 +844,7 @@ describe('User', () => {
       });
 
       it('gets Golden Knight at level 40', () => {
-        let user = newUser();
+        let user = generateUser();
 
         user.stats.lvl = 40;
         user.fns.updateStats(user.stats);
@@ -913,7 +853,7 @@ describe('User', () => {
       });
 
       it('gets Moonstone Chain at level 60', () => {
-        let user = newUser();
+        let user = generateUser();
 
         user.stats.lvl = 60;
         user.fns.updateStats(user.stats);
@@ -944,6 +884,7 @@ describe('Simple Scoring', () => {
     });
     expectLostPoints(this.before, this.after, 'habit');
   });
+
   it('Habits : Down', function () {
     this.after.ops.score({
       params: {
@@ -956,6 +897,7 @@ describe('Simple Scoring', () => {
     });
     expectGainedPoints(this.before, this.after, 'habit');
   });
+
   it('Dailys : Up', function () {
     this.after.ops.score({
       params: {
@@ -965,6 +907,7 @@ describe('Simple Scoring', () => {
     });
     expectGainedPoints(this.before, this.after, 'daily');
   });
+
   it('Dailys : Up, Down', function () {
     this.after.ops.score({
       params: {
@@ -980,6 +923,7 @@ describe('Simple Scoring', () => {
     });
     expectClosePoints(this.before, this.after, 'daily');
   });
+
   it('Todos : Up', function () {
     this.after.ops.score({
       params: {
@@ -1008,8 +952,13 @@ describe('Simple Scoring', () => {
 });
 
 describe('Cron', () => {
+  let user;
+
+  beforeEach(() => {
+    user = generateUser();
+  });
+
   it('computes shouldCron', () => {
-    let user = newUser();
     let paths = {};
 
     user.fns.cron({
@@ -1023,6 +972,7 @@ describe('Cron', () => {
     });
     expect(user.lastCron).to.be.greaterThan(0);
   });
+
   it('only dailies & todos are affected', () => {
     let ref = beforeAfter({
       daysAgo: 1,
@@ -1043,6 +993,7 @@ describe('Cron', () => {
 
     expect(beforeTasks).to.eql(afterTasks);
   });
+
   describe('preening', () => {
     beforeEach(function () {
       this.clock = sinon.useFakeTimers(Date.parse('2013-11-20'), 'Date');
@@ -1160,6 +1111,7 @@ describe('Cron', () => {
       });
     });
   });
+
   describe('Todos', () => {
     it('1 day missed', () => {
       let ref = beforeAfter({
@@ -1177,6 +1129,7 @@ describe('Cron', () => {
       expect(after.todos[0].value).to.be(-1);
       expect(after.history.todos).to.have.length(1);
     });
+
     it('2 days missed', () => {
       let ref = beforeAfter({
         daysAgo: 2,
@@ -1190,6 +1143,7 @@ describe('Cron', () => {
       expect(after.todos[0].value).to.be(-1);
     });
   });
+
   describe('cron day calculations', () => {
     let dayStart = 4;
     let fstr = 'YYYY-MM-DD HH: mm: ss';
@@ -1202,6 +1156,7 @@ describe('Cron', () => {
 
       expect(start.format(fstr)).to.eql('2014-10-08 04: 00: 00');
     });
+
     it('startOfDay after dayStart', () => {
       let start = startOfDay({
         now: moment('2014-10-09 05: 30: 00'),
@@ -1210,6 +1165,7 @@ describe('Cron', () => {
 
       expect(start.format(fstr)).to.eql('2014-10-09 04: 00: 00');
     });
+
     it('daysSince cron before, now after', () => {
       let lastCron = moment('2014-10-09 02: 30: 00');
       let days = daysSince(lastCron, {
@@ -1219,6 +1175,7 @@ describe('Cron', () => {
 
       expect(days).to.eql(1);
     });
+
     it('daysSince cron before, now before', () => {
       let lastCron = moment('2014-10-09 02: 30: 00');
       let days = daysSince(lastCron, {
@@ -1228,6 +1185,7 @@ describe('Cron', () => {
 
       expect(days).to.eql(0);
     });
+
     it('daysSince cron after, now after', () => {
       let lastCron = moment('2014-10-09 05: 30: 00');
       let days = daysSince(lastCron, {
@@ -1237,6 +1195,7 @@ describe('Cron', () => {
 
       expect(days).to.eql(0);
     });
+
     it('daysSince cron after, now tomorrow before', () => {
       let lastCron = moment('2014-10-09 12: 30: 00');
       let days = daysSince(lastCron, {
@@ -1246,6 +1205,7 @@ describe('Cron', () => {
 
       expect(days).to.eql(0);
     });
+
     it('daysSince cron after, now tomorrow after', () => {
       let lastCron = moment('2014-10-09 12: 30: 00');
       let days = daysSince(lastCron, {
@@ -1489,18 +1449,21 @@ describe('Helper', () => {
     expect(shared.gold(1.957)).to.eql(1);
     expect(shared.gold()).to.eql(0);
   });
+
   it('calculates silver coins', () => {
     expect(shared.silver(10)).to.eql(0);
     expect(shared.silver(1.957)).to.eql(95);
     expect(shared.silver(0.01)).to.eql('01');
     expect(shared.silver()).to.eql('00');
   });
+
   it('calculates experience to next level', () => {
     expect(shared.tnl(1)).to.eql(150);
     expect(shared.tnl(2)).to.eql(160);
     expect(shared.tnl(10)).to.eql(260);
     expect(shared.tnl(99)).to.eql(3580);
   });
+
   it('calculates the start of the day', () => {
     let fstr = 'YYYY-MM-DD HH: mm: ss';
     let today = '2013-01-01 00: 00: 00';

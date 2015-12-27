@@ -13,8 +13,9 @@
 
   // Icons only available if you own the tasks (aka, hidden from challenge stats)
   span(ng-if='!obj._locked')
-    a(ng-click='pushTask(task,$index,"top")', tooltip=env.t('pushTaskToTop'))
-      span.glyphicon.glyphicon-open
+    a(ng-click='pushTask(task,$index,"top")', tooltip=env.t('pushTaskToTop'), ng-class="{'push-down': ctrlPressed}")
+      span(ng-hide="ctrlPressed").glyphicon.glyphicon-open
+      span(ng-show="ctrlPressed").glyphicon.glyphicon-save
     // a(ng-click='pushTask(task,$index,"bottom")', tooltip=env.t('pushTaskToBottom'))
     //   span.glyphicon.glyphicon-import
     //   // glyphicon-import or glyphicon-save or glyphicon-sort-by-attributes

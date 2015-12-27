@@ -9,7 +9,8 @@ html(ng-app='habitrpg')
     script(type='text/javascript').
       window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 
-    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=4')
+    link(rel='shortcut icon', sizes="32x32", href='#{env.getBuildUrl("favicon.ico")}?v=4')
+    link(rel='shortcut icon', sizes="192x192", href='#{env.getBuildUrl("favicon_192x192.png")}?v=4')
 
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')

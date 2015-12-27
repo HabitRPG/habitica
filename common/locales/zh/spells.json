@@ -26,7 +26,7 @@
     "spellHealerHealText": "圣光术",
     "spellHealerHealNotes": "圣光笼罩着你，治愈了你的伤口。你获得了生命值！(法术强度与体质值以及智力值有关)",
     "spellHealerBrightnessText": "灼热光矢",
-    "spellHealerBrightnessNotes": "你爆发出一道光闪瞎了你的任务。你的任务的蓝色值增加、红色值降低了。(法术强度与力量值有关)",
+    "spellHealerBrightnessNotes": "你爆发出一道光闪瞎了你的任务。你的任务的蓝色值增加、红色值降低了。(法术强度与智力值有关)",
     "spellHealerProtectAuraText": "守护光环",
     "spellHealerProtectAuraNotes": "你保护你的队伍免受伤害。你的整个队伍获得体质上的增益！(法术强度与未增益的体质值有关)",
     "spellHealerHealAllText": "祝福",
