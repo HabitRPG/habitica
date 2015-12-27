@@ -162,6 +162,8 @@ schema.statics.getGroup = function getGroup (user, groupId, fields) {
     .findOne(query)
     .select(fields)
     .exec(); // TODO catch errors here?
+
+    // TODO purge chat flags info?
 };
 
 // TODO move to its own model

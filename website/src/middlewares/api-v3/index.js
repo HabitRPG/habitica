@@ -9,6 +9,7 @@ import notFoundHandler from './notFound';
 import nconf from 'nconf';
 import morgan from 'morgan';
 import responseHandler from './response';
+import setupBody from './setupBody';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
@@ -23,6 +24,7 @@ export default function attachMiddlewares (app) {
   app.use(bodyParser.json());
   app.use(expressValidator());
   app.use(analytics);
+  app.use(setupBody);
   app.use(responseHandler);
   app.use(getUserLanguage);
 

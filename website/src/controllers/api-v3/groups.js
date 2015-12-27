@@ -10,9 +10,12 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import * as firebase from '../../libs/api-v3/firebase';
-import txnEmail from '../../libs/api-v3/email';
+import { txnEmail } from '../../libs/api-v3/email';
+// import { encrypt } from '../../libs/api-v3/encryption';
 
 let api = {};
+
+// TODO shall we accept party as groupId in all routes?
 
 /**
  * @api {post} /groups Create group
@@ -250,6 +253,9 @@ api.leaveGroup = {
     // When removing the user from challenges, should we keep the tasks?
     req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
 
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
     Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
     .then(group => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -305,11 +311,16 @@ api.removeGroupMember = {
     let group;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
-    req.checkParams('groupId', res.t('userIdRequired')).notEmpty().isUUID();
+    req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
 
     Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
     .then(foundGroup => {
       group = foundGroup;
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+
       let uuid = req.query.memberId;
 
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
@@ -362,5 +373,192 @@ api.removeGroupMember = {
     .catch(next);
   },
 };
+
+/* function _inviteByUUIDs (uuids, group, inviter, req, res, next) {
+  async.each(uuids, function(uuid, cb){
+    User.findById(uuid, function(err,invite){
+      if (err) return cb(err);
+      if (!invite)
+         return cb({code:400,err:'User with id "' + uuid + '" not found'});
+      if (group.type == 'guild') {
+        if (_.contains(group.members,uuid))
+          return cb({code:400, err: "User already in that group"});
+        if (invite.invitations && invite.invitations.guilds && _.find(invite.invitations.guilds, {id:group._id}))
+          return cb({code:400, err:"User already invited to that group"});
+        sendInvite();
+      } else if (group.type == 'party') {
+        if (invite.invitations && !_.isEmpty(invite.invitations.party))
+          return cb({code: 400,err:"User already pending invitation."});
+        Group.find({type: 'party', members: {$in: [uuid]}}, function(err, groups){
+          if (err) return cb(err);
+          if (!_.isEmpty(groups) && groups[0].members.length > 1) {
+            return cb({code: 400, err: "User already in a party."})
+          }
+          sendInvite();
+        });
+      }
+
+      function sendInvite (){
+        if(group.type === 'guild'){
+          invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
+
+          pushNotify.sendNotify(invite, shared.i18n.t('invitedGuild'), group.name);
+        }else{
+          //req.body.type in 'guild', 'party'
+          invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
+
+          pushNotify.sendNotify(invite, shared.i18n.t('invitedParty'), group.name);
+        }
+
+        group.invites.push(invite._id);
+
+        async.series([
+          function(cb){
+            invite.save(cb);
+          }
+        ], function(err, results){
+          if (err) return cb(err);
+
+          if(invite.preferences.emailNotifications['invited' + (group.type == 'guild' ? 'Guild' : 'Party')] !== false){
+            var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
+            var emailVars = [
+              {name: 'INVITER', content: inviterVars.name},
+              {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
+            ];
+
+            if(group.type == 'guild'){
+              emailVars.push(
+                {name: 'GUILD_NAME', content: group.name},
+                {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
+              );
+            }else{
+              emailVars.push(
+                {name: 'PARTY_NAME', content: group.name},
+                {name: 'PARTY_URL', content: '/#/options/groups/party'}
+              )
+            }
+
+            utils.txnEmail(invite, ('invited-' + (group.type == 'guild' ? 'guild' : 'party')), emailVars);
+          }
+
+          cb();
+        });
+      }
+    });
+  }, function(err){
+    if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
+
+    async.series([
+      function(cb) {
+        group.save(cb);
+      },
+      function(cb) {
+        // TODO pass group from save above don't find it again, or you have to find it again in order to run populate?
+        populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
+          if(err) return next(err);
+
+          res.json(populatedGroup);
+        });
+      }
+    ]);
+  });
+};
+
+function _inviteByEmails (emails, group, inviter, req, res, next) {
+  let usersAlreadyRegistered = [];
+  let invitesToSend = [];
+
+  return Q.all(emails.forEach(invite => {
+    if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
+
+    return User.findOne({$or: [
+      {'auth.local.email': invite.email},
+      {'auth.facebook.emails.value': invite.email}
+    ]})
+    .select({_id: true, 'preferences.emailNotifications': true})
+    .exec()
+    .then(userToContact => {
+      if(userToContact){
+        usersAlreadyRegistered.push(userToContact._id); // TODO does it work not returning
+      } else {
+        // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
+        // TODO absolutely refactor this horrible code
+        let link = `?partyInvite=${utils.encrypt(JSON.stringify({id: group._id, inviter: inviter, name: group.name}))}`;
+
+        let inviterVars = getUserInfo(inviter, ['name', 'email']);
+        let variables = [
+          {name: 'LINK', content: link},
+          {name: 'INVITER', content: req.body.inviter || inviterVars.name},
+          {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
+        ];
+
+        if(group.type == 'guild'){
+          variables.push({name: 'GUILD_NAME', content: group.name});
+        }
+
+        // TODO implement "users can only be invited once"
+        // Check for the email address not to be unsubscribed
+        return EmailUnsubscription.findOne({email: invite.email}).exec()
+        .then(unsubscribed => {
+          if (!unsubscribed) utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+        });
+      }
+    });
+  }))
+  .then(() => {
+    if (usersAlreadyRegistered.length > 0){
+      return _inviteByUUIDs(usersAlreadyRegistered, group, inviter, req, res, next);
+    }
+
+    res.respond(200, {}); // TODO what to return?
+  });
+}; */
+
+/**
+ * @api {post} /groups/:groupId/invite Invite users to a group using their UUIDs or email addresses
+ * @apiVersion 3.0.0
+ * @apiName InviteToGroup
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ *
+ * @apiParam {array} emails An array of emails addresses to invite (optional) (inside body)
+ * @apiParam {array} uuids An array of uuids to invite (optional) (inside body)
+ * @apiParam {string} inviter The inviters' name (optional) (inside body)
+ *
+ * @apiSuccess {Object} empty An empty object
+ */
+/* api.inviteToGroup = {
+  method: 'POST',
+  url: '/groups/:groupId/invite',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat TODO other fields too?
+    .then(group => {
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+
+      let uuids = req.body.uuids;
+      let emails = req.body.emails;
+
+      if (uuids && emails) { // TODO fix this, low priority, allow for inviting by both at the same time
+        throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
+      } else if (Array.isArray(uuids)) {
+        return _inviteByUUIDs(uuids, group, user, req, res, next);
+      } else if (Array.isArray(emails)) {
+        return _inviteByEmails(emails, group, user, req, res, next)
+      } else {
+        throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
+      }
+    })
+    .catch(next);
+  },
+};*/
 
 export default api;
