@@ -1,10 +1,7 @@
 import {
-  refPush,
-} from '../../common/script/index';
-
-import {
   $w,
   countExists,
+  refPush,
 } from '../../common/script/helpers';
 
 import {
@@ -15,15 +12,18 @@ import {
 describe('convenience functions', () => {
   describe('$w', () => {
     it('converts a space-delimited string to an array', () => {
-      expect($w('space delimited string')).to.eql(['space', 'delimited', 'string']);
+      let words = $w('space delimited string');
+
+      expect(words).to.eql(['space', 'delimited', 'string']);
     });
   });
 
   describe('refPush', () => {
-    let testObject = {};
     const UUID = 'identity';
-    const ITEM_WITH_UUID = {id: UUID, data: 'abcdef'};
+    const ITEM_WITH_UUID = { id: UUID, data: 'abcdef' };
     const UUID_2 = 'uniqueness';
+
+    let testObject = {};
 
     it('adds an item to the given object', () => {
       refPush(testObject, ITEM_WITH_UUID);
