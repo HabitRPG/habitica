@@ -1,3 +1,5 @@
+@require "./variables/screen-size.styl"
+
 /* header wrapper
 -------------------- */
 .header-wrap
@@ -10,7 +12,7 @@
   overflow-y: hidden
   overflow-x: auto
   // position relative
-  @media screen and (max-width:767px)  // remove padding-top when toolbar is static
+  @media screen and (max-width: $xs-max-screen-width)  // remove padding-top when toolbar is static
     padding: 0
 .toolbar.active ~ .header-wrap
   padding: 0 // remove padding when toolbar is hidden
@@ -107,7 +109,7 @@
   vertical-align: middle
   min-width:175px
   width: 75%
-  @media screen and (max-width:767px)
+  @media screen and (max-width: $xs-max-screen-width)
     padding: 1.1em 0.618em 0
   .meter-label
     float: left

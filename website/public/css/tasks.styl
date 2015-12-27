@@ -1,3 +1,5 @@
+@require "./variables/screen-size.styl"
+
 // 1. Set up color classes
 // ========================
 
@@ -155,7 +157,7 @@ for $stage in $stages
     cursor: auto
 
 // 50% width columns with scrollbars for tablets
-@media (min-width: 768px) and (max-width: 970px)
+@media (min-width: $sm-min-screen-width) and (max-width: 970px)
   .task-column
     max-height: 18.6em
     overflow-y: scroll

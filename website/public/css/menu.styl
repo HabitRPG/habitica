@@ -1,3 +1,5 @@
+@require "./variables/screen-size.styl"
+
 // Top level navigation bar – toolbar – menu – nav
 .toolbar
   top:0
@@ -8,7 +10,7 @@
   border-bottom: 1px solid darken($color-herobox, 12%)
 .toolbar.active
   width: auto
-@media screen and (min-width:768px)
+@media screen and (min-width: $sm-min-screen-width)
   .toolbar
     position:fixed
 // Button to toggle toolbar visibility
@@ -66,7 +68,7 @@
   display: inline-block
   padding-left: 0.618em
   padding-right: 0.618em
-  @media screen and (min-width:768px)
+  @media screen and (min-width: $sm-min-screen-width)
     display: none
 .toolbar-mobile
   @extend $hrpg-button
@@ -77,7 +79,7 @@
   white-space: nowrap
   float:left;
   padding: 0.618em
-  @media screen and (max-width:767px)
+  @media screen and (max-width: $xs-max-screen-width)
     display: none
   > li
     margin-right: 0.618em
@@ -98,7 +100,7 @@
 .toolbar-bailey, .toolbar-wallet, .toolbar-options, .toolbar-subscribe
   float:right
   padding: 0.618em 0.618em 0.618em 0
-  @media screen and (max-width:767px)
+  @media screen and (max-width: $xs-max-screen-width)
     float: none
     display: inline-block
     padding: 0.618em 0.382em 0.618em 0
@@ -121,7 +123,7 @@
 .toolbar-options, .toolbar-wallet
   > li
     margin-left: 0.618em
-@media screen and (max-width:767px)
+@media screen and (max-width: $xs-max-screen-width)
   .toolbar-options
     > li
       padding-left:0em
@@ -140,7 +142,7 @@
   div
     padding-bottom: 1em
     width: 300px
-    @media screen and (max-width:767px)
+    @media screen and (max-width: $xs-max-screen-width)
       width: 96%
     .toolbar-notifs-notifs
       padding-bottom:1em
@@ -167,7 +169,7 @@
     hrpg-button-color-mixin(lighten($color-toolbar,32.8%))
 .toolbar-subscribe-button, .toolbar-controls .toolbar-subscribe-button
   @extend $hrpg-button
-@media screen and (max-width:767px)
+@media screen and (max-width: $xs-max-screen-width)
   .toolbar-toggle
     display: none
   .toolbar-mobile, .toolbar-settings, .toolbar-audio
