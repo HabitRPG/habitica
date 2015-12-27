@@ -2277,13 +2277,15 @@ api.wrap = function(user, main) {
       }
       user.stats.hp = stats.hp;
       user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-      var tnl = api.tnl(user.stats.lvl);
-      if (stats.exp >= tnl) {
+
+      var experienceToNextLevel = api.tnl(user.stats.lvl);
+
+      if (stats.exp >= experienceToNextLevel) {
         user.stats.exp = stats.exp;
-        while (stats.exp >= tnl) {
-          stats.exp -= tnl;
+        while (stats.exp >= experienceToNextLevel) {
+          stats.exp -= experienceToNextLevel;
           user.stats.lvl++;
-          tnl = api.tnl(user.stats.lvl);
+          experienceToNextLevel = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
           var userTotalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
 

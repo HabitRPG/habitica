@@ -31,7 +31,7 @@ describe('user.fns.updateStats', () => {
         hp: -5,
       };
 
-      user.fns.updateStats(stats)
+      user.fns.updateStats(stats);
 
       expect(user.stats.hp).to.eql(0);
     });
