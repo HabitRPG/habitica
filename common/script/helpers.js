@@ -18,10 +18,15 @@ export function $w (s) {
 
 export function refPush (reflist, item) {
   item.sort = isEmpty(reflist) ? 0 : max(reflist, 'sort').sort + 1;
-  if (!(item.id && !reflist[item.id])) {
+
+  let itemHasId = item.id && !reflist[item.id];
+
+  if (!itemHasId ) {
     item.id = uuid.v4();
   }
+
   reflist[item.id] = item;
+
   return reflist[item.id];
 }
 
