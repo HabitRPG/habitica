@@ -13,6 +13,7 @@ let Schema = mongoose.Schema;
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
 export let schema = new Schema({
+  // TODO don't break validation on _id === 'habitrpg'
   name: {type: String, required: true},
   description: String,
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
