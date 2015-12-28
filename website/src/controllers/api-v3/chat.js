@@ -133,16 +133,22 @@ api.likeChat = {
 
       if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
 
+      let update;
+
       if (!message.likes) message.likes = {};
       if (message.likes[user._id]) {
         delete message.likes[user._id];
+        update = {'$unset': {}};
+        update.$unset[`chat.$.likes.${user._id}`] = '';
       } else {
         message.likes[user._id] = true;
+        update = {'$set': {}};
+        update.$set[`chat.$.likes.${user._id}`] = true;
       }
 
       return Group.update(
         {_id: group._id, 'chat.id': message.id},
-        {$set: {'chat.$.likes': message.likes}}
+        update
       );
     })
     .then((groupSaved) => {
@@ -196,10 +202,13 @@ api.flagChat = {
     .then((foundAuthor) => {
       author = foundAuthor;
 
+      let update = {$set: {}};
+
       // Log user ids that have flagged the message
       if (!message.flags) message.flags = {};
       if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
       message.flags[user._id] = true;
+      update.$set[`chat.$.flags.${user._id}`] = true;
 
       // Log total number of flags (publicly viewable)
       if (!message.flagCount) message.flagCount = 0;
@@ -209,14 +218,12 @@ api.flagChat = {
       } else {
         message.flagCount++;
       }
+      update.$set['chat.$.flagCount'] = message.flagCount;
 
-      // return group.save();
       return Group.update(
         {_id: group._id, 'chat.id': message.id},
-        {$set: {
-          'chat.$.flags': message.flags,
-          'chat.$.flagCount': message.flagCount,
-        }});
+        update
+      );
     })
     .then((group2) => {
       if (!group2) throw new NotFound(res.t('groupNotFound'));
