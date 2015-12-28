@@ -40,7 +40,7 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options/groups/hall', '/options/groups/hall/heroes')
         .when('/options/inventory', '/options/inventory/drops')
         .when('/options/settings', '/options/settings/settings')
-
+        
         // redirect states that don't match
         .otherwise("/tasks");
 
@@ -49,7 +49,8 @@ window.habitrpg = angular.module('habitrpg',
         // Tasks
         .state('tasks', {
           url: "/tasks",
-          templateUrl: "partials/main.html"
+          templateUrl: "partials/main.html",
+          pageTitle: env.t('titleTasks')
         })
 
         // Options
@@ -67,19 +68,23 @@ window.habitrpg = angular.module('habitrpg',
         })
         .state('options.profile.avatar', {
           url: "/avatar",
-          templateUrl: "partials/options.profile.avatar.html"
+          templateUrl: "partials/options.profile.avatar.html",
+          pageTitle: env.t('titleAvatar')
         })
         .state('options.profile.backgrounds', {
           url: '/backgrounds',
-          templateUrl: "partials/options.profile.backgrounds.html"
+          templateUrl: "partials/options.profile.backgrounds.html",
+          pageTitle: env.t('titleBackgrounds')
         })
         .state('options.profile.stats', {
           url: "/stats",
-          templateUrl: "partials/options.profile.stats.html"
+          templateUrl: "partials/options.profile.stats.html",
+          pageTitle: env.t('titleStats')
         })
         .state('options.profile.profile', {
           url: "/profile",
-          templateUrl: "partials/options.profile.profile.html"
+          templateUrl: "partials/options.profile.profile.html",
+          pageTitle: env.t('titleProfile')
         })
 
         // Options > Groups
@@ -90,19 +95,22 @@ window.habitrpg = angular.module('habitrpg',
 
         .state('options.social.inbox', {
           url: "/inbox",
-          templateUrl: "partials/options.social.inbox.html"
+          templateUrl: "partials/options.social.inbox.html",
+          pageTitle: env.t('titleInbox')
         })
 
         .state('options.social.tavern', {
           url: "/tavern",
           templateUrl: "partials/options.social.tavern.html",
-          controller: 'TavernCtrl'
+          controller: 'TavernCtrl',
+          pageTitle: env.t('titleTavern')
         })
 
         .state('options.social.party', {
           url: '/party',
           templateUrl: "partials/options.social.party.html",
-          controller: 'PartyCtrl'
+          controller: 'PartyCtrl',
+          pageTitle: env.t('titleParty')
         })
 
         .state('options.social.hall', {
@@ -112,30 +120,36 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.hall.heroes', {
           url: '/heroes',
           templateUrl: "partials/options.social.hall.heroes.html",
-          controller: 'HallHeroesCtrl'
+          controller: 'HallHeroesCtrl',
+          pageTitle: env.t('titleHeroes')
         })
         .state('options.social.hall.patrons', {
           url: '/patrons',
           templateUrl: "partials/options.social.hall.patrons.html",
-          controller: 'HallPatronsCtrl'
+          controller: 'HallPatronsCtrl',
+          pageTitle: env.t('titlePatrons')
         })
 
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
-          controller: 'GuildsCtrl'
+          controller: 'GuildsCtrl',
+          pageTitle: env.t('titleGuilds')
         })
         .state('options.social.guilds.public', {
           url: '/public',
-          templateUrl: "partials/options.social.guilds.public.html"
+          templateUrl: "partials/options.social.guilds.public.html",
+          pageTitle: env.t('titleGuilds')
         })
         .state('options.social.guilds.create', {
           url: '/create',
-          templateUrl: "partials/options.social.guilds.create.html"
+          templateUrl: "partials/options.social.guilds.create.html",
+          pageTitle: env.t('titleGuilds')
         })
         .state('options.social.guilds.detail', {
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
+          pageTitle: env.t('titleGuilds'),
           controller: ['$scope', 'Groups', 'Chat', '$stateParams',
           function($scope, Groups, Chat, $stateParams){
             Groups.Group.get({gid:$stateParams.gid}, function(group){
@@ -150,11 +164,13 @@ window.habitrpg = angular.module('habitrpg',
           url: "/challenges",
           params: { groupIdFilter: null },
           controller: 'ChallengesCtrl',
-          templateUrl: "partials/options.social.challenges.html"
+          templateUrl: "partials/options.social.challenges.html",
+          pageTitle: env.t('titleChallenges')
         })
         .state('options.social.challenges.detail', {
           url: '/:cid',
           templateUrl: 'partials/options.social.challenges.detail.html',
+          pageTitle: env.t('titleChallenges'),
           controller: ['$scope', 'Challenges', '$stateParams',
             function($scope, Challenges, $stateParams){
               $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
@@ -165,6 +181,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.challenges.edit', {
           url: '/:cid/edit',
           templateUrl: 'partials/options.social.challenges.detail.html',
+          pageTitle: env.t('titleChallenges'),
           controller: ['$scope', 'Challenges', '$stateParams',
             function($scope, Challenges, $stateParams){
               $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
@@ -175,6 +192,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.challenges.detail.member', {
           url: '/:uid',
           templateUrl: 'partials/options.social.challenges.detail.member.html',
+          pageTitle: env.t('titleChallenges'),
           controller: ['$scope', 'Challenges', '$stateParams',
             function($scope, Challenges, $stateParams){
               $scope.obj = Challenges.Challenge.getMember({cid:$stateParams.cid, uid:$stateParams.uid}, function(){
@@ -191,62 +209,75 @@ window.habitrpg = angular.module('habitrpg',
         })
         .state('options.inventory.drops', {
           url: '/drops',
-          templateUrl: "partials/options.inventory.drops.html"
+          templateUrl: "partials/options.inventory.drops.html",
+          pageTitle: env.t('titleDrops')
         })
         .state('options.inventory.quests', {
           url: '/quests',
-          templateUrl: "partials/options.inventory.quests.html"
+          templateUrl: "partials/options.inventory.quests.html",
+          pageTitle: env.t('titleQuests')
         })
         .state('options.inventory.pets', {
           url: '/pets',
-          templateUrl: "partials/options.inventory.pets.html"
+          templateUrl: "partials/options.inventory.pets.html",
+          pageTitle: env.t('titlePets')
         })
         .state('options.inventory.mounts', {
           url: '/mounts',
-          templateUrl: "partials/options.inventory.mounts.html"
+          templateUrl: "partials/options.inventory.mounts.html",
+          pageTitle: env.t('titleMounts')
         })
         .state('options.inventory.equipment', {
           url: '/equipment',
-          templateUrl: "partials/options.inventory.equipment.html"
+          templateUrl: "partials/options.inventory.equipment.html",
+          pageTitle: env.t('titleEquipment')
         })
         .state('options.inventory.timetravelers', {
           url: '/timetravelers',
-          templateUrl: "partials/options.inventory.timetravelers.html"
+          templateUrl: "partials/options.inventory.timetravelers.html",
+          pageTitle: env.t('titleTimeTravelers')
         })
         .state('options.inventory.seasonalshop', {
           url: '/seasonalshop',
-          templateUrl: "partials/options.inventory.seasonalshop.html"
+          templateUrl: "partials/options.inventory.seasonalshop.html",
+          pageTitle: env.t('titleSeasonalShop')
         })
 
         // Options > Settings
         .state('options.settings', {
           url: "/settings",
           controller: 'SettingsCtrl',
-          templateUrl: "partials/options.settings.html"
+          templateUrl: "partials/options.settings.html",
         })
         .state('options.settings.settings', {
           url: "/settings",
-          templateUrl: "partials/options.settings.settings.html"
+          templateUrl: "partials/options.settings.settings.html",
+          pageTitle: env.t('titleSettings')
         })
         .state('options.settings.api', {
           url: "/api",
-          templateUrl: "partials/options.settings.api.html"
+          templateUrl: "partials/options.settings.api.html",
+          pageTitle: env.t('titleSettings')
         })
         .state('options.settings.export', {
           url: "/export",
-          templateUrl: "partials/options.settings.export.html"
+          templateUrl: "partials/options.settings.export.html",
+          pageTitle: env.t('titleSettings')
         })
         .state('options.settings.promo', {
           url: "/promo",
-          templateUrl: "partials/options.settings.promo.html"
+          templateUrl: "partials/options.settings.promo.html",
+          pageTitle: env.t('titleSettings')
         })
         .state('options.settings.subscription', {
           url: "/subscription",
-          templateUrl: "partials/options.settings.subscription.html"
+          templateUrl: "partials/options.settings.subscription.html",
+          pageTitle: env.t('titleSettings')
         })
         .state('options.settings.notifications', {
           url: "/notifications",
-          templateUrl: "partials/options.settings.notifications.html"
+          templateUrl: "partials/options.settings.notifications.html",
+          pageTitle: env.t('titleSettings')
         });
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
