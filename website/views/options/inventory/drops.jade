@@ -9,10 +9,11 @@
           menu.pets-menu(label=(env.t('eggs') + ' ({{eggCount}})'))
             p.muted(ng-show='eggCount < 1')=env.t('noEggs')
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
+              - var title = env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"})
               button.customize-option(class='Pet_Egg_{{::egg}}',
                 ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0) && (Content.dropEggs[egg] || !selectedPotion.premium)}',
                 popover='{{::Content.eggs[egg].notes()}}', popover-append-to-body='true',
-                popover-title!=env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"}),
+                popover-title = title, aria-label = title,
                 popover-trigger='mouseenter', popover-placement='right',
                 ng-click='chooseEgg(egg)')
                 .badge.badge-info.stack-count {{points}}
@@ -41,8 +42,7 @@
               - var title = '{{::Content.food[food].text()}}'
               button.customize-option(class='Pet_Food_{{::food}}',
                 popover='{{::Content.food[food].notes()}}', 
-                popover-title=title,
-                aria-label = title,
+                popover-title=title, aria-label = title,
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
                 ng-click='chooseFood(food)')
@@ -118,9 +118,10 @@
             p.muted!=env.t('dropsExplanation')
 
             div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy(user)')
+              - var title = env.t("egg", {eggType: "{{::egg.text()}}"})
               button.customize-option(class='Pet_Egg_{{::egg.key}}',
                 popover='{{::egg.notes()}}', popover-append-to-body='true',
-                popover-title!=env.t("egg", {eggType: "{{::egg.text()}}"}),
+                popover-title = title, aria-label = title,
                 popover-trigger='mouseenter', popover-placement='top',
                 ng-click='purchase("eggs", egg)')
               p {{::egg.value}}&nbsp;
@@ -130,9 +131,10 @@
           menu.pets-menu(label=env.t('hatchingPotions'))
             p.muted!=env.t('dropsExplanation')
             div(ng-repeat='pot in Content.hatchingPotions', ng-if='!pot.premium')
+              - var title = env.t("potion", {potionType: "{{::pot.text()}}"})
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
                 popover='{{::pot.notes()}}', popover-append-to-body='true',
-                popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
+                popover-title = title, aria-label = title,
                 popover-trigger='mouseenter', popover-placement='top',
                 ng-click='purchase("hatchingPotions", pot)')
               p
@@ -143,9 +145,10 @@
           menu.pets-menu!=env.t('magicHatchingPotions') + " - " + env.t('winterEventAvailability')
             p.muted=env.t('premiumPotionNoDropExplanation')
             div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy(user)')
+              - var title = env.t("potion", {potionType: "{{::pot.text()}}"})
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
                 popover='{{::pot.notes()}} {{::pot.addlNotes()}}', popover-append-to-body='true',
-                popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
+                popover-title = title, aria-label = title,
                 popover-trigger='mouseenter', popover-placement='top',
                 ng-click='purchase("hatchingPotions", pot)')
               p
@@ -157,7 +160,9 @@
             p.muted!=env.t('dropsExplanation')
             div(ng-repeat='food in Content.food', ng-if='food.canBuy(user)')
               button.customize-option(class='Pet_Food_{{::food.key}}',
-                popover='{{::food.notes()}}', popover-title='{{::food.text()}}',
+                popover='{{::food.notes()}}', 
+                popover-title!='{{::food.text()}}',
+                aria-label!='{{::food.text()}}',
                 popover-trigger='mouseenter', popover-placement='top',
                 popover-append-to-body='true',
                 ng-click='purchase("food", food)')
@@ -175,6 +180,7 @@
               button.customize-option(class='inventory_special_fortify',
                 popover=env.t('fortifyPop'),
                 popover-title=env.t('fortifyName'),
+                aria-label=env.t('fortifyName'),
                 popover-trigger='mouseenter', popover-placement='top',
                 popover-append-to-body='true',
                 ng-click='openModal("reroll")')
@@ -209,9 +215,10 @@
                 | 20&nbsp;
                 span.shop_gold
             div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound')
+              - var title = '{{::Content.spells.special[type.key].text()}}'
               button.customize-option(class='inventory_special_{{::type.key}}',
               popover='{{::Content.spells.special[type.key].notes()}}',
-              popover-title='{{::Content.spells.special[type.key].text()}}',
+              popover-title=title, aria-label=title,
               popover-trigger='mouseenter', popover-placement='right',
               popover-append-to-body='true',
               ng-click='castStart(Content.spells.special[type.key])')
