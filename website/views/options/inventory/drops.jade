@@ -9,12 +9,10 @@
           menu.pets-menu(label=(env.t('eggs') + ' ({{eggCount}})'))
             p.muted(ng-show='eggCount < 1')=env.t('noEggs')
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
-              - var title = env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"})
               button.customize-option(class='Pet_Egg_{{::egg}}',
                 ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0) && (Content.dropEggs[egg] || !selectedPotion.premium)}',
                 popover='{{::Content.eggs[egg].notes()}}', popover-append-to-body='true',
-                popover-title=title,
-                aria-label=title,
+                popover-title!=env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"}),
                 popover-trigger='mouseenter', popover-placement='right',
                 ng-click='chooseEgg(egg)')
                 .badge.badge-info.stack-count {{points}}
@@ -23,12 +21,10 @@
           menu.pets-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
             p.muted(ng-show='potCount < 1')=env.t('noHatchingPotions')
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
-              - var title = env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"})
               button.customize-option(class='Pet_HatchingPotion_{{::pot}}',
                 ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0) && (Content.dropEggs[selectedEgg.key] || !Content.hatchingPotions[pot].premium)}',
                 popover='{{::Content.hatchingPotions[pot].notes()}} {{::Content.hatchingPotions[pot].addlNotes()}}',
-                popover-title=title,
-                aria-label=title,
+                popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"}),
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
                 ng-click='choosePotion(pot)')
@@ -44,7 +40,9 @@
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               - var title = '{{::Content.food[food].text()}}'
               button.customize-option(class='Pet_Food_{{::food}}',
-                popover='{{::Content.food[food].notes()}}', popover-title=title,
+                popover='{{::Content.food[food].notes()}}', 
+                popover-title=title,
+                aria-label = title,
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
                 ng-click='chooseFood(food)')
