@@ -481,6 +481,7 @@ schema.plugin(baseModel, {
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function userToJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
+    // TODO this works?
     doc.filters = {};
     doc._tmp = this._tmp; // be sure to send down drop notifs
 

@@ -1,55 +1,55 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-var shared = require('../../../common');
-var _ = require('lodash');
-var TaskSchemas = require('./task');
+import mongoose from 'mongoose';
+import Q from 'q';
+import validator from 'validator';
+import baseModel from '../libs/api-v3/baseModel';
+import _ from 'lodash';
+import * as Tasks from './task';
 
-var ChallengeSchema = new Schema({
-  _id: {type: String, 'default': shared.uuid},
-  name: String,
-  shortName: String,
+let Schema = mongoose.Schema;
+
+let schema = new Schema({
+  name: {type: String, required: true},
+  shortName: {type: String, required: true}, // TODO what is it?
   description: String,
-  official: {type: Boolean,'default':false},
-  //habits:   [TaskSchemas.HabitSchema],
-  //dailys:   [TaskSchemas.DailySchema],
-  //todos:    [TaskSchemas.TodoSchema],
-  //rewards:  [TaskSchemas.RewardSchema],
-  leader: {type: String, ref: 'User'},
-  group: {type: String, ref: 'Group'},
-  timestamp: {type: Date, 'default': Date.now},
-  members: [{type: String, ref: 'User'}],
-  memberCount: {type: Number, 'default': 0},
-  prize: {type: Number, 'default': 0}
+  official: {type: Boolean, default: false},
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+  },
+  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin?
+  memberCount: {type: Number, default: 0},
+  prize: {type: Number, default: 0, required: true},
 });
 
-ChallengeSchema.virtual('tasks').get(function () {
-  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
-  var tasks = _.object(_.pluck(tasks,'id'), tasks);
-  return tasks;
+schema.plugin(baseModel, {
+  noSet: ['_id', 'memberCount', 'tasksOrder'],
+  toJSONTransform: function userToJSON (doc) {
+    // TODO fixme
+    // TODO this works?
+    doc._isMember = this._isMember;
+
+    return doc;
+  },
 });
 
-ChallengeSchema.methods.toJSON = function(){
-  var doc = this.toObject();
-  doc._isMember = this._isMember;
-  return doc;
-}
 
-// --------------
 // Syncing logic
-// --------------
 
-function syncableAttrs(task) {
-  var t = (task.toObject) ? task.toObject() : task; // lodash doesn't seem to like _.omit on EmbeddedDocument
+function _syncableAttrs (task) {
+  let t = task.toObject(); // lodash doesn't seem to like _.omit on EmbeddedDocument
   // only sync/compare important attrs
-  var omitAttrs = 'challenge history tags completed streak notes'.split(' ');
-  if (t.type != 'reward') omitAttrs.push('value');
+  let omitAttrs = ['userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO use whitelist instead of blacklist?
+  if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
 
-/**
- * Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
- */
-function comparableData(obj) {
+// TODO redo
+// Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
+/* function comparableData(obj) {
   return JSON.stringify(
     _(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
       .sortBy('id') // we don't want to update if they're sort-order is different
@@ -59,62 +59,86 @@ function comparableData(obj) {
       .value())
 }
 
-ChallengeSchema.methods.isOutdated = function(newData) {
+ChallengeSchema.methods.isOutdated = function isChallengeOutdated (newData) {
   return comparableData(this) !== comparableData(newData);
-}
+}*/
 
-/**
- * Syncs all new tasks, deleted tasks, etc to the user object
- * @param user
- * @return nothing, user is modified directly. REMEMBER to save the user!
- */
-ChallengeSchema.methods.syncToUser = function(user, cb) {
-  if (!user) return;
-  var self = this;
-  self.shortName = self.shortName || self.name;
+// Syncs all new tasks, deleted tasks, etc to the user object
+schema.methods.syncToUser = function syncChallengeToUser (user) {
+  if (!user) throw new Error('User required.');
+
+  let challenge = this;
+  challenge.shortName = challenge.shortName || challenge.name;
 
   // Add challenge to user.challenges
-  if (!_.contains(user.challenges, self._id)) {
-      user.challenges.push(self._id);
-  }
+  if (!_.contains(user.challenges, challenge._id)) user.challenges.push(challenge._id);
 
   // Sync tags
-  var tags = user.tags || [];
-  var i = _.findIndex(tags, {id: self._id})
-  if (~i) {
-    if (tags[i].name !== self.shortName) {
+  let userTags = user.tags;
+  let i = _.findIndex(userTags, {_id: challenge._id});
+
+  if (i !== -1) {
+    if (userTags[i].name !== challenge.shortName) {
       // update the name - it's been changed since
-      user.tags[i].name = self.shortName;
+      userTags[i].name = challenge.shortName;
     }
   } else {
-    user.tags.push({
-      id: self._id,
-      name: self.shortName,
-      challenge: true
+    userTags.push({
+      _id: challenge._id,
+      name: challenge.shortName,
+      challenge: true,
     });
   }
 
   // Sync new tasks and updated tasks
-  _.each(self.tasks, function(task){
-    var list = user[task.type+'s'];
-    var userTask = user.tasks[task.id] || (list.push(syncableAttrs(task)), list[list.length-1]);
-    if (!userTask.notes) userTask.notes = task.notes; // don't override the notes, but provide it if not provided
-    userTask.challenge = {id:self._id};
-    userTask.tags = userTask.tags || {};
-    userTask.tags[self._id] = true;
-    _.merge(userTask, syncableAttrs(task));
-  })
+  return Q.all([
+    // Find original challenge tasks
+    Tasks.Task.find({
+      userId: {$exists: false},
+      'challenge.id': challenge._id,
+    }).exec(),
+    // Find user's tasks linked to this challenge
+    Tasks.Task.find({
+      userId: user._id,
+      'challenge.id': challenge._id,
+    }).exec(),
+  ])
+  .then(results => {
+    let challengeTasks = results[0];
+    let userTasks = results[1];
+    let toSave = []; // An array of things to save
 
-  // Flag deleted tasks as "broken"
-  _.each(user.tasks, function(task){
-    if (task.challenge && task.challenge.id==self._id && !self.tasks[task.id]) {
-      task.challenge.broken = 'TASK_DELETED';
-    }
-  })
+    challengeTasks.forEach(chalTask => {
+      let matchingTask = _.find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
 
-  user.save(cb);
+      if (!matchingTask) { // If the task is new, create it
+        matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
+        matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
+        matchingTask.userId = user._id;
+        user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
+      } else {
+        _.merge(matchingTask, _syncableAttrs(chalTask));
+        // Make sure the task is in user.tasksOrder TODO necessary?
+        let orderList = user.tasksOrder[`${chalTask.type}s`];
+        if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+      }
+
+      if (!matchingTask.notes) matchingTask.notes = chalTask.notes; // don't override the notes, but provide it if not provided
+      if (matchingTask.tags.indexOf(challenge._id) === -1) matchingTask.tags.push(challenge._id); // add tag if missing
+      toSave.push(matchingTask.save());
+    });
+
+    // Flag deleted tasks as "broken"
+    userTasks.forEach(userTask => {
+      if (!_.find(challengeTasks, chalTask => chalTask._id === userTask.challenge.taskId)) {
+        userTask.challenge.broken = 'TASK_DELETED';
+        toSave.push(userTask.save());
+      }
+    });
+
+    toSave.push(user.save());
+    return Q.all(toSave);
+  });
 };
 
-
-module.exports.schema = ChallengeSchema;
-module.exports.model = mongoose.model("Challenge", ChallengeSchema);
+export let model = mongoose.model('Challenge', schema);

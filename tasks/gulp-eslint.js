@@ -6,6 +6,7 @@ const SERVER_FILES = [
   './website/src/models/user.js',
   './website/src/models/task.js',
   './website/src/models/group.js',
+  './website/src/models/challenge.js',
   './website/src/models/tag.js',
   './website/src/models/emailUnsubscription.js',
   './website/src/server.js',
