@@ -20,7 +20,6 @@
           ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
           div(ng-repeat='item in gear[klass]')
             button.customize-option(, class='shop_{{::item.key}}',
-              aria-label='{{::item.text()}}',
               ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}',
               ng-click='equip(item.key, "equipped")',
               popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
@@ -57,5 +56,6 @@
               ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}',
               ng-click='equip(item.key, "costume")',
               popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+              aria-label='{{::item.text()}}',
               popover-trigger='mouseenter', popover-placement='right',
               popover-append-to-body='true')
