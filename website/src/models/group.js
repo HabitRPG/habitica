@@ -73,6 +73,12 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount'],
 });
 
+// A list of additional fields that cannot be updated (but can be set on creation)
+let noUpdate = ['privacy', 'type'];
+schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
+  return model.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
+};
+
 // TODO migration
 /**
  * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration

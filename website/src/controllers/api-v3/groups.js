@@ -161,6 +161,45 @@ api.getGroup = {
 };
 
 /**
+ * @api {put} /groups/:groupId Update group
+ * @apiVersion 3.0.0
+ * @apiName UpdateGroup
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ *
+ * @apiSuccess {Object} group The updated group object
+ */
+api.updateGroup = {
+  method: 'PUT',
+  url: '/groups/:groupId',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Group.getGroup(user, req.params.groupId)
+    .then(group => {
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+      _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
+
+      return group.save();
+    }).then(savedGroup => {
+      res.respond(200, savedGroup);
+      firebase.updateGroupData(savedGroup);
+    })
+    .catch(next);
+  },
+};
+
+/**
  * @api {post} /groups/:groupId/join Join a group
  * @apiVersion 3.0.0
  * @apiName JoinGroup
