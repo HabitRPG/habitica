@@ -6,7 +6,7 @@ import {
   NotFound,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
-import * as Tasks from './task';
+import * as Tasks from '../../models/task';
 import Q from 'q';
 
 let api = {};
