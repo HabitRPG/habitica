@@ -44,7 +44,6 @@
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               - var title = '{{::Content.food[food].text()}}'
               button.customize-option(class='Pet_Food_{{::food}}',
-                aria-label = title,
                 popover='{{::Content.food[food].notes()}}', popover-title=title,
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
@@ -58,7 +57,6 @@
                 button.customize-option(class='inventory_special_#{k}',
                   popover='{{::Content.special.#{k}.notes()}}',
                   popover-title='{{::Content.special.#{k}.text()}}',
-                  aria-label='{{::Content.special.#{k}.text()}}',
                   popover-trigger='mouseenter', popover-placement='right',
                   popover-append-to-body='true',
                   ng-click='castStart(Content.special.#{k})')
