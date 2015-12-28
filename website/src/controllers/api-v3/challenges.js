@@ -19,7 +19,7 @@ let api = {};
  *
  * @apiSuccess {object} challenge The newly created challenge
  */
-api.getChallenges = {
+api.createChallenge = {
   method: 'POST',
   url: '/challenges',
   middlewares: [authWithHeaders(), cron],
