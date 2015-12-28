@@ -22,18 +22,11 @@ let schema = new Schema({
   group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin?
   memberCount: {type: Number, default: 0},
-  prize: {type: Number, default: 0, required: true},
+  prize: {type: Number, default: 0, min: 0},
 });
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'tasksOrder'],
-  toJSONTransform: function userToJSON (doc) {
-    // TODO fixme
-    // TODO this works?
-    doc._isMember = this._isMember;
-
-    return doc;
-  },
 });
 
 

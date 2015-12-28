@@ -38,5 +38,8 @@
   "groupMemberNotFound": "User not found among group's members",
   "keepOrRemoveAll": "req.query.keep must be either \"keep-all\" or \"remove-all\"",
   "canOnlyInviteEmailUuid": "Can only invite using uuids or emails but not both at the same time.",
-  "inviteMissingEmail": "Missing email address in invite."
+  "inviteMissingEmail": "Missing email address in invite.",
+  "onlyGroupLeaderChal": "Only the group leader can create challenges",
+  "pubChalsMinPrize": "Prize must be at least 1 Gem for public challenges.",
+  "cantAfford": "You can't afford this prize. Purchase more gems or lower the prize amount."
 }
