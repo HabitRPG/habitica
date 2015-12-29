@@ -94,16 +94,6 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   }
 }*/
 
-// FIXME this isn't always triggered, since we sometimes use update() or findByIdAndUpdate()
-// @see https://github.com/LearnBoost/mongoose/issues/964 -> Add update pre?
-// TODO necessary?
-schema.pre('save', function preSaveGroup (next) {
-  // removeDuplicates(this);
-  this.memberCount = _.size(this.members);
-  this.challengeCount = _.size(this.challenges);
-  return next();
-});
-
 // TODO test
 schema.pre('remove', true, function preRemoveGroup (next, done) {
   next();
@@ -135,24 +125,6 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
-/* schema.methods.toJSON = function groupToJSON () {
-  let doc = this.toObject();
-  // removeDuplicates(doc);
-  doc._isMember = this._isMember; // TODO ?
-
-  // TODO migration
-  // fix(groups): temp fix to remove chat entries stored as strings (not sure why that's happening..).
-  // Required as angular 1.3 is strict on dupes, and no message.id to `track by`
-  _.remove(doc.chat, msg => !msg.id);
-
-  // TODO should not be needed here
-  // @see pre('save') comment above
-  this.memberCount = _.size(this.members);
-  this.challengeCount = _.size(this.challenges);
-
-  return doc;
-};*/
-
 // TODO populate (invites too), isMember?
 schema.statics.getGroup = function getGroup (user, groupId, fields) {
   let query;
@@ -170,7 +142,7 @@ schema.statics.getGroup = function getGroup (user, groupId, fields) {
     .select(fields)
     .exec(); // TODO catch errors here?
 
-    // TODO purge chat flags info?
+    // TODO purge chat flags info? in tojson?
 };
 
 // TODO move to its own model

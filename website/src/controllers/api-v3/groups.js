@@ -567,7 +567,7 @@ function _inviteByEmails (emails, group, inviter, req, res, next) {
  *
  * @apiSuccess {Object} empty An empty object
  */
-/* api.inviteToGroup = {
+api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
   middlewares: [authWithHeaders(), cron],
@@ -598,6 +598,6 @@ function _inviteByEmails (emails, group, inviter, req, res, next) {
     })
     .catch(next);
   },
-};*/
+};
 
 export default api;
