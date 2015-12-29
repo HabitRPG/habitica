@@ -35,7 +35,7 @@ export let schema = new Schema({
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type:Boolean, 'default':false} // TODO ?
   },
-  memberCount: {type: Number, default: 0},
+  memberCount: {type: Number, default: 1},
   challengeCount: {type: Number, default: 0},
   balance: {type: Number, default: 0},
   logo: String,
