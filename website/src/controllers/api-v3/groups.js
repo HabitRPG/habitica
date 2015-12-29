@@ -221,7 +221,7 @@ api.joinGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) return next(validationErrors);
 
-    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
+    Group.getGroup(user, req.params.groupId, '-chat', true) // Do not fetch chat and work even if the user is not yet a member of the group
     .then(group => {
       if (!group) throw new NotFound(res.t('groupNotFound'));
 

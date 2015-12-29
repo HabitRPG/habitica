@@ -126,10 +126,13 @@ schema.post('remove', function postRemoveGroup (group) {
 });
 
 // TODO populate (invites too), isMember?
-schema.statics.getGroup = function getGroup (user, groupId, fields) {
+schema.statics.getGroup = function getGroup (user, groupId, fields, optionalMembership) {
   let query;
 
-  if (groupId === 'party' || user.party._id === groupId) {
+  // When optionalMembership is true it's not required for the user to be a member of the group
+  if (optionalMembership === true) {
+    query = {_id: groupId};
+  } else if (groupId === 'party' || user.party._id === groupId) {
     query = {type: 'party', _id: user.party._id};
   } else if (user.guilds.indexOf(groupId) !== -1) {
     query = {type: 'guild', _id: groupId};
@@ -137,12 +140,10 @@ schema.statics.getGroup = function getGroup (user, groupId, fields) {
     query = {type: 'guild', privacy: 'public', _id: groupId};
   }
 
-  return this
-    .findOne(query)
-    .select(fields)
-    .exec(); // TODO catch errors here?
-
-    // TODO purge chat flags info? in tojson?
+  let mQuery = this.findOne(query);
+  if (fields) mQuery.select(fields);
+  return mQuery.exec(); // TODO catch errors here?
+  // TODO purge chat flags info? in tojson?
 };
 
 // TODO move to its own model

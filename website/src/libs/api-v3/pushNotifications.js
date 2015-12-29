@@ -24,6 +24,7 @@ if (gcm) {
   });
 }
 
+// TODO test
 export default function sendNotify (user, title, message, timeToLive = 15) {
   // TODO need investigation:
   // https://github.com/HabitRPG/habitrpg/issues/5252
