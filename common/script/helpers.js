@@ -21,7 +21,7 @@ export function refPush (reflist, item) {
 
   let itemHasId = item.id && !reflist[item.id];
 
-  if (!itemHasId ) {
+  if (!itemHasId) {
     item.id = uuid.v4();
   }
 
