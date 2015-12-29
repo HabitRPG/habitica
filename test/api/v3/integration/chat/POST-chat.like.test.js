@@ -92,12 +92,12 @@ describe('POST /chat/:chatId/like', () => {
       return api.post(`/groups/${group._id}/chat/${message.id}/like`);
     })
     .then((result) => {
-      expect(result.likes[user._id]).to.equal(undefined);
+      expect(result.likes[user._id]).to.equal(false);
       return api.get(`/groups/${group._id}`);
     })
     .then((updatedGroup) => {
       let messageToCheck = _.find(updatedGroup.chat, {id: message.id});
-      expect(messageToCheck.likes[user._id]).to.equal(undefined);
+      expect(messageToCheck.likes[user._id]).to.equal(false);
     });
   });
 });

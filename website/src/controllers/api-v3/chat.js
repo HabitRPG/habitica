@@ -133,18 +133,12 @@ api.likeChat = {
 
       if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
 
-      let update;
+      let update = {$set: {}};
 
       if (!message.likes) message.likes = {};
-      if (message.likes[user._id]) {
-        delete message.likes[user._id];
-        update = {'$unset': {}};
-        update.$unset[`chat.$.likes.${user._id}`] = '';
-      } else {
-        message.likes[user._id] = true;
-        update = {'$set': {}};
-        update.$set[`chat.$.likes.${user._id}`] = true;
-      }
+
+      message.likes[user._id] = !message.likes[user._id];
+      update.$set[`chat.$.likes.${user._id}`] = message.likes[user._id];
 
       return Group.update(
         {_id: group._id, 'chat.id': message.id},
