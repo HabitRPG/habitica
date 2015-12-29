@@ -90,6 +90,7 @@
     "fortifyPop": "Fait revenir toutes les tâches à une valeur neutre (couleur jaune) et restaure tous les points de santé que vous aviez perdus.",
     "fortify": "Fortification",
     "fortifyText": "La potion de fortification ramènera toutes vos tâches à un niveau neutre (jaune), comme si vous veniez de les ajouter, et remplira votre barre de santé.  C'est utile si vos tâches rouges rendent le jeu trop dur, ou si vos tâches bleues le rendent trop facile. Si cela vous motive de retrouver des bases saines, dépensez vos gemmes et accordez vous un sursis !",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "Bonus de combo !",
     "pushTaskToTop": "Déplace la tâche en tête de liste. Maintenez ctrl ou cmd enfoncé pour la déplacer en queue de liste. ",

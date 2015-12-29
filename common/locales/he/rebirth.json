@@ -23,5 +23,6 @@
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "התחיל/י דמות חדשה ברמה 1 עם אותם הישגים, חפצי אספנות, משימות והיסטוריה.",
     "rebirthName": "כדור הלידה מחדש",
-    "reborn": "היוולד/י מחדש. רמה מירבית: <%= reLevel %>"
+    "reborn": "היוולד/י מחדש. רמה מירבית: <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

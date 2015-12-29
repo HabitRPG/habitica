@@ -37,7 +37,7 @@ function t (stringName) {
 
   if (string) {
     try {
-      return _.template(string, clonedVars);
+      return _.template(string)(clonedVars);
     } catch (_error) {
       return 'Error processing the string. Please see Help > Report a Bug.';
     }
@@ -51,7 +51,7 @@ function t (stringName) {
     }
 
     try {
-      return _.template(stringNotFound, {
+      return _.template(stringNotFound)({
         string: stringName,
       });
     } catch (_error) {

@@ -15,8 +15,6 @@ var api, content, i18n, moment, preenHistory, sortOrder,
 moment = require('moment');
 
 import _ from 'lodash';
-import get from 'lodash.get';
-import set from 'lodash.set';
 
 content = require('./content/index');
 
@@ -98,7 +96,7 @@ preenHistory = function(history) {
  */
 
 api.preenTodos = function(tasks) {
-  return _.where(tasks, function(t) {
+  return _.filter(tasks, function(t) {
     return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({
       days: 3
     }));
@@ -2088,10 +2086,10 @@ api.wrap = function(user, main) {
     Angular sets object properties directly - in which case, this function will be used.
      */
     dotSet: function(path, val) {
-      return set(user, path, val);
+      return _.set(user, path, val);
     },
     dotGet: function(path) {
-      return get(user, path);
+      return _.get(user, path);
     },
     randomDrop: function(modifiers, req) {
       var acceptableDrops, base, base1, base2, chance, drop, dropK, dropMultiplier, name, name1, name2, quest, rarity, ref, ref1, ref2, ref3, task;

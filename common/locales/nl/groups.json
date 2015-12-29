@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Van balans",
     "sendGiftPurchase": "Kopen",
     "sendGiftMessagePlaceholder": "Persoonlijk bericht (optioneel)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
+    "sendGiftSubscription": "<%= months %> Maand(en): $<%= price %> USD",
     "battleWithFriends": "Strijd met je vrienden tegen monsters",
     "startPartyWithFriends": "Start een groep met je vrienden!",
     "startAParty": "Een groep beginnen",

@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "Il Cavaliere Dorato, Parte 1: Una Severa Ramanzina",
     "questGoldenknight1Notes": "<p>Il Cavaliere d'Oro si sta intromettendo nelle questioni dei poveri abtanti di Habitica. Non hai fatto tutte le tue Attività? Hai segnato un'Abitudine negativa? Lei lo userà come ragione per  importunarti su come dovresti seguire il suo esempio. Lei è il modello perfetto di abitante di Habitica, e tu non sei nient'altro che una delusione. Beh, questo non è per niente carino da parte sua! Tutti possono sbagliare, e nessuno dovrebbe essere trattato così duramente per questo. Forse è il momento che tu raccolga un po' di testimonianze da abitanti bistrattati Habitica e faccia una bella ramanzina al Cavaliere d'Oro!</p>",
     "questGoldenknight1CollectTestimony": "Testimonianze",
-    "questGoldenknight1DropGoldenknight2Quest": "Il Cavaliere Dorato Parte 2: L'oro offuscato (Pergamena)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "Il Cavaliere Dorato, Parte 2: Cavaliere d'Oro",
     "questGoldenknight2Notes": "<p>Armato di centinaia di testimonianze degli abitanti di Habitica, fronteggi finalmente il Cavaliere Dorato. Inizi a recitarle le lamentele degli abitanti una per una. \"E @Pfeffernusse sostiene che il tuo costante pavoneggiarti-\" Il cavaliere alza una mano per zittirti e sbuffa, \" Ma per favore, queste persone sono soltanto gelose del mio successo. Invece di lamentarsi, dovrebbero semplicemente lavorare sodo come faccio io! Forse dovrei dimostrarti quale potere è possibile ottenere grazie ad una diligenza come la mia!\" Solleva la sua mazza chiodata e si prepara ad attaccarti!</p>",
     "questGoldenknight2Boss": "Cavaliere d'Oro",
@@ -278,6 +278,6 @@
     "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
     "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
     "questUnicornBoss": "The Unicorn Queen",
-    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
-    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
+    "questUnicornDropUnicornEgg": "Unicorno (Uovo)",
+    "questUnicornUnlockText": "Sblocca l'acquisto delle uova di unicorno nel Mercato"
 }

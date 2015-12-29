@@ -23,5 +23,6 @@
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Začni s novou postavou na leveli 1, pričom ti ostanú odznaky, zberateľské predmety, a úlohy.",
     "rebirthName": "Orb znovuzrodenia",
-    "reborn": "Znovuzrodený, najvyšší dosiahnutý level: <%= reLevel %>"
+    "reborn": "Znovuzrodený, najvyšší dosiahnutý level: <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

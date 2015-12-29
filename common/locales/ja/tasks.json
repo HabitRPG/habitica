@@ -90,6 +90,7 @@
     "fortifyPop": "全てのタスクを通常の状態 (黄色)に戻します。加えて全ての体力を回復させます。",
     "fortify": "強化",
     "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "連続実行ボーナス！",
     "pushTaskToTop": "Push task to top.  Hold ctrl or cmd to push to bottom.",

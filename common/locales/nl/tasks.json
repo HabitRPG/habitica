@@ -90,6 +90,7 @@
     "fortifyPop": "Geeft alle taken een neutrale waarde (gele kleur), en herstelt alle verloren gezondheidspunten.",
     "fortify": "Versterk",
     "fortifyText": "Versterken brengt al je taken terug tot een neutrale (gele) staat, alsof je ze net toegevoegd hebt, en vult je gezondheidsbalk weer helemaal aan. Dit is geweldig wanneer al die rode taken het spel te moeilijk maken, of wanneer al je blauwe taken het te makkelijk maken. Als een frisse start bemoedigend klinkt, geef dan een paar edelstenen uit en haal opgelucht adem!",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "seriebonus!",
     "pushTaskToTop": "Zet taak bovenaan. Houd ctrl of cmd ingedrukt om taak onderaan te zetten.",

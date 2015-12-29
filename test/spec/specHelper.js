@@ -26,7 +26,7 @@ var specHelper = {};
       gear: { equipped: {}, costume: {}, owned: {} }
     };
 
-    user = {
+    var user = {
       _id: 'unique-user-id',
       auth: { timestamps: {} },
       stats: stats,
@@ -53,7 +53,7 @@ var specHelper = {};
 
   function newGroup(overrides) {
     var quest = { progress: { }, active: false };
-    group = {
+    var group = {
       _id: 'group-id',
       leader : 'leader-id',
       memberCount : 1,

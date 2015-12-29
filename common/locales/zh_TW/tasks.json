@@ -90,6 +90,7 @@
     "fortifyPop": "將所有任務調回中性 ( 黃色 )，並將 HP 補滿。",
     "fortify": "穩固",
     "fortifyText": "鞏固會將你的任務回復到中性狀態 ( 黃色 ，如同剛新增時)，並把你的生命值補滿。把它當成無計可施時的最後王牌！紅色會為進步提供良好的動力，但如果滿目紅色讓你難過，且每天開始時都對你致命，那麼花費寶石來喘口氣吧！",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "連擊獎勵",
     "pushTaskToTop": "Push task to top.  Hold ctrl or cmd to push to bottom.",

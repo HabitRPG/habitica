@@ -23,5 +23,6 @@
     "rebirthOrb100": "Använde en Pånyttfödelsesfär för att börja om efter att ha nått Level 100 eller högre",
     "rebirthPop": "Starta en ny karaktär från Level 1 medan du behåller bedrifter, samlarobjekt och uppgifter med dess historik.",
     "rebirthName": "Pånyttfödelsesfär",
-    "reborn": "Pånyttfödd, max level <%= reLevel %>"
+    "reborn": "Pånyttfödd, max level <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

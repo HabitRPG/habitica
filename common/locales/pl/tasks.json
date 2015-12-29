@@ -90,6 +90,7 @@
     "fortifyPop": "Przywraca wszystkie zadania do neutralnej wartości (żółty kolor), oraz uzdrawia całe stracone Zdrowie.",
     "fortify": "Wzmocnij",
     "fortifyText": "Wzmocnienie przywróci wszystkie zadania do wartości neutralnej (żółty kolor), tak jakbyś dopiero co je dodał, a w dodatku uzdrowi cię do pełna. Jest to świetne rozwiązanie, jeśli czerwone zadania sprawiają w grze zbyt wiele trudności lub z powodu niebieskich zadań gra jest zbyt łatwa. Jeśli rozpoczęcie od zera brzmi znacznie bardziej motywująco, to poświęć Klejnoty i poczuj ulgę!",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "Premia za serię!",
     "pushTaskToTop": "Umieść zadanie na górze listy. Przytrzymaj CTRL lub CMD, aby umieścić je na samym dole.",

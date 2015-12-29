@@ -23,5 +23,6 @@
     "rebirthOrb100": "到達級別 100 後，使用重生之球來重生遊戲。",
     "rebirthPop": "開始一個等級 1 的新角色，並保留成就、物品和任務歷史。",
     "rebirthName": "重生之球",
-    "reborn": "重生，最高級別 <%= reLevel %>"
+    "reborn": "重生，最高級別 <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

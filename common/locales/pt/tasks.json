@@ -90,6 +90,7 @@
     "fortifyPop": "Reverte todas tarefas para o valor neutro (cor amarela), e recupera toda Vida perdida.",
     "fortify": "Fortificar",
     "fortifyText": "Fortificar reverterá todas as suas tarefas para o valor neutro (amarelo), como se tivesse acabado de adicioná-las, e completará sua vida até estar cheia. Esta é uma ótima opção caso suas tarefas vermelhas estejam tornando o jogo muito difícil, ou suas tarefas azuis tornando-o muito fácil. Se começar de novo parece mais empolgante, gaste suas Gemas e aproveite!",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "Bônus de Combo!",
     "pushTaskToTop": "Enviar tarefa para o topo. Segure CTRL ou CMD para enviar para baixo.",
