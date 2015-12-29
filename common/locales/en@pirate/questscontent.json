@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Trapper Santa",
-    "questEvilSantaNotes": "Ye hear bemoaned roars deep in th' icefields. ye follow th' roars 'n growls - punctuated by another voice's cacklin' - to a clearin' in th' woods whar ye spy wit' ye eye a fully-grown polar bear. She's caged 'n shackled, roarin' fer life. Dancin' atop th' cage be a malicious wee imp wearin' castaway Christmas costumes. Vanquish Trapper Santa, 'n save th' beast!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Trapper Santa squeals in anger, 'n bounces off into th' nightfall. A grateful she-bear, through roars 'n growls, tries to be tellin' ye somethin'. ye take her back to th' stables, whar Matt Boch th' whisperer listens to her tale wit' a gasp 'o horror. She has a cub! He ran off into th' icefields when mama bear was captured. Help her find her baby!",
     "questEvilSantaBoss": "Trapper Santa",
     "questEvilSantaDropBearCubPolarMount": "Polar Bear (Mount)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "Th' Golden Knight, Part 1: A Stern Talkin'-To",
     "questGoldenknight1Notes": "<p>Th'  Golden Knight has been getting on poor Habiticans' cases. Didn't do all o' yer Dailies? Checked off a negative Habit? She will use this as a reason t' harass ye about how ye should follow her example. She be th' shinin' example o' a perfect Habitican, and ye be naught but a failure. Well, that not be nice at all! Everyone makes mistakes. They should not have t' be met with such negativity for it. Perhaps it be time ye gather some testimonies from hurt Habiticans an' give th' Golden Knight a stern talkin'-to!</p>",
     "questGoldenknight1CollectTestimony": "Testimonies",
-    "questGoldenknight1DropGoldenknight2Quest": "Th' Golden Knight Chain Part 2: Tarnished Gold (Scroll)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "Th' Golden Knight, Part 2: Gold Knight",
     "questGoldenknight2Notes": "<p>Armed with hundreds o' Habitican's testimonies, ye finally confront th' Golden Knight. Ye begin t' recite th' Habitcan's complaints t' her, one by one. \"And @Pfeffernusse says that yer constant bragging-\" The knight raises her hand t' silence you an' scoffs, \"Please, these people are merely jealous of my success. Instead of complaining, they should simply work as hard as I! Perhaps I shall show you the power you can attain through diligence such as mine!\" She raises her morningstar an' prepares t' attack ye!</p>",
     "questGoldenknight2Boss": "Gold Knight",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

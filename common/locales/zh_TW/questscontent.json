@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "聖誕盜獵者",
-    "questEvilSantaNotes": "你聽到從冰原深處傳來的哀淒的咆哮聲。你循著咆哮，嘶吼和尖笑聲來到了森林中的一塊空地，看到一隻成年的北極熊。她被拷著，關在籠子裡，吼叫著想要逃出。一個心懷不軌的小惡魔，穿著被遺棄的聖誕戲裝，在籠子上跳著舞。擊敗聖誕盜獵者，救出那隻母熊！",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "聖誕盜獵者憤怒地嚎叫，縱身躍入黑夜之中。母熊充滿感激的咆哮嘶吼，似乎想對你說些什麼。你把她帶回馬房，輕語者Matt Boch畏懼地屏息傾聽她講述的故事。原來她有個小熊寶寶！然而小熊卻在母熊落入陷阱時逃入了冰原中。  幫助母熊找到她的寶寶吧！",
     "questEvilSantaBoss": "聖誕盜獵者",
     "questEvilSantaDropBearCubPolarMount": "北極熊 （坐騎）",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "黃金騎士之鍊，第1部：義正嚴詞",
     "questGoldenknight1Notes": "<p>黃金騎士得知了可憐的Habit公民們的情況。沒有將你們的每日任務全部完成?記錄下一個不好的習慣?她會以此為理由來不斷的騷擾你，教你怎樣像她一樣。她是完美Habit公民的經典範例，而你只不過是一個失敗者。但是，雖然這的確有點不光彩！但是所有人都會犯錯。那些犯了錯的人也不應因此就受到這樣消極的待遇。也許現在對你來說正是時候，從受到傷害的Habit公民們那裡收集一些證據，然後和黃金騎士來一場嚴肅的談話</p>",
     "questGoldenknight1CollectTestimony": "證明",
-    "questGoldenknight1DropGoldenknight2Quest": "黃金騎士的項鍊-第2部：失色的黃金(卷軸)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "黃金騎士之鍊，第2部：金幣騎士",
     "questGoldenknight2Notes": "<p>帶著上百個Habit公民提供的證據，你面對著黃金騎士，開始一個接著一個地對她陳述Habit公民們對她的不滿，\"還有@Pfeffernusse說你總是不停的討價還價-\"黃金騎士舉起了她的手打斷了你，嘲弄道，\"拜託，這些人只不過是嫉妒我的成功。比起抱怨，他們更應該像我一樣努力的工作！也許我應該向你展示一下，就像我一樣，勤奮所能給予你的力量！\"說著她舉起狼牙棒，準備攻擊你！</p>",
     "questGoldenknight2Boss": "黃金騎士",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "蛇（蛋）",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

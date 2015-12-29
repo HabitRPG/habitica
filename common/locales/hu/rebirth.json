@@ -23,5 +23,6 @@
     "rebirthOrb100": "Használtad az Újjászületés Gömbjét, hogy újrakezd, miután elérted a 100-as, vagy magasabb szintet",
     "rebirthPop": "Kezdj új karaktert 1-es Szinttől, megtartva a kitűntetéseidet, a gyűjteményeidet, a feladataidat és a történetedet.",
     "rebirthName": "Az Újjászületés Gömbje",
-    "reborn": "Újjászülettél, maximális szint <%= reLevel %>"
+    "reborn": "Újjászülettél, maximális szint <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

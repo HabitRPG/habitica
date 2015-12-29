@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Pelsjægerjulemand",
-    "questEvilSantaNotes": "Du hører smertefulde brøl fra langt inde på indlandsisen. Du følger lydene - der er afbrudt af en kaglende stemme - til et krater i isen, hvor du ser en fuldvoksen isbjørn. Hun er buret inde og i kæder, og brøler for livet. Dansende på toppen af buret kan du se en ondskabsfuld lille skabning iført kasserede julekostumer. Besejr Pelsjægerjulemanden og red bjørnen!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Pelsjægerjulemanden skriger i vrede og løber bort i natten. En taknemmelig hunbjørn forsøger gennem brøl og knurren at fortælle dig noget. Du tager hende med tilbage til stalden hvor Matt Boch, Hviskeren, lytter til hendes historie med et rædselsslagent suk. Hun har en unge! Han løb ind på indlandsisen da bjørnemor blev fanget. Hjælp hende med at redde hendes barn!",
     "questEvilSantaBoss": "Pelsjægerjulemand",
     "questEvilSantaDropBearCubPolarMount": "Isbjørn (Ridedyr)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "Den Gyldne Ridder, Del 1: Et Alvorsord",
     "questGoldenknight1Notes": "<p>Den Gyldne Ridder har været efter de stakkels Habitikanere. Har du ikke fuldført alle dine Daglige? Har du udført en minus-vane? Hun vil finde enhver grund til at fortælle dig hvordan du bør følge hendes eksempel. Hun er et skinnende eksempel på en perfekt Habitikaner, og du er ikke andet end en fiasko. Det er faktisk ikke særlig sødt gjort! Alle laver fejl. De skal ikke møde sådan en negativ attitude på grund af det. Måske er det på tide, at du samler nogle vidneudsagn fra sårede Habitikanere og tager et alvorsord med Den Gyldne Ridder!</p>",
     "questGoldenknight1CollectTestimony": "Vidneudsagn",
-    "questGoldenknight1DropGoldenknight2Quest": "Den Gyldne Ridders Kæde, del 2: Anløbent Guld (Skriftrulle)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "Den Gyldne Ridder, Del 2: Gylden Ridder",
     "questGoldenknight2Notes": "<p>Bevæbnet med hundredevis af udtalelser fra Habitikanere konfronterer du endelig Den Gyldne Ridder. En efter en begynder du at læse Habitikanernes klager op for hende. \"Og @Pfeffernusse siger, at din konstante pralen-\" Ridderen løfter hånden for at få dig til at tie stille og fnyser, \"Disse folk er bare misundelige over min succes. I stedet for at klage skulle de tage at arbejde ligeså hårdt som mig! Måske skal jeg vise jer den magt, man kan opnå gennem at være som mig!\" Hun løfter sin morgenstjerne og gør klar til at angribe dig!</p>",
     "questGoldenknight2Boss": "Gylden Ridder",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

@@ -112,7 +112,7 @@
     "unsubscribeAllEmails": "Klik hier om e-mails uit te zetten",
     "unsubscribeAllEmailsText": "Door dit aan te klikken geef ik aan dat ik begrijp dat als ik me uitschrijf van e-mails, Habitica nooit meer per e-mail contact met me op kan nemen om belangrijke wijzigingen in de site of mijn account door te geven.",
     "correctlyUnsubscribedEmailType": "Afgemeld voor \"<%= emailType %>\" e-mails.",
-    "subscriptionRateText": "$<%= price %> elke <%= months %> maanden, terugkerend",
+    "subscriptionRateText": "Herhalend $<%= price %> USD iedere <%= months %> maanden",
     "benefits": "Voordelen",
     "coupon": "Kadobon",
     "couponPlaceholder": "Kadocode invoeren",
@@ -136,7 +136,7 @@
     "buyGemsGoldCap": "Capaciteit verhoogd naar <%= amount %>",
     "mysticHourglass": "<%= amount %> mystieke zandloper(s)",
     "mysticHourglassText": "Met mystieke zandlopers kun je abonnee-uitrusting uit eerdere maanden kopen.",
-    "purchasedPlanId": "Terugkerend $<%= price %> elke <%= months %> maand(en) (<%= plan %>)",
+    "purchasedPlanId": "Herhalend $<%= price %> USD elke <%= months %> maand(en) (<%= plan %>)",
     "purchasedPlanExtraMonths": "Je hebt <%= months %> maanden abonnementkrediet.",
     "consecutiveSubscription": "Opeenvolgende abonnementen: ",
     "consecutiveMonths": "Opeenvolgende maanden:",
@@ -144,7 +144,7 @@
     "mysticHourglasses": "Mystieke zandlopers:",
     "paypal": "PayPal",
     "amazonPayments": "Amazon-betalingen",
-    "timezone": "Time Zone",
-    "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been reseting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezone": "Tijdzone",
+    "timezoneUTC": "Habitica gebruikt de tijdzone die op je PC ingesteld is: <strong><%=utc %></strong>",
+    "timezoneInfo": "Als die tijdzone verkeerd is, herlaad dan eerst deze pagina met je browsers \"herlaad of verversen\"-knop om er zeker van te zijn dat Habitica de nieuwste informatie heeft. Als het nu nog niet klopt, pas dan de tijdzone op je PC aan en laadt deze pagina opnieuw.<br><br> <strong>Als je Habitica op andere PC's of mobiele apparaten gebruikt, moet de tijdzone overal hetzelfde zijn.</strong> Als je dagelijkse taken gereset zijn op de verkeerde tijd, herhaal dan deze controle op alle andere PC's en in een browser op je mobiele apparaat."
 }

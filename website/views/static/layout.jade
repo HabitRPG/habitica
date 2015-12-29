@@ -33,6 +33,7 @@ html(ng-app='habitrpg')
   body
     div(ng-controller='AuthCtrl')
       include ./login-modal
+      include ../shared/modals/message-modal
       nav.navbar.navbar-inverse.navbar-fixed-top
         .navbar-header
           button.navbar-toggle(type='button', ng-click='isNavbarCollapsed = !isNavbarCollapsed', ng-init='isNavbarCollapsed = true')

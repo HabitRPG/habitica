@@ -2,6 +2,11 @@ import {
   daysSince,
   shouldDo,
 } from '../../common/script/cron';
+import {
+  MAX_HEALTH,
+  MAX_LEVEL,
+  MAX_STAT_POINTS,
+} from './constants';
 import * as statHelpers from './statHelpers';
 
 var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
@@ -20,9 +25,9 @@ api = module.exports = {};
 api.i18n = i18n;
 api.shouldDo = shouldDo;
 
-api.maxLevel = statHelpers.MAX_LEVEL;
+api.maxLevel = MAX_LEVEL;
 api.capByLevel = statHelpers.capByLevel;
-api.maxHealth = statHelpers.MAX_HEALTH;
+api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
@@ -2267,27 +2272,30 @@ api.wrap = function(user, main) {
       })()]++;
     },
     updateStats: function(stats, req, analytics) {
-      var tnl;
       if (stats.hp <= 0) {
         return user.stats.hp = 0;
       }
       user.stats.hp = stats.hp;
       user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-      tnl = api.tnl(user.stats.lvl);
-      if (stats.exp >= tnl) {
+
+      var experienceToNextLevel = api.tnl(user.stats.lvl);
+
+      if (stats.exp >= experienceToNextLevel) {
         user.stats.exp = stats.exp;
-        while (stats.exp >= tnl) {
-          stats.exp -= tnl;
+        while (stats.exp >= experienceToNextLevel) {
+          stats.exp -= experienceToNextLevel;
           user.stats.lvl++;
-          tnl = api.tnl(user.stats.lvl);
+          experienceToNextLevel = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
-          if (user.stats.lvl > api.maxLevel) {
+          var userTotalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
+
+          if (userTotalStatPoints >= MAX_STAT_POINTS) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = user.stats.lvl - userTotalStatPoints;
             if (user.stats.points < 0) {
               user.stats.points = 0;
             }

@@ -80,6 +80,7 @@
     "petKeyPets": "Laat huisdieren vrij",
     "petKeyMounts": "Rijdieren vrijlaten",
     "petKeyBoth": "Beide vrijlaten",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "Nog niet",
     "gemsEach": "edelstenen elk"
 }

@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "De tu saldo",
     "sendGiftPurchase": "Comprar",
     "sendGiftMessagePlaceholder": "Mensaje personal (opcional)",
-    "sendGiftSubscription": "<%= months %> Mes(es): $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
     "battleWithFriends": "Combate a monstruos con tus amigos",
     "startPartyWithFriends": "¡Empieza un equipo con tus amigos!",
     "startAParty": "Crear un grupo",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "¡El chat de tu equipo está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "guildChatEmpty": "¡El chat de este gremio está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "possessiveParty": "El equipo de <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Si quieres escribir mensajes en la Taberna o en el chat de un equipo o de un gremio, por favor lee nuestras <%= linkStart %>Normas de la comunidad<%= linkEnd %> primero y después haz click en el botón de abajo para indicar que las aceptas."
 }

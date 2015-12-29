@@ -57,11 +57,11 @@
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
     "clone": "Clone",
     "challengeNotEnoughGems": "Ye do not have enough sapphires to post this challenge.",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge",
+    "noPermissionEditChallenge": "Ye don't have permissions t' edit this challenge",
+    "noPermissionDeleteChallenge": "Ye don't have permissions t' delete this challenge",
+    "noPermissionCloseChallenge": "Ye don't have permissions t' close this challenge",
     "congratulations": "Congratulations!",
     "hurray": "Hurray!",
     "noChallengeOwner": "no owner",
-    "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
+    "noChallengeOwnerPopover": "This challenge does not have an owner because th' person who created th' challenge deleted their account."
 }

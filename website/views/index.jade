@@ -2,7 +2,7 @@ doctype html
 //html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
 html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}", ng-keydown="$broadcast('habit:keydown', $event)", ng-keyup="$broadcast('habit:keyup', $event)")
   head
-    title=env.t('titleIndex')
+    title(ng-bind="env.t('habitica') + ' | ' + $root.pageTitle")
     // ?v=1 needed to force refresh
     link(rel='shortcut icon', sizes="32x32", href='#{env.getBuildUrl("favicon.ico")}?v=4')
     link(rel='shortcut icon', sizes="144x144", href='#{env.getBuildUrl("favicon_192x192.png")}?v=4')

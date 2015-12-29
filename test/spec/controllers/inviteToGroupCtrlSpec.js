@@ -68,13 +68,13 @@ describe('Invite to Group Controller', function() {
       it('uses provided name', function() {
         scope.group.name = 'test party';
         scope.inviteNewUsers('uuid');
-        expect(group.name).to.eql('test party');
+        expect(scope.group.name).to.eql('test party');
       });
 
       it('names the group if no name is provided', function() {
         scope.group.name = '';
         scope.inviteNewUsers('uuid');
-        expect(group.name).to.eql(env.t('possessiveParty', {name: user.profile.name}));
+        expect(scope.group.name).to.eql(env.t('possessiveParty', {name: user.profile.name}));
       });
     });
 

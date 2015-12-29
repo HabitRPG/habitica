@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "С баланса",
     "sendGiftPurchase": "Приобрести",
     "sendGiftMessagePlaceholder": "Личное сообщение (необязательно)",
-    "sendGiftSubscription": "<%= months %> месяц(а/ев): $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
     "battleWithFriends": "Побеждайте монстров с друзьями",
     "startPartyWithFriends": "Создайте команду с друзьями!",
     "startAParty": "Создать команду",

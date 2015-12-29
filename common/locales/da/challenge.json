@@ -60,8 +60,8 @@
     "noPermissionEditChallenge": "Du har ikke rettigheder til at ændre denne udfordring",
     "noPermissionDeleteChallenge": "Du har ikke rettigheder til at slette denne udfordring",
     "noPermissionCloseChallenge": "Du har ikke rettigheder til at afslutte denne udfordring",
-    "congratulations": "Congratulations!",
-    "hurray": "Hurray!",
-    "noChallengeOwner": "no owner",
+    "congratulations": "Tillykke!",
+    "hurray": "Hurra!",
+    "noChallengeOwner": "ingen ejer",
     "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account."
 }
