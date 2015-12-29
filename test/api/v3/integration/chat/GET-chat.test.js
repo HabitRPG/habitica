@@ -5,7 +5,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
-describe.only('GET /groups/:groupId/chat', () => {
+describe('GET /groups/:groupId/chat', () => {
   let user, api;
 
   before(() => {
