@@ -7,7 +7,6 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../../libs/api-v3/errors';
-import { model as Challenge } from '../../models/challenge';
 import shared from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
@@ -297,11 +296,11 @@ api.scoreTask = {
         // TODO test?
         if (task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
           Tasks.Task.findOne({
-            _id: task.challenge.taskId
+            _id: task.challenge.taskId,
           }).exec()
           .then(chalTask => {
             chalTask.value += delta;
-            if (t.type == 'habit' || t.type == 'daily') {
+            if (chalTask.type === 'habit' || chalTask.type === 'daily') {
               chalTask.history.push({value: chalTask.value, date: Number(new Date())});
               // TODO 1. treat challenges as subscribed users for preening 2. it's expensive to do it at every score - how to have it happen once like for cron?
               chalTask.history = preenHistory(user, chalTask.history);
@@ -310,7 +309,7 @@ api.scoreTask = {
 
             return chalTask.save();
           });
-          //.catch(next) TODO what to do here
+          // .catch(next) TODO what to do here
         }
       });
     })

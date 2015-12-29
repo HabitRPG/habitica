@@ -2,11 +2,15 @@ import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
+import shared from '../../../../common';
 import * as Tasks from '../../models/task';
+import { txnEmail } from '../../libs/api-v3/email';
+import pushNotify from '../../libs/api-v3/pushNotifications';
 import Q from 'q';
 
 let api = {};
@@ -68,6 +72,8 @@ api.createChallenge = {
         }
       }
 
+      group.challengeCount += 1;
+
       let tasks = req.body.tasks || []; // TODO validate
       req.body.leader = user._id;
       req.body.official = user.contributor.admin && req.body.official;
@@ -81,14 +87,11 @@ api.createChallenge = {
         return task.save();
       });
 
-
       toSave.unshift(challenge, group);
       return Q.all(toSave);
     })
     .then(results => {
       let savedChal = results[0];
-
-      user.challenges.push(savedChal._id); // TODO save user only after group created, so that we can account for failed validation. Revisit in other places
       return savedChal.syncToUser(user) // (it also saves the user)
         .then(() => res.respond(201, savedChal));
     })
@@ -130,6 +133,139 @@ api.getChallenges = {
     .exec()
     .then(challenges => {
       res.respond(200, challenges);
+    })
+    .catch(next);
+  },
+};
+
+// TODO everything here should be moved to a worker
+// actually even for a worker it's probably just to big and will kill mongo
+function _closeChal (challenge, broken = {}) {
+  let winner = broken.winner;
+  let brokenReason = broken.broken;
+
+  let tasks = [
+    // Delete the challenge
+    Challenge.remove({_id: challenge._id}).exec(),
+    // And it's tasks
+    Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
+    // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
+    User.update({
+      challenges: {$in: [challenge._id]},
+      'tags._id': challenge._id,
+    }, {
+      $set: {'tags.$.challenge': false},
+      $pull: {challenges: challenge._id},
+    }, {multi: true}).exec(),
+    // Break users' tasks
+    Tasks.Task.update({
+      'challenge.id': challenge._id,
+    }, {
+      $set: {
+        'challenge.broken': brokenReason,
+        'challenge.winner': winner && winner.profile.name,
+      },
+    }, {multi: true}).exec(),
+    // Update the challengeCount on the group
+    Group.update({_id: challenge.group}, {$inc: {challengeCount: -1}}).exec(),
+  ];
+
+  // Refund the leader if the challenge is closed and the group not the tavern
+  if (challenge.group !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
+    tasks.push(User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec());
+  }
+
+  // Award prize to winner and notify
+  if (winner) {
+    winner.achievements.challenges.push(challenge.name);
+    winner.balance += challenge.prize / 4;
+    tasks.push(winner.save().then(savedWinner => {
+      if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
+        txnEmail(savedWinner, 'won-challenge', [
+          {name: 'CHALLENGE_NAME', content: challenge.name},
+        ]);
+      }
+
+      pushNotify.sendNotify(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
+    }));
+  }
+
+  return Q.allSettled(tasks); // TODO look if allSettle could be useful somewhere else
+  // TODO catch and handle
+}
+
+/**
+ * @api {delete} /challenges/:challengeId Delete a challenge
+ * @apiVersion 3.0.0
+ * @apiName DeleteChallenge
+ * @apiGroup Challenge
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.deleteChallenge = {
+  method: 'DELETE',
+  url: '/challenges/:challengeId',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+
+    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Challenge.findOne({_id: req.params.challengeId})
+    .exec()
+    .then(challenge => {
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+
+      res.respond(200, {});
+      // Close channel in background
+      _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
+    })
+    .catch(next);
+  },
+};
+
+/**
+ * @api {delete} /challenges/:challengeId Delete a challenge
+ * @apiVersion 3.0.0
+ * @apiName DeleteChallenge
+ * @apiGroup Challenge
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.selectChallengeWinner = {
+  method: 'POST',
+  url: '/challenges/:challengeId/selectWinner/:winnerId',
+  middlewares: [authWithHeaders(), cron],
+  handler (req, res, next) {
+    let user = res.locals.user;
+    let challenge;
+
+    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('winnerId', res.t('winnerIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) return next(validationErrors);
+
+    Challenge.findOne({_id: req.params.challengeId})
+    .exec()
+    .then(challengeFound => {
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+
+      challenge = challengeFound;
+
+      return User.findOne({_id: req.params.winnerId}).exec();
+    })
+    .then(winner => {
+      if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.parama.winnerId}));
+
+      res.respond(200, {});
+      // Close channel in background
+      _closeChal(challenge, {broken: 'CHALLENGE_DELETED', winner});
     })
     .catch(next);
   },
