@@ -97,6 +97,7 @@ export function generateUser (update = {}) {
     }).then((user) => {
       _updateDocument('users', user, update, () => {
         let apiUser = new ApiUser(user);
+
         resolve(apiUser);
       });
     }).catch(reject);
