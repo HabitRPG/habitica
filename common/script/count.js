@@ -1,15 +1,20 @@
-import _ from 'lodash';
+import {
+  each,
+  filter,
+  keys,
+  size,
+} from 'lodash';
 import content from './content/index';
 
-const DROP_ANIMALS = _.keys(content.pets);
+const DROP_ANIMALS = keys(content.pets);
 
 function beastMasterProgress (pets) {
   let count = 0;
 
-  _(DROP_ANIMALS).each((animal) => {
+  each(DROP_ANIMALS, (animal) => {
     if (pets[animal] > 0 || pets[animal] === -1)
       count++;
-  }).value();
+  });
 
   return count;
 }
@@ -17,10 +22,10 @@ function beastMasterProgress (pets) {
 function dropPetsCurrentlyOwned (pets) {
   let count = 0;
 
-  _(DROP_ANIMALS).each((animal) => {
+  each(DROP_ANIMALS, (animal) => {
     if (pets[animal] > 0)
       count++;
-  }).value();
+  });
 
   return count;
 }
@@ -28,36 +33,36 @@ function dropPetsCurrentlyOwned (pets) {
 function mountMasterProgress (mounts) {
   let count = 0;
 
-  _(DROP_ANIMALS).each((animal) => {
+  each(DROP_ANIMALS, (animal) => {
     if (mounts[animal])
       count++;
-  }).value();
+  });
 
   return count;
 }
 
 function remainingGearInSet (userGear, set) {
-  let gear = _.filter(content.gear.flat, (item) => {
+  let gear = filter(content.gear.flat, (item) => {
     let setMatches = item.klass === set;
     let hasItem = userGear[item.key];
 
     return setMatches && !hasItem;
   });
 
-  let count = _.size(gear);
+  let count = size(gear);
 
   return count;
 }
 
 function questsOfCategory (userQuests, category) {
-  let quests = _.filter(content.quests, (quest) => {
+  let quests = filter(content.quests, (quest) => {
     let categoryMatches = quest.category === category;
     let hasQuest = userQuests[quest.key];
 
     return categoryMatches && hasQuest;
   });
 
-  let count = _.size(quests);
+  let count = size(quests);
 
   return count;
 }
