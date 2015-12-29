@@ -589,9 +589,9 @@ api.inviteToGroup = {
       if (uuids && emails) { // TODO fix this, low priority, allow for inviting by both at the same time
         throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
       } else if (Array.isArray(uuids)) {
-        return _inviteByUUIDs(uuids, group, user, req, res, next);
+        // return _inviteByUUIDs(uuids, group, user, req, res, next);
       } else if (Array.isArray(emails)) {
-        return _inviteByEmails(emails, group, user, req, res, next)
+        // return _inviteByEmails(emails, group, user, req, res, next);
       } else {
         throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
       }
