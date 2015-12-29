@@ -922,7 +922,15 @@ api.questEggs = {
     canBuy: (function(u) {
       return u.achievements.quests && (u.achievements.quests.snake != null) > 0;
     })
-  }
+  },
+  Unicorn: {
+    text: t('questEggUnicornText'),
+    mountText: t('questEggUnicornMountText'),
+    adjective: t('questEggUnicornAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.unicorn != null) > 0;
+    })
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -1582,7 +1590,7 @@ api.quests = {
   },
   evilsanta: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -1608,7 +1616,7 @@ api.quests = {
   },
   evilsanta2: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -2940,7 +2948,39 @@ api.quests = {
       exp: 725,
       unlock: t('questSnakeUnlockText')
     }
-  }
+  },
+  unicorn: {
+    text: t('questUnicornText'),
+    notes: t('questUnicornNotes'),
+    completion: t('questUnicornCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questUnicornBoss'),
+      hp: 600,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }, {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }, {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questUnicornUnlockText')
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {

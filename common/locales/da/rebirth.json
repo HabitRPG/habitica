@@ -23,5 +23,6 @@
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Begynd en ny karakter på Niveau 1 mens du beholder præstationer, samlerobjekter, og opgaver med historik.",
     "rebirthName": "Genfødselskugle",
-    "reborn": "Genfødt, højeste Niveau <%= reLevel %>"
+    "reborn": "Genfødt, højeste Niveau <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

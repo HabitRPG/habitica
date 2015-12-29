@@ -23,5 +23,6 @@
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "実績、グッズ、およびタスクと履歴を保持して、レベル1で新しいキャラクターを始めます。",
     "rebirthName": "転生のオーブ",
-    "reborn": "転生しました、最大レベル<%= reLevel %>"
+    "reborn": "転生しました、最大レベル<%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

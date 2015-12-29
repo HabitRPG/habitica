@@ -23,5 +23,6 @@
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Comienza con un personaje en Nivel 1, manteniendo logros, coleccionables, y tareas con historial.",
     "rebirthName": "Esfera de Renacimiento",
-    "reborn": "Renacido, nivel máximo <%= reLevel %>"
+    "reborn": "Renacido, nivel máximo <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

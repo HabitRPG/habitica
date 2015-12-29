@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Z bilance",
     "sendGiftPurchase": "Koupit",
     "sendGiftMessagePlaceholder": "Osobní zpráva (volitelné)",
-    "sendGiftSubscription": "<%= months %> měsíc(e/ů): $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Měsíc(e/ů): $<%= price %> USD",
     "battleWithFriends": "Bojuj s přáteli proti příšerám",
     "startPartyWithFriends": "Založ družinu se svými přáteli!",
     "startAParty": "Založ družinu",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "Chat tvé družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "guildChatEmpty": "Chat této družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "possessiveParty": "Družina <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Pokud chceš přidávat zprávy v Krčmě nebo v chatu v  jakékoliv družině nebo cechu, prosíme, nejprve si přečti <%= linkStart %>Zásady komunity<%= linkEnd %> a poté klikni na tlačítko níže na znamení, že jim rozumíš."
 }

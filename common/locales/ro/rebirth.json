@@ -23,5 +23,6 @@
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Începe un nou personaj la Nivelul 1 păstrând realizările, obiectele de colecție și țelurile cu istoric.",
     "rebirthName": "Globul Renașterii",
-    "reborn": "Renăscut, nivel maxim <%= reLevel %>"
+    "reborn": "Renăscut, nivel maxim <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

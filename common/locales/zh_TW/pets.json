@@ -80,6 +80,7 @@
     "petKeyPets": "釋放所有寵物",
     "petKeyMounts": "釋放所有座騎",
     "petKeyBoth": "釋放所有寵物與座騎",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "還不是時候",
     "gemsEach": "寶石/次"
 }

@@ -57,27 +57,29 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
           $scope.popoverEl = $($event.target);
           var html, title;
           Challenges.Challenge.query(function(challenges) {
-              challenges = _.pluck(_.filter(challenges, function(c) {
-                  return c.group._id == group._id;
-              }), '_id');
-              if (_.intersection(challenges, User.user.challenges).length > 0) {
-                  html = $compile(
-              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
-          )($scope);
-                  title = window.env.t('leaveGroupCha');
-              } else {
-                  html = $compile(
-                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
-                  )($scope);
-                  title = window.env.t('leaveGroup')
-              }
-          $scope.popoverEl.popover('destroy').popover({
+            challenges = _.pluck(_.filter(challenges, function(c) {
+                return c.group._id == group._id;
+            }), '_id');
+
+            if (_.intersection(challenges, User.user.challenges).length > 0) {
+                html = $compile(
+                    '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+                )($scope);
+                title = window.env.t('leaveGroupCha');
+            } else {
+                html = $compile(
+                    '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+                )($scope);
+                title = window.env.t('leaveGroup')
+            }
+
+            $scope.popoverEl.popover('destroy').popover({
               html: true,
               placement: 'top',
               trigger: 'manual',
-                  title: title,
+              title: title,
               content: html
-          }).popover('show');
+            }).popover('show');
           });
       }
 

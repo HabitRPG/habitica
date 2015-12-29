@@ -15,6 +15,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
+
+        $rootScope.pageTitle = $state.current.title;
+
         if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
         // clear inbox when entering or exiting inbox tab
         if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {

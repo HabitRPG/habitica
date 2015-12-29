@@ -80,6 +80,7 @@
     "petKeyPets": "Lass' meine Haustiere frei",
     "petKeyMounts": "Lasse meine Reittiere frei",
     "petKeyBoth": "Lasse meine Haus- und meine Reittiere frei",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "Noch nicht.",
     "gemsEach": "Edelsteine jeweils"
 }
