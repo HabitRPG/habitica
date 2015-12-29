@@ -60,8 +60,8 @@
     "noPermissionEditChallenge": "Nemáš oprávnění k upravování této výzvy",
     "noPermissionDeleteChallenge": "Nemáš oprávnění ke smazání této výzvy",
     "noPermissionCloseChallenge": "Nemáš oprávnění k ukončení této výzvy",
-    "congratulations": "Congratulations!",
-    "hurray": "Hurray!",
+    "congratulations": "Gratulujeme!",
+    "hurray": "Hurá!",
     "noChallengeOwner": "bez majitele",
     "noChallengeOwnerPopover": "Tato Výzva nemá majitele, jelikož uživatel, který ji vytvořil, si smazal účet."
 }

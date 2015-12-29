@@ -90,6 +90,7 @@
     "fortifyPop": "Devuelve todas tus tareas a un valor neutral (amarillo), y recupera toda la salud perdida.",
     "fortify": "Fortalecer",
     "fortifyText": "Fortalecer devuelve todas tus tareas a un valor neutral (amarillo), como si las acabaras de añadir, y llena a tope tu salud. Esto es excelente si todas tus tareas rojas están dificultando mucho el juego, o si todas tus tareas azules están haciéndolo muy fácil. Si empezar de cero suena mucho más motivador, ¡gasta las gemas y tómate un respiro!",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "¡Bonus de racha!",
     "pushTaskToTop": "Enviar la tarea al inicio de la lista. Mantén presionado CTRL (o CMD) para enviar al final.",

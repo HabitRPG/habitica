@@ -90,6 +90,7 @@
     "fortifyPop": "将所有任务恢复至中性状态(黄色)，并补充所有损失的生命值。",
     "fortify": "稳固",
     "fortifyText": "稳固作用会将所有的任务重置到初始(黄色)状态，就像刚刚添加时一样，还会回满你的生命值。如果你变红的任务太多，让你感到游戏太难进行，而蓝色的任务又太容易，这会非常有帮助。如果觉得重获新生非常激励人，那就花几块宝石来给自己缓解一下吧！",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "连击奖励！",
     "pushTaskToTop": "将任务置于顶部.按住ctrl或者cmd可拖至底部。",

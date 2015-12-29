@@ -90,6 +90,7 @@
     "fortifyPop": "Setzt alle Aufgaben auf den Anfangswert (gelb) zurück und füllt Deine Lebenspunkte wieder auf.",
     "fortify": "Verstärken",
     "fortifyText": "Stärken werden wieder alle ihre Aufgaben zu einer neutralen (gelb), Status, als hätten Sie gerade hinzugefügt haben, und oben Ihre Gesundheit aus zu voll. Das ist toll, wenn alle ihre roten Aufgaben machen das Spiel zu schwer ist, oder alle Ihre blauen Aufgaben machen das Spiel zu einfach. Wenn der Start frische Sounds viel mehr Motivation, verbringen die Edelsteine und fangen einen Aufschub!",
+    "confirmFortify": "Are you sure?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "Strähnen Bonus!",
     "pushTaskToTop": "Verschiebe die Aufgabe nach oben. Halte dabei strg oder cmd, um sie nach unten zu verschieben.",
