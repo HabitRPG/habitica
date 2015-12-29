@@ -62,7 +62,7 @@ export function preenHistory (history) {
 }
 
 export function preenUserHistory (user, tasksByType, minHistLen = 7) {
-  tasksByType.habits.concat(user.dailys).forEach((task) => {
+  tasksByType.habits.concat(tasksByType.dailys).forEach((task) => {
     if (task.history.length > minHistLen) {
       task.history = preenHistory(user, task.history);
       task.markModified('history');

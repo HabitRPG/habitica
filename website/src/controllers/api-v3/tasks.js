@@ -7,10 +7,12 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../../libs/api-v3/errors';
+import { model as Challenge } from '../../models/challenge';
 import shared from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
 import scoreTask from '../../../../common/script/api-v3/scoreTask';
+import { preenHistory } from '../../../../common/script/api-v3/preenHistory';
 
 let api = {};
 
@@ -292,7 +294,24 @@ api.scoreTask = {
 
         sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
 
-        // TODO sync challenge
+        // TODO test?
+        if (task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+          Tasks.Task.findOne({
+            _id: task.challenge.taskId
+          }).exec()
+          .then(chalTask => {
+            chalTask.value += delta;
+            if (t.type == 'habit' || t.type == 'daily') {
+              chalTask.history.push({value: chalTask.value, date: Number(new Date())});
+              // TODO 1. treat challenges as subscribed users for preening 2. it's expensive to do it at every score - how to have it happen once like for cron?
+              chalTask.history = preenHistory(user, chalTask.history);
+              chalTask.markModified('history');
+            }
+
+            return chalTask.save();
+          });
+          //.catch(next) TODO what to do here
+        }
       });
     })
     .catch(next);

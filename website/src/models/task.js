@@ -21,13 +21,13 @@ export let TaskSchema = new Schema({
     type: String,
     validate: [validator.isUUID, 'Invalid uuid.'],
   }],
-  value: {type: Number, default: 0}, // redness or cost for rewards
+  value: {type: Number, default: 0, required: true}, // redness or cost for rewards Required because it must be settable (for rewards)
   priority: {type: Number, default: 1, required: true}, // TODO enum?
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
   userId: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set it belongs to a challenge
 
   challenge: {
-    id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']},
+    id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED']},
     winner: String, // user.profile.name TODO necessary?
