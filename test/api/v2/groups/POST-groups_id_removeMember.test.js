@@ -2,7 +2,6 @@ import {
   createAndPopulateGroup,
   generateGroup,
   generateUser,
-  requester,
   translate as t,
 } from '../../../helpers/api-integration.helper';
 
@@ -17,7 +16,7 @@ describe('POST /groups/:id/removeMember', () => {
   });
 
   context('user is the leader of a guild', () => {
-    let api, leader, member, group;
+    let leader, member, group;
 
     beforeEach(() => {
       return createAndPopulateGroup({
@@ -31,13 +30,11 @@ describe('POST /groups/:id/removeMember', () => {
         leader = res.leader;
         member = res.members[0];
         group = res.group;
-
-        api = requester(leader);
       });
     });
 
     it('does not allow leader to remove themselves', () => {
-      return expect(api.post(`/groups/${group._id}/removeMember`, null, {
+      return expect(leader.post(`/groups/${group._id}/removeMember`, null, {
         uuid: leader._id,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -46,10 +43,10 @@ describe('POST /groups/:id/removeMember', () => {
     });
 
     it('can remove other members of guild', () => {
-      return api.post(`/groups/${group._id}/removeMember`, null, {
+      return leader.post(`/groups/${group._id}/removeMember`, null, {
         uuid: member._id,
       }).then((res) => {
-        return api.get(`/groups/${group._id}`);
+        return leader.get(`/groups/${group._id}`);
       }).then((guild) => {
         expect(guild.members).to.have.a.lengthOf(1);
         expect(guild.members[0]._id).to.not.eql(member._id);

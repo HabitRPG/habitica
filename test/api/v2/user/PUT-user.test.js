@@ -1,24 +1,22 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../helpers/api-integration.helper';
 
 import { each } from 'lodash';
 
 describe('PUT /user', () => {
-  let api, user;
+  let user;
 
   beforeEach(() => {
     return generateUser().then((usr) => {
       user = usr;
-      api = requester(user);
     });
   });
 
   context('allowed operations', () => {
     it('updates the user', () => {
-      return api.put('/user', {
+      return user.put('/user', {
         'profile.name' : 'Frodo',
         'preferences.costume': true,
         'stats.hp': 14,
@@ -47,7 +45,7 @@ describe('PUT /user', () => {
         each(data, (value, operation) => {
           errorText.push(t('messageUserOperationProtected', { operation: operation }));
         });
-        return expect(api.put('/user', data)).to.eventually.be.rejected.and.eql({
+        return expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,
           text: errorText,
         });
@@ -66,7 +64,7 @@ describe('PUT /user', () => {
         each(data, (value, operation) => {
           errorText.push(t('messageUserOperationProtected', { operation: operation }));
         });
-        return expect(api.put('/user', data)).to.eventually.be.rejected.and.eql({
+        return expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,
           text: errorText,
         });

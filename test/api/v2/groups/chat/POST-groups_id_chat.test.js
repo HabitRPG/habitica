@@ -1,13 +1,12 @@
 import {
   createAndPopulateGroup,
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /groups/:id/chat', () => {
 
-  let api, group, user;
+  let group, user;
 
   beforeEach(() => {
     return createAndPopulateGroup({
@@ -18,12 +17,11 @@ describe('POST /groups/:id/chat', () => {
     }).then((res) => {
       group = res.group;
       user = res.leader;
-      api = requester(user);
     });
   });
 
   it('creates a chat message', () => {
-    return api.post(`/groups/${group._id}/chat`, null, {
+    return user.post(`/groups/${group._id}/chat`, null, {
       message: 'Test Message',
     }).then((res) => {
       let message = res.message;
@@ -36,7 +34,7 @@ describe('POST /groups/:id/chat', () => {
   });
 
   it('does not post an empty message', () => {
-    return expect(api.post(`/groups/${group._id}/chat`, null, {
+    return expect(user.post(`/groups/${group._id}/chat`, null, {
       message: '',
     })).to.eventually.be.rejected.and.eql({
       code: 400,
