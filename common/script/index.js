@@ -126,7 +126,7 @@ preenHistory = function(history) {
  */
 
 api.preenTodos = function(tasks) {
-  return _.where(tasks, function(t) {
+  return _.filter(tasks, function(t) {
     return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({
       days: 3
     }));
