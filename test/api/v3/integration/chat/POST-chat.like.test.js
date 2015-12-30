@@ -1,13 +1,11 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 import _ from 'lodash';
 
 describe('POST /chat/:chatId/like', () => {
   let user;
-  let api;
   let group;
   let testMessage = 'Test Message';
 
@@ -18,10 +16,9 @@ describe('POST /chat/:chatId/like', () => {
 
     return generateUser({balance: 1}).then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     })
     .then(() => {
-      return api.post('/groups', {
+      return user.post('/groups', {
         name: groupName,
         type: groupType,
         privacy: groupPrivacy,
@@ -33,7 +30,7 @@ describe('POST /chat/:chatId/like', () => {
   });
 
   it('Returns an error when chat message is not found', () => {
-    return expect(api.post(`/groups/${group._id}/chat/incorrectMessage/like`))
+    return expect(user.post(`/groups/${group._id}/chat/incorrectMessage/like`))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -42,9 +39,9 @@ describe('POST /chat/:chatId/like', () => {
   });
 
   it('Returns an error when user tries to like their own message', () => {
-    return api.post(`/groups/${group._id}/chat`, { message: testMessage})
+    return user.post(`/groups/${group._id}/chat`, { message: testMessage})
     .then((result) => {
-      return expect(api.post(`/groups/${group._id}/chat/${result.message.id}/like`))
+      return expect(user.post(`/groups/${group._id}/chat/${result.message.id}/like`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
@@ -54,20 +51,18 @@ describe('POST /chat/:chatId/like', () => {
   });
 
   it('Likes a chat', () => {
-    let api2;
     let message;
 
-    return generateUser().then((generatedUser) => {
-      api2 = requester(generatedUser);
-      return api2.post(`/groups/${group._id}/chat`, { message: testMessage});
+    return generateUser().then((anotherUser) => {
+      return anotherUser.post(`/groups/${group._id}/chat`, { message: testMessage});
     })
     .then((result) => {
       message = result.message;
-      return api.post(`/groups/${group._id}/chat/${message.id}/like`);
+      return user.post(`/groups/${group._id}/chat/${message.id}/like`);
     })
     .then((result) => {
       expect(result.likes[user._id]).to.equal(true);
-      return api.get(`/groups/${group._id}`);
+      return user.get(`/groups/${group._id}`);
     })
     .then((updatedGroup) => {
       let messageToCheck = _.find(updatedGroup.chat, {id: message.id});
@@ -76,24 +71,22 @@ describe('POST /chat/:chatId/like', () => {
   });
 
   it('Unlikes a chat', () => {
-    let api2;
     let message;
 
-    return generateUser().then((generatedUser) => {
-      api2 = requester(generatedUser);
-      return api2.post(`/groups/${group._id}/chat`, { message: testMessage});
+    return generateUser().then((anotherUser) => {
+      return anotherUser.post(`/groups/${group._id}/chat`, { message: testMessage});
     })
     .then((result) => {
       message = result.message;
-      return api.post(`/groups/${group._id}/chat/${message.id}/like`);
+      return user.post(`/groups/${group._id}/chat/${message.id}/like`);
     })
     .then((result) => {
       expect(result.likes[user._id]).to.equal(true);
-      return api.post(`/groups/${group._id}/chat/${message.id}/like`);
+      return user.post(`/groups/${group._id}/chat/${message.id}/like`);
     })
     .then((result) => {
       expect(result.likes[user._id]).to.equal(false);
-      return api.get(`/groups/${group._id}`);
+      return user.get(`/groups/${group._id}`);
     })
     .then((updatedGroup) => {
       let messageToCheck = _.find(updatedGroup.chat, {id: message.id});

@@ -1,17 +1,14 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /chat', () => {
   let user;
-  let api;
 
   before(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
@@ -20,18 +17,16 @@ describe('POST /chat', () => {
     let groupType = 'guild';
     let groupPrivacy = 'public';
     let testMessage = '';
-    let api2;
 
-    return generateUser({balance: 1}).then((generatedUser) => {
-      api2 = requester(generatedUser);
-      return api2.post('/groups', {
+    return generateUser({balance: 1}).then((anotherUser) => {
+      return anotherUser.post('/groups', {
         name: groupName,
         type: groupType,
         privacy: groupPrivacy,
       });
     })
     .then((group) => {
-      return expect(api.post(`/groups/${group._id}/chat`, { message: testMessage}))
+      return expect(user.post(`/groups/${group._id}/chat`, { message: testMessage}))
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
@@ -42,7 +37,7 @@ describe('POST /chat', () => {
 
   it('Returns an error when group is not found', () => {
     let testMessage = 'Test Message';
-    return expect(api.post('/groups/nvalidID/chat', { message: testMessage})).to.eventually.be.rejected.and.eql({
+    return expect(user.post('/groups/nvalidID/chat', { message: testMessage})).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('groupNotFound'),
@@ -54,18 +49,19 @@ describe('POST /chat', () => {
     let groupType = 'guild';
     let groupPrivacy = 'public';
     let testMessage = 'Test Message';
-    let api2;
+    let userWithoutChat;
 
     return generateUser({balance: 1, 'flags.chatRevoked': true}).then((generatedUser) => {
-      api2 = requester(generatedUser);
-      return api2.post('/groups', {
+      userWithoutChat = generatedUser;
+
+      return userWithoutChat.post('/groups', {
         name: groupName,
         type: groupType,
         privacy: groupPrivacy,
       });
     })
     .then((group) => {
-      return expect(api2.post(`/groups/${group._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+      return expect(userWithoutChat.post(`/groups/${group._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
         message: 'Your chat privileges have been revoked.',
@@ -78,18 +74,19 @@ describe('POST /chat', () => {
     let groupType = 'guild';
     let groupPrivacy = 'public';
     let testMessage = 'Test Message';
-    let api2;
+    let anotherUser;
 
     return generateUser({balance: 1}).then((generatedUser) => {
-      api2 = requester(generatedUser);
-      return api2.post('/groups', {
+      anotherUser = generatedUser;
+
+      return anotherUser.post('/groups', {
         name: groupName,
         type: groupType,
         privacy: groupPrivacy,
       });
     })
     .then((group) => {
-      return api2.post(`/groups/${group._id}/chat`, { message: testMessage});
+      return anotherUser.post(`/groups/${group._id}/chat`, { message: testMessage});
     })
     .then((result) => {
       expect(result.message.id).to.exist;

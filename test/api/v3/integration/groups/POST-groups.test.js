@@ -1,16 +1,14 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /group', () => {
-  let user, api;
+  let user;
 
   beforeEach(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
@@ -20,7 +18,7 @@ describe('POST /group', () => {
       let groupType = 'guild';
 
       return expect(
-        api.post('/groups', {
+        user.post('/groups', {
           name: groupName,
           type: groupType
         })
@@ -38,8 +36,7 @@ describe('POST /group', () => {
         let groupType = 'guild';
 
         return generateUser({balance: 1}).then((generatedUser) => {
-          let api2 = requester(generatedUser);
-          return api2.post('/groups', {
+          return generatedUser.post('/groups', {
             name: groupName,
             type: groupType
           });
@@ -60,8 +57,7 @@ describe('POST /group', () => {
         let tmpUser;
 
         return generateUser({balance: 1}).then((generatedUser) => {
-          let api2 = requester(generatedUser);
-          return api2.post('/groups', {
+          return generatedUser.post('/groups', {
             name: groupName,
             type: groupType,
             privacy: groupPrivacy
@@ -82,7 +78,7 @@ describe('POST /group', () => {
       let groupName = "Test Party";
       let groupType = "party";
 
-      return api.post('/groups', {
+      return user.post('/groups', {
         name: groupName,
         type: groupType
       })
@@ -93,28 +89,24 @@ describe('POST /group', () => {
       })
     });
 
-    it('prevents user in a party from creating a party', () => {
+    it('prevents user in a party from creating another party', () => {
       let tmpUser;
       let groupName = "Test Party";
       let groupType = "party";
 
       return generateUser().then((generatedUser) => {
         tmpUser = generatedUser;
-        api = requester(tmpUser);
-        return api.post('/groups', {
+        return tmpUser.post('/groups', {
           name: groupName,
           type: groupType
         });
       })
       .then(() => {
-        return expect(api.post('/groups')).to.eventually.be.rejected.and.eql({
+        return expect(tmpUser.post('/groups')).to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
           message: t('messageGroupAlreadyInParty'),
         });
-      })
-      .then(() => {
-        api = requester(user);
       });
     });
   });
