@@ -786,6 +786,12 @@ let head = {
     value: 60,
     int: 7,
   },
+  nye2015: {
+    text: t('headSpecialNye2015Text'),
+    notes: t('headSpecialNye2015Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2015'),
+  },
 };
 
 let headAccessory = {
