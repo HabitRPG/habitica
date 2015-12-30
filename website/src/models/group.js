@@ -512,7 +512,7 @@ model.count({_id: 'habitrpg'}, (err, ct) => {
   if (err) throw err;
   if (ct > 0) return;
 
-  new model({ // eslint-disable-line new-cap
+  new model({ // eslint-disable-line babel/new-cap
     _id: 'habitrpg', // TODO hmm this will probably break everything
     leader: '9', // TODO change this user id
     name: 'HabitRPG',
