@@ -1,11 +1,10 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('GET /user/tasks/', () => {
-  let api, user;
+  let user;
 
   beforeEach(() => {
     return generateUser({
@@ -17,12 +16,11 @@ describe('GET /user/tasks/', () => {
       ],
     }).then((_user) => {
       user = _user;
-      api = requester(user);
     });
   });
 
   it('gets all tasks', () => {
-    return api.get(`/user/tasks/`).then((tasks) => {
+    return user.get(`/user/tasks/`).then((tasks) => {
       expect(tasks).to.be.an('array');
       expect(tasks.length).to.be.greaterThan(3);
 

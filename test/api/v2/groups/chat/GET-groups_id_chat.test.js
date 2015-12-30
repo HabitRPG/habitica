@@ -1,7 +1,6 @@
 import {
   createAndPopulateGroup,
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
@@ -22,20 +21,18 @@ describe('GET /groups/:id/chat', () => {
         user = res.leader;
         member = res.members[0];
 
-        return requester(member).post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
+        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
       }).then((res) => {
         message1 = res.message;
 
-        return requester(user).post(`/groups/${group._id}/chat`, null, { message: 'User message' });
+        return user.post(`/groups/${group._id}/chat`, null, { message: 'User message' });
       }).then((res) => {
         message2 = res.message;
       });
     });
 
     it('gets messages', () => {
-      let api = requester(user);
-
-      return api.get(`/groups/${group._id}/chat`).then((messages) => {
+      return user.get(`/groups/${group._id}/chat`).then((messages) => {
         expect(messages).to.have.length(2);
 
         let message = messages[0];

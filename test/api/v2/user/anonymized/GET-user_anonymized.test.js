@@ -1,11 +1,10 @@
 import {
   generateUser,
-  requester,
 } from '../../../../helpers/api-integration.helper';
 import { each } from 'lodash';
 
 describe('GET /user/anonymized', () => {
-  let api, user;
+  let user;
 
   before(() => {
     return generateUser({
@@ -31,8 +30,8 @@ describe('GET /user/anonymized', () => {
         }
       }
     }).then((usr) => {
-      api = requester(usr);
-      return api.post('/user/tasks', {
+      user = usr;
+      return user.post('/user/tasks', {
         text: 'some private text',
         notes: 'some private notes',
         checklist: [
@@ -42,7 +41,7 @@ describe('GET /user/anonymized', () => {
         type: 'daily',
       });
     }).then((result) => {
-      return api.get('/user/anonymized');
+      return user.get('/user/anonymized');
     }).then((anonymizedUser) => {
       user = anonymizedUser;
     });
