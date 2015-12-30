@@ -201,8 +201,6 @@ api.loginSocial = {
 
     if (network !== 'facebook') throw new NotAuthorized(res.t('onlyFbSupported'));
 
-    // TODO promise here?
-    // TODO throwing inside a callback still bubblet up to the async handler?
     let profile = await _passportFbProfile(accessToken);
 
     let user = await User.findOne({
