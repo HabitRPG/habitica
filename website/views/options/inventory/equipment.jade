@@ -56,5 +56,8 @@
               ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}',
               ng-click='equip(item.key, "costume")',
               popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+              aria-label='{{::item.text()}}',
               popover-trigger='mouseenter', popover-placement='right',
               popover-append-to-body='true')
+  script
+    include screenReaderLabels.js

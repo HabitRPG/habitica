@@ -13,6 +13,7 @@ mixin petList(eggSource, potionSource)
                 .PixelPaw
               button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
 
+
 .container-fluid
   .stable.row: .col-xs-12
     .pull-left-sm.col-centered(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
@@ -65,3 +66,6 @@ mixin petList(eggSource, potionSource)
               .badge.badge-info.stack-count {{points}}
             // Remove this once we have images in
             p {{:: Content.food[food].text()}}
+  //a terribly inelegant hack to get the aria-labels on everything
+  script
+    include screenReaderLabels.js
