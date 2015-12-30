@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "残高から",
     "sendGiftPurchase": "購入する",
     "sendGiftMessagePlaceholder": "個人メッセージ(任意)",
-    "sendGiftSubscription": "<%= months %>ヶ月: $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
     "battleWithFriends": "フレンドと一緒にモンスターと戦う",
     "startPartyWithFriends": "Start a Party with your friends!",
     "startAParty": "チームを作る",

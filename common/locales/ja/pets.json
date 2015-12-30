@@ -80,6 +80,7 @@
     "petKeyPets": "ペットを逃がす",
     "petKeyMounts": "マウントペットを逃がす",
     "petKeyBoth": "両方逃がす",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "まだだ！",
     "gemsEach": "各ジェム"
 }

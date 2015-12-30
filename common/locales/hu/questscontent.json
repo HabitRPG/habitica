@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Prémvadász mikulás",
-    "questEvilSantaNotes": "Siralmas bőgést hallasz mélyen a jégmezőkön. A bőgést és dörmögést követve - meg-megszakítva egy másik hang vihogásával - egy erdei tisztáson kötsz ki, ahol egy felnőtt jegesmedvét találsz bezárva és leláncolva. A ketrec tetején egy kis gonosz manó táncol elnyűtt Karácsonyi jelmezben. Kűzdd le a Prémvadász Mikulást és mentsd meg a medvét!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Prémvadász Mikulás felüvölt dühében, majd eliszkol az éjszakába. A hálás medve dörmögve-bömbölve megpróbál elmondani neked valamit. Visszaviszed az istállóba, ahol Matt Boch, a suttogó szörnyülködve hallgatja meg a történetét. Van egy kisbocsa! Elmenekült a jégmezőn, amikor az anyukáját elfogták. Segíts neki és találd meg a kölykét!",
     "questEvilSantaBoss": "Prémvadász mikulás",
     "questEvilSantaDropBearCubPolarMount": "Jegesmedve (hátas)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "The Golden Knight, Part 1: A Stern Talking-To",
     "questGoldenknight1Notes": "<p>Az Arany Lovag kezd rászállni a szegény Habitica lakók hibáira. Nem csináltad meg az összes Napi feladatod? Bepipáltál egy negatív szokást? Mindent felhasznál arra, hogy azzal zaklasson, hogy példát kéne venned tőle. Ő a ragyogó példánya egy tökéletes Habitica lakónak, és te egy semmi vagy, vagy inkább egy nagy kudarc. Nos, ez egyáltalán nem szép! Mindenki hibázhat. Nem kellene ilyen negatívan reagálni erre. Talán itt az ideje, hogy összegyűjtsünk jó néhány Tanúságtételt és az Arany Lovag is megkapja a maga Szigorú Lehordását!</p>",
     "questGoldenknight1CollectTestimony": "Tanúságtételek",
-    "questGoldenknight1DropGoldenknight2Quest": "Az Arany Lovag lánc 2. rész: Patinás Arany (tekercs)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "The Golden Knight, Part 2: Gold Knight",
     "questGoldenknight2Notes": "<p>Több száz Habiticai lakos vallomásával felfegyverkezve, végre-valahára szembeszállsz az Arany Lovaggal. Egyenként felolvasod neki Habitica lakóinak panaszait. \"És @Pfeffernusse azt állítja, hogy a folytonos dicsekvésed-\" A lovag felemeli kezét hogy elcsendesítsen és gúnyosan megjegyzi, \"Kérlek, ezek az emberek csak irigykednek a sikereim láttán. Ahelyett, hogy panaszkodnak, egyszerűen csak olyan keményen kéne dolgozniuk mint én. Lehet, hogy meg kéne neked mutatnom az erőmet melyet ha úgy igyekszel mint én, elérhetsz!\" Ezzel felemeli a buzogányát és támadásba lendül!</p>",
     "questGoldenknight2Boss": "Arany Lovag",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

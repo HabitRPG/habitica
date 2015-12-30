@@ -1,7 +1,6 @@
 import {
   createAndPopulateGroup,
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
@@ -22,26 +21,21 @@ describe('POST /groups/:id/chat/:id/like', () => {
         user = res.leader;
         member = res.members[0];
 
-        return requester(member)
-          .post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
+        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
       }).then((res) => {
         message = res.message;
       });
     });
 
     it('likes message', () => {
-      let api = requester(user);
-
-      return api.post(`/groups/${group._id}/chat/${message.id}/like`).then((messages) => {
+      return user.post(`/groups/${group._id}/chat/${message.id}/like`).then((messages) => {
         let message = messages[0];
         expect(message.likes[user._id]).to.eql(true);
       });
     });
 
     it('returns the message object', () => {
-      let api = requester(user);
-
-      return api.post(`/groups/${group._id}/chat/${message.id}/like`).then((messages) => {
+      return user.post(`/groups/${group._id}/chat/${message.id}/like`).then((messages) => {
         let message = messages[0];
         expect(message.text).to.eql('Group member message');
         expect(message.uuid).to.eql(member._id);
@@ -51,7 +45,7 @@ describe('POST /groups/:id/chat/:id/like', () => {
   });
 
   context('own message', () => {
-    let api, group, message, user;
+    let group, message, user;
 
     beforeEach(() => {
       return createAndPopulateGroup({
@@ -63,18 +57,15 @@ describe('POST /groups/:id/chat/:id/like', () => {
       }).then((res) => {
         group = res.group;
         user = res.leader;
-        api = requester(user);
 
-        return api.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message', });
+        return user.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message', });
       }).then((res) => {
         message = res.message;
       });
     });
 
     it('cannot like message', () => {
-      let api = requester(user);
-
-      return expect(api.post(`/groups/${group._id}/chat/${message.id}/like`))
+      return expect(user.post(`/groups/${group._id}/chat/${message.id}/like`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
           text: t('messageGroupChatLikeOwnMessage'),
@@ -115,10 +106,8 @@ describe('POST /groups/:id/chat/:id/like', () => {
     });
 
     it('changes only the message that is liked', () => {
-      let api = requester(user);
-
-      return api.post(`/groups/${group._id}/chat/message-to-be-liked/like`).then((messages) => {
-        return requester(admin).get(`/groups/${group._id}/chat`);
+      return user.post(`/groups/${group._id}/chat/message-to-be-liked/like`).then((messages) => {
+        return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages).to.have.lengthOf(4);
 
@@ -143,7 +132,7 @@ describe('POST /groups/:id/chat/:id/like', () => {
   });
 
   context('nonexistant message', () => {
-    let api, group, message, user;
+    let group, message, user;
 
     beforeEach(() => {
       return createAndPopulateGroup({
@@ -154,14 +143,11 @@ describe('POST /groups/:id/chat/:id/like', () => {
       }).then((res) => {
         group = res.group;
         user = res.leader;
-        api = requester(user);
       });
     });
 
     it('returns error', () => {
-      let api = requester(user);
-
-      return expect(api.post(`/groups/${group._id}/chat/non-existant-message/like`))
+      return expect(user.post(`/groups/${group._id}/chat/non-existant-message/like`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           text: t('messageGroupChatNotFound'),

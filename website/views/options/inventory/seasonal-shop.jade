@@ -33,14 +33,14 @@
         p {{::quest.value}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
     menu.pets-menu(label=env.t('seasonalItems'))
-      // div
-        button.customize-option(class='inventory_special_spookDust',
-          popover='{{::Content.spells.special.spookDust.notes()}}',
-          popover-title='{{::Content.spells.special.spookDust.text()}}',
+      div
+        button.customize-option(class='inventory_special_snowball',
+          popover='{{::Content.spells.special.snowball.notes()}}',
+          popover-title='{{::Content.spells.special.snowball.text()}}',
           popover-trigger='mouseenter', popover-placement='right',
           popover-append-to-body='true',
-          ng-click='purchase("special", Content.spells.special.spookDust)')
-        p {{::Content.spells.special.spookDust.value}}
+          ng-click='purchase("special", Content.spells.special.snowball)')
+        p {{::Content.spells.special.snowball.value}}
           span(class='shop_gold')
       div
         button.customize-option(class='Pet_HatchingPotion_Peppermint',

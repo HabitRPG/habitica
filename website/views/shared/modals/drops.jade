@@ -36,17 +36,17 @@ script(type='text/ng-template', id='modals/pet-key.html')
       a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 1 && petCount >= 90', ng-controller='SettingsCtrl')
-      a.btn.btn-danger(ng-click='$close(); releasePets()')
+      a.btn.btn-danger.release_popover(ng-click='clickRelease("pets", $event)')
         =env.t('petKeyPets')
         | : 4&nbsp;
         span.Pet_Currency_Gem1x.inline-gems
     span(ng-if='user.balance >= 1 && mountCount >= 90', ng-controller='SettingsCtrl')
-      a.btn.btn-danger(ng-click='$close(); releaseMounts()')
+      a.btn.btn-danger.release_popover(ng-click='clickRelease("mounts", $event)')
         =env.t('petKeyMounts')
         | : 4&nbsp;
         span.Pet_Currency_Gem1x.inline-gems
     span(ng-if='(user.balance >= 1.5 || user.achievements.triadBingo) && petCount >= 90 && mountCount >= 90', ng-controller='SettingsCtrl')
-      a.btn.btn-danger(ng-click='$close(); releaseBoth()')
+      a.btn.btn-danger.release_popover(ng-click='clickRelease("both", $event)')
         =env.t('petKeyBoth')
         span(ng-if='!user.achievements.triadBingo')
           | : 6&nbsp;

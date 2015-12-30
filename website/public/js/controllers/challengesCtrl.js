@@ -83,7 +83,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       _(clonedTasks).each(function(val, type) {
         challenge[type + 's'].forEach(_cloneTaskAndPush);
-      });
+      }).value();
 
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: challenge.name,

@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "猟師のサンタ",
-    "questEvilSantaNotes": "あなたは氷原の奥で、嘆くうなり声を聞く。あなたはうなり声とどなり声 - 途中甲高い笑いにさえぎられるが -を追って、森の中の開拓地に進み、完全に成長したホッキョクグマを見つけた。彼女はケージに入れられ、足かせをされ、うなり声をあげている。ケージの上で踊っているのは、世間から見放されたクリスマスの衣装を着た、悪意のある小さな悪魔だ。トラッパーサンタを倒し、獣を救う！",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "トラッパーサンタは怒って金切り声をあげ、それは夜にこだました。感謝した牝熊は、うなり声やどなり声を通して、何かを伝えようとする。あなたは彼女を厩舎に連れて戻り、告げ口マット ボックが恐怖にあえぐ彼女の物語に耳を傾けた。彼女には子供がいます！彼女が捕獲されたとき、彼は氷原に逃げました。彼女の赤ん坊を見つけるのを手伝おう！",
     "questEvilSantaBoss": "猟師のサンタ",
     "questEvilSantaDropBearCubPolarMount": "ホッキョクグマ(マウント)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "黄金騎士、パート1: 厳しい小言",
     "questGoldenknight1Notes": "<p>ゴールデン・ナイトは、貧しいHabiticansのケースに乗っていました。あなたの日課を全てやりませんでしたか？悪い習慣のチェックは外しましたか？あなたがどのように彼女の例に続かなければならないかについて、あなたを悩ます理由として、彼女はこれを使います。彼女は完全なHabiticanの輝く代表例です。そして、あなたは失敗以外のなにものでもありません。さて、それはまったく素晴らしくありません！誰でも、間違いをおかします。彼らは、そのために否定的に応じられる必要はありません。おそらく、あなたが傷つくHabiticansからいくらかの証言を集めて、ゴールデン・ナイトに厳しいお説教をする時です！</p>",
     "questGoldenknight1CollectTestimony": "証言",
-    "questGoldenknight1DropGoldenknight2Quest": "ゴールデンナイトチェーン　パート2：光沢を失った黄金(スクロール)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "黄金騎士、パート2: 黄金騎士",
     "questGoldenknight2Notes": "<p>Habitca人の何百もの証言で武装して、あなたはとうとうゴールデンナイトと対決します。あなたはHabitica人の彼女への不満をひとつひとつ唱え始めます。「そして@Pfeffernusseは絶えずあなたが自慢する-」ナイトは黙って手を上げてあざ笑い「どうか。その人たちは単に私の成功をねたんでいるだけです。泣き言を言うかわりに、私のように単に一生懸命励むべきです！私のように努力で到達できる力を私はおそらくあなたに見せるべきでしょう！」彼女は彼女のモーニングスターを掲げて攻撃態勢をとります！</p>",
     "questGoldenknight2Boss": "ゴールドナイト",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }
