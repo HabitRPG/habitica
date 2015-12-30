@@ -1,24 +1,20 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
-import { v4 as generateRandomUserName } from 'uuid';
-import { each } from 'lodash';
 
 describe('POST /tasks', () => {
-  let user, api;
+  let user;
 
   before(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
   context('validates params', () => {
     it('returns an error if req.body.type is absent', () => {
-      return expect(api.post('/tasks', {
+      return expect(user.post('/tasks', {
         notType: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -28,7 +24,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.type is not valid', () => {
-      return expect(api.post('/tasks', {
+      return expect(user.post('/tasks', {
         type: 'habitF',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -38,7 +34,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.text is absent', () => {
-      return expect(api.post('/tasks', {
+      return expect(user.post('/tasks', {
         type: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -48,7 +44,7 @@ describe('POST /tasks', () => {
     });
 
     it('automatically sets "task.userId" to user\'s uuid', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
       }).then((task) => {
@@ -59,7 +55,7 @@ describe('POST /tasks', () => {
     it(`ignores setting userId, history, createdAt,
                         updatedAt, challenge, completed, streak,
                         dateCompleted fields`, () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
         userId: 123,
@@ -83,7 +79,7 @@ describe('POST /tasks', () => {
     });
 
     it('ignores invalid fields', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
         notValid: true,
@@ -95,7 +91,7 @@ describe('POST /tasks', () => {
 
   context('habits', () => {
     it('creates a habit', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
         up: false,
@@ -112,7 +108,7 @@ describe('POST /tasks', () => {
     });
 
     it('defaults to setting up and down to true', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
         notes: 1976,
@@ -123,7 +119,7 @@ describe('POST /tasks', () => {
     });
 
     it('cannot create checklists', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
         checklist: [
@@ -137,7 +133,7 @@ describe('POST /tasks', () => {
 
   context('todos', () => {
     it('creates a todo', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test todo',
         type: 'todo',
         notes: 1976,
@@ -150,7 +146,7 @@ describe('POST /tasks', () => {
     });
 
     it('can create checklists', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test todo',
         type: 'todo',
         checklist: [
@@ -171,7 +167,7 @@ describe('POST /tasks', () => {
     it('creates a daily', () => {
       let now = new Date();
 
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
         notes: 1976,
@@ -190,7 +186,7 @@ describe('POST /tasks', () => {
     });
 
     it('defaults to a weekly frequency, with every day set', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
       }).then((task) => {
@@ -209,7 +205,7 @@ describe('POST /tasks', () => {
     });
 
     it('allows repeat field to be configured', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
         repeat: {
@@ -233,7 +229,7 @@ describe('POST /tasks', () => {
     it('defaults startDate to today', () => {
       let today = (new Date()).getDay();
 
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
       }).then((task) => {
@@ -242,7 +238,7 @@ describe('POST /tasks', () => {
     });
 
     it('can create checklists', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
         checklist: [
@@ -261,7 +257,7 @@ describe('POST /tasks', () => {
 
   context('rewards', () => {
     it('creates a reward', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test reward',
         type: 'reward',
         notes: 1976,
@@ -276,7 +272,7 @@ describe('POST /tasks', () => {
     });
 
     it('defaults to a 0 value', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test reward',
         type: 'reward',
       }).then((task) => {
@@ -285,7 +281,7 @@ describe('POST /tasks', () => {
     });
 
     it('requires value to be coerced into a number', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test reward',
         type: 'reward',
         value: "10",
@@ -295,7 +291,7 @@ describe('POST /tasks', () => {
     });
 
     it('cannot create checklists', () => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test reward',
         type: 'reward',
         checklist: [

@@ -1,17 +1,15 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:id', () => {
-  let user, api;
+  let user;
 
   before(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
@@ -19,7 +17,7 @@ describe('PUT /tasks/:id', () => {
     let task;
 
     beforeEach(() => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
       }).then((createdTask) => {
@@ -30,7 +28,7 @@ describe('PUT /tasks/:id', () => {
     it(`ignores setting _id, type, userId, history, createdAt,
                         updatedAt, challenge, completed, streak,
                         dateCompleted fields`, () => {
-      api.put('/tasks/' + task._id, {
+      user.put('/tasks/' + task._id, {
         _id: 123,
         type: 'daily',
         userId: 123,
@@ -56,7 +54,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('ignores invalid fields', () => {
-      api.put('/tasks/' + task._id, {
+      user.put('/tasks/' + task._id, {
         notValid: true,
       }).then((savedTask) => {
         expect(savedTask.notValid).to.be.a('undefined');
@@ -68,7 +66,7 @@ describe('PUT /tasks/:id', () => {
     let habit;
 
     beforeEach(() => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
         notes: 1976,
@@ -78,7 +76,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates a habit', () => {
-      return api.put(`/tasks/${habit._id}`, {
+      return user.put(`/tasks/${habit._id}`, {
         text: 'some new text',
         up: false,
         down: false,
@@ -96,7 +94,7 @@ describe('PUT /tasks/:id', () => {
     let todo;
 
     beforeEach(() => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test todo',
         type: 'todo',
         notes: 1976,
@@ -106,7 +104,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates a todo', () => {
-      return api.put(`/tasks/${todo._id}`, {
+      return user.put(`/tasks/${todo._id}`, {
         text: 'some new text',
         notes: 'some new notes',
       }).then((task) => {
@@ -116,13 +114,13 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('can update checklists (replace it)', () => {
-      return api.put(`/tasks/${todo._id}`, {
+      return user.put(`/tasks/${todo._id}`, {
         checklist: [
           {text: 123, completed: false},
           {text: 456, completed: true},
         ]
       }).then((savedTodo) => {
-        return api.put(`/tasks/${todo._id}`, {
+        return user.put(`/tasks/${todo._id}`, {
           checklist: [
             {text: 789, completed: false},
           ]
@@ -136,10 +134,10 @@ describe('PUT /tasks/:id', () => {
 
     it('can update tags (replace them)', () => {
       let finalUUID = generateUUID();
-      return api.put(`/tasks/${todo._id}`, {
+      return user.put(`/tasks/${todo._id}`, {
         tags: [generateUUID(), generateUUID()],
       }).then((savedTodo) => {
-        return api.put(`/tasks/${todo._id}`, {
+        return user.put(`/tasks/${todo._id}`, {
           tags: [finalUUID]
         });
       }).then((savedTodo2) => {
@@ -153,7 +151,7 @@ describe('PUT /tasks/:id', () => {
     let daily;
 
     beforeEach(() => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
         notes: 1976,
@@ -165,7 +163,7 @@ describe('PUT /tasks/:id', () => {
     it('updates a daily', () => {
       let now = new Date();
 
-      return api.put(`/tasks/${daily._id}`, {
+      return user.put(`/tasks/${daily._id}`, {
         text: 'some new text',
         notes: 'some new notes',
         frequency: 'daily',
@@ -179,13 +177,13 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('can update checklists (replace it)', () => {
-      return api.put(`/tasks/${daily._id}`, {
+      return user.put(`/tasks/${daily._id}`, {
         checklist: [
           {text: 123, completed: false},
           {text: 456, completed: true},
         ]
       }).then((savedDaily) => {
-        return api.put(`/tasks/${daily._id}`, {
+        return user.put(`/tasks/${daily._id}`, {
           checklist: [
             {text: 789, completed: false},
           ]
@@ -199,10 +197,10 @@ describe('PUT /tasks/:id', () => {
 
     it('can update tags (replace them)', () => {
       let finalUUID = generateUUID();
-      return api.put(`/tasks/${daily._id}`, {
+      return user.put(`/tasks/${daily._id}`, {
         tags: [generateUUID(), generateUUID()],
       }).then((savedDaily) => {
-        return api.put(`/tasks/${daily._id}`, {
+        return user.put(`/tasks/${daily._id}`, {
           tags: [finalUUID]
         });
       }).then((savedDaily2) => {
@@ -212,10 +210,10 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates repeat, even if frequency is set to daily', () => {
-      return api.put(`/tasks/${daily._id}`, {
+      return user.put(`/tasks/${daily._id}`, {
         frequency: 'daily',
       }).then((savedDaily) => {
-        return api.put(`/tasks/${daily._id}`, {
+        return user.put(`/tasks/${daily._id}`, {
           repeat: {
             m: false,
             su: false
@@ -235,10 +233,10 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates everyX, even if frequency is set to weekly', () => {
-      return api.put(`/tasks/${daily._id}`, {
+      return user.put(`/tasks/${daily._id}`, {
         frequency: 'weekly',
       }).then((savedDaily) => {
-        return api.put(`/tasks/${daily._id}`, {
+        return user.put(`/tasks/${daily._id}`, {
           everyX: 5,
         });
       }).then((savedDaily2) => {
@@ -247,7 +245,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('defaults startDate to today if none date object is passed in', () => {
-      return api.put(`/tasks/${daily._id}`, {
+      return user.put(`/tasks/${daily._id}`, {
         frequency: 'weekly',
       }).then((savedDaily2) => {
         expect((new Date(savedDaily2.startDate)).getDay()).to.eql((new Date()).getDay());
@@ -259,7 +257,7 @@ describe('PUT /tasks/:id', () => {
     let reward;
 
     beforeEach(() => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test reward',
         type: 'reward',
         notes: 1976,
@@ -270,7 +268,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates a reward', () => {
-      return api.put(`/tasks/${reward._id}`, {
+      return user.put(`/tasks/${reward._id}`, {
         text: 'some new text',
         notes: 'some new notes',
         value: 10,
@@ -282,7 +280,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('requires value to be coerced into a number', () => {
-      return api.put(`/tasks/${reward._id}`, {
+      return user.put(`/tasks/${reward._id}`, {
         value: "100",
       }).then((task) => {
         expect(task.value).to.eql(100);

@@ -1,7 +1,6 @@
 import {
   createAndPopulateGroup,
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
@@ -27,16 +26,16 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
   });
 
   context('non admin', () => {
-    let api;
+    let nonadmin;
 
     beforeEach(() => {
       return generateUser().then((user) => {
-        api = requester(user);
+        nonadmin = user;
       });
     });
 
     it('cannot clear flags', () => {
-      return expect(api.post(`/groups/${group._id}/chat/message-to-clear/clearflags`))
+      return expect(nonadmin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
           text: t('messageGroupChatAdminClearFlagCount'),
@@ -45,34 +44,34 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
   });
 
   context('admin', () => {
-    let api;
+    let admin;
 
     beforeEach(() => {
       return generateUser({
         'contributor.admin': true,
       }).then((user) => {
-        api = requester(user);
+        admin = user;
       });
     });
 
     it('clears flags', () => {
-      return api.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
-        return api.get(`/groups/${group._id}/chat`);
+      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
+        return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages[0].flagCount).to.eql(0);
       });
     });
 
     it('leaves old flags on the flag object', () => {
-      return api.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
-        return api.get(`/groups/${group._id}/chat`);
+      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
+        return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages[0].flags).to.have.property('some-id', true);
       });
     });
 
     it('returns error if message does not exist', () => {
-      return expect(api.post(`/groups/${group._id}/chat/non-existant-message/clearflags`))
+      return expect(admin.post(`/groups/${group._id}/chat/non-existant-message/clearflags`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           text: t('messageGroupChatNotFound'),
@@ -111,10 +110,8 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     });
 
     it('changes only the message that is flagged', () => {
-      let api = requester(admin);
-
-      return api.post(`/groups/${group._id}/chat/message-to-unflag/clearflags`).then((messages) => {
-        return api.get(`/groups/${group._id}/chat`);
+      return admin.post(`/groups/${group._id}/chat/message-to-unflag/clearflags`).then((messages) => {
+        return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages).to.have.lengthOf(4);
 

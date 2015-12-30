@@ -1,6 +1,5 @@
 import {
   generateUser,
-  requester,
 } from '../../../helpers/api-integration.helper';
 
 describe('GET /user', () => {
@@ -8,8 +7,7 @@ describe('GET /user', () => {
 
   before(() => {
     return generateUser().then((usr) => {
-      let api = requester(usr);
-      return api.get('/user');
+      return usr.get('/user');
     }).then((fetchedUser) => {
       user = fetchedUser;
     });

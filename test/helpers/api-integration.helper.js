@@ -1,9 +1,10 @@
 /* eslint-disable no-use-before-define */
 
 import {
-  set,
+  assign,
   each,
   isEmpty,
+  set,
   times,
 } from 'lodash';
 import { MongoClient as mongo } from 'mongodb';
@@ -22,6 +23,17 @@ const ROUTES = {
     register: '/user/auth/local/register',
   },
 };
+
+class ApiUser {
+  constructor (options) {
+    assign(this, options);
+
+    this.get = _requestMaker(this, 'get');
+    this.post = _requestMaker(this, 'post');
+    this.put = _requestMaker(this, 'put');
+    this.del = _requestMaker(this, 'del');
+  }
+}
 
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
@@ -94,7 +106,9 @@ export function generateUser (update = {}) {
       confirmPassword: password,
     }).then((user) => {
       _updateDocument('users', user, update, () => {
-        resolve(user);
+        let apiUser = new ApiUser(user);
+
+        resolve(apiUser);
       });
     }).catch(reject);
   });
@@ -277,7 +291,6 @@ function _updateDocument (collectionName, doc, update, cb) {
     return cb();
   }
 
-  // TODO use config for db url?
   mongo.connect('mongodb://localhost/habitrpg_test', (connectErr, db) => {
     if (connectErr) throw new Error(`Error connecting to database when updating ${collectionName} collection: ${connectErr}`);
 
