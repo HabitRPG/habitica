@@ -66,6 +66,6 @@ mixin petList(eggSource, potionSource)
               .badge.badge-info.stack-count {{points}}
             // Remove this once we have images in
             p {{:: Content.food[food].text()}}
-
+  //a terribly inelegant hack to get the aria-labels on everything
   script
     include screenReaderLabels.js
