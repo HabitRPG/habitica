@@ -1,7 +1,6 @@
 import {
   createAndPopulateGroup,
   generateUser,
-  requester,
   translate as t,
 } from '../../../helpers/api-integration.helper';
 import { each, find } from 'lodash';
@@ -18,7 +17,7 @@ describe('POST /groups/:id/join', () => {
     'party': {type: 'party', privacy: 'private'},
   }, (data, groupType) => {
     context(`user has invitation to a ${groupType}`, () => {
-      let api, group, invitee;
+      let group, invitee;
 
       beforeEach(() => {
         return createAndPopulateGroup({
@@ -30,13 +29,12 @@ describe('POST /groups/:id/join', () => {
         }).then((res) => {
           group = res.group;
           invitee = res.invitees[0];
-          api = requester(invitee);
         });
       });
 
       it(`allows user to join a ${groupType}`, () => {
-        return api.post(`/groups/${group._id}/join`).then((res) => {
-          return api.get(`/groups/${group._id}`);
+        return invitee.post(`/groups/${group._id}/join`).then((res) => {
+          return invitee.get(`/groups/${group._id}`);
         }).then((_group) => {
           let members = _group.members;
           let userInGroup = find(members, (user) => {
@@ -54,7 +52,7 @@ describe('POST /groups/:id/join', () => {
     'party': {type: 'party', privacy: 'private'},
   }, (data, groupType) => {
     context(`user does not have an invitation to a ${groupType}`, () => {
-      let api, group, user;
+      let group, user;
 
       beforeEach(() => {
         return createAndPopulateGroup({
@@ -67,13 +65,12 @@ describe('POST /groups/:id/join', () => {
           return generateUser();
         }).then((generatedUser) => {
           user = generatedUser;
-          api = requester(user);
         });
       });
 
       it(`does not allow user to join a ${groupType}`, () => {
-        return expect(api.post(`/groups/${group._id}/join`).then((res) => {
-          return api.get(`/groups/${group._id}`);
+        return expect(user.post(`/groups/${group._id}/join`).then((res) => {
+          return user.get(`/groups/${group._id}`);
         })).to.eventually.be.rejected.and.eql({
           code: 401,
           text: t('messageGroupRequiresInvite'),
@@ -83,7 +80,7 @@ describe('POST /groups/:id/join', () => {
   });
 
   context('user does not have an invitation to a public group', () => {
-    let api, group, user;
+    let group, user;
 
     beforeEach(() => {
       return createAndPopulateGroup({
@@ -96,13 +93,12 @@ describe('POST /groups/:id/join', () => {
         return generateUser();
       }).then((generatedUser) => {
         user = generatedUser;
-        api = requester(user);
       });
     });
 
     it('allows user to join a public guild', () => {
-      return api.post(`/groups/${group._id}/join`).then((res) => {
-        return api.get(`/groups/${group._id}`);
+      return user.post(`/groups/${group._id}/join`).then((res) => {
+        return user.get(`/groups/${group._id}`);
       }).then((_group) => {
         let members = _group.members;
         let userInGroup = find(members, (member) => {
@@ -126,7 +122,7 @@ describe('POST /groups/:id/join', () => {
         },
       }).then((res) => {
         group = res.group;
-        return requester(res.leader).post(`/groups/${group._id}/leave`);
+        return res.leader.post(`/groups/${group._id}/leave`);
       }).then((res) => {
         return generateUser();
       }).then((generatedUser) => {
@@ -135,9 +131,8 @@ describe('POST /groups/:id/join', () => {
     });
 
     it('makes the joining user the leader', () => {
-      let api = requester(user);
-      return expect(api.post(`/groups/${group._id}/join`).then((result) => {
-        return api.get(`/groups/${group._id}`);
+      return expect(user.post(`/groups/${group._id}/join`).then((result) => {
+        return user.get(`/groups/${group._id}`);
       })).to.eventually.have.deep.property('leader._id', user._id);
     });
   });

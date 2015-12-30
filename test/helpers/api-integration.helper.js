@@ -14,6 +14,17 @@ i18n.translations = require('../../website/src/libs/i18n.js').translations;
 
 const API_TEST_SERVER_PORT = 3003;
 
+class ApiUser {
+  constructor (options) {
+    assign(this, options);
+
+    this.get = _requestMaker(this, 'get');
+    this.post = _requestMaker(this, 'post');
+    this.put = _requestMaker(this, 'put');
+    this.del = _requestMaker(this, 'del');
+  }
+}
+
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
 // the user are used to make the requests
@@ -85,7 +96,9 @@ export function generateUser (update = {}) {
       confirmPassword: password,
     }).then((user) => {
       _updateDocument('users', user, update, () => {
-        resolve(user);
+        let apiUser = new ApiUser(user);
+
+        resolve(apiUser);
       });
     }).catch(reject);
   });

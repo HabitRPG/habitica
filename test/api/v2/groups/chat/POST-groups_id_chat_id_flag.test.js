@@ -1,7 +1,6 @@
 import {
   createAndPopulateGroup,
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
@@ -22,18 +21,15 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         user = res.leader;
         member = res.members[0];
 
-        return requester(member)
-          .post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
+        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
       }).then((res) => {
         message = res.message;
       });
     });
 
     it('flags message', () => {
-      let api = requester(user);
-
-      return api.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
-        return api.get(`/groups/${group._id}/chat`);
+      return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+        return user.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         let message = messages[0];
         expect(message.flagCount).to.eql(1);
@@ -41,10 +37,8 @@ describe('POST /groups/:id/chat/:id/flag', () => {
     });
 
     it('cannot flag the same message twice', () => {
-      let api = requester(user);
-
-      return expect(api.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
-        return api.post(`/groups/${group._id}/chat/${message.id}/flag`);
+      return expect(user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+        return user.post(`/groups/${group._id}/chat/${message.id}/flag`);
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageGroupChatFlagAlreadyReported'),
@@ -53,7 +47,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   });
 
   context('own message', () => {
-    let api, group, message, user;
+    let group, message, user;
 
     beforeEach(() => {
       return createAndPopulateGroup({
@@ -65,18 +59,15 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       }).then((res) => {
         group = res.group;
         user = res.leader;
-        api = requester(user);
 
-        return api.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message', });
+        return user.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message', });
       }).then((res) => {
         message = res.message;
       });
     });
 
     it('cannot flag message', () => {
-      let api = requester(user);
-
-      return expect(api.post(`/groups/${group._id}/chat/${message.id}/flag`))
+      return expect(user.post(`/groups/${group._id}/chat/${message.id}/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
           text: t('messageGroupChatFlagOwnMessage'),
@@ -85,7 +76,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   });
 
   context('nonexistant message', () => {
-    let api, group, message, user;
+    let group, message, user;
 
     beforeEach(() => {
       return createAndPopulateGroup({
@@ -96,14 +87,11 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       }).then((res) => {
         group = res.group;
         user = res.leader;
-        api = requester(user);
       });
     });
 
     it('returns error', () => {
-      let api = requester(user);
-
-      return expect(api.post(`/groups/${group._id}/chat/non-existant-message/flag`))
+      return expect(user.post(`/groups/${group._id}/chat/non-existant-message/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           text: t('messageGroupChatNotFound'),
@@ -144,10 +132,8 @@ describe('POST /groups/:id/chat/:id/flag', () => {
     });
 
     it('changes only the message that is flagged', () => {
-      let api = requester(user);
-
-      return api.post(`/groups/${group._id}/chat/message-to-be-flagged/flag`).then((messages) => {
-        return requester(admin).get(`/groups/${group._id}/chat`);
+      return user.post(`/groups/${group._id}/chat/message-to-be-flagged/flag`).then((messages) => {
+        return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages).to.have.lengthOf(4);
 
@@ -190,18 +176,15 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         user = res.leader;
         member = res.members[0];
 
-        return requester(member)
-          .post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
+        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
       }).then((res) => {
         message = res.message;
       });
     });
 
     it('sets flagCount to 5', () => {
-      let api = requester(user);
-
-      return api.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
-        return api.get(`/groups/${group._id}/chat`);
+      return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+        return user.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         let message = messages[0];
         expect(message.flagCount).to.eql(5);
