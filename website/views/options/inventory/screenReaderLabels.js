@@ -11,6 +11,7 @@ $( document ).ready(function() {
     }
   });
   //turns out some of the popovers are inside divs which hold the button
+  //the example I found was in pets but there may be others.
   $("div[popover]").each(function(){
     var label = "";
     if ($(this).attr('popover-title') !== undefined){
