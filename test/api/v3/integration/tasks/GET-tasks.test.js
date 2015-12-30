@@ -1,28 +1,26 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 import Q from 'q';
 
 describe('GET /tasks', () => {
-  let user, api;
+  let user;
 
   before(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
   it('returns all user\'s tasks', () => {
     let length;
     return Q.all([
-      api.post('/tasks', {text: 'test habit', type: 'habit'}),
+      user.post('/tasks', {text: 'test habit', type: 'habit'}),
     ])
     .then((createdTasks) => {
       length = createdTasks.length;
-      return api.get('/tasks');
+      return user.get('/tasks');
     })
     .then((tasks) => {
       expect(tasks.length).to.equal(length + 1); // + 1 because 1 is a default task
@@ -31,10 +29,10 @@ describe('GET /tasks', () => {
 
   it('returns only a type of user\'s tasks if req.query.type is specified', () => {
     let habitId;
-    api.post('/tasks', {text: 'test habit', type: 'habit'})
+    user.post('/tasks', {text: 'test habit', type: 'habit'})
     .then((task) => {
       habitId = task._id;
-      return api.get('/tasks?type=habit');
+      return user.get('/tasks?type=habit');
     })
     .then((tasks) => {
       expect(tasks.length).to.equal(1);

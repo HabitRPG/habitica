@@ -1,17 +1,15 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../../helpers/api-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/:taskId/tags/:tagId', () => {
-  let user, api;
+  let user;
 
   before(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
@@ -19,15 +17,15 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
     let tag;
     let task;
 
-    return api.post('/tasks', {
+    return user.post('/tasks', {
       type: 'habit',
       text: 'Task with tag',
     }).then(createdTask => {
       task = createdTask;
-      return api.post('/tags', {name: 'Tag 1'});
+      return user.post('/tags', {name: 'Tag 1'});
     }).then(createdTag => {
       tag = createdTag;
-      return api.post(`/tasks/${task._id}/tags/${tag._id}`);
+      return user.post(`/tasks/${task._id}/tags/${tag._id}`);
     }).then(savedTask => {
       expect(savedTask.tags[0]).to.equal(tag._id);
     });
@@ -37,17 +35,17 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
     let tag;
     let task;
 
-    return expect(api.post('/tasks', {
+    return expect(user.post('/tasks', {
       type: 'habit',
       text: 'Task with tag',
     }).then(createdTask => {
       task = createdTask;
-      return api.post('/tags', {name: 'Tag 1'});
+      return user.post('/tags', {name: 'Tag 1'});
     }).then(createdTag => {
       tag = createdTag;
-      return api.post(`/tasks/${task._id}/tags/${tag._id}`);
+      return user.post(`/tasks/${task._id}/tags/${tag._id}`);
     }).then(() => {
-      return api.post(`/tasks/${task._id}/tags/${tag._id}`);
+      return user.post(`/tasks/${task._id}/tags/${tag._id}`);
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -56,11 +54,11 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('does not add a non existing tag to a task', () => {
-    return expect(api.post('/tasks', {
+    return expect(user.post('/tasks', {
       type: 'habit',
       text: 'Task with tag',
     }).then((task) => {
-      return api.post(`/tasks/${task._id}/tags/${generateUUID()}`);
+      return user.post(`/tasks/${task._id}/tags/${generateUUID()}`);
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',

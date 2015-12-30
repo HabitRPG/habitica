@@ -1,15 +1,13 @@
 import {
   generateUser,
-  requester,
 } from '../../../../helpers/api-integration.helper';
 
 describe('DELETE /tags/:tagId', () => {
-  let user, api;
+  let user;
 
   before(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
@@ -17,16 +15,16 @@ describe('DELETE /tags/:tagId', () => {
     let length;
     let tag;
 
-    return api.post('/tags', {name: 'Tag 1'})
+    return user.post('/tags', {name: 'Tag 1'})
     .then((createdTag) => {
       tag = createdTag;
-      return api.get(`/tags`);
+      return user.get(`/tags`);
     })
     .then((tags) => {
       length = tags.length;
-      return api.del(`/tags/${tag._id}`);
+      return user.del(`/tags/${tag._id}`);
     })
-    .then(() => api.get(`/tags`))
+    .then(() => user.get(`/tags`))
     .then((tags) => {
       expect(tags.length).to.equal(length - 1);
       expect(tags[tags.length - 1].name).to.not.equal('Tag 1');

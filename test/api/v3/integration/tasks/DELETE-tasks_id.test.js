@@ -1,16 +1,14 @@
 import {
   generateUser,
-  requester,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('DELETE /tasks/:id', () => {
-  let user, api;
+  let user;
 
   before(() => {
     return generateUser().then((generatedUser) => {
       user = generatedUser;
-      api = requester(user);
     });
   });
 
@@ -18,7 +16,7 @@ describe('DELETE /tasks/:id', () => {
     let task;
 
     beforeEach(() => {
-      return api.post('/tasks', {
+      return user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
       }).then((createdTask) => {
@@ -27,9 +25,9 @@ describe('DELETE /tasks/:id', () => {
     });
 
     it('deletes a user\'s task', () => {
-      return api.del('/tasks/' + task._id)
+      return user.del('/tasks/' + task._id)
         .then(() => {
-          return expect(api.get('/tasks/' + task._id)).to.eventually.be.rejected.and.eql({
+          return expect(user.get('/tasks/' + task._id)).to.eventually.be.rejected.and.eql({
             code: 404,
             error: 'NotFound',
             message: t('taskNotFound'),
@@ -40,7 +38,7 @@ describe('DELETE /tasks/:id', () => {
 
   context('task cannot be deleted', () => {
     it('cannot delete a non-existant task', () => {
-      return expect(api.del('/tasks/550e8400-e29b-41d4-a716-446655440000')).to.eventually.be.rejected.and.eql({
+      return expect(user.del('/tasks/550e8400-e29b-41d4-a716-446655440000')).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
         message: t('taskNotFound'),
@@ -49,14 +47,14 @@ describe('DELETE /tasks/:id', () => {
 
     it('cannot delete a task owned by someone else', () => {
       return generateUser()
-        .then((user2) => {
-          return requester(user2).post('/tasks', {
+        .then((anotherUser) => {
+          return anotherUser.post('/tasks', {
             text: 'test habit',
             type: 'habit',
-          })
+          });
         })
         .then((task2) => {
-          return expect(api.del('/tasks/' + task2._id)).to.eventually.be.rejected.and.eql({
+          return expect(user.del('/tasks/' + task2._id)).to.eventually.be.rejected.and.eql({
             code: 404,
             error: 'NotFound',
             message: t('taskNotFound'),
