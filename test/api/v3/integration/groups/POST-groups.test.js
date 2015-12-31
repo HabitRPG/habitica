@@ -45,6 +45,7 @@ describe('POST /group', () => {
           expect(result._id).to.exist;
           expect(result.name).to.equal(groupName);
           expect(result.type).to.equal(groupType);
+          expect(result.memberCount).to.equal(1);
         });
       });
     });
@@ -66,6 +67,7 @@ describe('POST /group', () => {
           expect(result._id).to.exist;
           expect(result.name).to.equal(groupName);
           expect(result.type).to.equal(groupType);
+          expect(result.memberCount).to.equal(1);
           expect(result.privacy).to.equal(groupPrivacy);
         });
       });
@@ -85,6 +87,7 @@ describe('POST /group', () => {
         expect(result._id).to.exist;
         expect(result.name).to.equal(groupName);
         expect(result.type).to.equal(groupType);
+        expect(result.memberCount).to.equal(1);
       });
     });
 

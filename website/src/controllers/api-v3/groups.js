@@ -201,6 +201,7 @@ api.joinGroup = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
+    let inviter;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
@@ -213,6 +214,7 @@ api.joinGroup = {
     let isUserInvited = false;
 
     if (group.type === 'party' && group._id === (user.invitations.party && user.invitations.party.id)) {
+      inviter = user.invitations.party.inviter;
       user.invitations.party = {}; // Clear invite TODO mark modified?
 
       // invite new user to pending quest
@@ -242,11 +244,13 @@ api.joinGroup = {
 
     if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
-    await Q.all([
-      group.save(),
-      user.save(),
-      User.update({_id: user.invitations.party.inviter}, {$inc: {'items.quests.basilist': 1}}).exec(), // Reward inviter
-    ]);
+    let promises = [group.save(), user.save()];
+
+    if (group.type === 'party' && inviter) {
+      promises.push(User.update({_id: inviter}, {$inc: {'items.quests.basilist': 1}}).exec()); // Reward inviter
+    }
+
+    await Q.all(promises);
 
     firebase.addUserToGroup(group._id, user._id);
     res.respond(200, {}); // TODO what to return?
