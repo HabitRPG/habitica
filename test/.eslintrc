@@ -10,6 +10,7 @@
     "globals": {
         "expect": true,
         "_": true,
+        "sandbox": true,
         "sinon": true
     },
     "plugins": [ "mocha" ]
