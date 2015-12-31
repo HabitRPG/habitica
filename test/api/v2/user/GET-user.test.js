@@ -5,12 +5,9 @@ import {
 describe('GET /user', () => {
   let user;
 
-  before(() => {
-    return generateUser().then((usr) => {
-      return usr.get('/user');
-    }).then((fetchedUser) => {
-      user = fetchedUser;
-    });
+  before(async () => {
+    let usr = await generateUser();
+    user = await usr.get('/user');
   });
 
   it('gets the user object', () => {

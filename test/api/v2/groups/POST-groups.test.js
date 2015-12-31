@@ -5,14 +5,11 @@ import {
 } from '../../../helpers/api-integration.helper';
 
 describe('POST /groups', () => {
-
   context('All groups', () => {
     let leader;
 
-    beforeEach(() => {
-      return generateUser().then((user) => {
-        leader = user;
-      });
+    beforeEach(async () => {
+      leader = await generateUser();
     });
 
     xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', () => {
@@ -24,61 +21,58 @@ describe('POST /groups', () => {
       });
     });
 
-    it('returns a group object', () => {
-      let group = {
+    it('returns a group object', async () => {
+      let group = await leader.post('/groups', {
         name: 'Test Group',
         type: 'party',
         leaderOnly: { challenges: true },
         description: 'Test Group Description',
         leaderMessage: 'Test Group Message',
-      };
-
-      return leader.post('/groups', group).then((createdGroup) => {
-        expect(createdGroup._id).to.exist;
-        expect(createdGroup.leader).to.eql(leader._id);
-        expect(createdGroup.name).to.eql(group.name);
-        expect(createdGroup.description).to.eql(group.description);
-        expect(createdGroup.leaderMessage).to.eql(group.leaderMessage);
-        expect(createdGroup.leaderOnly).to.eql(group.leaderOnly);
-        expect(createdGroup.memberCount).to.eql(1);
       });
+
+      expect(group._id).to.exist;
+      expect(group.leader).to.eql(leader._id);
+      expect(group.name).to.eql(group.name);
+      expect(group.description).to.eql(group.description);
+      expect(group.leaderMessage).to.eql(group.leaderMessage);
+      expect(group.leaderOnly).to.eql(group.leaderOnly);
+      expect(group.memberCount).to.eql(1);
     });
 
-    it('returns a populated members array', () => {
-      return leader.post('/groups', {
+    it('returns a populated members array', async () => {
+      let party = await leader.post('/groups', {
         type: 'party',
-      }).then((party) => {
-        let member = party.members[0];
-        expect(member._id).to.eql(leader._id);
-        expect(member.profile).to.eql(leader.profile);
-        expect(member.contributor).to.eql(leader.contributor);
       });
+
+      let member = party.members[0];
+
+      expect(member._id).to.eql(leader._id);
+      expect(member.profile).to.eql(leader.profile);
+      expect(member.contributor).to.eql(leader.contributor);
     });
   });
 
   context('Parties', () => {
     let leader;
 
-    beforeEach(() => {
-      return generateUser().then((user) => {
-        leader = user;
+    beforeEach(async () => {
+      leader = await generateUser();
+    });
+
+    it('allows party creation without gems', async () => {
+      let party = await leader.post('/groups', {
+        type: 'party',
       });
+
+      expect(party._id).to.exist;
     });
 
-    it('allows party creation without gems', () => {
-      return expect(leader.post('/groups', {
+    it('prevents party creation if user is already in party', async () => {
+      let party = await generateGroup(leader, {
         type: 'party',
-      })).to.eventually.have.property('_id');
-    });
+      });
 
-    it('prevents party creation if user is already in party', () => {
-      return expect(generateGroup(leader, {
-        type: 'party',
-      }).then((group) => {
-        return leader.post('/groups', {
-          type: 'party',
-        });
-      })).to.eventually.be.rejected.and.eql({
+      await expect(leader.post('/groups', { type: 'party' })).to.eventually.be.rejected.and.eql({
         code: 400,
         text: t('messageGroupAlreadyInParty'),
       });
@@ -98,49 +92,52 @@ describe('POST /groups', () => {
   context('Guilds', () => {
     let leader;
 
-    beforeEach(() => {
-      return generateUser({
+    beforeEach(async () => {
+      leader = await generateUser({
         balance: 2,
-      }).then((user) => {
-        leader = user;
       });
     });
 
-    it('prevents guild creation when user does not have enough gems', () => {
-      return expect(generateUser({
+    it('prevents guild creation when user does not have enough gems', async () => {
+      let userWithoutGems = await generateUser({
         balance: 0.75,
-      }).then((user) => {
-        return user.post('/groups', {
-          type: 'guild',
-        });
-      })).to.eventually.be.rejected.and.eql({
+      });
+
+      await expect(userWithoutGems.post('/groups', { type: 'guild' })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageInsufficientGems'),
       });
     });
 
-    it('can create a public guild', () => {
-      return expect(leader.post('/groups', {
+    it('can create a public guild', async () => {
+      let guild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'public',
-      })).to.eventually.have.property('leader', leader._id);
+      })
+
+      expect(guild.leader).to.eql(leader._id);
     });
 
-    it('can create a private guild', () => {
-      return expect(leader.post('/groups', {
+    it('can create a private guild', async () => {
+      let privateGuild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'private',
-      })).to.eventually.have.property('leader', leader._id);
+      });
+
+      expect(privateGuild.leader).to.eql(leader._id);
     });
 
-    it('deducts gems from user and adds them to guild bank', () => {
-      return expect(leader.post('/groups', {
+    it('deducts gems from user and adds them to guild bank', async () => {
+      let guild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'private',
-      }).then((group) => {
-        expect(group.balance).to.eql(1);
-        return leader.get('/user');
-      })).to.eventually.have.deep.property('balance', 1);
+      });
+
+      expect(guild.balance).to.eql(1);
+
+      let updatedUser = await leader.get('/user');
+
+      expect(updatedUser.balance).to.eql(1);
     });
   });
 });
