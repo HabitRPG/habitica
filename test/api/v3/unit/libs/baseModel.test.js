@@ -32,7 +32,7 @@ describe('Base model plugin', () => {
 
   it('can sanitize input objects', () => {
     baseModel(schema, {
-      noSet: ['noUpdateForMe']
+      noSet: ['noUpdateForMe'],
     });
 
     expect(schema.statics.sanitize).to.exist;
@@ -45,7 +45,7 @@ describe('Base model plugin', () => {
 
   it('accepts an array of additional fields to sanitize at runtime', () => {
     baseModel(schema, {
-      noSet: ['noUpdateForMe']
+      noSet: ['noUpdateForMe'],
     });
 
     expect(schema.statics.sanitize).to.exist;
@@ -59,7 +59,7 @@ describe('Base model plugin', () => {
 
   it('can make fields private', () => {
     baseModel(schema, {
-      private: ['amPrivate']
+      private: ['amPrivate'],
     });
 
     expect(schema.options.toJSON.transform).to.exist;
@@ -73,7 +73,7 @@ describe('Base model plugin', () => {
   it('accepts a further transform function for toJSON', () => {
     let options = {
       private: ['amPrivate'],
-      toJSONTransform: sandbox.stub().returns(true)
+      toJSONTransform: sandbox.stub().returns(true),
     };
 
     baseModel(schema, options);
@@ -88,7 +88,7 @@ describe('Base model plugin', () => {
   it('accepts a transform function for sanitize', () => {
     let options = {
       private: ['amPrivate'],
-      sanitizeTransform: sandbox.stub().returns(true)
+      sanitizeTransform: sandbox.stub().returns(true),
     };
 
     baseModel(schema, options);

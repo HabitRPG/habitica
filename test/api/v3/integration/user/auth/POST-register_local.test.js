@@ -37,7 +37,7 @@ describe('POST /user/auth/local/register', () => {
         username,
         email,
         password,
-        confirmPassword: confirmPassword,
+        confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -104,8 +104,8 @@ describe('POST /user/auth/local/register', () => {
 
       return expect(api.post('/user/auth/local/register', {
         username,
-        email:           email,
-        confirmPassword: confirmPassword,
+        email,
+        confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -123,7 +123,7 @@ describe('POST /user/auth/local/register', () => {
       return generateUser({
         'auth.local.username': username,
         'auth.local.lowerCaseUsername': username,
-        'auth.local.email': email
+        'auth.local.email': email,
       });
     });
 
@@ -133,9 +133,9 @@ describe('POST /user/auth/local/register', () => {
       let password = 'password';
 
       return expect(api.post('/user/auth/local/register', {
-        username:        username,
-        email:           uniqueEmail,
-        password:        password,
+        username,
+        email: uniqueEmail,
+        password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -181,7 +181,7 @@ describe('POST /user/auth/local/register', () => {
       }).then((user) => {
         expect(user.flags.tour).to.not.be.empty;
 
-        each(user.flags.tour, (value, attribute) => {
+        each(user.flags.tour, (value) => {
           expect(value).to.eql(-2);
         });
       });
@@ -232,7 +232,7 @@ describe('POST /user/auth/local/register', () => {
       }).then((user) => {
         expect(user.flags.tour).to.not.be.empty;
 
-        each(user.flags.tutorial.common, (value, attribute) => {
+        each(user.flags.tutorial.common, (value) => {
           expect(value).to.eql(true);
         });
       });

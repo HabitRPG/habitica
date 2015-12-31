@@ -46,15 +46,13 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
     });
   });
 
-  it('does not work with rewards', () => {
-    let reward;
-    return expect(user.post('/tasks', {
+  it('does not work with rewards', async () => {
+    let reward = await user.post('/tasks', {
       type: 'reward',
       text: 'reward with checklist',
-    }).then(createdTask => {
-      reward = createdTask;
-      return user.del(`/tasks/${reward._id}/checklist/${generateUUID()}`);
-    }).then(checklistItem => {})).to.eventually.be.rejected.and.eql({
+    });
+
+    await expect(user.del(`/tasks/${reward._id}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('checklistOnlyDailyTodo'),

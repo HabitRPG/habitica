@@ -6,12 +6,12 @@ describe('analyticsService', () => {
   let amplitudeNock, gaNock;
 
   beforeEach(() => {
-    amplitudeNock = nock( 'https://api.amplitude.com')
+    amplitudeNock = nock('https://api.amplitude.com')
       .filteringPath(/httpapi.*/g, '')
       .post('/')
       .reply(200, {status: 'OK'});
 
-    gaNock = nock( 'http://www.google-analytics.com');
+    gaNock = nock('http://www.google-analytics.com');
   });
 
   describe('#track', () => {
@@ -23,14 +23,14 @@ describe('analyticsService', () => {
         category: 'behavior',
         uuid: 'unique-user-id',
         resting: true,
-        cronCount: 5
+        cronCount: 5,
       };
     });
 
     context('Amplitude', () => {
       it('calls out to amplitude', () => {
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -42,7 +42,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*user_id.*no-user-id-was-provided.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -52,7 +52,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*platform.*server.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -62,7 +62,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*event_properties%22%3A%7B%22category%22%3A%22behavior%22%2C%22resting%22%3Atrue%2C%22cronCount%22%3A5%7D%2C%22.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -74,7 +74,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*itemName.*Fox%20Ears.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -86,7 +86,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*itemName.*Wolf%20Egg.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -98,7 +98,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*itemName.*Bare%20Bones%20Cake.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -110,7 +110,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*itemName.*Golden%20Hatching%20Potion.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -122,7 +122,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*itemName.*Attack%20of%20the%20Mundane%2C%20Part%201%3A%20Dish%20Disaster!.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -134,7 +134,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*itemName.*Seafoam.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -142,14 +142,14 @@ describe('analyticsService', () => {
       it('sends user data if provided', () => {
         let stats = { class: 'wizard', exp: 5, gp: 23, hp: 10, lvl: 4, mp: 30 };
         let user = {
-          stats: stats,
+          stats,
           contributor: { level: 1 },
           purchased: { plan: { planId: 'foo-plan' } },
           flags: {tour: {intro: -2}},
           habits: [{_id: 'habit'}],
           dailys: [{_id: 'daily'}],
           todos: [{_id: 'todo'}],
-          rewards: [{_id: 'reward'}]
+          rewards: [{_id: 'reward'}],
         };
 
         data.user = user;
@@ -158,7 +158,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*user_properties%22%3A%7B%22Class%22%3A%22wizard%22%2C%22Experience%22%3A5%2C%22Gold%22%3A23%2C%22Health%22%3A10%2C%22Level%22%3A4%2C%22Mana%22%3A30%2C%22tutorialComplete%22%3Atrue%2C%22Number%20Of%20Tasks%22%3A%7B%22habits%22%3A1%2C%22dailys%22%3A1%2C%22todos%22%3A1%2C%22rewards%22%3A1%7D%2C%22contributorLevel%22%3A1%2C%22subscription%22%3A%22foo-plan%22%7D%2C%22.*/g, '');
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -171,7 +171,7 @@ describe('analyticsService', () => {
           .reply(200, {status: 'OK'});
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             gaNock.done();
           });
       });
@@ -182,7 +182,7 @@ describe('analyticsService', () => {
           .reply(200, {status: 'OK'});
 
         return analyticsService.track(eventType, data)
-          .then((res) => {
+          .then(() => {
             gaNock.done();
           });
       });
@@ -201,14 +201,14 @@ describe('analyticsService', () => {
         purchaseValue: 8,
         purchaseType: 'checkout',
         gift: false,
-        quantity: 1
+        quantity: 1,
       };
     });
 
     context('Amplitude', () => {
       it('calls out to amplitude', () => {
         return analyticsService.trackPurchase(data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -220,7 +220,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*user_id.*no-user-id-was-provided.*/g, '');
 
         return analyticsService.trackPurchase(data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -230,7 +230,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*platform.*server.*/g, '');
 
         return analyticsService.trackPurchase(data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -240,7 +240,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*aypal-checkout%22%2C%22paymentMethod%22%3A%22PayPal%22%2C%22itemPurchased%22%3A%22Gems%22%2C%22purchaseType%22%3A%22checkout%22%2C%22gift%22%3Afalse%2C%22quantity%22%3A1%7D%2C%22event_type%22%3A%22purchase%22%2C%22revenue.*/g, '');
 
         return analyticsService.trackPurchase(data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -248,14 +248,14 @@ describe('analyticsService', () => {
       it('sends user data if provided', () => {
         let stats = { class: 'wizard', exp: 5, gp: 23, hp: 10, lvl: 4, mp: 30 };
         let user = {
-          stats: stats,
+          stats,
           contributor: { level: 1 },
           purchased: { plan: { planId: 'foo-plan' } },
           flags: {tour: {intro: -2}},
           habits: [{_id: 'habit'}],
           dailys: [{_id: 'daily'}],
           todos: [{_id: 'todo'}],
-          rewards: [{_id: 'reward'}]
+          rewards: [{_id: 'reward'}],
         };
 
         data.user = user;
@@ -264,7 +264,7 @@ describe('analyticsService', () => {
           .filteringPath(/httpapi.*user_properties%22%3A%7B%22Class%22%3A%22wizard%22%2C%22Experience%22%3A5%2C%22Gold%22%3A23%2C%22Health%22%3A10%2C%22Level%22%3A4%2C%22Mana%22%3A30%2C%22tutorialComplete%22%3Atrue%2C%22Number%20Of%20Tasks%22%3A%7B%22habits%22%3A1%2C%22dailys%22%3A1%2C%22todos%22%3A1%2C%22rewards%22%3A1%7D%2C%22contributorLevel%22%3A1%2C%22subscription%22%3A%22foo-plan%22%7D%2C%22.*/g, '');
 
         return analyticsService.trackPurchase(data)
-          .then((res) => {
+          .then(() => {
             amplitudeNock.done();
           });
       });
@@ -277,7 +277,7 @@ describe('analyticsService', () => {
           .reply(200, {status: 'OK'});
 
         return analyticsService.trackPurchase(data)
-          .then((res) => {
+          .then(() => {
             gaNock.done();
           });
       });
@@ -290,7 +290,7 @@ describe('analyticsService', () => {
           .reply(200, {status: 'OK'});
 
         return analyticsService.trackPurchase(data)
-          .then((res) => {
+          .then(() => {
             gaNock.done();
           });
       });

@@ -1,6 +1,5 @@
 import {
   generateUser,
-  translate as t,
 } from '../../../../helpers/api-integration.helper';
 import Q from 'q';
 
