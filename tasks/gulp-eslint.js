@@ -23,7 +23,7 @@ const TEST_FILES = [
   './test/**/*.js',
   // @TODO remove these negations as the test files are cleaned up.
   '!./test/api-legacy/**/*',
-  '!./test/api/**/*',
+  '!./test/api/v2/**/*',
   '!./test/common/simulations/**/*',
   '!./test/content/**/*',
   '!./test/e2e/**/*',
