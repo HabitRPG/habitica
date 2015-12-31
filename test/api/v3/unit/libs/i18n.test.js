@@ -34,7 +34,7 @@ describe('i18n', () => {
   describe('localePath', () => {
     it('is an absolute path to common/locales/', () => {
       expect(localePath).to.match(/.*\/common\/locales\//);
-      expect(localePath)
+      expect(localePath);
     });
   });
 

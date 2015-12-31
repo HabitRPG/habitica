@@ -17,7 +17,7 @@ describe('GET /tags/:tagId', () => {
     return user.post('/tags', {name: 'Tag 1'})
     .then((tag) => {
       createdTag = tag;
-      return user.get(`/tags/${createdTag._id}`)
+      return user.get(`/tags/${createdTag._id}`);
     })
     .then((tag) => {
       expect(tag).to.deep.equal(createdTag);

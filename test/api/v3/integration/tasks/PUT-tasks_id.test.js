@@ -127,7 +127,7 @@ describe('PUT /tasks/:id', () => {
         });
       }).then((savedTodo2) => {
         expect(savedTodo2.checklist.length).to.equal(1);
-        expect(savedTodo2.checklist[0].text).to.equal("789");
+        expect(savedTodo2.checklist[0].text).to.equal('789');
         expect(savedTodo2.checklist[0].completed).to.equal(false);
       });
     });
@@ -190,7 +190,7 @@ describe('PUT /tasks/:id', () => {
         });
       }).then((savedDaily2) => {
         expect(savedDaily2.checklist.length).to.equal(1);
-        expect(savedDaily2.checklist[0].text).to.equal("789");
+        expect(savedDaily2.checklist[0].text).to.equal('789');
         expect(savedDaily2.checklist[0].completed).to.equal(false);
       });
     });
@@ -281,7 +281,7 @@ describe('PUT /tasks/:id', () => {
 
     it('requires value to be coerced into a number', () => {
       return user.put(`/tasks/${reward._id}`, {
-        value: "100",
+        value: '100',
       }).then((task) => {
         expect(task.value).to.eql(100);
       });

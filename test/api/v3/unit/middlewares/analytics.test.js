@@ -3,10 +3,10 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import analyticsService from '../../../../../website/src/libs/api-v3/analyticsService'
+import analyticsService from '../../../../../website/src/libs/api-v3/analyticsService';
 import nconf from 'nconf';
 
-describe('analytics middleware', function() {
+describe('analytics middleware', function () {
   let res, req, next;
   let pathToAnalyticsMiddleware = '../../../../../website/src/middlewares/api-v3/analytics';
 
@@ -23,7 +23,7 @@ describe('analytics middleware', function() {
     delete require.cache[require.resolve(pathToAnalyticsMiddleware)];
   });
 
-  it('attaches analytics object res.locals', function() {
+  it('attaches analytics object res.locals', function () {
     let attachAnalytics = require(pathToAnalyticsMiddleware);
 
     attachAnalytics(req, res, next);
