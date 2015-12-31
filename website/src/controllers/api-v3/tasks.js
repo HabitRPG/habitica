@@ -29,11 +29,11 @@ api.createTask = {
   method: 'POST',
   url: '/tasks',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(Tasks.tasksTypes);
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
     let taskType = req.body.type;
@@ -43,12 +43,12 @@ api.createTask = {
 
     user.tasksOrder[`${taskType}s`].unshift(newTask._id);
 
-    Q.all([
+    let results = await Q.all([
       newTask.save(),
       user.save(),
-    ])
-    .then((results) => res.respond(201, results[0]))
-    .catch(next);
+    ]);
+
+    res.respond(201, results[0]);
   },
 };
 
@@ -67,11 +67,11 @@ api.getTasks = {
   method: 'GET',
   url: '/tasks',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
     let query = {userId: user._id};
@@ -95,16 +95,15 @@ api.getTasks = {
         dateCompleted: 1,
       });
 
-      Q.all([
+      let results = await Q.all([
         queryCompleted.exec(),
         Tasks.Task.find(query).exec(),
-      ])
-        .then((results) => res.respond(200, results[1].concat(results[0])))
-        .catch(next);
+      ]);
+
+      res.respond(200, results[1].concat(results[0]));
     } else {
-      Tasks.Task.find(query).exec()
-        .then((tasks) => res.respond(200, tasks))
-        .catch(next);
+      let tasks = await Tasks.Task.find(query).exec();
+      res.respond(200, tasks);
     }
   },
 };
@@ -123,23 +122,21 @@ api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      res.respond(200, task);
-    })
-    .catch(next);
+    }).exec();
+
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    res.respond(200, task);
   },
 };
 
@@ -157,7 +154,7 @@ api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
@@ -165,37 +162,36 @@ api.updateTask = {
     // TODO make sure tags are updated correctly (they aren't set as modified!) maybe use specific routes
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
+    }).exec();
 
-      // If checklist is updated -> replace the original one
-      if (req.body.checklist) {
-        task.checklist = req.body.checklist;
-        delete req.body.checklist;
-      }
+    if (!task) throw new NotFound(res.t('taskNotFound'));
 
-      // If tags are updated -> replace the original ones
-      if (req.body.tags) {
-        task.tags = req.body.tags;
-        delete req.body.tags;
-      }
+    // If checklist is updated -> replace the original one
+    if (req.body.checklist) {
+      task.checklist = req.body.checklist;
+      delete req.body.checklist;
+    }
 
-      // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, very bad for performances
-      // TODO regarding comment above make sure other models with nested fields are using this trick too
-      _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
-      // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
-      // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
-      // see https://github.com/Automattic/mongoose/issues/2749
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask))
-    .catch(next);
+    // If tags are updated -> replace the original ones
+    if (req.body.tags) {
+      task.tags = req.body.tags;
+      delete req.body.tags;
+    }
+
+    // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, very bad for performances
+    // TODO regarding comment above make sure other models with nested fields are using this trick too
+    _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
+    // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
+    // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
+    // see https://github.com/Automattic/mongoose/issues/2749
+
+    let savedTask = await task.save();
+    res.respond(200, savedTask);
   },
 };
 
@@ -239,81 +235,82 @@ api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
     let direction = req.params.direction;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
+    }).exec();
 
-      let wasCompleted = task.completed;
-      if (task.type === 'daily' || task.type === 'todo') {
-        task.completed = direction === 'up'; // TODO move into scoreTask
-      }
+    if (!task) throw new NotFound(res.t('taskNotFound'));
 
-      let delta = scoreTask({task, user, direction}, req);
-      // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-      if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+    let wasCompleted = task.completed;
+    if (task.type === 'daily' || task.type === 'todo') {
+      task.completed = direction === 'up'; // TODO move into scoreTask
+    }
 
-      // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
-      if (task.type === 'todo') {
-        if (!wasCompleted && task.completed) {
-          let i = user.tasksOrder.todos.indexOf(task._id);
-          if (i !== -1) user.tasksOrder.todos.splice(i, 1);
-        } else if (wasCompleted && !task.completed) {
-          let i = user.tasksOrder.todos.indexOf(task._id);
-          if (i === -1) {
-            user.tasksOrder.todos.push(task._id); // TODO push at the top?
-          } else { // If for some reason it hadn't been removed TODO ok?
-            user.tasksOrder.todos.splice(i, 1);
-            user.tasksOrder.push(task._id);
-          }
+    let delta = scoreTask({task, user, direction}, req);
+    // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+    // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+    if (task.type === 'todo') {
+      if (!wasCompleted && task.completed) {
+        let i = user.tasksOrder.todos.indexOf(task._id);
+        if (i !== -1) user.tasksOrder.todos.splice(i, 1);
+      } else if (wasCompleted && !task.completed) {
+        let i = user.tasksOrder.todos.indexOf(task._id);
+        if (i === -1) {
+          user.tasksOrder.todos.push(task._id); // TODO push at the top?
+        } else { // If for some reason it hadn't been removed TODO ok?
+          user.tasksOrder.todos.splice(i, 1);
+          user.tasksOrder.push(task._id);
         }
       }
+    }
 
-      return Q.all([
-        user.save(),
-        task.save(),
-      ]).then((results) => {
-        let savedUser = results[0];
+    let results = await Q.all([
+      user.save(),
+      task.save(),
+    ]);
 
-        let userStats = savedUser.stats.toJSON();
-        let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
-        res.respond(200, resJsonData);
+    let savedUser = results[0];
 
-        sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+    let userStats = savedUser.stats.toJSON();
+    let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+    res.respond(200, resJsonData);
 
-        // TODO test?
-        if (task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
-          Tasks.Task.findOne({
-            _id: task.challenge.taskId,
-          }).exec()
-          .then(chalTask => {
-            chalTask.value += delta;
-            if (chalTask.type === 'habit' || chalTask.type === 'daily') {
-              chalTask.history.push({value: chalTask.value, date: Number(new Date())});
-              // TODO 1. treat challenges as subscribed users for preening 2. it's expensive to do it at every score - how to have it happen once like for cron?
-              chalTask.history = preenHistory(user, chalTask.history);
-              chalTask.markModified('history');
-            }
+    sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
 
-            return chalTask.save();
-          });
-          // .catch(next) TODO what to do here
+    // TODO test?
+    if (task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+      // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
+      try {
+        let chalTask = await Tasks.Task.findOne({
+          _id: task.challenge.taskId,
+        }).exec();
+
+        chalTask.value += delta;
+        if (chalTask.type === 'habit' || chalTask.type === 'daily') {
+          chalTask.history.push({value: chalTask.value, date: Number(new Date())});
+          // TODO 1. treat challenges as subscribed users for preening 2. it's expensive to do it at every score - how to have it happen once like for cron?
+          chalTask.history = preenHistory(user, chalTask.history);
+          chalTask.markModified('history');
         }
-      });
-    })
-    .catch(next);
+
+        await chalTask.save();
+      } catch (e) {
+        // TODO handle
+      }
+    }
   },
 };
 
@@ -334,41 +331,39 @@ api.moveTask = {
   method: 'POST',
   url: '/tasks/move/:taskId/to/:position',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
     let to = Number(req.params.position);
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type === 'todo' && task.completed) throw new NotFound(res.t('cantMoveCompletedTodo'));
-      let order = user.tasksOrder[`${task.type}s`];
-      let currentIndex = order.indexOf(task._id);
+    }).exec();
 
-      // If for some reason the task isn't ordered (should never happen)
-      // or if the task is moved to a non existing position
-      // or if the task is moved to postion -1 (push to bottom)
-      // -> push task at end of list
-      if (currentIndex === -1 || !order[to] || to === -1) {
-        order.push(task._id);
-      } else {
-        let taskToMove = order.splice(currentIndex, 1)[0];
-        order.splice(to, 0, taskToMove);
-      }
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.type === 'todo' && task.completed) throw new NotFound(res.t('cantMoveCompletedTodo'));
+    let order = user.tasksOrder[`${task.type}s`];
+    let currentIndex = order.indexOf(task._id);
 
-      return user.save();
-    })
-    .then(() => res.respond(200, {})) // TODO what to return
-    .catch(next);
+    // If for some reason the task isn't ordered (should never happen)
+    // or if the task is moved to a non existing position
+    // or if the task is moved to postion -1 (push to bottom)
+    // -> push task at end of list
+    if (currentIndex === -1 || !order[to] || to === -1) {
+      order.push(task._id);
+    } else {
+      let taskToMove = order.splice(currentIndex, 1)[0];
+      order.splice(to, 0, taskToMove);
+    }
+
+    await user.save();
+    res.respond(200, {}); // TODO what to return
   },
 };
 
@@ -386,28 +381,27 @@ api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty and is an array
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+
+    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
+    let savedTask = await task.save();
+
+    res.respond(200, savedTask); // TODO what to return
   },
 };
 
@@ -426,31 +420,30 @@ api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      let item = _.find(task.checklist, {_id: req.params.itemId});
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      if (!item) throw new NotFound(res.t('checklistItemNotFound'));
-      item.completed = !item.completed;
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    let item = _.find(task.checklist, {_id: req.params.itemId});
+
+    if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+    item.completed = !item.completed;
+    let savedTask = await task.save();
+
+    res.respond(200, savedTask); // TODO what to return
   },
 };
 
@@ -469,31 +462,30 @@ api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      let item = _.find(task.checklist, {_id: req.params.itemId});
-      if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    let item = _.find(task.checklist, {_id: req.params.itemId});
+    if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+
+    _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
+    let savedTask = await task.save();
+
+    res.respond(200, savedTask); // TODO what to return
   },
 };
 
@@ -512,31 +504,30 @@ api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      let itemI = _.findIndex(task.checklist, {_id: req.params.itemId});
-      if (itemI === -1) throw new NotFound(res.t('checklistItemNotFound'));
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      task.checklist.splice(itemI, 1);
-      return task.save();
-    })
-    .then(() => res.respond(200, {})) // TODO what to return
-    .catch(next);
+    let itemI = _.findIndex(task.checklist, {_id: req.params.itemId});
+    if (itemI === -1) throw new NotFound(res.t('checklistItemNotFound'));
+
+    task.checklist.splice(itemI, 1);
+
+    await task.save();
+    res.respond(200, {}); // TODO what to return
   },
 };
 
@@ -555,7 +546,7 @@ api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
@@ -563,24 +554,23 @@ api.addTagToTask = {
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      let tagId = req.params.tagId;
+    }).exec();
 
-      let alreadyTagged = task.tags.indexOf(tagId) !== -1;
-      if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    let tagId = req.params.tagId;
 
-      task.tags.push(tagId);
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    let alreadyTagged = task.tags.indexOf(tagId) !== -1;
+    if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
+
+    task.tags.push(tagId);
+
+    let savedTask = await task.save();
+    res.respond(200, savedTask); // TODO what to return
   },
 };
 
@@ -599,30 +589,29 @@ api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
+    }).exec();
 
-      let tagI = task.tags.indexOf(req.params.tagId);
-      if (tagI === -1) throw new NotFound(res.t('tagNotFound'));
+    if (!task) throw new NotFound(res.t('taskNotFound'));
 
-      task.tags.splice(tagI, 1);
-      return task.save();
-    })
-    .then(() => res.respond(200, {})) // TODO what to return
-    .catch(next);
+    let tagI = task.tags.indexOf(req.params.tagId);
+    if (tagI === -1) throw new NotFound(res.t('tagNotFound'));
+
+    task.tags.splice(tagI, 1);
+
+    await task.save();
+    res.respond(200, {}); // TODO what to return
   },
 };
 
@@ -656,30 +645,26 @@ api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.challenge.id) throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+    }).exec();
 
-      _removeTaskTasksOrder(user, req.params.taskId);
-      return Q.all([
-        user.save(),
-        task.remove(),
-      ]);
-    })
-    .then(() => res.respond(200, {}))
-    .catch(next);
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.challenge.id) throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+
+    _removeTaskTasksOrder(user, req.params.taskId);
+    await Q.all([user.save(), task.remove()]);
+
+    res.respond(200, {});
   },
 };
 

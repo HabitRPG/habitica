@@ -16,7 +16,7 @@ api.getUser = {
   method: 'GET',
   middlewares: [authWithHeaders(), cron],
   url: '/user',
-  handler (req, res) {
+  async handler (req, res) {
     let user = res.locals.user.toJSON();
 
     // Remove apiToken from resonse TODO make it priavte at the user level? returned in signup/login

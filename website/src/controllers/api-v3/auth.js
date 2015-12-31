@@ -56,7 +56,7 @@ api.registerLocal = {
     let lowerCaseUsername = username.toLowerCase();
 
     // Search for duplicates using lowercase version of username
-    let user = User.findOne({$or: [
+    let user = await User.findOne({$or: [
       {'auth.local.email': email},
       {'auth.local.lowerCaseUsername': lowerCaseUsername},
     ]}, {'auth.local': 1}).exec();

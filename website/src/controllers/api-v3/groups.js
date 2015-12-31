@@ -29,36 +29,31 @@ api.createGroup = {
   method: 'POST',
   url: '/groups',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     let group = new Group(Group.sanitize(req.body)); // TODO validate empty req.body
     group.leader = user._id;
 
     if (group.type === 'guild') {
-      if (user.balance < 1) return next(new NotAuthorized(res.t('messageInsufficientGems')));
+      if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
 
       group.balance = 1;
 
       user.balance--;
       user.guilds.push(group._id);
     } else {
-      if (user.party._id) return next(new NotAuthorized(res.t('messageGroupAlreadyInParty')));
+      if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
 
       user.party._id = group._id;
     }
 
-    Q.all([
-      user.save(),
-      group.save(),
-    ]).then(results => {
-      let savedGroup = results[1];
+    let results = await Q.all([user.save(), group.save()]);
+    let savedGroup = results[1];
 
-      firebase.updateGroupData(savedGroup);
-      firebase.addUserToGroup(savedGroup._id, user._id);
-      return res.respond(201, savedGroup); // TODO populate
-    })
-    .catch(next);
+    firebase.updateGroupData(savedGroup);
+    firebase.addUserToGroup(savedGroup._id, user._id);
+    return res.respond(201, savedGroup); // TODO populate
   },
 };
 
@@ -76,13 +71,13 @@ api.getGroups = {
   method: 'GET',
   url: '/groups',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty(); // TODO better validation
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     // TODO validate types are acceptable? probably not necessary
     let types = req.query.type.split(',');
@@ -115,16 +110,14 @@ api.getGroups = {
     });
 
     // If no valid value for type was supplied, return an error
-    if (queries.length === 0) return next(new BadRequest(res.t('groupTypesRequired')));
+    if (queries.length === 0) throw new BadRequest(res.t('groupTypesRequired'));
 
-    Q.all(queries) // TODO we would like not to return a single big array but Q doesn't support the funtionality https://github.com/kriskowal/q/issues/328
-    .then(results => {
-      res.respond(200, _.reduce(results, (m, v) => {
-        if (_.isEmpty(v)) return m;
-        return m.concat(Array.isArray(v) ? v : [v]);
-      }, []));
-    })
-    .catch(next);
+    let results = await Q.all(queries); // TODO we would like not to return a single big array but Q doesn't support the funtionality https://github.com/kriskowal/q/issues/328
+
+    res.respond(200, _.reduce(results, (m, v) => {
+      if (_.isEmpty(v)) return m;
+      return m.concat(Array.isArray(v) ? v : [v]);
+    }, []));
   },
 };
 
@@ -142,21 +135,18 @@ api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, req.params.groupId)
-    .then(group => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, req.params.groupId);
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      res.respond(200, group);
-    })
-    .catch(next);
+    res.respond(200, group);
   },
 };
 
@@ -174,28 +164,24 @@ api.updateGroup = {
   method: 'PUT',
   url: '/groups/:groupId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, req.params.groupId)
-    .then(group => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, req.params.groupId);
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
-      _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
+    _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
-      return group.save();
-    }).then(savedGroup => {
-      res.respond(200, savedGroup);
-      firebase.updateGroupData(savedGroup);
-    })
-    .catch(next);
+    let savedGroup = await group.save();
+    res.respond(200, savedGroup);
+    firebase.updateGroupData(savedGroup);
   },
 };
 
@@ -213,60 +199,57 @@ api.joinGroup = {
   method: 'POST',
   url: '/groups/:groupId/join',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, req.params.groupId, '-chat', true) // Do not fetch chat and work even if the user is not yet a member of the group
-    .then(group => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, req.params.groupId, '-chat', true); // Do not fetch chat and work even if the user is not yet a member of the group
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      let isUserInvited = false;
+    let isUserInvited = false;
 
-      if (group.type === 'party' && group._id === (user.invitations.party && user.invitations.party.id)) {
-        user.invitations.party = {}; // Clear invite TODO mark modified?
+    if (group.type === 'party' && group._id === (user.invitations.party && user.invitations.party.id)) {
+      user.invitations.party = {}; // Clear invite TODO mark modified?
 
-        // invite new user to pending quest
-        if (group.quest.key && !group.quest.active) {
-          user.party.quest.RSVPNeeded = true;
-          user.party.quest.key = group.quest.key;
-          group.quest.members[user._id] = undefined;
-          group.markModified('quest.members');
-        }
-
-        user.party._id = group._id; // Set group as user's party
-
-        isUserInvited = true;
-      } else if (group.type === 'guild' && user.invitations.guilds) {
-        let i = _.findIndex(user.invitations.guilds, {id: group._id});
-
-        if (i !== -1) {
-          isUserInvited = true;
-          user.invitations.guilds.splice(i, 1); // Remove invitation
-        } else {
-          isUserInvited = group.privacy === 'private' ? false : true;
-        }
+      // invite new user to pending quest
+      if (group.quest.key && !group.quest.active) {
+        user.party.quest.RSVPNeeded = true;
+        user.party.quest.key = group.quest.key;
+        group.quest.members[user._id] = undefined;
+        group.markModified('quest.members');
       }
 
-      if (isUserInvited && group.type === 'guild') user.guilds.push(group._id); // Add group to user's guilds
-      if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
+      user.party._id = group._id; // Set group as user's party
 
-      if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
+      isUserInvited = true;
+    } else if (group.type === 'guild' && user.invitations.guilds) {
+      let i = _.findIndex(user.invitations.guilds, {id: group._id});
 
-      Q.all([
-        group.save(),
-        user.save(),
-        User.update({_id: user.invitations.party.inviter}, {$inc: {'items.quests.basilist': 1}}).exec(), // Reward inviter
-      ]).then(() => {
-        firebase.addUserToGroup(group._id, user._id);
-        res.respond(200, {}); // TODO what to return?
-      });
-    })
-    .catch(next);
+      if (i !== -1) {
+        isUserInvited = true;
+        user.invitations.guilds.splice(i, 1); // Remove invitation
+      } else {
+        isUserInvited = group.privacy === 'private' ? false : true;
+      }
+    }
+
+    if (isUserInvited && group.type === 'guild') user.guilds.push(group._id); // Add group to user's guilds
+    if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
+
+    if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
+
+    await Q.all([
+      group.save(),
+      user.save(),
+      User.update({_id: user.invitations.party.inviter}, {$inc: {'items.quests.basilist': 1}}).exec(), // Reward inviter
+    ]);
+
+    firebase.addUserToGroup(group._id, user._id);
+    res.respond(200, {}); // TODO what to return?
   },
 };
 
@@ -285,7 +268,7 @@ api.leaveGroup = {
   method: 'POST',
   url: '/groups/:groupId/leave',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
@@ -293,27 +276,24 @@ api.leaveGroup = {
     req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
-    .then(group => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, req.params.groupId, '-chat'); // Do not fetch chat
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      // During quests, checke wheter user can leave
-      if (group.type === 'party') {
-        if (group.quest && group.quest.leader === user._id) {
-          throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
-        }
-
-        if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
-          throw new NotAuthorized(res.t('cannotLeaveWhileActiveQuest'));
-        }
+    // During quests, checke wheter user can leave
+    if (group.type === 'party') {
+      if (group.quest && group.quest.leader === user._id) {
+        throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
       }
 
-      return group.leave(user, req.query.keep);
-    })
-    .then(() => res.respond(200, {}))
-    .catch(next);
+      if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
+        throw new NotAuthorized(res.t('cannotLeaveWhileActiveQuest'));
+      }
+    }
+
+    await group.leave(user, req.query.keep);
+    res.respond(200, {});
   },
 };
 
@@ -345,71 +325,65 @@ api.removeGroupMember = {
   method: 'POST',
   url: '/groups/:groupId/removeMember/:memberId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
-    let group;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat
-    .then(foundGroup => {
-      group = foundGroup;
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, req.params.groupId, '-chat'); // Do not fetch chat
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      let uuid = req.query.memberId;
+    let uuid = req.query.memberId;
 
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
-      if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
-      return User.findOne({_id: uuid}).select('party guilds invitations newMessages').exec();
-    }).then(member => {
-      // We're removing the user from a guild or a party? is the user invited only?
-      let isInGroup = member.party._id === group._id ? 'party' : member.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
-      let isInvited = member.invitations.party.id === group._id ? 'party' : _.findIndex(member.invitations.guilds, {id: group._id}) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
+    let member = await User.findOne({_id: uuid}).select('party guilds invitations newMessages').exec();
+    // We're removing the user from a guild or a party? is the user invited only?
+    let isInGroup = member.party._id === group._id ? 'party' : member.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
+    let isInvited = member.invitations.party.id === group._id ? 'party' : _.findIndex(member.invitations.guilds, {id: group._id}) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
 
-      if (isInGroup) {
-        group.memberCount -= 1;
+    if (isInGroup) {
+      group.memberCount -= 1;
 
-        if (group.quest && group.quest.leader === member._id) {
-          group.quest.key = null;
-          group.quest.leader = null; // TODO markmodified?
-        } else if (group.quest && group.quest.members) {
-          // remove member from quest
-          group.quest.members[member._id] = undefined;
-        }
-
-        if (isInGroup === 'guild') _.pull(member.guilds, group._id);
-        if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
-
-        member.newMessages.group._id = undefined;
-
-        if (group.quest && group.quest.active && group.quest.leader === member._id) {
-          member.items.quests[group.quest.key] += 1; // TODO why this?
-        }
-      } else if (isInvited) {
-        if (isInvited === 'guild') {
-          let i = _.findIndex(member.invitations.guilds, {id: group._id});
-          if (i !== -1) member.invitations.guilds.splice(i, 1);
-        }
-        if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
-      } else {
-        throw new NotFound(res.t('groupMemberNotFound'));
+      if (group.quest && group.quest.leader === member._id) {
+        group.quest.key = null;
+        group.quest.leader = null; // TODO markmodified?
+      } else if (group.quest && group.quest.members) {
+        // remove member from quest
+        group.quest.members[member._id] = undefined;
       }
 
-      let message = req.query.message;
-      if (message) _sendMessageToRemoved(group, member, message);
+      if (isInGroup === 'guild') _.pull(member.guilds, group._id);
+      if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
 
-      return Q.all([
-        member.save(),
-        group.save(),
-      ]);
-    })
-    .then(() => res.respond(200, {}))
-    .catch(next);
+      member.newMessages.group._id = undefined;
+
+      if (group.quest && group.quest.active && group.quest.leader === member._id) {
+        member.items.quests[group.quest.key] += 1; // TODO why this?
+      }
+    } else if (isInvited) {
+      if (isInvited === 'guild') {
+        let i = _.findIndex(member.invitations.guilds, {id: group._id});
+        if (i !== -1) member.invitations.guilds.splice(i, 1);
+      }
+      if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
+    } else {
+      throw new NotFound(res.t('groupMemberNotFound'));
+    }
+
+    let message = req.query.message;
+    if (message) _sendMessageToRemoved(group, member, message);
+
+    await Q.all([
+      member.save(),
+      group.save(),
+    ]);
+    res.respond(200, {});
   },
 };
 
@@ -571,32 +545,29 @@ api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, req.params.groupId, '-chat') // Do not fetch chat TODO other fields too?
-    .then(group => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, req.params.groupId, '-chat'); // Do not fetch chat TODO other fields too?
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      let uuids = req.body.uuids;
-      let emails = req.body.emails;
+    let uuids = req.body.uuids;
+    let emails = req.body.emails;
 
-      if (uuids && emails) { // TODO fix this, low priority, allow for inviting by both at the same time
-        throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
-      } else if (Array.isArray(uuids)) {
-        // return _inviteByUUIDs(uuids, group, user, req, res, next);
-      } else if (Array.isArray(emails)) {
-        // return _inviteByEmails(emails, group, user, req, res, next);
-      } else {
-        throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
-      }
-    })
-    .catch(next);
+    if (uuids && emails) { // TODO fix this, low priority, allow for inviting by both at the same time
+      throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
+    } else if (Array.isArray(uuids)) {
+      // return _inviteByUUIDs(uuids, group, user, req, res, next);
+    } else if (Array.isArray(emails)) {
+      // return _inviteByEmails(emails, group, user, req, res, next);
+    } else {
+      throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
+    }
   },
 };
 
