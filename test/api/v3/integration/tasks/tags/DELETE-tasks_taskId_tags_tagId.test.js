@@ -26,7 +26,7 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
     }).then(createdTag => {
       tag = createdTag;
       return user.post(`/tasks/${task._id}/tags/${tag._id}`);
-    }).then(savedTask => {
+    }).then(() => {
       return user.del(`/tasks/${task._id}/tags/${tag._id}`);
     }).then(() => user.get(`/tasks/${task._id}`))
     .then(updatedTask => {
@@ -35,8 +35,6 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('only deletes existing tags', () => {
-    let task;
-
     return expect(user.post('/tasks', {
       type: 'habit',
       text: 'Task with tag',

@@ -26,7 +26,7 @@ describe('GET /tasks/:id', () => {
     });
 
     it('gets specified task', () => {
-      return user.get('/tasks/' + task._id)
+      return user.get(`/tasks/${task._id}`)
       .then((getTask) => {
         expect(getTask).to.eql(task);
       });
@@ -38,7 +38,9 @@ describe('GET /tasks/:id', () => {
 
   context('task cannot be accessed', () => {
     it('cannot get a non-existant task', () => {
-      return expect(user.get('/tasks/' + generateUUID())).to.eventually.be.rejected.and.eql({
+      let dummyId = generateUUID();
+
+      return expect(user.get(`/tasks/${dummyId}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
         message: t('taskNotFound'),
@@ -57,7 +59,7 @@ describe('GET /tasks/:id', () => {
             type: 'habit',
           });
         }).then((task) => {
-          return expect(anotherUser.get('/tasks/' + task._id)).to.eventually.be.rejected.and.eql({
+          return expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
             code: 404,
             error: 'NotFound',
             message: t('taskNotFound'),

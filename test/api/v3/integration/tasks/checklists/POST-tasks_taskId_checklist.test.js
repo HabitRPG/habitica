@@ -66,7 +66,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
 
   it('fails on task not found', () => {
     return expect(user.post(`/tasks/${generateUUID()}/checklist`, {
-      text: 'Checklist Item 1'
+      text: 'Checklist Item 1',
     })).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',

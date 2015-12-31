@@ -20,7 +20,7 @@ describe('POST /group', () => {
       return expect(
         user.post('/groups', {
           name: groupName,
-          type: groupType
+          type: groupType,
         })
       )
       .to.eventually.be.rejected.and.eql({
@@ -38,7 +38,7 @@ describe('POST /group', () => {
         return generateUser({balance: 1}).then((generatedUser) => {
           return generatedUser.post('/groups', {
             name: groupName,
-            type: groupType
+            type: groupType,
           });
         })
         .then((result) => {
@@ -54,13 +54,12 @@ describe('POST /group', () => {
         let groupName = 'Test Private Guild';
         let groupType = 'guild';
         let groupPrivacy = 'private';
-        let tmpUser;
 
         return generateUser({balance: 1}).then((generatedUser) => {
           return generatedUser.post('/groups', {
             name: groupName,
             type: groupType,
-            privacy: groupPrivacy
+            privacy: groupPrivacy,
           });
         })
         .then((result) => {
@@ -80,7 +79,7 @@ describe('POST /group', () => {
 
       return user.post('/groups', {
         name: groupName,
-        type: groupType
+        type: groupType,
       })
       .then((result) => {
         expect(result._id).to.exist;
@@ -98,7 +97,7 @@ describe('POST /group', () => {
         tmpUser = generatedUser;
         return tmpUser.post('/groups', {
           name: groupName,
-          type: groupType
+          type: groupType,
         });
       })
       .then(() => {

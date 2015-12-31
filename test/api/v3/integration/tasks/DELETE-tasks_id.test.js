@@ -25,9 +25,9 @@ describe('DELETE /tasks/:id', () => {
     });
 
     it('deletes a user\'s task', () => {
-      return user.del('/tasks/' + task._id)
+      return user.del(`/tasks/${task._id}`)
         .then(() => {
-          return expect(user.get('/tasks/' + task._id)).to.eventually.be.rejected.and.eql({
+          return expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
             code: 404,
             error: 'NotFound',
             message: t('taskNotFound'),
@@ -54,7 +54,7 @@ describe('DELETE /tasks/:id', () => {
           });
         })
         .then((task2) => {
-          return expect(user.del('/tasks/' + task2._id)).to.eventually.be.rejected.and.eql({
+          return expect(user.del(`/tasks/${task2._id}`)).to.eventually.be.rejected.and.eql({
             code: 404,
             error: 'NotFound',
             message: t('taskNotFound'),

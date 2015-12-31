@@ -11,8 +11,9 @@ describe('Build Manifest', () => {
     });
 
     it('throws an error in case the page does not exist', () => {
-      let getManifestFilesFn = () => { getManifestFiles('strange name here'); };
-      expect(getManifestFilesFn).to.throw(Error);
+      expect(() => {
+        getManifestFiles('strange name here');
+      }).to.throw(Error);
     });
   });
 });

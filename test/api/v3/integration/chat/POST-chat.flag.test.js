@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
-import _ from 'lodash';
+import { find } from 'lodash';
 
 describe('POST /chat/:chatId/flag', () => {
   let user;
@@ -66,7 +66,7 @@ describe('POST /chat/:chatId/flag', () => {
       return user.get(`/groups/${group._id}`);
     })
     .then((updatedGroup) => {
-      let messageToCheck = _.find(updatedGroup.chat, {id: message.id});
+      let messageToCheck = find(updatedGroup.chat, {id: message.id});
       expect(messageToCheck.flags[user._id]).to.equal(true);
     });
   });
@@ -89,7 +89,7 @@ describe('POST /chat/:chatId/flag', () => {
       return user.get(`/groups/${group._id}`);
     })
     .then((updatedGroup) => {
-      let messageToCheck = _.find(updatedGroup.chat, {id: message.id});
+      let messageToCheck = find(updatedGroup.chat, {id: message.id});
       expect(messageToCheck.flags[secondUser._id]).to.equal(true);
       expect(messageToCheck.flagCount).to.equal(5);
     });

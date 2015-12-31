@@ -2,7 +2,6 @@ import request from 'request';
 import { sendTaskWebhook } from '../../../../../website/src/libs/api-v3/webhook';
 
 describe('webhooks', () => {
-
   beforeEach(() => {
     sandbox.stub(request, 'post');
   });
@@ -15,12 +14,12 @@ describe('webhooks', () => {
     let task = {
       details: { _id: 'task-id' },
       delta: 1.4,
-      direction: 'up'
+      direction: 'up',
     };
 
     let data = {
-      task: task,
-      user: { _id: 'user-id' }
+      task,
+      user: { _id: 'user-id' },
     };
 
     it('does not send if no webhook endpoints exist', () => {
@@ -37,8 +36,8 @@ describe('webhooks', () => {
           sort: 0,
           id: 'some-id',
           enabled: false,
-          url: 'http://example.org/endpoint'
-        }
+          url: 'http://example.org/endpoint',
+        },
       };
 
       sendTaskWebhook(webhooks, data);
@@ -52,8 +51,8 @@ describe('webhooks', () => {
           sort: 0,
           id: 'some-id',
           enabled: true,
-          url: 'http://malformedurl/endpoint'
-        }
+          url: 'http://malformedurl/endpoint',
+        },
       };
 
       sendTaskWebhook(webhooks, data);
@@ -67,8 +66,8 @@ describe('webhooks', () => {
           sort: 0,
           id: 'some-id',
           enabled: true,
-          url: 'http://example.org/endpoint'
-        }
+          url: 'http://example.org/endpoint',
+        },
       };
 
       sendTaskWebhook(webhooks, data);
@@ -81,10 +80,10 @@ describe('webhooks', () => {
           task: { _id: 'task-id' },
           delta: 1.4,
           user: {
-            _id: 'user-id'
-          }
+            _id: 'user-id',
+          },
         },
-        json: true
+        json: true,
       });
     });
 
@@ -94,14 +93,14 @@ describe('webhooks', () => {
           sort: 0,
           id: 'some-id',
           enabled: true,
-          url: 'http://example.org/endpoint'
+          url: 'http://example.org/endpoint',
         },
         'second-webhook': {
           sort: 1,
           id: 'second-webhook',
           enabled: true,
-          url: 'http://example.com/2/endpoint'
-        }
+          url: 'http://example.com/2/endpoint',
+        },
       };
 
       sendTaskWebhook(webhooks, data);
@@ -114,10 +113,10 @@ describe('webhooks', () => {
           task: { _id: 'task-id' },
           delta: 1.4,
           user: {
-            _id: 'user-id'
-          }
+            _id: 'user-id',
+          },
         },
-        json: true
+        json: true,
       });
       expect(request.post).to.be.calledWith({
         url: 'http://example.com/2/endpoint',
@@ -126,10 +125,10 @@ describe('webhooks', () => {
           task: { _id: 'task-id' },
           delta: 1.4,
           user: {
-            _id: 'user-id'
-          }
+            _id: 'user-id',
+          },
         },
-        json: true
+        json: true,
       });
     });
   });
