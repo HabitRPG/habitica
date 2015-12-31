@@ -112,7 +112,7 @@
         "generator-star-spacing": 0,
         "babel/new-cap": 2,
         "babel/object-shorthand": 2,
-        "babel/no-await-in-loop": 2,
+        "babel/no-await-in-loop": 2
     },
     "env": {
         "es6": true,
