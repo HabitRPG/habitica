@@ -28,7 +28,7 @@ function getUser () {
       },
     },
   };
-};
+}
 
 describe('emails', () => {
   let pathToEmailLib = '../../../../../website/src/libs/api-v3/email';
@@ -97,7 +97,7 @@ describe('emails', () => {
       delete user.auth['local'];
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
-      
+
       expect(data).to.have.property('name', user.auth.facebook.displayName);
       expect(data).to.have.property('email', user.auth.facebook.emails[0].value);
       expect(data).to.have.property('_id', user._id);
@@ -109,11 +109,11 @@ describe('emails', () => {
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
       delete user.profile['name'];
-      delete user.auth.local['email']
+      delete user.auth.local['email'];
       delete user.auth['facebook'];
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
-      
+
       expect(data).to.have.property('name', user.auth.local.username);
       expect(data).not.to.have.property('email');
       expect(data).to.have.property('_id', user._id);
@@ -194,7 +194,7 @@ describe('emails', () => {
         name: 'my name',
         email: 'my@email',
       };
-      let variables = [1,2,3];
+      let variables = [1, 2, 3];
 
       sendTxnEmail(mailingInfo, emailType, variables);
       expect(request.post).to.be.calledWith(sinon.match({
@@ -204,8 +204,8 @@ describe('emails', () => {
               return value[0].name === 'BASE_URL';
             }, 'matches variables'),
             personalVariables: sinon.match((value) => {
-              return (value[0].rcpt === mailingInfo.email 
-                && value[0].vars[0].name === 'RECIPIENT_NAME' 
+              return (value[0].rcpt === mailingInfo.email
+                && value[0].vars[0].name === 'RECIPIENT_NAME'
                 && value[0].vars[1].name === 'RECIPIENT_UNSUB_URL'
               );
             }, 'matches personal variables'),

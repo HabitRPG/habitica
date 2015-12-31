@@ -68,7 +68,7 @@ describe('analyticsService', () => {
       });
 
       it('sends english item name for gear if itemKey is provided', () => {
-        data.itemKey = 'headAccessory_special_foxEars'
+        data.itemKey = 'headAccessory_special_foxEars';
 
         amplitudeNock
           .filteringPath(/httpapi.*itemName.*Fox%20Ears.*/g, '');
@@ -80,7 +80,7 @@ describe('analyticsService', () => {
       });
 
       it('sends english item name for egg if itemKey is provided', () => {
-        data.itemKey = 'Wolf'
+        data.itemKey = 'Wolf';
 
         amplitudeNock
           .filteringPath(/httpapi.*itemName.*Wolf%20Egg.*/g, '');
@@ -92,7 +92,7 @@ describe('analyticsService', () => {
       });
 
       it('sends english item name for food if itemKey is provided', () => {
-        data.itemKey = 'Cake_Skeleton'
+        data.itemKey = 'Cake_Skeleton';
 
         amplitudeNock
           .filteringPath(/httpapi.*itemName.*Bare%20Bones%20Cake.*/g, '');
@@ -104,7 +104,7 @@ describe('analyticsService', () => {
       });
 
       it('sends english item name for hatching potion if itemKey is provided', () => {
-        data.itemKey = 'Golden'
+        data.itemKey = 'Golden';
 
         amplitudeNock
           .filteringPath(/httpapi.*itemName.*Golden%20Hatching%20Potion.*/g, '');
@@ -116,7 +116,7 @@ describe('analyticsService', () => {
       });
 
       it('sends english item name for quest if itemKey is provided', () => {
-        data.itemKey = 'atom1'
+        data.itemKey = 'atom1';
 
         amplitudeNock
           .filteringPath(/httpapi.*itemName.*Attack%20of%20the%20Mundane%2C%20Part%201%3A%20Dish%20Disaster!.*/g, '');
@@ -128,7 +128,7 @@ describe('analyticsService', () => {
       });
 
       it('sends english item name for purchased spell if itemKey is provided', () => {
-        data.itemKey = 'seafoam'
+        data.itemKey = 'seafoam';
 
         amplitudeNock
           .filteringPath(/httpapi.*itemName.*Seafoam.*/g, '');

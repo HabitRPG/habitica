@@ -284,7 +284,7 @@ describe('POST /tasks', () => {
       return user.post('/tasks', {
         text: 'test reward',
         type: 'reward',
-        value: "10",
+        value: '10',
       }).then((task) => {
         expect(task.value).to.eql(10);
       });

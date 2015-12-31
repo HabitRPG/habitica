@@ -75,8 +75,8 @@ describe('POST /group', () => {
 
   context('Parties', () => {
     it('creates a party', () => {
-      let groupName = "Test Party";
-      let groupType = "party";
+      let groupName = 'Test Party';
+      let groupType = 'party';
 
       return user.post('/groups', {
         name: groupName,
@@ -86,13 +86,13 @@ describe('POST /group', () => {
         expect(result._id).to.exist;
         expect(result.name).to.equal(groupName);
         expect(result.type).to.equal(groupType);
-      })
+      });
     });
 
     it('prevents user in a party from creating another party', () => {
       let tmpUser;
-      let groupName = "Test Party";
-      let groupType = "party";
+      let groupName = 'Test Party';
+      let groupType = 'party';
 
       return generateUser().then((generatedUser) => {
         tmpUser = generatedUser;

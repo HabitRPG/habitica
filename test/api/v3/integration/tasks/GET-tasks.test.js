@@ -41,5 +41,5 @@ describe('GET /tasks', () => {
   });
 
   // TODO complete after task scoring is done
-  it('returns completed todos sorted by creation date if req.query.includeCompletedTodos is specified')
+  it('returns completed todos sorted by creation date if req.query.includeCompletedTodos is specified');
 });

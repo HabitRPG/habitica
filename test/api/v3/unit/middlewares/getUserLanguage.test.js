@@ -121,7 +121,7 @@ describe('getUserLanguage', () => {
   context('request with session', () => {
     it('uses the user preferred language if avalaible', (done) => {
       sandbox.stub(User, 'findOne').returns({
-        exec() {
+        exec () {
           return Q.resolve({
             preferences: {
               language: 'it',

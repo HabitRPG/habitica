@@ -54,7 +54,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     it('moves completed todos out of user.tasksOrder.todos', () => {
       return user.get('/user')
       .then(user => {
-        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1)
+        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
       }).then(() => user.post(`/tasks/${todo._id}/score/up`))
       .then(() => user.get(`/tasks/${todo._id}`))
       .then((updatedTask) => {
@@ -62,14 +62,14 @@ describe('POST /tasks/:id/score/:direction', () => {
         return user.get('/user');
       })
       .then((user) => {
-        expect(user.tasksOrder.todos.indexOf(todo._id)).to.equal(-1)
+        expect(user.tasksOrder.todos.indexOf(todo._id)).to.equal(-1);
       });
     });
 
     it('moves un-completed todos back into user.tasksOrder.todos', () => {
       return user.get('/user')
       .then(user => {
-        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1)
+        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
       }).then(() => user.post(`/tasks/${todo._id}/score/up`))
       .then(() => user.post(`/tasks/${todo._id}/score/down`))
       .then(() => user.get(`/tasks/${todo._id}`))
@@ -242,7 +242,7 @@ describe('POST /tasks/:id/score/:direction', () => {
           text: 'test plus habit',
           type: 'habit',
           down: false,
-        })
+        });
       }).then((task) => {
         plusHabit = task;
         user.post('/tasks', {
@@ -250,7 +250,7 @@ describe('POST /tasks/:id/score/:direction', () => {
           type: 'habit',
           up: false,
           down: false,
-        })
+        });
       }).then((task) => {
         neitherHabit = task;
       });
