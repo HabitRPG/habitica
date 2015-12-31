@@ -34,7 +34,7 @@ let linter = (src, options) => {
     .pipe(eslint(options))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
-}
+};
 
 // TODO lint client
 // TDOO separate linting cong between
@@ -50,25 +50,7 @@ gulp.task('lint:common', () => {
 });
 
 gulp.task('lint:tests', () => {
-  let options = {
-    rules: {
-      'one-var': 0,
-      'max-nested-callbacks': 0,
-      'no-unused-expressions': 0,
-      'mocha/no-exclusive-tests': 2,
-      'mocha/no-global-tests': 2,
-      'mocha/handle-done-callback': 2,
-    },
-    globals: {
-      'expect': true,
-      '_': true,
-      'sinon': true,
-      'sandbox': true,
-    },
-    plugins: [ 'mocha' ],
-  };
-
-  return linter(TEST_FILES, options);
+  return linter(TEST_FILES);
 });
 
 gulp.task('lint', ['lint:server', 'lint:common', 'lint:tests']);
