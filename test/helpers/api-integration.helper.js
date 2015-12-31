@@ -33,6 +33,12 @@ class ApiUser {
     this.put = _requestMaker(this, 'put');
     this.del = _requestMaker(this, 'del');
   }
+
+  update (options) {
+    return new Promise((resolve) => {
+      _updateDocument('users', this, options, resolve);
+    });
+  }
 }
 
 // Sets up an abject that can make all REST requests
