@@ -25,21 +25,18 @@ api.getChat = {
   method: 'GET',
   url: '/groups/:groupId/chat',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, req.params.groupId, 'chat')
-    .then(group => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, req.params.groupId, 'chat');
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      res.respond(200, group.chat);
-    })
-    .catch(next);
+    res.respond(200, group.chat);
   },
 };
 
@@ -59,7 +56,7 @@ api.postChat = {
   method: 'POST',
   url: '/groups/:groupId/chat',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
     let chatUpdated;
@@ -68,34 +65,31 @@ api.postChat = {
     req.checkBody('message', res.t('messageGroupChatBlankMessage')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, groupId)
-    .then((group) => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.type !== 'party' && user.flags.chatRevoked) {
-        throw new NotFound('Your chat privileges have been revoked.');
-      }
+    let group = await Group.getGroup(user, groupId);
 
-      let lastClientMsg = req.query.previousMsg;
-      chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.type !== 'party' && user.flags.chatRevoked) {
+      throw new NotFound('Your chat privileges have been revoked.');
+    }
 
-      group.sendChat(req.body.message, user);
+    let lastClientMsg = req.query.previousMsg;
+    chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
-      if (group.type === 'party') {
-        user.party.lastMessageSeen = group.chat[0].id;
-        user.save();
-      }
-      return group.save();
-    })
-    .then((group) => {
-      if (chatUpdated) {
-        res.respond(200, {chat: group.chat});
-      } else {
-        res.respond(200, {message: group.chat[0]});
-      }
-    })
-    .catch(next);
+    group.sendChat(req.body.message, user);
+
+    if (group.type === 'party') {
+      user.party.lastMessageSeen = group.chat[0].id;
+      user.save(); // TODO why this is non-blocking? must catch?
+    }
+
+    let savedGroup = await group.save();
+    if (chatUpdated) {
+      res.respond(200, {chat: savedGroup.chat});
+    } else {
+      res.respond(200, {message: savedGroup.chat[0]});
+    }
   },
 };
 
@@ -114,42 +108,35 @@ api.likeChat = {
   method: 'Post',
   url: '/groups/:groupId/chat/:chatId/like',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
-    let message;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, groupId)
-    .then((group) => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      message = _.find(group.chat, {id: req.params.chatId});
-      if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+    let group = await Group.getGroup(user, groupId);
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
+    let message = _.find(group.chat, {id: req.params.chatId});
+    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+    if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
 
-      let update = {$set: {}};
+    let update = {$set: {}};
 
-      if (!message.likes) message.likes = {};
+    if (!message.likes) message.likes = {};
 
-      message.likes[user._id] = !message.likes[user._id];
-      update.$set[`chat.$.likes.${user._id}`] = message.likes[user._id];
+    message.likes[user._id] = !message.likes[user._id];
+    update.$set[`chat.$.likes.${user._id}`] = message.likes[user._id];
 
-      return Group.update(
-        {_id: group._id, 'chat.id': message.id},
-        update
-      );
-    })
-    .then((groupSaved) => {
-      if (!groupSaved) throw new NotFound(res.t('groupNotFound'));
-      res.respond(200, message);
-    })
-    .catch(next);
+    await Group.update(
+      {_id: group._id, 'chat.id': message.id},
+      update
+    );
+    res.respond(200, message);
   },
 };
 
@@ -168,116 +155,104 @@ api.flagChat = {
   method: 'Post',
   url: '/groups/:groupId/chat/:chatId/flag',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
-    let message;
-    let group;
-    let author;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Group.getGroup(user, groupId)
-    .then((groupFound) => {
-      if (!groupFound) throw new NotFound(res.t('groupNotFound'));
-      group = groupFound;
-      message = _.find(group.chat, {id: req.params.chatId});
+    let group = await Group.getGroup(user, groupId);
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    let message = _.find(group.chat, {id: req.params.chatId});
 
-      if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
-      if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatFlagOwnMessage'));
+    if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatFlagOwnMessage'));
 
-      return User.findOne({_id: message.uuid}, {auth: 1});
-    })
-    .then((foundAuthor) => {
-      author = foundAuthor;
+    let author = await User.findOne({_id: message.uuid}, {auth: 1});
 
-      let update = {$set: {}};
+    let update = {$set: {}};
 
-      // Log user ids that have flagged the message
-      if (!message.flags) message.flags = {};
-      if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
-      message.flags[user._id] = true;
-      update.$set[`chat.$.flags.${user._id}`] = true;
+    // Log user ids that have flagged the message
+    if (!message.flags) message.flags = {};
+    if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
+    message.flags[user._id] = true;
+    update.$set[`chat.$.flags.${user._id}`] = true;
 
-      // Log total number of flags (publicly viewable)
-      if (!message.flagCount) message.flagCount = 0;
-      if (user.contributor.admin) {
-        // Arbitraty amount, higher than 2
-        message.flagCount = 5;
-      } else {
-        message.flagCount++;
-      }
-      update.$set['chat.$.flagCount'] = message.flagCount;
+    // Log total number of flags (publicly viewable)
+    if (!message.flagCount) message.flagCount = 0;
+    if (user.contributor.admin) {
+      // Arbitraty amount, higher than 2
+      message.flagCount = 5;
+    } else {
+      message.flagCount++;
+    }
+    update.$set['chat.$.flagCount'] = message.flagCount;
 
-      return Group.update(
-        {_id: group._id, 'chat.id': message.id},
-        update
-      );
-    })
-    .then((group2) => {
-      if (!group2) throw new NotFound(res.t('groupNotFound'));
+    await Group.update(
+      {_id: group._id, 'chat.id': message.id},
+      update
+    );
 
-      let addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
-      addressesToSendTo = typeof addressesToSendTo === 'string' ? JSON.parse(addressesToSendTo) : addressesToSendTo;
+    let addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
+    addressesToSendTo = typeof addressesToSendTo === 'string' ? JSON.parse(addressesToSendTo) : addressesToSendTo;
 
-      if (Array.isArray(addressesToSendTo)) {
-        addressesToSendTo = addressesToSendTo.map((email) => {
-          return {email, canSend: true};
-        });
-      } else {
-        addressesToSendTo = {email: addressesToSendTo};
-      }
+    if (Array.isArray(addressesToSendTo)) {
+      addressesToSendTo = addressesToSendTo.map((email) => {
+        return {email, canSend: true};
+      });
+    } else {
+      addressesToSendTo = {email: addressesToSendTo};
+    }
 
-      let reporterEmailContent;
-      if (user.auth.local) {
-        reporterEmailContent = user.auth.local.email;
-      } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) {
-        reporterEmailContent = user.auth.facebook.emails[0].value;
-      }
+    let reporterEmailContent;
+    if (user.auth.local) {
+      reporterEmailContent = user.auth.local.email;
+    } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) {
+      reporterEmailContent = user.auth.facebook.emails[0].value;
+    }
 
-      let authorEmailContent;
-      if (author.auth.local) {
-        authorEmailContent = author.auth.local.email;
-      } else if (author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) {
-        authorEmailContent = author.auth.facebook.emails[0].value;
-      }
+    let authorEmailContent;
+    if (author.auth.local) {
+      authorEmailContent = author.auth.local.email;
+    } else if (author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) {
+      authorEmailContent = author.auth.facebook.emails[0].value;
+    }
 
-      let groupUrl;
-      if (group._id === 'habitrpg') {
-        groupUrl = '/#/options/groups/tavern';
-      } else if (group.type === 'guild') {
-        groupUrl = `/#/options/groups/guilds/{$group._id}`;
-      } else {
-        groupUrl = 'party';
-      }
+    let groupUrl;
+    if (group._id === 'habitrpg') {
+      groupUrl = '/#/options/groups/tavern';
+    } else if (group.type === 'guild') {
+      groupUrl = `/#/options/groups/guilds/{$group._id}`;
+    } else {
+      groupUrl = 'party';
+    }
 
-      sendTxn(addressesToSendTo, 'flag-report-to-mods', [
-        {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
-        {name: 'MESSAGE_TEXT', content: message.text},
+    sendTxn(addressesToSendTo, 'flag-report-to-mods', [
+      {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
+      {name: 'MESSAGE_TEXT', content: message.text},
 
-        {name: 'REPORTER_USERNAME', content: user.profile.name},
-        {name: 'REPORTER_UUID', content: user._id},
-        {name: 'REPORTER_EMAIL', content: reporterEmailContent},
-        {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId={$user._id}`},
+      {name: 'REPORTER_USERNAME', content: user.profile.name},
+      {name: 'REPORTER_UUID', content: user._id},
+      {name: 'REPORTER_EMAIL', content: reporterEmailContent},
+      {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId={$user._id}`},
 
-        {name: 'AUTHOR_USERNAME', content: message.user},
-        {name: 'AUTHOR_UUID', content: message.uuid},
-        {name: 'AUTHOR_EMAIL', content: authorEmailContent},
-        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId={$message.uuid}`},
+      {name: 'AUTHOR_USERNAME', content: message.user},
+      {name: 'AUTHOR_UUID', content: message.uuid},
+      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId={$message.uuid}`},
 
-        {name: 'GROUP_NAME', content: group.name},
-        {name: 'GROUP_TYPE', content: group.type},
-        {name: 'GROUP_ID', content: group._id},
-        {name: 'GROUP_URL', content: groupUrl},
-      ]);
-      res.respond(200, message);
-    })
-    .catch(next);
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'GROUP_TYPE', content: group.type},
+      {name: 'GROUP_ID', content: group._id},
+      {name: 'GROUP_URL', content: groupUrl},
+    ]);
+
+    res.respond(200, message);
   },
 };
 
