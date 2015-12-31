@@ -27,75 +27,72 @@ api.createChallenge = {
   method: 'POST',
   url: '/challenges',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkBody('group', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let groupId = req.body.group;
     let prize = req.body.prize;
 
-    Group.getGroup(user, groupId, '-chat')
-    .then(group => {
-      if (!group) throw new NotFound(res.t('groupNotFound'));
+    let group = await Group.getGroup(user, groupId, '-chat');
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
-      if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
-        throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
+    if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
+      throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
+    }
+
+    if (groupId === 'habitrpg' && prize < 1) {
+      throw new NotAuthorized(res.t('pubChalsMinPrize'));
+    }
+
+    if (prize > 0) {
+      let groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
+      let prizeCost = prize / 4;
+
+      if (prizeCost > user.balance + groupBalance) {
+        throw new NotAuthorized(res.t('cantAfford'));
       }
 
-      if (groupId === 'habitrpg' && prize < 1) {
-        throw new NotAuthorized(res.t('pubChalsMinPrize'));
+      if (groupBalance >= prizeCost) {
+        // Group pays for all of prize
+        group.balance -= prizeCost;
+      } else if (groupBalance > 0) {
+        // User pays remainder of prize cost after group
+        let remainder = prizeCost - group.balance;
+        group.balance = 0;
+        user.balance -= remainder;
+      } else {
+        // User pays for all of prize
+        user.balance -= prizeCost;
       }
+    }
 
-      if (prize > 0) {
-        let groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
-        let prizeCost = prize / 4;
+    group.challengeCount += 1;
 
-        if (prizeCost > user.balance + groupBalance) {
-          throw new NotAuthorized(res.t('cantAfford'));
-        }
+    let tasks = req.body.tasks || []; // TODO validate
+    req.body.leader = user._id;
+    req.body.official = user.contributor.admin && req.body.official;
+    let challenge = new Challenge(Challenge.sanitize(req.body));
 
-        if (groupBalance >= prizeCost) {
-          // Group pays for all of prize
-          group.balance -= prizeCost;
-        } else if (groupBalance > 0) {
-          // User pays remainder of prize cost after group
-          let remainder = prizeCost - group.balance;
-          group.balance = 0;
-          user.balance -= remainder;
-        } else {
-          // User pays for all of prize
-          user.balance -= prizeCost;
-        }
-      }
+    let toSave = tasks.map(tasks, taskToCreate => {
+      // TODO validate type
+      let task = new Tasks[taskToCreate.type](Tasks.Task.sanitizeCreate(taskToCreate));
+      task.challenge.id = challenge._id;
+      challenge.tasksOrder[`${task.type}s`].push(task._id);
+      return task.save();
+    });
 
-      group.challengeCount += 1;
+    toSave.unshift(challenge, group);
 
-      let tasks = req.body.tasks || []; // TODO validate
-      req.body.leader = user._id;
-      req.body.official = user.contributor.admin && req.body.official;
-      let challenge = new Challenge(Challenge.sanitize(req.body));
+    let results = await Q.all(toSave);
+    let savedChal = results[0];
 
-      let toSave = tasks.map(tasks, taskToCreate => {
-        // TODO validate type
-        let task = new Tasks[taskToCreate.type](Tasks.Task.sanitizeCreate(taskToCreate));
-        task.challenge.id = challenge._id;
-        challenge.tasksOrder[`${task.type}s`].push(task._id);
-        return task.save();
-      });
-
-      toSave.unshift(challenge, group);
-      return Q.all(toSave);
-    })
-    .then(results => {
-      let savedChal = results[0];
-      return savedChal.syncToUser(user) // (it also saves the user)
-        .then(() => res.respond(201, savedChal));
-    })
-    .catch(next);
+    await savedChal.syncToUser(user); // (it also saves the user)
+    res.respond(201, savedChal);
   },
 };
 
@@ -111,14 +108,14 @@ api.getChallenges = {
   method: 'GET',
   url: '/challenges',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     let groups = user.guilds || [];
     if (user.party._id) groups.push(user.party._id);
     groups.push('habitrpg'); // Public challenges
 
-    Challenge.find({
+    let challenges = await Challenge.find({
       $or: [
         {_id: {$in: user.challenges}}, // Challenges where the user is participating
         {group: {$in: groups}}, // Challenges in groups where I'm a member
@@ -130,11 +127,9 @@ api.getChallenges = {
     // TODO populate
     // .populate('group', '_id name type')
     // .populate('leader', 'profile.name')
-    .exec()
-    .then(challenges => {
-      res.respond(200, challenges);
-    })
-    .catch(next);
+    .exec();
+
+    res.respond(200, challenges);
   },
 };
 
@@ -190,7 +185,7 @@ function _closeChal (challenge, broken = {}) {
     }));
   }
 
-  return Q.allSettled(tasks); // TODO look if allSettle could be useful somewhere else
+  return Q.allSettled(tasks); // TODO look if allSettled could be useful somewhere else
   // TODO catch and handle
 }
 
@@ -206,25 +201,21 @@ api.deleteChallenge = {
   method: 'DELETE',
   url: '/challenges/:challengeId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Challenge.findOne({_id: req.params.challengeId})
-    .exec()
-    .then(challenge => {
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+    let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
-      res.respond(200, {});
-      // Close channel in background
-      _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
-    })
-    .catch(next);
+    res.respond(200, {});
+    // Close channel in background
+    _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
   },
 };
 
@@ -240,34 +231,25 @@ api.selectChallengeWinner = {
   method: 'POST',
   url: '/challenges/:challengeId/selectWinner/:winnerId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
-    let challenge;
 
     req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('winnerId', res.t('winnerIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Challenge.findOne({_id: req.params.challengeId})
-    .exec()
-    .then(challengeFound => {
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+    let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
-      challenge = challengeFound;
+    let winner = await User.findOne({_id: req.params.winnerId}).exec();
+    if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.parama.winnerId}));
 
-      return User.findOne({_id: req.params.winnerId}).exec();
-    })
-    .then(winner => {
-      if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.parama.winnerId}));
-
-      res.respond(200, {});
-      // Close channel in background
-      _closeChal(challenge, {broken: 'CHALLENGE_DELETED', winner});
-    })
-    .catch(next);
+    res.respond(200, {});
+    // Close channel in background
+    _closeChal(challenge, {broken: 'CHALLENGE_DELETED', winner});
   },
 };
 

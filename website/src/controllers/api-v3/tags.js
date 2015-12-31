@@ -20,18 +20,15 @@ api.createTag = {
   method: 'POST',
   url: '/tags',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     user.tags.push(Tag.sanitize(req.body));
+    let savedUser = await user.save();
 
-    user.save()
-      .then((savedUser) => {
-        let l = savedUser.tags.length;
-        let tag = savedUser.tags[l - 1];
-        res.respond(201, tag);
-      })
-      .catch(next);
+    let l = savedUser.tags.length;
+    let tag = savedUser.tags[l - 1];
+    res.respond(201, tag);
   },
 };
 
@@ -47,7 +44,7 @@ api.getTags = {
   method: 'GET',
   url: '/tags',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res) {
+  async handler (req, res) {
     let user = res.locals.user;
     res.respond(200, user.tags);
   },
@@ -67,16 +64,16 @@ api.getTag = {
   method: 'GET',
   url: '/tags/:tagId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let tag = user.tags.id(req.params.tagId);
-    if (!tag) return next(new NotFound(res.t('tagNotFound')));
+    if (!tag) throw new NotFound(res.t('tagNotFound'));
     res.respond(200, tag);
   },
 };
@@ -95,7 +92,7 @@ api.updateTag = {
   method: 'PUT',
   url: '/tags/:tagId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
@@ -104,16 +101,15 @@ api.updateTag = {
     let tagId = req.params.tagId;
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let tag = user.tags.id(tagId);
-    if (!tag) return next(new NotFound(res.t('tagNotFound')));
+    if (!tag) throw new NotFound(res.t('tagNotFound'));
 
     _.merge(tag, Tag.sanitize(req.body));
 
-    user.save()
-      .then((savedUser) => res.respond(200, savedUser.tags.id(tagId)))
-      .catch(next);
+    let savedUser = await user.save();
+    res.respond(200, savedUser.tags.id(tagId));
   },
 };
 
@@ -131,21 +127,20 @@ api.deleteTag = {
   method: 'DELETE',
   url: '/tags/:tagId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let tag = user.tags.id(req.params.tagId);
-    if (!tag) return next(new NotFound(res.t('tagNotFound')));
+    if (!tag) throw new NotFound(res.t('tagNotFound'));
     tag.remove();
 
-    user.save()
-      .then(() => res.respond(200, {}))
-      .catch(next);
+    await user.save();
+    res.respond(200, {});
   },
 };
 
