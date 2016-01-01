@@ -11,9 +11,7 @@ describe('DELETE /user', () => {
   let user;
 
   beforeEach(async () => {
-    return generateUser().then((usr) => {
-      user = usr;
-    });
+    user = await generateUser();
   });
 
   it('deletes the user', async () => {

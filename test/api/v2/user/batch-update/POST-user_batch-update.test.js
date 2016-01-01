@@ -9,9 +9,7 @@ describe('POST /user/batch-update', () => {
   let user;
 
   beforeEach(async () => {
-    return generateUser().then((usr) => {
-      user = usr;
-    });
+    user = await generateUser();
   });
 
   context('allowed operations', () => {

@@ -29,9 +29,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     let nonadmin;
 
     beforeEach(async () => {
-      return generateUser().then((user) => {
-        nonadmin = user;
-      });
+      nonadmin = await generateUser();
     });
 
     it('cannot clear flags', async () => {

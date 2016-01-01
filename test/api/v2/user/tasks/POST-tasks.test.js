@@ -8,9 +8,7 @@ describe('POST /user/tasks', () => {
   let user;
 
   beforeEach(async () => {
-    return generateUser().then((_user) => {
-      user = _user;
-    });
+    user = await generateUser();
   });
 
   it('creates a task', async () => {

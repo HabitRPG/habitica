@@ -7,10 +7,8 @@ describe('DELETE /user/tasks/:id', () => {
   let user, task;
 
   beforeEach(async () => {
-    return generateUser().then((_user) => {
-      user = _user;
-      task = user.todos[0];
-    });
+    user = await generateUser();
+    task = user.todos[0];
   });
 
   it('deletes a task', async () => {

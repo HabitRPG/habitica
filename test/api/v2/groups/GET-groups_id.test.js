@@ -146,9 +146,7 @@ describe('GET /groups/:id', () => {
       let nonAdmin;
 
       beforeEach(async () => {
-        return generateUser().then((user) => {
-          nonAdmin = user;
-        });
+        nonAdmin = await generateUser();
       });
 
       it('does not include messages with a flag count of 2 or greater', async () => {
@@ -334,9 +332,7 @@ describe('GET /groups/:id', () => {
     let user;
 
     beforeEach(async () => {
-      return generateUser().then((_user) => {
-        user = _user;
-      });
+      user = await generateUser();
     });
 
     it('returns error if group does not exist', async () => {

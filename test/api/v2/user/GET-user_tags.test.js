@@ -6,9 +6,7 @@ describe('GET /user/tags', () => {
   let user;
 
   beforeEach(async () => {
-    return generateUser().then((usr) => {
-      user = usr;
-    });
+    user = await generateUser();
   });
 
   it('gets the user\'s tags', async () => {
