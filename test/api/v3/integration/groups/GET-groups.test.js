@@ -36,12 +36,24 @@ describe('GET /group', () => {
       },
     ];
 
-    for (let group of groups) {
-      let tmpGroup = await user.post('/groups', {
-        name: group.name,
-        type: group.type,
-      });
-    }
+    let group1 = await user.post('/groups', {
+      name: groups[0].name,
+      type: groups[0].type,
+    });
+
+    let group2 = await user.post('/groups', {
+      name: groups[1].name,
+      type: groups[1].type,
+    });
+
+    let group3 = await user.post('/groups', {
+      name: groups[2].name,
+      type: groups[2].type,
+    });
+
+    expect(group1).toExist;
+    expect(group2).toExist;
+    expect(group3).toExist;
 
     let groupsFound = await user.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
     expect(groupsFound.length).to.be.greaterThan(3);
@@ -49,7 +61,7 @@ describe('GET /group', () => {
 
   context('Guilds', () => {
     context('public guild', () => {
-      it('returns a group',async  () => {
+      it('returns a group', async  () => {
         let groupName = 'Test Public Guild';
         let groupType = 'guild';
         let createdGroup = await  user.post('/groups', {
