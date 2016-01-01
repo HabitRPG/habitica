@@ -5,7 +5,7 @@ import {
 describe('GET /user', () => {
   let user;
 
-  before(async async () => {
+  before(async () => {
     let usr = await generateUser();
     user = await usr.get('/user');
   });
