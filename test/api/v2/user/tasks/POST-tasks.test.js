@@ -7,24 +7,24 @@ describe('POST /user/tasks', () => {
 
   let user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return generateUser().then((_user) => {
       user = _user;
     });
   });
 
-  it('creates a task', () => {
+  it('creates a task', async () => {
     return user.post('/user/tasks').then((task) => {
       expect(task.id).to.exist;
     });
   });
 
-  it('creates a habit by default', () => {
+  it('creates a habit by default', async () => {
     return expect(user.post('/user/tasks'))
       .to.eventually.have.property('type', 'habit');
   });
 
-  it('creates a task with specified values', () => {
+  it('creates a task with specified values', async () => {
     return user.post('/user/tasks', {
       type: 'daily',
       text: 'My task',
@@ -38,7 +38,7 @@ describe('POST /user/tasks', () => {
     });
   });
 
-  it('does not create a task with an id that already exists', () => {
+  it('does not create a task with an id that already exists', async () => {
     let todo = user.todos[0];
 
     return expect(user.post('/user/tasks', {
@@ -49,7 +49,7 @@ describe('POST /user/tasks', () => {
     });
   });
 
-  xit('TODO: no error is thrown - throws a 500 validation error if invalid type is posted', () => {
+  xit('TODO: no error is thrown - throws a 500 validation error if invalid type is posted', async () => {
     return expect(user.post('/user/tasks', {
       type: 'not-valid',
     })).to.eventually.be.rejected.and.eql({
@@ -58,7 +58,7 @@ describe('POST /user/tasks', () => {
     });
   });
 
-  xit('TODO: no error is thrown - throws a 500 validation error if invalid data is posted', () => {
+  xit('TODO: no error is thrown - throws a 500 validation error if invalid data is posted', async () => {
     return expect(user.post('/user/tasks', {
       frequency: 'not-valid',
     })).to.eventually.be.rejected.and.eql({

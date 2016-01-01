@@ -6,14 +6,14 @@ import {
 describe('PUT /user/tasks/:id', () => {
   let user, task;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return generateUser().then((_user) => {
       user = _user;
       task = user.todos[0];
     });
   });
 
-  it('does not update the id of the task', () => {
+  it('does not update the id of the task', async () => {
     return user.put(`/user/tasks/${task.id}`, {
       id: 'some-thing',
     }).then((updatedTask) => {
@@ -22,7 +22,7 @@ describe('PUT /user/tasks/:id', () => {
     });
   });
 
-  it('does not update the type of the task', () => {
+  it('does not update the type of the task', async () => {
     return user.put(`/user/tasks/${task.id}`, {
       type: 'habit',
     }).then((updatedTask) => {
@@ -31,7 +31,7 @@ describe('PUT /user/tasks/:id', () => {
     });
   });
 
-  it('updates text, attribute, priority, value and notes', () => {
+  it('updates text, attribute, priority, value and notes', async () => {
     return user.put(`/user/tasks/${task.id}`, {
       text: 'new text',
       notes: 'new notes',
@@ -47,7 +47,7 @@ describe('PUT /user/tasks/:id', () => {
     });
   });
 
-  it('returns an error if the task does not exist', () => {
+  it('returns an error if the task does not exist', async () => {
     return expect(user.put('/user/tasks/task-id-that-does-not-exist'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
@@ -55,7 +55,7 @@ describe('PUT /user/tasks/:id', () => {
       });
   });
 
-  it('does not update another user\'s task', () => {
+  it('does not update another user\'s task', async () => {
     return expect(generateUser().then((otherUser) => {
       let otherUsersTask = otherUser.todos[0];
       return user.put(`/user/tasks/${otherUsersTask._id}`, {

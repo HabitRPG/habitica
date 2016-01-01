@@ -8,14 +8,14 @@ import { each } from 'lodash';
 describe('POST /user/batch-update', () => {
   let user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return generateUser().then((usr) => {
       user = usr;
     });
   });
 
   context('allowed operations', () => {
-    it('makes batch operations', () => {
+    it('makes batch operations', async () => {
       let task;
 
       return user.get('/user/tasks').then((tasks) => {
@@ -45,7 +45,7 @@ describe('POST /user/batch-update', () => {
 
     each(protectedOperations, (operation, description) => {
 
-      it(`it sends back a 500 error for ${description} operation`, () => {
+      it(`it sends back a 500 error for ${description} operation`, async () => {
         return expect(user.post('/user/batch-update', [
           { op: operation },
         ])).to.eventually.be.rejected.and.eql({
@@ -57,7 +57,7 @@ describe('POST /user/batch-update', () => {
   });
 
   context('unknown operations', () => {
-    it('sends back a 500 error', () => {
+    it('sends back a 500 error', async () => {
       return expect(user.post('/user/batch-update', [
         {op: 'aNotRealOperation'},
       ])).to.eventually.be.rejected.and.eql({

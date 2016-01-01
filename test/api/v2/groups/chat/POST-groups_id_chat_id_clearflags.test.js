@@ -7,7 +7,7 @@ import {
 describe('POST /groups/:id/chat/:id/clearflags', () => {
   let group;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
@@ -28,13 +28,13 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
   context('non admin', () => {
     let nonadmin;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateUser().then((user) => {
         nonadmin = user;
       });
     });
 
-    it('cannot clear flags', () => {
+    it('cannot clear flags', async () => {
       return expect(nonadmin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
@@ -46,7 +46,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
   context('admin', () => {
     let admin;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateUser({
         'contributor.admin': true,
       }).then((user) => {
@@ -54,7 +54,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       });
     });
 
-    it('clears flags', () => {
+    it('clears flags', async () => {
       return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
@@ -62,7 +62,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       });
     });
 
-    it('leaves old flags on the flag object', () => {
+    it('leaves old flags on the flag object', async () => {
       return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
@@ -70,7 +70,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       });
     });
 
-    it('returns error if message does not exist', () => {
+    it('returns error if message does not exist', async () => {
       return expect(admin.post(`/groups/${group._id}/chat/non-existant-message/clearflags`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
@@ -82,7 +82,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
   context('admin user, group with multiple messages', () => {
     let admin, author, group, member;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateUser().then((user) => {
         author = user;
 
@@ -109,7 +109,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       });
     });
 
-    it('changes only the message that is flagged', () => {
+    it('changes only the message that is flagged', async () => {
       return admin.post(`/groups/${group._id}/chat/message-to-unflag/clearflags`).then((messages) => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {

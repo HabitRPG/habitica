@@ -9,7 +9,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   context('another member\'s message', () => {
     let group, member, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -27,7 +27,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
     });
 
-    it('flags message', () => {
+    it('flags message', async () => {
       return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
         return user.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
@@ -36,7 +36,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
     });
 
-    it('cannot flag the same message twice', () => {
+    it('cannot flag the same message twice', async () => {
       return expect(user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
         return user.post(`/groups/${group._id}/chat/${message.id}/flag`);
       })).to.eventually.be.rejected.and.eql({
@@ -49,7 +49,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   context('own message', () => {
     let group, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -66,7 +66,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
     });
 
-    it('cannot flag message', () => {
+    it('cannot flag message', async () => {
       return expect(user.post(`/groups/${group._id}/chat/${message.id}/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
@@ -78,7 +78,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   context('nonexistant message', () => {
     let group, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -90,7 +90,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
     });
 
-    it('returns error', () => {
+    it('returns error', async () => {
       return expect(user.post(`/groups/${group._id}/chat/non-existant-message/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
@@ -102,7 +102,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   context('group with multiple messages', () => {
     let admin, author, group, member, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateUser().then((user) => {
         author = user;
 
@@ -131,7 +131,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
     });
 
-    it('changes only the message that is flagged', () => {
+    it('changes only the message that is flagged', async () => {
       return user.post(`/groups/${group._id}/chat/message-to-be-flagged/flag`).then((messages) => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
@@ -160,7 +160,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   context('admin flagging a message', () => {
     let group, member, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -182,7 +182,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
     });
 
-    it('sets flagCount to 5', () => {
+    it('sets flagCount to 5', async () => {
       return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
         return user.get(`/groups/${group._id}/chat`);
       }).then((messages) => {

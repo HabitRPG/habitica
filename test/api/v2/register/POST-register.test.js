@@ -9,7 +9,7 @@ import { each } from 'lodash';
 describe('POST /register', () => {
 
   context('username and email are free', () => {
-    it('registers a new user', () => {
+    it('registers a new user', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
@@ -27,7 +27,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('requires password and confirmPassword to match', () => {
+    it('requires password and confirmPassword to match', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
@@ -45,7 +45,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('requires a username', () => {
+    it('requires a username', async () => {
       let api = requester();
       let email = `${generateRandomUserName()}@example.com`;
       let password = 'password';
@@ -61,7 +61,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('requires an email', () => {
+    it('requires an email', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let password = 'password';
@@ -77,7 +77,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('requires a password', () => {
+    it('requires a password', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
@@ -96,7 +96,7 @@ describe('POST /register', () => {
 
   context('login is already taken', () => {
     let username, email;
-    beforeEach(() => {
+    beforeEach(async () => {
       username = generateRandomUserName();
       email = `${username}@example.com`;
       return generateUser({
@@ -106,7 +106,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('rejects if username is already taken', () => {
+    it('rejects if username is already taken', async () => {
       let api = requester();
       let uniqueEmail = `${generateRandomUserName()}@exampe.com`;
       let password = 'password';
@@ -122,7 +122,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('rejects if email is already taken', () => {
+    it('rejects if email is already taken', async () => {
       let api = requester();
       let uniqueUsername = generateRandomUserName();
       let password = 'password';
@@ -142,14 +142,14 @@ describe('POST /register', () => {
   context('successful login via api', () => {
     let api, username, email, password;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       api = requester();
       username = generateRandomUserName();
       email = `${username}@example.com`;
       password = 'password';
     });
 
-    it('sets all site tour values to -2 (already seen)', () => {
+    it('sets all site tour values to -2 (already seen)', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -164,7 +164,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default todos, not no other task types', () => {
+    it('populates user with default todos, not no other task types', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -178,7 +178,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default tags', () => {
+    it('populates user with default tags', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -193,14 +193,14 @@ describe('POST /register', () => {
   context('successful login with habitica-web header', () => {
     let api, username, email, password;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       api = requester({}, {'x-client': 'habitica-web'});
       username = generateRandomUserName();
       email = `${username}@example.com`;
       password = 'password';
     });
 
-    it('sets all common tutorial flags to true', () => {
+    it('sets all common tutorial flags to true', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -215,7 +215,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default todos, habits, and rewards', () => {
+    it('populates user with default todos, habits, and rewards', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -229,7 +229,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default tags', () => {
+    it('populates user with default tags', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -244,14 +244,14 @@ describe('POST /register', () => {
   context('successful login with habitica-android header', () => {
     let api, username, email, password;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       api = requester({}, {'x-client': 'habitica-android'});
       username = generateRandomUserName();
       email = `${username}@example.com`;
       password = 'password';
     });
 
-    it('sets all common tutorial flags to true', () => {
+    it('sets all common tutorial flags to true', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -266,7 +266,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default todos, habits, and rewards', () => {
+    it('populates user with default todos, habits, and rewards', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,
@@ -280,7 +280,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default tags', () => {
+    it('populates user with default tags', async () => {
       return api.post('/register', {
         username:        username,
         email:           email,

@@ -8,11 +8,11 @@ describe('POST /groups', () => {
   context('All groups', () => {
     let leader;
 
-    beforeEach(async () => {
+    beforeEach(async async () => {
       leader = await generateUser();
     });
 
-    xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', () => {
+    xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', async () => {
       return leader.post('/groups').then((group) => {
         expect(group._id).to.exist;
         expect(group.name).to.eql(`${leader.profile.name}'s group`);
@@ -21,7 +21,7 @@ describe('POST /groups', () => {
       });
     });
 
-    it('returns a group object', async () => {
+    it('returns a group object', async async () => {
       let group = await leader.post('/groups', {
         name: 'Test Group',
         type: 'party',
@@ -39,7 +39,7 @@ describe('POST /groups', () => {
       expect(group.memberCount).to.eql(1);
     });
 
-    it('returns a populated members array', async () => {
+    it('returns a populated members array', async async () => {
       let party = await leader.post('/groups', {
         type: 'party',
       });
@@ -55,11 +55,11 @@ describe('POST /groups', () => {
   context('Parties', () => {
     let leader;
 
-    beforeEach(async () => {
+    beforeEach(async async () => {
       leader = await generateUser();
     });
 
-    it('allows party creation without gems', async () => {
+    it('allows party creation without gems', async async () => {
       let party = await leader.post('/groups', {
         type: 'party',
       });
@@ -67,7 +67,7 @@ describe('POST /groups', () => {
       expect(party._id).to.exist;
     });
 
-    it('prevents party creation if user is already in party', async () => {
+    it('prevents party creation if user is already in party', async async () => {
       let party = await generateGroup(leader, {
         type: 'party',
       });
@@ -78,7 +78,7 @@ describe('POST /groups', () => {
       });
     });
 
-    xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', () => {
+    xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', async () => {
       return expect(leader.post('/groups', {
         type: 'party',
         privacy: 'public',
@@ -92,13 +92,13 @@ describe('POST /groups', () => {
   context('Guilds', () => {
     let leader;
 
-    beforeEach(async () => {
+    beforeEach(async async () => {
       leader = await generateUser({
         balance: 2,
       });
     });
 
-    it('prevents guild creation when user does not have enough gems', async () => {
+    it('prevents guild creation when user does not have enough gems', async async () => {
       let userWithoutGems = await generateUser({
         balance: 0.75,
       });
@@ -109,7 +109,7 @@ describe('POST /groups', () => {
       });
     });
 
-    it('can create a public guild', async () => {
+    it('can create a public guild', async async () => {
       let guild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'public',
@@ -118,7 +118,7 @@ describe('POST /groups', () => {
       expect(guild.leader).to.eql(leader._id);
     });
 
-    it('can create a private guild', async () => {
+    it('can create a private guild', async async () => {
       let privateGuild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'private',
@@ -127,7 +127,7 @@ describe('POST /groups', () => {
       expect(privateGuild.leader).to.eql(leader._id);
     });
 
-    it('deducts gems from user and adds them to guild bank', async () => {
+    it('deducts gems from user and adds them to guild bank', async async () => {
       let guild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'private',

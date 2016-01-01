@@ -10,7 +10,7 @@ describe('GET /groups', () => {
 
   let user;
 
-  before(() => {
+  before(async () => {
     let leader, createdGroup;
 
     // Set up a world with a mixture of public and private guilds
@@ -83,7 +83,7 @@ describe('GET /groups', () => {
 
   context('tavern passed in as query', () => {
 
-    it('returns only the tavern', () => {
+    it('returns only the tavern', async () => {
       return expect(user.get('/groups', null, {type: 'tavern'}))
         .to.eventually.have.a.lengthOf(1)
         .and.to.have.deep.property('[0]')
@@ -93,7 +93,7 @@ describe('GET /groups', () => {
 
   context('party passed in as query', () => {
 
-    it('returns only the user\'s party', () => {
+    it('returns only the user\'s party', async () => {
       return expect(user.get('/groups', null, {type: 'party'}))
         .to.eventually.have.a.lengthOf(1)
         .and.to.have.deep.property('[0]')
@@ -103,7 +103,7 @@ describe('GET /groups', () => {
 
   context('public passed in as query', () => {
 
-    it('returns all public guilds', () => {
+    it('returns all public guilds', async () => {
       return expect(user.get('/groups', null, {type: 'public'}))
         .to.eventually.have.a.lengthOf(NUMBER_OF_PUBLIC_GUILDS);
     });
@@ -111,7 +111,7 @@ describe('GET /groups', () => {
 
   context('guilds passed in as query', () => {
 
-    it('returns all guilds user is a part of ', () => {
+    it('returns all guilds user is a part of ', async () => {
       return expect(user.get('/groups', null, {type: 'guilds'}))
         .to.eventually.have.a.lengthOf(NUMBER_OF_USERS_GUILDS);
     });

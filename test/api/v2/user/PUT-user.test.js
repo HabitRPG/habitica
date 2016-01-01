@@ -8,14 +8,14 @@ import { each } from 'lodash';
 describe('PUT /user', () => {
   let user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return generateUser().then((usr) => {
       user = usr;
     });
   });
 
   context('allowed operations', () => {
-    it('updates the user', () => {
+    it('updates the user', async () => {
       return user.put('/user', {
         'profile.name' : 'Frodo',
         'preferences.costume': true,
@@ -40,7 +40,7 @@ describe('PUT /user', () => {
     };
 
     each(protectedOperations, (data, testName) => {
-      it(`does not allow updating ${testName}`, () => {
+      it(`does not allow updating ${testName}`, async () => {
         let errorText = [];
         each(data, (value, operation) => {
           errorText.push(t('messageUserOperationProtected', { operation: operation }));
@@ -59,7 +59,7 @@ describe('PUT /user', () => {
     };
 
     each(protectedOperations, (data, testName) => {
-      it(`does not allow updating ${testName}`, () => {
+      it(`does not allow updating ${testName}`, async () => {
         let errorText = [];
         each(data, (value, operation) => {
           errorText.push(t('messageUserOperationProtected', { operation: operation }));

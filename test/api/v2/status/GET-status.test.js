@@ -1,7 +1,7 @@
 import {requester} from '../../../helpers/api-integration.helper';
 
 describe('Status', () => {
-  it('returns a status of up when server is up', () => {
+  it('returns a status of up when server is up', async () => {
     let api = requester();
 
     return expect(api.get('/status'))

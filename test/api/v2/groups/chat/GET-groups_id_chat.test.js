@@ -9,7 +9,7 @@ describe('GET /groups/:id/chat', () => {
   context('group with multiple messages', () => {
     let group, member, message1, message2, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -31,7 +31,7 @@ describe('GET /groups/:id/chat', () => {
       });
     });
 
-    it('gets messages', () => {
+    it('gets messages', async () => {
       return user.get(`/groups/${group._id}/chat`).then((messages) => {
         expect(messages).to.have.length(2);
 

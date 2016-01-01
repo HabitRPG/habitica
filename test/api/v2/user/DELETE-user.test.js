@@ -10,13 +10,13 @@ import { find } from 'lodash';
 describe('DELETE /user', () => {
   let user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return generateUser().then((usr) => {
       user = usr;
     });
   });
 
-  it('deletes the user', () => {
+  it('deletes the user', async () => {
     return expect(user.del('/user').then((fetchedUser) => {
       return checkExistence('users', user._id);
     })).to.eventually.eql(false);
@@ -29,7 +29,7 @@ describe('DELETE /user', () => {
   context('last member of a party', () => {
     let party;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateGroup(user, {
         type: 'party',
         privacy: 'private'
@@ -38,7 +38,7 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('deletes party when user is the only member', () => {
+    it('deletes party when user is the only member', async () => {
     return expect(user.del('/user').then((result) => {
         return checkExistence('groups', party._id);
       })).to.eventually.eql(false);
@@ -48,7 +48,7 @@ describe('DELETE /user', () => {
   context('last member of a private guild', () => {
     let guild;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateGroup(user, {
         type: 'guild',
         privacy: 'private'
@@ -57,7 +57,7 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('deletes guild when user is the only member', () => {
+    it('deletes guild when user is the only member', async () => {
     return expect(user.del('/user').then((result) => {
         return checkExistence('groups', guild._id);
       })).to.eventually.eql(false);
@@ -67,7 +67,7 @@ describe('DELETE /user', () => {
   context('groups user is leader of', () => {
     let group, oldLeader, newLeader;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -81,7 +81,7 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('chooses new group leader for any group user was the leader of', () => {
+    it('chooses new group leader for any group user was the leader of', async () => {
       return oldLeader.del('/user').then((res) => {
         return newLeader.get(`/groups/${group._id}`);
       }).then((guild) => {
@@ -94,7 +94,7 @@ describe('DELETE /user', () => {
   context('groups user is a part of', () => {
     let group1, group2, userToDelete, otherUser;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateUser({
         balance: 10,
       }).then((user) => {
@@ -122,7 +122,7 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('removes user from all groups user was a part of', () => {
+    it('removes user from all groups user was a part of', async () => {
       return userToDelete.del('/user').then((res) => {
         return otherUser.get(`/groups/${group1._id}`);
       }).then((fetchedGroup1) => {
@@ -145,7 +145,7 @@ describe('DELETE /user', () => {
   context('pending invitation to group', () => {
     let group, userToDelete, otherUser;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -160,7 +160,7 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('removes invitations from groups', () => {
+    it('removes invitations from groups', async () => {
       return userToDelete.del('/user').then((res) => {
         return otherUser.get(`/groups/${group._id}`);
       }).then((fetchedGroup) => {

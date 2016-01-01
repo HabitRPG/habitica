@@ -8,7 +8,7 @@ describe('POST /groups/:id/chat', () => {
 
   let group, user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
@@ -20,7 +20,7 @@ describe('POST /groups/:id/chat', () => {
     });
   });
 
-  it('creates a chat message', () => {
+  it('creates a chat message', async () => {
     return user.post(`/groups/${group._id}/chat`, null, {
       message: 'Test Message',
     }).then((res) => {
@@ -33,7 +33,7 @@ describe('POST /groups/:id/chat', () => {
     });
   });
 
-  it('does not post an empty message', () => {
+  it('does not post an empty message', async () => {
     return expect(user.post(`/groups/${group._id}/chat`, null, {
       message: '',
     })).to.eventually.be.rejected.and.eql({

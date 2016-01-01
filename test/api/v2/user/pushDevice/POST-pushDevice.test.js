@@ -5,13 +5,13 @@ import {
 describe('POST /user/pushDevice', () => {
   let user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return generateUser().then((_user) => {
       user = _user;
     });
   });
 
-  it('registers a device id', () => {
+  it('registers a device id', async () => {
     return user.post('/user/pushDevice', {
       regId: '123123',
       type: 'android',

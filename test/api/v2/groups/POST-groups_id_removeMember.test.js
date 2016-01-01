@@ -18,7 +18,7 @@ describe('POST /groups/:id/removeMember', () => {
   context('user is the leader of a guild', () => {
     let leader, member, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         members: 1,
         groupDetails: {
@@ -33,7 +33,7 @@ describe('POST /groups/:id/removeMember', () => {
       });
     });
 
-    it('does not allow leader to remove themselves', () => {
+    it('does not allow leader to remove themselves', async () => {
       return expect(leader.post(`/groups/${group._id}/removeMember`, null, {
         uuid: leader._id,
       })).to.eventually.be.rejected.and.eql({
@@ -42,7 +42,7 @@ describe('POST /groups/:id/removeMember', () => {
       });
     });
 
-    it('can remove other members of guild', () => {
+    it('can remove other members of guild', async () => {
       return leader.post(`/groups/${group._id}/removeMember`, null, {
         uuid: member._id,
       }).then((res) => {

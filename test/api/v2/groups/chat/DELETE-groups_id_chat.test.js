@@ -7,7 +7,7 @@ import {
 describe('DELETE /groups/:id/chat', () => {
   let group, message, user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
@@ -23,7 +23,7 @@ describe('DELETE /groups/:id/chat', () => {
     });
   });
 
-  it('deletes a message', () => {
+  it('deletes a message', async () => {
     return user.del(`/groups/${group._id}/chat/${message.id}`).then((res) => {
       return user.get(`/groups/${group._id}/chat/`);
     }).then((messages) => {
@@ -31,7 +31,7 @@ describe('DELETE /groups/:id/chat', () => {
     });
   });
 
-  it('returns an error is message does not exist', () => {
+  it('returns an error is message does not exist', async () => {
     return expect(user.del(`/groups/${group._id}/chat/some-fake-id`)).to.eventually.be.rejected.and.eql({
       code: 404,
       text: t('messageGroupChatNotFound'),

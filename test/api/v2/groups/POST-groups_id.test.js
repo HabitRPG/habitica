@@ -9,7 +9,7 @@ describe('POST /groups/:id', () => {
   context('user is not the leader of the group', () => {
     let user, otherUser, groupUserDoesNotOwn;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return Promise.all([
         generateUser({ balance: 10 }),
         generateUser({ balance: 10 }),
@@ -28,7 +28,7 @@ describe('POST /groups/:id', () => {
       });
     });
 
-    it('does not allow user to update group', () => {
+    it('does not allow user to update group', async () => {
       return expect(user.post(`/groups/${groupUserDoesNotOwn._id}`, {
         name: 'Change'
       })).to.eventually.be.rejected.and.eql({
@@ -41,7 +41,7 @@ describe('POST /groups/:id', () => {
   context('user is the leader of the group', () => {
     let user, usersGroup;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateUser({
         balance: 10,
       }).then((_user) => {
@@ -57,7 +57,7 @@ describe('POST /groups/:id', () => {
       });
     });
 
-    it('allows user to update group', () => {
+    it('allows user to update group', async () => {
       return user.post(`/groups/${usersGroup._id}`, {
         name: 'New Group Title',
         description: 'New group description',

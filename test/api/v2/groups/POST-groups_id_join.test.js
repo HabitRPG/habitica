@@ -19,7 +19,7 @@ describe('POST /groups/:id/join', () => {
     context(`user has invitation to a ${groupType}`, () => {
       let group, invitee;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         return createAndPopulateGroup({
           groupDetails: {
             type: data.type,
@@ -32,7 +32,7 @@ describe('POST /groups/:id/join', () => {
         });
       });
 
-      it(`allows user to join a ${groupType}`, () => {
+      it(`allows user to join a ${groupType}`, async () => {
         return invitee.post(`/groups/${group._id}/join`).then((res) => {
           return invitee.get(`/groups/${group._id}`);
         }).then((_group) => {
@@ -54,7 +54,7 @@ describe('POST /groups/:id/join', () => {
     context(`user does not have an invitation to a ${groupType}`, () => {
       let group, user;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         return createAndPopulateGroup({
           groupDetails: {
             type: data.type,
@@ -68,7 +68,7 @@ describe('POST /groups/:id/join', () => {
         });
       });
 
-      it(`does not allow user to join a ${groupType}`, () => {
+      it(`does not allow user to join a ${groupType}`, async () => {
         return expect(user.post(`/groups/${group._id}/join`).then((res) => {
           return user.get(`/groups/${group._id}`);
         })).to.eventually.be.rejected.and.eql({
@@ -82,7 +82,7 @@ describe('POST /groups/:id/join', () => {
   context('user does not have an invitation to a public group', () => {
     let group, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -96,7 +96,7 @@ describe('POST /groups/:id/join', () => {
       });
     });
 
-    it('allows user to join a public guild', () => {
+    it('allows user to join a public guild', async () => {
       return user.post(`/groups/${group._id}/join`).then((res) => {
         return user.get(`/groups/${group._id}`);
       }).then((_group) => {
@@ -113,7 +113,7 @@ describe('POST /groups/:id/join', () => {
   context('public guild has no leader', () => {
     let user, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
@@ -130,7 +130,7 @@ describe('POST /groups/:id/join', () => {
       });
     });
 
-    it('makes the joining user the leader', () => {
+    it('makes the joining user the leader', async () => {
       return expect(user.post(`/groups/${group._id}/join`).then((result) => {
         return user.get(`/groups/${group._id}`);
       })).to.eventually.have.deep.property('leader._id', user._id);

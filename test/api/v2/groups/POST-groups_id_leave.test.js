@@ -15,7 +15,7 @@ describe('POST /groups/:id/leave', () => {
   context('user is a non-leader member of a guild', () => {
     let user, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         members: 3,
         groupDetails: {
@@ -29,7 +29,7 @@ describe('POST /groups/:id/leave', () => {
       });
     });
 
-    it('leaves the group', () => {
+    it('leaves the group', async () => {
       return user.post(`/groups/${group._id}/leave`).then((result) => {
         return user.get(`/groups/${group._id}`);
       }).then((group) => {
@@ -44,7 +44,7 @@ describe('POST /groups/:id/leave', () => {
   context('user is the last member of a public guild', () => {
     let user, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
@@ -57,7 +57,7 @@ describe('POST /groups/:id/leave', () => {
       });
     });
 
-    it('leaves the group accessible', () => {
+    it('leaves the group accessible', async () => {
       return expect(user.post(`/groups/${group._id}/leave`).then((result) => {
         return user.get(`/groups/${group._id}`);
       })).to.eventually.have.property('_id', group._id);
@@ -67,7 +67,7 @@ describe('POST /groups/:id/leave', () => {
   context('user is the last member of a private group', () => {
     let user, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
@@ -80,7 +80,7 @@ describe('POST /groups/:id/leave', () => {
       });
     });
 
-    it('group is deleted', () => {
+    it('group is deleted', async () => {
       return expect(user.post(`/groups/${group._id}/leave`).then((result) => {
         return checkExistence('groups', group._id);
       })).to.eventually.eql(false);
@@ -90,7 +90,7 @@ describe('POST /groups/:id/leave', () => {
   context('user is the last member of a private group with pending invites', () => {
     let user, invitee1, invitee2, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         invites: 2,
         groupDetails: {
@@ -106,7 +106,7 @@ describe('POST /groups/:id/leave', () => {
       });
     });
 
-    it('deletes the group invitations from users', () => {
+    it('deletes the group invitations from users', async () => {
       return user.post(`/groups/${group._id}/leave`).then((result) => {
         return Promise.all([
           expect(invitee1.get(`/user`))
@@ -123,7 +123,7 @@ describe('POST /groups/:id/leave', () => {
   context('user is the last member of a party with pending invites', () => {
     let user, invitee1, invitee2, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         invites: 2,
         groupDetails: {
@@ -139,7 +139,7 @@ describe('POST /groups/:id/leave', () => {
       });
     });
 
-    it('deletes the group invitations from users', () => {
+    it('deletes the group invitations from users', async () => {
       return user.post(`/groups/${group._id}/leave`).then((result) => {
         return Promise.all([
           expect(invitee1.get(`/user`))

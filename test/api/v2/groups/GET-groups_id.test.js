@@ -19,7 +19,7 @@ describe('GET /groups/:id', () => {
     context(`Member of a ${groupType}`, () => {
       let leader, member, createdGroup;
 
-      before(() => {
+      before(async () => {
         return createAndPopulateGroup({
           members: 30,
           groupDetails: {
@@ -34,7 +34,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      it('returns the group object', () => {
+      it('returns the group object', async () => {
         return member.get(`/groups/${createdGroup._id}`).then((group) => {
           expect(group._id).to.eql(createdGroup._id);
           expect(group.name).to.eql(createdGroup.name);
@@ -43,7 +43,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      it('transforms members array to an array of user objects', () => {
+      it('transforms members array to an array of user objects', async () => {
         return member.get(`/groups/${createdGroup._id}`).then((group) => {
           let member = group.members[0];
           expect(member._id).to.exist;
@@ -54,7 +54,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      it('transforms leader id to leader object', () => {
+      it('transforms leader id to leader object', async () => {
         return member.get(`/groups/${createdGroup._id}`).then((group) => {
           expect(group.leader._id).to.eql(leader._id);
           expect(group.leader.profile.name).to.eql(leader.profile.name);
@@ -65,7 +65,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      it('includes the user in the members list', () => {
+      it('includes the user in the members list', async () => {
         return member.get(`/groups/${createdGroup._id}`).then((group) => {
           let members = group.members;
           let userInGroup = find(members, (user) => {
@@ -123,7 +123,7 @@ describe('GET /groups/:id', () => {
       flagCount: 3,
     };
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
@@ -145,13 +145,13 @@ describe('GET /groups/:id', () => {
     context('non-admin', () => {
       let nonAdmin;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         return generateUser().then((user) => {
           nonAdmin = user;
         });
       });
 
-      it('does not include messages with a flag count of 2 or greater', () => {
+      it('does not include messages with a flag count of 2 or greater', async () => {
         return nonAdmin.get(`/groups/${group._id}`).then((_group) => {
           expect(_group.chat).to.have.lengthOf(3);
           expect(_group.chat[0].id).to.eql(chat1.id);
@@ -160,7 +160,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      it('does not include user ids in flags object', () => {
+      it('does not include user ids in flags object', async () => {
         return nonAdmin.get(`/groups/${group._id}`).then((_group) => {
           let chatWithOneFlag = _group.chat[2];
           expect(chatWithOneFlag.id).to.eql(chat3.id);
@@ -173,7 +173,7 @@ describe('GET /groups/:id', () => {
     context('admin', () => {
       let admin;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         return generateUser({
           'contributor.admin': true,
         }).then((user) => {
@@ -181,7 +181,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      it('includes all messages', () => {
+      it('includes all messages', async () => {
         return admin.get(`/groups/${group._id}`).then((_group) => {
           expect(_group.chat).to.have.lengthOf(5);
           expect(_group.chat[0].id).to.eql(chat1.id);
@@ -192,7 +192,7 @@ describe('GET /groups/:id', () => {
         });
       });
 
-      it('includes user ids in flags object', () => {
+      it('includes user ids in flags object', async () => {
         return admin.get(`/groups/${group._id}`).then((_group) => {
           let chatWithOneFlag = _group.chat[2];
           expect(chatWithOneFlag.id).to.eql(chat3.id);
@@ -206,7 +206,7 @@ describe('GET /groups/:id', () => {
   context('Non-member of a public guild', () => {
     let leader, nonMember, createdGroup;
 
-    before(() => {
+    before(async () => {
       return createAndPopulateGroup({
         members: 1,
         groupDetails: {
@@ -223,7 +223,7 @@ describe('GET /groups/:id', () => {
       });
     });
 
-    it('returns the group object for a non-member', () => {
+    it('returns the group object for a non-member', async () => {
       return nonMember.get(`/groups/${createdGroup._id}`)
         .then((group) => {
           expect(group._id).to.eql(createdGroup._id);
@@ -233,7 +233,7 @@ describe('GET /groups/:id', () => {
         });
     });
 
-    it('does not include user in members list', () => {
+    it('does not include user in members list', async () => {
       return nonMember.get(`/groups/${createdGroup._id}`).then((group) => {
         let userInGroup = find(group.members, (user) => {
           return nonMember._id === user._id;
@@ -246,7 +246,7 @@ describe('GET /groups/:id', () => {
   context('Private Guilds', () => {
     let leader, nonMember, createdGroup;
 
-    before(() => {
+    before(async () => {
       return createAndPopulateGroup({
         members: 1,
         groupDetails: {
@@ -263,7 +263,7 @@ describe('GET /groups/:id', () => {
       });
     });
 
-    it('does not return the group object for a non-member', () => {
+    it('does not return the group object for a non-member', async () => {
       return expect(nonMember.get(`/groups/${createdGroup._id}`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
@@ -275,7 +275,7 @@ describe('GET /groups/:id', () => {
   context('Non-member of a party', () => {
     let leader, nonMember, createdGroup;
 
-    before(() => {
+    before(async () => {
       return createAndPopulateGroup({
         members: 1,
         groupDetails: {
@@ -292,7 +292,7 @@ describe('GET /groups/:id', () => {
       });
     });
 
-    it('does not return the group object for a non-member', () => {
+    it('does not return the group object for a non-member', async () => {
       return expect(nonMember.get(`/groups/${createdGroup._id}`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
@@ -304,7 +304,7 @@ describe('GET /groups/:id', () => {
   context('Member of a party', () => {
     let leader, member, createdGroup;
 
-    before(() => {
+    before(async () => {
       return createAndPopulateGroup({
         members: 1,
         groupDetails: {
@@ -319,7 +319,7 @@ describe('GET /groups/:id', () => {
       });
     });
 
-    it('returns the user\'s party if an id of "party" is passed in', () => {
+    it('returns the user\'s party if an id of "party" is passed in', async () => {
       return member.get('/groups/party')
         .then((group) => {
           expect(group._id).to.eql(createdGroup._id);
@@ -333,13 +333,13 @@ describe('GET /groups/:id', () => {
   context('Non-existent group', () => {
     let user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return generateUser().then((_user) => {
         user = _user;
       });
     });
 
-    it('returns error if group does not exist', () => {
+    it('returns error if group does not exist', async () => {
       return expect(user.get('/groups/group-that-does-not-exist'))
         .to.eventually.be.rejected.and.eql({
           code: 404,

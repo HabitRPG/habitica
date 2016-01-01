@@ -6,7 +6,7 @@ import { each } from 'lodash';
 describe('GET /user/anonymized', () => {
   let user;
 
-  before(() => {
+  before(async () => {
     return generateUser({
       'inbox.messages' : {
         'the-message-id' : {
@@ -47,24 +47,24 @@ describe('GET /user/anonymized', () => {
     });
   });
 
-  it('retains user id', () => {
+  it('retains user id', async () => {
     expect(user._id).to.exist;
   });
 
-  it('removes credentials and financial information', () => {
+  it('removes credentials and financial information', async () => {
     expect(user.apiToken).to.not.exist;
     expect(user.auth.local).to.not.exist;
     expect(user.auth.facebook).to.not.exist;
     expect(user.purchased.plan).to.not.exist;
   });
 
-  it('removes profile information', () => {
+  it('removes profile information', async () => {
     expect(user.profile).to.not.exist;
     expect(user.contributor).to.not.exist;
     expect(user.achievements.challenges).to.not.exist;
   });
 
-  it('removes social information', () => {
+  it('removes social information', async () => {
     expect(user.newMessages).to.not.exist;
     expect(user.invitations).to.not.exist;
     expect(user.items.special.nyeReceived).to.not.exist;
@@ -75,7 +75,7 @@ describe('GET /user/anonymized', () => {
     });
   });
 
-  it('anonymizes task info', () => {
+  it('anonymizes task info', async () => {
     each(['habits', 'todos', 'dailys', 'rewards'], (tasks) => {
       each(user[tasks], (task) => {
         expect(task.text).to.eql('task text');
@@ -88,14 +88,14 @@ describe('GET /user/anonymized', () => {
     });
   });
 
-  it('anonymizes tags', () => {
+  it('anonymizes tags', async () => {
     each(user.tags, (tag) => {
       expect(tag.name).to.eql('tag');
       expect(tag.challenge).to.eql('challenge');
     });
   });
 
-  it('removes webhooks', () => {
+  it('removes webhooks', async () => {
     expect(user.webhooks).to.not.exist;
   });
 });
