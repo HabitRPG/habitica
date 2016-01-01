@@ -103,32 +103,28 @@ describe('POST /groups/:id/chat/:id/flag', () => {
     let admin, author, group, member, message, user;
 
     beforeEach(async () => {
-      return generateUser().then((user) => {
-        author = user;
-
-        return createAndPopulateGroup({
-          groupDetails: {
-            type: 'guild',
-            privacy: 'public',
-            chat: [
-              { id: 'message-to-be-flagged', uuid: author._id, flagCount: 0, flags: {} },
-              { id: '1-flag-message', uuid: author._id, flagCount: 1, flags: { 'id1': true } },
-              { id: '2-flag-message', uuid: author._id, flagCount: 2, flags: { 'id1': true, 'id2': true } },
-              { id: 'no-flags', uuid: author._id, flagCount: 0, flags: {} },
-            ],
-          },
-          members: 1,
-        });
-      }).then((res) => {
-        group = res.group;
-        user = res.leader;
-        member = res.members[0];
-        return generateUser({
-          'contributor.admin': true,
-        });
-      }).then((user) => {
-        admin = user;
+      author = await generateUser();
+      admin = await generateUser({
+        'contributor.admin': true,
       });
+
+      let groupData = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'guild',
+          privacy: 'public',
+          chat: [
+            { id: 'message-to-be-flagged', uuid: author._id, flagCount: 0, flags: {} },
+            { id: '1-flag-message', uuid: author._id, flagCount: 1, flags: { 'id1': true } },
+            { id: '2-flag-message', uuid: author._id, flagCount: 2, flags: { 'id1': true, 'id2': true } },
+            { id: 'no-flags', uuid: author._id, flagCount: 0, flags: {} },
+          ],
+        },
+        members: 1,
+      });
+
+      group = groupData.group;
+      user = groupData.leader;
+      member = groupData.members[0];
     });
 
     it('changes only the message that is flagged', async () => {
