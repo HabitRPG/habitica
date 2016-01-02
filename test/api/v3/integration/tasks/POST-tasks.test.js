@@ -69,6 +69,38 @@ describe('POST /tasks', () => {
       });
     });
 
+    it('does not update user.tasksOrder.{taskType} when a task inside an array is not saved because invalid', async () => {
+      let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
+      return expect(user.post('/tasks', [
+        {type: 'habit'}, // Missing text
+        {type: 'habit', text: 'valid'}, // Valid
+      ])).to.eventually.be.rejected.and.eql({ // this block is necessary
+        code: 400,
+        error: 'BadRequest',
+        message: 'habit validation failed',
+      }).then(async () => {
+        let updatedHabitsOrder = (await user.get('/user')).tasksOrder.habits;
+
+        expect(updatedHabitsOrder).to.eql(originalHabitsOrder);
+      });
+    });
+
+    it('does not save any task sent in an array when 1 is invalid', async () => {
+      let originalTasks = await user.get('/tasks');
+      return expect(user.post('/tasks', [
+        {type: 'habit'}, // Missing text
+        {type: 'habit', text: 'valid'}, // Valid
+      ])).to.eventually.be.rejected.and.eql({ // this block is necessary
+        code: 400,
+        error: 'BadRequest',
+        message: 'habit validation failed',
+      }).then(async () => {
+        let updatedTasks = await user.get('/tasks');
+
+        expect(updatedTasks).to.eql(originalTasks);
+      });
+    });
+
     it('automatically sets "task.userId" to user\'s uuid', async () => {
       let task = await user.post('/tasks', {
         text: 'test habit',
@@ -131,6 +163,34 @@ describe('POST /tasks', () => {
       expect(task.type).to.eql('habit');
       expect(task.up).to.eql(false);
       expect(task.down).to.eql(true);
+    });
+
+    it('updates user.tasksOrder.habits when a new habit is created', async () => {
+      let originalHabitsOrderLen = (await user.get('/user')).tasksOrder.habits.length;
+      let task = await user.post('/tasks', {
+        type: 'habit',
+        text: 'an habit',
+      });
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.habits[0]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.habits.length).to.eql(originalHabitsOrderLen + 1);
+    });
+
+    it('updates user.tasksOrder.habits when multiple habits are created', async () => {
+      let originalHabitsOrderLen = (await user.get('/user')).tasksOrder.habits.length;
+      let [task, task2] = await user.post('/tasks', [{
+        type: 'habit',
+        text: 'an habit',
+      }, {
+        type: 'habit',
+        text: 'another habit'
+      }]);
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.habits[0]).to.eql(task2._id);
+      expect(updatedUser.tasksOrder.habits[1]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.habits.length).to.eql(originalHabitsOrderLen + 2);
     });
 
     it('creates multiple habits', async () => {
@@ -223,6 +283,34 @@ describe('POST /tasks', () => {
       expect(task2.type).to.eql('todo');
     });
 
+    it('updates user.tasksOrder.todos when a new todo is created', async () => {
+      let originalTodosOrderLen = (await user.get('/user')).tasksOrder.todos.length;
+      let task = await user.post('/tasks', {
+        type: 'todo',
+        text: 'a todo',
+      });
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.todos[0]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.todos.length).to.eql(originalTodosOrderLen + 1);
+    });
+
+    it('updates user.tasksOrder.todos when multiple todos are created', async () => {
+      let originalTodosOrderLen = (await user.get('/user')).tasksOrder.todos.length;
+      let [task, task2] = await user.post('/tasks', [{
+        type: 'todo',
+        text: 'a todo',
+      }, {
+        type: 'todo',
+        text: 'another todo'
+      }]);
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.todos[0]).to.eql(task2._id);
+      expect(updatedUser.tasksOrder.todos[1]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.todos.length).to.eql(originalTodosOrderLen + 2);
+    });
+
     it('can create checklists', async () => {
       let task = await user.post('/tasks', {
         text: 'test todo',
@@ -283,6 +371,34 @@ describe('POST /tasks', () => {
       expect(task2.text).to.eql('test daily 2');
       expect(task2.notes).to.eql('1977');
       expect(task2.type).to.eql('daily');
+    });
+
+    it('updates user.tasksOrder.dailys when a new daily is created', async () => {
+      let originalDailysOrderLen = (await user.get('/user')).tasksOrder.dailys.length;
+      let task = await user.post('/tasks', {
+        type: 'daily',
+        text: 'a daily',
+      });
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.dailys[0]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.dailys.length).to.eql(originalDailysOrderLen + 1);
+    });
+
+    it('updates user.tasksOrder.dailys when multiple dailys are created', async () => {
+      let originalDailysOrderLen = (await user.get('/user')).tasksOrder.dailys.length;
+      let [task, task2] = await user.post('/tasks', [{
+        type: 'daily',
+        text: 'a daily',
+      }, {
+        type: 'daily',
+        text: 'another daily'
+      }]);
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.dailys[0]).to.eql(task2._id);
+      expect(updatedUser.tasksOrder.dailys[1]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.dailys.length).to.eql(originalDailysOrderLen + 2);
     });
 
     it('defaults to a weekly frequency, with every day set', async () => {
@@ -395,6 +511,34 @@ describe('POST /tasks', () => {
       expect(task2.notes).to.eql('1977');
       expect(task2.type).to.eql('reward');
       expect(task2.value).to.eql(12);
+    });
+
+    it('updates user.tasksOrder.rewards when a new reward is created', async () => {
+      let originalRewardsOrderLen = (await user.get('/user')).tasksOrder.rewards.length;
+      let task = await user.post('/tasks', {
+        type: 'reward',
+        text: 'a reward',
+      });
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.rewards[0]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.rewards.length).to.eql(originalRewardsOrderLen + 1);
+    });
+
+    it('updates user.tasksOrder.dreward when multiple rewards are created', async () => {
+      let originalRewardsOrderLen = (await user.get('/user')).tasksOrder.rewards.length;
+      let [task, task2] = await user.post('/tasks', [{
+        type: 'reward',
+        text: 'a reward',
+      }, {
+        type: 'reward',
+        text: 'another reward'
+      }]);
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.rewards[0]).to.eql(task2._id);
+      expect(updatedUser.tasksOrder.rewards[1]).to.eql(task._id);
+      expect(updatedUser.tasksOrder.rewards.length).to.eql(originalRewardsOrderLen + 2);
     });
 
     it('defaults to a 0 value', async () => {
