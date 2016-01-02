@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../helpers/api-integration.helper';
 
-import { each } from 'lodash';
+import { each, get } from 'lodash';
 
 describe('PUT /user', () => {
   let user;
@@ -12,7 +12,7 @@ describe('PUT /user', () => {
     user = await generateUser();
   });
 
-  context('allowed operations', () => {
+  context('Allowed Operations', () => {
     it('updates the user', async () => {
       let updatedUser = await user.put('/user', {
         'profile.name' : 'Frodo',
@@ -26,7 +26,7 @@ describe('PUT /user', () => {
     });
   });
 
-  context('top level protected operations', () => {
+  context('Top Level Protected Operations', () => {
     let protectedOperations = {
       'gem balance': {balance: 100},
       'auth': {'auth.blocked': true, 'auth.timestamps.created': new Date()},
@@ -52,7 +52,7 @@ describe('PUT /user', () => {
     });
   });
 
-  context('sub-level protected operations', () => {
+  context('Sub-Level Protected Operations', () => {
     let protectedOperations = {
       'class stat': {'stats.class': 'wizard'},
     };
@@ -68,6 +68,108 @@ describe('PUT /user', () => {
           code: 401,
           text: errorText,
         });
+      });
+    });
+  });
+
+  context('Default Appearance Preferences', () => {
+    let testCases = {
+      shirt: 'yellow',
+      skin: 'ddc994',
+      'hair.color': 'blond',
+      'hair.bangs': 2,
+      'hair.base': 1,
+      'hair.flower': 4,
+      size: 'broad',
+    };
+
+    each(testCases, (item, type) => {
+      const update = {};
+      update[`preferences.${type}`] = item;
+
+      it(`updates user with ${type} that is a default`, async () => {
+        let dbUpdate = {};
+        dbUpdate[`purchased.${type}.${item}`] = true;
+        await user.update(dbUpdate);
+
+        // Sanity checks to make sure user is not already equipped with item
+        expect(get(user.preferences, type)).to.not.eql(item);
+
+        let updatedUser = await user.put('/user', update);
+
+        expect(get(updatedUser.preferences, type)).to.eql(item);
+      });
+    });
+
+    it('returns an error if user tries to update body size with invalid type', async () => {
+      await expect(user.put('/user', {
+        'preferences.size': 'round',
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        text: ['Must purchase round to set it on preferences.size'],
+      });
+    });
+
+    it('can set beard to default', async () => {
+      await user.update({
+        'purchased.hair.beard': 3,
+        'preferences.hair.beard': 3,
+      });
+
+      let updatedUser = await user.put('/user', {
+        'preferences.hair.beard': 0,
+      });
+
+      expect(updatedUser.preferences.hair.beard).to.eql(0);
+    });
+
+    it('can set mustache to default', async () => {
+      await user.update({
+        'purchased.hair.mustache': 2,
+        'preferences.hair.mustache': 2,
+      });
+
+      let updatedUser = await user.put('/user', {
+        'preferences.hair.mustache': 0,
+      });
+
+      expect(updatedUser.preferences.hair.mustache).to.eql(0);
+    });
+  });
+
+  context('Purchasable Appearance Preferences', () => {
+    let testCases = {
+      background: 'volcano',
+      shirt: 'convict',
+      skin: 'cactus',
+      'hair.base': 7,
+      'hair.beard': 2,
+      'hair.color': 'rainbow',
+      'hair.mustache': 2,
+    };
+
+    each(testCases, (item, type) => {
+      const update = {};
+      update[`preferences.${type}`] = item;
+
+      it(`returns an error if user tries to update ${type} with ${type} the user does not own`, async () => {
+        await expect(user.put('/user', update)).to.eventually.be.rejected.and.eql({
+          code: 401,
+          text: [`Must purchase ${item} to set it on preferences.${type}`],
+        });
+      });
+
+      it(`updates user with ${type} user does own`, async () => {
+        let dbUpdate = {};
+        dbUpdate[`purchased.${type}.${item}`] = true;
+        await user.update(dbUpdate);
+
+        // Sanity check to make sure user is not already equipped with item
+        expect(get(user.preferences, type)).to.not.eql(item);
+
+        let updatedUser = await user.put('/user', update);
+
+        expect(get(updatedUser.preferences, type)).to.eql(item);
       });
     });
   });
