@@ -32,16 +32,28 @@ api.createTask = {
     let user = res.locals.user;
 
     let toSave = tasksData.map(taskData => {
+      // Validate that task.type is valid
       if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
 
       let taskType = taskData.type;
       let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
       newTask.userId = user._id;
+
+      // Validate that the task is valid and throw if it isn't
+      // otherwise since we're saving user and task in parallel it could save the user with a tasksOrder that doens't match reality
+      let validationErrors = newTask.validateSync();
+      if (validationErrors) throw validationErrors;
+
+      // Otherwise update the user
       user.tasksOrder[`${taskType}s`].unshift(newTask._id);
 
-      return newTask.save();
+      return newTask;
     });
 
+    // If all tasks are valid, save everything, withough running validation again
+    toSave = toSave.map(task => task.save({
+      validateBeforeSave: false,
+    }));
     toSave.unshift(user.save());
     let results = await Q.all(toSave);
 

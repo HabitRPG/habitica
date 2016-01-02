@@ -54,6 +54,21 @@ describe('POST /tasks', () => {
       });
     });
 
+    it('does not update user.tasksOrder.{taskType} when the task is not saved because invalid', async () => {
+      let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
+      return expect(user.post('/tasks', {
+        type: 'habit',
+      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+        code: 400,
+        error: 'BadRequest',
+        message: 'habit validation failed',
+      }).then(async () => {
+        let updatedHabitsOrder = (await user.get('/user')).tasksOrder.habits;
+
+        expect(updatedHabitsOrder).to.eql(originalHabitsOrder);
+      });
+    });
+
     it('automatically sets "task.userId" to user\'s uuid', async () => {
       let task = await user.post('/tasks', {
         text: 'test habit',
