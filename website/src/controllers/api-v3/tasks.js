@@ -16,39 +16,41 @@ import { preenHistory } from '../../../../common/script/api-v3/preenHistory';
 let api = {};
 
 /**
- * @api {post} /tasks Create a new task
+ * @api {post} /tasks Create a new task. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateTask
  * @apiGroup Task
  *
- * @apiSuccess {Object} task The newly created task
+ * @apiSuccess {Object|Array} task The newly created task(s)
  */
-// TODO should allow to create multiple tasks at once
-// TODO gives problems when creating tasks concurrently because of how mongoose treats arrays (VersionErrors - treated as 500s)
 api.createTask = {
   method: 'POST',
   url: '/tasks',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(Tasks.tasksTypes);
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
+    let tasksData = Array.isArray(req.body) ? req.body : [req.body];
     let user = res.locals.user;
-    let taskType = req.body.type;
 
-    let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(req.body));
-    newTask.userId = user._id;
+    let toSave = tasksData.map(taskData => {
+      if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
 
-    user.tasksOrder[`${taskType}s`].unshift(newTask._id);
+      let taskType = taskData.type;
+      let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
+      newTask.userId = user._id;
+      user.tasksOrder[`${taskType}s`].unshift(newTask._id);
 
-    let results = await Q.all([
-      newTask.save(),
-      user.save(),
-    ]);
+      return newTask.save();
+    });
 
-    res.respond(201, results[0]);
+    toSave.unshift(user.save());
+    let results = await Q.all(toSave);
+
+    if (results.length === 2) { // Just one task created
+      res.respond(201, results[1]);
+    } else {
+      results.splice(0, 1); // remove the user
+      res.respond(201, results);
+    }
   },
 };
 

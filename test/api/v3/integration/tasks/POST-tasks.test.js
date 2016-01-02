@@ -19,7 +19,7 @@ describe('POST /tasks', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('invalidTaskType'),
       });
     });
 
@@ -29,7 +29,18 @@ describe('POST /tasks', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('invalidTaskType'),
+      });
+    });
+
+    it('returns an error if one object inside an array is invalid', () => {
+      return expect(user.post('/tasks', [
+        {type: 'habitF'},
+        {type: 'habit'},
+      ])).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidTaskType'),
       });
     });
 
@@ -107,6 +118,36 @@ describe('POST /tasks', () => {
       });
     });
 
+    it('creates multiple habits', () => {
+      return user.post('/tasks', [{
+        text: 'test habit',
+        type: 'habit',
+        up: false,
+        down: true,
+        notes: 1976,
+      }, {
+        text: 'test habit 2',
+        type: 'habit',
+        up: true,
+        down: false,
+        notes: 1977,
+      }]).then(([task, task2]) => {
+        expect(task.userId).to.equal(user._id);
+        expect(task.text).to.eql('test habit');
+        expect(task.notes).to.eql('1976');
+        expect(task.type).to.eql('habit');
+        expect(task.up).to.eql(false);
+        expect(task.down).to.eql(true);
+
+        expect(task2.userId).to.equal(user._id);
+        expect(task2.text).to.eql('test habit 2');
+        expect(task2.notes).to.eql('1977');
+        expect(task2.type).to.eql('habit');
+        expect(task2.up).to.eql(true);
+        expect(task2.down).to.eql(false);
+      });
+    });
+
     it('defaults to setting up and down to true', () => {
       return user.post('/tasks', {
         text: 'test habit',
@@ -142,6 +183,28 @@ describe('POST /tasks', () => {
         expect(task.text).to.eql('test todo');
         expect(task.notes).to.eql('1976');
         expect(task.type).to.eql('todo');
+      });
+    });
+
+    it('creates multiple todos', () => {
+      return user.post('/tasks', [{
+        text: 'test todo',
+        type: 'todo',
+        notes: 1976,
+      }, {
+        text: 'test todo 2',
+        type: 'todo',
+        notes: 1977,
+      }]).then(([task, task2]) => {
+        expect(task.userId).to.equal(user._id);
+        expect(task.text).to.eql('test todo');
+        expect(task.notes).to.eql('1976');
+        expect(task.type).to.eql('todo');
+
+        expect(task2.userId).to.equal(user._id);
+        expect(task2.text).to.eql('test todo 2');
+        expect(task2.notes).to.eql('1977');
+        expect(task2.type).to.eql('todo');
       });
     });
 
@@ -182,6 +245,28 @@ describe('POST /tasks', () => {
         expect(task.frequency).to.eql('daily');
         expect(task.everyX).to.eql(5);
         expect(new Date(task.startDate)).to.eql(now);
+      });
+    });
+
+    it('creates multiple dailys', () => {
+      return user.post('/tasks', [{
+        text: 'test daily',
+        type: 'daily',
+        notes: 1976,
+      }, {
+        text: 'test daily 2',
+        type: 'daily',
+        notes: 1977,
+      }]).then(([task, task2]) => {
+        expect(task.userId).to.equal(user._id);
+        expect(task.text).to.eql('test daily');
+        expect(task.notes).to.eql('1976');
+        expect(task.type).to.eql('daily');
+
+        expect(task2.userId).to.equal(user._id);
+        expect(task2.text).to.eql('test daily 2');
+        expect(task2.notes).to.eql('1977');
+        expect(task2.type).to.eql('daily');
       });
     });
 
@@ -268,6 +353,32 @@ describe('POST /tasks', () => {
         expect(task.notes).to.eql('1976');
         expect(task.type).to.eql('reward');
         expect(task.value).to.eql(10);
+      });
+    });
+
+    it('creates multiple rewards', () => {
+      return user.post('/tasks', [{
+        text: 'test reward',
+        type: 'reward',
+        notes: 1976,
+        value: 11,
+      }, {
+        text: 'test reward 2',
+        type: 'reward',
+        notes: 1977,
+        value: 12,
+      }]).then(([task, task2]) => {
+        expect(task.userId).to.equal(user._id);
+        expect(task.text).to.eql('test reward');
+        expect(task.notes).to.eql('1976');
+        expect(task.type).to.eql('reward');
+        expect(task.value).to.eql(11);
+
+        expect(task2.userId).to.equal(user._id);
+        expect(task2.text).to.eql('test reward 2');
+        expect(task2.notes).to.eql('1977');
+        expect(task2.type).to.eql('reward');
+        expect(task2.value).to.eql(12);
       });
     });
 
