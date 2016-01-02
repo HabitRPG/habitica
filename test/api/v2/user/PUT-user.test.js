@@ -14,15 +14,15 @@ describe('PUT /user', () => {
 
   context('allowed operations', () => {
     it('updates the user', async () => {
-      return user.put('/user', {
+      let updatedUser = await user.put('/user', {
         'profile.name' : 'Frodo',
         'preferences.costume': true,
         'stats.hp': 14,
-      }).then((updatedUser) => {
-        expect(updatedUser.profile.name).to.eql('Frodo');
-        expect(updatedUser.preferences.costume).to.eql(true);
-        expect(updatedUser.stats.hp).to.eql(14);
       });
+
+      expect(updatedUser.profile.name).to.eql('Frodo');
+      expect(updatedUser.preferences.costume).to.eql(true);
+      expect(updatedUser.stats.hp).to.eql(14);
     });
   });
 
@@ -43,7 +43,8 @@ describe('PUT /user', () => {
         each(data, (value, operation) => {
           errorText.push(t('messageUserOperationProtected', { operation: operation }));
         });
-        return expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
+
+        await expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,
           text: errorText,
         });
@@ -62,7 +63,8 @@ describe('PUT /user', () => {
         each(data, (value, operation) => {
           errorText.push(t('messageUserOperationProtected', { operation: operation }));
         });
-        return expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
+
+        await expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
           code: 401,
           text: errorText,
         });
