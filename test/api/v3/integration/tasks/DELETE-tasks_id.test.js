@@ -63,5 +63,6 @@ describe('DELETE /tasks/:id', () => {
     });
 
     it('cannot delete active challenge tasks'); // TODO after challenges are implemented
+    it('remove a task from user.tasksOrder'); // TODO
   });
 });

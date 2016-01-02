@@ -184,7 +184,7 @@ describe('POST /tasks', () => {
         text: 'an habit',
       }, {
         type: 'habit',
-        text: 'another habit'
+        text: 'another habit',
       }]);
 
       let updatedUser = await user.get('/user');
@@ -302,7 +302,7 @@ describe('POST /tasks', () => {
         text: 'a todo',
       }, {
         type: 'todo',
-        text: 'another todo'
+        text: 'another todo',
       }]);
 
       let updatedUser = await user.get('/user');
@@ -392,7 +392,7 @@ describe('POST /tasks', () => {
         text: 'a daily',
       }, {
         type: 'daily',
-        text: 'another daily'
+        text: 'another daily',
       }]);
 
       let updatedUser = await user.get('/user');
@@ -532,7 +532,7 @@ describe('POST /tasks', () => {
         text: 'a reward',
       }, {
         type: 'reward',
-        text: 'another reward'
+        text: 'another reward',
       }]);
 
       let updatedUser = await user.get('/user');
