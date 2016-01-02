@@ -48,13 +48,15 @@ export let defaultAppearancePreferences = {
     broad: true,
   },
   skin: {
-    ddc994: true,
-    f5a76e: true,
-    ea8349: true,
-    c06534: true,
+    /* eslint-disable quote-props */
+    'ddc994': true,
+    'f5a76e': true,
+    'ea8349': true,
+    'c06534': true,
     '98461a': true,
-    915533: true,
-    c3e1dc: true,
+    '915533': true,
+    'c3e1dc': true,
     '6bd049': true,
+    /* eslint-enable quote-props */
   },
 };
