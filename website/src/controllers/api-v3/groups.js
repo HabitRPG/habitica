@@ -228,7 +228,7 @@ api.joinGroup = {
       user.party._id = group._id; // Set group as user's party
 
       isUserInvited = true;
-    } else if (group.type === 'guild' && user.invitations.guilds) {
+    } else if (group.type === 'guild') {
       let i = _.findIndex(user.invitations.guilds, {id: group._id});
 
       if (i !== -1) {
