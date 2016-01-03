@@ -18,41 +18,41 @@ describe('GET /groups', () => {
     user = await generateUser();
     let leader = await generateUser({ balance: 10 });
 
-    let publicGuildWithUserAsMember = await generateGroup(leader, {
+    await generateGroup(leader, {
       name: 'public guild - is member',
       type: 'guild',
       privacy: 'public',
       members: [leader._id, user._id],
     });
 
-    let publicGuildWithoutUserAsMember = await generateGroup(leader, {
+    await generateGroup(leader, {
       name: 'public guild - is not member',
       type: 'guild',
       privacy: 'public',
     });
 
-    let privateGuildWithUserAsMember = await generateGroup(leader, {
+    await generateGroup(leader, {
       name: 'private guild - is member',
       type: 'guild',
       privacy: 'private',
       members: [leader._id, user._id],
     });
 
-    let privateGuildWithoutUserAsMember = await generateGroup(leader, {
+    await generateGroup(leader, {
       name: 'private guild - is not member',
       type: 'guild',
       privacy: 'private',
     });
 
-    let partyWithoutUserAsMember = await generateGroup(leader, {
-      name: 'party name',
+    await generateGroup(leader, {
+      name: 'party - is not member',
       type: 'party',
       privacy: 'private',
     });
 
-    let usersParty = await user.post('/groups', {
+    await user.post('/groups', {
+      name: 'party - is member',
       type: 'party',
-      name: 'user\'s party',
       privacy: 'private',
     });
   });

@@ -68,7 +68,8 @@ describe('POST /groups', () => {
     });
 
     it('prevents party creation if user is already in party', async () => {
-      let party = await generateGroup(leader, {
+      await generateGroup(leader, {
+        name: 'first party that user attempts to create',
         type: 'party',
       });
 

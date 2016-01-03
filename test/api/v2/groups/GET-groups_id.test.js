@@ -5,28 +5,23 @@ import {
 } from '../../../helpers/api-integration.helper';
 import {
   find,
-  each
+  each,
 } from 'lodash';
 
 describe('GET /groups/:id', () => {
-
   let typesOfGroups = {};
   typesOfGroups['public guild'] = { type: 'guild', privacy: 'public' };
   typesOfGroups['private guild'] = { type: 'guild', privacy: 'private' };
-  typesOfGroups['party'] = { type: 'party', privacy: 'private' };
+  typesOfGroups.party = { type: 'party', privacy: 'private' };
 
-  each(typesOfGroups, (groupData, groupType) => {
+  each(typesOfGroups, (groupDetails, groupType) => {
     context(`Member of a ${groupType}`, () => {
       let leader, member, createdGroup;
 
       before(async () => {
         let groupData = await createAndPopulateGroup({
           members: 30,
-          groupDetails: {
-            name: 'test guild',
-            type: 'guild',
-            privacy: 'public',
-          },
+          groupDetails,
         });
 
         leader = groupData.leader;
@@ -67,10 +62,9 @@ describe('GET /groups/:id', () => {
 
       it('includes the user in the members list', async () => {
         let group = await member.get(`/groups/${createdGroup._id}`);
-        let members = group.members;
         let userInGroup = find(group.members, '_id', member._id);
 
-        expect(userInGroup).to.be.exist;
+        expect(userInGroup).to.exist;
       });
     });
   });
@@ -198,7 +192,7 @@ describe('GET /groups/:id', () => {
   });
 
   context('Non-member of a public guild', () => {
-    let leader, nonMember, createdGroup;
+    let nonMember, createdGroup;
 
     before(async () => {
       let groupData = await createAndPopulateGroup({
@@ -210,7 +204,6 @@ describe('GET /groups/:id', () => {
         },
       });
 
-      leader = groupData.leader;
       createdGroup = groupData.group;
       nonMember =  await generateUser();
     });
@@ -233,7 +226,7 @@ describe('GET /groups/:id', () => {
   });
 
   context('Private Guilds', () => {
-    let leader, nonMember, createdGroup;
+    let nonMember, createdGroup;
 
     before(async () => {
       let groupData = await createAndPopulateGroup({
@@ -245,7 +238,6 @@ describe('GET /groups/:id', () => {
         },
       });
 
-      leader = groupData.leader;
       createdGroup = groupData.group;
       nonMember = await generateUser();
     });
@@ -260,7 +252,7 @@ describe('GET /groups/:id', () => {
   });
 
   context('Non-member of a party', () => {
-    let leader, nonMember, createdGroup;
+    let nonMember, createdGroup;
 
     before(async () => {
       let groupData = await createAndPopulateGroup({
@@ -272,7 +264,6 @@ describe('GET /groups/:id', () => {
         },
       });
 
-      leader = groupData.leader;
       createdGroup = groupData.group;
       nonMember = await generateUser();
     });
@@ -287,7 +278,7 @@ describe('GET /groups/:id', () => {
   });
 
   context('Member of a party', () => {
-    let leader, member, createdGroup;
+    let member, createdGroup;
 
     before(async () => {
       let groupData = await createAndPopulateGroup({
@@ -299,7 +290,6 @@ describe('GET /groups/:id', () => {
         },
       });
 
-      leader = groupData.leader;
       createdGroup = groupData.group;
       member = groupData.members[0];
     });

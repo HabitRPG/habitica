@@ -4,7 +4,6 @@ import {
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /user/tasks', () => {
-
   let user;
 
   beforeEach(async () => {

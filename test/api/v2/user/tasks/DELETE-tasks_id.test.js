@@ -12,13 +12,12 @@ describe('DELETE /user/tasks/:id', () => {
   });
 
   it('deletes a task', async () => {
-    return expect(user.del(`/user/tasks/${task.id}`)
-      .then((res) => {
-        return user.get(`/user/tasks/${task.id}`);
-      })).to.eventually.be.rejected.and.eql({
-        code: 404,
-        text: t('messageTaskNotFound'),
-      });
+    await user.del(`/user/tasks/${task.id}`);
+
+    await expect(user.get(`/user/tasks/${task.id}`)).to.eventually.be.rejected.and.eql({
+      code: 404,
+      text: t('messageTaskNotFound'),
+    });
   });
 
   it('returns an error if the task does not exist', async () => {

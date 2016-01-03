@@ -6,7 +6,6 @@ import {
 import { each, find } from 'lodash';
 
 describe('POST /groups/:id/join', () => {
-
   context('user is already a member of the group', () => {
     it('returns an error');
   });
@@ -14,64 +13,48 @@ describe('POST /groups/:id/join', () => {
   each({
     'public guild': {type: 'guild', privacy: 'public'},
     'private guild': {type: 'guild', privacy: 'private'},
-    'party': {type: 'party', privacy: 'private'},
-  }, (data, groupType) => {
+    party: {type: 'party', privacy: 'private'},
+  }, (groupDetails, groupType) => {
     context(`user has invitation to a ${groupType}`, () => {
       let group, invitee;
 
       beforeEach(async () => {
-        return createAndPopulateGroup({
-          groupDetails: {
-            type: data.type,
-            privacy: data.privacy,
-          },
+        let groupData = await createAndPopulateGroup({
+          groupDetails,
           invites: 1,
-        }).then((res) => {
-          group = res.group;
-          invitee = res.invitees[0];
         });
+        group = groupData.group;
+        invitee = groupData.invitees[0];
       });
 
       it(`allows user to join a ${groupType}`, async () => {
-        return invitee.post(`/groups/${group._id}/join`).then((res) => {
-          return invitee.get(`/groups/${group._id}`);
-        }).then((_group) => {
-          let members = _group.members;
-          let userInGroup = find(members, (user) => {
-            return user._id === invitee._id;
-          });
+        await invitee.post(`/groups/${group._id}/join`);
 
-          expect(userInGroup).to.exist;
-        });
+        let members = (await invitee.get(`/groups/${group._id}`)).members;
+        let userInGroup = find(members, '_id', invitee._id);
+
+        expect(userInGroup).to.exist;
       });
     });
   });
 
   each({
     'private guild': {type: 'guild', privacy: 'private'},
-    'party': {type: 'party', privacy: 'private'},
-  }, (data, groupType) => {
+    party: {type: 'party', privacy: 'private'},
+  }, (groupDetails, groupType) => {
     context(`user does not have an invitation to a ${groupType}`, () => {
       let group, user;
 
       beforeEach(async () => {
-        return createAndPopulateGroup({
-          groupDetails: {
-            type: data.type,
-            privacy: data.privacy,
-          },
-        }).then((res) => {
-          group = res.group;
-          return generateUser();
-        }).then((generatedUser) => {
-          user = generatedUser;
+        let groupData = await createAndPopulateGroup({
+          groupDetails,
         });
+        group = groupData.group;
+        user = await generateUser();
       });
 
       it(`does not allow user to join a ${groupType}`, async () => {
-        return expect(user.post(`/groups/${group._id}/join`).then((res) => {
-          return user.get(`/groups/${group._id}`);
-        })).to.eventually.be.rejected.and.eql({
+        await expect(user.post(`/groups/${group._id}/join`)).to.eventually.be.rejected.and.eql({
           code: 401,
           text: t('messageGroupRequiresInvite'),
         });
@@ -83,30 +66,23 @@ describe('POST /groups/:id/join', () => {
     let group, user;
 
     beforeEach(async () => {
-      return createAndPopulateGroup({
+      let groupData = await createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
           privacy: 'public',
         },
-      }).then((res) => {
-        group = res.group;
-        return generateUser();
-      }).then((generatedUser) => {
-        user = generatedUser;
       });
+      group = groupData.group;
+      user = await generateUser();
     });
 
     it('allows user to join a public guild', async () => {
-      return user.post(`/groups/${group._id}/join`).then((res) => {
-        return user.get(`/groups/${group._id}`);
-      }).then((_group) => {
-        let members = _group.members;
-        let userInGroup = find(members, (member) => {
-          return user._id === user._id;
-        });
+      await user.post(`/groups/${group._id}/join`);
 
-        expect(userInGroup).to.exist;
-      });
+      let members = (await user.get(`/groups/${group._id}`)).members;
+      let userInGroup = find(members, '_id', user._id);
+
+      expect(userInGroup).to.exist;
     });
   });
 
@@ -114,26 +90,22 @@ describe('POST /groups/:id/join', () => {
     let user, group;
 
     beforeEach(async () => {
-      return createAndPopulateGroup({
+      let groupData = await createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
           type: 'guild',
           privacy: 'public',
         },
-      }).then((res) => {
-        group = res.group;
-        return res.leader.post(`/groups/${group._id}/leave`);
-      }).then((res) => {
-        return generateUser();
-      }).then((generatedUser) => {
-        user = generatedUser;
       });
+      group = groupData.group;
+      await groupData.leader.post(`/groups/${group._id}/leave`);
+      user = await generateUser();
     });
 
     it('makes the joining user the leader', async () => {
-      return expect(user.post(`/groups/${group._id}/join`).then((result) => {
-        return user.get(`/groups/${group._id}`);
-      })).to.eventually.have.deep.property('leader._id', user._id);
+      await user.post(`/groups/${group._id}/join`);
+
+      await expect(user.get(`/groups/${group._id}`)).to.eventually.have.deep.property('leader._id', user._id);
     });
   });
 });

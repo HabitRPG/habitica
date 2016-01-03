@@ -11,7 +11,7 @@ describe('GET /user/tags/id', () => {
   });
 
   it('gets a user\'s tag by id', async () => {
-    return expect(user.get('/user/tags/' + user.tags[0].id))
+    return expect(user.get(`/user/tags/${user.tags[0].id}`))
       .to.eventually.eql(user.tags[0]);
   });
 

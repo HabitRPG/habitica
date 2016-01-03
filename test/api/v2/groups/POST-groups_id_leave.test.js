@@ -1,13 +1,10 @@
 import {
   checkExistence,
   createAndPopulateGroup,
-  generateUser,
-  translate as t,
 } from '../../../helpers/api-integration.helper';
 import { find } from 'lodash';
 
 describe('POST /groups/:id/leave', () => {
-
   context('user is not member of the group', () => {
     it('returns an error');
   });
@@ -16,28 +13,26 @@ describe('POST /groups/:id/leave', () => {
     let user, group;
 
     beforeEach(async () => {
-      return createAndPopulateGroup({
+      let groupData = await createAndPopulateGroup({
         members: 3,
         groupDetails: {
           name: 'test guild',
           type: 'guild',
           privacy: 'public',
         },
-      }).then((res) => {
-        user = res.members[0];
-        group = res.group;
       });
+
+      user = groupData.members[0];
+      group = groupData.group;
     });
 
     it('leaves the group', async () => {
-      return user.post(`/groups/${group._id}/leave`).then((result) => {
-        return user.get(`/groups/${group._id}`);
-      }).then((group) => {
-        let userInGroup = find(group.members, (member) => {
-          return member._id === user._id;
-        });
-        expect(userInGroup).to.not.be.ok;
-      });
+      await user.post(`/groups/${group._id}/leave`);
+
+      let members = (await user.get(`/groups/${group._id}`)).members;
+      let userInGroup = find(members, '_id', user._id);
+
+      expect(userInGroup).to.not.be.ok;
     });
   });
 
@@ -45,22 +40,22 @@ describe('POST /groups/:id/leave', () => {
     let user, group;
 
     beforeEach(async () => {
-      return createAndPopulateGroup({
+      let groupData = await createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
           type: 'guild',
           privacy: 'public',
         },
-      }).then((res) => {
-        user = res.leader;
-        group = res.group;
       });
+
+      user = groupData.leader;
+      group = groupData.group;
     });
 
     it('leaves the group accessible', async () => {
-      return expect(user.post(`/groups/${group._id}/leave`).then((result) => {
-        return user.get(`/groups/${group._id}`);
-      })).to.eventually.have.property('_id', group._id);
+      await user.post(`/groups/${group._id}/leave`);
+
+      await expect(user.get(`/groups/${group._id}`)).to.eventually.have.property('_id', group._id);
     });
   });
 
@@ -68,22 +63,22 @@ describe('POST /groups/:id/leave', () => {
     let user, group;
 
     beforeEach(async () => {
-      return createAndPopulateGroup({
+      let groupData = await createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
           type: 'guild',
           privacy: 'private',
         },
-      }).then((res) => {
-        user = res.leader;
-        group = res.group;
       });
+
+      user = groupData.leader;
+      group = groupData.group;
     });
 
     it('group is deleted', async () => {
-      return expect(user.post(`/groups/${group._id}/leave`).then((result) => {
-        return checkExistence('groups', group._id);
-      })).to.eventually.eql(false);
+      await user.post(`/groups/${group._id}/leave`);
+
+      await expect(checkExistence('groups', group._id)).to.eventually.eql(false);
     });
   });
 
@@ -91,32 +86,26 @@ describe('POST /groups/:id/leave', () => {
     let user, invitee1, invitee2, group;
 
     beforeEach(async () => {
-      return createAndPopulateGroup({
+      let groupData = await createAndPopulateGroup({
         invites: 2,
         groupDetails: {
           name: 'test guild',
           type: 'guild',
           privacy: 'private',
         },
-      }).then((res) => {
-        user = res.leader;
-        invitee1 = res.invitees[0];
-        invitee2 = res.invitees[1];
-        group = res.group;
       });
+
+      user = groupData.leader;
+      group = groupData.group;
+      invitee1 = groupData.invitees[0];
+      invitee2 = groupData.invitees[1];
     });
 
     it('deletes the group invitations from users', async () => {
-      return user.post(`/groups/${group._id}/leave`).then((result) => {
-        return Promise.all([
-          expect(invitee1.get(`/user`))
-            .to.eventually.have.deep.property('invitations.guilds')
-            .and.to.be.empty,
-          expect(invitee2.get(`/user`))
-            .to.eventually.have.deep.property('invitations.guilds')
-            .and.to.be.empty,
-        ]);
-      });
+      await user.post(`/groups/${group._id}/leave`);
+
+      await expect(invitee1.get(`/user`)).to.eventually.have.deep.property('invitations.guilds').and.to.be.empty;
+      await expect(invitee2.get(`/user`)).to.eventually.have.deep.property('invitations.guilds').and.to.be.empty;
     });
   });
 
@@ -124,32 +113,26 @@ describe('POST /groups/:id/leave', () => {
     let user, invitee1, invitee2, group;
 
     beforeEach(async () => {
-      return createAndPopulateGroup({
+      let groupData = await createAndPopulateGroup({
         invites: 2,
         groupDetails: {
-          name: 'test party',
+          name: 'test guild',
           type: 'party',
           privacy: 'private',
         },
-      }).then((res) => {
-        user = res.leader;
-        invitee1 = res.invitees[0];
-        invitee2 = res.invitees[1];
-        group = res.group;
       });
+
+      user = groupData.leader;
+      group = groupData.group;
+      invitee1 = groupData.invitees[0];
+      invitee2 = groupData.invitees[1];
     });
 
     it('deletes the group invitations from users', async () => {
-      return user.post(`/groups/${group._id}/leave`).then((result) => {
-        return Promise.all([
-          expect(invitee1.get(`/user`))
-            .to.eventually.have.deep.property('invitations.party')
-            .and.to.be.empty,
-          expect(invitee2.get(`/user`))
-            .to.eventually.have.deep.property('invitations.party')
-            .and.to.be.empty,
-        ]);
-      });
+      await user.post(`/groups/${group._id}/leave`);
+
+      await expect(invitee1.get(`/user`)).to.eventually.have.deep.property('invitations.party').and.to.be.empty;
+      await expect(invitee2.get(`/user`)).to.eventually.have.deep.property('invitations.party').and.to.be.empty;
     });
   });
 });

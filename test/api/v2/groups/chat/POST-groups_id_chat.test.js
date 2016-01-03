@@ -1,11 +1,9 @@
 import {
   createAndPopulateGroup,
-  generateUser,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /groups/:id/chat', () => {
-
   let group, user;
 
   beforeEach(async () => {

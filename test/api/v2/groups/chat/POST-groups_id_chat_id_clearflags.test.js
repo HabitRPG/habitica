@@ -53,7 +53,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     });
 
     it('clears flags', async () => {
-      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
+      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then(() => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages[0].flagCount).to.eql(0);
@@ -61,7 +61,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     });
 
     it('leaves old flags on the flag object', async () => {
-      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then((res) => {
+      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then(() => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages[0].flags).to.have.property('some-id', true);
@@ -78,7 +78,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
   });
 
   context('admin user, group with multiple messages', () => {
-    let admin, author, group, member;
+    let admin, author, groupWithMessages;
 
     beforeEach(async () => {
       author = await generateUser();
@@ -92,21 +92,20 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
           privacy: 'public',
           chat: [
             { id: 'message-to-unflag', uuid: author._id, flagCount: 1, flags: {'some-user': true} },
-            { id: '1-flag-message', uuid: author._id, flagCount: 1, flags: { 'id1': true } },
-            { id: '2-flag-message', uuid: author._id, flagCount: 2, flags: { 'id1': true, 'id2': true } },
+            { id: '1-flag-message', uuid: author._id, flagCount: 1, flags: { id1: true } },
+            { id: '2-flag-message', uuid: author._id, flagCount: 2, flags: { id1: true, id2: true } },
             { id: 'no-flags', uuid: author._id, flagCount: 0, flags: {} },
           ],
         },
         members: 1,
       });
 
-      group = groupData.group;
-      member = groupData.members[0];
+      groupWithMessages = groupData.group;
     });
 
     it('changes only the message that is flagged', async () => {
-      return admin.post(`/groups/${group._id}/chat/message-to-unflag/clearflags`).then((messages) => {
-        return admin.get(`/groups/${group._id}/chat`);
+      return admin.post(`/groups/${groupWithMessages._id}/chat/message-to-unflag/clearflags`).then(() => {
+        return admin.get(`/groups/${groupWithMessages._id}/chat`);
       }).then((messages) => {
         expect(messages).to.have.lengthOf(4);
 

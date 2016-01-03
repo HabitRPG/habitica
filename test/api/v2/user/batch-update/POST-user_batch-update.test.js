@@ -14,24 +14,20 @@ describe('POST /user/batch-update', () => {
 
   context('allowed operations', () => {
     it('makes batch operations', async () => {
-      let task;
+      let task = (await user.get('/user/tasks'))[0];
 
-      return user.get('/user/tasks').then((tasks) => {
-        task = tasks[0];
+      let updatedUser = await user.post('/user/batch-update', [
+        {op: 'update', body: {'stats.hp': 30}},
+        {op: 'update', body: {'profile.name': 'Samwise'}},
+        {op: 'score', params: { direction: 'up', id: task.id }},
+      ]);
 
-        return user.post('/user/batch-update', [
-          {op: 'update', body: {'stats.hp': 30}},
-          {op: 'update', body: {'profile.name': 'Samwise'}},
-          {op: 'score', params: { direction: 'up', id: task.id }},
-        ]);
-      }).then((updatedUser) => {
-        expect(updatedUser.stats.hp).to.eql(30);
-        expect(updatedUser.profile.name).to.eql('Samwise');
+      expect(updatedUser.stats.hp).to.eql(30);
+      expect(updatedUser.profile.name).to.eql('Samwise');
 
-        return user.get(`/user/tasks/${task.id}`);
-      }).then((task) => {
-        expect(task.value).to.be.greaterThan(0);
-      });
+      let fetchedTask = await user.get(`/user/tasks/${task.id}`);
+
+      expect(fetchedTask.value).to.be.greaterThan(task.value);
     });
   });
 
@@ -42,7 +38,6 @@ describe('POST /user/batch-update', () => {
     };
 
     each(protectedOperations, (operation, description) => {
-
       it(`it sends back a 500 error for ${description} operation`, async () => {
         return expect(user.post('/user/batch-update', [
           { op: operation },
