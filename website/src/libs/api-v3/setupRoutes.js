@@ -4,7 +4,7 @@ import express from 'express';
 import _ from 'lodash';
 
 const CONTROLLERS_PATH = path.join(__dirname, '/../../controllers/api-v3/');
-let router = express.Router(); // eslint-disable-line new-cap
+let router = express.Router(); // eslint-disable-line babel/new-cap
 
 fs
   .readdirSync(CONTROLLERS_PATH)

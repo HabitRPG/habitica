@@ -32,30 +32,26 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     });
   });
 
-  it('fails on habits', () => {
-    let habit;
-    return expect(user.post('/tasks', {
+  it('fails on habits', async () => {
+    let habit = await user.post('/tasks', {
       type: 'habit',
       text: 'habit with checklist',
-    }).then(createdTask => {
-      habit = createdTask;
-      return user.put(`/tasks/${habit._id}/checklist/${generateUUID()}`);
-    })).to.eventually.be.rejected.and.eql({
+    });
+
+    await expect(user.put(`/tasks/${habit._id}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('checklistOnlyDailyTodo'),
     });
   });
 
-  it('fails on rewards', () => {
-    let reward;
-    return expect(user.post('/tasks', {
+  it('fails on rewards', async () => {
+    let reward = await user.post('/tasks', {
       type: 'reward',
       text: 'reward with checklist',
-    }).then(createdTask => {
-      reward = createdTask;
-      return user.put(`/tasks/${reward._id}/checklist/${generateUUID()}`);
-    }).then(checklistItem => {})).to.eventually.be.rejected.and.eql({
+    });
+
+    await expect(user.put(`/tasks/${reward._id}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('checklistOnlyDailyTodo'),

@@ -1,4 +1,4 @@
-import { 
+import {
   encrypt,
   decrypt,
 } from '../../../../../website/src/libs/api-v3/encryption';

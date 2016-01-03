@@ -3,9 +3,9 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import responseMiddleware from '../../../../../website/src/middlewares/api-v3/response'
+import responseMiddleware from '../../../../../website/src/middlewares/api-v3/response';
 
-describe('response middleware', function() {
+describe('response middleware', () => {
   let res, req, next;
 
   beforeEach(() => {
@@ -15,13 +15,13 @@ describe('response middleware', function() {
   });
 
 
-  it('attaches respond method to res', function() {
+  it('attaches respond method to res', () => {
     responseMiddleware(req, res, next);
 
     expect(res.respond).to.exist;
   });
 
-  it('can be used to respond to requests', function() {
+  it('can be used to respond to requests', () => {
     responseMiddleware(req, res, next);
     res.respond(200, {field: 1});
 
@@ -34,7 +34,7 @@ describe('response middleware', function() {
     });
   });
 
-  it('treats status >= 400 as failures', function() {
+  it('treats status >= 400 as failures', () => {
     responseMiddleware(req, res, next);
     res.respond(403, {field: 1});
 

@@ -1,6 +1,5 @@
 import {
   generateUser,
-  translate as t,
 } from '../../../../helpers/api-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
@@ -28,7 +27,7 @@ describe('PUT /tasks/:id', () => {
     it(`ignores setting _id, type, userId, history, createdAt,
                         updatedAt, challenge, completed, streak,
                         dateCompleted fields`, () => {
-      user.put('/tasks/' + task._id, {
+      user.put(`/tasks/${task._id}`, {
         _id: 123,
         type: 'daily',
         userId: 123,
@@ -54,7 +53,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('ignores invalid fields', () => {
-      user.put('/tasks/' + task._id, {
+      user.put(`/tasks/${task._id}`, {
         notValid: true,
       }).then((savedTask) => {
         expect(savedTask.notValid).to.be.a('undefined');
@@ -118,16 +117,16 @@ describe('PUT /tasks/:id', () => {
         checklist: [
           {text: 123, completed: false},
           {text: 456, completed: true},
-        ]
-      }).then((savedTodo) => {
+        ],
+      }).then(() => {
         return user.put(`/tasks/${todo._id}`, {
           checklist: [
             {text: 789, completed: false},
-          ]
+          ],
         });
       }).then((savedTodo2) => {
         expect(savedTodo2.checklist.length).to.equal(1);
-        expect(savedTodo2.checklist[0].text).to.equal("789");
+        expect(savedTodo2.checklist[0].text).to.equal('789');
         expect(savedTodo2.checklist[0].completed).to.equal(false);
       });
     });
@@ -136,9 +135,9 @@ describe('PUT /tasks/:id', () => {
       let finalUUID = generateUUID();
       return user.put(`/tasks/${todo._id}`, {
         tags: [generateUUID(), generateUUID()],
-      }).then((savedTodo) => {
+      }).then(() => {
         return user.put(`/tasks/${todo._id}`, {
-          tags: [finalUUID]
+          tags: [finalUUID],
         });
       }).then((savedTodo2) => {
         expect(savedTodo2.tags.length).to.equal(1);
@@ -161,8 +160,6 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates a daily', () => {
-      let now = new Date();
-
       return user.put(`/tasks/${daily._id}`, {
         text: 'some new text',
         notes: 'some new notes',
@@ -181,16 +178,16 @@ describe('PUT /tasks/:id', () => {
         checklist: [
           {text: 123, completed: false},
           {text: 456, completed: true},
-        ]
-      }).then((savedDaily) => {
+        ],
+      }).then(() => {
         return user.put(`/tasks/${daily._id}`, {
           checklist: [
             {text: 789, completed: false},
-          ]
+          ],
         });
       }).then((savedDaily2) => {
         expect(savedDaily2.checklist.length).to.equal(1);
-        expect(savedDaily2.checklist[0].text).to.equal("789");
+        expect(savedDaily2.checklist[0].text).to.equal('789');
         expect(savedDaily2.checklist[0].completed).to.equal(false);
       });
     });
@@ -199,9 +196,9 @@ describe('PUT /tasks/:id', () => {
       let finalUUID = generateUUID();
       return user.put(`/tasks/${daily._id}`, {
         tags: [generateUUID(), generateUUID()],
-      }).then((savedDaily) => {
+      }).then(() => {
         return user.put(`/tasks/${daily._id}`, {
-          tags: [finalUUID]
+          tags: [finalUUID],
         });
       }).then((savedDaily2) => {
         expect(savedDaily2.tags.length).to.equal(1);
@@ -212,12 +209,12 @@ describe('PUT /tasks/:id', () => {
     it('updates repeat, even if frequency is set to daily', () => {
       return user.put(`/tasks/${daily._id}`, {
         frequency: 'daily',
-      }).then((savedDaily) => {
+      }).then(() => {
         return user.put(`/tasks/${daily._id}`, {
           repeat: {
             m: false,
-            su: false
-          }
+            su: false,
+          },
         });
       }).then((savedDaily2) => {
         expect(savedDaily2.repeat).to.eql({
@@ -235,7 +232,7 @@ describe('PUT /tasks/:id', () => {
     it('updates everyX, even if frequency is set to weekly', () => {
       return user.put(`/tasks/${daily._id}`, {
         frequency: 'weekly',
-      }).then((savedDaily) => {
+      }).then(() => {
         return user.put(`/tasks/${daily._id}`, {
           everyX: 5,
         });
@@ -281,7 +278,7 @@ describe('PUT /tasks/:id', () => {
 
     it('requires value to be coerced into a number', () => {
       return user.put(`/tasks/${reward._id}`, {
-        value: "100",
+        value: '100',
       }).then((task) => {
         expect(task.value).to.eql(100);
       });

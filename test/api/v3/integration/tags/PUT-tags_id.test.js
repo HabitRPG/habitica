@@ -12,13 +12,11 @@ describe('PUT /tags/:tagId', () => {
   });
 
   it('updates a tag given it\'s id', () => {
-    let length;
-
     return user.post('/tags', {name: 'Tag 1'})
     .then((createdTag) => {
       return user.put(`/tags/${createdTag._id}`, {
         name: 'Tag updated',
-        ignored: true
+        ignored: true,
       });
     })
     .then((updatedTag) => {

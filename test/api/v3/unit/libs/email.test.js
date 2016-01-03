@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import request from 'request';
 import nconf from 'nconf';
 import nodemailer from 'nodemailer';
@@ -14,21 +15,21 @@ function getUser () {
       },
       facebook: {
         emails: [{
-          value: 'email@facebook'
+          value: 'email@facebook',
         }],
         displayName: 'fb display name',
-      }
+      },
     },
     profile: {
       name: 'profile name',
     },
     preferences: {
       emailNotifications: {
-        unsubscribeFromAll: false
+        unsubscribeFromAll: false,
       },
     },
   };
-};
+}
 
 describe('emails', () => {
   let pathToEmailLib = '../../../../../website/src/libs/api-v3/email';
@@ -63,7 +64,7 @@ describe('emails', () => {
       attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
       deferred.reject();
-      deferred.promise.catch((err) => {
+      deferred.promise.catch(() => {
         expect(logger.error).to.be.calledOnce;
         done();
       });
@@ -93,11 +94,11 @@ describe('emails', () => {
       let attachEmail = require(pathToEmailLib);
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
-      delete user.profile['name'];
-      delete user.auth['local'];
+      delete user.profile.name;
+      delete user.auth.local;
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
-      
+
       expect(data).to.have.property('name', user.auth.facebook.displayName);
       expect(data).to.have.property('email', user.auth.facebook.emails[0].value);
       expect(data).to.have.property('_id', user._id);
@@ -108,12 +109,12 @@ describe('emails', () => {
       let attachEmail = require(pathToEmailLib);
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
-      delete user.profile['name'];
-      delete user.auth.local['email']
-      delete user.auth['facebook'];
+      delete user.profile.name;
+      delete user.auth.local.email;
+      delete user.auth.facebook;
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
-      
+
       expect(data).to.have.property('name', user.auth.local.username);
       expect(data).not.to.have.property('email');
       expect(data).to.have.property('_id', user._id);
@@ -148,8 +149,8 @@ describe('emails', () => {
             to: sinon.match((value) => {
               return Array.isArray(value) && value[0].name === mailingInfo.name;
             }, 'matches mailing info array'),
-          }
-        }
+          },
+        },
       }));
     });
 
@@ -160,7 +161,7 @@ describe('emails', () => {
       let emailType = 'an email type';
       let mailingInfo = {
         name: 'my name',
-        //email: 'my@email',
+        // email: 'my@email',
       };
 
       sendTxnEmail(mailingInfo, emailType);
@@ -180,8 +181,8 @@ describe('emails', () => {
           data: {
             emailType: sinon.match.same(emailType),
             to: sinon.match(val => val[0]._id === mailingInfo._id),
-          }
-        }
+          },
+        },
       }));
     });
 
@@ -194,7 +195,7 @@ describe('emails', () => {
         name: 'my name',
         email: 'my@email',
       };
-      let variables = [1,2,3];
+      let variables = [1, 2, 3];
 
       sendTxnEmail(mailingInfo, emailType, variables);
       expect(request.post).to.be.calledWith(sinon.match({
@@ -204,13 +205,12 @@ describe('emails', () => {
               return value[0].name === 'BASE_URL';
             }, 'matches variables'),
             personalVariables: sinon.match((value) => {
-              return (value[0].rcpt === mailingInfo.email 
-                && value[0].vars[0].name === 'RECIPIENT_NAME' 
-                && value[0].vars[1].name === 'RECIPIENT_UNSUB_URL'
-              );
+              return value[0].rcpt === mailingInfo.email &&
+                value[0].vars[0].name === 'RECIPIENT_NAME' &&
+                value[0].vars[1].name === 'RECIPIENT_UNSUB_URL';
             }, 'matches personal variables'),
-          }
-        }
+          },
+        },
       }));
     });
   });

@@ -115,7 +115,7 @@ describe('errorHandler', () => {
       error: 'BadRequest',
       message: 'Invalid request parameters.',
       errors: [
-        {param: error[0].param, value: error[0].value, message: error[0].msg}
+        { param: error[0].param, value: error[0].value, message: error[0].msg },
       ],
     });
   });
@@ -142,8 +142,8 @@ describe('errorHandler', () => {
       error: 'BadRequest',
       message: 'User validation failed.',
       errors: [
-        {path: 'auth.local.email', message: 'Invalid email.', value: 'not an email'}
-      ]
+        { path: 'auth.local.email', message: 'Invalid email.', value: 'not an email' },
+      ],
     });
   });
 

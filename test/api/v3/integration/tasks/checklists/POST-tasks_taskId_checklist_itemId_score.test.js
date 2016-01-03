@@ -45,15 +45,13 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
     });
   });
 
-  it('fails on rewards', () => {
-    let reward;
-    return expect(user.post('/tasks', {
+  it('fails on rewards', async () => {
+    let reward = await user.post('/tasks', {
       type: 'reward',
       text: 'reward with checklist',
-    }).then(createdTask => {
-      reward = createdTask;
-      return user.post(`/tasks/${reward._id}/checklist/${generateUUID()}/score`);
-    }).then(checklistItem => {})).to.eventually.be.rejected.and.eql({
+    });
+
+    await expect(user.post(`/tasks/${reward._id}/checklist/${generateUUID()}/score`)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('checklistOnlyDailyTodo'),

@@ -47,29 +47,29 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('completes todo when direction is up', () => {
       return user.post(`/tasks/${todo._id}/score/up`)
-      .then((res) => user.get(`/tasks/${todo._id}`))
+      .then(() => user.get(`/tasks/${todo._id}`))
       .then((task) => expect(task.completed).to.equal(true));
     });
 
     it('moves completed todos out of user.tasksOrder.todos', () => {
       return user.get('/user')
-      .then(user => {
-        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1)
+      .then(usr => {
+        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
       }).then(() => user.post(`/tasks/${todo._id}/score/up`))
       .then(() => user.get(`/tasks/${todo._id}`))
       .then((updatedTask) => {
         expect(updatedTask.completed).to.equal(true);
         return user.get('/user');
       })
-      .then((user) => {
-        expect(user.tasksOrder.todos.indexOf(todo._id)).to.equal(-1)
+      .then((usr) => {
+        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.equal(-1);
       });
     });
 
     it('moves un-completed todos back into user.tasksOrder.todos', () => {
       return user.get('/user')
-      .then(user => {
-        expect(user.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1)
+      .then(usr => {
+        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
       }).then(() => user.post(`/tasks/${todo._id}/score/up`))
       .then(() => user.post(`/tasks/${todo._id}/score/down`))
       .then(() => user.get(`/tasks/${todo._id}`))
@@ -77,16 +77,16 @@ describe('POST /tasks/:id/score/:direction', () => {
         expect(updatedTask.completed).to.equal(false);
         return user.get('/user');
       })
-      .then((user) => {
-        let l = user.tasksOrder.todos.length;
-        expect(user.tasksOrder.todos.indexOf(todo._id)).not.to.equal(-1);
-        expect(user.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1); // Check that it was pushed at the bottom
+      .then((usr) => {
+        let l = usr.tasksOrder.todos.length;
+        expect(usr.tasksOrder.todos.indexOf(todo._id)).not.to.equal(-1);
+        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1); // Check that it was pushed at the bottom
       });
     });
 
     it('uncompletes todo when direction is down', () => {
       return user.post(`/tasks/${todo._id}/score/down`)
-      .then((res) => user.get(`/tasks/${todo._id}`))
+      .then(() => user.get(`/tasks/${todo._id}`))
       .then((updatedTask) => {
         expect(updatedTask.completed).to.equal(false);
       });
@@ -98,7 +98,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s mp when direction is up', () => {
       return user.post(`/tasks/${todo._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
@@ -106,7 +106,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('decreases user\'s mp when direction is down', () => {
       return user.post(`/tasks/${todo._id}/score/down`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
       });
@@ -114,7 +114,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s exp when direction is up', () => {
       return user.post(`/tasks/${todo._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
@@ -122,7 +122,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('decreases user\'s exp when direction is down', () => {
       return user.post(`/tasks/${todo._id}/score/down`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
       });
@@ -130,7 +130,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s gold when direction is up', () => {
       return user.post(`/tasks/${todo._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
@@ -138,7 +138,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('decreases user\'s gold when direction is down', () => {
       return user.post(`/tasks/${todo._id}/score/down`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
@@ -159,13 +159,13 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('completes daily when direction is up', () => {
       return user.post(`/tasks/${daily._id}/score/up`)
-      .then((res) => user.get(`/tasks/${daily._id}`))
+      .then(() => user.get(`/tasks/${daily._id}`))
       .then((task) => expect(task.completed).to.equal(true));
     });
 
     it('uncompletes daily when direction is down', () => {
       return user.post(`/tasks/${daily._id}/score/down`)
-      .then((res) => user.get(`/tasks/${daily._id}`))
+      .then(() => user.get(`/tasks/${daily._id}`))
       .then((task) => expect(task.completed).to.equal(false));
     });
 
@@ -175,7 +175,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s mp when direction is up', () => {
       return user.post(`/tasks/${daily._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
@@ -183,7 +183,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('decreases user\'s mp when direction is down', () => {
       return user.post(`/tasks/${daily._id}/score/down`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
       });
@@ -191,7 +191,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s exp when direction is up', () => {
       return user.post(`/tasks/${daily._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
@@ -199,7 +199,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('decreases user\'s exp when direction is down', () => {
       return user.post(`/tasks/${daily._id}/score/down`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
       });
@@ -207,7 +207,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s gold when direction is up', () => {
       return user.post(`/tasks/${daily._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
@@ -215,7 +215,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('decreases user\'s gold when direction is down', () => {
       return user.post(`/tasks/${daily._id}/score/down`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
@@ -223,7 +223,7 @@ describe('POST /tasks/:id/score/:direction', () => {
   });
 
   context('habits', () => {
-    let habit, minusHabit, plusHabit, neitherHabit;
+    let habit, minusHabit, plusHabit, neitherHabit; // eslint-disable-line no-unused-vars
 
     beforeEach(() => {
       return user.post('/tasks', {
@@ -242,7 +242,7 @@ describe('POST /tasks/:id/score/:direction', () => {
           text: 'test plus habit',
           type: 'habit',
           down: false,
-        })
+        });
       }).then((task) => {
         plusHabit = task;
         user.post('/tasks', {
@@ -250,7 +250,7 @@ describe('POST /tasks/:id/score/:direction', () => {
           type: 'habit',
           up: false,
           down: false,
-        })
+        });
       }).then((task) => {
         neitherHabit = task;
       });
@@ -262,7 +262,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s mp when direction is up', () => {
       return user.post(`/tasks/${habit._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
@@ -270,7 +270,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('decreases user\'s mp when direction is down', () => {
       return user.post(`/tasks/${habit._id}/score/down`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
       });
@@ -278,7 +278,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s exp when direction is up', () => {
       return user.post(`/tasks/${habit._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
@@ -286,7 +286,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s gold when direction is up', () => {
       return user.post(`/tasks/${habit._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
@@ -308,7 +308,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('purchases reward', () => {
       return user.post(`/tasks/${reward._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.gp).to.equal(updatedUser.stats.gp + 5);
       });
@@ -316,7 +316,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('does not change user\'s mp', () => {
       return user.post(`/tasks/${reward._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp).to.equal(updatedUser.stats.mp);
       });
@@ -324,7 +324,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('does not change user\'s exp', () => {
       return user.post(`/tasks/${reward._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.exp).to.equal(updatedUser.stats.exp);
       });
@@ -332,7 +332,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('does not allow a down direction', () => {
       return user.post(`/tasks/${reward._id}/score/up`)
-      .then((res) => user.get(`/user`))
+      .then(() => user.get(`/user`))
       .then((updatedUser) => {
         expect(user.stats.mp).to.equal(updatedUser.stats.mp);
       });
