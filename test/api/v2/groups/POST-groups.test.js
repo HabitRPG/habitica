@@ -12,7 +12,7 @@ describe('POST /groups', () => {
       leader = await generateUser();
     });
 
-    xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', () => {
+    xit('returns defaults? (TODO: it\'s possible to create a group without a type. Should the group default to party? Should we require type to be set?', async () => {
       return leader.post('/groups').then((group) => {
         expect(group._id).to.exist;
         expect(group.name).to.eql(`${leader.profile.name}'s group`);
@@ -68,7 +68,8 @@ describe('POST /groups', () => {
     });
 
     it('prevents party creation if user is already in party', async () => {
-      let party = await generateGroup(leader, {
+      await generateGroup(leader, {
+        name: 'first party that user attempts to create',
         type: 'party',
       });
 
@@ -78,7 +79,7 @@ describe('POST /groups', () => {
       });
     });
 
-    xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', () => {
+    xit('prevents creating a public party. TODO: it is possible to create a public party. Should we send back an error? Automatically switch the privacy to private?', async () => {
       return expect(leader.post('/groups', {
         type: 'party',
         privacy: 'public',
@@ -113,7 +114,7 @@ describe('POST /groups', () => {
       let guild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'public',
-      })
+      });
 
       expect(guild.leader).to.eql(leader._id);
     });

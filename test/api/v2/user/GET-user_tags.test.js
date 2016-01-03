@@ -5,13 +5,11 @@ import {
 describe('GET /user/tags', () => {
   let user;
 
-  beforeEach(() => {
-    return generateUser().then((usr) => {
-      user = usr;
-    });
+  beforeEach(async () => {
+    user = await generateUser();
   });
 
-  it('gets the user\'s tags', () => {
+  it('gets the user\'s tags', async () => {
     return expect(user.get('/user/tags'))
       .to.eventually.eql(user.tags);
   });

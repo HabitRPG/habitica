@@ -5,11 +5,10 @@ import {
 } from '../../../helpers/api-integration.helper';
 
 describe('POST /groups/:id', () => {
-
   context('user is not the leader of the group', () => {
     let user, otherUser, groupUserDoesNotOwn;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return Promise.all([
         generateUser({ balance: 10 }),
         generateUser({ balance: 10 }),
@@ -28,9 +27,9 @@ describe('POST /groups/:id', () => {
       });
     });
 
-    it('does not allow user to update group', () => {
+    it('does not allow user to update group', async () => {
       return expect(user.post(`/groups/${groupUserDoesNotOwn._id}`, {
-        name: 'Change'
+        name: 'Change',
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageGroupOnlyLeaderCanUpdate'),
@@ -41,32 +40,28 @@ describe('POST /groups/:id', () => {
   context('user is the leader of the group', () => {
     let user, usersGroup;
 
-    beforeEach(() => {
-      return generateUser({
+    beforeEach(async () => {
+      user = await generateUser({
         balance: 10,
-      }).then((_user) => {
-        user = _user;
+      });
 
-        return generateGroup(user, {
-          name: 'Original Group Title',
-          type: 'guild',
-          privacy: 'public',
-        });
-      }).then((group) => {
-        usersGroup = group;
+      usersGroup = await generateGroup(user, {
+        name: 'Original Group Title',
+        type: 'guild',
+        privacy: 'public',
       });
     });
 
-    it('allows user to update group', () => {
-      return user.post(`/groups/${usersGroup._id}`, {
+    it('allows user to update group', async () => {
+      await user.post(`/groups/${usersGroup._id}`, {
         name: 'New Group Title',
         description: 'New group description',
-      }).then((group) => {
-        return user.get(`/groups/${usersGroup._id}`);
-      }).then((group) => {
-        expect(group.name).to.eql('New Group Title');
-        expect(group.description).to.eql('New group description');
       });
+
+      let group = await user.get(`/groups/${usersGroup._id}`);
+
+      expect(group.name).to.eql('New Group Title');
+      expect(group.description).to.eql('New group description');
     });
   });
 });

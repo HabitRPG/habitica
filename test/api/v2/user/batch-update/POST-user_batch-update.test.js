@@ -8,32 +8,26 @@ import { each } from 'lodash';
 describe('POST /user/batch-update', () => {
   let user;
 
-  beforeEach(() => {
-    return generateUser().then((usr) => {
-      user = usr;
-    });
+  beforeEach(async () => {
+    user = await generateUser();
   });
 
   context('allowed operations', () => {
-    it('makes batch operations', () => {
-      let task;
+    it('makes batch operations', async () => {
+      let task = (await user.get('/user/tasks'))[0];
 
-      return user.get('/user/tasks').then((tasks) => {
-        task = tasks[0];
+      let updatedUser = await user.post('/user/batch-update', [
+        {op: 'update', body: {'stats.hp': 30}},
+        {op: 'update', body: {'profile.name': 'Samwise'}},
+        {op: 'score', params: { direction: 'up', id: task.id }},
+      ]);
 
-        return user.post('/user/batch-update', [
-          {op: 'update', body: {'stats.hp': 30}},
-          {op: 'update', body: {'profile.name': 'Samwise'}},
-          {op: 'score', params: { direction: 'up', id: task.id }},
-        ]);
-      }).then((updatedUser) => {
-        expect(updatedUser.stats.hp).to.eql(30);
-        expect(updatedUser.profile.name).to.eql('Samwise');
+      expect(updatedUser.stats.hp).to.eql(30);
+      expect(updatedUser.profile.name).to.eql('Samwise');
 
-        return user.get(`/user/tasks/${task.id}`);
-      }).then((task) => {
-        expect(task.value).to.be.greaterThan(0);
-      });
+      let fetchedTask = await user.get(`/user/tasks/${task.id}`);
+
+      expect(fetchedTask.value).to.be.greaterThan(task.value);
     });
   });
 
@@ -44,26 +38,25 @@ describe('POST /user/batch-update', () => {
     };
 
     each(protectedOperations, (operation, description) => {
-
-      it(`it sends back a 500 error for ${description} operation`, () => {
+      it(`it sends back a 500 error for ${description} operation`, async () => {
         return expect(user.post('/user/batch-update', [
           { op: operation },
         ])).to.eventually.be.rejected.and.eql({
-            code: 500,
-            text: t('messageUserOperationNotFound', { operation }),
-          });
+          code: 500,
+          text: t('messageUserOperationNotFound', { operation }),
+        });
       });
     });
   });
 
   context('unknown operations', () => {
-    it('sends back a 500 error', () => {
+    it('sends back a 500 error', async () => {
       return expect(user.post('/user/batch-update', [
         {op: 'aNotRealOperation'},
       ])).to.eventually.be.rejected.and.eql({
-          code: 500,
-          text: t('messageUserOperationNotFound', { operation: 'aNotRealOperation' }),
-        });
+        code: 500,
+        text: t('messageUserOperationNotFound', { operation: 'aNotRealOperation' }),
+      });
     });
   });
 });

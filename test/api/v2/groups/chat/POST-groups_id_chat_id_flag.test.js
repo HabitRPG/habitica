@@ -5,11 +5,10 @@ import {
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /groups/:id/chat/:id/flag', () => {
-
   context('another member\'s message', () => {
     let group, member, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -21,23 +20,22 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         user = res.leader;
         member = res.members[0];
 
-        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
+        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
       }).then((res) => {
         message = res.message;
       });
     });
 
-    it('flags message', () => {
-      return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+    it('flags message', async () => {
+      return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then(() => {
         return user.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
-        let message = messages[0];
-        expect(message.flagCount).to.eql(1);
+        expect(messages[0].flagCount).to.eql(1);
       });
     });
 
-    it('cannot flag the same message twice', () => {
-      return expect(user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+    it('cannot flag the same message twice', async () => {
+      return expect(user.post(`/groups/${group._id}/chat/${message.id}/flag`).then(() => {
         return user.post(`/groups/${group._id}/chat/${message.id}/flag`);
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -49,7 +47,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   context('own message', () => {
     let group, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -60,13 +58,13 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         group = res.group;
         user = res.leader;
 
-        return user.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message', });
+        return user.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message' });
       }).then((res) => {
         message = res.message;
       });
     });
 
-    it('cannot flag message', () => {
+    it('cannot flag message', async () => {
       return expect(user.post(`/groups/${group._id}/chat/${message.id}/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
@@ -76,9 +74,9 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   });
 
   context('nonexistant message', () => {
-    let group, message, user;
+    let group, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -90,7 +88,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
     });
 
-    it('returns error', () => {
+    it('returns error', async () => {
       return expect(user.post(`/groups/${group._id}/chat/non-existant-message/flag`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
@@ -100,39 +98,34 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   });
 
   context('group with multiple messages', () => {
-    let admin, author, group, member, message, user;
+    let admin, author, group, user;
 
-    beforeEach(() => {
-      return generateUser().then((user) => {
-        author = user;
-
-        return createAndPopulateGroup({
-          groupDetails: {
-            type: 'guild',
-            privacy: 'public',
-            chat: [
-              { id: 'message-to-be-flagged', uuid: author._id, flagCount: 0, flags: {} },
-              { id: '1-flag-message', uuid: author._id, flagCount: 1, flags: { 'id1': true } },
-              { id: '2-flag-message', uuid: author._id, flagCount: 2, flags: { 'id1': true, 'id2': true } },
-              { id: 'no-flags', uuid: author._id, flagCount: 0, flags: {} },
-            ],
-          },
-          members: 1,
-        });
-      }).then((res) => {
-        group = res.group;
-        user = res.leader;
-        member = res.members[0];
-        return generateUser({
-          'contributor.admin': true,
-        });
-      }).then((user) => {
-        admin = user;
+    beforeEach(async () => {
+      author = await generateUser();
+      admin = await generateUser({
+        'contributor.admin': true,
       });
+
+      let groupData = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'guild',
+          privacy: 'public',
+          chat: [
+            { id: 'message-to-be-flagged', uuid: author._id, flagCount: 0, flags: {} },
+            { id: '1-flag-message', uuid: author._id, flagCount: 1, flags: { id1: true } },
+            { id: '2-flag-message', uuid: author._id, flagCount: 2, flags: { id1: true, id2: true } },
+            { id: 'no-flags', uuid: author._id, flagCount: 0, flags: {} },
+          ],
+        },
+        members: 1,
+      });
+
+      group = groupData.group;
+      user = groupData.leader;
     });
 
-    it('changes only the message that is flagged', () => {
-      return user.post(`/groups/${group._id}/chat/message-to-be-flagged/flag`).then((messages) => {
+    it('changes only the message that is flagged', async () => {
+      return user.post(`/groups/${group._id}/chat/message-to-be-flagged/flag`).then(() => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages).to.have.lengthOf(4);
@@ -160,7 +153,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
   context('admin flagging a message', () => {
     let group, member, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -176,18 +169,17 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         user = res.leader;
         member = res.members[0];
 
-        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
+        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
       }).then((res) => {
         message = res.message;
       });
     });
 
-    it('sets flagCount to 5', () => {
-      return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then((messages) => {
+    it('sets flagCount to 5', async () => {
+      return user.post(`/groups/${group._id}/chat/${message.id}/flag`).then(() => {
         return user.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
-        let message = messages[0];
-        expect(message.flagCount).to.eql(5);
+        expect(messages[0].flagCount).to.eql(5);
       });
     });
   });
