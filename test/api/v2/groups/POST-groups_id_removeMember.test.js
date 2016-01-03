@@ -1,12 +1,9 @@
 import {
   createAndPopulateGroup,
-  generateGroup,
-  generateUser,
   translate as t,
 } from '../../../helpers/api-integration.helper';
 
 describe('POST /groups/:id/removeMember', () => {
-
   context('user is not member of the group', () => {
     it('returns an error');
   });
@@ -18,7 +15,7 @@ describe('POST /groups/:id/removeMember', () => {
   context('user is the leader of a guild', () => {
     let leader, member, group;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         members: 1,
         groupDetails: {
@@ -33,7 +30,7 @@ describe('POST /groups/:id/removeMember', () => {
       });
     });
 
-    it('does not allow leader to remove themselves', () => {
+    it('does not allow leader to remove themselves', async () => {
       return expect(leader.post(`/groups/${group._id}/removeMember`, null, {
         uuid: leader._id,
       })).to.eventually.be.rejected.and.eql({
@@ -42,10 +39,10 @@ describe('POST /groups/:id/removeMember', () => {
       });
     });
 
-    it('can remove other members of guild', () => {
+    it('can remove other members of guild', async () => {
       return leader.post(`/groups/${group._id}/removeMember`, null, {
         uuid: member._id,
-      }).then((res) => {
+      }).then(() => {
         return leader.get(`/groups/${group._id}`);
       }).then((guild) => {
         expect(guild.members).to.have.a.lengthOf(1);

@@ -5,11 +5,10 @@ import {
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /groups/:id/chat/:id/like', () => {
-
   context('another member\'s message', () => {
     let group, member, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -21,25 +20,23 @@ describe('POST /groups/:id/chat/:id/like', () => {
         user = res.leader;
         member = res.members[0];
 
-        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message', });
+        return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
       }).then((res) => {
         message = res.message;
       });
     });
 
-    it('likes message', () => {
+    it('likes message', async () => {
       return user.post(`/groups/${group._id}/chat/${message.id}/like`).then((messages) => {
-        let message = messages[0];
-        expect(message.likes[user._id]).to.eql(true);
+        expect(messages[0].likes[user._id]).to.eql(true);
       });
     });
 
-    it('returns the message object', () => {
+    it('returns the message object', async () => {
       return user.post(`/groups/${group._id}/chat/${message.id}/like`).then((messages) => {
-        let message = messages[0];
-        expect(message.text).to.eql('Group member message');
-        expect(message.uuid).to.eql(member._id);
-        expect(message.user).to.eql(member.profile.name);
+        expect(messages[0].text).to.eql('Group member message');
+        expect(messages[0].uuid).to.eql(member._id);
+        expect(messages[0].user).to.eql(member.profile.name);
       });
     });
   });
@@ -47,7 +44,7 @@ describe('POST /groups/:id/chat/:id/like', () => {
   context('own message', () => {
     let group, message, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -58,13 +55,13 @@ describe('POST /groups/:id/chat/:id/like', () => {
         group = res.group;
         user = res.leader;
 
-        return user.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message', });
+        return user.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message' });
       }).then((res) => {
         message = res.message;
       });
     });
 
-    it('cannot like message', () => {
+    it('cannot like message', async () => {
       return expect(user.post(`/groups/${group._id}/chat/${message.id}/like`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
@@ -74,39 +71,34 @@ describe('POST /groups/:id/chat/:id/like', () => {
   });
 
   context('group with multiple messages', () => {
-    let admin, author, group, member, message, user;
+    let admin, author, group, user;
 
-    beforeEach(() => {
-      return generateUser().then((user) => {
-        author = user;
-
-        return createAndPopulateGroup({
-          groupDetails: {
-            type: 'guild',
-            privacy: 'public',
-            chat: [
-              { id: 'message-to-be-liked', likes: {}, uuid: author._id, flagCount: 0, flags: {} },
-              { id: '1-like-message', likes: { 'id': true }, uuid: author._id, flagCount: 1, flags: { 'id1': true } },
-              { id: '2-like-message', likes: { 'id': true, 'id2': true }, uuid: author._id, flagCount: 2, flags: { 'id1': true, 'id2': true } },
-              { id: 'no-likes', likes: {}, uuid: author._id, flagCount: 0, flags: {} },
-            ],
-          },
-          members: 1,
-        });
-      }).then((res) => {
-        group = res.group;
-        user = res.leader;
-        member = res.members[0];
-        return generateUser({
-          'contributor.admin': true,
-        });
-      }).then((user) => {
-        admin = user;
+    beforeEach(async () => {
+      author = await generateUser();
+      admin = await generateUser({
+        'contributor.admin': true,
       });
+
+      let groupData = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'guild',
+          privacy: 'public',
+          chat: [
+            { id: 'message-to-be-liked', likes: {}, uuid: author._id, flagCount: 0, flags: {} },
+            { id: '1-like-message', likes: { id: true }, uuid: author._id, flagCount: 1, flags: { id1: true } },
+            { id: '2-like-message', likes: { id: true, id2: true }, uuid: author._id, flagCount: 2, flags: { id1: true, id2: true } },
+            { id: 'no-likes', likes: {}, uuid: author._id, flagCount: 0, flags: {} },
+          ],
+        },
+        members: 1,
+      });
+
+      group = groupData.group;
+      user = groupData.leader;
     });
 
-    it('changes only the message that is liked', () => {
-      return user.post(`/groups/${group._id}/chat/message-to-be-liked/like`).then((messages) => {
+    it('changes only the message that is liked', async () => {
+      return user.post(`/groups/${group._id}/chat/message-to-be-liked/like`).then(() => {
         return admin.get(`/groups/${group._id}/chat`);
       }).then((messages) => {
         expect(messages).to.have.lengthOf(4);
@@ -132,9 +124,9 @@ describe('POST /groups/:id/chat/:id/like', () => {
   });
 
   context('nonexistant message', () => {
-    let group, message, user;
+    let group, user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       return createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
@@ -146,7 +138,7 @@ describe('POST /groups/:id/chat/:id/like', () => {
       });
     });
 
-    it('returns error', () => {
+    it('returns error', async () => {
       return expect(user.post(`/groups/${group._id}/chat/non-existant-message/like`))
         .to.eventually.be.rejected.and.eql({
           code: 404,

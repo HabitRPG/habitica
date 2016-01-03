@@ -7,18 +7,17 @@ import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
 
 describe('POST /register', () => {
-
   context('username and email are free', () => {
-    it('registers a new user', () => {
+    it('registers a new user', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';
 
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user._id).to.exist;
@@ -27,7 +26,7 @@ describe('POST /register', () => {
       });
     });
 
-    it('requires password and confirmPassword to match', () => {
+    it('requires password and confirmPassword to match', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
@@ -35,58 +34,58 @@ describe('POST /register', () => {
       let confirmPassword = 'not password';
 
       return expect(api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
-        confirmPassword: confirmPassword,
+        username,
+        email,
+        password,
+        confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageAuthPasswordMustMatch'),
       });
     });
 
-    it('requires a username', () => {
+    it('requires a username', async () => {
       let api = requester();
       let email = `${generateRandomUserName()}@example.com`;
       let password = 'password';
       let confirmPassword = 'password';
 
       return expect(api.post('/register', {
-        email:           email,
-        password:        password,
-        confirmPassword: confirmPassword,
+        email,
+        password,
+        confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageAuthCredentialsRequired'),
       });
     });
 
-    it('requires an email', () => {
+    it('requires an email', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let password = 'password';
       let confirmPassword = 'password';
 
       return expect(api.post('/register', {
-        username:        username,
-        password:        password,
-        confirmPassword: confirmPassword,
+        username,
+        password,
+        confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageAuthCredentialsRequired'),
       });
     });
 
-    it('requires a password', () => {
+    it('requires a password', async () => {
       let api = requester();
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let confirmPassword = 'password';
 
       return expect(api.post('/register', {
-        username:        username,
-        email:           email,
-        confirmPassword: confirmPassword,
+        username,
+        email,
+        confirmPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         text: t('messageAuthCredentialsRequired'),
@@ -96,25 +95,25 @@ describe('POST /register', () => {
 
   context('login is already taken', () => {
     let username, email;
-    beforeEach(() => {
+    beforeEach(async () => {
       username = generateRandomUserName();
       email = `${username}@example.com`;
       return generateUser({
         'auth.local.username': username,
         'auth.local.lowerCaseUsername': username,
-        'auth.local.email': email
+        'auth.local.email': email,
       });
     });
 
-    it('rejects if username is already taken', () => {
+    it('rejects if username is already taken', async () => {
       let api = requester();
       let uniqueEmail = `${generateRandomUserName()}@exampe.com`;
       let password = 'password';
 
       return expect(api.post('/register', {
-        username:        username,
-        email:           uniqueEmail,
-        password:        password,
+        username,
+        email: uniqueEmail,
+        password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -122,15 +121,15 @@ describe('POST /register', () => {
       });
     });
 
-    it('rejects if email is already taken', () => {
+    it('rejects if email is already taken', async () => {
       let api = requester();
       let uniqueUsername = generateRandomUserName();
       let password = 'password';
 
       return expect(api.post('/register', {
-        username:        uniqueUsername,
-        email:           email,
-        password:        password,
+        username: uniqueUsername,
+        email,
+        password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -142,33 +141,33 @@ describe('POST /register', () => {
   context('successful login via api', () => {
     let api, username, email, password;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       api = requester();
       username = generateRandomUserName();
       email = `${username}@example.com`;
       password = 'password';
     });
 
-    it('sets all site tour values to -2 (already seen)', () => {
+    it('sets all site tour values to -2 (already seen)', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.flags.tour).to.not.be.empty;
 
-        each(user.flags.tour, (value, attribute) => {
+        each(user.flags.tour, (value) => {
           expect(value).to.eql(-2);
         });
       });
     });
 
-    it('populates user with default todos, not no other task types', () => {
+    it('populates user with default todos, not no other task types', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.todos).to.not.be.empty;
@@ -178,11 +177,11 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default tags', () => {
+    it('populates user with default tags', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.tags).to.not.be.empty;
@@ -193,33 +192,33 @@ describe('POST /register', () => {
   context('successful login with habitica-web header', () => {
     let api, username, email, password;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       api = requester({}, {'x-client': 'habitica-web'});
       username = generateRandomUserName();
       email = `${username}@example.com`;
       password = 'password';
     });
 
-    it('sets all common tutorial flags to true', () => {
+    it('sets all common tutorial flags to true', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.flags.tour).to.not.be.empty;
 
-        each(user.flags.tutorial.common, (value, attribute) => {
+        each(user.flags.tutorial.common, (value) => {
           expect(value).to.eql(true);
         });
       });
     });
 
-    it('populates user with default todos, habits, and rewards', () => {
+    it('populates user with default todos, habits, and rewards', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.todos).to.not.be.empty;
@@ -229,11 +228,11 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default tags', () => {
+    it('populates user with default tags', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.tags).to.not.be.empty;
@@ -244,33 +243,33 @@ describe('POST /register', () => {
   context('successful login with habitica-android header', () => {
     let api, username, email, password;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       api = requester({}, {'x-client': 'habitica-android'});
       username = generateRandomUserName();
       email = `${username}@example.com`;
       password = 'password';
     });
 
-    it('sets all common tutorial flags to true', () => {
+    it('sets all common tutorial flags to true', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.flags.tour).to.not.be.empty;
 
-        each(user.flags.tutorial.common, (value, attribute) => {
+        each(user.flags.tutorial.common, (value) => {
           expect(value).to.eql(true);
         });
       });
     });
 
-    it('populates user with default todos, habits, and rewards', () => {
+    it('populates user with default todos, habits, and rewards', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.todos).to.not.be.empty;
@@ -280,11 +279,11 @@ describe('POST /register', () => {
       });
     });
 
-    it('populates user with default tags', () => {
+    it('populates user with default tags', async () => {
       return api.post('/register', {
-        username:        username,
-        email:           email,
-        password:        password,
+        username,
+        email,
+        password,
         confirmPassword: password,
       }).then((user) => {
         expect(user.tags).to.not.be.empty;

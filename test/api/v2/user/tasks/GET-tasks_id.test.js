@@ -6,14 +6,12 @@ import {
 describe('GET /user/tasks/:id', () => {
   let user, task;
 
-  beforeEach(() => {
-    return generateUser().then((_user) => {
-      user = _user;
-      task = user.todos[0];
-    });
+  beforeEach(async () => {
+    user = await generateUser();
+    task = user.todos[0];
   });
 
-  it('gets a task', () => {
+  it('gets a task', async () => {
     return user.get(`/user/tasks/${task.id}`).then((foundTask) => {
       expect(foundTask.id).to.eql(task.id);
       expect(foundTask.text).to.eql(task.text);
@@ -23,15 +21,15 @@ describe('GET /user/tasks/:id', () => {
     });
   });
 
-  it('returns an error if the task does not exist', () => {
+  it('returns an error if the task does not exist', async () => {
     return expect(user.get('/user/tasks/task-that-does-not-exist'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         text: t('messageTaskNotFound'),
-    });
+      });
   });
 
-  it('does not get another user\'s task', () => {
+  it('does not get another user\'s task', async () => {
     return expect(generateUser().then((otherUser) => {
       let otherUsersTask = otherUser.todos[0];
 

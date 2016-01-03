@@ -1,12 +1,11 @@
 import {
   generateUser,
-  translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('GET /user/tasks/', () => {
   let user;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     return generateUser({
       dailys: [
         {text: 'daily', type: 'daily'},
@@ -19,7 +18,7 @@ describe('GET /user/tasks/', () => {
     });
   });
 
-  it('gets all tasks', () => {
+  it('gets all tasks', async () => {
     return user.get(`/user/tasks/`).then((tasks) => {
       expect(tasks).to.be.an('array');
       expect(tasks.length).to.be.greaterThan(3);

@@ -445,7 +445,7 @@ let head = {
     canOwn: ownsItem('head_special_fireCoralCirclet'),
   },
   nye: {
-    event: EVENTS.winter,
+    event: EVENTS.winter2016,
     text: t('headSpecialNyeText'),
     notes: t('headSpecialNyeNotes'),
     value: 0,
