@@ -18,7 +18,7 @@ describe('DELETE /user/tasks/:id', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 404,
         text: t('messageTaskNotFound'),
-    });
+      });
   });
 
   it('returns an error if the task does not exist', async () => {
@@ -26,7 +26,7 @@ describe('DELETE /user/tasks/:id', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         text: t('messageTaskNotFound'),
-    });
+      });
   });
 
   it('does not delete another user\'s task', async () => {

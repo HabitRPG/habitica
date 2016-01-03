@@ -37,9 +37,9 @@ describe('DELETE /user', () => {
     });
 
     it('deletes party when user is the only member', async () => {
-    return expect(user.del('/user').then((result) => {
-        return checkExistence('groups', party._id);
-      })).to.eventually.eql(false);
+      return expect(user.del('/user').then((result) => {
+      return checkExistence('groups', party._id);
+    })).to.eventually.eql(false);
     });
   });
 
@@ -56,9 +56,9 @@ describe('DELETE /user', () => {
     });
 
     it('deletes guild when user is the only member', async () => {
-    return expect(user.del('/user').then((result) => {
-        return checkExistence('groups', guild._id);
-      })).to.eventually.eql(false);
+      return expect(user.del('/user').then((result) => {
+      return checkExistence('groups', guild._id);
+    })).to.eventually.eql(false);
     });
   });
 

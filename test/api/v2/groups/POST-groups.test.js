@@ -113,7 +113,7 @@ describe('POST /groups', () => {
       let guild = await leader.post('/groups', {
         type: 'guild',
         privacy: 'public',
-      })
+      });
 
       expect(guild.leader).to.eql(leader._id);
     });

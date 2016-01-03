@@ -47,9 +47,9 @@ describe('POST /user/batch-update', () => {
         return expect(user.post('/user/batch-update', [
           { op: operation },
         ])).to.eventually.be.rejected.and.eql({
-            code: 500,
-            text: t('messageUserOperationNotFound', { operation }),
-          });
+          code: 500,
+          text: t('messageUserOperationNotFound', { operation }),
+        });
       });
     });
   });
@@ -59,9 +59,9 @@ describe('POST /user/batch-update', () => {
       return expect(user.post('/user/batch-update', [
         {op: 'aNotRealOperation'},
       ])).to.eventually.be.rejected.and.eql({
-          code: 500,
-          text: t('messageUserOperationNotFound', { operation: 'aNotRealOperation' }),
-        });
+        code: 500,
+        text: t('messageUserOperationNotFound', { operation: 'aNotRealOperation' }),
+      });
     });
   });
 });

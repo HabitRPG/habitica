@@ -305,7 +305,7 @@ describe('GET /groups/:id', () => {
     });
 
     it('returns the user\'s party if an id of "party" is passed in', async () => {
-      let group = await member.get('/groups/party')
+      let group = await member.get('/groups/party');
 
       expect(group._id).to.eql(createdGroup._id);
       expect(group.name).to.eql(createdGroup.name);

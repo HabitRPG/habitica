@@ -26,7 +26,7 @@ describe('GET /user/tasks/:id', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         text: t('messageTaskNotFound'),
-    });
+      });
   });
 
   it('does not get another user\'s task', async () => {
