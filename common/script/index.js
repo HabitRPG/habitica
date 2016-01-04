@@ -2295,7 +2295,7 @@ api.wrap = function(user, main) {
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = (user.stats.lvl > MAX_LEVEL ? MAX_STAT_POINTS : user.stats.lvl) - allocatedStatPoints;
+            user.stats.points = MAX_STAT_POINTS - allocatedStatPoints;
             if (user.stats.points < 0) {
               user.stats.points = 0;
             }
