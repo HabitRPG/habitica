@@ -1045,7 +1045,7 @@ api.premiumHatchingPotions = {
     text: t('hatchingPotionPeppermint'),
     limited: true,
     canBuy: (function() {
-      return true;
+      return false;
     })
   }
 };

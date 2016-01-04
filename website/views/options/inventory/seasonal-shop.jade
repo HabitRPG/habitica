@@ -42,7 +42,7 @@
           ng-click='purchase("special", Content.spells.special.snowball)')
         p {{::Content.spells.special.snowball.value}}
           span(class='shop_gold')
-      div
+      // div
         button.customize-option(class='Pet_HatchingPotion_Peppermint',
           popover='{{::Content.hatchingPotions.Peppermint.notes()}}',
           popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions.Peppermint.text()}}"}),
