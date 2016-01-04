@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import * as Tasks from '../../models/task';
+import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
   NotAuthorized,
@@ -21,15 +22,30 @@ let api = {};
  * @apiName CreateTask
  * @apiGroup Task
  *
+ * @apiParam {string="user","challenge"} tasksOwner Define if tasks will belong to the auhenticated user or to a challenge (specifying the "challengeId" parameter).
+ * @apiParam {UUID} challengeId Optional. If "tasksOwner" is "challenge" then specify the challenge id.
+ *
  * @apiSuccess {Object|Array} task The newly created task(s)
  */
 api.createTask = {
   method: 'POST',
-  url: '/tasks',
+  url: '/tasks/:tasksOwner/:challengeId?',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let tasksData = Array.isArray(req.body) ? req.body : [req.body];
     let user = res.locals.user;
+    let tasksOwner = req.params.tasksOwner;
+    let challengeId = req.params.challengeId;
+    let challenge;
+
+    if (tasksOwner === 'user' && challengeId) throw new BadRequest(res.t('userTasksNoChallengeId'));
+    if (tasksOwner === 'challenge') {
+      if (!challengeId) throw new BadRequest(res.t('challengeIdRequired'));
+      challenge = await Challenge.findOne({_id: challengeId}).exec();
+
+      // If the challenge does not exist, or if it exists but user is not the leader -> throw error
+      if (!challenge || challenge.leader !== user._id) throw new NotFound(res.t('challengeNotFound'));
+    }
 
     let toSave = tasksData.map(taskData => {
       // Validate that task.type is valid
@@ -37,15 +53,20 @@ api.createTask = {
 
       let taskType = taskData.type;
       let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
-      newTask.userId = user._id;
+
+      if (challenge) {
+        newTask.challenge.id = challengeId;
+      } else {
+        newTask.userId = user._id;
+      }
 
       // Validate that the task is valid and throw if it isn't
-      // otherwise since we're saving user and task in parallel it could save the user with a tasksOrder that doens't match reality
+      // otherwise since we're saving user/challenge and task in parallel it could save the user/challenge with a tasksOrder that doens't match reality
       let validationErrors = newTask.validateSync();
       if (validationErrors) throw validationErrors;
 
-      // Otherwise update the user
-      user.tasksOrder[`${taskType}s`].unshift(newTask._id);
+      // Otherwise update the user/challenge
+      (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
 
       return newTask;
     });
@@ -54,41 +75,60 @@ api.createTask = {
     toSave = toSave.map(task => task.save({
       validateBeforeSave: false,
     }));
-    toSave.unshift(user.save());
-    let results = await Q.all(toSave);
+    toSave.unshift((challenge || user).save());
 
-    if (results.length === 2) { // Just one task created
-      res.respond(201, results[1]);
-    } else {
-      results.splice(0, 1); // remove the user
-      res.respond(201, results);
-    }
+    let tasks = await Q.all(toSave);
+    tasks.splice(0, 1); // remove the user/challenge
+    res.respond(201, tasks);
+
+    // If adding tasks to a challenge -> sync users
+    if (challenge) challenge.addTasksToMembers(tasks); // TODO catch/log
   },
 };
 
 /**
- * @api {get} /tasks Get an user's tasks
+ * @api {get} /tasks/:tasksOwner/:challengeId Get an user's tasks
  * @apiVersion 3.0.0
  * @apiName GetTasks
  * @apiGroup Task
  *
+ * @apiParam {string="user","challenge"} tasksOwner Url parameter to return tasks belonging to a challenge (specifying the "challengeId" parameter) or to the autheticated user.
+ * @apiParam {UUID} challengeId Optional. If "tasksOwner" is "challenge" then specify the challenge id.
  * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
- * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo"
+ * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo". Only valid whe "tasksOwner" is "user".
  *
  * @apiSuccess {Array} tasks An array of task objects
  */
 api.getTasks = {
   method: 'GET',
-  url: '/tasks',
+  url: '/tasks/:tasksOwner/:challengeId?',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
+    req.checkParams('tasksOwner', res.t('invalidTasksOwner')).isIn(['user', 'challenge']);
+    req.checkParams('challengeId', res.t('challengeIdRequired')).optional().isUUID();
+
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
-    let query = {userId: user._id};
+    let tasksOwner = req.params.tasksOwner;
+    let challengeId = req.params.challengeId;
+    let challenge;
+
+    if (tasksOwner === 'user' && challengeId) throw new BadRequest(res.t('userTasksNoChallengeId'));
+    if (tasksOwner === 'challenge') {
+      if (!challengeId) throw new BadRequest(res.t('challengeIdRequired'));
+      challenge = await Challenge.findOne({_id: challengeId}).exec();
+
+      // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
+      if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
+        throw new NotFound(res.t('challengeNotFound'));
+      }
+    }
+
+    let query = challenge ? {'challenge.id': challengeId, userId: {$exists: false}} : {userId: user._id};
     let type = req.query.type;
 
     if (type) {
@@ -102,6 +142,8 @@ api.getTasks = {
     }
 
     if (req.query.includeCompletedTodos === 'true' && (!type || type === 'todo')) {
+      if (challengeId) throw new BadRequest(res.t('noCompletedTodosChallenge'));
+
       let queryCompleted = Tasks.Task.find({
         type: 'todo',
         completed: true,

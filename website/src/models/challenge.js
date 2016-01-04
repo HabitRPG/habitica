@@ -4,6 +4,7 @@ import validator from 'validator';
 import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
 import * as Tasks from './task';
+import { model as User } from './user';
 
 let Schema = mongoose.Schema;
 
@@ -29,37 +30,15 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'tasksOrder'],
 });
 
-
-// Syncing logic
-
 function _syncableAttrs (task) {
-  let t = task.toObject(); // lodash doesn't seem to like _.omit on EmbeddedDocument
+  let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
   let omitAttrs = ['userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO use whitelist instead of blacklist?
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
 
-// TODO redo
-// Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
-/* function comparableData(obj) {
-  return JSON.stringify(
-    _(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
-      .sortBy('id') // we don't want to update if they're sort-order is different
-      .transform(function(result, task){
-        result.push(syncableAttrs(task));
-      })
-      .value())
-}
-
-ChallengeSchema.methods.isOutdated = function isChallengeOutdated (newData) {
-  return comparableData(this) !== comparableData(newData);
-}*/
-
-// Syncs all new tasks, deleted tasks, etc to the user object
 schema.methods.syncToUser = function syncChallengeToUser (user) {
-  if (!user) throw new Error('User required.');
-
   let challenge = this;
   challenge.shortName = challenge.shortName || challenge.name;
 
@@ -83,8 +62,12 @@ schema.methods.syncToUser = function syncChallengeToUser (user) {
     });
   }
 
+  return user.save();
+
+  // Old logic used to sync tasks
+  // TODO might keep it around for when normal syncing doesn't succeed? or for first time syncing?
   // Sync new tasks and updated tasks
-  return Q.all([
+  /* return Q.all([
     // Find original challenge tasks
     Tasks.Task.find({
       userId: {$exists: false},
@@ -131,7 +114,47 @@ schema.methods.syncToUser = function syncChallengeToUser (user) {
 
     toSave.push(user.save());
     return Q.all(toSave);
-  });
+  });*/
 };
+
+schema.methods.addTasksToMembers = async function addTasksToMembers (tasks) {
+  let challenge = this;
+
+  let membersIds = (await User.find({challenges: {$in: [challenge._id]}}).select('_id').exec()).map(member => member._id);
+
+  // Add tasks to users sequentially so that we don't kill the server (hopefully);
+  // using a for...of loop allows each op to be run in sequence
+  for (let memberId of membersIds) {
+    let update = User.update
+    await db.post(doc);
+  }
+
+  tasks.forEach(chalTask => {
+    matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
+    matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
+    matchingTask.userId = user._id;
+
+  })
+
+};
+
+// Old Syncing logic, kept for reference and maybe will be needed to adapt v2
+/*
+
+// TODO redo
+// Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
+function comparableData(obj) {
+  return JSON.stringify(
+    _(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
+      .sortBy('id') // we don't want to update if they're sort-order is different
+      .transform(function(result, task){
+        result.push(syncableAttrs(task));
+      })
+      .value())
+}
+
+ChallengeSchema.methods.isOutdated = function isChallengeOutdated (newData) {
+  return comparableData(this) !== comparableData(newData);
+}*/
 
 export let model = mongoose.model('Challenge', schema);

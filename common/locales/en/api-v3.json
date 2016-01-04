@@ -46,5 +46,7 @@
   "winnerIdRequired": "\"winnerId\" must be a valid UUID.",
   "challengeNotFound": "Challenge not found.",
   "onlyLeaderDeleteChal": "Only the challenge leader can delete it.",
-  "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge."
+  "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge.",
+  "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching a challenge tasks.",
+  "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed."
 }
