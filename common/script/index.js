@@ -2287,15 +2287,15 @@ api.wrap = function(user, main) {
           user.stats.lvl++;
           experienceToNextLevel = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
-          var allocatedStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per
+          var userTotalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
 
-          if (allocatedStatPoints >= MAX_STAT_POINTS) {
+          if (userTotalStatPoints >= MAX_STAT_POINTS) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = MAX_STAT_POINTS - allocatedStatPoints;
+            user.stats.points = user.stats.lvl - userTotalStatPoints;
             if (user.stats.points < 0) {
               user.stats.points = 0;
             }
