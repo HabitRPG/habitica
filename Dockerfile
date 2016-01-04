@@ -28,11 +28,13 @@ RUN npm install -g gulp grunt-cli bower
 # Clone Habitica repo and install dependencies
 WORKDIR /habitrpg
 RUN git clone https://github.com/HabitRPG/habitrpg.git /habitrpg
+#RUN test -e /habitrpg || git clone https://github.com/HabitRPG/habitrpg.git /habitrpg
 RUN npm install
 RUN bower install --allow-root
 
 # Create environment config file and build directory
 RUN cp config.json.example config.json
+#RUN test -e config.json || cp config.json.example config.json
 RUN mkdir -p ./website/build
 
 # Start Habitica
