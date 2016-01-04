@@ -125,7 +125,10 @@ schema.methods.addTasksToMembers = async function addTasksToMembers (tasks) {
   // Add tasks to users sequentially so that we don't kill the server (hopefully);
   // using a for...of loop allows each op to be run in sequence
   for (let memberId of membersIds) {
-    let update = User.update
+    let updateQ = {$push: {}};
+    tasks.forEach(chalTask => {
+
+    })
     await db.post(doc);
   }
 

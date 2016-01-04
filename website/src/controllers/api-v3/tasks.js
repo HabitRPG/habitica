@@ -120,7 +120,7 @@ api.getTasks = {
     if (tasksOwner === 'user' && challengeId) throw new BadRequest(res.t('userTasksNoChallengeId'));
     if (tasksOwner === 'challenge') {
       if (!challengeId) throw new BadRequest(res.t('challengeIdRequired'));
-      challenge = await Challenge.findOne({_id: challengeId}).exec();
+      challenge = await Challenge.findOne({_id: challengeId}).select('leader').exec();
 
       // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
       if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
@@ -188,10 +188,20 @@ api.getTask = {
 
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
     }).exec();
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
+
+    // If the task belongs to a challenge make sure the user has rights
+    if (!task.userId) {
+      let challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin) {
+        throw new NotFound(res.t('taskNotFound'));
+      }
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
     res.respond(200, task);
   },
 };
