@@ -16,7 +16,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
   it('adds a checklist item to a task', () => {
     let task;
 
-    return user.post('/tasks', {
+    return user.post('/tasks?tasksOwner=user', {
       type: 'daily',
       text: 'Daily with checklist',
     }).then(createdTask => {
@@ -36,7 +36,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
   it('does not add a checklist to habits', () => {
     let habit;
 
-    return expect(user.post('/tasks', {
+    return expect(user.post('/tasks?tasksOwner=user', {
       type: 'habit',
       text: 'habit with checklist',
     }).then(createdTask => {
@@ -51,7 +51,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
 
   it('does not add a checklist to rewards', () => {
     let reward;
-    return expect(user.post('/tasks', {
+    return expect(user.post('/tasks?tasksOwner=user', {
       type: 'reward',
       text: 'reward with checklist',
     }).then(createdTask => {

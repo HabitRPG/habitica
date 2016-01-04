@@ -22,20 +22,26 @@ let api = {};
  * @apiName CreateTask
  * @apiGroup Task
  *
- * @apiParam {string="user","challenge"} tasksOwner Define if tasks will belong to the auhenticated user or to a challenge (specifying the "challengeId" parameter).
- * @apiParam {UUID} challengeId Optional. If "tasksOwner" is "challenge" then specify the challenge id.
+ * @apiParam {string="user","challenge"} tasksOwner Query parameter to define if tasks will belong to the auhenticated user or to a challenge (specifying the "challengeId" parameter).
+ * @apiParam {UUID} challengeId Optional. Query parameter. If "tasksOwner" is "challenge" then specify the challenge id.
  *
  * @apiSuccess {Object|Array} task The newly created task(s)
  */
 api.createTask = {
   method: 'POST',
-  url: '/tasks/:tasksOwner/:challengeId?',
+  url: '/tasks',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
+    req.checkQuery('tasksOwner', res.t('invalidTasksOwner')).isIn(['user', 'challenge']);
+    req.checkQuery('challengeId', res.t('challengeIdRequired')).optional().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     let tasksData = Array.isArray(req.body) ? req.body : [req.body];
     let user = res.locals.user;
-    let tasksOwner = req.params.tasksOwner;
-    let challengeId = req.params.challengeId;
+    let tasksOwner = req.query.tasksOwner;
+    let challengeId = req.query.challengeId;
     let challenge;
 
     if (tasksOwner === 'user' && challengeId) throw new BadRequest(res.t('userTasksNoChallengeId'));
@@ -79,8 +85,13 @@ api.createTask = {
     toSave.unshift((challenge || user).save());
 
     let tasks = await Q.all(toSave);
-    tasks.splice(0, 1); // remove the user/challenge
-    res.respond(201, tasks);
+
+    if (tasks.length === 2) {
+      res.respond(201, tasks[1]);
+    } else {
+      tasks.splice(0, 1); // remove the user/challenge
+      res.respond(201, tasks);
+    }
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks); // TODO catch/log
@@ -93,8 +104,8 @@ api.createTask = {
  * @apiName GetTasks
  * @apiGroup Task
  *
- * @apiParam {string="user","challenge"} tasksOwner Url parameter to return tasks belonging to a challenge (specifying the "challengeId" parameter) or to the autheticated user.
- * @apiParam {UUID} challengeId Optional. If "tasksOwner" is "challenge" then specify the challenge id.
+ * @apiParam {string="user","challenge"} tasksOwner Query parameter to return tasks belonging to a challenge (specifying the "challengeId" parameter) or to the autheticated user.
+ * @apiParam {UUID} challengeId Optional query parameter. If "tasksOwner" is "challenge" then required to specify the challenge id.
  * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
  * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo". Only valid whe "tasksOwner" is "user".
  *
@@ -102,20 +113,19 @@ api.createTask = {
  */
 api.getTasks = {
   method: 'GET',
-  url: '/tasks/:tasksOwner/:challengeId?',
+  url: '/tasks',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkParams('tasksOwner', res.t('invalidTasksOwner')).isIn(['user', 'challenge']);
-    req.checkParams('challengeId', res.t('challengeIdRequired')).optional().isUUID();
-
+    req.checkQuery('tasksOwner', res.t('invalidTasksOwner')).isIn(['user', 'challenge']);
+    req.checkQuery('challengeId', res.t('challengeIdRequired')).optional().isUUID();
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
-    let tasksOwner = req.params.tasksOwner;
-    let challengeId = req.params.challengeId;
+    let tasksOwner = req.query.tasksOwner;
+    let challengeId = req.query.challengeId;
     let challenge;
 
     if (tasksOwner === 'user' && challengeId) throw new BadRequest(res.t('userTasksNoChallengeId'));

@@ -17,7 +17,7 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
     let tag;
     let task;
 
-    return user.post('/tasks', {
+    return user.post('/tasks?tasksOwner=user', {
       type: 'habit',
       text: 'Task with tag',
     }).then(createdTask => {
@@ -35,7 +35,7 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('only deletes existing tags', () => {
-    return expect(user.post('/tasks', {
+    return expect(user.post('/tasks?tasksOwner=user', {
       type: 'habit',
       text: 'Task with tag',
     }).then(createdTask => {

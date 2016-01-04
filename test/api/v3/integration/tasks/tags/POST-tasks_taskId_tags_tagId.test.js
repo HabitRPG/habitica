@@ -17,7 +17,7 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
     let tag;
     let task;
 
-    return user.post('/tasks', {
+    return user.post('/tasks?tasksOwner=user', {
       type: 'habit',
       text: 'Task with tag',
     }).then(createdTask => {
@@ -35,7 +35,7 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
     let tag;
     let task;
 
-    return expect(user.post('/tasks', {
+    return expect(user.post('/tasks?tasksOwner=user', {
       type: 'habit',
       text: 'Task with tag',
     }).then(createdTask => {
@@ -54,7 +54,7 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('does not add a non existing tag to a task', () => {
-    return expect(user.post('/tasks', {
+    return expect(user.post('/tasks?tasksOwner=user', {
       type: 'habit',
       text: 'Task with tag',
     }).then((task) => {
