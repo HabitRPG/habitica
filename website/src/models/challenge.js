@@ -30,15 +30,18 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'tasksOrder'],
 });
 
+// Takes a Task document and return a plain object of attributes that can be synced to the user
 function _syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO use whitelist instead of blacklist?
+  let omitAttrs = ['userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO what to do with updatedAt?
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
 
-schema.methods.syncToUser = function syncChallengeToUser (user) {
+// Sync challenge to user, including tasks and tags.
+// Used when user joins the challenge or to force sync.
+schema.methods.syncToUser = async function syncChallengeToUser (user) {
   let challenge = this;
   challenge.shortName = challenge.shortName || challenge.name;
 
@@ -62,12 +65,7 @@ schema.methods.syncToUser = function syncChallengeToUser (user) {
     });
   }
 
-  return user.save();
-
-  // Old logic used to sync tasks
-  // TODO might keep it around for when normal syncing doesn't succeed? or for first time syncing?
-  // Sync new tasks and updated tasks
-  /* return Q.all([
+  let [challengeTasks, userTasks] = await Q.all([
     // Find original challenge tasks
     Tasks.Task.find({
       userId: {$exists: false},
@@ -78,86 +76,122 @@ schema.methods.syncToUser = function syncChallengeToUser (user) {
       userId: user._id,
       'challenge.id': challenge._id,
     }).exec(),
-  ])
-  .then(results => {
-    let challengeTasks = results[0];
-    let userTasks = results[1];
-    let toSave = []; // An array of things to save
+  ]);
 
-    challengeTasks.forEach(chalTask => {
-      let matchingTask = _.find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
+  let toSave = []; // An array of things to save
 
-      if (!matchingTask) { // If the task is new, create it
-        matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
-        matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
-        matchingTask.userId = user._id;
-        user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
-      } else {
-        _.merge(matchingTask, _syncableAttrs(chalTask));
-        // Make sure the task is in user.tasksOrder TODO necessary?
-        let orderList = user.tasksOrder[`${chalTask.type}s`];
-        if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
-      }
+  challengeTasks.forEach(chalTask => {
+    let matchingTask = _.find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
 
-      if (!matchingTask.notes) matchingTask.notes = chalTask.notes; // don't override the notes, but provide it if not provided
-      if (matchingTask.tags.indexOf(challenge._id) === -1) matchingTask.tags.push(challenge._id); // add tag if missing
-      toSave.push(matchingTask.save());
-    });
+    if (!matchingTask) { // If the task is new, create it
+      matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
+      matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
+      matchingTask.userId = user._id;
+      user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
+    } else {
+      _.merge(matchingTask, _syncableAttrs(chalTask));
+      // Make sure the task is in user.tasksOrder TODO necessary?
+      let orderList = user.tasksOrder[`${chalTask.type}s`];
+      if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+    }
 
-    // Flag deleted tasks as "broken"
-    userTasks.forEach(userTask => {
-      if (!_.find(challengeTasks, chalTask => chalTask._id === userTask.challenge.taskId)) {
-        userTask.challenge.broken = 'TASK_DELETED';
-        toSave.push(userTask.save());
-      }
-    });
+    if (!matchingTask.notes) matchingTask.notes = chalTask.notes; // don't override the notes, but provide it if not provided
+    if (matchingTask.tags.indexOf(challenge._id) === -1) matchingTask.tags.push(challenge._id); // add tag if missing
+    toSave.push(matchingTask.save());
+  });
 
-    toSave.push(user.save());
-    return Q.all(toSave);
-  });*/
+  // Flag deleted tasks as "broken"
+  userTasks.forEach(userTask => {
+    if (!_.find(challengeTasks, chalTask => chalTask._id === userTask.challenge.taskId)) {
+      userTask.challenge.broken = 'TASK_DELETED';
+      toSave.push(userTask.save());
+    }
+  });
+
+  toSave.push(user.save());
+  return Q.all(toSave);
 };
 
-schema.methods.addTasksToMembers = async function addTasksToMembers (tasks) {
-  let challenge = this;
-
-  let membersIds = (await User.find({challenges: {$in: [challenge._id]}}).select('_id').exec()).map(member => member._id);
-
-  // Add tasks to users sequentially so that we don't kill the server (hopefully);
-  // using a for...of loop allows each op to be run in sequence
-  for (let memberId of membersIds) {
-    let updateQ = {$push: {}};
-    tasks.forEach(chalTask => {
-
-    })
-    await db.post(doc);
-  }
-
-  tasks.forEach(chalTask => {
-    matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
-    matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
-    matchingTask.userId = user._id;
-
-  })
-
-};
-
-// Old Syncing logic, kept for reference and maybe will be needed to adapt v2
-/*
-
-// TODO redo
-// Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
-function comparableData(obj) {
-  return JSON.stringify(
-    _(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
-      .sortBy('id') // we don't want to update if they're sort-order is different
-      .transform(function(result, task){
-        result.push(syncableAttrs(task));
-      })
-      .value())
+async function _fetchMembersIds (challengeId) {
+  return (await User.find({challenges: {$in: [challengeId]}}).select('_id').lean().exec()).map(member => member._id);
 }
 
-ChallengeSchema.methods.isOutdated = function isChallengeOutdated (newData) {
-  return comparableData(this) !== comparableData(newData);
-}*/
+// Add a new task to challenge members
+schema.methods.addTasks = async function challengeAddTasks (tasks) {
+  let challenge = this;
+  let membersIds = await _fetchMembersIds(challenge._id);
+
+  // Sync each user sequentially
+  for (let memberId of membersIds) {
+    let updateTasksOrderQ = {$push: {}};
+    let toSave = [];
+
+    // TODO eslint complaints about ahving a function inside a loop -> make sure it works
+    tasks.forEach(chalTask => { // eslint-disable-line no-loop-func
+      let userTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
+      userTask.challenge = {taskId: chalTask._id, id: challenge._id};
+      userTask.userId = memberId;
+
+      let tasksOrderList = updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`];
+      if (!tasksOrderList) {
+        updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`] = {
+          $position: 0, // unshift
+          $each: [userTask._id],
+        };
+      } else {
+        tasksOrderList.$each.unshift(userTask._id);
+      }
+
+      toSave.push(userTask);
+    });
+
+    // Update the user
+    toSave.unshift(User.update({_id: memberId}, updateTasksOrderQ).exec());
+    await Q.all(toSave); // eslint-disable-line babel/no-await-in-loop
+  }
+};
+
+// Sync updated task to challenge members
+schema.methods.updateTask = async function challengeUpdateTask (task) {
+  let challenge = this;
+
+  let updateCmd = {$set: {}};
+
+  _syncableAttrs(task).forEach((value, key) => {
+    updateCmd.$set[key] = value;
+  });
+
+  // TODO reveiw
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await Tasks.Task.update({
+    userId: {$exists: true},
+    'challenge.id': challenge.id,
+    'challenge.taskId': task._id,
+  }, updateCmd, {multi: true}).exec();
+};
+
+// Remove a task from challenge members
+schema.methods.removeTask = async function challengeRemoveTask (task) {
+  let challenge = this;
+
+  // Remove the tasks from users' and map each of them to an update query to remove the task from tasksOrder
+  let updateQueries = (await Tasks.Task.findOneAndRemove({
+    userId: {$exists: true},
+    'challenge.id': challenge.id,
+    'challenge.taskId': task._id,
+  }, {
+    fields: {userId: 1, type: 1}, // fetch only what's necessary
+  }).lean().exec())
+    .map(removedTask => {
+      return User.update({_id: removedTask.userId}, {
+        $pull: {[`tasksOrder${removedTask.type}s`]: removedTask._id},
+      });
+    });
+
+  // Execute each update sequentially
+  for (let query of updateQueries) {
+    await query.exec(); // eslint-disable-line babel/no-await-in-loop
+  }
+};
 
 export let model = mongoose.model('Challenge', schema);

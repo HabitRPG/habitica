@@ -112,12 +112,13 @@ api.getGroups = {
     // If no valid value for type was supplied, return an error
     if (queries.length === 0) throw new BadRequest(res.t('groupTypesRequired'));
 
-    let results = await Q.all(queries); // TODO we would like not to return a single big array but Q doesn't support the funtionality https://github.com/kriskowal/q/issues/328
+    // TODO we would like not to return a single big array but Q doesn't support the funtionality https://github.com/kriskowal/q/issues/328
+    let results = _.reduce(await Q.all(queries), (previousValue, currentValue) => {
+      if (_.isEmpty(currentValue)) return previousValue; // don't add anything to the results if the query returned null or an empty array
+      return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]); // otherwise concat the new results to the previousValue
+    }, []);
 
-    res.respond(200, _.reduce(results, (m, v) => {
-      if (_.isEmpty(v)) return m;
-      return m.concat(Array.isArray(v) ? v : [v]);
-    }, []));
+    res.respond(200, results);
   },
 };
 

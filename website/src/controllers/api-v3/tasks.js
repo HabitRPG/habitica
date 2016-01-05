@@ -35,8 +35,8 @@ api.createTask = {
     req.checkQuery('tasksOwner', res.t('invalidTasksOwner')).isIn(['user', 'challenge']);
     req.checkQuery('challengeId', res.t('challengeIdRequired')).optional().isUUID();
 
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
 
     let tasksData = Array.isArray(req.body) ? req.body : [req.body];
     let user = res.locals.user;
