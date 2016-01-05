@@ -472,6 +472,8 @@
     "headSpecialFall2015MageNotes": "Every stitch in this hat augments its power. Increases Perception by <%= per %>. Limited Edition 2015 Autumn Gear.",
     "headSpecialFall2015HealerText": "Hat of Frog",
     "headSpecialFall2015HealerNotes": "This is an extremely serious hat that is worthy of only the most advanced potioners. Increases Intelligence by <%= int %>. Limited Edition 2015 Autumn Gear.",
+    "headSpecialNye2015Text": "Ridiculous Party Hat",
+    "headSpecialNye2015Notes": "You've received a Ridiculous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2016RogueText": "Cocoa Helm",
     "headSpecialWinter2016RogueNotes": "The protective scarf on this cozy helm is only removed to sip warm winter beverages. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
     "headSpecialWinter2016WarriorText": "Snowman Cap",

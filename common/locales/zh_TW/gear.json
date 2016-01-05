@@ -472,6 +472,8 @@
     "headSpecialFall2015MageNotes": "在這頂帽子上的一針一線都增強了它的力量。增加<%= per %>點感知。2015年秋季限量版裝備。",
     "headSpecialFall2015HealerText": "青蛙帽",
     "headSpecialFall2015HealerNotes": "這是一頂極其嚴肅的帽子，只有最優秀的藥師可以配戴它。增加<%= int %>點智力。 2015年秋季限量版裝備。",
+    "headSpecialNye2015Text": "Ridiculous Party Hat",
+    "headSpecialNye2015Notes": "You've received a Ridiculous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2016RogueText": "Cocoa Helm",
     "headSpecialWinter2016RogueNotes": "The protective scarf on this cozy helm is only removed to sip warm winter beverages. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
     "headSpecialWinter2016WarriorText": "Snowman Cap",

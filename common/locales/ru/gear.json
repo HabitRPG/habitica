@@ -472,6 +472,8 @@
     "headSpecialFall2015MageNotes": "Каждый шов в этой шляпе прибавляет ей мощи. Увеличивает Восприятие на <%= per %>. Экипировка ограниченного выпуска осени 2015.",
     "headSpecialFall2015HealerText": "Шапка Лякухи",
     "headSpecialFall2015HealerNotes": "Это чрезвычайно серьезная шляпа, которая достойна только самых передовых зельеваров. Увеличивает Интеллект на <%= int %>. Экипировка ограниченного выпуска осени 2015.",
+    "headSpecialNye2015Text": "Ridiculous Party Hat",
+    "headSpecialNye2015Notes": "You've received a Ridiculous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2016RogueText": "Cocoa Helm",
     "headSpecialWinter2016RogueNotes": "The protective scarf on this cozy helm is only removed to sip warm winter beverages. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
     "headSpecialWinter2016WarriorText": "Snowman Cap",

@@ -13,7 +13,7 @@
     "messageDontEnjoyFood": "<%= egg %> mange le/la <%= foodText %> mais il n'a pas l'air d'aimer ça.",
     "messageBought": "Vous avez acheté <%= itemText %>.",
     "messageEquipped": "<%= itemText %> équipé·e",
-    "messageUnEquipped": "<%= itemText %> unequipped.",
+    "messageUnEquipped": "<%= itemText %> enlevé.",
     "messageMissingEggPotion": "Il vous manque au choix cet œuf ou cette potion.",
     "messageInvalidEggPotionCombo": "Vous ne pouvez pas faire éclore un Œuf de Quête avec des potions d'éclosion magiques. Essayez avec un œuf différent.",
     "messageAlreadyPet": "Vous avez déjà ce familier. Essayez de faire éclore une combinaison différente !",

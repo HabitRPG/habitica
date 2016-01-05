@@ -38,10 +38,10 @@
     "skiSet": "Ski-sassin (Voleur)",
     "snowflakeSet": "Flocon de Neige (Guérisseur)",
     "yetiSet": "Dresseur de Yéti (Guerrier)",
-    "northMageSet": "Mage of the North (Mage)",
-    "icicleDrakeSet": "Icicle Drake (Rogue)",
+    "northMageSet": "Magicien du Nord (Mage)",
+    "icicleDrakeSet": "Dragon Glaçon (Voleur)",
     "soothingSkaterSet": "Soothing Skater (Healer)",
-    "gingerbreadSet": "Gingerbread Warrior (Warrior)",
+    "gingerbreadSet": "Guerrier de pain d'épice (Guerrier)",
     "toAndFromCard": "A : <%= toName %>, De : <%= fromName %>",
     "nyeCard": "Carte de la Nouvelle Année",
     "nyeCardExplanation": "Pour avoir célébré cette nouvelle année ensemble, vous avez tous les deux reçu le badge \"Vieille Connaissance\" !",
@@ -68,5 +68,5 @@
     "mummyMedicSet": "Médecin Momifié (Guérisseur)",
     "vampireSmiterSet": "Vampire Frappeur (Voleur)",
     "fallEventAvailability": "Disponible jusqu'au 31 octobre",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Disponible jusqu'au 31 décembre"
 }

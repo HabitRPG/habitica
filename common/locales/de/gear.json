@@ -472,6 +472,8 @@
     "headSpecialFall2015MageNotes": "Dieser Hut wurde mit jedem Nadelstich stärker. Erhöht Wahrnehmung um <%= per %> Punkte. Limited Edition 2015 Herbst-Ausrüstung.",
     "headSpecialFall2015HealerText": "Froschhut",
     "headSpecialFall2015HealerNotes": "Dies ist ein sehr ernster Hut, der nur den meist fortgeschrittenen Zaubertranksbrauern würdig ist. Erhöht Intelligenz um <%= int %>. Limited Edition 2015 Herbst Ausrüstung.",
+    "headSpecialNye2015Text": "Ridiculous Party Hat",
+    "headSpecialNye2015Notes": "You've received a Ridiculous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2016RogueText": "Cocoa Helm",
     "headSpecialWinter2016RogueNotes": "The protective scarf on this cozy helm is only removed to sip warm winter beverages. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
     "headSpecialWinter2016WarriorText": "Snowman Cap",

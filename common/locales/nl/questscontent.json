@@ -74,7 +74,7 @@
     "questVice3DropDragonEgg": "Draak (ei)",
     "questVice3DropShadeHatchingPotion": "Schaduw-uitbroedtoverdrank",
     "questMoonstone1Text": "De Maanstenen Ketting, deel 1: De Maanstenen Ketting",
-    "questMoonstone1Notes": "<p> Een verschrikkelijke aandoening heeft de Habaticanen getroffen. Slechte gewoontes, lang dood gewaand, zijn herrezen, en met wraak. Afwas blijft onafgewassen, leerboeken blijven ongelezen en uitstelgedrag viert hoogtij!</p><br/><p>Jij volgt enkele van je eigen terugkerende slechte gewoontes de Moerassen van Stagnatie in en ontdekt de dader: de spookachtige dodenbezweerder Recidive. Je rent eropaf en zwaait met je wapens, maar ze glijden zinloos door de geestverschijning heen. </p><br/><p> \"Doe geen moeite\", sist ze met een droge raspende stem. \"Zonder een ketting van maanstenen kan niks me schaden - en meesterjuwelier @aurakami heeft lang geleden alle maanstenen over heel Habatica verpreid!\" Hijgend trek je je terug... maar je weet wat je te doen staat.</p>",
+    "questMoonstone1Notes": "<p> Een verschrikkelijke aandoening heeft de Habaticanen getroffen. Slechte gewoontes, lang dood gewaand, zijn herrezen, en met wraak. Afwas blijft onafgewassen, leerboeken blijven ongelezen en uitstelgedrag viert hoogtij!</p><br/><p>Jij volgt enkele van je eigen terugkerende slechte gewoontes de Moerassen van Stagnatie in en ontdekt de dader: de spookachtige dodenbezweerder Recidive. Je rent eropaf en zwaait met je wapens, maar ze glijden zinloos door de geestverschijning heen. </p><br/><p> \"Doe geen moeite\", sist ze met een droge raspende stem. \"Zonder een ketting van maanstenen kan niks me schaden - en meesterjuwelier @aurakami heeft lang geleden alle maanstenen over heel Habitica verpreid!\" Hijgend trek je je terug... maar je weet wat je te doen staat.</p>",
     "questMoonstone1CollectMoonstone": "Maanstenen",
     "questMoonstone1DropMoonstone2Quest": "De Maanstenen Ketting deel 2: Recidive de Dodenbezweerder (perkamentrol)",
     "questMoonstone2Text": "De Maanstenen Ketting, deel 2: Recidive de Dodenbezweerder",
@@ -274,10 +274,10 @@
     "questSnakeBoss": "Slang van Afleiding",
     "questSnakeDropSnakeEgg": "Slang (ei)",
     "questSnakeUnlockText": "Maakt het kopen van slangeneieren in de markt mogelijk",
-    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornText": "De Eenhoorn-Koningin overhalen",
     "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
     "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
-    "questUnicornBoss": "The Unicorn Queen",
-    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
-    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
+    "questUnicornBoss": "De eenhoorn koningin",
+    "questUnicornDropUnicornEgg": "Eenhoorn (ei)",
+    "questUnicornUnlockText": "Maakt het kopen van eenhoorn-eieren in de markt mogelijk"
 }

@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Do Saldo",
     "sendGiftPurchase": "Compra",
     "sendGiftMessagePlaceholder": "Mensagem Pessoal (opcional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
+    "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %> USD",
     "battleWithFriends": "Enfrente monstros com os amigos",
     "startPartyWithFriends": "Comece uma Equipe com seus amigos! ",
     "startAParty": "Começar uma Equipe",
