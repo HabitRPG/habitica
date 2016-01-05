@@ -119,9 +119,6 @@
         "mocha": true,
         "node": true
     },
-    "globals": {
-        "expect": true,
-    },
     "ecmaFeatures" : {
         "modules": true
     },

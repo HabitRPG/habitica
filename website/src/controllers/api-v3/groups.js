@@ -11,7 +11,7 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import * as firebase from '../../libs/api-v3/firebase';
-import { sendTxn } from '../../libs/api-v3/email';
+import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
 
 let api = {};
@@ -305,7 +305,7 @@ api.leaveGroup = {
 // Send an email to the removed user with an optional message from the leader
 function _sendMessageToRemoved (group, removedUser, message) {
   if (removedUser.preferences.emailNotifications.kickedGroup !== false) {
-    sendTxn(removedUser, `kicked-from-${group.type}`, [
+    sendTxnEmail(removedUser, `kicked-from-${group.type}`, [
       {name: 'GROUP_NAME', content: group.name},
       {name: 'MESSAGE', content: message},
       {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
@@ -404,12 +404,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (_.contains(userToInvite.guilds, group._id)) {
       throw new NotAuthorized(res.t('userAlreadyInGroup'));
     }
-    if (userToInvite.invitations && userToInvite.invitations.guilds && _.find(userToInvite.invitations.guilds, {id: group._id})) {
+    if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
     }
     userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: res.locals.user._id});
   } else if (group.type === 'party') {
-    if (userToInvite.invitations && !_.isEmpty(userToInvite.invitations.party)) {
+    if (!_.isEmpty(userToInvite.invitations.party)) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
     }
     if (userToInvite.party._id) {
@@ -439,7 +439,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       );
     }
 
-    sendTxn(userToInvite, `invited-${groupLabel}`, emailVars);
+    sendTxnEmail(userToInvite, `invited-${groupLabel}`, emailVars);
   }
 
   let userInvited = await userToInvite.save();
@@ -482,7 +482,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     // Check for the email address not to be unsubscribed
     let userIsUnsubscribed = await EmailUnsubscription.findOne({email: invite.email}).exec();
     let groupLabel = group.type === 'guild' ? '-guild' : '';
-    if (!userIsUnsubscribed) sendTxn(invite, `invite-friend${groupLabel}`, variables);
+    if (!userIsUnsubscribed) sendTxnEmail(invite, `invite-friend${groupLabel}`, variables);
   }
 
   return userReturnInfo;
@@ -538,7 +538,7 @@ api.inviteToGroup = {
       results.push(emailResults);
     }
 
-    res.respond(200, {result: results});
+    res.respond(200, {});
   },
 };
 

@@ -1,6 +1,7 @@
 import {
   generateUser,
 } from '../../../../helpers/api-integration.helper';
+import Q from 'q';
 
 describe('GET /groups', () => {
   let user;
@@ -18,32 +19,15 @@ describe('GET /groups', () => {
       {
         name: 'Test Public Guild',
         type: 'guild',
+        privacy: 'public',
       },
       {
         name: 'Test Private Guild',
         type: 'guild',
-        privacy: 'private',
       },
     ];
 
-    let group1 = await user.post('/groups', {
-      name: groups[0].name,
-      type: groups[0].type,
-    });
-
-    let group2 = await user.post('/groups', {
-      name: groups[1].name,
-      type: groups[1].type,
-    });
-
-    let group3 = await user.post('/groups', {
-      name: groups[2].name,
-      type: groups[2].type,
-    });
-
-    expect(group1).toExist;
-    expect(group2).toExist;
-    expect(group3).toExist;
+    await Q.all(groups.map(group => user.post('/groups', { name: group.name, type: group.type, privacy: group.privacy })));
 
     let groupsFound = await user.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
     expect(groupsFound.length).to.be.greaterThan(3);
