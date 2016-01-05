@@ -245,6 +245,8 @@ api.joinGroup = {
 
     if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
+    group.memberCount += 1;
+
     let promises = [group.save(), user.save()];
 
     if (group.type === 'party' && inviter) {
@@ -297,8 +299,8 @@ api.leaveGroup = {
       }
     }
 
-    await group.leave(user, req.query.keep);
-    res.respond(200, {});
+    let leave = await group.leave(user, req.query.keep);
+    res.respond(200, leave);
   },
 };
 
