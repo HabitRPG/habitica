@@ -28,7 +28,7 @@ describe('front page', function() {
     expect(button.getText()).toEqual('Join for free');
   });
 
-  it("don't login when using wrong credentials", function(){
+  it("doesn't login when using wrong credentials", function(){
     var button = element(by.id('play-btn'));
     button.click();
     browser.sleep(1000);
