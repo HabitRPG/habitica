@@ -174,24 +174,14 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
 schema.methods.removeTask = async function challengeRemoveTask (task) {
   let challenge = this;
 
-  // Remove the tasks from users' and map each of them to an update query to remove the task from tasksOrder
-  let updateQueries = (await Tasks.Task.findOneAndRemove({
+  // Set the task as broken
+  await Tasks.Task.update({
     userId: {$exists: true},
     'challenge.id': challenge.id,
     'challenge.taskId': task._id,
   }, {
-    fields: {userId: 1, type: 1}, // fetch only what's necessary
-  }).lean().exec())
-    .map(removedTask => {
-      return User.update({_id: removedTask.userId}, {
-        $pull: {[`tasksOrder${removedTask.type}s`]: removedTask._id},
-      });
-    });
-
-  // Execute each update sequentially
-  for (let query of updateQueries) {
-    await query.exec(); // eslint-disable-line babel/no-await-in-loop
-  }
+    $set: {'challenge.broken': 'TASK_DELETED'}, // TODO what about updatedAt?
+  }).lean().exec();
 };
 
 export let model = mongoose.model('Challenge', schema);
