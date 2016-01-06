@@ -112,7 +112,7 @@
     "unsubscribeAllEmails": "Häkchen setzen, um keine weiteren Emails zu erhalten",
     "unsubscribeAllEmailsText": "Indem ich hier ein Häkchen gesetzt habe, bestätige ich, dass ich verstanden habe, dass ich aus allen Habitica E-Mail-Listen ausgetragen wurde. Habitica kann mir keine E-Mails mehr zu wichtigen Änderungen der Seite oder meines Accounts schicken.",
     "correctlyUnsubscribedEmailType": "Erfolgreich \"<%= emailType %>\"-E-Mails abbestellt.",
-    "subscriptionRateText": "Alle <%= months %> Monate wiederkehrender Preis: <%= price %>$",
+    "subscriptionRateText": "Recurring $<%= price %> USD every <%= months %> months",
     "benefits": "Vorteile",
     "coupon": "Gutschein",
     "couponPlaceholder": "Gib Deinen Gutschein Code ein",
@@ -136,7 +136,7 @@
     "buyGemsGoldCap": "Obergrenze wurde auf <%= amount %> angehoben",
     "mysticHourglass": "<%= amount %> mystische Sanduhr",
     "mysticHourglassText": "Mystische Sanduhren erlauben dir ein Überraschungsgegenstandsset früherer Monate zu kaufen.",
-    "purchasedPlanId": "Alle <%= months %> Monat(e) wiederkehrender Preis: <%= price %>$ (<%= plan %>)",
+    "purchasedPlanId": "Recurring $<%= price %> USD each <%= months %> Month(s) (<%= plan %>)",
     "purchasedPlanExtraMonths": "Du hast noch ein Abonnementguthaben von <%= months %> Monaten.",
     "consecutiveSubscription": "Fortlaufendes Abonnement",
     "consecutiveMonths": "Aufeinanderfolgende Monate:",
@@ -144,7 +144,7 @@
     "mysticHourglasses": "Mystische Stundengläser",
     "paypal": "PayPal",
     "amazonPayments": "Amazon-Zahlungen",
-    "timezone": "Time Zone",
-    "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been reseting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezone": "Zeitzone",
+    "timezoneUTC": "Habitica verwendet die Zeitzone, welche an deinem PC eingestellt ist: <strong><%= utc %></strong>",
+    "timezoneInfo": "Wenn diese Zeitzone falsch ist, lade diese Seite neu, indem du den Neu Laden Button deines Browsers drückst, um sicher zu stellen, dass Habitica die aktuellsten Daten hat. Wenn die Zeitzone weiterhin falsch ist, passe die Zeitzone an deinem PC an und lade diese Seite noch einmal neu.<br><br> <strong>Wenn du Habitica auch auf anderen PCs oder mobilen Geräten verwendest, muss die Zeitzone auf allen Geräten gleich sein.</strong> Wenn sich deine täglichen Aufgaben zur falschen Zeit zurückgestellt haben, wiederhole diese Überprüfung auf allen anderen PCs und in einem Browser deines mobilen Gerätes."
 }

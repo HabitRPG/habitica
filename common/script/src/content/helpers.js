@@ -1,6 +1,4 @@
-import {each, defaults, assign} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelcase';
+import { each, defaults, assign, capitalize, camelCase } from 'lodash';
 
 import i18n from '../i18n';
 

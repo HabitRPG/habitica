@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "来自结余",
     "sendGiftPurchase": "支付",
     "sendGiftMessagePlaceholder": "私信(可选)",
-    "sendGiftSubscription": "<%= months %>月(或多个月)： $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
     "battleWithFriends": "与朋友一起大战怪兽",
     "startPartyWithFriends": "和你的朋友们组建新队伍",
     "startAParty": "创建一个队伍",

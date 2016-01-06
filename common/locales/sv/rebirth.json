@@ -2,9 +2,9 @@
     "rebirthNew": "Pånyttfödelse: Nytt Äventyr Tillgängligt!",
     "rebirthUnlock": "Du har låst upp Pånyttfödelse! Detta speciella marknadsföremål tillåter dig att börja ett nytt spel från nivå 1 utan att förlora alla dina uppgifter, bedrifter, husdjur med mera. Använd den för att blåsa nytt liv i Habitica om du känner att du redan har uppnått allt, eller för att uppleva nya funktioner utifrån en ny karaktärs synvinkel!",
     "rebirthBegin": "Pånyttfödelse: Starta ett Nytt Äventyr",
-    "rebirthStartOver": "Rebirth starts your character over from Level 1.",
+    "rebirthStartOver": "Återfödelse startar om din karaktär från nivå 1.",
     "rebirthAdvList1": "Du återvänder till full Hälsa.",
-    "rebirthAdvList2": "You have no Experience, Gold, or Equipment (with the exception of free items like Mystery items).",
+    "rebirthAdvList2": "Du har ingen erfarenhet, guld eller utrustning (utan gratis föremål t.ex mysterieföremål) ",
     "rebirthAdvList3": "Dina Vanor, Dagliga- och Att-Göra-Uppgifter återställs till gult, och följder återställs.",
     "rebirthAdvList4": "Du har startklassen Krigare tills du låser upp klass-systemet.",
     "rebirthInherit": "Din nya karaktär ärver vissa saker från dess föregångare:",
@@ -16,12 +16,13 @@
     "rebirthEarnAchievement": "Du får även en Bedrift för att du börjar på ett nytt äventyr!",
     "beReborn": "Bli pånyttfödd",
     "rebirthAchievement": "Du har börjat på ett nytt äventyr! Det här är Pånyttfödelse nummer <%= number %> för dig, och den högsta Leveln du har nått är <%= level %>. För att stapla denna Bedrift, börja ditt nästa nya äventyr när du har nått en ännu högre Level!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "Du har börjat på ett nytt äventyr! Det här är Pånyttfödelse nummer <%= number %> för dig, och den högsta Leveln du har nått är 100 eller högre. För att stapla denna Bedrift, börja ditt nästa nya äventyr när du har nått minst 100!",
     "rebirthBegan": "Började på ett Nytt Äventyr",
     "rebirthText": "Började <%= rebirths %> Nytt/Nya Äventyr",
     "rebirthOrb": "Använde en Pånyttfödelsesfär för att börja om efter att ha nått Level",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "Använde en Pånyttfödelsesfär för att börja om efter att ha nått Level 100 eller högre",
     "rebirthPop": "Starta en ny karaktär från Level 1 medan du behåller bedrifter, samlarobjekt och uppgifter med dess historik.",
     "rebirthName": "Pånyttfödelsesfär",
-    "reborn": "Pånyttfödd, max level <%= reLevel %>"
+    "reborn": "Pånyttfödd, max level <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

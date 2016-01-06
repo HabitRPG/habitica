@@ -1,0 +1,17 @@
+{
+    "rules": {
+        "one-var": 0,
+        "max-nested-callbacks": 0,
+        "no-unused-expressions": 0,
+        "mocha/no-exclusive-tests": 2,
+        "mocha/no-global-tests": 2,
+        "mocha/handle-done-callback": 2
+    },
+    "globals": {
+        "expect": true,
+        "_": true,
+        "sandbox": true,
+        "sinon": true
+    },
+    "plugins": [ "mocha" ]
+}

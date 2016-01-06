@@ -80,6 +80,7 @@
     "petKeyPets": "释放我的宠物",
     "petKeyMounts": "释放我的坐骑",
     "petKeyBoth": "全部释放",
+    "confirmPetKey": "你确定吗？",
     "petKeyNeverMind": "还没有",
     "gemsEach": "每颗宝石"
 }

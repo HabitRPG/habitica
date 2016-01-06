@@ -112,7 +112,7 @@
     "unsubscribeAllEmails": "Disattiva tutte le notifiche email",
     "unsubscribeAllEmailsText": "Selezionando questa opzione, confermo di essere cosciente del fatto che, disattivando le notifiche via email, Habitica non sarà mai in grado di notificarmi via email cambiamenti importanti riguardo al sito o al mio account.",
     "correctlyUnsubscribedEmailType": "Sottoscrizione alle mail \"<%= emailType %>\" annullata correttamente.",
-    "subscriptionRateText": "<%= price %>$ ogni <%= months %> mesi",
+    "subscriptionRateText": "<%= price %>$ USD ogni <%= months %> mesi",
     "benefits": "Vantaggi",
     "coupon": "Coupon",
     "couponPlaceholder": "Inserisci codice coupon",
@@ -136,7 +136,7 @@
     "buyGemsGoldCap": "Limite alzato a <%= amount %>",
     "mysticHourglass": "<%= amount %> Clessidra Mistica",
     "mysticHourglassText": "Le Clessidre Mistiche ti permettono di acquistare i set di Oggetti Misteriosi del mese precedente.",
-    "purchasedPlanId": "<%= price %>$ ogni <%= months %> mese/i (<%= plan %>)",
+    "purchasedPlanId": "<%= price %>$ USD ogni <%= months %> mese/i (<%= plan %>)",
     "purchasedPlanExtraMonths": "Ti rimangono <%= months %> mesi di credito di abbonamento.",
     "consecutiveSubscription": "Abbonamento Consecutivo",
     "consecutiveMonths": "Mesi Consecutivi:",
@@ -144,7 +144,7 @@
     "mysticHourglasses": "Clessidre Mistiche",
     "paypal": "PayPal",
     "amazonPayments": "Pagamenti su Amazon",
-    "timezone": "Time Zone",
-    "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been reseting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezone": "Fuso Orario",
+    "timezoneUTC": "Habitica usa il fuso orario impostato sul tuo PC, ovvero: <strong><%= utc %></strong>",
+    "timezoneInfo": "Se il fuso orario è sbagliato, ricarica questa pagina tramite il bottone di ricarica o aggiornamento della pagina del browser per assicurarti che Habitica contenga le informazioni più aggiornate. Se è ancora sbagliato, imposta il fuso orario sul tuo PC e poi ricarica di nuovo la pagina.<br><br> <strong>Se usi Habitica su altri PC o su altri dispositivi mobili, il fuso orario deve essere identico su ognuno di essi.</strong> Se le tue Daily sono state reimpostate ad un'ora sbagliata, ripeti questo controllo su tutti gli altri PC e su un browser sui tuoi dispositivi mobili."
 }

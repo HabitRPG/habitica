@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Exportar a CSV",
     "selectGroup": "Por favor seleccione un grupo",
     "challengeCreated": "Desafío creado",
-    "sureDelCha": "Estás seguro que quieres eliminar este desafío?",
-    "sureDelChaTavern": "Estás seguro que quieres eliminar este desafío? Tus gemas no serán reembolsadas. ",
+    "sureDelCha": "¿Estás seguro que quieres eliminar este desafío?",
+    "sureDelChaTavern": "¿Estás seguro que quieres eliminar este desafío? Tus gemas no serán reembolsadas. ",
     "removeTasks": "Eliminar Tareas",
     "keepTasks": "Mantener Tareas",
     "closeCha": "Cerrar desafío y...",
@@ -60,8 +60,8 @@
     "noPermissionEditChallenge": "No tienes permiso de editar este desafío",
     "noPermissionDeleteChallenge": "No tienes permiso de eliminar este desafío",
     "noPermissionCloseChallenge": "No tienes permiso de cerrar este desafío",
-    "congratulations": "Congratulations!",
-    "hurray": "Hurray!",
+    "congratulations": "¡Felicitaciones!",
+    "hurray": "¡Hurra!",
     "noChallengeOwner": "Sin dueño",
     "noChallengeOwnerPopover": "Este desafío no tiene un dueño porque la persona que lo creó eliminó su cuenta."
 }

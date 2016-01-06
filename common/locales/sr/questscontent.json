@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Deda Mraz Traper",
-    "questEvilSantaNotes": "Čujete žalosne urlike u dubini ledenih polja. Pratite urlike i režanje, isprekidane zlobnim kikotanjem. Prolazite kroz šumu i izlazite na proplanak, gde nailazite na odraslu belu medvedicu, zarobljenu u kavezu, i vezanu lancima. Na vrhu kaveza pleše opaki đavolak u kostimu Deda Mraza. Savladajte Trapera i spasite medveda!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Uz besni vrisak, đavolak beži i nestaje u mračnoj šumi. Zahvalna medvedica pokušava nešto da vam objasni urlicima i režanjem. Vodite je do štale, gde Šaptač Met Bok sa zaprepašćenjem sluša njenu priču. Dok je bila zarobljena u kavezu, njeno mladunče je odlutalo u ledena polja. Pomozite joj da ga nađe!",
     "questEvilSantaBoss": "Deda Mraz Traper",
     "questEvilSantaDropBearCubPolarMount": "Beli medved (Životija za jahanje)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "The Golden Knight, Part 1: A Stern Talking-To",
     "questGoldenknight1Notes": "<p>Sa svih strana pristižu žalbe Habitikanaca na Zlatnog viteza. Niste uradili Svakodnevne zadatke? Izgubili ste Zdravlje zbog Loše navike? Zlatni vitez će to upotrebiti kao povod da Vam održi lekciju o tome kako treba da se ugledate na nju. Jer ona je paragon savršenog Habitikanca, a Vi ste običan gubitnik. To uopšte nije lepo. Svi mi grešimo, ali ne zaslužujemo da se neko tako ponaša prema nama. Saslušajte pritužbe Habitikanaca, i porazgovarajte sa Zlatnim vitezom o njenom ponašanju.</p>",
     "questGoldenknight1CollectTestimony": "Pitužbe",
-    "questGoldenknight1DropGoldenknight2Quest": "Zlatni vitez, 2. deo: Potamnelo zlato (Svitak)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "The Golden Knight, Part 2: Gold Knight",
     "questGoldenknight2Notes": "<p>Naoružani stotinama pritužbi Habitikanaca, suočavate se sa Zlatnim Vitezom. Čitate joj žalbe, jednu po jednu. ,,A @Pfeffernusse kaže da tvoje neprekidno hvalisanje-\" Vitez odmahuje rukom i odgovara, ,,Molim vas, ti ljudi su samo ljubomorni. Umesto da se žale, bolje bi bilo rade vredno kao ja! Pokazaću vam šta možete da postignete radom i disciplinom!\" Vitez diže jutarnju zvezdu i sprema se za napad!</p>",
     "questGoldenknight2Boss": "Zlatni vitez",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

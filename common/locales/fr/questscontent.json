@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Trappeur Noël",
-    "questEvilSantaNotes": "Vous entendez des rugissements plaintifs venant des profondeurs des glaces. Vous suivez les rugissements et hurlements - ponctuée par le caquetage d'une autre voix - jusqu'à une clairière dans les bois où vous voyez une ourse polaire. Elle est enfermée et enferrée, rugissant pour sa vie. Dansant sur le toit de la cage se trouve un petit lutin malveillant arborant un costume délabré de Noël. Venez à bout du Trappeur Noël et sauvez l'ours polaire !",
+    "questEvilSantaNotes": "Vous entendez des rugissements plaintifs venant des profondeurs des glaces. Vous traquez les rugissements et grognements (ponctués des gloussements d'une autre voix) jusqu'à une clairière dans les bois où vous découvrez une ourse polaire. Elle est enfermée et enchaînée, rugissant à mort. Sur le toit de sa cage, un petit lutin malveillant danse, vêtu d'un costume de Noël délabré. Venez à bout du Père Trappeur et sauvez la bête !",
     "questEvilSantaCompletion": "Trappeur Noël crie de colère et s'enfuit dans la nuit. Une ourse reconnaissante, par des grognements et des rugissements, essaie de vous dire quelque chose. Elle vous conduit à l'étable où Matt Boch Celui Qui Murmure écoute son histoire avec un hoquet d'horreur. Elle a un ourson ! Il s'est enfui dans les glaces lorsque Maman Ourse a été capturée. Aidez-la à retrouver son bébé !",
     "questEvilSantaBoss": "Trappeur Noël",
     "questEvilSantaDropBearCubPolarMount": "Ours Polaire (Monture)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "Campagne du Chevalier d'Or, Partie 1 : Une Sévère Remontrance",
     "questGoldenknight1Notes": "<p>Le Chevalier d’Or se penche sur le cas de pauvres Habiticiens. Vous n’avez pas validé toutes vos Quotidiennes ? Vous prenez de mauvaises Habitudes ? Chaque faux pas lui donnera une raison de vous harceler à propos du fait que vous devriez suivre son exemple. Elle est l’exemple parfait de l’Habiticienne assidue et vous n’êtes rien d’autre à ses yeux qu’un échec. Eh bien, on peut dire que tout ça n’est pas très sympa, ni agréable à entendre ! Tout le monde fait des erreurs. Ce n’est pas une raison pour être aussi désagréable. Peut-être est-il temps de rassembler les témoignages d’Habiticiens et d’Habiticiennes blessé·e·s par ses propos et de donner une bonne leçon au Chevalier d’Or !</p>",
     "questGoldenknight1CollectTestimony": "Témoignages",
-    "questGoldenknight1DropGoldenknight2Quest": "Campagne du Chevalier d'Or, Partie 2 : Or Terni (Parchemin)",
+    "questGoldenknight1DropGoldenknight2Quest": "Campagne du Chevalier d'Or, Partie 2 : Chevalier d'Or (Parchemin)",
     "questGoldenknight2Text": "Campagne du Chevalier d'Or, Partie 2 : Chevalier d'Or",
     "questGoldenknight2Notes": "<p>Armé de centaines de témoignages d'Habiticien·ne·s, vous confrontez enfin le Chevalier Doré. Vous commencez à lui énoncer les plaintes des Habiticien·ne·s, les unes après les autres. \"Et @Pfeffernusse dit que vos constantes fanfaronnades-\" Le chevalier lève la main pour vous faire taire et ricane, \"S'il vous plait, ces gens sont évidemment jaloux de mon succès. Au lieu de se plaindre, ils devraient tout simplement travailler aussi dur que moi !  Peut-être devrais je vous montrer la puissance que vous pouvez obtenir avec l'assiduité qui est la mienne !\" Elle brandit sa masse et se prépare à vous attaquer !</p>",
     "questGoldenknight2Boss": "Chevalier d'Or",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "Grâce à l'assistance des charmeurs, vous bannissez le Serpent de la Distraction. Même si vous êtes heureux d'avoir aidé les habitants des Dunes, vous ne pouvez vous empêcher de ressentir un peu de tristesse pour votre ennemi tombé au combat. Alors que vous contemplez la vue, @LordDarkly vous approche : « Merci ! C'est peu, mais j'espère que ça l'exprime bien notre reconnaissance.» Il vous remet un peu d'Or et... des œufs de serpent ! Vous reverrez donc ce majestueux animal après tout.",
     "questSnakeBoss": "Serpent de Distraction",
     "questSnakeDropSnakeEgg": "Serpent (Œuf)",
-    "questSnakeUnlockText": "Déverrouille l'achat d’œufs de serpent au Marché"
+    "questSnakeUnlockText": "Déverrouille l'achat d’œufs de serpent au Marché",
+    "questUnicornText": "Convaincre la Reine Licorne",
+    "questUnicornNotes": "La Crique de Conquête est devenue boueuse et a détruit l'approvisionnement d'eau potable d'Habitudiville ! Heureusement, une vieille légende connue de @Lukreja, prétend qu'avec la corne d'une licorne, la plus immonde des eaux peut être purifiée. Accompagné de votre intrépide guide, @UncommonCriminal, vous escaladez les cimes enneigées des Montagnes Sinueuses. C'est ainsi qu'au sommet glacé du Mont Habitica même, parmi les neiges étincelantes, vous découvrez la reine Licorne. \"Votre requête est frappante.\" vous dit-elle. \"Cependant, vous devrez prouver d'abord être dignes de mon aide !\"",
+    "questUnicornCompletion": "Impressionnée par votre force et votre diligence, la reine Licorne accepte enfin la valeur de votre quête. Vous permettant de monter sur son dos, elle s’élance vers la source de la Crique de Conquête.  Alors qu’elle abaisse sa corne dorée dans l’eau polluée, une lumière bleue éblouissante s’élève de la surface de l’eau. Elle est si aveuglante que vous en êtes forcé de fermer les yeux. Quand vous les ouvrez à nouveau, un instant plus tard, la licorne a disparu. Mais, @rosiesully pousse un cri de joie : l’eau est à présent claire et trois œufs étincelants reposent à l’orée de la crique.",
+    "questUnicornBoss": "La Reine Licorne",
+    "questUnicornDropUnicornEgg": "Licorne (œuf)",
+    "questUnicornUnlockText": "Déverrouille l'achat d’œufs de licorne au Marché"
 }

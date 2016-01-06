@@ -80,6 +80,7 @@
     "petKeyPets": "Relâcher Mes Familiers",
     "petKeyMounts": "Relâcher Mes Montures",
     "petKeyBoth": "Relâcher les Deux",
+    "confirmPetKey": "Est tu sure?",
     "petKeyNeverMind": "Pas Encore",
     "gemsEach": "gemmes chacun"
 }

@@ -1,48 +1,38 @@
 import {
   createAndPopulateGroup,
-  generateUser,
-  requester,
-  translate as t,
 } from '../../../../helpers/api-integration.helper';
 
 describe('GET /groups/:id/chat', () => {
-
   context('group with multiple messages', () => {
-    let group, member, message1, message2, user;
+    let group, member, user;
 
-    beforeEach(() => {
-      return createAndPopulateGroup({
+    beforeEach(async () => {
+      let groupData = await createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
           privacy: 'public',
         },
         members: 1,
-      }).then((res) => {
-        group = res.group;
-        user = res.leader;
-        member = res.members[0];
-
-        return requester(member).post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
-      }).then((res) => {
-        message1 = res.message;
-
-        return requester(user).post(`/groups/${group._id}/chat`, null, { message: 'User message' });
-      }).then((res) => {
-        message2 = res.message;
       });
+
+      group = groupData.group;
+      user = groupData.leader;
+      member = groupData.members[0];
+
+      await member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
+      await user.post(`/groups/${group._id}/chat`, null, { message: 'User message' });
     });
 
-    it('gets messages', () => {
-      let api = requester(user);
+    it('gets messages', async () => {
+      let messages = await user.get(`/groups/${group._id}/chat`);
 
-      return api.get(`/groups/${group._id}/chat`).then((messages) => {
-        expect(messages).to.have.length(2);
+      expect(messages).to.have.length(2);
 
-        let message = messages[0];
-        expect(message.id).to.exist;
-        expect(message.text).to.exist;
-        expect(message.uuid).to.exist;
-      });
+      let message = messages[0];
+
+      expect(message.id).to.exist;
+      expect(message.text).to.exist;
+      expect(message.uuid).to.exist;
     });
   });
 });

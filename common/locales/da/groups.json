@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Fra Saldo",
     "sendGiftPurchase": "Køb",
     "sendGiftMessagePlaceholder": "Personlig besked (valgfri)",
-    "sendGiftSubscription": "<%= months %> Måned(er): $<%= price %>",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
     "battleWithFriends": "Bekæmp Monstre med dine Venner",
     "startPartyWithFriends": "Start en Gruppe med dine venner!",
     "startAParty": "Start en Gruppe",

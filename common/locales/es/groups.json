@@ -2,8 +2,8 @@
     "tavern": "Taberna",
     "innCheckOut": "Dejar la Posada",
     "innCheckIn": "Descansar en la Posada",
-    "innText": "Estás descansando en la Posada. Mientras sigas en ella, tus tareas diarias no te causarán daños al final del día, pero seguirán restableciéndose cada día. Por otra parte, ten cuidado: si estás participando en alguna misión contra un jefe, el jefe seguirá haciéndote daño cuando tus compañeros de grupo no cumplan sus tareas diarias, a menos que ellos también estén en la Posada. Además, el daño que provoques al jefe (o los objetos que recopiles) no tendrá efecto hasta que salgas de la Posada.",
-    "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innText": "¡Estás descansando en la Posada! Mientras sigas en ella, tus tareas diarias no te causarán daños al final del día, pero seguirán restableciéndose cada día. Por otra parte, ten cuidado: si estás participando en alguna misión contra un jefe, el jefe seguirá haciéndote daño cuando tus compañeros de grupo no cumplan sus tareas diarias, a menos que ellos también estén en la Posada. Además, el daño que provoques al jefe (o los objetos que recopiles) no tendrá efecto hasta que salgas de la Posada.",
+    "innTextBroken": "Estás descansando en la Posada, supongo... Mientras sigas en ella, tus tareas diarias no te causarán daños al final del día, pero seguirán restableciéndose cada día... Si estás participando en alguna misión contra un jefe, el jefe seguirá haciéndote daño cuando tus compañeros de grupo no cumplan sus tareas diarias... a menos que ellos también estén en la Posada... Además, el daño que provoques al jefe (o los objetos que recopiles) no tendrá efecto hasta que salgas de la Posada... qué cansancio...",
     "lfgPosts": "Post en la busqueda de Grupo (Se busca Grupo)",
     "tutorial": "Tutorial",
     "glossary": "Glosario",
@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Del saldo",
     "sendGiftPurchase": "Compra",
     "sendGiftMessagePlaceholder": "Mensaje personal (opcional)",
-    "sendGiftSubscription": "<%= months %> mes(es): <%= price %> $",
+    "sendGiftSubscription": "<%= months %> Mes(es): $<%= price %> USD",
     "battleWithFriends": "Combate monstruos con amigos",
     "startPartyWithFriends": "¡Forma un grupo con tus amigos!",
     "startAParty": "Introduce un Grupo",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "El chat de este grupo está vacío. Escribe un mensaje en el cuadro de arriba para romper el hielo.",
     "guildChatEmpty": "El chat de este gremio está vacío. Escribe un mensaje en el cuadro de arriba para empezar una conversación.",
     "possessiveParty": "Grupo de <%= name %>",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de algún grupo o gremio, lee primero las <%= linkStart %>Normas de la Comunidad<%= linkEnd %> y, a continuación, haz clic en el botón de abajo para indicar que las aceptas."
 }

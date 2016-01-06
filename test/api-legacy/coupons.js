@@ -54,7 +54,7 @@ describe("Coupons", function() {
             expect(coupons.length).to.equal(10);
             _(coupons).each(function(c) {
               return expect(c.event).to.equal('wondercon');
-            });
+            }).value();
             return done();
           });
         });
@@ -90,7 +90,7 @@ describe("Coupons", function() {
           expect(codes).to.contain('code');
           _(coupons).each(function(c) {
             return expect(codes).to.contain(c._id);
-          });
+          }).value();
           return done();
         });
       });
@@ -106,10 +106,10 @@ describe("Coupons", function() {
           secondHalf = sortedCoupons.slice(5, 10);
           _(firstHalf).each(function(c) {
             return expect(codes).to.contain(c._id);
-          });
+          }).value();
           _(secondHalf).each(function(c) {
             return expect(codes).to.not.contain(c._id);
-          });
+          }).value();
           return done();
         });
       });
@@ -125,10 +125,10 @@ describe("Coupons", function() {
           secondHalf = sortedCoupons.slice(5, 10);
           _(firstHalf).each(function(c) {
             return expect(codes).to.not.contain(c._id);
-          });
+          }).value();
           _(secondHalf).each(function(c) {
             return expect(codes).to.contain(c._id);
-          });
+          }).value();
           return done();
         });
       });
@@ -159,7 +159,7 @@ describe("Coupons", function() {
         } else {
           return expect(gear[i]).to.not.exist;
         }
-      });
+      }).value();
     };
     beforeEach(function(done) {
       return registerNewUser(function() {

@@ -86,6 +86,14 @@ let armor = {
     set: 'crystalCrescent',
     canOwn: ownsItem('armor_armoire_crystalCrescentRobes'),
   },
+  dragonTamerArmor: {
+    text: t('armorArmoireDragonTamerArmorText'),
+    notes: t('armorArmoireDragonTamerArmorNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'dragonTamer',
+    canOwn: ownsItem('armor_armoire_dragonTamerArmor'),
+  },
 };
 
 let eyewear = {
@@ -250,6 +258,14 @@ let head = {
     set: 'crystalCrescent',
     canOwn: ownsItem('head_armoire_crystalCrescentHat'),
   },
+  dragonTamerHelm: {
+    text: t('headArmoireDragonTamerHelmText'),
+    notes: t('headArmoireDragonTamerHelmNotes', { int: 15 }),
+    value: 100,
+    int: 15,
+    set: 'dragonTamer',
+    canOwn: ownsItem('head_armoire_dragonTamerHelm'),
+  },
 };
 
 let shield = {
@@ -279,6 +295,14 @@ let shield = {
     per: 5,
     set: 'royal',
     canOwn: ownsItem('shield_armoire_royalCane'),
+  },
+  dragonTamerShield: {
+    text: t('shieldArmoireDragonTamerShieldText'),
+    notes: t('shieldArmoireDragonTamerShieldNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'dragonTamer',
+    canOwn: ownsItem('shield_armoire_dragonTamerShield'),
   },
 };
 
@@ -374,6 +398,13 @@ let weapon = {
     str: 7,
     twoHanded: true,
     canOwn: ownsItem('weapon_armoire_blueLongbow'),
+  },
+  glowingSpear: {
+    text: t('weaponArmoireGlowingSpearText'),
+    notes: t('weaponArmoireGlowingSpearNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    canOwn: ownsItem('weapon_armoire_glowingSpear'),
   },
 };
 

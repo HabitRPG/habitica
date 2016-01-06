@@ -80,6 +80,7 @@
     "petKeyPets": "Освободить моих питомцев",
     "petKeyMounts": "Освободить моих скакунов",
     "petKeyBoth": "Освободить всех",
+    "confirmPetKey": "Вы уверены?",
     "petKeyNeverMind": "Еще не",
     "gemsEach": "самоцветов за каждый"
 }

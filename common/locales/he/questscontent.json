@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "סנטה הסוהר",
-    "questEvilSantaNotes": "שאגה מיוסרת נשמעת הרחק בשדות הקרח. אתה עוקב אחר הנהמות והשאגות - המלוות בקול צחקוק משונה - לקרחת יער בה נמצאת דובת קוטב בוגרת. היא כלואה ואזוקה, שואגת בכל ריאותיה. מעל הכלוב שלה מרקד שדון קטן ומרושע, לבוש בתחפושת חג מולד בלויה. חסל את סנטה הסוהר ושחרר את הדובה!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "סנטה הסוהר צווח בכעס, ונס אל הלילה. הדובה אסירת התודה, דרך נהמות ושאגות, מנסה לספר לך משהו. לאחר המסע לאורווה, הלוחש - מאט בוש מקשיב לסיפורה ומזדעק באימה. יש לה גור! הוא רץ לשדות הקרב כשאמו נכלאה. עזור לה למצוא את התינוק שלה!",
     "questEvilSantaBoss": "סנטה הסוהר",
     "questEvilSantaDropBearCubPolarMount": "דוב קוטב (חיית רכיבה)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "The Golden Knight, Part 1: A Stern Talking-To",
     "questGoldenknight1Notes": "<p>The Golden Knight has been getting on poor Habiticans' cases. Didn't do all of your Dailies? Checked off a negative Habit? She will use this as a reason to harass you about how you should follow her example. She is the shining example of a perfect Habitican, and you are naught but a failure. Well, that is not nice at all! Everyone makes mistakes. They should not have to be met with such negativity for it. Perhaps it is time you gather some testimonies from hurt Habiticans and give the Golden Knight a stern talking-to!</p>",
     "questGoldenknight1CollectTestimony": "Testimonies",
-    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Tarnished Gold (Scroll)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "The Golden Knight, Part 2: Gold Knight",
     "questGoldenknight2Notes": "<p>Armed with hundreds of Habitican's testimonies, you finally confront the Golden Knight. You begin to recite the Habitcan's complaints to her, one by one. \"And @Pfeffernusse says that your constant bragging-\" The knight raises her hand to silence you and scoffs, \"Please, these people are merely jealous of my success. Instead of complaining, they should simply work as hard as I! Perhaps I shall show you the power you can attain through diligence such as mine!\" She raises her morningstar and prepares to attack you!</p>",
     "questGoldenknight2Boss": "האביר הזהב",
@@ -241,7 +241,7 @@
     "questCheetahText": "Such a Cheetah",
     "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
     "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
-    "questCheetahBoss": "Cheetah",
+    "questCheetahBoss": "צ׳יטה",
     "questCheetahDropCheetahEgg": "Cheetah (Egg)",
     "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market",
     "questHorseText": "Ride the Night-Mare",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
     "questSnakeBoss": "Serpent of Distraction",
     "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

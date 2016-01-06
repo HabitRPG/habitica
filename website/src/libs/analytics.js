@@ -59,7 +59,7 @@ function _generateLabelForGoogleAnalytics(data) {
       label = data[key];
       return false; // exit _.each early
     }
-  });
+  }).value();
 
   return label;
 }
@@ -73,7 +73,7 @@ function _generateValueForGoogleAnalytics(data) {
       value = data[key];
       return false; // exit _.each early
     }
-  });
+  }).value();
 
   return value;
 }

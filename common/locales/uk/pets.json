@@ -80,6 +80,7 @@
     "petKeyPets": "Відпустити моїх улюбленців",
     "petKeyMounts": "Відпустити моїх скакунів",
     "petKeyBoth": "Release Both",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "Ще ні",
     "gemsEach": "gems each"
 }

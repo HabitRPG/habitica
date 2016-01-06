@@ -2,6 +2,11 @@ import {
   daysSince,
   shouldDo,
 } from '../../common/script/cron';
+import {
+  MAX_HEALTH,
+  MAX_LEVEL,
+  MAX_STAT_POINTS,
+} from './constants';
 import * as statHelpers from './statHelpers';
 
 var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
@@ -20,9 +25,9 @@ api = module.exports = {};
 api.i18n = i18n;
 api.shouldDo = shouldDo;
 
-api.maxLevel = statHelpers.MAX_LEVEL;
+api.maxLevel = MAX_LEVEL;
 api.capByLevel = statHelpers.capByLevel;
-api.maxHealth = statHelpers.MAX_HEALTH;
+api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
@@ -121,7 +126,7 @@ preenHistory = function(history) {
  */
 
 api.preenTodos = function(tasks) {
-  return _.where(tasks, function(t) {
+  return _.filter(tasks, function(t) {
     return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({
       days: 3
     }));
@@ -2063,7 +2068,7 @@ api.wrap = function(user, main) {
         return content.gear.flat[type + "_base_0"];
       }
       return item;
-    },   
+    },
     handleTwoHanded: function(item, type, req) {
       var message, currentWeapon, currentShield;
       if (type == null) {
@@ -2071,17 +2076,17 @@ api.wrap = function(user, main) {
       }
       currentShield = content.gear.flat[user.items.gear[type].shield];
       currentWeapon = content.gear.flat[user.items.gear[type].weapon];
-      
+
       if (item.type === "shield" && (currentWeapon ? currentWeapon.twoHanded : false)) {
         user.items.gear[type].weapon = 'weapon_base_0';
         message = i18n.t('messageTwoHandedUnequip', {
           twoHandedText: currentWeapon.text(req.language), offHandedText: item.text(req.language),
         }, req.language);
-      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {    
-        user.items.gear[type].shield = "shield_base_0";   
+      } else if (item.twoHanded && (currentShield && user.items.gear[type].shield != "shield_base_0")) {
+        user.items.gear[type].shield = "shield_base_0";
         message = i18n.t('messageTwoHandedEquip', {
           twoHandedText: item.text(req.language), offHandedText: currentShield.text(req.language),
-        }, req.language);       
+        }, req.language);
       }
       return message;
     },
@@ -2267,27 +2272,30 @@ api.wrap = function(user, main) {
       })()]++;
     },
     updateStats: function(stats, req, analytics) {
-      var tnl;
       if (stats.hp <= 0) {
         return user.stats.hp = 0;
       }
       user.stats.hp = stats.hp;
       user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-      tnl = api.tnl(user.stats.lvl);
-      if (stats.exp >= tnl) {
+
+      var experienceToNextLevel = api.tnl(user.stats.lvl);
+
+      if (stats.exp >= experienceToNextLevel) {
         user.stats.exp = stats.exp;
-        while (stats.exp >= tnl) {
-          stats.exp -= tnl;
+        while (stats.exp >= experienceToNextLevel) {
+          stats.exp -= experienceToNextLevel;
           user.stats.lvl++;
-          tnl = api.tnl(user.stats.lvl);
+          experienceToNextLevel = api.tnl(user.stats.lvl);
           user.stats.hp = 50;
-          if (user.stats.lvl > api.maxLevel) {
+          var userTotalStatPoints = user.stats.str + user.stats.int + user.stats.con + user.stats.per;
+
+          if (userTotalStatPoints >= MAX_STAT_POINTS) {
             continue;
           }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = user.stats.lvl - userTotalStatPoints;
             if (user.stats.points < 0) {
               user.stats.points = 0;
             }
