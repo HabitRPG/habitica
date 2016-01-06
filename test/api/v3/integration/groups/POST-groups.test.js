@@ -6,18 +6,16 @@ import {
 describe('POST /group', () => {
   let user;
 
-  beforeEach(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  beforeEach(async () => {
+    user = await generateUser();
   });
 
   context('Guilds', () => {
-    it('returns an error when a user with insufficient funds attempts to create a guild', () => {
+    it('returns an error when a user with insufficient funds attempts to create a guild', async () => {
       let groupName = 'Test Public Guild';
       let groupType = 'guild';
 
-      return expect(
+      await expect(
         user.post('/groups', {
           name: groupName,
           type: groupType,
@@ -31,85 +29,75 @@ describe('POST /group', () => {
     });
 
     context('public guild', () => {
-      it('creates a group', () => {
+      it('creates a group', async () => {
         let groupName = 'Test Public Guild';
         let groupType = 'guild';
-
-        return generateUser({balance: 1}).then((generatedUser) => {
-          return generatedUser.post('/groups', {
-            name: groupName,
-            type: groupType,
-          });
-        })
-        .then((result) => {
-          expect(result._id).to.exist;
-          expect(result.name).to.equal(groupName);
-          expect(result.type).to.equal(groupType);
-          expect(result.memberCount).to.equal(1);
+        let userThatCreatsGuild = await generateUser({balance: 1});
+        let group = await userThatCreatsGuild.post('/groups', {
+          name: groupName,
+          type: groupType,
         });
+
+        expect(group._id).to.exist;
+        expect(group.name).to.equal(groupName);
+        expect(group.type).to.equal(groupType);
+        expect(group.memberCount).to.equal(1);
       });
     });
 
     context('private guild', () => {
-      it('creates a group', () => {
+      it('creates a group', async () => {
         let groupName = 'Test Private Guild';
         let groupType = 'guild';
         let groupPrivacy = 'private';
-
-        return generateUser({balance: 1}).then((generatedUser) => {
-          return generatedUser.post('/groups', {
-            name: groupName,
-            type: groupType,
-            privacy: groupPrivacy,
-          });
-        })
-        .then((result) => {
-          expect(result._id).to.exist;
-          expect(result.name).to.equal(groupName);
-          expect(result.type).to.equal(groupType);
-          expect(result.memberCount).to.equal(1);
-          expect(result.privacy).to.equal(groupPrivacy);
+        let userThatCreatsGuild = await generateUser({balance: 1});
+        let group = await userThatCreatsGuild.post('/groups', {
+          name: groupName,
+          type: groupType,
+          privacy: groupPrivacy,
         });
+
+        expect(group._id).to.exist;
+        expect(group.name).to.equal(groupName);
+        expect(group.type).to.equal(groupType);
+        expect(group.memberCount).to.equal(1);
+        expect(group.privacy).to.equal(groupPrivacy);
       });
     });
   });
 
   context('Parties', () => {
-    it('creates a party', () => {
+    it('creates a party', async () => {
       let groupName = 'Test Party';
       let groupType = 'party';
-
-      return user.post('/groups', {
+      let party = await user.post('/groups', {
         name: groupName,
         type: groupType,
-      })
-      .then((result) => {
-        expect(result._id).to.exist;
-        expect(result.name).to.equal(groupName);
-        expect(result.type).to.equal(groupType);
-        expect(result.memberCount).to.equal(1);
       });
+
+      expect(party._id).to.exist;
+      expect(party.name).to.equal(groupName);
+      expect(party.type).to.equal(groupType);
+      expect(party.memberCount).to.equal(1);
     });
 
-    it('prevents user in a party from creating another party', () => {
-      let tmpUser;
+    it('prevents user in a party from creating another party', async () => {
       let groupName = 'Test Party';
       let groupType = 'party';
+      let userThatCreatesTwoParties = await generateUser();
+      let firstParty = await userThatCreatesTwoParties.post('/groups', {
+        name: groupName,
+        type: groupType,
+      });
 
-      return generateUser().then((generatedUser) => {
-        tmpUser = generatedUser;
-        return tmpUser.post('/groups', {
-          name: groupName,
-          type: groupType,
-        });
-      })
-      .then(() => {
-        return expect(tmpUser.post('/groups')).to.eventually.be.rejected.and.eql({
+      expect(firstParty.name).to.equal(groupName);
+      expect(firstParty.type).to.equal(groupType);
+      await expect(userThatCreatesTwoParties.post('/groups'))
+        .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
           message: t('messageGroupAlreadyInParty'),
         });
-      });
     });
   });
 });
