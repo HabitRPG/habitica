@@ -23,5 +23,6 @@
     "rebirthOrb100": "Ha utilizzato una Sfera della Rinascita al livello 100 o superiore.",
     "rebirthPop": "Ricomincia con un nuovo personaggio al livello 1 mantenendo medaglie, oggetti, attività e cronologia.",
     "rebirthName": "Sfera della Rinascita",
-    "reborn": "Rinasci, livello massimo <%= reLevel %>"
+    "reborn": "Rinasci, livello massimo <%= reLevel %>",
+    "confirmReborn": "Sei sicuro?"
 }

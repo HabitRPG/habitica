@@ -46,7 +46,7 @@ script(type='text/ng-template', id='modals/rebirth.html')
       a.btn.btn-success(ng-click='openModal("buyGems",{track:"Gems > Rebirth"})')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 2 || user.stats.lvl >= 100', ng-controller='SettingsCtrl')
-      a.btn.btn-danger(ng-click='$close(); rebirth()')=env.t('beReborn')
+      a.btn.btn-danger(ng-click='clickRebirth($event)')=env.t('beReborn')
       span.gem-cost(ng-if='user.stats.lvl < 100')
         | 8&nbsp;
         =env.t('gems')

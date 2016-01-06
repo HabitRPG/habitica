@@ -1,10 +1,12 @@
+import {
+  MAX_LEVEL,
+} from './constants';
+
 /*
   ------------------------------------------------------
   Level cap
   ------------------------------------------------------
  */
-
-export const MAX_LEVEL = 100;
 
 export function capByLevel (lvl) {
   if (lvl > MAX_LEVEL) {
@@ -13,14 +15,6 @@ export function capByLevel (lvl) {
     return lvl;
   }
 }
-
-/*
-  ------------------------------------------------------
-  Health cap
-  ------------------------------------------------------
- */
-
-export const MAX_HEALTH = 50;
 
 /*
   ------------------------------------------------------

@@ -59,8 +59,8 @@
     "useGems": "Hvis du gerne vil have et bestemt kæledyr, men ikke vil vente på at du finder det, så brug ædelsten i <strong>Inventar > Marked</strong> til at købe det!",
     "hatchAPot": "Vil du udruge et <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a <%= potion %> <%= egg %>!",
-    "displayNow": "Display Now",
-    "displayLater": "Display Later",
+    "displayNow": "Vis nu",
+    "displayLater": "Vis senere",
     "earnedCompanion": "With all your productivity, you've earned a new companion. Feed it to make it grow!",
     "feedPet": "Giv <%= text %> til <%= name %>?",
     "useSaddle": "Giv <%= pet %> sadel på?",
@@ -80,6 +80,7 @@
     "petKeyPets": "Slip mine kæledyr fri",
     "petKeyMounts": "Slip Mine Ridedyr Fri",
     "petKeyBoth": "Slip Begge Fri",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "Ikke endnu",
     "gemsEach": "ædelsten hver"
 }

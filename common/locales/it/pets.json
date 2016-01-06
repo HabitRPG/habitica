@@ -80,6 +80,7 @@
     "petKeyPets": "Libera i miei animali",
     "petKeyMounts": "Libera le mie cavalcature",
     "petKeyBoth": "Libera entrambi",
+    "confirmPetKey": "Sei sicuro?",
     "petKeyNeverMind": "Non ancora",
     "gemsEach": "gemme ciascuno"
 }

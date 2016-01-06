@@ -112,7 +112,7 @@
     "unsubscribeAllEmails": "Cocher pour se désabonner des mails",
     "unsubscribeAllEmailsText": "En cochant cette case, je certifie comprendre qu'en me désabonnant de tous les mails, Habitica n'aura jamais la possibilité de m'avertir par e-mail de changements importants au niveau du site ou de mon compte.",
     "correctlyUnsubscribedEmailType": "Correctement désinscrit·e des mails \"<%= emailType %>\".",
-    "subscriptionRateText": "$<%= price %> tous les <%= months %> mois",
+    "subscriptionRateText": "Récurrent €<%= price %> EUR tous les <%= months %> mois",
     "benefits": "Avantages",
     "coupon": "Promo",
     "couponPlaceholder": "Entrer le Code Promotionnel",
@@ -136,7 +136,7 @@
     "buyGemsGoldCap": "Limite augmentée à <%= amount %>",
     "mysticHourglass": "<%= amount %> Sablier Mystique ",
     "mysticHourglassText": "Un Sablier Mystique vous permet d'acheter des Sets d'Objets Mystère d'un mois passé.",
-    "purchasedPlanId": "<%= price %> $ tous les <%= months %> mois (<%= plan %>)",
+    "purchasedPlanId": "Récurrent €<%= price %> EUR tous les <%= months %> mois (<%= plan %>)",
     "purchasedPlanExtraMonths": "Il vous reste  <%= months %> mois de crédit d' abonnement ",
     "consecutiveSubscription": "Abonnement consécutif",
     "consecutiveMonths": "Mois consécutifs",
@@ -144,7 +144,7 @@
     "mysticHourglasses": "Sablier Mystique",
     "paypal": "PayPal",
     "amazonPayments": "Paiments Amazon",
-    "timezone": "Time Zone",
-    "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been reseting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezone": "Fuseau horaire",
+    "timezoneUTC": "Habitica utilise le fuseau horaire réglé sur votre PC, qui est le suivant : <strong><%= utc %></strong>",
+    "timezoneInfo": "Si ce n'est pas le bon fuseau horaire, commencez par actualiser la page en utilisant le bouton Actualiser de votre navigateur pour vous assurer qu'Habitica est à jour. Si ce n'est toujours pas le bon, réglez le fuseau horaire sur votre PC et actualisez cette page à nouveau.<br><br> <strong>Le fuseau horaire doit être le même sur tous les autres PC ou applications mobiles que vous utilisez.</strong> Si vos Quotidiennes continuent d'être réinitialisées à la mauvaise heure, répétez cette vérification sur tous les PC que vous utilisez et sur le navigateur de vos appareils mobiles."
 }

@@ -184,7 +184,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
   }
 
   _.each(chapters, function(chapter, k){
-    _(chapter).flatten().each(function(step, i) {
+    _(chapter).flattenDeep().each(function(step, i) {
       step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
@@ -209,7 +209,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }
         User.set(ups);
       }
-    })
+    }).value();
   });
 
   var tour = {};
@@ -226,7 +226,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
           '<h3 class="popover-title"></h3>' +
           '<div class="popover-content"></div>' +
           '<div class="popover-navigation"> ' +
-            (showCounter ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
+            (showCounter ? '<span style="float:right;">'+ (i+1 +' of '+ _.flattenDeep(chapters[k]).length) +'</span>' : '')+ // counter
             '<div class="btn-group">' +
               (step.hideNavigation ? '' : '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>') +
               (showFinish ? ('<button class="btn btn-sm btn-primary" data-role="end" style="float:none;">' + (step.proceed ? step.proceed : "Finish Tour") + '</button>') :

@@ -23,5 +23,6 @@
     "rebirthOrb100": "Hat eine Sphäre der Wiedergeburt verwendet um noch mal von vorne zu beginnen, nachdem Level 100 oder höher erreicht wurde",
     "rebirthPop": "Starte einen neuen Charakter mit Level 1, aber behalte Erfolge, Sammlungen und Aufgaben mit Verlauf bei.",
     "rebirthName": "Sphäre der Wiedergeburt",
-    "reborn": "Wiedergeboren, max. Level <%= reLevel %>"
+    "reborn": "Wiedergeboren, max. Level <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

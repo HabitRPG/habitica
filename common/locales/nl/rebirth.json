@@ -23,5 +23,6 @@
     "rebirthOrb100": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na level 100 of hoger te hebben bereikt",
     "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt.",
     "rebirthName": "Bol der Hergeboorte",
-    "reborn": "Herboren, maximale niveau <%= reLevel %>"
+    "reborn": "Herboren, maximale niveau <%= reLevel %>",
+    "confirmReborn": "Weet je het zeker?"
 }

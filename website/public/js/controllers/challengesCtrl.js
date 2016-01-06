@@ -83,7 +83,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       _(clonedTasks).each(function(val, type) {
         challenge[type + 's'].forEach(_cloneTaskAndPush);
-      });
+      }).value();
 
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: challenge.name,
@@ -212,7 +212,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.removeTask = function(task, list) {
-      if (!confirm(window.env.t('sureDelete'))) return;
+      if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
       //TODO persist
       // User.log({op: "delTask", data: task});
       _.remove(list, task);

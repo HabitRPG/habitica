@@ -23,5 +23,6 @@
     "rebirthOrb100": "Usou um Orbe do Renascimento para recomeçar depois de alcançar nível 100 ou superior",
     "rebirthPop": "Comece um novo personagem do Nível 1 mantendo conquistas, colecionáveis, e tarefas com histórico.",
     "rebirthName": "Orbe do Renascimento",
-    "reborn": "Renascido, nível max <%= reLevel %>"
+    "reborn": "Renascido, nível max <%= reLevel %>",
+    "confirmReborn": "Tem certeza?"
 }

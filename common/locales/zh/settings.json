@@ -112,7 +112,7 @@
     "unsubscribeAllEmails": "确认从电子邮件退订",
     "unsubscribeAllEmailsText": "以此确认，我明白在我取消邮箱订阅后，Habitica不会再通过邮件通知我关于我的账号或关于网站的重要更改。",
     "correctlyUnsubscribedEmailType": "正确的退订了 \"<%= emailType %>\"的邮件",
-    "subscriptionRateText": "每 <%= months %> 个月重复$<%= price %>",
+    "subscriptionRateText": "Recurring $<%= price %> USD every <%= months %> months",
     "benefits": "好处",
     "coupon": "优惠券",
     "couponPlaceholder": "输入优惠券代码",
@@ -136,7 +136,7 @@
     "buyGemsGoldCap": "上限提升至 <%= amount %>",
     "mysticHourglass": "<%= amount %> 个神秘沙漏",
     "mysticHourglassText": "神秘沙漏能让你购买几个月之前的神秘道具套装。",
-    "purchasedPlanId": "每 <%= months %> (月)充值 $<%= price %> (<%= plan %>)",
+    "purchasedPlanId": "Recurring $<%= price %> USD each <%= months %> Month(s) (<%= plan %>)",
     "purchasedPlanExtraMonths": "你的剩余捐助时长为： <%= months %> 个月",
     "consecutiveSubscription": "连续捐助",
     "consecutiveMonths": "持续的月份：",
@@ -144,7 +144,7 @@
     "mysticHourglasses": "神秘沙漏：",
     "paypal": "PayPal",
     "amazonPayments": "亚马逊支付",
-    "timezone": "Time Zone",
-    "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been reseting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezone": "时区",
+    "timezoneUTC": "Habitica直接引用你电脑上的时区设置：<strong><%= utc %></strong>",
+    "timezoneInfo": "如果这个时区显示错误，首先让你的网页浏览器刷新页面，保证Habitica有最新的信息。如果依旧错误，在你的电脑上调节时区设置，并再次刷新页面。<br><br><strong>如果你在其他电脑或移动设备上使用Habitica，所有时区必须保持一致。</strong>如果你的每日任务在错误的世界重置，请在所有的电脑或移动设备上检查这项设置。"
 }
