@@ -3280,6 +3280,20 @@ api.backgrounds = {
       notes: t('backgroundWinterTownNotes')
     }
   },
+  backgrounds012016: {
+    frozen_lake: {
+      text: t('backgroundFrozenLakeText'),
+      notes: t('backgroundFrozenLakeNotes')
+    },
+    snowman_army: {
+      text: t('backgroundSnowmanArmyText'),
+      notes: t('backgroundSnowmanArmyNotes')
+    },
+    winter_night: {
+      text: t('backgroundWinterNightText'),
+      notes: t('backgroundWinterNightNotes')
+    }
+  },
 };
 
 api.subscriptionBlocks = {

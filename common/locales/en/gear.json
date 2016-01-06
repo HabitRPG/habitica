@@ -186,7 +186,9 @@
   "weaponArmoireCrystalCrescentStaffText": "Crystal Crescent Staff",
   "weaponArmoireCrystalCrescentStaffNotes": "Summon the power of the crescent moon with this shining staff! Increases Intelligence and Strength by <%= attrs %> each. Enchanted Armoire: Crystal Crescent Set (Item 3 of 3).",
   "weaponArmoireBlueLongbowText": "Blue Longbow",
-  "weaponArmoireBlueLongbowNotes": "Ready... Aim... Fire! This bow has great range. Increases Perception by 9, Constitution by 8, and Strength by 7. Enchanted Armoire: Independent Item.",
+  "weaponArmoireBlueLongbowNotes": "Ready... Aim... Fire! This bow has great range. Increases Perception by <%= per %>, Constitution by <%= con %>, and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireGlowingSpearText": "Glowing Spear",
+  "weaponArmoireGlowingSpearNotes": "This spear hypnotizes wild tasks so you can attack them. Increases Strength by <%= str %>. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
 
@@ -389,6 +391,8 @@
   "armorArmoireRoyalRobesNotes": "Wonderful ruler, rule all day long! Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Royal Set (Item 3 of 3).",
   "armorArmoireCrystalCrescentRobesText": "Crystal Crescent Robes",
   "armorArmoireCrystalCrescentRobesNotes": "These magical robes are luminescent at night. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Crystal Crescent Set (Item 2 of 3).",
+  "armorArmoireDragonTamerArmorText": "Dragon Tamer Armor",
+  "armorArmoireDragonTamerArmorNotes": "This tough armor is impenetrable to flame. Increases Constitution by <%= con %>. Enchanted Armoire: Dragon Tamer Set (Item 3 of 3).",
 
   "headgear": "headgear",
 
@@ -603,6 +607,8 @@
   "headArmoireShepherdHeaddressNotes": "Sometimes the gryphons that you herd like to chew on this headdress, but it makes you seem more intelligent nonetheless. Increases Intelligence by <%= int %>. Enchanted Armoire: Shepherd Set (Item 3 of 3).",
   "headArmoireCrystalCrescentHatText": "Crystal Crescent Hat",
   "headArmoireCrystalCrescentHatNotes": "The design on this hat waxes and wanes with the phases of the moon. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Crystal Crescent Set (Item 1 of 3).",
+  "headArmoireDragonTamerHelmText": "Dragon Tamer Helm",
+  "headArmoireDragonTamerHelmNotes": "You look exactly like a dragon. The perfect camouflage... Increases Intelligence by <%= int %>. Enchanted Armoire: Dragon Tamer Set (Item 1 of 3).",
 
   "offhand": "shield-hand item",
 
@@ -711,6 +717,8 @@
   "shieldArmoireMidnightShieldNotes": "This shield is most powerful at the stroke of midnight! Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
   "shieldArmoireRoyalCaneText": "Royal Cane",
   "shieldArmoireRoyalCaneNotes": "Hooray for the ruler, worthy of song! Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Royal Set (Item 2 of 3).",
+  "shieldArmoireDragonTamerShieldText": "Dragon Tamer Shield",
+  "shieldArmoireDragonTamerShieldNotes": "Distract enemies with this dragon-shaped shield. Increases Perception by <%= per %>. Enchanted Armoire: Dragon Tamer Set (Item 2 of 3).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
