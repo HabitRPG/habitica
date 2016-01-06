@@ -73,22 +73,11 @@ api.createChallenge = {
 
     group.challengeCount += 1;
 
-    let tasks = req.body.tasks || []; // TODO validate
     req.body.leader = user._id;
     req.body.official = user.contributor.admin && req.body.official;
     let challenge = new Challenge(Challenge.sanitize(req.body));
 
-    let toSave = tasks.map(tasks, taskToCreate => {
-      // TODO validate type
-      let task = new Tasks[taskToCreate.type](Tasks.Task.sanitizeCreate(taskToCreate));
-      task.challenge.id = challenge._id;
-      challenge.tasksOrder[`${task.type}s`].push(task._id);
-      return task.save();
-    });
-
-    toSave.unshift(challenge, group);
-
-    let results = await Q.all(toSave);
+    let results = await Q.all(challenge.save(), group.save());
     let savedChal = results[0];
 
     await savedChal.syncToUser(user); // (it also saves the user)
@@ -130,6 +119,38 @@ api.getChallenges = {
     .exec();
 
     res.respond(200, challenges);
+  },
+};
+
+/**
+ * @api {get} /challenges/:challengeId Get a challenge given its id
+ * @apiVersion 3.0.0
+ * @apiName GetChallenge
+ * @apiGroup Challenge
+ *
+ * @apiSuccess {object} challenge The challenge object
+ */
+api.getChallenge = {
+  method: 'GET',
+  url: '/challenges/:challengeId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkQuery('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.local.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findOne({_id: challengeId}).exec(); // TODO populate
+
+    // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
+    if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
+      throw new NotFound(res.t('challengeNotFound'));
+    }
+
+    res.respond(200, challenge);
   },
 };
 
