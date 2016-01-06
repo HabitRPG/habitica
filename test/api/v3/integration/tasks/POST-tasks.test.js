@@ -14,7 +14,7 @@ describe('POST /tasks', () => {
 
   context('validates params', () => {
     it('returns an error if req.body.type is absent', async () => {
-      return expect(user.post('/tasks?tasksOwner=user', {
+      return expect(user.post('/tasks/user', {
         notType: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -24,7 +24,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.type is not valid', async () => {
-      return expect(user.post('/tasks?tasksOwner=user', {
+      return expect(user.post('/tasks/user', {
         type: 'habitF',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -34,7 +34,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if one object inside an array is invalid', async () => {
-      return expect(user.post('/tasks?tasksOwner=user', [
+      return expect(user.post('/tasks/user', [
         {type: 'habitF'},
         {type: 'habit'},
       ])).to.eventually.be.rejected.and.eql({
@@ -45,7 +45,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.text is absent', async () => {
-      return expect(user.post('/tasks?tasksOwner=user', {
+      return expect(user.post('/tasks/user', {
         type: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -56,7 +56,7 @@ describe('POST /tasks', () => {
 
     it('does not update user.tasksOrder.{taskType} when the task is not saved because invalid', async () => {
       let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
-      return expect(user.post('/tasks?tasksOwner=user', {
+      return expect(user.post('/tasks/user', {
         type: 'habit',
       })).to.eventually.be.rejected.and.eql({ // this block is necessary
         code: 400,
@@ -71,7 +71,7 @@ describe('POST /tasks', () => {
 
     it('does not update user.tasksOrder.{taskType} when a task inside an array is not saved because invalid', async () => {
       let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
-      return expect(user.post('/tasks?tasksOwner=user', [
+      return expect(user.post('/tasks/user', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
       ])).to.eventually.be.rejected.and.eql({ // this block is necessary
@@ -86,8 +86,8 @@ describe('POST /tasks', () => {
     });
 
     it('does not save any task sent in an array when 1 is invalid', async () => {
-      let originalTasks = await user.get('/tasks?tasksOwner=user');
-      return expect(user.post('/tasks?tasksOwner=user', [
+      let originalTasks = await user.get('/tasks/user');
+      return expect(user.post('/tasks/user', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
       ])).to.eventually.be.rejected.and.eql({ // this block is necessary
@@ -95,14 +95,14 @@ describe('POST /tasks', () => {
         error: 'BadRequest',
         message: 'habit validation failed',
       }).then(async () => {
-        let updatedTasks = await user.get('/tasks?tasksOwner=user');
+        let updatedTasks = await user.get('/tasks/user');
 
         expect(updatedTasks).to.eql(originalTasks);
       });
     });
 
     it('automatically sets "task.userId" to user\'s uuid', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
@@ -113,7 +113,7 @@ describe('POST /tasks', () => {
     it(`ignores setting userId, history, createdAt,
                         updatedAt, challenge, completed, streak,
                         dateCompleted fields`, async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
         userId: 123,
@@ -137,7 +137,7 @@ describe('POST /tasks', () => {
     });
 
     it('ignores invalid fields', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
         notValid: true,
@@ -149,7 +149,7 @@ describe('POST /tasks', () => {
 
   context('habits', () => {
     it('creates a habit', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
         up: false,
@@ -167,7 +167,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.habits when a new habit is created', async () => {
       let originalHabitsOrderLen = (await user.get('/user')).tasksOrder.habits.length;
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         type: 'habit',
         text: 'an habit',
       });
@@ -179,7 +179,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.habits when multiple habits are created', async () => {
       let originalHabitsOrderLen = (await user.get('/user')).tasksOrder.habits.length;
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         type: 'habit',
         text: 'an habit',
       }, {
@@ -194,7 +194,7 @@ describe('POST /tasks', () => {
     });
 
     it('creates multiple habits', async () => {
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         text: 'test habit',
         type: 'habit',
         up: false,
@@ -224,7 +224,7 @@ describe('POST /tasks', () => {
     });
 
     it('defaults to setting up and down to true', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
         notes: 1976,
@@ -235,7 +235,7 @@ describe('POST /tasks', () => {
     });
 
     it('cannot create checklists', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
         checklist: [
@@ -249,7 +249,7 @@ describe('POST /tasks', () => {
 
   context('todos', () => {
     it('creates a todo', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
         notes: 1976,
@@ -262,7 +262,7 @@ describe('POST /tasks', () => {
     });
 
     it('creates multiple todos', async () => {
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         text: 'test todo',
         type: 'todo',
         notes: 1976,
@@ -285,7 +285,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.todos when a new todo is created', async () => {
       let originalTodosOrderLen = (await user.get('/user')).tasksOrder.todos.length;
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         type: 'todo',
         text: 'a todo',
       });
@@ -297,7 +297,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.todos when multiple todos are created', async () => {
       let originalTodosOrderLen = (await user.get('/user')).tasksOrder.todos.length;
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         type: 'todo',
         text: 'a todo',
       }, {
@@ -312,7 +312,7 @@ describe('POST /tasks', () => {
     });
 
     it('can create checklists', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
         checklist: [
@@ -333,7 +333,7 @@ describe('POST /tasks', () => {
     it('creates a daily', async () => {
       let now = new Date();
 
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
         notes: 1976,
@@ -352,7 +352,7 @@ describe('POST /tasks', () => {
     });
 
     it('creates multiple dailys', async () => {
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         text: 'test daily',
         type: 'daily',
         notes: 1976,
@@ -375,7 +375,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.dailys when a new daily is created', async () => {
       let originalDailysOrderLen = (await user.get('/user')).tasksOrder.dailys.length;
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         type: 'daily',
         text: 'a daily',
       });
@@ -387,7 +387,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.dailys when multiple dailys are created', async () => {
       let originalDailysOrderLen = (await user.get('/user')).tasksOrder.dailys.length;
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         type: 'daily',
         text: 'a daily',
       }, {
@@ -402,7 +402,7 @@ describe('POST /tasks', () => {
     });
 
     it('defaults to a weekly frequency, with every day set', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
       });
@@ -421,7 +421,7 @@ describe('POST /tasks', () => {
     });
 
     it('allows repeat field to be configured', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
         repeat: {
@@ -445,7 +445,7 @@ describe('POST /tasks', () => {
     it('defaults startDate to today', async () => {
       let today = (new Date()).getDay();
 
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
       });
@@ -454,7 +454,7 @@ describe('POST /tasks', () => {
     });
 
     it('can create checklists', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
         checklist: [
@@ -473,7 +473,7 @@ describe('POST /tasks', () => {
 
   context('rewards', () => {
     it('creates a reward', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         notes: 1976,
@@ -488,7 +488,7 @@ describe('POST /tasks', () => {
     });
 
     it('creates multiple rewards', async () => {
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         text: 'test reward',
         type: 'reward',
         notes: 1976,
@@ -515,7 +515,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.rewards when a new reward is created', async () => {
       let originalRewardsOrderLen = (await user.get('/user')).tasksOrder.rewards.length;
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         type: 'reward',
         text: 'a reward',
       });
@@ -527,7 +527,7 @@ describe('POST /tasks', () => {
 
     it('updates user.tasksOrder.dreward when multiple rewards are created', async () => {
       let originalRewardsOrderLen = (await user.get('/user')).tasksOrder.rewards.length;
-      let [task, task2] = await user.post('/tasks?tasksOwner=user', [{
+      let [task, task2] = await user.post('/tasks/user', [{
         type: 'reward',
         text: 'a reward',
       }, {
@@ -542,7 +542,7 @@ describe('POST /tasks', () => {
     });
 
     it('defaults to a 0 value', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
       });
@@ -551,7 +551,7 @@ describe('POST /tasks', () => {
     });
 
     it('requires value to be coerced into a number', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         value: '10',
@@ -561,7 +561,7 @@ describe('POST /tasks', () => {
     });
 
     it('cannot create checklists', async () => {
-      let task = await user.post('/tasks?tasksOwner=user', {
+      let task = await user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         checklist: [

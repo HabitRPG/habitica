@@ -16,7 +16,7 @@ describe('DELETE /tasks/:id', () => {
     let task;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       }).then((createdTask) => {
@@ -48,7 +48,7 @@ describe('DELETE /tasks/:id', () => {
     it('cannot delete a task owned by someone else', () => {
       return generateUser()
         .then((anotherUser) => {
-          return anotherUser.post('/tasks?tasksOwner=user', {
+          return anotherUser.post('/tasks/user', {
             text: 'test habit',
             type: 'habit',
           });

@@ -16,7 +16,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   it('updates a checklist item', () => {
     let task;
 
-    return user.post('/tasks?tasksOwner=user', {
+    return user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
     }).then(createdTask => {
@@ -33,7 +33,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on habits', async () => {
-    let habit = await user.post('/tasks?tasksOwner=user', {
+    let habit = await user.post('/tasks/user', {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -46,7 +46,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on rewards', async () => {
-    let reward = await user.post('/tasks?tasksOwner=user', {
+    let reward = await user.post('/tasks/user', {
       type: 'reward',
       text: 'reward with checklist',
     });
@@ -67,7 +67,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on checklist item not found', () => {
-    return expect(user.post('/tasks?tasksOwner=user', {
+    return expect(user.post('/tasks/user', {
       type: 'daily',
       text: 'daily with checklist',
     }).then(createdTask => {

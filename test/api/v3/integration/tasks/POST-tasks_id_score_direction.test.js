@@ -37,7 +37,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     let todo;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
       }).then((task) => {
@@ -149,7 +149,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     let daily;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
       }).then((task) => {
@@ -226,26 +226,26 @@ describe('POST /tasks/:id/score/:direction', () => {
     let habit, minusHabit, plusHabit, neitherHabit; // eslint-disable-line no-unused-vars
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       }).then((task) => {
         habit = task;
-        return user.post('/tasks?tasksOwner=user', {
+        return user.post('/tasks/user', {
           text: 'test min habit',
           type: 'habit',
           up: false,
         });
       }).then((task) => {
         minusHabit = task;
-        return user.post('/tasks?tasksOwner=user', {
+        return user.post('/tasks/user', {
           text: 'test plus habit',
           type: 'habit',
           down: false,
         });
       }).then((task) => {
         plusHabit = task;
-        user.post('/tasks?tasksOwner=user', {
+        user.post('/tasks/user', {
           text: 'test neither habit',
           type: 'habit',
           up: false,
@@ -297,7 +297,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     let reward;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         value: 5,

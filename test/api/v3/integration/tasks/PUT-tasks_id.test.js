@@ -16,7 +16,7 @@ describe('PUT /tasks/:id', () => {
     let task;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       }).then((createdTask) => {
@@ -65,7 +65,7 @@ describe('PUT /tasks/:id', () => {
     let habit;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
         notes: 1976,
@@ -93,7 +93,7 @@ describe('PUT /tasks/:id', () => {
     let todo;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
         notes: 1976,
@@ -150,7 +150,7 @@ describe('PUT /tasks/:id', () => {
     let daily;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
         notes: 1976,
@@ -254,7 +254,7 @@ describe('PUT /tasks/:id', () => {
     let reward;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         notes: 1976,

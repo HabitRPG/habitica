@@ -17,7 +17,7 @@ describe('GET /tasks/:id', () => {
     let task;
 
     beforeEach(() => {
-      return user.post('/tasks?tasksOwner=user', {
+      return user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       }).then((createdTask) => {
@@ -54,7 +54,7 @@ describe('GET /tasks/:id', () => {
         .then((user2) => {
           anotherUser = user2;
 
-          return user.post('/tasks?tasksOwner=user', {
+          return user.post('/tasks/user', {
             text: 'test habit',
             type: 'habit',
           });
