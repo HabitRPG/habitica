@@ -4,7 +4,7 @@ That's great! This README will serve as a quick primer for style conventions and
 
 ## What is this?
 
-These are integration tests for the Habitica API. They are performed by making REST requests to the API's endpoints and asserting on the data that is returned.
+These are integration tests for the Habitica API. They are performed by making HTTP requests to the API's endpoints and asserting on the data that is returned.
 
 If the javascript looks weird to you, that's because it's written in [ES2015](http://www.ecma-international.org/ecma-262/6.0/) and transpiled by [Babel](https://babeljs.io/docs/learn-es2015/).
 
@@ -36,6 +36,21 @@ One caveat. If you have a severe syntax error in your files, the tests may fail 
 $ gulp test:api:safe
 ```
 
+If you'd like to run the tests individually and inspect the output from the server, in one pane you can run:
+
+```bash
+$ gulp nodemon
+```
+
+And run your tests in another pane:
+
+```bash
+$ mocha path/to/file.js
+
+# Mark a test with the `.only` attribute
+$ mocha
+```
+
 ## Structure
 
 Each top level route has it's own directory. So, all the routes that begin with `/groups/` live in `/test/api/groups/`.
@@ -55,22 +70,24 @@ POST-groups_id_leave.test.js
 
 ## Promises
 
-To mitigate [callback hell](http://callbackhell.com/) :imp:, we've written helper methods that [return promises](https://babeljs.io/docs/learn-es2015/#promises).  This makes it very easy to chain together commands. All you need to do to make a subsequent request is return another promise and then call `.then((result) => {})` on the surrounding block, like so:
+To mitigate [callback hell](http://callbackhell.com/) :imp:, we've written a helper method to generate a user object that can make http requests that [return promises](https://babeljs.io/docs/learn-es2015/#promises).  This makes it very easy to chain together commands. All you need to do to make a subsequent request is return another promise and then call `.then((result) => {})` on the surrounding block, like so:
 
 ```js
 it('does something', () => { 
-  let request;
-  return generateUser().then((user) => { // We return the initial promise so this test can be run asyncronously
-    request = requester(user);
-    return request.post('/groups', {
+  let user;
+
+  return generateUser().then((_user) => { // We return the initial promise so this test can be run asyncronously
+    user = _user;
+
+    return user.post('/groups', {
       type: 'party',
     });
   }).then((party) => { // the result of the promise above is the argument of the function
-    return request.put(`/groups/${party._id}`, {
+    return user.put(`/groups/${party._id}`, {
       name: 'My party',
     });
   }).then((result) => {
-    return request.get('/groups/party');
+    return user.get('/groups/party');
   }).then((party) => {
     expect(party.name).to.eql('My party');
   });
@@ -81,8 +98,7 @@ If the test is simple, you can use the [chai-as-promised](http://chaijs.com/plug
 
 ```js
 it('makes the party creator the leader automatically', () => { 
-  let api = requester(user);
-  return expect(request.post('/groups', {
+  return expect(user.post('/groups', {
     type: 'party',
   })).to.eventually.have.deep.property('leader._id', user._id);
 });
@@ -92,8 +108,7 @@ If the test is checking that the request returns an error, use the `.eventually.
 
 ```js
 it('returns an error', () => { 
-  let api = requester(user);
-  return expect(request.get('/groups/id-of-a-party-that-user-does-not-belong-to'))
+  return expect(user.get('/groups/id-of-a-party-that-user-does-not-belong-to'))
     .to.eventually.be.rejected.and.eql({
       code: 404,
       text: t('messageGroupNotFound'),

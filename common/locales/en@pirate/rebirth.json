@@ -16,12 +16,13 @@
     "rebirthEarnAchievement": "Ye also earn an Achievement fer embarkin' on a new adventure!",
     "beReborn": "Be Reborn",
     "rebirthAchievement": "Ye've begun a new adventure! 'tis be Rebirth <%= number %> fer ye, 'n th' highest Level ye've attained be <%= level %>. To stack 'tis Achievement, begin ye next new adventure when ye've reached an even higher Level!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "Ye've begun a new voyage! This be Rebirth <%= number %> fer ye, an' th' highest Level ye've attained be 100 or higher. T' stack this Achievement, begin yer nex' new voyage when ye've reached at least 100!",
     "rebirthBegan": "Embarked on a New Adventure",
     "rebirthText": "Embarked on <%= rebirths %> New Adventures",
     "rebirthOrb": "Used an Orb o' Rebirth to start ov'r after attainin' Level",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "Used an Orb o' Rebirth t' start over after attainin' Level 100 or higher",
     "rebirthPop": "Begin a new character at Level 1 whilst retainin' achievements, collectibles, an' tasks with history.",
     "rebirthName": "Orb o' Rebirth",
-    "reborn": "Reborn, max level <%= reLevel %>"
+    "reborn": "Reborn, max level <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

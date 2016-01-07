@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Санта Зверолов",
-    "questEvilSantaNotes": "Над ледяными просторами раздается жалобный рев. Вы следуете на звуки рыка и рева, которые сопровождаются хихиканьем еще кого-то, и на лесной поляне видите взрослую белую медведицу. Она заперта в клетке и ревет в надежде на спасение. Сверху на клетке пританцовывает маленькое злобное существо в рождественском костюме, подобранном где-то. Одолейте Санту Зверолова и спасите зверя!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "Санта Зверолов вскрикивает от злости и спешит скачками скрыться в темноте ночи. Благодарная медведица рыком и ревом пытается вам что-то сказать. Вы отводите ее к стойлам, где Мэтт Бох, знающий язык зверей, выслушивает ее историю, затаив дыхание в ужасе. У нее есть медвежонок! Он убежал вглубь ледяных просторов, когда маму-медведицу схватили. Помогите ей найти детеныша!",
     "questEvilSantaBoss": "Санта Зверолов",
     "questEvilSantaDropBearCubPolarMount": "Белый медведь (скакун)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "Золотой Рыцарь, часть 1: Строгий выговор",
     "questGoldenknight1Notes": "<p>Золотой Рыцарь вечно недовольна бедными жителями Habitica. Не справились со всеми Ежедневными заданиями? Поддались негативной привычке? Для нее это повод позудеть, что вы должны следовать ее примеру. Она - яркий пример идеального Хаббитанца, а вы лишь неудачник. Что ж, это вовсе не вежливо! Все совершают ошибки. Совсем не обязательно подвергать их за это такому негативу. Наверное, пора вам собрать кое-какие заявления обиженных жителей Habitica и сделать Золотому Рыцарю строгий выговор!</p>",
     "questGoldenknight1CollectTestimony": "Заявления",
-    "questGoldenknight1DropGoldenknight2Quest": "Золотой Рыцарь, часть 2: Тусклое золото (Свиток)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "Золотой Рыцарь, часть 2: Золотой рыцарь",
     "questGoldenknight2Notes": "<p>Вооруженные сотнями заявлений жителей Habitica, вы, наконец, встречаетесь лицом к лицу с Золотым Рыцарем. Вы начинаете читать ей жалобы жителей Habitica, одну за другой. «А @Pfeffernusse говорит, что ваше нескончаемое бахвальство...» Рыцарь поднимает руку, чтобы остановить вас, и усмехается: «Я вас умоляю, эти люди просто завидуют моему успеху. Вместо того, чтобы жаловаться, им просто нужно работать так же упорно, как я! Возможно, мне стоит показать вам силу, которую можно развить таким усердием, как мое!» Она поднимает свой моргенштерн и собирается напасть на вас!</p>",
     "questGoldenknight2Boss": "Золотой Рыцарь",
@@ -268,10 +268,16 @@
     "questFrogBoss": "Лягушка Беспорядка",
     "questFrogDropFrogEgg": "Лягушонок (Яйцо)",
     "questFrogUnlockText": "Позволяет покупать на рынке Лягушонка в яйце.",
-    "questSnakeText": "Змей Безумаия",
+    "questSnakeText": "Змей Безумия",
     "questSnakeNotes": "It takes a hardy soul to live in the Sand Dunes of Distraction. The arid desert is hardly a productive place, and the shimmering dunes have led many a traveler astray. However, something has even the locals spooked. The sands have been shifting and upturning entire villages. Residents claim a monster with an enormous serpentine body lies in wait under the sands, and they have all pooled together a reward for whomever will help them find and stop it. The much-lauded snake charmers @EmeraldOx and @PainterProphet have agreed to help you summon the beast. Can you stop the Serpent of Distraction?",
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
-    "questSnakeBoss": "Змей Безумаия",
-    "questSnakeDropSnakeEgg": "Змея (Яйцо)",
-    "questSnakeUnlockText": "Позволяет покупать на рынке Змею в яйце."
+    "questSnakeBoss": "Змей Безумия",
+    "questSnakeDropSnakeEgg": "Змей (Яйцо)",
+    "questSnakeUnlockText": "Позволяет покупать на рынке Змея в яйце.",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Единорог (яйцо)",
+    "questUnicornUnlockText": "Позволяет покупать на рынке единорога в яйце."
 }

@@ -19,6 +19,7 @@ import {
 import mysterySets from './mystery-sets';
 
 import gear from './gear';
+import { defaultAppearancePreferences } from './appearance';
 
 api.mystery = mysterySets;
 
@@ -922,7 +923,15 @@ api.questEggs = {
     canBuy: (function(u) {
       return u.achievements.quests && (u.achievements.quests.snake != null) > 0;
     })
-  }
+  },
+  Unicorn: {
+    text: t('questEggUnicornText'),
+    mountText: t('questEggUnicornMountText'),
+    adjective: t('questEggUnicornAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.unicorn != null) > 0;
+    })
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -1036,7 +1045,7 @@ api.premiumHatchingPotions = {
     text: t('hatchingPotionPeppermint'),
     limited: true,
     canBuy: (function() {
-      return true;
+      return false;
     })
   }
 };
@@ -1582,7 +1591,7 @@ api.quests = {
   },
   evilsanta: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -1608,7 +1617,7 @@ api.quests = {
   },
   evilsanta2: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -2940,7 +2949,39 @@ api.quests = {
       exp: 725,
       unlock: t('questSnakeUnlockText')
     }
-  }
+  },
+  unicorn: {
+    text: t('questUnicornText'),
+    notes: t('questUnicornNotes'),
+    completion: t('questUnicornCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questUnicornBoss'),
+      hp: 600,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }, {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }, {
+          type: 'eggs',
+          key: 'Unicorn',
+          text: t('questUnicornDropUnicornEgg')
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questUnicornUnlockText')
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {
@@ -2969,6 +3010,8 @@ _.each(api.quests, function(v, key) {
 api.questsByLevel = _.sortBy(api.quests, function(quest) {
   return quest.lvl || 0;
 });
+
+api.defaultAppearancePreferences = defaultAppearancePreferences;
 
 api.backgrounds = {
   backgrounds062014: {
@@ -3235,6 +3278,20 @@ api.backgrounds = {
     winter_town: {
       text: t('backgroundWinterTownText'),
       notes: t('backgroundWinterTownNotes')
+    }
+  },
+  backgrounds012016: {
+    frozen_lake: {
+      text: t('backgroundFrozenLakeText'),
+      notes: t('backgroundFrozenLakeNotes')
+    },
+    snowman_army: {
+      text: t('backgroundSnowmanArmyText'),
+      notes: t('backgroundSnowmanArmyNotes')
+    },
+    winter_night: {
+      text: t('backgroundWinterNightText'),
+      notes: t('backgroundWinterNightNotes')
     }
   },
 };

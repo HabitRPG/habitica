@@ -80,6 +80,7 @@
     "petKeyPets": "Háziállataim elengedése",
     "petKeyMounts": "Hátasaim elengedése",
     "petKeyBoth": "Mindkettő elengedése",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "Még Nem",
     "gemsEach": "drágakő egyenként"
 }

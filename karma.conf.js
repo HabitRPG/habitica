@@ -78,7 +78,8 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
 
     preprocessors: {
-      'website/public/js/**/*.js': ['coverage']
+      'website/public/js/**/*.js': ['coverage'],
+      'test/**/*.js': ['babel'],
     },
 
     coverageReporter: {

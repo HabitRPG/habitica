@@ -107,7 +107,7 @@ function($rootScope, User, $http, Content) {
       // because no easy method to intercept those types of closings
       // and we need to make some cleanup
       keyboard: false,
-      backdrop: 'static' 
+      backdrop: 'static'
     });
 
     modal.rendered.then(function(){
@@ -161,9 +161,9 @@ function($rootScope, User, $http, Content) {
     if(Payments.amazonPayments.type === 'single'){
       return Payments.amazonPayments.paymentSelected === true;
     }else if(Payments.amazonPayments.type === 'subscription'){
-      return Payments.amazonPayments.paymentSelected === true && 
+      return Payments.amazonPayments.paymentSelected === true &&
               // Mah.. one is a boolean the other a string...
-              Payments.amazonPayments.recurringConsent === 'true'; 
+              Payments.amazonPayments.recurringConsent === 'true';
     }else{
       return false;
     }
@@ -179,7 +179,7 @@ function($rootScope, User, $http, Content) {
       onPaymentSelect: function() {
         $rootScope.$apply(function(){
           Payments.amazonPayments.paymentSelected = true;
-        });        
+        });
       },
 
       onError: amazonOnError
@@ -194,7 +194,7 @@ function($rootScope, User, $http, Content) {
 
         new OffAmazonPayments.Widgets.Consent({
           sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
-          amazonBillingAgreementId: Payments.amazonPayments.billingAgreementId, 
+          amazonBillingAgreementId: Payments.amazonPayments.billingAgreementId,
           design: {
             designMode: 'responsive'
           },
@@ -213,7 +213,7 @@ function($rootScope, User, $http, Content) {
           },
 
           onError: amazonOnError
-        }).bind('AmazonPayRecurring');     
+        }).bind('AmazonPayRecurring');
       }
     }else{
       walletParams.amazonOrderReferenceId = Payments.amazonPayments.orderReferenceId;
@@ -267,7 +267,8 @@ function($rootScope, User, $http, Content) {
 
   Payments.encodeGift = function(uuid, gift){
     gift.uuid = uuid;
-    return JSON.stringify(gift);
+    var encodedString = JSON.stringify(gift);
+    return encodeURIComponent(encodedString);
   }
 
   return Payments;

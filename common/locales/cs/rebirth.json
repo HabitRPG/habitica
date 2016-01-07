@@ -16,12 +16,13 @@
     "rebirthEarnAchievement": "Také dostaneš ocenění za začátek nového dobrodružství.",
     "beReborn": "Buď znovuzrozen",
     "rebirthAchievement": "Začal jsi nové dobrodružství! Tohle je Znovuzrození číslo <%= number %> a nejvyšší úroveň, které jsi dosáhl je <%= level %>. K dosažení dalšího ocenění začni nové dobrodružství až dosáhneš ještě vyšší úrovně!",
-    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthAchievement100": "Začal jsi nové dobrodružství! Toto je tvé <%= number %>. Znovuzrození. Dosáhl jsi úrovně 100 nebo vyšší. Aby sis udržel toto ocenění, začni další dobrodružství po dosažení nejméně sté úrovně!",
     "rebirthBegan": "Začal nové dobrodružství",
     "rebirthText": "Začal <%= rebirths %> nových dobrodružství",
     "rebirthOrb": "Použil Kouli znovuzrození, aby začal odznovu po dosažení úrovně",
-    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
+    "rebirthOrb100": "Použil Kouli znovuzrození, aby začal znovu po dosažení úrovně 100 a výš",
     "rebirthPop": "Začni s novou postavou na úrovni 1 a přitom si zachovej ocenění, sběratelské předměty a úkoly s historií.",
     "rebirthName": "Koule znovuzrození",
-    "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>"
+    "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>",
+    "confirmReborn": "Jsi si jistý?"
 }

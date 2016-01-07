@@ -80,6 +80,7 @@
     "petKeyPets": "Release My Pets",
     "petKeyMounts": "Release My Mounts",
     "petKeyBoth": "Release Both",
+    "confirmPetKey": "Are you sure?",
     "petKeyNeverMind": "Not Yet",
     "gemsEach": "gems each"
 }

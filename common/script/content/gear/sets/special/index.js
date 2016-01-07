@@ -25,6 +25,9 @@ let armor = {
     notes: t('armorSpecialYetiNotes', { con: 9 }),
     con: 9,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   ski: {
     event: EVENTS.winter,
@@ -33,6 +36,9 @@ let armor = {
     notes: t('armorSpecialSkiNotes', { per: 15 }),
     per: 15,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   candycane: {
     event: EVENTS.winter,
@@ -41,6 +47,9 @@ let armor = {
     notes: t('armorSpecialCandycaneNotes', { int: 9 }),
     int: 9,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   snowflake: {
     event: EVENTS.winter,
@@ -49,11 +58,15 @@ let armor = {
     notes: t('armorSpecialSnowflakeNotes', { con: 15 }),
     con: 15,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   birthday: {
     event: EVENTS.birthday,
     text: t('armorSpecialBirthdayText'),
-    notes: t('armorSpecialBirthdayNotes'), value: 0 },
+    notes: t('armorSpecialBirthdayNotes'), value: 0,
+  },
   springRogue: {
     event: EVENTS.spring,
     specialClass: 'rogue',
@@ -169,6 +182,9 @@ let armor = {
     notes: t('armorSpecialWinter2015RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Warrior: {
     event: EVENTS.winter2015,
@@ -177,6 +193,9 @@ let armor = {
     notes: t('armorSpecialWinter2015WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Mage: {
     event: EVENTS.winter2015,
@@ -185,6 +204,9 @@ let armor = {
     notes: t('armorSpecialWinter2015MageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Healer: {
     event: EVENTS.winter2015,
@@ -193,6 +215,9 @@ let armor = {
     notes: t('armorSpecialWinter2015HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   birthday2015: {
     text: t('armorSpecialBirthday2015Text'),
@@ -302,6 +327,38 @@ let armor = {
     notes: t('armorSpecialGaymerxNotes'),
     value: 0,
   },
+  winter2016Rogue: {
+    event: EVENTS.winter2016,
+    specialClass: 'rogue',
+    text: t('armorSpecialWinter2016RogueText'),
+    notes: t('armorSpecialWinter2016RogueNotes', { per: 15 }),
+    value: 90,
+    per: 15,
+  },
+  winter2016Warrior: {
+    event: EVENTS.winter2016,
+    specialClass: 'warrior',
+    text: t('armorSpecialWinter2016WarriorText'),
+    notes: t('armorSpecialWinter2016WarriorNotes', { con: 9 }),
+    value: 90,
+    con: 9,
+  },
+  winter2016Mage: {
+    event: EVENTS.winter2016,
+    specialClass: 'wizard',
+    text: t('armorSpecialWinter2016MageText'),
+    notes: t('armorSpecialWinter2016MageNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  winter2016Healer: {
+    event: EVENTS.winter2016,
+    specialClass: 'healer',
+    text: t('armorSpecialWinter2016HealerText'),
+    notes: t('armorSpecialWinter2016HealerNotes', { con: 15 }),
+    value: 90,
+    con: 15,
+  },
 };
 
 let back = {
@@ -388,7 +445,7 @@ let head = {
     canOwn: ownsItem('head_special_fireCoralCirclet'),
   },
   nye: {
-    event: EVENTS.winter,
+    event: EVENTS.winter2016,
     text: t('headSpecialNyeText'),
     notes: t('headSpecialNyeNotes'),
     value: 0,
@@ -400,6 +457,9 @@ let head = {
     notes: t('headSpecialYetiNotes', { str: 9 }),
     str: 9,
     value: 60,
+    canBuy: () => {
+      return true;
+    },
   },
   ski: {
     event: EVENTS.winter,
@@ -408,6 +468,9 @@ let head = {
     notes: t('headSpecialSkiNotes', { per: 9 }),
     per: 9,
     value: 60,
+    canBuy: () => {
+      return true;
+    },
   },
   candycane: {
     event: EVENTS.winter,
@@ -416,6 +479,9 @@ let head = {
     notes: t('headSpecialCandycaneNotes', { per: 7 }),
     per: 7,
     value: 60,
+    canBuy: () => {
+      return true;
+    },
   },
   snowflake: {
     event: EVENTS.winter,
@@ -424,6 +490,9 @@ let head = {
     notes: t('headSpecialSnowflakeNotes', { int: 7 }),
     int: 7,
     value: 60,
+    canBuy: () => {
+      return true;
+    },
   },
   springRogue: {
     event: EVENTS.spring,
@@ -540,6 +609,9 @@ let head = {
     notes: t('headSpecialWinter2015RogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Warrior: {
     event: EVENTS.winter2015,
@@ -548,6 +620,9 @@ let head = {
     notes: t('headSpecialWinter2015WarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Mage: {
     event: EVENTS.winter2015,
@@ -556,6 +631,9 @@ let head = {
     notes: t('headSpecialWinter2015MageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Healer: {
     event: EVENTS.winter2015,
@@ -564,6 +642,9 @@ let head = {
     notes: t('headSpecialWinter2015HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   nye2014: {
     text: t('headSpecialNye2014Text'),
@@ -672,6 +753,44 @@ let head = {
     text: t('headSpecialGaymerxText'),
     notes: t('headSpecialGaymerxNotes'),
     value: 0,
+  },
+  winter2016Rogue: {
+    event: EVENTS.winter2016,
+    specialClass: 'rogue',
+    text: t('headSpecialWinter2016RogueText'),
+    notes: t('headSpecialWinter2016RogueNotes', { per: 9 }),
+    value: 60,
+    per: 9,
+  },
+  winter2016Warrior: {
+    event: EVENTS.winter2016,
+    specialClass: 'warrior',
+    text: t('headSpecialWinter2016WarriorText'),
+    notes: t('headSpecialWinter2016WarriorNotes', { str: 9 }),
+    value: 60,
+    str: 9,
+  },
+  winter2016Mage: {
+    event: EVENTS.winter2016,
+    specialClass: 'wizard',
+    text: t('headSpecialWinter2016MageText'),
+    notes: t('headSpecialWinter2016MageNotes', { per: 7 }),
+    value: 60,
+    per: 7,
+  },
+  winter2016Healer: {
+    event: EVENTS.winter2016,
+    specialClass: 'healer',
+    text: t('headSpecialWinter2016HealerText'),
+    notes: t('headSpecialWinter2016HealerNotes', { int: 7 }),
+    value: 60,
+    int: 7,
+  },
+  nye2015: {
+    text: t('headSpecialNye2015Text'),
+    notes: t('headSpecialNye2015Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2015'),
   },
 };
 
@@ -839,6 +958,9 @@ let shield = {
     notes: t('shieldSpecialYetiNotes', { con: 7 }),
     con: 7,
     value: 70,
+    canBuy: () => {
+      return true;
+    },
   },
   ski: {
     event: EVENTS.winter,
@@ -847,6 +969,9 @@ let shield = {
     notes: t('weaponSpecialSkiNotes', { str: 8 }),
     str: 8,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   snowflake: {
     event: EVENTS.winter,
@@ -855,6 +980,9 @@ let shield = {
     notes: t('shieldSpecialSnowflakeNotes', { con: 9 }),
     con: 9,
     value: 70,
+    canBuy: () => {
+      return true;
+    },
   },
   springRogue: {
     event: EVENTS.spring,
@@ -944,6 +1072,9 @@ let shield = {
     notes: t('shieldSpecialWinter2015RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Warrior: {
     event: EVENTS.winter2015,
@@ -952,6 +1083,9 @@ let shield = {
     notes: t('shieldSpecialWinter2015WarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Healer: {
     event: EVENTS.winter2015,
@@ -960,6 +1094,9 @@ let shield = {
     notes: t('shieldSpecialWinter2015HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   spring2015Rogue: {
     event: EVENTS.spring2015,
@@ -1033,6 +1170,30 @@ let shield = {
     value: 70,
     con: 9,
   },
+  winter2016Rogue: {
+    event: EVENTS.winter2016,
+    specialClass: 'rogue',
+    text: t('shieldSpecialWinter2016RogueText'),
+    notes: t('shieldSpecialWinter2016RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  winter2016Warrior: {
+    event: EVENTS.winter2016,
+    specialClass: 'warrior',
+    text: t('shieldSpecialWinter2016WarriorText'),
+    notes: t('shieldSpecialWinter2016WarriorNotes', { con: 7 }),
+    value: 70,
+    con: 7,
+  },
+  winter2016Healer: {
+    event: EVENTS.winter2016,
+    specialClass: 'healer',
+    text: t('shieldSpecialWinter2016HealerText'),
+    notes: t('shieldSpecialWinter2016HealerNotes', { con: 9 }),
+    value: 70,
+    con: 9,
+  },
 };
 
 let weapon = {
@@ -1055,6 +1216,9 @@ let weapon = {
     notes: t('weaponSpecialYetiNotes', { str: 15 }),
     str: 15,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   ski: {
     event: EVENTS.winter,
@@ -1063,6 +1227,9 @@ let weapon = {
     notes: t('weaponSpecialSkiNotes', { str: 8 }),
     str: 8,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   candycane: {
     event: EVENTS.winter,
@@ -1073,6 +1240,9 @@ let weapon = {
     int: 15,
     per: 7,
     value: 160,
+    canBuy: () => {
+      return true;
+    },
   },
   snowflake: {
     event: EVENTS.winter,
@@ -1081,6 +1251,9 @@ let weapon = {
     notes: t('weaponSpecialSnowflakeNotes', { int: 9 }),
     int: 9,
     value: 90,
+    canBuy: () => {
+      return true;
+    },
   },
   springRogue: {
     event: EVENTS.spring,
@@ -1203,6 +1376,9 @@ let weapon = {
     notes: t('weaponSpecialWinter2015RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Warrior: {
     event: EVENTS.winter2015,
@@ -1211,6 +1387,9 @@ let weapon = {
     notes: t('weaponSpecialWinter2015WarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Mage: {
     event: EVENTS.winter2015,
@@ -1221,6 +1400,9 @@ let weapon = {
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Healer: {
     event: EVENTS.winter2015,
@@ -1229,6 +1411,9 @@ let weapon = {
     notes: t('weaponSpecialWinter2015HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   spring2015Rogue: {
     event: EVENTS.spring2015,
@@ -1329,6 +1514,40 @@ let weapon = {
     specialClass: 'healer',
     text: t('weaponSpecialFall2015HealerText'),
     notes: t('weaponSpecialFall2015HealerNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  winter2016Rogue: {
+    event: EVENTS.winter2016,
+    specialClass: 'rogue',
+    text: t('weaponSpecialWinter2016RogueText'),
+    notes: t('weaponSpecialWinter2016RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  winter2016Warrior: {
+    event: EVENTS.winter2016,
+    specialClass: 'warrior',
+    text: t('weaponSpecialWinter2016WarriorText'),
+    notes: t('weaponSpecialWinter2016WarriorNotes', { str: 15 }),
+    value: 90,
+    str: 15,
+  },
+  winter2016Mage: {
+    event: EVENTS.winter2016,
+    specialClass: 'wizard',
+    twoHanded: true,
+    text: t('weaponSpecialWinter2016MageText'),
+    notes: t('weaponSpecialWinter2016MageNotes', { int: 15, per: 7 }),
+    value: 160,
+    int: 15,
+    per: 7,
+  },
+  winter2016Healer: {
+    event: EVENTS.winter2016,
+    specialClass: 'healer',
+    text: t('weaponSpecialWinter2016HealerText'),
+    notes: t('weaponSpecialWinter2016HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
   },

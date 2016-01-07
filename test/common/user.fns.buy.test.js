@@ -160,8 +160,8 @@ describe('user.fns.buy', () => {
         let armoireKey = gearObject.key;
 
         fullArmoire[armoireKey] = true;
-      });
-    });
+      }).value();
+    }).value();
 
     beforeEach(() => {
       user.achievements.ultimateGearSets = { rogue: true };

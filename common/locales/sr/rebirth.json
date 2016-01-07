@@ -23,5 +23,6 @@
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "Počnite iz početka s nivoa 1, i zadržite odlikovanja, kolekcionarske predmete, i zadatke, zajedno sa istorijom.",
     "rebirthName": "Sfera za reinkarnaciju",
-    "reborn": "Reinkarniran, najviši nivo <%= reLevel %>"
+    "reborn": "Reinkarniran, najviši nivo <%= reLevel %>",
+    "confirmReborn": "Are you sure?"
 }

@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Santa Trampero",
-    "questEvilSantaNotes": "Escuchas un entristecido rugido estremecer las profundidades de los campos escarchados. Sigues los rugidos y gruñidos - puntuados por las carcajadas de otra voz - hasta un claro en el bosque donde ves a un oso polar adulto. Ella está enjaulada y encadenada, rugiendo por su vida. Bailando sobre la jaula yace un malicioso pequeño diablillo que lleva puesto trajes de Navidad desgastados. Vence a Santa Trampero, ¡y salva a la bestia!",
+    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
     "questEvilSantaCompletion": "El Santa Trampero chilla de furia y se escabulle en la noche. La osa agradecida, mediante gruñidos y rugidos trata de decirte algo. La llevas de vuelta a los establos, donde Matt Boch escucha el relato de la osa y jadea de horror. ¡Tiene un cachorro! Corrió hacia los campos de hielo cuando la mamá osa fue capturada. ¡Ayúdala a recuperar a su cachorro!",
     "questEvilSantaBoss": "Santa Trampero",
     "questEvilSantaDropBearCubPolarMount": "Oso polar (Montura)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "El Caballero Dorado, Parte 1: Un Regaño Severo",
     "questGoldenknight1Notes": "<p>La Dama de oro ha estado molestando a los pobres Habiticanos. ¿No cumpliste todas tus Diarias? ¿Marcaste un hábito negativo? Ella lo usará como razón para acosarte y decir que tienes que seguir su ejemplo. Ella es el ejemplo brillante de un Habiticano perfecto y tú no eres más que un fracaso. Bueno, ¡eso no es para nada agradable! Todos comiten errores y no debieran ser tratados con tanta negatividad. ¡Tal vez es hora para reunir unos cuantos testimonios de los Habitacanos ofendidos y darle una a la Dama de oro una severa reprimenda!</p>",
     "questGoldenknight1CollectTestimony": "Testimonios",
-    "questGoldenknight1DropGoldenknight2Quest": "La Cadena de la Dama de oro parte 2: Oro deslustrado (Pergamino)",
+    "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Gold Knight (Scroll)",
     "questGoldenknight2Text": "El Caballero Dorado, Parte 2: El Caballero de Oro",
     "questGoldenknight2Notes": "<p>Armado con cientos de testimonios de Habiticanos, enfrentas finalmente a la Dama de oro. Empiezas a recitar las quejas de los Habiticanos, una por una. \"Y @Pfeffernusse dice que tus constantes fanfarronadas-\" Ella alza su mano para silenciarte y se burla, \"Por favor, estas personas simplemente están celosas de mi éxito. En lugar de quejarse, ¡deberían trabajar tan duro como yo! ¡Quizás pueda mostrarte el poder que puedes obtener mediante una diligencia como la mía!\" Entonces levanta su lucero del alba, ¡y se prepara para atacarte!</p>",
     "questGoldenknight2Boss": "Dama de oro",
@@ -268,10 +268,16 @@
     "questFrogBoss": "Rana Desastrosa",
     "questFrogDropFrogEgg": "Rana (Huevo)",
     "questFrogUnlockText": "Desbloquea huevos de Rana adquiribles en el Mercado",
-    "questSnakeText": "The Serpent of Distraction",
+    "questSnakeText": "La Serpiente de la Distracción",
     "questSnakeNotes": "It takes a hardy soul to live in the Sand Dunes of Distraction. The arid desert is hardly a productive place, and the shimmering dunes have led many a traveler astray. However, something has even the locals spooked. The sands have been shifting and upturning entire villages. Residents claim a monster with an enormous serpentine body lies in wait under the sands, and they have all pooled together a reward for whomever will help them find and stop it. The much-lauded snake charmers @EmeraldOx and @PainterProphet have agreed to help you summon the beast. Can you stop the Serpent of Distraction?",
     "questSnakeCompletion": "With assistance from the charmers, you banish the Serpent of Distraction. Though you were happy to help the inhabitants of the Dunes, you can't help but feel a little sad for your fallen foe. While you contemplate the sights, @LordDarkly approaches you. \"Thank you! It's not much, but I hope this can express our gratitude properly.\" He hands you some Gold and... some Snake eggs! You will see that majestic animal again after all.",
-    "questSnakeBoss": "Serpent of Distraction",
-    "questSnakeDropSnakeEgg": "Snake (Egg)",
-    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market"
+    "questSnakeBoss": "Serpiente de la Distracción",
+    "questSnakeDropSnakeEgg": "Serpiente (huevo)",
+    "questSnakeUnlockText": "Unlocks purchasable Snake eggs in the Market",
+    "questUnicornText": "Convincing the Unicorn Queen",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "The Unicorn Queen",
+    "questUnicornDropUnicornEgg": "Unicorn (Egg)",
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
 }

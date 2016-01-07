@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Święty Mikołaj-Myśliwy",
-    "questEvilSantaNotes": "W oddali, na lodowych pustkowiach słychać przeraźliwe ryki. Podążacie za odgłosami, przerywanymi chichotem innego głosu, aż znajdujecie polanę w lesie, na której widzicie dorosłą białą niedźwiedzicę. Jest zamknięta w klatce i skrępowana, rycząc błaga o życie. Na klatce tańczy mały złośliwy karzełek, ubrany w wyrzucone bożonarodzeniowe kostiumy. Pokonajcie Świętego Mikołaja-Myśliwego i uratujcie bestię!",
+    "questEvilSantaNotes": "Wiatr niesie z głębi lodowych pól zawodzące ryki. W miarę zbliżania się do ich źródła słychać, jak przerywa je czyjś chichot. W końcu, na leśnej polanie, okazuje się, że głos rozpaczliwie błagający o życie należy do dorosłej niedźwiedzicy polarnej, skutej łańcuchem i zamkniętej w klatce. Zaś na szczycie klatki, rechocąc, tańczy złośliwy karzeł przebrany w porzucone stroje Mikołaja. Czas rozprawić się z Mikołajem okrutnikiem i ocalić bestię! ",
     "questEvilSantaCompletion": "Święty Mikołaj-Myśliwy piszczy z gniewu i odskakuje w ciemność. Wdzięczna niedźwiedzica przez ryki i warki próbuje Wam coś przekazać. Zabieracie ją do stajni, gdzie zaklinacz Matt Boch wysłuchuje jej historii z przerażeniem. Ona ma syna! Uciekł na połacie lodu, kiedy jego mama została złapana. Pomóżcie jej odnaleźć dziecko!",
     "questEvilSantaBoss": "Święty Mikołaj-Myśliwy",
     "questEvilSantaDropBearCubPolarMount": "Niedźwiedź polarny (wierzchowiec)",
@@ -90,7 +90,7 @@
     "questGoldenknight1Text": "Złoty Rycerz, część 1: Sroga reprymenda",
     "questGoldenknight1Notes": "<p>Złoty Rycerz lustruje biednych Habitan. Nie zrobiłeś wszystkich Codziennych? Odhaczyłeś negatywny Nawyk? To dla niej pretekst, by cię gnębić opowiadaniem jak to powinieneś podążać za jej przykładem. Jest wzorem idealnego Habitanina, a ty tylko wielką porażką. Cóż, to wcale nie jest miłe! Każdy popełnia błędy. Nie powinno się nikogo przez to aż tak piętnować. Chyba już czas zebrać zeznania od urażonych Habitan i dać Złotemu Rycerzowi srogą reprymendę!</p>",
     "questGoldenknight1CollectTestimony": "Zeznania",
-    "questGoldenknight1DropGoldenknight2Quest": "Seria Złoty Rycerz część 2: Złoto bez blasku (zwój)",
+    "questGoldenknight1DropGoldenknight2Quest": "Złoty Rycerz, część 2: Złoty Rycerz (zwój)",
     "questGoldenknight2Text": "Złoty Rycerz, część 2: Złoty Rycerz",
     "questGoldenknight2Notes": "<p>Uzbrojeni w setki zeznań Habitan, stajecie przed Złotym Rycerzem. Zaczynacie odczytywać przed nią zażalenia Habitan, jedno po drugim. \"Zaś @Pfeffernusse mówi, że twoje ciągłe przechwałki...\" Rycerz unosi dłoń, by cię uciszyć i prycha. \"Błagam, ci ludzie są po prostu zazdrośni o moje sukcesy. Zamiast narzekać, powinni pracować równie ciężko, jak ja! Lepiej pokażę wam moc, którą można osiągnąć przez pracowitość równą mojej!\" Wznosi swój morgensztern i przygotowuje się do ataku!</p>",
     "questGoldenknight2Boss": "Złoty Rycerz",
@@ -239,8 +239,8 @@
     "questDilatoryDistress3DropWeapon": "Trójząb miażdżących fal (broń)",
     "questDilatoryDistress3DropShield": "Tarcza z księżycowych pereł (tarcza)",
     "questCheetahText": "Taki gepard",
-    "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
-    "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
+    "questCheetahNotes": "Ty i Twoi przyjaciele, @PainterProphet, @tivaquinn, @Unruly Hyena i @Crawford, jadąc przez sawannę Sloensteadi, stajecie jak wryci na widok Geparda mknącego ze świstem, zaciskającego szczęki na nowym Habitaninie. Zadania zdają się palić od pędu gepardzich łap, tak że wydają się wykonane, ale tak naprawdę nikt nie ma szans zdążyć faktycznie się za nie zabrać! Nowy spostrzega Was i krzyczy: \n- Proszę, ratujcie! Ten gepard zabiera mnie na kolejne poziomy za wcześnie i nie nadążam ze zrobieniem czegokolwiek. Zatrzymajcie go!\nCzule wspominacie swoje początki w Habitice i wiecie, że musicie pomóc nowicjuszowi!  ",
+    "questCheetahCompletion": "Nowy Habitanin, oddychając ciężko po dzikiej jeździe, dziękuje Tobie i Twoim przyjaciołom za Waszą pomoc.\n- Cieszę się, że gepard już nikogo nie złapie. Zostawił nam trochę jaj, więc mamy szanse wyhodować gepardy bardziej godne zaufania!  ",
     "questCheetahBoss": "Gepard",
     "questCheetahDropCheetahEgg": "Gepard (jajo)",
     "questCheetahUnlockText": "Odblokowuje dostęp do kupna gepardzich jaj na Targu",
@@ -273,5 +273,11 @@
     "questSnakeCompletion": "Z pomocą zaklinaczy wygnaliście Węża Rozproszenia. Cieszysz się, że pomogłeś mieszkańcom Wydm, jednak jest ci smutno z powodu pokonanego przeciwnika. Podczas gdy podziwiasz widoki, podchodzi do ciebie @LordDarkly. \"Dziękuję! To może nie jest wiele, ale mam nadzieję, że wystarczająco wyraża naszą wdzięczność.\" Wręcza ci trochę złota i... kilka jaj węża! Ostatecznie zobaczysz znowu to wspaniałe zwierzę.",
     "questSnakeBoss": "Wąż rozproszenia",
     "questSnakeDropSnakeEgg": "Wąż (jajo)",
-    "questSnakeUnlockText": "Odblokowuje dostęp do kupna jaj Węża na Targu"
+    "questSnakeUnlockText": "Odblokowuje dostęp do kupna jaj Węża na Targu",
+    "questUnicornText": "Przekonywanie królowej jednorożców",
+    "questUnicornNotes": "Conquest Creek has become muddied, destroying Habit City's fresh water supply! Luckily, @Lukreja knows an old legend that claims that a unicorn's horn can purify the foulest of waters. Together with your intrepid guide @UncommonCriminal, you hike through the frozen peaks of the Meandering Mountains. Finally, at the icy summit of Mount Habitica itself, you find the Unicorn Queen amid the glittering snows. \"Your pleas are compelling,\" she tells you. \"But first you must prove that you are worthy of my aid!\"",
+    "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
+    "questUnicornBoss": "Królowa jednorożców",
+    "questUnicornDropUnicornEgg": "Jednorożec (jajo)",
+    "questUnicornUnlockText": "Odblokowuje możliwość kupna jaj jednorożca na Targu"
 }

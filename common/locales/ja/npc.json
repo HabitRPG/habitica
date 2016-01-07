@@ -14,7 +14,7 @@
     "displayItemForGold": "Do you want to sell a <strong><%= itemType %></strong>?",
     "displayEggForGold": "Do you want to sell a <strong><%= itemType %> Egg</strong>?",
     "displayPotionForGold": "Do you want to sell a <strong><%= itemType %> Potion</strong>?",
-    "sellForGold": "Sell it for <%= gold %> Gold",
+    "sellForGold": " <%= gold %> ゴルドに売る",
     "buyGems": "ジェムを買う",
     "justin": "ジャスティン",
     "ian": "イアン",
@@ -76,7 +76,7 @@
     "tourRewardsBrief": "<strong>報酬リスト</strong><ul><li>あなたが稼いだゴールドはここです！</li><li>アバターの装備を購入したり、カスタム報酬を設定できます。</li></ul>",
     "tourRewardsProceed": "以上です！",
     "welcomeToHabit": "Habiticaへようこそ!",
-    "welcome1": "Create a basic avatar.",
+    "welcome1": "基本的なアバターを作って",
     "welcome1notes": "This avatar will represent you as you progress.",
     "welcome2": "Set up your tasks.",
     "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
@@ -84,5 +84,5 @@
     "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "あなたのHPを減らす、悪い習慣を避けましょう。さもないとあなたのアバターは死んでしまいます！",
     "welcome5": "それではアバターをカスタマイズしてタスクをセットしましょう…",
-    "imReady": "Enter Habitica"
+    "imReady": "Habiticaに入る"
 }
