@@ -1,4 +1,4 @@
-import preenUserHistory from '../../common/script/preenUserHistory'; // eslint-disable-line no-unused-vars
+import preenUserHistory from '../../common/script/preenUserHistory';
 
 describe('preenUserHistory', () => {
   describe('preen tasks history', () => {

@@ -7,7 +7,7 @@ import {
   MAX_LEVEL,
   MAX_STAT_POINTS,
 } from './constants';
-import preenUserHistory from './preenUserHistory';
+import { preenHistory, preenUserHistory } from './preenUserHistory';
 import * as statHelpers from './statHelpers';
 
 var $w, _, api, content, i18n, moment, sortOrder,
@@ -31,6 +31,8 @@ api.capByLevel = statHelpers.capByLevel;
 api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
+
+api.preenHistory = preenHistory;
 
 $w = api.$w = function(s) {
   return s.split(' ');

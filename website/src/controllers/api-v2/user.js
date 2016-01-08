@@ -135,8 +135,14 @@ api.score = function(req, res, next) {
       }
 
       t.value += delta;
-      if (t.type == 'habit' || t.type == 'daily')
+      if (t.type == 'habit' || t.type == 'daily') {
         t.history.push({value: t.value, date: +new Date});
+        if (t.history.length > 365) {
+          var tIndex = chal[`${t.type}`].indexOf(t);
+          t.history = shared.preenHistory(t.history, true); // true means the challenge will retain as much entries as a subscribed user
+          chal.markModified(`${t.type}s.${tIndex}.history`); // Setting habits/dailys as modified because we don't know the index of the task
+        }
+      }
       chal.save();
       clearMemory();
     });
