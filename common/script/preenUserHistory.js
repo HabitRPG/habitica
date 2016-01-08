@@ -8,7 +8,6 @@ function _aggregate (history, aggregateBy) {
       return moment(entry.date).format(aggregateBy);
     })
     .sortBy((entry, key) => key) // sort by date
-    .reverse() // sort from most to least recent
     .map(entries => {
       return {
         date: Number(entries[0].date),
@@ -40,17 +39,19 @@ export function preenHistory (history, isSubscribed, timezoneOffset) {
 
   // Keep uncompressed entries (modifies history)
   let newHistory = _.remove(history, entry => {
-    return moment(entry.date).isSameOrAfter(cutOff);
+    let date = moment(entry.date);
+    return date.isSame(cutOff) || date.isAfter(cutOff);
   });
 
   // Date after which to begin compressing data by year
   let monthsCutOff = cutOff.subtract(isSubscribed ? 12 : 10, 'months').startOf('day');
   let aggregateByMonth = _.remove(history, entry => {
-    return moment(entry.date).isSameOrAfter(monthsCutOff);
+    let date = moment(entry.date);
+    return date.isSame(monthsCutOff) || date.isAfter(monthsCutOff);
   });
   // Aggregate remaining entries by month and year
-  newHistory.push(..._aggregate(aggregateByMonth, 'YYYYMM'));
-  newHistory.push(..._aggregate(history, 'YYYY'));
+  newHistory.unshift(..._aggregate(aggregateByMonth, 'YYYYMM'));
+  newHistory.unshift(..._aggregate(history, 'YYYY'));
 
   return newHistory;
 }
