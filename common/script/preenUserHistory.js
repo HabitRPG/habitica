@@ -50,8 +50,8 @@ export function preenHistory (history, isSubscribed, timezoneOffset) {
     return date.isSame(monthsCutOff) || date.isAfter(monthsCutOff);
   });
   // Aggregate remaining entries by month and year
-  newHistory.unshift(..._aggregate(aggregateByMonth, 'YYYYMM'));
-  newHistory.unshift(..._aggregate(history, 'YYYY'));
+  if (history.length > 0) newHistory.unshift(..._aggregate(aggregateByMonth, 'YYYYMM'));
+  if (history.length > 0) newHistory.unshift(..._aggregate(history, 'YYYY'));
 
   return newHistory;
 }
