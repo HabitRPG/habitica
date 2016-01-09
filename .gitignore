@@ -29,5 +29,3 @@ coverage.html
 common/dist/scripts/*
 
 test/spec/mocks/translations.js
-testapi.js
-userinsert.js
