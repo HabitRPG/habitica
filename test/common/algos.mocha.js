@@ -19,9 +19,11 @@ let sinon = require('sinon');
 let moment = require('moment');
 let test_helper = require('./test_helper');
 let shared = require('../../common/script/index.js');
-let $w = (s) => {
-  return s.split(' ');
-};
+
+import {
+  $w,
+  countExists,
+} from '../../common/script/helpers';
 
 shared.i18n.translations = require('../../website/src/libs/i18n.js').translations;
 test_helper.addCustomMatchers();
@@ -397,7 +399,7 @@ describe('User', () => {
     });
 
     it('doesn\'t break unbreakables', () => {
-      let ce = shared.countExists;
+      let ce = countExists;
 
       user.items.gear.owned = {
         weapon_warrior_0: true,

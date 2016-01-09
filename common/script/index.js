@@ -9,12 +9,12 @@ import {
 } from './constants';
 import * as statHelpers from './statHelpers';
 
-var $w, _, api, content, i18n, moment, preenHistory, sortOrder,
+var api, content, i18n, moment, preenHistory, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
 
-_ = require('lodash');
+import _ from 'lodash';
 
 content = require('./content/index');
 
@@ -31,48 +31,18 @@ api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
-$w = api.$w = function(s) {
-  return s.split(' ');
-};
+import {
+  $w,
+  countExists,
+  refPush,
+} from './helpers';
 
-api.dotSet = function(obj, path, val) {
-  var arr;
-  arr = path.split('.');
-  return _.reduce(arr, (function(_this) {
-    return function(curr, next, index) {
-      if ((arr.length - 1) === index) {
-        curr[next] = val;
-      }
-      return curr[next] != null ? curr[next] : curr[next] = {};
-    };
-  })(this), obj);
-};
+import uuid from 'uuid';
 
-api.dotGet = function(obj, path) {
-  return _.reduce(path.split('.'), ((function(_this) {
-    return function(curr, next) {
-      return curr != null ? curr[next] : void 0;
-    };
-  })(this)), obj);
-};
+api.uuid = uuid.v4;
 
-
-/*
-  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
-  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
-  no problem. To maintain sorting, we use these helper functions:
- */
-
-api.refPush = function(reflist, item, prune) {
-  if (prune == null) {
-    prune = 0;
-  }
-  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
-  if (!(item.id && !reflist[item.id])) {
-    item.id = api.uuid();
-  }
-  return reflist[item.id] = item;
-};
+api.refPush = refPush;
+api.countExists = countExists;
 
 api.planGemLimits = {
   convRate: 20,
@@ -183,22 +153,6 @@ Misc Helpers
 ------------------------------------------------------
  */
 
-api.uuid = function() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-    var r, v;
-    r = Math.random() * 16 | 0;
-    v = (c === "x" ? r : r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-};
-
-api.countExists = function(items) {
-  return _.reduce(items, (function(m, v) {
-    return m + (v ? 1 : 0);
-  }), 0);
-};
-
-
 /*
 Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
 sending up to the server for performance
@@ -282,18 +236,6 @@ api.percent = function(x, y, dir) {
     x = 1;
   }
   return Math.max(0, roundFn(x / y * 100));
-};
-
-
-/*
-Remove whitespace #FIXME are we using this anywwhere? Should we be?
- */
-
-api.removeWhitespace = function(str) {
-  if (!str) {
-    return '';
-  }
-  return str.replace(/\s/g, '');
 };
 
 
@@ -941,7 +883,7 @@ api.wrap = function(user, main) {
       addWebhook: function(req, cb) {
         var wh;
         wh = user.preferences.webhooks;
-        api.refPush(wh, {
+        refPush(wh, {
           url: req.body.url,
           enabled: req.body.enabled || true,
           id: req.body.id
@@ -2144,10 +2086,10 @@ api.wrap = function(user, main) {
     Angular sets object properties directly - in which case, this function will be used.
      */
     dotSet: function(path, val) {
-      return api.dotSet(user, path, val);
+      return _.set(user, path, val);
     },
     dotGet: function(path) {
-      return api.dotGet(user, path);
+      return _.get(user, path);
     },
     randomDrop: function(modifiers, req) {
       var acceptableDrops, base, base1, base2, chance, drop, dropK, dropMultiplier, name, name1, name2, quest, rarity, ref, ref1, ref2, ref3, task;
