@@ -1,6 +1,6 @@
 span.option-box.pull-right(ng-if='::main')
   a.option-action(ng-if='list.type=="todo"', ng-show='obj.history.todos', ng-click='toggleChart("todos")', tooltip=env.t('progress'), style='margin-right:5px;')
-    span.glyphicon.glyphicon-signal
+    span.glyphicon.glyphicon-signal(style={'zoom':1.5,'vertical-align':'-webkit-baseline-middle'})
   //a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
   //-a.option-action(ng-if='list.type=="todo"', ng-click='notPorted()', tooltip='iCal', ng-show='false')
     span.glyphicon.glyphicon-calendar
