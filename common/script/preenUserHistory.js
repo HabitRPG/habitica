@@ -61,12 +61,15 @@ export function preenUserHistory (user) {
   let isSubscribed = user.purchased && user.purchased.plan && user.purchased.plan.customerId;
   let minHistoryLength = isSubscribed ? 365 : 60;
 
-  _.each(user.habits.concat(user.dailys), (task, index) => {
+  function _processTask (task, index) {
     if (task.history && task.history.length > minHistoryLength) {
-      task.history = preenHistory(task.history, isSubscribed);
+      task.history = preenHistory(task.history, isSubscribed, user.preferences.timezoneOffset);
       if (user.markModified) user.markModified(`${task.type}s.${index}.history`);
     }
-  });
+  }
+
+  _.each(user.habits, _processTask);
+  _.each(user.dailys, _processTask);
 
   _.defaults(user.history, {
     todos: [],
@@ -74,12 +77,12 @@ export function preenUserHistory (user) {
   });
 
   if (user.history.exp.length > minHistoryLength) {
-    user.history.exp = preenHistory(user.history.exp, isSubscribed);
+    user.history.exp = preenHistory(user.history.exp, isSubscribed, user.preferences.timezoneOffset);
     user.markModified('history.exp');
   }
 
   if (user.history.todos.length > minHistoryLength) {
-    user.history.todos = preenHistory(user.history.todos, isSubscribed);
+    user.history.todos = preenHistory(user.history.todos, isSubscribed, user.preferences.timezoneOffset);
     user.markModified('history.todos');
   }
 }
