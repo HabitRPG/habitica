@@ -103,7 +103,7 @@
     "questEggSnakeAdjective": "скользкая",
     "questEggUnicornText": "Unicorn",
     "questEggUnicornMountText": "Winged Unicorn",
-    "questEggUnicornAdjective": "a magical",
+    "questEggUnicornAdjective": "волшебный",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить им это яйцо, и из него вылупится <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

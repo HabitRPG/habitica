@@ -91,7 +91,7 @@
     "fortify": "Wzmocnij",
     "fortifyText": "Wzmocnienie przywróci wszystkie zadania do wartości neutralnej (żółty kolor), tak jakbyś dopiero co je dodał, a w dodatku uzdrowi cię do pełna. Jest to świetne rozwiązanie, jeśli czerwone zadania sprawiają w grze zbyt wiele trudności lub z powodu niebieskich zadań gra jest zbyt łatwa. Jeśli rozpoczęcie od zera brzmi znacznie bardziej motywująco, to poświęć Klejnoty i poczuj ulgę!",
     "confirmFortify": "Na pewno?",
-    "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
+    "sureDelete": "Czy na pewno chcesz usunąć <%= taskType %> opisany \"<%= taskText %>\"?",
     "streakCoins": "Premia za serię!",
     "pushTaskToTop": "Umieść zadanie na górze listy. Przytrzymaj CTRL lub CMD, aby umieścić je na samym dole.",
     "emptyTask": "Najpierw wpisz nazwę zadania.",

@@ -101,7 +101,7 @@
     "inbox": "תיבת דואר",
     "abuseFlag": "דווח/י על הפרת חוקי הקהילה",
     "abuseFlagModalHeading": "לדווח על <%= name %> באשמת הפרת חוקים?",
-    "abuseFlagModalBody": "האם את/ה בטוח/ה שברצונך לדווח על הפרסום הזה? עלייך לדווח אך ורק על פרסומים המפרים את <%= firstLinkStart %>חוקי הקהילה<%= linkEnd %> ו/או את <%= secondLinkStart %>תנאי השימוש<%= linkEnd %>. דיווח לא ענייני של פרסומים הוא בעצמו הפרה של חוקי הקהילה ועלול להוות עבירה מצידך.",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "דווח על הפרה",
     "abuseReported": "תודה שדיווחת על ההפרה הזו, אנו ניידע את העורכים אודות העניין.",
     "abuseAlreadyReported": "כבר דיווחת על ההודעה הזו.",

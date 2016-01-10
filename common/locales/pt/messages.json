@@ -20,7 +20,7 @@
     "messageHatched": "Seu ovo chocou! Visite seu estábulo para equipar seu mascote.",
     "messageNotEnoughGold": "Ouro Insuficiente",
     "messageTwoHandedEquip": "Para usar <%= twoHandedText %> são necessárias duas mãos, por isso <%= offHandedText %> foi desequipado.",
-    "messageTwoHandedUnequip": "<%= twoHandedText %> precisa de duas mãos, então ele foi retirado quando você se equipou com <%= offHandedText %>",
+    "messageTwoHandedUnequip": "<%= twoHandedText %> precisa de duas mãos, então ele foi retirado ao equipar <%= offHandedText %>",
     "messageDropFood": "Você encontrou <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Você encontrou um Ovo de <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Você encontrou uma Poção de Eclosão <%= dropText %>! <%= dropNotes %>",

@@ -101,7 +101,7 @@
     "inbox": "Inbox",
     "abuseFlag": "Overtreding van gemeenschapsrichtlijnen melden",
     "abuseFlagModalHeading": "<%= name %> rapporteren wegens overtreding?",
-    "abuseFlagModalBody": "Weet je zeker dat je dit bericht wil aangeven? Je moet alleen berichten aangeven die de  <%= firstLinkStart %>gemeenschaprsichtlijnen<%= linkEnd %> of <%= secondLinkStart %>algemene voorwaarden<%= linkEnd %> overtreden. Het onnodig rapporteren van berichten is een overtreding van de gemeenschapsrichtlijnen en kan resulteren in een berisping.",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Overtreding melden",
     "abuseReported": "Dank je voor het melden van deze overtreding. De beheerders zijn op de hoogte gesteld.",
     "abuseAlreadyReported": "Je hebt dit bericht al gemeld.",
