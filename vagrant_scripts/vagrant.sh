@@ -38,6 +38,9 @@ apt-get update -qq
 echo Installing Unix build tools - needed for node-gyp to use make...
 apt-get install -qq build-essential
 
+echo Installing python sofrware properties...
+apt-get install -qq python-software-properties
+
 echo Installing GraphicsMagick - provides gm and convert...
 apt-get install -qq graphicsmagick
 
@@ -59,19 +62,26 @@ apt-get update
 apt-get install mongodb-10gen
 apt-get install -y mongodb-org=2.6.4 mongodb-org-server=2.6.4 mongodb-org-shell=2.6.4 mongodb-org-mongos=2.6.4 mongodb-org-tools=2.6.4
 
+echo Adding PPA repository for gcc...
+add-apt-repository ppa:ubuntu-toolchain-r/test
+apt-get update -qq
+
+echo Installing gcc 4.8...
+apt-get install -qq gcc-4.8 g++-4.8
+
+update-alternatives --remove-all gcc
+update-alternatives --remove-all g++
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 20
+update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 20
+update-alternatives --config gcc
+update-alternatives --config g++
+
 echo Installing Git...
 apt-get install -qq git
 
-echo Installing npm...
-apt-get install -qq python-software-properties
-echo Adding repository node.js...
-apt-add-repository -y ppa:chris-lea/node.js
-echo Updating repositories...
-apt-get update -qq
-echo Installing node.js
-apt-get install -qq nodejs
-echo Updating npm...
-npm install -g npm
+echo Installing curl...
+apt-get install -qq curl
+
 echo Installing Xvfb...
 apt-get install -qq xvfb
 echo Installing Java7...
@@ -82,16 +92,9 @@ echo Installing Firefox...
 dpkg -i firefox.deb
 rm firefox.deb
 
-cd /vagrant
+echo Installing ntp...
+apt-get install -qq ntp
 
-echo Installing gulp/bower...
-npm install -g gulp grunt-cli bower
-
-echo Installing Habitica
-npm install --no-bin-links
-
-echo Installing Bower packages
-sudo -H -u vagrant bower --config.interactive=false install -f
 
 ## # echo Seeding Mongodb...
 ## node ./src/seed.js
