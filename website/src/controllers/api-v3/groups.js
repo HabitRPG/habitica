@@ -43,6 +43,7 @@ api.createGroup = {
       user.balance--;
       user.guilds.push(group._id);
     } else {
+      if (group.privacy === 'public') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
 
       user.party._id = group._id;
