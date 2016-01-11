@@ -1623,7 +1623,6 @@ api.quests = {
     notes: t('questEvilSanta2Notes'),
     completion: t('questEvilSanta2Completion'),
     value: 4,
-    previous: 'evilsanta',
     category: 'pet',
     collect: {
       tracks: {
