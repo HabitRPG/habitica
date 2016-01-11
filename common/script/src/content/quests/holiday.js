@@ -30,7 +30,6 @@ let holidayQuests = {
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     completion: t('questEvilSanta2Completion'),
-    previous: 'evilsanta',
     collect: {
       tracks: {
         text: t('questEvilSanta2CollectTracks'),
