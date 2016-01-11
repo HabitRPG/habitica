@@ -150,11 +150,12 @@ api.score = function(req, res, next) {
             date: +(new Date),
             value: t.value
           });
-        }
 
-        if (t.history.length > 365) {
-          t.history = shared.preenHistory(t.history, true); // true means the challenge will retain as much entries as a subscribed user
-          chal.markModified(`${t.type}s.${tIndex}.history`); // Setting habits/dailys as modified because we don't know the index of the task
+          // Only preen task history once a day when the task is scored first
+          if (t.history.length > 365) {
+            t.history = shared.preenHistory(t.history, true); // true means the challenge will retain as much entries as a subscribed user
+            chal.markModified(`${t.type}s.${tIndex}.history`); // Setting habits/dailys as modified because we don't know the index of the task
+          }
         }
       }
       chal.save();
