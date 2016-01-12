@@ -25,7 +25,7 @@ function($rootScope, User, $http, Content) {
       key: window.env.STRIPE_PUB_KEY,
       address: false,
       amount: amount,
-      name: 'HabitRPG',
+      name: 'Habitica',
       description: sub ? window.env.t('subscribe') : window.env.t('checkout'),
       image: "/apple-touch-icon-144-precomposed.png",
       panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
