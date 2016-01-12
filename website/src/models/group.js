@@ -520,3 +520,5 @@ model.count({_id: 'habitrpg'}, (err, ct) => {
     privacy: 'public',
   }).save();
 });
+
+export const INVITES_LIMIT = 100;
