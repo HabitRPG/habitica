@@ -5,28 +5,21 @@ import {
 describe('POST /tags', () => {
   let user;
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  beforeEach(async () => {
+    user = await generateUser();
   });
 
-  it('creates a tag correctly', () => {
-    let createdTag;
-
-    return user.post('/tags', {
-      name: 'Tag 1',
+  it('creates a tag correctly', async () => {
+    let tagName = 'Tag 1';
+    let createdTag = await user.post('/tags', {
+      name: tagName,
       ignored: false,
-    }).then((tag) => {
-      createdTag = tag;
-
-      expect(tag.name).to.equal('Tag 1');
-      expect(tag.ignored).to.be.a('undefined');
-
-      return user.get(`/tags/${createdTag._id}`);
-    })
-    .then((tag) => {
-      expect(tag).to.deep.equal(createdTag);
     });
+
+    let tag = await user.get(`/tags/${createdTag._id}`);
+
+    expect(tag.name).to.equal(tagName);
+    expect(tag.ignored).to.not.exist;
+    expect(tag).to.deep.equal(createdTag);
   });
 });
