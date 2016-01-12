@@ -12,7 +12,7 @@ describe('Put /group', () => {
     groupLeader = await generateUser({balance: 1});
   });
 
-  xit('returns an error when a non group leader tries to update', async () => {
+  it('returns an error when a non group leader tries to update', async () => {
     let groupToUpdate = await groupLeader.post('/groups', {
       name: groupName,
       type: groupType,
