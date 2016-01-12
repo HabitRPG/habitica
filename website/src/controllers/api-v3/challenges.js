@@ -167,7 +167,7 @@ function _closeChal (challenge, broken = {}) {
     Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
     User.update({
-      challenges: {$in: [challenge._id]},
+      challenges: challenge._id,
       'tags._id': challenge._id,
     }, {
       $set: {'tags.$.challenge': false},

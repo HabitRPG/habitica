@@ -1,0 +1,157 @@
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import cron from '../../middlewares/api-v3/cron';
+import {
+  model as User,
+  publicFields as memberFields,
+  nameFields,
+} from '../../models/user';
+import { model as Group } from '../../models/group';
+import {
+  NotFound,
+} from '../../libs/api-v3/errors';
+
+let api = {};
+
+// TODO allow only to select nameFields instead of all publicFields?
+/**
+ * @api {get} /members/:memberId Get a member profile
+ * @apiVersion 3.0.0
+ * @apiName GetMember
+ * @apiGroup Member
+ *
+ * @apiParam {UUID} memberId The member's id
+ *
+ * @apiSuccess {object} member The member object
+ */
+api.getMember = {
+  method: 'GET',
+  url: '/members/:memberId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let memberId = req.params.memberId;
+
+    let member = await User
+      .findById(memberId)
+      .select(memberFields)
+      .exec();
+
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+
+    res.respond(200, member);
+  },
+};
+
+// TODO allow to get more members' fields (the same as in api.getMember) for parties?
+/**
+ * @api {get} /groups/:groupId/members Get members for a groups with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @apiVersion 3.0.0
+ * @apiName GetMembersForGroup
+ * @apiGroup Member
+ *
+ * @apiParam {UUID} groupId The group id
+ * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ * @apiParam {boolean} includeAllPublicFields Query parameter avalaible only when fetching a party. If === `true` then all public fields for members will be returned (liek when making a request for a single member)
+ *
+ * @apiSuccess {array} members An array of members, sorted by _id
+ */
+api.getMembersForGroup = {
+  method: 'GET',
+  url: '/groups/:groupId/members',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkQuery('lastId').optional().notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let groupId = req.params.groupId;
+    let lastId = req.query.lastId;
+    let user = res.locals.user;
+
+    let group = await Group.getGroup(user, groupId, '_id type');
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    let query = {};
+    let fields = nameFields;
+
+    if (group.type === 'guild') {
+      query.guilds = group._id;
+    } else {
+      query['party._id'] = group._id; // group._id and not groupId because groupId could be === 'party'
+
+      if (req.query.includeAllPublicFields === 'true') {
+        fields = memberFields;
+      }
+    }
+
+    if (lastId) query._id = {$gt: lastId};
+
+    let members = await User
+      .find(query)
+      .sortBy({_id: 1})
+      .limit(30)
+      .select(fields)
+      .exec();
+
+    res.respond(200, members);
+  },
+};
+
+// TODO very similar to getInvitesForGroup might be worth abstracting some logic
+/**
+ * @api {get} /groups/:groupId/invites Get invites for a groups with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @apiVersion 3.0.0
+ * @apiName GetInvitesForGroup
+ * @apiGroup Member
+ *
+ * @apiParam {UUID} groupId The group id
+ * @apiParam {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
+ *
+ * @apiSuccess {array} invites An array of invites, sorted by _id
+ */
+api.getInvitesForGroup = {
+  method: 'GET',
+  url: '/groups/:groupId/invites',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkQuery('lastId').optional().notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let groupId = req.params.groupId;
+    let lastId = req.query.lastId;
+    let user = res.locals.user;
+
+    let group = await Group.getGroup(user, groupId, '_id type');
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    let query = {};
+
+    if (group.type === 'guild') {
+      query['invitations.guilds.id'] = group._id;
+    } else {
+      query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
+    }
+
+    if (lastId) query._id = {$gt: lastId};
+
+    let invites = await User
+      .find(query)
+      .sortBy({_id: 1})
+      .limit(30)
+      .select(nameFields)
+      .exec();
+
+    res.respond(200, invites);
+  },
+};
+
+export default api;

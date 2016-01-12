@@ -7,7 +7,7 @@ import {
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 import { sendTxn } from '../../libs/api-v3/email';
-import nconf    from 'nconf';
+import nconf from 'nconf';
 
 let api = {};
 

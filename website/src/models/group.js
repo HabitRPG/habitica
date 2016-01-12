@@ -125,7 +125,6 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
-// TODO populate (invites too), isMember?
 schema.statics.getGroup = function getGroup (user, groupId, fields, optionalMembership) {
   let query;
 

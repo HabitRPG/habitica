@@ -338,7 +338,6 @@ export let schema = new Schema({
     orderAscending: {type: String, default: 'ascending'},
     quest: {
       key: String,
-      // TODO why are we storing quest progress here too and not only on party object?
       progress: {
         up: {type: Number, default: 0},
         down: {type: Number, default: 0},
@@ -488,6 +487,15 @@ schema.plugin(baseModel, {
     return doc;
   },
 });
+
+// A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
+// TODO is all party data meant to be public?
+export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
+  preferences.costume preferences.sleep preferences.background profile stats achievements party
+  backer contributor auth.timestamps items`;
+
+// The minimum amount of data needed when populating multiple users
+export let nameFields = `profile.name`;
 
 schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
