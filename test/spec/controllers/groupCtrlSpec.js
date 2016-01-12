@@ -70,4 +70,81 @@ describe('Groups Controller', function() {
       expect(myGuilds).to.be.calledOnce;
     });
   });
+
+  describe("Group Edit Behavior", function() {
+    it('should allow for editing without changing group resource', function() {
+      var guild = specHelper.newGroup({
+        _id: "unique-guild-id",
+        type: 'guild',
+        members: ['not-user-id']
+      });
+
+
+      // verify initial state, 
+      // TODO: Check how to do this once per test in this "describe"
+      var editGuild = scope.groupCopy;
+      expect(editGuild).to.eql({});
+      expect(guild._editing).to.eql(undefined);
+
+      // switch to edit mode
+      scope.editGroup(guild);
+      var editGuild = scope.groupCopy;
+      expect(guild._editing).to.eql(true);
+
+      // all values should be identical in edit copy
+      for(var key in editGuild) {
+        expect(editGuild[key]).to.eql(guild[key]);
+      }
+
+      // change value and verify original is untouched
+      editGuild.leader = 'testLeader';
+      expect(editGuild.leader).to.not.eql(guild.leader);
+
+      // stop editing and verify copy is removed
+      scope.cancelEdit(guild);
+      editGuild = scope.groupCopy;
+      expect(editGuild).to.eql({});
+      expect(guild._editing).to.eql(false);
+
+    });
+
+    it('should update group resource only on save', function() {
+      var guild = specHelper.newGroup({
+        _id: "unique-guild-id",
+        type: 'guild',
+        members: ['not-user-id']
+      });
+
+      guild.$save = function() { };
+
+      // verify initial state
+      var editGuild = scope.groupCopy;
+      expect(editGuild).to.eql({});
+      expect(guild._editing).to.eql(undefined);
+
+      // switch to edit mode
+      scope.editGroup(guild);
+      var editGuild = scope.groupCopy;
+      expect(guild._editing).to.eql(true);
+
+      // get copy for editing
+      editGuild.name= 'testName';
+      editGuild.logo = 'testLogo';
+      editGuild.description = 'testDesc';
+      editGuild._newLeader= 'testNewLeader';
+
+
+      expect(guild.name).to.not.eql(editGuild.name);
+      expect(guild.logo).to.not.eql(editGuild.logo);
+      expect(guild.description).to.not.eql(editGuild.description);
+      expect(guild._newLeader).to.not.eql(editGuild._newLeader);
+
+      scope.saveEdit(guild);
+      expect(guild.name).to.eql(editGuild.name);
+      expect(guild.logo).to.eql(editGuild.logo);
+      expect(guild.description).to.eql(editGuild.description);
+      expect(guild._newLeader).to.eql(editGuild._newLeader);
+
+    });
+  });
 });

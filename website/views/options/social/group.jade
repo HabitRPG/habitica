@@ -23,30 +23,30 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 =env.t('leave')
               a.btn.btn-success.pull-right(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
             span(ng-if='group.leader._id == user.id')
-              button.btn.btn-sm.btn-primary.pull-right(ng-click='cancelSave(group)', ng-hide='!group._editing')=env.t('cancel')
-              button.btn.btn-sm.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing')=env.t('save')
-              button.btn.btn-sm.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing')=env.t('editGroup')
+              button.btn.btn-sm.btn-primary.pull-right(ng-click='cancelEdit(group)', ng-hide='!group._editing')=env.t('cancel')
+              button.btn.btn-sm.btn-primary.pull-right(ng-click='saveEdit(group)', ng-show='group._editing')=env.t('save')
+              button.btn.btn-sm.btn-default.pull-right(ng-click='editGroup(group)', ng-hide='group._editing')=env.t('editGroup')
 
         .panel-body
           form(ng-show='group._editing')
             .form-group
               label=env.t('groupName')
-              input.form-control(type='text', ng-model='group.name', placeholder=env.t('groupName'))
+              input.form-control(type='text', ng-model='groupCopy.name', placeholder=env.t('groupName'))
             .form-group
               label=env.t('description')
-              textarea.form-control(rows=6, ng-model='group.description')
+              textarea.form-control(rows=6, ng-model='groupCopy.description')
               include ../../shared/formatting-help
             .form-group
               label=env.t('logoUrl')
-              input.form-control(type='url', placeholder=env.t('logoUrl'), ng-model='group.logo')
+              input.form-control(type='url', placeholder=env.t('logoUrl'), ng-model='groupCopy.logo')
             .form-group
               .checkbox
                 label
-                  input(type='checkbox', ng-model='group.leaderOnly.challenges')
+                  input(type='checkbox', ng-model='groupCopy.leaderOnly.challenges')
                   =env.t('leaderOnlyChallenges')
 
             h4=env.t('assignLeader')
-            select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')
+            select#group-leader-selection(ng-model='groupCopy._newLeader', ng-options='member.profile.name for member in group.members')
 
           div(ng-show='!group._editing')
             img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
