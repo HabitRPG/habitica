@@ -4,13 +4,13 @@ import {
 
 describe('PUT /tags/:tagId', () => {
   let user;
-  let updatedTagName = 'Tag updated';
 
   before(async () => {
     user = await generateUser();
   });
 
   it('updates a tag given it\'s id', async () => {
+    let updatedTagName = 'Tag updated';
     let createdTag = await user.post('/tags', {name: 'Tag 1'});
     let updatedTag = await user.put(`/tags/${createdTag._id}`, {
       name: updatedTagName,
@@ -20,9 +20,9 @@ describe('PUT /tags/:tagId', () => {
     createdTag = await user.get(`/tags/${updatedTag._id}`);
 
     expect(updatedTag.name).to.equal(updatedTagName);
-    expect(updatedTag.ignored).to.be.undefined;
+    expect(updatedTag.ignored).to.not.exist;
 
     expect(createdTag.name).to.equal(updatedTagName);
-    expect(createdTag.ignored).to.be.undefined;
+    expect(createdTag.ignored).to.not.exist;
   });
 });

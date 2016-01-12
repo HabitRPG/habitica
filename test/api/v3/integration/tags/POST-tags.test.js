@@ -4,13 +4,13 @@ import {
 
 describe('POST /tags', () => {
   let user;
-  let tagName = 'Tag 1';
 
-  before(async () => {
+  beforeEach(async () => {
     user = await generateUser();
   });
 
   it('creates a tag correctly', async () => {
+    let tagName = 'Tag 1';
     let createdTag = await user.post('/tags', {
       name: tagName,
       ignored: false,
@@ -19,7 +19,7 @@ describe('POST /tags', () => {
     let tag = await user.get(`/tags/${createdTag._id}`);
 
     expect(tag.name).to.equal(tagName);
-    expect(tag.ignored).to.be.undefined;
+    expect(tag.ignored).to.not.exist;
     expect(tag).to.deep.equal(createdTag);
   });
 });

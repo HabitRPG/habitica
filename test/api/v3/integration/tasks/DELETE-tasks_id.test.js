@@ -42,12 +42,12 @@ describe('DELETE /tasks/:id', () => {
 
     it('cannot delete a task owned by someone else', async () => {
       let anotherUser = await generateUser();
-      let task2 = await anotherUser.post('/tasks', {
+      let anotherUsersTask = await anotherUser.post('/tasks', {
         text: 'test habit',
         type: 'habit',
       });
 
-      await expect(user.del(`/tasks/${task2._id}`)).to.eventually.be.rejected.and.eql({
+      await expect(user.del(`/tasks/${anotherUsersTask._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
         message: t('taskNotFound'),
