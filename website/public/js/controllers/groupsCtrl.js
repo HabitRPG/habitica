@@ -42,19 +42,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope._editing = {group:false};
     $scope.groupCopy= {};
 
-    /**
-    $scope.save = function(group){
-      if(group._newLeader && group._newLeader._id) group.leader = group._newLeader._id;
-      group.$save();
-      group._editing = false;
-    };
-
-    $scope.cancelSave = function(group) {
-      group = group.$get();
-      group._editing = false;
-    }
-    */
-
     $scope.editGroup = function(group) {
       angular.copy(group, $scope.groupCopy);
       group._editing = true;
@@ -65,7 +52,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       if(group._newLeader && group._newLeader._id) group.leader = group._newLeader._id;
       angular.copy($scope.groupCopy, group);
       group.$save();
-      group._editing = false;
       $scope.cancelEdit(group);
     }
 
