@@ -7,37 +7,35 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
   let user;
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  before(async () => {
+    user = await generateUser();
   });
 
-  it('scores a checklist item', () => {
-    let task;
-
-    return user.post('/tasks', {
+  it('scores a checklist item', async () => {
+    let task = await user.post('/tasks', {
       type: 'daily',
       text: 'Daily with checklist',
-    }).then(createdTask => {
-      task = createdTask;
-      return user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
-    }).then((savedTask) => {
-      return user.post(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}/score`);
-    }).then((savedTask) => {
-      expect(savedTask.checklist.length).to.equal(1);
-      expect(savedTask.checklist[0].completed).to.equal(true);
     });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
+      text: 'Checklist Item 1',
+      completed: false,
+    });
+
+    savedTask = await user.post(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}/score`);
+
+    expect(savedTask.checklist.length).to.equal(1);
+    expect(savedTask.checklist[0].completed).to.equal(true);
   });
 
-  it('fails on habits', () => {
-    let habit;
-    return expect(user.post('/tasks', {
+  it('fails on habits', async () => {
+    let habit = await user.post('/tasks', {
       type: 'habit',
       text: 'habit with checklist',
-    }).then(createdTask => {
-      habit = createdTask;
-      return user.post(`/tasks/${habit._id}/checklist/${generateUUID()}/score`, {text: 'Checklist Item 1'});
+    });
+
+    await expect(user.post(`/tasks/${habit._id}/checklist/${generateUUID()}/score`, {
+      text: 'Checklist Item 1',
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -58,21 +56,21 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
     });
   });
 
-  it('fails on task not found', () => {
-    return expect(user.post(`/tasks/${generateUUID()}/checklist/${generateUUID()}/score`)).to.eventually.be.rejected.and.eql({
+  it('fails on task not found', async () => {
+    await expect(user.post(`/tasks/${generateUUID()}/checklist/${generateUUID()}/score`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('taskNotFound'),
     });
   });
 
-  it('fails on checklist item not found', () => {
-    return expect(user.post('/tasks', {
+  it('fails on checklist item not found', async () => {
+    let createdTask = await user.post('/tasks', {
       type: 'daily',
       text: 'daily with checklist',
-    }).then(createdTask => {
-      return user.post(`/tasks/${createdTask._id}/checklist/${generateUUID()}/score`);
-    })).to.eventually.be.rejected.and.eql({
+    });
+
+    await expect(user.post(`/tasks/${createdTask._id}/checklist/${generateUUID()}/score`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('checklistItemNotFound'),
