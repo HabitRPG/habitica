@@ -3,21 +3,22 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration.helper';
 
-describe('Put /group', () => {
+describe('PUT /group', () => {
   let groupLeader;
   let groupName = 'Test Public Guild';
   let groupType = 'guild';
+  let groupToUpdate;
+  let groupUpdatedName = 'Test Public Guild Updated';
 
   beforeEach(async () => {
     groupLeader = await generateUser({balance: 1});
-  });
-
-  it('returns an error when a non group leader tries to update', async () => {
-    let groupToUpdate = await groupLeader.post('/groups', {
+    groupToUpdate = await groupLeader.post('/groups', {
       name: groupName,
       type: groupType,
     });
-    let groupUpdatedName = 'Test Public Guild Updated';
+  });
+
+  it('returns an error when a non group leader tries to update', async () => {
     let memberToAttemptUpdate = await generateUser();
 
     await groupLeader.post(`/groups/${groupToUpdate._id}/invite`, {
@@ -27,8 +28,7 @@ describe('Put /group', () => {
 
     await expect(memberToAttemptUpdate.put(`/groups/${groupToUpdate._id}`, {
       name: groupUpdatedName,
-    }))
-    .to.eventually.be.rejected.and.eql({
+    })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('messageGroupOnlyLeaderCanUpdate'),
@@ -36,12 +36,7 @@ describe('Put /group', () => {
   });
 
   it('updates a group', async () => {
-    let groupUpdatedName = 'Test Public Guild Updated';
-    let group = await groupLeader.post('/groups', {
-      name: groupName,
-      type: groupType,
-    });
-    let updatedGroup = await groupLeader.put(`/groups/${group._id}`, {
+    let updatedGroup = await groupLeader.put(`/groups/${groupToUpdate._id}`, {
       name: groupUpdatedName,
     });
 
