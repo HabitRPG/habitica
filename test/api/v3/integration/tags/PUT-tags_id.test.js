@@ -4,30 +4,25 @@ import {
 
 describe('PUT /tags/:tagId', () => {
   let user;
+  let updatedTagName = 'Tag updated';
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  before(async () => {
+    user = await generateUser();
   });
 
-  it('updates a tag given it\'s id', () => {
-    return user.post('/tags', {name: 'Tag 1'})
-    .then((createdTag) => {
-      return user.put(`/tags/${createdTag._id}`, {
-        name: 'Tag updated',
-        ignored: true,
-      });
-    })
-    .then((updatedTag) => {
-      expect(updatedTag.name).to.equal('Tag updated');
-      expect(updatedTag.ignored).to.be.a('undefined');
-
-      return user.get(`/tags/${updatedTag._id}`);
-    })
-    .then((tag) => {
-      expect(tag.name).to.equal('Tag updated');
-      expect(tag.ignored).to.be.a('undefined');
+  it('updates a tag given it\'s id', async () => {
+    let createdTag = await user.post('/tags', {name: 'Tag 1'});
+    let updatedTag = await user.put(`/tags/${createdTag._id}`, {
+      name: updatedTagName,
+      ignored: true,
     });
+
+    createdTag = await user.get(`/tags/${updatedTag._id}`);
+
+    expect(updatedTag.name).to.equal(updatedTagName);
+    expect(updatedTag.ignored).to.be.undefined;
+
+    expect(createdTag.name).to.equal(updatedTagName);
+    expect(createdTag.ignored).to.be.undefined;
   });
 });

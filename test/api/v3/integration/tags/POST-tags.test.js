@@ -4,29 +4,22 @@ import {
 
 describe('POST /tags', () => {
   let user;
+  let tagName = 'Tag 1';
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  before(async () => {
+    user = await generateUser();
   });
 
-  it('creates a tag correctly', () => {
-    let createdTag;
-
-    return user.post('/tags', {
-      name: 'Tag 1',
+  it('creates a tag correctly', async () => {
+    let createdTag = await user.post('/tags', {
+      name: tagName,
       ignored: false,
-    }).then((tag) => {
-      createdTag = tag;
-
-      expect(tag.name).to.equal('Tag 1');
-      expect(tag.ignored).to.be.a('undefined');
-
-      return user.get(`/tags/${createdTag._id}`);
-    })
-    .then((tag) => {
-      expect(tag).to.deep.equal(createdTag);
     });
+
+    let tag = await user.get(`/tags/${createdTag._id}`);
+
+    expect(tag.name).to.equal(tagName);
+    expect(tag.ignored).to.be.undefined;
+    expect(tag).to.deep.equal(createdTag);
   });
 });
