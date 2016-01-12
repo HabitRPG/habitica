@@ -37,7 +37,7 @@
   "memberCannotRemoveYourself": "You cannot remove yourself!",
   "groupMemberNotFound": "User not found among group's members",
   "keepOrRemoveAll": "req.query.keep must be either \"keep-all\" or \"remove-all\"",
-  "canOnlyInviteEmailUuid": "Can only invite using uuids or emails but not both at the same time.",
+  "canOnlyInviteEmailUuid": "Can only invite using uuids or emails.",
   "inviteMissingEmail": "Missing email address in invite.",
   "onlyGroupLeaderChal": "Only the group leader can create challenges",
   "pubChalsMinPrize": "Prize must be at least 1 Gem for public challenges.",
@@ -47,5 +47,13 @@
   "challengeNotFound": "Challenge not found.",
   "onlyLeaderDeleteChal": "Only the challenge leader can delete it.",
   "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge.",
-  "partyMustbePrivate": "Parties must be private"
+  "partyMustbePrivate": "Parties must be private",
+  "userAlreadyInGroup": "User already in that group.",
+  "userAlreadyInvitedToGroup": "User already invited to that group.",
+  "userAlreadyPendingInvitation": "User already pending invitation.",
+  "userAlreadyInAParty": "User already in a party.",
+  "userWithIDNotFound": "User with id \"<%= userId %>\" not found.",
+  "uuidsMustBeAnArray": "UUIDs invites must be a an Array.",
+  "emailsMustBeAnArray": "Email invites must be a an Array.",
+  "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time"
 }
