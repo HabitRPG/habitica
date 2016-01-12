@@ -31,7 +31,6 @@ api.createGroup = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
-
     let group = new Group(Group.sanitize(req.body)); // TODO validate empty req.body
     group.leader = user._id;
 
@@ -43,7 +42,7 @@ api.createGroup = {
       user.balance--;
       user.guilds.push(group._id);
     } else {
-      if (group.privacy === 'public') throw new NotAuthorized(res.t('partyMustbePrivate'));
+      if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
 
       user.party._id = group._id;
@@ -54,6 +53,7 @@ api.createGroup = {
 
     firebase.updateGroupData(savedGroup);
     firebase.addUserToGroup(savedGroup._id, user._id);
+
     return res.respond(201, savedGroup); // TODO populate
   },
 };
