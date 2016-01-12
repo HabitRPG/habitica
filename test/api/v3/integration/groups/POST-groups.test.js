@@ -7,36 +7,30 @@ describe('POST /group', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({ balance: 10 });
   });
 
   context('All Groups', () => {
     it('it returns validation error when type is not provided', async () => {
-      let userToCreateGroup = await generateUser({balance: 1});
-      await expect(userToCreateGroup.post('/groups', { name: 'Test Group Without Type' }))
-      .to.eventually.be.rejected.and.eql({
+      await expect(
+        user.post('/groups', { name: 'Test Group Without Type' })
+      ).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'Group validation failed',
       });
     });
-  });
 
   context('Guilds', () => {
-    let userToCreateGuild;
-
-    beforeEach(async () => {
-      userToCreateGuild = await generateUser({balance: 1});
-    });
-
     it('returns an error when a user with insufficient funds attempts to create a guild', async () => {
+      await user.update({ balance: 0 });
+
       await expect(
         user.post('/groups', {
           name: 'Test Public Guild',
           type: 'guild',
         })
-      )
-      .to.eventually.be.rejected.and.eql({
+      ).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('messageInsufficientGems'),
@@ -48,7 +42,8 @@ describe('POST /group', () => {
         let groupName = 'Test Public Guild';
         let groupType = 'guild';
         let groupPrivacy = 'public';
-        let publicGuild = await userToCreateGuild.post('/groups', {
+
+        let publicGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
@@ -68,7 +63,7 @@ describe('POST /group', () => {
       let groupPrivacy = 'private';
 
       it('creates a group', async () => {
-        let privateGuild = await userToCreateGuild.post('/groups', {
+        let privateGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
@@ -82,7 +77,7 @@ describe('POST /group', () => {
       });
 
       it('deducts gems from user and adds them to guild bank', async () => {
-        let privateGuild = await userToCreateGuild.post('/groups', {
+        let privateGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
@@ -90,9 +85,9 @@ describe('POST /group', () => {
 
         expect(privateGuild.balance).to.eql(1);
 
-        let updatedUser = await userToCreateGuild.get('/user');
+        let updatedUser = await user.get('/user');
 
-        expect(updatedUser.balance).to.eql(0);
+        expect(updatedUser.balance).to.eql(user.balance - 1);
       });
     });
   });
@@ -114,15 +109,12 @@ describe('POST /group', () => {
     });
 
     it('prevents user in a party from creating another party', async () => {
-      let userToCreateTwoParties = await generateUser();
-
-      await userToCreateTwoParties.post('/groups', {
+      await user.post('/groups', {
         name: partyName,
         type: partyType,
       });
 
-      await expect(userToCreateTwoParties.post('/groups'))
-      .to.eventually.be.rejected.and.eql({
+      await expect(user.post('/groups')).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('messageGroupAlreadyInParty'),
