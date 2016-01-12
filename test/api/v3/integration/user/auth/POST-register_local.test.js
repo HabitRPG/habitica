@@ -31,13 +31,13 @@ describe('POST /user/auth/local/register', () => {
       expect(user.auth.local.username).to.eql(username);
     });
 
-    it('requires password and confirmPassword to match', () => {
+    it('requires password and confirmPassword to match', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';
       let confirmPassword = 'not password';
 
-      return expect(api.post('/user/auth/local/register', {
+      await expect(api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -49,12 +49,12 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('requires a username', () => {
+    it('requires a username', async () => {
       let email = `${generateRandomUserName()}@example.com`;
       let password = 'password';
       let confirmPassword = 'password';
 
-      return expect(api.post('/user/auth/local/register', {
+      await expect(api.post('/user/auth/local/register', {
         email,
         password,
         confirmPassword,
@@ -65,11 +65,11 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('requires an email', () => {
+    it('requires an email', async () => {
       let username = generateRandomUserName();
       let password = 'password';
 
-      return expect(api.post('/user/auth/local/register', {
+      await expect(api.post('/user/auth/local/register', {
         username,
         password,
         confirmPassword: password,
@@ -80,12 +80,12 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('requires a valid email', () => {
+    it('requires a valid email', async () => {
       let username = generateRandomUserName();
       let email = 'notanemail@sdf';
       let password = 'password';
 
-      return expect(api.post('/user/auth/local/register', {
+      await expect(api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -97,12 +97,12 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('requires a password', () => {
+    it('requires a password', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let confirmPassword = 'password';
 
-      return expect(api.post('/user/auth/local/register', {
+      await expect(api.post('/user/auth/local/register', {
         username,
         email,
         confirmPassword,
@@ -129,11 +129,11 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('rejects if username is already taken', () => {
+    it('rejects if username is already taken', async () => {
       let uniqueEmail = `${generateRandomUserName()}@exampe.com`;
       let password = 'password';
 
-      return expect(api.post('/user/auth/local/register', {
+      await expect(api.post('/user/auth/local/register', {
         username,
         email: uniqueEmail,
         password,
@@ -145,11 +145,11 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('rejects if email is already taken', () => {
+    it('rejects if email is already taken', async () => {
       let uniqueUsername = generateRandomUserName();
       let password = 'password';
 
-      return expect(api.post('/user/auth/local/register', {
+      await expect(api.post('/user/auth/local/register', {
         username: uniqueUsername,
         email,
         password,
