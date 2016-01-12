@@ -2,7 +2,10 @@ import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import Q from 'q';
 import _ from 'lodash';
 import cron from '../../middlewares/api-v3/cron';
-import { model as Group } from '../../models/group';
+import {
+  INVITES_LIMIT,
+  model as Group,
+} from '../../models/group';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import {
@@ -407,7 +410,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
     }
-    userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: res.locals.user._id});
+    userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
   } else if (group.type === 'party') {
     if (!_.isEmpty(userToInvite.invitations.party)) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
@@ -417,7 +420,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
     // @TODO: Why was this here?
     // req.body.type in 'guild', 'party'
-    userToInvite.invitations.party = {id: group._id, name: group.name, inviter: res.locals.user._id};
+    userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
@@ -532,13 +535,26 @@ api.inviteToGroup = {
     }
 
     let results = [];
+    let totalInvites = 0;
 
-    if (uuids && !uuidsIsArray) {
-      throw new BadRequest(res.t('uuidsMustBeAnArray'));
+    if (uuids) {
+      if (!uuidsIsArray) {
+        throw new BadRequest(res.t('uuidsMustBeAnArray'));
+      } else {
+        totalInvites += uuids.length;
+      }
     }
 
-    if (emails && !emailsIsArray) {
-      throw new BadRequest(res.t('emailsMustBeAnArray'));
+    if (emails) {
+      if (!emailsIsArray) {
+        throw new BadRequest(res.t('emailsMustBeAnArray'));
+      } else {
+        totalInvites += emails.length;
+      }
+    }
+
+    if (totalInvites > INVITES_LIMIT) {
+      throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
     }
 
     if (uuids) {

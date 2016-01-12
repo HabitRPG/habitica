@@ -2,6 +2,9 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration.helper';
+import { v4 as generateUUID } from 'uuid';
+
+const INVITES_LIMIT = 100;
 
 describe('Post /groups/:groupId/invite', () => {
   let inviter;
@@ -18,7 +21,7 @@ describe('Post /groups/:groupId/invite', () => {
 
   describe('user id invites', () => {
     it('returns an error when invited user is not found', async () => {
-      let fakeID = '206039c6-24e4-4b9f-8a31-61cbb9aa3f66';
+      let fakeID = generateUUID();
 
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [fakeID],
@@ -31,7 +34,7 @@ describe('Post /groups/:groupId/invite', () => {
     });
 
     it('returns an error when uuids is not an array', async () => {
-      let fakeID = '206039c6-24e4-4b9f-8a31-61cbb9aa3f66';
+      let fakeID = generateUUID();
 
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: {fakeID},
@@ -48,6 +51,23 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [],
       }))
       .to.eventually.be.empty;
+    });
+
+    it('returns an error when there are more than INVITES_LIMIT uuids', async () => {
+      let uuids = [];
+
+      for (let i = 0; i < 101; i += 1) {
+        uuids.push(generateUUID());
+      }
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        uuids,
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+      });
     });
 
     it('invites a user to a group by uuid', async () => {
@@ -85,10 +105,24 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(userToInvite.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
       await expect(userToInvite2.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
     });
+
+    it('returns an error when inviting multiple users and a user is not found', async () => {
+      let userToInvite = await generateUser();
+      let fakeID = generateUUID();
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        uuids: [userToInvite._id, fakeID],
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('userWithIDNotFound', {userId: fakeID}),
+      });
+    });
   });
 
   describe('email invites', () => {
-    let testInvite = {name: 'test', email: 'test@habitca.com'};
+    let testInvite = {name: 'test', email: 'test@habitica.com'};
 
     it('returns an error when invite is missing an email', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
@@ -119,6 +153,23 @@ describe('Post /groups/:groupId/invite', () => {
       .to.eventually.be.empty;
     });
 
+    it('returns an error when there are more than INVITES_LIMIT emails', async () => {
+      let emails = [];
+
+      for (let i = 0; i < 101; i += 1) {
+        emails.push(`${generateUUID()}@habitica.com`);
+      }
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        emails,
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+      });
+    });
+
     it('invites a user to a group by email', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
@@ -127,7 +178,7 @@ describe('Post /groups/:groupId/invite', () => {
 
     it('invites multiple users to a group by email', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
-        emails: [testInvite, {name: 'test2', email: 'test2@habitca.com'}],
+        emails: [testInvite, {name: 'test2', email: 'test2@habitica.com'}],
       })).to.exist;
     });
   });
@@ -142,11 +193,34 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('returns an error when there are more than INVITES_LIMIT uuids and emails', async () => {
+      let emails = [];
+      let uuids = [];
+
+      for (let i = 0; i < 50; i += 1) {
+        emails.push(`${generateUUID()}@habitica.com`);
+      }
+
+      for (let i = 0; i < 51; i += 1) {
+        uuids.push(generateUUID());
+      }
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        emails,
+        uuids,
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+      });
+    });
+
     it('invites users to a group by uuid and email', async () => {
       let newUser = await generateUser();
       let invite = await inviter.post(`/groups/${group._id}/invite`, {
         uuids: [newUser._id],
-        emails: [{name: 'test', email: 'test@habitca.com'}],
+        emails: [{name: 'test', email: 'test@habitica.com'}],
       });
       let invitedUser = await newUser.get('/user');
 

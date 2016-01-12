@@ -53,5 +53,6 @@
   "userAlreadyInAParty": "User already in a party.",
   "userWithIDNotFound": "User with id \"<%= userId %>\" not found.",
   "uuidsMustBeAnArray": "UUIDs invites must be a an Array.",
-  "emailsMustBeAnArray": "Email invites must be a an Array."
+  "emailsMustBeAnArray": "Email invites must be a an Array.",
+  "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time"
 }
