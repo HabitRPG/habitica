@@ -1,7 +1,7 @@
 import moment from 'moment';
 import _ from 'lodash';
 import scoreTask from './scoreTask';
-import preenUserHistory from './preenHistory';
+import { preenUserHistory } from './preening';
 import common from '../../';
 import {
   shouldDo,
@@ -65,7 +65,7 @@ export default function cron (options = {}) {
         gemCapExtra: 0,
       });
 
-      user.markModified('purchased.plan'); // TODO necessary?
+      user.markModified('purchased.plan');
     }
   }
 
@@ -197,7 +197,7 @@ export default function cron (options = {}) {
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differentyly
   // premium subscribers can keep their full history.
-  preenUserHistory(user, tasksByType);
+  preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
 
   if (perfect) {
     user.achievements.perfect++;
