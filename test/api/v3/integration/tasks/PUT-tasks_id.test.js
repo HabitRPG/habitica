@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:id', () => {

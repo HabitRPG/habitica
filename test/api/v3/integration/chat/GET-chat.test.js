@@ -2,7 +2,7 @@ import {
   generateUser,
   generateGroup,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 
 describe('GET /groups/:groupId/chat', () => {
   let user;
