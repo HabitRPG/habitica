@@ -7,14 +7,12 @@ describe('POST /tasks', () => {
   let user;
 
   before(async () => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+    user = await generateUser();
   });
 
-  context('validates params', () => {
+  context('validates params', async () => {
     it('returns an error if req.body.type is absent', async () => {
-      return expect(user.post('/tasks', {
+      await expect(user.post('/tasks', {
         notType: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -24,7 +22,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.type is not valid', async () => {
-      return expect(user.post('/tasks', {
+      await expect(user.post('/tasks', {
         type: 'habitF',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -34,7 +32,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.text is absent', async () => {
-      return expect(user.post('/tasks', {
+      await expect(user.post('/tasks', {
         type: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
