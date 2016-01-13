@@ -101,7 +101,7 @@ function handleGetMembersInvitesForGroup (type) {
 }
 
 /**
- * @api {get} /groups/:groupId/members Get members for a groups with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /groups/:groupId/members Get members for a group with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetMembersForGroup
  * @apiGroup Member
@@ -120,7 +120,7 @@ api.getMembersForGroup = {
 };
 
 /**
- * @api {get} /groups/:groupId/invites Get invites for a groups with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /groups/:groupId/invites Get invites for a group with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetInvitesForGroup
  * @apiGroup Member
@@ -136,5 +136,68 @@ api.getInvitesForGroup = {
   middlewares: [authWithHeaders(), cron],
   handler: handleGetMembersInvitesForGroup('invites'),
 };
+
+/**
+ * @api {get} /challenges/:challengeId/members Get members for a challenge with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @apiVersion 3.0.0
+ * @apiName GetMembersForChallenge
+ * @apiGroup Member
+ *
+ * @apiParam {UUID} challengeId The challenge id
+ * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ *
+ * @apiSuccess {array} members An array of members, sorted by _id
+ */
+api.getMembersForChallenge = {
+  method: 'GET',
+  url: '/challenges/:challengeId/members',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty();
+    req.checkQuery('lastId').optional().notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let challengeId = req.params.challengeId;
+    let lastId = req.query.lastId;
+    let user = res.locals.user;
+
+    let challenge = await Challenge.findById(challengeId).exec();
+
+    let query = {};
+    let fields = nameFields;
+
+    if (type === 'members') {
+      if (group.type === 'guild') {
+        query.guilds = group._id;
+      } else {
+        query['party._id'] = group._id; // group._id and not groupId because groupId could be === 'party'
+
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+        }
+      }
+    } else {
+      if (group.type === 'guild') { // eslint-disable-line no-lonely-if
+        query['invitations.guilds.id'] = group._id;
+      } else {
+        query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
+      }
+    }
+
+    if (lastId) query._id = {$gt: lastId};
+
+    let users = await User
+      .find(query)
+      .sortBy({_id: 1})
+      .limit(30)
+      .select(fields)
+      .exec();
+
+    res.respond(200, users);
+  }
+};
+
 
 export default api;
