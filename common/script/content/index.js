@@ -19,6 +19,7 @@ import {
 import mysterySets from './mystery-sets';
 
 import gear from './gear';
+import { defaultAppearancePreferences } from './appearance';
 
 api.mystery = mysterySets;
 
@@ -1044,7 +1045,7 @@ api.premiumHatchingPotions = {
     text: t('hatchingPotionPeppermint'),
     limited: true,
     canBuy: (function() {
-      return true;
+      return false;
     })
   }
 };
@@ -1622,7 +1623,6 @@ api.quests = {
     notes: t('questEvilSanta2Notes'),
     completion: t('questEvilSanta2Completion'),
     value: 4,
-    previous: 'evilsanta',
     category: 'pet',
     collect: {
       tracks: {
@@ -3010,6 +3010,8 @@ api.questsByLevel = _.sortBy(api.quests, function(quest) {
   return quest.lvl || 0;
 });
 
+api.defaultAppearancePreferences = defaultAppearancePreferences;
+
 api.backgrounds = {
   backgrounds062014: {
     beach: {
@@ -3275,6 +3277,20 @@ api.backgrounds = {
     winter_town: {
       text: t('backgroundWinterTownText'),
       notes: t('backgroundWinterTownNotes')
+    }
+  },
+  backgrounds012016: {
+    frozen_lake: {
+      text: t('backgroundFrozenLakeText'),
+      notes: t('backgroundFrozenLakeNotes')
+    },
+    snowman_army: {
+      text: t('backgroundSnowmanArmyText'),
+      notes: t('backgroundSnowmanArmyNotes')
+    },
+    winter_night: {
+      text: t('backgroundWinterNightText'),
+      notes: t('backgroundWinterNightNotes')
     }
   },
 };

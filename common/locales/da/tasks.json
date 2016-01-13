@@ -90,7 +90,7 @@
     "fortifyPop": "Returnerer alle opgaver til neutral værdi (gul farve) og giver alt tabt liv tilbage.",
     "fortify": "Forstærk",
     "fortifyText": "Forstærk vil returnere alle dine opgaver til en neutral (gul) værdi, som om du lige har tilføjet dem, og give dig fuldt Liv tilbage. Dette er godt hvis alle dine røde opgaver gør spillet for hårdt, eller alle dine blå opgaver gør det for nemt. Hvis du hellere vil starte forfra, så brug Ædelsten og bliv benådiget!",
-    "confirmFortify": "Are you sure?",
+    "confirmFortify": "Er du sikker?",
     "sureDelete": "Are you sure you want to delete the <%= taskType %> with the text \"<%= taskText %>\"?",
     "streakCoins": "Stribebonus!",
     "pushTaskToTop": "Push task to top.  Hold ctrl or cmd to push to bottom.",

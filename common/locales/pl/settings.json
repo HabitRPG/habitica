@@ -112,7 +112,7 @@
     "unsubscribeAllEmails": "Zaznacz by zrezygnować z subskrypcji e-maili",
     "unsubscribeAllEmailsText": "Przez zaznaczenie tego pola poświadczam, że rozumiem że po zrezygnowaniu z subskrypcji wszystkich e-maili, Habitica nie będzie w stanie powiadamiać mnie przez e-mail o ważnych zmianach na stronie lub na moim koncie.",
     "correctlyUnsubscribedEmailType": "Poprawnie zrezygnowano z subskrypcji e-maili \"<%= emailType %>\".",
-    "subscriptionRateText": "Recurring $<%= price %> USD every <%= months %> months",
+    "subscriptionRateText": "Okresowa opłata $<%= price %> USD po każdym <%= months %> miesiącu",
     "benefits": "Korzyści",
     "coupon": "Kupon",
     "couponPlaceholder": "Podaj kod z kuponu",
@@ -136,7 +136,7 @@
     "buyGemsGoldCap": "Limit podniesiony do <%= amount %>",
     "mysticHourglass": "<%= amount %> Mistyczne Klepsydry",
     "mysticHourglassText": "Mistyczna Klepsydra pozwala na zakup Zestawów tajemniczych przedmiotów z poprzednich miesięcy.",
-    "purchasedPlanId": "Recurring $<%= price %> USD each <%= months %> Month(s) (<%= plan %>)",
+    "purchasedPlanId": "Okresowa opłata $<%= price %> USD po każdym <%= months %> miesiącu (<%= plan %>)",
     "purchasedPlanExtraMonths": "Posiadasz <%= months %> miesięcy kredytu abonenckiego.",
     "consecutiveSubscription": "Ciągłość abonamentu",
     "consecutiveMonths": "Ilość miesięcy z rzędu:",
@@ -145,6 +145,6 @@
     "paypal": "PayPal",
     "amazonPayments": "Płatności Amazon",
     "timezone": "Strefa czasowa",
-    "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been reseting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezoneUTC": "Habitica korzysta ze strefy czasowej ustawionej na twoim komputerze, to znaczy: <strong><%= utc %></strong>",
+    "timezoneInfo": "Jeżeli wyświetlana strefa czasowa się nie zgadza, najpierw przeładuj stronę korzystając z przycisków \"odśwież\" lub \"przeładuj\" w twojej przeglądarce, aby wysłać do Habitica najnowsze dane. Jeśli nadal się nie zgadza, zmień ustawienia strefy czasowej na swoim komputerze i ponownie przeładuj stronę.<br><br> <strong>Jeśli korzystasz z Habitica na innym komputerze lub urządzeniach przenośnych, ustawiona strefa czasowa musi być identyczna na każdym z nich.</strong> Jeśli twoje Codzienne resetują się w niewłaściwym czasie, powtórz powyższy test na pozostałych komputerach i przeglądarkach na urządzeniach mobilnych."
 }

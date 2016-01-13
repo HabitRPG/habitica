@@ -38,10 +38,10 @@
     "skiSet": "雪橇刺客 (盗贼)",
     "snowflakeSet": "雪片 (医师)",
     "yetiSet": "野人驯化 (战士)",
-    "northMageSet": "Mage of the North (Mage)",
-    "icicleDrakeSet": "Icicle Drake (Rogue)",
-    "soothingSkaterSet": "Soothing Skater (Healer)",
-    "gingerbreadSet": "Gingerbread Warrior (Warrior)",
+    "northMageSet": "北方法师(法师)",
+    "icicleDrakeSet": "冰柱之龙(盗贼)",
+    "soothingSkaterSet": "抚慰滑冰者(医者)",
+    "gingerbreadSet": "姜饼人战士(战士)",
     "toAndFromCard": "发给: <%= toName %>, 来自: <%= fromName %>",
     "nyeCard": "新年贺卡",
     "nyeCardExplanation": "你们一起庆祝了新年的到来，为此你们收到了\"老朋友\"的奖章!",
@@ -68,5 +68,5 @@
     "mummyMedicSet": "木乃伊医师(医师)",
     "vampireSmiterSet": "吸血重击者(盗贼)",
     "fallEventAvailability": "有效期至十月31日",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "有效期至十二月31日"
 }

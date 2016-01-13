@@ -24,5 +24,5 @@
     "rebirthPop": "开始一个1级的新角色并保留成就，物品和任务历史。",
     "rebirthName": "重生球",
     "reborn": "重生, 最高级别 <%= reLevel %>",
-    "confirmReborn": "Are you sure?"
+    "confirmReborn": "你确定吗？"
 }
