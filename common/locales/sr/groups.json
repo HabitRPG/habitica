@@ -101,7 +101,7 @@
     "inbox": "Sanduče",
     "abuseFlag": "Prijavite kršenje Pravila ponašanja",
     "abuseFlagModalHeading": "Želite li da prijavite <%= name %> za kršenje pravila?",
-    "abuseFlagModalBody": "Jeste li sigurni da želite prijavite ovu poruku? Poruku treba da prijavite SAMO ako kriši <%= firstLinkStart %>Pravila ponašanja<%= linkEnd %> i/ili <%= secondLinkStart %>Uslove korišćenja<%= linkEnd %>. Slanjem neosnovanih prijava krišite Pravila ponašanja i možete za to biti kažnjeni.",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Report Violation",
     "abuseReported": "Hvala što ste prijavili ovaj prekršaj. Moderatorima je poslato obaveštenje.",
     "abuseAlreadyReported": "Već ste prijavili ovu poruku.",

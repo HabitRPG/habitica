@@ -9,7 +9,7 @@ include ./party
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
   .options-blurbmenu
-    small.muted=env.t('blurbInbox')
+    small.muted!=env.t('blurbInbox')
 
   .container-fluid
     .row

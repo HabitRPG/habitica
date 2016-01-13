@@ -378,6 +378,7 @@ export let schema = new Schema({
     tagsCollapsed: {type: Boolean, default: false},
     advancedCollapsed: {type: Boolean, default: false},
     toolbarCollapsed: {type: Boolean, default: false},
+    reverseChatOrder: {type: Boolean, default: false},
     background: String,
     displayInviteToPartyWhenPartyIs1: {type: Boolean, default: true},
     webhooks: {type: Schema.Types.Mixed, default: {}}, // TODO array? and proper controller... unless VersionError becomes problematic

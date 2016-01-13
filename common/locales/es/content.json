@@ -116,7 +116,7 @@
     "hatchingPotionCottonCandyBlue": "Azul Algodón de Azúcar",
     "hatchingPotionGolden": "de Oro",
     "hatchingPotionSpooky": "Escalofriante",
-    "hatchingPotionPeppermint": "Peppermint",
+    "hatchingPotionPeppermint": "Menta",
     "hatchingPotionNotes": "Echa esto en un huevo, y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No es usable en huevos de mascota de misión.",
     "foodMeat": "Carne",
