@@ -98,30 +98,30 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 }*/
 
 // TODO test
-schema.pre('remove', true, function preRemoveGroup (next, done) {
+schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
   let group = this;
 
   // Remove invitations when group is deleted
   // TODO verify it works fir everything
-  User.find({
+  let usersToRemoveInvitationsFrom = await User.find({
     // TODO id -> _id ?
     [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
-  }).exec()
-  .then(users => {
-    return Q.all(users.map(user => {
-      if (group.type === 'party') {
-        user.invitations.party = {}; // TODO mark modified
-      } else {
-        let i = _.findIndex(user.invitations.guilds, {id: group._id});
-        user.invitations.guilds.splice(i, 1);
-      }
+  }).exec();
 
-      return user.save();
-    }));
-  })
-  .then(done)
-  .catch(done);
+  let userUpdates = usersToRemoveInvitationsFrom.map(user => {
+    if (group.type === 'party') {
+      user.invitations.party = {}; // TODO mark modified
+    } else {
+      let i = _.findIndex(user.invitations.guilds, {id: group._id});
+      user.invitations.guilds.splice(i, 1);
+    }
+    return user.save();
+  });
+
+  await Q.all(userUpdates);
+
+  done();
 });
 
 schema.post('remove', function postRemoveGroup (group) {
@@ -454,69 +454,56 @@ schema.statics.bossQuest = function bossQuest (user, progress) {
 
 // Remove user from this group
 // TODO this is highly inefficient
-schema.methods.leave = function leaveGroup (user, keep) {
+schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
 
-  return Q.all([
-    // Remove user from group challenges
-
-    // First find relevant Challenges
-    Challenge.find({
-      _id: {$in: user.challenges}, // Challenges I am in
-      group: group._id, // that belong to the group I am leaving
-    }).then(challenges => {
-      // Update each challenge
-      return Challenge.update(
-        {_id: {$in: _.pluck(challenges, '_id')}},
-        {$pull: {members: user._id}},
-        {multi: true}
-      ).then(() => challenges); // pass `challenges` above to next promise
-    }).then(challenges => {
-      return Q.all(challenges.map(chal => {
-        let i = user.challenges.indexOf(chal._id);
-        if (i !== -1) user.challenges.splice(i, 1);
-        return user.unlinkChallengeTasks(chal._id, keep);
-      }));
-    }),
-
-    // Update the group
-    (() => {
-      // If user is the last one in group and group is private, delete it
-      if (group.members.length === 1 && (
-          group.type === 'party' ||
-          group.type === 'guild' && group.privacy === 'private'
-      )) return group.remove();
-
-      let update = {};
-      // otherwise just remove a member TODO create User.methods.removeFromGroup?
-      if (group.type === 'guild') {
-        _.pull(user.guilds, group._id);
-      } else {
-        user.party._id = undefined; // TODO remove quest information too?
-      }
-
-      // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-      let leader = group.leader;
-
-      if (leader === user._id || group.members.indexOf(leader) === -1) {
-        let seniorMember = _.find(group.members, m => m !== user._id);
-
-        // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
-        if (seniorMember) update.$set = {leader: seniorMember};
-      }
-
-      update.$inc = {memberCount: -1};
-      return Q.all([
-        model.update({_id: group._id}, update).exec(), // eslint-disable-line no-use-before-define
-        user.save(),
-      ]);
-    })(),
-  ]).then(() => {
-    firebase.removeUserFromGroup(group._id, user._id);
-    return; // TODO ok not to return promise?
-  }).catch(err => { // TODO do we have to catch err if we return the promise?
-    throw err;
+  let challenges = await Challenge.find({
+    _id: {$in: user.challenges}, // Challenges I am in
+    group: group._id, // that belong to the group I am leaving
   });
+
+  await Challenge.update(
+    {_id: {$in: _.pluck(challenges, '_id')}},
+    {$pull: {members: user._id}},
+    {multi: true}
+  );
+
+  //  remove user from challenges
+  let challengesUserWasRemovedFrom = challenges.map(chal => {
+    let i = user.challenges.indexOf(chal._id);
+    if (i !== -1) user.challenges.splice(i, 1);
+    return user.unlink({cid: chal._id, keep});
+  });
+  await Q.all(challengesUserWasRemovedFrom);
+
+  let promises = [];
+
+  // If user is the last one in group and group is private, delete it
+  if (group.memberCount === 1 && (
+    group.type === 'party' ||
+    group.type === 'guild' && group.privacy === 'private'
+  )) {
+    return await group.remove();
+  }
+
+  // otherwise just remove a member TODO create User.methods.removeFromGroup?
+  if (group.type === 'guild') {
+    promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id } }).exec());
+  } else {
+    promises.push(User.update({_id: user._id}, {$set: {'party._id': undefined } }).exec());
+  }
+
+  // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+  let update = { memberCount: group.memberCount - 1 };
+  if (group.leader === user._id) {
+    let seniorMember = await User.findOne({guilds: group._id, _id: {$ne: user._id}}).exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
+  }
+  promises.push(group.update(update).exec());
+
+  return await Q.all(promises);
 };
 
 export const INVITES_LIMIT = 100;
