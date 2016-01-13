@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /tasks/:id', () => {

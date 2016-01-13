@@ -2,7 +2,7 @@ import {
   generateUser,
   requester,
   translate as t,
-} from '../../../../../helpers/api-integration.helper';
+} from '../../../../../helpers/api-v3-integration.helper';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
 

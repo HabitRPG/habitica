@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 
 describe('PUT /tags/:tagId', () => {
   let user;
