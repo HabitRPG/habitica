@@ -22,8 +22,8 @@ describe('PUT /tasks/:id', () => {
 
     it(`ignores setting _id, type, userId, history, createdAt,
                         updatedAt, challenge, completed, streak,
-                        dateCompleted fields`, () => {
-      user.put(`/tasks/${task._id}`, {
+                        dateCompleted fields`, async () => {
+      let savedTask = await user.put(`/tasks/${task._id}`, {
         _id: 123,
         type: 'daily',
         userId: 123,
@@ -34,18 +34,18 @@ describe('PUT /tasks/:id', () => {
         completed: true,
         streak: 25,
         dateCompleted: 'never',
-      }).then((savedTask) => {
-        expect(savedTask._id).to.equal(task._id);
-        expect(savedTask.type).to.equal(task.type);
-        expect(savedTask.userId).to.equal(user._id);
-        expect(savedTask.history).to.eql([]);
-        expect(savedTask.createdAt).not.to.equal('yesterday');
-        expect(savedTask.updatedAt).not.to.equal('tomorrow');
-        expect(savedTask.challenge).not.to.equal('no');
-        expect(savedTask.completed).to.equal(false);
-        expect(savedTask.streak).to.equal(0);
-        expect(savedTask.streak).not.to.equal('never');
       });
+
+      expect(savedTask._id).to.equal(task._id);
+      expect(savedTask.type).to.equal(task.type);
+      expect(savedTask.userId).to.equal(task.userId);
+      expect(savedTask.history).to.eql(task.history);
+      expect(savedTask.createdAt).to.equal(task.createdAt);
+      expect(savedTask.updatedAt).to.be.greaterThan(task.updatedAt);
+      expect(savedTask.challenge).to.equal(task.challenge);
+      expect(savedTask.completed).to.equal(task.completed);
+      expect(savedTask.streak).to.equal(task.streak);
+      expect(savedTask.dateCompleted).to.equal(task.dateCompleted);
     });
 
     it('ignores invalid fields', async () => {
