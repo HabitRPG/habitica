@@ -24,5 +24,5 @@
     "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt.",
     "rebirthName": "Bol der Hergeboorte",
     "reborn": "Herboren, maximale niveau <%= reLevel %>",
-    "confirmReborn": "Are you sure?"
+    "confirmReborn": "Weet je het zeker?"
 }

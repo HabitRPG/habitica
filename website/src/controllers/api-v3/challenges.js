@@ -30,12 +30,12 @@ api.createChallenge = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkBody('group', res.t('groupIdRequired')).notEmpty();
+    req.checkBody('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let groupId = req.body.group;
+    let groupId = req.body.groupId;
     let prize = req.body.prize;
 
     let group = await Group.getGroup(user, groupId, '-chat');
@@ -107,7 +107,7 @@ api.getChallenges = {
     let challenges = await Challenge.find({
       $or: [
         {_id: {$in: user.challenges}}, // Challenges where the user is participating
-        {group: {$in: groups}}, // Challenges in groups where I'm a member
+        {groupId: {$in: groups}}, // Challenges in groups where I'm a member
         {leader: user._id}, // Challenges where I'm the leader
       ],
       _id: {$ne: '95533e05-1ff9-4e46-970b-d77219f199e9'}, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug TODO revisit
@@ -146,6 +146,7 @@ api.getChallenge = {
     let challenge = await Challenge.findOne({_id: challengeId}).exec(); // TODO populate
 
     // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
+    // TODO support challenges in groups I'm a member of
     if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
       throw new NotFound(res.t('challengeNotFound'));
     }
@@ -183,11 +184,11 @@ function _closeChal (challenge, broken = {}) {
       },
     }, {multi: true}).exec(),
     // Update the challengeCount on the group
-    Group.update({_id: challenge.group}, {$inc: {challengeCount: -1}}).exec(),
+    Group.update({_id: challenge.groupId}, {$inc: {challengeCount: -1}}).exec(),
   ];
 
   // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
+  if (challenge.groupId !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
     tasks.push(User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec());
   }
 

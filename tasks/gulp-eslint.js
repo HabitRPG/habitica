@@ -25,7 +25,6 @@ const TEST_FILES = [
   '!./test/api-legacy/**/*',
   '!./test/common/simulations/**/*',
   '!./test/content/**/*',
-  '!./test/e2e/**/*',
   '!./test/server_side/**/*',
   '!./test/spec/**/*',
 ];

@@ -7,25 +7,23 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /tasks/:id/score/:direction', () => {
   let user;
 
-  beforeEach(() => {
-    return generateUser({
+  beforeEach(async () => {
+    user = await generateUser({
       'stats.gp': 100,
-    }).then((generatedUser) => {
-      user = generatedUser;
     });
   });
 
   context('all', () => {
-    it('requires a task id', () => {
-      return expect(user.post('/tasks/123/score/up')).to.eventually.be.rejected.and.eql({
+    it('requires a task id', async () => {
+      await expect(user.post('/tasks/123/score/up')).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
       });
     });
 
-    it('requires a task direction', () => {
-      return expect(user.post(`/tasks/${generateUUID()}/score/tt`)).to.eventually.be.rejected.and.eql({
+    it('requires a task direction', async () => {
+      await expect(user.post(`/tasks/${generateUUID()}/score/tt`)).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -36,110 +34,97 @@ describe('POST /tasks/:id/score/:direction', () => {
   context('todos', () => {
     let todo;
 
-    beforeEach(() => {
-      return user.post('/tasks', {
+    beforeEach(async () => {
+      todo = await user.post('/tasks', {
         text: 'test todo',
         type: 'todo',
-      }).then((task) => {
-        todo = task;
       });
     });
 
-    it('completes todo when direction is up', () => {
-      return user.post(`/tasks/${todo._id}/score/up`)
-      .then(() => user.get(`/tasks/${todo._id}`))
-      .then((task) => expect(task.completed).to.equal(true));
+    it('completes todo when direction is up', async () => {
+      await user.post(`/tasks/${todo._id}/score/up`);
+      let task = await user.get(`/tasks/${todo._id}`);
+
+      expect(task.completed).to.equal(true);
     });
 
-    it('moves completed todos out of user.tasksOrder.todos', () => {
-      return user.get('/user')
-      .then(usr => {
-        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
-      }).then(() => user.post(`/tasks/${todo._id}/score/up`))
-      .then(() => user.get(`/tasks/${todo._id}`))
-      .then((updatedTask) => {
-        expect(updatedTask.completed).to.equal(true);
-        return user.get('/user');
-      })
-      .then((usr) => {
-        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.equal(-1);
-      });
+    it('moves completed todos out of user.tasksOrder.todos', async () => {
+      let getUser = await user.get('/user');
+      expect(getUser.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
+
+      await user.post(`/tasks/${todo._id}/score/up`);
+      let updatedTask = await user.get(`/tasks/${todo._id}`);
+      expect(updatedTask.completed).to.equal(true);
+
+      let updatedUser = await user.get('/user');
+      expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).to.equal(-1);
     });
 
-    it('moves un-completed todos back into user.tasksOrder.todos', () => {
-      return user.get('/user')
-      .then(usr => {
-        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
-      }).then(() => user.post(`/tasks/${todo._id}/score/up`))
-      .then(() => user.post(`/tasks/${todo._id}/score/down`))
-      .then(() => user.get(`/tasks/${todo._id}`))
-      .then((updatedTask) => {
-        expect(updatedTask.completed).to.equal(false);
-        return user.get('/user');
-      })
-      .then((usr) => {
-        let l = usr.tasksOrder.todos.length;
-        expect(usr.tasksOrder.todos.indexOf(todo._id)).not.to.equal(-1);
-        expect(usr.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1); // Check that it was pushed at the bottom
-      });
+    it('moves un-completed todos back into user.tasksOrder.todos', async () => {
+      let getUser = await user.get('/user');
+      expect(getUser.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
+
+      await user.post(`/tasks/${todo._id}/score/up`);
+      await user.post(`/tasks/${todo._id}/score/down`);
+
+      let updatedTask = await user.get(`/tasks/${todo._id}`);
+      expect(updatedTask.completed).to.equal(false);
+
+      let updatedUser = await user.get('/user');
+      let l = updatedUser.tasksOrder.todos.length;
+      expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).not.to.equal(-1);
+      expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1); // Check that it was pushed at the bottom
     });
 
-    it('uncompletes todo when direction is down', () => {
-      return user.post(`/tasks/${todo._id}/score/down`)
-      .then(() => user.get(`/tasks/${todo._id}`))
-      .then((updatedTask) => {
-        expect(updatedTask.completed).to.equal(false);
-      });
+    it('uncompletes todo when direction is down', async () => {
+      await user.post(`/tasks/${todo._id}/score/down`);
+      let updatedTask = await user.get(`/tasks/${todo._id}`);
+
+      expect(updatedTask.completed).to.equal(false);
     });
 
     it('scores up todo even if it is already completed'); // Yes?
 
     it('scores down todo even if it is already uncompleted'); // Yes?
 
-    it('increases user\'s mp when direction is up', () => {
-      return user.post(`/tasks/${todo._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+    context('user stats when direction is up', () => {
+      let updatedUser;
+
+      beforeEach(async () => {
+        await user.post(`/tasks/${todo._id}/score/up`);
+        updatedUser = await user.get(`/user`);
+      });
+
+      it('increases user\'s mp', () => {
         expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
-    });
 
-    it('decreases user\'s mp when direction is down', () => {
-      return user.post(`/tasks/${todo._id}/score/down`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
-      });
-    });
-
-    it('increases user\'s exp when direction is up', () => {
-      return user.post(`/tasks/${todo._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+      it('increases user\'s exp', () => {
         expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
-    });
 
-    it('decreases user\'s exp when direction is down', () => {
-      return user.post(`/tasks/${todo._id}/score/down`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
-      });
-    });
-
-    it('increases user\'s gold when direction is up', () => {
-      return user.post(`/tasks/${todo._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+      it('increases user\'s gold', () => {
         expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
     });
 
-    it('decreases user\'s gold when direction is down', () => {
-      return user.post(`/tasks/${todo._id}/score/down`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+    context('user stats when direction is down', () => {
+      let updatedUser;
+
+      beforeEach(async () => {
+        await user.post(`/tasks/${todo._id}/score/down`);
+        updatedUser = await user.get(`/user`);
+      });
+
+      it('decreases user\'s mp', () => {
+        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
+      });
+
+      it('decreases user\'s exp', () => {
+        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
+      });
+
+      it('decreases user\'s gold', () => {
         expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
     });
@@ -148,75 +133,69 @@ describe('POST /tasks/:id/score/:direction', () => {
   context('dailys', () => {
     let daily;
 
-    beforeEach(() => {
-      return user.post('/tasks', {
+    beforeEach(async () => {
+      daily = await user.post('/tasks', {
         text: 'test daily',
         type: 'daily',
-      }).then((task) => {
-        daily = task;
       });
     });
 
-    it('completes daily when direction is up', () => {
-      return user.post(`/tasks/${daily._id}/score/up`)
-      .then(() => user.get(`/tasks/${daily._id}`))
-      .then((task) => expect(task.completed).to.equal(true));
+    it('completes daily when direction is up', async () => {
+      await user.post(`/tasks/${daily._id}/score/up`);
+      let task = await user.get(`/tasks/${daily._id}`);
+
+      expect(task.completed).to.equal(true);
     });
 
-    it('uncompletes daily when direction is down', () => {
-      return user.post(`/tasks/${daily._id}/score/down`)
-      .then(() => user.get(`/tasks/${daily._id}`))
-      .then((task) => expect(task.completed).to.equal(false));
+    it('uncompletes daily when direction is down', async () => {
+      await user.post(`/tasks/${daily._id}/score/down`);
+      let task = await user.get(`/tasks/${daily._id}`);
+
+      expect(task.completed).to.equal(false);
     });
 
     it('scores up daily even if it is already completed'); // Yes?
 
     it('scores down daily even if it is already uncompleted'); // Yes?
 
-    it('increases user\'s mp when direction is up', () => {
-      return user.post(`/tasks/${daily._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+    context('user stats when direction is up', () => {
+      let updatedUser;
+
+      beforeEach(async () => {
+        await user.post(`/tasks/${daily._id}/score/up`);
+        updatedUser = await user.get(`/user`);
+      });
+
+      it('increases user\'s mp', () => {
         expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
       });
-    });
 
-    it('decreases user\'s mp when direction is down', () => {
-      return user.post(`/tasks/${daily._id}/score/down`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
-      });
-    });
-
-    it('increases user\'s exp when direction is up', () => {
-      return user.post(`/tasks/${daily._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+      it('increases user\'s exp', () => {
         expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
       });
-    });
 
-    it('decreases user\'s exp when direction is down', () => {
-      return user.post(`/tasks/${daily._id}/score/down`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
-      });
-    });
-
-    it('increases user\'s gold when direction is up', () => {
-      return user.post(`/tasks/${daily._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+      it('increases user\'s gold', () => {
         expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
       });
     });
 
-    it('decreases user\'s gold when direction is down', () => {
-      return user.post(`/tasks/${daily._id}/score/down`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
+    context('user stats when direction is down', () => {
+      let updatedUser;
+
+      beforeEach(async () => {
+        await user.post(`/tasks/${daily._id}/score/down`);
+        updatedUser = await user.get(`/user`);
+      });
+
+      it('decreases user\'s mp', () => {
+        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
+      });
+
+      it('decreases user\'s exp', () => {
+        expect(updatedUser.stats.exp).to.be.lessThan(user.stats.exp);
+      });
+
+      it('decreases user\'s gold', () => {
         expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
     });
@@ -225,34 +204,29 @@ describe('POST /tasks/:id/score/:direction', () => {
   context('habits', () => {
     let habit, minusHabit, plusHabit, neitherHabit; // eslint-disable-line no-unused-vars
 
-    beforeEach(() => {
-      return user.post('/tasks', {
+    beforeEach(async () => {
+      habit = await user.post('/tasks', {
         text: 'test habit',
         type: 'habit',
-      }).then((task) => {
-        habit = task;
-        return user.post('/tasks', {
-          text: 'test min habit',
-          type: 'habit',
-          up: false,
-        });
-      }).then((task) => {
-        minusHabit = task;
-        return user.post('/tasks', {
-          text: 'test plus habit',
-          type: 'habit',
-          down: false,
-        });
-      }).then((task) => {
-        plusHabit = task;
-        user.post('/tasks', {
-          text: 'test neither habit',
-          type: 'habit',
-          up: false,
-          down: false,
-        });
-      }).then((task) => {
-        neitherHabit = task;
+      });
+
+      minusHabit = await user.post('/tasks', {
+        text: 'test min habit',
+        type: 'habit',
+        up: false,
+      });
+
+      plusHabit = await user.post('/tasks', {
+        text: 'test plus habit',
+        type: 'habit',
+        down: false,
+      });
+
+      neitherHabit = await user.post('/tasks', {
+        text: 'test neither habit',
+        type: 'habit',
+        up: false,
+        down: false,
       });
     });
 
@@ -260,82 +234,63 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('prevents minus only habit from scoring up'); // Yes?
 
-    it('increases user\'s mp when direction is up', () => {
-      return user.post(`/tasks/${habit._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
-      });
+    it('increases user\'s mp when direction is up', async () => {
+      await user.post(`/tasks/${habit._id}/score/up`);
+      let updatedUser = await user.get(`/user`);
+
+      expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
     });
 
-    it('decreases user\'s mp when direction is down', () => {
-      return user.post(`/tasks/${habit._id}/score/down`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
-      });
+    it('decreases user\'s mp when direction is down', async () => {
+      await user.post(`/tasks/${habit._id}/score/down`);
+      let updatedUser = await user.get(`/user`);
+
+      expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
     });
 
-    it('increases user\'s exp when direction is up', () => {
-      return user.post(`/tasks/${habit._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
-      });
+    it('increases user\'s exp when direction is up', async () => {
+      await user.post(`/tasks/${habit._id}/score/up`);
+      let updatedUser = await user.get(`/user`);
+
+      expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
     });
 
-    it('increases user\'s gold when direction is up', () => {
-      return user.post(`/tasks/${habit._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
-      });
+    it('increases user\'s gold when direction is up', async () => {
+      await user.post(`/tasks/${habit._id}/score/up`);
+      let updatedUser = await user.get(`/user`);
+
+      expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
     });
   });
 
   context('reward', () => {
-    let reward;
+    let reward, updatedUser;
 
-    beforeEach(() => {
-      return user.post('/tasks', {
+    beforeEach(async () => {
+      reward = await user.post('/tasks', {
         text: 'test reward',
         type: 'reward',
         value: 5,
-      }).then((task) => {
-        reward = task;
       });
+
+      await user.post(`/tasks/${reward._id}/score/up`);
+      updatedUser = await user.get(`/user`);
     });
 
     it('purchases reward', () => {
-      return user.post(`/tasks/${reward._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(user.stats.gp).to.equal(updatedUser.stats.gp + 5);
-      });
+      expect(user.stats.gp).to.equal(updatedUser.stats.gp + 5);
     });
 
     it('does not change user\'s mp', () => {
-      return user.post(`/tasks/${reward._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(user.stats.mp).to.equal(updatedUser.stats.mp);
-      });
+      expect(user.stats.mp).to.equal(updatedUser.stats.mp);
     });
 
     it('does not change user\'s exp', () => {
-      return user.post(`/tasks/${reward._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(user.stats.exp).to.equal(updatedUser.stats.exp);
-      });
+      expect(user.stats.exp).to.equal(updatedUser.stats.exp);
     });
 
     it('does not allow a down direction', () => {
-      return user.post(`/tasks/${reward._id}/score/up`)
-      .then(() => user.get(`/user`))
-      .then((updatedUser) => {
-        expect(user.stats.mp).to.equal(updatedUser.stats.mp);
-      });
+      expect(user.stats.mp).to.equal(updatedUser.stats.mp);
     });
   });
 });

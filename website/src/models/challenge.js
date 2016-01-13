@@ -11,7 +11,7 @@ let schema = new Schema({
   name: {type: String, required: true},
   shortName: {type: String, required: true}, // TODO what is it?
   description: String,
-  official: {type: Boolean, default: false},
+  official: {type: Boolean, default: false}, // TODO only settable by admin
   tasksOrder: {
     habits: [{type: String, ref: 'Task'}],
     dailys: [{type: String, ref: 'Task'}],
@@ -19,14 +19,15 @@ let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin?
+  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin? not settable?
   memberCount: {type: Number, default: 0},
-  prize: {type: Number, default: 0, min: 0},
+  challengeCount: {type: Number, default: 0},
+  prize: {type: Number, default: 0, min: 0}, // TODO no update?
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'memberCount', 'tasksOrder'],
+  noSet: ['_id', 'memberCount', 'challengeCount', 'tasksOrder'],
 });
 
 

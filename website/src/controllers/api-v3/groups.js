@@ -100,13 +100,13 @@ api.getGroups = {
             type: 'guild',
             privacy: 'private',
             _id: {$in: user.guilds},
-          }).select(groupFields).sort(sort).exec()); // TODO isMember
+          }).select(groupFields).sort(sort).exec());
           break;
         case 'publicGuilds':
           queries.push(Group.find({
             type: 'guild',
             privacy: 'public',
-          }).select(groupFields).sort(sort).exec()); // TODO use lean? isMember
+          }).select(groupFields).sort(sort).exec()); // TODO use lean?
           break;
         case 'tavern':
           queries.push(Group.getGroup(user, 'habitrpg', groupFields));

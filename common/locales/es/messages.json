@@ -41,7 +41,7 @@
     "messageAuthMustBeLoggedIn": "Debes estar identificado.",
     "messageAuthMustIncludeTokens": "You must include a token and uid (user id) in your request",
     "messageGroupNotFound": "Grupo no encontrado o no tienes acceso.",
-    "messageGroupAlreadyInParty": "Already in a party, try refreshing.",
+    "messageGroupAlreadyInParty": "Ya estás en una fiesta, intenta actualizando la página.",
     "messageGroupOnlyLeaderCanUpdate": "¡Sólo el líder del grupo puede actualizar el grupo!",
     "messageGroupRequiresInvite": "No puedes entrar en un grupo al que no has sido invitado.",
     "messageGroupCannotRemoveSelf": "¡No puedes eliminarte a ti mismo!",

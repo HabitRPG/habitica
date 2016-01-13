@@ -19,15 +19,15 @@ paypal.configure({
 });
 
 // https://developer.paypal.com/docs/api/#billing-plans-and-agreements
-var billingPlanTitle ="HabitRPG Subscription";
+var billingPlanTitle ="Habitica Subscription";
 var billingPlanAttributes = {
   "name": billingPlanTitle,
   "description": billingPlanTitle,
   "type": "INFINITE",
   "merchant_preferences": {
     "auto_bill_amount": "yes",
-    "cancel_url": live ? 'https://habitrpg.com' : 'http://localhost:3000',
-    "return_url": (live ? 'https://habitrpg.com' : 'http://localhost:3000') + '/paypal/subscribe/success'
+    "cancel_url": live ? 'https://habitica.com' : 'http://localhost:3000',
+    "return_url": (live ? 'https://habitica.com' : 'http://localhost:3000') + '/paypal/subscribe/success'
   },
   payment_definitions: [{
     "type": "REGULAR",
@@ -63,7 +63,7 @@ switch(OP) {
       "op": "replace",
       "path": "/merchant_preferences",
       "value": {
-        "cancel_url": "https://habitrpg.com"
+        "cancel_url": "https://habitica.com"
       }
     };
     paypal.billingPlan.update(nconf.get("PAYPAL:billing_plans:12"), update, function (err, res) {

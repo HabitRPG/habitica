@@ -145,7 +145,6 @@ schema.statics.getGroup = function getGroup (user, groupId, fields, optionalMemb
   // TODO purge chat flags info? in tojson?
 };
 
-// TODO move to its own model
 export function chatDefaults (msg, user) {
   let message = {
     id: shared.uuid(),

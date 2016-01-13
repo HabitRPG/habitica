@@ -7,14 +7,12 @@ describe('POST /tasks', () => {
   let user;
 
   before(async () => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+    user = await generateUser();
   });
 
-  context('validates params', () => {
+  context('validates params', async () => {
     it('returns an error if req.body.type is absent', async () => {
-      return expect(user.post('/tasks', {
+      await expect(user.post('/tasks', {
         notType: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -24,7 +22,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.type is not valid', async () => {
-      return expect(user.post('/tasks', {
+      await expect(user.post('/tasks', {
         type: 'habitF',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -34,7 +32,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if one object inside an array is invalid', async () => {
-      return expect(user.post('/tasks', [
+      await expect(user.post('/tasks', [
         {type: 'habitF'},
         {type: 'habit'},
       ])).to.eventually.be.rejected.and.eql({
@@ -45,7 +43,7 @@ describe('POST /tasks', () => {
     });
 
     it('returns an error if req.body.text is absent', async () => {
-      return expect(user.post('/tasks', {
+      await expect(user.post('/tasks', {
         type: 'habit',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -56,49 +54,46 @@ describe('POST /tasks', () => {
 
     it('does not update user.tasksOrder.{taskType} when the task is not saved because invalid', async () => {
       let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
-      return expect(user.post('/tasks', {
+      await expect(user.post('/tasks', {
         type: 'habit',
       })).to.eventually.be.rejected.and.eql({ // this block is necessary
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
-      }).then(async () => {
-        let updatedHabitsOrder = (await user.get('/user')).tasksOrder.habits;
-
-        expect(updatedHabitsOrder).to.eql(originalHabitsOrder);
       });
+
+      let updatedHabitsOrder = (await user.get('/user')).tasksOrder.habits;
+      expect(updatedHabitsOrder).to.eql(originalHabitsOrder);
     });
 
     it('does not update user.tasksOrder.{taskType} when a task inside an array is not saved because invalid', async () => {
       let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
-      return expect(user.post('/tasks', [
+      await expect(user.post('/tasks', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
       ])).to.eventually.be.rejected.and.eql({ // this block is necessary
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
-      }).then(async () => {
-        let updatedHabitsOrder = (await user.get('/user')).tasksOrder.habits;
-
-        expect(updatedHabitsOrder).to.eql(originalHabitsOrder);
       });
+
+      let updatedHabitsOrder = (await user.get('/user')).tasksOrder.habits;
+      expect(updatedHabitsOrder).to.eql(originalHabitsOrder);
     });
 
     it('does not save any task sent in an array when 1 is invalid', async () => {
       let originalTasks = await user.get('/tasks');
-      return expect(user.post('/tasks', [
+      await expect(user.post('/tasks', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
       ])).to.eventually.be.rejected.and.eql({ // this block is necessary
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
-      }).then(async () => {
-        let updatedTasks = await user.get('/tasks');
-
-        expect(updatedTasks).to.eql(originalTasks);
       });
+
+      let updatedTasks = await user.get('/tasks');
+      expect(updatedTasks).to.eql(originalTasks);
     });
 
     it('automatically sets "task.userId" to user\'s uuid', async () => {

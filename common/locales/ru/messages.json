@@ -13,7 +13,7 @@
     "messageDontEnjoyFood": "<%= egg %> все съел, но не похоже, что <%= foodText %> ему нравится.",
     "messageBought": "Куплено: <%= itemText %>",
     "messageEquipped": "Надето: <%= itemText %>.",
-    "messageUnEquipped": "<%= itemText %> unequipped.",
+    "messageUnEquipped": "Не надето: <%= itemText %>",
     "messageMissingEggPotion": "У вас нет нужного яйца или эликсира",
     "messageInvalidEggPotionCombo": "Вы не можете вывести квестового питомца с помощью волшебного инкубационного эликсира. Попробуйте другое яйцо.",
     "messageAlreadyPet": "У вас уже есть такой питомец! Попробуйте другую комбинацию!",

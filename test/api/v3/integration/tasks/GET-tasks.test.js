@@ -6,37 +6,27 @@ import Q from 'q';
 describe('GET /tasks', () => {
   let user;
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  beforeEach(async () => {
+    user = await generateUser();
   });
 
-  it('returns all user\'s tasks', () => {
-    let length;
-    return Q.all([
+  it('returns all user\'s tasks', async () => {
+    let createdTasks = await Q.all([
       user.post('/tasks', {text: 'test habit', type: 'habit'}),
-    ])
-    .then((createdTasks) => {
-      length = createdTasks.length;
-      return user.get('/tasks');
-    })
-    .then((tasks) => {
-      expect(tasks.length).to.equal(length + 1); // + 1 because 1 is a default task
-    });
+    ]);
+
+    let length = createdTasks.length;
+    let tasks = await user.get('/tasks');
+
+    expect(tasks.length).to.equal(length + 1); // + 1 because 1 is a default task
   });
 
-  it('returns only a type of user\'s tasks if req.query.type is specified', () => {
-    let habitId;
-    user.post('/tasks', {text: 'test habit', type: 'habit'})
-    .then((task) => {
-      habitId = task._id;
-      return user.get('/tasks?type=habit');
-    })
-    .then((tasks) => {
-      expect(tasks.length).to.equal(1);
-      expect(tasks[0]._id).to.equal(habitId);
-    });
+  it('returns only a type of user\'s tasks if req.query.type is specified', async () => {
+    let task = await user.post('/tasks', {text: 'test habit', type: 'habit'});
+    let tasks = await user.get('/tasks?type=habit');
+
+    expect(tasks.length).to.equal(1);
+    expect(tasks[0]._id).to.equal(task._id);
   });
 
   // TODO complete after task scoring is done
