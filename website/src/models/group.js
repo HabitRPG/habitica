@@ -463,8 +463,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   });
 
   await Challenge.update(
-    {_id: {$in: _.pluck(challenges, '_id')}},
-    {$pull: {members: user._id}},
+    {_id: {$in: _.pluck(user.challenges, '_id')}},
     {multi: true}
   );
 

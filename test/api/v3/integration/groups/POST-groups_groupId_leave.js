@@ -5,26 +5,28 @@ import {
 describe('POST /groups/:groupId/leave', () => {
   let user;
   let userToInvite;
-  let group;
-  let groupName = 'Test Public Guild';
-  let groupType = 'guild';
 
   beforeEach(async () => {
     user = await generateUser({balance: 2});
     userToInvite = await generateUser();
-    group = await user.post('/groups', {
-      name: groupName,
-      type: groupType,
-    });
-    await user.post(`/groups/${group._id}/invite`, {
-      uuids: [userToInvite._id],
-    });
   });
 
-  describe('leaving guilds', () => {
+  context('leaving guilds', () => {
+    let guild;
+
+    beforeEach(async () => {
+      guild = await user.post('/groups', {
+        name: 'Test Public Guild',
+        type: 'guild',
+      });
+      await user.post(`/groups/${guild._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+    });
+
     it('lets user leave a guild', async () => {
-      await userToInvite.post(`/groups/${group._id}/join`);
-      await userToInvite.post(`/groups/${group._id}/leave`);
+      await userToInvite.post(`/groups/${guild._id}/join`);
+      await userToInvite.post(`/groups/${guild._id}/leave`);
 
       let userThatLeftGuild = await userToInvite.get('/user');
 
@@ -32,33 +34,33 @@ describe('POST /groups/:groupId/leave', () => {
     });
 
     it('sets a new group leader when leader leaves a guild', async () => {
-      await userToInvite.post(`/groups/${group._id}/join`);
-      await user.post(`/groups/${group._id}/leave`);
+      await userToInvite.post(`/groups/${guild._id}/join`);
+      await user.post(`/groups/${guild._id}/leave`);
 
-      let groupWithNewLeader = await userToInvite.get(`/groups/${group._id}`);
+      let guildWithNewLeader = await userToInvite.get(`/groups/${guild._id}`);
 
-      expect(groupWithNewLeader.leader).to.equal(userToInvite._id);
+      expect(guildWithNewLeader.leader).to.equal(userToInvite._id);
     });
 
     it('removes a group and invitations when the last member leaves', async () => {
-      await user.post(`/groups/${group._id}/leave`);
+      await user.post(`/groups/${guild._id}/leave`);
 
       let groups = await user.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
       let userWithoutInvitation = await userToInvite.get('/user');
 
       // @TODO: Is there a way we can check using an admin account to see if private groups were deleted?
-      expect(_.findIndex(groups, {_id: group._id})).to.equal(-1);
+      expect(_.findIndex(groups, {_id: guild._id})).to.equal(-1);
       expect(userWithoutInvitation.invitations.guilds).to.be.empty;
     });
   });
 
-  describe('leaving with challenges', () => {
+  context('leaving with challenges', () => {
     xit('removes all challenges when parameters is set', async () => {});
 
     xit('keeps all challenges when parameters is set', async () => {});
   });
 
-  describe('leaving parties', () => {
+  context('leaving parties', () => {
     let party;
 
     beforeEach(async () => {
@@ -75,9 +77,8 @@ describe('POST /groups/:groupId/leave', () => {
     it('lets user leave a party', async () => {
       await userToInvite.post(`/groups/${party._id}/leave`);
 
-      let userWithOutGroup = await userToInvite.get('/user');
-
-      expect(userWithOutGroup.guilds).to.be.empty;
+      let userWithoutParty = await userToInvite.get('/user');
+      expect(userWithoutParty.party._id).to.be.a('null');
     });
 
     xit('prevents quest leader from leaving a guild', async () => {});
