@@ -18,7 +18,7 @@
 }
 .2014_Fall_Warrior_PROMO {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -452px -417px;
+  background-position: -306px -402px;
   width: 90px;
   height: 90px;
 }
@@ -54,7 +54,7 @@
 }
 .promo_dilatoryDistress {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -91px -1085px;
+  background-position: -364px -1085px;
   width: 90px;
   height: 90px;
 }
@@ -78,7 +78,7 @@
 }
 .promo_enchanted_armoire_201509 {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -364px -1085px;
+  background-position: -91px -1085px;
   width: 90px;
   height: 90px;
 }
@@ -90,7 +90,7 @@
 }
 .promo_enchanted_armoire_201601 {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -306px -402px;
+  background-position: -452px -417px;
   width: 90px;
   height: 90px;
 }
@@ -318,13 +318,13 @@
 }
 .promo_springclasses2014 {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -648px -724px;
+  background-position: -1119px 0px;
   width: 288px;
   height: 90px;
 }
 .promo_springclasses2015 {
   background-image: url(spritesmith-largeSprites-0.png);
-  background-position: -1119px 0px;
+  background-position: -648px -724px;
   width: 288px;
   height: 90px;
 }
