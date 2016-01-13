@@ -146,6 +146,7 @@ api.getChallenge = {
     let challenge = await Challenge.findOne({_id: challengeId}).exec(); // TODO populate
 
     // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
+    // TODO support challenges in groups I'm a member of
     if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
       throw new NotFound(res.t('challengeNotFound'));
     }
