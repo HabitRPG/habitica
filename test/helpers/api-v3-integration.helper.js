@@ -14,6 +14,15 @@ import i18n from '../../common/script/src/i18n';
 i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 const API_TEST_SERVER_PORT = 3003;
+const API_V = process.env.API_VERSION || 'v2'; // eslint-disable-line no-process-env
+const ROUTES = {
+  v2: {
+    register: '/register',
+  },
+  v3: {
+    register: '/user/auth/local/register',
+  },
+};
 
 class ApiUser {
   constructor (options) {
@@ -96,7 +105,7 @@ export function generateUser (update = {}) {
   let request = _requestMaker({}, 'post');
 
   return new Promise((resolve, reject) => {
-    request('/user/auth/local/register', {
+    request(ROUTES[API_V].register, {
       username,
       email,
       password,
@@ -114,15 +123,15 @@ export function generateUser (update = {}) {
 // Generates a new group. Requires a user object, which
 // will will become the groups leader. Takes an update
 // argument which will update group
-export function generateGroup (leader, update = {}) {
+export function generateGroup (leader, details = {}, update = {}) {
   let request = _requestMaker(leader, 'post');
 
   return new Promise((resolve, reject) => {
-    request('/groups').then((group) => {
+    request('/groups', details).then((group) => {
       _updateDocument('groups', group, update, () => {
         resolve(group);
-      }).catch(reject);
-    });
+      });
+    }).catch(reject);
   });
 }
 
@@ -241,7 +250,7 @@ export function resetHabiticaDB () {
 function _requestMaker (user, method, additionalSets) {
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v3${route}`)
+      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${API_V}${route}`)
         .accept('application/json');
 
       if (user && user._id && user.apiToken) {
@@ -261,11 +270,20 @@ function _requestMaker (user, method, additionalSets) {
           if (err) {
             if (!err.response) return reject(err);
 
-            return reject({
-              code: err.status,
-              error: err.response.body.error,
-              message: err.response.body.message,
-            });
+            if (API_V === 'v3') {
+              return reject({
+                code: err.status,
+                error: err.response.body.error,
+                message: err.response.body.message,
+              });
+            } else if (API_V === 'v2') {
+              return reject({
+                code: err.status,
+                text: err.response.body.err,
+              });
+            }
+
+            return reject(err);
           }
 
           resolve(response.body);
