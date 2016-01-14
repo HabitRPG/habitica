@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import * as Tasks from '../../models/task';
+import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
   NotAuthorized,
@@ -16,65 +17,207 @@ import { preenHistory } from '../../../../common/script/api-v3/preening';
 
 let api = {};
 
+// challenge must be passed only when a challenge task is being created
+async function _createTasks (req, res, user, challenge) {
+  let toSave = Array.isArray(req.body) ? req.body : [req.body];
+
+  toSave = toSave.map(taskData => {
+    // Validate that task.type is valid
+    if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
+
+    let taskType = taskData.type;
+    let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
+
+    if (challenge) {
+      newTask.challenge.id = challenge.id;
+    } else {
+      newTask.userId = user._id;
+    }
+
+    // Validate that the task is valid and throw if it isn't
+    // otherwise since we're saving user/challenge and task in parallel it could save the user/challenge with a tasksOrder that doens't match reality
+    let validationErrors = newTask.validateSync();
+    if (validationErrors) throw validationErrors;
+
+    // Otherwise update the user/challenge
+    (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
+
+    return newTask;
+  }).map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
+    validateBeforeSave: false,
+  }));
+
+  toSave.unshift((challenge || user).save());
+
+  let tasks = await Q.all(toSave);
+  tasks.splice(0, 1); // Remove user or challenge
+  return tasks;
+}
+
 /**
- * @api {post} /tasks Create a new task. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @api {post} /tasks/user Create a new task belonging to the autheticated user. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
- * @apiName CreateTask
+ * @apiName CreateUserTasks
  * @apiGroup Task
  *
  * @apiSuccess {Object|Array} task The newly created task(s)
  */
-api.createTask = {
+api.createUserTasks = {
   method: 'POST',
-  url: '/tasks',
+  url: '/tasks/user',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    let tasksData = Array.isArray(req.body) ? req.body : [req.body];
-    let user = res.locals.user;
-
-    let toSave = tasksData.map(taskData => {
-      // Validate that task.type is valid
-      if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
-
-      let taskType = taskData.type;
-      let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
-      newTask.userId = user._id;
-
-      // Validate that the task is valid and throw if it isn't
-      // otherwise since we're saving user and task in parallel it could save the user with a tasksOrder that doens't match reality
-      let validationErrors = newTask.validateSync();
-      if (validationErrors) throw validationErrors;
-
-      // Otherwise update the user
-      user.tasksOrder[`${taskType}s`].unshift(newTask._id);
-
-      return newTask;
-    });
-
-    // If all tasks are valid, save everything, withough running validation again
-    toSave = toSave.map(task => task.save({
-      validateBeforeSave: false,
-    }));
-    toSave.unshift(user.save());
-    let results = await Q.all(toSave);
-
-    if (results.length === 2) { // Just one task created
-      res.respond(201, results[1]);
-    } else {
-      results.splice(0, 1); // remove the user
-      res.respond(201, results);
-    }
+    let tasks = await _createTasks(req, res, res.locals.user);
+    res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
   },
 };
 
 /**
- * @api {get} /tasks Get an user's tasks
+ * @api {post} /tasks/challenge/:challengeId Create a new task belonging to the challenge. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @apiVersion 3.0.0
+ * @apiName CreateChallengeTasks
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to.
+ *
+ * @apiSuccess {Object|Array} task The newly created task(s)
+ */
+api.createChallengeTasks = {
+  method: 'POST',
+  url: '/tasks/challenge/:challengeId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkQuery('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.local.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findOne({_id: challengeId}).exec();
+
+    // If the challenge does not exist, or if it exists but user is not the leader -> throw error
+    if (!challenge || user.challenges.indexOf(challengeId) === -1) throw new NotFound(res.t('challengeNotFound'));
+    if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+
+    let tasks = await _createTasks(req, res, user, challenge);
+    res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    // If adding tasks to a challenge -> sync users
+    if (challenge) challenge.addTasks(tasks); // TODO catch/log
+  },
+};
+
+// challenge must be passed only when a challenge task is being created
+async function _getTasks (req, res, user, challenge) {
+  let query = challenge ? {'challenge.id': challenge.id, userId: {$exists: false}} : {userId: user._id};
+  let type = req.query.type;
+
+  if (type) {
+    query.type = type;
+    if (type === 'todo') query.completed = false; // Exclude completed todos
+  } else {
+    query.$or = [ // Exclude completed todos
+      {type: 'todo', completed: false},
+      {type: {$in: ['habit', 'daily', 'reward']}},
+    ];
+  }
+
+  if (req.query.includeCompletedTodos === 'true' && (!type || type === 'todo')) {
+    if (challenge) throw new BadRequest(res.t('noCompletedTodosChallenge')); // no completed todos for challenges
+
+    let queryCompleted = Tasks.Task.find({
+      type: 'todo',
+      completed: true,
+    }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
+      dateCompleted: 1,
+    });
+
+    let results = await Q.all([
+      queryCompleted.exec(),
+      Tasks.Task.find(query).exec(),
+    ]);
+
+    res.respond(200, results[1].concat(results[0]));
+  } else {
+    let tasks = await Tasks.Task.find(query).exec();
+    res.respond(200, tasks);
+  }
+}
+
+/**
+ * @api {get} /tasks/user Get an user's tasks
+ * @apiVersion 3.0.0
+ * @apiName GetUserTasks
+ * @apiGroup Task
+ *
+ * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
+ * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo". Only valid whe "tasksOwner" is "user".
+ *
+ * @apiSuccess {Array} tasks An array of task objects
+ */
+api.getUserTasks = {
+  method: 'GET',
+  url: '/tasks/user',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    await _getTasks(req, res, res.locals.user);
+  },
+};
+
+/**
+ * @api {get} /tasks/challenge/:challengeId Get a challenge's tasks
+ * @apiVersion 3.0.0
+ * @apiName GetChallengeTasks
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks.
+ *
+ * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
+ *
+ * @apiSuccess {Array} tasks An array of task objects
+ */
+api.getChallengeTasks = {
+  method: 'GET',
+  url: '/tasks/challenge/:challengeId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkQuery('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.local.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findOne({_id: challengeId}).select('leader').exec();
+
+    // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
+    if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
+      throw new NotFound(res.t('challengeNotFound'));
+    }
+
+    await _getTasks(req, res, res.locals.user, challenge);
+  },
+};
+
+/**
+ * @api {get} /tasks/:tasksOwner/:challengeId Get an user's tasks
  * @apiVersion 3.0.0
  * @apiName GetTasks
  * @apiGroup Task
  *
+ * @apiParam {string="user","challenge"} tasksOwner Query parameter to return tasks belonging to a challenge (specifying the "challengeId" parameter) or to the autheticated user.
+ * @apiParam {UUID} challengeId Optional query parameter. If "tasksOwner" is "challenge" then required to specify the challenge id.
  * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
- * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo"
+ * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo". Only valid whe "tasksOwner" is "user".
  *
  * @apiSuccess {Array} tasks An array of task objects
  */
@@ -83,13 +226,11 @@ api.getTasks = {
   url: '/tasks',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
     let user = res.locals.user;
-    let query = {userId: user._id};
+    let challengeId = req.query.challengeId;
+    let challenge;
+
+    let query = challenge ? {'challenge.id': challengeId, userId: {$exists: false}} : {userId: user._id};
     let type = req.query.type;
 
     if (type) {
@@ -103,6 +244,8 @@ api.getTasks = {
     }
 
     if (req.query.includeCompletedTodos === 'true' && (!type || type === 'todo')) {
+      if (challengeId) throw new BadRequest(res.t('noCompletedTodosChallenge'));
+
       let queryCompleted = Tasks.Task.find({
         type: 'todo',
         completed: true,
@@ -147,10 +290,19 @@ api.getTask = {
 
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
     }).exec();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      let challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge || (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
+        throw new NotFound(res.t('taskNotFound'));
+      }
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
     res.respond(200, task);
   },
 };
@@ -171,6 +323,7 @@ api.updateTask = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty
@@ -181,10 +334,17 @@ api.updateTask = {
 
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
     }).exec();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
 
     // If checklist is updated -> replace the original one
     if (req.body.checklist) {
@@ -207,6 +367,7 @@ api.updateTask = {
 
     let savedTask = await task.save();
     res.respond(200, savedTask);
+    if (challenge) challenge.updateTask(savedTask); // TODO catch/log
   },
 };
 
@@ -347,6 +508,7 @@ api.scoreTask = {
 
 // completed todos cannot be moved, they'll be returned ordered by date of completion
 // TODO check that it works when a tag is selected or todos are split between dated and due
+// TODO support challenges?
 /**
  * @api {post} /tasks/move/:taskId/to/:position Move a task to a new position
  * @apiVersion 3.0.0
@@ -414,6 +576,7 @@ api.addChecklistItem = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty and is an array
@@ -423,16 +586,25 @@ api.addChecklistItem = {
 
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
     }).exec();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
     let savedTask = await task.save();
 
     res.respond(200, savedTask); // TODO what to return
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 
@@ -495,6 +667,7 @@ api.updateChecklistItem = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -504,10 +677,17 @@ api.updateChecklistItem = {
 
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
     }).exec();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     let item = _.find(task.checklist, {_id: req.params.itemId});
@@ -517,6 +697,7 @@ api.updateChecklistItem = {
     let savedTask = await task.save();
 
     res.respond(200, savedTask); // TODO what to return
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 
@@ -537,6 +718,7 @@ api.removeChecklistItem = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -546,10 +728,17 @@ api.removeChecklistItem = {
 
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
     }).exec();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     let itemI = _.findIndex(task.checklist, {_id: req.params.itemId});
@@ -557,8 +746,9 @@ api.removeChecklistItem = {
 
     task.checklist.splice(itemI, 1);
 
-    await task.save();
+    let savedTask = await task.save();
     res.respond(200, {}); // TODO what to return
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 
@@ -646,11 +836,11 @@ api.removeTagFromTask = {
   },
 };
 
-// Remove a task from user.tasksOrder
-function _removeTaskTasksOrder (user, taskId) {
+// Remove a task from (user|challenge).tasksOrder
+function _removeTaskTasksOrder (userOrChallenge, taskId) {
   // Loop through all lists and when the task is found, remove it and return
   for (let i = 0; i < Tasks.tasksTypes.length; i++) {
-    let list = user.tasksOrder[`${Tasks.tasksTypes[i]}s`];
+    let list = userOrChallenge.tasksOrder[`${Tasks.tasksTypes[i]}s`];
     let index = list.indexOf(taskId);
 
     if (index !== -1) {
@@ -678,6 +868,7 @@ api.deleteTask = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
@@ -686,16 +877,25 @@ api.deleteTask = {
 
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
     }).exec();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
-    if (task.challenge.id) throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (task.userId && task.challenge.id) {
+      throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+    }
 
-    _removeTaskTasksOrder(user, req.params.taskId);
+    _removeTaskTasksOrder(challenge || user, req.params.taskId);
     await Q.all([user.save(), task.remove()]);
 
     res.respond(200, {});
+    if (challenge) challenge.removeTask(task);
   },
 };
 

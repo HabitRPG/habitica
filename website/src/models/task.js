@@ -28,7 +28,7 @@ export let TaskSchema = new Schema({
 
   challenge: {
     id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
-    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task TODO unique index?
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED']},
     winner: String, // user.profile.name TODO necessary?
   },

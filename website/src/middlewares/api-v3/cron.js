@@ -35,6 +35,7 @@ export default function cronMiddleware (req, res, next) {
     cron({user, tasksByType, now, daysMissed, analytics});
 
     // Clean completed todos - 30 days for free users, 90 for subscribers
+    // Do not delete challenges completed todos TODO unless the task is broken?
     Task.remove({
       userId: user._id,
       type: 'todo',
@@ -42,6 +43,7 @@ export default function cronMiddleware (req, res, next) {
       dateCompleted: {
         $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days'),
       },
+      'challenge.id': {$exists: false},
     }).exec(); // TODO catch error or at least log it
 
     let ranCron = user.isModified();
