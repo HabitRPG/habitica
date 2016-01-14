@@ -1,6 +1,7 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration.helper';
+  checkExistence,
+} from '../../../../helpers/api-v3-integration.helper';
 
 describe('POST /groups/:groupId/leave', () => {
   let user;
@@ -48,9 +49,9 @@ describe('POST /groups/:groupId/leave', () => {
       let groups = await user.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
       let userWithoutInvitation = await userToInvite.get('/user');
 
-      // @TODO: Is there a way we can check using an admin account to see if private groups were deleted?
       expect(_.findIndex(groups, {_id: guild._id})).to.equal(-1);
       expect(userWithoutInvitation.invitations.guilds).to.be.empty;
+      expect(await checkExistence('groups', guild._id)).to.equal(false);
     });
   });
 
@@ -78,7 +79,7 @@ describe('POST /groups/:groupId/leave', () => {
       await userToInvite.post(`/groups/${party._id}/leave`);
 
       let userWithoutParty = await userToInvite.get('/user');
-      expect(userWithoutParty.party._id).to.be.a('null');
+      expect(userWithoutParty.party._id).to.not.exist;
     });
 
     xit('prevents quest leader from leaving a guild', async () => {});

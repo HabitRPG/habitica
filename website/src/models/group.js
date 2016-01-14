@@ -489,7 +489,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   if (group.type === 'guild') {
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id } }).exec());
   } else {
-    promises.push(User.update({_id: user._id}, {$set: {'party._id': undefined } }).exec());
+    promises.push(User.update({_id: user._id}, {$set: {party: {} } }).exec());
   }
 
   // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
