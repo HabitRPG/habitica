@@ -838,7 +838,7 @@ api.removeTagFromTask = {
 
 // Remove a task from (user|challenge).tasksOrder
 function _removeTaskTasksOrder (userOrChallenge, taskId, taskType) {
-  let list = userOrChallenge.tasksOrder[taskType];
+  let list = userOrChallenge.tasksOrder[`${taskType}s`];
   let index = list.indexOf(taskId);
 
   if (index !== -1) list.splice(index, 1);

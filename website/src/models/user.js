@@ -660,7 +660,7 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     tasks = tasks.map(task => {
       // Remove task from user.tasksOrder and delete them
       if (task.type !== 'todo' || !task.completed) {
-        let list = user.tasksOrder[task.type];
+        let list = user.tasksOrder[`${task.type}s`];
         let index = list.indexOf(task._id);
         if (index !== -1) list.splice(index, 1);
       }
