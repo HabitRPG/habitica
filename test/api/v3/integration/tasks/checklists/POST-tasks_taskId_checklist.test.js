@@ -12,7 +12,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('adds a checklist item to a task', async () => {
-    let task = await user.post('/tasks', {
+    let task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
     });
@@ -32,7 +32,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('does not add a checklist to habits', async () => {
-    let habit = await user.post('/tasks', {
+    let habit = await user.post('/tasks/user', {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -47,7 +47,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('does not add a checklist to rewards', async () => {
-    let reward = await user.post('/tasks', {
+    let reward = await user.post('/tasks/user', {
       type: 'reward',
       text: 'reward with checklist',
     });
