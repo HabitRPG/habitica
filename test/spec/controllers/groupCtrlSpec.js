@@ -23,69 +23,150 @@ describe('Groups Controller', function() {
     });
   });
 
-  describe("isMemberOfGroup", function() {
-    it("returns true if group is the user's party retrieved from groups service", function() {
-      var party = specHelper.newGroup({
-        _id: "unique-party-id",
-        type: 'party',
-        members: ['leader-id'] // Ensure we wouldn't pass automatically.
+  describe("Group Membership Behavior", function() {
+
+    var party, guild;
+
+    beforeEach(function() {
+      party = specHelper.newGroup({
+         _id: "unique-party-id",
+         type: 'party',
+         members: ['leader-id'] // Ensure we wouldn't pass automatically.
       });
-
-      var partyStub = sandbox.stub(groups,"party", function() {
-        return party;
-      });
-
-      expect(scope.isMemberOfGroup(user._id, party)).to.be.ok;
-    });
-
-    it('returns true if guild is included in myGuilds call', function(){
-
-      var guild = specHelper.newGroup({
+      guild = specHelper.newGroup({
         _id: "unique-guild-id",
         type: 'guild',
         members: [user._id]
       });
-
-      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
-        return [guild];
-      });
-
-      expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
-      expect(myGuilds).to.be.called;
     });
 
-    it('does not return true if guild is not included in myGuilds call', function(){
-
-      var guild = specHelper.newGroup({
-        _id: "unique-guild-id",
-        type: 'guild',
-        members: ['not-user-id']
+    describe("isMemberOfGroup behavior", function() {
+      it("returns true if group is the user's party retrieved from groups service", function() {
+        var partyStub = sandbox.stub(groups,"party", function() {
+          return party;
+        });
+    
+        expect(scope.isMemberOfGroup(user._id, party)).to.be.ok;
+      });
+    
+      it('returns true if guild is included in myGuilds call', function(){
+        var myGuilds = sandbox.stub(groups,"myGuilds", function() {
+          return [guild];
+        });
+    
+        expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
+        expect(myGuilds).to.be.called;
+      });
+    
+      it('does not return true if guild is not included in myGuilds call', function(){
+        var myGuilds = sandbox.stub(groups,"myGuilds", function() {
+          return [];
+        });
+    
+        expect(scope.isMemberOfGroup('other-user-id', guild)).to.not.be.ok;
+        expect(myGuilds).to.be.calledOnce;
       });
 
-      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
-        return [];
+      it('does not return true if party members is empty', function(){
+        var partyStub = sandbox.stub(groups, "party", function() {
+          return {};
+        });
+        expect(scope.isMemberOfGroup(user._id, party)).to.not.be.ok;
       });
-
-      expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
-      expect(myGuilds).to.be.calledOnce;
     });
+
+    /**
+     * Why is this distinct from the isMemberOfGroup method?  Redundant?
+     *
+     * This coercion business is troublesome...
+     */
+    /*
+    describe("isMember behavior", function() { 
+      it("should return true dependent on whether the user id belongs to the group", function() {
+        expect(scope.isMember(user, guild)).to.eql(truthy);
+        expect(scope.isMember(user, party)).to.eql(falsy);
+      });
+    });
+    */
   });
 
+  describe("Quest Membership Behavior", function() { 
+
+    var runningQuestParty, pendingQuestParty;
+
+    beforeEach(function() {
+      runningQuestParty= specHelper.newGroup({
+         _id: "unique-party-id",
+         type: 'party',
+         members: ['leader-id'],
+         quest: {
+           progress: {},
+           active: true,
+           members: {}
+         }
+      });
+      pendingQuestParty= specHelper.newGroup({
+         _id: "unique-party-id",
+         type: 'party',
+         members: ['leader-id'],
+         quest: {
+           progress: {},
+           active: false,
+           members: {}
+         }
+      });
+      runningQuestParty.quest.members[user._id] = true;
+      pendingQuestParty.quest.members[user._id] = true;
+    });
+ 
+    it('should return false if no quest in the group', function() {
+      runningQuestParty.quest = undefined;
+      expect(scope.isMemberOfPendingQuest(user._id, runningQuestParty)).to.eql(false);
+      expect(scope.isMemberOfRunningQuest(user._id, runningQuestParty)).to.eql(false);
+    });
+
+    it('should return false if no members in the group quest', function() {
+      runningQuestParty.quest.members = {};
+      expect(scope.isMemberOfPendingQuest(user._id, runningQuestParty)).to.eql(false);
+      expect(scope.isMemberOfRunningQuest(user._id, runningQuestParty)).to.eql(false);
+    });
+
+    it('should return true/false depending on active flag and the method called', function() {
+      expect(scope.isMemberOfPendingQuest(user._id, runningQuestParty)).to.eql(false);
+      expect(scope.isMemberOfPendingQuest(user._id, pendingQuestParty)).to.eql(true);
+      expect(scope.isMemberOfRunningQuest(user._id, runningQuestParty)).to.eql(true);
+      expect(scope.isMemberOfRunningQuest(user._id, pendingQuestParty)).to.eql(false);
+    });
+
+    it('should return false if my user isn\'t part of the quest members', function() {
+      pendingQuestParty.quest.members = {};
+      runningQuestParty.quest.members = {};
+      expect(scope.isMemberOfPendingQuest(user._id, pendingQuestParty)).to.eql(false);
+      expect(scope.isMemberOfRunningQuest(user._id, runningQuestParty)).to.eql(false);
+    });
+  });
+   
+
   describe("Group Edit Behavior", function() {
-    it('should allow for editing without changing group resource', function() {
-      var guild = specHelper.newGroup({
+
+    var guild, editGuild;
+
+    beforeEach(function() {
+      guild = specHelper.newGroup({
         _id: "unique-guild-id",
         type: 'guild',
-        members: ['not-user-id']
+        members: ['not-user-id'],
+        $save: function() {}
       });
 
-
       // verify initial state, 
-      // TODO: Check how to do this once per test in this "describe"
       var editGuild = scope.groupCopy;
       expect(editGuild).to.eql({});
       expect(guild._editing).to.eql(undefined);
+    });
 
+
+    it('should allow for editing without changing group resource', function() {
       // switch to edit mode
       scope.editGroup(guild);
       var editGuild = scope.groupCopy;
@@ -109,18 +190,7 @@ describe('Groups Controller', function() {
     });
 
     it('should update group resource only on save', function() {
-      var guild = specHelper.newGroup({
-        _id: "unique-guild-id",
-        type: 'guild',
-        members: ['not-user-id']
-      });
-
-      guild.$save = function() { };
-
-      // verify initial state
-      var editGuild = scope.groupCopy;
-      expect(editGuild).to.eql({});
-      expect(guild._editing).to.eql(undefined);
+      var guildSave = sandbox.stub(guild,"$save", function() { });
 
       // switch to edit mode
       scope.editGroup(guild);
@@ -144,7 +214,16 @@ describe('Groups Controller', function() {
       expect(guild.logo).to.eql(editGuild.logo);
       expect(guild.description).to.eql(editGuild.description);
       expect(guild._newLeader).to.eql(editGuild._newLeader);
+      expect(guildSave).to.be.calledOnce;
 
     });
   });
+  /* TODO: Modal testing
+  describe("deleteAllMessages", function() { });
+  describe("clickMember", function() { });
+  describe("removeMember", function() { });
+  describe("confirmRemoveMember", function() { });
+  describe("openInviteModal", function() { });
+  describe("quickReply", function() { });
+  */
 });

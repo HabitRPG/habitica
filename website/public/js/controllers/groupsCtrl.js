@@ -12,7 +12,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.isMemberOfRunningQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (!group.quest.active) return false; // quest is pending, not started
-      return group.quest.members[userid];
+      return userid in group.quest.members && group.quest.members[userid] != false;
     };
 
     $scope.isMemberOfGroup = function(userid, group){
