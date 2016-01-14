@@ -7,6 +7,7 @@ import {
   set,
   times,
 } from 'lodash';
+import Q from 'q';
 import { MongoClient as mongo } from 'mongodb';
 import { v4 as generateUUID } from 'uuid';
 import superagent from 'superagent';
@@ -14,15 +15,6 @@ import i18n from '../../common/script/src/i18n';
 i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 const API_TEST_SERVER_PORT = 3003;
-const API_V = process.env.API_VERSION || 'v2'; // eslint-disable-line no-process-env
-const ROUTES = {
-  v2: {
-    register: '/register',
-  },
-  v3: {
-    register: '/user/auth/local/register',
-  },
-};
 
 class ApiUser {
   constructor (options) {
@@ -97,26 +89,26 @@ export function checkExistence (collectionName, id) {
 // paramter, such as the number of wolf eggs the user has,
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
-export function generateUser (update = {}) {
+export async function generateUser (update = {}) {
   let username = generateUUID();
   let password = 'password';
   let email = `${username}@example.com`;
 
   let request = _requestMaker({}, 'post');
 
-  return new Promise((resolve, reject) => {
-    request(ROUTES[API_V].register, {
-      username,
-      email,
-      password,
-      confirmPassword: password,
-    }).then((user) => {
-      _updateDocument('users', user, update, () => {
-        let apiUser = new ApiUser(user);
+  let user = await request('/user/auth/local/register', {
+    username,
+    email,
+    password,
+    confirmPassword: password,
+  });
 
-        resolve(apiUser);
-      });
-    }).catch(reject);
+  return Q.promise((resolve) => {
+    _updateDocument('users', user, update, () => {
+      let apiUser = new ApiUser(user);
+
+      resolve(apiUser);
+    });
   });
 }
 
@@ -124,10 +116,8 @@ export function generateUser (update = {}) {
 // will will become the groups leader. Takes an update
 // argument which will update group
 export function generateGroup (leader, details = {}, update = {}) {
-  let request = _requestMaker(leader, 'post');
-
   return new Promise((resolve, reject) => {
-    request('/groups', details).then((group) => {
+    leader.post('/groups', details).then((group) => {
       _updateDocument('groups', group, update, () => {
         resolve(group);
       });
@@ -149,72 +139,50 @@ export function generateGroup (leader, details = {}, update = {}) {
 // invitees: an array of user objects that correspond to the invitees of the group
 // leader: the leader user object
 // group: the group object
-export function createAndPopulateGroup (settings = {}) {
-  let request;
-  let leader;
-  let members;
-  let invitees;
-  let group;
-
+export async function createAndPopulateGroup (settings = {}) {
   let numberOfMembers = settings.members || 0;
   let numberOfInvites = settings.invites || 0;
   let groupDetails = settings.groupDetails;
   let leaderDetails = settings.leaderDetails || { balance: 10 };
 
-  let leaderPromise = generateUser(leaderDetails);
+  let groupLeader = await generateUser(leaderDetails);
+  let group = await generateGroup(groupLeader, groupDetails);
 
-  let memberPromises = Promise.all(
+  let members = await Q.all(
     times(numberOfMembers, () => {
       return generateUser();
     })
   );
 
-  let invitePromises = Promise.all(
+  let groupTypes = {
+    guild: { guilds: [group._id] },
+    party: { 'party._id': group._id },
+  };
+
+  each(members, (member) => {
+    member.update(groupTypes[group.type]);
+  });
+
+  let invitees = await Q.all(
     times(numberOfInvites, () => {
       return generateUser();
     })
   );
 
-  return new Promise((resolve, reject) => {
-    return leaderPromise.then((user) => {
-      leader = user;
-      request = _requestMaker(leader, 'post');
-      return memberPromises;
-    }).then((users) => {
-      members = users;
-      groupDetails.members = groupDetails.members || [leader._id];
-
-      each(members, (member) => {
-        groupDetails.members.push(member._id);
-      });
-
-      return generateGroup(leader, groupDetails);
-    }).then((createdGroup) => {
-      group = createdGroup;
-      return invitePromises;
-    }).then((users) => {
-      invitees = users;
-
-      let invitationPromises = [];
-
-      each(invitees, (invitee) => {
-        let invitePromise = request(`/groups/${group._id}/invite`, {
-          uuids: [invitee._id],
-        });
-
-        invitationPromises.push(invitePromise);
-      });
-
-      return Promise.all(invitationPromises);
-    }).then(() => {
-      resolve({
-        leader,
-        group,
-        members,
-        invitees,
-      });
-    }).catch(reject);
+  let invitationPromises = invitees.map((invitee) => {
+    return groupLeader.post(`/groups/${group._id}/invite`, {
+      uuids: [invitee._id],
+    });
   });
+
+  await Q.all(invitationPromises);
+
+  return {
+    groupLeader,
+    group,
+    members,
+    invitees,
+  };
 }
 
 // Specifically helpful for the GET /groups tests,
@@ -250,7 +218,7 @@ export function resetHabiticaDB () {
 function _requestMaker (user, method, additionalSets) {
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${API_V}${route}`)
+      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v3${route}`)
         .accept('application/json');
 
       if (user && user._id && user.apiToken) {
@@ -270,20 +238,11 @@ function _requestMaker (user, method, additionalSets) {
           if (err) {
             if (!err.response) return reject(err);
 
-            if (API_V === 'v3') {
-              return reject({
-                code: err.status,
-                error: err.response.body.error,
-                message: err.response.body.message,
-              });
-            } else if (API_V === 'v2') {
-              return reject({
-                code: err.status,
-                text: err.response.body.err,
-              });
-            }
-
-            return reject(err);
+            return reject({
+              code: err.status,
+              error: err.response.body.error,
+              message: err.response.body.message,
+            });
           }
 
           resolve(response.body);
