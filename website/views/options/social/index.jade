@@ -21,7 +21,7 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
             label
               input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
               | &nbsp;
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('optOutPopover'))=env.t('optOutMsg')
+              span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('optOutPopover'))=env.t('optOutofPMs')
         +chatMessages('inbox')
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
