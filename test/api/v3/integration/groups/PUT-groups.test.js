@@ -14,6 +14,7 @@ describe('PUT /group', () => {
       groupDetails: {
         name: groupName,
         type: groupType,
+        privacy: 'public',
       },
       members: 1,
     });

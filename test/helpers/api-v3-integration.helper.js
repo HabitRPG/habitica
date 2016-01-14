@@ -159,9 +159,11 @@ export async function createAndPopulateGroup (settings = {}) {
     party: { 'party._id': group._id },
   };
 
-  each(members, (member) => {
-    member.update(groupTypes[group.type]);
+  let memberPromises = members.map((member) => {
+    return member.update(groupTypes[group.type]);
   });
+
+  await Q.all(memberPromises);
 
   let invitees = await Q.all(
     times(numberOfInvites, () => {
