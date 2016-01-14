@@ -182,7 +182,7 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
     'challenge.taskId': task._id,
   }, {
     $set: {'challenge.broken': 'TASK_DELETED'}, // TODO what about updatedAt?
-  }).lean().exec();
+  }, {multi: true}).exec();
 };
 
 export let model = mongoose.model('Challenge', schema);

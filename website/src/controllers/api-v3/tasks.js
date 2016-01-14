@@ -540,7 +540,7 @@ api.moveTask = {
     }).exec();
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
-    if (task.type === 'todo' && task.completed) throw new NotFound(res.t('cantMoveCompletedTodo'));
+    if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
     let order = user.tasksOrder[`${task.type}s`];
     let currentIndex = order.indexOf(task._id);
 
@@ -837,20 +837,62 @@ api.removeTagFromTask = {
 };
 
 // Remove a task from (user|challenge).tasksOrder
-function _removeTaskTasksOrder (userOrChallenge, taskId) {
-  // Loop through all lists and when the task is found, remove it and return
-  for (let i = 0; i < Tasks.tasksTypes.length; i++) {
-    let list = userOrChallenge.tasksOrder[`${Tasks.tasksTypes[i]}s`];
-    let index = list.indexOf(taskId);
+function _removeTaskTasksOrder (userOrChallenge, taskId, taskType) {
+  let list = userOrChallenge.tasksOrder[taskType];
+  let index = list.indexOf(taskId);
 
-    if (index !== -1) {
-      list.splice(index, 1);
-      break;
-    }
-  }
-
-  return;
+  if (index !== -1) list.splice(index, 1);
 }
+
+// TODO this method needs some limitation, like to check if the challenge is really broken?
+/**
+ * @api {post} /tasks/unlink/:taskId Unlink a challenge task
+ * @apiVersion 3.0.0
+ * @apiName UnlinkTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.unlinkTask = {
+  method: 'POST',
+  url: '/tasks/unlink/:taskId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let keep = req.query.keep;
+    let taskId = req.params.taskId;
+
+    let task = await Tasks.Task.findOne({
+      _id: taskId,
+      userId: user._id,
+    }).exec();
+
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
+
+    if (keep === 'keep') {
+      task.challenge = {};
+      await task.save();
+    } else { // remove
+      if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
+        _removeTaskTasksOrder(user, taskId, task.type);
+        await Q.all([user.save(), task.remove()]);
+      } else {
+        await task.remove();
+      }
+    }
+
+    res.respond(200, {}); // TODO what to return
+  },
+};
 
 /**
  * @api {delete} /task/:taskId Delete a user task given its id
@@ -875,9 +917,8 @@ api.deleteTask = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findById(taskId).exec();
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -891,8 +932,12 @@ api.deleteTask = {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
     }
 
-    _removeTaskTasksOrder(challenge || user, req.params.taskId);
-    await Q.all([user.save(), task.remove()]);
+    if (task.type !== 'todo' || !task.completed) {
+      _removeTaskTasksOrder(challenge || user, taskId, task.type);
+      await Q.all([(challenge || user).save(), task.remove()]);
+    } else {
+      await task.remove();
+    }
 
     res.respond(200, {});
     if (challenge) challenge.removeTask(task);
