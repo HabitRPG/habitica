@@ -68,6 +68,6 @@ script(type='text/ng-template', id='modals/chooseClass.html')
 
   .modal-footer
     span(popover-placement='left', popover-trigger='mouseenter', popover=env.t('optOutText'))
-      button.btn.btn-danger(ng-click='user.ops.disableClasses({}); $close()')=env.t('optOut')
+      button.btn.btn-danger(ng-click='user.ops.disableClasses({}); $close()')=env.t('optOutofClasses')
     button.btn.btn-primary(ng-disabled='!selectedClass' ng-click='changeClass(selectedClass); $close()')=env.t('select')
     .pull-left!=env.t('chooseClassLearn')
