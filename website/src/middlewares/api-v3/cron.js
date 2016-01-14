@@ -6,9 +6,10 @@ import {
 import cron from '../../../../common/script/api-v3/cron';
 import common from '../../../../common';
 import Task from '../../models/task';
+import Q from 'q';
 // import Group from '../../models/group';
 
-// TODO check that it's usef everywhere
+// TODO check that it's used everywhere
 export default function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   let analytics = res.analytics;
@@ -26,7 +27,7 @@ export default function cronMiddleware (req, res, next) {
       {type: {$in: ['habit', 'daily', 'reward']}},
     ],
   }).exec()
-  .then((tasks) => {
+  .then(tasks => {
     let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
     tasks.forEach(task => tasksByType[`${task.type}s`].push(task));
 
@@ -51,7 +52,15 @@ export default function cronMiddleware (req, res, next) {
     // if (ranCron) res.locals.wasModified = true; // TODO remove?
     if (!ranCron) return next();
     // TODO Group.tavernBoss(user, progress);
-    if (!quest || true /* TODO remove */) return user.save(next);
+    if (!quest || true /* TODO remove */) {
+      // Save user and tasks
+      let toSave = [user.save()];
+      tasks.forEach(task => {
+        if (task.isModified) toSave.push(task.save());
+      });
+
+      return Q.all(toSave).then(() => next()).catch(next);
+    }
 
     // If user is on a quest, roll for boss & player, or handle collections
     // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?

@@ -90,7 +90,7 @@
     "fortifyPop": "Obnoví všechny úkoly do neutrální (žluté) barvy a obnoví ztracené zdraví.",
     "fortify": "Posilnění",
     "fortifyText": "Posilnění vrátí všechny tvé úkoly do neutrálního (žlutého) stavu, ve kterém byly v okamžiku přidání, a doplní zdraví na maximum. Považuj to za poslední možnou variantu. Červené úkoly poskytují dobrou motivaci ke zlepšení. Ale pokud tě všechna ta červená naplňuje zoufalstvím a začátek každého dne se ukáže jako smrtící, investuj drahokamy a oddechni si.",
-    "confirmFortify": "Are you sure?",
+    "confirmFortify": "Jsi si jistý?",
     "sureDelete": "Jsi si jistý, že chceš smazat <%= taskType %> s textem \"<%= taskText %>\"?",
     "streakCoins": "Bonus za sérii!",
     "pushTaskToTop": "Posuň úkol nahoru. Stiskni ctrl nebo cmd a posuneš ho dolů.",

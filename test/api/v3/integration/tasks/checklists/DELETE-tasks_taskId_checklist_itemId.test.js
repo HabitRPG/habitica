@@ -1,45 +1,37 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../../helpers/api-integration.helper';
+} from '../../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   let user;
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  before(async () => {
+    user = await generateUser();
   });
 
-  it('deletes a checklist item', () => {
-    let task;
-
-    return user.post('/tasks/user', {
+  it('deletes a checklist item', async () => {
+    let task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
-    }).then(createdTask => {
-      task = createdTask;
-      return user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
-    }).then((savedTask) => {
-      return user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`);
-    }).then(() => {
-      return user.get(`/tasks/${task._id}`);
-    }).then((savedTask) => {
-      expect(savedTask.checklist.length).to.equal(0);
     });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
+
+    await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`);
+    savedTask = await user.get(`/tasks/${task._id}`);
+
+    expect(savedTask.checklist.length).to.equal(0);
   });
 
-  it('does not work with habits', () => {
-    let habit;
-    return expect(user.post('/tasks/user', {
+  it('does not work with habits', async () => {
+    let habit = await user.post('/tasks/user', {
       type: 'habit',
       text: 'habit with checklist',
-    }).then(createdTask => {
-      habit = createdTask;
-      return user.del(`/tasks/${habit._id}/checklist/${generateUUID()}`);
-    })).to.eventually.be.rejected.and.eql({
+    });
+
+    await expect(user.del(`/tasks/${habit._id}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('checklistOnlyDailyTodo'),
@@ -59,21 +51,21 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
     });
   });
 
-  it('fails on task not found', () => {
-    return expect(user.del(`/tasks/${generateUUID()}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
+  it('fails on task not found', async () => {
+    await expect(user.del(`/tasks/${generateUUID()}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('taskNotFound'),
     });
   });
 
-  it('fails on checklist item not found', () => {
-    return expect(user.post('/tasks/user', {
+  it('fails on checklist item not found', async () => {
+    let createdTask = await user.post('/tasks/user', {
       type: 'daily',
       text: 'daily with checklist',
-    }).then(createdTask => {
-      return user.del(`/tasks/${createdTask._id}/checklist/${generateUUID()}`);
-    })).to.eventually.be.rejected.and.eql({
+    });
+
+    await expect(user.del(`/tasks/${createdTask._id}/checklist/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('checklistItemNotFound'),

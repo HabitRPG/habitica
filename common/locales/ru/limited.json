@@ -21,7 +21,7 @@
     "valentineCardAchievementText": "Как это мило! Вы так внимательны друг к другу! Отправлено или получено <%= cards %> валентинок.",
     "polarBear": "Белый медведь",
     "turkey": "Индейка",
-    "gildedTurkey": "Gilded Turkey",
+    "gildedTurkey": "Золотая индейка",
     "polarBearPup": "Детеныш белого медведя",
     "jackolantern": "Тыквенная лампа",
     "seasonalShop": "Сезонная лавка",
@@ -38,7 +38,7 @@
     "skiSet": "Лыжник-ассасин (Разбойник)",
     "snowflakeSet": "Снежинка (Целитель)",
     "yetiSet": "Укротитель Йети (Воин)",
-    "northMageSet": "Mage of the North (Mage)",
+    "northMageSet": "Маг с севера (Маг)",
     "icicleDrakeSet": "Icicle Drake (Rogue)",
     "soothingSkaterSet": "Soothing Skater (Healer)",
     "gingerbreadSet": "Gingerbread Warrior (Warrior)",
@@ -68,5 +68,5 @@
     "mummyMedicSet": "Мумифицированный доктор (целитель)",
     "vampireSmiterSet": "Вампир-убийца (разбойник)",
     "fallEventAvailability": "Доступно до 31 октября",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Доступен до 31 декабря"
 }

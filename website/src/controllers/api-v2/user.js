@@ -12,6 +12,8 @@ var Challenge = require('./../../models/challenge').model;
 var moment = require('moment');
 var logging = require('./../../libs/api-v2/logging');
 var acceptablePUTPaths;
+let restrictedPUTSubPaths;
+
 var api = module.exports;
 var firebase = require('../../libs/api-v2/firebase');
 var webhook = require('../../libs/api-v2/webhook');
@@ -132,8 +134,9 @@ api.score = function(req, res, next) {
       }
 
       t.value += delta;
-      if (t.type == 'habit' || t.type == 'daily')
+      if (t.type == 'habit' || t.type == 'daily') {
         t.history.push({value: t.value, date: +new Date});
+      }
       chal.save();
       clearMemory();
     });
@@ -283,17 +286,44 @@ api.getUserAnonymized = function(req, res, next) {
  * The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
  * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
  */
-acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, function(m,v,leaf){
-  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats inbox'.split(' '), function(root){
-    return leaf.indexOf(root) == 0;
+acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, (m, v, leaf) => {
+  let updatablePaths = 'achievements filters flags invitations lastCron party preferences profile stats inbox'.split(' ');
+  let found = _.find(updatablePaths, (rootPath) => {
+    return leaf.indexOf(rootPath) === 0;
   });
-  if (found) m[leaf]=true;
-  return m;
-}, {})
 
-_.each('stats.class'.split(' '), function(removePath){
+  if (found) m[leaf] = true;
+
+  return m;
+}, {});
+
+restrictedPUTSubPaths = 'stats.class'.split(' ');
+
+_.each(restrictedPUTSubPaths, (removePath) => {
   delete acceptablePUTPaths[removePath];
-})
+});
+
+let requiresPurchase = {
+  'preferences.background': 'background',
+  'preferences.shirt': 'shirt',
+  'preferences.size': 'size',
+  'preferences.skin': 'skin',
+  'preferences.hair.bangs': 'hair.bangs',
+  'preferences.hair.base': 'hair.base',
+  'preferences.hair.beard': 'hair.beard',
+  'preferences.hair.color': 'hair.color',
+  'preferences.hair.flower': 'hair.flower',
+  'preferences.hair.mustache': 'hair.mustache',
+};
+
+let checkPreferencePurchase = (user, path, item) => {
+  let itemPath = `${path}.${item}`;
+  let isDefaultPreference = _.get(shared.content.defaultAppearancePreferences, itemPath);
+
+  if (isDefaultPreference) return true;
+
+  return _.get(user.purchased, itemPath);
+};
 
 /**
  * Update user
@@ -301,21 +331,31 @@ _.each('stats.class'.split(' '), function(removePath){
  * PUT /user {'stats.hp':50, 'tasks.TASK_ID.repeat.m':false}
  * See acceptablePUTPaths for which user paths are supported
 */
-api.update = function(req, res, next) {
-  var user = res.locals.user;
-  var errors = [];
+api.update = (req, res, next) => {
+  let user = res.locals.user;
+  let errors = [];
+
   if (_.isEmpty(req.body)) return res.json(200, user);
 
-  _.each(req.body, function(v, k) {
-    if (acceptablePUTPaths[k])
+  _.each(req.body, (v, k) => {
+    let purchasable = requiresPurchase[k];
+
+    if (purchasable && !checkPreferencePurchase(user, purchasable, v)) {
+      return errors.push(`Must purchase ${v} to set it on ${k}`);
+    }
+
+    if (acceptablePUTPaths[k]) {
       user.fns.dotSet(k, v);
-    else
+    } else {
       errors.push(shared.i18n.t('messageUserOperationProtected', { operation: k }));
+    }
     return true;
   });
-  user.save(function(err) {
+
+  user.save((err) => {
     if (!_.isEmpty(errors)) return res.json(401, {err: errors});
     if (err) return next(err);
+
     res.json(200, user);
     user = errors = null;
   });

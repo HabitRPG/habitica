@@ -1,10 +1,10 @@
-import { requester } from '../../../helpers/api-integration.helper';
+import { requester } from '../../../helpers/api-v3-integration.helper';
 
 describe('notFound Middleware', () => {
-  it('returns a 404 error when the resource is not found', () => {
+  it('returns a 404 error when the resource is not found', async () => {
     let request = requester().get('/api/v3/dummy-url');
 
-    return expect(request).to.eventually.be.rejected.and.eql({
+    await expect(request).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: 'Not found.',

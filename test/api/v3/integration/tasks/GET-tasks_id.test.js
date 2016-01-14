@@ -1,35 +1,29 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /tasks/:id', () => {
   let user;
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
+  before(async () => {
+    user = await generateUser();
   });
 
-  context('task can be accessed', () => {
+  context('task can be accessed', async () => {
     let task;
 
-    beforeEach(() => {
-      return user.post('/tasks/user', {
+    beforeEach(async () => {
+      task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
-      }).then((createdTask) => {
-        task = createdTask;
       });
     });
 
-    it('gets specified task', () => {
-      return user.get(`/tasks/${task._id}`)
-      .then((getTask) => {
-        expect(getTask).to.eql(task);
-      });
+    it('gets specified task', async () => {
+      let getTask = await user.get(`/tasks/${task._id}`);
+      expect(getTask).to.eql(task);
     });
 
     // TODO after challenges are implemented
@@ -37,34 +31,28 @@ describe('GET /tasks/:id', () => {
   });
 
   context('task cannot be accessed', () => {
-    it('cannot get a non-existant task', () => {
+    it('cannot get a non-existant task', async () => {
       let dummyId = generateUUID();
 
-      return expect(user.get(`/tasks/${dummyId}`)).to.eventually.be.rejected.and.eql({
+      await expect(user.get(`/tasks/${dummyId}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
         message: t('taskNotFound'),
       });
     });
 
-    it('cannot get a task owned by someone else', () => {
-      let anotherUser;
+    it('cannot get a task owned by someone else', async () => {
+      let anotherUser = await generateUser();
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
 
-      return generateUser()
-        .then((user2) => {
-          anotherUser = user2;
-
-          return user.post('/tasks/user', {
-            text: 'test habit',
-            type: 'habit',
-          });
-        }).then((task) => {
-          return expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
-            code: 404,
-            error: 'NotFound',
-            message: t('taskNotFound'),
-          });
-        });
+      await expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('taskNotFound'),
+      });
     });
   });
 });

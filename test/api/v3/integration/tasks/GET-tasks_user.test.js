@@ -9,12 +9,6 @@ describe('GET /tasks/user', () => {
     user = await generateUser();
   });
 
-  before(async () => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
-    });
-  });
-
   it('returns all user\'s tasks', async () => {
     let createdTasks = await user.post('/tasks/user', [{text: 'test habit', type: 'habit'}, {text: 'test todo', type: 'todo'}]);
     let tasks = await user.get('/tasks/user');

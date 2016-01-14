@@ -146,7 +146,6 @@ schema.statics.getGroup = function getGroup (user, groupId, fields, optionalMemb
   // TODO purge chat flags info? in tojson?
 };
 
-// TODO move to its own model
 export function chatDefaults (msg, user) {
   let message = {
     id: shared.uuid(),
@@ -520,3 +519,5 @@ model.count({_id: 'habitrpg'}, (err, ct) => {
     privacy: 'public',
   }).save();
 });
+
+export const INVITES_LIMIT = 100;

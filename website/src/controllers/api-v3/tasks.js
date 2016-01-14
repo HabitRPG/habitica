@@ -11,8 +11,9 @@ import {
 import shared from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
+import moment from 'moment';
 import scoreTask from '../../../../common/script/api-v3/scoreTask';
-import { preenHistory } from '../../../../common/script/api-v3/preenHistory';
+import { preenHistory } from '../../../../common/script/api-v3/preening';
 
 let api = {};
 
@@ -474,11 +475,27 @@ api.scoreTask = {
         }).exec();
 
         chalTask.value += delta;
+
         if (chalTask.type === 'habit' || chalTask.type === 'daily') {
-          chalTask.history.push({value: chalTask.value, date: Number(new Date())});
-          // TODO 1. treat challenges as subscribed users for preening 2. it's expensive to do it at every score - how to have it happen once like for cron?
-          chalTask.history = preenHistory(user, chalTask.history);
-          chalTask.markModified('history');
+          // Add only one history entry per day
+          if (moment(chalTask.history[chalTask.history.length - 1].date).isSame(new Date(), 'day')) {
+            chalTask.history[chalTask.history.length - 1] = {
+              date: Number(new Date()),
+              value: chalTask.value,
+            };
+            chalTask.markModified(`history.${chalTask.history.length - 1}`);
+          } else {
+            chalTask.history.push({
+              date: Number(new Date()),
+              value: chalTask.value,
+            });
+
+            // Only preen task history once a day when the task is scored first
+            if (chalTask.history.length > 365) {
+              chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as much entries as a subscribed user
+              chalTask.markModified(`history.${chalTask.history.length - 1}`);
+            }
+          }
         }
 
         await chalTask.save();
