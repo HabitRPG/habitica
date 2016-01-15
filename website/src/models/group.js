@@ -452,28 +452,20 @@ schema.statics.bossQuest = function bossQuest (user, progress) {
   });
 };
 
-// Remove user from this group
-// TODO this is highly inefficient
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
 
   let challenges = await Challenge.find({
-    _id: {$in: user.challenges}, // Challenges I am in
-    group: group._id, // that belong to the group I am leaving
+    _id: {$in: user.challenges},
+    groupId: group._id,
   });
 
-  await Challenge.update(
-    {_id: {$in: _.pluck(user.challenges, '_id')}},
-    {multi: true}
-  );
-
-  //  remove user from challenges
-  let challengesUserWasRemovedFrom = challenges.map(chal => {
+  let challengesToRemoveUserFrom = challenges.map(chal => {
     let i = user.challenges.indexOf(chal._id);
     if (i !== -1) user.challenges.splice(i, 1);
-    return user.unlink({cid: chal._id, keep});
+    return user.unlinkChallengeTasks({cid: chal._id, keep});
   });
-  await Q.all(challengesUserWasRemovedFrom);
+  await Q.all([challengesToRemoveUserFrom, user.save()]);
 
   let promises = [];
 
