@@ -16,20 +16,36 @@ i18n.translations = require('../../website/src/libs/api-v3/i18n').translations;
 
 const API_TEST_SERVER_PORT = 3003;
 
-class ApiUser {
+class ApiObject {
   constructor (options) {
     assign(this, options);
+  }
+
+  update (options) {
+    return new Promise((resolve) => {
+      _updateDocument(this._docType, this, options, resolve);
+    });
+  }
+}
+
+class ApiUser extends ApiObject {
+  constructor (options) {
+    super(options);
+
+    this._docType = 'users';
 
     this.get = _requestMaker(this, 'get');
     this.post = _requestMaker(this, 'post');
     this.put = _requestMaker(this, 'put');
     this.del = _requestMaker(this, 'del');
   }
+}
 
-  update (options) {
-    return new Promise((resolve) => {
-      _updateDocument('users', this, options, resolve);
-    });
+class ApiGroup extends ApiObject {
+  constructor (options) {
+    super(options);
+
+    this._docType = 'groups';
   }
 }
 
@@ -103,26 +119,27 @@ export async function generateUser (update = {}) {
     confirmPassword: password,
   });
 
-  return Q.promise((resolve) => {
-    _updateDocument('users', user, update, () => {
-      let apiUser = new ApiUser(user);
+  let apiUser = new ApiUser(user);
 
-      resolve(apiUser);
-    });
-  });
+  await apiUser.update(update);
+
+  return apiUser;
 }
 
 // Generates a new group. Requires a user object, which
 // will will become the groups leader. Takes an update
 // argument which will update group
-export function generateGroup (leader, details = {}, update = {}) {
-  return new Promise((resolve, reject) => {
-    leader.post('/groups', details).then((group) => {
-      _updateDocument('groups', group, update, () => {
-        resolve(group);
-      });
-    }).catch(reject);
-  });
+export async function generateGroup (leader, details = {}, update = {}) {
+  details.type = details.type || 'party';
+  details.privacy = details.privacy || 'private';
+  details.name = details.name || 'test group';
+
+  let group = await leader.post('/groups', details);
+  let apiGroup = new ApiGroup(group);
+
+  await apiGroup.update(update);
+
+  return apiGroup;
 }
 
 // This is generate group + the ability to create
