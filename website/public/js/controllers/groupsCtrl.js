@@ -49,7 +49,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
 
     $scope.saveEdit = function(group) {
-      if(group._newLeader && group._newLeader._id) group.leader = group._newLeader._id;
+      if($scope.groupCopy._newLeader && $scope.groupCopy._newLeader._id) $scope.groupCopy.leader = $scope.groupCopy._newLeader._id;
       angular.copy($scope.groupCopy, group);
       group.$save();
       $scope.cancelEdit(group);

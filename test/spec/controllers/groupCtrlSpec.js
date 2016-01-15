@@ -24,7 +24,6 @@ describe('Groups Controller', function() {
   });
 
   describe("Group Membership Behavior", function() {
-
     var party, guild;
 
     beforeEach(function() {
@@ -80,18 +79,15 @@ describe('Groups Controller', function() {
      *
      * This coercion business is troublesome...
      */
-    /*
-    describe("isMember behavior", function() { 
+    describe.skip("isMember behavior", function() { 
       it("should return true dependent on whether the user id belongs to the group", function() {
         expect(scope.isMember(user, guild)).to.eql(truthy);
         expect(scope.isMember(user, party)).to.eql(falsy);
       });
     });
-    */
   });
 
-  describe("Quest Membership Behavior", function() { 
-
+  describe("isMemberOfPendingQuest/isMemberOfRunningQuest", function() { 
     var runningQuestParty, pendingQuestParty;
 
     beforeEach(function() {
@@ -146,9 +142,7 @@ describe('Groups Controller', function() {
     });
   });
    
-
-  describe("Group Edit Behavior", function() {
-
+  describe("editGroup", function() {
     var guild, editGuild;
 
     beforeEach(function() {
@@ -160,8 +154,7 @@ describe('Groups Controller', function() {
       });
 
       // verify initial state, 
-      var editGuild = scope.groupCopy;
-      expect(editGuild).to.eql({});
+      expect(scope.groupCopy).to.eql({});
       expect(guild._editing).to.eql(undefined);
     });
 
@@ -169,22 +162,20 @@ describe('Groups Controller', function() {
     it('should allow for editing without changing group resource', function() {
       // switch to edit mode
       scope.editGroup(guild);
-      var editGuild = scope.groupCopy;
       expect(guild._editing).to.eql(true);
 
       // all values should be identical in edit copy
-      for(var key in editGuild) {
-        expect(editGuild[key]).to.eql(guild[key]);
+      for(var key in scope.groupCopy) {
+        expect(scope.groupCopy[key]).to.eql(guild[key]);
       }
 
       // change value and verify original is untouched
-      editGuild.leader = 'testLeader';
-      expect(editGuild.leader).to.not.eql(guild.leader);
+      scope.groupCopy.leader = 'testLeader';
+      expect(scope.groupCopy.leader).to.not.eql(guild.leader);
 
       // stop editing and verify copy is removed
       scope.cancelEdit(guild);
-      editGuild = scope.groupCopy;
-      expect(editGuild).to.eql({});
+      expect(scope.groupCopy).to.eql({});
       expect(guild._editing).to.eql(false);
 
     });
@@ -194,36 +185,40 @@ describe('Groups Controller', function() {
 
       // switch to edit mode
       scope.editGroup(guild);
-      var editGuild = scope.groupCopy;
       expect(guild._editing).to.eql(true);
 
+      var testName = 'testName';
+      var testLogo = 'testLogo';
+      var testNewLeader = 'testNewLeader';
+      var testDescription = 'testDesc';
+
       // get copy for editing
-      editGuild.name= 'testName';
-      editGuild.logo = 'testLogo';
-      editGuild.description = 'testDesc';
-      editGuild._newLeader= 'testNewLeader';
+      scope.groupCopy.name = testName;
+      scope.groupCopy.logo = testLogo;
+      scope.groupCopy._newLeader = testNewLeader;
+      scope.groupCopy.description = testDescription;
 
 
-      expect(guild.name).to.not.eql(editGuild.name);
-      expect(guild.logo).to.not.eql(editGuild.logo);
-      expect(guild.description).to.not.eql(editGuild.description);
-      expect(guild._newLeader).to.not.eql(editGuild._newLeader);
+      expect(guild.name).to.not.eql(testName);
+      expect(guild.logo).to.not.eql(testLogo);
+      expect(guild._newLeader).to.not.eql(testNewLeader);
+      expect(guild.description).to.not.eql(testDescription);
 
       scope.saveEdit(guild);
-      expect(guild.name).to.eql(editGuild.name);
-      expect(guild.logo).to.eql(editGuild.logo);
-      expect(guild.description).to.eql(editGuild.description);
-      expect(guild._newLeader).to.eql(editGuild._newLeader);
+      expect(guild.name).to.eql(testName);
+      expect(guild.logo).to.eql(testLogo);
+      expect(guild._newLeader).to.eql(testNewLeader);
+      expect(guild.description).to.eql(testDescription);
       expect(guildSave).to.be.calledOnce;
 
     });
   });
-  /* TODO: Modal testing
-  describe("deleteAllMessages", function() { });
-  describe("clickMember", function() { });
-  describe("removeMember", function() { });
-  describe("confirmRemoveMember", function() { });
-  describe("openInviteModal", function() { });
-  describe("quickReply", function() { });
-  */
+
+  /* TODO: Modal testing */
+  describe.skip("deleteAllMessages", function() { });
+  describe.skip("clickMember", function() { });
+  describe.skip("removeMember", function() { });
+  describe.skip("confirmRemoveMember", function() { });
+  describe.skip("openInviteModal", function() { });
+  describe.skip("quickReply", function() { });
 });
