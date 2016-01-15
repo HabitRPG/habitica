@@ -92,7 +92,7 @@ api.createChallengeTasks = {
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
 
-    let user = res.local.user;
+    let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findOne({_id: challengeId}).exec();
@@ -194,7 +194,7 @@ api.getChallengeTasks = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.local.user;
+    let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findOne({_id: challengeId}).select('leader').exec();

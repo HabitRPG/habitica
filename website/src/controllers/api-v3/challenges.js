@@ -77,9 +77,15 @@ api.createChallenge = {
     req.body.official = user.contributor.admin && req.body.official;
     let challenge = new Challenge(Challenge.sanitize(req.body));
 
-    let results = await Q.all(challenge.save(), group.save());
-    let savedChal = results[0];
+    // First validate challenge so we don't save group if it's invalid (only runs sync validators)
+    let challengeValidationErrors = challenge.validateSync();
+    if (challengeValidationErrors) throw challengeValidationErrors;
 
+    let results = await Q.all([challenge.save({
+      validateBeforeSave: false, // already validate
+    }), group.save()]);
+
+    let savedChal = results[0];
     await savedChal.syncToUser(user); // (it also saves the user)
     res.respond(201, savedChal);
   },
@@ -140,7 +146,7 @@ api.getChallenge = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.local.user;
+    let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findById(challengeId).exec();
