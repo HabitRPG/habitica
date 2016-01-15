@@ -472,18 +472,20 @@ export let schema = new Schema({
   },
 }, {
   strict: true,
-  minimize: false, // So empty objects are returned
+  minimize: false, // So empty objects are returned TODO make sure it's in every model
 });
 
 schema.plugin(baseModel, {
-  // TODO revisit a lot of things are missing
-  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest', 'invitations', 'balance'],
+  // TODO revisit a lot of things are missing. Given how many attributes we do have here we should white-list the ones that can be updated
+  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password',
+    'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest',
+    'invitations', 'balance', 'backer', 'contributor'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function userToJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
     // TODO this works?
-    doc.filters = {};
-    doc._tmp = this._tmp; // be sure to send down drop notifs
+    // doc.filters = {};
+    // doc._tmp = this._tmp; // be sure to send down drop notifs
 
     return doc;
   },

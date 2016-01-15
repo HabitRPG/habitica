@@ -42,7 +42,8 @@ api.getMember = {
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
-    res.respond(200, member);
+    // manually call toJSON with minimize: true so empty paths aren't returned
+    res.respond(200, member.toJSON({minimize: true}));
   },
 };
 
