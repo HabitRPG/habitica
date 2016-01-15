@@ -90,6 +90,6 @@ describe('GET /groups/:groupId/members', () => {
     expect(res2.length).to.equal(28);
 
     let resIds = res.concat(res2).map(member => member._id);
-    expect(resIds).to.eql(expectedIds.sort())
+    expect(resIds).to.eql(expectedIds.sort());
   });
 });
