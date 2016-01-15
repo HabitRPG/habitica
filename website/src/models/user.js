@@ -651,40 +651,34 @@ schema.methods.isSubscribed = function isSubscribed () {
   return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
 };
 
-schema.methods.unlink = function unlink (options, cb) {
-  let cid = options.cid;
-  let keep = options.keep;
-  let tid = options.tid;
+// Unlink challenges tasks from user
+schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (challengeId, keep) {
+  let user = this;
+  let findQuery = {
+    userId: user._id,
+    'challenge.id': challengeId,
+  };
 
-  if (!cid) {
-    return cb('Could not remove challenge tasks. Please delete them manually.');
-  }
-
-  let self = this;
-
-  if (keep === 'keep') {
-    self.tasks[tid].challenge = {};
-  } else if (keep === 'remove') {
-    self.ops.deleteTask({params: {id: tid}}, () => {});
-  } else if (keep === 'keep-all') {
-    _.each(self.tasks, (t) => {
-      if (t.challenge && t.challenge.id === cid) {
-        t.challenge = {};
+  if (keep === 'keep-all') {
+    await Tasks.Task.update(findQuery, {
+      $set: {challenge: {}}, // TODO what about updatedAt?
+    }, {multi: true}).exec();
+  } else { // keep = 'remove-all'
+    let tasks = Tasks.Task.find(findQuery).select('_id type completed').exec();
+    tasks = tasks.map(task => {
+      // Remove task from user.tasksOrder and delete them
+      if (task.type !== 'todo' || !task.completed) {
+        let list = user.tasksOrder[`${task.type}s`];
+        let index = list.indexOf(task._id);
+        if (index !== -1) list.splice(index, 1);
       }
-    });
-  } else if (keep === 'remove-all') {
-    _.each(self.tasks, (t) => {
-      if (t.challenge && t.challenge.id === cid) {
-        this.ops.deleteTask({params: {id: tid}}, () => {});
-      }
-    });
-  }
 
-  self.markModified('habits');
-  self.markModified('dailys');
-  self.markModified('todos');
-  self.markModified('rewards');
-  self.save(cb);
+      return task.remove();
+    });
+
+    tasks.push(user.save());
+    await Q.all(tasks);
+  }
 };
 
 export let model = mongoose.model('User', schema);

@@ -1,7 +1,8 @@
 import {
   generateUser,
+  createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /group/:groupId/join', () => {
@@ -15,22 +16,28 @@ describe('POST /group/:groupId/join', () => {
     });
   });
 
-  context('Accepting invitation to a guild', () => {
+  context('Accepting invitation to a private guild', () => {
     let user, invitedUser, guild;
 
     beforeEach(async () => {
-      user = await generateUser({balance: 1});
-      guild = await user.post('/groups', {
-        name: 'Test Guild',
-        type: 'guild',
-        privacy: 'private',
+      let { group, groupLeader, invitees } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Guild',
+          type: 'guild',
+          privacy: 'private',
+        },
+        invites: 1,
       });
+
+      guild = group;
+      user = groupLeader;
+      invitedUser = invitees[0];
     });
 
     it('returns error when user is not invited to private guild', async () => {
-      let joiningUser = await generateUser();
+      let userWithoutInvite = await generateUser();
 
-      await expect(joiningUser.post(`/groups/${guild._id}/join`)).to.eventually.be.rejected.and.eql({
+      await expect(userWithoutInvite.post(`/groups/${guild._id}/join`)).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('messageGroupRequiresInvite'),
@@ -38,26 +45,21 @@ describe('POST /group/:groupId/join', () => {
     });
 
     it('allows non-invited users to join public guilds', async () => {
-      await user.update({balance: 1});
-      guild = await user.post('/groups', {
-        name: 'Test Guild',
-        type: 'guild',
-        privacy: 'public',
-      });
+      let publicGuild = (await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Guild',
+          type: 'guild',
+          privacy: 'public',
+        },
+      })).group;
 
       let joiningUser = await generateUser();
-      await joiningUser.post(`/groups/${guild._id}/join`);
+      await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
-      await expect(joiningUser.get('/user')).to.eventually.have.property('guilds').to.include(guild._id);
+      await expect(joiningUser.get('/user')).to.eventually.have.property('guilds').and.to.include(publicGuild._id);
     });
 
     context('User is invited', () => {
-      beforeEach(async () => {
-        invitedUser = await generateUser({
-          'invitations.guilds': [{ id: guild._id}],
-        });
-      });
-
       it('allows invited user to join private guilds', async () => {
         await invitedUser.post(`/groups/${guild._id}/join`);
 
@@ -92,17 +94,23 @@ describe('POST /group/:groupId/join', () => {
     let user, invitedUser, party;
 
     beforeEach(async () => {
-      user = await generateUser();
-      party = await user.post('/groups', {
-        name: 'Test Party',
-        type: 'party',
+      let { group, groupLeader, invitees } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Party',
+          type: 'party',
+        },
+        invites: 1,
       });
+
+      party = group;
+      user = groupLeader;
+      invitedUser = invitees[0];
     });
 
     it('returns error when user is not invited to party', async () => {
-      let joiningUser = await generateUser();
+      let userWithoutInvite = await generateUser();
 
-      await expect(joiningUser.post(`/groups/${party._id}/join`)).to.eventually.be.rejected.and.eql({
+      await expect(userWithoutInvite.post(`/groups/${party._id}/join`)).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('messageGroupRequiresInvite'),
@@ -110,12 +118,6 @@ describe('POST /group/:groupId/join', () => {
     });
 
     context('User is invited', () => {
-      beforeEach(async () => {
-        invitedUser = await generateUser({
-          'invitations.party': { id: party._id, inviter: user._id },
-        });
-      });
-
       it('allows invited user to join party', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 

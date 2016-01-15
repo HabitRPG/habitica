@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /tasks/:id', () => {
@@ -15,7 +15,7 @@ describe('GET /tasks/:id', () => {
     let task;
 
     beforeEach(async () => {
-      task = await user.post('/tasks', {
+      task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
@@ -43,7 +43,7 @@ describe('GET /tasks/:id', () => {
 
     it('cannot get a task owned by someone else', async () => {
       let anotherUser = await generateUser();
-      let task = await user.post('/tasks', {
+      let task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });

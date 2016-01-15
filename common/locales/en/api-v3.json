@@ -38,6 +38,7 @@
   "memberCannotRemoveYourself": "You cannot remove yourself!",
   "groupMemberNotFound": "User not found among group's members",
   "keepOrRemoveAll": "req.query.keep must be either \"keep-all\" or \"remove-all\"",
+  "keepOrRemove": "req.query.keep must be either \"keep\" or \"remove\"",
   "canOnlyInviteEmailUuid": "Can only invite using uuids or emails.",
   "inviteMissingEmail": "Missing email address in invite.",
   "onlyGroupLeaderChal": "Only the group leader can create challenges",
@@ -48,6 +49,10 @@
   "challengeNotFound": "Challenge not found.",
   "onlyLeaderDeleteChal": "Only the challenge leader can delete it.",
   "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge.",
+  "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching a challenge tasks.",
+  "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+  "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
+  "invalidTasksOwner": "\"tasksOwner\" must be \"user\" or \"challenge\".",
   "partyMustbePrivate": "Parties must be private",
   "userAlreadyInGroup": "User already in that group.",
   "userAlreadyInvitedToGroup": "User already invited to that group.",
@@ -56,5 +61,6 @@
   "userWithIDNotFound": "User with id \"<%= userId %>\" not found.",
   "uuidsMustBeAnArray": "UUIDs invites must be a an Array.",
   "emailsMustBeAnArray": "Email invites must be a an Array.",
-  "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time"
+  "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
+  "cantOnlyUnlinkChalTask": "Only challenges tasks can be unlinked."
 }

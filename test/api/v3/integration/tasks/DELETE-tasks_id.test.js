@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 
 describe('DELETE /tasks/:id', () => {
   let user;
@@ -14,7 +14,7 @@ describe('DELETE /tasks/:id', () => {
     let task;
 
     beforeEach(async () => {
-      task = await user.post('/tasks', {
+      task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
@@ -42,7 +42,7 @@ describe('DELETE /tasks/:id', () => {
 
     it('cannot delete a task owned by someone else', async () => {
       let anotherUser = await generateUser();
-      let anotherUsersTask = await anotherUser.post('/tasks', {
+      let anotherUsersTask = await anotherUser.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });

@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../../helpers/api-integration.helper';
+} from '../../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
@@ -12,7 +12,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('deletes a checklist item', async () => {
-    let task = await user.post('/tasks', {
+    let task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
     });
@@ -26,7 +26,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('does not work with habits', async () => {
-    let habit = await user.post('/tasks', {
+    let habit = await user.post('/tasks/user', {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -39,7 +39,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('does not work with rewards', async () => {
-    let reward = await user.post('/tasks', {
+    let reward = await user.post('/tasks/user', {
       type: 'reward',
       text: 'reward with checklist',
     });
@@ -60,7 +60,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on checklist item not found', async () => {
-    let createdTask = await user.post('/tasks', {
+    let createdTask = await user.post('/tasks/user', {
       type: 'daily',
       text: 'daily with checklist',
     });

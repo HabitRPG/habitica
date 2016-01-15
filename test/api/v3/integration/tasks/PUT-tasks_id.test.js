@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:id', () => {
@@ -14,7 +14,7 @@ describe('PUT /tasks/:id', () => {
     let task;
 
     beforeEach(async () => {
-      task = await user.post('/tasks', {
+      task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
@@ -61,7 +61,7 @@ describe('PUT /tasks/:id', () => {
     let habit;
 
     beforeEach(async () => {
-      habit = await user.post('/tasks', {
+      habit = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
         notes: 1976,
@@ -87,7 +87,7 @@ describe('PUT /tasks/:id', () => {
     let todo;
 
     beforeEach(async () => {
-      todo = await user.post('/tasks', {
+      todo = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
         notes: 1976,
@@ -142,7 +142,7 @@ describe('PUT /tasks/:id', () => {
     let daily;
 
     beforeEach(async () => {
-      daily = await user.post('/tasks', {
+      daily = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
         notes: 1976,
@@ -244,7 +244,7 @@ describe('PUT /tasks/:id', () => {
     let reward;
 
     beforeEach(async () => {
-      reward = await user.post('/tasks', {
+      reward = await user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         notes: 1976,

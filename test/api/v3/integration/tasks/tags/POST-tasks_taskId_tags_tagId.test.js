@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../../helpers/api-integration.helper';
+} from '../../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/:taskId/tags/:tagId', () => {
@@ -12,7 +12,7 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('adds a tag to a task', async () => {
-    let task = await user.post('/tasks', {
+    let task = await user.post('/tasks/user', {
       type: 'habit',
       text: 'Task with tag',
     });
@@ -24,7 +24,7 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('does not add a tag to a task twice', async () => {
-    let task = await user.post('/tasks', {
+    let task = await user.post('/tasks/user', {
       type: 'habit',
       text: 'Task with tag',
     });
@@ -41,7 +41,7 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('does not add a non existing tag to a task', async () => {
-    let task = await user.post('/tasks', {
+    let task = await user.post('/tasks/user', {
       type: 'habit',
       text: 'Task with tag',
     });

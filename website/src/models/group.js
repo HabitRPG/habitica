@@ -438,7 +438,7 @@ schema.statics.bossQuest = function bossQuest (user, progress) {
 
 // Remove user from this group
 // TODO this is highly inefficient
-schema.methods.leave = function leaveGroup (user, keep = 'keep-all') {
+schema.methods.leave = function leaveGroup (user, keep) {
   let group = this;
 
   return Q.all([
@@ -454,12 +454,12 @@ schema.methods.leave = function leaveGroup (user, keep = 'keep-all') {
         {_id: {$in: _.pluck(challenges, '_id')}},
         {$pull: {members: user._id}},
         {multi: true}
-      ).then(() => challenges); // pass `challenges` above to next promise TODO ok to return a non-promise?
+      ).then(() => challenges); // pass `challenges` above to next promise
     }).then(challenges => {
       return Q.all(challenges.map(chal => {
         let i = user.challenges.indexOf(chal._id);
         if (i !== -1) user.challenges.splice(i, 1);
-        return user.unlink({cid: chal._id, keep});
+        return user.unlinkChallengeTasks(chal._id, keep);
       }));
     }),
 
