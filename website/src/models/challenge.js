@@ -31,6 +31,24 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'challengeCount', 'tasksOrder'],
 });
 
+// Return true if user has access to the challenge
+schema.methods.hasAccess = function hasAccessToChallenge (user) {
+  let userGroups = user.guilds.slice(0);
+  if (user.party._id) userGroups.push(user.party._id);
+  userGroups.push('habitrpg'); // tavern challenges
+  return this.leader === user._id || user.contributor.admin || userGroups.indexOf(this.groupId) !== -1;
+};
+
+// Return true if user is a member of the challenge
+schema.methods.isMember = function isChallengeMember (user) {
+  return user.challenges.indexOf(this._id) !== -1;
+};
+
+// Return true if the user can modify (close, selectWinner, ...) the challenge
+schema.methods.canModify = function canModifyChallenge (user) {
+  return user.contributor.admin || this.leader === user._id;
+};
+
 // Takes a Task document and return a plain object of attributes that can be synced to the user
 function _syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document

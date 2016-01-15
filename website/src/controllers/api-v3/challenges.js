@@ -100,9 +100,9 @@ api.getChallenges = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let groups = user.guilds || [];
+    let groups = user.guilds.slice(0); // slice is used to clone the array so we don't modify it directly
     if (user.party._id) groups.push(user.party._id);
-    groups.push('habitrpg'); // Public challenges
+    groups.push('habitrpg'); // tavern challenges
 
     let challenges = await Challenge.find({
       $or: [
@@ -143,11 +143,9 @@ api.getChallenge = {
     let user = res.local.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findOne({_id: challengeId}).exec(); // TODO populate
+    let challenge = await Challenge.findById(challengeId).exec();
 
-    // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
-    // TODO support challenges in groups I'm a member of
-    if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
+    if (!challenge || !challenge.hasAccess(user)) {
       throw new NotFound(res.t('challengeNotFound'));
     }
 
@@ -233,7 +231,7 @@ api.deleteChallenge = {
 
     let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
     res.respond(200, {});
     // Close channel in background
@@ -264,7 +262,7 @@ api.selectChallengeWinner = {
 
     let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
     let winner = await User.findOne({_id: req.params.winnerId}).exec();
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.parama.winnerId}));
