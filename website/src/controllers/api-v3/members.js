@@ -105,14 +105,15 @@ function _getMembersForItem (type) {
 
     if (lastId) query._id = {$gt: lastId};
 
-    let users = await User
+    let members = await User
       .find(query)
-      .sortBy({_id: 1})
+      .sort({_id: 1})
       .limit(30)
       .select(fields)
       .exec();
 
-    res.respond(200, users);
+    // manually call toJSON with minimize: true so empty paths aren't returned
+    res.respond(200, members.map(member => member.toJSON({minimize: true})));
   };
 }
 
