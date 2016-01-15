@@ -6,6 +6,7 @@ import {
   nameFields,
 } from '../../models/user';
 import { model as Group } from '../../models/group';
+import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
 } from '../../libs/api-v3/errors';
@@ -45,31 +46,45 @@ api.getMember = {
   },
 };
 
-// Return a request handler for getMembersForGroup / getInvitesForGroup
+// Return a request handler for getMembersForGroup / getInvitesForGroup / getMembersForChallenge
 // type is `invites` or `members`
-function handleGetMembersInvitesForGroup (type) {
-  if (type !== 'members' && type !== 'invites') {
-    throw new Error('Type must be "invites" or "members"');
+function _getMembersForItem (type) {
+  if (['group-members', 'group-invites', 'challenge-members'].indexOf(type) === -1) {
+    throw new Error('Type must be one of "group-members", "group-invites", "challenge-members"');
   }
 
-  return async function getMembersOrInvitesForGroup (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+  return async function handleGetMembersForItem (req, res) {
+    if (type === 'challenge-members') {
+      req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    } else {
+      req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    }
     req.checkQuery('lastId').optional().notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let groupId = req.params.groupId;
+    let challengeId = req.params.challengeId;
     let lastId = req.query.lastId;
     let user = res.locals.user;
+    let challenge;
+    let group;
 
-    let group = await Group.getGroup(user, groupId, '_id type');
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (type === 'challenge-members') {
+      challenge = await Challenge.findById(challengeId).select('_id type leader').exec();
+      if (!challenge || !challenge.hasAccess(user)) throw new NotFound(res.t('groupNotFound'));
+    } else {
+      group = await Group.getGroup(user, groupId, '_id type');
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+    }
 
     let query = {};
     let fields = nameFields;
 
-    if (type === 'members') {
+    if (type === 'challenge-members') {
+      query.challenges = challenge._id;
+    } else if (type === 'group-members') {
       if (group.type === 'guild') {
         query.guilds = group._id;
       } else {
@@ -79,7 +94,7 @@ function handleGetMembersInvitesForGroup (type) {
           fields = memberFields;
         }
       }
-    } else {
+    } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
         query['invitations.guilds.id'] = group._id;
       } else {
@@ -116,7 +131,7 @@ api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
   middlewares: [authWithHeaders(), cron],
-  handler: handleGetMembersInvitesForGroup('members'),
+  handler: _getMembersForItem('group-members'),
 };
 
 /**
@@ -134,7 +149,7 @@ api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
   middlewares: [authWithHeaders(), cron],
-  handler: handleGetMembersInvitesForGroup('invites'),
+  handler: _getMembersForItem('group-invites'),
 };
 
 /**
@@ -152,52 +167,7 @@ api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
   middlewares: [authWithHeaders(), cron],
-  async handler (req, res) {
-    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty();
-    req.checkQuery('lastId').optional().notEmpty().isUUID();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let challengeId = req.params.challengeId;
-    let lastId = req.query.lastId;
-    let user = res.locals.user;
-
-    let challenge = await Challenge.findById(challengeId).exec();
-
-    let query = {};
-    let fields = nameFields;
-
-    if (type === 'members') {
-      if (group.type === 'guild') {
-        query.guilds = group._id;
-      } else {
-        query['party._id'] = group._id; // group._id and not groupId because groupId could be === 'party'
-
-        if (req.query.includeAllPublicFields === 'true') {
-          fields = memberFields;
-        }
-      }
-    } else {
-      if (group.type === 'guild') { // eslint-disable-line no-lonely-if
-        query['invitations.guilds.id'] = group._id;
-      } else {
-        query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
-      }
-    }
-
-    if (lastId) query._id = {$gt: lastId};
-
-    let users = await User
-      .find(query)
-      .sortBy({_id: 1})
-      .limit(30)
-      .select(fields)
-      .exec();
-
-    res.respond(200, users);
-  }
+  handler: _getMembersForItem('challenge-members'),
 };
-
 
 export default api;
