@@ -41,6 +41,18 @@ class ApiUser {
   }
 }
 
+class ApiGroup {
+  constructor (options) {
+    assign(this, options);
+  }
+
+  update (options) {
+    return new Promise((resolve) => {
+      _updateDocument('groups', this, options, resolve);
+    });
+  }
+}
+
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
 // the user are used to make the requests
@@ -97,42 +109,37 @@ export function checkExistence (collectionName, id) {
 // paramter, such as the number of wolf eggs the user has,
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
-export function generateUser (update = {}) {
+export async function generateUser (update = {}) {
   let username = generateUUID();
   let password = 'password';
   let email = `${username}@example.com`;
 
   let request = _requestMaker({}, 'post');
 
-  return new Promise((resolve, reject) => {
-    request(ROUTES[API_V].register, {
+  let user = await request(ROUTES[API_V].register, {
       username,
       email,
       password,
       confirmPassword: password,
-    }).then((user) => {
-      _updateDocument('users', user, update, () => {
-        let apiUser = new ApiUser(user);
-
-        resolve(apiUser);
-      });
-    }).catch(reject);
   });
+
+  let apiUser = new ApiUser(user);
+
+  await apiUser.update(update);
+
+  return apiUser;
 }
 
 // Generates a new group. Requires a user object, which
 // will will become the groups leader. Takes an update
 // argument which will update group
-export function generateGroup (leader, update = {}) {
-  let request = _requestMaker(leader, 'post');
+export async function generateGroup (leader, update = {}) {
+  let group = await leader.post('/groups');
+  let apiGroup = new ApiGroup(group);
 
-  return new Promise((resolve, reject) => {
-    request('/groups').then((group) => {
-      _updateDocument('groups', group, update, () => {
-        resolve(group);
-      }).catch(reject);
-    });
-  });
+  await apiGroup.update(update);
+
+  return apiGroup;
 }
 
 // This is generate group + the ability to create
