@@ -20,7 +20,7 @@ let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true}, // TODO no update, no set?
   timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin? not settable?
   memberCount: {type: Number, default: 0},
   challengeCount: {type: Number, default: 0},
@@ -31,7 +31,7 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'challengeCount', 'tasksOrder'],
 });
 
-// Return true if user has access to the challenge
+// Returns true if user has access to the challenge (can join)
 schema.methods.hasAccess = function hasAccessToChallenge (user) {
   let userGroups = user.guilds.slice(0);
   if (user.party._id) userGroups.push(user.party._id);
@@ -39,12 +39,19 @@ schema.methods.hasAccess = function hasAccessToChallenge (user) {
   return this.leader === user._id || user.contributor.admin || userGroups.indexOf(this.groupId) !== -1;
 };
 
-// Return true if user is a member of the challenge
+// Returns true if user can view the challenge
+// Different from hasAccess because challenges of public guilds can be viewed by everyone
+schema.methods.canView = function canViewChallenge (user, group) {
+  if (group.type === 'guild' && group.privacy === 'public') return true;
+  return this.hasAccess(user);
+};
+
+// Returns true if user is a member of the challenge
 schema.methods.isMember = function isChallengeMember (user) {
   return user.challenges.indexOf(this._id) !== -1;
 };
 
-// Return true if the user can modify (close, selectWinner, ...) the challenge
+// Returns true if the user can modify (close, selectWinner, ...) the challenge
 schema.methods.canModify = function canModifyChallenge (user) {
   return user.contributor.admin || this.leader === user._id;
 };

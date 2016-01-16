@@ -73,8 +73,10 @@ function _getMembersForItem (type) {
     let group;
 
     if (type === 'challenge-members') {
-      challenge = await Challenge.findById(challengeId).select('_id type leader').exec();
-      if (!challenge || !challenge.hasAccess(user)) throw new NotFound(res.t('groupNotFound'));
+      challenge = await Challenge.findById(challengeId).select('_id type leader groupId').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+      if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     } else {
       group = await Group.getGroup({user, groupId, fields: '_id type'});
       if (!group) throw new NotFound(res.t('groupNotFound'));

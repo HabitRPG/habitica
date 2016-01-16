@@ -37,6 +37,7 @@
   "onlyLeaderCanRemoveMember": "Only group leader can remove a member!",
   "memberCannotRemoveYourself": "You cannot remove yourself!",
   "groupMemberNotFound": "User not found among group's members",
+  "mustBeGroupMember": "Must be member of the group.",
   "keepOrRemoveAll": "req.query.keep must be either \"keep-all\" or \"remove-all\"",
   "keepOrRemove": "req.query.keep must be either \"keep\" or \"remove\"",
   "canOnlyInviteEmailUuid": "Can only invite using uuids or emails.",

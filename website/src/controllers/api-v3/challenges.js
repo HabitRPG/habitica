@@ -38,8 +38,9 @@ api.createChallenge = {
     let groupId = req.body.groupId;
     let prize = req.body.prize;
 
-    let group = await Group.getGroup({user, groupId, fields: '-chat'});
+    let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
     if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
 
     if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
       throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
@@ -150,10 +151,10 @@ api.getChallenge = {
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findById(challengeId).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    if (!challenge || !challenge.hasAccess(user)) {
-      throw new NotFound(res.t('challengeNotFound'));
-    }
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     res.respond(200, challenge);
   },

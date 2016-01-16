@@ -150,6 +150,17 @@ schema.statics.getGroup = function getGroup (options = {}) {
   // TODO purge chat flags info? in tojson?
 };
 
+// Return true if user is a member of the group
+schema.methods.isMember = function isGroupMember (user) {
+  if (this._id === 'habitrpg') {
+    return true; // everyone is considered part of the tavern
+  } else if (this.type === 'party') {
+    return user.party._id === this._id ? true : false;
+  } else { // guilds
+    return user.guilds.indexOf(this._id) !== -1;
+  }
+};
+
 export function chatDefaults (msg, user) {
   let message = {
     id: shared.uuid(),
