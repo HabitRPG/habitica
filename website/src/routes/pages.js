@@ -3,7 +3,7 @@ var express = require('express');
 var router = new express.Router();
 var _ = require('lodash');
 var locals = require('../middlewares/locals');
-var i18n = require('../libs/i18n');
+var i18n = require('../libs/api-v2/i18n');
 
 // -------- App --------
 router.get('/', i18n.getUserLanguage, locals, function(req, res) {
