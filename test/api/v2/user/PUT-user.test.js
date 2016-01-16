@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 
 import { each, get } from 'lodash';
 

@@ -2,7 +2,7 @@ import {
   generateGroup,
   generateUser,
   resetHabiticaDB,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 
 describe('GET /groups', () => {
   const NUMBER_OF_PUBLIC_GUILDS = 3;

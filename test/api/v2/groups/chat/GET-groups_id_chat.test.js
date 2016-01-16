@@ -1,6 +1,6 @@
 import {
   createAndPopulateGroup,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-integration/v2';
 
 describe('GET /groups/:id/chat', () => {
   context('group with multiple messages', () => {

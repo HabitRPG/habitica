@@ -1,4 +1,4 @@
-import {requester} from '../../../helpers/api-integration.helper';
+import {requester} from '../../../helpers/api-integration/v2';
 
 describe('Status', () => {
   it('returns a status of up when server is up', async () => {

@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-integration/v2';
 
 describe('GET /user/tasks/', () => {
   let user;

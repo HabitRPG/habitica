@@ -1,7 +1,7 @@
 import {
   checkExistence,
   createAndPopulateGroup,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 import { find } from 'lodash';
 
 describe('POST /groups/:id/leave', () => {

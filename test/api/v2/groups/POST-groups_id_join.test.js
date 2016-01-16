@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 import { each, find } from 'lodash';
 
 describe('POST /groups/:id/join', () => {

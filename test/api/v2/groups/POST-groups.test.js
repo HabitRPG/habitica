@@ -2,7 +2,7 @@ import {
   generateGroup,
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 
 describe('POST /groups', () => {
   context('All groups', () => {

@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-integration/v2';
 
 describe('POST /groups/:id/chat/:id/clearflags', () => {
   let guild;

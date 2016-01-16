@@ -3,7 +3,7 @@ import {
   createAndPopulateGroup,
   generateGroup,
   generateUser,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 import { find } from 'lodash';
 
 describe('DELETE /user', () => {
