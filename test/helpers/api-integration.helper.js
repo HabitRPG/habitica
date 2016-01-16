@@ -15,32 +15,36 @@ i18n.translations = require('../../website/src/libs/i18n.js').translations;
 
 const API_TEST_SERVER_PORT = 3003;
 
-class ApiUser {
+class ApiObject {
   constructor (options) {
     assign(this, options);
+  }
+
+  update (options) {
+    return new Promise((resolve) => {
+      _updateDocument(this._docType, this, options, resolve);
+    });
+  }
+}
+
+class ApiUser extends ApiObject {
+  constructor (options) {
+    super(options);
+
+    this._docType = 'users';
 
     this.get = _requestMaker(this, 'get');
     this.post = _requestMaker(this, 'post');
     this.put = _requestMaker(this, 'put');
     this.del = _requestMaker(this, 'del');
   }
-
-  update (options) {
-    return new Promise((resolve) => {
-      _updateDocument('users', this, options, resolve);
-    });
-  }
 }
 
-class ApiGroup {
+class ApiGroup extends ApiObject {
   constructor (options) {
-    assign(this, options);
-  }
+    super(options);
 
-  update (options) {
-    return new Promise((resolve) => {
-      _updateDocument('groups', this, options, resolve);
-    });
+    this._docType = 'groups';
   }
 }
 
