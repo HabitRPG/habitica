@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import { requester } from './requester';
+import { updateDocument as updateDocumentInMongo } from './mongo';
 import {
   assign,
   each,
@@ -14,10 +15,16 @@ class ApiObject {
     assign(this, options);
   }
 
-  update (options) {
-    return new Promise((resolve) => {
-      _updateDocument(this._docType, this, options, resolve);
-    });
+  async update (options) {
+    if (isEmpty(options)) {
+      return;
+    }
+
+    await updateDocumentInMongo(this._docType, this, options);
+
+    _updateLocalParameters (this, options);
+
+    return this;
   }
 }
 
@@ -44,26 +51,7 @@ export class ApiGroup extends ApiObject {
   }
 }
 
-function _updateDocument (collectionName, doc, update, cb) {
-  if (isEmpty(update)) {
-    return cb();
-  }
-
-  mongo.connect('mongodb://localhost/habitrpg_test', (connectErr, db) => {
-    if (connectErr) throw new Error(`Error connecting to database when updating ${collectionName} collection: ${connectErr}`);
-
-    let collection = db.collection(collectionName);
-
-    collection.updateOne({ _id: doc._id }, { $set: update }, (updateErr) => {
-      if (updateErr) throw new Error(`Error updating ${collectionName}: ${updateErr}`);
-      _updateLocalDocument(doc, update);
-      db.close();
-      cb();
-    });
-  });
-}
-
-function _updateLocalDocument (doc, update) {
+function _updateLocalParameters (doc, update) {
   each(update, (value, param) => {
     set(doc, param, value);
   });
