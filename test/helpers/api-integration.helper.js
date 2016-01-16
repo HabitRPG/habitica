@@ -1,68 +1,26 @@
 /* eslint-disable no-use-before-define */
 
 import {
-  assign,
   each,
-  isEmpty,
-  set,
   times,
 } from 'lodash';
 import { MongoClient as mongo } from 'mongodb';
 import { v4 as generateUUID } from 'uuid';
-import superagent from 'superagent';
 import i18n from '../../common/script/src/i18n';
 i18n.translations = require('../../website/src/libs/i18n.js').translations;
 
-const API_TEST_SERVER_PORT = 3003;
+import { ApiUser, ApiGroup } from './api-integration/api-classes';
 
-class ApiObject {
-  constructor (options) {
-    assign(this, options);
-  }
 
-  update (options) {
-    return new Promise((resolve) => {
-      _updateDocument(this._docType, this, options, resolve);
-    });
-  }
-}
+// Import requester function, set it up for v2, export it
+import { requester } from './api-integration/requester'
+requester.setApiVersion('v2');
+export { requester };
 
-class ApiUser extends ApiObject {
-  constructor (options) {
-    super(options);
-
-    this._docType = 'users';
-
-    this.get = _requestMaker(this, 'get');
-    this.post = _requestMaker(this, 'post');
-    this.put = _requestMaker(this, 'put');
-    this.del = _requestMaker(this, 'del');
-  }
-}
-
-class ApiGroup extends ApiObject {
-  constructor (options) {
-    super(options);
-
-    this._docType = 'groups';
-  }
-}
-
-// Sets up an abject that can make all REST requests
-// If a user is passed in, the uuid and api token of
-// the user are used to make the requests
-export function requester (user = {}, additionalSets) {
-  return {
-    get: _requestMaker(user, 'get', additionalSets),
-    post: _requestMaker(user, 'post', additionalSets),
-    put: _requestMaker(user, 'put', additionalSets),
-    del: _requestMaker(user, 'del', additionalSets),
-  };
-}
 
 // Use this to verify error messages returned by the server
 // That way, if the translated string changes, the test
-// will not break. NOTE: it checks agains errors with string as well.
+// will not break. NOTE: it checks against errors with string as well.
 export function translate (key, variables) {
   const STRING_ERROR_MSG = 'Error processing the string. Please see Help > Report a Bug.';
   const STRING_DOES_NOT_EXIST_MSG = /^String '.*' not found.$/;
@@ -109,9 +67,7 @@ export async function generateUser (update = {}) {
   let password = 'password';
   let email = `${username}@example.com`;
 
-  let request = _requestMaker({}, 'post');
-
-  let user = await request('/register', {
+  let user = await requester().post('/register', {
       username,
       email,
       password,
@@ -152,11 +108,7 @@ export async function generateGroup (leader, update = {}) {
 // leader: the leader user object
 // group: the group object
 export function createAndPopulateGroup (settings = {}) {
-  let request;
-  let leader;
-  let members;
-  let invitees;
-  let group;
+  let request, leader, members, invitees, group;
 
   let numberOfMembers = settings.members || 0;
   let numberOfInvites = settings.invites || 0;
@@ -180,7 +132,6 @@ export function createAndPopulateGroup (settings = {}) {
   return new Promise((resolve, reject) => {
     return leaderPromise.then((user) => {
       leader = user;
-      request = _requestMaker(leader, 'post');
       return memberPromises;
     }).then((users) => {
       members = users;
@@ -200,7 +151,7 @@ export function createAndPopulateGroup (settings = {}) {
       let invitationPromises = [];
 
       each(invitees, (invitee) => {
-        let invitePromise = request(`/groups/${group._id}/invite`, {
+        let invitePromise = leader.post(`/groups/${group._id}/invite`, {
           uuids: [invitee._id],
         });
 
@@ -246,65 +197,5 @@ export function resetHabiticaDB () {
         });
       });
     });
-  });
-}
-
-function _requestMaker (user, method, additionalSets) {
-  return (route, send, query) => {
-    return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/v2${route}`)
-        .accept('application/json');
-
-      if (user && user._id && user.apiToken) {
-        request
-          .set('x-api-user', user._id)
-          .set('x-api-key', user.apiToken);
-      }
-
-      if (additionalSets) {
-        request.set(additionalSets);
-      }
-
-      request
-        .query(query)
-        .send(send)
-        .end((err, response) => {
-          if (err) {
-            if (!err.response) return reject(err);
-
-            return reject({
-              code: err.status,
-              text: err.response.body.err,
-            });
-          }
-
-          resolve(response.body);
-        });
-    });
-  };
-}
-
-function _updateDocument (collectionName, doc, update, cb) {
-  if (isEmpty(update)) {
-    return cb();
-  }
-
-  mongo.connect('mongodb://localhost/habitrpg_test', (connectErr, db) => {
-    if (connectErr) throw new Error(`Error connecting to database when updating ${collectionName} collection: ${connectErr}`);
-
-    let collection = db.collection(collectionName);
-
-    collection.updateOne({ _id: doc._id }, { $set: update }, (updateErr) => {
-      if (updateErr) throw new Error(`Error updating ${collectionName}: ${updateErr}`);
-      _updateLocalDocument(doc, update);
-      db.close();
-      cb();
-    });
-  });
-}
-
-function _updateLocalDocument (doc, update) {
-  each(update, (value, param) => {
-    set(doc, param, value);
   });
 }
