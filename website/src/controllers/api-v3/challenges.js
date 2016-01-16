@@ -144,7 +144,7 @@ api.getChallenge = {
   url: '/challenges/:challengeId',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkQuery('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
