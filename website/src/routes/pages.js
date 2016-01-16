@@ -5,7 +5,7 @@ var _ = require('lodash');
 var locals = require('../middlewares/locals');
 var i18n = require('../libs/i18n');
 
-var userCount = '1,000,000';
+const TOTAL_USER_COUNT = '1,000,000';
 
 // -------- App --------
 router.get('/', i18n.getUserLanguage, locals, function(req, res) {
@@ -27,7 +27,7 @@ _.each(pages, function(name){
     res.render( 'static/' + name, {
       env: res.locals.habitrpg,
       marked: require('marked'),
-      userCount: userCount
+      userCount: TOTAL_USER_COUNT
     });
   });
 });
@@ -41,7 +41,7 @@ _.each(shareables, function(name){
     res.render( 'social/' + name, {
       env: res.locals.habitrpg,
       marked: require('marked'),
-      userCount: userCount
+      userCount: TOTAL_USER_COUNT
     });
   });
 });
