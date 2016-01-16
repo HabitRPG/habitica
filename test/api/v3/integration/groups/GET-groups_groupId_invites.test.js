@@ -65,11 +65,11 @@ describe('GET /groups/:groupId/invites', () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let invitesToGenerate = [];
     for (let i = 0; i < 31; i++) {
-      let invited = await generateUser();
-      invitesToGenerate.push(invited);
-      await user.post(`/groups/${group._id}/invite`, {uuids: [invited._id]});
+      invitesToGenerate.push(generateUser());
     }
-    await Promise.all(invitesToGenerate);
+    let generatedInvites = await Promise.all(invitesToGenerate);
+    await user.post(`/groups/${group._id}/invite`, {uuids: generatedInvites.map(invite => invite._id)});
+
     let res = await user.get(`/groups/party/invites`);
     expect(res.length).to.equal(30);
     res.forEach(member => {
@@ -84,7 +84,7 @@ describe('GET /groups/:groupId/invites', () => {
 
     let invitesToGenerate = [];
     for (let i = 0; i < 32; i++) {
-      invitesToGenerate.push(await generateUser());
+      invitesToGenerate.push(generateUser());
     }
     let generatedInvites = await Promise.all(invitesToGenerate); // Group has 32 invites
     let expectedIds = generatedInvites.map(generatedInvite => generatedInvite._id);
