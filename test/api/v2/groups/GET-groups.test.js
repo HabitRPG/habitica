@@ -22,6 +22,7 @@ describe('GET /groups', () => {
       name: 'public guild - is member',
       type: 'guild',
       privacy: 'public',
+    }, {
       members: [leader._id, user._id],
     });
 
@@ -35,6 +36,7 @@ describe('GET /groups', () => {
       name: 'private guild - is member',
       type: 'guild',
       privacy: 'private',
+    }, {
       members: [leader._id, user._id],
     });
 

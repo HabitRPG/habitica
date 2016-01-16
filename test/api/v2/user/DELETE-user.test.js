@@ -36,28 +36,30 @@ describe('DELETE /user', () => {
     });
 
     it('deletes party when user is the only member', async () => {
-      return expect(user.del('/user').then(() => {
-        return checkExistence('groups', party._id);
-      })).to.eventually.eql(false);
+      await user.del('/user');
+      await expect(checkExistence('groups', party._id)).to.eventually.eql(false);
     });
   });
 
   context('last member of a private guild', () => {
-    let guild;
+    let guild, lastMember;
 
     beforeEach(async () => {
-      return generateGroup(user, {
+      let {
+        groupLeader,
+        group,
+      } = await createAndPopulateGroup({
         type: 'guild',
         privacy: 'private',
-      }).then((group) => {
-        guild = group;
       });
+
+      guild = group;
+      lastMember = groupLeader;
     });
 
     it('deletes guild when user is the only member', async () => {
-      return expect(user.del('/user').then(() => {
-        return checkExistence('groups', guild._id);
-      })).to.eventually.eql(false);
+      await lastMember.del('/user');
+      await expect(checkExistence('groups', guild._id)).to.eventually.eql(false);
     });
   });
 
@@ -74,7 +76,7 @@ describe('DELETE /user', () => {
       }).then((res) => {
         group = res.group;
         newLeader = res.members[0];
-        oldLeader = res.leader;
+        oldLeader = res.groupLeader;
       });
     });
 

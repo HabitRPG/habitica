@@ -98,7 +98,7 @@ describe('POST /groups/:id/join', () => {
         },
       });
       group = groupData.group;
-      await groupData.leader.post(`/groups/${group._id}/leave`);
+      await groupData.groupLeader.post(`/groups/${group._id}/leave`);
       user = await generateUser();
     });
 

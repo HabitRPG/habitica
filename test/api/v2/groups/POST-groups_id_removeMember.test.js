@@ -24,7 +24,7 @@ describe('POST /groups/:id/removeMember', () => {
           privacy: 'public',
         },
       }).then((res) => {
-        leader = res.leader;
+        leader = res.groupLeader;
         member = res.members[0];
         group = res.group;
       });

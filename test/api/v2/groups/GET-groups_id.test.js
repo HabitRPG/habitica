@@ -24,7 +24,7 @@ describe('GET /groups/:id', () => {
           groupDetails,
         });
 
-        leader = groupData.leader;
+        leader = groupData.groupLeader;
         member = groupData.members[0];
         createdGroup = groupData.group;
       });

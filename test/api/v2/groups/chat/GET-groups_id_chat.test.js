@@ -16,7 +16,7 @@ describe('GET /groups/:id/chat', () => {
       });
 
       group = groupData.group;
-      user = groupData.leader;
+      user = groupData.groupLeader;
       member = groupData.members[0];
 
       await member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });

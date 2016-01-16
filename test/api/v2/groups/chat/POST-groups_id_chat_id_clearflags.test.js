@@ -5,24 +5,23 @@ import {
 } from '../../../../helpers/api-integration.helper';
 
 describe('POST /groups/:id/chat/:id/clearflags', () => {
-  let group;
+  let guild;
 
   beforeEach(async () => {
-    return createAndPopulateGroup({
+    let { group } = await createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
         privacy: 'public',
         members: 1,
-        flagCount: 1,
         chat: [{
           id: 'message-to-clear',
           flagCount: 1,
           flags: { 'some-id': true },
         }],
       },
-    }).then((res) => {
-      group = res.group;
     });
+
+    guild = group;
   });
 
   context('non admin', () => {
@@ -33,7 +32,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     });
 
     it('cannot clear flags', async () => {
-      return expect(nonadmin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`))
+      return expect(nonadmin.post(`/groups/${guild._id}/chat/message-to-clear/clearflags`))
         .to.eventually.be.rejected.and.eql({
           code: 401,
           text: t('messageGroupChatAdminClearFlagCount'),
@@ -53,23 +52,23 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     });
 
     it('clears flags', async () => {
-      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then(() => {
-        return admin.get(`/groups/${group._id}/chat`);
+      return admin.post(`/groups/${guild._id}/chat/message-to-clear/clearflags`).then(() => {
+        return admin.get(`/groups/${guild._id}/chat`);
       }).then((messages) => {
         expect(messages[0].flagCount).to.eql(0);
       });
     });
 
     it('leaves old flags on the flag object', async () => {
-      return admin.post(`/groups/${group._id}/chat/message-to-clear/clearflags`).then(() => {
-        return admin.get(`/groups/${group._id}/chat`);
+      return admin.post(`/groups/${guild._id}/chat/message-to-clear/clearflags`).then(() => {
+        return admin.get(`/groups/${guild._id}/chat`);
       }).then((messages) => {
         expect(messages[0].flags).to.have.property('some-id', true);
       });
     });
 
     it('returns error if message does not exist', async () => {
-      return expect(admin.post(`/groups/${group._id}/chat/non-existant-message/clearflags`))
+      return expect(admin.post(`/groups/${guild._id}/chat/non-existant-message/clearflags`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           text: t('messageGroupChatNotFound'),

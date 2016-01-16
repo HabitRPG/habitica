@@ -14,7 +14,7 @@ describe('DELETE /groups/:id/chat', () => {
       },
     }).then((res) => {
       group = res.group;
-      user = res.leader;
+      user = res.groupLeader;
 
       return user.post(`/groups/${group._id}/chat`, null, { message: 'Some message' });
     }).then((res) => {

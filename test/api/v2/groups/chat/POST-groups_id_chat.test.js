@@ -14,7 +14,7 @@ describe('POST /groups/:id/chat', () => {
       },
     }).then((res) => {
       group = res.group;
-      user = res.leader;
+      user = res.groupLeader;
     });
   });
 

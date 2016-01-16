@@ -17,7 +17,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         members: 1,
       }).then((res) => {
         group = res.group;
-        user = res.leader;
+        user = res.groupLeader;
         member = res.members[0];
 
         return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
@@ -56,7 +56,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         },
       }).then((res) => {
         group = res.group;
-        user = res.leader;
+        user = res.groupLeader;
 
         return user.post(`/groups/${group._id}/chat`, null, { message: 'User\'s own message' });
       }).then((res) => {
@@ -84,7 +84,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         },
       }).then((res) => {
         group = res.group;
-        user = res.leader;
+        user = res.groupLeader;
       });
     });
 
@@ -121,7 +121,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
       });
 
       group = groupData.group;
-      user = groupData.leader;
+      user = groupData.groupLeader;
     });
 
     it('changes only the message that is flagged', async () => {
@@ -166,7 +166,7 @@ describe('POST /groups/:id/chat/:id/flag', () => {
         members: 1,
       }).then((res) => {
         group = res.group;
-        user = res.leader;
+        user = res.groupLeader;
         member = res.members[0];
 
         return member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
