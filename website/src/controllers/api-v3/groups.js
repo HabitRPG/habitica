@@ -93,7 +93,7 @@ api.getGroups = {
     types.forEach(type => {
       switch (type) {
         case 'party':
-          queries.push(Group.getGroup(user, 'party', groupFields));
+          queries.push(Group.getGroup({user, groupId: 'party', fields: groupFields, populateLeader: true}));
           break;
         case 'privateGuilds':
           queries.push(Group.find({
@@ -109,7 +109,7 @@ api.getGroups = {
           }).select(groupFields).sort(sort).exec()); // TODO use lean?
           break;
         case 'tavern':
-          queries.push(Group.getGroup(user, 'habitrpg', groupFields));
+          queries.push(Group.getGroup({user, groupId: 'habitrpg', fields: groupFields, populateLeader: true}));
           break;
       }
     });
@@ -149,7 +149,7 @@ api.getGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, req.params.groupId);
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: true});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     res.respond(200, group);
@@ -178,7 +178,7 @@ api.updateGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, req.params.groupId);
+    let group = await Group.getGroup({user, groupId: req.params.groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
@@ -214,7 +214,8 @@ api.joinGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, req.params.groupId, '-chat', true); // Do not fetch chat and work even if the user is not yet a member of the group
+     // Do not fetch chat and work even if the user is not yet a member of the group
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat', optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
@@ -288,7 +289,7 @@ api.leaveGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, req.params.groupId, '-chat'); // Do not fetch chat
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     // During quests, checke wheter user can leave
@@ -344,7 +345,7 @@ api.removeGroupMember = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, req.params.groupId, '-chat'); // Do not fetch chat
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let uuid = req.query.memberId;
@@ -523,7 +524,7 @@ api.inviteToGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, req.params.groupId, '-chat'); // Do not fetch chat TODO other fields too?
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat TODO other fields too?
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let uuids = req.body.uuids;

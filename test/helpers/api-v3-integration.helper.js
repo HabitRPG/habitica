@@ -201,11 +201,10 @@ export function resetHabiticaDB () {
         groups.insertOne({
           _id: 'habitrpg',
           chat: [],
-          leader: '9',
+          leader: '9', // TODO change this
           name: 'HabitRPG',
           type: 'guild',
           privacy: 'public',
-          members: [],
         }, (insertErr) => {
           if (insertErr) return reject(insertErr);
 

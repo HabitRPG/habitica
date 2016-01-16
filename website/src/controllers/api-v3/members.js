@@ -76,7 +76,7 @@ function _getMembersForItem (type) {
       challenge = await Challenge.findById(challengeId).select('_id type leader').exec();
       if (!challenge || !challenge.hasAccess(user)) throw new NotFound(res.t('groupNotFound'));
     } else {
-      group = await Group.getGroup(user, groupId, '_id type');
+      group = await Group.getGroup({user, groupId, fields: '_id type'});
       if (!group) throw new NotFound(res.t('groupNotFound'));
     }
 

@@ -38,7 +38,7 @@ api.createChallenge = {
     let groupId = req.body.groupId;
     let prize = req.body.prize;
 
-    let group = await Group.getGroup(user, groupId, '-chat');
+    let group = await Group.getGroup({user, groupId, fields: '-chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
