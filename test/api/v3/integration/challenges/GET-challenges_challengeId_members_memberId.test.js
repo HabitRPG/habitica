@@ -1,5 +1,6 @@
 import {
   generateUser,
+  generateChallenge,
   generateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
@@ -48,11 +49,7 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
 
   it('fails if user doesn\'t have access to the challenge', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let challenge = await user.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(user, group);
     let anotherUser = await generateUser();
     let member = await generateUser();
     await expect(anotherUser.get(`/challenges/${challenge._id}/members/${member._id}`)).to.eventually.be.rejected.and.eql({
@@ -64,11 +61,7 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
 
   it('fails if member is not part of the challenge', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let challenge = await user.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(user, group);
     let member = await generateUser();
     await expect(user.get(`/challenges/${challenge._id}/members/${member._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
@@ -80,11 +73,7 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
   it('works with challenges belonging to a public guild', async () => {
     let groupLeader = await generateUser({balance: 4});
     let group = await generateGroup(groupLeader, {type: 'guild', privacy: 'public', name: generateUUID()});
-    let challenge = await groupLeader.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(groupLeader, group);
     let taskText = 'Test Text';
     await groupLeader.post(`/tasks/challenge/${challenge._id}`, [{type: 'habit', text: taskText}]);
 
@@ -96,11 +85,7 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
 
   it('returns the member tasks for the challenges', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let challenge = await user.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(user, group);
     await user.post(`/tasks/challenge/${challenge._id}`, [{type: 'habit', text: 'Test Text'}]);
 
     let memberProgress = await user.get(`/challenges/${challenge._id}/members/${user._id}`);
@@ -112,11 +97,7 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
 
   it('returns the tasks without the tags', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let challenge = await user.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(user, group);
     let taskText = 'Test Text';
     await user.post(`/tasks/challenge/${challenge._id}`, [{type: 'habit', text: taskText}]);
 

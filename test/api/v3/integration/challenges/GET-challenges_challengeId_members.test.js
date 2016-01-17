@@ -1,6 +1,7 @@
 import {
   generateUser,
   generateGroup,
+  generateChallenge,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
@@ -29,13 +30,10 @@ describe('GET /challenges/:challengeId/members', () => {
   });
 
   it('fails if user doesn\'t have access to the challenge', async () => {
-    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let challenge = await user.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let group = await generateGroup(user);
+    let challenge = await generateChallenge(user, group);
     let anotherUser = await generateUser();
+
     await expect(anotherUser.get(`/challenges/${challenge._id}/members`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -46,11 +44,7 @@ describe('GET /challenges/:challengeId/members', () => {
   it('works with challenges belonging to public guild', async () => {
     let leader = await generateUser({balance: 4});
     let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});
-    let challenge = await leader.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(leader, group);
     let res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res[0]).to.eql({
       _id: leader._id,
@@ -63,11 +57,7 @@ describe('GET /challenges/:challengeId/members', () => {
   it('populates only some fields', async () => {
     let anotherUser = await generateUser({balance: 3});
     let group = await generateGroup(anotherUser, {type: 'guild', privacy: 'public', name: generateUUID()});
-    let challenge = await anotherUser.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(anotherUser, group);
     let res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res[0]).to.eql({
       _id: anotherUser._id,
@@ -79,11 +69,7 @@ describe('GET /challenges/:challengeId/members', () => {
 
   it('returns only first 30 members', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let challenge = await user.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(user, group);
 
     let usersToGenerate = [];
     for (let i = 0; i < 31; i++) {
@@ -101,11 +87,7 @@ describe('GET /challenges/:challengeId/members', () => {
 
   it('supports using req.query.lastId to get more members', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let challenge = await user.post('/challenges', {
-      name: 'test chal',
-      shortName: 'test-chal',
-      groupId: group._id,
-    });
+    let challenge = await generateChallenge(user, group);
 
     let usersToGenerate = [];
     for (let i = 0; i < 57; i++) {
