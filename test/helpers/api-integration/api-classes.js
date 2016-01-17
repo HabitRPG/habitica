@@ -1,7 +1,10 @@
 /* eslint-disable no-use-before-define */
 
 import { requester } from './requester';
-import { updateDocument as updateDocumentInMongo } from './mongo';
+import {
+  getDocument as getDocumentFromMongo,
+  updateDocument as updateDocumentInMongo,
+} from './mongo';
 import {
   assign,
   each,
@@ -22,6 +25,14 @@ class ApiObject {
     await updateDocumentInMongo(this._docType, this, options);
 
     _updateLocalParameters(this, options);
+
+    return this;
+  }
+
+  async sync () {
+    let updatedDoc = await getDocumentFromMongo(this._docType, this);
+
+    assign(this, updatedDoc);
 
     return this;
   }
