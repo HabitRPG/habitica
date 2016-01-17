@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import _ from 'lodash';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
@@ -93,6 +94,42 @@ api.createChallenge = {
 };
 
 /**
+ * @api {post} /challenges/:challengeId/join Joins a challenge
+ * @apiVersion 3.0.0
+ * @apiName JoinChallenge
+ * @apiGroup Challenge
+ * @apiParam {UUID} challengeId The challenge _id
+ *
+ * @apiSuccess {object} challenge The challenge the user joined
+ */
+api.joinChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/join',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let challenge = await Challenge.findOne({ _id: req.params.challengeId });
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    if (!challenge.hasAccess(user)) throw new NotFound(res.t('challengeNotFound'));
+
+    if (_.contains(user.challenges, challenge._id)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
+
+    challenge.memberCount += 1;
+
+    // Add all challenge's tasks to user's tasks and save the challenge
+    await Q.all([challenge.syncToUser(user), challenge.save()]);
+    res.respond(200, challenge);
+  },
+};
+
+/**
  * @api {get} /challenges Get challenges for a user
  * @apiVersion 3.0.0
  * @apiName GetChallenges
@@ -144,7 +181,7 @@ api.getChallenge = {
   url: '/challenges/:challengeId',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkQuery('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
