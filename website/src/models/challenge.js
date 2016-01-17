@@ -23,7 +23,6 @@ let schema = new Schema({
   groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true}, // TODO no update, no set?
   timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin? not settable?
   memberCount: {type: Number, default: 0},
-  challengeCount: {type: Number, default: 0},
   prize: {type: Number, default: 0, min: 0}, // TODO no update?
 });
 
@@ -36,12 +35,13 @@ schema.methods.hasAccess = function hasAccessToChallenge (user) {
   let userGroups = user.guilds.slice(0);
   if (user.party._id) userGroups.push(user.party._id);
   userGroups.push('habitrpg'); // tavern challenges
-  return this.leader === user._id || user.contributor.admin || userGroups.indexOf(this.groupId) !== -1;
+  return this.leader === user._id || userGroups.indexOf(this.groupId) !== -1;
 };
 
 // Returns true if user can view the challenge
 // Different from hasAccess because challenges of public guilds can be viewed by everyone
 schema.methods.canView = function canViewChallenge (user, group) {
+  if (user.contributor.admin) return true;
   if (group.type === 'guild' && group.privacy === 'public') return true;
   return this.hasAccess(user);
 };
