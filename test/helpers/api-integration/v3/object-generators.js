@@ -73,17 +73,20 @@ export async function createAndPopulateGroup (settings = {}) {
   let group = await generateGroup(groupLeader, groupDetails);
 
   let members = await Q.all(
-    times(numberOfMembers, () => {
-      return generateUser();
+    times(numberOfMembers, async () => {
+      let user = await generateUser();
+
+      if (group.type === 'party') {
+        await user.update({ 'party._id': group._id});
+      } else {
+        await user.update({ guilds: [group._id] });
+      }
+
+      return user;
     })
   );
 
-  let memberIds = members.map((member) => {
-    return member._id;
-  });
-  memberIds.push(groupLeader._id);
-
-  await group.update({ members: memberIds });
+  group.update({ memberCount: numberOfMembers + 1});
 
   let invitees = await Q.all(
     times(numberOfInvites, () => {
