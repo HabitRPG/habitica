@@ -22,7 +22,7 @@ let schema = new Schema({
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true}, // TODO no update, no set?
   timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin? not settable?
-  memberCount: {type: Number, default: 0},
+  memberCount: {type: Number, default: 1},
   prize: {type: Number, default: 0, min: 0}, // TODO no update?
 });
 
@@ -64,6 +64,13 @@ function _syncableAttrs (task) {
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
+
+schema.methods.hasAccess = function hasAccessToChallenge (user) {
+  let userGroups = user.guilds.slice(0);
+  if (user.party._id) userGroups.push(user.party._id);
+  userGroups.push('habitrpg'); // tavern challenges
+  return this.leader === user._id || userGroups.indexOf(this.groupId) !== -1;
+};
 
 // Sync challenge to user, including tasks and tags.
 // Used when user joins the challenge or to force sync.
