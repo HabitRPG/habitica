@@ -55,8 +55,22 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
   });
 
-  xit('returns error when non leader tries to edit challenge', async() => {
-    // @TODO needs join chellenge route
+  it('returns error when non leader tries to edit challenge', async () => {
+    let userThatIsNotLeaderOfChallenge = await generateUser({
+      challenges: [challenge._id],
+    });
+
+    await expect(userThatIsNotLeaderOfChallenge.post(`/tasks/challenge/${challenge._id}`, {
+      text: 'test habit',
+      type: 'habit',
+      up: false,
+      down: true,
+      notes: 1976,
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('onlyChalLeaderEditTasks'),
+    });
   });
 
   it('creates a habit', async () => {
