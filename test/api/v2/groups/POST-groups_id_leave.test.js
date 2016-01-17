@@ -1,7 +1,7 @@
 import {
   checkExistence,
   createAndPopulateGroup,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 import { find } from 'lodash';
 
 describe('POST /groups/:id/leave', () => {
@@ -48,7 +48,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
     });
 
@@ -71,7 +71,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
     });
 
@@ -95,7 +95,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
       invitee1 = groupData.invitees[0];
       invitee2 = groupData.invitees[1];
@@ -122,7 +122,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
       invitee1 = groupData.invitees[0];
       invitee2 = groupData.invitees[1];

@@ -1,7 +1,7 @@
 import {
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-integration/v2';
 
 describe('DELETE /groups/:id/chat', () => {
   let group, message, user;
@@ -14,7 +14,7 @@ describe('DELETE /groups/:id/chat', () => {
       },
     }).then((res) => {
       group = res.group;
-      user = res.leader;
+      user = res.groupLeader;
 
       return user.post(`/groups/${group._id}/chat`, null, { message: 'Some message' });
     }).then((res) => {

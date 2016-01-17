@@ -23,5 +23,5 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
       .checkbox
         label
           input(type='checkbox', ng-model='user.preferences.reverseChatOrder', ng-change='set({"preferences.reverseChatOrder": user.preferences.reverseChatOrder?true: false})')
-          span.hint(popover-trigger='mouseenter', popover-placement='top', popover=env.t('reverseChatOrderPop'))=env.t('reverseChatOrder')
+          span=env.t('reverseChatOrder')
 

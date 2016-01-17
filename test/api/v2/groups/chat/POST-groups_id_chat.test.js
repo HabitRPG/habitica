@@ -1,7 +1,7 @@
 import {
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-integration/v2';
 
 describe('POST /groups/:id/chat', () => {
   let group, user;
@@ -14,7 +14,7 @@ describe('POST /groups/:id/chat', () => {
       },
     }).then((res) => {
       group = res.group;
-      user = res.leader;
+      user = res.groupLeader;
     });
   });
 

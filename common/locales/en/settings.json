@@ -11,7 +11,6 @@
     "dailyDueDefaultView": "Set Dailies default to 'due' tab",
     "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "reverseChatOrder": "Show chat messages in reverse order",
-    "reverseChatOrderPop": "Show the messages in the Tarvern, Guild, and Party chats in reverse order, so that the oldest are on top.",
     "startCollapsed": "Tag list in tasks starts collapsed",
     "startCollapsedPop": "With this option set, the list of task tags will be hidden when you first open a task for editing.",
     "startAdvCollapsed": "Advanced Options in tasks start collapsed",
