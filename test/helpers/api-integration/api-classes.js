@@ -61,6 +61,14 @@ export class ApiGroup extends ApiObject {
   }
 }
 
+export class ApiChallenge extends ApiObject {
+  constructor (options) {
+    super(options);
+
+    this._docType = 'challenges';
+  }
+}
+
 function _updateLocalParameters (doc, update) {
   each(update, (value, param) => {
     set(doc, param, value);

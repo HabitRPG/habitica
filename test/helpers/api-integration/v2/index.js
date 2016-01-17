@@ -5,8 +5,4 @@ export { requester };
 
 export { translate } from '../translate';
 export { checkExistence, resetHabiticaDB } from '../mongo';
-export {
- generateUser,
- generateGroup,
- createAndPopulateGroup,
-} from  './object-generators';
+export * from  './object-generators';
