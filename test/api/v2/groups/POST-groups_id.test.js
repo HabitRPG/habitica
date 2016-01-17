@@ -2,7 +2,7 @@ import {
   generateGroup,
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 
 describe('POST /groups/:id', () => {
   context('user is not the leader of the group', () => {

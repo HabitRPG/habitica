@@ -1,4 +1,4 @@
-import { requester } from '../../../helpers/api-v3-integration.helper';
+import { requester } from '../../../helpers/api-integration/v3';
 
 describe('notFound Middleware', () => {
   it('returns a 404 error when the resource is not found', async () => {

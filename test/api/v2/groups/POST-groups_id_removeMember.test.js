@@ -1,7 +1,7 @@
 import {
   createAndPopulateGroup,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 
 describe('POST /groups/:id/removeMember', () => {
   context('user is not member of the group', () => {
@@ -24,7 +24,7 @@ describe('POST /groups/:id/removeMember', () => {
           privacy: 'public',
         },
       }).then((res) => {
-        leader = res.leader;
+        leader = res.groupLeader;
         member = res.members[0];
         group = res.group;
       });

@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 import { each, find } from 'lodash';
 
 describe('POST /groups/:id/join', () => {
@@ -98,7 +98,7 @@ describe('POST /groups/:id/join', () => {
         },
       });
       group = groupData.group;
-      await groupData.leader.post(`/groups/${group._id}/leave`);
+      await groupData.groupLeader.post(`/groups/${group._id}/leave`);
       user = await generateUser();
     });
 
