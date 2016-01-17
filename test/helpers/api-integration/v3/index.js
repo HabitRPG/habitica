@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 // Import requester function, set it up for v2, export it
-import { requester } from '../requester'
+import { requester } from '../requester';
 requester.setApiVersion('v3');
 export { requester };
 

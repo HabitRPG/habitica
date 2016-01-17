@@ -1,11 +1,10 @@
 import {
-  each,
   times,
 } from 'lodash';
 import Q from 'q';
 import { v4 as generateUUID } from 'uuid';
 import { ApiUser, ApiGroup } from '../api-classes';
-import { requester } from '../requester'
+import { requester } from '../requester';
 
 // Creates a new user and returns it
 // If you need the user to have specific requirements,
@@ -19,7 +18,7 @@ export async function generateUser (update = {}) {
   let password = 'password';
   let email = `${username}@example.com`;
 
-  let user = await requester().post( '/user/auth/local/register', {
+  let user = await requester().post('/user/auth/local/register', {
     username,
     email,
     password,
@@ -65,45 +64,45 @@ export async function generateGroup (leader, details = {}, update = {}) {
 // leader: the leader user object
 // group: the group object
 export async function createAndPopulateGroup (settings = {}) {
-   let numberOfMembers = settings.members || 0;
-   let numberOfInvites = settings.invites || 0;
-   let groupDetails = settings.groupDetails;
-   let leaderDetails = settings.leaderDetails || { balance: 10 };
+  let numberOfMembers = settings.members || 0;
+  let numberOfInvites = settings.invites || 0;
+  let groupDetails = settings.groupDetails;
+  let leaderDetails = settings.leaderDetails || { balance: 10 };
 
-   let groupLeader = await generateUser(leaderDetails);
-   let group = await generateGroup(groupLeader, groupDetails);
+  let groupLeader = await generateUser(leaderDetails);
+  let group = await generateGroup(groupLeader, groupDetails);
 
-   let members = await Q.all(
-     times(numberOfMembers, () => {
-       return generateUser();
-     })
-   );
+  let members = await Q.all(
+    times(numberOfMembers, () => {
+      return generateUser();
+    })
+  );
 
-   let memberIds = members.map((member) => {
-     return member._id;
-   });
-	 memberIds.push(groupLeader._id);
+  let memberIds = members.map((member) => {
+    return member._id;
+  });
+  memberIds.push(groupLeader._id);
 
-	 await group.update({ members: memberIds });
+  await group.update({ members: memberIds });
 
-   let invitees = await Q.all(
-     times(numberOfInvites, () => {
-       return generateUser();
-     })
-   );
+  let invitees = await Q.all(
+    times(numberOfInvites, () => {
+      return generateUser();
+    })
+  );
 
-   let invitationPromises = invitees.map((invitee) => {
-     return groupLeader.post(`/groups/${group._id}/invite`, {
-       uuids: [invitee._id],
-     });
-   });
+  let invitationPromises = invitees.map((invitee) => {
+    return groupLeader.post(`/groups/${group._id}/invite`, {
+      uuids: [invitee._id],
+    });
+  });
 
-   await Q.all(invitationPromises);
+  await Q.all(invitationPromises);
 
-   return {
-     groupLeader,
-     group,
-     members,
-     invitees,
-   };
- }
+  return {
+    groupLeader,
+    group,
+    members,
+    invitees,
+  };
+}

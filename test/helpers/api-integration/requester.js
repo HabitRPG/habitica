@@ -57,7 +57,7 @@ function _requestMaker (user, method, additionalSets) {
   };
 }
 
-function _parseError(err) {
+function _parseError (err) {
   let parsedError;
 
   if (apiVersion === 'v2') {
