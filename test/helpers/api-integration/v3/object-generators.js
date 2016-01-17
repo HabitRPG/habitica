@@ -3,7 +3,7 @@ import {
 } from 'lodash';
 import Q from 'q';
 import { v4 as generateUUID } from 'uuid';
-import { ApiUser, ApiGroup } from '../api-classes';
+import { ApiUser, ApiGroup, ApiChallenge } from '../api-classes';
 import { requester } from '../requester';
 
 // Creates a new user and returns it
@@ -105,4 +105,24 @@ export async function createAndPopulateGroup (settings = {}) {
     members,
     invitees,
   };
+}
+
+// Generates a new challenge. Requires an ApiUser object and a
+// group-like object (can just be {_id: 'your-group-id'}). The group
+// will will become the group that owns the challenge. It takes an
+// optional details argument for the initial challenge creation and an
+// optional update argument which will update the challenge via the db
+export async function generateChallenge (challengeCreator, group, details = {}, update = {}) {
+  details.groupId = group._id;
+  details.name = details.name || 'a challenge';
+  details.shortName = details.shortName || 'aChallenge';
+  details.prize = details.prize || 0;
+  details.official = details.official || false;
+
+  let challenge = await challengeCreator.post('/challenges', details);
+  let apiChallenge = new ApiChallenge(challenge);
+
+  await apiChallenge.update(update);
+
+  return apiChallenge;
 }
