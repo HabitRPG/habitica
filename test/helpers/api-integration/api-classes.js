@@ -8,7 +8,6 @@ import {
   isEmpty,
   set,
 } from 'lodash';
-import { MongoClient as mongo } from 'mongodb';
 
 class ApiObject {
   constructor (options) {
@@ -22,7 +21,7 @@ class ApiObject {
 
     await updateDocumentInMongo(this._docType, this, options);
 
-    _updateLocalParameters (this, options);
+    _updateLocalParameters(this, options);
 
     return this;
   }

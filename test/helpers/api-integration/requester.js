@@ -1,7 +1,9 @@
+/* eslint-disable no-use-before-define */
+
 import superagent from 'superagent';
 
 const API_TEST_SERVER_PORT = 3003;
-var apiVersion;
+let apiVersion;
 
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
@@ -17,7 +19,7 @@ export function requester (user = {}, additionalSets) {
 
 requester.setApiVersion = (version) => {
   apiVersion = version;
-}
+};
 
 function _requestMaker (user, method, additionalSets) {
   if (!apiVersion) throw new Error('apiVersion not set');
