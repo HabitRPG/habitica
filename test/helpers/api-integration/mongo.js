@@ -66,6 +66,20 @@ export async function updateDocument (collectionName, doc, update) {
   });
 }
 
+export async function getDocument (collectionName, doc) {
+  let db = await connectToMongo();
+
+  let collection = db.collection(collectionName);
+
+  return new Promise((resolve) => {
+    collection.findOne({ _id: doc._id }, (lookupErr, found) => {
+      if (lookupErr) throw new Error(`Error looking up ${collectionName}: ${lookupErr}`);
+      db.close();
+      resolve(found);
+    });
+  });
+}
+
 export function connectToMongo () {
   return new Promise((resolve, reject) => {
     mongo.connect(DB_URI, (err, db) => {
