@@ -325,5 +325,12 @@
   "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
   "questUnicornBoss": "The Unicorn Queen",
   "questUnicornDropUnicornEgg": "Unicorn (Egg)",
-  "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
+  "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market",
+
+  "questSabretoothText": "The Sabre Cat",
+  "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+  "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+  "questSabretoothBoss": "Zombie Sabre Cat",
+  "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+  "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }
