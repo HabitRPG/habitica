@@ -54,6 +54,7 @@
   "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching a challenge tasks.",
   "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
   "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
+  "userAlreadyInChallenge": "User is already participating in this challenge.",
   "invalidTasksOwner": "\"tasksOwner\" must be \"user\" or \"challenge\".",
   "partyMustbePrivate": "Parties must be private",
   "userAlreadyInGroup": "User already in that group.",
