@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
-import { model as User} from './user';
+import {
+  model as User,
+  nameFields,
+} from './user';
 import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
@@ -40,7 +43,6 @@ export let schema = new Schema({
   balance: {type: Number, default: 0},
   logo: String,
   leaderMessage: String,
-  // challenges: [{type: String, validate: [validator.isUUID, 'Invalid uuid.'], ref: 'Challenge'}], // TODO do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
   quest: {
     key: String,
     active: {type: Boolean, default: false},
@@ -57,6 +59,7 @@ export let schema = new Schema({
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
     // TODO as long as quests are party only we can keep it here
+    // TODO are we sure we need this type of default for this to work?
     members: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
@@ -125,8 +128,8 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
-// TODO populate (invites too), isMember?
-schema.statics.getGroup = function getGroup (user, groupId, fields, optionalMembership) {
+schema.statics.getGroup = function getGroup (options = {}) {
+  let {user, groupId, fields, optionalMembership = false, populateLeader = false} = options;
   let query;
 
   // When optionalMembership is true it's not required for the user to be a member of the group
@@ -142,8 +145,20 @@ schema.statics.getGroup = function getGroup (user, groupId, fields, optionalMemb
 
   let mQuery = this.findOne(query);
   if (fields) mQuery.select(fields);
-  return mQuery.exec(); // TODO catch errors here?
+  if (populateLeader === true) mQuery.populate('leader', nameFields);
+  return mQuery.exec();
   // TODO purge chat flags info? in tojson?
+};
+
+// Return true if user is a member of the group
+schema.methods.isMember = function isGroupMember (user) {
+  if (this._id === 'habitrpg') {
+    return true; // everyone is considered part of the tavern
+  } else if (this.type === 'party') {
+    return user.party._id === this._id ? true : false;
+  } else { // guilds
+    return user.guilds.indexOf(this._id) !== -1;
+  }
 };
 
 export function chatDefaults (msg, user) {
@@ -504,6 +519,7 @@ schema.methods.leave = function leaveGroup (user, keep) {
   });
 };
 
+export const INVITES_LIMIT = 100;
 export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
@@ -512,12 +528,12 @@ model.count({_id: 'habitrpg'}, (err, ct) => {
   if (ct > 0) return;
 
   new model({ // eslint-disable-line babel/new-cap
-    _id: 'habitrpg', // TODO hmm this will probably break everything
+    _id: 'habitrpg',
     leader: '9', // TODO change this user id
     name: 'HabitRPG',
     type: 'guild',
     privacy: 'public',
-  }).save();
+  }).save({
+    validateBeforeSave: false, // _id = 'habitrpg' would not be valid otherwise
+  }); // TODO catch/log?
 });
-
-export const INVITES_LIMIT = 100;

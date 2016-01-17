@@ -20,10 +20,9 @@ let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true}, // TODO no update, no set?
   timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin? not settable?
   memberCount: {type: Number, default: 0},
-  challengeCount: {type: Number, default: 0},
   prize: {type: Number, default: 0, min: 0}, // TODO no update?
 });
 
@@ -31,11 +30,37 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'challengeCount', 'tasksOrder'],
 });
 
+// Returns true if user has access to the challenge (can join)
+schema.methods.hasAccess = function hasAccessToChallenge (user) {
+  let userGroups = user.guilds.slice(0);
+  if (user.party._id) userGroups.push(user.party._id);
+  userGroups.push('habitrpg'); // tavern challenges
+  return this.leader === user._id || userGroups.indexOf(this.groupId) !== -1;
+};
+
+// Returns true if user can view the challenge
+// Different from hasAccess because challenges of public guilds can be viewed by everyone
+schema.methods.canView = function canViewChallenge (user, group) {
+  if (user.contributor.admin) return true;
+  if (group.type === 'guild' && group.privacy === 'public') return true;
+  return this.hasAccess(user);
+};
+
+// Returns true if user is a member of the challenge
+schema.methods.isMember = function isChallengeMember (user) {
+  return user.challenges.indexOf(this._id) !== -1;
+};
+
+// Returns true if the user can modify (close, selectWinner, ...) the challenge
+schema.methods.canModify = function canModifyChallenge (user) {
+  return user.contributor.admin || this.leader === user._id;
+};
+
 // Takes a Task document and return a plain object of attributes that can be synced to the user
 function _syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO what to do with updatedAt?
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO what to do with updatedAt?
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -143,7 +168,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
         tasksOrderList.$each.unshift(userTask._id);
       }
 
-      toSave.push(userTask);
+      toSave.push(userTask.save());
     });
 
     // Update the user

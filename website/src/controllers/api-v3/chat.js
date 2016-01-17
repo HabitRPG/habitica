@@ -7,7 +7,7 @@ import {
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 import { sendTxn } from '../../libs/api-v3/email';
-import nconf    from 'nconf';
+import nconf from 'nconf';
 
 let api = {};
 
@@ -33,7 +33,7 @@ api.getChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, req.params.groupId, 'chat');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     res.respond(200, group.chat);
@@ -67,7 +67,7 @@ api.postChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, groupId);
+    let group = await Group.getGroup({user, groupId});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party' && user.flags.chatRevoked) {
@@ -118,7 +118,7 @@ api.likeChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, groupId);
+    let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let message = _.find(group.chat, {id: req.params.chatId});
@@ -165,7 +165,7 @@ api.flagChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup(user, groupId);
+    let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     let message = _.find(group.chat, {id: req.params.chatId});
 

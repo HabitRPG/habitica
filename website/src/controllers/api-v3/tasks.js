@@ -84,15 +84,15 @@ api.createUserTasks = {
  */
 api.createChallengeTasks = {
   method: 'POST',
-  url: '/tasks/challenge/:challengeId',
+  url: '/tasks/challenge/:challengeId', // TODO should be /tasks/challengeS/:challengeId ? plural?
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkQuery('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
 
-    let user = res.local.user;
+    let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findOne({_id: challengeId}).exec();
@@ -188,13 +188,13 @@ api.getChallengeTasks = {
   url: '/tasks/challenge/:challengeId',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkQuery('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.local.user;
+    let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findOne({_id: challengeId}).select('leader').exec();

@@ -338,7 +338,6 @@ export let schema = new Schema({
     orderAscending: {type: String, default: 'ascending'},
     quest: {
       key: String,
-      // TODO why are we storing quest progress here too and not only on party object?
       progress: {
         up: {type: Number, default: 0},
         down: {type: Number, default: 0},
@@ -473,22 +472,33 @@ export let schema = new Schema({
   },
 }, {
   strict: true,
-  minimize: false, // So empty objects are returned
+  minimize: false, // So empty objects are returned TODO make sure it's in every model
 });
 
 schema.plugin(baseModel, {
-  // TODO revisit a lot of things are missing
-  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest', 'invitations', 'balance'],
+  // TODO revisit a lot of things are missing. Given how many attributes we do have here we should white-list the ones that can be updated
+  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password',
+    'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest',
+    'invitations', 'balance', 'backer', 'contributor'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function userToJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
     // TODO this works?
-    doc.filters = {};
-    doc._tmp = this._tmp; // be sure to send down drop notifs
+    // doc.filters = {};
+    // doc._tmp = this._tmp; // be sure to send down drop notifs
 
     return doc;
   },
 });
+
+// A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
+// TODO is all party data meant to be public?
+export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
+  preferences.costume preferences.sleep preferences.background profile stats achievements party
+  backer contributor auth.timestamps items`;
+
+// The minimum amount of data needed when populating multiple users
+export let nameFields = `profile.name`;
 
 schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);

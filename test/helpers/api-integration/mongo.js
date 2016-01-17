@@ -41,7 +41,6 @@ export async function resetHabiticaDB () {
         name: 'HabitRPG',
         type: 'guild',
         privacy: 'public',
-        members: [],
       }, (insertErr) => {
         if (insertErr) return reject(insertErr);
 
@@ -89,4 +88,3 @@ export function connectToMongo () {
     });
   });
 }
-
