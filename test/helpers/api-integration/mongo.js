@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 import { MongoClient as mongo } from 'mongodb';
 
 const DB_URI = 'mongodb://localhost/habitrpg_test';
