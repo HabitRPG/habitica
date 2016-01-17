@@ -60,7 +60,7 @@ schema.methods.canModify = function canModifyChallenge (user) {
 function _syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO what to do with updatedAt?
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO what to do with updatedAt?
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -168,7 +168,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
         tasksOrderList.$each.unshift(userTask._id);
       }
 
-      toSave.push(userTask);
+      toSave.push(userTask.save());
     });
 
     // Update the user

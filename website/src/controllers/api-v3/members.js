@@ -10,6 +10,7 @@ import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
 } from '../../libs/api-v3/errors';
+import * as Tasks from '../../models/task';
 
 let api = {};
 
@@ -172,6 +173,57 @@ api.getMembersForChallenge = {
   url: '/challenges/:challengeId/members',
   middlewares: [authWithHeaders(), cron],
   handler: _getMembersForItem('challenge-members'),
+};
+
+/**
+ * @api {get} /challenges/:challengeId/members/:memberId Get a challenge member progress
+ * @apiVersion 3.0.0
+ * @apiName GetChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam {UUID} member The member _id
+ *
+ * @apiSuccess {object} member Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ */
+api.getChallengeMemberProgress = {
+  method: 'GET',
+  url: '/challenges/:challengeId/members/:memberId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let challengeId = req.params.challengeId;
+    let memberId = req.params.memberId;
+
+    let member = await User.findById(memberId).select(`${nameFields} challenges`).exec();
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+
+    let challenge = await Challenge.findById(challengeId).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
+
+    let chalTasks = await Tasks.Task.find({
+      userId: memberId,
+      'challenge.id': challengeId,
+    })
+    .select('-tags') // We don't want to return the tags publicly TODO same for other data?
+    .exec();
+
+    // manually call toJSON with minimize: true so empty paths aren't returned
+    let response = member.toJSON({minimize: true});
+    delete response.challenges;
+    response.tasks = chalTasks.map(chalTask => chalTask.toJSON({minimize: true}));
+    res.respond(200, response);
+  },
 };
 
 export default api;
