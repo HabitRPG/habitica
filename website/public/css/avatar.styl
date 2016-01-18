@@ -11,11 +11,22 @@ future re: pets and whatnot, this is just temporary.
 
 // see http://stackoverflow.com/questions/24166568/set-bootstrap-modal-body-height-by-percentage
 .profile-modal
-  .modal-dialog,.modal-content
-    height: 96%
+  .modal-dialog
+    height: 100%
+    width: auto
+    max-width: 920px
+    margin: 0 auto
+    padding: 10px
+    @media screen and (min-width:768px)
+      padding: 30px 10px
+  .modal-content
+    height: 100%
   .modal-body
-    max-height: calc(100% - 150px) //100% = dialog height, 150px = header + footer
+    max-height: calc(100% - 137px) // 100% = dialog height, 137px = header (70px) + footer (67px)
     overflow-y: scroll
+  .modal-footer
+    margin: 0
+    padding: 16px 20px
 
 .herobox
   // Base styles
