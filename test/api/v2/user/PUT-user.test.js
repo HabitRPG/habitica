@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 
 import { each, get } from 'lodash';
 
@@ -14,15 +14,17 @@ describe('PUT /user', () => {
 
   context('Allowed Operations', () => {
     it('updates the user', async () => {
-      let updatedUser = await user.put('/user', {
+      await user.put('/user', {
         'profile.name': 'Frodo',
         'preferences.costume': true,
         'stats.hp': 14,
       });
 
-      expect(updatedUser.profile.name).to.eql('Frodo');
-      expect(updatedUser.preferences.costume).to.eql(true);
-      expect(updatedUser.stats.hp).to.eql(14);
+      await user.sync();
+
+      expect(user.profile.name).to.eql('Frodo');
+      expect(user.preferences.costume).to.eql(true);
+      expect(user.stats.hp).to.eql(14);
     });
   });
 

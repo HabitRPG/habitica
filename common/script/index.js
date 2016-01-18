@@ -7,10 +7,9 @@ import {
   MAX_LEVEL,
   MAX_STAT_POINTS,
 } from './constants';
-import { preenHistory, preenUserHistory } from './preenUserHistory';
 import * as statHelpers from './statHelpers';
 
-var $w, _, api, content, i18n, moment, sortOrder,
+var $w, _, api, content, i18n, preenHistory, moment, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
@@ -31,8 +30,6 @@ api.capByLevel = statHelpers.capByLevel;
 api.maxHealth = MAX_HEALTH;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
-
-api.preenHistory = preenHistory;
 
 $w = api.$w = function(s) {
   return s.split(' ');
@@ -80,6 +77,47 @@ api.refPush = function(reflist, item, prune) {
 api.planGemLimits = {
   convRate: 20,
   convCap: 25
+};
+
+/*
+Preen history for users with > 7 history entries
+This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
+of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
+of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
+ */
+
+preenHistory = function(history) {
+  var newHistory, preen, thisMonth;
+  history = _.filter(history, function(h) {
+    return !!h;
+  });
+  newHistory = [];
+  preen = function(amount, groupBy) {
+    var groups;
+    groups = _.chain(history).groupBy(function(h) {
+      return moment(h.date).format(groupBy);
+    }).sortBy(function(h, k) {
+      return k;
+    }).value();
+    groups = groups.slice(-amount);
+    groups.pop();
+    return _.each(groups, function(group) {
+      newHistory.push({
+        date: moment(group[0].date).toDate(),
+        value: _.reduce(group, (function(m, obj) {
+          return m + obj.value;
+        }), 0) / group.length
+      });
+      return true;
+    });
+  };
+  preen(50, "YYYY");
+  preen(moment().format('MM'), "YYYYMM");
+  thisMonth = moment().format('YYYYMM');
+  newHistory = newHistory.concat(_.filter(history, function(h) {
+    return moment(h.date).format('YYYYMM') === thisMonth;
+  }));
+  return newHistory;
 };
 
 /*
@@ -2547,7 +2585,15 @@ api.wrap = function(user, main) {
         date: now,
         value: expTally
       });
-      preenUserHistory(user);
+      if (!((ref1 = user.purchased) != null ? (ref2 = ref1.plan) != null ? ref2.customerId : void 0 : void 0)) {
+        user.fns.preenUserHistory();
+        if (typeof user.markModified === "function") {
+          user.markModified('history');
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('dailys');
+        }
+      }
       user.stats.buffs = perfect ? ((base3 = user.achievements).perfect != null ? base3.perfect : base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(api.capByLevel(user.stats.lvl) / 2), {
         str: lvlDiv2,
         int: lvlDiv2,
@@ -2591,6 +2637,28 @@ api.wrap = function(user, main) {
         ref3.track('Cron', analyticsData);
       }
       return _progress;
+    },
+    preenUserHistory: function(minHistLen) {
+      if (minHistLen == null) {
+        minHistLen = 7;
+      }
+      _.each(user.habits.concat(user.dailys), function(task) {
+        var ref;
+        if (((ref = task.history) != null ? ref.length : void 0) > minHistLen) {
+          task.history = preenHistory(task.history);
+        }
+        return true;
+      });
+      _.defaults(user.history, {
+        todos: [],
+        exp: []
+      });
+      if (user.history.exp.length > minHistLen) {
+        user.history.exp = preenHistory(user.history.exp);
+      }
+      if (user.history.todos.length > minHistLen) {
+        return user.history.todos = preenHistory(user.history.todos);
+      }
     },
     ultimateGear: function() {
       var base, owned;

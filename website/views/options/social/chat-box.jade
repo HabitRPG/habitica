@@ -18,3 +18,10 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
       input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending')
       button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending')=env.t('toolTipMsg')
     include ../../shared/formatting-help
+  .chat-controls.clearfix
+    .chat-buttons
+      .checkbox
+        label
+          input(type='checkbox', ng-model='user.preferences.reverseChatOrder', ng-change='set({"preferences.reverseChatOrder": user.preferences.reverseChatOrder?true: false})')
+          span=env.t('reverseChatOrder')
+

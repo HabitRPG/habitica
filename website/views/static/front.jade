@@ -25,6 +25,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     link(rel='canonical', href='', type='text/html')
     link(rel='shortcut icon', sizes="32x32", href='/favicon.ico')
     link(rel='shortcut icon', sizes="192x192", href='/favicon_192x192.png')
+    link(rel='mask-icon', href='/favicon.ico')
 
     link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css')
 
@@ -83,7 +84,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
           h4= env.t('joinOthers', {userCount:'900,000'})
             small
               button#play-btn.btn.btn-primary.btn-lg.gamifybutton(ng-click='playButtonClick()')= env.t('free')
-        .presslogos.text-center
+        .presslogos.text-center.img-rendering-auto
           = env.t('featuredIn')
           br
           img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/lifehacker.png')

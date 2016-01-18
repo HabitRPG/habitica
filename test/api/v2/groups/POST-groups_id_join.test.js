@@ -2,8 +2,8 @@ import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
-import { each, find } from 'lodash';
+} from '../../../helpers/api-integration/v2';
+import { each } from 'lodash';
 
 describe('POST /groups/:id/join', () => {
   context('user is already a member of the group', () => {
@@ -30,10 +30,9 @@ describe('POST /groups/:id/join', () => {
       it(`allows user to join a ${groupType}`, async () => {
         await invitee.post(`/groups/${group._id}/join`);
 
-        let members = (await invitee.get(`/groups/${group._id}`)).members;
-        let userInGroup = find(members, '_id', invitee._id);
+        await group.sync();
 
-        expect(userInGroup).to.exist;
+        expect(group.members).to.include(invitee._id);
       });
     });
   });
@@ -79,10 +78,9 @@ describe('POST /groups/:id/join', () => {
     it('allows user to join a public guild', async () => {
       await user.post(`/groups/${group._id}/join`);
 
-      let members = (await user.get(`/groups/${group._id}`)).members;
-      let userInGroup = find(members, '_id', user._id);
+      await group.sync();
 
-      expect(userInGroup).to.exist;
+      expect(group.members).to.include(user._id);
     });
   });
 
@@ -98,14 +96,16 @@ describe('POST /groups/:id/join', () => {
         },
       });
       group = groupData.group;
-      await groupData.leader.post(`/groups/${group._id}/leave`);
+      await groupData.groupLeader.post(`/groups/${group._id}/leave`);
       user = await generateUser();
     });
 
     it('makes the joining user the leader', async () => {
       await user.post(`/groups/${group._id}/join`);
 
-      await expect(user.get(`/groups/${group._id}`)).to.eventually.have.deep.property('leader._id', user._id);
+      await group.sync();
+
+      await expect(group.leader).to.eql(user._id);
     });
   });
 });

@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 import {
   find,
   each,
@@ -24,7 +24,7 @@ describe('GET /groups/:id', () => {
           groupDetails,
         });
 
-        leader = groupData.leader;
+        leader = groupData.groupLeader;
         member = groupData.members[0];
         createdGroup = groupData.group;
       });

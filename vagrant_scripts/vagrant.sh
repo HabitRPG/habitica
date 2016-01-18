@@ -95,7 +95,6 @@ rm firefox.deb
 echo Installing ntp...
 apt-get install -qq ntp
 
-
 ## # echo Seeding Mongodb...
 ## node ./src/seed.js
 ## no longer required - see comments in src/seed.js

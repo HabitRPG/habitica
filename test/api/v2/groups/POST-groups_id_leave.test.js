@@ -1,8 +1,7 @@
 import {
   checkExistence,
   createAndPopulateGroup,
-} from '../../../helpers/api-integration.helper';
-import { find } from 'lodash';
+} from '../../../helpers/api-integration/v2';
 
 describe('POST /groups/:id/leave', () => {
   context('user is not member of the group', () => {
@@ -29,10 +28,9 @@ describe('POST /groups/:id/leave', () => {
     it('leaves the group', async () => {
       await user.post(`/groups/${group._id}/leave`);
 
-      let members = (await user.get(`/groups/${group._id}`)).members;
-      let userInGroup = find(members, '_id', user._id);
+      await group.sync();
 
-      expect(userInGroup).to.not.be.ok;
+      expect(group.members).to.not.include(user._id);
     });
   });
 
@@ -48,7 +46,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
     });
 
@@ -71,7 +69,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
     });
 
@@ -95,7 +93,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
       invitee1 = groupData.invitees[0];
       invitee2 = groupData.invitees[1];
@@ -122,7 +120,7 @@ describe('POST /groups/:id/leave', () => {
         },
       });
 
-      user = groupData.leader;
+      user = groupData.groupLeader;
       group = groupData.group;
       invitee1 = groupData.invitees[0];
       invitee2 = groupData.invitees[1];

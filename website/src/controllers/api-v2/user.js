@@ -136,26 +136,7 @@ api.score = function(req, res, next) {
 
       t.value += delta;
       if (t.type == 'habit' || t.type == 'daily') {
-        var tIndex = chal[`${t.type}s`].indexOf(t);
-
-        // Add only one history entry per day
-        if (moment(t.history[t.history.length - 1].date).isSame(new Date, 'day')) {
-          t.history[t.history.length - 1] = {
-            value: t.value,
-            date: +(new Date),
-          };
-          chal.markModified(`${t.type}s.${tIndex}.history`);
-        } else {
-          t.history.push({
-            date: +(new Date),
-            value: t.value
-          });
-        }
-
-        if (t.history.length > 365) {
-          t.history = shared.preenHistory(t.history, true); // true means the challenge will retain as much entries as a subscribed user
-          chal.markModified(`${t.type}s.${tIndex}.history`); // Setting habits/dailys as modified because we don't know the index of the task
-        }
+        t.history.push({value: t.value, date: +new Date});
       }
       chal.save();
       clearMemory();

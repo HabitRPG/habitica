@@ -2,7 +2,7 @@ import {
   generateGroup,
   generateUser,
   translate as t,
-} from '../../../helpers/api-integration.helper';
+} from '../../../helpers/api-integration/v2';
 
 describe('POST /groups/:id', () => {
   context('user is not the leader of the group', () => {
@@ -58,10 +58,10 @@ describe('POST /groups/:id', () => {
         description: 'New group description',
       });
 
-      let group = await user.get(`/groups/${usersGroup._id}`);
+      await usersGroup.sync();
 
-      expect(group.name).to.eql('New Group Title');
-      expect(group.description).to.eql('New group description');
+      expect(usersGroup.name).to.eql('New Group Title');
+      expect(usersGroup.description).to.eql('New group description');
     });
   });
 });

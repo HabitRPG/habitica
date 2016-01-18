@@ -932,6 +932,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.unicorn != null) > 0;
     })
   },
+  Sabretooth: {
+    text: t('questEggSabretoothText'),
+    adjective: t('questEggSabretoothAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.sabretooth != null) > 0;
+    })
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -1623,7 +1630,6 @@ api.quests = {
     notes: t('questEvilSanta2Notes'),
     completion: t('questEvilSanta2Completion'),
     value: 4,
-    previous: 'evilsanta',
     category: 'pet',
     collect: {
       tracks: {
@@ -2980,6 +2986,38 @@ api.quests = {
       gp: 43,
       exp: 350,
       unlock: t('questUnicornUnlockText')
+    }
+  },
+  sabretooth: {
+    text: t('questSabretoothText'),
+    notes: t('questSabretoothNotes'),
+    completion: t('questSabretoothCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSabretoothBoss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Sabretooth',
+          text: t('questSabretoothDropSabretoothEgg')
+        }, {
+          type: 'eggs',
+          key: 'Sabretooth',
+          text: t('questSabretoothDropSabretoothEgg')
+        }, {
+          type: 'eggs',
+          key: 'Sabretooth',
+          text: t('questSabretoothDropSabretoothEgg')
+        }
+      ],
+      gp: 67,
+      exp: 650,
+      unlock: t('questSabretoothUnlockText')
     }
   },
 };

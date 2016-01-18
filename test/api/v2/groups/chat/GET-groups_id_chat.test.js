@@ -1,6 +1,6 @@
 import {
   createAndPopulateGroup,
-} from '../../../../helpers/api-integration.helper';
+} from '../../../../helpers/api-integration/v2';
 
 describe('GET /groups/:id/chat', () => {
   context('group with multiple messages', () => {
@@ -16,7 +16,7 @@ describe('GET /groups/:id/chat', () => {
       });
 
       group = groupData.group;
-      user = groupData.leader;
+      user = groupData.groupLeader;
       member = groupData.members[0];
 
       await member.post(`/groups/${group._id}/chat`, null, { message: 'Group member message' });
