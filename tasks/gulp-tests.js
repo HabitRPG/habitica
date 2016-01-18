@@ -18,15 +18,14 @@ let server;
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
-const API_V2_TEST_COMMAND = 'mocha test/api/v2 --recursive';
-const LEGACY_API_TEST_COMMAND = 'mocha test/api-legacy';
-const COMMON_TEST_COMMAND = 'mocha test/common';
-const CONTENT_TEST_COMMAND = 'mocha test/content';
+const API_V2_TEST_COMMAND = 'npm run test:api-v2:integration';
+const LEGACY_API_TEST_COMMAND = 'npm run test:api-legacy';
+const COMMON_TEST_COMMAND = 'npm run test:common';
+const CONTENT_TEST_COMMAND = 'npm run test:content';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
-const KARMA_TEST_COMMAND = 'karma start';
-const SERVER_SIDE_TEST_COMMAND = 'mocha test/server_side';
-
-const ISTANBUL_TEST_COMMAND = `istanbul cover -i "website/src/**" --dir coverage/api ./node_modules/.bin/${LEGACY_API_TEST_COMMAND}`;
+const KARMA_TEST_COMMAND = 'npm run test:karma';
+const SERVER_SIDE_TEST_COMMAND = 'npm run test:api-v2:unit';
+const ISTANBUL_TEST_COMMAND = 'npm run test:api-legacy';
 
 /* Helper methods for reporting test summary */
 let testResults = [];
@@ -36,7 +35,7 @@ let testCount = (stdout, regexp) => {
 }
 
 let testBin = (string) => {
-  return `NODE_ENV=testing ./node_modules/.bin/${string}`;
+  return `NODE_ENV=testing ${string}`;
 };
 
 gulp.task('test:nodemon', (done) => {
@@ -69,7 +68,7 @@ gulp.task('test:prepare:build', (cb) => {
 });
 
 gulp.task('test:prepare:webdriver', (cb) => {
-  exec('./node_modules/protractor/bin/webdriver-manager update', cb);
+  exec('npm run test:prepare:webdriver', cb);
 });
 
 gulp.task('test:prepare', [
@@ -213,7 +212,7 @@ gulp.task('test:api-legacy:watch', [
 
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin(`${KARMA_TEST_COMMAND} --single-run`),
+    testBin(KARMA_TEST_COMMAND),
     (err, stdout) => {
     	cb(err);
     }
@@ -223,7 +222,7 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin(KARMA_TEST_COMMAND),
+    testBin(`${KARMA_TEST_COMMAND}:watch`),
     (err, stdout) => {
     	cb(err);
     }
@@ -233,7 +232,7 @@ gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin(`${KARMA_TEST_COMMAND} --single-run`),
+    testBin(KARMA_TEST_COMMAND),
     (err, stdout) => {
       testResults.push({
         suite: 'Karma Specs\t',
@@ -250,7 +249,7 @@ gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
 gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    './node_modules/protractor/bin/webdriver-manager start',
+    'npm run test:e2e:webdriver',
   ].map(exec);
   support.push(server);
 
@@ -259,7 +258,7 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
     awaitPort(4444)
   ]).then(() => {
     let runner = exec(
-      'DISPLAY=:99 NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js',
+      'npm run test:e2e',
       (err, stdout, stderr) => {
         /*
          * Note: As it stands, protractor wont report pending specs
@@ -275,7 +274,7 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
 gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    './node_modules/protractor/bin/webdriver-manager start',
+    'npm run test:e2e:webdriver',
   ].map(exec);
 
   Q.all([
@@ -283,7 +282,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
     awaitPort(4444)
   ]).then(() => {
     let runner = exec(
-      'DISPLAY=:99 NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js',
+      'npm run test:e2e',
       (err, stdout, stderr) => {
         /*
          * Note: As it stands, protractor wont report pending specs
