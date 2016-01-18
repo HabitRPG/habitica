@@ -95,9 +95,6 @@ describe('POST /tasks/user', () => {
 
         expect(updatedTasks).to.eql(originalTasks);
       });
-
-      let updatedTasks = await user.get('/tasks');
-      expect(updatedTasks).to.eql(originalTasks);
     });
 
     it('automatically sets "task.userId" to user\'s uuid', async () => {

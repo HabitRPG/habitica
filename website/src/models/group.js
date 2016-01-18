@@ -492,7 +492,7 @@ schema.methods.leave = function leaveGroup (user, keep) {
       if (group.type === 'guild') {
         _.pull(user.guilds, group._id);
       } else {
-        user.party._id = undefined;
+        user.party._id = undefined; // TODO remove quest information too?
       }
 
       // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)

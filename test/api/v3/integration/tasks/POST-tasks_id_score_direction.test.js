@@ -46,6 +46,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       let task = await user.get(`/tasks/${todo._id}`);
 
       expect(task.completed).to.equal(true);
+      expect(task.dateCompleted).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
     });
 
     it('moves completed todos out of user.tasksOrder.todos', async () => {
@@ -81,6 +82,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       let updatedTask = await user.get(`/tasks/${todo._id}`);
 
       expect(updatedTask.completed).to.equal(false);
+      expect(updatedTask.dateCompleted).to.be.a('undefined');
     });
 
     it('scores up todo even if it is already completed'); // Yes?
