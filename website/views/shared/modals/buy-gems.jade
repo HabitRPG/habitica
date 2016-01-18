@@ -47,6 +47,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
                       p=env.t('buyGemsAllow1')
                         | &nbsp;{{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}&nbsp; 
                         =env.t('buyGemsAllow2')
+            p!=env.t('seeSubscriptionDetails')
       div(ng-if='user.purchased.plan.customerId')
         .well
           h3=env.t('purchaseGemsSeparately')
@@ -70,6 +71,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
             h3=env.t('becomeSubscriber')
           
             div(ng-include="'partials/options.settings.subscription.html'")
-
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('cancel')
+      div(ng-if='user.purchased.plan.customerId').pull-left
+        p!=env.t('seeSubscriptionDetails')
+      .text-right
+        button.btn.btn-default(ng-click='$close()')=env.t('close')
