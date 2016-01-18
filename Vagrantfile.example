@@ -8,7 +8,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = 768
     v.cpus = 1
-    v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
   end
   config.vm.box = "thepeopleseason/habitrpg"
   config.ssh.forward_agent = true
@@ -16,5 +15,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "habitrpg"
   config.vm.network "forwarded_port", guest: 3000, host: 3000, auto_correct: true
   config.vm.usable_port_range = (3000..3050)
-  config.vm.provision :shell, :path => "vagrant.sh"
+  config.vm.provision :shell, :path => "vagrant_scripts/vagrant.sh"
 end
