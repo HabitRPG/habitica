@@ -1,5 +1,6 @@
 import {
   generateUser,
+  generateChallenge,
   checkExistence,
 } from '../../../../helpers/api-v3-integration.helper';
 
@@ -40,7 +41,7 @@ describe('POST /groups/:groupId/leave', () => {
 
       let guildWithNewLeader = await userToInvite.get(`/groups/${guild._id}`);
 
-      expect(guildWithNewLeader.leader).to.equal(userToInvite._id);
+      expect(guildWithNewLeader.leader._id).to.equal(userToInvite._id);
     });
 
     it('removes a group and invitations when the last member leaves', async () => {
@@ -56,38 +57,32 @@ describe('POST /groups/:groupId/leave', () => {
 
     context('leaving with challenges', () => {
       let challenge;
-      // let task;
 
       beforeEach(async () => {
-        challenge = await user.post('/challenges', {
-          name: 'Test Challenge',
-          shortName: 'TChallenge',
-          leader: user._id,
-          groupId: guild._id,
+        challenge = await generateChallenge(user, guild);
+
+        await user.post(`/tasks/challenge/${challenge._id}`, {
+          text: 'test habit',
+          type: 'habit',
         });
-
-        // task = await user.post(`/tasks/challenge/${challenge._id}`, {
-        //   text: 'test habit',
-        //   type: 'habit',
-        // });
       });
 
-      it('removes all challenges when keep parameter is set to remove', async () => {
-        await user.post(`/groups/${guild._id}/leave`, { keep: 'remove-all'});
+      it('removes all challenge tasks when keep parameter is set to remove', async () => {
+        await user.post(`/groups/${guild._id}/leave?keep=remove-all`);
 
-        let userWithChallenges = await user.get('/user');
+        let userWithoutChallenges = await user.get('/user');
 
-        expect(userWithChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
-        // @TODO add expect for no save tasks from challenge
+        expect(userWithoutChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
+        expect(userWithoutChallenges.tasksOrder.habits.length).to.equal(0);
       });
 
-      it('keeps all challenges when keep parameter is not set', async () => {
+      it('keeps all challenge tasks when keep parameter is not set', async () => {
         await user.post(`/groups/${guild._id}/leave`);
 
         let userWithChallenges = await user.get('/user');
 
         expect(userWithChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
-        // @TODO add expect for saved tasks from challenge
+        expect(userWithChallenges.tasksOrder.habits.length).to.equal(1);
       });
     });
   });
