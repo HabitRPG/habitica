@@ -196,22 +196,19 @@ function($rootScope, User, $timeout, $state, Analytics) {
       };
       step.onHide = function(){
         var ups = {};
-        // Persistantly track tour progress and rewards with localStorage
-        if (step.experience) {
-          var tourStep = localStorage.getItem('habitrpg-tourStep') || -1;
-          if (i > tourStep) {
-            localStorage.setItem('habitrpg-tourStep', i);
-            ups['stats.gp'] = User.user.stats.gp + (step.gold || 0);
-            ups['stats.exp'] = User.user.stats.exp + (step.experience || 0);
-          }
+        var lastKnownStep = User.user.flags.tour[k];
+
+        if (i > lastKnownStep) {
+          if (step.gold) ups['stats.gp'] = User.user.stats.gp + step.gold;
+          if (step.experience) ups['stats.exp'] = User.user.stats.exp + step.experience;
+          ups['flags.tour.'+k] = i;
         }
         if (step.final) { // -2 indicates complete
           ups['flags.tour.'+k] = -2;
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
         }
         User.set(ups);
-        // User.set() doesn't include a check for level changes,
-        // so manually check here as we expect the user to ding lvl2.
+        // User.set() doesn't include a check for level changes, so manually check here.
         if (step.experience) {
           User.user.ops.checkStats({});
         }
@@ -252,9 +249,6 @@ function($rootScope, User, $timeout, $state, Analytics) {
     if (page === -1) page = 0;
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
-    var updates = {};
-    updates['flags.tour.'+chapter] = page;
-    User.set(updates);
     var chap = tour[chapter], opts = chap._options;
     opts.steps = [];
     _.times(page, function(p){

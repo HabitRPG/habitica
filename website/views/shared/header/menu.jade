@@ -272,7 +272,7 @@ nav.toolbar(ng-controller='MenuCtrl')
 
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
       li.toolbar-bailey-container(ng-if='user.flags.tour.intro!=-2')
-        .npc_justin_head.npc_bailey_head(popover='Continue Tour', popover-trigger='mouseenter', popover-placement='bottom', ng-click='showTour()')
+        .npc_justin_head.npc_bailey_head(popover='Continue Tour', popover-trigger='mouseenter', popover-placement='bottom', ng-click='Guide.goto("intro", user.flags.tour.intro + 1, true);')
 
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')

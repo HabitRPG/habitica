@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Guide',
-    function($scope, $rootScope, $http, Chat, Guide) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat',
+    function($scope, $rootScope, $http, Chat) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -42,11 +42,6 @@ angular.module('habitrpg')
 
       $scope.hasNoNotifications = function() {
         return selectNotificationValue(false, false, false, false, false, true);
-      }
-
-      $scope.showTour = function() {
-        var lastKnownTourStep = parseInt(localStorage.getItem('habitrpg-tourStep'));
-        Guide.goto('intro', (lastKnownTourStep > -1 ? lastKnownTourStep + 1 : 0) , true);
       }
     }
 ]);
