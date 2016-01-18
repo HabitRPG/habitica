@@ -2056,6 +2056,10 @@ api.wrap = function(user, main) {
           cb(null, user);
         }
         return delta;
+      },
+      checkStats: function (req, cb) {
+        user.fns.updateStats(user.stats, req);
+        return typeof cb === "function" ? cb(null, user) : void 0;
       }
     };
   }

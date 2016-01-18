@@ -195,19 +195,26 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }
       };
       step.onHide = function(){
-        var ups={};
-        if (!$rootScope.stepAwarded) $rootScope.stepAwarded = {};
-        if (!$rootScope.stepAwarded[i]) {
-          $rootScope.stepAwarded[i] = true;
-          ups['stats.gp'] = User.user.stats.gp + (step.gold || 0);
-          ups['stats.exp'] = User.user.stats.exp + (step.experience || 0);
+        var ups = {};
+        // Persistantly track tour progress and rewards with localStorage
+        if (step.experience) {
+          var tourStep = localStorage.getItem('habitrpg-tourStep') || -1;
+          if (i > tourStep) {
+            localStorage.setItem('habitrpg-tourStep', i);
+            ups['stats.gp'] = User.user.stats.gp + (step.gold || 0);
+            ups['stats.exp'] = User.user.stats.exp + (step.experience || 0);
+          }
         }
         if (step.final) { // -2 indicates complete
           ups['flags.tour.'+k] = -2;
-          $rootScope.stepAwarded = null;
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
         }
         User.set(ups);
+        // User.set() doesn't include a check for level changes,
+        // so manually check here as we expect the user to ding lvl2.
+        if (step.experience) {
+          User.user.ops.checkStats({});
+        }
       }
     }).value();
   });
@@ -245,7 +252,8 @@ function($rootScope, User, $timeout, $state, Analytics) {
     if (page === -1) page = 0;
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
-    var updates = {};updates['flags.tour.'+chapter] = page;
+    var updates = {};
+    updates['flags.tour.'+chapter] = page;
     User.set(updates);
     var chap = tour[chapter], opts = chap._options;
     opts.steps = [];
@@ -259,11 +267,17 @@ function($rootScope, User, $timeout, $state, Analytics) {
       chap.goTo(end);
     } else {
       chap.setCurrentStep(end);
-      chap.start();
+      
+      if (page > 0) {
+        chap.init();
+        chap.goTo(page);
+      } else {
+        chap.start();
+      }
     }
   }
 
-  //Init and show the welcome tour (only after user is pulled from server & wrapped).
+  // Init and show the welcome tour (only after user is pulled from server & wrapped).
   var watcher = $rootScope.$watch('User.user.ops.update', function(updateFn){
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
