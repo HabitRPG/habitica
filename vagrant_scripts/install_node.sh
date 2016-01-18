@@ -20,5 +20,3 @@ npm install -g npm@2
 
 echo Installing global modules...
 npm install -g gulp bower grunt-cli mocha
-
-npm i
