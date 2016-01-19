@@ -1,12 +1,12 @@
 {
     "questEvilSantaText": "Santa - Lovec kožešin",
-    "questEvilSantaNotes": "Hluboko v ledových pláních slyšíš naříkavý řev. Jdeš za tím řevem a vrčením - přerušovaným jiným, smějícím se hlasem - až na palouček v lese, kde vidíš statnou polárního medvědici. Je uvězněná v kleci a spoutaná, řvoucí o život. Na vrchu klece tančí zákeřný malý skrček, oblečený v troskách Vánočního kostýmu. Přemož Santu, lovce kožešin, a zachraň to zvíře!",
-    "questEvilSantaCompletion": "Lovec kožešin Santa kvičí vzteky a odskakuje do noci. Vděčná medvědice se ti skrz řev a vrčení snaží něco říct. Vezmeš jí zpět do stájí, kde zaříkávač Matt Boch vyslechne její příběh lapajíc po dechu hrůzou. Ona má mládě! Uteklo do ledových plání, když mámu medvědici zajali. Pomoz jí najít její mládě!",
+    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "Santa - Lovec kožešin",
     "questEvilSantaDropBearCubPolarMount": "Lední medvěd (zkrocený)",
     "questEvilSanta2Text": "Najdi mládě",
-    "questEvilSanta2Notes": "Medvídě odběhlo do ledových plání, když byla jeho máma zajata lovcem kožešin. Na okraji lesa větří ve vzduchu. Mezi krystalickým zvukem lesa slyšíš praskat větvičky a křupat sníh. Otisky tlapek! Oba rychle běžíte následujíc stopu. Najdi všechny otisky a polámané větvičky a dostaň mládě zpět!",
-    "questEvilSanta2Completion": "Našel jsi medvídě! Máma medvědice i její medvídě nemohou být vděčnější. Na oplátku se ti rozhodli dělat navždy společníky.",
+    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "Stopy",
     "questEvilSanta2CollectBranches": "Polámané větvičky",
     "questEvilSanta2DropBearCubPolarPet": "Lední medvěd (mazlíček)",
@@ -36,7 +36,7 @@
     "questRatUnlockText": "Odemyká vejce myšáka na Trhu",
     "questOctopusText": "Volání Octothulu",
     "questOctopusNotes": "@Urse, vyděšený mladý písař, tě požádal o pomoc při průzkumu záhadné jeskyně na břehu moře. Mezi třpytícími se tůňkami se tkví obrovská brána ze stalaktitů a stalagmitů. Když se k té bráně přibližujete, začne se u ní točit tmavý vodní vír. Užasle zíráte jak se z něj vynořuje sépiovitý drak. \"Ulepený zplozenec hvězd se probudil,\" zaječí @Urse šíleně. \"Po všech těch věcích je velký Octothulu znovu volný a lační po potěšení!\"",
-    "questOctopusCompletion": "Dokončení: Po zasažení poslední rány se stvoření plazí zpátky do víru, ze kterého vylezlo. Ani nevíš, jestli je @Urse šťastný, že jste bestii porazili, nebo smutný, protože jí vidí odcházet. Potichu ukáže na tři slizem pokrytá, gargantuovská vejce v nedaleké tůňce, zasazeným v hroudě zlatých mincí. \"Nejspíš jen vejce chobotnice,\" řekneš nervozně. Při návratu domů @Urse zuřivě zapisuje do deníku a ty si tak říkáš, že to nejspíš nebylo naposledy co o velkém Octothulu uslyšíš.",
+    "questOctopusCompletion": "With a final blow, the creature slips away into the whirlpool from which it came. You cannot tell if @Urse is happy with your victory or saddened to see the beast go. Wordlessly, your companion points to three slimy, gargantuan eggs in a nearby tidepool, set in a nest of gold coins. \"Probably just octopus eggs,\" you say nervously. As you return home, @Urse frantically scribbles in a journal and you suspect this is not the last time you will hear of the great Octothulu.",
     "questOctopusBoss": "Octothulu",
     "questOctopusDropOctopusEgg": "Chobotnice (Vejce)",
     "questOctopusUnlockText": "Odemyká vejce chobotnice na Trhu",
@@ -279,5 +279,11 @@
     "questUnicornCompletion": "Ohromena vaší vytrvalostí, královna jednorožců souhlasí, že vám pomůže, protože vaše poslání je vznešené. Dovolí vám jet na jejím hřbetě po cestě k pramenu potoka Dobytí. Jakmile skloní svůj zlatý roh ke zkalené vodě, vytryskne z ní modré světlo. Je tak oslepující, že musíte zavřít oči. Když je po chvilce otevřete, jednorožec je pryč. Avšak, @rosiesully se zaraduje: voda je zase čistá a na břehu potoka se lesknou tři vejce jednorožce.",
     "questUnicornBoss": "Královna jednorožců",
     "questUnicornDropUnicornEgg": "Jednorožec (vejce)",
-    "questUnicornUnlockText": "Odemyká vejce jednorožce na Trhu"
+    "questUnicornUnlockText": "Odemyká vejce jednorožce na Trhu",
+    "questSabretoothText": "The Sabre Cat",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+    "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+    "questSabretoothBoss": "Zombie Sabre Cat",
+    "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }

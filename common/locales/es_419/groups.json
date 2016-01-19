@@ -18,7 +18,7 @@
     "tavernAlert1": "Nota: Si estás reportando sobre un error, los programadores no lo verán aquí. Por favor,",
     "tavernAlert2": "en su lugar utiliza GitHub",
     "moderatorIntro1": "Los moderadores de la taberna y del gremio son:",
-    "communityGuidelines": "Orientaciones comunitarias",
+    "communityGuidelines": "Normas de la Comunidad",
     "communityGuidelinesRead1": "Por favor lee nuestras",
     "communityGuidelinesRead2": "antes de chatear.",
     "party": "Equipo",
@@ -99,9 +99,9 @@
     "unblock": "Desbloquear",
     "pm-reply": "Enviar una respuesta",
     "inbox": "Bandeja de entrada",
-    "abuseFlag": "Reportar una violación de las Normas de la comunidad.",
+    "abuseFlag": "Reportar una violación de las Normas de la Comunidad",
     "abuseFlagModalHeading": "¿Reportar una violación hecha por <%= name %>?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "¿Estás seguro de que quieres denunciar esta publicación? Deberías denunciar una publicación SÓLO cuando viola las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de Servicio<%= linkEnd %>. Denunciar una publicación de manera indebida es una violación de las Normas de la Comunidad y puede resultar en una sanción. Algunas de las razones apropiadas por las cuales denunciar un post son: <p></p></br><ul style='margin-left: 10px;'><li>usar malas palabras, blasfemias religiosas</li><li>intolerancia, epítetos racistas/sexistas/etc.</li><li>temas adultos</li><li>violencia, incluso en forma de broma</li><li>spam, mensajes sin sentido</li></ul>",
     "abuseFlagModalButton": "Reporta una violación",
     "abuseReported": "Gracias por reportar esta violación. Se han notificado los moderadores.",
     "abuseAlreadyReported": "Ya has reportado este mensaje.",
@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "De tu saldo",
     "sendGiftPurchase": "Comprar",
     "sendGiftMessagePlaceholder": "Mensaje personal (opcional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %> USD",
+    "sendGiftSubscription": "<%= months %> Mes(es): $<%= price %> USD",
     "battleWithFriends": "Combate a monstruos con tus amigos",
     "startPartyWithFriends": "¡Empieza un equipo con tus amigos!",
     "startAParty": "Crear un grupo",
@@ -147,5 +147,5 @@
     "partyChatEmpty": "¡El chat de tu equipo está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "guildChatEmpty": "¡El chat de este gremio está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "possessiveParty": "El equipo de <%= name %>",
-    "requestAcceptGuidelines": "Si quieres escribir mensajes en la Taberna o en el chat de un equipo o de un gremio, por favor lee nuestras <%= linkStart %>Normas de la comunidad<%= linkEnd %> primero y después haz click en el botón de abajo para indicar que las aceptas."
+    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de un equipo o de un gremio, por favor lee nuestras <%= linkStart %>Normas de la Comunidad<%= linkEnd %> primero y después haz clic en el botón de abajo para indicar que las aceptas."
 }

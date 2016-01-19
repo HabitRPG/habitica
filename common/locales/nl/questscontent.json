@@ -1,12 +1,12 @@
 {
     "questEvilSantaText": "Pelsjagende Kerstman",
-    "questEvilSantaNotes": "Je hoort kreunende brullen diep in de ijsvelden. Je volgt de brullen en brommen - onderbroken door het gekakel van een andere stem - naar een open plek in het bos, waar je een volgroeide ijsbier ziet. Ze is gekooid en geboeid, brullend voor haar leven. Bovenop de kooi danst een kwaadaardige kleine imp in een aftands kerstkostuum. Overwin de pelsjagende Kerstman en red het beest!",
-    "questEvilSantaCompletion": "De Pelsjagende Kerstman krijst van woede, en stuitert weg in de nacht. Een dankbare berin probeert je iets te vertellen door te brullen en te grommen. Je neemt haar mee naar de stallen, waar Matt Boch de fluisteraar met een snik van afgrijzen luistert naar haar verhaal. Ze heeft een welp! Hij rende de ijsvelden in toen mama-beer gevangen werd genomen. Help haar om haar baby te vinden!",
+    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "Pelsjagende Kerstman",
     "questEvilSantaDropBearCubPolarMount": "IJsbeer (rijdier)",
     "questEvilSanta2Text": "Vind de welp",
-    "questEvilSanta2Notes": "De welp van mamabeer is weggerend de ijsvelden in toen ze gevangen werd genomen door de pelsjager. Aan de rad van het bos snuift ze de lucht op. Je hoort takjes breken en sneeuw kraken in het kristalheldere geluid van het bos. Pootafdrukken! Jullie beginnen te rennen om het spoor te volgen. Vind alle afdrukken en gebroken takjes, en haal haar jong terug!",
-    "questEvilSanta2Completion": "Je hebt de welp gevonden! Mama- en babybeer konden niet dankbaarder zijn. Als blijk van hun dankbaarheid hebben ze besloten om je gezelschap te houden tot het einde der dagen.",
+    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "Sporen",
     "questEvilSanta2CollectBranches": "Gebroken takjes",
     "questEvilSanta2DropBearCubPolarPet": "IJsbeer (huisdier)",
@@ -36,7 +36,7 @@
     "questRatUnlockText": "Maakt het kopen van ratteneieren in de markt mogelijk",
     "questOctopusText": "De Roep van Octothulu",
     "questOctopusNotes": "@Urse, een jonge schriftgeleerde met een wilde blik, heeft je hulp ingeroepen bij het verkennen van een mysterieuze grot aan het strand. Tussen de schemerige getijdenpoelen staat een enorme poort van stalactieten en stalagmieten. Wanneer jullie naderbij komen, vormt zich een draaikolk aan de voet van de poort. Je staart vol ontzag naar de inktvisachtige draak die uit de opening oprijst. \"Het plakkerige sterrengebroed is ontwaakt,\" buldert @Urse als een bezetene. \"Na vigintiljoenen jaren is de grote Octuthulu weer vrij, en hongerig naar genot!\"",
-    "questOctopusCompletion": "Voltooiing: Met een laatste slag glijdt het wezen terug de draaikolk in waar het uit vandaan kwam. Je kunt niet met zekerheid zeggen of @Urse blij is met je overwinning of teleurgesteld dat het beest er niet meer is. Zwijgend wijst je metgezel drie slijmerige reuzeneieren aan die in een nabije getijdenpoel in een nest van goudstukken liggen. \"Waarschijnlijk gewoon inktviseieren,\" zeg je nerveus. Op weg naar huis krabbelt @Urse verwoed aantekeningen in een dagboek, en je vermoedt dat dit niet de laatste keer is dat je van de grote Octothulu zal horen.",
+    "questOctopusCompletion": "With a final blow, the creature slips away into the whirlpool from which it came. You cannot tell if @Urse is happy with your victory or saddened to see the beast go. Wordlessly, your companion points to three slimy, gargantuan eggs in a nearby tidepool, set in a nest of gold coins. \"Probably just octopus eggs,\" you say nervously. As you return home, @Urse frantically scribbles in a journal and you suspect this is not the last time you will hear of the great Octothulu.",
     "questOctopusBoss": "Octothulu",
     "questOctopusDropOctopusEgg": "Octopus (ei)",
     "questOctopusUnlockText": "Maakt het kopen van octopuseieren in de markt mogelijk",
@@ -279,5 +279,11 @@
     "questUnicornCompletion": "Onder de indruk van je ijver en kracht, is de Eenhoorn Koningin het eindelijk met je eens dat je doel haar hulp waardig is. Ze laat je toe op haar rug te rijden en vliegt naar de bron van Veroverings Inham. Wanneer ze haar gouden hoorn omlaag brengt naar het vervuilde water, stijgt er een schitterend blauw licht op vanaf de oppervlakte van het water. Het is zo verblindend dat je je ogen wel moet sluiten. Als je ze even later open doet, is de eenhoorn verdwenen. Maar @rosiesully roept van vreugde: het water is nu helder, en drie schitterende eieren rusten aan de rand van de inham.",
     "questUnicornBoss": "De Eenhoornkoningin",
     "questUnicornDropUnicornEgg": "Eenhoorn (ei)",
-    "questUnicornUnlockText": "Maakt het kopen van eenhoorneieren in de markt mogelijk"
+    "questUnicornUnlockText": "Maakt het kopen van eenhoorneieren in de markt mogelijk",
+    "questSabretoothText": "The Sabre Cat",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+    "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+    "questSabretoothBoss": "Zombie Sabre Cat",
+    "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }

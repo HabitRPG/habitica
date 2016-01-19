@@ -37,7 +37,7 @@
     "bossDmg1": "Ogni Daily e To-Do completata e ogni Habit positiva danneggiano il boss. Puoi infliggere danni maggiori con le attività più rosse, con Attacco Brutale e con Fiammata. I boss danneggeranno ogni partecipante per le Daily mancate (moltiplicate per la Forza del boss) oltre al loro normale danno, quindi tieni in forze la tua squadra completando le tue Daily! <strong>I danni inflitti e ricevuti dal boss sono calcolati al cambio di giorno (all'ora da te impostata).</strong>",
     "bossDmg2": "Solo i partecipanti potranno combattere il boss e condividere il bottino della missione.",
     "bossDmg1Broken": "Ogni Daily e To-Do completata e ogni Habit positiva danneggiano il boss... Puoi infliggere danni maggiori con le attività più rosse, con Attacco Brutale e con Fiammata... I boss danneggeranno ogni partecipante per le Daily mancate (moltiplicate per la Forza del boss) oltre al loro normale danno, quindi tieni in forze la tua squadra completando le tue Daily... <strong>I danni inflitti e ricevuti dal boss sono calcolati al cambio di giorno (all'ora da te impostata)...</strong>",
-    "bossDmg2Broken": "Solo i partecipanti combatteranno il boss e si divideranno il bottino della missione...",
+    "bossDmg2Broken": "Solo i partecipanti potranno combattere il boss e dividersi il bottino della missione...",
     "tavernBossInfo": "Competa Attività Giornaliere e To-Do e conquista Abitudini positive per danneggiare il Boss Mondiale! Attività Giornaliere non completate riempiono la Barra del Colpo Esaustivo. Quando la Barra del Colpo Esaustivo é piena, il Boss Mondiale attaccherà un PNG. Un Boss Mondiale non danneggerà mai giocatori individuali o account in nessuna maniera. Solo le Attivitá di account attivi che non stanno riposando nella Locanda verranno conteggiate.",
     "tavernBossInfoBroken": "Competa Attività Giornaliere e To-Do e conquista Abitudini positive per danneggiare il Boss Mondiale! Attività Giornaliere non completate riempiono la Barra del Colpo Esaustivo. Quando la Barra del Colpo Esaustivo é piena, il Boss Mondiale attaccherà un PNG. Un Boss Mondiale non danneggerà mai giocatori individuali o account in nessuna maniera. Solo le Attivitá di account attivi che non stanno riposando nella Locanda verranno conteggiate.",
     "bossColl1": "Per ottenere gli oggetti, completa delle attività positive. Gli oggetti delle missioni compaiono come quelli normali; non li vedrai però fino al giorno dopo, quando tutto quello che hai trovato verrà raccolto e aggiunto agli oggetti già trovati.",
@@ -78,5 +78,5 @@
     "whichQuestStart": "Che missione vuoi cominciare?",
     "getMoreQuests": "Ottieni altre missioni",
     "unlockedAQuest": "Hai sbloccato una missione!",
-    "leveledUpReceivedQuest": "Sei salito di livello a <strong>Livello <%= level %></strong> e hai ricevuto una pergamena della missione!"
+    "leveledUpReceivedQuest": "Sei salito al livello <strong>Livello <%= level %></strong> e hai ricevuto una Pergamena!"
 }

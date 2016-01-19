@@ -34,7 +34,7 @@
     "foodText": "Futter",
     "food": "Futter und magische Sättel",
     "noFood": "Du hast im Moment weder Futter noch magische Sättel.",
-    "dropsExplanation": "Erhalte diese Gegenständer schnelle mit Edelsteinen, wenn du nicht warten möchtest, bis du sie als Beute für erfüllte Aufgaben erhälst. <a href=\"http://habitica.wikia.com/wiki/Drops\">Erfahre mehr über das Beutesystem.</a>",
+    "dropsExplanation": "Erhalte diese Gegenständer schneller mit Edelsteinen, wenn du nicht warten möchtest, bis du sie als Beute für erfüllte Aufgaben erhälst. <a href=\"http://habitica.wikia.com/wiki/Drops\">Erfahre mehr über das Beutesystem.</a>",
     "premiumPotionNoDropExplanation": "Magische Schlüpftränke können nicht auf Eier, die du durch Quests erhalten hast, angewendet werden. Magische Schlüpftränke können nur gekauft und nicht durch zufällige Beute erworben werden. ",
     "beastMasterProgress": "\"Meister aller Bestien\" Fortschritt",
     "stableBeastMasterProgress": "Meister aller Bestien Forstschritt: <%= number %> Haustiere gefunden",
@@ -43,7 +43,7 @@
     "beastMasterText": "Hat alle 90 Haustiere gesammelt (unglaublich schwer, gratuliere diesem Spieler!)",
     "beastMasterText2": "und hat seine Haustiere insgesamt <%= count %> mal freigelassen",
     "mountMasterProgress": "\"Meister aller Reittiere\" Fortschritt",
-    "stableMountMasterProgress": "Herr der Reittiere Fortschritt:<%= number %>Reittiere gezähmt",
+    "stableMountMasterProgress": "Herr der Reittiere Fortschritt: <%= number %>Reittiere gezähmt",
     "mountAchievement": "Du hast die \"Meister aller Reittiere\" Auszeichnung erhalten, da Du alle Reittiere gezähmt hast!",
     "mountMasterName": "Meister aller Reittiere",
     "mountMasterText": "Hat alle 90 Reittiere gezähmt (noch viel schwieriger, gratuliere diesem Spieler!)",
@@ -80,7 +80,7 @@
     "petKeyPets": "Lass' meine Haustiere frei",
     "petKeyMounts": "Lasse meine Reittiere frei",
     "petKeyBoth": "Lasse meine Haus- und meine Reittiere frei",
-    "confirmPetKey": "Are you sure?",
+    "confirmPetKey": "Bist Du sicher?",
     "petKeyNeverMind": "Noch nicht.",
     "gemsEach": "Edelsteine jeweils"
 }

@@ -1,7 +1,7 @@
 {
     "quests": "Misiones",
     "quest": "misión",
-    "whereAreMyQuests": "¡Las misiones ahora están disponibles en su propia pagina! Haz Click en Inventario -> Misiones para encontrarlas",
+    "whereAreMyQuests": "¡Las misiones ahora están disponibles en su propia página! Haz clic en Inventario -> Misiones para encontrarlas.",
     "yourQuests": "Tus misiones",
     "questsForSale": "Misiones a la venta",
     "petQuests": "Misiones de mascotas y monturas",
@@ -11,7 +11,7 @@
     "invitations": "Invitaciones",
     "completed": "¡Completado!",
     "youReceived": "Has recibido",
-    "dropQuestCongrats": "Felicitaciones por ganar este pergamino de misión! Puedes invitar a tu grupo para empezar la misión ahora mismo o vuelve en cualquier momento en tu Inventario > Misiones.",
+    "dropQuestCongrats": "¡Felicitaciones por ganar este pergamino de misión! Puedes invitar a tu equipo para empezar la misión ahora mismo, o puedes volver en cualquier momento desde el menú Inventario > Misiones.",
     "questSend": "Cliqueando en \"Invitar\" enviara una invitación a los miembros de tu grupo. Cuando todos los miembros hayan aceptado o negado, la misión comenzara. Mira el progreso en Social > Grupo",
     "questSendBroken": "Cliqueando en \"Invitar\" enviará una invitación a los miembros de tu grupo. Cuando todos los miembros hayan aceptado o negado, la misión comenzará. Mira el progreso en Social > Grupo",
     "inviteParty": "Invitar grupo a la Misión",

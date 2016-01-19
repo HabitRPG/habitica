@@ -1,12 +1,12 @@
 {
     "questEvilSantaText": "Pelsjægerjulemand",
-    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
-    "questEvilSantaCompletion": "Pelsjægerjulemanden skriger i vrede og løber bort i natten. En taknemmelig hunbjørn forsøger gennem brøl og knurren at fortælle dig noget. Du tager hende med tilbage til stalden hvor Matt Boch, Hviskeren, lytter til hendes historie med et rædselsslagent suk. Hun har en unge! Han løb ind på indlandsisen da bjørnemor blev fanget. Hjælp hende med at redde hendes barn!",
+    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "Pelsjægerjulemand",
     "questEvilSantaDropBearCubPolarMount": "Isbjørn (Ridedyr)",
     "questEvilSanta2Text": "Find Bjørneungen",
-    "questEvilSanta2Notes": "Bjørnemors unge var løbet ind på isen da hun blev fanget af pelsjægeren. På kanten af skoven sniffer hun til luften. Du kan høre grene knække og sne knirke gennem den krystalklare lyd af skoven. Poteaftryk! I begynder begge at løbe for at følge sporet. Find alle sporene og de brækkede grene, og hent hendes unge!",
-    "questEvilSanta2Completion": "Du har fundet ungen! Bjørnemor og unge kunne ikke være mere taknemmelige. Som tak har de besluttet at holde dig med selskab for evigt.",
+    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "Spor",
     "questEvilSanta2CollectBranches": "Brækkede Grene",
     "questEvilSanta2DropBearCubPolarPet": "Isbjørn (Kæledyr)",
@@ -36,7 +36,7 @@
     "questRatUnlockText": "Åbner for køb at rotteæg på Markedet",
     "questOctopusText": "Blækthulhu Vågner",
     "questOctopusNotes": "@Urse, en ung skriver med vide øjne, har bedt om jeres hjælp til at udforske en mystisk hule ved kysten. Mellem de tusmørkefarvede tidevandssøer står en massiv port af stalaktitter og stalagmitter. Da I nærmer jer porten, begynder en mørk malstrøm at dannes ved foden af den. I stirrer i frygt på den blæksprutteagtige drage, der rejser sig fra dybet. \"Den klistrede stjerneyngel er vågnet,\" råber @Urse, fuld af galskab. \"Efter uendeligt mange år er den store Blækthulhu genopstået, og er glubende sulten efter lækkerier!\"",
-    "questOctopusCompletion": "Med et sidste stød forsvinder skabningen ned i den malstrøm den kom fra. I kan ikke finde ud af, om @Urse er glad for jeres sejr eller trist over at se monstret forsvinde. Uden ord peger jeres følgesvend på tre gigantiske slimede æg i en nærliggende tidevandssø, liggende på en rede af guldmønter. \"Sikkert bare blæksprutteæg,\" siger du nervøst. Da I vender hjem skriver @Urse desperat i en dagbog, og du mistænker, at det nok ikke er sidste gang du vil se noget til den store Blækthulhu.",
+    "questOctopusCompletion": "With a final blow, the creature slips away into the whirlpool from which it came. You cannot tell if @Urse is happy with your victory or saddened to see the beast go. Wordlessly, your companion points to three slimy, gargantuan eggs in a nearby tidepool, set in a nest of gold coins. \"Probably just octopus eggs,\" you say nervously. As you return home, @Urse frantically scribbles in a journal and you suspect this is not the last time you will hear of the great Octothulu.",
     "questOctopusBoss": "Blækthulhu",
     "questOctopusDropOctopusEgg": "Blæksprutte (Æg)",
     "questOctopusUnlockText": "Åbner for køb at blæksprutteæg på Markedet",
@@ -279,5 +279,11 @@
     "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
     "questUnicornBoss": "The Unicorn Queen",
     "questUnicornDropUnicornEgg": "Unicorn (Egg)",
-    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market",
+    "questSabretoothText": "The Sabre Cat",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+    "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+    "questSabretoothBoss": "Zombie Sabre Cat",
+    "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }

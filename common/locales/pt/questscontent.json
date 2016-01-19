@@ -1,12 +1,12 @@
 {
     "questEvilSantaText": "Noel Caçador",
-    "questEvilSantaNotes": "Você escuta urros descontentes ao fundo dos campos de gelo. Você segue os rugidos e rosnados - pontuados pelo tagarelar de outra voz - até uma clareira na floresta onde vê uma ursa polar adulta. Ela está enjaulada e acorrentada, rugindo pela vida. Dançando em cima da jaula está um pequeno duente malicioso vestindo trajes de Natal que alguém não quis mais. Derrote o Noel Caçador e salve a fera!",
-    "questEvilSantaCompletion": "Noel Caçador grita de raiva e some no meio da noite. Uma ursa grata, através de rugidos e rosnados, tenta lhe dizer algo. Você a leva para o estábulo, onde Matt Boch, o encantador, escuta sua história com um suspiro de horror. Ela tem uma filhote! Ela correu até os campos de gelo quando a mamãe urso foi capturada. Ajude-a a encontrar seu filhote!",
+    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "Noel Caçador",
     "questEvilSantaDropBearCubPolarMount": "Urso Polar (Montaria)",
     "questEvilSanta2Text": "Encontre a Filhote",
-    "questEvilSanta2Notes": "A filhote da mamãe urso tinha corrido para os campos de gelo quando ela foi capturada pelo caçador. Na orla da floresta, ela fareja o ar. Você escuta o barulho de galhos se partindo e neve através do som cristalino da floresta. Pegadas! Vocês começam a correr seguindo a trilha. Encontre todas as pegadas e galhos partidos e recupere sua filhote!",
-    "questEvilSanta2Completion": "Você encontrou a filhote! Mamãe e filhote ursa não poderiam estar mais gratas. Como um presente, elas decidiram te fazer companhia até o fim dos dias.",
+    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "Trilhas",
     "questEvilSanta2CollectBranches": "Galhos Partidos",
     "questEvilSanta2DropBearCubPolarPet": "Urso Polar (Mascote)",
@@ -36,7 +36,7 @@
     "questRatUnlockText": "Desbloqueia ovos de rato para compra no Mercado",
     "questOctopusText": "O Chamado de Octothulu",
     "questOctopusNotes": "@Urse, um apaixonado jovem escriba, pediu sua ajuda para explorar a caverna misteriosa junto à costa. Por entre o crepúsculo das marés há um enorme portão de estalactites e estalagmites. À medida que se aproximam do portão, um redemoinho negro começa a rodear sua base. Você fixa seu olhar com admiração no que parecia ser um dragão com tentáculos de polvo surgindo do seu interior. \"O pegajoso descendente das estrelas acordou,\" branda @Urse loucamente. \"Após vigintilhões de anos, o grande Octothulu está solto outra vez, e sedento de fome!\"",
-    "questOctopusCompletion": "Conclusão: Com um golpe final, a criatura esvai-se no redemoinho de onde saiu. Não consegues perceber se @Urse está contente com a tua vitória ou entristecido por ver a criatura desaparecer. Sem palavras, o teu companheiro aponta para três gigantescos e viscosos ovos numa poça de maré próxima, sob um ninho de moedas de ouro. \"Provavelmente são só ovos de polvo,\" você diz com nervosismo. Na caminhada para casa, @Urse rabisca freneticamente num diário e você suspeita que esta não será a última vez que ouvirá sobre o grande Octothulu.",
+    "questOctopusCompletion": "With a final blow, the creature slips away into the whirlpool from which it came. You cannot tell if @Urse is happy with your victory or saddened to see the beast go. Wordlessly, your companion points to three slimy, gargantuan eggs in a nearby tidepool, set in a nest of gold coins. \"Probably just octopus eggs,\" you say nervously. As you return home, @Urse frantically scribbles in a journal and you suspect this is not the last time you will hear of the great Octothulu.",
     "questOctopusBoss": "Octothulu",
     "questOctopusDropOctopusEgg": "Polvo (Ovo)",
     "questOctopusUnlockText": "Desbloqueia ovos de polvo para compra no Mercado",
@@ -279,5 +279,11 @@
     "questUnicornCompletion": "Impressionado com sua diligência e força, a Rainha Unicórnio finalmente concorda que sua causa é digna. Ela permite que você montar em suas costas enquanto ela sobe para a fonte da Enseada da Conquista. Quando ela abaixa seu chifre de ouro para as águas sujas, uma luz azul brilhante sai da superfície da água. É tão cegante que você é forçado a fechar os olhos. Quando você os abre um momento depois, o unicórnio desapareceu. No entanto, @rosiesully solta um grito de alegria: agora a água está clara, e três ovos brilhantes descansam à beira da enseada.",
     "questUnicornBoss": "A Rainha Unicórnio",
     "questUnicornDropUnicornEgg": "Unicórnio (Ovo)",
-    "questUnicornUnlockText": "Desbloqueia ovos de Unicórnio para compra no Mercado"
+    "questUnicornUnlockText": "Desbloqueia ovos de Unicórnio para compra no Mercado",
+    "questSabretoothText": "The Sabre Cat",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+    "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+    "questSabretoothBoss": "Zombie Sabre Cat",
+    "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }
