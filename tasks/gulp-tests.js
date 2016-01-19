@@ -11,6 +11,7 @@ import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
 import Q                          from 'q';
 import runSequence                from 'run-sequence';
+import os                         from 'os';
 
 const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
@@ -36,7 +37,15 @@ let testCount = (stdout, regexp) => {
 }
 
 let testBin = (string, additionalEnvVariables = '') => {
-  return `NODE_ENV=testing ${additionalEnvVariables} ${string}`;
+  if(os.platform() === "win32") {
+    if(additionalEnvVariables != '') {
+      additionalEnvVariables = additionalEnvVariables.split(' ').join('&&set ');
+      additionalEnvVariables = 'set ' + additionalEnvVariables + '&&';
+    }
+    return `set NODE_ENV=testing&&${additionalEnvVariables}${string}`;
+  } else {
+    return `NODE_ENV=testing ${additionalEnvVariables} ${string}`;
+  }
 };
 
 gulp.task('test:nodemon', (done) => {
@@ -57,7 +66,7 @@ gulp.task('test:prepare:mongo', (cb) => {
 
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
-    server = exec(`NODE_ENV="TESTING" NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/index.js`, (error, stdout, stderr) => {
+    server = exec(testBin(`node ./website/src/index.js`, `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
       if (error) { throw `Problem with the server: ${error}`; }
       if (stderr) { console.error(stderr); }
     });
@@ -250,7 +259,7 @@ gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
 gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    'npm run test:e2e:webdriver',
+    testBin('npm run test:e2e:webdriver', 'DISPLAY=:99'),
   ].map(exec);
   support.push(server);
 
@@ -360,7 +369,7 @@ gulp.task('test:api-v3:integration:watch', ['test:prepare:server'], () => {
 gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
   awaitPort(TEST_SERVER_PORT).then(() => {
     let runner = exec(
-      testBin(API_V3_TEST_COMMAND, 'API_VERSION=v3'),
+      testBin(API_V3_TEST_COMMAND),
       (err, stdout, stderr) => {
         testResults.push({
           suite: 'API V3 Specs\t',
