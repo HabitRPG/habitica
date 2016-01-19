@@ -104,10 +104,6 @@ describe('Groups Controller', function() {
       scope.groupCopy.leader = 'new leader';
       expect(scope.groupCopy.leader).to.not.eql(guild.leader);
     });
-
-    //   scope.cancelEdit(guild);
-    //   expect(scope.groupCopy).to.eql({});
-    //   expect(guild._editing).to.eql(false);
   });
 
   describe('saveEdit', () => {
