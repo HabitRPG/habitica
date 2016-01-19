@@ -76,8 +76,7 @@ describe('GET /groups', () => {
   it('returns only the user\'s party when party passed in as query', async () => {
     await expect(user.get('/groups?type=party'))
       .to.eventually.have.a.lengthOf(1)
-      .and.to.have.deep.property('[0]')
-      .and.to.have.property('leader._id', user._id);
+      .and.to.have.deep.property('[0]');
   });
 
   it('returns all public guilds when publicGuilds passed in as query', async () => {
@@ -91,9 +90,7 @@ describe('GET /groups', () => {
   });
 
   it('returns a list of groups user has access to', async () => {
-    let groups = await user.get('/groups?type=privateGuilds,publicGuilds,party');
-
-    expect(groups.length)
-      .to.eql(NUMBER_OF_GROUPS_USER_CAN_VIEW);
+    await expect(user.get('/groups?type=privateGuilds,publicGuilds,party,tavern'))
+      .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW);
   });
 });
