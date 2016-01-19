@@ -101,27 +101,29 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
   let group = this;
+  try {
+    // Remove invitations when group is deleted
+    // TODO verify it works for everything
+    let usersToRemoveInvitationsFrom = await User.find({
+      // TODO id -> _id ?
+      [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
+    }).exec();
 
-  // Remove invitations when group is deleted
-  // TODO verify it works fir everything
-  let usersToRemoveInvitationsFrom = await User.find({
-    // TODO id -> _id ?
-    [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
-  }).exec();
+    let userUpdates = usersToRemoveInvitationsFrom.map(user => {
+      if (group.type === 'party') {
+        user.invitations.party = {}; // TODO mark modified
+      } else {
+        let i = _.findIndex(user.invitations.guilds, {id: group._id});
+        user.invitations.guilds.splice(i, 1);
+      }
+      return user.save();
+    });
 
-  let userUpdates = usersToRemoveInvitationsFrom.map(user => {
-    if (group.type === 'party') {
-      user.invitations.party = {}; // TODO mark modified
-    } else {
-      let i = _.findIndex(user.invitations.guilds, {id: group._id});
-      user.invitations.guilds.splice(i, 1);
-    }
-    return user.save();
-  });
-
-  await Q.all(userUpdates);
-
-  done();
+    await Q.all(userUpdates);
+    done();
+  } catch (err) {
+    done(err);
+  }
 });
 
 schema.post('remove', function postRemoveGroup (group) {
@@ -485,7 +487,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
   let update = { memberCount: group.memberCount - 1 };
   if (group.leader === user._id) {
-    let seniorMember = await User.findOne({guilds: group._id, _id: {$ne: user._id}}).exec();
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    let seniorMember = await User.findOne({query, _id: {$ne: user._id}}).exec();
 
     // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
     if (seniorMember) update.$set = {leader: seniorMember._id};

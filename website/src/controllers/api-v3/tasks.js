@@ -102,6 +102,7 @@ api.createChallengeTasks = {
     if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
 
     let tasks = await _createTasks(req, res, user, challenge);
+
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     // If adding tasks to a challenge -> sync users

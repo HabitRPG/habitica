@@ -8,3 +8,11 @@ export { requester };
 export { translate } from '../translate';
 export { checkExistence, resetHabiticaDB } from '../mongo';
 export * from  './object-generators';
+
+export async function sleep (seconds) {
+  let milliseconds = seconds * 1000;
+
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}

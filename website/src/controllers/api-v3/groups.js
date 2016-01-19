@@ -305,8 +305,8 @@ api.leaveGroup = {
       }
     }
 
-    let leave = await group.leave(user, req.query.keep);
-    res.respond(200, leave);
+    await group.leave(user, req.query.keep);
+    res.respond(200, {});
   },
 };
 
