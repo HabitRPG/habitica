@@ -12,7 +12,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.isMemberOfRunningQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (!group.quest.active) return false; // quest is pending, not started
-      return group.quest.members[userid];
+      return userid in group.quest.members && group.quest.members[userid] != false;
     };
 
     $scope.isMemberOfGroup = function(userid, group){
@@ -40,12 +40,25 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.Members = Members;
     $scope._editing = {group:false};
+    $scope.groupCopy= {};
 
-    $scope.save = function(group){
-      if(group._newLeader && group._newLeader._id) group.leader = group._newLeader._id;
+    $scope.editGroup = function(group) {
+      angular.copy(group, $scope.groupCopy);
+      group._editing = true;
+    }
+
+
+    $scope.saveEdit = function(group) {
+      if($scope.groupCopy._newLeader && $scope.groupCopy._newLeader._id) $scope.groupCopy.leader = $scope.groupCopy._newLeader._id;
+      angular.copy($scope.groupCopy, group);
       group.$save();
+      $scope.cancelEdit(group);
+    }
+
+    $scope.cancelEdit = function(group) {
       group._editing = false;
-    };
+      $scope.groupCopy = {};
+    }
 
     $scope.deleteAllMessages = function() {
       if (confirm(window.env.t('confirmDeleteAllMessages'))) {
