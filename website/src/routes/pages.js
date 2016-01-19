@@ -5,6 +5,8 @@ var _ = require('lodash');
 var locals = require('../middlewares/locals');
 var i18n = require('../libs/i18n');
 
+const TOTAL_USER_COUNT = '1,000,000';
+
 // -------- App --------
 router.get('/', i18n.getUserLanguage, locals, function(req, res) {
   if (!req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
@@ -24,7 +26,8 @@ _.each(pages, function(name){
   router.get('/static/' + name, i18n.getUserLanguage, locals, function(req, res) {
     res.render( 'static/' + name, {
       env: res.locals.habitrpg,
-      marked: require('marked')
+      marked: require('marked'),
+      userCount: TOTAL_USER_COUNT
     });
   });
 });
@@ -37,7 +40,8 @@ _.each(shareables, function(name){
   router.get('/social/' + name, i18n.getUserLanguage, locals, function(req, res) {
     res.render( 'social/' + name, {
       env: res.locals.habitrpg,
-      marked: require('marked')
+      marked: require('marked'),
+      userCount: TOTAL_USER_COUNT
     });
   });
 });
