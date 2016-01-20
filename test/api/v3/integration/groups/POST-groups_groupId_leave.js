@@ -66,7 +66,7 @@ describe('POST /groups/:groupId/leave', () => {
 
           let userWithoutChallenges = await leader.get('/user');
 
-          expect(userWithoutChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
+          expect(userWithoutChallenges.challenges).to.not.include(challenge._id);
           expect(userWithoutChallenges.tasksOrder.habits.length).to.equal(0);
         });
 
@@ -75,73 +75,127 @@ describe('POST /groups/:groupId/leave', () => {
 
           let userWithChallenges = await leader.get('/user');
 
-          expect(userWithChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
+          expect(userWithChallenges.challenges).to.not.include(challenge._id);
           expect(userWithChallenges.tasksOrder.habits.length).to.equal(1);
         });
       });
 
-      xit('prevents quest leader from leaving a groupToLeave', async () => {});
-      xit('prevents a user from leaving during an active quest', async () => {});
+      it('prevents quest leader from leaving a groupToLeave');
+      it('prevents a user from leaving during an active quest');
     });
   });
 
   context('Leaving a group as the last member', () => {
-    it('removes a group and invitations when the last member leaves a private guild', async () => {
-      let { group, groupLeader, invitees } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'Test Private Guild',
-          type: 'guild',
-        },
-        invites: 1,
+    context('private guild', () => {
+      let privateGuild;
+      let leader;
+      let invitedUser;
+
+      beforeEach(async () => {
+        let { group, groupLeader, invitees } = await createAndPopulateGroup({
+          groupDetails: {
+            name: 'Test Private Guild',
+            type: 'guild',
+          },
+          invites: 1,
+        });
+
+        privateGuild = group;
+        leader = groupLeader;
+        invitedUser = invitees[0];
       });
 
-      await groupLeader.post(`/groups/${group._id}/leave`);
+      it('removes a group when the last member leaves', async () => {
+        await leader.post(`/groups/${privateGuild._id}/leave`);
 
-      let groups = await groupLeader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
-      let userWithoutInvitation = await invitees[0].get('/user');
+        let groups = await leader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
 
-      expect(_.findIndex(groups, {_id: group._id})).to.equal(-1);
-      expect(userWithoutInvitation.invitations.guilds).to.be.empty;
-      await expect(checkExistence('groups', group._id)).to.eventually.equal(false);
+        expect(_.findIndex(groups, {_id: privateGuild._id})).to.equal(-1);
+        await expect(checkExistence('groups', privateGuild._id)).to.eventually.equal(false);
+      });
+
+      it('removes invitations when the last member leaves', async () => {
+        await leader.post(`/groups/${privateGuild._id}/leave`);
+
+        let userWithoutInvitation = await invitedUser.get('/user');
+
+        expect(userWithoutInvitation.invitations.guilds).to.be.empty;
+      });
     });
 
-    it('removes invitations but not the group when the last member leaves a public guild', async () => {
-      let { group, groupLeader, invitees } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'Test Public Guild',
-          type: 'guild',
-          privacy: 'public',
-        },
-        invites: 1,
+    context('public guild', () => {
+      let publicGuild;
+      let leader;
+      let invitedUser;
+
+      beforeEach(async () => {
+        let { group, groupLeader, invitees } = await createAndPopulateGroup({
+          groupDetails: {
+            name: 'Test Public Guild',
+            type: 'guild',
+            privacy: 'public',
+          },
+          invites: 1,
+        });
+
+        publicGuild = group;
+        leader = groupLeader;
+        invitedUser = invitees[0];
       });
 
-      await groupLeader.post(`/groups/${group._id}/leave`);
+      it('keeps the group when the last member leaves a public guild', async () => {
+        await leader.post(`/groups/${publicGuild._id}/leave`);
 
-      let groups = await groupLeader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
-      let userWithoutInvitation = await invitees[0].get('/user');
+        let groups = await leader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
 
-      expect(_.findIndex(groups, {_id: group._id})).to.be.above(-1);
-      expect(userWithoutInvitation.invitations.guilds).to.be.empty;
-      await expect(checkExistence('groups', group._id)).to.eventually.equal(true);
+        expect(_.findIndex(groups, {_id: publicGuild._id})).to.be.above(-1);
+        await expect(checkExistence('groups', publicGuild._id)).to.eventually.equal(true);
+      });
+
+      it('keeps the invitations when the last member leaves a public guild', async () => {
+        await leader.post(`/groups/${publicGuild._id}/leave`);
+
+        let userWithoutInvitation = await invitedUser.get('/user');
+
+        expect(userWithoutInvitation.invitations.guilds).to.not.be.empty;
+      });
     });
 
-    it('removes a group and invitations when the last member leaves a party', async () => {
-      let { group, groupLeader, invitees } = await createAndPopulateGroup({
-        groupDetails: {
-          name: 'Test Party',
-          type: 'party',
-        },
-        invites: 1,
+    context('party', () => {
+      let party;
+      let leader;
+      let invitedUser;
+
+      beforeEach(async () => {
+        let { group, groupLeader, invitees } = await createAndPopulateGroup({
+          groupDetails: {
+            name: 'Test Party',
+            type: 'party',
+          },
+          invites: 1,
+        });
+
+        party = group;
+        leader = groupLeader;
+        invitedUser = invitees[0];
       });
 
-      await groupLeader.post(`/groups/${group._id}/leave`);
+      it('removes a group when the last member leaves a party', async () => {
+        await leader.post(`/groups/${party._id}/leave`);
 
-      await groupLeader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
-      let userWithoutInvitation = await invitees[0].get('/user');
+        await leader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
 
-      expect(groupLeader.party._id).to.equal(undefined);
-      expect(userWithoutInvitation.invitations.party).to.be.empty;
-      await expect(checkExistence('party', group._id)).to.eventually.equal(false);
+        expect(leader.party._id).to.equal(undefined);
+        await expect(checkExistence('party', party._id)).to.eventually.equal(false);
+      });
+
+      it('removes invitations when the last member leaves a party', async () => {
+        await leader.post(`/groups/${party._id}/leave`);
+
+        let userWithoutInvitation = await invitedUser.get('/user');
+
+        expect(userWithoutInvitation.invitations.party).to.be.empty;
+      });
     });
   });
 });

@@ -138,8 +138,6 @@ schema.statics.getGroup = function getGroup (options = {}) {
 schema.methods.removeGroupInvitations = async function removeGroupInvitations () {
   let group = this;
 
-  // Remove invitations when group is deleted
-  // TODO verify it works for everything
   let usersToRemoveInvitationsFrom = await User.find({
     // TODO id -> _id ?
     [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
@@ -476,16 +474,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let promises = [];
 
   // If user is the last one in group and group is private, delete it
-
-  if (group.memberCount === 1) {
-    if (
-      group.type === 'party' ||
-      group.type === 'guild' && group.privacy === 'private'
-    ) {
-      return await group.remove();
-    } else {
-      await group.removeGroupInvitations();
-    }
+  if (group.memberCount === 1 && group.privacy === 'private') {
+    return await group.remove();
   }
 
   // otherwise just remove a member TODO create User.methods.removeFromGroup?
