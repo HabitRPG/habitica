@@ -1,3 +1,5 @@
+@require "./variables/screen-size.styl"
+
 // Clearfix (http://css-tricks.com/snippets/css/clear-fix/)
 $clearfix
   &:after
@@ -50,7 +52,7 @@ hrpg-button-color-mixin($hrpg-button-color, highlight=false)
     else
       border-left: 1px solid darken($hrpg-button-color, 3.82%) !important
   > div
-    @media screen and (min-width:768px)
+    @media screen and (min-width: $sm-min-screen-width)
       border:1px solid darken($hrpg-button-color, 16.18%)
     h4
       color: darken($hrpg-button-color, 61.8%)
@@ -85,7 +87,7 @@ hrpg-anchor-button-color-mixin($hrpg-button-color)
   background-color: $hrpg-button-color !important
   &:active
     background-color: darken($hrpg-button-color, 61.18%) !important
-  @media screen and (min-width:768px)
+  @media screen and (min-width: $sm-min-screen-width)
     &:hover
       background-color: darken($hrpg-button-color, 2.36%) !important
 $hrpg-button-master
@@ -221,7 +223,7 @@ $hrpg-modal-dropdown
     min-width:110px
     border-radius:4px
     background-color:#fff
-    @media screen and (max-width:768px)
+    @media screen and (max-width: $xs-max-screen-width)
       position:fixed
       z-index: 1000
       top: 2%
@@ -249,12 +251,12 @@ $hrpg-modal-dropdown
       overflow: auto
       border-top-width: 1px
       border-top-style: solid
-      @media screen and (min-width:768px)
+      @media screen and (min-width: $sm-min-screen-width)
         max-height: 320px
         max-height: 62.8vh
       li
         width: 100%
-        @media screen and (max-width:768px)
+        @media screen and (max-width: $xs-max-screen-width)
           width: auto
       a
         display: inline-block
@@ -277,14 +279,14 @@ $hrpg-modal-dropdown
       transform: rotate(45deg)
 $hrpg-modal-dropdown-left
   @extend $hrpg-modal-dropdown
-  @media screen and (min-width:768px)
+  @media screen and (min-width: $sm-min-screen-width)
     div
       right: 0px
       > ul:first-child:before, > div:first-child:before, h4:before
         right: .5em
 $hrpg-modal-dropdown-right
   @extend $hrpg-modal-dropdown
-  @media screen and (min-width:768px)
+  @media screen and (min-width: $sm-min-screen-width)
     div
       left: 0px
       > ul:first-child:before, > div:first-child:before, h4:before
@@ -297,17 +299,17 @@ $hrpg-modal-controls
     margin-right: 0.618em
     margin-bottom: 0.382em
     display: inline-block
-  @media screen and (max-width:768px)
+  @media screen and (max-width: $xs-max-screen-width)
     width: 96%
     position: fixed
     bottom:2%
     right: 2%
     border: none
-  @media screen and (min-width:768px)
+  @media screen and (min-width: $sm-min-screen-width)
     display: none
 // Submenus
 $hrpg-submenu
-  @media screen and (min-width:768px)
+  @media screen and (min-width: $sm-min-screen-width)
     padding: 1em 1em 0em 1em
   margin-bottom: 1.618em
   li
@@ -327,7 +329,7 @@ hrpg-tag-color-mixin($hrpg-tag-color)
       background-color: darken($hrpg-tag-color,32.8%)
       &:before
         border-right-color: darken($hrpg-tag-color,32.8%)
-  @media screen and (min-width:768px)
+  @media screen and (min-width: $sm-min-screen-width)
     &:hover, &:hover > a, &:hover > a span
       background-color: darken($hrpg-tag-color,16.8%)
     &:hover > a:before

@@ -1,3 +1,5 @@
+@require "./variables/screen-size.styl"
+
 .npc_alex_container
   margin-bottom: 20px
 
@@ -8,7 +10,7 @@
   width:55px
   margin-right:0.618em
   position:relative
-  @media screen and (max-width:768px)
+  @media screen and (max-width: $xs-max-screen-width)
     margin-right:0px
 .npc_bailey
   float:left

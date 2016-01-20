@@ -41,23 +41,28 @@
 // .pull-right & .pull-left for specific screen sizes
 // Follows conventions for col-x-SIZE classes
 
-@media (min-width: 768px)
+@media (min-width: $sm-min-screen-width)
   .pull-left-sm
     float: left
 
   .pull-right-sm
     float: right
 
-@media (min-width: 992px)
+@media (min-width: $md-min-screen-width)
   .pull-left-md
     float: left
 
   .pull-right-md
     float: right
 
-@media (min-width: 1200px)
+@media (min-width: $lg-min-screen-width)
   .pull-left-lg
     float: left
 
   .pull-right-lg
     float: right
+
+// Making sure that the To-Dos tab always flow right on medium screens.
+@media (min-width: $sm-min-screen-width) and (max-width: $sm-max-screen-width)
+  .new-row-md
+    clear: left
