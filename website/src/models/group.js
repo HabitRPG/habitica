@@ -102,24 +102,7 @@ schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
   let group = this;
   try {
-    // Remove invitations when group is deleted
-    // TODO verify it works for everything
-    let usersToRemoveInvitationsFrom = await User.find({
-      // TODO id -> _id ?
-      [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
-    }).exec();
-
-    let userUpdates = usersToRemoveInvitationsFrom.map(user => {
-      if (group.type === 'party') {
-        user.invitations.party = {}; // TODO mark modified
-      } else {
-        let i = _.findIndex(user.invitations.guilds, {id: group._id});
-        user.invitations.guilds.splice(i, 1);
-      }
-      return user.save();
-    });
-
-    await Q.all(userUpdates);
+    await group.removeGroupInvitations();
     done();
   } catch (err) {
     done(err);
@@ -150,6 +133,29 @@ schema.statics.getGroup = function getGroup (options = {}) {
   if (populateLeader === true) mQuery.populate('leader', nameFields);
   return mQuery.exec();
   // TODO purge chat flags info? in tojson?
+};
+
+schema.methods.removeGroupInvitations = async function removeGroupInvitations () {
+  let group = this;
+
+  // Remove invitations when group is deleted
+  // TODO verify it works for everything
+  let usersToRemoveInvitationsFrom = await User.find({
+    // TODO id -> _id ?
+    [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
+  }).exec();
+
+  let userUpdates = usersToRemoveInvitationsFrom.map(user => {
+    if (group.type === 'party') {
+      user.invitations.party = {}; // TODO mark modified
+    } else {
+      let i = _.findIndex(user.invitations.guilds, {id: group._id});
+      user.invitations.guilds.splice(i, 1);
+    }
+    return user.save();
+  });
+
+  return Q.all(userUpdates);
 };
 
 // Return true if user is a member of the group
@@ -470,11 +476,16 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let promises = [];
 
   // If user is the last one in group and group is private, delete it
-  if (group.memberCount === 1 && (
-    group.type === 'party' ||
-    group.type === 'guild' && group.privacy === 'private'
-  )) {
-    return await group.remove();
+
+  if (group.memberCount === 1) {
+    if (
+      group.type === 'party' ||
+      group.type === 'guild' && group.privacy === 'private'
+    ) {
+      return await group.remove();
+    } else {
+      await group.removeGroupInvitations();
+    }
   }
 
   // otherwise just remove a member TODO create User.methods.removeFromGroup?

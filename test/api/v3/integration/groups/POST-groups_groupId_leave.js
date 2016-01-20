@@ -1,167 +1,147 @@
 import {
-  generateUser,
   generateChallenge,
   checkExistence,
+  createAndPopulateGroup,
   sleep,
 } from '../../../../helpers/api-v3-integration.helper';
+import {
+  each,
+} from 'lodash';
 
 describe('POST /groups/:groupId/leave', () => {
-  let user;
-  let userToInvite;
+  let typesOfGroups = {};
+  typesOfGroups['public guild'] = { type: 'guild', privacy: 'public' };
+  typesOfGroups['private guild'] = { type: 'guild', privacy: 'private' };
+  typesOfGroups.party = { type: 'party', privacy: 'private' };
 
-  beforeEach(async () => {
-    user = await generateUser({balance: 2});
-    userToInvite = await generateUser();
+  each(typesOfGroups, (groupDetails, groupType) => {
+    context(`Leaving a ${groupType}`, () => {
+      let groupToLeave;
+      let leader;
+      let member;
+
+      beforeEach(async () => {
+        let { group, groupLeader, members } = await createAndPopulateGroup({
+          groupDetails,
+          members: 1,
+        });
+
+        groupToLeave = group;
+        leader = groupLeader;
+        member = members[0];
+      });
+
+      it(`lets user leave a ${groupType}`, async () => {
+        await member.post(`/groups/${groupToLeave._id}/leave`);
+
+        let userThatLeftGroup = await member.get('/user');
+
+        expect(userThatLeftGroup.guilds).to.be.empty;
+        expect(userThatLeftGroup.party._id).to.not.exist;
+      });
+
+      it(`sets a new group leader when leader leaves a ${groupType}`, async () => {
+        await leader.post(`/groups/${groupToLeave._id}/leave`);
+
+        let groupToLeaveWithNewLeader = await member.get(`/groups/${groupToLeave._id}`);
+
+        expect(groupToLeaveWithNewLeader.leader._id).to.equal(member._id);
+      });
+
+      context('leaving with challenges', () => {
+        let challenge;
+
+        beforeEach(async () => {
+          challenge = await generateChallenge(leader, groupToLeave);
+
+          await leader.post(`/tasks/challenge/${challenge._id}`, {
+            text: 'test habit',
+            type: 'habit',
+          });
+          await sleep(2);
+        });
+
+        it('removes all challenge tasks when keep parameter is set to remove', async () => {
+          await leader.post(`/groups/${groupToLeave._id}/leave?keep=remove-all`);
+
+          let userWithoutChallenges = await leader.get('/user');
+
+          expect(userWithoutChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
+          expect(userWithoutChallenges.tasksOrder.habits.length).to.equal(0);
+        });
+
+        it('keeps all challenge tasks when keep parameter is not set', async () => {
+          await leader.post(`/groups/${groupToLeave._id}/leave`);
+
+          let userWithChallenges = await leader.get('/user');
+
+          expect(userWithChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
+          expect(userWithChallenges.tasksOrder.habits.length).to.equal(1);
+        });
+      });
+
+      xit('prevents quest leader from leaving a groupToLeave', async () => {});
+      xit('prevents a user from leaving during an active quest', async () => {});
+    });
   });
 
-  context('leaving guilds', () => {
-    let guild;
-
-    beforeEach(async () => {
-      guild = await user.post('/groups', {
-        name: 'Test Guild',
-        type: 'guild',
+  context('Leaving a group as the last member', () => {
+    it('removes a group and invitations when the last member leaves a private guild', async () => {
+      let { group, groupLeader, invitees } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Private Guild',
+          type: 'guild',
+        },
+        invites: 1,
       });
-      await user.post(`/groups/${guild._id}/invite`, {
-        uuids: [userToInvite._id],
-      });
-    });
 
-    it('lets user leave a guild', async () => {
-      await userToInvite.post(`/groups/${guild._id}/join`);
-      await userToInvite.post(`/groups/${guild._id}/leave`);
+      await groupLeader.post(`/groups/${group._id}/leave`);
 
-      let userThatLeftGuild = await userToInvite.get('/user');
+      let groups = await groupLeader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
+      let userWithoutInvitation = await invitees[0].get('/user');
 
-      expect(userThatLeftGuild.guilds).to.be.empty;
-    });
-
-    it('sets a new group leader when leader leaves a guild', async () => {
-      await userToInvite.post(`/groups/${guild._id}/join`);
-      await user.post(`/groups/${guild._id}/leave`);
-
-      let guildWithNewLeader = await userToInvite.get(`/groups/${guild._id}`);
-
-      expect(guildWithNewLeader.leader._id).to.equal(userToInvite._id);
-    });
-
-    it('removes a group and invitations when the last member leaves', async () => {
-      await user.post(`/groups/${guild._id}/leave`);
-
-      let groups = await user.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
-      let userWithoutInvitation = await userToInvite.get('/user');
-
-      expect(_.findIndex(groups, {_id: guild._id})).to.equal(-1);
+      expect(_.findIndex(groups, {_id: group._id})).to.equal(-1);
       expect(userWithoutInvitation.invitations.guilds).to.be.empty;
-      await expect(checkExistence('groups', guild._id)).to.eventually.equal(false);
+      await expect(checkExistence('groups', group._id)).to.eventually.equal(false);
     });
 
-    context('leaving with challenges', () => {
-      let challenge;
-
-      beforeEach(async () => {
-        challenge = await generateChallenge(user, guild);
-
-        await user.post(`/tasks/challenge/${challenge._id}`, {
-          text: 'test habit',
-          type: 'habit',
-        });
-        await sleep(2);
+    it('removes invitations but not the group when the last member leaves a public guild', async () => {
+      let { group, groupLeader, invitees } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Public Guild',
+          type: 'guild',
+          privacy: 'public',
+        },
+        invites: 1,
       });
 
-      it('removes all challenge tasks when keep parameter is set to remove', async () => {
-        await user.post(`/groups/${guild._id}/leave?keep=remove-all`);
+      await groupLeader.post(`/groups/${group._id}/leave`);
 
-        let userWithoutChallenges = await user.get('/user');
+      let groups = await groupLeader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
+      let userWithoutInvitation = await invitees[0].get('/user');
 
-        expect(userWithoutChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
-        expect(userWithoutChallenges.tasksOrder.habits.length).to.equal(0);
-      });
-
-      it('keeps all challenge tasks when keep parameter is not set', async () => {
-        await user.post(`/groups/${guild._id}/leave`);
-
-        let userWithChallenges = await user.get('/user');
-
-        expect(userWithChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
-        expect(userWithChallenges.tasksOrder.habits.length).to.equal(1);
-      });
-    });
-  });
-
-  context('leaving parties', () => {
-    let party;
-
-    beforeEach(async () => {
-      party = await user.post('/groups', {
-        name: 'Test Party',
-        type: 'party',
-      });
-      await user.post(`/groups/${party._id}/invite`, {
-        uuids: [userToInvite._id],
-      });
-      await userToInvite.post(`/groups/${party._id}/join`);
+      expect(_.findIndex(groups, {_id: group._id})).to.be.above(-1);
+      expect(userWithoutInvitation.invitations.guilds).to.be.empty;
+      await expect(checkExistence('groups', group._id)).to.eventually.equal(true);
     });
 
-    it('lets user leave a party', async () => {
-      await userToInvite.post(`/groups/${party._id}/leave`);
+    it('removes a group and invitations when the last member leaves a party', async () => {
+      let { group, groupLeader, invitees } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Party',
+          type: 'party',
+        },
+        invites: 1,
+      });
 
-      let userWithoutParty = await userToInvite.get('/user');
-      expect(userWithoutParty.party._id).to.not.exist;
-    });
+      await groupLeader.post(`/groups/${group._id}/leave`);
 
-    it('sets a new group leader when leader leaves a party', async () => {
-      await user.post(`/groups/${party._id}/leave`);
+      await groupLeader.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
+      let userWithoutInvitation = await invitees[0].get('/user');
 
-      let partyWithNewLeader = await userToInvite.get(`/groups/${party._id}`);
-
-      expect(partyWithNewLeader.leader._id).to.equal(userToInvite._id);
-    });
-
-    it('removes a group and invitations when the last member party', async () => {
-      await user.post(`/groups/${party._id}/leave`);
-
-      await user.get('/groups?type=party,privateGuilds,publicGuilds,tavern');
-      let userWithoutInvitation = await userToInvite.get('/user');
-
-      expect(user.party._id).to.equal(undefined);
+      expect(groupLeader.party._id).to.equal(undefined);
       expect(userWithoutInvitation.invitations.party).to.be.empty;
-      await expect(checkExistence('party', party._id)).to.eventually.equal(false);
+      await expect(checkExistence('party', group._id)).to.eventually.equal(false);
     });
-
-    context('leaving with challenges', () => {
-      let challenge;
-
-      beforeEach(async () => {
-        challenge = await generateChallenge(user, party);
-
-        await user.post(`/tasks/challenge/${challenge._id}`, {
-          text: 'test habit',
-          type: 'habit',
-        });
-        await sleep(2);
-      });
-
-      it('removes all challenge tasks when keep parameter is set to remove', async () => {
-        await user.post(`/groups/${party._id}/leave?keep=remove-all`);
-
-        let userWithoutChallenges = await user.get('/user');
-
-        expect(userWithoutChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
-        expect(userWithoutChallenges.tasksOrder.habits.length).to.equal(0);
-      });
-
-      it('keeps all challenge tasks when keep parameter is not set', async () => {
-        await user.post(`/groups/${party._id}/leave`);
-
-        let userWithChallenges = await user.get('/user');
-
-        expect(userWithChallenges.challenges.indexOf(challenge._id)).to.equal(-1);
-        expect(userWithChallenges.tasksOrder.habits.length).to.equal(1);
-      });
-    });
-
-    xit('prevents quest leader from leaving a guild', async () => {});
-    xit('prevents a user from leaving during an active quest', async () => {});
   });
 });
