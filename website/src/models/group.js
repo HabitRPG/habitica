@@ -489,7 +489,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let update = { memberCount: group.memberCount - 1 };
   if (group.leader === user._id) {
     let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
-    let seniorMember = await User.findOne({query, _id: {$ne: user._id}}).exec();
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
 
     // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
     if (seniorMember) update.$set = {leader: seniorMember._id};
