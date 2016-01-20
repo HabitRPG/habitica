@@ -661,13 +661,18 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     'challenge.id': challengeId,
   };
 
+  let i = user.challenges.indexOf(challengeId);
+  if (i !== -1) user.challenges.splice(i, 1);
+
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
       $set: {challenge: {}}, // TODO what about updatedAt?
     }, {multi: true}).exec();
+
+    await user.save();
   } else { // keep = 'remove-all'
-    let tasks = Tasks.Task.find(findQuery).select('_id type completed').exec();
-    tasks = tasks.map(task => {
+    let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
+    let taskPromises = tasks.map(task => {
       // Remove task from user.tasksOrder and delete them
       if (task.type !== 'todo' || !task.completed) {
         let list = user.tasksOrder[`${task.type}s`];
@@ -678,8 +683,8 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
       return task.remove();
     });
 
-    tasks.push(user.save());
-    await Q.all(tasks);
+    taskPromises.push(user.save());
+    await Q.all(taskPromises);
   }
 };
 
