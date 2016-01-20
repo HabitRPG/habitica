@@ -1,11 +1,15 @@
 // This file is used for creating paypal billing plans. PayPal doesn't have a web interface for setting up recurring
 // payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
 // file will be used once for initing your billing plan (then you get the resultant plan.id to store in config.json),
-// and once for any time you need to edit the plan thereafter
+// and once for any time you need to edit the plan thereafter.
+// To run this script you need to first install a compatible version of babel (ideally in a fresh npm project). Currently this is ^5.8.34, but make sure you match the version of babel-core habitrpg uses.  The command you need being, npm install --save-dev babel@^5.8.34 .  Once you have that add the following script to your package.json
+// "node": "babel-node"
+// Finally, you can run this script by invoking
+// npm run node path/to/habitrpg/website/src/controllers/payments/paypalBillingSetup.js
 var path = require('path');
 var nconf = require('nconf');
-_ = require('lodash');
-nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));
+var _ = require('lodash');
+nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../../config.json')));
 var paypal = require('paypal-rest-sdk');
 var blocks = require('../../../../common').content.subscriptionBlocks;
 var live = nconf.get('PAYPAL:mode')=='live';
@@ -17,6 +21,7 @@ paypal.configure({
   'client_id': nconf.get("PAYPAL:client_id"),
   'client_secret': nconf.get("PAYPAL:client_secret")
 });
+
 
 // https://developer.paypal.com/docs/api/#billing-plans-and-agreements
 var billingPlanTitle ="Habitica Subscription";
@@ -54,7 +59,7 @@ switch(OP) {
     });
     break;
   case "get":
-    paypal.billingPlan.get(nconf.get("PAYPAL:billing_plans:12"), function (err, plan) {
+    paypal.billingPlan.get(nconf.get("PAYPAL:billing_plans:basic_12mo"), function (err, plan) {
       console.log({err:err, plan:plan});
     })
     break;
@@ -66,25 +71,27 @@ switch(OP) {
         "cancel_url": "https://habitica.com"
       }
     };
-    paypal.billingPlan.update(nconf.get("PAYPAL:billing_plans:12"), update, function (err, res) {
+    paypal.billingPlan.update(nconf.get("PAYPAL:billing_plans:basic_12mo"), update, function (err, res) {
       console.log({err:err, plan:res});
     });
     break;
   case "create":
-    paypal.billingPlan.create(blocks["google_6mo"].definition, function(err,plan){
-      if (err) return console.log(err);
-      if (plan.state == "ACTIVE")
-        return console.log({err:err, plan:plan});
-      var billingPlanUpdateAttributes = [{
-        "op": "replace",
-        "path": "/",
-        "value": {
-          "state": "ACTIVE"
-        }
-      }];
-      // Activate the plan by changing status to Active
-      paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, function(err, response){
-        console.log({err:err, response:response, id:plan.id});
+    _.each(blocks, function(block){
+      paypal.billingPlan.create(block.definition, function(err,plan){
+        if (err) return console.log(err);
+        if (plan.state == "ACTIVE")
+          return console.log({err:err, plan:plan});
+        var billingPlanUpdateAttributes = [{
+          "op": "replace",
+          "path": "/",
+          "value": {
+            "state": "ACTIVE"
+          }
+        }];
+        // Activate the plan by changing status to Active
+        paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, function(err, response){
+          console.log({err:err, response:response, id:plan.id});
+        });
       });
     });
     break;

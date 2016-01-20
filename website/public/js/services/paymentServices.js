@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg').factory('Payments',
-['$rootScope', 'User', '$http', 'Content',
-function($rootScope, User, $http, Content) {
+['$rootScope', 'User', '$http', 'Content', '$window',
+function($rootScope, User, $http, Content, $window) {
   var Payments = {};
   var isAmazonReady = false;
 
@@ -10,6 +10,21 @@ function($rootScope, User, $http, Content) {
     isAmazonReady = true;
     amazon.Login.setClientId(window.env.AMAZON_PAYMENTS.CLIENT_ID);
   };
+
+  Payments.showPaypal = function(data){
+    var url = '/paypal/subscribe';
+
+    if (data._id) url += '?_id=' + data._id;
+    if (data.apiToken) url += '&apiToken='+data.apiToken;
+    if (data.sub) url += '&sub='+data.sub;
+    if (data.coupon) url += '&coupon=' + data.coupon;
+
+    $http.get(url).then(function(res){
+      $window.location.href = res.data;
+    }, function(res){ 
+      $window.alert(res.data.err);
+    });
+  }
 
   Payments.showStripe = function(data) {
     var sub =

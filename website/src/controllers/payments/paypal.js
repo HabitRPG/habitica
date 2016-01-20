@@ -11,6 +11,7 @@ var paypal = require('paypal-rest-sdk');
 var shared = require('../../../../common');
 var mongoose = require('mongoose');
 var cc = require('coupon-code');
+var i18n = require('../../../../common/script/i18n');
 
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
@@ -25,10 +26,19 @@ paypal.configure({
   'client_secret': nconf.get("PAYPAL:client_secret")
 });
 
-var parseErr = function(res, err){
-  //var error = err.response ? err.response.message || err.response.details[0].issue : err;
-  var error = JSON.stringify(err);
-  return res.json(400,{err:error});
+var parseErr = function(req, res, err){
+  var error = err.response ? err.response.error_description || err.response.error : null;
+  
+  if (error) {
+    error = i18n.t('payPalError', {errorText: error}, req.language);
+  } else {
+    error = i18n.t('payPalInvalid', req.language);
+  }
+  error += "\n" + i18n.t('contactAdmin', req.language);
+  
+  return res.json(400, {err: error});
+  // TODO should we pass along the paypal status code?
+ // return res.json(err.httpStatusCode,{err: error});
 }
 
 exports.createBillingAgreement = function(req,res,next){
@@ -41,6 +51,7 @@ exports.createBillingAgreement = function(req,res,next){
     },
     function(coupon, cb){
       if (sub.discount && !coupon) return cb('Invalid coupon code.');
+
       var billingPlanTitle = "HabitRPG Subscription" + ' ($'+sub.price+' every '+sub.months+' months, recurring)';
       var billingAgreementAttributes = {
         "name": billingPlanTitle,
@@ -56,11 +67,11 @@ exports.createBillingAgreement = function(req,res,next){
       paypal.billingAgreement.create(billingAgreementAttributes, cb);
     }
   ], function(err, billingAgreement){
-    if (err) return parseErr(res, err);
+    if (err) return parseErr(req, res, err);
     // For approving subscription via Paypal, first redirect user to: approval_url
     req.session.paypalBlock = req.query.sub;
     var approval_url = _.find(billingAgreement.links, {rel:'approval_url'}).href;
-    res.redirect(approval_url);
+    res.status(200).send(approval_url);
   });
 }
 
@@ -83,7 +94,7 @@ exports.executeBillingAgreement = function(req,res,next){
       }, cb);
     }]
   },function(err){
-    if (err) return parseErr(res, err);
+    if (err) return parseErr(req, res, err);
     res.redirect('/');
   })
 }
@@ -125,7 +136,7 @@ exports.createPayment = function(req, res) {
     }]
   };
   paypal.payment.create(create_payment, function (err, payment) {
-    if (err) return parseErr(res, err);
+    if (err) return parseErr(req, res, err);
     var link = _.find(payment.links, {rel: 'approval_url'}).href;
     res.redirect(link);
   });
@@ -158,7 +169,7 @@ exports.executePayment = function(req, res) {
       payments[method](data, cb);
     }
   ],function(err){
-    if (err) return parseErr(res, err);
+    if (err) return parseErr(req, res, err);
     res.redirect('/');
   })
 }
@@ -185,7 +196,7 @@ exports.cancelSubscription = function(req, res, next){
       payments.cancelSubscription(data, cb)
     }]
   }, function(err){
-    if (err) return parseErr(res, err);
+    if (err) return parseErr(req, res, err);
     res.redirect('/');
     user = null;
   });
