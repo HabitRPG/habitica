@@ -65,5 +65,6 @@
   "uuidsMustBeAnArray": "UUIDs invites must be a an Array.",
   "emailsMustBeAnArray": "Email invites must be a an Array.",
   "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
-  "cantOnlyUnlinkChalTask": "Only challenges tasks can be unlinked."
+  "cantOnlyUnlinkChalTask": "Only challenges tasks can be unlinked.",
+  "questInviteNotFound": "No quest invitation found."
 }
