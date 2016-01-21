@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import {
@@ -383,14 +384,12 @@ api.scoreTask = {
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
-        let i = user.tasksOrder.todos.indexOf(task._id);
-        if (i !== -1) user.tasksOrder.todos.splice(i, 1);
+        removeFromArray(user.tasksOrder.todos, task._id);
       } else if (wasCompleted && !task.completed) {
-        let i = user.tasksOrder.todos.indexOf(task._id);
-        if (i === -1) {
+        let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
+        if (!hasTask) {
           user.tasksOrder.todos.push(task._id); // TODO push at the top?
         } else { // If for some reason it hadn't been removed TODO ok?
-          user.tasksOrder.todos.splice(i, 1);
           user.tasksOrder.push(task._id);
         }
       }
@@ -684,10 +683,8 @@ api.removeChecklistItem = {
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let itemI = _.findIndex(task.checklist, {_id: req.params.itemId});
-    if (itemI === -1) throw new NotFound(res.t('checklistItemNotFound'));
-
-    task.checklist.splice(itemI, 1);
+    let hasItem = removeFromArray(task.checklist, { _id: req.params.itemId });
+    if (!hasItem) throw new NotFound(res.t('checklistItemNotFound'));
 
     let savedTask = await task.save();
     res.respond(200, {}); // TODO what to return
@@ -769,23 +766,13 @@ api.removeTagFromTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
-    let tagI = task.tags.indexOf(req.params.tagId);
-    if (tagI === -1) throw new NotFound(res.t('tagNotFound'));
-
-    task.tags.splice(tagI, 1);
+    let hasTag = removeFromArray(task.tags, req.params.tagId);
+    if (!hasTag) throw new NotFound(res.t('tagNotFound'));
 
     await task.save();
     res.respond(200, {}); // TODO what to return
   },
 };
-
-// Remove a task from (user|challenge).tasksOrder
-function _removeTaskTasksOrder (userOrChallenge, taskId, taskType) {
-  let list = userOrChallenge.tasksOrder[`${taskType}s`];
-  let index = list.indexOf(taskId);
-
-  if (index !== -1) list.splice(index, 1);
-}
 
 // TODO this method needs some limitation, like to check if the challenge is really broken?
 /**
@@ -826,7 +813,7 @@ api.unlinkTask = {
       await task.save();
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
-        _removeTaskTasksOrder(user, taskId, task.type);
+        removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
         await Q.all([user.save(), task.remove()]);
       } else {
         await task.remove();
@@ -904,7 +891,7 @@ api.deleteTask = {
     }
 
     if (task.type !== 'todo' || !task.completed) {
-      _removeTaskTasksOrder(challenge || user, taskId, task.type);
+      removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
       await Q.all([(challenge || user).save(), task.remove()]);
     } else {
       await task.remove();

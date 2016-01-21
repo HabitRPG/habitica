@@ -7,6 +7,7 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
 
@@ -385,8 +386,7 @@ api.deleteChat = {
 
     if (chatUpdated) {
       group = group.toJSON();
-      let i = _.findIndex(group.chat, {id: chatId});
-      if (i !== -1) group.chat.splice(i, 1);
+      removeFromArray(group.chat, {id: chatId});
       res.respond(200, group.chat);
     } else {
       res.respond(200, {});

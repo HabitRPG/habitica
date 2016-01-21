@@ -13,6 +13,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
@@ -254,11 +255,10 @@ api.joinGroup = {
 
       isUserInvited = true;
     } else if (group.type === 'guild') {
-      let i = _.findIndex(user.invitations.guilds, {id: group._id});
+      let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
 
-      if (i !== -1) {
+      if (hasInvitation) {
         isUserInvited = true;
-        user.invitations.guilds.splice(i, 1); // Remove invitation
       } else {
         isUserInvited = group.privacy === 'private' ? false : true;
       }
@@ -403,8 +403,7 @@ api.removeGroupMember = {
       }
 
       if (isInGroup === 'guild') {
-        let i = member.guilds.indexOf(group._id);
-        if (i !== -1) member.guilds.splice(i, 1);
+        removeFromArray(member.guilds, group._id);
       }
       if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
 
@@ -418,8 +417,7 @@ api.removeGroupMember = {
       }
     } else if (isInvited) {
       if (isInvited === 'guild') {
-        let i = _.findIndex(member.invitations.guilds, {id: group._id});
-        if (i !== -1) member.invitations.guilds.splice(i, 1);
+        removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
     } else {

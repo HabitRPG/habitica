@@ -1,11 +1,11 @@
 import baseModel from '../../../../../website/src/libs/api-v3/baseModel';
-import { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 describe('Base model plugin', () => {
   let schema;
 
   beforeEach(() => {
-    schema = new Schema();
+    schema = new mongoose.Schema();
     sandbox.stub(schema, 'add');
   });
 
