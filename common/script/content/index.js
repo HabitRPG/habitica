@@ -19,7 +19,8 @@ import {
 import mysterySets from './mystery-sets';
 
 import gear from './gear';
-import { defaultAppearancePreferences } from './appearance';
+
+import appearances from './appearance';
 
 api.mystery = mysterySets;
 
@@ -3049,7 +3050,7 @@ api.questsByLevel = _.sortBy(api.quests, function(quest) {
   return quest.lvl || 0;
 });
 
-api.defaultAppearancePreferences = defaultAppearancePreferences;
+api.appearances = appearances;
 
 api.backgrounds = {
   backgrounds062014: {
