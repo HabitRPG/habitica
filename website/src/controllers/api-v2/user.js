@@ -319,9 +319,11 @@ let requiresPurchase = {
 
 let checkPreferencePurchase = (user, path, item) => {
   let itemPath = `${path}.${item}`;
-  let isDefaultPreference = _.get(shared.content.defaultAppearancePreferences, itemPath);
+  let appearance = _.get(shared.content.appearances, itemPath);
 
-  if (isDefaultPreference) return true;
+  if (appearance) {
+    if (appearance.price == undefined || appearance.price == 0) return true;
+  }
 
   return _.get(user.purchased, itemPath);
 };
