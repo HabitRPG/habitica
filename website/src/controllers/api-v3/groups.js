@@ -152,6 +152,13 @@ api.getGroup = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: true});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
+    if (!user.contributor.admin) {
+      _.remove(group.chat, function removeChat (chat) {
+        chat.flags = {};
+        return chat.flagCount >= 2;
+      });
+    }
+
     res.respond(200, group);
   },
 };
