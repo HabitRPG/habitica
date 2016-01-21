@@ -62,7 +62,7 @@ export default keys({
   'mergreen': {price: 2, set: sets.splashySkins},
   'merruby': {price: 2, set: sets.splashySkins},
   'shark': {price: 2, set: sets.splashySkins},
-  'tropicalwater': {price: 2, set: sets.splashySkins}
+  'tropicalwater': {price: 2, set: sets.splashySkins},
 
     /* eslint-enable quote-props */
 });

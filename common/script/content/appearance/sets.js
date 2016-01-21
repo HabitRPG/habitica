@@ -17,5 +17,5 @@ export default keys({
   pastelSkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('pastelSkins')},
   spookySkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('spookySkins')},
   supernaturalSkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('supernaturalSkins')},
-  splashySkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('splashySkins')}
+  splashySkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('splashySkins')},
 });

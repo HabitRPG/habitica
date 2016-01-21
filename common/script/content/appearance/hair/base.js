@@ -15,5 +15,5 @@ export default keys({
   11: {price: 2, set: sets.baseHair2},
   12: {price: 2, set: sets.baseHair2},
   13: {price: 2, set: sets.baseHair2},
-  14: {price: 2, set: sets.baseHair2}
+  14: {price: 2, set: sets.baseHair2},
 });

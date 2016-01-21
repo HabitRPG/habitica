@@ -1,7 +1,7 @@
 import {forOwn} from 'lodash';
 
-export default function(obj) {
-  forOwn(obj, function(value, key) {
+export default function addKeys (obj) {
+  forOwn(obj, function addKey (value, key) {
     value.key = key;
   });
   return obj;

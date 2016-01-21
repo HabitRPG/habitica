@@ -19,5 +19,5 @@ export default keys({
   redblue: {price: 2, set: sets.specialShirts},
   thunder: {price: 2, set: sets.specialShirts},
   tropical: {price: 2, set: sets.specialShirts},
-  zombie: {price: 2, set: sets.specialShirts}
+  zombie: {price: 2, set: sets.specialShirts},
 });

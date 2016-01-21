@@ -4,10 +4,10 @@ import skins from './skin.js';
 import sizes from './size.js';
 
 let appearances = {
-  hair: hair,
+  hair,
   shirt: shirts,
   size: sizes,
-  skin: skins
+  skin: skins,
 };
 
 module.exports = appearances;

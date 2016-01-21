@@ -46,5 +46,5 @@ export default keys({
   hollygreen: {price: 2, set: sets.winteryHairColors},
   peppermint: {price: 2, set: sets.winteryHairColors},
   snowy: {price: 2, set: sets.winteryHairColors},
-  winterstar: {price: 2, set: sets.winteryHairColors}
+  winterstar: {price: 2, set: sets.winteryHairColors},
 });
