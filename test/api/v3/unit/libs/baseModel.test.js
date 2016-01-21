@@ -1,11 +1,11 @@
 import baseModel from '../../../../../website/src/libs/api-v3/baseModel';
-import { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 describe('Base model plugin', () => {
   let schema;
 
   beforeEach(() => {
-    schema = new Schema();
+    schema = new mongoose.Schema();
     sandbox.stub(schema, 'add');
   });
 
@@ -92,5 +92,65 @@ describe('Base model plugin', () => {
 
     expect(sanitized).to.equals(true);
     expect(options.sanitizeTransform).to.be.calledWith(objToSanitize);
+  });
+
+  describe('removeFromArray', () => {
+    let Model;
+
+    before(() => {
+      let removeFromArraySchema = new mongoose.Schema({
+        nested: {
+          array: {
+            type: Array,
+          },
+        },
+        someArray: {
+          type: Array,
+        },
+      });
+      removeFromArraySchema.plugin(baseModel);
+      Model = mongoose.model('DummyModelForTestingRemoveFromArray', removeFromArraySchema);
+    });
+
+    it('adds a removeFromArray function to methods', () => {
+      let modelInstance = new Model();
+
+      expect(modelInstance.removeFromArray).to.be.a('function');
+    });
+
+    it('removes item from specified array on document', () => {
+      let modelInstance = new Model({
+        someArray: ['a', 'b', 'c', 'd'],
+      });
+
+      modelInstance.removeFromArray('someArray', 'c');
+
+      expect(modelInstance.someArray).to.not.include('c');
+    });
+
+    it('removes item from specified array in neste object on document', () => {
+      let modelInstance = new Model({
+        nested: {
+          array: [1, 2, 3, 4, 5],
+        },
+      });
+
+      modelInstance.removeFromArray('nested.array', 3);
+      expect(modelInstance.nested.array).to.not.include(3);
+    });
+
+    it('does not change array if value is not found', () => {
+      let modelInstance = new Model({
+        someArray: ['a', 'b', 'c', 'd'],
+      });
+
+      modelInstance.removeFromArray('someArray', 'z');
+
+      expect(modelInstance.someArray).to.have.a.lengthOf(4);
+      expect(modelInstance.someArray[0]).to.eql('a');
+      expect(modelInstance.someArray[1]).to.eql('b');
+      expect(modelInstance.someArray[2]).to.eql('c');
+      expect(modelInstance.someArray[3]).to.eql('d');
+    });
   });
 });
