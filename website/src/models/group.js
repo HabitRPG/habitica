@@ -147,8 +147,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
     if (group.type === 'party') {
       user.invitations.party = {}; // TODO mark modified
     } else {
-      let i = _.findIndex(user.invitations.guilds, {id: group._id});
-      user.invitations.guilds.splice(i, 1);
+      user.removeFromArray('invitations.guilds', { id: group._id });
     }
     return user.save();
   });

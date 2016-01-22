@@ -246,11 +246,10 @@ api.joinGroup = {
 
       isUserInvited = true;
     } else if (group.type === 'guild') {
-      let i = _.findIndex(user.invitations.guilds, {id: group._id});
+      let hasInvitation = user.removeFromArray('invitations.guilds', { id: group._id });
 
-      if (i !== -1) {
+      if (hasInvitation) {
         isUserInvited = true;
-        user.invitations.guilds.splice(i, 1); // Remove invitation
       } else {
         isUserInvited = group.privacy === 'private' ? false : true;
       }
@@ -405,8 +404,7 @@ api.removeGroupMember = {
       }
     } else if (isInvited) {
       if (isInvited === 'guild') {
-        let i = _.findIndex(member.invitations.guilds, {id: group._id});
-        if (i !== -1) member.invitations.guilds.splice(i, 1);
+        member.removeFromArray('invitations.guilds', { id: group._id });
       }
       if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
     } else {

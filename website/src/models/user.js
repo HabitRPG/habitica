@@ -661,8 +661,7 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     'challenge.id': challengeId,
   };
 
-  let challengeIndex = user.challenges.indexOf(challengeId);
-  if (challengeIndex !== -1) user.challenges.splice(challengeIndex, 1);
+  user.removeFromArray('challenges', challengeId);
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -675,9 +674,7 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     let taskPromises = tasks.map(task => {
       // Remove task from user.tasksOrder and delete them
       if (task.type !== 'todo' || !task.completed) {
-        let list = user.tasksOrder[`${task.type}s`];
-        let index = list.indexOf(task._id);
-        if (index !== -1) list.splice(index, 1);
+        user.removeFromArray(`tasksOrder.${task.type}s`, task._id);
       }
 
       return task.remove();
