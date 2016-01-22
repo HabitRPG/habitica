@@ -1,6 +1,6 @@
-import keys from './keys.js';
+import prefill from './prefill.js';
 
-export default keys({
+export default prefill({
   slim: {},
   broad: {},
 });

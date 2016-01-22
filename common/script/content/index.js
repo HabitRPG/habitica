@@ -3335,6 +3335,12 @@ api.backgrounds = {
   },
 };
 
+_.forOwn(api.backgrounds, function (value, key) {
+  _.forOwn(value, function (bgObject, bgKey) {
+    bgObject.price = 7;
+  });
+});
+
 api.subscriptionBlocks = {
   basic_earned: {
     months: 1,

@@ -1,7 +1,7 @@
 import sets from './sets.js';
-import keys from './keys.js';
+import prefill from './prefill.js';
 
-export default keys({
+export default prefill({
   black: {},
   blue: {},
   green: {},

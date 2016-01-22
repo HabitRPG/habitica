@@ -1,7 +1,7 @@
 import t from '../translation';
-import keys from './keys.js';
+import prefill from './prefill.js';
 
-export default keys({
+export default prefill({
   baseHair1: {setPrice: 5, text: t('hairSet1')},
   baseHair2: {setPrice: 5, text: t('hairSet2')},
   facialHair: {setPrice: 5, text: t('bodyFacialHair')},

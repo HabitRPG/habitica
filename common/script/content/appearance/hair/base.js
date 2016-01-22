@@ -1,6 +1,6 @@
-import keys from '../keys.js';
+import prefill from '../prefill.js';
 import sets from '../sets.js';
-export default keys({
+export default prefill({
   0: {},
   1: {},
   2: {price: 2, set: sets.baseHair1},
