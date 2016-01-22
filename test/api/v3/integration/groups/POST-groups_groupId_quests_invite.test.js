@@ -1,6 +1,5 @@
 import {
   createAndPopulateGroup,
-  generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
@@ -12,8 +11,8 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
   const PET_QUEST = 'whale';
 
   beforeEach(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup(
-      { type: 'party', privacy: 'private' },
+    let { group, groupLeader, members } = await createAndPopulateGroup({
+      groupDetails: { type: 'party', privacy: 'private' },
       members: 1,
     });
 
@@ -32,8 +31,8 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
     });
 
     it('does not issue invites for a group in which user is not a member', async () => {
-      let { alternateGroup } = await createAndPopulateGroup(
-        { type: 'party', privacy: 'private' },
+      let { alternateGroup } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
         members: 1,
       });
 
@@ -42,11 +41,11 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
         error: 'NotFound',
         message: t('groupNotFound'),
       });
-    )};
+    });
 
     it('does not issue invites for Guilds', async () => {
-      let { alternateGroup } = await createAndPopulateGroup(
-        { type: 'guild', privacy: 'public' },
+      let { alternateGroup } = await createAndPopulateGroup({
+        groupDetails: { type: 'guild', privacy: 'public' },
         members: 1,
       });
 
@@ -55,7 +54,7 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
         error: 'NotAuthorized',
         message: t('guildQuestsNotSupported'),
       });
-    )};
+    });
 
     it('does not issue invites with an invalid quest key', async () => {
       const FAKE_QUEST = 'herkimer';
@@ -65,7 +64,7 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
         error: 'NotFound',
         message: t('questNotFound', {key: FAKE_QUEST}),
       });
-    )};
+    });
 
     it('does not issue invites for a quest the user does not own', async () => {
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
@@ -73,7 +72,7 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
         error: 'NotAuthorized',
         message: t('questNotOwned'),
       });
-    )};
+    });
 
     it('does not issue invites if the user is of insufficient Level', async () => {
       const LEVELED_QUEST = 'atom1';
@@ -85,7 +84,7 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
         error: 'NotAuthorized',
         message: t('questLevelTooHigh', {level: LEVELED_QUEST_REQ}),
       });
-    )};
+    });
 
     it('does not issue invites if a quest is already underway', async () => {
       leader.items.quests[PET_QUEST] = 2;
@@ -97,8 +96,8 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
         error: 'NotAuthorized',
         message: t('questAlreadyUnderway'),
       });
-    )};
-  )};
+    });
+  });
 
   context('successfully issuing a quest invitation', () => {
     it('sends an invite to all party members', async () => {
@@ -107,14 +106,14 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
       await expect(leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal([{
 
       }]);
-    )};
+    });
 
-    it('allows non-leader party members to send invites', () => {
+    it('allows non-leader party members to send invites', async () => {
       member.items.quests[PET_QUEST] = 1;
 
       await expect(member.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal([{
 
       }]);
-    )};
-  )};
-)};
+    });
+  });
+});
