@@ -4,6 +4,7 @@ import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
+  NotAuthorized,
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 import { sendTxn } from '../../libs/api-v3/email';
@@ -253,6 +254,53 @@ api.flagChat = {
     ]);
 
     res.respond(200, message);
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
+ * @apiVersion 3.0.0
+ * @apiName ClearFlags
+ * @apiGroup Chat
+ *
+ * @apiParam {groupId} groupId The group _id
+ * @apiParam {chatId} chatId The chat message _id
+ *
+ * @apiSuccess {Array} chat An array of chat messages
+ */
+api.clearChatFlags = {
+  method: 'Post',
+  url: '/groups/:groupId/chat/:chatId/clearflags',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+    let chatId = req.params.chatId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    let message = _.find(group.chat, {id: chatId});
+    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+
+    if (!user.contributor.admin) {
+      throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
+    }
+
+    message.flagCount = 0;
+
+    await Group.update(
+      {_id: group._id, 'chat.id': message.id},
+      {$set: {'chat.$.flagCount': message.flagCount}}
+    );
+
+    res.respond(204, message.flagCount);
   },
 };
 
