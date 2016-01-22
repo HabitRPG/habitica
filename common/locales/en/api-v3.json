@@ -66,5 +66,10 @@
   "emailsMustBeAnArray": "Email invites must be a an Array.",
   "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
   "cantOnlyUnlinkChalTask": "Only challenges tasks can be unlinked.",
-  "questInviteNotFound": "No quest invitation found."
+  "questInviteNotFound": "No quest invitation found.",
+  "guildQuestsNotSupported": "Guilds cannot be invited on quests.",
+  "questNotFound": "Quest \"<%= key %>\" not found.",
+  "questNotOwned": "You don't own that quest scroll.",
+  "questLevelTooHigh": "You must be Level <%= level %> to begin this quest.",
+  "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended."
 }

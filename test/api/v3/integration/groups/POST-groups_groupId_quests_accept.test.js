@@ -10,7 +10,7 @@ describe.skip('POST /groups/:groupId/quests/accept', () => {
   let member;
 
   beforeEach(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    let { group, groupLeader, members } = await createAndPopulateGroup(
       { type: 'party', privacy: 'private' },
       members: 1,
     });
