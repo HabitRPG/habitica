@@ -51,7 +51,12 @@ export default function baseModel (schema, options = {}) {
     let array = get(doc, arrayPath);
     let itemIndex = array.indexOf(item);
 
-    if (itemIndex !== -1) array.splice(itemIndex, 1);
+    if (itemIndex !== -1) {
+      array.splice(itemIndex, 1);
+      return array;
+    }
+
+    return false;
   };
 
   if (!schema.options.toJSON) schema.options.toJSON = {};

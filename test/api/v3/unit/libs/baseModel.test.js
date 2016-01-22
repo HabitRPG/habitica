@@ -94,7 +94,7 @@ describe('Base model plugin', () => {
     expect(options.sanitizeTransform).to.be.calledWith(objToSanitize);
   });
 
-  describe('removeFromArray', () => {
+  describe.only('removeFromArray', () => {
     let Model;
 
     before(() => {
@@ -151,6 +151,26 @@ describe('Base model plugin', () => {
       expect(modelInstance.someArray[1]).to.eql('b');
       expect(modelInstance.someArray[2]).to.eql('c');
       expect(modelInstance.someArray[3]).to.eql('d');
+    });
+
+    it('returns the altered array if an item is found', () => {
+      let modelInstance = new Model({
+        someArray: ['a', 'b', 'c', 'd'],
+      });
+
+      let result = modelInstance.removeFromArray('someArray', 'c');
+
+      expect(result).to.eql(modelInstance.someArray);
+    });
+
+    it('returns false if item is not found', () => {
+      let modelInstance = new Model({
+        someArray: ['a', 'b', 'c', 'd'],
+      });
+
+      let result = modelInstance.removeFromArray('someArray', 'z');
+
+      expect(result).to.eql(false);
     });
   });
 });
