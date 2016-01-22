@@ -47,9 +47,8 @@ export default function baseModel (schema, options = {}) {
   };
 
   schema.methods.removeFromArray = function removeFromArray (arrayPath, item) {
-    let doc = this;
     let itemIndex;
-    let array = get(doc, arrayPath);
+    let array = get(this, arrayPath);
 
     if (typeof item === 'object') {
       itemIndex = findIndex(array, item);
