@@ -94,7 +94,7 @@ describe('Base model plugin', () => {
     expect(options.sanitizeTransform).to.be.calledWith(objToSanitize);
   });
 
-  describe.only('removeFromArray', () => {
+  describe('removeFromArray', () => {
     let Model;
 
     before(() => {
@@ -128,7 +128,7 @@ describe('Base model plugin', () => {
       expect(modelInstance.someArray).to.not.include('c');
     });
 
-    it('removes item from specified array in neste object on document', () => {
+    it('removes item from specified array in nested object on document', () => {
       let modelInstance = new Model({
         nested: {
           array: [1, 2, 3, 4, 5],
@@ -137,6 +137,22 @@ describe('Base model plugin', () => {
 
       modelInstance.removeFromArray('nested.array', 3);
       expect(modelInstance.nested.array).to.not.include(3);
+    });
+
+    it('removes object from array', () => {
+      let modelInstance = new Model({
+        someArray: [
+          { id: 'a', foo: 'bar' },
+          { id: 'b', foo: 'bar' },
+          { id: 'c', foo: 'bar' },
+          { id: 'd', foo: 'bar' },
+          { id: 'e', foo: 'bar' },
+        ],
+      });
+
+      modelInstance.removeFromArray('someArray', { id: 'c' });
+
+      expect(modelInstance.someArray).to.not.include({ id: 'c', foo: 'bar' });
     });
 
     it('does not change array if value is not found', () => {

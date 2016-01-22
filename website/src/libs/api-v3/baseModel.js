@@ -1,7 +1,7 @@
 import { uuid } from '../../../../common';
 import validator from 'validator';
 import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
-import { get } from 'lodash';
+import { get, findIndex } from 'lodash';
 
 export default function baseModel (schema, options = {}) {
   schema.add({
@@ -48,8 +48,14 @@ export default function baseModel (schema, options = {}) {
 
   schema.methods.removeFromArray = function removeFromArray (arrayPath, item) {
     let doc = this;
+    let itemIndex;
     let array = get(doc, arrayPath);
-    let itemIndex = array.indexOf(item);
+
+    if (typeof item === 'object') {
+      itemIndex = findIndex(array, item);
+    } else {
+      itemIndex = array.indexOf(item);
+    }
 
     if (itemIndex !== -1) {
       array.splice(itemIndex, 1);
