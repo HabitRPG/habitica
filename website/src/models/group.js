@@ -205,7 +205,8 @@ schema.methods.sendChat = function sendChat (message, user) {
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
   } else {
     User.update({
-      _id: {$in: this.members, $ne: user ? user._id : ''},
+      guilds: this._id,
+      _id: { $ne: user ? user._id : ''},
     }, lastSeenUpdate, {multi: true}).exec();
   }
 };
