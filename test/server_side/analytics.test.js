@@ -30,7 +30,7 @@ describe('analytics', function() {
   });
 
   describe('init', function() {
-    var analytics = rewire('../../website/src/libs/analytics');
+    var analytics = rewire('../../website/src/libs/api-v2/analytics');
 
     it('throws an error if no options are passed in', function() {
       expect(analytics).to.throw('No options provided');
@@ -62,7 +62,7 @@ describe('analytics', function() {
   describe('track', function() {
 
     var analyticsData, event_type;
-    var analytics = rewire('../../website/src/libs/analytics');
+    var analytics = rewire('../../website/src/libs/api-v2/analytics');
     var initializedAnalytics;
 
     beforeEach(function() {
@@ -370,7 +370,7 @@ describe('analytics', function() {
 
     var purchaseData;
 
-    var analytics = rewire('../../website/src/libs/analytics');
+    var analytics = rewire('../../website/src/libs/api-v2/analytics');
     var initializedAnalytics;
 
     beforeEach(function() {

@@ -46,14 +46,32 @@ function _requestMaker (user, method, additionalSets) {
           if (err) {
             if (!err.response) return reject(err);
 
-            return reject({
-              code: err.status,
-              text: err.response.body.err,
-            });
+            let parsedError = _parseError(err);
+
+            reject(parsedError);
           }
 
           resolve(response.body);
         });
     });
   };
+}
+
+function _parseError (err) {
+  let parsedError;
+
+  if (apiVersion === 'v2') {
+    parsedError = {
+      code: err.status,
+      text: err.response.body.err,
+    };
+  } else if (apiVersion === 'v3') {
+    parsedError = {
+      code: err.status,
+      error: err.response.body.error,
+      message: err.response.body.message,
+    };
+  }
+
+  return parsedError;
 }

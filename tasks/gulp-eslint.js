@@ -3,9 +3,13 @@ import eslint from 'gulp-eslint';
 
 const SERVER_FILES = [
   './website/src/**/api-v3/**/*.js',
-  // Comment these out in develop, uncomment them in api-v3
-  // './website/src/models/user.js',
-  // './website/src/server.js'
+  './website/src/models/user.js',
+  './website/src/models/task.js',
+  './website/src/models/group.js',
+  './website/src/models/challenge.js',
+  './website/src/models/tag.js',
+  './website/src/models/emailUnsubscription.js',
+  './website/src/server.js',
 ];
 const COMMON_FILES = [
   './common/script/**/*.js',
