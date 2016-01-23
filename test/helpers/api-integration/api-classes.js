@@ -80,9 +80,7 @@ export class ApiGroup extends ApiObject {
 
     let update = { chat };
 
-    this.update(update, '$push');
-
-    return this;
+    return await this.update(update);
   }
 }
 
