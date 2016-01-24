@@ -6,7 +6,7 @@ import moment from 'moment';
 import * as Tasks from './task';
 import Q from 'q';
 import { schema as TagSchema } from './tag';
-import { removeElement as removeElementFromArray } from '../libs/api-v3/collectionManipulators';
+import { removeElementFromArray } from '../libs/api-v3/collectionManipulators';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 

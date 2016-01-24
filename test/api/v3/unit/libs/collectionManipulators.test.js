@@ -1,13 +1,13 @@
 import {
- removeElement,
+ removeElementFromArray,
 } from '../../../../../website/src/libs/api-v3/collectionManipulators';
 
 describe('Collection Manipulators', () => {
-  describe('removeElement', () => {
+  describe('removeElementFromArray', () => {
     it('removes item from specified array on document', () => {
       let array = ['a', 'b', 'c', 'd'];
 
-      removeElement(array, 'c');
+      removeElementFromArray(array, 'c');
 
       expect(array).to.not.include('c');
     });
@@ -21,7 +21,7 @@ describe('Collection Manipulators', () => {
         { id: 'e', foo: 'bar' },
       ];
 
-      removeElement(array, { id: 'c' });
+      removeElementFromArray(array, { id: 'c' });
 
       expect(array).to.not.include({ id: 'c', foo: 'bar' });
     });
@@ -29,7 +29,7 @@ describe('Collection Manipulators', () => {
     it('does not change array if value is not found', () => {
       let array = ['a', 'b', 'c', 'd'];
 
-      removeElement(array, 'z');
+      removeElementFromArray(array, 'z');
 
       expect(array).to.have.a.lengthOf(4);
       expect(array[0]).to.eql('a');
@@ -41,7 +41,7 @@ describe('Collection Manipulators', () => {
     it('returns the removed element', () => {
       let array = ['a', 'b', 'c'];
 
-      let result = removeElement(array, 'b');
+      let result = removeElementFromArray(array, 'b');
 
       expect(result).to.eql('b');
     });
@@ -55,7 +55,7 @@ describe('Collection Manipulators', () => {
         { id: 'e', foo: 'bar' },
       ];
 
-      let result = removeElement(array, { id: 'c' });
+      let result = removeElementFromArray(array, { id: 'c' });
 
       expect(result).to.eql({ id: 'c', foo: 'bar' });
     });
@@ -63,7 +63,7 @@ describe('Collection Manipulators', () => {
     it('returns false if item is not found', () => {
       let array = ['a', 'b', 'c'];
 
-      let result = removeElement(array, 'z');
+      let result = removeElementFromArray(array, 'z');
 
       expect(result).to.eql(false);
     });
