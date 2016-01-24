@@ -48,11 +48,11 @@ describe('POST /group/:groupId/join', () => {
     });
 
     it('increments memberCount when joining guilds', async () => {
-      let oldMemberCount = guild.memberCount;
+      let oldMemberCount = publicGuild.memberCount;
 
       await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
-      await expect(invitedUser.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
+      await expect(invitedUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
     });
   });
 
