@@ -86,14 +86,14 @@ api.getGroups = {
 
     // TODO validate types are acceptable? probably not necessary
     let types = req.query.type.split(',');
-    let groupFields = 'name description memberCount balance leader';
+    let groupFields = 'name description memberCount balance';
     let sort = '-memberCount';
     let queries = [];
 
     types.forEach(type => {
       switch (type) {
         case 'party':
-          queries.push(Group.getGroup({user, groupId: 'party', fields: groupFields, populateLeader: true}));
+          queries.push(Group.getGroup({user, groupId: 'party', fields: groupFields}));
           break;
         case 'privateGuilds':
           queries.push(Group.find({
@@ -109,7 +109,9 @@ api.getGroups = {
           }).select(groupFields).sort(sort).exec()); // TODO use lean?
           break;
         case 'tavern':
-          queries.push(Group.getGroup({user, groupId: 'habitrpg', fields: groupFields, populateLeader: true}));
+          if (types.indexOf('publicGuilds') === -1) {
+            queries.push(Group.getGroup({user, groupId: 'habitrpg', fields: groupFields}));
+          }
           break;
       }
     });
