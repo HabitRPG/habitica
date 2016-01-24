@@ -360,15 +360,27 @@ api.removeGroupMember = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let uuid = req.query.memberId;
+    let uuid = req.params.memberId;
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
     let member = await User.findOne({_id: uuid}).select('party guilds invitations newMessages').exec();
+
     // We're removing the user from a guild or a party? is the user invited only?
-    let isInGroup = member.party._id === group._id ? 'party' : member.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
-    let isInvited = member.invitations.party.id === group._id ? 'party' : _.findIndex(member.invitations.guilds, {id: group._id}) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
+    let isInGroup;
+    if (member.party._id === group._id) {
+      isInGroup = 'party';
+    } else if (member.guilds.indexOf(group._id) !== -1) {
+      isInGroup = 'guild';
+    }
+
+    let isInvited;
+    if (member.invitations.party && member.invitations.party.id === group._id) {
+      isInvited = 'party';
+    } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
+      isInvited = 'guild';
+    }
 
     if (isInGroup) {
       group.memberCount -= 1;
@@ -384,7 +396,9 @@ api.removeGroupMember = {
       if (isInGroup === 'guild') _.pull(member.guilds, group._id);
       if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
 
-      member.newMessages.group._id = undefined;
+      if (member.newMessages.group) {
+        member.newMessages.group._id = undefined;
+      }
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1; // TODO why this?
