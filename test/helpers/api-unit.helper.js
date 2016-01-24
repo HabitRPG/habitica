@@ -1,11 +1,28 @@
 import '../../website/src/libs/api-v3/i18n';
+import mongoose from 'mongoose';
 import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
 
-afterEach(() => {
-  sandbox.restore();
+mongoose.Promise = require('q').Promise;
+
+mongoose.connect('mongodb://localhost/habitica-unit-tests');
+let connection = mongoose.connection;
+
+before((done) => {
+  connection.on('open', () => {
+    connection.db.dropDatabase(done);
+  });
 });
+
+after((done) => {
+  connection.close(done);
+});
+
+afterEach((done) => {
+  sandbox.restore();
+  connection.db.dropDatabase(done);
+})
 
 export function generateUser (options = {}) {
   return new User(options).toObject();

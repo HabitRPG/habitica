@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import {
  removeElementFromArray,
 } from '../../../../../website/src/libs/api-v3/collectionManipulators';
@@ -66,6 +67,22 @@ describe('Collection Manipulators', () => {
       let result = removeElementFromArray(array, 'z');
 
       expect(result).to.eql(false);
+    });
+
+    it('removal of element persists when mongoose document is saved', async () => {
+      let schema = new mongoose.Schema({
+        array: Array,
+      });
+      let Model = mongoose.model('ModelToTestRemoveFromArray', schema);
+      let model = await new Model({
+        array: ['a', 'b', 'c'],
+      }).save(); // Initial creation
+
+      removeElementFromArray(model.array, 'b');
+
+      let savedModel = await model.save();
+
+      expect(savedModel.array).to.not.include('b');
     });
   });
 });
