@@ -4,6 +4,7 @@ import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
+  NotAuthorized,
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 import { sendTxn } from '../../libs/api-v3/email';
@@ -289,6 +290,63 @@ api.seenChat = {
     await User.update({_id: user._id}, update).exec();
 
     res.respond(200);
+  },
+};
+
+/**
+ * @api {delete} /groups/:groupId/chat/:chatId Delete chat message from a group
+ * @apiVersion 3.0.0
+ * @apiName DeleteChat
+ * @apiGroup Chat
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} chatId The chat _id
+ *
+ * @apiSuccess {Array} The update chat array
+ * @apiSuccess {Object} An empty object when the previous message was deleted
+ */
+api.deleteChat = {
+  method: 'DELETE',
+  url: '/groups/:groupId/chat/:chatId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+    let chatId = req.params.chatId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId, fields: 'chat'});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    let message = _.find(group.chat, {id: chatId});
+    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+
+    if (user._id !== message.uuid && !user.contributor.admin) {
+      throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
+    }
+
+    let lastClientMsg = req.query.previousMsg;
+    let chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+
+    await Group.update(
+      {_id: group._id},
+      {$pull: {chat: {id: chatId} } }
+    );
+
+    if (chatUpdated) {
+      group = group.toJSON();
+      _.remove(group.chat, function removeChat (chat) {
+        return chat.id === chatId;
+      });
+      res.json(group.chat);
+    } else {
+      res.send(200, {});
+    }
   },
 };
 
