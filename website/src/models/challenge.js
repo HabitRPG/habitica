@@ -30,22 +30,6 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'challengeCount', 'tasksOrder'],
 });
 
-// Returns true if user has access to the challenge (can join)
-schema.methods.hasAccess = function hasAccessToChallenge (user) {
-  let userGroups = user.guilds.slice(0);
-  if (user.party._id) userGroups.push(user.party._id);
-  userGroups.push('habitrpg'); // tavern challenges
-  return this.leader === user._id || userGroups.indexOf(this.groupId) !== -1;
-};
-
-// Returns true if user can view the challenge
-// Different from hasAccess because challenges of public guilds can be viewed by everyone
-schema.methods.canView = function canViewChallenge (user, group) {
-  if (user.contributor.admin) return true;
-  if (group.type === 'guild' && group.privacy === 'public') return true;
-  return this.hasAccess(user);
-};
-
 // Returns true if user is a member of the challenge
 schema.methods.isMember = function isChallengeMember (user) {
   return user.challenges.indexOf(this._id) !== -1;
@@ -56,6 +40,23 @@ schema.methods.canModify = function canModifyChallenge (user) {
   return user.contributor.admin || this.leader === user._id;
 };
 
+// Returns true if user has access to the challenge (can join)
+schema.methods.hasAccess = function hasAccessToChallenge (user) {
+  let userGroups = user.guilds.slice(0);
+  if (user.party._id) userGroups.push(user.party._id);
+  userGroups.push('habitrpg'); // tavern challenges
+  return this.canModify(user) || userGroups.indexOf(this.groupId) !== -1;
+};
+
+// Returns true if user can view the challenge
+// Different from hasAccess because challenges of public guilds can be viewed by everyone
+// And also because you can see challenges of groups you've been removed from
+schema.methods.canView = function canViewChallenge (user, group) {
+  if (group.type === 'guild' && group.privacy === 'public') return true;
+  if (this.isMember(user)) return true;
+  return this.hasAccess(user);
+};
+
 // Takes a Task document and return a plain object of attributes that can be synced to the user
 function _syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
@@ -64,13 +65,6 @@ function _syncableAttrs (task) {
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
-
-schema.methods.hasAccess = function hasAccessToChallenge (user) {
-  let userGroups = user.guilds.slice(0);
-  if (user.party._id) userGroups.push(user.party._id);
-  userGroups.push('habitrpg'); // tavern challenges
-  return this.leader === user._id || userGroups.indexOf(this.groupId) !== -1;
-};
 
 // Sync challenge to user, including tasks and tags.
 // Used when user joins the challenge or to force sync.
