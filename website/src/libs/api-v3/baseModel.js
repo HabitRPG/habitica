@@ -1,7 +1,6 @@
 import { uuid } from '../../../../common';
 import validator from 'validator';
 import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
-import { get, findIndex } from 'lodash';
 
 export default function baseModel (schema, options = {}) {
   schema.add({
@@ -44,24 +43,6 @@ export default function baseModel (schema, options = {}) {
 
     // Allow a sanitize transform function to be used
     return options.sanitizeTransform ? options.sanitizeTransform(objToSanitize) : objToSanitize;
-  };
-
-  schema.methods.removeFromArray = function removeFromArray (arrayPath, item) {
-    let itemIndex;
-    let array = get(this, arrayPath);
-
-    if (typeof item === 'object') {
-      itemIndex = findIndex(array, item);
-    } else {
-      itemIndex = array.indexOf(item);
-    }
-
-    if (itemIndex !== -1) {
-      array.splice(itemIndex, 1);
-      return array;
-    }
-
-    return false;
   };
 
   if (!schema.options.toJSON) schema.options.toJSON = {};

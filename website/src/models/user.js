@@ -6,6 +6,7 @@ import moment from 'moment';
 import * as Tasks from './task';
 import Q from 'q';
 import { schema as TagSchema } from './tag';
+import { removeElement as removeElementFromArray } from '../libs/api-v3/collectionManipulators';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
@@ -661,7 +662,7 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     'challenge.id': challengeId,
   };
 
-  user.removeFromArray('challenges', challengeId);
+  removeElementFromArray(user.challenges, challengeId);
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -674,7 +675,7 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     let taskPromises = tasks.map(task => {
       // Remove task from user.tasksOrder and delete them
       if (task.type !== 'todo' || !task.completed) {
-        user.removeFromArray(`tasksOrder.${task.type}s`, task._id);
+        removeElementFromArray(user.tasksOrder[`${task.type}s`], task._id);
       }
 
       return task.remove();

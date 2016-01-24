@@ -13,6 +13,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
+import { removeElement as removeElementFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
@@ -246,7 +247,7 @@ api.joinGroup = {
 
       isUserInvited = true;
     } else if (group.type === 'guild') {
-      let hasInvitation = user.removeFromArray('invitations.guilds', { id: group._id });
+      let hasInvitation = removeElementFromArray(user.invitations.guilds, { id: group._id });
 
       if (hasInvitation) {
         isUserInvited = true;
@@ -404,7 +405,7 @@ api.removeGroupMember = {
       }
     } else if (isInvited) {
       if (isInvited === 'guild') {
-        member.removeFromArray('invitations.guilds', { id: group._id });
+        removeElementFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
     } else {

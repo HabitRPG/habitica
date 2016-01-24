@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
+import { removeElement as removeElementFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import {
@@ -382,9 +383,9 @@ api.scoreTask = {
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
-        user.removeFromArray('tasksOrder.todos', task._id);
+        removeElementFromArray(user.tasksOrder.todos, task._id);
       } else if (wasCompleted && !task.completed) {
-        let hasTask = user.removeFromArray('tasksOrder.todos', task._id);
+        let hasTask = removeElementFromArray(user.tasksOrder.todos, task._id);
         if (!hasTask) {
           user.tasksOrder.todos.push(task._id); // TODO push at the top?
         } else { // If for some reason it hadn't been removed TODO ok?
@@ -681,7 +682,7 @@ api.removeChecklistItem = {
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let hasItem = task.removeFromArray('checklist', { _id: req.params.itemId });
+    let hasItem = removeElementFromArray(task.checklist, { _id: req.params.itemId });
     if (!hasItem) throw new NotFound(res.t('checklistItemNotFound'));
 
     let savedTask = await task.save();
@@ -764,7 +765,7 @@ api.removeTagFromTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
-    let hasTag = task.removeFromArray('tags', req.params.tagId);
+    let hasTag = removeElementFromArray(task.tags, req.params.tagId);
     if (!hasTag) throw new NotFound(res.t('tagNotFound'));
 
     await task.save();
@@ -811,7 +812,7 @@ api.unlinkTask = {
       await task.save();
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
-        user.removeFromArray(`tasksOrder.${task.type}s`, taskId);
+        removeElementFromArray(user.tasksOrder[`${task.type}s`], taskId);
         await Q.all([user.save(), task.remove()]);
       } else {
         await task.remove();
@@ -861,7 +862,7 @@ api.deleteTask = {
     }
 
     if (task.type !== 'todo' || !task.completed) {
-      (challenge || user).removeFromArray(`tasksOrder.${task.type}s`, taskId);
+      removeElementFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
       await Q.all([(challenge || user).save(), task.remove()]);
     } else {
       await task.remove();
