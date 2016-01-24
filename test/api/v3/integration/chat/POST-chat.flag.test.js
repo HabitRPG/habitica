@@ -5,11 +5,13 @@ import {
 import { find } from 'lodash';
 
 describe('POST /chat/:chatId/flag', () => {
-  let user, group;
+  let user, admin, group;
   const TEST_MESSAGE = 'Test Message';
 
   before(async () => {
     user = await generateUser({balance: 1});
+    admin = await generateUser({balance: 1, 'contributor.admin': true});
+
     group = await user.post('/groups', {
       name: 'Test Guild',
       type: 'guild',
@@ -51,7 +53,7 @@ describe('POST /chat/:chatId/flag', () => {
     .then((result) => {
       expect(result.flags[user._id]).to.equal(true);
       expect(result.flagCount).to.equal(1);
-      return user.get(`/groups/${group._id}`);
+      return admin.get(`/groups/${group._id}`);
     })
     .then((updatedGroup) => {
       let messageToCheck = find(updatedGroup.chat, {id: message.id});
@@ -74,7 +76,7 @@ describe('POST /chat/:chatId/flag', () => {
     .then((result) => {
       expect(result.flags[secondUser._id]).to.equal(true);
       expect(result.flagCount).to.equal(5);
-      return user.get(`/groups/${group._id}`);
+      return admin.get(`/groups/${group._id}`);
     })
     .then((updatedGroup) => {
       let messageToCheck = find(updatedGroup.chat, {id: message.id});
