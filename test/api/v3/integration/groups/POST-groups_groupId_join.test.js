@@ -16,7 +16,39 @@ describe('POST /group/:groupId/join', () => {
     });
   });
 
-  context('Accepting invitation to a private guild', () => {
+  context('Joining a public guild', () => {
+    let user, joiningUser, publicGuild;
+
+    beforeEach(async () => {
+      let {group, groupLeader} = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Guild',
+          type: 'guild',
+          privacy: 'public',
+        },
+      });
+
+      publicGuild = group;
+      user = groupLeader;
+      joiningUser = await generateUser();
+    });
+
+    it('allows non-invited users to join public guilds', async () => {
+      await joiningUser.post(`/groups/${publicGuild._id}/join`);
+
+      await expect(joiningUser.get('/user')).to.eventually.have.property('guilds').to.include(publicGuild._id);
+    });
+
+    it('promotes joining member in a public empty guild to leader', async () => {
+      await user.post(`/groups/${publicGuild._id}/leave`);
+
+      await joiningUser.post(`/groups/${publicGuild._id}/join`);
+
+      await expect(joiningUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.deep.property('leader._id', joiningUser._id);
+    });
+  });
+
+  context('Joining a private guild', () => {
     let user, invitedUser, guild;
 
     beforeEach(async () => {
@@ -44,21 +76,6 @@ describe('POST /group/:groupId/join', () => {
       });
     });
 
-    it('allows non-invited users to join public guilds', async () => {
-      let publicGuild = (await createAndPopulateGroup({
-        groupDetails: {
-          name: 'Test Guild',
-          type: 'guild',
-          privacy: 'public',
-        },
-      })).group;
-
-      let joiningUser = await generateUser();
-      await joiningUser.post(`/groups/${publicGuild._id}/join`);
-
-      await expect(joiningUser.get('/user')).to.eventually.have.property('guilds').and.to.include(publicGuild._id);
-    });
-
     context('User is invited', () => {
       it('allows invited user to join private guilds', async () => {
         await invitedUser.post(`/groups/${guild._id}/join`);
@@ -72,6 +89,14 @@ describe('POST /group/:groupId/join', () => {
         await expect(invitedUser.get('/user'))
           .to.eventually.have.deep.property('invitations.guilds')
           .to.not.include({id: guild._id});
+      });
+
+      it('increments memberCount when joining guilds', async () => {
+        let oldMemberCount = guild.memberCount;
+
+        await invitedUser.post(`/groups/${guild._id}/join`);
+
+        await expect(invitedUser.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
       });
 
       it('does not give basilist quest to inviter when joining a guild', async () => {
@@ -90,7 +115,7 @@ describe('POST /group/:groupId/join', () => {
     });
   });
 
-  context('Accepting invitation to a party', () => {
+  context('Joining a party', () => {
     let user, invitedUser, party;
 
     beforeEach(async () => {
@@ -130,6 +155,14 @@ describe('POST /group/:groupId/join', () => {
         await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.party.id');
       });
 
+      it('increments memberCount when joining party', async () => {
+        let oldMemberCount = party.memberCount;
+
+        await invitedUser.post(`/groups/${party._id}/join`);
+
+        await expect(invitedUser.get(`/groups/${party._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
+      });
+
       it('gives basilist quest item to the inviter when joining a party', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
@@ -142,6 +175,20 @@ describe('POST /group/:groupId/join', () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
         await expect(user.get('/user')).to.eventually.have.deep.property('items.quests.basilist', 2);
+      });
+
+      xit('invites joining member to active quest', async () => {
+        // TODO start quest
+
+        await invitedUser.post(`/groups/${party._id}/join`);
+
+        invitedUser = await user.get('/user');
+        party = await user.get(`/groups/${party._id}`);
+
+        expect(user).to.have.deep.property('party.quest.RSVPNeeded', true);
+        expect(user).to.have.deep.property('party.quest.key', party.quest.key);
+
+        expect(party.quest.members[invitedUser._id]).to.be.undefined;
       });
     });
   });
