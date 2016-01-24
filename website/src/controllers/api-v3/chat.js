@@ -105,7 +105,7 @@ api.postChat = {
  * @apiSuccess {Array} chat An array of chat messages
  */
 api.likeChat = {
-  method: 'Post',
+  method: 'POST',
   url: '/groups/:groupId/chat/:chatId/like',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
@@ -152,7 +152,7 @@ api.likeChat = {
  * @apiSuccess {Array} chat An array of chat messages
  */
 api.flagChat = {
-  method: 'Post',
+  method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
@@ -253,6 +253,42 @@ api.flagChat = {
     ]);
 
     res.respond(200, message);
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/chat/:chatId/seen Seen a group chat message
+ * @apiVersion 3.0.0
+ * @apiName SeenChat
+ * @apiGroup Chat
+ *
+ * @apiParam {groupId} groupId The group _id
+ *
+ * @apiSuccess {None}
+ */
+api.seenChat = {
+  method: 'POST',
+  url: '/groups/:groupId/chat/seen',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    // Skip the auth step, we want this to be fast. If !found with uuid/token, then it just doesn't save
+    let update = { $unset: {} };
+
+    update.$unset[`newMessages.${groupId}`] = '';
+    await User.update({_id: user._id}, update).exec();
+
+    res.respond(200);
   },
 };
 

@@ -204,9 +204,17 @@ schema.methods.sendChat = function sendChat (message, user) {
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
   } else {
-    User.update({
-      _id: {$in: this.members, $ne: user ? user._id : ''},
-    }, lastSeenUpdate, {multi: true}).exec();
+    let query = {};
+
+    if (this.type === 'party') {
+      query['party._id'] = this._id;
+    } else {
+      query.guilds = this._id;
+    }
+
+    query._id = { $ne: user ? user._id : ''};
+
+    User.update(query, lastSeenUpdate, {multi: true}).exec();
   }
 };
 
