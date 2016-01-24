@@ -7,7 +7,7 @@ import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
-import { removeElementFromArray } from '../libs/api-v3/collectionManipulators';
+import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import Q from 'q';
@@ -148,7 +148,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
     if (group.type === 'party') {
       user.invitations.party = {}; // TODO mark modified
     } else {
-      removeElementFromArray(user.invitations.guilds, { id: group._id });
+      removeFromArray(user.invitations.guilds, { id: group._id });
     }
     return user.save();
   });

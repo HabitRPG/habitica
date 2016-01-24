@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 import {
- removeElementFromArray,
+ removeFromArray,
 } from '../../../../../website/src/libs/api-v3/collectionManipulators';
 
 describe('Collection Manipulators', () => {
-  describe('removeElementFromArray', () => {
+  describe('removeFromArray', () => {
     it('removes item from specified array on document', () => {
       let array = ['a', 'b', 'c', 'd'];
 
-      removeElementFromArray(array, 'c');
+      removeFromArray(array, 'c');
 
       expect(array).to.not.include('c');
     });
@@ -22,7 +22,7 @@ describe('Collection Manipulators', () => {
         { id: 'e', foo: 'bar' },
       ];
 
-      removeElementFromArray(array, { id: 'c' });
+      removeFromArray(array, { id: 'c' });
 
       expect(array).to.not.include({ id: 'c', foo: 'bar' });
     });
@@ -30,7 +30,7 @@ describe('Collection Manipulators', () => {
     it('does not change array if value is not found', () => {
       let array = ['a', 'b', 'c', 'd'];
 
-      removeElementFromArray(array, 'z');
+      removeFromArray(array, 'z');
 
       expect(array).to.have.a.lengthOf(4);
       expect(array[0]).to.eql('a');
@@ -42,7 +42,7 @@ describe('Collection Manipulators', () => {
     it('returns the removed element', () => {
       let array = ['a', 'b', 'c'];
 
-      let result = removeElementFromArray(array, 'b');
+      let result = removeFromArray(array, 'b');
 
       expect(result).to.eql('b');
     });
@@ -56,7 +56,7 @@ describe('Collection Manipulators', () => {
         { id: 'e', foo: 'bar' },
       ];
 
-      let result = removeElementFromArray(array, { id: 'c' });
+      let result = removeFromArray(array, { id: 'c' });
 
       expect(result).to.eql({ id: 'c', foo: 'bar' });
     });
@@ -64,7 +64,7 @@ describe('Collection Manipulators', () => {
     it('returns false if item is not found', () => {
       let array = ['a', 'b', 'c'];
 
-      let result = removeElementFromArray(array, 'z');
+      let result = removeFromArray(array, 'z');
 
       expect(result).to.eql(false);
     });
@@ -78,7 +78,7 @@ describe('Collection Manipulators', () => {
         array: ['a', 'b', 'c'],
       }).save(); // Initial creation
 
-      removeElementFromArray(model.array, 'b');
+      removeFromArray(model.array, 'b');
 
       let savedModel = await model.save();
 

@@ -1,6 +1,6 @@
 import { findIndex } from 'lodash';
 
-export function removeElementFromArray (array, element) {
+export function removeFromArray (array, element) {
   let elementIndex;
 
   if (typeof element === 'object') {
