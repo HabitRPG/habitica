@@ -46,6 +46,14 @@ describe('POST /group/:groupId/join', () => {
 
       await expect(joiningUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.deep.property('leader._id', joiningUser._id);
     });
+
+    it('increments memberCount when joining guilds', async () => {
+      let oldMemberCount = guild.memberCount;
+
+      await joiningUser.post(`/groups/${publicGuild._id}/join`);
+
+      await expect(invitedUser.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
+    });
   });
 
   context('Joining a private guild', () => {
