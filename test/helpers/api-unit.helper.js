@@ -22,7 +22,7 @@ after((done) => {
 afterEach((done) => {
   sandbox.restore();
   connection.db.dropDatabase(done);
-})
+});
 
 export function generateUser (options = {}) {
   return new User(options).toObject();
