@@ -24,8 +24,6 @@ describe('POST /groups/:id/chat/seen', () => {
     });
 
     it('clears new messages for a guild', async () => {
-      let user = await guildMember.get('/user');
-
       await guildMember.post(`/groups/${guild._id}/chat/seen`);
 
       let guildThatHasSeenChat = await guildMember.get('/user');
@@ -55,8 +53,6 @@ describe('POST /groups/:id/chat/seen', () => {
     });
 
     it('clears new messages for a party', async () => {
-      let user = await partyMember.get('/user');
-
       await partyMember.post(`/groups/${party._id}/chat/seen`);
 
       let partyMemberThatHasSeenChat = await partyMember.get('/user');

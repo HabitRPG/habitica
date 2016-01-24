@@ -330,12 +330,10 @@ api.seenChat = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    // Skip the auth step, we want this to be fast. If !found with uuid/token, then it just doesn't save
-    let update = { $unset: {} };
+    let update = {$unset: {}};
+    update.$unset[`newMessages.${groupId}`] = true;
 
-    update.$unset[`newMessages.${groupId}`] = '';
     await User.update({_id: user._id}, update).exec();
-
     res.respond(200);
   },
 };
@@ -382,17 +380,16 @@ api.deleteChat = {
 
     await Group.update(
       {_id: group._id},
-      {$pull: {chat: {id: chatId} } }
+      {$pull: {chat: {id: chatId}}}
     );
 
     if (chatUpdated) {
       group = group.toJSON();
-      _.remove(group.chat, function removeChat (chat) {
-        return chat.id === chatId;
-      });
-      res.json(group.chat);
+      let i = _.findIndex(group.chat, {id: chatId});
+      if (i !== -1) group.chat.splice(i, 1);
+      res.respond(200, group.chat);
     } else {
-      res.send(200, {});
+      res.respond(200, {});
     }
   },
 };
