@@ -11,6 +11,7 @@ export function removeElementFromArray (array, element) {
 
   if (elementIndex !== -1) {
     let removedElement = array[elementIndex];
+    // Splice must be used so mongoose picks up the change
     array.splice(elementIndex, 1);
     return removedElement;
   }
