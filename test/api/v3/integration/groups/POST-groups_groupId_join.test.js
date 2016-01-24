@@ -52,7 +52,7 @@ describe('POST /group/:groupId/join', () => {
 
       await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
-      await expect(invitedUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
+      await expect(joiningUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
     });
   });
 

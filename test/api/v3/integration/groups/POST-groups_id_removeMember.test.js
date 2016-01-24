@@ -11,7 +11,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
   let member;
   let member2;
 
-  before(async () => {
+  beforeEach(async () => {
     let { group, groupLeader, invitees, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
@@ -62,10 +62,15 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
   context('Guilds', () => {
     it('can remove other members', async () => {
       await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
-
       let memberRemoved = await member.get('/user');
 
       expect(_.findIndex(memberRemoved.guilds, {id: guild._id})).eql(-1);
+    });
+
+    it('updates memberCount', async () => {
+      let oldMemberCount = guild.memberCount;
+      await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
+      await expect(leader.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount - 1);
     });
 
     it('can remove other invites', async () => {
@@ -83,7 +88,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     let partyInvitedUser;
     let partyMember;
 
-    before(async () => {
+    beforeEach(async () => {
       let { group, groupLeader, invitees, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Test Party',
@@ -106,6 +111,12 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       let memberRemoved = await partyMember.get('/user');
 
       expect(memberRemoved.party._id).eql(undefined);
+    });
+
+    it('updates memberCount', async () => {
+      let oldMemberCount = party.memberCount;
+      await partyleader.post(`/groups/${party._id}/removeMember/${partyMember._id}`);
+      await expect(partyleader.get(`/groups/${party._id}`)).to.eventually.have.property('memberCount', oldMemberCount - 1);
     });
 
     it('can remove other invites', async () => {
