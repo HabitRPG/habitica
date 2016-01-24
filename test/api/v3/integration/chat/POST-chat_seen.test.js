@@ -3,30 +3,65 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 
 describe('POST /groups/:id/chat/seen', () => {
-  let groupWithChat, message, author, member;
+  context('Guild', () => {
+    let guild, guildLeader, guildMember, guildMessage;
 
-  before(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
-      groupDetails: {
-        type: 'guild',
-        privacy: 'public',
-      },
-      members: 1,
+    before(async () => {
+      let { group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'guild',
+          privacy: 'public',
+        },
+        members: 1,
+      });
+
+      guild = group;
+      guildLeader = groupLeader;
+      guildMember = members[0];
+
+      guildMessage = await guildLeader.post(`/groups/${guild._id}/chat`, { message: 'Some guild message' });
+      guildMessage = guildMessage.message;
     });
 
-    groupWithChat = group;
-    author = groupLeader;
-    member = members[0];
+    it('clears new messages for a guild', async () => {
+      let user = await guildMember.get('/user');
 
-    message = await author.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
-    message = message.message;
+      await guildMember.post(`/groups/${guild._id}/chat/seen`);
+
+      let guildThatHasSeenChat = await guildMember.get('/user');
+
+      expect(guildThatHasSeenChat.newMessages).to.be.empty;
+    });
   });
 
-  it('clears new messages', async () => {
-    await member.post(`/groups/${groupWithChat._id}/chat/seen`);
+  context('Party', () => {
+    let party, partyLeader, partyMember, partyMessage;
 
-    let userThatHasSeenChat = await member.get('/user');
+    before(async () => {
+      let { group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
 
-    expect(userThatHasSeenChat.newMessages).to.be.empty;
+      party = group;
+      partyLeader = groupLeader;
+      partyMember = members[0];
+
+      partyMessage = await partyLeader.post(`/groups/${party._id}/chat`, { message: 'Some party message' });
+      partyMessage = partyMessage.message;
+    });
+
+    it('clears new messages for a party', async () => {
+      let user = await partyMember.get('/user');
+
+      await partyMember.post(`/groups/${party._id}/chat/seen`);
+
+      let partyMemberThatHasSeenChat = await partyMember.get('/user');
+
+      expect(partyMemberThatHasSeenChat.newMessages).to.be.empty;
+    });
   });
 });
