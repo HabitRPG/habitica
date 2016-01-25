@@ -320,7 +320,6 @@ let requiresPurchase = {
 let checkPreferencePurchase = (user, path, item) => {
   let itemPath = `${path}.${item}`;
   let appearance = _.get(shared.content.appearances, itemPath)
-  console.log(itemPath, appearance);
   if (!appearance) return false;
   if (appearance.price === 0) return true;
 
