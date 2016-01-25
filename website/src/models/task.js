@@ -48,13 +48,13 @@ TaskSchema.plugin(baseModel, {
 // A list of additional fields that cannot be set on creation (but can be set on updare)
 let noCreate = ['completed']; // TODO completed should be removed for updates too?
 TaskSchema.statics.sanitizeCreate = function sanitizeCreate (createObj) {
-  return Task.sanitize(createObj, noCreate); // eslint-disable-line no-use-before-define
+  return this.sanitize(createObj, noCreate);
 };
 
 // A list of additional fields that cannot be updated (but can be set on creation)
 let noUpdate = ['_id', 'type'];
 TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
-  return Task.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
+  return this.sanitize(updateObj, noUpdate);
 };
 
 // Sanitize checklist objects (disallowing _id)

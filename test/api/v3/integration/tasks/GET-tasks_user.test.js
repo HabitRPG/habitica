@@ -22,6 +22,21 @@ describe('GET /tasks/user', () => {
     expect(tasks[0]._id).to.equal(createdTasks[0]._id);
   });
 
-  // TODO complete after task scoring is done
-  it('returns completed todos sorted by creation date if req.query.includeCompletedTodos is specified');
+  it('returns completed todos sorted by completion date if req.query.includeCompletedTodos is specified', async () => {
+    let todo1 = await user.post('/tasks/user', {text: 'todo to complete 1', type: 'todo'});
+    let todo2 = await user.post('/tasks/user', {text: 'todo to complete 2', type: 'todo'});
+
+    await user.sync();
+    let initialTodoCount = user.tasksOrder.todos.length;
+
+    await user.post(`/tasks/${todo2._id}/score/up`);
+    await user.post(`/tasks/${todo1._id}/score/up`);
+    await user.sync();
+
+    expect(user.tasksOrder.todos.length).to.equal(initialTodoCount - 2);
+
+    let allTodos = await user.get('/tasks/user?type=todo&includeCompletedTodos=true');
+    expect(allTodos.length).to.equal(initialTodoCount);
+    expect(allTodos[allTodos.length - 1].text).to.equal('todo to complete 1'); // last is the todo that was completed later
+  });
 });

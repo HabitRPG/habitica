@@ -129,6 +129,7 @@ async function _getTasks (req, res, user, challenge) {
     if (challenge) throw new BadRequest(res.t('noCompletedTodosChallenge')); // no completed todos for challenges
 
     let queryCompleted = Tasks.Task.find({
+      userId: user._id,
       type: 'todo',
       completed: true,
     }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
@@ -837,7 +838,35 @@ api.unlinkTask = {
 };
 
 /**
- * @api {delete} /task/:taskId Delete a user task given its id
+ * @api {post} /tasks/clearCompletedTodos Delete user's completed todos
+ * @apiVersion 3.0.0
+ * @apiName ClearCompletedTodos
+ * @apiGroup Task
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.clearCompletedTodos = {
+  method: 'POST',
+  url: '/tasks/clearCompletedTodos',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    // Clear completed todos
+    // Do not delete challenges completed todos TODO unless the task is broken?
+    await Tasks.Task.remove({
+      userId: user._id,
+      type: 'todo',
+      completed: true,
+      'challenge.id': {$exists: false},
+    }).exec();
+
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @api {delete} /tasks/:taskId Delete a user task given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task

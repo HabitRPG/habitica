@@ -79,7 +79,7 @@ schema.plugin(baseModel, {
 // A list of additional fields that cannot be updated (but can be set on creation)
 let noUpdate = ['privacy', 'type'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
-  return model.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
+  return this.sanitize(updateObj, noUpdate);
 };
 
 // TODO migration
