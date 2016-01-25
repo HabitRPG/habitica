@@ -118,10 +118,10 @@ schema.statics.getGroup = function getGroup (options = {}) {
   let query;
 
   // When optionalMembership is true it's not required for the user to be a member of the group
-  if (optionalMembership === true) {
-    query = {_id: groupId};
-  } else if (groupId === 'party' || user.party._id === groupId) {
+  if (groupId === 'party' || user.party._id === groupId) {
     query = {type: 'party', _id: user.party._id};
+  } else if (optionalMembership === true) {
+    query = {_id: groupId};
   } else if (user.guilds.indexOf(groupId) !== -1) {
     query = {type: 'guild', _id: groupId};
   } else {

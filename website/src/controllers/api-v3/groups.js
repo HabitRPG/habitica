@@ -238,8 +238,16 @@ api.joinGroup = {
       if (group.quest.key && !group.quest.active) {
         user.party.quest.RSVPNeeded = true;
         user.party.quest.key = group.quest.key;
+        user.party.quest.progress = undefined; // Make sure to reset progress from ay previous quest
         group.quest.members[user._id] = undefined;
         group.markModified('quest.members');
+      }
+
+      // If user was in a different party (when partying solo you can be invited to a new party)
+      // make him leave that party before doing anything
+      if (user.party._id) {
+        let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+        if (userPreviousParty) await userPreviousParty.leave(user);
       }
 
       user.party._id = group._id; // Set group as user's party
@@ -425,7 +433,7 @@ api.removeGroupMember = {
 };
 
 async function _inviteByUUID (uuid, group, inviter, req, res) {
-  // @TODO: Add Push Notifications
+  // TODO: Add Push Notifications
   let userToInvite = await User.findById(uuid).exec();
 
   if (!userToInvite) {
@@ -444,11 +452,14 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (!_.isEmpty(userToInvite.invitations.party)) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
     }
+
     if (userToInvite.party._id) {
-      throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
+
+      // Allow user to be invited to a new party when they're partying solo
+      if (userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
-    // @TODO: Why was this here?
-    // req.body.type in 'guild', 'party'
+
     userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
   }
 
