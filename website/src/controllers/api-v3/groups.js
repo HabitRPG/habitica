@@ -394,18 +394,23 @@ api.removeGroupMember = {
       group.memberCount -= 1;
 
       if (group.quest && group.quest.leader === member._id) {
-        group.quest.key = null;
-        group.quest.leader = null; // TODO markmodified?
+        group.quest.key = undefined;
+        group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined;
+        group.quest.members[member._id] = undefined; // TODO remmeber to check these are mark modified everywhere
+        group.markModified('quest.members');
       }
 
-      if (isInGroup === 'guild') _.pull(member.guilds, group._id);
+      if (isInGroup === 'guild') {
+        let i = member.guilds.indexOf(group._id);
+        if (i !== -1) member.guilds.splice(i, 1);
+      }
       if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
 
-      if (member.newMessages.group) {
-        member.newMessages.group._id = undefined;
+      if (member.newMessages[group._id]) {
+        member.newMessages[group._id] = undefined;
+        member.markModified('newMessages');
       }
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {

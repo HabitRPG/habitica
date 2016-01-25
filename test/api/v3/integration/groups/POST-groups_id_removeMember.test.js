@@ -64,7 +64,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
       let memberRemoved = await member.get('/user');
 
-      expect(_.findIndex(memberRemoved.guilds, {id: guild._id})).eql(-1);
+      expect(memberRemoved.guilds.indexOf(guild._id)).eql(-1);
     });
 
     it('updates memberCount', async () => {
