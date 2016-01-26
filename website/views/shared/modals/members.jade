@@ -114,9 +114,9 @@ script(type='text/ng-template', id='modals/abuse-flag.html')
     button.btn.btn-danger(ng-click='reportAbuse(user, abuseObject, groupId)')=env.t("abuseFlagModalButton")
 
 script(type='text/ng-template', id='modals/remove-member.html')
-  .modal-header
-    h4(class='text-center')=env.t('sureKick')
-    p(class='modal-subheading text-center') {{removeMemberData.member.profile.name}}
+  .modal-header(class='text-center')
+    h4=env.t('sureKick')
+    p(class='modal-subheading') {{removeMemberData.member.profile.name}}
   .modal-body
     textarea.form-control(type='text',rows='5',placeholder=env.t('optionalMessage'),ng-model='removeMemberData.message')
   .modal-footer
