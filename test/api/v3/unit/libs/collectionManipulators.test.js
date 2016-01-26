@@ -5,7 +5,7 @@ import {
 
 describe('Collection Manipulators', () => {
   describe('removeFromArray', () => {
-    it('removes item from specified array on document', () => {
+    it('removes element from array', () => {
       let array = ['a', 'b', 'c', 'd'];
 
       removeFromArray(array, 'c');
@@ -69,7 +69,7 @@ describe('Collection Manipulators', () => {
       expect(result).to.eql(false);
     });
 
-    it('removal of element persists when mongoose document is saved', async () => {
+    it('persists removal of element when mongoose document is saved', async () => {
       let schema = new mongoose.Schema({
         array: Array,
       });
