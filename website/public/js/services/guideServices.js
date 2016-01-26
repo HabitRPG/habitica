@@ -198,6 +198,11 @@ function($rootScope, User, $timeout, $state, Analytics) {
         var ups = {};
         var lastKnownStep = User.user.flags.tour[k];
 
+        // Return early if user has already completed this tutorial
+        if (lastKnownStep === -2) {
+          return;
+        }
+
         if (i > lastKnownStep) {
           if (step.gold) ups['stats.gp'] = User.user.stats.gp + step.gold;
           if (step.experience) ups['stats.exp'] = User.user.stats.exp + step.experience;
