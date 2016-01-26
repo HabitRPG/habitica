@@ -3,14 +3,14 @@ var validator = require('validator');
 var passport = require('passport');
 var shared = require('../../../../common');
 var async = require('async');
-var utils = require('../../libs/utils');
+var utils = require('../../libs/api-v2/utils');
 var nconf = require('nconf');
 var request = require('request');
 var FirebaseTokenGenerator = require('firebase-token-generator');
 var User = require('../../models/user').model;
 var EmailUnsubscription = require('../../models/emailUnsubscription').model;
 var analytics = utils.analytics;
-var i18n = require('./../../libs/i18n');
+var i18n = require('./../../libs/api-v2/i18n');
 
 var isProd = nconf.get('NODE_ENV') === 'production';
 
@@ -53,6 +53,7 @@ api.authWithSession = function(req, res, next) { //[todo] there is probably a mo
   });
 };
 
+// TODO passing auth params as query params is not safe as they are logged by browser history, ...
 api.authWithUrl = function(req, res, next) {
   User.findOne({_id:req.query._id, apiToken:req.query.apiToken}, function(err,user){
     if (err) return next(err);

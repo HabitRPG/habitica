@@ -7,7 +7,7 @@ let expect = require('expect.js'); // eslint-disable-line no-shadow
 let moment = require('moment');
 let shared = require('../../common/script/index.js');
 
-shared.i18n.translations = require('../../website/src/libs/i18n.js').translations;
+shared.i18n.translations = require('../../website/src/libs/api-v2/i18n.js').translations;
 
 let repeatWithoutLastWeekday = () => { // eslint-disable-line no-unused-vars
   let repeat = {
