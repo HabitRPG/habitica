@@ -262,6 +262,12 @@ let head = {
     mystery: '201512',
     value: 0,
   },
+  201601: {
+    text: t('headMystery201601Text'),
+    notes: t('headMystery201601Notes'),
+    mystery: '201601',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -316,6 +322,12 @@ let headAccessory = {
 };
 
 let shield = {
+  201601: {
+    text: t('shieldMystery201601Text'),
+    notes: t('shieldMystery201601Notes'),
+    mystery: '201601',
+    value: 0,
+  },
   301405: {
     text: t('shieldMystery301405Text'),
     notes: t('shieldMystery301405Notes'),
