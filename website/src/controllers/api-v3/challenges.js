@@ -167,6 +167,43 @@ api.getChallenges = {
 };
 
 /**
+ * @api {get} /challenges/group/group:Id Get challenges for a group
+ * @apiVersion 3.0.0
+ * @apiName GetGroupChallenges
+ * @apiGroup Challenge
+ *
+ * @apiParam {groupId} groupId The group _id
+ *
+ * @apiSuccess {Array} challenges An array of challenges
+ */
+api.getGroupChallenges = {
+  method: 'GET',
+  url: '/challenges/groups/:groupId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    let challenges = await Challenge.find({groupId})
+      .sort('-official -timestamp')
+      // TODO populate
+      // .populate('group', '_id name type')
+      // .populate('leader', 'profile.name')
+      .exec();
+
+    res.respond(200, challenges);
+  },
+};
+
+/**
  * @api {get} /challenges/:challengeId Get a challenge given its id
  * @apiVersion 3.0.0
  * @apiName GetChallenge
