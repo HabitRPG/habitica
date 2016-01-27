@@ -264,7 +264,7 @@ api.exportChallengeCsv = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findById(challengeId).select('_id groupId leader').exec();
+    let challenge = await Challenge.findById(challengeId).select('_id groupId leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
@@ -272,19 +272,15 @@ api.exportChallengeCsv = {
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    let challengeTasks = _.reduce(challenge.tasksOrder, (result, array) => {
-      return result.concat(array);
-    }, []).sort();
-
     let [members, tasks] = await Q.all([
       User.find({challenges: challengeId})
         .select(nameFields)
-        .sortBy({_id: 1})
+        .sort({_id: 1})
         .lean() // so we don't involve mongoose
         .exec(),
 
-      Tasks.Task.find({'task.challenge.id': challengeId, userId: {$exists: true}})
-        .sortBy({userId: 1, _id: 1}).select('userId type text value notes').lean().exec(),
+      Tasks.Task.find({'challenge.id': challengeId, userId: {$exists: true}})
+        .sort({userId: 1, _id: 1}).select('userId type text value notes').lean().exec(),
     ]);
 
     let resArray = members.map(member => [member._id, member.profile.name]);
@@ -302,6 +298,9 @@ api.exportChallengeCsv = {
     });
 
     // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
+    let challengeTasks = _.reduce(challenge.tasksOrder.toObject(), (result, array) => {
+      return result.concat(array);
+    }, []).sort();
     resArray.unshift(['UUID', 'name']);
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes'));
 
@@ -309,7 +308,9 @@ api.exportChallengeCsv = {
       'Content-Type': 'text/csv',
       'Content-disposition': `attachment; filename=${challengeId}.csv`,
     });
-    res.status(200).send(await csvStringify(resArray));
+
+    let csvRes = await csvStringify(resArray);
+    res.status(200).send(csvRes);
   },
 };
 
