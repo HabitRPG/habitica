@@ -136,7 +136,7 @@ api.joinChallenge = {
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} challenge The challenge the user left
+ * @apiSuccess {object} empty An empty object
  */
 api.leaveChallenge = {
   method: 'POST',
@@ -163,7 +163,7 @@ api.leaveChallenge = {
 
     // Unlink challenge's tasks from user's tasks and save the challenge
     await Q.all([user.unlinkChallengeTasks(challenge._id, keep), challenge.save()]);
-    res.respond(200, challenge);
+    res.respond(200, {});
   },
 };
 
