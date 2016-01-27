@@ -438,9 +438,9 @@ api.deleteChallenge = {
 };
 
 /**
- * @api {delete} /challenges/:challengeId Delete a challenge
+ * @api {post} /challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
  * @apiVersion 3.0.0
- * @apiName DeleteChallenge
+ * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
  * @apiSuccess {object} empty An empty object
@@ -452,7 +452,7 @@ api.selectChallengeWinner = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('winnerId', res.t('winnerIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -463,7 +463,7 @@ api.selectChallengeWinner = {
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
     let winner = await User.findOne({_id: req.params.winnerId}).exec();
-    if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.parama.winnerId}));
+    if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.params.winnerId}));
 
     res.respond(200, {});
     // Close channel in background
