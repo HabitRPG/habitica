@@ -5,6 +5,7 @@ import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import {
   model as User,
+  nameFields,
 } from '../../models/user';
 import {
   NotFound,
@@ -15,6 +16,7 @@ import * as Tasks from '../../models/task';
 import { txnEmail } from '../../libs/api-v3/email';
 import pushNotify from '../../libs/api-v3/pushNotifications';
 import Q from 'q';
+import csvStringify from '../../libs/api-v3/csvStringify';
 
 let api = {};
 
@@ -236,6 +238,78 @@ api.getChallenge = {
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     res.respond(200, challenge);
+  },
+};
+
+/**
+ * @api {get} /challenges/:challengeId/export/csv Export a challenge in CSV
+ * @apiVersion 3.0.0
+ * @apiName ExportChallengeCsv
+ * @apiGroup Challenge
+ *
+ * @apiParam {UUID} challengeId The challenge _id
+ *
+ * @apiSuccess {object} challenge The challenge object
+ */
+api.exportChallengeCsv = {
+  method: 'GET',
+  url: '/challenges/:challengeId/export/csv',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findById(challengeId).select('_id groupId leader').exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+
+    // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
+    // results on the server so the perf difference isn't that big (hopefully)
+
+    let challengeTasks = _.reduce(challenge.tasksOrder, (result, array) => {
+      return result.concat(array);
+    }, []).sort();
+
+    let [members, tasks] = await Q.all([
+      User.find({challenges: challengeId})
+        .select(nameFields)
+        .sortBy({_id: 1})
+        .lean() // so we don't involve mongoose
+        .exec(),
+
+      Tasks.Task.find({'task.challenge.id': challengeId, userId: {$exists: true}})
+        .sortBy({userId: 1, _id: 1}).select('userId type text value notes').lean().exec(),
+    ]);
+
+    let resArray = members.map(member => [member._id, member.profile.name]);
+
+    // We assume every user in the challenge as at least some data so we can say that members[0] tasks will be at tasks [0]
+    let lastUserId;
+    let index = -1;
+    tasks.forEach(task => {
+      if (task.userId !== lastUserId) {
+        lastUserId = task.userId;
+        index++;
+      }
+
+      resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes);
+    });
+
+    // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
+    resArray.unshift(['UUID', 'name']);
+    _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes'));
+
+    res.set({
+      'Content-Type': 'text/csv',
+      'Content-disposition': `attachment; filename=${challengeId}.csv`,
+    });
+    res.status(200).send(await csvStringify(resArray));
   },
 };
 

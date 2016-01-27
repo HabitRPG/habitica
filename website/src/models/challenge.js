@@ -48,9 +48,9 @@ schema.methods.canModify = function canModifyChallenge (user) {
 
 // Returns true if user has access to the challenge (can join)
 schema.methods.hasAccess = function hasAccessToChallenge (user) {
-  let userGroups = user.guilds.slice(0);
+  let userGroups = user.guilds.slice(0); // clone user.guilds so we don't modify the original
   if (user.party._id) userGroups.push(user.party._id);
-  userGroups.push('habitrpg'); // tavern challenges
+  userGroups.push('habitrpg'); // tavern
   return this.canModify(user) || userGroups.indexOf(this.groupId) !== -1;
 };
 
