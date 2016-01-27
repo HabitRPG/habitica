@@ -654,7 +654,7 @@ schema.methods.isSubscribed = function isSubscribed () {
   return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
 };
 
-// Unlink challenges tasks from user
+// Unlink challenges tasks (and the challenge itself) from user
 schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (challengeId, keep) {
   let user = this;
   let findQuery = {

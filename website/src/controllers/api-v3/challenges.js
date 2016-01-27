@@ -3,7 +3,9 @@ import _ from 'lodash';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
-import { model as User } from '../../models/user';
+import {
+  model as User,
+} from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -196,6 +198,43 @@ api.getChallenge = {
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     res.respond(200, challenge);
+  },
+};
+
+/**
+ * @api {put} /challenges/:challengeId Update a challenge
+ * @apiVersion 3.0.0
+ * @apiName UpdateChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam {UUID} challengeId The challenge _id
+ *
+ * @apiSuccess {object} challenge The updated challenge object
+ */
+api.updateChallenge = {
+  method: 'PUT',
+  url: '/challenges/:challengeId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findById(challengeId).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id name type privacy', optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
+
+    _.merge(challenge, Challenge.sanitizeUpdate(req.body));
+
+    let savedChal = await challenge.save();
+    res.respond(200, savedChal);
   },
 };
 

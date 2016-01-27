@@ -302,7 +302,7 @@ api.updateTask = {
       delete req.body.tags;
     }
 
-    // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, very bad for performances
+    // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, bad for performances?
     // TODO regarding comment above make sure other models with nested fields are using this trick too
     _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
     // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
