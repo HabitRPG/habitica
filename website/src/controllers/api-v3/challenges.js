@@ -130,6 +130,44 @@ api.joinChallenge = {
 };
 
 /**
+ * @api {post} /challenges/:challengeId/leave Leaves a challenge
+ * @apiVersion 3.0.0
+ * @apiName LeaveChallenge
+ * @apiGroup Challenge
+ * @apiParam {UUID} challengeId The challenge _id
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.leaveChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/leave',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let challenge = await Challenge.findOne({ _id: req.params.challengeId });
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+
+    if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
+
+    challenge.memberCount -= 1;
+
+    // Unlink challenge's tasks from user's tasks and save the challenge
+    await Q.all([user.unlinkChallengeTasks(challenge._id, keep), challenge.save()]);
+    res.respond(200, {});
+  },
+};
+
+/**
  * @api {get} /challenges Get challenges for a user
  * @apiVersion 3.0.0
  * @apiName GetChallenges
