@@ -4,8 +4,8 @@ var crypto = require('crypto');
 var path = require("path");
 var request = require('request');
 
-// Set when utils.setupConfig is run
-var isProd, baseUrl;
+const IS_PROD = nconf.get('IS_PROD');
+const BASE_URL = nconf.get('BASE_URL');
 
 module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
@@ -16,7 +16,7 @@ module.exports.sendEmail = function(mailData) {
     }
   });
   smtpTransport.sendMail(mailData, function(error, response){
-      var logging = require('./logging');
+      var logging = require('./api-v2/logging');
     if(error) logging.error(error);
     else logging.info("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
@@ -59,7 +59,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
   var mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
 
   var variables = [
-    {name: 'BASE_URL', content: baseUrl}
+    {name: 'BASE_URL', content: BASE_URL}
   ].concat(variables || []);
 
   // It's important to pass at least a user with its `preferences` as we need to check if he unsubscribed
@@ -120,7 +120,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
     });
   }
 
-  if(isProd && mailingInfoArray.length > 0){
+  if(IS_PROD && mailingInfoArray.length > 0){
     request({
       url: nconf.get('EMAIL_SERVER:url') + '/job',
       method: 'POST',
@@ -167,20 +167,12 @@ module.exports.analytics = { track: function() { }, trackPurchase: function() { 
  * Load nconf and define default configuration values if config.json or ENV vars are not found
  */
 module.exports.setupConfig = function(){
-  nconf.argv()
-    .env()
-    //.file('defaults', path.join(path.resolve(__dirname, '../config.json.example')))
-    .file('user', path.join(path.resolve(__dirname, './../../../config.json')));
-
-  if (nconf.get('NODE_ENV') === "development")
+  if (nconf.get('IS_DEV'))
     Error.stackTraceLimit = Infinity;
-  //if (nconf.get('NODE_ENV') === 'production')
+  //if (nconf.get('IS_PROD'))
     //require('newrelic');
 
-  isProd = nconf.get('NODE_ENV') === 'production';
-  baseUrl = nconf.get('BASE_URL');
-
-  var analytics = isProd && require('./analytics');
+  var analytics = IS_PROD && require('./api-v2/analytics');
   var analyticsTokens = {
     amplitudeToken: nconf.get('AMPLITUDE_KEY'),
     googleAnalytics: nconf.get('GA_ID')

@@ -59,6 +59,29 @@ export class ApiGroup extends ApiObject {
 
     this._docType = 'groups';
   }
+
+  async addChat (chat) {
+    let group = this;
+
+    if (!chat) {
+      chat = {
+        id: 'Test_ID',
+        text: 'Test message',
+        flagCount: 0,
+        timestamp: Date(),
+        likes: {},
+        flags: {},
+        uuid: group.leader,
+        contributor: {},
+        backer: {},
+        user: group.leader,
+      };
+    }
+
+    let update = { chat };
+
+    return await this.update(update);
+  }
 }
 
 export class ApiChallenge extends ApiObject {
