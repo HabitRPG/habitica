@@ -1,5 +1,6 @@
 import setupNconf from '../../../../../website/src/libs/api-v3/setupNconf';
 
+import path from 'path';
 import nconf from 'nconf';
 
 describe('setupNconf', () => {
@@ -19,7 +20,9 @@ describe('setupNconf', () => {
     expect(nconf.argv).to.be.calledOnce;
     expect(nconf.env).to.be.calledOnce;
     expect(nconf.file).to.be.calledOnce;
-    expect(nconf.file).to.be.calledWithMatch('user', /\/config.json$/);
+
+    let regexString = `\\${path.sep}config.json$`;
+    expect(nconf.file).to.be.calledWithMatch('user', new RegExp(regexString));
   });
 
   it('sets IS_PROD variable', () => {
