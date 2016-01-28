@@ -422,7 +422,7 @@ api.deleteChallenge = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
