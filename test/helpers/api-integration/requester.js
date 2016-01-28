@@ -51,7 +51,8 @@ function _requestMaker (user, method, additionalSets) {
             reject(parsedError);
           }
 
-          resolve(response.body);
+          let contentType = response.headers['content-type'] || '';
+          resolve(contentType.indexOf('json') !== -1 ? response.body : response.text);
         });
     });
   };

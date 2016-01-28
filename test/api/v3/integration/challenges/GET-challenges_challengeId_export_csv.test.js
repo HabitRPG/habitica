@@ -34,7 +34,10 @@ describe('GET /challenges/:challengeId/export/csv', () => {
       {type: 'habit', text: 'Task 1'},
       {type: 'todo', text: 'Task 2'},
     ]);
-    await sleep(1);
+    await sleep(0.5); // Make sure tasks are synced to the users
+    await members[0].sync();
+    await members[1].sync();
+    await members[2].sync();
   });
 
   it('fails if challenge doesn\'t exists', async () => {
@@ -54,6 +57,15 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   });
 
   it('should return a valid CSV file with export data', async () => {
-    await members[0].get(`/challenges/${challenge._id}/export/csv`);
+    let res = await members[0].get(`/challenges/${challenge._id}/export/csv`);
+    let sortedMembers = _.sortBy([members[0], members[1], members[2], groupLeader], '_id');
+    let splitRes = res.split('\n');
+
+    expect(splitRes[0]).to.equal('UUID,name,Task,Value,Notes,Task,Value,Notes');
+    expect(splitRes[1]).to.equal(`${sortedMembers[0]._id},${sortedMembers[0].profile.name},habit:Task 1,0,,todo:Task 2,0,`);
+    expect(splitRes[2]).to.equal(`${sortedMembers[1]._id},${sortedMembers[1].profile.name},habit:Task 1,0,,todo:Task 2,0,`);
+    expect(splitRes[3]).to.equal(`${sortedMembers[2]._id},${sortedMembers[2].profile.name},habit:Task 1,0,,todo:Task 2,0,`);
+    expect(splitRes[4]).to.equal(`${sortedMembers[3]._id},${sortedMembers[3].profile.name},habit:Task 1,0,,todo:Task 2,0,`);
+    expect(splitRes[5]).to.equal('');
   });
 });

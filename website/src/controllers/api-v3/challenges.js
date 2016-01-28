@@ -280,7 +280,7 @@ api.exportChallengeCsv = {
         .exec(),
 
       Tasks.Task.find({'challenge.id': challengeId, userId: {$exists: true}})
-        .sort({userId: 1, _id: 1}).select('userId type text value notes').lean().exec(),
+        .sort({userId: 1, text: 1}).select('userId type text value notes').lean().exec(),
     ]);
 
     let resArray = members.map(member => [member._id, member.profile.name]);
