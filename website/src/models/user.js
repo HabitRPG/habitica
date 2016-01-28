@@ -58,7 +58,8 @@ var UserSchema = new Schema({
     habiticaDays: Number,
     greeting: Number,
     thankyou: Number,
-    costumeContests: Number
+    costumeContests: Number,
+    birthday: Number
   },
   auth: {
     blocked: Boolean,
@@ -243,7 +244,9 @@ var UserSchema = new Schema({
       greeting: Number,
       greetingReceived: Array,
       thankyou: Number,
-      thankyouReceived: Array
+      thankyouReceived: Array,
+      birthday: Number,
+      birthdayReceived: Array
     },
 
     // -------------- Animals -------------------

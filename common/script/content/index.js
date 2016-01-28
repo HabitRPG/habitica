@@ -662,7 +662,42 @@ api.spells = {
         }
         return user.stats.gp -= 10;
       }
-    }
+    },
+    birthday: {
+      text: t('birthdayCard'),
+      mana: 0,
+      value: 10,
+      immediateUse: true,
+      silent: true,
+      target: 'user',
+      notes: t('birthdayCardNotes'),
+      cast: function(user, target) {
+        var base;
+        if (user === target) {
+          if ((base = user.achievements).birthday == null) {
+            base.birthday = 0;
+          }
+          user.achievements.birthday++;
+        } else {
+          _.each([user, target], function(t) {
+            var base1;
+            if ((base1 = t.achievements).birthday == null) {
+              base1.birthday = 0;
+            }
+            return t.achievements.birthday++;
+          });
+        }
+        if (!target.items.special.birthdayReceived) {
+          target.items.special.birthdayReceived = [];
+        }
+        target.items.special.birthdayReceived.push(user.profile.name);
+        target.flags.cardReceived = true;
+        if (typeof target.markModified === "function") {
+          target.markModified('items.special.birthdayReceived');
+        }
+        return user.stats.gp -= 10;
+      }
+    },
   }
 };
 
@@ -684,7 +719,12 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4
-  }
+  },
+  birthday: {
+    key: 'birthday',
+    messageOptions: 1,
+    yearRound: true,
+  },
 };
 
 _.each(api.spells, function(spellClass) {
@@ -1139,91 +1179,51 @@ api.questMounts = _.transform(api.questEggs, function(m, egg) {
 api.food = {
   Meat: {
     text: t('foodMeat'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'Base',
     article: ''
   },
   Milk: {
     text: t('foodMilk'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'White',
     article: ''
   },
   Potatoe: {
     text: t('foodPotatoe'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'Desert',
     article: 'a '
   },
   Strawberry: {
     text: t('foodStrawberry'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'Red',
     article: 'a '
   },
   Chocolate: {
     text: t('foodChocolate'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'Shade',
     article: ''
   },
   Fish: {
     text: t('foodFish'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'Skeleton',
     article: 'a '
   },
   RottenMeat: {
     text: t('foodRottenMeat'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'Zombie',
     article: ''
   },
   CottonCandyPink: {
     text: t('foodCottonCandyPink'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'CottonCandyPink',
     article: ''
   },
   CottonCandyBlue: {
     text: t('foodCottonCandyBlue'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'CottonCandyBlue',
     article: ''
   },
   Honey: {
     text: t('foodHoney'),
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     target: 'Golden',
     article: ''
   },
@@ -1238,51 +1238,91 @@ api.food = {
   Cake_Skeleton: {
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_Base: {
     text: t('foodCakeBase'),
     target: 'Base',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_CottonCandyBlue: {
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_CottonCandyPink: {
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_Shade: {
     text: t('foodCakeShade'),
     target: 'Shade',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_White: {
     text: t('foodCakeWhite'),
     target: 'White',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_Golden: {
     text: t('foodCakeGolden'),
     target: 'Golden',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_Zombie: {
     text: t('foodCakeZombie'),
     target: 'Zombie',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_Desert: {
     text: t('foodCakeDesert'),
     target: 'Desert',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Cake_Red: {
     text: t('foodCakeRed'),
     target: 'Red',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
     article: ''
   },
   Candy_Skeleton: {

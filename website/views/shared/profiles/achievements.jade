@@ -238,7 +238,7 @@ div(ng-if='::profile.achievements.costumeContests')
     !=env.t('costumeContestTextPlural', {number: "{{::profile.achievements.costumeContests}}"})
   hr
 
-each card in ['greeting', 'thankyou', 'nye', 'valentine']
+each card in ['greeting', 'thankyou', 'nye', 'valentine', 'birthday']
   div(ng-if='::profile.achievements.#{card}')
     div(class='achievement achievement-#{card}')
     h5=env.t(card + 'CardAchievementTitle')
