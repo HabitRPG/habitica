@@ -44,6 +44,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
     let group;
     let challenge;
     let winningUser;
+    let taskText = 'A challenge task text';
 
     beforeEach(async () => {
       let populatedGroup = await createAndPopulateGroup({
@@ -59,7 +60,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       });
 
       await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
-        {type: 'habit', text: 'A challenge task text'},
+        {type: 'habit', text: taskText},
       ]);
 
       await winningUser.post(`/challenges/${challenge._id}/join`);
@@ -109,6 +110,30 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       await sleep(0.5);
 
       await expect(winningUser.sync()).to.eventually.have.property('balance', oldBalance + challenge.prize / 4);
+    });
+
+    it('doesn\'t refund gems to group leader', async () => {
+      let oldBalance = (await groupLeader.sync()).balance;
+
+      await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
+
+      await sleep(0.5);
+
+      await expect(groupLeader.sync()).to.eventually.have.property('balance', oldBalance);
+    });
+
+    it('sets broken and winner flags for user\'s challenge tasks', async () => {
+      await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
+
+      await sleep(0.5);
+
+      let tasks = await winningUser.get('/tasks/user');
+      let testTask = _.find(tasks, (task) => {
+        return task.text === taskText;
+      });
+
+      expect(testTask.challenge.broken).to.eql('CHALLENGE_CLOSED');
+      expect(testTask.challenge.winner).to.eql(winningUser.profile.name);
     });
   });
 });

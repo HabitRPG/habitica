@@ -467,7 +467,7 @@ api.selectChallengeWinner = {
 
     res.respond(200, {});
     // Close channel in background
-    _closeChal(challenge, {broken: 'CHALLENGE_DELETED', winner});
+    _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
   },
 };
 
