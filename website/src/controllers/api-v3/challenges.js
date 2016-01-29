@@ -13,7 +13,7 @@ import {
 } from '../../libs/api-v3/errors';
 import shared from '../../../../common';
 import * as Tasks from '../../models/task';
-import { txnEmail } from '../../libs/api-v3/email';
+import { sendTxn as txnEmail } from '../../libs/api-v3/email';
 import pushNotify from '../../libs/api-v3/pushNotifications';
 import Q from 'q';
 import csvStringify from '../../libs/api-v3/csvStringify';
@@ -352,14 +352,38 @@ api.updateChallenge = {
 };
 
 // TODO everything here should be moved to a worker
-// actually even for a worker it's probably just to big and will kill mongo
-function _closeChal (challenge, broken = {}) {
+// actually even for a worker it's probably just too big and will kill mongo
+async function _closeChal (challenge, broken = {}) {
   let winner = broken.winner;
   let brokenReason = broken.broken;
 
-  let tasks = [
-    // Delete the challenge
-    Challenge.remove({_id: challenge._id}).exec(),
+  // Delete the challenge
+  await Challenge.remove({_id: challenge._id}).exec();
+
+  // Refund the leader if the challenge is closed and the group not the tavern
+  if (challenge.groupId !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
+    await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
+  }
+
+  // Update the challengeCount on the group
+  await Group.update({_id: challenge.groupId}, {$inc: {challengeCount: -1}}).exec();
+
+  // Award prize to winner and notify
+  if (winner) {
+    winner.achievements.challenges.push(challenge.name);
+    winner.balance += challenge.prize / 4;
+    let savedWinner = await winner.save();
+    if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
+      txnEmail(savedWinner, 'won-challenge', [
+        {name: 'CHALLENGE_NAME', content: challenge.name},
+      ]);
+    }
+
+    pushNotify(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
+  }
+
+  // Run some operations in the background withouth blocking the thread
+  let backgroundTasks = [
     // And it's tasks
     Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
@@ -379,31 +403,9 @@ function _closeChal (challenge, broken = {}) {
         'challenge.winner': winner && winner.profile.name,
       },
     }, {multi: true}).exec(),
-    // Update the challengeCount on the group
-    Group.update({_id: challenge.groupId}, {$inc: {challengeCount: -1}}).exec(),
   ];
 
-  // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.groupId !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
-    tasks.push(User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec());
-  }
-
-  // Award prize to winner and notify
-  if (winner) {
-    winner.achievements.challenges.push(challenge.name);
-    winner.balance += challenge.prize / 4;
-    tasks.push(winner.save().then(savedWinner => {
-      if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
-        txnEmail(savedWinner, 'won-challenge', [
-          {name: 'CHALLENGE_NAME', content: challenge.name},
-        ]);
-      }
-
-      pushNotify.sendNotify(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
-    }));
-  }
-
-  return Q.allSettled(tasks); // TODO look if allSettled could be useful somewhere else
+  Q.allSettled(backgroundTasks); // TODO look if allSettled could be useful somewhere else
   // TODO catch and handle
 }
 
@@ -431,9 +433,9 @@ api.deleteChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
+    // Close channel in background, some ops are run in the background without `await`ing
+    await _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
     res.respond(200, {});
-    // Close channel in background
-    _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
   },
 };
 
@@ -465,9 +467,9 @@ api.selectChallengeWinner = {
     let winner = await User.findOne({_id: req.params.winnerId}).exec();
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.params.winnerId}));
 
+    // Close channel in background, some ops are run in the background without `await`ing
+    await _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
     res.respond(200, {});
-    // Close channel in background
-    _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
   },
 };
 
