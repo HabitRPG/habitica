@@ -20,22 +20,29 @@ export async function checkExistence (collectionName, id) {
 // Specifically helpful for the GET /groups tests,
 // resets the db to an empty state and creates a tavern document
 export async function resetHabiticaDB () {
+  console.log('calling resetHabiticaDatabase'); // eslint-disable-line
   return new Promise((resolve, reject) => {
     mongoose.connection.db.dropDatabase((dbErr) => {
       if (dbErr) return reject(dbErr);
       let groups = mongoose.connection.db.collection('groups');
 
-      groups.insertOne({
-        _id: 'habitrpg',
-        chat: [],
-        leader: '9',
-        name: 'HabitRPG',
-        type: 'guild',
-        privacy: 'public',
-      }, (insertErr) => {
-        if (insertErr) return reject(insertErr);
+      // For some mysterious reason after a dropDatabase there can still be a group...
+      groups.count({_id: 'habitrpg'}, (err, count) => {
+        if (err) return reject(err);
+        if (count > 0) return resolve();
 
-        resolve();
+        groups.insertOne({
+          _id: 'habitrpg',
+          chat: [],
+          leader: '9',
+          name: 'HabitRPG',
+          type: 'guild',
+          privacy: 'public',
+        }, (insertErr) => {
+          if (insertErr) return reject(insertErr);
+
+          resolve();
+        });
       });
     });
   });
