@@ -63,7 +63,6 @@ let armor = {
     },
   },
   birthday: {
-    event: EVENTS.birthday,
     text: t('armorSpecialBirthdayText'),
     notes: t('armorSpecialBirthdayNotes'), value: 0,
   },
@@ -358,6 +357,13 @@ let armor = {
     notes: t('armorSpecialWinter2016HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+  },
+  birthday2016: {
+    event: EVENTS.birthday2016,
+    text: t('armorSpecialBirthday2016Text'),
+    notes: t('armorSpecialBirthday2016Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2016'),
   },
 };
 
