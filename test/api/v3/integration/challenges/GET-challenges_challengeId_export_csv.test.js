@@ -50,7 +50,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
 
   it('fails if user doesn\'t have access to the challenge', async () => {
     await expect(user.get(`/challenges/${challenge._id}/export/csv`)).to.eventually.be.rejected.and.eql({
-      code: 409,
+      code: 404,
       error: 'NotFound',
       message: t('challengeNotFound'),
     });
