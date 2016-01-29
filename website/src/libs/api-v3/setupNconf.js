@@ -13,4 +13,5 @@ export default function setupNconf (file) {
 
   nconf.set('IS_PROD', nconf.get('NODE_ENV') === 'production');
   nconf.set('IS_DEV', nconf.get('NODE_ENV') === 'development');
+  nconf.set('IS_TEST', nconf.get('NODE_ENV') === 'test');
 }
