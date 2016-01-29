@@ -1,8 +1,9 @@
 /* eslint-disable no-use-before-define */
 
 import superagent from 'superagent';
+import nconf from 'nconf';
 
-const API_TEST_SERVER_PORT = 3003;
+const API_TEST_SERVER_PORT = nconf.get('PORT');
 let apiVersion;
 
 // Sets up an abject that can make all REST requests

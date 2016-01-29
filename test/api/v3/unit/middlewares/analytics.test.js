@@ -53,4 +53,3 @@ describe('analytics middleware', () => {
     expect(res.analytics.trackPurchase).to.eql(analyticsService.trackPurchase);
   });
 });
-

@@ -3,25 +3,11 @@ import mongoose from 'mongoose';
 import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
-
-mongoose.Promise = require('q').Promise;
-
-mongoose.connect('mongodb://localhost/habitica-unit-tests');
-let connection = mongoose.connection;
-
-before((done) => {
-  connection.on('open', () => {
-    connection.db.dropDatabase(done);
-  });
-});
-
-after((done) => {
-  connection.close(done);
-});
+import mongo from './mongo'; // eslint-disable-line
 
 afterEach((done) => {
   sandbox.restore();
-  connection.db.dropDatabase(done);
+  mongoose.connection.db.dropDatabase(done);
 });
 
 export function generateUser (options = {}) {
