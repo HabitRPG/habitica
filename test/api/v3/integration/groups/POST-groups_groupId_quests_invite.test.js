@@ -100,20 +100,28 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
   });
 
   context('successfully issuing a quest invitation', () => {
+    let inviteResponse = {
+      key: PET_QUEST,
+      active: false,
+      leader: leader._id,
+      members: {},
+      progress: {
+        collect: {},
+      },
+    };
+    inviteResponse.members[member._id] = null;
+    inviteResponse.members[leader._id] = null;
+
     it('sends an invite to all party members', async () => {
       leader.items.quests[PET_QUEST] = 1;
 
-      await expect(leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal([{
-
-      }]);
+      await expect(leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal(inviteResponse);
     });
 
     it('allows non-leader party members to send invites', async () => {
       member.items.quests[PET_QUEST] = 1;
 
-      await expect(member.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal([{
-
-      }]);
+      await expect(member.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal(inviteResponse);
     });
   });
 });
