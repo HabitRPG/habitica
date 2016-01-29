@@ -1,8 +1,6 @@
 /* eslint-disable no-use-before-define */
-
+import nconf from 'nconf';
 import { MongoClient as mongo } from 'mongodb';
-
-const DB_URI = 'mongodb://localhost/habitrpg_test';
 
 // Useful for checking things that have been deleted,
 // but you no longer have access to,
@@ -81,7 +79,7 @@ export async function getDocument (collectionName, doc) {
 
 export function connectToMongo () {
   return new Promise((resolve, reject) => {
-    mongo.connect(DB_URI, (err, db) => {
+    mongo.connect(nconf.get('NODE_DB_URI'), (err, db) => {
       if (err) return reject(err);
 
       resolve(db);

@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-require('babel-core/register');
 //------------------------------
 // Global modules
 //------------------------------

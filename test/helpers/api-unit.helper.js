@@ -4,9 +4,6 @@ import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
 
-mongoose.Promise = require('q').Promise;
-
-mongoose.connect('mongodb://localhost/habitica-unit-tests');
 let connection = mongoose.connection;
 
 before((done) => {
