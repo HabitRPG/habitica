@@ -4,21 +4,9 @@ import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
 
-let connection = mongoose.connection;
-
-before((done) => {
-  connection.on('open', () => {
-    connection.db.dropDatabase(done);
-  });
-});
-
-after((done) => {
-  connection.close(done);
-});
-
 afterEach((done) => {
   sandbox.restore();
-  connection.db.dropDatabase(done);
+  mongoose.connection.db.dropDatabase(done);
 });
 
 export function generateUser (options = {}) {

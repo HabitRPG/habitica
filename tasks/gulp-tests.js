@@ -13,6 +13,8 @@ import Q                          from 'q';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
 
+// TODO rewrite
+
 const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
 let server;

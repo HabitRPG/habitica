@@ -4,7 +4,7 @@ import { requester } from './requester';
 import {
   getDocument as getDocumentFromMongo,
   updateDocument as updateDocumentInMongo,
-} from './mongo';
+} from '../mongo';
 import {
   assign,
   each,

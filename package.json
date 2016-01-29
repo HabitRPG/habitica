@@ -94,7 +94,7 @@
     "npm": "^3.3.10"
   },
   "scripts": {
-    "test": "gulp lint && (gulp test:nodemon & (sleep 20; mocha test/api/v3 --recursive; killall gulp; killall node;))",
+    "test": "gulp lint && npm run test:api-v3:unit && npm run test:api-v3:integration",
     "test:api-v2:unit": "mocha test/server_side",
     "test:api-v2:integration": "mocha test/api/v2 --recursive",
     "test:api-v3": "mocha test/api/v3 --recursive",

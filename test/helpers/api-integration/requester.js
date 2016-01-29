@@ -2,7 +2,6 @@
 
 import superagent from 'superagent';
 import nconf from 'nconf';
-import app from '../../../website/src/server';
 
 const API_TEST_SERVER_PORT = nconf.get('PORT');
 let apiVersion;

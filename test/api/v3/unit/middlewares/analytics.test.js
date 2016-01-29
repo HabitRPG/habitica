@@ -29,7 +29,7 @@ describe('analytics middleware', () => {
 
     attachAnalytics(req, res, next);
 
-    expect(res.analytics).to.exist;
+    expect(res.analytics).to.not.exist;
   });
 
   it('attaches stubbed methods for non-prod environments', () => {
@@ -53,4 +53,3 @@ describe('analytics middleware', () => {
     expect(res.analytics.trackPurchase).to.eql(analyticsService.trackPurchase);
   });
 });
-
