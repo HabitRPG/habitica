@@ -18,6 +18,7 @@ import nconf from 'nconf';
 //------------------------------
 require('../../website/src/libs/api-v3/setupNconf')('./config.json.example');
 nconf.set('NODE_DB_URI', 'mongodb://localhost/habitrpg_test');
+nconf.set('NODE_ENV', 'test');
 // We require src/server and npt src/index because
 // 1. nconf is already setup
 // 2. we don't need clustering

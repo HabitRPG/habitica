@@ -11,6 +11,7 @@ import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import Q from 'q';
+import nconf from 'nconf';
 
 let Schema = mongoose.Schema;
 
@@ -513,17 +514,19 @@ export const INVITES_LIMIT = 100;
 export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
-model.count({_id: 'habitrpg'}, (err, ct) => {
-  if (err) throw err;
-  if (ct > 0) return;
-
-  new model({ // eslint-disable-line babel/new-cap
-    _id: 'habitrpg',
-    leader: '9', // TODO change this user id
-    name: 'HabitRPG',
-    type: 'guild',
-    privacy: 'public',
-  }).save({
-    validateBeforeSave: false, // _id = 'habitrpg' would not be valid otherwise
-  }); // TODO catch/log?
-});
+// do not run when testing as it's handled by the tests and can easily cause a race condition
+if (nconf.get('NODE_ENV') !== 'test') {
+  model.count({_id: 'habitrpg'}, (err, ct) => {
+    if (err) throw err;
+    if (ct > 0) return;
+    new model({ // eslint-disable-line babel/new-cap
+      _id: 'habitrpg',
+      leader: '9', // TODO change this user id
+      name: 'HabitRPG',
+      type: 'guild',
+      privacy: 'public',
+    }).save({
+      validateBeforeSave: false, // _id = 'habitrpg' would not be valid otherwise
+    }); // TODO catch/log?
+  });
+}

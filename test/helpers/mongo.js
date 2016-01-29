@@ -20,7 +20,6 @@ export async function checkExistence (collectionName, id) {
 // Specifically helpful for the GET /groups tests,
 // resets the db to an empty state and creates a tavern document
 export async function resetHabiticaDB () {
-  console.log('calling resetHabiticaDatabase'); // eslint-disable-line
   return new Promise((resolve, reject) => {
     mongoose.connection.db.dropDatabase((dbErr) => {
       if (dbErr) return reject(dbErr);

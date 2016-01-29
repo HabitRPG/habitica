@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
+import mongo from './mongo'; // eslint-disable-line
 
 afterEach((done) => {
   sandbox.restore();
