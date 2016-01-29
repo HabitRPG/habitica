@@ -1,6 +1,7 @@
 .DS_Store
 website/public/gen
 website/public/common
+website/public/apidoc
 node_modules
 *.swp
 .idea*

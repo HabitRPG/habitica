@@ -1,8 +1,10 @@
 /* eslint-disable no-use-before-define */
 
 import superagent from 'superagent';
+import nconf from 'nconf';
+import app from '../../../website/src/server';
 
-const API_TEST_SERVER_PORT = 3003;
+const API_TEST_SERVER_PORT = nconf.get('PORT');
 let apiVersion;
 
 // Sets up an abject that can make all REST requests
@@ -46,14 +48,33 @@ function _requestMaker (user, method, additionalSets) {
           if (err) {
             if (!err.response) return reject(err);
 
-            return reject({
-              code: err.status,
-              text: err.response.body.err,
-            });
+            let parsedError = _parseError(err);
+
+            reject(parsedError);
           }
 
-          resolve(response.body);
+          let contentType = response.headers['content-type'] || '';
+          resolve(contentType.indexOf('json') !== -1 ? response.body : response.text);
         });
     });
   };
+}
+
+function _parseError (err) {
+  let parsedError;
+
+  if (apiVersion === 'v2') {
+    parsedError = {
+      code: err.status,
+      text: err.response.body.err,
+    };
+  } else if (apiVersion === 'v3') {
+    parsedError = {
+      code: err.status,
+      error: err.response.body.error,
+      message: err.response.body.message,
+    };
+  }
+
+  return parsedError;
 }
