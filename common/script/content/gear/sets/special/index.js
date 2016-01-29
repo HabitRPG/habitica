@@ -63,6 +63,7 @@ let armor = {
     },
   },
   birthday: {
+    event: EVENTS.birthday,
     text: t('armorSpecialBirthdayText'),
     notes: t('armorSpecialBirthdayNotes'), value: 0,
   },
@@ -359,7 +360,6 @@ let armor = {
     con: 15,
   },
   birthday2016: {
-    event: EVENTS.birthday2016,
     text: t('armorSpecialBirthday2016Text'),
     notes: t('armorSpecialBirthday2016Notes'),
     value: 0,
