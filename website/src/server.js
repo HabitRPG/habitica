@@ -138,7 +138,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
   oldApp.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
   oldApp.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
-  //oldApp.use(express['static'](publicDir));
+  oldApp.use(express['static'](publicDir));
 
   // Custom Directives
   oldApp.use(require('./routes/pages').middleware);
@@ -151,10 +151,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use('/api/v1', require('./routes/api-v1').middleware);
   oldApp.use('/export', require('./routes/dataexport').middleware);
   require('./routes/api-v2/swagger')(swagger, v2);
-  oldApp.use(function (req, res, next) {
-    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.sendfile(publicDir + req.originalUrl);
-  });
   oldApp.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);
