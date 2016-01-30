@@ -515,7 +515,7 @@ export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
-if (nconf.get('IS_TEST')) {
+if (!nconf.get('IS_TEST')) {
   model.count({_id: 'habitrpg'}, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
