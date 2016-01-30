@@ -76,7 +76,10 @@ function _getMembersForItem (type) {
     if (type === 'challenge-members') {
       challenge = await Challenge.findById(challengeId).select('_id type leader groupId').exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+
+      // optionalMembership is set to true because even if you're not member of the group you may be able to access the challenge
+      // for example if you've been booted from it, are the leader or a site admin
+      group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
       if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     } else {
       group = await Group.getGroup({user, groupId, fields: '_id type'});
@@ -207,7 +210,9 @@ api.getChallengeMemberProgress = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+    // optionalMembership is set to true because even if you're not member of the group you may be able to access the challenge
+    // for example if you've been booted from it, are the leader or a site admin
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
 

@@ -7,9 +7,11 @@ import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
+import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import Q from 'q';
+import nconf from 'nconf';
 
 let Schema = mongoose.Schema;
 
@@ -79,7 +81,7 @@ schema.plugin(baseModel, {
 // A list of additional fields that cannot be updated (but can be set on creation)
 let noUpdate = ['privacy', 'type'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
-  return model.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
+  return this.sanitize(updateObj, noUpdate);
 };
 
 // TODO migration
@@ -118,10 +120,10 @@ schema.statics.getGroup = function getGroup (options = {}) {
   let query;
 
   // When optionalMembership is true it's not required for the user to be a member of the group
-  if (optionalMembership === true) {
-    query = {_id: groupId};
-  } else if (groupId === 'party' || user.party._id === groupId) {
+  if (groupId === 'party' || user.party._id === groupId) {
     query = {type: 'party', _id: user.party._id};
+  } else if (optionalMembership === true) {
+    query = {_id: groupId};
   } else if (user.guilds.indexOf(groupId) !== -1) {
     query = {type: 'guild', _id: groupId};
   } else {
@@ -147,8 +149,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
     if (group.type === 'party') {
       user.invitations.party = {}; // TODO mark modified
     } else {
-      let i = _.findIndex(user.invitations.guilds, {id: group._id});
-      user.invitations.guilds.splice(i, 1);
+      removeFromArray(user.invitations.guilds, { id: group._id });
     }
     return user.save();
   });
@@ -204,9 +205,17 @@ schema.methods.sendChat = function sendChat (message, user) {
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
   } else {
-    User.update({
-      _id: {$in: this.members, $ne: user ? user._id : ''},
-    }, lastSeenUpdate, {multi: true}).exec();
+    let query = {};
+
+    if (this.type === 'party') {
+      query['party._id'] = this._id;
+    } else {
+      query.guilds = this._id;
+    }
+
+    query._id = { $ne: user ? user._id : ''};
+
+    User.update(query, lastSeenUpdate, {multi: true}).exec();
   }
 };
 
@@ -505,17 +514,19 @@ export const INVITES_LIMIT = 100;
 export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
-model.count({_id: 'habitrpg'}, (err, ct) => {
-  if (err) throw err;
-  if (ct > 0) return;
-
-  new model({ // eslint-disable-line babel/new-cap
-    _id: 'habitrpg',
-    leader: '9', // TODO change this user id
-    name: 'HabitRPG',
-    type: 'guild',
-    privacy: 'public',
-  }).save({
-    validateBeforeSave: false, // _id = 'habitrpg' would not be valid otherwise
-  }); // TODO catch/log?
-});
+// do not run when testing as it's handled by the tests and can easily cause a race condition
+if (!nconf.get('IS_TEST')) {
+  model.count({_id: 'habitrpg'}, (err, ct) => {
+    if (err) throw err;
+    if (ct > 0) return;
+    new model({ // eslint-disable-line babel/new-cap
+      _id: 'habitrpg',
+      leader: '9', // TODO change this user id
+      name: 'HabitRPG',
+      type: 'guild',
+      privacy: 'public',
+    }).save({
+      validateBeforeSave: false, // _id = 'habitrpg' would not be valid otherwise
+    }); // TODO catch/log?
+  });
+}

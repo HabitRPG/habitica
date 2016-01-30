@@ -10,9 +10,9 @@ let Schema = mongoose.Schema;
 
 let schema = new Schema({
   name: {type: String, required: true},
-  shortName: {type: String, required: true}, // TODO what is it?
+  shortName: {type: String, required: true},
   description: String,
-  official: {type: Boolean, default: false}, // TODO only settable by admin
+  official: {type: Boolean, default: false},
   tasksOrder: {
     habits: [{type: String, ref: 'Task'}],
     dailys: [{type: String, ref: 'Task'}],
@@ -20,30 +20,20 @@ let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true}, // TODO no update, no set?
-  timestamp: {type: Date, default: Date.now, required: true}, // TODO what is this? use timestamps from plugin? not settable?
+  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   memberCount: {type: Number, default: 1},
   prize: {type: Number, default: 0, min: 0}, // TODO no update?
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'memberCount', 'challengeCount', 'tasksOrder'],
+  noSet: ['_id', 'memberCount', 'tasksOrder'],
+  timestamps: true,
 });
 
-// Returns true if user has access to the challenge (can join)
-schema.methods.hasAccess = function hasAccessToChallenge (user) {
-  let userGroups = user.guilds.slice(0);
-  if (user.party._id) userGroups.push(user.party._id);
-  userGroups.push('habitrpg'); // tavern challenges
-  return this.leader === user._id || userGroups.indexOf(this.groupId) !== -1;
-};
-
-// Returns true if user can view the challenge
-// Different from hasAccess because challenges of public guilds can be viewed by everyone
-schema.methods.canView = function canViewChallenge (user, group) {
-  if (user.contributor.admin) return true;
-  if (group.type === 'guild' && group.privacy === 'public') return true;
-  return this.hasAccess(user);
+// A list of additional fields that cannot be updated (but can be set on creation)
+let noUpdate = ['groupId', 'official', 'shortName', 'prize'];
+schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
+  return this.sanitize(updateObj, noUpdate);
 };
 
 // Returns true if user is a member of the challenge
@@ -56,6 +46,23 @@ schema.methods.canModify = function canModifyChallenge (user) {
   return user.contributor.admin || this.leader === user._id;
 };
 
+// Returns true if user has access to the challenge (can join)
+schema.methods.hasAccess = function hasAccessToChallenge (user) {
+  let userGroups = user.guilds.slice(0); // clone user.guilds so we don't modify the original
+  if (user.party._id) userGroups.push(user.party._id);
+  userGroups.push('habitrpg'); // tavern
+  return this.canModify(user) || userGroups.indexOf(this.groupId) !== -1;
+};
+
+// Returns true if user can view the challenge
+// Different from hasAccess because challenges of public guilds can be viewed by everyone
+// And also because you can see challenges of groups you've been removed from
+schema.methods.canView = function canViewChallenge (user, group) {
+  if (group.type === 'guild' && group.privacy === 'public') return true;
+  if (this.isMember(user)) return true;
+  return this.hasAccess(user);
+};
+
 // Takes a Task document and return a plain object of attributes that can be synced to the user
 function _syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
@@ -64,13 +71,6 @@ function _syncableAttrs (task) {
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
-
-schema.methods.hasAccess = function hasAccessToChallenge (user) {
-  let userGroups = user.guilds.slice(0);
-  if (user.party._id) userGroups.push(user.party._id);
-  userGroups.push('habitrpg'); // tavern challenges
-  return this.leader === user._id || userGroups.indexOf(this.groupId) !== -1;
-};
 
 // Sync challenge to user, including tasks and tags.
 // Used when user joins the challenge or to force sync.

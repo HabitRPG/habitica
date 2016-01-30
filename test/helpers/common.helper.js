@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import Q from 'q';
-mongoose.Promise = Q.Promise;
 
 import { wrap as wrapUser } from '../../common/script/index';
 import { model as User } from '../../website/src/models/user';

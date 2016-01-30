@@ -6,6 +6,7 @@ import moment from 'moment';
 import * as Tasks from './task';
 import Q from 'q';
 import { schema as TagSchema } from './tag';
+import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
@@ -653,7 +654,7 @@ schema.methods.isSubscribed = function isSubscribed () {
   return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
 };
 
-// Unlink challenges tasks from user
+// Unlink challenges tasks (and the challenge itself) from user
 schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (challengeId, keep) {
   let user = this;
   let findQuery = {
@@ -661,8 +662,7 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     'challenge.id': challengeId,
   };
 
-  let challengeIndex = user.challenges.indexOf(challengeId);
-  if (challengeIndex !== -1) user.challenges.splice(challengeIndex, 1);
+  removeFromArray(user.challenges, challengeId);
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -675,9 +675,7 @@ schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (chall
     let taskPromises = tasks.map(task => {
       // Remove task from user.tasksOrder and delete them
       if (task.type !== 'todo' || !task.completed) {
-        let list = user.tasksOrder[`${task.type}s`];
-        let index = list.indexOf(task._id);
-        if (index !== -1) list.splice(index, 1);
+        removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
       }
 
       return task.remove();

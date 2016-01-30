@@ -3,16 +3,20 @@ import _ from 'lodash';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
-import { model as User } from '../../models/user';
+import {
+  model as User,
+  nameFields,
+} from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import shared from '../../../../common';
 import * as Tasks from '../../models/task';
-import { txnEmail } from '../../libs/api-v3/email';
+import { sendTxn as txnEmail } from '../../libs/api-v3/email';
 import pushNotify from '../../libs/api-v3/pushNotifications';
 import Q from 'q';
+import csvStringify from '../../libs/api-v3/csvStringify';
 
 let api = {};
 
@@ -130,6 +134,44 @@ api.joinChallenge = {
 };
 
 /**
+ * @api {post} /challenges/:challengeId/leave Leaves a challenge
+ * @apiVersion 3.0.0
+ * @apiName LeaveChallenge
+ * @apiGroup Challenge
+ * @apiParam {UUID} challengeId The challenge _id
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.leaveChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/leave',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let challenge = await Challenge.findOne({ _id: req.params.challengeId });
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+
+    if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
+
+    challenge.memberCount -= 1;
+
+    // Unlink challenge's tasks from user's tasks and save the challenge
+    await Q.all([user.unlinkChallengeTasks(challenge._id, keep), challenge.save()]);
+    res.respond(200, {});
+  },
+};
+
+/**
  * @api {get} /challenges Get challenges for a user
  * @apiVersion 3.0.0
  * @apiName GetChallenges
@@ -192,22 +234,156 @@ api.getChallenge = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     res.respond(200, challenge);
   },
 };
 
+/**
+ * @api {get} /challenges/:challengeId/export/csv Export a challenge in CSV
+ * @apiVersion 3.0.0
+ * @apiName ExportChallengeCsv
+ * @apiGroup Challenge
+ *
+ * @apiParam {UUID} challengeId The challenge _id
+ *
+ * @apiSuccess {object} challenge The challenge object
+ */
+api.exportChallengeCsv = {
+  method: 'GET',
+  url: '/challenges/:challengeId/export/csv',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findById(challengeId).select('_id groupId leader tasksOrder').exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+
+    // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
+    // results on the server so the perf difference isn't that big (hopefully)
+
+    let [members, tasks] = await Q.all([
+      User.find({challenges: challengeId})
+        .select(nameFields)
+        .sort({_id: 1})
+        .lean() // so we don't involve mongoose
+        .exec(),
+
+      Tasks.Task.find({'challenge.id': challengeId, userId: {$exists: true}})
+        .sort({userId: 1, text: 1}).select('userId type text value notes').lean().exec(),
+    ]);
+
+    let resArray = members.map(member => [member._id, member.profile.name]);
+
+    // We assume every user in the challenge as at least some data so we can say that members[0] tasks will be at tasks [0]
+    let lastUserId;
+    let index = -1;
+    tasks.forEach(task => {
+      if (task.userId !== lastUserId) {
+        lastUserId = task.userId;
+        index++;
+      }
+
+      resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes);
+    });
+
+    // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
+    let challengeTasks = _.reduce(challenge.tasksOrder.toObject(), (result, array) => {
+      return result.concat(array);
+    }, []).sort();
+    resArray.unshift(['UUID', 'name']);
+    _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes'));
+
+    res.set({
+      'Content-Type': 'text/csv',
+      'Content-disposition': `attachment; filename=${challengeId}.csv`,
+    });
+
+    let csvRes = await csvStringify(resArray);
+    res.status(200).send(csvRes);
+  },
+};
+
+/**
+ * @api {put} /challenges/:challengeId Update a challenge
+ * @apiVersion 3.0.0
+ * @apiName UpdateChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam {UUID} challengeId The challenge _id
+ *
+ * @apiSuccess {object} challenge The updated challenge object
+ */
+api.updateChallenge = {
+  method: 'PUT',
+  url: '/challenges/:challengeId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findById(challengeId).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id name type privacy', optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
+
+    _.merge(challenge, Challenge.sanitizeUpdate(req.body));
+
+    let savedChal = await challenge.save();
+    res.respond(200, savedChal);
+  },
+};
+
 // TODO everything here should be moved to a worker
-// actually even for a worker it's probably just to big and will kill mongo
-function _closeChal (challenge, broken = {}) {
+// actually even for a worker it's probably just too big and will kill mongo
+async function _closeChal (challenge, broken = {}) {
   let winner = broken.winner;
   let brokenReason = broken.broken;
 
-  let tasks = [
-    // Delete the challenge
-    Challenge.remove({_id: challenge._id}).exec(),
+  // Delete the challenge
+  await Challenge.remove({_id: challenge._id}).exec();
+
+  // Refund the leader if the challenge is closed and the group not the tavern
+  if (challenge.groupId !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
+    await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
+  }
+
+  // Update the challengeCount on the group
+  await Group.update({_id: challenge.groupId}, {$inc: {challengeCount: -1}}).exec();
+
+  // Award prize to winner and notify
+  if (winner) {
+    winner.achievements.challenges.push(challenge.name);
+    winner.balance += challenge.prize / 4;
+    let savedWinner = await winner.save();
+    if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
+      txnEmail(savedWinner, 'won-challenge', [
+        {name: 'CHALLENGE_NAME', content: challenge.name},
+      ]);
+    }
+
+    pushNotify(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
+  }
+
+  // Run some operations in the background withouth blocking the thread
+  let backgroundTasks = [
     // And it's tasks
     Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
@@ -227,31 +403,9 @@ function _closeChal (challenge, broken = {}) {
         'challenge.winner': winner && winner.profile.name,
       },
     }, {multi: true}).exec(),
-    // Update the challengeCount on the group
-    Group.update({_id: challenge.groupId}, {$inc: {challengeCount: -1}}).exec(),
   ];
 
-  // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.groupId !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
-    tasks.push(User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec());
-  }
-
-  // Award prize to winner and notify
-  if (winner) {
-    winner.achievements.challenges.push(challenge.name);
-    winner.balance += challenge.prize / 4;
-    tasks.push(winner.save().then(savedWinner => {
-      if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
-        txnEmail(savedWinner, 'won-challenge', [
-          {name: 'CHALLENGE_NAME', content: challenge.name},
-        ]);
-      }
-
-      pushNotify.sendNotify(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
-    }));
-  }
-
-  return Q.allSettled(tasks); // TODO look if allSettled could be useful somewhere else
+  Q.allSettled(backgroundTasks); // TODO look if allSettled could be useful somewhere else
   // TODO catch and handle
 }
 
@@ -270,7 +424,7 @@ api.deleteChallenge = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -279,16 +433,16 @@ api.deleteChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
+    // Close channel in background, some ops are run in the background without `await`ing
+    await _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
     res.respond(200, {});
-    // Close channel in background
-    _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
   },
 };
 
 /**
- * @api {delete} /challenges/:challengeId Delete a challenge
+ * @api {post} /challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
  * @apiVersion 3.0.0
- * @apiName DeleteChallenge
+ * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
  * @apiSuccess {object} empty An empty object
@@ -300,7 +454,7 @@ api.selectChallengeWinner = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('challenge', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('winnerId', res.t('winnerIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -311,11 +465,11 @@ api.selectChallengeWinner = {
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
     let winner = await User.findOne({_id: req.params.winnerId}).exec();
-    if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.parama.winnerId}));
+    if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.params.winnerId}));
 
+    // Close channel in background, some ops are run in the background without `await`ing
+    await _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
     res.respond(200, {});
-    // Close channel in background
-    _closeChal(challenge, {broken: 'CHALLENGE_DELETED', winner});
   },
 };
 

@@ -13,6 +13,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
@@ -86,14 +87,14 @@ api.getGroups = {
 
     // TODO validate types are acceptable? probably not necessary
     let types = req.query.type.split(',');
-    let groupFields = 'name description memberCount balance leader';
+    let groupFields = 'name description memberCount balance';
     let sort = '-memberCount';
     let queries = [];
 
     types.forEach(type => {
       switch (type) {
         case 'party':
-          queries.push(Group.getGroup({user, groupId: 'party', fields: groupFields, populateLeader: true}));
+          queries.push(Group.getGroup({user, groupId: 'party', fields: groupFields}));
           break;
         case 'privateGuilds':
           queries.push(Group.find({
@@ -109,7 +110,9 @@ api.getGroups = {
           }).select(groupFields).sort(sort).exec()); // TODO use lean?
           break;
         case 'tavern':
-          queries.push(Group.getGroup({user, groupId: 'habitrpg', fields: groupFields, populateLeader: true}));
+          if (types.indexOf('publicGuilds') === -1) {
+            queries.push(Group.getGroup({user, groupId: 'habitrpg', fields: groupFields}));
+          }
           break;
       }
     });
@@ -151,6 +154,14 @@ api.getGroup = {
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: true});
     if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (!user.contributor.admin) {
+      group = group.toJSON();
+      _.remove(group.chat, function removeChat (chat) {
+        chat.flags = {};
+        return chat.flagCount >= 2;
+      });
+    }
 
     res.respond(200, group);
   },
@@ -228,19 +239,26 @@ api.joinGroup = {
       if (group.quest.key && !group.quest.active) {
         user.party.quest.RSVPNeeded = true;
         user.party.quest.key = group.quest.key;
+        user.party.quest.progress = undefined; // Make sure to reset progress from ay previous quest
         group.quest.members[user._id] = undefined;
         group.markModified('quest.members');
+      }
+
+      // If user was in a different party (when partying solo you can be invited to a new party)
+      // make him leave that party before doing anything
+      if (user.party._id) {
+        let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+        if (userPreviousParty) await userPreviousParty.leave(user);
       }
 
       user.party._id = group._id; // Set group as user's party
 
       isUserInvited = true;
     } else if (group.type === 'guild') {
-      let i = _.findIndex(user.invitations.guilds, {id: group._id});
+      let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
 
-      if (i !== -1) {
+      if (hasInvitation) {
         isUserInvited = true;
-        user.invitations.guilds.splice(i, 1); // Remove invitation
       } else {
         isUserInvited = group.privacy === 'private' ? false : true;
       }
@@ -350,39 +368,56 @@ api.removeGroupMember = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let uuid = req.query.memberId;
+    let uuid = req.params.memberId;
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
     let member = await User.findOne({_id: uuid}).select('party guilds invitations newMessages').exec();
+
     // We're removing the user from a guild or a party? is the user invited only?
-    let isInGroup = member.party._id === group._id ? 'party' : member.guilds.indexOf(group._id) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
-    let isInvited = member.invitations.party.id === group._id ? 'party' : _.findIndex(member.invitations.guilds, {id: group._id}) !== 1 ? 'guild' : undefined; // eslint-disable-line no-nested-ternary
+    let isInGroup;
+    if (member.party._id === group._id) {
+      isInGroup = 'party';
+    } else if (member.guilds.indexOf(group._id) !== -1) {
+      isInGroup = 'guild';
+    }
+
+    let isInvited;
+    if (member.invitations.party && member.invitations.party.id === group._id) {
+      isInvited = 'party';
+    } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
+      isInvited = 'guild';
+    }
 
     if (isInGroup) {
       group.memberCount -= 1;
 
       if (group.quest && group.quest.leader === member._id) {
-        group.quest.key = null;
-        group.quest.leader = null; // TODO markmodified?
+        group.quest.key = undefined;
+        group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined;
+        group.quest.members[member._id] = undefined; // TODO remmeber to check these are mark modified everywhere
+        group.markModified('quest.members');
       }
 
-      if (isInGroup === 'guild') _.pull(member.guilds, group._id);
+      if (isInGroup === 'guild') {
+        removeFromArray(member.guilds, group._id);
+      }
       if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
 
-      member.newMessages.group._id = undefined;
+      if (member.newMessages[group._id]) {
+        member.newMessages[group._id] = undefined;
+        member.markModified('newMessages');
+      }
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1; // TODO why this?
       }
     } else if (isInvited) {
       if (isInvited === 'guild') {
-        let i = _.findIndex(member.invitations.guilds, {id: group._id});
-        if (i !== -1) member.invitations.guilds.splice(i, 1);
+        removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
     } else {
@@ -401,7 +436,7 @@ api.removeGroupMember = {
 };
 
 async function _inviteByUUID (uuid, group, inviter, req, res) {
-  // @TODO: Add Push Notifications
+  // TODO: Add Push Notifications
   let userToInvite = await User.findById(uuid).exec();
 
   if (!userToInvite) {
@@ -420,11 +455,14 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (!_.isEmpty(userToInvite.invitations.party)) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
     }
+
     if (userToInvite.party._id) {
-      throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
+
+      // Allow user to be invited to a new party when they're partying solo
+      if (userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
-    // @TODO: Why was this here?
-    // req.body.type in 'guild', 'party'
+
     userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
   }
 

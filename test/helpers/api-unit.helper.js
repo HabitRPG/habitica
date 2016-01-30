@@ -1,10 +1,13 @@
 import '../../website/src/libs/api-v3/i18n';
+import mongoose from 'mongoose';
 import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
+import mongo from './mongo'; // eslint-disable-line
 
-afterEach(() => {
+afterEach((done) => {
   sandbox.restore();
+  mongoose.connection.db.dropDatabase(done);
 });
 
 export function generateUser (options = {}) {

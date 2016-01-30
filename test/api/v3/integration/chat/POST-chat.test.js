@@ -1,95 +1,81 @@
 import {
-  generateUser,
+  createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 
 describe('POST /chat', () => {
-  let user;
+  let user, groupWithChat, userWithChatRevoked, member;
+  let testMessage = 'Test Message';
 
-  before(() => {
-    return generateUser().then((generatedUser) => {
-      user = generatedUser;
+  before(async () => {
+    let { group, groupLeader, members } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Test Guild',
+        type: 'guild',
+        privacy: 'public',
+      },
+      members: 2,
     });
+
+    user = groupLeader;
+    groupWithChat = group;
+    userWithChatRevoked = await members[0].update({'flags.chatRevoked': true});
+    member = members[0];
   });
 
-  it('Returns an error when no message is provided', () => {
-    let groupName = 'Test Guild';
-    let groupType = 'guild';
-    let groupPrivacy = 'public';
-    let testMessage = '';
-
-    return generateUser({balance: 1}).then((anotherUser) => {
-      return anotherUser.post('/groups', {
-        name: groupName,
-        type: groupType,
-        privacy: groupPrivacy,
+  it('Returns an error when no message is provided', async () => {
+    await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: ''}))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
       });
-    })
-    .then((group) => {
-      return expect(user.post(`/groups/${group._id}/chat`, { message: testMessage}))
-        .to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: t('invalidReqParams'),
-        });
-    });
   });
 
-  it('Returns an error when group is not found', () => {
-    let testMessage = 'Test Message';
-    return expect(user.post('/groups/nvalidID/chat', { message: testMessage})).to.eventually.be.rejected.and.eql({
+  it('Returns an error when group is not found', async () => {
+    await expect(user.post('/groups/invalidID/chat', { message: testMessage})).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('groupNotFound'),
     });
   });
 
-  it('Returns an error when chat privileges are revoked', () => {
-    let groupName = 'Test Guild';
-    let groupType = 'guild';
-    let groupPrivacy = 'public';
-    let testMessage = 'Test Message';
-    let userWithoutChat;
-
-    return generateUser({balance: 1, 'flags.chatRevoked': true}).then((generatedUser) => {
-      userWithoutChat = generatedUser;
-
-      return userWithoutChat.post('/groups', {
-        name: groupName,
-        type: groupType,
-        privacy: groupPrivacy,
-      });
-    })
-    .then((group) => {
-      return expect(userWithoutChat.post(`/groups/${group._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: 'Your chat privileges have been revoked.',
-      });
+  it('Returns an error when chat privileges are revoked', async () => {
+    await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: 'Your chat privileges have been revoked.',
     });
   });
 
-  it('creates a chat', () => {
-    let groupName = 'Test Guild';
-    let groupType = 'guild';
-    let groupPrivacy = 'public';
-    let testMessage = 'Test Message';
-    let anotherUser;
+  it('creates a chat', async () => {
+    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
 
-    return generateUser({balance: 1}).then((generatedUser) => {
-      anotherUser = generatedUser;
+    expect(message.message.id).to.exist;
+  });
 
-      return anotherUser.post('/groups', {
-        name: groupName,
-        type: groupType,
-        privacy: groupPrivacy,
-      });
-    })
-    .then((group) => {
-      return anotherUser.post(`/groups/${group._id}/chat`, { message: testMessage});
-    })
-    .then((result) => {
-      expect(result.message.id).to.exist;
+  it('notifies other users of new messages for a guild', async () => {
+    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    let memberWithNotification = await member.get('/user');
+
+    expect(message.message.id).to.exist;
+    expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
+  });
+
+  it('notifies other users of new messages for a party', async () => {
+    let { group, groupLeader, members } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Test Party',
+        type: 'party',
+        privacy: 'private',
+      },
+      members: 1,
     });
+
+    let message = await groupLeader.post(`/groups/${group._id}/chat`, { message: testMessage});
+    let memberWithNotification = await members[0].get('/user');
+
+    expect(message.message.id).to.exist;
+    expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
   });
 });

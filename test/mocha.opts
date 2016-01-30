@@ -5,5 +5,4 @@
 --growl
 --globals io
 --compilers js:babel-core/register
---require test/api-legacy/api-helper
 --require ./test/helpers/globals.helper

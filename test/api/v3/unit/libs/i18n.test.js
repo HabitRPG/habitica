@@ -31,13 +31,6 @@ describe('i18n', () => {
     });
   });
 
-  describe('localePath', () => {
-    it('is an absolute path to common/locales/', () => {
-      expect(localePath).to.match(/.*\/common\/locales\//);
-      expect(localePath);
-    });
-  });
-
   describe('langCodes', () => {
     it('is a list of all the language codes', () => {
       expect(langCodes.sort()).to.eql(listOfLocales);

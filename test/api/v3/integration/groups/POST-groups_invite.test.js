@@ -290,12 +290,14 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('returns an error when invited user is already in the party', async () => {
+    it('returns an error when invited user is already in a party of more than 1 member', async () => {
       let userToInvite = await generateUser();
+      let userToInvite2 = await generateUser();
       await inviter.post(`/groups/${party._id}/invite`, {
-        uuids: [userToInvite._id],
+        uuids: [userToInvite._id, userToInvite2._id],
       });
       await userToInvite.post(`/groups/${party._id}/join`);
+      await userToInvite2.post(`/groups/${party._id}/join`);
 
       await expect(inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
@@ -305,6 +307,19 @@ describe('Post /groups/:groupId/invite', () => {
         error: 'NotAuthorized',
         message: t('userAlreadyInAParty'),
       });
+    });
+
+    it('allow inviting an user to a party if he\'s partying solo', async () => {
+      let userToInvite = await generateUser();
+      await userToInvite.post('/groups', { // add user to a party
+        name: 'Another Test Party',
+        type: 'party',
+      });
+
+      await inviter.post(`/groups/${party._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
     });
   });
 });
