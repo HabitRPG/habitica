@@ -3,8 +3,9 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import { quests as questScrolls } from '../../../../../common/script/content';
 
-describe.skip('POST /groups/:groupId/quests/invite', () => {
+describe('POST /groups/:groupId/quests/invite/:questKey', () => {
   let questingGroup;
   let leader;
   let member;
@@ -31,10 +32,12 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
     });
 
     it('does not issue invites for a group in which user is not a member', async () => {
-      let { alternateGroup } = await createAndPopulateGroup({
+      let { group } = await createAndPopulateGroup({
         groupDetails: { type: 'party', privacy: 'private' },
         members: 1,
       });
+
+      let alternateGroup = group;
 
       await expect(leader.post(`/groups/${alternateGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 404,
@@ -44,10 +47,12 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
     });
 
     it('does not issue invites for Guilds', async () => {
-      let { alternateGroup } = await createAndPopulateGroup({
+      let { group } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'public' },
         members: 1,
       });
+
+      let alternateGroup = group;
 
       await expect(leader.post(`/groups/${alternateGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -76,8 +81,12 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
 
     it('does not issue invites if the user is of insufficient Level', async () => {
       const LEVELED_QUEST = 'atom1';
-      const LEVELED_QUEST_REQ = 15;
-      leader.items.quests[LEVELED_QUEST] = 1;
+      const LEVELED_QUEST_REQ = questScrolls[LEVELED_QUEST].lvl;
+      const leaderUpdate = {};
+      leaderUpdate[`items.quests.${LEVELED_QUEST}`] = 1;
+      leaderUpdate['stats.lvl'] = LEVELED_QUEST_REQ - 1;
+
+      await leader.update(leaderUpdate);
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${LEVELED_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -87,9 +96,12 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
     });
 
     it('does not issue invites if a quest is already underway', async () => {
-      leader.items.quests[PET_QUEST] = 2;
+      const QUEST_IN_PROGRESS = 'atom1';
+      const leaderUpdate = {};
+      leaderUpdate[`items.quests.${PET_QUEST}`] = 1;
 
-      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await leader.update(leaderUpdate);
+      await questingGroup.update({ 'quest.key': QUEST_IN_PROGRESS });
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -99,18 +111,22 @@ describe.skip('POST /groups/:groupId/quests/invite', () => {
     });
   });
 
-  context('successfully issuing a quest invitation', () => {
-    let inviteResponse = {
-      key: PET_QUEST,
-      active: false,
-      leader: leader._id,
-      members: {},
-      progress: {
-        collect: {},
-      },
-    };
-    inviteResponse.members[member._id] = null;
-    inviteResponse.members[leader._id] = null;
+  context.skip('successfully issuing a quest invitation', () => {
+    let inviteResponse;
+
+    beforeEach(() => {
+      inviteResponse = {
+        key: PET_QUEST,
+        active: false,
+        leader: leader._id,
+        members: {},
+        progress: {
+          collect: {},
+        },
+      };
+      inviteResponse.members[member._id] = null;
+      inviteResponse.members[leader._id] = null;
+    });
 
     it('sends an invite to all party members', async () => {
       leader.items.quests[PET_QUEST] = 1;
