@@ -17,8 +17,14 @@
 
       li.customize-menu.inventory-gear
         menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
-          ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
-          div(ng-repeat='item in gear[klass]')
+          ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-controller="SortableInventoryController")
+          span(class="sort-menu") {{env.t('orderBy')}}
+            span.btn-group.btn-group-xs
+              button.btn.btn-default(ng-click='setOrder("name")')=env.t('name')
+              button.btn.btn-default(ng-if='klass == "armoire"' ng-click='setOrder("set")')=env.t('set')
+            span.btn-group.btn-group-xs
+              button.btn.btn-default(ng-repeat='attr in ["con", "int", "per", "str"]', ng-click='setOrder(attr)') {{env.t(attr)}}
+          div(ng-repeat='item in gear[klass] | orderBy:order')
             button.customize-option(, class='shop_{{::item.key}}',
               ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}',
               ng-click='equip(item.key, "equipped")',
@@ -50,8 +56,14 @@
 
       li.customize-menu(ng-if='user.preferences.costume')
         menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
-          ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
-          div(ng-repeat='item in gear[klass]')
+          ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-controller="SortableInventoryController")
+          span(class="sort-menu") {{env.t('orderBy')}}
+            span.btn-group.btn-group-xs
+              button.btn.btn-default(ng-click='setOrder("name")')=env.t('name')
+              button.btn.btn-default(ng-if='klass == "armoire"' ng-click='setOrder("set")')=env.t('set')
+            span.btn-group.btn-group-xs
+              button.btn.btn-default(ng-repeat='attr in ["con", "int", "per", "str"]', ng-click='setOrder(attr)') {{env.t(attr)}}
+          div(ng-repeat='item in gear[klass] | orderBy:order')
             button.customize-option(class='shop_{{::item.key}}',
               ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}',
               ng-click='equip(item.key, "costume")',

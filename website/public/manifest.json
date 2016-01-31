@@ -91,6 +91,7 @@
             "js/controllers/partyCtrl.js",
             "js/controllers/rootCtrl.js",
             "js/controllers/settingsCtrl.js",
+            "js/controllers/sortableInventoryCtrl.js",
             "js/controllers/tavernCtrl.js",
             "js/controllers/tasksCtrl.js",
             "js/controllers/userCtrl.js"
