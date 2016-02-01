@@ -8,8 +8,10 @@ import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
 import { removeFromArray } from '../libs/api-v3/collectionManipulators';
+import { BadRequest } from '../libs/api-v3/errors';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
+import { quests as questScrolls } from '../../../common/script/content';
 import Q from 'q';
 import nconf from 'nconf';
 
@@ -166,6 +168,64 @@ schema.methods.isMember = function isGroupMember (user) {
   } else { // guilds
     return user.guilds.indexOf(this._id) !== -1;
   }
+};
+
+schema.methods.startQuest = function startQuest () {
+  if (this.type !== 'party') throw new BadRequest('Must be a party to use this method');
+  if (!this.quest.key) throw new BadRequest('Party does not have a pending quest');
+  if (this.quest.active) throw new BadRequest('Quest is already active');
+
+  let quest = questScrolls[this.quest.key];
+  let collected = {};
+  if (quest.collect) {
+    collected = _.transform(quest.collect, (result, n, itemToCollect) => {
+      result[itemToCollect] = 0;
+    });
+  }
+
+  let backgroundOperations = [];
+
+  this.markModified('quest');
+  this.quest.active = true;
+  if (quest.boss) {
+    this.quest.progress.hp = quest.boss.hp;
+    if (quest.boss.rage) this.quest.progress.rage = 0;
+  } else if (quest.collect) {
+    this.quest.progress.collect = collected;
+  }
+
+  _.each(this.quest.members, (participating, memberId) => {
+    if (!participating) return;
+
+    let update = {
+      $set: {
+        // Do *not* reset party.quest.progress.up
+        // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322
+        'party.quest.key': this.quest.key,
+        'party.quest.progress.down': 0,
+        'party.quest.collect': collected,
+        'party.quest.completed': null,
+      },
+      $inc: { _v: 1 },
+    };
+
+    if (this.quest.leader === memberId) {
+      update.$inc[`items.quests.${this.quest.key}`] = -1;
+    }
+
+    backgroundOperations.push(User.update({ _id: memberId }, update).exec());
+  });
+
+  // TODO Add emails to users that quest has started to background ops
+
+  // These operations should run in the background
+  // and not hold up the quest routes from resolving
+  // TODO: What here?
+  // Q.all(backgroundOperations).then(() => {
+  // }).catch(err => {
+  // TODO: How to handle errors?
+  // IE, user deleted their account?
+  // });
 };
 
 export function chatDefaults (msg, user) {
