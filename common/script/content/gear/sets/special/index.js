@@ -25,9 +25,6 @@ let armor = {
     notes: t('armorSpecialYetiNotes', { con: 9 }),
     con: 9,
     value: 90,
-    canBuy: () => {
-      return true;
-    },
   },
   ski: {
     event: EVENTS.winter,
@@ -36,9 +33,6 @@ let armor = {
     notes: t('armorSpecialSkiNotes', { per: 15 }),
     per: 15,
     value: 90,
-    canBuy: () => {
-      return true;
-    },
   },
   candycane: {
     event: EVENTS.winter,
@@ -47,9 +41,6 @@ let armor = {
     notes: t('armorSpecialCandycaneNotes', { int: 9 }),
     int: 9,
     value: 90,
-    canBuy: () => {
-      return true;
-    },
   },
   snowflake: {
     event: EVENTS.winter,
@@ -58,9 +49,6 @@ let armor = {
     notes: t('armorSpecialSnowflakeNotes', { con: 15 }),
     con: 15,
     value: 90,
-    canBuy: () => {
-      return true;
-    },
   },
   birthday: {
     event: EVENTS.birthday,
@@ -138,9 +126,6 @@ let armor = {
     notes: t('armorSpecialFallRogueNotes', { per: 15 }),
     value: 90,
     per: 15,
-    canBuy: () => {
-      return true;
-    },
   },
   fallWarrior: {
     event: EVENTS.fall,
@@ -149,9 +134,6 @@ let armor = {
     notes: t('armorSpecialFallWarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
-    canBuy: () => {
-      return true;
-    },
   },
   fallMage: {
     event: EVENTS.fall,
@@ -160,9 +142,6 @@ let armor = {
     notes: t('armorSpecialFallMageNotes', { int: 9 }),
     value: 90,
     int: 9,
-    canBuy: () => {
-      return true;
-    },
   },
   fallHealer: {
     event: EVENTS.fall,
@@ -171,9 +150,6 @@ let armor = {
     notes: t('armorSpecialFallHealerNotes', { con: 15 }),
     value: 90,
     con: 15,
-    canBuy: () => {
-      return true;
-    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
@@ -182,9 +158,6 @@ let armor = {
     notes: t('armorSpecialWinter2015RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
-    canBuy: () => {
-      return true;
-    },
   },
   winter2015Warrior: {
     event: EVENTS.winter2015,
@@ -193,9 +166,6 @@ let armor = {
     notes: t('armorSpecialWinter2015WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
-    canBuy: () => {
-      return true;
-    },
   },
   winter2015Mage: {
     event: EVENTS.winter2015,
@@ -204,9 +174,6 @@ let armor = {
     notes: t('armorSpecialWinter2015MageNotes', { int: 9 }),
     value: 90,
     int: 9,
-    canBuy: () => {
-      return true;
-    },
   },
   winter2015Healer: {
     event: EVENTS.winter2015,
@@ -215,9 +182,6 @@ let armor = {
     notes: t('armorSpecialWinter2015HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
-    canBuy: () => {
-      return true;
-    },
   },
   birthday2015: {
     text: t('armorSpecialBirthday2015Text'),
