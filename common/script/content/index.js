@@ -1180,52 +1180,92 @@ api.food = {
   Meat: {
     text: t('foodMeat'),
     target: 'Base',
-    article: ''
+    article: '',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   Milk: {
     text: t('foodMilk'),
     target: 'White',
-    article: ''
+    article: '',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   Potatoe: {
     text: t('foodPotatoe'),
     target: 'Desert',
-    article: 'a '
+    article: 'a ',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   Strawberry: {
     text: t('foodStrawberry'),
     target: 'Red',
-    article: 'a '
+    article: 'a ',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   Chocolate: {
     text: t('foodChocolate'),
     target: 'Shade',
-    article: ''
+    article: '',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   Fish: {
     text: t('foodFish'),
     target: 'Skeleton',
-    article: 'a '
+    article: 'a ',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   RottenMeat: {
     text: t('foodRottenMeat'),
     target: 'Zombie',
-    article: ''
+    article: '',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   CottonCandyPink: {
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
-    article: ''
+    article: '',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   CottonCandyBlue: {
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
-    article: ''
+    article: '',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   Honey: {
     text: t('foodHoney'),
     target: 'Golden',
-    article: ''
+    article: '',
+    canBuy: (function() {
+      return true;
+    }),
+    canDrop: true,
   },
   Saddle: {
     canBuy: (function() {
@@ -1238,91 +1278,51 @@ api.food = {
   Cake_Skeleton: {
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_Base: {
     text: t('foodCakeBase'),
     target: 'Base',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_CottonCandyBlue: {
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_CottonCandyPink: {
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_Shade: {
     text: t('foodCakeShade'),
     target: 'Shade',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_White: {
     text: t('foodCakeWhite'),
     target: 'White',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_Golden: {
     text: t('foodCakeGolden'),
     target: 'Golden',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_Zombie: {
     text: t('foodCakeZombie'),
     target: 'Zombie',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_Desert: {
     text: t('foodCakeDesert'),
     target: 'Desert',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Cake_Red: {
     text: t('foodCakeRed'),
     target: 'Red',
-    canBuy: (function() {
-      return true;
-    }),
-    canDrop: true,
     article: ''
   },
   Candy_Skeleton: {
