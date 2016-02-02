@@ -107,7 +107,7 @@ api.createChallenge = {
     };
 
     await savedChal.syncToUser(user); // (it also saves the user)
-    res.respond(201, savedChal);
+    res.respond(201, response);
   },
 };
 
