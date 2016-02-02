@@ -43,10 +43,6 @@ describe('GET /groups/:id', () => {
 
         expect(group.leader._id).to.eql(leader._id);
         expect(group.leader.profile.name).to.eql(leader.profile.name);
-        expect(group.leader.items).to.exist;
-        expect(group.leader.stats).to.exist;
-        expect(group.leader.achievements).to.exist;
-        expect(group.leader.contributor).to.exist;
       });
     });
   });

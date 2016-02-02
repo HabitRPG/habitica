@@ -2,7 +2,10 @@ import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import _ from 'lodash';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Challenge } from '../../models/challenge';
-import { model as Group } from '../../models/group';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../models/group';
 import {
   model as User,
   nameFields,
@@ -35,12 +38,12 @@ api.createChallenge = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkBody('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkBody('group', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let groupId = req.body.groupId;
+    let groupId = req.body.group;
     let prize = req.body.prize;
 
     let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
@@ -92,6 +95,17 @@ api.createChallenge = {
     }), group.save()]);
 
     let savedChal = results[0];
+    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // await Q.ninvoke(savedChal, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+    let response = savedChal.toJSON();
+    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    response.group = {
+      _id: group._id,
+      name: group.name,
+      type: group.type,
+      privacy: group.privacy,
+    };
+
     await savedChal.syncToUser(user); // (it also saves the user)
     res.respond(201, savedChal);
   },
@@ -122,7 +136,7 @@ api.joinChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.hasAccess(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     challenge.memberCount += 1;
@@ -158,7 +172,7 @@ api.leaveChallenge = {
     let challenge = await Challenge.findOne({ _id: req.params.challengeId });
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy'});
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
@@ -186,25 +200,32 @@ api.getUserChallenges = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let groups = user.guilds.slice(0); // slice is used to clone the array so we don't modify it directly
-    if (user.party._id) groups.push(user.party._id);
-    groups.push('habitrpg'); // tavern challenges
-
     let challenges = await Challenge.find({
       $or: [
         {_id: {$in: user.challenges}}, // Challenges where the user is participating
-        {groupId: {$in: groups}}, // Challenges in groups where I'm a member
+        {group: {$in: user.getGroups()}}, // Challenges in groups where I'm a member
         {leader: user._id}, // Challenges where I'm the leader
       ],
       _id: {$ne: '95533e05-1ff9-4e46-970b-d77219f199e9'}, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug TODO revisit
     })
     .sort('-official -timestamp')
-    // TODO populate
-    // .populate('group', '_id name type')
-    // .populate('leader', 'profile.name')
+    // .populate('group', basicGroupFields)
+    // .populate('leader', nameFields)
     .exec();
 
-    res.respond(200, challenges);
+    let resChals = challenges.map(challenge => challenge.toJSON());
+    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    await Q.all(resChals.map((chal, index) => {
+      return Q.all([
+        User.findById(chal.leader).select(nameFields).exec(),
+        Group.findById(chal.group).select(basicGroupFields).exec(),
+      ]).then(populatedData => {
+        resChals[index].leader = populatedData[0].toJSON({minimize: true});
+        resChals[index].group = populatedData[1].toJSON({minimize: true});
+      });
+    }));
+
+    res.respond(200, resChals);
   },
 };
 
@@ -234,14 +255,20 @@ api.getGroupChallenges = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let challenges = await Challenge.find({groupId})
+    let challenges = await Challenge.find({group: groupId})
       .sort('-official -timestamp')
-      // TODO populate
-      // .populate('group', '_id name type')
-      // .populate('leader', 'profile.name')
+      // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
-    res.respond(200, challenges);
+    let resChals = challenges.map(challenge => challenge.toJSON());
+    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    await Q.all(resChals.map((chal, index) => {
+      return User.findById(chal.leader).select(nameFields).exec().then(populatedLeader => {
+        resChals[index].leader = populatedLeader.toJSON({minimize: true});
+      });
+    }));
+
+    res.respond(200, resChals);
   },
 };
 
@@ -268,13 +295,21 @@ api.getChallenge = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findById(challengeId).exec();
+    let challenge = await Challenge.findById(challengeId)
+      // .populate('leader', nameFields) // don't populate the group as we'll fetch it manually later
+      .exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    // Fetching basicGroupFields
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    res.respond(200, challenge);
+    let chalRes = challenge.toJSON();
+    chalRes.group = group.toJSON({minimize: true});
+    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    chalRes.leader = (await User.findById(chalRes.leader).select(nameFields).exec()).toJSON({minimize: true});
+
+    res.respond(200, chalRes);
   },
 };
 
@@ -301,9 +336,9 @@ api.exportChallengeCsv = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findById(challengeId).select('_id groupId leader tasksOrder').exec();
+    let challenge = await Challenge.findById(challengeId).select('_id group leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
@@ -377,7 +412,7 @@ api.updateChallenge = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id name type privacy', optionalMembership: true});
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id name type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
 
@@ -398,12 +433,12 @@ async function _closeChal (challenge, broken = {}) {
   await Challenge.remove({_id: challenge._id}).exec();
 
   // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.groupId !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
+  if (challenge.group !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
     await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
   }
 
   // Update the challengeCount on the group
-  await Group.update({_id: challenge.groupId}, {$inc: {challengeCount: -1}}).exec();
+  await Group.update({_id: challenge.group}, {$inc: {challengeCount: -1}}).exec();
 
   // Award prize to winner and notify
   if (winner) {

@@ -5,8 +5,12 @@ import cron from '../../middlewares/api-v3/cron';
 import {
   INVITES_LIMIT,
   model as Group,
+  basicFields as basicGroupFields,
 } from '../../models/group';
-import { model as User } from '../../models/user';
+import {
+  model as User,
+  nameFields,
+} from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import {
   NotFound,
@@ -55,11 +59,14 @@ api.createGroup = {
 
     let results = await Q.all([user.save(), group.save()]);
     let savedGroup = results[1];
+    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+    let response = savedGroup.toJSON();
+    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
 
+    res.respond(201, response);
     firebase.updateGroupData(savedGroup);
     firebase.addUserToGroup(savedGroup._id, user._id);
-
-    return res.respond(201, savedGroup); // TODO populate
   },
 };
 
@@ -87,7 +94,7 @@ api.getGroups = {
 
     // TODO validate types are acceptable? probably not necessary
     let types = req.query.type.split(',');
-    let groupFields = 'name description memberCount balance';
+    let groupFields = basicGroupFields.concat('description memberCount balance');
     let sort = '-memberCount';
     let queries = [];
 
@@ -152,7 +159,7 @@ api.getGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: true});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (!user.contributor.admin) {
@@ -163,6 +170,8 @@ api.getGroup = {
       });
     }
 
+    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    group.leader = (await User.findById(group.leader).select(nameFields).exec()).toJSON({minimize: true});
     res.respond(200, group);
   },
 };

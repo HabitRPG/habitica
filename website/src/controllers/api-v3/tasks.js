@@ -216,9 +216,9 @@ api.getChallengeTasks = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findOne({_id: challengeId}).select('groupId leader tasksOrder').exec();
+    let challenge = await Challenge.findOne({_id: challengeId}).select('group leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     await _getTasks(req, res, res.locals.user, challenge);

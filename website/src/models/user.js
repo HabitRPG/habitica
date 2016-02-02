@@ -654,6 +654,14 @@ schema.methods.isSubscribed = function isSubscribed () {
   return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
 };
 
+// Get an array of groups ids the user is member of
+schema.methods.getGroups = function getUserGroups () {
+  let userGroups = this.guilds.slice(0); // clone user.guilds so we don't modify the original
+  if (this.party._id) userGroups.push(this.party._id);
+  userGroups.push('habitrpg'); // tavern
+  return userGroups;
+};
+
 // Unlink challenges tasks (and the challenge itself) from user
 schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (challengeId, keep) {
   let user = this;

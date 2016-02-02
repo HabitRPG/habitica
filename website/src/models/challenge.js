@@ -20,7 +20,7 @@ let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  groupId: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   memberCount: {type: Number, default: 1},
   prize: {type: Number, default: 0, min: 0}, // TODO no update?
 });
@@ -31,7 +31,7 @@ schema.plugin(baseModel, {
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
-let noUpdate = ['groupId', 'official', 'shortName', 'prize'];
+let noUpdate = ['group', 'official', 'shortName', 'prize'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
 };
@@ -49,10 +49,7 @@ schema.methods.canModify = function canModifyChallenge (user) {
 // Returns true if user has access to the challenge (can join)
 schema.methods.hasAccess = function hasAccessToChallenge (user, group) {
   if (group.type === 'guild' && group.privacy === 'public') return true;
-  let userGroups = user.guilds.slice(0); // clone user.guilds so we don't modify the original
-  if (user.party._id) userGroups.push(user.party._id);
-  userGroups.push('habitrpg'); // tavern
-  return userGroups.indexOf(this.groupId) !== -1;
+  return user.getGroups().indexOf(this.group) !== -1;
 };
 
 // Returns true if user can view the challenge

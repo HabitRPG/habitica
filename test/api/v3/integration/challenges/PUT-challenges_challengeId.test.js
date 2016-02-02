@@ -50,7 +50,7 @@ describe('PUT /challenges/:challengeId', () => {
     let res = await user.put(`/challenges/${challenge._id}`, {
       // ignored
       prize: 33,
-      groupId: 'blabla',
+      group: 'blabla',
       memberCount: 33,
       tasksOrder: 'new order',
       official: true,
@@ -63,7 +63,7 @@ describe('PUT /challenges/:challengeId', () => {
     });
 
     expect(res.prize).to.equal(0);
-    expect(res.groupId).to.equal(privateGuild._id);
+    expect(res.group).to.equal(privateGuild._id);
     expect(res.memberCount).to.equal(2);
     expect(res.tasksOrder).not.to.equal('new order');
     expect(res.official).to.equal(false);

@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 
 describe('GET challenges/user', () => {
-  let user, member, nonMember, challenge, challenge2;
+  let user, member, nonMember, challenge, challenge2, publicGuild;
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -18,7 +18,7 @@ describe('GET challenges/user', () => {
     });
 
     user = groupLeader;
-
+    publicGuild = group;
     member = members[0];
     nonMember = await generateUser();
 
@@ -33,6 +33,16 @@ describe('GET challenges/user', () => {
 
     let foundChallenge = _.find(challenges, { _id: challenge._id });
     expect(foundChallenge).to.exist;
+    expect(foundChallenge.leader).to.eql({
+      _id: publicGuild.leader._id,
+      profile: {name: user.profile.name},
+    });
+    expect(foundChallenge.group).to.eql({
+      _id: publicGuild._id,
+      type: publicGuild.type,
+      privacy: publicGuild.privacy,
+      name: publicGuild.name,
+    });
   });
 
   it('should return challenges user has created', async () => {
@@ -40,8 +50,28 @@ describe('GET challenges/user', () => {
 
     let foundChallenge1 = _.find(challenges, { _id: challenge._id });
     expect(foundChallenge1).to.exist;
+    expect(foundChallenge1.leader).to.eql({
+      _id: publicGuild.leader._id,
+      profile: {name: user.profile.name},
+    });
+    expect(foundChallenge1.group).to.eql({
+      _id: publicGuild._id,
+      type: publicGuild.type,
+      privacy: publicGuild.privacy,
+      name: publicGuild.name,
+    });
     let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
     expect(foundChallenge2).to.exist;
+    expect(foundChallenge2.leader).to.eql({
+      _id: publicGuild.leader._id,
+      profile: {name: user.profile.name},
+    });
+    expect(foundChallenge2.group).to.eql({
+      _id: publicGuild._id,
+      type: publicGuild.type,
+      privacy: publicGuild.privacy,
+      name: publicGuild.name,
+    });
   });
 
   it('should return challenges in user\'s group', async () => {
@@ -49,8 +79,28 @@ describe('GET challenges/user', () => {
 
     let foundChallenge1 = _.find(challenges, { _id: challenge._id });
     expect(foundChallenge1).to.exist;
+    expect(foundChallenge1.leader).to.eql({
+      _id: publicGuild.leader._id,
+      profile: {name: user.profile.name},
+    });
+    expect(foundChallenge1.group).to.eql({
+      _id: publicGuild._id,
+      type: publicGuild.type,
+      privacy: publicGuild.privacy,
+      name: publicGuild.name,
+    });
     let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
     expect(foundChallenge2).to.exist;
+    expect(foundChallenge2.leader).to.eql({
+      _id: publicGuild.leader._id,
+      profile: {name: user.profile.name},
+    });
+    expect(foundChallenge2.group).to.eql({
+      _id: publicGuild._id,
+      type: publicGuild.type,
+      privacy: publicGuild.privacy,
+      name: publicGuild.name,
+    });
   });
 
   it('should not return challenges user doesn\'t have access to', async () => {

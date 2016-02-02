@@ -32,12 +32,17 @@ describe('POST /group', () => {
     });
 
     it('sets the group leader to the user who created the group', async () => {
-      await expect(
-        user.post('/groups', {
-          name: 'Test Public Guild',
-          type: 'guild',
-        })
-      ).to.eventually.have.property('leader', user._id);
+      let group = await user.post('/groups', {
+        name: 'Test Public Guild',
+        type: 'guild',
+      });
+
+      expect(group.leader).to.eql({
+        _id: user._id,
+        profile: {
+          name: user.profile.name,
+        },
+      });
     });
   });
 
@@ -86,6 +91,12 @@ describe('POST /group', () => {
         expect(publicGuild.type).to.equal(groupType);
         expect(publicGuild.memberCount).to.equal(1);
         expect(publicGuild.privacy).to.equal(groupPrivacy);
+        expect(publicGuild.leader).to.eql({
+          _id: user._id,
+          profile: {
+            name: user.profile.name,
+          },
+        });
       });
     });
 
@@ -106,6 +117,12 @@ describe('POST /group', () => {
         expect(privateGuild.type).to.equal(groupType);
         expect(privateGuild.memberCount).to.equal(1);
         expect(privateGuild.privacy).to.equal(groupPrivacy);
+        expect(privateGuild.leader).to.eql({
+          _id: user._id,
+          profile: {
+            name: user.profile.name,
+          },
+        });
       });
 
       it('deducts gems from user and adds them to guild bank', async () => {
@@ -138,6 +155,12 @@ describe('POST /group', () => {
       expect(party.name).to.equal(partyName);
       expect(party.type).to.equal(partyType);
       expect(party.memberCount).to.equal(1);
+      expect(party.leader).to.eql({
+        _id: user._id,
+        profile: {
+          name: user.profile.name,
+        },
+      });
     });
 
     it('does not require gems to create a party', async () => {

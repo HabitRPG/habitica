@@ -113,7 +113,7 @@ export async function createAndPopulateGroup (settings = {}) {
 // optional details argument for the initial challenge creation and an
 // optional update argument which will update the challenge via the db
 export async function generateChallenge (challengeCreator, group, details = {}, update = {}) {
-  details.groupId = group._id;
+  details.group = group._id;
   details.name = details.name || 'a challenge';
   details.shortName = details.shortName || 'aChallenge';
   details.prize = details.prize || 0;

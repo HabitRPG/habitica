@@ -84,6 +84,9 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
 };
 
+// Basic fields to fetch for populating a group info
+export let basicFields = 'name type privacy';
+
 // TODO migration
 /**
  * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration
@@ -472,7 +475,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
-    groupId: group._id,
+    group: group._id,
   });
 
   let challengesToRemoveUserFrom = challenges.map(chal => {
