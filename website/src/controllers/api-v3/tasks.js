@@ -139,7 +139,29 @@ async function _getTasks (req, res, user, challenge) {
   }
 
   let tasks = await Tasks.Task.find(query).exec();
-  res.respond(200, tasks);
+
+  // Order tasks based on tasksOrder
+  if (type && type !== 'completedTodos') {
+    let order = (challenge || user).tasksOrder[type];
+    let orderedTasks = new Array(tasks.length);
+    let unorderedTasks = []; // what we want to add later
+
+    tasks.forEach((task, index) => {
+      let taskId = task._id;
+      let i = order[index] === taskId ? index : order.indexOf(taskId);
+      if (i === -1) {
+        unorderedTasks.push(task);
+      } else {
+        orderedTasks[i] = task;
+      }
+    });
+
+    // Remove empty values from the array and add any unordered task
+    orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
+    res.respond(200, orderedTasks);
+  } else {
+    res.respond(200, tasks);
+  }
 }
 
 /**
@@ -148,7 +170,7 @@ async function _getTasks (req, res, user, challenge) {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habits","dailys","todos","rewards","completeTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that requested separately.
+ * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that requested separately.
  *
  * @apiSuccess {Array} tasks An array of task objects
  */
@@ -194,7 +216,7 @@ api.getChallengeTasks = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findOne({_id: challengeId}).select('groupId leader').exec();
+    let challenge = await Challenge.findOne({_id: challengeId}).select('groupId leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
