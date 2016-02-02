@@ -452,19 +452,19 @@ api.scoreTask = {
 // TODO check that it works when a tag is selected or todos are split between dated and due
 // TODO support challenges?
 /**
- * @api {post} /tasks/move/:taskId/to/:position Move a task to a new position
+ * @api {post} /tasks/:taskId/move/to/:position Move a task to a new position
  * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task
  *
  * @apiParam {UUID} taskId The task _id
- * @apiParam {Number} position Where to move the task (-1 means push to bottom)
+ * @apiParam {Number} position Where to move the task (-1 means push to bottom). First position is 0
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} tasksOrder The new tasks order (user.tasksOrder.{task.type}s)
  */
 api.moveTask = {
   method: 'POST',
-  url: '/tasks/move/:taskId/to/:position',
+  url: '/tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
@@ -486,19 +486,23 @@ api.moveTask = {
     let order = user.tasksOrder[`${task.type}s`];
     let currentIndex = order.indexOf(task._id);
 
-    // If for some reason the task isn't ordered (should never happen)
-    // or if the task is moved to a non existing position
-    // or if the task is moved to postion -1 (push to bottom)
+    // If for some reason the task isn't ordered (should never happen), push it in the new position
+    // if the task is moved to a non existing position
+    // or if the task is moved to position -1 (push to bottom)
     // -> push task at end of list
-    if (currentIndex === -1 || !order[to] || to === -1) {
+    if (!order[to] && to !== -1) {
       order.push(task._id);
     } else {
-      let taskToMove = order.splice(currentIndex, 1)[0];
-      order.splice(to, 0, taskToMove);
+      if (currentIndex !== -1) order.splice(currentIndex, 1);
+      if (to === -1) {
+        order.push(task._id);
+      } else {
+        order.splice(to, 0, task._id);
+      }
     }
 
     await user.save();
-    res.respond(200, {}); // TODO what to return
+    res.respond(200, order);
   },
 };
 
