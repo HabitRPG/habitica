@@ -120,11 +120,10 @@ api.joinChallenge = {
 
     let challenge = await Challenge.findOne({ _id: req.params.challengeId });
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
     let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-
-    if (_.contains(user.challenges, challenge._id)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
+    if (!group || !challenge.hasAccess(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     challenge.memberCount += 1;
 

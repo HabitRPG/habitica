@@ -47,20 +47,19 @@ schema.methods.canModify = function canModifyChallenge (user) {
 };
 
 // Returns true if user has access to the challenge (can join)
-schema.methods.hasAccess = function hasAccessToChallenge (user) {
+schema.methods.hasAccess = function hasAccessToChallenge (user, group) {
+  if (group.type === 'guild' && group.privacy === 'public') return true;
   let userGroups = user.guilds.slice(0); // clone user.guilds so we don't modify the original
   if (user.party._id) userGroups.push(user.party._id);
   userGroups.push('habitrpg'); // tavern
-  return this.canModify(user) || userGroups.indexOf(this.groupId) !== -1;
+  return userGroups.indexOf(this.groupId) !== -1;
 };
 
 // Returns true if user can view the challenge
-// Different from hasAccess because challenges of public guilds can be viewed by everyone
-// And also because you can see challenges of groups you've been removed from
+// Different from hasAccess because you can see challenges of groups you've been removed from if you're partecipating in them
 schema.methods.canView = function canViewChallenge (user, group) {
-  if (group.type === 'guild' && group.privacy === 'public') return true;
   if (this.isMember(user)) return true;
-  return this.hasAccess(user);
+  return this.hasAccess(user, group);
 };
 
 // Takes a Task document and return a plain object of attributes that can be synced to the user
