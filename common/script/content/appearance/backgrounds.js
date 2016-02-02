@@ -283,6 +283,20 @@ let backgrounds = {
       notes: t('backgroundWinterNightNotes'),
     },
   },
+  backgrounds022016: {
+    bamboo_forest: {
+      text: t('backgroundBambooForestText'),
+      notes: t('backgroundBambooForestNotes'),
+    },
+    cozy_library: {
+      text: t('backgroundCozyLibraryText'),
+      notes: t('backgroundCozyLibraryNotes'),
+    },
+    grand_staircase: {
+      text: t('backgroundGrandStaircaseText'),
+      notes: t('backgroundGrandStaircaseNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 
