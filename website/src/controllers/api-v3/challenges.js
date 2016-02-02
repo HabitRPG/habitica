@@ -121,7 +121,8 @@ api.joinChallenge = {
     let challenge = await Challenge.findOne({ _id: req.params.challengeId });
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    if (!challenge.hasAccess(user)) throw new NotFound(res.t('challengeNotFound'));
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     if (_.contains(user.challenges, challenge._id)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
@@ -172,16 +173,16 @@ api.leaveChallenge = {
 };
 
 /**
- * @api {get} /challenges Get challenges for a user
+ * @api {get} /challenges/user Get challenges for a user
  * @apiVersion 3.0.0
- * @apiName GetChallenges
+ * @apiName GetUserChallenges
  * @apiGroup Challenge
  *
  * @apiSuccess {Array} challenges An array of challenges
  */
-api.getChallenges = {
+api.getUserChallenges = {
   method: 'GET',
-  url: '/challenges',
+  url: '/challenges/user',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
