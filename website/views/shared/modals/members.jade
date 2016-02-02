@@ -116,7 +116,7 @@ script(type='text/ng-template', id='modals/abuse-flag.html')
 script(type='text/ng-template', id='modals/remove-member.html')
   .modal-header.text-center
     h4=env.t('sureKick')
-    p.modal-subheading {{::removeMemberData.member.profile.name}}
+    p.lead: strong {{::removeMemberData.member.profile.name}}
   .modal-body
     textarea.form-control(type='text',rows='5',placeholder=env.t('optionalMessage'),ng-model='removeMemberData.message')
   .modal-footer
