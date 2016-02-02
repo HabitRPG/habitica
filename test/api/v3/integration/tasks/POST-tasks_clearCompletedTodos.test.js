@@ -24,7 +24,7 @@ describe('POST /tasks/clearCompletedTodos', () => {
       type: 'todo',
     });
 
-    let tasks = await user.get('/tasks/user?type=todo');
+    let tasks = await user.get('/tasks/user?type=todos');
     expect(tasks.length).to.equal(initialTodoCount + 6);
 
     for (let task of tasks) {
@@ -34,8 +34,10 @@ describe('POST /tasks/clearCompletedTodos', () => {
     }
 
     await user.post('/tasks/clearCompletedTodos');
-    let tasksUpdated = await user.get('/tasks/user?type=todo&includeCompletedTodos=true');
-    expect(tasksUpdated.length).to.equal(initialTodoCount + 4); // + 6 - 3 completed (but one is from challenge)
-    expect(tasksUpdated[tasksUpdated.length - 1].text).to.equal('todo 6');
+    let completedTodos = await user.get('/tasks/user?type=completedTodos');
+    let todos = await user.get('/tasks/user?type=todos');
+    let allTodos = todos.concat(completedTodos);
+    expect(allTodos.length).to.equal(initialTodoCount + 4); // + 6 - 3 completed (but one is from challenge)
+    expect(allTodos[allTodos.length - 1].text).to.equal('todo 6');
   });
 });

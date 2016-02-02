@@ -17,12 +17,12 @@ describe('GET /tasks/user', () => {
 
   it('returns only a type of user\'s tasks if req.query.type is specified', async () => {
     let createdTasks = await user.post('/tasks/user', [{text: 'test habit', type: 'habit'}, {text: 'test todo', type: 'todo'}]);
-    let tasks = await user.get('/tasks/user?type=habit');
+    let tasks = await user.get('/tasks/user?type=habits');
     expect(tasks.length).to.equal(1);
     expect(tasks[0]._id).to.equal(createdTasks[0]._id);
   });
 
-  it('returns completed todos sorted by completion date if req.query.includeCompletedTodos is specified', async () => {
+  it('returns completed todos sorted by completion date if req.query.type === "completeTodos"', async () => {
     let todo1 = await user.post('/tasks/user', {text: 'todo to complete 1', type: 'todo'});
     let todo2 = await user.post('/tasks/user', {text: 'todo to complete 2', type: 'todo'});
 
@@ -35,8 +35,8 @@ describe('GET /tasks/user', () => {
 
     expect(user.tasksOrder.todos.length).to.equal(initialTodoCount - 2);
 
-    let allTodos = await user.get('/tasks/user?type=todo&includeCompletedTodos=true');
-    expect(allTodos.length).to.equal(initialTodoCount);
-    expect(allTodos[allTodos.length - 1].text).to.equal('todo to complete 1'); // last is the todo that was completed later
+    let completedTodos = await user.get('/tasks/user?type=completedTodos');
+    expect(completedTodos.length).to.equal(2);
+    expect(completedTodos[completedTodos.length - 1].text).to.equal('todo to complete 1'); // last is the todo that was completed later
   });
 });

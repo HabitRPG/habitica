@@ -4,6 +4,7 @@ import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
+import { model as Group } from '../../models/group';
 import {
   NotFound,
   NotAuthorized,
@@ -117,8 +118,19 @@ async function _getTasks (req, res, user, challenge) {
   let type = req.query.type;
 
   if (type) {
-    query.type = type;
-    if (type === 'todo') query.completed = false; // Exclude completed todos
+    if (type === 'todos') {
+      query.completed = false; // Exclude completed todos
+    } else if (type === 'completedTodos') {
+      query = Tasks.Task.find({
+        userId: user._id,
+        type: 'todo',
+        completed: true,
+      }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
+        dateCompleted: 1,
+      });
+    } else {
+      query.type = type.slice(0, -1); // removing the final "s"
+    }
   } else {
     query.$or = [ // Exclude completed todos
       {type: 'todo', completed: false},
@@ -126,27 +138,8 @@ async function _getTasks (req, res, user, challenge) {
     ];
   }
 
-  if (req.query.includeCompletedTodos === 'true' && (!type || type === 'todo')) {
-    if (challenge) throw new BadRequest(res.t('noCompletedTodosChallenge')); // no completed todos for challenges
-
-    let queryCompleted = Tasks.Task.find({
-      userId: user._id,
-      type: 'todo',
-      completed: true,
-    }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
-      dateCompleted: 1,
-    });
-
-    let results = await Q.all([
-      queryCompleted.exec(),
-      Tasks.Task.find(query).exec(),
-    ]);
-
-    res.respond(200, results[1].concat(results[0]));
-  } else {
-    let tasks = await Tasks.Task.find(query).exec();
-    res.respond(200, tasks);
-  }
+  let tasks = await Tasks.Task.find(query).exec();
+  res.respond(200, tasks);
 }
 
 /**
@@ -155,8 +148,7 @@ async function _getTasks (req, res, user, challenge) {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
- * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo".
+ * @apiParam {string="habits","dailys","todos","rewards","completeTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that requested separately.
  *
  * @apiSuccess {Array} tasks An array of task objects
  */
@@ -165,7 +157,9 @@ api.getUserTasks = {
   url: '/tasks/user',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
+    let types = Tasks.tasksTypes.map(type => `${type}s`);
+    types.push('completedTodos');
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -181,7 +175,7 @@ api.getUserTasks = {
  * @apiGroup Task
  *
  * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks.
- * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
+ * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
  *
  * @apiSuccess {Array} tasks An array of task objects
  */
@@ -191,7 +185,8 @@ api.getChallengeTasks = {
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
+    let types = Tasks.tasksTypes.map(type => `${type}s`);
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -200,11 +195,9 @@ api.getChallengeTasks = {
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findOne({_id: challengeId}).select('leader').exec();
-
-    // If the challenge does not exist, or if it exists but user is not a member, not the leader and not an admin -> throw error
-    if (!challenge || (user.challenges.indexOf(challengeId) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
-      throw new NotFound(res.t('challengeNotFound'));
-    }
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    let group = await Group.getGroup({user, groupId: challenge.groupId, fields: '_id type privacy', optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     await _getTasks(req, res, res.locals.user, challenge);
   },
