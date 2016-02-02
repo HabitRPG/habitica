@@ -650,7 +650,23 @@ api.inviteToQuest = {
     if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
 
+    group.markModified('quest');
+    group.quest.key = questKey;
+    group.quest.leader = user._id;
+    group.quest.members = {};
+
+    // let memberUpdate = {
+    //   '$set': {
+    //     'party.quest.key': questKey,
+    //     'party.quest.progress.down': 0,
+    //     'party.quest.completed': null,
+    //   },
+    // };
+
+    // TODO collect members of party
     // TODO Logic for quest invite and send back quest object
+
+    await group.save();
     res.respond(200, {});
   },
 };

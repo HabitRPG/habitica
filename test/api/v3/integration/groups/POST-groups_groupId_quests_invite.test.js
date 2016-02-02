@@ -111,33 +111,67 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
     });
   });
 
-  context.skip('successfully issuing a quest invitation', () => {
-    let inviteResponse;
+  context('successfully issuing a quest invitation', () => {
+    beforeEach(async () => {
+      const memberUpdate = {};
+      memberUpdate[`items.quests.${PET_QUEST}`] = 1;
 
-    beforeEach(() => {
-      inviteResponse = {
-        key: PET_QUEST,
-        active: false,
-        leader: leader._id,
-        members: {},
-        progress: {
-          collect: {},
-        },
-      };
-      inviteResponse.members[member._id] = null;
-      inviteResponse.members[leader._id] = null;
+      await Promise.all([
+        leader.update(memberUpdate),
+        member.update(memberUpdate),
+      ]);
     });
 
-    it('sends an invite to all party members', async () => {
-      leader.items.quests[PET_QUEST] = 1;
+    xit('adds quest details to group object', async () => {
+      await leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-      await expect(leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal(inviteResponse);
+      await questingGroup.sync();
+
+      let quest = questingGroup.quest;
+
+      expect(quest.key).to.eql(PET_QUEST);
+      expect(quest.active).to.eql(false);
+      expect(quest.leader).to.eql(false);
+      expect(quest.members).to.have.property(leader._id, null);
+      expect(quest.members).to.have.property(member._id, null);
+      expect(quest).to.have.property('progress');
     });
 
-    it('allows non-leader party members to send invites', async () => {
-      member.items.quests[PET_QUEST] = 1;
+    xit('adds quest details to user objects', async () => {
+      await leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-      await expect(member.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.deep.equal(inviteResponse);
+      await Promise.all([
+        leader.sync(),
+        member.sync(),
+      ]);
+
+      [leader, member].forEach((user) => {
+        let quest = user.party.quest;
+
+        expect(quest.key).to.eql(PET_QUEST);
+        expect(quest.active).to.eql(false);
+        expect(quest.leader).to.eql(false);
+        expect(quest.members).to.have.property(leader._id, null);
+        expect(quest.members).to.have.property(member._id, null);
+        expect(quest).to.have.property('progress');
+      });
+    });
+
+    xit('sends back the quest object', async () => {
+      let inviteResponse = await leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+      expect(inviteResponse.key).to.eql(PET_QUEST);
+      expect(inviteResponse.active).to.eql(false);
+      expect(inviteResponse.leader).to.eql(false);
+      expect(inviteResponse.members).to.have.property(leader._id, null);
+      expect(inviteResponse.members).to.have.property(member._id, null);
+      expect(inviteResponse).to.have.property('progress');
+    });
+
+    xit('allows non-leader party members to send invites', async () => {
+      let inviteResponse = await member.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+      expect(inviteResponse.key).to.eql(PET_QUEST);
     });
   });
 });
