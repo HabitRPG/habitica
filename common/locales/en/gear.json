@@ -189,6 +189,10 @@
   "weaponArmoireBlueLongbowNotes": "Ready... Aim... Fire! This bow has great range. Increases Perception by <%= per %>, Constitution by <%= con %>, and Strength by <%= str %>. Enchanted Armoire: Independent Item.",
   "weaponArmoireGlowingSpearText": "Glowing Spear",
   "weaponArmoireGlowingSpearNotes": "This spear hypnotizes wild tasks so you can attack them. Increases Strength by <%= str %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireBarristerGavelText": "Barrister Gavel",
+  "weaponArmoireBarristerGavelNotes": "Order! Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Barrister Set (Item 3 of 3).",
+  "weaponArmoireJesterBatonText": "Jester Baton",
+  "weaponArmoireJesterBatonNotes": "With a wave of your baton and some witty repartee, even the most complicated situations become clear. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Jester Set (Item 3 of 3).",
 
   "armor": "armor",
 
@@ -395,6 +399,10 @@
   "armorArmoireCrystalCrescentRobesNotes": "These magical robes are luminescent at night. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Crystal Crescent Set (Item 2 of 3).",
   "armorArmoireDragonTamerArmorText": "Dragon Tamer Armor",
   "armorArmoireDragonTamerArmorNotes": "This tough armor is impenetrable to flame. Increases Constitution by <%= con %>. Enchanted Armoire: Dragon Tamer Set (Item 3 of 3).",
+  "armorArmoireBarristerRobesText": "Barrister Robes",
+  "armorArmoireBarristerRobesNotes": "Very serious and stately. Increases Constitution by <%= con %>. Enchanted Armoire: Barrister Set (Item 2 of 3).",
+  "armorArmoireJesterCostumeText": "Jester Costume",
+  "armorArmoireJesterCostumeNotes": "Tra-la-la! Despite the look of this costume, you are no fool. Increases Intelligence by <%= int %>. Enchanted Armoire: Jester Set (Item 2 of 3).",
 
   "headgear": "headgear",
 
@@ -613,6 +621,10 @@
   "headArmoireCrystalCrescentHatNotes": "The design on this hat waxes and wanes with the phases of the moon. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Crystal Crescent Set (Item 1 of 3).",
   "headArmoireDragonTamerHelmText": "Dragon Tamer Helm",
   "headArmoireDragonTamerHelmNotes": "You look exactly like a dragon. The perfect camouflage... Increases Intelligence by <%= int %>. Enchanted Armoire: Dragon Tamer Set (Item 1 of 3).",
+  "headArmoireBarristerWigText": "Barrister Wig",
+  "headArmoireBarristerWigNotes": "This bouncy wig is enough to frighten away even the fiercest foe. Increases Strength by <%= str %>. Enchanted Armoire: Barrister Set (Item 1 of 3).",
+  "headArmoireJesterCapText": "Jester Cap",
+  "headArmoireJesterCapNotes": "The bells on this hat might distract your opponents, but they just help you focus. Increases Perception by <%= per %>. Enchanted Armoire: Jester Set (Item 2 of 3).",
 
   "offhand": "shield-hand item",
 

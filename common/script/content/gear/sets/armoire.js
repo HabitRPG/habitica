@@ -94,6 +94,22 @@ let armor = {
     set: 'dragonTamer',
     canOwn: ownsItem('armor_armoire_dragonTamerArmor'),
   },
+  barristerRobes: {
+    text: t('armorArmoireBarristerRobesText'),
+    notes: t('armorArmoireBarristerRobesNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    set: 'barrister',
+    canOwn: ownsItem('armor_armoire_barristerRobes'),
+  },
+  jesterCostume: {
+    text: t('armorArmoireJesterCostumeText'),
+    notes: t('armorArmoireJesterCostumeNotes', { int: 15 }),
+    value: 100,
+    int: 15,
+    set: 'jester',
+    canOwn: ownsItem('armor_armoire_jesterCostume'),
+  },
 };
 
 let eyewear = {
@@ -266,6 +282,22 @@ let head = {
     set: 'dragonTamer',
     canOwn: ownsItem('head_armoire_dragonTamerHelm'),
   },
+  barristerWig: {
+    text: t('headArmoireBarristerWigText'),
+    notes: t('headArmoireBarristerWigNotes', { str: 10 }),
+    value: 100,
+    str: 10,
+    set: 'barrister',
+    canOwn: ownsItem('head_armoire_barristerWig'),
+  },
+  jesterCap: {
+    text: t('headArmoireJesterCapText'),
+    notes: t('headArmoireJesterCapNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'jester',
+    canOwn: ownsItem('head_armoire_jesterCap'),
+  },
 };
 
 let shield = {
@@ -405,6 +437,23 @@ let weapon = {
     value: 100,
     str: 15,
     canOwn: ownsItem('weapon_armoire_glowingSpear'),
+  },
+  barristerGavel: {
+    text: t('weaponArmoireBarristerGavelText'),
+    notes: t('weaponArmoireBarristerGavelNotes', { attrs: 5 }),
+    value: 100,
+    str: 5,
+    con: 5,
+    set: 'barrister',
+    canOwn: ownsItem('weapon_armoire_barristerGavel'),
+  },
+  jesterBaton: {
+    text: t('weaponArmoireJesterBatonText'),
+    notes: t('weaponArmoireJesterBatonNotes', { attrs: 8 }),
+    value: 100,
+    int: 8,
+    per: 8,
+    canOwn: ownsItem('weapon_armoire_jesterBaton'),
   },
 };
 
