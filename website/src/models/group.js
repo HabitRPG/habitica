@@ -144,10 +144,8 @@ schema.statics.getGroup = function getGroup (options = {}) {
 // Not putting into toJSON because there we can't access user
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   let toJSON = group.toJSON();
-  console.log(group.chat, toJSON.chat)
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
-      console.log(chatMsg)
       chatMsg.flags = {};
       return chatMsg.flagCount >= 2;
     });
