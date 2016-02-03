@@ -59,12 +59,17 @@ api.createGroup = {
 
     let results = await Q.all([user.save(), group.save()]);
     let savedGroup = results[1];
+
     // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
     let response = savedGroup.toJSON();
-    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    // the leader is the authenticated user
+    response.leader = {
+      _id: user._id,
+      profile: {name: user.profile.name},
+    };
+    res.respond(201, response); // do not remove chat flags data as we've just created the group
 
-    res.respond(201, response);
     firebase.updateGroupData(savedGroup);
     firebase.addUserToGroup(savedGroup._id, user._id);
   },
@@ -162,16 +167,10 @@ api.getGroup = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (!user.contributor.admin) {
-      group = group.toJSON();
-      _.remove(group.chat, function removeChat (chat) {
-        chat.flags = {};
-        return chat.flagCount >= 2;
-      });
-    }
-
+    group = Group.toJSONCleanChat(group, user);
     // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     group.leader = (await User.findById(group.leader).select(nameFields).exec()).toJSON({minimize: true});
+
     res.respond(200, group);
   },
 };
@@ -206,7 +205,18 @@ api.updateGroup = {
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
-    res.respond(200, savedGroup);
+    let response = Group.toJSONCleanChat(savedGroup, user);
+    // If the leader changed fetch new data, otherwise use authenticated user
+    if (response.leader !== user._id) {
+      response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    } else {
+      response.leader = {
+        _id: user._id,
+        profile: {name: user.profile.name},
+      };
+    }
+    res.respond(200, response);
+
     firebase.updateGroupData(savedGroup);
   },
 };
@@ -219,7 +229,7 @@ api.updateGroup = {
  *
  * @apiParam {UUID} groupId The group _id
  *
- * @apiSuccess {Object} empty An empty object
+ * @apiSuccess {Object} group The group
  */
 api.joinGroup = {
   method: 'POST',
@@ -234,8 +244,8 @@ api.joinGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-     // Do not fetch chat and work even if the user is not yet a member of the group
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat', optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
+     // Works even if the user is not yet a member of the group
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
@@ -288,8 +298,11 @@ api.joinGroup = {
 
     await Q.all(promises);
 
+    let response = Group.toJSONCleanChat(promises[0], user);
+    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    res.respond(200, response);
+
     firebase.addUserToGroup(group._id, user._id);
-    res.respond(200, {}); // TODO what to return?
   },
 };
 

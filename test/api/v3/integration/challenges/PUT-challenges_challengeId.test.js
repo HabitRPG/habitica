@@ -63,13 +63,21 @@ describe('PUT /challenges/:challengeId', () => {
     });
 
     expect(res.prize).to.equal(0);
-    expect(res.group).to.equal(privateGuild._id);
+    expect(res.group).to.eql({
+      _id: privateGuild._id,
+      privacy: privateGuild.privacy,
+      name: privateGuild.name,
+      type: privateGuild.type,
+    });
     expect(res.memberCount).to.equal(2);
     expect(res.tasksOrder).not.to.equal('new order');
     expect(res.official).to.equal(false);
     expect(res.shortName).not.to.equal('new short name');
 
-    expect(res.leader).to.equal(member._id);
+    expect(res.leader).to.eql({
+      _id: member._id,
+      profile: {name: member.profile.name},
+    });
     expect(res.name).to.equal('New Challenge Name');
     expect(res.description).to.equal('New challenge description.');
   });

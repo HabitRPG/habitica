@@ -35,9 +35,11 @@ describe('POST /group/:groupId/join', () => {
     });
 
     it('allows non-invited users to join public guilds', async () => {
-      await joiningUser.post(`/groups/${publicGuild._id}/join`);
+      let res = await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
       await expect(joiningUser.get('/user')).to.eventually.have.property('guilds').to.include(publicGuild._id);
+      expect(res.leader._id).to.eql(user._id);
+      expect(res.leader.profile.name).to.eql(user.profile.name);
     });
 
     it('promotes joining member in a public empty guild to leader', async () => {

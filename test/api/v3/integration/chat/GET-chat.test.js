@@ -23,8 +23,8 @@ describe('GET /groups/:groupId/chat', () => {
         privacy: 'public',
       }, {
         chat: [
-          'Hello',
-          'Welcome to the Guild',
+          {text: 'Hello', flags: {}},
+          {text: 'Welcome to the Guild', flags: {}},
         ],
       });
     });

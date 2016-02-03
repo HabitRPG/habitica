@@ -55,6 +55,22 @@ describe('POST /challenges/:challengeId/join', () => {
       });
     });
 
+    it('returns challenge data', async () => {
+      let res = await authorizedUser.post(`/challenges/${challenge._id}/join`);
+
+      expect(res.group).to.eql({
+        _id: group._id,
+        privacy: group.privacy,
+        name: group.name,
+        type: group.type,
+      });
+      expect(res.leader).to.eql({
+        _id: groupLeader._id,
+        profile: {name: groupLeader.profile.name},
+      });
+      expect(res.name).to.equal(challenge.name);
+    });
+
     it('adds challenge to user challenges', async () => {
       await authorizedUser.post(`/challenges/${challenge._id}/join`);
 

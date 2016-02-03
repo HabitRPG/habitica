@@ -39,6 +39,8 @@ describe('PUT /group', () => {
       name: groupUpdatedName,
     });
 
+    expect(updatedGroup.leader._id).to.eql(leader._id);
+    expect(updatedGroup.leader.profile.name).to.eql(leader.profile.name);
     expect(updatedGroup.name).to.equal(groupUpdatedName);
   });
 });

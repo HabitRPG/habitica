@@ -93,20 +93,21 @@ api.createChallenge = {
     let results = await Q.all([challenge.save({
       validateBeforeSave: false, // already validate
     }), group.save()]);
-
     let savedChal = results[0];
-    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    // await Q.ninvoke(savedChal, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+
+    await savedChal.syncToUser(user); // (it also saves the user)
+
     let response = savedChal.toJSON();
-    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
-    response.group = {
+    response.leader = { // the leader is the authenticated user
+      _id: user._id,
+      profile: {name: user.profile.name},
+    };
+    response.group = { // we already have the group data
       _id: group._id,
       name: group.name,
       type: group.type,
       privacy: group.privacy,
     };
-
-    await savedChal.syncToUser(user); // (it also saves the user)
     res.respond(201, response);
   },
 };
@@ -136,14 +137,24 @@ api.joinChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
     if (!group || !challenge.hasAccess(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     challenge.memberCount += 1;
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    await Q.all([challenge.syncToUser(user), challenge.save()]);
-    res.respond(200, challenge);
+    let results = await Q.all([challenge.syncToUser(user), challenge.save()]);
+
+    let response = results[1].toJSON();
+    response.group = { // we already have the group data
+      _id: group._id,
+      name: group.name,
+      type: group.type,
+      privacy: group.privacy,
+    };
+    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+
+    res.respond(200, response);
   },
 };
 
@@ -412,14 +423,22 @@ api.updateChallenge = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id name type privacy', optionalMembership: true});
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
 
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 
     let savedChal = await challenge.save();
-    res.respond(200, savedChal);
+    let response = savedChal.toJSON();
+    response.group = { // we already have the group data
+      _id: group._id,
+      name: group.name,
+      type: group.type,
+      privacy: group.privacy,
+    };
+    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    res.respond(200, response);
   },
 };
 

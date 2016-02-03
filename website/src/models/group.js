@@ -137,7 +137,22 @@ schema.statics.getGroup = function getGroup (options = {}) {
   if (fields) mQuery.select(fields);
   if (populateLeader === true) mQuery.populate('leader', nameFields);
   return mQuery.exec();
-  // TODO purge chat flags info? in tojson?
+};
+
+// When converting to json remove chat messages with more than 1 flag and remove all flags info
+// unless the user is an admin
+// Not putting into toJSON because there we can't access user
+schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
+  let toJSON = group.toJSON();
+  console.log(group.chat, toJSON.chat)
+  if (!user.contributor.admin) {
+    _.remove(toJSON.chat, chatMsg => {
+      console.log(chatMsg)
+      chatMsg.flags = {};
+      return chatMsg.flagCount >= 2;
+    });
+  }
+  return toJSON;
 };
 
 schema.methods.removeGroupInvitations = async function removeGroupInvitations () {

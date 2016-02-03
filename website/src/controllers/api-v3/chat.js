@@ -38,7 +38,7 @@ api.getChat = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    res.respond(200, group.chat);
+    res.respond(200, Group.toJSONCleanChat(group, user).chat);
   },
 };
 
@@ -88,7 +88,7 @@ api.postChat = {
 
     let savedGroup = await group.save();
     if (chatUpdated) {
-      res.respond(200, {chat: savedGroup.chat});
+      res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {
       res.respond(200, {message: savedGroup.chat[0]});
     }
@@ -138,7 +138,7 @@ api.likeChat = {
       {_id: group._id, 'chat.id': message.id},
       update
     );
-    res.respond(200, message);
+    res.respond(200, message); // TODO what if the message is flagged and shouldn't be returned?
   },
 };
 
@@ -385,9 +385,9 @@ api.deleteChat = {
     );
 
     if (chatUpdated) {
-      group = group.toJSON();
-      removeFromArray(group.chat, {id: chatId});
-      res.respond(200, group.chat);
+      let chatRes = Group.toJSONCleanChat(group, user).chat;
+      removeFromArray(chatRes, {id: chatId});
+      res.respond(200, chatRes);
     } else {
       res.respond(200, {});
     }
