@@ -624,7 +624,7 @@
   "headArmoireBarristerWigText": "Barrister Wig",
   "headArmoireBarristerWigNotes": "This bouncy wig is enough to frighten away even the fiercest foe. Increases Strength by <%= str %>. Enchanted Armoire: Barrister Set (Item 1 of 3).",
   "headArmoireJesterCapText": "Jester Cap",
-  "headArmoireJesterCapNotes": "The bells on this hat might distract your opponents, but they just help you focus. Increases Perception by <%= per %>. Enchanted Armoire: Jester Set (Item 2 of 3).",
+  "headArmoireJesterCapNotes": "The bells on this hat might distract your opponents, but they just help you focus. Increases Perception by <%= per %>. Enchanted Armoire: Jester Set (Item 1 of 3).",
 
   "offhand": "shield-hand item",
 
