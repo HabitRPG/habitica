@@ -30,7 +30,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
   context('failure conditions', () => {
     it('returns an error when group is not found', async () => {
-      await expect(member.post(`/groups/${generateUUID()}/quests/reject/${PET_QUEST}`))
+      await expect(member.post(`/groups/${generateUUID()}/quests/reject`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
@@ -38,43 +38,10 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
         });
     });
 
-    it('returns an error when group is not a party', async () => {
-      let { group, groupLeader } = await createAndPopulateGroup({
-        groupDetails: { type: 'guild', privacy: 'private' },
-      });
-
-      await expect(groupLeader.post(`/groups/${group._id}/quests/reject/${PET_QUEST}`))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('guildQuestsNotSupported'),
-        });
-    });
-
-    it('returns an error when quest is not found', async () => {
-      let questKey = 'fakeQuestName';
-
-      await expect(member.post(`/groups/${questingGroup._id}/quests/reject/${questKey}`))
-        .to.eventually.be.rejected.and.eql({
-          code: 404,
-          error: 'NotFound',
-          message: t('questNotFound', { key: questKey }),
-        });
-    });
-
-    it('returns an error when user is not on the quest', async () => {
-      await expect(member.post(`/groups/${questingGroup._id}/quests/reject/${PET_QUEST}`))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('questNotOwned'),
-        });
-    });
-
     it('returns an error when group is not on a quest', async () => {
       await member.update(userQuestUpdate);
 
-      await expect(member.post(`/groups/${questingGroup._id}/quests/reject/${PET_QUEST}`))
+      await expect(member.post(`/groups/${questingGroup._id}/quests/reject`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
@@ -88,11 +55,18 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       await member.update(userQuestUpdate);
       await questingGroup.update({'quest.key': PET_QUEST});
 
-      await member.post(`/groups/${questingGroup._id}/quests/reject/${PET_QUEST}`);
+      let questMembers = {};
+      questMembers[member._id] = true;
+      await questingGroup.update({'quest.members': questMembers});
 
+      let rejectResult = await member.post(`/groups/${questingGroup._id}/quests/reject`);
       let userWithRejectInvitation = await member.get('/user');
+      let updatedGroup = await member.get(`/groups/${questingGroup._id}`);
+
       expect(userWithRejectInvitation.party.quest.key).to.be.null;
       expect(userWithRejectInvitation.party.quest.RSVPNeeded).to.be.false;
+      expect(updatedGroup.quest.members[member._id]).to.be.false;
+      expect(updatedGroup.quest).to.deep.equal(rejectResult);
     });
   });
 });

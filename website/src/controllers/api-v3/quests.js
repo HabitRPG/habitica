@@ -8,6 +8,8 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import { quests as questScrolls } from '../../../../common/script/content';
+import { track } from '../../libs/api-v3/analyticsService';
+import Q from 'q';
 
 let api = {};
 
@@ -62,6 +64,60 @@ api.inviteToQuest = {
 
     await group.save();
     res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/quests/reject Reject a quest
+ * @apiVersion 3.0.0
+ * @apiName RejectQuest
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} questKey The quest _id
+ *
+ * @apiSuccess {Object} Quest Object
+ */
+api.rejectQuest = {
+  method: 'POST',
+  url: '/groups/:groupId/quests/reject',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
+
+    let analyticsData = {
+      category: 'behavior',
+      owner: false,
+      response: 'reject',
+      gaLabel: 'reject',
+      questName: group.quest.key,
+      uuid: user._id,
+    };
+    track('quest', analyticsData);
+
+    group.quest.members[user._id] = false;
+    group.markModified('quest.members');
+
+    user.party.quest.RSVPNeeded = false;
+    user.party.quest.key = null;
+
+    let [savedGroup] = await Q.all([
+      group.save(),
+      user.save(),
+    ]);
+
+    // questStart(req,res,next);
+
+    res.respond(200, savedGroup.quest);
   },
 };
 
