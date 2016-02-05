@@ -82,7 +82,10 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
                   span(ng-click='clickMember(member._id, true)')
-                    | {{member.profile.name}} (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')})
+                    div(ng-if='group.type === "party"')
+                      | {{member.profile.name}} (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')})
+                    div(ng-if='group.type !== "party"')
+                      | {{member.profile.name}}
             tr(ng-if='::group.memberCount > group.members.length')
               td
                 span.badge {{group.memberCount - group.members.length}}
