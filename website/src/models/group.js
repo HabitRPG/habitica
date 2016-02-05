@@ -11,6 +11,7 @@ import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import { BadRequest } from '../libs/api-v3/errors';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
+import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import { quests as questScrolls } from '../../../common/script/content';
 import Q from 'q';
 import nconf from 'nconf';
@@ -169,11 +170,12 @@ schema.methods.isMember = function isGroupMember (user) {
   }
 };
 
-schema.methods.startQuest = function startQuest () {
+schema.methods.startQuest = async function startQuest (user) {
   if (this.type !== 'party') throw new BadRequest('Must be a party to use this method');
   if (!this.quest.key) throw new BadRequest('Party does not have a pending quest');
   if (this.quest.active) throw new BadRequest('Quest is already active');
 
+  let userIsParticipating = this.quest.members[user._id];
   let quest = questScrolls[this.quest.key];
   let collected = {};
   if (quest.collect) {
@@ -193,38 +195,54 @@ schema.methods.startQuest = function startQuest () {
     this.quest.progress.collect = collected;
   }
 
-  _.each(this.quest.members, (participating, memberId) => {
-    if (!participating) return;
+  // Changes quest.members to only include participating members
+  // TODO: is that important? What does it matter if the non-participating members
+  // are still on the object?
+  // TODO: is it important to run clean quest progress on non-members like we did in v2?
+  this.quest.members = _.pick(this.quest.members, _.identity);
+  let nonUserQuestMembers = _.without(_.keys(this.quest.members), user._id);
 
-    let update = {
-      $set: {
-        // Do *not* reset party.quest.progress.up
-        // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322
-        'party.quest.key': this.quest.key,
-        'party.quest.progress.down': 0,
-        'party.quest.collect': collected,
-        'party.quest.completed': null,
-      },
-      $inc: { _v: 1 },
-    };
+  let members = await User.find(
+    { _id: { $in: nonUserQuestMembers } },
+    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications',
+  ).exec();
 
-    if (this.quest.leader === memberId) {
-      update.$inc[`items.quests.${this.quest.key}`] = -1;
+  if (userIsParticipating) {
+    members.unshift(user); // put participating user at the beginning of the array
+  }
+
+  _.each(members, (member) => {
+    member.party.quest.key = this.quest.key;
+    member.party.quest.progress.down = 0;
+    member.party.quest.collect = collected;
+    member.party.quest.completed = null;
+    member.markModified('party.quest');
+
+    if (this.quest.leader === member._id) {
+      member.items.quests[this.quest.key] -= 1;
+      member.markModified('items.quests');
     }
 
-    backgroundOperations.push(User.update({ _id: memberId }, update).exec());
+    if (member._id !== user._id) {
+      backgroundOperations.push(member.save());
+    }
   });
 
-  // TODO Add emails to users that quest has started to background ops
+  let usersToEmail = _.filter(members, (member) => {
+    return member.preferences.emailNotifications.questStarted !== false &&
+      member._id !== user._id;
+  });
+
+  sendTxnEmail(usersToEmail, 'quest-started', [
+    { name: 'PARTY_URL', content: '/#/options/groups/party' },
+  ]);
 
   // These operations should run in the background
   // and not hold up the quest routes from resolving
-  // TODO: What here?
-  // Q.all(backgroundOperations).then(() => {
-  // }).catch(err => {
-  // TODO: How to handle errors?
-  // IE, user deleted their account?
-  // });
+  Q.allSettled(backgroundOperations).catch(err => {
+    // TODO: what to do with err?
+    throw err;
+  });
 };
 
 export function chatDefaults (msg, user) {

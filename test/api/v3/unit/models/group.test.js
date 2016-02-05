@@ -1,42 +1,72 @@
 import { model as Group } from '../../../../../website/src/models/group';
 import { model as User } from '../../../../../website/src/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
+import * as email from '../../../../../website/src/libs/api-v3/email';
+import Q from 'q';
 
 describe('Group Model', () => {
   context('Instance Methods', () => {
-    let party;
-
-    beforeEach(() => {
-      party = new Group({
-        type: 'party',
-      });
-    });
-
     describe('#startQuest', () => {
+      let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
+
+      beforeEach(async () => {
+        sandbox.stub(email, 'sendTxn');
+        sandbox.spy(Q, 'allSettled');
+
+        party = new Group({
+          name: 'test party',
+          type: 'party',
+          privacy: 'private',
+        });
+
+        questLeader = new User({
+          party: { _id: party._id },
+          items: {
+            quests: {
+              whale: 1,
+            },
+          },
+        });
+
+        party.leader = questLeader._id;
+
+        participatingMember = new User({
+          party: { _id: party._id },
+        });
+        nonParticipatingMember = new User({
+          party: { _id: party._id },
+        });
+        undecidedMember = new User({
+          party: { _id: party._id },
+        });
+
+        await Promise.all([
+          party.save(),
+          questLeader.save(),
+          participatingMember.save(),
+          nonParticipatingMember.save(),
+          undecidedMember.save(),
+        ]);
+      });
+
       context('Failure Conditions', () => {
-        it('throws an error if group is not a party', () => {
+        it('throws an error if group is not a party', async () => {
           let guild = new Group({
             type: 'guild',
           });
 
-          expect(() => {
-            guild.startQuest();
-          }).to.throw('Must be a party to use this method');
+          await expect(guild.startQuest(participatingMember)).to.eventually.be.rejected;
         });
 
-        it('throws an error if party is not on a quest', () => {
-          expect(() => {
-            party.startQuest();
-          }).to.throw('Party does not have a pending quest');
+        it('throws an error if party is not on a quest', async () => {
+          await expect(party.startQuest(participatingMember)).to.eventually.be.rejected;
         });
 
-        it('throws an error if quest is already active', () => {
+        it('throws an error if quest is already active', async () => {
           party.quest.key = 'whale';
           party.quest.active = true;
 
-          expect(() => {
-            party.startQuest();
-          }).to.throw('Quest is already active');
+          await expect(party.startQuest(participatingMember)).to.eventually.be.rejected;
         });
       });
 
@@ -44,19 +74,16 @@ describe('Group Model', () => {
         beforeEach(() => {
           party.quest.key = 'whale';
           party.quest.active = false;
-          party.quest.leader = 'quest-leader';
-          party.quest.members = {
-            'quest-leader': true,
-            'participating-member': true,
-            'non-participating-member': false,
-            'undecided-member': null,
-          };
-
-          sandbox.stub(User, 'update').returns({ exec: sandbox.spy() });
+          party.quest.leader = questLeader._id;
+          party.quest.members = { };
+          party.quest.members[questLeader._id] = true;
+          party.quest.members[participatingMember._id] = true;
+          party.quest.members[nonParticipatingMember._id] = false;
+          party.quest.members[undecidedMember._id] = null;
         });
 
         it('activates quest', () => {
-          party.startQuest();
+          party.startQuest(participatingMember);
 
           expect(party.quest.active).to.eql(true);
         });
@@ -65,7 +92,7 @@ describe('Group Model', () => {
           let bossQuest = questScrolls.whale;
           party.quest.key = bossQuest.key;
 
-          party.startQuest();
+          party.startQuest(participatingMember);
 
           expect(party.quest.progress.hp).to.eql(bossQuest.boss.hp);
         });
@@ -74,7 +101,7 @@ describe('Group Model', () => {
           let rageBossQuest = questScrolls.trex_undead;
           party.quest.key = rageBossQuest.key;
 
-          party.startQuest();
+          party.startQuest(participatingMember);
 
           expect(party.quest.progress.rage).to.eql(0);
         });
@@ -82,7 +109,7 @@ describe('Group Model', () => {
         it('sets up collection quest', () => {
           let collectionQuest = questScrolls.vice2;
           party.quest.key = collectionQuest.key;
-          party.startQuest();
+          party.startQuest(participatingMember);
 
           expect(party.quest.progress.collect).to.eql({
             lightCrystal: 0,
@@ -92,7 +119,7 @@ describe('Group Model', () => {
         it('sets up collection quest with multiple items', () => {
           let collectionQuest = questScrolls.evilsanta2;
           party.quest.key = collectionQuest.key;
-          party.startQuest();
+          party.startQuest(participatingMember);
 
           expect(party.quest.progress.collect).to.eql({
             tracks: 0,
@@ -100,34 +127,135 @@ describe('Group Model', () => {
           });
         });
 
-        it('updates quest object for participating members', () => {
-          party.startQuest();
+        it('prunes non-participating members from quest members object', () => {
+          party.startQuest(participatingMember);
 
-          expect(User.update).to.be.calledTwice;
-          expect(User.update).to.not.be.calledWith({ _id: 'non-participating-member' });
-          expect(User.update).to.not.be.calledWith({ _id: 'undecided-member' });
-          expect(User.update).to.be.calledWith(
-            { _id: 'participating-member' },
-            sinon.match({ $set: { 'party.quest.key': 'whale' }}),
-          );
-          expect(User.update).to.be.calledWith(
-            { _id: 'quest-leader' },
-            sinon.match({ $set: { 'party.quest.key': 'whale' }}),
-          );
+          let expectedQuestMembers = {};
+          expectedQuestMembers[questLeader._id] = true;
+          expectedQuestMembers[participatingMember._id] = true;
+
+          expect(party.quest.members).to.eql(expectedQuestMembers);
         });
 
-        it('removes quest scroll from quest leader', () => {
-          party.startQuest();
+        it('applies updates to user object directly if user is participating', async () => {
+          await party.startQuest(participatingMember);
 
-          expect(User.update).to.be.calledWith(
-            { _id: 'quest-leader' },
-            sinon.match({ $inc: { 'items.quests.whale': -1 }}),
-          );
+          expect(participatingMember.party.quest.key).to.eql('whale');
+          expect(participatingMember.party.quest.progress.down).to.eql(0);
+          expect(participatingMember.party.quest.collect).to.eql({});
+          expect(participatingMember.party.quest.completed).to.eql(null);
         });
 
-        it('sends email to participating members that quest has started');
+        it('applies updates to other participating members', async () => {
+          await party.startQuest(nonParticipatingMember);
 
-        it('sends email only to members who have not opted out');
+          questLeader = await User.findById(questLeader._id);
+          participatingMember = await User.findById(participatingMember._id);
+
+          expect(participatingMember.party.quest.key).to.eql('whale');
+          expect(participatingMember.party.quest.progress.down).to.eql(0);
+          expect(participatingMember.party.quest.progress.collect).to.eql({});
+          expect(participatingMember.party.quest.completed).to.eql(null);
+
+          expect(questLeader.party.quest.key).to.eql('whale');
+          expect(questLeader.party.quest.progress.down).to.eql(0);
+          expect(questLeader.party.quest.progress.collect).to.eql({});
+          expect(questLeader.party.quest.completed).to.eql(null);
+        });
+
+        it('does not apply updates to nonparticipating members', async () => {
+          await party.startQuest(participatingMember);
+
+          nonParticipatingMember = await User.findById(nonParticipatingMember ._id);
+          undecidedMember = await User.findById(undecidedMember._id);
+
+          expect(nonParticipatingMember.party.quest.key).to.not.eql('whale');
+          expect(undecidedMember.party.quest.key).to.not.eql('whale');
+        });
+
+        it('removes quest scroll from quest leader', async () => {
+          await party.startQuest(participatingMember);
+
+          questLeader = await User.findById(questLeader._id);
+
+          expect(questLeader.items.quests.whale).to.eql(0);
+        });
+
+        it('sends email to participating members that quest has started', async () => {
+          participatingMember.preferences.emailNotifications.questStarted = true;
+          questLeader.preferences.emailNotifications.questStarted = true;
+          await Promise.all([
+            participatingMember.save(),
+            questLeader.save(),
+          ]);
+
+          await party.startQuest(nonParticipatingMember);
+
+          expect(email.sendTxn).to.be.calledOnce;
+
+          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let typeOfEmail = email.sendTxn.args[0][1];
+
+          expect(memberIds).to.have.a.lengthOf(2);
+          expect(memberIds).to.include(participatingMember._id);
+          expect(memberIds).to.include(questLeader._id);
+          expect(typeOfEmail).to.eql('quest-started');
+        });
+
+        it('sends email only to members who have not opted out', async () => {
+          participatingMember.preferences.emailNotifications.questStarted = false;
+          questLeader.preferences.emailNotifications.questStarted = true;
+          await Promise.all([
+            participatingMember.save(),
+            questLeader.save(),
+          ]);
+
+          await party.startQuest(nonParticipatingMember);
+
+          expect(email.sendTxn).to.be.calledOnce;
+
+          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+
+          expect(memberIds).to.have.a.lengthOf(1);
+          expect(memberIds).to.not.include(participatingMember._id);
+          expect(memberIds).to.include(questLeader._id);
+        });
+
+        it('does not send email to initiating member', async () => {
+          participatingMember.preferences.emailNotifications.questStarted = true;
+          questLeader.preferences.emailNotifications.questStarted = true;
+          await Promise.all([
+            participatingMember.save(),
+            questLeader.save(),
+          ]);
+
+          await party.startQuest(participatingMember);
+
+          expect(email.sendTxn).to.be.calledOnce;
+
+          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+
+          expect(memberIds).to.have.a.lengthOf(1);
+          expect(memberIds).to.not.include(participatingMember._id);
+          expect(memberIds).to.include(questLeader._id);
+        });
+
+        it('adds participating members to background save operations', async () => {
+          await party.startQuest(nonParticipatingMember);
+
+          expect(Q.allSettled).to.be.calledOnce;
+
+          let savePromises = Q.allSettled.args[0][0];
+          expect(savePromises).to.have.a.lengthOf(2);
+        });
+
+        it('does not include initiating user in background save operations', async () => {
+          await party.startQuest(participatingMember);
+
+          expect(Q.allSettled).to.be.calledOnce;
+          let savePromises = Q.allSettled.args[0][0];
+          expect(savePromises).to.have.a.lengthOf(1);
+        });
       });
     });
   });
