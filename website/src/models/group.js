@@ -104,9 +104,8 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 // TODO test
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
-  let group = this;
   try {
-    await group.removeGroupInvitations();
+    await this.removeGroupInvitations();
     done();
   } catch (err) {
     done(err);
@@ -257,7 +256,7 @@ schema.methods.sendChat = function sendChat (message, user) {
   this.chat.splice(200);
 
   // Kick off chat notifications in the background. // TODO refactor
-  let lastSeenUpdate = {$set: {}, $inc: {_v: 1}}; // TODO standardize this _v inc at the user level
+  let lastSeenUpdate = {$set: {}, $inc: {_v: 1}};
   lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
 
   if (this._id === 'habitrpg') {
@@ -289,12 +288,12 @@ function _cleanQuestProgress (merge) {
       collect: {},
     },
     completed: null,
-    RSVPNeeded: false, // TODO absolutely change this cryptic name
+    RSVPNeeded: false,
   };
 
-  if (merge) { // TODO why does it do 2 merges?
+  if (merge) {
     _.merge(clean, _.omit(merge, 'progress'));
-    _.merge(clean.progress, merge.progress);
+    if (merge.progress) _.merge(clean.progress, merge.progress);
   }
 
   return clean;
@@ -303,6 +302,7 @@ function _cleanQuestProgress (merge) {
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
 
 // Participants: Grant rewards & achievements, finish quest
+// Returns the promise from update().exec()
 schema.methods.finishQuest = function finishQuest (quest) {
   let questK = quest.key;
   let updates = {$inc: {}, $set: {}};
@@ -344,48 +344,88 @@ schema.methods.finishQuest = function finishQuest (quest) {
   let q = this._id === 'habitrpg' ? {} : {_id: {$in: _.keys(this.quest.members)}};
   this.quest = {};
   this.markModified('quest');
-  return User.update(q, updates, {multi: true});
+  return User.update(q, updates, {multi: true}).exec();
 };
 
 function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-schema.statics.collectQuest = function collectQuest (user, progress) {
-  return this.findOne({
-    type: 'party',
-    members: {$in: [user._id]},
-  }).then(group => {
-    if (!_isOnQuest(user, progress, group)) return;
-    let quest = shared.content.quests[group.quest.key];
+// Returns a promise
+schema.statics.collectQuest = async function collectQuest (user, progress) {
+  let group = await this.getGroup({user, groupId: 'party'});
 
-    _.each(progress.collect, (v, k) => {
-      group.quest.progress.collect[k] += v;
-    });
+  if (!_isOnQuest(user, progress, group)) return;
+  let quest = shared.content.quests[group.quest.key];
 
-    let foundText = _.reduce(progress.collect, (m, v, k) => {
-      m.push(`${v} ${quest.collect[k].text('en')}`);
-      return m;
-    }, []);
+  _.each(progress.collect, (v, k) => {
+    group.quest.progress.collect[k] += v;
+  });
 
-    foundText = foundText ? foundText.join(', ') : 'nothing';
-    group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
-    group.markModified('quest.progress.collect');
+  let foundText = _.reduce(progress.collect, (m, v, k) => {
+    m.push(`${v} ${quest.collect[k].text('en')}`);
+    return m;
+  }, []);
 
-    // Still needs completing
-    if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
-      return group.quest.progress.collect[k] < v.count;
-    })) return group.save();
+  foundText = foundText ? foundText.join(', ') : 'nothing';
+  group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
+  group.markModified('quest.progress.collect');
 
-    // TODO use promise
-    return group.finishQuest(quest)
-    .then(() => {
-      group.sendChat('`All items found! Party has received their rewards.`');
-      return group.save();
-    });
-  })
-  // TODO ok to catch even if we're returning a promise?
-  .catch();
+  // Still needs completing
+  if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
+    return group.quest.progress.collect[k] < v.count;
+  })) return group.save();
+
+  await group.finishQuest(quest);
+  group.sendChat('`All items found! Party has received their rewards.`');
+  return group.save();
+  // TODO cath?
+};
+
+schema.statics.bossQuest = async function bossQuest (user, progress) {
+  let group = await this.getGroup({user, groupId: 'party'});
+  if (!_isOnQuest(user, progress, group)) return;
+
+  let quest = shared.content.quests[group.quest.key];
+  if (!progress || !quest) return; // FIXME why is this ever happening, progress should be defined at this point, log?
+
+  let down = progress.down * quest.boss.str; // multiply by boss strength
+
+  group.quest.progress.hp -= progress.up;
+  // TODO Create a party preferred language option so emits like this can be localized
+  group.sendChat(`\`${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage, ${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.\``);
+
+  // If boss has Rage, increment Rage as well
+  if (quest.boss.rage) {
+    group.quest.progress.rage += Math.abs(down);
+    if (group.quest.progress.rage >= quest.boss.rage.value) {
+      group.sendChat(quest.boss.rage.effect('en'));
+      group.quest.progress.rage = 0;
+
+      // TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
+      if (quest.boss.rage.healing) group.quest.progress.hp += group.quest.progress.hp * quest.boss.rage.healing;
+      if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
+    }
+  }
+
+  // Everyone takes damage
+  await User.update({
+    _id: {$in: _.keys(group.quest.members)},
+  }, {
+    $inc: {'stats.hp': down, _v: 1},
+  }, {multi: true}).exec();
+
+  // Boss slain, finish quest
+  if (group.quest.progress.hp <= 0) {
+    group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
+
+    // Participants: Grant rewards & achievements, finish quest
+    await group.finishQuest(shared.content.quests[group.quest.key]);
+    return group.save();
+  }
+
+  return group.save();
+  // TODO catch?
 };
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
@@ -408,123 +448,65 @@ process.nextTick(() => {
   });
 });
 
-// TODO promise?
-schema.statics.tavernBoss = function tavernBoss (user, progress) {
+// returns a promise
+schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   if (!progress) return;
 
   // hack: prevent crazy damage to world boss
   let dmg = Math.min(900, Math.abs(progress.up || 0));
   let rage = -Math.min(900, Math.abs(progress.down || 0));
 
-  this.findOne(tavernQ).exec()
-  .then(tavern => {
-    if (!(tavern && tavern.quest && tavern.quest.key)) return;
+  let tavern = await this.findOne(tavernQ).exec();
+  if (!(tavern && tavern.quest && tavern.quest.key)) return;
 
-    let quest = shared.content.quests[tavern.quest.key];
+  let quest = shared.content.quests[tavern.quest.key];
 
-    if (tavern.quest.progress.hp <= 0) {
-      tavern.sendChat(quest.completionChat('en'));
-      tavern.finishQuest(quest, () => {});
-      _.assign(tavernQuest, {extra: null});
-      return tavern.save();
-    } else {
-      // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
-      // use those first - which allows us to update the boss on the go if things are too easy/hard.
-      if (!tavern.quest.extra) tavern.quest.extra = {};
-      tavern.quest.progress.hp -= dmg / (tavern.quest.extra.def || quest.boss.def);
-      tavern.quest.progress.rage -= rage * (tavern.quest.extra.str || quest.boss.str);
+  if (tavern.quest.progress.hp <= 0) {
+    tavern.sendChat(quest.completionChat('en'));
+    await tavern.finishQuest(quest);
+    _.assign(tavernQuest, {extra: null});
+    return tavern.save();
+  } else {
+    // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
+    // use those first - which allows us to update the boss on the go if things are too easy/hard.
+    if (!tavern.quest.extra) tavern.quest.extra = {};
+    tavern.quest.progress.hp -= dmg / (tavern.quest.extra.def || quest.boss.def);
+    tavern.quest.progress.rage -= rage * (tavern.quest.extra.str || quest.boss.str);
 
-      if (tavern.quest.progress.rage >= quest.boss.rage.value) {
-        if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
+    if (tavern.quest.progress.rage >= quest.boss.rage.value) {
+      if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
 
-        let wd = tavern.quest.extra.worldDmg;
-        // Burnout attacks Ian, Seasonal Sorceress, tavern
-        let scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // eslint-disable-line no-nested-ternary
+      let wd = tavern.quest.extra.worldDmg;
+      // Burnout attacks Ian, Seasonal Sorceress, tavern
+      let scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // eslint-disable-line no-nested-ternary
 
-        if (!scene) {
-          tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
-          tavern.quest.progress.rage = 0; // quest.boss.rage.value;
-        } else {
-          tavern.sendChat(quest.boss.rage[scene]('en'));
-          tavern.quest.extra.worldDmg[scene] = true;
-          tavern.quest.extra.worldDmg.recent = scene;
-          tavern.markModified('quest.extra.worldDmg');
-          tavern.quest.progress.rage = 0;
-          if (quest.boss.rage.healing) {
-            tavern.quest.progress.hp += quest.boss.rage.healing * tavern.quest.progress.hp;
-          }
+      if (!scene) {
+        tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
+        tavern.quest.progress.rage = 0; // quest.boss.rage.value;
+      } else {
+        tavern.sendChat(quest.boss.rage[scene]('en'));
+        tavern.quest.extra.worldDmg[scene] = true;
+        tavern.quest.extra.worldDmg.recent = scene;
+        tavern.markModified('quest.extra.worldDmg');
+        tavern.quest.progress.rage = 0;
+        if (quest.boss.rage.healing) {
+          tavern.quest.progress.hp += quest.boss.rage.healing * tavern.quest.progress.hp;
         }
       }
-
-      if (quest.boss.desperation && tavern.quest.progress.hp < quest.boss.desperation.threshold && !tavern.quest.extra.desperate) {
-        tavern.sendChat(quest.boss.desperation.text('en'));
-        tavern.quest.extra.desperate = true;
-        tavern.quest.extra.def = quest.boss.desperation.def;
-        tavern.quest.extra.str = quest.boss.desperation.str;
-        tavern.markModified('quest.extra');
-      }
-
-      _.assign(module.exports.tavernQuest, tavern.quest.toObject());
-      return tavern.save();
-    }
-  })
-  .catch(err => {
-    throw err;
-  });
-};
-
-schema.statics.bossQuest = function bossQuest (user, progress) {
-  return this.findOne({
-    type: 'party',
-    members: {$in: [user._id]},
-  }).exec()
-  .then(group => {
-    if (!_isOnQuest(user, progress, group)) return;
-
-    let quest = shared.content.quests[group.quest.key];
-    if (!progress || !quest) return; // FIXME why is this ever happening, progress should be defined at this point
-
-    let down = progress.down * quest.boss.str; // multiply by boss strength
-
-    group.quest.progress.hp -= progress.up;
-    group.sendChat(`\`${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage, ${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.\``); // TODO Create a party preferred language option so emits like this can be localized
-
-    // If boss has Rage, increment Rage as well
-    if (quest.boss.rage) {
-      group.quest.progress.rage += Math.abs(down);
-      if (group.quest.progress.rage >= quest.boss.rage.value) {
-        group.sendChat(quest.boss.rage.effect('en'));
-        group.quest.progress.rage = 0;
-
-        // TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
-        if (quest.boss.rage.healing) group.quest.progress.hp += group.quest.progress.hp * quest.boss.rage.healing;
-        if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
-      }
     }
 
-    // Everyone takes damage
-    let promise = User.update({
-      _id: {$in: _.keys(group.quest.members)},
-    }, {
-      $inc: {'stats.hp': down, _v: 1},
-    }, {multi: true});
-
-    // Boss slain, finish quest
-    if (group.quest.progress.hp <= 0) {
-      group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
-      // Participants: Grant rewards & achievements, finish quest
-
-      return promise
-      .then(() => group.finishQuest())
-      .then(() => group.save());
+    if (quest.boss.desperation && tavern.quest.progress.hp < quest.boss.desperation.threshold && !tavern.quest.extra.desperate) {
+      tavern.sendChat(quest.boss.desperation.text('en'));
+      tavern.quest.extra.desperate = true;
+      tavern.quest.extra.def = quest.boss.desperation.def;
+      tavern.quest.extra.str = quest.boss.desperation.str;
+      tavern.markModified('quest.extra');
     }
 
-    return promise.then(() => group.save());
-  })
-  // TODO necessary to catch if we're returning a promise?
-  .catch(err => {
-    throw err;
-  });
+    _.assign(tavernQuest, tavern.quest.toObject());
+    return tavern.save();
+  }
+  // TODO catch
 };
 
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
