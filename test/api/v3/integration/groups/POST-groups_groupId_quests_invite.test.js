@@ -1,6 +1,7 @@
 import {
   createAndPopulateGroup,
   translate as t,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 import { quests as questScrolls } from '../../../../../common/script/content';
@@ -122,8 +123,8 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       ]);
     });
 
-    xit('adds quest details to group object', async () => {
-      await leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    it('adds quest details to group object', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
       await questingGroup.sync();
 
@@ -131,47 +132,61 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
       expect(quest.key).to.eql(PET_QUEST);
       expect(quest.active).to.eql(false);
-      expect(quest.leader).to.eql(false);
-      expect(quest.members).to.have.property(leader._id, null);
+      expect(quest.leader).to.eql(leader._id);
+      expect(quest.members).to.have.property(leader._id, true);
       expect(quest.members).to.have.property(member._id, null);
       expect(quest).to.have.property('progress');
     });
 
-    xit('adds quest details to user objects', async () => {
-      await leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    it('adds quest details to user objects', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+      await sleep(0.1); // member updates happen in the background
 
       await Promise.all([
         leader.sync(),
         member.sync(),
       ]);
 
-      [leader, member].forEach((user) => {
-        let quest = user.party.quest;
-
-        expect(quest.key).to.eql(PET_QUEST);
-        expect(quest.active).to.eql(false);
-        expect(quest.leader).to.eql(false);
-        expect(quest.members).to.have.property(leader._id, null);
-        expect(quest.members).to.have.property(member._id, null);
-        expect(quest).to.have.property('progress');
-      });
+      expect(leader.party.quest.key).to.eql(PET_QUEST);
+      expect(member.party.quest.key).to.eql(PET_QUEST);
+      expect(leader.party.quest.RSVPNeeded).to.eql(false);
+      expect(member.party.quest.RSVPNeeded).to.eql(true);
     });
 
-    xit('sends back the quest object', async () => {
-      let inviteResponse = await leader.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    it('sends back the quest object', async () => {
+      let inviteResponse = await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
       expect(inviteResponse.key).to.eql(PET_QUEST);
       expect(inviteResponse.active).to.eql(false);
-      expect(inviteResponse.leader).to.eql(false);
-      expect(inviteResponse.members).to.have.property(leader._id, null);
+      expect(inviteResponse.leader).to.eql(leader._id);
+      expect(inviteResponse.members).to.have.property(leader._id, true);
       expect(inviteResponse.members).to.have.property(member._id, null);
       expect(inviteResponse).to.have.property('progress');
     });
 
-    xit('allows non-leader party members to send invites', async () => {
-      let inviteResponse = await member.post(`groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    it('allows non-party-leader party members to send invites', async () => {
+      let inviteResponse = await member.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+      await questingGroup.sync();
 
       expect(inviteResponse.key).to.eql(PET_QUEST);
+      expect(questingGroup.quest.key).to.eql(PET_QUEST);
+    });
+
+    it('starts quest automatically if user is in a solo party', async () => {
+      let leaderDetails = { balance: 10 };
+      leaderDetails[`items.quests.${PET_QUEST}`] = 1;
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+        leaderDetails,
+      });
+
+      await groupLeader.post(`/groups/${group._id}/quests/invite/${PET_QUEST}`);
+
+      await group.sync();
+
+      expect(group.quest.active).to.eql(true);
     });
   });
 });
