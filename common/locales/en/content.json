@@ -151,6 +151,10 @@
   "questEggSabretoothMountText": "Sabretooth Tiger",
   "questEggSabretoothAdjective": "a ferocious",
 
+  "questEggMonkeyText": "Monkey",
+  "questEggMonkeyMountText": "Monkey",
+  "questEggMonkeyAdjective": "a mischievous",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

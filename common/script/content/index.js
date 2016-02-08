@@ -981,6 +981,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.sabretooth != null) > 0;
     })
   },
+  Monkey: {
+    text: t('questEggMonkeyText'),
+    adjective: t('questEggMonkeyAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.monkey != null) > 0;
+    })
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -3060,6 +3067,38 @@ api.quests = {
       gp: 67,
       exp: 650,
       unlock: t('questSabretoothUnlockText')
+    }
+  },
+  monkey: {
+    text: t('questMonkeyText'),
+    notes: t('questMonkeyNotes'),
+    completion: t('questMonkeyCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questMonkeyBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Monkey',
+          text: t('questMonkeyDropMonkeyEgg')
+        }, {
+          type: 'eggs',
+          key: 'Monkey',
+          text: t('questMonkeyDropMonkeyEgg')
+        }, {
+          type: 'eggs',
+          key: 'Monkey',
+          text: t('questMonkeyDropMonkeyEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questMonkeyUnlockText')
     }
   },
 };
