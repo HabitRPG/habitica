@@ -4,7 +4,7 @@ import { quests as questScrolls } from '../../../../../common/script/content';
 import * as email from '../../../../../website/src/libs/api-v3/email';
 import Q from 'q';
 
-describe('Group Model', () => {
+describe.skip('Group Model', () => {
   context('Instance Methods', () => {
     describe('#startQuest', () => {
       let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;

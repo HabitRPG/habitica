@@ -171,6 +171,7 @@ schema.methods.isMember = function isGroupMember (user) {
 };
 
 schema.methods.startQuest = async function startQuest (user) {
+  // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
   if (this.type !== 'party') throw new InternalServerError('Must be a party to use this method');
   if (!this.quest.key) throw new InternalServerError('Party does not have a pending quest');
   if (this.quest.active) throw new InternalServerError('Quest is already active');
@@ -183,8 +184,6 @@ schema.methods.startQuest = async function startQuest (user) {
       result[itemToCollect] = 0;
     });
   }
-
-  let backgroundOperations = [];
 
   this.markModified('quest');
   this.quest.active = true;
@@ -200,48 +199,60 @@ schema.methods.startQuest = async function startQuest (user) {
   // are still on the object?
   // TODO: is it important to run clean quest progress on non-members like we did in v2?
   this.quest.members = _.pick(this.quest.members, _.identity);
-  let nonUserQuestMembers = _.without(_.keys(this.quest.members), user._id);
-
-  let members = await User.find(
-    { _id: { $in: nonUserQuestMembers } },
-    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications',
-  ).exec();
+  let nonUserQuestMembers = _.keys(this.quest.members);
+  removeFromArray(nonUserQuestMembers, user._id);
 
   if (userIsParticipating) {
-    members.unshift(user); // put participating user at the beginning of the array
+    user.party.quest.key = this.quest.key;
+    user.party.quest.progress.down = 0;
+    user.party.quest.collect = collected;
+    user.party.quest.completed = null;
+    user.markModified('party.quest');
   }
 
-  _.each(members, (member) => {
-    member.party.quest.key = this.quest.key;
-    member.party.quest.progress.down = 0;
-    member.party.quest.collect = collected;
-    member.party.quest.completed = null;
-    member.markModified('party.quest');
+  // Remove the quest from the quest leader items (if he's the current user)
+  if (this.quest.leader === user._id) {
+    user.items.quests[this.quest.key] -= 1;
+    user.markModified('items.quests');
+  } else { // another user is starting the quest, update the leader separately
+    await User.update({_id: this.quest.leader}, {
+      $set: {
+        'party.quest.key': this.quest.key,
+        'party.quest.progress.down': 0,
+        'party.quest.collect': collected,
+        'party.quest.completed': null,
+      },
+      $inc: {
+        [`items.quests${this.quest.key}`]: -1,
+      },
+    }).exec();
+    removeFromArray(nonUserQuestMembers, this.quest.leader);
+  }
 
-    if (this.quest.leader === member._id) {
-      member.items.quests[this.quest.key] -= 1;
-      member.markModified('items.quests');
-    }
+  // update the remaining users
+  await User.update({
+    _id: { $in: nonUserQuestMembers },
+  }, {
+    $set: {
+      'party.quest.key': this.quest.key,
+      'party.quest.progress.down': 0,
+      'party.quest.collect': collected,
+      'party.quest.completed': null,
+    },
+  }, { multi: true }).exec();
 
-    if (member._id !== user._id) {
-      backgroundOperations.push(member.save());
-    }
-  });
-
-  let usersToEmail = _.filter(members, (member) => {
-    return member.preferences.emailNotifications.questStarted !== false &&
-      member._id !== user._id;
-  });
-
-  sendTxnEmail(usersToEmail, 'quest-started', [
-    { name: 'PARTY_URL', content: '/#/options/groups/party' },
-  ]);
-
-  // These operations should run in the background
-  // and not hold up the quest routes from resolving
-  Q.allSettled(backgroundOperations).catch(err => {
-    // TODO: what to do with err?
-    throw err;
+  // send notifications in the background without blocking
+  User.find(
+    { _id: { $in: nonUserQuestMembers } },
+    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications profile.name',
+  ).exec().then(membersToEmail => {
+    membersToEmail = _.filter(membersToEmail, (member) => {
+      return member.preferences.emailNotifications.questStarted !== false &&
+        member._id !== user._id;
+    });
+    sendTxnEmail(membersToEmail, 'quest-started', [
+      { name: 'PARTY_URL', content: '/#/options/groups/party' },
+    ]);
   });
 };
 

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import Q from 'q';
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
+import analytics from '../../libs/api-v3/analyticsService';
 import {
   model as Group,
 } from '../../models/group';
@@ -12,6 +13,10 @@ import {
   NotFound,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
+import {
+  getUserInfo,
+  sendTxn as sendTxnEmail,
+} from '../../libs/api-v3/email';
 import { quests as questScrolls } from '../../../../common/script/content';
 
 function canStartQuestAutomatically (group)  {
@@ -55,8 +60,11 @@ api.inviteToQuest = {
     if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
 
-    let members = await User.find({ 'party._id': group._id }, 'auth.facebook auth.local preferences.emailNotifications').exec();
-    let backgroundOperations = [];
+    let members = await User.find({
+      'party._id': group._id,
+      _id: {$ne: user._id},
+    }).select('auth.facebook auth.local preferences.emailNotifications profile.name')
+    .exec();
 
     group.markModified('quest');
     group.quest.key = questKey;
@@ -67,18 +75,22 @@ api.inviteToQuest = {
     user.party.quest.RSVPNeeded = false;
     user.party.quest.key = questKey;
 
+    await User.update({
+      'party._id': group._id,
+      _id: {$ne: user._id},
+    }, {
+      $set: {
+        'party.quest.RSVPNeeded': true,
+        'party.quest.key': questKey,
+      },
+    }, {multi: true}).exec();
+
     _.each(members, (member) => {
-      if (member._id !== user._id) {
-        group.quest.members[member._id] = null;
-        member.party.quest.RSVPNeeded = true;
-        member.party.quest.key = questKey;
-        // TODO: Send Quest invite email
-        backgroundOperations.push(member.save());
-      }
+      group.quest.members[member._id] = null;
     });
 
     if (canStartQuestAutomatically(group)) {
-      group.startQuest(user);
+      await group.startQuest(user);
     }
 
     let [savedGroup] = await Q.all([
@@ -88,9 +100,26 @@ api.inviteToQuest = {
 
     res.respond(200, savedGroup.quest);
 
-    Q.allSettled(backgroundOperations).catch(err => {
-      // TODO what to do about errors in background ops
-      throw err;
+    // send out invites
+    let inviterVars = getUserInfo(user, ['name', 'email']);
+    let membersToEmail = members.filter(member => {
+      return member.preferences.emailNotifications.invitedQuest !== false;
+    });
+    sendTxnEmail(membersToEmail, `invite-${quest.boss ? 'boss' : 'collection'}-quest`, [
+      {name: 'QUEST_NAME', content: quest.text()},
+      {name: 'INVITER', content: inviterVars.name},
+      {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
+      {name: 'PARTY_URL', content: '/#/options/groups/party'},
+    ]);
+
+    // track that the inviting user has accepted the quest
+    analytics.track('quest', {
+      category: 'behavior',
+      owner: true,
+      response: 'accept',
+      gaLabel: 'accept',
+      questName: questKey,
+      uuid: user._id,
     });
   },
 };
