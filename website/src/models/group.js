@@ -8,7 +8,7 @@ import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
 import { removeFromArray } from '../libs/api-v3/collectionManipulators';
-import { BadRequest } from '../libs/api-v3/errors';
+import { InternalServerError } from '../libs/api-v3/errors';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
@@ -171,9 +171,9 @@ schema.methods.isMember = function isGroupMember (user) {
 };
 
 schema.methods.startQuest = async function startQuest (user) {
-  if (this.type !== 'party') throw new BadRequest('Must be a party to use this method');
-  if (!this.quest.key) throw new BadRequest('Party does not have a pending quest');
-  if (this.quest.active) throw new BadRequest('Quest is already active');
+  if (this.type !== 'party') throw new InternalServerError('Must be a party to use this method');
+  if (!this.quest.key) throw new InternalServerError('Party does not have a pending quest');
+  if (this.quest.active) throw new InternalServerError('Quest is already active');
 
   let userIsParticipating = this.quest.members[user._id];
   let quest = questScrolls[this.quest.key];
@@ -397,7 +397,6 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
   await group.finishQuest(quest);
   group.sendChat('`All items found! Party has received their rewards.`');
   return group.save();
-  // TODO cath?
 };
 
 schema.statics.bossQuest = async function bossQuest (user, progress) {
@@ -432,6 +431,10 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   }, {
     $inc: {'stats.hp': down, _v: 1},
   }, {multi: true}).exec();
+  // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
+  // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
+  // must be notModified or otherwise could overwrite future changes
+  // if (down) user.stats.hp += down;
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
@@ -443,7 +446,6 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   }
 
   return group.save();
-  // TODO catch?
 };
 
 // to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
