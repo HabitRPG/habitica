@@ -223,7 +223,7 @@ schema.methods.startQuest = async function startQuest (user) {
         'party.quest.completed': null,
       },
       $inc: {
-        [`items.quests${this.quest.key}`]: -1,
+        [`items.quests.${this.quest.key}`]: -1,
       },
     }).exec();
     removeFromArray(nonUserQuestMembers, this.quest.leader);
