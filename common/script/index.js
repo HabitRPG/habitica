@@ -1152,6 +1152,53 @@ api.wrap = function(user, main) {
             message: "+1 Gem"
           }, _.pick(user, $w('stats balance'))) : void 0;
         }
+/* buy 5 gems */
+        if (type === 'gems5' && key === 'gem') {
+          ref1 = api.planGemLimits, convRate = ref1.convRate, convCap = ref1.convCap;
+          convCap += user.purchased.plan.consecutive.gemCapExtra;
+          if (!((ref2 = user.purchased) != null ? (ref3 = ref2.plan) != null ? ref3.customerId : void 0 : void 0)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Must subscribe to purchase gems with GP"
+            }, req) : void 0;
+          }
+          if (!(user.stats.gp >= convRate*5)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough Gold"
+            }) : void 0;
+          }
+          if (user.purchased.plan.gemsBought >= convCap) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You've reached the Gold=>Gem conversion cap (" + convCap + ") for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month."
+            }) : void 0;
+          }
+		  if (user.purchased.plan.gemsBought >= (convCap-5)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You can't buy that many gems without going over the Gem conversion cap."
+            }) : void 0;
+          }
+          user.balance += 1.25;
+          user.purchased.plan.gemsBought +=5;
+          user.stats.gp -= convRate*5;
+          analyticsData = {
+            uuid: user._id,
+            itemKey: key,
+            acquireMethod: 'Gold',
+            goldCost: convRate*5,
+            category: 'behavior'
+          };
+          if (analytics != null) {
+            analytics.track('purchase gems', analyticsData);
+          }
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: "+5 Gems"
+          }, _.pick(user, $w('stats balance'))) : void 0;
+        }
+/* end buy 5 gems */		
         if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'gear') {
           return typeof cb === "function" ? cb({
             code: 404,

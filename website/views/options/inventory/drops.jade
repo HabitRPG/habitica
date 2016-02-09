@@ -205,6 +205,16 @@
               p
                 | 20&nbsp;
                 span.shop_gold
+            div(ng-if='user.purchased.plan.customerId', ng-class='::{transparent:(Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought) < 5}')
+              button.customize-option(popover=env.t('subGem5Pop'), popover-title=env.t('subGem5Name'),
+                popover-trigger='mouseenter', popover-placement='top',
+                popover-append-to-body='true',
+                ng-click='user.ops.purchase({params:{type:"gems5",key:"gem"}})')
+                span.Pet_Currency_Gem5.inline-gems
+                .badge.badge-success.stack-count {{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}
+              p
+                | 100&nbsp;
+                span.shop_gold
             div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound || type.key === "valentine"')
               button.customize-option(class='inventory_special_{{::type.key}}',
               popover='{{::Content.spells.special[type.key].notes()}}',
