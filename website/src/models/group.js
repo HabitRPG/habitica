@@ -210,23 +210,16 @@ schema.methods.startQuest = async function startQuest (user) {
     user.markModified('party.quest');
   }
 
-  // Remove the quest from the quest leader items (if he's the current user)
+  // Remove the quest from the quest leader items (if they are the current user)
   if (this.quest.leader === user._id) {
     user.items.quests[this.quest.key] -= 1;
     user.markModified('items.quests');
   } else { // another user is starting the quest, update the leader separately
     await User.update({_id: this.quest.leader}, {
-      $set: {
-        'party.quest.key': this.quest.key,
-        'party.quest.progress.down': 0,
-        'party.quest.collect': collected,
-        'party.quest.completed': null,
-      },
       $inc: {
         [`items.quests.${this.quest.key}`]: -1,
       },
     }).exec();
-    removeFromArray(nonUserQuestMembers, this.quest.leader);
   }
 
   // update the remaining users
