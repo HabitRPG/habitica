@@ -307,11 +307,12 @@ api.getChallenge = {
     let challengeId = req.params.challengeId;
 
     let challenge = await Challenge.findById(challengeId)
-      // .populate('leader', nameFields) // don't populate the group as we'll fetch it manually later
+      // Don't populate the group as we'll fetch it manually later
+      // .populate('leader', nameFields)
       .exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    // Fetching basicGroupFields
+    // Fetching basic group data
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
