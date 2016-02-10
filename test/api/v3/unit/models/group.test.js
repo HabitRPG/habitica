@@ -1,17 +1,16 @@
+import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group } from '../../../../../website/src/models/group';
 import { model as User } from '../../../../../website/src/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
 import * as email from '../../../../../website/src/libs/api-v3/email';
-import Q from 'q';
 
-describe.skip('Group Model', () => {
+describe('Group Model', () => {
   context('Instance Methods', () => {
     describe('#startQuest', () => {
       let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
 
       beforeEach(async () => {
         sandbox.stub(email, 'sendTxn');
-        sandbox.spy(Q, 'allSettled');
 
         party = new Group({
           name: 'test party',
@@ -173,14 +172,6 @@ describe.skip('Group Model', () => {
           expect(undecidedMember.party.quest.key).to.not.eql('whale');
         });
 
-        it('removes quest scroll from quest leader', async () => {
-          await party.startQuest(participatingMember);
-
-          questLeader = await User.findById(questLeader._id);
-
-          expect(questLeader.items.quests.whale).to.eql(0);
-        });
-
         it('sends email to participating members that quest has started', async () => {
           participatingMember.preferences.emailNotifications.questStarted = true;
           questLeader.preferences.emailNotifications.questStarted = true;
@@ -190,6 +181,8 @@ describe.skip('Group Model', () => {
           ]);
 
           await party.startQuest(nonParticipatingMember);
+
+          await sleep(0.5);
 
           expect(email.sendTxn).to.be.calledOnce;
 
@@ -212,6 +205,8 @@ describe.skip('Group Model', () => {
 
           await party.startQuest(nonParticipatingMember);
 
+          await sleep(0.5);
+
           expect(email.sendTxn).to.be.calledOnce;
 
           let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
@@ -231,6 +226,8 @@ describe.skip('Group Model', () => {
 
           await party.startQuest(participatingMember);
 
+          await sleep(0.5);
+
           expect(email.sendTxn).to.be.calledOnce;
 
           let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
@@ -240,21 +237,62 @@ describe.skip('Group Model', () => {
           expect(memberIds).to.include(questLeader._id);
         });
 
-        it('adds participating members to background save operations', async () => {
+        it('updates participting members (not including user)', async () => {
+          sandbox.spy(User, 'update');
+
           await party.startQuest(nonParticipatingMember);
 
-          expect(Q.allSettled).to.be.calledOnce;
+          let members = [questLeader._id, participatingMember._id];
 
-          let savePromises = Q.allSettled.args[0][0];
-          expect(savePromises).to.have.a.lengthOf(2);
+          expect(User.update).to.be.calledWith(
+            { _id: { $in: members } },
+            {
+              $set: {
+                'party.quest.key': 'whale',
+                'party.quest.progress.down': 0,
+                'party.quest.collect': {},
+                'party.quest.completed': null,
+              },
+            }
+          );
         });
 
-        it('does not include initiating user in background save operations', async () => {
+        it('updates non-user quest leader and decrements quest scroll', async () => {
+          sandbox.spy(User, 'update');
+
           await party.startQuest(participatingMember);
 
-          expect(Q.allSettled).to.be.calledOnce;
-          let savePromises = Q.allSettled.args[0][0];
-          expect(savePromises).to.have.a.lengthOf(1);
+          expect(User.update).to.be.calledWith(
+            { _id: questLeader._id },
+            {
+              $inc: {
+                'items.quests.whale': -1,
+              },
+            }
+          );
+        });
+
+        it('modifies the participating initiating user directly', async () => {
+          await party.startQuest(participatingMember);
+
+          let userQuest = participatingMember.party.quest;
+
+          expect(userQuest.key).to.eql('whale');
+          expect(userQuest.progress.down).to.eql(0);
+          expect(userQuest.collect).to.eql({});
+          expect(userQuest.completed).to.eql(null);
+        });
+
+        it('does not modify user if not participating', async () => {
+          await party.startQuest(nonParticipatingMember);
+
+          expect(nonParticipatingMember.party.quest.key).to.not.eql('whale');
+        });
+
+        it('removes the quest directly if initiating user is the quest leader', async () => {
+          await party.startQuest(questLeader);
+
+          expect(questLeader.items.quests.whale).to.eql(0);
         });
       });
     });
