@@ -73,5 +73,8 @@
   "questNotFound": "Quest \"<%= key %>\" not found.",
   "questNotOwned": "You don't own that quest scroll.",
   "questLevelTooHigh": "You must be Level <%= level %> to begin this quest.",
-  "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended."
+  "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
+  "noActiveQuestToLeave": "No active quest to leave",
+  "questLeaderCannotLeaveQuest": "Quest leader cannot leave quest",
+  "notPartOfQuest": "You are not part of the quest"
 }
