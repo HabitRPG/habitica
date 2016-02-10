@@ -12,6 +12,7 @@ import {
 import {
   NotFound,
   NotAuthorized,
+  BadRequest,
 } from '../../libs/api-v3/errors';
 import {
   getUserInfo,
@@ -151,7 +152,10 @@ api.acceptQuest = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInviteNotFound'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
 
+    group.markModified('quest');
     group.quest.members[user._id] = true;
     user.party.quest.RSVPNeeded = false;
 
