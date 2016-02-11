@@ -170,6 +170,57 @@ schema.methods.isMember = function isGroupMember (user) {
   }
 };
 
+export function chatDefaults (msg, user) {
+  let message = {
+    id: shared.uuid(),
+    text: msg,
+    timestamp: Number(new Date()),
+    likes: {},
+    flags: {},
+    flagCount: 0,
+  };
+
+  if (user) {
+    _.defaults(message, {
+      uuid: user._id,
+      contributor: user.contributor && user.contributor.toObject(),
+      backer: user.backer && user.backer.toObject(),
+      user: user.profile.name,
+    });
+  } else {
+    message.uuid = 'system';
+  }
+
+  return message;
+}
+
+schema.methods.sendChat = function sendChat (message, user) {
+  this.chat.unshift(chatDefaults(message, user));
+  this.chat.splice(200);
+
+  // Kick off chat notifications in the background. // TODO refactor
+  let lastSeenUpdate = {$set: {}, $inc: {_v: 1}};
+  lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
+
+  if (this._id === 'habitrpg') {
+    // TODO For Tavern, only notify them if their name was mentioned
+    // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
+    // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
+  } else {
+    let query = {};
+
+    if (this.type === 'party') {
+      query['party._id'] = this._id;
+    } else {
+      query.guilds = this._id;
+    }
+
+    query._id = { $ne: user ? user._id : ''};
+
+    User.update(query, lastSeenUpdate, {multi: true}).exec();
+  }
+};
+
 schema.methods.startQuest = async function startQuest (user) {
   // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
   if (this.type !== 'party') throw new InternalServerError('Must be a party to use this method');
@@ -247,57 +298,6 @@ schema.methods.startQuest = async function startQuest (user) {
       { name: 'PARTY_URL', content: '/#/options/groups/party' },
     ]);
   });
-};
-
-export function chatDefaults (msg, user) {
-  let message = {
-    id: shared.uuid(),
-    text: msg,
-    timestamp: Number(new Date()),
-    likes: {},
-    flags: {},
-    flagCount: 0,
-  };
-
-  if (user) {
-    _.defaults(message, {
-      uuid: user._id,
-      contributor: user.contributor && user.contributor.toObject(),
-      backer: user.backer && user.backer.toObject(),
-      user: user.profile.name,
-    });
-  } else {
-    message.uuid = 'system';
-  }
-
-  return message;
-}
-
-schema.methods.sendChat = function sendChat (message, user) {
-  this.chat.unshift(chatDefaults(message, user));
-  this.chat.splice(200);
-
-  // Kick off chat notifications in the background. // TODO refactor
-  let lastSeenUpdate = {$set: {}, $inc: {_v: 1}};
-  lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
-
-  if (this._id === 'habitrpg') {
-    // TODO For Tavern, only notify them if their name was mentioned
-    // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
-    // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
-  } else {
-    let query = {};
-
-    if (this.type === 'party') {
-      query['party._id'] = this._id;
-    } else {
-      query.guilds = this._id;
-    }
-
-    query._id = { $ne: user ? user._id : ''};
-
-    User.update(query, lastSeenUpdate, {multi: true}).exec();
-  }
 };
 
 function _cleanQuestProgress (merge) {
