@@ -302,7 +302,6 @@ schema.methods.startQuest = async function startQuest (user) {
 
 // return a clean object for user.quest
 function _cleanQuestProgress (merge) {
-  // TODO clone? (also in sendChat message)
   let clean = {
     key: null,
     progress: {
