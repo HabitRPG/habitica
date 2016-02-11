@@ -110,17 +110,28 @@ describe('POST /groups/:groupId/quests/reject', () => {
   });
 
   context('successfully quest rejection', () => {
+    let cleanUserQuestObj = {
+      key: null,
+      progress: {
+        up: 0,
+        down: 0,
+        collect: {},
+      },
+      completed: null,
+      RSVPNeeded: false,
+    };
+
     it('rejects a quest invitation', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
+      let res = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
       await partyMembers[0].sync();
       await questingGroup.sync();
 
-      expect(partyMembers[0].party.quest.key).to.be.null;
-      expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
+      expect(partyMembers[0].party.quest).to.eql(cleanUserQuestObj);
       expect(questingGroup.quest.members[partyMembers[0]._id]).to.be.false;
       expect(questingGroup.quest.active).to.be.false;
+      expect(res).to.eql(questingGroup.quest);
     });
 
     it('starts the quest when the last user reject', async () => {
