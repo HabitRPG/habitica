@@ -100,7 +100,7 @@ describe('POST /groups/:groupId/quests/cancel', () => {
     await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
     await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
 
-    await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
+    let res = await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
 
     await Promise.all([
       leader.sync(),
@@ -124,6 +124,7 @@ describe('POST /groups/:groupId/quests/cancel', () => {
     expect(partyMembers[1].party.quest).eql(clean);
     expect(partyMembers[0].party.quest).eql(clean);
 
+    expect(res).to.eql(questingGroup.quest);
     expect(questingGroup.quest).to.eql({
       key: null,
       active: false,
