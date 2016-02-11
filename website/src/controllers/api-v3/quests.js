@@ -19,7 +19,6 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
 import { quests as questScrolls } from '../../../../common/script/content';
-import Q from 'q';
 
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true
@@ -184,14 +183,14 @@ api.acceptQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/leave Leaves a quest
+ * @api {post} /groups/:groupId/quests/leave Leaves the active quest
  * @apiVersion 3.0.0
  * @apiName LeaveQuest
  * @apiGroup Group
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} Empty Object
+ * @apiSuccess {Object} quest Quest Object
  */
 api.leaveQuest = {
   method: 'POST',
@@ -207,19 +206,12 @@ api.leaveQuest = {
     if (validationErrors) throw validationErrors;
 
     let group = await Group.getGroup({user, groupId, fields: 'type quest'});
+
     if (!group) throw new NotFound(res.t('groupNotFound'));
-
-    if (!(group.quest && group.quest.active)) {
-      throw new NotFound(res.t('noActiveQuestToLeave'));
-    }
-
-    if (group.quest.leader === user._id) {
-      throw new NotAuthorized(res.t('questLeaderCannotLeaveQuest'));
-    }
-
-    if (!(group.quest.members && group.quest.members[user._id])) {
-      throw new NotAuthorized(res.t('notPartOfQuest'));
-    }
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToLeave'));
+    if (group.quest.leader === user._id) throw new NotAuthorized(res.t('questLeaderCannotLeaveQuest'));
+    if (!group.quest.members[user._id]) throw new NotAuthorized(res.t('notPartOfQuest'));
 
     group.quest.members[user._id] = false;
     group.markModified('quest.members');

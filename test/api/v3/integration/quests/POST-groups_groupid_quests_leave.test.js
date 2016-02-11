@@ -1,85 +1,124 @@
 import {
   createAndPopulateGroup,
   translate as t,
+  generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /groups/:groupId/quests/leave', () => {
-  let questingGroup, member, leader;
-  const PET_QUEST = 'whale';
-  let userQuestUpdate = {
-    items: {
-      quests: {},
-    },
-    'party.quest.RSVPNeeded': true,
-    'party.quest.key': PET_QUEST,
-  };
+  let questingGroup;
+  let partyMembers;
+  let user;
+  let leader;
 
-  before(async () => {
+  const PET_QUEST = 'whale';
+
+  beforeEach(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
-      members: 1,
+      members: 2,
     });
 
-    leader = groupLeader;
     questingGroup = group;
-    member = members[0];
+    leader = groupLeader;
+    partyMembers = members;
 
-    userQuestUpdate.items.quests[PET_QUEST] = 1;
+    await leader.update({
+      [`items.quests.${PET_QUEST}`]: 1,
+    });
+    user = await generateUser();
   });
 
-  it('returns an error when group is not found', async () => {
-    await expect(member.post(`/groups/${generateUUID()}/quests/leave`))
+  context('failure conditions', () => {
+    it('returns an error when group is not found', async () => {
+      await expect(partyMembers[0].post(`/groups/${generateUUID()}/quests/leave`))
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
+    });
+
+    it('returns an error for a group in which user is not a member', async () => {
+      await expect(user.post(`/groups/${questingGroup._id}/quests/leave`))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
         message: t('groupNotFound'),
       });
-  });
+    });
 
-  it('returns an error when quest is  not active', async () => {
-    await expect(member.post(`/groups/${questingGroup._id}/quests/leave`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('noActiveQuestToLeave'),
+    it('returns an error when group is a guild', async () => {
+      let { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'guild', privacy: 'private' },
       });
-  });
 
-  it('returns an error when quest leader attempts to leave', async () => {
-    await questingGroup.update({quest: {key: PET_QUEST, active: true, leader: leader._id}});
-
-    await expect(leader.post(`/groups/${questingGroup._id}/quests/leave`))
+      await expect(guildLeader.post(`/groups/${guild._id}/quests/leave`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('questLeaderCannotLeaveQuest'),
+        message: t('guildQuestsNotSupported'),
       });
-  });
+    });
 
-  it('returns an error when non quest member attempts to leave', async () => {
-    await expect(member.post(`/groups/${questingGroup._id}/quests/leave`))
+    it('returns an error when quest is not active', async () => {
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`))
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('noActiveQuestToLeave'),
+        });
+    });
+
+    it('returns an error when quest leader attempts to leave', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await expect(leader.post(`/groups/${questingGroup._id}/quests/leave`))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('questLeaderCannotLeaveQuest'),
+        });
+    });
+
+    it('returns an error when non quest member attempts to leave', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/reject`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('notPartOfQuest'),
       });
+    });
   });
 
   it('leaves a quest', async () => {
-    await member.update(userQuestUpdate);
+    await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+    await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-    let questMembers = {};
-    questMembers[member._id] = true;
-    await questingGroup.update({'quest.members': questMembers});
+    let leaveResult = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`);
+    await Promise.all([
+      partyMembers[0].sync(),
+      questingGroup.sync(),
+    ]);
 
-    let leaveResult = await member.post(`/groups/${questingGroup._id}/quests/leave`);
-    let userThatLeft = await member.get('/user');
-    let updatedGroup = await member.get(`/groups/${questingGroup._id}`);
-
-    expect(userThatLeft.party.quest.key).to.be.null;
-    expect(userThatLeft.party.quest.RSVPNeeded).to.be.false;
-    expect(updatedGroup.quest.members[member._id]).to.be.false;
-    expect(updatedGroup.quest).to.deep.equal(leaveResult);
+    expect(partyMembers[0].party.quest).to.eql({
+      key: null,
+      progress: {
+        up: 0,
+        down: 0,
+        collect: {},
+      },
+      completed: null,
+      RSVPNeeded: false,
+    });
+    expect(questingGroup.quest).to.deep.equal(leaveResult);
+    expect(questingGroup.quest.members[partyMembers[0]._id]).to.be.false;
   });
 });
