@@ -6,9 +6,7 @@ import analytics from '../../libs/api-v3/analyticsService';
 import {
   model as Group,
 } from '../../models/group';
-import {
-  model as User,
-} from '../../models/user';
+import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -275,15 +273,71 @@ api.cancelQuest = {
 
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
-    await group.save();
 
-    await User.update(
-      {'party._id': groupId},
-      {$set: {'party.quest': Group.cleanQuestProgress()}},
-      {multi: true}
-    );
+    let [savedGroup] = await Promise.all([
+      group.save(),
+      User.update(
+        {'party._id': groupId},
+        {$set: {'party.quest': Group.cleanQuestProgress()}},
+        {multi: true}
+      ),
+    ]);
 
-    res.respond(200, group.quest);
+    res.respond(200, savedGroup.quest);
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/quests/abort Abort the current quest
+ * @apiVersion 3.0.0
+ * @apiName AbortQuest
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ *
+ * @apiSuccess {Object} quest Quest Object
+ */
+api.abortQuest = {
+  method: 'POST',
+  url: '/groups/:groupId/quests/abort',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    // Abort a quest AFTER it has begun (see questCancel for BEFORE)
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId, fields: 'type quest leader'});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToAbort'));
+    if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
+
+    let memberUpdates = User.update({
+      'party._id': groupId,
+    }, {
+      $set: {'party.quest': Group.cleanQuestProgress()},
+      $inc: {_v: 1}, // TODO update middleware
+    }, {multi: true}).exec();
+
+    let questLeaderUpdate = User.update({
+      _id: group.quest.leader,
+    }, {
+      $inc: {
+        [`items.quests.${group.quest.key}`]: 1, // give back the quest to the quest leader
+      },
+    }).exec();
+
+    group.quest = Group.cleanGroupQuest();
+    group.markModified('quest');
+
+    let [groupSaved] = await Q.all([group.save(), memberUpdates, questLeaderUpdate]);
+
+    res.respond(200, groupSaved.quest);
   },
 };
 
