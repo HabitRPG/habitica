@@ -19,6 +19,7 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
 import { quests as questScrolls } from '../../../../common/script/content';
+import Q from 'q';
 
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true
@@ -179,6 +180,59 @@ api.acceptQuest = {
       questName: group.quest.key,
       uuid: user._id,
     });
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/quests/leave Leaves a quest
+ * @apiVersion 3.0.0
+ * @apiName LeaveQuest
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ *
+ * @apiSuccess {Object} Empty Object
+ */
+api.leaveQuest = {
+  method: 'POST',
+  url: '/groups/:groupId/quests/leave',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId, fields: 'type quest'});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (!(group.quest && group.quest.active)) {
+      throw new NotFound(res.t('noActiveQuestToLeave'));
+    }
+
+    if (group.quest.leader === user._id) {
+      throw new NotAuthorized(res.t('questLeaderCannotLeaveQuest'));
+    }
+
+    if (!(group.quest.members && group.quest.members[user._id])) {
+      throw new NotAuthorized(res.t('notPartOfQuest'));
+    }
+
+    group.quest.members[user._id] = false;
+    group.markModified('quest.members');
+
+    user.party.quest = Group.cleanQuestProgress();
+    user.markModified('party.quest');
+
+    let [savedGroup] = await Q.all([
+      group.save(),
+      user.save(),
+    ]);
+
+    res.respond(200, savedGroup.quest);
   },
 };
 
