@@ -77,5 +77,11 @@
   "questAlreadyAccepted": "You already accepted the quest invitation.",
   "noActiveQuestToLeave": "No active quest to leave",
   "questLeaderCannotLeaveQuest": "Quest leader cannot leave quest",
-  "notPartOfQuest": "You are not part of the quest"
+  "notPartOfQuest": "You are not part of the quest",
+  "noActiveQuestToAbort": "There is no active quest to abort.",
+  "onlyLeaderAbortQuest": "Only the group or quest leader can abort a quest.",
+  "questAlreadyRejected": "You already rejected the quest invitation.",
+  "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
+  "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
+  "questInvitationDoesNotExist": "No quest invitation has been sent out yet."
 }
