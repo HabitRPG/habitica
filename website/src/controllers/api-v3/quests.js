@@ -8,9 +8,6 @@ import {
 } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
-  model as User,
-} from '../../models/user';
-import {
   NotFound,
   NotAuthorized,
   BadRequest,
@@ -20,7 +17,6 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
 import { quests as questScrolls } from '../../../../common/script/content';
-import Q from 'q';
 
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true
@@ -185,14 +181,14 @@ api.acceptQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/abort Abort a quest
+ * @api {post} /groups/:groupId/quests/abort Abort the current quest
  * @apiVersion 3.0.0
  * @apiName AbortQuest
  * @apiGroup Group
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} Quest Object
+ * @apiSuccess {Object} quest Quest Object
  */
 api.abortQuest = {
   method: 'POST',
@@ -208,24 +204,28 @@ api.abortQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId, fields: 'type quest leader'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToAbort'));
+    if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
-    let memberUpdates = User.update(
-      {'party._id': groupId},
-      {
+    let memberUpdates = User.update({
+      'party._id': groupId
+    }, {
         $set: {'party.quest': Group.cleanQuestProgress()},
-        $inc: {_v: 1},
+        $inc: {_v: 1}, // TODO update middleware
+    }, {multi: true}).exec();
+
+    let questLeaderUpdate = User.update({
+      _id: group.quest.leader
+    }, {
+      $inc: {
+        [`items.quests.${group.quest.key}`]: 1, // give back the quest to the quest leader
       },
-      {multi: true},
-    );
+    }).exec();
 
-    let update = {$inc: {}};
-    update.$inc[`items.quests.${group.quest.key}`] = 1;
-    let questLeaderUpdate = User.update({_id: group.quest.leader}, update).exec();
-
-    group.quest = {key: null, progress: {collect: {}}, leader: null, members: {}, extra: {}, active: false};
+    group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
     let [groupSaved] = await Q.all([group.save(), memberUpdates, questLeaderUpdate]);

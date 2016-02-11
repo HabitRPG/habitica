@@ -75,5 +75,6 @@
   "questLevelTooHigh": "You must be Level <%= level %> to begin this quest.",
   "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
   "questAlreadyAccepted": "You already accepted the quest invitation.",
-  "noActiveQuestToAbort": "There is no active quest to abort."
+  "noActiveQuestToAbort": "There is no active quest to abort.",
+  "onlyLeaderAbortQuest": "Only the group or quest leader can abort a quest."
 }
