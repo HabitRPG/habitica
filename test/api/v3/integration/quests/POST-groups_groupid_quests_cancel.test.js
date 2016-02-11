@@ -1,66 +1,137 @@
 import {
   createAndPopulateGroup,
   translate as t,
+  generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /groups/:groupId/quests/leave', () => {
-  let questingGroup, member, leader;
-  const PET_QUEST = 'whale';
-  let userQuestUpdate = {
-    items: {
-      quests: {},
-    },
-    'party.quest.RSVPNeeded': true,
-    'party.quest.key': PET_QUEST,
-  };
+describe('POST /groups/:groupId/quests/cancel', () => {
+  let questingGroup;
+  let partyMembers;
+  let user;
+  let leader;
 
-  before(async () => {
+  const PET_QUEST = 'whale';
+
+  beforeEach(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
-      members: 1,
+      members: 2,
     });
 
-    leader = groupLeader;
     questingGroup = group;
-    member = members[0];
+    leader = groupLeader;
+    partyMembers = members;
 
-    userQuestUpdate.items.quests[PET_QUEST] = 1;
+    await leader.update({
+      [`items.quests.${PET_QUEST}`]: 1,
+    });
+    user = await generateUser();
   });
 
-  it('returns an error when group is not found', async () => {
-    await expect(leader.post(`/groups/${generateUUID()}/quests/cancel`))
+  context('failure conditions', () => {
+    it('returns an error when group is not found', async () => {
+      await expect(partyMembers[0].post(`/groups/${generateUUID()}/quests/cancel`))
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
+    });
+
+    it('does not reject quest for a group in which user is not a member', async () => {
+      await expect(user.post(`/groups/${questingGroup._id}/quests/cancel`))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
         message: t('groupNotFound'),
       });
-  });
+    });
 
-  it('cancels a quest', async () => {
-    await member.update(userQuestUpdate);
-    await questingGroup.update({'quest.key': PET_QUEST});
+    it('returns an error when group is a guild', async () => {
+      let { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'guild', privacy: 'private' },
+      });
 
-    let questMembers = {};
-    questMembers[member._id] = true;
-    await questingGroup.update({'quest.members': questMembers});
+      await expect(guildLeader.post(`/groups/${guild._id}/quests/cancel`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('guildQuestsNotSupported'),
+      });
+    });
 
-    await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
-    let userThatCanceled = await member.get('/user');
-    let updatedGroup = await member.get(`/groups/${questingGroup._id}`);
+    it('returns an error when group is not on a quest', async () => {
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/cancel`))
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('questInvitationDoesNotExist'),
+        });
+    });
 
-    expect(userThatCanceled.party.quest.key).to.be.null;
-    expect(userThatCanceled.party.quest.RSVPNeeded).to.be.false;
-    expect(updatedGroup.quest.members).to.be.empty;
-  });
+    it('only the leader can cancel the quest', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-  it('returns an error when quest is active', async () => {
-    await questingGroup.update({'quest.active': true});
-    await expect(leader.post(`/groups/${questingGroup._id}/quests/cancel`))
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/cancel`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlyLeaderCancelQuest'),
+      });
+    });
+
+    it('does not cancel a quest already underway', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      // quest will start after everyone has accepted
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await expect(leader.post(`/groups/${questingGroup._id}/quests/cancel`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('cantCancelActiveQuest'),
       });
+    });
+  });
+
+  it('cancels a quest', async () => {
+    await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+    await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
+
+    await Promise.all([
+      leader.sync(),
+      partyMembers[0].sync(),
+      partyMembers[1].sync(),
+      questingGroup.sync(),
+    ]);
+
+    let clean = {
+      key: null,
+      progress: {
+        up: 0,
+        down: 0,
+        collect: {},
+      },
+      completed: null,
+      RSVPNeeded: false,
+    };
+
+    expect(leader.party.quest).eql(clean);
+    expect(partyMembers[1].party.quest).eql(clean);
+    expect(partyMembers[0].party.quest).eql(clean);
+
+    expect(questingGroup.quest).to.eql({
+      key: null,
+      active: false,
+      leader: null,
+      progress: {
+        collect: {},
+      },
+      members: {},
+    });
   });
 });

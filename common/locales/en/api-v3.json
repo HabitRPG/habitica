@@ -75,5 +75,7 @@
   "questLevelTooHigh": "You must be Level <%= level %> to begin this quest.",
   "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
   "questAlreadyAccepted": "You already accepted the quest invitation.",
-  "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality."
+  "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
+  "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
+  "questInvitationDoesNotExist": "No quest invitation has been sent out yet."
 }

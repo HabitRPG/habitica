@@ -190,7 +190,7 @@ api.acceptQuest = {
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} Group Object
+ * @apiSuccess {Object} quest Quest Object
  */
 api.cancelQuest = {
   method: 'POST',
@@ -210,20 +210,22 @@ api.cancelQuest = {
 
     let group = await Group.getGroup({user, groupId, fields: 'type quest'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
-
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
+    if (user._id !== group.leader && group.quest.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCancelQuest'));
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
-    group.quest = {key: null, progress: {}, leader: null, members: {}};
+    group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
     await group.save();
 
     await User.update(
       {'party._id': groupId},
-      {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}},
+      {$set: {'party.quest': Group.cleanQuestProgress()}},
       {multi: true}
     );
 
-    res.respond(200, group);
+    res.respond(200, group.quest);
   },
 };
 

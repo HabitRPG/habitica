@@ -300,6 +300,7 @@ schema.methods.startQuest = async function startQuest (user) {
   });
 };
 
+// return a clean object for user.quest
 function _cleanQuestProgress (merge) {
   // TODO clone? (also in sendChat message)
   let clean = {
@@ -321,7 +322,21 @@ function _cleanQuestProgress (merge) {
   return clean;
 }
 
+// TODO move to User.cleanQuestProgress?
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
+
+// returns a clean object for group.quest
+schema.statics.cleanGroupQuest = function cleanGroupQuest () {
+  return {
+    key: null,
+    active: false,
+    leader: null,
+    progress: {
+      collect: {},
+    },
+    members: {},
+  };
+};
 
 // Participants: Grant rewards & achievements, finish quest
 // Returns the promise from update().exec()
