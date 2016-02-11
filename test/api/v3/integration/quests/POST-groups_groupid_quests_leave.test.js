@@ -88,7 +88,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/reject`);
 
-      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`))
+      await expect(partyMembers[1].post(`/groups/${questingGroup._id}/quests/leave`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',

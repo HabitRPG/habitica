@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /groups/:groupId/quests/leave', () => {
+describe('POST /groups/:groupId/quests/abort', () => {
   let questingGroup;
   let partyMembers;
   let user;
@@ -90,7 +90,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
     await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
     let res = await leader.post(`/groups/${questingGroup._id}/quests/abort`);
-    Promise.all([
+    await Promise.all([
       leader.sync(),
       questingGroup.sync(),
       partyMembers[0].sync(),

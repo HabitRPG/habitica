@@ -120,9 +120,9 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       RSVPNeeded: false,
     };
 
-    expect(leader.party.quest).eql(clean);
-    expect(partyMembers[1].party.quest).eql(clean);
-    expect(partyMembers[0].party.quest).eql(clean);
+    expect(leader.party.quest).to.eql(clean);
+    expect(partyMembers[1].party.quest).to.eql(clean);
+    expect(partyMembers[0].party.quest).to.eql(clean);
 
     expect(res).to.eql(questingGroup.quest);
     expect(questingGroup.quest).to.eql({
