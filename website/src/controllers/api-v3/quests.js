@@ -21,7 +21,7 @@ import { quests as questScrolls } from '../../../../common/script/content';
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true
   // If any member is null/undefined (undecided) return false
-  return _.every(group.quest.members, Boolean);
+  return _.every(group.quest.members, _.isBoolean);
 }
 
 let api = {};
@@ -181,6 +181,113 @@ api.acceptQuest = {
 };
 
 /**
+ * @api {post} /groups/:groupId/quests/reject Reject a quest
+ * @apiVersion 3.0.0
+ * @apiName RejectQuest
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ *
+ * @apiSuccess {Object} quest Quest Object
+ */
+api.rejectQuest = {
+  method: 'POST',
+  url: '/groups/:groupId/quests/reject',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
+    if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
+
+    group.quest.members[user._id] = false;
+    group.markModified('quest.members');
+
+    user.party.quest = Group.cleanQuestProgress();
+    user.markModified('party.quest');
+
+    if (canStartQuestAutomatically(group)) {
+      await group.startQuest(user);
+    }
+
+    let [savedGroup] = await Q.all([
+      group.save(),
+      user.save(),
+    ]);
+
+    res.respond(200, savedGroup.quest);
+
+    analytics.track('quest', {
+      category: 'behavior',
+      owner: false,
+      response: 'reject',
+      gaLabel: 'reject',
+      questName: group.quest.key,
+      uuid: user._id,
+    });
+  },
+};
+
+/**
+ * @api {post} /groups/:groupId/quests/cancel Cancels a quest
+ * @apiVersion 3.0.0
+ * @apiName CancelQuest
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ *
+ * @apiSuccess {Object} quest Quest Object
+ */
+api.cancelQuest = {
+  method: 'POST',
+  url: '/groups/:groupId/quests/cancel',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
+    // Quest scroll has not yet left quest owner's inventory so no need to return it.
+    // Do not wipe quest progress for members because they'll want it to be applied to the next quest that's started.
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId, fields: 'type leader quest'});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
+    if (user._id !== group.leader && group.quest.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCancelQuest'));
+    if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
+
+    group.quest = Group.cleanGroupQuest();
+    group.markModified('quest');
+
+    let [savedGroup] = await Promise.all([
+      group.save(),
+      User.update(
+        {'party._id': groupId},
+        {$set: {'party.quest': Group.cleanQuestProgress()}},
+        {multi: true}
+      ),
+    ]);
+
+    res.respond(200, savedGroup.quest);
+  },
+};
+
+/**
  * @api {post} /groups/:groupId/quests/abort Abort the current quest
  * @apiVersion 3.0.0
  * @apiName AbortQuest
@@ -211,14 +318,14 @@ api.abortQuest = {
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
     let memberUpdates = User.update({
-      'party._id': groupId
+      'party._id': groupId,
     }, {
-        $set: {'party.quest': Group.cleanQuestProgress()},
-        $inc: {_v: 1}, // TODO update middleware
+      $set: {'party.quest': Group.cleanQuestProgress()},
+      $inc: {_v: 1}, // TODO update middleware
     }, {multi: true}).exec();
 
     let questLeaderUpdate = User.update({
-      _id: group.quest.leader
+      _id: group.quest.leader,
     }, {
       $inc: {
         [`items.quests.${group.quest.key}`]: 1, // give back the quest to the quest leader

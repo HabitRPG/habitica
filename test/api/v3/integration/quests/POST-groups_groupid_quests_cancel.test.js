@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /groups/:groupId/quests/leave', () => {
+describe('POST /groups/:groupId/quests/cancel', () => {
   let questingGroup;
   let partyMembers;
   let user;
@@ -31,7 +31,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
 
   context('failure conditions', () => {
     it('returns an error when group is not found', async () => {
-      await expect(partyMembers[0].post(`/groups/${generateUUID()}/quests/abort`))
+      await expect(partyMembers[0].post(`/groups/${generateUUID()}/quests/cancel`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
@@ -39,8 +39,8 @@ describe('POST /groups/:groupId/quests/leave', () => {
         });
     });
 
-    it('returns an error for a group in which user is not a member', async () => {
-      await expect(user.post(`/groups/${questingGroup._id}/quests/abort`))
+    it('does not reject quest for a group in which user is not a member', async () => {
+      await expect(user.post(`/groups/${questingGroup._id}/quests/cancel`))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -53,7 +53,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
         groupDetails: { type: 'guild', privacy: 'private' },
       });
 
-      await expect(guildLeader.post(`/groups/${guild._id}/quests/abort`))
+      await expect(guildLeader.post(`/groups/${guild._id}/quests/cancel`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -61,43 +61,55 @@ describe('POST /groups/:groupId/quests/leave', () => {
       });
     });
 
-    it('returns an error when quest is not active', async () => {
-      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/abort`))
+    it('returns an error when group is not on a quest', async () => {
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/cancel`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
-          message: t('noActiveQuestToAbort'),
+          message: t('questInvitationDoesNotExist'),
         });
     });
 
-    it('returns an error when non quest leader attempts to abort', async () => {
+    it('only the leader can cancel the quest', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/cancel`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlyLeaderCancelQuest'),
+      });
+    });
+
+    it('does not cancel a quest already underway', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      // quest will start after everyone has accepted
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/abort`))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('onlyLeaderAbortQuest'),
-        });
+      await expect(leader.post(`/groups/${questingGroup._id}/quests/cancel`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('cantCancelActiveQuest'),
+      });
     });
   });
 
-  it('aborts a quest', async () => {
+  it('cancels a quest', async () => {
     await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
     await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
-    await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-    let res = await leader.post(`/groups/${questingGroup._id}/quests/abort`);
-    Promise.all([
+    let res = await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
+
+    await Promise.all([
       leader.sync(),
-      questingGroup.sync(),
       partyMembers[0].sync(),
       partyMembers[1].sync(),
+      questingGroup.sync(),
     ]);
 
-    let cleanUserQuestObj = {
+    let clean = {
       key: null,
       progress: {
         up: 0,
@@ -108,11 +120,11 @@ describe('POST /groups/:groupId/quests/leave', () => {
       RSVPNeeded: false,
     };
 
-    expect(leader.party.quest).to.eql(cleanUserQuestObj);
-    expect(partyMembers[0].party.quest).to.eql(cleanUserQuestObj);
-    expect(partyMembers[1].party.quest).to.eql(cleanUserQuestObj);
-    expect(leader.items.quests[PET_QUEST]).to.equal(1);
-    expect(questingGroup.quest).to.deep.equal(res);
+    expect(leader.party.quest).eql(clean);
+    expect(partyMembers[1].party.quest).eql(clean);
+    expect(partyMembers[0].party.quest).eql(clean);
+
+    expect(res).to.eql(questingGroup.quest);
     expect(questingGroup.quest).to.eql({
       key: null,
       active: false,
