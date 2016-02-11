@@ -74,5 +74,6 @@
   "questNotOwned": "You don't own that quest scroll.",
   "questLevelTooHigh": "You must be Level <%= level %> to begin this quest.",
   "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
-  "questAlreadyAccepted": "You already accepted the quest invitation."
+  "questAlreadyAccepted": "You already accepted the quest invitation.",
+  "questAlreadyRejected": "You already rejected the quest invitation."
 }

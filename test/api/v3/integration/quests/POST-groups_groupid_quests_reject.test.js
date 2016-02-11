@@ -1,36 +1,37 @@
 import {
   createAndPopulateGroup,
   translate as t,
+  generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /groups/:groupId/quests/invite/:questKey', () => {
+describe('POST /groups/:groupId/quests/reject', () => {
   let questingGroup;
-  let member;
-  const PET_QUEST = 'whale';
-  let userQuestUpdate = {
-    items: {
-      quests: {},
-    },
-    'party.quest.RSVPNeeded': true,
-    'party.quest.key': PET_QUEST,
-  };
+  let partyMembers;
+  let user;
+  let leader;
 
-  before(async () => {
-    let { group, members } = await createAndPopulateGroup({
+  const PET_QUEST = 'whale';
+
+  beforeEach(async () => {
+    let { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
-      members: 1,
+      members: 2,
     });
 
     questingGroup = group;
-    member = members[0];
+    leader = groupLeader;
+    partyMembers = members;
 
-    userQuestUpdate.items.quests[PET_QUEST] = 1;
+    await leader.update({
+      [`items.quests.${PET_QUEST}`]: 1,
+    });
+    user = await generateUser();
   });
 
   context('failure conditions', () => {
     it('returns an error when group is not found', async () => {
-      await expect(member.post(`/groups/${generateUUID()}/quests/reject`))
+      await expect(partyMembers[0].post(`/groups/${generateUUID()}/quests/reject`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
@@ -38,35 +39,97 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
         });
     });
 
-    it('returns an error when group is not on a quest', async () => {
-      await member.update(userQuestUpdate);
+    it('does not accept quest for a group in which user is not a member', async () => {
+      await expect(user.post(`/groups/${questingGroup._id}/quests/accept`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('groupNotFound'),
+      });
+    });
 
-      await expect(member.post(`/groups/${questingGroup._id}/quests/reject`))
+    it('returns an error when group is a guild', async () => {
+      let { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'guild', privacy: 'private' },
+      });
+
+      await expect(guildLeader.post(`/groups/${guild._id}/quests/reject`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('guildQuestsNotSupported'),
+      });
+    });
+
+    it('returns an error when group is not on a quest', async () => {
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`))
         .to.eventually.be.rejected.and.eql({
           code: 404,
           error: 'NotFound',
           message: t('questInvitationDoesNotExist'),
         });
     });
+
+    it('return an error when an user rejects an invite twice', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('questAlreadyRejected'),
+      });
+    });
+
+    it('return an error when an user rejects an invite already accepted', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('questAlreadyAccepted'),
+      });
+    });
+
+    it('does not reject invite for a quest already underway', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      // quest will start after everyone has accepted
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('questAlreadyUnderway'),
+      });
+    });
   });
 
   context('successfully quest rejection', () => {
     it('rejects a quest invitation', async () => {
-      await member.update(userQuestUpdate);
-      await questingGroup.update({'quest.key': PET_QUEST});
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-      let questMembers = {};
-      questMembers[member._id] = true;
-      await questingGroup.update({'quest.members': questMembers});
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
+      await partyMembers[0].sync();
+      await questingGroup.sync();
 
-      let rejectResult = await member.post(`/groups/${questingGroup._id}/quests/reject`);
-      let userWithRejectInvitation = await member.get('/user');
-      let updatedGroup = await member.get(`/groups/${questingGroup._id}`);
+      expect(partyMembers[0].party.quest.key).to.be.null;
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
+      expect(questingGroup.quest.members[partyMembers[0]._id]).to.be.false;
+      expect(questingGroup.quest.active).to.be.false;
+    });
 
-      expect(userWithRejectInvitation.party.quest.key).to.be.null;
-      expect(userWithRejectInvitation.party.quest.RSVPNeeded).to.be.false;
-      expect(updatedGroup.quest.members[member._id]).to.be.false;
-      expect(updatedGroup.quest).to.deep.equal(rejectResult);
+    it('starts the quest when the last user reject', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/reject`);
+      await questingGroup.sync();
+
+      expect(questingGroup.quest.active).to.be.true;
     });
   });
 });

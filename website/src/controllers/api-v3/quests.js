@@ -19,13 +19,11 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
 import { quests as questScrolls } from '../../../../common/script/content';
-import { track } from '../../libs/api-v3/analyticsService';
-import Q from 'q';
 
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true
   // If any member is null/undefined (undecided) return false
-  return _.every(group.quest.members, Boolean);
+  return _.every(group.quest.members, _.isBoolean);
 }
 
 let api = {};
@@ -191,9 +189,8 @@ api.acceptQuest = {
  * @apiGroup Group
  *
  * @apiParam {string} groupId The group _id (or 'party')
- * @apiParam {string} questKey The quest _id
  *
- * @apiSuccess {Object} Quest Object
+ * @apiSuccess {Object} quest Quest Object
  */
 api.rejectQuest = {
   method: 'POST',
@@ -209,32 +206,37 @@ api.rejectQuest = {
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
-
-    let analyticsData = {
-      category: 'behavior',
-      owner: false,
-      response: 'reject',
-      gaLabel: 'reject',
-      questName: group.quest.key,
-      uuid: user._id,
-    };
-    track('quest', analyticsData);
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
+    if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
     group.quest.members[user._id] = false;
     group.markModified('quest.members');
 
-    user.party.quest.RSVPNeeded = false;
-    user.party.quest.key = null;
+    user.party.quest = Group.cleanQuestProgress();
+    user.markModified('party.quest');
+
+    if (canStartQuestAutomatically(group)) {
+      await group.startQuest(user);
+    }
 
     let [savedGroup] = await Q.all([
       group.save(),
       user.save(),
     ]);
 
-    // questStart(req,res,next);
-
     res.respond(200, savedGroup.quest);
+
+    analytics.track('quest', {
+      category: 'behavior',
+      owner: false,
+      response: 'reject',
+      gaLabel: 'reject',
+      questName: group.quest.key,
+      uuid: user._id,
+    });
   },
 };
 
