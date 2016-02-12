@@ -238,6 +238,59 @@ api.rejectQuest = {
   },
 };
 
+
+/**
+ * @api {post} /groups/:groupId/quests/force-start Accept a pending quest
+ * @apiVersion 3.0.0
+ * @apiName forceStart
+ * @apiGroup Group
+ *
+ * @apiParam {string} groupId The group _id (or 'party')
+ *
+ * @apiSuccess {Object} quest Quest Object
+ */
+api.forceStart = {
+  method: 'POST',
+  url: '/groups/:groupId/quests/force-start',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader'});
+
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (!group.quest.key) throw new NotFound(res.t('questNotPending'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (!(user._id === group.quest.leader || user._id === group.leader)) throw new NotAuthorized(res.t('questOrGroupLeaderOnlyStartQuest'));
+
+    group.markModified('quest');
+
+    await group.startQuest(user);
+
+    let [savedGroup] = await Q.all([
+      group.save(),
+      user.save(),
+    ]);
+
+    res.respond(200, savedGroup.quest);
+
+    analytics.track('quest', {
+      category: 'behavior',
+      owner: user._id === group.quest.leader,
+      response: 'force-start',
+      gaLabel: 'force-start',
+      questName: group.quest.key,
+      uuid: user._id,
+    });
+  },
+};
+
 /**
  * @api {post} /groups/:groupId/quests/cancel Cancels a quest
  * @apiVersion 3.0.0
