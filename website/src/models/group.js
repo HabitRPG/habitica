@@ -155,7 +155,7 @@ var chatDefaults = module.exports.chatDefaults = function(msg,user){
   return message;
 }
 
-var NO_CHAT_NOTIFICATIONS = ['habitrpg', '5481ccf3-5d2d-48a9-a871-70a7380cee5a']
+var NO_CHAT_NOTIFICATIONS = ['habitrpg']
 
 GroupSchema.methods.sendChat = function(message, user){
   var group = this;
@@ -164,7 +164,7 @@ GroupSchema.methods.sendChat = function(message, user){
   // Kick off chat notifications in the background.
   var lastSeenUpdate = {$set:{}, $inc:{_v:1}};
   lastSeenUpdate['$set']['newMessages.'+group._id] = {name:group.name,value:true};
-  if (NO_CHAT_NOTIFICATIONS.indexOf(group._id) !== -1) {
+  if (NO_CHAT_NOTIFICATIONS.indexOf(group._id) !== -1 || group.memberCount > 5000) {
     // TODO For Tavern, only notify them if their name was mentioned
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
