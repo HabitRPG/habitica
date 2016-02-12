@@ -1,9 +1,12 @@
-import { findIndex } from 'lodash';
+import {
+  findIndex,
+  isPlainObject,
+} from 'lodash';
 
 export function removeFromArray (array, element) {
   let elementIndex;
 
-  if (typeof element === 'object') {
+  if (isPlainObject(element)) {
     elementIndex = findIndex(array, element);
   } else {
     elementIndex = array.indexOf(element);

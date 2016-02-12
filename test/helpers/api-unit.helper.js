@@ -10,6 +10,8 @@ afterEach((done) => {
   mongoose.connection.db.dropDatabase(done);
 });
 
+export { sleep } from './sleep';
+
 export function generateUser (options = {}) {
   return new User(options).toObject();
 }

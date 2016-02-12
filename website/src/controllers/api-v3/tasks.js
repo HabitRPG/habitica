@@ -15,7 +15,7 @@ import Q from 'q';
 import _ from 'lodash';
 import moment from 'moment';
 import scoreTask from '../../../../common/script/api-v3/scoreTask';
-import { preenHistory } from '../../../../common/script/api-v3/preening';
+import { preenHistory } from '../../libs/api-v3/preening';
 
 let api = {};
 

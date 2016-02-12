@@ -210,6 +210,7 @@ let _sendPurchaseDataToGoogle = (data) => {
   });
 };
 
+// TODO log errors...
 function track (eventType, data) {
   return Q.all([
     _sendDataToAmplitude(eventType, data),
