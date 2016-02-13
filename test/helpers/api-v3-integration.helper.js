@@ -1,1 +1,1 @@
-export * from './api-integration/v3';
+module.exports = require('./api-integration/v3');

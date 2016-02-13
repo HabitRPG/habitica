@@ -224,7 +224,7 @@ export default function scoreTask (options = {}, req = {}) {
     if (cron) { // don't touch stats on cron
       delta += _changeTaskValue(user, task, direction, times, cron);
     } else {
-      if (direction === 'up') task.dateCompleted = new Date();
+      task.dateCompleted = direction === 'up' ? new Date() : undefined;
 
       delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, delta); // recalculate delta for unchecking so the gp and exp come out correctly

@@ -6,6 +6,7 @@ import moment from 'moment';
 import * as Tasks from './task';
 import Q from 'q';
 import { schema as TagSchema } from './tag';
+import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
@@ -206,11 +207,6 @@ export let schema = new Schema({
     todos: Array, // [{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
-  invitations: {
-    guilds: {type: Array, default: []},
-    party: Schema.Types.Mixed, // TODO dictionary
-  },
-
   // TODO we're storing too many fields here, find a way to reduce them
   items: {
     gear: {
@@ -324,15 +320,25 @@ export let schema = new Schema({
   lastCron: {type: Date, default: Date.now},
 
   // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
-  newMessages: {type: Schema.Types.Mixed, default: {}},
+  newMessages: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
+
+  challenges: [{type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}],
+
+  invitations: {
+    guilds: {type: Array}, // TODO what are we storing here
+    party: Schema.Types.Mixed, // TODO dictionary TODO what are we storing here?
+  },
+
+  guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
 
   party: {
-    // id // FIXME can we use a populated doc instead of fetching party separate from user?
+    _id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], ref: 'Group'},
     order: {type: String, default: 'level'},
     orderAscending: {type: String, default: 'ascending'},
     quest: {
       key: String,
-      // TODO why are we storing quest progress here too and not only on party object?
       progress: {
         up: {type: Number, default: 0},
         down: {type: Number, default: 0},
@@ -441,12 +447,13 @@ export let schema = new Schema({
   },
 
   tags: [TagSchema],
-  challenges: [{type: String, ref: 'Challenge'}],
 
   inbox: {
     newMessages: {type: Number, default: 0},
     blocks: {type: Array, default: []},
-    messages: {type: Schema.Types.Mixed, default: {}},
+    messages: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     optOut: {type: Boolean, default: false},
   },
   tasksOrder: {
@@ -466,21 +473,33 @@ export let schema = new Schema({
   },
 }, {
   strict: true,
-  minimize: false, // So empty objects are returned
+  minimize: false, // So empty objects are returned TODO make sure it's in every model
 });
 
 schema.plugin(baseModel, {
-  // TODO revisit a lot of things are missing
-  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password', 'auth.local.salt', 'tasksOrder', 'tags', 'stats'],
+  // TODO revisit a lot of things are missing. Given how many attributes we do have here we should white-list the ones that can be updated
+  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password',
+    'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest',
+    'invitations', 'balance', 'backer', 'contributor'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
-  toJSONTransform: function toJSON (doc) {
+  toJSONTransform: function userToJSON (doc) {
     // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
-    doc.filters = {};
-    doc._tmp = this._tmp; // be sure to send down drop notifs
+    // TODO this works?
+    // doc.filters = {};
+    // doc._tmp = this._tmp; // be sure to send down drop notifs
 
     return doc;
   },
 });
+
+// A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
+// TODO is all party data meant to be public?
+export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
+  preferences.costume preferences.sleep preferences.background profile stats achievements party
+  backer contributor auth.timestamps items`;
+
+// The minimum amount of data needed when populating multiple users
+export let nameFields = `profile.name`;
 
 schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
@@ -635,40 +654,44 @@ schema.methods.isSubscribed = function isSubscribed () {
   return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
 };
 
-schema.methods.unlink = function unlink (options, cb) {
-  let cid = options.cid;
-  let keep = options.keep;
-  let tid = options.tid;
+// Get an array of groups ids the user is member of
+schema.methods.getGroups = function getUserGroups () {
+  let userGroups = this.guilds.slice(0); // clone user.guilds so we don't modify the original
+  if (this.party._id) userGroups.push(this.party._id);
+  userGroups.push('habitrpg'); // tavern
+  return userGroups;
+};
 
-  if (!cid) {
-    return cb('Could not remove challenge tasks. Please delete them manually.');
-  }
+// Unlink challenges tasks (and the challenge itself) from user
+schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (challengeId, keep) {
+  let user = this;
+  let findQuery = {
+    userId: user._id,
+    'challenge.id': challengeId,
+  };
 
-  let self = this;
+  removeFromArray(user.challenges, challengeId);
 
-  if (keep === 'keep') {
-    self.tasks[tid].challenge = {};
-  } else if (keep === 'remove') {
-    self.ops.deleteTask({params: {id: tid}}, () => {});
-  } else if (keep === 'keep-all') {
-    _.each(self.tasks, (t) => {
-      if (t.challenge && t.challenge.id === cid) {
-        t.challenge = {};
+  if (keep === 'keep-all') {
+    await Tasks.Task.update(findQuery, {
+      $set: {challenge: {}}, // TODO what about updatedAt?
+    }, {multi: true}).exec();
+
+    await user.save();
+  } else { // keep = 'remove-all'
+    let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
+    let taskPromises = tasks.map(task => {
+      // Remove task from user.tasksOrder and delete them
+      if (task.type !== 'todo' || !task.completed) {
+        removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
       }
-    });
-  } else if (keep === 'remove-all') {
-    _.each(self.tasks, (t) => {
-      if (t.challenge && t.challenge.id === cid) {
-        this.ops.deleteTask({params: {id: tid}}, () => {});
-      }
-    });
-  }
 
-  self.markModified('habits');
-  self.markModified('dailys');
-  self.markModified('todos');
-  self.markModified('rewards');
-  self.save(cb);
+      return task.remove();
+    });
+
+    taskPromises.push(user.save());
+    return Q.all(taskPromises);
+  }
 };
 
 export let model = mongoose.model('User', schema);

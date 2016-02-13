@@ -15,4 +15,6 @@ describe('GET /tags/:tagId', () => {
 
     expect(tag).to.deep.equal(createdTag);
   });
+
+  it('handles non-existing tags');
 });

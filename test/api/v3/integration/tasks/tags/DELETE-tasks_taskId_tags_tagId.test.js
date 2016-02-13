@@ -12,7 +12,7 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('removes a tag from a task', async () => {
-    let task = await user.post('/tasks', {
+    let task = await user.post('/tasks/user', {
       type: 'habit',
       text: 'Task with tag',
     });
@@ -28,7 +28,7 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
   });
 
   it('only deletes existing tags', async () => {
-    let createdTask = await user.post('/tasks', {
+    let createdTask = await user.post('/tasks/user', {
       type: 'habit',
       text: 'Task with tag',
     });

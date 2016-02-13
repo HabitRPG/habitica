@@ -5,6 +5,7 @@ import cron from '../../middlewares/api-v3/cron';
 import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
+import Q from 'q';
 import * as passwordUtils from '../../libs/api-v3/password';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
@@ -29,7 +30,7 @@ api.registerLocal = {
   method: 'POST',
   middlewares: [authWithHeaders(true)],
   url: '/user/auth/local/register',
-  handler (req, res, next) {
+  async handler (req, res) {
     let fbUser = res.locals.user; // If adding local auth to social user
     // TODO check user doesn't have local auth
     req.checkBody({
@@ -45,7 +46,7 @@ api.registerLocal = {
     });
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let { email, username, password } = req.body;
 
@@ -55,72 +56,70 @@ api.registerLocal = {
     let lowerCaseUsername = username.toLowerCase();
 
     // Search for duplicates using lowercase version of username
-    User.findOne({$or: [
+    let user = await User.findOne({$or: [
       {'auth.local.email': email},
       {'auth.local.lowerCaseUsername': lowerCaseUsername},
-    ]}, {'auth.local': 1})
-    .exec()
-    .then((user) => {
-      if (user) {
-        if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
-        // Check that the lowercase username isn't already used
-        if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
-      }
+    ]}, {'auth.local': 1}).exec();
 
-      let salt = passwordUtils.makeSalt();
-      let hashed_password = passwordUtils.encrypt(password, salt); // eslint-disable-line camelcase
-      let newUser = {
-        auth: {
-          local: {
-            username,
-            lowerCaseUsername,
-            email,
-            salt,
-            hashed_password, // eslint-disable-line camelcase
-          },
+    if (user) {
+      if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
+      // Check that the lowercase username isn't already used
+      if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
+    }
+
+    let salt = passwordUtils.makeSalt();
+    let hashed_password = passwordUtils.encrypt(password, salt); // eslint-disable-line camelcase
+    let newUser = {
+      auth: {
+        local: {
+          username,
+          lowerCaseUsername,
+          email,
+          salt,
+          hashed_password, // eslint-disable-line camelcase
         },
-        preferences: {
-          language: req.language,
-        },
-      };
+      },
+      preferences: {
+        language: req.language,
+      },
+    };
 
-      if (fbUser) {
-        if (!fbUser.auth.facebook.id) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
-        fbUser.auth.local = newUser;
-        return fbUser.save();
-      } else {
-        newUser = new User(newUser);
-        newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
-        return newUser.save();
-      }
-    })
-    .then((savedUser) => {
-      if (savedUser.auth.facebook.id) {
-        res.respond(200, savedUser.auth.local); // TODO make sure this used .toJSON and removes private fields
-      } else {
-        res.respond(201, savedUser);
-      }
+    let savedUser;
 
-      // Clean previous email preferences
-      EmailUnsubscription
-        .remove({email: savedUser.auth.local.email})
-        .then(() => sendTxnEmail(savedUser, 'welcome'));
+    if (fbUser) {
+      if (!fbUser.auth.facebook.id) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+      fbUser.auth.local = newUser;
+      savedUser = await fbUser.save();
+    } else {
+      newUser = new User(newUser);
+      newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
+      savedUser = await newUser.save();
+    }
 
-      if (!savedUser.auth.facebook.id) {
-        res.analytics.track('register', {
-          category: 'acquisition',
-          type: 'local',
-          gaLabel: 'local',
-          uuid: savedUser._id,
-        });
-      }
-    })
-    .catch(next);
+    if (savedUser.auth.facebook.id) {
+      res.respond(200, savedUser.auth.local); // TODO make sure this used .toJSON and removes private fields
+    } else {
+      res.respond(201, savedUser);
+    }
+
+    // Clean previous email preferences
+    EmailUnsubscription
+      .remove({email: savedUser.auth.local.email})
+      .then(() => sendTxnEmail(savedUser, 'welcome'));
+
+    if (!savedUser.auth.facebook.id) {
+      res.analytics.track('register', {
+        category: 'acquisition',
+        type: 'local',
+        gaLabel: 'local',
+        uuid: savedUser._id,
+      });
+    }
   },
 };
 
-function _loginRes (user, req, res, next) {
-  if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {userId: user._id})));
+function _loginRes (user, req, res) {
+  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
   res.respond(200, {id: user._id, apiToken: user.apiToken});
 }
 
@@ -140,7 +139,7 @@ api.loginLocal = {
   method: 'POST',
   url: '/user/auth/local/login',
   middlewares: [cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     req.checkBody({
       username: {
         notEmpty: true,
@@ -153,7 +152,7 @@ api.loginLocal = {
     });
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     req.sanitizeBody('username').trim();
     req.sanitizeBody('password').trim();
@@ -167,75 +166,80 @@ api.loginLocal = {
       login = {'auth.local.username': username};
     }
 
-    User
-    .findOne(login, {auth: 1, apiToken: 1}).exec()
-    .then((user) => {
-      // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
-      let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
 
-      if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentials'));
-      _loginRes(user, ...arguments);
-    })
-    .catch(next);
+    // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
+    let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+
+    if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentials'));
+    _loginRes(user, ...arguments);
   },
 };
+
+function _passportFbProfile (accessToken) {
+  let deferred = Q.defer();
+
+  passport._strategies.facebook.userProfile(accessToken, (err, profile) => {
+    if (err) {
+      deferred.rejec();
+    } else {
+      deferred.resolve(profile);
+    }
+  });
+
+  return deferred.promise;
+}
 
 // Called as a callback by Facebook (or other social providers)
 api.loginSocial = {
   method: 'POST',
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
   middlewares: [cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
 
-    if (network !== 'facebook') return next(new NotAuthorized(res.t('onlyFbSupported')));
+    if (network !== 'facebook') throw new NotAuthorized(res.t('onlyFbSupported'));
 
-    passport._strategies[network].userProfile(accessToken, (err, profile) => {
-      if (err) return next(err);
+    let profile = await _passportFbProfile(accessToken);
 
-      User.findOne({
-        [`auth.${network}.id`]: profile.id,
-      }, {_id: 1, apiToken: 1, auth: 1}).exec()
-      .then((user) => {
-        // User already signed up
-        if (user) {
-          return _loginRes(user, ...arguments);
-        } else { // Create new user
-          user = new User({
-            auth: {
-              [network]: profile,
-            },
-            preferences: {
-              language: req.language,
-            },
-          });
-          user.registeredThrough = req.headers['x-client'];
+    let user = await User.findOne({
+      [`auth.${network}.id`]: profile.id,
+    }, {_id: 1, apiToken: 1, auth: 1}).exec();
 
-          user.save()
-          .then((savedUser) => {
-            _loginRes(user, ...arguments);
+    // User already signed up
+    if (user) {
+      _loginRes(user, ...arguments);
+    } else { // Create new user
+      user = new User({
+        auth: {
+          [network]: profile,
+        },
+        preferences: {
+          language: req.language,
+        },
+      });
+      user.registeredThrough = req.headers['x-client'];
 
-            // Clean previous email preferences
-            if (savedUser.auth[network].emails && savedUser.auth.facebook.emails[0] && savedUser.auth[network].emails[0].value) {
-              EmailUnsubscription
-              .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
-              .exec()
-              .then(() => sendTxnEmail(savedUser, 'welcome')); // eslint-disable-line max-nested-callbacks
-            }
+      let savedUser = await user.save();
 
-            res.analytics.track('register', {
-              category: 'acquisition',
-              type: network,
-              gaLabel: network,
-              uuid: savedUser._id,
-            });
-          })
-          .catch(next);
-        }
-      })
-      .catch(next);
-    });
+      _loginRes(user, ...arguments);
+
+      // Clean previous email preferences
+      if (savedUser.auth[network].emails && savedUser.auth.facebook.emails[0] && savedUser.auth[network].emails[0].value) {
+        EmailUnsubscription
+        .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
+        .exec()
+        .then(() => sendTxnEmail(savedUser, 'welcome')); // eslint-disable-line max-nested-callbacks
+      }
+
+      res.analytics.track('register', {
+        category: 'acquisition',
+        type: network,
+        gaLabel: network,
+        uuid: savedUser._id,
+      });
+    }
   },
 };
 
@@ -251,16 +255,16 @@ api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;
 
-    if (network !== 'facebook') return next(new NotAuthorized(res.t('onlyFbSupported')));
-    if (!user.auth.local.username) return next(new NotAuthorized(res.t('cantDetachFb'))); // TODO move to model validation?
+    if (network !== 'facebook') throw new NotAuthorized(res.t('onlyFbSupported'));
+    if (!user.auth.local.username) throw new NotAuthorized(res.t('cantDetachFb'));
 
-    User.update({_id: user._id}, {$unset: {'auth.facebook': 1}})
-    .then(() => res.respond(200))
-    .catch(next);
+    await User.update({_id: user._id}, {$unset: {'auth.facebook': 1}}).exec();
+
+    res.respond(200, {});
   },
 };
 

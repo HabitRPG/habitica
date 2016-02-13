@@ -21,15 +21,15 @@ export let TaskSchema = new Schema({
     type: String,
     validate: [validator.isUUID, 'Invalid uuid.'],
   }],
-  value: {type: Number, default: 0}, // redness or cost for rewards
+  value: {type: Number, default: 0, required: true}, // redness or cost for rewards Required because it must be settable (for rewards)
   priority: {type: Number, default: 1, required: true}, // TODO enum?
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
-  userId: {type: String, ref: 'User'}, // When null it belongs to a challenge
+  userId: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set it belongs to a challenge
 
   challenge: {
-    id: {type: String, ref: 'Challenge'},
-    taskId: {type: String, ref: 'Task'}, // When null but challenge.id defined it's the original task
-    broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED TODO enum
+    id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task TODO unique index?
+    broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED']},
     winner: String, // user.profile.name TODO necessary?
   },
 }, _.defaults({
@@ -48,13 +48,13 @@ TaskSchema.plugin(baseModel, {
 // A list of additional fields that cannot be set on creation (but can be set on updare)
 let noCreate = ['completed']; // TODO completed should be removed for updates too?
 TaskSchema.statics.sanitizeCreate = function sanitizeCreate (createObj) {
-  return Task.sanitize(createObj, noCreate); // eslint-disable-line no-use-before-define
+  return this.sanitize(createObj, noCreate);
 };
 
 // A list of additional fields that cannot be updated (but can be set on creation)
 let noUpdate = ['_id', 'type'];
 TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
-  return Task.sanitize(updateObj, noUpdate); // eslint-disable-line no-use-before-define
+  return this.sanitize(updateObj, noUpdate);
 };
 
 // Sanitize checklist objects (disallowing _id)

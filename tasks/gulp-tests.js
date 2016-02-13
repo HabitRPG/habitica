@@ -13,6 +13,8 @@ import Q                          from 'q';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
 
+// TODO rewrite
+
 const TEST_SERVER_PORT  = 3003
 const TEST_DB           = 'habitrpg_test'
 let server;
@@ -42,9 +44,9 @@ let testBin = (string, additionalEnvVariables = '') => {
       additionalEnvVariables = additionalEnvVariables.split(' ').join('&&set ');
       additionalEnvVariables = 'set ' + additionalEnvVariables + '&&';
     }
-    return `set NODE_ENV=testing&&${additionalEnvVariables}${string}`;
+    return `set NODE_ENV=test&&${additionalEnvVariables}${string}`;
   } else {
-    return `NODE_ENV=testing ${additionalEnvVariables} ${string}`;
+    return `NODE_ENV=test ${additionalEnvVariables} ${string}`;
   }
 };
 
@@ -342,13 +344,53 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
   });
 });
 
+gulp.task('test:api-v3:unit', (done) => {
+  let runner = exec(
+    testBin('mocha test/api/v3/unit --recursive'),
+    (err, stdout, stderr) => done(err)
+  )
+
+  pipe(runner);
+});
+
+gulp.task('test:api-v3:integration', (done) => {
+  let runner = exec(
+    testBin('mocha test/api/v3/integration --recursive'),
+    {maxBuffer: 500*1024},
+    (err, stdout, stderr) => done(err)
+  )
+
+  pipe(runner);
+});
+
+gulp.task('test:api-v3:integration:separate-server', (done) => {
+  let runner = exec(
+    testBin('mocha test/api/v3/integration --recursive', 'LOAD_SERVER=0'),
+    {maxBuffer: 500*1024},
+    (err, stdout, stderr) => done(err)
+  )
+
+  pipe(runner);
+});
+
+gulp.task('test:api-v3', (done) => {
+  runSequence(
+    'lint',
+    'test:api-v3:unit',
+    'test:api-v3:integration',
+    done
+  );
+});
+
+// Old tests tasks
+/*
 gulp.task('test:api-v3', ['test:api-v3:unit', 'test:api-v3:integration']);
 
 gulp.task('test:api-v3:watch', ['test:api-v3:unit:watch', 'test:api-v3:integration:watch']);
 
-gulp.task('test:api-v3:unit', (done) => {
-  runMochaTests('./test/api/v3/unit/**/*.js', null, done)
-});
+gulp.task('test:api-v3:unit', (done) => {*/
+//  runMochaTests('./test/api/v3/unit/**/*.js', null, done)
+/*});
 
 gulp.task('test:api-v3:unit:watch', () => {
   gulp.watch(['website/src/**', 'test/api/v3/unit/**'], ['test:api-v3:unit']);
@@ -356,9 +398,9 @@ gulp.task('test:api-v3:unit:watch', () => {
 
 gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
   process.env.API_VERSION = 'v3';
-  awaitPort(TEST_SERVER_PORT).then(() => {
-    runMochaTests('./test/api/v3/integration/**/*.js', server, done)
-  });
+  awaitPort(TEST_SERVER_PORT).then(() => {*/
+//    runMochaTests('./test/api/v3/integration/**/*.js', server, done)
+/*  });
 });
 
 gulp.task('test:api-v3:integration:watch', ['test:prepare:server'], () => {
@@ -430,4 +472,4 @@ gulp.task('test', ['test:all'], () => {
     console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
     process.exit();
   }
-});
+});*/

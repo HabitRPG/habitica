@@ -1,7 +1,10 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
+import { model as Challenge } from '../../models/challenge';
+import { model as Group } from '../../models/group';
 import {
   NotFound,
   NotAuthorized,
@@ -10,101 +13,215 @@ import {
 import shared from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
+import moment from 'moment';
 import scoreTask from '../../../../common/script/api-v3/scoreTask';
+import { preenHistory } from '../../libs/api-v3/preening';
 
 let api = {};
 
+// challenge must be passed only when a challenge task is being created
+async function _createTasks (req, res, user, challenge) {
+  let toSave = Array.isArray(req.body) ? req.body : [req.body];
+
+  toSave = toSave.map(taskData => {
+    // Validate that task.type is valid
+    if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
+
+    let taskType = taskData.type;
+    let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
+
+    if (challenge) {
+      newTask.challenge.id = challenge.id;
+    } else {
+      newTask.userId = user._id;
+    }
+
+    // Validate that the task is valid and throw if it isn't
+    // otherwise since we're saving user/challenge and task in parallel it could save the user/challenge with a tasksOrder that doens't match reality
+    let validationErrors = newTask.validateSync();
+    if (validationErrors) throw validationErrors;
+
+    // Otherwise update the user/challenge
+    (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
+
+    return newTask;
+  }).map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
+    validateBeforeSave: false,
+  }));
+
+  toSave.unshift((challenge || user).save());
+
+  let tasks = await Q.all(toSave);
+  tasks.splice(0, 1); // Remove user or challenge
+  return tasks;
+}
+
 /**
- * @api {post} /tasks Create a new task
+ * @api {post} /tasks/user Create a new task belonging to the autheticated user. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
- * @apiName CreateTask
+ * @apiName CreateUserTasks
  * @apiGroup Task
  *
- * @apiSuccess {Object} task The newly created task
+ * @apiSuccess {Object|Array} task The newly created task(s)
  */
-// TODO should allow to create multiple tasks at once
-// TODO gives problems when creating tasks concurrently because of how mongoose treats arrays (VersionErrors - treated as 500s)
-api.createTask = {
+api.createUserTasks = {
   method: 'POST',
-  url: '/tasks',
+  url: '/tasks/user',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
-    req.checkBody('type', res.t('invalidTaskType')).notEmpty().isIn(Tasks.tasksTypes);
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
-
-    let user = res.locals.user;
-    let taskType = req.body.type;
-
-    let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(req.body));
-    newTask.userId = user._id;
-
-    user.tasksOrder[`${taskType}s`].unshift(newTask._id);
-
-    Q.all([
-      newTask.save(),
-      user.save(),
-    ])
-    .then((results) => res.respond(201, results[0]))
-    .catch(next);
+  async handler (req, res) {
+    let tasks = await _createTasks(req, res, res.locals.user);
+    res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
   },
 };
 
 /**
- * @api {get} /tasks Get an user's tasks
+ * @api {post} /tasks/challenge/:challengeId Create a new task belonging to the challenge. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
- * @apiName GetTasks
+ * @apiName CreateChallengeTasks
  * @apiGroup Task
  *
- * @apiParam {string="habit","daily","todo","reward"} type Optional query parameter to return just a type of tasks
- * @apiParam {boolean} includeCompletedTodos Optional query parameter to include completed todos when "type" is "todo"
+ * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to.
  *
- * @apiSuccess {Array} tasks An array of task objects
+ * @apiSuccess {Object|Array} task The newly created task(s)
  */
-api.getTasks = {
-  method: 'GET',
-  url: '/tasks',
+api.createChallengeTasks = {
+  method: 'POST',
+  url: '/tasks/challenge/:challengeId', // TODO should be /tasks/challengeS/:challengeId ? plural?
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(Tasks.tasksTypes);
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
 
     let user = res.locals.user;
-    let query = {userId: user._id};
-    let type = req.query.type;
+    let challengeId = req.params.challengeId;
 
-    if (type) {
-      query.type = type;
-      if (type === 'todo') query.completed = false; // Exclude completed todos
-    } else {
-      query.$or = [ // Exclude completed todos
-        {type: 'todo', completed: false},
-        {type: {$in: ['habit', 'daily', 'reward']}},
-      ];
-    }
+    let challenge = await Challenge.findOne({_id: challengeId}).exec();
 
-    if (req.query.includeCompletedTodos === 'true' && (!type || type === 'todo')) {
-      let queryCompleted = Tasks.Task.find({
+    // If the challenge does not exist, or if it exists but user is not the leader -> throw error
+    if (!challenge || user.challenges.indexOf(challengeId) === -1) throw new NotFound(res.t('challengeNotFound'));
+    if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+
+    let tasks = await _createTasks(req, res, user, challenge);
+
+    res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    // If adding tasks to a challenge -> sync users
+    if (challenge) challenge.addTasks(tasks); // TODO catch/log
+  },
+};
+
+// challenge must be passed only when a challenge task is being created
+async function _getTasks (req, res, user, challenge) {
+  let query = challenge ? {'challenge.id': challenge.id, userId: {$exists: false}} : {userId: user._id};
+  let type = req.query.type;
+
+  if (type) {
+    if (type === 'todos') {
+      query.completed = false; // Exclude completed todos
+    } else if (type === 'completedTodos') {
+      query = Tasks.Task.find({
+        userId: user._id,
         type: 'todo',
         completed: true,
       }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
         dateCompleted: 1,
       });
-
-      Q.all([
-        queryCompleted.exec(),
-        Tasks.Task.find(query).exec(),
-      ])
-        .then((results) => res.respond(200, results[1].concat(results[0])))
-        .catch(next);
     } else {
-      Tasks.Task.find(query).exec()
-        .then((tasks) => res.respond(200, tasks))
-        .catch(next);
+      query.type = type.slice(0, -1); // removing the final "s"
     }
+  } else {
+    query.$or = [ // Exclude completed todos
+      {type: 'todo', completed: false},
+      {type: {$in: ['habit', 'daily', 'reward']}},
+    ];
+  }
+
+  let tasks = await Tasks.Task.find(query).exec();
+
+  // Order tasks based on tasksOrder
+  if (type && type !== 'completedTodos') {
+    let order = (challenge || user).tasksOrder[type];
+    let orderedTasks = new Array(tasks.length);
+    let unorderedTasks = []; // what we want to add later
+
+    tasks.forEach((task, index) => {
+      let taskId = task._id;
+      let i = order[index] === taskId ? index : order.indexOf(taskId);
+      if (i === -1) {
+        unorderedTasks.push(task);
+      } else {
+        orderedTasks[i] = task;
+      }
+    });
+
+    // Remove empty values from the array and add any unordered task
+    orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
+    res.respond(200, orderedTasks);
+  } else {
+    res.respond(200, tasks);
+  }
+}
+
+/**
+ * @api {get} /tasks/user Get an user's tasks
+ * @apiVersion 3.0.0
+ * @apiName GetUserTasks
+ * @apiGroup Task
+ *
+ * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that requested separately.
+ *
+ * @apiSuccess {Array} tasks An array of task objects
+ */
+api.getUserTasks = {
+  method: 'GET',
+  url: '/tasks/user',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let types = Tasks.tasksTypes.map(type => `${type}s`);
+    types.push('completedTodos');
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    await _getTasks(req, res, res.locals.user);
+  },
+};
+
+/**
+ * @api {get} /tasks/challenge/:challengeId Get a challenge's tasks
+ * @apiVersion 3.0.0
+ * @apiName GetChallengeTasks
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks.
+ * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
+ *
+ * @apiSuccess {Array} tasks An array of task objects
+ */
+api.getChallengeTasks = {
+  method: 'GET',
+  url: '/tasks/challenge/:challengeId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    let types = Tasks.tasksTypes.map(type => `${type}s`);
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let challengeId = req.params.challengeId;
+
+    let challenge = await Challenge.findOne({_id: challengeId}).select('group leader tasksOrder').exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+
+    await _getTasks(req, res, res.locals.user, challenge);
   },
 };
 
@@ -122,23 +239,30 @@ api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      res.respond(200, task);
-    })
-    .catch(next);
+    }).exec();
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      let challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge || (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
+        throw new NotFound(res.t('taskNotFound'));
+      }
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    res.respond(200, task);
   },
 };
 
@@ -156,45 +280,53 @@ api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty
     // TODO make sure tags are updated correctly (they aren't set as modified!) maybe use specific routes
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
+    }).exec();
 
-      // If checklist is updated -> replace the original one
-      if (req.body.checklist) {
-        task.checklist = req.body.checklist;
-        delete req.body.checklist;
-      }
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
 
-      // If tags are updated -> replace the original ones
-      if (req.body.tags) {
-        task.tags = req.body.tags;
-        delete req.body.tags;
-      }
+    // If checklist is updated -> replace the original one
+    if (req.body.checklist) {
+      task.checklist = req.body.checklist;
+      delete req.body.checklist;
+    }
 
-      // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, very bad for performances
-      // TODO regarding comment above make sure other models with nested fields are using this trick too
-      _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
-      // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
-      // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
-      // see https://github.com/Automattic/mongoose/issues/2749
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask))
-    .catch(next);
+    // If tags are updated -> replace the original ones
+    if (req.body.tags) {
+      task.tags = req.body.tags;
+      delete req.body.tags;
+    }
+
+    // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, bad for performances?
+    // TODO regarding comment above make sure other models with nested fields are using this trick too
+    _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
+    // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
+    // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
+    // see https://github.com/Automattic/mongoose/issues/2749
+
+    let savedTask = await task.save();
+    res.respond(200, savedTask);
+    if (challenge) challenge.updateTask(savedTask); // TODO catch/log
   },
 };
 
@@ -238,119 +370,154 @@ api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
     let direction = req.params.direction;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
+    }).exec();
 
-      let wasCompleted = task.completed;
-      if (task.type === 'daily' || task.type === 'todo') {
-        task.completed = direction === 'up'; // TODO move into scoreTask
-      }
+    if (!task) throw new NotFound(res.t('taskNotFound'));
 
-      let delta = scoreTask({task, user, direction}, req);
-      // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-      if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+    let wasCompleted = task.completed;
+    if (task.type === 'daily' || task.type === 'todo') {
+      task.completed = direction === 'up'; // TODO move into scoreTask
+    }
 
-      // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
-      if (task.type === 'todo') {
-        if (!wasCompleted && task.completed) {
-          let i = user.tasksOrder.todos.indexOf(task._id);
-          if (i !== -1) user.tasksOrder.todos.splice(i, 1);
-        } else if (wasCompleted && !task.completed) {
-          let i = user.tasksOrder.todos.indexOf(task._id);
-          if (i === -1) {
-            user.tasksOrder.todos.push(task._id); // TODO push at the top?
-          } else { // If for some reason it hadn't been removed TODO ok?
-            user.tasksOrder.todos.splice(i, 1);
-            user.tasksOrder.push(task._id);
-          }
+    let delta = scoreTask({task, user, direction}, req);
+    // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+    // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+    if (task.type === 'todo') {
+      if (!wasCompleted && task.completed) {
+        removeFromArray(user.tasksOrder.todos, task._id);
+      } else if (wasCompleted && !task.completed) {
+        let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
+        if (!hasTask) {
+          user.tasksOrder.todos.push(task._id); // TODO push at the top?
+        } else { // If for some reason it hadn't been removed TODO ok?
+          user.tasksOrder.push(task._id);
         }
       }
+    }
 
-      return Q.all([
-        user.save(),
-        task.save(),
-      ]).then((results) => {
-        let savedUser = results[0];
+    let results = await Q.all([
+      user.save(),
+      task.save(),
+    ]);
 
-        let userStats = savedUser.stats.toJSON();
-        let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
-        res.respond(200, resJsonData);
+    let savedUser = results[0];
 
-        sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+    let userStats = savedUser.stats.toJSON();
+    let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+    res.respond(200, resJsonData);
 
-        // TODO sync challenge
-      });
-    })
-    .catch(next);
+    sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+
+    // TODO test?
+    if (task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+      // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
+      try {
+        let chalTask = await Tasks.Task.findOne({
+          _id: task.challenge.taskId,
+        }).exec();
+
+        chalTask.value += delta;
+
+        if (chalTask.type === 'habit' || chalTask.type === 'daily') {
+          // Add only one history entry per day
+          if (moment(chalTask.history[chalTask.history.length - 1].date).isSame(new Date(), 'day')) {
+            chalTask.history[chalTask.history.length - 1] = {
+              date: Number(new Date()),
+              value: chalTask.value,
+            };
+            chalTask.markModified(`history.${chalTask.history.length - 1}`);
+          } else {
+            chalTask.history.push({
+              date: Number(new Date()),
+              value: chalTask.value,
+            });
+
+            // Only preen task history once a day when the task is scored first
+            if (chalTask.history.length > 365) {
+              chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as much entries as a subscribed user
+              chalTask.markModified(`history.${chalTask.history.length - 1}`);
+            }
+          }
+        }
+
+        await chalTask.save();
+      } catch (e) {
+        // TODO handle
+      }
+    }
   },
 };
 
 // completed todos cannot be moved, they'll be returned ordered by date of completion
 // TODO check that it works when a tag is selected or todos are split between dated and due
+// TODO support challenges?
 /**
- * @api {post} /tasks/move/:taskId/to/:position Move a task to a new position
+ * @api {post} /tasks/:taskId/move/to/:position Move a task to a new position
  * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task
  *
  * @apiParam {UUID} taskId The task _id
- * @apiParam {Number} position Where to move the task (-1 means push to bottom)
+ * @apiParam {Number} position Where to move the task (-1 means push to bottom). First position is 0
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} tasksOrder The new tasks order (user.tasksOrder.{task.type}s)
  */
 api.moveTask = {
   method: 'POST',
-  url: '/tasks/move/:taskId/to/:position',
+  url: '/tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
     let to = Number(req.params.position);
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type === 'todo' && task.completed) throw new NotFound(res.t('cantMoveCompletedTodo'));
-      let order = user.tasksOrder[`${task.type}s`];
-      let currentIndex = order.indexOf(task._id);
+    }).exec();
 
-      // If for some reason the task isn't ordered (should never happen)
-      // or if the task is moved to a non existing position
-      // or if the task is moved to postion -1 (push to bottom)
-      // -> push task at end of list
-      if (currentIndex === -1 || !order[to] || to === -1) {
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
+    let order = user.tasksOrder[`${task.type}s`];
+    let currentIndex = order.indexOf(task._id);
+
+    // If for some reason the task isn't ordered (should never happen), push it in the new position
+    // if the task is moved to a non existing position
+    // or if the task is moved to position -1 (push to bottom)
+    // -> push task at end of list
+    if (!order[to] && to !== -1) {
+      order.push(task._id);
+    } else {
+      if (currentIndex !== -1) order.splice(currentIndex, 1);
+      if (to === -1) {
         order.push(task._id);
       } else {
-        let taskToMove = order.splice(currentIndex, 1)[0];
-        order.splice(to, 0, taskToMove);
+        order.splice(to, 0, task._id);
       }
+    }
 
-      return user.save();
-    })
-    .then(() => res.respond(200, {})) // TODO what to return
-    .catch(next);
+    await user.save();
+    res.respond(200, order);
   },
 };
 
@@ -368,28 +535,37 @@ api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     // TODO check that req.body isn't empty and is an array
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+
+    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
+    let savedTask = await task.save();
+
+    res.respond(200, savedTask); // TODO what to return
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 
@@ -408,31 +584,30 @@ api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      let item = _.find(task.checklist, {_id: req.params.itemId});
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      if (!item) throw new NotFound(res.t('checklistItemNotFound'));
-      item.completed = !item.completed;
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    let item = _.find(task.checklist, {_id: req.params.itemId});
+
+    if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+    item.completed = !item.completed;
+    let savedTask = await task.save();
+
+    res.respond(200, savedTask); // TODO what to return
   },
 };
 
@@ -451,31 +626,39 @@ api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      let item = _.find(task.checklist, {_id: req.params.itemId});
-      if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    let item = _.find(task.checklist, {_id: req.params.itemId});
+    if (!item) throw new NotFound(res.t('checklistItemNotFound'));
+
+    _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
+    let savedTask = await task.save();
+
+    res.respond(200, savedTask); // TODO what to return
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 
@@ -494,31 +677,37 @@ api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
+    }).exec();
 
-      let itemI = _.findIndex(task.checklist, {_id: req.params.itemId});
-      if (itemI === -1) throw new NotFound(res.t('checklistItemNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    }
+    if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-      task.checklist.splice(itemI, 1);
-      return task.save();
-    })
-    .then(() => res.respond(200, {})) // TODO what to return
-    .catch(next);
+    let hasItem = removeFromArray(task.checklist, { _id: req.params.itemId });
+    if (!hasItem) throw new NotFound(res.t('checklistItemNotFound'));
+
+    let savedTask = await task.save();
+    res.respond(200, {}); // TODO what to return
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 
@@ -537,7 +726,7 @@ api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
@@ -545,24 +734,23 @@ api.addTagToTask = {
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      let tagId = req.params.tagId;
+    }).exec();
 
-      let alreadyTagged = task.tags.indexOf(tagId) !== -1;
-      if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    let tagId = req.params.tagId;
 
-      task.tags.push(tagId);
-      return task.save();
-    })
-    .then((savedTask) => res.respond(200, savedTask)) // TODO what to return
-    .catch(next);
+    let alreadyTagged = task.tags.indexOf(tagId) !== -1;
+    if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
+
+    task.tags.push(tagId);
+
+    let savedTask = await task.save();
+    res.respond(200, savedTask); // TODO what to return
   },
 };
 
@@ -581,51 +769,110 @@ api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
+    let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
       userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
+    }).exec();
 
-      let tagI = task.tags.indexOf(req.params.tagId);
-      if (tagI === -1) throw new NotFound(res.t('tagNotFound'));
+    if (!task) throw new NotFound(res.t('taskNotFound'));
 
-      task.tags.splice(tagI, 1);
-      return task.save();
-    })
-    .then(() => res.respond(200, {})) // TODO what to return
-    .catch(next);
+    let hasTag = removeFromArray(task.tags, req.params.tagId);
+    if (!hasTag) throw new NotFound(res.t('tagNotFound'));
+
+    await task.save();
+    res.respond(200, {}); // TODO what to return
   },
 };
 
-// Remove a task from user.tasksOrder
-function _removeTaskTasksOrder (user, taskId) {
-  // Loop through all lists and when the task is found, remove it and return
-  for (let i = 0; i < Tasks.tasksTypes.length; i++) {
-    let list = user.tasksOrder[`${Tasks.tasksTypes[i]}s`];
-    let index = list.indexOf(taskId);
+// TODO this method needs some limitation, like to check if the challenge is really broken?
+/**
+ * @api {post} /tasks/unlink/:taskId Unlink a challenge task
+ * @apiVersion 3.0.0
+ * @apiName UnlinkTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.unlinkTask = {
+  method: 'POST',
+  url: '/tasks/unlink/:taskId',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
 
-    if (index !== -1) {
-      list.splice(index, 1);
-      break;
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let keep = req.query.keep;
+    let taskId = req.params.taskId;
+
+    let task = await Tasks.Task.findOne({
+      _id: taskId,
+      userId: user._id,
+    }).exec();
+
+    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
+
+    if (keep === 'keep') {
+      task.challenge = {};
+      await task.save();
+    } else { // remove
+      if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
+        removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
+        await Q.all([user.save(), task.remove()]);
+      } else {
+        await task.remove();
+      }
     }
-  }
 
-  return;
-}
+    res.respond(200, {}); // TODO what to return
+  },
+};
 
 /**
- * @api {delete} /task/:taskId Delete a user task given its id
+ * @api {post} /tasks/clearCompletedTodos Delete user's completed todos
+ * @apiVersion 3.0.0
+ * @apiName ClearCompletedTodos
+ * @apiGroup Task
+ *
+ * @apiSuccess {object} empty An empty object
+ */
+api.clearCompletedTodos = {
+  method: 'POST',
+  url: '/tasks/clearCompletedTodos',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    // Clear completed todos
+    // Do not delete challenges completed todos TODO unless the task is broken?
+    await Tasks.Task.remove({
+      userId: user._id,
+      type: 'todo',
+      completed: true,
+      'challenge.id': {$exists: false},
+    }).exec();
+
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @api {delete} /tasks/:taskId Delete a user task given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task
@@ -638,30 +885,39 @@ api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders(), cron],
-  handler (req, res, next) {
+  async handler (req, res) {
     let user = res.locals.user;
+    let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) return next(validationErrors);
+    if (validationErrors) throw validationErrors;
 
-    Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec()
-    .then((task) => {
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.challenge.id) throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findById(taskId).exec();
 
-      _removeTaskTasksOrder(user, req.params.taskId);
-      return Q.all([
-        user.save(),
-        task.remove(),
-      ]);
-    })
-    .then(() => res.respond(200, {}))
-    .catch(next);
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (task.userId && task.challenge.id) {
+      throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+    }
+
+    if (task.type !== 'todo' || !task.completed) {
+      removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
+      await Q.all([(challenge || user).save(), task.remove()]);
+    } else {
+      await task.remove();
+    }
+
+    res.respond(200, {});
+    if (challenge) challenge.removeTask(task);
   },
 };
 

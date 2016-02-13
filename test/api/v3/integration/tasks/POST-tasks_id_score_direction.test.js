@@ -35,7 +35,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     let todo;
 
     beforeEach(async () => {
-      todo = await user.post('/tasks', {
+      todo = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
       });
@@ -46,6 +46,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       let task = await user.get(`/tasks/${todo._id}`);
 
       expect(task.completed).to.equal(true);
+      expect(task.dateCompleted).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
     });
 
     it('moves completed todos out of user.tasksOrder.todos', async () => {
@@ -81,6 +82,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       let updatedTask = await user.get(`/tasks/${todo._id}`);
 
       expect(updatedTask.completed).to.equal(false);
+      expect(updatedTask.dateCompleted).to.be.a('undefined');
     });
 
     it('scores up todo even if it is already completed'); // Yes?
@@ -134,7 +136,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     let daily;
 
     beforeEach(async () => {
-      daily = await user.post('/tasks', {
+      daily = await user.post('/tasks/user', {
         text: 'test daily',
         type: 'daily',
       });
@@ -205,24 +207,24 @@ describe('POST /tasks/:id/score/:direction', () => {
     let habit, minusHabit, plusHabit, neitherHabit; // eslint-disable-line no-unused-vars
 
     beforeEach(async () => {
-      habit = await user.post('/tasks', {
+      habit = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
 
-      minusHabit = await user.post('/tasks', {
+      minusHabit = await user.post('/tasks/user', {
         text: 'test min habit',
         type: 'habit',
         up: false,
       });
 
-      plusHabit = await user.post('/tasks', {
+      plusHabit = await user.post('/tasks/user', {
         text: 'test plus habit',
         type: 'habit',
         down: false,
       });
 
-      neitherHabit = await user.post('/tasks', {
+      neitherHabit = await user.post('/tasks/user', {
         text: 'test neither habit',
         type: 'habit',
         up: false,
@@ -267,7 +269,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     let reward, updatedUser;
 
     beforeEach(async () => {
-      reward = await user.post('/tasks', {
+      reward = await user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         value: 5,

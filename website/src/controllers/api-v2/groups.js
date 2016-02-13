@@ -1101,6 +1101,7 @@ api.questLeave = function(req, res, next) {
     });
 }
 
+// TODO port to api v3? in tojson?
 function _purgeFlagInfoFromChat(group, user) {
   group.chat = _.filter(group.chat, function(message) { return !message.flagCount || message.flagCount < 2; });
   _.each(group.chat, function (message) {

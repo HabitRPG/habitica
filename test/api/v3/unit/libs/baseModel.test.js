@@ -1,23 +1,16 @@
 import baseModel from '../../../../../website/src/libs/api-v3/baseModel';
+import mongoose from 'mongoose';
 
 describe('Base model plugin', () => {
-  let schema = {
-    add () {
-      return true;
-    },
-    statics: {},
-    options: {},
-    pre () {
-      return true;
-    },
-  };
+  let schema;
 
   beforeEach(() => {
+    schema = new mongoose.Schema();
     sandbox.stub(schema, 'add');
   });
 
   it('adds a _id field to the schema', () => {
-    baseModel(schema);
+    schema.plugin(baseModel);
 
     expect(schema.add).to.be.calledWith(sinon.match({
       _id: sinon.match.object,
@@ -25,13 +18,13 @@ describe('Base model plugin', () => {
   });
 
   it('can add timestamps fields', () => {
-    baseModel(schema, {timestamps: true});
+    schema.plugin(baseModel, {timestamps: true});
 
     expect(schema.add).to.be.calledTwice;
   });
 
   it('can sanitize input objects', () => {
-    baseModel(schema, {
+    schema.plugin(baseModel, {
       noSet: ['noUpdateForMe'],
     });
 
@@ -44,7 +37,7 @@ describe('Base model plugin', () => {
   });
 
   it('accepts an array of additional fields to sanitize at runtime', () => {
-    baseModel(schema, {
+    schema.plugin(baseModel, {
       noSet: ['noUpdateForMe'],
     });
 
@@ -58,7 +51,7 @@ describe('Base model plugin', () => {
 
 
   it('can make fields private', () => {
-    baseModel(schema, {
+    schema.plugin(baseModel, {
       private: ['amPrivate'],
     });
 
@@ -76,7 +69,7 @@ describe('Base model plugin', () => {
       toJSONTransform: sandbox.stub().returns(true),
     };
 
-    baseModel(schema, options);
+    schema.plugin(baseModel, options);
 
     let objToTransform = {ok: true, amPrivate: true};
     let privatized = schema.options.toJSON.transform({}, objToTransform);
@@ -91,7 +84,7 @@ describe('Base model plugin', () => {
       sanitizeTransform: sandbox.stub().returns(true),
     };
 
-    baseModel(schema, options);
+    schema.plugin(baseModel, options);
 
     expect(schema.options.toJSON.transform).to.exist;
     let objToSanitize = {ok: true, noUpdateForMe: true};
