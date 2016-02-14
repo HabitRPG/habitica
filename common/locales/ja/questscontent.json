@@ -1,12 +1,12 @@
 {
     "questEvilSantaText": "猟師のサンタ",
-    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
-    "questEvilSantaCompletion": "トラッパーサンタは怒って金切り声をあげ、それは夜にこだました。感謝した牝熊は、うなり声やどなり声を通して、何かを伝えようとする。あなたは彼女を厩舎に連れて戻り、告げ口マット ボックが恐怖にあえぐ彼女の物語に耳を傾けた。彼女には子供がいます！彼女が捕獲されたとき、彼は氷原に逃げました。彼女の赤ん坊を見つけるのを手伝おう！",
+    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "猟師のサンタ",
     "questEvilSantaDropBearCubPolarMount": "ホッキョクグマ(マウント)",
     "questEvilSanta2Text": "幼獣を見つけましょう！",
-    "questEvilSanta2Notes": "ママ熊が猟師に捕獲された時に、幼獣は氷原に逃げていた。森の端で、彼女は鼻で息を吸い込んでいる。あなたは森の澄んだ音の中に、小枝がポキンと折れる音と雪がつぶれる音を聞く。足跡だ！あなたは通った跡に従ってレースを開始する。すべての足跡や折れた小枝を見つけ、彼女の幼獣を取得する！",
-    "questEvilSanta2Completion": "あなたは幼獣を見つけました！ママと赤ちゃんのクマは感謝しても感謝しきれません。そのしるしに、ずっとあなたの仲間になることに決めました。",
+    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "足跡",
     "questEvilSanta2CollectBranches": "折れた小枝",
     "questEvilSanta2DropBearCubPolarPet": "愛白熊（ペット）",
@@ -36,7 +36,7 @@
     "questRatUnlockText": "市場でのラットの卵購入のアンロック",
     "questOctopusText": "オクトフルの叫び",
     "questOctopusNotes": "@Urse、ワイルドな目をした若い筆記者が、あなたに海岸の神秘的な洞窟の探索の手助けの求めています。夕暮れに、潮だまりの中で鍾乳石や石筍の巨大なゲートを立っています。あなたがゲートに近づくと、暗い渦がそこで回転し始めました。あなたは畏れてじっと見つめますと、渦の中からイカのようなドラゴンが浮き上がってきました。「星のスティッキーの子が目覚めた」と狂ったように@Urseが唸り声を上げました。「何億兆年も眠って、再び自由になって興奮して獲物を探している！」",
-    "questOctopusCompletion": "完了：最後の攻撃によって、怪獣は渦に中に逃げ込みました。しかし、@Urseはあなたの勝利に喜んでいるのか、それとも怪獣が離れて悲しくなっているのかはわかりません。沈黙の中で、あなたの仲間は近くにある潮だまりに向けて指した。そこには金貨で作られた巣の中に3つのぬるぬるした巨大な卵がありました。「おそらく、ただのタコの卵でしょう」とあなたは真剣に言った。あなた達が帰った後、@Urseは死に物狂いで雑誌で走り書きした。そしてあなたは、もしかして偉大なオクトフルの声を聞くのはこれで最後になるのではないかと思いました。",
+    "questOctopusCompletion": "With a final blow, the creature slips away into the whirlpool from which it came. You cannot tell if @Urse is happy with your victory or saddened to see the beast go. Wordlessly, your companion points to three slimy, gargantuan eggs in a nearby tidepool, set in a nest of gold coins. \"Probably just octopus eggs,\" you say nervously. As you return home, @Urse frantically scribbles in a journal and you suspect this is not the last time you will hear of the great Octothulu.",
     "questOctopusBoss": "オクトフル",
     "questOctopusDropOctopusEgg": "たこ（卵）",
     "questOctopusUnlockText": "市場でのタコの卵購入のアンロック",
@@ -279,5 +279,11 @@
     "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
     "questUnicornBoss": "The Unicorn Queen",
     "questUnicornDropUnicornEgg": "Unicorn (Egg)",
-    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market",
+    "questSabretoothText": "The Sabre Cat",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+    "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+    "questSabretoothBoss": "Zombie Sabre Cat",
+    "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }

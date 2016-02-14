@@ -24,5 +24,5 @@
     "rebirthPop": "Starte einen neuen Charakter mit Level 1, aber behalte Erfolge, Sammlungen und Aufgaben mit Verlauf bei.",
     "rebirthName": "Sphäre der Wiedergeburt",
     "reborn": "Wiedergeboren, max. Level <%= reLevel %>",
-    "confirmReborn": "Are you sure?"
+    "confirmReborn": "Bist Du sicher?"
 }

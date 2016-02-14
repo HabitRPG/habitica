@@ -25,7 +25,6 @@ mixin taskColumnTabs(position)
         .alert
           =env.t('lotOfToDos')
         button.task-action-btn.tile.spacious.bright(ng-click='user.ops.clearCompleted({})',popover=env.t('deleteToDosExplanation'),popover-trigger='mouseenter')=env.t('clearCompleted')
-        p!=env.t('beeminderDeleteWarning')
     // remaining/completed tabs
     ul.task-filter
       li(ng-class='{active: list.view == "remaining"}')

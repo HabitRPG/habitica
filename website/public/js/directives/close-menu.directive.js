@@ -14,7 +14,9 @@
           if ($scope.$parent._expandedMenu) {
             $scope.$parent._expandedMenu.menu = null;
           }
-          $scope._expandedMenu.menu = null;
+          if ($scope._expandedMenu) {
+            $scope._expandedMenu.menu = null;
+          }
           $scope.$apply()
         });
       }

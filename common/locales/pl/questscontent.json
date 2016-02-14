@@ -1,12 +1,12 @@
 {
     "questEvilSantaText": "Święty Mikołaj-Myśliwy",
-    "questEvilSantaNotes": "Wiatr niesie z głębi lodowych pól zawodzące ryki. W miarę zbliżania się do ich źródła słychać, jak przerywa je czyjś chichot. W końcu, na leśnej polanie, okazuje się, że głos rozpaczliwie błagający o życie należy do dorosłej niedźwiedzicy polarnej, skutej łańcuchem i zamkniętej w klatce. Zaś na szczycie klatki, rechocąc, tańczy złośliwy karzeł przebrany w porzucone stroje Mikołaja. Czas rozprawić się z Mikołajem okrutnikiem i ocalić bestię! ",
-    "questEvilSantaCompletion": "Święty Mikołaj-Myśliwy piszczy z gniewu i odskakuje w ciemność. Wdzięczna niedźwiedzica przez ryki i warki próbuje Wam coś przekazać. Zabieracie ją do stajni, gdzie zaklinacz Matt Boch wysłuchuje jej historii z przerażeniem. Ona ma syna! Uciekł na połacie lodu, kiedy jego mama została złapana. Pomóżcie jej odnaleźć dziecko!",
+    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "Święty Mikołaj-Myśliwy",
     "questEvilSantaDropBearCubPolarMount": "Niedźwiedź polarny (wierzchowiec)",
     "questEvilSanta2Text": "Znajdź niedźwiadka",
-    "questEvilSanta2Notes": "Niedźwiadek uciekł na pola lodowe, gdy jego mama została schwytana przez myśliwego. Węszy na skraju zagajnika. Słyszycie trzask gałązek i skrzypienie śniegu, przerywające kryształową ciszę lasu. Odciski łap! Razem biegniecie, podążając tropem. Znajdźcie wszystkie ślady i złamane gałązki, odzyskajcie jej maleństwo!",
-    "questEvilSanta2Completion": "Znaleźliście niedźwiadka! Mama i maleństwo nie mogliby być bardziej wdzięczni. W nagrodę postanowili dotrzymać Wam towarzystwa aż do końca życia.",
+    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "Ślady",
     "questEvilSanta2CollectBranches": "Złamane gałązki",
     "questEvilSanta2DropBearCubPolarPet": "Niedźwiadek polarny (chowaniec)",
@@ -36,7 +36,7 @@
     "questRatUnlockText": "Odblokowuje dostęp do kupna szczurzych jaj na Targu",
     "questOctopusText": "Zew Ośmiothulhu",
     "questOctopusNotes": "Kopistka @Urse popatrzyła na was błędnym wzrokiem i poprosiła o pomoc w zbadaniu tajemniczej jaskini na wybrzeżu. Między zatopionymi w półmroku skałami wznoszą się potężne wrota, stworzone ze stalaktytów i stalagmitów. Kiedy zbliżacie się do bramy, u jej podstawy pojawia się kruczoczarny wir wodny. Ze strachem spoglądacie na wyłaniającego się zeń smoka z mackami niczym u ośmiornicy. \"Zielona, lepka ikra gwiazd obudziła się\" — szaleńczo ryczy @Urse. — \"Po niezliczonych latach wielki Ośmiothulhu jest znów wolny i spragniony uciechy!\"",
-    "questOctopusCompletion": "Zakończenie: Po ostatecznym podmuchu, potwór skrywa się z powrotem w wirze, z którego przybył. Nie jestecie pewni czy @Urse cieszy się z waszego zwycięstwa czy też martwi odejściem bestii. Dziewczyna bez słowa wskazuje na leżące nieopodal na stercie złotych monet trzy gigantyczne, pokryte śluzem jaja. \"To pewnie tylko jaja ośmiornicy\" – nerwowo odzywa się jeden z was. Po drodze do domu, @Urse gorączkowo notuje coś w dzienniku i macie wrażenie, że jeszcze kiedyś usłyszycie o wielkim Ośmiothulhu.",
+    "questOctopusCompletion": "With a final blow, the creature slips away into the whirlpool from which it came. You cannot tell if @Urse is happy with your victory or saddened to see the beast go. Wordlessly, your companion points to three slimy, gargantuan eggs in a nearby tidepool, set in a nest of gold coins. \"Probably just octopus eggs,\" you say nervously. As you return home, @Urse frantically scribbles in a journal and you suspect this is not the last time you will hear of the great Octothulu.",
     "questOctopusBoss": "Ośmiothulhu",
     "questOctopusDropOctopusEgg": "Ośmiornica (jajo)",
     "questOctopusUnlockText": "Odblokowuje dostęp do kupna ośmiorniczych jaj na Targu",
@@ -279,5 +279,11 @@
     "questUnicornCompletion": "Będąc pod wrażeniem twojej pracowitości i siły, Królowa Jednorożców w końcu przyznaje, że twoja sprawa jest godna. Zezwala, żebyś jechał na jej grzbiecie, gdy szybuje w kierunku źródła Potoku Podbojów. Gdy zbliża swój złoty róg do splugawionych wód, jaskrawe błękitne światło rozchodzi się od powierzchni. Jest tak oślepiające, że musisz zamknąć oczy. Gdy po chwili je otwierasz, jednorożca już nie ma, ale @rosiesully wydaje okrzyk radości: woda jest teraz czysta, a na skraju potoku leżą trzy błyszczące jaja.",
     "questUnicornBoss": "Królowa jednorożców",
     "questUnicornDropUnicornEgg": "Jednorożec (jajo)",
-    "questUnicornUnlockText": "Odblokowuje możliwość kupna jaj jednorożca na Targu"
+    "questUnicornUnlockText": "Odblokowuje możliwość kupna jaj jednorożca na Targu",
+    "questSabretoothText": "The Sabre Cat",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+    "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+    "questSabretoothBoss": "Zombie Sabre Cat",
+    "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }

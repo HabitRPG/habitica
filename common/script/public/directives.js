@@ -145,7 +145,7 @@
     return function(input){
       var html = md.toHtml(input);
 
-      html = html.replace(' href',' target="_self" href');
+      html = html.replace(' href',' target="_blank" href');
 
       return html;
     };

@@ -210,6 +210,7 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
+const NO_CHAT_NOTIFICATIONS = ['habitrpg'];
 schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
   this.chat.splice(200);
@@ -218,7 +219,8 @@ schema.methods.sendChat = function sendChat (message, user) {
   let lastSeenUpdate = {$set: {}, $inc: {_v: 1}};
   lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
 
-  if (this._id === 'habitrpg') {
+  // do not send notifications for guilds with more than 5000 users and for the tavern
+  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > 5000) {
     // TODO For Tavern, only notify them if their name was mentioned
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();

@@ -2415,6 +2415,10 @@ api.wrap = function(user, main) {
       };
       plan = (ref = user.purchased) != null ? ref.plan : void 0;
       if (plan != null ? plan.customerId : void 0) {
+        if (typeof plan.dateUpdated === "undefined") {
+          // partial compensation for bug in subscription creation - https://github.com/HabitRPG/habitrpg/issues/6682
+          plan.dateUpdated = new Date();
+        }
         if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
           plan.gemsBought = 0;
           plan.dateUpdated = new Date();
@@ -2471,12 +2475,25 @@ api.wrap = function(user, main) {
       }
       multiDaysCountAsOneDay = true;
       todoTally = 0;
-      user.todos.forEach(function(task) {
+
+      // Delete completed todos older than 30 days (90 for Subscribers)
+      var completedTodosCutoff = moment(now);
+      if (user.purchased && user.purchased.plan && user.purchased.plan.customerId) {
+        completedTodosCutoff = completedTodosCutoff.subtract(90, 'days');
+      } else {
+        completedTodosCutoff = completedTodosCutoff.subtract(30, 'days');
+      }
+      user.todos = user.todos.filter(function(task) {
         var absVal, completed, delta, id;
         if (!task) {
-          return;
+          return false;
         }
+
         id = task.id, completed = task.completed;
+        if (completed && moment(task.dateCompleted).isBefore(completedTodosCutoff)) {
+          return false; // delete the todo because it's completed and has been kept for 30/90 days
+        }
+
         delta = user.ops.score({
           params: {
             id: task.id,
@@ -2490,8 +2507,13 @@ api.wrap = function(user, main) {
           }
         });
         absVal = completed ? Math.abs(task.value) : task.value;
-        return todoTally += absVal;
+        todoTally += absVal;
+        return true; // keep the todo
       });
+      if (typeof user.markModified === "function") {
+        user.markModified('todos');
+      }
+
       dailyChecked = 0;
       dailyDueUnchecked = 0;
       if ((base = user.party.quest.progress).down == null) {

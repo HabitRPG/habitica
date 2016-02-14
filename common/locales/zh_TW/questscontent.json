@@ -1,12 +1,12 @@
 {
     "questEvilSantaText": "聖誕盜獵者",
-    "questEvilSantaNotes": "You hear moaning roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
-    "questEvilSantaCompletion": "聖誕盜獵者憤怒地嚎叫，縱身躍入黑夜之中。母熊充滿感激的咆哮嘶吼，似乎想對你說些什麼。你把她帶回馬房，輕語者Matt Boch畏懼地屏息傾聽她講述的故事。原來她有個小熊寶寶！然而小熊卻在母熊落入陷阱時逃入了冰原中。  幫助母熊找到她的寶寶吧！",
+    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "聖誕盜獵者",
     "questEvilSantaDropBearCubPolarMount": "北極熊 （坐騎）",
     "questEvilSanta2Text": "找小熊",
-    "questEvilSanta2Notes": "寶寶在母熊被抓住的時候跑進了冰原。母熊在樹林邊際嗅著空氣尋索蹤跡。你聽到樹枝咔嚓作響，雪地嘎吱嘎吱的聲音迴盪在整個樹林。是爪印！你們開始追尋雪地上的踪跡。集齊所有的爪印和破損的樹枝來找回她的寶寶！",
-    "questEvilSanta2Completion": "你找到了小熊！母熊和她的寶寶對你感激不盡。作為回報，他們決定永遠與你結伴同行。",
+    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "足跡",
     "questEvilSanta2CollectBranches": "折斷的樹枝",
     "questEvilSanta2DropBearCubPolarPet": "北極熊 （寵物）",
@@ -36,7 +36,7 @@
     "questRatUnlockText": "解鎖-可在市集中購買老鼠蛋",
     "questOctopusText": "章魚克蘇魯的呼喚",
     "questOctopusNotes": "@Urse是位相當狂熱的抄寫員，他希望你幫忙探索海岸邊的一個神祕洞穴。在暮光下潮淵中矗立著一座由鐘乳石所構成的大門。當你走進大門，一道黑暗的漩渦自大門根基處開始打轉。你詫異的看著一隻章魚似的龍自漩渦中心升起。「黏稠的星之子醒來了，」@Urse激動地大喊「經過了千萬億年之後，偉大的克蘇魯又重獲自由了，又可以為了盡興而開始劫掠了。」",
-    "questOctopusCompletion": "完結：受到最後一擊，那生物溜回牠原本過來的漩渦之中。你不曉得@Urse究竟是為你的勝利感到高興還是為怪物的逃走感到失落。你的夥伴不發一語，指向潮淵附近，在一磥金幣旁的三個黏乎乎、巨大的蛋。「興許是章魚的蛋」你緊張地說道。當你回家後，@Urse激動地在日誌上奮筆疾書，而你懷疑這不會是你最後一次聽到偉大的章魚克蘇魯。",
+    "questOctopusCompletion": "With a final blow, the creature slips away into the whirlpool from which it came. You cannot tell if @Urse is happy with your victory or saddened to see the beast go. Wordlessly, your companion points to three slimy, gargantuan eggs in a nearby tidepool, set in a nest of gold coins. \"Probably just octopus eggs,\" you say nervously. As you return home, @Urse frantically scribbles in a journal and you suspect this is not the last time you will hear of the great Octothulu.",
     "questOctopusBoss": "章魚克蘇魯",
     "questOctopusDropOctopusEgg": "章魚 ( 蛋 )",
     "questOctopusUnlockText": "解鎖-可在市集中購買章魚蛋",
@@ -279,5 +279,11 @@
     "questUnicornCompletion": "Impressed by your diligence and strength, the Unicorn Queen at last agrees that your cause is worthy. She allows you to ride on her back as she soars to the source of Conquest Creek. As she lowers her golden horn to the befouled waters, a brilliant blue light rises from the water’s surface. It is so blinding that you are forced to close your eyes. When you open them a moment later, the unicorn is gone. However, @rosiesully lets out a cry of delight: the water is now clear, and three shining eggs rest at the creek’s edge.",
     "questUnicornBoss": "The Unicorn Queen",
     "questUnicornDropUnicornEgg": "Unicorn (Egg)",
-    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market"
+    "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market",
+    "questSabretoothText": "The Sabre Cat",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoikalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+    "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
+    "questSabretoothBoss": "Zombie Sabre Cat",
+    "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
 }

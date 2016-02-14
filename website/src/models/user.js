@@ -76,6 +76,7 @@ export let schema = new Schema({
     greeting: Number,
     thankyou: Number,
     costumeContests: Number,
+    birthday: Number,
   },
 
   backer: {
@@ -252,6 +253,8 @@ export let schema = new Schema({
       greetingReceived: Array,
       thankyou: Number,
       thankyouReceived: Array,
+      birthday: Number,
+      birthdayReceived: Array,
     },
 
     // -------------- Animals -------------------
