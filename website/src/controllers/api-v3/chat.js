@@ -312,8 +312,6 @@ api.clearChatFlags = {
  * @apiGroup Chat
  *
  * @apiParam {groupId} groupId The group _id
- *
- * @apiSuccess {None}
  */
 api.seenChat = {
   method: 'POST',

@@ -62,7 +62,8 @@ async function _createTasks (req, res, user, challenge) {
  * @apiName CreateUserTasks
  * @apiGroup Task
  *
- * @apiSuccess {Object|Array} task The newly created task(s)
+ * @apiSuccess {Object} task The newly created task
+ * @apiSuccess {Object[]} tasks The newly created tasks (if more than one was created)
  */
 api.createUserTasks = {
   method: 'POST',
@@ -82,7 +83,8 @@ api.createUserTasks = {
  *
  * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to.
  *
- * @apiSuccess {Object|Array} task The newly created task(s)
+ * @apiSuccess {Object} task The newly created task
+ * @apiSuccess {Object[]} tasks The newly created tasks (if more than one was created)
  */
 api.createChallengeTasks = {
   method: 'POST',
