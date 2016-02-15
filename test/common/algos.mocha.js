@@ -1140,64 +1140,6 @@ describe('Cron', () => {
     });
   });
 
-  describe('delete old completed todos', () => {
-    it('after 30 days for free users', () => {
-      let user = generateUser();
-      user.lastCron = moment().subtract(2, 'days');
-      expect(user.todos.length).to.equal(0);
-
-      let completedTodo = generateTodo();
-      completedTodo.text = 'completed todo';
-      completedTodo.completed = true;
-      completedTodo.dateCompleted = moment().subtract(32, 'days').toDate();
-      let recentCompletedTodo = generateTodo();
-      recentCompletedTodo.text = 'recent completed todo';
-      recentCompletedTodo.completed = true;
-      recentCompletedTodo.dateCompleted = moment().subtract(12, 'days').toDate();
-
-      let uncompletedTodo = generateTodo();
-      uncompletedTodo.text = 'uncompleted todo';
-      uncompletedTodo.dateCreated = moment().subtract(32, 'days').toDate();
-
-      user.todos.push(uncompletedTodo, completedTodo, recentCompletedTodo);
-      expect(user.todos.length).to.equal(3);
-
-      user.fns.cron();
-      expect(user.todos.length).to.equal(2);
-      expect(user.todos[0].text).to.equal('uncompleted todo');
-      expect(user.todos[1].text).to.equal('recent completed todo');
-    });
-
-    it('after 90 days for subscribers', () => {
-      let user = generateUser();
-      user.lastCron = moment().subtract(2, 'days');
-      user.purchased = {plan: {customerId: 1}};
-
-      expect(user.todos.length).to.equal(0);
-
-      let completedTodo = generateTodo();
-      completedTodo.text = 'completed todo';
-      completedTodo.completed = true;
-      completedTodo.dateCompleted = moment().subtract(92, 'days').toDate();
-      let recentCompletedTodo = generateTodo();
-      recentCompletedTodo.text = 'recent completed todo';
-      recentCompletedTodo.completed = true;
-      recentCompletedTodo.dateCompleted = moment().subtract(32, 'days').toDate();
-
-      let uncompletedTodo = generateTodo();
-      uncompletedTodo.text = 'uncompleted todo';
-      uncompletedTodo.dateCreated = moment().subtract(32, 'days').toDate();
-
-      user.todos.push(uncompletedTodo, completedTodo, recentCompletedTodo);
-      expect(user.todos.length).to.equal(3);
-
-      user.fns.cron();
-      expect(user.todos.length).to.equal(2);
-      expect(user.todos[0].text).to.equal('uncompleted todo');
-      expect(user.todos[1].text).to.equal('recent completed todo');
-    });
-  });
-
   describe('cron day calculations', () => {
     let dayStart = 4;
     let fstr = 'YYYY-MM-DD HH: mm: ss';
