@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "התקדמות אדון החיות: נמצאו <%= number %> חיות מחמד",
     "beastAchievement": "הרווחת את הישג \"אדון החיות\" על איסוף כל חיות המחמד!",
     "beastMasterName": "אלוף החיות",
-    "beastMasterText": "מצא/ה את כל 90 חיות המחמד (קשה בטירוף, תנו לו/ה בכפיים!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "שחרר/ה את חיות המחמד שלה<%= count %> פעמים עד כה",
     "mountMasterProgress": "התקדמות אלוף הרוכבים",
     "stableMountMasterProgress": "התקדמות אדון חיות הרכיבה: אולפו <%= number %> חיות רכיבה",

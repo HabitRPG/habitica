@@ -2,7 +2,6 @@
     "clearCompleted": "Supprimer les tâches accomplies",
     "lotOfToDos": "Les tâches À Faire accomplies sont archivées automatiquement au bout de 3 jours. Vous pouvez les consulter depuis Paramètres > Exporter",
     "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches A Faire complétées et archivées seront supprimées définitivement. Exportez-les d'abord si vous souhaitez en garder une trace.",
-    "beeminderDeleteWarning": "Utilisateurs de Beeminder: <strong>Avant toute chose</strong> lisez<a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Effacer les tâches À Faire sans embrouiller Beeminder</a> !",
     "addmultiple": "Ajout Multiple",
     "addsingle": "Ajout unitaire",
     "habit": "Habitude",

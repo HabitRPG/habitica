@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Progresso in Re delle Bestie: <%= number %> Animali trovati",
     "beastAchievement": "Hai ottenuto la medaglia \"Re delle Bestie\" per aver collezionato tutti gli animali!",
     "beastMasterName": "Re delle Bestie",
-    "beastMasterText": "Ha trovato tutti i 90 animali (incredibilmente difficile, fate i complimenti a questo utente!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "e ha liberato i suoi animali un totale di <%= count %> volte",
     "mountMasterProgress": "Progresso in Re delle Cavalcature",
     "stableMountMasterProgress": "Progresso in Re delle Cavalcature: <%= number %> Cavalcature Domate",

@@ -12,7 +12,7 @@
     "rebirthInList2": "Členstvo vo výzvách, cechoch, a družine ostáva.",
     "rebirthInList3": "Drahokamy, úroveň podporovateľa na Kickstarteri a prispievateľské levely ostávajú.",
     "rebirthInList4": "Predmety, ktoré si si kúpil za drahokamy alebo ti padli (ako napríklad zvieratká a tátoši) ostávajú, ale nebudeš ich mať dostupné, kým ich neodomkneš.",
-    "rebirthInList5": "Výstroj z limitovanej edície sa dá opätovne kúpiť, aj ak sa akcia už skončila.",
+    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
     "rebirthEarnAchievement": "Za začatie nového dobrodružstva získavaš aj špeciálny odznak!",
     "beReborn": "Znovu sa zrodiť",
     "rebirthAchievement": "Začal si nové dobrodružstvo! Toto je tvoje znovuzrodenie čislo <%= number %> a najvušší level, ktorý si dosiahol je <%= level %>. Ak chceš tento odznak vylepšiť, začni nové dobrodružstvo po dosiahnutí ešte vyššieho levelu!",

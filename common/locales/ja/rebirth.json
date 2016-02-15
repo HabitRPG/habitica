@@ -12,7 +12,7 @@
     "rebirthInList2": "チャレンジ、ギルド、そしてパーティー会員登録は残ります。",
     "rebirthInList3": "ジェム、後援層、および貢献レベルは残ります。",
     "rebirthInList4": "ジェムまたはドロップから得たアイテム (例えばペットや乗り物など) は残りますが、再びロックを解除するまで、それらにアクセスすることはできません。",
-    "rebirthInList5": "あなたが購入した限定版の装備は、そのイベントが終了していた場合でも、買い戻すことができます。",
+    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
     "rebirthEarnAchievement": "また新しい冒険を開始するために、実績を獲得しましょう!",
     "beReborn": "転生する",
     "rebirthAchievement": "あなたは新しい冒険を始めました! これは転生 <%= number %> で、あなたが達成した最高レベルは <%= level %>.です。この実績を積み重ねるために、より高いレベルに達したときに、次の新しい冒険を始めましょう!",

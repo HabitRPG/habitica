@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Progression du Maître des Bêtes : <%= number %> Familiers Trouvés",
     "beastAchievement": "Vous avez remporté le succès \"Maître des Bêtes\" pour avoir collectionné tous les familiers !",
     "beastMasterName": "Maître des Bêtes",
-    "beastMasterText": "A trouvé les 90 familiers (extrêmement difficile, félicitez cet utilisateur !)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "et a libéré ses familiers <%= count %> fois",
     "mountMasterProgress": "Progression Maître des Montures",
     "stableMountMasterProgress": "Progression du Maître des Montures : <%= number %> Montures Apprivoisées",

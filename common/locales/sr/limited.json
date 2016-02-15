@@ -25,7 +25,7 @@
     "polarBearPup": "Mladunče belog medveda",
     "jackolantern": "Svetiljka od bundeve",
     "seasonalShop": "Prodavnica sezonskih predmeta",
-    "seasonalShopClosedTitle": "<%= linkStart %>Sijena Lezli<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezonska čarobnica<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a>!",
     "seasonalShopText": "Dobro došli u Prodavnicu sezonskih predmeta!! Trenutno u ponudi imamo opremu iz prolećne <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Sezonske serije</a>. Ovi predmeti biće u prodaju do 30. aprila. Nabavite ih sada, jer ćete sledeću priliku imati tek za godinu dana!",

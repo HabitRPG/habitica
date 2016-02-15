@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "驯兽师进度:<%= number %>宠物已获得",
     "beastAchievement": "你集齐了所有宠物，获得了”驯兽师“的成就！",
     "beastMasterName": "驯兽师",
-    "beastMasterText": "集齐了90只宠物 (地狱难度，恭喜用户！)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "并已经释放他们的宠物共<%= count %>次。",
     "mountMasterProgress": "坐骑大师进度",
     "stableMountMasterProgress": "坐骑大师进度:<%= number %>坐骑已驯服",

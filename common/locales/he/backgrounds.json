@@ -107,9 +107,9 @@
     "backgroundTwinklyPartyLightsNotes": "רקוד לאורות מסיבה מהבהבים",
     "backgrounds092015": "סט 16: פורסם בספטמבר 2015",
     "backgroundMarketText": "שוק האביטיקה",
-    "backgroundMarketNotes": "קנה בשוק של הביטיקה.",
-    "backgroundStableText": "אורוות הביטיקה",
-    "backgroundStableNotes": "טפל בחיות רכיבה באורוות הביטיקה.",
+    "backgroundMarketNotes": "קנה בשוק של האביטיקה.",
+    "backgroundStableText": "אורוות האביטיקה",
+    "backgroundStableNotes": "טפל בחיות רכיבה באורוות האביטיקה.",
     "backgroundTavernText": "פונדק האביטיקה",
     "backgroundTavernNotes": "בקר בפונדק של האביטיקה.",
     "backgrounds102015": "סט 17: פורסם באוקטובר 2015",
@@ -139,5 +139,12 @@
     "backgroundSnowmanArmyText": "צבא איש-שלג",
     "backgroundSnowmanArmyNotes": "הובל צבא של איש-שלג.",
     "backgroundWinterNightText": "ליל חורף",
-    "backgroundWinterNightNotes": "צפה בכוכבים של ליל חורף."
+    "backgroundWinterNightNotes": "צפה בכוכבים של ליל חורף.",
+    "backgrounds022016": "SET 21: Released February 2016",
+    "backgroundBambooForestText": "Bamboo Forest",
+    "backgroundBambooForestNotes": "Stroll through the Bamboo Forest.",
+    "backgroundCozyLibraryText": "Cozy Library",
+    "backgroundCozyLibraryNotes": "Read in the Cozy Library.",
+    "backgroundGrandStaircaseText": "Grand Staircase",
+    "backgroundGrandStaircaseNotes": "Stride down the Grand Staircase."
 }

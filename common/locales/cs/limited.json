@@ -25,7 +25,7 @@
     "polarBearPup": "Lední medvídě",
     "jackolantern": "Jack-O-Lantern",
     "seasonalShop": "Sezónní obchod",
-    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezónní mudrci<%= linkEnd %>",
     "seasonalShopClosedText": "Sezónní obchod je momentálně zavřený!! Nevím, kde se momentálně Sezonní Kouzelnice nachází, ale vsadím se, že bude zpět na další <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Velkolepé Gala</a>!",
     "seasonalShopText": "Vítej v Sezonním obchodě! Zrovna tu máme jarní <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Sezonní edici</a> zboží. Všechno zde je možné zakoupit v průběhu Jarního flámu každý rok, ale máme otevřeno pouze do 30. dubna, tak si nakup teď nebo budeš muset čekat další rok!",

@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",
     "beastAchievement": "Du har erhållit bedriften \"Djurmästare\" genom att ha samlat alla husdjur!",
     "beastMasterName": "Djurmästare",
-    "beastMasterText": "Har funnit alla 90 husdjur (extremt svårt, gratulera denna användare!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "och har släppt sina husdjur totalt <%= count %> gånger.",
     "mountMasterProgress": "Framsteg mot Riddjursmästare",
     "stableMountMasterProgress": "Mount Master Progress: <%= number %> Mounts Tamed",
@@ -80,7 +80,7 @@
     "petKeyPets": "Frigör Mina Husdjur",
     "petKeyMounts": "Frigör Mina Riddjur",
     "petKeyBoth": "Släpp båda",
-    "confirmPetKey": "Are you sure?",
+    "confirmPetKey": "Är du säker?",
     "petKeyNeverMind": "Inte Än",
     "gemsEach": "juveler vardera"
 }

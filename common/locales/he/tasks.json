@@ -2,7 +2,6 @@
     "clearCompleted": "נקה מטלות שבוצעו",
     "lotOfToDos": "מטרות שהושלמו נשלחות לארכיון באופן אוטומטי בתום 3 ימים. ניתן למצוא אותן בהגדרות > ייצוא נתונים.",
     "deleteToDosExplanation": "לחיצה על הכפתור למטה תמחק לצמיתות את כל המטרות הגנוזות שלך שהושלמו. ייצא אותן קודם לכן, אם היית רוצה לשמור תיעוד שלהן.",
-    "beeminderDeleteWarning": "למשתמשי בימיינדר, <strong>ראשית</strong> קראו <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">איך למחוק משימות שהושלמו בלי לבלבל את בימיינדר</a>!",
     "addmultiple": "הוסף כמה",
     "addsingle": "הוסף יחיד",
     "habit": "הרגל",

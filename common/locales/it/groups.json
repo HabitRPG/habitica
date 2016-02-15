@@ -44,7 +44,7 @@
     "guildBankPop1": "Banca della Gilda",
     "guildBankPop2": "Gemme che il leader della tua Gilda può usare per i premi delle sfide.",
     "guildGems": "Gemme della Gilda",
-    "editGroup": "Modifica Gruppo",
+    "editGroup": "Modifica gruppo",
     "newGroupName": "Nome <%= groupType %>",
     "groupName": "Nome del Gruppo",
     "groupLeader": "Leader del gruppo",

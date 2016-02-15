@@ -2,7 +2,6 @@
     "clearCompleted": "Вилучити виконані",
     "lotOfToDos": "Завершені Щоденні завдання автоматично архівуються через 3 дні. Ви можете отримати їх через Налаштування > Экспорт.",
     "deleteToDosExplanation": "Якщо натиснути на кнопку внизу, то всі з виконаних Зробити та архівних Зробити будуть остаточно вилучені. Якщо хочете зберегти запис про них, спершу експортуйте їх.",
-    "beeminderDeleteWarning": "Шановні учасники: <strong>Спершу</strong> прочитайте <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Видалення Виконаних Завдань Без Збиваючих З Пантелику Ситуацій</a>!",
     "addmultiple": "Додати декілька",
     "addsingle": "Додати одне",
     "habit": "Habit",

@@ -2,7 +2,6 @@
     "clearCompleted": "Vymaž dokončené",
     "lotOfToDos": "Dokončené úkoly v úkolníčku jsou automaticky archivovány po 3 dnech. Můžeš se na ně podívat v Nastavení > Export.",
     "deleteToDosExplanation": "Po kliknutí na toto tlačítko se permanentně smažou všechny tvé splněné a archivované úkoly. Chceš-li si o nich vést záznamy, nejdřív si je exportuj.",
-    "beeminderDeleteWarning": "Uživatelé Beeminder<strong>Nejprve</strong> si přečtětě <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Mazání splněných úkolů aniž by se zmátl Beeminder</a>!",
     "addmultiple": "Přidat více",
     "addsingle": "Přidat jeden",
     "habit": "Zvyk",

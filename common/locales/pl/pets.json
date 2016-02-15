@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Postęp Władcy chowańców: znaleziono <%= number %> chowańców",
     "beastAchievement": "Zdobyłeś odznakę \"Władca Chowańców\", gdyż zebrałeś wszystkie możliwe Chowańce!",
     "beastMasterName": "Władca chowańców",
-    "beastMasterText": "Odnalazł wszystkie 90 chowańców (niesłychanie trudne, pogratuluj tej osobie!).",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "i wypuścił swoje chowańce <%= count %> razy",
     "mountMasterProgress": "Postęp Władcy wierzchowców",
     "stableMountMasterProgress": "Postęp Władcy wierzchowców: oswojono <%= number %> wierzchowców",
