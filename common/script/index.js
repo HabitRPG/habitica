@@ -815,7 +815,7 @@ api.wrap = function(user, main) {
             message: i18n.t('messageTaskNotFound', req.language)
           }) : void 0;
         }
-        _.merge(task, _.omit(req.body, ['checklist', 'remidners', 'id', 'type']));
+        _.merge(task, _.omit(req.body, ['checklist', 'reminders', 'id', 'type']));
         if (req.body.checklist) {
           task.checklist = req.body.checklist;
         }
