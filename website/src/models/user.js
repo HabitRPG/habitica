@@ -390,6 +390,15 @@ var UserSchema = new Schema({
       hatchPet: {type: Boolean, 'default': false},
       raisePet: {type: Boolean, 'default': false},
       streak: {type: Boolean, 'default': false}
+    },
+    improvementCategories: {
+      "work": {type: Boolean, 'default': false},
+      "exercise": {type: Boolean, 'default': false},
+      "healthWellness": {type: Boolean, 'default': false},
+      "school": {type: Boolean, 'default': false},
+      "teams": {type: Boolean, 'default': false},
+      "chores": {type: Boolean, 'default': false},
+      "creativity": {type: Boolean, 'default': false},
     }
   },
   profile: {
