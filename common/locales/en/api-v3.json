@@ -16,6 +16,7 @@
   "onlySocialAttachLocal": "Local auth can only be added to a social account.",
   "invalidReqParams": "Invalid request parameters.",
   "memberIdRequired": "\"member\" must be a valid UUID.",
+  "heroIdRequired": "\"heroId\" must be a valid UUID.",
   "taskIdRequired": "\"taskId\" must be a valid UUID.",
   "taskNotFound": "Task not found.",
   "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
@@ -85,5 +86,7 @@
   "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
   "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
   "questNotPending": "There is no quest to start.",
-  "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+  "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
+  "noAdminAccess": "You don't have admin access.",
+  "pageMustBeNumber": "req.query.page must be a number"
 }
