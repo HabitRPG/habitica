@@ -10,6 +10,44 @@ import _ from 'lodash';
 let api = {};
 
 /**
+ * @api {get} /hall/patrons Get all Patrons. Only the first 50 patrons are returned. More can be accessed passing ?page=n.
+ * @apiVersion 3.0.0
+ * @apiName GetPatrons
+ * @apiGroup Hall
+ *
+ * @apiParam {Number} page The result page. Default is 0
+ *
+ * @apiSuccess {Array} patron An array of patrons
+ */
+api.getPatrons = {
+  method: 'GET',
+  url: '/hall/patrons',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkQuery('page', res.t('pageMustBeNumber')).optional().isNumeric();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let page = req.query.page ? Number(req.query.page) : 0;
+    const perPage = 50;
+
+    let patrons = await User
+    .find({
+      'backer.tier': {$gt: 0},
+    })
+    .select('contributor backer profile.name')
+    .sort('-backer.tier')
+    .skip(page * perPage)
+    .limit(perPage)
+    .lean()
+    .exec();
+
+    res.respond(200, patrons);
+  },
+};
+
+/**
  * @api {get} /hall/heroes Get all Heroes
  * @apiVersion 3.0.0
  * @apiName GetHeroes
@@ -26,7 +64,7 @@ api.getHeroes = {
     .find({
       'contributor.level': {$gt: 0},
     })
-    .select('contributor backer balance profile.name')
+    .select('contributor backer profile.name')
     .sort('-contributor.level')
     .lean()
     .exec();
@@ -39,7 +77,7 @@ api.getHeroes = {
 // they can be used by admins to get/update any user
 // TODO rename?
 
-const heroAdminFields = 'contributor balance profile.name purchased items auth.local.username auth';
+const heroAdminFields = 'contributor balance profile.name purchased items auth';
 
 /**
  * @api {get} /hall/heroes/:heroId Get an hero given his _id. Must be an admin to make this request
@@ -69,11 +107,14 @@ api.getHero = {
     let hero = await User
       .findById(heroId)
       .select(heroAdminFields)
-      .lean()
       .exec();
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));
-    res.respond(200, hero);
+    let heroRes = hero.toJSON({minimize: true});
+    // supply to the possible absence of hero.contributor
+    // if we didn't pass minimize: true it would have returned all fields as empty
+    if (!heroRes.contributor) heroRes.contributor = {};
+    res.respond(200, heroRes);
   },
 };
 
@@ -112,7 +153,7 @@ api.updateHero = {
     if (updateData.balance) hero.balance = updateData.balance;
 
     // give them gems if they got an higher level
-    let newTier = updateData.contributor.level; // tier = level in this context
+    let newTier = updateData.contributor && updateData.contributor.level; // tier = level in this context
     let oldTier = hero.contributor && hero.contributor.level || 0;
     if (newTier > oldTier) {
       hero.flags.contributor = true;
@@ -124,8 +165,9 @@ api.updateHero = {
       }
     }
 
-    if (updateData.contributor) hero.contributor = updateData.contributor;
+    if (updateData.contributor) _.assign(hero.contributor, updateData.contributor);
     if (updateData.purchased && updateData.purchased.ads) hero.purchased.ads = updateData.purchased.ads;
+
     // give them the Dragon Hydra pet if they're above level 6
     if (hero.contributor.level >= 6) hero.items.pets['Dragon-Hydra'] = 5;
     if (updateData.itemPath && updateData.itemVal &&
@@ -133,52 +175,17 @@ api.updateHero = {
         User.schema.paths[updateData.itemPath]) {
       _.set(hero, updateData.itemPath, updateData.itemVal); // Sanitization at 5c30944 (deemed unnecessary) TODO review
     }
+
     if (updateData.auth && _.isBoolean(updateData.auth.blocked)) hero.auth.blocked = updateData.auth.blocked;
 
     let savedHero = await hero.save();
-    let responseHero = {}; // only respond with important fields
-    heroAdminFields.split().forEach(field => {
-      _.set(responseHero, field, _.get(savedHero, field));
+    let heroJSON = savedHero.toJSON();
+    let responseHero = {_id: heroJSON._id}; // only respond with important fields
+    heroAdminFields.split(' ').forEach(field => {
+      _.set(responseHero, field, _.get(heroJSON, field));
     });
 
     res.respond(200, responseHero);
-  },
-};
-
-/**
- * @api {get} /hall/patrons Get all Patrons. Only the first 50 patrons are returned. More can be accessed passing ?page=n.
- * @apiVersion 3.0.0
- * @apiName GetPatrons
- * @apiGroup Hall
- *
- * @apiParam {Number} page The result page. Default is 0
- *
- * @apiSuccess {Array} patron An array of patrons
- */
-api.getPatrons = {
-  method: 'GET',
-  url: '/hall/patrons',
-  middlewares: [authWithHeaders(), cron],
-  async handler (req, res) {
-    req.checkQuery('page', res.t('pageMustBeNumber')).isNumeric();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let page = req.query.page || 0;
-    const perPage = 50;
-
-    let patrons = await User
-    .find({
-      'backer.tier': {$gt: 0},
-    })
-    .select('contributor backer profile.name')
-    .sort('-backer.tier')
-    .skip(page * perPage)
-    .limit(perPage)
-    .exec();
-
-    res.respond(200, patrons);
   },
 };
 
