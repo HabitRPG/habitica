@@ -21,7 +21,8 @@ import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
-
+import common from '../../../../common';
+import { sendNotification as sendPushNotification } from '../../libs/api-v3/pushNotifications';
 let api = {};
 
 // TODO shall we accept party as groupId in all routes?
@@ -509,6 +510,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
     sendTxnEmail(userToInvite, `invited-${groupLabel}`, emailVars);
   }
+
+  sendPushNotification(
+    userToInvite,
+    common.i18n.t(group.type === 'guild' ? 'invitedGuild' : 'invitedParty'),
+    group.name
+  );
 
   let userInvited = await userToInvite.save();
   if (group.type === 'guild') {

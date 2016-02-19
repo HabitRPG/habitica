@@ -7,7 +7,7 @@ var _ = require('lodash');
 var shared = require('../../../../common');
 var utils = require('../../libs/api-v2/utils');
 var nconf = require('nconf');
-var pushNotify = require('./../pushNotifications');
+var pushNotify = require('./pushNotifications');
 
 var fetchMember = function(uuid, restrict){
   return function(cb){

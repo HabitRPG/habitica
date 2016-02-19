@@ -11,7 +11,7 @@ var logging = require('./../../libs/api-v2/logging');
 var csv = require('express-csv');
 var utils = require('../../libs/api-v2/utils');
 var api = module.exports;
-var pushNotify = require('./../pushNotifications');
+var pushNotify = require('./pushNotifications');
 
 /*
   ------------------------------------------------------------------------

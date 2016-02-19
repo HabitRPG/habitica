@@ -15,6 +15,7 @@ import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import { quests as questScrolls } from '../../../common/script/content';
 import Q from 'q';
 import nconf from 'nconf';
+import { sendNotification as sendPushNotification } from '../libs/api-v3/pushNotifications';
 
 let Schema = mongoose.Schema;
 
@@ -306,9 +307,12 @@ schema.methods.startQuest = async function startQuest (user) {
   // send notifications in the background without blocking
   User.find(
     { _id: { $in: nonUserQuestMembers } },
-    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications profile.name',
-  ).exec().then(membersToEmail => {
-    membersToEmail = _.filter(membersToEmail, (member) => {
+    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications pushDevices profile.name',
+  ).exec().then(membersToNotify => {
+    let membersToEmail = _.filter(membersToNotify, (member) => {
+      // send push notifications and filter users that disabled emails
+      sendPushNotification(user, 'HabitRPG', `${shared.i18n.t('questStarted')}: ${quest.text()}`);
+
       return member.preferences.emailNotifications.questStarted !== false &&
         member._id !== user._id;
     });
