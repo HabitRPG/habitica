@@ -7,7 +7,7 @@ let _sendWebhook = (url, body) => {
     url,
     body,
     json: true,
-  });
+  }); // TODO use promises and handle errors
 };
 
 let _isInvalidWebhook = (hook) => {
