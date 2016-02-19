@@ -22,7 +22,7 @@ import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
 import common from '../../../../common';
-import { sendNotification as sendPushNotification } from '../../libs/api-v3/pushNotifications';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
 let api = {};
 
 // TODO shall we accept party as groupId in all routes?

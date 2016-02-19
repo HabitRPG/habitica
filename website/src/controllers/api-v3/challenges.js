@@ -17,7 +17,7 @@ import {
 import shared from '../../../../common';
 import * as Tasks from '../../models/task';
 import { sendTxn as txnEmail } from '../../libs/api-v3/email';
-import { sendNotification as sendPushNotification } from '../../libs/api-v3/pushNotifications';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
 import Q from 'q';
 import csvStringify from '../../libs/api-v3/csvStringify';
 

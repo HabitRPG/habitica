@@ -18,7 +18,7 @@ import {
 } from '../../libs/api-v3/email';
 import { quests as questScrolls } from '../../../../common/script/content';
 import common from '../../../../common';
-import { sendNotification as sendPushNotification } from '../../libs/api-v3/pushNotifications';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
 
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true

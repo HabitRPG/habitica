@@ -15,7 +15,7 @@ import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import { quests as questScrolls } from '../../../common/script/content';
 import Q from 'q';
 import nconf from 'nconf';
-import { sendNotification as sendPushNotification } from '../libs/api-v3/pushNotifications';
+import sendPushNotification from '../libs/api-v3/pushNotifications';
 
 let Schema = mongoose.Schema;
 
@@ -311,7 +311,7 @@ schema.methods.startQuest = async function startQuest (user) {
   ).exec().then(membersToNotify => {
     let membersToEmail = _.filter(membersToNotify, (member) => {
       // send push notifications and filter users that disabled emails
-      sendPushNotification(user, 'HabitRPG', `${shared.i18n.t('questStarted')}: ${quest.text()}`);
+      sendPushNotification(member, 'HabitRPG', `${shared.i18n.t('questStarted')}: ${quest.text()}`);
 
       return member.preferences.emailNotifications.questStarted !== false &&
         member._id !== user._id;
