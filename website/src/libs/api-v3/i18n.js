@@ -49,7 +49,7 @@ shared.i18n.translations = translations;
 
 export let langCodes = Object.keys(translations);
 
-export let avalaibleLanguages = langCodes.map((langCode) => {
+export let availableLanguages = langCodes.map((langCode) => {
   return {
     code: langCode,
     name: translations[langCode].languageName,
@@ -57,7 +57,7 @@ export let avalaibleLanguages = langCodes.map((langCode) => {
 });
 
 langCodes.forEach((code) => {
-  let lang = _.find(avalaibleLanguages, {code});
+  let lang = _.find(availableLanguages, {code});
 
   lang.momentLangCode = momentLangsMapping[code] || code;
 
@@ -110,7 +110,7 @@ export let multipleVersionsLanguages = {
 // TODO review if this can be removed since the old mobile app is no longer active
 // stringName and vars are the allowed parameters
 export function enTranslations (...args) {
-  let language = _.find(avalaibleLanguages, {code: 'en'});
+  let language = _.find(availableLanguages, {code: 'en'});
 
   // language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
   args.push(language.code);

@@ -14,6 +14,7 @@ import AWS from 'aws-sdk';
 import nconf from 'nconf';
 import got from 'got';
 import Q from 'q';
+import locals from '../../middlewares/api-v3/locals';
 
 let S3 = new AWS.S3({
   accessKeyId: nconf.get('S3:accessKeyId'),
@@ -24,6 +25,8 @@ const S3_BUCKET = nconf.get('S3:bucket');
 const BASE_URL = nconf.get('BASE_URL');
 
 let api = {};
+
+// TODO move these routes out of the /api/v3/export namespace to the top level /export
 
 /**
  * @api {get} /export/history.csv Export user tasks history in CSV format. History is only available for habits and dailys so todos and rewards won't be included
@@ -152,6 +155,7 @@ api.exportUserDataXml = {
 api.exportUserAvatarHtml = {
   method: 'GET',
   url: '/export/avatar-:memberId.html',
+  middlewares: [locals],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 

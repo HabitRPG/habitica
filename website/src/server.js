@@ -61,7 +61,6 @@ let FacebookStrategy = passportFacebook.Strategy;
 //   have a database of user records, the complete Facebook profile is serialized
 //   and deserialized.
 passport.serializeUser((user, done) => done(null, user));
-
 passport.deserializeUser((obj, done) => done(null, obj));
 
 // FIXME
@@ -91,7 +90,9 @@ app.all(/^(?!\/api\/v3).+/i, oldApp);
 // Matches all requests going to /api/v3
 app.all('/api/*', newApp);
 
-// Mount middlewares for the new app
+// TODO change ^ so that all routes except those marked explictly with api/v2 goes to oldApp
+
+// Mount middlewares for the new app (api v3)
 attachMiddlewares(newApp);
 
 /* OLD APP IS DISABLED UNTIL COMPATIBLE WITH NEW MODELS

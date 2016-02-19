@@ -84,7 +84,7 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.language = window.env.language;
-    $scope.avalaibleLanguages = window.env.avalaibleLanguages;
+    $scope.availableLanguages = window.env.availableLanguages;
 
     $scope.changeLanguage = function(){
       $rootScope.$on('userSynced', function(){

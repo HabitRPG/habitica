@@ -27,6 +27,8 @@ export default function attachMiddlewares (app) {
   app.use(setupBody);
   app.use(responseHandler);
   app.use(getUserLanguage);
+  app.set('view engine', 'jade');
+  app.set('views', `${__dirname}/../../../views`);
 
   app.use('/api/v3', routes);
   app.use(notFoundHandler);
