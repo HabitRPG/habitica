@@ -17,7 +17,7 @@ import {
 import shared from '../../../../common';
 import * as Tasks from '../../models/task';
 import { sendTxn as txnEmail } from '../../libs/api-v3/email';
-import pushNotify from '../../libs/api-v3/pushNotifications';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
 import Q from 'q';
 import csvStringify from '../../libs/api-v3/csvStringify';
 
@@ -471,7 +471,7 @@ async function _closeChal (challenge, broken = {}) {
       ]);
     }
 
-    pushNotify(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
+    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
   }
 
   // Run some operations in the background withouth blocking the thread

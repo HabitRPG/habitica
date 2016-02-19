@@ -12,7 +12,7 @@ var async = require('async');
 var iap = require('./iap');
 var mongoose= require('mongoose');
 var cc = require('coupon-code');
-var pushNotify = require('./../pushNotifications');
+var pushNotify = require('./../api-v2/pushNotifications');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {

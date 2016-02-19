@@ -25,11 +25,11 @@ if (gcm) {
 }
 
 // TODO test
-export default function sendNotify (user, title, message, timeToLive = 15) {
+export default function sendNotification (user, title, message, timeToLive = 15) {
   // TODO need investigation:
   // https://github.com/HabitRPG/habitrpg/issues/5252
 
-  if (!user) throw new Error('User is required');
+  if (!user) throw new Error('User is required.');
 
   _.each(user.pushDevices, pushDevice => {
     switch (pushDevice.type) {
@@ -50,6 +50,7 @@ export default function sendNotify (user, title, message, timeToLive = 15) {
         break;
 
       case 'ios':
+        // TODO implement
         break;
     }
   });

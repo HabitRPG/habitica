@@ -17,6 +17,8 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
 import { quests as questScrolls } from '../../../../common/script/content';
+import common from '../../../../common';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
 
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true
@@ -62,7 +64,7 @@ api.inviteToQuest = {
     let members = await User.find({
       'party._id': group._id,
       _id: {$ne: user._id},
-    }).select('auth.facebook auth.local preferences.emailNotifications profile.name')
+    }).select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
     .exec();
 
     group.markModified('quest');
@@ -102,6 +104,13 @@ api.inviteToQuest = {
     // send out invites
     let inviterVars = getUserInfo(user, ['name', 'email']);
     let membersToEmail = members.filter(member => {
+      // send push notifications while filtering members before sending emails
+      sendPushNotification(
+        member,
+        common.i18n.t('questInvitationTitle'),
+        common.i18n.t('questInvitationInfo', { quest: quest.text() })
+      );
+
       return member.preferences.emailNotifications.invitedQuest !== false;
     });
     sendTxnEmail(membersToEmail, `invite-${quest.boss ? 'boss' : 'collection'}-quest`, [
