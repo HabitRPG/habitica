@@ -36,7 +36,7 @@ let api = {};
 api.exportUserHistory = {
   method: 'GET',
   url: '/export/history.csv',
-  middlewares: [authWithSession(), cron],
+  middlewares: [authWithSession, cron],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -104,7 +104,7 @@ async function _getUserDataForExport (user) {
 api.exportUserDataJson = {
   method: 'GET',
   url: '/export/userdata.json',
-  middlewares: [authWithSession(), cron],
+  middlewares: [authWithSession, cron],
   async handler (req, res) {
     let userData = await _getUserDataForExport(res.locals.user);
 
@@ -129,7 +129,7 @@ api.exportUserDataJson = {
 api.exportUserDataXml = {
   method: 'GET',
   url: '/export/userdata.xml',
-  middlewares: [authWithSession(), cron],
+  middlewares: [authWithSession, cron],
   async handler (req, res) {
     let userData = await _getUserDataForExport(res.locals.user);
 
