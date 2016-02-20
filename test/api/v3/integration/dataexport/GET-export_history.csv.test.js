@@ -7,7 +7,7 @@ import {
 } from '../../../../helpers/mongo';
 import moment from 'moment';
 
-describe.only('GET /export/history.csv', () => {
+describe('GET /export/history.csv', () => {
   it('should return a valid CSV file with tasks history data', async () => {
     let user = await generateUser();
     let tasks = await user.post('/tasks/user', [
