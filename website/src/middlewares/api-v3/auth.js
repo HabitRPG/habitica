@@ -30,7 +30,6 @@ export function authWithHeaders (optional = false) {
 
       res.locals.user = user;
       // TODO use either session/cookie or headers, not both
-      req.session = req.session || {};
       req.session.userId = user._id;
       next();
     })

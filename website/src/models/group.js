@@ -493,7 +493,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
 export let tavernQuest = {};
 let tavernQ = {_id: 'habitrpg', 'quest.key': {$ne: null}};
 
-// we use process.nextTick because at this point the model is not yet avalaible
+// we use process.nextTick because at this point the model is not yet available
 process.nextTick(() => {
   model // eslint-disable-line no-use-before-define
   .findOne(tavernQ).exec()

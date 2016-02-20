@@ -2,6 +2,7 @@
 
 import superagent from 'superagent';
 import nconf from 'nconf';
+import { isEmpty, cloneDeep } from 'lodash';
 
 const API_TEST_SERVER_PORT = nconf.get('PORT');
 let apiVersion;
@@ -9,7 +10,9 @@ let apiVersion;
 // Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
 // the user are used to make the requests
-export function requester (user = {}, additionalSets) {
+export function requester (user = {}, additionalSets = {}) {
+  additionalSets = cloneDeep(additionalSets); // cloning because it could be modified later to set cookie
+
   return {
     get: _requestMaker(user, 'get', additionalSets),
     post: _requestMaker(user, 'post', additionalSets),
@@ -22,7 +25,7 @@ requester.setApiVersion = (version) => {
   apiVersion = version;
 };
 
-function _requestMaker (user, method, additionalSets) {
+function _requestMaker (user, method, additionalSets = {}) {
   if (!apiVersion) throw new Error('apiVersion not set');
 
   return (route, send, query) => {
@@ -36,7 +39,7 @@ function _requestMaker (user, method, additionalSets) {
           .set('x-api-key', user.apiToken);
       }
 
-      if (additionalSets) {
+      if (!isEmpty(additionalSets)) {
         request.set(additionalSets);
       }
 
@@ -50,6 +53,13 @@ function _requestMaker (user, method, additionalSets) {
             let parsedError = _parseError(err);
 
             reject(parsedError);
+          }
+
+          // if any cookies was sent, save it for the next request
+          if (response.headers['set-cookie']) {
+            additionalSets.cookie = response.headers['set-cookie'].map(cookieString => {
+              return cookieString.split(';')[0];
+            }).join('; ');
           }
 
           let contentType = response.headers['content-type'] || '';
