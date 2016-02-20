@@ -22,6 +22,10 @@ requester.setApiVersion = (version) => {
   apiVersion = version;
 };
 
+// save the last cookie so that it's resent with every request
+// should be safe since every time a user is generated this will be overwritten
+let cookie;
+
 function _requestMaker (user, method, additionalSets) {
   if (!apiVersion) throw new Error('apiVersion not set');
 
@@ -34,6 +38,11 @@ function _requestMaker (user, method, additionalSets) {
         request
           .set('x-api-user', user._id)
           .set('x-api-key', user.apiToken);
+      }
+
+      // if we previously saved a cookie, send it along the request
+      if (cookie) {
+        request.set('Cookie', cookie);
       }
 
       if (additionalSets) {
@@ -50,6 +59,13 @@ function _requestMaker (user, method, additionalSets) {
             let parsedError = _parseError(err);
 
             reject(parsedError);
+          }
+
+          // if any cookies was sent, save it for the next request
+          if (response.headers['set-cookie']) {
+            cookie = response.headers['set-cookie'].map(cookieString => {
+              return cookieString.split(';')[0];
+            }).join('; ');
           }
 
           let contentType = response.headers['content-type'] || '';

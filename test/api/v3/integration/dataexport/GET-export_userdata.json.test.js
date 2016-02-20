@@ -1,4 +1,3 @@
-// TODO how to test this route since it uses session authentication?
 import {
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';

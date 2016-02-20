@@ -30,7 +30,6 @@ export function authWithHeaders (optional = false) {
 
       res.locals.user = user;
       // TODO use either session/cookie or headers, not both
-      req.session = req.session || {};
       req.session.userId = user._id;
       next();
     })
@@ -41,7 +40,7 @@ export function authWithHeaders (optional = false) {
 // Authenticate a request through a valid session
 // TODO should use json web token
 export function authWithSession (req, res, next) {
-  let userId = req.session && req.session.userId;
+  let userId = req.session.userId;
 
   if (!userId) return next(new NotAuthorized(i18n.t('invalidCredentials')));
 
