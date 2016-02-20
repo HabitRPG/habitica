@@ -208,19 +208,27 @@ mixin profileStats
                       |&nbsp;
                       =env.t('distributePoints')
             tr
-              td= env.t('allocateStr') + ' {{user.stats.str}}'
+              td
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('strengthText'))
+                  =env.t('allocateStr') + ' {{user.stats.str}}'
               td
                 a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateStrPop')) +
             tr
-              td= env.t('allocateInt') + ' {{user.stats.int}}'
+              td
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('intText'))
+                  =env.t('allocateInt') + ' {{user.stats.int}}'
               td
                 a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateIntPop')) +
             tr
-              td= env.t('allocateCon') + ' {{user.stats.con}}'
+              td
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('conText'))
+                  =env.t('allocateCon') + ' {{user.stats.con}}'
               td
                 a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateConPop')) +
             tr
-              td= env.t('allocatePer') + ' {{user.stats.per}}'
+              td
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('perText'))
+                  =env.t('allocatePer') + ' {{user.stats.per}}'
               td
                 a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocatePerPop')) +
 
