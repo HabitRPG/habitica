@@ -21,6 +21,9 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   });
 
 } else {
+  if (nconf.get('NODE_ENV') === 'production')
+    require('newrelic');
+
   var express = require("express");
   var http = require("http");
   var path = require("path");
