@@ -5,7 +5,7 @@ import {
 import { encrypt } from '../../../../../website/src/libs/api-v3/encryption';
 import { v4 as generateUUID } from 'uuid';
 
-describe('GET /unsubscribe', () => {
+describe('GET /email/unsubscribe', () => {
   let user;
   let testEmail = 'test@habitica.com';
 
@@ -14,7 +14,7 @@ describe('GET /unsubscribe', () => {
   });
 
   it('return error when code is not provided', async () => {
-    await expect(user.get('/unsubscribe')).to.eventually.be.rejected.and.eql({
+    await expect(user.get('/email/unsubscribe')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'Invalid request parameters.',
@@ -26,7 +26,7 @@ describe('GET /unsubscribe', () => {
       _id: generateUUID(),
     }));
 
-    await expect(user.get(`/unsubscribe?code=${code}`)).to.eventually.be.rejected.and.eql({
+    await expect(user.get(`/email/unsubscribe?code=${code}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('userNotFound'),
@@ -39,7 +39,7 @@ describe('GET /unsubscribe', () => {
       email: user.email,
     }));
 
-    await user.get(`/unsubscribe?code=${code}`);
+    await user.get(`/email/unsubscribe?code=${code}`);
 
     let unsubscribedUser = await user.get('/user');
 
@@ -51,7 +51,7 @@ describe('GET /unsubscribe', () => {
       email: testEmail,
     }));
 
-    let unsubscribedMessage = await user.get(`/unsubscribe?code=${code}`);
+    let unsubscribedMessage = await user.get(`/email/unsubscribe?code=${code}`);
 
     expect(unsubscribedMessage).to.equal('<h1>Unsubscribed successfully!</h1> You won\'t receive any other email from Habitica.');
   });
@@ -61,7 +61,7 @@ describe('GET /unsubscribe', () => {
       email: testEmail,
     }));
 
-    let unsubscribedMessage = await user.get(`/unsubscribe?code=${code}`);
+    let unsubscribedMessage = await user.get(`/email/unsubscribe?code=${code}`);
 
     expect(unsubscribedMessage).to.equal('<h1>Unsubscribed successfully!</h1> You won\'t receive any other email from Habitica.');
   });
