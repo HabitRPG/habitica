@@ -19,7 +19,7 @@ let api = {};
  */
 api.unsubscribe = {
   method: 'GET',
-  url: '/unsubscribe',
+  url: '/email/unsubscribe',
   middlewares: [],
   async handler (req, res) {
     req.checkQuery({
@@ -41,14 +41,11 @@ api.unsubscribe = {
 
       if (userUpdated.nModified !== 1) throw new NotFound(res.t('userNotFound'));
 
-      res.send(`<h1>${res.t('unsubscribedSuccessfully', null, req.language)}</h1> res.t('unsubscribedTextUsers', null, req.language)`);
+      res.send(`<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextUsers')}`);
     } else {
       let unsubscribedEmail = await EmailUnsubscription.findOne({email: data.email});
-      let okResponse = `<h1>${res.t('unsubscribedSuccessfully', null, req.language)}</h1> ${res.t('unsubscribedTextOthers', null, req.language)}`;
-      if (unsubscribedEmail) return res.send(okResponse);
-
-      await EmailUnsubscription.create({email: data.email});
-
+      let okResponse = `<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextOthers')}`;
+      if (!unsubscribedEmail) await EmailUnsubscription.create({email: data.email});
       res.send(okResponse);
     }
   },
