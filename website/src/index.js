@@ -1,3 +1,5 @@
+'use strict';
+
 // Register babel hook so we can write the real entry file (server.js) in ES6
 require('babel-core/register');
 

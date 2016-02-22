@@ -1,3 +1,5 @@
+'use strict';
+
 // We can't rely on babel here
 // because the file is requested directly by the new relic module
 
