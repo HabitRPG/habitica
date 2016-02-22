@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",
     "beastAchievement": "Ви здобули досягнення „Звіролов“ за збір усіх улюбленців!",
     "beastMasterName": "Володар Звірів",
-    "beastMasterText": "Знайдено усіх 90 улюбленців (шалено важко, привітайте цього гравця!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "and has released their pets a total of <%= count %> times",
     "mountMasterProgress": "Прогрес Майстра Скакунів",
     "stableMountMasterProgress": "Mount Master Progress: <%= number %> Mounts Tamed",

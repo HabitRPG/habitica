@@ -12,7 +12,7 @@
     "rebirthInList2": "Випробування, ґільдії та гурти, до яких Ви належали, збереглися.",
     "rebirthInList3": "Самоцвіти, рівень співавтора та мецената збереглися.",
     "rebirthInList4": "Предмети придбано, ті, що випали (улюбленці чи скакуни) збереглися, але Ви не можете їх використовувати, допоки не розблокуєте їх знову.",
-    "rebirthInList5": "Спорядження обмеженого видання, яке Ви придбали, може бути придбане знову, незважаючи на те, що час того заходу вже вичерпався.",
+    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
     "rebirthEarnAchievement": "Ви отримали досягнення за початок нової пригоди!",
     "beReborn": "Переродись-но!",
     "rebirthAchievement": "Ви почали нову пригоду! Це Ваше <%= number %> переродження, Ви досягали найбільше <%= level %> рівня. Аби збільшити це досягнення, почніть свою нову пригоду після того, як досягнете вищого рівня!",

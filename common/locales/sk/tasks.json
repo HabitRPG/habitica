@@ -2,7 +2,6 @@
     "clearCompleted": "Zmaž hotové",
     "lotOfToDos": "Splnené úlohy sa po 3 dňoch automaticky archivujú. Ostanú prístupné cez Nastavenia > Export",
     "deleteToDosExplanation": "Ak klikneš na tlačítko nižšie, všetky tvoje dokončené ToDo a archivované ToDo sa nenávratne zmažú. Ak si chceš uchovať históriu, najskôr použi export.",
-    "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",
     "addmultiple": "Add Multiple",
     "addsingle": "Add Single",
     "habit": "Habit",

@@ -2,7 +2,6 @@
     "clearCompleted": "Borrado completado",
     "lotOfToDos": "Las tareas finalizadas se archivan automáticamente después de 3 días. Puedes acceder a ellas desde Ajustes > Exportar.",
     "deleteToDosExplanation": "Si le das clic al botón de abajo, todas sus tareas completadas y tareas archivadas se borrarán permanentemente. Expórtalas primero si quieres llevar un registro de ellas.",
-    "beeminderDeleteWarning": "Usuarios de Beeminder: <strong> Primero </ strong> leer <a\nhref=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\"> Eliminación de las tareas pendientes completadas sin confundir a Beeminder </a>!",
     "addmultiple": "Añade varias",
     "addsingle": "Añade una",
     "habit": "hábito",

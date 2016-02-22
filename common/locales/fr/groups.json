@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Offrir vos propres Gemmes",
     "sendGiftPurchase": "Acheter les Gemmes",
     "sendGiftMessagePlaceholder": "Message personnel (facultatif)",
-    "sendGiftSubscription": "<%= months %> Mois: €<%= price %> EUR",
+    "sendGiftSubscription": "<%= months %> Mois : €<%= price %> EUR",
     "battleWithFriends": "Combattez des Monstres aux côtés d'Amis",
     "startPartyWithFriends": "Créez une équipe avec vos amis !",
     "startAParty": "Former une Equipe",

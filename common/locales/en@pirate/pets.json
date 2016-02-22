@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",
     "beastAchievement": "Ye've earned th' \"Beast Master\" Achievement fer collectin' all th' pets!",
     "beastMasterName": "Beast Master",
-    "beastMasterText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "an' has released their pets a total o' <%= count %> times",
     "mountMasterProgress": "Mount Master Progress",
     "stableMountMasterProgress": "Mount Master Progress: <%= number %> Mounts Tamed",
@@ -80,7 +80,7 @@
     "petKeyPets": "Release Me Pets",
     "petKeyMounts": "Release Me Mounts",
     "petKeyBoth": "Release Both",
-    "confirmPetKey": "Are you sure?",
+    "confirmPetKey": "Be ye positive?",
     "petKeyNeverMind": "Not Yet",
     "gemsEach": "sapphires each"
 }

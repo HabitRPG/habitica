@@ -2,7 +2,6 @@
     "clearCompleted": "Șterge pe cele completate",
     "lotOfToDos": "sarcinile „de făcut” completate sunt arhivate automat după 3 zile. Le poți accesa de la Setări > Export.",
     "deleteToDosExplanation": "Dacă apeși butonul de mai jos, toate sarcinile, inclusiv cele arhivate, vor fi șterse permanent. Exportă-le mai întâi dacă dorești să ții o evidență a lor.",
-    "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",
     "addmultiple": "Add Multiple",
     "addsingle": "Add Single",
     "habit": "Habit",

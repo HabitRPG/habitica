@@ -5,7 +5,7 @@ var _ = require('lodash');
 var locals = require('../middlewares/api-v2/locals');
 var i18n = require('../libs/api-v2/i18n');
 
-const TOTAL_USER_COUNT = '1,000,000';
+const TOTAL_USER_COUNT = '1,100,000';
 
 // -------- App --------
 router.get('/', i18n.getUserLanguage, locals, function(req, res) {

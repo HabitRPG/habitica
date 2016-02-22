@@ -25,7 +25,7 @@
     "polarBearPup": "Filhote de Urso Polar",
     "jackolantern": "O miserável Jack da Lanterna",
     "seasonalShop": "Loja Sazonal",
-    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Feiticeira Sazonal<%= linkEnd %>",
     "seasonalShopClosedText": "A Loja Sazonal está fechada atualmente! Eu não sei onde a Feiticeira Sazonal está agora, mas eu aposto que ela estará de volta durante a próxima <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grande Gala</a>!",
     "seasonalShopText": "Bem vindo a Loja Sazonal!! Nós estamos vendendo mercadorias <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edição Sazonal</a> de primavera no momento. Tudo aqui estará disponível para compra durante o Festival de Primavera todos os  anos, mas nós só estaremos abertos até 30 de abril, então certifique-se de estocar agora ou você vai ter que esperar um ano para comprar esses items de novo!",

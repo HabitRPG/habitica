@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",
     "beastAchievement": "Megkaptad a \"Bestiamester\" Kitűntetést, amiért összegyűjtötted az összes háziállatot!",
     "beastMasterName": "Bestiamester",
-    "beastMasterText": "megtalálta mind a 90 háziállatot (őrülten nehéz, gratulálj ennek a felhasználónak!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "és elengedte a háziállatait <%= count %>  alkalommal",
     "mountMasterProgress": "Hátasmester Haladás",
     "stableMountMasterProgress": "Mount Master Progress: <%= number %> Mounts Tamed",
@@ -80,7 +80,7 @@
     "petKeyPets": "Háziállataim elengedése",
     "petKeyMounts": "Hátasaim elengedése",
     "petKeyBoth": "Mindkettő elengedése",
-    "confirmPetKey": "Are you sure?",
+    "confirmPetKey": "Biztos vagy benne?",
     "petKeyNeverMind": "Még Nem",
     "gemsEach": "drágakő egyenként"
 }

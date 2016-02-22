@@ -25,7 +25,7 @@
     "polarBearPup": "Isbjörnsunge",
     "jackolantern": "Lyktgubbe",
     "seasonalShop": "Säsongsbutik",
-    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a>!",
     "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",

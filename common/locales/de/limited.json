@@ -25,7 +25,7 @@
     "polarBearPup": "Eisbärenjunges",
     "jackolantern": "Halloweenkürbis",
     "seasonalShop": "Saisonaler Shop",
-    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Saisonzauberin<%= linkEnd %>",
     "seasonalShopClosedText": "Der Saisonale Shop ist gerade geschlossen!! Ich weiß nicht, wo die Saisonzauberin gerade ist, aber ich wette sie wird während der nächsten <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a> wieder zurück sein!",
     "seasonalShopText": "Willkommen zum Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Frühlingsgegenstände</a> auf Lager. Alles hier wird während des Frühlingsevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 30. April, also stocke jetzt auf, ansonsten musst du bis nächstes Jahr warten.",

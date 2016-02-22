@@ -2,7 +2,6 @@
     "clearCompleted": "Deletar Completos",
     "lotOfToDos": "Afazeres completos são automaticamente arquivados depois de 3 dias. Você pode acessá-los através de Configurações > Exportar.",
     "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completos e arquivados serão apagados permanentemente. Exporte-os primeiro se quiser manter um registro deles.",
-    "beeminderDeleteWarning": "Usuários do Beeminder: <strong>Primeiro</strong> leiam <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deletando Afazeres Completados Sem Confundir o Beeminder</a>!",
     "addmultiple": "Adicionar Múltiplos",
     "addsingle": "Adicionar Único",
     "habit": "Hábito",

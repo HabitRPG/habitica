@@ -169,8 +169,6 @@ module.exports.analytics = { track: function() { }, trackPurchase: function() { 
 module.exports.setupConfig = function(){
   if (nconf.get('IS_DEV'))
     Error.stackTraceLimit = Infinity;
-  //if (nconf.get('IS_PROD'))
-    //require('newrelic');
 
   var analytics = IS_PROD && require('./api-v2/analytics');
   var analyticsTokens = {

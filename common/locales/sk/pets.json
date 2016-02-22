@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",
     "beastAchievement": "Za zozbieranie všetkých zvieratiek si získal odznak \"Pán šeliem\"!",
     "beastMasterName": "Pán šeliem",
-    "beastMasterText": "Našiel všetkých 90 zvieratiek (šialene náročné, zaslúži si potlesk!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "and has released their pets a total of <%= count %> times",
     "mountMasterProgress": "Mount Master Progress",
     "stableMountMasterProgress": "Mount Master Progress: <%= number %> Mounts Tamed",

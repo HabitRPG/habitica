@@ -2,7 +2,6 @@
     "clearCompleted": "Obrisati završene zadatke",
     "lotOfToDos": "Završeni zadaci automatski se odlažu u arhivu posle 3 dana. Možete ih naći u Postavke > Export.",
     "deleteToDosExplanation": "Ako kliknete na ovo dugme, svi završeni i arhivirani zadaci biće trajno obrisani. Upotrebite Export funkciju ako želite da ih sačuvate.",
-    "beeminderDeleteWarning": "Korisnici Beeminder-a: <strong>Pre</strong> nego što obrišete zadatke, pročitajte <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Kako da obrišete završene zadatke, a da ne zbunite Beeminder</a>!",
     "addmultiple": "Dodaj više odjednom",
     "addsingle": "Dodaj pojedinačno",
     "habit": "Habit",

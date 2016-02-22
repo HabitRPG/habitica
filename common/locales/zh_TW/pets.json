@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "寵物大師進度：目前找到<%= number %>隻寵物",
     "beastAchievement": "你找齊了所有寵物，獲得了”寵物大師“的成就！",
     "beastMasterName": "寵物大師",
-    "beastMasterText": "找到了全部90種的寵物(要命的困難，恭喜這位玩家！)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "並且放生全部90隻寵物達到 <%= count %>次",
     "mountMasterProgress": "座騎大師進度",
     "stableMountMasterProgress": "座騎大師進度：目前馴服<%= number %>隻座騎",

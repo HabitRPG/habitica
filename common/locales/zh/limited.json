@@ -25,7 +25,7 @@
     "polarBearPup": "北极熊崽",
     "jackolantern": "杰克南瓜灯",
     "seasonalShop": "季度商店",
-    "seasonalShopClosedTitle": "<%= linkStart %>锡耶纳 莱斯利<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季节魔女<%= linkEnd %>",
     "seasonalShopClosedText": "季度商店暂时停业!! 我不知道季节女巫现在在哪里，但是我敢打赌她会在下一个 <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>盛大庆典的时候回来</a>!",
     "seasonalShopText": "欢迎来到季度商店！！我们现在囤积了各色春日 <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季度版</a> 商品。每年的春日嘉年华期间，这里的一切都能买到——直到4月30号。所以赶快来扫货吧，否则你要足足再等一年才能买到！",
