@@ -5,7 +5,13 @@
         popover=env.t('checklistText'), popover-trigger='mouseenter', popover-placement='bottom',
         ng-click='addChecklist(task)')
         span.glyphicon.glyphicon-tasks
-        span=env.t('addChecklist')
+        span=env.t('addChecklist')  
+  ul
+    li
+      button(type='button', ng-if='task.checklist[0]'
+        ng-click='addChecklistItem(task,$event,task.checklist.length-1)')
+        span.glyphicon.glyphicon-plus
+        span=env.t('add')
 
   .checklist-form(ng-if='task.checklist')
     fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
