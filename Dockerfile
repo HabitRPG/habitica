@@ -11,6 +11,8 @@ RUN apt-get install -y \
     build-essential \
     curl \
     git \
+    libfontconfig1 \
+    libfreetype6 \
     libkrb5-dev \
     python
 
