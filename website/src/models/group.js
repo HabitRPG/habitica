@@ -8,6 +8,9 @@ var logging = require('../libs/logging');
 var Challenge = require('./../models/challenge').model;
 var firebase = require('../libs/firebase');
 
+const NO_CHAT_NOTIFICATIONS = ['habitrpg'];
+const LARGE_GROUP_CUTOFF = 5000; // Guilds larger than 5000 cannot receive notifications.
+
 // NOTE any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
 var GroupSchema = new Schema({
@@ -59,7 +62,13 @@ var GroupSchema = new Schema({
   }
 }, {
   strict: 'throw',
-  minimize: false // So empty objects are returned
+  minimize: false, // So empty objects are returned
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 /**
@@ -155,7 +164,9 @@ var chatDefaults = module.exports.chatDefaults = function(msg,user){
   return message;
 }
 
-var NO_CHAT_NOTIFICATIONS = ['habitrpg']
+GroupSchema.virtual('isTooLargeForChatNotifications').get(function () {
+  return this.memberCount > LARGE_GROUP_CUTOFF;
+});
 
 GroupSchema.methods.sendChat = function(message, user){
   var group = this;
@@ -164,8 +175,7 @@ GroupSchema.methods.sendChat = function(message, user){
   // Kick off chat notifications in the background.
   var lastSeenUpdate = {$set:{}, $inc:{_v:1}};
   lastSeenUpdate['$set']['newMessages.'+group._id] = {name:group.name,value:true};
-  var LARGE_GROUP_CUTOFF = 5000; // Guilds larger than 5000 cannot receive notifications.
-  if (NO_CHAT_NOTIFICATIONS.indexOf(group._id) !== -1 || group.memberCount > LARGE_GROUP_CUTOFF) {
+  if (NO_CHAT_NOTIFICATIONS.indexOf(group._id) !== -1 || group.isTooLargeForChatNotifications) {
     // TODO For Tavern, only notify them if their name was mentioned
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
