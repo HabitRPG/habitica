@@ -1036,11 +1036,13 @@ api.specialMounts = {
 api.timeTravelStable = {
   pets: {
     'Mammoth-Base': t('mammoth'),
-    'MantisShrimp-Base': t('mantisShrimp')
+    'MantisShrimp-Base': t('mantisShrimp'),
+    'Phoenix-Base': t('phoenix'),
   },
   mounts: {
     'Mammoth-Base': t('mammoth'),
-    'MantisShrimp-Base': t('mantisShrimp')
+    'MantisShrimp-Base': t('mantisShrimp'),
+    'Phoenix-Base': t('phoenix'),
   }
 };
 
