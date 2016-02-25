@@ -634,45 +634,56 @@ var inviteByEmails = function(invites, group, req, res, next){
 
   async.each(invites, function(invite, cb){
     if (invite.email) {
-      User.findOne({$or: [
-        {'auth.local.email': invite.email},
-        {'auth.facebook.emails.value': invite.email}
-      ]}).select({_id: true, 'preferences.emailNotifications': true})
-        .exec(function(err, userToContact){
-          if(err) return next(err);
 
-          if(userToContact){
+      var selectAttrs = {_id: true, 'preferences.emailNotifications': true};
+
+      User.findOne({'auth.local.email': invite.email})
+        .select(selectAttrs)
+        .exec(function(err, userToContact) {
+          if (err) return next(err);
+          if (userToContact) {
             usersAlreadyRegistered.push(userToContact._id);
             return cb();
           }
 
-          // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
+          User.findOne({'auth.facebook.emails.value': invite.email})
+            .select(selectAttrs)
+            .exec(function(err, userToContact) {
+              if (err) return next(err);
+              if (userToContact) {
+                usersAlreadyRegistered.push(userToContact._id);
+                return cb();
+              }
 
-          var link = '?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
+              // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
 
-          var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
-          var variables = [
-            {name: 'LINK', content: link},
-            {name: 'INVITER', content: req.body.inviter || inviterVars.name},
-            {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
-          ];
+              var link = '?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
 
-          if(group.type == 'guild'){
-            variables.push({name: 'GUILD_NAME', content: group.name});
-          }
+              var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
+              var variables = [
+                {name: 'LINK', content: link},
+                {name: 'INVITER', content: req.body.inviter || inviterVars.name},
+                {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
+              ];
 
-          // TODO implement "users can only be invited once"
-          // Check for the email address not to be unsubscribed
-          EmailUnsubscription.findOne({email: invite.email}, function(err, unsubscribed){
-            if(err) return cb(err);
-            if(unsubscribed) return cb();
+              if(group.type == 'guild'){
+                variables.push({name: 'GUILD_NAME', content: group.name});
+              }
 
-            utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+              // TODO implement "users can only be invited once"
+              // Check for the email address not to be unsubscribed
+              EmailUnsubscription.findOne({email: invite.email}, function(err, unsubscribed){
+                if(err) return cb(err);
+                if(unsubscribed) return cb();
 
-            cb();
+                utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+
+                cb();
+              });
+            });
           });
-        });
-    }else{
+
+    } else {
       cb();
     }
   }, function(err){
