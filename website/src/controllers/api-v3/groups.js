@@ -459,7 +459,6 @@ api.removeGroupMember = {
 };
 
 async function _inviteByUUID (uuid, group, inviter, req, res) {
-  // TODO: Add Push Notifications
   let userToInvite = await User.findById(uuid).exec();
 
   if (!userToInvite) {
@@ -493,7 +492,6 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   if (userToInvite.preferences.emailNotifications[`invited${groupLabel}`] !== false) {
     let emailVars = [
       {name: 'INVITER', content: inviter.profile.name},
-      {name: 'REPLY_TO_ADDRESS', content: inviter.email},
     ];
 
     if (group.type === 'guild') {
@@ -541,16 +539,16 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
   } else {
     userReturnInfo = invite.email;
-    // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
-    // TODO absolutely refactor this horrible code
-    const partyQueryString = JSON.stringify({id: group._id, inviter, name: group.name});
-    const encryptedPartyqueryString = encrypt(partyQueryString);
-    let link = `?partyInvite=${encryptedPartyqueryString}`;
+    const groupQueryString = JSON.stringify({
+      id: group._id,
+      inviter: inviter._id,
+      sentAt: Date.now(), // so we can let it expire
+    });
+    let link = `?groupInvite=${encrypt(groupQueryString)}`;
 
     let variables = [
       {name: 'LINK', content: link},
-      {name: 'INVITER', content: inviter || inviter.profile.name},
-      {name: 'REPLY_TO_ADDRESS', content: inviter.email},
+      {name: 'INVITER', content: inviter.profile.name},
     ];
 
     if (group.type === 'guild') {

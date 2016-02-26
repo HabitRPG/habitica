@@ -9,7 +9,6 @@ import {
 import forceRefresh from './../forceRefresh';
 import { tavernQuest } from '../../models/group';
 import { mods } from '../../models/user';
-import { decrypt } from '../../libs/api-v3/encryption';
 
 // To avoid stringifying more data then we need,
 // items from `env` used on the client will have to be specified in this array
@@ -58,16 +57,6 @@ export default function locals (req, res, next) {
     // empty object until the query to fetch it finishes
     worldDmg: tavernQuest && tavernQuest.extra && tavernQuest.extra.worldDmg || {},
   });
-
-  // Put query-string party (& guild but use partyInvite for backward compatibility)
-  // invitations into session to be handled later
-  if (req.query.partyInvite) {
-    try {
-      req.session.partyInvite = JSON.parse(decrypt(req.query.partyInvite));
-    } catch (e) {
-      // TODO logs
-    }
-  }
 
   next();
 }

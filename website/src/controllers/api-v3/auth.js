@@ -1,17 +1,49 @@
 import validator from 'validator';
+import moment from 'moment';
 import passport from 'passport';
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import {
   NotAuthorized,
+  NotFound,
 } from '../../libs/api-v3/errors';
 import Q from 'q';
 import * as passwordUtils from '../../libs/api-v3/password';
 import { model as User } from '../../models/user';
+import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
+import { decrypt } from '../../libs/api-v3/encryption';
+
 
 let api = {};
+
+// When the user signed up after having been invited to a group, invite them automatically to the group
+async function _handleGroupInvitation (user, invite) {
+  // wrapping the code in a try because we don't want it to prevent the user from signing up
+  // that's why errors are not translated
+  try {
+    let {sentAt, id: groupId, inviter} = JSON.parse(decrypt(invite));
+
+    // check that the invite has not expired (after 7 days)
+    if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
+      let err = new Error('Invite expired');
+      err.privateData = invite;
+      throw err;
+    }
+
+    let group = await Group.getGroup({user, optionalMembership: true, groupId, fields: 'name type'});
+    if (!group) throw new NotFound('Group not found.');
+
+    if (group.type === 'party') {
+      user.invitations.party = {id: group._id, name: group.name, inviter};
+    } else {
+      user.invitations.guilds.push({id: group._id, name: group.name, inviter});
+    }
+  } catch (err) {
+    // TODO log errors
+  }
+}
 
 /**
  * @api {post} /user/auth/local/register Register a new user with email, username and password or attach local auth to a social user
@@ -84,25 +116,29 @@ api.registerLocal = {
       },
     };
 
-    let savedUser;
-
     if (fbUser) {
       if (!fbUser.auth.facebook.id) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
       fbUser.auth.local = newUser;
-      savedUser = await fbUser.save();
+      newUser = fbUser;
     } else {
       newUser = new User(newUser);
       newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
-      savedUser = await newUser.save();
     }
 
+    // we check for partyInvite for backward compatibility
+    if (req.query.groupInvite || req.query.partyInvite) {
+      await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
+    }
+
+    let savedUser = await newUser.save();
+
     if (savedUser.auth.facebook.id) {
-      res.respond(200, savedUser.auth.local); // TODO make sure this used .toJSON and removes private fields
+      res.respond(200, savedUser.toJSON().auth.local); // We convert to toJSON to hide private fields
     } else {
       res.respond(201, savedUser);
     }
 
-    // Clean previous email preferences
+    // Clean previous email preferences and send welcome email
     EmailUnsubscription
       .remove({email: savedUser.auth.local.email})
       .then(() => sendTxnEmail(savedUser, 'welcome'));
