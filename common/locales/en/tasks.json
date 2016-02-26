@@ -112,5 +112,7 @@
     "rewardHelp2": "Equipment affects your stats (<%= linkStart %>Avatar > Stats<%= linkEnd %>).",
     "rewardHelp3": "Special equipment will appear here during World Events.",
     "rewardHelp4": "Don't be afraid to set custom Rewards! Check out <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>some samples here</a>.",
-    "clickForHelp": "Click for help"
+    "clickForHelp": "Click for help",
+    "checklistEnter": "You can also add a new checklist item by hitting Enter after typing the previous item.",
+    "checklistAdd": "Add checklist item"
 }

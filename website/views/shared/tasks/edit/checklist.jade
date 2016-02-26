@@ -6,15 +6,9 @@
         ng-click='addChecklist(task)')
         span.glyphicon.glyphicon-tasks
         span=env.t('addChecklist')  
-  ul
-    li
-      button(type='button', ng-if='task.checklist[0]'
-        ng-click='addChecklistItem(task,$event,task.checklist.length-1)')
-        span.glyphicon.glyphicon-plus
-        span=env.t('add')
 
   .checklist-form(ng-if='task.checklist')
-    fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
+    fieldset(ng-if='!$state.includes("options.social.challenges")')
       legend.option-title(ng-if='task.checklist[0]')
         span.hint(popover=env.t('checklistText'), popover-trigger='mouseenter', popover-placement='bottom')
           =env.t('checklist')
@@ -27,3 +21,10 @@
             ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
           a(ng-click='removeChecklistItem(task,$event,$index,true)')
             span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+  
+  ul.option-group
+    li
+      button(type='button', ng-if='task.checklist[0]'
+        popover=env.t('checklistEnter'), popover-trigger='mouseenter', popover-placement='bottom',
+        ng-click='addChecklistItem(task,$event,task.checklist.length-1)')
+        span=env.t('checklistAdd')
