@@ -167,8 +167,13 @@ module.exports.analytics = { track: function() { }, trackPurchase: function() { 
  * Load nconf and define default configuration values if config.json or ENV vars are not found
  */
 module.exports.setupConfig = function(){
+  IS_PROD = nconf.get('NODE_ENV') === 'production';
+  BASE_URL = nconf.get('BASE_URL');
+
   if (nconf.get('IS_DEV'))
     Error.stackTraceLimit = Infinity;
+  if (IS_PROD && nconf.get('NEW_RELIC_ENABLED') === 'true')
+    require('newrelic');
 
   var analytics = IS_PROD && require('./api-v2/analytics');
   var analyticsTokens = {
