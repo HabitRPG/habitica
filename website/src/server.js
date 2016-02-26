@@ -167,6 +167,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var activeHandleInterval = setInterval(logHandles, logHandlesInterval);
 
   function logHandles() {
-    activeHandles.print();
+    activeHandles.print({highlight:false});
   }
 }
