@@ -111,8 +111,7 @@ describe('Groups Controller', function() {
           'invite-friend',
           [
             { name: 'LINK', content: '?partyInvite=http://link.com' },
-            { name: 'INVITER', content: 'inviter' },
-            { name: 'REPLY_TO_ADDRESS', content: 'inviter@example.com' }
+            { name: 'INVITER', content: 'inviter' }
           ]
         );
       });
