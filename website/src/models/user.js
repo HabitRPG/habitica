@@ -136,7 +136,7 @@ export let schema = new Schema({
       dateUpdated: Date,
       extraMonths: {type: Number, default: 0},
       gemsBought: {type: Number, default: 0},
-      mysteryItems: {type: Array, default: []},
+      mysteryItems: {type: Array, default: () => []},
       lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
       consecutive: {
         count: {type: Number, default: 0},
@@ -348,16 +348,15 @@ export let schema = new Schema({
   challenges: [{type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}],
 
   invitations: {
-    guilds: [{
-      id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
-      name: String,
-      inviter: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
-    }],
-    party: {
-      id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
-      name: String,
-      inviter: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
-    },
+    // Using an array without validation because otherwise mongoose treat this as a subdocument and applies _id by default
+    // Schema is (id, name, inviter)
+    // TODO one way to fix is http://mongoosejs.com/docs/guide.html#_id
+    guilds: {type: Array, default: () => []},
+    // Using a Mixed type because otherwise user.invitations.party = {} // to reset invitation, causes validation to fail TODO
+    // schema is the same as for guild invitations (id, name, inviter)
+    party: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
@@ -483,7 +482,7 @@ export let schema = new Schema({
 
   inbox: {
     newMessages: {type: Number, default: 0},
-    blocks: {type: Array, default: []},
+    blocks: {type: Array, default: () => []},
     messages: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
@@ -504,7 +503,7 @@ export let schema = new Schema({
       regId: {type: String},
       type: {type: String},
     }],
-    default: [],
+    default: () => [],
   },
 }, {
   strict: true,

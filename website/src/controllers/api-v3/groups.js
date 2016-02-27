@@ -251,16 +251,16 @@ api.joinGroup = {
 
     let isUserInvited = false;
 
-    if (group.type === 'party' && group._id === (user.invitations.party && user.invitations.party.id)) {
+    if (group.type === 'party' && group._id === user.invitations.party.id) {
       inviter = user.invitations.party.inviter;
-      user.invitations.party = {}; // Clear invite TODO mark modified?
+      user.invitations.party = {}; // Clear invite
+      user.markModified('invitations.party');
 
       // invite new user to pending quest
       if (group.quest.key && !group.quest.active) {
         user.party.quest.RSVPNeeded = true;
         user.party.quest.key = group.quest.key;
-        user.party.quest.progress = undefined; // Make sure to reset progress from ay previous quest
-        group.quest.members[user._id] = undefined;
+        group.quest.members[user._id] = null;
         group.markModified('quest.members');
       }
 
@@ -459,7 +459,6 @@ api.removeGroupMember = {
 };
 
 async function _inviteByUUID (uuid, group, inviter, req, res) {
-  // TODO: Add Push Notifications
   let userToInvite = await User.findById(uuid).exec();
 
   if (!userToInvite) {
@@ -475,7 +474,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
     userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
   } else if (group.type === 'party') {
-    if (!_.isEmpty(userToInvite.invitations.party)) {
+    if (userToInvite.invitations.party.id) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
     }
 

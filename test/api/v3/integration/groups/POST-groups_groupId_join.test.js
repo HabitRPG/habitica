@@ -7,6 +7,8 @@ import {
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /group/:groupId/join', () => {
+  const PET_QUEST = 'whale';
+
   it('returns error when groupId is not for a valid group', async () => {
     let joiningUser = await generateUser();
 
@@ -135,6 +137,7 @@ describe('POST /group/:groupId/join', () => {
           name: 'Test Party',
           type: 'party',
         },
+        members: 2,
         invites: 1,
       });
 
@@ -205,18 +208,20 @@ describe('POST /group/:groupId/join', () => {
         await expect(checkExistence('groups', oldParty._id)).to.eventually.equal(false);
       });
 
-      xit('invites joining member to active quest', async () => {
-        // TODO start quest
+      it('invites joining member to active quest', async () => {
+        await user.update({
+          [`items.quests.${PET_QUEST}`]: 1,
+        });
+        await user.post(`/groups/${party._id}/quests/invite/${PET_QUEST}`);
 
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        invitedUser = await user.get('/user');
-        party = await user.get(`/groups/${party._id}`);
+        await invitedUser.sync();
+        await party.sync();
 
-        expect(user).to.have.deep.property('party.quest.RSVPNeeded', true);
-        expect(user).to.have.deep.property('party.quest.key', party.quest.key);
-
-        expect(party.quest.members[invitedUser._id]).to.be.undefined;
+        expect(invitedUser).to.have.deep.property('party.quest.RSVPNeeded', true);
+        expect(invitedUser).to.have.deep.property('party.quest.key', party.quest.key);
+        expect(party.quest.members[invitedUser._id]).to.be.null;
       });
     });
   });
