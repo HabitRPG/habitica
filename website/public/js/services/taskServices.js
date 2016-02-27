@@ -15,6 +15,30 @@
 
   function tasksFactory($rootScope, Shared, User) {
 
+    function addTask(listDef, fn) {
+      if (listDef.bulk) {
+        var tasks = listDef.newTask.split(/[\n\r]+/);
+        tasks.reverse();
+        _.each(tasks, function(task) {
+          fn(task);
+        });
+        listDef.bulk = false;
+      } else {
+        var task = listDef.newTask;
+        fn(task);
+      }
+      delete listDef.newTask;
+      delete listDef.focus;
+    }
+
+    function toggleBulk(list) {
+      if (typeof list.bulk === 'undefined') {
+        list.bulk = false;
+      }
+      list.bulk = !list.bulk;
+      list.focus = true;
+    };
+
     function editTask(task) {
       task._editing = !task._editing;
       task._tags = !User.user.preferences.tagsCollapsed;
@@ -46,6 +70,8 @@
     }
 
     return {
+      addTask: addTask,
+      toggleBulk: toggleBulk,
       editTask: editTask,
       cloneTask: cloneTask
     };

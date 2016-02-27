@@ -204,32 +204,15 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // Tasks
     //------------------------------------------------------------
 
-    $scope.addTask = function(addTo, listDef) {
-      if (listDef.bulk) {
-        var tasks = listDef.newTask.split(/[\n\r]+/);
-        tasks.reverse();
-        _.each(tasks, function(t) {
-          var task = Shared.taskDefaults({text: t, 
-                                         type: listDef.type});
-          addTo.unshift(task);
-        });
-        listDef.bulk = false;
-      } else {
-        var task = Shared.taskDefaults({text: listDef.newTask, 
-                                       type: listDef.type});
-        addTo.unshift(task);
-      }
-      delete listDef.newTask;
-      delete listDef.focus;
+    $scope.addTask = function(list, listDef) {
+      Tasks.addTask(listDef, function(t) {
+        var task = Shared.taskDefaults({text: t, 
+                                        type: listDef.type});
+        list.unshift(task);
+      });
     };
 
-    $scope.toggleBulk = function(list) {
-      if (typeof list.bulk === 'undefined') {
-        list.bulk = false;
-      }
-      list.bulk = !list.bulk;
-      list.focus = true;
-    };
+    $scope.toggleBulk = Tasks.toggleBulk;
 
     $scope.removeTask = function(task, list) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
