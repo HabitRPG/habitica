@@ -548,14 +548,13 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 
     let variables = [
       {name: 'LINK', content: link},
-      {name: 'INVITER', content: inviter.profile.name},
+      {name: 'INVITER', content: req.body.inviter || inviter.profile.name},
     ];
 
     if (group.type === 'guild') {
       variables.push({name: 'GUILD_NAME', content: group.name});
     }
 
-    // TODO implement "users can only be invited once"
     // Check for the email address not to be unsubscribed
     let userIsUnsubscribed = await EmailUnsubscription.findOne({email: invite.email}).exec();
     let groupLabel = group.type === 'guild' ? '-guild' : '';
@@ -598,7 +597,7 @@ api.inviteToGroup = {
     let emails = req.body.emails;
 
     let uuidsIsArray = Array.isArray(uuids);
-    let emailsIsArray  = Array.isArray(emails);
+    let emailsIsArray = Array.isArray(emails);
 
     if (!uuids && !emails) {
       throw new BadRequest(res.t('canOnlyInviteEmailUuid'));

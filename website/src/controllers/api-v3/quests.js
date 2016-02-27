@@ -116,7 +116,6 @@ api.inviteToQuest = {
     sendTxnEmail(membersToEmail, `invite-${quest.boss ? 'boss' : 'collection'}-quest`, [
       {name: 'QUEST_NAME', content: quest.text()},
       {name: 'INVITER', content: inviterVars.name},
-      {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
       {name: 'PARTY_URL', content: '/#/options/groups/party'},
     ]);
 

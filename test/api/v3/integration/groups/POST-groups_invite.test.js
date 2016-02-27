@@ -3,6 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import * as email from '../../../../../website/src/libs/api-v3/email';
 
 const INVITES_LIMIT = 100;
 
@@ -17,6 +18,10 @@ describe('Post /groups/:groupId/invite', () => {
       name: groupName,
       type: 'guild',
     });
+  });
+
+  afterEach(() => {
+    if (email.sendTxn.restore) email.sendTxn.restore();
   });
 
   describe('user id invites', () => {
@@ -70,9 +75,10 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('invites a user to a group by uuid', async () => {
+    it.only('invites a user to a group by uuid', async () => {
       let userToInvite = await generateUser();
 
+      sandbox.stub(email, 'sendTxn');
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       })).to.eventually.deep.equal([{
@@ -80,6 +86,13 @@ describe('Post /groups/:groupId/invite', () => {
         name: groupName,
         inviter: inviter._id,
       }]);
+
+      expect(email.sendTxn).to.be.calledOnce;
+      expect(email.sendTxn[0][0]._id).to.equal(userToInvite._id);
+      expect(email.sendTxn[0][1]).to.equal('invited-guild');
+      expect(email.sendTxn[0][2]).to.have.all.keys(['GUILD_NAME', 'GUILD_URL', 'INVITER']);
+      expect(email.sendTxn[0][2].INVITER).to.equal(inviter.profile.name);
+
       await expect(userToInvite.get('/user'))
         .to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
     });
@@ -102,6 +115,8 @@ describe('Post /groups/:groupId/invite', () => {
           inviter: inviter._id,
         },
       ]);
+      expect(email.sendTxn).to.be.calledTwice;
+
       await expect(userToInvite.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
       await expect(userToInvite2.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
     });
@@ -173,13 +188,23 @@ describe('Post /groups/:groupId/invite', () => {
     it('invites a user to a group by email', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
+        inviter: 'inviter name',
       })).to.exist;
+
+      expect(email.sendTxn).to.be.calledOnce;
+      expect(email.sendTxn[0][0]).to.eql(testInvite);
+      expect(email.sendTxn[0][1]).to.equal('invite-friend-guild');
+      expect(email.sendTxn[0][2]).to.have.all.keys(['GUILD_NAME', 'LINK', 'INVITER']);
+      expect(email.sendTxn[0][2].INVITER).to.equal('inviter name');
     });
 
     it('invites multiple users to a group by email', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite, {name: 'test2', email: 'test2@habitica.com'}],
       })).to.exist;
+
+      expect(email.sendTxn).to.be.calledTwice;
+      expect(email.sendTxn[0][2].INVITER).to.equal(inviter.profile.name);
     });
   });
 
@@ -226,6 +251,7 @@ describe('Post /groups/:groupId/invite', () => {
 
       expect(invite).to.exist;
       expect(invitedUser.invitations.guilds[0].id).to.equal(group._id);
+      expect(email.sendTxn).to.be.calledTwice;
     });
   });
 
@@ -320,6 +346,8 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [userToInvite._id],
       });
       expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+
+      expect(email.sendTxn).to.be.calledOnce;
     });
   });
 });
