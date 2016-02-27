@@ -30,9 +30,4 @@ common/dist/scripts/*
 common/dist/sprites/habitrpg-shared.css
 .elasticbeanstalk/config.yml
 
-
 test/spec/mocks/translations.js
-
-#vim
-.tern-project
-tags
