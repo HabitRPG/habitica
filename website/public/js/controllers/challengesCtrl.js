@@ -214,6 +214,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.toggleBulk = Tasks.toggleBulk;
 
+
     $scope.removeTask = function(task, list) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
       //TODO persist
