@@ -21,7 +21,9 @@ export let schema = new Schema({
 
   auth: {
     blocked: Boolean,
-    facebook: {type: Schema.Types.Mixed, default: {}}, // TODO validate, IMPORTANT make sure the {} default isn't shared across all user objects
+    facebook: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     local: {
       email: {
         type: String,
@@ -50,7 +52,9 @@ export let schema = new Schema({
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
-    ultimateGearSets: Schema.Types.Mixed, // TODO remove, use dictionary?
+    ultimateGearSets: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     beastMaster: Boolean,
     beastMasterCount: Number,
     mountMaster: Boolean,
@@ -64,7 +68,9 @@ export let schema = new Schema({
     seafoam: Number,
     streak: Number,
     challenges: Array,
-    quests: Schema.Types.Mixed, // TODO remove, use dictionary?
+    quests: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     rebirths: Number,
     rebirthLevel: Number,
     perfect: {type: Number, default: 0},
@@ -99,16 +105,26 @@ export let schema = new Schema({
   },
 
   balance: {type: Number, default: 0},
-  filters: {type: Schema.Types.Mixed, default: {}}, // TODO dictionary
+  filters: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
 
   purchased: {
     ads: {type: Boolean, default: false},
     // eg, {skeleton: true, pumpkin: true, eb052b: true}
     // TODO dictionary
-    skin: {type: Schema.Types.Mixed, default: {}},
-    hair: {type: Schema.Types.Mixed, default: {}},
-    shirt: {type: Schema.Types.Mixed, default: {}},
-    background: {type: Schema.Types.Mixed, default: {}},
+    skin: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
+    hair: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
+    shirt: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
+    background: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     txnCount: {type: Number, default: 0},
     mobileChat: Boolean,
     plan: {
@@ -181,7 +197,9 @@ export let schema = new Schema({
     classSelected: {type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, default: false},
-    levelDrops: {type: Schema.Types.Mixed, default: {}},
+    levelDrops: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     chatRevoked: Boolean,
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
@@ -330,8 +348,16 @@ export let schema = new Schema({
   challenges: [{type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}],
 
   invitations: {
-    guilds: {type: Array}, // TODO what are we storing here
-    party: Schema.Types.Mixed, // TODO dictionary TODO what are we storing here?
+    guilds: [{
+      id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
+      name: String,
+      inviter: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
+    }],
+    party: {
+      id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
+      name: String,
+      inviter: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
+    },
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
@@ -345,7 +371,9 @@ export let schema = new Schema({
       progress: {
         up: {type: Number, default: 0},
         down: {type: Number, default: 0},
-        collect: {type: Schema.Types.Mixed, default: {}}, // {feather:1, ingot:2}
+        collect: {type: Schema.Types.Mixed, default: () => {
+          return {};
+        }}, // {feather:1, ingot:2}
       },
       completed: String, // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
       RSVPNeeded: {type: Boolean, default: false}, // Set to true when invite is pending, set to false when quest invite is accepted or rejected, quest starts, or quest is cancelled
@@ -384,7 +412,9 @@ export let schema = new Schema({
     reverseChatOrder: {type: Boolean, default: false},
     background: String,
     displayInviteToPartyWhenPartyIs1: {type: Boolean, default: true},
-    webhooks: {type: Schema.Types.Mixed, default: {}}, // TODO array? and proper controller... unless VersionError becomes problematic
+    webhooks: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }}, // TODO array? and proper controller... unless VersionError becomes problematic
     // For the following fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
     emailNotifications: {
@@ -466,7 +496,9 @@ export let schema = new Schema({
     completedTodos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
   },
-  extra: Schema.Types.Mixed,
+  extra: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
   pushDevices: {
     type: [{
       regId: {type: String},
