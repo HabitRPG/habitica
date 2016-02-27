@@ -1,7 +1,10 @@
 import validator from 'validator';
 import moment from 'moment';
 import passport from 'passport';
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import {
+  authWithHeaders,
+  authWithSession,
+ } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import {
   NotAuthorized,
@@ -304,5 +307,15 @@ api.deleteSocial = {
   },
 };
 
+api.logout = {
+  method: 'GET',
+  url: '/user/auth/logout', // TODO this is under /api/v3 route, should be accessible through habitica.com/logout
+  middlewares: [authWithSession, cron],
+  async handler (req, res) {
+    req.logout();
+    req.session = null;
+    res.redirect('/');
+  },
+};
 
 export default api;
