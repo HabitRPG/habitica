@@ -56,7 +56,8 @@ script(type='text/ng-template', id='modals/invite-party.html')
       input.form-control#new-group-name.input-medium.option-content(required, type='text', ng-model='group.name')
     p.alert.alert-warning(ng-if="getMemberAndInviteCount(group) > 25") 
       | You are approaching the 30 member party cap!
-      | There are currently {{getMembersAndInvitesCount(group)}} members in your party.
+      | Your party currently has {{getMemberAndInviteCount(group)}} members and
+      | invites.
     tabset
       tab(heading=env.t('inviteByEmail'))
         p.alert.alert-info=env.t('inviteByEmailExplanation')
