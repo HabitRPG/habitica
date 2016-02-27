@@ -80,6 +80,7 @@ describe('Post /groups/:groupId/invite', () => {
         name: groupName,
         inviter: inviter._id,
       }]);
+
       await expect(userToInvite.get('/user'))
         .to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
     });
@@ -102,6 +103,7 @@ describe('Post /groups/:groupId/invite', () => {
           inviter: inviter._id,
         },
       ]);
+
       await expect(userToInvite.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
       await expect(userToInvite2.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
     });
@@ -173,6 +175,7 @@ describe('Post /groups/:groupId/invite', () => {
     it('invites a user to a group by email', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
+        inviter: 'inviter name',
       })).to.exist;
     });
 
@@ -224,8 +227,8 @@ describe('Post /groups/:groupId/invite', () => {
       });
       let invitedUser = await newUser.get('/user');
 
-      expect(invite).to.exist;
       expect(invitedUser.invitations.guilds[0].id).to.equal(group._id);
+      expect(invite).to.exist;
     });
   });
 

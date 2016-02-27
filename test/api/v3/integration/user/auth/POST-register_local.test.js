@@ -2,9 +2,11 @@ import {
   generateUser,
   requester,
   translate as t,
+  createAndPopulateGroup,
 } from '../../../../../helpers/api-integration/v3';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
+import { encrypt } from '../../../../../../website/src/libs/api-v3/encryption';
 
 describe('POST /user/auth/local/register', () => {
   context('username and email are free', () => {
@@ -158,6 +160,53 @@ describe('POST /user/auth/local/register', () => {
         code: 401,
         error: 'NotAuthorized',
         message: t('emailTaken'),
+      });
+    });
+  });
+
+  context('req.query.groupInvite', () => {
+    let api, username, email, password;
+
+    beforeEach(() => {
+      api = requester();
+      username = generateRandomUserName();
+      email = `${username}@example.com`;
+      password = 'password';
+    });
+
+    it('does not crash the signup process when it\'s invalid', async () => {
+      let user = await api.post('/user/auth/local/register?groupInvite=aaaaInvalid', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user._id).to.be.a('string');
+    });
+
+    it('supports invite using req.query.groupInvite', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now(), // so we can let it expire
+      }));
+
+      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.invitations.party).to.eql({
+        id: group._id,
+        name: group.name,
+        inviter: groupLeader._id,
       });
     });
   });
