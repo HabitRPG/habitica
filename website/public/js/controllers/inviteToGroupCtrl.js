@@ -27,6 +27,7 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
     };
 
     $scope.getMemberAndInviteCount = function(group) {
+
       return group.memberCount + group.invites.length;
     }
 
