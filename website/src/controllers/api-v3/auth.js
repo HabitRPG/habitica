@@ -1,6 +1,7 @@
 import validator from 'validator';
 import moment from 'moment';
 import passport from 'passport';
+import nconf from 'nconf';
 import {
   authWithHeaders,
   authWithSession,
@@ -17,7 +18,7 @@ import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { decrypt } from '../../libs/api-v3/encryption';
-
+import FirebaseTokenGenerator from 'firebase-token-generator';
 
 let api = {};
 
@@ -282,6 +283,28 @@ api.loginSocial = {
   },
 };
 
+const firebaseTokenGenerator = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
+
+// Internal route TODO expose?
+api.getFirebaseToken = {
+  method: 'POST',
+  url: '/user/auth/firebase',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+    // Expires 24 hours from now (60*60*24*1000) (in milliseconds)
+    let expires = new Date();
+    expires.setTime(expires.getTime() + 86400000);
+
+    let token = firebaseTokenGenerator.createToken({
+      uid: user._id,
+      isHabiticaUser: true,
+    }, { expires });
+
+    res.respond(200, {token, expires});
+  },
+};
+
 /**
  * @api {delete} /user/auth/social/:network Delete a social authentication method (only facebook supported)
  * @apiVersion 3.0.0
@@ -307,6 +330,7 @@ api.deleteSocial = {
   },
 };
 
+// Internal route
 api.logout = {
   method: 'GET',
   url: '/user/auth/logout', // TODO this is under /api/v3 route, should be accessible through habitica.com/logout
