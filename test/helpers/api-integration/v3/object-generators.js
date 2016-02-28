@@ -83,7 +83,7 @@ export async function createAndPopulateGroup (settings = {}) {
     })
   );
 
-  group.update({ memberCount: numberOfMembers + 1});
+  await group.update({ memberCount: numberOfMembers + 1});
 
   let invitees = await Q.all(
     times(numberOfInvites, () => {

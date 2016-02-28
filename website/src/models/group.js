@@ -121,16 +121,24 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
-schema.statics.getGroup = function getGroup (options = {}) {
-  let {user, groupId, fields, optionalMembership = false, populateLeader = false} = options;
+schema.statics.getGroup = async function getGroup (options = {}) {
+  let {user, groupId, fields, optionalMembership = false, populateLeader = false, requireMembership = false} = options;
   let query;
 
+  let isParty = groupId === 'party' || user.party._id === groupId;
+  let isGuild = user.guilds.indexOf(groupId) !== -1;
+
+  // When requireMembership is true check that user is member even in public guild
+  if (requireMembership && !isParty && !isGuild) {
+    return null;
+  }
+
   // When optionalMembership is true it's not required for the user to be a member of the group
-  if (groupId === 'party' || user.party._id === groupId) {
+  if (isParty) {
     query = {type: 'party', _id: user.party._id};
   } else if (optionalMembership === true) {
     query = {_id: groupId};
-  } else if (user.guilds.indexOf(groupId) !== -1) {
+  } else if (isGuild) {
     query = {type: 'guild', _id: groupId};
   } else {
     query = {type: 'guild', privacy: 'public', _id: groupId};
@@ -139,7 +147,8 @@ schema.statics.getGroup = function getGroup (options = {}) {
   let mQuery = this.findOne(query);
   if (fields) mQuery.select(fields);
   if (populateLeader === true) mQuery.populate('leader', nameFields);
-  return mQuery.exec();
+  let group = await mQuery.exec();
+  return group;
 };
 
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
@@ -591,13 +600,16 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   // otherwise just remove a member TODO create User.methods.removeFromGroup?
   if (group.type === 'guild') {
-    promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id } }).exec());
+    promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
-    promises.push(User.update({_id: user._id}, {$set: {party: {} } }).exec());
+    promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
   }
 
   // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-  let update = { memberCount: group.memberCount - 1 };
+  let update = {
+    $inc: {memberCount: -1},
+  };
+
   if (group.leader === user._id) {
     let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
     query._id = {$ne: user._id};

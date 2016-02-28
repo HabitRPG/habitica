@@ -3,6 +3,8 @@ import {
   checkExistence,
   createAndPopulateGroup,
   sleep,
+  generateUser,
+  translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import {
   each,
@@ -20,6 +22,7 @@ describe('POST /groups/:groupId/leave', () => {
       let groupToLeave;
       let leader;
       let member;
+      let memberCount;
 
       beforeEach(async () => {
         let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -30,6 +33,16 @@ describe('POST /groups/:groupId/leave', () => {
         groupToLeave = group;
         leader = groupLeader;
         member = members[0];
+        memberCount = group.memberCount;
+      });
+
+      it('prevents non members from leaving', async () => {
+        let user = await generateUser();
+        await expect(user.post(`/groups/${groupToLeave._id}/leave`)).to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
       });
 
       it(`lets user leave a ${groupType}`, async () => {
@@ -39,14 +52,16 @@ describe('POST /groups/:groupId/leave', () => {
 
         expect(userThatLeftGroup.guilds).to.be.empty;
         expect(userThatLeftGroup.party._id).to.not.exist;
+        await groupToLeave.sync();
+        expect(groupToLeave.memberCount).to.equal(memberCount - 1);
       });
 
       it(`sets a new group leader when leader leaves a ${groupType}`, async () => {
         await leader.post(`/groups/${groupToLeave._id}/leave`);
 
-        let groupToLeaveWithNewLeader = await member.get(`/groups/${groupToLeave._id}`);
-
-        expect(groupToLeaveWithNewLeader.leader._id).to.equal(member._id);
+        await groupToLeave.sync();
+        expect(groupToLeave.memberCount).to.equal(memberCount - 1);
+        expect(groupToLeave.leader).to.equal(member._id);
       });
 
       context('With challenges', () => {

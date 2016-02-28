@@ -332,7 +332,7 @@ api.leaveGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat', requireMembership: true});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     // During quests, checke wheter user can leave
@@ -590,7 +590,7 @@ api.inviteToGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat TODO other fields too?
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let uuids = req.body.uuids;
