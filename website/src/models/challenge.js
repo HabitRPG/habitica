@@ -97,7 +97,6 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   let [challengeTasks, userTasks] = await Q.all([
     // Find original challenge tasks
     Tasks.Task.find({
-      userId: {$exists: false},
       'challenge.id': challenge._id,
     }).exec(),
     // Find user's tasks linked to this challenge
@@ -186,9 +185,10 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
 
   let updateCmd = {$set: {}};
 
-  _syncableAttrs(task).forEach((value, key) => {
-    updateCmd.$set[key] = value;
-  });
+  let syncableAttrs = _syncableAttrs(task);
+  for (let key in syncableAttrs) {
+    updateCmd.$set[key] = syncableAttrs[key];
+  }
 
   // TODO reveiw
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
