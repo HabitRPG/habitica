@@ -1,6 +1,7 @@
 import { uuid } from '../../../../common';
 import validator from 'validator';
 import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
+import _ from 'lodash';
 
 export default function baseModel (schema, options = {}) {
   schema.add({
@@ -45,8 +46,9 @@ export default function baseModel (schema, options = {}) {
     return options.sanitizeTransform ? options.sanitizeTransform(objToSanitize) : objToSanitize;
   };
 
-  if (!schema.options.toJSON) schema.options.toJSON = {};
   if (Array.isArray(options.private)) privateFields.push(...options.private);
+
+  if (!schema.options.toJSON) schema.options.toJSON = {};
   schema.options.toJSON.transform = function transformToObject (doc, plainObj) {
     privateFields.forEach((fieldPath) => {
       objectPath.del(plainObj, fieldPath);
@@ -54,5 +56,15 @@ export default function baseModel (schema, options = {}) {
 
     // Allow an additional toJSON transform function to be used
     return options.toJSONTransform ? options.toJSONTransform(plainObj) : plainObj;
+  };
+
+  schema.statics.getModelPaths = function getModelPaths () {
+    return _.reduce(this.schema.paths, (result, field, path) => {
+      if (privateFields.indexOf(path) === -1) {
+        result[path] = field.instance || 'Boolean';
+      }
+
+      return result;
+    }, {});
   };
 }

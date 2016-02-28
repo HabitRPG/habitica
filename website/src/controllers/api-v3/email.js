@@ -8,7 +8,7 @@ import {
 let api = {};
 
 /**
- * @api {post} /unsubscribe Unsubscribe an email or user from email notifications
+ * @api {post} /email/unsubscribe Unsubscribe an email or user from email notifications
  * @apiVersion 3.0.0
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
