@@ -45,6 +45,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     include ../shared/mixins
     .container
       block content
+    // Smart App Banner
     script(type='text/javascript').
       new SmartBanner({
           title: 'Habitica: Gamify Your Tasks',
@@ -53,5 +54,5 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
           store: {
               ios: 'On the App Store',
               android: 'In Google Play'
-          }//, force: 'ios' // Uncomment for platform emulation
+          }
       });
