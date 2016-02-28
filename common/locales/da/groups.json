@@ -101,7 +101,7 @@
     "inbox": "Indbakke",
     "abuseFlag": "Anmeld overtrædelse af Retningslinjer for Fællesskabet",
     "abuseFlagModalHeading": "Anmeld <%= name %> for overtrædelse?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Er du sikker på at du vil anmelde denne besked? Du skal KUN anmelde en besked, der overtræder <%= firstLinkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og/eller <%= secondLinkStart %>Betingelser og Vilkår<%= linkEnd %>. Hvis du anmelder en besked for andre ting end disse har du selv brudt Retningslinjer for Fællesskabet og kan få en overtrædelse. Passende grunde til at anmelde en besked inkluderer, men er ikke begrænset til: <p></p></br><ul style='margin-left: 10px;'><li>banden, religiøse eder</li><li>snæversynethed, bagtale</li><li>voksenemner</li><li>vold, inklusiv som en joke</li><li>spam, meningsløse beskeder</li></ul>",
     "abuseFlagModalButton": "Anmeld Overtrædelse",
     "abuseReported": "Tak for at anmelde denne overtrædelse. Moderatorerne er blevet informeret.",
     "abuseAlreadyReported": "Du har allerede anmeldt denne besked.",

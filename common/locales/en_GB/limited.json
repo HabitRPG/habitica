@@ -25,13 +25,13 @@
     "polarBearPup": "Polar Bear Cub",
     "jackolantern": "Jack-O-Lantern",
     "seasonalShop": "Seasonal Shop",
-    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a>!",
     "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until 30 April, so be sure to stock up now or you'll have to wait a year to buy these items again!",
     "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until 31 July, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until 31 October, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
-    "seasonalShopWinterText": "Welcome to the Seasonal Shop!! We're stocking winter <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Winter Wonderland event each year, but we're only open until January 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
+    "seasonalShopWinterText": "Welcome to the Seasonal Shop!! We're stocking winter <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Winter Wonderland event each year, but we're only open until 31 January, so be sure to stock up now or you'll have to wait a year to buy these items again!",
     "seasonalShopFallTextBroken": "Oh.... Welcome to the Seasonal Shop... We're stocking autumn Seasonal Edition goodies, or something... Everything here will be available to purchase during the Fall Festival event each year, but we're only open until 31 October... I guess you should to stock up now, or you'll have to wait... and wait... and wait... <strong>*sigh*</strong>",
     "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Candy Cane (Mage)",
@@ -68,5 +68,5 @@
     "mummyMedicSet": "Mummy Medic (Healer)",
     "vampireSmiterSet": "Vampire Smiter (Rogue)",
     "fallEventAvailability": "Available until 31 October",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Available until 31 December"
 }

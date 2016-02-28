@@ -25,7 +25,7 @@
     "polarBearPup": "Cachorro de Oso Polar",
     "jackolantern": "Calabaza de Halloween",
     "seasonalShop": "Tienda Estacional",
-    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Hechicera Estacional<%= linkEnd %>",
     "seasonalShopClosedText": "¡La Tienda Estacional está actualmente cerrada! ¡No sé dónde está ahora la Hechicera Estacional, pero seguro que vuelve durante la próxima <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a>!",
     "seasonalShopText": "¡¡ Bienvenido a la tienda de temporada !! Estamos almacenando bienes para la Temporada de Primavera <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>  Edición Estacional </a> en este momento. Todo lo que hay  aquí estará disponible para comprar durante el evento Spring Fling cada año, pero no abrimos hasta el 30 de Abril, así que asegúrate de abastecerte ahora, ¡o tendrás que esperar un año para poder comprar estos artículos de nuevo!",

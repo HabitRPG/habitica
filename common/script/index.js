@@ -2415,6 +2415,10 @@ api.wrap = function(user, main) {
       };
       plan = (ref = user.purchased) != null ? ref.plan : void 0;
       if (plan != null ? plan.customerId : void 0) {
+        if (typeof plan.dateUpdated === "undefined") {
+          // partial compensation for bug in subscription creation - https://github.com/HabitRPG/habitrpg/issues/6682
+          plan.dateUpdated = new Date();
+        }
         if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
           plan.gemsBought = 0;
           plan.dateUpdated = new Date();

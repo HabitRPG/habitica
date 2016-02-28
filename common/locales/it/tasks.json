@@ -2,7 +2,6 @@
     "clearCompleted": "Elimina attività completate",
     "lotOfToDos": "Le To-Do completate vengono automaticamente archiviate dopo 3 giorni. Puoi accedervi in Impostazioni > Esporta dati.",
     "deleteToDosExplanation": "Cliccando il bottone qui sotto, tutti i tuoi To-Do completati e quelli archiviati verranno cancellati in modo permanente. Esportali dall'apposito menù nelle impostazioni se vuoi mantenerne una copia.",
-    "beeminderDeleteWarning": "Utenti Beeminder: Leggere<strong> prima </strong><a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Cancellare i To-Do completati senza confondere Beeminder</a>! (in inglese)",
     "addmultiple": "Aggiungi multiple",
     "addsingle": "Aggiungi singola",
     "habit": "Habit",

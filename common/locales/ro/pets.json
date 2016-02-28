@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",
     "beastAchievement": "Ai primit medalia de \"Stăpânul fiarelor\" pentru că ai strâns toți companionii!",
     "beastMasterName": "Beast Master",
-    "beastMasterText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "and has released their pets a total of <%= count %> times",
     "mountMasterProgress": "Mount Master Progress",
     "stableMountMasterProgress": "Mount Master Progress: <%= number %> Mounts Tamed",

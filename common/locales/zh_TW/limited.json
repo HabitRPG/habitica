@@ -25,7 +25,7 @@
     "polarBearPup": "小北極熊",
     "jackolantern": "南瓜燈",
     "seasonalShop": "季節限定商店",
-    "seasonalShopClosedTitle": "<%= linkStart %> Siena Leslie <%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %> 季節魔女 <%= linkEnd %>",
     "seasonalShopClosedText": "季節限定商店目前沒有營業！我不知道店主人在哪，不過我想下個<a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>盛大宴會</a>他會回來的。",
     "seasonalShopText": "歡迎來到季節限定商店！！我們正要把春天 <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a> 的商品上架呢。這裡的每樣物品都會在每年歡慶春日的時節開放購買，但只到四月30日為止，所以趕快趁現在採購，不然你可得等到明年才能再買囉。",

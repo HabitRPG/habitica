@@ -140,7 +140,7 @@
     "mysticHourglass": "<%= amount %>神秘沙漏",
     "mysticHourglassText": "神秘沙漏允許您購買以前每月神祕的物品。",
     "purchasedPlanId": "Recurring $<%= price %> USD each <%= months %> Month(s) (<%= plan %>)",
-    "purchasedPlanExtraMonths": "你有 <%= months %> 月的訂閱信用.",
+    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
     "consecutiveSubscription": "連續訂閱",
     "consecutiveMonths": "連續月份",
     "gemCapExtra": "Gem Cap Extra:",

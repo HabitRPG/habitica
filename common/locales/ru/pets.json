@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Мастер зверей: Найдено <%= number %> питомцев",
     "beastAchievement": "Вы заработали достижение «Повелитель зверей» за то, что собрали всех питомцев!",
     "beastMasterName": "Повелитель зверей",
-    "beastMasterText": "Нашел все 90 питомцев (безумно сложно, поздравьте этого пользователя!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "и <%= count %> раз отпустил питомцев на свободу",
     "mountMasterProgress": "Прогресс повелителя скакунов",
     "stableMountMasterProgress": "Мастер скакунов: Приручено <%= number %> скакунов",

@@ -2,7 +2,6 @@
     "clearCompleted": "删除已完成任务",
     "lotOfToDos": "已经完成的待办事项将会在3天后自动归档。你可以在选项>设定>数据导出中找到它们。",
     "deleteToDosExplanation": "点击下面的按钮后，所有已完成的和被归档的待办事项会被永久删除。如果你希望保留记录，先导出它们。",
-    "beeminderDeleteWarning": "Beeminder 用户: <strong>首先</strong> 请阅读<a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">删除已完成的待办事项而不影响你的Beeminder</a>!",
     "addmultiple": "多个添加",
     "addsingle": "单个添加",
     "habit": "习惯",

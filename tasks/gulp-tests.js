@@ -12,12 +12,12 @@ import gulp                       from 'gulp';
 import Q                          from 'q';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
+import nconf                      from 'nconf';
 
 const TEST_SERVER_PORT  = 3003
-const TEST_DB           = 'habitrpg_test'
 let server;
 
-const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
+const TEST_DB_URI       = nconf.get('TEST_DB_URI');
 
 const API_V2_TEST_COMMAND = 'npm run test:api-v2:integration';
 const LEGACY_API_TEST_COMMAND = 'npm run test:api-legacy';
@@ -51,7 +51,7 @@ gulp.task('test:nodemon', (done) => {
   process.env.PORT = TEST_SERVER_PORT;
   process.env.NODE_DB_URI=TEST_DB_URI;
 
-  runSequence('nodemon')
+  runSequence('nodemon');
 });
 
 gulp.task('test:prepare:mongo', (cb) => {

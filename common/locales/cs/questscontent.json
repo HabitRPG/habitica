@@ -140,7 +140,7 @@
     "questAtom3Notes": "S ohlušujícím řevem a pěti lahodnými typy sýrů vyletujících z její tlamy se Nesvačinvá příšera rozpadá. \"JAK SE OPOVAŽUJETE!\" zahřmí hlas zpod vodní hladiny. Modrá postava v hábitu držící štětku na záchod se vynoří z vody. Špinavé prádlo se začne vynořovat na hladinu jezera. \"Já jsem Prádlomancr!\" naštvaně se představí. \"To máte tedy odvahu umýt mé úžasně špinavé prádlo, zničit mého mazlíčka a vstoupit na mé území v takových čistých hadrech. Připravte se pocítit mokrý hněv mé magie proti čistotě!\"",
     "questAtom3Completion": "Zákeřný Prádlomancr byl poražen! Čisté prádlo před vámi padá na hromádky. Už to tu vypadá mnohem lépe. Když začnete pomalu procházet skrz čistě vyprané brnění, všimnete si lesku kovu a váš zrak spočine na zářící helmě. Původní majitel tohoto zářícího předmětu může být neznámý, ale jakmile si ji nasadíš, cítíš přívětivou přítomnost štědrého ducha. Škoda, že si na ní původní majitel nenašil jmenovku.",
     "questAtom3Boss": "Prádlomancr",
-    "questAtom3DropPotion": "Základní líhnoucí lektvar",
+    "questAtom3DropPotion": "Base Hatching Potion",
     "questOwlText": "Sýček",
     "questOwlNotes": "Světlo v krčmě svítí až do úsvitu <br>Dokud jednoho večera nezmizí!<br>Jak uvidíme až pojedeme celou noc?<br>@Twitching křičí, \"Potřebuju nějaké rváče!<br>Vidíte toho sýčka?<br>Bijte se s ním rychle a nezahálejte!<br>Odrazíme jeho stín od našich dveří,<br>a noc bude znovu zářit!\"",
     "questOwlCompletion": "Sýček před úsvitem mizí,<br>Ale i tak cití, jak na tebe jde zývnutí.<br>Možá je čas na odpočinek?<br>A pak na své posteli uvidíš hnízdo!<br>Sýček ví, že může být skvělé<br>Dokončit práci a zůstat vzhůru déle,<br>Ale tví noví mazlíčky budou jemně pípat<br>Aby ti řekli, kdy je čas jít spát.",
@@ -285,5 +285,11 @@
     "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
     "questSabretoothBoss": "Zombie Sabre Cat",
     "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
-    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market"
+    "questSabretoothUnlockText": "Unlocks purchasable Sabretooth eggs in the Market",
+    "questMonkeyText": "Monstrous Mandrill and the Mischief Monkeys",
+    "questMonkeyNotes": "The Sloensteadi Savannah is being torn apart by the Monstrous Mandrill and his Mischief Monkeys! They shriek loudly enough to drown out the sound of approaching deadlines, encouraging everyone to avoid their duties and keep monkeying around. Alas, plenty of people ape this bad behavior. If no one stops these primates, soon everyone's tasks will be as red as the Monstrous Mandrill's face!<br><br>\"It will take a dedicated adventurer to resist them,\" says @yamato.<br><br>\"Quick, let's get this monkey off everyone's backs!\" @Oneironaut yells, and you charge into battle.",
+    "questMonkeyCompletion": "You did it! No bananas for those fiends today. Overwhelmed by your diligence, the monkeys flee in panic. \"Look,\" says @Misceo. \"They left a few eggs behind.\"<br><br>@Leephon grins. \"Maybe a well-trained pet monkey can help you as much as the wild ones hinder you!\"",
+    "questMonkeyBoss": "Monstrous Mandrill",
+    "questMonkeyDropMonkeyEgg": "Monkey (Egg)",
+    "questMonkeyUnlockText": "Unlocks purchasable Monkey eggs in the Market"
 }

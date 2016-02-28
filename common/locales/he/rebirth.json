@@ -12,7 +12,7 @@
     "rebirthInList2": "אתגרים, גילדות, וחברות בחבורה נשארים.",
     "rebirthInList3": "אבני חן, רמות תמיכה ורמות תרומה נשארים.",
     "rebirthInList4": "חפצים שהושגו בעזרת אבני חן או ביזה (למשל חיות מחמד ורכיבה) ישארו, אך לא תהיה לך גישה אליהם עד שלא תרוויח/י את הרמה המספקת.",
-    "rebirthInList5": "ציוד ממהדורה מוגבלת שרכשת בעבר תוכל/י לרכוש שוב, גם אם האירוע נגמר כבר.",
+    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
     "rebirthEarnAchievement": "את/ה גם מקבל/ת הישג מכך שהתחלת הרפתקה חדשה!",
     "beReborn": "היוולד מחדש",
     "rebirthAchievement": "התחלת הרפתקה חדשה! זוהי הלידה ה<%= number %> שלך מחדש, והרמה הכי גבוהה אליה הגעת היא <%= level %>. כדי לשבור שיא זה, נסה/י להגיע לרמה גבוהה יותר לפני שתתחיל/י מחדש שוב!",

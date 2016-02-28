@@ -2,7 +2,6 @@
     "clearCompleted": "削除が完了しました",
     "lotOfToDos": "完了したやるべきことタスクは自動的に3日後にアーカイブされます。設定> エクスポートから確認することができます。",
     "deleteToDosExplanation": "下のボタンをクリックすると、完了したやるべきことと、アーカイブ済の完了したやるべきことは完全に削除されます。それらの記録を保存しておきたい場合は、まずエクスポートしてください。",
-    "beeminderDeleteWarning": "Beeminder ユーザー: <strong>はじめに</strong> お読みください <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Beeminderと混同せずに、完了したやるべきことを削除するには</a>!",
     "addmultiple": "複数追加",
     "addsingle": "一つ追加",
     "habit": "Habit",

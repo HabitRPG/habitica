@@ -41,13 +41,12 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
     if (spriteSize > MAX_SPRITESHEET_SIZE) {
       numberOfSheetsThatAreTooBig++;
       let name = basename(img, '.png');
-      console.error(`WARNING: ${name} is too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`);
+      console.error(`WARNING: ${name} might be too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`);
     }
   });
 
   if (numberOfSheetsThatAreTooBig > 0) {
-    console.error(`${numberOfSheetsThatAreTooBig} sheets are too big :(`);
-    console.error('Mobile Safari may be unhappy with you');
+    console.error(`${numberOfSheetsThatAreTooBig} sheets might too big for mobile Safari to be able to handle them, but there is a margin of error in these calculations so it is probably okay. Mention this to an admin so they can test a staging site on mobile Safari after your PR is merged.`); // https://github.com/HabitRPG/habitrpg/pull/6683#issuecomment-185462180
   } else {
     console.log('All images are within the correct dimensions');
   }

@@ -12,7 +12,7 @@
     "rebirthInList2": "Kihívások, céh és a csapat tagságok megmaradnak.",
     "rebirthInList3": "Drágakövek, támogatói és hozzájárulási szintek megmaradnak.",
     "rebirthInList4": "A talált, vagy Drágakőért vásárolt tárgyak (pl.: háziállatok és hátasok) megmaradnak, de nem éred el őket, amíg fel nem oldod őket újra.",
-    "rebirthInList5": "A korlátozott példányszámú felszerelés, amit megvásároltál újra megvásárolható lesz, még akkor is, ha az esemény, aminek a keretében kapható volt már véget ért.",
+    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
     "rebirthEarnAchievement": "Kapsz továbbá egy Kitűntetést, amiért új kalandot kezdesz!",
     "beReborn": "Szüless Újjá",
     "rebirthAchievement": "Új kalandot kezdtél! Ez a(z) <%= number %>. Újjászületésed. A legmagasabb szint, amit elértél: <%= level %>. Ahhoz, hogy halmozd ezt a Kitüntetést kezdj új kalandot, amikor elértél egy még magasabb Szintet!",
@@ -24,5 +24,5 @@
     "rebirthPop": "Kezdj új karaktert 1-es Szinttől, megtartva a kitűntetéseidet, a gyűjteményeidet, a feladataidat és a történetedet.",
     "rebirthName": "Az Újjászületés Gömbje",
     "reborn": "Újjászülettél, maximális szint <%= reLevel %>",
-    "confirmReborn": "Are you sure?"
+    "confirmReborn": "Biztos vagy benne?"
 }

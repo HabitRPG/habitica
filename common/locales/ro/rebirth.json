@@ -12,7 +12,7 @@
     "rebirthInList2": "Apartenența la Provocări, Ghilde și Echipă rămân.",
     "rebirthInList3": "Nestematele, nivelurile de susținător și contribuitor rămân.",
     "rebirthInList4": "Obiectele obținute cu Nestemate sau câștigate (cum ar fi companioni sau animale de călărit) rămân, deși nu le poți accesa până când nu le-ai descuiat din nou.",
-    "rebirthInList5": "Echipamentul în ediție limitată pe care l-ai cumpărat poate fi cumpărat din nou, chiar dacă evenimentul respectiv s-a terminat.",
+    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
     "rebirthEarnAchievement": "Vei primi de asemenea o Realizare pentru începerea unei noi aventuri!",
     "beReborn": "Renaște-te",
     "rebirthAchievement": "Ai început o aventură nouă! Asta este Renașterea cu numărul <%= number %> pentru tine, iar cel mai înalt Nivel pe care l-ai atins este <%= level %>. Pentru a primi această Realizare din nou, începe-ți următoarea aventură când ai atins un Nivel și mai înalt!",

@@ -2,7 +2,6 @@
     "clearCompleted": "Usuń zakończone",
     "lotOfToDos": "Wykonane Do-Zrobienia są automatycznie archiwizowane po 3 dniach. Możesz uzyskać do nich dostęp z zakładki Ustawienia > Eksport.",
     "deleteToDosExplanation": "Klikając tu, nieodwołalnie usuniesz wszystkie zakończone i zarchiwizowane Do-Zrobienia. Jeśli chcesz wciąż mieć do nich dostęp, wyeksportuj je.",
-    "beeminderDeleteWarning": "Użytkownicy Beemindera <strong>Po pierwsze</strong> przeczytajcie <a href=\"http://habitica.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\"> o usuwaniu wypełnionych Do-Zrobienia bez dezorientowania Beemindera</a>!",
     "addmultiple": "Dodaj kilka",
     "addsingle": "Dodaj pojedyncze",
     "habit": "Nawyk",

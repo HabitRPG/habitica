@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Meister aller Bestien Forstschritt: <%= number %> Haustiere gefunden",
     "beastAchievement": "Du hast den \"Meister aller Bestien\" Erfolg dafür erhalten, dass Du alle Haustiere gesammelt hast!",
     "beastMasterName": "Meister aller Bestien",
-    "beastMasterText": "Hat alle 90 Haustiere gesammelt (unglaublich schwer, gratuliere diesem Spieler!)",
+    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
     "beastMasterText2": "und hat seine Haustiere insgesamt <%= count %> mal freigelassen",
     "mountMasterProgress": "\"Meister aller Reittiere\" Fortschritt",
     "stableMountMasterProgress": "Herr der Reittiere Fortschritt: <%= number %>Reittiere gezähmt",

@@ -101,7 +101,7 @@
     "inbox": "Почта",
     "abuseFlag": "Сообщить о нарушении Правил сообщества",
     "abuseFlagModalHeading": "Сообщить о нарушении со стороны <%= name %>?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Вы уверены, что хотите пожаловаться на этот пост? На пост следует жаловаться ИСКЛЮЧИТЕЛЬНО в случае, если в нем нарушаются <%= firstLinkStart %>Правила сообщества<%= linkEnd %> и/или <%= secondLinkStart %>Условия использования<%= linkEnd %>. Неуместная жалоба на пост является нарушением Правил сообщества и может послужить поводом для принятия соответствующих мер. Допустимые поводы подачи жалобы на пост включают, но не ограничены следующим: <p></p></br><ul style='margin-left: 10px;'><li>ругань, религиозные проклятья</li><li>оскорбления, нецензурные выражения</li><li>\"взрослые\" темы</li><li>насилие, включая \"шуточное\"</li><li>спам, бессмысленные сообщения</li></ul>",
     "abuseFlagModalButton": "Сообщить о нарушении",
     "abuseReported": "Спасибо, что сообщили об этом нарушении. Модераторы уведомлены.",
     "abuseAlreadyReported": "Вы уже сообщали об этом нарушении.",
