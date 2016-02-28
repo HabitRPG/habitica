@@ -12,6 +12,8 @@
   overflow-y: hidden
   overflow-x: auto
   // position relative
+  @media screen and (min-width: 768px) and (max-width: 1014px) //extra padding for smaller screen sizes
+    padding-top: 92px
   @media screen and (max-width: $xs-max-screen-width)  // remove padding-top when toolbar is static
     padding: 0
 .toolbar.active ~ .header-wrap
