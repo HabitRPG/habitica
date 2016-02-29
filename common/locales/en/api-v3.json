@@ -90,5 +90,5 @@
   "noAdminAccess": "You don't have admin access.",
   "pageMustBeNumber": "req.query.page must be a number",
   "missingUnsubscriptionCode": "Missing unsubscription code.",
-  "userNotFound": "User Not Found"
+  "userNotFound": "User not Found"
 }
