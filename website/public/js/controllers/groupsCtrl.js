@@ -123,6 +123,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
     };
 
+    $scope.isOverPartyCap = Groups.isOverPartyCap;
+
     $scope.openInviteModal = function(group){
       if (group.type !== 'party' && group.type !== 'guild') {
         return console.log('Invalid group type.')

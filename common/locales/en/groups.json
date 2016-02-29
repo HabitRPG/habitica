@@ -121,6 +121,7 @@
     "inviteAlertInfo": "If you have friends already using Habitica, invite them by <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
     "inviteExistUser": "Invite Existing Users",
     "byColon": "By:",
+    "partyCapWarning":  "Parties have a maximum size of <%= partyCap %>.  Your party currently has <%= memberAndInviteCount %> members and  invites.",
     "inviteNewUsers": "Invite New Users",
     "sendInvitations": "Send Invitations",
     "invitationsSent": "Invitations sent!",

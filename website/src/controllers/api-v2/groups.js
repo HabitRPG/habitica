@@ -693,7 +693,7 @@ api.invite = function(req, res, next){
   if (group.privacy === 'private' && !_.contains(group.members,res.locals.user._id)) {
     return res.json(401, {err: "Only a member can invite new members!"});
   }
-  if (group.memberCount + group.invites.length >= 30) {
+  if (group.isOverPartyCap) {
     return res.json(400, {err: "Over 30 member party cap"});
   } 
 
