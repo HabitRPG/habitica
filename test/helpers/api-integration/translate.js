@@ -1,4 +1,4 @@
-import i18n from '../../../common/script/src/i18n';
+import i18n from '../../../common/script/i18n';
 i18n.translations = require('../../../website/src/libs/api-v3/i18n').translations;
 
 // Use this to verify error messages returned by the server
@@ -16,4 +16,3 @@ export function translate (key, variables) {
 
   return translatedString;
 }
-
