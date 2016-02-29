@@ -48,6 +48,20 @@ export class BadRequest extends CustomError {
 }
 
 /**
+ * @apiDefine PreconditionFailed
+ * @apiError PreconditionFailed error 412
+ *
+ **/
+export class PreconditionFailed extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 412;
+    this.message = customMessage || 'Precondition failed.';
+  }
+}
+
+/**
  * @apiDefine NotFound
  * @apiError NotFound The requested resource was not found.
  *

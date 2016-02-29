@@ -1,6 +1,12 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
+import {
+  PreconditionFailed,
+  BadRequest,
+  NotAuthorized,
+} from '../../libs/api-v3/errors';
+import * as passwordUtils from '../../libs/api-v3/password';
 
 let api = {};
 
@@ -19,7 +25,7 @@ api.getUser = {
   async handler (req, res) {
     let user = res.locals.user.toJSON();
 
-    // Remove apiToken from resonse TODO make it priavte at the user level? returned in signup/login
+    // Remove apiToken from response TODO make it priavte at the user level? returned in signup/login
     delete user.apiToken;
 
     // TODO move to model (maybe virtuals, maybe in toJSON)
@@ -28,6 +34,40 @@ api.getUser = {
     user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
     return res.respond(200, user);
+  },
+};
+
+/**
+ * @api {post} /user/update-email
+ * @apiVersion 3.0.0
+ * @apiName EmailUpdate
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} { status: 'ok' }
+ **/
+api.updateEmail = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/update-email',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    if (!user.auth.local.email) throw new PreconditionFailed(res.t('userHasNoLocalRegistration'));
+
+    req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
+    req.checkBody('password', res.t('missingPassword')).notEmpty();
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    // check password
+    let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+
+    // save new email
+    user.auth.local.email = req.body.newEmail;
+    await user.save();
+
+    return res.respond(200, { email: user.auth.local.email });
   },
 };
 

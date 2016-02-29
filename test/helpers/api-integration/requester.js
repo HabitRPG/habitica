@@ -7,7 +7,7 @@ import { isEmpty, cloneDeep } from 'lodash';
 const API_TEST_SERVER_PORT = nconf.get('PORT');
 let apiVersion;
 
-// Sets up an abject that can make all REST requests
+// Sets up an object that can make all REST requests
 // If a user is passed in, the uuid and api token of
 // the user are used to make the requests
 export function requester (user = {}, additionalSets = {}) {
