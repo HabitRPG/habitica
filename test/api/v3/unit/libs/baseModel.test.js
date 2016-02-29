@@ -72,10 +72,11 @@ describe('Base model plugin', () => {
     schema.plugin(baseModel, options);
 
     let objToTransform = {ok: true, amPrivate: true};
-    let privatized = schema.options.toJSON.transform({}, objToTransform);
+    let doc = {doc: true};
+    let privatized = schema.options.toJSON.transform(doc, objToTransform);
 
     expect(privatized).to.equals(true);
-    expect(options.toJSONTransform).to.be.calledWith(objToTransform);
+    expect(options.toJSONTransform).to.be.calledWith(objToTransform, doc);
   });
 
   it('accepts a transform function for sanitize', () => {

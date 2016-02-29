@@ -175,7 +175,6 @@ export default function scoreTask (options = {}, req = {}) {
     exp: user.stats.exp,
   };
 
-  // TODO return or pass to cb, don't add to user object
   // This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
   user._tmp = {};

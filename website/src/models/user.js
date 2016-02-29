@@ -105,9 +105,10 @@ export let schema = new Schema({
   },
 
   balance: {type: Number, default: 0},
-  filters: {type: Schema.Types.Mixed, default: () => {
+  // Not saved on the user TODO remove with migration
+  /* filters: {type: Schema.Types.Mixed, default: () => {
     return {};
-  }},
+  }}, */
 
   purchased: {
     ads: {type: Boolean, default: false},
@@ -516,13 +517,11 @@ schema.plugin(baseModel, {
     'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest',
     'invitations', 'balance', 'backer', 'contributor'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
-  toJSONTransform: function userToJSON (doc) {
-    // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
-    // TODO this works?
-    // doc.filters = {};
-    // doc._tmp = this._tmp; // be sure to send down drop notifs
+  toJSONTransform: function userToJSON (plainObj, originalDoc) {
+    // doc.filters = {}; Not saved
+    plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs TODO how to test?
 
-    return doc;
+    return plainObj;
   },
 });
 
