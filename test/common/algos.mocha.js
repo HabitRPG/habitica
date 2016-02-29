@@ -13,17 +13,18 @@ import {
   startOfDay,
   daysSince,
 } from '../../common/script/cron';
+import scoreTask from '../../common/script/api-v3/scoreTask';
 
 let expect = require('expect.js');
 let sinon = require('sinon');
 let moment = require('moment');
 let test_helper = require('./test_helper');
-let shared = require('../../common/script/index.js');
+let shared = require('../../common/script/index');
 let $w = (s) => {
   return s.split(' ');
 };
 
-shared.i18n.translations = require('../../website/src/libs/i18n.js').translations;
+shared.i18n.translations = require('../../website/src/libs/api-v2/i18n').translations;
 test_helper.addCustomMatchers();
 
 /* Helper Functions */
@@ -650,12 +651,9 @@ describe('User', () => {
 
       for (let random = MIN_RANGE_FOR_POTION; random <= MAX_RANGE_FOR_POTION; random += 0.1) {
         sinon.stub(user.fns, 'predictableRandom').returns(random);
-        user.ops.score({
-          params: {
-            id: this.task_id,
-            direction: 'up',
-          },
-        });
+
+        let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+        user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
         expect(user.items.eggs).to.be.empty;
         expect(user.items.hatchingPotions).to.not.be.empty;
         expect(user.items.food).to.be.empty;
@@ -669,12 +667,8 @@ describe('User', () => {
 
       for (let random = MIN_RANGE_FOR_EGG; random <= MAX_RANGE_FOR_EGG; random += 0.1) {
         sinon.stub(user.fns, 'predictableRandom').returns(random);
-        user.ops.score({
-          params: {
-            id: this.task_id,
-            direction: 'up',
-          },
-        });
+        let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+        user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
         expect(user.items.eggs).to.not.be.empty;
         expect(user.items.hatchingPotions).to.be.empty;
         expect(user.items.food).to.be.empty;
@@ -688,12 +682,8 @@ describe('User', () => {
 
       for (let random = MIN_RANGE_FOR_FOOD; random <= MAX_RANGE_FOR_FOOD; random += 0.1) {
         sinon.stub(user.fns, 'predictableRandom').returns(random);
-        user.ops.score({
-          params: {
-            id: this.task_id,
-            direction: 'up',
-          },
-        });
+        let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+        user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
         expect(user.items.eggs).to.be.empty;
         expect(user.items.hatchingPotions).to.be.empty;
         expect(user.items.food).to.not.be.empty;
@@ -704,12 +694,8 @@ describe('User', () => {
 
     it('does not get a drop', function () {
       sinon.stub(user.fns, 'predictableRandom').returns(0.5);
-      user.ops.score({
-        params: {
-          id: this.task_id,
-          direction: 'up',
-        },
-      });
+      let delta = scoreTask({task: user.dailys[user.dailys.length - 1], user, direction: 'up'});
+      user.fns.randomDrop({task: user.dailys[user.dailys.length - 1], delta}, {});
       expect(user.items.eggs).to.eql({});
       expect(user.items.hatchingPotions).to.eql({});
       expect(user.items.food).to.eql({});
@@ -869,80 +855,42 @@ describe('Simple Scoring', () => {
   });
 
   it('Habits : Up', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.habits[0].id,
-        direction: 'down',
-      },
-      query: {
-        times: 5,
-      },
-    });
+    let delta = scoreTask({task: this.after.habits[0], user: this.after, direction: 'down', times: 5});
+    this.after.fns.randomDrop({task: this.after.habits[0], delta}, {});
     expectLostPoints(this.before, this.after, 'habit');
   });
 
   it('Habits : Down', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.habits[0].id,
-        direction: 'up',
-      },
-      query: {
-        times: 5,
-      },
-    });
+    let delta = scoreTask({task: this.after.habits[0], user: this.after, direction: 'up', times: 5});
+    this.after.fns.randomDrop({task: this.after.habits[0], delta}, {});
     expectGainedPoints(this.before, this.after, 'habit');
   });
 
   it('Dailys : Up', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.dailys[0].id,
-        direction: 'up',
-      },
-    });
+    let delta = scoreTask({task: this.after.dailys[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.dailys[0], delta}, {});
     expectGainedPoints(this.before, this.after, 'daily');
   });
 
   it('Dailys : Up, Down', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.dailys[0].id,
-        direction: 'up',
-      },
-    });
-    this.after.ops.score({
-      params: {
-        id: this.after.dailys[0].id,
-        direction: 'down',
-      },
-    });
+    let delta = scoreTask({task: this.after.dailys[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.dailys[0], delta}, {});
+    let delta2 = scoreTask({task: this.after.dailys[0], user: this.after, direction: 'down'});
+    this.after.fns.randomDrop({task: this.after.dailys[0], delta2}, {});
     expectClosePoints(this.before, this.after, 'daily');
   });
 
   it('Todos : Up', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.todos[0].id,
-        direction: 'up',
-      },
-    });
+    let delta = scoreTask({task: this.after.todos[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.todos[0], delta}, {});
     expectGainedPoints(this.before, this.after, 'todo');
   });
 
   it('Todos : Up, Down', function () {
-    this.after.ops.score({
-      params: {
-        id: this.after.todos[0].id,
-        direction: 'up',
-      },
-    });
-    this.after.ops.score({
-      params: {
-        id: this.after.todos[0].id,
-        direction: 'down',
-      },
-    });
+    let delta = scoreTask({task: this.after.todos[0], user: this.after, direction: 'up'});
+    this.after.fns.randomDrop({task: this.after.todos[0], delta}, {});
+    let delta2 = scoreTask({task: this.after.todos[0], user: this.after, direction: 'down'});
+    this.after.fns.randomDrop({task: this.after.todos[0], delta2}, {});
     expectClosePoints(this.before, this.after, 'todo');
   });
 });
@@ -988,124 +936,6 @@ describe('Cron', () => {
     let afterTasks = after.habits.concat(after.dailys).concat(after.todos).concat(after.rewards);
 
     expect(beforeTasks).to.eql(afterTasks);
-  });
-
-  describe('preening', () => {
-    beforeEach(function () {
-      this.clock = sinon.useFakeTimers(Date.parse('2013-11-20'), 'Date');
-    });
-    afterEach(function () {
-      return this.clock.restore();
-    });
-
-    it('should preen user history', function () {
-      let ref = beforeAfter({
-        daysAgo: 1,
-      });
-      let after = ref.after;
-
-      let history = [
-        {
-          date: '09/01/2012',
-          value: 0,
-        }, {
-          date: '10/01/2012',
-          value: 0,
-        }, {
-          date: '11/01/2012',
-          value: 2,
-        }, {
-          date: '12/01/2012',
-          value: 2,
-        }, {
-          date: '01/01/2013',
-          value: 1,
-        }, {
-          date: '01/15/2013',
-          value: 3,
-        }, {
-          date: '02/01/2013',
-          value: 2,
-        }, {
-          date: '02/15/2013',
-          value: 4,
-        }, {
-          date: '03/01/2013',
-          value: 3,
-        }, {
-          date: '03/15/2013',
-          value: 5,
-        }, {
-          date: '04/01/2013',
-          value: 4,
-        }, {
-          date: '04/15/2013',
-          value: 6,
-        }, {
-          date: '05/01/2013',
-          value: 5,
-        }, {
-          date: '05/15/2013',
-          value: 7,
-        }, {
-          date: '06/01/2013',
-          value: 6,
-        }, {
-          date: '06/15/2013',
-          value: 8,
-        }, {
-          date: '07/01/2013',
-          value: 7,
-        }, {
-          date: '07/15/2013',
-          value: 9,
-        }, {
-          date: '08/01/2013',
-          value: 8,
-        }, {
-          date: '08/15/2013',
-          value: 10,
-        }, {
-          date: '09/01/2013',
-          value: 9,
-        }, {
-          date: '09/15/2013',
-          value: 11,
-        }, {
-          date: '010/01/2013',
-          value: 10,
-        }, {
-          date: '010/15/2013',
-          value: 12,
-        }, {
-          date: '011/01/2013',
-          value: 12,
-        }, {
-          date: '011/02/2013',
-          value: 13,
-        }, {
-          date: '011/03/2013',
-          value: 14,
-        }, {
-          date: '011/04/2013',
-          value: 15,
-        },
-      ];
-
-      after.history = {
-        exp: _.cloneDeep(history),
-        todos: _.cloneDeep(history),
-      };
-      after.habits[0].history = _.cloneDeep(history);
-      after.fns.cron();
-      after.history.exp.pop();
-      after.history.todos.pop();
-      _.each([after.history.exp, after.history.todos, after.habits[0].history], function (arr) {
-        expect(_.map(arr, (x) => {
-          return x.value;
-        })).to.eql([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
-      });
-    });
   });
 
   describe('Todos', () => {
