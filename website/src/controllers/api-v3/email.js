@@ -8,10 +8,11 @@ import {
 let api = {};
 
 /**
- * @api {post} /unsubscribe Unsubscribe an email or user from email notifications
+ * @api {get} /unsubscribe Unsubscribe an email or user from email notifications
  * @apiVersion 3.0.0
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
+ * @apiDescription This is a GET method so that you can put the unsubscribe link in emails.
  *
  * @apiParam {String} code An unsubscription code
  *

@@ -31,4 +31,39 @@ api.getUser = {
   },
 };
 
+/**
+ * @api {post} /email/update
+ * @apiVersion 3.0.0
+ * @apiName EmailUpdate
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} OK
+ **/
+api.updateEmail = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/email/update',
+  async handler (req, res) {
+    let user = res.locals.user.toJSON();
+
+    req.checkParams('newEmail', res.t('newEmailRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    console.log('+++ req.params is', req.params);
+    console.log('+++ req.body is', req.body);
+    console.log('email is', user.auth.local.email);
+    console.log('+++ user.auth.local is', user.auth.local);
+
+    // check that this user has a local account
+    // check that a new email is provided
+    
+    // check password
+    // save new email
+
+    return res.respond(200, 'ok');
+  }
+};
+
 export default api;
