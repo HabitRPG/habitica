@@ -55,7 +55,7 @@ export default function baseModel (schema, options = {}) {
     });
 
     // Allow an additional toJSON transform function to be used
-    return options.toJSONTransform ? options.toJSONTransform(plainObj) : plainObj;
+    return options.toJSONTransform ? options.toJSONTransform(plainObj, doc) : plainObj;
   };
 
   schema.statics.getModelPaths = function getModelPaths () {
