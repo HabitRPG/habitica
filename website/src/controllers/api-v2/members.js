@@ -38,7 +38,7 @@ api.sendMessage = function(user, member, data){
     msg = data.message
   } else {
     msg = "`Hello " + member.profile.name + ", " + user.profile.name + " has sent you ";
-    msg += (data.type=='gems') ? data.gems.amount + " gem" + ((data.gems.amount>1)?'s':'') + "!`" : shared.content.subscriptionBlocks[data.subscription.key].months + " month" + ((shared.content.subscriptionBlocks[data.subscription.key].months>1)?'s':'') + " of subscription!`";
+    msg += (data.type=='gems') ? data.gems.amount + " gem" + ((data.gems.amount>1)?"s":"") + "!`" : shared.content.subscriptionBlocks[data.subscription.key].months + " month" + ((shared.content.subscriptionBlocks[data.subscription.key].months>1)?"s":"") + " of subscription!`";
     msg += data.message;
   }
   shared.refPush(member.inbox.messages, groups.chatDefaults(msg, user));
