@@ -161,6 +161,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       task.checklist = [{completed:false,text:""}];
       focusChecklist(task,0);
     }
+    $scope.validateAddItem = function(task,$index) {
+      if (!task.checklist[$index].text) {
+        return true;
+      } else {
+        return false;
+      }
+    }
     $scope.addChecklistItem = function(task,$event,$index) {
       if (!task.checklist[$index].text) {
         // Don't allow creation of an empty checklist item
