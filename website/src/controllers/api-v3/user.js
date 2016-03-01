@@ -9,6 +9,7 @@ import * as Tasks from '../../models/task';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import Q from 'q';
+import _ from 'lodash';
 
 let api = {};
 
@@ -39,7 +40,7 @@ api.getUser = {
   },
 };
 
-let partyMembersFields = 'profile.name stats achievements items.special';
+const partyMembersFields = 'profile.name stats achievements items.special';
 
 /**
  * @api {post} /user/class/cast/:spell Cast a spell on a target.
@@ -48,7 +49,6 @@ let partyMembersFields = 'profile.name stats achievements items.special';
  * @apiGroup User
  *
  * @apiParam {string} spellId The spell to cast.
- * @apiParam {string="party","self","user","task"} targetType Query parameter, the target type for the spell.
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a spell on a party member or a task.
  *
  * @apiSuccess {Object|Array} mixed Will return the modified targets. For party members only the necessary fields will be populated.
@@ -59,13 +59,11 @@ api.castSpell = {
   url: '/user/class/cast/:spell',
   async handler (req, res) {
     let user = res.locals.user;
-    let targetType = req.query.targetType;
-    let targetId = req.query.targetId;
     let spellId = req.params.spellId;
+    let targetId = req.query.targetId;
 
     // optional because not required by all targetTypes, presence is checked later if necessary
     req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
-    req.checkQuery('targetType', res.t('invalidTargetType')).isIn(['task', 'self', 'user', 'party']);
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
@@ -73,8 +71,9 @@ api.castSpell = {
     let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
     let spell = common.content.spells[klass][spellId];
 
-    if (!spell) throw new NotFound(res.t('spellNotFound', {spell: req.params.spellId}));
+    if (!spell) throw new NotFound(res.t('spellNotFound', {spell: spellId}));
     if (spell.mana > user.stats.mp) throw new BadRequest(res.t('notEnoughMana'));
+    let targetType = spell.target;
 
     if (targetType === 'task') {
       if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
@@ -87,18 +86,38 @@ api.castSpell = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
 
       spell.cast(user, task);
-      let savedTask = await task.save();
-      res.respond(200, savedTask);
+      await task.save();
+      res.respond(200, task);
     } else if (targetType === 'self') {
       spell.cast(user);
-      let savedUser = await user.save();
-      res.respond(200, savedUser);
+      await user.save();
+      res.respond(200, user);
+    } else if (targetType === 'tasks') { // new target type when all the user's tasks are necessary
+      let tasks = await Tasks.Task.find({
+        userId: user._id,
+        $or: [ // Exclude completed todos
+          {type: 'todo', completed: false},
+          {type: {$in: ['habit', 'daily', 'reward']}},
+        ],
+      }).exec();
+
+      spell.cast(user, tasks);
+
+      let toSave = tasks.filter(t => t.isModified());
+      let isUserModified = user.isModified();
+      toSave.unshift(user.save());
+      let saved = await Q.all(toSave);
+
+      let response = {
+        tasks: isUserModified ? _.rest(saved) : saved,
+      };
+      if (isUserModified) res.user = user;
+      res.respond(200, response);
     } else if (targetType === 'party' || targetType === 'user') {
       let party = await Group.getGroup({_id: 'party', user});
 
       // arrays of users when targetType is 'party' otherwise single users
       let partyMembers;
-      let savedPartyMembers;
 
       if (targetType === 'party') {
         if (!party) {
@@ -108,7 +127,7 @@ api.castSpell = {
         }
 
         spell.cast(user, partyMembers);
-        savedPartyMembers = await Q.all(partyMembers.map(m => m.save()));
+        await Q.all(partyMembers.map(m => m.save()));
       } else {
         if (!party && (!targetId || user._id === targetId)) {
           partyMembers = user;
@@ -119,11 +138,10 @@ api.castSpell = {
 
         if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
         spell.cast(user, partyMembers);
-        savedPartyMembers = await partyMembers.save();
+        await partyMembers.save();
       }
-      res.respond(200, savedPartyMembers);
+      res.respond(200, partyMembers);
 
-      // TODO save group concurrently with users?
       if (party && !spell.silent) {
         let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
         party.sendChat(message);

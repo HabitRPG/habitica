@@ -93,6 +93,5 @@
   "userNotFound": "User not found.",
   "spellNotFound": "Spell \"<%= spell %>\" not found.",
   "partyNotFound": "Party not found",
-  "targetIdUUID": "\"targetId\" must be a valid UUID.",
-  "invalidTargetType": "Target type must be one of \"self\", \"task\", \"user\", \"party\".",
+  "targetIdUUID": "\"targetId\" must be a valid UUID."
 }
