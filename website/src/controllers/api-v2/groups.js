@@ -690,6 +690,9 @@ var inviteByEmails = function(invites, group, req, res, next){
 api.invite = function(req, res, next){
   var group = res.locals.group;
 
+  if (group.privacy === 'private' && !_.contains(group.members,res.locals.user._id)) {
+    return res.json(401, {err: "Only a member can invite new members!"});
+  }
   if (req.body.uuids) {
     inviteByUUIDs(req.body.uuids, group, req, res, next);
   } else if (req.body.emails) {
