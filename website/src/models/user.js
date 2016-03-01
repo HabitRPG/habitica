@@ -218,6 +218,7 @@ var UserSchema = new Schema({
         back: String,
         headAccessory: String,
         eyewear: String,
+        chair: String,
         body: String
       },
       costume: {

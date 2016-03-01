@@ -8,6 +8,14 @@ let armor = {
   },
 };
 
+let chair = {
+  0: {
+    text: t('chairBase0Text'),
+    notes: t('chairBase0Notes'),
+    value: 0,
+  },
+};
+
 let back = {
   0: {
     text: t('backBase0Text'),
