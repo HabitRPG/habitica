@@ -35,6 +35,11 @@ for $stage in $stages
       .save-close, .task-checklist-edit li
         hrpg-button-color-mixin(darken($stage[1],5%))
         button
+          &:disabled
+            background-color: darken($completed,5%) !important
+            border: 1px solid darken($completed,30%) !important
+            color: darken($completed,30%) !important
+            outline: 0
           &:focus
             border: 1px solid darken($stage[1],30%)
             outline: 0

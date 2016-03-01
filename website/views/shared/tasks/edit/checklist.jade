@@ -26,5 +26,6 @@
     li
       button(type='button', ng-if='task.checklist[0]'
         popover=env.t('checklistEnter'), popover-trigger='mouseenter', popover-placement='bottom',
-        ng-click='addChecklistItem(task,$event,task.checklist.length-1)')
+        ng-click='addChecklistItem(task,$event,task.checklist.length-1)',
+        ng-disabled='validateAddItem(task,task.checklist.length-1)')
         span=env.t('checklistAdd')
