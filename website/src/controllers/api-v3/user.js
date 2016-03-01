@@ -1,6 +1,14 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
+import {
+  NotFound,
+  BadRequest,
+} from '../../libs/api-v3/errors';
+import * as Tasks from '../../models/task';
+import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
+import Q from 'q';
 
 let api = {};
 
@@ -28,6 +36,100 @@ api.getUser = {
     user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
     return res.respond(200, user);
+  },
+};
+
+let partyMembersFields = 'profile.name stats achievements items.special';
+
+/**
+ * @api {post} /user/class/cast/:spell Cast a spell on a target.
+ * @apiVersion 3.0.0
+ * @apiName UserCast
+ * @apiGroup User
+ *
+ * @apiParam {string} spellId The spell to cast.
+ * @apiParam {string="party","self","user","task"} targetType Query parameter, the target type for the spell.
+ * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a spell on a party member or a task.
+ *
+ * @apiSuccess {Object|Array} mixed Will return the modified targets. For party members only the necessary fields will be populated.
+ */
+api.castSpell = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/class/cast/:spell',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let targetType = req.query.targetType;
+    let targetId = req.query.targetId;
+    let spellId = req.params.spellId;
+
+    // optional because not required by all targetTypes, presence is checked later if necessary
+    req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
+    req.checkQuery('targetType', res.t('invalidTargetType')).isIn(['task', 'self', 'user', 'party']);
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
+    let spell = common.content.spells[klass][spellId];
+
+    if (!spell) throw new NotFound(res.t('spellNotFound', {spell: req.params.spellId}));
+    if (spell.mana > user.stats.mp) throw new BadRequest(res.t('notEnoughMana'));
+
+    if (targetType === 'task') {
+      if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
+
+      // TODO what about challenge tasks? should casting be disabled on them?
+      let task = await Tasks.Task.findOne({
+        _id: targetId,
+        userId: user._id,
+      }).exec();
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+
+      spell.cast(user, task);
+      let savedTask = await task.save();
+      res.respond(200, savedTask);
+    } else if (targetType === 'self') {
+      spell.cast(user);
+      let savedUser = await user.save();
+      res.respond(200, savedUser);
+    } else if (targetType === 'party' || targetType === 'user') {
+      let party = await Group.getGroup({_id: 'party', user});
+
+      // arrays of users when targetType is 'party' otherwise single users
+      let partyMembers;
+      let savedPartyMembers;
+
+      if (targetType === 'party') {
+        if (!party) {
+          partyMembers = [user]; // Act as solo party
+        } else {
+          partyMembers = await User.find({'party._id': party._id}).select(partyMembersFields).exec();
+        }
+
+        spell.cast(user, partyMembers);
+        savedPartyMembers = await Q.all(partyMembers.map(m => m.save()));
+      } else {
+        if (!party && (!targetId || user._id === targetId)) {
+          partyMembers = user;
+        } else {
+          if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
+          partyMembers = await User.findOne({_id: targetId, 'party._id': party._id}).select(partyMembersFields).exec();
+        }
+
+        if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
+        spell.cast(user, partyMembers);
+        savedPartyMembers = await partyMembers.save();
+      }
+      res.respond(200, savedPartyMembers);
+
+      // TODO save group concurrently with users?
+      if (party && !spell.silent) {
+        let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
+        party.sendChat(message);
+        await party.save();
+      }
+    }
   },
 };
 

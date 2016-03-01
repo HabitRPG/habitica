@@ -90,5 +90,9 @@
   "noAdminAccess": "You don't have admin access.",
   "pageMustBeNumber": "req.query.page must be a number",
   "missingUnsubscriptionCode": "Missing unsubscription code.",
-  "userNotFound": "User not Found"
+  "userNotFound": "User not found.",
+  "spellNotFound": "Spell \"<%= spell %>\" not found.",
+  "partyNotFound": "Party not found",
+  "targetIdUUID": "\"targetId\" must be a valid UUID.",
+  "invalidTargetType": "Target type must be one of \"self\", \"task\", \"user\", \"party\".",
 }
