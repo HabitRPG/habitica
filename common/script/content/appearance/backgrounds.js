@@ -297,6 +297,20 @@ let backgrounds = {
       notes: t('backgroundGrandStaircaseNotes'),
     },
   },
+  backgrounds032016: {
+    deep_mine: {
+      text: t('backgroundDeepMineText'),
+      notes: t('backgroundDeepMineNotes'),
+    },
+    rainforest: {
+      text: t('backgroundRainforestText'),
+      notes: t('backgroundRainforestNotes'),
+    },
+    stone_circle: {
+      text: t('backgroundStoneCircleText'),
+      notes: t('backgroundStoneCircleNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 
