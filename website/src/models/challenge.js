@@ -97,6 +97,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   let [challengeTasks, userTasks] = await Q.all([
     // Find original challenge tasks
     Tasks.Task.find({
+      userId: {$exists: false},
       'challenge.id': challenge._id,
     }).exec(),
     // Find user's tasks linked to this challenge

@@ -2,7 +2,7 @@ import { model as Challenge } from '../../../../../website/src/models/challenge'
 import { model as Group } from '../../../../../website/src/models/group';
 import { model as User } from '../../../../../website/src/models/user';
 import * as Tasks from '../../../../../website/src/models/task';
-import { each } from 'lodash';
+import { each, find } from 'lodash';
 
 describe('Challenge Model', () => {
   let guild, leader, challenge, task;
@@ -12,17 +12,14 @@ describe('Challenge Model', () => {
       type: 'habit',
       up: false,
       down: true,
-      notes: 1976,
     },
     todo: {
       text: 'test todo',
       type: 'todo',
-      notes: 1976,
     },
     daily: {
       text: 'test daily',
       type: 'daily',
-      notes: 1976,
       frequency: 'daily',
       everyX: 5,
       startDate: new Date(),
@@ -30,7 +27,6 @@ describe('Challenge Model', () => {
     reward: {
       text: 'test reward',
       type: 'reward',
-      notes: 1976,
     },
   };
 
@@ -64,16 +60,22 @@ describe('Challenge Model', () => {
 
   each(tasksToTest, (taskValue, taskType) => {
     context(`${taskType}`, () => {
-      before(async() => {
+      beforeEach(async() => {
         task = new Tasks[`${taskType}`](Tasks.Task.sanitizeCreate(taskValue));
+        task.challenge.id = challenge._id;
+        await task.save();
       });
 
       it('adds tasks to challenge and challenge members', async () => {
         await challenge.addTasks([task]);
 
         let updatedLeader = await User.findOne({_id: leader._id});
+        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
+        let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
+          return updatedLeadersTask.type === taskValue.type && updatedLeadersTask.text === taskValue.text;
+        });
 
-        expect(updatedLeader.tasksOrder[`${taskType}s`].length).to.be.above(0);
+        expect(syncedTask).to.exist;
       });
 
       it('syncs a challenge to a user', async () => {
@@ -87,11 +89,15 @@ describe('Challenge Model', () => {
         await challenge.syncToUser(newMember);
 
         let updatedNewMember = await User.findById(newMember._id);
+        let updatedNewMemberTasks = await Tasks.Task.find({_id: { $in: updatedNewMember.tasksOrder[`${taskType}s`]}});
+        let syncedTask = find(updatedNewMemberTasks, function findNewTask (updatedNewMemberTask) {
+          return updatedNewMemberTask.type === taskValue.type && updatedNewMemberTask.text === taskValue.text;
+        });
 
         expect(updatedNewMember.challenges).to.contain(challenge._id);
         expect(updatedNewMember.tags[3]._id).to.equal(challenge._id);
         expect(updatedNewMember.tags[3].name).to.equal(challenge.shortName);
-        expect(updatedNewMember.tasksOrder[`${taskType}s`].length).to.be.above(0);
+        expect(syncedTask).to.exist;
       });
 
       it('updates tasks to challenge and challenge members', async () => {
