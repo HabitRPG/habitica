@@ -52,26 +52,28 @@ api.updateEmail = {
   url: '/email/update',
   async handler (req, res) {    
     let user = res.locals.user.toJSON();
+    
+    console.log("+++ +++ user._id is", user._id);
+    user = await User.findOne({ _id: user._id }).exec();
+    console.log('+++ +++ user.auth.local is', user.auth.local);
 
-    // console.log('+++ user.auth.local is', user.auth.local);
-    // console.log("+++ user.auth.facebook is", user.auth.facebook);
+    if (!user.auth.local.email) throw new PreconditionFailed(res.t('userHasNoLocalRegistration'));
 
     req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
     req.checkBody('password', res.t('missingPassword')).notEmpty();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
  
-    if (!user.auth.local.email) throw new PreconditionFailed(res.t('userHasNoLocalRegistration'));
-
     // check password
     let temp_user = await User.findOne({ _id: user._id}, {"auth.local": 1}).exec();
     let candidate_password = passwordUtils.encrypt(req.body.password, temp_user.auth.local.salt);
-    console.log("+++ +++ temp_user is", temp_user);
-    console.log("+++ +++ candidate passwd is", candidate_password);
     if (candidate_password !== temp_user.auth.local.hashed_password) throw new BadRequest();
     
-
     // save new email
+    temp_user.auth.local.email = req.body.newEmail;
+    let userUpdated = await User.update({ _id: temp_user._id },
+                                        { $set: { "auth.local.email": req.body.newEmail }});
+    if (userUpdated.nModified !== 1 ) throw new BadRequest();
 
     return res.respond(200, {status:'ok'});
   }
