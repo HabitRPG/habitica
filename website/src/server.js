@@ -164,8 +164,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
   module.exports = server;
 
-  var logHandlesInterval = +nconf.get('LOG_HANDLES_INTERVAL') || 60000;
-  var activeHandleInterval = setInterval(logHandles, logHandlesInterval);
+  var logHandlesInterval = +nconf.get('LOG_HANDLES_INTERVAL');
+  if (logHandlesInterval) { var activeHandleInterval = setInterval(logHandles, logHandlesInterval); }
 
   function logHandles() {
     console.log(moment().format());
