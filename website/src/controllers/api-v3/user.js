@@ -84,6 +84,7 @@ api.castSpell = {
         userId: user._id,
       }).exec();
       if (!task) throw new NotFound(res.t('taskNotFound'));
+      if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
 
       spell.cast(user, task);
       await task.save();
@@ -95,6 +96,7 @@ api.castSpell = {
     } else if (targetType === 'tasks') { // new target type when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
+        'challenge.id': {$exists: false}, // exclude challenge tasks
         $or: [ // Exclude completed todos
           {type: 'todo', completed: false},
           {type: {$in: ['habit', 'daily', 'reward']}},

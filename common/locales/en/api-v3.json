@@ -93,5 +93,6 @@
   "userNotFound": "User not found.",
   "spellNotFound": "Spell \"<%= spell %>\" not found.",
   "partyNotFound": "Party not found",
-  "targetIdUUID": "\"targetId\" must be a valid UUID."
+  "targetIdUUID": "\"targetId\" must be a valid UUID.",
+  "challengeTasksNoCast": "Casting a spell on challenge tasks is not supported."
 }
