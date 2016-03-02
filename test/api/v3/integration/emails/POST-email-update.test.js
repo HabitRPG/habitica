@@ -68,7 +68,6 @@ describe('POST /email/update', () => {
       fbUser = await generateUser();
       await fbUser.update({"auth.local": {ok:true} });
       console.log("+++ +++ TEST fbUser is", fbUser);
-      fbUser = new ApiUser( fbUser );
     });
 
     it('does not change email if user.auth.local.email does not exist for this user', async () => {

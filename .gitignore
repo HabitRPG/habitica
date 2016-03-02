@@ -32,7 +32,3 @@ common/dist/sprites/habitrpg-shared.css
 .elasticbeanstalk/config.yml
 
 test/spec/mocks/translations.js
-
-# emacs
-*~
-*#
