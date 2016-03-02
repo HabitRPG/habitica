@@ -46,20 +46,20 @@ describe('POST /email/update', () => {
   });
 
   it('changes email if new email and existing password are provided', async () => {
-    await expect(user.post(endpoint, {
+    let response = await expect(user.post(endpoint, {
       newEmail: newEmail,
       password: thePassword
-    })).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: 'Invalid request parameters.'
-    });
+    }));
+    console.log('+++ response is', response);
+    expect(response).to.equal('ok');
   });
 
   it('returns success if new email is the same as old', async () => {
   });
 
-  it('does not change email if user.auth.locall.email does not exist for this user', async () => {
+  it('does not change email if user.auth.local.email does not exist for this user', async () => {
+    // check return code (401 precondition failed)
+    // check that the user still has the same email
   });
 
 });

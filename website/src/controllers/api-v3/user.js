@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
+// import validator from 'validator';
 
 let api = {};
 
@@ -19,7 +20,7 @@ api.getUser = {
   async handler (req, res) {
     let user = res.locals.user.toJSON();
 
-    // Remove apiToken from resonse TODO make it priavte at the user level? returned in signup/login
+    // Remove apiToken from response TODO make it priavte at the user level? returned in signup/login
     delete user.apiToken;
 
     // TODO move to model (maybe virtuals, maybe in toJSON)
@@ -37,32 +38,28 @@ api.getUser = {
  * @apiName EmailUpdate
  * @apiGroup User
  *
- * @apiSuccess {Object} OK
+ * @apiSuccess {Object} { status: 'ok' }
  **/
 api.updateEmail = {
   method: 'POST',
   middlewares: [authWithHeaders(), cron],
   url: '/email/update',
-  async handler (req, res) {
+  async handler (req, res) {    
     let user = res.locals.user.toJSON();
+    console.log('+++ user.auth is', user.auth);
 
-    req.checkParams('newEmail', res.t('newEmailRequired')).notEmpty();
-
+    req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-
-    console.log('+++ req.params is', req.params);
-    console.log('+++ req.body is', req.body);
-    console.log('email is', user.auth.local.email);
-    console.log('+++ user.auth.local is', user.auth.local);
-
+ 
     // check that this user has a local account
-    // check that a new email is provided
-    
+    // if not, return with precondition failed.
+        
     // check password
+    
     // save new email
 
-    return res.respond(200, 'ok');
+    return res.respond(200, {status:'ok'});
   }
 };
 

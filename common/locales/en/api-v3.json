@@ -6,6 +6,7 @@
   "missingPassword": "Missing password.",
   "notAnEmail": "Invalid email address.",
   "emailTaken": "Email already taken.",
+  "newEmailRequired": "The newEmail body parameter is required.",
   "usernameTaken": "Username already taken.",
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
   "invalidLoginCredentials": "Incorrect username / email and / or password.",
