@@ -2,9 +2,11 @@ import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
 import { 
-  PreconditionFailed
+  PreconditionFailed,
+  BadRequest
 } from "../../libs/api-v3/errors";
 import { model as User } from "../../models/user";
+import * as passwordUtils from '../../libs/api-v3/password';
 // import validator from 'validator';
 
 let api = {};
@@ -63,7 +65,11 @@ api.updateEmail = {
 
     // check password
     let temp_user = await User.findOne({ _id: user._id}, {"auth.local": 1}).exec();
-    // console.log("+++ +++ temp_user is", temp_user);
+    let candidate_password = passwordUtils.encrypt(req.body.password, temp_user.auth.local.salt);
+    console.log("+++ +++ temp_user is", temp_user);
+    console.log("+++ +++ candidate passwd is", candidate_password);
+    if (candidate_password !== temp_user.auth.local.hashed_password) throw new BadRequest();
+    
 
     // save new email
 
