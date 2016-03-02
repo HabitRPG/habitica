@@ -125,20 +125,20 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   let {user, groupId, fields, optionalMembership = false, populateLeader = false, requireMembership = false} = options;
   let query;
 
-  let isParty = groupId === 'party' || user.party._id === groupId;
-  let isGuild = user.guilds.indexOf(groupId) !== -1;
+  let isUserParty = groupId === 'party' || user.party._id === groupId;
+  let isUserGuild = user.guilds.indexOf(groupId) !== -1;
 
   // When requireMembership is true check that user is member even in public guild
-  if (requireMembership && !isParty && !isGuild) {
+  if (requireMembership && !isUserParty && !isUserGuild) {
     return null;
   }
 
   // When optionalMembership is true it's not required for the user to be a member of the group
-  if (isParty) {
+  if (isUserParty) {
     query = {type: 'party', _id: user.party._id};
   } else if (optionalMembership === true) {
     query = {_id: groupId};
-  } else if (isGuild) {
+  } else if (isUserGuild) {
     query = {type: 'guild', _id: groupId};
   } else {
     query = {type: 'guild', privacy: 'public', _id: groupId};

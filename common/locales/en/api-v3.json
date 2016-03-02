@@ -73,7 +73,7 @@
   "guildQuestsNotSupported": "Guilds cannot be invited on quests.",
   "questNotFound": "Quest \"<%= key %>\" not found.",
   "questNotOwned": "You don't own that quest scroll.",
-  "questLevelTooHigh": "You must be Level <%= level %> to begin this quest.",
+  "questLevelTooHigh": "You must be level <%= level %> to begin this quest.",
   "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
   "questAlreadyAccepted": "You already accepted the quest invitation.",
   "noActiveQuestToLeave": "No active quest to leave",
@@ -90,5 +90,11 @@
   "noAdminAccess": "You don't have admin access.",
   "pageMustBeNumber": "req.query.page must be a number",
   "missingUnsubscriptionCode": "Missing unsubscription code.",
-  "userNotFound": "User not Found"
+  "userNotFound": "User not found.",
+  "spellNotFound": "Spell \"<%= spellId %>\" not found.",
+  "partyNotFound": "Party not found",
+  "targetIdUUID": "\"targetId\" must be a valid UUID.",
+  "challengeTasksNoCast": "Casting a spell on challenge tasks is not supported.",
+  "spellNotOwned": "You don't own this spell.",
+  "spellLevelTooHigh": "You must be level <%= level %> to use this spell."
 }

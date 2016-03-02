@@ -4,6 +4,7 @@ import common from '../../../../common';
 import {
   NotFound,
   BadRequest,
+  NotAuthorized,
 } from '../../libs/api-v3/errors';
 import * as Tasks from '../../models/task';
 import { model as Group } from '../../models/group';
@@ -43,7 +44,7 @@ api.getUser = {
 const partyMembersFields = 'profile.name stats achievements items.special';
 
 /**
- * @api {post} /user/class/cast/:spell Cast a spell on a target.
+ * @api {post} /user/class/cast/:spellId Cast a spell on a target.
  * @apiVersion 3.0.0
  * @apiName UserCast
  * @apiGroup User
@@ -56,7 +57,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
 api.castSpell = {
   method: 'POST',
   middlewares: [authWithHeaders(), cron],
-  url: '/user/class/cast/:spell',
+  url: '/user/class/cast/:spellId',
   async handler (req, res) {
     let user = res.locals.user;
     let spellId = req.params.spellId;
@@ -71,14 +72,16 @@ api.castSpell = {
     let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
     let spell = common.content.spells[klass][spellId];
 
-    if (!spell) throw new NotFound(res.t('spellNotFound', {spell: spellId}));
-    if (spell.mana > user.stats.mp) throw new BadRequest(res.t('notEnoughMana'));
+    if (!spell) throw new NotFound(res.t('spellNotFound', {spellId}));
+    if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
+    if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
+    if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
+
     let targetType = spell.target;
 
     if (targetType === 'task') {
       if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
 
-      // TODO what about challenge tasks? should casting be disabled on them?
       let task = await Tasks.Task.findOne({
         _id: targetId,
         userId: user._id,
@@ -86,11 +89,11 @@ api.castSpell = {
       if (!task) throw new NotFound(res.t('taskNotFound'));
       if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
 
-      spell.cast(user, task);
+      spell.cast(user, task, req);
       await task.save();
       res.respond(200, task);
     } else if (targetType === 'self') {
-      spell.cast(user);
+      spell.cast(user, null, req);
       await user.save();
       res.respond(200, user);
     } else if (targetType === 'tasks') { // new target type when all the user's tasks are necessary
@@ -103,7 +106,7 @@ api.castSpell = {
         ],
       }).exec();
 
-      spell.cast(user, tasks);
+      spell.cast(user, tasks, req);
 
       let toSave = tasks.filter(t => t.isModified());
       let isUserModified = user.isModified();
@@ -116,8 +119,7 @@ api.castSpell = {
       if (isUserModified) res.user = user;
       res.respond(200, response);
     } else if (targetType === 'party' || targetType === 'user') {
-      let party = await Group.getGroup({_id: 'party', user});
-
+      let party = await Group.getGroup({groupId: 'party', user});
       // arrays of users when targetType is 'party' otherwise single users
       let partyMembers;
 
@@ -128,18 +130,19 @@ api.castSpell = {
           partyMembers = await User.find({'party._id': party._id}).select(partyMembersFields).exec();
         }
 
-        spell.cast(user, partyMembers);
+        spell.cast(user, partyMembers, req);
         await Q.all(partyMembers.map(m => m.save()));
       } else {
         if (!party && (!targetId || user._id === targetId)) {
           partyMembers = user;
         } else {
           if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
+          if (!party) throw new NotFound(res.t('partyNotFound'));
           partyMembers = await User.findOne({_id: targetId, 'party._id': party._id}).select(partyMembersFields).exec();
         }
 
         if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
-        spell.cast(user, partyMembers);
+        spell.cast(user, partyMembers, req);
         await partyMembers.save();
       }
       res.respond(200, partyMembers);

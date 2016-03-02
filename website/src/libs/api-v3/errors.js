@@ -1,11 +1,4 @@
-// Base class for custom application errors
-// It extends Error and capture the stack trace
-export class CustomError extends Error {
-  constructor () {
-    super();
-    Error.captureStackTrace(this, this.constructor);
-  }
-}
+import CustomError from '../../../../common/script/api-v3/customError';
 
 /**
  * @apiDefine NotAuthorized
