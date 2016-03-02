@@ -495,5 +495,15 @@ spells.special = {
   },
 };
 
+_.each(spells, (spellClass) => {
+  _.each(spellClass, (spell, key) => {
+    spell.key = key;
+    let _cast = spell.cast;
+    spell.cast = function castSpell (user, target) {
+      _cast(user, target);
+      user.stats.mp -= spell.mana;
+    };
+  });
+});
 
 export default spells;

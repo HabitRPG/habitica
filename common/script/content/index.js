@@ -129,20 +129,7 @@ api.cardTypes = {
   },
 };
 
-_.each(api.spells, function(spellClass) {
-  return _.each(spellClass, function(spell, key) {
-    var _cast;
-    spell.key = key;
-    _cast = spell.cast;
-    return spell.cast = function(user, target) {
-      _cast(user, target);
-      return user.stats.mp -= spell.mana;
-    };
-  });
-});
-
 api.special = api.spells.special;
-
 
 /*
   ---------------------------------------------------------------
