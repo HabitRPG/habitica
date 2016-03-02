@@ -32,25 +32,6 @@ export async function generateUser (update = {}) {
   return apiUser;
 }
 
-/**
- * this is a user without an email
- **/
-export async function generateFbUser (update = {}) {
-  let username = generateUUID();
-  let password = 'password';
-  let email = "fb-user@example.net";
-  let user = await requester().post('/user/auth/local/register', {
-    username,
-    email,
-    password,
-    confirmPassword: password,
-  });
-  let apiUser = new ApiUser(user);
-  await apiUser.update({ "auth.local.email": 'another-local@email.net' });
-  apiUser = User.findOne({ _id: apiUser._id });
-  return apiUser;
-}
-
 // Generates a new group. Requires a user object, which
 // will will become the groups leader. Takes a details argument
 // for the initial group creation and an update argument which
