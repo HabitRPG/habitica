@@ -22,15 +22,14 @@ import gear from './gear';
 
 import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
-
 import spells from './spells';
 
-api.spells = spells;
 api.mystery = mysterySets;
 
 api.itemList = ITEM_LIST;
 
 api.gear = gear;
+api.spells = spells;
 
 /*
   Time Traveler Store, mystery sets need their items mapped in

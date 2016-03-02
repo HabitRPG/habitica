@@ -193,6 +193,8 @@
   "weaponArmoireBarristerGavelNotes": "Order! Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Barrister Set (Item 3 of 3).",
   "weaponArmoireJesterBatonText": "Jester Baton",
   "weaponArmoireJesterBatonNotes": "With a wave of your baton and some witty repartee, even the most complicated situations become clear. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Jester Set (Item 3 of 3).",
+  "weaponArmoireMiningPickaxText": "Mining Pickax",
+  "weaponArmoireMiningPickaxNotes": "Mine the maximum amount of gold from your tasks! Increases Perception by <%= per %>. Enchanted Armoire: Miner Set (Item 3 of 3).",
 
   "armor": "armor",
 
@@ -403,6 +405,8 @@
   "armorArmoireBarristerRobesNotes": "Very serious and stately. Increases Constitution by <%= con %>. Enchanted Armoire: Barrister Set (Item 2 of 3).",
   "armorArmoireJesterCostumeText": "Jester Costume",
   "armorArmoireJesterCostumeNotes": "Tra-la-la! Despite the look of this costume, you are no fool. Increases Intelligence by <%= int %>. Enchanted Armoire: Jester Set (Item 2 of 3).",
+  "armorArmoireMinerOverallsText": "Miner Overalls",
+  "armorArmoireMinerOverallsNotes": "They may seem worn, but they are enchanted to repel dirt. Increases Constitution by <%= con %>. Enchanted Armoire: Miner Set (Item 2 of 3).",
 
   "headgear": "headgear",
 
@@ -627,6 +631,8 @@
   "headArmoireBarristerWigNotes": "This bouncy wig is enough to frighten away even the fiercest foe. Increases Strength by <%= str %>. Enchanted Armoire: Barrister Set (Item 1 of 3).",
   "headArmoireJesterCapText": "Jester Cap",
   "headArmoireJesterCapNotes": "The bells on this hat might distract your opponents, but they just help you focus. Increases Perception by <%= per %>. Enchanted Armoire: Jester Set (Item 1 of 3).",
+  "headArmoireMinerHelmetText": "Miner Helmet",
+  "headArmoireMinerHelmetNotes": "Protect your head from falling tasks! Increases Intelligence by <%= int %>. Enchanted Armoire: Miner Set (Item 1 of 3).",
 
   "offhand": "shield-hand item",
 
@@ -739,6 +745,8 @@
   "shieldArmoireRoyalCaneNotes": "Hooray for the ruler, worthy of song! Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Royal Set (Item 2 of 3).",
   "shieldArmoireDragonTamerShieldText": "Dragon Tamer Shield",
   "shieldArmoireDragonTamerShieldNotes": "Distract enemies with this dragon-shaped shield. Increases Perception by <%= per %>. Enchanted Armoire: Dragon Tamer Set (Item 2 of 3).",
+  "shieldArmoireMysticLampText": "Mystic Lamp",
+  "shieldArmoireMysticLampNotes": "Light the darkest caves with this mystic lamp! Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",

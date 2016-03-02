@@ -139,7 +139,7 @@ gulp.task('test:content:clean', (cb) => {
 });
 
 gulp.task('test:content:watch', ['test:content:clean'], () => {
-  gulp.watch(['common/script/src/content/**', 'test/**'], ['test:content:clean']);
+  gulp.watch(['common/script/content/**', 'test/**'], ['test:content:clean']);
 });
 
 gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
@@ -429,13 +429,13 @@ gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
 gulp.task('test:all', (done) => {
   runSequence(
   'lint',
-  // 'test:e2e:safe',
+  //'test:e2e:safe',
   //'test:common:safe',
-  // 'test:content:safe',
-  //'test:server_side:safe',
-  // 'test:karma:safe',
-  // 'test:api-legacy:safe',
-  // 'test:api-v2:safe',
+  //'test:content:safe',
+  // 'test:server_side:safe',
+  //'test:karma:safe',
+  //'test:api-legacy:safe',
+  //'test:api-v2:safe',
   'test:api-v3:safe',
   done);
 });
