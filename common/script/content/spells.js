@@ -35,6 +35,7 @@ let spells = {};
 
 spells.wizard = {
   fireball: {
+    // Burst of Flames
     text: t('spellWizardFireballText'),
     mana: 10,
     lvl: 11,
@@ -45,13 +46,14 @@ spells.wizard = {
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress) user.party.quest.progress = 0;
-      user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 9.1);
+      user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 0.1);
       // TODO change, pass req to spell?
       let req = {language: user.preferences.language};
       user.fns.updateStats(user.stats, req);
     },
   },
   mpheal: {
+    // Ethereal Surge
     text: t('spellWizardMPHealText'),
     mana: 30,
     lvl: 12,
@@ -67,6 +69,7 @@ spells.wizard = {
     },
   },
   earth: {
+    // Earthquake
     text: t('spellWizardEarthText'),
     mana: 35,
     lvl: 13,
@@ -81,6 +84,7 @@ spells.wizard = {
     },
   },
   frost: {
+    // Chilling Frost
     text: t('spellWizardFrostText'),
     mana: 40,
     lvl: 14,
@@ -94,6 +98,7 @@ spells.wizard = {
 
 spells.warrior = {
   smash: {
+    // Brutal Smash
     text: t('spellWarriorSmashText'),
     mana: 10,
     lvl: 11,
@@ -107,6 +112,7 @@ spells.warrior = {
     },
   },
   defensiveStance: {
+    // Defensive Stance
     text: t('spellWarriorDefensiveStanceText'),
     mana: 25,
     lvl: 12,
@@ -119,6 +125,7 @@ spells.warrior = {
     },
   },
   valorousPresence: {
+    // Valorous Prescence
     text: t('spellWarriorValorousPresenceText'),
     mana: 20,
     lvl: 13,
@@ -133,6 +140,7 @@ spells.warrior = {
     },
   },
   intimidate: {
+    // Intimidating Gaze
     text: t('spellWarriorIntimidateText'),
     mana: 15,
     lvl: 14,
@@ -150,6 +158,7 @@ spells.warrior = {
 
 spells.rogue = {
   pickPocket: {
+    // Pickpocket
     text: t('spellRoguePickPocketText'),
     mana: 10,
     lvl: 11,
@@ -161,6 +170,7 @@ spells.rogue = {
     },
   },
   backStab: {
+    // Backstab
     text: t('spellRogueBackStabText'),
     mana: 15,
     lvl: 12,
@@ -176,6 +186,7 @@ spells.rogue = {
     },
   },
   toolsOfTrade: {
+    // Tools of the Trade
     text: t('spellRogueToolsOfTradeText'),
     mana: 25,
     lvl: 13,
@@ -190,6 +201,7 @@ spells.rogue = {
     },
   },
   stealth: {
+    // Stealth
     text: t('spellRogueStealthText'),
     mana: 45,
     lvl: 14,
@@ -204,6 +216,7 @@ spells.rogue = {
 
 spells.healer = {
   heal: {
+    // Healing Light
     text: t('spellHealerHealText'),
     mana: 15,
     lvl: 11,
@@ -215,6 +228,7 @@ spells.healer = {
     },
   },
   brightness: {
+    // Searing Brightness
     text: t('spellHealerBrightnessText'),
     mana: 15,
     lvl: 12,
@@ -229,6 +243,7 @@ spells.healer = {
     },
   },
   protectAura: {
+    // Protective Aura
     text: t('spellHealerProtectAuraText'),
     mana: 30,
     lvl: 13,
@@ -243,6 +258,7 @@ spells.healer = {
     },
   },
   heallAll: {
+    // Blessing
     text: t('spellHealerHealAllText'),
     mana: 25,
     lvl: 14,
