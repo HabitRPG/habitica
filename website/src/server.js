@@ -11,6 +11,7 @@ var isDev = nconf.get('NODE_ENV') === 'development';
 var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 var cores = +nconf.get("WEB_CONCURRENCY") || 0;
 var activeHandles = require('active-handles');
+var moment = require('moment');
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
@@ -167,6 +168,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var activeHandleInterval = setInterval(logHandles, logHandlesInterval);
 
   function logHandles() {
+    console.log(moment().format());
     activeHandles.print({highlight:false});
   }
 }
