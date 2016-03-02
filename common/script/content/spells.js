@@ -218,10 +218,10 @@ spells.healer = {
     text: t('spellHealerBrightnessText'),
     mana: 15,
     lvl: 12,
-    target: 'self',
+    target: 'tasks',
     notes: t('spellHealerBrightnessNotes'),
-    cast (user) {
-      _.each(user.tasks, (task) => {
+    cast (user, tasks) {
+      _.each(tasks, (task) => {
         if (task.type !== 'reward') {
           task.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40));
         }
