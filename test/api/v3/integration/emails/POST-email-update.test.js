@@ -18,7 +18,7 @@ describe('POST /email/update', () => {
     user_fb = await generateUser({ "auth.local.email": null });
   });
 
-/*
+
   it('does not change email if one is not provided', async () => {
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -59,7 +59,7 @@ describe('POST /email/update', () => {
 
   it('returns success if new email is the same as old', async () => {
   });
-*/
+
 
   it('does not change email if user.auth.local.email does not exist for this user', async () => {
     await expect(user_fb.post(endpoint, {
