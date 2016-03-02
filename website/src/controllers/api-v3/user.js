@@ -4,6 +4,7 @@ import common from '../../../../common';
 import { 
   PreconditionFailed
 } from "../../libs/api-v3/errors";
+import { model as User } from "../../models/user";
 // import validator from 'validator';
 
 let api = {};
@@ -49,17 +50,21 @@ api.updateEmail = {
   url: '/email/update',
   async handler (req, res) {    
     let user = res.locals.user.toJSON();
-    console.log('+++ user.auth.local is', user.auth.local);
-    console.log("+++ user.auth.facebook is", user.auth.facebook);
+
+    // console.log('+++ user.auth.local is', user.auth.local);
+    // console.log("+++ user.auth.facebook is", user.auth.facebook);
 
     req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
+    req.checkBody('password', res.t('missingPassword')).notEmpty();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
  
     if (!user.auth.local.email) throw new PreconditionFailed(res.t('userHasNoLocalRegistration'));
 
     // check password
-    
+    let temp_user = await User.findOne({ _id: user._id}, {"auth.local": 1}).exec();
+    // console.log("+++ +++ temp_user is", temp_user);
+
     // save new email
 
     return res.respond(200, {status:'ok'});
