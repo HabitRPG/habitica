@@ -1,6 +1,9 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
+import { 
+  PreconditionFailed
+} from "../../libs/api-v3/errors";
 // import validator from 'validator';
 
 let api = {};
@@ -46,15 +49,15 @@ api.updateEmail = {
   url: '/email/update',
   async handler (req, res) {    
     let user = res.locals.user.toJSON();
-    console.log('+++ user.auth is', user.auth);
+    console.log('+++ user.auth.local is', user.auth.local);
+    console.log("+++ user.auth.facebook is", user.auth.facebook);
 
     req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
  
-    // check that this user has a local account
-    // if not, return with precondition failed.
-        
+    if (!user.auth.local.email) throw new PreconditionFailed(res.t('userHasNoLocalRegistration'));
+
     // check password
     
     // save new email
