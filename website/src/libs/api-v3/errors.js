@@ -1,11 +1,4 @@
-// Base class for custom application errors
-// It extends Error and capture the stack trace
-export class CustomError extends Error {
-  constructor () {
-    super();
-    Error.captureStackTrace(this, this.constructor);
-  }
-}
+import { CustomError } from '../../../../common/script/api-v3/errors';
 
 /**
  * @apiDefine NotAuthorized
@@ -18,14 +11,7 @@ export class CustomError extends Error {
  *       "message": "Not authorized."
  *     }
  */
-export class NotAuthorized extends CustomError {
-  constructor (customMessage) {
-    super();
-    this.name = this.constructor.name;
-    this.httpCode = 401;
-    this.message = customMessage || 'Not authorized.';
-  }
-}
+export { NotAuthorized } from '../../../../common/script/api-v3/errors';
 
 /**
  * @apiDefine BadRequest
@@ -38,14 +24,7 @@ export class NotAuthorized extends CustomError {
  *       "message": "Bad request."
  *     }
  */
-export class BadRequest extends CustomError {
-  constructor (customMessage) {
-    super();
-    this.name = this.constructor.name;
-    this.httpCode = 400;
-    this.message = customMessage || 'Bad request.';
-  }
-}
+export { BadRequest } from '../../../../common/script/api-v3/errors';
 
 /**
  * @apiDefine NotFound
@@ -58,14 +37,7 @@ export class BadRequest extends CustomError {
  *       "message": "Not found."
  *     }
  */
-export class NotFound extends CustomError {
-  constructor (customMessage) {
-    super();
-    this.name = this.constructor.name;
-    this.httpCode = 404;
-    this.message = customMessage || 'Not found.';
-  }
-}
+export { NotFound } from '../../../../common/script/api-v3/errors';
 
 /**
  * @apiDefine InternalServerError

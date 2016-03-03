@@ -1,8 +1,8 @@
 // The error handler middleware that handles all errors
 // and respond to the client
 import logger from '../../libs/api-v3/logger';
+import { CustomError } from '../../../../common/script/api-v3/errors';
 import {
-  CustomError,
   BadRequest,
   InternalServerError,
 } from '../../libs/api-v3/errors';
@@ -28,7 +28,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
   if (err.statusCode && typeof err.statusCode === 'number') {
     responseErr = new CustomError();
     responseErr.httpCode = err.statusCode;
-    responseErr.error = err.name;
+    responseErr.name = err.name;
     responseErr.message = err.message;
   }
 

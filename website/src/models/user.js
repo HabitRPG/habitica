@@ -453,7 +453,7 @@ export let schema = new Schema({
     lvl: {type: Number, default: 1},
 
     // Class System
-    class: {type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior'},
+    class: {type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior', required: true},
     points: {type: Number, default: 0},
     str: {type: Number, default: 0},
     con: {type: Number, default: 0},
