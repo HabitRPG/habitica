@@ -50,7 +50,7 @@ api.updateEmail = {
   middlewares: [authWithHeaders(), cron],
   url: '/user/update-email',
   async handler (req, res) {
-    let user = res.locals.user.toJSON();
+    let user = res.locals.user;
 
     if (!user.auth.local.email) throw new PreconditionFailed(res.t('userHasNoLocalRegistration'));
 
@@ -65,10 +65,9 @@ api.updateEmail = {
 
     // save new email
     user.auth.local.email = req.body.newEmail;
-    let flag = await user.save();
-    if (!flag) throw new BadRequest();
+    await user.save();
 
-    return res.respond(200, { status: 'ok' });
+    return res.respond(200, { status: 'ok', email: user.auth.local.email });
   },
 };
 
