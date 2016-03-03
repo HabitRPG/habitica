@@ -74,6 +74,7 @@ GroupSchema.virtual('partyCap').get(function(){ return PARTY_CAP });
 
 GroupSchema.virtual('isOverPartyCap').get(function(){
   return this.type === 'party' 
+      && this.invites
       && (this.memberCount + this.invites.length >= this.partyCap);
 });
 
