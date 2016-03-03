@@ -4,6 +4,7 @@
   "version": "0.0.0-152",
   "main": "./website/src/server.js",
   "dependencies": {
+    "active-handles": "^1.1.0",
     "amazon-payments": "0.0.4",
     "amplitude": "^2.0.3",
     "async": "~0.9.0",
