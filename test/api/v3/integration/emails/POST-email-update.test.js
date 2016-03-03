@@ -1,6 +1,5 @@
 import {
   generateUser,
-  generateFbUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { ApiUser } from "../../../../helpers/api-integration/api-classes";
@@ -15,7 +14,6 @@ describe('POST /email/update', () => {
   let newEmail    = 'some-new-email_2@example.net';
   let thePassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 
-/*
   describe("local user", async () => {
     beforeEach(async () => {
       user = await generateUser();
@@ -61,13 +59,11 @@ describe('POST /email/update', () => {
       expect(user.auth.local.email).to.eql(newEmail);
     });
   });
-*/
-  describe("facebook user", async () => {
 
+  describe("facebook user", async () => {
     beforeEach(async () => {
       fbUser = await generateUser();
       await fbUser.update({"auth.local": {ok:true} });
-      console.log("+++ +++ TEST fbUser is", fbUser);
     });
 
     it('does not change email if user.auth.local.email does not exist for this user', async () => {
