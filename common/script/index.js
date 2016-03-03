@@ -1,3 +1,6 @@
+import moment from 'moment';
+import _ from 'lodash';
+
 import {
   daysSince,
   shouldDo,
@@ -9,18 +12,13 @@ import {
 } from './constants';
 import * as statHelpers from './statHelpers';
 
-var $w, _, api, content, i18n, preenHistory, moment, sortOrder,
+var $w, preenHistory, sortOrder,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-moment = require('moment');
+import content from './content/index';
+import i18n from './i18n';
 
-_ = require('lodash');
-
-content = require('./content/index');
-
-i18n = require('./i18n');
-
-api = module.exports = {};
+let api = module.exports = {};
 
 api.i18n = i18n;
 api.shouldDo = shouldDo;
@@ -471,7 +469,8 @@ api.appliedTags = function(userTags, taskTags) {
 Various counting functions
  */
 
-api.count = require('./count');
+import count from './count';
+api.count = count;
 
 
 /*

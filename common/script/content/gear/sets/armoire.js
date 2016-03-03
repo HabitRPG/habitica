@@ -495,4 +495,4 @@ let armoireSet = {
   weapon,
 };
 
-export default armoireSet;
+module.exports = armoireSet;

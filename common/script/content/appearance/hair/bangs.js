@@ -1,6 +1,6 @@
 import prefill from '../prefill.js';
 
-export default prefill({
+module.exports = prefill({
   0: {},
   1: {},
   2: {},
