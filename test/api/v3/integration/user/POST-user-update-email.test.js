@@ -50,7 +50,7 @@ describe('POST /email/update', () => {
         newEmail,
         password: thePassword,
       });
-      expect(JSON.stringify(response)).to.equal(JSON.stringify({ status: 'ok' }));
+      expect(JSON.stringify(response)).to.equal(JSON.stringify({ status: 'ok', email: 'some-new-email_2@example.net' }));
       let id = user._id;
       user = await User.findOne({ _id: id });
       expect(user.auth.local.email).to.eql(newEmail);
