@@ -167,4 +167,12 @@ server.listen(app.get('port'), () => {
   return logger.info(`Express server listening on port ${app.get('port')}`);
 });
 
+// var logHandlesInterval = +nconf.get('LOG_HANDLES_INTERVAL');
+// if (logHandlesInterval) { var activeHandleInterval = setInterval(logHandles, logHandlesInterval); }
+
+// function logHandles() {
+//   console.log(moment().format());
+//   activeHandles.print({highlight:false});
+// }
+
 export default server;

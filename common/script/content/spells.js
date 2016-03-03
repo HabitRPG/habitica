@@ -34,7 +34,7 @@ function calculateBonus (value, stat, crit = 1, statScale = 0.5) {
 let spells = {};
 
 spells.wizard = {
-  fireball: {
+  fireball: { // Burst of Flames
     text: t('spellWizardFireballText'),
     mana: 10,
     lvl: 11,
@@ -45,11 +45,11 @@ spells.wizard = {
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress) user.party.quest.progress = 0;
-      user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 9.1);
+      user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 0.1);
       user.fns.updateStats(user.stats, req);
     },
   },
-  mpheal: {
+  mpheal: { // Ethereal Surge
     text: t('spellWizardMPHealText'),
     mana: 30,
     lvl: 12,
@@ -64,7 +64,7 @@ spells.wizard = {
       });
     },
   },
-  earth: {
+  earth: { // Earthquake
     text: t('spellWizardEarthText'),
     mana: 35,
     lvl: 13,
@@ -78,7 +78,7 @@ spells.wizard = {
       });
     },
   },
-  frost: {
+  frost: { // Chilling Frost
     text: t('spellWizardFrostText'),
     mana: 40,
     lvl: 14,
@@ -91,7 +91,7 @@ spells.wizard = {
 };
 
 spells.warrior = {
-  smash: {
+  smash: { // Brutal Smash
     text: t('spellWarriorSmashText'),
     mana: 10,
     lvl: 11,
@@ -104,7 +104,7 @@ spells.warrior = {
       user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
     },
   },
-  defensiveStance: {
+  defensiveStance: { // Defensive Stance
     text: t('spellWarriorDefensiveStanceText'),
     mana: 25,
     lvl: 12,
@@ -116,7 +116,7 @@ spells.warrior = {
       user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200));
     },
   },
-  valorousPresence: {
+  valorousPresence: { // Valorous Prescence
     text: t('spellWarriorValorousPresenceText'),
     mana: 20,
     lvl: 13,
@@ -130,7 +130,7 @@ spells.warrior = {
       });
     },
   },
-  intimidate: {
+  intimidate: { // Intimidating Gaze
     text: t('spellWarriorIntimidateText'),
     mana: 15,
     lvl: 14,
@@ -147,7 +147,7 @@ spells.warrior = {
 };
 
 spells.rogue = {
-  pickPocket: {
+  pickPocket: { // Pickpocket
     text: t('spellRoguePickPocketText'),
     mana: 10,
     lvl: 11,
@@ -158,7 +158,7 @@ spells.rogue = {
       user.stats.gp += diminishingReturns(bonus, 25, 75);
     },
   },
-  backStab: {
+  backStab: { // Backstab
     text: t('spellRogueBackStabText'),
     mana: 15,
     lvl: 12,
@@ -172,7 +172,7 @@ spells.rogue = {
       user.fns.updateStats(user.stats, req);
     },
   },
-  toolsOfTrade: {
+  toolsOfTrade: { // Tools of the Trade
     text: t('spellRogueToolsOfTradeText'),
     mana: 25,
     lvl: 13,
@@ -186,7 +186,7 @@ spells.rogue = {
       });
     },
   },
-  stealth: {
+  stealth: { // Stealth
     text: t('spellRogueStealthText'),
     mana: 45,
     lvl: 14,
@@ -200,7 +200,7 @@ spells.rogue = {
 };
 
 spells.healer = {
-  heal: {
+  heal: { // Healing Light
     text: t('spellHealerHealText'),
     mana: 15,
     lvl: 11,
@@ -211,7 +211,7 @@ spells.healer = {
       if (user.stats.hp > 50) user.stats.hp = 50;
     },
   },
-  brightness: {
+  brightness: { // Searing Brightness
     text: t('spellHealerBrightnessText'),
     mana: 15,
     lvl: 12,
@@ -225,7 +225,7 @@ spells.healer = {
       });
     },
   },
-  protectAura: {
+  protectAura: { // Protective Aura
     text: t('spellHealerProtectAuraText'),
     mana: 30,
     lvl: 13,
@@ -239,7 +239,7 @@ spells.healer = {
       });
     },
   },
-  heallAll: {
+  heallAll: { // Blessing
     text: t('spellHealerHealAllText'),
     mana: 25,
     lvl: 14,
