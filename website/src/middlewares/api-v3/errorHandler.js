@@ -1,7 +1,7 @@
 // The error handler middleware that handles all errors
 // and respond to the client
 import logger from '../../libs/api-v3/logger';
-import CustomError from '../../../../common/script/api-v3/customError';
+import { CustomError } from '../../../../common/script/api-v3/errors';
 import {
   BadRequest,
   InternalServerError,
@@ -23,12 +23,6 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
   // If we can't identify it, respond with a generic 500 error
   let responseErr = err instanceof CustomError ? err : null;
-
-  // TODO don't return always 400 for errors in common code
-  // If CustomError but without httpCode then they come from shared code, treat as 400s
-  if (err instanceof CustomError && !err.httpCode) {
-    err.httpCode = 400;
-  }
 
   // Handle errors created with 'http-errors' or similar that have a status/statusCode property
   if (err.statusCode && typeof err.statusCode === 'number') {

@@ -68,7 +68,7 @@ describe('POST /user/class/cast/:spellId', () => {
   it('returns an error if user doesn\'t own the spell', async () => {
     await expect(user.post(`/user/class/cast/snowball`))
       .to.eventually.be.rejected.and.eql({
-        code: 400,
+        code: 401,
         error: 'NotAuthorized',
         message: t('spellNotOwned'),
       });

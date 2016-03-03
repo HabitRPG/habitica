@@ -1,5 +1,6 @@
+// TODO move to shared tests
+import { CustomError } from '../../../../../common/script/api-v3/errors';
 import {
-  CustomError,
   NotAuthorized,
   BadRequest,
   InternalServerError,

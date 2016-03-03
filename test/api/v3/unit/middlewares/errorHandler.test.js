@@ -9,7 +9,6 @@ import responseMiddleware from '../../../../../website/src/middlewares/api-v3/re
 import getUserLanguage from '../../../../../website/src/middlewares/api-v3/getUserLanguage';
 
 import { BadRequest } from '../../../../../website/src/libs/api-v3/errors';
-import { NotAuthorized as NotAuthorizedShared } from '../../../../../common/script/api-v3/errors';
 import logger from '../../../../../website/src/libs/api-v3/logger';
 
 describe('errorHandler', () => {
@@ -84,21 +83,6 @@ describe('errorHandler', () => {
     expect(res.json).to.be.calledWith({
       error: 'BadRequest',
       message: 'Bad request.',
-    });
-  });
-
-  it('handle CustomError(s) from shared code', () => {
-    let error = new NotAuthorizedShared();
-
-    errorHandler(error, req, res, next);
-
-    expect(res.status).to.be.calledOnce;
-    expect(res.json).to.be.calledOnce;
-
-    expect(res.status).to.be.calledWith(400);
-    expect(res.json).to.be.calledWith({
-      error: 'NotAuthorized',
-      message: 'Not authorized.',
     });
   });
 
