@@ -1,12 +1,11 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
-import { 
+import {
   PreconditionFailed,
   BadRequest,
-  NotAuthorized
-} from "../../libs/api-v3/errors";
-import { model as User } from "../../models/user";
+  NotAuthorized,
+} from '../../libs/api-v3/errors';
 import * as passwordUtils from '../../libs/api-v3/password';
 
 let api = {};
@@ -39,7 +38,7 @@ api.getUser = {
 };
 
 /**
- * @api {post} /email/update
+ * @api {post} /user/update-email
  * @apiVersion 3.0.0
  * @apiName EmailUpdate
  * @apiGroup User
@@ -49,9 +48,9 @@ api.getUser = {
 api.updateEmail = {
   method: 'POST',
   middlewares: [authWithHeaders(), cron],
-  url: '/email/update',
-  async handler (req, res) {    
-    let user = res.locals.user();
+  url: '/user/update-email',
+  async handler (req, res) {
+    let user = res.locals.user.toJSON();
 
     if (!user.auth.local.email) throw new PreconditionFailed(res.t('userHasNoLocalRegistration'));
 
@@ -59,17 +58,18 @@ api.updateEmail = {
     req.checkBody('password', res.t('missingPassword')).notEmpty();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
- 
+
     // check password
-    let candidate_password = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (candidate_password !== user.auth.local.hashed_password) throw new NotAuthorized();
+    let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized();
 
     // save new email
     user.auth.local.email = req.body.newEmail;
-    if (!await User.save()) throw new BadRequest();
+    let flag = await user.save();
+    if (!flag) throw new BadRequest();
 
-    return res.respond(200, {status:'ok'});
-  }
+    return res.respond(200, { status: 'ok' });
+  },
 };
 
 export default api;
