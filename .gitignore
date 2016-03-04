@@ -1,6 +1,8 @@
 .DS_Store
 website/public/gen
 website/public/common
+website/transpiled-babel/
+common/transpiled-babel/
 node_modules
 *.swp
 .idea*

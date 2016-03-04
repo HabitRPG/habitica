@@ -35,6 +35,7 @@
     "grunt-hashres": "~0.4.1",
     "grunt-karma": "~0.12.1",
     "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.2",
     "gulp-eslint": "^1.0.0",
     "gulp-grunt": "^0.5.2",
     "gulp-imagemin": "^2.3.0",
