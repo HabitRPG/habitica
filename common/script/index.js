@@ -4,7 +4,7 @@ import _ from 'lodash';
 import {
   daysSince,
   shouldDo,
-} from '../../common/script/cron';
+} from './cron';
 import {
   MAX_HEALTH,
   MAX_LEVEL,
