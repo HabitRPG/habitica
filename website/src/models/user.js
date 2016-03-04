@@ -391,14 +391,12 @@ var UserSchema = new Schema({
       raisePet: {type: Boolean, 'default': false},
       streak: {type: Boolean, 'default': false}
     },
-    improvementCategories: {type: Array, validate: function (categories) {
-      var validValues = true;
-      categories.forEach(function (cat) {
-        if (['work', 'exercise', 'healthWellness', 'school', 'teams', 'chores', 'creativity'].indexOf(cat) === -1){
-          validValues = false;
-        }
-      });
-      return validValues;
+    improvementCategories: {
+      type: Array,
+      validate: (categories) => {
+        const validCategories = ['work', 'exercise', 'healthWellness', 'school', 'teams', 'chores', 'creativity'];
+        let isValidCategory = categories.every(category => validValues.indexOf(category) !== -1);
+        return isValidCategory;
     }}
   },
   profile: {
