@@ -41,7 +41,7 @@ describe('POST /email/update', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: 'Wrong password.',
+        message: t('wrongPassword'),
       });
     });
 
