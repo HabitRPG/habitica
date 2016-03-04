@@ -346,5 +346,10 @@
   "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
   "questSnailBoss": "Snail of Drudgery Sludge",
   "questSnailDropSnailEgg": "Snail (Egg)",
-  "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+  "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market",
+
+  "questDustBunniesText": "bunny bunny bun",
+  "questDustBunniesNotes": "bunnies attack",
+  "questDustBunniesCompletion": "bunnies dusted",
+  "questDustBunniesBoss": "Feral Dust Bunnies"
 }
