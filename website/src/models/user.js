@@ -218,7 +218,6 @@ var UserSchema = new Schema({
         back: String,
         headAccessory: String,
         eyewear: String,
-        chair: String,
         body: String
       },
       costume: {
@@ -229,6 +228,7 @@ var UserSchema = new Schema({
         back: String,
         headAccessory: String,
         eyewear: String,
+        chair: String,
         body: String
       }
     },
@@ -345,6 +345,7 @@ var UserSchema = new Schema({
       mustache: {type: Number, 'default': 0},
       flower: {type: Number, 'default': 1}
     },
+    chair: {type: String, 'deafult': 'none'},
     hideHeader: {type:Boolean, 'default':false},
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
