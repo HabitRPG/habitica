@@ -1,7 +1,10 @@
 'use strict';
 
 // Register babel hook so we can write the real entry file (server.js) in ES6
-require('babel-core/register');
+// In production, the es6 code is pre-transpiled so it doesn't need it
+if (process.env.NODE_ENV !== 'production') {
+  require('babel-register');
+}
 
 // Only do the minimal amount of work before forking just in case of a dyno restart
 const cluster = require('cluster');

@@ -1,10 +1,8 @@
-let t = require('./translation.js');
+import t from './translation';
 
-let NUMBER_OF_QUESTIONS = 12;
+const NUMBER_OF_QUESTIONS = 12;
 
-let faq = {};
-
-faq.questions = [];
+export const questions = [];
 
 for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
   let question = {
@@ -13,12 +11,10 @@ for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
     web: t(`webFaqAnswer${i}`),
   };
 
-  faq.questions.push(question);
+  questions.push(question);
 }
 
-faq.stillNeedHelp = {
+export const stillNeedHelp = {
   ios: t('iosFaqStillNeedHelp'),
   web: t('webFaqStillNeedHelp'),
 };
-
-module.exports = faq;

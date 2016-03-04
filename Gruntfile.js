@@ -1,5 +1,5 @@
 /*global module:false*/
-require('babel-core/register');
+require('babel-register');
 var _ = require('lodash');
 module.exports = function(grunt) {
 

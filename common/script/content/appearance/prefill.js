@@ -1,6 +1,6 @@
 import {forOwn} from 'lodash';
 
-export default function prefillAppearances (obj) {
+module.exports = function prefillAppearances (obj) {
   forOwn(obj, function prefillAppearance (value, key) {
     value.key = key;
     if (!value.price) {
@@ -8,4 +8,4 @@ export default function prefillAppearances (obj) {
     }
   });
   return obj;
-}
+};

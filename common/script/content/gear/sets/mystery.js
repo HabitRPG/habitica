@@ -385,4 +385,4 @@ let mysterySet = {
   weapon,
 };
 
-export default mysterySet;
+module.exports = mysterySet;

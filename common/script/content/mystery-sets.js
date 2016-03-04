@@ -1,5 +1,5 @@
 import { each } from 'lodash';
-let t = require('./translation.js');
+import t from './translation';
 
 let mysterySets = {
   201402: {
@@ -122,4 +122,4 @@ each(mysterySets, (value, key) => {
   value.text = t(`mysterySet${key}`);
 });
 
-export default mysterySets;
+module.exports = mysterySets;

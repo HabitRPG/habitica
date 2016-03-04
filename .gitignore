@@ -2,6 +2,8 @@
 website/public/gen
 website/public/common
 website/public/apidoc
+website/transpiled-babel/
+common/transpiled-babel/
 node_modules
 *.swp
 .idea*
