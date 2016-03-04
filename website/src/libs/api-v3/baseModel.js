@@ -3,7 +3,7 @@ import validator from 'validator';
 import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
 import _ from 'lodash';
 
-export default function baseModel (schema, options = {}) {
+module.exports = function baseModel (schema, options = {}) {
   schema.add({
     _id: {
       type: String,
@@ -67,4 +67,4 @@ export default function baseModel (schema, options = {}) {
       return result;
     }, {});
   };
-}
+};

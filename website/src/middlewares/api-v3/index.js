@@ -18,7 +18,7 @@ const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
-export default function attachMiddlewares (app) {
+module.exports = function attachMiddlewares (app) {
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
 
   // TODO handle errors
@@ -45,4 +45,4 @@ export default function attachMiddlewares (app) {
 
   // Error handler middleware, define as the last one
   app.use(errorHandler);
-}
+};

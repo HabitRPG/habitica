@@ -342,4 +342,4 @@ api.logout = {
   },
 };
 
-export default api;
+module.exports = api;

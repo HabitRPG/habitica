@@ -16,8 +16,8 @@ if (nconf.get('IS_PROD')) {
   service = mockAnalyticsService;
 }
 
-export default function attachAnalytics (req, res, next) {
+module.exports = function attachAnalytics (req, res, next) {
   res.analytics = service;
 
   next();
-}
+};

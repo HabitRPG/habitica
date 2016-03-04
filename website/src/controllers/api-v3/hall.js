@@ -189,4 +189,4 @@ api.updateHero = {
   },
 };
 
-export default api;
+module.exports = api;

@@ -497,12 +497,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.type === 'guild') {
       emailVars.push(
         {name: 'GUILD_NAME', content: group.name},
-        {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'},
+        {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
       );
     } else {
       emailVars.push(
         {name: 'PARTY_NAME', content: group.name},
-        {name: 'PARTY_URL', content: '/#/options/groups/party'},
+        {name: 'PARTY_URL', content: '/#/options/groups/party'}
       );
     }
 
@@ -642,4 +642,4 @@ api.inviteToGroup = {
   },
 };
 
-export default api;
+module.exports = api;

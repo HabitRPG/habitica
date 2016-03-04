@@ -31,4 +31,4 @@ function walkControllers (filePath) {
 
 walkControllers(CONTROLLERS_PATH);
 
-export default router;
+module.exports = router;

@@ -3,7 +3,7 @@
 // it's yet to be decided whether to keep it or not
 import domainMiddleware from 'domain-middleware';
 
-export default function implementDomainMiddleware (server, mongoose) {
+module.exports = function implementDomainMiddleware (server, mongoose) {
   return domainMiddleware({
     server: {
       close () {
@@ -13,4 +13,4 @@ export default function implementDomainMiddleware (server, mongoose) {
     },
     killTimeout: 10000,
   });
-}
+};

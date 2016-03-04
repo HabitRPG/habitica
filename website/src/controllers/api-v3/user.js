@@ -156,4 +156,4 @@ api.castSpell = {
   },
 };
 
-export default api;
+module.exports = api;

@@ -231,7 +231,7 @@ let mockAnalyticsService = {
   trackPurchase: () => { },
 };
 
-export default {
+module.exports = {
   track,
   trackPurchase,
   mockAnalyticsService,

@@ -565,4 +565,4 @@ api.selectChallengeWinner = {
   },
 };
 
-export default api;
+module.exports = api;

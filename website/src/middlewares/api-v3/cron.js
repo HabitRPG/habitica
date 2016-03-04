@@ -269,7 +269,7 @@ export function cron (options = {}) {
 }
 
 // TODO check that it's used everywhere
-export default async function cronMiddleware (req, res, next) {
+module.exports = async function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   let analytics = res.analytics;
 
@@ -335,4 +335,4 @@ export default async function cronMiddleware (req, res, next) {
     .then(() => next())
     .catch(next);
   });
-}
+};

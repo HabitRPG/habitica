@@ -21,4 +21,4 @@ if (IS_PROD) {
     });
 }
 
-export default logger;
+module.exports = logger;

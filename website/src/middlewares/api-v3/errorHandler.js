@@ -8,7 +8,7 @@ import {
 } from '../../libs/api-v3/errors';
 import { map } from 'lodash';
 
-export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
+module.exports = function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
   // Log the original error with some metadata
   let stack = err.stack || err.message || err;
 
@@ -77,4 +77,4 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
   // In some occasions like when invalid JSON is supplied `res.respond` might be not yet avalaible,
   // in this case we use the standard res.status(...).json(...)
   return res.respond ? res.respond(responseErr.httpCode, jsonRes) : res.status(responseErr.httpCode).json(jsonRes);
-}
+};

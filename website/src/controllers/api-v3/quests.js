@@ -448,4 +448,4 @@ api.leaveQuest = {
   },
 };
 
-export default api;
+module.exports = api;
