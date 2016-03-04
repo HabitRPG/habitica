@@ -191,7 +191,7 @@ api.leaveChallenge = {
     challenge.memberCount -= 1;
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Q.all([user.unlinkChallengeTasks(challenge._id, keep), challenge.save()]);
+    await Q.all([challenge.unlinkTasks(user, keep), challenge.save()]);
     res.respond(200, {});
   },
 };

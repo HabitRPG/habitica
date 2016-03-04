@@ -6,7 +6,6 @@ import moment from 'moment';
 import * as Tasks from './task';
 import Q from 'q';
 import { schema as TagSchema } from './tag';
-import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import baseModel from '../libs/api-v3/baseModel';
 // import {model as Challenge} from './challenge';
 
@@ -694,38 +693,6 @@ schema.methods.getGroups = function getUserGroups () {
   if (this.party._id) userGroups.push(this.party._id);
   userGroups.push('habitrpg'); // tavern
   return userGroups;
-};
-
-// Unlink challenges tasks (and the challenge itself) from user
-schema.methods.unlinkChallengeTasks = async function unlinkChallengeTasks (challengeId, keep) {
-  let user = this;
-  let findQuery = {
-    userId: user._id,
-    'challenge.id': challengeId,
-  };
-
-  removeFromArray(user.challenges, challengeId);
-
-  if (keep === 'keep-all') {
-    await Tasks.Task.update(findQuery, {
-      $set: {challenge: {}}, // TODO what about updatedAt?
-    }, {multi: true}).exec();
-
-    await user.save();
-  } else { // keep = 'remove-all'
-    let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
-    let taskPromises = tasks.map(task => {
-      // Remove task from user.tasksOrder and delete them
-      if (task.type !== 'todo' || !task.completed) {
-        removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
-      }
-
-      return task.remove();
-    });
-
-    taskPromises.push(user.save());
-    return Q.all(taskPromises);
-  }
 };
 
 export let model = mongoose.model('User', schema);

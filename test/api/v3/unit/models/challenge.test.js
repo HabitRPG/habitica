@@ -122,6 +122,33 @@ describe('Challenge Model', () => {
 
         expect(updatedUserTask.challenge.broken).to.equal('TASK_DELETED');
       });
+
+      it('unlinks and deletes challenge tasks for a user when remove-all is specified', async () => {
+        await challenge.addTasks([task]);
+        await challenge.unlinkTasks(leader, 'remove-all');
+
+        let updatedLeader = await User.findOne({_id: leader._id});
+        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
+        let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
+          return updatedLeadersTask.type === taskValue.type && updatedLeadersTask.text === taskValue.text;
+        });
+
+        expect(syncedTask).to.not.exist;
+      });
+
+      it('unlinks and keeps challenge tasks for a user when keep-all is specified', async () => {
+        await challenge.addTasks([task]);
+        await challenge.unlinkTasks(leader, 'keep-all');
+
+        let updatedLeader = await User.findOne({_id: leader._id});
+        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
+        let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
+          return updatedLeadersTask.type === taskValue.type && updatedLeadersTask.text === taskValue.text;
+        });
+
+        expect(syncedTask).to.exist;
+        expect(syncedTask.challenge._id).to.be.empty;
+      });
     });
   });
 });
