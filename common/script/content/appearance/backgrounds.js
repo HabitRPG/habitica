@@ -1,5 +1,5 @@
 import {forOwn} from 'lodash';
-let t = require('../translation.js');
+import t from '../translation';
 
 /* eslint-disable camelcase */
 let backgrounds = {
@@ -320,4 +320,4 @@ forOwn(backgrounds, function prefillBackgroundSet (value) {
   });
 });
 
-export default backgrounds;
+module.exports = backgrounds;

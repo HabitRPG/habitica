@@ -1,4 +1,6 @@
-require('babel-core/register');
+if (process.env.NODE_ENV !== 'production') {
+  require('babel-register');
+}
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require("cluster");
 var _ = require('lodash');

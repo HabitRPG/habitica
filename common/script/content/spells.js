@@ -506,4 +506,4 @@ _.each(spells, (spellClass) => {
   });
 });
 
-export default spells;
+module.exports = spells;

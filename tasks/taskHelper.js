@@ -20,7 +20,7 @@ export var conf = nconf;
  * its tasks.
  */
 export function kill(proc) {
-  ((pid) => {
+  let killProcess = (pid) => {
     psTree(pid, (_, pids) => {
       if(pids.length) {
         pids.forEach(kill); return
@@ -32,7 +32,9 @@ export function kill(proc) {
       }
       catch(e) { console.log(e) }
     });
-  }(proc.PID || proc.pid));
+  }
+
+  killProcess(proc.PID || proc.pid);
 };
 
 /*
