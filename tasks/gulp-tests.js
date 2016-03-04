@@ -368,6 +368,11 @@ gulp.task('test', ['test:all'], () => {
       `\x1b[31mFailed: ${s.fail},\t`,
       `\x1b[36mPending: ${s.pend}\t`
     );
+
+    if (s.pass === 0) {
+      console.error('ERROR: Detected a test suite with 0 passing tests. Something may be wrong causing the build to error.');
+      process.exit(1);
+    }
   });
 
   console.log(
