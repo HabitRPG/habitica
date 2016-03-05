@@ -140,7 +140,7 @@
     "mysticHourglass": "<%= amount %> Reloj de Arena Místico",
     "mysticHourglassText": "Los Relojes de Arena Místicos permiten comprar un Conjunto de Artículos Misteriosos de un mes previo.",
     "purchasedPlanId": "$<%= price %> USD recurrentes cada <%= months %> mes(es) (<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
+    "purchasedPlanExtraMonths": "Tienes <%= months %> meses de crédito de suscripción extra.",
     "consecutiveSubscription": "Suscripción consecutiva",
     "consecutiveMonths": "Meses consecutivos:",
     "gemCapExtra": "Extra del tope de gemas:",

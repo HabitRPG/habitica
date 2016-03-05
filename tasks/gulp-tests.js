@@ -12,12 +12,12 @@ import gulp                       from 'gulp';
 import Q                          from 'q';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
+import nconf                      from 'nconf';
 
 const TEST_SERVER_PORT  = 3003
-const TEST_DB           = 'habitrpg_test'
 let server;
 
-const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
+const TEST_DB_URI       = nconf.get('TEST_DB_URI');
 
 const API_V2_TEST_COMMAND = 'npm run test:api-v2:integration';
 const LEGACY_API_TEST_COMMAND = 'npm run test:api-legacy';
@@ -51,7 +51,7 @@ gulp.task('test:nodemon', (done) => {
   process.env.PORT = TEST_SERVER_PORT;
   process.env.NODE_DB_URI=TEST_DB_URI;
 
-  runSequence('nodemon')
+  runSequence('nodemon');
 });
 
 gulp.task('test:prepare:mongo', (cb) => {
@@ -72,7 +72,7 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   }
 });
 
-gulp.task('test:prepare:build', (cb) => {
+gulp.task('test:prepare:build', ['build'], (cb) => {
   exec(testBin('grunt build:test'), cb);
 });
 
@@ -136,7 +136,7 @@ gulp.task('test:content:clean', (cb) => {
 });
 
 gulp.task('test:content:watch', ['test:content:clean'], () => {
-  gulp.watch(['common/script/src/content/**', 'test/**'], ['test:content:clean']);
+  gulp.watch(['common/script/content/**', 'test/**'], ['test:content:clean']);
 });
 
 gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
@@ -346,7 +346,7 @@ gulp.task('test:all', (done) => {
   'lint',
   'test:e2e:safe',
   'test:common:safe',
-  // 'test:content:safe',
+  'test:content:safe',
   // 'test:server_side:safe',
   'test:karma:safe',
   'test:api-legacy:safe',
@@ -368,6 +368,11 @@ gulp.task('test', ['test:all'], () => {
       `\x1b[31mFailed: ${s.fail},\t`,
       `\x1b[36mPending: ${s.pend}\t`
     );
+
+    if (s.pass === 0) {
+      console.error('ERROR: Detected a test suite with 0 passing tests. Something may be wrong causing the build to error.');
+      process.exit(1);
+    }
   });
 
   console.log(

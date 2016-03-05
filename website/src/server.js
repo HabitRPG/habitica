@@ -1,4 +1,6 @@
-require('babel-core/register');
+if (process.env.NODE_ENV !== 'production') {
+  require('babel-register');
+}
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require("cluster");
 var _ = require('lodash');
@@ -10,10 +12,13 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 var cores = +nconf.get("WEB_CONCURRENCY") || 0;
+var moment = require('moment');
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
-  _.times(cores, cluster.fork);
+  _.times(cores, function () {
+    cluster.fork();
+  });
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker

@@ -1,5 +1,5 @@
 {
-    "tavern": "Taverne",
+    "tavern": "Tavern Chat",
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
     "innText": "Vous êtes installé à l'Auberge ! Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours. Attention : si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Equipe, sauf s'ils séjournent aussi à l'Auberge ! Et vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge.",
