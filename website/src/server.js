@@ -12,7 +12,6 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 var cores = +nconf.get("WEB_CONCURRENCY") || 0;
-var activeHandles = require('active-handles');
 var moment = require('moment');
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
@@ -165,12 +164,4 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   });
 
   module.exports = server;
-
-  var logHandlesInterval = +nconf.get('LOG_HANDLES_INTERVAL');
-  if (logHandlesInterval) { var activeHandleInterval = setInterval(logHandles, logHandlesInterval); }
-
-  function logHandles() {
-    console.log(moment().format());
-    activeHandles.print({highlight:false});
-  }
 }
