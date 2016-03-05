@@ -40,7 +40,7 @@
     "stableBeastMasterProgress": "Dyretæmmerfremskridt: <%= number %> Kæledyr fundet",
     "beastAchievement": "Du har opnået \"Dyretæmmer\"-præstationen ved at samle alle kæledyr!",
     "beastMasterName": "Dyretæmmer",
-    "beastMasterText": "Has found all 90 pets (incredibly difficult, congratulate this user!)",
+    "beastMasterText": "Har fundet alle 90 kæledyr (sindsoprivende vanskeligt, lykønsk denne bruger!)",
     "beastMasterText2": "og har sluppet deres kæledyr fri <%= count %> gang(e)",
     "mountMasterProgress": "Ridemesterfremskridt",
     "stableMountMasterProgress": "Ridemesterfremskridt: <%= number %> Ridedyr tæmmet",

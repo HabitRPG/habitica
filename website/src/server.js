@@ -1,4 +1,4 @@
-// TODO cleanup all comments when finished API v3
+// TODO cleanup all comments when API v3 is finished
 
 import nconf from 'nconf';
 import logger from './libs/api-v3/logger';
