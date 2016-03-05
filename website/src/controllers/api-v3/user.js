@@ -11,6 +11,7 @@ import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import Q from 'q';
 import _ from 'lodash';
+import * as passwordUtils from '../../libs/api-v3/password';
 
 let api = {};
 
@@ -29,7 +30,7 @@ api.getUser = {
   async handler (req, res) {
     let user = res.locals.user.toJSON();
 
-    // Remove apiToken from resonse TODO make it priavte at the user level? returned in signup/login
+    // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete user.apiToken;
 
     // TODO move to model (maybe virtuals, maybe in toJSON)
@@ -38,6 +39,41 @@ api.getUser = {
     user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
     return res.respond(200, user);
+  },
+};
+
+/**
+ * @api {post} /user/update-email
+ * @apiVersion 3.0.0
+ * @apiName UpdateEmail
+ * @apiGroup User
+ *
+ * @apiParam {string} newEmail The new email address.
+ * @apiParam {string} password The user password.
+ *
+ * @apiSuccess {Object} An object containing the new email address
+ */
+api.updateEmail = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/update-email',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+
+    req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
+    req.checkBody('password', res.t('missingPassword')).notEmpty();
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+
+    user.auth.local.email = req.body.newEmail;
+    await user.save();
+
+    return res.respond(200, { email: user.auth.local.email });
   },
 };
 
