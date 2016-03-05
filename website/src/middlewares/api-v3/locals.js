@@ -37,7 +37,7 @@ let env = {
   env[key] = nconf.get(key);
 });
 
-export default function locals (req, res, next) {
+module.exports = function locals (req, res, next) {
   let language = _.find(i18n.availableLanguages, {code: req.language});
   let isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
 
@@ -59,4 +59,4 @@ export default function locals (req, res, next) {
   });
 
   next();
-}
+};

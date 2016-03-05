@@ -75,7 +75,7 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   }
 });
 
-gulp.task('test:prepare:build', (cb) => {
+gulp.task('test:prepare:build', ['build'], (cb) => {
   exec(testBin('grunt build:test'), cb);
 });
 

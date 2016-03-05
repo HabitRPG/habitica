@@ -7,7 +7,7 @@ const MAX_AGE = IS_PROD ? 31536000000 : 0;
 const PUBLIC_DIR = path.join(__dirname, '/../../../public');
 const BUILD_DIR = path.join(__dirname, '/../../../build');
 
-export default function staticMiddleware (expressApp) {
+module.exports = function staticMiddleware (expressApp) {
   // TODO move all static files to a single location (one for public and one for build)
   expressApp.use(express.static(BUILD_DIR, { maxAge: MAX_AGE }));
   expressApp.use('/common/dist', express.static(`${PUBLIC_DIR}/../../common/dist`, { maxAge: MAX_AGE }));
@@ -15,4 +15,4 @@ export default function staticMiddleware (expressApp) {
   expressApp.use('/common/script/public', express.static(`${PUBLIC_DIR}/../../common/script/public`, { maxAge: MAX_AGE }));
   expressApp.use('/common/img', express.static(`${PUBLIC_DIR}/../../common/img`, { maxAge: MAX_AGE }));
   expressApp.use(express.static(PUBLIC_DIR));
-}
+};

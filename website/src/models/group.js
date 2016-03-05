@@ -316,8 +316,8 @@ schema.methods.startQuest = async function startQuest (user) {
   // send notifications in the background without blocking
   User.find(
     { _id: { $in: nonUserQuestMembers } },
-    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications pushDevices profile.name',
-  ).exec().then(membersToNotify => {
+    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications pushDevices profile.name'
+  ).exec().then((membersToNotify) => {
     let membersToEmail = _.filter(membersToNotify, (member) => {
       // send push notifications and filter users that disabled emails
       sendPushNotification(member, 'HabitRPG', `${shared.i18n.t('questStarted')}: ${quest.text()}`);

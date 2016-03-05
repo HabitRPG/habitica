@@ -64,7 +64,7 @@ function _attachTranslateFunction (req, res, next) {
   next();
 }
 
-export default function getUserLanguage (req, res, next) {
+module.exports = function getUserLanguage (req, res, next) {
   if (req.query.lang) { // In case the language is specified in the request url, use it
     req.language = translations[req.query.lang] ? req.query.lang : 'en';
     return _attachTranslateFunction(...arguments);
@@ -85,4 +85,4 @@ export default function getUserLanguage (req, res, next) {
     req.language = _getFromUser(null, req);
     return _attachTranslateFunction(...arguments);
   }
-}
+};

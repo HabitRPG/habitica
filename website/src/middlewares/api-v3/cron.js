@@ -9,8 +9,9 @@ import Task from '../../models/task';
 import Q from 'q';
 import Group from '../../models/group';
 import User from '../../models/user';
-import scoreTask from '../../../../common/script/api-v3/scoreTask';
 import { preenUserHistory } from '../../libs/api-v3/preening';
+
+const scoreTask = common.v3.scoreTask;
 
 let clearBuffs = {
   str: 0,
@@ -269,7 +270,7 @@ export function cron (options = {}) {
 }
 
 // TODO check that it's used everywhere
-export default async function cronMiddleware (req, res, next) {
+module.exports = async function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   let analytics = res.analytics;
 
@@ -335,4 +336,4 @@ export default async function cronMiddleware (req, res, next) {
     .then(() => next())
     .catch(next);
   });
-}
+};

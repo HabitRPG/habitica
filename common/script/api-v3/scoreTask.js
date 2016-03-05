@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import {
   NotAuthorized,
-} from '../../../website/src/libs/api-v3/errors';
+} from './errors';
 import i18n from '../i18n';
 
 const MAX_TASK_VALUE = 21.27;
@@ -166,7 +166,7 @@ function _changeTaskValue (user, task, direction, times, cron) {
   return addToDelta;
 }
 
-export default function scoreTask (options = {}, req = {}) {
+module.exports = function scoreTask (options = {}, req = {}) {
   let {user, task, direction, times = 1, cron = false} = options;
   let delta = 0;
   let stats = {
@@ -247,4 +247,4 @@ export default function scoreTask (options = {}, req = {}) {
 
   user.fns.updateStats(stats, req);
   return delta;
-}
+};

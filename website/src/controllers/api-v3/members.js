@@ -231,4 +231,4 @@ api.getChallengeMemberProgress = {
   },
 };
 
-export default api;
+module.exports = api;

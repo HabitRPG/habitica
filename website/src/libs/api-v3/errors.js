@@ -1,4 +1,6 @@
-import { CustomError } from '../../../../common/script/api-v3/errors';
+import common from '../../../../common/script';
+
+export const CustomError = common.v3.errors.CustomError;
 
 /**
  * @apiDefine NotAuthorized
@@ -11,7 +13,7 @@ import { CustomError } from '../../../../common/script/api-v3/errors';
  *       "message": "Not authorized."
  *     }
  */
-export { NotAuthorized } from '../../../../common/script/api-v3/errors';
+export const NotAuthorized = common.v3.errors.NotAuthorized;
 
 /**
  * @apiDefine BadRequest
@@ -24,7 +26,7 @@ export { NotAuthorized } from '../../../../common/script/api-v3/errors';
  *       "message": "Bad request."
  *     }
  */
-export { BadRequest } from '../../../../common/script/api-v3/errors';
+export const BadRequest = common.v3.errors.BadRequest;
 
 /**
  * @apiDefine NotFound
@@ -37,7 +39,7 @@ export { BadRequest } from '../../../../common/script/api-v3/errors';
  *       "message": "Not found."
  *     }
  */
-export { NotFound } from '../../../../common/script/api-v3/errors';
+export const NotFound = common.v3.errors.NotFound;
 
 /**
  * @apiDefine InternalServerError

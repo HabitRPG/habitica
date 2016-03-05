@@ -167,4 +167,4 @@ server.listen(app.get('port'), () => {
   return logger.info(`Express server listening on port ${app.get('port')}`);
 });
 
-export default server;
+module.exports = server;

@@ -1,9 +1,11 @@
-module.exports = require('./script/index');
-var _ = require('lodash');
-var moment = require('moment');
+'use strict';
 
-if (typeof window !== 'undefined') {
-  window.habitrpgShared = module.exports;
-  window._ = _;
-  window.moment = moment;
+let pathToCommon;
+
+if (process.env.NODE_ENV === 'production') {
+  pathToCommon = './transpiled-babel/index';
+} else {
+  pathToCommon = './script/index';
 }
+
+module.exports = require(pathToCommon);

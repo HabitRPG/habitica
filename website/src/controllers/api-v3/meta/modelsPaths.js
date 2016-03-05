@@ -36,4 +36,4 @@ api.getModelPaths = {
   },
 };
 
-export default api;
+module.exports = api;

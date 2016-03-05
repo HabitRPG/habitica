@@ -226,4 +226,4 @@ api.exportUserAvatarPng = {
   },
 };
 
-export default api;
+module.exports = api;

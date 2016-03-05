@@ -25,7 +25,7 @@ if (gcm) {
 }
 
 // TODO test
-export default function sendNotification (user, title, message, timeToLive = 15) {
+module.exports = function sendNotification (user, title, message, timeToLive = 15) {
   // TODO need investigation:
   // https://github.com/HabitRPG/habitrpg/issues/5252
 
@@ -54,4 +54,4 @@ export default function sendNotification (user, title, message, timeToLive = 15)
         break;
     }
   });
-}
+};

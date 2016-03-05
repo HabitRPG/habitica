@@ -144,4 +144,4 @@ api.deleteTag = {
   },
 };
 
-export default api;
+module.exports = api;
