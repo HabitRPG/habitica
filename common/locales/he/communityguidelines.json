@@ -64,7 +64,7 @@
     "commGuideList03A": "<strong>הלוח הראשי</strong> הוא מקום לבקש ולהשפיע על תכונות האתר.",
     "commGuideList03B": "<strong>הלוח הנייד</strong> הוא מקום לבקש ולהשפיע על תכונות האפליקציה לטלפון הנייד.",
     "commGuideList03C": "<strong>לוח אומנות הפיקסלים</strong> הוא מקום לדון ולהציע ציורים עבור האתר.",
-    "commGuideList03D": "<strong>לוח המשימות</strong> הוא מקום לדון ולהציע משימות עבור האתר.",
+    "commGuideList03D": "<strong>לוח ההרפתקאות</strong> הוא מקום לדון ולהציע משימות עבור האתר.",
     "commGuideList03E": "<strong>לוח הוויקי</strong> הוא מקום לדון, לשפר ולבקש תוכן נוסף בוויקי של האתר.",
     "commGuidePara042": "<strong>על כל אלו חלים חוקי המרחבים הציבוריים, וגם חוקים ספציפיים משלהם.</strong> על משתמשים להימנע מסטייה מהנושא בלוחות או הכרטיסים. סמכו עלינו, הלוחות האלו נהיים צפופים מדי גם ככה! שיחות ארוכות צריכות לעבור לגילדת ״הפינה האחורית״.",
     "commGuideHeadingGitHub": "גיטהאב",
@@ -163,7 +163,7 @@
     "commGuideLink02": "גילדת הפינה האחורית",
     "commGuideLink02description": "גילדה לדיונים ארוכים או דיון בנושאים רגישים.",
     "commGuideLink03": "עמוד הוויקי",
-    "commGuideLink03description": "אוסף המידע הגדול ביותר אודות Habitica.",
+    "commGuideLink03description": "אוסף המידע הגדול ביותר אודות האביטיקה.",
     "commGuideLink04": "GitHub",
     "commGuideLink04description": "הנועד לדיווח על באגים או עזרה בתיכנות קוד.",
     "commGuideLink05": "ה Trello הראשי",
@@ -172,7 +172,7 @@
     "commGuideLink06description": "להגשת בקשות לגימיקים חדשים בסלולר.",
     "commGuideLink07": "ה Trello האומנותי",
     "commGuideLink07description": "להגשת אומנות פיקסלים.",
-    "commGuideLink08": "Trello המשימות",
+    "commGuideLink08": "Trello ההרפתקאות",
     "commGuideLink08description": "להגשת סיפורי משימה.",
     "lastUpdated": "עדכון אחרון"
 }

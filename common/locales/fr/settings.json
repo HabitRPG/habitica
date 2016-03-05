@@ -140,7 +140,7 @@
     "mysticHourglass": "<%= amount %> Sablier Mystique ",
     "mysticHourglassText": "Un Sablier Mystique vous permet d'acheter des Sets d'Objets Mystère d'un mois passé.",
     "purchasedPlanId": "Récurrent €<%= price %> EUR tous les <%= months %> mois (<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
+    "purchasedPlanExtraMonths": "Vous avez <%= months %> mois de crédits extra d'abonnement.",
     "consecutiveSubscription": "Abonnement consécutif",
     "consecutiveMonths": "Mois consécutifs",
     "gemCapExtra": "Gemmes disponibles en plus :",

@@ -12,7 +12,7 @@
     "rebirthInList2": "Desafios, Guilda, e Equipe permanecem.",
     "rebirthInList3": "Gemas, níveis de apoiador, e níveis de colaborador permanecem.",
     "rebirthInList4": "Itens obtidos através de Gemas ou drops (como mascotes e montarias) permanecem, apesar de você não poder acessá-los até liberá-los novamente.",
-    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
+    "rebirthInList5": "Equipamentos de edição limitada que você comprou podem ser comprados novamente, mesmo que o evento tenha acabado. Para comprar novamente um equipamento específico da classe, você deve primeiro mudar para a classe correta.",
     "rebirthEarnAchievement": "Você também ganha uma Conquista por começar uma nova aventura!",
     "beReborn": "Renasça",
     "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>, e o nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",
