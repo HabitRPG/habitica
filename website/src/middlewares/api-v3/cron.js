@@ -9,8 +9,9 @@ import Task from '../../models/task';
 import Q from 'q';
 import Group from '../../models/group';
 import User from '../../models/user';
-import scoreTask from '../../../../common/script/api-v3/scoreTask';
 import { preenUserHistory } from '../../libs/api-v3/preening';
+
+const scoreTask = common.v3.scoreTask;
 
 let clearBuffs = {
   str: 0,

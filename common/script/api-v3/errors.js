@@ -1,6 +1,8 @@
+import extendableBuiltin from './libs/extendableBuiltin';
+
 // Base class for custom application errors
 // It extends Error and capture the stack trace
-export class CustomError extends Error {
+export class CustomError extends extendableBuiltin(Error) {
   constructor () {
     super();
     Error.captureStackTrace(this, this.constructor);

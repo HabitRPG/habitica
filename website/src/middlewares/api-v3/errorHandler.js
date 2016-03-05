@@ -1,8 +1,8 @@
 // The error handler middleware that handles all errors
 // and respond to the client
 import logger from '../../libs/api-v3/logger';
-import { CustomError } from '../../../../common/script/api-v3/errors';
 import {
+  CustomError,
   BadRequest,
   InternalServerError,
 } from '../../libs/api-v3/errors';

@@ -18,7 +18,16 @@ var $w, preenHistory, sortOrder,
 import content from './content/index';
 import i18n from './i18n';
 
+import * as errors from './api-v3/errors';
+import scoreTask from './api-v3/scoreTask';
+
 let api = module.exports = {};
+
+// Temporary location of API v3 files (soon to be removed)
+api.v3 = {
+  scoreTask,
+  errors,
+};
 
 api.i18n = i18n;
 api.shouldDo = shouldDo;

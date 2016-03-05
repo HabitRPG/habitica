@@ -10,12 +10,13 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../../libs/api-v3/errors';
-import shared from '../../../../common';
+import common from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
 import moment from 'moment';
-import scoreTask from '../../../../common/script/api-v3/scoreTask';
 import { preenHistory } from '../../libs/api-v3/preening';
+
+const scoreTask = common.v3.scoreTask;
 
 let api = {};
 
@@ -334,8 +335,8 @@ api.updateTask = {
 
 function _generateWebhookTaskData (task, direction, delta, stats, user) {
   let extendedStats = _.extend(stats, {
-    toNextLevel: shared.tnl(user.stats.lvl),
-    maxHealth: shared.maxHealth,
+    toNextLevel: common.tnl(user.stats.lvl),
+    maxHealth: common.maxHealth,
     maxMP: user._statsComputed.maxMP, // TODO refactor as method not getter
   });
 
