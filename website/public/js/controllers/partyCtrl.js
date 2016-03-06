@@ -50,7 +50,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.clickLeave = function(group, $event){
           Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
           $scope.selectedGroup = group;
-          $scope.popoverEl = $($event.target);
+          $scope.popoverEl = $($event.target).closest('.btn');
           var html, title;
           Challenges.Challenge.query(function(challenges) {
               challenges = _.pluck(_.filter(challenges, function(c) {
