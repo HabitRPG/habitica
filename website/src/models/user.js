@@ -395,7 +395,7 @@ var UserSchema = new Schema({
       type: Array,
       validate: (categories) => {
         const validCategories = ['work', 'exercise', 'healthWellness', 'school', 'teams', 'chores', 'creativity'];
-        let isValidCategory = categories.every(category => validValues.indexOf(category) !== -1);
+        let isValidCategory = categories.every(category => validCategories.indexOf(category) !== -1);
         return isValidCategory;
     }}
   },
