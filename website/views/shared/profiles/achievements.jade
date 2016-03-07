@@ -163,7 +163,7 @@ div(ng-if='::profile.achievements.challenges.length || user._id == profile._id')
     h5=env.t('challengeWinner')
     table.table.table-striped
       tr(ng-repeat='chal in profile.achievements.challenges track by $index')
-        td {{::chal}}
+        td: markdown(text='::chal')
   hr
 
 div(ng-if='::profile.achievements.quests || user._id == profile._id')
