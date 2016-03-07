@@ -207,13 +207,7 @@ mixin profileStats
                       span.glyphicon.glyphicon-download
                       |&nbsp;
                       =env.t('distributePoints')
-            each statInfo, stat in { str: {title:"allocateStr",popover:'strengthText',allocatepop:'allocateStrPop'},int: {title:"allocateInt",popover:'intText',allocatepop:'allocateIntPop'},con: {title:"allocateCon",popover:'conText',allocatepop:'allocateConPop'},per: {title:"allocatePer",popover:'perText',allocatepop:'allocatePerPop'} }
-              tr
-                td
-                  span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t(statInfo.popover))
-                    =env.t(statInfo.title) + ' {{user.stats.' + stat + '}}'
-                td
-                  a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("#{stat}")', popover-trigger='mouseenter', popover-placement='right', popover=env.t(statInfo.allocatepop)) +
+            +statAllocation
 
 
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')

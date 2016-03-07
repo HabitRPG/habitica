@@ -29,13 +29,7 @@ script(type='text/ng-template', id='modals/levelUp.html')
                     | {{user.stats.points}}&nbsp;
                   strong.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('quickAllocationLevelPopover'))=env.t('unallocated')
               td
-            each statInfo, stat in { str: {title:"allocateStr",popover:'strengthText',allocatepop:'allocateStrPop'},int: {title:"allocateInt",popover:'intText',allocatepop:'allocateIntPop'},con: {title:"allocateCon",popover:'conText',allocatepop:'allocateConPop'},per: {title:"allocatePer",popover:'perText',allocatepop:'allocatePerPop'} }
-              tr
-                td
-                  span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t(statInfo.popover))
-                    =env.t(statInfo.title) + ' {{user.stats.' + stat + '}}'
-                td
-                  a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("#{stat}")', popover-trigger='mouseenter', popover-placement='right', popover=env.t(statInfo.allocatepop)) +
+            +statAllocation
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
       .checkbox
         label(style='display:inline-block')=env.t('dontShowAgain')
