@@ -13,8 +13,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       switch (task.type) {
           case 'reward':
               //Covers custom rewards
-              if(task.value <= User.user.stats.gp)
-              $rootScope.playSound('Reward');
+              if(task.value <= User.user.stats.gp){
+                $rootScope.playSound('Reward');
+              }
               break;
           case 'daily':
               $rootScope.playSound('Daily');
