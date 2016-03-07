@@ -107,7 +107,7 @@ describe('user.ops.hourglassPurchase', () => {
         });
       });
 
-      it('buys a mount', (done) => {
+      it.only('buys a mount', (done) => {
         user.purchased.plan.consecutive.trinkets = 2;
 
         user.ops.hourglassPurchase({params: {type: 'mounts', key: 'MantisShrimp-Base'}}, (response) => {
