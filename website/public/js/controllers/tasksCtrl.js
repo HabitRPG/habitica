@@ -227,7 +227,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       //Plays sound for built in rewards (armor, potions etc)
       if(item.value <= User.user.stats.gp){
         $rootScope.playSound('Reward');
-    }
+      }
       
     };
 
