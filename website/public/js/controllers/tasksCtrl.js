@@ -12,6 +12,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.score = function(task, direction) {
       switch (task.type) {
           case 'reward':
+              //Covers custom rewards
+              if(task.value <= User.user.stats.gp)
               $rootScope.playSound('Reward');
               break;
           case 'daily':
@@ -221,7 +223,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
-      $rootScope.playSound('Reward');
+      //Plays sound for built in rewards (armor, potions etc)
+      if(item.value <= User.user.stats.gp){
+        $rootScope.playSound('Reward');
+    }
+      
     };
 
 
