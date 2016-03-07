@@ -510,6 +510,8 @@ TODO
   * Move to $resource!
  */
 
+import importedOps from './ops';
+
 api.wrap = function(user, main) {
   if (main == null) {
     main = true;
@@ -1799,16 +1801,7 @@ api.wrap = function(user, main) {
         }
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
       },
-      readCard: function(req, cb) {
-        var cardType;
-        cardType = req.params.cardType;
-        user.items.special[cardType + "Received"].shift();
-        if (typeof user.markModified === "function") {
-          user.markModified("items.special." + cardType + "Received");
-        }
-        user.flags.cardReceived = false;
-        return typeof cb === "function" ? cb(null, 'items.special flags.cardReceived') : void 0;
-      },
+      readCard: _.partial(importedOps.readCard, user),
       openMysteryItem: function(req, cb, analytics) {
         var analyticsData, item, ref, ref1;
         item = (ref = user.purchased.plan) != null ? (ref1 = ref.mysteryItems) != null ? ref1.shift() : void 0 : void 0;
