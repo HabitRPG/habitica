@@ -40,6 +40,8 @@
 .task-text(ng-dblclick='doubleClickTask(obj, task)')
   markdown(text='task._editing ? task._edit.text : task.text',target='_blank')
 
+  div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')
+
   div(ng-if='task.checklist && !$state.includes("options.social.challenges") && !task.collapseChecklist && !task._editing')
     fieldset.option-group.task-checklist
       label.checkbox(ng-repeat='item in task.checklist')

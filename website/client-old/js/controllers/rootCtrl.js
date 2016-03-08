@@ -187,7 +187,13 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.charts = {};
     $rootScope.toggleChart = function(id, task) {
-      var history = [], matrix, data, chart, options;
+      if($rootScope.charts[id] === undefined) {
+        $(window).resize(function() { 
+          $rootScope.drawChart(id, data);
+        });
+      }
+
+      var history = [], matrix, data, options, container;
       switch (id) {
         case 'exp':
           history = User.user.history.exp;
@@ -202,23 +208,62 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           $rootScope.charts[id] = (history.length == 0) ? false : !$rootScope.charts[id];
           if (task && task._editing) task._editing = false;
       }
+
       matrix = [[env.t('date'), env.t('score')]];
       _.each(history, function(obj) {
         matrix.push([moment(obj.date).format(User.user.preferences.dateFormat.toUpperCase().replace('YYYY','YY') ), obj.value]);
       });
       data = google.visualization.arrayToDataTable(matrix);
+
+      $rootScope.drawChart(id, data);
+    };
+
+    $rootScope.drawChart = function(id, data, options) {
+      var chart, width;
+
+      switch(id) {
+        case 'exp':
+          width = $(".row").width() - 5;
+          break;
+        case 'todos':
+          width = $(".task-column.todos").width() - 5;
+          break;
+        default:
+          width = $(".task-text").width() - 5;
+          break;
+      }
+
       options = {
         title: window.env.t('history'),
         backgroundColor: {
           fill: 'transparent'
         },
-        hAxis: {slantedText:true, slantedTextAngle: 90},
-        height:270,
-        width:300
+        hAxis: {
+          slantedText: true, 
+          slantedTextAngle: 90,
+          textStyle: {
+            fontSize: 12
+          }
+        },
+        vAxis: {
+          format: 'short',
+          textStyle: {
+            fontSize: 12
+          }
+        },
+        width: width,
+        height: 270,      
+        chartArea: {
+          left: 50,
+          top: 30,  
+          right: 65,
+          bottom: 65
+        }
       };
+
       chart = new google.visualization.LineChart($("." + id + "-chart")[0]);
       chart.draw(data, options);
-    };
+    }
 
     $rootScope.getGearArray = function(set){
       var flatGearArray = _.toArray(Content.gear.flat);
