@@ -51,7 +51,7 @@ module.exports = function(user, req, cb, analytics) {
       con: 0,
       per: 0,
       int: 0,
-      points: api.capByLevel(user.stats.lvl)
+      points: capByLevel(user.stats.lvl)
     });
     user.flags.classSelected = false;
   }

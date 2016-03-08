@@ -3,7 +3,7 @@ import refPush from '../libs/refPush';
 module.exports = function(user, req, cb) {
   var wh;
   wh = user.preferences.webhooks;
-  api.refPush(wh, {
+  refPush(wh, {
     url: req.body.url,
     enabled: req.body.enabled || true,
     id: req.body.id

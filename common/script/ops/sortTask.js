@@ -17,7 +17,7 @@ module.exports = function(user, req, cb) {
   }
   tasks = user[task.type + "s"];
   if (task.type === 'todo' && tasks[from] !== task) {
-    preenedTasks = api.preenTodos(tasks);
+    preenedTasks = preenTodos(tasks);
     if (to !== -1) {
       to = tasks.indexOf(preenedTasks[to]);
     }

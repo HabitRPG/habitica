@@ -6,7 +6,7 @@ import { MAX_LEVEL } from '../constants';
 
 module.exports = function(user, req, cb, analytics) {
   var analyticsData, flags, gear, lvl, stats;
-  if (user.balance < 2 && user.stats.lvl < api.maxLevel) {
+  if (user.balance < 2 && user.stats.lvl < MAX_LEVEL) {
     return typeof cb === "function" ? cb({
       code: 401,
       message: i18n.t('notEnoughGems', req.language)
@@ -16,7 +16,7 @@ module.exports = function(user, req, cb, analytics) {
     uuid: user._id,
     category: 'behavior'
   };
-  if (user.stats.lvl < api.maxLevel) {
+  if (user.stats.lvl < MAX_LEVEL) {
     user.balance -= 2;
     analyticsData.acquireMethod = 'Gems';
     analyticsData.gemCost = 8;
@@ -27,7 +27,7 @@ module.exports = function(user, req, cb, analytics) {
   if (analytics != null) {
     analytics.track('Rebirth', analyticsData);
   }
-  lvl = api.capByLevel(user.stats.lvl);
+  lvl = capByLevel(user.stats.lvl);
   _.each(user.tasks, function(task) {
     if (task.type !== 'reward') {
       task.value = 0;

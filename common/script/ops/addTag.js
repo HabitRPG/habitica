@@ -6,7 +6,7 @@ module.exports = function(user, req, cb) {
   }
   user.tags.push({
     name: req.body.name,
-    id: req.body.id || api.uuid()
+    id: req.body.id || uuid()
   });
   return typeof cb === "function" ? cb(null, user.tags) : void 0;
 };

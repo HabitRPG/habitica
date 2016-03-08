@@ -46,7 +46,7 @@ module.exports = function(user, req, cb, analytics) {
         image: '<span class="shop_' + drop.key + ' pull-left"></span>',
         dropText: drop.text(req.language)
       }, req.language);
-      if (api.count.remainingGearInSet(user.items.gear.owned, 'armoire') === 0) {
+      if (count.remainingGearInSet(user.items.gear.owned, 'armoire') === 0) {
         user.flags.armoireEmpty = true;
       }
       armoireResp = {

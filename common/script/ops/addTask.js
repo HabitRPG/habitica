@@ -3,7 +3,7 @@ import i18n from '../i18n';
 
 module.exports = function(user, req, cb) {
   var task;
-  task = api.taskDefaults(req.body);
+  task = taskDefaults(req.body);
   if (user.tasks[task.id] != null) {
     return typeof cb === "function" ? cb({
       code: 409,

@@ -7,7 +7,7 @@ module.exports = function(user, req, cb) {
   user.flags.classSelected = true;
   user.preferences.disableClasses = true;
   user.preferences.autoAllocate = true;
-  user.stats.str = api.capByLevel(user.stats.lvl);
+  user.stats.str = capByLevel(user.stats.lvl);
   user.stats.points = 0;
   return typeof cb === "function" ? cb(null, _.pick(user, splitWhitespace('stats flags preferences'))) : void 0;
 };

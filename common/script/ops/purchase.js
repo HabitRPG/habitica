@@ -8,7 +8,7 @@ module.exports = function(user, req, cb, analytics) {
   var analyticsData, convCap, convRate, item, key, price, ref, ref1, ref2, ref3, type;
   ref = req.params, type = ref.type, key = ref.key;
   if (type === 'gems' && key === 'gem') {
-    ref1 = api.planGemLimits, convRate = ref1.convRate, convCap = ref1.convCap;
+    ref1 = planGemLimits, convRate = ref1.convRate, convCap = ref1.convCap;
     convCap += user.purchased.plan.consecutive.gemCapExtra;
     if (!((ref2 = user.purchased) != null ? (ref3 = ref2.plan) != null ? ref3.customerId : void 0 : void 0)) {
       return typeof cb === "function" ? cb({
