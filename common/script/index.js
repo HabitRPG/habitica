@@ -430,7 +430,7 @@ api.wrap = function(user, main) {
       revive: _.partial(importedOps.revive, user),
       reset: _.partial(importedOps.reset, user),
       reroll: _.partial(importedOps.reroll, user),
-      rebirth: _.partial(importedOps.reroll, user),
+      rebirth: _.partial(importedOps.rebirth, user),
       allocateNow: _.partial(importedOps.reroll, user),
       clearCompleted: _.partial(importedOps.clearCompleted, user),
       sortTask: _.partial(importedOps.sortTask, user),
