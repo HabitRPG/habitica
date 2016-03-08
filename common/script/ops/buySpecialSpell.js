@@ -27,5 +27,5 @@ module.exports = function(user, req, cb) {
   return typeof cb === "function" ? cb({
     code: 200,
     message: message
-  }, _.pick(user, $w('items stats'))) : void 0;
+  }, _.pick(user, splitWhitespace('items stats'))) : void 0;
 };

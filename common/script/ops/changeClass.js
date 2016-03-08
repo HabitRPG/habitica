@@ -55,5 +55,5 @@ module.exports = function(user, req, cb, analytics) {
     });
     user.flags.classSelected = false;
   }
-  return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
+  return typeof cb === "function" ? cb(null, _.pick(user, splitWhitespace('stats flags items preferences'))) : void 0;
 };

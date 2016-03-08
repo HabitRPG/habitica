@@ -1,16 +1,16 @@
 import content from '../content/index';
 import i18n from '../i18n';
 
-module.exports = function (user, req, cb, analytics) {
+module.exports = function(user, req, cb, analytics) {
   var analyticsData, mount;
   if (user.balance < 1) {
-    return typeof cb === 'function' ? cb({
+    return typeof cb === "function" ? cb({
       code: 401,
       message: i18n.t('notEnoughGems', req.language)
     }) : void 0;
   } else {
     user.balance -= 1;
-    user.items.currentMount = '';
+    user.items.currentMount = "";
     for (mount in content.pets) {
       user.items.mounts[mount] = null;
     }
@@ -25,8 +25,8 @@ module.exports = function (user, req, cb, analytics) {
     gemCost: 4,
     category: 'behavior'
   };
-  if (analytics !== null) {
+  if (analytics != null) {
     analytics.track('release mounts', analyticsData);
   }
-  return typeof cb === 'function' ? cb(null, user) : void 0;
+  return typeof cb === "function" ? cb(null, user) : void 0;
 };

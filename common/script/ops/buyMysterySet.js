@@ -39,5 +39,5 @@ module.exports = function(user, req, cb, analytics) {
   return typeof cb === "function" ? cb({
     code: 200,
     message: i18n.t('hourglassPurchaseSet', req.language)
-  }, _.pick(user, $w('items purchased.plan.consecutive'))) : void 0;
+  }, _.pick(user, splitWhitespace('items purchased.plan.consecutive'))) : void 0;
 };

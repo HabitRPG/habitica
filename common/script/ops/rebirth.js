@@ -4,10 +4,10 @@ import _ from 'lodash';
 import { capByLevel } from '../statHelpers';
 import { MAX_LEVEL } from '../constants';
 
-module.exports = function (user, req, cb, analytics) {
+module.exports = function(user, req, cb, analytics) {
   var analyticsData, flags, gear, lvl, stats;
-  if (user.balance < 2 && user.stats.lvl < MAX_LEVEL) {
-    return typeof cb === 'function' ? cb({
+  if (user.balance < 2 && user.stats.lvl < api.maxLevel) {
+    return typeof cb === "function" ? cb({
       code: 401,
       message: i18n.t('notEnoughGems', req.language)
     }) : void 0;
@@ -16,7 +16,7 @@ module.exports = function (user, req, cb, analytics) {
     uuid: user._id,
     category: 'behavior'
   };
-  if (user.stats.lvl < MAX_LEVEL) {
+  if (user.stats.lvl < api.maxLevel) {
     user.balance -= 2;
     analyticsData.acquireMethod = 'Gems';
     analyticsData.gemCost = 8;
@@ -24,11 +24,11 @@ module.exports = function (user, req, cb, analytics) {
     analyticsData.gemCost = 0;
     analyticsData.acquireMethod = '> 100';
   }
-  if (analytics !== null) {
+  if (analytics != null) {
     analytics.track('Rebirth', analyticsData);
   }
-  lvl = capByLevel(user.stats.lvl);
-  _.each(user.tasks, function (task) {
+  lvl = api.capByLevel(user.stats.lvl);
+  _.each(user.tasks, function(task) {
     if (task.type !== 'reward') {
       task.value = 0;
     }
@@ -40,13 +40,13 @@ module.exports = function (user, req, cb, analytics) {
   stats.buffs = {};
   stats.hp = 50;
   stats.lvl = 1;
-  stats['class'] = 'warrior';
-  _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function (value) {
+  stats["class"] = 'warrior';
+  _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
     return stats[value] = 0;
   });
   // TODO during refactoring: move all gear code from rebirth() to its own function and then call it in reset() as well
   gear = user.items.gear;
-  _.each(['equipped', 'costume'], function (type) {
+  _.each(['equipped', 'costume'], function(type) {
     gear[type] = {};
     gear[type].armor = 'armor_base_0';
     gear[type].weapon = 'weapon_warrior_0';
@@ -69,14 +69,14 @@ module.exports = function (user, req, cb, analytics) {
       }
     });
   }
-  _.each(gear.owned, function (v, k) {
+  _.each(gear.owned, function(v, k) {
     if (gear.owned[k] && content.gear.flat[k].value) {
       gear.owned[k] = false;
       return true;
     }
   });
   gear.owned.weapon_warrior_0 = true;
-  if (typeof user.markModified === 'function') {
+  if (typeof user.markModified === "function") {
     user.markModified('items.gear.owned');
   }
   user.preferences.costume = false;
@@ -96,5 +96,5 @@ module.exports = function (user, req, cb, analytics) {
     user.achievements.rebirthLevel = lvl;
   }
   user.stats.buffs = {};
-  return typeof cb === 'function' ? cb(null, user) : void 0;
+  return typeof cb === "function" ? cb(null, user) : void 0;
 };

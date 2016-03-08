@@ -1,10 +1,10 @@
 import content from '../content/index';
 import i18n from '../i18n';
 
-module.exports = function (user, req, cb, analytics) {
+module.exports = function(user, req, cb, analytics) {
   var analyticsData, animal, giveTriadBingo;
   if (user.balance < 1.5 && !user.achievements.triadBingo) {
-    return typeof cb === 'function' ? cb({
+    return typeof cb === "function" ? cb({
       code: 401,
       message: i18n.t('notEnoughGems', req.language)
     }) : void 0;
@@ -17,13 +17,13 @@ module.exports = function (user, req, cb, analytics) {
         gemCost: 6,
         category: 'behavior'
       };
-      if (typeof analytics !== 'undefined' && analytics !== null) {
+      if (typeof analytics !== "undefined" && analytics !== null) {
         analytics.track('release pets & mounts', analyticsData);
       }
       user.balance -= 1.5;
     }
-    user.items.currentMount = '';
-    user.items.currentPet = '';
+    user.items.currentMount = "";
+    user.items.currentPet = "";
     for (animal in content.pets) {
       if (user.items.pets[animal] === -1) {
         giveTriadBingo = false;
@@ -46,5 +46,5 @@ module.exports = function (user, req, cb, analytics) {
       user.achievements.triadBingoCount++;
     }
   }
-  return typeof cb === 'function' ? cb(null, user) : void 0;
+  return typeof cb === "function" ? cb(null, user) : void 0;
 };

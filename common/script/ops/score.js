@@ -2,7 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import i18n from '../i18n';
 
-module.exports = function (user, req, cb) {
+module.exports = function(user, req, cb) {
   var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, gainMP, id, multiplier, num, options, ref, stats, subtractPoints, task, th;
   ref = req.params, id = ref.id, direction = ref.direction;
   task = user.tasks[id];
@@ -19,35 +19,35 @@ module.exports = function (user, req, cb) {
   };
   task.value = +task.value;
   task.streak = ~~task.streak;
-  if (task.priority === null) {
+  if (task.priority == null) {
     task.priority = 1;
   }
   if (task.value > stats.gp && task.type === 'reward') {
-    return typeof cb === 'function' ? cb({
+    return typeof cb === "function" ? cb({
       code: 401,
       message: i18n.t('messageNotEnoughGold', req.language)
     }) : void 0;
   }
   delta = 0;
-  calculateDelta = function () {
+  calculateDelta = function() {
     var currVal, nextDelta, ref1;
     currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
     nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-    if (((ref1 = task.checklist) !== null ? ref1.length : void 0) > 0) {
+    if (((ref1 = task.checklist) != null ? ref1.length : void 0) > 0) {
       if (direction === 'down' && task.type === 'daily' && options.cron) {
-        nextDelta *= 1 - _.reduce(task.checklist, (function (m, i) {
+        nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
           return m + (i.completed ? 1 : 0);
         }), 0) / task.checklist.length;
       }
       if (task.type === 'todo') {
-        nextDelta *= 1 + _.reduce(task.checklist, (function (m, i) {
+        nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
           return m + (i.completed ? 1 : 0);
         }), 0);
       }
     }
     return nextDelta;
   };
-  calculateReverseDelta = function () {
+  calculateReverseDelta = function() {
     var calc, closeEnough, currVal, diff, nextDelta, ref1, testVal;
     currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
     testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
@@ -65,17 +65,17 @@ module.exports = function (user, req, cb) {
       }
     }
     nextDelta = testVal - currVal;
-    if (((ref1 = task.checklist) !== null ? ref1.length : void 0) > 0) {
+    if (((ref1 = task.checklist) != null ? ref1.length : void 0) > 0) {
       if (task.type === 'todo') {
-        nextDelta *= 1 + _.reduce(task.checklist, (function (m, i) {
+        nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
           return m + (i.completed ? 1 : 0);
         }), 0);
       }
     }
     return nextDelta;
   };
-  changeTaskValue = function () {
-    return _.times(options.times, function () {
+  changeTaskValue = function() {
+    return _.times(options.times, function() {
       var nextDelta, ref1;
       nextDelta = !options.cron && direction === 'down' ? calculateReverseDelta() : calculateDelta();
       if (task.type !== 'reward') {
@@ -96,7 +96,7 @@ module.exports = function (user, req, cb) {
       return delta += nextDelta;
     });
   };
-  addPoints = function () {
+  addPoints = function() {
     var _crit, afterStreak, currStreak, gpMod, intBonus, perBonus, streakBonus;
     _crit = (delta > 0 ? user.fns.crit() : 1);
     if (_crit > 1) {
@@ -108,7 +108,7 @@ module.exports = function (user, req, cb) {
     gpMod = delta * task.priority * _crit * perBonus;
     return stats.gp += task.streak ? (currStreak = direction === 'down' ? task.streak - 1 : task.streak, streakBonus = currStreak / 100 + 1, afterStreak = gpMod * streakBonus, currStreak > 0 ? gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0 : void 0, afterStreak) : gpMod;
   };
-  subtractPoints = function () {
+  subtractPoints = function() {
     var conBonus, hpMod;
     conBonus = 1 - (user._statsComputed.con / 250);
     if (conBonus < .1) {
@@ -117,7 +117,7 @@ module.exports = function (user, req, cb) {
     hpMod = delta * conBonus * task.priority * 2;
     return stats.hp += Math.round(hpMod * 10) / 10;
   };
-  gainMP = function (delta) {
+  gainMP = function(delta) {
     delta *= user._tmp.crit || 1;
     user.stats.mp += delta;
     if (user.stats.mp >= user._statsComputed.maxMP) {
@@ -136,7 +136,7 @@ module.exports = function (user, req, cb) {
         subtractPoints();
       }
       gainMP(_.max([0.25, .0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
-      th = (task.history !== null ? task.history : task.history = []);
+      th = (task.history != null ? task.history : task.history = []);
       if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
         th[th.length - 1].value = task.value;
       } else {
@@ -145,10 +145,10 @@ module.exports = function (user, req, cb) {
           value: task.value
         });
       }
-      if (typeof user.markModified === 'function') {
-        user.markModified('habits.' + (_.findIndex(user.habits, {
+      if (typeof user.markModified === "function") {
+        user.markModified("habits." + (_.findIndex(user.habits, {
           id: task.id
-        })) + '.history');
+        })) + ".history");
       }
       break;
     case 'daily':
@@ -189,7 +189,7 @@ module.exports = function (user, req, cb) {
         }
         addPoints();
         multiplier = _.max([
-          _.reduce(task.checklist, (function (m, i) {
+          _.reduce(task.checklist, (function(m, i) {
             return m + (i.completed ? 1 : 0);
           }), 1), 1
         ]);
@@ -214,7 +214,7 @@ module.exports = function (user, req, cb) {
       }, req);
     }
   }
-  if (typeof cb === 'function') {
+  if (typeof cb === "function") {
     cb(null, user);
   }
   return delta;

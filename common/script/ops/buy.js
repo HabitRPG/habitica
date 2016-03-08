@@ -108,7 +108,7 @@ module.exports = function(user, req, cb, analytics) {
   if (analytics != null) {
     analytics.track('acquire item', analyticsData);
   }
-  buyResp = _.pick(user, $w('items achievements stats flags'));
+  buyResp = _.pick(user, splitWhitespace('items achievements stats flags'));
   if (armoireResp) {
     buyResp["armoire"] = armoireResp;
   }

@@ -11,5 +11,5 @@ module.exports = function(user, req, cb) {
       user.stats.mp++;
     }
   }
-  return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
+  return typeof cb === "function" ? cb(null, _.pick(user, splitWhitespace('stats'))) : void 0;
 };

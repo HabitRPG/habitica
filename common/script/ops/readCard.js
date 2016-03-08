@@ -1,9 +1,10 @@
-module.exports = function readCard (user, req, cb) {
-  let cardType = req.params.cardType;
-  user.items.special[`${cardType}Received`].shift();
-  if (user.markModified) {
-    user.markModified(`items.special.${cardType}Received`);
+module.exports = function(user, req, cb) {
+  var cardType;
+  cardType = req.params.cardType;
+  user.items.special[cardType + "Received"].shift();
+  if (typeof user.markModified === "function") {
+    user.markModified("items.special." + cardType + "Received");
   }
   user.flags.cardReceived = false;
-  if (cb) cb(null, 'items.special flags.cardReceived');
+  return typeof cb === "function" ? cb(null, 'items.special flags.cardReceived') : void 0;
 };

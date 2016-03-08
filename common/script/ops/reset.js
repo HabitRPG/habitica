@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-module.exports = function (user, req, cb) {
+module.exports = function(user, req, cb) {
   var gear;
   user.habits = [];
   user.dailys = [];
@@ -11,7 +11,7 @@ module.exports = function (user, req, cb) {
   user.stats.gp = 0;
   user.stats.exp = 0;
   gear = user.items.gear;
-  _.each(['equipped', 'costume'], function (type) {
+  _.each(['equipped', 'costume'], function(type) {
     gear[type].armor = 'armor_base_0';
     gear[type].weapon = 'weapon_base_0';
     gear[type].head = 'head_base_0';
@@ -20,16 +20,16 @@ module.exports = function (user, req, cb) {
   if (typeof gear.owned === 'undefined') {
     gear.owned = {};
   }
-  _.each(gear.owned, function (v, k) {
+  _.each(gear.owned, function(v, k) {
     if (gear.owned[k]) {
       gear.owned[k] = false;
     }
     return true;
   });
   gear.owned.weapon_warrior_0 = true;
-  if (typeof user.markModified === 'function') {
+  if (typeof user.markModified === "function") {
     user.markModified('items.gear.owned');
   }
   user.preferences.costume = false;
-  return typeof cb === 'function' ? cb(null, user) : void 0;
+  return typeof cb === "function" ? cb(null, user) : void 0;
 };
