@@ -7,6 +7,19 @@ import preenTodos from './preenTodos';
 import dotSet from './dotSet';
 import dotGet from './dotGet';
 import preenHistory from './preenHistory';
+import countExists from './countExists';
+import updateStore from './updateStore';
+
+import appliedTags from './appliedTags';
+import encodeiCalLink from './encodeiCalLink';
+import friendlyTimestamp from './friendlyTimestamp';
+import gold from './gold';
+import newChatMessages from './newChatMessages';
+import noTags from './noTags';
+import percent from './percent';
+import removeWhitespace from './removeWhitespace';
+import silver from './silver';
+import taskClasses from './taskClasses';
 
 module.exports = {
   uuid,
@@ -18,4 +31,16 @@ module.exports = {
   dotSet,
   dotGet,
   preenHistory,
+  countExists,
+  updateStore,
+  appliedTags,
+  encodeiCalLink,
+  friendlyTimestamp,
+  gold,
+  newChatMessages,
+  noTags,
+  percent,
+  removeWhitespace,
+  silver,
+  taskClasses,
 };

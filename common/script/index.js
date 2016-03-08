@@ -39,45 +39,8 @@ api.planGemLimits = importedLibs.planGemLimits;
 
 preenHistory = importedLibs.preenHistory;
 
-/*
-  Preen 3-day past-completed To-Dos from Angular & mobile app
- */
-
 api.preenTodos = importedLibs.preenTodos;
-
-/*
-  Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
- */
-
-sortOrder = _.reduce(content.gearTypes, (function(m, v, k) {
-  m[v] = k;
-  return m;
-}), {});
-
-api.updateStore = function(user) {
-  var changes;
-  if (!user) {
-    return;
-  }
-  changes = [];
-  _.each(content.gearTypes, function(type) {
-    var found;
-    found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
-      return !user.items.gear.owned[item.key];
-    });
-    if (found) {
-      changes.push(found);
-    }
-    return true;
-  });
-  changes = changes.concat(_.filter(content.gear.flat, function(v) {
-    var ref;
-    return ((ref = v.klass) === 'special' || ref === 'mystery' || ref === 'armoire') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
-  }));
-  return _.sortBy(changes, function(c) {
-    return sortOrder[c.type];
-  });
-};
+api.updateStore = importedLibs.updateStore;
 
 
 /*
@@ -96,215 +59,18 @@ Misc Helpers
  */
 
 api.uuid = importedLibs.uuid;
-
-api.countExists = function(items) {
-  return _.reduce(items, (function(m, v) {
-    return m + (v ? 1 : 0);
-  }), 0);
-};
-
+api.countExists = importedLibs.countExists;
 api.taskDefaults = importedLibs.taskDefaults;
-
-api.percent = function(x, y, dir) {
-  var roundFn;
-  switch (dir) {
-    case "up":
-      roundFn = Math.ceil;
-      break;
-    case "down":
-      roundFn = Math.floor;
-      break;
-    default:
-      roundFn = Math.round;
-  }
-  if (x === 0) {
-    x = 1;
-  }
-  return Math.max(0, roundFn(x / y * 100));
-};
-
-
-/*
-Remove whitespace #FIXME are we using this anywwhere? Should we be?
- */
-
-api.removeWhitespace = function(str) {
-  if (!str) {
-    return '';
-  }
-  return str.replace(/\s/g, '');
-};
-
-
-/*
-Encode the download link for .ics iCal file
- */
-
-api.encodeiCalLink = function(uid, apiToken) {
-  var loc, ref;
-  loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (ref = process.env) != null ? ref.BASE_URL : void 0 : void 0) || '';
-  return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
-};
-
-
-/*
-Gold amount from their money
- */
-
-api.gold = function(num) {
-  if (num) {
-    return Math.floor(num);
-  } else {
-    return "0";
-  }
-};
-
-
-/*
-Silver amount from their money
- */
-
-api.silver = function(num) {
-  if (num) {
-    return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
-  } else {
-    return "00";
-  }
-};
-
-
-/*
-Task classes given everything about the class
- */
-
-api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
-  var classes, completed, enabled, filter, priority, ref, repeat, type, value;
-  if (filters == null) {
-    filters = [];
-  }
-  if (dayStart == null) {
-    dayStart = 0;
-  }
-  if (lastCron == null) {
-    lastCron = +(new Date);
-  }
-  if (showCompleted == null) {
-    showCompleted = false;
-  }
-  if (main == null) {
-    main = false;
-  }
-  if (!task) {
-    return;
-  }
-  type = task.type, completed = task.completed, value = task.value, repeat = task.repeat, priority = task.priority;
-  if (main) {
-    if (!task._editing) {
-      for (filter in filters) {
-        enabled = filters[filter];
-        if (enabled && !((ref = task.tags) != null ? ref[filter] : void 0)) {
-          return 'hidden';
-        }
-      }
-    }
-  }
-  classes = type;
-  if (task._editing) {
-    classes += " beingEdited";
-  }
-  if (type === 'todo' || type === 'daily') {
-    if (completed || (type === 'daily' && !shouldDo(+(new Date), task, {
-      dayStart: dayStart
-    }))) {
-      classes += " completed";
-    } else {
-      classes += " uncompleted";
-    }
-  } else if (type === 'habit') {
-    if (task.down && task.up) {
-      classes += ' habit-wide';
-    }
-    if (!task.down && !task.up) {
-      classes += ' habit-narrow';
-    }
-  }
-  if (priority === 0.1) {
-    classes += ' difficulty-trivial';
-  } else if (priority === 1) {
-    classes += ' difficulty-easy';
-  } else if (priority === 1.5) {
-    classes += ' difficulty-medium';
-  } else if (priority === 2) {
-    classes += ' difficulty-hard';
-  }
-  if (value < -20) {
-    classes += ' color-worst';
-  } else if (value < -10) {
-    classes += ' color-worse';
-  } else if (value < -1) {
-    classes += ' color-bad';
-  } else if (value < 1) {
-    classes += ' color-neutral';
-  } else if (value < 5) {
-    classes += ' color-good';
-  } else if (value < 10) {
-    classes += ' color-better';
-  } else {
-    classes += ' color-best';
-  }
-  return classes;
-};
-
-
-/*
-Friendly timestamp
- */
-
-api.friendlyTimestamp = function(timestamp) {
-  return moment(timestamp).format('MM/DD h:mm:ss a');
-};
-
-
-/*
-Does user have new chat messages?
- */
-
-api.newChatMessages = function(messages, lastMessageSeen) {
-  if (!((messages != null ? messages.length : void 0) > 0)) {
-    return false;
-  }
-  return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
-};
-
-
-/*
-are any tags active?
- */
-
-api.noTags = function(tags) {
-  return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
-    return t;
-  }));
-};
-
-
-/*
-Are there tags applied?
- */
-
-api.appliedTags = function(userTags, taskTags) {
-  var arr;
-  arr = [];
-  _.each(userTags, function(t) {
-    if (t == null) {
-      return;
-    }
-    if (taskTags != null ? taskTags[t.id] : void 0) {
-      return arr.push(t.name);
-    }
-  });
-  return arr.join(', ');
-};
+api.percent = importedLibs.percent;
+api.removeWhitespace = importedLibs.removeWhitespace;
+api.encodeiCalLink = importedLibs.encodeiCalLink;
+api.gold = importedLibs.gold;
+api.silver = importedLibs.silver;
+api.taskClasses = importedLibs.taskClasses;
+api.friendlyTimestamp = importedLibs.friendlyTimestamp;
+api.newChatMessages = importedLibs.newChatMessages;
+api.noTags = importedLibs.appliedTags;
+api.appliedTags = importedLibs.appliedTags;
 
 
 /*
