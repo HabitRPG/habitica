@@ -12,6 +12,9 @@ const COMMON_FILES = [
   // @TODO remove these negations as the files are converted over.
   '!./common/script/index.js',
   '!./common/script/content/index.js',
+  '!./common/script/ops/**/*.js',
+  '!./common/script/fns/**/*.js',
+  '!./common/script/libs/**/*.js',
   '!./common/script/public/**/*.js',
 ];
 const TEST_FILES = [
