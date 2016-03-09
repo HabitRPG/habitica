@@ -59,7 +59,9 @@ var UserSchema = new Schema({
     greeting: Number,
     thankyou: Number,
     costumeContests: Number,
-    birthday: Number
+    birthday: Number,
+    partyUp: Boolean,
+    partyOn: Boolean
   },
   auth: {
     blocked: Boolean,
@@ -519,7 +521,7 @@ UserSchema.pre('save', function(next) {
   var mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
   if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
-    this.achievements.mountMaster = true
+    this.achievements.mountMaster = true;
   }
 
   // Determines if Triad Bingo should be awarded
@@ -529,6 +531,18 @@ UserSchema.pre('save', function(next) {
 
   if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
     this.achievements.triadBingo = true;
+  }
+
+  // Determines if Party Up should be awarded
+
+  if (this.party.memberCount >= 2) {
+    this.achievements.partyUp = true;
+  }
+
+  // Determines if Party On should be awarded
+
+  if (this.party.memberCount >= 4) {
+    this.achievements.partyOn = true;
   }
 
   // Enable weekly recap emails for old users who sign in
