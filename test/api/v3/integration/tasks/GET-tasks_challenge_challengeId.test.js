@@ -3,8 +3,9 @@ import {
   generateGroup,
   generateChallenge,
   translate as t,
-} from '../../../../../helpers/api-integration/v3';
+} from '../../../../helpers/api-integration/v3';
 import { each } from 'lodash';
+import { v4 as generateUUID } from 'uuid';
 
 describe('GET /tasks/:taskId', () => {
   let user;
@@ -39,6 +40,14 @@ describe('GET /tasks/:taskId', () => {
     user = await generateUser();
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+  });
+
+  it('returns error when incorrect id is passed', async () => {
+    await expect(user.get(`/tasks/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: t('taskNotFound'),
+    });
   });
 
   each(tasksToTest, (taskValue, taskType) => {
