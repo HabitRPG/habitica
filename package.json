@@ -93,7 +93,7 @@
   },
   "private": true,
   "engines": {
-    "node": "^4.2.1",
+    "node": "^4.3.1",
     "npm": "^3.3.10"
   },
   "scripts": {
