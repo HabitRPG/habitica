@@ -131,6 +131,7 @@ api.wrap = function(user, main) {
   user._wrapped = true;
   if (main) {
     user.ops = {
+<<<<<<< HEAD
       update: _.partial(importedOps.update, user),
       sleep: _.partial(importedOps.sleep, user),
       revive: _.partial(importedOps.revive, user),

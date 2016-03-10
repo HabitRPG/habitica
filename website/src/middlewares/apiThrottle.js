@@ -4,7 +4,9 @@ var limiter = require('connect-ratelimit');
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 
 module.exports = function(app) {
-  if (!IS_PROD) return;
+  // TODO review later
+  // disable the rate limiter middleware
+  if (/*!IS_PROD || */true) return;
   app.use(limiter({
     end:false,
     categories:{

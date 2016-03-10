@@ -373,6 +373,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.monkey != null) > 0;
     })
   },
+  Snail: {
+    text: t('questEggSnailText'),
+    adjective: t('questEggSnailAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.snail != null) > 0;
+    })
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -2486,6 +2493,38 @@ api.quests = {
       gp: 31,
       exp: 200,
       unlock: t('questMonkeyUnlockText')
+    }
+  },
+  snail: {
+    text: t('questSnailText'),
+    notes: t('questSnailNotes'),
+    completion: t('questSnailCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSnailBoss'),
+      hp: 500,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Snail',
+          text: t('questSnailDropSnailEgg')
+        }, {
+          type: 'eggs',
+          key: 'Snail',
+          text: t('questSnailDropSnailEgg')
+        }, {
+          type: 'eggs',
+          key: 'Snail',
+          text: t('questSnailDropSnailEgg')
+        }
+      ],
+      gp: 37,
+      exp: 275,
+      unlock: t('questSnailUnlockText')
     }
   },
 };

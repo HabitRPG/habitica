@@ -9,9 +9,12 @@ module.exports = function(user, req, cb) {
       message: i18n.t('messageTaskNotFound', req.language)
     }) : void 0;
   }
-  _.merge(task, _.omit(req.body, ['checklist', 'id', 'type']));
+  _.merge(task, _.omit(req.body, ['checklist', 'reminders', 'id', 'type']));
   if (req.body.checklist) {
     task.checklist = req.body.checklist;
+  }
+  if (req.body.reminders) {
+    task.reminders = req.body.reminders;
   }
   if (typeof task.markModified === "function") {
     task.markModified('tags');

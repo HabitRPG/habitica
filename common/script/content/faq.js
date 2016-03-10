@@ -2,7 +2,13 @@ import t from './translation';
 
 const NUMBER_OF_QUESTIONS = 12;
 
-export const questions = [];
+let faq = {
+  questions: [],
+  stillNeedHelp: {
+    ios: t('iosFaqStillNeedHelp'),
+    web: t('webFaqStillNeedHelp'),
+  },
+};
 
 for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
   let question = {
@@ -11,10 +17,7 @@ for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
     web: t(`webFaqAnswer${i}`),
   };
 
-  questions.push(question);
+  faq.questions.push(question);
 }
 
-export const stillNeedHelp = {
-  ios: t('iosFaqStillNeedHelp'),
-  web: t('webFaqStillNeedHelp'),
-};
+module.exports = faq;
