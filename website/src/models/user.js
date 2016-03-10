@@ -439,6 +439,14 @@ export let schema = new Schema({
       raisePet: {type: Boolean, default: false},
       streak: {type: Boolean, default: false},
     },
+    improvementCategories: {
+      type: Array,
+      validate: (categories) => {
+        const validCategories = ['work', 'exercise', 'healthWellness', 'school', 'teams', 'chores', 'creativity'];
+        let isValidCategory = categories.every(category => validCategories.indexOf(category) !== -1);
+        return isValidCategory;
+      },
+    },
   },
   profile: {
     blurb: String,

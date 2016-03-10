@@ -32,6 +32,12 @@ export let TaskSchema = new Schema({
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED']},
     winner: String, // user.profile.name TODO necessary?
   },
+
+  reminders: [{
+    id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
+    startDate: {type: Date, required: true},
+    time: {type: Date, required: true},
+  }],
 }, _.defaults({
   minimize: true, // So empty objects are returned
   strict: true,
@@ -61,6 +67,12 @@ TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
   delete checklistObj._id;
   return checklistObj;
+};
+
+// Sanitize reminder objects (disallowing id)
+TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (reminderObj) {
+  delete reminderObj.id;
+  return reminderObj;
 };
 
 export let Task = mongoose.model('Task', TaskSchema);

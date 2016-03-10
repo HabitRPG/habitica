@@ -308,6 +308,12 @@ api.updateTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
+    // If reminders are updated -> replace the original ones
+    if (req.body.reminders) {
+      task.reminders = req.body.reminders;
+      delete req.body.reminders;
+    }
+
     // If checklist is updated -> replace the original one
     if (req.body.checklist) {
       task.checklist = req.body.checklist;

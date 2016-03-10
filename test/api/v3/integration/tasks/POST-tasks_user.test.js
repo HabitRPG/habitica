@@ -2,6 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/user', () => {
   let user;
@@ -140,6 +141,27 @@ describe('POST /tasks/user', () => {
       });
 
       expect(task).not.to.have.property('notValid');
+    });
+  });
+
+  context('all types', () => {
+    it('can create reminders', async () => {
+      let id1 = generateUUID();
+
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+        reminders: [
+          {id: id1, startDate: new Date(), time: new Date()},
+        ],
+      });
+
+      expect(task.reminders).to.be.an('array');
+      expect(task.reminders.length).to.eql(1);
+      expect(task.reminders[0]).to.be.an('object');
+      expect(task.reminders[0].id).to.eql(id1);
+      expect(task.reminders[0].startDate).to.be.a('string'); // json doesn't have dates
+      expect(task.reminders[0].time).to.be.a('string');
     });
   });
 

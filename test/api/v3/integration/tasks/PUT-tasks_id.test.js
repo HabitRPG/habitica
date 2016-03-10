@@ -57,6 +57,40 @@ describe('PUT /tasks/:id', () => {
     });
   });
 
+  context('all types', () => {
+    let daily;
+
+    beforeEach(async () => {
+      daily = await user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        notes: 1976,
+      });
+    });
+
+    it('can update reminders (replace them)', async () => {
+      await user.put(`/tasks/${daily._id}`, {
+        reminders: [
+          {time: new Date(), startDate: new Date()},
+        ],
+      });
+
+      let id1 = generateUUID();
+      let id2 = generateUUID();
+
+      let savedDaily = await user.put(`/tasks/${daily._id}`, {
+        checklist: [
+          {id: id1, time: new Date(), startDate: new Date()},
+          {id: id2, time: new Date(), startDate: new Date()},
+        ],
+      });
+
+      expect(savedDaily.reminders.length).to.equal(2);
+      expect(savedDaily.reminders[0].id).to.equal(id1);
+      expect(savedDaily.reminders[1].id).to.equal(id2);
+    });
+  });
+
   context('habits', () => {
     let habit;
 
