@@ -33,6 +33,10 @@ module.exports = function(server,mongoose) {
         throw memoryLeakMessage;
       }
     }, mins*60*1000);
+    // Restart workers on an interval between 60 and 75 minutes
+    setInterval(function () {
+      throw new Error('Automatic restart'); // throwing causes the server to restart properly
+    }, (Math.floor(Math.random() * (16)) + 60) * 60 * 1000);
   }
 
   return domainMiddleware({
