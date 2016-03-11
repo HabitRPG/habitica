@@ -587,7 +587,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   });
 
   let challengesToRemoveUserFrom = challenges.map(chal => {
-    return user.unlinkChallengeTasks(chal._id, keep);
+    return chal.unlinkTasks(user, keep);
   });
   await Q.all(challengesToRemoveUserFrom);
 

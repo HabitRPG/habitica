@@ -5,6 +5,7 @@ import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
 import * as Tasks from './task';
 import { model as User } from './user';
+import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 
 let Schema = mongoose.Schema;
 
@@ -186,9 +187,10 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
 
   let updateCmd = {$set: {}};
 
-  _syncableAttrs(task).forEach((value, key) => {
-    updateCmd.$set[key] = value;
-  });
+  let syncableAttrs = _syncableAttrs(task);
+  for (let key in syncableAttrs) {
+    updateCmd.$set[key] = syncableAttrs[key];
+  }
 
   // TODO reveiw
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
@@ -212,5 +214,38 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
     $set: {'challenge.broken': 'TASK_DELETED'}, // TODO what about updatedAt?
   }, {multi: true}).exec();
 };
+
+// Unlink challenges tasks (and the challenge itself) from user
+schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
+  let challengeId = this._id;
+  let findQuery = {
+    userId: user._id,
+    'challenge.id': challengeId,
+  };
+
+  removeFromArray(user.challenges, challengeId);
+
+  if (keep === 'keep-all') {
+    await Tasks.Task.update(findQuery, {
+      $set: {challenge: {}}, // TODO what about updatedAt?
+    }, {multi: true}).exec();
+
+    await user.save();
+  } else { // keep = 'remove-all'
+    let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
+    let taskPromises = tasks.map(task => {
+      // Remove task from user.tasksOrder and delete them
+      if (task.type !== 'todo' || !task.completed) {
+        removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
+      }
+
+      return task.remove();
+    });
+    user.markModified('tasksOrder');
+    taskPromises.push(user.save());
+    return Q.all(taskPromises);
+  }
+};
+
 
 export let model = mongoose.model('Challenge', schema);
