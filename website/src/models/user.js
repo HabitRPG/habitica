@@ -533,18 +533,6 @@ UserSchema.pre('save', function(next) {
     this.achievements.triadBingo = true;
   }
 
-  // Determines if Party Up should be awarded
-
-  if (this.party.memberCount >= 2) {
-    this.achievements.partyUp = true;
-  }
-
-  // Determines if Party On should be awarded
-
-  if (this.party.memberCount >= 4) {
-    this.achievements.partyOn = true;
-  }
-
   // Enable weekly recap emails for old users who sign in
   if(this.flags.lastWeeklyRecapDiscriminator){
     // Enable weekly recap emails in 24 hours
