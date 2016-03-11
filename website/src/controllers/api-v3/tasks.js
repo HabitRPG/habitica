@@ -570,7 +570,7 @@ api.addChecklistItem = {
 
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
+    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body)); // TODO why not allow to supply _id on creation?
     let savedTask = await task.save();
 
     res.respond(200, savedTask); // TODO what to return

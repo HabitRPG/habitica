@@ -25,7 +25,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     savedTask = await user.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`, {
       text: 'updated',
       completed: true,
-      _id: 123,
+      _id: 123, // ignored
     });
 
     expect(savedTask.checklist.length).to.equal(1);

@@ -70,7 +70,7 @@ TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj)
 };
 
 // Sanitize reminder objects (disallowing id)
-TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (reminderObj) {
+TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   delete reminderObj.id;
   return reminderObj;
 };

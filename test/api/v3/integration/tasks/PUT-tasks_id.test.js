@@ -79,7 +79,7 @@ describe('PUT /tasks/:id', () => {
       let id2 = generateUUID();
 
       let savedDaily = await user.put(`/tasks/${daily._id}`, {
-        checklist: [
+        reminders: [
           {id: id1, time: new Date(), startDate: new Date()},
           {id: id2, time: new Date(), startDate: new Date()},
         ],
