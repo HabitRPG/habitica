@@ -38,7 +38,7 @@
     "emojiExample": ":smile:",
     "markdownLinkEx": "[Habitica is great!](https://habitica.com)",
     "markdownImageEx": "![mandatory alt text](https://habitica.com/cake.png \"optional mouseover title\")",
-    "unorderedListHTML": "+ First item<br>+ Second item<br>+ Third item",
+    "unorderedListHTML": "+ First item<br />+ Second item<br />+ Third item",
     "unorderedListMarkdown": "+ First item\n+ Second item\n+ Third item",
     "code": "`code`",
     "achievements": "Achievements",
