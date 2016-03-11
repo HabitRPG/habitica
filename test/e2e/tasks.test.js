@@ -111,7 +111,7 @@ describe('habitica app', function() {
     });
     
     it('should register a new user and complete the tour', function (done) {
-        HabiticaPublic.register()        
+        HabiticaPublic.register();
         WelcomeTour.selfCheck();
         WelcomeTour.startTour();
         WelcomeTour.continueTour();
