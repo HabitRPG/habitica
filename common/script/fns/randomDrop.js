@@ -4,6 +4,13 @@ import i18n from '../i18n';
 import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
 
+// Clone a drop object maintaining its functions so that we can change it without affecting the original item
+function cloneDropItem (drop) {
+  return _.cloneDeep(drop, function (val) {
+    return _.isFunction(val) ? val : undefined; // undefined will be handled by lodash
+  });
+}
+
 module.exports = function(user, modifiers, req) {
   var acceptableDrops, base, base1, base2, chance, drop, dropK, dropMultiplier, name, name1, name2, quest, rarity, ref, ref1, ref2, ref3, task;
   task = modifiers.task;
@@ -29,9 +36,9 @@ module.exports = function(user, modifiers, req) {
   if (((ref3 = user.flags) != null ? ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
     rarity = user.fns.predictableRandom(user.stats.gp);
     if (rarity > .6) {
-      drop = user.fns.randomVal(_.where(content.food, {
+      drop = cloneDropItem(user.fns.randomVal(_.where(content.food, {
         canDrop: true
-      }));
+      })));
       if ((base = user.items.food)[name = drop.key] == null) {
         base[name] = 0;
       }
@@ -43,7 +50,7 @@ module.exports = function(user, modifiers, req) {
         dropNotes: drop.notes(req.language)
       }, req.language);
     } else if (rarity > .3) {
-      drop = user.fns.randomVal(content.dropEggs);
+      drop = cloneDropItem(user.fns.randomVal(content.dropEggs));
       if ((base1 = user.items.eggs)[name1 = drop.key] == null) {
         base1[name1] = 0;
       }
@@ -55,9 +62,9 @@ module.exports = function(user, modifiers, req) {
       }, req.language);
     } else {
       acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
-      drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
+      drop = cloneDropItem(user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
         return acceptableDrops.indexOf(k) >= 0;
-      })));
+      }))));
       if ((base2 = user.items.hatchingPotions)[name2 = drop.key] == null) {
         base2[name2] = 0;
       }
