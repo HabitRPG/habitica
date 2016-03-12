@@ -26,7 +26,7 @@ var HabiticaPublic = (function () {
         selfCheck: function () {
             expect(browser.getLocationAbsUrl()).toBe('');
         },
-        register: function(done) {
+        register: function() {
             var userId = generateUserid(10);    
             element(by.id('play-btn')).click();
             element(by.linkText('Register')).click();
@@ -35,7 +35,7 @@ var HabiticaPublic = (function () {
             element(by.model('registerVals.password')).sendKeys('pass');
             element(by.model('registerVals.confirmPassword')).sendKeys('pass');
             element(by.css('#registrationForm input[type="submit"]')).click();     
-            browser.sleep(1000);
+            browser.sleep(3000);
         }
     };
 }());
