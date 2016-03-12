@@ -301,7 +301,7 @@ api.updateTask = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
-      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
@@ -326,8 +326,8 @@ api.updateTask = {
       delete req.body.tags;
     }
 
-    // TODO we have to convert task to an object because otherwise thigns doesn't get merged correctly, bad for performances?
-    // TODO regarding comment above make sure other models with nested fields are using this trick too
+    // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
+    // TODO regarding comment above, make sure other models with nested fields are using this trick too
     _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
     // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
