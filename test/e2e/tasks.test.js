@@ -5,20 +5,20 @@ var HabiticaPublic = (function () {
   function generateUserid (length) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i=0; i < length; i ++) {
+    for (var i = 0; i < length; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
   }
 
   return {
-    get() {
+    get () {
       return browser.get('/');
     },
-    selfCheck() {
+    selfCheck () {
       expect(browser.getLocationAbsUrl()).toBe('');
     },
-    register() {
+    register () {
       var userId = generateUserid(10);
       element(by.id('play-btn')).click();
       element(by.linkText('Register')).click();
@@ -35,22 +35,22 @@ var HabiticaPublic = (function () {
 // State: welcome tour after registering
 var WelcomeTour = (function () {
   return {
-    selfCheck() {
+    selfCheck () {
       expect(browser.getLocationAbsUrl()).toBe('/tasks');
     },
-    startTour() {
+    startTour () {
       return element(by.linkText('Enter Habitica')).click();
     },
-    continueTour() {
+    continueTour () {
       return element(by.css('button[data-role="next"]')).click();
     },
-    endTour() {
+    endTour () {
       return element(by.css('button[data-role="end"]')).click();
     },
-    checkFirstTask() {
+    checkFirstTask () {
       return element(by.css('ul.todos.main-list div.task-controls label')).click();
     },
-    toLvl2() {
+    toLvl2 () {
       return element(by.css('div.modal-content button.btn-primary')).click();
     },
   };
@@ -62,23 +62,23 @@ var Tasks = (function () {
   var sampleTaskName = 'This is my task';
 
   return {
-    selfCheck() {
+    selfCheck () {
       expect(browser.getLocationAbsUrl()).toBe('/tasks');
     },
-    get() {
+    get () {
       browser.get('/#/tasks');
     },
-    countTodos() {
+    countTodos () {
       return todoList.count();
     },
-    addTodo() {
+    addTodo () {
       element(by.css('form[name="newtodoform"] input[type="text"]')).sendKeys(sampleTaskName);
       element(by.css('form[name="newtodoform"] button[type="submit"]')).click();
     },
-    checkTodo() {
+    checkTodo () {
       element(by.css('ul.todos.main-list li:nth-of-type(1) label')).click();
     },
-    logout() {
+    logout () {
       element(by.css('a[menu="settings"]')).click();
       element(by.css('a[ng-click="logout()"]')).click();
 
