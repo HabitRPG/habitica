@@ -1,12 +1,6 @@
 'use strict';
 
-var fs = require('fs');
-
-
-
-
-
-//State: public welcome page
+// State: public welcome page
 var HabiticaPublic = (function () {
     
     function generateUserid(length) {
@@ -40,8 +34,7 @@ var HabiticaPublic = (function () {
     };
 }());
 
-
-//State: welcome tour after registering
+// State: welcome tour after registering
 var WelcomeTour = (function () {
     return {
         selfCheck: function () {
@@ -65,8 +58,7 @@ var WelcomeTour = (function () {
     };
 }());
 
-
-//State: tasks page
+// State: tasks page
 var Tasks = (function () {
     var todoList = element.all(by.css('ul.todos.main-list li.uncompleted'));
     
@@ -98,9 +90,7 @@ var Tasks = (function () {
     };
 }());
 
-
-
-//Test suites
+// Test suites
 describe('habitica app', function() {
 
     it('should redirect index.html to /static/front', function(done) {
@@ -127,8 +117,7 @@ describe('habitica app', function() {
         done();
     });
 
-
-    //test suite for tasks view
+    // test suite for tasks view
     describe('task view', function() {
 
         it('should show the tasks page', function (done) {
@@ -156,6 +145,5 @@ describe('habitica app', function() {
             Tasks.logout();
             HabiticaPublic.selfCheck();
         });
-
     });
 });
