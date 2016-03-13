@@ -26,13 +26,13 @@ module.exports = function attachMiddlewares (app) {
     extended: true, // Uses 'qs' library as old connect middleware
   }));
   app.use(bodyParser.json());
+  app.use(expressValidator());
   app.use(cookieSession({
     name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
     secret: SESSION_SECRET,
     httpOnly: false, // TODO this should be true for security, what about https only?
     maxAge: TWO_WEEKS,
   }));
-  app.use(expressValidator());
   app.use(analytics);
   app.use(setupBody);
   app.use(responseHandler);
