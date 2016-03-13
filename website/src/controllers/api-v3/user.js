@@ -77,7 +77,6 @@ api.updatePassword = {
 
     user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
     await user.save();
-
     res.send(200, {});
   },
 };
