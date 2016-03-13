@@ -2,7 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { model as User } from '../../../../../website/src/models/user';
 
 describe('POST /user/update-password', async () => {
   let endpoint = '/user/update-password';
@@ -23,7 +22,7 @@ describe('POST /user/update-password', async () => {
       confirmPassword: newPassword,
     });
     expect(response).to.eql({});
-    user = await User.findOne({ _id: user._id });
+    await user.sync();
     expect(user.auth.local.hashed_password).to.not.eql(previousHashedPassword);
   });
 

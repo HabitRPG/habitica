@@ -77,7 +77,7 @@ api.updatePassword = {
 
     user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
     await user.save();
-    res.send(200, {});
+    res.respond(200, {});
   },
 };
 
@@ -122,7 +122,7 @@ api.updateUsername = {
     user.auth.local.username = req.body.username;
     await user.save();
 
-    res.send(200, { username: req.body.username });
+    res.respond(200, { username: req.body.username });
   },
 };
 

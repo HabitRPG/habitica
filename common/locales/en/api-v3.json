@@ -6,7 +6,6 @@
   "missingPassword": "Missing password.",
   "missingNewPassword": "Missing newPassword.",
   "wrongPassword": "Wrong password.",
-  "passwordSaved": "New password has been saved.",
   "notAnEmail": "Invalid email address.",
   "emailTaken": "Email already taken.",
   "newEmailRequired": "The newEmail body parameter is required.",
