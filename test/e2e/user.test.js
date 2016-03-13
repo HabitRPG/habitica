@@ -3,56 +3,56 @@
 
 //  State: public welcome page
 var HabiticaPublic = (function () {
-    function generateUserid (length) {
-      var text = '';
-      var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for (var i=0; i < length; i++) {
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-      }
-      return text;
+  function generateUserid (length) {
+    var text = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-    return {
-      get () {
-        return browser.get('/');
-      },
-      selfCheck () {
-        expect(browser.getLocationAbsUrl()).toBe('');
-      },
-      register () {
-        var userId = generateUserid(10);
-        element(by.id('play-btn')).click();
-        element(by.linkText('Register')).click();
-        element(by.model('registerVals.username')).sendKeys(userId);
-        element(by.model('registerVals.email')).sendKeys(userId + '@example.com');
-        element(by.model('registerVals.password')).sendKeys('pass');
-        element(by.model('registerVals.confirmPassword')).sendKeys('pass');
-        element(by.css('#registrationForm input[type="submit"]')).click();
-        browser.sleep(1000);
-      },
-    };
+    return text;
+  }
+  return {
+    get () {
+      return browser.get('/');
+    },
+    selfCheck () {
+      expect(browser.getLocationAbsUrl()).toBe('');
+    },
+    register () {
+      var userId = generateUserid(10);
+      element(by.id('play-btn')).click();
+      element(by.linkText('Register')).click();
+      element(by.model('registerVals.username')).sendKeys(userId);
+      element(by.model('registerVals.email')).sendKeys(userId + '@example.com');
+      element(by.model('registerVals.password')).sendKeys('pass');
+      element(by.model('registerVals.confirmPassword')).sendKeys('pass');
+      element(by.css('#registrationForm input[type="submit"]')).click();
+      browser.sleep(1000);
+    },
+  };
 }());
 //  State: welcome tour after registering
 var WelcomeTour = (function () {
-    return {
-      selfCheck () {
-        expect(browser.getLocationAbsUrl()).toBe('/tasks');
-      },
-      startTour () {
-        return element(by.linkText('Enter Habitica')).click();
-      },
-      continueTour () {
-        return element(by.css('button[data-role="next"]')).click();
-      },
-      endTour () {
-        return element(by.css('button[data-role="end"]')).click();
-      },
-      checkFirstTask () {
-        return element(by.css('ul.todos.main-list div.task-controls label')).click();
-      },
-      toLvl2 () {
-        return element(by.css('div.modal-content button.btn-primary')).click();
-      },
-    };
+  return {
+    selfCheck () {
+      expect(browser.getLocationAbsUrl()).toBe('/tasks');
+    },
+    startTour () {
+      return element(by.linkText('Enter Habitica')).click();
+    },
+    continueTour () {
+      return element(by.css('button[data-role="next"]')).click();
+    },
+    endTour () {
+      return element(by.css('button[data-role="end"]')).click();
+    },
+    checkFirstTask () {
+      return element(by.css('ul.todos.main-list div.task-controls label')).click();
+    },
+    toLvl2 () {
+      return element(by.css('div.modal-content button.btn-primary')).click();
+    },
+  };
 }());
 // State: profile/avatar page
 var Avatar = (function () {
@@ -145,7 +145,7 @@ var Stats = (function () {
       var backgroundsBtn = element(by.linkText('Stats & Achievements'));
       backgroundsBtn.click();
     },
-    endModal: function() {
+    endModal () {
       return element(by.css('button[data-role="end"]')).click();
     },
   };
@@ -195,63 +195,63 @@ describe('Habitica app', function () {
     done();
   });
   // test suite for the profile view
-  describe('profile (user) view', function() {
-      it('should show the User landing tab (profile/avatar)', function (done) {
-        Avatar.get();
-        Avatar.selfCheck();
-        // browser.sleep(1000);
-        done();
-      });
-      it('should display broad shirts (tests only first black shirt)', function (done) {
-        Avatar.selectBroad();
-        // browser.sleep(1000);
-        done();
-      });
-      it('should display slim shirts (tests only first black shirt)', function (done) {
-        Avatar.selectSlim();
-        // browser.sleep(1000);
-        done();
-      });
-      it('selected shirt should have class selectableInventory (tests only first black shirt)', function (done) {
-        Avatar.selectShirt();
-        // browser.sleep(1000);
-        done();
-      });
-      it('selected flower should have class selectableInventory (tests only flower 4)', function (done) {
-        Avatar.selectFlower();
-        // browser.sleep(1000);
-        done();
-      });
-      it('selected hair color should have class selectableInventory (tests only first white color). Bangs, base, beard and moustache should adapt.', function (done) {
-        Avatar.selectHairColor();
-        // browser.sleep(1000);
-        done();
-      });
-      it('should show the profile/backgrounds page', function (done) {
-        Backgrounds.navigateToBackgrounds();
-        Backgrounds.selfCheck();
-        // browser.sleep(1000);
-        done();
-      });
-      it('should show the profile/stats page', function (done) {
-        Stats.navigateToStats();
-        Stats.selfCheck();
-        Stats.endModal();
-        // browser.sleep(1000);
-        done();
-      });
-      it('should show the profile/profile page', function (done) {
-        Profile.navigateToProfile();
-        Profile.selfCheck();
-        Profile.edit();
-        // browser.sleep(1000);
-        done();
-      });
-      it('should show the profile/avatar page', function (done) {
-        Avatar.navigateToAvatar();
-        Avatar.selfCheck();
-        // browser.sleep(1000);
-        done();
-      });
+  describe('profile (user) view', function () {
+    it('should show the User landing tab (profile/avatar)', function (done) {
+      Avatar.get();
+      Avatar.selfCheck();
+      // browser.sleep(1000);
+      done();
+    });
+    it('should display broad shirts (tests only first black shirt)', function (done) {
+      Avatar.selectBroad();
+      // browser.sleep(1000);
+      done();
+    });
+    it('should display slim shirts (tests only first black shirt)', function (done) {
+      Avatar.selectSlim();
+      // browser.sleep(1000);
+      done();
+    });
+    it('selected shirt should have class selectableInventory (tests only first black shirt)', function (done) {
+      Avatar.selectShirt();
+      // browser.sleep(1000);
+      done();
+    });
+    it('selected flower should have class selectableInventory (tests only flower 4)', function (done) {
+      Avatar.selectFlower();
+      // browser.sleep(1000);
+      done();
+    });
+    it('selected hair color should have class selectableInventory (tests only first white color). Bangs, base, beard and moustache should adapt.', function (done) {
+      Avatar.selectHairColor();
+      // browser.sleep(1000);
+      done();
+    });
+    it('should show the profile/backgrounds page', function (done) {
+      Backgrounds.navigateToBackgrounds();
+      Backgrounds.selfCheck();
+      // browser.sleep(1000);
+      done();
+    });
+    it('should show the profile/stats page', function (done) {
+      Stats.navigateToStats();
+      Stats.selfCheck();
+      Stats.endModal();
+      // browser.sleep(1000);
+      done();
+    });
+    it('should show the profile/profile page', function (done) {
+      Profile.navigateToProfile();
+      Profile.selfCheck();
+      Profile.edit();
+      // browser.sleep(1000);
+      done();
+    });
+    it('should show the profile/avatar page', function (done) {
+      Avatar.navigateToAvatar();
+      Avatar.selfCheck();
+      // browser.sleep(1000);
+      done();
     });
   });
+});
