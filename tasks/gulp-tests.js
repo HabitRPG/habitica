@@ -269,9 +269,6 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
     let runner = exec(
       'npm run test:e2e',
       (err, stdout, stderr) => {
-        /*
-         * Note: As it stands, protractor wont report pending specs
-         */
         support.forEach(kill);
         cb(err);
       }
@@ -293,9 +290,6 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
     let runner = exec(
       'npm run test:e2e',
       (err, stdout, stderr) => {
-        /*
-         * Note: As it stands, protractor wont report pending specs
-         */
         let match = stdout.match(/(\d+) tests?.*(\d) failures?/);
 
         testResults.push({
