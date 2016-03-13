@@ -69,7 +69,7 @@ api.silver = importedLibs.silver;
 api.taskClasses = importedLibs.taskClasses;
 api.friendlyTimestamp = importedLibs.friendlyTimestamp;
 api.newChatMessages = importedLibs.newChatMessages;
-api.noTags = importedLibs.appliedTags;
+api.noTags = importedLibs.noTags;
 api.appliedTags = importedLibs.appliedTags;
 
 
