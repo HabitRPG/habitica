@@ -373,6 +373,16 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
   pipe(runner);
 });
 
+gulp.task('test', (done) => {
+  runSequence(
+    'lint',
+    'test:common',
+    'test:api-v3:unit',
+    'test:api-v3:integration',
+    done
+  );
+});
+
 gulp.task('test:api-v3', (done) => {
   runSequence(
     'lint',

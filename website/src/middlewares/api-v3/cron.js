@@ -11,7 +11,7 @@ import Group from '../../models/group';
 import User from '../../models/user';
 import { preenUserHistory } from '../../libs/api-v3/preening';
 
-const scoreTask = common.v3.scoreTask;
+const scoreTask = common.ops.scoreTask;
 
 let clearBuffs = {
   str: 0,

@@ -1,93 +1,109 @@
-import moment from 'moment';
 import _ from 'lodash';
 
-import {
-  daysSince,
-  shouldDo,
-} from './cron';
+// When using a common module from the website or the server NEVER import the module directly
+// but access it through `api` (the main common) module, otherwise you would require the non transpiled version of the file in production.
+let api = module.exports = {};
+
+import content from './content/index';
+api.content = content;
+
+import * as errors from './libs/errors';
+api.errors = errors;
+import i18n from './i18n';
+api.i18n = i18n;
+
+// TODO under api.libs.cron?
+import { shouldDo, daysSince } from './cron';
+api.shouldDo = shouldDo;
+api.daysSince = daysSince;
+
+// TODO under api.constants?
 import {
   MAX_HEALTH,
   MAX_LEVEL,
   MAX_STAT_POINTS,
 } from './constants';
-import * as statHelpers from './statHelpers';
-
-import importedLibs from './libs';
-
-var $w, preenHistory, sortOrder,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-import content from './content/index';
-import i18n from './i18n';
-
-import * as errors from './api-v3/errors';
-import scoreTask from './api-v3/scoreTask';
-
-let api = module.exports = {};
-
-// Temporary location of API v3 files (soon to be removed)
-api.v3 = {
-  scoreTask,
-  errors,
-};
-
-api.i18n = i18n;
-api.shouldDo = shouldDo;
-
 api.maxLevel = MAX_LEVEL;
-api.capByLevel = statHelpers.capByLevel;
 api.maxHealth = MAX_HEALTH;
+api.maxStatPoints = MAX_STAT_POINTS;
+
+// TODO under api.libs.statHelpers?
+import * as statHelpers from './statHelpers';
+api.capByLevel = statHelpers.capByLevel;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
-$w = api.$w = importedLibs.splitWhitespace;
-api.dotSet = importedLibs.dotSet;
-api.dotGet = importedLibs.dotGet;
-api.refPush = importedLibs.refPush;
-api.planGemLimits = importedLibs.planGemLimits;
+// TODO under api.libs?
+import splitWhitespace from './libs/splitWhitespace';
+const $w = api.$w = splitWhitespace;
 
-preenHistory = importedLibs.preenHistory;
+import dotSet from './libs/dotSet';
+api.dotSet = dotSet;
 
-api.preenTodos = importedLibs.preenTodos;
-api.updateStore = importedLibs.updateStore;
+import dotGet from './libs/dotGet';
+api.dotGet = dotGet;
 
+import refPush from './libs/refPush';
+api.refPush = refPush;
 
-/*
-------------------------------------------------------
-Content
-------------------------------------------------------
- */
+import planGemLimits from './libs/planGemLimits';
+api.planGemLimits = planGemLimits;
 
-api.content = content;
+import preenTodos from './libs/preenTodos';
+api.preenTodos = preenTodos;
 
+import updateStore from './libs/updateStore';
+api.updateStore = updateStore;
 
-/*
-------------------------------------------------------
-Misc Helpers
-------------------------------------------------------
- */
+import uuid from './libs/uuid';
+api.uuid = uuid;
 
-api.uuid = importedLibs.uuid;
-api.countExists = importedLibs.countExists;
-api.taskDefaults = importedLibs.taskDefaults;
-api.percent = importedLibs.percent;
-api.removeWhitespace = importedLibs.removeWhitespace;
-api.encodeiCalLink = importedLibs.encodeiCalLink;
-api.gold = importedLibs.gold;
-api.silver = importedLibs.silver;
-api.taskClasses = importedLibs.taskClasses;
-api.friendlyTimestamp = importedLibs.friendlyTimestamp;
-api.newChatMessages = importedLibs.newChatMessages;
-api.noTags = importedLibs.appliedTags;
-api.appliedTags = importedLibs.appliedTags;
+import countExists from './libs/countExists';
+api.countExists = countExists;
 
+import taskDefaults from './libs/taskDefaults';
+api.taskDefaults = taskDefaults;
 
-/*
-Various counting functions
- */
+import percent from './libs/percent';
+api.percent = percent;
+
+import removeWhitespace from './libs/removeWhitespace';
+api.removeWhitespace = removeWhitespace;
+
+import encodeiCalLink from './libs/encodeiCalLink';
+api.encodeiCalLink = encodeiCalLink;
+
+import gold from './libs/gold';
+api.gold = gold;
+
+import silver from './libs/silver';
+api.silver = silver;
+
+import taskClasses from './libs/taskClasses';
+api.taskClasses = taskClasses;
+
+import friendlyTimestamp from './libs/friendlyTimestamp';
+api.friendlyTimestamp = friendlyTimestamp;
+
+import newChatMessages from './libs/newChatMessages';
+api.newChatMessages = newChatMessages;
+
+import noTags from './libs/noTags';
+api.noTags = noTags;
+
+import appliedTags from './libs/appliedTags';
+api.appliedTags = appliedTags;
 
 import count from './count';
 api.count = count;
+
+// TODO As ops and fns are ported, exported them through the api object
+import scoreTask from './ops/scoreTask';
+
+api.ops = {
+  scoreTask,
+};
+api.fns = {};
 
 
 /*
@@ -130,14 +146,11 @@ TODO
 import importedOps from './ops';
 import importedFns from './fns';
 
-api.wrap = function(user, main) {
-  if (main == null) {
-    main = true;
-  }
-  if (user._wrapped) {
-    return;
-  }
+// TODO redo
+api.wrap = function wrapUser (user, main = true) {
+  if (user._wrapped) return;
   user._wrapped = true;
+
   if (main) {
     user.ops = {
       update: _.partial(importedOps.update, user),
@@ -184,9 +197,10 @@ api.wrap = function(user, main) {
       allocate: _.partial(importedOps.allocate, user),
       readCard: _.partial(importedOps.readCard, user),
       openMysteryItem: _.partial(importedOps.openMysteryItem, user),
-      score: _.partial(importedOps.score, user),
+      scoreTask: _.partial(importedOps.scoreTask, user),
     };
   }
+
   user.fns = {
     getItem: _.partial(importedFns.getItem, user),
     handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
@@ -203,32 +217,29 @@ api.wrap = function(user, main) {
     ultimateGear: _.partial(importedFns.ultimateGear, user),
     nullify: _.partial(importedFns.nullify, user),
   };
+
   Object.defineProperty(user, '_statsComputed', {
-    get: function() {
-      var computed;
-      computed = _.reduce(['per', 'con', 'str', 'int'], (function(_this) {
-        return function(m, stat) {
-          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
-            var item, val;
-            val = user.fns.dotGet(path);
-            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
-          }, 0);
-          m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
-          return m;
-        };
-      })(this), {});
+    get () {
+      let computed = _.reduce(['per', 'con', 'str', 'int'], (m, stat) => {
+        m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), (m2, path) => {
+          let item;
+          let val = user.fns.dotGet(path);
+          return m2 + (path.indexOf('items.gear') !== -1 ? (item = content.gear.flat[val], (Number(item ? item[stat] : undefined) || 0) * ((item ? item.klass : undefined) === user.stats.class || (item ? item.specialClass : undefined) === user.stats.class ? 1.5 : 1)) : Number(val[stat]) || 0);
+        }, 0);
+        m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
+        return m;
+      }, {});
       computed.maxMP = computed.int * 2 + 30;
       return computed;
-    }
+    },
   });
 
   if (typeof window !== 'undefined') {
     Object.defineProperty(user, 'tasks', {
-      get: function() {
-        var tasks;
-        tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
-        return _.object(_.pluck(tasks, "id"), tasks);
-      }
+      get () {
+        let tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
+        return _.object(_.pluck(tasks, 'id'), tasks);
+      },
     });
   }
 };

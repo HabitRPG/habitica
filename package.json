@@ -98,7 +98,7 @@
     "npm": "^3.3.10"
   },
   "scripts": {
-    "test": "gulp test:api-v3",
+    "test": "gulp test",
     "test:api-v2:unit": "mocha test/server_side",
     "test:api-v2:integration": "mocha test/api/v2 --recursive",
     "test:api-v3": "gulp test:api-v3",

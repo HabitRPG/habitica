@@ -1,4 +1,4 @@
-import extendableBuiltin from './libs/extendableBuiltin';
+import extendableBuiltin from './extendableBuiltin';
 
 // Base class for custom application errors
 // It extends Error and capture the stack trace
