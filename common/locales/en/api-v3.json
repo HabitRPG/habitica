@@ -4,6 +4,7 @@
   "missingEmail": "Missing email.",
   "missingUsername": "Missing username.",
   "missingPassword": "Missing password.",
+  "missingNewPassword": "Missing newPassword.",
   "wrongPassword": "Wrong password.",
   "notAnEmail": "Invalid email address.",
   "emailTaken": "Email already taken.",
