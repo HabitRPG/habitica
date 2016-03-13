@@ -136,6 +136,7 @@ var Backgrounds = (function () {
           },
     navigateToBackgrounds: function () {
       var backgroundsBtn = element(by.linkText('Backgrounds'));
+      browser.executeScript('window.scrollTo(0,0);');
       backgroundsBtn.click();
     }
   }
@@ -197,15 +198,9 @@ var Profile = (function () {
 // test suites
 describe('Habitica app', function () {
 
-  it('should redirect index.html to /static/front', function(done) {
-      HabiticaPublic.get();
-      HabiticaPublic.selfCheck();
-      done();
-  });
-
   it('should register a new user and complete the tour', function (done) {
+      HabiticaPublic.get();
       HabiticaPublic.register();
-      WelcomeTour.selfCheck();
       WelcomeTour.startTour();
       WelcomeTour.continueTour();
       WelcomeTour.continueTour();
