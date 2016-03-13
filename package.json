@@ -131,7 +131,7 @@
     "mongodb": "^2.0.46",
     "mongoskin": "~0.6.1",
     "phantomjs": "^1.9",
-    "protractor": "~2.5.1",
+    "protractor": "^3.1.1",
     "rewire": "^2.3.3",
     "rimraf": "^2.4.3",
     "run-sequence": "^1.1.4",

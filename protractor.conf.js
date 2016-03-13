@@ -1,26 +1,26 @@
-// An example configuration file.
+'use strict'
+
+require('babel-register');
+require('babel-polyfill');
+
 exports.config = {
-  // The address of a running selenium server.
+  specs: 'test/e2e/**/*.js',
+  baseUrl: 'http://localhost:3003/',
+  directConnect: true,
   seleniumAddress: 'http://localhost:4444/wd/hub',
-
-  // Capabilities to be passed to the webdriver instance.
-  capabilities: {
-    'browserName': 'firefox'
+  framework: 'mocha',
+  mochaOpts: {
+    reporter: 'spec',
+    slow: 6000,
+    timeout: 10000,
+    compilers: 'js:babel-register'
   },
+  onPrepare: () => {
+    browser.ignoreSynchronization = true;
+    let chai = require('chai');
+    let chaiAsPromised = require('chai-as-promised');
 
-  // Spec patterns are relative to the current working directly when
-  // protractor is called.
-  specs: ['test/e2e/e2e.js'],
-
-  // A base URL for your application under test. Calls to protractor.get()
-  // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:3003',
-
-  // Options to be passed to Jasmine-node.
-  jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 90000,
-    isVerbose: true,
-    displayPendingSpec: true
-  }
+    chai.use(chaiAsPromised);
+    global.expect = chai.expect;
+  },
 };

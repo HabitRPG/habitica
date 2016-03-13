@@ -297,11 +297,12 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
          * Note: As it stands, protractor wont report pending specs
          */
         let match = stdout.match(/(\d+) tests?.*(\d) failures?/);
+
         testResults.push({
-          suite: 'End-to-End Specs',
-          pass: parseInt(match[1]) - parseInt(match[2]),
-          fail: parseInt(match[2]),
-          pend: 0
+          suite: 'End-to-End Specs\t',
+          pass: testCount(stdout, /(\d+) passing/),
+          fail: testCount(stdout, /(\d+) failing/),
+          pend: testCount(stdout, /(\d+) pending/)
         });
         support.forEach(kill);
         cb();
