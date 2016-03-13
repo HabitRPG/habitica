@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import {
   NotAuthorized,
-} from './errors';
+} from '../libs/errors';
 import i18n from '../i18n';
 
 const MAX_TASK_VALUE = 21.27;

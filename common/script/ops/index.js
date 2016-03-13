@@ -42,7 +42,7 @@ import disableClasses from './disableClasses';
 import allocate from './allocate';
 import readCard from './readCard';
 import openMysteryItem from './openMysteryItem';
-import score from './score';
+import scoreTask from './scoreTask';
 
 module.exports = {
   update,
@@ -89,5 +89,5 @@ module.exports = {
   allocate,
   readCard,
   openMysteryItem,
-  score,
+  scoreTask,
 };

@@ -9,9 +9,8 @@ import {
 import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /challenges/:challengeId', () => {
-  it('returns error when challengeId is not a valid UUID', async () => {
+  it.only('returns error when challengeId is not a valid UUID', async () => {
     let user = await generateUser();
-
     await expect(user.del(`/challenges/test`)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',

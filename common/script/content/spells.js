@@ -1,6 +1,6 @@
 import t from './translation';
 import _ from 'lodash';
-import { NotAuthorized } from '../api-v3/errors';
+import { NotAuthorized } from '../libs/errors';
 /*
   ---------------------------------------------------------------
   Spells

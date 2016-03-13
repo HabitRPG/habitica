@@ -16,7 +16,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { preenHistory } from '../../libs/api-v3/preening';
 
-const scoreTask = common.v3.scoreTask;
+const scoreTask = common.ops.scoreTask;
 
 let api = {};
 

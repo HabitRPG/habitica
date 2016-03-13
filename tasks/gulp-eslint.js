@@ -14,7 +14,6 @@ const SERVER_FILES = [
 const COMMON_FILES = [
   './common/script/**/*.js',
   // @TODO remove these negations as the files are converted over.
-  '!./common/script/index.js',
   '!./common/script/content/index.js',
   '!./common/script/ops/**/*.js',
   '!./common/script/fns/**/*.js',
@@ -25,7 +24,7 @@ const TEST_FILES = [
   './test/**/*.js',
   // @TODO remove these negations as the test files are cleaned up.
   '!./test/api-legacy/**/*',
-  '!./test/common/simulations/**/*',
+  '!./test/common_old/simulations/**/*',
   '!./test/content/**/*',
   '!./test/server_side/**/*',
   '!./test/spec/**/*',
