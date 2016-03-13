@@ -222,14 +222,13 @@ api.wrap = function wrapUser (user, main = true) {
     get () {
       let computed = _.reduce(['per', 'con', 'str', 'int'], (m, stat) => {
         m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), (m2, path) => {
-          let val = user.fns.dotGet(path);
           let item;
-          return m2 + (path.indexOf('items.gear') !== -1 ? (item = content.gear.flat[val], (Number(!item ? item[stat] : undefined) || 0) * ((!item ? item.klass : undefined) === user.stats.class || (!item ? item.specialClass : undefined) === user.stats.class ? 1.5 : 1)) : Number(val[stat]) || 0);
+          let val = user.fns.dotGet(path);
+          return m2 + (path.indexOf('items.gear') !== -1 ? (item = content.gear.flat[val], (Number(item ? item[stat] : undefined) || 0) * ((item ? item.klass : undefined) === user.stats.class || (item ? item.specialClass : undefined) === user.stats.class ? 1.5 : 1)) : Number(val[stat]) || 0);
         }, 0);
         m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
         return m;
-      });
-
+      }, {});
       computed.maxMP = computed.int * 2 + 30;
       return computed;
     },
