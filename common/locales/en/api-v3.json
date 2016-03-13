@@ -3,6 +3,7 @@
   "missingUsernameEmail": "Missing username or email.",
   "missingEmail": "Missing email.",
   "missingUsername": "Missing username.",
+  "malformedUsername": "The username you provided is malformed.",
   "missingPassword": "Missing password.",
   "missingNewPassword": "Missing newPassword.",
   "wrongPassword": "Wrong password.",
