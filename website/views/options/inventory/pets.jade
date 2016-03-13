@@ -65,3 +65,5 @@ mixin petList(eggSource, potionSource)
               .badge.badge-info.stack-count {{points}}
             // Remove this once we have images in
             p {{:: Content.food[food].text()}}
+  script
+    include popoverToAriaLabel.js

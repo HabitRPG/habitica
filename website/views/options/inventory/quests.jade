@@ -35,3 +35,5 @@ include ../../shared/mixins
                 span.shop_gold
               p(ng-if='quest.lvl && lockQuest(quest)')=env.t('level')
                 |  {{::quest.lvl}}
+  script
+    include popoverToAriaLabel.js

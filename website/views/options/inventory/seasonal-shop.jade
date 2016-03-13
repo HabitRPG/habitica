@@ -55,3 +55,5 @@
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
         p {{Content.spells.special.nye.value}}
           span(class='shop_gold')
+  script
+    include popoverToAriaLabel.js
