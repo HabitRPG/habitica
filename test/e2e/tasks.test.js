@@ -16,7 +16,7 @@ var HabiticaPublic = (function () {
       return browser.get('/');
     },
     selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('');
+      expect(browser.getLocationAbsUrl()).to.eventually.eql('');
     },
     register () {
       var userId = generateUserid(10);
@@ -36,16 +36,16 @@ var HabiticaPublic = (function () {
 var WelcomeTour = (function () {
   return {
     selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('/tasks');
+      expect(browser.getLocationAbsUrl()).to.eventually.eql('/tasks');
     },
     startTour () {
       return element(by.linkText('Enter Habitica')).click();
     },
     continueTour () {
-      return element(by.css('button[data-role="next"]')).click();
+      return element(by.css('div.tour-intro button[data-role="next"]')).click();
     },
     endTour () {
-      return element(by.css('button[data-role="end"]')).click();
+      return element(by.css('div.tour-intro button[data-role="end"]')).click();
     },
     checkFirstTask () {
       return element(by.css('ul.todos.main-list div.task-controls label')).click();
@@ -63,7 +63,7 @@ var Tasks = (function () {
 
   return {
     selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('/tasks');
+      expect(browser.getLocationAbsUrl()).to.eventually.eql('/tasks');
     },
     get () {
       browser.get('/#/tasks');
@@ -89,25 +89,28 @@ var Tasks = (function () {
 
 // Test suites
 describe('habitica app', function () {
-  it('should redirect index.html to /static/front', function (done) {
-    HabiticaPublic.get();
-    HabiticaPublic.selfCheck();
-
-    done();
-  });
-
-  it('should register a new user and complete the tour', function (done) {
-    HabiticaPublic.register();
+  it('should complete the tour', function (done) {
+    // registration is done in front-page.test.js
+    // TODO check if we should also perform the registration in this test suite
+    // HabiticaPublic.register();
     WelcomeTour.selfCheck();
     WelcomeTour.startTour();
+    browser.sleep(500);
     WelcomeTour.continueTour();
+    browser.sleep(500);
     WelcomeTour.continueTour();
+    browser.sleep(500);
     WelcomeTour.continueTour();
+    browser.sleep(500);
     WelcomeTour.continueTour();
+    browser.sleep(500);
     WelcomeTour.endTour();
+    browser.sleep(500);
     WelcomeTour.selfCheck();
     WelcomeTour.checkFirstTask();
+    browser.sleep(500);
     WelcomeTour.toLvl2();
+    browser.sleep(500);
     Tasks.selfCheck();
 
     done();
@@ -130,12 +133,12 @@ describe('habitica app', function () {
       Tasks.addTodo();
       browser.sleep(100);
       Tasks.countTodos().then(function (countnew) {
-        expect(countnew).toEqual(count + 1);
+        expect(countnew).to.eql(count + 1);
       });
       browser.sleep(100);
       Tasks.checkTodo();
       Tasks.countTodos().then(function (countnew) {
-        expect(countnew).toEqual(count);
+        expect(countnew).to.eql(count);
       });
 
       done();
