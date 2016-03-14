@@ -1534,4 +1534,4 @@ let specialSet = {
   weapon,
 };
 
-export default specialSet;
+module.exports = specialSet;

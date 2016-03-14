@@ -140,7 +140,7 @@
     "questAtom3Notes": "Mit einem ohrenbetäubenden Schrei und fünf leckere Arten von Käse spuckend zerfällt das Monster vom KochLess in Stücke. \"DU WAGST ES!?\" dröhnt eine Stimme von unter dem See. Eine blaue Gestalt, erhebt sich in eine Robe gekleidet aus dem Wasser und schwingt eine magische Toilettenbürste. Schmutzige Wäsche beginnt im See aufzusteigen. \"Ich bin der Wäschebeschwörer!\" verkündet die Gestalt ärgerlich. \"Du traust Dir ja ganz schön was zu - einfach so mein wunderbar schmutziges Geschirr abzuspülen, mein Haustier zu verscheuchen und mein Reich mit solch sauberer Kleidung zu betreten. Nimm' Dich in Acht! Spüre den durchnässten Zorn meiner Anti-Wäsche Magie!\"",
     "questAtom3Completion": "Der böse Wäschebeschwörer ist besiegt! Saubere Wäsche sammelt sich überall haufenweise. Alles sieht recht ordentlich aus. Wie Du durch die frisch gebügelten Rüstungen watest fällt dir ein metallischer Schein ins Auge und Du bemerkst einen glänzenden Helm. Der ursprüngliche Eigentümer dieses glänzenden Schatzes mag unbekannt sein, aber als Du ihn aufsetzt bemerkst du die wärmende Gegenwart eines freizügigen Geistes. Zu schade, dass niemand ein Namensschild angenäht hat.",
     "questAtom3Boss": "Der Wäschebeschwörer",
-    "questAtom3DropPotion": "Base Hatching Potion",
+    "questAtom3DropPotion": "Standart Schlüpftrank",
     "questOwlText": "Die Nachteule",
     "questOwlNotes": "Das Gasthauslicht brennt bis in die Morgenstunden <br>doch eines Nachts ist das Leuchten verschwunden!<br>Wo sollen denn jetzt alle Nachtschwärmer hin?<br>@Twitching ruft, \"Wir müssen in den Kampfe ziehn!\"<br>Siehst du diese Nachteule, den gefiederten Feind?<br>Kämpfe schnell, kämpfe gut, mach sie klein!<br>Wir werden ihren Schatten schnell verscheuchen,<br>und die Nacht wieder hell erleuchten!\"",
     "questOwlCompletion": "Die Nachteul' verblasst, bevor die Nacht vergeht<br>Doch dennoch fühlst du, wie es in dir gähnt.<br>Vielleicht ist es Zeit, sich hinzulegen?<br>In deinem Bett siehst du ein Nestchen liegen!<br>Die Nachteul' weiß, es ist sehr schön<br>spät zu arbeiten und spät ins Bett zu gehn,<br>Aber deine neuen Haustiere werden leise krähen<br>und dir dann sagen, \"du sollst schlafen gehen\".",
@@ -286,10 +286,10 @@
     "questSabretoothBoss": "Zombie Säbelzahntiger",
     "questSabretoothDropSabretoothEgg": "Säbelzahntiger (Ei)",
     "questSabretoothUnlockText": "Ermöglicht den Kauf von Säbelzahntigereiern auf dem Marktplatz",
-    "questMonkeyText": "Monstrous Mandrill and the Mischief Monkeys",
-    "questMonkeyNotes": "The Sloensteadi Savannah is being torn apart by the Monstrous Mandrill and his Mischief Monkeys! They shriek loudly enough to drown out the sound of approaching deadlines, encouraging everyone to avoid their duties and keep monkeying around. Alas, plenty of people ape this bad behavior. If no one stops these primates, soon everyone's tasks will be as red as the Monstrous Mandrill's face!<br><br>\"It will take a dedicated adventurer to resist them,\" says @yamato.<br><br>\"Quick, let's get this monkey off everyone's backs!\" @Oneironaut yells, and you charge into battle.",
-    "questMonkeyCompletion": "You did it! No bananas for those fiends today. Overwhelmed by your diligence, the monkeys flee in panic. \"Look,\" says @Misceo. \"They left a few eggs behind.\"<br><br>@Leephon grins. \"Maybe a well-trained pet monkey can help you as much as the wild ones hinder you!\"",
-    "questMonkeyBoss": "Monstrous Mandrill",
-    "questMonkeyDropMonkeyEgg": "Monkey (Egg)",
-    "questMonkeyUnlockText": "Unlocks purchasable Monkey eggs in the Market"
+    "questMonkeyText": "Monströser Mandrill und die Albernen Affen",
+    "questMonkeyNotes": "Die Sloensteadi Savanne wird vom Monströsen Mandrill und seinen Albernen Affen verwüstet. Sie kreischen laut genug um den Klang nahender Deadlines zu übertönen und ermutigen dadurch alle, ihre Pflichten zu vernachlässigen und weiter herumzualbern. Und so äffen viele dieses schlechte Verhalten nach. Wenn niemand diese Primaten aufhält, werden alle Aufgaben bald so rot wie das Gesicht des Monströsen Mandrills.<br><br>\"Man muss schon ein erfahrener Abenteurer sein um ihnen zu widerstehen,\" meint @yamato.<br><br>\"Auf, gehn wir in die Affensive!\" ruft @Oneironaut während ihr in den Kampf stürmt. ",
+    "questMonkeyCompletion": "Du hast es geschafft! Keine Bananen für diese Übeltäter, heute. Überwältigt von deinem Eifer fliehen die Affen in heller Panik. \"Guck mal\", sagt @Misceo. \"Sie haben ein paar Eier zurückgelassen.\" <br><br>@Leephon grinst. \"Vielleicht werden Dir ein paar gut trainierte Haustieraffen so gut helfen, wie die wilden ein Hindernis waren!\"",
+    "questMonkeyBoss": "Monströser Mandrill",
+    "questMonkeyDropMonkeyEgg": "Affe (Ei)",
+    "questMonkeyUnlockText": "Ermöglicht den Kauf von Affeneiern auf dem Marktplatz"
 }

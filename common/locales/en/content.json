@@ -49,7 +49,7 @@
 
   "dropEggBearCubText": "Bear Cub",
   "dropEggBearCubMountText": "Bear",
-  "dropEggBearCubAdjective": "a cuddly",
+  "dropEggBearCubAdjective": "a brave",
 
   "questEggGryphonText": "Gryphon",
   "questEggGryphonMountText": "Gryphon",
@@ -69,7 +69,7 @@
 
   "questEggRatText": "Rat",
   "questEggRatMountText": "Rat",
-  "questEggRatAdjective": "a dirty",
+  "questEggRatAdjective": "a sociable",
 
   "questEggOctopusText": "Octopus",
   "questEggOctopusMountText": "Octopus",
@@ -154,6 +154,10 @@
   "questEggMonkeyText": "Monkey",
   "questEggMonkeyMountText": "Monkey",
   "questEggMonkeyAdjective": "a mischievous",
+
+  "questEggSnailText": "Snail",
+  "questEggSnailMountText": "Snail",
+  "questEggSnailAdjective": "a slow but steady",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 

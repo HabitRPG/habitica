@@ -39,7 +39,7 @@ $ gulp test:api:safe
 If you'd like to run the tests individually and inspect the output from the server, in one pane you can run:
 
 ```bash
-$ gulp nodemon
+$ gulp test:nodemon
 ```
 
 And run your tests in another pane:

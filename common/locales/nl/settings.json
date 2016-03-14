@@ -140,7 +140,7 @@
     "mysticHourglass": "<%= amount %> mystieke zandloper(s)",
     "mysticHourglassText": "Met mystieke zandlopers kun je abonnee-uitrusting uit eerdere maanden kopen.",
     "purchasedPlanId": "Herhalend $<%= price %> USD elke <%= months %> maand(en) (<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
+    "purchasedPlanExtraMonths": "Je hebt <%= months %> maanden extra abonnementkrediet.",
     "consecutiveSubscription": "Opeenvolgende abonnementen: ",
     "consecutiveMonths": "Opeenvolgende maanden:",
     "gemCapExtra": "Extra edelsteencapaciteit:",

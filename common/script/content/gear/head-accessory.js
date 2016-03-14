@@ -9,5 +9,5 @@ let headAccessory = {
   mystery: mysteryHeadAccessory,
 };
 
-export default headAccessory;
+module.exports = headAccessory;
 
