@@ -3,7 +3,7 @@ import { resetHabiticaDB } from '../helpers/api-integration/mongo';
 
 before(async () => {
   await resetHabiticaDB();
-})
+});
 
 // based on https://github.com/angular/protractor/issues/114#issuecomment-29046939
 afterEach(async function () {
