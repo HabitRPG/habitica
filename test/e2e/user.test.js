@@ -1,100 +1,68 @@
 'use strict';
 
+var EC = protractor.ExpectedConditions;
 
-//  State: public welcome page
-var HabiticaPublic = (function () {
-  function generateUserid (length) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  }
-  return {
-    get () {
-      return browser.get('/');
-    },
-    selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('');
-    },
-    register () {
-      var userId = generateUserid(10);
-      element(by.id('play-btn')).click();
-      element(by.linkText('Register')).click();
-      element(by.model('registerVals.username')).sendKeys(userId);
-      element(by.model('registerVals.email')).sendKeys(userId + '@example.com');
-      element(by.model('registerVals.password')).sendKeys('pass');
-      element(by.model('registerVals.confirmPassword')).sendKeys('pass');
-      element(by.css('#registrationForm input[type="submit"]')).click();
-      browser.sleep(1000);
-    },
-  };
-}());
-//  State: welcome tour after registering
-var WelcomeTour = (function () {
-  return {
-    selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('/tasks');
-    },
-    startTour () {
-      return element(by.linkText('Enter Habitica')).click();
-    },
-    continueTour () {
-      return element(by.css('button[data-role="next"]')).click();
-    },
-    endTour () {
-      return element(by.css('button[data-role="end"]')).click();
-    },
-    checkFirstTask () {
-      return element(by.css('ul.todos.main-list div.task-controls label')).click();
-    },
-    toLvl2 () {
-      return element(by.css('div.modal-content button.btn-primary')).click();
-    },
-  };
-}());
 // State: profile/avatar page
 var Avatar = (function () {
   var firstShirt = element(by.css('menu[label="Shirts"] > button:first-child'));
-  var firstSpecialShirt = element(by.css('menu[label="Special Shirts"] > button'));
+  var firstSpecialShirt = element(by.css('menu[label="Special Shirts"] > button:first-of-type'));
+  var hairFlower4 = element(by.css('menu[label="Flower"] > button:nth-of-type(5)'));
   return  {
     selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('/options/profile/avatar');
+      expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/avatar');
     },
     get () {
-      return browser.get('/#/options/profile/avatar');
+      browser.get('/#/options/profile/avatar');
     },
     navigateToAvatar () {
       var customizeAvatarBtn = element(by.linkText('Customize Avatar'));
+      browser.executeScript('window.scrollTo(0,0);');
       customizeAvatarBtn.click();
     },
     selectBroad () {
       var broadButton = element(by.buttonText('Broad'));
-      broadButton.click();
-      browser.sleep(1000);
-      expect(firstShirt.getAttribute('class')).toMatch('broad_shirt_black');
-      expect(firstShirt.getAttribute('class')).not.toMatch('slim_shirt_black');
-      expect(firstSpecialShirt.getAttribute('class')).toMatch('broad_shirt_convict');
-      expect(firstSpecialShirt.getAttribute('class')).not.toMatch('slim_shirt_convict');
+      browser.executeScript('window.scrollTo(0,0);');
+      browser.wait(EC.elementToBeClickable(broadButton), 3000, 'broad button not clickable');
+      broadButton.click().then(function () {
+        firstShirt.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('broad_shirt_black');
+          expect(clazz).to.not.have.string('slim_shirt_black');
+        });
+        firstSpecialShirt.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('broad_shirt_convict');
+          expect(clazz).to.not.have.string('slim_shirt_convict');
+        });
+      });
     },
     selectSlim () {
       var slimButton = element(by.buttonText('Slim'));
-      slimButton.click();
-      browser.sleep(1000);
-      expect(firstShirt.getAttribute('class')).toMatch('slim_shirt_black');
-      expect(firstShirt.getAttribute('class')).not.toMatch('broad_shirt_black');
-      expect(firstSpecialShirt.getAttribute('class')).toMatch('slim_shirt_convict');
-      expect(firstSpecialShirt.getAttribute('class')).not.toMatch('broad_shirt_convict');
+      slimButton.click().then(function () {
+        firstShirt.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('slim_shirt_black');
+          expect(clazz).to.not.have.string('broad_shirt_black');
+        });
+        firstSpecialShirt.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('slim_shirt_convict');
+          expect(clazz).to.not.have.string('broad_shirt_convict');
+        });
+      });
     },
     selectShirt () {
-      firstShirt.click();
-      expect(firstShirt.getAttribute('class')).toMatch('selectableInventory');
+      firstShirt.click().then(function () {
+        firstShirt.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('selectableInventory');
+        });
+      });
     },
     selectFlower () {
-      var hairFlower4 = element(by.css('menu[label="Flower"] > button:nth-of-type(5)'));
-      hairFlower4.click();
-      expect(hairFlower4.getAttribute('class')).toMatch('selectableInventory');
+      // browser.executeScript('window.scrollTo(0,600);');
+      // browser.actions().mouseMove(hairFlower4).mouseDown().mouseUp().perform();
+      // browser.executeScript('arguments[0].click()', hairFlower4);
+      hairFlower4.click().then(function () {
+        hairFlower4.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('selectableInventory');
+        });
+      });
     },
     selectHairColor () {
       var color = element(by.css('menu[label="Color"] > button:nth-of-type(1)'));
@@ -104,14 +72,30 @@ var Avatar = (function () {
       var hairstyle2 = element(by.css('menu[label="Hairstyle Set 2"] > button:nth-of-type(3)'));
       var beard = element(by.css('menu[label="Beard"] > button:nth-of-type(3)'));
       var mustache = element(by.css('menu[label="Mustache"] > button:nth-of-type(2)'));
-      color.click();
-      expect(color.getAttribute('class')).toMatch('selectableInventory');
-      expect(bang.getAttribute('class')).toMatch('hair_bangs_1_white');
-      expect(base.getAttribute('class')).toMatch('hair_base_1_white');
-      expect(hairstyle1.getAttribute('class')).toMatch('hair_base_6_white');
-      expect(hairstyle2.getAttribute('class')).toMatch('hair_base_11_white');
-      expect(beard.getAttribute('class')).toMatch('hair_beard_2_white');
-      expect(mustache.getAttribute('class')).toMatch('hair_mustache_1_white');
+      browser.executeScript('window.scrollTo(0,0);');
+      color.click().then(function () {
+        color.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('selectableInventory');
+        });
+        bang.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('hair_bangs_1_white');
+        });
+        base.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('hair_base_1_white');
+        });
+        hairstyle1.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('hair_base_6_white');
+        });
+        hairstyle2.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('hair_base_11_white');
+        });
+        beard.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('hair_beard_2_white');
+        });
+        mustache.getAttribute('class').then(function (clazz) {
+          expect(clazz).to.have.string('hair_mustache_1_white');
+        });
+      });
     },
   };
 }());
@@ -120,10 +104,10 @@ var Avatar = (function () {
 var Backgrounds = (function () {
   return  {
     selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('/options/profile/backgrounds');
+      expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/backgrounds');
     },
     get () {
-      return browser.get('/#/options/profile/backgrounds');
+      browser.get('/#/options/profile/backgrounds');
     },
     navigateToBackgrounds () {
       var backgroundsBtn = element(by.linkText('Backgrounds'));
@@ -136,17 +120,17 @@ var Backgrounds = (function () {
 var Stats = (function () {
   return  {
     selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('/options/profile/stats');
+      expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/stats');
     },
     get () {
-      return browser.get('/#/options/profile/stats');
+      browser.get('/#/options/profile/stats');
     },
     navigateToStats () {
       var backgroundsBtn = element(by.linkText('Stats & Achievements'));
       backgroundsBtn.click();
     },
     endModal () {
-      return element(by.css('button[data-role="end"]')).click();
+      element(by.css('button[data-role="end"]')).click();
     },
   };
 }());
@@ -154,13 +138,14 @@ var Stats = (function () {
 var Profile = (function () {
   return  {
     selfCheck () {
-      expect(browser.getLocationAbsUrl()).toBe('/options/profile/profile');
+      expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/profile');
     },
     get () {
-      return browser.get('/#/options/profile/profile');
+      browser.get('/#/options/profile/profile');
     },
     navigateToProfile () {
       var backgroundsBtn = element(by.linkText('Profile'));
+      browser.executeScript('window.scrollTo(0,0);');
       backgroundsBtn.click();
     },
     edit () {
@@ -175,83 +160,69 @@ var Profile = (function () {
       element(by.model('editingProfile.blurb')).sendKeys(blurb);
       element(by.css('input[value="Save"]')).click();
       browser.sleep(1000);
-      expect(element(by.css('span[ng-show="profile.profile.name"]')).getText()).toBe(name);
-      expect(element(by.css('markdown[ng-show="profile.profile.blurb"] > p')).getText()).toBe(blurb);
+      expect(element(by.css('span[ng-show="profile.profile.name"]')).getText()).to.eventually.eql(name);
+      expect(element(by.css('markdown[ng-show="profile.profile.blurb"] > p')).getText()).to.eventually.eql(blurb);
     },
   };
 }());
-//  test suites
-describe('Habitica app', function () {
-  it('should register a new user and complete the tour', function (done) {
-    HabiticaPublic.get();
-    HabiticaPublic.register();
-    WelcomeTour.startTour();
-    WelcomeTour.continueTour();
-    WelcomeTour.continueTour();
-    WelcomeTour.continueTour();
-    WelcomeTour.continueTour();
-    WelcomeTour.endTour();
-    WelcomeTour.selfCheck();
+// test suite for the profile view
+describe('Profile (user) view', function () {
+  it('should show the User landing tab (profile/avatar)', function (done) {
+    Avatar.get();
+    browser.sleep(1000);
+    Avatar.selfCheck();
     done();
   });
-  // test suite for the profile view
-  describe('profile (user) view', function () {
-    it('should show the User landing tab (profile/avatar)', function (done) {
-      Avatar.get();
-      Avatar.selfCheck();
-      // browser.sleep(1000);
-      done();
-    });
-    it('should display broad shirts (tests only first black shirt)', function (done) {
-      Avatar.selectBroad();
-      // browser.sleep(1000);
-      done();
-    });
-    it('should display slim shirts (tests only first black shirt)', function (done) {
-      Avatar.selectSlim();
-      // browser.sleep(1000);
-      done();
-    });
-    it('selected shirt should have class selectableInventory (tests only first black shirt)', function (done) {
-      Avatar.selectShirt();
-      // browser.sleep(1000);
-      done();
-    });
-    it('selected flower should have class selectableInventory (tests only flower 4)', function (done) {
-      Avatar.selectFlower();
-      // browser.sleep(1000);
-      done();
-    });
-    it('selected hair color should have class selectableInventory (tests only first white color). Bangs, base, beard and moustache should adapt.', function (done) {
-      Avatar.selectHairColor();
-      // browser.sleep(1000);
-      done();
-    });
-    it('should show the profile/backgrounds page', function (done) {
-      Backgrounds.navigateToBackgrounds();
-      Backgrounds.selfCheck();
-      // browser.sleep(1000);
-      done();
-    });
-    it('should show the profile/stats page', function (done) {
-      Stats.navigateToStats();
-      Stats.selfCheck();
-      Stats.endModal();
-      // browser.sleep(1000);
-      done();
-    });
-    it('should show the profile/profile page', function (done) {
-      Profile.navigateToProfile();
-      Profile.selfCheck();
-      Profile.edit();
-      // browser.sleep(1000);
-      done();
-    });
-    it('should show the profile/avatar page', function (done) {
-      Avatar.navigateToAvatar();
-      Avatar.selfCheck();
-      // browser.sleep(1000);
-      done();
-    });
+  it('should display broad shirts (tests only first black shirt)', function (done) {
+    Avatar.selectBroad();
+    // browser.sleep(1000);
+    done();
+  });
+  it('should display slim shirts (tests only first black shirt)', function (done) {
+    Avatar.selectSlim();
+    // browser.sleep(1000);
+    done();
+  });
+  it('selected shirt should have class selectableInventory (tests only first black shirt)', function (done) {
+    Avatar.selectShirt();
+    // browser.sleep(1000);
+    done();
+  });
+  it('selected flower should have class selectableInventory (tests only flower 4)', function (done) {
+    Avatar.selectFlower();
+    browser.sleep(5000);
+    done();
+  });
+  it('selected hair color should have class selectableInventory (tests only first white color). Bangs, base, beard and moustache should adapt.', function (done) {
+    Avatar.selectHairColor();
+     browser.sleep(5000);
+    done();
+  });
+  it('should show the profile/backgrounds page', function (done) {
+    Backgrounds.navigateToBackgrounds();
+    browser.sleep(1000);
+    Backgrounds.selfCheck();
+    done();
+  });
+  it('should show the profile/stats page', function (done) {
+    Stats.navigateToStats();
+    browser.sleep(1000);
+    Stats.selfCheck();
+    Stats.endModal();
+    done();
+  });
+  it('should show the profile/profile page', function (done) {
+    Profile.navigateToProfile();
+    browser.sleep(1000);
+    Profile.selfCheck();
+    Profile.edit();
+    browser.sleep(500);
+    done();
+  });
+  it('should show the profile/avatar page', function (done) {
+    Avatar.navigateToAvatar();
+    browser.sleep(1000);
+    Avatar.selfCheck();
+    done();
   });
 });
