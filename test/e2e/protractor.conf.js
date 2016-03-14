@@ -9,6 +9,9 @@ require('babel-polyfill');
 exports.config = {
   specs: ['./helper.js', './**/*.test.js'],
   baseUrl: 'http://localhost:3003/',
+  capabilities: {
+    browserName: 'firefox',
+  },
   directConnect: true,
   seleniumAddress: 'http://localhost:4444/wd/hub',
   framework: 'mocha',
