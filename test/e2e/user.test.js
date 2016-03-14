@@ -190,12 +190,12 @@ describe('Profile (user) view', function () {
   });
   it('selected flower should have class selectableInventory (tests only flower 4)', function (done) {
     Avatar.selectFlower();
-    //browser.sleep(5000);
+    // browser.sleep(5000);
     done();
   });
   it('selected hair color should have class selectableInventory (tests only first white color). Bangs, base, beard and moustache should adapt.', function (done) {
     Avatar.selectHairColor();
-    //browser.sleep(5000);
+    // browser.sleep(5000);
     done();
   });
   it('should show the profile/backgrounds page', function (done) {
