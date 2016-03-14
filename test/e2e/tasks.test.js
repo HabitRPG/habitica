@@ -1,11 +1,11 @@
 'use strict';
 
 // State: public welcome page
-var HabiticaPublic = (function () {
+let HabiticaPublic = (function () {
   function generateUserid (length) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < length; i++) {
+    let text = '';
+    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
@@ -18,22 +18,11 @@ var HabiticaPublic = (function () {
     selfCheck () {
       expect(browser.getLocationAbsUrl()).to.eventually.eql('');
     },
-    register () {
-      var userId = generateUserid(10);
-      element(by.id('play-btn')).click();
-      element(by.linkText('Register')).click();
-      element(by.model('registerVals.username')).sendKeys(userId);
-      element(by.model('registerVals.email')).sendKeys(userId + '@example.com');
-      element(by.model('registerVals.password')).sendKeys('pass');
-      element(by.model('registerVals.confirmPassword')).sendKeys('pass');
-      element(by.css('#registrationForm input[type="submit"]')).click();
-      browser.sleep(3000);
-    },
   };
 }());
 
 // State: welcome tour after registering
-var WelcomeTour = (function () {
+let WelcomeTour = (function () {
   return {
     selfCheck () {
       expect(browser.getLocationAbsUrl()).to.eventually.eql('/tasks');
@@ -57,9 +46,9 @@ var WelcomeTour = (function () {
 }());
 
 // State: tasks page
-var Tasks = (function () {
-  var todoList = element.all(by.css('ul.todos.main-list li.uncompleted'));
-  var sampleTaskName = 'This is my task';
+let Tasks = (function () {
+  let todoList = element.all(by.css('ul.todos.main-list li.uncompleted'));
+  let sampleTaskName = 'This is my task';
 
   return {
     selfCheck () {
@@ -93,24 +82,25 @@ describe('habitica app', function () {
     // registration is done in front-page.test.js
     // TODO check if we should also perform the registration in this test suite
     // HabiticaPublic.register();
+    this.timeout(20000);
     WelcomeTour.selfCheck();
     WelcomeTour.startTour();
-    browser.sleep(500);
+    browser.sleep(800);
     WelcomeTour.continueTour();
-    browser.sleep(500);
+    browser.sleep(800);
     WelcomeTour.continueTour();
-    browser.sleep(500);
+    browser.sleep(800);
     WelcomeTour.continueTour();
-    browser.sleep(500);
+    browser.sleep(800);
     WelcomeTour.continueTour();
-    browser.sleep(500);
+    browser.sleep(800);
     WelcomeTour.endTour();
-    browser.sleep(500);
+    browser.sleep(800);
     WelcomeTour.selfCheck();
     WelcomeTour.checkFirstTask();
-    browser.sleep(500);
+    browser.sleep(800);
     WelcomeTour.toLvl2();
-    browser.sleep(500);
+    browser.sleep(800);
     Tasks.selfCheck();
 
     done();
@@ -126,7 +116,7 @@ describe('habitica app', function () {
     });
 
     it('should create and close todo', function (done) {
-      var count = 0;
+      let count = 0;
       Tasks.countTodos().then(function (countnew) {
         count = countnew;
       });
