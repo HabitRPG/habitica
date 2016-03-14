@@ -1,12 +1,12 @@
 'use strict';
 
-var EC = protractor.ExpectedConditions;
+let EC = protractor.ExpectedConditions;
 
 // State: profile/avatar page
-var Avatar = (function () {
-  var firstShirt = element(by.css('menu[label="Shirts"] > button:first-child'));
-  var firstSpecialShirt = element(by.css('menu[label="Special Shirts"] > button:first-of-type'));
-  var hairFlower4 = element(by.css('menu[label="Flower"] > button:nth-of-type(5)'));
+let Avatar = (function () {
+  let firstShirt = element(by.css('menu[label="Shirts"] > button:first-child'));
+  let firstSpecialShirt = element(by.css('menu[label="Special Shirts"] > button:first-of-type'));
+  let hairFlower4 = element(by.css('menu[label="Flower"] > button:nth-of-type(5)'));
   return  {
     selfCheck () {
       expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/avatar');
@@ -15,12 +15,12 @@ var Avatar = (function () {
       browser.get('/#/options/profile/avatar');
     },
     navigateToAvatar () {
-      var customizeAvatarBtn = element(by.linkText('Customize Avatar'));
+      let customizeAvatarBtn = element(by.linkText('Customize Avatar'));
       browser.executeScript('window.scrollTo(0,0);');
       customizeAvatarBtn.click();
     },
     selectBroad () {
-      var broadButton = element(by.buttonText('Broad'));
+      let broadButton = element(by.buttonText('Broad'));
       browser.executeScript('window.scrollTo(0,0);');
       browser.wait(EC.elementToBeClickable(broadButton), 3000, 'broad button not clickable');
       broadButton.click().then(function () {
@@ -35,7 +35,7 @@ var Avatar = (function () {
       });
     },
     selectSlim () {
-      var slimButton = element(by.buttonText('Slim'));
+      let slimButton = element(by.buttonText('Slim'));
       slimButton.click().then(function () {
         firstShirt.getAttribute('class').then(function (clazz) {
           expect(clazz).to.have.string('slim_shirt_black');
@@ -65,13 +65,13 @@ var Avatar = (function () {
       });
     },
     selectHairColor () {
-      var color = element(by.css('menu[label="Color"] > button:nth-of-type(1)'));
-      var bang = element(by.css('menu[label="Bangs"] > button:nth-of-type(2)'));
-      var base = element(by.css('menu[label="Base"] > button:nth-of-type(2)'));
-      var hairstyle1 = element(by.css('menu[label="Hairstyle Set 1"] > button:nth-of-type(4)'));
-      var hairstyle2 = element(by.css('menu[label="Hairstyle Set 2"] > button:nth-of-type(3)'));
-      var beard = element(by.css('menu[label="Beard"] > button:nth-of-type(3)'));
-      var mustache = element(by.css('menu[label="Mustache"] > button:nth-of-type(2)'));
+      let color = element(by.css('menu[label="Color"] > button:nth-of-type(1)'));
+      let bang = element(by.css('menu[label="Bangs"] > button:nth-of-type(2)'));
+      let base = element(by.css('menu[label="Base"] > button:nth-of-type(2)'));
+      let hairstyle1 = element(by.css('menu[label="Hairstyle Set 1"] > button:nth-of-type(4)'));
+      let hairstyle2 = element(by.css('menu[label="Hairstyle Set 2"] > button:nth-of-type(3)'));
+      let beard = element(by.css('menu[label="Beard"] > button:nth-of-type(3)'));
+      let mustache = element(by.css('menu[label="Mustache"] > button:nth-of-type(2)'));
       browser.executeScript('window.scrollTo(0,0);');
       color.click().then(function () {
         color.getAttribute('class').then(function (clazz) {
@@ -101,7 +101,7 @@ var Avatar = (function () {
 }());
 
 // State: profile/backgrounds page
-var Backgrounds = (function () {
+let Backgrounds = (function () {
   return  {
     selfCheck () {
       expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/backgrounds');
@@ -110,14 +110,14 @@ var Backgrounds = (function () {
       browser.get('/#/options/profile/backgrounds');
     },
     navigateToBackgrounds () {
-      var backgroundsBtn = element(by.linkText('Backgrounds'));
+      let backgroundsBtn = element(by.linkText('Backgrounds'));
       browser.executeScript('window.scrollTo(0,0);');
       backgroundsBtn.click();
     },
   };
 }());
 // State: profile/stats page
-var Stats = (function () {
+let Stats = (function () {
   return  {
     selfCheck () {
       expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/stats');
@@ -126,7 +126,7 @@ var Stats = (function () {
       browser.get('/#/options/profile/stats');
     },
     navigateToStats () {
-      var backgroundsBtn = element(by.linkText('Stats & Achievements'));
+      let backgroundsBtn = element(by.linkText('Stats & Achievements'));
       backgroundsBtn.click();
     },
     endModal () {
@@ -135,7 +135,7 @@ var Stats = (function () {
   };
 }());
 // State: profile/profile page
-var Profile = (function () {
+let Profile = (function () {
   return  {
     selfCheck () {
       expect(browser.getLocationAbsUrl()).to.eventually.eql('/options/profile/profile');
@@ -144,17 +144,17 @@ var Profile = (function () {
       browser.get('/#/options/profile/profile');
     },
     navigateToProfile () {
-      var backgroundsBtn = element(by.linkText('Profile'));
+      let backgroundsBtn = element(by.linkText('Profile'));
       browser.executeScript('window.scrollTo(0,0);');
       backgroundsBtn.click();
     },
     edit () {
-      var editBtn = element(by.css('button[ng-click="_editing.profile = true"]'));
-      var name = 'someName';
-      var blurb = 'bla bla bla';
+      let editBtn = element(by.css('button[ng-click="_editing.profile = true"]'));
+      let name = 'someName';
+      let blurb = 'bla bla bla';
       editBtn.click();
       browser.sleep(1000);
-      var nameInput = element(by.model('editingProfile.name'));
+      let nameInput = element(by.model('editingProfile.name'));
       nameInput.clear();
       nameInput.sendKeys(name);
       element(by.model('editingProfile.blurb')).sendKeys(blurb);
@@ -190,12 +190,12 @@ describe('Profile (user) view', function () {
   });
   it('selected flower should have class selectableInventory (tests only flower 4)', function (done) {
     Avatar.selectFlower();
-    browser.sleep(5000);
+    //browser.sleep(5000);
     done();
   });
   it('selected hair color should have class selectableInventory (tests only first white color). Bangs, base, beard and moustache should adapt.', function (done) {
     Avatar.selectHairColor();
-     browser.sleep(5000);
+    //browser.sleep(5000);
     done();
   });
   it('should show the profile/backgrounds page', function (done) {
