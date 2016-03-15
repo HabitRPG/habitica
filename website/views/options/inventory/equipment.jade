@@ -1,13 +1,17 @@
 mixin orderByButton
+  mixin choice(attr)
+    li(ng-class="{ 'active': orderChoice === '#{attr}' }")
+      a(ng-click="setOrder('#{attr}')")=env.t(attr)
+
   .btn-group
     button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
       | {{env.t("orderBy", { item: env.t(orderChoice) })}} #[span.caret]
     ul.dropdown-menu
       - each attr in ["name", "set"]
-        li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
+        +choice(attr)
       li.divider(role="separator")
       - each attr in ["constitution", "intelligence", "perception", "strength"]
-        li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
+        +choice(attr)
 
 mixin equipmentList(type)
   menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
