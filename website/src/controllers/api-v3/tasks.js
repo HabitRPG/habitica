@@ -914,7 +914,7 @@ api.deleteTask = {
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.userId && task.challenge.id) {
+    } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
     }
 
