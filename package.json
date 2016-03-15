@@ -53,7 +53,7 @@
     "marked": "0.3.5",
     "merge-stream": "1.0.0",
     "method-override": "2.2.0",
-    "moment": "2.8.4",
+    "moment": "2.11.1",
     "mongoose": "3.8.23",
     "mongoose-id-autoinc": "2013.7.14-4",
     "nconf": "0.6.9",
