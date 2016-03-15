@@ -1,3 +1,14 @@
+mixin orderByButton
+  .btn-group
+    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+      | Order By: {{env.t(orderChoice)}} #[span.caret]
+    ul.dropdown-menu
+      - each attr in ["name", "set"]
+        li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
+      li.divider(role="separator")
+      - each attr in ["constitution", "intelligence", "perception", "strength"]
+        li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
+
 .container-fluid
   .row
     .col-md-6.border-right(ng-controller="SortableInventoryController")
@@ -15,15 +26,7 @@
       .btn-toolbar
         .btn-group
           button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
-        .btn-group
-          button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-            | Order By: {{env.t(orderChoice)}} #[span.caret]
-          ul.dropdown-menu
-            - each attr in ["name", "set"]
-              li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
-            li.divider(role="separator")
-            - each attr in ["constitution", "intelligence", "perception", "strength"]
-              li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
+        +orderByButton
 
       li.customize-menu.inventory-gear
         menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
@@ -52,15 +55,7 @@
         .btn-group
           button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
           button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
-        .btn-group
-          button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-            | Order By: {{env.t(orderChoice)}} #[span.caret]
-          ul.dropdown-menu
-            - each attr in ["name", "set"]
-              li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
-            li.divider(role="separator")
-            - each attr in ["constitution", "intelligence", "perception", "strength"]
-              li: a(ng-click="setOrder('#{attr}')")=env.t(attr)
+        +orderByButton
 
       li.customize-menu(ng-if='!user.preferences.costume')
         .well.use-costume-info
