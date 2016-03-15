@@ -8,9 +8,10 @@ describe("Party Controller", function() {
     user._id = "unique-user-id";
     User = {
       user: user,
-      sync: sandbox.spy,
-      set: sandbox.spy
+      sync: sandbox.spy
     }
+
+    sandbox.spy(User, "set");
 
     module(function($provide) {
       $provide.value('User', User);
