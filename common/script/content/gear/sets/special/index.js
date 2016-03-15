@@ -1,7 +1,7 @@
 import {
   EVENTS,
 } from '../../../constants';
-import { addSetProperty, ownsItem } from '../../gear-helper';
+import { ownsItem } from '../../gear-helper';
 import backerGear from './special-backer';
 import contributorGear from './special-contributor';
 import wonderconGear from './special-wondercon';
@@ -1533,7 +1533,5 @@ let specialSet = {
   shield,
   weapon,
 };
-
-addSetProperty('special', specialSet);
 
 module.exports = specialSet;
