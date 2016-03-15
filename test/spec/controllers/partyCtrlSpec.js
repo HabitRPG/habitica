@@ -8,7 +8,8 @@ describe("Party Controller", function() {
     user._id = "unique-user-id";
     User = {
       user: user,
-      sync: sandbox.spy
+      sync: sandbox.spy,
+      set: function() {}
     }
 
     sandbox.spy(User, "set");
