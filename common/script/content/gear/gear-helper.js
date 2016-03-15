@@ -9,7 +9,9 @@ export function ownsItem (item) {
 export function addSetProperty (setName, collection) {
   each(collection, (itemType) => {
     each(itemType, (item, key) => {
-      item.set = `${setName}-${key}`;
+      if (!item.set) {
+        item.set = `${setName}-${key}`;
+      }
     });
   });
 }
