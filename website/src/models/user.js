@@ -59,7 +59,9 @@ var UserSchema = new Schema({
     greeting: Number,
     thankyou: Number,
     costumeContests: Number,
-    birthday: Number
+    birthday: Number,
+    partyUp: Boolean,
+    partyOn: Boolean
   },
   auth: {
     blocked: Boolean,
@@ -526,7 +528,7 @@ UserSchema.pre('save', function(next) {
   var mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
   if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
-    this.achievements.mountMaster = true
+    this.achievements.mountMaster = true;
   }
 
   // Determines if Triad Bingo should be awarded
