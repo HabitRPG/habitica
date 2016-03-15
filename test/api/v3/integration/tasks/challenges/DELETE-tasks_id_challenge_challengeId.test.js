@@ -98,11 +98,11 @@ describe('DELETE /tasks/:id', () => {
     it('allows user to delete challenge task after challenge task is broken', async () => {
       await expect(user.del(`/tasks/${newChallengeTask._id}`));
 
-      await sleep(0.5);
+      await sleep(1);
 
       await expect(anotherUser.del(`/tasks/${anotherUsersNewChallengeTaskID}`));
 
-      await sleep(0.5);
+      await sleep(1);
 
       await expect(anotherUser.get(`/tasks/${anotherUsersNewChallengeTaskID}`)).to.eventually.be.rejected.and.eql({
         code: 404,
