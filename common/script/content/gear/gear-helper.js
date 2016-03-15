@@ -1,4 +1,4 @@
-import { each, isBoolean } from 'lodash';
+import { isBoolean } from 'lodash';
 
 export function ownsItem (item) {
   return (user) => {
