@@ -293,12 +293,9 @@ api.sleep = {
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
-    let sleepVal = sleep(user);
-    return res.respond(200, {
-      preferences: {
-        sleep: sleepVal,
-      },
-    });
+    let sleepRes = sleep(user);
+    await user.save();
+    res.respond(200, sleepRes);
   },
 };
 

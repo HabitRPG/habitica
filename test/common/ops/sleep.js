@@ -4,15 +4,15 @@ import {
 } from '../../helpers/common.helper';
 
 describe('shared.ops.sleep', () => {
-  it('changes user.preferences.sleep and returns the new value', () => {
+  it('toggles user.preferences.sleep', () => {
     let user = generateUser();
 
     let res = sleep(user);
-    expect(res).to.equal(true);
+    expect(res).to.eql({preferences: {sleep: true}});
     expect(user.preferences.sleep).to.equal(true);
 
     let res2 = sleep(user);
-    expect(res2).to.equal(false);
+    expect(res2).to.eql({preferences: {sleep: false}});
     expect(user.preferences.sleep).to.equal(false);
   });
 });
