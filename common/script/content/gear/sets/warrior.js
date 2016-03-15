@@ -1,4 +1,5 @@
 import t from '../../translation';
+import { addSetProperty } from '../gear-helper';
 
 let armor = {
   1: {
@@ -151,5 +152,7 @@ let warriorSet = {
   shield,
   weapon,
 };
+
+addSetProperty('warrior', warriorSet);
 
 module.exports = warriorSet;
