@@ -19,7 +19,6 @@ const COMMON_FILES = [
   '!./common/script/ops/addTag.js',
   '!./common/script/ops/addTask.js',
   '!./common/script/ops/addWebhook.js',
-  '!./common/script/ops/allocate.js',
   '!./common/script/ops/allocateNow.js',
   '!./common/script/ops/blockUser.js',
   '!./common/script/ops/buy.js',

@@ -16,8 +16,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import { preenHistory } from '../../libs/api-v3/preening';
 
-const scoreTask = common.ops.scoreTask;
-
 let api = {};
 
 // challenge must be passed only when a challenge task is being created
@@ -401,7 +399,7 @@ api.scoreTask = {
       task.completed = direction === 'up'; // TODO move into scoreTask
     }
 
-    let delta = scoreTask({task, user, direction}, req);
+    let delta = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
