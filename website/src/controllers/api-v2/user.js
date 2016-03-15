@@ -355,7 +355,15 @@ api.update = (req, res, next) => {
 
   user.save((err) => {
     if (!_.isEmpty(errors)) return res.json(401, {err: errors});
-    if (err) return next(err);
+    if (err) {
+      if (err.name == 'ValidationError') {
+        let errorMessages = _.map(_.values(err.errors), (error) => {
+          return error.message;
+        });
+        return res.json(400, {err: errorMessages});
+      }
+      return next(err);
+    }
 
     res.json(200, user);
     user = errors = null;

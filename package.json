@@ -72,7 +72,7 @@
     "qs": "^2.3.2",
     "request": "~2.44.0",
     "s3-upload-stream": "^1.0.6",
-    "stripe": "*",
+    "stripe": "^4.2.0",
     "superagent": "~1.4.0",
     "swagger-node-express": "lefnire/swagger-node-express#habitrpg",
     "universal-analytics": "~0.3.2",
@@ -85,7 +85,7 @@
   },
   "private": true,
   "engines": {
-    "node": "^0.10.40",
+    "node": "^4.3.1",
     "npm": "^2.14.9"
   },
   "scripts": {
@@ -99,7 +99,7 @@
     "test:karma:watch": "karma start",
     "test:prepare:webdriver": "webdriver-manager update",
     "test:e2e:webdriver": "webdriver-manager start",
-    "test:e2e": "protractor protractor.conf.js",
+    "test:e2e": "protractor test/e2e/protractor.conf.js",
     "test:nodemon": "gulp test:nodemon",
     "start": "gulp run:dev",
     "sprites": "gulp sprites:compile",
@@ -131,7 +131,7 @@
     "mongodb": "^2.0.46",
     "mongoskin": "~0.6.1",
     "phantomjs": "^1.9",
-    "protractor": "~2.5.1",
+    "protractor": "^3.1.1",
     "rewire": "^2.3.3",
     "rimraf": "^2.4.3",
     "run-sequence": "^1.1.4",
