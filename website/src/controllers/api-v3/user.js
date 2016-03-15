@@ -13,8 +13,6 @@ import Q from 'q';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/api-v3/password';
 
-const sleep = common.ops.sleep;
-
 let api = {};
 
 /**
@@ -293,9 +291,29 @@ api.sleep = {
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
-    let sleepRes = sleep(user);
+    let sleepRes = common.ops.sleep(user);
     await user.save();
     res.respond(200, sleepRes);
+  },
+};
+
+/**
+ * @api {post} /user/allocate Allocate an attribute point.
+ * @apiVersion 3.0.0
+ * @apiName UserAllocate
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} Returs `user.stats`
+ */
+api.allocate = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/allocate',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let allocateRes = common.ops.allocate(user, req);
+    await user.save();
+    res.respond(200, allocateRes);
   },
 };
 

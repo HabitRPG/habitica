@@ -9,6 +9,8 @@ describe('POST /user/sleep', () => {
     user = await generateUser();
   });
 
+  // More tests in common code unit tests
+
   it('toggles sleep status', async () => {
     let res = await user.post(`/user/sleep`);
     expect(res).to.eql({
