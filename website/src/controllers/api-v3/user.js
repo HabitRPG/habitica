@@ -13,6 +13,8 @@ import Q from 'q';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/api-v3/password';
 
+const sleep = common.ops.sleep;
+
 let api = {};
 
 /**
@@ -274,6 +276,29 @@ api.castSpell = {
         await party.save();
       }
     }
+  },
+};
+
+/**
+ * @api {post} /user/sleep Put the user in the inn.
+ * @apiVersion 3.0.0
+ * @apiName UserSleep
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
+ */
+api.sleep = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/sleep',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let sleepVal = sleep(user);
+    return res.respond(200, {
+      preferences: {
+        sleep: sleepVal,
+      },
+    });
   },
 };
 
