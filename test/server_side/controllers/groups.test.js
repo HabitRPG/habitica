@@ -52,7 +52,7 @@ describe('Groups Controller', function() {
       beforeEach(function() {
         req.body.uuids = ['invited-user'];
       });
-
+      
       it('returns 400 if user not found');
 
       it('returns a 400 if user is already in the group');
