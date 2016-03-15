@@ -99,9 +99,11 @@ api.count = count;
 
 // TODO As ops and fns are ported, exported them through the api object
 import scoreTask from './ops/scoreTask';
+import sleep from './ops/sleep';
 
 api.ops = {
   scoreTask,
+  sleep,
 };
 api.fns = {};
 
