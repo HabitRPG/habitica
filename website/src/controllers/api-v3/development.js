@@ -4,6 +4,12 @@ import checkForDevelopmentMode from '../../middlewares/api-v3/developmentMode';
 
 let api = {};
 
+api.development = {
+  method: 'all',
+  url: '/development/*',
+  middlewares: [checkForDevelopmentMode, authWithHeaders(), cron],
+};
+
 /**
  * @api {post} /development/addTenGems Add ten gems to the current user
  * @apiVersion 3.0.0
@@ -15,7 +21,6 @@ let api = {};
 api.addTenGems = {
   method: 'POST',
   url: '/development/addTenGems',
-  middlewares: [checkForDevelopmentMode, authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -38,7 +43,6 @@ api.addTenGems = {
 api.addHourglass = {
   method: 'POST',
   url: '/development/addHourglass',
-  middlewares: [checkForDevelopmentMode, authWithHeaders(), cron],
   async handler (req, res) {
     let user = res.locals.user;
 
