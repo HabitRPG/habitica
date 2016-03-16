@@ -5,6 +5,8 @@ var os = require('os');
 var request = require('request');
 
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
+var RESTART_INTERVAL_LOW = nconf.get('RESTART_INTERVAL_LOW') || 15;
+var RESTART_INTERVAL_HIGH = nconf.get('RESTART_INTERVAL_HIGH') || 30;
 
 module.exports = function(server,mongoose) {
   if (IS_PROD) {
@@ -33,6 +35,10 @@ module.exports = function(server,mongoose) {
         throw memoryLeakMessage;
       }
     }, mins*60*1000);
+    // Restart workers on an interval based on environment config, default 15-30 minutes
+    setInterval(function () {
+      throw new Error('Automatic restart'); // throwing causes the server to restart properly
+    }, (Math.floor(Math.random() * (RESTART_INTERVAL_HIGH - RESTART_INTERVAL_LOW + 1)) + RESTART_INTERVAL_LOW) * 60 * 1000);
   }
 
   return domainMiddleware({
