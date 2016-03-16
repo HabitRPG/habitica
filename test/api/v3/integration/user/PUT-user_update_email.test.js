@@ -4,10 +4,10 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { model as User } from '../../../../../website/src/models/user';
 
-describe('PUT /user/update-email', () => {
+describe('PUT /user/auth/update-email', () => {
   let user;
   let fbUser;
-  let endpoint = '/user/update-email';
+  let endpoint = '/user/auth/update-email';
   let newEmail = 'some-new-email_2@example.net';
   let thePassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 

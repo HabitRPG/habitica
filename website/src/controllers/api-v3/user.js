@@ -43,7 +43,7 @@ api.getUser = {
 };
 
 /**
- * @api {put} /user/update-password
+ * @api {put} /user/auth/update-password
  * @apiVersion 3.0.0
  * @apiName updatePassword
  * @apiGroup User
@@ -55,7 +55,7 @@ api.getUser = {
 api.updatePassword = {
   method: 'PUT',
   middlewares: [authWithHeaders(), cron],
-  url: '/user/update-password',
+  url: '/user/auth/update-password',
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -82,7 +82,7 @@ api.updatePassword = {
 };
 
 /**
- * @api {put} /user/update-username
+ * @api {put} /user/auth/update-username
  * @apiVersion 3.0.0
  * @apiName updateUsername
  * @apiGroup User
@@ -93,7 +93,7 @@ api.updatePassword = {
 api.updateUsername = {
   method: 'PUT',
   middlewares: [authWithHeaders(), cron],
-  url: '/user/update-username',
+  url: '/user/auth/update-username',
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -128,7 +128,7 @@ api.updateUsername = {
 
 
 /**
- * @api {put} /user/update-email
+ * @api {put} /user/auth/update-email
  * @apiVersion 3.0.0
  * @apiName UpdateEmail
  * @apiGroup User
@@ -141,7 +141,7 @@ api.updateUsername = {
 api.updateEmail = {
   method: 'PUT',
   middlewares: [authWithHeaders(), cron],
-  url: '/user/update-email',
+  url: '/user/auth/update-email',
   async handler (req, res) {
     let user = res.locals.user;
 

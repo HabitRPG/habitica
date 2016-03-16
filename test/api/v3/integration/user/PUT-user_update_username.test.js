@@ -4,8 +4,8 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { model as User } from '../../../../../website/src/models/user';
 
-describe('PUT /user/update-username', async () => {
-  let endpoint = '/user/update-username';
+describe('PUT /user/auth/update-username', async () => {
+  let endpoint = '/user/auth/update-username';
   let user;
   let newUsername = 'new-username';
   let existingUsername = 'existing-username';

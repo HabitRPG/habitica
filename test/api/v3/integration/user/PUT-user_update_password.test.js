@@ -3,8 +3,8 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('PUT /user/update-password', async () => {
-  let endpoint = '/user/update-password';
+describe('PUT /user/auth/update-password', async () => {
+  let endpoint = '/user/auth/update-password';
   let user;
   let password = 'password';
   let wrongPassword = 'wrong-password';
