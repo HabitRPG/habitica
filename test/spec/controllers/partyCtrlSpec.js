@@ -9,10 +9,10 @@ describe("Party Controller", function() {
     User = {
       user: user,
       sync: sandbox.spy,
-      set: function() {}
+      set: function() {} // no-op
     }
 
-    sandbox.spy(User, "set");
+    sandbox.stub(User, 'set');
 
     module(function($provide) {
       $provide.value('User', User);
@@ -37,9 +37,13 @@ describe("Party Controller", function() {
   });
 
   describe('initialization', function() {
+    beforeEach(function() {
+      sandbox.stub(rootScope, 'openModal');
+    });
+
     context('party has 1 member', function() {
       beforeEach(function() {
-        sinon.stub(groups.party.memberCount).returns(1);
+        scope.group = { memberCount: 1 };
       });
 
       it('awards no new achievements', function() {
@@ -50,7 +54,7 @@ describe("Party Controller", function() {
 
     context('party has 2 members', function() {
       beforeEach(function() {
-        sinon.stub(groups.party.memberCount).returns(2);
+        scope.group = { memberCount: 2 };
       });
 
       context('user does not have "Party Up" achievement', function() {
@@ -70,7 +74,7 @@ describe("Party Controller", function() {
 
     context('party has 4 members', function() {
       beforeEach(function() {
-        sinon.stub(groups.party.memberCount).returns(4);
+        scope.group = { memberCount: 4 };
       });
 
       context('user has "Party Up" but not "Party On" achievement', function() {
