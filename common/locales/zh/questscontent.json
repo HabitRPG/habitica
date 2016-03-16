@@ -291,5 +291,11 @@
     "questMonkeyCompletion": "你做到了！那些朋友今天没有香蕉了。被你的勤奋吓到，猴子惊慌的逃掉。“看，” @Misceo 说，“他们留下了一些蛋。” <br><br>@Leephon grins：“一个训练有素的宠物猴子能帮助你的程度就和一个野生猴子阻碍你的程度一样”",
     "questMonkeyBoss": "巨大的山魈",
     "questMonkeyDropMonkeyEgg": "猴子 (蛋)",
-    "questMonkeyUnlockText": "解锁猴子蛋购买功能"
+    "questMonkeyUnlockText": "解锁猴子蛋购买功能",
+    "questSnailText": "The Snail of Drudgery Sludge",
+    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
+    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
+    "questSnailBoss": "Snail of Drudgery Sludge",
+    "questSnailDropSnailEgg": "Snail (Egg)",
+    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
 }

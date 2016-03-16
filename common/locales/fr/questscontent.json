@@ -291,5 +291,11 @@
     "questMonkeyCompletion": "Vous avez réussi ! Pas de bananes pour ces démons aujourd'hui. Accablés par votre zèle, les singes s'enfuient, paniqués. \"Regarde\", dit @Misceo. \"Ils ont laissé quelques œufs derrière eux.\"<br><br>@Leephon sourit. \"Peut-être qu'un singe familier bien entraîné peut t'apporter autant d'aide que la gêne causée par les singes sauvages !\"",
     "questMonkeyBoss": "Monstrueux Mandrill",
     "questMonkeyDropMonkeyEgg": "Singe (Œuf)",
-    "questMonkeyUnlockText": "Déverrouille l'achat d’œufs de singe au Marché"
+    "questMonkeyUnlockText": "Déverrouille l'achat d’œufs de singe au Marché",
+    "questSnailText": "The Snail of Drudgery Sludge",
+    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
+    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
+    "questSnailBoss": "Snail of Drudgery Sludge",
+    "questSnailDropSnailEgg": "Snail (Egg)",
+    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
 }

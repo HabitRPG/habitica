@@ -1,5 +1,5 @@
 {
-    "tavern": "Tavern Chat",
+    "tavern": "Таверна",
     "innCheckOut": "Покинуть гостиницу",
     "innCheckIn": "В гостиницу",
     "innText": "Вы отдыхаете в Гостинице! Пропущенные Ежедневные задания не будут причинять вам вреда в конце дня, но отметки об их выполнении будут сбрасываться каждый день. Будьте осторожны: если ваша команда сражается с Боссом, он все же будет наносить вам урон за Ежедневные задания, пропущенные вашими товарищами, если только они также не в гостинице! Кроме того, нанесенный вами урон Боссу или найденные предметы не будут зарегистрированы, пока вы не покинете Гостиницу.",
@@ -127,11 +127,11 @@
     "inviteAlertInfo2": "Или поделитесь этой ссылкой (Скопировать/Вставить)",
     "sendGiftHeading": "Отправить подарок <%= name %>",
     "sendGiftGemsBalance": "Из <%= number %> самоцветов",
-    "sendGiftCost": "Всего: $<%= cost %>",
+    "sendGiftCost": "Всего: $<%= cost %> (долл. США)",
     "sendGiftFromBalance": "С баланса",
     "sendGiftPurchase": "Приобрести",
     "sendGiftMessagePlaceholder": "Личное сообщение (необязательно)",
-    "sendGiftSubscription": "<%= months %> мес.: $<%= price %> USD",
+    "sendGiftSubscription": "<%= months %> мес.: $<%= price %> (долл. США)",
     "battleWithFriends": "Побеждайте монстров с друзьями",
     "startPartyWithFriends": "Создайте команду с друзьями!",
     "startAParty": "Создать команду",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "Чат вашей команды пустует! Наберите сообщение в поле сверху, чтобы начать общаться.",
     "guildChatEmpty": "Чат этой гильдии пустует! Наберите сообщение в поле сверху, чтобы начать общаться.",
     "possessiveParty": "Команда игрока <%= name %>.",
-    "requestAcceptGuidelines": "Если вы хотите оставить сообщение в Таверне или в чате любой гильдии, сперва прочитайте Принципы Сообщества и нажмите кнопку \"Принять Принципы\" внизу. Это будет означать, что вы их принимаете и обязуетесь выполнять."
+    "requestAcceptGuidelines": "Если вы хотите оставить сообщение в Таверне или в чате любой гильдии, сперва прочитайте Принципы Сообщества и нажмите кнопку \"Принять Принципы\" внизу. Это будет означать, что вы их принимаете и обязуетесь выполнять.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

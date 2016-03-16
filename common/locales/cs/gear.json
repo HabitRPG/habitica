@@ -1,4 +1,5 @@
 {
+    "set": "Set",
     "weapon": "zbraň",
     "weaponBase0Text": "Žádná zbraň",
     "weaponBase0Notes": "Žádná zbraň",
@@ -360,7 +361,7 @@
     "armorArmoireShepherdRobesText": "Oděv pastýře",
     "armorArmoireShepherdRobesNotes": "Látka je chladivá a prodyšná, perfektní pro horký den pasení gryfů v poušti. Zvyšuje Sílu a Vnímání o <%= attrs %> každé. Začarovaná almara: Set pastýře (předmět 2 ze 3).",
     "armorArmoireRoyalRobesText": "Královský oděv",
-    "armorArmoireRoyalRobesNotes": "Skvělý vládce, vládni celý den! Zvyšuje Obranu, Inteligenci a Vnímání o <%= aatrs %> každé. Začarovaná almara: Královský set (předmět 3 ze 3)",
+    "armorArmoireRoyalRobesNotes": "Skvělý vládce, vládni celý den! Zvyšuje Obranu, Inteligenci a Vnímání o <%= attrs %> každé. Začarovaná almara: Královský set (předmět 3 ze 3)",
     "armorArmoireCrystalCrescentRobesText": "Oděv křišťálového půlměsíce",
     "armorArmoireCrystalCrescentRobesNotes": "Tento magický oděv světélkuje ve tmě. Zvyšuje Obranu a Vnímání o <%= attrs %> každé. Začarovaná almara: Set křišťálového půlměsíce (předmět 2 ze 3).",
     "armorArmoireDragonTamerArmorText": "Zbroj krotitele draků",

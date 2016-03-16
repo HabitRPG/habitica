@@ -1,5 +1,5 @@
 {
-    "tavern": "Tavern Chat",
+    "tavern": "שיחת פונדק",
     "innCheckOut": "צאו מהאכסנייה",
     "innCheckIn": "נוחו באכסנייה",
     "innText": "אתם נחים באכסנייה! בזמן שאתם רשומים באכסניה, המטלות היומיות שלכם לא יפגעו בכם בסוף היום, אך הן עדיין יתחילו מחדש בכל יום. הזהרו: אם אתם משתתפים בהרפתקאת בוס, הבוס עדיין יפגע בכם בגין פספוסי העמיתים שלכם בחבורה - אלא אם גם הם באכסניה! בנוסף, נזק שאתם מסבים לבוס (או חפצים שנאספים) לא ישפיעו עד שתצאו מהאכסנייה.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "שיחת החבורה שלכם ריקה! הקלידו הודעה בתיבה למעלה כדי להתחיל לשוחח.",
     "guildChatEmpty": "השיחה של הגילדה הזו ריקה! רשמו הודעה בקופסה למעלה כדי להתחיל לשוחח.",
     "possessiveParty": "החבורה של <%= name %>",
-    "requestAcceptGuidelines": "אם אתם מעוניינים לרשום הודעה בפונדק או חבורה כלשהי או גילדה, אנא קראו את <%= linkStart %>הנחיות הקהילה<%= linkEnd %> ולחצו על הכפתור למטה כדי לאשר שהן מקובלות עליכם."
+    "requestAcceptGuidelines": "אם אתם מעוניינים לרשום הודעה בפונדק או חבורה כלשהי או גילדה, אנא קראו את <%= linkStart %>הנחיות הקהילה<%= linkEnd %> ולחצו על הכפתור למטה כדי לאשר שהן מקובלות עליכם.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

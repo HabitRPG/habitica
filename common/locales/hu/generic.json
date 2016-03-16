@@ -175,5 +175,6 @@
     "hatchPetShare": "Kikeltettem egy új háziállatot, azzal, hogy való-életbeli feladatim elvégeztem!",
     "raisePetShare": "Hátassá neveltem egy háziállatot, azzal, hogy való-életbeli tennivalóim elvégeztem!",
     "wonChallengeShare": "Megnyertem egy kihívást a Habiticán!",
-    "achievementShare": "Új kitüntetést szereztem a Habiticán!"
+    "achievementShare": "Új kitüntetést szereztem a Habiticán!",
+    "orderBy": "Order By <%= item %>"
 }

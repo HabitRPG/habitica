@@ -39,7 +39,7 @@
     "streakCounter": "Strähnenzähler",
     "repeat": "Wiederholen",
     "repeatEvery": "Wiederhole alle",
-    "repeatHelpTitle": "Wie oft sollte diese Aufgabe wiederholt werden?",
+    "repeatHelpTitle": "Wie oft soll diese Aufgabe wiederholt werden?",
     "dailyRepeatHelpContent": "Diese Aufgabe wird alle X Tage fällig werden. Du kannst diesen Wert unten bestimmen. ",
     "weeklyRepeatHelpContent": "Diese Aufgabe wird an den unten hervorgehobenen Tagen fällig werden. Klicke auf einen Tag um ihn zu aktivieren / deaktivieren. ",
     "repeatDays": "Alle X Tage",
