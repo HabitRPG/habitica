@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { model as User } from '../../../../../website/src/models/user';
 
-describe('POST /user/update-email', () => {
+describe('PUT /user/update-email', () => {
   let user;
   let fbUser;
   let endpoint = '/user/update-email';
@@ -17,7 +17,7 @@ describe('POST /user/update-email', () => {
     });
 
     it('does not change email if one is not provided', async () => {
-      await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
+      await expect(user.put(endpoint)).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -25,7 +25,7 @@ describe('POST /user/update-email', () => {
     });
 
     it('does not change email if password is not provided', async () => {
-      await expect(user.post(endpoint, {
+      await expect(user.put(endpoint, {
         newEmail,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -35,7 +35,7 @@ describe('POST /user/update-email', () => {
     });
 
     it('does not change email if wrong password is provided', async () => {
-      await expect(user.post(endpoint, {
+      await expect(user.put(endpoint, {
         newEmail,
         password: 'wrong password',
       })).to.eventually.be.rejected.and.eql({
@@ -46,7 +46,7 @@ describe('POST /user/update-email', () => {
     });
 
     it('changes email if new email and existing password are provided', async () => {
-      let response = await user.post(endpoint, {
+      let response = await user.put(endpoint, {
         newEmail,
         password: thePassword,
       });
@@ -64,7 +64,7 @@ describe('POST /user/update-email', () => {
     });
 
     it('does not change email if user.auth.local.email does not exist for this user', async () => {
-      await expect(fbUser.post(endpoint, {
+      await expect(fbUser.put(endpoint, {
         newEmail,
         password: thePassword,
       })).to.eventually.be.rejected.and.eql({

@@ -43,7 +43,7 @@ api.getUser = {
 };
 
 /**
- * @api {post} /user/update-password
+ * @api {put} /user/update-password
  * @apiVersion 3.0.0
  * @apiName updatePassword
  * @apiGroup User
@@ -53,7 +53,7 @@ api.getUser = {
  * @apiSuccess {Object} The success message
  **/
 api.updatePassword = {
-  method: 'POST',
+  method: 'PUT',
   middlewares: [authWithHeaders(), cron],
   url: '/user/update-password',
   async handler (req, res) {
@@ -82,7 +82,7 @@ api.updatePassword = {
 };
 
 /**
- * @api {post} /user/update-username
+ * @api {put} /user/update-username
  * @apiVersion 3.0.0
  * @apiName updateUsername
  * @apiGroup User
@@ -91,7 +91,7 @@ api.updatePassword = {
  * @apiSuccess {Object} The new username
  **/
 api.updateUsername = {
-  method: 'POST',
+  method: 'PUT',
   middlewares: [authWithHeaders(), cron],
   url: '/user/update-username',
   async handler (req, res) {
@@ -128,7 +128,7 @@ api.updateUsername = {
 
 
 /**
- * @api {post} /user/update-email
+ * @api {put} /user/update-email
  * @apiVersion 3.0.0
  * @apiName UpdateEmail
  * @apiGroup User
@@ -139,7 +139,7 @@ api.updateUsername = {
  * @apiSuccess {Object} An object containing the new email address
  */
 api.updateEmail = {
-  method: 'POST',
+  method: 'PUT',
   middlewares: [authWithHeaders(), cron],
   url: '/user/update-email',
   async handler (req, res) {

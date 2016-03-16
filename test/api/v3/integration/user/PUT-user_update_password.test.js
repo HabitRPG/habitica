@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('POST /user/update-password', async () => {
+describe('PUT /user/update-password', async () => {
   let endpoint = '/user/update-password';
   let user;
   let password = 'password';
@@ -16,7 +16,7 @@ describe('POST /user/update-password', async () => {
 
   it('successfully changes the password', async () => {
     let previousHashedPassword = user.auth.local.hashed_password;
-    let response = await user.post(endpoint, {
+    let response = await user.put(endpoint, {
       password,
       newPassword,
       confirmPassword: newPassword,
@@ -27,7 +27,7 @@ describe('POST /user/update-password', async () => {
   });
 
   it('new passwords mismatch', async () => {
-    await expect(user.post(endpoint, {
+    await expect(user.put(endpoint, {
       password,
       newPassword,
       confirmPassword: `${newPassword}-wrong-confirmation`,
@@ -39,7 +39,7 @@ describe('POST /user/update-password', async () => {
   });
 
   it('existing password is wrong', async () => {
-    await expect(user.post(endpoint, {
+    await expect(user.put(endpoint, {
       password: wrongPassword,
       newPassword,
       confirmPassword: newPassword,

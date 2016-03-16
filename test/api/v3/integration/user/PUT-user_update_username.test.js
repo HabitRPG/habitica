@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { model as User } from '../../../../../website/src/models/user';
 
-describe('POST /user/update-username', async () => {
+describe('PUT /user/update-username', async () => {
   let endpoint = '/user/update-username';
   let user;
   let newUsername = 'new-username';
@@ -17,7 +17,7 @@ describe('POST /user/update-username', async () => {
   });
 
   it('successfully changes username', async () => {
-    let response = await user.post(endpoint, {
+    let response = await user.put(endpoint, {
       username: newUsername,
       password,
     });
@@ -32,8 +32,9 @@ describe('POST /user/update-username', async () => {
         user = await generateUser();
         await user.update({'auth.local.username': existingUsername, 'auth.local.lowerCaseUsername': existingUsername });
       });
+
       it('prevents username update', async () => {
-        await expect(user.post(endpoint, {
+        await expect(user.put(endpoint, {
           username: existingUsername,
           password,
         })).to.eventually.be.rejected.and.eql({
@@ -43,8 +44,9 @@ describe('POST /user/update-username', async () => {
         });
       });
     });
+
     it('password is wrong', async () => {
-      await expect(user.post(endpoint, {
+      await expect(user.put(endpoint, {
         username: newUsername,
         password: wrongPassword,
       })).to.eventually.be.rejected.and.eql({
@@ -53,13 +55,15 @@ describe('POST /user/update-username', async () => {
         message: t('wrongPassword'),
       });
     });
+
     describe('social-only user', async () => {
       beforeEach(async () => {
         user = await generateUser();
         await user.update({ 'auth.local': { ok: true } });
       });
+
       it('prevents username update', async () => {
-        await expect(user.post(endpoint, {
+        await expect(user.put(endpoint, {
           username: newUsername,
           password,
         })).to.eventually.be.rejected.and.eql({
@@ -69,8 +73,9 @@ describe('POST /user/update-username', async () => {
         });
       });
     });
+
     it('new username is not provided', async () => {
-      await expect(user.post(endpoint, {
+      await expect(user.put(endpoint, {
         password,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
