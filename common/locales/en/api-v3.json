@@ -77,6 +77,7 @@
   "guildQuestsNotSupported": "Guilds cannot be invited on quests.",
   "questNotFound": "Quest \"<%= key %>\" not found.",
   "questNotOwned": "You don't own that quest scroll.",
+  "questNotGoldPurchasable": "Quest \"<%= key %>\" is not a Gold-purchasable quest.",
   "questLevelTooHigh": "You must be level <%= level %> to begin this quest.",
   "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
   "questAlreadyAccepted": "You already accepted the quest invitation.",
@@ -102,5 +103,9 @@
   "spellNotOwned": "You don't own this spell.",
   "spellLevelTooHigh": "You must be level <%= level %> to use this spell.",
   "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-  "notEnoughAttrPoints": "You don't have enough attribute points."
+  "notEnoughAttrPoints": "You don't have enough attribute points.",
+  "missingKeyParam": "\"req.params.key\" is required.",
+  "mysterySetNotFound": "Mystery set not found, or set already owned",
+  "itemNotFound": "Item \"<%= key %>\" not found.",
+  "cannoyBuyItem": "You can't buy this item"
 }
