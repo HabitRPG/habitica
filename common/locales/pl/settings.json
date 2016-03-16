@@ -140,7 +140,7 @@
     "mysticHourglass": "<%= amount %> Mistyczne Klepsydry",
     "mysticHourglassText": "Mistyczna Klepsydra pozwala na zakup Zestawów tajemniczych przedmiotów z poprzednich miesięcy.",
     "purchasedPlanId": "Okresowa opłata $<%= price %> USD co <%= months %> miesięcy (<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
+    "purchasedPlanExtraMonths": "Masz <%= months %> miesięcy dodatkowego abonamentu.",
     "consecutiveSubscription": "Ciągłość abonamentu",
     "consecutiveMonths": "Ilość miesięcy z rzędu:",
     "gemCapExtra": "Dodatkowy limit łupów:",

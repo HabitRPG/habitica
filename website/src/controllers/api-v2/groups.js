@@ -587,8 +587,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           if(invite.preferences.emailNotifications['invited' + (group.type == 'guild' ? 'Guild' : 'Party')] !== false){
             var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
             var emailVars = [
-              {name: 'INVITER', content: inviterVars.name},
-              {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
+              {name: 'INVITER', content: inviterVars.name}
             ];
 
             if(group.type == 'guild'){
@@ -653,8 +652,7 @@ var inviteByEmails = function(invites, group, req, res, next){
           var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
           var variables = [
             {name: 'LINK', content: link},
-            {name: 'INVITER', content: req.body.inviter || inviterVars.name},
-            {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
+            {name: 'INVITER', content: req.body.inviter || inviterVars.name}
           ];
 
           if(group.type == 'guild'){
@@ -692,6 +690,9 @@ var inviteByEmails = function(invites, group, req, res, next){
 api.invite = function(req, res, next){
   var group = res.locals.group;
 
+  if (group.privacy === 'private' && !_.contains(group.members,res.locals.user._id)) {
+    return res.json(401, {err: "Only a member can invite new members!"});
+  }
   if (req.body.uuids) {
     inviteByUUIDs(req.body.uuids, group, req, res, next);
   } else if (req.body.emails) {
@@ -954,7 +955,6 @@ api.questAccept = function(req, res, next) {
       utils.txnEmail(membersToEmail, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
         {name: 'QUEST_NAME', content: quest.text()},
         {name: 'INVITER', content: inviterVars.name},
-        {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
         {name: 'PARTY_URL', content: '/#/options/groups/party'}
       ]);
 

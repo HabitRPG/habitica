@@ -1,5 +1,5 @@
 import {forOwn} from 'lodash';
-let t = require('../translation.js');
+import t from '../translation';
 
 /* eslint-disable camelcase */
 let backgrounds = {
@@ -297,6 +297,20 @@ let backgrounds = {
       notes: t('backgroundGrandStaircaseNotes'),
     },
   },
+  backgrounds032016: {
+    deep_mine: {
+      text: t('backgroundDeepMineText'),
+      notes: t('backgroundDeepMineNotes'),
+    },
+    rainforest: {
+      text: t('backgroundRainforestText'),
+      notes: t('backgroundRainforestNotes'),
+    },
+    stone_circle: {
+      text: t('backgroundStoneCircleText'),
+      notes: t('backgroundStoneCircleNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 
@@ -306,4 +320,4 @@ forOwn(backgrounds, function prefillBackgroundSet (value) {
   });
 });
 
-export default backgrounds;
+module.exports = backgrounds;

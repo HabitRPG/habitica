@@ -9,5 +9,5 @@ let back = {
   special: specialBack,
 };
 
-export default back;
+module.exports = back;
 

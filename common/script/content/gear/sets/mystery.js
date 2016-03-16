@@ -148,6 +148,12 @@ let back = {
     mystery: '201510',
     value: 0,
   },
+  201602: {
+    text: t('backMystery201602Text'),
+    notes: t('backMystery201602Notes'),
+    mystery: '201602',
+    value: 0,
+  },
 };
 
 let eyewear = {
@@ -268,6 +274,12 @@ let head = {
     mystery: '201601',
     value: 0,
   },
+  201602: {
+    text: t('headMystery201602Text'),
+    notes: t('headMystery201602Notes'),
+    mystery: '201602',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -373,4 +385,4 @@ let mysterySet = {
   weapon,
 };
 
-export default mysterySet;
+module.exports = mysterySet;

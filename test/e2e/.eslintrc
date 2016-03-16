@@ -1,13 +1,7 @@
 {
-    "rules": {
-      "func-names": 0,
-      "no-var": 0,
-      "prefer-template": 0
-    },
     "globals": {
       "browser": true,
       "by": true,
-      "element": true,
-      "jasmine": true
+      "element": true
     }
 }

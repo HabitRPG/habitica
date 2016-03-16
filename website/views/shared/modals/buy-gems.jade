@@ -56,7 +56,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
         .panel.panel-default
           .panel-body
             h3=env.t('purchaseGems')
-            .small 
+            .small
               span.dashed-underline(popover=env.t('donateText3'),popover-trigger='mouseenter',popover-placement='bottom')
                 =env.t('donateText2')
             +buyGemsDropdown()
@@ -69,8 +69,8 @@ script(id='modals/buyGems.html', type='text/ng-template')
             h3
               .small=env.t('buyGemsGoldTitle')
             h3=env.t('becomeSubscriber')
-          
-            div(ng-include="'partials/options.settings.subscription.html'")
+
+            div(ng-include="'partials/options.settings.subscription.html'", ng-controller='SettingsCtrl')
       div(ng-if='user.purchased.plan.customerId').pull-left
         p!=env.t('seeSubscriptionDetails')
       .text-right
