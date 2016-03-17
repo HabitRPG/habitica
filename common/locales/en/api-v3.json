@@ -12,6 +12,7 @@
   "usernameTaken": "Username already taken.",
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
   "invalidLoginCredentials": "Incorrect username / email and / or password.",
+  "passwordReset": "If we have your email on file, your password reset link has been sent to your email.",
   "invalidCredentials": "User not found with given auth credentials.",
   "accountSuspended": "Account has been suspended, please contact leslie@habitica.com with your UUID \"<%= userId %>\" for assistance.",
   "onlyFbSupported": "Only Facebook supported currently.",

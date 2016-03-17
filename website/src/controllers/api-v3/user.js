@@ -12,6 +12,8 @@ import { model as User } from '../../models/user';
 import Q from 'q';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/api-v3/password';
+import { send as sendEmail } from '../../libs/api-v3/email';
+import nconf from 'nconf';
 
 let api = {};
 
@@ -78,6 +80,50 @@ api.updatePassword = {
     user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
     await user.save();
     res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /user/reset-password
+ * @apiVersion 3.0.0
+ * @apiName resetPassword
+ * @apiGroup User
+ * @apiParam {string} email email
+ * @apiSuccess {Object} The success message
+ **/
+api.resetPassword = {
+  method: 'POST',
+  middlewares: [],
+  url: '/user/reset-password',
+  async handler (req, res) {
+    req.checkBody({
+      email: {
+        notEmpty: {errorMessage: res.t('missingEmail')},
+      },
+    });
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let email = req.body.email && req.body.email.toLowerCase();
+    let salt = passwordUtils.makeSalt();
+    let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
+    let hashedPassword = passwordUtils.encrypt(newPassword, salt);
+
+    let user = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 });
+
+    if (user) {
+      user.auth.local.salt = salt;
+      user.auth.local.hashed_password = hashedPassword; // eslint-disable-line camelcase
+      sendEmail({
+        from: 'Habitica <admin@habitica.com>',
+        to: email,
+        subject: 'Password Reset for Habitica',
+        text: `Password for ${user.auth.local.username} has been reset to ${newPassword} . Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them. Log in at ${nconf.get('BASE_URL')}. After you have logged in, head to ${nconf.get('BASE_URL')}/#/options/settings/settings and change your password.`,
+        html: `Password for <strong>${user.auth.local.username}</strong> has been reset to <strong>${newPassword}</strong><br /><br />Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them.<br /><br />Log in at ${nconf.get('BASE_URL')}. After you have logged in, head to ${nconf.get('BASE_URL')}/#/options/settings/settings and change your password.`,
+      });
+      await user.save();
+    }
+    res.respond(300, { message: res.t('passwordReset') });
   },
 };
 

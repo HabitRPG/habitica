@@ -28,7 +28,6 @@ api.unsubscribe = {
         notEmpty: {errorMessage: res.t('missingUnsubscriptionCode')},
       },
     });
-
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
