@@ -6,8 +6,8 @@ describe('Sortable Inventory Controller', () => {
     $controller('SortableInventoryController', {$scope: scope});
   }));
 
-  it('defaults scope.order to name', () => {
-    expect(scope.order).to.eql('text()')
+  it('defaults scope.order to set', () => {
+    expect(scope.order).to.eql('set')
   });
 
   describe('#setOrder', () => {
@@ -19,7 +19,6 @@ describe('Sortable Inventory Controller', () => {
         'intelligence',
         'perception',
         'strength',
-        'name',
         'set'
       ];
 
