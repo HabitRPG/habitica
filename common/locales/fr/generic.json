@@ -176,5 +176,5 @@
     "raisePetShare": "J'ai transformé un familier en monture en terminant des tâches de ma vie réelle!",
     "wonChallengeShare": "J'ai gagné un défi sur Habitica !",
     "achievementShare": "J'ai gagné un nouveau succès sur Habitica !",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Trier par <%= item %>"
 }

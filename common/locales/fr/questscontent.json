@@ -292,10 +292,10 @@
     "questMonkeyBoss": "Monstrueux Mandrill",
     "questMonkeyDropMonkeyEgg": "Singe (Œuf)",
     "questMonkeyUnlockText": "Déverrouille l'achat d’œufs de singe au Marché",
-    "questSnailText": "The Snail of Drudgery Sludge",
-    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
-    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
-    "questSnailBoss": "Snail of Drudgery Sludge",
-    "questSnailDropSnailEgg": "Snail (Egg)",
-    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+    "questSnailText": "L'escargot de la Fange de Pénibilité",
+    "questSnailNotes": "Vous êtes excité à l'idée de faire une quête dans les oubliettes abandonnées de Pénibilité, mais alors que vous y entrez, vous sentez le sol sous votre pied aspirer vos bottes.Vous regardez le chemin devant vous et voyez des Habiticien·ne·s embourbés dans la vase. @Overomega crie \"Ils ont trop de tâches À Faire ou de Quotidiennes inutiles, et ils sont bloqués sur ce qui n'a pas d'importance ! Sortez-les de là !\"<br><br>\"Vous devez trouver la source de cette boue,\" confirme @Pfeffernusse, \"ou les tâches qu'ils ne peuvent accomplir les enliseront à jamais !\"<br><br>Vous dégainez votre arme, pataugez dans la gadoue collante... et rencontrez un terrible Escargot de la Fange de Pénibilité.",
+    "questSnailCompletion": "Vous abattez votre arme sur la grande coquille de l'Escargot, la brisant en deux, et libérant un torrent d'eau. La vase est éliminées et les Habiticien·ne·s autour de vous se réjouissent. \"Regardez !\" dit @Misceo. \"Il y a un petit paquet d’œufs d'escargots dans les dernières flaques de boue.\"",
+    "questSnailBoss": "Escargot de la Fange de Pénibilité",
+    "questSnailDropSnailEgg": "Escargot (Œuf)",
+    "questSnailUnlockText": "Débloque l'achat d’œuf d'Escargot au marché"
 }

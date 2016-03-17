@@ -148,8 +148,8 @@
     "guildChatEmpty": "Чат этой гильдии пустует! Наберите сообщение в поле сверху, чтобы начать общаться.",
     "possessiveParty": "Команда игрока <%= name %>.",
     "requestAcceptGuidelines": "Если вы хотите оставить сообщение в Таверне или в чате любой гильдии, сперва прочитайте Принципы Сообщества и нажмите кнопку \"Принять Принципы\" внизу. Это будет означать, что вы их принимаете и обязуетесь выполнять.",
-    "partyUpName": "Party Up",
-    "partyOnName": "Party On",
-    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyUpName": "Зажигаем",
+    "partyOnName": "Время вечеринок",
+    "partyUpAchievement": "Создайте команду с другим человеком! Веселитесь сражаясь с монстрами и поддерживая друг друга!",
     "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

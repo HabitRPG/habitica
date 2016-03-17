@@ -176,5 +176,5 @@
     "raisePetShare": "Ho fatto crescere un animaletto completando le mie attività nella vita reale!",
     "wonChallengeShare": "Ho vinto una sfida in Habitica!",
     "achievementShare": "Ho guadagnato una nuova medaglia in Habitica!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Ordina per <%= item %>"
 }

@@ -292,10 +292,10 @@
     "questMonkeyBoss": "Monströser Mandrill",
     "questMonkeyDropMonkeyEgg": "Affe (Ei)",
     "questMonkeyUnlockText": "Ermöglicht den Kauf von Affeneiern auf dem Marktplatz",
-    "questSnailText": "The Snail of Drudgery Sludge",
-    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
-    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
-    "questSnailBoss": "Snail of Drudgery Sludge",
-    "questSnailDropSnailEgg": "Snail (Egg)",
-    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+    "questSnailText": "Der Schneckerich der schlammigen Schinderei",
+    "questSnailNotes": "Du freust dich, deinen Quest in den verlassenen Schinderverliesen zu beginnen, aber kaum, dass du die Verliese betrittst, fühlst du wie der Grund unter dir an deinen Stiefeln zu saugen beginnt. Du betrachtest den Pfad vor dir und siehst in Schleim versunkene Habiticaner.  @Overomega brüllt, \"Sie haben zu viele unwichtige Aufgaben, und sie bleiben an Dingen hängen, die nicht wichtig sind! Zieh sie raus! <br><br>\"Du musst die Quelle des Schlamms finden,\" stimmt @Pfeffernusse zu, \"oder die nicht erfüllbaren Aufgaben ziehen sie ewig hinunter!\"<br><br>Deine Waffe ziehend watest du durch den zählen Schlamm... und triffst auf den fürchterlichen Schneckerich der schlammigen Schinderei.",
+    "questSnailCompletion": "Du lässt deine Waffe auf den Schneckenpanzer niederfahren, wobei dieser in zwei Teile zerbricht und eine Flutwelle Wasser freigibt. Der Schleim wird weggespült und die Habiticaner um dich herum  jubeln.  \"Sieh!\" sagt @Misceo. \"Dort liegt einige Schneckerich-Eier in den Überresten des Unrats.\" ",
+    "questSnailBoss": "Schneckerich der schlammigen Schinderei",
+    "questSnailDropSnailEgg": "Schneckerich (Ei)",
+    "questSnailUnlockText": "Schaltet Schneckerich-Eier im Marktplatz frei."
 }

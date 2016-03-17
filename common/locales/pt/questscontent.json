@@ -292,10 +292,10 @@
     "questMonkeyBoss": "Mandril Monstruoso",
     "questMonkeyDropMonkeyEgg": "Macaco (Ovo)",
     "questMonkeyUnlockText": "Desbloqueia ovos de Macaco para compra no Mercado",
-    "questSnailText": "The Snail of Drudgery Sludge",
-    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
-    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
-    "questSnailBoss": "Snail of Drudgery Sludge",
-    "questSnailDropSnailEgg": "Snail (Egg)",
-    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+    "questSnailText": "O trabalho fastidioso do caracol Sludge",
+    "questSnailNotes": "Você está excitado para começar a sua aventura nos Calabouços abandonados do Tédio, mas logo que você entra, você sente o chão embaixo dos seus pés começarem a sugar suas botas. Você olha para o caminho a frente e vê Habiticanos afundados na gosma. @Overomega grita, \"Eles tem muitos deveres e tarefas diárias pouco relevantes, e estão se prendendo nas coisas que não importam! Puxe-os fora!\" <br><br>\"Você precisa encontrar a origem da gosma,\" @Pfeffernusse concorda, \"ou as tarefas que eles não conseguirem cumprir vão puxa-los para baixo para sempre!\"<br><br>Puxando fora a sua arma, você cruza a lama pegajosa... e encontra o temível Caracol do Lodo Tedioso",
+    "questSnailCompletion": "Você leva sua arma abaixo na grande concha do Caracol, quebrando ela em dois, liberando uma inundação de água. A gosma foi lavada embora, e os Habiticanos em volta comemoram. \"Olhe!\" fala @Misceo. \"Tem um pequeno grupo de ovos de caracol nos restos do muco.\"",
+    "questSnailBoss": "trabalho fastidioso do caracol Sludge",
+    "questSnailDropSnailEgg": "Caracol (Ovo)",
+    "questSnailUnlockText": "Desbloqueia ovos de caracol para compra no mercado"
 }

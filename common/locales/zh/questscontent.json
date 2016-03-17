@@ -292,10 +292,10 @@
     "questMonkeyBoss": "巨大的山魈",
     "questMonkeyDropMonkeyEgg": "猴子 (蛋)",
     "questMonkeyUnlockText": "解锁猴子蛋购买功能",
-    "questSnailText": "The Snail of Drudgery Sludge",
-    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
-    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
-    "questSnailBoss": "Snail of Drudgery Sludge",
-    "questSnailDropSnailEgg": "Snail (Egg)",
-    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+    "questSnailText": "苦差事淤泥蜗牛",
+    "questSnailNotes": "你很兴奋开始探索被遗弃的苦差事地下城，但是当你一进入，你就感受到你脚下的地面在吸你的靴子。你看着前面的小路，看到Habitica人们陷入了涂泥。@Overomega 大叫，“他们有太多不重要的任务和每日任务，他们正被不要紧的事情卡住！把他们拉出来！”<br><br>“你需要找到渗出的源头，”@Pfeffernusse 赞同着说，“或者他们不能完成的任务将他们永远拖下去！”<br><br>拿出你的武器，你艰难地通过黏黏的泥....突然遇上了可怕的苦差事淤泥蜗牛。",
+    "questSnailCompletion": "你把你的武器砸在巨大的蜗牛壳上，壳裂成两半，涌出了大量的水。粘液被冲走，Habitica人民在你身边欢呼。\"看！\" @Misceo 说。\"在残留的淤泥中，有一小群的蜗牛蛋。\"",
+    "questSnailBoss": "苦差事淤泥蜗牛",
+    "questSnailDropSnailEgg": "蜗牛(蛋)",
+    "questSnailUnlockText": "解锁蜗牛蛋购买功能"
 }

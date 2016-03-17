@@ -150,6 +150,6 @@
     "requestAcceptGuidelines": "Wenn du Nachrichten in der Schenke oder in irgendeinem Gruppen- oder Gilden-Chat posten willst, bitte lies zuerst unsere <%= linkStart %>Community-Richtlinien<%= linkEnd %>. Klicke danach unten auf den Button, um sie zu akzeptieren.",
     "partyUpName": "Party Up",
     "partyOnName": "Party On",
-    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
+    "partyUpAchievement": "Du bist einer Gruppe mit einer anderen Person beigetreten! Viel Spaß beim Kampf gegen Monster und gegenseitigen Unterstützen.",
+    "partyOnAchievement": "Du bist einer Gruppe mit mindestens vier Personen beigetreten! Genieße die gestiegene Zurechenbarkeit, wenn du dich mit deinen Freunden vereinst, um eure Feinde zu bezwingen!"
 }

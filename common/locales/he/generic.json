@@ -176,5 +176,5 @@
     "raisePetShare": "אילפתי חיית מחמד להיות חיית רכיבה על ידי השלמת משימות מהעולם האמיתי!",
     "wonChallengeShare": "סיימתי אתגר בהביטיקה!",
     "achievementShare": "השגתי הישג חדש בהביטיקה!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "סדר לפי <%= item %>"
 }

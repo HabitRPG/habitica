@@ -176,5 +176,5 @@
     "raisePetShare": "Mam nowego wierzchowca dzięki ukończeniu moich zadań w prawdziwym życiu!",
     "wonChallengeShare": "Wyzwanie zaliczone!",
     "achievementShare": "Zdobyto nowe osiągnięcie w Habitice!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Sortuj po <%= item %>"
 }
