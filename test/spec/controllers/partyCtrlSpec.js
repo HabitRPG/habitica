@@ -35,6 +35,15 @@ describe("Party Controller", function() {
   });
 
   describe('initialization', function() {
+    function initializeControllerWithStubbedState() {
+      inject(function(_$state_) {
+        var state = _$state_;
+        sandbox.stub(state, 'is').returns(true);
+        $controller('PartyCtrl', { $scope: scope, $state: state });
+        expect(state.is).to.be.calledOnce; // ensure initialization worked as desired
+      });
+    };
+
     beforeEach(function() {
       sandbox.stub(rootScope, 'openModal');
     });
@@ -46,7 +55,7 @@ describe("Party Controller", function() {
           memberCount: 1
         });
 
-        $controller('PartyCtrl', { $scope: scope, User: User });
+        initializeControllerWithStubbedState();
 
         expect(User.set).to.not.be.called;
         expect(rootScope.openModal).to.not.be.called;
@@ -61,7 +70,7 @@ describe("Party Controller", function() {
             memberCount: 2
           });
 
-          $controller('PartyCtrl', { $scope: scope, User: User });
+          initializeControllerWithStubbedState();
 
           expect(User.set).to.be.calledOnce;
           expect(User.set).to.be.calledWith(
@@ -85,7 +94,7 @@ describe("Party Controller", function() {
         it('awards "Party On" achievement', function() {
           user.achievements.partyUp = true;
 
-          $controller('PartyCtrl', { $scope: scope, User: User });
+          initializeControllerWithStubbedState();
 
           expect(User.set).to.be.calledOnce;
           expect(User.set).to.be.calledWith(
@@ -98,7 +107,7 @@ describe("Party Controller", function() {
 
       context('user has neither "Party Up" nor "Party On" achievements', function() {
         it('awards "Party Up" and "Party On" achievements', function() {
-          $controller('PartyCtrl', { $scope: scope, User: User });
+          initializeControllerWithStubbedState();
 
           expect(User.set).to.be.calledTwice;
           expect(User.set).to.be.calledWith(
@@ -118,7 +127,7 @@ describe("Party Controller", function() {
           user.achievements.partyUp = true;
           user.achievements.partyOn = true;
 
-          $controller('PartyCtrl', { $scope: scope, User: User });
+          initializeControllerWithStubbedState();
 
           expect(User.set).to.not.be.called;
           expect(rootScope.openModal).to.not.be.called;
