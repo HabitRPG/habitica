@@ -7,7 +7,7 @@ mixin orderByButton
     button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
       | {{env.t("orderBy", { item: env.t(orderChoice) })}} #[span.caret]
     ul.dropdown-menu
-      - each attr in ["name", "set"]
+      - each attr in ["set"]
         +choice(attr)
       li.divider(role="separator")
       - each attr in ["constitution", "intelligence", "perception", "strength"]

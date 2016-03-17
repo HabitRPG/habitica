@@ -5,12 +5,8 @@ habitrpg.controller('SortableInventoryController', ['$scope',
       intelligence: ['-int', '-(con+int+per+str)'],
       perception: ['-per', '-(con+int+per+str)'],
       strength: ['-str', '-(con+int+per+str)'],
-      name: 'text()',
       set: 'set'
     }
-
-    $scope.order = attributeSort.name;
-    $scope.orderChoice = 'name';
 
     $scope.setOrder = function (order) {
       $scope.orderChoice = order;
@@ -18,4 +14,7 @@ habitrpg.controller('SortableInventoryController', ['$scope',
         $scope.order = attributeSort[order];
       }
     };
+
+    $scope.orderChoice = 'set';
+    $scope.setOrder($scope.orderChoice);
 }]);
