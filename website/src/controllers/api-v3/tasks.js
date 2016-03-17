@@ -879,7 +879,7 @@ api.clearCompletedTodos = {
 };
 
 /**
- * @api {delete} /tasks/:taskId Delete a user task given its id
+ * @api {delete} /tasks/:taskId Delete a task given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task

@@ -86,7 +86,7 @@ describe('DELETE /tasks/:id', () => {
     it('allows user to delete challenge task after user leaves challenge', async () => {
       await anotherUser.post(`/challenges/${challenge._id}/leave`);
 
-      await expect(anotherUser.del(`/tasks/${anotherUsersNewChallengeTaskID}`));
+      await anotherUser.del(`/tasks/${anotherUsersNewChallengeTaskID}`);
 
       await expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,
@@ -98,11 +98,11 @@ describe('DELETE /tasks/:id', () => {
     it('allows user to delete challenge task after challenge task is broken', async () => {
       await expect(user.del(`/tasks/${newChallengeTask._id}`));
 
-      await sleep(1);
+      await sleep(2);
 
       await expect(anotherUser.del(`/tasks/${anotherUsersNewChallengeTaskID}`));
 
-      await sleep(1);
+      await sleep(2);
 
       await expect(anotherUser.get(`/tasks/${anotherUsersNewChallengeTaskID}`)).to.eventually.be.rejected.and.eql({
         code: 404,
