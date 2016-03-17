@@ -8,11 +8,9 @@ describe("Party Controller", function() {
     user._id = "unique-user-id";
     User = {
       user: user,
-      sync: sandbox.spy,
-      set: function() {} // no-op
+      sync: sandbox.spy(),
+      set: sandbox.spy()
     }
-
-    sandbox.stub(User, 'set');
 
     module(function($provide) {
       $provide.value('User', User);
@@ -42,61 +40,66 @@ describe("Party Controller", function() {
     });
 
     context('party has 1 member', function() {
-      beforeEach(function() {
-        scope.group = { memberCount: 1 };
-      });
-
       it('awards no new achievements', function() {
+        sandbox.stub(groups, 'party').returns({
+          $syncParty: function() {},
+          memberCount: 1
+        });
+
+        $controller('PartyCtrl', { $scope: scope, User: User });
+
         expect(User.set).to.not.be.called;
         expect(rootScope.openModal).to.not.be.called;
       });
     });
 
     context('party has 2 members', function() {
-      beforeEach(function() {
-        scope.group = { memberCount: 2 };
-      });
-
       context('user does not have "Party Up" achievement', function() {
         it('awards "Party Up" achievement', function() {
+          sandbox.stub(groups, 'party').returns({
+            $syncParty: function() {},
+            memberCount: 2
+          });
+
+          $controller('PartyCtrl', { $scope: scope, User: User });
+
           expect(User.set).to.be.calledOnce;
           expect(User.set).to.be.calledWith(
-            { 'achievements.partyUp': true}
+            { 'achievements.partyUp': true }
           );
           expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith(
-            'achievements/partyUp',
-            { controller: 'UserCtrl' }
-          );
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
         });
       });
     });
 
     context('party has 4 members', function() {
       beforeEach(function() {
-        scope.group = { memberCount: 4 };
+        sandbox.stub(groups, 'party').returns({
+          $syncParty: function() {},
+          memberCount: 4
+        });
       });
 
       context('user has "Party Up" but not "Party On" achievement', function() {
-        beforeEach(function() {
-          user.achievements.partyUp = true;
-        });
-
         it('awards "Party On" achievement', function() {
+          user.achievements.partyUp = true;
+
+          $controller('PartyCtrl', { $scope: scope, User: User });
+
           expect(User.set).to.be.calledOnce;
           expect(User.set).to.be.calledWith(
-            { 'achievements.partyOn': true}
+            { 'achievements.partyOn': true }
           );
           expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith(
-            'achievements/partyOn',
-            { controller: 'UserCtrl' }
-          );
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
         });
       });
 
       context('user has neither "Party Up" nor "Party On" achievements', function() {
         it('awards "Party Up" and "Party On" achievements', function() {
+          $controller('PartyCtrl', { $scope: scope, User: User });
+
           expect(User.set).to.be.calledTwice;
           expect(User.set).to.be.calledWith(
             { 'achievements.partyUp': true}
@@ -105,29 +108,22 @@ describe("Party Controller", function() {
             { 'achievements.partyOn': true}
           );
           expect(rootScope.openModal).to.be.calledTwice;
-          expect(rootScope.openModal).to.be.calledWith(
-            'achievements/partyUp',
-            { controller: 'UserCtrl' }
-          );
-          expect(rootScope.openModal).to.be.calledWith(
-            'achievements/partyOn',
-            { controller: 'UserCtrl' }
-          );
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
         });
       });
 
       context('user has both "Party Up" and "Party On" achievements', function() {
-        beforeEach(function() {
+        it('awards no new achievements', function() {
           user.achievements.partyUp = true;
           user.achievements.partyOn = true;
-        });
 
-        it('awards no new achievements', function() {
+          $controller('PartyCtrl', { $scope: scope, User: User });
+
           expect(User.set).to.not.be.called;
           expect(rootScope.openModal).to.not.be.called;
         });
       });
-
     });
   });
 
