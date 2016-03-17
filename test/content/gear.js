@@ -13,7 +13,7 @@ describe('Gear', () => {
       each(piece, (items, klass) => {
         context(`${klass} ${gearType}s`, () => {
           it('have a value of at least 0 for each stat', () => {
-            each(items, (gear) => {
+            each(items, (gear, itemKey) => {
               expect(gear.con).to.be.at.least(0);
               expect(gear.int).to.be.at.least(0);
               expect(gear.per).to.be.at.least(0);
@@ -22,27 +22,21 @@ describe('Gear', () => {
           });
 
           it('have a purchase value of at least 0', () => {
-            each(items, (gear) => {
+            each(items, (gear, itemKey) => {
               expect(gear.value).to.be.at.least(0);
             });
           });
 
           it('has a canBuy function', () => {
-            each(items, (gear) => {
+            each(items, (gear, itemKey) => {
               expect(gear.canBuy).to.be.a('function');
             });
           });
 
           it('have valid translation strings for text and notes', () => {
-            each(items, (gear) => {
+            each(items, (gear, itemKey) => {
               expectValidTranslationString(gear.text);
               expectValidTranslationString(gear.notes);
-            });
-          });
-
-          it('has a set attribue', () => {
-            each(items, (gear) => {
-              expect(gear.set).to.exist;
             });
           });
         });

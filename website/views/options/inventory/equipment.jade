@@ -1,36 +1,10 @@
-mixin orderByButton
-  mixin choice(attr)
-    li(ng-class="{ 'active': orderChoice === '#{attr}' }")
-      a(ng-click="setOrder('#{attr}')")=env.t(attr)
-
-  .btn-group
-    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-      | {{env.t("orderBy", { item: env.t(orderChoice) })}} #[span.caret]
-    ul.dropdown-menu
-      - each attr in ["name", "set"]
-        +choice(attr)
-      li.divider(role="separator")
-      - each attr in ["constitution", "intelligence", "perception", "strength"]
-        +choice(attr)
-
-mixin equipmentList(type)
-  menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
-    ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
-    div(ng-repeat='item in gear[klass] | orderBy: order')
-      button.customize-option(class='shop_{{::item.key}}',
-        ng-class='{selectableInventory: user.items.gear.#{type}[item.type] == item.key}',
-        ng-click='equip(item.key, "${type}")',
-        popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
-        popover-trigger='mouseenter', popover-placement='right',
-        popover-append-to-body='true')
-
 .container-fluid
   .row
-    .col-md-6.border-right(ng-controller="SortableInventoryController")
+    .col-md-6.border-right
       h3.equipment-title.hint(popover-trigger='mouseenter',
         popover-placement='right', popover-append-to-body='true',
         popover=env.t('battleGearText'))=env.t('battleGear')
-
+      
       .checkbox.equipment-title
         label
           input(type="checkbox", ng-model="user.preferences.autoEquip",
@@ -38,15 +12,21 @@ mixin equipmentList(type)
           | &nbsp;
           =env.t('autoEquipBattleGear')
 
-      .btn-toolbar
-        .btn-group
-          button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
-        +orderByButton
+      div
+        button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
 
       li.customize-menu.inventory-gear
-        +equipmentList("equipped")
+        menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
+          ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
+          div(ng-repeat='item in gear[klass]')
+            button.customize-option(, class='shop_{{::item.key}}',
+              ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}',
+              ng-click='equip(item.key, "equipped")',
+              popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+              popover-trigger='mouseenter', popover-placement='right',
+              popover-append-to-body='true')
 
-    .col-md-6(ng-controller="SortableInventoryController")
+    .col-md-6
       h3.equipment-title.hint(popover-trigger='mouseenter',
         popover-placement='right', popover-append-to-body='true',
         popover=env.t('costumeText'))=env.t('costume')
@@ -58,11 +38,9 @@ mixin equipmentList(type)
           | &nbsp;
           =env.t('useCostume')
 
-      .btn-toolbar
-        .btn-group
-          button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
-          button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
-        +orderByButton
+      div
+        button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
+        button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
 
       li.customize-menu(ng-if='!user.preferences.costume')
         .well.use-costume-info
@@ -71,4 +49,12 @@ mixin equipmentList(type)
           p: a(ng-click='showUseCostumeInfo = !showUseCostumeInfo') {{!showUseCostumeInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
 
       li.customize-menu(ng-if='user.preferences.costume')
-        +equipmentList("costume")
+        menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
+          ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
+          div(ng-repeat='item in gear[klass]')
+            button.customize-option(class='shop_{{::item.key}}',
+              ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}',
+              ng-click='equip(item.key, "costume")',
+              popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+              popover-trigger='mouseenter', popover-placement='right',
+              popover-append-to-body='true')
