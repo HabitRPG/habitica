@@ -13,8 +13,6 @@ import {
 import common from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
-import moment from 'moment';
-import { preenHistory } from '../../libs/api-v3/preening';
 
 let api = {};
 
@@ -438,31 +436,7 @@ api.scoreTask = {
           _id: task.challenge.taskId,
         }).exec();
 
-        chalTask.value += delta;
-
-        if (chalTask.type === 'habit' || chalTask.type === 'daily') {
-          // Add only one history entry per day
-          if (moment(chalTask.history[chalTask.history.length - 1].date).isSame(new Date(), 'day')) {
-            chalTask.history[chalTask.history.length - 1] = {
-              date: Number(new Date()),
-              value: chalTask.value,
-            };
-            chalTask.markModified(`history.${chalTask.history.length - 1}`);
-          } else {
-            chalTask.history.push({
-              date: Number(new Date()),
-              value: chalTask.value,
-            });
-
-            // Only preen task history once a day when the task is scored first
-            if (chalTask.history.length > 365) {
-              chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as much entries as a subscribed user
-              chalTask.markModified(`history.${chalTask.history.length - 1}`);
-            }
-          }
-        }
-
-        await chalTask.save();
+        await chalTask.scoreChallengeTask(delta);
       } catch (e) {
         // TODO handle
       }

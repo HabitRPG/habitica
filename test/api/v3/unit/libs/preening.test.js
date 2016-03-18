@@ -1,21 +1,7 @@
 import { preenHistory } from '../../../../../website/src/libs/api-v3/preening';
 import moment from 'moment';
 import sinon from 'sinon'; // eslint-disable-line no-shadow
-
-function generateHistory (days) {
-  let history = [];
-  let now = Number(moment().toDate());
-
-  while (days > 0) {
-    history.push({
-      value: days,
-      date: Number(moment(now).subtract(days, 'days').toDate()),
-    });
-    days--;
-  }
-
-  return history;
-}
+import { generateHistory } from '../../../../helpers/api-unit.helper.js';
 
 describe('preenHistory', () => {
   let clock;

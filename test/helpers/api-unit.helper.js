@@ -4,6 +4,7 @@ import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
 import mongo from './mongo'; // eslint-disable-line
+import moment from 'moment';
 
 afterEach((done) => {
   sandbox.restore();
@@ -47,4 +48,19 @@ export function generateReq (options = {}) {
 
 export function generateNext (func) {
   return func || sandbox.stub();
+}
+
+export function generateHistory (days) {
+  let history = [];
+  let now = Number(moment().toDate());
+
+  while (days > 0) {
+    history.push({
+      value: days,
+      date: Number(moment(now).subtract(days, 'days').toDate()),
+    });
+    days--;
+  }
+
+  return history;
 }
