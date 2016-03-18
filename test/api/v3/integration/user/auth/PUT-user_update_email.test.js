@@ -1,23 +1,23 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
-import { model as User } from '../../../../../website/src/models/user';
+} from '../../../../../helpers/api-v3-integration.helper';
 
-describe('POST /user/update-email', () => {
-  let user;
-  let fbUser;
-  let endpoint = '/user/update-email';
+const ENDPOINT = '/user/auth/update-email';
+
+describe('PUT /user/auth/update-email', () => {
   let newEmail = 'some-new-email_2@example.net';
-  let thePassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
+  let oldPassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 
-  describe('local user', async () => {
+  context('Local Authenticaion User', async () => {
+    let user;
+
     beforeEach(async () => {
       user = await generateUser();
     });
 
-    it('does not change email if one is not provided', async () => {
-      await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
+    it('does not change email if email is not provided', async () => {
+      await expect(user.put(ENDPOINT)).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
@@ -25,7 +25,7 @@ describe('POST /user/update-email', () => {
     });
 
     it('does not change email if password is not provided', async () => {
-      await expect(user.post(endpoint, {
+      await expect(user.put(ENDPOINT, {
         newEmail,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -35,7 +35,7 @@ describe('POST /user/update-email', () => {
     });
 
     it('does not change email if wrong password is provided', async () => {
-      await expect(user.post(endpoint, {
+      await expect(user.put(ENDPOINT, {
         newEmail,
         password: 'wrong password',
       })).to.eventually.be.rejected.and.eql({
@@ -46,27 +46,29 @@ describe('POST /user/update-email', () => {
     });
 
     it('changes email if new email and existing password are provided', async () => {
-      let response = await user.post(endpoint, {
+      let response = await user.put(ENDPOINT, {
         newEmail,
-        password: thePassword,
+        password: oldPassword,
       });
       expect(response).to.eql({ email: 'some-new-email_2@example.net' });
-      let id = user._id;
-      user = await User.findOne({ _id: id });
+
+      await user.sync();
       expect(user.auth.local.email).to.eql(newEmail);
     });
   });
 
-  describe('facebook user', async () => {
+  context('Social Login User', async () => {
+    let socialUser;
+
     beforeEach(async () => {
-      fbUser = await generateUser();
-      await fbUser.update({ 'auth.local': { ok: true } });
+      socialUser = await generateUser();
+      await socialUser.update({ 'auth.local': { ok: true } });
     });
 
     it('does not change email if user.auth.local.email does not exist for this user', async () => {
-      await expect(fbUser.post(endpoint, {
+      await expect(socialUser.put(ENDPOINT, {
         newEmail,
-        password: thePassword,
+        password: oldPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',

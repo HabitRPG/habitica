@@ -9,6 +9,7 @@ import {
 import cron from '../../middlewares/api-v3/cron';
 import {
   NotAuthorized,
+  BadRequest,
   NotFound,
 } from '../../libs/api-v3/errors';
 import Q from 'q';
@@ -280,6 +281,125 @@ api.loginSocial = {
         uuid: savedUser._id,
       });
     }
+  },
+};
+
+/**
+ * @api {put} /user/auth/update-username
+ * @apiVersion 3.0.0
+ * @apiName updateUsername
+ * @apiGroup User
+ * @apiParam {string} password The password
+ * @apiParam {string} username New username
+ * @apiSuccess {Object} The new username
+ **/
+api.updateUsername = {
+  method: 'PUT',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/auth/update-username',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody({
+      password: {
+        notEmpty: {errorMessage: res.t('missingPassword')},
+      },
+      username: {
+        notEmpty: { errorMessage: res.t('missingUsername') },
+      },
+    });
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+
+    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+
+    let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
+    if (count > 0) throw new BadRequest(res.t('usernameTaken'));
+
+    // save username
+    user.auth.local.lowerCaseUsername = req.body.username.toLowerCase();
+    user.auth.local.username = req.body.username;
+    await user.save();
+
+    res.respond(200, { username: req.body.username });
+  },
+};
+
+/**
+ * @api {put} /user/auth/update-password
+ * @apiVersion 3.0.0
+ * @apiName updatePassword
+ * @apiGroup User
+ * @apiParam {string} password The old password
+ * @apiParam {string} newPassword The new password
+ * @apiParam {string} confirmPassword Password confirmation
+ * @apiSuccess {Object} The success message
+ **/
+api.updatePassword = {
+  method: 'PUT',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/auth/update-password',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    if (!user.auth.local.hashed_password) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+
+    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+
+    req.checkBody({
+      password: {
+        notEmpty: {errorMessage: res.t('missingNewPassword')},
+      },
+      newPassword: {
+        notEmpty: {errorMessage: res.t('missingPassword')},
+      },
+    });
+
+    if (req.body.newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
+
+    user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
+    await user.save();
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @api {put} /user/auth/update-email
+ * @apiVersion 3.0.0
+ * @apiName UpdateEmail
+ * @apiGroup User
+ *
+ * @apiParam {string} newEmail The new email address.
+ * @apiParam {string} password The user password.
+ *
+ * @apiSuccess {Object} An object containing the new email address
+ */
+api.updateEmail = {
+  method: 'PUT',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/auth/update-email',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+
+    req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
+    req.checkBody('password', res.t('missingPassword')).notEmpty();
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+
+    user.auth.local.email = req.body.newEmail;
+    await user.save();
+
+    return res.respond(200, { email: user.auth.local.email });
   },
 };
 

@@ -1,12 +1,13 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../../helpers/api-v3-integration.helper';
 
-describe('POST /user/update-password', async () => {
-  let endpoint = '/user/update-password';
+const ENDPOINT = '/user/auth/update-password';
+
+describe('PUT /user/auth/update-password', async () => {
   let user;
-  let password = 'password';
+  let password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
   let wrongPassword = 'wrong-password';
   let newPassword = 'new-password';
 
@@ -16,7 +17,7 @@ describe('POST /user/update-password', async () => {
 
   it('successfully changes the password', async () => {
     let previousHashedPassword = user.auth.local.hashed_password;
-    let response = await user.post(endpoint, {
+    let response = await user.put(ENDPOINT, {
       password,
       newPassword,
       confirmPassword: newPassword,
@@ -26,8 +27,8 @@ describe('POST /user/update-password', async () => {
     expect(user.auth.local.hashed_password).to.not.eql(previousHashedPassword);
   });
 
-  it('new passwords mismatch', async () => {
-    await expect(user.post(endpoint, {
+  it('returns an error when confirmPassword does not match newPassword', async () => {
+    await expect(user.put(ENDPOINT, {
       password,
       newPassword,
       confirmPassword: `${newPassword}-wrong-confirmation`,
@@ -38,8 +39,8 @@ describe('POST /user/update-password', async () => {
     });
   });
 
-  it('existing password is wrong', async () => {
-    await expect(user.post(endpoint, {
+  it('returns an error when existing password is wrong', async () => {
+    await expect(user.put(ENDPOINT, {
       password: wrongPassword,
       newPassword,
       confirmPassword: newPassword,
