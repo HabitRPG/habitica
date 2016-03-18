@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../../helpers/api-v3-integration.helper';
 
 describe('PUT /user/auth/update-password', async () => {
   let endpoint = '/user/auth/update-password';

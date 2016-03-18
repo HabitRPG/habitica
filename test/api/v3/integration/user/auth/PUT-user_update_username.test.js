@@ -1,8 +1,8 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
-import { model as User } from '../../../../../website/src/models/user';
+} from '../../../../../helpers/api-v3-integration.helper';
+import { model as User } from '../../../../../../website/src/models/user';
 
 describe('PUT /user/auth/update-username', async () => {
   let endpoint = '/user/auth/update-username';
