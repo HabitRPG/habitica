@@ -1,17 +1,17 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
-import checkForDevelopmentMode from '../../middlewares/api-v3/developmentMode';
+import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode';
 
 let api = {};
 
-api.development = {
+api.debug = {
   method: 'all',
-  url: '/development/*',
-  middlewares: [checkForDevelopmentMode, authWithHeaders(), cron],
+  url: '/debug/*',
+  middlewares: [ensureDevelpmentMode, authWithHeaders(), cron],
 };
 
 /**
- * @api {post} /development/addTenGems Add ten gems to the current user
+ * @api {post} /debug/add-ten-gems Add ten gems to the current user
  * @apiVersion 3.0.0
  * @apiName AddTenGems
  * @apiGroup Development
@@ -20,7 +20,7 @@ api.development = {
  */
 api.addTenGems = {
   method: 'POST',
-  url: '/development/addTenGems',
+  url: '/debug/add-ten-gems',
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -33,7 +33,7 @@ api.addTenGems = {
 };
 
 /**
- * @api {post} /development/addHourglass Add Hourglass to the current user
+ * @api {post} /debug/add-hourglass Add Hourglass to the current user
  * @apiVersion 3.0.0
  * @apiName AddHourglass
  * @apiGroup Development
@@ -42,7 +42,7 @@ api.addTenGems = {
  */
 api.addHourglass = {
   method: 'POST',
-  url: '/development/addHourglass',
+  url: '/debug/add-hourglass',
   async handler (req, res) {
     let user = res.locals.user;
 
