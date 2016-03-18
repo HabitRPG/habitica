@@ -3,20 +3,19 @@ import {
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
 
+const ENDPOINT = '/user/auth/update-username';
+
 describe('PUT /user/auth/update-username', async () => {
-  let endpoint = '/user/auth/update-username';
   let user;
   let newUsername = 'new-username';
-  let existingUsername = 'existing-username';
   let password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
-  let wrongPassword = 'wrong-password';
 
   beforeEach(async () => {
     user = await generateUser();
   });
 
   it('successfully changes username', async () => {
-    let response = await user.put(endpoint, {
+    let response = await user.put(ENDPOINT, {
       username: newUsername,
       password,
     });
@@ -26,28 +25,24 @@ describe('PUT /user/auth/update-username', async () => {
   });
 
   context('errors', async () => {
-    describe('new username is unavailable', async () => {
-      beforeEach(async () => {
-        user = await generateUser();
-        await user.update({'auth.local.username': existingUsername, 'auth.local.lowerCaseUsername': existingUsername });
-      });
+    it('prevents username update if new username is already taken', async () => {
+      let existingUsername = 'existing-username';
+      await generateUser({'auth.local.username': existingUsername, 'auth.local.lowerCaseUsername': existingUsername });
 
-      it('prevents username update', async () => {
-        await expect(user.put(endpoint, {
-          username: existingUsername,
-          password,
-        })).to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: t('usernameTaken'),
-        });
+      await expect(user.put(ENDPOINT, {
+        username: existingUsername,
+        password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usernameTaken'),
       });
     });
 
-    it('password is wrong', async () => {
-      await expect(user.put(endpoint, {
+    it('errors if password is wrong', async () => {
+      await expect(user.put(ENDPOINT, {
         username: newUsername,
-        password: wrongPassword,
+        password: 'wrong-password',
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -55,26 +50,22 @@ describe('PUT /user/auth/update-username', async () => {
       });
     });
 
-    describe('social-only user', async () => {
-      beforeEach(async () => {
-        user = await generateUser();
-        await user.update({ 'auth.local': { ok: true } });
-      });
 
-      it('prevents username update', async () => {
-        await expect(user.put(endpoint, {
-          username: newUsername,
-          password,
-        })).to.eventually.be.rejected.and.eql({
-          code: 400,
-          error: 'BadRequest',
-          message: t('userHasNoLocalRegistration'),
-        });
+    it('prevents social-only user from changing username', async () => {
+      let socialUser = await generateUser({ 'auth.local': { ok: true } });
+
+      await expect(socialUser.put(ENDPOINT, {
+        username: newUsername,
+        password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('userHasNoLocalRegistration'),
       });
     });
 
-    it('new username is not provided', async () => {
-      await expect(user.put(endpoint, {
+    it('errors if new username is not provided', async () => {
+      await expect(user.put(ENDPOINT, {
         password,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
