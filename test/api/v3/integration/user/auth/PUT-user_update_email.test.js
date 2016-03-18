@@ -2,7 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
-import { model as User } from '../../../../../../website/src/models/user';
 
 describe('PUT /user/auth/update-email', () => {
   let user;
@@ -51,8 +50,8 @@ describe('PUT /user/auth/update-email', () => {
         password: thePassword,
       });
       expect(response).to.eql({ email: 'some-new-email_2@example.net' });
-      let id = user._id;
-      user = await User.findOne({ _id: id });
+
+      await user.sync();
       expect(user.auth.local.email).to.eql(newEmail);
     });
   });

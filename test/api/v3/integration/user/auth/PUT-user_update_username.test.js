@@ -2,7 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
-import { model as User } from '../../../../../../website/src/models/user';
 
 describe('PUT /user/auth/update-username', async () => {
   let endpoint = '/user/auth/update-username';
@@ -22,7 +21,7 @@ describe('PUT /user/auth/update-username', async () => {
       password,
     });
     expect(response).to.eql({ username: newUsername });
-    user = await User.findOne({ _id: user._id });
+    await user.sync();
     expect(user.auth.local.username).to.eql(newUsername);
   });
 
