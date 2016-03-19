@@ -4,6 +4,7 @@ import validator from 'validator';
 import moment from 'moment';
 import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
+import { preenHistory } from '../libs/api-v3/preening';
 
 let Schema = mongoose.Schema;
 let discriminatorOptions = {
@@ -73,6 +74,38 @@ TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj)
 TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   delete reminderObj.id;
   return reminderObj;
+};
+
+TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta) {
+  let chalTask = this;
+
+  chalTask.value += delta;
+
+  if (chalTask.type === 'habit' || chalTask.type === 'daily') {
+    // Add only one history entry per day
+    let lastChallengHistoryIndex = chalTask.history.length - 1;
+
+    if (chalTask.history[lastChallengHistoryIndex] &&
+      moment(chalTask.history[lastChallengHistoryIndex].date).isSame(new Date(), 'day')) {
+      chalTask.history[lastChallengHistoryIndex] = {
+        date: Number(new Date()),
+        value: chalTask.value,
+      };
+      chalTask.markModified(`history.${lastChallengHistoryIndex}`);
+    } else {
+      chalTask.history.push({
+        date: Number(new Date()),
+        value: chalTask.value,
+      });
+
+      // Only preen task history once a day when the task is scored first
+      if (chalTask.history.length > 365) {
+        chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as much entries as a subscribed user
+      }
+    }
+  }
+
+  await chalTask.save();
 };
 
 export let Task = mongoose.model('Task', TaskSchema);
