@@ -27,7 +27,7 @@ describe('POST /user/reset-password', async () => {
   });
   */
 
-  it('errors is email is not provided', async () => {
+  it('errors if email is not provided', async () => {
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
