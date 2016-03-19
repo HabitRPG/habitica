@@ -2,16 +2,7 @@ import content from '../content/index';
 import _ from 'lodash';
 
 module.exports = function ultimateGear (user) {
-  let owned = window ? user.items.gear.owned : user.items.gear.owned.toObject();
-
-  if (!user.achievements.ultimateGearSets) {
-    user.achievements.ultimateGearSets = {
-      healer: false,
-      wizard: false,
-      rogue: false,
-      warrior: false,
-    };
-  }
+  let owned = typeof window !== 'undefined' ? user.items.gear.owned : user.items.gear.owned.toObject();
 
   content.classes.forEach((klass) => {
     if (user.achievements.ultimateGearSets[klass] !== true) {
@@ -23,9 +14,6 @@ module.exports = function ultimateGear (user) {
       }, true);
     }
   });
-
-  // TODO
-  if (user.markModified) user.markModified('achievements.ultimateGearSets');
 
   if (_.contains(user.achievements.ultimateGearSets, true) && user.flags.armoireEnabled !== true) {
     user.flags.armoireEnabled = true;

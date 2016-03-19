@@ -51,9 +51,12 @@ export let schema = new Schema({
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
-    ultimateGearSets: {type: Schema.Types.Mixed, default: () => {
-      return {};
-    }},
+    ultimateGearSets: {
+      healer: {type: Boolean, default: false},
+      wizard: {type: Boolean, default: false},
+      rogue: {type: Boolean, default: false},
+      warrior: {type: Boolean, default: false},
+    },
     beastMaster: Boolean,
     beastMasterCount: Number,
     mountMaster: Boolean,

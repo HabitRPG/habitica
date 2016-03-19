@@ -1,7 +1,7 @@
 import content from '../content/index';
 import i18n from '../i18n';
 
-module.exports = function handleTwoHanded (user, item, type = 'equipped', req) {
+module.exports = function handleTwoHanded (user, item, type = 'equipped', req = {}) {
   let currentShield = content.gear.flat[user.items.gear[type].shield];
   let currentWeapon = content.gear.flat[user.items.gear[type].weapon];
 

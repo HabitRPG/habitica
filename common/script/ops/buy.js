@@ -102,7 +102,7 @@ module.exports = function buy (user, req = {}, analytics) {
   } else {
     if (user.preferences.autoEquip) {
       user.items.gear.equipped[item.type] = item.key;
-      message = handleTwoHanded(user, item, null, req);
+      message = handleTwoHanded(user, item, undefined, req);
     }
     user.items.gear.owned[item.key] = true;
 

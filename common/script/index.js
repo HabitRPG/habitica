@@ -155,6 +155,12 @@ api.wrap = function wrapUser (user, main = true) {
   if (user._wrapped) return;
   user._wrapped = true;
 
+  // Make markModified available on the client side as a noop function
+  // TODO move to client?
+  if (!user.markModified) {
+    user.markModified = function noopMarkModified () {};
+  }
+
   if (main) {
     user.ops = {
       update: _.partial(importedOps.update, user),
@@ -183,14 +189,10 @@ api.wrap = function wrapUser (user, main = true) {
       deletePM: _.partial(importedOps.deletePM, user),
       blockUser: _.partial(importedOps.blockUser, user),
       feed: _.partial(importedOps.feed, user),
-      buySpecialSpell: _.partial(importedOps.buySpecialSpell, user),
       purchase: _.partial(importedOps.purchase, user),
       releasePets: _.partial(importedOps.releasePets, user),
       releaseMounts: _.partial(importedOps.releaseMounts, user),
       releaseBoth: _.partial(importedOps.releaseBoth, user),
-      buy: _.partial(importedOps.buy, user),
-      buyQuest: _.partial(importedOps.buyQuest, user),
-      buyMysterySet: _.partial(importedOps.buyMysterySet, user),
       hourglassPurchase: _.partial(importedOps.hourglassPurchase, user),
       sell: _.partial(importedOps.sell, user),
       equip: _.partial(importedOps.equip, user),
@@ -207,10 +209,7 @@ api.wrap = function wrapUser (user, main = true) {
 
   user.fns = {
     getItem: _.partial(importedFns.getItem, user),
-    handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
-    predictableRandom: _.partial(importedFns.predictableRandom, user),
     crit: _.partial(importedFns.crit, user),
-    randomVal: _.partial(importedFns.randomVal, user),
     dotSet: _.partial(importedFns.dotSet, user),
     dotGet: _.partial(importedFns.dotGet, user),
     randomDrop: _.partial(importedFns.randomDrop, user),
@@ -218,7 +217,6 @@ api.wrap = function wrapUser (user, main = true) {
     updateStats: _.partial(importedFns.updateStats, user),
     cron: _.partial(importedFns.cron, user),
     preenUserHistory: _.partial(importedFns.preenUserHistory, user),
-    ultimateGear: _.partial(importedFns.ultimateGear, user),
     nullify: _.partial(importedFns.nullify, user),
   };
 
