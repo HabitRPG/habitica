@@ -29,8 +29,9 @@ describe('shared.ops.buyMysterySet', () => {
     context('failure conditions', () => {
       it('does not grant mystery sets without Mystic Hourglasses', () => {
         try {
-          expect(buyMysterySet(user, {params: {key: '201501'}})).to.throw(NotAuthorized);
+          buyMysterySet(user, {params: {key: '201501'}});
         } catch (err) {
+          expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
           expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
         }
@@ -47,8 +48,9 @@ describe('shared.ops.buyMysterySet', () => {
         };
 
         try {
-          expect(buyMysterySet(user, {params: {key: '301404'}})).to.throw(NotFound);
+          buyMysterySet(user, {params: {key: '301404'}});
         } catch (err) {
+          expect(err).to.be.an.instanceof(NotFound);
           expect(err.message).to.eql(i18n.t('mysterySetNotFound'));
           expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
         }

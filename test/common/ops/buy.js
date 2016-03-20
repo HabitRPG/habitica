@@ -6,8 +6,7 @@ import {
 } from '../../helpers/common.helper';
 import count from '../../../common/script/count';
 import buy from '../../../common/script/ops/buy';
-import predictableRandom from '../../../common/script/fns/predictableRandom';
-import randomVal from '../../../common/script/fns/randomVal';
+import shared from '../../../common/script';
 import content from '../../../common/script/content/index';
 import {
   NotAuthorized,
@@ -16,10 +15,6 @@ import i18n from '../../../common/script/i18n';
 
 describe('shared.ops.buy', () => {
   let user;
-  let fns = {
-    predictableRandom,
-    randomVal,
-  };
 
   beforeEach(() => {
     user = generateUser({
@@ -36,13 +31,13 @@ describe('shared.ops.buy', () => {
       stats: { gp: 200 },
     });
 
-    sinon.stub(fns, 'randomVal');
-    sinon.stub(fns, 'predictableRandom');
+    sinon.stub(shared.fns, 'randomVal');
+    sinon.stub(shared.fns, 'predictableRandom');
   });
 
   afterEach(() => {
-    fns.randomVal.restore();
-    fns.predictableRandom.restore();
+    shared.fns.randomVal.restore();
+    shared.fns.predictableRandom.restore();
   });
 
   context('Potion', () => {
@@ -69,8 +64,9 @@ describe('shared.ops.buy', () => {
       user.stats.hp = 45;
       user.stats.gp = 5;
       try {
-        expect(buy(user, {params: {key: 'potion'}})).to.throw(NotAuthorized);
+        buy(user, {params: {key: 'potion'}});
       } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
       }
 
@@ -148,8 +144,9 @@ describe('shared.ops.buy', () => {
       user.stats.gp = 20;
 
       try {
-        expect(buy(user, {params: {key: 'armor_warrior_1'}})).to.throw(NotAuthorized);
+        buy(user, {params: {key: 'armor_warrior_1'}});
       } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
       }
 
@@ -181,12 +178,13 @@ describe('shared.ops.buy', () => {
 
     context('failure conditions', () => {
       it('does not open if user does not have enough gold', () => {
-        fns.predictableRandom.returns(YIELD_EQUIPMENT);
+        shared.fns.predictableRandom.returns(YIELD_EQUIPMENT);
         user.stats.gp = 50;
 
         try {
-          expect(buy(user, {params: {key: 'armoire'}})).to.throw(NotAuthorized);
+          buy(user, {params: {key: 'armoire'}});
         } catch (err) {
+          expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
           expect(user.items.gear.owned).to.eql({weapon_warrior_0: true});
           expect(user.items.food).to.be.empty;
@@ -195,12 +193,13 @@ describe('shared.ops.buy', () => {
       });
 
       it('does not open without Ultimate Gear achievement', () => {
-        fns.predictableRandom.returns(YIELD_EQUIPMENT);
+        shared.fns.predictableRandom.returns(YIELD_EQUIPMENT);
         user.achievements.ultimateGearSets = {healer: false, wizard: false, rogue: false, warrior: false};
 
         try {
-          expect(buy(user, {params: {key: 'armoire'}})).to.throw(NotAuthorized);
+          buy(user, {params: {key: 'armoire'}});
         } catch (err) {
+          expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.equal(i18n.t('cannoyBuyItem'));
           expect(user.items.gear.owned).to.eql({weapon_warrior_0: true});
           expect(user.items.food).to.be.empty;
@@ -211,7 +210,7 @@ describe('shared.ops.buy', () => {
 
     context('non-gear awards', () => {
       it('gives Experience', () => {
-        fns.predictableRandom.returns(YIELD_EXP);
+        shared.fns.predictableRandom.returns(YIELD_EXP);
 
         buy(user, {params: {key: 'armoire'}});
 
@@ -224,8 +223,8 @@ describe('shared.ops.buy', () => {
       it('gives food', () => {
         let honey = content.food.Honey;
 
-        fns.randomVal.returns(honey);
-        fns.predictableRandom.returns(YIELD_FOOD);
+        shared.fns.randomVal.returns(honey);
+        shared.fns.predictableRandom.returns(YIELD_FOOD);
 
         buy(user, {params: {key: 'armoire'}});
 
@@ -236,7 +235,7 @@ describe('shared.ops.buy', () => {
       });
 
       it('does not give equipment if all equipment has been found', () => {
-        fns.predictableRandom.returns(YIELD_EQUIPMENT);
+        shared.fns.predictableRandom.returns(YIELD_EQUIPMENT);
         user.items.gear.owned = fullArmoire;
         user.stats.gp = 150;
 
@@ -256,12 +255,12 @@ describe('shared.ops.buy', () => {
       beforeEach(() => {
         let shield = content.gear.tree.shield.armoire.gladiatorShield;
 
-        fns.randomVal.returns(shield);
+        shared.fns.randomVal.returns(shield);
       });
 
       it('always drops equipment the first time', () => {
         delete user.flags.armoireOpened;
-        fns.predictableRandom.returns(YIELD_EXP);
+        shared.fns.predictableRandom.returns(YIELD_EXP);
 
         buy(user, {params: {key: 'armoire'}});
 
@@ -279,7 +278,7 @@ describe('shared.ops.buy', () => {
       });
 
       it('gives more equipment', () => {
-        fns.predictableRandom.returns(YIELD_EQUIPMENT);
+        shared.fns.predictableRandom.returns(YIELD_EQUIPMENT);
         user.items.gear.owned = {
           weapon_warrior_0: true,
           head_armoire_hornedIronHelm: true,

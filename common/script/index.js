@@ -107,7 +107,18 @@ api.ops = {
   sleep,
   allocate,
 };
-api.fns = {};
+
+import handleTwoHanded from './fns/handleTwoHanded';
+import predictableRandom from './fns/predictableRandom';
+import randomVal from './fns/randomVal';
+import ultimateGear from './fns/ultimateGear';
+
+api.fns = {
+  handleTwoHanded,
+  predictableRandom,
+  randomVal,
+  ultimateGear,
+};
 
 
 /*

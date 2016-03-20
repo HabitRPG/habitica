@@ -31,12 +31,13 @@ describe('shared.ops.buyQuest', () => {
   it('does not buy Quests without enough Gold', () => {
     user.stats.gp = 1;
     try {
-      expect(buyQuest(user, {
+      buyQuest(user, {
         params: {
           key: 'dilatoryDistress1',
         },
-      })).to.throw(NotAuthorized);
+      });
     } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(1);
@@ -46,12 +47,13 @@ describe('shared.ops.buyQuest', () => {
   it('does not buy nonexistent Quests', () => {
     user.stats.gp = 9999;
     try {
-      expect(buyQuest(user, {
+      buyQuest(user, {
         params: {
           key: 'snarfblatter',
         },
-      })).to.throw(NotFound);
+      });
     } catch (err) {
+      expect(err).to.be.an.instanceof(NotFound);
       expect(err.message).to.equal(i18n.t('questNotFound', {key: 'snarfblatter'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
@@ -61,12 +63,13 @@ describe('shared.ops.buyQuest', () => {
   it('does not buy Gem-premium Quests', () => {
     user.stats.gp = 9999;
     try {
-      expect(buyQuest(user, {
+      buyQuest(user, {
         params: {
           key: 'kraken',
         },
-      })).to.throw(NotAuthorized);
+      });
     } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', {key: 'kraken'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);

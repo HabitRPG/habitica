@@ -17,18 +17,20 @@ describe('shared.ops.allocate', () => {
 
   it('throws an error if an invalid attribute is supplied', () => {
     try {
-      expect(allocate(user, {
+      allocate(user, {
         query: {stat: 'notValid'},
-      })).to.throw(BadRequest);
+      });
     } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(i18n.t('invalidAttribute', {attr: 'notValid'}));
     }
   });
 
   it('throws an error if the user doesn\'t have attribute points', () => {
     try {
-      expect(allocate(user)).to.throw(NotAuthorized);
+      allocate(user);
     } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('notEnoughAttrPoints'));
     }
   });
