@@ -7,10 +7,14 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import * as Tasks from '../../models/task';
-import { model as Group } from '../../models/group';
+import {
+  basicFields as basicGroupFields,
+  model as Group,
+} from '../../models/group';
 import { model as User } from '../../models/user';
 import Q from 'q';
 import _ from 'lodash';
+import * as firebase from '../../libs/api-v3/firebase';
 
 let api = {};
 
@@ -38,6 +42,47 @@ api.getUser = {
     user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
     return res.respond(200, user);
+  },
+};
+
+/**
+ * @api {delete} /user DELETE an authenticated user's profile
+ * @apiVersion 3.0.0
+ * @apiName UserDelete
+ * @apiGroup User
+ *
+ * @apiSuccess {} object An empty object
+ */
+api.deleteUser = {
+  method: 'DELETE',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let plan = user.purchased.plan;
+
+    if (plan && plan.customerId && !plan.dateTerminated) {
+      throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
+    }
+
+    let types = ['party', 'publicGuilds', 'privateGuilds'];
+    // @TODO: The group leave route doesn't work unless it has these fields. We should probably force the group to get these
+    let groupFields = basicGroupFields.concat(' leader memberCount');
+    let populateLeader = true;
+
+    let groupsUserIsMemberOf = await Group.getGroups({user, types, groupFields, populateLeader});
+
+    let groupLeavePromises = groupsUserIsMemberOf.map((group) => {
+      return group.leave(user, 'remove-all');
+    });
+
+    await Q.all(groupLeavePromises);
+
+    await user.remove();
+
+    res.respond(200, {});
+
+    firebase.deleteUser(user._id);
   },
 };
 

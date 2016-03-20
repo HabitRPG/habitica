@@ -151,6 +151,50 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   return group;
 };
 
+schema.statics.getGroups = async function getGroups (options = {}) {
+  let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
+  let queries = [];
+
+  types.forEach(type => {
+    switch (type) {
+      case 'party':
+        queries.push(this.getGroup({user, groupId: 'party', fields: groupFields, populateLeader}));
+        break;
+      case 'privateGuilds':
+        let privateGroupQuery = this.find({
+          type: 'guild',
+          privacy: 'private',
+          _id: {$in: user.guilds},
+        }).select(groupFields);
+        if (populateLeader === true) privateGroupQuery.populate('leader', nameFields);
+        privateGroupQuery.sort(sort).exec();
+        queries.push(privateGroupQuery);
+        break;
+      case 'publicGuilds':
+        let publicGroupQuery = this.find({
+          type: 'guild',
+          privacy: 'public',
+        }).select(groupFields);
+        if (populateLeader === true) publicGroupQuery.populate('leader', nameFields);
+        publicGroupQuery.sort(sort).exec();
+        queries.push(publicGroupQuery); // TODO use lean?
+        break;
+      case 'tavern':
+        if (types.indexOf('publicGuilds') === -1) {
+          queries.push(this.getGroup({user, groupId: 'habitrpg', fields: groupFields}));
+        }
+        break;
+    }
+  });
+
+  let groupsArray = _.reduce(await Q.all(queries), (previousValue, currentValue) => {
+    if (_.isEmpty(currentValue)) return previousValue; // don't add anything to the results if the query returned null or an empty array
+    return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]); // otherwise concat the new results to the previousValue
+  }, []);
+
+  return groupsArray;
+};
+
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin
 // Not putting into toJSON because there we can't access user

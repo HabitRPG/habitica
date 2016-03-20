@@ -102,42 +102,11 @@ api.getGroups = {
     let types = req.query.type.split(',');
     let groupFields = basicGroupFields.concat('description memberCount balance');
     let sort = '-memberCount';
-    let queries = [];
 
-    types.forEach(type => {
-      switch (type) {
-        case 'party':
-          queries.push(Group.getGroup({user, groupId: 'party', fields: groupFields}));
-          break;
-        case 'privateGuilds':
-          queries.push(Group.find({
-            type: 'guild',
-            privacy: 'private',
-            _id: {$in: user.guilds},
-          }).select(groupFields).sort(sort).exec());
-          break;
-        case 'publicGuilds':
-          queries.push(Group.find({
-            type: 'guild',
-            privacy: 'public',
-          }).select(groupFields).sort(sort).exec()); // TODO use lean?
-          break;
-        case 'tavern':
-          if (types.indexOf('publicGuilds') === -1) {
-            queries.push(Group.getGroup({user, groupId: 'habitrpg', fields: groupFields}));
-          }
-          break;
-      }
-    });
+    let results = await Group.getGroups({user, types, groupFields, sort});
 
     // If no valid value for type was supplied, return an error
-    if (queries.length === 0) throw new BadRequest(res.t('groupTypesRequired'));
-
-    // TODO we would like not to return a single big array but Q doesn't support the funtionality https://github.com/kriskowal/q/issues/328
-    let results = _.reduce(await Q.all(queries), (previousValue, currentValue) => {
-      if (_.isEmpty(currentValue)) return previousValue; // don't add anything to the results if the query returned null or an empty array
-      return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]); // otherwise concat the new results to the previousValue
-    }, []);
+    if (results.length === 0) throw new BadRequest(res.t('groupTypesRequired'));
 
     res.respond(200, results);
   },
@@ -170,7 +139,8 @@ api.getGroup = {
 
     group = Group.toJSONCleanChat(group, user);
     // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    group.leader = (await User.findById(group.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let leader = await User.findById(group.leader).select(nameFields).exec();
+    if (leader) group.leader = leader.toJSON({minimize: true});
 
     res.respond(200, group);
   },
