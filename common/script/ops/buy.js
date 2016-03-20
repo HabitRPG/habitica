@@ -73,7 +73,7 @@ module.exports = function buy (user, req = {}, analytics) {
         dropText: drop.text(req.language),
       };
     } else if ((!_.isEmpty(eligibleEquipment) && armoireResult < 0.8) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
-      drop = randomVal(_.where(content.food, {
+      drop = randomVal(user, _.where(content.food, {
         canDrop: true,
       }));
       user.items.food[drop.key] = user.items.food[drop.key] || 0;

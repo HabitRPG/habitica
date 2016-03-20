@@ -229,7 +229,6 @@ export let schema = new Schema({
     todos: Array, // [{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
-  // TODO we're storing too many fields here, find a way to reduce them
   items: {
     gear: {
       owned: _.transform(shared.content.gear.flat, (m, v) => {

@@ -14,7 +14,7 @@ import {
 } from '../../../common/script/libs/errors';
 import i18n from '../../../common/script/i18n';
 
-describe.only('shared.ops.buy', () => {
+describe('shared.ops.buy', () => {
   let user;
   let fns = {
     predictableRandom,

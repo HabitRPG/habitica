@@ -7,9 +7,8 @@ import {
   NotFound,
 } from '../../../common/script/libs/errors';
 import i18n from '../../../common/script/i18n';
-import testHelper from '../test_helper';
 
-describe.only('shared.ops.buyQuest', () => {
+describe('shared.ops.buyQuest', () => {
   let user;
 
   beforeEach(() => {
