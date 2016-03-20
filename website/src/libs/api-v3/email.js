@@ -30,7 +30,7 @@ export function send (mailData) {
       .sendMail(mailData)
       .catch((error) => logger.error(error));
   } else {
-    return { send: () => {} } // mock
+    return { send: () => {} }; // mock
   }
 }
 

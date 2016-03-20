@@ -20,6 +20,7 @@ import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { decrypt } from '../../libs/api-v3/encryption';
 import FirebaseTokenGenerator from 'firebase-token-generator';
+import { send as sendEmail } from '../../libs/api-v3/email';
 
 let api = {};
 
@@ -365,6 +366,56 @@ api.updatePassword = {
     user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
     await user.save();
     res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /user/reset-password
+ * @apiVersion 3.0.0
+ * @apiName resetPassword
+ * @apiGroup User
+ * @apiParam {string} email email
+ * @apiSuccess {Object} The success message
+ **/
+api.resetPassword = {
+  method: 'POST',
+  middlewares: [],
+  url: '/user/reset-password',
+  async handler (req, res) {
+    req.checkBody({
+      email: {
+        notEmpty: {errorMessage: res.t('missingEmail')},
+      },
+    });
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let email = req.body.email.toLowerCase();
+    let salt = passwordUtils.makeSalt();
+    let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
+    let hashedPassword = passwordUtils.encrypt(newPassword, salt);
+
+    let user = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 });
+
+    if (user) {
+      user.auth.local.salt = salt;
+      user.auth.local.hashed_password = hashedPassword; // eslint-disable-line camelcase
+      sendEmail({
+        from: 'Habitica <admin@habitica.com>',
+        to: email,
+        subject: res.t('passwordResetEmailSubject'),
+        text: res.t('passwordResetEmailText', { username: user.auth.local.username,
+                                                newPassword,
+                                                baseUrl: nconf.get('BASE_URL'),
+                                              }),
+        html: res.t('passwordResetEmailHtml', { username: user.auth.local.username,
+                                                newPassword,
+                                                baseUrl: nconf.get('BASE_URL'),
+                                              }),
+      });
+      await user.save();
+    }
+    res.respond(200, { message: res.t('passwordReset') });
   },
 };
 
