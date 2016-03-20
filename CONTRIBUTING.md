@@ -4,7 +4,7 @@
 
 # Pull Request
 
-[Please see these instructions for reporting bugs](http://habitica.wikia.com/wiki/Using_Habitica_Git#Pull_Request)
+[Please see these instructions for adding a pull request](http://habitica.wikia.com/wiki/Using_Habitica_Git#Pull_Request)
 
 # Requesting a feature
 
