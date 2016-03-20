@@ -25,13 +25,9 @@ let smtpTransporter = createTransport({
 // Send email directly from the server using the smtpTransporter,
 // used only to send password reset emails because users unsubscribed on Mandrill wouldn't get them
 export function send (mailData) {
-  if (IS_PROD) {
-    return smtpTransporter
-      .sendMail(mailData)
-      .catch((error) => logger.error(error));
-  } else {
-    return { send: () => {} }; // mock
-  }
+  return smtpTransporter
+    .sendMail(mailData)
+    .catch((error) => logger.error(error));
 }
 
 export function getUserInfo (user, fields = []) {
