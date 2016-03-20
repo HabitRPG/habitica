@@ -13,10 +13,6 @@ import {
 import common from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
-import moment from 'moment';
-import { preenHistory } from '../../libs/api-v3/preening';
-
-const scoreTask = common.ops.scoreTask;
 
 let api = {};
 
@@ -401,7 +397,7 @@ api.scoreTask = {
       task.completed = direction === 'up'; // TODO move into scoreTask
     }
 
-    let delta = scoreTask({task, user, direction}, req);
+    let delta = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
@@ -440,31 +436,7 @@ api.scoreTask = {
           _id: task.challenge.taskId,
         }).exec();
 
-        chalTask.value += delta;
-
-        if (chalTask.type === 'habit' || chalTask.type === 'daily') {
-          // Add only one history entry per day
-          if (moment(chalTask.history[chalTask.history.length - 1].date).isSame(new Date(), 'day')) {
-            chalTask.history[chalTask.history.length - 1] = {
-              date: Number(new Date()),
-              value: chalTask.value,
-            };
-            chalTask.markModified(`history.${chalTask.history.length - 1}`);
-          } else {
-            chalTask.history.push({
-              date: Number(new Date()),
-              value: chalTask.value,
-            });
-
-            // Only preen task history once a day when the task is scored first
-            if (chalTask.history.length > 365) {
-              chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as much entries as a subscribed user
-              chalTask.markModified(`history.${chalTask.history.length - 1}`);
-            }
-          }
-        }
-
-        await chalTask.save();
+        await chalTask.scoreChallengeTask(delta);
       } catch (e) {
         // TODO handle
       }
@@ -881,7 +853,7 @@ api.clearCompletedTodos = {
 };
 
 /**
- * @api {delete} /tasks/:taskId Delete a user task given its id
+ * @api {delete} /tasks/:taskId Delete a task given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task
@@ -909,12 +881,12 @@ api.deleteTask = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
-      challenge = await Challenge.find().selec({_id: task.challenge.id}).select('leader').exec();
+      challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.userId && task.challenge.id) {
+    } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
     }
 

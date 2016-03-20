@@ -104,5 +104,7 @@
   "targetIdUUID": "\"targetId\" must be a valid UUID.",
   "challengeTasksNoCast": "Casting a spell on challenge tasks is not supported.",
   "spellNotOwned": "You don't own this spell.",
-  "spellLevelTooHigh": "You must be level <%= level %> to use this spell."
+  "spellLevelTooHigh": "You must be level <%= level %> to use this spell.",
+  "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
+  "notEnoughAttrPoints": "You don't have enough attribute points."
 }

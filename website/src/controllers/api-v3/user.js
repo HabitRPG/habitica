@@ -11,9 +11,6 @@ import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import Q from 'q';
 import _ from 'lodash';
-import * as passwordUtils from '../../libs/api-v3/password';
-import { send as sendEmail } from '../../libs/api-v3/email';
-import nconf from 'nconf';
 
 let api = {};
 
@@ -41,179 +38,6 @@ api.getUser = {
     user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
     return res.respond(200, user);
-  },
-};
-
-/**
- * @api {post} /user/update-password
- * @apiVersion 3.0.0
- * @apiName updatePassword
- * @apiGroup User
- * @apiParam {string} password The old password
- * @apiParam {string} newPassword The new password
- * @apiParam {string} confirmPassword Password confirmation
- * @apiSuccess {Object} The success message
- **/
-api.updatePassword = {
-  method: 'POST',
-  middlewares: [authWithHeaders(), cron],
-  url: '/user/update-password',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    if (!user.auth.local.hashed_password) throw new BadRequest(res.t('userHasNoLocalRegistration'));
-
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
-
-    req.checkBody({
-      password: {
-        notEmpty: {errorMessage: res.t('missingNewPassword')},
-      },
-      newPassword: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
-      },
-    });
-
-    if (req.body.newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
-
-    user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
-    await user.save();
-    res.respond(200, {});
-  },
-};
-
-/**
- * @api {post} /user/reset-password
- * @apiVersion 3.0.0
- * @apiName resetPassword
- * @apiGroup User
- * @apiParam {string} email email
- * @apiSuccess {Object} The success message
- **/
-api.resetPassword = {
-  method: 'POST',
-  middlewares: [],
-  url: '/user/reset-password',
-  async handler (req, res) {
-
-    console.log('is prod is:', nconf.get('IS_PROD'));
-
-    req.checkBody({
-      email: {
-        notEmpty: {errorMessage: res.t('missingEmail')},
-      },
-    });
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let email = req.body.email.toLowerCase();
-    let salt = passwordUtils.makeSalt();
-    let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
-    let hashedPassword = passwordUtils.encrypt(newPassword, salt);
-
-    let user = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 });
-
-    if (user) {
-      user.auth.local.salt = salt;
-      user.auth.local.hashed_password = hashedPassword; // eslint-disable-line camelcase
-      sendEmail({
-        from: 'Habitica <admin@habitica.com>',
-        to: email,
-        subject: res.t('passwordResetEmailSubject'),
-        text: res.t('passwordResetEmailText', { username: user.auth.local.username,
-                                                newPassword,
-                                                baseUrl: nconf.get('BASE_URL'),
-                                              }),
-        html: res.t('passwordResetEmailHtml', { username: user.auth.local.username,
-                                                newPassword,
-                                                baseUrl: nconf.get('BASE_URL'),
-                                              }),
-      });
-      await user.save();
-    }
-    res.respond(200, { message: res.t('passwordReset') });
-  },
-};
-
-/**
- * @api {post} /user/update-username
- * @apiVersion 3.0.0
- * @apiName updateUsername
- * @apiGroup User
- * @apiParam {string} password The password
- * @apiParam {string} username New username
- * @apiSuccess {Object} The new username
- **/
-api.updateUsername = {
-  method: 'POST',
-  middlewares: [authWithHeaders(), cron],
-  url: '/user/update-username',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    req.checkBody({
-      password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
-      },
-      username: {
-        notEmpty: { errorMessage: res.t('missingUsername') },
-      },
-    });
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
-
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
-
-    let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
-    if (count > 0) throw new BadRequest(res.t('usernameTaken'));
-
-    // save username
-    user.auth.local.lowerCaseUsername = req.body.username.toLowerCase();
-    user.auth.local.username = req.body.username;
-    await user.save();
-
-    res.respond(200, { username: req.body.username });
-  },
-};
-
-
-/**
- * @api {post} /user/update-email
- * @apiVersion 3.0.0
- * @apiName UpdateEmail
- * @apiGroup User
- *
- * @apiParam {string} newEmail The new email address.
- * @apiParam {string} password The user password.
- *
- * @apiSuccess {Object} An object containing the new email address
- */
-api.updateEmail = {
-  method: 'POST',
-  middlewares: [authWithHeaders(), cron],
-  url: '/user/update-email',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
-
-    req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
-    req.checkBody('password', res.t('missingPassword')).notEmpty();
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
-
-    user.auth.local.email = req.body.newEmail;
-    await user.save();
-
-    return res.respond(200, { email: user.auth.local.email });
   },
 };
 
@@ -329,6 +153,46 @@ api.castSpell = {
         await party.save();
       }
     }
+  },
+};
+
+/**
+ * @api {post} /user/sleep Put the user in the inn.
+ * @apiVersion 3.0.0
+ * @apiName UserSleep
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
+ */
+api.sleep = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/sleep',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let sleepRes = common.ops.sleep(user);
+    await user.save();
+    res.respond(200, sleepRes);
+  },
+};
+
+/**
+ * @api {post} /user/allocate Allocate an attribute point.
+ * @apiVersion 3.0.0
+ * @apiName UserAllocate
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} Returs `user.stats`
+ */
+api.allocate = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/allocate',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let allocateRes = common.ops.allocate(user, req);
+    await user.save();
+    res.respond(200, allocateRes);
   },
 };
 
