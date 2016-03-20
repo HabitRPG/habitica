@@ -12,10 +12,13 @@ describe('POST /user/reset-password', async () => {
   });
 
   it('resets password', async () => {
+    let previousPassword = user.auth.local.hashed_password;
     let response = await user.post(endpoint, {
       email: user.auth.local.email,
     });
     expect(response).to.eql({ message: t('passwordReset') });
+    await user.sync();
+    expect(user.auth.local.hashed_password).to.not.eql(previousPassword);
   });
 
   it('same message on error as on success', async () => {
