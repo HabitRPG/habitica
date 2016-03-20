@@ -73,18 +73,20 @@ describe('habitica app', function () {
     // registration is done in front-page.test.js
     // TODO check if we should also perform the registration in this test suite
     // HabiticaPublic.register();
-    this.timeout(20000);
+    this.timeout(25000);
     WelcomeTour.selfCheck();
     WelcomeTour.startTour();
     browser.sleep(800);
     WelcomeTour.continueTour();
     browser.sleep(800);
     WelcomeTour.continueTour();
-    browser.sleep(800);
+    // if we don't wait that long the next button is covered by notifications
+    // TODO find better solution
+    browser.sleep(8000);
     WelcomeTour.continueTour();
     browser.sleep(800);
     WelcomeTour.continueTour();
-    browser.sleep(1200);
+    browser.sleep(800);
     WelcomeTour.endTour();
     browser.sleep(800);
     WelcomeTour.selfCheck();
