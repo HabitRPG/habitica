@@ -11,7 +11,7 @@ module.exports = function buyQuest (user, req = {}, analytics) {
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
   let item = content.quests[key];
-  if (!item) throw new NotFound(i18n.t('questNotFound', req.language));
+  if (!item) throw new NotFound(i18n.t('questNotFound', {key}, req.language));
 
   if (!(item.category === 'gold' && item.goldValue)) {
     throw new NotAuthorized(i18n.t('questNotGoldPurchasable', {key}, req.language));

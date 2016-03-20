@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 
-import sinon from 'sinon'; // eslint-disable-line no-shadow
 import {
   generateUser,
 } from '../../helpers/common.helper';
