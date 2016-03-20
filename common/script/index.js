@@ -108,6 +108,7 @@ import buy from './ops/buy';
 import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
 import buySpecialSpell from './ops/buySpecialSpell';
+import allocateNow from './ops/allocateNow';
 
 api.ops = {
   scoreTask,
@@ -117,18 +118,21 @@ api.ops = {
   buyMysterySet,
   buySpecialSpell,
   buyQuest,
+  allocateNow,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';
 import predictableRandom from './fns/predictableRandom';
 import randomVal from './fns/randomVal';
 import ultimateGear from './fns/ultimateGear';
+import autoAllocate from './fns/autoAllocate';
 
 api.fns = {
   handleTwoHanded,
   predictableRandom,
   randomVal,
   ultimateGear,
+  autoAllocate,
 };
 
 
@@ -191,7 +195,6 @@ api.wrap = function wrapUser (user, main = true) {
       reset: _.partial(importedOps.reset, user),
       reroll: _.partial(importedOps.reroll, user),
       rebirth: _.partial(importedOps.rebirth, user),
-      allocateNow: _.partial(importedOps.allocateNow, user),
       clearCompleted: _.partial(importedOps.clearCompleted, user),
       sortTask: _.partial(importedOps.sortTask, user),
       updateTask: _.partial(importedOps.updateTask, user),
@@ -222,7 +225,6 @@ api.wrap = function wrapUser (user, main = true) {
       unlock: _.partial(importedOps.unlock, user),
       changeClass: _.partial(importedOps.changeClass, user),
       disableClasses: _.partial(importedOps.disableClasses, user),
-      allocate: _.partial(importedOps.allocate, user),
       readCard: _.partial(importedOps.readCard, user),
       openMysteryItem: _.partial(importedOps.openMysteryItem, user),
       scoreTask: _.partial(importedOps.scoreTask, user),
@@ -235,7 +237,6 @@ api.wrap = function wrapUser (user, main = true) {
     dotSet: _.partial(importedFns.dotSet, user),
     dotGet: _.partial(importedFns.dotGet, user),
     randomDrop: _.partial(importedFns.randomDrop, user),
-    autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
     cron: _.partial(importedFns.cron, user),
     preenUserHistory: _.partial(importedFns.preenUserHistory, user),

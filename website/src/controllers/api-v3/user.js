@@ -197,6 +197,26 @@ api.allocate = {
 };
 
 /**
+ * @api {post} /user/allocate-now Allocate all attribute points.
+ * @apiVersion 3.0.0
+ * @apiName UserAllocateNow
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data `stats`
+ */
+api.allocateNow = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/allocate-now',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let allocateNowRes = common.ops.allocateNow(user, req);
+    await user.save();
+    res.respond(200, allocateNowRes);
+  },
+};
+
+/**
  * @api {post} /user/buy/:key Buy a content item.
  * @apiVersion 3.0.0
  * @apiName UserBuy
