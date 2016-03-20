@@ -6,6 +6,8 @@ import {
   NotFound,
 } from '../libs/errors';
 import _ from 'lodash';
+
+// buy a quest with gold
 module.exports = function buyQuest (user, req = {}, analytics) {
   let key = _.get(req, 'params.key');
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));

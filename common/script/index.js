@@ -94,6 +94,9 @@ api.noTags = noTags;
 import appliedTags from './libs/appliedTags';
 api.appliedTags = appliedTags;
 
+import pickDeep from './libs/pickDeep';
+api.pickDeep = pickDeep;
+
 import count from './count';
 api.count = count;
 
@@ -101,11 +104,19 @@ api.count = count;
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
 import allocate from './ops/allocate';
+import buy from './ops/buy';
+import buyMysterySet from './ops/buyMysterySet';
+import buyQuest from './ops/buyQuest';
+import buySpecialSpell from './ops/buySpecialSpell';
 
 api.ops = {
   scoreTask,
   sleep,
   allocate,
+  buy,
+  buyMysterySet,
+  buySpecialSpell,
+  buyQuest,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

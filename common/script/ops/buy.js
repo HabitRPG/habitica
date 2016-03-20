@@ -106,15 +106,17 @@ module.exports = function buy (user, req = {}, analytics) {
     }
     user.items.gear.owned[item.key] = true;
 
-    if (!message) {
-      message = i18n.t('messageBought', {
-        itemText: item.text(req.language),
-      }, req.language);
-    }
     if (item.last) ultimateGear(user);
   }
 
   user.stats.gp -= item.value;
+
+  if (!message) {
+    message = i18n.t('messageBought', {
+      itemText: item.text(req.language),
+    }, req.language);
+  }
+
   if (analytics) {
     analytics.track('acquire item', {
       uuid: user._id,
@@ -125,11 +127,12 @@ module.exports = function buy (user, req = {}, analytics) {
     });
   }
 
-  let buyResp = _.pick(user, splitWhitespace('items achievements stats flags'));
-  if (armoireResp) buyResp.armoire = armoireResp;
-
-  return {
-    data: buyResp,
+  let res = {
+    data: _.pick(user, splitWhitespace('items achievements stats flags')),
     message,
   };
+
+  if (armoireResp) res.armoire = armoireResp;
+
+  return res;
 };
