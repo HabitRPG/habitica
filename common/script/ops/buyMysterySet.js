@@ -2,6 +2,7 @@ import i18n from '../i18n';
 import content from '../content/index';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
+import pickDeep from '../libs/pickDeep';
 import {
   BadRequest,
   NotAuthorized,
@@ -43,7 +44,7 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
   user.purchased.plan.consecutive.trinkets--;
 
   return {
-    data: _.pick(user, splitWhitespace('items purchased.plan.consecutive')),
+    data: pickDeep(user, splitWhitespace('items purchased.plan.consecutive')), // TODO this is broken, _.pick doesn't support nested keys
     message: i18n.t('hourglassPurchaseSet', req.language),
   };
 };
