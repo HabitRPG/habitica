@@ -128,6 +128,7 @@ describe('habitica app', function () {
     });
 
     it('should log out the user', function () {
+      this.timeout(15000);
       browser.sleep(8000);
       Tasks.logout();
       HabiticaPublic.selfCheck();
