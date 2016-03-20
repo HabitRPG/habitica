@@ -1,6 +1,6 @@
 [//]: # (Note: See http://habitica.wikia.com/wiki/Using_Habitica_Git#Pull_Request for more info)
 
-[//]: # (Put Issue # here, if applicable)
+[//]: # (Put Issue URL here, if applicable)
 Fixes #______
 
 ### Changes
