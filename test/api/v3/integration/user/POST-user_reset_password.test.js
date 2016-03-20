@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../../helpers/api-integration/v3';
+} from '../../../../helpers/api-integration/v3';
 
 describe('POST /user/reset-password', async () => {
   let endpoint = '/user/reset-password';
@@ -11,21 +11,19 @@ describe('POST /user/reset-password', async () => {
     user = await generateUser();
   });
 
-  /*
   it('resets password', async () => {
     let response = await user.post(endpoint, {
       email: user.auth.local.email,
     });
-    expect(response).to.eql({code: 200, message: t('passwordReset')});
+    expect(response).to.eql({ message: t('passwordReset') });
   });
 
   it('same message on error as on success', async () => {
     let response = await user.post(endpoint, {
       email: 'nonExistent@email.com',
     });
-    expect(response).to.eql({code: 200, message: t('passwordReset')});
+    expect(response).to.eql({ message: t('passwordReset') });
   });
-  */
 
   it('errors if email is not provided', async () => {
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({

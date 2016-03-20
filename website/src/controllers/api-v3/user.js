@@ -96,6 +96,9 @@ api.resetPassword = {
   middlewares: [],
   url: '/user/reset-password',
   async handler (req, res) {
+
+    console.log('is prod is:', nconf.get('IS_PROD'));
+
     req.checkBody({
       email: {
         notEmpty: {errorMessage: res.t('missingEmail')},
