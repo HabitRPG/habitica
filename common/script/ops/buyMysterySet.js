@@ -44,7 +44,7 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
   user.purchased.plan.consecutive.trinkets--;
 
   return {
-    data: pickDeep(user, splitWhitespace('items purchased.plan.consecutive')), // TODO this is broken, _.pick doesn't support nested keys
+    data: pickDeep(user, splitWhitespace('items purchased.plan.consecutive')),
     message: i18n.t('hourglassPurchaseSet', req.language),
   };
 };
