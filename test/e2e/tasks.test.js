@@ -84,7 +84,7 @@ describe('habitica app', function () {
     WelcomeTour.continueTour();
     browser.sleep(800);
     WelcomeTour.continueTour();
-    browser.sleep(800);
+    browser.sleep(1200);
     WelcomeTour.endTour();
     browser.sleep(800);
     WelcomeTour.selfCheck();
