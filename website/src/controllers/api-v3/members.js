@@ -9,8 +9,13 @@ import { model as Group } from '../../models/group';
 import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
+  NotAuthorized,
 } from '../../libs/api-v3/errors';
 import * as Tasks from '../../models/task';
+import {
+  getUserInfo,
+  sendTxn as sendTxnEmail,
+} from '../../libs/api-v3/email';
 
 let api = {};
 
@@ -228,6 +233,55 @@ api.getChallengeMemberProgress = {
     delete response.challenges;
     response.tasks = chalTasks.map(chalTask => chalTask.toJSON({minimize: true}));
     res.respond(200, response);
+  },
+};
+
+/**
+ * @api {posts} /send-private-message Get a challenge member progress
+ * @apiVersion 3.0.0
+ * @apiName SendPrivateMessage
+ * @apiGroup Members
+ *
+ * @apiParam {String} message The message
+ * @apiParam {UUID} toUserId The toUser _id
+ *
+ * @apiSuccess {} Object Returns an empty object
+ */
+api.sendPrivateMessage = {
+  method: 'POST',
+  url: '/send-private-message',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkBody('message', res.t('messageRequired')).notEmpty();
+    req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let sender = res.locals.user;
+    let message = req.body.message;
+
+    let userToReceiveMessage = await User.findById(req.body.toUserId).exec();
+    if (!userToReceiveMessage) throw new NotFound(res.t('userNotFound'));
+
+    let userBlockedSender = userToReceiveMessage.inbox.blocks.indexOf(sender._id) !== -1;
+    let userIsBlockBySender = sender.inbox.blocks.indexOf(userToReceiveMessage._id) !== -1;
+    let userOptedOutOfMessaging = userToReceiveMessage.inbox.optOut;
+
+    if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
+      throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
+    }
+
+    await sender.sendMessage(userToReceiveMessage, message);
+
+    if (userToReceiveMessage.preferences.emailNotifications.newPM !== false) {
+      sendTxnEmail(userToReceiveMessage, 'new-pm', [
+        {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
+        {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
+      ]);
+    }
+
+    res.respond(200, {});
   },
 };
 

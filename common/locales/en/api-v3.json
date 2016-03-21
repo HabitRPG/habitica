@@ -117,5 +117,9 @@
   "missingPetFoodFeed": "\"pet\" and \"food\" are required parameters.",
   "invalidPetName": "Invalid pet name supplied.",
   "missingEggHatchingPotionHatch": "\"egg\" and \"hatchingPotion\" are required parameters.",
-  "invalidTypeEquip": "\"type\" must be one of 'equipped', 'pet', 'mount', 'costume'."
+  "invalidTypeEquip": "\"type\" must be one of 'equipped', 'pet', 'mount', 'costume'.",
+  "cannoyBuyItem": "You can't buy this item",
+  "messageRequired": "A message is required.",
+  "toUserIDRequired": "A toUserId is required",
+  "notAuthorizedToSendMessageToThisUser": "Can't send message to this user."
 }

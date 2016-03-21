@@ -7,6 +7,8 @@ import * as Tasks from './task';
 import Q from 'q';
 import { schema as TagSchema } from './tag';
 import baseModel from '../libs/api-v3/baseModel';
+import { chatDefaults } from './group';
+import { defaults } from 'lodash';
 // import {model as Challenge} from './challenge';
 
 let Schema = mongoose.Schema;
@@ -704,6 +706,30 @@ schema.methods.getGroups = function getUserGroups () {
   if (this.party._id) userGroups.push(this.party._id);
   userGroups.push('habitrpg'); // tavern
   return userGroups;
+};
+
+schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, messageData) {
+  let msg;
+  let sender = this;
+
+  if (!messageData.type) {
+    msg = messageData.message;
+  } else {
+    msg = `Hello ${userToReceiveMessage.profile.name }, ${sender.profile.name} has sent you `;
+    msg += messageData.type === 'gems' ?  `${messageData.gems.amount} gems! ` : `${shared.content.subscriptionBlocks[messageData.subscription.key].months} months of subscription! `;
+    msg += messageData.message;
+  }
+
+  shared.refPush(userToReceiveMessage.inbox.messages, chatDefaults(msg, sender));
+  userToReceiveMessage.inbox.newMessages++;
+  userToReceiveMessage._v++;
+  userToReceiveMessage.markModified('inbox.messages');
+
+  shared.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(msg, userToReceiveMessage)));
+  sender.markModified('inbox.messages');
+
+  let promises = [userToReceiveMessage.save(), sender.save()];
+  await Q.all(promises);
 };
 
 export let model = mongoose.model('User', schema);
