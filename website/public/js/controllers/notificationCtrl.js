@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -144,13 +144,13 @@ habitrpg.controller('NotificationCtrl',
       Notification.streak(User.user.achievements.streak);
       $rootScope.playSound('Achievement_Unlocked');
       if (!User.user.preferences.suppressModals.streak) {
-        $rootScope.openModal('achievements/streak', {controller:'UserCtrl'});
+        Achievement.openModal('streak');
       }
     });
 
     $rootScope.$watch('user.achievements.ultimateGearSets', function(after, before){
       if (_.isEqual(after,before) || !_.contains(User.user.achievements.ultimateGearSets, true)) return;
-      $rootScope.openModal('achievements/ultimateGear', {controller:'UserCtrl'});
+      Achievement.openModal('ultimateGear');
     }, true);
 
     $rootScope.$watch('user.flags.armoireEmpty', function(after,before){
@@ -160,12 +160,12 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
-      $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
+      Achievement.openModal('rebirth');
     });
 
     $rootScope.$watch('user.flags.contributor', function(after, before){
       if (after === before || after !== true) return;
-      $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
+      Achievement.openModal('contributor');
     });
 
     // Completed quest modal
