@@ -29,41 +29,41 @@ describe('POST /user/auth/local/login', () => {
   });
   it('user is blocked', async () => {
     await user.update({ 'auth.blocked': 1 });
-    expect(api.post(endpoint, {
+    await expect(api.post(endpoint, {
       username: user.auth.local.username,
       password,
     })).to.eventually.be.rejected.and.eql({
-      code: 400,
+      code: 401,
       error: 'NotAuthorized',
       message: t('accountSuspended', { userId: user._id }),
     });
   });
   it('wrong password', async () => {
-    expect(api.post(endpoint, {
+    await expect(api.post(endpoint, {
       username: user.auth.local.username,
       password: 'wrong-password',
     })).to.eventually.be.rejected.and.eql({
-      code: 400,
+      code: 401,
       error: 'NotAuthorized',
-      message: t('wrongPassword'),
+      message: t('invalidLoginCredentialsLong'),
     });
   });
   it('missing username', async () => {
-    expect(api.post(endpoint, {
+    await expect(api.post(endpoint, {
       password: 'wrong-password',
     })).to.eventually.be.rejected.and.eql({
       code: 400,
-      error: 'NotAuthorized',
-      message: t('missingUsername'),
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
     });
   });
   it('missing password', async () => {
-    expect(api.post(endpoint, {
+    await expect(api.post(endpoint, {
       username: user.auth.local.username,
     })).to.eventually.be.rejected.and.eql({
       code: 400,
-      error: 'NotAuthorized',
-      message: t('missingPassword'),
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
     });
   });
 });
