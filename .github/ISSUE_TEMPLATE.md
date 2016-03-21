@@ -4,9 +4,9 @@ If you find your issue there, read at least the first post to see if there is a 
 
 [//]: # (Fill out relevant information - UUID is found in Settings -> API)
 General Info
-*  UUID: 
-*  Browser: 
-*  OS: 
+  * UUID: 
+  * Browser: 
+  * OS: 
 
 ### Description
 [//]: # (Describe bug in detail here. Include pictures if helpful.)
