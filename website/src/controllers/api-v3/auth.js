@@ -180,7 +180,7 @@ function _loginRes (user, req, res) {
 api.loginLocal = {
   method: 'POST',
   url: '/user/auth/local/login',
-  middlewares: [cron],
+  middlewares: [],
   async handler (req, res) {
     req.checkBody({
       username: {
@@ -192,7 +192,6 @@ api.loginLocal = {
         errorMessage: res.t('missingPassword'),
       },
     });
-
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -211,7 +210,7 @@ api.loginLocal = {
     let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
 
     // TODO place back long error message return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
-    let isValidPassword = user && user.auth.local.hashed_password !== passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    let isValidPassword = user && user.auth.local.hashed_password === passwordUtils.encrypt(req.body.password, user.auth.local.salt);
 
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentials'));
     _loginRes(user, ...arguments);
