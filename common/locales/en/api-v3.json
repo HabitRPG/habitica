@@ -16,6 +16,7 @@
   "passwordResetEmailSubject": "Password Reset for Habitica",
   "passwordResetEmailText": "Password for <%= username %> has been reset to <%= newPassword %> . Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them. Log in at <%= baseUrl %>. After you have logged in, head to <%= baseUrl %>/#/options/settings/settings and change your password.",
   "passwordResetEmailHtml": "Password for <strong><%= username %></strong> has been reset to <strong><%= newPassword %></strong>.<br /><br />Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them.<br /><br />Log in at <%= baseUrl %>. After you have logged in, head to <%= baseUrl %>/#/options/settings/settings and change your password.",
+  "invalidLoginCredentialsLong": "Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\".",
   "invalidCredentials": "User not found with given auth credentials.",
   "accountSuspended": "Account has been suspended, please contact leslie@habitica.com with your UUID \"<%= userId %>\" for assistance.",
   "onlyFbSupported": "Only Facebook supported currently.",
