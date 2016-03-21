@@ -2,6 +2,7 @@ import content from '../content/index';
 import i18n from '../i18n';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
+import pickDeep from '../libs/pickDeep';
 
 module.exports = function(user, req, cb, analytics) {
   var analyticsData, key, ref, type;
@@ -50,5 +51,5 @@ module.exports = function(user, req, cb, analytics) {
   return typeof cb === "function" ? cb({
     code: 200,
     message: i18n.t('hourglassPurchase', req.language)
-  }, _.pick(user, splitWhitespace('items purchased.plan.consecutive'))) : void 0;
+  }, pickDeep(user, splitWhitespace('items purchased.plan.consecutive'))) : void 0;
 };

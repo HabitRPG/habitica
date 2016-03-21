@@ -196,4 +196,117 @@ api.allocate = {
   },
 };
 
+/**
+ * @api {post} /user/allocate-now Allocate all attribute points.
+ * @apiVersion 3.0.0
+ * @apiName UserAllocateNow
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data `stats`
+ */
+api.allocateNow = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/allocate-now',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let allocateNowRes = common.ops.allocateNow(user, req);
+    await user.save();
+    res.respond(200, allocateNowRes);
+  },
+};
+
+/**
+ * @api {post} /user/buy/:key Buy a content item.
+ * @apiVersion 3.0.0
+ * @apiName UserBuy
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data `items, achievements, stats, flags`
+ * @apiSuccess {object} armoireResp Optional extra item given by the armoire
+ * @apiSuccess {string} message
+ */
+api.buy = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/buy/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyRes = common.ops.buy(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyRes);
+  },
+};
+
+/**
+ * @api {post} /user/buy-mystery-set/:key Buy a mystery set.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyMysterySet
+ * @apiGroup User
+ *
+ * @apiParam {string} key The mystery set to buy.
+ *
+ * @apiSuccess {Object} data `items, purchased.plan.consecutive`
+ * @apiSuccess {string} message
+ */
+api.buyMysterySet = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/buy-mystery-set/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyMysterySetRes = common.ops.buyMysterySet(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyMysterySetRes);
+  },
+};
+
+/**
+ * @api {post} /user/buy-quest/:key Buy a quest with gold.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyQuest
+ * @apiGroup User
+ *
+ * @apiParam {string} key The quest spell to buy.
+ *
+ * @apiSuccess {Object} data `items.quests`
+ * @apiSuccess {string} message
+ */
+api.buyQuest = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/buy-quest/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyQuestRes = common.ops.buyQuest(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyQuestRes);
+  },
+};
+
+/**
+ * @api {post} /user/buy-special-spell/:key Buy special spell.
+ * @apiVersion 3.0.0
+ * @apiName UserBuySpecialSpell
+ * @apiGroup User
+ *
+ * @apiParam {string} key The special spell to buy.
+ *
+ * @apiSuccess {Object} data `items, stats`
+ * @apiSuccess {string} message
+ */
+api.buySpecialSpell = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/buy-special-spell/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buySpecialSpellRes = common.ops.buySpecialSpell(user, req);
+    await user.save();
+    res.respond(200, buySpecialSpellRes);
+  },
+};
+
 module.exports = api;

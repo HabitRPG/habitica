@@ -51,9 +51,12 @@ export let schema = new Schema({
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
-    ultimateGearSets: {type: Schema.Types.Mixed, default: () => {
-      return {};
-    }},
+    ultimateGearSets: {
+      healer: {type: Boolean, default: false},
+      wizard: {type: Boolean, default: false},
+      rogue: {type: Boolean, default: false},
+      warrior: {type: Boolean, default: false},
+    },
     beastMaster: Boolean,
     beastMasterCount: Number,
     mountMaster: Boolean,
@@ -226,7 +229,6 @@ export let schema = new Schema({
     todos: Array, // [{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
-  // TODO we're storing too many fields here, find a way to reduce them
   items: {
     gear: {
       owned: _.transform(shared.content.gear.flat, (m, v) => {
@@ -263,15 +265,15 @@ export let schema = new Schema({
       spookDust: {type: Number, default: 0},
       shinySeed: {type: Number, default: 0},
       seafoam: {type: Number, default: 0},
-      valentine: Number,
+      valentine: {type: Number, default: 0},
       valentineReceived: Array, // array of strings, by sender name
-      nye: Number,
+      nye: {type: Number, default: 0},
       nyeReceived: Array,
-      greeting: Number,
+      greeting: {type: Number, default: 0},
       greetingReceived: Array,
-      thankyou: Number,
+      thankyou: {type: Number, default: 0},
       thankyouReceived: Array,
-      birthday: Number,
+      birthday: {type: Number, default: 0},
       birthdayReceived: Array,
     },
 

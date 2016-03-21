@@ -94,6 +94,9 @@ api.noTags = noTags;
 import appliedTags from './libs/appliedTags';
 api.appliedTags = appliedTags;
 
+import pickDeep from './libs/pickDeep';
+api.pickDeep = pickDeep;
+
 import count from './count';
 api.count = count;
 
@@ -101,13 +104,36 @@ api.count = count;
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
 import allocate from './ops/allocate';
+import buy from './ops/buy';
+import buyMysterySet from './ops/buyMysterySet';
+import buyQuest from './ops/buyQuest';
+import buySpecialSpell from './ops/buySpecialSpell';
+import allocateNow from './ops/allocateNow';
 
 api.ops = {
   scoreTask,
   sleep,
   allocate,
+  buy,
+  buyMysterySet,
+  buySpecialSpell,
+  buyQuest,
+  allocateNow,
 };
-api.fns = {};
+
+import handleTwoHanded from './fns/handleTwoHanded';
+import predictableRandom from './fns/predictableRandom';
+import randomVal from './fns/randomVal';
+import ultimateGear from './fns/ultimateGear';
+import autoAllocate from './fns/autoAllocate';
+
+api.fns = {
+  handleTwoHanded,
+  predictableRandom,
+  randomVal,
+  ultimateGear,
+  autoAllocate,
+};
 
 
 /*
@@ -154,6 +180,12 @@ import importedFns from './fns';
 api.wrap = function wrapUser (user, main = true) {
   if (user._wrapped) return;
   user._wrapped = true;
+
+  // Make markModified available on the client side as a noop function
+  // TODO move to client?
+  if (!user.markModified) {
+    user.markModified = function noopMarkModified () {};
+  }
 
   if (main) {
     user.ops = {

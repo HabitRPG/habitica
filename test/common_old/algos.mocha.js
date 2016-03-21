@@ -472,62 +472,6 @@ describe('User', () => {
     });
   });
 
-  describe('store', () => {
-    it('buys a Quest scroll', () => {
-      let user = generateUser();
-
-      user.stats.gp = 205;
-      user.ops.buyQuest({
-        params: {
-          key: 'dilatoryDistress1',
-        },
-      });
-      expect(user.items.quests).to.eql({
-        dilatoryDistress1: 1,
-      });
-      expect(user).toHaveGP(5);
-    });
-
-    it('does not buy Quests without enough Gold', () => {
-      let user = generateUser();
-
-      user.stats.gp = 1;
-      user.ops.buyQuest({
-        params: {
-          key: 'dilatoryDistress1',
-        },
-      });
-      expect(user.items.quests).to.eql({});
-      expect(user).toHaveGP(1);
-    });
-
-    it('does not buy nonexistent Quests', () => {
-      let user = generateUser();
-
-      user.stats.gp = 9999;
-      user.ops.buyQuest({
-        params: {
-          key: 'snarfblatter',
-        },
-      });
-      expect(user.items.quests).to.eql({});
-      expect(user).toHaveGP(9999);
-    });
-
-    it('does not buy Gem-premium Quests', () => {
-      let user = generateUser();
-
-      user.stats.gp = 9999;
-      user.ops.buyQuest({
-        params: {
-          key: 'kraken',
-        },
-      });
-      expect(user.items.quests).to.eql({});
-      expect(user).toHaveGP(9999);
-    });
-  });
-
   describe('Gem purchases', () => {
     it('does not purchase items without enough Gems', () => {
       let user = generateUser();
