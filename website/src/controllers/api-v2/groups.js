@@ -907,7 +907,7 @@ api.questAccept = function(req, res, next) {
   var user = res.locals.user;
   var key = req.query.key;
 
-  if (!group) return res.json(400, {err: "Must be in a party to start quests."});
+  if (!group || group.type !== 'party') return res.json(400, {err: "Must be in a party to start quests."});
 
   // If ?key=xxx is provided, we're starting a new quest and inviting the party. Otherwise, we're a party member accepting the invitation
   if (key) {

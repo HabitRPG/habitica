@@ -85,6 +85,8 @@ export let schema = new Schema({
     thankyou: Number,
     costumeContests: Number,
     birthday: Number,
+    partyUp: Boolean,
+    partyOn: Boolean,
   },
 
   backer: {

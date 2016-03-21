@@ -147,5 +147,9 @@
     "partyChatEmpty": "Din gruppechat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "guildChatEmpty": "Denne klanchat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "possessiveParty": "<%= name %>s Gruppe",
-    "requestAcceptGuidelines": "Hvis du gerne vil skrive beskeder i Værtshuset, din gruppe eller en klan, skal du først læse vores <%= linkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og så klikke på knappen under for at indikere at du accepterer dem."
+    "requestAcceptGuidelines": "Hvis du gerne vil skrive beskeder i Værtshuset, din gruppe eller en klan, skal du først læse vores <%= linkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og så klikke på knappen under for at indikere at du accepterer dem.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

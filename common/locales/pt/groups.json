@@ -1,5 +1,5 @@
 {
-    "tavern": "Tavern Chat",
+    "tavern": "Bate-papo da taverna",
     "innCheckOut": "Sair da Pousada",
     "innCheckIn": "Descansar na Pousada",
     "innText": "Você está descansando na Pousada! Enquanto estiver hospedado por aqui, suas Tarefas Diárias não lhe causarão dano na virada do dia, mas serão atualizadas normalmente todos os dias. Mas atenção: Se você estiver participando de uma Missão, Chefões continuarão a machucá-lo pelas Tarefas Perdidas de seus companheiros de equipe, a não ser que eles também estejam na Pousada! Além disso, seu dano no Chefão (ou itens coletados) não serão aplicados enquanto você não sair da Pousada.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "Seu bate-papo da equipe está vazio! Digite uma mensagem na caixa acima para começar a conversar.",
     "guildChatEmpty": "O bate-papo desta guilda está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
     "possessiveParty": "Equipe de <%= name %>",
-    "requestAcceptGuidelines": "Se você quiser postar mensagens na Taverna ou em qualquer chat de equipe ou guilda, por favor leia nossas <%= linkStart %>Diretrizes de Comunidade<%= linkEnd %> e então clique no botão abaixo para indicar que você as aceita."
+    "requestAcceptGuidelines": "Se você quiser postar mensagens na Taverna ou em qualquer chat de equipe ou guilda, por favor leia nossas <%= linkStart %>Diretrizes de Comunidade<%= linkEnd %> e então clique no botão abaixo para indicar que você as aceita.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Entre em um grupo com outra pessoa! Divirtam-se batalhando contra monstros e ajudando um ao outro.",
+    "partyOnAchievement": "Entre em um grupo com pelo menos 4 pessoas! Divirta-se aumentando a sua produtividade com seus amigos para derrotar seus inimigos!"
 }

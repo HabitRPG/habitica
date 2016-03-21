@@ -19,7 +19,7 @@
     "rebirthAchievement100": "あなたは新しい冒険をはじめました! これはあなたの<%= number %>「生まれかわり」 で、あなたが達成した最高レベルは100以上です。この実績を上積みするために、少なくとも100レベル以上に達したときに、次の新しい冒険をはじめましょう!",
     "rebirthBegan": "新しい冒険が始まりました",
     "rebirthText": "<%= rebirths %> 新しい冒険を始めました",
-    "rebirthOrb": "レベルに達成したらオーブオブリバースを使って再スタートしてください",
+    "rebirthOrb": "一定のレベルに達成したら転生のオーブを使って再スタートしてください",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher",
     "rebirthPop": "実績、収集物、およびタスクと履歴を残して、レベル1 の新しいキャラクターではじめます。",
     "rebirthName": "転生のオーブ",

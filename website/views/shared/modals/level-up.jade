@@ -16,6 +16,22 @@ script(type='text/ng-template', id='modals/levelUp.html')
       h4(style='margin-top: 1em')!=env.t('leveledUp', {level:'{{user.stats.lvl}}'})
       p=env.t('fullyHealed')
       br
+      div(ng-if='user.flags.classSelected && !user.preferences.disableClasses && !user.preferences.automaticAllocation')
+        a.btn.btn-default(ng-click='statsAllocationBoxIsOpen = !statsAllocationBoxIsOpen',
+          data-toggle='collapse', data-target='#stat-allocation', aria-expanded=false, aria-controls='stat-allocation')
+          | {{statsAllocationBoxIsOpen  ? env.t('hideQuickAllocation') : env.t('showQuickAllocation')}}
+        p &nbsp;
+        .collapse#stat-allocation
+          table.table.text-left
+            tr
+              td
+                p(ng-if='::user.stats.lvl >= 100')!=env.t('noMoreAllocate')
+                p(ng-if='user.stats.points || user.stats.lvl < 100')
+                  strong.inline
+                    | {{user.stats.points}}&nbsp;
+                  strong.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('quickAllocationLevelPopover'))=env.t('unallocated')
+              td
+            +statAllocation
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
       .checkbox
         label(style='display:inline-block')=env.t('dontShowAgain')

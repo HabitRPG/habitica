@@ -175,5 +175,6 @@
     "hatchPetShare": "Mam nowego chowańca dzięki ukończeniu moich zadań w prawdziwym życiu!",
     "raisePetShare": "Mam nowego wierzchowca dzięki ukończeniu moich zadań w prawdziwym życiu!",
     "wonChallengeShare": "Wyzwanie zaliczone!",
-    "achievementShare": "Zdobyto nowe osiągnięcie w Habitice!"
+    "achievementShare": "Zdobyto nowe osiągnięcie w Habitice!",
+    "orderBy": "Sortuj po <%= item %>"
 }

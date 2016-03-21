@@ -1,5 +1,5 @@
 {
-    "tavern": "Tavern Chat",
+    "tavern": "Chat de Taberna",
     "innCheckOut": "Dejar la posada",
     "innCheckIn": "Descansar en la posada",
     "innText": "¡Has entrado a descansar en la Posada! Mientras permanezcas aquí tus Diarias no te dañarán al finalizar el día, pero sí se renovarán cada día. Ten cuidado: si estás participando en una Misión contra un Jefe ¡las Diarias incompletas de tus compañeros de equipo te seguirán haciendo daño! Además, tú no dañarás al jefe (ni obtendrás los objetos recolectados) hasta que no hayas salido de la Posada.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "¡El chat de tu equipo está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "guildChatEmpty": "¡El chat de este gremio está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "possessiveParty": "El Equipo de <%= name %>",
-    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de un equipo o de un gremio, por favor lee nuestras <%= linkStart %>Normas de la Comunidad<%= linkEnd %> primero y después haz clic en el botón de abajo para indicar que las aceptas."
+    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de un equipo o de un gremio, por favor lee nuestras <%= linkStart %>Normas de la Comunidad<%= linkEnd %> primero y después haz clic en el botón de abajo para indicar que las aceptas.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

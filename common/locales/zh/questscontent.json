@@ -291,5 +291,11 @@
     "questMonkeyCompletion": "你做到了！那些朋友今天没有香蕉了。被你的勤奋吓到，猴子惊慌的逃掉。“看，” @Misceo 说，“他们留下了一些蛋。” <br><br>@Leephon grins：“一个训练有素的宠物猴子能帮助你的程度就和一个野生猴子阻碍你的程度一样”",
     "questMonkeyBoss": "巨大的山魈",
     "questMonkeyDropMonkeyEgg": "猴子 (蛋)",
-    "questMonkeyUnlockText": "解锁猴子蛋购买功能"
+    "questMonkeyUnlockText": "解锁猴子蛋购买功能",
+    "questSnailText": "苦差事淤泥蜗牛",
+    "questSnailNotes": "你很兴奋开始探索被遗弃的苦差事地下城，但是当你一进入，你就感受到你脚下的地面在吸你的靴子。你看着前面的小路，看到Habitica人们陷入了涂泥。@Overomega 大叫，“他们有太多不重要的任务和每日任务，他们正被不要紧的事情卡住！把他们拉出来！”<br><br>“你需要找到渗出的源头，”@Pfeffernusse 赞同着说，“或者他们不能完成的任务将他们永远拖下去！”<br><br>拿出你的武器，你艰难地通过黏黏的泥....突然遇上了可怕的苦差事淤泥蜗牛。",
+    "questSnailCompletion": "你把你的武器砸在巨大的蜗牛壳上，壳裂成两半，涌出了大量的水。粘液被冲走，Habitica人民在你身边欢呼。\"看！\" @Misceo 说。\"在残留的淤泥中，有一小群的蜗牛蛋。\"",
+    "questSnailBoss": "苦差事淤泥蜗牛",
+    "questSnailDropSnailEgg": "蜗牛(蛋)",
+    "questSnailUnlockText": "解锁蜗牛蛋购买功能"
 }

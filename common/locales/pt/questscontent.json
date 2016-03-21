@@ -291,5 +291,11 @@
     "questMonkeyCompletion": "Você conseguil! Hoje esses demônios vão ficar sem bananas. Oprimidos por sua força, os macacos fogem em pânico. \"Olha\", diz @Misceo. \"Eles deixaram alguns ovos para trás.\"<br><br>@Leephon Sorri. \"Talvez um macaco de estimação bem treinado pode ajudá-lo tanto quanto os selvagens atrapalharam!\"",
     "questMonkeyBoss": "Mandril Monstruoso",
     "questMonkeyDropMonkeyEgg": "Macaco (Ovo)",
-    "questMonkeyUnlockText": "Desbloqueia ovos de Macaco para compra no Mercado"
+    "questMonkeyUnlockText": "Desbloqueia ovos de Macaco para compra no Mercado",
+    "questSnailText": "O trabalho fastidioso do caracol Sludge",
+    "questSnailNotes": "Você está excitado para começar a sua aventura nos Calabouços abandonados do Tédio, mas logo que você entra, você sente o chão embaixo dos seus pés começarem a sugar suas botas. Você olha para o caminho a frente e vê Habiticanos afundados na gosma. @Overomega grita, \"Eles tem muitos deveres e tarefas diárias pouco relevantes, e estão se prendendo nas coisas que não importam! Puxe-os fora!\" <br><br>\"Você precisa encontrar a origem da gosma,\" @Pfeffernusse concorda, \"ou as tarefas que eles não conseguirem cumprir vão puxa-los para baixo para sempre!\"<br><br>Puxando fora a sua arma, você cruza a lama pegajosa... e encontra o temível Caracol do Lodo Tedioso",
+    "questSnailCompletion": "Você leva sua arma abaixo na grande concha do Caracol, quebrando ela em dois, liberando uma inundação de água. A gosma foi lavada embora, e os Habiticanos em volta comemoram. \"Olhe!\" fala @Misceo. \"Tem um pequeno grupo de ovos de caracol nos restos do muco.\"",
+    "questSnailBoss": "trabalho fastidioso do caracol Sludge",
+    "questSnailDropSnailEgg": "Caracol (Ovo)",
+    "questSnailUnlockText": "Desbloqueia ovos de caracol para compra no mercado"
 }

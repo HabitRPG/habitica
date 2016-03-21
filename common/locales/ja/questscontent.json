@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "猟師のサンタ",
-    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaNotes": "氷原の彼方から、なげきの遠吠えが聞こえる。あなたは、甲高い笑い声にさえぎられながらも聞こえてくるうなり声を追いかけて森の中の広場にたどり着いた。そこには、大きなメスのホッキョクグマがいた。ホッキョクグマは足かせをされ、おりの中に閉じこめられている。それでも命がけで戦っているのだ。打ち捨てられた衣装を着た、意地の悪い小悪魔がおりの上で踊っている。わなをしかけたサンタを倒して、ホッキョクグマを救え!",
     "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "猟師のサンタ",
     "questEvilSantaDropBearCubPolarMount": "ホッキョクグマ(乗用獣)",
@@ -291,5 +291,11 @@
     "questMonkeyCompletion": "You did it! No bananas for those fiends today. Overwhelmed by your diligence, the monkeys flee in panic. \"Look,\" says @Misceo. \"They left a few eggs behind.\"<br><br>@Leephon grins. \"Maybe a well-trained pet monkey can help you as much as the wild ones hinder you!\"",
     "questMonkeyBoss": "Monstrous Mandrill",
     "questMonkeyDropMonkeyEgg": "Monkey (Egg)",
-    "questMonkeyUnlockText": "Unlocks purchasable Monkey eggs in the Market"
+    "questMonkeyUnlockText": "Unlocks purchasable Monkey eggs in the Market",
+    "questSnailText": "The Snail of Drudgery Sludge",
+    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
+    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
+    "questSnailBoss": "Snail of Drudgery Sludge",
+    "questSnailDropSnailEgg": "Snail (Egg)",
+    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
 }

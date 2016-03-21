@@ -48,7 +48,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^1.0.0",
     "gulp-grunt": "^0.5.2",
-    "gulp-imagemin": "^2.3.0",
+    "gulp-imagemin": "^2.4.0",
     "gulp-nodemon": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",

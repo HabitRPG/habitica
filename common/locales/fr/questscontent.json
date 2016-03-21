@@ -291,5 +291,11 @@
     "questMonkeyCompletion": "Vous avez réussi ! Pas de bananes pour ces démons aujourd'hui. Accablés par votre zèle, les singes s'enfuient, paniqués. \"Regarde\", dit @Misceo. \"Ils ont laissé quelques œufs derrière eux.\"<br><br>@Leephon sourit. \"Peut-être qu'un singe familier bien entraîné peut t'apporter autant d'aide que la gêne causée par les singes sauvages !\"",
     "questMonkeyBoss": "Monstrueux Mandrill",
     "questMonkeyDropMonkeyEgg": "Singe (Œuf)",
-    "questMonkeyUnlockText": "Déverrouille l'achat d’œufs de singe au Marché"
+    "questMonkeyUnlockText": "Déverrouille l'achat d’œufs de singe au Marché",
+    "questSnailText": "L'escargot de la Fange de Pénibilité",
+    "questSnailNotes": "Vous êtes excité à l'idée de faire une quête dans les oubliettes abandonnées de Pénibilité, mais alors que vous y entrez, vous sentez le sol sous votre pied aspirer vos bottes.Vous regardez le chemin devant vous et voyez des Habiticien·ne·s embourbés dans la vase. @Overomega crie \"Ils ont trop de tâches À Faire ou de Quotidiennes inutiles, et ils sont bloqués sur ce qui n'a pas d'importance ! Sortez-les de là !\"<br><br>\"Vous devez trouver la source de cette boue,\" confirme @Pfeffernusse, \"ou les tâches qu'ils ne peuvent accomplir les enliseront à jamais !\"<br><br>Vous dégainez votre arme, pataugez dans la gadoue collante... et rencontrez un terrible Escargot de la Fange de Pénibilité.",
+    "questSnailCompletion": "Vous abattez votre arme sur la grande coquille de l'Escargot, la brisant en deux, et libérant un torrent d'eau. La vase est éliminées et les Habiticien·ne·s autour de vous se réjouissent. \"Regardez !\" dit @Misceo. \"Il y a un petit paquet d’œufs d'escargots dans les dernières flaques de boue.\"",
+    "questSnailBoss": "Escargot de la Fange de Pénibilité",
+    "questSnailDropSnailEgg": "Escargot (Œuf)",
+    "questSnailUnlockText": "Débloque l'achat d’œuf d'Escargot au marché"
 }
