@@ -14,8 +14,8 @@ describe('DELETE social registration', () => {
   });
   context('of NOT-FACEBOOK', () => {
     it('is not supported', async () => {
-      expect(user.del('/user/auth/social/SOME-OTHER-NETWORK')).to.eventually.be.rejected.and.eql({
-        code: 400,
+      await expect(user.del('/user/auth/social/SOME-OTHER-NETWORK')).to.eventually.be.rejected.and.eql({
+        code: 401,
         error: 'NotAuthorized',
         message: t('onlyFbSupported'),
       });
@@ -24,8 +24,8 @@ describe('DELETE social registration', () => {
   context('of facebook', () => {
     it('fails if local registration does not exist for this user', async () => {
       await user.update({ 'auth.local': { ok: true } });
-      expect(user.del(endpoint)).to.eventually.be.rejected.and.eql({
-        code: 400,
+      await expect(user.del(endpoint)).to.eventually.be.rejected.and.eql({
+        code: 401,
         error: 'NotAuthorized',
         message: t('cantDetachFb'),
       });
