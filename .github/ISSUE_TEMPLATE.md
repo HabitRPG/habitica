@@ -1,5 +1,4 @@
-[//]: # (Before logging this issue, look through common problems at https://github.com/HabitRPG/habitrpg/issue
-If you find your issue there, read at least the first post to see if there is a workaround for you.)
+[//]: # (Before logging this issue, look through common problems at https://github.com/HabitRPG/habitrpg/issue If you find your issue there, read at least the first post to see if there is a workaround for you.)
 
 [//]: # (Note: See https://github.com/HabitRPG/habitrpg/issues/2760 for more info)
 
