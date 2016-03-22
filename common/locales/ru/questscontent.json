@@ -291,11 +291,11 @@
     "questMonkeyCompletion": "Вы это сделали! Сегодня им бананов не видать. Обезьяны сбегают в панике,  сокрушенные вашими силами. \"Смотри\", говорит @Misceo. \"Они оставили яйца.\"<br><br>@Leephon усмехается: \"Может быть, хорошо обученный ручной капуцин станет помогать нам так же хорошо, как дикие мешают!\"",
     "questMonkeyBoss": "Ужасный Мандрил",
     "questMonkeyDropMonkeyEgg": "Капуцин (яйцо)",
-    "questMonkeyUnlockText": "Позволяет покупать на рынке капуцина в яйце.",
-    "questSnailText": "The Snail of Drudgery Sludge",
-    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
-    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
-    "questSnailBoss": "Snail of Drudgery Sludge",
-    "questSnailDropSnailEgg": "Snail (Egg)",
-    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+    "questMonkeyUnlockText": "Позволяет покупать на рынке капуцина в яйце",
+    "questSnailText": "Улитка из Подземелья Тяжелого Труда",
+    "questSnailNotes": "Вы взволнованы, потому что начинаете квест в покинутом Подземелье Тяжелого Труда. Как только вы заходите, вы чувствуете, как земля уходит из-под ног. Поднимаете взгляд на тропу впереди и видите, что жители страны Habitica застряли в слизи. @Overomega кричит: \"У них было слишком много неважных задач и ежедневных заданий, и они застряли в том, что не имеет значения! Вытащите их!\"<br><br>\"Вам необходимо найти источник протечки\", -  @Pfeffernusse согласился, - \"Или задания, которые они не могут выполнить, затянут их навсегда!\"<br><br>Вытаскивая свое оружие, вы продираетесь сквозь липкую грязь... и случайно встречаетесь с грозной Улиткой из Подземелья Тяжелого Труда.",
+    "questSnailCompletion": "Вы обрушиваете свое оружие на огромный панцирь улитки, разламывая его надвое, и освобождаете поток воды. Слизь смывается водой, находящиеся рядом жители страны Habitica празднуют. \"Смотри\", - говорит @Misceo. - \"В остатках грязи лежат несколько яиц улитки\".",
+    "questSnailBoss": "Улитка из Подземелья Тяжелого Труда",
+    "questSnailDropSnailEgg": "Улитка (яйцо)",
+    "questSnailUnlockText": "Позволяет покупать на рынке улитку в яйце"
 }

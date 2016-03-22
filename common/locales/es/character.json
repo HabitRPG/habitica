@@ -160,5 +160,8 @@
     "str": "FUE",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Mostrar asignación de puntos",
+    "hideQuickAllocation": "Ocultar asignación de puntos",
+    "quickAllocationLevelPopover": "Con cada nivel, ganas un punto que puedes asignar al atributo que elijas. Puedes hacerlo de forma manual o dejar que el juego decida por ti con una de las opciones de asignación automática que encontrarás en Usuario -> Estadísticas."
 }

@@ -35,7 +35,7 @@
     "amazonInstructions": "Klikni pro zaplacení přes Amazon platby",
     "paymentMethods": "Purchase using",
     "classGear": "Vybavení pro tvé povolání",
-    "classGearText": "Za prvé: Nepanikař! Tvé staré vybavení je v tvém inventáři a nyní nosíš začátečnické vybavení povolání <strong><%= klass %></strong>. Nošení vybavení tvého povolání ti dává 50% bonus k statistikám.  Ale neboj se vrátit ke svému starému vybavení.",
+    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "Toto jsou statistiky tvého povolání, ovlivňují hratelnost. Pokaždé, když postoupíš o úroveň výš, dostaneš jeden bod, který můžeš přiřadit k určité statistice. Najeď myší na každou statistiku pro více informací.",
     "autoAllocate": "Připisovat automaticky",
     "autoAllocateText": "Pokud je zaškrtnuto 'automatické připisování', získává tvůj avatar body automaticky na základě atributů tvých úkolů, které najdeš v <strong>ÚKOL > Editovat > Pokročilé > Attributy</strong>. Např. pokud budeš chodit často do posilovny a tvoje denní 'posilovna' je nastavena na 'fyzický', budeš automaticky získávat sílu.",

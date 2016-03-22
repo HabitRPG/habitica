@@ -292,10 +292,10 @@
     "questMonkeyBoss": "קפטן מפלצתי",
     "questMonkeyDropMonkeyEgg": "קוף (ביצה)",
     "questMonkeyUnlockText": "משחרר ביצי קוף לרכישה בשוק",
-    "questSnailText": "The Snail of Drudgery Sludge",
-    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
-    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
-    "questSnailBoss": "Snail of Drudgery Sludge",
-    "questSnailDropSnailEgg": "Snail (Egg)",
-    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+    "questSnailText": "חילזון בוצת העבודה השחורה",
+    "questSnailNotes": "אתם מתרגשים להתחיל הרפתקאה בצינוק הנטוש של עבודות הפרך, אבל ברגע שאתם נכנסים, אתם מרגישים את הקרקע מתחת לרגליים שלכם מתחילה לינוק את המגפיים. אתם מביטים על השביל קדימה ורואים האביטיקנים שקועים ברפש. @Overomega צועק, \"יש להם יותר מדי משימות ומטלות יומיות לא חשובות, והם תקועים על דברים שלא משנים! מישכו אותם!\"<br><br>\"אתם צריכים למצוא את המקור של הבוץ,\" @Pfeffernusse מסכים, \"או שמשימות שהם לא יכולים להשלים יגררו אותם לנצח!\"<br><br>שולפים את הנשק שלכם, אתם מדשדשים בבוץ דביק... ופוגשים את החילזון האימתני של עבודת פרך בוצתית.",
+    "questSnailCompletion": "אתם מניפים את נשקיכם על קונכיית החילזון הענקית, סודקים אותה לשתיים, ושטף מים משתחרר. הבוצה נשטפת, וההאביטיקנים סביבכם קופצים משמחה. ״הסתכלו!״ קורא @Misceo. ״יש קבוצה קטנה של ביצי חילזון בשאריות של הטינופת.״",
+    "questSnailBoss": "חילזון בוצת עבודת פרך",
+    "questSnailDropSnailEgg": "חילזון (ביצה)",
+    "questSnailUnlockText": "משחרר ביצי חלזונות לרכישה בשוק"
 }

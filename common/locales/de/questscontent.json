@@ -287,7 +287,7 @@
     "questSabretoothDropSabretoothEgg": "Säbelzahntiger (Ei)",
     "questSabretoothUnlockText": "Ermöglicht den Kauf von Säbelzahntigereiern auf dem Marktplatz",
     "questMonkeyText": "Monströser Mandrill und die Albernen Affen",
-    "questMonkeyNotes": "Die Sloensteadi Savanne wird vom Monströsen Mandrill und seinen Albernen Affen verwüstet. Sie kreischen laut genug um den Klang nahender Deadlines zu übertönen und ermutigen dadurch alle, ihre Pflichten zu vernachlässigen und weiter herumzualbern. Und so äffen viele dieses schlechte Verhalten nach. Wenn niemand diese Primaten aufhält, werden alle Aufgaben bald so rot wie das Gesicht des Monströsen Mandrills.<br><br>\"Man muss schon ein erfahrener Abenteurer sein um ihnen zu widerstehen,\" meint @yamato.<br><br>\"Auf, gehn wir in die Affensive!\" ruft @Oneironaut während ihr in den Kampf stürmt. ",
+    "questMonkeyNotes": "Die Sloensteadi-Savanne wird vom Monströsen Mandrill und seinen Albernen Affen verwüstet. Sie kreischen laut genug um den Klang nahender Deadlines zu übertönen und ermutigen dadurch alle, ihre Pflichten zu vernachlässigen und weiter herumzualbern. Und so äffen viele dieses schlechte Verhalten nach. Wenn niemand diese Primaten aufhält, werden alle Aufgaben bald so rot wie das Gesicht des Monströsen Mandrills.<br><br>\"Man muss schon ein erfahrener Abenteurer sein um ihnen zu widerstehen,\" meint @yamato.<br><br>\"Auf, geh'n wir in die Affensive!\" ruft @Oneironaut während ihr in den Kampf stürmt. ",
     "questMonkeyCompletion": "Du hast es geschafft! Keine Bananen für diese Übeltäter, heute. Überwältigt von deinem Eifer fliehen die Affen in heller Panik. \"Guck mal\", sagt @Misceo. \"Sie haben ein paar Eier zurückgelassen.\" <br><br>@Leephon grinst. \"Vielleicht werden Dir ein paar gut trainierte Haustieraffen so gut helfen, wie die wilden ein Hindernis waren!\"",
     "questMonkeyBoss": "Monströser Mandrill",
     "questMonkeyDropMonkeyEgg": "Affe (Ei)",
@@ -297,5 +297,5 @@
     "questSnailCompletion": "Du lässt deine Waffe auf den Schneckenpanzer niederfahren, wobei dieser in zwei Teile zerbricht und eine Flutwelle Wasser freigibt. Der Schleim wird weggespült und die Habiticaner um dich herum  jubeln.  \"Sieh!\" sagt @Misceo. \"Dort liegt einige Schneckerich-Eier in den Überresten des Unrats.\" ",
     "questSnailBoss": "Schneckerich der schlammigen Schinderei",
     "questSnailDropSnailEgg": "Schneckerich (Ei)",
-    "questSnailUnlockText": "Schaltet Schneckerich-Eier im Marktplatz frei."
+    "questSnailUnlockText": "Ermöglicht den Kauf von Schneckerich-Eiern auf dem Marktplatz"
 }

@@ -148,8 +148,8 @@
     "guildChatEmpty": "こちらのギルド チャットはまっ白です!　上のボックスにメッセージを書いてチャットをはじめましょう。",
     "possessiveParty": "<%= name %>のパーティー",
     "requestAcceptGuidelines": "キャンプ場チャットやどこかのギルド チャットにメッセージを投稿したいと思ったら、まず<%= linkStart %>コミュニティ ガイドライン<%= linkEnd %>を読み、それを認めたうえで下のボタンを押してください。",
-    "partyUpName": "Party Up",
-    "partyOnName": "Party On",
+    "partyUpName": "パーティー立ち上げ",
+    "partyOnName": "パーティー参加",
     "partyUpAchievement": "別の人のパーティーに参加しました!　楽しんで、モンスターと戦ってお互いを助け合いましょう。",
     "partyOnAchievement": "4人以上のパーティーに参加しました!　責任感が強くなったことを楽しんで、自分自身の敵と戦うために友だちと協力しましょう!"
 }

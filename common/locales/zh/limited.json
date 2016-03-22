@@ -67,6 +67,10 @@
     "witchyWizardSet": "怪异巫师(法师)",
     "mummyMedicSet": "木乃伊医师(医师)",
     "vampireSmiterSet": "吸血重击者(盗贼)",
+    "bewareDogSet": "Beware Dog (Warrior)",
+    "magicianBunnySet": "Magician's Bunny (Mage)",
+    "comfortingKittySet": "Comforting Kitty (Healer)",
+    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "有效期至十月31日",
     "winterEventAvailability": "有效期至十二月31日"
 }

@@ -35,7 +35,7 @@
     "amazonInstructions": "Aperte no botão para pagar usando Amazon Payments",
     "paymentMethods": "Comprar usando",
     "classGear": "Equipamento da Classe",
-    "classGearText": "Primeiro: não entre em pânico! Seu equipamento antigo está no seu inventário, e agora você está usando seu equipamento de aprendiz de <strong><%= klass %></strong>. Usar o equipamento da sua classe o concede um bônus de 50% de seus atributos. Entretanto, sinta-se livre para trocar de volta para seu equipamento antigo.",
+    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "Esses são seus atributos da classe; eles afetam a jogabilidade. Cada vez que subir de nível, ganhará um ponto para distribuir em um atributo particular. Passe o mouse em cima de cada atributo para mais informações.",
     "autoAllocate": "Distribuição Automática",
     "autoAllocateText": "Se \"distribuição automática\" estiver marcado, seu avatar aumentará suas estatísticas automaticamente, baseado nos atributos das suas tarefas, que você pode encontrar em <strong>Tarefas > Editar > Avançado > Atributos</strong>. Ou seja, se você vai à academia frequentemente e sua tarefa diária \"Academia\" está marcada como \"Físico\", você ganhará Força automaticamente.",

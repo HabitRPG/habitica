@@ -35,7 +35,7 @@
     "amazonInstructions": "Klicke hier um über Amazon Payments zu zahlen.",
     "paymentMethods": "Kauf mit",
     "classGear": "Klassenausrüstung",
-    "classGearText": "Zuallererst: Keine Panik! Deine alte Ausrüstung ist in Deinem Inventar und Du trägst jetzt Deine Lehrling <strong><%= klass %></strong>-Ausrüstung. Die Ausrüstung Deiner Klasse zu tragen verleiht Dir einen 50% Bonus auf ihre Werte. Aber Du kannst jederzeit zu Deiner alten Ausrüstung zurückwechseln.",
+    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "Dies sind die Statuswerte deiner Klasse; sie beeinflussen das Spiel. Jedes Mal, wenn du einen Level aufsteigst, erhälst du einen Punkt, den du einem Statuswert zuordnen kannst. Bewege die Maus über die Statuswerte für weitere Informationen.",
     "autoAllocate": "Automatische Verteilung",
     "autoAllocateText": "Falls Du eine automatische Verteilung wählst, werden die Punkte automatisch verteilt, abhängig von den Attributen Deiner Aufgaben, die Du unter <strong>Aufgabe > Bearbeiten > Erweitert > Attribute</strong> finden kannst. Ein Beispiel: Wenn Du oft im Fitnessstudio bist und die entsprechende Aufgabe auf \"körperlich\" gesetzt ist, bekommst Du automatisch Stärke.",

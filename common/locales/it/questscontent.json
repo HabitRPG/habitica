@@ -292,10 +292,10 @@
     "questMonkeyBoss": "Mostruoso Mandrillo",
     "questMonkeyDropMonkeyEgg": "Scimmia (uovo)",
     "questMonkeyUnlockText": "Permette di acquistare le uova di Scimmia nel Mercato",
-    "questSnailText": "The Snail of Drudgery Sludge",
-    "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
-    "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
-    "questSnailBoss": "Snail of Drudgery Sludge",
+    "questSnailText": "La Chiocciola della Fogna Sgobbosa",
+    "questSnailNotes": "Siete entusiasti di iniziare ad esplorare le Segrete abbandonate di Sgobbosa, ma non appena entrati, sentite che il terreno sotto i vostri piedi sta iniziando a risucchiarvi gli stivali. Scrutando il percorso davanti a voi e vedete alcuni Habiticans impantanati nella melma. @Overomega urla, \"hanno troppe attività e daily di poco conto, e sono rimasti bloccati su cose poco importanti! Tirateli fuori!\"  <br><br> \"Dovete trovare la fonte della melma,\" concorda @Pfeffernusse , \"o le attività che non possono compiere li trascineranno a fondo per sempre! \"<br><br>  Tirando fuori la vostra arma, guadate attraverso il fango appiccicoso .... e incontrate la temibile Lumaca della Fogna Sgobbosa. ",
+    "questSnailCompletion": "Affondate la vostra arma sul gran guscio della Chiocciola spaccandolo in due e liberando un flusso d'acqua. La melma è lavata via, e gli Habiticans intorno a voi gioiscono. \"Guardate!\" dice @Misceo. \"C'è un piccolo gruppo di uova di lumaca nei resti del limo.\"",
+    "questSnailBoss": "Chiocciola della Fogna Sgobbosa",
     "questSnailDropSnailEgg": "Chiocciola (Uovo)",
     "questSnailUnlockText": "Sblocca l'acquisto delle uova di chiocciola nel Mercato"
 }

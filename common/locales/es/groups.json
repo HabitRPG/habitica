@@ -148,8 +148,8 @@
     "guildChatEmpty": "El chat de este gremio está vacío. Escribe un mensaje en el cuadro de arriba para empezar una conversación.",
     "possessiveParty": "Grupo de <%= name %>",
     "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de algún grupo o gremio, lee primero las <%= linkStart %>Normas de la Comunidad<%= linkEnd %> y, a continuación, haz clic en el botón de abajo para indicar que las aceptas.",
-    "partyUpName": "Party Up",
-    "partyOnName": "Party On",
-    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
+    "partyUpName": "¡Ese grupo!",
+    "partyOnName": "¡Toma grupo!",
+    "partyUpAchievement": "Se unió a un grupo con otra persona. Pasadlo bien luchando contra monstruos y apoyándoos mutuamente.",
+    "partyOnAchievement": "Se unió a un grupo con cuatro personas o más. Disfrutad de lo responsables que sois entre todos y venced a vuestros enemigos con la ayuda de vuestros amigos."
 }

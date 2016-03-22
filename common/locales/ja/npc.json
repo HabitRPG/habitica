@@ -35,7 +35,7 @@
     "amazonInstructions": "このボタンをクリックしてAmazon Paymentsで支払う。",
     "paymentMethods": "購入 : ",
     "classGear": "クラスギア",
-    "classGearText": "最初に: 慌てる必要はありません! あなたの古いギアは、あなたの所持品です。あなたは今、弟子の <strong><%= klass %></strong> の装備を着ています。あなたのクラスのギアを身に着けていると、ステータスに50%のボーナスが付与されます。しかし、気軽に古いギアに切り替えてください。",
+    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "あなたのクラスのステータスで、ゲームの進行に影響を与えています。レベルアップするたびに、特定のステータスに割り振ることができる1ポイントを取得します。それぞれのステータスにマウスカーソルを当てると、詳しい情報が表示されます。",
     "autoAllocate": "自動割り当て",
     "autoAllocateText": "'自動割当' がチェックされている場合は、タスクの属性に基づいて、あなたのアバターは自動的にステータスを獲得します。属性は <strong>タスク > 編集 > 詳細設定 > 属性</strong> で確認することができます。例えば、あなたが頻繁にジムをヒットしている場合、そして 'ジム' 日課が '物理的' に設定されている場合、あなたは自動的に獲得します。",

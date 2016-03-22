@@ -77,6 +77,6 @@
     "startQuest": "Quest starten",
     "whichQuestStart": "Welche Quest willst Du starten?",
     "getMoreQuests": "Erhalte mehr Quests",
-    "unlockedAQuest": "Du hast ein Quest freigeschaltet!",
+    "unlockedAQuest": "Du hast eine Quest freigeschaltet!",
     "leveledUpReceivedQuest": "Du hast <strong>Level <%= level %></strong> erreicht und eine Questschriftrolle erhalten!"
 }

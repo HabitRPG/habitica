@@ -35,7 +35,7 @@
     "amazonInstructions": "Klik på knappen for at betale med Amazon Payments",
     "paymentMethods": "Køb med",
     "classGear": "Klasseudstyr",
-    "classGearText": "Først: Lad være med at panikke! Dit gamle udstyr er nu i dit inventar, og du er nu iført dit <strong><%= klass %></strong>-lærlingeudstyr. At være iført din klasses udstyr giver 50% bonus til stats. Du kan dog stadig skifte tilbage til dit gamle udstyr hvis du vil.",
+    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "Dette er din klasses stats, som påvirker dit spil. Hver gang du går et niveau op får du et point som du kan tildele til en stat. Hold musen over hver stat for mere information.",
     "autoAllocate": "Tildel automatisk",
     "autoAllocateText": "Hvis 'tildel automatisk' er markeret vil din avatars attributter stige automatisk baseret på dine opgavers attributter, hvilket du kan finde i <strong>Opgave > Ret > Avanceret > Attributter</strong>. Hvis du for eksempel dyrker motion ofte, og din Daglige 'Motion' er sat til 'Fysisk' vil du automatisk gå på i Styrke.",

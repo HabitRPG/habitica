@@ -102,7 +102,7 @@
     "invitedParty": "Invitation dans une Équipe",
     "invitedGuild": "Invitation dans une Guilde",
     "importantAnnouncements": "Votre compte est inactif",
-    "weeklyRecaps": "Résumé de l'activité de votre compte ces dernières semaines",
+    "weeklyRecaps": "Summaries of your account activity in the past week (Note: this is currently disabled due to performance issues, but we hope to have this back up and sending e-mails again soon!)",
     "questStarted": "Votre Quête a Commencé",
     "invitedQuest": "Invitation à une Quête",
     "kickedGroup": "Éjecté·e du groupe",

@@ -67,6 +67,10 @@
     "witchyWizardSet": "Ведь-маг (маг)",
     "mummyMedicSet": "Мумифицированный доктор (целитель)",
     "vampireSmiterSet": "Вампир-убийца (разбойник)",
+    "bewareDogSet": "Beware Dog (Warrior)",
+    "magicianBunnySet": "Magician's Bunny (Mage)",
+    "comfortingKittySet": "Comforting Kitty (Healer)",
+    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Доступно до 31 октября",
     "winterEventAvailability": "Доступен до 31 декабря"
 }

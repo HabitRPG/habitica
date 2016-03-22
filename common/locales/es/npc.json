@@ -35,7 +35,7 @@
     "amazonInstructions": "Haz click en el botón para pagar con Amazon Payments",
     "paymentMethods": "Comprar con",
     "classGear": "Equipo de clase",
-    "classGearText": "Primero: ¡No te preocupes! Tu equipo viejo está en tu inventario y ahora llevas tu equipamiento de aprendiz de <strong><%= klass %></strong>. Llevar el equipo de tu clase te da un bonus del 50% a tus atributos. Sin embargo, eres libre de ponerte tu antiguo equipo.",
+    "classGearText": "Antes que nada, no te preocupes. El equipamiento que tenías está en tu inventario y ahora llevas el equipo de aprendiz de tu nueva clase. Si llevas objetos pertenecientes a tu clase, obtendrás una bonificación del 50% en tus estadísticas. Pero, si quieres, puedes volver a usar el equipamiento anterior sin ningún problema.",
     "classStats": "Éstas son las estadísticas de tu clase; afectan al gameplay. Cada vez que subas de nivel obtendrás un punto para asignar a una estadística en concreto. Mueve el puntero sobre cada estadística para más información.",
     "autoAllocate": "Asignación Automática",
     "autoAllocateText": "Si 'distribución automática' está seleccionado, tu avatar gana estadísticas automáticamente basado en los atributos de sus tareas, que puedes encontrar en <strong>TAREA > Editar > Avanzado > Atributos</strong> Por ejemplo, si haces ejercicio con frecuencia, y si tu Diaria de 'Ejercicio' está fijado en 'Físico', vas a ganar Fuerza automáticamente.",

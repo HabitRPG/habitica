@@ -35,7 +35,7 @@
     "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Purchase using",
     "classGear": "Oprema i klase",
-    "classGearText": "Samo polako i bez panike. Vaša stara oprema je u inventaru. Na Vama je početnička oprema za klasu <strong><%= klass %></strong>. Možete se slobodno vratiti svojoj staroj opremi, ali imajte u vidu da sa opremom za svoju klasu imate bonus od 50%.",
+    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Automatska raspodela",
     "autoAllocateText": "Ako uključite automatsku raspodelu, Vaš avatar će birati osobine u koje će ulagati poene u skladu s osobinama zadataka, koje možete podesiti u <strong>ZADATAK > Izmeniti > Napredna podešavanja > Osobine</strong>. Npr, ako često idete u teretanu, i svakodnevni zadatak „Teretana”  je podešen kao „Fizički”, automatski ćete dobijati Snagu.",

@@ -102,7 +102,7 @@
     "invitedParty": "パーティへ招待されました",
     "invitedGuild": "ギルドへ招待されました",
     "importantAnnouncements": "あなたのアカウントはアクティベートされていません",
-    "weeklyRecaps": "ここ一週間のあなたのアカウントのアクティビティ",
+    "weeklyRecaps": "Summaries of your account activity in the past week (Note: this is currently disabled due to performance issues, but we hope to have this back up and sending e-mails again soon!)",
     "questStarted": "あなたのクエストが始まりました",
     "invitedQuest": "クエストへ招待されました",
     "kickedGroup": "グループから追い出されました",
