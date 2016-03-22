@@ -91,7 +91,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
 
       expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('wonChallenge', {controller:'UserCtrl', size:'sm'});
+      expect(rootScope.openModal).to.be.calledWith('wonChallenge');
     });
 
     it('does not open challenge won modal if no new challenge is won', function() {
@@ -99,7 +99,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('wonChallenge', {controller:'UserCtrl', size:'sm'});
+      expect(rootScope.openModal).to.not.be.calledWith('wonChallenge');
     });
   });
 
@@ -111,7 +111,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
 
       expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/streak', {controller:'UserCtrl'});
+      expect(rootScope.openModal).to.be.calledWith('achievements/streak');
     });
 
     it('does not open streak achievement modal if streak count stays the same', function() {
@@ -119,7 +119,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/streak', {controller:'UserCtrl'});
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/streak');
     });
   });
 
@@ -130,14 +130,14 @@ describe('Notification Controller', function() {
       rootScope.$digest();
 
       expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/ultimateGear', {controller:'UserCtrl'});
+      expect(rootScope.openModal).to.be.calledWith('achievements/ultimateGear');
     });
 
     it('does not open ultimate gear set achievement modal if no new set is acquired', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/ultimateGear', {controller:'UserCtrl'});
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/ultimateGear');
     });
   });
 
@@ -149,7 +149,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
 
       expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/rebirth', {controller:'UserCtrl', size:'sm'});
+      expect(rootScope.openModal).to.be.calledWith('achievements/rebirth');
     });
 
     it('does not open rebirth achievement modal if rebirth count stays the same', function() {
@@ -157,7 +157,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/rebirth', {controller:'UserCtrl', size:'sm'});
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/rebirth');
     });
   });
 
@@ -169,7 +169,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
 
       expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/contributor', {controller:'UserCtrl'});
+      expect(rootScope.openModal).to.be.calledWith('achievements/contributor');
     });
 
     it('does not open contributor achievement modal if contributor flag changes to false', function() {
@@ -178,7 +178,7 @@ describe('Notification Controller', function() {
       user.flags.contributor = false;
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor', {controller:'UserCtrl'});
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor');
     });
 
     it('does not open contributor achievement modal if contributor flag stays the same', function() {
@@ -186,7 +186,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor', {controller:'UserCtrl'});
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor');
     });
   });
 });
