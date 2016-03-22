@@ -329,17 +329,15 @@ api.rejectGroupInvite = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
-    if (!group) throw new NotFound(res.t('groupNotFound'));
-
+    let groupId = req.params.groupId;
     let isUserInvited = false;
 
-    if (group.type === 'party' && group._id === user.invitations.party.id) {
+    if (groupId === user.invitations.party.id) {
       user.invitations.party = {};
       user.markModified('invitations.party');
       isUserInvited = true;
-    } else if (group.type === 'guild') {
-      let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
+    } else {
+      let hasInvitation = removeFromArray(user.invitations.guilds, { id: groupId });
 
       if (hasInvitation) {
         isUserInvited = true;

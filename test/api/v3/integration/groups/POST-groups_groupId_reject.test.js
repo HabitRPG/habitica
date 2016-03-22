@@ -3,19 +3,8 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /group/:groupId/reject-invite', () => {
-  it('returns error when groupId is not for a valid group', async () => {
-    let userToRejectInvite = await generateUser();
-
-    await expect(userToRejectInvite.post(`/groups/${generateUUID()}/reject-invite`)).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: t('groupNotFound'),
-    });
-  });
-
   context('Rejecting a public guild invite', () => {
     let publicGuild, invitedUser;
 
