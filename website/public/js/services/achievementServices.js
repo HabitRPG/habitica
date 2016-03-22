@@ -7,12 +7,12 @@
 angular.module("habitrpg").factory("Achievement",
 ['$rootScope', function($rootScope) {
 
-	function openModal(achievementName) {
-		$rootScope.openModal('achievements/' + achievementName,
-			{controller:'UserCtrl', size:'sm'});
-	}
+  function displayAchievement(achievementName) {
+    $rootScope.openModal('achievements/' + achievementName,
+      {controller:'UserCtrl', size:'sm'});
+  }
 
-	return {
-		openModal: openModal
-	};
+  return {
+    displayAchievement: displayAchievement
+  };
 }]);

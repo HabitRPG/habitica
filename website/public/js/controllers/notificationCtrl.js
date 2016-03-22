@@ -144,13 +144,13 @@ habitrpg.controller('NotificationCtrl',
       Notification.streak(User.user.achievements.streak);
       $rootScope.playSound('Achievement_Unlocked');
       if (!User.user.preferences.suppressModals.streak) {
-        Achievement.openModal('streak');
+        Achievement.displayAchievement('streak');
       }
     });
 
     $rootScope.$watch('user.achievements.ultimateGearSets', function(after, before){
       if (_.isEqual(after,before) || !_.contains(User.user.achievements.ultimateGearSets, true)) return;
-      Achievement.openModal('ultimateGear');
+      Achievement.displayAchievement('ultimateGear');
     }, true);
 
     $rootScope.$watch('user.flags.armoireEmpty', function(after,before){
@@ -160,12 +160,12 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
-      Achievement.openModal('rebirth');
+      Achievement.displayAchievement('rebirth');
     });
 
     $rootScope.$watch('user.flags.contributor', function(after, before){
       if (after === before || after !== true) return;
-      Achievement.openModal('contributor');
+      Achievement.displayAchievement('contributor');
     });
 
     // Completed quest modal

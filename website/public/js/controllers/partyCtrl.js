@@ -19,14 +19,14 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if(!user.achievements.partyUp
             && $scope.group.memberCount >= 2) {
           User.set({'achievements.partyUp':true});
-          Achievement.openModal('partyUp');
+          Achievement.displayAchievement('partyUp');
         }
 
         // Checks if user's party has reached 4 players for the first time.
         if(!user.achievements.partyOn
             && $scope.group.memberCount >= 4) {
           User.set({'achievements.partyOn':true});
-          Achievement.openModal('partyOn');
+          Achievement.displayAchievement('partyOn');
         }
       }
 
