@@ -308,6 +308,51 @@ api.joinGroup = {
 };
 
 /**
+ * @api {post} /groups/:groupId/reject Reject a group invitation
+ * @apiVersion 3.0.0
+ * @apiName RejectGroupInvite
+ * @apiGroup Group
+ *
+ * @apiParam {UUID} groupId The group _id
+ *
+ * @apiSuccess {Object} group The group
+ */
+api.rejectGroupInvite = {
+  method: 'POST',
+  url: '/groups/:groupId/reject-invite',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let groupId = req.params.groupId;
+    let isUserInvited = false;
+
+    if (groupId === user.invitations.party.id) {
+      user.invitations.party = {};
+      user.markModified('invitations.party');
+      isUserInvited = true;
+    } else {
+      let hasInvitation = removeFromArray(user.invitations.guilds, { id: groupId });
+
+      if (hasInvitation) {
+        isUserInvited = true;
+      }
+    }
+
+    if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
+
+    await user.save();
+
+    res.respond(200, {});
+  },
+};
+
+/**
  * @api {post} /groups/:groupId/leave Leave a group
  * @apiVersion 3.0.0
  * @apiName LeaveGroup
