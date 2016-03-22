@@ -101,7 +101,7 @@
     "inbox": "Boîte de Réception",
     "abuseFlag": "Signaler une infraction aux Règles de la Communauté",
     "abuseFlagModalHeading": "Signaler <%= name %> pour infraction ?",
-    "abuseFlagModalBody": "Êtes-vous sûr-e de vouloir signaler cette publication ? Vous devez signaler UNIQUEMENT celles qui enfreignent les <%= firstLinkStart %>Règles de la Communauté<%= linkEnd %> et/ou les <%= secondLinkStart %>Conditions Générales<%= linkEnd %>. Le signalement inapproprié d'une publication est une violation des Règles de la Communauté et est considéré comme une infraction. Les raisons appropriées pour signaler une publication incluent mais ne sont pas limitées aux motifs suivants : <p></p></br><ul style='margin-left: 10px;'><li>jurons, propos à caractère religieux</li><li>intolérance, insultes</li><li>sujets heurtant la sensibilité des plus jeunes</li><li>violence, y compris pour rire</li><li>spam, messages absurdes</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Signaler une infraction",
     "abuseReported": "Merci d'avoir signalé cette infraction. Les modérateurs en ont été informé.",
     "abuseAlreadyReported": "Vous avez déjà signalé ce message.",

@@ -50,7 +50,7 @@
     "messageGroupChatFlagOwnMessage": "No puedes reportar tu propio mensaje.",
     "messageGroupChatFlagAlreadyReported": "Has reportado este mensaje",
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
-    "messageGroupChatAdminClearFlagCount": "\nSólo un administrador puede borrar la cuenta bandera!",
+    "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar la cuenta!",
     "messageUserOperationProtected": "la ruta <%= operation %> no se guardó porque es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> no encontrado"
 }

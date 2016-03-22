@@ -161,7 +161,7 @@
     "con": "CON",
     "per": "PER",
     "int": "INT",
-    "showQuickAllocation": "Show stat allocation",
-    "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "showQuickAllocation": "Mostra allocazione delle statistiche",
+    "hideQuickAllocation": "Nascondi allocazione delle statistiche",
+    "quickAllocationLevelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad un attributo a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica che trovi in Utente -> Statistiche."
 }

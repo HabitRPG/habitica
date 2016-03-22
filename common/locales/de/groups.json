@@ -101,7 +101,7 @@
     "inbox": "Postfach",
     "abuseFlag": "Verletzung der Community-Richtlinien melden",
     "abuseFlagModalHeading": "<%= name %> melden?",
-    "abuseFlagModalBody": "Möchtest du diesen Beitrag wirklich melden? DU solltest AUSSCHLIESSLICH Beiträge melden, die unsere <%= firstLinkStart %>Community-Richtlinien<%= linkEnd %> oder unseren <%= secondLinkStart %>Nutzungsbedingungen<%= linkEnd %> verletzen. Das ungerechtfertigte Melden von Beiträgen stellt eine Verletzung der Community-Richtlinien dar und kann geahndet werden. Ein angemessener Grund einen Beitrag zu melden umfasst, ist aber nicht beschränkt auf: <p></p></br><ul style='margin-left: 10px;'><li>Beschimpfungen, Religiöse Schwüre</li><li>Intoleranzen, herabwürdigende Bezeichnung jeglicher Ethnien</li><li>Erwachsenenthemen</li><li>Gewalt, auch innerhalb eines Witzes</li><li>Spam, unsinnige Nachrichten</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Verstoß melden",
     "abuseReported": "Danke, dass Du diesen Verstoß gemeldet hast. Die Moderatoren wurden benachrichtigt.",
     "abuseAlreadyReported": "Du hast diese Nachricht bereits gemeldet.",

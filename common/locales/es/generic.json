@@ -95,7 +95,7 @@
     "memberSince": "- Miembro desde",
     "lastLoggedIn": "- Última conexión",
     "notPorted": "Esta función no se ha traido del sitio original",
-    "buyThis": "Comprarás este <%= text %> con <%= price %> de tus <%= gems %> Gemas?",
+    "buyThis": "¿Comprar este <%= text %> con <%= price %> de tus <%= gems %> Gemas?",
     "noReachServer": "Error en la conexión al servidor, intentalo más tarde.",
     "errorUpCase": "ERROR:",
     "newPassSent": "Nueva contraseña enviada.",
