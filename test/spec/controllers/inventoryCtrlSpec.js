@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Inventory Controller', function() {
-  var scope, ctrl, user, rootScope;
+  var scope, ctrl, user, rootScope, shared;
 
   beforeEach(function() {
     module(function($provide) {
@@ -25,6 +25,8 @@ describe('Inventory Controller', function() {
       });
 
       Shared.wrap(user);
+      shared = Shared;
+
       var mockWindow = {
         confirm: function(msg){
           return true;
@@ -110,6 +112,25 @@ describe('Inventory Controller', function() {
 
       expect(rootScope.openModal).to.not.be.called;
     });
+
+    it('shows beastMaster achievement modal if user has all 90 pets', function(){
+      sandbox.stub(shared.count, "beastMasterProgress").returns(90);
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+
+      expect(rootScope.openModal).to.be.called;
+      expect(rootScope.openModal).to.be.calledWith('achievements/beastMaster');
+    });
+
+    it('shows triadBingo achievement modal if user has all pets twice and all mounts', function(){
+      sandbox.stub(shared.count, "mountMasterProgress").returns(90);
+      sandbox.stub(shared.count, "dropPetsCurrentlyOwned").returns(90);
+      scope.chooseEgg('Cactus');
+      scope.choosePotion('Base');
+
+      expect(rootScope.openModal).to.be.called;
+      expect(rootScope.openModal).to.be.calledWith('achievements/triadBingo');
+    });
   });
 
   describe('Feeding and Raising Pets', function() {
@@ -185,6 +206,15 @@ describe('Inventory Controller', function() {
 
       expect(rootScope.openModal).to.have.been.calledOnce;
       expect(rootScope.openModal).to.have.been.calledWith('raisePet');
+    });
+
+    it('shows mountMaster achievement modal if user has all 90 mounts', function(){
+      sandbox.stub(shared.count, "mountMasterProgress").returns(90);
+      scope.chooseFood('Meat');
+      scope.choosePet('PandaCub','Base');
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('achievements/mountMaster');
     });
   });
 
