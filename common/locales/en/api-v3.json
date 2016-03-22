@@ -121,5 +121,8 @@
   "cannoyBuyItem": "You can't buy this item",
   "messageRequired": "A message is required.",
   "toUserIDRequired": "A toUserId is required",
-  "notAuthorizedToSendMessageToThisUser": "Can't send message to this user."
+  "notAuthorizedToSendMessageToThisUser": "Can't send message to this user.",
+  "privateMessageGiftIntro": "Hello <%= receiverName %>, <%= senderName %> has sent you ",
+  "privateMessageGiftGemsMessage": "<%= gemAmount %> gems! ",
+  "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! "
 }

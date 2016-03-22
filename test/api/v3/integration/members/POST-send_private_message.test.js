@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /send-private-message', () => {
+describe('POST /members/send-private-message', () => {
   let userToSendMessage;
   let messageToSend = { message: 'Test Private Message' };
 
@@ -13,7 +13,7 @@ describe('POST /send-private-message', () => {
   });
 
   it('returns error when message is not provided', async () => {
-    await expect(userToSendMessage.post('/send-private-message'))
+    await expect(userToSendMessage.post('/members/send-private-message'))
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -22,7 +22,7 @@ describe('POST /send-private-message', () => {
   });
 
   it('returns error when toUserId is not provided', async () => {
-    await expect(userToSendMessage.post('/send-private-message', {
+    await expect(userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
     })).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -32,7 +32,7 @@ describe('POST /send-private-message', () => {
   });
 
   it('returns error when to user is not found', async () => {
-    await expect(userToSendMessage.post('/send-private-message', {
+    await expect(userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
       toUserId: generateUUID(),
     })).to.eventually.be.rejected.and.eql({
@@ -45,7 +45,7 @@ describe('POST /send-private-message', () => {
   it('returns error when to user has blocked the sender', async () => {
     let receiver = await generateUser({'inbox.blocks': [userToSendMessage._id]});
 
-    await expect(userToSendMessage.post('/send-private-message', {
+    await expect(userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
@@ -59,7 +59,7 @@ describe('POST /send-private-message', () => {
     let receiver = await generateUser();
     let sender = await generateUser({'inbox.blocks': [receiver._id]});
 
-    await expect(sender.post('/send-private-message', {
+    await expect(sender.post('/members/send-private-message', {
       message: messageToSend,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
@@ -72,7 +72,7 @@ describe('POST /send-private-message', () => {
   it('returns error when to user has opted out of messaging', async () => {
     let receiver = await generateUser({'inbox.optOut': true});
 
-    await expect(userToSendMessage.post('/send-private-message', {
+    await expect(userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
@@ -85,7 +85,7 @@ describe('POST /send-private-message', () => {
   it('sends a private message to a user', async () => {
     let receiver = await generateUser();
 
-    await userToSendMessage.post('/send-private-message', {
+    await userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
       toUserId: receiver._id,
     });
@@ -115,7 +115,7 @@ describe('POST /send-private-message', () => {
       message: 'Test Message About Gems',
     };
 
-    await userToSendMessage.post('/send-private-message', {
+    await userToSendMessage.post('/members/send-private-message', {
       message: messageAboutGemsToSend,
       toUserId: receiver._id,
     });
@@ -131,10 +131,17 @@ describe('POST /send-private-message', () => {
       return message.uuid === receiver._id;
     });
 
+    let messageSentContent = t('privateMessageGiftIntro', {
+      receiverName: receiver.profile.name,
+      senderName: userToSendMessage.profile.name,
+    });
+    messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount: messageAboutGemsToSend.gems.amount});
+    messageSentContent += messageAboutGemsToSend.message;
+
     expect(sendersMessageInReceiversInbox).to.exist;
-    expect(sendersMessageInReceiversInbox.text).to.equal(`Hello ${receiver.profile.name}, ${userToSendMessage.profile.name} has sent you ${messageAboutGemsToSend.gems.amount} gems! ${messageAboutGemsToSend.message}`);
+    expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
     expect(sendersMessageInSendersInbox).to.exist;
-    expect(sendersMessageInSendersInbox.text).to.equal(`Hello ${receiver.profile.name}, ${userToSendMessage.profile.name} has sent you ${messageAboutGemsToSend.gems.amount} gems! ${messageAboutGemsToSend.message}`);
+    expect(sendersMessageInSendersInbox.text).to.equal(messageSentContent);
   });
 
   it('sends a private message about subscriptions to a user', async () => {
@@ -147,7 +154,7 @@ describe('POST /send-private-message', () => {
       message: 'Test Message About Subscription',
     };
 
-    await userToSendMessage.post('/send-private-message', {
+    await userToSendMessage.post('/members/send-private-message', {
       message: messageAboutSubscriptionToSend,
       toUserId: receiver._id,
     });
@@ -163,9 +170,16 @@ describe('POST /send-private-message', () => {
       return message.uuid === receiver._id;
     });
 
+    let messageSentContent = t('privateMessageGiftIntro', {
+      receiverName: receiver.profile.name,
+      senderName: userToSendMessage.profile.name,
+    });
+    messageSentContent += t('privateMessageGiftSubscriptionMessage', {numberOfMonths: 12});
+    messageSentContent += messageAboutSubscriptionToSend.message;
+
     expect(sendersMessageInReceiversInbox).to.exist;
-    expect(sendersMessageInReceiversInbox.text).to.equal(`Hello ${receiver.profile.name}, ${userToSendMessage.profile.name} has sent you 12 months of subscription! ${messageAboutSubscriptionToSend.message}`);
+    expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
     expect(sendersMessageInSendersInbox).to.exist;
-    expect(sendersMessageInSendersInbox.text).to.equal(`Hello ${receiver.profile.name}, ${userToSendMessage.profile.name} has sent you 12 months of subscription! ${messageAboutSubscriptionToSend.message}`);
+    expect(sendersMessageInSendersInbox.text).to.equal(messageSentContent);
   });
 });

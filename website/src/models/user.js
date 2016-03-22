@@ -715,8 +715,17 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
   if (!messageData.type) {
     msg = messageData.message;
   } else {
-    msg = `Hello ${userToReceiveMessage.profile.name }, ${sender.profile.name} has sent you `;
-    msg += messageData.type === 'gems' ?  `${messageData.gems.amount} gems! ` : `${shared.content.subscriptionBlocks[messageData.subscription.key].months} months of subscription! `;
+    msg = shared.i18n.t('privateMessageGiftIntro', {
+      receiverName: userToReceiveMessage.profile.name,
+      senderName: sender.profile.name,
+    });
+
+    if (messageData.type === 'gems') {
+      msg += shared.i18n.t('privateMessageGiftGemsMessage', {gemAmount: messageData.gems.amount});
+    } else {
+      msg += shared.i18n.t('privateMessageGiftSubscriptionMessage', {numberOfMonths: shared.content.subscriptionBlocks[messageData.subscription.key].months});
+    }
+
     msg += messageData.message;
   }
 

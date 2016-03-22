@@ -237,7 +237,7 @@ api.getChallengeMemberProgress = {
 };
 
 /**
- * @api {posts} /send-private-message Get a challenge member progress
+ * @api {posts} /members/send-private-message Get a challenge member progress
  * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
  * @apiGroup Members
@@ -249,7 +249,7 @@ api.getChallengeMemberProgress = {
  */
 api.sendPrivateMessage = {
   method: 'POST',
-  url: '/send-private-message',
+  url: '/members/send-private-message',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
