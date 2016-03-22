@@ -1,33 +1,35 @@
 'use strict';
 
 describe('Notification Controller', function() {
-  var user, scope, rootScope, ctrl;
+  var user, scope, rootScope, fakeBackend, ctrl;
 
   beforeEach(function() {
     user = specHelper.newUser();
     user._id = "unique-user-id";
+    user.preferences.suppressModals = {};
 
     module(function($provide) {
       $provide.value('User', {user: user});
       $provide.value('Guide', {});
     });
 
-    inject(function(_$rootScope_, _$controller_) {
+    inject(function(_$rootScope_, $httpBackend, _$controller_) {
       scope = _$rootScope_.$new();
       rootScope = _$rootScope_;
+
+      fakeBackend = $httpBackend;
+      fakeBackend.when('GET', 'partials/main.html').respond({});
 
       // Load RootCtrl to ensure shared behaviors are loaded
       _$controller_('RootCtrl',  {$scope: scope, User: {user: user}});
 
       ctrl = _$controller_('NotificationCtrl', {$scope: scope, User: {user: user}});
     });
+
+    sandbox.stub(rootScope, 'openModal');
   });
 
   describe('Quest Invitation modal watch', function() {
-    beforeEach(function() {
-      sandbox.stub(rootScope, 'openModal');
-    });
-
     it('opens quest invitation modal', function() {
       user.party.quest.RSVPNeeded = true;
       delete user.party.quest.completed;
@@ -55,10 +57,6 @@ describe('Notification Controller', function() {
   });
 
   describe('Quest Completion modal watch', function() {
-    beforeEach(function() {
-      sandbox.stub(rootScope, 'openModal');
-    });
-
     it('opens quest completion modal', function() {
       user.party.quest.completed = "hedgebeast";
       scope.$digest();
@@ -82,6 +80,113 @@ describe('Notification Controller', function() {
       scope.$digest();
 
       expect(rootScope.openModal).to.not.be.called;
+    });
+  });
+
+  describe('User challenge won modal watch', function() {
+    it('opens challenge won modal when a challenge is won', function() {
+      user.achievements.challenges = [];
+      rootScope.$digest();
+      user.achievements.challenges = ['test-challenge'];
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.be.called;
+      expect(rootScope.openModal).to.be.calledWith('wonChallenge', {controller:'UserCtrl', size:'sm'});
+    });
+
+    it('does not open challenge won modal if no new challenge is won', function() {
+      user.achievements.challenges = [];
+      rootScope.$digest();
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.not.be.calledWith('wonChallenge', {controller:'UserCtrl', size:'sm'});
+    });
+  });
+
+  describe('User streak achievement modal watch', function() {
+    it('opens streak achievement modal if streak count increases', function() {
+      user.achievements.streak = 0;
+      rootScope.$digest();
+      user.achievements.streak = 1;
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.be.called;
+      expect(rootScope.openModal).to.be.calledWith('achievements/streak', {controller:'UserCtrl'});
+    });
+
+    it('does not open streak achievement modal if streak count stays the same', function() {
+      user.achievements.streak = 1;
+      rootScope.$digest();
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/streak', {controller:'UserCtrl'});
+    });
+  });
+
+  describe('User ultimate gear set achievement modal watch', function() {
+    it('opens ultimate gear set achievement modal if set is acquired', function() {
+      rootScope.$digest();
+      user.achievements.ultimateGearSets = { warrior:true };
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.be.called;
+      expect(rootScope.openModal).to.be.calledWith('achievements/ultimateGear', {controller:'UserCtrl'});
+    });
+
+    it('does not open ultimate gear set achievement modal if no new set is acquired', function() {
+      rootScope.$digest();
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/ultimateGear', {controller:'UserCtrl'});
+    });
+  });
+
+  describe('User rebirth achievement modal watch', function() {
+    it('opens rebirth achievement modal if rebirth count increases', function() {
+      user.achievements.rebirths = 0;
+      rootScope.$digest();
+      user.achievements.rebirths = 1;
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.be.called;
+      expect(rootScope.openModal).to.be.calledWith('achievements/rebirth', {controller:'UserCtrl', size:'sm'});
+    });
+
+    it('does not open rebirth achievement modal if rebirth count stays the same', function() {
+      user.achievements.rebirths = 0;
+      rootScope.$digest();
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/rebirth', {controller:'UserCtrl', size:'sm'});
+    });
+  });
+
+  describe('User contributor flag modal watch', function() {
+    it('opens contributor achievement modal if contributor flag changes to true', function() {
+      user.flags.contributor = false;
+      rootScope.$digest();
+      user.flags.contributor = true;
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.be.called;
+      expect(rootScope.openModal).to.be.calledWith('achievements/contributor', {controller:'UserCtrl'});
+    });
+
+    it('does not open contributor achievement modal if contributor flag changes to false', function() {
+      user.flags.contributor = true;
+      rootScope.$digest();
+      user.flags.contributor = false;
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor', {controller:'UserCtrl'});
+    });
+
+    it('does not open contributor achievement modal if contributor flag stays the same', function() {
+      user.flags.contributor = true;
+      rootScope.$digest();
+      rootScope.$digest();
+
+      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor', {controller:'UserCtrl'});
     });
   });
 });
