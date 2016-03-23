@@ -47,7 +47,7 @@ api.sendMessage = function(user, member, data){
       var monthLabel = monthAmount > 1 ? "months" : "month";
       msg += monthAmount + " " + monthLabel + " of subscription!`";
     }
-    msg += data.message;
+    msg += data.message ? data.message : '';
   }
   shared.refPush(member.inbox.messages, groups.chatDefaults(msg, user));
   member.inbox.newMessages++;
