@@ -117,7 +117,7 @@
     "askQuestion": "Задать вопрос",
     "reportBug": "Сообщить о проблеме",
     "HabiticaWiki": "Habitica Вики",
-    "HabiticaWikiFrontPage": "http://habitica.wikia.com/wiki/Habitica_Wiki",
+    "HabiticaWikiFrontPage": "http://ru.habitica.wikia.com/wiki/Habitica_%D0%92%D0%B8%D0%BA%D0%B8",
     "contributeToHRPG": "Участвовать в развитии Habitica",
     "overview": "Информация для новичков",
     "January": "Январь",
@@ -158,12 +158,12 @@
     "thankyou3": "Я очень признателен. Спасибо тебе!",
     "thankyouCardAchievementTitle": "Благодарный",
     "thankyouCardAchievementText": "Спасибо за спасибо! Отправлено или получено <%= cards %> Благодарственных писем.",
-    "birthdayCard": "Поздравительная открытка",
+    "birthdayCard": "Поздравление с Днем рождения",
     "birthdayCardExplanation": "Вы оба получили достижение \"Большой куш Дня рождения\"!",
-    "birthdayCardNotes": "Отправьте поздравительную открытку члену команды.",
-    "birthday0": "С днем рождения тебя!",
+    "birthdayCardNotes": "Отправьте поздравление с Днем рождения члену команды.",
+    "birthday0": "С Днем рождения!",
     "birthdayCardAchievementTitle": "Большой куш Дня рождения",
-    "birthdayCardAchievementText": "С днем рожденья! Отправлено или получено <%= cards %> поздравительных открыток.",
+    "birthdayCardAchievementText": "С днем рождения! Отправлено или получено поздравительных открыток: <%= cards %>.",
     "streakAchievement": "Вы заработали достижение Серии!",
     "firstStreakAchievement": "21-дневная серия",
     "streakAchievementCount": "<%= streaks %> 21-дневные серии",
@@ -175,5 +175,6 @@
     "hatchPetShare": "У меня вылупился новый питомец благодаря завершению заданий в реальной жизни!",
     "raisePetShare": "Мой питомец вырос в скакуна благодаря завершению заданий в реальной жизни!",
     "wonChallengeShare": "Я выиграл испытание в Habitica!",
-    "achievementShare": "Я получил новое достижение в Habitica!"
+    "achievementShare": "Я получил новое достижение в Habitica!",
+    "orderBy": "Упорядочить по <%= item %>"
 }

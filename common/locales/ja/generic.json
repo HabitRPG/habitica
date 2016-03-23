@@ -175,5 +175,6 @@
     "hatchPetShare": "実生活でタスクを達成して、たまごから新しいペットがかえったよ!",
     "raisePetShare": "実生活でタスクを達成して、ペットが乗れるほど大きくなったよ!",
     "wonChallengeShare": "Habitica のチャレンジに成功したよ!",
-    "achievementShare": "Habitica で新しい実績を解除したよ!"
+    "achievementShare": "Habitica で新しい実績を解除したよ!",
+    "orderBy": "並び順 : <%= item %>"
 }

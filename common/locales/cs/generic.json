@@ -175,5 +175,6 @@
     "hatchPetShare": "Díky plnění úkolů se mi vylíhl nový mazlíček!",
     "raisePetShare": "Mazlíček mi vyrostl v silné zvíře, protože jsem svědomitě plnil úkoly!",
     "wonChallengeShare": "V Habitica jsem vyhrál výzvu!",
-    "achievementShare": "Získal jsem v zemi Habitica nové ocenění!"
+    "achievementShare": "Získal jsem v zemi Habitica nové ocenění!",
+    "orderBy": "Order By <%= item %>"
 }

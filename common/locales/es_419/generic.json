@@ -175,5 +175,6 @@
     "hatchPetShare": "¡Eclosioné una nueva mascota completando mis tareas de la vida real!",
     "raisePetShare": "¡Convertí una mascota en montura completando mis tareas de la vida real!",
     "wonChallengeShare": "¡Gané un desafío en Habitica!",
-    "achievementShare": "¡Gané un nuevo logro en Habitica!"
+    "achievementShare": "¡Gané un nuevo logro en Habitica!",
+    "orderBy": "Ordenar por <%= item %>"
 }

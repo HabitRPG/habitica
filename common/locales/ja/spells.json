@@ -1,5 +1,5 @@
 {
-    "spellWizardFireballText": "炎のバースト",
+    "spellWizardFireballText": "火炎爆破",
     "spellWizardFireballNotes": "炎が手から吹き出します。XPを手に入れ、ボスにさらにダメージを与えます！タスクをクリックすることで唱えます。(知性に基づく)",
     "spellWizardMPHealText": "エーテル波動",
     "spellWizardMPHealNotes": "友人を助けるために、あなたのマナを犠牲にします。残りのパーティーのメンバー党は、MPを得ます！(知性に基づく)",
@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "あなたの精神の力が地面を揺らします。パーティー全員が知性を得ます。(知性に基づく)",
     "spellWizardFrostText": "酷寒の霜",
     "spellWizardFrostNotes": "氷があなたのタスクを覆う。あなたの連続実行のいずれも明日ゼロにリセットされない! (一度唱えると全ての連続実行に影響する)",
-    "spellWarriorSmashText": "ブルータルスマッシュ",
+    "spellWarriorSmashText": "強烈なスマッシュ",
     "spellWarriorSmashNotes": "全力でタスクを攻撃する。タスクはより青く、もしくは赤が薄くなり、ボスに追加ダメージを与える!  唱える対象のタスクをクリックしてください。(力に基づく)",
     "spellWarriorDefensiveStanceText": "守勢の体勢",
     "spellWarriorDefensiveStanceNotes": "攻め寄るタスクの覚悟をする。体質のバフを獲得！(バフ抜き体質に基づく)",

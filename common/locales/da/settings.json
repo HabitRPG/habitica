@@ -102,7 +102,7 @@
     "invitedParty": "Gruppeinvitation",
     "invitedGuild": "Klaninvitation",
     "importantAnnouncements": "Din konto er inaktiv",
-    "weeklyRecaps": "Oversigt over aktiviteter på din konto den sidste uge",
+    "weeklyRecaps": "Summaries of your account activity in the past week (Note: this is currently disabled due to performance issues, but we hope to have this back up and sending e-mails again soon!)",
     "questStarted": "Jeres Quest er Begyndt",
     "invitedQuest": "Inviteret til Quest",
     "kickedGroup": "Fjernet fra gruppe",

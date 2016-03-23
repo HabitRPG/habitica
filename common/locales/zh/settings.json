@@ -102,7 +102,7 @@
     "invitedParty": "队伍邀请",
     "invitedGuild": "公会邀请",
     "importantAnnouncements": "你的账号处于失效状态",
-    "weeklyRecaps": "过去几周内你账户活动的总结",
+    "weeklyRecaps": "Summaries of your account activity in the past week (Note: this is currently disabled due to performance issues, but we hope to have this back up and sending e-mails again soon!)",
     "questStarted": "你的任务已经开始",
     "invitedQuest": "任务邀请",
     "kickedGroup": "从小组踢出",

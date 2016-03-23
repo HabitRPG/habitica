@@ -2,6 +2,10 @@
 
 [Please see these instructions for reporting bugs](https://github.com/HabitRPG/habitrpg/issues/2760)
 
+# Pull Request
+
+[Please see these instructions for adding a pull request](http://habitica.wikia.com/wiki/Using_Habitica_Git#Pull_Request)
+
 # Requesting a feature
 
 Habitica uses [Trello](https://trello.com/b/EpoYEYod/habitica) to track feature requests. [Read more](https://trello.com/c/odmhIqyW/440-read-first-table-of-contents).

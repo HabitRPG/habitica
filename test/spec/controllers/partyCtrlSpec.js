@@ -8,7 +8,8 @@ describe("Party Controller", function() {
     user._id = "unique-user-id";
     User = {
       user: user,
-      sync: sandbox.spy
+      sync: sandbox.spy(),
+      set: sandbox.spy()
     }
 
     module(function($provide) {
@@ -30,6 +31,108 @@ describe("Party Controller", function() {
       $controller('RootCtrl',  {$scope: scope, User: User});
 
       ctrl = $controller('PartyCtrl', {$scope: scope, User: User});
+    });
+  });
+
+  describe('initialization', function() {
+    function initializeControllerWithStubbedState() {
+      inject(function(_$state_) {
+        var state = _$state_;
+        sandbox.stub(state, 'is').returns(true);
+        $controller('PartyCtrl', { $scope: scope, $state: state });
+        expect(state.is).to.be.calledOnce; // ensure initialization worked as desired
+      });
+    };
+
+    beforeEach(function() {
+      sandbox.stub(rootScope, 'openModal');
+    });
+
+    context('party has 1 member', function() {
+      it('awards no new achievements', function() {
+        sandbox.stub(groups, 'party').returns({
+          $syncParty: function() {},
+          memberCount: 1
+        });
+
+        initializeControllerWithStubbedState();
+
+        expect(User.set).to.not.be.called;
+        expect(rootScope.openModal).to.not.be.called;
+      });
+    });
+
+    context('party has 2 members', function() {
+      context('user does not have "Party Up" achievement', function() {
+        it('awards "Party Up" achievement', function() {
+          sandbox.stub(groups, 'party').returns({
+            $syncParty: function() {},
+            memberCount: 2
+          });
+
+          initializeControllerWithStubbedState();
+
+          expect(User.set).to.be.calledOnce;
+          expect(User.set).to.be.calledWith(
+            { 'achievements.partyUp': true }
+          );
+          expect(rootScope.openModal).to.be.calledOnce;
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+        });
+      });
+    });
+
+    context('party has 4 members', function() {
+      beforeEach(function() {
+        sandbox.stub(groups, 'party').returns({
+          $syncParty: function() {},
+          memberCount: 4
+        });
+      });
+
+      context('user has "Party Up" but not "Party On" achievement', function() {
+        it('awards "Party On" achievement', function() {
+          user.achievements.partyUp = true;
+
+          initializeControllerWithStubbedState();
+
+          expect(User.set).to.be.calledOnce;
+          expect(User.set).to.be.calledWith(
+            { 'achievements.partyOn': true }
+          );
+          expect(rootScope.openModal).to.be.calledOnce;
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+        });
+      });
+
+      context('user has neither "Party Up" nor "Party On" achievements', function() {
+        it('awards "Party Up" and "Party On" achievements', function() {
+          initializeControllerWithStubbedState();
+
+          expect(User.set).to.be.calledTwice;
+          expect(User.set).to.be.calledWith(
+            { 'achievements.partyUp': true}
+          );
+          expect(User.set).to.be.calledWith(
+            { 'achievements.partyOn': true}
+          );
+          expect(rootScope.openModal).to.be.calledTwice;
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+        });
+      });
+
+      context('user has both "Party Up" and "Party On" achievements', function() {
+        it('awards no new achievements', function() {
+          user.achievements.partyUp = true;
+          user.achievements.partyOn = true;
+
+          initializeControllerWithStubbedState();
+
+          expect(User.set).to.not.be.called;
+          expect(rootScope.openModal).to.not.be.called;
+        });
+      });
     });
   });
 

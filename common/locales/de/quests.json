@@ -25,7 +25,7 @@
     "rejected": "Abgelehnt",
     "pending": "Überlegt noch",
     "questStart": "Sobald alle Mitglieder die Einladung entweder angenommen oder abgelehnt haben beginnt die Quest. Nur diejenigen, die die Einladung \"angenommen\" haben können an der Quest teilnehmen und die Belohnungen kassieren. Wenn Mitglieder zu lange überlegen (inaktiv?), kannst Du die Quest ohne sie starten indem Du auf \"Beginnen\" klickst. Der Quest-Besitzer kann die Quest auch abbrechen und die Questrolle zurückerhalten indem er \"Abbrechen\" klickt.",
-    "questStartBroken": "Sobald alle Mitglieder die Einladung entweder angenommen oder abgelehnt haben beginnt das Quest... Nur diejenigen, die die Einladung \"angenommen\" haben können an dem Quest teilnehmen und die Belohnungen kassieren... Wenn Mitglieder zu lange überlegen (inaktiv?), kannst Du das Quest ohne sie starten indem Du auf \"Beginnen\" klickst... Der Quest-Besitzer kann die Quest auch abbrechen und die Questrolle zurückerhalten indem er \"Abbrechen\" klickt...",
+    "questStartBroken": "Sobald alle Mitglieder die Einladung entweder angenommen oder abgelehnt haben beginnt die Quest… Nur diejenigen, die die Einladung \"angenommen\" haben können an der Quest teilnehmen und die Belohnungen kassieren… Wenn Mitglieder zu lange überlegen (inaktiv?), kann der Quest-Besitzer die Quest ohne sie starten indem er auf \"Beginnen\" klickt… Der Quest-Besitzer kann die Quest auch abbrechen und die Questschriftrolle zurückerhalten indem er auf \"Abbrechen\" klickt...",
     "begin": "Beginnen",
     "bossHP": "Boss Lebenspunkte",
     "bossStrength": "Boss Stärke",
@@ -77,6 +77,6 @@
     "startQuest": "Quest starten",
     "whichQuestStart": "Welche Quest willst Du starten?",
     "getMoreQuests": "Erhalte mehr Quests",
-    "unlockedAQuest": "Du hast ein Quest freigeschaltet!",
+    "unlockedAQuest": "Du hast eine Quest freigeschaltet!",
     "leveledUpReceivedQuest": "Du hast <strong>Level <%= level %></strong> erreicht und eine Questschriftrolle erhalten!"
 }

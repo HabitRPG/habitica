@@ -1,5 +1,5 @@
 {
-    "tavern": "Tavern Chat",
+    "tavern": "Chat de la Taberna",
     "innCheckOut": "Dejar la Posada",
     "innCheckIn": "Descansar en la Posada",
     "innText": "¡Estás descansando en la Posada! Mientras sigas en ella, tus tareas diarias no te causarán daños al final del día, pero seguirán restableciéndose cada día. Por otra parte, ten cuidado: si estás participando en alguna misión contra un jefe, el jefe seguirá haciéndote daño cuando tus compañeros de grupo no cumplan sus tareas diarias, a menos que ellos también estén en la Posada. Además, el daño que provoques al jefe (o los objetos que recopiles) no tendrá efecto hasta que salgas de la Posada.",
@@ -101,7 +101,7 @@
     "inbox": "Bandeja de entrada",
     "abuseFlag": "Notificación de violación de las normas de la comunidad",
     "abuseFlagModalHeading": "¿Notificar a <%= name %> por infracción?",
-    "abuseFlagModalBody": "¿Seguro que quieres informar de esta publicación? SOLAMENTE debes informar de aquellas publicaciones que infrinjan las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o las <%= secondLinkStart %>Condiciones del Servicio<%= linkEnd %>. Informar de una publicación que no contravenga dichas normas constituye un incumplimiento de las Normas de la Comunidad: si lo haces, puedes estar cometiendo una infracción. Estos son algunos de los motivos (no todos) por los que se puede informar de una publicación: <p></p></br><ul style='margin-left: 10px;'><li>palabras malsonantes y tacos considerados ofensas religiosas;</li><li>fanatismo e insultos;</li><li>temas para adultos;</li><li>violencia, incluso si es de broma;</li><li>spam y mensajes sin sentido.</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Informar de una infracción",
     "abuseReported": "Gracias por notificar esta infracción. Los moderadores han sido informados.",
     "abuseAlreadyReported": "Ya has notificado este mensaje.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "El chat de este grupo está vacío. Escribe un mensaje en el cuadro de arriba para romper el hielo.",
     "guildChatEmpty": "El chat de este gremio está vacío. Escribe un mensaje en el cuadro de arriba para empezar una conversación.",
     "possessiveParty": "Grupo de <%= name %>",
-    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de algún grupo o gremio, lee primero las <%= linkStart %>Normas de la Comunidad<%= linkEnd %> y, a continuación, haz clic en el botón de abajo para indicar que las aceptas."
+    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de algún grupo o gremio, lee primero las <%= linkStart %>Normas de la Comunidad<%= linkEnd %> y, a continuación, haz clic en el botón de abajo para indicar que las aceptas.",
+    "partyUpName": "¡Ese grupo!",
+    "partyOnName": "¡Toma grupo!",
+    "partyUpAchievement": "Se unió a un grupo con otra persona. Pasadlo bien luchando contra monstruos y apoyándoos mutuamente.",
+    "partyOnAchievement": "Se unió a un grupo con cuatro personas o más. Disfrutad de lo responsables que sois entre todos y venced a vuestros enemigos con la ayuda de vuestros amigos."
 }

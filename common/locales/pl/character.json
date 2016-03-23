@@ -1,7 +1,7 @@
 {
     "statsAch": "Statystyki i osiągnięcia",
     "profile": "Profil",
-    "avatar": "Customize Avatar",
+    "avatar": "Dostosuj Awatara",
     "other": "Inne",
     "fullName": "Pełne imię",
     "displayName": "Nazwa gracza",
@@ -83,7 +83,7 @@
     "allocateInt": "Punkty przydzielone do Inteligencji:",
     "allocateIntPop": "Dodaj punkt do Inteligencji",
     "noMoreAllocate": "Teraz, gdy osiągnąłeś poziom 100, nie będziesz już zyskiwać punktów atrybutów. Możesz dalej podnosić poziom lub zacząć przygodę nową od poziomu 1 używając <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>, dostępnej teraz za darmo na Targu.",
-    "stats": "Avatar Stats",
+    "stats": "Statystki Awatara",
     "strength": "Siła",
     "strengthText": "Siła zwiększa szansę na losowe \"trafienia krytyczne\", a także wpływa na ilość otrzymanego za nie Złota, Doświadczenia i prawdopodobieństwa łupów. Pomaga także zadawać obrażenia bossom.",
     "constitution": "Kondycja",
@@ -136,7 +136,7 @@
     "respawn": "Odrodzenie!",
     "youDied": "Zginąłeś!",
     "dieText": "Straciłeś jeden Poziom, losowo wybrany przedmiot z Ekwipunku oraz całe Złoto. A teraz powstań, dzielny Habitaninie, i jeszcze raz spróbuj sił w walce! Okiełznaj złe Nawyki, czujnie dopełniaj Codzienne, a jeśli zasłabniesz, wymknij się śmierci zażywając Eliksiru Zdrowia!",
-    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
+    "sureReset": "Na pewno? Ta opcja kosztuje 3 klejnoty i zresetuje klasę twojego awatara i przydzielone punkty (wrócą do puli do ponownego rozdzielenia).",
     "purchaseFor": "Kupić za <%= cost %> klejnoty?",
     "notEnoughMana": "Masz za mało many.",
     "invalidTarget": "Nieprawidłowy cel",
@@ -160,5 +160,8 @@
     "str": "SIŁ",
     "con": "KON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Show stat allocation",
+    "hideQuickAllocation": "Hide stat allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }
