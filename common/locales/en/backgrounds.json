@@ -175,6 +175,18 @@
   "backgroundRainforestText": "Rainforest",
   "backgroundRainforestNotes": "Venture into a Rainforest.",
   "backgroundStoneCircleText": "Circle of Stones",
-  "backgroundStoneCircleNotes": "Cast spells in a Circle of Stones."
+  "backgroundStoneCircleNotes": "Cast spells in a Circle of Stones.",
+
+  "incentive_backgrounds": "Check-in Reward Backgrounds",
+  "backgroundBlueText": "Blue",
+  "backgroundBlueNotes": "A basic blue backdrop.",
+  "backgroundGreenText": "Green",
+  "backgroundGreenNotes": "A basic green backdrop.",
+  "backgroundPurpleText": "Purple",
+  "backgroundPurpleNotes": "A basic purple backdrop.",
+  "backgroundRedText": "Red",
+  "backgroundRedNotes": "A basic red backdrop.",
+  "backgroundYellowText": "Yellow",
+  "backgroundYellowNotes": "A basic yellow backdrop."
 }
 

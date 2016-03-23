@@ -496,8 +496,16 @@ api.premiumHatchingPotions = {
     limited: true,
     canBuy: (function() {
       return false;
-    })
-  }
+    }),
+  },
+  RoyalPurple: {
+    value: 2,
+    text: t('hatchingPotionRoyalPurple'),
+    limited: true,
+    canBuy: (function() {
+      return false;
+    }),
+  },
 };
 
 _.each(api.dropHatchingPotions, function(pot, key) {
@@ -2525,7 +2533,27 @@ api.quests = {
       gp: 37,
       exp: 275,
       unlock: t('questSnailUnlockText')
-    }
+    },
+  },
+  dustbunnies: {
+    text: t('questDustBunniesText'),
+    notes: t('questDustBunniesNotes'),
+    completion: t('questDustBunniesCompletion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'complete tutorial',
+      text: t('completeTutorial'),
+    },
+    boss: {
+      name: t('questDustBunniesBoss'),
+      hp: 200,
+      str: 1,
+    },
+    drop: {
+      gp: 15,
+      exp: 80,
+    },
   },
 };
 

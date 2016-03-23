@@ -311,6 +311,33 @@ let backgrounds = {
       notes: t('backgroundStoneCircleNotes'),
     },
   },
+  incentive_backgrounds: {
+    blue: {
+      text: t('backgroundBlueText'),
+      notes: t('backgroundBlueNotes'),
+      unlock: 'login',
+    },
+    green: {
+      text: t('backgroundGreenText'),
+      notes: t('backgroundGreenNotes'),
+      unlock: 'login',
+    },
+    purple: {
+      text: t('backgroundPurpleText'),
+      notes: t('backgroundPurpleNotes'),
+      unlock: 'login',
+    },
+    red: {
+      text: t('backgroundRedText'),
+      notes: t('backgroundRedNotes'),
+      unlock: 'login',
+    },
+    yellow: {
+      text: t('backgroundYellowText'),
+      notes: t('backgroundYellowNotes'),
+      unlock: 'login',
+    },
+  },
 };
 /* eslint-enable quote-props */
 
