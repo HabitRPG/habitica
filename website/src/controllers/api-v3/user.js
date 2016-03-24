@@ -309,4 +309,76 @@ api.buySpecialSpell = {
   },
 };
 
+/**
+ * @api {post} /user/hatch/:egg/:hatchingPotion Hatch a pet.
+ * @apiVersion 3.0.0
+ * @apiName UserHatch
+ * @apiGroup User
+ *
+ * @apiParam {string} egg The egg to use.
+ * @apiParam {string} hatchingPotion The hatching potion to use.
+ *
+ * @apiSuccess {Object} data `user.items`
+ * @apiSuccess {string} message
+ */
+api.hatch = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/hatch/:egg/:hatchingPotion',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let hatchRes = common.ops.hatch(user, req);
+    await user.save();
+    res.respond(200, hatchRes);
+  },
+};
+
+/**
+ * @api {post} /user/equip/:type/:key Equip an item
+ * @apiVersion 3.0.0
+ * @apiName UserEquip
+ * @apiGroup User
+ *
+ * @apiParam {string} type
+ * @apiParam {string} key
+ *
+ * @apiSuccess {Object} data `user.items`
+ * @apiSuccess {string} message Optional
+ */
+api.equip = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/equip/:type/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let equipRes = common.ops.equip(user, req);
+    await user.save();
+    res.respond(200, equipRes);
+  },
+};
+
+/**
+ * @api {post} /user/equip/:pet/:food Feed a pet
+ * @apiVersion 3.0.0
+ * @apiName UserFeed
+ * @apiGroup User
+ *
+ * @apiParam {string} pet
+ * @apiParam {string} food
+ *
+ * @apiSuccess {Object} data The fed pet
+ * @apiSuccess {string} message
+ */
+api.feed = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/feed/:pet/:food',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let feedRes = common.ops.feed(user, req);
+    await user.save();
+    res.respond(200, feedRes);
+  },
+};
+
 module.exports = api;
