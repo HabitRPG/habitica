@@ -71,9 +71,9 @@ mixin customizeProfile(mobile)
         // Wheel Chair
         li.customize-menu
           menu(label=env.t('wheelChair'))
-            button.customize-option(ng-repeat='item in ::["black"]', class='chair_{{::item}}',
-                ng-class="{selectableInventory: user.preferences.chair == item}",
-                ng-click='user.preferences.chair != item ? set({"preferences.chair":item}) : set({"preferences.chair":"none"})')
+            button.customize-option(ng-repeat='item in ::["black"]', class='button_chair_{{::item}}',
+              ng-class="{selectableInventory: user.preferences.chair == item}",
+              ng-click='user.preferences.chair != item ? set({"preferences.chair":item}) : set({"preferences.chair":"none"})')
 
     .col-md-4
         h3(class=mobile?'item item-divider':'')=env.t('bodyHead')
