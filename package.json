@@ -60,7 +60,7 @@
     "newrelic": "~1.25.0",
     "nib": "~1.0.1",
     "nodemailer": "~0.5.2",
-    "pageres": "^1.0.1",
+    "pageres": "^4.1.1",
     "passport": "~0.2.1",
     "passport-facebook": "2.0.0",
     "paypal-ipn": "2.1.0",

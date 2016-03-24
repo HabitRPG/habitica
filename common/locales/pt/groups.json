@@ -101,7 +101,7 @@
     "inbox": "Caixa de Entrada",
     "abuseFlag": "Reportar violação das Diretrizes de Comunidade",
     "abuseFlagModalHeading": "Reportar <%= name %> por violação?",
-    "abuseFlagModalBody": "Tem certeza que deseja reportar esse post? Você deve reportar APENAS um post que viola as  <%= firstLinkStart %>Diretrizes de Comunidade<%= linkEnd %>  e/ou <%= secondLinkStart %>Termos de Serviço<%= linkEnd %>. Reportar inapropriadamente um post é uma violação das Diretrizes da Comunidade e pode resultar em uma infração. Razões apropriadas para reportar um post incluem, mas não se limitam a: <p></p></br><ul style='margin-left: 10px;'><li>xingamentos, votos religiosos</li><li>intolerância, insultos</li><li>tópicos adultos</li><li>violência, inclusive como brincadeira</li><li>spam, mensagens sem sentido</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Reportar Violação",
     "abuseReported": "Obrigado por reportar essa violação. Os moderadores já foram notificados.",
     "abuseAlreadyReported": "Você já reportou essa mensagem.",
@@ -148,8 +148,8 @@
     "guildChatEmpty": "O bate-papo desta guilda está vazio! Digite uma mensagem na caixa abaixo para começar a conversar.",
     "possessiveParty": "Equipe de <%= name %>",
     "requestAcceptGuidelines": "Se você quiser postar mensagens na Taverna ou em qualquer chat de equipe ou guilda, por favor leia nossas <%= linkStart %>Diretrizes de Comunidade<%= linkEnd %> e então clique no botão abaixo para indicar que você as aceita.",
-    "partyUpName": "Party Up",
-    "partyOnName": "Party On",
-    "partyUpAchievement": "Entre em um grupo com outra pessoa! Divirtam-se batalhando contra monstros e ajudando um ao outro.",
-    "partyOnAchievement": "Entre em um grupo com pelo menos 4 pessoas! Divirta-se aumentando a sua produtividade com seus amigos para derrotar seus inimigos!"
+    "partyUpName": "Junte-se",
+    "partyOnName": "Equipe online",
+    "partyUpAchievement": "Entrou em um grupo com outra pessoa! Divirtam-se batalhando contra monstros e ajudando um ao outro.",
+    "partyOnAchievement": "Entrou em um grupo com pelo menos 4 pessoas! Divirta-se aumentando a sua produtividade com seus amigos para derrotar seus inimigos!"
 }

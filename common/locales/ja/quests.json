@@ -13,7 +13,7 @@
     "youReceived": "受け取りました",
     "dropQuestCongrats": "おめでとうございます！クエストの巻物を取得しました。クエストにパーティメンバーを招待してクエストを開始できます。所持品>クエストから好きな時に開始できます。",
     "questSend": "”Invite”ボタンをクリックすることで全てのパーティメンバーをクエストに招待することが出来ます。全てのメンバーがクエストに参加もしくは不参加を決定した時点でクエストが開始します。クエストが開始すると、ソーシャル＞パーティのページにメンバーのステータスを見ることが出来ます。",
-    "questSendBroken": "Clicking \"Invite\" will send an invitation to your party members... When all members have accepted or denied, the quest begins... See status under Social > Party...",
+    "questSendBroken": "「招待」をクリックするとパーティーのメンバーに招待状を出す...招待を受けたすべてのメンバーが了解するか拒否するかすると、クエストははじまる... ソーシャル > パーティー で返信状況を確認できる...",
     "inviteParty": "パーティメンバーをクエストに誘う",
     "questInvitation": "クエストへの招待状：",
     "questInvitationTitle": "クエストへの招待",

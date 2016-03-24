@@ -160,5 +160,8 @@
     "str": "FOR",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Mostrar distribuição de status",
+    "hideQuickAllocation": "Esconder distribuição de status",
+    "quickAllocationLevelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Status do Avatar"
 }

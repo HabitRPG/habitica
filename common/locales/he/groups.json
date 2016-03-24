@@ -101,7 +101,7 @@
     "inbox": "תיבת דואר",
     "abuseFlag": "דווח/י על הפרת חוקי הקהילה",
     "abuseFlagModalHeading": "לדווח על <%= name %> באשמת הפרת חוקים?",
-    "abuseFlagModalBody": "האם אתם בטוחים שאתם רוצים לדווח על ההודעה הזו? אתם אמורים לדווח אך ורק על הודעות שמפרות את <%= firstLinkStart %>הנחיות הקהילה<%= linkEnd %> ו/או <%= secondLinkStart %>תנאי השירות<%= linkEnd %>. דיווח לא מוצדק הוא הפרה של הנחיות הקהילה ויחשב כעבירה. סיבות נאותות לדיווח על הודעה כוללות, אך לא מוגבלות ל: <p></p></br><ul style='margin-left: 10px;'><li>קללות, שבועות דתיות</li><li>קנאות, השמצות</li><li>נושאים למבוגרים</li><li>אלימות, כולל בדיחות</li><li>דואר זבל, והודעות לא הגיוניות</li></ul>\n",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "דווח על הפרה",
     "abuseReported": "תודה שדיווחת על ההפרה הזו, אנו ניידע את העורכים אודות העניין.",
     "abuseAlreadyReported": "כבר דיווחת על ההודעה הזו.",
@@ -148,8 +148,8 @@
     "guildChatEmpty": "השיחה של הגילדה הזו ריקה! רשמו הודעה בקופסה למעלה כדי להתחיל לשוחח.",
     "possessiveParty": "החבורה של <%= name %>",
     "requestAcceptGuidelines": "אם אתם מעוניינים לרשום הודעה בפונדק או חבורה כלשהי או גילדה, אנא קראו את <%= linkStart %>הנחיות הקהילה<%= linkEnd %> ולחצו על הכפתור למטה כדי לאשר שהן מקובלות עליכם.",
-    "partyUpName": "Party Up",
-    "partyOnName": "Party On",
-    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
+    "partyUpName": "חגיגה",
+    "partyOnName": "מסיבה",
+    "partyUpAchievement": "הצטרפתם לחבורה עם אדם נוסף! תהנו להלחם במפלצות ולתמוך אחד בשני.",
+    "partyOnAchievement": "הצטרפתם לחבורה עם לפחות ארבעה אנשים נוספים! תהנו ממחוייבות מוגברת כשאתם מצטרפים לחבריכם כדי להלחם באוייבים!"
 }
