@@ -116,6 +116,40 @@ describe('POST /user/auth/local/register', () => {
     });
   });
 
+  context('attach to facebook user', () => {
+    let user;
+    let email = 'some@email.net';
+    let username = 'some-username';
+    let password = 'some-password';
+    beforeEach(async () => {
+      user = await generateUser();
+    });
+    it('checks onlySocialAttachLocal', async () => {
+      await expect(user.post('/user/auth/local/register', {
+        email,
+        username,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlySocialAttachLocal'),
+      });
+    });
+    it('succeeds', async () => {
+      await user.update({ 'auth.facebook.id': 'some-fb-id', 'auth.local': { ok: true } });
+      await user.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+      await user.sync();
+      expect(user.auth.local.username).to.eql(username);
+      expect(user.auth.local.email).to.eql(email);
+    });
+  });
+
   context('login is already taken', () => {
     let username, email, api;
 
