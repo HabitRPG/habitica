@@ -1,14 +1,14 @@
 'use strict';
 
 describe('Inventory Controller', function() {
-  var scope, ctrl, user, rootScope, shared;
+  var scope, ctrl, user, rootScope, shared, achievement;
 
   beforeEach(function() {
     module(function($provide) {
       $provide.value('User', {});
     });
 
-    inject(function($rootScope, $controller, Shared){
+    inject(function($rootScope, $controller, Shared, Achievement){
       user = specHelper.newUser({
         balance: 4,
         items: {
@@ -26,6 +26,7 @@ describe('Inventory Controller', function() {
 
       Shared.wrap(user);
       shared = Shared;
+      achievement = Achievement;
 
       var mockWindow = {
         confirm: function(msg){
@@ -114,22 +115,24 @@ describe('Inventory Controller', function() {
     });
 
     it('shows beastMaster achievement modal if user has all 90 pets', function(){
+      sandbox.stub(achievement, 'displayAchievement');
       sandbox.stub(shared.count, "beastMasterProgress").returns(90);
       scope.chooseEgg('Cactus');
       scope.choosePotion('Base');
 
-      expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/beastMaster');
+      expect(achievement.displayAchievement).to.be.called;
+      expect(achievement.displayAchievement).to.be.calledWith('beastMaster');
     });
 
     it('shows triadBingo achievement modal if user has all pets twice and all mounts', function(){
+      sandbox.stub(achievement, 'displayAchievement');
       sandbox.stub(shared.count, "mountMasterProgress").returns(90);
       sandbox.stub(shared.count, "dropPetsCurrentlyOwned").returns(90);
       scope.chooseEgg('Cactus');
       scope.choosePotion('Base');
 
-      expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/triadBingo');
+      expect(achievement.displayAchievement).to.be.called;
+      expect(achievement.displayAchievement).to.be.calledWith('triadBingo');
     });
   });
 
@@ -209,12 +212,13 @@ describe('Inventory Controller', function() {
     });
 
     it('shows mountMaster achievement modal if user has all 90 mounts', function(){
+      sandbox.stub(achievement, 'displayAchievement');
       sandbox.stub(shared.count, "mountMasterProgress").returns(90);
       scope.chooseFood('Meat');
       scope.choosePet('PandaCub','Base');
 
-      expect(rootScope.openModal).to.be.calledOnce;
-      expect(rootScope.openModal).to.be.calledWith('achievements/mountMaster');
+      expect(achievement.displayAchievement).to.be.calledOnce;
+      expect(achievement.displayAchievement).to.be.calledWith('mountMaster');
     });
   });
 

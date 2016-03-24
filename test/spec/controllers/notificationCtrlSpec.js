@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Notification Controller', function() {
-  var user, scope, rootScope, fakeBackend, ctrl;
+  var user, scope, rootScope, fakeBackend, achievement, ctrl;
 
   beforeEach(function() {
     user = specHelper.newUser();
@@ -13,12 +13,14 @@ describe('Notification Controller', function() {
       $provide.value('Guide', {});
     });
 
-    inject(function(_$rootScope_, $httpBackend, _$controller_) {
+    inject(function(_$rootScope_, $httpBackend, _$controller_, Achievement) {
       scope = _$rootScope_.$new();
       rootScope = _$rootScope_;
 
       fakeBackend = $httpBackend;
       fakeBackend.when('GET', 'partials/main.html').respond({});
+
+      achievement = Achievement;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       _$controller_('RootCtrl',  {$scope: scope, User: {user: user}});
@@ -27,6 +29,7 @@ describe('Notification Controller', function() {
     });
 
     sandbox.stub(rootScope, 'openModal');
+    sandbox.stub(achievement, 'displayAchievement');
   });
 
   describe('Quest Invitation modal watch', function() {
@@ -110,8 +113,8 @@ describe('Notification Controller', function() {
       user.achievements.streak = 1;
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/streak');
+      expect(achievement.displayAchievement).to.be.called;
+      expect(achievement.displayAchievement).to.be.calledWith('streak');
     });
 
     it('does not open streak achievement modal if streak count stays the same', function() {
@@ -119,7 +122,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/streak');
+      expect(achievement.displayAchievement).to.not.be.calledWith('streak');
     });
   });
 
@@ -129,15 +132,15 @@ describe('Notification Controller', function() {
       user.achievements.ultimateGearSets = { warrior:true };
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/ultimateGear');
+      expect(achievement.displayAchievement).to.be.called;
+      expect(achievement.displayAchievement).to.be.calledWith('ultimateGear');
     });
 
     it('does not open ultimate gear set achievement modal if no new set is acquired', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/ultimateGear');
+      expect(achievement.displayAchievement).to.not.be.calledWith('ultimateGear');
     });
   });
 
@@ -148,8 +151,8 @@ describe('Notification Controller', function() {
       user.achievements.rebirths = 1;
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/rebirth');
+      expect(achievement.displayAchievement).to.be.called;
+      expect(achievement.displayAchievement).to.be.calledWith('rebirth');
     });
 
     it('does not open rebirth achievement modal if rebirth count stays the same', function() {
@@ -157,7 +160,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/rebirth');
+      expect(achievement.displayAchievement).to.not.be.calledWith('rebirth');
     });
   });
 
@@ -168,8 +171,8 @@ describe('Notification Controller', function() {
       user.flags.contributor = true;
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('achievements/contributor');
+      expect(achievement.displayAchievement).to.be.called;
+      expect(achievement.displayAchievement).to.be.calledWith('contributor');
     });
 
     it('does not open contributor achievement modal if contributor flag changes to false', function() {
@@ -178,7 +181,7 @@ describe('Notification Controller', function() {
       user.flags.contributor = false;
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor');
+      expect(achievement.displayAchievement).to.not.be.calledWith('contributor');
     });
 
     it('does not open contributor achievement modal if contributor flag stays the same', function() {
@@ -186,7 +189,7 @@ describe('Notification Controller', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('achievements/contributor');
+      expect(achievement.displayAchievement).to.not.be.calledWith('contributor');
     });
   });
 });
