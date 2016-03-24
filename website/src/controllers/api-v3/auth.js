@@ -82,7 +82,6 @@ api.registerLocal = {
         equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
       },
     });
-
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 

@@ -41,6 +41,69 @@ api.getUser = {
   },
 };
 
+function _cleanChecklist (task) {
+  let checklistIndex = 0;
+  _.forEach(task.checklist, (c) => {
+    c.text = `item ${checklistIndex++}`;
+  });
+}
+
+/**
+ * @api {get} /user/anonymized
+ * @apiVersion 3.0.0
+ * @apiName UserGetAnonymized
+ * @apiGroup User
+ * @apiSuccess {Object} object The object { user, tasks }
+ **/
+api.getUserAnonymized = {
+  method: 'GET',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/anonymized',
+  async handler (req, res) {
+    let user = res.locals.user.toJSON();
+    user.stats.toNextLevel = common.tnl(user.stats.lvl);
+    user.stats.maxHealth = common.maxHealth;
+    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+
+    delete user.apiToken;
+    if (user.auth) {
+      delete user.auth.local;
+      delete user.auth.facebook;
+    }
+    delete user.newMessages;
+    delete user.profile;
+    delete user.purchased.plan;
+    delete user.contributor;
+    delete user.invitations;
+    delete user.items.special.nyeReceived;
+    delete user.items.special.valentineReceived;
+    delete user.webhooks;
+    delete user.achievements.challenges;
+
+    _.forEach(user.inbox.messages, (msg) => {
+      msg.text = 'inbox message text';
+    });
+    _.forEach(user.tags, (tag) => {
+      tag.name = 'tag';
+      tag.challenge = 'challenge';
+    });
+
+    let query = { userId: user._id, $or: [{ type: 'todo', completed: false },
+                                          { type: { $in: ['habit', 'daily', 'reward'] } }],
+                };
+    let tasks = await Tasks.Task.find(query).exec();
+    _.forEach(tasks, (task) => {
+      task.text = 'task text';
+      task.notes = 'task notes';
+      if (task.type === 'todo' || task.type === 'daily') {
+        _cleanChecklist(task);
+      }
+    });
+
+    return res.respond(200, { user, tasks });
+  },
+};
+
 const partyMembersFields = 'profile.name stats achievements items.special';
 
 /**
