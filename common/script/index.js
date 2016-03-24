@@ -109,6 +109,8 @@ import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
 import buySpecialSpell from './ops/buySpecialSpell';
 import allocateNow from './ops/allocateNow';
+import changeClass from './ops/changeClass';
+import disableClasses from './ops/disableClasses';
 
 api.ops = {
   scoreTask,
@@ -119,6 +121,8 @@ api.ops = {
   buySpecialSpell,
   buyQuest,
   allocateNow,
+  changeClass,
+  disableClasses,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';
