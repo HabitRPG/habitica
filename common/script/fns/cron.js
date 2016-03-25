@@ -19,21 +19,53 @@ import {
   For incomplete Dailys, deduct experience
   Make sure to run this function once in a while as server will not take care of overnight calculations.
   And you have to run it every time client connects.
+  NB: "CDS" = Custom Day Start time.
   {user}
  */
 
 module.exports = function(user, options) {
-  var _progress, analyticsData, base, base1, base2, base3, base4, clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, multiDaysCountAsOneDay, now, perfect, plan, progress, ref, ref1, ref2, ref3, todoTally;
+  var _progress, analyticsData, base, base1, base2, base3, base4, browserTimezoneOffset, clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, multiDaysCountAsOneDay, now, perfect, plan, progress, ref, ref1, ref2, ref3, todoTally, userTimezoneOffset;
   if (options == null) {
     options = {};
   }
+  console.log("\n\n================= START OF CRON ==============="); // TST
   now = +options.now || +(new Date);
+  console.log('now:', moment(now).format('YYYY-MM-DD HH:mm:ss')); // TST
+
+  // If the user's time zone has changed (due to travel or daylight savings),
+  // cron can be triggered twice in one day, so we check for that and use
+  // both time zones to work out if cron should run.
+  userTimezoneOffset = +user.preferences.timezoneOffset || 0;
+  browserTimezoneOffset = +options.timezoneOffset || userTimezoneOffset;
+  console.log("userTimezoneOffset: " + userTimezoneOffset); // TST
+  console.log("browserTimezoneOffset: " + browserTimezoneOffset); // TST
+
+  // How many days have we missed using the timezone stored in the user's Habitica preferences:
   daysMissed = daysSince(user.lastCron, _.defaults({
     now: now
   }, user.preferences));
+  console.log("daysMissed OLD zone: " + daysMissed); // TST
+
+  if (userTimezoneOffset != browserTimezoneOffset) {
+    // User's time zone has changed.
+    // How many days have we missed using the new time zone:
+    console.log("different zones")
+    user.preferences.timezoneOffset = browserTimezoneOffset; // store the new zone
+    var daysMissedOldZone, daysMissedNewZone;
+    daysMissedOldZone = daysMissed;
+    daysMissedNewZone = daysSince(user.lastCron, _.defaults({
+      now: now
+    }, user.preferences));
+    console.log("daysMissedOldZone: " + daysMissedOldZone); // TST
+    console.log("daysMissedNewZone: " + daysMissedNewZone); // TST
+  }
+
+
   if (!(daysMissed > 0)) {
+    console.log("== CRON DOES NOT RUN ==");// TST
     return;
   }
+  console.log("== CRON RUNS ==");// TST
   user.auth.timestamps.loggedin = new Date();
   user.lastCron = now;
   if (_.isFinite(+user.preferences.timezoneOffset)) {
