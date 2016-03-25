@@ -115,9 +115,8 @@ dataexport.avatarImage = function(req, res, next) {
       return res.redirect(301, 'https://' + bucket + '.s3.amazonaws.com/' + filename);
     new Pageres()//{delay:1}
     .src(nconf.get('BASE_URL') + '/export/avatar-' + req.params.uuid + '.html', ['140x147'], {crop: true, filename: filename.replace('.png', '')})
-    .run(function (err, file) {
-      if (err) return next(err);
-      // see http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#createMultipartUpload-property
+    .run()
+    .then(function (file) {
       var upload = s3Stream.upload({
         Bucket: bucket,
         Key: filename,
@@ -133,6 +132,6 @@ dataexport.avatarImage = function(req, res, next) {
         res.redirect(details.Location);
       });
       file[0].pipe(upload);
-    });
+    }).catch(next);
   })
 };

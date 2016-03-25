@@ -95,7 +95,7 @@
     "memberSince": "- Miembro desde",
     "lastLoggedIn": "- Última conexión",
     "notPorted": "Esta función no se ha traido del sitio original",
-    "buyThis": "Comprarás este <%= text %> con <%= price %> de tus <%= gems %> Gemas?",
+    "buyThis": "¿Comprar este <%= text %> con <%= price %> de tus <%= gems %> Gemas?",
     "noReachServer": "Error en la conexión al servidor, intentalo más tarde.",
     "errorUpCase": "ERROR:",
     "newPassSent": "Nueva contraseña enviada.",
@@ -176,5 +176,5 @@
     "raisePetShare": "¡He convertido a una mascota en montura cumpliendo tareas en el mundo real!",
     "wonChallengeShare": "¡He ganado un desafío en Habitica!",
     "achievementShare": "¡He obtenido un nuevo logro en Habitica!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Ordenar por <%= item %>"
 }

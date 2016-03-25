@@ -1,7 +1,7 @@
 {
     "statsAch": "Werte & Erfolge",
     "profile": "Profil",
-    "avatar": "Avatar gestalten",
+    "avatar": "Avatar anpassen",
     "other": "Anderes",
     "fullName": "Name",
     "displayName": "Angezeigter Name",
@@ -83,7 +83,7 @@
     "allocateInt": "Intelligenzpunkte:",
     "allocateIntPop": "Füge einen Punkt zu Intelligenz hinzu",
     "noMoreAllocate": "Jetzt, da Du Level 100 erreicht hast, wirst Du keine weiteren Attributpunkte erhalten.   Du kannst weiterspielen, oder ein neues Abenteuer auf Level 1 anfangen, indem du die <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Sphäre der Wiedergeburt </a> benutzt.  Sie ist jetzt kostenlos auf dem Marktplatz erhältich.",
-    "stats": "Statuswerte des Avatars",
+    "stats": "Statuswerte",
     "strength": "Stärke",
     "strengthText": "Stärke erhöht die Wahrscheinlichkeit zufälliger kritischer Treffer und die Rate mit der durch sie Gold, Beute und Erfahrung gewonnen wird. Weiterhin erhöht sich der Schaden an Bossen.",
     "constitution": "Ausdauer",
@@ -127,7 +127,7 @@
     "healerText": "Heiler stehen Schaden unbeeindruckt gegenüber und erweitern diesen Schutz auf Andere. Verpasste tägliche Aufgaben und schlechte Angewohnheiten schaden ihnen nicht viel und sie haben Mittel und Wege Lebenspunkte wieder herzustellen. Spiele einen Heiler, wenn Du gerne Anderen in einer Gruppe hilfst, oder wenn es dich besonders reizt, dem Tod durch harte Arbeit zu entkommen!",
     "optOutOfClasses": "Noch nicht entscheiden",
     "optOutOfPMs": "Noch nicht entscheiden",
-    "optOutOfClassesText": "Du willst keine Klasse oder möchtest dich später entscheiden? Brich jetzt ab und du wirst ein Krieger ohne Spezialfähigkeiten. Du kannst später im Wiki etwas über das Klassensystem lesen und deine Klasse jederzeit unter Benutzer -> Werte aktivieren.",
+    "optOutOfClassesText": "Du willst keine Klasse oder möchtest dich später entscheiden? Brich jetzt ab und du wirst ein Krieger ohne Spezialfähigkeiten. Du kannst später im Wiki etwas über das Klassensystem lesen und deine Klasse jederzeit unter Benutzer -> Statuswerte aktivieren.",
     "select": "Auswählen",
     "stealth": "Schleichen",
     "stealthNewDay": "Wenn ein neuer Tag beginnt kannst Du dem Schaden von einigen verpassten täglichen Aufgaben entgehen.",
@@ -136,7 +136,7 @@
     "respawn": "Auferstehen!",
     "youDied": "Du bist gestorben!",
     "dieText": "Du hast ein Level, Dein gesamtes Gold und einen zufälliges Teil Deiner Ausrüstung verloren. Erhebe Dich, Habiteer, und versuche es erneut! Gebiete diesen schlechten Gewohnheiten Einhalt, sei gewissenhaft bei der Erfüllung Deiner täglichen Aufgaben und halte Dir den Tod mit Heiltränken vom Leib, wenn Du einmal straucheln solltest!",
-    "sureReset": "Bist Du sicher? Das wird Deine Klasse und Attributpunkte zurücksetzen (Du erhältst alle Punkte zurück, um sie wieder zuzuweisen). Es kostet 3 Edelsteine.",
+    "sureReset": "Bist Du sicher? Dies wird Deine Klasse und Attributpunkte zurücksetzen (Du erhältst alle Punkte zurück, um sie neu zuzuweisen). Es kostet 3 Edelsteine.",
     "purchaseFor": "Für <%= cost %> Edelsteine erwerben?",
     "notEnoughMana": "Nicht genug Mana.",
     "invalidTarget": "Ungültiges Ziel",
@@ -160,5 +160,8 @@
     "str": "Stärke",
     "con": "Ausdauer",
     "per": "Wahrnehmung",
-    "int": "Intelligenz"
+    "int": "Intelligenz",
+    "showQuickAllocation": "Show stat allocation",
+    "hideQuickAllocation": "Hide stat allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }

@@ -67,6 +67,10 @@
     "witchyWizardSet": "Witchy Wizard (Mage)",
     "mummyMedicSet": "Mummy Medic (Healer)",
     "vampireSmiterSet": "Vampire Smiter (Rogue)",
+    "bewareDogSet": "Beware Dog (Warrior)",
+    "magicianBunnySet": "Magician's Bunny (Mage)",
+    "comfortingKittySet": "Comforting Kitty (Healer)",
+    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Available until 31 October",
     "winterEventAvailability": "Available until 31 December"
 }

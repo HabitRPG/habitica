@@ -1,7 +1,7 @@
 {
     "subscription": "訂閱",
     "subscriptions": "訂閱",
-    "subDescription": "Buy Gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "用金幣購買寶石、獲得每月的神秘物品、保留歷史進度、日常掉寶率上限加倍、支持開發者。點擊這裡來獲取更多資訊。",
     "buyGemsGold": "用金幣購買寶石",
     "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of <%= gemCost %> gold per gem. His monthly shipments are initially capped at <%= gemLimit %> Gems per month, but this cap increases by 5 Gems for every three months of consecutive subscription, up to a maximum of 50 Gems per month!",
     "retainHistory": "Retain additional history entries",
@@ -30,7 +30,7 @@
     "cancelSub": "取消訂閱",
     "canceledSubscription": "Canceled Subscription",
     "adminSub": "管理員訂閱",
-    "morePlans": "即將推出更多套餐",
+    "morePlans": "More Plans<br>Coming Soon",
     "organizationSub": "私人組織",
     "organizationSubText": "組織成員獨立於Habitica proper，為參與者提供專們的服務。",
     "hostingType": "主機類型",

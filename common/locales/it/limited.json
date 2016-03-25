@@ -67,6 +67,10 @@
     "witchyWizardSet": "Magistregone (Mago)",
     "mummyMedicSet": "Medico Mummia (Guaritore)",
     "vampireSmiterSet": "Vampiro Castigatore (Assassino)",
+    "bewareDogSet": "Cane Attento (Guerriero)",
+    "magicianBunnySet": "Coniglio del Mago (Mago)",
+    "comfortingKittySet": "Gattino Confortante (Guaritore)",
+    "sneakySqueakerSet": "Roditore Furtivo (Assassino)",
     "fallEventAvailability": "Disponibile fino al 31 ottobre",
     "winterEventAvailability": "Disponibili fino al 31 dicembre"
 }
