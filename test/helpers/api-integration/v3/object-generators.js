@@ -5,6 +5,7 @@ import Q from 'q';
 import { v4 as generateUUID } from 'uuid';
 import { ApiUser, ApiGroup, ApiChallenge } from '../api-classes';
 import { requester } from '../requester';
+import * as Tasks from '../../../../website/src/models/task';
 
 // Creates a new user and returns it
 // If you need the user to have specific requirements,
@@ -30,6 +31,27 @@ export async function generateUser (update = {}) {
   await apiUser.update(update);
 
   return apiUser;
+}
+
+export async function generateHabit (update = {}) {
+  let type = 'habit';
+  let task = new Tasks[type](update);
+  await task.save({ validateBeforeSave: false });
+  return task;
+}
+
+export async function generateDaily (update = {}) {
+  let type = 'daily';
+  let task = new Tasks[type](update);
+  await task.save({ validateBeforeSave: false });
+  return task;
+}
+
+export async function generateReward (update = {}) {
+  let type = 'reward';
+  let task = new Tasks[type](update);
+  await task.save({ validateBeforeSave: false });
+  return task;
 }
 
 // Generates a new group. Requires a user object, which
