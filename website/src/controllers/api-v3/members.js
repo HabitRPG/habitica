@@ -16,6 +16,7 @@ import {
   getUserInfo,
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
+import Q from 'q';
 
 let api = {};
 
@@ -237,7 +238,7 @@ api.getChallengeMemberProgress = {
 };
 
 /**
- * @api {posts} /members/send-private-message Get a challenge member progress
+ * @api {posts} /members/send-private-message Send a private message to a member
  * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
  * @apiGroup Members
@@ -261,21 +262,21 @@ api.sendPrivateMessage = {
     let sender = res.locals.user;
     let message = req.body.message;
 
-    let userToReceiveMessage = await User.findById(req.body.toUserId).exec();
-    if (!userToReceiveMessage) throw new NotFound(res.t('userNotFound'));
+    let receiver = await User.findById(req.body.toUserId).exec();
+    if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let userBlockedSender = userToReceiveMessage.inbox.blocks.indexOf(sender._id) !== -1;
-    let userIsBlockBySender = sender.inbox.blocks.indexOf(userToReceiveMessage._id) !== -1;
-    let userOptedOutOfMessaging = userToReceiveMessage.inbox.optOut;
+    let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
+    let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
+    let userOptedOutOfMessaging = receiver.inbox.optOut;
 
     if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
     }
 
-    await sender.sendMessage(userToReceiveMessage, message);
+    await sender.sendMessage(receiver, message);
 
-    if (userToReceiveMessage.preferences.emailNotifications.newPM !== false) {
-      sendTxnEmail(userToReceiveMessage, 'new-pm', [
+    if (receiver.preferences.emailNotifications.newPM !== false) {
+      sendTxnEmail(receiver, 'new-pm', [
         {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
         {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
       ]);
@@ -284,5 +285,74 @@ api.sendPrivateMessage = {
     res.respond(200, {});
   },
 };
+
+/**
+ * @api {posts} /members/transfer-gems Send a gift to a member
+ * @apiVersion 3.0.0
+ * @apiName TransferGems
+ * @apiGroup Members
+ *
+ * @apiParam {String} message The message
+ * @apiParam {UUID} toUserId The toUser _id
+ *
+ * @apiSuccess {} Object Returns an empty object
+ */
+api.transferGems = {
+  method: 'POST',
+  url: '/members/transfer-gems',
+  middlewares: [authWithHeaders(), cron],
+  async handler (req, res) {
+    req.checkBody('message', res.t('messageRequired')).notEmpty();
+    req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let sender = res.locals.user;
+
+    let receiver = await User.findById(req.body.toUserId).exec();
+    if (!receiver) throw new NotFound(res.t('userNotFound'));
+
+    if (receiver._id === sender._id) {
+      throw new NotAuthorized(res.t('cannotSendGemsToYourself'));
+    }
+
+    let gemAmount = req.body.gemAmount;
+    let amount = gemAmount / 4;
+
+    if (!amount || amount <= 0 || sender.balance < amount) {
+      throw new NotAuthorized(res.t('notEnoughGemsToSend'));
+    }
+
+    receiver.balance += amount;
+    sender.balance -= amount;
+    let promises = [receiver.save(), sender.save()];
+    await Q.all(promises);
+
+    let message = res.t('privateMessageGiftIntro', {
+      receiverName: receiver.profile.name,
+      senderName: sender.profile.name,
+    });
+    message += res.t('privateMessageGiftGemsMessage', {gemAmount});
+    message += req.body.message;
+
+    await sender.sendMessage(receiver, message);
+
+    let byUsername = getUserInfo(sender, ['name']).name;
+
+    if (receiver.preferences.emailNotifications.giftedGems !== false) {
+      sendTxnEmail(receiver, 'gifted-gems', [
+        {name: 'GIFTER', content: byUsername},
+        {name: 'X_GEMS_GIFTED', content: gemAmount},
+      ]);
+    }
+
+    //  @TODO: Add push notifications
+    //  pushNotify.sendNotify(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
+
+    res.respond(200, {});
+  },
+};
+
 
 module.exports = api;

@@ -708,33 +708,15 @@ schema.methods.getGroups = function getUserGroups () {
   return userGroups;
 };
 
-schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, messageData) {
-  let msg;
+schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, message) {
   let sender = this;
 
-  if (!messageData.type) {
-    msg = messageData.message;
-  } else {
-    msg = shared.i18n.t('privateMessageGiftIntro', {
-      receiverName: userToReceiveMessage.profile.name,
-      senderName: sender.profile.name,
-    });
-
-    if (messageData.type === 'gems') {
-      msg += shared.i18n.t('privateMessageGiftGemsMessage', {gemAmount: messageData.gems.amount});
-    } else {
-      msg += shared.i18n.t('privateMessageGiftSubscriptionMessage', {numberOfMonths: shared.content.subscriptionBlocks[messageData.subscription.key].months});
-    }
-
-    msg += messageData.message;
-  }
-
-  shared.refPush(userToReceiveMessage.inbox.messages, chatDefaults(msg, sender));
+  shared.refPush(userToReceiveMessage.inbox.messages, chatDefaults(message, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
 
-  shared.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(msg, userToReceiveMessage)));
+  shared.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(message, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];

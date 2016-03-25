@@ -124,5 +124,7 @@
   "notAuthorizedToSendMessageToThisUser": "Can't send message to this user.",
   "privateMessageGiftIntro": "Hello <%= receiverName %>, <%= senderName %> has sent you ",
   "privateMessageGiftGemsMessage": "<%= gemAmount %> gems! ",
-  "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! "
+  "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
+  "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
+  "notEnoughGemsToSend": "Amount must be within 0 and your current number of gems."
 }

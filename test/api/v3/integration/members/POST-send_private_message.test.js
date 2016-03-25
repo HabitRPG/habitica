@@ -6,7 +6,7 @@ import { v4 as generateUUID } from 'uuid';
 
 describe('POST /members/send-private-message', () => {
   let userToSendMessage;
-  let messageToSend = { message: 'Test Private Message' };
+  let messageToSend = 'Test Private Message';
 
   beforeEach(async () => {
     userToSendMessage = await generateUser();
@@ -94,92 +94,14 @@ describe('POST /members/send-private-message', () => {
     let updatedSender = await userToSendMessage.get('/user');
 
     let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
-      return message.uuid === userToSendMessage._id && message.text === messageToSend.message;
+      return message.uuid === userToSendMessage._id && message.text === messageToSend;
     });
 
     let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
-      return message.uuid === receiver._id && message.text === messageToSend.message;
+      return message.uuid === receiver._id && message.text === messageToSend;
     });
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInSendersInbox).to.exist;
-  });
-
-  it('sends a private message about gems to a user', async () => {
-    let receiver = await generateUser();
-    let messageAboutGemsToSend = {
-      type: 'gems',
-      gems: {
-        amount: 2,
-      },
-      message: 'Test Message About Gems',
-    };
-
-    await userToSendMessage.post('/members/send-private-message', {
-      message: messageAboutGemsToSend,
-      toUserId: receiver._id,
-    });
-
-    let updatedReceiver = await receiver.get('/user');
-    let updatedSender = await userToSendMessage.get('/user');
-
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
-      return message.uuid === userToSendMessage._id;
-    });
-
-    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
-      return message.uuid === receiver._id;
-    });
-
-    let messageSentContent = t('privateMessageGiftIntro', {
-      receiverName: receiver.profile.name,
-      senderName: userToSendMessage.profile.name,
-    });
-    messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount: messageAboutGemsToSend.gems.amount});
-    messageSentContent += messageAboutGemsToSend.message;
-
-    expect(sendersMessageInReceiversInbox).to.exist;
-    expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
-    expect(sendersMessageInSendersInbox).to.exist;
-    expect(sendersMessageInSendersInbox.text).to.equal(messageSentContent);
-  });
-
-  it('sends a private message about subscriptions to a user', async () => {
-    let receiver = await generateUser();
-    let messageAboutSubscriptionToSend = {
-      type: 'subscription',
-      subscription: {
-        key: 'basic_12mo',
-      },
-      message: 'Test Message About Subscription',
-    };
-
-    await userToSendMessage.post('/members/send-private-message', {
-      message: messageAboutSubscriptionToSend,
-      toUserId: receiver._id,
-    });
-
-    let updatedReceiver = await receiver.get('/user');
-    let updatedSender = await userToSendMessage.get('/user');
-
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
-      return message.uuid === userToSendMessage._id;
-    });
-
-    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
-      return message.uuid === receiver._id;
-    });
-
-    let messageSentContent = t('privateMessageGiftIntro', {
-      receiverName: receiver.profile.name,
-      senderName: userToSendMessage.profile.name,
-    });
-    messageSentContent += t('privateMessageGiftSubscriptionMessage', {numberOfMonths: 12});
-    messageSentContent += messageAboutSubscriptionToSend.message;
-
-    expect(sendersMessageInReceiversInbox).to.exist;
-    expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
-    expect(sendersMessageInSendersInbox).to.exist;
-    expect(sendersMessageInSendersInbox.text).to.equal(messageSentContent);
   });
 });
