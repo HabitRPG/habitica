@@ -69,7 +69,6 @@ const COMMON_FILES = [
   '!./common/script/libs/planGemLimits.js',
   '!./common/script/libs/preenHistory.js',
   '!./common/script/libs/preenTodos.js',
-  '!./common/script/libs/refPush.js',
   '!./common/script/libs/removeWhitespace.js',
   '!./common/script/libs/silver.js',
   '!./common/script/libs/splitWhitespace.js',
