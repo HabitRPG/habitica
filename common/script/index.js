@@ -109,6 +109,9 @@ import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
 import buySpecialSpell from './ops/buySpecialSpell';
 import allocateNow from './ops/allocateNow';
+import hatch from './ops/hatch';
+import feed from './ops/feed';
+import equip from './ops/equip';
 import changeClass from './ops/changeClass';
 import disableClasses from './ops/disableClasses';
 
@@ -121,6 +124,9 @@ api.ops = {
   buySpecialSpell,
   buyQuest,
   allocateNow,
+  hatch,
+  feed,
+  equip,
   changeClass,
   disableClasses,
 };

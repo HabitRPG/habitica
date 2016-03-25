@@ -310,15 +310,87 @@ api.buySpecialSpell = {
 };
 
 /**
- * @api {post} /user/change-class Change class.
+ * @api {post} /user/hatch/:egg/:hatchingPotion Hatch a pet.
  * @apiVersion 3.0.0
- * @apiName UserChangeClass
+ * @apiName UserHatch
  * @apiGroup User
  *
- * @apiParam {string} class ?class={warrior|rogue|wizard|healer}. If missing will
+ * @apiParam {string} egg The egg to use.
+ * @apiParam {string} hatchingPotion The hatching potion to use.
  *
- * @apiSuccess {Object} data `stats flags items preferences`
+ * @apiSuccess {Object} data `user.items`
+ * @apiSuccess {string} message
  */
+api.hatch = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/hatch/:egg/:hatchingPotion',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let hatchRes = common.ops.hatch(user, req);
+    await user.save();
+    res.respond(200, hatchRes);
+  },
+};
+
+/**
+ * @api {post} /user/equip/:type/:key Equip an item
+ * @apiVersion 3.0.0
+ * @apiName UserEquip
+ * @apiGroup User
+ *
+ * @apiParam {string} type
+ * @apiParam {string} key
+ *
+ * @apiSuccess {Object} data `user.items`
+ * @apiSuccess {string} message Optional
+ */
+api.equip = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/equip/:type/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let equipRes = common.ops.equip(user, req);
+    await user.save();
+    res.respond(200, equipRes);
+  },
+};
+
+/**
+ * @api {post} /user/equip/:pet/:food Feed a pet
+ * @apiVersion 3.0.0
+ * @apiName UserFeed
+ * @apiGroup User
+ *
+ * @apiParam {string} pet
+ * @apiParam {string} food
+ *
+ * @apiSuccess {Object} data The fed pet
+ * @apiSuccess {string} message
+ */
+api.feed = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/feed/:pet/:food',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let feedRes = common.ops.feed(user, req);
+    await user.save();
+    res.respond(200, feedRes);
+  },
+};
+
+/**
+* @api {post} /user/change-class Change class.
+* @apiVersion 3.0.0
+* @apiName UserChangeClass
+* @apiGroup User
+*
+* @apiParam {string} class ?class={warrior|rogue|wizard|healer}. If missing will
+*
+* @apiSuccess {Object} data `stats flags items preferences`
+*/
 api.changeClass = {
   method: 'POST',
   middlewares: [authWithHeaders(), cron],
@@ -332,13 +404,13 @@ api.changeClass = {
 };
 
 /**
- * @api {post} /user/disable-classes Disable classes.
- * @apiVersion 3.0.0
- * @apiName UserDisableClasses
- * @apiGroup User
- *
- * @apiSuccess {Object} data `stats flags preferences`
- */
+* @api {post} /user/disable-classes Disable classes.
+* @apiVersion 3.0.0
+* @apiName UserDisableClasses
+* @apiGroup User
+*
+* @apiSuccess {Object} data `stats flags preferences`
+*/
 api.disableClasses = {
   method: 'POST',
   middlewares: [authWithHeaders(), cron],

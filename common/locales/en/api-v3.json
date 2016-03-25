@@ -110,7 +110,12 @@
   "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
   "notEnoughAttrPoints": "You don't have enough attribute points.",
   "missingKeyParam": "\"req.params.key\" is required.",
-  "mysterySetNotFound": "Mystery set not found, or set already owned",
+  "mysterySetNotFound": "Mystery set not found, or set already owned.",
   "itemNotFound": "Item \"<%= key %>\" not found.",
-  "cannoyBuyItem": "You can't buy this item"
+  "cannoyBuyItem": "You can't buy this item.",
+  "missingTypeKeyEquip": "\"key\" and \"type\" are required parameters.",
+  "missingPetFoodFeed": "\"pet\" and \"food\" are required parameters.",
+  "invalidPetName": "Invalid pet name supplied.",
+  "missingEggHatchingPotionHatch": "\"egg\" and \"hatchingPotion\" are required parameters.",
+  "invalidTypeEquip": "\"type\" must be one of 'equipped', 'pet', 'mount', 'costume'."
 }
