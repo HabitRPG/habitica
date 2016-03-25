@@ -70,7 +70,7 @@ api.registerLocal = {
   url: '/user/auth/local/register',
   async handler (req, res) {
     let fbUser = res.locals.user; // If adding local auth to social user
-    // TODO check user doesn't have local auth
+
     req.checkBody({
       email: {
         notEmpty: {errorMessage: res.t('missingEmail')},
@@ -82,7 +82,6 @@ api.registerLocal = {
         equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
       },
     });
-
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -124,7 +123,7 @@ api.registerLocal = {
 
     if (fbUser) {
       if (!fbUser.auth.facebook.id) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
-      fbUser.auth.local = newUser;
+      fbUser.auth.local = newUser.auth.local;
       newUser = fbUser;
     } else {
       newUser = new User(newUser);

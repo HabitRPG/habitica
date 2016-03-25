@@ -112,6 +112,8 @@ import allocateNow from './ops/allocateNow';
 import hatch from './ops/hatch';
 import feed from './ops/feed';
 import equip from './ops/equip';
+import changeClass from './ops/changeClass';
+import disableClasses from './ops/disableClasses';
 
 api.ops = {
   scoreTask,
@@ -125,6 +127,8 @@ api.ops = {
   hatch,
   feed,
   equip,
+  changeClass,
+  disableClasses,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

@@ -381,4 +381,46 @@ api.feed = {
   },
 };
 
+/**
+* @api {post} /user/change-class Change class.
+* @apiVersion 3.0.0
+* @apiName UserChangeClass
+* @apiGroup User
+*
+* @apiParam {string} class ?class={warrior|rogue|wizard|healer}. If missing will
+*
+* @apiSuccess {Object} data `stats flags items preferences`
+*/
+api.changeClass = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/change-class',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let changeClassRes = common.ops.changeClass(user, req, res.analytics);
+    await user.save();
+    res.respond(200, changeClassRes);
+  },
+};
+
+/**
+* @api {post} /user/disable-classes Disable classes.
+* @apiVersion 3.0.0
+* @apiName UserDisableClasses
+* @apiGroup User
+*
+* @apiSuccess {Object} data `stats flags preferences`
+*/
+api.disableClasses = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/disable-classes',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let disableClassesRes = common.ops.disableClasses(user, req);
+    await user.save();
+    res.respond(200, disableClassesRes);
+  },
+};
+
 module.exports = api;
