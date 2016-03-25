@@ -6,7 +6,6 @@ describe('Notification Controller', function() {
   beforeEach(function() {
     user = specHelper.newUser();
     user._id = "unique-user-id";
-    user.preferences.suppressModals = {};
 
     module(function($provide) {
       $provide.value('User', {user: user});

@@ -36,7 +36,7 @@ var specHelper = {};
           progress: {down: 0}
         }
       },
-      preferences: {},
+      preferences: { suppressModals: {} },
       habits: [],
       dailys: [],
       todos: [],
