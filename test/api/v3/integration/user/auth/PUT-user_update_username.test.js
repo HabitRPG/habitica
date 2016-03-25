@@ -50,7 +50,6 @@ describe('PUT /user/auth/update-username', async () => {
       });
     });
 
-
     it('prevents social-only user from changing username', async () => {
       let socialUser = await generateUser({ 'auth.local': { ok: true } });
 

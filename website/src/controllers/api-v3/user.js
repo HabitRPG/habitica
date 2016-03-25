@@ -15,6 +15,7 @@ import { model as User } from '../../models/user';
 import Q from 'q';
 import _ from 'lodash';
 import * as firebase from '../../libs/api-v3/firebase';
+import * as passwordUtils from '../../libs/api-v3/password';
 
 let api = {};
 
@@ -61,6 +62,18 @@ api.deleteUser = {
     let user = res.locals.user;
     let plan = user.purchased.plan;
 
+    req.checkBody({
+      password: {
+        notEmpty: {errorMessage: res.t('missingPassword')},
+      },
+    });
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
     }
@@ -68,9 +81,8 @@ api.deleteUser = {
     let types = ['party', 'publicGuilds', 'privateGuilds'];
     // @TODO: The group leave route doesn't work unless it has these fields. We should probably force the group to get these
     let groupFields = basicGroupFields.concat(' leader memberCount');
-    let populateLeader = true;
 
-    let groupsUserIsMemberOf = await Group.getGroups({user, types, groupFields, populateLeader});
+    let groupsUserIsMemberOf = await Group.getGroups({user, types, groupFields});
 
     let groupLeavePromises = groupsUserIsMemberOf.map((group) => {
       return group.leave(user, 'remove-all');

@@ -9,15 +9,28 @@ import { find } from 'lodash';
 
 describe('DELETE /user', () => {
   let user;
+  let password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 
   beforeEach(async () => {
     user = await generateUser({balance: 10});
   });
 
-  it('user has active subscription', async () => {
+  it('returns an errors if password is wrong', async () => {
+    await expect(user.del('/user', {
+      password: 'wrong-password',
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('wrongPassword'),
+    });
+  });
+
+  it('returns an error if user has active subscription', async () => {
     let userWithSubscription = await generateUser({'purchased.plan.customerId': 'fake-customer-id'});
 
-    await expect(userWithSubscription.del('/user')).to.be.rejected.and.to.eventually.eql({
+    await expect(userWithSubscription.del('/user', {
+      password,
+    })).to.be.rejected.and.to.eventually.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('cannotDeleteActiveAccount'),
@@ -25,7 +38,9 @@ describe('DELETE /user', () => {
   });
 
   it('deletes the user', async () => {
-    await user.del('/user');
+    await user.del('/user', {
+      password,
+    });
     await expect(checkExistence('users', user._id)).to.eventually.eql(false);
   });
 
@@ -40,7 +55,9 @@ describe('DELETE /user', () => {
     });
 
     it('deletes party when user is the only member', async () => {
-      await user.del('/user');
+      await user.del('/user', {
+        password,
+      });
       await expect(checkExistence('party', party._id)).to.eventually.eql(false);
     });
   });
@@ -56,7 +73,9 @@ describe('DELETE /user', () => {
     });
 
     it('deletes guild when user is the only member', async () => {
-      await user.del('/user');
+      await user.del('/user', {
+        password,
+      });
       await expect(checkExistence('groups', privateGuild._id)).to.eventually.eql(false);
     });
   });
@@ -79,7 +98,9 @@ describe('DELETE /user', () => {
     });
 
     it('chooses new group leader for any group user was the leader of', async () => {
-      await oldLeader.del('/user');
+      await oldLeader.del('/user', {
+        password,
+      });
 
       let updatedGuild = await newLeader.get(`/groups/${guild._id}`);
 
@@ -114,7 +135,9 @@ describe('DELETE /user', () => {
     });
 
     it('removes user from all groups user was a part of', async () => {
-      await userToDelete.del('/user');
+      await userToDelete.del('/user', {
+        password,
+      });
 
       let updatedGroup1Members = await otherUser.get(`/groups/${group1._id}/members`);
       let updatedGroup2Members = await otherUser.get(`/groups/${group2._id}/members`);
