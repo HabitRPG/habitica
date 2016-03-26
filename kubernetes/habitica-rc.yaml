@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: habitica
+  labels:
+    name: habitica
+spec:
+  replicas: 4
+  selector:
+    name: habitica
+  template:
+    metadata:
+      labels:
+        name: habitica
+    spec:
+      containers:
+      - name: habitica
+        image: ksonney/habitrpg:latest
+        env:
+          - name: NODE_DB_URI
+            value: mongodb://mongosvc/habitrpg
+        ports:
+          - containerPort: 3000
+            hostPort: 3000
+            name: habitica
