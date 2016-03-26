@@ -28,10 +28,12 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 } else {
   var express = require("express");
   var bodyParser = require('body-parser');
-  var session = require('express-session');
+  var session = require('cookie-session');
   var logger = require('morgan');
   var compression = require('compression');
   var favicon = require('serve-favicon');
+
+  var BODY_PARSER_LIMIT = '1mb';
 
   var http = require("http");
   var path = require("path");
@@ -125,19 +127,20 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var redirects = require('./middlewares/redirects');
   oldApp.use(redirects.forceHabitica);
   oldApp.use(redirects.forceSSL);
-  oldApp.use(bodyParser.urlencoded({ extended: true }));
-  oldApp.use(bodyParser.json());
+  oldApp.use(bodyParser.urlencoded({
+    extended: true,
+    limit: BODY_PARSER_LIMIT,
+  }));
+  oldApp.use(bodyParser.json({
+    limit: BODY_PARSER_LIMIT,
+  }));
   oldApp.use(require('method-override')());
   oldApp.use(session({
+    name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
     secret: nconf.get('SESSION_SECRET'),
-    cookie: {
-      httpOnly: false,
-      maxAge: TWO_WEEKS,
-    },
-    resave: true,
-    saveUninitialized: true,
+    httpOnly: false,
+    maxAge: TWO_WEEKS
   }));
-  //oldApp.use(express.session());
 
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
