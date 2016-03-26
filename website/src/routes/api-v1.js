@@ -1,5 +1,5 @@
 var express = require('express');
-var router = new express.Router();
+var router = express.Router();
 var _ = require('lodash');
 var async = require('async');
 var icalendar = require('icalendar');

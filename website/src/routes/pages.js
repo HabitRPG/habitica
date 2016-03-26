@@ -1,6 +1,6 @@
 var nconf = require('nconf');
 var express = require('express');
-var router = new express.Router();
+var router = express.Router();
 var _ = require('lodash');
 var locals = require('../middlewares/locals');
 var i18n = require('../libs/i18n');
