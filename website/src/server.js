@@ -126,7 +126,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var redirects = require('./middlewares/redirects');
   oldApp.use(redirects.forceHabitica);
   oldApp.use(redirects.forceSSL);
-  oldApp.use(bodyParser.urlencoded());
+  oldApp.use(bodyParser.urlencoded({ extended: true }));
   oldApp.use(bodyParser.json());
   oldApp.use(require('method-override')());
   //oldApp.use(express.cookieParser(nconf.get('SESSION_SECRET')));
