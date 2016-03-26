@@ -22,7 +22,7 @@ var fetchMember = function(uuid, restrict){
 }
 
 var sendErr = function(err, res, next){
-  err.code ? res.json(err.code, {err: err.err}) : next(err);
+  err.code ? res.status(err.code).json({err: err.err}) : next(err);
 }
 
 api.getMember = function(req, res, next) {

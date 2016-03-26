@@ -8,7 +8,7 @@ var api = module.exports;
 
 api.ensureAdmin = function(req, res, next) {
   var user = res.locals.user;
-  if (!(user.contributor && user.contributor.admin)) return res.json(401, {err:"You don't have admin access"});
+  if (!(user.contributor && user.contributor.admin)) return res.status(401).json({err:"You don't have admin access"});
   next();
 }
 
@@ -42,7 +42,7 @@ api.getHero = function(req,res,next) {
     .select('auth.local.username auth.local.email auth.facebook auth.blocked')
     .exec(function(err, user){
       if (err) return next(err)
-      if (!user) return res.json(400,{err:'User not found'});
+      if (!user) return res.status(400).json({err:'User not found'});
       res.json(user);
   });
 }
@@ -53,7 +53,7 @@ api.updateHero = function(req,res,next) {
       User.findById(req.params.uid, cb);
     },
     function(member, cb){
-      if (!member) return res.json(404, {err: "User not found"});
+      if (!member) return res.status(404).json({err: "User not found"});
       member.balance = req.body.balance || 0;
       var newTier = req.body.contributor.level; // tier = level in this context
       var oldTier = member.contributor && member.contributor.level || 0;
@@ -80,6 +80,6 @@ api.updateHero = function(req,res,next) {
     }
   ], function(err, saved){
     if (err) return next(err);
-    res.json(204);
+    res.status(204).json({});
   })
 }

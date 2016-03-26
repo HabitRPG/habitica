@@ -28,7 +28,7 @@ paypal.configure({
 var parseErr = function(res, err){
   //var error = err.response ? err.response.message || err.response.details[0].issue : err;
   var error = JSON.stringify(err);
-  return res.json(400,{err:error});
+  return res.status(400).json({err:error});
 }
 
 exports.createBillingAgreement = function(req,res,next){
@@ -166,7 +166,7 @@ exports.executePayment = function(req, res) {
 exports.cancelSubscription = function(req, res, next){
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
-    return res.json(401, {err: "User does not have a plan subscription"});
+    return res.status(401).json({err: "User does not have a plan subscription"});
   async.auto({
     get_cus: function(cb){
       paypal.billingAgreement.get(user.purchased.plan.customerId, cb);
