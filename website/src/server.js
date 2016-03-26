@@ -29,7 +29,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var express = require("express");
   var bodyParser = require('body-parser');
   var session = require('express-session');
-  var cookieParser = require('cookie-parser');
   var logger = require('morgan');
   var compression = require('compression');
   var favicon = require('serve-favicon');
@@ -129,7 +128,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(bodyParser.urlencoded({ extended: true }));
   oldApp.use(bodyParser.json());
   oldApp.use(require('method-override')());
-  //oldApp.use(express.cookieParser(nconf.get('SESSION_SECRET')));
   oldApp.use(session({
     secret: nconf.get('SESSION_SECRET'),
     cookie: {
