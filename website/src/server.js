@@ -133,8 +133,10 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(cookieParser());
   oldApp.use(session({
     secret: nconf.get('SESSION_SECRET'),
-    httpOnly: false,
-    cookie: { maxAge: TWO_WEEKS },
+    cookie: {
+      httpOnly: false,
+      maxAge: TWO_WEEKS,
+    },
     resave: true,
     saveUninitialized: true,
   }));
