@@ -67,7 +67,7 @@ api.get = function(req, res, next) {
     .populate('leader', 'profile.name')
     .exec(function(err, challenge){
       if(err) return next(err);
-      if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
+      if (!challenge) return res.status(404).json({err: 'Challenge ' + req.params.cid + ' not found'});
       challenge._isMember = !!(_.find(challenge.members, function(member) {
         return member._id === user._id;
       }));
@@ -145,7 +145,7 @@ api.getMember = function(req, res, next) {
   .project(proj)
   .exec(function(err, member){
     if (err) return next(err);
-    if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
+    if (!member) return res.status(404).json({err: 'Member '+uid+' for challenge '+cid+' not found'});
     res.json(member[0]);
     uid = cid = null;
   });
@@ -207,7 +207,7 @@ api.create = function(req, res, next){
       results.save_chal[0].syncToUser(user, cb);
     }]
   }, function(err, results){
-    if (err) return err.code? res.json(err.code, err) : next(err);
+    if (err) return err.code? res.status(err.code).json(err) : next(err);
     return res.json(results.save_chal[0]);
     user = null;
   })
@@ -325,7 +325,7 @@ api.delete = function(req, res, next){
  * Select Winner & Close
  */
 api.selectWinner = function(req, res, next) {
-  if (!req.query.uid) return res.json(401, {err: 'Must select a winner'});
+  if (!req.query.uid) return res.status(401).json({err: 'Must select a winner'});
   var user = res.locals.user;
   var cid = req.params.cid;
   var chal;
@@ -436,7 +436,7 @@ api.unlink = function(req, res, next) {
   var tid = req.params.id;
   var cid = user.tasks[tid].challenge.id;
   if (!req.query.keep)
-    return res.json(400, {err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
+    return res.status(400).json({err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
   user.unlink({cid:cid, keep:req.query.keep, tid:tid}, function(err, saved){
     if (err) return next(err);
     res.sendStatus(200);

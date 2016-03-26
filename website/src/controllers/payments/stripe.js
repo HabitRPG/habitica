@@ -72,7 +72,7 @@ exports.checkout = function(req, res, next) {
 exports.subscribeCancel = function(req, res, next) {
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
-    return res.json(401, {err: 'User does not have a plan subscription'});
+    return res.status(401).json({err: 'User does not have a plan subscription'});
 
   async.auto({
     get_cus: function(cb){

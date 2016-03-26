@@ -181,7 +181,7 @@ exports.buyGems = function(data, cb) {
 exports.validCoupon = function(req, res, next){
   mongoose.model('Coupon').findOne({_id:cc.validate(req.params.code), event:'google_6mo'}, function(err, coupon){
     if (err) return next(err);
-    if (!coupon) return res.json(401, {err:"Invalid coupon code"});
+    if (!coupon) return res.status(401).json({err:"Invalid coupon code"});
     return res.sendStatus(200);
   });
 }

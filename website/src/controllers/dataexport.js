@@ -47,8 +47,8 @@ var userdata = function(user) {
 
 dataexport.leanuser = function(req, res, next) {
   User.findOne({_id: res.locals.user._id}).lean().exec(function(err, user) {
-    if (err) return res.json(500, {err: err});
-    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+    if (err) return res.status(500).json({err: err});
+    if (_.isEmpty(user)) return res.status(401).json(NO_USER_FOUND);
     res.locals.user = user;
     return next();
   });

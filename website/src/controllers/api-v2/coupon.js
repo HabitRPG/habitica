@@ -5,7 +5,7 @@ var csv = require('express-csv');
 var async = require('async');
 
 api.ensureAdmin = function(req, res, next) {
-  if (!res.locals.user.contributor.sudo) return res.json(401, {err:"You don't have admin access"});
+  if (!res.locals.user.contributor.sudo) return res.status(401).json({err:"You don't have admin access"});
   next();
 }
 
@@ -30,7 +30,7 @@ api.getCoupons = function(req,res,next) {
 
 api.enterCode = function(req,res,next) {
   Coupon.apply(res.locals.user,req.params.code,function(err,user){
-    if (err) return res.json(400,{err:err});
+    if (err) return res.status(400).json({err:err});
     res.json(user);
   });
 }
