@@ -25,21 +25,7 @@ export const DAY_MAPPING = {
 function sanitizeOptions (o) {
   let ref = Number(o.dayStart || 0);
   let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
-  let timezoneOffset;
-  if (_.isFinite(o.timezoneOffsetOverride)) { // XXX check 0 passes and - numbers. Check okay when not specified
-	timezoneOffset = o.timezoneOffsetOverride; // XXX check that Number() is not needed here and below
-	console.log("using o.timezoneOffsetOverride"); // TST
-  }
-  else if (_.isFinite(o.timezoneOffset)) { // XXX check 0 passes and -numbers
-    timezoneOffset = o.timezoneOffset;
-	console.log("using o.timezoneOffset"); // TST
-  }
-  else {
-    timezoneOffset = Number(moment().zone());
-	console.log("using server zone"); // TST
-  }
-  // TODO: check and clean timezoneOffset as for dayStart (e.g., might not be a number)
-
+  let timezoneOffset = _.isFinite(o.timezoneOffsetOverride) ?  o.timezoneOffsetOverride : _.isFinite(o.timezoneOffset) ? o.timezoneOffset : Number(moment().zone()); // XXX check that Number() is not needed around the ? ... parts
   let now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
 
   // return a new object, we don't want to add "now" to user object
