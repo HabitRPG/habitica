@@ -47,6 +47,32 @@ api.getUser = {
 };
 
 /**
+ * @api {get} /user/inventory/buy Get the gear items available for purchase for the current user
+ * @apiVersion 3.0.0
+ * @apiName UserGetBuyList
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} list The buy list
+ */
+api.getBuyList = {
+  method: 'GET',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/inventory/buy',
+  async handler (req, res) {
+    let list = _.cloneDeep(common.updateStore(res.locals.user));
+
+    // return text and notes strings
+    _.each(list, item => {
+      _.each(item, (itemPropVal, itemPropKey) => {
+        if (_.isFunction(itemPropVal) && itemPropVal.i18nLangFunc) item[itemPropKey] = itemPropVal(req.language);
+      });
+    });
+
+    res.respond(200, list);
+  },
+};
+
+/**
  * @api {delete} /user DELETE an authenticated user's profile
  * @apiVersion 3.0.0
  * @apiName UserDelete

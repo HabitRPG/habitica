@@ -74,7 +74,6 @@ const COMMON_FILES = [
   '!./common/script/libs/splitWhitespace.js',
   '!./common/script/libs/taskClasses.js',
   '!./common/script/libs/taskDefaults.js',
-  '!./common/script/libs/updateStore.js',
   '!./common/script/libs/uuid.js',
   '!./common/script/public/**/*.js',
 ];
