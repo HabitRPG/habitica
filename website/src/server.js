@@ -131,7 +131,13 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(require('method-override')());
   //oldApp.use(express.cookieParser(nconf.get('SESSION_SECRET')));
   oldApp.use(cookieParser());
-  oldApp.use(session({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
+  oldApp.use(session({
+    secret: nconf.get('SESSION_SECRET'),
+    httpOnly: false,
+    cookie: { maxAge: TWO_WEEKS },
+    resave: true,
+    saveUninitialized: true,
+  }));
   //oldApp.use(express.session());
 
   // Initialize Passport!  Also use passport.session() middleware, to support
