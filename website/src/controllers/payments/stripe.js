@@ -64,7 +64,7 @@ exports.checkout = function(req, res, next) {
     }
   ], function(err){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200);
+    res.sendStatus(200);
     user = token = null;
   });
 };
@@ -117,7 +117,7 @@ exports.subscribeEdit = function(req, res, next) {
     }
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200);
+    res.sendStatus(200);
     token = user = user_id = sub_id;
   });
 };

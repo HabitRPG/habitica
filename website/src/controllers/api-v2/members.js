@@ -85,7 +85,7 @@ api.sendPrivateMessage = function(req, res, next){
       ]);
     }
 
-    res.send(200);
+    res.sendStatus(200);
   })
 }
 
@@ -129,6 +129,6 @@ api.sendGift = function(req, res, next){
     }
   ], function(err) {
     if (err) return sendErr(err, res, next);
-    res.send(200);
+    res.sendStatus(200);
   });
 }

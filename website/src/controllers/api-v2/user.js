@@ -430,7 +430,7 @@ api.delete = function(req, res, next) {
         if(err) return next(err);
 
         firebase.deleteUser(user._id);
-        res.send(200);
+        res.sendStatus(200);
       });
     });
   });
@@ -450,7 +450,7 @@ if (nconf.get('NODE_ENV') === 'development') {
 
     user.save(function(err){
       if (err) return next(err);
-      res.send(204);
+      res.sendStatus(204);
     });
   };
 
@@ -461,7 +461,7 @@ if (nconf.get('NODE_ENV') === 'development') {
 
     user.save(function(err){
       if (err) return next(err);
-      res.send(204);
+      res.sendStatus(204);
     });
   };
 }

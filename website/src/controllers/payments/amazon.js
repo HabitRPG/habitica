@@ -24,8 +24,8 @@ exports.verifyAccessToken = function(req, res, next){
 
   amzPayment.api.getTokenInfo(req.body['access_token'], function(err, tokenInfo){
     if(err) return res.json(400, {err:err});
- 
-    res.send(200);
+
+    res.sendStatus(200);
   });
 };
 
@@ -141,7 +141,7 @@ exports.checkout = function(req, res, next){
   }, function(err, results){
     if(err) return next(err);
 
-    res.send(200);
+    res.sendStatus(200);
   });
 
 };
@@ -229,7 +229,7 @@ exports.subscribe = function(req, res, next){
   }, function(err, results){
     if(err) return next(err);
 
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
@@ -259,9 +259,9 @@ exports.subscribeCancel = function(req, res, next){
     }
   }, function(err, results){
     if (err) return next(err); // don't json this, let toString() handle errors
-    
+
     if(req.query.noRedirect){
-      res.send(200);
+      res.sendStatus(200);
     }else{
       res.redirect('/');
     }

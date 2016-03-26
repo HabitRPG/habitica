@@ -316,7 +316,7 @@ api.delete = function(req, res, next){
     }
   ], function(err){
     if (err) return next(err);
-    res.send(200);
+    res.sendStatus(200);
     user = cid = null;
   });
 }
@@ -359,7 +359,7 @@ api.selectWinner = function(req, res, next) {
     }
   ], function(err){
     if (err) return next(err);
-    res.send(200);
+    res.sendStatus(200);
     user = cid = chal = null;
   })
 }
@@ -439,7 +439,7 @@ api.unlink = function(req, res, next) {
     return res.json(400, {err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
   user.unlink({cid:cid, keep:req.query.keep, tid:tid}, function(err, saved){
     if (err) return next(err);
-    res.send(200);
+    res.sendStatus(200);
     user = tid = cid = null;
   });
 }

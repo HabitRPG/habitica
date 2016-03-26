@@ -246,7 +246,7 @@ api.update = function(req, res, next) {
     if (err) return next(err);
 
     firebase.updateGroupData(saved);
-    res.send(204);
+    res.sendStatus(204);
   });
 }
 
@@ -331,7 +331,7 @@ api.deleteChatMessage = function(req, res, next){
 
   Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){
     if(err) return next(err);
-    chatUpdated ? res.json({chat: group.chat}) : res.send(204);
+    chatUpdated ? res.json({chat: group.chat}) : res.sendStatus(204);
     group = chatUpdated = null;
   });
 }
@@ -397,7 +397,7 @@ api.flagChatMessage = function(req, res, next){
         {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
       ]);
 
-      return res.send(204);
+      return res.sendStatus(204);
     });
   });
 }
@@ -416,7 +416,7 @@ api.clearFlagCount = function(req, res, next){
       'chat.$.flagCount': message.flagCount,
     }}, function(err) {
       if(err) return next(err);
-      return res.send(204);
+      return res.sendStatus(204);
     });
   } else {
     return res.json(401, {err: shared.i18n.t('messageGroupChatAdminClearFlagCount')})
@@ -431,7 +431,7 @@ api.seenMessage = function(req,res,next){
     update['$unset']['newMessages.'+req.params.gid] = '';
     User.update({_id:req.headers['x-api-user'], apiToken:req.headers['x-api-key']},update).exec();
   }
-  res.send(200);
+  res.sendStatus(200);
 }
 
 api.likeChatMessage = function(req, res, next) {
@@ -535,7 +535,7 @@ api.leave = function(req, res, next) {
     if (err) return next(err);
     user = group = keep = null;
 
-    return res.send(204);
+    return res.sendStatus(204);
   });
 };
 
@@ -760,7 +760,7 @@ api.removeMember = function(req, res, next){
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
         group = uuid = null;
-        return res.send(204);
+        return res.sendStatus(204);
       });
     });
   }else if(_.contains(group.invites, uuid)){
@@ -788,7 +788,7 @@ api.removeMember = function(req, res, next){
         // see http://mongoosejs.com/docs/api.html#model_Model.update
         sendMessage(invited);
         group = uuid = null;
-        return res.send(204);
+        return res.sendStatus(204);
       });
 
     });
@@ -1095,7 +1095,7 @@ api.questLeave = function(req, res, next) {
 
   Q.all([groupSavePromise(), userSavePromise()])
     .done(function(values) {
-      return res.send(204);
+      return res.sendStatus(204);
     }, function(error) {
       return next(error);
     });
