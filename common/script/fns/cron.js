@@ -24,7 +24,7 @@ import {
  */
 
 module.exports = function(user, options) {
-  var _progress, analyticsData, base, base1, base2, base3, base4, browserTimezoneOffset, clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, multiDaysCountAsOneDay, now, perfect, plan, progress, ref, ref1, ref2, ref3, todoTally, userTimezoneOffset;
+  var _progress, analyticsData, base, base1, base2, base3, base4, browserTimezoneOffset, clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, multiDaysCountAsOneDay, now, perfect, plan, progress, ref, ref1, ref2, ref3, todoTally, userTimezoneOffset, lastCronTimezoneOffset;
   if (options == null) {
     options = {};
   }
@@ -32,35 +32,67 @@ module.exports = function(user, options) {
   now = +options.now || +(new Date);
   console.log('now:', moment(now).format('YYYY-MM-DD HH:mm:ss')); // TST
 
-  // If the user's time zone has changed (due to travel or daylight savings),
+  // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
-  // both time zones to work out if cron should run.
-  userTimezoneOffset = +user.preferences.timezoneOffset || 0;
-  browserTimezoneOffset = +options.timezoneOffset || userTimezoneOffset;
-  console.log("userTimezoneOffset: " + userTimezoneOffset); // TST
-  console.log("browserTimezoneOffset: " + browserTimezoneOffset); // TST
+  // both timezones to work out if cron should run.
 
-  // How many days have we missed using the timezone stored in the user's Habitica preferences:
+  userTimezoneOffset = +user.preferences.timezoneOffset || 0;
+  lastCronTimezoneOffset = (_.isFinite(+user.preferences.timezoneOffsetAtLastCron)) ? +user.preferences.timezoneOffsetAtLastCron : userTimezoneOffset;
+  browserTimezoneOffset = (_.isFinite(+options.timezoneOffset)) ? +options.timezoneOffset : userTimezoneOffset;
+  // NB: all timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
+
+  console.log("userTimezoneOffset: " + userTimezoneOffset); // TST
+  console.log("lastCronTimezoneOffset: " + lastCronTimezoneOffset); // TST
+  console.log("browserTimezoneOffset: " + browserTimezoneOffset); // TST
+  if (browserTimezoneOffset !== userTimezoneOffset) {
+	// the user's browser has just told Habitica that the user's timezone has
+	// changed so store and use the new zone
+    user.preferences.timezoneOffset = browserTimezoneOffset;
+    userTimezoneOffset = browserTimezoneOffset;
+    console.log("userTimezoneOffset (new): " + userTimezoneOffset); // TST
+  }
+  // XXX All tested above here.
+  // if (userTimezoneOffset > 600) { userTimezoneOffset = 420; } // TST
+  // userTimezoneOffset = -60; // TST
+  // browserTimezoneOffset = userTimezoneOffset + 60;  // TST
+
+  // How many days have we missed using the user's current timezone:
   daysMissed = daysSince(user.lastCron, _.defaults({
     now: now
   }, user.preferences));
   console.log("daysMissed OLD zone: " + daysMissed); // TST
 
-  if (userTimezoneOffset != browserTimezoneOffset) {
-    // User's time zone has changed.
-    // How many days have we missed using the new time zone:
+  if (userTimezoneOffset !== lastCronTimezoneOffset) {
+    // User's timezone has changed since cron last ran.
+    // How many days have we missed using the old timezone:
     console.log("different zones")
-    user.preferences.timezoneOffset = browserTimezoneOffset; // store the new zone
-    var daysMissedOldZone, daysMissedNewZone;
-    daysMissedOldZone = daysMissed;
-    daysMissedNewZone = daysSince(user.lastCron, _.defaults({
-      now: now
+    let daysMissedOldZone = daysMissed;
+    // XXX user.preferences.timezoneOffset = browserTimezoneOffset; // store new zone
+    let daysMissedNewZone = daysSince(user.lastCron, _.defaults({
+      now: now,
+      timezoneOffsetOverride: lastCronTimezoneOffset,
     }, user.preferences));
     console.log("daysMissedOldZone: " + daysMissedOldZone); // TST
     console.log("daysMissedNewZone: " + daysMissedNewZone); // TST
+
+    if (daysMissedOldZone > 0 && daysMissedNewZone > 0) {
+      // Both old and new timezones indicate that we SHOULD run cron, so
+      // it is safe to do so.
+      daysMissed = Math.min(daysMissedOldZone, daysMissedNewZone);
+      // use minimum value to be nice to user
+      console.log("different zones - 1 - run cron normally"); // TST
+    }
+    else {
+      // Either one of the timezones indicates that cron should NOT run.
+      // It's difficult to tell which zone should be believed because it
+      // depends too much on the user's exact circumstances.
+      // We do not run cron until both zones agree.
+      daysMissed = 0;
+      console.log("different zones - 2 - prevent cron now"); // TST
+    }
   }
 
-
+  daysMissed = 0; // TST
   if (!(daysMissed > 0)) {
     console.log("== CRON DOES NOT RUN ==");// TST
     return;
@@ -68,9 +100,7 @@ module.exports = function(user, options) {
   console.log("== CRON RUNS ==");// TST
   user.auth.timestamps.loggedin = new Date();
   user.lastCron = now;
-  if (_.isFinite(+user.preferences.timezoneOffset)) {
-    user.preferences.timezoneOffsetAtLastCron = user.preferences.timezoneOffset;
-  }
+  user.preferences.timezoneOffsetAtLastCron = userTimezoneOffset; // XXX check correct and working
   if (user.items.lastDrop.count > 0) {
     user.items.lastDrop.count = 0;
   }
