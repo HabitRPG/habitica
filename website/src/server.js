@@ -130,7 +130,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(bodyParser.json());
   oldApp.use(require('method-override')());
   //oldApp.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-  oldApp.use(cookieParser());
   oldApp.use(session({
     secret: nconf.get('SESSION_SECRET'),
     cookie: {
