@@ -197,7 +197,7 @@ exports.cancelSubscription = function(req, res, next){
  */
 exports.ipn = function(req, res, next) {
   console.log('IPN Called');
-  res.send(200); // Must respond to PayPal IPN request with an empty 200 first
+  res.sendStatus(200); // Must respond to PayPal IPN request with an empty 200 first
   ipn.verify(req.body, function(err, msg) {
     if (err) return logger.error(msg);
     switch (req.body.txn_type) {

@@ -12,7 +12,7 @@ api.ensureAdmin = function(req, res, next) {
 api.generateCoupons = function(req,res,next) {
   Coupon.generate(req.params.event, req.query.count, function(err){
     if(err) return next(err);
-    res.send(200);
+    res.sendStatus(200);
   });
 }
 

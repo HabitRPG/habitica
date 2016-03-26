@@ -241,7 +241,7 @@ api.deleteSocial = function(req,res,next){
   //res.locals.user.auth.save(function(err, saved){
   User.update({_id:res.locals.user._id}, {$unset:{'auth.facebook':1}}, function(err){
     if (err) return next(err);
-    res.send(200);
+    res.sendStatus(200);
   })
 }
 
@@ -255,7 +255,7 @@ api.resetPassword = function(req, res, next){
 
   User.findOne({'auth.local.email': email}, function(err, user){
     if (err) return next(err);
-    if (!user) return res.send(401, {err:"Sorry, we can't find a user registered with email " + email + "\n- Make sure your email address is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login."});
+    if (!user) return res.status(401).json({err:"Sorry, we can't find a user registered with email " + email + "\n- Make sure your email address is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login."});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
     utils.sendEmail({
@@ -300,7 +300,7 @@ api.changeUsername = function(req, res, next) {
     }
   ], function(err){
     if (err) return err.code ? res.json(err.code, err) : next(err);
-    res.send(200);
+    res.sendStatus(200);
   })
 }
 
@@ -320,7 +320,7 @@ api.changeEmail = function(req, res, next){
     }
   ], function(err){
     if (err) return err.code ? res.json(err.code,err) : next(err);
-    res.send(200);
+    res.sendStatus(200);
   })
 }
 
@@ -343,7 +343,7 @@ api.changePassword = function(req, res, next) {
   user.auth.local.hashed_password = hashed_new_password;
   user.save(function(err, saved){
     if (err) next(err);
-    res.send(200);
+    res.sendStatus(200);
   })
 };
 

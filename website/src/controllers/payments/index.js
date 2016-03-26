@@ -182,7 +182,7 @@ exports.validCoupon = function(req, res, next){
   mongoose.model('Coupon').findOne({_id:cc.validate(req.params.code), event:'google_6mo'}, function(err, coupon){
     if (err) return next(err);
     if (!coupon) return res.json(401, {err:"Invalid coupon code"});
-    return res.send(200);
+    return res.sendStatus(200);
   });
 }
 
