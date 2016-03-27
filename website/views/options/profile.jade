@@ -159,14 +159,16 @@ mixin customizeProfile(mobile)
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
   +customizeProfile()
 
-mixin profileStats
+script(id='partials/options.profile.stats.html', type='text/ng-template')
   .container-fluid
     div(class=mobile?'padding':'row')
       // FIXME, get this working on mobile
-      .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
+      div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "border-right col-md-4" : "col-md-6"')
+        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+        hr(ng-if='user.preferences.disableClasses')
         include ../shared/profiles/stats
       unless mobile
-        .col-md-4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+        .col-md-4.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
           h3=env.t('characterBuild')
           h4
             =env.t('class') + ': '
@@ -207,16 +209,13 @@ mixin profileStats
                       span.glyphicon.glyphicon-download
                       |&nbsp;
                       =env.t('distributePoints')
-            +statAllocation
+            +statAllocation()
 
-
+script(id='partials/options.profile.achievements.html', type='text/ng-template')
+  .container-fluid
+    div(class=mobile?'padding':'row')
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
-        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-        hr(ng-if='user.preferences.disableClasses')
         include ../shared/profiles/achievements
-
-script(id='partials/options.profile.stats.html', type='text/ng-template')
-  +profileStats()
 
 script(id='partials/options.profile.profile.html', type='text/ng-template')
   .container-fluid
@@ -293,7 +292,10 @@ script(id='partials/options.profile.html', type="text/ng-template")
         =env.t('backgrounds')
     li(ng-class="{ active: $state.includes('options.profile.stats') }")
       a(ui-sref='options.profile.stats')
-        =env.t('statsAch')
+        =env.t('statsSeparate')
+    li(ng-class="{ active: $state.includes('options.profile.achievements') }")
+      a(ui-sref='options.profile.achievements')
+        =env.t('achievsSeparate')
     li(ng-class="{ active: $state.includes('options.profile.profile') }")
       a(ui-sref='options.profile.profile')
         =env.t('profile')
