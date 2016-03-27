@@ -15,15 +15,16 @@ mixin statList(calculatedStat, popover, text, useOneTimeBinding)
 .container-fluid
   div(class=mobile?'padding':'row')
     // FIXME, get this working on mobile
-    div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "border-right col-md-4" : "col-md-6"')
-      button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-      hr(ng-if='user.preferences.disableClasses')
+    .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
       include ./stats/basic-stats
       include ./stats/equipment
-      include ./stats/attributes
       include ./stats/pets-and-mounts
+    div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
+      button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+      hr(ng-if='user.preferences.disableClasses')
+      include ./stats/attributes
     unless mobile
-      .col-md-4.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+      .col-md-4.border-left.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         h3=env.t('characterBuild')
         h4
           =env.t('class') + ': '
