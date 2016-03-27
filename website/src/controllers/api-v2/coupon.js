@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var Coupon = require('./../../models/coupon').model;
 var api = module.exports;
-var csv = require('express-csv');
+var csvStringify = require('csv-stringify');
 var async = require('async');
 
 api.ensureAdmin = function(req, res, next) {
@@ -21,10 +21,18 @@ api.getCoupons = function(req,res,next) {
   if (req.query.limit) options.limit = req.query.limit;
   if (req.query.skip) options.skip = req.query.skip;
   Coupon.find({},{}, options, function(err,coupons){
-    //res.header('Content-disposition', 'attachment; filename=coupons.csv');
-    res.csv([['code']].concat(_.map(coupons, function(c){
+    let output = [['code']].concat(_.map(coupons, function(c){
       return [c._id];
-    })));
+    }))
+
+    res.set({
+      'Content-Type': 'text/csv',
+      'Content-disposition': `attachment; filename=habitica-coupons.csv`,
+    });
+    csvStringify(output, (err, csv) => {
+      if (err) return next(err);
+      res.status(200).send(csv);
+    });
   });
 }
 

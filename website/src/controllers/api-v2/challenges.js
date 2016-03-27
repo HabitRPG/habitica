@@ -8,7 +8,7 @@ var User = require('./../../models/user').model;
 var Group = require('./../../models/group').model;
 var Challenge = require('./../../models/challenge').model;
 var logging = require('./../../libs/logging');
-var csv = require('express-csv');
+var csvStringify = require('csv-stringify');
 var utils = require('../../libs/utils');
 var api = module.exports;
 var pushNotify = require('./../pushNotifications');
@@ -112,9 +112,17 @@ api.csv = function(req, res, next) {
       })
       output.push(uData);
     });
-    res.header('Content-disposition', 'attachment; filename='+cid+'.csv');
-    res.csv(output);
-    challenge = cid = null;
+
+    res.set({
+      'Content-Type': 'text/csv',
+      'Content-disposition': `attachment; filename=${cid}.csv`,
+    });
+
+    csvStringify(output, (err, csv) => {
+      if (err) return next(err);
+      res.status(200).send(csv);
+      challenge = cid = null;
+    });
   })
 }
 

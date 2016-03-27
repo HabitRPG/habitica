@@ -1,9 +1,8 @@
 var _ = require('lodash');
-var csv = require('express-csv');
 var express = require('express');
+var csvStringify = require('csv-stringify');
 var nconf = require('nconf');
 var moment = require('moment');
-var dataexport = module.exports;
 var js2xmlparser = require("js2xmlparser");
 var pd = require('pretty-data').pd;
 var User = require('../models/user').model;
@@ -22,6 +21,8 @@ var request = require('request');
   ------------------------------------------------------------------------
 */
 
+var dataexport = module.exports;
+
 dataexport.history = function(req, res) {
   var user = res.locals.user;
   var output = [
@@ -29,13 +30,26 @@ dataexport.history = function(req, res) {
   ];
   _.each(user.tasks, function(task) {
     _.each(task.history, function(history) {
-      output.push(
-        [task.text, task.id, task.type, moment(history.date).format("MM-DD-YYYY HH:mm:ss"), history.value]
-      );
+      output.push([
+        task.text,
+        task.id,
+        task.type,
+        moment(history.date).format("MM-DD-YYYY HH:mm:ss"),
+        history.value
+      ]);
     });
   });
-  return res.csv(output);
-}
+
+  res.set({
+    'Content-Type': 'text/csv',
+    'Content-disposition': `attachment; filename=habitica-tasks-history.csv`,
+  });
+
+  csvStringify(output, (err, csv) => {
+    if (err) return next(err);
+    res.status(200).send(csv);
+  });
+};
 
 var userdata = function(user) {
   if(user.auth && user.auth.local) {
