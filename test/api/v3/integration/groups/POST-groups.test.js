@@ -189,6 +189,17 @@ describe('POST /group', () => {
       expect(updatedUser.party._id).to.eql(party._id);
     });
 
+    it('does not award Party Up achievement to solo partier', async () => {
+      await user.post('/groups', {
+        name: partyName,
+        type: partyType,
+      });
+
+      let updatedUser = await user.get('/user');
+
+      expect(updatedUser.achievements.partyUp).to.not.eql(true);
+    });
+
     it('prevents user in a party from creating another party', async () => {
       await user.post('/groups', {
         name: partyName,

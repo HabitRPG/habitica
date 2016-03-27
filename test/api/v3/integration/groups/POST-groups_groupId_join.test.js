@@ -225,4 +225,53 @@ describe('POST /group/:groupId/join', () => {
       });
     });
   });
+
+  context('Party incentive achievements', () => {
+    let leader, member, party;
+
+    beforeEach(async () => {
+      leader = await generateUser();
+      member = await generateUser();
+      party = await leader.post('/groups', {
+        name: 'Testing Party',
+        type: 'party',
+      });
+      await leader.post(`/groups/${party._id}/invite`, {
+        uuids: [member._id],
+      });
+      await member.post(`/groups/${party._id}/join`);
+    });
+
+    it('awards Party Up achievement to party of size 2', async () => {
+      await member.sync();
+      await leader.sync();
+
+      expect(member).to.have.deep.property('achievements.partyUp', true);
+      expect(leader).to.have.deep.property('achievements.partyUp', true);
+    });
+
+    it('does not award Party On achievement to party of size 2', async () => {
+      await member.sync();
+      await leader.sync();
+
+      expect(member).to.not.have.deep.property('achievements.partyOn');
+      expect(leader).to.not.have.deep.property('achievements.partyOn');
+    });
+
+    it('awards Party On achievement to party of size 4', async () => {
+      let addlMemberOne = await generateUser();
+      let addlMemberTwo = await generateUser();
+      await leader.post(`/groups/${party._id}/invite`, {
+        uuids: [addlMemberOne._id, addlMemberTwo._id],
+      });
+      await addlMemberOne.post(`/groups/${party._id}/join`);
+      await addlMemberTwo.post(`/groups/${party._id}/join`);
+
+      await member.sync();
+      await leader.sync();
+
+      expect(member).to.have.deep.property('achievements.partyOn', true);
+      expect(leader).to.have.deep.property('achievements.partyOn', true);
+    });
+  });
 });
