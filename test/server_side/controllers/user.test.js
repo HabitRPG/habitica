@@ -579,8 +579,8 @@ describe('User Controller', function() {
     it('sends back 204', function() {
       userController.addTenGems(req, res);
 
-      expect(res.send).to.be.calledOnce;
-      expect(res.send).to.be.calledWith(204);
+      expect(res.sendStatus).to.be.calledOnce;
+      expect(res.sendStatus).to.be.calledWith(204);
     });
   });
 
@@ -610,8 +610,8 @@ describe('User Controller', function() {
     it('sends back 204', function() {
       userController.addHourglass(req, res);
 
-      expect(res.send).to.be.calledOnce;
-      expect(res.send).to.be.calledWith(204);
+      expect(res.sendStatus).to.be.calledOnce;
+      expect(res.sendStatus).to.be.calledWith(204);
     });
   });
 });

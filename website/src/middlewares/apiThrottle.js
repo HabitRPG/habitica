@@ -18,7 +18,7 @@ module.exports = function(app) {
     }
   })).use(function(req,res,next){
     //logging.info(res.ratelimit);
-    if (res.ratelimit.exceeded) return res.json(429,{err:'Rate limit exceeded'});
+    if (res.ratelimit.exceeded) return res.status(429).json({err:'Rate limit exceeded'});
     next();
   });
 };

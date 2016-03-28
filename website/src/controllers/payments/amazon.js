@@ -19,19 +19,19 @@ var amzPayment = amazonPayments.connect({
 
 exports.verifyAccessToken = function(req, res, next){
   if(!req.body || !req.body['access_token']){
-    return res.json(400, {err: 'Access token not supplied.'});
+    return res.status(400).json({err: 'Access token not supplied.'});
   }
 
   amzPayment.api.getTokenInfo(req.body['access_token'], function(err, tokenInfo){
-    if(err) return res.json(400, {err:err});
- 
-    res.send(200);
+    if(err) return res.status(400).json({err:err});
+
+    res.sendStatus(200);
   });
 };
 
 exports.createOrderReferenceId = function(req, res, next){
   if(!req.body || !req.body.billingAgreementId){
-    return res.json(400, {err: 'Billing Agreement Id not supplied.'});
+    return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
   }
 
   amzPayment.offAmazonPayments.createOrderReferenceForId({
@@ -52,7 +52,7 @@ exports.createOrderReferenceId = function(req, res, next){
 
 exports.checkout = function(req, res, next){
   if(!req.body || !req.body.orderReferenceId){
-    return res.json(400, {err: 'Billing Agreement Id not supplied.'});
+    return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
   }
 
   var gift = req.body.gift;
@@ -141,14 +141,14 @@ exports.checkout = function(req, res, next){
   }, function(err, results){
     if(err) return next(err);
 
-    res.send(200);
+    res.sendStatus(200);
   });
 
 };
 
 exports.subscribe = function(req, res, next){
   if(!req.body || !req.body['billingAgreementId']){
-    return res.json(400, {err: 'Billing Agreement Id not supplied.'});
+    return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
   }
 
   var billingAgreementId = req.body.billingAgreementId;
@@ -157,7 +157,7 @@ exports.subscribe = function(req, res, next){
   var user = res.locals.user;
 
   if(!sub){
-    return res.json(400, {err: 'Subscription plan not found.'});
+    return res.status(400).json({err: 'Subscription plan not found.'});
   }
 
   async.series({
@@ -229,14 +229,14 @@ exports.subscribe = function(req, res, next){
   }, function(err, results){
     if(err) return next(err);
 
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
 exports.subscribeCancel = function(req, res, next){
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
-    return res.json(401, {err: 'User does not have a plan subscription'});
+    return res.status(401).json({err: 'User does not have a plan subscription'});
 
   var billingAgreementId = user.purchased.plan.customerId;
 
@@ -259,9 +259,9 @@ exports.subscribeCancel = function(req, res, next){
     }
   }, function(err, results){
     if (err) return next(err); // don't json this, let toString() handle errors
-    
+
     if(req.query.noRedirect){
-      res.send(200);
+      res.sendStatus(200);
     }else{
       res.redirect('/');
     }

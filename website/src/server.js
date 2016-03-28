@@ -111,17 +111,17 @@ oldApp.use(redirects.forceSSL);
 var bodyParser = require('body-parser');
 // Default limit is 100kb, need that because we actually send whole groups to the server
 // FIXME as soon as possible (need to move on the client from $resource -> $http)
+var BODY_PARSER_LIMIT = '1mb';
 oldApp.use(bodyParser.urlencoded({
-  limit: '1mb',
+  extended: true,
   parameterLimit: 10000, // Upped for safety from 1k, FIXME as above
-  extended: true // Uses 'qs' library as old connect middleware
+  limit: BODY_PARSER_LIMIT,
 }));
 oldApp.use(bodyParser.json({
-  limit: '1mb'
+  limit: BODY_PARSER_LIMIT,
 }));
 oldApp.use(require('method-override')());
 
-oldApp.use(require('cookie-parser')());
 oldApp.use(require('cookie-session')({
   name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
   secret: nconf.get('SESSION_SECRET'),
@@ -135,14 +135,14 @@ oldApp.use(passport.initialize());
 oldApp.use(passport.session());
 
 // Custom Directives
-oldApp.use(require('./routes/pages'));
-oldApp.use(require('./routes/payments'));
-oldApp.use(require('./routes/api-v2/auth'));
-oldApp.use(require('./routes/api-v2/coupon'));
-oldApp.use(require('./routes/api-v2/unsubscription'));
+oldApp.use('/', require('./routes/pages'));
+oldApp.use('/', require('./routes/payments'));
+oldApp.use('/', require('./routes/api-v2/auth'));
+oldApp.use('/', require('./routes/api-v2/coupon'));
+oldApp.use('/', require('./routes/api-v2/unsubscription'));
 var v2 = express();
 oldApp.use('/api/v2', v2);
-oldApp.use('/api/v1', require('./routes/api-v1'));
+oldApp.use('/api/', require('./routes/api-v1'));
 oldApp.use('/export', require('./routes/dataexport'));
 require('./routes/api-v2/swagger')(swagger, v2);
 

@@ -143,7 +143,7 @@ api.get = function(req, res, next) {
   q.exec(function(err, group){
     if (err) return next(err);
     if(!group){
-      if(gid !== 'party') return res.json(404,{err: shared.i18n.t('messageGroupNotFound')});
+      if(gid !== 'party') return res.status(404).json({err: shared.i18n.t('messageGroupNotFound')});
 
       // Don't send a 404 when querying for a party even if it doesn't exist
       // so that users with no party don't get a 404 on every access to the site
@@ -189,7 +189,7 @@ api.create = function(req, res, next) {
   group.leader = user._id;
 
   if(group.type === 'guild'){
-    if(user.balance < 1) return res.json(401, {err: shared.i18n.t('messageInsufficientGems')});
+    if(user.balance < 1) return res.status(401).json({err: shared.i18n.t('messageInsufficientGems')});
 
     group.balance = 1;
     user.balance--;
@@ -223,7 +223,7 @@ api.create = function(req, res, next) {
         saved.populate('members', nameFields, cb);
       }
     ], function(err, populated){
-      if (err === shared.i18n.t('messageGroupAlreadyInParty')) return res.json(400,{err:err});
+      if (err === shared.i18n.t('messageGroupAlreadyInParty')) return res.status(400).json({err:err});
       if (err) return next(err);
       group = user = null;
       return res.json(populated);
@@ -236,7 +236,7 @@ api.update = function(req, res, next) {
   var user = res.locals.user;
 
   if(group.leader !== user._id)
-    return res.json(401, {err: shared.i18n.t('messageGroupOnlyLeaderCanUpdate')});
+    return res.status(401).json({err: shared.i18n.t('messageGroupOnlyLeaderCanUpdate')});
 
   'name description logo logo leaderMessage leader leaderOnly'.split(' ').forEach(function(attr){
     group[attr] = req.body[attr];
@@ -246,7 +246,7 @@ api.update = function(req, res, next) {
     if (err) return next(err);
 
     firebase.updateGroupData(saved);
-    res.send(204);
+    res.sendStatus(204);
   });
 }
 
@@ -257,7 +257,7 @@ api.attachGroup = function(req, res, next) {
   var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
   q.exec(function(err, group){
     if(err) return next(err);
-    if(!group) return res.json(404, {err: shared.i18n.t('messageGroupNotFound')});
+    if(!group) return res.status(404).json({err: shared.i18n.t('messageGroupNotFound')});
 
     if (!user.contributor.admin) {
       _purgeFlagInfoFromChat(group, user);
@@ -281,7 +281,7 @@ api.getChat = function(req, res, next) {
   populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group && gid!=='party') return res.json(404,{err: shared.i18n.t('messageGroupNotFound')});
+    if (!group && gid!=='party') return res.status(404).json({err: shared.i18n.t('messageGroupNotFound')});
 
     res.json(res.locals.group.chat);
     gid = null;
@@ -293,11 +293,11 @@ api.getChat = function(req, res, next) {
  */
 api.postChat = function(req, res, next) {
   if(!req.query.message) {
-    return res.json(400,{err: shared.i18n.t('messageGroupChatBlankMessage')});
+    return res.status(400).json({err: shared.i18n.t('messageGroupChatBlankMessage')});
   } else {
     var user = res.locals.user
     var group = res.locals.group;
-    if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
+    if (group.type!='party' && user.flags.chatRevoked) return res.status(401).json({err:'Your chat privileges have been revoked.'});
     var lastClientMsg = req.query.previousMsg;
     var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
@@ -321,17 +321,17 @@ api.deleteChatMessage = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.messageId});
 
-  if(!message) return res.json(404, {err: "Message not found!"});
+  if(!message) return res.status(404).json({err: "Message not found!"});
 
   if(user._id !== message.uuid && !(user.backer && user.contributor.admin))
-    return res.json(401, {err: "Not authorized to delete this message!"})
+    return res.status(401).json({err: "Not authorized to delete this message!"})
 
   var lastClientMsg = req.query.previousMsg;
   var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
   Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){
     if(err) return next(err);
-    chatUpdated ? res.json({chat: group.chat}) : res.send(204);
+    chatUpdated ? res.json({chat: group.chat}) : res.sendStatus(204);
     group = chatUpdated = null;
   });
 }
@@ -341,15 +341,15 @@ api.flagChatMessage = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
 
-  if(!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
-  if(message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatFlagOwnMessage')});
+  if(!message) return res.status(404).json({err: shared.i18n.t('messageGroupChatNotFound')});
+  if(message.uuid == user._id) return res.status(401).json({err: shared.i18n.t('messageGroupChatFlagOwnMessage')});
 
   User.findOne({_id: message.uuid}, {auth: 1}, function(err, author){
     if(err) return next(err);
 
     // Log user ids that have flagged the message
     if(!message.flags) message.flags = {};
-    if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: shared.i18n.t('messageGroupChatFlagAlreadyReported')});
+    if(message.flags[user._id] && !user.contributor.admin) return res.status(401).json({err: shared.i18n.t('messageGroupChatFlagAlreadyReported')});
     message.flags[user._id] = true;
 
     // Log total number of flags (publicly viewable)
@@ -397,7 +397,7 @@ api.flagChatMessage = function(req, res, next){
         {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
       ]);
 
-      return res.send(204);
+      return res.sendStatus(204);
     });
   });
 }
@@ -407,7 +407,7 @@ api.clearFlagCount = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
 
-  if(!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
+  if(!message) return res.status(404).json({err: shared.i18n.t('messageGroupChatNotFound')});
 
   if(user.contributor.admin){
     message.flagCount = 0;
@@ -416,10 +416,10 @@ api.clearFlagCount = function(req, res, next){
       'chat.$.flagCount': message.flagCount,
     }}, function(err) {
       if(err) return next(err);
-      return res.send(204);
+      return res.sendStatus(204);
     });
   } else {
-    return res.json(401, {err: shared.i18n.t('messageGroupChatAdminClearFlagCount')})
+    return res.status(401).json({err: shared.i18n.t('messageGroupChatAdminClearFlagCount')})
   }
 }
 
@@ -431,7 +431,7 @@ api.seenMessage = function(req,res,next){
     update['$unset']['newMessages.'+req.params.gid] = '';
     User.update({_id:req.headers['x-api-user'], apiToken:req.headers['x-api-key']},update).exec();
   }
-  res.send(200);
+  res.sendStatus(200);
 }
 
 api.likeChatMessage = function(req, res, next) {
@@ -439,8 +439,8 @@ api.likeChatMessage = function(req, res, next) {
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
 
-  if (!message) return res.json(404, {err: shared.i18n.t('messageGroupChatNotFound')});
-  if (message.uuid == user._id) return res.json(401, {err: shared.i18n.t('messageGroupChatLikeOwnMessage')});
+  if (!message) return res.status(404).json({err: shared.i18n.t('messageGroupChatNotFound')});
+  if (message.uuid == user._id) return res.status(401).json({err: shared.i18n.t('messageGroupChatLikeOwnMessage')});
   if (!message.likes) message.likes = {};
   if (message.likes[user._id]) {
     delete message.likes[user._id];
@@ -483,7 +483,7 @@ api.join = function(req, res, next) {
     }
   }
 
-  if(!isUserInvited) return res.json(401, {err: shared.i18n.t('messageGroupRequiresInvite')});
+  if(!isUserInvited) return res.status(401).json({err: shared.i18n.t('messageGroupRequiresInvite')});
 
   if (!_.contains(group.members, user._id)){
     if (group.members.length === 0) {
@@ -535,7 +535,7 @@ api.leave = function(req, res, next) {
     if (err) return next(err);
     user = group = keep = null;
 
-    return res.send(204);
+    return res.sendStatus(204);
   });
 };
 
@@ -610,7 +610,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
       }
     });
   }, function(err){
-    if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
+    if(err) return err.code ? res.status(err.code).json({err: err.err}) : next(err);
 
     async.series([
       function(cb) {
@@ -674,7 +674,7 @@ var inviteByEmails = function(invites, group, req, res, next){
       cb();
     }
   }, function(err){
-    if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
+    if(err) return err.code ? res.status(err.code).json({err: err.err}) : next(err);
 
     if (usersAlreadyRegistered.length > 0){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
@@ -682,7 +682,7 @@ var inviteByEmails = function(invites, group, req, res, next){
 
       // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
-      res.json(200, {});
+      res.status(200).json({});
     }
   });
 };
@@ -691,14 +691,14 @@ api.invite = function(req, res, next){
   var group = res.locals.group;
 
   if (group.privacy === 'private' && !_.contains(group.members,res.locals.user._id)) {
-    return res.json(401, {err: "Only a member can invite new members!"});
+    return res.status(401).json({err: "Only a member can invite new members!"});
   }
   if (req.body.uuids) {
     inviteByUUIDs(req.body.uuids, group, req, res, next);
   } else if (req.body.emails) {
     inviteByEmails(req.body.emails, group, req, res, next)
   } else {
-    return res.json(400, {err: "Can only invite by email or uuid"});
+    return res.status(400).json({err: "Can only invite by email or uuid"});
   }
 }
 
@@ -721,11 +721,11 @@ api.removeMember = function(req, res, next){
   }
 
   if(group.leader !== user._id){
-    return res.json(401, {err: "Only group leader can remove a member!"});
+    return res.status(401).json({err: "Only group leader can remove a member!"});
   }
 
   if(user._id === uuid){
-    return res.json(401, {err: "You cannot remove yourself!"});
+    return res.status(401).json({err: "You cannot remove yourself!"});
   }
 
   if(_.contains(group.members, uuid)){
@@ -760,7 +760,7 @@ api.removeMember = function(req, res, next){
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
         group = uuid = null;
-        return res.send(204);
+        return res.sendStatus(204);
       });
     });
   }else if(_.contains(group.invites, uuid)){
@@ -788,13 +788,13 @@ api.removeMember = function(req, res, next){
         // see http://mongoosejs.com/docs/api.html#model_Model.update
         sendMessage(invited);
         group = uuid = null;
-        return res.send(204);
+        return res.sendStatus(204);
       });
 
     });
   }else{
     group = uuid = null;
-    return res.json(400, {err: "User not found among group's members!"});
+    return res.status(400).json({err: "User not found among group's members!"});
   }
 }
 
@@ -806,7 +806,7 @@ function questStart(req, res, next) {
   var group = res.locals.group;
   var force = req.query.force;
 
-  // if (group.quest.active) return res.json(400,{err:'Quest already began.'});
+  // if (group.quest.active) return res.status(400).json({err:'Quest already began.'});
   // temporarily send error email, until we know more about this issue (then remove below, uncomment above).
   if (group.quest.active) return next('Quest already began.');
 
@@ -907,15 +907,15 @@ api.questAccept = function(req, res, next) {
   var user = res.locals.user;
   var key = req.query.key;
 
-  if (!group || group.type !== 'party') return res.json(400, {err: "Must be in a party to start quests."});
+  if (!group || group.type !== 'party') return res.status(400).json({err: "Must be in a party to start quests."});
 
   // If ?key=xxx is provided, we're starting a new quest and inviting the party. Otherwise, we're a party member accepting the invitation
   if (key) {
     var quest = shared.content.quests[key];
-    if (!quest) return res.json(404,{err:'Quest ' + key + ' not found'});
-    if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to begin this quest."});
-    if (group.quest.key) return res.json(400, {err: 'Your party is already on a quest. Try again when the current quest has ended.'});
-    if (!user.items.quests[key]) return res.json(400, {err: "You don't own that quest scroll"});
+    if (!quest) return res.status(404).json({err:'Quest ' + key + ' not found'});
+    if (quest.lvl && user.stats.lvl < quest.lvl) return res.status(400).json({err: "You must be level "+quest.lvl+" to begin this quest."});
+    if (group.quest.key) return res.status(400).json({err: 'Your party is already on a quest. Try again when the current quest has ended.'});
+    if (!user.items.quests[key]) return res.status(400).json({err: "You don't own that quest scroll"});
     group.quest.key = key;
     group.quest.members = {};
     // Invite everyone. true means "accepted", false="rejected", undefined="pending". Once we click "start quest"
@@ -967,7 +967,7 @@ api.questAccept = function(req, res, next) {
 
   // Party member accepting the invitation
   } else {
-    if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+    if (!group.quest.key) return res.status(400).json({err:'No quest invitation has been sent out yet.'});
     var analyticsData = {
       category: 'behavior',
       owner: false,
@@ -987,7 +987,7 @@ api.questReject = function(req, res, next) {
   var group = res.locals.group;
   var user = res.locals.user;
 
-  if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+  if (!group.quest.key) return res.status(400).json({err:'No quest invitation has been sent out yet.'});
   var analyticsData = {
     category: 'behavior',
     owner: false,
@@ -1073,15 +1073,15 @@ api.questLeave = function(req, res, next) {
   var user = res.locals.user;
 
   if (!(group.quest && group.quest.active)) {
-    return res.json(404, { err: 'No active quest to leave' });
+    return res.status(404).json({ err: 'No active quest to leave' });
   }
 
   if (!(group.quest.members && group.quest.members[user._id])) {
-    return res.json(403, { err: 'You are not part of the quest' });
+    return res.status(403).json({ err: 'You are not part of the quest' });
   }
 
   if (group.quest.leader === user._id) {
-    return res.json(403, { err: 'Quest leader cannot leave quest' });
+    return res.status(403).json({ err: 'Quest leader cannot leave quest' });
   }
 
   delete group.quest.members[user._id];
@@ -1095,7 +1095,7 @@ api.questLeave = function(req, res, next) {
 
   Q.all([groupSavePromise(), userSavePromise()])
     .done(function(values) {
-      return res.send(204);
+      return res.sendStatus(204);
     }, function(error) {
       return next(error);
     });

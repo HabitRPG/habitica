@@ -1,7 +1,7 @@
 var auth = require('../../controllers/api-v2/auth');
 var express = require('express');
 var i18n = require('../../libs/api-v2/i18n');
-var router = new express.Router();
+var router = express.Router();
 
 /* auth.auth*/
 auth.setupPassport(router); //FIXME make this consistent with the others
