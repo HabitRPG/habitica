@@ -9,7 +9,7 @@
     "faqQuestion2": "タスクのサンプルはありますか？",
     "iosFaqAnswer2": "参考のため、Wiki では4種類のタスクのサンプルがあります:\n<br><br>\n* [習慣のサンプル](http://habitica.wikia.com/wiki/Sample_Habits)\n* [日課のサンプル](http://habitica.wikia.com/wiki/Sample_Dailies)\n* [To-Do のサンプル](http://habitica.wikia.com/wiki/Sample_To-Dos)\n* [自分好みの「ごほうび」のサンプル](http://habitica.wikia.com/wiki/Sample_Custom_Rewards)",
     "webFaqAnswer2": "参考のため、Wiki では4種類のタスクのサンプルがあります:\n* [習慣のサンプル](http://habitica.wikia.com/wiki/Sample_Habits)\n* [日課のサンプル](http://habitica.wikia.com/wiki/Sample_Dailies)\n* [To-Do のサンプル](http://habitica.wikia.com/wiki/Sample_To-Dos)\n* [自分好みの「ごほうび」のサンプル](http://habitica.wikia.com/wiki/Sample_Custom_Rewards)",
-    "faqQuestion3": "タスクの色はどうして変わるの？",
+    "faqQuestion3": "タスクの色はどうして変わりますか？",
     "iosFaqAnswer3": "あなたのタスクの色は、最近あなたがどれだけ良くタスクをこなしたかによって変化します！新規のタスクは黄色からスタートになります。日課をこなしたり、良い習慣を頻繁にこなしたりすると、タスクの色は青に近づいていきます。日課をやりそこねたり、悪い習慣を行ってしまったりすると、タスクの色は赤に近づいていきます。赤に近づいたタスクは、もしこなすことが出来れば多くの報酬を与えますが、もしそれが日課や悪い習慣であった場合、あなたにより多くのダメージを与えることになります！このルールは、あなたが面倒だと思う日課をこなす動機づけになるでしょう。",
     "webFaqAnswer3": "Your tasks change color based on how well you are currently accomplishing them! Each new task starts out as a neutral yellow. Perform Dailies or positive Habits more frequently and they move toward blue. Miss a Daily or give in to a bad Habit and the task moves toward red. The redder a task, the more rewards it will give you, but if it’s a Daily or bad Habit, the more it will hurt you! This helps motivate you to complete the tasks that are giving you trouble.",
     "faqQuestion4": "なんで私のアバターのHPが減ったの？取り戻す方法は？",

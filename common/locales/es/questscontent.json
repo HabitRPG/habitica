@@ -59,7 +59,7 @@
     "questSpiderDropSpiderEgg": "Araña (Huevo)",
     "questSpiderUnlockText": "Desbloquear la compra de huevos de araña en el Mercado",
     "questVice1Text": "Vicio, Parte 1: Libérate de la Influencia del Dragón",
-    "questVice1Notes": "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves: Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you!</p>",
+    "questVice1Notes": "<p>Dicen que allí descansa un terrible diablo en las cavernas del Monte Habitica. ¡Un monstruo cuya presencia retuerce la voluntad de los fuertes héroes de la tierra, volviéndolos hacia malos hábitos y pereza!  La bestia es un gran dragón de inmenso poder y compuesto de las mismísimas sombras: Vicio, el traicionero Wyrm de las Sombras. Los valientes Habitantes, se levantan y derrotan a esta repugnante bestia de una vez por todas, pero solo si crees que puedes soportar su inmenso poder.</p><h3>Vicio Parte 1: </h3><p>¿Cómo puedes pretender luchar contra la bestia si ya te controla? ¡No caigas víctima de la pereza y el vicio! ¡Trabaja duro para luchar contra la oscura influencia del dragón y desvanece su control sobre ti!</p>",
     "questVice1Boss": "Sombra de Vice",
     "questVice1DropVice2Quest": "Vice Parte 2 (Pergamino)",
     "questVice2Text": "Vicio, Parte 2: Encuentra la Guarida del Wyrm",
@@ -296,6 +296,6 @@
     "questSnailNotes": "You're excited to begin questing in the abandoned Dungeons of Drudgery, but as soon as you enter, you feel the ground under your feet start to suck at your boots. You look up to the path ahead and see Habiticans mired in slime. @Overomega yells, \"They have too many unimportant tasks and dailies, and they're getting stuck on things that don't matter! Pull them out!\"<br><br>\"You need to find the source of the ooze,\" @Pfeffernusse agrees, \"or the tasks that they cannot accomplish will drag them down forever!\"<br><br>Pulling out your weapon, you wade through the gooey mud.... and encounter the fearsome Snail of Drudgery Sludge.",
     "questSnailCompletion": "You bring your weapon down on the great Snail's shell, cracking it in two, releasing a flood of water. The slime is washed away, and the Habiticans around you rejoice. \"Look!\" says @Misceo. \"There's a small group of snail eggs in the remnants of the muck.\"",
     "questSnailBoss": "Snail of Drudgery Sludge",
-    "questSnailDropSnailEgg": "Snail (Egg)",
-    "questSnailUnlockText": "Unlocks purchasable Snail eggs in the Market"
+    "questSnailDropSnailEgg": "Caracol (Huevo)",
+    "questSnailUnlockText": "Desbloquea la compra de huevos de Caracol en el Mercado"
 }
