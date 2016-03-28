@@ -23,7 +23,7 @@ import {
  */
 
 module.exports = function(user, options) {
-  var _progress, analyticsData, base, base1, base2, base3, base4, clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, multiDaysCountAsOneDay, now, perfect, plan, progress, ref, ref1, ref2, ref3, todoTally, userTimezoneOffset, browserTimezoneOffset, lastCronTimezoneOffset;
+  var _progress, analyticsData, base, base1, base2, base3, base4, clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, multiDaysCountAsOneDay, now, perfect, plan, progress, ref, ref1, ref2, ref3, todoTally, timezoneOffsetFromUserPrefs, timezoneOffsetFromBrowser, timezoneOffsetAtLastCron;
   if (options == null) {
     options = {};
   }
@@ -35,20 +35,20 @@ module.exports = function(user, options) {
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
 
-  userTimezoneOffset = +user.preferences.timezoneOffset || 0;
-  lastCronTimezoneOffset = (_.isFinite(+user.preferences.timezoneOffsetAtLastCron)) ? +user.preferences.timezoneOffsetAtLastCron : userTimezoneOffset;
-  browserTimezoneOffset = (_.isFinite(+options.timezoneOffset)) ? +options.timezoneOffset : userTimezoneOffset;
+  timezoneOffsetFromUserPrefs = +user.preferences.timezoneOffset || 0;
+  timezoneOffsetAtLastCron = (_.isFinite(+user.preferences.timezoneOffsetAtLastCron)) ? +user.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
+  timezoneOffsetFromBrowser = (_.isFinite(+options.timezoneOffset)) ? +options.timezoneOffset : timezoneOffsetFromUserPrefs;
   // NB: all timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
 
-  console.log("userTimezoneOffset: " + userTimezoneOffset);
-  console.log("lastCronTimezoneOffset: " + lastCronTimezoneOffset);
-  console.log("browserTimezoneOffset: " + browserTimezoneOffset);
-  if (browserTimezoneOffset !== userTimezoneOffset) {
-	// the user's browser has just told Habitica that the user's timezone has
-	// changed so store and use the new zone
-    user.preferences.timezoneOffset = browserTimezoneOffset;
-    userTimezoneOffset = browserTimezoneOffset;
-    console.log("userTimezoneOffset (new): " + userTimezoneOffset);
+  console.log("timezoneOffsetFromUserPrefs: " + timezoneOffsetFromUserPrefs);
+  console.log("timezoneOffsetAtLastCron: " + timezoneOffsetAtLastCron);
+  console.log("timezoneOffsetFromBrowser: " + timezoneOffsetFromBrowser);
+  if (timezoneOffsetFromBrowser !== timezoneOffsetFromUserPrefs) {
+    // the user's browser has just told Habitica that the user's timezone has
+    // changed so store and use the new zone
+    user.preferences.timezoneOffset = timezoneOffsetFromBrowser;
+    timezoneOffsetFromUserPrefs = timezoneOffsetFromBrowser;
+    console.log("timezoneOffsetFromUserPrefs (new): " + timezoneOffsetFromUserPrefs);
   }
   // XXX All tested above here.
 
@@ -58,14 +58,14 @@ module.exports = function(user, options) {
   }, user.preferences));
   console.log("daysMissed CURRENT (NEW) zone: " + daysMissed);
 
-  if (userTimezoneOffset !== lastCronTimezoneOffset) {
+  if (timezoneOffsetFromUserPrefs !== timezoneOffsetAtLastCron) {
     // User's timezone has changed since cron last ran.
     // How many days have we missed using the old timezone:
     console.log("zone has changed")
     let daysMissedNewZone = daysMissed;
     let daysMissedOldZone = daysSince(user.lastCron, _.defaults({
       now: now,
-      timezoneOffsetOverride: lastCronTimezoneOffset,
+      timezoneOffsetOverride: timezoneOffsetAtLastCron,
     }, user.preferences));
 	// XXX UPTOHERE for testing
     console.log("  daysMissedOldZone: " + daysMissedOldZone);
@@ -95,7 +95,7 @@ module.exports = function(user, options) {
   console.log("== CRON RUNS ==");
   user.auth.timestamps.loggedin = new Date();
   user.lastCron = now;
-  user.preferences.timezoneOffsetAtLastCron = userTimezoneOffset; // XXX check correct and working
+  user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs; // XXX check correct and working
   if (user.items.lastDrop.count > 0) {
     user.items.lastDrop.count = 0;
   }
