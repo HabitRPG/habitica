@@ -36,6 +36,9 @@ module.exports = function(user, options) {
   }
   user.auth.timestamps.loggedin = new Date();
   user.lastCron = now;
+  if (_.isFinite(+user.preferences.timezoneOffset)) {
+    user.preferences.timezoneOffsetAtLastCron = user.preferences.timezoneOffset;
+  }
   if (user.items.lastDrop.count > 0) {
     user.items.lastDrop.count = 0;
   }
