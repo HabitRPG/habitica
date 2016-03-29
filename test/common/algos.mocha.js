@@ -53,6 +53,7 @@ let beforeAfter = (options = {}) => {
     before.preferences.dayStart = after.preferences.dayStart = options.dayStart;
   }
   before.preferences.timezoneOffset = after.preferences.timezoneOffset = options.timezoneOffset || moment().zone();
+  before.preferences.timezoneOffsetAtLastCron = after.preferences.timezoneOffsetAtLastCron = before.preferences.timezoneOffset;
   if (options.limitOne) {
     before[`${options.limitOne}s`] = [before[`${options.limitOne}s`][0]];
     after[`${options.limitOne}s`] = [after[`${options.limitOne}s`][0]];

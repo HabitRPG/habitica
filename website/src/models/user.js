@@ -350,6 +350,7 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
+    timezoneOffsetAtLastCron: Number,
     sound: {type:String, 'default':'off', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']},
     language: String,
     automaticAllocation: Boolean,
