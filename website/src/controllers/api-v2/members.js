@@ -22,7 +22,7 @@ var fetchMember = function(uuid, restrict){
 }
 
 var sendErr = function(err, res, next){
-  err.code ? res.json(err.code, {err: err.err}) : next(err);
+  err.code ? res.status(err.code).json({err: err.err}) : next(err);
 }
 
 api.getMember = function(req, res, next) {
@@ -85,7 +85,7 @@ api.sendPrivateMessage = function(req, res, next){
       ]);
     }
 
-    res.send(200);
+    res.sendStatus(200);
   })
 }
 
@@ -129,6 +129,6 @@ api.sendGift = function(req, res, next){
     }
   ], function(err) {
     if (err) return sendErr(err, res, next);
-    res.send(200);
+    res.sendStatus(200);
   });
 }

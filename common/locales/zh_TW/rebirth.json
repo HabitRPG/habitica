@@ -12,7 +12,7 @@
     "rebirthInList2": "挑戰、公會和組隊關係會保留下來。",
     "rebirthInList3": "寶石、贊助者級別、和貢獻者級別會保留下來。",
     "rebirthInList4": "通過寶石，或隨機掉落(如寵物和坐騎) 的物品會保留下來，但是你在解鎖這些物品前，不能使用他們。",
-    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
+    "rebirthInList5": "你買過的限定版裝備，可以重新再購買，即使事件已經結束。重買職業限定裝備必須先選正確的職業才能買。",
     "rebirthEarnAchievement": "你會因為開始一段新冒險，而獲得一個成就！",
     "beReborn": "重生",
     "rebirthAchievement": "你開始了一段新冒險！這是你的第<%= number %>次冒險，你曾經獲得的最高級別是<%= level %>級。要累積這個成就，你要在獲得更高等級之後，再開始下一次冒險！",
@@ -24,5 +24,5 @@
     "rebirthPop": "開始一個等級 1 的新角色，並保留成就、物品和任務歷史。",
     "rebirthName": "重生之球",
     "reborn": "重生，最高級別 <%= reLevel %>",
-    "confirmReborn": "Are you sure?"
+    "confirmReborn": "你確定嗎？"
 }

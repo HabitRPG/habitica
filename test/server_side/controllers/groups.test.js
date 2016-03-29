@@ -40,7 +40,7 @@ describe('Groups Controller', function() {
           user: user
         },
         json: sinon.stub(),
-        send: sinon.stub()
+        sendStatus: sinon.stub()
       };
 
       req = {
@@ -166,7 +166,7 @@ describe('Groups Controller', function() {
           user: user
         },
         json: sinon.stub(),
-        send: sinon.stub()
+        sendStatus: sinon.stub()
       };
 
       req = {
@@ -294,7 +294,7 @@ describe('Groups Controller', function() {
           user: user
         },
         json: sinon.stub(),
-        send: sinon.stub()
+        sendStatus: sinon.stub()
       };
 
       req = { };
@@ -387,8 +387,8 @@ describe('Groups Controller', function() {
       it('sends back 204 on success', function() {
         groupsController.questLeave(req, res);
 
-        expect(res.send).to.be.calledOnce;
-        expect(res.send).to.be.calledWith(204);
+        expect(res.sendStatus).to.be.calledOnce;
+        expect(res.sendStatus).to.be.calledWith(204);
       });
     });
   });
@@ -408,7 +408,7 @@ describe('Groups Controller', function() {
           user: user,
           group: group
         },
-        send: sinon.stub()
+        sendStatus: sinon.stub()
       };
       req = {
         query: {
