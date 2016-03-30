@@ -31,6 +31,7 @@ export function generateRes (options = {}) {
       user: generateUser(options.localsUser),
       group: generateGroup(options.localsGroup),
     },
+    set: sandbox.stub(),
   };
 
   return defaults(options, defaultRes);
@@ -41,6 +42,7 @@ export function generateReq (options = {}) {
     body: {},
     query: {},
     headers: {},
+    header: sandbox.stub().returns(null),
   };
 
   return defaults(options, defaultReq);

@@ -75,6 +75,7 @@ module.exports = function getUserLanguage (req, res, next) {
     User.findOne({
       _id: req.session.userId,
     }, 'preferences.language')
+    .lean()
     .exec()
     .then((user) => {
       req.language = _getFromUser(user, req);
