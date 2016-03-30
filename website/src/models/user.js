@@ -346,6 +346,7 @@ var UserSchema = new Schema({
       mustache: {type: Number, 'default': 0},
       flower: {type: Number, 'default': 1}
     },
+    chair: {type: String, 'default': 'none'},
     hideHeader: {type:Boolean, 'default':false},
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
