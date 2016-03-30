@@ -60,7 +60,7 @@ describe('shared.ops.buy', () => {
       expect(user.stats.gp).to.eql(175);
     });
 
-    it('does not purchase if not enough gp', () => {
+    it('does not purchase if not enough gp', (done) => {
       user.stats.hp = 45;
       user.stats.gp = 5;
       try {
@@ -68,10 +68,12 @@ describe('shared.ops.buy', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
+        expect(user.stats.hp).to.eql(45);
+        expect(user.stats.gp).to.eql(5);
+
+        done();
       }
 
-      expect(user.stats.hp).to.eql(45);
-      expect(user.stats.gp).to.eql(5);
     });
   });
 
@@ -140,7 +142,7 @@ describe('shared.ops.buy', () => {
       expect(user.items.gear.equipped).to.have.property('weapon', 'weapon_warrior_1');
     });
 
-    it('does not buy equipment without enough Gold', () => {
+    it('does not buy equipment without enough Gold', (done) => {
       user.stats.gp = 20;
 
       try {
@@ -148,9 +150,9 @@ describe('shared.ops.buy', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
+        expect(user.items.gear.owned).to.not.have.property('armor_warrior_1');
+        done();
       }
-
-      expect(user.items.gear.owned).to.not.have.property('armor_warrior_1');
     });
   });
 
@@ -177,7 +179,7 @@ describe('shared.ops.buy', () => {
     });
 
     context('failure conditions', () => {
-      it('does not open if user does not have enough gold', () => {
+      it('does not open if user does not have enough gold', (done) => {
         shared.fns.predictableRandom.returns(YIELD_EQUIPMENT);
         user.stats.gp = 50;
 
@@ -189,10 +191,11 @@ describe('shared.ops.buy', () => {
           expect(user.items.gear.owned).to.eql({weapon_warrior_0: true});
           expect(user.items.food).to.be.empty;
           expect(user.stats.exp).to.eql(0);
+          done();
         }
       });
 
-      it('does not open without Ultimate Gear achievement', () => {
+      it('does not open without Ultimate Gear achievement', (done) => {
         shared.fns.predictableRandom.returns(YIELD_EQUIPMENT);
         user.achievements.ultimateGearSets = {healer: false, wizard: false, rogue: false, warrior: false};
 
@@ -204,6 +207,7 @@ describe('shared.ops.buy', () => {
           expect(user.items.gear.owned).to.eql({weapon_warrior_0: true});
           expect(user.items.food).to.be.empty;
           expect(user.stats.exp).to.eql(0);
+          done();
         }
       });
     });

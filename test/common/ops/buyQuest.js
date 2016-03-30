@@ -28,7 +28,7 @@ describe('shared.ops.buyQuest', () => {
     expect(user.stats.gp).to.equal(5);
   });
 
-  it('does not buy Quests without enough Gold', () => {
+  it('does not buy Quests without enough Gold', (done) => {
     user.stats.gp = 1;
     try {
       buyQuest(user, {
@@ -41,10 +41,11 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(1);
+      done();
     }
   });
 
-  it('does not buy nonexistent Quests', () => {
+  it('does not buy nonexistent Quests', (done) => {
     user.stats.gp = 9999;
     try {
       buyQuest(user, {
@@ -57,10 +58,11 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('questNotFound', {key: 'snarfblatter'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
+      done();
     }
   });
 
-  it('does not buy Gem-premium Quests', () => {
+  it('does not buy Gem-premium Quests', (done) => {
     user.stats.gp = 9999;
     try {
       buyQuest(user, {
@@ -73,6 +75,7 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', {key: 'kraken'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
+      done();
     }
   });
 });

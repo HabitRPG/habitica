@@ -29,7 +29,7 @@ describe('shared.ops.hatch', () => {
         }
       });
 
-      it('does not allow hatching if user lacks specified egg', () => {
+      it('does not allow hatching if user lacks specified egg', (done) => {
         user.items.eggs.Wolf = 1;
         user.items.hatchingPotions.Base = 1;
         user.items.pets = {};
@@ -41,10 +41,11 @@ describe('shared.ops.hatch', () => {
           expect(user.items.pets).to.be.empty;
           expect(user.items.eggs.Wolf).to.equal(1);
           expect(user.items.hatchingPotions.Base).to.equal(1);
+          done();
         }
       });
 
-      it('does not allow hatching if user lacks specified hatching potion', () => {
+      it('does not allow hatching if user lacks specified hatching potion', (done) => {
         user.items.eggs.Wolf = 1;
         user.items.hatchingPotions.Base = 1;
         user.items.pets = {};
@@ -56,10 +57,11 @@ describe('shared.ops.hatch', () => {
           expect(user.items.pets).to.be.empty;
           expect(user.items.eggs.Wolf).to.equal(1);
           expect(user.items.hatchingPotions.Base).to.equal(1);
+          done();
         }
       });
 
-      it('does not allow hatching if user already owns target pet', () => {
+      it('does not allow hatching if user already owns target pet', (done) => {
         user.items.eggs = {Wolf: 1};
         user.items.hatchingPotions = {Base: 1};
         user.items.pets = {'Wolf-Base': 10};
@@ -71,10 +73,11 @@ describe('shared.ops.hatch', () => {
           expect(user.items.pets).to.eql({'Wolf-Base': 10});
           expect(user.items.eggs).to.eql({Wolf: 1});
           expect(user.items.hatchingPotions).to.eql({Base: 1});
+          done();
         }
       });
 
-      it('does not allow hatching quest pet egg using premium potion', () => {
+      it('does not allow hatching quest pet egg using premium potion', (done) => {
         user.items.eggs = {Cheetah: 1};
         user.items.hatchingPotions = {Spooky: 1};
         user.items.pets = {};
@@ -86,6 +89,7 @@ describe('shared.ops.hatch', () => {
           expect(user.items.pets).to.be.empty;
           expect(user.items.eggs).to.eql({Cheetah: 1});
           expect(user.items.hatchingPotions).to.eql({Spooky: 1});
+          done();
         }
       });
     });

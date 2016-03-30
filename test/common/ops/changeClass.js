@@ -76,13 +76,14 @@ describe('shared.ops.changeClass', () => {
     });
 
     context('has user.preferences.disableClasses !== true', () => {
-      it('and less than 3 gems', () => {
+      it('and less than 3 gems', (done) => {
         user.balance = 0.5;
         try {
           changeClass(user);
         } catch (err) {
           expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.equal(i18n.t('notEnoughGems'));
+          done();
         }
       });
 

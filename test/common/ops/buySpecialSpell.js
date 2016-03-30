@@ -17,16 +17,17 @@ describe('shared.ops.buySpecialSpell', () => {
     user = generateUser();
   });
 
-  it('throws an error if params.key is missing', () => {
+  it('throws an error if params.key is missing', (done) => {
     try {
       buySpecialSpell(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(i18n.t('missingKeyParam'));
+      done();
     }
   });
 
-  it('throws an error if the spell doesn\'t exists', () => {
+  it('throws an error if the spell doesn\'t exists', (done) => {
     try {
       buySpecialSpell(user, {
         params: {
@@ -36,10 +37,11 @@ describe('shared.ops.buySpecialSpell', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
       expect(err.message).to.equal(i18n.t('spellNotFound', {spellId: 'notExisting'}));
+      done();
     }
   });
 
-  it('throws an error if the user doesn\'t have enough gold', () => {
+  it('throws an error if the user doesn\'t have enough gold', (done) => {
     user.stats.gp = 1;
     try {
       buySpecialSpell(user, {
@@ -50,6 +52,7 @@ describe('shared.ops.buySpecialSpell', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
+      done();
     }
   });
 

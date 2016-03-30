@@ -18,53 +18,58 @@ describe('shared.ops.feed', () => {
   });
 
   context('failure conditions', () => {
-    it('does not allow feeding without specifying pet and food', () => {
+    it('does not allow feeding without specifying pet and food', (done) => {
       try {
         feed(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('missingPetFoodFeed'));
+        done();
       }
     });
 
-    it('does not allow feeding if pet name format is invalid', () => {
+    it('does not allow feeding if pet name format is invalid', (done) => {
       try {
         feed(user, {params: {pet: 'invalid', food: 'food'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidPetName'));
+        done();
       }
     });
 
-    it('does not allow feeding if food does not exists', () => {
+    it('does not allow feeding if food does not exists', (done) => {
       try {
         feed(user, {params: {pet: 'valid-pet', food: 'invalid food name'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('messageFoodNotFound'));
+        done();
       }
     });
 
-    it('does not allow feeding if pet is not owned', () => {
+    it('does not allow feeding if pet is not owned', (done) => {
       try {
         feed(user, {params: {pet: 'not-owned', food: 'Meat'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('messagePetNotFound'));
+        done();
       }
     });
 
-    it('does not allow feeding if food is not owned', () => {
+    it('does not allow feeding if food is not owned', (done) => {
       user.items.pets['Wolf-Base'] = 5;
       try {
         feed(user, {params: {pet: 'Wolf-Base', food: 'Meat'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('messageFoodNotFound'));
+        done();
       }
     });
 
-    it('does not allow feeding of special pets', () => {
+    it('does not allow feeding of special pets', (done) => {
       user.items.pets['Wolf-Veteran'] = 5;
       user.items.food.Meat = 1;
       try {
@@ -72,10 +77,11 @@ describe('shared.ops.feed', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
+        done();
       }
     });
 
-    it('does not allow feeding of mounts', () => {
+    it('does not allow feeding of mounts', (done) => {
       user.items.pets['Wolf-Base'] = -1;
       user.items.mounts['Wolf-Base'] = true;
       user.items.food.Meat = 1;
@@ -84,6 +90,7 @@ describe('shared.ops.feed', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageAlreadyMount'));
+        done();
       }
     });
   });
