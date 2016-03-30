@@ -72,11 +72,115 @@ api.getBuyList = {
   },
 };
 
+let updatablePaths = [
+  'flags.customizationsNotification',
+  'flags.showTour',
+  'flags.tour',
+  'flags.tutorial',
+  'flags.communityGuidelinesAccepted',
+  'flags.welcomed',
+  'flags.cardReceived',
+  'flags.warnedLowHealth',
+
+  'achievements',
+
+  'party.order',
+  'party.orderAscending',
+  'party.quest.completed',
+  'party.quest.RSVPNeeded',
+
+  'preferences',
+  'profile',
+  'stats',
+  'inbox.optOut',
+];
+
+// This tells us for which paths users can call `PUT /user`.
+// The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
+let acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, (accumulator, val, leaf) => {
+  let found = _.find(updatablePaths, (rootPath) => {
+    return leaf.indexOf(rootPath) === 0;
+  });
+
+  if (found) accumulator[leaf] = true;
+
+  return accumulator;
+}, {});
+
+let restrictedPUTSubPaths = [
+  'stats.class',
+
+  'preferences.sleep',
+  'preferences.webhooks',
+];
+
+_.each(restrictedPUTSubPaths, (removePath) => {
+  delete acceptablePUTPaths[removePath];
+});
+
+let requiresPurchase = {
+  'preferences.background': 'background',
+  'preferences.shirt': 'shirt',
+  'preferences.size': 'size',
+  'preferences.skin': 'skin',
+  'preferences.hair.bangs': 'hair.bangs',
+  'preferences.hair.base': 'hair.base',
+  'preferences.hair.beard': 'hair.beard',
+  'preferences.hair.color': 'hair.color',
+  'preferences.hair.flower': 'hair.flower',
+  'preferences.hair.mustache': 'hair.mustache',
+};
+
+let checkPreferencePurchase = (user, path, item) => {
+  let itemPath = `${path}.${item}`;
+  let appearance = _.get(common.content.appearances, itemPath);
+  if (!appearance) return false;
+  if (appearance.price === 0) return true;
+
+  return _.get(user.purchased, itemPath);
+};
+
+/**
+ * @api {put} /user Update the user. Example body: {'stats.hp':50, 'preferences.background': 'beach'}
+ * @apiVersion 3.0.0
+ * @apiName UserUpdate
+ * @apiGroup User
+ *
+ * @apiSuccess user object The updated user object
+ */
+api.updateUser = {
+  method: 'PUT',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    _.each(req.body, (val, key) => {
+      let purchasable = requiresPurchase[key];
+
+      if (purchasable && !checkPreferencePurchase(user, purchasable, val)) {
+        throw new NotAuthorized(res.t(`mustPurchaseToSet`, { val, key }));
+      }
+
+      if (acceptablePUTPaths[key]) {
+        _.set(user, key, val);
+      } else {
+        throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
+      }
+    });
+
+    await user.save();
+    return res.respond(200, user);
+  },
+};
+
 /**
  * @api {delete} /user DELETE an authenticated user's profile
  * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
+ *
+ * @apiParam {string} password The user's password unless it's a Facebook account
  *
  * @apiSuccess {} object An empty object
  */
@@ -105,7 +209,6 @@ api.deleteUser = {
     }
 
     let types = ['party', 'publicGuilds', 'privateGuilds'];
-    // @TODO: The group leave route doesn't work unless it has these fields. We should probably force the group to get these
     let groupFields = basicGroupFields.concat(' leader memberCount');
 
     let groupsUserIsMemberOf = await Group.getGroups({user, types, groupFields});

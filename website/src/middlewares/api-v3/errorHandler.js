@@ -72,7 +72,9 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
     message: responseErr.message,
   };
 
-  if (responseErr.errors) jsonRes.errors = responseErr.errors;
+  if (responseErr.errors) {
+    jsonRes.errors = responseErr.errors;
+  }
 
   // In some occasions like when invalid JSON is supplied `res.respond` might be not yet avalaible,
   // in this case we use the standard res.status(...).json(...)
