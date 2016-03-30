@@ -36,8 +36,8 @@ module.exports = function(user, options) {
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
 
-  timezoneOffsetFromUserPrefs = +user.preferences.timezoneOffset || 0;
-  timezoneOffsetAtLastCron = (_.isFinite(+user.preferences.timezoneOffsetAtLastCron)) ? +user.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
+  timezoneOffsetFromUserPrefs = user.preferences.timezoneOffset || 0;
+  timezoneOffsetAtLastCron = (_.isFinite(user.preferences.timezoneOffsetAtLastCron)) ? user.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
   timezoneOffsetFromBrowser = (_.isFinite(+options.timezoneOffset)) ? +options.timezoneOffset : timezoneOffsetFromUserPrefs;
   // NB: all timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
 
