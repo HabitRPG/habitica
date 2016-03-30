@@ -526,6 +526,7 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   // TODO revisit a lot of things are missing. Given how many attributes we do have here we should white-list the ones that can be updated
+  // TODO this is a only used for creating an user, on update we use a whitelist
   noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password',
     'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest',
     'invitations', 'balance', 'backer', 'contributor'],
