@@ -6,6 +6,7 @@ mixin costumeSetting(type, options)
 
 mixin generatedAvatar(options)
   - options = options || {}
+  span(class='chair_{{profile.preferences.chair}}')
   +costumeSetting('back')
   if options.sleep
     span(ng-class="'skin_' + profile.preferences.skin + '_sleep'")

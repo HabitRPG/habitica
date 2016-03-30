@@ -400,6 +400,8 @@ export let schema = new Schema({
     shirt: {type: String, default: 'blue'},
     timezoneOffset: Number,
     sound: {type: String, default: 'off', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']},
+    chair: {type: String, default: 'none'},
+    timezoneOffsetAtLastCron: Number,
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type: String, enum: ['flat', 'classbased', 'taskbased'], default: 'flat'},

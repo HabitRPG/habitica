@@ -308,6 +308,7 @@ let requiresPurchase = {
   'preferences.shirt': 'shirt',
   'preferences.size': 'size',
   'preferences.skin': 'skin',
+  'preferences.chair': 'chair',
   'preferences.hair.bangs': 'hair.bangs',
   'preferences.hair.base': 'hair.base',
   'preferences.hair.beard': 'hair.beard',

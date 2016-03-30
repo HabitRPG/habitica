@@ -73,7 +73,6 @@ describe('shared.ops.buy', () => {
 
         done();
       }
-
     });
   });
 
