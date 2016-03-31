@@ -676,4 +676,24 @@ api.disableClasses = {
   },
 };
 
+/**
+* @api {post} /user/open-mystery-item Open the mystery item.
+* @apiVersion 3.0.0
+* @apiName UserOpenMysteryItem
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user.items.gear.owned`
+*/
+api.userOpenMysteryItem = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/open-mystery-item',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let openMysteryItemResponse = common.ops.openMysteryItem(user, req);
+    await user.save();
+    res.respond(200, openMysteryItemResponse);
+  },
+};
+
 module.exports = api;
