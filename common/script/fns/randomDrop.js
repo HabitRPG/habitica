@@ -69,7 +69,7 @@ module.exports = function(user, modifiers, req) {
         base2[name2] = 0;
       }
       user.items.hatchingPotions[drop.key]++;
-      drop.type = 'HatchingPotion';
+      drop.type = 'Hatching Potion';
       drop.dialog = i18n.t('messageDropPotion', {
         dropText: drop.text(req.language),
         dropNotes: drop.notes(req.language)
