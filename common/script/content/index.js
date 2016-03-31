@@ -2533,6 +2533,7 @@ api.quests = {
     text: t("questBewilderText"),
     notes: t("questBewilderNotes"),
     completion: t("questBewilderCompletion"),
+    completionChat: t('questBewilderCompletionChat'),
     value: 0,
     canBuy: (function() {
       return false;
