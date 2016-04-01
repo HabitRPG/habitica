@@ -128,5 +128,13 @@
   "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
   "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
   "notEnoughGemsToSend": "Amount must be within 0 and your current number of gems.",
-  "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>."
+  "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>.",
+  "typeRequired": "Type is required",
+  "keyRequired": "Key is required",
+  "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
+  "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month.",
+  "notAccteptedType": "Type must be in [eggs, hatchingPotions, food, quests, gear]",
+  "contentKeyNotFound": "Key not found for Content <%= type %>",
+  "plusOneGem": "+1 Gem",
+  "purchased": "You purchsed a <%= key %> <%= type %>"
 }
