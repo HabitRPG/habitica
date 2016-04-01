@@ -28,8 +28,6 @@ const COMMON_FILES = [
   '!./common/script/ops/deleteWebhook.js',
   '!./common/script/ops/getTag.js',
   '!./common/script/ops/getTags.js',
-  '!./common/script/ops/openMysteryItem.js',
-  '!./common/script/ops/readCard.js',
   '!./common/script/ops/rebirth.js',
   '!./common/script/ops/releaseBoth.js',
   '!./common/script/ops/releaseMounts.js',
