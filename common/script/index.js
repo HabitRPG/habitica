@@ -115,6 +115,7 @@ import equip from './ops/equip';
 import changeClass from './ops/changeClass';
 import disableClasses from './ops/disableClasses';
 import purchase from './ops/purchase';
+import purchaseHourglass from './ops/hourglassPurchase';
 
 api.ops = {
   scoreTask,
@@ -131,6 +132,7 @@ api.ops = {
   changeClass,
   disableClasses,
   purchase,
+  purchaseHourglass,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';
