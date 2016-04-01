@@ -676,4 +676,27 @@ api.disableClasses = {
   },
 };
 
+/**
+* @api {post} /user/purchase/:type/:key Purchase Gem Items.
+* @apiVersion 3.0.0
+* @apiName UserPurchase
+* @apiGroup User
+*
+* @apiParam {string} type Type of item to purchase
+* @apiParam {string} key Item's key
+*
+* @apiSuccess {Object} data `items balance`
+*/
+api.purchase = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/purchase/:type/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let purchaseResponse = common.ops.purchase(user, req, res.analytics);
+    await user.save();
+    res.respond(200, purchaseResponse);
+  },
+};
+
 module.exports = api;
