@@ -676,4 +676,26 @@ api.disableClasses = {
   },
 };
 
+/**
+* @api {post} /user/read-card/:cardType Reads a card.
+* @apiVersion 3.0.0
+* @apiName UserReadCard
+* @apiGroup User
+*
+* @apiParam {string} cardType Type of card to read
+*
+* @apiSuccess {Object} data `items.special flags.cardReceived`
+*/
+api.readCard = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/read-card/:cardType',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let readCardResponse = common.ops.readCard(user, req);
+    await user.save();
+    res.respond(200, readCardResponse);
+  },
+};
+
 module.exports = api;

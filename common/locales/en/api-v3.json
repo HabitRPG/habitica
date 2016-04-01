@@ -128,5 +128,8 @@
   "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
   "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
   "notEnoughGemsToSend": "Amount must be within 0 and your current number of gems.",
-  "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>."
+  "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>.",
+  "readCard": "<%= cardType %> has been read",
+  "cardTypeRequired": "Card type required",
+  "cardTypeNotAllowed": "Unkown card type."
 }
