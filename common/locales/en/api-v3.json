@@ -137,5 +137,8 @@
   "contentKeyNotFound": "Key not found for Content <%= type %>",
   "plusOneGem": "+1 Gem",
   "purchased": "You purchsed a <%= key %> <%= type %>",
-  "notAllowedHourglass": "Pet/Mount not available for purchase with Mystic Hourglass."
+  "notAllowedHourglass": "Pet/Mount not available for purchase with Mystic Hourglass.",
+  "readCard": "<%= cardType %> has been read",
+  "cardTypeRequired": "Card type required",
+  "cardTypeNotAllowed": "Unkown card type."
 }
