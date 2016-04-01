@@ -36,7 +36,6 @@ const COMMON_FILES = [
   '!./common/script/ops/releaseBoth.js',
   '!./common/script/ops/releaseMounts.js',
   '!./common/script/ops/releasePets.js',
-  '!./common/script/ops/reroll.js',
   '!./common/script/ops/reset.js',
   '!./common/script/ops/revive.js',
   '!./common/script/ops/sell.js',
