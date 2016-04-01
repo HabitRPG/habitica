@@ -411,6 +411,7 @@ api.specialPets = {
   'Tiger-Veteran': 'veteranTiger',
   'Phoenix-Base': 'phoenix',
   'Turkey-Gilded': 'gildedTurkey',
+  'Bumblebee-Base': 'bumblebee',
 };
 
 api.specialMounts = {
@@ -422,7 +423,8 @@ api.specialMounts = {
   'Orca-Base': 'orca',
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
   'Phoenix-Base': 'phoenix',
-  'JackOLantern-Base': 'jackolantern'
+  'JackOLantern-Base': 'jackolantern',
+  'Bumblebee-Base': 'bumblebee',
 };
 
 api.timeTravelStable = {
@@ -2526,6 +2528,86 @@ api.quests = {
       exp: 275,
       unlock: t('questSnailUnlockText')
     }
+  },
+  bewilder: {
+    text: t("questBewilderText"),
+    notes: t("questBewilderNotes"),
+    completion: t("questBewilderCompletion"),
+    completionChat: t('questBewilderCompletionChat'),
+    value: 0,
+    canBuy: (function() {
+      return false;
+    }),
+    category: 'world',
+    boss: {
+      name: t("questBewilderText"),
+      hp: 20000000,
+      str: 1,
+      def: 1,
+      rage: {
+        title: t("questBewilderBossRageTitle"),
+        description: t("questBewilderBossRageDescription"),
+        value: 800000,
+        bailey: t('questBewilderBossRageBailey'),
+        stables: t('questBewilderBossRageStables'),
+        market: t('questBewilderBossRageMarket')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'Bumblebee-Base',
+          text: t('questBewilderDropBumblebeePet')
+        }, {
+          type: 'mounts',
+          key: 'Bumblebee-Base',
+          text: t('questBewilderDropBumblebeeMount')
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat')
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk')
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('foodStrawberry')
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate')
+        }, {
+          type: 'food',
+          key: 'Fish',
+          text: t('foodFish')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat')
+        }, {
+          type: 'food',
+          key: 'CottonCandyPink',
+          text: t('foodCottonCandyPink')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('foodCottonCandyBlue')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney')
+        },
+      ],
+      gp: 0,
+      exp: 0,
+    },
   },
 };
 

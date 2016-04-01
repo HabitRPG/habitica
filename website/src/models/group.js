@@ -591,7 +591,8 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
       let wd = tavern.quest.extra.worldDmg;
       // Burnout attacks Ian, Seasonal Sorceress, tavern
-      let scene = wd.quests ? wd.seasonalShop ? wd.tavern ? false : 'tavern' : 'seasonalShop' : 'quests'; // eslint-disable-line no-nested-ternary
+      // Be-Wilder attacks Alex, Matt, Bailey
+      let scene = wd.market ? wd.stables ? wd.bailey ? false : 'bailey' : 'stables' : 'market'; // eslint-disable-line no-nested-ternary
 
       if (!scene) {
         tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
