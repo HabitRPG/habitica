@@ -54,6 +54,13 @@ export async function generateReward (update = {}) {
   return task;
 }
 
+export async function generateTodo (update = {}) {
+  let type = 'todo';
+  let task = new Tasks[type](update);
+  await task.save({ validateBeforeSave: false });
+  return task;
+}
+
 // Generates a new group. Requires a user object, which
 // will will become the groups leader. Takes a details argument
 // for the initial group creation and an update argument which
