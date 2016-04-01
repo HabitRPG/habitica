@@ -25,7 +25,11 @@ export const DAY_MAPPING = {
 function sanitizeOptions (o) {
   let ref = Number(o.dayStart || 0);
   let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
-  let timezoneOffset = _.isFinite(o.timezoneOffsetOverride) ?  o.timezoneOffsetOverride : _.isFinite(o.timezoneOffset) ? o.timezoneOffset : Number(moment().zone()); // XXX check that Number() is not needed around the ? ... parts
+  let timezoneOffset = _.isFinite(o.timezoneOffsetOverride) ?  o.timezoneOffsetOverride : _.isFinite(o.timezoneOffset) ? o.timezoneOffset : Number(moment().zone());
+  // timezones range from -12 to +14 (offset +720 to -840)
+  if (timezoneOffset > 720 || timezoneOffset < -840) {
+    timezoneOffset = Number(moment().zone());
+  }
   let now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
 
   // return a new object, we don't want to add "now" to user object
