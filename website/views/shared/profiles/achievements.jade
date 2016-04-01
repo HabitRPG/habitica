@@ -243,6 +243,13 @@ div(ng-if='::profile.achievements.quests.burnout')
     =env.t('achievementBurnoutText')
   hr
 
+div(ng-if='::profile.achievements.quests.bewilder')
+  .achievement.achievement-bewilder
+  h5=env.t('achievementBewilder')
+  small
+    =env.t('achievementBewilderText')
+  hr
+
 div(ng-if='::profile.achievements.costumeContests')
   .achievement.achievement-costumeContest
   h5=env.t('costumeContest')
