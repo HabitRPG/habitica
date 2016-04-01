@@ -140,5 +140,7 @@
   "notAllowedHourglass": "Pet/Mount not available for purchase with Mystic Hourglass.",
   "readCard": "<%= cardType %> has been read",
   "cardTypeRequired": "Card type required",
-  "cardTypeNotAllowed": "Unkown card type."
+  "cardTypeNotAllowed": "Unkown card type.",
+  "mysteryItemIsEmpty": "Mystery items are empty",
+  "mysteryItemOpened": "Mystery item opened."
 }
