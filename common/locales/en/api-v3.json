@@ -127,7 +127,7 @@
   "privateMessageGiftGemsMessage": "<%= gemAmount %> gems! ",
   "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
   "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
-  "notEnoughGemsToSend": "Amount must be within 0 and your current number of gems.",,
+  "notEnoughGemsToSend": "Amount must be within 0 and your current number of gems.",
   "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>.",
   "mysteryItemIsEmpty": "Mystery items are empty",
   "mysteryItemOpened": "Mystery item opened."
