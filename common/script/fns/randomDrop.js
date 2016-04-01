@@ -11,7 +11,7 @@ function cloneDropItem (drop) {
   });
 }
 
-module.exports = function(user, modifiers, req) {
+module.exports = function randomDrop (user, modifiers, req) {
   var acceptableDrops, base, base1, base2, chance, drop, dropK, dropMultiplier, name, name1, name2, quest, rarity, ref, ref1, ref2, ref3, task;
   task = modifiers.task;
   chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;

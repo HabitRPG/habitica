@@ -4,7 +4,8 @@ import {
   MAX_STAT_POINTS
 } from '../constants';
 import { toNextLevel } from '../statHelpers';
-module.exports = function (user, stats, req, analytics) {
+
+module.exports = function updateStats (user, stats, req, analytics) {
   let allocatedStatPoints;
   let totalStatPoints;
   let experienceToNextLevel;

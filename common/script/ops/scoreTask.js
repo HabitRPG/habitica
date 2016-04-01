@@ -27,7 +27,7 @@ function _calculateDelta (task, direction, cron) {
 
   // Checklists
   if (task.checklist && task.checklist.length > 0) {
-    // If the Daily, only dock them them a portion based on their checklist completion
+    // If the Daily, only dock them a portion based on their checklist completion
     if (direction === 'down' && task.type === 'daily' && cron) {
       nextDelta *= 1 - _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
     }
@@ -43,7 +43,7 @@ function _calculateDelta (task, direction, cron) {
 
 // Approximates the reverse delta for the task value
 // This is meant to return the task value to its original value when unchecking a task.
-// First, calculate the the value using the normal way for our first guess although
+// First, calculate the value using the normal way for our first guess although
 // it will be a bit off
 function _calculateReverseDelta (task, direction) {
   let currVal = _getTaskValue(task.value);
@@ -185,6 +185,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
   // ===== starting to actually do stuff, most of above was definitions =====
   if (task.type === 'habit') {
     delta += _changeTaskValue(user, task, direction, times, cron);
+
     // Add habit value to habit-history (if different)
     if (delta > 0) {
       _addPoints(user, task, stats, direction, delta);
@@ -213,17 +214,25 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.streak += 1;
         // Give a streak achievement when the streak is a multiple of 21
         if (task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-      } else {
+        task.completed = true;
+      } else if (direction === 'down') {
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
         if (task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
         task.streak -= 1;
+        task.completed = false;
       }
     }
   } else if (task.type === 'todo') {
     if (cron) { // don't touch stats on cron
       delta += _changeTaskValue(user, task, direction, times, cron);
     } else {
-      task.dateCompleted = direction === 'up' ? new Date() : undefined;
+      if (direction === 'up') {
+        task.dateCompleted = new Date();
+        task.completed = true;
+      } else if (direction === 'down') {
+        task.completed = false;
+        task.dateCompleted = undefined;
+      }
 
       delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, delta); // recalculate delta for unchecking so the gp and exp come out correctly

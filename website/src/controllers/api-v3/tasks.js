@@ -393,9 +393,6 @@ api.scoreTask = {
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
     let wasCompleted = task.completed;
-    if (task.type === 'daily' || task.type === 'todo') {
-      task.completed = direction === 'up'; // TODO move into scoreTask
-    }
 
     let delta = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
