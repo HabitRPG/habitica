@@ -29,7 +29,6 @@ const COMMON_FILES = [
   '!./common/script/ops/getTag.js',
   '!./common/script/ops/getTags.js',
   '!./common/script/ops/hourglassPurchase.js',
-  '!./common/script/ops/openMysteryItem.js',
   '!./common/script/ops/purchase.js',
   '!./common/script/ops/readCard.js',
   '!./common/script/ops/rebirth.js',
