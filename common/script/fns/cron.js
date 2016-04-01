@@ -105,6 +105,7 @@ module.exports = function(user, options) {
     }
     else if (timezoneOffsetAtLastCron > timezoneOffsetFromUserPrefs) {
       daysMissed = daysMissedNewZone;
+      // TODO: Either confirm that there is nothing that could possibly go wrong here and remove the need for this else branch, or fix stuff. There are probably situations where the Dailies do not reset early enough for a user who was expecting the zone change and wants to use all their Dailies immediately in the new zone; if so, we should provide an option for easy reset of Dailies (can't be automatic because there will be other situations where the user was not prepared).
     }
   }
 
