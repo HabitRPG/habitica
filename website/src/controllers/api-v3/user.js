@@ -699,4 +699,27 @@ api.purchase = {
   },
 };
 
+/**
+* @api {post} /user/purchase-hourglass/:type/:key Purchase Hourglass.
+* @apiVersion 3.0.0
+* @apiName UserPurchaseHourglass
+* @apiGroup User
+*
+* @apiParam {string} type {pets|mounts}. The type of item to purchase
+* @apiParam {string} key Ex: {MantisShrimp-Base}. The key for the mount/pet
+*
+* @apiSuccess {Object} data `items purchased.plan.consecutive`
+*/
+api.userPurchaseHourglass = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/purchase-hourglass/:type/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let purchaseHourglassResponse = common.ops.purchaseHourglass(user, req, res.analytics);
+    await user.save();
+    res.respond(200, purchaseHourglassResponse);
+  },
+};
+
 module.exports = api;

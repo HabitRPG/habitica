@@ -136,5 +136,6 @@
   "notAccteptedType": "Type must be in [eggs, hatchingPotions, food, quests, gear]",
   "contentKeyNotFound": "Key not found for Content <%= type %>",
   "plusOneGem": "+1 Gem",
-  "purchased": "You purchsed a <%= key %> <%= type %>"
+  "purchased": "You purchsed a <%= key %> <%= type %>",
+  "notAllowedHourglass": "Pet/Mount not available for purchase with Mystic Hourglass."
 }
