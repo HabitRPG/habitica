@@ -142,5 +142,11 @@
   "cardTypeRequired": "Card type required",
   "cardTypeNotAllowed": "Unkown card type.",
   "mysteryItemIsEmpty": "Mystery items are empty",
-  "mysteryItemOpened": "Mystery item opened."
+  "mysteryItemOpened": "Mystery item opened.",
+  "invalidCoupon": "Invalid coupon code.",
+  "couponUsed": "Coupon code already used.",
+  "noSudoAccess": "You don't have sudo access.",
+  "couponCodeRequired": "The coupon code is required.",
+  "eventRequired": "\"req.params.event\" is required.",
+  "countRequired": "\"req.query.count\" is required."
 }

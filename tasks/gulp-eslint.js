@@ -3,12 +3,7 @@ import eslint from 'gulp-eslint';
 
 const SERVER_FILES = [
   './website/src/**/api-v3/**/*.js',
-  './website/src/models/user.js',
-  './website/src/models/task.js',
-  './website/src/models/group.js',
-  './website/src/models/challenge.js',
-  './website/src/models/tag.js',
-  './website/src/models/emailUnsubscription.js',
+  './website/src/models/**',
   './website/src/server.js',
 ];
 const COMMON_FILES = [
