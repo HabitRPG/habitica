@@ -1,9 +1,9 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { ensureAdmin } from '../../middlewares/api-v3/ensureAccessRight';
 import cron from '../../middlewares/api-v3/cron';
 import { model as User } from '../../models/user';
 import {
   NotFound,
-  NotAuthorized,
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 
@@ -90,19 +90,14 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth';
 api.getHero = {
   method: 'GET',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders(), cron, ensureAdmin],
   async handler (req, res) {
-    let user = res.locals.user;
     let heroId = req.params.heroId;
 
     req.checkParams('heroId', res.t('heroIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-
-    if (!user.contributor.admin) {
-      throw new NotAuthorized(res.t('noAdminAccess'));
-    }
 
     let hero = await User
       .findById(heroId)
@@ -132,9 +127,8 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 api.updateHero = {
   method: 'PUT',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders(), cron, ensureAdmin],
   async handler (req, res) {
-    let user = res.locals.user;
     let heroId = req.params.heroId;
     let updateData = req.body;
 
@@ -142,10 +136,6 @@ api.updateHero = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-
-    if (!user.contributor.admin) {
-      throw new NotAuthorized(res.t('noAdminAccess'));
-    }
 
     let hero = await User.findById(heroId).exec();
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));

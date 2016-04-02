@@ -5,6 +5,7 @@ import { model as User } from '../../website/src/models/user';
 import { model as Group } from '../../website/src/models/group';
 import mongo from './mongo'; // eslint-disable-line
 import moment from 'moment';
+import i18n from '../../common/script/i18n';
 
 afterEach((done) => {
   sandbox.restore();
@@ -32,6 +33,9 @@ export function generateRes (options = {}) {
       group: generateGroup(options.localsGroup),
     },
     set: sandbox.stub(),
+    t (string) {
+      return i18n.t(string);
+    },
   };
 
   return defaults(options, defaultRes);
