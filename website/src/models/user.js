@@ -729,10 +729,25 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
 // These will be removed once API v2 is discontinued
 
 // Get all the tasks belonging to an user,
-schema.methods.getTasks = function getUserTasks (cb) {
-  Tasks.Task.find({
+schema.methods.getTasks = function getUserTasks () {
+  let args = Array.from(arguments);
+  let cb;
+  let type;
+
+  if (args.length === 1) {
+    cb = args[0];
+  } else {
+    type = args[0];
+    cb = args[1];
+  }
+
+  let query = {
     userId: this._id,
-  }, cb);
+  };
+
+  if (type) query.type = type;
+
+  Tasks.Task.find(query, cb);
 };
 
 // Given user and an array of tasks, return an API compatible user + tasks obj
@@ -752,9 +767,9 @@ schema.methods.addTasksToUser = function addTasksToUser (tasks) {
     // We want to push the task at the same position where it's stored in tasksOrder
     let pos = tasksOrder[`${task.type}s`].indexOf(task._id);
     if (pos === -1) { // Should never happen, it means the lists got out of sync
-      unordered.push(task.toJSON());
+      unordered.push(task.toJSONV2());
     } else {
-      obj[`${task.type}s`][pos] = task.toJSON();
+      obj[`${task.type}s`][pos] = task.toJSONV2();
     }
   });
 

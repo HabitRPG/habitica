@@ -3,7 +3,7 @@ import {
 } from '../../../../helpers/api-integration/v2';
 import { each } from 'lodash';
 
-xdescribe('GET /user/anonymized', () => {
+describe('GET /user/anonymized', () => {
   let user, anonymizedUser;
 
   before(async () => {

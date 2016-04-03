@@ -1,7 +1,6 @@
 var logging = require('../../libs/api-v2/logging');
 
 module.exports = function(err, req, res, next) {
-  console.log(err, 'HEEEERE');
   //res.locals.domain.emit('error', err);
   // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
   var stack = (err.stack ? err.stack : err.message ? err.message : err) +

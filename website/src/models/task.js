@@ -108,6 +108,19 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
   await chalTask.save();
 };
 
+
+// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
+// These will be removed once API v2 is discontinued
+
+// toJSON for API v2
+TaskSchema.methods.toJSONV2 = function toJSONV2 () {
+  let toJSON = this.toJSON();
+  toJSON.id = toJSON._id;
+  return toJSON;
+};
+
+// END of API v2 methods
+
 export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields

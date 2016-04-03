@@ -5,6 +5,9 @@ var nconf = require('nconf');
 var async = require('async');
 var shared = require('../../../../common');
 var User = require('./../../models/user').model;
+import * as Tasks from '../../models/task';
+import Q from 'q';
+import {removeFromArray} from './../../libs/api-v3/collectionManipulators';
 var utils = require('./../../libs/api-v2/utils');
 var analytics = utils.analytics;
 var Group = require('./../../models/group').model;
@@ -69,78 +72,104 @@ api.score = function(req, res, next) {
   var id = req.params.id,
     direction = req.params.direction,
     user = res.locals.user,
+    body = req.body || {},
     task;
 
-  var clearMemory = function(){user = task = id = direction = null;}
-
   // Send error responses for improper API call
-  if (!id) return res.status(400).json({err: ':id required'});
+  if (!id) return res.json(400, {err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
     if (direction == 'unlink' || direction == 'sort') return next();
-    return res.status(400).json({err: ":direction must be 'up' or 'down'"});
+    return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
-  // If exists already, score it
-  if (task = user.tasks[id]) {
-    // Set completed if type is daily or todo and task exists
+
+  Tasks.Task.findOne({
+    _id: id,
+    userId: user._id
+  }, function(err, task){
+    if(err) return next(err);
+
+    // If exists already, score it
+    if (!task) {
+      // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
+      // Defaults. Other defaults are handled in user.ops.addTask()
+      task = new Tasks.Task({
+        _id: id, // TODO this might easily lead to conflicts as ids are now unique db-wide
+        type: body.type,
+        text: body.text,
+        userId: user._id,
+        notes: body.notes || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task." // TODO translate
+      });
+
+      user.tasksOrder[task.type + 's'].unshift(task._id);
+    }
+
+    // Set completed if type is daily or todo
     if (task.type === 'daily' || task.type === 'todo') {
       task.completed = direction === 'up';
     }
-  } else {
-    // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
-    // Defaults. Other defaults are handled in user.ops.addTask()
-    task = {
-      id: id,
-      type: req.body && req.body.type,
-      text: req.body && req.body.text,
-      notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
-    };
 
-    if (task.type === 'daily' || task.type === 'todo')
-      task.completed = direction === 'up';
+    var delta = shared.ops.scoreTask({
+      user,
+      task,
+      direction,
+    }, req);
 
-    task = user.ops.addTask({body:task});
-  }
-  var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
+    async.parallel({
+      task: task.save.bind(task),
+      user: user.save.bind(user)
+    }, function(err, results){
+      if(err) return next(err);
 
-  user.save(function(err, saved){
-    if (err) return next(err);
+      // FIXME this is suuuper strange, sometimes results.user is an array, sometimes user directly
+      var saved = Array.isArray(results.user) ? results.user[0] : results.user;
+      var task = Array.isArray(results.task) ? results.task[0] : results.task;
 
-    var userStats = saved.toJSON().stats;
-    var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
-    res.status(200).json(resJsonData);
+      var userStats = saved.toJSON().stats;
+      var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
+      res.json(200, resJsonData);
 
-    var webhookData = _generateWebhookTaskData(
-      task, direction, delta, userStats, user
-    );
-    webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
+      var webhookData = _generateWebhookTaskData(
+        task, direction, delta, userStats, user
+      );
+      webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
 
-    if (
-      (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
-      || (task.type == 'reward') // we don't want to update the reward GP cost
-    ) return clearMemory();
+      if (
+        (!task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
+        || (task.type == 'reward') // we don't want to update the reward GP cost
+      ) return;
 
-    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
-      if (err) return next(err);
-      if (!chal) {
-        task.challenge.broken = 'CHALLENGE_DELETED';
-        user.save();
-        return clearMemory();
-      }
-      var t = chal.tasks[task.id];
-      // this task was removed from the challenge, notify user
-      if (!t) {
-        chal.syncToUser(user);
-        return clearMemory();
-      }
+      // select name and shortName because they can be synced on syncToUser
+      Challenge.findById(task.challenge.id, 'name shortName', function(err, chal) {
+        if (err) return next(err);
+        if (!chal) {
+          task.challenge.broken = 'CHALLENGE_DELETED';
+          task.save();
+          return;
+        }
 
-      t.value += delta;
-      if (t.type == 'habit' || t.type == 'daily') {
-        t.history.push({value: t.value, date: +new Date});
-      }
-      chal.save();
-      clearMemory();
+        Tasks.Task.findOne({
+          '_id': task.challenge.taskId,
+          userId: {$exists: false}
+        }, function(err, chalTask){
+          if(err) return; //FIXME
+          // this task was removed from the challenge, notify user
+          if(!chalTask) {
+            // TODO finish
+            chal.getTasks(function(err, chalTasks){
+              if(err) return; //FIXME
+              chal.syncToUser(user, chalTasks);
+            });
+          } else {
+            chalTask.value += delta;
+            if (chalTask.type == 'habit' || chalTask.type == 'daily')
+              chalTask.history.push({value: chalTask.value, date: +new Date});
+            chalTask.save();
+          }
+        });
+      });
     });
   });
+
 };
 
 /**
@@ -148,31 +177,28 @@ api.score = function(req, res, next) {
  */
 api.getTasks = function(req, res, next) {
   var user = res.locals.user;
-  if (req.query.type) {
-    return res.json(user[req.query.type+'s']);
-  } else {
-    return res.json(_.toArray(user.tasks));
-  }
+
+  user.getTasks(req.query.type, function (err, tasks) {
+    if (err) return next(err);
+    res.status(200).json(tasks.map(task => task.toJSONV2()));
+  });
 };
 
 /**
  * Get Task
  */
 api.getTask = function(req, res, next) {
-  var task = findTask(req,res);
-  if (!task) return res.status(404).json({err: shared.i18n.t('messageTaskNotFound')});
-  return res.status(200).json(task);
+  var user = res.locals.user;
+
+  Tasks.Task.findOne({
+    userId: user._id,
+    _id: req.params.id,
+  }, function (err, task) {
+    if (err) return next(err);
+    if (!task) return res.status(404).json({err: shared.i18n.t('messageTaskNotFound')});
+    res.status(200).json(task.toJSONV2());
+  });
 };
-
-
-/*
-  Update Task
-*/
-
-//api.deleteTask // see Shared.ops
-// api.updateTask // handled in Shared.ops
-// api.addTask // handled in Shared.ops
-// api.sortTask // handled in Shared.ops #TODO updated api, mention in docs
 
 /*
   ------------------------------------------------------------------------
@@ -196,89 +222,91 @@ api.getBuyList = function (req, res, next) {
  * Get User
  */
 api.getUser = function(req, res, next) {
-  var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = shared.maxHealth;
-  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
-  delete user.apiToken;
-  if (user.auth && user.auth.local) {
-    delete user.auth.local.hashed_password;
-    delete user.auth.local.salt;
-  }
-  return res.status(200).json(user);
+  res.locals.user.getTransformedData(function(err, user){
+    user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+    user.stats.maxHealth = shared.maxHealth;
+    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    delete user.apiToken;
+    if (user.auth && user.auth.local) {
+      delete user.auth.local.hashed_password;
+      delete user.auth.local.salt;
+    }
+    return res.status(200).json(user);
+  });
 };
 
 /**
  * Get anonymized User
  */
 api.getUserAnonymized = function(req, res, next) {
-  var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = shared.maxHealth;
-  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+  res.locals.user.getTransformedData(function(err, user){
+    user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+    user.stats.maxHealth = shared.maxHealth;
+    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
-  delete user.apiToken;
+    delete user.apiToken;
 
-  if (user.auth) {
-    delete user.auth.local;
-    delete user.auth.facebook;
-  }
+    if (user.auth) {
+      delete user.auth.local;
+      delete user.auth.facebook;
+    }
 
-  delete user.newMessages;
+    delete user.newMessages;
 
-  delete user.profile;
-  delete user.purchased.plan;
-  delete user.contributor;
-  delete user.invitations;
+    delete user.profile;
+    delete user.purchased.plan;
+    delete user.contributor;
+    delete user.invitations;
 
-  delete user.items.special.nyeReceived;
-  delete user.items.special.valentineReceived;
+    delete user.items.special.nyeReceived;
+    delete user.items.special.valentineReceived;
 
-  delete user.webhooks;
-  delete user.achievements.challenges;
+    delete user.webhooks;
+    delete user.achievements.challenges;
 
-  _.forEach(user.inbox.messages, function(msg){
-    msg.text = "inbox message text";
-  });
-
-  _.forEach(user.tags, function(tag){
-    tag.name = "tag";
-    tag.challenge = "challenge";
-  });
-
-  function cleanChecklist(task){
-    var checklistIndex = 0;
-
-    _.forEach(task.checklist, function(c){
-      c.text = "item" + checklistIndex++;
+    _.forEach(user.inbox.messages, function(msg){
+      msg.text = "inbox message text";
     });
-  }
 
-  _.forEach(user.habits, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
+    _.forEach(user.tags, function(tag){
+      tag.name = "tag";
+      tag.challenge = "challenge";
+    });
+
+    function cleanChecklist(task){
+      var checklistIndex = 0;
+
+      _.forEach(task.checklist, function(c){
+        c.text = "item" + checklistIndex++;
+      });
+    }
+
+    _.forEach(user.habits, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+    });
+
+    _.forEach(user.rewards, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+    });
+
+    _.forEach(user.dailys, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+
+      cleanChecklist(task);
+    });
+
+    _.forEach(user.todos, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+
+      cleanChecklist(task);
+    });
+
+    return res.status(200).json(user);
   });
-
-  _.forEach(user.rewards, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-  });
-
-  _.forEach(user.dailys, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-
-    cleanChecklist(task);
-  });
-
-  _.forEach(user.todos, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-
-    cleanChecklist(task);
-  });
-
-  return res.status(200).json(user);
 };
 
 /**
@@ -586,6 +614,81 @@ api.sessionPartyInvite = function(req,res,next){
     }
   ], next);
 }
+
+api.clearCompleted = function(req, res, next) {
+  var user = res.locals.user;
+
+  Tasks.Task.remove({
+    userId: user._id,
+    type: 'todo',
+    completed: true,
+    'challenge.id': {$exists: false},
+  }, function (err) {
+    if (err) return next(err);
+
+    Tasks.Task.find({
+      userId: user._id,
+      type: 'todo',
+      completed: false,
+    }, function (err, uncompleted) {
+      if (err) return next(err);
+      res.json(uncompleted);
+    });
+  });
+};
+
+api.deleteTask = function(req, res, next) {
+  var user = res.locals.user;
+  if(!req.params || !req.params.id) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
+
+  var id = req.params.id;
+  // Try removing from all orders since we don't know the task's type
+  var removeTaskFromOrder = function(array) {
+    removeFromArray(array, id);
+  };
+
+  ['habits', 'dailys', 'todos', 'rewards'].forEach(function (type){
+    removeTaskFromOrder(user.tasksOrder[type])
+  });
+
+  async.parallel({
+    user: user.save.bind(user),
+    task: function(cb) {
+      Tasks.Task.remove({_id: id, userId: user._id}, cb);
+    }
+  }, function(err, results) {
+    if(err) return next(err);
+
+    if(results.task.result.n < 1){
+      return res.status(404).json({err: shared.i18n.t('messageTaskNotFound', req.language)})
+    }
+
+    res.status(200).json({});
+  });
+};
+
+api.addTask = function(req, res, next) {
+  var user = res.locals.user;
+  req.body.type = req.body.type || 'habit';
+  req.body.text = req.body.text || 'text';
+
+  var task = new Tasks[req.body.type](Tasks.Task.sanitizeCreate(req.body));
+
+  task.userId = user._id;
+  user.tasksOrder[task.type + 's'].unshift(task._id);
+
+  // Validate that the task is valid and throw if it isn't
+  // otherwise since we're saving user/challenge and task in parallel it could save the user/challenge with a tasksOrder that doens't match reality
+  let validationErrors = task.validateSync();
+  if (validationErrors) return next(validationErrors);
+
+  Q.all([
+    user.save(),
+    task.save({validateBeforeSave: false}) // already done ^
+  ]).then(results => {
+    res.status(200).json(results[1].toJSONV2());
+  }).catch(next);
+};
 
 /**
  * All other user.ops which can easily be mapped to common/script/index.js, not requiring custom API-wrapping
