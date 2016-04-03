@@ -590,21 +590,22 @@ api.sessionPartyInvite = function(req,res,next){
 /**
  * All other user.ops which can easily be mapped to common/script/index.js, not requiring custom API-wrapping
  */
-_.each(shared.wrap({}).ops, function(op,k){
+_.each(shared.ops, function(op,k){
   if (!api[k]) {
     api[k] = function(req, res, next) {
-      res.locals.user.ops[k](req,function(err, response){
-        // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
-        if (err) {
-          if (!err.code) return next(err);
-          if (err.code >= 400) return res.status(err.code).json({err:err.message});
-          // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
-        }
-        res.locals.user.save(function(err){
-          if (err) return next(err);
-          res.status(200).json(response);
-        })
-      }, analytics);
+      var opResponse;
+      try {
+        opResponse = shared.ops[k](res.locals.user, req, analytics);
+      } catch (err) {
+        if (!err.code) return next(err);
+        if (err.code >= 400) return res.status(err.code).json({err:err.message});
+      }
+
+      // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
+      res.locals.user.save(function(err){
+        if (err) return next(err);
+        res.status(200).json(response);
+      })
     }
   }
 })
