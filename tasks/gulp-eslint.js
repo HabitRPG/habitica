@@ -50,7 +50,6 @@ const COMMON_FILES = [
   '!./common/script/fns/getItem.js',
   '!./common/script/fns/nullify.js',
   '!./common/script/fns/preenUserHistory.js',
-  '!./common/script/fns/randomDrop.js',
   '!./common/script/libs/appliedTags.js',
   '!./common/script/libs/countExists.js',
   '!./common/script/libs/dotGet.js',
