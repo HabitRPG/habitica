@@ -667,6 +667,29 @@ api.deleteTask = function(req, res, next) {
   });
 };
 
+api.updateTask = function(req, res, next) {
+  var user = res.locals.user;
+
+  Tasks.Task.findOne({
+    _id: req.params.id,
+    userId: user._id
+  }, function(err, task) {
+    if(err) return next(err);
+    if(!task) return res.status(404).json({err: 'Task not found.'})
+
+    try {
+      _.assign(task, shared.ops.updateTask(task.toObject(), req));
+      task.save(function(err, task){
+        if(err) return next(err);
+
+        return res.json(task.toJSONV2());
+      });
+    } catch (err) {
+      return res.status(err.code).json({err: err.message});
+    }
+  });
+};
+
 api.addTask = function(req, res, next) {
   var user = res.locals.user;
   req.body.type = req.body.type || 'habit';
