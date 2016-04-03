@@ -60,12 +60,6 @@ TaskSchema.statics.sanitizeCreate = function sanitizeCreate (createObj) {
   return this.sanitize(createObj, noCreate);
 };
 
-// A list of additional fields that cannot be updated (but can be set on creation)
-let noUpdate = ['_id', 'type'];
-TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
-  return this.sanitize(updateObj, noUpdate);
-};
-
 // Sanitize checklist objects (disallowing _id)
 TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
   delete checklistObj._id;
