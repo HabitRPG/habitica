@@ -2,6 +2,7 @@ import { model as Challenge } from '../../../../../website/src/models/challenge'
 import { model as Group } from '../../../../../website/src/models/group';
 import { model as User } from '../../../../../website/src/models/user';
 import * as Tasks from '../../../../../website/src/models/task';
+import common from '../../../../../common/';
 import { each, find } from 'lodash';
 
 describe('Challenge Model', () => {
@@ -104,7 +105,13 @@ describe('Challenge Model', () => {
         let updatedTaskName = 'Updated Test Habit';
         await challenge.addTasks([task]);
 
-        _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate({ text: updatedTaskName })));
+        let req = {
+          body: { text: updatedTaskName },
+        };
+
+        Tasks.Task.sanitize(req.body);
+        _.assign(task, common.ops.updateTask(task.toObject(), req));
+
         await challenge.updateTask(task);
 
         let updatedLeader = await User.findOne({_id: leader._id});
