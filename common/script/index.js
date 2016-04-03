@@ -118,6 +118,7 @@ import purchase from './ops/purchase';
 import purchaseHourglass from './ops/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
+import releaseBoth from './ops/releaseBoth';
 
 api.ops = {
   scoreTask,
@@ -137,6 +138,7 @@ api.ops = {
   purchaseHourglass,
   readCard,
   openMysteryItem,
+  releaseBoth,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';
