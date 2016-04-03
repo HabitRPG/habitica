@@ -19,11 +19,10 @@ module.exports = function(server,mongoose) {
       }, function(err, response, body){
         var ts = JSON.parse(body).metric_data.metrics[0].timeslices,
           score = ts[ts.length-1].values.score,
-          apdexBad = score < .75 || score == 1,
           memory = os.freemem() / os.totalmem(),
           memoryHigh = memory < 0.1;
 
-        if (apdexBad || memoryHigh) {
+        if (memoryHigh) {
           var newRelicMemoryLeakMessage = '[Memory Leak] Apdex='+score+' Memory='+parseFloat(memory).toFixed(3)+' Time='+moment().format();
           throw newRelicMemoryLeakMessage;
         }
