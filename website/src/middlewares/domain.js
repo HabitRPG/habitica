@@ -12,9 +12,8 @@ module.exports = function(server,mongoose) {
       useAvg = false, // use average over 3 minutes, or simply the last minute's report
       url = 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=Apdex&values[]=score';
     setInterval(function(){
-      // TODO, DISABLED UNTIL NEW RELIC IS ADDED AGAIN
       // see https://docs.newrelic.com/docs/apm/apis/api-v2-examples/average-response-time-examples-api-v2, https://rpm.newrelic.com/api/explore/applications/data
-      /*request({
+      request({
         url: useAvg ? url+'&from='+moment().subtract({minutes:mins}).utc().format()+'&to='+moment().utc().format()+'&summarize=true' : url,
         headers: {'X-Api-Key': nconf.get('NEW_RELIC_API_KEY')}
       }, function(err, response, body){
@@ -23,9 +22,13 @@ module.exports = function(server,mongoose) {
           apdexBad = score < .75 || score == 1,
           memory = os.freemem() / os.totalmem(),
           memoryHigh = memory < 0.1;
-      if (apdexBad || memoryHigh) throw '[Memory Leak] Apdex='+score+' Memory='+parseFloat(memory).toFixed(3)+' Time='+moment().format();
 
-      });*/
+        if (apdexBad || memoryHigh) {
+          var newRelicMemoryLeakMessage = '[Memory Leak] Apdex='+score+' Memory='+parseFloat(memory).toFixed(3)+' Time='+moment().format();
+          throw newRelicMemoryLeakMessage;
+        }
+      });
+
       var memory = os.freemem() / os.totalmem(),
           memoryHigh = memory < 0.1;
       if (memoryHigh) {

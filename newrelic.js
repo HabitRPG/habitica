@@ -10,7 +10,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['Habitica'],
+  app_name: nconf.get('NEW_RELIC_APP_NAME'),
   /**
    * Your New Relic license key.
    */
