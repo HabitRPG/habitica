@@ -764,4 +764,24 @@ api.userOpenMysteryItem = {
   },
 };
 
+/**
+* @api {post} /user/release-pets Releases pets.
+* @apiVersion 3.0.0
+* @apiName UserReleasePets
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user.items.pets`
+*/
+api.userReleasePets = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/release-pets',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let releasePetsResponse = common.ops.releasePets(user, req, res.analytics);
+    await user.save();
+    res.respond(200, releasePetsResponse);
+  },
+};
+
 module.exports = api;

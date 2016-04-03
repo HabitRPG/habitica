@@ -148,5 +148,6 @@
   "noSudoAccess": "You don't have sudo access.",
   "couponCodeRequired": "The coupon code is required.",
   "eventRequired": "\"req.params.event\" is required.",
-  "countRequired": "\"req.query.count\" is required."
+  "countRequired": "\"req.query.count\" is required.",
+  "petsReleased": "Pets released."
 }
