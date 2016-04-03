@@ -1,3 +1,4 @@
+require('babel-core/register');
 var path, superagentDefaults;
 
 superagentDefaults = require("superagent-defaults");
@@ -5,6 +6,8 @@ superagentDefaults = require("superagent-defaults");
 global.request = superagentDefaults();
 
 global.mongoose = require("mongoose");
+var Q = require('q');
+mongoose.Promise = Q.Promise;
 
 global.moment = require("moment");
 

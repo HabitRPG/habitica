@@ -2,8 +2,8 @@ var nconf = require('nconf');
 var express = require('express');
 var router = express.Router();
 var _ = require('lodash');
-var locals = require('../middlewares/locals');
-var i18n = require('../libs/i18n');
+var locals = require('../middlewares/api-v2/locals');
+var i18n = require('../libs/api-v2/i18n');
 
 const TOTAL_USER_COUNT = '1,100,000';
 

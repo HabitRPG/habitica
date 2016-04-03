@@ -9,7 +9,7 @@ var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
 var Q = require('q');
-var utils = require('./../../libs/utils');
+var utils = require('./../../libs/api-v2/utils');
 var shared = require('../../../../common');
 var User = require('./../../models/user').model;
 var Group = require('./../../models/group').model;
@@ -17,9 +17,9 @@ var Challenge = require('./../../models/challenge').model;
 var EmailUnsubscription = require('./../../models/emailUnsubscription').model;
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
-var pushNotify = require('./../pushNotifications');
+var pushNotify = require('./pushNotifications');
 var analytics = utils.analytics;
-var firebase = require('../../libs/firebase');
+var firebase = require('../../libs/api-v2/firebase');
 
 /*
   ------------------------------------------------------------------------
@@ -1101,6 +1101,7 @@ api.questLeave = function(req, res, next) {
     });
 }
 
+// TODO port to api v3? in tojson?
 function _purgeFlagInfoFromChat(group, user) {
   group.chat = _.filter(group.chat, function(message) { return !message.flagCount || message.flagCount < 2; });
   _.each(group.chat, function (message) {

@@ -7,8 +7,8 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
   $scope.loadWidgets = Social.loadWidgets;
 
   if(env.isStaticPage){
-    $scope.languages = env.avalaibleLanguages;
-    $scope.selectedLanguage = _.find(env.avalaibleLanguages, {code: env.language.code});
+    $scope.languages = env.availableLanguages;
+    $scope.selectedLanguage = _.find(env.availableLanguages, {code: env.language.code});
 
     $rootScope.selectedLanguage = $scope.selectedLanguage;
 

@@ -32,6 +32,6 @@ gulp.task('build:dev:watch', ['build:dev'], () => {
   gulp.watch(['website/public/**/*.styl', 'common/script/*']);
 });
 
-gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff'], (done) => {
+gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff', 'apidoc'], (done) => {
   gulp.start('grunt-build:prod', done);
 });

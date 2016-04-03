@@ -6,5 +6,4 @@
 --globals io
 -r babel-polyfill
 --compilers js:babel-register
---require test/api-legacy/api-helper
 --require ./test/helpers/globals.helper

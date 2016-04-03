@@ -8,7 +8,7 @@ var Group = require('../../../website/src/models/group').model;
 var groupsController = require('../../../website/src/controllers/api-v2/groups');
 
 describe('Groups Controller', function() {
-  var utils = require('../../../website/src/libs/utils');
+  var utils = require('../../../website/src/libs/api-v2/utils');
 
   describe('#invite', function() {
     var res, req, user, group;
