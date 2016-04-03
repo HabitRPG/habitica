@@ -14,6 +14,8 @@ let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {_id
 
 export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
+// Important
+// When something changes here remember to update the client side model at common/script/libs/taskDefaults
 export let TaskSchema = new Schema({
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
@@ -35,7 +37,7 @@ export let TaskSchema = new Schema({
   },
 
   reminders: [{
-    id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
+    _id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
     startDate: {type: Date, required: true},
     time: {type: Date, required: true},
   }],

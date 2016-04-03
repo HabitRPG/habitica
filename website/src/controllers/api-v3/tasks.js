@@ -324,7 +324,7 @@ api.updateTask = {
 
     // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     // TODO regarding comment above, make sure other models with nested fields are using this trick too
-    _.assign(task, _.merge(task.toObject(), Tasks.Task.sanitizeUpdate(req.body)));
+    _.assign(task, common.ops.updateTask(task.toObject(), req));
     // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
@@ -836,12 +836,15 @@ api.clearCompletedTodos = {
     let user = res.locals.user;
 
     // Clear completed todos
-    // Do not delete challenges completed todos TODO unless the task is broken?
+    // Do not delete challenges completed todos unless the task is broken
     await Tasks.Task.remove({
       userId: user._id,
       type: 'todo',
       completed: true,
-      'challenge.id': {$exists: false},
+      $or: [
+        {'challenge.id': {$exists: false}},
+        {'challenge.broken': {$exists: true}},
+      ],
     }).exec();
 
     res.respond(200, {});

@@ -90,7 +90,8 @@
     "validator": "~4.2.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "winston": "^2.1.0"
+    "winston": "^2.1.0",
+    "uuid": "^2.0.1"
   },
   "private": true,
   "engines": {
@@ -153,7 +154,6 @@
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "superagent-defaults": "^0.1.13",
-    "uuid": "^2.0.1",
     "vinyl-source-stream": "^1.0.0",
     "vinyl-transform": "^1.0.0",
     "xml2js": "^0.4.16"

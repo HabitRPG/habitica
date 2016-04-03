@@ -12,10 +12,8 @@ const COMMON_FILES = [
   '!./common/script/content/index.js',
   '!./common/script/ops/addPushDevice.js',
   '!./common/script/ops/addTag.js',
-  '!./common/script/ops/addTask.js',
   '!./common/script/ops/addWebhook.js',
   '!./common/script/ops/blockUser.js',
-  '!./common/script/ops/clearCompleted.js',
   '!./common/script/ops/clearPMs.js',
   '!./common/script/ops/deletePM.js',
   '!./common/script/ops/deleteTag.js',
@@ -36,7 +34,6 @@ const COMMON_FILES = [
   '!./common/script/ops/unlock.js',
   '!./common/script/ops/update.js',
   '!./common/script/ops/updateTag.js',
-  '!./common/script/ops/updateTask.js',
   '!./common/script/ops/updateWebhook.js',
   '!./common/script/fns/crit.js',
   '!./common/script/fns/cron.js',
@@ -63,8 +60,6 @@ const COMMON_FILES = [
   '!./common/script/libs/silver.js',
   '!./common/script/libs/splitWhitespace.js',
   '!./common/script/libs/taskClasses.js',
-  '!./common/script/libs/taskDefaults.js',
-  '!./common/script/libs/uuid.js',
   '!./common/script/public/**/*.js',
 ];
 const TEST_FILES = [
