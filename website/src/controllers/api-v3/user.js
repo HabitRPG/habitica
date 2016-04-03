@@ -764,4 +764,24 @@ api.userOpenMysteryItem = {
   },
 };
 
+/**
+* @api {post} /user/release-mounts Released mounts.
+* @apiVersion 3.0.0
+* @apiName UserReleaseMounts
+* @apiGroup User
+*
+* @apiSuccess {Object} data `mounts`
+*/
+api.userReleaseMounts = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/release-mounts',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let releaseMountsResponse = common.ops.releaseMounts(user, req, res.analytics);
+    await user.save();
+    res.respond(200, releaseMountsResponse);
+  },
+};
+
 module.exports = api;
