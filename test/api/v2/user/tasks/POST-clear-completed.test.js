@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v2';
 
-describe.only('POST /user/tasks/clear-completed', () => {
+describe('POST /user/tasks/clear-completed', () => {
   let user;
 
   beforeEach(async () => {
@@ -17,7 +17,7 @@ describe.only('POST /user/tasks/clear-completed', () => {
       text: 'done',
     });
 
-    await user.post(`/user/tasks/${toComplete._id}/up`)
+    await user.post(`/user/tasks/${toComplete._id}/up`);
 
     let todos = await user.get(`/user/tasks?type=todo`);
     let uncomplete = await user.post(`/user/tasks/clear-completed`);

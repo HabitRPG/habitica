@@ -14,7 +14,7 @@ describe('GET /user/tasks/', () => {
   it('gets all tasks', async () => {
     return user.get(`/user/tasks/`).then((tasks) => {
       expect(tasks).to.be.an('array');
-      expect(tasks.length).to.equal(1)
+      expect(tasks.length).to.equal(1);
 
       let task = tasks[0];
       expect(task.id).to.exist;
