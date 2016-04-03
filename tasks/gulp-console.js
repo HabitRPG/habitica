@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import autoinc  from 'mongoose-id-autoinc';
 import logging  from '../website/src/libs/logging';
 import nconf    from 'nconf';
 import utils    from '../website/src/libs/utils';
@@ -30,17 +29,14 @@ let improveRepl = (context) => {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
   };
-  autoinc.init(
-    mongoose.connect(
-      nconf.get('NODE_DB_URI'),
-      mongooseOptions,
-      function(err) {
-        if (err) throw err;
-        logging.info('Connected with Mongoose');
-      }
-    )
-  );
-
+  mongoose.connect(
+    nconf.get('NODE_DB_URI'),
+    mongooseOptions,
+    function(err) {
+      if (err) throw err;
+      logging.info('Connected with Mongoose');
+    }
+  )
 };
 
 gulp.task('console', (cb) => {
