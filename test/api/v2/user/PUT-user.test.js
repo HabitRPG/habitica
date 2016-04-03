@@ -5,7 +5,7 @@ import {
 
 import { each, get } from 'lodash';
 
-describe('PUT /user', () => {
+xdescribe('PUT /user', () => {
   let user;
 
   beforeEach(async () => {

@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../helpers/api-integration/v2';
 
-describe('POST /groups/:id', () => {
+xdescribe('POST /groups/:id', () => {
   context('user is not the leader of the group', () => {
     let user, otherUser, groupUserDoesNotOwn;
 

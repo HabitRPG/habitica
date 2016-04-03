@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v2';
 
-describe('POST /groups/:id/chat/:id/like', () => {
+xdescribe('POST /groups/:id/chat/:id/like', () => {
   context('another member\'s message', () => {
     let group, member, message, user;
 

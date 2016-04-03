@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v2';
 
-describe('DELETE /user/tasks/:id', () => {
+xdescribe('DELETE /user/tasks/:id', () => {
   let user, task;
 
   beforeEach(async () => {

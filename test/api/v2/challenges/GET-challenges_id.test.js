@@ -3,7 +3,7 @@ import {
   generateChallenge,
 } from '../../../helpers/api-integration/v2';
 
-describe('GET /challenges/:id', () => {
+xdescribe('GET /challenges/:id', () => {
   context('Member of a challenge', () => {
     let leader, party, challenge;
 

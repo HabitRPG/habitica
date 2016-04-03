@@ -3,7 +3,7 @@ import {
   createAndPopulateGroup,
 } from '../../../helpers/api-integration/v2';
 
-describe('POST /groups/:id/leave', () => {
+xdescribe('POST /groups/:id/leave', () => {
   context('user is not member of the group', () => {
     it('returns an error');
   });

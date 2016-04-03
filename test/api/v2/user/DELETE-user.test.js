@@ -6,7 +6,7 @@ import {
 } from '../../../helpers/api-integration/v2';
 import { find } from 'lodash';
 
-describe('DELETE /user', () => {
+xdescribe('DELETE /user', () => {
   let user;
 
   beforeEach(async () => {

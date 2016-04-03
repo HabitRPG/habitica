@@ -8,7 +8,7 @@ import {
   each,
 } from 'lodash';
 
-describe('GET /groups/:id', () => {
+xdescribe('GET /groups/:id', () => {
   let typesOfGroups = {};
   typesOfGroups['public guild'] = { type: 'guild', privacy: 'public' };
   typesOfGroups['private guild'] = { type: 'guild', privacy: 'private' };

@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../helpers/api-integration/v2';
 
-describe('POST /members/id/gift', () => {
+xdescribe('POST /members/id/gift', () => {
   let userWithBalance, userWithoutBalance;
 
   beforeEach(async () => {

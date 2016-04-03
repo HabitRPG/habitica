@@ -725,6 +725,63 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
   await Q.all(promises);
 };
 
+// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
+// These will be removed once API v2 is discontinued
+
+// Get all the tasks belonging to an user,
+schema.methods.getTasks = function getUserTasks (cb) {
+  Tasks.Task.find({
+    userId: this._id,
+  }, cb);
+};
+
+// Given user and an array of tasks, return an API compatible user + tasks obj
+schema.methods.addTasksToUser = function addTasksToUser (tasks) {
+  let obj = this.toJSON();
+  let tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
+
+  obj.habits = [];
+  obj.dailys = [];
+  obj.todos = [];
+  obj.rewards = [];
+
+  obj.tasksOrder = undefined;
+  let unordered = [];
+
+  tasks.forEach((task) => {
+    // We want to push the task at the same position where it's stored in tasksOrder
+    let pos = tasksOrder[`${task.type}s`].indexOf(task._id);
+    if (pos === -1) { // Should never happen, it means the lists got out of sync
+      unordered.push(task.toJSON());
+    } else {
+      obj[`${task.type}s`][pos] = task.toJSON();
+    }
+  });
+
+  // Reconcile unordered items
+  unordered.forEach((task) => {
+    obj[`${task.type}s`].push(task);
+  });
+
+  // Remove null values that can be created when inserting tasks at an index > length
+  ['habits', 'dailys', 'rewards', 'todos'].forEach((type) => {
+    obj[type] = _.compact(obj[type]);
+  });
+
+  return obj;
+};
+
+// Return the data maintaining backward compatibility
+schema.methods.getTransformedData = function getTransformedData (cb) {
+  let self = this;
+  this.getTasks((err, tasks) => {
+    if (err) return cb(err);
+    cb(null, self.addTasksToUser(tasks));
+  });
+};
+
+// END of API v2 methods
+
 export let model = mongoose.model('User', schema);
 
 // Initially export an empty object so external requires will get

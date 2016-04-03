@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v2';
 
-describe('POST /user/tasks', () => {
+xdescribe('POST /user/tasks', () => {
   let user;
 
   beforeEach(async () => {

@@ -4,7 +4,7 @@ import {
   resetHabiticaDB,
 } from '../../../helpers/api-integration/v2';
 
-describe('GET /groups', () => {
+xdescribe('GET /groups', () => {
   const NUMBER_OF_PUBLIC_GUILDS = 3;
   const NUMBER_OF_USERS_GUILDS = 2;
 

@@ -5,7 +5,7 @@ import {
 } from '../../../helpers/api-integration/v2';
 import { each } from 'lodash';
 
-describe('POST /groups/:id/join', () => {
+xdescribe('POST /groups/:id/join', () => {
   context('user is already a member of the group', () => {
     it('returns an error');
   });

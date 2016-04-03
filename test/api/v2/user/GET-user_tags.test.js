@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../helpers/api-integration/v2';
 
-describe('GET /user/tags', () => {
+xdescribe('GET /user/tags', () => {
   let user;
 
   beforeEach(async () => {

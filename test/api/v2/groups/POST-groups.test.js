@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../helpers/api-integration/v2';
 
-describe('POST /groups', () => {
+xdescribe('POST /groups', () => {
   context('All groups', () => {
     let leader;
 

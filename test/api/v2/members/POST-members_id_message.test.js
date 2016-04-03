@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../helpers/api-integration/v2';
 
-describe('POST /members/id/message', () => {
+xdescribe('POST /members/id/message', () => {
   let sender, recipient;
 
   beforeEach(async () => {

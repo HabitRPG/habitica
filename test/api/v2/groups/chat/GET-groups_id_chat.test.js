@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
 } from '../../../../helpers/api-integration/v2';
 
-describe('GET /groups/:id/chat', () => {
+xdescribe('GET /groups/:id/chat', () => {
   context('group with multiple messages', () => {
     let group, member, user;
 

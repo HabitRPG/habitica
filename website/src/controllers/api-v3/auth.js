@@ -502,7 +502,7 @@ api.logout = {
   url: '/user/auth/logout', // TODO this is under /api/v3 route, should be accessible through habitica.com/logout
   middlewares: [authWithSession, cron],
   async handler (req, res) {
-    req.logout();
+    req.logout(); // passportjs method
     req.session = null;
     res.redirect('/');
   },

@@ -4,7 +4,7 @@ import {
 } from '../../../helpers/api-integration/v2';
 import { each } from 'lodash';
 
-describe('POST /groups/:id/invite', () => {
+xdescribe('POST /groups/:id/invite', () => {
   context('user is a member of the group', () => {
     each({
       'public guild': {type: 'guild', privacy: 'public'},
