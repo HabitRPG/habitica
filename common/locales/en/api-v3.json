@@ -150,5 +150,6 @@
   "eventRequired": "\"req.params.event\" is required.",
   "countRequired": "\"req.query.count\" is required.",
   "petsReleased": "Pets released.",
-  "mountsAndPetsReleased": "Mounts and pets released"
+  "mountsAndPetsReleased": "Mounts and pets released",
+  "mountsReleased": "Mounts released"
 }
