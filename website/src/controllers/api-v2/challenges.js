@@ -4,9 +4,15 @@ var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
 var shared = require('../../../../common');
-var User = require('./../../models/user').model;
-var Group = require('./../../models/group').model;
-var Challenge = require('./../../models/challenge').model;
+import {
+  model as User,
+} from '../../models/user';
+import {
+  model as Group,
+} from '../../models/group';
+import {
+  model as Challenge,
+} from '../../models/challenge';
 var logging = require('./../../libs/api-v2/logging');
 var csvStringify = require('csv-stringify');
 var utils = require('../../libs/api-v2/utils');

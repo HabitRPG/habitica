@@ -4,14 +4,21 @@ var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
 var shared = require('../../../../common');
-var User = require('./../../models/user').model;
+import {
+  model as User,
+} from '../../models/user';
 import * as Tasks from '../../models/task';
 import Q from 'q';
 import {removeFromArray} from './../../libs/api-v3/collectionManipulators';
 var utils = require('./../../libs/api-v2/utils');
 var analytics = utils.analytics;
-var Group = require('./../../models/group').model;
-var Challenge = require('./../../models/challenge').model;
+import {
+  basicFields as basicGroupFields,
+  model as Group,
+} from '../../models/group';
+import {
+  model as Challenge,
+} from '../../models/challenge';
 var moment = require('moment');
 var logging = require('./../../libs/api-v2/logging');
 var acceptablePUTPaths;
@@ -442,26 +449,28 @@ api.delete = function(req, res, next) {
     return res.status(400).json({err:"You have an active subscription, cancel your plan before deleting your account."});
   }
 
-  Group.find({
-    members: {
-      '$in': [user._id]
-    }
-  }, function(err, groups){
-    if(err) return next(err);
+  let types = ['party', 'publicGuilds', 'privateGuilds'];
+  let groupFields = basicGroupFields.concat(' leader memberCount');
 
-    async.each(groups, function(group, cb){
-      group.leave(user, 'remove-all', cb);
-    }, function(err){
-      if(err) return next(err);
-
-      user.remove(function(err){
-        if(err) return next(err);
-
-        firebase.deleteUser(user._id);
-        res.sendStatus(200);
-      });
-    });
-  });
+  Group.getGroups({user, types, groupFields})
+  .then(groups => {
+    return Q.all(groups.map((group) => {
+      return group.leave(user, 'remove-all');
+    }));
+  })
+  .then(() => {
+    return Tasks.Task.remove({
+      userId: user._id,
+    }).exec();
+  })
+  .then(() => {
+    return user.remove();
+  })
+  .then(() => {
+    firebase.deleteUser(user._id);
+    res.sendStatus(200);
+  })
+  .catch(next);
 }
 
 /*

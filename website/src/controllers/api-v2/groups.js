@@ -11,10 +11,20 @@ var async = require('async');
 var Q = require('q');
 var utils = require('./../../libs/api-v2/utils');
 var shared = require('../../../../common');
-var User = require('./../../models/user').model;
-var Group = require('./../../models/group').model;
-var Challenge = require('./../../models/challenge').model;
-var EmailUnsubscription = require('./../../models/emailUnsubscription').model;
+
+import {
+  model as User,
+} from './../../models/user';
+import {
+  model as Group,
+} from './../../models/group';
+import {
+  model as Challenge,
+} from './../../models/challenge';
+import {
+  model as EmailUnsubscription,
+} from './../../models/emailUnsubscription';
+
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
@@ -70,31 +80,41 @@ api.list = function(req, res, next) {
     // unecessary given our ui-router setup
     party: function(cb){
       if (!~type.indexOf('party')) return cb(null, {});
-      Group.findOne({type: 'party', members: {'$in': [user._id]}})
+      Group.findOne({_id: user.party._id, type: 'party'})
         .select(groupFields).exec(function(err, party){
           if (err) return cb(err);
-          cb(null, (party === null ? [] : [party])); // return as an array for consistent ngResource use
+          if (!party) return cb(null, []);
+          party.getTransformedData({cb: function (err, transformedParty) {
+            if (err) return cb(err);
+            cb(null, (transformedParty === null ? [] : [transformedParty])); // return as an array for consistent ngResource use
+          }});
         });
     },
 
     guilds: function(cb) {
       if (!~type.indexOf('guilds')) return cb(null, []);
-      Group.find({members: {'$in': [user._id]}, type:'guild'})
-        .select(groupFields).sort(sort).exec(cb);
+      Group.find({_id: {'$in': user.guilds}, type:'guild'})
+        .select(groupFields).sort(sort).exec(function (err, guilds) {
+          if (err) return cb(err);
+          async.map(guilds, function (guild, cb1) {
+            guild.getTransformedData({cb: cb1})
+          }, function(err, guildsTransormed) {
+            cb(err, guildsTransormed);
+          });
+        });
     },
 
     'public': function(cb) {
       if (!~type.indexOf('public')) return cb(null, []);
       Group.find({privacy: 'public'})
-        .select(groupFields + ' members')
+        .select(groupFields)
         .sort(sort)
         .lean()
         .exec(function(err, groups){
           if (err) return cb(err);
           _.each(groups, function(g){
             // To save some client-side performance, don't send down the full members arr, just send down temp var _isMember
-            if (~g.members.indexOf(user._id)) g._isMember = true;
-            g.members = undefined;
+            if (user.guilds.indexOf(g._id) !== -1) g._isMember = true;
           });
           cb(null, groups);
         });
@@ -105,7 +125,10 @@ api.list = function(req, res, next) {
       if (!~type.indexOf('tavern')) return cb(null, {});
       Group.findById('habitrpg').select(groupFields).exec(function(err, tavern){
         if (err) return cb(err);
-        cb(null, [tavern]); // return as an array for consistent ngResource use
+        tavern.getTransformedData({cb: function (err, transformedTavern) {
+          if (err) return cb(err);
+          cb(null, ([transformedTavern])); // return as an array for consistent ngResource use
+        }});
       });
     }
 
@@ -132,14 +155,24 @@ api.list = function(req, res, next) {
 api.get = function(req, res, next) {
   var user = res.locals.user;
   var gid = req.params.gid;
+  let isUserGuild = user.guilds.indexOf(gid) !== -1;
 
-  var q = (gid == 'party')
-    ? Group.findOne({type: 'party', members: {'$in': [user._id]}})
-    : Group.findOne({$or:[
-        {_id:gid, privacy:'public'},
-        {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
-      ]});
-  populateQuery(gid, q);
+  var q;
+
+  if (gid === 'party' || gid === user.party._id) {
+    q = Group.findOne({_id: user.party._id, type: 'party'})
+  } else {
+
+    if (isUserGuild) {
+      q = Group.findOne({type: 'guild', _id: gid});
+    } else {
+      q = Group.findOne({type: 'guild', privacy: 'public', _id: gid});
+    }
+  }
+
+  q.populate('leader', nameFields);
+
+  //populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
     if(!group){
@@ -150,34 +183,27 @@ api.get = function(req, res, next) {
       return res.json(group);
     }
 
-    if (!user.contributor.admin) {
-      _purgeFlagInfoFromChat(group, user);
-    }
-
-    //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
-    var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
-    //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
-    if (group.privacy === 'private' || gid === 'party') {
-      //If the user is not in the group query, remove a user and add the current user
-      if (!userInGroup) {
-        group.members.splice(0,1);
-        group.members.push(user);
-      }
-      res.json(group);
-    } else if ( group.privacy === "public" ) { //The group is public, we must do an extra check to see if the user is already in the group query
-      //We must see how to check if a user is a member of a public group, so we requery
-      var q2 = Group.findOne({ _id: group._id, privacy:'public', members: {$in:[user._id]} });
-      q2.exec(function(err, group2){
+    group.getTransformedData({
+      cb: function (err, transformedGroup) {
         if (err) return next(err);
-        if (group2 && !userInGroup) {
-          group.members.splice(0,1);
-          group.members.push(user);
-        }
-        res.json(group);
-      });
-    }
 
-    gid = null;
+        if (!user.contributor.admin) {
+          _purgeFlagInfoFromChat(transformedGroup, user);
+        }
+
+        //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
+        var userInGroup = _.find(transformedGroup.members, function(member){ return member._id == user._id; });
+        if ((gid === 'party' || isUserGuild) && !userInGroup) {
+          transformedGroup.members.splice(0,1);
+          transformedGroup.members.push(user);
+        }
+
+        res.json(transformedGroup);
+      },
+      populateMembers: group.type === 'party' ? partyFields : nameFields,
+      populateInvites: nameFields,
+      populateChallenges: challengeFields,
+    });
   });
 };
 
@@ -185,10 +211,12 @@ api.get = function(req, res, next) {
 api.create = function(req, res, next) {
   var group = new Group(req.body);
   var user = res.locals.user;
-  group.members = [user._id];
+  //group.members = [user._id];
   group.leader = user._id;
+  if (!group.name) group.name = 'group name';
 
   if(group.type === 'guild'){
+    user.guilds.push(group._id);
     if(user.balance < 1) return res.status(401).json({err: shared.i18n.t('messageInsufficientGems')});
 
     group.balance = 1;
@@ -200,33 +228,31 @@ api.create = function(req, res, next) {
       function(saved,ct,cb){
         firebase.updateGroupData(saved);
         firebase.addUserToGroup(saved._id, user._id);
-        saved.populate('members', nameFields, cb);
+        saved.getTransformedData({
+          populateMembers: nameFields,
+          cb,
+        })
       }
-    ],function(err,saved){
+    ],function(err,groupTransformed){
       if (err) return next(err);
-      res.json(saved);
+      res.json(groupTransformed);
       group = user = null;
     });
 
   } else{
-    async.waterfall([
-      function(cb){
-        Group.findOne({type:'party',members:{$in:[user._id]}},cb);
-      },
-      function(found, cb){
-        if (found) return cb(shared.i18n.t('messageGroupAlreadyInParty'));
-        group.save(cb);
-      },
-      function(saved, count, cb){
-        firebase.updateGroupData(saved);
-        firebase.addUserToGroup(saved._id, user._id);
-        saved.populate('members', nameFields, cb);
-      }
-    ], function(err, populated){
-      if (err === shared.i18n.t('messageGroupAlreadyInParty')) return res.status(400).json({err:err});
+    if (user.party._id) return res.status(400).json({err:shared.i18n.t('messageGroupAlreadyInParty')});
+    user.party._id = group._id;
+    user.save(function (err) {
       if (err) return next(err);
-      group = user = null;
-      return res.json(populated);
+      group.save(function(err, saved) {
+        if (err) return next(err);
+        saved.getTransformedData({
+          populateMembers: nameFields,
+          cb (err, groupTransformed) {
+            res.json(groupTransformed);
+          },
+        });
+      });
     })
   }
 }

@@ -1,6 +1,11 @@
-var User = require('mongoose').model('User');
-var groups = require('../../models/group');
-var partyFields = require('./groups').partyFields
+import {
+  model as groups,
+  chatDefaults,
+} from '../../models/group';
+import {
+  model as User,
+} from '../../models/user';
+let partyFields = require('./groups').partyFields;
 var api = module.exports;
 var async = require('async');
 var _ = require('lodash');
@@ -49,12 +54,12 @@ api.sendMessage = function(user, member, data){
     }
     msg += data.message ? data.message : '';
   }
-  shared.refPush(member.inbox.messages, groups.chatDefaults(msg, user));
+  shared.refPush(member.inbox.messages, chatDefaults(msg, user));
   member.inbox.newMessages++;
   member._v++;
   member.markModified('inbox.messages');
 
-  shared.refPush(user.inbox.messages, _.defaults({sent:true}, groups.chatDefaults(msg, member)));
+  shared.refPush(user.inbox.messages, _.defaults({sent:true}, chatDefaults(msg, member)));
   user.markModified('inbox.messages');
 }
 

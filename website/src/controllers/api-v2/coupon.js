@@ -1,5 +1,7 @@
 var _ = require('lodash');
-var Coupon = require('./../../models/coupon').model;
+import {
+  model as Coupon,
+} from '../../models/coupon';
 var api = module.exports;
 var csvStringify = require('csv-stringify');
 var async = require('async');

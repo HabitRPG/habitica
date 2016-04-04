@@ -7,8 +7,13 @@ var utils = require('../../libs/api-v2/utils');
 var nconf = require('nconf');
 var request = require('request');
 var FirebaseTokenGenerator = require('firebase-token-generator');
-var User = require('../../models/user').model;
-var EmailUnsubscription = require('../../models/emailUnsubscription').model;
+import {
+  model as User,
+} from '../../models/user';
+import {
+  model as EmailUnsubscription,
+} from '../../models/emailUnsubscription';
+
 var analytics = utils.analytics;
 var i18n = require('./../../libs/api-v2/i18n');
 

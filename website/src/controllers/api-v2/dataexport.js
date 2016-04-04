@@ -5,7 +5,9 @@ var nconf = require('nconf');
 var moment = require('moment');
 var js2xmlparser = require("js2xmlparser");
 var pd = require('pretty-data').pd;
-var User = require('../../models/user').model;
+import {
+  model as User,
+} from '../../models/user';
 
 // Avatar screenshot/static-page includes
 //var Pageres = require('pageres'); //https://github.com/sindresorhus/pageres

@@ -22,7 +22,6 @@ let Schema = mongoose.Schema;
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
 export let schema = new Schema({
-  // TODO don't break validation on _id === 'habitrpg'
   name: {type: String, required: true},
   description: String,
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
@@ -65,7 +64,6 @@ export let schema = new Schema({
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
     // TODO as long as quests are party only we can keep it here
-    // TODO are we sure we need this type of default for this to work?
     members: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
@@ -668,6 +666,63 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   return Q.all(promises);
 };
+
+// API v2 compatibility methods
+schema.methods.getTransformedData = function getTransformedData (options) {
+  let cb = options.cb;
+  let populateMembers = options.populateMembers;
+  let populateInvites = options.populateInvites;
+  let populateChallenges = options.populateChallenges;
+
+  let obj = this.toJSON();
+
+  let queryMembers = {};
+  let queryInvites = {};
+
+  if (this.type === 'guild') {
+    queryInvites['invitations.guilds.id'] = this._id;
+  } else {
+    queryInvites['invitations.party.id'] = this._id;
+  }
+
+  if (this.type === 'guild') {
+    queryMembers.guilds = this._id;
+  } else {
+    queryMembers['party._id'] = this._id;
+  }
+
+  let selectDataMembers = '_id';
+  let selectDataInvites = '_id';
+  let selectDataChallenges = '_id';
+
+  if (populateMembers) {
+    selectDataMembers += ` ${populateMembers}`;
+  }
+  if (populateInvites) {
+    selectDataInvites += ` ${populateInvites}`;
+  }
+  if (populateChallenges) {
+    selectDataChallenges += ` ${populateChallenges}`;
+  }
+
+  let membersQuery = User.find(queryMembers).select(selectDataMembers);
+  if (options.limitPopulation) membersQuery.limit(15);
+
+  Q.all([
+    membersQuery.exec(),
+    User.find(queryInvites).select(populateInvites).exec(),
+    Challenge.find({group: obj._id}).select(populateMembers).exec(),
+  ])
+    .then((results) => {
+      obj.members = results[0];
+      obj.invites = results[1];
+      obj.challenges = results[2];
+
+      cb(null, obj);
+    })
+    .catch(cb);
+};
+// END API v2 compatibility methods
 
 export const INVITES_LIMIT = 100;
 export let model = mongoose.model('Group', schema);
