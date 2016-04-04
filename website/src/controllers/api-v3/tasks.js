@@ -399,6 +399,7 @@ api.scoreTask = {
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+    // TODO move to common code?
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
         removeFromArray(user.tasksOrder.todos, task._id);
@@ -406,9 +407,7 @@ api.scoreTask = {
         let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
         if (!hasTask) {
           user.tasksOrder.todos.push(task._id); // TODO push at the top?
-        } else { // If for some reason it hadn't been removed TODO ok?
-          user.tasksOrder.push(task._id);
-        }
+        } // If for some reason it hadn't been removed previously don't do anything TODO ok?
       }
     }
 

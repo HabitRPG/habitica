@@ -219,6 +219,10 @@ api.deleteUser = {
 
     await Q.all(groupLeavePromises);
 
+    await Tasks.Task.remove({
+      userId: user._id,
+    }).exec();
+
     await user.remove();
 
     res.respond(200, {});
