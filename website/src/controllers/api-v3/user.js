@@ -784,4 +784,24 @@ api.userReleasePets = {
   },
 };
 
+/*
+* @api {post} /user/release-both Releases Pets and Mounts and grants Triad Bingo.
+* @apiVersion 3.0.0
+* @apiName UserReleaseBoth
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user.items.gear.owned`
+*/
+api.userReleaseBoth = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/release-both',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let releaseBothResponse = common.ops.releaseBoth(user, req, res.analytics);
+    await user.save();
+    res.respond(200, releaseBothResponse);
+  },
+};
+
 module.exports = api;
