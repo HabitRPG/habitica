@@ -25,7 +25,7 @@ describe('PUT /user/webhook/:id', () => {
     await user.sync();
     expect(user.preferences.webhooks[response.id].url).to.not.eql(url);
     let response2 = await user.put(`/user/webhook/${response.id}`, {url, enabled});
-    expect(response2).to.eql({});
+    expect(response2.url).to.eql(url);
     await user.sync();
     expect(user.preferences.webhooks[response.id].url).to.eql(url);
   });

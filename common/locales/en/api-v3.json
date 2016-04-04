@@ -150,5 +150,8 @@
   "eventRequired": "\"req.params.event\" is required.",
   "countRequired": "\"req.query.count\" is required.",
   "invalidUrl": "invalid url",
-  "invalidEnabled": "the \"enabled\" parameter should be a boolean"
+  "invalidEnabled": "the \"enabled\" parameter should be a boolean",
+  "petsReleased": "Pets released.",
+  "mountsAndPetsReleased": "Mounts and pets released",
+  "mountsReleased": "Mounts released"
 }

@@ -219,6 +219,10 @@ api.deleteUser = {
 
     await Q.all(groupLeavePromises);
 
+    await Tasks.Task.remove({
+      userId: user._id,
+    }).exec();
+
     await user.remove();
 
     res.respond(200, {});
@@ -779,7 +783,7 @@ api.addWebhook = {
     let user = res.locals.user;
     let result = common.ops.addWebhook(user, req);
     await user.save();
-    res.respond(200, {id: result.id});
+    res.respond(200, result);
   },
 };
 
@@ -796,9 +800,9 @@ api.updateWebhook = {
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    common.ops.updateWebhook(user, req);
+    let result = common.ops.updateWebhook(user, req);
     await user.save();
-    res.respond(200, {});
+    res.respond(200, result);
   },
 };
 
@@ -821,5 +825,64 @@ api.deleteWebhook = {
   },
 };
 
+
+/* @api {post} /user/release-pets Releases pets.
+* @apiVersion 3.0.0
+* @apiName UserReleasePets
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user.items.pets`
+*/
+api.userReleasePets = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/release-pets',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let releasePetsResponse = common.ops.releasePets(user, req, res.analytics);
+    await user.save();
+    res.respond(200, releasePetsResponse);
+  },
+};
+
+/*
+* @api {post} /user/release-both Releases Pets and Mounts and grants Triad Bingo.
+* @apiVersion 3.0.0
+* @apiName UserReleaseBoth
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user.items.gear.owned`
+*/
+api.userReleaseBoth = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/release-both',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let releaseBothResponse = common.ops.releaseBoth(user, req, res.analytics);
+    await user.save();
+    res.respond(200, releaseBothResponse);
+  },
+};
+
+/*
+* @api {post} /user/release-mounts Released mounts.
+* @apiVersion 3.0.0
+* @apiName UserReleaseMounts
+* @apiGroup User
+*
+* @apiSuccess {Object} data `mounts`
+*/
+api.userReleaseMounts = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/release-mounts',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let releaseMountsResponse = common.ops.releaseMounts(user, req, res.analytics);
+    await user.save();
+    res.respond(200, releaseMountsResponse);
+  },
+};
 
 module.exports = api;

@@ -5,7 +5,12 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { find } from 'lodash';
+import {
+  find,
+  each,
+  map,
+} from 'lodash';
+import Q from 'q';
 
 describe('DELETE /user', () => {
   let user;
@@ -38,6 +43,24 @@ describe('DELETE /user', () => {
   });
 
   it('deletes the user', async () => {
+    // gets the user's tasks ids
+    let ids = [];
+    each(user.tasksOrder, (idsForOrder) => {
+      ids.push(...idsForOrder);
+    });
+
+    expect(ids.length).to.be.above(0); // make sure the user has some task to delete
+
+    await user.del('/user', {
+      password,
+    });
+
+    await Q.all(map(ids, id => {
+      return expect(checkExistence('tasks', id)).to.eventually.eql(false);
+    }));
+  });
+
+  it('delete the user\'s tasks', async () => {
     await user.del('/user', {
       password,
     });

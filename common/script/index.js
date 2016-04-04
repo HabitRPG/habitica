@@ -121,6 +121,9 @@ import openMysteryItem from './ops/openMysteryItem';
 import addWebhook from './ops/addWebhook';
 import updateWebhook from './ops/updateWebhook';
 import deleteWebhook from './ops/deleteWebhook';
+import releasePets from './ops/releasePets';
+import releaseBoth from './ops/releaseBoth';
+import releaseMounts from './ops/releaseMounts';
 
 api.ops = {
   scoreTask,
@@ -143,6 +146,9 @@ api.ops = {
   addWebhook,
   updateWebhook,
   deleteWebhook,
+  releasePets,
+  releaseBoth,
+  releaseMounts,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

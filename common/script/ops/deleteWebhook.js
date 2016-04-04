@@ -1,5 +1,6 @@
+import _ from 'lodash';
 
-module.exports = function(user, req) {
-  delete user.preferences.webhooks[req.params.id];
+module.exports = function deleteWebhook (user, req) {
+  delete user.preferences.webhooks[_.get(req, 'params.id')];
   user.markModified('preferences.webhooks');
 };
