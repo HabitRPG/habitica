@@ -1,7 +1,5 @@
-module.exports = function(user, req, cb) {
+
+module.exports = function(user, req) {
   delete user.preferences.webhooks[req.params.id];
-  if (typeof user.markModified === "function") {
-    user.markModified('preferences.webhooks');
-  }
-  return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+  user.markModified('preferences.webhooks');
 };

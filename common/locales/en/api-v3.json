@@ -148,5 +148,7 @@
   "noSudoAccess": "You don't have sudo access.",
   "couponCodeRequired": "The coupon code is required.",
   "eventRequired": "\"req.params.event\" is required.",
-  "countRequired": "\"req.query.count\" is required."
+  "countRequired": "\"req.query.count\" is required.",
+  "invalidUrl": "invalid url",
+  "invalidEnabled": "the \"enabled\" parameter should be a boolean"
 }

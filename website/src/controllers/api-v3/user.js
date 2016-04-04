@@ -764,4 +764,62 @@ api.userOpenMysteryItem = {
   },
 };
 
+/**
+ * @api {post} /user/webhook
+ * @apiVersion 3.0.0
+ * @apiName UserAddWebhook
+ * @apiGroup User
+ * @apiSuccess {}
+ **/
+api.addWebhook = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/webhook',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let result = common.ops.addWebhook(user, req);
+    await user.save();
+    res.respond(200, {id: result.id});
+  },
+};
+
+/**
+ * @api {put} /user/webhook/:id
+ * @apiVersion 3.0.0
+ * @apiName UserUpdateWebhook
+ * @apiGroup User
+ * @apiSuccess {}
+ **/
+api.updateWebhook = {
+  method: 'PUT',
+  middlewares: [authWithHeaders()],
+  url: '/user/webhook/:id',
+  async handler (req, res) {
+    let user = res.locals.user;
+    common.ops.updateWebhook(user, req);
+    await user.save();
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @api {delete} /user/webhook/:id
+ * @apiVersion 3.0.0
+ * @apiName UserDeleteWebhook
+ * @apiGroup User
+ * @apiSuccess {}
+ **/
+api.deleteWebhook = {
+  method: 'DELETE',
+  middlewares: [authWithHeaders()],
+  url: '/user/webhook/:id',
+  async handler (req, res) {
+    let user = res.locals.user;
+    common.ops.deleteWebhook(user, req);
+    await user.save();
+    res.respond(200, {});
+  },
+};
+
+
 module.exports = api;
