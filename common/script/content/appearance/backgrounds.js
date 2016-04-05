@@ -311,6 +311,20 @@ let backgrounds = {
       notes: t('backgroundStoneCircleNotes'),
     },
   },
+  backgrounds042016: {
+    archery_range: {
+      text: t('backgroundArcheryRangeText'),
+      notes: t('backgroundArcheryRangeNotes'),
+    },
+    giant_florals: {
+      text: t('backgroundGiantFlowersText'),
+      notes: t('backgroundGiantFlowersNotes'),
+    },
+    rainbows_end: {
+      text: t('backgroundRainbowsEndText'),
+      notes: t('backgroundRainbowsEndNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 
