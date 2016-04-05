@@ -1,10 +1,11 @@
 import {
   generateGroup,
+  createAndPopulateGroup,
   generateUser,
   translate as t,
 } from '../../../helpers/api-integration/v2';
 
-xdescribe('POST /groups/:id', () => {
+describe('POST /groups/:id', () => {
   context('user is not the leader of the group', () => {
     let user, otherUser, groupUserDoesNotOwn;
 

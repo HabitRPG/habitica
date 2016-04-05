@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v2';
 
-xdescribe('DELETE /groups/:id/chat', () => {
+describe('DELETE /groups/:id/chat', () => {
   let group, message, user;
 
   beforeEach(async () => {

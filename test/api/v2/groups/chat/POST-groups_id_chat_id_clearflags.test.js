@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v2';
 
-xdescribe('POST /groups/:id/chat/:id/clearflags', () => {
+describe('POST /groups/:id/chat/:id/clearflags', () => {
   let guild;
 
   beforeEach(async () => {

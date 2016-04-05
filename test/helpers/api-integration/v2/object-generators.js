@@ -1,5 +1,6 @@
 import {
   times,
+  map,
 } from 'lodash';
 import Q from 'q';
 import { v4 as generateUUID } from 'uuid';
@@ -41,11 +42,29 @@ export async function generateGroup (leader, details = {}, update = {}) {
   details.privacy = details.privacy || 'private';
   details.name = details.name || 'test group';
 
+  let members;
+
+  if (details.members) {
+    members = details.members;
+    delete details.members;
+  }
+
   let group = await leader.post('/groups', details);
   let apiGroup = new ApiGroup(group);
 
-  await apiGroup.update(update);
+  const groupMembershipTypes = {
+    party: { 'party._id': group._id},
+    guild: { guilds: [group._id] },
+  };
 
+  await Q.all(
+    map(members, (member) => {
+      return member.update(groupMembershipTypes[group.type]);
+    })
+  );
+
+  await apiGroup.update(update);
+  await apiGroup.sync();
   return apiGroup;
 }
 

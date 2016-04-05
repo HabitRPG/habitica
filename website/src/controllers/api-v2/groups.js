@@ -265,7 +265,7 @@ api.update = function(req, res, next) {
     return res.status(401).json({err: shared.i18n.t('messageGroupOnlyLeaderCanUpdate')});
 
   'name description logo logo leaderMessage leader leaderOnly'.split(' ').forEach(function(attr){
-    group[attr] = req.body[attr];
+    if (req.body[attr]) group[attr] = req.body[attr];
   });
 
   group.save(function(err, saved){
@@ -279,8 +279,10 @@ api.update = function(req, res, next) {
 // TODO remove from api object?
 api.attachGroup = function(req, res, next) {
   var user = res.locals.user;
-  var gid = req.params.gid;
-  var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
+  var gid = req.params.gid === 'party' ? user.party._id : req.params.gid;
+
+  let q = Group.findOne({_id: gid})
+
   q.exec(function(err, group){
     if(err) return next(err);
     if(!group) return res.status(404).json({err: shared.i18n.t('messageGroupNotFound')});
@@ -298,13 +300,20 @@ api.getChat = function(req, res, next) {
   // TODO: This code is duplicated from api.get - pull it out into a function to remove duplication.
   var user = res.locals.user;
   var gid = req.params.gid;
-  var q = (gid == 'party')
-    ? Group.findOne({type: 'party', members: {$in:[user._id]}})
-    : Group.findOne({$or:[
-        {_id:gid, privacy:'public'},
-        {_id:gid, privacy:'private', members: {$in:[user._id]}}
-      ]});
-  populateQuery(gid, q);
+
+  var q;
+  let isUserGuild = user.guilds.indexOf(gid) !== -1;
+
+  if (gid === 'party' || gid === user.party._id) {
+    q = Group.findOne({_id: user.party._id, type: 'party'})
+  } else {
+    if (isUserGuild) {
+      q = Group.findOne({type: 'guild', _id: gid});
+    } else {
+      q = Group.findOne({type: 'guild', privacy: 'public', _id: gid});
+    }
+  }
+
   q.exec(function(err, group){
     if (err) return next(err);
     if (!group && gid!=='party') return res.status(404).json({err: shared.i18n.t('messageGroupNotFound')});
