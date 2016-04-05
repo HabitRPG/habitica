@@ -4,7 +4,7 @@ import {
 } from '../../../helpers/api-integration/v2';
 import { each } from 'lodash';
 
-xdescribe('POST /groups/:id/invite', () => {
+describe('POST /groups/:id/invite', () => {
   context('user is a member of the group', () => {
     each({
       'public guild': {type: 'guild', privacy: 'public'},
@@ -27,8 +27,8 @@ xdescribe('POST /groups/:id/invite', () => {
         await inviter.post(`/groups/${group._id}/invite`, {
           uuids: [invitee._id],
         });
-        await group.sync();
-        expect(group.invites).to.include(invitee._id);
+        group = await inviter.get(`/groups/${group._id}`);
+        expect(_.find(group.invites, {_id: invitee._id})._id).to.exists;
       });
     });
   });
@@ -53,8 +53,8 @@ xdescribe('POST /groups/:id/invite', () => {
           await inviter.post(`/groups/${group._id}/invite`, {
             uuids: [invitee._id],
           });
-          await group.sync();
-          expect(group.invites).to.include(invitee._id);
+          group = await inviter.get(`/groups/${group._id}`);
+          expect(_.find(group.invites, {_id: invitee._id})._id).to.exists;
         });
       });
     });

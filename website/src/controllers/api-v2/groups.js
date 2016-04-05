@@ -498,7 +498,9 @@ api.join = function(req, res, next) {
 
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     User.update({_id:user.invitations.party.inviter}, {$inc:{'items.quests.basilist':1}}).exec(); // Reward inviter
-    user.invitations.party = undefined; // Clear invite
+    user.invitations.party = {}; // Clear invite
+    user.markModified('invitations.party');
+    user.party._id = group._id;
     user.save();
     // invite new user to pending quest
     if (group.quest.key && !group.quest.active) {
@@ -507,20 +509,29 @@ api.join = function(req, res, next) {
       group.markModified('quest.members');
     }
     isUserInvited = true;
-  } else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
+  } else if (group.type == 'guild') {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
     if (~i){
       isUserInvited = true;
       user.invitations.guilds.splice(i,1);
+      user.guilds.push(group._id);
       user.save();
     }else{
       isUserInvited = group.privacy === 'private' ? false : true;
+      if (isUserInvited) {
+        user.guilds.push(group._id);
+        user.save();
+      }
     }
   }
 
   if(!isUserInvited) return res.status(401).json({err: shared.i18n.t('messageGroupRequiresInvite')});
 
-  if (!_.contains(group.members, user._id)){
+  if (group.memberCount === 0) {
+    group.leader = user._id;
+  }
+
+  /*if (!_.contains(group.members, user._id)){
     if (group.members.length === 0) {
       group.leader = user._id;
     }
@@ -530,7 +541,7 @@ api.join = function(req, res, next) {
     if (group.invites.length > 0) {
      group.invites.splice(_.indexOf(group.invites, user._id), 1);
     }
-  }
+  }*/
 
   async.series([
     function(cb){
@@ -538,8 +549,12 @@ api.join = function(req, res, next) {
     },
     function(cb){
       firebase.addUserToGroup(group._id, user._id);
-      // TODO why query group once again?
-      populateQuery(group.type, Group.findById(group._id)).exec(cb);
+      group.getTransformedData({
+        cb,
+        populateMembers: group.type === 'party' ? partyFields : nameFields,
+        populateInvites: nameFields,
+        populateChallenges: challengeFields,
+      })
     }
   ], function(err, results){
     if (err) return next(err);
@@ -566,12 +581,9 @@ api.leave = function(req, res, next) {
   // When removing the user from challenges, should we keep the tasks?
   var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
 
-  group.leave(user, keep, function(err){
-    if (err) return next(err);
-    user = group = keep = null;
-
-    return res.sendStatus(204);
-  });
+  group.leave(user, keep)
+    .then(() => res.sendStatus(204))
+    .catch(next);
 };
 
 var inviteByUUIDs = function(uuids, group, req, res, next){
@@ -581,7 +593,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
       if (!invite)
          return cb({code:400,err:'User with id "' + uuid + '" not found'});
       if (group.type == 'guild') {
-        if (_.contains(group.members,uuid))
+        if (_.contains(invite.guilds, group._id))
           return cb({code:400, err: "User already in that group"});
         if (invite.invitations && invite.invitations.guilds && _.find(invite.invitations.guilds, {id:group._id}))
           return cb({code:400, err:"User already invited to that group"});
@@ -589,13 +601,10 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
       } else if (group.type == 'party') {
         if (invite.invitations && !_.isEmpty(invite.invitations.party))
           return cb({code: 400,err:"User already pending invitation."});
-        Group.find({type: 'party', members: {$in: [uuid]}}, function(err, groups){
-          if (err) return cb(err);
-          if (!_.isEmpty(groups) && groups[0].members.length > 1) {
-            return cb({code: 400, err: "User already in a party."})
-          }
-          sendInvite();
-        });
+        if (invite.party && invite.party._id) {
+          return cb({code: 400, err: "User already in a party."})
+        }
+        sendInvite();
       }
 
       function sendInvite (){
@@ -610,7 +619,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           pushNotify.sendNotify(invite, shared.i18n.t('invitedParty'), group.name);
         }
 
-        group.invites.push(invite._id);
+        //group.invites.push(invite._id);
 
         async.series([
           function(cb){
@@ -653,10 +662,17 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
       },
       function(cb) {
         // TODO pass group from save above don't find it again, or you have to find it again in order to run populate?
-        populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
-          if(err) return next(err);
-
-          res.json(populatedGroup);
+        Group.findById(group._id).populate('leader', nameFields).exec(function (err, savedGroup) {
+          if (err) return next(err);
+          savedGroup.getTransformedData({
+            cb: function (err, transformedGroup) {
+              if (err) return next(err);
+              res.json(transformedGroup);
+            },
+            populateMembers: savedGroup.type === 'party' ? partyFields : nameFields,
+            populateInvites: nameFields,
+            populateChallenges: challengeFields,
+          })
         });
       }
     ]);
@@ -724,10 +740,17 @@ var inviteByEmails = function(invites, group, req, res, next){
 
 api.invite = function(req, res, next){
   var group = res.locals.group;
+  let userParty = res.locals.user.party && res.locals.user.party._id;
+  let userGuilds = res.locals.user.guilds;
 
-  if (group.privacy === 'private' && !_.contains(group.members,res.locals.user._id)) {
+  if (group.type === 'party' && userParty !== group._id) {
     return res.status(401).json({err: "Only a member can invite new members!"});
   }
+
+  if (group.type === 'guild' && group.privacy === 'private' && !_.contains(userGuilds, group._id)) {
+    return res.status(401).json({err: "Only a member can invite new members!"});
+  }
+
   if (req.body.uuids) {
     inviteByUUIDs(req.body.uuids, group, req, res, next);
   } else if (req.body.emails) {

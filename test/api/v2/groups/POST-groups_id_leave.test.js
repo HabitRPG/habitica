@@ -3,7 +3,7 @@ import {
   createAndPopulateGroup,
 } from '../../../helpers/api-integration/v2';
 
-xdescribe('POST /groups/:id/leave', () => {
+describe('POST /groups/:id/leave', () => {
   context('user is not member of the group', () => {
     it('returns an error');
   });
@@ -28,9 +28,9 @@ xdescribe('POST /groups/:id/leave', () => {
     it('leaves the group', async () => {
       await user.post(`/groups/${group._id}/leave`);
 
-      await group.sync();
+      await user.sync();
 
-      expect(group.members).to.not.include(user._id);
+      expect(user.guilds).to.not.include(group._id);
     });
   });
 
