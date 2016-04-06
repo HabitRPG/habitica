@@ -32,7 +32,6 @@ const COMMON_FILES = [
   '!./common/script/ops/revive.js',
   '!./common/script/ops/sortTag.js',
   '!./common/script/ops/sortTask.js',
-  '!./common/script/ops/unlock.js',
   '!./common/script/ops/update.js',
   '!./common/script/ops/updateTag.js',
   '!./common/script/ops/updateTask.js',

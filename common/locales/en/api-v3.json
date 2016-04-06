@@ -154,5 +154,8 @@
   "mountsReleased": "Mounts released",
   "typeNotSellable": "Type is not sellable. Must be one of the following <%= acceptedTypes %>",
   "userItemsKeyNotFound": "Key not found for user.items <%= type %>",
-  "sold": "You sold a <%= key %> <%= type %>"
+  "sold": "You sold a <%= key %> <%= type %>",
+  "pathRequired": "Path string is required",
+  "unlocked": "Items have been unlocked",
+  "alreadyUnlocked": "Item already unlocked"
 }
