@@ -30,7 +30,6 @@ const COMMON_FILES = [
   '!./common/script/ops/reroll.js',
   '!./common/script/ops/reset.js',
   '!./common/script/ops/revive.js',
-  '!./common/script/ops/sell.js',
   '!./common/script/ops/sortTag.js',
   '!./common/script/ops/sortTask.js',
   '!./common/script/ops/unlock.js',
