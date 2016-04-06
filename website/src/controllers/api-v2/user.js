@@ -15,7 +15,6 @@ let acceptablePUTPaths;
 let restrictedPUTSubPaths;
 
 var api = module.exports;
-var qs = require('qs');
 var firebase = require('../../libs/firebase');
 var webhook = require('../../libs/webhook');
 
