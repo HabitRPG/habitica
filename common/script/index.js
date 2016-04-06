@@ -121,6 +121,7 @@ import openMysteryItem from './ops/openMysteryItem';
 import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
+import sell from './ops/sell';
 
 api.ops = {
   scoreTask,
@@ -143,6 +144,7 @@ api.ops = {
   releasePets,
   releaseBoth,
   releaseMounts,
+  sell,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

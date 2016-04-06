@@ -828,4 +828,24 @@ api.userReleaseMounts = {
   },
 };
 
+/*
+* @api {post} /user/sell/:type/:key Sells user's items.
+* @apiVersion 3.0.0
+* @apiName UserSell
+* @apiGroup User
+*
+* @apiSuccess {Object} data `stats items`
+*/
+api.userSell = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/sell/:type/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let sellResponse = common.ops.sell(user, req);
+    await user.save();
+    res.respond(200, sellResponse);
+  },
+};
+
 module.exports = api;
