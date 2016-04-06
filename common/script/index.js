@@ -123,6 +123,7 @@ import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
 import sell from './ops/sell';
 import unlock from './ops/unlock';
+import revive from './ops/revive';
 
 api.ops = {
   scoreTask,
@@ -147,6 +148,7 @@ api.ops = {
   releaseMounts,
   sell,
   unlock,
+  revive,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

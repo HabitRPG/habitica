@@ -157,5 +157,6 @@
   "sold": "You sold a <%= key %> <%= type %>",
   "pathRequired": "Path string is required",
   "unlocked": "Items have been unlocked",
-  "alreadyUnlocked": "Item already unlocked"
+  "alreadyUnlocked": "Item already unlocked",
+  "cannotRevive": "Cannot revive if not dead"
 }
