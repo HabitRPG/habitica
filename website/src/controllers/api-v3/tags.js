@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Tag } from '../../models/tag';
-import { model as Tasks } from '../../models/task';
+import * as Tasks from '../../models/task';
 import {
   NotFound,
 } from '../../libs/api-v3/errors';
