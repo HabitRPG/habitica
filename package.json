@@ -63,7 +63,7 @@
     "nconf": "~0.6.9",
     "newrelic": "~1.26.1",
     "nib": "~1.0.1",
-    "nodemailer": "~0.5.2",
+    "nodemailer": "^1.9.0",
     "pageres": "^4.1.1",
     "passport": "~0.2.1",
     "passport-facebook": "2.0.0",
