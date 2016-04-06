@@ -848,4 +848,24 @@ api.userSell = {
   },
 };
 
+/**
+* @api {post} /user/revive Revives user from death.
+* @apiVersion 3.0.0
+* @apiName UserRevive
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user.items`
+*/
+api.userRevive = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/revive',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let reviveResponse = common.ops.revive(user, req, res.analytics);
+    await user.save();
+    res.respond(200, reviveResponse);
+  },
+};
+
 module.exports = api;
