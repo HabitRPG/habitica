@@ -848,4 +848,24 @@ api.userSell = {
   },
 };
 
+/*
+* @api {post} /user/unlock Unlocks items by purchase.
+* @apiVersion 3.0.0
+* @apiName UserUnlock
+* @apiGroup User
+*
+* @apiSuccess {Object} data `purchased preferences items`
+*/
+api.userUnlock = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/unlock',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let unlockResponse = common.ops.unlock(user, req);
+    await user.save();
+    res.respond(200, unlockResponse);
+  },
+};
+
 module.exports = api;
