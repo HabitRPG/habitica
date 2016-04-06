@@ -112,6 +112,14 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 TaskSchema.methods.toJSONV2 = function toJSONV2 () {
   let toJSON = this.toJSON();
   toJSON.id = toJSON._id;
+
+  let v3Tags = this.tags;
+
+  toJSON.tags = {};
+  v3Tags.forEach(tag => {
+    toJSON.tags[tag] = true;
+  });
+
   return toJSON;
 };
 

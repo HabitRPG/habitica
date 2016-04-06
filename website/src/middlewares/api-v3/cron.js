@@ -26,7 +26,7 @@ let clearBuffs = {
 // For incomplete Dailys, deduct experience
 // Make sure to run this function once in a while as server will not take care of overnight calculations.
 // And you have to run it every time client connects.
-export function cron (options = {}) {
+function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
 
   user.auth.timestamps.loggedin = now;
@@ -271,7 +271,7 @@ export function cron (options = {}) {
 }
 
 // TODO check that it's used everywhere
-module.exports = async function cronMiddleware (req, res, next) {
+module.exports = function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   let analytics = res.analytics;
 

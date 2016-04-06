@@ -2,11 +2,12 @@ var url = require('url');
 var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
-var async = require('async');
+var asyncM = require('async');
 var shared = require('../../../../common');
 import {
   model as User,
 } from '../../models/user';
+import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
 import Q from 'q';
 import {removeFromArray} from './../../libs/api-v3/collectionManipulators';
@@ -23,6 +24,8 @@ var moment = require('moment');
 var logging = require('./../../libs/api-v2/logging');
 var acceptablePUTPaths;
 let restrictedPUTSubPaths;
+
+let i18n = shared.i18n;
 
 var api = module.exports;
 var firebase = require('../../libs/api-v2/firebase');
@@ -121,7 +124,7 @@ api.score = function(req, res, next) {
       direction,
     }, req);
 
-    async.parallel({
+    asyncM.parallel({
       task: task.save.bind(task),
       user: user.save.bind(user)
     }, function(err, results){
@@ -405,38 +408,7 @@ api.update = (req, res, next) => {
   });
 };
 
-api.cron = function(req, res, next) {
-  var user = res.locals.user,
-    progress = user.fns.cron({analytics:utils.analytics, timezoneOffset:req.headers['x-user-timezoneoffset']}),
-    ranCron = user.isModified(),
-    quest = shared.content.quests[user.party.quest.key];
-
-  if (ranCron) res.locals.wasModified = true;
-  if (!ranCron) return next(null,user);
-  Group.tavernBoss(user,progress);
-  if (!quest) return user.save(next);
-
-  // If user is on a quest, roll for boss & player, or handle collections
-  // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
-  async.waterfall([
-    function(cb){
-      user.save(cb); // make sure to save the cron effects
-    },
-    function(saved, count, cb){
-      var type = quest.boss ? 'boss' : 'collect';
-      Group[type+'Quest'](user,progress,cb);
-    },
-    function(){
-      var cb = arguments[arguments.length-1];
-      // User has been updated in boss-grapple, reload
-      User.findById(user._id, cb);
-    }
-  ], function(err, saved) {
-    res.locals.user = saved;
-    next(err,saved);
-    user = progress = quest = null;
-  });
-};
+api.cron = require('../../middlewares/api-v3/cron');
 
 // api.reroll // Shared.ops
 // api.reset // Shared.ops
@@ -508,84 +480,210 @@ if (nconf.get('NODE_ENV') === 'development') {
  Tags
  ------------------------------------------------------------------------
  */
-// api.deleteTag // handled in Shared.ops
-// api.addTag // handled in Shared.ops
-// api.updateTag // handled in Shared.ops
-// api.sortTag // handled in Shared.ops
+
+api.getTags = function (req, res, next) {
+  res.json(res.locals.user.tags.toObject().map(tag => {
+    return {
+      name: tag.name,
+      id: tag._id,
+      challenge: tag.challenge,
+    }
+  }));
+};
+
+api.getTag = function (req, res, next) {
+  let tag = res.locals.user.tags.id(req.params.id);
+  if (!tag) {
+    return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
+  }
+
+  res.json({
+    name: tag.name,
+    id: tag._id,
+    challenge: tag.challenge,
+  });
+};
+
+api.addTag = function (req, res, next) {
+  let user = res.locals.user;
+
+  user.tags.push(Tag.sanitize(req.body));
+  user.save(function (err, user) {
+    if (err) return next(err);
+
+    res.json(user.tags.toObject().map(tag => {
+      return {
+        name: tag.name,
+        id: tag._id,
+        challenge: tag.challenge,
+      }
+    }));
+  });
+};
+
+api.updateTag = function (req, res, next) {
+  let user = res.locals.user;
+
+  let tag = user.tags.id(req.params.id);
+  if (!tag) {
+    return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
+  }
+
+  tag.name = req.body.tag;
+  user.save(function (err, user) {
+    if (err) return next(err);
+
+    res.json({
+      name: tag.name,
+      id: tag._id,
+      challenge: tag.challenge,
+    });
+  });
+}
+
+api.sortTag = function (req, res, next) {
+  var ref = req.query;
+  var to = ref.to;
+  var from = ref.from;
+  let user = res.locals.user;
+
+  if (!((to != null) && (from != null))) {
+    return res.statu(500).json('?to=__&from=__ are required');
+  }
+
+  user.tags.splice(to, 0, user.tags.splice(from, 1)[0]);
+  user.save(function (err, user) {
+    if (err) return next(err);
+
+    res.json(user.tags.toObject().map(tag => {
+      return {
+        name: tag.name,
+        id: tag._id,
+        challenge: tag.challenge,
+      }
+    }));
+  });
+}
+
+api.deleteTag = function (req, res, next) {
+  let user = res.locals.user;
+
+  let tag = user.tags.id(req.params.id);
+  if (!tag) {
+    return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
+  }
+
+  tag.remove();
+
+  Tasks.Task.update({
+    userId: user._id,
+  }, {
+    $pull: {
+      tags: tag._id,
+    },
+  }, {multi: true}).exec();
+
+  user.save(function (err, user) {
+    if (err) return next(err);
+
+    res.json(user.tags.toObject().map(tag => {
+      return {
+        name: tag.name,
+        id: tag._id,
+        challenge: tag.challenge,
+      }
+    }));
+  });
+}
 
 /*
  ------------------------------------------------------------------------
  Spells
  ------------------------------------------------------------------------
  */
-api.cast = function(req, res, next) {
-  var user = res.locals.user,
-    targetType = req.query.targetType,
-    targetId = req.query.targetId,
-    klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class,
-    spell = shared.content.spells[klass][req.params.spell];
+api.cast = async function(req, res, next) {
+  try {
+    let user = res.locals.user;
+    let spellId = req.params.spellId;
+    let targetId = req.query.targetId;
 
-  if (!spell) return res.status(404).json({err: 'Spell "' + req.params.spell + '" not found.'});
-  if (spell.mana > user.stats.mp) return res.status(400).json({err: 'Not enough mana to cast spell'});
+    let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
+    let spell = common.content.spells[klass][spellId];
 
-  var done = function(){
-    var err = arguments[0];
-    var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
-    if (err) return next(err);
-    res.json(saved);
-    user = targetType = targetId = klass = spell = null;
-  }
+    if (!spell) return res.status(404).json({err: 'Spell "' + req.params.spell + '" not found.'});
+    if (spell.mana > user.stats.mp) return res.status(400).json({err: 'Not enough mana to cast spell'});
 
-  switch (targetType) {
-    case 'task':
-      if (!user.tasks[targetId]) return res.status(404).json({err: 'Task "' + targetId + '" not found.'});
-      spell.cast(user, user.tasks[targetId]);
-      user.save(done);
-      break;
+    let targetType = spell.target;
 
-    case 'self':
-      spell.cast(user);
-      user.save(done);
-      break;
+    if (targetType === 'task') {
+      let task = await Tasks.Task.findOne({
+        _id: targetId,
+        userId: user._id,
+      }).exec();
+      if (!task) {
+        return res.status(404).json({err: 'Task "' + targetId + '" not found.'});
+      }
 
-    case 'party':
-    case 'user':
-      async.waterfall([
-        function(cb){
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements items.special').exec(cb);
-        },
-        function(group, cb) {
-          // Solo player? let's just create a faux group for simpler code
-          var g = group ? group : {members:[user]};
-          var series = [], found;
-          if (targetType == 'party') {
-            spell.cast(user, g.members);
-            series = _.transform(g.members, function(m,v,k){
-              m.push(function(cb2){v.save(cb2)});
-            });
-          } else {
-            found = _.find(g.members, {_id: targetId})
-            spell.cast(user, found);
-            series.push(function(cb2){found.save(cb2)});
-          }
+      spell.cast(user, task, req);
+      await task.save();
+    } else if (targetType === 'self') {
+      spell.cast(user, null, req);
+      await user.save();
+    } else if (targetType === 'tasks') { // new target type when all the user's tasks are necessary
+      let tasks = await Tasks.Task.find({
+        userId: user._id,
+        'challenge.id': {$exists: false}, // exclude challenge tasks
+        $or: [ // Exclude completed todos
+          {type: 'todo', completed: false},
+          {type: {$in: ['habit', 'daily', 'reward']}},
+        ],
+      }).exec();
 
-          if (group && !spell.silent) {
-            series.push(function(cb2){
-              var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
-              group.sendChat(message);
-              group.save(cb2);
-            })
-          }
+      spell.cast(user, tasks, req);
 
-          series.push(function(cb2){g = group = series = found = null;cb2();})
+      let toSave = tasks.filter(t => t.isModified());
+      let isUserModified = user.isModified();
+      toSave.unshift(user.save());
+      let saved = await Q.all(toSave);
+    } else if (targetType === 'party' || targetType === 'user') {
+      let party = await Group.getGroup({groupId: 'party', user});
+      // arrays of users when targetType is 'party' otherwise single users
+      let partyMembers;
 
-          async.series(series, cb);
-        },
-        function(whatever, cb){
-          user.save(cb);
+      if (targetType === 'party') {
+        if (!party) {
+          partyMembers = [user]; // Act as solo party
+        } else {
+          partyMembers = await User.find({'party._id': party._id}).select(partyMembersFields).exec();
         }
-      ], done);
-      break;
+
+        spell.cast(user, partyMembers, req);
+        await Q.all(partyMembers.map(m => m.save()));
+      } else {
+        if (!party && (!targetId || user._id === targetId)) {
+          partyMembers = user;
+        } else {
+          partyMembers = await User.findOne({_id: targetId, 'party._id': party._id}).select(partyMembersFields).exec();
+        }
+
+        if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
+        spell.cast(user, partyMembers, req);
+        await partyMembers.save();
+      }
+
+      if (party && !spell.silent) {
+        let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
+        party.sendChat(message);
+        await party.save();
+      }
+    }
+
+    user.getTransformedData(function (err, transformedUser) {
+      if (err) next(err);
+      res.json(transformedUser);
+    });
+  } catch (e) {
+    return res.status(500).json({err: 'An error happened'});
   }
 }
 
@@ -594,7 +692,7 @@ api.sessionPartyInvite = function(req,res,next){
   if (!req.session.partyInvite) return next();
   var inv = res.locals.user.invitations;
   if (inv.party && inv.party.id) return next(); // already invited to a party
-  async.waterfall([
+  asyncM.waterfall([
     function(cb){
       Group.findOne({_id:req.session.partyInvite.id, members:{$in:[req.session.partyInvite.inviter]}})
       .select('invites members type').exec(cb);
@@ -646,6 +744,47 @@ api.clearCompleted = function(req, res, next) {
   });
 };
 
+api.sortTask = async function (req, res, next) {
+  try {
+    let user = res.locals.user;
+    let to = Number(req.query.to);
+
+    let task = await Tasks.Task.findOne({
+      _id: req.params.id,
+      userId: user._id,
+    }).exec();
+
+    if (!task) return res.status(404).json(i18n.t('messageTaskNotFound', req.language));
+    if (task.type !== 'todo' || !task.completed) {
+      let order = user.tasksOrder[`${task.type}s`];
+      let currentIndex = order.indexOf(task._id);
+
+      // If for some reason the task isn't ordered (should never happen), push it in the new position
+      // if the task is moved to a non existing position
+      // or if the task is moved to position -1 (push to bottom)
+      // -> push task at end of list
+      if (!order[to] && to !== -1) {
+        order.push(task._id);
+      } else {
+        if (currentIndex !== -1) order.splice(currentIndex, 1);
+        if (to === -1) {
+          order.push(task._id);
+        } else {
+          order.splice(to, 0, task._id);
+        }
+      }
+      await user.save();
+    }
+
+    user.getTasks(function (err, userTasks) {
+      if(err) return next(err);
+      res.json(userTasks);
+    });
+  } catch (e) {
+    res.status(500).json({err: 'An error happened.'});
+  }
+}
+
 api.deleteTask = function(req, res, next) {
   var user = res.locals.user;
   if(!req.params || !req.params.id) return res.json(404, shared.i18n.t('messageTaskNotFound', req.language));
@@ -660,7 +799,7 @@ api.deleteTask = function(req, res, next) {
     removeTaskFromOrder(user.tasksOrder[type])
   });
 
-  async.parallel({
+  asyncM.parallel({
     user: user.save.bind(user),
     task: function(cb) {
       Tasks.Task.remove({_id: id, userId: user._id}, cb);
@@ -789,31 +928,35 @@ api.batchUpdate = function(req, res, next) {
   });
 
   // call all the operations, then return the user object to the requester
-  async.waterfall(ops, function(err,_user) {
+  asyncM.waterfall(ops, function(err,_user) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return next(err);
 
-    var response = _user.toJSON();
-    response.wasModified = res.locals.wasModified;
-
-    user.fns.nullify();
-    user = res.locals.user = oldSend = oldJson = oldSave = null;
+    var response;
 
     // return only drops & streaks
-    if (response._tmp && response._tmp.drop){
+    if (_user._tmp && _user._tmp.drop){
+      response = _user.toJSON();
       res.status(200).json({_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
-    } else if (response.wasModified){
+    } else if (res.locals.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
-      response.todos = shared.preenTodos(response.todos);
-      res.status(200).json(response);
+      _user.getTransformedData(function(err, transformedData){
+        response = transformedData;
 
+        response.todos = shared.preenTodos(response.todos);
+        res.status(200).json(response);
+      });
     // return only the version number
     } else{
+      response = _user.toJSON();
       res.status(200).json({_v: response._v});
     }
+
+    user.fns.nullify();
+    user = res.locals.user = oldSend = oldJson = oldSave = null;
   });
 };
 

@@ -19,6 +19,7 @@ var cron = user.cron;
 var _ = require('lodash');
 var content = require('../../../../common').content;
 var i18n = require('../../libs/api-v2/i18n');
+import getUserLanguage from '../../middlewares/api-v3/getUserLanguage';
 var forceRefresh = require('../../middlewares/forceRefresh').middleware;
 
 module.exports = function(swagger, v2) {
@@ -60,7 +61,7 @@ module.exports = function(swagger, v2) {
         description: "Export user history",
         method: 'GET'
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: dataexport.history
     },
     "/user/tasks/{id}/{direction}": {
@@ -134,7 +135,7 @@ module.exports = function(swagger, v2) {
         description: 'Unlink a task from its challenge',
         parameters: [path("id", "Task ID", "string"), query('keep', "When unlinking a challenge task, how to handle the orphans?", 'string', ['keep', 'keep-all', 'remove', 'remove-all'])]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.unlink
     },
     "/user/inventory/buy": {
@@ -235,7 +236,7 @@ module.exports = function(swagger, v2) {
         method: 'DELETE',
         description: "Delete a user object entirely, USE WITH CAUTION!"
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: user["delete"]
     },
     "/user/revive": {
@@ -311,7 +312,7 @@ module.exports = function(swagger, v2) {
         description: "This is an advanced route which is useful for apps which might for example need offline support. You can send a whole batch of user-based operations, which allows you to queue them up offline and send them all at once. The format is {op:'nameOfOperation',parameters:{},body:{},query:{}}",
         parameters: [body('', 'The array of batch-operations to perform', 'object')]
       },
-      middleware: [forceRefresh, auth.auth, i18n.getUserLanguage, cron, user.sessionPartyInvite],
+      middleware: [forceRefresh, auth.auth, getUserLanguage, cron, user.sessionPartyInvite],
       action: user.batchUpdate
     },
     "/user/tags/{id}:GET": {
@@ -406,7 +407,7 @@ module.exports = function(swagger, v2) {
         description: "Get a list of groups",
         parameters: [query('type', "Comma-separated types of groups to return, eg 'party,guilds,public,tavern'", 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: groups.list
     },
     "/groups:POST": {
@@ -416,7 +417,7 @@ module.exports = function(swagger, v2) {
         description: 'Create a group',
         parameters: [body('', 'Group object (see GroupSchema)', 'object')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: groups.create
     },
     "/groups/{gid}:GET": {
@@ -425,7 +426,7 @@ module.exports = function(swagger, v2) {
         description: "Get a group. The party the user currently is in can be accessed with the gid 'party'.",
         parameters: [path('gid', 'Group ID', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: groups.get
     },
     "/groups/{gid}:POST": {
@@ -435,7 +436,7 @@ module.exports = function(swagger, v2) {
         description: "Edit a group",
         parameters: [body('', 'Group object (see GroupSchema)', 'object')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.update
     },
     "/groups/{gid}/join": {
@@ -444,7 +445,7 @@ module.exports = function(swagger, v2) {
         description: 'Join a group',
         parameters: [path('gid', 'Id of the group to join', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.join
     },
     "/groups/{gid}/leave": {
@@ -453,7 +454,7 @@ module.exports = function(swagger, v2) {
         description: 'Leave a group',
         parameters: [path('gid', 'ID of the group to leave', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.leave
     },
     "/groups/{gid}/invite": {
@@ -462,7 +463,7 @@ module.exports = function(swagger, v2) {
         description: "Invite a user to a group",
         parameters: [path('gid', 'Group id', 'string'), body('', 'a payload of invites either under body.uuids or body.emails, only one of them!', 'object')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.invite
     },
     "/groups/{gid}/removeMember": {
@@ -471,7 +472,7 @@ module.exports = function(swagger, v2) {
         description: "Remove / boot a member from a group",
         parameters: [path('gid', 'Group id', 'string'), query('uuid', 'User id to boot', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.removeMember
     },
     "/groups/{gid}/questAccept": {
@@ -480,7 +481,7 @@ module.exports = function(swagger, v2) {
         description: "Accept a quest invitation",
         parameters: [path('gid', "Group id", 'string'), query('key', "optional. if provided, trigger new invite, if not, accept existing invite", 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.questAccept
     },
     "/groups/{gid}/questReject": {
@@ -489,7 +490,7 @@ module.exports = function(swagger, v2) {
         description: 'Reject quest invitation',
         parameters: [path('gid', 'Group id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.questReject
     },
     "/groups/{gid}/questCancel": {
@@ -498,7 +499,7 @@ module.exports = function(swagger, v2) {
         description: 'Cancel quest before it starts (in invitation stage)',
         parameters: [path('gid', 'Group to cancel quest in', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.questCancel
     },
     "/groups/{gid}/questAbort": {
@@ -507,7 +508,7 @@ module.exports = function(swagger, v2) {
         description: 'Abort quest after it has started (all progress will be lost)',
         parameters: [path('gid', 'Group to abort quest in', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.questAbort
     },
     "/groups/{gid}/questLeave": {
@@ -516,7 +517,7 @@ module.exports = function(swagger, v2) {
         description: 'Leave an active quest (Quest leaders cannot leave active quests. They must abort the quest to leave)',
         parameters: [path('gid', 'Group to leave quest in', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.questLeave
     },
     "/groups/{gid}/chat:GET": {
@@ -525,7 +526,7 @@ module.exports = function(swagger, v2) {
         description: "Get all chat messages",
         parameters: [path('gid', 'Group to return the chat from ', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.getChat
     },
     "/groups/{gid}/chat:POST": {
@@ -535,7 +536,7 @@ module.exports = function(swagger, v2) {
         description: "Send a chat message",
         parameters: [query('message', 'Chat message', 'string'), path('gid', 'Group id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.postChat
     },
     "/groups/{gid}/chat/seen": {
@@ -552,7 +553,7 @@ module.exports = function(swagger, v2) {
         description: 'Delete a chat message in a given group',
         parameters: [path('gid', 'ID of the group containing the message to be deleted', 'string'), path('messageId', 'ID of message to be deleted', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.deleteChatMessage
     },
     "/groups/{gid}/chat/{mid}/like": {
@@ -561,7 +562,7 @@ module.exports = function(swagger, v2) {
         description: "Like a chat message",
         parameters: [path('gid', 'Group id', 'string'), path('mid', 'Message id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.likeChatMessage
     },
     "/groups/{gid}/chat/{mid}/flag": {
@@ -570,7 +571,7 @@ module.exports = function(swagger, v2) {
         description: "Flag a chat message",
         parameters: [path('gid', 'Group id', 'string'), path('mid', 'Message id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.flagChatMessage
     },
     "/groups/{gid}/chat/{mid}/clearflags": {
@@ -579,7 +580,7 @@ module.exports = function(swagger, v2) {
         description: "Clear flag count from message and unhide it",
         parameters: [path('gid', 'Group id', 'string'), path('mid', 'Message id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup],
+      middleware: [auth.auth, getUserLanguage, groups.attachGroup],
       action: groups.clearFlagCount
     },
     "/members/{uuid}:GET": {
@@ -588,7 +589,7 @@ module.exports = function(swagger, v2) {
         description: "Get a member.",
         parameters: [path('uuid', 'Member ID', 'string')]
       },
-      middleware: [i18n.getUserLanguage],
+      middleware: [getUserLanguage],
       action: members.getMember
     },
     "/members/{uuid}/message": {
@@ -620,14 +621,14 @@ module.exports = function(swagger, v2) {
     },
     "/hall/heroes": {
       spec: {},
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: hall.getHeroes
     },
     "/hall/heroes/{uid}:GET": {
       spec: {
         path: "/hall/heroes/{uid}"
       },
-      middleware: [auth.auth, i18n.getUserLanguage, hall.ensureAdmin],
+      middleware: [auth.auth, getUserLanguage, hall.ensureAdmin],
       action: hall.getHero
     },
     "/hall/heroes/{uid}:POST": {
@@ -635,14 +636,14 @@ module.exports = function(swagger, v2) {
         method: 'POST',
         path: "/hall/heroes/{uid}"
       },
-      middleware: [auth.auth, i18n.getUserLanguage, hall.ensureAdmin],
+      middleware: [auth.auth, getUserLanguage, hall.ensureAdmin],
       action: hall.updateHero
     },
     "/hall/patrons": {
       spec: {
         parameters: [query('page', 'Page number to fetch (this list is long)', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: hall.getPatrons
     },
     "/challenges:GET": {
@@ -650,7 +651,7 @@ module.exports = function(swagger, v2) {
         path: '/challenges',
         description: "Get a list of challenges"
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.list
     },
     "/challenges:POST": {
@@ -660,7 +661,7 @@ module.exports = function(swagger, v2) {
         description: "Create a challenge",
         parameters: [body('', 'Challenge object (see ChallengeSchema)', 'object')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.create
     },
     "/challenges/{cid}:GET": {
@@ -669,7 +670,7 @@ module.exports = function(swagger, v2) {
         description: 'Get a challenge',
         parameters: [path('cid', 'Challenge id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.get
     },
     "/challenges/{cid}/csv": {
@@ -686,7 +687,7 @@ module.exports = function(swagger, v2) {
         description: "Update a challenge",
         parameters: [path('cid', 'Challenge id', 'string'), body('', 'Challenge object (see ChallengeSchema)', 'object')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.update
     },
     "/challenges/{cid}:DELETE": {
@@ -696,7 +697,7 @@ module.exports = function(swagger, v2) {
         description: "Delete a challenge",
         parameters: [path('cid', 'Challenge id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges["delete"]
     },
     "/challenges/{cid}/close": {
@@ -705,7 +706,7 @@ module.exports = function(swagger, v2) {
         description: 'Close a challenge',
         parameters: [path('cid', 'Challenge id', 'string'), query('uid', 'User ID of the winner', 'string', true)]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.selectWinner
     },
     "/challenges/{cid}/join": {
@@ -714,7 +715,7 @@ module.exports = function(swagger, v2) {
         description: "Join a challenge",
         parameters: [path('cid', 'Challenge id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.join
     },
     "/challenges/{cid}/leave": {
@@ -723,7 +724,7 @@ module.exports = function(swagger, v2) {
         description: 'Leave a challenge',
         parameters: [path('cid', 'Challenge id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.leave
     },
     "/challenges/{cid}/member/{uid}": {
@@ -731,7 +732,7 @@ module.exports = function(swagger, v2) {
         description: "Get a member's progress in a particular challenge",
         parameters: [path('cid', 'Challenge id', 'string'), path('uid', 'User id', 'string')]
       },
-      middleware: [auth.auth, i18n.getUserLanguage],
+      middleware: [auth.auth, getUserLanguage],
       action: challenges.getMember
     }
   };
@@ -765,7 +766,7 @@ module.exports = function(swagger, v2) {
       method: 'GET'
     });
     if (route.middleware == null) {
-      route.middleware = path.indexOf('/user') === 0 ? [auth.auth, i18n.getUserLanguage, cron] : [i18n.getUserLanguage];
+      route.middleware = path.indexOf('/user') === 0 ? [auth.auth, getUserLanguage, cron] : [i18n.getUserLanguage];
     }
     swagger["add" + route.spec.method](route);
     return true;

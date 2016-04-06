@@ -753,6 +753,15 @@ schema.methods.getTasks = function getUserTasks () {
 // Given user and an array of tasks, return an API compatible user + tasks obj
 schema.methods.addTasksToUser = function addTasksToUser (tasks) {
   let obj = this.toJSON();
+
+  obj.tags = obj.tags.map(tag => {
+    return {
+      id: tag._id,
+      name: tag.name,
+      challenge: tag.challenge,
+    };
+  });
+
   let tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
 
   obj.habits = [];

@@ -1,5 +1,7 @@
 import uuid from '../libs/uuid';
 
+// TODO used only in client, move there?
+
 module.exports = function(user, req, cb) {
   if (user.tags == null) {
     user.tags = [];

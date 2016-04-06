@@ -5,7 +5,7 @@ import {
 
 import { each } from 'lodash';
 
-xdescribe('POST /user/batch-update', () => {
+describe('POST /user/batch-update', () => {
   let user;
 
   beforeEach(async () => {

@@ -373,7 +373,7 @@ api.castSpell = {
       let response = {
         tasks: isUserModified ? _.rest(saved) : saved,
       };
-      if (isUserModified) res.user = user;
+      if (isUserModified) response.user = user;
       res.respond(200, response);
     } else if (targetType === 'party' || targetType === 'user') {
       let party = await Group.getGroup({groupId: 'party', user});

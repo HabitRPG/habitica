@@ -10,7 +10,7 @@ import {
 } from 'lodash';
 import Q from 'q';
 
-xdescribe('DELETE /user', () => {
+describe('DELETE /user', () => {
   let user;
 
   beforeEach(async () => {

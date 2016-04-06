@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../helpers/api-integration/v2';
 
-xdescribe('GET /user/tags/id', () => {
+describe('GET /user/tags/id', () => {
   let user;
 
   beforeEach(async () => {

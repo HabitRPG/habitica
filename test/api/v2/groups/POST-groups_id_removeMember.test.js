@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../helpers/api-integration/v2';
 
-xdescribe('POST /groups/:id/removeMember', () => {
+describe('POST /groups/:id/removeMember', () => {
   context('user is not member of the group', () => {
     it('returns an error');
   });

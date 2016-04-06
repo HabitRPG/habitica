@@ -1,6 +1,8 @@
 import i18n from '../i18n';
 import preenTodos from '../libs/preenTodos';
 
+// TODO used only in client, move there?
+
 module.exports = function(user, req, cb) {
   var from, id, movedTask, preenedTasks, ref, task, tasks, to;
   id = req.params.id;

@@ -1,3 +1,5 @@
+// TODO used only in client, move there?
+
 module.exports = function(user, req, cb) {
   var from, ref, to;
   ref = req.query, to = ref.to, from = ref.from;

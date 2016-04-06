@@ -1,5 +1,7 @@
 import i18n from '../i18n';
 
+// TODO used only in client, move there?
+
 module.exports = function(user, req, cb) {
   var i, ref, task;
   task = user.tasks[(ref = req.params) != null ? ref.id : void 0];

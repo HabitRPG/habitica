@@ -12,6 +12,8 @@ var Q = require('q');
 var utils = require('./../../libs/api-v2/utils');
 var shared = require('../../../../common');
 
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+
 import {
   model as User,
 } from './../../models/user';
@@ -786,28 +788,35 @@ api.removeMember = function(req, res, next){
     return res.status(401).json({err: "You cannot remove yourself!"});
   }
 
-  if(_.contains(group.members, uuid)){
-    var update = {$pull:{members:uuid}};
-    if (group.quest && group.quest.leader === uuid) {
-      update['$set'] = {
-        quest: { key: null, leader: null }
-      };
-    } else if(group.quest && group.quest.members){
-      // remove member from quest
-      update['$unset'] = {};
-      update['$unset']['quest.members.' + uuid] = "";
-    }
-    update['$inc'] = {memberCount: -1};
-    Group.update({_id:group._id},update, function(err, saved){
-      if (err) return next(err);
+  User.findById(uuid, function(err, removedUser){
+    if (err) return next(err);
+    let isMember = group._id === removedUser.party._id || _.contains(removedUser.guilds, group._id);
+    let isInvited = group._id === removedUser.invitations.party._id || !!_.find(removedUser.invitations.guilds, {id: group._id});
 
-      User.findById(uuid, function(err, removedUser){
-        if(err) return next(err);
+    if(isMember){
+      var update = {};
+      if (group.quest && group.quest.leader === uuid) {
+        update['$set'] = {
+          quest: { key: null, leader: null }
+        };
+      } else if(group.quest && group.quest.members){
+        // remove member from quest
+        update['$unset'] = {};
+        update['$unset']['quest.members.' + uuid] = "";
+      }
+      update['$inc'] = {memberCount: -1};
+      Group.update({_id:group._id},update, function(err, saved){
+        if (err) return next(err);
 
         sendMessage(removedUser);
 
         //Mark removed users messages as seen
         var update = {$unset:{}};
+        if (group.type === 'guild') {
+          update.$pull = {guilds: group._id};
+        } else {
+          update.$unset.party = true;
+        }
         update.$unset['newMessages.' + group._id] = '';
         if (group.quest && group.quest.active && group.quest.leader === uuid) {
           update['$inc'] = {};
@@ -820,12 +829,8 @@ api.removeMember = function(req, res, next){
         group = uuid = null;
         return res.sendStatus(204);
       });
-    });
-  }else if(_.contains(group.invites, uuid)){
-    User.findById(uuid, function(err,invited){
-      if(err) return next(err);
-
-      var invitations = invited.invitations;
+    }else if(isInvited){
+      var invitations = removedUser.invitations;
       if(group.type === 'guild'){
         invitations.guilds.splice(_.indexOf(invitations.guilds, group._id), 1);
       }else{
@@ -834,11 +839,8 @@ api.removeMember = function(req, res, next){
 
       async.series([
         function(cb){
-          invited.save(cb);
+          removedUser.save(cb);
         },
-        function(cb){
-          Group.update({_id:group._id},{$pull:{invites:uuid}}, cb);
-        }
       ], function(err, results){
         if (err) return next(err);
 
@@ -848,12 +850,11 @@ api.removeMember = function(req, res, next){
         group = uuid = null;
         return res.sendStatus(204);
       });
-
-    });
-  }else{
-    group = uuid = null;
-    return res.status(400).json({err: "User not found among group's members!"});
-  }
+    }else{
+      group = uuid = null;
+      return res.status(400).json({err: "User not found among group's members!"});
+    }
+  });
 }
 
 // ------------------------------------

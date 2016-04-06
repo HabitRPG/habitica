@@ -1,6 +1,8 @@
 import i18n from '../i18n';
 import _ from 'lodash';
 
+// TODO used only in client, move there?
+
 module.exports = function(user, req, cb) {
   var i, tid;
   tid = req.params.id;
