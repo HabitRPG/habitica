@@ -860,6 +860,11 @@ api.removeMember = function(req, res, next){
 // ------------------------------------
 // Quests
 // ------------------------------------
+function canStartQuestAutomatically (group)  {
+  // If all members are either true (accepted) or false (rejected) return true
+  // If any member is null/undefined (undecided) return false
+  return _.every(group.quest.members, _.isBoolean);
+}
 
 function questStart(req, res, next) {
   var group = res.locals.group;
@@ -975,70 +980,99 @@ api.questAccept = function(req, res, next) {
     if (quest.lvl && user.stats.lvl < quest.lvl) return res.status(400).json({err: "You must be level "+quest.lvl+" to begin this quest."});
     if (group.quest.key) return res.status(400).json({err: 'Your party is already on a quest. Try again when the current quest has ended.'});
     if (!user.items.quests[key]) return res.status(400).json({err: "You don't own that quest scroll"});
-    group.quest.key = key;
-    group.quest.members = {};
-    // Invite everyone. true means "accepted", false="rejected", undefined="pending". Once we click "start quest"
-    // or everyone has either accepted/rejected, then we store quest key in user object.
-    _.each(group.members, function(m){
-      if (m == user._id) {
-        var analyticsData = {
-          category: 'behavior',
-          owner: true,
-          response: 'accept',
-          gaLabel: 'accept',
-          questName: key,
-          uuid: user._id,
-        };
-        analytics.track('quest',analyticsData);
-        group.quest.members[m] = true;
-        group.quest.leader = user._id;
-      } else {
-        User.update({_id:m},{$set: {'party.quest.RSVPNeeded': true, 'party.quest.key': group.quest.key}}).exec();
-        group.quest.members[m] = undefined;
-      }
-    });
 
     User.find({
-      _id: {
-        $in: _.without(group.members, user._id)
+      'party._id': group._id,
+      _id: {$ne: user._id},
+    }).select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
+    .exec().then(members => {
+      group.markModified('quest');
+      group.quest.key = questKey;
+      group.quest.leader = user._id;
+      group.quest.members = {};
+      group.quest.members[user._id] = true;
+
+      user.party.quest.RSVPNeeded = false;
+      user.party.quest.key = questKey;
+
+      return User.update({
+        'party._id': group._id,
+        _id: {$ne: user._id},
+      }, {
+        $set: {
+          'party.quest.RSVPNeeded': true,
+          'party.quest.key': questKey,
+        },
+      }, {multi: true}).exec();
+    }).then(() => {
+      _.each(members, (member) => {
+        group.quest.members[member._id] = null;
+      });
+
+      if (canStartQuestAutomatically(group)) {
+        group.startQuest(user).then(() => {
+          return Q.all([group.save(), user.save()])
+        })
+        .then(results => {
+          results[0].getTransformedData({
+            cb (err, groupTransformed) {
+              if (err) return next(err);
+              res.json(groupTransformed);
+            },
+            populateMembers: group.type === 'party' ? partyFields : nameFields,
+          });
+        })
+        .catch(next);
+
+      } else {
+        Q.all([group.save(), user.save()])
+        .then(results => {
+          results[0].getTransformedData({
+            cb (err, groupTransformed) {
+              if (err) return next(err);
+              res.json(groupTransformed);
+            },
+            populateMembers: group.type === 'party' ? partyFields : nameFields,
+          });
+        })
+        .catch(next);
       }
-    }, {auth: 1, preferences: 1, profile: 1, pushDevices: 1}, function(err, members){
-      if(err) return next(err);
-
-      var inviterVars = utils.getUserInfo(user, ['name', 'email']);
-
-      var membersToEmail = members.filter(function(member){
-        return member.preferences.emailNotifications.invitedQuest !== false;
-      });
-
-      utils.txnEmail(membersToEmail, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
-        {name: 'QUEST_NAME', content: quest.text()},
-        {name: 'INVITER', content: inviterVars.name},
-        {name: 'PARTY_URL', content: '/#/options/groups/party'}
-      ]);
-
-      _.each(members, function(groupMember){
-        pushNotify.sendNotify(groupMember, shared.i18n.t('questInvitationTitle'), shared.i18n.t('questInvitationInfo', { quest: quest.text() }));
-      });
-
-      questStart(req,res,next);
-    });
+    }).catch(next);
 
   // Party member accepting the invitation
   } else {
-    if (!group.quest.key) return res.status(400).json({err:'No quest invitation has been sent out yet.'});
-    var analyticsData = {
-      category: 'behavior',
-      owner: false,
-      response: 'accept',
-      gaLabel: 'accept',
-      questName: group.quest.key,
-      uuid: user._id,
-    };
-    analytics.track('quest',analyticsData);
+    group.markModified('quest');
     group.quest.members[user._id] = true;
-    User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false}}).exec();
-    questStart(req,res,next);
+    user.party.quest.RSVPNeeded = false;
+
+    if (canStartQuestAutomatically(group)) {
+      group.startQuest(user).then(() => {
+        return Q.all([group.save(), user.save()])
+      })
+      .then(results => {
+        results[0].getTransformedData({
+          cb (err, groupTransformed) {
+            if (err) return next(err);
+            res.json(groupTransformed);
+          },
+          populateMembers: group.type === 'party' ? partyFields : nameFields,
+        });
+      })
+      .catch(next);
+
+    } else {
+      Q.all([group.save(), user.save()])
+      .then(results => {
+        results[0].getTransformedData({
+          cb (err, groupTransformed) {
+            if (err) return next(err);
+            res.json(groupTransformed);
+          },
+          populateMembers: group.type === 'party' ? partyFields : nameFields,
+        });
+      })
+      .catch(next);
+    }
   }
 }
 
@@ -1046,84 +1080,102 @@ api.questReject = function(req, res, next) {
   var group = res.locals.group;
   var user = res.locals.user;
 
-  if (!group.quest.key) return res.status(400).json({err:'No quest invitation has been sent out yet.'});
-  var analyticsData = {
-    category: 'behavior',
-    owner: false,
-    response: 'reject',
-    gaLabel: 'reject',
-    questName: group.quest.key,
-    uuid: user._id,
-  };
-  analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
-  User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
-  questStart(req,res,next);
+  group.markModified('quest.members');
+
+  user.party.quest = Group.cleanQuestProgress();
+  user.markModified('party.quest');
+
+  if (canStartQuestAutomatically(group)) {
+    group.startQuest(user).then(() => {
+      return Q.all([group.save(), user.save()])
+    })
+    .then(results => {
+      results[0].getTransformedData({
+        cb (err, groupTransformed) {
+          if (err) return next(err);
+          res.json(groupTransformed);
+        },
+        populateMembers: group.type === 'party' ? partyFields : nameFields,
+      });
+    })
+    .catch(next);
+
+  } else {
+    Q.all([group.save(), user.save()])
+    .then(results => {
+      results[0].getTransformedData({
+        cb (err, groupTransformed) {
+          if (err) return next(err);
+          res.json(groupTransformed);
+        },
+        populateMembers: group.type === 'party' ? partyFields : nameFields,
+      });
+    })
+    .catch(next);
+  }
 }
 
 api.questCancel = function(req, res, next){
+  var group = res.locals.group;
+
+  group.quest = Group.cleanGroupQuest();
+  group.markModified('quest');
+
+  Q.all([
+    group.save(),
+    User.update(
+      {'party._id': groupId},
+      {$set: {'party.quest': Group.cleanQuestProgress()}},
+      {multi: true}
+    ),
+  ]).then(results => {
+    results[0].getTransformedData({
+      cb (err, groupTransformed) {
+        if (err) return next(err);
+        res.json(groupTransformed);
+      },
+      populateMembers: group.type === 'party' ? partyFields : nameFields,
+    });
+  }).catch(next);
+
   // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
   // Quest scroll has not yet left quest owner's inventory so no need to return it.
   // Do not wipe quest progress for members because they'll want it to be applied to the next quest that's started.
-  var group = res.locals.group;
-  async.parallel([
-    function(cb){
-      if (! group.quest.active) {
-        // Do not cancel active quests because this function does
-        // not do the clean-up required for that.
-        // TODO: return an informative error when quest is active
-        group.quest = {key:null,progress:{},leader:null};
-        group.markModified('quest');
-        group.save(cb);
-        _.each(group.members, function(m){
-          User.update({_id:m}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
-        });
-      }
-    }
-  ], function(err){
-    if (err) return next(err);
-    res.json(group);
-    group = null;
-  })
 }
 
 api.questAbort = function(req, res, next){
-  // Abort a quest AFTER it has begun (see questCancel for BEFORE)
   var group = res.locals.group;
-  async.parallel([
-    function(cb){
-      User.update(
-        {_id:{$in: _.keys(group.quest.members)}},
-        {
-          $set: {'party.quest':Group.cleanQuestProgress()},
-          $inc: {_v:1}
-        },
-        {multi:true},
-        cb);
+
+  let memberUpdates = User.update({
+    'party._id': group._id,
+  }, {
+    $set: {'party.quest': Group.cleanQuestProgress()},
+    $inc: {_v: 1}, // TODO update middleware
+  }, {multi: true}).exec();
+
+  let questLeaderUpdate = User.update({
+    _id: group.quest.leader,
+  }, {
+    $inc: {
+      [`items.quests.${group.quest.key}`]: 1, // give back the quest to the quest leader
     },
-    // Refund party leader quest scroll
-    function(cb){
-      if (group.quest.active) {
-        var update = {$inc:{}};
-        update['$inc']['items.quests.' + group.quest.key] = 1;
-        User.update({_id:group.quest.leader}, update).exec();
-      }
-      group.quest = {key:null,progress:{},leader:null};
-      group.markModified('quest');
-      group.save(cb);
-    }, function(cb){
-      populateQuery(group.type, Group.findById(group._id)).exec(cb);
-    }
-  ], function(err, results){
-    if (err) return next(err);
+  }).exec();
 
-    var groupClone = clone(group);
+  group.quest = Group.cleanGroupQuest();
+  group.markModified('quest');
 
-    groupClone.members = results[2].members;
-
-    res.json(groupClone);
-    group = null;
+  Q.all([group.save(), memberUpdates, questLeaderUpdate])
+  .then(results => {
+    results[0].getTransformedData({
+      cb (err, groupTransformed) {
+        if (err) return next(err);
+        res.json(groupTransformed);
+      },
+      populateMembers: group.type === 'party' ? partyFields : nameFields,
+    });
   })
+  .catch(next);
 }
 
 api.questLeave = function(req, res, next) {
@@ -1143,7 +1195,7 @@ api.questLeave = function(req, res, next) {
     return res.status(403).json({ err: 'Quest leader cannot leave quest' });
   }
 
-  delete group.quest.members[user._id];
+  group.quest.members[user._id] = false;
   group.markModified('quest.members');
 
   user.party.quest = Group.cleanQuestProgress();
@@ -1160,7 +1212,6 @@ api.questLeave = function(req, res, next) {
     });
 }
 
-// TODO port to api v3? in tojson?
 function _purgeFlagInfoFromChat(group, user) {
   group.chat = _.filter(group.chat, function(message) { return !message.flagCount || message.flagCount < 2; });
   _.each(group.chat, function (message) {
