@@ -888,4 +888,33 @@ api.userRevive = {
   },
 };
 
+/*
+* @api {post} /user/rebirth Resets a user.
+* @apiVersion 3.0.0
+* @apiName UserRebirth
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user`
+*/
+api.userRebirth = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/rebirth',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let query = {
+      userId: user._id,
+      type: {$in: ['daily', 'habit', 'todo']},
+    };
+    let tasks = await Tasks.Task.find(query).exec();
+    let rebirthResponse = common.ops.rebirth(user, tasks, req, res.analytics);
+
+    await user.save();
+
+    await Q.all(tasks.map(task => task.save()));
+
+    res.respond(200, rebirthResponse);
+  },
+};
+
 module.exports = api;

@@ -158,5 +158,7 @@
   "pathRequired": "Path string is required",
   "unlocked": "Items have been unlocked",
   "alreadyUnlocked": "Item already unlocked",
-  "cannotRevive": "Cannot revive if not dead"
+  "cannotRevive": "Cannot revive if not dead",
+  "rebirthComplete": "You have been reborn!",
+  "petNotOwned": "You do not own this pet."
 }
