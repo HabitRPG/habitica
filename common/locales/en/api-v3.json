@@ -153,5 +153,14 @@
   "invalidEnabled": "the \"enabled\" parameter should be a boolean",
   "petsReleased": "Pets released.",
   "mountsAndPetsReleased": "Mounts and pets released",
-  "mountsReleased": "Mounts released"
+  "mountsReleased": "Mounts released",
+  "typeNotSellable": "Type is not sellable. Must be one of the following <%= acceptedTypes %>",
+  "userItemsKeyNotFound": "Key not found for user.items <%= type %>",
+  "sold": "You sold a <%= key %> <%= type %>",
+  "pathRequired": "Path string is required",
+  "unlocked": "Items have been unlocked",
+  "alreadyUnlocked": "Item already unlocked",
+  "cannotRevive": "Cannot revive if not dead",
+  "rebirthComplete": "You have been reborn!",
+  "petNotOwned": "You do not own this pet."
 }
