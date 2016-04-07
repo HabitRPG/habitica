@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import moment from 'moment';
 import nconf from 'nconf';
 import payments from './index';
-import shared from '../../../../common';
+import shared from '../../../../../common';
 import { model as User } from '../../models/user';
 
 const IS_PROD = nconf.get('NODE_ENV') === 'production';
