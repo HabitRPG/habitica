@@ -18,6 +18,7 @@ var csvStringify = require('csv-stringify');
 var utils = require('../../libs/api-v2/utils');
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
+import Q from 'q';
 
 /*
   ------------------------------------------------------------------------
@@ -25,60 +26,75 @@ var pushNotify = require('./pushNotifications');
   ------------------------------------------------------------------------
 */
 
-api.list = function(req, res, next) {
-  var user = res.locals.user;
-  async.waterfall([
-    function(cb){
-      // Get all available groups I belong to
-      Group.find({members: {$in: [user._id]}}).select('_id').exec(cb);
-    },
-    function(gids, cb){
-      // and their challenges
-      Challenge.find({
-          $or:[
-            {leader: user._id},
-            {members:{$in:[user._id]}}, // all challenges I belong to (is this necessary? thought is a left a group, but not its challenge)
-            {group:{$in:gids}}, // all challenges in my groups
-            {group: 'habitrpg'} // public group
-          ],
-          _id:{$ne:'95533e05-1ff9-4e46-970b-d77219f199e9'} // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug
-        })
-        .select('name leader description group memberCount prize official')
-        .select({members:{$elemMatch:{$in:[user._id]}}})
-        .sort('-official -timestamp')
-        .populate('group', '_id name type')
-        .populate('leader', 'profile.name')
-        .exec(cb);
-    }
-  ], function(err, challenges){
-    if (err) return next(err);
-    _.each(challenges, function(c){
-      c._isMember = c.members.length > 0;
+api.list = async function(req, res, next) {
+  try {
+    var user = res.locals.user;
+
+    let challenges = await Challenge.find({
+      $or: [
+        {_id: {$in: user.challenges}}, // Challenges where the user is participating
+        {group: {$in: user.getGroups()}}, // Challenges in groups where I'm a member
+        {leader: user._id}, // Challenges where I'm the leader
+      ],
+      _id: {$ne: '95533e05-1ff9-4e46-970b-d77219f199e9'}, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug TODO revisit
     })
-    res.json(challenges);
-    user = null;
-  });
+    .sort('-official -timestamp')
+    // .populate('group', basicGroupFields)
+    // .populate('leader', nameFields)
+    .exec();
+
+    let resChals = challenges.map(challenge => {
+      let obj = challenge.toJSON();
+
+      obj._isMember = user.challenges.indexOf(challenge._id) !== -1;
+    });
+    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    await Q.all(resChals.map((chal, index) => {
+      return Q.all([
+        User.findById(chal.leader).select(nameFields).exec(),
+        Group.findById(chal.group).select(basicGroupFields).exec(),
+      ]).then(populatedData => {
+        resChals[index].leader = populatedData[0].toJSON({minimize: true});
+        resChals[index].group = populatedData[1].toJSON({minimize: true});
+      });
+    }));
+
+    res.json(resChals);
+  } catch (err) {
+    next(err);
+  }
 }
 
 // GET
-api.get = function(req, res, next) {
-  var user = res.locals.user;
-  // TODO use mapReduce() or aggregate() here to
-  // 1) Find the sum of users.tasks.values within the challnege (eg, {'profile.name':'tyler', 'sum': 100})
-  // 2) Sort by the sum
-  // 3) Limit 30 (only show the 30 users currently in the lead)
-  Challenge.findById(req.params.cid)
-    .populate('members', 'profile.name _id')
-    .populate('group', '_id name type')
-    .populate('leader', 'profile.name')
-    .exec(function(err, challenge){
-      if(err) return next(err);
-      if (!challenge) return res.status(404).json({err: 'Challenge ' + req.params.cid + ' not found'});
-      challenge._isMember = !!(_.find(challenge.members, function(member) {
-        return member._id === user._id;
-      }));
-      res.json(challenge);
+api.get = async function(req, res, next) {
+  try {
+    let user = res.locals.user;
+    let challengeId = req.params.cid;
+
+    let challenge = await Challenge.findById(challengeId)
+      // Don't populate the group as we'll fetch it manually later
+      // .populate('leader', nameFields)
+      .exec();
+    if (!challenge) return res.status(404).json({err: 'Challenge ' + req.params.cid + ' not found'});
+
+    // Fetching basic group data
+    let group = await Group.getGroup({user, groupId: challenge.group, optionalMembership: true});
+    if (!group || !challenge.canView(user, group)) return res.status(404).json({err: 'Challenge ' + req.params.cid + ' not found'});
+
+    let leaderRes = (await User.findById(challenge.leader).select('profile.name').exec()).toJSON({minimize: true});
+
+    challenge.getTransformedData({
+      populateMembers: 'profile.name',
+      cb (err, transformedChal) {
+        transformedChal.group = group.toJSON({minimize: true});
+        transformedChal.leader = leaderRes;
+        transformedChal._isMember = user.challenges.indexOf(transformedChal._id) !== -1;
+        res.json(transformedChal);
+      }
     });
+  } catch (err) {
+    next(err);
+  }
 }
 
 api.csv = function(req, res, next) {
@@ -166,65 +182,72 @@ api.getMember = function(req, res, next) {
 }
 
 // CREATE
-api.create = function(req, res, next){
-  var user = res.locals.user;
+api.create = async function(req, res, next){
+  try {
+    var user = res.locals.user;
 
-  async.auto({
-    get_group: function(cb){
-      var q = {_id:req.body.group};
-      if (req.body.group!='habitrpg') q.members = {$in:[user._id]}; // make sure they're a member of the group
-      Group.findOne(q, cb);
-    },
-    save_chal: ['get_group', function(cb, results){
-      var group = results.get_group,
-        prize = +req.body.prize;
-      if (!group)
-        return cb({code:404, err:"Group." + req.body.group + " not found"});
-      if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id)
-        return cb({code:401, err: "Only the group leader can create challenges"});
-      // If they're adding a prize, do some validation
-      if (prize < 0)
-        return cb({code:401, err: 'Challenge prize must be >= 0'});
-      if (req.body.group=='habitrpg' && prize < 1)
-        return cb({code:401, err: 'Prize must be at least 1 Gem for public challenges.'});
-      if (prize > 0) {
-        var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
-        var prizeCost = prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
-        if (prizeCost > user.balance + groupBalance)
-          return cb("You can't afford this prize. Purchase more gems or lower the prize amount.")
+    let groupId = req.body.group;
+    let prize = req.body.prize;
 
-        if (groupBalance >= prizeCost) {
-          // Group pays for all of prize
-          group.balance -= prizeCost;
-        } else if (groupBalance > 0) {
-          // User pays remainder of prize cost after group
-          var remainder = prizeCost - group.balance;
-          group.balance = 0;
-          user.balance -= remainder;
-        } else {
-          // User pays for all of prize
-          user.balance -= prizeCost;
-        }
+    let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
+    if (!group) return res.status(404).json({err:"Group." + req.body.group + " not found"});
+    if (!group.isMember(user)) return res.status(404).json({err:"Group." + req.body.group + " not found"});
+
+    if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
+      return res.status(401).json({err:"Only the group leader can create challenges"});
+    }
+
+    if (groupId === 'habitrpg' && prize < 1) {
+      return res.status(401).json({err: 'Prize must be at least 1 Gem for public challenges.'})
+    }
+
+    if (prize > 0) {
+      let groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
+      let prizeCost = prize / 4;
+
+      if (prizeCost > user.balance + groupBalance) {
+        return res.status(401).json({err: 'You can\'t afford this prize. Purchase more gems or lower the prize amount.'});
       }
-      req.body.leader = user._id;
-      req.body.official = user.contributor.admin && req.body.official;
-      var chal = new Challenge(req.body); // FIXME sanitize
-      chal.members.push(user._id);
-      chal.save(cb);
-    }],
-    save_group: ['save_chal', function(cb, results){
-      results.get_group.challenges.push(results.save_chal[0]._id);
-      results.get_group.save(cb);
-    }],
-    sync_user: ['save_group', function(cb, results){
-      // Auto-join creator to challenge (see members.push above)
-      results.save_chal[0].syncToUser(user, cb);
-    }]
-  }, function(err, results){
-    if (err) return err.code? res.status(err.code).json(err) : next(err);
-    return res.json(results.save_chal[0]);
-    user = null;
-  })
+
+      if (groupBalance >= prizeCost) {
+        // Group pays for all of prize
+        group.balance -= prizeCost;
+      } else if (groupBalance > 0) {
+        // User pays remainder of prize cost after group
+        let remainder = prizeCost - group.balance;
+        group.balance = 0;
+        user.balance -= remainder;
+      } else {
+        // User pays for all of prize
+        user.balance -= prizeCost;
+      }
+    }
+
+    group.challengeCount += 1;
+
+    req.body.leader = user._id;
+    req.body.official = user.contributor.admin && req.body.official;
+    let challenge = new Challenge(Challenge.sanitize(req.body));
+
+    // First validate challenge so we don't save group if it's invalid (only runs sync validators)
+    let challengeValidationErrors = challenge.validateSync();
+    if (challengeValidationErrors) throw challengeValidationErrors;
+
+    let results = await Q.all([challenge.save({
+      validateBeforeSave: false, // already validate
+    }), group.save()]);
+    let savedChal = results[0];
+
+    await savedChal.syncToUser(user); // (it also saves the user)
+
+    savedChal.getTransformedData({
+      cb (err, transformedChal) {
+        res.status(201).json(transformedChal);
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
 }
 
 // UPDATE
