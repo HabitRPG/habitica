@@ -124,6 +124,7 @@ import releaseMounts from './ops/releaseMounts';
 import sell from './ops/sell';
 import unlock from './ops/unlock';
 import revive from './ops/revive';
+import rebirth from './ops/rebirth';
 
 api.ops = {
   scoreTask,
@@ -149,6 +150,7 @@ api.ops = {
   sell,
   unlock,
   revive,
+  rebirth,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';
