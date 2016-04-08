@@ -358,6 +358,10 @@ gulp.task('test:api-v3:integration', (done) => {
   pipe(runner);
 });
 
+gulp.task('test:api-v3:integration:watch', () => {
+  gulp.watch(['website/src/controllers/api-v3/**/*', 'test/api/v3/integration/**/*', 'common/script/ops/*'], ['test:api-v3:integration']);
+});
+
 gulp.task('test:api-v3:integration:separate-server', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/integration --recursive', 'LOAD_SERVER=0'),
