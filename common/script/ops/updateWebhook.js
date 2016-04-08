@@ -1,9 +1,16 @@
-import _ from 'lodash';
+import validator from 'validator';
+import i18n from '../i18n';
+import {
+  BadRequest,
+} from '../libs/errors';
 
-module.exports = function(user, req, cb) {
-  _.merge(user.preferences.webhooks[req.params.id], req.body);
-  if (typeof user.markModified === "function") {
-    user.markModified('preferences.webhooks');
-  }
-  return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+module.exports = function updateWebhook (user, req) {
+  if (!validator.isURL(req.body.url)) throw new BadRequest(i18n.t('invalidUrl', req.language));
+  if (!validator.isBoolean(req.body.enabled)) throw new BadRequest(i18n.t('invalidEnabled', req.language));
+
+  user.markModified('preferences.webhooks');
+  user.preferences.webhooks[req.params.id].url = req.body.url;
+  user.preferences.webhooks[req.params.id].enabled = req.body.enabled;
+
+  return user.preferences.webhooks[req.params.id];
 };

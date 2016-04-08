@@ -103,11 +103,18 @@ import purchase from './ops/purchase';
 import purchaseHourglass from './ops/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
+import addWebhook from './ops/addWebhook';
+import updateWebhook from './ops/updateWebhook';
+import deleteWebhook from './ops/deleteWebhook';
 import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
 import updateTask from './ops/updateTask';
 import clearCompleted from './ops/clearCompleted';
+import sell from './ops/sell';
+import unlock from './ops/unlock';
+import revive from './ops/revive';
+import rebirth from './ops/rebirth';
 
 api.ops = {
   scoreTask,
@@ -127,11 +134,18 @@ api.ops = {
   purchaseHourglass,
   readCard,
   openMysteryItem,
+  addWebhook,
+  updateWebhook,
+  deleteWebhook,
   releasePets,
   releaseBoth,
   releaseMounts,
   updateTask,
   clearCompleted,
+  sell,
+  unlock,
+  revive,
+  rebirth,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

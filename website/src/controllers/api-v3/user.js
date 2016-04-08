@@ -769,7 +769,64 @@ api.userOpenMysteryItem = {
 };
 
 /**
-* @api {post} /user/release-pets Releases pets.
+ * @api {post} /user/webhook
+ * @apiVersion 3.0.0
+ * @apiName UserAddWebhook
+ * @apiGroup User
+ * @apiSuccess {}
+ **/
+api.addWebhook = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/webhook',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let result = common.ops.addWebhook(user, req);
+    await user.save();
+    res.respond(200, result);
+  },
+};
+
+/**
+ * @api {put} /user/webhook/:id
+ * @apiVersion 3.0.0
+ * @apiName UserUpdateWebhook
+ * @apiGroup User
+ * @apiSuccess {}
+ **/
+api.updateWebhook = {
+  method: 'PUT',
+  middlewares: [authWithHeaders()],
+  url: '/user/webhook/:id',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let result = common.ops.updateWebhook(user, req);
+    await user.save();
+    res.respond(200, result);
+  },
+};
+
+/**
+ * @api {delete} /user/webhook/:id
+ * @apiVersion 3.0.0
+ * @apiName UserDeleteWebhook
+ * @apiGroup User
+ * @apiSuccess {}
+ **/
+api.deleteWebhook = {
+  method: 'DELETE',
+  middlewares: [authWithHeaders()],
+  url: '/user/webhook/:id',
+  async handler (req, res) {
+    let user = res.locals.user;
+    common.ops.deleteWebhook(user, req);
+    await user.save();
+    res.respond(200, {});
+  },
+};
+
+
+/* @api {post} /user/release-pets Releases pets.
 * @apiVersion 3.0.0
 * @apiName UserReleasePets
 * @apiGroup User
@@ -825,6 +882,95 @@ api.userReleaseMounts = {
     let releaseMountsResponse = common.ops.releaseMounts(user, req, res.analytics);
     await user.save();
     res.respond(200, releaseMountsResponse);
+  },
+};
+
+/*
+* @api {post} /user/sell/:type/:key Sells user's items.
+* @apiVersion 3.0.0
+* @apiName UserSell
+* @apiGroup User
+*
+* @apiSuccess {Object} data `stats items`
+*/
+api.userSell = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/sell/:type/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let sellResponse = common.ops.sell(user, req);
+    await user.save();
+    res.respond(200, sellResponse);
+  },
+};
+
+/*
+* @api {post} /user/unlock Unlocks items by purchase.
+* @apiVersion 3.0.0
+* @apiName UserUnlock
+* @apiGroup User
+*
+* @apiSuccess {Object} data `purchased preferences items`
+*/
+api.userUnlock = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/unlock',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let unlockResponse = common.ops.unlock(user, req);
+    await user.save();
+    res.respond(200, unlockResponse);
+  },
+};
+
+/**
+* @api {post} /user/revive Revives user from death.
+* @apiVersion 3.0.0
+* @apiName UserRevive
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user.items`
+*/
+api.userRevive = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/revive',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let reviveResponse = common.ops.revive(user, req, res.analytics);
+    await user.save();
+    res.respond(200, reviveResponse);
+  },
+};
+
+/*
+* @api {post} /user/rebirth Resets a user.
+* @apiVersion 3.0.0
+* @apiName UserRebirth
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user`
+*/
+api.userRebirth = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/rebirth',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let query = {
+      userId: user._id,
+      type: {$in: ['daily', 'habit', 'todo']},
+    };
+    let tasks = await Tasks.Task.find(query).exec();
+    let rebirthResponse = common.ops.rebirth(user, tasks, req, res.analytics);
+
+    await user.save();
+
+    await Q.all(tasks.map(task => task.save()));
+
+    res.respond(200, rebirthResponse);
   },
 };
 
