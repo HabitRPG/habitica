@@ -4,12 +4,15 @@
 import swagger from 'swagger-node-express';
 // import shared from '../../../../common';
 import express from 'express';
+import analytics from './analytics';
 
 const v2app = express();
 
 // re-set the view options because they are not inherited from the top level app
 v2app.set('view engine', 'jade');
 v2app.set('views', `${__dirname}/../../../views`);
+
+v2app.use(analytics);
 
 // Custom Directives
 v2app.use('/', require('../../routes/api-v2/auth'));

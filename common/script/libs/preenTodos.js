@@ -2,6 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 // TODO used only in v2 client
+// TODO test
 
 module.exports = function preenTodos (tasks) {
   return _.filter(tasks, (t) => {

@@ -918,6 +918,7 @@ api.batchUpdate = function(req, res, next) {
         return cb();
       };
       if(!api[_req.op]) { return cb(shared.i18n.t('messageUserOperationNotFound', { operation: _req.op })); }
+
       api[_req.op](_req, res, cb);
     });
   })
@@ -944,6 +945,7 @@ api.batchUpdate = function(req, res, next) {
     } else if (res.locals.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
       _user.getTransformedData(function(err, transformedData){
+        if (err) next(err);
         response = transformedData;
 
         response.todos = shared.preenTodos(response.todos);

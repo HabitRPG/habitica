@@ -6,6 +6,7 @@ import moment from 'moment';
 // sending up to the server for performance
 
 // TODO move to client code?
+// TODO test?
 
 const tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 

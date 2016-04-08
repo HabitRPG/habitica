@@ -4,6 +4,8 @@ import _ from 'lodash';
 Are there tags applied?
  */
 
+// TODO move to client
+
 module.exports = function(userTags, taskTags) {
   var arr;
   arr = [];
