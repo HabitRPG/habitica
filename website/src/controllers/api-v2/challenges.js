@@ -233,9 +233,23 @@ api.create = async function(req, res, next){
     let challengeValidationErrors = challenge.validateSync();
     if (challengeValidationErrors) throw challengeValidationErrors;
 
+    req.body.habits = req.body.habits || [];
+    req.body.todos = req.body.todos || [];
+    req.body.dailys = req.body.dailys || [];
+    req.body.rewards = req.body.rewards || [];
+
+    var chalTasks = req.body.habits.concat(req.body.rewards)
+                  .concat(req.body.dailys).concat(req.body.todos);
+
+    chalTasks = tasks.map(function(task) {
+      var newTask = new Tasks[task.type](Tasks.Task.sanitizeCreate(task));
+      newTask.challenge.id = chal._id;
+      return newTask.save();
+    });
+
     let results = await Q.all([challenge.save({
-      validateBeforeSave: false, // already validate
-    }), group.save()]);
+      validateBeforeSave: false, // already validated
+    }), group.save()].concat(chalTasks));
     let savedChal = results[0];
 
     await savedChal.syncToUser(user); // (it also saves the user)
@@ -292,113 +306,48 @@ api.update = function(req, res, next){
   })
 }
 
-/**
- * Called by either delete() or selectWinner(). Will delete the challenge and set the "broken" property on all users' subscribed tasks
- * @param {cid} the challenge id
- * @param {broken} the object representing the broken status of the challenge. Eg:
- *  {broken: 'CHALLENGE_DELETED', id: CHALLENGE_ID}
- *  {broken: 'CHALLENGE_CLOSED', id: CHALLENGE_ID, winner: USER_NAME}
- */
-function closeChal(cid, broken, cb) {
-  var removed;
-  async.waterfall([
-    function(cb2){
-      Challenge.findOneAndRemove({_id:cid}, cb2)
-    },
-    function(_removed, cb2) {
-      removed = _removed;
-      var pull = {'$pull':{}}; pull['$pull'][_removed._id] = 1;
-      Group.findByIdAndUpdate(_removed.group, {new: true}, pull);
-      User.find({_id:{$in: removed.members}}, cb2);
-    },
-    function(users, cb2) {
-      var parallel = [];
-      _.each(users, function(user){
-        var tag = _.find(user.tags, {id:cid});
-        if (tag) tag.challenge = undefined;
-        _.each(user.tasks, function(task){
-          if (task.challenge && task.challenge.id == removed._id) {
-            _.merge(task.challenge, broken);
-          }
-        })
-        parallel.push(function(cb3){
-          user.save(cb3);
-        })
-      })
-      async.parallel(parallel, cb2);
-      removed = null;
-    }
-  ], cb);
-}
+import { _closeChal } from '../api-v3/challenges';
 
 /**
  * Delete & close
  */
-api.delete = function(req, res, next){
-  var user = res.locals.user;
-  var cid = req.params.cid;
+api.delete = async function(req, res, next){
+  try {
+    var user = res.locals.user;
+    var cid = req.params.cid;
 
-  async.waterfall([
-    function(cb){
-      Challenge.findById(cid, cb);
-    },
-    function(chal, cb){
-      if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionDeleteChallenge', req.language));
-      if (chal.group != 'habitrpg') user.balance += chal.prize/4; // Refund gems to user if a non-tavern challenge
-      user.save(cb);
-    },
-    function(save, num, cb){
-      closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
-    }
-  ], function(err){
-    if (err) return next(err);
+    let challenge = await Challenge.findOne({_id: req.params.cid}).exec();
+    if (!challenge) return next('Challenge ' + cid + ' not found');
+    if (!challenge.canModify(user)) return next(shared.i18n.t('noPermissionCloseChallenge'));
+
+    // Close channel in background, some ops are run in the background without `await`ing
+    await _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
     res.sendStatus(200);
-    user = cid = null;
-  });
+  } catch (err) {
+    next(err);
+  }
 }
 
 /**
  * Select Winner & Close
  */
-api.selectWinner = function(req, res, next) {
-  if (!req.query.uid) return res.status(401).json({err: 'Must select a winner'});
-  var user = res.locals.user;
-  var cid = req.params.cid;
-  var chal;
-  async.waterfall([
-    function(cb){
-      Challenge.findById(cid, cb);
-    },
-    function(_chal, cb){
-      chal = _chal;
-      if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionCloseChallenge', req.language));
-      User.findById(req.query.uid, cb)
-    },
-    function(winner, cb){
-      if (!winner) return cb('Winner ' + req.query.uid + ' not found.');
-      _.defaults(winner.achievements, {challenges: []});
-      winner.achievements.challenges.push(chal.name);
-      winner.balance += chal.prize/4;
-      winner.save(cb);
-    },
-    function(saved, num, cb) {
-      if(saved.preferences.emailNotifications.wonChallenge !== false){
-        utils.txnEmail(saved, 'won-challenge', [
-          {name: 'CHALLENGE_NAME', content: chal.name}
-        ]);
-      }
+api.selectWinner = async function(req, res, next) {
+  try {
+    if (!req.query.uid) return res.status(401).json({err: 'Must select a winner'});
 
-      pushNotify.sendNotify(saved, shared.i18n.t('wonChallenge'), chal.name);
+    let challenge = await Challenge.findOne({_id: req.params.cid}).exec();
+    if (!challenge) return next('Challenge ' + cid + ' not found');
+    if (!challenge.canModify(user)) return next(shared.i18n.t('noPermissionCloseChallenge'));
 
-      closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
-    }
-  ], function(err){
-    if (err) return next(err);
-    res.sendStatus(200);
-    user = cid = chal = null;
-  })
+    let winner = await User.findOne({_id: req.params.uid}).exec();
+    if (!winner || winner.challenges.indexOf(challenge._id) === -1) return next('Winner ' + req.query.uid + ' not found.');
+
+    // Close channel in background, some ops are run in the background without `await`ing
+    await _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
+    res.respond(200, {});
+  } catch (err) {
+    next(err);
+  }
 }
 
 api.join = function(req, res, next){

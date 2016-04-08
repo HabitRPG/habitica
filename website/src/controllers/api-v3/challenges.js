@@ -445,7 +445,8 @@ api.updateChallenge = {
 
 // TODO everything here should be moved to a worker
 // actually even for a worker it's probably just too big and will kill mongo
-async function _closeChal (challenge, broken = {}) {
+// Exported because it's used in v2 controller
+export async function _closeChal (challenge, broken = {}) {
   let winner = broken.winner;
   let brokenReason = broken.broken;
 
