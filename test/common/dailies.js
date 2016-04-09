@@ -20,7 +20,7 @@ let repeatWithoutLastWeekday = () => { // eslint-disable-line no-unused-vars
     s: true,
   };
 
-  if (startOfWeek(moment().zone(0)).isoWeekday() === 1) {
+  if (startOfWeek(moment().utcOffset(0)).isoWeekday() === 1) {
     repeat.su = false;
   } else {
     repeat.s = false;

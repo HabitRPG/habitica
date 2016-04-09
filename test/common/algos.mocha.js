@@ -52,7 +52,7 @@ let beforeAfter = (options = {}) => {
   if (options.dayStart) {
     before.preferences.dayStart = after.preferences.dayStart = options.dayStart;
   }
-  before.preferences.timezoneOffset = after.preferences.timezoneOffset = options.timezoneOffset || moment().zone();
+  before.preferences.timezoneOffset = after.preferences.timezoneOffset = options.timezoneOffset || moment().utcOffset();
   before.preferences.timezoneOffsetAtLastCron = after.preferences.timezoneOffsetAtLastCron = before.preferences.timezoneOffset;
   if (options.limitOne) {
     before[`${options.limitOne}s`] = [before[`${options.limitOne}s`][0]];
@@ -154,7 +154,7 @@ let repeatWithoutLastWeekday = () => {
     s: true,
   };
 
-  if (startOfWeek(moment().zone(0)).isoWeekday() === 1) {
+  if (startOfWeek(moment().utcOffset(0)).isoWeekday() === 1) {
     repeat.su = false;
   } else {
     repeat.s = false;
@@ -1464,7 +1464,7 @@ describe('Helper', () => {
   it('calculates the start of the day', () => {
     let fstr = 'YYYY-MM-DD HH: mm: ss';
     let today = '2013-01-01 00: 00: 00';
-    let zone = moment(today).zone();
+    let zone = moment(today).utcOffset();
 
     expect(startOfDay({
       now: new Date(2013, 0, 1, 0),

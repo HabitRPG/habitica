@@ -109,7 +109,7 @@ angular.module('habitrpg')
                         if (MOBILE_APP) Notification.push({type:'text',text:message});
                         else Notification.text(message);
                         // In the case of 200s, they're friendly alert messages like "Your pet has hatched!" - still send the op
-                        if ((err.code && err.code >= 400) || !err.code) return; 
+                        if ((err.code && err.code >= 400) || !err.code) return;
                       }
                       userServices.log({op:k, params: req.params, query:req.query, body:req.body});
                     });
@@ -170,7 +170,7 @@ angular.module('habitrpg')
 
         authenticate: function (uuid, token, cb) {
           if (!!uuid && !!token) {
-            var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
+            var offset = moment().utcOffset(); // eg, 240 - this will be converted on server as -(offset/60)
             $http.defaults.headers.common['x-api-user'] = uuid;
             $http.defaults.headers.common['x-api-key'] = token;
             $http.defaults.headers.common['x-user-timezoneOffset'] = offset;
