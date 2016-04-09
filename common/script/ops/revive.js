@@ -1,72 +1,106 @@
 import content from '../content/index';
 import i18n from '../i18n';
 import _ from 'lodash';
+import {
+  NotAuthorized,
+} from '../libs/errors';
+import splitWhitespace from '../libs/splitWhitespace';
+import randomVal from '../fns/randomVal';
 
-module.exports = function(user, req, cb, analytics) {
-  var analyticsData, base, cl, gearOwned, item, losableItems, lostItem, lostStat;
-  if (!(user.stats.hp <= 0)) {
-    return typeof cb === "function" ? cb({
-      code: 400,
-      message: "Cannot revive if not dead"
-    }) : void 0;
+module.exports = function revive (user, req = {}, analytics) {
+  if (user.stats.hp > 0) {
+    throw new NotAuthorized(i18n.t('cannotRevive', req.language));
   }
+
   _.merge(user.stats, {
     hp: 50,
     exp: 0,
-    gp: 0
+    gp: 0,
   });
+
   if (user.stats.lvl > 1) {
     user.stats.lvl--;
   }
-  lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+
+  let lostStat = randomVal(user, _.reduce(['str', 'con', 'per', 'int'], function findRandomStat (m, k) {
     if (user.stats[k]) {
       m[k] = k;
     }
     return m;
-  }), {}));
+  }, {}));
+
   if (lostStat) {
     user.stats[lostStat]--;
   }
-  cl = user.stats["class"];
-  gearOwned = (typeof (base = user.items.gear.owned).toObject === "function" ? base.toObject() : void 0) || user.items.gear.owned;
-  losableItems = {};
-  _.each(gearOwned, function(v, k) {
-    var itm;
-    if (v) {
-      itm = content.gear.flat['' + k];
+
+  let base = user.items.gear.owned;
+  let gearOwned;
+
+  if (typeof base.toObject === 'function') {
+    gearOwned = base.toObject();
+  } else {
+    gearOwned = user.items.gear.owned;
+  }
+
+  let losableItems = {};
+  let userClass = user.stats.class;
+
+  _.each(gearOwned, function findLosableItems (value, key) {
+    let itm;
+    if (value) {
+      itm = content.gear.flat[key];
+
       if (itm) {
-        if ((itm.value > 0 || k === 'weapon_warrior_0') && (itm.klass === cl || (itm.klass === 'special' && (!itm.specialClass || itm.specialClass === cl)) || itm.klass === 'armoire')) {
-          return losableItems['' + k] = '' + k;
+        let itemHasValueOrWarrior0 = itm.value > 0 || key === 'weapon_warrior_0';
+
+        let itemClassEqualsUserClass = itm.klass === userClass;
+
+        let itemClassSpecial = itm.klass === 'special';
+        let itemNotSpecialOrUserClassIsSpecial = !itm.specialClass || itm.specialClass === userClass;
+        let itemIsSpecial = itemNotSpecialOrUserClassIsSpecial  &&  itemClassSpecial;
+
+        let itemIsArmoire = itm.klass === 'armoire';
+
+        if (itemHasValueOrWarrior0 && (itemClassEqualsUserClass || itemIsSpecial || itemIsArmoire)) {
+          losableItems[key] = key;
+          return losableItems[key];
         }
       }
     }
   });
-  lostItem = user.fns.randomVal(losableItems);
-  if (item = content.gear.flat[lostItem]) {
+
+  let lostItem = randomVal(user, losableItems);
+
+  let message = '';
+  let item = content.gear.flat[lostItem];
+
+  if (item) {
     user.items.gear.owned[lostItem] = false;
+
     if (user.items.gear.equipped[item.type] === lostItem) {
-      user.items.gear.equipped[item.type] = item.type + "_base_0";
+      user.items.gear.equipped[item.type] =  `${item.type}_base_0`;
     }
+
     if (user.items.gear.costume[item.type] === lostItem) {
-      user.items.gear.costume[item.type] = item.type + "_base_0";
+      user.items.gear.costume[item.type] = `${item.type}_base_0`;
     }
+
+    message = i18n.t('messageLostItem', { itemText: item.text(req.language)}, req.language);
   }
-  if (typeof user.markModified === "function") {
-    user.markModified('items.gear');
+
+  if (analytics) {
+    analytics.track('Death', {
+      uuid: user._id,
+      lostItem,
+      gaLabel: lostItem,
+      category: 'behavior',
+    });
   }
-  analyticsData = {
-    uuid: user._id,
-    lostItem: lostItem,
-    gaLabel: lostItem,
-    category: 'behavior'
+
+  let response = {
+    data: _.pick(user, splitWhitespace('user.items')),
+    message,
   };
-  if (analytics != null) {
-    analytics.track('Death', analyticsData);
-  }
-  return typeof cb === "function" ? cb((item ? {
-    code: 200,
-    message: i18n.t('messageLostItem', {
-      itemText: item.text(req.language)
-    }, req.language)
-  } : null), user) : void 0;
+
+  return response;
 };
