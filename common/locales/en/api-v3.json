@@ -104,6 +104,7 @@
   "spellNotFound": "Spell \"<%= spellId %>\" not found.",
   "partyNotFound": "Party not found",
   "targetIdUUID": "\"targetId\" must be a valid UUID.",
+  "invalidUUID": "UUID must be valid",
   "challengeTasksNoCast": "Casting a spell on challenge tasks is not supported.",
   "spellNotOwned": "You don't own this spell.",
   "spellLevelTooHigh": "You must be level <%= level %> to use this spell.",

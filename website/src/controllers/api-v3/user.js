@@ -974,6 +974,63 @@ api.userRebirth = {
   },
 };
 
+/**
+ * @api {post} /user/block/:uuid blocks and unblocks a user
+ * @apiVersion 3.0.0
+ * @apiName BlockUser
+ * @apiGroup User
+ * @apiSuccess {}
+**/
+api.blockUser = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/block/:uuid',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let blocks = common.ops.blockUser(user, req);
+    await user.save();
+    res.respond(200, blocks);
+  },
+};
+
+/**
+ * @api {delete} /user/messages/:id delete this message
+ * @apiVersion 3.0.0
+ * @apiName deleteMessage
+ * @apiGroup User
+ * @apiSuccess {}
+**/
+api.deleteMessage = {
+  method: 'DELETE',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/messages/:id',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let messages = common.ops.deletePM(user, req);
+    await user.save();
+    res.respond(200, messages);
+  },
+};
+
+/**
+ * @api {delete} /user/messages delete all messages
+ * @apiVersion 3.0.0
+ * @apiName clearMessages
+ * @apiGroup User
+ * @apiSuccess {}
+**/
+api.clearMessages = {
+  method: 'DELETE',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/messages',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let PMs = common.ops.clearPMs(user, req);
+    await user.save();
+    res.respond(200, PMs);
+  },
+};
+
 /*
 * @api {post} /user/reroll Rerolls a user.
 * @apiVersion 3.0.0
