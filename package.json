@@ -67,7 +67,7 @@
     "mongoose-id-autoinc": "~2013.7.14-4",
     "morgan": "^1.7.0",
     "nconf": "~0.8.2",
-    "newrelic": "~1.25.0",
+    "newrelic": "~1.26.1",
     "nib": "~1.0.1",
     "nodemailer": "^1.9.0",
     "object-path": "^0.9.2",

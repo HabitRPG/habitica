@@ -11,6 +11,10 @@ import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
 
+const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
+  return { email, canSend: true };
+});
+
 let api = {};
 
 /**
@@ -200,17 +204,6 @@ api.flagChat = {
       update
     );
 
-    let addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
-    addressesToSendTo = typeof addressesToSendTo === 'string' ? JSON.parse(addressesToSendTo) : addressesToSendTo;
-
-    if (Array.isArray(addressesToSendTo)) {
-      addressesToSendTo = addressesToSendTo.map((email) => {
-        return {email, canSend: true};
-      });
-    } else {
-      addressesToSendTo = {email: addressesToSendTo};
-    }
-
     let reporterEmailContent;
     if (user.auth.local) {
       reporterEmailContent = user.auth.local.email;
@@ -234,7 +227,7 @@ api.flagChat = {
       groupUrl = 'party';
     }
 
-    sendTxn(addressesToSendTo, 'flag-report-to-mods', [
+    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
       {name: 'MESSAGE_TEXT', content: message.text},
 

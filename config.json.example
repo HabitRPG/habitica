@@ -29,7 +29,7 @@
         "MWS_KEY": "",
         "MWS_SECRET": ""
     },
-    "FLAG_REPORT_EMAIL": ["email@mod.com"],
+    "FLAG_REPORT_EMAIL": "email@mod.com,email2@mod.com",
     "EMAIL_SERVER": {
         "url": "http://example.com",
         "authUser": "user",

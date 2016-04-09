@@ -25,7 +25,6 @@ if (nconf.get('LOGGLY:enabled')){
 if (logger == null) {
     logger = new (winston.Logger)({});
     if (nconf.get('NODE_ENV') == 'production') {
-        //logger.add(winston.transports.newrelic, {});
         if (!nconf.get('DISABLE_ERROR_EMAILS') && false) {
           logger.add(winston.transports.Mail, {
               to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
