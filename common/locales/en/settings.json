@@ -69,7 +69,7 @@
     "thirdPartyApps": "Third Party Apps",
     "beeminder": "Beeminder",
     "chromeChatExtension": "Chrome Chat Extension",
-    "otherExtensions": "<a target='blank' href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations'>Other Extensions</a>"
+    "otherExtensions": "<a target='blank' href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations'>Other Extensions</a>",
     "resetDo": "Do it, reset my account!",
     "fixValues": "Fix Values",
     "fixValuesText1": "If you've encountered a bug or made a mistake that unfairly changed your character (damage you shouldn't have taken, Gold you didn't really earn, etc.), you can manually correct your numbers here. Yes, this makes it possible to cheat: use this feature wisely, or you'll sabotage your own habit-building!",
