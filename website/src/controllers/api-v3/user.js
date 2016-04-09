@@ -974,4 +974,34 @@ api.userRebirth = {
   },
 };
 
+/*
+* @api {post} /user/reroll Rerolls a user.
+* @apiVersion 3.0.0
+* @apiName UserReroll
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user`
+*/
+api.userReroll = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/reroll',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let query = {
+      userId: user._id,
+      type: {$in: ['daily', 'habit', 'todo']},
+    };
+    let tasks = await Tasks.Task.find(query).exec();
+    let rerollResponse = common.ops.reroll(user, tasks, req, res.analytics);
+
+    let promises = tasks.map(task => task.save());
+    promises.push(user.save());
+
+    await Q.all(promises);
+
+    res.respond(200, rerollResponse);
+  },
+};
+
 module.exports = api;

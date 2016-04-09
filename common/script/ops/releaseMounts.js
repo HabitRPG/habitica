@@ -4,6 +4,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import splitWhitespace from '../libs/splitWhitespace';
+import _ from 'lodash';
 
 module.exports = function releaseMounts (user, req = {}, analytics) {
   let mount;
@@ -29,7 +30,7 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
       uuid: user._id,
       acquireMethod: 'Gems',
       gemCost: 4,
-      category: 'behavior'
+      category: 'behavior',
     });
   }
 

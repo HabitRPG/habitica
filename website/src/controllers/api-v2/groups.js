@@ -43,6 +43,8 @@ var partyFields = api.partyFields = 'profile preferences stats achievements part
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
+const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => {return {email, canSend: true}});
+
 /**
  * For parties, we want a lot of member details so we can show their avatars in the header. For guilds, we want very
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
@@ -403,18 +405,8 @@ api.flagChatMessage = function(req, res, next){
       'chat.$.flagCount': message.flagCount,
     }}, function(err) {
       if (err) return next(err);
-      var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
-      addressesToSendTo = (typeof addressesToSendTo == 'string') ? JSON.parse(addressesToSendTo) : addressesToSendTo;
 
-      if(Array.isArray(addressesToSendTo)){
-        addressesToSendTo = addressesToSendTo.map(function(email){
-          return {email: email, canSend: true}
-        });
-      }else{
-        addressesToSendTo = {email: addressesToSendTo}
-      }
-
-      utils.txnEmail(addressesToSendTo, 'flag-report-to-mods', [
+      utils.txnEmail(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
         {name: "MESSAGE_TIME", content: (new Date(message.timestamp)).toString()},
         {name: "MESSAGE_TEXT", content: message.text},
 

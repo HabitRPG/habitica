@@ -118,6 +118,14 @@ let armor = {
     set: 'miner',
     canOwn: ownsItem('armor_armoire_minerOveralls'),
   },
+  basicArcherArmor: {
+    text: t('armorArmoireBasicArcherArmorText'),
+    notes: t('armorArmoireBasicArcherArmorNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'basicArcher',
+    canOwn: ownsItem('armor_armoire_basicArcherArmor'),
+  },
 };
 
 let eyewear = {
@@ -314,6 +322,14 @@ let head = {
     set: 'miner',
     canOwn: ownsItem('head_armoire_minerHelmet'),
   },
+  basicArcherCap: {
+    text: t('headArmoireBasicArcherCapText'),
+    notes: t('headArmoireBasicArcherCapNotes', { per: 6 }),
+    value: 100,
+    per: 6,
+    set: 'basicArcher',
+    canOwn: ownsItem('head_armoire_basicArcherCap'),
+  },
 };
 
 let shield = {
@@ -358,6 +374,15 @@ let shield = {
     value: 100,
     per: 15,
     canOwn: ownsItem('shield_armoire_mysticLamp'),
+  },
+};
+
+let headAccessory = {
+  comicalArrow: {
+    text: t('headAccessoryArmoireComicalArrowText'),
+    notes: t('headAccessoryArmoireComicalArrowNotes'),
+    value: 100,
+    canOwn: ownsItem('headAccessory_armoire_comicalArrow'),
   },
 };
 
@@ -476,6 +501,7 @@ let weapon = {
     value: 100,
     int: 8,
     per: 8,
+    set: 'jester',
     canOwn: ownsItem('weapon_armoire_jesterBaton'),
   },
   miningPickax: {
@@ -483,7 +509,17 @@ let weapon = {
     notes: t('weaponArmoireMiningPickaxNotes', { per: 15 }),
     value: 100,
     per: 15,
+    set: 'miner',
     canOwn: ownsItem('weapon_armoire_miningPickax'),
+  },
+  basicLongbow: {
+    text: t('weaponArmoireBasicLongbowText'),
+    notes: t('weaponArmoireBasicLongbowNotes', { str: 6 }),
+    value: 100,
+    str: 6,
+    twoHanded: true,
+    set: 'basicArcher',
+    canOwn: ownsItem('weapon_armoire_basicLongbow'),
   },
 };
 
@@ -491,6 +527,7 @@ let armoireSet = {
   armor,
   eyewear,
   head,
+  headAccessory,
   shield,
   weapon,
 };
