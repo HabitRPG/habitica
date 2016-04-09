@@ -503,7 +503,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
 
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized
-  group.sendChat(`\`${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage, ${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.\``);
+  group.sendChat(`\`${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.\` \`${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.\``);
 
   // If boss has Rage, increment Rage as well
   if (quest.boss.rage) {

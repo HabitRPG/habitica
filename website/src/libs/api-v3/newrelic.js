@@ -9,7 +9,7 @@ const nconf = require('nconf');
 // more info here https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration
 
 exports.config = {
-  app_name: ['Habitica'], // eslint-disable-line camelcase
+  app_name: nconf.get('NEW_RELIC_APP_NAME'), // eslint-disable-line camelcase
   license_key: nconf.get('NEW_RELIC_LICENSE_KEY'), // eslint-disable-line camelcase
   logging: {
     /**
