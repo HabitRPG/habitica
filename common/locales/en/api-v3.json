@@ -162,5 +162,6 @@
   "alreadyUnlocked": "Item already unlocked",
   "cannotRevive": "Cannot revive if not dead",
   "rebirthComplete": "You have been reborn!",
-  "petNotOwned": "You do not own this pet."
+  "petNotOwned": "You do not own this pet.",
+  "rerollComplete": "Reroll complete!"
 }

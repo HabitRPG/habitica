@@ -128,6 +128,7 @@ import sell from './ops/sell';
 import unlock from './ops/unlock';
 import revive from './ops/revive';
 import rebirth from './ops/rebirth';
+import reroll from './ops/reroll';
 
 api.ops = {
   scoreTask,
@@ -157,6 +158,7 @@ api.ops = {
   unlock,
   revive,
   rebirth,
+  reroll,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

@@ -4,6 +4,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import splitWhitespace from '../libs/splitWhitespace';
+import _ from 'lodash';
 
 module.exports = function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {
@@ -27,7 +28,7 @@ module.exports = function releasePets (user, req = {}, analytics) {
       uuid: user._id,
       acquireMethod: 'Gems',
       gemCost: 4,
-      category: 'behavior'
+      category: 'behavior',
     });
   }
 

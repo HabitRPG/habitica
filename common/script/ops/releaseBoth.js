@@ -4,6 +4,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import splitWhitespace from '../libs/splitWhitespace';
+import _ from 'lodash';
 
 module.exports = function releaseBoth (user, req = {}, analytics) {
   let animal;
@@ -20,15 +21,15 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
         uuid: user._id,
         acquireMethod: 'Gems',
         gemCost: 6,
-        category: 'behavior'
+        category: 'behavior',
       });
     }
 
     user.balance -= 1.5;
   }
 
-  user.items.currentMount = "";
-  user.items.currentPet = "";
+  user.items.currentMount = '';
+  user.items.currentPet = '';
 
   for (animal in content.pets) {
     if (user.items.pets[animal] === -1) {
