@@ -6,13 +6,13 @@ habitrpg.controller("InboxCtrl", ['$scope', '$rootScope',
         var taskNotes = env.t("taskFromInbox",  {
           from: message.uuid == 'system'
             ? 'system'
-            : '[' + message.user + ']',
-          message: '[' + message.text + ']'
+            : message.user,
+          message: message.text
         });
         var taskText = env.t("taskTextFromInbox", {
           from: message.uuid == 'system'
             ? 'system'
-            : '[' + message.user + ']'
+            :  message.user
         });
 
         var newScope = $scope.$new();
