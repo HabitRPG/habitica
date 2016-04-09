@@ -1,5 +1,4 @@
 // Logger utility
-// TODO remove winston-mail and winston-newrelic if not used
 import winston from 'winston';
 import nconf from 'nconf';
 
