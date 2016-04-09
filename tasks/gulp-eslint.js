@@ -24,11 +24,8 @@ const COMMON_FILES = [
   '!./common/script/libs/gold.js',
   '!./common/script/libs/newChatMessages.js',
   '!./common/script/libs/noTags.js',
-  '!./common/script/libs/percent.js',
   '!./common/script/libs/planGemLimits.js',
   '!./common/script/libs/silver.js',
-  '!./common/script/libs/splitWhitespace.js',
-  '!./common/script/libs/taskClasses.js',
   '!./common/script/public/**/*.js',
 ];
 const TEST_FILES = [
