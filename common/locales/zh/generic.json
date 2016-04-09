@@ -137,6 +137,8 @@
     "achievementStressbeastText": "在2014冬季仙境事件中协助战胜可恶的压力野兽！",
     "achievementBurnout": "全盛田野的救护者",
     "achievementBurnoutText": "在2015秋季节事件中打败了疲惫魔，复原了锻炼精魂！",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "看一下我在Habitica的进步！",
     "cardReceived": "收到一个卡片！",
     "cardReceivedFrom": "来自 <%= userName %> 的 <%= cardType %> ",

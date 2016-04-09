@@ -146,12 +146,19 @@
     "backgroundCozyLibraryText": "Biblioteca",
     "backgroundCozyLibraryNotes": "Leggi in un'accogliente biblioteca.",
     "backgroundGrandStaircaseText": "Grande Scalone",
-    "backgroundGrandStaircaseNotes": "Discendi il Grande Scalone",
+    "backgroundGrandStaircaseNotes": "Discendi delle maestose scale.",
     "backgrounds032016": "SERIE 22: Marzo 2016",
     "backgroundDeepMineText": "Miniera Profonda",
     "backgroundDeepMineNotes": "Trova metalli preziosi in una profonda miniera.",
     "backgroundRainforestText": "Foresta Pluviale",
     "backgroundRainforestNotes": "Avventurati in una foresta pluviale.",
     "backgroundStoneCircleText": "Cerchio di Pietre",
-    "backgroundStoneCircleNotes": "Lancia incantesimi all'interno di un Cerchio di Pietre."
+    "backgroundStoneCircleNotes": "Lancia incantesimi all'interno di un Cerchio di Pietre.",
+    "backgrounds042016": "SET 23: Released April 2016",
+    "backgroundArcheryRangeText": "Archery Range",
+    "backgroundArcheryRangeNotes": "Practice on the Archery Range.",
+    "backgroundGiantFlowersText": "Giant Flowers",
+    "backgroundGiantFlowersNotes": "Frolic atop Giant Flowers.",
+    "backgroundRainbowsEndText": "End of the Rainbow",
+    "backgroundRainbowsEndNotes": "Discover gold at the End of the Rainbow."
 }

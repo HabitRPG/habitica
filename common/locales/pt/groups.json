@@ -101,7 +101,7 @@
     "inbox": "Caixa de Entrada",
     "abuseFlag": "Reportar violação das Diretrizes de Comunidade",
     "abuseFlagModalHeading": "Reportar <%= name %> por violação?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Tem certeza que deseja denunciar essa publicação? Você deve denunciar APENAS uma publicação que viola as <%= firstLinkStart %>Diretrizes de Comunidade<%= linkEnd %> e/ou <%= secondLinkStart %>Termos de Serviço<%= linkEnd %>. Denunciar inapropriadamente uma publicação é uma violação das Diretrizes da Comunidade e pode resultar em uma infração. Razões apropriadas para reportar uma publicação incluem, mas não se limitam a: <br><br><ul style='margin-left: 10px;'><li>xingamentos, blasfêmias religiosas</li><li>intolerância, insultos</li><li>tópicos adultos</li><li>violência, inclusive como brincadeira</li><li>spam, mensagens sem sentido</li></ul>",
     "abuseFlagModalButton": "Reportar Violação",
     "abuseReported": "Obrigado por reportar essa violação. Os moderadores já foram notificados.",
     "abuseAlreadyReported": "Você já reportou essa mensagem.",

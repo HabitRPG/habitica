@@ -137,6 +137,8 @@
     "achievementStressbeastText": "¡Ayudó a vencer a la Abominable Bestia del Estrés durante el Evento Winter Wonderland 2014!",
     "achievementBurnout": "Salvador de los Campos Florecientes",
     "achievementBurnoutText": "¡Ayudó a vencer a Burnout y a recuperar a los Espíritus Consumidos durante el Festival de Otoño 2015!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "¡Echa un vistazo a mi progreso en Habitica!",
     "cardReceived": "¡Recibiste una tarjeta! ",
     "cardReceivedFrom": "<%= cardType %> de <%= userName %>",
