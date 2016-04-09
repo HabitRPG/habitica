@@ -1,32 +1,44 @@
 import content from '../content/index';
+import i18n from '../i18n';
+import {
+  BadRequest,
+} from '../libs/errors';
+import _ from 'lodash';
 
-module.exports = function(user, req, cb, analytics) {
-  var analyticsData, item, ref, ref1;
-  item = (ref = user.purchased.plan) != null ? (ref1 = ref.mysteryItems) != null ? ref1.shift() : void 0 : void 0;
+module.exports = function openMysteryItem (user, req = {}, analytics) {
+  let item = user.purchased.plan.mysteryItems.shift();
+
   if (!item) {
-    return typeof cb === "function" ? cb({
-      code: 400,
-      message: "Empty"
-    }) : void 0;
+    throw new BadRequest(i18n.t('mysteryItemIsEmpty', req.language));
   }
-  item = content.gear.flat[item];
-  user.items.gear.owned[item.key] = true;
-  if (typeof user.markModified === "function") {
-    user.markModified('purchased.plan.mysteryItems');
-  }
+
+  item = _.cloneDeep(content.gear.flat[item]);
   item.notificationType = 'Mystery';
-  analyticsData = {
-    uuid: user._id,
-    itemKey: item,
-    itemType: 'Subscriber Gear',
-    acquireMethod: 'Subscriber',
-    category: 'behavior'
-  };
-  if (analytics != null) {
-    analytics.track('open mystery item', analyticsData);
+  user.items.gear.owned[item.key] = true;
+
+  user.markModified('purchased.plan.mysteryItems');
+
+  if (analytics) {
+    analytics.track('open mystery item', {
+      uuid: user._id,
+      itemKey: item,
+      itemType: 'Subscriber Gear',
+      acquireMethod: 'Subscriber',
+      category: 'behavior',
+    });
   }
+
   if (typeof window !== 'undefined') {
-    (user._tmp != null ? user._tmp : user._tmp = {}).drop = item;
+    if (!user._tmp) user._tmp = {};
+    user._tmp.drop = item;
   }
-  return typeof cb === "function" ? cb(null, user.items.gear.owned) : void 0;
+
+  if (req.v2 === true) {
+    return user.items.gear.owned;
+  } else {
+    return {
+      message: i18n.t('mysteryItemOpened', req.language),
+      data: user.items.gear.owned,
+    };
+  }
 };

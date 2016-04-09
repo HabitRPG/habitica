@@ -113,7 +113,7 @@
     "hourglassBuyItemConfirm": "Buy this item for 1 Mystic Hourglass?",
     "petsAlreadyOwned": "Pet already owned.",
     "mountsAlreadyOwned": "Mount already owned.",
-    "typeNotAllowedHourglass": "Item type not supported for purchase with Mystic Hourglass. Allowed types: ",
+    "typeNotAllowedHourglass": "Item type not supported for purchase with Mystic Hourglass. Allowed types: <%= allowedTypes %>",
     "petsNotAllowedHourglass": "Pet not available for purchase with Mystic Hourglass.",
     "mountsNotAllowedHourglass": "Mount not available for purchase with Mystic Hourglass.",
     "hourglassPurchase": "Purchased an item using a Mystic Hourglass!",

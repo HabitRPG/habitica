@@ -32,7 +32,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
             .form-horizontal
               h5=env.t('language')
-              select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
+              select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in availableLanguages', ng-change='changeLanguage()')
               small
                 !=env.t('americanEnglishGovern')
                 br

@@ -3,25 +3,36 @@ import eslint from 'gulp-eslint';
 
 const SERVER_FILES = [
   './website/src/**/api-v3/**/*.js',
-  // Comment these out in develop, uncomment them in api-v3
-  // './website/src/models/user.js',
-  // './website/src/server.js'
+  './website/src/models/**',
+  './website/src/server.js',
 ];
 const COMMON_FILES = [
   './common/script/**/*.js',
   // @TODO remove these negations as the files are converted over.
-  '!./common/script/index.js',
   '!./common/script/content/index.js',
-  '!./common/script/ops/**/*.js',
-  '!./common/script/fns/**/*.js',
-  '!./common/script/libs/**/*.js',
+  '!./common/script/ops/addPushDevice.js',
+  '!./common/script/ops/blockUser.js',
+  '!./common/script/ops/clearPMs.js',
+  '!./common/script/ops/deletePM.js',
+  '!./common/script/ops/reset.js',
+  '!./common/script/fns/crit.js',
+  '!./common/script/fns/randomDrop.js',
+  '!./common/script/libs/appliedTags.js',
+  '!./common/script/libs/countExists.js',
+  '!./common/script/libs/encodeiCalLink.js',
+  '!./common/script/libs/friendlyTimestamp.js',
+  '!./common/script/libs/gold.js',
+  '!./common/script/libs/newChatMessages.js',
+  '!./common/script/libs/noTags.js',
+  '!./common/script/libs/planGemLimits.js',
+  '!./common/script/libs/silver.js',
   '!./common/script/public/**/*.js',
 ];
 const TEST_FILES = [
   './test/**/*.js',
   // @TODO remove these negations as the test files are cleaned up.
   '!./test/api-legacy/**/*',
-  '!./test/common/simulations/**/*',
+  '!./test/common_old/simulations/**/*',
   '!./test/content/**/*',
   '!./test/server_side/**/*',
   '!./test/spec/**/*',

@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var shared = require('../../../../common');
 var nconf = require('nconf');
-var utils = require('./../../libs/utils');
+var utils = require('./../../libs/api-v2/utils');
 var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
@@ -12,7 +12,7 @@ var async = require('async');
 var iap = require('./iap');
 var mongoose= require('mongoose');
 var cc = require('coupon-code');
-var pushNotify = require('./../pushNotifications');
+var pushNotify = require('./../api-v2/pushNotifications');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {

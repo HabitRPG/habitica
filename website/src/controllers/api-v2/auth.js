@@ -3,14 +3,19 @@ var validator = require('validator');
 var passport = require('passport');
 var shared = require('../../../../common');
 var async = require('async');
-var utils = require('../../libs/utils');
+var utils = require('../../libs/api-v2/utils');
 var nconf = require('nconf');
 var request = require('request');
 var FirebaseTokenGenerator = require('firebase-token-generator');
-var User = require('../../models/user').model;
-var EmailUnsubscription = require('../../models/emailUnsubscription').model;
+import {
+  model as User,
+} from '../../models/user';
+import {
+  model as EmailUnsubscription,
+} from '../../models/emailUnsubscription';
+
 var analytics = utils.analytics;
-var i18n = require('./../../libs/i18n');
+var i18n = require('./../../libs/api-v2/i18n');
 
 var isProd = nconf.get('NODE_ENV') === 'production';
 
@@ -53,6 +58,7 @@ api.authWithSession = function(req, res, next) { //[todo] there is probably a mo
   });
 };
 
+// TODO passing auth params as query params is not safe as they are logged by browser history, ...
 api.authWithUrl = function(req, res, next) {
   User.findOne({_id:req.query._id, apiToken:req.query.apiToken}, function(err,user){
     if (err) return next(err);
@@ -137,14 +143,12 @@ api.registerUser = function(req, res, next) {
     }]
   }, function(err, data) {
     if (err) return err.code ? res.status(err.code).json(err) : next(err);
-    res.status(200).json(data.register[0]);
+    data.register[0].getTransformedData(function(err, userTransformed){
+      if(err) return next(err);
+      res.status(200).json(userTransformed);
+    });
   });
 };
-
-/*
- Register new user with uname / password
- */
-
 
 api.loginLocal = function(req, res, next) {
   var username = req.body.username;
@@ -347,7 +351,8 @@ api.changePassword = function(req, res, next) {
   })
 };
 
-var firebaseTokenGeneratorInstance = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
+// DISABLED FOR API v2
+/*var firebaseTokenGeneratorInstance = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
 api.getFirebaseToken = function(req, res, next) {
   var user = res.locals.user;
   // Expires 24 hours after now (60*60*24*1000) (in milliseconds)
@@ -366,13 +371,10 @@ api.getFirebaseToken = function(req, res, next) {
     token: token,
     expires: expires
   });
-};
+};*/
 
-/*
- Registers a new user. Only accepting username/password registrations, no Facebook
-*/
-
-api.setupPassport = function(router) {
+// DISABLED FOR API v2
+/*api.setupPassport = function(router) {
 
   router.get('/logout', i18n.getUserLanguage, function(req, res) {
     req.logout();
@@ -380,4 +382,4 @@ api.setupPassport = function(router) {
     res.redirect('/');
   })
 
-};
+};*/

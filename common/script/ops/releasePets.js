@@ -1,32 +1,45 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import {
+  NotAuthorized,
+} from '../libs/errors';
+import splitWhitespace from '../libs/splitWhitespace';
+import _ from 'lodash';
 
-module.exports = function(user, req, cb, analytics) {
-  var analyticsData, pet;
+module.exports = function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {
-    return typeof cb === "function" ? cb({
-      code: 401,
-      message: i18n.t('notEnoughGems', req.language)
-    }) : void 0;
-  } else {
-    user.balance -= 1;
-    for (pet in content.pets) {
-      user.items.pets[pet] = 0;
-    }
-    if (!user.achievements.beastMasterCount) {
-      user.achievements.beastMasterCount = 0;
-    }
-    user.achievements.beastMasterCount++;
-    user.items.currentPet = "";
+    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
-  analyticsData = {
-    uuid: user._id,
-    acquireMethod: 'Gems',
-    gemCost: 4,
-    category: 'behavior'
+
+  user.balance -= 1;
+  user.items.currentPet = '';
+
+  for (let pet in content.pets) {
+    user.items.pets[pet] = 0;
+  }
+
+  if (!user.achievements.beastMasterCount) {
+    user.achievements.beastMasterCount = 0;
+  }
+  user.achievements.beastMasterCount++;
+
+  if (analytics) {
+    analytics.track('release pets', {
+      uuid: user._id,
+      acquireMethod: 'Gems',
+      gemCost: 4,
+      category: 'behavior',
+    });
+  }
+
+  let response = {
+    data: _.pick(user, splitWhitespace('user.items.pets')),
+    message: i18n.t('petsReleased'),
   };
-  if (analytics != null) {
-    analytics.track('release pets', analyticsData);
+
+  if (req.v2 === true) {
+    return user;
+  } else {
+    return response;
   }
-  return typeof cb === "function" ? cb(null, user) : void 0;
 };

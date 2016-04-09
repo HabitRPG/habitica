@@ -1,6 +1,10 @@
-var User = require('../../models/user').model;
-var EmailUnsubscription = require('../../models/emailUnsubscription').model;
-var utils = require('../../libs/utils');
+import {
+  model as User,
+} from '../../models/user';
+import {
+  model as EmailUnsubscription,
+} from '../../models/emailUnsubscription';
+var utils = require('../../libs/api-v2/utils');
 var i18n = require('../../../../common').i18n;
 
 var api = module.exports = {};
@@ -15,7 +19,7 @@ api.unsubscribe = function(req, res, next){
       $set: {'preferences.emailNotifications.unsubscribeFromAll': true}
     }, {multi: false}, function(err, updateRes){
       if(err) return next(err);
-      if(updateRes !== 1) return res.status(404).json({err: 'User not found'});
+      if(updateRes.n !== 1) return res.json(404, {err: 'User not found'});
 
       res.send('<h1>' + i18n.t('unsubscribedSuccessfully', null, req.language) + '</h1>' + i18n.t('unsubscribedTextUsers', null, req.language));
     });

@@ -1,63 +1,89 @@
 import i18n from '../i18n';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
+import dotSet from '../libs/dotSet';
+import {
+  NotAuthorized,
+  BadRequest,
+} from '../libs/errors';
 
-module.exports = function(user, req, cb, analytics) {
-  var alreadyOwns, analyticsData, cost, fullSet, k, path, split, v;
-  path = req.query.path;
-  fullSet = ~path.indexOf(",");
-  cost = ~path.indexOf('background.') ? fullSet ? 3.75 : 1.75 : fullSet ? 1.25 : 0.5;
-  alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
-  if ((user.balance < cost || !user.balance) && !alreadyOwns) {
-    return typeof cb === "function" ? cb({
-      code: 401,
-      message: i18n.t('notEnoughGems', req.language)
-    }) : void 0;
+module.exports = function unlock (user, req = {}, analytics) {
+  let path = _.get(req.query, 'path');
+
+  if (!path) {
+    throw new BadRequest(i18n.t('pathRequired', req.language));
   }
-  if (fullSet) {
-    _.each(path.split(","), function(p) {
-      if (~path.indexOf('gear.')) {
-        user.fns.dotSet("" + p, true);
-        true;
-      } else {
 
+  let isFullSet = path.indexOf(',') !== -1;
+  let cost;
+  let isBackground = path.indexOf('background.') !== -1;
+
+  if (isBackground && isFullSet) {
+    cost = 3.75;
+  } else if (isBackground) {
+    cost = 1.75;
+  } else if (isFullSet) {
+    cost = 1.25;
+  } else {
+    cost = 0.5;
+  }
+
+  let alreadyOwns = !isFullSet && user.fns.dotGet(`purchased.${path}`) === true;
+
+  if ((!user.balance || user.balance < cost) && !alreadyOwns) {
+    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  }
+
+  if (isFullSet) {
+    _.each(path.split(','), function markItemsAsPurchased (pathPart) {
+      if (path.indexOf('gear.') !== -1) {
+        dotSet(user, pathPart, true);
+        return true;
       }
-      user.fns.dotSet("purchased." + p, true);
+
+      dotSet(user, `purchased.${pathPart}`, true);
       return true;
     });
   } else {
     if (alreadyOwns) {
-      split = path.split('.');
-      v = split.pop();
-      k = split.join('.');
-      if (k === 'background' && v === user.preferences.background) {
-        v = '';
+      let split = path.split('.');
+      let value = split.pop();
+      let key = split.join('.');
+      if (key === 'background' && value === user.preferences.background) {
+        value = '';
       }
-      user.fns.dotSet("preferences." + k, v);
-      return typeof cb === "function" ? cb(null, req) : void 0;
+      dotSet(user, `preferences.${key}`, value);
+
+      throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
     }
-    user.fns.dotSet("purchased." + path, true);
+    dotSet(user, `purchased.${path}`, true);
   }
+
+  if (path.indexOf('gear.') === -1) {
+    user.markModified('purchased');
+  }
+
   user.balance -= cost;
-  if (~path.indexOf('gear.')) {
-    if (typeof user.markModified === "function") {
-      user.markModified('gear.owned');
-    }
-  } else {
-    if (typeof user.markModified === "function") {
-      user.markModified('purchased');
-    }
+
+  if (analytics) {
+    analytics.track('acquire item', {
+      uuid: user._id,
+      itemKey: path,
+      itemType: 'customization',
+      acquireMethod: 'Gems',
+      gemCost: cost / 0.25,
+      category: 'behavior',
+    });
   }
-  analyticsData = {
-    uuid: user._id,
-    itemKey: path,
-    itemType: 'customization',
-    acquireMethod: 'Gems',
-    gemCost: cost / .25,
-    category: 'behavior'
+
+  let response = {
+    data: _.pick(user, splitWhitespace('purchased preferences items')),
+    message: i18n.t('unlocked'),
   };
-  if (analytics != null) {
-    analytics.track('acquire item', analyticsData);
+
+  if (req.v2 === true) {
+    return response.data;
+  } else {
+    return response;
   }
-  return typeof cb === "function" ? cb(null, _.pick(user, splitWhitespace('purchased preferences items'))) : void 0;
 };

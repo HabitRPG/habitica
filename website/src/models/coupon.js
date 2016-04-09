@@ -1,59 +1,58 @@
-var mongoose = require("mongoose");
-var shared = require('../../../common');
-var _ = require('lodash');
-var async = require('async');
-var cc = require('coupon-code');
-var autoinc = require('mongoose-id-autoinc');
+/* eslint-disable camelcase */
 
-var CouponSchema = new mongoose.Schema({
-  _id: {type: String, 'default': cc.generate},
-  event: {type:String, enum:['wondercon','google_6mo']},
-  user: {type: 'String', ref: 'User'}
+import mongoose from 'mongoose';
+import _ from 'lodash';
+import shared from '../../../common';
+import couponCode from 'coupon-code';
+import baseModel from '../libs/api-v3/baseModel';
+import {
+  BadRequest,
+  NotAuthorized,
+} from '../libs/api-v3/errors';
+
+export let schema = new mongoose.Schema({
+  event: {type: String, enum: ['wondercon', 'google_6mo']},
+  user: {type: String, ref: 'User'},
 });
 
-CouponSchema.statics.generate = function(event, count, callback) {
-  async.times(count, function(n,cb){
-    mongoose.model('Coupon').create({event: event}, cb);
-  }, callback);
-}
-
-CouponSchema.statics.apply = function(user, code, next){
-  async.auto({
-    get_coupon: function (cb) {
-      mongoose.model('Coupon').findById(cc.validate(code), cb);
-    },
-    apply_coupon: ['get_coupon', function (cb, results) {
-      if (!results.get_coupon) return cb("Invalid coupon code");
-      if (results.get_coupon.user) return cb("Coupon already used");
-      switch (results.get_coupon.event) {
-        case 'wondercon':
-          user.items.gear.owned.eyewear_special_wondercon_red = true;
-          user.items.gear.owned.eyewear_special_wondercon_black = true;
-          user.items.gear.owned.back_special_wondercon_black = true;
-          user.items.gear.owned.back_special_wondercon_red = true;
-          user.items.gear.owned.body_special_wondercon_red = true;
-          user.items.gear.owned.body_special_wondercon_black = true;
-          user.items.gear.owned.body_special_wondercon_gold = true;
-          user.extra = {signupEvent: 'wondercon'};
-          user.save(cb);
-          break;
-      }
-    }],
-    expire_coupon: ['apply_coupon', function (cb, results) {
-      results.get_coupon.user = user._id;
-      results.get_coupon.save(cb);
-    }]
-  }, function(err, results){
-    if (err) return next(err);
-    next(null,results.apply_coupon[0]);
-  })
-}
-
-CouponSchema.plugin(autoinc.plugin, {
-  model: 'Coupon',
-  field: 'seq'
+schema.plugin(baseModel, {
+  timestamps: true,
 });
 
-module.exports.schema = CouponSchema;
-module.exports.model = mongoose.model("Coupon", CouponSchema);
+// Add _id field after plugin to override default _id format
+schema.add({
+  _id: {type: String, default: couponCode.generate},
+});
 
+
+schema.statics.generate = async function generateCoupons (event, count = 1) {
+  let coupons = _.times(count, () => {
+    return {event};
+  });
+
+  return await this.create(coupons);
+};
+
+schema.statics.apply = async function applyCoupon (user, req, code) {
+  let coupon = await this.findById(couponCode.validate(code)).exec();
+  if (!coupon) throw new BadRequest(shared.i18n.t('invalidCoupon', req.language));
+  if (coupon.user) throw new NotAuthorized(shared.i18n.t('couponUsed', req.language));
+
+  if (coupon.event === 'wondercon') {
+    user.items.gear.owned.eyewear_special_wondercon_red = true;
+    user.items.gear.owned.eyewear_special_wondercon_black = true;
+    user.items.gear.owned.back_special_wondercon_black = true;
+    user.items.gear.owned.back_special_wondercon_red = true;
+    user.items.gear.owned.body_special_wondercon_red = true;
+    user.items.gear.owned.body_special_wondercon_black = true;
+    user.items.gear.owned.body_special_wondercon_gold = true;
+    user.extra = {signupEvent: 'wondercon'};
+  }
+
+  await user.save();
+  coupon.user = user._id;
+  await coupon.save();
+};
+
+module.exports.schema = schema;
+export let model = mongoose.model('Coupon', schema);

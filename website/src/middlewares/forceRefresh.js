@@ -1,3 +1,5 @@
+// TODO do we need this module?
+
 module.exports.siteVersion = 1;
 
 module.exports.middleware = function(req, res, next){

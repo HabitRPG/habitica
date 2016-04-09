@@ -4,7 +4,7 @@ chai.use(require("sinon-chai"))
 var expect = chai.expect
 var rewire = require('rewire');
 
-var webhook = rewire('../../website/src/libs/webhook');
+var webhook = rewire('../../website/src/libs/api-v2/webhook');
 
 describe('webhooks', function() {
   var postSpy;

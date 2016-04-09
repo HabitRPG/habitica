@@ -6,9 +6,9 @@ import {
 
 describe('GET /groups', () => {
   const NUMBER_OF_PUBLIC_GUILDS = 3;
-  const NUMBER_OF_USERS_GUILDS = 2;
 
   let user;
+  let leader;
 
   before(async () => {
     // Set up a world with a mixture of public and private guilds
@@ -16,7 +16,7 @@ describe('GET /groups', () => {
     await resetHabiticaDB();
 
     user = await generateUser();
-    let leader = await generateUser({ balance: 10 });
+    leader = await generateUser({ balance: 10 });
 
     await generateGroup(leader, {
       name: 'public guild - is member',
@@ -90,8 +90,8 @@ describe('GET /groups', () => {
 
   context('guilds passed in as query', () => {
     it('returns all guilds user is a part of ', async () => {
-      await expect(user.get('/groups', null, {type: 'guilds'}))
-        .to.eventually.have.a.lengthOf(NUMBER_OF_USERS_GUILDS);
+      await expect(leader.get('/groups', null, {type: 'guilds'}))
+        .to.eventually.have.a.lengthOf(4);
     });
   });
 });
