@@ -871,13 +871,9 @@ _.each(shared.ops, function(op,k){
     if (k === 'reroll') k = 'userReroll';
     // if (k === 'reset') k = 'resetUser';
 
-    api[k] = async function (req, res, next) {
-      try {
-        req.v2 = true;
-        await v3UserController[k](req, res, next);
-      } catch (err) {
-        next(err);
-      }
+    api[k] = function (req, res, next) {
+      req.v2 = true;
+      v3UserController[k].handler(req, res, next).catch(next);
     }
   } else if (!api[k]) {
     api[k] = function(req, res, next) {

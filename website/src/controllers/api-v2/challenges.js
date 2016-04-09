@@ -20,7 +20,7 @@ var utils = require('../../libs/api-v2/utils');
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
 import Q from 'q';
-
+import v3MembersController from '../api-v3/members';
 /*
   ------------------------------------------------------------------------
   Challenges
@@ -100,86 +100,37 @@ api.get = async function(req, res, next) {
 
 api.csv = function(req, res, next) {
   var cid = req.params.cid;
-  var challenge;
-  async.waterfall([
-    function(cb){
-      Challenge.findById(cid,cb)
-    },
-    function(_challenge,cb) {
-      challenge = _challenge;
-      if (!challenge) return cb('Challenge ' + cid + ' not found');
-      User.aggregate([
-        {$match:{'_id':{ '$in': challenge.members}}}, //yes, we want members
-        {$project:{'profile.name':1,tasks:{$setUnion:["$habits","$dailys","$todos","$rewards"]}}},
-          {$unwind:"$tasks"},
-           {$match:{"tasks.challenge.id":cid}},
-           {$sort:{'tasks.type':1,'tasks.id':1}},
-           {$group:{_id:"$_id", "tasks":{$push:"$tasks"},"name":{$first:"$profile.name"}}}
-      ], cb);
-    }
-  ],function(err,users){
-    if(err) return next(err);
-    var output = ['UUID','name'];
-    _.each(challenge.tasks,function(t){
-      //output.push(t.type+':'+t.text);
-      //not the right order yet
-      output.push('Task');
-      output.push('Value');
-      output.push('Notes');
-    })
-    output = [output];
-    _.each(users, function(u){
-      var uData = [u._id,u.name];
-      _.each(u.tasks,function(t){
-        uData = uData.concat([t.type+':'+t.text, t.value, t.notes]);
-      })
-      output.push(uData);
-    });
-
-    res.set({
-      'Content-Type': 'text/csv',
-      'Content-disposition': `attachment; filename=${cid}.csv`,
-    });
-
-    csvStringify(output, (err, csv) => {
-      if (err) return next(err);
-      res.status(200).send(csv);
-      challenge = cid = null;
-    });
-  })
+  req.params.challengeId = cid;
+  v3MembersController.exportChallengeCsv.handler(req, res, next).catch(next);
 }
 
 api.getMember = function(req, res, next) {
   var cid = req.params.cid;
   var uid = req.params.uid;
 
-  // We need to start using the aggregation framework instead of in-app filtering, see http://docs.mongodb.org/manual/aggregation/
-  // See code at 32c0e75 for unwind/group example
+  req.params.memberId = uid;
+  req.params.challengeId = cid;
+  v3MembersController.getChallengeMemberProgress.handler(req, res, next)
+    .then(result => {
+      let newResult = {
+        profile: {
+          name: result.profile.name,
+        },
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+      };
 
-  //http://stackoverflow.com/questions/24027213/how-to-match-multiple-array-elements-without-using-unwind
-  var proj = {'profile.name':'$profile.name'};
-  _.each(['habits','dailys','todos','rewards'], function(type){
-    proj[type] = {
-      $setDifference: [{
-        $map: {
-          input: '$'+type,
-          as: "el",
-          in: {
-            $cond: [{$eq: ["$$el.challenge.id", cid]}, '$$el', false]
-          }
-        }
-      }, [false]]
-    }
-  });
-  User.aggregate()
-  .match({_id: uid})
-  .project(proj)
-  .exec(function(err, member){
-    if (err) return next(err);
-    if (!member) return res.status(404).json({err: 'Member '+uid+' for challenge '+cid+' not found'});
-    res.json(member[0]);
-    uid = cid = null;
-  });
+      let tasks = result.tasks;
+      tasks.forEach(task => {
+        let taskObj = task.toJSONV2();
+        newResult[taskObj.type + 's'].push(taskObj);
+      });
+
+      res.json(newResult);
+    })
+    .catch(next);
 }
 
 // CREATE

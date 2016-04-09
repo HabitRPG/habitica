@@ -5,6 +5,7 @@ import swagger from 'swagger-node-express';
 // import shared from '../../../../common';
 import express from 'express';
 import analytics from './analytics';
+import responseHandler from './response';
 
 const v2app = express();
 
@@ -13,6 +14,8 @@ v2app.set('view engine', 'jade');
 v2app.set('views', `${__dirname}/../../../views`);
 
 v2app.use(analytics);
+v2app.use(responseHandler);
+
 
 // Custom Directives
 v2app.use('/', require('../../routes/api-v2/auth'));
