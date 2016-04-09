@@ -24,6 +24,7 @@ var moment = require('moment');
 var logging = require('./../../libs/api-v2/logging');
 var acceptablePUTPaths;
 let restrictedPUTSubPaths;
+import v3UserController from '../api-v3/user';
 
 let i18n = shared.i18n;
 
@@ -865,10 +866,24 @@ api.addTask = function(req, res, next) {
  * All other user.ops which can easily be mapped to common/script/index.js, not requiring custom API-wrapping
  */
 _.each(shared.ops, function(op,k){
-  if (!api[k]) {
+  if (['rebirth', 'reroll', 'reset'].indexOf(k) !== -1) { // proxy ops that change tasks directly to v3
+    if (k === 'rebirth') k = 'userRebirth'; // the name is different in v3
+    if (k === 'reroll') k = 'userReroll';
+    // if (k === 'reset') k = 'resetUser';
+
+    api[k] = async function (req, res, next) {
+      try {
+        req.v2 = true;
+        await v3UserController[k](req, res, next);
+      } catch (err) {
+        next(err);
+      }
+    }
+  } else if (!api[k]) {
     api[k] = function(req, res, next) {
       var opResponse;
       try {
+        req.v2 = true; // Used to indicate to the shared code that the old response data should be returned
         opResponse = shared.ops[k](res.locals.user, req, analytics);
       } catch (err) {
         if (!err.code) return next(err);
@@ -878,8 +893,15 @@ _.each(shared.ops, function(op,k){
       // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
       res.locals.user.save(function(err){
         if (err) return next(err);
-        res.status(200).json(response);
-      })
+        if (response === user) { // add tasks
+          user.getTransformedData(function (err, transformedUser) {
+            if (err) return next(err);
+            res.status(200).json(transformedUser);
+          });
+        } else {
+          res.status(200).json(response);
+        }
+      });
     }
   }
 })

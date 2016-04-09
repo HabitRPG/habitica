@@ -37,5 +37,9 @@ module.exports = function releasePets (user, req = {}, analytics) {
     message: i18n.t('petsReleased'),
   };
 
-  return response;
+  if (req.v2 === true) {
+    return user;
+  } else {
+    return response;
+  }
 };

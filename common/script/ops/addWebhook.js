@@ -15,8 +15,12 @@ module.exports = function addWebhook (user, req = {}) {
 
   user.markModified('preferences.webhooks');
 
-  return refPush(wh, {
-    url: req.body.url,
-    enabled: req.body.enabled,
-  });
+  if (req.v2 === true) {
+    return user.preferences.webhooks;
+  } else {
+    return refPush(wh, {
+      url: req.body.url,
+      enabled: req.body.enabled,
+    });
+  }
 };

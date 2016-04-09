@@ -65,7 +65,11 @@ module.exports = function changeClass (user, req = {}, analytics) {
     user.flags.classSelected = false;
   }
 
-  return {
-    data: _.pick(user, splitWhitespace('stats flags items preferences')),
-  };
+  if (req.v2 === true) {
+    return _.pick(user, splitWhitespace('stats flags items preferences'));
+  } else {
+    return {
+      data: _.pick(user, splitWhitespace('stats flags items preferences')),
+    };
+  }
 };

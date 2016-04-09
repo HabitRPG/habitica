@@ -81,5 +81,9 @@ module.exports = function unlock (user, req = {}, analytics) {
     message: i18n.t('unlocked'),
   };
 
-  return response;
+  if (req.v2 === true) {
+    return response.data;
+  } else {
+    return response;
+  }
 };

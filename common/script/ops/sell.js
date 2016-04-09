@@ -38,5 +38,9 @@ module.exports = function sell (user, req = {}) {
     message: i18n.t('sold', {type, key}),
   };
 
-  return response;
+  if (req.v2 === true) {
+    return response.data;
+  } else {
+    return response;
+  }
 };

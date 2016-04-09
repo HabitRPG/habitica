@@ -56,5 +56,9 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
     message: i18n.t('hourglassPurchase', req.language),
   };
 
-  return res;
+  if (req.v2 === true) {
+    return res.data;
+  } else {
+    return res;
+  }
 };

@@ -62,5 +62,9 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
     message: i18n.t('mountsAndPetsReleased'),
   };
 
-  return response;
+  if (req.v2 === true) {
+    return user;
+  } else {
+    return response;
+  }
 };

@@ -124,5 +124,9 @@ module.exports = function purchase (user, req = {}, analytics) {
     message: i18n.t('purchased', {type, key}),
   };
 
-  return response;
+  if (req.v2 === true) {
+    return response.data;
+  } else {
+    return response;
+  }
 };
