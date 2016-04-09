@@ -13,6 +13,7 @@ import {
 import {
   model as Challenge,
 } from '../../models/challenge';
+import * as Tasks from '../../models/task';
 var logging = require('./../../libs/api-v2/logging');
 var csvStringify = require('csv-stringify');
 var utils = require('../../libs/api-v2/utils');
@@ -241,7 +242,7 @@ api.create = async function(req, res, next){
     var chalTasks = req.body.habits.concat(req.body.rewards)
                   .concat(req.body.dailys).concat(req.body.todos);
 
-    chalTasks = tasks.map(function(task) {
+    chalTasks = chalTasks.map(function(task) {
       var newTask = new Tasks[task.type](Tasks.Task.sanitizeCreate(task));
       newTask.challenge.id = chal._id;
       return newTask.save();
@@ -350,82 +351,96 @@ api.selectWinner = async function(req, res, next) {
   }
 }
 
-api.join = function(req, res, next){
-  var user = res.locals.user;
-  var cid = req.params.cid;
+api.join = async function(req, res, next){
+  try {
+    var user = res.locals.user;
+    var cid = req.params.cid;
 
-  async.waterfall([
-    function(cb) {
-      Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, {new: true}, cb);
-    },
-    function(chal, cb) {
+    let challenge = await Challenge.findOne({ _id: cid });
+    if (!challenge) return next(shared.i18n.t('challengeNotFound'));
+    if (challenge.isMember(user)) return next(shared.i18n.t('userAlreadyInChallenge'));
 
-      // Trigger updating challenge member count in the background. We can't do it above because we don't have
-      // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
-      Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
+    let group = await Group.getGroup({user, groupId: challenge.group, optionalMembership: true});
+    if (!group || !challenge.hasAccess(user, group)) return next(shared.i18n.t('challengeNotFound'));
 
-      if (!~user.challenges.indexOf(cid))
-        user.challenges.unshift(cid);
-      // Add all challenge's tasks to user's tasks
-      chal.syncToUser(user, function(err){
-        if (err) return cb(err);
-        cb(null, chal); // we want the saved challenge in the return results, due to ng-resource
-      });
-    }
-  ], function(err, chal){
-    if(err) return next(err);
-    chal._isMember = true;
-    res.json(chal);
-    user = cid = null;
-  });
+    challenge.memberCount += 1;
+
+    // Add all challenge's tasks to user's tasks and save the challenge
+    await Q.all([challenge.syncToUser(user), challenge.save()]);
+
+    challenge.getTransformedData({
+      cb (err, transformedChal) {
+        transformedChal._isMember = true;
+        res.json(transformedChal);
+      }
+    });
+  } catch (e) {
+    next(e);
+  }
 }
 
+api.leave = async function(req, res, next){
+  try {
+    var user = res.locals.user;
+    var cid = req.params.cid;
+    // whether or not to keep challenge's tasks. strictly default to true if "keep-all" isn't provided
+    var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
 
-api.leave = function(req, res, next){
-  var user = res.locals.user;
-  var cid = req.params.cid;
-  // whether or not to keep challenge's tasks. strictly default to true if "keep-all" isn't provided
-  var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
+    let challenge = await Challenge.findOne({ _id: cid });
+    if (!challenge) return next(shared.i18n.t('challengeNotFound'));
 
-  async.waterfall([
-    function(cb){
-      Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, {new: true}, cb);
-    },
-    function(chal, cb){
+    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
+    if (!group || !challenge.canView(user, group)) return next(shared.i18n.t('challengeNotFound'));
 
-      // Trigger updating challenge member count in the background. We can't do it above because we don't have
-      // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
-      if (chal)
-        Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
+    if (!challenge.isMember(user)) return next(shared.i18n.t('challengeMemberNotFound'));
 
-      var i = user.challenges.indexOf(cid)
-      if (~i) user.challenges.splice(i,1);
-      user.unlink({cid:cid, keep:keep}, function(err){
-        if (err) return cb(err);
-        cb(null, chal);
-      })
-    }
-  ], function(err, chal){
-    if(err) return next(err);
-    if (chal) chal._isMember = false;
-    res.json(chal);
-    user = cid = keep = null;
-  });
+    challenge.memberCount -= 1;
+
+    // Unlink challenge's tasks from user's tasks and save the challenge
+    await Q.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+
+    challenge.getTransformedData({
+      cb (err, transformedChal) {
+        transformedChal._isMember = false;
+        res.json(transformedChal);
+      }
+    });
+  } catch (e) {
+    next(e);
+  }
 }
 
-api.unlink = function(req, res, next) {
-  // they're scoring the task - commented out, we probably don't need it due to route ordering in api.js
-  //var urlParts = req.originalUrl.split('/');
-  //if (_.contains(['up','down'], urlParts[urlParts.length -1])) return next();
+api.unlink = async function(req, res, next) {
+  try {
+    var user = res.locals.user;
+    var tid = req.params.id;
+    var cid = user.tasks[tid].challenge.id;
+    if (!req.query.keep)
+      return res.status(400).json({err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
 
-  var user = res.locals.user;
-  var tid = req.params.id;
-  var cid = user.tasks[tid].challenge.id;
-  if (!req.query.keep)
-    return res.status(400).json({err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
-  user.unlink({cid:cid, keep:req.query.keep, tid:tid}, function(err, saved){
-    if (err) return next(err);
+    let keep = req.query.keep;
+    let task = await Tasks.Task.findOne({
+      _id: taskId,
+      userId: user._id,
+    }).exec();
+
+    if (!task) return next(shared.i18n.t('taskNotFound'));
+    if (!task.challenge.id) return next(shared.i18n.t('cantOnlyUnlinkChalTask'));
+
+    if (keep === 'keep') {
+      task.challenge = {};
+      await task.save();
+    } else { // remove
+      if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
+        removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
+        await Q.all([user.save(), task.remove()]);
+      } else {
+        await task.remove();
+      }
+    }
+
     res.sendStatus(200);
-    user = tid = cid = null;
-  });
+  } catch (e) {
+    next(e);
+  }
 }
