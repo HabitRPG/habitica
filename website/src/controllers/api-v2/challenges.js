@@ -221,41 +221,66 @@ api.update = function(req, res, next){
   var cid = req.params.cid;
   var user = res.locals.user;
   var before;
+  var updatedTasks;
+
   async.waterfall([
     function(cb){
       // We first need the original challenge data, since we're going to compare against new & decide to sync users
       Challenge.findById(cid, cb);
     },
+    function(chal, cb){
+      if(!chal) return cb({chal: null});
+
+      chal.getTasks(function(err, tasks){
+        cb(err, {
+          chal: chal,
+          tasks: tasks
+        });
+      });
+    },
     function(_before, cb) {
-      if (!_before) return cb('Challenge ' + cid + ' not found');
-      if (_before.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionEditChallenge', req.language));
+      if (!_before.chal) return cb('Challenge ' + cid + ' not found');
+      if (_before.chal.leader != user._id && !user.contributor.admin) return cb({code: 401, err: shared.i18n.t('noPermissionEditChallenge', req.language)});
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
-      before = _before;
-      var attrs = _.pick(req.body, 'name shortName description habits dailys todos rewards date'.split(' '));
-      Challenge.findByIdAndUpdate(cid, {$set:attrs}, {new: true}, cb);
+      before = {chal: _before.chal, tasks: _before.tasks};
+      var chalAttrs = _.pick(req.body, 'name shortName description date'.split(' '));
+      async.parallel({
+        chal: function(cb1){
+          Challenge.findByIdAndUpdate(cid, {$set:chalAttrs}, {new: true}, cb1);
+        },
+        tasks: function(cb1) {
+          // Convert to map of {id: task} so we can easily match them
+          var _beforeClonedTasks = _.cloneDeep(_before.tasks.map(function(t) {
+            return t.toObject();
+          }));
+          updatedTasks = _.object(_.pluck(_beforeClonedTasks, '_id'), _beforeClonedTasks);
+          var newTasks = req.body.habits.concat(req.body.dailys)
+                          .concat(req.body.todos).concat(req.body.rewards);
+
+          var newTasksObj = _.object(_.pluck(newTasks, '_id'), newTasks);
+          async.forEachOf(newTasksObj, function(newTask, taskId, cb2){
+            // some properties can't be changed
+            Tasks.Task.sanitize(newTask);
+            // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
+            // TODO regarding comment above, make sure other models with nested fields are using this trick too
+            _.assign(updatedTasks[taskId], common.ops.updateTask(task.toObject(), {body: newTask}));
+            challenge.updateTask(updatedTasks[taskId]);
+          }, cb1);
+        }
+      }, cb);
     },
-    function(saved, cb) {
-
-      // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
-      if (before.isOutdated(req.body)) {
-        User.find({_id: {$in: saved.members}}, function(err, users){
-          logging.info('Challenge updated, sync to subscribers');
-          if (err) throw err;
-          _.each(users, function(user){
-            saved.syncToUser(user);
-          })
-        })
-      }
-
-      // after saving, we're done as far as the client's concerned. We kick off syncing (heavy task) in the background
-      cb(null, saved);
-    }
   ], function(err, saved){
-    if(err) next(err);
-    res.json(saved);
+    if(err) {
+      return err.code ? res.json(err.code, err) : next(err);
+    }
+
+    saved.chal.getTransformedData({cb: function(err, newChal){
+      if(err) return next(err);
+      res.json(newChal);
+    }})
     cid = user = before = null;
-  })
+  });
 }
 
 import { _closeChal } from '../api-v3/challenges';
