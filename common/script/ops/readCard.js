@@ -21,8 +21,12 @@ module.exports = function readCard (user, req = {}) {
   user.items.special[`${cardType}Received`].shift();
   user.flags.cardReceived = false;
 
-  return {
-    message: i18n.t('readCard', {cardType}, req.language),
-    data: _.pick(user, splitWhitespace('items.special flags.cardReceived')),
-  };
+  if (req.v2 === true) {
+    return _.pick(user, splitWhitespace('items.special flags.cardReceived'));
+  } else {
+    return {
+      message: i18n.t('readCard', {cardType}, req.language),
+      data: _.pick(user, splitWhitespace('items.special flags.cardReceived')),
+    };
+  }
 };

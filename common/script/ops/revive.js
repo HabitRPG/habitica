@@ -102,5 +102,9 @@ module.exports = function revive (user, req = {}, analytics) {
     message,
   };
 
-  return response;
+  if (req.v2 === true) {
+    return user;
+  } else {
+    return response;
+  }
 };

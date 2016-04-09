@@ -5,15 +5,17 @@ var nconf = require('nconf');
 var moment = require('moment');
 var js2xmlparser = require("js2xmlparser");
 var pd = require('pretty-data').pd;
-var User = require('../models/user').model;
+import {
+  model as User,
+} from '../../models/user';
 
 // Avatar screenshot/static-page includes
-var Pageres = require('pageres'); //https://github.com/sindresorhus/pageres
-var AWS = require('aws-sdk');
-AWS.config.update({accessKeyId: nconf.get("S3:accessKeyId"), secretAccessKey: nconf.get("S3:secretAccessKey")});
-var s3Stream = require('s3-upload-stream')(new AWS.S3()); //https://github.com/nathanpeck/s3-upload-stream
-var bucket = nconf.get("S3:bucket");
-var request = require('request');
+//var Pageres = require('pageres'); //https://github.com/sindresorhus/pageres
+//var AWS = require('aws-sdk');
+//AWS.config.update({accessKeyId: nconf.get("S3:accessKeyId"), secretAccessKey: nconf.get("S3:secretAccessKey")});
+//var s3Stream = require('s3-upload-stream')(new AWS.S3()); //https://github.com/nathanpeck/s3-upload-stream
+//var bucket = nconf.get("S3:bucket");
+//var request = require('request');
 
 /*
   ------------------------------------------------------------------------

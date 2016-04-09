@@ -14,6 +14,8 @@ let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {_id
 
 export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
+// Important
+// When something changes here remember to update the client side model at common/script/libs/taskDefaults
 export let TaskSchema = new Schema({
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
@@ -35,7 +37,7 @@ export let TaskSchema = new Schema({
   },
 
   reminders: [{
-    id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
+    _id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
     startDate: {type: Date, required: true},
     time: {type: Date, required: true},
   }],
@@ -56,12 +58,6 @@ TaskSchema.plugin(baseModel, {
 let noCreate = ['completed']; // TODO completed should be removed for updates too?
 TaskSchema.statics.sanitizeCreate = function sanitizeCreate (createObj) {
   return this.sanitize(createObj, noCreate);
-};
-
-// A list of additional fields that cannot be updated (but can be set on creation)
-let noUpdate = ['_id', 'type'];
-TaskSchema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
-  return this.sanitize(updateObj, noUpdate);
 };
 
 // Sanitize checklist objects (disallowing _id)
@@ -107,6 +103,27 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 
   await chalTask.save();
 };
+
+
+// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
+// These will be removed once API v2 is discontinued
+
+// toJSON for API v2
+TaskSchema.methods.toJSONV2 = function toJSONV2 () {
+  let toJSON = this.toJSON();
+  toJSON.id = toJSON._id;
+
+  let v3Tags = this.tags;
+
+  toJSON.tags = {};
+  v3Tags.forEach(tag => {
+    toJSON.tags[tag] = true;
+  });
+
+  return toJSON;
+};
+
+// END of API v2 methods
 
 export let Task = mongoose.model('Task', TaskSchema);
 

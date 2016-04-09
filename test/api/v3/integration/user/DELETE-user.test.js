@@ -42,7 +42,7 @@ describe('DELETE /user', () => {
     });
   });
 
-  it('deletes the user', async () => {
+  it('deletes the user\'s tasks', async () => {
     // gets the user's tasks ids
     let ids = [];
     each(user.tasksOrder, (idsForOrder) => {
@@ -60,7 +60,7 @@ describe('DELETE /user', () => {
     }));
   });
 
-  it('delete the user\'s tasks', async () => {
+  it('deletes the user', async () => {
     await user.del('/user', {
       password,
     });

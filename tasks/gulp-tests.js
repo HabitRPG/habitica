@@ -309,10 +309,10 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
   });
 });
 
-gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
+/*gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
   process.env.API_VERSION = 'v2';
   awaitPort(TEST_SERVER_PORT).then(() => {
-    runMochaTests('./test/api/v2/**/*.js', server, done)
+    runMochaTests('./test/api/v2/**//*.js', server, done)
   });
 });
 
@@ -337,6 +337,16 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
     );
     pipe(runner);
   });
+});*/
+
+gulp.task('test:api-v2:integration', (done) => {
+  let runner = exec(
+    testBin('mocha test/api/v2 --recursive'),
+    {maxBuffer: 500*1024},
+    (err, stdout, stderr) => done(err)
+  )
+
+  pipe(runner);
 });
 
 gulp.task('test:api-v3:unit', (done) => {
@@ -378,6 +388,7 @@ gulp.task('test', (done) => {
     'test:common',
     'test:api-v3:unit',
     'test:api-v3:integration',
+    'test:api-v2:integration',
     done
   );
 });

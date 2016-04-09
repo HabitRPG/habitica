@@ -103,5 +103,9 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     message: i18n.t('rebirthComplete'),
   };
 
-  return response;
+  if (req.v2 === true) {
+    return user;
+  } else {
+    return response;
+  }
 };

@@ -2,17 +2,18 @@ var auth = require('../../controllers/api-v2/auth');
 var express = require('express');
 var i18n = require('../../libs/api-v2/i18n');
 var router = express.Router();
+import getUserLanguage from '../../middlewares/api-v3/getUserLanguage';
 
 /* auth.auth*/
-auth.setupPassport(router); //FIXME make this consistent with the others
-router.post('/api/v2/register', i18n.getUserLanguage, auth.registerUser);
-router.post('/api/v2/user/auth/local', i18n.getUserLanguage, auth.loginLocal);
-router.post('/api/v2/user/auth/social', i18n.getUserLanguage, auth.loginSocial);
-router.delete('/api/v2/user/auth/social', i18n.getUserLanguage, auth.auth, auth.deleteSocial);
-router.post('/api/v2/user/reset-password', i18n.getUserLanguage, auth.resetPassword);
-router.post('/api/v2/user/change-password', i18n.getUserLanguage, auth.auth, auth.changePassword);
-router.post('/api/v2/user/change-username', i18n.getUserLanguage, auth.auth, auth.changeUsername);
-router.post('/api/v2/user/change-email', i18n.getUserLanguage, auth.auth, auth.changeEmail);
-router.post('/api/v2/user/auth/firebase', i18n.getUserLanguage, auth.auth, auth.getFirebaseToken);
+// auth.setupPassport(router); //FIXME make this consistent with the others
+router.post('/register', getUserLanguage, auth.registerUser);
+router.post('/user/auth/local', getUserLanguage, auth.loginLocal);
+router.post('/user/auth/social', getUserLanguage, auth.loginSocial);
+router.delete('/user/auth/social', getUserLanguage, auth.auth, auth.deleteSocial);
+router.post('/user/reset-password', getUserLanguage, auth.resetPassword);
+router.post('/user/change-password', getUserLanguage, auth.auth, auth.changePassword);
+router.post('/user/change-username', getUserLanguage, auth.auth, auth.changeUsername);
+router.post('/user/change-email', getUserLanguage, auth.auth, auth.changeEmail);
+// router.post('/user/auth/firebase', i18n.getUserLanguage, auth.auth, auth.getFirebaseToken);
 
 module.exports = router;

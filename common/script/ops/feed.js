@@ -89,8 +89,14 @@ module.exports = function feed (user, req = {}) {
 
   user.items.food[food.key]--;
 
-  return {
-    data: userPets[pet],
-    message,
-  };
+  if (req.v2 === true) {
+    return {
+      value: userPets[pet],
+    };
+  } else {
+    return {
+      data: userPets[pet],
+      message,
+    };
+  }
 };

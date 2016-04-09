@@ -5,10 +5,10 @@ import {
   shouldDo,
 } from '../../../../common/script/cron';
 import common from '../../../../common';
-import Task from '../../models/task';
+import * as Tasks from '../../models/task';
 import Q from 'q';
-import Group from '../../models/group';
-import User from '../../models/user';
+import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import { preenUserHistory } from '../../libs/api-v3/preening';
 
 const scoreTask = common.ops.scoreTask;
@@ -26,7 +26,7 @@ let clearBuffs = {
 // For incomplete Dailys, deduct experience
 // Make sure to run this function once in a while as server will not take care of overnight calculations.
 // And you have to run it every time client connects.
-export function cron (options = {}) {
+function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
 
   user.auth.timestamps.loggedin = now;
@@ -108,7 +108,6 @@ export function cron (options = {}) {
       direction: 'down',
       cron: true,
       times: multiDaysCountAsOneDay ? 1 : daysMissed,
-      // TODO pass req for analytics?
     });
 
     todoTally += task.value;
@@ -271,7 +270,7 @@ export function cron (options = {}) {
 }
 
 // TODO check that it's used everywhere
-module.exports = async function cronMiddleware (req, res, next) {
+module.exports = function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   let analytics = res.analytics;
 
@@ -358,7 +357,7 @@ module.exports = async function cronMiddleware (req, res, next) {
   if (daysMissed <= 0) return next();
 
   // Fetch active tasks (no completed todos)
-  Task.find({
+  Tasks.Task.find({
     userId: user._id,
     $or: [ // Exclude completed todos
       {type: 'todo', completed: false},
@@ -374,7 +373,7 @@ module.exports = async function cronMiddleware (req, res, next) {
 
     // Clear old completed todos - 30 days for free users, 90 for subscribers
     // Do not delete challenges completed todos TODO unless the task is broken?
-    Task.remove({
+    Tasks.Task.remove({
       userId: user._id,
       type: 'todo',
       completed: true,

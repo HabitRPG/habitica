@@ -1,4 +1,4 @@
-var logging = require('../libs/api-v2/logging');
+var logging = require('../../libs/api-v2/logging');
 
 module.exports = function(err, req, res, next) {
   //res.locals.domain.emit('error', err);

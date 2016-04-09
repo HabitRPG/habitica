@@ -33,8 +33,12 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
     user._tmp.drop = item;
   }
 
-  return {
-    message: i18n.t('mysteryItemOpened', req.language),
-    data: user.items.gear.owned,
-  };
+  if (req.v2 === true) {
+    return user.items.gear.owned;
+  } else {
+    return {
+      message: i18n.t('mysteryItemOpened', req.language),
+      data: user.items.gear.owned,
+    };
+  }
 };

@@ -4,7 +4,6 @@ var dataexport = require('../controllers/api-v2/dataexport');
 var auth = require('../controllers/api-v2/auth');
 var nconf = require('nconf');
 var i18n = require('../libs/api-v2/i18n');
-var locals = require('../middlewares/locals');
 
 const BASE_URL = nconf.get('BASE_URL');
 

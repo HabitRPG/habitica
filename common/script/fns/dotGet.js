@@ -1,5 +1,7 @@
-import dotGet from '../libs/dotGet';
+import _ from 'lodash';
 
-module.exports = function(user, path) {
-  return dotGet(user, path);
+// TODO remove completely, use _.get
+
+module.exports = function dotGet (user, path) {
+  return _.get(user, path);
 };

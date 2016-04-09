@@ -58,20 +58,11 @@ api.updateStore = updateStore;
 import uuid from './libs/uuid';
 api.uuid = uuid;
 
-import countExists from './libs/countExists';
-api.countExists = countExists;
-
 import taskDefaults from './libs/taskDefaults';
 api.taskDefaults = taskDefaults;
 
 import percent from './libs/percent';
 api.percent = percent;
-
-import removeWhitespace from './libs/removeWhitespace';
-api.removeWhitespace = removeWhitespace;
-
-import encodeiCalLink from './libs/encodeiCalLink';
-api.encodeiCalLink = encodeiCalLink;
 
 import gold from './libs/gold';
 api.gold = gold;
@@ -81,12 +72,6 @@ api.silver = silver;
 
 import taskClasses from './libs/taskClasses';
 api.taskClasses = taskClasses;
-
-import friendlyTimestamp from './libs/friendlyTimestamp';
-api.friendlyTimestamp = friendlyTimestamp;
-
-import newChatMessages from './libs/newChatMessages';
-api.newChatMessages = newChatMessages;
 
 import noTags from './libs/noTags';
 api.noTags = noTags;
@@ -124,6 +109,8 @@ import deleteWebhook from './ops/deleteWebhook';
 import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
+import updateTask from './ops/updateTask';
+import clearCompleted from './ops/clearCompleted';
 import sell from './ops/sell';
 import unlock from './ops/unlock';
 import revive from './ops/revive';
@@ -154,6 +141,8 @@ api.ops = {
   releasePets,
   releaseBoth,
   releaseMounts,
+  updateTask,
+  clearCompleted,
   sell,
   unlock,
   revive,
@@ -273,12 +262,11 @@ api.wrap = function wrapUser (user, main = true) {
       allocate: _.partial(importedOps.allocate, user),
       readCard: _.partial(importedOps.readCard, user),
       openMysteryItem: _.partial(importedOps.openMysteryItem, user),
-      scoreTask: _.partial(importedOps.scoreTask, user),
+      score: _.partial(importedOps.scoreTask, user),
     };
   }
 
   user.fns = {
-    getItem: _.partial(importedFns.getItem, user),
     handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
     predictableRandom: _.partial(importedFns.predictableRandom, user),
     crit: _.partial(importedFns.crit, user),
@@ -288,8 +276,6 @@ api.wrap = function wrapUser (user, main = true) {
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
-    cron: _.partial(importedFns.cron, user),
-    preenUserHistory: _.partial(importedFns.preenUserHistory, user),
     ultimateGear: _.partial(importedFns.ultimateGear, user),
     nullify: _.partial(importedFns.nullify, user),
   };
@@ -311,6 +297,7 @@ api.wrap = function wrapUser (user, main = true) {
   });
 
   if (typeof window !== 'undefined') {
+    // TODO kept for compatibility with the client that relies on v2, remove once the client is adapted
     Object.defineProperty(user, 'tasks', {
       get () {
         let tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);

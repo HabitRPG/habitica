@@ -1,5 +1,9 @@
-var User = require('../../models/user').model;
-var EmailUnsubscription = require('../../models/emailUnsubscription').model;
+import {
+  model as User,
+} from '../../models/user';
+import {
+  model as EmailUnsubscription,
+} from '../../models/emailUnsubscription';
 var utils = require('../../libs/api-v2/utils');
 var i18n = require('../../../../common').i18n;
 

@@ -1,5 +1,6 @@
 import {
   times,
+  map,
 } from 'lodash';
 import Q from 'q';
 import { v4 as generateUUID } from 'uuid';
@@ -41,11 +42,29 @@ export async function generateGroup (leader, details = {}, update = {}) {
   details.privacy = details.privacy || 'private';
   details.name = details.name || 'test group';
 
+  let members;
+
+  if (details.members) {
+    members = details.members;
+    delete details.members;
+  }
+
   let group = await leader.post('/groups', details);
   let apiGroup = new ApiGroup(group);
 
-  await apiGroup.update(update);
+  const groupMembershipTypes = {
+    party: { 'party._id': group._id},
+    guild: { guilds: [group._id] },
+  };
 
+  await Q.all(
+    map(members, (member) => {
+      return member.update(groupMembershipTypes[group.type]);
+    })
+  );
+
+  await apiGroup.update(update);
+  await apiGroup.sync();
   return apiGroup;
 }
 
@@ -72,18 +91,18 @@ export async function createAndPopulateGroup (settings = {}) {
   let groupLeader = await generateUser(leaderDetails);
   let group = await generateGroup(groupLeader, groupDetails);
 
+  const groupMembershipTypes = {
+    party: { 'party._id': group._id},
+    guild: { guilds: [group._id] },
+  };
+
   let members = await Q.all(
     times(numberOfMembers, () => {
-      return generateUser();
+      return generateUser(groupMembershipTypes[group.type]);
     })
   );
 
-  let memberIds = members.map((member) => {
-    return member._id;
-  });
-  memberIds.push(groupLeader._id);
-
-  await group.update({ members: memberIds });
+  await group.update({ memberCount: numberOfMembers + 1});
 
   let invitees = await Q.all(
     times(numberOfInvites, () => {

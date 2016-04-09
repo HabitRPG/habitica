@@ -134,5 +134,9 @@ module.exports = function buy (user, req = {}, analytics) {
 
   if (armoireResp) res.armoire = armoireResp;
 
-  return res;
+  if (req.v2 === true) {
+    return res.data;
+  } else {
+    return res;
+  }
 };

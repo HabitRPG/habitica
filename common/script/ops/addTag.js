@@ -1,12 +1,17 @@
 import uuid from '../libs/uuid';
+import _ from 'lodash';
 
-module.exports = function(user, req, cb) {
-  if (user.tags == null) {
+// TODO used only in client, move there?
+
+module.exports = function addTag (user, req = {}) {
+  if (!user.tags) {
     user.tags = [];
   }
+
   user.tags.push({
     name: req.body.name,
-    id: req.body.id || uuid()
+    id: _.get(req, 'body.id') || uuid(),
   });
-  return typeof cb === "function" ? cb(null, user.tags) : void 0;
+
+  return user.tags;
 };

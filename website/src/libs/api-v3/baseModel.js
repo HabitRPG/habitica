@@ -1,4 +1,4 @@
-import { uuid } from '../../../../common';
+import { v4 as uuid } from 'uuid';
 import validator from 'validator';
 import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
 import _ from 'lodash';

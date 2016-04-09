@@ -43,8 +43,13 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
 
   user.purchased.plan.consecutive.trinkets--;
 
-  return {
-    data: pickDeep(user, splitWhitespace('items purchased.plan.consecutive')),
-    message: i18n.t('hourglassPurchaseSet', req.language),
-  };
+
+  if (req.v2 === true) {
+    return pickDeep(user, splitWhitespace('items purchased.plan.consecutive'));
+  } else {
+    return {
+      data: pickDeep(user, splitWhitespace('items purchased.plan.consecutive')),
+      message: i18n.t('hourglassPurchaseSet', req.language),
+    };
+  }
 };

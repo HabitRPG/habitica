@@ -39,5 +39,9 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
     message: i18n.t('mountsReleased'),
   };
 
-  return response;
+  if (req.v2 === true) {
+    return user;
+  } else {
+    return response;
+  }
 };

@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
 import { model as Tag } from '../../models/tag';
+import * as Tasks from '../../models/task';
 import {
   NotFound,
 } from '../../libs/api-v3/errors';
@@ -96,7 +97,6 @@ api.updateTag = {
     let user = res.locals.user;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
-    // TODO check that req.body isn't empty
 
     let tagId = req.params.tagId;
 
@@ -138,6 +138,15 @@ api.deleteTag = {
     let tag = user.tags.id(req.params.tagId);
     if (!tag) throw new NotFound(res.t('tagNotFound'));
     tag.remove();
+
+    // Remove from all the tasks TODO test
+    await Tasks.Task.update({
+      userId: user._id,
+    }, {
+      $pull: {
+        tags: tag._id,
+      },
+    }, {multi: true}).exec();
 
     await user.save();
     res.respond(200, {});
