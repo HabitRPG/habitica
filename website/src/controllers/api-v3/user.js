@@ -1061,4 +1061,26 @@ api.userReroll = {
   },
 };
 
+/*
+* @api {post} /user/addPushDevice Adds a push device to a user.
+* @apiVersion 3.0.0
+* @apiName UserAddPushDevice
+* @apiGroup User
+*
+* @apiSuccess {Object} data `pushDevices`
+*/
+api.userAddPushDevice = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/addPushDevice',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let addPushDeviceResponse = common.ops.addPushDevice(user, req);
+    await user.save();
+
+    res.respond(200, addPushDeviceResponse);
+  },
+};
+
 module.exports = api;
