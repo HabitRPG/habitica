@@ -129,7 +129,7 @@ TaskSchema.statics.fromJSONV2 = function toJSONV2 (taskObj) {
   let v2Tags = taskObj.tags || {};
 
   taskObj.tags = [];
-  taskObj.tags = _.map(v2Tags, (tag, key) => key)
+  taskObj.tags = _.map(v2Tags, (tag, key) => key);
 
   return taskObj;
 };
