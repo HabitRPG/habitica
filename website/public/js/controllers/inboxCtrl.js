@@ -3,16 +3,22 @@
 habitrpg.controller("InboxCtrl", ['$scope', '$rootScope',
     function($scope, $rootScope) {
       $scope.copyToDo = function(message) {
+
+        var messageUser = null
+        if (message.uuid == 'system') {
+          messageUser = 'system';
+        }
+        else {
+          messageUser = message.user;
+        }
+
         var taskNotes = env.t("taskFromInbox",  {
-          from: message.uuid == 'system'
-            ? 'system'
-            : message.user,
+          from: messageUser,
           message: message.text
         });
+
         var taskText = env.t("taskTextFromInbox", {
-          from: message.uuid == 'system'
-            ? 'system'
-            :  message.user
+          from: messageUser
         });
 
         var newScope = $scope.$new();
