@@ -1,7 +1,11 @@
 {
-    "globals": {
-      "browser": true,
-      "by": true,
-      "element": true
+    // "globals": {
+    //   "browser": true,
+    //   "by": true,
+    //   "element": true
+    // }
+
+    "env": {
+        "protractor": true
     }
 }
