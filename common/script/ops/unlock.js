@@ -28,7 +28,7 @@ module.exports = function unlock (user, req = {}, analytics) {
     cost = 0.5;
   }
 
-  let alreadyOwns = !isFullSet && user.fns.dotGet(`purchased.${path}`) === true;
+  let alreadyOwns = !isFullSet && _.get(user, `purchased.${path}`) === true;
 
   if ((!user.balance || user.balance < cost) && !alreadyOwns) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));

@@ -124,6 +124,8 @@ api.score = function(req, res, next) {
       task,
       direction,
     }, req);
+    // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
     asyncM.parallel({
       task: task.save.bind(task),
