@@ -11,9 +11,6 @@ const COMMON_FILES = [
   // @TODO remove these negations as the files are converted over.
   '!./common/script/content/index.js',
   '!./common/script/ops/addPushDevice.js',
-  '!./common/script/ops/blockUser.js',
-  '!./common/script/ops/clearPMs.js',
-  '!./common/script/ops/deletePM.js',
   '!./common/script/ops/reset.js',
   '!./common/script/fns/crit.js',
   '!./common/script/fns/randomDrop.js',
