@@ -532,7 +532,7 @@ api.updateTag = function (req, res, next) {
     return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
   }
 
-  tag.name = req.body.tag;
+  tag.name = req.body.name;
   user.save(function (err, user) {
     if (err) return next(err);
 

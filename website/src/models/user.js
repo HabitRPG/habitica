@@ -533,7 +533,7 @@ schema.plugin(baseModel, {
     'invitations', 'balance', 'backer', 'contributor'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
-    // doc.filters = {}; Not saved
+    plainObj.filters = {}; // TODO Not saved
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs TODO how to test?
 
     return plainObj;
