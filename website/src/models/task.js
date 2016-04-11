@@ -123,6 +123,18 @@ TaskSchema.methods.toJSONV2 = function toJSONV2 () {
   return toJSON;
 };
 
+TaskSchema.statics.fromJSONV2 = function toJSONV2 (taskObj) {
+  taskObj._id = taskObj.id;
+
+  let v2Tags = taskObj.tags || {};
+
+  taskObj.tags = [];
+  taskObj.tags = _.map(v2Tags, (tag, key) => key);
+
+  return taskObj;
+};
+
+
 // END of API v2 methods
 
 export let Task = mongoose.model('Task', TaskSchema);

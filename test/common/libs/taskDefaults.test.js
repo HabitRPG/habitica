@@ -1,7 +1,4 @@
 import taskDefaults from '../../../common/script/libs/taskDefaults';
-import {
-  generateDaily,
-} from '../../helpers/common.helper';
 
 describe('taskDefaults', () => {
   it('applies defaults to undefined type or habit', () => {
@@ -29,14 +26,14 @@ describe('taskDefaults', () => {
     expect(task.completed).to.eql(false);
     expect(task.streak).to.eql(0);
     expect(task.repeat).to.eql({
-        m: true,
-        t: true,
-        w: true,
-        th: true,
-        f: true,
-        s: true,
-        su: true,
-      });
+      m: true,
+      t: true,
+      w: true,
+      th: true,
+      f: true,
+      s: true,
+      su: true,
+    });
     expect(task.frequency).to.eql('weekly');
     expect(task.startDate).to.exist;
   });

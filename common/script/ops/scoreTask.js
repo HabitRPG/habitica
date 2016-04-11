@@ -3,6 +3,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import i18n from '../i18n';
+import updateStats from '../fns/updateStats';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -254,6 +255,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
     }
   }
 
-  user.fns.updateStats(stats, req);
+  updateStats(user, stats, req);
   return delta;
 };

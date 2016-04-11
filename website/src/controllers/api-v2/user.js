@@ -124,6 +124,8 @@ api.score = function(req, res, next) {
       task,
       direction,
     }, req);
+    // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
     asyncM.parallel({
       task: task.save.bind(task),
@@ -530,7 +532,7 @@ api.updateTag = function (req, res, next) {
     return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
   }
 
-  tag.name = req.body.tag;
+  tag.name = req.body.name;
   user.save(function (err, user) {
     if (err) return next(err);
 
@@ -818,6 +820,7 @@ api.deleteTask = function(req, res, next) {
 
 api.updateTask = function(req, res, next) {
   var user = res.locals.user;
+  req.body = Tasks.Task.fromJSONV2(req.body);
 
   Tasks.Task.findOne({
     _id: req.params.id,
@@ -843,6 +846,7 @@ api.addTask = function(req, res, next) {
   var user = res.locals.user;
   req.body.type = req.body.type || 'habit';
   req.body.text = req.body.text || 'text';
+  req.body = Tasks.Task.fromJSONV2(req.body);
 
   var task = new Tasks[req.body.type](Tasks.Task.sanitizeCreate(req.body));
 
@@ -918,8 +922,8 @@ api.batchUpdate = function(req, res, next) {
   var oldJson = res.json;
 
   // Stash user.save, we'll queue the save op till the end (so we don't overload the server)
-  var oldSave = user.save;
-  user.save = function(cb){cb(null,user)}
+  //var oldSave = user.save;
+  //user.save = function(cb){cb(null,user)}
 
   // Setup the array of functions we're going to call in parallel with async
   res.locals.ops = [];
@@ -941,13 +945,13 @@ api.batchUpdate = function(req, res, next) {
     });
   })
   // Finally, save user at the end
-  .concat(function(){
+  .concat(/*function(){
     user.save = oldSave;
     user.save(arguments[arguments.length-1]);
-  });
+  }*/);
 
   // call all the operations, then return the user object to the requester
-  asyncM.waterfall(ops, function(err,_user) {
+  asyncM.waterfall(ops, function(err) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return next(err);
@@ -955,14 +959,14 @@ api.batchUpdate = function(req, res, next) {
     var response;
 
     // return only drops & streaks
-    if (_user._tmp && _user._tmp.drop){
-      response = _user.toJSON();
+    if (user._tmp && user._tmp.drop){
+      response = user.toJSON();
       res.status(200).json({_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
     } else if (res.locals.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
-      _user.getTransformedData(function(err, transformedData){
+      user.getTransformedData(function(err, transformedData){
         if (err) next(err);
         response = transformedData;
 
@@ -971,12 +975,12 @@ api.batchUpdate = function(req, res, next) {
       });
     // return only the version number
     } else{
-      response = _user.toJSON();
+      response = user.toJSON();
       res.status(200).json({_v: response._v});
     }
 
-    user.fns.nullify();
-    user = res.locals.user = oldSend = oldJson = oldSave = null;
+    //user.fns.nullify();
+    user = res.locals.user = oldSend = oldJson = null;
   });
 };
 

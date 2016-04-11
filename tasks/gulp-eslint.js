@@ -10,10 +10,6 @@ const COMMON_FILES = [
   './common/script/**/*.js',
   // @TODO remove these negations as the files are converted over.
   '!./common/script/content/index.js',
-  '!./common/script/ops/addPushDevice.js',
-  '!./common/script/ops/blockUser.js',
-  '!./common/script/ops/clearPMs.js',
-  '!./common/script/ops/deletePM.js',
   '!./common/script/ops/reset.js',
   '!./common/script/fns/crit.js',
   '!./common/script/fns/randomDrop.js',
@@ -21,10 +17,7 @@ const COMMON_FILES = [
   '!./common/script/libs/encodeiCalLink.js',
   '!./common/script/libs/friendlyTimestamp.js',
   '!./common/script/libs/newChatMessages.js',
-  '!./common/script/libs/percent.js',
   '!./common/script/libs/planGemLimits.js',
-  '!./common/script/libs/splitWhitespace.js',
-  '!./common/script/libs/taskClasses.js',
   '!./common/script/public/**/*.js',
 ];
 const TEST_FILES = [
