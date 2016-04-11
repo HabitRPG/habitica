@@ -33,10 +33,6 @@ api.capByLevel = statHelpers.capByLevel;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
-// TODO under api.libs?
-import splitWhitespace from './libs/splitWhitespace';
-const $w = api.$w = splitWhitespace;
-
 import dotSet from './libs/dotSet';
 api.dotSet = dotSet;
 
@@ -84,6 +80,8 @@ api.pickDeep = pickDeep;
 
 import count from './count';
 api.count = count;
+
+import statsComputed from './libs/statsComputed';
 
 // TODO As ops and fns are ported, exported them through the api object
 import scoreTask from './ops/scoreTask';
@@ -285,23 +283,14 @@ api.wrap = function wrapUser (user, main = true) {
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
+    statsComputed: _.partial(statsComputed, user),
     ultimateGear: _.partial(importedFns.ultimateGear, user),
     nullify: _.partial(importedFns.nullify, user),
   };
 
   Object.defineProperty(user, '_statsComputed', {
     get () {
-      let computed = _.reduce(['per', 'con', 'str', 'int'], (m, stat) => {
-        m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), (m2, path) => {
-          let item;
-          let val = user.fns.dotGet(path);
-          return m2 + (path.indexOf('items.gear') !== -1 ? (item = content.gear.flat[val], (Number(item ? item[stat] : undefined) || 0) * ((item ? item.klass : undefined) === user.stats.class || (item ? item.specialClass : undefined) === user.stats.class ? 1.5 : 1)) : Number(val[stat]) || 0);
-        }, 0);
-        m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
-        return m;
-      }, {});
-      computed.maxMP = computed.int * 2 + 30;
-      return computed;
+      return statsComputed(user);
     },
   });
 };
