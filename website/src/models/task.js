@@ -123,8 +123,8 @@ TaskSchema.methods.toJSONV2 = function toJSONV2 () {
   return toJSON;
 };
 
-TaskSchema.statics.fromJSONV2 = function toJSONV2 (taskObj) {
-  taskObj._id = taskObj.id;
+TaskSchema.statics.fromJSONV2 = function fromJSONV2 (taskObj) {
+  if (taskObj.id) taskObj._id = taskObj.id;
 
   let v2Tags = taskObj.tags || {};
 
