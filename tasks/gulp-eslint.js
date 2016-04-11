@@ -11,7 +11,6 @@ const COMMON_FILES = [
   // @TODO remove these negations as the files are converted over.
   '!./common/script/content/index.js',
   '!./common/script/ops/reset.js',
-  '!./common/script/fns/crit.js',
   '!./common/script/fns/randomDrop.js',
   '!./common/script/libs/appliedTags.js',
   '!./common/script/libs/countExists.js',
