@@ -4,8 +4,10 @@
 // In production, the es6 code is pre-transpiled so it doesn't need it
 if (process.env.NODE_ENV !== 'production') {
   require('babel-register');
-  require('babel-polyfill');
 }
+
+// The BabelJS polyfill is needed in production too
+require('babel-polyfill');
 
 // Only do the minimal amount of work before forking just in case of a dyno restart
 const cluster = require('cluster');
