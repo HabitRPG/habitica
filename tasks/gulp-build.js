@@ -1,4 +1,5 @@
 import gulp from 'gulp';
+import runSequence from 'run-sequence';
 import babel from 'gulp-babel';
 require('gulp-grunt')(gulp);
 
@@ -32,6 +33,10 @@ gulp.task('build:dev:watch', ['build:dev'], () => {
   gulp.watch(['website/public/**/*.styl', 'common/script/*']);
 });
 
-gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff', 'apidoc'], (done) => {
-  gulp.start('grunt-build:prod', done);
+gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff'], (done) => {
+  runSequence(
+    'grunt-build:prod',
+    'apidoc',
+    done
+  );
 });
