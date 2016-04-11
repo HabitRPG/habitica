@@ -182,7 +182,7 @@ api.updateUser = {
  *
  * @apiParam {string} password The user's password unless it's a Facebook account
  *
- * @apiSuccess {} object An empty object
+ * @apiSuccess {Object} empty An empty Object
  */
 api.deleteUser = {
   method: 'DELETE',
@@ -309,7 +309,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiParam {string} spellId The spell to cast.
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a spell on a party member or a task.
  *
- * @apiSuccess {Object|Array} mixed Will return the modified targets. For party members only the necessary fields will be populated.
+ * @apiSuccess mixed Will return the modified targets. For party members only the necessary fields will be populated.
  */
 api.castSpell = {
   method: 'POST',
@@ -773,7 +773,7 @@ api.userOpenMysteryItem = {
  * @apiVersion 3.0.0
  * @apiName UserAddWebhook
  * @apiGroup User
- * @apiSuccess {}
+ * @apiSuccess {Object} webhook The created webhook
  **/
 api.addWebhook = {
   method: 'POST',
@@ -792,7 +792,7 @@ api.addWebhook = {
  * @apiVersion 3.0.0
  * @apiName UserUpdateWebhook
  * @apiGroup User
- * @apiSuccess {}
+ * @apiSuccess {Object} webhook The updated webhook
  **/
 api.updateWebhook = {
   method: 'PUT',
@@ -811,7 +811,7 @@ api.updateWebhook = {
  * @apiVersion 3.0.0
  * @apiName UserDeleteWebhook
  * @apiGroup User
- * @apiSuccess {}
+ * @apiSuccess {Object} webhooks The user webhooks
  **/
 api.deleteWebhook = {
   method: 'DELETE',
@@ -979,7 +979,7 @@ api.userRebirth = {
  * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User
- * @apiSuccess {}
+ * @apiSuccess user.inbox.blocks
 **/
 api.blockUser = {
   method: 'POST',
@@ -998,7 +998,7 @@ api.blockUser = {
  * @apiVersion 3.0.0
  * @apiName deleteMessage
  * @apiGroup User
- * @apiSuccess {}
+ * @apiSuccess user.inbox.messages
 **/
 api.deleteMessage = {
   method: 'DELETE',
@@ -1017,7 +1017,7 @@ api.deleteMessage = {
  * @apiVersion 3.0.0
  * @apiName clearMessages
  * @apiGroup User
- * @apiSuccess {}
+ * @apiSuccess user.inbox.messages
 **/
 api.clearMessages = {
   method: 'DELETE',

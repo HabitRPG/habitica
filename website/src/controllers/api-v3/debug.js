@@ -16,7 +16,7 @@ api.debug = {
  * @apiName AddTenGems
  * @apiGroup Development
  *
- * @apiSuccess {} An empty Object
+ * @apiSuccess {Object} empty An empty Object
  */
 api.addTenGems = {
   method: 'POST',
@@ -38,7 +38,7 @@ api.addTenGems = {
  * @apiName AddHourglass
  * @apiGroup Development
  *
- * @apiSuccess {} An empty Object
+ * @apiSuccess {Object} empty An empty Object
  */
 api.addHourglass = {
   method: 'POST',

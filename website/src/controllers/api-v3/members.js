@@ -246,7 +246,7 @@ api.getChallengeMemberProgress = {
  * @apiParam {String} message The message
  * @apiParam {UUID} toUserId The toUser _id
  *
- * @apiSuccess {} Object Returns an empty object
+ * @apiSuccess {Object} empty An empty Object
  */
 api.sendPrivateMessage = {
   method: 'POST',
@@ -295,7 +295,7 @@ api.sendPrivateMessage = {
  * @apiParam {String} message The message
  * @apiParam {UUID} toUserId The toUser _id
  *
- * @apiSuccess {} Object Returns an empty object
+ * @apiSuccess {Object} empty An empty Object
  */
 api.transferGems = {
   method: 'POST',

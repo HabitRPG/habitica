@@ -2,7 +2,7 @@ import gulp from 'gulp';
 import clean from 'rimraf';
 import apidoc from 'apidoc';
 
-const APIDOC_DEST_PATH = './website/public/apidoc';
+const APIDOC_DEST_PATH = './website/build/apidoc';
 const APIDOC_SRC_PATH = './website/src';
 gulp.task('apidoc:clean', (done) => {
   clean(APIDOC_DEST_PATH, done);
