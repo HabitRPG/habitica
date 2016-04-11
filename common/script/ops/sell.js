@@ -1,5 +1,5 @@
 import content from '../content/index';
-import i18n from '../../../common/script/i18n';
+import i18n from '../i18n';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
 import {

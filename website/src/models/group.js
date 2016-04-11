@@ -12,10 +12,11 @@ import { InternalServerError } from '../libs/api-v3/errors';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
-import { quests as questScrolls } from '../../../common/script/content';
 import Q from 'q';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
+
+const questScrolls = shared.content.quests;
 
 let Schema = mongoose.Schema;
 

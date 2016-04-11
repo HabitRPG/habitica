@@ -1,5 +1,5 @@
 import validator from 'validator';
-import i18n from '../../../common/script/i18n';
+import i18n from '../i18n';
 import {
   BadRequest,
 } from '../libs/errors';

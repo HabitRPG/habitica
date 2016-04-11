@@ -1,4 +1,4 @@
-import common from '../../../../common/script';
+import common from '../../../../common';
 
 export const CustomError = common.errors.CustomError;
 

@@ -2,10 +2,12 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../../libs/api-v3/errors';
-import i18n from '../../../../common/script/i18n';
+import common from '../../../../common';
 import {
   model as User,
 } from '../../models/user';
+
+const i18n = common.i18n;
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication

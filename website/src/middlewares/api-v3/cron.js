@@ -1,15 +1,14 @@
 import _ from 'lodash';
 import moment from 'moment';
-import {
-  daysSince,
-  shouldDo,
-} from '../../../../common/script/cron';
 import common from '../../../../common';
 import * as Tasks from '../../models/task';
 import Q from 'q';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import { preenUserHistory } from '../../libs/api-v3/preening';
+
+const daysSince = common.daysSince;
+const shouldDo = common.shouldDo;
 
 const scoreTask = common.ops.scoreTask;
 

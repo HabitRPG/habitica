@@ -16,9 +16,10 @@ import {
   getUserInfo,
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
-import { quests as questScrolls } from '../../../../common/script/content';
 import common from '../../../../common';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
+
+const questScrolls = common.content.quests;
 
 function canStartQuestAutomatically (group)  {
   // If all members are either true (accepted) or false (rejected) return true
