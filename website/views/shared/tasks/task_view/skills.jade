@@ -19,5 +19,5 @@ ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.prefere
           strong {{::skill.mana}}
           =env.t('mp')
     // main content
-    span(ng-class='{"shop_{{::skill.key}} shop-sprite item-img": true}')
+    span(ng-class='{"shop_{{::skill.key}} shop-sprite item-img": true}').reward-img
     p.task-text {{::skill.text()}}
