@@ -13,15 +13,11 @@ const COMMON_FILES = [
   '!./common/script/ops/reset.js',
   '!./common/script/fns/crit.js',
   '!./common/script/fns/randomDrop.js',
-  '!./common/script/libs/appliedTags.js',
   '!./common/script/libs/countExists.js',
   '!./common/script/libs/encodeiCalLink.js',
   '!./common/script/libs/friendlyTimestamp.js',
-  '!./common/script/libs/gold.js',
   '!./common/script/libs/newChatMessages.js',
-  '!./common/script/libs/noTags.js',
   '!./common/script/libs/planGemLimits.js',
-  '!./common/script/libs/silver.js',
   '!./common/script/public/**/*.js',
 ];
 const TEST_FILES = [
