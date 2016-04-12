@@ -120,6 +120,7 @@ import clearPMs from './ops/clearPMs';
 import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import addPushDevice from './ops/addPushDevice';
+import reset from './ops/reset';
 
 api.ops = {
   scoreTask,
@@ -156,6 +157,7 @@ api.ops = {
   deletePM,
   reroll,
   addPushDevice,
+  reset,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';

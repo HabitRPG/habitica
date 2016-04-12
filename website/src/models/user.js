@@ -808,7 +808,6 @@ schema.methods.getTransformedData = function getTransformedData (cb) {
 };
 
 // END of API v2 methods
-
 export let model = mongoose.model('User', schema);
 
 // Initially export an empty object so external requires will get
