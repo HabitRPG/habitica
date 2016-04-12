@@ -132,6 +132,7 @@ api.registerUser = function(req, res, next) {
         analytics.track('register', analyticsData)
 
         user.save(function(err, savedUser){
+          if (err) return cb(err);
           // Clean previous email preferences
           // TODO when emails added to EmailUnsubcription they should use lowercase version
           EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){

@@ -7,6 +7,9 @@ var shared = require('../../../../common');
 import {
   model as User,
 } from '../../models/user';
+import {
+  NotFound,
+} from '../../libs/api-v3/errors';
 import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
 import Q from 'q';
@@ -31,6 +34,8 @@ let i18n = shared.i18n;
 var api = module.exports;
 var firebase = require('../../libs/api-v2/firebase');
 var webhook = require('../../libs/api-v2/webhook');
+
+const partyMembersFields = 'profile.name stats achievements items.special';
 
 // api.purchase // Shared.ops
 
@@ -610,8 +615,8 @@ api.cast = async function(req, res, next) {
     let spellId = req.params.spellId;
     let targetId = req.query.targetId;
 
-    let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
-    let spell = common.content.spells[klass][spellId];
+    let klass = shared.content.spells.special[spellId] ? 'special' : user.stats.class;
+    let spell = shared.content.spells[klass][spellId];
 
     if (!spell) return res.status(404).json({err: 'Spell "' + req.params.spell + '" not found.'});
     if (spell.mana > user.stats.mp) return res.status(400).json({err: 'Not enough mana to cast spell'});
@@ -893,13 +898,13 @@ _.each(shared.ops, function(op,k){
       // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
       res.locals.user.save(function(err){
         if (err) return next(err);
-        if (response === user) { // add tasks
-          user.getTransformedData(function (err, transformedUser) {
+        if (opResponse === res.locals.user) { // add tasks
+          res.locals.user.getTransformedData(function (err, transformedUser) {
             if (err) return next(err);
             res.status(200).json(transformedUser);
           });
         } else {
-          res.status(200).json(response);
+          res.status(200).json(opResponse);
         }
       });
     }

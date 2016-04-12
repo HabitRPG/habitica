@@ -9,6 +9,7 @@ import {
 } from '../../models/user';
 import {
   model as Group,
+  basicFields as basicGroupFields,
 } from '../../models/group';
 import {
   model as Challenge,
@@ -26,6 +27,8 @@ import v3MembersController from '../api-v3/members';
   Challenges
   ------------------------------------------------------------------------
 */
+
+var nameFields = 'profile.name';
 
 api.list = async function(req, res, next) {
   try {
@@ -195,7 +198,7 @@ api.create = async function(req, res, next){
 
     chalTasks = chalTasks.map(function(task) {
       var newTask = new Tasks[task.type](Tasks.Task.sanitizeCreate(task));
-      newTask.challenge.id = chal._id;
+      newTask.challenge.id = challenge._id;
       return newTask.save();
     });
 
@@ -251,9 +254,7 @@ api.update = function(req, res, next){
         },
         tasks: function(cb1) {
           // Convert to map of {id: task} so we can easily match them
-          var _beforeClonedTasks = _.cloneDeep(_before.tasks.map(function(t) {
-            return t.toObject();
-          }));
+          var _beforeClonedTasks = _before.tasks;
           updatedTasks = _.object(_.pluck(_beforeClonedTasks, '_id'), _beforeClonedTasks);
           var newTasks = req.body.habits.concat(req.body.dailys)
                           .concat(req.body.todos).concat(req.body.rewards);
@@ -261,11 +262,11 @@ api.update = function(req, res, next){
           var newTasksObj = _.object(_.pluck(newTasks, '_id'), newTasks);
           async.forEachOf(newTasksObj, function(newTask, taskId, cb2){
             // some properties can't be changed
-            Tasks.Task.sanitize(newTask);
+            newTask = Tasks.Task.sanitize(newTask);
             // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
             // TODO regarding comment above, make sure other models with nested fields are using this trick too
-            _.assign(updatedTasks[taskId], common.ops.updateTask(task.toObject(), {body: newTask}));
-            challenge.updateTask(updatedTasks[taskId]);
+            _.assign(updatedTasks[taskId], shared.ops.updateTask(updatedTasks[taskId].toObject(), {body: newTask}));
+            _before.chal.updateTask(updatedTasks[taskId]).then(cb2).catch(cb2);
           }, cb1);
         }
       }, cb);
@@ -313,8 +314,8 @@ api.selectWinner = async function(req, res, next) {
     if (!req.query.uid) return res.status(401).json({err: 'Must select a winner'});
 
     let challenge = await Challenge.findOne({_id: req.params.cid}).exec();
-    if (!challenge) return next('Challenge ' + cid + ' not found');
-    if (!challenge.canModify(user)) return next(shared.i18n.t('noPermissionCloseChallenge'));
+    if (!challenge) return next('Challenge ' + req.params.cid + ' not found');
+    if (!challenge.canModify(res.locals.user)) return next(shared.i18n.t('noPermissionCloseChallenge'));
 
     let winner = await User.findOne({_id: req.params.uid}).exec();
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) return next('Winner ' + req.query.uid + ' not found.');
@@ -386,29 +387,32 @@ api.leave = async function(req, res, next){
   }
 }
 
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+
 api.unlink = async function(req, res, next) {
   try {
     var user = res.locals.user;
     var tid = req.params.id;
-    var cid = user.tasks[tid].challenge.id;
+    var cid;
     if (!req.query.keep)
       return res.status(400).json({err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
 
     let keep = req.query.keep;
     let task = await Tasks.Task.findOne({
-      _id: taskId,
+      _id: tid,
       userId: user._id,
     }).exec();
 
     if (!task) return next(shared.i18n.t('taskNotFound'));
     if (!task.challenge.id) return next(shared.i18n.t('cantOnlyUnlinkChalTask'));
 
+    cid = task.challenge.id;
     if (keep === 'keep') {
       task.challenge = {};
       await task.save();
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
-        removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
+        removeFromArray(user.tasksOrder[`${task.type}s`], tid);
         await Q.all([user.save(), task.remove()]);
       } else {
         await task.remove();

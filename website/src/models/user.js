@@ -753,6 +753,8 @@ schema.methods.getTasks = function getUserTasks () {
 // Given user and an array of tasks, return an API compatible user + tasks obj
 schema.methods.addTasksToUser = function addTasksToUser (tasks) {
   let obj = this.toJSON();
+
+  obj.id = obj._id;
   obj.filters = {};
 
   obj.tags = obj.tags.map(tag => {

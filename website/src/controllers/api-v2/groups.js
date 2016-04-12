@@ -838,7 +838,7 @@ api.removeMember = function(req, res, next){
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
-        sendMessage(invited);
+        sendMessage(removedUser);
         group = uuid = null;
         return res.sendStatus(204);
       });
@@ -973,19 +973,23 @@ api.questAccept = function(req, res, next) {
     if (group.quest.key) return res.status(400).json({err: 'Your party is already on a quest. Try again when the current quest has ended.'});
     if (!user.items.quests[key]) return res.status(400).json({err: "You don't own that quest scroll"});
 
+    let members;
+
     User.find({
       'party._id': group._id,
       _id: {$ne: user._id},
     }).select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
-    .exec().then(members => {
+    .exec().then(membersF => {
+      members = membersF;
+
       group.markModified('quest');
-      group.quest.key = questKey;
+      group.quest.key = key;
       group.quest.leader = user._id;
       group.quest.members = {};
       group.quest.members[user._id] = true;
 
       user.party.quest.RSVPNeeded = false;
-      user.party.quest.key = questKey;
+      user.party.quest.key = key;
 
       return User.update({
         'party._id': group._id,
@@ -993,7 +997,7 @@ api.questAccept = function(req, res, next) {
       }, {
         $set: {
           'party.quest.RSVPNeeded': true,
-          'party.quest.key': questKey,
+          'party.quest.key': key,
         },
       }, {multi: true}).exec();
     }).then(() => {
@@ -1117,7 +1121,7 @@ api.questCancel = function(req, res, next){
   Q.all([
     group.save(),
     User.update(
-      {'party._id': groupId},
+      {'party._id': group._id},
       {$set: {'party.quest': Group.cleanQuestProgress()}},
       {multi: true}
     ),

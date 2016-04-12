@@ -26,7 +26,7 @@ let env = {
   mods,
   Content: shared.content,
   siteVersion: forceRefresh.siteVersion,
-  availableLanguages: i18n.available,
+  availableLanguages: i18n.availableLanguages,
   AMAZON_PAYMENTS: {
     SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
     CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID'),
