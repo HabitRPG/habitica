@@ -197,7 +197,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
 
     // Add history entry, even more than 1 per day
     task.history.push({
-      date: Number(new Date()), // TODO are we going to cast history entries?
+      date: Number(new Date()),
       value: task.value,
     });
   } else if (task.type === 'daily') {

@@ -8,7 +8,7 @@ module.exports = function baseModel (schema, options = {}) {
     _id: {
       type: String,
       default: uuid,
-      validate: [validator.isUUID, 'Invalid uuid.'], // TODO check for UUID version
+      validate: [validator.isUUID, 'Invalid uuid.'],
     },
   });
 

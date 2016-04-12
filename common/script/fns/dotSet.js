@@ -7,7 +7,7 @@ import _ from 'lodash';
  Angular sets object properties directly - in which case, this function will be used.
 */
 
-// TODO use directly _.set and remove this fn
+// TODO use directly _.set and remove this fn, only used in client
 
 module.exports = function dotSet (user, path, val) {
   return _.set(user, path, val);

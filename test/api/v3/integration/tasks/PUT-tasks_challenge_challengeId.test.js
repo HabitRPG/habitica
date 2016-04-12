@@ -80,6 +80,7 @@ describe('PUT /tasks/:id', () => {
         completed: true,
         streak: 25,
         dateCompleted: 'never',
+        value: 324, // ignored because not a reward
       });
 
       expect(savedTask._id).to.equal(task._id);
@@ -92,6 +93,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.completed).to.equal(task.completed);
       expect(savedTask.streak).to.equal(task.streak);
       expect(savedTask.dateCompleted).to.equal(task.dateCompleted);
+      expect(savedTask.value).to.equal(task.value);
     });
 
     it('ignores invalid fields', async () => {
@@ -302,12 +304,12 @@ describe('PUT /tasks/:id', () => {
       let savedReward = await user.put(`/tasks/${reward._id}`, {
         text: 'some new text',
         notes: 'some new notes',
-        value: 10,
+        value: 11,
       });
 
       expect(savedReward.text).to.eql('some new text');
       expect(savedReward.notes).to.eql('some new notes');
-      expect(savedReward.value).to.eql(10);
+      expect(savedReward.value).to.eql(11);
     });
 
     it('requires value to be coerced into a number', async () => {

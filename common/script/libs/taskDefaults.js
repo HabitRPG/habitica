@@ -6,7 +6,6 @@ import moment from 'moment';
 // sending up to the server for performance
 
 // TODO move to client code?
-// TODO test?
 
 const tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
@@ -17,7 +16,7 @@ module.exports = function taskDefaults (task = {}) {
 
   let defaultId = uuid();
   let defaults = {
-    _id: defaultId, // TODO convert all occurencies of id to _id
+    _id: defaultId,
     text: task._id || defaultId,
     notes: '',
     tags: [],

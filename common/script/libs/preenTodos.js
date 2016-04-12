@@ -1,8 +1,7 @@
 import moment from 'moment';
 import _ from 'lodash';
 
-// TODO used only in v2 client
-// TODO test
+// TODO used only in v2
 
 module.exports = function preenTodos (tasks) {
   return _.filter(tasks, (t) => {

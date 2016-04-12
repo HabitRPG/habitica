@@ -25,7 +25,7 @@ async function _createTasks (req, res, user, challenge) {
     if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
 
     let taskType = taskData.type;
-    let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
+    let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
@@ -304,10 +304,9 @@ api.updateTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    Tasks.Task.sanitize(req.body);
     // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     // TODO regarding comment above, make sure other models with nested fields are using this trick too
-    _.assign(task, common.ops.updateTask(task.toObject(), req));
+    _.assign(task, Tasks.Task.sanitize(common.ops.updateTask(task.toObject(), req)));
     // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749

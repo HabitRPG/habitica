@@ -25,7 +25,15 @@ export let TaskSchema = new Schema({
     validate: [validator.isUUID, 'Invalid uuid.'],
   }],
   value: {type: Number, default: 0, required: true}, // redness or cost for rewards Required because it must be settable (for rewards)
-  priority: {type: Number, default: 1, required: true}, // TODO enum?
+  priority: {
+    type: Number,
+    default: 1,
+    required: true,
+    validate: [
+      (val) => [0.1, 1, 1.5, 2].indexOf(val) !== -1,
+      'Valid priority values are 0.1, 1, 1.5, 2.',
+    ],
+  },
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
   userId: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set it belongs to a challenge
 
@@ -33,7 +41,7 @@ export let TaskSchema = new Schema({
     id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task TODO unique index?
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED']},
-    winner: String, // user.profile.name TODO necessary?
+    winner: String, // user.profile.name of the winner
   },
 
   reminders: [{
@@ -47,18 +55,17 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-   // TODO checklist fields editable?
-   // TODO value should be settable only for rewards
-  noSet: ['challenge', 'userId', 'completed', 'history', 'streak', 'dateCompleted'],
+  noSet: ['challenge', 'userId', 'completed', 'history', 'streak', 'dateCompleted', 'completed'],
+  sanitizeTransform (taskObj) {
+    if (taskObj.type !== 'reward') { // value should be settable directly only for rewards
+      delete taskObj.value;
+    }
+
+    return taskObj;
+  },
   private: [],
   timestamps: true,
 });
-
-// A list of additional fields that cannot be set on creation (but can be set on updare)
-let noCreate = ['completed']; // TODO completed should be removed for updates too?
-TaskSchema.statics.sanitizeCreate = function sanitizeCreate (createObj) {
-  return this.sanitize(createObj, noCreate);
-};
 
 // Sanitize checklist objects (disallowing _id)
 TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
@@ -68,7 +75,7 @@ TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj)
 
 // Sanitize reminder objects (disallowing id)
 TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
-  delete reminderObj.id;
+  delete reminderObj.id; // TODO convert to _id?
   return reminderObj;
 };
 
@@ -188,8 +195,7 @@ export let daily = Task.discriminator('daily', DailySchema);
 
 export let TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
-  // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
-  // TODO change field name
+  // TODO we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
   date: String, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
 export let todo = Task.discriminator('todo', TodoSchema);
