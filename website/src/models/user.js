@@ -49,7 +49,6 @@ export let schema = new Schema({
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: { type: Number, default: 0 },
-  // TODO give all this a default of 0?
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
@@ -99,8 +98,11 @@ export let schema = new Schema({
 
   contributor: {
     // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear https://github.com/HabitRPG/habitrpg/issues/3801
-    // TODO validate
-    level: Number,
+    level: {
+      type: Number,
+      min: 0,
+      max: 9,
+    },
     admin: Boolean,
     sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
@@ -119,7 +121,6 @@ export let schema = new Schema({
   purchased: {
     ads: {type: Boolean, default: false},
     // eg, {skeleton: true, pumpkin: true, eb052b: true}
-    // TODO dictionary
     skin: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
@@ -421,7 +422,7 @@ export let schema = new Schema({
     displayInviteToPartyWhenPartyIs1: {type: Boolean, default: true},
     webhooks: {type: Schema.Types.Mixed, default: () => {
       return {};
-    }}, // TODO array? and proper controller... unless VersionError becomes problematic
+    }},
     // For the following fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
     emailNotifications: {
@@ -541,7 +542,6 @@ schema.plugin(baseModel, {
 });
 
 // A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
-// TODO is all party data meant to be public?
 export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
   preferences.costume preferences.sleep preferences.background profile stats achievements party
   backer contributor auth.timestamps items`;
@@ -823,6 +823,4 @@ mongoose.model('User')
   .then((foundMods) => {
     // Using push to maintain the reference to mods
     mods.push(...foundMods);
-  }, (err) => { // TODO replace with .catch which for some reason was throwing an error
-    throw err; // TODO ?
-  });
+  }); // In case of failure we don't want this to crash the whole server

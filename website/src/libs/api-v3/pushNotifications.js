@@ -9,7 +9,8 @@ let gcm = GCM_API_KEY ? pushNotify.gcm({
   retries: 3,
 }) : undefined;
 
-// TODO log
+// TODO review and test this file when push notifications are added back
+
 if (gcm) {
   gcm.on('transmitted', (/* result, message, registrationId */) => {
     // console.info("transmitted", result, message, registrationId);
@@ -24,7 +25,6 @@ if (gcm) {
   });
 }
 
-// TODO test
 module.exports = function sendNotification (user, title, message, timeToLive = 15) {
   // TODO need investigation:
   // https://github.com/HabitRPG/habitrpg/issues/5252
@@ -50,7 +50,6 @@ module.exports = function sendNotification (user, title, message, timeToLive = 1
         break;
 
       case 'ios':
-        // TODO implement
         break;
     }
   });

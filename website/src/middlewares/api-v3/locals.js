@@ -12,7 +12,6 @@ import { mods } from '../../models/user';
 
 // To avoid stringifying more data then we need,
 // items from `env` used on the client will have to be specified in this array
-// TODO where is this used?
 const CLIENT_VARS = ['language', 'isStaticPage', 'availableLanguages', 'translations',
                   'FACEBOOK_KEY', 'NODE_ENV', 'BASE_URL', 'GA_ID',
                   'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',

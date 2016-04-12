@@ -14,7 +14,7 @@ const FacebookStrategy = passportFacebook.Strategy;
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
-// TODO
+// TODO remove?
 // This auth strategy is no longer used. It's just kept around for auth.js#loginFacebook() (passport._strategies.facebook.userProfile)
 // The proper fix would be to move to a general OAuth module simply to verify accessTokens
 passport.use(new FacebookStrategy({

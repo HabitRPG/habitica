@@ -32,8 +32,6 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
     responseErr.message = err.message;
   }
 
-  // TODO make mongoose and express-validator errors more recognizable
-
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {
     responseErr = new BadRequest(res.t('invalidReqParams'));

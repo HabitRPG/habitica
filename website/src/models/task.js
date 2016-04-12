@@ -57,7 +57,7 @@ export let TaskSchema = new Schema({
 TaskSchema.plugin(baseModel, {
   noSet: ['challenge', 'userId', 'completed', 'history', 'streak', 'dateCompleted', 'completed'],
   sanitizeTransform (taskObj) {
-    if (taskObj.type !== 'reward') { // value should be settable directly only for rewards
+    if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
     }
 

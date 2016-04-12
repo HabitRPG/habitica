@@ -49,7 +49,7 @@ module.exports = function attachMiddlewares (app, server) {
     extended: true, // Uses 'qs' library as old connect middleware
   }));
   app.use(bodyParser.json());
-  app.use(methodOverride()); // TODO still needed in 2016?
+  app.use(methodOverride());
 
   app.use(cookieSession({
     name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies

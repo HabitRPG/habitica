@@ -212,13 +212,13 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
   let group = this;
 
   let usersToRemoveInvitationsFrom = await User.find({
-    // TODO id -> _id ?
     [`invitations.${group.type}${group.type === 'guild' ? 's' : ''}.id`]: group._id,
   }).exec();
 
   let userUpdates = usersToRemoveInvitationsFrom.map(user => {
     if (group.type === 'party') {
-      user.invitations.party = {}; // TODO mark modified
+      user.invitations.party = {};
+      this.markModified('invitations.party');
     } else {
       removeFromArray(user.invitations.guilds, { id: group._id });
     }
@@ -395,7 +395,6 @@ function _cleanQuestProgress (merge) {
   return clean;
 }
 
-// TODO move to User.cleanQuestProgress?
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
 
 // returns a clean object for group.quest
@@ -619,7 +618,6 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     _.assign(tavernQuest, tavern.quest.toObject());
     return tavern.save();
   }
-  // TODO catch
 };
 
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
