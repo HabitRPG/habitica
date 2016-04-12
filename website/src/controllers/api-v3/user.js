@@ -1083,4 +1083,29 @@ api.userAddPushDevice = {
   },
 };
 
+/*
+* @api {post} /user/reset Resets a user.
+* @apiVersion 3.0.0
+* @apiName UserReset
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user`
+*/
+api.userReset = {
+  method: 'POST',
+  middlewares: [authWithHeaders(), cron],
+  url: '/user/reset',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let tasks = await Tasks.Task.find({userId: user._id}).select('_id type challenge').exec();
+
+    let resetResponse = common.ops.reset(user, tasks);
+
+    await Q.all([Tasks.Task.remove({_id: {$in: resetResponse.data.tasksToRemove}, userId: user._id}), user.save()]);
+
+    res.respond(200, resetResponse);
+  },
+};
+
 module.exports = api;
