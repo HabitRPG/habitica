@@ -220,8 +220,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.armoire = Content.armoire;
 
     $scope.buy = function(item) {
-        playRewardSound(item);
-        User.user.ops.buy({params:{key:item.key}});
+      playRewardSound(item);
+      User.user.ops.buy({params:{key:item.key}});
     };
 
 
