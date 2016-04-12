@@ -11,11 +11,6 @@ const COMMON_FILES = [
   // @TODO remove these negations as the files are converted over.
   '!./common/script/content/index.js',
   '!./common/script/fns/randomDrop.js',
-  '!./common/script/libs/countExists.js',
-  '!./common/script/libs/encodeiCalLink.js',
-  '!./common/script/libs/friendlyTimestamp.js',
-  '!./common/script/libs/newChatMessages.js',
-  '!./common/script/libs/planGemLimits.js',
   '!./common/script/public/**/*.js',
 ];
 const TEST_FILES = [

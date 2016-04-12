@@ -878,7 +878,7 @@ _.each(shared.ops, function(op,k){
   if (['rebirth', 'reroll', 'reset'].indexOf(k) !== -1) { // proxy ops that change tasks directly to v3
     if (k === 'rebirth') k = 'userRebirth'; // the name is different in v3
     if (k === 'reroll') k = 'userReroll';
-    // if (k === 'reset') k = 'resetUser';
+    if (k === 'reset') k = 'userReset';
 
     api[k] = function (req, res, next) {
       req.v2 = true;
