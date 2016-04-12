@@ -853,7 +853,7 @@ api.addTask = function(req, res, next) {
   req.body.text = req.body.text || 'text';
   req.body = Tasks.Task.fromJSONV2(req.body);
 
-  var task = new Tasks[req.body.type](Tasks.Task.sanitizeCreate(req.body));
+  var task = new Tasks[req.body.type](Tasks.Task.sanitize(req.body));
 
   task.userId = user._id;
   user.tasksOrder[task.type + 's'].unshift(task._id);

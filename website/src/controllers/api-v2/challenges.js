@@ -197,7 +197,7 @@ api.create = async function(req, res, next){
                   .concat(req.body.dailys).concat(req.body.todos);
 
     chalTasks = chalTasks.map(function(task) {
-      var newTask = new Tasks[task.type](Tasks.Task.sanitizeCreate(task));
+      var newTask = new Tasks[task.type](Tasks.Task.sanitize(task));
       newTask.challenge.id = challenge._id;
       return newTask.save();
     });
