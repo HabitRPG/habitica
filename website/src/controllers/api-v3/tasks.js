@@ -13,6 +13,7 @@ import {
 import common from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
+import logger from '../../libs/api-v3/logger';
 
 let api = {};
 
@@ -416,7 +417,7 @@ api.scoreTask = {
 
         await chalTask.scoreChallengeTask(delta);
       } catch (e) {
-        // TODO handle
+        logger.error(e);
       }
     }
   },

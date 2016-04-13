@@ -261,6 +261,7 @@ function cron (options = {}) {
     gaLabel: 'Cron Count',
     gaValue: user.flags.cronCount,
     uuid: user._id,
+    user,
     resting: user.preferences.sleep,
     cronCount: user.flags.cronCount,
     progressUp: _.min([_progress.up, 900]),
