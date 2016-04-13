@@ -10,6 +10,7 @@ import {
 import {
   model as Group,
   basicFields as basicGroupFields,
+  TAVERN_ID,
 } from '../../models/group';
 import {
   model as Challenge,
@@ -152,7 +153,7 @@ api.create = async function(req, res, next){
       return res.status(401).json({err:"Only the group leader can create challenges"});
     }
 
-    if (groupId === 'habitrpg' && prize < 1) {
+    if (group._id === TAVERN_ID && prize < 1) {
       return res.status(401).json({err: 'Prize must be at least 1 Gem for public challenges.'})
     }
 

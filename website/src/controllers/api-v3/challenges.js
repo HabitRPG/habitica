@@ -5,6 +5,7 @@ import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
   basicFields as basicGroupFields,
+  TAVERN_ID,
 } from '../../models/group';
 import {
   model as User,
@@ -54,7 +55,7 @@ api.createChallenge = {
       throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
     }
 
-    if (groupId === 'habitrpg' && prize < 1) {
+    if (group._id === TAVERN_ID && prize < 1) {
       throw new NotAuthorized(res.t('pubChalsMinPrize'));
     }
 
@@ -454,7 +455,7 @@ export async function _closeChal (challenge, broken = {}) {
   await Challenge.remove({_id: challenge._id}).exec();
 
   // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
+  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
     await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
   }
 

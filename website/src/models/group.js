@@ -17,8 +17,10 @@ import nconf from 'nconf';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
 
 const questScrolls = shared.content.quests;
+const Schema = mongoose.Schema;
 
-let Schema = mongoose.Schema;
+export const INVITES_LIMIT = 100;
+export const TAVERN_ID = '00000000-0000-4000-A000-000000000000';
 
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
@@ -126,15 +128,18 @@ schema.statics.getGroup = async function getGroup (options = {}) {
 
   let isUserParty = groupId === 'party' || user.party._id === groupId;
   let isUserGuild = user.guilds.indexOf(groupId) !== -1;
+  let isTavern = ['habitrpg', TAVERN_ID].indexOf(groupId) !== -1;
 
   // When requireMembership is true check that user is member even in public guild
-  if (requireMembership && !isUserParty && !isUserGuild) {
+  if (requireMembership && !isUserParty && !isUserGuild && !isTavern) {
     return null;
   }
 
   // When optionalMembership is true it's not required for the user to be a member of the group
   if (isUserParty) {
     query = {type: 'party', _id: user.party._id};
+  } else if (isTavern) {
+    query = {_id: TAVERN_ID};
   } else if (optionalMembership === true) {
     query = {_id: groupId};
   } else if (isUserGuild) {
@@ -180,7 +185,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         break;
       case 'tavern':
         if (types.indexOf('publicGuilds') === -1) {
-          queries.push(this.getGroup({user, groupId: 'habitrpg', fields: groupFields}));
+          queries.push(this.getGroup({user, groupId: TAVERN_ID, fields: groupFields}));
         }
         break;
     }
@@ -230,7 +235,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
 
 // Return true if user is a member of the group
 schema.methods.isMember = function isGroupMember (user) {
-  if (this._id === 'habitrpg') {
+  if (this._id === TAVERN_ID) {
     return true; // everyone is considered part of the tavern
   } else if (this.type === 'party') {
     return user.party._id === this._id ? true : false;
@@ -263,7 +268,7 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
-const NO_CHAT_NOTIFICATIONS = ['habitrpg'];
+const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
   this.chat.splice(200);
@@ -421,7 +426,7 @@ schema.methods.finishQuest = function finishQuest (quest) {
   updates.$inc['stats.exp'] = Number(quest.drop.exp);
   updates.$inc._v = 1;
 
-  if (this._id === 'habitrpg') {
+  if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
   } else {
     updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
@@ -450,7 +455,7 @@ schema.methods.finishQuest = function finishQuest (quest) {
     }
   });
 
-  let q = this._id === 'habitrpg' ? {} : {_id: {$in: _.keys(this.quest.members)}};
+  let q = this._id === TAVERN_ID ? {} : {_id: {$in: _.keys(this.quest.members)}};
   this.quest = {};
   this.markModified('quest');
   return User.update(q, updates, {multi: true}).exec();
@@ -539,10 +544,10 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   return group.save();
 };
 
-// to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
+// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
 // we export an empty object that is then populated with the query-returned data
 export let tavernQuest = {};
-let tavernQ = {_id: 'habitrpg', 'quest.key': {$ne: null}};
+let tavernQ = {_id: TAVERN_ID, 'quest.key': {$ne: null}};
 
 // we use process.nextTick because at this point the model is not yet available
 process.nextTick(() => {
@@ -723,23 +728,20 @@ schema.methods.getTransformedData = function getTransformedData (options) {
 };
 // END API v2 compatibility methods
 
-export const INVITES_LIMIT = 100;
 export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
 if (!nconf.get('IS_TEST')) {
-  model.count({_id: 'habitrpg'}, (err, ct) => {
+  model.count({_id: TAVERN_ID}, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
     new model({ // eslint-disable-line babel/new-cap
-      _id: 'habitrpg',
-      leader: '9', // TODO change this user id
+      _id: TAVERN_ID,
+      leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
       name: 'HabitRPG',
       type: 'guild',
       privacy: 'public',
-    }).save({
-      validateBeforeSave: false, // _id = 'habitrpg' would not be valid otherwise
-    });
+    }).save();
   });
 }

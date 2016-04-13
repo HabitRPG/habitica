@@ -7,9 +7,11 @@ import * as Tasks from './task';
 import Q from 'q';
 import { schema as TagSchema } from './tag';
 import baseModel from '../libs/api-v3/baseModel';
-import { chatDefaults } from './group';
+import {
+  chatDefaults,
+  TAVERN_ID,
+} from './group';
 import { defaults } from 'lodash';
-// import {model as Challenge} from './challenge';
 
 let Schema = mongoose.Schema;
 
@@ -706,7 +708,7 @@ schema.methods.isSubscribed = function isSubscribed () {
 schema.methods.getGroups = function getUserGroups () {
   let userGroups = this.guilds.slice(0); // clone user.guilds so we don't modify the original
   if (this.party._id) userGroups.push(this.party._id);
-  userGroups.push('habitrpg'); // tavern
+  userGroups.push(TAVERN_ID);
   return userGroups;
 };
 

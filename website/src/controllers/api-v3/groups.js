@@ -118,7 +118,7 @@ api.getGroups = {
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} group The group object
  */
@@ -152,7 +152,7 @@ api.getGroup = {
  * @apiName UpdateGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} group The updated group object
  */
@@ -334,7 +334,7 @@ api.rejectGroupInvite = {
  * @apiName LeaveGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {string="remove-all","keep-all"} keep Wheter to keep or not challenges' tasks, as an optional query string
  *
  * @apiSuccess {Object} empty An empty object
@@ -390,7 +390,7 @@ function _sendMessageToRemoved (group, removedUser, message) {
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} memberId The _id of the member to remove
  * @apiParam {string} message The message to send to the removed members, as a query string // TODO in req.body?
  *
@@ -591,7 +591,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiName InviteToGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiParam {array} emails An array of emails addresses to invite (optional) (inside body)
  * @apiParam {array} uuids An array of uuids to invite (optional) (inside body)

@@ -1,6 +1,9 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import cron from '../../middlewares/api-v3/cron';
-import { model as Group } from '../../models/group';
+import {
+  model as Group,
+  TAVERN_ID,
+} from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
@@ -23,7 +26,7 @@ let api = {};
  * @apiName GetChat
  * @apiGroup Chat
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Array} chat An array of chat messages
  */
@@ -219,7 +222,7 @@ api.flagChat = {
     }
 
     let groupUrl;
-    if (group._id === 'habitrpg') {
+    if (group._id === TAVERN_ID) {
       groupUrl = '/#/options/groups/tavern';
     } else if (group.type === 'guild') {
       groupUrl = `/#/options/groups/guilds/{$group._id}`;
@@ -336,7 +339,7 @@ api.seenChat = {
  * @apiName DeleteChat
  * @apiGroup Chat
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {string} chatId The chat _id
  *
  * @apiSuccess {Array} The update chat array

@@ -6,6 +6,8 @@ var firebaseConfig = nconf.get('FIREBASE');
 var firebaseRef;
 var isFirebaseEnabled = (nconf.get('NODE_ENV') === 'production') && (firebaseConfig.ENABLED === 'true');
 
+import { TAVERN_ID } from '../../models/group';
+
 // Setup
 if(isFirebaseEnabled){
   firebaseRef = new Firebase('https://' + firebaseConfig.APP + '.firebaseio.com');
@@ -24,7 +26,7 @@ api.updateGroupData = function(group){
   // TODO is throw ok? we don't have callbacks
   if(!group) throw new Error('group is required.');
   // Return in case of tavern (comparison working because we use string for _id)
-  if(group._id === 'habitrpg') return;
+  if(group._id === TAVERN_ID) return;
 
   firebaseRef.child('rooms/' + group._id)
     .set({
@@ -35,7 +37,7 @@ api.updateGroupData = function(group){
 api.addUserToGroup = function(groupId, userId){
   if(!isFirebaseEnabled) return;
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
-  if(groupId === 'habitrpg') return;
+  if(groupId === TAVERN_ID) return;
 
   firebaseRef.child('members/' + groupId + '/' + userId)
     .set(true);
@@ -47,7 +49,7 @@ api.addUserToGroup = function(groupId, userId){
 api.removeUserFromGroup = function(groupId, userId){
   if(!isFirebaseEnabled) return;
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
-  if(groupId === 'habitrpg') return;
+  if(groupId === TAVERN_ID) return;
 
   firebaseRef.child('members/' + groupId + '/' + userId)
     .remove();
@@ -59,7 +61,7 @@ api.removeUserFromGroup = function(groupId, userId){
 api.deleteGroup = function(groupId){
   if(!isFirebaseEnabled) return;
   if(!groupId) throw new Error('groupId is required.');
-  if(groupId === 'habitrpg') return; 
+  if(groupId === TAVERN_ID) return;
 
   firebaseRef.child('rooms/' + groupId)
     .remove();
