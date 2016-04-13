@@ -233,7 +233,10 @@ function cron (options = {}) {
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
   let _progress = _.cloneDeep(progress);
-  _.merge(progress, {down: 0, up: 0});
+
+  progress.down = 0;
+  progress.up = 0;
+
   progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
 
   // Clean PMs - keep 200 for subscribers and 50 for free users

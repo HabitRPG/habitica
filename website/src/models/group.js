@@ -327,7 +327,7 @@ schema.methods.startQuest = async function startQuest (user) {
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
     user.party.quest.progress.down = 0;
-    user.party.quest.collect = collected;
+    user.party.quest.progress.collect = collected;
     user.party.quest.completed = null;
     user.markModified('party.quest');
   }
@@ -351,7 +351,7 @@ schema.methods.startQuest = async function startQuest (user) {
     $set: {
       'party.quest.key': this.quest.key,
       'party.quest.progress.down': 0,
-      'party.quest.collect': collected,
+      'party.quest.progress.collect': collected,
       'party.quest.completed': null,
     },
   }, { multi: true }).exec();

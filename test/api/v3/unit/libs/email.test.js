@@ -61,7 +61,7 @@ describe('emails', () => {
       sandbox.stub(logger, 'error');
 
       let attachEmail = require(pathToEmailLib);
-      let promise = attachEmail.send();
+      attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
       deferred.reject();
 
