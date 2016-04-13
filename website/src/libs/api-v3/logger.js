@@ -21,19 +21,8 @@ if (IS_PROD) {
     });
 }
 
-// Logs unhandled promises errors
-// when no catch is attached to a promise a unhandledRejection event will be triggered
-process.on('unhandledRejection', function handlePromiseRejection (reason, promise) {
-  let stack = reason.stack || reason.message || reason;
-
-  logger.error(stack, {
-    promise,
-    fullError: reason,
-  });
-});
-
 // exports a public interface insteaf of accessing directly the logger module
-module.exports = {
+let loggerInterface = {
   info (...args) {
     logger.info(...args);
   },
@@ -56,3 +45,13 @@ module.exports = {
     }
   },
 };
+
+// Logs unhandled promises errors
+// when no catch is attached to a promise a unhandledRejection event will be triggered
+process.on('unhandledRejection', function handlePromiseRejection (reason, promise) {
+  loggerInterface.error(reason, {
+    promise,
+  });
+});
+
+module.exports = loggerInterface;

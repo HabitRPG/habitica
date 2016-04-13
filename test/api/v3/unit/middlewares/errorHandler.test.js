@@ -153,11 +153,10 @@ describe('errorHandler', () => {
     errorHandler(error, req, res, next);
 
     expect(logger.error).to.be.calledOnce;
-    expect(logger.error).to.be.calledWithExactly(error.stack, {
+    expect(logger.error).to.be.calledWithExactly(error, {
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,
-      fullError: error,
     });
   });
 });

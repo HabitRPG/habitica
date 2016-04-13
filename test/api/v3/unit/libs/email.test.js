@@ -61,13 +61,15 @@ describe('emails', () => {
       sandbox.stub(logger, 'error');
 
       let attachEmail = require(pathToEmailLib);
-      attachEmail.send();
+      let promise = attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
       deferred.reject();
-      deferred.promise.catch(() => {
+
+      // wait for unhandledRejection event to fire
+      setTimeout(() => {
         expect(logger.error).to.be.calledOnce;
         done();
-      });
+      }, 20);
     });
   });
 
