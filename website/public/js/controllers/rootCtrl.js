@@ -330,19 +330,5 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       });
       // error will be handled via $http interceptor
     }
-
-    // Global Keyevents
-    var ctrlKeys = [17, 224, 91];
-    $scope.$on("habit:keydown", function (e, keyEvent) {
-      if (ctrlKeys.indexOf(keyEvent.keyCode) !== -1) {
-        $scope.ctrlPressed = true;
-      }
-    });
-
-    $scope.$on("habit:keyup", function (e, keyEvent) {
-      if (ctrlKeys.indexOf(keyEvent.keyCode) !== -1) {
-        $scope.ctrlPressed = false;
-      }
-    });
   }
 ]);

@@ -258,4 +258,26 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         $rootScope.playSound('Reward');
       }
     }
+
+    var ctrlKeys = [17, 224, 91];
+    $scope.hoverIn = function () {
+      $(document).keydown(function (keyEvent) {
+        if (ctrlKeys.indexOf(keyEvent.keyCode) !== -1) {
+                $scope.ctrlPressed = true;
+                $scope.$apply();
+              }
+      });
+      $(document).keyup(function (keyEvent) {
+        console.log('blah');
+        if (ctrlKeys.indexOf(keyEvent.keyCode) !== -1) {
+          $scope.ctrlPressed = false;
+          $scope.$apply();
+        }
+      });
+    }
+    $scope.hoverout = function () {
+      $(document).unbind('keydown');
+      $(document).unbind('keyup');
+      $scope.ctrlPressed = false;
+    }
   }]);
