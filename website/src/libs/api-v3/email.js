@@ -1,8 +1,8 @@
 import { createTransport } from 'nodemailer';
 import nconf from 'nconf';
-import logger from './logger';
 import { encrypt } from './encryption';
 import request from 'request';
+import logger from './logger';
 
 const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {
@@ -25,9 +25,7 @@ let smtpTransporter = createTransport({
 // Send email directly from the server using the smtpTransporter,
 // used only to send password reset emails because users unsubscribed on Mandrill wouldn't get them
 export function send (mailData) {
-  return smtpTransporter
-    .sendMail(mailData)
-    .catch((error) => logger.error(error));
+  return smtpTransporter.sendMail(mailData); // promise
 }
 
 export function getUserInfo (user, fields = []) {

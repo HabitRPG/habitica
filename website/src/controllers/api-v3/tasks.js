@@ -107,7 +107,7 @@ api.createChallengeTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     // If adding tasks to a challenge -> sync users
-    if (challenge) challenge.addTasks(tasks); // TODO catch/log
+    if (challenge) challenge.addTasks(tasks);
   },
 };
 
@@ -313,7 +313,7 @@ api.updateTask = {
 
     let savedTask = await task.save();
     res.respond(200, savedTask);
-    if (challenge) challenge.updateTask(savedTask); // TODO catch/log
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 

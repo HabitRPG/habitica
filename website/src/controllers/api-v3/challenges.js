@@ -499,7 +499,6 @@ export async function _closeChal (challenge, broken = {}) {
   ];
 
   Q.allSettled(backgroundTasks); // TODO look if allSettled could be useful somewhere else
-  // TODO catch and handle
 }
 
 /**

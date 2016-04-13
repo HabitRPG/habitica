@@ -1,11 +1,12 @@
 // Logger utility
 import winston from 'winston';
 import nconf from 'nconf';
+import _ from 'lodash';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
 
-let logger = new winston.Logger();
+const logger = new winston.Logger();
 
 if (IS_PROD) {
   // TODO production logging, use loggly and new relic too
@@ -31,4 +32,27 @@ process.on('unhandledRejection', function handlePromiseRejection (reason, promis
   });
 });
 
-module.exports = logger;
+// exports a public interface insteaf of accessing directly the logger module
+module.exports = {
+  info (...args) {
+    logger.info(...args);
+  },
+
+  // Accepts two argument,
+  // an Error object (required)
+  // and an object of additional data to log alongside the error
+  // If the first argument isn't an Error, it'll call logger.error with all the arguments supplied
+  error (...args) {
+    let [err, errorData = {}, ...otherArgs] = args;
+
+    if (err instanceof Error) {
+      // pass the error stack as the first parameter to logger.error
+      let stack = err.stack || err.message || err;
+
+      if (_.isPlainObject(errorData) && !errorData.fullError) errorData.fullError = err;
+      logger.error(stack, errorData, ...otherArgs);
+    } else {
+      logger.error(...args);
+    }
+  },
+};

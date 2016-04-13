@@ -740,6 +740,6 @@ if (!nconf.get('IS_TEST')) {
       privacy: 'public',
     }).save({
       validateBeforeSave: false, // _id = 'habitrpg' would not be valid otherwise
-    }); // TODO catch/log?
+    });
   });
 }

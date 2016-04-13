@@ -4,6 +4,7 @@ import { langCodes } from '../../libs/api-v3/i18n';
 import Q from 'q';
 import fsCallback from 'fs';
 import path from 'path';
+import logger from '../../libs/api-v3/logger';
 
 // Transform fs methods that accept callbacks in ones that return promises
 const fs = {
@@ -53,7 +54,7 @@ async function saveContentToDisk (language, content) {
       return saveContentToDisk(language, content);
     } else {
       cacheBeingWritten[language] = false;
-      // TODO log error
+      logger.error(err);
       return;
     }
   }

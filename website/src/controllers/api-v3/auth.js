@@ -14,6 +14,7 @@ import {
 } from '../../libs/api-v3/errors';
 import Q from 'q';
 import * as passwordUtils from '../../libs/api-v3/password';
+import logger from '../../libs/api-v3/logger';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
@@ -33,7 +34,7 @@ async function _handleGroupInvitation (user, invite) {
 
     // check that the invite has not expired (after 7 days)
     if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
-      let err = new Error('Invite expired');
+      let err = new Error('Invite expired.');
       err.privateData = invite;
       throw err;
     }
@@ -47,7 +48,7 @@ async function _handleGroupInvitation (user, invite) {
       user.invitations.guilds.push({id: group._id, name: group.name, inviter});
     }
   } catch (err) {
-    // TODO log errors
+    logger.error(err);
   }
 }
 

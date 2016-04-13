@@ -380,7 +380,7 @@ module.exports = function cronMiddleware (req, res, next) {
         $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days'),
       },
       'challenge.id': {$exists: false},
-    }).exec(); // TODO catch error or at least log it, wait before returning?
+    }).exec(); // TODO wait before returning?
 
     let ranCron = user.isModified();
     let quest = common.content.quests[user.party.quest.key];
