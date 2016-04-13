@@ -66,13 +66,13 @@ api.deleteGroup = function(groupId){
   firebaseRef.child('rooms/' + groupId)
     .remove();
 
-  // FIXME not really necessary as long as we only store room data,
+  // TODO not really necessary as long as we only store room data,
   // as empty objects are automatically deleted (/members/... in future...)
   firebaseRef.child('members/' + groupId)
     .remove();
 };
 
-// FIXME not really necessary as long as we only store room data,
+// TODO not really necessary as long as we only store room data,
 // as empty objects are automatically deleted
 api.deleteUser = function(userId){
   if(!isFirebaseEnabled) return;

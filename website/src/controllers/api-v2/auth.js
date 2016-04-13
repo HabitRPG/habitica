@@ -241,7 +241,7 @@ api.loginSocial = function(req, res, next) {
 api.deleteSocial = function(req,res,next){
   if (!res.locals.user.auth.local.username)
     return res.status(401).json({err:"Account lacks another authentication method, can't detach Facebook"});
-  //FIXME for some reason, the following gives https://gist.github.com/lefnire/f93eb306069b9089d123
+  //TODO for some reason, the following gives https://gist.github.com/lefnire/f93eb306069b9089d123
   //res.locals.user.auth.facebook = null;
   //res.locals.user.auth.save(function(err, saved){
   User.update({_id:res.locals.user._id}, {$unset:{'auth.facebook':1}}, function(err){

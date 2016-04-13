@@ -346,7 +346,7 @@ api.postChat = function(req, res, next) {
     var lastClientMsg = req.query.previousMsg;
     var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
-    group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
+    group.sendChat(req.query.message, user); // TODO this should be body, but ngResource is funky
 
     if (group.type === 'party') {
       user.party.lastMessageSeen = group.chat[0].id;

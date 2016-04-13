@@ -500,7 +500,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   if (!_isOnQuest(user, progress, group)) return;
 
   let quest = shared.content.quests[group.quest.key];
-  if (!progress || !quest) return; // FIXME why is this ever happening, progress should be defined at this point, log?
+  if (!progress || !quest) return; // TODO why is this ever happening, progress should be defined at this point, log?
 
   let down = progress.down * quest.boss.str; // multiply by boss strength
 

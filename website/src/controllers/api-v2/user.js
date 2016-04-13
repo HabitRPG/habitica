@@ -138,7 +138,7 @@ api.score = function(req, res, next) {
     }, function(err, results){
       if(err) return next(err);
 
-      // FIXME this is suuuper strange, sometimes results.user is an array, sometimes user directly
+      // TODO this is suuuper strange, sometimes results.user is an array, sometimes user directly
       var saved = Array.isArray(results.user) ? results.user[0] : results.user;
       var task = Array.isArray(results.task) ? results.task[0] : results.task;
 
@@ -169,12 +169,12 @@ api.score = function(req, res, next) {
           '_id': task.challenge.taskId,
           userId: {$exists: false}
         }, function(err, chalTask){
-          if(err) return; //FIXME
+          if(err) return; //TODO
           // this task was removed from the challenge, notify user
           if(!chalTask) {
             // TODO finish
             chal.getTasks(function(err, chalTasks){
-              if(err) return; //FIXME
+              if(err) return; //TODO
               chal.syncToUser(user, chalTasks);
             });
           } else {
@@ -330,7 +330,7 @@ api.getUserAnonymized = function(req, res, next) {
 /**
  * This tells us for which paths users can call `PUT /user` (or batch-update equiv, which use `User.set()` on our client).
  * The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
- * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
+ * TODO - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
  */
 acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, (m, v, leaf) => {
   let updatablePaths = 'achievements filters flags invitations lastCron party preferences profile stats inbox'.split(' ');

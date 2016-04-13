@@ -54,12 +54,12 @@ export function deleteGroup (groupId) {
   if (groupId === TAVERN_ID) return;
 
   firebaseRef.child(`members/${groupId}`).remove();
-  // FIXME not really necessary as long as we only store room data,
+  // TODO not really necessary as long as we only store room data,
   // as empty objects are automatically deleted (/members/... in future...)
   firebaseRef.child(`rooms/${groupId}`).remove();
 }
 
-// FIXME not really necessary as long as we only store room data,
+// TODO not really necessary as long as we only store room data,
 // as empty objects are automatically deleted
 export function deleteUser (userId) {
   if (!FIREBASE_ENABLED) return;

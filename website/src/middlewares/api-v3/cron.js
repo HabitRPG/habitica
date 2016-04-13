@@ -46,7 +46,7 @@ function cron (options = {}) {
       // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
       // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
       // TODO use month diff instead of ++ / --?
-      _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0}); // FIXME see https://github.com/HabitRPG/habitrpg/issues/4317
+      _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0}); // TODO see https://github.com/HabitRPG/habitrpg/issues/4317
       plan.consecutive.count++;
       if (plan.consecutive.offset > 0) {
         plan.consecutive.offset--;
@@ -177,7 +177,7 @@ function cron (options = {}) {
     task.completed = false;
 
     if (completed || scheduleMisses > 0) {
-      task.checklist.forEach(i => i.completed = true); // FIXME this should not happen for grey tasks unless they are completed
+      task.checklist.forEach(i => i.completed = true); // TODO this should not happen for grey tasks unless they are completed
     }
   });
 
@@ -405,7 +405,7 @@ module.exports = function cronMiddleware (req, res, next) {
 
       // If user is on a quest, roll for boss & player, or handle collections
       let questType = quest.boss ? 'boss' : 'collect';
-      // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+      // TODO this saves user, runs db updates, loads user. Is there a better way to handle this?
       return Group[`${questType}Quest`](user, progress)
       .then(() => User.findById(user._id).exec()) // fetch the updated user...
       .then(updatedUser => {
