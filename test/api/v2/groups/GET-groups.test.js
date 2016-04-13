@@ -3,6 +3,9 @@ import {
   generateUser,
   resetHabiticaDB,
 } from '../../../helpers/api-integration/v2';
+import {
+  TAVERN_ID,
+} from '../../../../website/src/models/group';
 
 describe('GET /groups', () => {
   const NUMBER_OF_PUBLIC_GUILDS = 3;
@@ -68,7 +71,7 @@ describe('GET /groups', () => {
       await expect(user.get('/groups', null, {type: 'tavern'}))
         .to.eventually.have.a.lengthOf(1)
         .and.to.have.deep.property('[0]')
-        .and.to.have.property('_id', 'habitrpg');
+        .and.to.have.property('_id', TAVERN_ID);
     });
   });
 
