@@ -261,7 +261,6 @@ function cron (options = {}) {
     gaLabel: 'Cron Count',
     gaValue: user.flags.cronCount,
     uuid: user._id,
-    user, // TODO is it really necessary passing the whole user object?
     resting: user.preferences.sleep,
     cronCount: user.flags.cronCount,
     progressUp: _.min([_progress.up, 900]),

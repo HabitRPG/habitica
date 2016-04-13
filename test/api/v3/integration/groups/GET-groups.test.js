@@ -3,6 +3,9 @@ import {
   resetHabiticaDB,
   generateGroup,
 } from '../../../../helpers/api-v3-integration.helper';
+import {
+  TAVERN_ID,
+} from '../../../../../website/src/models/group';
 
 describe('GET /groups', () => {
   let user;
@@ -70,7 +73,7 @@ describe('GET /groups', () => {
     await expect(user.get('/groups?type=tavern'))
       .to.eventually.have.a.lengthOf(1)
       .and.to.have.deep.property('[0]')
-      .and.to.have.property('_id', 'habitrpg');
+      .and.to.have.property('_id', TAVERN_ID);
   });
 
   it('returns only the user\'s party when party passed in as query', async () => {
