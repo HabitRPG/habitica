@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import {
   model as User,
   publicFields as memberFields,
@@ -33,7 +32,7 @@ let api = {};
 api.getMember = {
   method: 'GET',
   url: '/members/:memberId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
@@ -144,7 +143,7 @@ function _getMembersForItem (type) {
 api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-members'),
 };
 
@@ -162,7 +161,7 @@ api.getMembersForGroup = {
 api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-invites'),
 };
 
@@ -180,7 +179,7 @@ api.getInvitesForGroup = {
 api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('challenge-members'),
 };
 
@@ -198,7 +197,7 @@ api.getMembersForChallenge = {
 api.getChallengeMemberProgress = {
   method: 'GET',
   url: '/challenges/:challengeId/members/:memberId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
@@ -251,7 +250,7 @@ api.getChallengeMemberProgress = {
 api.sendPrivateMessage = {
   method: 'POST',
   url: '/members/send-private-message',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
@@ -300,7 +299,7 @@ api.sendPrivateMessage = {
 api.transferGems = {
   method: 'POST',
   url: '/members/transfer-gems',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();

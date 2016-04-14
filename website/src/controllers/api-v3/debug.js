@@ -1,14 +1,7 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode';
 
 let api = {};
-
-api.debug = {
-  method: 'all',
-  url: '/debug/*',
-  middlewares: [ensureDevelpmentMode, authWithHeaders(), cron],
-};
 
 /**
  * @api {post} /debug/add-ten-gems Add ten gems to the current user
@@ -21,6 +14,7 @@ api.debug = {
 api.addTenGems = {
   method: 'POST',
   url: '/debug/add-ten-gems',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -43,6 +37,7 @@ api.addTenGems = {
 api.addHourglass = {
   method: 'POST',
   url: '/debug/add-hourglass',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

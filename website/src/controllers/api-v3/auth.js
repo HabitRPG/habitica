@@ -6,7 +6,6 @@ import {
   authWithHeaders,
   authWithSession,
  } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import {
   NotAuthorized,
   BadRequest,
@@ -232,7 +231,6 @@ function _passportFbProfile (accessToken) {
 api.loginSocial = {
   method: 'POST',
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
-  middlewares: [cron],
   async handler (req, res) {
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
@@ -292,7 +290,7 @@ api.loginSocial = {
  **/
 api.updateUsername = {
   method: 'PUT',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
   async handler (req, res) {
     let user = res.locals.user;
@@ -338,7 +336,7 @@ api.updateUsername = {
  **/
 api.updatePassword = {
   method: 'PUT',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-password',
   async handler (req, res) {
     let user = res.locals.user;
@@ -428,7 +426,7 @@ api.resetPassword = {
  */
 api.updateEmail = {
   method: 'PUT',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-email',
   async handler (req, res) {
     let user = res.locals.user;
@@ -456,7 +454,7 @@ const firebaseTokenGenerator = new FirebaseTokenGenerator(nconf.get('FIREBASE:SE
 api.getFirebaseToken = {
   method: 'POST',
   url: '/user/auth/firebase',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     // Expires 24 hours from now (60*60*24*1000) (in milliseconds)
@@ -483,7 +481,7 @@ api.getFirebaseToken = {
 api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;
@@ -501,7 +499,7 @@ api.deleteSocial = {
 api.logout = {
   method: 'GET',
   url: '/user/auth/logout', // TODO this is under /api/v3 route, should be accessible through habitica.com/logout
-  middlewares: [authWithSession, cron],
+  middlewares: [authWithSession],
   async handler (req, res) {
     req.logout(); // passportjs method
     req.session = null;

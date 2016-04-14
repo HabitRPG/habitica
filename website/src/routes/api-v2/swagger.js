@@ -19,7 +19,9 @@ var cron = user.cron;
 var _ = require('lodash');
 var content = require('../../../../common').content;
 var i18n = require('../../libs/api-v2/i18n');
-import getUserLanguage from '../../middlewares/api-v3/getUserLanguage';
+import {
+  getUserLanguage
+} from '../../middlewares/api-v3/language';
 var forceRefresh = require('../../middlewares/forceRefresh').middleware;
 
 module.exports = function(swagger, v2) {

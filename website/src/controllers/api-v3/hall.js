@@ -1,6 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import { ensureAdmin } from '../../middlewares/api-v3/ensureAccessRight';
-import cron from '../../middlewares/api-v3/cron';
 import { model as User } from '../../models/user';
 import {
   NotFound,
@@ -22,7 +21,7 @@ let api = {};
 api.getPatrons = {
   method: 'GET',
   url: '/hall/patrons',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkQuery('page', res.t('pageMustBeNumber')).optional().isNumeric();
 
@@ -58,7 +57,7 @@ api.getPatrons = {
 api.getHeroes = {
   method: 'GET',
   url: '/hall/heroes',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let heroes = await User
     .find({
@@ -90,7 +89,7 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth';
 api.getHero = {
   method: 'GET',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), cron, ensureAdmin],
+  middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
     let heroId = req.params.heroId;
 
@@ -127,7 +126,7 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 api.updateHero = {
   method: 'PUT',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), cron, ensureAdmin],
+  middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
     let heroId = req.params.heroId;
     let updateData = req.body;

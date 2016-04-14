@@ -271,7 +271,6 @@ function cron (options = {}) {
   return _progress;
 }
 
-// TODO check that it's used everywhere
 module.exports = function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   let analytics = res.analytics;

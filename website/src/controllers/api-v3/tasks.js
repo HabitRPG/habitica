@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
@@ -66,7 +65,7 @@ async function _createTasks (req, res, user, challenge) {
 api.createUserTasks = {
   method: 'POST',
   url: '/tasks/user',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let tasks = await _createTasks(req, res, res.locals.user);
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
@@ -87,7 +86,7 @@ api.createUserTasks = {
 api.createChallengeTasks = {
   method: 'POST',
   url: '/tasks/challenge/:challengeId', // TODO should be /tasks/challengeS/:challengeId ? plural?
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -177,7 +176,7 @@ async function _getTasks (req, res, user, challenge) {
 api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos');
@@ -204,7 +203,7 @@ api.getUserTasks = {
 api.getChallengeTasks = {
   method: 'GET',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -238,7 +237,7 @@ api.getChallengeTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -279,7 +278,7 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -357,7 +356,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
@@ -440,7 +439,7 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/:taskId/move/to/:position',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
@@ -494,7 +493,7 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -543,7 +542,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -585,7 +584,7 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -636,7 +635,7 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -685,7 +684,7 @@ api.removeChecklistItem = {
 api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -728,7 +727,7 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -767,7 +766,7 @@ api.removeTagFromTask = {
 api.unlinkTask = {
   method: 'POST',
   url: '/tasks/unlink/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
@@ -814,7 +813,7 @@ api.unlinkTask = {
 api.clearCompletedTodos = {
   method: 'POST',
   url: '/tasks/clearCompletedTodos',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -847,7 +846,7 @@ api.clearCompletedTodos = {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;

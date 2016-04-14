@@ -21,6 +21,10 @@ import {
 import v1 from './v1';
 import v2 from './v2';
 import v3 from './v3';
+import responseHandler from './response';
+import {
+  attachTranslateFunction,
+} from './language';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
@@ -36,6 +40,10 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
+
+  // add res.respond and res.t
+  app.use(responseHandler);
+  app.use(attachTranslateFunction);
 
   app.use(compression());
   app.use(favicon(`${PUBLIC_DIR}/favicon.ico`));

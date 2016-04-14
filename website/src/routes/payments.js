@@ -4,7 +4,9 @@ var router = express.Router();
 var auth = require('../controllers/api-v2/auth');
 var payments = require('../controllers/payments');
 var i18n = require('../libs/api-v2/i18n');
-import getUserLanguage from '../../middlewares/api-v3/getUserLanguage';
+import {
+  getUserLanguage
+} from '../../middlewares/api-v3/language';
 
 router.get('/paypal/checkout', auth.authWithUrl, getUserLanguage, payments.paypalCheckout);
 router.get('/paypal/checkout/success', getUserLanguage, payments.paypalCheckoutSuccess);

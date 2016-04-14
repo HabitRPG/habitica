@@ -1,6 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import _ from 'lodash';
-import cron from '../../middlewares/api-v3/cron';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
@@ -35,7 +34,7 @@ let api = {};
 api.createChallenge = {
   method: 'POST',
   url: '/challenges',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -125,7 +124,7 @@ api.createChallenge = {
 api.joinChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/join',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -171,7 +170,7 @@ api.joinChallenge = {
 api.leaveChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/leave',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
@@ -208,7 +207,7 @@ api.leaveChallenge = {
 api.getUserChallenges = {
   method: 'GET',
   url: '/challenges/user',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -254,7 +253,7 @@ api.getUserChallenges = {
 api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -297,7 +296,7 @@ api.getGroupChallenges = {
 api.getChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -339,7 +338,7 @@ api.getChallenge = {
 api.exportChallengeCsv = {
   method: 'GET',
   url: '/challenges/:challengeId/export/csv',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -412,7 +411,7 @@ api.exportChallengeCsv = {
 api.updateChallenge = {
   method: 'PUT',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -513,7 +512,7 @@ export async function _closeChal (challenge, broken = {}) {
 api.deleteChallenge = {
   method: 'DELETE',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -543,7 +542,7 @@ api.deleteChallenge = {
 api.selectChallengeWinner = {
   method: 'POST',
   url: '/challenges/:challengeId/selectWinner/:winnerId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

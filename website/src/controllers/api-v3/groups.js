@@ -1,7 +1,6 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import Q from 'q';
 import _ from 'lodash';
-import cron from '../../middlewares/api-v3/cron';
 import {
   INVITES_LIMIT,
   model as Group,
@@ -38,7 +37,7 @@ let api = {};
 api.createGroup = {
   method: 'POST',
   url: '/groups',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body)); // TODO validate empty req.body
@@ -89,7 +88,7 @@ api.createGroup = {
 api.getGroups = {
   method: 'GET',
   url: '/groups',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -125,7 +124,7 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -159,7 +158,7 @@ api.getGroup = {
 api.updateGroup = {
   method: 'PUT',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -205,7 +204,7 @@ api.updateGroup = {
 api.joinGroup = {
   method: 'POST',
   url: '/groups/:groupId/join',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let inviter;
@@ -296,7 +295,7 @@ api.joinGroup = {
 api.rejectGroupInvite = {
   method: 'POST',
   url: '/groups/:groupId/reject-invite',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -342,7 +341,7 @@ api.rejectGroupInvite = {
 api.leaveGroup = {
   method: 'POST',
   url: '/groups/:groupId/leave',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -399,7 +398,7 @@ function _sendMessageToRemoved (group, removedUser, message) {
 api.removeGroupMember = {
   method: 'POST',
   url: '/groups/:groupId/removeMember/:memberId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -602,7 +601,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
