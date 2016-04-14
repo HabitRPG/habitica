@@ -5,10 +5,10 @@ var _ = require('lodash');
 var url = require('url');
 var User = require('mongoose').model('User');
 var payments = require('./index');
-var logger = require('../../libs/api-v2/logging');
+var logger = require('../../../libs/api-v2/logging');
 var ipn = require('paypal-ipn');
 var paypal = require('paypal-rest-sdk');
-var shared = require('../../../../common');
+var shared = require('../../../../../common');
 var mongoose = require('mongoose');
 var cc = require('coupon-code');
 
@@ -31,6 +31,7 @@ var parseErr = function(res, err){
   return res.status(400).json({err:error});
 }
 
+/*
 exports.createBillingAgreement = function(req,res,next){
   var sub = shared.content.subscriptionBlocks[req.query.sub];
   async.waterfall([
@@ -190,11 +191,13 @@ exports.cancelSubscription = function(req, res, next){
     user = null;
   });
 }
+*/
 
 /**
  * General IPN handler. We catch cancelled HabitRPG subscriptions for users who manually cancel their
  * recurring paypal payments in their paypal dashboard. Remove this when we can move to webhooks or some other solution
  */
+/*
 exports.ipn = function(req, res, next) {
   console.log('IPN Called');
   res.sendStatus(200); // Must respond to PayPal IPN request with an empty 200 first
@@ -213,4 +216,4 @@ exports.ipn = function(req, res, next) {
     }
   });
 };
-
+*/

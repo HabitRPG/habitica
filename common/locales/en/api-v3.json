@@ -170,5 +170,10 @@
   "pushDeviceAdded": "Push device added successfully",
   "pushDeviceAlreadyAdded": "The user already has the push device",
   "resetComplete": "Reset completed",
-  "lvl10ChangeClass": "To change class you must be at least level 10."
+  "lvl10ChangeClass": "To change class you must be at least level 10.",
+  "resetComplete": "Reset has completed",
+  "missingAccessToken": "The request is missing a required parameter : access_token",
+  "missingBillingAgreementId": "Missing billing agreement id",
+  "missingAttributesFromAmazon": "Missing attributes from Amazon",
+  "errorFromAmazon": "Error from Amazon"
 }
