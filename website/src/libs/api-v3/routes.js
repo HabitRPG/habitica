@@ -44,7 +44,6 @@ module.exports.readController = function readController (router, controller) {
     let fn = handler ? _wrapAsyncFn(handler) : noop;
 
     router[method](url, ...middlewares, fn);
-    console.log(url, middlewares.map(m => m.name));
   });
 };
 
