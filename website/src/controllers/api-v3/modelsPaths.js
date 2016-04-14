@@ -6,7 +6,7 @@ let tasksModels = ['habit', 'daily', 'todo', 'reward'];
 let allModels = ['user', 'tag', 'challenge', 'group'].concat(tasksModels);
 
 /**
- * @api {get} /meta/models/:model/paths Get all paths for the specified model. Doesn't require authentication
+ * @api {get} /api/v3/meta/models/:model/paths Get all paths for the specified model. Doesn't require authentication
  * @apiVersion 3.0.0
  * @apiName GetUserModelPaths
  * @apiGroup Meta

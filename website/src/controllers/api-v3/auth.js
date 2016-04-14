@@ -52,7 +52,7 @@ async function _handleGroupInvitation (user, invite) {
 }
 
 /**
- * @api {post} /user/auth/local/register Register a new user with email, username and password or attach local auth to a social user
+ * @api {post} /api/v3/user/auth/local/register Register a new user with email, username and password or attach local auth to a social user
  * @apiVersion 3.0.0
  * @apiName UserRegisterLocal
  * @apiGroup User
@@ -165,7 +165,7 @@ function _loginRes (user, req, res) {
 }
 
 /**
- * @api {post} /user/auth/local/login Login an user with email / username and password
+ * @api {post} /api/v3/user/auth/local/login Login an user with email / username and password
  * @apiVersion 3.0.0
  * @apiName UserLoginLocal
  * @apiGroup User
@@ -280,7 +280,7 @@ api.loginSocial = {
 };
 
 /**
- * @api {put} /user/auth/update-username
+ * @api {put} /api/v3/user/auth/update-username
  * @apiVersion 3.0.0
  * @apiName updateUsername
  * @apiGroup User
@@ -325,7 +325,7 @@ api.updateUsername = {
 };
 
 /**
- * @api {put} /user/auth/update-password
+ * @api {put} /api/v3/user/auth/update-password
  * @apiVersion 3.0.0
  * @apiName updatePassword
  * @apiGroup User
@@ -364,7 +364,7 @@ api.updatePassword = {
 };
 
 /**
- * @api {post} /user/reset-password
+ * @api {post} /api/v3/user/reset-password
  * @apiVersion 3.0.0
  * @apiName resetPassword
  * @apiGroup User
@@ -414,7 +414,7 @@ api.resetPassword = {
 };
 
 /**
- * @api {put} /user/auth/update-email
+ * @api {put} /api/v3/user/auth/update-email
  * @apiVersion 3.0.0
  * @apiName UpdateEmail
  * @apiGroup User
@@ -471,7 +471,7 @@ api.getFirebaseToken = {
 };
 
 /**
- * @api {delete} /user/auth/social/:network Delete a social authentication method (only facebook supported)
+ * @api {delete} /api/v3/user/auth/social/:network Delete a social authentication method (only facebook supported)
  * @apiVersion 3.0.0
  * @apiName UserDeleteSocial
  * @apiGroup User

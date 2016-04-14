@@ -19,7 +19,7 @@ import * as passwordUtils from '../../libs/api-v3/password';
 let api = {};
 
 /**
- * @api {get} /user Get the authenticated user's profile
+ * @api {get} /api/v3/user Get the authenticated user's profile
  * @apiVersion 3.0.0
  * @apiName UserGet
  * @apiGroup User
@@ -46,7 +46,7 @@ api.getUser = {
 };
 
 /**
- * @api {get} /user/inventory/buy Get the gear items available for purchase for the current user
+ * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the current user
  * @apiVersion 3.0.0
  * @apiName UserGetBuyList
  * @apiGroup User
@@ -140,7 +140,7 @@ let checkPreferencePurchase = (user, path, item) => {
 };
 
 /**
- * @api {put} /user Update the user. Example body: {'stats.hp':50, 'preferences.background': 'beach'}
+ * @api {put} /api/v3/user Update the user. Example body: {'stats.hp':50, 'preferences.background': 'beach'}
  * @apiVersion 3.0.0
  * @apiName UserUpdate
  * @apiGroup User
@@ -174,7 +174,7 @@ api.updateUser = {
 };
 
 /**
- * @api {delete} /user DELETE an authenticated user's profile
+ * @api {delete} /api/v3/user DELETE an authenticated user's profile
  * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
@@ -237,7 +237,7 @@ function _cleanChecklist (task) {
 }
 
 /**
- * @api {get} /user/anonymized
+ * @api {get} /api/v3/user/anonymized
  * @apiVersion 3.0.0
  * @apiName UserGetAnonymized
  * @apiGroup User
@@ -300,7 +300,7 @@ api.getUserAnonymized = {
 const partyMembersFields = 'profile.name stats achievements items.special';
 
 /**
- * @api {post} /user/class/cast/:spellId Cast a spell on a target.
+ * @api {post} /api/v3/user/class/cast/:spellId Cast a spell on a target.
  * @apiVersion 3.0.0
  * @apiName UserCast
  * @apiGroup User
@@ -413,7 +413,7 @@ api.castSpell = {
 };
 
 /**
- * @api {post} /user/sleep Put the user in the inn.
+ * @api {post} /api/v3/user/sleep Put the user in the inn.
  * @apiVersion 3.0.0
  * @apiName UserSleep
  * @apiGroup User
@@ -433,7 +433,7 @@ api.sleep = {
 };
 
 /**
- * @api {post} /user/allocate Allocate an attribute point.
+ * @api {post} /api/v3/user/allocate Allocate an attribute point.
  * @apiVersion 3.0.0
  * @apiName UserAllocate
  * @apiGroup User
@@ -453,7 +453,7 @@ api.allocate = {
 };
 
 /**
- * @api {post} /user/allocate-now Allocate all attribute points.
+ * @api {post} /api/v3/user/allocate-now Allocate all attribute points.
  * @apiVersion 3.0.0
  * @apiName UserAllocateNow
  * @apiGroup User
@@ -473,7 +473,7 @@ api.allocateNow = {
 };
 
 /**
- * @api {post} /user/buy/:key Buy a content item.
+ * @api {post} /api/v3/user/buy/:key Buy a content item.
  * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
@@ -497,7 +497,7 @@ api.buy = {
 };
 
 /**
- * @api {post} /user/buy-mystery-set/:key Buy a mystery set.
+ * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set.
  * @apiVersion 3.0.0
  * @apiName UserBuyMysterySet
  * @apiGroup User
@@ -520,7 +520,7 @@ api.buyMysterySet = {
 };
 
 /**
- * @api {post} /user/buy-quest/:key Buy a quest with gold.
+ * @api {post} /api/v3/user/buy-quest/:key Buy a quest with gold.
  * @apiVersion 3.0.0
  * @apiName UserBuyQuest
  * @apiGroup User
@@ -543,7 +543,7 @@ api.buyQuest = {
 };
 
 /**
- * @api {post} /user/buy-special-spell/:key Buy special spell.
+ * @api {post} /api/v3/user/buy-special-spell/:key Buy special spell.
  * @apiVersion 3.0.0
  * @apiName UserBuySpecialSpell
  * @apiGroup User
@@ -566,7 +566,7 @@ api.buySpecialSpell = {
 };
 
 /**
- * @api {post} /user/hatch/:egg/:hatchingPotion Hatch a pet.
+ * @api {post} /api/v3/user/hatch/:egg/:hatchingPotion Hatch a pet.
  * @apiVersion 3.0.0
  * @apiName UserHatch
  * @apiGroup User
@@ -590,7 +590,7 @@ api.hatch = {
 };
 
 /**
- * @api {post} /user/equip/:type/:key Equip an item
+ * @api {post} /api/v3/user/equip/:type/:key Equip an item
  * @apiVersion 3.0.0
  * @apiName UserEquip
  * @apiGroup User
@@ -614,7 +614,7 @@ api.equip = {
 };
 
 /**
- * @api {post} /user/equip/:pet/:food Feed a pet
+ * @api {post} /api/v3/user/equip/:pet/:food Feed a pet
  * @apiVersion 3.0.0
  * @apiName UserFeed
  * @apiGroup User
@@ -638,7 +638,7 @@ api.feed = {
 };
 
 /**
-* @api {post} /user/change-class Change class.
+* @api {post} /api/v3/user/change-class Change class.
 * @apiVersion 3.0.0
 * @apiName UserChangeClass
 * @apiGroup User
@@ -660,7 +660,7 @@ api.changeClass = {
 };
 
 /**
-* @api {post} /user/disable-classes Disable classes.
+* @api {post} /api/v3/user/disable-classes Disable classes.
 * @apiVersion 3.0.0
 * @apiName UserDisableClasses
 * @apiGroup User
@@ -680,7 +680,7 @@ api.disableClasses = {
 };
 
 /**
-* @api {post} /user/purchase/:type/:key Purchase Gem Items.
+* @api {post} /api/v3/user/purchase/:type/:key Purchase Gem Items.
 * @apiVersion 3.0.0
 * @apiName UserPurchase
 * @apiGroup User
@@ -703,7 +703,7 @@ api.purchase = {
 };
 
 /**
-* @api {post} /user/purchase-hourglass/:type/:key Purchase Hourglass.
+* @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass.
 * @apiVersion 3.0.0
 * @apiName UserPurchaseHourglass
 * @apiGroup User
@@ -726,7 +726,7 @@ api.userPurchaseHourglass = {
 };
 
 /**
-* @api {post} /user/read-card/:cardType Reads a card.
+* @api {post} /api/v3/user/read-card/:cardType Reads a card.
 * @apiVersion 3.0.0
 * @apiName UserReadCard
 * @apiGroup User
@@ -748,7 +748,7 @@ api.readCard = {
 };
 
 /**
-* @api {post} /user/open-mystery-item Open the mystery item.
+* @api {post} /api/v3/user/open-mystery-item Open the mystery item.
 * @apiVersion 3.0.0
 * @apiName UserOpenMysteryItem
 * @apiGroup User
@@ -768,7 +768,7 @@ api.userOpenMysteryItem = {
 };
 
 /**
- * @api {post} /user/webhook
+ * @api {post} /api/v3/user/webhook
  * @apiVersion 3.0.0
  * @apiName UserAddWebhook
  * @apiGroup User
@@ -787,7 +787,7 @@ api.addWebhook = {
 };
 
 /**
- * @api {put} /user/webhook/:id
+ * @api {put} /api/v3/user/webhook/:id
  * @apiVersion 3.0.0
  * @apiName UserUpdateWebhook
  * @apiGroup User
@@ -806,7 +806,7 @@ api.updateWebhook = {
 };
 
 /**
- * @api {delete} /user/webhook/:id
+ * @api {delete} /api/v3/user/webhook/:id
  * @apiVersion 3.0.0
  * @apiName UserDeleteWebhook
  * @apiGroup User
@@ -825,7 +825,7 @@ api.deleteWebhook = {
 };
 
 
-/* @api {post} /user/release-pets Releases pets.
+/* @api {post} /api/v3/user/release-pets Releases pets.
 * @apiVersion 3.0.0
 * @apiName UserReleasePets
 * @apiGroup User
@@ -845,7 +845,7 @@ api.userReleasePets = {
 };
 
 /*
-* @api {post} /user/release-both Releases Pets and Mounts and grants Triad Bingo.
+* @api {post} /api/v3/user/release-both Releases Pets and Mounts and grants Triad Bingo.
 * @apiVersion 3.0.0
 * @apiName UserReleaseBoth
 * @apiGroup User
@@ -865,7 +865,7 @@ api.userReleaseBoth = {
 };
 
 /*
-* @api {post} /user/release-mounts Released mounts.
+* @api {post} /api/v3/user/release-mounts Released mounts.
 * @apiVersion 3.0.0
 * @apiName UserReleaseMounts
 * @apiGroup User
@@ -885,7 +885,7 @@ api.userReleaseMounts = {
 };
 
 /*
-* @api {post} /user/sell/:type/:key Sells user's items.
+* @api {post} /api/v3/user/sell/:type/:key Sells user's items.
 * @apiVersion 3.0.0
 * @apiName UserSell
 * @apiGroup User
@@ -905,7 +905,7 @@ api.userSell = {
 };
 
 /*
-* @api {post} /user/unlock Unlocks items by purchase.
+* @api {post} /api/v3/user/unlock Unlocks items by purchase.
 * @apiVersion 3.0.0
 * @apiName UserUnlock
 * @apiGroup User
@@ -925,7 +925,7 @@ api.userUnlock = {
 };
 
 /**
-* @api {post} /user/revive Revives user from death.
+* @api {post} /api/v3/user/revive Revives user from death.
 * @apiVersion 3.0.0
 * @apiName UserRevive
 * @apiGroup User
@@ -945,7 +945,7 @@ api.userRevive = {
 };
 
 /*
-* @api {post} /user/rebirth Resets a user.
+* @api {post} /api/v3/user/rebirth Resets a user.
 * @apiVersion 3.0.0
 * @apiName UserRebirth
 * @apiGroup User
@@ -974,7 +974,7 @@ api.userRebirth = {
 };
 
 /**
- * @api {post} /user/block/:uuid blocks and unblocks a user
+ * @api {post} /api/v3/user/block/:uuid blocks and unblocks a user
  * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User
@@ -993,7 +993,7 @@ api.blockUser = {
 };
 
 /**
- * @api {delete} /user/messages/:id delete this message
+ * @api {delete} /api/v3/user/messages/:id delete this message
  * @apiVersion 3.0.0
  * @apiName deleteMessage
  * @apiGroup User
@@ -1012,7 +1012,7 @@ api.deleteMessage = {
 };
 
 /**
- * @api {delete} /user/messages delete all messages
+ * @api {delete} /api/v3/user/messages delete all messages
  * @apiVersion 3.0.0
  * @apiName clearMessages
  * @apiGroup User
@@ -1031,7 +1031,7 @@ api.clearMessages = {
 };
 
 /*
-* @api {post} /user/reroll Rerolls a user.
+* @api {post} /api/v3/user/reroll Rerolls a user.
 * @apiVersion 3.0.0
 * @apiName UserReroll
 * @apiGroup User
@@ -1061,7 +1061,7 @@ api.userReroll = {
 };
 
 /*
-* @api {post} /user/addPushDevice Adds a push device to a user.
+* @api {post} /api/v3/user/addPushDevice Adds a push device to a user.
 * @apiVersion 3.0.0
 * @apiName UserAddPushDevice
 * @apiGroup User
@@ -1083,7 +1083,7 @@ api.userAddPushDevice = {
 };
 
 /*
-* @api {post} /user/reset Resets a user.
+* @api {post} /api/v3/user/reset Resets a user.
 * @apiVersion 3.0.0
 * @apiName UserReset
 * @apiGroup User

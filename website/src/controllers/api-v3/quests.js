@@ -29,7 +29,7 @@ function canStartQuestAutomatically (group)  {
 let api = {};
 
 /**
- * @api {post} /groups/:groupId/quests/invite Invite users to a quest
+ * @api {post} /api/v3/groups/:groupId/quests/invite Invite users to a quest
  * @apiVersion 3.0.0
  * @apiName InviteToQuest
  * @apiGroup Group
@@ -132,7 +132,7 @@ api.inviteToQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/accept Accept a pending quest
+ * @api {post} /api/v3/groups/:groupId/quests/accept Accept a pending quest
  * @apiVersion 3.0.0
  * @apiName AcceptQuest
  * @apiGroup Group
@@ -189,7 +189,7 @@ api.acceptQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/reject Reject a quest
+ * @api {post} /api/v3/groups/:groupId/quests/reject Reject a quest
  * @apiVersion 3.0.0
  * @apiName RejectQuest
  * @apiGroup Group
@@ -248,7 +248,7 @@ api.rejectQuest = {
 
 
 /**
- * @api {post} /groups/:groupId/quests/force-start Accept a pending quest
+ * @api {post} /api/v3/groups/:groupId/quests/force-start Accept a pending quest
  * @apiVersion 3.0.0
  * @apiName forceStart
  * @apiGroup Group
@@ -300,7 +300,7 @@ api.forceStart = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/cancel Cancels a quest
+ * @api {post} /api/v3/groups/:groupId/quests/cancel Cancels a quest
  * @apiVersion 3.0.0
  * @apiName CancelQuest
  * @apiGroup Group
@@ -349,7 +349,7 @@ api.cancelQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/abort Abort the current quest
+ * @api {post} /api/v3/groups/:groupId/quests/abort Abort the current quest
  * @apiVersion 3.0.0
  * @apiName AbortQuest
  * @apiGroup Group
@@ -403,7 +403,7 @@ api.abortQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/leave Leaves the active quest
+ * @api {post} /api/v3/groups/:groupId/quests/leave Leaves the active quest
  * @apiVersion 3.0.0
  * @apiName LeaveQuest
  * @apiGroup Group

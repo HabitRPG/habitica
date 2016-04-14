@@ -4,7 +4,7 @@ import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode'
 let api = {};
 
 /**
- * @api {post} /debug/add-ten-gems Add ten gems to the current user
+ * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user
  * @apiVersion 3.0.0
  * @apiName AddTenGems
  * @apiGroup Development
@@ -27,7 +27,7 @@ api.addTenGems = {
 };
 
 /**
- * @api {post} /debug/add-hourglass Add Hourglass to the current user
+ * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user
  * @apiVersion 3.0.0
  * @apiName AddHourglass
  * @apiGroup Development

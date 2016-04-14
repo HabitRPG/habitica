@@ -27,7 +27,7 @@ let api = {};
 // TODO shall we accept party as groupId in all routes?
 
 /**
- * @api {post} /groups Create group
+ * @api {post} /api/v3/groups Create group
  * @apiVersion 3.0.0
  * @apiName CreateGroup
  * @apiGroup Group
@@ -76,7 +76,7 @@ api.createGroup = {
 };
 
 /**
- * @api {get} /groups Get groups
+ * @api {get} /api/v3/groups Get groups
  * @apiVersion 3.0.0
  * @apiName GetGroups
  * @apiGroup Group
@@ -112,7 +112,7 @@ api.getGroups = {
 };
 
 /**
- * @api {get} /groups/:groupId Get group
+ * @api {get} /api/v3/groups/:groupId Get group
  * @apiVersion 3.0.0
  * @apiName GetGroup
  * @apiGroup Group
@@ -146,7 +146,7 @@ api.getGroup = {
 };
 
 /**
- * @api {put} /groups/:groupId Update group
+ * @api {put} /api/v3/groups/:groupId Update group
  * @apiVersion 3.0.0
  * @apiName UpdateGroup
  * @apiGroup Group
@@ -192,7 +192,7 @@ api.updateGroup = {
 };
 
 /**
- * @api {post} /groups/:groupId/join Join a group
+ * @api {post} /api/v3/groups/:groupId/join Join a group
  * @apiVersion 3.0.0
  * @apiName JoinGroup
  * @apiGroup Group
@@ -283,7 +283,7 @@ api.joinGroup = {
 };
 
 /**
- * @api {post} /groups/:groupId/reject Reject a group invitation
+ * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
  * @apiVersion 3.0.0
  * @apiName RejectGroupInvite
  * @apiGroup Group
@@ -328,7 +328,7 @@ api.rejectGroupInvite = {
 };
 
 /**
- * @api {post} /groups/:groupId/leave Leave a group
+ * @api {post} /api/v3/groups/:groupId/leave Leave a group
  * @apiVersion 3.0.0
  * @apiName LeaveGroup
  * @apiGroup Group
@@ -384,7 +384,7 @@ function _sendMessageToRemoved (group, removedUser, message) {
 }
 
 /**
- * @api {post} /groups/:groupId/removeMember/:memberId Remove a member from a group
+ * @api {post} /api/v3/groups/:groupId/removeMember/:memberId Remove a member from a group
  * @apiVersion 3.0.0
  * @apiName RemoveGroupMember
  * @apiGroup Group
@@ -585,7 +585,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 }
 
 /**
- * @api {post} /groups/:groupId/invite Invite users to a group using their UUIDs or email addresses
+ * @api {post} /api/v3/groups/:groupId/invite Invite users to a group using their UUIDs or email addresses
  * @apiVersion 3.0.0
  * @apiName InviteToGroup
  * @apiGroup Group

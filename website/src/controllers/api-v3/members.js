@@ -20,7 +20,7 @@ import Q from 'q';
 let api = {};
 
 /**
- * @api {get} /members/:memberId Get a member profile
+ * @api {get} /api/v3/members/:memberId Get a member profile
  * @apiVersion 3.0.0
  * @apiName GetMember
  * @apiGroup Member
@@ -129,7 +129,7 @@ function _getMembersForItem (type) {
 }
 
 /**
- * @api {get} /groups/:groupId/members Get members for a group with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/groups/:groupId/members Get members for a group with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetMembersForGroup
  * @apiGroup Member
@@ -148,7 +148,7 @@ api.getMembersForGroup = {
 };
 
 /**
- * @api {get} /groups/:groupId/invites Get invites for a group with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/groups/:groupId/invites Get invites for a group with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetInvitesForGroup
  * @apiGroup Member
@@ -166,7 +166,7 @@ api.getInvitesForGroup = {
 };
 
 /**
- * @api {get} /challenges/:challengeId/members Get members for a challenge with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetMembersForChallenge
  * @apiGroup Member
@@ -184,7 +184,7 @@ api.getMembersForChallenge = {
 };
 
 /**
- * @api {get} /challenges/:challengeId/members/:memberId Get a challenge member progress
+ * @api {get} /api/v3/challenges/:challengeId/members/:memberId Get a challenge member progress
  * @apiVersion 3.0.0
  * @apiName GetChallenge
  * @apiGroup Challenge

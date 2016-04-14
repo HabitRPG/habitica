@@ -24,7 +24,7 @@ import csvStringify from '../../libs/api-v3/csvStringify';
 let api = {};
 
 /**
- * @api {post} /challenges Create a new challenge
+ * @api {post} /api/v3/challenges Create a new challenge
  * @apiVersion 3.0.0
  * @apiName CreateChallenge
  * @apiGroup Challenge
@@ -113,7 +113,7 @@ api.createChallenge = {
 };
 
 /**
- * @api {post} /challenges/:challengeId/join Joins a challenge
+ * @api {post} /api/v3/challenges/:challengeId/join Joins a challenge
  * @apiVersion 3.0.0
  * @apiName JoinChallenge
  * @apiGroup Challenge
@@ -159,7 +159,7 @@ api.joinChallenge = {
 };
 
 /**
- * @api {post} /challenges/:challengeId/leave Leaves a challenge
+ * @api {post} /api/v3/challenges/:challengeId/leave Leaves a challenge
  * @apiVersion 3.0.0
  * @apiName LeaveChallenge
  * @apiGroup Challenge
@@ -197,7 +197,7 @@ api.leaveChallenge = {
 };
 
 /**
- * @api {get} /challenges/user Get challenges for a user
+ * @api {get} /api/v3/challenges/user Get challenges for a user
  * @apiVersion 3.0.0
  * @apiName GetUserChallenges
  * @apiGroup Challenge
@@ -241,7 +241,7 @@ api.getUserChallenges = {
 };
 
 /**
- * @api {get} /challenges/group/group:Id Get challenges for a group
+ * @api {get} /api/v3/challenges/group/group:Id Get challenges for a group
  * @apiVersion 3.0.0
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
@@ -284,7 +284,7 @@ api.getGroupChallenges = {
 };
 
 /**
- * @api {get} /challenges/:challengeId Get a challenge given its id
+ * @api {get} /api/v3/challenges/:challengeId Get a challenge given its id
  * @apiVersion 3.0.0
  * @apiName GetChallenge
  * @apiGroup Challenge
@@ -326,7 +326,7 @@ api.getChallenge = {
 };
 
 /**
- * @api {get} /challenges/:challengeId/export/csv Export a challenge in CSV
+ * @api {get} /api/v3/challenges/:challengeId/export/csv Export a challenge in CSV
  * @apiVersion 3.0.0
  * @apiName ExportChallengeCsv
  * @apiGroup Challenge
@@ -399,7 +399,7 @@ api.exportChallengeCsv = {
 };
 
 /**
- * @api {put} /challenges/:challengeId Update a challenge
+ * @api {put} /api/v3/challenges/:challengeId Update a challenge
  * @apiVersion 3.0.0
  * @apiName UpdateChallenge
  * @apiGroup Challenge
@@ -502,7 +502,7 @@ export async function _closeChal (challenge, broken = {}) {
 }
 
 /**
- * @api {delete} /challenges/:challengeId Delete a challenge
+ * @api {delete} /api/v3/challenges/:challengeId Delete a challenge
  * @apiVersion 3.0.0
  * @apiName DeleteChallenge
  * @apiGroup Challenge
@@ -532,7 +532,7 @@ api.deleteChallenge = {
 };
 
 /**
- * @api {post} /challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
+ * @api {post} /api/v3/challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
  * @apiVersion 3.0.0
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge

@@ -54,7 +54,7 @@ async function _createTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {post} /tasks/user Create a new task belonging to the autheticated user. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @api {post} /api/v3/tasks/user Create a new task belonging to the autheticated user. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateUserTasks
  * @apiGroup Task
@@ -73,7 +73,7 @@ api.createUserTasks = {
 };
 
 /**
- * @api {post} /tasks/challenge/:challengeId Create a new task belonging to the challenge. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to the challenge. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateChallengeTasks
  * @apiGroup Task
@@ -164,7 +164,7 @@ async function _getTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {get} /tasks/user Get an user's tasks
+ * @api {get} /api/v3/tasks/user Get an user's tasks
  * @apiVersion 3.0.0
  * @apiName GetUserTasks
  * @apiGroup Task
@@ -190,7 +190,7 @@ api.getUserTasks = {
 };
 
 /**
- * @api {get} /tasks/challenge/:challengeId Get a challenge's tasks
+ * @api {get} /api/v3/tasks/challenge/:challengeId Get a challenge's tasks
  * @apiVersion 3.0.0
  * @apiName GetChallengeTasks
  * @apiGroup Task
@@ -225,7 +225,7 @@ api.getChallengeTasks = {
 };
 
 /**
- * @api {get} /task/:taskId Get a task given its id
+ * @api {get} /api/v3/task/:taskId Get a task given its id
  * @apiVersion 3.0.0
  * @apiName GetTask
  * @apiGroup Task
@@ -266,7 +266,7 @@ api.getTask = {
 };
 
 /**
- * @api {put} /task/:taskId Update a task
+ * @api {put} /api/v3/task/:taskId Update a task
  * @apiVersion 3.0.0
  * @apiName UpdateTask
  * @apiGroup Task
@@ -343,7 +343,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
 }
 
 /**
- * @api {put} /tasks/:taskId/score/:direction Score a task
+ * @api {put} /api/v3/tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task
@@ -426,7 +426,7 @@ api.scoreTask = {
 // TODO check that it works when a tag is selected or todos are split between dated and due
 // TODO support challenges?
 /**
- * @api {post} /tasks/:taskId/move/to/:position Move a task to a new position
+ * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
  * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task
@@ -481,7 +481,7 @@ api.moveTask = {
 };
 
 /**
- * @api {post} /tasks/:taskId/checklist Add an item to a checklist, creating the checklist if it doesn't exist
+ * @api {post} /api/v3/tasks/:taskId/checklist Add an item to a checklist, creating the checklist if it doesn't exist
  * @apiVersion 3.0.0
  * @apiName AddChecklistItem
  * @apiGroup Task
@@ -529,7 +529,7 @@ api.addChecklistItem = {
 };
 
 /**
- * @api {post} /tasks/:taskId/checklist/:itemId/score Score a checklist item
+ * @api {post} /api/v3/tasks/:taskId/checklist/:itemId/score Score a checklist item
  * @apiVersion 3.0.0
  * @apiName ScoreChecklistItem
  * @apiGroup Task
@@ -571,7 +571,7 @@ api.scoreCheckListItem = {
 };
 
 /**
- * @api {put} /tasks/:taskId/checklist/:itemId Update a checklist item
+ * @api {put} /api/v3/tasks/:taskId/checklist/:itemId Update a checklist item
  * @apiVersion 3.0.0
  * @apiName UpdateChecklistItem
  * @apiGroup Task
@@ -622,7 +622,7 @@ api.updateChecklistItem = {
 };
 
 /**
- * @api {delete} /tasks/:taskId/checklist/:itemId Remove a checklist item
+ * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Remove a checklist item
  * @apiVersion 3.0.0
  * @apiName RemoveChecklistItem
  * @apiGroup Task
@@ -671,7 +671,7 @@ api.removeChecklistItem = {
 };
 
 /**
- * @api {post} /tasks/:taskId/tags/:tagId Add a tag to a task
+ * @api {post} /api/v3/tasks/:taskId/tags/:tagId Add a tag to a task
  * @apiVersion 3.0.0
  * @apiName AddTagToTask
  * @apiGroup Task
@@ -714,7 +714,7 @@ api.addTagToTask = {
 };
 
 /**
- * @api {delete} /tasks/:taskId/tags/:tagId Remove a tag
+ * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag
  * @apiVersion 3.0.0
  * @apiName RemoveTagFromTask
  * @apiGroup Task
@@ -754,7 +754,7 @@ api.removeTagFromTask = {
 
 // TODO this method needs some limitation, like to check if the challenge is really broken?
 /**
- * @api {post} /tasks/unlink/:taskId Unlink a challenge task
+ * @api {post} /api/v3/tasks/unlink/:taskId Unlink a challenge task
  * @apiVersion 3.0.0
  * @apiName UnlinkTask
  * @apiGroup Task
@@ -803,7 +803,7 @@ api.unlinkTask = {
 };
 
 /**
- * @api {post} /tasks/clearCompletedTodos Delete user's completed todos
+ * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
  * @apiVersion 3.0.0
  * @apiName ClearCompletedTodos
  * @apiGroup Task
@@ -834,7 +834,7 @@ api.clearCompletedTodos = {
 };
 
 /**
- * @api {delete} /tasks/:taskId Delete a task given its id
+ * @api {delete} /api/v3/tasks/:taskId Delete a task given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task

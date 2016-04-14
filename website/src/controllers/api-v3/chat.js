@@ -20,7 +20,7 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 let api = {};
 
 /**
- * @api {get} /groups/:groupId/chat Get chat messages from a group
+ * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
  * @apiVersion 3.0.0
  * @apiName GetChat
  * @apiGroup Chat
@@ -49,7 +49,7 @@ api.getChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat Post chat message to a group
+ * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiVersion 3.0.0
  * @apiName PostCat
  * @apiGroup Chat
@@ -102,7 +102,7 @@ api.postChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/like Like a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
  * @apiVersion 3.0.0
  * @apiName LikeChat
  * @apiGroup Chat
@@ -149,7 +149,7 @@ api.likeChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/like Like a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
  * @apiVersion 3.0.0
  * @apiName LikeChat
  * @apiGroup Chat
@@ -254,7 +254,7 @@ api.flagChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
  * @apiVersion 3.0.0
  * @apiName ClearFlags
  * @apiGroup Chat
@@ -301,7 +301,7 @@ api.clearChatFlags = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/seen Seen a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/seen Seen a group chat message
  * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
@@ -333,7 +333,7 @@ api.seenChat = {
 };
 
 /**
- * @api {delete} /groups/:groupId/chat/:chatId Delete chat message from a group
+ * @api {delete} /api/v3/groups/:groupId/chat/:chatId Delete chat message from a group
  * @apiVersion 3.0.0
  * @apiName DeleteChat
  * @apiGroup Chat

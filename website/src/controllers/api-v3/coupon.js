@@ -11,7 +11,7 @@ import couponCode from 'coupon-code';
 let api = {};
 
 /**
- * @api {get} /coupons Get coupons (sudo users only)
+ * @api {get} /api/v3/coupons Get coupons (sudo users only)
  * @apiVersion 3.0.0
  * @apiName GetCoupons
  * @apiGroup Coupon
@@ -39,7 +39,7 @@ api.getCoupons = {
 };
 
 /**
- * @api {post} /coupons/generate/:event Generate coupons for an event (sudo users only)
+ * @api {post} /api/v3/coupons/generate/:event Generate coupons for an event (sudo users only)
  * @apiVersion 3.0.0
  * @apiName GenerateCoupons
  * @apiGroup Coupon
@@ -66,7 +66,7 @@ api.generateCoupons = {
 };
 
 /**
- * @api {post} /user/coupon/:code Enter coupon code
+ * @api {post} /api/v3/user/coupon/:code Enter coupon code
  * @apiVersion 3.0.0
  * @apiName EnterCouponCode
  * @apiGroup Coupon
@@ -93,7 +93,7 @@ api.enterCouponCode = {
 };
 
 /**
- * @api {post} /coupons/validate/:code Validate a coupon code
+ * @api {post} /api/v3/coupons/validate/:code Validate a coupon code
  * @apiVersion 3.0.0
  * @apiName ValidateCoupon
  * @apiGroup Coupon

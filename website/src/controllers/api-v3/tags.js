@@ -9,7 +9,7 @@ import _ from 'lodash';
 let api = {};
 
 /**
- * @api {post} /tags Create a new tag
+ * @api {post} /api/v3/tags Create a new tag
  * @apiVersion 3.0.0
  * @apiName CreateTag
  * @apiGroup Tag
@@ -33,7 +33,7 @@ api.createTag = {
 };
 
 /**
- * @api {get} /tag Get an user's tags
+ * @api {get} /api/v3/tag Get an user's tags
  * @apiVersion 3.0.0
  * @apiName GetTags
  * @apiGroup Tag
@@ -51,7 +51,7 @@ api.getTags = {
 };
 
 /**
- * @api {get} /tags/:tagId Get a tag given its id
+ * @api {get} /api/v3/tags/:tagId Get a tag given its id
  * @apiVersion 3.0.0
  * @apiName GetTag
  * @apiGroup Tag
@@ -79,7 +79,7 @@ api.getTag = {
 };
 
 /**
- * @api {put} /tag/:tagId Update a tag
+ * @api {put} /api/v3/tag/:tagId Update a tag
  * @apiVersion 3.0.0
  * @apiName UpdateTag
  * @apiGroup Tag
@@ -113,7 +113,7 @@ api.updateTag = {
 };
 
 /**
- * @api {delete} /tag/:tagId Delete a user tag given its id
+ * @api {delete} /api/v3/tag/:tagId Delete a user tag given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTag
  * @apiGroup Tag
