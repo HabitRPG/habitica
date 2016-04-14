@@ -1,112 +1,128 @@
-var amazonPayments = require('amazon-payments');
-var mongoose = require('mongoose');
-var moment = require('moment');
-var nconf = require('nconf');
-var async = require('async');
-var User = require('mongoose').model('User');
-var shared = require('../../../../common');
-var payments = require('./index');
-var cc = require('coupon-code');
-var isProd = nconf.get('NODE_ENV') === 'production';
+import async from 'async';
+import cc from 'coupon-code';
+import mongoose from 'mongoose';
+import moment from 'moment';
+import payments from './index';
+import shared from '../../../../../common';
+import { model as User } from '../../../models/user';
+import {
+  NotFound,
+  NotAuthorized,
+  BadRequest,
+} from '../../../libs/api-v3/errors';
+import amz from '../../../libs/api-v3/amazonPayments';
 
-var amzPayment = amazonPayments.connect({
-  environment: amazonPayments.Environment[isProd ? 'Production' : 'Sandbox'],
-  sellerId: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
-  mwsAccessKey: nconf.get('AMAZON_PAYMENTS:MWS_KEY'),
-  mwsSecretKey: nconf.get('AMAZON_PAYMENTS:MWS_SECRET'),
-  clientId: nconf.get('AMAZON_PAYMENTS:CLIENT_ID')
-});
+let api = {};
 
-exports.verifyAccessToken = function(req, res, next){
-  if(!req.body || !req.body['access_token']){
-    return res.status(400).json({err: 'Access token not supplied.'});
-  }
-
-  amzPayment.api.getTokenInfo(req.body['access_token'], function(err, tokenInfo){
-    if(err) return res.status(400).json({err:err});
-
-    res.sendStatus(200);
-  });
+/**
+ * @api {post} /api/v3/payments/amazon/verifyAccessToken verify access token
+ * @apiVersion 3.0.0
+ * @apiName AmazonVerifyAccessToken
+ * @apiGroup Payments
+ * @apiParam {string} access_token the access token
+ * @apiSuccess {} empty
+ **/
+api.verifyAccessToken = {
+  method: 'POST',
+  url: '/payments/amazon/verifyAccessToken',
+  async handler (req, res) {
+    await amz.getTokenInfo(req.body.access_token)
+    .then(() => {
+      res.respond(200, {});
+    }).catch( (error) => {
+      throw new BadRequest(error.body.error_description);
+    });
+  },
 };
 
-exports.createOrderReferenceId = function(req, res, next){
-  if(!req.body || !req.body.billingAgreementId){
-    return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
-  }
-
-  amzPayment.offAmazonPayments.createOrderReferenceForId({
-    Id: req.body.billingAgreementId,
-    IdType: 'BillingAgreement',
-    ConfirmNow: false
-  }, function(err, response){
-    if(err) return next(err);
-    if(!response.OrderReferenceDetails || !response.OrderReferenceDetails.AmazonOrderReferenceId){
-      return next(new Error('Missing attributes in Amazon response.'));
+/**
+ * @api {post} /api/v3/payments/amazon/createOrderReferenceId create order reference id
+ * @apiVersion 3.0.0
+ * @apiName AmazonCreateOrderReferenceId
+ * @apiGroup Payments
+ * @apiParam {string} billingAgreementId billing agreement id
+ * @apiSuccess {object} object containing { orderReferenceId }
+ **/
+api.createOrderReferenceId = {
+  method: 'POST',
+  url: '/payments/amazon/createOrderReferenceId',
+  async handler (req, res) {
+    if (!req.body.billingAgreementId) {
+      throw new BadRequest(res.t('missingBillingAgreementId'));
     }
 
-    res.json({
-      orderReferenceId: response.OrderReferenceDetails.AmazonOrderReferenceId
+    let response = await amz.createOrderReferenceId({
+      Id: req.body.billingAgreementId,
+      IdType: 'BillingAgreement',
+      ConfirmNow: false,
+    }).then(() => {
+      res.respond(200, {
+        orderReferenceId: response.OrderReferenceDetails.AmazonOrderReferenceId,
+      });
+    }).catch(errStr => {
+      throw new BadRequest(res.t(errStr));
     });
-  });
+  },
 };
 
-exports.checkout = function(req, res, next){
-  if(!req.body || !req.body.orderReferenceId){
+/*
+api.checkout = function checkout (req, res, next) {
+  if (!req.body || !req.body.orderReferenceId) {
     return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
   }
 
-  var gift = req.body.gift;
-  var user = res.locals.user;
-  var orderReferenceId = req.body.orderReferenceId;
-  var amount = 5;
+  let gift = req.body.gift;
+  let user = res.locals.user;
+  let orderReferenceId = req.body.orderReferenceId;
+  let amount = 5;
 
-  if(gift){
-    if(gift.type === 'gems'){
-      amount = gift.gems.amount/4;
-    }else if(gift.type === 'subscription'){
+  if (gift) {
+    if (gift.type === 'gems') {
+      amount = gift.gems.amount / 4;
+    } else if (gift.type === 'subscription') {
       amount = shared.content.subscriptionBlocks[gift.subscription.key].price;
     }
   }
 
   async.series({
-    setOrderReferenceDetails: function(cb){
+    setOrderReferenceDetails (cb) {
       amzPayment.offAmazonPayments.setOrderReferenceDetails({
         AmazonOrderReferenceId: orderReferenceId,
         OrderReferenceAttributes: {
           OrderTotal: {
             CurrencyCode: 'USD',
-            Amount: amount
+            Amount: amount,
           },
           SellerNote: 'HabitRPG Payment',
           SellerOrderAttributes: {
             SellerOrderId: shared.uuid(),
-            StoreName: 'HabitRPG'
-          }
-        }
+            StoreName: 'HabitRPG',
+          },
+        },
       }, cb);
     },
 
-    confirmOrderReference: function(cb){
+    confirmOrderReference (cb) {
       amzPayment.offAmazonPayments.confirmOrderReference({
-        AmazonOrderReferenceId: orderReferenceId
+        AmazonOrderReferenceId: orderReferenceId,
       }, cb);
     },
 
-    authorize: function(cb){
+    authorize (cb) {
       amzPayment.offAmazonPayments.authorize({
         AmazonOrderReferenceId: orderReferenceId,
         AuthorizationReferenceId: shared.uuid().substring(0, 32),
         AuthorizationAmount: {
           CurrencyCode: 'USD',
-          Amount: amount
+          Amount: amount,
         },
         SellerAuthorizationNote: 'HabitRPG Payment',
         TransactionTimeout: 0,
-        CaptureNow: true
-      }, function(err, res){
-        if(err) return cb(err);
+        CaptureNow: true,
+      }, function checkAuthorizationStatus (err) {
+        if (err) return cb(err);
 
-        if(res.AuthorizationDetails.AuthorizationStatus.State === 'Declined'){
+        if (res.AuthorizationDetails.AuthorizationStatus.State === 'Declined') {
           return cb(new Error('The payment was not successfull.'));
         }
 
@@ -114,64 +130,65 @@ exports.checkout = function(req, res, next){
       });
     },
 
-    closeOrderReference: function(cb){
+    closeOrderReference (cb) {
       amzPayment.offAmazonPayments.closeOrderReference({
-        AmazonOrderReferenceId: orderReferenceId
+        AmazonOrderReferenceId: orderReferenceId,
       }, cb);
     },
 
-    executePayment: function(cb){
+    executePayment (cb) {
       async.waterfall([
-        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2); },
-        function(member, cb2){
-          var data = {user:user, paymentMethod:'Amazon Payments'};
-          var method = 'buyGems';
+        function findUser (cb2) {
+          User.findById(gift ? gift.uuid : undefined, cb2);
+        },
+        function executeAmazonPayment (member, cb2) {
+          let data = {user, paymentMethod: 'Amazon Payments'};
+          let method = 'buyGems';
 
-          if (gift){
-            if (gift.type == 'subscription') method = 'createSubscription';
+          if (gift) {
+            if (gift.type === 'subscription') method = 'createSubscription';
             gift.member = member;
             data.gift = gift;
             data.paymentMethod = 'Gift';
           }
 
           payments[method](data, cb2);
-        }
+        },
       ], cb);
-    }
-  }, function(err, results){
-    if(err) return next(err);
+    },
+  }, function result (err) {
+    if (err) return next(err);
 
     res.sendStatus(200);
   });
-
 };
 
-exports.subscribe = function(req, res, next){
-  if(!req.body || !req.body['billingAgreementId']){
+api.subscribe = function subscribe (req, res, next) {
+  if (!req.body || !req.body.billingAgreementId) {
     return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
   }
 
-  var billingAgreementId = req.body.billingAgreementId;
-  var sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
-  var coupon = req.body.coupon;
-  var user = res.locals.user;
+  let billingAgreementId = req.body.billingAgreementId;
+  let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
+  let coupon = req.body.coupon;
+  let user = res.locals.user;
 
-  if(!sub){
+  if (!sub) {
     return res.status(400).json({err: 'Subscription plan not found.'});
   }
 
   async.series({
-    applyDiscount: function(cb){
+    applyDiscount (cb) {
       if (!sub.discount) return cb();
       if (!coupon) return cb(new Error('Please provide a coupon code for this plan.'));
-      mongoose.model('Coupon').findOne({_id:cc.validate(coupon), event:sub.key}, function(err, coupon){
-        if(err) return cb(err);
-        if(!coupon) return cb(new Error('Coupon code not found.'));
+      mongoose.model('Coupon').findOne({_id: cc.validate(coupon), event: sub.key}, function couponResult (err) {
+        if (err) return cb(err);
+        if (!coupon) return cb(new Error('Coupon code not found.'));
         cb();
       });
     },
 
-    setBillingAgreementDetails: function(cb){
+    setBillingAgreementDetails (cb) {
       amzPayment.offAmazonPayments.setBillingAgreementDetails({
         AmazonBillingAgreementId: billingAgreementId,
         BillingAgreementAttributes: {
@@ -179,25 +196,25 @@ exports.subscribe = function(req, res, next){
           SellerBillingAgreementAttributes: {
             SellerBillingAgreementId: shared.uuid(),
             StoreName: 'HabitRPG',
-            CustomInformation: 'HabitRPG Subscription'
-          }
-        }
+            CustomInformation: 'HabitRPG Subscription',
+          },
+        },
       }, cb);
     },
 
-    confirmBillingAgreement: function(cb){
+    confirmBillingAgreement (cb) {
       amzPayment.offAmazonPayments.confirmBillingAgreement({
-        AmazonBillingAgreementId: billingAgreementId
+        AmazonBillingAgreementId: billingAgreementId,
       }, cb);
     },
 
-    authorizeOnBillingAgreeement: function(cb){
+    authorizeOnBillingAgreement (cb) {
       amzPayment.offAmazonPayments.authorizeOnBillingAgreement({
         AmazonBillingAgreementId: billingAgreementId,
         AuthorizationReferenceId: shared.uuid().substring(0, 32),
         AuthorizationAmount: {
           CurrencyCode: 'USD',
-          Amount: sub.price
+          Amount: sub.price,
         },
         SellerAuthorizationNote: 'HabitRPG Subscription Payment',
         TransactionTimeout: 0,
@@ -205,67 +222,70 @@ exports.subscribe = function(req, res, next){
         SellerNote: 'HabitRPG Subscription Payment',
         SellerOrderAttributes: {
           SellerOrderId: shared.uuid(),
-          StoreName: 'HabitRPG'
-        }
-      }, function(err, res){
-        if(err) return cb(err);
+          StoreName: 'HabitRPG',
+        },
+      }, function billingAgreementResult (err) {
+        if (err) return cb(err);
 
-        if(res.AuthorizationDetails.AuthorizationStatus.State === 'Declined'){
-          return cb(new Error('The payment was not successfull.'));
+        if (res.AuthorizationDetails.AuthorizationStatus.State === 'Declined') {
+          return cb(new Error('The payment was not successful.'));
         }
 
         return cb();
       });
     },
 
-    createSubscription: function(cb){
+    createSubscription (cb) {
       payments.createSubscription({
-        user: user,
+        user,
         customerId: billingAgreementId,
         paymentMethod: 'Amazon Payments',
-        sub: sub
+        sub,
       }, cb);
-    }
-  }, function(err, results){
-    if(err) return next(err);
+    },
+  }, function subscribeResult (err) {
+    if (err) return next(err);
 
     res.sendStatus(200);
   });
 };
 
-exports.subscribeCancel = function(req, res, next){
-  var user = res.locals.user;
+api.subscribeCancel = function subscribeCancel (req, res, next) {
+  let user = res.locals.user;
   if (!user.purchased.plan.customerId)
     return res.status(401).json({err: 'User does not have a plan subscription'});
 
-  var billingAgreementId = user.purchased.plan.customerId;
+  let billingAgreementId = user.purchased.plan.customerId;
 
   async.series({
-    closeBillingAgreement: function(cb){
+    closeBillingAgreement (cb) {
       amzPayment.offAmazonPayments.closeBillingAgreement({
-        AmazonBillingAgreementId: billingAgreementId
+        AmazonBillingAgreementId: billingAgreementId,
       }, cb);
     },
 
-    cancelSubscription: function(cb){
-      var data = {
-        user: user,
+    cancelSubscription (cb) {
+      let data = {
+        user,
         // Date of next bill
         nextBill: moment(user.purchased.plan.lastBillingDate).add({days: 30}),
-        paymentMethod: 'Amazon Payments'
+        paymentMethod: 'Amazon Payments',
       };
 
       payments.cancelSubscription(data, cb);
-    }
-  }, function(err, results){
+    },
+  }, function subscribeCancelResult (err) {
     if (err) return next(err); // don't json this, let toString() handle errors
 
-    if(req.query.noRedirect){
+    if (req.query.noRedirect) {
       res.sendStatus(200);
-    }else{
+    } else {
       res.redirect('/');
     }
 
     user = null;
   });
 };
+*/
+
+module.exports = api;
