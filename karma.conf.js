@@ -1,7 +1,7 @@
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
-module.exports = function(config) {
+module.exports = function karmaConfig (config) {
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '',
@@ -29,27 +29,27 @@ module.exports = function(config) {
       'website/public/bower_components/Angular-At-Directive/src/caret.js',
       'website/public/bower_components/angular-mocks/angular-mocks.js',
       'website/public/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
-      "website/public/bower_components/select2/select2.js",
-      "website/public/bower_components/angular-ui-select2/src/select2.js",
+      'website/public/bower_components/select2/select2.js',
+      'website/public/bower_components/angular-ui-select2/src/select2.js',
       'website/public/bower_components/marked/lib/marked.js',
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
 
       'test/spec/mocks/**/*.js',
 
-      "website/public/js/env.js",
-      "website/public/js/app.js",
-      "common/script/public/config.js",
-      "common/script/public/userServices.js",
-      "common/script/public/directives.js",
+      'website/public/js/env.js',
+      'website/public/js/app.js',
+      'common/script/public/config.js',
+      'common/script/public/userServices.js',
+      'common/script/public/directives.js',
 
-      "website/public/js/services/**/*.js",
-      "website/public/js/filters/**/*.js",
-      "website/public/js/directives/**/*.js",
-      "website/public/js/controllers/**/*.js",
+      'website/public/js/services/**/*.js',
+      'website/public/js/filters/**/*.js',
+      'website/public/js/directives/**/*.js',
+      'website/public/js/controllers/**/*.js',
 
       'test/spec/specHelper.js',
-      'test/spec/**/*.js'
+      'test/spec/**/*.js',
     ],
 
     // list of files / patterns to exclude
@@ -84,14 +84,14 @@ module.exports = function(config) {
 
     coverageReporter: {
       type: 'lcov',
-      dir:  'coverage/karma'
+      dir: 'coverage/karma',
     },
 
     // Enable mocha-style reporting, for better test visibility
-    reporters:  ['mocha', 'coverage'],
+    reporters: ['mocha', 'coverage'],
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
   });
 };
