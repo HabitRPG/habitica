@@ -1,6 +1,5 @@
 import {
   NotAuthorized,
-  BadRequest,
 } from '../../libs/api-v3/errors';
 import common from '../../../../common';
 import {
@@ -18,7 +17,7 @@ export function authWithHeaders (optional = false) {
 
     if (!userId || !apiToken) {
       if (optional) return next();
-      return next(new BadRequest(res.t('missingAuthHeaders')));
+      return next(new NotAuthorized(res.t('missingAuthHeaders')));
     }
 
     User.findOne({

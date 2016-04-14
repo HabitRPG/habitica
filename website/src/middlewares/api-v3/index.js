@@ -14,8 +14,6 @@ import favicon from 'serve-favicon';
 import methodOverride from 'method-override';
 import passport from 'passport';
 import path from 'path';
-import express from 'express';
-import routes from '../../libs/api-v3/routes';
 import {
   forceSSL,
   forceHabitica,
@@ -23,7 +21,6 @@ import {
 import v1 from './v1';
 import v2 from './v2';
 import v3 from './v3';
-import staticPagesController from '../../controllers/pages';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
@@ -33,6 +30,9 @@ const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 module.exports = function attachMiddlewares (app, server) {
+  app.set('view engine', 'jade');
+  app.set('views', `${__dirname}/../views`);
+
   app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
@@ -63,11 +63,7 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  const staticPagesRouter = express.Router(); // eslint-disable-line babel/new-cap
-  routes.readController(staticPagesRouter, staticPagesController);
-  app.use('/', staticPagesRouter);
-
-  app.use('/api/v3', v3);
+  app.use(v3); // the main app, also setup top-level routes
   app.use('/api/v2', v2);
   app.use('/api/v1', v1);
   staticMiddleware(app);

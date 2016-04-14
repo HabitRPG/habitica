@@ -1,5 +1,5 @@
-import locals from '../middlewares/api-v3/locals';
-import getUserLanguage from '../middlewares/api-v3/getUserLanguage';
+import locals from '../../middlewares/api-v3/locals';
+import getUserLanguage from '../../middlewares/api-v3/getUserLanguage';
 import _ from 'lodash';
 
 const marked = require('marked');

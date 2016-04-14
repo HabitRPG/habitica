@@ -30,7 +30,16 @@ function _requestMaker (user, method, additionalSets = {}) {
 
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${apiVersion}${route}`)
+      let url = `http://localhost:${API_TEST_SERVER_PORT}`;
+
+      // do not prefix with api/apiVersion requests to top level routes like dataexport and payments
+      if (route.indexOf('/export') === 0 || route.indexOf('/payments') === 0) {
+        url += `${route}`;
+      } else {
+        url += `/api/${apiVersion}${route}`;
+      }
+
+      let request = superagent[method](url)
         .accept('application/json');
 
       if (user && user._id && user.apiToken) {

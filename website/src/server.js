@@ -22,9 +22,6 @@ import './models/challenge';
 import './models/group';
 import './models/user';
 
-app.set('view engine', 'jade');
-app.set('views', `${__dirname}/../views`);
-
 attachMiddlewares(app, server);
 
 server.on('request', app);
