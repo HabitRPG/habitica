@@ -273,6 +273,8 @@ function cron (options = {}) {
 
 module.exports = function cronMiddleware (req, res, next) {
   let user = res.locals.user;
+  if (!user) return next(); // User might not be available when authentication is not mandatory
+
   let analytics = res.analytics;
 
   let now = new Date();
