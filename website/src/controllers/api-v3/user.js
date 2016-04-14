@@ -109,6 +109,7 @@ let acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, (
 let restrictedPUTSubPaths = [
   'stats.class',
 
+  'preferences.disableClasses',
   'preferences.sleep',
   'preferences.webhooks',
 ];

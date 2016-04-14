@@ -6,7 +6,10 @@ describe('POST /user/change-class', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({
+      'flags.classSelected': false,
+      'stats.lvl': 10,
+    });
   });
 
   // More tests in common code unit tests

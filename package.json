@@ -162,7 +162,6 @@
     "name": "habitica",
     "title": "Habitica",
     "version": "3.0.0",
-    "url": "https://habitica-v3.herokuapp.com",
-    "sampleUrl": "https://habitica-v3.herokuapp.com"
+    "url": "https://habitica-v3.herokuapp.com/api-v3"
   }
 }
