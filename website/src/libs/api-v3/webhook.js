@@ -1,13 +1,14 @@
 import { each } from 'lodash';
 import { post } from 'request';
 import { isURL } from 'validator';
+import logger from './logger';
 
 let _sendWebhook = (url, body) => {
   post({
     url,
     body,
     json: true,
-  }); // TODO use promises and handle errors
+  }, (err) => logger.error(err));
 };
 
 let _isInvalidWebhook = (hook) => {

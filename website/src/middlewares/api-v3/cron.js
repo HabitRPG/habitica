@@ -46,7 +46,7 @@ function cron (options = {}) {
       // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
       // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
       // TODO use month diff instead of ++ / --?
-      _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0}); // FIXME see https://github.com/HabitRPG/habitrpg/issues/4317
+      _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0}); // TODO see https://github.com/HabitRPG/habitrpg/issues/4317
       plan.consecutive.count++;
       if (plan.consecutive.offset > 0) {
         plan.consecutive.offset--;
@@ -177,7 +177,7 @@ function cron (options = {}) {
     task.completed = false;
 
     if (completed || scheduleMisses > 0) {
-      task.checklist.forEach(i => i.completed = true); // FIXME this should not happen for grey tasks unless they are completed
+      task.checklist.forEach(i => i.completed = true); // TODO this should not happen for grey tasks unless they are completed
     }
   });
 
@@ -233,7 +233,10 @@ function cron (options = {}) {
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
   let _progress = _.cloneDeep(progress);
-  _.merge(progress, {down: 0, up: 0});
+
+  progress.down = 0;
+  progress.up = 0;
+
   progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
 
   // Clean PMs - keep 200 for subscribers and 50 for free users
@@ -258,7 +261,7 @@ function cron (options = {}) {
     gaLabel: 'Cron Count',
     gaValue: user.flags.cronCount,
     uuid: user._id,
-    user, // TODO is it really necessary passing the whole user object?
+    user,
     resting: user.preferences.sleep,
     cronCount: user.flags.cronCount,
     progressUp: _.min([_progress.up, 900]),
@@ -268,9 +271,10 @@ function cron (options = {}) {
   return _progress;
 }
 
-// TODO check that it's used everywhere
 module.exports = function cronMiddleware (req, res, next) {
   let user = res.locals.user;
+  if (!user) return next(); // User might not be available when authentication is not mandatory
+
   let analytics = res.analytics;
 
   let now = new Date();
@@ -380,7 +384,7 @@ module.exports = function cronMiddleware (req, res, next) {
         $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days'),
       },
       'challenge.id': {$exists: false},
-    }).exec(); // TODO catch error or at least log it, wait before returning?
+    }).exec(); // TODO wait before returning?
 
     let ranCron = user.isModified();
     let quest = common.content.quests[user.party.quest.key];
@@ -402,7 +406,7 @@ module.exports = function cronMiddleware (req, res, next) {
 
       // If user is on a quest, roll for boss & player, or handle collections
       let questType = quest.boss ? 'boss' : 'collect';
-      // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+      // TODO this saves user, runs db updates, loads user. Is there a better way to handle this?
       return Group[`${questType}Quest`](user, progress)
       .then(() => User.findById(user._id).exec()) // fetch the updated user...
       .then(updatedUser => {

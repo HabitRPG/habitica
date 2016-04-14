@@ -1,10 +1,10 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import _ from 'lodash';
-import cron from '../../middlewares/api-v3/cron';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
   basicFields as basicGroupFields,
+  TAVERN_ID,
 } from '../../models/group';
 import {
   model as User,
@@ -24,7 +24,7 @@ import csvStringify from '../../libs/api-v3/csvStringify';
 let api = {};
 
 /**
- * @api {post} /challenges Create a new challenge
+ * @api {post} /api/v3/challenges Create a new challenge
  * @apiVersion 3.0.0
  * @apiName CreateChallenge
  * @apiGroup Challenge
@@ -34,7 +34,7 @@ let api = {};
 api.createChallenge = {
   method: 'POST',
   url: '/challenges',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -54,7 +54,7 @@ api.createChallenge = {
       throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
     }
 
-    if (groupId === 'habitrpg' && prize < 1) {
+    if (group._id === TAVERN_ID && prize < 1) {
       throw new NotAuthorized(res.t('pubChalsMinPrize'));
     }
 
@@ -113,7 +113,7 @@ api.createChallenge = {
 };
 
 /**
- * @api {post} /challenges/:challengeId/join Joins a challenge
+ * @api {post} /api/v3/challenges/:challengeId/join Joins a challenge
  * @apiVersion 3.0.0
  * @apiName JoinChallenge
  * @apiGroup Challenge
@@ -124,7 +124,7 @@ api.createChallenge = {
 api.joinChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/join',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -159,7 +159,7 @@ api.joinChallenge = {
 };
 
 /**
- * @api {post} /challenges/:challengeId/leave Leaves a challenge
+ * @api {post} /api/v3/challenges/:challengeId/leave Leaves a challenge
  * @apiVersion 3.0.0
  * @apiName LeaveChallenge
  * @apiGroup Challenge
@@ -170,7 +170,7 @@ api.joinChallenge = {
 api.leaveChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/leave',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
@@ -197,7 +197,7 @@ api.leaveChallenge = {
 };
 
 /**
- * @api {get} /challenges/user Get challenges for a user
+ * @api {get} /api/v3/challenges/user Get challenges for a user
  * @apiVersion 3.0.0
  * @apiName GetUserChallenges
  * @apiGroup Challenge
@@ -207,7 +207,7 @@ api.leaveChallenge = {
 api.getUserChallenges = {
   method: 'GET',
   url: '/challenges/user',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -241,7 +241,7 @@ api.getUserChallenges = {
 };
 
 /**
- * @api {get} /challenges/group/group:Id Get challenges for a group
+ * @api {get} /api/v3/challenges/group/group:Id Get challenges for a group
  * @apiVersion 3.0.0
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
@@ -253,7 +253,7 @@ api.getUserChallenges = {
 api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -284,7 +284,7 @@ api.getGroupChallenges = {
 };
 
 /**
- * @api {get} /challenges/:challengeId Get a challenge given its id
+ * @api {get} /api/v3/challenges/:challengeId Get a challenge given its id
  * @apiVersion 3.0.0
  * @apiName GetChallenge
  * @apiGroup Challenge
@@ -296,7 +296,7 @@ api.getGroupChallenges = {
 api.getChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -326,7 +326,7 @@ api.getChallenge = {
 };
 
 /**
- * @api {get} /challenges/:challengeId/export/csv Export a challenge in CSV
+ * @api {get} /api/v3/challenges/:challengeId/export/csv Export a challenge in CSV
  * @apiVersion 3.0.0
  * @apiName ExportChallengeCsv
  * @apiGroup Challenge
@@ -338,7 +338,7 @@ api.getChallenge = {
 api.exportChallengeCsv = {
   method: 'GET',
   url: '/challenges/:challengeId/export/csv',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -399,7 +399,7 @@ api.exportChallengeCsv = {
 };
 
 /**
- * @api {put} /challenges/:challengeId Update a challenge
+ * @api {put} /api/v3/challenges/:challengeId Update a challenge
  * @apiVersion 3.0.0
  * @apiName UpdateChallenge
  * @apiGroup Challenge
@@ -411,7 +411,7 @@ api.exportChallengeCsv = {
 api.updateChallenge = {
   method: 'PUT',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -454,7 +454,7 @@ export async function _closeChal (challenge, broken = {}) {
   await Challenge.remove({_id: challenge._id}).exec();
 
   // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== 'habitrpg' && brokenReason === 'CHALLENGE_DELETED') {
+  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
     await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
   }
 
@@ -499,11 +499,10 @@ export async function _closeChal (challenge, broken = {}) {
   ];
 
   Q.allSettled(backgroundTasks); // TODO look if allSettled could be useful somewhere else
-  // TODO catch and handle
 }
 
 /**
- * @api {delete} /challenges/:challengeId Delete a challenge
+ * @api {delete} /api/v3/challenges/:challengeId Delete a challenge
  * @apiVersion 3.0.0
  * @apiName DeleteChallenge
  * @apiGroup Challenge
@@ -513,7 +512,7 @@ export async function _closeChal (challenge, broken = {}) {
 api.deleteChallenge = {
   method: 'DELETE',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -533,7 +532,7 @@ api.deleteChallenge = {
 };
 
 /**
- * @api {post} /challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
+ * @api {post} /api/v3/challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
  * @apiVersion 3.0.0
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
@@ -543,7 +542,7 @@ api.deleteChallenge = {
 api.selectChallengeWinner = {
   method: 'POST',
   url: '/challenges/:challengeId/selectWinner/:winnerId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

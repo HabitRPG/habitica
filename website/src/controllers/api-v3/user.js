@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import common from '../../../../common';
 import {
   NotFound,
@@ -20,7 +19,7 @@ import * as passwordUtils from '../../libs/api-v3/password';
 let api = {};
 
 /**
- * @api {get} /user Get the authenticated user's profile
+ * @api {get} /api/v3/user Get the authenticated user's profile
  * @apiVersion 3.0.0
  * @apiName UserGet
  * @apiGroup User
@@ -29,7 +28,7 @@ let api = {};
  */
 api.getUser = {
   method: 'GET',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user.toJSON();
@@ -47,7 +46,7 @@ api.getUser = {
 };
 
 /**
- * @api {get} /user/inventory/buy Get the gear items available for purchase for the current user
+ * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the current user
  * @apiVersion 3.0.0
  * @apiName UserGetBuyList
  * @apiGroup User
@@ -56,7 +55,7 @@ api.getUser = {
  */
 api.getBuyList = {
   method: 'GET',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/inventory/buy',
   async handler (req, res) {
     let list = _.cloneDeep(common.updateStore(res.locals.user));
@@ -141,7 +140,7 @@ let checkPreferencePurchase = (user, path, item) => {
 };
 
 /**
- * @api {put} /user Update the user. Example body: {'stats.hp':50, 'preferences.background': 'beach'}
+ * @api {put} /api/v3/user Update the user. Example body: {'stats.hp':50, 'preferences.background': 'beach'}
  * @apiVersion 3.0.0
  * @apiName UserUpdate
  * @apiGroup User
@@ -150,7 +149,7 @@ let checkPreferencePurchase = (user, path, item) => {
  */
 api.updateUser = {
   method: 'PUT',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;
@@ -175,7 +174,7 @@ api.updateUser = {
 };
 
 /**
- * @api {delete} /user DELETE an authenticated user's profile
+ * @api {delete} /api/v3/user DELETE an authenticated user's profile
  * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
@@ -186,7 +185,7 @@ api.updateUser = {
  */
 api.deleteUser = {
   method: 'DELETE',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;
@@ -238,7 +237,7 @@ function _cleanChecklist (task) {
 }
 
 /**
- * @api {get} /user/anonymized
+ * @api {get} /api/v3/user/anonymized
  * @apiVersion 3.0.0
  * @apiName UserGetAnonymized
  * @apiGroup User
@@ -246,7 +245,7 @@ function _cleanChecklist (task) {
  **/
 api.getUserAnonymized = {
   method: 'GET',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/anonymized',
   async handler (req, res) {
     let user = res.locals.user.toJSON();
@@ -301,7 +300,7 @@ api.getUserAnonymized = {
 const partyMembersFields = 'profile.name stats achievements items.special';
 
 /**
- * @api {post} /user/class/cast/:spellId Cast a spell on a target.
+ * @api {post} /api/v3/user/class/cast/:spellId Cast a spell on a target.
  * @apiVersion 3.0.0
  * @apiName UserCast
  * @apiGroup User
@@ -313,7 +312,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  */
 api.castSpell = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/class/cast/:spellId',
   async handler (req, res) {
     let user = res.locals.user;
@@ -414,7 +413,7 @@ api.castSpell = {
 };
 
 /**
- * @api {post} /user/sleep Put the user in the inn.
+ * @api {post} /api/v3/user/sleep Put the user in the inn.
  * @apiVersion 3.0.0
  * @apiName UserSleep
  * @apiGroup User
@@ -423,7 +422,7 @@ api.castSpell = {
  */
 api.sleep = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
@@ -434,7 +433,7 @@ api.sleep = {
 };
 
 /**
- * @api {post} /user/allocate Allocate an attribute point.
+ * @api {post} /api/v3/user/allocate Allocate an attribute point.
  * @apiVersion 3.0.0
  * @apiName UserAllocate
  * @apiGroup User
@@ -443,7 +442,7 @@ api.sleep = {
  */
 api.allocate = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/allocate',
   async handler (req, res) {
     let user = res.locals.user;
@@ -454,7 +453,7 @@ api.allocate = {
 };
 
 /**
- * @api {post} /user/allocate-now Allocate all attribute points.
+ * @api {post} /api/v3/user/allocate-now Allocate all attribute points.
  * @apiVersion 3.0.0
  * @apiName UserAllocateNow
  * @apiGroup User
@@ -463,7 +462,7 @@ api.allocate = {
  */
 api.allocateNow = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/allocate-now',
   async handler (req, res) {
     let user = res.locals.user;
@@ -474,7 +473,7 @@ api.allocateNow = {
 };
 
 /**
- * @api {post} /user/buy/:key Buy a content item.
+ * @api {post} /api/v3/user/buy/:key Buy a content item.
  * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
@@ -487,7 +486,7 @@ api.allocateNow = {
  */
 api.buy = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/buy/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -498,7 +497,7 @@ api.buy = {
 };
 
 /**
- * @api {post} /user/buy-mystery-set/:key Buy a mystery set.
+ * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set.
  * @apiVersion 3.0.0
  * @apiName UserBuyMysterySet
  * @apiGroup User
@@ -510,7 +509,7 @@ api.buy = {
  */
 api.buyMysterySet = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-mystery-set/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -521,7 +520,7 @@ api.buyMysterySet = {
 };
 
 /**
- * @api {post} /user/buy-quest/:key Buy a quest with gold.
+ * @api {post} /api/v3/user/buy-quest/:key Buy a quest with gold.
  * @apiVersion 3.0.0
  * @apiName UserBuyQuest
  * @apiGroup User
@@ -533,7 +532,7 @@ api.buyMysterySet = {
  */
 api.buyQuest = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-quest/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -544,7 +543,7 @@ api.buyQuest = {
 };
 
 /**
- * @api {post} /user/buy-special-spell/:key Buy special spell.
+ * @api {post} /api/v3/user/buy-special-spell/:key Buy special spell.
  * @apiVersion 3.0.0
  * @apiName UserBuySpecialSpell
  * @apiGroup User
@@ -556,7 +555,7 @@ api.buyQuest = {
  */
 api.buySpecialSpell = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -567,7 +566,7 @@ api.buySpecialSpell = {
 };
 
 /**
- * @api {post} /user/hatch/:egg/:hatchingPotion Hatch a pet.
+ * @api {post} /api/v3/user/hatch/:egg/:hatchingPotion Hatch a pet.
  * @apiVersion 3.0.0
  * @apiName UserHatch
  * @apiGroup User
@@ -580,7 +579,7 @@ api.buySpecialSpell = {
  */
 api.hatch = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/hatch/:egg/:hatchingPotion',
   async handler (req, res) {
     let user = res.locals.user;
@@ -591,7 +590,7 @@ api.hatch = {
 };
 
 /**
- * @api {post} /user/equip/:type/:key Equip an item
+ * @api {post} /api/v3/user/equip/:type/:key Equip an item
  * @apiVersion 3.0.0
  * @apiName UserEquip
  * @apiGroup User
@@ -604,7 +603,7 @@ api.hatch = {
  */
 api.equip = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/equip/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -615,7 +614,7 @@ api.equip = {
 };
 
 /**
- * @api {post} /user/equip/:pet/:food Feed a pet
+ * @api {post} /api/v3/user/equip/:pet/:food Feed a pet
  * @apiVersion 3.0.0
  * @apiName UserFeed
  * @apiGroup User
@@ -628,7 +627,7 @@ api.equip = {
  */
 api.feed = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/feed/:pet/:food',
   async handler (req, res) {
     let user = res.locals.user;
@@ -639,7 +638,7 @@ api.feed = {
 };
 
 /**
-* @api {post} /user/change-class Change class.
+* @api {post} /api/v3/user/change-class Change class.
 * @apiVersion 3.0.0
 * @apiName UserChangeClass
 * @apiGroup User
@@ -650,7 +649,7 @@ api.feed = {
 */
 api.changeClass = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/change-class',
   async handler (req, res) {
     let user = res.locals.user;
@@ -661,7 +660,7 @@ api.changeClass = {
 };
 
 /**
-* @api {post} /user/disable-classes Disable classes.
+* @api {post} /api/v3/user/disable-classes Disable classes.
 * @apiVersion 3.0.0
 * @apiName UserDisableClasses
 * @apiGroup User
@@ -670,7 +669,7 @@ api.changeClass = {
 */
 api.disableClasses = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/disable-classes',
   async handler (req, res) {
     let user = res.locals.user;
@@ -681,7 +680,7 @@ api.disableClasses = {
 };
 
 /**
-* @api {post} /user/purchase/:type/:key Purchase Gem Items.
+* @api {post} /api/v3/user/purchase/:type/:key Purchase Gem Items.
 * @apiVersion 3.0.0
 * @apiName UserPurchase
 * @apiGroup User
@@ -693,7 +692,7 @@ api.disableClasses = {
 */
 api.purchase = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -704,7 +703,7 @@ api.purchase = {
 };
 
 /**
-* @api {post} /user/purchase-hourglass/:type/:key Purchase Hourglass.
+* @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass.
 * @apiVersion 3.0.0
 * @apiName UserPurchaseHourglass
 * @apiGroup User
@@ -716,7 +715,7 @@ api.purchase = {
 */
 api.userPurchaseHourglass = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -727,7 +726,7 @@ api.userPurchaseHourglass = {
 };
 
 /**
-* @api {post} /user/read-card/:cardType Reads a card.
+* @api {post} /api/v3/user/read-card/:cardType Reads a card.
 * @apiVersion 3.0.0
 * @apiName UserReadCard
 * @apiGroup User
@@ -738,7 +737,7 @@ api.userPurchaseHourglass = {
 */
 api.readCard = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/read-card/:cardType',
   async handler (req, res) {
     let user = res.locals.user;
@@ -749,7 +748,7 @@ api.readCard = {
 };
 
 /**
-* @api {post} /user/open-mystery-item Open the mystery item.
+* @api {post} /api/v3/user/open-mystery-item Open the mystery item.
 * @apiVersion 3.0.0
 * @apiName UserOpenMysteryItem
 * @apiGroup User
@@ -758,7 +757,7 @@ api.readCard = {
 */
 api.userOpenMysteryItem = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/open-mystery-item',
   async handler (req, res) {
     let user = res.locals.user;
@@ -769,7 +768,7 @@ api.userOpenMysteryItem = {
 };
 
 /**
- * @api {post} /user/webhook
+ * @api {post} /api/v3/user/webhook
  * @apiVersion 3.0.0
  * @apiName UserAddWebhook
  * @apiGroup User
@@ -788,7 +787,7 @@ api.addWebhook = {
 };
 
 /**
- * @api {put} /user/webhook/:id
+ * @api {put} /api/v3/user/webhook/:id
  * @apiVersion 3.0.0
  * @apiName UserUpdateWebhook
  * @apiGroup User
@@ -807,7 +806,7 @@ api.updateWebhook = {
 };
 
 /**
- * @api {delete} /user/webhook/:id
+ * @api {delete} /api/v3/user/webhook/:id
  * @apiVersion 3.0.0
  * @apiName UserDeleteWebhook
  * @apiGroup User
@@ -826,7 +825,7 @@ api.deleteWebhook = {
 };
 
 
-/* @api {post} /user/release-pets Releases pets.
+/* @api {post} /api/v3/user/release-pets Releases pets.
 * @apiVersion 3.0.0
 * @apiName UserReleasePets
 * @apiGroup User
@@ -835,7 +834,7 @@ api.deleteWebhook = {
 */
 api.userReleasePets = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/release-pets',
   async handler (req, res) {
     let user = res.locals.user;
@@ -846,7 +845,7 @@ api.userReleasePets = {
 };
 
 /*
-* @api {post} /user/release-both Releases Pets and Mounts and grants Triad Bingo.
+* @api {post} /api/v3/user/release-both Releases Pets and Mounts and grants Triad Bingo.
 * @apiVersion 3.0.0
 * @apiName UserReleaseBoth
 * @apiGroup User
@@ -855,7 +854,7 @@ api.userReleasePets = {
 */
 api.userReleaseBoth = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/release-both',
   async handler (req, res) {
     let user = res.locals.user;
@@ -866,7 +865,7 @@ api.userReleaseBoth = {
 };
 
 /*
-* @api {post} /user/release-mounts Released mounts.
+* @api {post} /api/v3/user/release-mounts Released mounts.
 * @apiVersion 3.0.0
 * @apiName UserReleaseMounts
 * @apiGroup User
@@ -875,7 +874,7 @@ api.userReleaseBoth = {
 */
 api.userReleaseMounts = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/release-mounts',
   async handler (req, res) {
     let user = res.locals.user;
@@ -886,7 +885,7 @@ api.userReleaseMounts = {
 };
 
 /*
-* @api {post} /user/sell/:type/:key Sells user's items.
+* @api {post} /api/v3/user/sell/:type/:key Sells user's items.
 * @apiVersion 3.0.0
 * @apiName UserSell
 * @apiGroup User
@@ -895,7 +894,7 @@ api.userReleaseMounts = {
 */
 api.userSell = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/sell/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -906,7 +905,7 @@ api.userSell = {
 };
 
 /*
-* @api {post} /user/unlock Unlocks items by purchase.
+* @api {post} /api/v3/user/unlock Unlocks items by purchase.
 * @apiVersion 3.0.0
 * @apiName UserUnlock
 * @apiGroup User
@@ -915,7 +914,7 @@ api.userSell = {
 */
 api.userUnlock = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
@@ -926,7 +925,7 @@ api.userUnlock = {
 };
 
 /**
-* @api {post} /user/revive Revives user from death.
+* @api {post} /api/v3/user/revive Revives user from death.
 * @apiVersion 3.0.0
 * @apiName UserRevive
 * @apiGroup User
@@ -935,7 +934,7 @@ api.userUnlock = {
 */
 api.userRevive = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/revive',
   async handler (req, res) {
     let user = res.locals.user;
@@ -946,7 +945,7 @@ api.userRevive = {
 };
 
 /*
-* @api {post} /user/rebirth Resets a user.
+* @api {post} /api/v3/user/rebirth Resets a user.
 * @apiVersion 3.0.0
 * @apiName UserRebirth
 * @apiGroup User
@@ -955,7 +954,7 @@ api.userRevive = {
 */
 api.userRebirth = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/rebirth',
   async handler (req, res) {
     let user = res.locals.user;
@@ -975,7 +974,7 @@ api.userRebirth = {
 };
 
 /**
- * @api {post} /user/block/:uuid blocks and unblocks a user
+ * @api {post} /api/v3/user/block/:uuid blocks and unblocks a user
  * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User
@@ -994,7 +993,7 @@ api.blockUser = {
 };
 
 /**
- * @api {delete} /user/messages/:id delete this message
+ * @api {delete} /api/v3/user/messages/:id delete this message
  * @apiVersion 3.0.0
  * @apiName deleteMessage
  * @apiGroup User
@@ -1002,7 +1001,7 @@ api.blockUser = {
 **/
 api.deleteMessage = {
   method: 'DELETE',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/messages/:id',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1013,7 +1012,7 @@ api.deleteMessage = {
 };
 
 /**
- * @api {delete} /user/messages delete all messages
+ * @api {delete} /api/v3/user/messages delete all messages
  * @apiVersion 3.0.0
  * @apiName clearMessages
  * @apiGroup User
@@ -1021,7 +1020,7 @@ api.deleteMessage = {
 **/
 api.clearMessages = {
   method: 'DELETE',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/messages',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1032,7 +1031,7 @@ api.clearMessages = {
 };
 
 /*
-* @api {post} /user/reroll Rerolls a user.
+* @api {post} /api/v3/user/reroll Rerolls a user.
 * @apiVersion 3.0.0
 * @apiName UserReroll
 * @apiGroup User
@@ -1041,7 +1040,7 @@ api.clearMessages = {
 */
 api.userReroll = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/reroll',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1062,7 +1061,7 @@ api.userReroll = {
 };
 
 /*
-* @api {post} /user/addPushDevice Adds a push device to a user.
+* @api {post} /api/v3/user/addPushDevice Adds a push device to a user.
 * @apiVersion 3.0.0
 * @apiName UserAddPushDevice
 * @apiGroup User
@@ -1071,7 +1070,7 @@ api.userReroll = {
 */
 api.userAddPushDevice = {
   method: 'POST',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/addPushDevice',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1080,6 +1079,31 @@ api.userAddPushDevice = {
     await user.save();
 
     res.respond(200, addPushDeviceResponse);
+  },
+};
+
+/*
+* @api {post} /api/v3/user/reset Resets a user.
+* @apiVersion 3.0.0
+* @apiName UserReset
+* @apiGroup User
+*
+* @apiSuccess {Object} data `user`
+*/
+api.userReset = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/reset',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let tasks = await Tasks.Task.find({userId: user._id}).select('_id type challenge').exec();
+
+    let resetResponse = common.ops.reset(user, tasks);
+
+    await Q.all([Tasks.Task.remove({_id: {$in: resetResponse.data.tasksToRemove}, userId: user._id}), user.save()]);
+
+    res.respond(200, resetResponse);
   },
 };
 

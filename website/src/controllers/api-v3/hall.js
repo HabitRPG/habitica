@@ -1,6 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import { ensureAdmin } from '../../middlewares/api-v3/ensureAccessRight';
-import cron from '../../middlewares/api-v3/cron';
 import { model as User } from '../../models/user';
 import {
   NotFound,
@@ -10,7 +9,7 @@ import _ from 'lodash';
 let api = {};
 
 /**
- * @api {get} /hall/patrons Get all Patrons. Only the first 50 patrons are returned. More can be accessed passing ?page=n.
+ * @api {get} /api/v3/hall/patrons Get all Patrons. Only the first 50 patrons are returned. More can be accessed passing ?page=n.
  * @apiVersion 3.0.0
  * @apiName GetPatrons
  * @apiGroup Hall
@@ -22,7 +21,7 @@ let api = {};
 api.getPatrons = {
   method: 'GET',
   url: '/hall/patrons',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkQuery('page', res.t('pageMustBeNumber')).optional().isNumeric();
 
@@ -48,7 +47,7 @@ api.getPatrons = {
 };
 
 /**
- * @api {get} /hall/heroes Get all Heroes
+ * @api {get} /api/v3/hall/heroes Get all Heroes
  * @apiVersion 3.0.0
  * @apiName GetHeroes
  * @apiGroup Hall
@@ -58,7 +57,7 @@ api.getPatrons = {
 api.getHeroes = {
   method: 'GET',
   url: '/hall/heroes',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let heroes = await User
     .find({
@@ -80,7 +79,7 @@ api.getHeroes = {
 const heroAdminFields = 'contributor balance profile.name purchased items auth';
 
 /**
- * @api {get} /hall/heroes/:heroId Get an hero given his _id. Must be an admin to make this request
+ * @api {get} /api/v3/hall/heroes/:heroId Get an hero given his _id. Must be an admin to make this request
  * @apiVersion 3.0.0
  * @apiName GetHero
  * @apiGroup Hall
@@ -90,7 +89,7 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth';
 api.getHero = {
   method: 'GET',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), cron, ensureAdmin],
+  middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
     let heroId = req.params.heroId;
 
@@ -117,7 +116,7 @@ api.getHero = {
 const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 
 /**
- * @api {put} /hall/heroes/:heroId Update an hero. Must be an admin to make this request
+ * @api {put} /api/v3/hall/heroes/:heroId Update an hero. Must be an admin to make this request
  * @apiVersion 3.0.0
  * @apiName UpdateHero
  * @apiGroup Hall
@@ -127,7 +126,7 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 api.updateHero = {
   method: 'PUT',
   url: '/hall/heroes/:heroId',
-  middlewares: [authWithHeaders(), cron, ensureAdmin],
+  middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
     let heroId = req.params.heroId;
     let updateData = req.body;

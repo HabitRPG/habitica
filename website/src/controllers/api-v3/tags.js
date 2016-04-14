@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
 import {
@@ -10,7 +9,7 @@ import _ from 'lodash';
 let api = {};
 
 /**
- * @api {post} /tags Create a new tag
+ * @api {post} /api/v3/tags Create a new tag
  * @apiVersion 3.0.0
  * @apiName CreateTag
  * @apiGroup Tag
@@ -20,7 +19,7 @@ let api = {};
 api.createTag = {
   method: 'POST',
   url: '/tags',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -34,7 +33,7 @@ api.createTag = {
 };
 
 /**
- * @api {get} /tag Get an user's tags
+ * @api {get} /api/v3/tag Get an user's tags
  * @apiVersion 3.0.0
  * @apiName GetTags
  * @apiGroup Tag
@@ -44,7 +43,7 @@ api.createTag = {
 api.getTags = {
   method: 'GET',
   url: '/tags',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     res.respond(200, user.tags);
@@ -52,7 +51,7 @@ api.getTags = {
 };
 
 /**
- * @api {get} /tags/:tagId Get a tag given its id
+ * @api {get} /api/v3/tags/:tagId Get a tag given its id
  * @apiVersion 3.0.0
  * @apiName GetTag
  * @apiGroup Tag
@@ -64,7 +63,7 @@ api.getTags = {
 api.getTag = {
   method: 'GET',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -80,7 +79,7 @@ api.getTag = {
 };
 
 /**
- * @api {put} /tag/:tagId Update a tag
+ * @api {put} /api/v3/tag/:tagId Update a tag
  * @apiVersion 3.0.0
  * @apiName UpdateTag
  * @apiGroup Tag
@@ -92,7 +91,7 @@ api.getTag = {
 api.updateTag = {
   method: 'PUT',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -114,7 +113,7 @@ api.updateTag = {
 };
 
 /**
- * @api {delete} /tag/:tagId Delete a user tag given its id
+ * @api {delete} /api/v3/tag/:tagId Delete a user tag given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTag
  * @apiGroup Tag
@@ -126,7 +125,7 @@ api.updateTag = {
 api.deleteTag = {
   method: 'DELETE',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

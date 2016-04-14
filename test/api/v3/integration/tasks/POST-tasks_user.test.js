@@ -121,6 +121,7 @@ describe('POST /tasks/user', () => {
         completed: true,
         streak: 25,
         dateCompleted: 'never',
+        value: 324, // ignored because not a reward
       });
 
       expect(task.userId).to.equal(user._id);
@@ -131,6 +132,7 @@ describe('POST /tasks/user', () => {
       expect(task.completed).to.equal(false);
       expect(task.streak).to.equal(0);
       expect(task.streak).not.to.equal('never');
+      expect(task.value).not.to.equal(324);
     });
 
     it('ignores invalid fields', async () => {

@@ -6,7 +6,6 @@ import {
   authWithHeaders,
   authWithSession,
  } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import {
   NotAuthorized,
   BadRequest,
@@ -14,6 +13,7 @@ import {
 } from '../../libs/api-v3/errors';
 import Q from 'q';
 import * as passwordUtils from '../../libs/api-v3/password';
+import logger from '../../libs/api-v3/logger';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
@@ -33,7 +33,7 @@ async function _handleGroupInvitation (user, invite) {
 
     // check that the invite has not expired (after 7 days)
     if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
-      let err = new Error('Invite expired');
+      let err = new Error('Invite expired.');
       err.privateData = invite;
       throw err;
     }
@@ -47,12 +47,12 @@ async function _handleGroupInvitation (user, invite) {
       user.invitations.guilds.push({id: group._id, name: group.name, inviter});
     }
   } catch (err) {
-    // TODO log errors
+    logger.error(err);
   }
 }
 
 /**
- * @api {post} /user/auth/local/register Register a new user with email, username and password or attach local auth to a social user
+ * @api {post} /api/v3/user/auth/local/register Register a new user with email, username and password or attach local auth to a social user
  * @apiVersion 3.0.0
  * @apiName UserRegisterLocal
  * @apiGroup User
@@ -165,7 +165,7 @@ function _loginRes (user, req, res) {
 }
 
 /**
- * @api {post} /user/auth/local/login Login an user with email / username and password
+ * @api {post} /api/v3/user/auth/local/login Login an user with email / username and password
  * @apiVersion 3.0.0
  * @apiName UserLoginLocal
  * @apiGroup User
@@ -231,7 +231,6 @@ function _passportFbProfile (accessToken) {
 api.loginSocial = {
   method: 'POST',
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
-  middlewares: [cron],
   async handler (req, res) {
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
@@ -281,7 +280,7 @@ api.loginSocial = {
 };
 
 /**
- * @api {put} /user/auth/update-username
+ * @api {put} /api/v3/user/auth/update-username
  * @apiVersion 3.0.0
  * @apiName updateUsername
  * @apiGroup User
@@ -291,7 +290,7 @@ api.loginSocial = {
  **/
 api.updateUsername = {
   method: 'PUT',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
   async handler (req, res) {
     let user = res.locals.user;
@@ -326,7 +325,7 @@ api.updateUsername = {
 };
 
 /**
- * @api {put} /user/auth/update-password
+ * @api {put} /api/v3/user/auth/update-password
  * @apiVersion 3.0.0
  * @apiName updatePassword
  * @apiGroup User
@@ -337,7 +336,7 @@ api.updateUsername = {
  **/
 api.updatePassword = {
   method: 'PUT',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-password',
   async handler (req, res) {
     let user = res.locals.user;
@@ -365,7 +364,7 @@ api.updatePassword = {
 };
 
 /**
- * @api {post} /user/reset-password
+ * @api {post} /api/v3/user/reset-password
  * @apiVersion 3.0.0
  * @apiName resetPassword
  * @apiGroup User
@@ -415,7 +414,7 @@ api.resetPassword = {
 };
 
 /**
- * @api {put} /user/auth/update-email
+ * @api {put} /api/v3/user/auth/update-email
  * @apiVersion 3.0.0
  * @apiName UpdateEmail
  * @apiGroup User
@@ -427,7 +426,7 @@ api.resetPassword = {
  */
 api.updateEmail = {
   method: 'PUT',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-email',
   async handler (req, res) {
     let user = res.locals.user;
@@ -455,7 +454,7 @@ const firebaseTokenGenerator = new FirebaseTokenGenerator(nconf.get('FIREBASE:SE
 api.getFirebaseToken = {
   method: 'POST',
   url: '/user/auth/firebase',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     // Expires 24 hours from now (60*60*24*1000) (in milliseconds)
@@ -472,7 +471,7 @@ api.getFirebaseToken = {
 };
 
 /**
- * @api {delete} /user/auth/social/:network Delete a social authentication method (only facebook supported)
+ * @api {delete} /api/v3/user/auth/social/:network Delete a social authentication method (only facebook supported)
  * @apiVersion 3.0.0
  * @apiName UserDeleteSocial
  * @apiGroup User
@@ -482,7 +481,7 @@ api.getFirebaseToken = {
 api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;
@@ -500,7 +499,7 @@ api.deleteSocial = {
 api.logout = {
   method: 'GET',
   url: '/user/auth/logout', // TODO this is under /api/v3 route, should be accessible through habitica.com/logout
-  middlewares: [authWithSession, cron],
+  middlewares: [authWithSession],
   async handler (req, res) {
     req.logout(); // passportjs method
     req.session = null;

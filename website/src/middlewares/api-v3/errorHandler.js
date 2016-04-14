@@ -9,14 +9,10 @@ import {
 import { map } from 'lodash';
 
 module.exports = function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
-  // Log the original error with some metadata
-  let stack = err.stack || err.message || err;
-
-  logger.error(stack, {
+  logger.error(err, {
     originalUrl: req.originalUrl,
     headers: req.headers,
     body: req.body,
-    fullError: err,
   });
 
   // In case of a CustomError class, use it's data
@@ -31,8 +27,6 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
     responseErr.name = err.name;
     responseErr.message = err.message;
   }
-
-  // TODO make mongoose and express-validator errors more recognizable
 
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {

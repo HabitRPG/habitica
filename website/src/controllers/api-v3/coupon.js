@@ -3,7 +3,6 @@ import {
   authWithHeaders,
   authWithSession,
 } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import { ensureSudo } from '../../middlewares/api-v3/ensureAccessRight';
 import { model as Coupon } from '../../models/coupon';
 import _ from 'lodash';
@@ -12,7 +11,7 @@ import couponCode from 'coupon-code';
 let api = {};
 
 /**
- * @api {get} /coupons Get coupons (sudo users only)
+ * @api {get} /api/v3/coupons Get coupons (sudo users only)
  * @apiVersion 3.0.0
  * @apiName GetCoupons
  * @apiGroup Coupon
@@ -22,7 +21,7 @@ let api = {};
 api.getCoupons = {
   method: 'GET',
   url: '/coupons',
-  middlewares: [authWithSession, cron, ensureSudo],
+  middlewares: [authWithSession, ensureSudo],
   async handler (req, res) {
     let coupons = await Coupon.find().sort('createdAt').lean().exec();
 
@@ -40,7 +39,7 @@ api.getCoupons = {
 };
 
 /**
- * @api {post} /coupons/generate/:event Generate coupons for an event (sudo users only)
+ * @api {post} /api/v3/coupons/generate/:event Generate coupons for an event (sudo users only)
  * @apiVersion 3.0.0
  * @apiName GenerateCoupons
  * @apiGroup Coupon
@@ -53,7 +52,7 @@ api.getCoupons = {
 api.generateCoupons = {
   method: 'POST',
   url: '/coupons/generate/:event',
-  middlewares: [authWithHeaders(), cron, ensureSudo],
+  middlewares: [authWithHeaders(), ensureSudo],
   async handler (req, res) {
     req.checkParams('event', res.t('eventRequired')).notEmpty();
     req.checkQuery('count', res.t('countRequired')).notEmpty().isNumeric();
@@ -67,7 +66,7 @@ api.generateCoupons = {
 };
 
 /**
- * @api {post} /user/coupon/:code Enter coupon code
+ * @api {post} /api/v3/user/coupon/:code Enter coupon code
  * @apiVersion 3.0.0
  * @apiName EnterCouponCode
  * @apiGroup Coupon
@@ -79,7 +78,7 @@ api.generateCoupons = {
 api.enterCouponCode = {
   method: 'POST',
   url: '/coupons/enter/:code',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -94,7 +93,7 @@ api.enterCouponCode = {
 };
 
 /**
- * @api {post} /coupons/validate/:code Validate a coupon code
+ * @api {post} /api/v3/coupons/validate/:code Validate a coupon code
  * @apiVersion 3.0.0
  * @apiName ValidateCoupon
  * @apiGroup Coupon

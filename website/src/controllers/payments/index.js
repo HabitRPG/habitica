@@ -30,7 +30,7 @@ function revealMysteryItems(user) {
 
 exports.createSubscription = function(data, cb) {
   var recipient = data.gift ? data.gift.member : data.user;
-  //if (!recipient.purchased.plan) recipient.purchased.plan = {}; // FIXME double-check, this should never be the case
+  //if (!recipient.purchased.plan) recipient.purchased.plan = {}; // TODO double-check, this should never be the case
   var p = recipient.purchased.plan;
   var block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
   var months = +block.months;
@@ -120,7 +120,7 @@ exports.cancelSubscription = function(data, cb) {
   p.dateTerminated =
     moment( now.format('MM') + '/' + moment(p.dateUpdated).format('DD') + '/' + now.format('YYYY') )
     .add({days: remaining}) // end their subscription 1mo from their last payment
-    .add({months: Math.ceil(p.extraMonths)})// plus any extra time (carry-over, gifted subscription, etc) they have. FIXME: moment can't add months in fractions...
+    .add({months: Math.ceil(p.extraMonths)})// plus any extra time (carry-over, gifted subscription, etc) they have. TODO: moment can't add months in fractions...
     .toDate();
   p.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 

@@ -1,5 +1,4 @@
 import { authWithSession } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
 import {
@@ -26,20 +25,19 @@ const BASE_URL = nconf.get('BASE_URL');
 
 let api = {};
 
-// TODO move these routes out of the /api/v3/export namespace to the top level /export
-
 /**
  * @api {get} /export/history.csv Export user tasks history in CSV format. History is only available for habits and dailys so todos and rewards won't be included
  * @apiVersion 3.0.0
  * @apiName ExportUserHistory
  * @apiGroup DataExport
+ * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {string} A cvs file
  */
 api.exportUserHistory = {
   method: 'GET',
   url: '/export/history.csv',
-  middlewares: [authWithSession, cron],
+  middlewares: [authWithSession],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -95,19 +93,19 @@ async function _getUserDataForExport (user) {
   return userData;
 }
 
-// TODO export tasks too
 /**
  * @api {get} /export/userdata.json Export user data in JSON format.
  * @apiVersion 3.0.0
  * @apiName ExportUserDataJson
  * @apiGroup DataExport
+ * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {string} A json file
  */
 api.exportUserDataJson = {
   method: 'GET',
   url: '/export/userdata.json',
-  middlewares: [authWithSession, cron],
+  middlewares: [authWithSession],
   async handler (req, res) {
     let userData = await _getUserDataForExport(res.locals.user);
 
@@ -126,13 +124,14 @@ api.exportUserDataJson = {
  * @apiVersion 3.0.0
  * @apiName ExportUserDataXml
  * @apiGroup DataExport
+ * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {string} A xml file
  */
 api.exportUserDataXml = {
   method: 'GET',
   url: '/export/userdata.xml',
-  middlewares: [authWithSession, cron],
+  middlewares: [authWithSession],
   async handler (req, res) {
     let userData = await _getUserDataForExport(res.locals.user);
 
@@ -149,6 +148,7 @@ api.exportUserDataXml = {
  * @apiVersion 3.0.0
  * @apiName ExportUserAvatarHtml
  * @apiGroup DataExport
+ * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {string} An html page
  */
@@ -181,6 +181,7 @@ api.exportUserAvatarHtml = {
  * @apiVersion 3.0.0
  * @apiName ExportUserAvatarPng
  * @apiGroup DataExport
+ * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {string} A png file
  */

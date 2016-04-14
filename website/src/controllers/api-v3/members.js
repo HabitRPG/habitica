@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import {
   model as User,
   publicFields as memberFields,
@@ -21,7 +20,7 @@ import Q from 'q';
 let api = {};
 
 /**
- * @api {get} /members/:memberId Get a member profile
+ * @api {get} /api/v3/members/:memberId Get a member profile
  * @apiVersion 3.0.0
  * @apiName GetMember
  * @apiGroup Member
@@ -33,7 +32,7 @@ let api = {};
 api.getMember = {
   method: 'GET',
   url: '/members/:memberId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
@@ -130,7 +129,7 @@ function _getMembersForItem (type) {
 }
 
 /**
- * @api {get} /groups/:groupId/members Get members for a group with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/groups/:groupId/members Get members for a group with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetMembersForGroup
  * @apiGroup Member
@@ -144,12 +143,12 @@ function _getMembersForItem (type) {
 api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-members'),
 };
 
 /**
- * @api {get} /groups/:groupId/invites Get invites for a group with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/groups/:groupId/invites Get invites for a group with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetInvitesForGroup
  * @apiGroup Member
@@ -162,12 +161,12 @@ api.getMembersForGroup = {
 api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-invites'),
 };
 
 /**
- * @api {get} /challenges/:challengeId/members Get members for a challenge with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetMembersForChallenge
  * @apiGroup Member
@@ -180,12 +179,12 @@ api.getInvitesForGroup = {
 api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('challenge-members'),
 };
 
 /**
- * @api {get} /challenges/:challengeId/members/:memberId Get a challenge member progress
+ * @api {get} /api/v3/challenges/:challengeId/members/:memberId Get a challenge member progress
  * @apiVersion 3.0.0
  * @apiName GetChallenge
  * @apiGroup Challenge
@@ -198,7 +197,7 @@ api.getMembersForChallenge = {
 api.getChallengeMemberProgress = {
   method: 'GET',
   url: '/challenges/:challengeId/members/:memberId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
@@ -251,7 +250,7 @@ api.getChallengeMemberProgress = {
 api.sendPrivateMessage = {
   method: 'POST',
   url: '/members/send-private-message',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
@@ -300,7 +299,7 @@ api.sendPrivateMessage = {
 api.transferGems = {
   method: 'POST',
   url: '/members/transfer-gems',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();

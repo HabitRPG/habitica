@@ -64,10 +64,12 @@ describe('emails', () => {
       attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
       deferred.reject();
-      deferred.promise.catch(() => {
+
+      // wait for unhandledRejection event to fire
+      setTimeout(() => {
         expect(logger.error).to.be.calledOnce;
         done();
-      });
+      }, 20);
     });
   });
 

@@ -1,6 +1,8 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
-import { model as Group } from '../../models/group';
+import {
+  model as Group,
+  TAVERN_ID,
+} from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
@@ -18,19 +20,19 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 let api = {};
 
 /**
- * @api {get} /groups/:groupId/chat Get chat messages from a group
+ * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
  * @apiVersion 3.0.0
  * @apiName GetChat
  * @apiGroup Chat
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Array} chat An array of chat messages
  */
 api.getChat = {
   method: 'GET',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -47,7 +49,7 @@ api.getChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat Post chat message to a group
+ * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiVersion 3.0.0
  * @apiName PostCat
  * @apiGroup Chat
@@ -61,7 +63,7 @@ api.getChat = {
 api.postChat = {
   method: 'POST',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -100,7 +102,7 @@ api.postChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/like Like a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
  * @apiVersion 3.0.0
  * @apiName LikeChat
  * @apiGroup Chat
@@ -113,7 +115,7 @@ api.postChat = {
 api.likeChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/like',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -147,7 +149,7 @@ api.likeChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/like Like a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
  * @apiVersion 3.0.0
  * @apiName LikeChat
  * @apiGroup Chat
@@ -160,7 +162,7 @@ api.likeChat = {
 api.flagChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -219,7 +221,7 @@ api.flagChat = {
     }
 
     let groupUrl;
-    if (group._id === 'habitrpg') {
+    if (group._id === TAVERN_ID) {
       groupUrl = '/#/options/groups/tavern';
     } else if (group.type === 'guild') {
       groupUrl = `/#/options/groups/guilds/{$group._id}`;
@@ -252,7 +254,7 @@ api.flagChat = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
  * @apiVersion 3.0.0
  * @apiName ClearFlags
  * @apiGroup Chat
@@ -265,7 +267,7 @@ api.flagChat = {
 api.clearChatFlags = {
   method: 'Post',
   url: '/groups/:groupId/chat/:chatId/clearflags',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -299,7 +301,7 @@ api.clearChatFlags = {
 };
 
 /**
- * @api {post} /groups/:groupId/chat/:chatId/seen Seen a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/seen Seen a group chat message
  * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
@@ -309,7 +311,7 @@ api.clearChatFlags = {
 api.seenChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/seen',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -331,12 +333,12 @@ api.seenChat = {
 };
 
 /**
- * @api {delete} /groups/:groupId/chat/:chatId Delete chat message from a group
+ * @api {delete} /api/v3/groups/:groupId/chat/:chatId Delete chat message from a group
  * @apiVersion 3.0.0
  * @apiName DeleteChat
  * @apiGroup Chat
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {string} chatId The chat _id
  *
  * @apiSuccess {Array} The update chat array
@@ -345,7 +347,7 @@ api.seenChat = {
 api.deleteChat = {
   method: 'DELETE',
   url: '/groups/:groupId/chat/:chatId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;

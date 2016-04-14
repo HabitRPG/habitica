@@ -1,5 +1,9 @@
 import fs from 'fs';
 import _ from 'lodash';
+import {
+  getUserLanguage,
+} from '../../middlewares/api-v3/language';
+import cron from '../../middlewares/api-v3/cron';
 
 // Wrapper function to handler `async` route handlers that return promises
 // It takes the async function, execute it and pass any error to next (args[2])
@@ -8,7 +12,33 @@ let noop = (req, res, next) =>  next();
 
 module.exports.readController = function readController (router, controller) {
   _.each(controller, (action) => {
-    let {method, url, middlewares = [], handler} = action;
+    let {method, url, middlewares = [], handler, runCron} = action;
+
+    // If an authentication middleware is used run getUserLanguage after it, otherwise before
+    // for cron instead use it only if an authentication middleware is present
+    let authMiddlewareIndex = _.findIndex(middlewares, middleware => {
+      if (middleware.name.indexOf('authWith') === 0) { // authWith{Headers|Session|Url|...}
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    let middlewaresToAdd = [getUserLanguage];
+
+    if (authMiddlewareIndex !== -1) { // the user will be authenticated, getUserLanguage and cron after authentication
+      if (!(runCron === false)) { // eslint-disable-line no-extra-parens
+        middlewaresToAdd.push(cron);
+      }
+
+      if (authMiddlewareIndex === middlewares.length - 1) {
+        middlewares.push(...middlewaresToAdd);
+      } else {
+        middlewares.splice(authMiddlewareIndex + 1, 0, ...middlewaresToAdd);
+      }
+    } else { // no auth, getUserLanguage as the first middleware
+      middlewares.unshift(...middlewaresToAdd);
+    }
 
     method = method.toLowerCase();
     let fn = handler ? _wrapAsyncFn(handler) : noop;

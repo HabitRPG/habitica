@@ -6,7 +6,10 @@ import {
 
 import errorHandler from '../../../../../website/src/middlewares/api-v3/errorHandler';
 import responseMiddleware from '../../../../../website/src/middlewares/api-v3/response';
-import getUserLanguage from '../../../../../website/src/middlewares/api-v3/getUserLanguage';
+import {
+  getUserLanguage,
+  attachTranslateFunction,
+} from '../../../../../website/src/middlewares/api-v3/language';
 
 import { BadRequest } from '../../../../../website/src/libs/api-v3/errors';
 import logger from '../../../../../website/src/libs/api-v3/logger';
@@ -20,6 +23,7 @@ describe('errorHandler', () => {
     next = generateNext();
     responseMiddleware(req, res, next);
     getUserLanguage(req, res, next);
+    attachTranslateFunction(req, res, next);
 
     sandbox.stub(logger, 'error');
   });
@@ -153,11 +157,10 @@ describe('errorHandler', () => {
     errorHandler(error, req, res, next);
 
     expect(logger.error).to.be.calledOnce;
-    expect(logger.error).to.be.calledWithExactly(error.stack, {
+    expect(logger.error).to.be.calledWithExactly(error, {
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,
-      fullError: error,
     });
   });
 });

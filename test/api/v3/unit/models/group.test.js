@@ -141,7 +141,7 @@ describe('Group Model', () => {
 
           expect(participatingMember.party.quest.key).to.eql('whale');
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.collect).to.eql({});
+          expect(participatingMember.party.quest.progress.collect).to.eql({});
           expect(participatingMember.party.quest.completed).to.eql(null);
         });
 
@@ -250,7 +250,7 @@ describe('Group Model', () => {
               $set: {
                 'party.quest.key': 'whale',
                 'party.quest.progress.down': 0,
-                'party.quest.collect': {},
+                'party.quest.progress.collect': {},
                 'party.quest.completed': null,
               },
             }
@@ -279,7 +279,7 @@ describe('Group Model', () => {
 
           expect(userQuest.key).to.eql('whale');
           expect(userQuest.progress.down).to.eql(0);
-          expect(userQuest.collect).to.eql({});
+          expect(userQuest.progress.collect).to.eql({});
           expect(userQuest.completed).to.eql(null);
         });
 

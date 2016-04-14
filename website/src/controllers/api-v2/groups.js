@@ -19,6 +19,7 @@ import {
 } from './../../models/user';
 import {
   model as Group,
+  TAVERN_ID,
 } from './../../models/group';
 import {
   model as Challenge,
@@ -127,7 +128,7 @@ api.list = function(req, res, next) {
     // unecessary given our ui-router setup
     tavern: function(cb) {
       if (!~type.indexOf('tavern')) return cb(null, {});
-      Group.findById('habitrpg').select(groupFields).exec(function(err, tavern){
+      Group.findById(TAVERN_ID).select(groupFields).exec(function(err, tavern){
         if (err) return cb(err);
         tavern.getTransformedData({cb: function (err, transformedTavern) {
           if (err) return cb(err);
@@ -169,6 +170,8 @@ api.get = function(req, res, next) {
 
     if (isUserGuild) {
       q = Group.findOne({type: 'guild', _id: gid});
+    } else if (gid === 'habitrpg') {
+      q = Group.findOne({_id: TAVERN_ID});
     } else {
       q = Group.findOne({type: 'guild', privacy: 'public', _id: gid});
     }
@@ -284,6 +287,7 @@ api.update = function(req, res, next) {
 api.attachGroup = function(req, res, next) {
   var user = res.locals.user;
   var gid = req.params.gid === 'party' ? user.party._id : req.params.gid;
+  if (gid === 'habitrpg') gid = TAVERN_ID;
 
   let q = Group.findOne({_id: gid})
 
@@ -313,6 +317,8 @@ api.getChat = function(req, res, next) {
   } else {
     if (isUserGuild) {
       q = Group.findOne({type: 'guild', _id: gid});
+    } else if (gid === 'habitrpg') {
+      q = Group.findOne({_id: TAVERN_ID});
     } else {
       q = Group.findOne({type: 'guild', privacy: 'public', _id: gid});
     }
@@ -340,7 +346,7 @@ api.postChat = function(req, res, next) {
     var lastClientMsg = req.query.previousMsg;
     var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
-    group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
+    group.sendChat(req.query.message, user); // TODO this should be body, but ngResource is funky
 
     if (group.type === 'party') {
       user.party.lastMessageSeen = group.chat[0].id;
@@ -423,7 +429,7 @@ api.flagChatMessage = function(req, res, next){
         {name: "GROUP_NAME", content: group.name},
         {name: "GROUP_TYPE", content: group.type},
         {name: "GROUP_ID", content: group._id},
-        {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
+        {name: "GROUP_URL", content: group._id == TAVERN_ID ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
       ]);
 
       return res.sendStatus(204);

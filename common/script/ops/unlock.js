@@ -1,7 +1,6 @@
 import i18n from '../i18n';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
-import dotSet from '../libs/dotSet';
 import {
   NotAuthorized,
   BadRequest,
@@ -37,11 +36,11 @@ module.exports = function unlock (user, req = {}, analytics) {
   if (isFullSet) {
     _.each(path.split(','), function markItemsAsPurchased (pathPart) {
       if (path.indexOf('gear.') !== -1) {
-        dotSet(user, pathPart, true);
+        _.set(user, pathPart, true);
         return true;
       }
 
-      dotSet(user, `purchased.${pathPart}`, true);
+      _.set(user, `purchased.${pathPart}`, true);
       return true;
     });
   } else {
@@ -52,11 +51,11 @@ module.exports = function unlock (user, req = {}, analytics) {
       if (key === 'background' && value === user.preferences.background) {
         value = '';
       }
-      dotSet(user, `preferences.${key}`, value);
+      _.set(user, `preferences.${key}`, value);
 
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
     }
-    dotSet(user, `purchased.${path}`, true);
+    _.set(user, `purchased.${path}`, true);
   }
 
   if (path.indexOf('gear.') === -1) {

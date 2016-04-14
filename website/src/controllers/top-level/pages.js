@@ -1,5 +1,4 @@
-import locals from '../middlewares/api-v3/locals';
-import getUserLanguage from '../middlewares/api-v3/getUserLanguage';
+import locals from '../../middlewares/api-v3/locals';
 import _ from 'lodash';
 
 const marked = require('marked');
@@ -11,7 +10,8 @@ const TOTAL_USER_COUNT = '1,100,000';
 api.getFrontPage = {
   method: 'GET',
   url: '/',
-  middlewares: [getUserLanguage, locals],
+  middlewares: [locals],
+  runCron: false,
   async handler (req, res) {
     if (!req.header('x-api-user') && !req.header('x-api-key') && !(req.session && req.session.userId)) {
       return res.redirect('/static/front');
@@ -34,7 +34,8 @@ _.each(staticPages, (name) => {
   api[`get${name}Page`] = {
     method: 'GET',
     url: `/static/${name}`,
-    middlewares: [getUserLanguage, locals],
+    middlewares: [locals],
+    runCron: false,
     async handler (req, res) {
       res.render(`static/${name}.jade`, {
         env: res.locals.habitrpg,
@@ -51,7 +52,8 @@ _.each(shareables, (name) => {
   api[`get${name}ShareablePage`] = {
     method: 'GET',
     url: `/social/${name}`,
-    middlewares: [getUserLanguage, locals],
+    middlewares: [locals],
+    runCron: false,
     async handler (req, res) {
       res.render(`social/${name}`, {
         env: res.locals.habitrpg,
@@ -65,6 +67,7 @@ _.each(shareables, (name) => {
 api.redirectExtensionsPage = {
   method: 'GET',
   url: '/static/extensions',
+  runCron: false,
   async handler (req, res) {
     res.redirect('http://habitica.wikia.com/wiki/App_and_Extension_Integrations');
   },

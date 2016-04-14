@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 
 export let schema = new Schema({
   name: {type: String, required: true},
-  challenge: {type: String}, // TODO validate
+  challenge: {type: String},
 }, {
   minimize: true, // So empty objects are returned
   strict: true,

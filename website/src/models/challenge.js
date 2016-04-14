@@ -114,7 +114,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
     let matchingTask = _.find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
 
     if (!matchingTask) { // If the task is new, create it
-      matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
+      matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
       matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
       matchingTask.userId = user._id;
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
@@ -152,13 +152,14 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let membersIds = await _fetchMembersIds(challenge._id);
 
   // Sync each user sequentially
+  // TODO are we sure it's the best solution?
   for (let memberId of membersIds) {
     let updateTasksOrderQ = {$push: {}};
     let toSave = [];
 
-    // TODO eslint complaints about ahving a function inside a loop -> make sure it works
+    // TODO eslint complaints about having a function inside a loop -> make sure it works
     tasks.forEach(chalTask => { // eslint-disable-line no-loop-func
-      let userTask = new Tasks[chalTask.type](Tasks.Task.sanitizeCreate(_syncableAttrs(chalTask)));
+      let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
       userTask.challenge = {taskId: chalTask._id, id: challenge._id};
       userTask.userId = memberId;
 
@@ -192,7 +193,6 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
     updateCmd.$set[key] = syncableAttrs[key];
   }
 
-  // TODO reveiw
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
   await Tasks.Task.update({
     userId: {$exists: true},

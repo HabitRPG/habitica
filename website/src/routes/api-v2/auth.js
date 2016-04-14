@@ -2,10 +2,12 @@ var auth = require('../../controllers/api-v2/auth');
 var express = require('express');
 var i18n = require('../../libs/api-v2/i18n');
 var router = express.Router();
-import getUserLanguage from '../../middlewares/api-v3/getUserLanguage';
+import {
+  getUserLanguage
+} from '../../middlewares/api-v3/language';
 
 /* auth.auth*/
-// auth.setupPassport(router); //FIXME make this consistent with the others
+// auth.setupPassport(router); //TODO make this consistent with the others
 router.post('/register', getUserLanguage, auth.registerUser);
 router.post('/user/auth/local', getUserLanguage, auth.loginLocal);
 router.post('/user/auth/social', getUserLanguage, auth.loginSocial);

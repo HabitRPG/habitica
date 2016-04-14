@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import Q from 'q';
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import analytics from '../../libs/api-v3/analyticsService';
 import {
   model as Group,
@@ -30,7 +29,7 @@ function canStartQuestAutomatically (group)  {
 let api = {};
 
 /**
- * @api {post} /groups/:groupId/quests/invite Invite users to a quest
+ * @api {post} /api/v3/groups/:groupId/quests/invite Invite users to a quest
  * @apiVersion 3.0.0
  * @apiName InviteToQuest
  * @apiGroup Group
@@ -42,7 +41,7 @@ let api = {};
 api.inviteToQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/invite/:questKey',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let questKey = req.params.questKey;
@@ -133,7 +132,7 @@ api.inviteToQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/accept Accept a pending quest
+ * @api {post} /api/v3/groups/:groupId/quests/accept Accept a pending quest
  * @apiVersion 3.0.0
  * @apiName AcceptQuest
  * @apiGroup Group
@@ -145,7 +144,7 @@ api.inviteToQuest = {
 api.acceptQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/accept',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -190,7 +189,7 @@ api.acceptQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/reject Reject a quest
+ * @api {post} /api/v3/groups/:groupId/quests/reject Reject a quest
  * @apiVersion 3.0.0
  * @apiName RejectQuest
  * @apiGroup Group
@@ -202,7 +201,7 @@ api.acceptQuest = {
 api.rejectQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/reject',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -249,7 +248,7 @@ api.rejectQuest = {
 
 
 /**
- * @api {post} /groups/:groupId/quests/force-start Accept a pending quest
+ * @api {post} /api/v3/groups/:groupId/quests/force-start Accept a pending quest
  * @apiVersion 3.0.0
  * @apiName forceStart
  * @apiGroup Group
@@ -261,7 +260,7 @@ api.rejectQuest = {
 api.forceStart = {
   method: 'POST',
   url: '/groups/:groupId/quests/force-start',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -301,7 +300,7 @@ api.forceStart = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/cancel Cancels a quest
+ * @api {post} /api/v3/groups/:groupId/quests/cancel Cancels a quest
  * @apiVersion 3.0.0
  * @apiName CancelQuest
  * @apiGroup Group
@@ -313,7 +312,7 @@ api.forceStart = {
 api.cancelQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/cancel',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
     // Quest scroll has not yet left quest owner's inventory so no need to return it.
@@ -350,7 +349,7 @@ api.cancelQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/abort Abort the current quest
+ * @api {post} /api/v3/groups/:groupId/quests/abort Abort the current quest
  * @apiVersion 3.0.0
  * @apiName AbortQuest
  * @apiGroup Group
@@ -362,7 +361,7 @@ api.cancelQuest = {
 api.abortQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/abort',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     // Abort a quest AFTER it has begun (see questCancel for BEFORE)
     let user = res.locals.user;
@@ -404,7 +403,7 @@ api.abortQuest = {
 };
 
 /**
- * @api {post} /groups/:groupId/quests/leave Leaves the active quest
+ * @api {post} /api/v3/groups/:groupId/quests/leave Leaves the active quest
  * @apiVersion 3.0.0
  * @apiName LeaveQuest
  * @apiGroup Group
@@ -416,7 +415,7 @@ api.abortQuest = {
 api.leaveQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/leave',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;

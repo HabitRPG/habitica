@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { TAVERN_ID } from '../../website/src/models/group';
 
 // Useful for checking things that have been deleted,
 // but you no longer have access to,
@@ -26,12 +27,12 @@ export async function resetHabiticaDB () {
       let groups = mongoose.connection.db.collection('groups');
 
       // For some mysterious reason after a dropDatabase there can still be a group...
-      groups.count({_id: 'habitrpg'}, (err, count) => {
+      groups.count({_id: TAVERN_ID}, (err, count) => {
         if (err) return reject(err);
         if (count > 0) return resolve();
 
         groups.insertOne({
-          _id: 'habitrpg',
+          _id: TAVERN_ID,
           chat: [],
           leader: '9',
           name: 'HabitRPG',

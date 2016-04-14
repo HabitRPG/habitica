@@ -4,7 +4,6 @@ import {
 } from 'crypto';
 import nconf from 'nconf';
 
-// TODO check this is secure
 const algorithm = 'aes-256-ctr';
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
 

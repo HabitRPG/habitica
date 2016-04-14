@@ -104,15 +104,3 @@ export let multipleVersionsLanguages = {
     'zh-tw': 'zh_TW',
   },
 };
-
-// Export en strings only, temporary solution for mobile
-// This is copied from middlewares/locals#t()
-// TODO review if this can be removed since the old mobile app is no longer active
-// stringName and vars are the allowed parameters
-export function enTranslations (...args) {
-  let language = _.find(availableLanguages, {code: 'en'});
-
-  // language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
-  args.push(language.code);
-  return shared.i18n.t(...args);
-}

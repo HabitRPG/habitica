@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import cron from '../../middlewares/api-v3/cron';
 import { sendTaskWebhook } from '../../libs/api-v3/webhook';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
@@ -13,6 +12,7 @@ import {
 import common from '../../../../common';
 import Q from 'q';
 import _ from 'lodash';
+import logger from '../../libs/api-v3/logger';
 
 let api = {};
 
@@ -25,7 +25,7 @@ async function _createTasks (req, res, user, challenge) {
     if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
 
     let taskType = taskData.type;
-    let newTask = new Tasks[taskType](Tasks.Task.sanitizeCreate(taskData));
+    let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
@@ -54,7 +54,7 @@ async function _createTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {post} /tasks/user Create a new task belonging to the autheticated user. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @api {post} /api/v3/tasks/user Create a new task belonging to the autheticated user. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateUserTasks
  * @apiGroup Task
@@ -65,7 +65,7 @@ async function _createTasks (req, res, user, challenge) {
 api.createUserTasks = {
   method: 'POST',
   url: '/tasks/user',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let tasks = await _createTasks(req, res, res.locals.user);
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
@@ -73,7 +73,7 @@ api.createUserTasks = {
 };
 
 /**
- * @api {post} /tasks/challenge/:challengeId Create a new task belonging to the challenge. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to the challenge. Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateChallengeTasks
  * @apiGroup Task
@@ -86,7 +86,7 @@ api.createUserTasks = {
 api.createChallengeTasks = {
   method: 'POST',
   url: '/tasks/challenge/:challengeId', // TODO should be /tasks/challengeS/:challengeId ? plural?
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -107,7 +107,7 @@ api.createChallengeTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     // If adding tasks to a challenge -> sync users
-    if (challenge) challenge.addTasks(tasks); // TODO catch/log
+    if (challenge) challenge.addTasks(tasks);
   },
 };
 
@@ -164,7 +164,7 @@ async function _getTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {get} /tasks/user Get an user's tasks
+ * @api {get} /api/v3/tasks/user Get an user's tasks
  * @apiVersion 3.0.0
  * @apiName GetUserTasks
  * @apiGroup Task
@@ -176,7 +176,7 @@ async function _getTasks (req, res, user, challenge) {
 api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos');
@@ -190,7 +190,7 @@ api.getUserTasks = {
 };
 
 /**
- * @api {get} /tasks/challenge/:challengeId Get a challenge's tasks
+ * @api {get} /api/v3/tasks/challenge/:challengeId Get a challenge's tasks
  * @apiVersion 3.0.0
  * @apiName GetChallengeTasks
  * @apiGroup Task
@@ -203,7 +203,7 @@ api.getUserTasks = {
 api.getChallengeTasks = {
   method: 'GET',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -225,7 +225,7 @@ api.getChallengeTasks = {
 };
 
 /**
- * @api {get} /task/:taskId Get a task given its id
+ * @api {get} /api/v3/task/:taskId Get a task given its id
  * @apiVersion 3.0.0
  * @apiName GetTask
  * @apiGroup Task
@@ -237,7 +237,7 @@ api.getChallengeTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -266,7 +266,7 @@ api.getTask = {
 };
 
 /**
- * @api {put} /task/:taskId Update a task
+ * @api {put} /api/v3/task/:taskId Update a task
  * @apiVersion 3.0.0
  * @apiName UpdateTask
  * @apiGroup Task
@@ -278,7 +278,7 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -304,17 +304,16 @@ api.updateTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    Tasks.Task.sanitize(req.body);
     // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     // TODO regarding comment above, make sure other models with nested fields are using this trick too
-    _.assign(task, common.ops.updateTask(task.toObject(), req));
+    _.assign(task, Tasks.Task.sanitize(common.ops.updateTask(task.toObject(), req)));
     // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
     let savedTask = await task.save();
     res.respond(200, savedTask);
-    if (challenge) challenge.updateTask(savedTask); // TODO catch/log
+    if (challenge) challenge.updateTask(savedTask);
   },
 };
 
@@ -344,7 +343,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
 }
 
 /**
- * @api {put} /tasks/:taskId/score/:direction Score a task
+ * @api {put} /api/v3/tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task
@@ -357,7 +356,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
@@ -417,7 +416,7 @@ api.scoreTask = {
 
         await chalTask.scoreChallengeTask(delta);
       } catch (e) {
-        // TODO handle
+        logger.error(e);
       }
     }
   },
@@ -427,7 +426,7 @@ api.scoreTask = {
 // TODO check that it works when a tag is selected or todos are split between dated and due
 // TODO support challenges?
 /**
- * @api {post} /tasks/:taskId/move/to/:position Move a task to a new position
+ * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
  * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task
@@ -440,7 +439,7 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/:taskId/move/to/:position',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
@@ -482,7 +481,7 @@ api.moveTask = {
 };
 
 /**
- * @api {post} /tasks/:taskId/checklist Add an item to a checklist, creating the checklist if it doesn't exist
+ * @api {post} /api/v3/tasks/:taskId/checklist Add an item to a checklist, creating the checklist if it doesn't exist
  * @apiVersion 3.0.0
  * @apiName AddChecklistItem
  * @apiGroup Task
@@ -494,7 +493,7 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -530,7 +529,7 @@ api.addChecklistItem = {
 };
 
 /**
- * @api {post} /tasks/:taskId/checklist/:itemId/score Score a checklist item
+ * @api {post} /api/v3/tasks/:taskId/checklist/:itemId/score Score a checklist item
  * @apiVersion 3.0.0
  * @apiName ScoreChecklistItem
  * @apiGroup Task
@@ -543,7 +542,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -572,7 +571,7 @@ api.scoreCheckListItem = {
 };
 
 /**
- * @api {put} /tasks/:taskId/checklist/:itemId Update a checklist item
+ * @api {put} /api/v3/tasks/:taskId/checklist/:itemId Update a checklist item
  * @apiVersion 3.0.0
  * @apiName UpdateChecklistItem
  * @apiGroup Task
@@ -585,7 +584,7 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -623,7 +622,7 @@ api.updateChecklistItem = {
 };
 
 /**
- * @api {delete} /tasks/:taskId/checklist/:itemId Remove a checklist item
+ * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Remove a checklist item
  * @apiVersion 3.0.0
  * @apiName RemoveChecklistItem
  * @apiGroup Task
@@ -636,7 +635,7 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -672,7 +671,7 @@ api.removeChecklistItem = {
 };
 
 /**
- * @api {post} /tasks/:taskId/tags/:tagId Add a tag to a task
+ * @api {post} /api/v3/tasks/:taskId/tags/:tagId Add a tag to a task
  * @apiVersion 3.0.0
  * @apiName AddTagToTask
  * @apiGroup Task
@@ -685,7 +684,7 @@ api.removeChecklistItem = {
 api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -715,7 +714,7 @@ api.addTagToTask = {
 };
 
 /**
- * @api {delete} /tasks/:taskId/tags/:tagId Remove a tag
+ * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag
  * @apiVersion 3.0.0
  * @apiName RemoveTagFromTask
  * @apiGroup Task
@@ -728,7 +727,7 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -755,7 +754,7 @@ api.removeTagFromTask = {
 
 // TODO this method needs some limitation, like to check if the challenge is really broken?
 /**
- * @api {post} /tasks/unlink/:taskId Unlink a challenge task
+ * @api {post} /api/v3/tasks/unlink/:taskId Unlink a challenge task
  * @apiVersion 3.0.0
  * @apiName UnlinkTask
  * @apiGroup Task
@@ -767,7 +766,7 @@ api.removeTagFromTask = {
 api.unlinkTask = {
   method: 'POST',
   url: '/tasks/unlink/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
@@ -804,7 +803,7 @@ api.unlinkTask = {
 };
 
 /**
- * @api {post} /tasks/clearCompletedTodos Delete user's completed todos
+ * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
  * @apiVersion 3.0.0
  * @apiName ClearCompletedTodos
  * @apiGroup Task
@@ -814,7 +813,7 @@ api.unlinkTask = {
 api.clearCompletedTodos = {
   method: 'POST',
   url: '/tasks/clearCompletedTodos',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -835,7 +834,7 @@ api.clearCompletedTodos = {
 };
 
 /**
- * @api {delete} /tasks/:taskId Delete a task given its id
+ * @api {delete} /api/v3/tasks/:taskId Delete a task given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task
@@ -847,7 +846,7 @@ api.clearCompletedTodos = {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;

@@ -120,6 +120,7 @@ import clearPMs from './ops/clearPMs';
 import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import addPushDevice from './ops/addPushDevice';
+import reset from './ops/reset';
 
 api.ops = {
   scoreTask,
@@ -156,6 +157,7 @@ api.ops = {
   deletePM,
   reroll,
   addPushDevice,
+  reset,
 };
 
 import handleTwoHanded from './fns/handleTwoHanded';
@@ -219,7 +221,6 @@ api.wrap = function wrapUser (user, main = true) {
   user._wrapped = true;
 
   // Make markModified available on the client side as a noop function
-  // TODO move to client?
   if (!user.markModified) {
     user.markModified = function noopMarkModified () {};
   }
@@ -303,14 +304,4 @@ api.wrap = function wrapUser (user, main = true) {
       return computed;
     },
   });
-
-  if (typeof window !== 'undefined') {
-    // TODO kept for compatibility with the client that relies on v2, remove once the client is adapted
-    Object.defineProperty(user, 'tasks', {
-      get () {
-        let tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
-        return _.object(_.pluck(tasks, 'id'), tasks);
-      },
-    });
-  }
 };

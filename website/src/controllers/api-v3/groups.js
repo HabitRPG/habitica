@@ -1,7 +1,6 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import Q from 'q';
 import _ from 'lodash';
-import cron from '../../middlewares/api-v3/cron';
 import {
   INVITES_LIMIT,
   model as Group,
@@ -28,7 +27,7 @@ let api = {};
 // TODO shall we accept party as groupId in all routes?
 
 /**
- * @api {post} /groups Create group
+ * @api {post} /api/v3/groups Create group
  * @apiVersion 3.0.0
  * @apiName CreateGroup
  * @apiGroup Group
@@ -38,7 +37,7 @@ let api = {};
 api.createGroup = {
   method: 'POST',
   url: '/groups',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body)); // TODO validate empty req.body
@@ -77,7 +76,7 @@ api.createGroup = {
 };
 
 /**
- * @api {get} /groups Get groups
+ * @api {get} /api/v3/groups Get groups
  * @apiVersion 3.0.0
  * @apiName GetGroups
  * @apiGroup Group
@@ -89,7 +88,7 @@ api.createGroup = {
 api.getGroups = {
   method: 'GET',
   url: '/groups',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -113,19 +112,19 @@ api.getGroups = {
 };
 
 /**
- * @api {get} /groups/:groupId Get group
+ * @api {get} /api/v3/groups/:groupId Get group
  * @apiVersion 3.0.0
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} group The group object
  */
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -147,19 +146,19 @@ api.getGroup = {
 };
 
 /**
- * @api {put} /groups/:groupId Update group
+ * @api {put} /api/v3/groups/:groupId Update group
  * @apiVersion 3.0.0
  * @apiName UpdateGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} group The updated group object
  */
 api.updateGroup = {
   method: 'PUT',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -193,7 +192,7 @@ api.updateGroup = {
 };
 
 /**
- * @api {post} /groups/:groupId/join Join a group
+ * @api {post} /api/v3/groups/:groupId/join Join a group
  * @apiVersion 3.0.0
  * @apiName JoinGroup
  * @apiGroup Group
@@ -205,7 +204,7 @@ api.updateGroup = {
 api.joinGroup = {
   method: 'POST',
   url: '/groups/:groupId/join',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let inviter;
@@ -284,7 +283,7 @@ api.joinGroup = {
 };
 
 /**
- * @api {post} /groups/:groupId/reject Reject a group invitation
+ * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
  * @apiVersion 3.0.0
  * @apiName RejectGroupInvite
  * @apiGroup Group
@@ -296,7 +295,7 @@ api.joinGroup = {
 api.rejectGroupInvite = {
   method: 'POST',
   url: '/groups/:groupId/reject-invite',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -329,12 +328,12 @@ api.rejectGroupInvite = {
 };
 
 /**
- * @api {post} /groups/:groupId/leave Leave a group
+ * @api {post} /api/v3/groups/:groupId/leave Leave a group
  * @apiVersion 3.0.0
  * @apiName LeaveGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {string="remove-all","keep-all"} keep Wheter to keep or not challenges' tasks, as an optional query string
  *
  * @apiSuccess {Object} empty An empty object
@@ -342,7 +341,7 @@ api.rejectGroupInvite = {
 api.leaveGroup = {
   method: 'POST',
   url: '/groups/:groupId/leave',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -385,12 +384,12 @@ function _sendMessageToRemoved (group, removedUser, message) {
 }
 
 /**
- * @api {post} /groups/:groupId/removeMember/:memberId Remove a member from a group
+ * @api {post} /api/v3/groups/:groupId/removeMember/:memberId Remove a member from a group
  * @apiVersion 3.0.0
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} memberId The _id of the member to remove
  * @apiParam {string} message The message to send to the removed members, as a query string // TODO in req.body?
  *
@@ -399,7 +398,7 @@ function _sendMessageToRemoved (group, removedUser, message) {
 api.removeGroupMember = {
   method: 'POST',
   url: '/groups/:groupId/removeMember/:memberId',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -586,12 +585,12 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 }
 
 /**
- * @api {post} /groups/:groupId/invite Invite users to a group using their UUIDs or email addresses
+ * @api {post} /api/v3/groups/:groupId/invite Invite users to a group using their UUIDs or email addresses
  * @apiVersion 3.0.0
  * @apiName InviteToGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiParam {array} emails An array of emails addresses to invite (optional) (inside body)
  * @apiParam {array} uuids An array of uuids to invite (optional) (inside body)
@@ -602,7 +601,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

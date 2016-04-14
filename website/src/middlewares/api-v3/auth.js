@@ -1,13 +1,11 @@
 import {
   NotAuthorized,
-  BadRequest,
 } from '../../libs/api-v3/errors';
-import common from '../../../../common';
 import {
   model as User,
 } from '../../models/user';
 
-const i18n = common.i18n;
+// TODO how to translate the strings here since getUserLanguage hasn't run yet?
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
@@ -18,7 +16,7 @@ export function authWithHeaders (optional = false) {
 
     if (!userId || !apiToken) {
       if (optional) return next();
-      return next(new BadRequest(res.t('missingAuthHeaders')));
+      return next(new NotAuthorized(res.t('missingAuthHeaders')));
     }
 
     User.findOne({
@@ -27,8 +25,8 @@ export function authWithHeaders (optional = false) {
     })
     .exec()
     .then((user) => {
-      if (!user) throw new NotAuthorized(i18n.t('invalidCredentials'));
-      if (user.auth.blocked) throw new NotAuthorized(i18n.t('accountSuspended', {userId: user._id}));
+      if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+      if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
 
       res.locals.user = user;
       // TODO use either session/cookie or headers, not both
@@ -40,18 +38,17 @@ export function authWithHeaders (optional = false) {
 }
 
 // Authenticate a request through a valid session
-// TODO should use json web token
 export function authWithSession (req, res, next) {
   let userId = req.session.userId;
 
-  if (!userId) return next(new NotAuthorized(i18n.t('invalidCredentials')));
+  if (!userId) return next(new NotAuthorized(res.t('invalidCredentials')));
 
   User.findOne({
     _id: userId,
   })
   .exec()
   .then((user) => {
-    if (!user) throw new NotAuthorized(i18n.t('invalidCredentials'));
+    if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 
     res.locals.user = user;
     next();

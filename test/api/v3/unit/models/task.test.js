@@ -54,7 +54,7 @@ describe('Task Model', () => {
   each(tasksToTest, (taskValue, taskType) => {
     context(`${taskType}`, () => {
       beforeEach(async() => {
-        task = new Tasks[`${taskType}`](Tasks.Task.sanitizeCreate(taskValue));
+        task = new Tasks[`${taskType}`](Tasks.Task.sanitize(taskValue));
         task.challenge.id = challenge._id;
         task.history = generateHistory(396);
         await task.save();

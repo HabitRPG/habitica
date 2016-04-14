@@ -1,5 +1,7 @@
 import Firebase from 'firebase';
 import nconf from 'nconf';
+import { TAVERN_ID } from '../../models/group';
+
 const FIREBASE_CONFIG = nconf.get('FIREBASE');
 const FIREBASE_ENABLED = FIREBASE_CONFIG.ENABLED === 'true';
 
@@ -20,7 +22,7 @@ export function updateGroupData (group) {
   // TODO is throw ok? we don't have callbacks
   if (!group) throw new Error('group obj is required.');
   // Return in case of tavern (comparison working because we use string for _id)
-  if (group._id === 'habitrpg') return;
+  if (group._id === TAVERN_ID) return;
 
   firebaseRef.child(`rooms/${group._id}`)
     .set({
@@ -31,7 +33,7 @@ export function updateGroupData (group) {
 export function addUserToGroup (groupId, userId) {
   if (!FIREBASE_ENABLED) return;
   if (!userId || !groupId) throw new Error('groupId, userId are required.');
-  if (groupId === 'habitrpg') return;
+  if (groupId === TAVERN_ID) return;
 
   firebaseRef.child(`members/${groupId}/${userId}`).set(true);
   firebaseRef.child(`users/${userId}/rooms/${groupId}`).set(true);
@@ -40,7 +42,7 @@ export function addUserToGroup (groupId, userId) {
 export function removeUserFromGroup (groupId, userId) {
   if (!FIREBASE_ENABLED) return;
   if (!userId || !groupId) throw new Error('groupId, userId are required.');
-  if (groupId === 'habitrpg') return;
+  if (groupId === TAVERN_ID) return;
 
   firebaseRef.child(`members/${groupId}/${userId}`).remove();
   firebaseRef.child(`users/${userId}/rooms/${groupId}`).remove();
@@ -49,15 +51,15 @@ export function removeUserFromGroup (groupId, userId) {
 export function deleteGroup (groupId) {
   if (!FIREBASE_ENABLED) return;
   if (!groupId) throw new Error('groupId is required.');
-  if (groupId === 'habitrpg') return;
+  if (groupId === TAVERN_ID) return;
 
   firebaseRef.child(`members/${groupId}`).remove();
-  // FIXME not really necessary as long as we only store room data,
+  // TODO not really necessary as long as we only store room data,
   // as empty objects are automatically deleted (/members/... in future...)
   firebaseRef.child(`rooms/${groupId}`).remove();
 }
 
-// FIXME not really necessary as long as we only store room data,
+// TODO not really necessary as long as we only store room data,
 // as empty objects are automatically deleted
 export function deleteUser (userId) {
   if (!FIREBASE_ENABLED) return;
