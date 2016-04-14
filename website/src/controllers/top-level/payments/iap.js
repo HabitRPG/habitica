@@ -1,67 +1,66 @@
-var iap = require('in-app-purchase');
-var async = require('async');
-var payments = require('./index');
-var nconf = require('nconf');
+import iap from 'in-app-purchase';
+import whatThis from 'in-app-purchase';
+import payments from './index';
+import nconf from 'nconf';
 
-var inAppPurchase = require('in-app-purchase');
-inAppPurchase.config({
+iap.config({
   // this is the path to the directory containing iap-sanbox/iap-live files
-  googlePublicKeyPath: nconf.get('IAP_GOOGLE_KEYDIR')
+  googlePublicKeyPath: nconf.get('IAP_GOOGLE_KEYDIR'),
 });
 
 // Validation ERROR Codes
-var INVALID_PAYLOAD   = 6778001;
-var CONNECTION_FAILED = 6778002;
-var PURCHASE_EXPIRED  = 6778003;
+const INVALID_PAYLOAD   = 6778001;
+/* const CONNECTION_FAILED = 6778002;
+const PURCHASE_EXPIRED  = 6778003; */ // These variables were never used??
 
-exports.androidVerify = function(req, res, next) {
-  var iapBody = req.body;
-  var user = res.locals.user;
+let api = {};
 
-  iap.setup(function (error) {
+/*
+api.androidVerify = function androidVerify (req, res) {
+  let iapBody = req.body;
+  let user = res.locals.user;
+
+  iap.setup(function googleSetupResult (error) {
     if (error) {
-      var resObj = {
+      let resObj = {
         ok: false,
-        data: 'IAP Error'
+        data: 'IAP Error',
       };
 
       return res.json(resObj);
-
     }
 
-    /*
-      google receipt must be provided as an object
-      {
-        "data": "{stringified data object}",
-        "signature": "signature from google"
-        }
-    */
-    var testObj = {
+    // google receipt must be provided as an object
+    // {
+    //   "data": "{stringified data object}",
+    //   "signature": "signature from google"
+    // }
+    let testObj = {
       data: iapBody.transaction.receipt,
-      signature: iapBody.transaction.signature
+      signature: iapBody.transaction.signature,
     };
 
     // iap is ready
-    iap.validate(iap.GOOGLE, testObj, function (err, googleRes) {
+    iap.validate(iap.GOOGLE, testObj, function googleValidateResult (err, googleRes) {
       if (err) {
-        var resObj = {
+        let resObj = {
           ok: false,
           data: {
             code: INVALID_PAYLOAD,
-            message: err.toString()
-          }
+            message: err.toString(),
+          },
         };
 
         return res.json(resObj);
       }
 
       if (iap.isValidated(googleRes)) {
-        var resObj = {
+        let resObj = {
           ok: true,
-          data: googleRes
+          data: googleRes,
         };
 
-        payments.buyGems({user:user, paymentMethod:'IAP GooglePlay', amount: 5.25});
+        payments.buyGems({user, paymentMethod: 'IAP GooglePlay', amount: 5.25});
 
         return res.json(resObj);
       }
@@ -69,87 +68,89 @@ exports.androidVerify = function(req, res, next) {
   });
 };
 
-exports.iosVerify = function(req, res, next) {
-  var iapBody = req.body;
-  var user = res.locals.user;
+exports.iosVerify = function iosVerify (req, res) {
+  let iapBody = req.body;
+  let user = res.locals.user;
 
-  iap.setup(function (error) {
+  iap.setup(function iosSetupResult (error) {
     if (error) {
-      var resObj = {
+      let resObj = {
         ok: false,
-        data: 'IAP Error'
+        data: 'IAP Error',
       };
 
       return res.json(resObj);
-
     }
 
-    //iap is ready
-    iap.validate(iap.APPLE, iapBody.transaction.receipt, function (err, appleRes) {
+    // iap is ready
+    iap.validate(iap.APPLE, iapBody.transaction.receipt, function iosValidateResult (err, appleRes) {
       if (err) {
-        var resObj = {
+        let resObj = {
           ok: false,
           data: {
             code: INVALID_PAYLOAD,
-            message: err.toString()
-          }
+            message: err.toString(),
+          },
         };
 
         return res.json(resObj);
       }
 
       if (iap.isValidated(appleRes)) {
-        var purchaseDataList = iap.getPurchaseData(appleRes);
+        let purchaseDataList = iap.getPurchaseData(appleRes);
         if (purchaseDataList.length > 0) {
-          var correctReceipt = true;
-          for (var index in purchaseDataList) {
+          let correctReceipt = true;
+          for (let index of purchaseDataList) {
             switch (purchaseDataList[index].productId) {
               case 'com.habitrpg.ios.Habitica.4gems':
-                payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 1});
+                payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 1});
                 break;
               case 'com.habitrpg.ios.Habitica.8gems':
-                payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 2});
+                payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 2});
                 break;
               case 'com.habitrpg.ios.Habitica.20gems':
               case 'com.habitrpg.ios.Habitica.21gems':
-                payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 5.25});
+                payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 5.25});
                 break;
               case 'com.habitrpg.ios.Habitica.42gems':
-                payments.buyGems({user:user, paymentMethod:'IAP AppleStore', amount: 10.5});
+                payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 10.5});
                 break;
               default:
                 correctReceipt = false;
             }
           }
           if (correctReceipt) {
-            var resObj = {
+            let resObj = {
               ok: true,
-              data: appleRes
+              data: appleRes,
             };
             // yay good!
             return res.json(resObj);
           }
         }
-        //wrong receipt content
-        var resObj = {
+        // wrong receipt content
+        let resObj = {
           ok: false,
           data: {
             code: INVALID_PAYLOAD,
-            message: 'Incorrect receipt content'
-          }
+            message: 'Incorrect receipt content',
+          },
         };
         return res.json(resObj);
       }
-      //invalid receipt
-      var resObj = {
+      // invalid receipt
+      let resObj = {
         ok: false,
         data: {
           code: INVALID_PAYLOAD,
-          message: 'Invalid receipt'
-        }
+          message: 'Invalid receipt',
+        },
       };
 
       return res.json(resObj);
     });
   });
 };
+*/
+
+module.exports = api;

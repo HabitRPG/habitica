@@ -169,5 +169,9 @@
   "regIdRequired": "RegId is required",
   "pushDeviceAdded": "Push device added successfully",
   "pushDeviceAlreadyAdded": "The user already has the push device",
-  "resetComplete": "Reset has completed"
+  "resetComplete": "Reset has completed",
+  "missingAccessToken": "The request is missing a required parameter : access_token",
+  "missingBillingAgreementId": "Missing billing agreement id",
+  "missingAttributesFromAmazon": "Missing attributes from Amazon",
+  "errorFromAmazon": "Error from Amazon"
 }
