@@ -33,6 +33,9 @@ api.capByLevel = statHelpers.capByLevel;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
+import splitWhitespace from './libs/splitWhitespace';
+api.$w = splitWhitespace;
+
 import dotSet from './libs/dotSet';
 api.dotSet = dotSet;
 
