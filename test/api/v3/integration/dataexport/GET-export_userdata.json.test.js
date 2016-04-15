@@ -12,7 +12,7 @@ describe('GET /export/userdata.json', () => {
       {type: 'todo', text: 'todo 1'},
     ]);
 
-    let res = await user.get(`/export/userdata.json`);
+    let res = await user.get('/export/userdata.json');
     expect(res._id).to.equal(user._id);
     expect(res).to.contain.all.keys(['tasks', 'flags', 'tasksOrder', 'auth']);
     expect(res.auth.local).not.to.have.keys(['salt', 'hashed_password']);

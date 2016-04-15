@@ -2,10 +2,11 @@ import validator from 'validator';
 import moment from 'moment';
 import passport from 'passport';
 import nconf from 'nconf';
+import setupNconf from '../../libs/api-v3/setupNconf';
+setupNconf();
 import {
   authWithHeaders,
-  authWithSession,
- } from '../../middlewares/api-v3/auth';
+} from '../../middlewares/api-v3/auth';
 import {
   NotAuthorized,
   BadRequest,
@@ -52,17 +53,18 @@ async function _handleGroupInvitation (user, invite) {
 }
 
 /**
- * @api {post} /api/v3/user/auth/local/register Register a new user with email, username and password or attach local auth to a social user
+ * @api {post} /api/v3/user/auth/local/register Register
+ * @apiDescription Register a new user with email, username and password or attach local auth to a social user
  * @apiVersion 3.0.0
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam {String} username Username of the new user
- * @apiParam {String} email Email address of the new user
- * @apiParam {String} password Password for the new user account
- * @apiParam {String} confirmPassword Password confirmation
+ * @apiParam {String} username Body parameter - Username of the new user
+ * @apiParam {String} email Body parameter - Email address of the new user
+ * @apiParam {String} password Body parameter - Password for the new user
+ * @apiParam {String} confirmPassword Body parameter - Password confirmation
  *
- * @apiSuccess {Object} user The user object, if we just attached local auth to a social user then only user.auth.local
+ * @apiSuccess {Object} user The user object, if local auth was just attached to a social user then only user.auth.local
  */
 api.registerLocal = {
   method: 'POST',
@@ -165,13 +167,14 @@ function _loginRes (user, req, res) {
 }
 
 /**
- * @api {post} /api/v3/user/auth/local/login Login an user with email / username and password
+ * @api {post} /api/v3/user/auth/local/login Login
+ * @apiDescription Login an user with email / username and password
  * @apiVersion 3.0.0
  * @apiName UserLoginLocal
  * @apiGroup User
  *
- * @apiParam {String} username Username or email of the user
- * @apiParam {String} password The user's password
+ * @apiParam {String} username Body parameter - Username or email of the user
+ * @apiParam {String} password Body parameter - The user's password
  *
  * @apiSuccess {String} _id The user's unique identifier
  * @apiSuccess {String} apiToken The user's api token that must be used to authenticate requests.
@@ -227,7 +230,7 @@ function _passportFbProfile (accessToken) {
   return deferred.promise;
 }
 
-// Called as a callback by Facebook (or other social providers)
+// Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
   method: 'POST',
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
@@ -280,13 +283,16 @@ api.loginSocial = {
 };
 
 /**
- * @api {put} /api/v3/user/auth/update-username
+ * @api {put} /api/v3/user/auth/update-username Update username
+ * @apiDescription Update the username of a local user
  * @apiVersion 3.0.0
- * @apiName updateUsername
+ * @apiName UpdateUsername
  * @apiGroup User
- * @apiParam {string} password The password
- * @apiParam {string} username New username
- * @apiSuccess {Object} The new username
+ *
+ * @apiParam {string} password Body parameter - The current user password
+ * @apiParam {string} username Body parameter - The new username
+
+ * @apiSuccess {String} username The new username
  **/
 api.updateUsername = {
   method: 'PUT',
@@ -326,13 +332,16 @@ api.updateUsername = {
 
 /**
  * @api {put} /api/v3/user/auth/update-password
+ * @apiDescription Update the password of a local user
  * @apiVersion 3.0.0
- * @apiName updatePassword
+ * @apiName UpdatePassword
  * @apiGroup User
- * @apiParam {string} password The old password
- * @apiParam {string} newPassword The new password
- * @apiParam {string} confirmPassword Password confirmation
- * @apiSuccess {Object} The success message
+ *
+ * @apiParam {string} password Body parameter - The old password
+ * @apiParam {string} newPassword Body parameter - The new password
+ * @apiParam {string} confirmPassword Body parameter - New password confirmation
+ *
+ * @apiSuccess {Object} emoty An empty object
  **/
 api.updatePassword = {
   method: 'PUT',
@@ -364,12 +373,15 @@ api.updatePassword = {
 };
 
 /**
- * @api {post} /api/v3/user/reset-password
+ * @api {post} /api/v3/user/reset-password Reser password
+ * @apiDescription Reset the user password
  * @apiVersion 3.0.0
- * @apiName resetPassword
+ * @apiName ResetPassword
  * @apiGroup User
- * @apiParam {string} email email
- * @apiSuccess {Object} The success message
+ *
+ * @apiParam {string} email Body parameter - The email address of the user
+ *
+ * @apiSuccess {string} message The localized success message
  **/
 api.resetPassword = {
   method: 'POST',
@@ -414,15 +426,16 @@ api.resetPassword = {
 };
 
 /**
- * @api {put} /api/v3/user/auth/update-email
+ * @api {put} /api/v3/user/auth/update-email Update email
+ * @apiDescription Che the user email
  * @apiVersion 3.0.0
  * @apiName UpdateEmail
  * @apiGroup User
  *
- * @apiParam {string} newEmail The new email address.
- * @apiParam {string} password The user password.
+ * @apiParam {string} Body parameter - newEmail The new email address.
+ * @apiParam {string} Body parameter - password The user password.
  *
- * @apiSuccess {Object} An object containing the new email address
+ * @apiSuccess {string} email The updated email address
  */
 api.updateEmail = {
   method: 'PUT',
@@ -450,7 +463,7 @@ api.updateEmail = {
 
 const firebaseTokenGenerator = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
 
-// Internal route TODO expose?
+// Internal route
 api.getFirebaseToken = {
   method: 'POST',
   url: '/user/auth/firebase',
@@ -471,12 +484,13 @@ api.getFirebaseToken = {
 };
 
 /**
- * @api {delete} /api/v3/user/auth/social/:network Delete a social authentication method (only facebook supported)
+ * @api {delete} /api/v3/user/auth/social/:network Delete social authentication method
+ * @apiDescription Remove a social authentication method (only facebook supported) from a user profile. The user must have local authentication enabled
  * @apiVersion 3.0.0
  * @apiName UserDeleteSocial
  * @apiGroup User
  *
- * @apiSuccess {Object} response Empty object
+ * @apiSuccess {Object} empty Empty object
  */
 api.deleteSocial = {
   method: 'DELETE',
@@ -492,18 +506,6 @@ api.deleteSocial = {
     await User.update({_id: user._id}, {$unset: {'auth.facebook': 1}}).exec();
 
     res.respond(200, {});
-  },
-};
-
-// Internal route
-api.logout = {
-  method: 'GET',
-  url: '/user/auth/logout', // TODO this is under /api/v3 route, should be accessible through habitica.com/logout
-  middlewares: [authWithSession],
-  async handler (req, res) {
-    req.logout(); // passportjs method
-    req.session = null;
-    res.redirect('/');
   },
 };
 

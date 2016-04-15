@@ -147,7 +147,7 @@
     "partyChatEmpty": "队伍聊天框里空空如也！在上面的聊天框打字来开始聊天。",
     "guildChatEmpty": "公会聊天框里空空如也！在上面的聊天框打字来开始聊天。",
     "possessiveParty": "<%= name %>的队伍",
-    "requestAcceptGuidelines": "如果你想在酒馆里，或是队伍和公会里张贴信息，请先阅读<%= linkStart %>交流须知<%= linkEnd %>并点击按钮，表示接受其中的条款。 ",
+    "requestAcceptGuidelines": "如果你想在酒馆里，或是队伍和公会里张贴信息，请先阅读<%= linkStart %>社区指南<%= linkEnd %>并点击下面按钮，表示您接受其中的条款。 ",
     "partyUpName": "举行派对",
     "partyOnName": "欢乐派对",
     "partyUpAchievement": "和另一个人一起加入一个队伍！愉快的去打怪兽并互相支持，玩的愉快。",

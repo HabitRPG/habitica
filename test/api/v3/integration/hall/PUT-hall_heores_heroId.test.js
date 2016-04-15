@@ -24,7 +24,7 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('validates req.params.heroId', async () => {
-    await expect(user.put(`/hall/heroes/invalidUUID`)).to.eventually.be.rejected.and.eql({
+    await expect(user.put('/hall/heroes/invalidUUID')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),

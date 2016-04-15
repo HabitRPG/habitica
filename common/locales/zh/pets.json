@@ -19,6 +19,7 @@
     "orca": "兽人",
     "royalPurpleGryphon": "紫御狮鹫",
     "phoenix": "凤凰",
+    "bumblebee": "Bumblebee",
     "rarePetPop1": "按按金色的爪印查看怎么通过为Habitica贡献来获得这只稀有宠物！",
     "rarePetPop2": "得到这个宠物的方法！",
     "potion": "<%= potionType %> 药水",

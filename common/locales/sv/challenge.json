@@ -51,7 +51,7 @@
     "leaveCha": "Lämna utmaning och...",
     "challengedOwnedFilterHeader": "Ägande",
     "challengedOwnedFilter": "Ägs",
-    "challengedNotOwnedFilter": "Inte Ägs",
+    "challengedNotOwnedFilter": "Ägs Inte",
     "challengedEitherOwnedFilter": "Vilket som",
     "backToChallenges": "Tillbaka till alla utmaningar",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Pris",

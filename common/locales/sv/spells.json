@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "Din psykiska kraft får jorden att bäva. Hela ditt sällskap får en förstärkning av sin Intelligens! (Baseras på: Oförstärkt INT) ",
     "spellWizardFrostText": "Isande Köld",
     "spellWizardFrostNotes": "Dina uppgifter täcks av is. Ingen av dina obrutna följder kommer att nollställas imorgon. (En besvärjelse påverkar samtliga följder.) ",
-    "spellWarriorSmashText": "Våldsamt Slag",
+    "spellWarriorSmashText": "Brutalt Slag",
     "spellWarriorSmashNotes": "Du slår till en uppgift med all din styrka. Den blir mer blå/mindre röd, och gör extra mycket skada på bossar! Klicka på en uppgift för att kasta. (Baserad på: STR)",
     "spellWarriorDefensiveStanceText": "Försvarsställning",
     "spellWarriorDefensiveStanceNotes": "Du förbereder dig själv för ett våldsamt anfall från din uppgifter. Du tjänar en buff på din Tålighet! (Baserad på: Obuffad CON)",
@@ -43,8 +43,8 @@
     "spellSpecialShinySeedNotes": "Transformera en vän till en glad blomma!",
     "spellSpecialPetalFreePotionText": "Kronbladsfritt Dryck",
     "spellSpecialPetalFreePotionNotes": "Avbryt Effekten av ett Glänsande Frö",
-    "spellSpecialSeafoamText": "Sjöform",
-    "spellSpecialSeafoamNotes": "Förvandla en Vän Till ett Sjödjur",
+    "spellSpecialSeafoamText": "Sjöskum",
+    "spellSpecialSeafoamNotes": "Förvandla en vän till ett sjödjur!",
     "spellSpecialSandText": "Sand",
-    "spellSpecialSandNotes": "Avbryt Effekten av Sjöform"
+    "spellSpecialSandNotes": "Avbryt effekten av Sjöskum."
 }

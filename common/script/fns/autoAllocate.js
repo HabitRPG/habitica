@@ -11,26 +11,31 @@ function getStatToAllocate (user) {
   let suggested;
 
   switch (user.preferences.allocationMode) {
-    case 'flat':
+    case 'flat': {
       let stats = _.pick(user.stats, splitWhitespace('con str per int'));
       return _.invert(stats)[_.min(stats)];
-    case 'classbased':
+    }
+    case 'classbased': {
       let lvlDiv7 = user.stats.lvl / 7;
       let ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
 
       let preference;
       switch (user.stats.class) {
-        case 'wizard':
+        case 'wizard': {
           preference = ['int', 'per', 'con', 'str'];
           break;
-        case 'rogue':
+        }
+        case 'rogue': {
           preference = ['per', 'str', 'int', 'con'];
           break;
-        case 'healer':
+        }
+        case 'healer': {
           preference = ['con', 'int', 'str', 'per'];
           break;
-        default:
+        }
+        default: {
           preference = ['str', 'con', 'per', 'int'];
+        }
       }
 
       let diff = [
@@ -45,7 +50,8 @@ function getStatToAllocate (user) {
       });
 
       return suggested !== -1 ? preference[suggested] : 'str';
-    case 'taskbased':
+    }
+    case 'taskbased': {
       suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
 
       let training = user.stats.training;
@@ -55,8 +61,10 @@ function getStatToAllocate (user) {
       training.per = 0;
 
       return suggested || 'str';
-    default:
+    }
+    default: {
       return 'str';
+    }
   }
 }
 

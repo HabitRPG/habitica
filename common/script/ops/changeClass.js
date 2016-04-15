@@ -9,7 +9,10 @@ import {
 module.exports = function changeClass (user, req = {}, analytics) {
   let klass = _.get(req, 'query.class');
 
-  if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
+  // user.flags.classSelected is set to false after the user paid the 3 gems
+  if (user.stats.lvl < 10) {
+    throw new NotAuthorized(i18n.t('lvl10ChangeClass', req.language));
+  } else if (!user.flags.classSelected && (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer')) {
     user.stats.class = klass;
     user.flags.classSelected = true;
 

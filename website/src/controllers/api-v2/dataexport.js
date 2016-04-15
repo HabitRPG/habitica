@@ -44,7 +44,7 @@ dataexport.history = function(req, res) {
 
   res.set({
     'Content-Type': 'text/csv',
-    'Content-disposition': `attachment; filename=habitica-tasks-history.csv`,
+    'Content-disposition': 'attachment; filename=habitica-tasks-history.csv',
   });
 
   csvStringify(output, (err, csv) => {

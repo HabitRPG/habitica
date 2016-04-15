@@ -137,6 +137,8 @@
     "achievementStressbeastText": "Heeft geholpen het Verschrikkelijke Stressbeest te verslaan tijdens het Winter Wonderland-evenement van 2014!",
     "achievementBurnout": "Verlosser van de Bloeiende Velden",
     "achievementBurnoutText": "Heeft geholpen Burnout te verslaan tijdens het Najaarsvolksfeest van 2015!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Moet je mijn vooruitgang in Habitica eens zien!",
     "cardReceived": "Kaart ontvangen!",
     "cardReceivedFrom": "<%= cardType %> van <%= userName %>",

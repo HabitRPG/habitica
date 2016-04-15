@@ -137,6 +137,8 @@
     "achievementStressbeastText": "A contribué à vaincre l'Abominable Homme du Stress pendant l’Événement Pays des Merveilles de l'Hiver 2014 !",
     "achievementBurnout": "Sauveur des Champs Florissants",
     "achievementBurnoutText": "A contribué à vaincre Burnout et à revivifier les Esprits d'Échappement au cours du l'Événement Festival de l'Automne 2015 !",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Regardez mes progrès sur Habitica !",
     "cardReceived": "A reçu une carte !",
     "cardReceivedFrom": "<%= cardType %> de <%= userName %>",

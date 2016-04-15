@@ -30,7 +30,7 @@ api.getCoupons = function(req,res,next) {
 
     res.set({
       'Content-Type': 'text/csv',
-      'Content-disposition': `attachment; filename=habitica-coupons.csv`,
+      'Content-disposition': 'attachment; filename=habitica-coupons.csv',
     });
     csvStringify(output, (err, csv) => {
       if (err) return next(err);

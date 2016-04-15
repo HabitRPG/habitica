@@ -41,7 +41,7 @@ mixin taskColumnTabs(position)
       li(ng-class='{active: list.view == "ingamerewards"}')
         a(ng-click='list.view = "ingamerewards"')=env.t('ingamerewards')
 
-mixin specialSpell(k,canceler)
+mixin specialSkill(k,canceler)
   li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
     .task-meta-controls
       span.task-notes

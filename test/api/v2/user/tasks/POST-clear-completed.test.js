@@ -19,8 +19,8 @@ describe('POST /user/tasks/clear-completed', () => {
 
     await user.post(`/user/tasks/${toComplete._id}/up`);
 
-    let todos = await user.get(`/user/tasks?type=todo`);
-    let uncomplete = await user.post(`/user/tasks/clear-completed`);
+    let todos = await user.get('/user/tasks?type=todo');
+    let uncomplete = await user.post('/user/tasks/clear-completed');
     expect(todos.length).to.equal(uncomplete.length + 1);
   });
 });

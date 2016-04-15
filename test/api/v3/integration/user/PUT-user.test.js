@@ -57,6 +57,7 @@ describe('PUT /user', () => {
       'flags unless whitelisted': {'flags.dropsEnabled': true},
       webhooks: {'preferences.webhooks': [1, 2, 3]},
       sleep: {'preferences.sleep': true},
+      'disable classes': {'preferences.disableClasses': true},
     };
 
     each(protectedOperations, (data, testName) => {
@@ -107,7 +108,7 @@ describe('PUT /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t(`mustPurchaseToSet`, { val: 'round', key: 'preferences.size' }),
+        message: t('mustPurchaseToSet', { val: 'round', key: 'preferences.size' }),
       });
     });
 

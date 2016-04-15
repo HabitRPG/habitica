@@ -137,6 +137,8 @@
     "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2014 Winter Wonderland Event!",
     "achievementBurnout": "Savior of the Flourishing Fields",
     "achievementBurnoutText": "Helped defeat Burnout and restore the Exhaust Spirits during the 2015 Fall Festival Event!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "檢查在 Habitica 的進度!",
     "cardReceived": "收到一張卡片!",
     "cardReceivedFrom": "來自 <%= userName %> 的 <%= cardType %>",

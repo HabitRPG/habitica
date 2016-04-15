@@ -21,7 +21,7 @@ describe('GET /export/userdata.xml', () => {
 
     ]);
 
-    let response = await user.get(`/export/userdata.xml`);
+    let response = await user.get('/export/userdata.xml');
     let {user: res} = await Q.npost(xml2js, 'parseString', [response, {explicitArray: false}]);
 
     expect(res._id).to.equal(user._id);

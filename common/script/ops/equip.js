@@ -21,24 +21,24 @@ module.exports = function equip (user, req = {}) {
   let message;
 
   switch (type) {
-    case 'mount':
+    case 'mount': {
       if (!user.items.mounts[key]) {
         throw new NotFound(i18n.t('mountNotOwned', req.language));
       }
 
       user.items.currentMount = user.items.currentMount === key ? '' : key;
       break;
-
-    case 'pet':
+    }
+    case 'pet': {
       if (!user.items.pets[key]) {
         throw new NotFound(i18n.t('petNotOwned', req.language));
       }
 
       user.items.currentPet = user.items.currentPet === key ? '' : key;
       break;
-
+    }
     case 'costume':
-    case 'equipped':
+    case 'equipped': {
       if (!user.items.gear.owned[key]) {
         throw new NotFound(i18n.t('gearNotOwned', req.language));
       }
@@ -55,6 +55,7 @@ module.exports = function equip (user, req = {}) {
         message = handleTwoHanded(user, item, type, req);
       }
       break;
+    }
   }
 
   let res = {

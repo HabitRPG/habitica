@@ -359,7 +359,7 @@ gulp.task('test:api-v3:unit', (done) => {
 });
 
 gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/src/libs/api-v3/*', 'test/api/v3/unit/libs/*'], ['test:api-v3:unit']);
+  gulp.watch(['website/src/libs/api-v3/*', 'test/api/v3/unit/libs/*', 'website/src/controllers/**/*'], ['test:api-v3:unit']);
 });
 
 gulp.task('test:api-v3:integration', (done) => {
@@ -388,7 +388,6 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
 
 gulp.task('test', (done) => {
   runSequence(
-    'lint',
     'test:common',
     'test:api-v3:unit',
     'test:api-v3:integration',
@@ -399,7 +398,6 @@ gulp.task('test', (done) => {
 
 gulp.task('test:api-v3', (done) => {
   runSequence(
-    'lint',
     'test:api-v3:unit',
     'test:api-v3:integration',
     done
@@ -452,7 +450,6 @@ gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
 
 gulp.task('test:all', (done) => {
   runSequence(
-  'lint',
   //'test:e2e:safe',
   //'test:common:safe',
   //'test:content:safe',

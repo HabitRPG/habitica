@@ -12,7 +12,10 @@ import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
+import setupNconf from '../../libs/api-v3/setupNconf';
+setupNconf();
 
+console.log('+++ +++ this:', nconf.get('FLAG_REPORT_EMAIL'));
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
@@ -224,7 +227,7 @@ api.flagChat = {
     if (group._id === TAVERN_ID) {
       groupUrl = '/#/options/groups/tavern';
     } else if (group.type === 'guild') {
-      groupUrl = `/#/options/groups/guilds/{$group._id}`;
+      groupUrl = `/#/options/groups/guilds/${group._id}`;
     } else {
       groupUrl = 'party';
     }
@@ -236,12 +239,12 @@ api.flagChat = {
       {name: 'REPORTER_USERNAME', content: user.profile.name},
       {name: 'REPORTER_UUID', content: user._id},
       {name: 'REPORTER_EMAIL', content: reporterEmailContent},
-      {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId={$user._id}`},
+      {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
       {name: 'AUTHOR_EMAIL', content: authorEmailContent},
-      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId={$message.uuid}`},
+      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},

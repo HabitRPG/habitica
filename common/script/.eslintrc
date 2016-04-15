@@ -1,5 +1,6 @@
 {
-  "globals": {
-        "window": true,
-    }
+  "extends": [
+    "habitrpg/browser",
+    "habitrpg/babel"
+  ]
 }

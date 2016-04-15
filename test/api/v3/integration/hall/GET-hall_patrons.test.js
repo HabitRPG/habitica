@@ -14,7 +14,7 @@ describe('GET /hall/patrons', () => {
   });
 
   it('fails if req.query.page is not numeric', async () => {
-    await expect(user.get(`/hall/patrons?page=notNumber`)).to.eventually.be.rejected.and.eql({
+    await expect(user.get('/hall/patrons?page=notNumber')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),

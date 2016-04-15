@@ -34,7 +34,7 @@ describe('GET /export/history.csv', () => {
       return user.get(`/tasks/${task._id}`);
     }));
 
-    let res = await user.get(`/export/history.csv`);
+    let res = await user.get('/export/history.csv');
     let splitRes = res.split('\n');
     expect(splitRes[0]).to.equal('Task Name,Task ID,Task Type,Date,Value');
     expect(splitRes[1]).to.equal(`habit 1,${tasks[0]._id},habit,${moment(tasks[0].history[0].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[0].history[0].value}`);

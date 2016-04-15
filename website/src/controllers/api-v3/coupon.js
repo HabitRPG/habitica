@@ -32,7 +32,7 @@ api.getCoupons = {
 
     res.set({
       'Content-Type': 'text/csv',
-      'Content-disposition': `attachment; filename=habitica-coupons.csv`,
+      'Content-disposition': 'attachment; filename=habitica-coupons.csv',
     });
     res.status(200).send(csv);
   },

@@ -101,7 +101,7 @@
     "inbox": "Skrzynka odbiorcza",
     "abuseFlag": "Zgłoś naruszenie regulaminu społeczności.",
     "abuseFlagModalHeading": "Zgłosić naruszenie zasad przez <%= name %>?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Czy na pewno chcesz zgłosić ten post? Powinieneś TYLKO zgłaszać posty, które naruszają  <%= firstLinkStart %>Regulamin Społeczności<%= linkEnd %>oraz/lub <%= secondLinkStart %>Warunki<%= linkEnd %>.  Niewłaściwe zgłaszanie postów jest naruszeniem Regulaminu Społeczności i może doprowadzić do zgłoszenia. Właściwymi powodami do oznaczania postów są, ale i nie tylko: <br><br><ul style='margin-left: 10px;'><li>przeklinanie, slóbowania religijne</li><li>fanatyzm, bełkot</li><li>tematy dla dorosłych</li><li>przemoc, nawet w żartach</li><li>spam, iadomości bez sensu</li><li>",
     "abuseFlagModalButton": "Zgłoś nadużycie",
     "abuseReported": "Dziękujemy za zgłoszenie. Moderatorzy zostali powiadomieni.",
     "abuseAlreadyReported": "Już zgłosiłeś tę wiadomość.",

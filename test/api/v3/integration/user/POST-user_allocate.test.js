@@ -13,7 +13,7 @@ describe('POST /user/allocate', () => {
   // More tests in common code unit tests
 
   it('returns an error if an invalid attribute is supplied', async () => {
-    await expect(user.post(`/user/allocate?stat=invalid`))
+    await expect(user.post('/user/allocate?stat=invalid'))
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -22,7 +22,7 @@ describe('POST /user/allocate', () => {
   });
 
   it('returns an error if the user doesn\'t have attribute points', async () => {
-    await expect(user.post(`/user/allocate`))
+    await expect(user.post('/user/allocate'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -32,7 +32,7 @@ describe('POST /user/allocate', () => {
 
   it('allocates attribute points', async () => {
     await user.update({'stats.points': 1});
-    let res = await user.post(`/user/allocate?stat=con`);
+    let res = await user.post('/user/allocate?stat=con');
     await user.sync();
     expect(user.stats.con).to.equal(1);
     expect(user.stats.points).to.equal(0);
