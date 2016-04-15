@@ -1,4 +1,4 @@
-import nconf from 'nconf';
+/* import nconf from 'nconf';
 import stripeModule from 'stripe';
 import async from 'async';
 import payments from './index';
@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import cc from 'coupon-code';
 
 const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
-
+*/
 let api = {};
 /*
  Setup Stripe response when posting payment

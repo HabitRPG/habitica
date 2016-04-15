@@ -1,13 +1,12 @@
-import async from 'async';
-import cc from 'coupon-code';
-import mongoose from 'mongoose';
-import moment from 'moment';
-import payments from './index';
-import shared from '../../../../../common';
-import { model as User } from '../../../models/user';
+// import cc from 'coupon-code';
+// import mongoose from 'mongoose';
+// import moment from 'moment';
+// import payments from './index';
+// import shared from '../../../../../common';
+// import { model as User } from '../../../models/user';
 import {
-  NotFound,
-  NotAuthorized,
+  // NotFound,
+  // NotAuthorized,
   BadRequest,
 } from '../../../libs/api-v3/errors';
 import amz from '../../../libs/api-v3/amazonPayments';
@@ -29,7 +28,7 @@ api.verifyAccessToken = {
     await amz.getTokenInfo(req.body.access_token)
     .then(() => {
       res.respond(200, {});
-    }).catch( (error) => {
+    }).catch(error => {
       throw new BadRequest(error.body.error_description);
     });
   },

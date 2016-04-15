@@ -1,8 +1,34 @@
+import amazonPayments from 'amazon-payments';
+
 import * as amz from '../../../../../website/src/libs/api-v3/amazonPayments';
-import * as amzStub from 'amazon-payments';
 
 describe('amazonPayments', () => {
   beforeEach(() => {
+  });
+
+  describe('#getTokenInfo stubbed', () => {
+    let thisToken = 'this token info';
+    let amzOldConnect;
+
+    beforeEach(() => {
+      amzOldConnect = amazonPayments.connect;
+      amazonPayments.connect = () => {
+        let api = { getTokenInfo: (token, cb) => {
+          return cb(undefined, thisToken);
+        } };
+        return { api };
+      };
+    });
+
+    afterEach(() => {
+      amazonPayments.connect = amzOldConnect;
+    });
+
+    it('returns tokenInfo', async (done) => {
+      let result = await amz.getTokenInfo();
+      expect(result).to.eql(thisToken);
+      done();
+    });
   });
 
   describe('#getTokenInfo', () => {
@@ -14,23 +40,10 @@ describe('amazonPayments', () => {
         done();
       }
     });
-
-    it('returns tokenInfo', async (done) => {
-      let thisToken = 'this token info';
-      let amzStubInstance = amzStub.connect({});
-      amzStubInstance.api.getTokenInfo = (token, cb) => {
-        return cb(undefined, thisToken);
-      };
-      let result = await amz.getTokenInfo();
-      // console.log('+++ +++ result:', result);
-      expect(result).to.eql(thisToken);
-      done();
-    });
   });
 
   describe('#createOrderReferenceId', () => {
-    it('is sane', () => {
-      expect(false).to.eql(true); // @TODO
+    xit('succeeds', () => {
     });
   });
 });
