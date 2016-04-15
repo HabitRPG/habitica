@@ -6,7 +6,7 @@ import {
   getUserInfo,
   sendTxn as txnEmail,
 } from '../../../libs/api-v3/email';
-import members from '../members';
+import members from '../../api-v3/members';
 import moment from 'moment';
 import mongoose from 'mongoose';
 import nconf from 'nconf';

@@ -7,7 +7,7 @@ var nconf = require('nconf');
 _ = require('lodash');
 nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));
 var paypal = require('paypal-rest-sdk');
-var blocks = require('../../../../common').content.subscriptionBlocks;
+var blocks = require('../../../../../common').content.subscriptionBlocks;
 var live = nconf.get('PAYPAL:mode')=='live';
 
 var OP = 'create'; // list create update remove

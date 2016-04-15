@@ -359,7 +359,7 @@ gulp.task('test:api-v3:unit', (done) => {
 });
 
 gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/src/libs/api-v3/*', 'test/api/v3/unit/libs/*'], ['test:api-v3:unit']);
+  gulp.watch(['website/src/libs/api-v3/*', 'test/api/v3/unit/libs/*', 'website/src/controllers/**/*'], ['test:api-v3:unit']);
 });
 
 gulp.task('test:api-v3:integration', (done) => {
