@@ -257,7 +257,8 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
 
       form.col-md-4(ng-show='_editing.profile', ng-submit='save()')
         input.btn.btn-primary(type='submit', value=env.t('save'))
-
+        .alert.alert-info.alert-sm
+          !=env.t("communityGuidelinesWarning")
         // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
         .form-group
           label=env.t('displayName')
