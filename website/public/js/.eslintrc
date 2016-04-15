@@ -1,0 +1,6 @@
+{
+  "extends": "habitrpg/browser",
+  "env": {
+    "jquery": true
+  }
+}
