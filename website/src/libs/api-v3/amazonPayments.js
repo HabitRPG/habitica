@@ -1,6 +1,5 @@
 import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
-import Q from 'q';
 
 const IS_PROD = nconf.get('NODE_ENV') === 'production';
 

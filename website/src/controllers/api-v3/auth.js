@@ -2,8 +2,8 @@ import validator from 'validator';
 import moment from 'moment';
 import passport from 'passport';
 import nconf from 'nconf';
-// import setupNconf from '../../libs/api-v3/setupNconf';
-// setupNconf();
+import setupNconf from '../../libs/api-v3/setupNconf';
+setupNconf();
 import {
   authWithHeaders,
 } from '../../middlewares/api-v3/auth';
@@ -461,7 +461,6 @@ api.updateEmail = {
   },
 };
 
-// console.log('+++ ++ secret:', nconf.get('USER'));
 const firebaseTokenGenerator = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
 
 // Internal route
