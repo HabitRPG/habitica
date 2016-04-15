@@ -45,7 +45,6 @@
     "grunt-karma": "~0.12.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
-    "gulp-eslint": "^1.0.0",
     "gulp-grunt": "^0.5.2",
     "gulp-imagemin": "^2.4.0",
     "gulp-nodemon": "^2.0.4",
@@ -100,7 +99,8 @@
     "npm": "^3.3.10"
   },
   "scripts": {
-    "test": "gulp test",
+    "lint": "eslint .",
+    "test": "npm run lint && gulp test",
     "test:api-v2:unit": "mocha test/server_side",
     "test:api-v2:integration": "mocha test/api/v2 --recursive",
     "test:api-v3": "gulp test:api-v3",
@@ -122,15 +122,16 @@
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
   "devDependencies": {
-    "babel-eslint": "^5.0.0",
+    "babel-eslint": "^6.0.0",
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
     "coveralls": "^2.11.2",
     "csv": "~0.3.6",
     "deep-diff": "~0.1.4",
-    "eslint": "^1.9.0",
+    "eslint": "^2.7.0",
+    "eslint-config-habitrpg": "^1.0.0",
     "eslint-plugin-babel": "^3.0.0",
-    "eslint-plugin-mocha": "^1.1.0",
+    "eslint-plugin-mocha": "^2.1.0",
     "event-stream": "^3.2.2",
     "expect.js": "~0.2.0",
     "istanbul": "^0.3.14",
