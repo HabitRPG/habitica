@@ -25,11 +25,11 @@ paypal.configure({
   'client_secret': nconf.get("PAYPAL:client_secret")
 });
 
-var parseErr = function(res, err){
+var parseErr = function (res, err) {
   //var error = err.response ? err.response.message || err.response.details[0].issue : err;
   var error = JSON.stringify(err);
-  return res.status(400).json({err:error});
-}
+  return res.status(400).json({ err: error });
+};
 
 /*
 exports.createBillingAgreement = function(req,res,next){
