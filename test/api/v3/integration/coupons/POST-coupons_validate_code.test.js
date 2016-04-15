@@ -12,7 +12,7 @@ describe('POST /coupons/validate/:code', () => {
   });
 
   it('returns an error if code is missing', async () => {
-    await expect(api.post(`/coupons/validate`)).to.eventually.be.rejected.and.eql({
+    await expect(api.post('/coupons/validate')).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: 'Not found.',
@@ -30,7 +30,7 @@ describe('POST /coupons/validate/:code', () => {
   });
 
   it('returns false if coupon code is valid', async () => {
-    let res = await api.post(`/coupons/validate/notValid`);
+    let res = await api.post('/coupons/validate/notValid');
     expect(res).to.eql({valid: false});
   });
 });

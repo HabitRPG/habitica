@@ -29,7 +29,7 @@ describe('GET challenges/user', () => {
   it('should return challenges user has joined', async () => {
     await nonMember.post(`/challenges/${challenge._id}/join`);
 
-    let challenges = await nonMember.get(`/challenges/user`);
+    let challenges = await nonMember.get('/challenges/user');
 
     let foundChallenge = _.find(challenges, { _id: challenge._id });
     expect(foundChallenge).to.exist;
@@ -46,7 +46,7 @@ describe('GET challenges/user', () => {
   });
 
   it('should return challenges user has created', async () => {
-    let challenges = await user.get(`/challenges/user`);
+    let challenges = await user.get('/challenges/user');
 
     let foundChallenge1 = _.find(challenges, { _id: challenge._id });
     expect(foundChallenge1).to.exist;
@@ -75,7 +75,7 @@ describe('GET challenges/user', () => {
   });
 
   it('should return challenges in user\'s group', async () => {
-    let challenges = await member.get(`/challenges/user`);
+    let challenges = await member.get('/challenges/user');
 
     let foundChallenge1 = _.find(challenges, { _id: challenge._id });
     expect(foundChallenge1).to.exist;
@@ -114,7 +114,7 @@ describe('GET challenges/user', () => {
 
     let privateChallenge = await generateChallenge(groupLeader, group);
 
-    let challenges = await nonMember.get(`/challenges/user`);
+    let challenges = await nonMember.get('/challenges/user');
 
     let foundChallenge = _.find(challenges, { _id: privateChallenge._id });
     expect(foundChallenge).to.not.exist;

@@ -17,7 +17,7 @@ describe('POST /user/purchase/:type/:key', () => {
   // More tests in common code unit tests
 
   it('returns an error when key is not provided', async () => {
-    await expect(user.post(`/user/purchase/gems/gem`))
+    await expect(user.post('/user/purchase/gems/gem'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',

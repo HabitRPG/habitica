@@ -549,7 +549,7 @@ export let publicFields = `preferences.size preferences.hair preferences.skin pr
   backer contributor auth.timestamps items`;
 
 // The minimum amount of data needed when populating multiple users
-export let nameFields = `profile.name`;
+export let nameFields = 'profile.name';
 
 schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);

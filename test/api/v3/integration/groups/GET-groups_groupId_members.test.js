@@ -13,7 +13,7 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('validates optional req.query.lastId to be an UUID', async () => {
-    await expect(user.get(`/groups/groupId/members?lastId=invalidUUID`)).to.eventually.be.rejected.and.eql({
+    await expect(user.get('/groups/groupId/members?lastId=invalidUUID')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),
@@ -40,7 +40,7 @@ describe('GET /groups/:groupId/members', () => {
 
   it('works when passing party as req.params.groupId', async () => {
     await generateGroup(user, {type: 'party', name: generateUUID()});
-    let res = await user.get(`/groups/party/members`);
+    let res = await user.get('/groups/party/members');
     expect(res).to.be.an('array');
     expect(res.length).to.equal(1);
     expect(res[0]).to.eql({
@@ -51,7 +51,7 @@ describe('GET /groups/:groupId/members', () => {
 
   it('populates only some fields', async () => {
     await generateGroup(user, {type: 'party', name: generateUUID()});
-    let res = await user.get(`/groups/party/members`);
+    let res = await user.get('/groups/party/members');
     expect(res[0]).to.have.all.keys(['_id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
   });
@@ -65,7 +65,7 @@ describe('GET /groups/:groupId/members', () => {
     }
     await Promise.all(usersToGenerate);
 
-    let res = await user.get(`/groups/party/members`);
+    let res = await user.get('/groups/party/members');
     expect(res.length).to.equal(30);
     res.forEach(member => {
       expect(member).to.have.all.keys(['_id', 'profile']);

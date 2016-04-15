@@ -31,8 +31,8 @@ describe('POST /user/equip/:type/:key', () => {
       'stats.gp': 200,
     });
 
-    await user.post(`/user/equip/equipped/weapon_warrior_1`);
-    let res = await user.post(`/user/equip/equipped/weapon_warrior_2`);
+    await user.post('/user/equip/equipped/weapon_warrior_1');
+    let res = await user.post('/user/equip/equipped/weapon_warrior_2');
     await user.sync();
 
     expect(res).to.eql({

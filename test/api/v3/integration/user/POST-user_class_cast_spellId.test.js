@@ -38,7 +38,7 @@ describe('POST /user/class/cast/:spellId', () => {
 
   it('returns an error if spell.mana > user.mana', async () => {
     await user.update({'stats.class': 'rogue'});
-    await expect(user.post(`/user/class/cast/backStab`))
+    await expect(user.post('/user/class/cast/backStab'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -47,7 +47,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if spell.value > user.gold', async () => {
-    await expect(user.post(`/user/class/cast/birthday`))
+    await expect(user.post('/user/class/cast/birthday'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -57,7 +57,7 @@ describe('POST /user/class/cast/:spellId', () => {
 
   it('returns an error if spell.lvl > user.level', async () => {
     await user.update({'stats.mp': 200, 'stats.class': 'wizard'});
-    await expect(user.post(`/user/class/cast/earth`))
+    await expect(user.post('/user/class/cast/earth'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -66,7 +66,7 @@ describe('POST /user/class/cast/:spellId', () => {
   });
 
   it('returns an error if user doesn\'t own the spell', async () => {
-    await expect(user.post(`/user/class/cast/snowball`))
+    await expect(user.post('/user/class/cast/snowball'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -85,7 +85,7 @@ describe('POST /user/class/cast/:spellId', () => {
 
   it('returns an error if targetId is required but missing', async () => {
     await user.update({'stats.class': 'rogue', 'stats.lvl': 11});
-    await expect(user.post(`/user/class/cast/pickPocket`))
+    await expect(user.post('/user/class/cast/pickPocket'))
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -153,7 +153,7 @@ describe('POST /user/class/cast/:spellId', () => {
       members: 1,
     });
     await groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13});
-    await groupLeader.post(`/user/class/cast/earth`);
+    await groupLeader.post('/user/class/cast/earth');
     await sleep(1);
     await group.sync();
     expect(group.chat[0]).to.exists;

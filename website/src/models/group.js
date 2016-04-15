@@ -161,10 +161,11 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 
   types.forEach(type => {
     switch (type) {
-      case 'party':
+      case 'party': {
         queries.push(this.getGroup({user, groupId: 'party', fields: groupFields, populateLeader}));
         break;
-      case 'privateGuilds':
+      }
+      case 'privateGuilds': {
         let privateGroupQuery = this.find({
           type: 'guild',
           privacy: 'private',
@@ -174,7 +175,8 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         privateGroupQuery.sort(sort).exec();
         queries.push(privateGroupQuery);
         break;
-      case 'publicGuilds':
+      }
+      case 'publicGuilds': {
         let publicGroupQuery = this.find({
           type: 'guild',
           privacy: 'public',
@@ -183,11 +185,13 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         publicGroupQuery.sort(sort).exec();
         queries.push(publicGroupQuery); // TODO use lean?
         break;
-      case 'tavern':
+      }
+      case 'tavern': {
         if (types.indexOf('publicGuilds') === -1) {
           queries.push(this.getGroup({user, groupId: TAVERN_ID, fields: groupFields}));
         }
         break;
+      }
     }
   });
 
@@ -436,22 +440,26 @@ schema.methods.finishQuest = function finishQuest (quest) {
     let dropK = item.key;
 
     switch (item.type) {
-      case 'gear':
+      case 'gear': {
         // TODO This means they can lose their new gear on death, is that what we want?
         updates.$set[`items.gear.owned.${dropK}`] = true;
         break;
+      }
       case 'eggs':
       case 'food':
       case 'hatchingPotions':
-      case 'quests':
+      case 'quests': {
         updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
         break;
-      case 'pets':
+      }
+      case 'pets': {
         updates.$set[`items.pets.${dropK}`] = 5;
         break;
-      case 'mounts':
+      }
+      case 'mounts': {
         updates.$set[`items.mounts.${dropK}`] = true;
         break;
+      }
     }
   });
 
