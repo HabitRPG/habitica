@@ -18,7 +18,7 @@ describe('POST /user/buy/:key', () => {
   // More tests in common code unit tests
 
   it('returns an error if the item is not found', async () => {
-    await expect(user.post(`/user/buy/notExisting`))
+    await expect(user.post('/user/buy/notExisting'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -28,7 +28,7 @@ describe('POST /user/buy/:key', () => {
 
   it('buys an item', async () => {
     let potion = content.potion;
-    let res = await user.post(`/user/buy/potion`);
+    let res = await user.post('/user/buy/potion');
     await user.sync();
 
     expect(res.data).to.eql({

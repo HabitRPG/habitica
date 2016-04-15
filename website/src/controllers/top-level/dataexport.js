@@ -64,7 +64,7 @@ api.exportUserHistory = {
 
     res.set({
       'Content-Type': 'text/csv',
-      'Content-disposition': `attachment; filename=habitica-tasks-history.csv`,
+      'Content-disposition': 'attachment; filename=habitica-tasks-history.csv',
     });
 
     let csvRes = await csvStringify(output);
@@ -111,7 +111,7 @@ api.exportUserDataJson = {
 
     res.set({
       'Content-Type': 'application/json',
-      'Content-disposition': `attachment; filename=habitica-user-data.json`,
+      'Content-disposition': 'attachment; filename=habitica-user-data.json',
     });
     let jsonRes = JSON.stringify(userData);
 
@@ -137,7 +137,7 @@ api.exportUserDataXml = {
 
     res.set({
       'Content-Type': 'text/xml',
-      'Content-disposition': `attachment; filename=habitica-user-data.xml`,
+      'Content-disposition': 'attachment; filename=habitica-user-data.xml',
     });
     res.status(200).send(js2xml('user', userData));
   },

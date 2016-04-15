@@ -16,7 +16,7 @@ describe('POST /user/buy-special-spell/:key', () => {
   // More tests in common code unit tests
 
   it('returns an error if the special spell is not found', async () => {
-    await expect(user.post(`/user/buy-special-spell/notExisting`))
+    await expect(user.post('/user/buy-special-spell/notExisting'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',

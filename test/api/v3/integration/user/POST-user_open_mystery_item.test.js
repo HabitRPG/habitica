@@ -16,7 +16,7 @@ describe('POST /user/open-mystery-item', () => {
   // More tests in common code unit tests
 
   it('opens a mystery item', async () => {
-    let response = await user.post(`/user/open-mystery-item`);
+    let response = await user.post('/user/open-mystery-item');
     await user.sync();
 
     expect(user.items.gear.owned[mysteryItemKey]).to.be.true;

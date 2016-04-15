@@ -12,7 +12,7 @@ describe('GET /export/avatar-:memberId.html', () => {
   });
 
   it('validates req.params.memberId', async () => {
-    await expect(user.get(`/export/avatar-:memberId.html`)).to.eventually.be.rejected.and.eql({
+    await expect(user.get('/export/avatar-:memberId.html')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),

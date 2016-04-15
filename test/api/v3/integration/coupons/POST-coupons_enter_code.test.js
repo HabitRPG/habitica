@@ -20,7 +20,7 @@ describe('POST /coupons/enter/:code', () => {
   });
 
   it('returns an error if code is missing', async () => {
-    await expect(user.post(`/coupons/enter`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/coupons/enter')).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: 'Not found.',
@@ -28,7 +28,7 @@ describe('POST /coupons/enter/:code', () => {
   });
 
   it('returns an error if code is invalid', async () => {
-    await expect(user.post(`/coupons/enter/notValid`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/coupons/enter/notValid')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidCoupon'),

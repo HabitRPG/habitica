@@ -12,7 +12,7 @@ describe('GET /members/:memberId', () => {
   });
 
   it('validates req.params.memberId', async () => {
-    await expect(user.get(`/members/invalidUUID`)).to.eventually.be.rejected.and.eql({
+    await expect(user.get('/members/invalidUUID')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),

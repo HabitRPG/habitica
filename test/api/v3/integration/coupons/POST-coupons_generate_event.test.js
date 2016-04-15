@@ -22,7 +22,7 @@ describe('POST /coupons/generate/:event', () => {
       'contributor.sudo': false,
     });
 
-    await expect(user.post(`/coupons/generate/aaa`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/coupons/generate/aaa')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('noSudoAccess'),
@@ -30,7 +30,7 @@ describe('POST /coupons/generate/:event', () => {
   });
 
   it('returns an error if event is missing', async () => {
-    await expect(user.post(`/coupons/generate`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/coupons/generate')).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: 'Not found.',
@@ -38,7 +38,7 @@ describe('POST /coupons/generate/:event', () => {
   });
 
   it('returns an error if event is invalid', async () => {
-    await expect(user.post(`/coupons/generate/notValid?count=1`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/coupons/generate/notValid?count=1')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'Coupon validation failed',
@@ -46,7 +46,7 @@ describe('POST /coupons/generate/:event', () => {
   });
 
   it('returns an error if count is missing', async () => {
-    await expect(user.post(`/coupons/generate/notValid`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/coupons/generate/notValid')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),

@@ -15,7 +15,7 @@ describe('POST /user/allocate-now', () => {
       'preferences.allocationMode': 'flat',
     });
 
-    let res = await user.post(`/user/allocate-now`);
+    let res = await user.post('/user/allocate-now');
     await user.sync();
 
     expect(res).to.eql({

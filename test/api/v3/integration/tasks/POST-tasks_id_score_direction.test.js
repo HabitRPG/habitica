@@ -94,7 +94,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       beforeEach(async () => {
         await user.post(`/tasks/${todo._id}/score/up`);
-        updatedUser = await user.get(`/user`);
+        updatedUser = await user.get('/user');
       });
 
       it('increases user\'s mp', () => {
@@ -115,7 +115,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       beforeEach(async () => {
         await user.post(`/tasks/${todo._id}/score/down`);
-        updatedUser = await user.get(`/user`);
+        updatedUser = await user.get('/user');
       });
 
       it('decreases user\'s mp', () => {
@@ -165,7 +165,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       beforeEach(async () => {
         await user.post(`/tasks/${daily._id}/score/up`);
-        updatedUser = await user.get(`/user`);
+        updatedUser = await user.get('/user');
       });
 
       it('increases user\'s mp', () => {
@@ -186,7 +186,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       beforeEach(async () => {
         await user.post(`/tasks/${daily._id}/score/down`);
-        updatedUser = await user.get(`/user`);
+        updatedUser = await user.get('/user');
       });
 
       it('decreases user\'s mp', () => {
@@ -238,28 +238,28 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     it('increases user\'s mp when direction is up', async () => {
       await user.post(`/tasks/${habit._id}/score/up`);
-      let updatedUser = await user.get(`/user`);
+      let updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
     });
 
     it('decreases user\'s mp when direction is down', async () => {
       await user.post(`/tasks/${habit._id}/score/down`);
-      let updatedUser = await user.get(`/user`);
+      let updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
     });
 
     it('increases user\'s exp when direction is up', async () => {
       await user.post(`/tasks/${habit._id}/score/up`);
-      let updatedUser = await user.get(`/user`);
+      let updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
     });
 
     it('increases user\'s gold when direction is up', async () => {
       await user.post(`/tasks/${habit._id}/score/up`);
-      let updatedUser = await user.get(`/user`);
+      let updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
     });
@@ -276,7 +276,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
 
       await user.post(`/tasks/${reward._id}/score/up`);
-      updatedUser = await user.get(`/user`);
+      updatedUser = await user.get('/user');
     });
 
     it('purchases reward', () => {

@@ -39,8 +39,8 @@ _.each(staticPages, (name) => {
     async handler (req, res) {
       res.render(`static/${name}.jade`, {
         env: res.locals.habitrpg,
-        marked: marked,
-        userCount: TOTAL_USER_COUNT
+        marked,
+        userCount: TOTAL_USER_COUNT,
       });
     },
   };
@@ -57,8 +57,8 @@ _.each(shareables, (name) => {
     async handler (req, res) {
       res.render(`social/${name}`, {
         env: res.locals.habitrpg,
-        marked: marked,
-        userCount: TOTAL_USER_COUNT
+        marked,
+        userCount: TOTAL_USER_COUNT,
       });
     },
   };

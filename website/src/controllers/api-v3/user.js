@@ -159,7 +159,7 @@ api.updateUser = {
       let purchasable = requiresPurchase[key];
 
       if (purchasable && !checkPreferencePurchase(user, purchasable, val)) {
-        throw new NotAuthorized(res.t(`mustPurchaseToSet`, { val, key }));
+        throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
       }
 
       if (acceptablePUTPaths[key]) {

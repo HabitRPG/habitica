@@ -16,7 +16,7 @@ describe('POST /user/buy-quest/:key', () => {
   // More tests in common code unit tests
 
   it('returns an error if the quest is not found', async () => {
-    await expect(user.post(`/user/buy-quest/notExisting`))
+    await expect(user.post('/user/buy-quest/notExisting'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',

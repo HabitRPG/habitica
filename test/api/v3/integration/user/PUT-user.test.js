@@ -108,7 +108,7 @@ describe('PUT /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t(`mustPurchaseToSet`, { val: 'round', key: 'preferences.size' }),
+        message: t('mustPurchaseToSet', { val: 'round', key: 'preferences.size' }),
       });
     });
 

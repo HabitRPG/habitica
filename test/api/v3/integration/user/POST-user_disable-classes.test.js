@@ -12,7 +12,7 @@ describe('POST /user/disable-classes', () => {
   // More tests in common code unit tests
 
   it('disable classes', async () => {
-    let res = await user.post(`/user/disable-classes`);
+    let res = await user.post('/user/disable-classes');
     await user.sync();
 
     expect(res).to.eql({
