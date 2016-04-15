@@ -1,5 +1,5 @@
 {
-    "jsDisabledHeading": "哀れ、あなたのブラウザジャバスクリプトを非許容です",
+    "jsDisabledHeading": "うわっ!　あなたのブラウザは JavaScript が有効になっていません。",
     "jsDisabledHeadingFull": "哀れ、あなたのブラウザジャバスクリプトを非許容です。だから、ハビチカは機能出来ません",
     "jsDisabledText": "ハビチカはウェブサイトの展示をジャバスクリプト無し出来せん",
     "jsDisabledLink": "ジャバスクリプトは許す、お願いします！"

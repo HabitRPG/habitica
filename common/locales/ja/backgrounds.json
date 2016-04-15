@@ -108,8 +108,8 @@
     "backgrounds092015": "セット16：2015年9月リリース",
     "backgroundMarketText": "Habitica マーケット",
     "backgroundMarketNotes": "Habitica マーケットで買い物しよう。",
-    "backgroundStableText": "Habitica の馬屋",
-    "backgroundStableNotes": "Habiticaの馬屋で、馬の世話をしよう。",
+    "backgroundStableText": "Habitica の動物小屋",
+    "backgroundStableNotes": "Habiticaの動物小屋で、乗用獣の世話をしましょう。",
     "backgroundTavernText": "Habirica の居酒屋",
     "backgroundTavernNotes": "Habitica の居酒屋に行ってみよう。",
     "backgrounds102015": "セット17：2015年10月リリース",
@@ -153,5 +153,12 @@
     "backgroundRainforestText": "熱帯雨林",
     "backgroundRainforestNotes": "熱帯雨林を探検しましょう。",
     "backgroundStoneCircleText": "石の円陣",
-    "backgroundStoneCircleNotes": "石の円陣で呪文を唱えましょう。"
+    "backgroundStoneCircleNotes": "石の円陣で呪文を唱えましょう。",
+    "backgrounds042016": "SET 23: Released April 2016",
+    "backgroundArcheryRangeText": "Archery Range",
+    "backgroundArcheryRangeNotes": "Practice on the Archery Range.",
+    "backgroundGiantFlowersText": "Giant Flowers",
+    "backgroundGiantFlowersNotes": "Frolic atop Giant Flowers.",
+    "backgroundRainbowsEndText": "End of the Rainbow",
+    "backgroundRainbowsEndNotes": "Discover gold at the End of the Rainbow."
 }

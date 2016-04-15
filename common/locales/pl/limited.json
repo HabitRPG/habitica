@@ -67,10 +67,10 @@
     "witchyWizardSet": "Wiedźmi czarodziej (Mag)",
     "mummyMedicSet": "Ratownik mumiczny (Uzdrowiciel)",
     "vampireSmiterSet": "Łowca wampirów (Łotrzyk)",
-    "bewareDogSet": "Beware Dog (Warrior)",
-    "magicianBunnySet": "Magician's Bunny (Mage)",
-    "comfortingKittySet": "Comforting Kitty (Healer)",
-    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
+    "bewareDogSet": "Uważny Pies (Wojownik)",
+    "magicianBunnySet": "Króliczek Maga (Mag)",
+    "comfortingKittySet": "Wygodnicki Kotek (Uzdrowiciel)",
+    "sneakySqueakerSet": "Przebiegły Kwikacz (Łotrzyk)",
     "fallEventAvailability": "Dostępne do 31 października",
     "winterEventAvailability": "Dostępne do 31 grudnia"
 }

@@ -34,6 +34,7 @@
     "beard": "Beard",
     "mustache": "Moustache",
     "flower": "Flower",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Basic Skins",
     "rainbowSkins": "Rainbow Skins",
     "pastelSkins": "Pastel Skins",
@@ -161,7 +162,7 @@
     "con": "CON",
     "per": "PER",
     "int": "INT",
-    "showQuickAllocation": "Show stat allocation",
-    "hideQuickAllocation": "Hide stat allocation",
+    "showQuickAllocation": "Show stats allocation",
+    "hideQuickAllocation": "Hide stats allocation",
     "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }
