@@ -875,14 +875,16 @@ api.addTask = function(req, res, next) {
  * All other user.ops which can easily be mapped to common/script/index.js, not requiring custom API-wrapping
  */
 _.each(shared.ops, function(op,k){
+  var kv3;
+  
   if (['rebirth', 'reroll', 'reset'].indexOf(k) !== -1) { // proxy ops that change tasks directly to v3
-    if (k === 'rebirth') k = 'userRebirth'; // the name is different in v3
-    if (k === 'reroll') k = 'userReroll';
-    if (k === 'reset') k = 'userReset';
+    if (k === 'rebirth') kv3 = 'userRebirth'; // the name is different in v3
+    if (k === 'reroll') kv3 = 'userReroll';
+    if (k === 'reset') kv3 = 'userReset';
 
     api[k] = function (req, res, next) {
       req.v2 = true;
-      v3UserController[k].handler(req, res, next).catch(next);
+      v3UserController[kv3].handler(req, res, next).catch(next);
     }
   } else if (!api[k]) {
     api[k] = function(req, res, next) {
