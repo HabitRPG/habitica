@@ -11,12 +11,13 @@ import couponCode from 'coupon-code';
 let api = {};
 
 /**
- * @api {get} /api/v3/coupons Get coupons (sudo users only)
+ * @api {get} /api/v3/coupons Get coupons
+ * @apiDescription Sudo users only
  * @apiVersion 3.0.0
  * @apiName GetCoupons
  * @apiGroup Coupon
  *
- * @apiSuccess string Coupons in CSV format
+ * @apiSuccess {string} Coupons in CSV format
  */
 api.getCoupons = {
   method: 'GET',
@@ -39,7 +40,8 @@ api.getCoupons = {
 };
 
 /**
- * @api {post} /api/v3/coupons/generate/:event Generate coupons for an event (sudo users only)
+ * @api {post} /api/v3/coupons/generate/:event Generate coupons for an event
+ * @apiDescription Sudo users only
  * @apiVersion 3.0.0
  * @apiName GenerateCoupons
  * @apiGroup Coupon
@@ -47,7 +49,7 @@ api.getCoupons = {
  * @apiParam {string} event The event for which the coupon should be generated
  * @apiParam {number} count Query parameter to specify the number of coupon codes to generate
  *
- * @apiSuccess array Generated coupons
+ * @apiSuccess {array} data Generated coupons
  */
 api.generateCoupons = {
   method: 'POST',
@@ -73,7 +75,7 @@ api.generateCoupons = {
  *
  * @apiParam {string} code The coupon code to apply
  *
- * @apiSuccess object User object
+ * @apiSuccess {object} data User object
  */
 api.enterCouponCode = {
   method: 'POST',
@@ -98,7 +100,7 @@ api.enterCouponCode = {
  * @apiName ValidateCoupon
  * @apiGroup Coupon
  *
- * @apiSuccess valid {boolean} true or false
+ * @apiSuccess {boolean} data.valid True or false
  */
 api.validateCoupon = {
   method: 'POST',

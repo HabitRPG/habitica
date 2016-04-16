@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import shared from '../../../../common';
+import logger from './logger';
 
 export const localePath = path.join(__dirname, '/../../../../common/locales/');
 
@@ -68,8 +69,7 @@ langCodes.forEach((code) => {
 
     momentLangs[code] = f;
   } catch (e) { // eslint-disable-lint no-empty
-    // TODO implement some type of error loggin?
-    // The catch block is mandatory so can't be removed
+    // The catch block is mandatory so it won't crash the server
   }
 });
 

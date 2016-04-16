@@ -24,7 +24,7 @@ let api = {};
  * @apiName UserGet
  * @apiGroup User
  *
- * @apiSuccess {Object} user The user object
+ * @apiSuccess {Object} data The user object
  */
 api.getUser = {
   method: 'GET',
@@ -51,7 +51,7 @@ api.getUser = {
  * @apiName UserGetBuyList
  * @apiGroup User
  *
- * @apiSuccess {Object} list The buy list
+ * @apiSuccess {Object} data The buy list
  */
 api.getBuyList = {
   method: 'GET',
@@ -141,12 +141,13 @@ let checkPreferencePurchase = (user, path, item) => {
 };
 
 /**
- * @api {put} /api/v3/user Update the user. Example body: {'stats.hp':50, 'preferences.background': 'beach'}
+ * @api {put} /api/v3/user Update the user.
+ * @apiDescription Example body: {'stats.hp':50, 'preferences.background': 'beach'}
  * @apiVersion 3.0.0
  * @apiName UserUpdate
  * @apiGroup User
  *
- * @apiSuccess user object The updated user object
+ * @apiSuccess {object} data The updated user object
  */
 api.updateUser = {
   method: 'PUT',
@@ -175,14 +176,14 @@ api.updateUser = {
 };
 
 /**
- * @api {delete} /api/v3/user DELETE an authenticated user's profile
+ * @api {delete} /api/v3/user DELETE an authenticated user's account
  * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam {string} password The user's password unless it's a Facebook account
+ * @apiParam {string} password The user's password (unless it's a Facebook account)
  *
- * @apiSuccess {Object} empty An empty Object
+ * @apiSuccess {Object} data An empty Object
  */
 api.deleteUser = {
   method: 'DELETE',
@@ -242,7 +243,9 @@ function _cleanChecklist (task) {
  * @apiVersion 3.0.0
  * @apiName UserGetAnonymized
  * @apiGroup User
- * @apiSuccess {Object} object The object { user, tasks }
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Array} data.tasks
  **/
 api.getUserAnonymized = {
   method: 'GET',
@@ -309,7 +312,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiParam {string} spellId The spell to cast.
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a spell on a party member or a task.
  *
- * @apiSuccess mixed Will return the modified targets. For party members only the necessary fields will be populated.
+ * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated.
  */
 api.castSpell = {
   method: 'POST',
@@ -419,7 +422,7 @@ api.castSpell = {
  * @apiName UserSleep
  * @apiGroup User
  *
- * @apiSuccess {Object} Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
+ * @apiSuccess {Object} data Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
  */
 api.sleep = {
   method: 'POST',

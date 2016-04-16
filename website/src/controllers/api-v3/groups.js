@@ -24,15 +24,13 @@ import common from '../../../../common';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
 let api = {};
 
-// TODO shall we accept party as groupId in all routes?
-
 /**
  * @api {post} /api/v3/groups Create group
  * @apiVersion 3.0.0
  * @apiName CreateGroup
  * @apiGroup Group
  *
- * @apiSuccess {Object} group The group object
+ * @apiSuccess {Object} data The create group
  */
 api.createGroup = {
   method: 'POST',
@@ -40,7 +38,7 @@ api.createGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-    let group = new Group(Group.sanitize(req.body)); // TODO validate empty req.body
+    let group = new Group(Group.sanitize(req.body));
     group.leader = user._id;
 
     if (group.type === 'guild') {
@@ -60,7 +58,7 @@ api.createGroup = {
     let results = await Q.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
-    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
     let response = savedGroup.toJSON();
     // the leader is the authenticated user
@@ -76,14 +74,14 @@ api.createGroup = {
 };
 
 /**
- * @api {get} /api/v3/groups Get groups
+ * @api {get} /api/v3/groups Get groups for a user
  * @apiVersion 3.0.0
  * @apiName GetGroups
  * @apiGroup Group
  *
  * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, privateGuilds, publicGuilds, tavern
  *
- * @apiSuccess {Array} groups An array of the requested groups
+ * @apiSuccess {Array} data An array of the requested groups
  */
 api.getGroups = {
   method: 'GET',
@@ -92,7 +90,7 @@ api.getGroups = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkQuery('type', res.t('groupTypesRequired')).notEmpty(); // TODO better validation
+    req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -119,7 +117,7 @@ api.getGroups = {
  *
  * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} group The group object
+ * @apiSuccess {Object} data The group object
  */
 api.getGroup = {
   method: 'GET',
@@ -137,7 +135,7 @@ api.getGroup = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     group = Group.toJSONCleanChat(group, user);
-    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     let leader = await User.findById(group.leader).select(nameFields).exec();
     if (leader) group.leader = leader.toJSON({minimize: true});
 
@@ -153,7 +151,7 @@ api.getGroup = {
  *
  * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} group The updated group object
+ * @apiSuccess {Object} data The updated group
  */
 api.updateGroup = {
   method: 'PUT',
@@ -197,9 +195,9 @@ api.updateGroup = {
  * @apiName JoinGroup
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} group The group
+ * @apiSuccess {Object} data The joined group
  */
 api.joinGroup = {
   method: 'POST',
@@ -288,9 +286,9 @@ api.joinGroup = {
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} group The group
+ * @apiSuccess {Object} data An empty object
  */
 api.rejectGroupInvite = {
   method: 'POST',
@@ -334,9 +332,9 @@ api.rejectGroupInvite = {
  * @apiGroup Group
  *
  * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string="remove-all","keep-all"} keep Wheter to keep or not challenges' tasks, as an optional query string
+ * @apiParam {string="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
  *
- * @apiSuccess {Object} empty An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.leaveGroup = {
   method: 'POST',
@@ -391,9 +389,9 @@ function _sendMessageToRemoved (group, removedUser, message) {
  *
  * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} memberId The _id of the member to remove
- * @apiParam {string} message The message to send to the removed members, as a query string // TODO in req.body?
+ * @apiParam {string} message Query parameter - The message to send to the removed members
  *
- * @apiSuccess {Object} empty An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.removeGroupMember = {
   method: 'POST',
@@ -448,7 +446,7 @@ api.removeGroupMember = {
       if (isInGroup === 'guild') {
         removeFromArray(member.guilds, group._id);
       }
-      if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too?
+      if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
 
       if (member.newMessages[group._id]) {
         member.newMessages[group._id] = undefined;
@@ -456,13 +454,16 @@ api.removeGroupMember = {
       }
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
-        member.items.quests[group.quest.key] += 1; // TODO why this?
+        member.items.quests[group.quest.key] += 1;
       }
     } else if (isInvited) {
       if (isInvited === 'guild') {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
-      if (isInvited === 'party') user.invitations.party = {}; // TODO mark modified?
+      if (isInvited === 'party') {
+        user.invitations.party = {};
+        user.markModified('invitations.party');
+      }
     } else {
       throw new NotFound(res.t('groupMemberNotFound'));
     }
@@ -592,11 +593,11 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *
  * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiParam {array} emails An array of emails addresses to invite (optional) (inside body)
- * @apiParam {array} uuids An array of uuids to invite (optional) (inside body)
- * @apiParam {string} inviter The inviters' name (optional) (inside body)
+ * @apiParam {array} emails Body parameter - An array of emails addresses to invite (optional)
+ * @apiParam {array} uuids Body parameter - An array of uuids to invite (optional)
+ * @apiParam {string} inviter Body parameter - The inviters' name (optional)
  *
- * @apiSuccess {Object} empty An empty object
+ * @apiSuccess {array} data The invites
  */
 api.inviteToGroup = {
   method: 'POST',

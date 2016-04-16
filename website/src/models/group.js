@@ -31,7 +31,7 @@ export let schema = new Schema({
   type: {type: String, enum: ['guild', 'party'], required: true},
   privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
   // _v: {type: Number,'default': 0}, // TODO ?
-  chat: Array, // TODO ?
+  chat: Array,
   /*
   #    [{
   #      timestamp: Date
@@ -44,7 +44,7 @@ export let schema = new Schema({
   */
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
-    // invites: {type:Boolean, 'default':false} // TODO ?
+    // invites: {type:Boolean, 'default':false}
   },
   memberCount: {type: Number, default: 1},
   challengeCount: {type: Number, default: 0},
@@ -66,7 +66,6 @@ export let schema = new Schema({
     // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
-    // TODO as long as quests are party only we can keep it here
     members: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
@@ -277,7 +276,7 @@ schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
   this.chat.splice(200);
 
-  // Kick off chat notifications in the background. // TODO refactor
+  // Kick off chat notifications in the background.
   let lastSeenUpdate = {$set: {}, $inc: {_v: 1}};
   lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
 
