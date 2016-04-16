@@ -6,6 +6,8 @@ import {
   BadRequest,
 } from '../libs/errors';
 
+// If item is already purchased -> equip it
+// Otherwise unlock it
 module.exports = function unlock (user, req = {}, analytics) {
   let path = _.get(req.query, 'path');
 
@@ -14,9 +16,9 @@ module.exports = function unlock (user, req = {}, analytics) {
   }
 
   let isFullSet = path.indexOf(',') !== -1;
-  let cost;
   let isBackground = path.indexOf('background.') !== -1;
 
+  let cost;
   if (isBackground && isFullSet) {
     cost = 3.75;
   } else if (isBackground) {
@@ -27,21 +29,39 @@ module.exports = function unlock (user, req = {}, analytics) {
     cost = 0.5;
   }
 
-  let alreadyOwns = !isFullSet && _.get(user, `purchased.${path}`) === true;
+  let setPaths;
+  let alreadyOwns;
+
+  if (isFullSet) {
+    setPaths = path.split(',');
+    let alreadyOwnedItems = 0;
+
+    _.each(setPaths, singlePath => {
+      if (_.get(user, `purchased.${singlePath}`) === true) {
+        alreadyOwnedItems++;
+      }
+    });
+
+    if (alreadyOwnedItems === setPaths.length) {
+      throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
+    } else if (alreadyOwnedItems > 0) {
+      throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
+    }
+  } else {
+    alreadyOwns = _.get(user, `purchased.${path}`) === true;
+  }
 
   if ((!user.balance || user.balance < cost) && !alreadyOwns) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
   if (isFullSet) {
-    _.each(path.split(','), function markItemsAsPurchased (pathPart) {
+    _.each(setPaths, function markItemsAsPurchased (pathPart) {
       if (path.indexOf('gear.') !== -1) {
         _.set(user, pathPart, true);
-        return true;
       }
 
       _.set(user, `purchased.${pathPart}`, true);
-      return true;
     });
   } else {
     if (alreadyOwns) {
@@ -51,34 +71,37 @@ module.exports = function unlock (user, req = {}, analytics) {
       if (key === 'background' && value === user.preferences.background) {
         value = '';
       }
+
       _.set(user, `preferences.${key}`, value);
-
-      throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
+    } else {
+      _.set(user, `purchased.${path}`, true);
     }
-    _.set(user, `purchased.${path}`, true);
   }
 
-  if (path.indexOf('gear.') === -1) {
-    user.markModified('purchased');
-  }
+  if (!alreadyOwns) {
+    if (path.indexOf('gear.') === -1) {
+      user.markModified('purchased');
+    }
 
-  user.balance -= cost;
+    user.balance -= cost;
 
-  if (analytics) {
-    analytics.track('acquire item', {
-      uuid: user._id,
-      itemKey: path,
-      itemType: 'customization',
-      acquireMethod: 'Gems',
-      gemCost: cost / 0.25,
-      category: 'behavior',
-    });
+    if (analytics) {
+      analytics.track('acquire item', {
+        uuid: user._id,
+        itemKey: path,
+        itemType: 'customization',
+        acquireMethod: 'Gems',
+        gemCost: cost / 0.25,
+        category: 'behavior',
+      });
+    }
   }
 
   let response = {
     data: _.pick(user, splitWhitespace('purchased preferences items')),
-    message: i18n.t('unlocked'),
   };
+
+  if (!alreadyOwns) response.message = i18n.t('unlocked', req.language);
 
   if (req.v2 === true) {
     return response.data;
