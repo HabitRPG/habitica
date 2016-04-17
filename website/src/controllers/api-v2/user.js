@@ -612,7 +612,7 @@ api.deleteTag = function (req, res, next) {
 api.cast = async function(req, res, next) {
   try {
     let user = res.locals.user;
-    let spellId = req.params.spellId;
+    let spellId = req.params.spell;
     let targetId = req.query.targetId;
 
     let klass = shared.content.spells.special[spellId] ? 'special' : user.stats.class;
@@ -876,7 +876,7 @@ api.addTask = function(req, res, next) {
  */
 _.each(shared.ops, function(op,k){
   var kv3;
-  
+
   if (['rebirth', 'reroll', 'reset'].indexOf(k) !== -1) { // proxy ops that change tasks directly to v3
     if (k === 'rebirth') kv3 = 'userRebirth'; // the name is different in v3
     if (k === 'reroll') kv3 = 'userReroll';
