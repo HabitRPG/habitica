@@ -67,8 +67,6 @@
     "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
     "APIToken": "API Token (this is a password - see warning above!)",
     "thirdPartyApps": "Third Party Apps",
-    "extentionName": "Extension Name",
-    "extensionDescription": "Description",
     "dataToolDesc": "A webpage that shows you certain information from your Habitica account, such as statistics about your tasks, equipment, and skills.",
     "beeminder": "Beeminder",
     "beeminderDesc": "Let Beeminder automatically monitor your Habitica To-Dos. You can commit to maintaining a target number of To-Dos completed per day or per week, or you can commit to gradually reducing your remaining number of uncompleted To-Dos. (By \"commit\" Beeminder means under threat of paying actual money! But you may also just like Beeminder's fancy graphs.)",
