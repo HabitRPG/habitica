@@ -418,7 +418,7 @@ api.specialPets = {
   'Tiger-Veteran': 'veteranTiger',
   'Phoenix-Base': 'phoenix',
   'Turkey-Gilded': 'gildedTurkey',
-  'Bumblebee-Base': 'bumblebee',
+  'MagicalBee-Base': 'magicalBee',
 };
 
 api.specialMounts = {
@@ -431,7 +431,7 @@ api.specialMounts = {
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
   'Phoenix-Base': 'phoenix',
   'JackOLantern-Base': 'jackolantern',
-  'Bumblebee-Base': 'bumblebee',
+  'MagicalBee-Base': 'magicalBee',
 };
 
 api.timeTravelStable = {
