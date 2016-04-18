@@ -30,7 +30,8 @@ describe('response middleware', () => {
 
     expect(res.status).to.be.calledWith(200);
     expect(res.json).to.be.calledWith({
-      field: 1,
+      success: true,
+      data: {field: 1},
     });
   });
 
@@ -43,7 +44,8 @@ describe('response middleware', () => {
 
     expect(res.status).to.be.calledWith(403);
     expect(res.json).to.be.calledWith({
-      field: 1,
+      success: false,
+      data: {field: 1},
     });
   });
 });

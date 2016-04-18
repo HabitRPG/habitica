@@ -96,7 +96,9 @@ api.getContent = {
     res.set({
       'Content-Type': 'application/json',
     });
-    res.status(200).send(content); // TODO how to use res.respond here?
+
+    let jsonResString = `{"success": true, "data": ${content}}`;
+    res.status(200).send(jsonResString);
 
     // save the file in background unless it's already cached or being written right now
     if (cachedContentResponses[language] !== true && cacheBeingWritten[language] !== true) {

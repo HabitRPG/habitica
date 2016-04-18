@@ -38,6 +38,7 @@ describe('errorHandler', () => {
 
     expect(res.status).to.be.calledWith(500);
     expect(res.json).to.be.calledWith({
+      success: false,
       error: 'InternalServerError',
       message: 'An unexpected error occurred.',
     });
@@ -54,6 +55,7 @@ describe('errorHandler', () => {
 
     expect(res.status).to.be.calledWith(400);
     expect(res.json).to.be.calledWith({
+      success: false,
       error: 'Error',
       message: 'Error message',
     });
@@ -70,6 +72,7 @@ describe('errorHandler', () => {
 
     expect(res.status).to.be.calledWith(500);
     expect(res.json).to.be.calledWith({
+      success: false,
       error: 'InternalServerError',
       message: 'An unexpected error occurred.',
     });
@@ -85,6 +88,7 @@ describe('errorHandler', () => {
 
     expect(res.status).to.be.calledWith(400);
     expect(res.json).to.be.calledWith({
+      success: false,
       error: 'BadRequest',
       message: 'Bad request.',
     });
@@ -101,6 +105,7 @@ describe('errorHandler', () => {
 
     expect(res.status).to.be.calledWith(error.statusCode);
     expect(res.json).to.be.calledWith({
+      success: false,
       error: error.name,
       message: error.message,
     });
@@ -116,6 +121,7 @@ describe('errorHandler', () => {
 
     expect(res.status).to.be.calledWith(400);
     expect(res.json).to.be.calledWith({
+      success: false,
       error: 'BadRequest',
       message: 'Invalid request parameters.',
       errors: [
@@ -143,6 +149,7 @@ describe('errorHandler', () => {
 
     expect(res.status).to.be.calledWith(400);
     expect(res.json).to.be.calledWith({
+      success: false,
       error: 'BadRequest',
       message: 'User validation failed.',
       errors: [
