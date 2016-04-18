@@ -70,8 +70,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
   /**
    * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
    */
-  // enable debug menu to test v3 TODO remove
-  if (true || _.contains(['development','test'],window.env.NODE_ENV)) {
+  if (_.contains(['development','test'],window.env.NODE_ENV)) {
 
     $scope.setHealthLow = function(){
       User.set({

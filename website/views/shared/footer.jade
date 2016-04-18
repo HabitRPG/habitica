@@ -79,7 +79,7 @@ footer.footer(ng-controller='FooterCtrl')
               tr
                 td
                   iframe(src='/bower_components/github-buttons/github-btn.html?user=habitrpg&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
-        if (true || env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
+        if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
           h4 Debug
           .btn-group-vertical
             a.btn.btn-default(ng-click='setHealthLow()') Health = 1
