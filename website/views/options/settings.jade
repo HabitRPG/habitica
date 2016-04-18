@@ -236,10 +236,6 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h3=env.t('thirdPartyApps')
         ul
           li
-            a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
-            br
-            =env.t('dataToolDesc')
-          li
             a(target='_blank' href='https://www.beeminder.com/habitica')=env.t('beeminder')
             br
             =env.t('beeminderDesc')
@@ -247,6 +243,10 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
             a(target='_blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb')=env.t('chromeChatExtension')
             br
             =env.t('chromeChatExtensionDesc')
+          li
+            a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+            br
+            =env.t('dataToolDesc')
           li
             !=env.t('otherExtensions')
             br
