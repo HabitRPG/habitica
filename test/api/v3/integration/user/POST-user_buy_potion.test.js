@@ -6,23 +6,23 @@ import shared from '../../../../../common/script';
 
 let content = shared.content;
 
-describe('POST /user/buy/:key', () => {
+describe('POST /user/buy-potion', () => {
   let user;
 
   beforeEach(async () => {
     user = await generateUser({
-      'stats.gp': 400,
+      'stats.hp': 40,
     });
   });
 
   // More tests in common code unit tests
 
-  it('returns an error if the item is not found', async () => {
-    await expect(user.post('/user/buy/notExisting'))
+  it('returns an error if user does not have enough gold', async () => {
+    await expect(user.post('/user/buy-potion'))
       .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('itemNotFound', {key: 'notExisting'}),
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('messageNotEnoughGold'),
       });
   });
 
@@ -32,7 +32,7 @@ describe('POST /user/buy/:key', () => {
     });
 
     let potion = content.potion;
-    let res = await user.post('/user/buy/potion');
+    let res = await user.post('/user/buy-potion');
     await user.sync();
 
     expect(user.stats.hp).to.equal(50);
@@ -40,14 +40,5 @@ describe('POST /user/buy/:key', () => {
       stats: user.stats,
     });
     expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
-  });
-
-  it('buys a piece of gear', async () => {
-    let key = 'armor_warrior_1';
-
-    await user.post(`/user/buy/${key}`);
-    await user.sync();
-
-    expect(user.items.gear.owned).to.eql({ armor_warrior_1: true }); // eslint-disable-line camelcase
   });
 });

@@ -30,6 +30,9 @@ import releasePets from './releasePets';
 import releaseMounts from './releaseMounts';
 import releaseBoth from './releaseBoth';
 import buy from './buy';
+import buyGear from './buyGear';
+import buyPotion from './buyPotion';
+import buyArmoire from './buyArmoire';
 import buyQuest from './buyQuest';
 import buyMysterySet from './buyMysterySet';
 import hourglassPurchase from './hourglassPurchase';
@@ -77,6 +80,9 @@ module.exports = {
   releaseMounts,
   releaseBoth,
   buy,
+  buyGear,
+  buyPotion,
+  buyArmoire,
   buyQuest,
   buyMysterySet,
   hourglassPurchase,
