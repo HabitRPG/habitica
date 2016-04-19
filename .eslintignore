@@ -17,7 +17,8 @@ common/script/public/**/*.js
 website/src/**/api-v2/**/*.js
 website/src/routes/payments.js
 website/src/routes/pages.js
-website/src/middlewares/
+website/src/middlewares/apiThrottle.js
+website/src/middlewares/forceRefresh.js
 website/src/controllers/payments/
 
 debug-scripts/*
