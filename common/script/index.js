@@ -85,6 +85,29 @@ import count from './count';
 api.count = count;
 
 import statsComputed from './libs/statsComputed';
+api.statsComputed = statsComputed;
+
+import autoAllocate from './fns/autoAllocate';
+import crit from './fns/crit';
+import handleTwoHanded from './fns/handleTwoHanded';
+import predictableRandom from './fns/predictableRandom';
+import randomDrop from './fns/randomDrop';
+import randomVal from './fns/randomVal';
+import resetGear from './fns/resetGear';
+import ultimateGear from './fns/ultimateGear';
+import updateStats from './fns/updateStats';
+
+api.fns = {
+  autoAllocate,
+  crit,
+  handleTwoHanded,
+  predictableRandom,
+  randomDrop,
+  randomVal,
+  resetGear,
+  ultimateGear,
+  updateStats,
+};
 
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
@@ -121,31 +144,6 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import addPushDevice from './ops/addPushDevice';
 import reset from './ops/reset';
-
-import autoAllocate from './fns/autoAllocate';
-import crit from './fns/crit';
-import dotGetFn from './fns/dotGet';
-import dotSetFn from './fns/dotSet';
-import handleTwoHanded from './fns/handleTwoHanded';
-import nullify from './fns/nullify';
-import predictableRandom from './fns/predictableRandom';
-import randomDrop from './fns/randomDrop';
-import randomVal from './fns/randomVal';
-import resetGear from './fns/resetGear';
-import ultimateGear from './fns/ultimateGear';
-import updateStats from './fns/updateStats';
-
-api.fns = {
-  autoAllocate,
-  crit,
-  handleTwoHanded,
-  predictableRandom,
-  randomDrop,
-  randomVal,
-  resetGear,
-  ultimateGear,
-  updateStats,
-};
 
 api.ops = {
   scoreTask,
@@ -224,7 +222,7 @@ TODO
 import importedOps from './ops';
 import importedFns from './fns';
 
-// TODO redo
+// TODO Kept for the client side
 api.wrap = function wrapUser (user, main = true) {
   if (user._wrapped) return;
   user._wrapped = true;
