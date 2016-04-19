@@ -477,15 +477,14 @@ api.allocateNow = {
 };
 
 /**
- * @api {post} /api/v3/user/buy/:key Buy a content item.
+ * @api {post} /user/buy/:key Buy gear, armoire or potion
  * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
  *
  * @apiParam {string} key The item to buy.
  *
- * @apiSuccess {Object} data `items, achievements, stats, flags`
- * @apiSuccess {object} armoireResp Optional extra item given by the armoire
+ * @apiSuccess {Object} data `items`
  * @apiSuccess {string} message
  */
 api.buy = {
@@ -501,7 +500,77 @@ api.buy = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set.
+ * @api {post} /user/buy-gear/:key Buy a piece of gear.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyGear
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data `items`
+ * @apiSuccess {string} message
+ */
+api.buyGear = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-gear/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyRes = common.ops.buyGear(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyRes);
+  },
+};
+
+/**
+ * @api {post} /user/buy-armoire Buy an armoire item.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyArmoire
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data `items flags`
+ * @apiSuccess {object} armoireResp Optional extra item given by the armoire
+ * @apiSuccess {string} message
+ */
+api.buyArmoire = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-armoire',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyArmoireResponse = common.ops.buyArmoire(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyArmoireResponse);
+  },
+};
+
+/**
+ * @api {post} /user/buy-potion Buy a potion.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyPotion
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data `stats`
+ * @apiSuccess {string} message
+ */
+api.buyPotion = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-potion',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyPotionResponse = common.ops.buyPotion(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyPotionResponse);
+  },
+};
+
+/**
+ * @api {post} /user/buy-mystery-set/:key Buy a mystery set.
  * @apiVersion 3.0.0
  * @apiName UserBuyMysterySet
  * @apiGroup User
