@@ -42,19 +42,25 @@ describe('cron middleware', () => {
     res.analytics = analyticsService;
   });
 
+  it('calls next when user is not attached', () => {
+    res.locals.user = null;
+    cronMiddleware(req, res, next);
+    expect(next).to.be.calledOnce;
+  });
+
   it('calls next when days have not been missed', () => {
     cronMiddleware(req, res, next);
     expect(next).to.be.calledOnce;
   });
 
-  it('should clear todos older than 30 days for free users', (done) => {
-    res.locals.user.lastCron = moment(new Date()).subtract({days: 2});
-    let task = generateTodo(res.locals.user);
+  it('should clear todos older than 30 days for free users', async (done) => {
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let task = generateTodo(user);
     task.dateCompleted = moment(new Date()).subtract({days: 31});
     task.completed = true;
-    task.save();
+    await task.save();
 
-    cronMiddleware(req, res, function callback () {
+    cronMiddleware(req, res, () => {
       Tasks.Task.findOne({_id: task}, function (err, taskFound) {
         expect(err).to.not.exist;
         expect(taskFound).to.not.exist;
@@ -64,15 +70,15 @@ describe('cron middleware', () => {
   });
 
   it('should not clear todos older than 30 days for subscribed users', (done) => {
-    res.locals.user.purchased.plan.customerId = 'subscribedId';
-    res.locals.user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
-    res.locals.user.lastCron = moment(new Date()).subtract({days: 2});
-    let task = generateTodo(res.locals.user);
+    user.purchased.plan.customerId = 'subscribedId';
+    user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let task = generateTodo(user);
     task.dateCompleted = moment(new Date()).subtract({days: 31});
     task.completed = true;
     task.save();
 
-    cronMiddleware(req, res, function callback () {
+    cronMiddleware(req, res, () => {
       Tasks.Task.findOne({_id: task}, function (err, taskFound) {
         expect(err).to.not.exist;
         expect(taskFound).to.exist;
@@ -82,16 +88,16 @@ describe('cron middleware', () => {
   });
 
   it('should clear todos older than 90 days for subscribed users', (done) => {
-    res.locals.user.purchased.plan.customerId = 'subscribedId';
-    res.locals.user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
-    res.locals.user.lastCron = moment(new Date()).subtract({days: 2});
+    user.purchased.plan.customerId = 'subscribedId';
+    user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
+    user.lastCron = moment(new Date()).subtract({days: 2});
 
-    let task = generateTodo(res.locals.user);
+    let task = generateTodo(user);
     task.dateCompleted = moment(new Date()).subtract({days: 91});
     task.completed = true;
     task.save();
 
-    cronMiddleware(req, res, function callback () {
+    cronMiddleware(req, res, () => {
       Tasks.Task.findOne({_id: task}, function (err, taskFound) {
         expect(err).to.not.exist;
         expect(taskFound).to.not.exist;
@@ -101,35 +107,35 @@ describe('cron middleware', () => {
   });
 
   it('should call next is user was not modified after cron', (done) => {
-    let hpBefore = res.locals.user.stats.hp;
-    res.locals.user.lastCron = moment(new Date()).subtract({days: 2});
-    generateDaily(res.locals.user);
+    let hpBefore = user.stats.hp;
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    generateDaily(user);
 
-    cronMiddleware(req, res, function callback () {
-      expect(res.locals.user.stats.hp).to.be.equal(hpBefore);
+    cronMiddleware(req, res, () => {
+      expect(user.stats.hp).to.be.equal(hpBefore);
       done();
     });
   });
 
   it('does damage for missing dailies', (done) => {
-    let hpBefore = res.locals.user.stats.hp;
-    res.locals.user.lastCron = moment(new Date()).subtract({days: 2});
-    let daily = generateDaily(res.locals.user);
+    let hpBefore = user.stats.hp;
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let daily = generateDaily(user);
     daily.startDate = moment(new Date()).subtract({days: 2});
     daily.save();
 
-    cronMiddleware(req, res, function callback () {
-      expect(res.locals.user.stats.hp).to.be.lessThan(hpBefore);
+    cronMiddleware(req, res, () => {
+      expect(user.stats.hp).to.be.lessThan(hpBefore);
       done();
     });
   });
 
   it('updates tasks', (done) => {
-    res.locals.user.lastCron = moment(new Date()).subtract({days: 2});
-    let todo = generateTodo(res.locals.user);
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let todo = generateTodo(user);
     let todoValueBefore = todo.value;
 
-    cronMiddleware(req, res, function callback () {
+    cronMiddleware(req, res, () => {
       Tasks.Task.findOne({_id: todo._id}, function (err, todoFound) {
         expect(err).to.not.exist;
         expect(todoFound.value).to.be.lessThan(todoValueBefore);
@@ -138,32 +144,32 @@ describe('cron middleware', () => {
     });
   });
 
-  it('applies quest progress', (done) => {
-    let hpBefore = res.locals.user.stats.hp;
-    res.locals.user.lastCron = moment(new Date()).subtract({days: 2});
-    let daily = generateDaily(res.locals.user);
+  it('applies quest progress', async (done) => {
+    let hpBefore = user.stats.hp;
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let daily = generateDaily(user);
     daily.startDate = moment(new Date()).subtract({days: 2});
     daily.save();
 
     let questKey = 'dilatory';
-    res.locals.user.party.quest.key = questKey;
+    user.party.quest.key = questKey;
 
     let party = new Group({
       type: 'party',
       name: generateUUID(),
-      leader: res.locals.user._id,
+      leader: user._id,
     });
-    party.quest.members[res.locals.user._id] = true;
+    party.quest.members[user._id] = true;
     party.quest.key = questKey;
-    party.save();
+    await party.save();
 
-    res.locals.user.party._id = party._id;
-    res.locals.user.save();
+    user.party._id = party._id;
+    await user.save();
 
-    party.startQuest(res.locals.user);
+    party.startQuest(user);
 
-    cronMiddleware(req, res, function callback () {
-      expect(res.locals.user.stats.hp).to.be.lessThan(hpBefore);
+    cronMiddleware(req, res, () => {
+      expect(user.stats.hp).to.be.lessThan(hpBefore);
       done();
     });
   });

@@ -7,7 +7,7 @@ const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
 
-let clearBuffs = {
+let CLEAR_BUFFS = {
   str: 0,
   int: 0,
   per: 0,
@@ -57,7 +57,7 @@ function grantEndOfTheMonthPerks (user, now) {
 }
 
 function performSleepTasks (user, tasksByType, now) {
-  user.stats.buffs = _.cloneDeep(clearBuffs);
+  user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
 
   tasksByType.dailys.forEach((daily) => {
     let completed = daily.completed;
@@ -87,7 +87,6 @@ export function cron (options = {}) {
   // "Perfect Day" achievement for perfect-days
   let perfect = true;
 
-  // end-of-month perks for subscribers
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
   }
@@ -223,7 +222,7 @@ export function cron (options = {}) {
       streaks: false,
     };
   } else {
-    user.stats.buffs = _.cloneDeep(clearBuffs);
+    user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
   }
 
   // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit

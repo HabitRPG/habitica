@@ -57,6 +57,12 @@ describe('cron', () => {
     expect(user.items.lastDrop.count).to.equal(0);
   });
 
+  it('increments user cron count', () => {
+    let cronCountBefore = user.flags.cronCount;
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(user.flags.cronCount).to.be.greaterThan(cronCountBefore);
+  });
+
   describe('end of the month perks', () => {
     beforeEach(() => {
       user.purchased.plan.customerId = 'subscribedId';
@@ -127,6 +133,70 @@ describe('cron', () => {
     });
   });
 
+  describe('end of the month perks when user is not subscribed', () => {
+    it('does not reset plan.gemsBought on a new month', () => {
+      user.purchased.plan.gemsBought = 10;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.gemsBought).to.equal(10);
+    });
+
+    it('does not reset plan.dateUpdated on a new month', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.dateUpdated).to.be.empty;
+    });
+
+    it('does not increment plan.consecutive.count', () => {
+      user.purchased.plan.consecutive.count = 0;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.count).to.equal(0);
+    });
+
+    it('does not decrement plan.consecutive.offset when offset is greater than 0', () => {
+      user.purchased.plan.consecutive.offset = 1;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.offset).to.equal(1);
+    });
+
+    it('does not increment plan.consecutive.trinkets when user has reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(0);
+    });
+
+    it('doest not increment plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
+    });
+
+    it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
+      user.purchased.plan.consecutive.gemCapExtra = 25;
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+    });
+
+    it('does nothing to plan stats if we are before the last day of the cancelled month', () => {
+      user.purchased.plan.dateTerminated = moment(new Date()).add({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.customerId).to.not.exist;
+    });
+
+    xit('does nothing to plan stats when we are after the last day of the cancelled month', () => {
+      user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
+      user.purchased.plan.consecutive.gemCapExtra = 20;
+      user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.purchased.plan.customerId).to.exist;
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.exist;
+      expect(user.purchased.plan.consecutive.count).to.exist;
+      expect(user.purchased.plan.consecutive.offset).to.exist;
+    });
+  });
+
   describe('user is sleeping', () => {
     beforeEach(() => {
       user.preferences.sleep = true;
@@ -165,9 +235,12 @@ describe('cron', () => {
       tasksByType.dailys.push(task);
       tasksByType.dailys[0].completed = true;
 
+      let healthBefore = user.stats.hp;
+
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(tasksByType.dailys[0].completed).to.be.false;
+      expect(user.stats.hp).to.equal(healthBefore);
     });
   });
 
@@ -263,13 +336,18 @@ describe('cron', () => {
 
     it('should do less damage for missing a daily with partial completion', () => {
       daysMissed = 1;
+      let hpBefore = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      let hpDifferenceOfFullyIncompleteDaily = hpBefore - user.stats.hp;
+
+      hpBefore = user.stats.hp;
       tasksByType.dailys[0].checklist.push({title: 'test', completed: true});
       tasksByType.dailys[0].checklist.push({title: 'test2', completed: false});
-
       cron({user, tasksByType, daysMissed, analytics});
+      let hpDifferenceOfPartiallyIncompleteDaily = hpBefore - user.stats.hp;
 
-      expect(user.stats.hp).to.equal(49);
+      expect(hpDifferenceOfPartiallyIncompleteDaily).to.be.lessThan(hpDifferenceOfFullyIncompleteDaily);
     });
 
     it('should decrement quest progress down for missing a daily', () => {
@@ -310,6 +388,16 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(tasksByType.habits[0].value).to.be.lessThan(1);
+    });
+
+    it('should do nothing to habits with both up and down', () => {
+      tasksByType.habits[0].value = 1;
+      tasksByType.habits[0].up = true;
+      tasksByType.habits[0].down = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.habits[0].value).to.equal(1);
     });
   });
 
@@ -481,11 +569,5 @@ describe('cron', () => {
 
       expect(user.inbox.messages[messageId]).to.not.exist;
     });
-  });
-
-  it('increments user cron count', () => {
-    let cronCountBefore = user.flags.cronCount;
-    cron({user, tasksByType, daysMissed, analytics});
-    expect(user.flags.cronCount).to.be.greaterThan(cronCountBefore);
   });
 });
