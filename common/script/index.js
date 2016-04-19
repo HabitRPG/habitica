@@ -86,7 +86,6 @@ api.count = count;
 
 import statsComputed from './libs/statsComputed';
 
-// TODO As ops and fns are ported, exported them through the api object
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
 import allocate from './ops/allocate';
@@ -122,6 +121,31 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import addPushDevice from './ops/addPushDevice';
 import reset from './ops/reset';
+
+import autoAllocate from './fns/autoAllocate';
+import crit from './fns/crit';
+import dotGetFn from './fns/dotGet';
+import dotSetFn from './fns/dotSet';
+import handleTwoHanded from './fns/handleTwoHanded';
+import nullify from './fns/nullify';
+import predictableRandom from './fns/predictableRandom';
+import randomDrop from './fns/randomDrop';
+import randomVal from './fns/randomVal';
+import resetGear from './fns/resetGear';
+import ultimateGear from './fns/ultimateGear';
+import updateStats from './fns/updateStats';
+
+api.fns = {
+  autoAllocate,
+  crit,
+  handleTwoHanded,
+  predictableRandom,
+  randomDrop,
+  randomVal,
+  resetGear,
+  ultimateGear,
+  updateStats,
+};
 
 api.ops = {
   scoreTask,
@@ -161,27 +185,11 @@ api.ops = {
   reset,
 };
 
-import handleTwoHanded from './fns/handleTwoHanded';
-import predictableRandom from './fns/predictableRandom';
-import randomVal from './fns/randomVal';
-import ultimateGear from './fns/ultimateGear';
-import autoAllocate from './fns/autoAllocate';
-
-api.fns = {
-  handleTwoHanded,
-  predictableRandom,
-  randomVal,
-  ultimateGear,
-  autoAllocate,
-};
-
-
 /*
 ------------------------------------------------------
 User (prototype wrapper to give it ops, helper funcs, and virtuals
 ------------------------------------------------------
  */
-
 
 /*
 User is now wrapped (both on client and server), adding a few new properties:

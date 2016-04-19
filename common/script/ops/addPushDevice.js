@@ -6,6 +6,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 
+// TODO move to server code
 module.exports = function addPushDevice (user, req = {}) {
   let regId = _.get(req, 'body.regId');
   if (!regId) throw new BadRequest(i18n.t('regIdRequired', req.language));
