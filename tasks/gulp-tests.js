@@ -358,6 +358,10 @@ gulp.task('test:api-v3:unit', (done) => {
   pipe(runner);
 });
 
+gulp.task('test:api-v3:unit:watch', () => {
+  gulp.watch(['website/src/libs/api-v3/*', 'test/api/v3/unit/libs/*', 'website/src/controllers/**/*'], ['test:api-v3:unit']);
+});
+
 gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/integration --recursive'),
