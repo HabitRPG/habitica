@@ -15,7 +15,6 @@ import nconf from 'nconf';
 import setupNconf from '../../libs/api-v3/setupNconf';
 setupNconf();
 
-console.log('+++ +++ this:', nconf.get('FLAG_REPORT_EMAIL'));
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
