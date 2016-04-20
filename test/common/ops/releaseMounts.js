@@ -31,9 +31,9 @@ describe('shared.ops.releaseMounts', () => {
   });
 
   it('releases mounts', () => {
-    let response = releaseMounts(user);
+    let [, message] = releaseMounts(user);
 
-    expect(response.message).to.equal(i18n.t('mountsReleased'));
+    expect(message).to.equal(i18n.t('mountsReleased'));
     expect(user.items.mounts[animal]).to.equal(null);
   });
 

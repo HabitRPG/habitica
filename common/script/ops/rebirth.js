@@ -98,14 +98,12 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
 
   user.stats.buffs = {};
 
-  let response = {
-    data: user,
-    message: i18n.t('rebirthComplete'),
-  };
-
   if (req.v2 === true) {
     return user;
   } else {
-    return response;
+    return [
+      user,
+      i18n.t('rebirthComplete'),
+    ];
   }
 };

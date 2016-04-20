@@ -18,17 +18,13 @@ describe('shared.ops.allocateNow', () => {
     user.stats.str = 9;
     user.preferences.allocationMode = 'flat';
 
-    let res = allocateNow(user);
+    let [data] = allocateNow(user);
 
     expect(user.stats.points).to.equal(0);
     expect(user.stats.con).to.equal(9);
     expect(user.stats.int).to.equal(8);
     expect(user.stats.per).to.equal(9);
     expect(user.stats.str).to.equal(9);
-    expect(res).to.eql({
-      data: {
-        stats: user.stats,
-      },
-    });
+    expect(data).to.eql(user.stats);
   });
 });

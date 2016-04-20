@@ -1,12 +1,11 @@
 import content from '../content/index';
 import i18n from '../i18n';
 import _ from 'lodash';
-import splitWhitespace from '../libs/splitWhitespace';
-import pickDeep from '../libs/pickDeep';
 import {
   BadRequest,
   NotAuthorized,
 } from '../libs/errors';
+import splitWhitespace from '../libs/splitWhitespace';
 
 module.exports = function purchaseHourglass (user, req = {}, analytics) {
   let key = _.get(req, 'params.key');
@@ -51,14 +50,12 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
     });
   }
 
-  let res = {
-    data: pickDeep(user, splitWhitespace('items purchased.plan.consecutive')),
-    message: i18n.t('hourglassPurchase', req.language),
-  };
-
   if (req.v2 === true) {
-    return res.data;
+    return _.pick(user, splitWhitespace('items purchased.plan.consecutive'));
   } else {
-    return res;
+    return [
+      { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
+      i18n.t('hourglassPurchase', req.language),
+    ];
   }
 };

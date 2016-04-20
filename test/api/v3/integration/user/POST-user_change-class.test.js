@@ -18,13 +18,13 @@ describe('POST /user/change-class', () => {
     let res = await user.post('/user/change-class?class=rogue');
     await user.sync();
 
-    expect(res).to.eql({
-      data: JSON.parse(JSON.stringify({
+    expect(res).to.eql(JSON.parse(
+      JSON.stringify({
         preferences: user.preferences,
         stats: user.stats,
         flags: user.flags,
         items: user.items,
-      })),
-    });
+      })
+    ));
   });
 });

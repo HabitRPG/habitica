@@ -55,30 +55,30 @@ describe('shared.ops.unlock', () => {
   });
 
   it('unlocks a full set', () => {
-    let response = unlock(user, {query: {path: unlockPath}});
+    let [, message] = unlock(user, {query: {path: unlockPath}});
 
-    expect(response.message).to.equal(i18n.t('unlocked'));
+    expect(message).to.equal(i18n.t('unlocked'));
     expect(user.purchased.shirt.convict).to.be.true;
   });
 
   it('unlocks a full set of gear', () => {
-    let response = unlock(user, {query: {path: unlockGearSetPath}});
+    let [, message] = unlock(user, {query: {path: unlockGearSetPath}});
 
-    expect(response.message).to.equal(i18n.t('unlocked'));
+    expect(message).to.equal(i18n.t('unlocked'));
     expect(user.items.gear.owned.headAccessory_special_wolfEars).to.be.true;
   });
 
   it('unlocks a an item', () => {
-    let response = unlock(user, {query: {path: backgroundUnlockPath}});
+    let [, message] = unlock(user, {query: {path: backgroundUnlockPath}});
 
-    expect(response.message).to.equal(i18n.t('unlocked'));
+    expect(message).to.equal(i18n.t('unlocked'));
     expect(user.purchased.background.giant_florals).to.be.true;
   });
 
   it('reduces a user\'s balance', () => {
-    let response = unlock(user, {query: {path: unlockPath}});
+    let [, message] = unlock(user, {query: {path: unlockPath}});
 
-    expect(response.message).to.equal(i18n.t('unlocked'));
+    expect(message).to.equal(i18n.t('unlocked'));
     expect(user.balance).to.equal(usersStartingGems - unlockCost);
   });
 });

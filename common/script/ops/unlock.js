@@ -75,14 +75,12 @@ module.exports = function unlock (user, req = {}, analytics) {
     });
   }
 
-  let response = {
-    data: _.pick(user, splitWhitespace('purchased preferences items')),
-    message: i18n.t('unlocked'),
-  };
-
   if (req.v2 === true) {
-    return response.data;
+    return _.pick(user, splitWhitespace('purchased preferences items'));
   } else {
-    return response;
+    return [
+      _.pick(user, splitWhitespace('purchased preferences items')),
+      i18n.t('unlocked'),
+    ];
   }
 };

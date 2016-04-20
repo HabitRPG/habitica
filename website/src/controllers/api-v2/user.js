@@ -124,7 +124,7 @@ api.score = function(req, res, next) {
       task.completed = direction === 'up';
     }
 
-    var delta = shared.ops.scoreTask({
+    var [delta] = shared.ops.scoreTask({
       user,
       task,
       direction,
@@ -835,7 +835,7 @@ api.updateTask = function(req, res, next) {
     if(!task) return res.status(404).json({err: 'Task not found.'})
 
     try {
-      _.assign(task, shared.ops.updateTask(task.toObject(), req));
+      _.assign(task, shared.ops.updateTask(task.toObject(), req)[0]);
       task.save(function(err, task){
         if(err) return next(err);
 
@@ -892,6 +892,9 @@ _.each(shared.ops, function(op,k){
       try {
         req.v2 = true; // Used to indicate to the shared code that the old response data should be returned
         opResponse = shared.ops[k](res.locals.user, req, analytics);
+        if (Array.isArray(opResponse) && opResponse.length < 3) {
+          opResponse = opResponse[0];
+        }
       } catch (err) {
         if (!err.code) return next(err);
         if (err.code >= 400) return res.status(err.code).json({err:err.message});

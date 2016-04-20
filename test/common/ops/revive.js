@@ -57,9 +57,9 @@ describe('shared.ops.revive', () => {
     let weaponKey = 'weapon_warrior_0';
     user.items.gear.owned[weaponKey] = true;
 
-    let reviveRequest = revive(user);
+    let [, message] = revive(user);
 
-    expect(reviveRequest.message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text()}));
     expect(user.items.gear.owned[weaponKey]).to.be.false;
   });
 
@@ -70,9 +70,9 @@ describe('shared.ops.revive', () => {
     user.items.gear.owned[weaponKey] = true;
     user.items.gear.equipped[itemToLose.type] = itemToLose.key;
 
-    let reviveRequest = revive(user);
+    let [, message] = revive(user);
 
-    expect(reviveRequest.message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text()}));
     expect(user.items.gear.equipped[itemToLose.type]).to.equal(`${itemToLose.type}_base_0`);
   });
 
@@ -83,9 +83,9 @@ describe('shared.ops.revive', () => {
     user.items.gear.owned[weaponKey] = true;
     user.items.gear.costume[itemToLose.type] = itemToLose.key;
 
-    let reviveRequest = revive(user);
+    let [, message] = revive(user);
 
-    expect(reviveRequest.message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text()}));
     expect(user.items.gear.costume[itemToLose.type]).to.equal(`${itemToLose.type}_base_0`);
   });
 });

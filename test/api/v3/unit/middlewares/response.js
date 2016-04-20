@@ -35,6 +35,21 @@ describe('response middleware', () => {
     });
   });
 
+  it('can be passed a third parameter to be used as optional message', () => {
+    responseMiddleware(req, res, next);
+    res.respond(200, {field: 1}, 'hello');
+
+    expect(res.status).to.be.calledOnce;
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.status).to.be.calledWith(200);
+    expect(res.json).to.be.calledWith({
+      success: true,
+      data: {field: 1},
+      message: 'hello',
+    });
+  });
+
   it('treats status >= 400 as failures', () => {
     responseMiddleware(req, res, next);
     res.respond(403, {field: 1});

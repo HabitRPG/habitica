@@ -420,7 +420,7 @@ api.resetPassword = {
       });
       await user.save();
     }
-    res.respond(200, { message: res.t('passwordReset') });
+    res.respond(200, {}, res.t('passwordReset'));
   },
 };
 

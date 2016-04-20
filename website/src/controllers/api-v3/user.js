@@ -432,7 +432,7 @@ api.sleep = {
     let user = res.locals.user;
     let sleepRes = common.ops.sleep(user);
     await user.save();
-    res.respond(200, sleepRes);
+    res.respond(200, ...sleepRes);
   },
 };
 
@@ -452,7 +452,7 @@ api.allocate = {
     let user = res.locals.user;
     let allocateRes = common.ops.allocate(user, req);
     await user.save();
-    res.respond(200, allocateRes);
+    res.respond(200, ...allocateRes);
   },
 };
 
@@ -472,7 +472,7 @@ api.allocateNow = {
     let user = res.locals.user;
     let allocateNowRes = common.ops.allocateNow(user, req);
     await user.save();
-    res.respond(200, allocateNowRes);
+    res.respond(200, ...allocateNowRes);
   },
 };
 
@@ -495,7 +495,7 @@ api.buy = {
     let user = res.locals.user;
     let buyRes = common.ops.buy(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyRes);
+    res.respond(200, ...buyRes);
   },
 };
 
@@ -516,9 +516,9 @@ api.buyGear = {
   url: '/user/buy-gear/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyRes = common.ops.buyGear(user, req, res.analytics);
+    let buyGearRes = common.ops.buyGear(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyRes);
+    res.respond(200, ...buyGearRes);
   },
 };
 
@@ -542,7 +542,7 @@ api.buyArmoire = {
     let user = res.locals.user;
     let buyArmoireResponse = common.ops.buyArmoire(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyArmoireResponse);
+    res.respond(200, ...buyArmoireResponse);
   },
 };
 
@@ -565,7 +565,7 @@ api.buyPotion = {
     let user = res.locals.user;
     let buyPotionResponse = common.ops.buyPotion(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyPotionResponse);
+    res.respond(200, ...buyPotionResponse);
   },
 };
 
@@ -588,7 +588,7 @@ api.buyMysterySet = {
     let user = res.locals.user;
     let buyMysterySetRes = common.ops.buyMysterySet(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyMysterySetRes);
+    res.respond(200, ...buyMysterySetRes);
   },
 };
 
@@ -611,7 +611,7 @@ api.buyQuest = {
     let user = res.locals.user;
     let buyQuestRes = common.ops.buyQuest(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyQuestRes);
+    res.respond(200, ...buyQuestRes);
   },
 };
 
@@ -634,7 +634,7 @@ api.buySpecialSpell = {
     let user = res.locals.user;
     let buySpecialSpellRes = common.ops.buySpecialSpell(user, req);
     await user.save();
-    res.respond(200, buySpecialSpellRes);
+    res.respond(200, ...buySpecialSpellRes);
   },
 };
 
@@ -658,7 +658,7 @@ api.hatch = {
     let user = res.locals.user;
     let hatchRes = common.ops.hatch(user, req);
     await user.save();
-    res.respond(200, hatchRes);
+    res.respond(200, ...hatchRes);
   },
 };
 
@@ -682,7 +682,7 @@ api.equip = {
     let user = res.locals.user;
     let equipRes = common.ops.equip(user, req);
     await user.save();
-    res.respond(200, equipRes);
+    res.respond(200, ...equipRes);
   },
 };
 
@@ -706,7 +706,7 @@ api.feed = {
     let user = res.locals.user;
     let feedRes = common.ops.feed(user, req);
     await user.save();
-    res.respond(200, feedRes);
+    res.respond(200, ...feedRes);
   },
 };
 
@@ -728,7 +728,7 @@ api.changeClass = {
     let user = res.locals.user;
     let changeClassRes = common.ops.changeClass(user, req, res.analytics);
     await user.save();
-    res.respond(200, changeClassRes);
+    res.respond(200, ...changeClassRes);
   },
 };
 
@@ -748,7 +748,7 @@ api.disableClasses = {
     let user = res.locals.user;
     let disableClassesRes = common.ops.disableClasses(user, req);
     await user.save();
-    res.respond(200, disableClassesRes);
+    res.respond(200, ...disableClassesRes);
   },
 };
 
@@ -769,9 +769,9 @@ api.purchase = {
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseResponse = common.ops.purchase(user, req, res.analytics);
+    let purchaseRes = common.ops.purchase(user, req, res.analytics);
     await user.save();
-    res.respond(200, purchaseResponse);
+    res.respond(200, ...purchaseRes);
   },
 };
 
@@ -792,9 +792,9 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseHourglassResponse = common.ops.purchaseHourglass(user, req, res.analytics);
+    let purchaseHourglassRes = common.ops.purchaseHourglass(user, req, res.analytics);
     await user.save();
-    res.respond(200, purchaseHourglassResponse);
+    res.respond(200, ...purchaseHourglassRes);
   },
 };
 
@@ -814,9 +814,9 @@ api.readCard = {
   url: '/user/read-card/:cardType',
   async handler (req, res) {
     let user = res.locals.user;
-    let readCardResponse = common.ops.readCard(user, req);
+    let readCardRes = common.ops.readCard(user, req);
     await user.save();
-    res.respond(200, readCardResponse);
+    res.respond(200, ...readCardRes);
   },
 };
 
@@ -834,9 +834,9 @@ api.userOpenMysteryItem = {
   url: '/user/open-mystery-item',
   async handler (req, res) {
     let user = res.locals.user;
-    let openMysteryItemResponse = common.ops.openMysteryItem(user, req, res.analytics);
+    let openMysteryItemRes = common.ops.openMysteryItem(user, req, res.analytics);
     await user.save();
-    res.respond(200, openMysteryItemResponse);
+    res.respond(200, ...openMysteryItemRes);
   },
 };
 
@@ -853,9 +853,9 @@ api.addWebhook = {
   url: '/user/webhook',
   async handler (req, res) {
     let user = res.locals.user;
-    let result = common.ops.addWebhook(user, req);
+    let addWebhookRes = common.ops.addWebhook(user, req);
     await user.save();
-    res.respond(200, result);
+    res.respond(200, ...addWebhookRes);
   },
 };
 
@@ -872,9 +872,9 @@ api.updateWebhook = {
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    let result = common.ops.updateWebhook(user, req);
+    let updateWebhookRes = common.ops.updateWebhook(user, req);
     await user.save();
-    res.respond(200, result);
+    res.respond(200, ...updateWebhookRes);
   },
 };
 
@@ -891,9 +891,9 @@ api.deleteWebhook = {
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    common.ops.deleteWebhook(user, req);
+    let deleteWebhookRes = common.ops.deleteWebhook(user, req);
     await user.save();
-    res.respond(200, {});
+    res.respond(200, ...deleteWebhookRes);
   },
 };
 
@@ -911,9 +911,9 @@ api.userReleasePets = {
   url: '/user/release-pets',
   async handler (req, res) {
     let user = res.locals.user;
-    let releasePetsResponse = common.ops.releasePets(user, req, res.analytics);
+    let releasePetsRes = common.ops.releasePets(user, req, res.analytics);
     await user.save();
-    res.respond(200, releasePetsResponse);
+    res.respond(200, ...releasePetsRes);
   },
 };
 
@@ -931,9 +931,9 @@ api.userReleaseBoth = {
   url: '/user/release-both',
   async handler (req, res) {
     let user = res.locals.user;
-    let releaseBothResponse = common.ops.releaseBoth(user, req, res.analytics);
+    let releaseBothRes = common.ops.releaseBoth(user, req, res.analytics);
     await user.save();
-    res.respond(200, releaseBothResponse);
+    res.respond(200, ...releaseBothRes);
   },
 };
 
@@ -951,9 +951,9 @@ api.userReleaseMounts = {
   url: '/user/release-mounts',
   async handler (req, res) {
     let user = res.locals.user;
-    let releaseMountsResponse = common.ops.releaseMounts(user, req, res.analytics);
+    let releaseMountsRes = common.ops.releaseMounts(user, req, res.analytics);
     await user.save();
-    res.respond(200, releaseMountsResponse);
+    res.respond(200, ...releaseMountsRes);
   },
 };
 
@@ -971,9 +971,9 @@ api.userSell = {
   url: '/user/sell/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let sellResponse = common.ops.sell(user, req);
+    let sellRes = common.ops.sell(user, req);
     await user.save();
-    res.respond(200, sellResponse);
+    res.respond(200, ...sellRes);
   },
 };
 
@@ -991,9 +991,9 @@ api.userUnlock = {
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
-    let unlockResponse = common.ops.unlock(user, req);
+    let unlockRes = common.ops.unlock(user, req);
     await user.save();
-    res.respond(200, unlockResponse);
+    res.respond(200, ...unlockRes);
   },
 };
 
@@ -1011,9 +1011,9 @@ api.userRevive = {
   url: '/user/revive',
   async handler (req, res) {
     let user = res.locals.user;
-    let reviveResponse = common.ops.revive(user, req, res.analytics);
+    let reviveRes = common.ops.revive(user, req, res.analytics);
     await user.save();
-    res.respond(200, reviveResponse);
+    res.respond(200, ...reviveRes);
   },
 };
 
@@ -1036,13 +1036,13 @@ api.userRebirth = {
       type: {$in: ['daily', 'habit', 'todo']},
     };
     let tasks = await Tasks.Task.find(query).exec();
-    let rebirthResponse = common.ops.rebirth(user, tasks, req, res.analytics);
+    let rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
 
     await user.save();
 
     await Q.all(tasks.map(task => task.save()));
 
-    res.respond(200, rebirthResponse);
+    res.respond(200, ...rebirthRes);
   },
 };
 
@@ -1059,9 +1059,9 @@ api.blockUser = {
   url: '/user/block/:uuid',
   async handler (req, res) {
     let user = res.locals.user;
-    let blocks = common.ops.blockUser(user, req);
+    let blockUserRes = common.ops.blockUser(user, req);
     await user.save();
-    res.respond(200, blocks);
+    res.respond(200, ...blockUserRes);
   },
 };
 
@@ -1078,9 +1078,9 @@ api.deleteMessage = {
   url: '/user/messages/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    let messages = common.ops.deletePM(user, req);
+    let deletePMRes = common.ops.deletePM(user, req);
     await user.save();
-    res.respond(200, messages);
+    res.respond(200, ...deletePMRes);
   },
 };
 
@@ -1097,9 +1097,9 @@ api.clearMessages = {
   url: '/user/messages',
   async handler (req, res) {
     let user = res.locals.user;
-    let PMs = common.ops.clearPMs(user, req);
+    let clearPMsRes = common.ops.clearPMs(user, req);
     await user.save();
-    res.respond(200, PMs);
+    res.respond(200, ...clearPMsRes);
   },
 };
 
@@ -1122,14 +1122,14 @@ api.userReroll = {
       type: {$in: ['daily', 'habit', 'todo']},
     };
     let tasks = await Tasks.Task.find(query).exec();
-    let rerollResponse = common.ops.reroll(user, tasks, req, res.analytics);
+    let rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
 
     let promises = tasks.map(task => task.save());
     promises.push(user.save());
 
     await Q.all(promises);
 
-    res.respond(200, rerollResponse);
+    res.respond(200, ...rerollRes);
   },
 };
 
@@ -1148,10 +1148,10 @@ api.userAddPushDevice = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let addPushDeviceResponse = common.ops.addPushDevice(user, req);
+    let addPushDeviceRes = common.ops.addPushDevice(user, req);
     await user.save();
 
-    res.respond(200, addPushDeviceResponse);
+    res.respond(200, ...addPushDeviceRes);
   },
 };
 
@@ -1172,11 +1172,11 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({userId: user._id}).select('_id type challenge').exec();
 
-    let resetResponse = common.ops.reset(user, tasks);
+    let resetRes = common.ops.reset(user, tasks);
 
-    await Q.all([Tasks.Task.remove({_id: {$in: resetResponse.data.tasksToRemove}, userId: user._id}), user.save()]);
+    await Q.all([Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}), user.save()]);
 
-    res.respond(200, resetResponse);
+    res.respond(200, ...resetRes);
   },
 };
 

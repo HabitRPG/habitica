@@ -14,8 +14,8 @@ describe('shared.ops.deleteWebhook', () => {
 
   it('succeeds', () => {
     user.preferences.webhooks = { 'some-id': {}, 'another-id': {} };
-    let res = deleteWebhook(user, req);
+    let [data] = deleteWebhook(user, req);
     expect(user.preferences.webhooks).to.eql({'another-id': {}});
-    expect(res).to.equal(user.preferences.webhooks);
+    expect(data).to.equal(user.preferences.webhooks);
   });
 });

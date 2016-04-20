@@ -39,9 +39,9 @@ describe('shared.ops.addPushDevice', () => {
   });
 
   it('adds a push device', () => {
-    let response = addPushDevice(user, {body: {regId, type}});
+    let [, message] = addPushDevice(user, {body: {regId, type}});
 
-    expect(response.message).to.equal(i18n.t('pushDeviceAdded'));
+    expect(message).to.equal(i18n.t('pushDeviceAdded'));
     expect(user.pushDevices[0].type).to.equal(type);
     expect(user.pushDevices[0].regId).to.equal(regId);
   });
