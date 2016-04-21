@@ -11,7 +11,7 @@ describe('payments : amazon', () => {
     user = await generateUser();
   });
 
-  it('verify access token', async () => {
+  it('verifies access token', async () => {
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',

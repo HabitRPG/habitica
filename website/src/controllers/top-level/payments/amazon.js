@@ -10,7 +10,8 @@ import {
   // NotAuthorized,
   BadRequest,
 } from '../../../libs/api-v3/errors';
-import amz from '../../../libs/api-v3/amazonPayments';
+import amzLib from '../../../libs/api-v3/amazonPayments';
+import { authWithHeaders } from '../../../middlewares/api-v3/auth';
 
 let api = {};
 
@@ -26,7 +27,7 @@ api.verifyAccessToken = {
   method: 'POST',
   url: '/payments/amazon/verifyAccessToken',
   async handler (req, res) {
-    await amz.getTokenInfo(req.body.access_token)
+    await amzLib.getTokenInfo(req.body.access_token)
     .then(() => {
       res.respond(200, {});
     }).catch((error) => {
@@ -46,47 +47,59 @@ api.verifyAccessToken = {
 api.createOrderReferenceId = {
   method: 'POST',
   url: '/payments/amazon/createOrderReferenceId',
+  // middlewares: [authWithHeaders()],
   async handler (req, res) {
-    if (!req.body.billingAgreementId) {
-      throw new BadRequest(res.t('missingBillingAgreementId'));
-    }
 
-    let response = await amz.createOrderReferenceId({
-      Id: req.body.billingAgreementId,
-      IdType: 'BillingAgreement',
-      ConfirmNow: false,
-    }).then(() => {
+    try {
+      let response = await amzLib.createOrderReferenceId({
+        Id: req.body.billingAgreementId,
+        IdType: 'BillingAgreement',
+        ConfirmNow: false,
+        AWSAccessKeyId: 'something',
+      });
       res.respond(200, {
         orderReferenceId: response.OrderReferenceDetails.AmazonOrderReferenceId,
       });
-    }).catch(errStr => {
-      throw new BadRequest(res.t(errStr));
-    });
+    } catch (error) {
+      throw new BadRequest(error);
+    }
+
   },
 };
 
-/*
-api.checkout = function checkout (req, res, next) {
-  if (!req.body || !req.body.orderReferenceId) {
-    return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
-  }
+/**
+ * @api {post} /api/v3/payments/amazon/checkout do checkout
+ * @apiVersion 3.0.0
+ * @apiName AmazonCheckout
+ * @apiGroup Payments
+ *
+ * @apiParam {string} billingAgreementId billing agreement id
+ * @apiSuccess {object} object containing { orderReferenceId }
+ **/
+api.checkout = {
+  method: 'POST',
+  url: '/payments/amazon/checkout',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let gift = req.body.gift;
+    let user = res.locals.user;
+    let orderReferenceId = req.body.orderReferenceId;
+    let amount = 5;
 
-  let gift = req.body.gift;
-  let user = res.locals.user;
-  let orderReferenceId = req.body.orderReferenceId;
-  let amount = 5;
-
-  if (gift) {
-    if (gift.type === 'gems') {
-      amount = gift.gems.amount / 4;
-    } else if (gift.type === 'subscription') {
-      amount = shared.content.subscriptionBlocks[gift.subscription.key].price;
+    if (gift) {
+      if (gift.type === 'gems') {
+        amount = gift.gems.amount / 4;
+      } else if (gift.type === 'subscription') {
+        amount = shared.content.subscriptionBlocks[gift.subscription.key].price;
+      }
     }
-  }
 
-  async.series({
-    setOrderReferenceDetails (cb) {
-      amzPayment.offAmazonPayments.setOrderReferenceDetails({
+    /* if (!req.body || !req.body.orderReferenceId) {
+      return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
+    } */
+
+    try {
+      await amzLib.setOrderReferenceDetails({
         AmazonOrderReferenceId: orderReferenceId,
         OrderReferenceAttributes: {
           OrderTotal: {
@@ -99,17 +112,11 @@ api.checkout = function checkout (req, res, next) {
             StoreName: 'HabitRPG',
           },
         },
-      }, cb);
-    },
+      });
 
-    confirmOrderReference (cb) {
-      amzPayment.offAmazonPayments.confirmOrderReference({
-        AmazonOrderReferenceId: orderReferenceId,
-      }, cb);
-    },
+      await amzLib.confirmOrderReference({ AmazonOrderReferenceId: orderReferenceId });
 
-    authorize (cb) {
-      amzPayment.offAmazonPayments.authorize({
+      await amzLib.authorize({
         AmazonOrderReferenceId: orderReferenceId,
         AuthorizationReferenceId: shared.uuid().substring(0, 32),
         AuthorizationAmount: {
@@ -119,23 +126,16 @@ api.checkout = function checkout (req, res, next) {
         SellerAuthorizationNote: 'HabitRPG Payment',
         TransactionTimeout: 0,
         CaptureNow: true,
-      }, function checkAuthorizationStatus (err) {
-        if (err) return cb(err);
-
-        if (res.AuthorizationDetails.AuthorizationStatus.State === 'Declined') {
-          return cb(new Error('The payment was not successfull.'));
-        }
-
-        return cb();
       });
-    },
 
-    closeOrderReference (cb) {
-      amzPayment.offAmazonPayments.closeOrderReference({
-        AmazonOrderReferenceId: orderReferenceId,
-      }, cb);
-    },
+      await amzLib.closeOrderReference({ AmazonOrderReferenceId: orderReferenceId });
 
+      res.respond(200);
+    } catch(error) {
+      throw new BadRequest(error);
+    }
+
+  /*
     executePayment (cb) {
       async.waterfall([
         function findUser (cb2) {
@@ -153,16 +153,13 @@ api.checkout = function checkout (req, res, next) {
           }
 
           payments[method](data, cb2);
-        },
-      ], cb);
-    },
-  }, function result (err) {
-    if (err) return next(err);
-
-    res.sendStatus(200);
-  });
+        }, */
+  },
 };
 
+
+
+/*
 api.subscribe = function subscribe (req, res, next) {
   if (!req.body || !req.body.billingAgreementId) {
     return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
