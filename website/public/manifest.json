@@ -8,7 +8,7 @@
             "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-sanitize/angular-sanitize.js",
-            "bower_components/marked/lib/marked.js",
+            "bower_components/remarkable/dist/remarkable.min.js",
             "bower_components/angular-ui-router/release/angular-ui-router.js",
             "bower_components/angular-resource/angular-resource.min.js",
             "bower_components/angular-ui-utils/ui-utils.min.js",

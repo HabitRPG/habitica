@@ -31,7 +31,7 @@ module.exports = function karmaConfig (config) {
       'website/public/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
       'website/public/bower_components/select2/select2.js',
       'website/public/bower_components/angular-ui-select2/src/select2.js',
-      'website/public/bower_components/marked/lib/marked.js',
+      'website/public/bower_components/remarkable/dist/remarkable.min.js',
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
 

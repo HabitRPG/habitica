@@ -4,6 +4,10 @@ var router = express.Router();
 var _ = require('lodash');
 var locals = require('../middlewares/locals');
 var i18n = require('../libs/i18n');
+var Remarkable = require('remarkable');
+var md = new Remarkable({
+  html: true,
+});
 
 const TOTAL_USER_COUNT = '1,100,000';
 
@@ -26,7 +30,7 @@ _.each(pages, function(name){
   router.get('/static/' + name, i18n.getUserLanguage, locals, function(req, res) {
     res.render( 'static/' + name, {
       env: res.locals.habitrpg,
-      marked: require('marked'),
+      md: md,
       userCount: TOTAL_USER_COUNT
     });
   });
@@ -40,7 +44,7 @@ _.each(shareables, function(name){
   router.get('/social/' + name, i18n.getUserLanguage, locals, function(req, res) {
     res.render( 'social/' + name, {
       env: res.locals.habitrpg,
-      marked: require('marked'),
+      md: md,
       userCount: TOTAL_USER_COUNT
     });
   });
