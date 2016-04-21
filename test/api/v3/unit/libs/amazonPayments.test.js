@@ -92,7 +92,7 @@ describe('amazonPayments', () => {
   });
 
   describe.only('#executePayment', () => {
-    it('succeeds', () => {
+    it('succeeds not as a gift', () => {
     });
 
     it('succeeds as a gift', () => {

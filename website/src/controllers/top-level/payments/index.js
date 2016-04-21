@@ -36,6 +36,9 @@ function revealMysteryItems (user) {
   });
 }
 
+// @TODO: HEREHERE
+api.createSubscription = async function createSubscription (data) {
+}
 api.createSubscription = function createSubscription (data, cb) {
   let recipient = data.gift ? data.gift.member : data.user;
   let plan = recipient.purchased.plan;
@@ -150,6 +153,9 @@ api.cancelSubscription = function cancelSubscription (data, cb) {
   analytics.track('unsubscribe', analyticsData);
 };
 
+// @TODO: HEREHERE
+api.buyGems = async function buyGems (data) {
+};
 api.buyGems = function buyGems (data, cb) {
   let amt = data.amount || 5;
   amt = data.gift ? data.gift.gems.amount / 4 : amt;
@@ -229,5 +235,4 @@ api.amazonSubscribeCancel = amazon.subscribeCancel;
 api.iapAndroidVerify = iap.androidVerify;
 api.iapIosVerify = iap.iosVerify;
 
-// module.exports = api;
-module.exports = {}; // @TODO HEREHERE
+module.exports = api;

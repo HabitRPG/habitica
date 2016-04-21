@@ -12,6 +12,7 @@ import {
 } from '../../../libs/api-v3/errors';
 import amzLib from '../../../libs/api-v3/amazonPayments';
 import { authWithHeaders } from '../../../middlewares/api-v3/auth';
+var payments = require('./index');
 
 let api = {};
 
@@ -130,31 +131,22 @@ api.checkout = {
 
       await amzLib.closeOrderReference({ AmazonOrderReferenceId: orderReferenceId });
 
+      // execute payment
+      let giftUser = await User.findById(gift ? gift.uuid : undefined);
+      let data = { giftUser, paymentMethod: 'Amazon Payments' };
+      let method = 'buyGems';
+      if (gift) {
+        if (gift.type === 'subscription') method = 'createSubscription';
+        gift.member = giftUser;
+        data.gift = gift;
+        data.paymentMethod = 'Gift';
+      }
+      await payments[method](data);
+
       res.respond(200);
     } catch(error) {
       throw new BadRequest(error);
     }
-
-  /*
-    executePayment (cb) {
-      async.waterfall([
-        function findUser (cb2) {
-          User.findById(gift ? gift.uuid : undefined, cb2);
-        },
-        function executeAmazonPayment (member, cb2) {
-          let data = {user, paymentMethod: 'Amazon Payments'};
-          let method = 'buyGems';
-
-          if (gift) {
-            if (gift.type === 'subscription') method = 'createSubscription';
-            gift.member = member;
-            data.gift = gift;
-            data.paymentMethod = 'Gift';
-          }
-
-          payments[method](data, cb2);
-        }, */
-  },
 };
 
 
