@@ -24,6 +24,14 @@ describe('amazonPayments', () => {
       amazonPayments.connect = amzOldConnect;
     });
 
+    it('returns tokenInfo', async (done) => {
+      let result = await amz.getTokenInfo();
+      expect(result).to.eql(thisToken);
+      done();
+    });
+  });
+
+  describe('#getTokenInfo', () => {
     it('validates access_token parameter', async (done) => {
       try {
         await amz.getTokenInfo();
@@ -32,17 +40,10 @@ describe('amazonPayments', () => {
         done();
       }
     });
-
-    it('returns tokenInfo', async (done) => {
-      let result = await amz.getTokenInfo();
-      expect(result).to.eql(thisToken);
-      done();
-    });
   });
 
   describe('#createOrderReferenceId', () => {
     it('succeeds', () => {
     });
   });
-
 });

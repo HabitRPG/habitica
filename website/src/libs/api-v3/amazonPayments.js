@@ -5,7 +5,7 @@ const IS_PROD = nconf.get('NODE_ENV') === 'production';
 
 let api = {};
 
-function connect (amazonPayments) {
+function connect (amazonPayments) { // eslint-disable-line no-shadow
   return amazonPayments.connect({
     environment: amazonPayments.Environment[IS_PROD ? 'Production' : 'Sandbox'],
     sellerId: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
