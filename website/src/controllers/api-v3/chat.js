@@ -15,7 +15,6 @@ import nconf from 'nconf';
 import setupNconf from '../../libs/api-v3/setupNconf';
 setupNconf();
 
-console.log('+++ +++ this:', nconf.get('FLAG_REPORT_EMAIL'));
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
@@ -30,7 +29,7 @@ let api = {};
  *
  * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Array} chat An array of chat messages
+ * @apiSuccess {Array} data An array of chat messages
  */
 api.getChat = {
   method: 'GET',
@@ -57,11 +56,11 @@ api.getChat = {
  * @apiName PostCat
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id
- * @apiParam {message} message The chat's message
- * @apiParam {previousMsg} previousMsg The previous chat message which will force a return of the full group chat
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {message} Body parameter - message The message to post
+ * @apiParam {previousMsg} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
  *
- * @apiSuccess {Array} chat An array of chat messages
+ * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
  */
 api.postChat = {
   method: 'POST',
@@ -110,10 +109,10 @@ api.postChat = {
  * @apiName LikeChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id
+ * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {chatId} chatId The chat message _id
  *
- * @apiSuccess {Array} chat An array of chat messages
+ * @apiSuccess {Object} data The liked chat message
  */
 api.likeChat = {
   method: 'POST',
@@ -157,10 +156,10 @@ api.likeChat = {
  * @apiName LikeChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id
- * @apiParam {chatId} chatId The chat message _id
+ * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {chatId} chatId The chat message id
  *
- * @apiSuccess {Array} chat An array of chat messages
+ * @apiSuccess {object} data The flagged chat message
  */
 api.flagChat = {
   method: 'POST',
@@ -258,14 +257,15 @@ api.flagChat = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
+ * @apiDescription Admin-only
  * @apiVersion 3.0.0
  * @apiName ClearFlags
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id
- * @apiParam {chatId} chatId The chat message _id
+ * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {chatId} chatId The chat message id
  *
- * @apiSuccess {Object} An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.clearChatFlags = {
   method: 'Post',
@@ -309,7 +309,9 @@ api.clearChatFlags = {
  * @apiName SeenChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id
+ * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiSuccess {Object} data An empty object
  */
 api.seenChat = {
   method: 'POST',
@@ -331,7 +333,7 @@ api.seenChat = {
     update.$unset[`newMessages.${groupId}`] = true;
 
     await User.update({_id: user._id}, update).exec();
-    res.respond(200);
+    res.respond(200, {});
   },
 };
 
@@ -341,11 +343,12 @@ api.seenChat = {
  * @apiName DeleteChat
  * @apiGroup Chat
  *
+ * @apiParam {string} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
  * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string} chatId The chat _id
+ * @apiParam {string} chatId The chat message id
  *
- * @apiSuccess {Array} The update chat array
- * @apiSuccess {Object} An empty object when the previous message was deleted
+ * @apiSuccess data The updated chat array or an empty object if no message was posted after previousMsg
+ * @apiSuccess {Object} data An empty object when the previous message was deleted
  */
 api.deleteChat = {
   method: 'DELETE',

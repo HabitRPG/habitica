@@ -9,14 +9,15 @@ import _ from 'lodash';
 let api = {};
 
 /**
- * @api {get} /api/v3/hall/patrons Get all Patrons. Only the first 50 patrons are returned. More can be accessed passing ?page=n.
+ * @api {get} /api/v3/hall/patrons Get all Patrons.
+ * @apiDescription Only the first 50 patrons are returned. More can be accessed passing ?page=n.
  * @apiVersion 3.0.0
  * @apiName GetPatrons
  * @apiGroup Hall
  *
- * @apiParam {Number} page The result page. Default is 0
+ * @apiParam {Number} page Query Parameter - The result page. Default is 0
  *
- * @apiSuccess {Array} patron An array of patrons
+ * @apiSuccess {Array} data An array of patrons
  */
 api.getPatrons = {
   method: 'GET',
@@ -52,7 +53,7 @@ api.getPatrons = {
  * @apiName GetHeroes
  * @apiGroup Hall
  *
- * @apiSuccess {Array} hero An array of heroes
+ * @apiSuccess {Array} data An array of heroes
  */
 api.getHeroes = {
   method: 'GET',
@@ -74,17 +75,17 @@ api.getHeroes = {
 
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
-// TODO rename?
 
 const heroAdminFields = 'contributor balance profile.name purchased items auth';
 
 /**
- * @api {get} /api/v3/hall/heroes/:heroId Get an hero given his _id. Must be an admin to make this request
+ * @api {get} /api/v3/hall/heroes/:heroId Get an hero given his _id.
+ * @apiDescription Must be an admin to make this request
  * @apiVersion 3.0.0
  * @apiName GetHero
  * @apiGroup Hall
  *
- * @apiSuccess {Object} hero The hero object
+ * @apiSuccess {Object} data The hero object
  */
 api.getHero = {
   method: 'GET',
@@ -116,12 +117,13 @@ api.getHero = {
 const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 
 /**
- * @api {put} /api/v3/hall/heroes/:heroId Update an hero. Must be an admin to make this request
+ * @api {put} /api/v3/hall/heroes/:heroId Update an hero.
+ * @apiDescription Must be an admin to make this request
  * @apiVersion 3.0.0
  * @apiName UpdateHero
  * @apiGroup Hall
  *
- * @apiSuccess {Object} hero The updated hero object
+ * @apiSuccess {Object} data The updated hero object
  */
 api.updateHero = {
   method: 'PUT',
@@ -162,7 +164,7 @@ api.updateHero = {
     if (updateData.itemPath && updateData.itemVal &&
         updateData.itemPath.indexOf('items.') === 0 &&
         User.schema.paths[updateData.itemPath]) {
-      _.set(hero, updateData.itemPath, updateData.itemVal); // Sanitization at 5c30944 (deemed unnecessary) TODO review
+      _.set(hero, updateData.itemPath, updateData.itemVal); // Sanitization at 5c30944 (deemed unnecessary)
     }
 
     if (updateData.auth && _.isBoolean(updateData.auth.blocked)) hero.auth.blocked = updateData.auth.blocked;

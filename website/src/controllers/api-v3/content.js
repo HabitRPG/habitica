@@ -61,14 +61,15 @@ async function saveContentToDisk (language, content) {
 }
 
 /**
- * @api {get} /api/v3/content Get all available content objects. Does not require authentication.
+ * @api {get} /api/v3/content Get all available content objects.
+ * @apiDescription Does not require authentication.
  * @apiVersion 3.0.0
  * @apiName ContentGet
  * @apiGroup Content
  *
- * @apiParam {string} language Optional query parameter, the  language code used for the items' strings. Defaulting to english
+ * @apiParam {string} language Query parameter, the  language code used for the items' strings. Defaulting to english
  *
- * @apiSuccess {Object} content All the content available on Habitica
+ * @apiSuccess {Object} data All the content available on Habitica
  */
 api.getContent = {
   method: 'GET',
@@ -95,7 +96,9 @@ api.getContent = {
     res.set({
       'Content-Type': 'application/json',
     });
-    res.status(200).send(content);
+
+    let jsonResString = `{"success": true, "data": ${content}}`;
+    res.status(200).send(jsonResString);
 
     // save the file in background unless it's already cached or being written right now
     if (cachedContentResponses[language] !== true && cacheBeingWritten[language] !== true) {

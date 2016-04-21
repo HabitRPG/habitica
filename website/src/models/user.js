@@ -231,7 +231,6 @@ export let schema = new Schema({
   },
 
   history: {
-    // TODO absolutely preen these for everyone
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
     todos: Array, // [{data: Date, value: Number}] // big peformance issues if these are defined
   },

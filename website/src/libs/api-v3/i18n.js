@@ -68,8 +68,7 @@ langCodes.forEach((code) => {
 
     momentLangs[code] = f;
   } catch (e) { // eslint-disable-lint no-empty
-    // TODO implement some type of error loggin?
-    // The catch block is mandatory so can't be removed
+    // The catch block is mandatory so it won't crash the server
   }
 });
 

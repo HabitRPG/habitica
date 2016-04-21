@@ -12,14 +12,14 @@ website/public/
 
 # Temporarilly disabled. These should be removed when the linting errors are fixed
 common/script/content/index.js
-common/script/fns/randomDrop.js
 common/script/public/**/*.js
 
 website/src/**/api-v2/**/*.js
 website/src/routes/payments.js
 website/src/routes/pages.js
-website/src/middlewares/
-website/src/controllers/payments/
+website/src/middlewares/apiThrottle.js
+website/src/middlewares/forceRefresh.js
+website/src/controllers/top-level/payments/paypal.js
 
 debug-scripts/*
 tasks/*.js

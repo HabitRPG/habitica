@@ -35,8 +35,9 @@ let api = {};
  * @apiGroup Group
  *
  * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {string} questKey
  *
- * @apiSuccess {Object} quest Quest Object
+ * @apiSuccess {Object} data Quest object
  */
 api.inviteToQuest = {
   method: 'POST',
@@ -139,7 +140,7 @@ api.inviteToQuest = {
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} quest Quest Object
+ * @apiSuccess {Object} data Quest Object
  */
 api.acceptQuest = {
   method: 'POST',
@@ -196,7 +197,7 @@ api.acceptQuest = {
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} quest Quest Object
+ * @apiSuccess {Object} data Quest Object
  */
 api.rejectQuest = {
   method: 'POST',
@@ -250,12 +251,12 @@ api.rejectQuest = {
 /**
  * @api {post} /api/v3/groups/:groupId/quests/force-start Accept a pending quest
  * @apiVersion 3.0.0
- * @apiName forceStart
+ * @apiName ForceQuestStart
  * @apiGroup Group
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} quest Quest Object
+ * @apiSuccess {Object} data Quest Object
  */
 api.forceStart = {
   method: 'POST',
@@ -307,7 +308,7 @@ api.forceStart = {
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} quest Quest Object
+ * @apiSuccess {Object} data Quest Object
  */
 api.cancelQuest = {
   method: 'POST',
@@ -356,7 +357,7 @@ api.cancelQuest = {
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} quest Quest Object
+ * @apiSuccess {Object} data Quest Object
  */
 api.abortQuest = {
   method: 'POST',
@@ -410,7 +411,7 @@ api.abortQuest = {
  *
  * @apiParam {string} groupId The group _id (or 'party')
  *
- * @apiSuccess {Object} quest Quest Object
+ * @apiSuccess {Object} data Quest Object
  */
 api.leaveQuest = {
   method: 'POST',

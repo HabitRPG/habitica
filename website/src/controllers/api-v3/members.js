@@ -27,7 +27,7 @@ let api = {};
  *
  * @apiParam {UUID} memberId The member's id
  *
- * @apiSuccess {object} member The member object
+ * @apiSuccess {object} data The member object
  */
 api.getMember = {
   method: 'GET',
@@ -129,7 +129,8 @@ function _getMembersForItem (type) {
 }
 
 /**
- * @api {get} /api/v3/groups/:groupId/members Get members for a group with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/groups/:groupId/members Get members for a group
+ * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetMembersForGroup
  * @apiGroup Member
@@ -138,7 +139,7 @@ function _getMembersForItem (type) {
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
  * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (liek when making a request for a single member)
  *
- * @apiSuccess {array} members An array of members, sorted by _id
+ * @apiSuccess {array} data An array of members, sorted by _id
  */
 api.getMembersForGroup = {
   method: 'GET',
@@ -148,7 +149,8 @@ api.getMembersForGroup = {
 };
 
 /**
- * @api {get} /api/v3/groups/:groupId/invites Get invites for a group with a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/groups/:groupId/invites Get invites for a group
+ * @apiDescription With a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetInvitesForGroup
  * @apiGroup Member
@@ -156,7 +158,7 @@ api.getMembersForGroup = {
  * @apiParam {UUID} groupId The group id
  * @apiParam {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
  *
- * @apiSuccess {array} invites An array of invites, sorted by _id
+ * @apiSuccess {array} data An array of invites, sorted by _id
  */
 api.getInvitesForGroup = {
   method: 'GET',
@@ -166,7 +168,8 @@ api.getInvitesForGroup = {
 };
 
 /**
- * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge with a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge
+ * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
  * @apiVersion 3.0.0
  * @apiName GetMembersForChallenge
  * @apiGroup Member
@@ -174,7 +177,7 @@ api.getInvitesForGroup = {
  * @apiParam {UUID} challengeId The challenge id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
  *
- * @apiSuccess {array} members An array of members, sorted by _id
+ * @apiSuccess {array} data An array of members, sorted by _id
  */
 api.getMembersForChallenge = {
   method: 'GET',
@@ -192,7 +195,7 @@ api.getMembersForChallenge = {
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {UUID} member The member _id
  *
- * @apiSuccess {object} member Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ * @apiSuccess {object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
  */
 api.getChallengeMemberProgress = {
   method: 'GET',
@@ -242,10 +245,10 @@ api.getChallengeMemberProgress = {
  * @apiName SendPrivateMessage
  * @apiGroup Members
  *
- * @apiParam {String} message The message
- * @apiParam {UUID} toUserId The toUser _id
+ * @apiParam {String} message Body parameter - The message
+ * @apiParam {UUID} toUserId Body parameter - The user to contact
  *
- * @apiSuccess {Object} empty An empty Object
+ * @apiSuccess {Object} data An empty Object
  */
 api.sendPrivateMessage = {
   method: 'POST',
@@ -291,10 +294,10 @@ api.sendPrivateMessage = {
  * @apiName TransferGems
  * @apiGroup Members
  *
- * @apiParam {String} message The message
- * @apiParam {UUID} toUserId The toUser _id
+ * @apiParam {String} message Body parameter The message
+ * @apiParam {UUID} toUserId Body parameter The toUser _id
  *
- * @apiSuccess {Object} empty An empty Object
+ * @apiSuccess {Object} data An empty Object
  */
 api.transferGems = {
   method: 'POST',
@@ -346,8 +349,8 @@ api.transferGems = {
       ]);
     }
 
-    //  @TODO: Add push notifications
-    //  pushNotify.sendNotify(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
+    // TODO: Add push notifications
+    // pushNotify.sendNotify(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
 
     res.respond(200, {});
   },

@@ -33,9 +33,8 @@ api.capByLevel = statHelpers.capByLevel;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
-// TODO under api.libs?
 import splitWhitespace from './libs/splitWhitespace';
-const $w = api.$w = splitWhitespace;
+api.$w = splitWhitespace;
 
 import dotSet from './libs/dotSet';
 api.dotSet = dotSet;
@@ -85,11 +84,38 @@ api.pickDeep = pickDeep;
 import count from './count';
 api.count = count;
 
-// TODO As ops and fns are ported, exported them through the api object
+import statsComputed from './libs/statsComputed';
+api.statsComputed = statsComputed;
+
+import autoAllocate from './fns/autoAllocate';
+import crit from './fns/crit';
+import handleTwoHanded from './fns/handleTwoHanded';
+import predictableRandom from './fns/predictableRandom';
+import randomDrop from './fns/randomDrop';
+import randomVal from './fns/randomVal';
+import resetGear from './fns/resetGear';
+import ultimateGear from './fns/ultimateGear';
+import updateStats from './fns/updateStats';
+
+api.fns = {
+  autoAllocate,
+  crit,
+  handleTwoHanded,
+  predictableRandom,
+  randomDrop,
+  randomVal,
+  resetGear,
+  ultimateGear,
+  updateStats,
+};
+
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
 import allocate from './ops/allocate';
 import buy from './ops/buy';
+import buyGear from './ops/buyGear';
+import buyPotion from './ops/buyPotion';
+import buyArmoire from './ops/buyArmoire';
 import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
 import buySpecialSpell from './ops/buySpecialSpell';
@@ -127,6 +153,9 @@ api.ops = {
   sleep,
   allocate,
   buy,
+  buyGear,
+  buyPotion,
+  buyArmoire,
   buyMysterySet,
   buySpecialSpell,
   buyQuest,
@@ -160,27 +189,11 @@ api.ops = {
   reset,
 };
 
-import handleTwoHanded from './fns/handleTwoHanded';
-import predictableRandom from './fns/predictableRandom';
-import randomVal from './fns/randomVal';
-import ultimateGear from './fns/ultimateGear';
-import autoAllocate from './fns/autoAllocate';
-
-api.fns = {
-  handleTwoHanded,
-  predictableRandom,
-  randomVal,
-  ultimateGear,
-  autoAllocate,
-};
-
-
 /*
 ------------------------------------------------------
 User (prototype wrapper to give it ops, helper funcs, and virtuals
 ------------------------------------------------------
  */
-
 
 /*
 User is now wrapped (both on client and server), adding a few new properties:
@@ -215,7 +228,7 @@ TODO
 import importedOps from './ops';
 import importedFns from './fns';
 
-// TODO redo
+// TODO Kept for the client side
 api.wrap = function wrapUser (user, main = true) {
   if (user._wrapped) return;
   user._wrapped = true;
@@ -259,6 +272,9 @@ api.wrap = function wrapUser (user, main = true) {
       releaseMounts: _.partial(importedOps.releaseMounts, user),
       releaseBoth: _.partial(importedOps.releaseBoth, user),
       buy: _.partial(importedOps.buy, user),
+      buyPotion: _.partial(importedOps.buyPotion, user),
+      buyArmoire: _.partial(importedOps.buyArmoire, user),
+      buyGear: _.partial(importedOps.buyGear, user),
       buyQuest: _.partial(importedOps.buyQuest, user),
       buyMysterySet: _.partial(importedOps.buyMysterySet, user),
       hourglassPurchase: _.partial(importedOps.hourglassPurchase, user),
@@ -285,23 +301,14 @@ api.wrap = function wrapUser (user, main = true) {
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
+    statsComputed: _.partial(statsComputed, user),
     ultimateGear: _.partial(importedFns.ultimateGear, user),
     nullify: _.partial(importedFns.nullify, user),
   };
 
   Object.defineProperty(user, '_statsComputed', {
     get () {
-      let computed = _.reduce(['per', 'con', 'str', 'int'], (m, stat) => {
-        m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), (m2, path) => {
-          let item;
-          let val = user.fns.dotGet(path);
-          return m2 + (path.indexOf('items.gear') !== -1 ? (item = content.gear.flat[val], (Number(item ? item[stat] : undefined) || 0) * ((item ? item.klass : undefined) === user.stats.class || (item ? item.specialClass : undefined) === user.stats.class ? 1.5 : 1)) : Number(val[stat]) || 0);
-        }, 0);
-        m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
-        return m;
-      }, {});
-      computed.maxMP = computed.int * 2 + 30;
-      return computed;
+      return statsComputed(user);
     },
   });
 };

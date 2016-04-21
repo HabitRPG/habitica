@@ -4,12 +4,13 @@ import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode'
 let api = {};
 
 /**
- * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user
+ * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user.
+ * @apiDescription Only available in development mode.
  * @apiVersion 3.0.0
  * @apiName AddTenGems
  * @apiGroup Development
  *
- * @apiSuccess {Object} empty An empty Object
+ * @apiSuccess {Object} data An empty Object
  */
 api.addTenGems = {
   method: 'POST',
@@ -27,12 +28,13 @@ api.addTenGems = {
 };
 
 /**
- * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user
+ * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user.
+ * @apiDescription Only available in development mode.
  * @apiVersion 3.0.0
  * @apiName AddHourglass
  * @apiGroup Development
  *
- * @apiSuccess {Object} empty An empty Object
+ * @apiSuccess {Object} data An empty Object
  */
 api.addHourglass = {
   method: 'POST',

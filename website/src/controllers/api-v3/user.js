@@ -24,7 +24,7 @@ let api = {};
  * @apiName UserGet
  * @apiGroup User
  *
- * @apiSuccess {Object} user The user object
+ * @apiSuccess {Object} data The user object
  */
 api.getUser = {
   method: 'GET',
@@ -51,7 +51,7 @@ api.getUser = {
  * @apiName UserGetBuyList
  * @apiGroup User
  *
- * @apiSuccess {Object} list The buy list
+ * @apiSuccess {Object} data The buy list
  */
 api.getBuyList = {
   method: 'GET',
@@ -141,12 +141,13 @@ let checkPreferencePurchase = (user, path, item) => {
 };
 
 /**
- * @api {put} /api/v3/user Update the user. Example body: {'stats.hp':50, 'preferences.background': 'beach'}
+ * @api {put} /api/v3/user Update the user.
+ * @apiDescription Example body: {'stats.hp':50, 'preferences.background': 'beach'}
  * @apiVersion 3.0.0
  * @apiName UserUpdate
  * @apiGroup User
  *
- * @apiSuccess user object The updated user object
+ * @apiSuccess {object} data The updated user object
  */
 api.updateUser = {
   method: 'PUT',
@@ -175,14 +176,14 @@ api.updateUser = {
 };
 
 /**
- * @api {delete} /api/v3/user DELETE an authenticated user's profile
+ * @api {delete} /api/v3/user DELETE an authenticated user's account
  * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam {string} password The user's password unless it's a Facebook account
+ * @apiParam {string} password The user's password (unless it's a Facebook account)
  *
- * @apiSuccess {Object} empty An empty Object
+ * @apiSuccess {Object} data An empty Object
  */
 api.deleteUser = {
   method: 'DELETE',
@@ -242,7 +243,9 @@ function _cleanChecklist (task) {
  * @apiVersion 3.0.0
  * @apiName UserGetAnonymized
  * @apiGroup User
- * @apiSuccess {Object} object The object { user, tasks }
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Array} data.tasks
  **/
 api.getUserAnonymized = {
   method: 'GET',
@@ -309,7 +312,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiParam {string} spellId The spell to cast.
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a spell on a party member or a task.
  *
- * @apiSuccess mixed Will return the modified targets. For party members only the necessary fields will be populated.
+ * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated.
  */
 api.castSpell = {
   method: 'POST',
@@ -419,7 +422,7 @@ api.castSpell = {
  * @apiName UserSleep
  * @apiGroup User
  *
- * @apiSuccess {Object} Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
+ * @apiSuccess {Object} data Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
  */
 api.sleep = {
   method: 'POST',
@@ -474,15 +477,14 @@ api.allocateNow = {
 };
 
 /**
- * @api {post} /api/v3/user/buy/:key Buy a content item.
+ * @api {post} /user/buy/:key Buy gear, armoire or potion
  * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
  *
  * @apiParam {string} key The item to buy.
  *
- * @apiSuccess {Object} data `items, achievements, stats, flags`
- * @apiSuccess {object} armoireResp Optional extra item given by the armoire
+ * @apiSuccess {Object} data `items`
  * @apiSuccess {string} message
  */
 api.buy = {
@@ -498,7 +500,77 @@ api.buy = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set.
+ * @api {post} /user/buy-gear/:key Buy a piece of gear.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyGear
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data `items`
+ * @apiSuccess {string} message
+ */
+api.buyGear = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-gear/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyRes = common.ops.buyGear(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyRes);
+  },
+};
+
+/**
+ * @api {post} /user/buy-armoire Buy an armoire item.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyArmoire
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data `items flags`
+ * @apiSuccess {object} armoireResp Optional extra item given by the armoire
+ * @apiSuccess {string} message
+ */
+api.buyArmoire = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-armoire',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyArmoireResponse = common.ops.buyArmoire(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyArmoireResponse);
+  },
+};
+
+/**
+ * @api {post} /user/buy-potion Buy a potion.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyPotion
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data `stats`
+ * @apiSuccess {string} message
+ */
+api.buyPotion = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-potion',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyPotionResponse = common.ops.buyPotion(user, req, res.analytics);
+    await user.save();
+    res.respond(200, buyPotionResponse);
+  },
+};
+
+/**
+ * @api {post} /user/buy-mystery-set/:key Buy a mystery set.
  * @apiVersion 3.0.0
  * @apiName UserBuyMysterySet
  * @apiGroup User

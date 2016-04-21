@@ -1,13 +1,13 @@
-import nconf from 'nconf';
+/* import nconf from 'nconf';
 import stripeModule from 'stripe';
 import async from 'async';
 import payments from './index';
 import { model as User } from '../../../models/user';
 import shared from '../../../../../common';
 import mongoose from 'mongoose';
-import cc from 'coupon-code';
+import cc from 'coupon-code'; */
 
-const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+// const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 
 let api = {};
 /*

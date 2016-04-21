@@ -26,11 +26,11 @@ const BASE_URL = nconf.get('BASE_URL');
 let api = {};
 
 /**
- * @api {get} /export/history.csv Export user tasks history in CSV format. History is only available for habits and dailys so todos and rewards won't be included
+ * @api {get} /export/history.csv Export user tasks history in CSV format.
+ * @apiDescription History is only available for habits and dailys so todos and rewards won't be included NOTE: Part of the private API that may change at any time.
  * @apiVersion 3.0.0
  * @apiName ExportUserHistory
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {string} A cvs file
  */

@@ -26,17 +26,28 @@ describe('POST /user/buy/:key', () => {
       });
   });
 
-  it('buys an item', async () => {
+  it('buys a potion', async () => {
+    await user.update({
+      'stats.gp': 400,
+    });
+
     let potion = content.potion;
     let res = await user.post('/user/buy/potion');
     await user.sync();
 
+    expect(user.stats.hp).to.equal(50);
     expect(res.data).to.eql({
-      items: JSON.parse(JSON.stringify(user.items)), // otherwise dates can't be compared
-      achievements: user.achievements,
       stats: user.stats,
-      flags: JSON.parse(JSON.stringify(user.flags)), // otherwise dates can't be compared
     });
     expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
+  });
+
+  it('buys a piece of gear', async () => {
+    let key = 'armor_warrior_1';
+
+    await user.post(`/user/buy/${key}`);
+    await user.sync();
+
+    expect(user.items.gear.owned).to.eql({ armor_warrior_1: true }); // eslint-disable-line camelcase
   });
 });

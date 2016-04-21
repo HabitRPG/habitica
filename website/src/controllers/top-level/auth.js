@@ -1,7 +1,3 @@
-import {
-  authWithSession,
-} from '../../middlewares/api-v3/auth';
-
 let api = {};
 
 // Internal authentication routes
@@ -10,9 +6,8 @@ let api = {};
 api.logout = {
   method: 'GET',
   url: '/logout',
-  middlewares: [authWithSession],
   async handler (req, res) {
-    req.logout(); // passportjs method
+    if (req.logout) req.logout(); // passportjs method
     req.session = null;
     res.redirect('/');
   },

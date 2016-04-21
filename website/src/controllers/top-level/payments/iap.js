@@ -1,6 +1,4 @@
 import iap from 'in-app-purchase';
-import whatThis from 'in-app-purchase';
-import payments from './index';
 import nconf from 'nconf';
 
 iap.config({
@@ -9,9 +7,9 @@ iap.config({
 });
 
 // Validation ERROR Codes
-const INVALID_PAYLOAD   = 6778001;
-/* const CONNECTION_FAILED = 6778002;
-const PURCHASE_EXPIRED  = 6778003; */ // These variables were never used??
+// const INVALID_PAYLOAD   = 6778001;
+// const CONNECTION_FAILED = 6778002;
+// const PURCHASE_EXPIRED  = 6778003;
 
 let api = {};
 
