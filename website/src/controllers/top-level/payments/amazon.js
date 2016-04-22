@@ -2,7 +2,6 @@
 import cc from 'coupon-code';
 import mongoose from 'mongoose';
 import moment from 'moment';
-import payments from './index';
 import shared from '../../../../../common';
 import { model as User } from '../../../models/user'; */
 import {
@@ -12,7 +11,7 @@ import {
 } from '../../../libs/api-v3/errors';
 import amzLib from '../../../libs/api-v3/amazonPayments';
 import { authWithHeaders } from '../../../middlewares/api-v3/auth';
-var payments = require('./index');
+var payments = require('../../../libs/api-v3/payments');
 
 let api = {};
 
@@ -147,6 +146,7 @@ api.checkout = {
     } catch(error) {
       throw new BadRequest(error);
     }
+  },
 };
 
 

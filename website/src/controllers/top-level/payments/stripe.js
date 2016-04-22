@@ -1,7 +1,7 @@
 /* import nconf from 'nconf';
 import stripeModule from 'stripe';
 import async from 'async';
-import payments from './index';
+import payments from '../../../libs/api-v3/payments';
 import { model as User } from '../../../models/user';
 import shared from '../../../../../common';
 import mongoose from 'mongoose';
