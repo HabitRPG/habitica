@@ -101,7 +101,7 @@
     "inbox": "Messaggi",
     "abuseFlag": "Segnala violazione delle linee guida della community",
     "abuseFlagModalHeading": "Segnalare <%= name %> per violazione?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Sei sicuro di voler segnalare questo post? Dovresti segnalare SOLO i posti che violano le  <%= firstLinkStart %>Linee guida della Community<%= linkEnd %> e/o i <%= secondLinkStart %>Termini di Servizio<%= linkEnd %>. Segnalare impropriamente un post viola le Linee guida della Community e può essere considerata come un'infrazione da parte tua. Motivazioni adeguate per segnalare un post possono essere:<br><br><ul style='margin-left: 10px;'><li>imprecazioni, bestemmie</li><li>bigottismo, calunnie</li><li>argomenti per adulti</li><li>violenza, anche se per scherzo</li><li>spam, messaggi senza senso</li></ul>",
     "abuseFlagModalButton": "Segnala",
     "abuseReported": "Grazie di aver segnalato questa violazione. I moderatori sono stati avvertiti.",
     "abuseAlreadyReported": "Hai già segnalato questo messaggio.",

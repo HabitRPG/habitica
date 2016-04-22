@@ -10,7 +10,7 @@
     "newTaskEditPop": "Pokud je tato volba nastavena, nový úkol se otevře rozbalený a můžeš ihned přidávat poznámky a štítky.",
     "dailyDueDefaultView": "Posílat denní úkoly do záložky zbývající",
     "dailyDueDefaultViewPop": "Pokud je tato možnost zvolena, denní úkoly se budou zobrazovat v záložce Zbývající místo v záložce Vše",
-    "reverseChatOrder": "Show chat messages in reverse order",
+    "reverseChatOrder": "Zobrazit zprávy v opačném pořadí",
     "startCollapsed": "Seznam štítků se v úkolu zobrazí zabalený",
     "startCollapsedPop": "Pokud je tato volba nastavena, seznam štítků bude skryt, když poprvé otevřeš úkol pro úpravu.",
     "startAdvCollapsed": "Pokročilé možnosti se v úkolu zobrazí zabalené.",

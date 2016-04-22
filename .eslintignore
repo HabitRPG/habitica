@@ -1,0 +1,33 @@
+# Compiled and vendored files
+common/dist/
+common/transpiled-babel/
+coverage/
+database_reports/
+migrations/
+website/build/
+website/transpiled-babel/
+
+# The files in website/public/js should be moved out and browserified
+website/public/
+
+# Temporarilly disabled. These should be removed when the linting errors are fixed
+common/script/index.js
+common/script/content/index.js
+common/script/ops/**/*.js
+common/script/fns/**/*.js
+common/script/libs/**/*.js
+common/script/public/**/*.js
+
+website/src/**/*.js
+
+debug-scripts/*
+tasks/*.js
+gulpfile.js
+Gruntfile.js
+newrelic.js
+
+test/api-legacy/**/*
+test/common/simulations/**/*
+test/content/**/*
+test/server_side/**/*
+test/spec/**/*

@@ -137,6 +137,8 @@
     "achievementStressbeastText": "Var med til at overvinde Det Afskyelige Stressbæst i 2014 Vintereventyr-eventet!",
     "achievementBurnout": "Trivselsmarkernes Redning",
     "achievementBurnoutText": "Var med til at overvinde Udbrand og genskabe Udmattelsesånderne i Efterårsfestival-eventet 2015!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Tjek mine fremskridt i Habitica!",
     "cardReceived": "Modtog et kort!",
     "cardReceivedFrom": "<%= cardType %> fra <%= userName %>",

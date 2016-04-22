@@ -112,7 +112,7 @@
     "questEggMonkeyAdjective": "a mischievous",
     "questEggSnailText": "Snail",
     "questEggSnailMountText": "Snail",
-    "questEggSnailAdjective": "a slow but steady",
+    "questEggSnailAdjective": "pomalý, ale neochvějný",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a to se vylíhne v <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Základní",
     "hatchingPotionWhite": "Bílý",

@@ -19,6 +19,7 @@
     "orca": "Orka",
     "royalPurpleGryphon": "Royal Purple Gryphon",
     "phoenix": "Feniks",
+    "bumblebee": "Bumblebee",
     "rarePetPop1": "Kliknite na zlatnu šapu da saznate kako da nabavite ovu retku zver!",
     "rarePetPop2": "Kako nabaviti ovu zver!",
     "potion": "<%= potionType %> napitak",

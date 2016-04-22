@@ -137,6 +137,8 @@
     "achievementStressbeastText": "Segített legyőzni az utálatos stressz-szörnyeteget a 2014-es téli csodaország alatt!",
     "achievementBurnout": "Virágzó mezők megmentője",
     "achievementBurnoutText": "Segített legyőzni Kiégést és visszaszerezte a kifárasztott szellemeket a 2015-ös őszi fesztivál alatt!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Fejlődésem megtekintáse a Habiticán!",
     "cardReceived": "Kártyád érkezett!",
     "cardReceivedFrom": "<%= userName %> küldött neked egy <%= cardType %>",

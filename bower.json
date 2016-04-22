@@ -37,7 +37,7 @@
     "jquery-ui": "1.10.3",
     "jquery.cookie": "1.4.0",
     "js-emoji": "snicker/js-emoji#f25d8a303f",
-    "marked": "0.2.9",
+    "remarkable": "^1.6.2",
     "ngInfiniteScroll": "1.0.0",
     "pnotify": "1.3.1",
     "sticky": "*",

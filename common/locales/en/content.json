@@ -159,6 +159,10 @@
   "questEggSnailMountText": "Snail",
   "questEggSnailAdjective": "a slow but steady",
 
+  "questEggFalconText": "Falcon",
+  "questEggFalconMountText": "Falcon",
+  "questEggFalconAdjective": "a swift",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

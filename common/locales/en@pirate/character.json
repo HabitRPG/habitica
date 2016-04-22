@@ -34,6 +34,7 @@
     "beard": "Beard",
     "mustache": "Mustache",
     "flower": "Flower",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Basic Skins",
     "rainbowSkins": "Rainbow Skins",
     "pastelSkins": "Pastel Skins",
@@ -136,7 +137,7 @@
     "respawn": "Respawn!",
     "youDied": "Avast! Yer dead!",
     "dieText": "Ye've lost a Level, all ye Doubloons, 'n a random piece 'o Equipment. Arise, Habiteer, 'n give a go' again! Curb them negative Habits, be vigilant in completion 'o Dailies, 'n hold Davy Jones' locker at arm's length wit' a Health Potion if ye falter!",
-    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
+    "sureReset": "Ye be sure? This'll reset yer character's class an' allocated points (you'll get them all back t' re-allocate), an' costs 3 sapphires.",
     "purchaseFor": "Purchase fer <%= cost %> Sapphires?",
     "notEnoughMana": "Not enough mana.",
     "invalidTarget": "Invalid target",
@@ -163,5 +164,5 @@
     "int": "INT",
     "showQuickAllocation": "Show stat allocation",
     "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "quickAllocationLevelPopover": "Each level earns ye one point t' assign t' an attribute o' yer choice. Ye can do so manually, or let th' game decide for ye using one o' th' Automatic Allocation options found in User -> Stats."
 }

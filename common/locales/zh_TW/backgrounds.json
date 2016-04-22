@@ -153,5 +153,12 @@
     "backgroundRainforestText": "雨林",
     "backgroundRainforestNotes": "冒險進入一個熱帶雨林。",
     "backgroundStoneCircleText": "石圈",
-    "backgroundStoneCircleNotes": "在石圈裡施法。"
+    "backgroundStoneCircleNotes": "在石圈裡施法。",
+    "backgrounds042016": "SET 23: Released April 2016",
+    "backgroundArcheryRangeText": "Archery Range",
+    "backgroundArcheryRangeNotes": "Practice on the Archery Range.",
+    "backgroundGiantFlowersText": "Giant Flowers",
+    "backgroundGiantFlowersNotes": "Frolic atop Giant Flowers.",
+    "backgroundRainbowsEndText": "End of the Rainbow",
+    "backgroundRainbowsEndNotes": "Discover gold at the End of the Rainbow."
 }

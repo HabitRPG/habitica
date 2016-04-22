@@ -34,6 +34,7 @@
     "beard": "Baard",
     "mustache": "Snor",
     "flower": "Bloem",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Basishuidskleuren",
     "rainbowSkins": "Regenbooghuidskleuren",
     "pastelSkins": "Pastelhuidskleuren",
@@ -161,7 +162,7 @@
     "con": "LIC",
     "per": "PER",
     "int": "INT",
-    "showQuickAllocation": "Show stat allocation",
-    "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "showQuickAllocation": "Toon verdeling eigenschapspunten",
+    "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
+    "quickAllocationLevelPopover": "Met ieder level verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker."
 }

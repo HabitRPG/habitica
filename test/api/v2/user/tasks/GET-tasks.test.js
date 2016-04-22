@@ -19,7 +19,7 @@ describe('GET /user/tasks/', () => {
   });
 
   it('gets all tasks', async () => {
-    return user.get(`/user/tasks/`).then((tasks) => {
+    return user.get('/user/tasks/').then((tasks) => {
       expect(tasks).to.be.an('array');
       expect(tasks.length).to.be.greaterThan(3);
 

@@ -1,5 +1,5 @@
 {
-    "potionText": "体力回復ポーション",
+    "potionText": "体力回復の薬",
     "potionNotes": "体力を15回復(瞬時)",
     "armoireText": "魔法の戸棚",
     "armoireNotesFull": "戸棚を開けるとランダムな装備、経験値、または食べ物が当たる！残りの装備数：",
@@ -113,7 +113,7 @@
     "questEggSnailText": "カタツムリ",
     "questEggSnailMountText": "カタツムリ",
     "questEggSnailAdjective": "遅いが着実",
-    "eggNotes": "たまごがえしの薬を見つけて、たまごにかけると、<%= eggAdjective(locale) %> <%= eggText(locale) %>がかえります。",
+    "eggNotes": "たまごがえしの薬を見つけて、たまごにかけると、<%= eggAdjective(locale) %> <%= eggText(locale) %>が生まれます。",
     "hatchingPotionBase": "普通の",
     "hatchingPotionWhite": "白い",
     "hatchingPotionDesert": "砂漠の",
@@ -126,7 +126,7 @@
     "hatchingPotionGolden": "黄金の",
     "hatchingPotionSpooky": "不気味な",
     "hatchingPotionPeppermint": "ペパーミント",
-    "hatchingPotionNotes": "これをたまごにかけると、ペットの<%= potText(locale) %> がかえります。",
+    "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> のペットが生まれます。",
     "premiumPotionAddlNotes": "ペットのたまごはクエストに使えません。",
     "foodMeat": "肉",
     "foodMilk": "ミルク",
@@ -159,6 +159,6 @@
     "foodCandyDesert": "サンドキャンディ",
     "foodCandyRed": "シナモンキャンディ",
     "foodSaddleText": "鞍",
-    "foodSaddleNotes": "すぐ1匹のペットをマウントに成長させる。",
+    "foodSaddleNotes": "ペットの 1 匹をすぐに乗用獣に成長させます。",
     "foodNotes": "ペットが丈夫に育つように、これを与えましょう。"
 }

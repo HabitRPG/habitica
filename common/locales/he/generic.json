@@ -137,6 +137,8 @@
     "achievementStressbeastText": "סייע בהבסת המפלחץ המתועב במהלך חורף הפלאות של 2014!",
     "achievementBurnout": "מציל השדות הפורחים",
     "achievementBurnoutText": "סייע להביס ״שחיקה״ ולהשיב את ״הרוחות המותשות״ במהלך אירוע פסטיבל השלכת 2015!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "תראו את ההתקדמות שלי בהביטיקה!",
     "cardReceived": "קיבלתם כרטיס!",
     "cardReceivedFrom": "<%= cardType %> מ <%= userName %>",
