@@ -62,7 +62,7 @@ async function _handleGroupInvitation (user, invite) {
  * @apiParam {String} password Body parameter - Password for the new user
  * @apiParam {String} confirmPassword Body parameter - Password confirmation
  *
- * @apiSuccess {Object} user The user object, if local auth was just attached to a social user then only user.auth.local
+ * @apiSuccess {Object} data The user object, if local auth was just attached to a social user then only user.auth.local
  */
 api.registerLocal = {
   method: 'POST',
@@ -174,8 +174,8 @@ function _loginRes (user, req, res) {
  * @apiParam {String} username Body parameter - Username or email of the user
  * @apiParam {String} password Body parameter - The user's password
  *
- * @apiSuccess {String} _id The user's unique identifier
- * @apiSuccess {String} apiToken The user's api token that must be used to authenticate requests.
+ * @apiSuccess {String} data._id The user's unique identifier
+ * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
  */
 api.loginLocal = {
   method: 'POST',
@@ -229,6 +229,7 @@ function _passportFbProfile (accessToken) {
 }
 
 // Called as a callback by Facebook (or other social providers). Internal route
+// TODO move to top-level/auth?
 api.loginSocial = {
   method: 'POST',
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
@@ -290,7 +291,7 @@ api.loginSocial = {
  * @apiParam {string} password Body parameter - The current user password
  * @apiParam {string} username Body parameter - The new username
 
- * @apiSuccess {String} username The new username
+ * @apiSuccess {String} data.username The new username
  **/
 api.updateUsername = {
   method: 'PUT',
@@ -339,7 +340,7 @@ api.updateUsername = {
  * @apiParam {string} newPassword Body parameter - The new password
  * @apiParam {string} confirmPassword Body parameter - New password confirmation
  *
- * @apiSuccess {Object} emoty An empty object
+ * @apiSuccess {Object} data An empty object
  **/
 api.updatePassword = {
   method: 'PUT',
@@ -419,7 +420,7 @@ api.resetPassword = {
       });
       await user.save();
     }
-    res.respond(200, { message: res.t('passwordReset') });
+    res.respond(200, {}, res.t('passwordReset'));
   },
 };
 
@@ -433,7 +434,7 @@ api.resetPassword = {
  * @apiParam {string} Body parameter - newEmail The new email address.
  * @apiParam {string} Body parameter - password The user password.
  *
- * @apiSuccess {string} email The updated email address
+ * @apiSuccess {string} data.email The updated email address
  */
 api.updateEmail = {
   method: 'PUT',
@@ -488,7 +489,7 @@ api.getFirebaseToken = {
  * @apiName UserDeleteSocial
  * @apiGroup User
  *
- * @apiSuccess {Object} empty Empty object
+ * @apiSuccess {Object} data Empty object
  */
 api.deleteSocial = {
   method: 'DELETE',

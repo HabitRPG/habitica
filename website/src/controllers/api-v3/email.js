@@ -7,21 +7,22 @@ import {
 
 let api = {};
 
+// TODO move to top-level controllers?
 /**
  * @api {get} /api/v3/email/unsubscribe Unsubscribe an email or user from email notifications
+ * @apiDescription Does not require authentication
  * @apiVersion 3.0.0
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
  * @apiDescription This is a GET method so that you can put the unsubscribe link in emails.
  *
- * @apiParam {String} code An unsubscription code
+ * @apiParam {String} code Query parameter - An unsubscription code
  *
- * @apiSuccess {String} okRes An message stating the user/email unsubscribed successfully
+ * @apiSuccess {String} An html success message
  */
 api.unsubscribe = {
   method: 'GET',
   url: '/email/unsubscribe',
-  middlewares: [],
   async handler (req, res) {
     req.checkQuery({
       code: {

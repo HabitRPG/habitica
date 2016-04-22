@@ -31,9 +31,9 @@ describe('shared.ops.reset', () => {
 
 
   it('resets a user', () => {
-    let response = reset(user);
+    let [, message] = reset(user);
 
-    expect(response.message).to.equal(i18n.t('resetComplete'));
+    expect(message).to.equal(i18n.t('resetComplete'));
   });
 
   it('resets user\'s health', () => {

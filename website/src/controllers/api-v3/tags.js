@@ -14,7 +14,7 @@ let api = {};
  * @apiName CreateTag
  * @apiGroup Tag
  *
- * @apiSuccess {Object} tag The newly created tag
+ * @apiSuccess {Object} data The newly created tag
  */
 api.createTag = {
   method: 'POST',
@@ -38,7 +38,7 @@ api.createTag = {
  * @apiName GetTags
  * @apiGroup Tag
  *
- * @apiSuccess {Array} tags An array of tag objects
+ * @apiSuccess {Array} data An array of tags
  */
 api.getTags = {
   method: 'GET',
@@ -58,7 +58,7 @@ api.getTags = {
  *
  * @apiParam {UUID} tagId The tag _id
  *
- * @apiSuccess {object} tag The tag object
+ * @apiSuccess {object} data The tag object
  */
 api.getTag = {
   method: 'GET',
@@ -86,7 +86,7 @@ api.getTag = {
  *
  * @apiParam {UUID} tagId The tag _id
  *
- * @apiSuccess {object} tag The updated tag
+ * @apiSuccess {object} data The updated tag
  */
 api.updateTag = {
   method: 'PUT',
@@ -120,7 +120,7 @@ api.updateTag = {
  *
  * @apiParam {UUID} tagId The tag _id
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data An empty object
  */
 api.deleteTag = {
   method: 'DELETE',

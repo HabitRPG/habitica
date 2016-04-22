@@ -29,7 +29,7 @@ let api = {};
  * @apiName CreateChallenge
  * @apiGroup Challenge
  *
- * @apiSuccess {object} challenge The newly created challenge
+ * @apiSuccess {object} data The newly created challenge
  */
 api.createChallenge = {
   method: 'POST',
@@ -119,7 +119,7 @@ api.createChallenge = {
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} challenge The challenge the user joined
+ * @apiSuccess {object} data The challenge the user joined
  */
 api.joinChallenge = {
   method: 'POST',
@@ -165,7 +165,7 @@ api.joinChallenge = {
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data An empty object
  */
 api.leaveChallenge = {
   method: 'POST',
@@ -202,7 +202,7 @@ api.leaveChallenge = {
  * @apiName GetUserChallenges
  * @apiGroup Challenge
  *
- * @apiSuccess {Array} challenges An array of challenges
+ * @apiSuccess {Array} data An array of challenges
  */
 api.getUserChallenges = {
   method: 'GET',
@@ -220,12 +220,13 @@ api.getUserChallenges = {
       _id: {$ne: '95533e05-1ff9-4e46-970b-d77219f199e9'}, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug TODO revisit
     })
     .sort('-official -timestamp')
+    // see below why we're not using populate
     // .populate('group', basicGroupFields)
     // .populate('leader', nameFields)
     .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
-    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Q.all(resChals.map((chal, index) => {
       return Q.all([
         User.findById(chal.leader).select(nameFields).exec(),
@@ -242,13 +243,14 @@ api.getUserChallenges = {
 
 /**
  * @api {get} /api/v3/challenges/group/group:Id Get challenges for a group
+ * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
  * @apiVersion 3.0.0
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
  *
  * @apiParam {groupId} groupId The group _id
  *
- * @apiSuccess {Array} challenges An array of challenges
+ * @apiSuccess {Array} data An array of challenges
  */
 api.getGroupChallenges = {
   method: 'GET',
@@ -272,7 +274,7 @@ api.getGroupChallenges = {
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
-    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Q.all(resChals.map((chal, index) => {
       return User.findById(chal.leader).select(nameFields).exec().then(populatedLeader => {
         resChals[index].leader = populatedLeader.toJSON({minimize: true});
@@ -291,7 +293,7 @@ api.getGroupChallenges = {
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} challenge The challenge object
+ * @apiSuccess {object} data The challenge object
  */
 api.getChallenge = {
   method: 'GET',
@@ -318,7 +320,7 @@ api.getChallenge = {
 
     let chalRes = challenge.toJSON();
     chalRes.group = group.toJSON({minimize: true});
-    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     chalRes.leader = (await User.findById(chalRes.leader).select(nameFields).exec()).toJSON({minimize: true});
 
     res.respond(200, chalRes);
@@ -333,7 +335,7 @@ api.getChallenge = {
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} challenge The challenge object
+ * @apiSuccess {string} challenge A csv file
  */
 api.exportChallengeCsv = {
   method: 'GET',
@@ -406,7 +408,7 @@ api.exportChallengeCsv = {
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} challenge The updated challenge object
+ * @apiSuccess {object} data The updated challenge
  */
 api.updateChallenge = {
   method: 'PUT',
@@ -507,7 +509,9 @@ export async function _closeChal (challenge, broken = {}) {
  * @apiName DeleteChallenge
  * @apiGroup Challenge
  *
- * @apiSuccess {object} empty An empty object
+ * challengeId {UUID} The _id for the challenge to delete
+ *
+ * @apiSuccess {object} data An empty object
  */
 api.deleteChallenge = {
   method: 'DELETE',
@@ -537,7 +541,10 @@ api.deleteChallenge = {
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
- * @apiSuccess {object} empty An empty object
+ * challengeId {UUID} The _id for the challenge to close with a winner
+ * winnerId {UUID} The _id of the winning user
+ *
+ * @apiSuccess {object} data An empty object
  */
 api.selectChallengeWinner = {
   method: 'POST',

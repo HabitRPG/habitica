@@ -25,11 +25,11 @@ module.exports = function buySpecialSpell (user, req = {}) {
   if (req.v2 === true) {
     return _.pick(user, splitWhitespace('items stats'));
   } else {
-    return {
-      data: _.pick(user, splitWhitespace('items stats')),
-      message: i18n.t('messageBought', {
+    return [
+      _.pick(user, splitWhitespace('items stats')),
+      i18n.t('messageBought', {
         itemText: item.text(req.language),
       }, req.language),
-    };
+    ];
   }
 };

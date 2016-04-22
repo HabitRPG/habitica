@@ -4,6 +4,7 @@ import {
 } from '../libs/errors';
 import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
+import crit from '../fns/crit';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -105,7 +106,7 @@ function _subtractPoints (user, task, stats, delta) {
 function _addPoints (user, task, stats, direction, delta) {
   // ===== CRITICAL HITS =====
   // allow critical hit only when checking off a task, not when unchecking it:
-  let _crit = delta > 0 ? user.fns.crit() : 1;
+  let _crit = delta > 0 ? crit(user) : 1;
   // if there was a crit, alert the user via notification
   if (_crit > 1) user._tmp.crit = _crit;
 
@@ -256,5 +257,5 @@ module.exports = function scoreTask (options = {}, req = {}) {
   }
 
   updateStats(user, stats, req);
-  return delta;
+  return [delta];
 };

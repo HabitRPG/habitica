@@ -22,5 +22,5 @@ module.exports = function updateTask (task, req = {}) {
 
   _.merge(task, _.omit(req.body, ['_id', 'id', 'type']));
 
-  return task;
+  return [task];
 };

@@ -30,7 +30,23 @@ describe('response middleware', () => {
 
     expect(res.status).to.be.calledWith(200);
     expect(res.json).to.be.calledWith({
-      field: 1,
+      success: true,
+      data: {field: 1},
+    });
+  });
+
+  it('can be passed a third parameter to be used as optional message', () => {
+    responseMiddleware(req, res, next);
+    res.respond(200, {field: 1}, 'hello');
+
+    expect(res.status).to.be.calledOnce;
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.status).to.be.calledWith(200);
+    expect(res.json).to.be.calledWith({
+      success: true,
+      data: {field: 1},
+      message: 'hello',
     });
   });
 
@@ -43,7 +59,8 @@ describe('response middleware', () => {
 
     expect(res.status).to.be.calledWith(403);
     expect(res.json).to.be.calledWith({
-      field: 1,
+      success: false,
+      data: {field: 1},
     });
   });
 });

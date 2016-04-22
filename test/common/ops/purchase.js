@@ -10,7 +10,7 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 
-describe('shared.ops.feed', () => {
+describe('shared.ops.purchase', () => {
   let user;
   let goldPoints = 40;
   let gemsBought = 40;
@@ -128,7 +128,7 @@ describe('shared.ops.feed', () => {
     });
   });
 
-  context('successful feeding', () => {
+  context('successful purchase', () => {
     let userGemAmount = 10;
 
     before(() => {
@@ -138,9 +138,9 @@ describe('shared.ops.feed', () => {
     });
 
     it('purchases gems', () => {
-      let purchaseResponse = purchase(user, {params: {type: 'gems', key: 'gem'}});
+      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}});
 
-      expect(purchaseResponse.message).to.equal(i18n.t('plusOneGem'));
+      expect(message).to.equal(i18n.t('plusOneGem'));
       expect(user.balance).to.equal(userGemAmount + 0.25);
       expect(user.purchased.plan.gemsBought).to.equal(1);
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
@@ -150,9 +150,9 @@ describe('shared.ops.feed', () => {
       let type = 'eggs';
       let key = 'Wolf';
 
-      let purchaseResponse = purchase(user, {params: {type, key}});
+      let [, message] = purchase(user, {params: {type, key}});
 
-      expect(purchaseResponse.message).to.equal(i18n.t('purchased', {type, key}));
+      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -160,9 +160,9 @@ describe('shared.ops.feed', () => {
       let type = 'hatchingPotions';
       let key = 'Base';
 
-      let purchaseResponse = purchase(user, {params: {type, key}});
+      let [, message] = purchase(user, {params: {type, key}});
 
-      expect(purchaseResponse.message).to.equal(i18n.t('purchased', {type, key}));
+      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -170,9 +170,9 @@ describe('shared.ops.feed', () => {
       let type = 'food';
       let key = 'Meat';
 
-      let purchaseResponse = purchase(user, {params: {type, key}});
+      let [, message] = purchase(user, {params: {type, key}});
 
-      expect(purchaseResponse.message).to.equal(i18n.t('purchased', {type, key}));
+      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -180,9 +180,9 @@ describe('shared.ops.feed', () => {
       let type = 'quests';
       let key = 'gryphon';
 
-      let purchaseResponse = purchase(user, {params: {type, key}});
+      let [, message] = purchase(user, {params: {type, key}});
 
-      expect(purchaseResponse.message).to.equal(i18n.t('purchased', {type, key}));
+      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -190,9 +190,9 @@ describe('shared.ops.feed', () => {
       let type = 'gear';
       let key = 'headAccessory_special_tigerEars';
 
-      let purchaseResponse = purchase(user, {params: {type, key}});
+      let [, message] = purchase(user, {params: {type, key}});
 
-      expect(purchaseResponse.message).to.equal(i18n.t('purchased', {type, key}));
+      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items.gear.owned[key]).to.be.true;
     });
   });

@@ -57,14 +57,12 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
     user.achievements.triadBingoCount++;
   }
 
-  let response = {
-    data: _.pick(user, splitWhitespace('achievements')),
-    message: i18n.t('mountsAndPetsReleased'),
-  };
-
   if (req.v2 === true) {
     return user;
   } else {
-    return response;
+    return [
+      _.pick(user, splitWhitespace('achievements items balance')),
+      i18n.t('mountsAndPetsReleased'),
+    ];
   }
 };

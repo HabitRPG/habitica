@@ -4,10 +4,6 @@ module.exports = function sleep (user, req = {}) {
   if (req.v2 === true) {
     return {};
   } else {
-    return {
-      preferences: {
-        sleep: user.preferences.sleep,
-      },
-    };
+    return [user.preferences.sleep];
   }
 };

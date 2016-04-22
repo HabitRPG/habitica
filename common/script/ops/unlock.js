@@ -64,7 +64,7 @@ module.exports = function unlock (user, req = {}, analytics) {
       _.set(user, `purchased.${pathPart}`, true);
     });
   } else {
-    if (alreadyOwns) {
+    if (alreadyOwns) { // eslint-disable-line no-lonely-if
       let split = path.split('.');
       let value = split.pop();
       let key = split.join('.');
@@ -97,14 +97,14 @@ module.exports = function unlock (user, req = {}, analytics) {
     }
   }
 
-  let response = {
-    data: _.pick(user, splitWhitespace('purchased preferences items')),
-  };
+  let response = [
+    _.pick(user, splitWhitespace('purchased preferences items')),
+  ];
 
-  if (!alreadyOwns) response.message = i18n.t('unlocked', req.language);
+  if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));
 
   if (req.v2 === true) {
-    return response.data;
+    return response[0];
   } else {
     return response;
   }

@@ -54,13 +54,13 @@ async function _createTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {post} /api/v3/tasks/user Create a new task belonging to the autheticated user. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @api {post} /api/v3/tasks/user Create a new task the user.
+ * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateUserTasks
  * @apiGroup Task
  *
- * @apiSuccess {Object} task The newly created task
- * @apiSuccess {Object[]} tasks The newly created tasks (if more than one was created)
+ * @apiSuccess data An object if a single task was created, otherwise an array of tasks
  */
 api.createUserTasks = {
   method: 'POST',
@@ -73,15 +73,15 @@ api.createUserTasks = {
 };
 
 /**
- * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to the challenge. Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to a challenge.
+ * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateChallengeTasks
  * @apiGroup Task
  *
  * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to.
  *
- * @apiSuccess {Object} task The newly created task
- * @apiSuccess {Object[]} tasks The newly created tasks (if more than one was created)
+ * @apiSuccess data An object if a single task was created, otherwise an array of tasks
  */
 api.createChallengeTasks = {
   method: 'POST',
@@ -171,7 +171,7 @@ async function _getTasks (req, res, user, challenge) {
  *
  * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that requested separately.
  *
- * @apiSuccess {Array} tasks An array of task objects
+ * @apiSuccess {Array} data An array of tasks
  */
 api.getUserTasks = {
   method: 'GET',
@@ -198,7 +198,7 @@ api.getUserTasks = {
  * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks.
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
  *
- * @apiSuccess {Array} tasks An array of task objects
+ * @apiSuccess {Array} data An array of tasks
  */
 api.getChallengeTasks = {
   method: 'GET',
@@ -225,14 +225,14 @@ api.getChallengeTasks = {
 };
 
 /**
- * @api {get} /api/v3/task/:taskId Get a task given its id
+ * @api {get} /api/v3/task/:taskId Get a task
  * @apiVersion 3.0.0
  * @apiName GetTask
  * @apiGroup Task
  *
  * @apiParam {UUID} taskId The task _id
  *
- * @apiSuccess {object} task The task object
+ * @apiSuccess {object} data The task object
  */
 api.getTask = {
   method: 'GET',
@@ -273,7 +273,7 @@ api.getTask = {
  *
  * @apiParam {UUID} taskId The task _id
  *
- * @apiSuccess {object} task The updated task
+ * @apiSuccess {object} data The updated task
  */
 api.updateTask = {
   method: 'PUT',
@@ -284,8 +284,6 @@ api.updateTask = {
     let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    // TODO check that req.body isn't empty
-    // TODO make sure tags are updated correctly (they aren't set as modified!) maybe use specific routes
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -304,10 +302,11 @@ api.updateTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
+    // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     // TODO regarding comment above, make sure other models with nested fields are using this trick too
-    _.assign(task, Tasks.Task.sanitize(common.ops.updateTask(task.toObject(), req)));
-    // TODO console.log(task.modifiedPaths(), task.toObject().repeat === tep)
+    let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
+    _.assign(task, Tasks.Task.sanitize(updatedTaskObj));
+    // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
@@ -351,7 +350,9 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  * @apiParam {UUID} taskId The task _id
  * @apiParam {string="up","down"} direction The direction for scoring the task
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
+ * @apiSuccess {number} data.delta
+ * @apiSuccess {object} data The user stats
  */
 api.scoreTask = {
   method: 'POST',
@@ -376,7 +377,7 @@ api.scoreTask = {
 
     let wasCompleted = task.completed;
 
-    let delta = common.ops.scoreTask({task, user, direction}, req);
+    let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
@@ -389,7 +390,7 @@ api.scoreTask = {
         let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
         if (!hasTask) {
           user.tasksOrder.todos.push(task._id); // TODO push at the top?
-        } // If for some reason it hadn't been removed previously don't do anything TODO ok?
+        } // If for some reason it hadn't been removed previously don't do anything
       }
     }
 
@@ -406,7 +407,6 @@ api.scoreTask = {
 
     sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
 
-    // TODO test?
     if (task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
       try {
@@ -423,7 +423,6 @@ api.scoreTask = {
 };
 
 // completed todos cannot be moved, they'll be returned ordered by date of completion
-// TODO check that it works when a tag is selected or todos are split between dated and due
 // TODO support challenges?
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
@@ -432,9 +431,9 @@ api.scoreTask = {
  * @apiGroup Task
  *
  * @apiParam {UUID} taskId The task _id
- * @apiParam {Number} position Where to move the task (-1 means push to bottom). First position is 0
+ * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
- * @apiSuccess {object} tasksOrder The new tasks order (user.tasksOrder.{task.type}s)
+ * @apiSuccess {array} data The new tasks order (user.tasksOrder.{task.type}s)
  */
 api.moveTask = {
   method: 'POST',
@@ -481,14 +480,14 @@ api.moveTask = {
 };
 
 /**
- * @api {post} /api/v3/tasks/:taskId/checklist Add an item to a checklist, creating the checklist if it doesn't exist
+ * @api {post} /api/v3/tasks/:taskId/checklist Add an item to the task's checklist
  * @apiVersion 3.0.0
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
  * @apiParam {UUID} taskId The task _id
  *
- * @apiSuccess {object} task The updated task
+ * @apiSuccess {object} data The updated task
  */
 api.addChecklistItem = {
   method: 'POST',
@@ -499,7 +498,6 @@ api.addChecklistItem = {
     let challenge;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    // TODO check that req.body isn't empty and is an array
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -523,7 +521,7 @@ api.addChecklistItem = {
     task.checklist.push(Tasks.Task.sanitizeChecklist(req.body)); // TODO why not allow to supply _id on creation?
     let savedTask = await task.save();
 
-    res.respond(200, savedTask); // TODO what to return
+    res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
   },
 };
@@ -537,7 +535,7 @@ api.addChecklistItem = {
  * @apiParam {UUID} taskId The task _id
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} task The updated task
+ * @apiSuccess {object} data The updated task
  */
 api.scoreCheckListItem = {
   method: 'POST',
@@ -566,7 +564,7 @@ api.scoreCheckListItem = {
     item.completed = !item.completed;
     let savedTask = await task.save();
 
-    res.respond(200, savedTask); // TODO what to return
+    res.respond(200, savedTask);
   },
 };
 
@@ -579,7 +577,7 @@ api.scoreCheckListItem = {
  * @apiParam {UUID} taskId The task _id
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} task The updated task
+ * @apiSuccess {object} data The updated task
  */
 api.updateChecklistItem = {
   method: 'PUT',
@@ -616,7 +614,7 @@ api.updateChecklistItem = {
     _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
     let savedTask = await task.save();
 
-    res.respond(200, savedTask); // TODO what to return
+    res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
   },
 };
@@ -630,7 +628,7 @@ api.updateChecklistItem = {
  * @apiParam {UUID} taskId The task _id
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data The updated task
  */
 api.removeChecklistItem = {
   method: 'DELETE',
@@ -665,7 +663,7 @@ api.removeChecklistItem = {
     if (!hasItem) throw new NotFound(res.t('checklistItemNotFound'));
 
     let savedTask = await task.save();
-    res.respond(200, {}); // TODO what to return
+    res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
   },
 };
@@ -679,7 +677,7 @@ api.removeChecklistItem = {
  * @apiParam {UUID} taskId The task _id
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} task The updated task
+ * @apiSuccess {object} data The updated task
  */
 api.addTagToTask = {
   method: 'POST',
@@ -709,12 +707,12 @@ api.addTagToTask = {
     task.tags.push(tagId);
 
     let savedTask = await task.save();
-    res.respond(200, savedTask); // TODO what to return
+    res.respond(200, savedTask);
   },
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag
+ * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag from atask
  * @apiVersion 3.0.0
  * @apiName RemoveTagFromTask
  * @apiGroup Task
@@ -722,7 +720,7 @@ api.addTagToTask = {
  * @apiParam {UUID} taskId The task _id
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data The updated task
  */
 api.removeTagFromTask = {
   method: 'DELETE',
@@ -747,8 +745,8 @@ api.removeTagFromTask = {
     let hasTag = removeFromArray(task.tags, req.params.tagId);
     if (!hasTag) throw new NotFound(res.t('tagNotFound'));
 
-    await task.save();
-    res.respond(200, {}); // TODO what to return
+    let savedTask = await task.save();
+    res.respond(200, savedTask);
   },
 };
 
@@ -761,7 +759,7 @@ api.removeTagFromTask = {
  *
  * @apiParam {UUID} taskId The task _id
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data An empty object
  */
 api.unlinkTask = {
   method: 'POST',
@@ -798,7 +796,7 @@ api.unlinkTask = {
       }
     }
 
-    res.respond(200, {}); // TODO what to return
+    res.respond(200, {});
   },
 };
 
@@ -808,7 +806,7 @@ api.unlinkTask = {
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data An empty object
  */
 api.clearCompletedTodos = {
   method: 'POST',
@@ -841,7 +839,7 @@ api.clearCompletedTodos = {
  *
  * @apiParam {UUID} taskId The task _id
  *
- * @apiSuccess {object} empty An empty object
+ * @apiSuccess {object} data An empty object
  */
 api.deleteTask = {
   method: 'DELETE',

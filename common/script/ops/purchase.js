@@ -54,12 +54,10 @@ module.exports = function purchase (user, req = {}, analytics) {
       });
     }
 
-    let response = {
-      data: _.pick(user, splitWhitespace('stats balance')),
-      message: i18n.t('plusOneGem'),
-    };
-
-    return response;
+    return [
+      _.pick(user, splitWhitespace('stats balance')),
+      i18n.t('plusOneGem'),
+    ];
   }
 
   let acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear'];
@@ -119,14 +117,12 @@ module.exports = function purchase (user, req = {}, analytics) {
     });
   }
 
-  let response = {
-    data: _.pick(user, splitWhitespace('items balance')),
-    message: i18n.t('purchased', {type, key}),
-  };
-
   if (req.v2 === true) {
-    return response.data;
+    return _.pick(user, splitWhitespace('items balance'));
   } else {
-    return response;
+    return [
+      _.pick(user, splitWhitespace('items balance')),
+      i18n.t('purchased', {type, key}),
+    ];
   }
 };

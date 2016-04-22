@@ -27,14 +27,12 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
     });
   }
 
-  let response = {
-    data: {user, tasks},
-    message: i18n.t('rerollComplete'),
-  };
-
   if (req.v2 === true) {
     return user;
   } else {
-    return response;
+    return [
+      {user, tasks},
+      i18n.t('rerollComplete'),
+    ];
   }
 };

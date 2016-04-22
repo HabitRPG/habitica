@@ -36,9 +36,9 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
   if (req.v2 === true) {
     return user.items.gear.owned;
   } else {
-    return {
-      message: i18n.t('mysteryItemOpened', req.language),
-      data: user.items.gear.owned,
-    };
+    return [
+      user.items.gear.owned,
+      i18n.t('mysteryItemOpened', req.language),
+    ];
   }
 };

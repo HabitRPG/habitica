@@ -15,5 +15,7 @@ module.exports = function blockUser (user, req = {}) {
   }
 
   user.markModified('inbox.blocks');
-  return user.inbox.blocks;
+  return [
+    user.inbox.blocks,
+  ];
 };

@@ -13,16 +13,12 @@ describe('POST /user/sleep', () => {
 
   it('toggles sleep status', async () => {
     let res = await user.post('/user/sleep');
-    expect(res).to.eql({
-      preferences: {sleep: true},
-    });
+    expect(res).to.eql(true);
     await user.sync();
     expect(user.preferences.sleep).to.be.true;
 
     let res2 = await user.post('/user/sleep');
-    expect(res2).to.eql({
-      preferences: {sleep: false},
-    });
+    expect(res2).to.eql(false);
     await user.sync();
     expect(user.preferences.sleep).to.be.false;
   });

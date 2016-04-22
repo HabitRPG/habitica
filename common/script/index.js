@@ -85,12 +85,37 @@ import count from './count';
 api.count = count;
 
 import statsComputed from './libs/statsComputed';
+api.statsComputed = statsComputed;
 
-// TODO As ops and fns are ported, exported them through the api object
+import autoAllocate from './fns/autoAllocate';
+import crit from './fns/crit';
+import handleTwoHanded from './fns/handleTwoHanded';
+import predictableRandom from './fns/predictableRandom';
+import randomDrop from './fns/randomDrop';
+import randomVal from './fns/randomVal';
+import resetGear from './fns/resetGear';
+import ultimateGear from './fns/ultimateGear';
+import updateStats from './fns/updateStats';
+
+api.fns = {
+  autoAllocate,
+  crit,
+  handleTwoHanded,
+  predictableRandom,
+  randomDrop,
+  randomVal,
+  resetGear,
+  ultimateGear,
+  updateStats,
+};
+
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
 import allocate from './ops/allocate';
 import buy from './ops/buy';
+import buyGear from './ops/buyGear';
+import buyPotion from './ops/buyPotion';
+import buyArmoire from './ops/buyArmoire';
 import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
 import buySpecialSpell from './ops/buySpecialSpell';
@@ -128,6 +153,9 @@ api.ops = {
   sleep,
   allocate,
   buy,
+  buyGear,
+  buyPotion,
+  buyArmoire,
   buyMysterySet,
   buySpecialSpell,
   buyQuest,
@@ -161,27 +189,11 @@ api.ops = {
   reset,
 };
 
-import handleTwoHanded from './fns/handleTwoHanded';
-import predictableRandom from './fns/predictableRandom';
-import randomVal from './fns/randomVal';
-import ultimateGear from './fns/ultimateGear';
-import autoAllocate from './fns/autoAllocate';
-
-api.fns = {
-  handleTwoHanded,
-  predictableRandom,
-  randomVal,
-  ultimateGear,
-  autoAllocate,
-};
-
-
 /*
 ------------------------------------------------------
 User (prototype wrapper to give it ops, helper funcs, and virtuals
 ------------------------------------------------------
  */
-
 
 /*
 User is now wrapped (both on client and server), adding a few new properties:
@@ -216,7 +228,7 @@ TODO
 import importedOps from './ops';
 import importedFns from './fns';
 
-// TODO redo
+// TODO Kept for the client side
 api.wrap = function wrapUser (user, main = true) {
   if (user._wrapped) return;
   user._wrapped = true;
@@ -260,6 +272,9 @@ api.wrap = function wrapUser (user, main = true) {
       releaseMounts: _.partial(importedOps.releaseMounts, user),
       releaseBoth: _.partial(importedOps.releaseBoth, user),
       buy: _.partial(importedOps.buy, user),
+      buyPotion: _.partial(importedOps.buyPotion, user),
+      buyArmoire: _.partial(importedOps.buyArmoire, user),
+      buyGear: _.partial(importedOps.buyGear, user),
       buyQuest: _.partial(importedOps.buyQuest, user),
       buyMysterySet: _.partial(importedOps.buyMysterySet, user),
       hourglassPurchase: _.partial(importedOps.hourglassPurchase, user),

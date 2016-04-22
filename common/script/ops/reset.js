@@ -19,14 +19,12 @@ module.exports = function reset (user, tasks = [], req = {}) {
 
   resetGear(user);
 
-  let response = {
-    data: {user, tasksToRemove},
-    message: i18n.t('resetComplete'),
-  };
-
   if (req.v2 === true) {
     return user;
   } else {
-    return response;
+    return [
+      {user, tasksToRemove},
+      i18n.t('resetComplete'),
+    ];
   }
 };

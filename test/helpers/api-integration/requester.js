@@ -61,7 +61,7 @@ function _requestMaker (user, method, additionalSets = {}) {
 
             let parsedError = _parseError(err);
 
-            reject(parsedError);
+            return reject(parsedError);
           }
 
           // if any cookies was sent, save it for the next request
@@ -71,11 +71,36 @@ function _requestMaker (user, method, additionalSets = {}) {
             }).join('; ');
           }
 
-          let contentType = response.headers['content-type'] || '';
-          resolve(contentType.indexOf('json') !== -1 ? response.body : response.text);
+          resolve(_parseRes(response));
         });
     });
   };
+}
+
+function _parseRes (res) {
+  let contentType = res.headers['content-type'] || '';
+  let contentDisposition = res.headers['content-disposition'] || '';
+
+  if (contentType.indexOf('json') === -1) { // not a json response
+    return res.text;
+  }
+
+  if (contentDisposition.indexOf('attachment') !== -1) {
+    return res.body;
+  }
+
+  if (apiVersion === 'v2') {
+    return res.body;
+  } else if (apiVersion === 'v3') {
+    if (res.body.message) {
+      return {
+        data: res.body.data,
+        message: res.body.message,
+      };
+    } else {
+      return res.body.data;
+    }
+  }
 }
 
 function _parseError (err) {

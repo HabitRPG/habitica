@@ -113,14 +113,13 @@
   "missingKeyParam": "\"req.params.key\" is required.",
   "mysterySetNotFound": "Mystery set not found, or set already owned.",
   "itemNotFound": "Item \"<%= key %>\" not found.",
-  "cannoyBuyItem": "You can't buy this item.",
+  "cannotBuyItem": "You can't buy this item.",
   "missingTypeKeyEquip": "\"key\" and \"type\" are required parameters.",
   "missingPetFoodFeed": "\"pet\" and \"food\" are required parameters.",
   "invalidPetName": "Invalid pet name supplied.",
   "missingEggHatchingPotionHatch": "\"egg\" and \"hatchingPotion\" are required parameters.",
   "invalidTypeEquip": "\"type\" must be one of 'equipped', 'pet', 'mount', 'costume'.",
   "cannotDeleteActiveAccount": "You have an active subscription, cancel your plan before deleting your account.",
-  "cannoyBuyItem": "You can't buy this item",
   "messageRequired": "A message is required.",
   "toUserIDRequired": "A toUserId is required",
   "notAuthorizedToSendMessageToThisUser": "Can't send message to this user.",
@@ -171,5 +170,6 @@
   "pushDeviceAdded": "Push device added successfully",
   "pushDeviceAlreadyAdded": "The user already has the push device",
   "resetComplete": "Reset completed",
-  "lvl10ChangeClass": "To change class you must be at least level 10."
+  "lvl10ChangeClass": "To change class you must be at least level 10.",
+  "equipmentAlreadyOwned": "You already own that piece of equipment"
 }

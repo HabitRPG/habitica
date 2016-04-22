@@ -36,6 +36,6 @@ describe('POST /user/allocate', () => {
     await user.sync();
     expect(user.stats.con).to.equal(1);
     expect(user.stats.points).to.equal(0);
-    expect(res.stats.con).to.equal(1);
+    expect(res.con).to.equal(1);
   });
 });

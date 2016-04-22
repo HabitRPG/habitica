@@ -1,7 +1,3 @@
-import {
-  authWithSession,
-} from '../../middlewares/api-v3/auth';
-
 let api = {};
 
 // Internal authentication routes

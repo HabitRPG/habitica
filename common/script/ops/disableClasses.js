@@ -13,8 +13,8 @@ module.exports = function disableClasses (user, req = {}) {
   if (req.v2 === true) {
     return _.pick(user, splitWhitespace('stats flags preferences'));
   } else {
-    return {
-      data: _.pick(user, splitWhitespace('stats flags preferences')),
-    };
+    return [
+      _.pick(user, splitWhitespace('stats flags preferences')),
+    ];
   }
 };
