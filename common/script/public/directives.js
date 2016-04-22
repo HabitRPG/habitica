@@ -6,18 +6,10 @@
  */
 (function(){
   var md = function () {
-    marked.setOptions({
-      gfm:true,
-      pedantic:false,
-      sanitize:true
-      // callback for code highlighter
-      // Uncomment this (and htljs.tabReplace below) if we add in highlight.js (http://www.heikura.me/#!/angularjs-markdown-directive)
-//      highlight:function (code, lang) {
-//        if (lang != undefined)
-//          return hljs.highlight(lang, code).value;
-//
-//        return hljs.highlightAuto(code).value;
-//      }
+    var remarkable = new Remarkable({
+      // TODO: Add in code highlighting?
+      // highlight: function (#<{(|str, lang|)}>#) { return ''; }
+      linkify: true
     });
 
     emoji.img_path = 'common/img/emoji/unicode/';
@@ -26,57 +18,60 @@
       if (markdown == undefined)
         return '';
 
-      markdown = marked(markdown);
+      markdown = remarkable.render(markdown);
       markdown = emoji.replace_colons(markdown);
       markdown = emoji.replace_unified(markdown);
 
       return markdown;
     };
 
+    // This was applie to marked, the old markdown library which has an xss exploit.
+    // If we want this behavior again, we'll need to rewrite it.
+    // ---
     // [nickgordon20131123] this hacky override wraps images with a link to the image in a new window, and also adds some classes in case we want to style
-    marked.InlineLexer.prototype.outputLink = function(cap, link) {
-      var escape = function(html, encode) {
-        return html
-          .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      };
-      if (cap[0].charAt(0) !== '!') {
-        return '<a class="markdown-link" target="_blank" href="'
-          + escape(link.href)
-          + '"'
-          + (link.title
-          ? ' title="'
-          + escape(link.title)
-          + '"'
-          : '')
-          + '>'
-          + this.output(cap[1])
-          + '</a>';
-      } else {
-        return '<a class="markdown-img-link" target="_blank" href="'
-          + escape(link.href)
-          + '"'
-          + (link.title
-          ? ' title="'
-          + escape(link.title)
-          + '"'
-          : '')
-          + '><img class="markdown-img" src="'
-          + escape(link.href)
-          + '" alt="'
-          + escape(cap[1])
-          + '"'
-          + (link.title
-          ? ' title="'
-          + escape(link.title)
-          + '"'
-          : '')
-          + '></a>';
-      }
-    }
+    // marked.InlineLexer.prototype.outputLink = function(cap, link) {
+    //   var escape = function(html, encode) {
+    //     return html
+    //       .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+    //       .replace(/</g, '&lt;')
+    //       .replace(/>/g, '&gt;')
+    //       .replace(/"/g, '&quot;')
+    //       .replace(/'/g, '&#39;');
+    //   };
+    //   if (cap[0].charAt(0) !== '!') {
+    //     return '<a class="markdown-link" target="_blank" href="'
+    //       + escape(link.href)
+    //       + '"'
+    //       + (link.title
+    //       ? ' title="'
+    //       + escape(link.title)
+    //       + '"'
+    //       : '')
+    //       + '>'
+    //       + this.output(cap[1])
+    //       + '</a>';
+    //   } else {
+    //     return '<a class="markdown-img-link" target="_blank" href="'
+    //       + escape(link.href)
+    //       + '"'
+    //       + (link.title
+    //       ? ' title="'
+    //       + escape(link.title)
+    //       + '"'
+    //       : '')
+    //       + '><img class="markdown-img" src="'
+    //       + escape(link.href)
+    //       + '" alt="'
+    //       + escape(cap[1])
+    //       + '"'
+    //       + (link.title
+    //       ? ' title="'
+    //       + escape(link.title)
+    //       + '"'
+    //       : '')
+    //       + '></a>';
+    //   }
+    // }
 
     //hljs.tabReplace = '    ';
 

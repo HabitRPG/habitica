@@ -400,7 +400,7 @@ export let schema = new Schema({
     hideHeader: {type: Boolean, default: false},
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
-    timezoneOffset: Number,
+    timezoneOffset: {type: Number, default: 0},
     sound: {type: String, default: 'off', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
