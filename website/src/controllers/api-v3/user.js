@@ -422,7 +422,7 @@ api.castSpell = {
  * @apiName UserSleep
  * @apiGroup User
  *
- * @apiSuccess {Object} data Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
+ * @apiSuccess {boolean} data user.preferences.sleep
  */
 api.sleep = {
   method: 'POST',
@@ -442,7 +442,9 @@ api.sleep = {
  * @apiName UserAllocate
  * @apiGroup User
  *
- * @apiSuccess {Object} Returs `user.stats`
+ * @apiParam {string} stat Query parameter - Defaults to 'str', mast be one of be of str, con, int or per
+ *
+ * @apiSuccess {Object} data user.stats
  */
 api.allocate = {
   method: 'POST',
@@ -462,7 +464,7 @@ api.allocate = {
  * @apiName UserAllocateNow
  * @apiGroup User
  *
- * @apiSuccess {Object} data `stats`
+ * @apiSuccess {Object} data user.stats
  */
 api.allocateNow = {
   method: 'POST',
@@ -478,14 +480,12 @@ api.allocateNow = {
 
 /**
  * @api {post} /user/buy/:key Buy gear, armoire or potion
+ * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
  * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
  *
  * @apiParam {string} key The item to buy.
- *
- * @apiSuccess {Object} data `items`
- * @apiSuccess {string} message
  */
 api.buy = {
   method: 'POST',
@@ -507,8 +507,11 @@ api.buy = {
  *
  * @apiParam {string} key The item to buy.
  *
- * @apiSuccess {Object} data `items`
- * @apiSuccess {string} message
+ * @apiSuccess {object} data.items user.items
+ * @apiSuccess {object} data.flags user.flags
+ * @apiSuccess {object} data.achievements user.achievements
+ * @apiSuccess {object} data.stats user.stats
+ * @apiSuccess {string} message Success message
  */
 api.buyGear = {
   method: 'POST',
@@ -530,9 +533,10 @@ api.buyGear = {
  *
  * @apiParam {string} key The item to buy.
  *
- * @apiSuccess {Object} data `items flags`
- * @apiSuccess {object} armoireResp Optional extra item given by the armoire
- * @apiSuccess {string} message
+ * @apiSuccess {object} data.items user.items
+ * @apiSuccess {object} data.flags user.flags
+ * @apiSuccess {object} data.armoire Extra item given by the armoire
+ * @apiSuccess {string} message Success message
  */
 api.buyArmoire = {
   method: 'POST',
@@ -554,8 +558,8 @@ api.buyArmoire = {
  *
  * @apiParam {string} key The item to buy.
  *
- * @apiSuccess {Object} data `stats`
- * @apiSuccess {string} message
+ * @apiSuccess {Object} data user.stats
+ * @apiSuccess {string} message Success message
  */
 api.buyPotion = {
   method: 'POST',
@@ -577,8 +581,9 @@ api.buyPotion = {
  *
  * @apiParam {string} key The mystery set to buy.
  *
- * @apiSuccess {Object} data `items, purchased.plan.consecutive`
- * @apiSuccess {string} message
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
+ * @apiSuccess {string} message Success message
  */
 api.buyMysterySet = {
   method: 'POST',
@@ -600,8 +605,8 @@ api.buyMysterySet = {
  *
  * @apiParam {string} key The quest spell to buy.
  *
- * @apiSuccess {Object} data `items.quests`
- * @apiSuccess {string} message
+ * @apiSuccess {Object} data `user.items.quests`
+ * @apiSuccess {string} message Success message
  */
 api.buyQuest = {
   method: 'POST',
@@ -623,8 +628,9 @@ api.buyQuest = {
  *
  * @apiParam {string} key The special spell to buy.
  *
- * @apiSuccess {Object} data `items, stats`
- * @apiSuccess {string} message
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {string} message Success message
  */
 api.buySpecialSpell = {
   method: 'POST',
@@ -647,7 +653,7 @@ api.buySpecialSpell = {
  * @apiParam {string} egg The egg to use.
  * @apiParam {string} hatchingPotion The hatching potion to use.
  *
- * @apiSuccess {Object} data `user.items`
+ * @apiSuccess {Object} data user.items
  * @apiSuccess {string} message
  */
 api.hatch = {
@@ -668,11 +674,11 @@ api.hatch = {
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam {string} type
- * @apiParam {string} key
+ * @apiParam {string} type The type of item to equip (mount, pet, costume or equipped)
+ * @apiParam {string} key The item to equip
  *
- * @apiSuccess {Object} data `user.items`
- * @apiSuccess {string} message Optional
+ * @apiSuccess {Object} data user.items
+ * @apiSuccess {string} message Optional success message
  */
 api.equip = {
   method: 'POST',
@@ -695,8 +701,8 @@ api.equip = {
  * @apiParam {string} pet
  * @apiParam {string} food
  *
- * @apiSuccess {Object} data The fed pet
- * @apiSuccess {string} message
+ * @apiSuccess {number} data The pet value
+ * @apiSuccess {string} message Success message
  */
 api.feed = {
   method: 'POST',
@@ -712,13 +718,17 @@ api.feed = {
 
 /**
 * @api {post} /api/v3/user/change-class Change class.
+* @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
 * @apiVersion 3.0.0
 * @apiName UserChangeClass
 * @apiGroup User
 *
-* @apiParam {string} class ?class={warrior|rogue|wizard|healer}. If missing will
+* @apiParam {string} class Query parameter - ?class={warrior|rogue|wizard|healer}.
 *
-* @apiSuccess {Object} data `stats flags items preferences`
+* @apiSuccess {object} data.flags user.flags
+* @apiSuccess {object} data.stats user.stats
+* @apiSuccess {object} data.preferences user.preferences
+* @apiSuccess {object} data.items user.items
 */
 api.changeClass = {
   method: 'POST',
@@ -738,7 +748,9 @@ api.changeClass = {
 * @apiName UserDisableClasses
 * @apiGroup User
 *
-* @apiSuccess {Object} data `stats flags preferences`
+* @apiSuccess {object} data.flags user.flags
+* @apiSuccess {object} data.stats user.stats
+* @apiSuccess {object} data.preferences user.preferences
 */
 api.disableClasses = {
   method: 'POST',
@@ -758,10 +770,12 @@ api.disableClasses = {
 * @apiName UserPurchase
 * @apiGroup User
 *
-* @apiParam {string} type Type of item to purchase
+* @apiParam {string} type Type of item to purchase. Must be one of: gem, gems, eggs, hatchingPotions, food, quests or gear
 * @apiParam {string} key Item's key
 *
-* @apiSuccess {Object} data `items balance`
+* @apiSuccess {object} data.items user.items
+* @apiSuccess {number} data.balance user.balance
+* @apiSuccess {string} message Success message
 */
 api.purchase = {
   method: 'POST',
@@ -781,10 +795,12 @@ api.purchase = {
 * @apiName UserPurchaseHourglass
 * @apiGroup User
 *
-* @apiParam {string} type {pets|mounts}. The type of item to purchase
+* @apiParam {string} type The type of item to purchase (pets or mounts)
 * @apiParam {string} key Ex: {MantisShrimp-Base}. The key for the mount/pet
 *
-* @apiSuccess {Object} data `items purchased.plan.consecutive`
+* @apiSuccess {object} data.items user.items
+* @apiSuccess {object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
+* @apiSuccess {string} message Success message
 */
 api.userPurchaseHourglass = {
   method: 'POST',
@@ -806,7 +822,9 @@ api.userPurchaseHourglass = {
 *
 * @apiParam {string} cardType Type of card to read
 *
-* @apiSuccess {Object} data `items.special flags.cardReceived`
+* @apiSuccess {object} data.specialItems user.items.special
+* @apiSuccess {boolean} data.cardReceived user.flags.cardReceived
+* @apiSuccess {string} message Success message
 */
 api.readCard = {
   method: 'POST',
@@ -826,7 +844,8 @@ api.readCard = {
 * @apiName UserOpenMysteryItem
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user.items.gear.owned`
+* @apiSuccess {Object} data user.items.gear.owned
+* @apiSuccess {string} message Success message
 */
 api.userOpenMysteryItem = {
   method: 'POST',
@@ -840,13 +859,17 @@ api.userOpenMysteryItem = {
   },
 };
 
-/**
- * @api {post} /api/v3/user/webhook
- * @apiVersion 3.0.0
- * @apiName UserAddWebhook
- * @apiGroup User
- * @apiSuccess {Object} webhook The created webhook
- **/
+/*
+* @api {post} /api/v3/user/webhook
+* @apiVersion 3.0.0
+* @apiName UserAddWebhook
+* @apiGroup User
+*
+* @apiParam {string} url Body parameter - The webhook's urò
+* @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
+*
+* @apiSuccess {Object} data The created webhook
+*/
 api.addWebhook = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -859,13 +882,18 @@ api.addWebhook = {
   },
 };
 
-/**
- * @api {put} /api/v3/user/webhook/:id
- * @apiVersion 3.0.0
- * @apiName UserUpdateWebhook
- * @apiGroup User
- * @apiSuccess {Object} webhook The updated webhook
- **/
+/*
+* @api {put} /api/v3/user/webhook/:id
+* @apiVersion 3.0.0
+* @apiName UserUpdateWebhook
+* @apiGroup User
+*
+* @apiParam {UUID} id The id of the webhook to update
+* @apiParam {string} url Body parameter - The webhook's urò
+* @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
+*
+* @apiSuccess {Object} data The updated webhook
+*/
 api.updateWebhook = {
   method: 'PUT',
   middlewares: [authWithHeaders()],
@@ -878,13 +906,16 @@ api.updateWebhook = {
   },
 };
 
-/**
- * @api {delete} /api/v3/user/webhook/:id
- * @apiVersion 3.0.0
- * @apiName UserDeleteWebhook
- * @apiGroup User
- * @apiSuccess {Object} webhooks The user webhooks
- **/
+/*
+* @api {delete} /api/v3/user/webhook/:id
+* @apiVersion 3.0.0
+* @apiName UserDeleteWebhook
+* @apiGroup User
+*
+* @apiParam {UUID} id The id of the webhook to delete
+*
+* @apiSuccess {Object} data The user webhooks
+*/
 api.deleteWebhook = {
   method: 'DELETE',
   middlewares: [authWithHeaders()],
@@ -903,7 +934,8 @@ api.deleteWebhook = {
 * @apiName UserReleasePets
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user.items.pets`
+* @apiSuccess {Object} data.items `user.items.pets`
+* @apiSuccess {string} message Success message
 */
 api.userReleasePets = {
   method: 'POST',
@@ -922,8 +954,11 @@ api.userReleasePets = {
 * @apiVersion 3.0.0
 * @apiName UserReleaseBoth
 * @apiGroup User
-*
-* @apiSuccess {Object} data `user.items.gear.owned`
+
+* @apiSuccess {Object} data.achievements
+* @apiSuccess {Object} data.items
+* @apiSuccess {number} data.balance
+* @apiSuccess {string} message Success message
 */
 api.userReleaseBoth = {
   method: 'POST',
@@ -943,7 +978,8 @@ api.userReleaseBoth = {
 * @apiName UserReleaseMounts
 * @apiGroup User
 *
-* @apiSuccess {Object} data `mounts`
+* @apiSuccess {Object} data user.items.mounts
+* @apiSuccess {string} message Success message
 */
 api.userReleaseMounts = {
   method: 'POST',
@@ -958,12 +994,17 @@ api.userReleaseMounts = {
 };
 
 /*
-* @api {post} /api/v3/user/sell/:type/:key Sells user's items.
+* @api {post} /api/v3/user/sell/:type/:key Sells a gold item owned by the user.
 * @apiVersion 3.0.0
 * @apiName UserSell
 * @apiGroup User
 *
-* @apiSuccess {Object} data `stats items`
+* @apiParam {string} type The type of item to sell. Acceptable types are eggs, hatchingPotions, food
+* @apiParam {string} key The key of the item
+*
+* @apiSuccess {Object} data.stats
+* @apiSuccess {Object} data.items
+* @apiSuccess {string} message Success message
 */
 api.userSell = {
   method: 'POST',
@@ -983,7 +1024,12 @@ api.userSell = {
 * @apiName UserUnlock
 * @apiGroup User
 *
-* @apiSuccess {Object} data `purchased preferences items`
+* @apiParam {string} path Query parameter. The path to unlock
+*
+* @apiSuccess {Object} data.purchased
+* @apiSuccess {Object} data.items`
+* @apiSuccess {Object} data.preferences`
+* @apiSuccess {string} message`
 */
 api.userUnlock = {
   method: 'POST',
@@ -1003,7 +1049,8 @@ api.userUnlock = {
 * @apiName UserRevive
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user.items`
+* @apiSuccess {Object} data user.items
+* @apiSuccess {string} message Success message
 */
 api.userRevive = {
   method: 'POST',
@@ -1023,7 +1070,9 @@ api.userRevive = {
 * @apiName UserRebirth
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user`
+* @apiSuccess {Object} data.userr
+* @apiSuccess {array} data.tasks User's modified tasks (no rewards)
+* @apiSuccess {string} message Success message
 */
 api.userRebirth = {
   method: 'POST',
@@ -1047,11 +1096,14 @@ api.userRebirth = {
 };
 
 /**
- * @api {post} /api/v3/user/block/:uuid blocks and unblocks a user
+ * @api {post} /api/v3/user/block/:uuid Blocks and unblocks a user
  * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User
- * @apiSuccess user.inbox.blocks
+ *
+ * @apiParam {UUID} uuid The uuid of the user to block / unblock
+ *
+ * @apiSuccess {array} data user.inbox.blocks
 **/
 api.blockUser = {
   method: 'POST',
@@ -1066,11 +1118,14 @@ api.blockUser = {
 };
 
 /**
- * @api {delete} /api/v3/user/messages/:id delete this message
+ * @api {delete} /api/v3/user/messages/:id Delete a message
  * @apiVersion 3.0.0
  * @apiName deleteMessage
  * @apiGroup User
- * @apiSuccess user.inbox.messages
+ *
+ * @apiParam {UUID} id The id of the message to delete
+ *
+ * @apiSuccess {object} data user.inbox.messages
 **/
 api.deleteMessage = {
   method: 'DELETE',
@@ -1085,11 +1140,12 @@ api.deleteMessage = {
 };
 
 /**
- * @api {delete} /api/v3/user/messages delete all messages
+ * @api {delete} /api/v3/user/messages Delete all messages
  * @apiVersion 3.0.0
  * @apiName clearMessages
  * @apiGroup User
- * @apiSuccess user.inbox.messages
+ *
+ * @apiSuccess {object} data user.inbox.messages
 **/
 api.clearMessages = {
   method: 'DELETE',
@@ -1109,7 +1165,9 @@ api.clearMessages = {
 * @apiName UserReroll
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user`
+* @apiSuccess {Object} data.user
+* @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
+* @apiSuccess {Object} message Success message
 */
 api.userReroll = {
   method: 'POST',
@@ -1139,7 +1197,11 @@ api.userReroll = {
 * @apiName UserAddPushDevice
 * @apiGroup User
 *
-* @apiSuccess {Object} data `pushDevices`
+* @apiParam {string} regId The id of the push device
+* @apiParam {string} uuid The type of push device
+*
+* @apiSuccess {Object} data List of push devices
+* @apiSuccess {string} message Success message
 */
 api.userAddPushDevice = {
   method: 'POST',
@@ -1161,7 +1223,9 @@ api.userAddPushDevice = {
 * @apiName UserReset
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user`
+* @apiSuccess {Object} data.user
+* @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
+* @apiSuccess {string} message Success message
 */
 api.userReset = {
   method: 'POST',

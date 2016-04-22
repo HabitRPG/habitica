@@ -102,7 +102,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     return user;
   } else {
     return [
-      user,
+      {user, tasks},
       i18n.t('rebirthComplete'),
     ];
   }

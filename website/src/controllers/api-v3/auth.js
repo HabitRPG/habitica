@@ -380,7 +380,7 @@ api.updatePassword = {
  *
  * @apiParam {string} email Body parameter - The email address of the user
  *
- * @apiSuccess {string} data.message The localized success message
+ * @apiSuccess {string} message The localized success message
  **/
 api.resetPassword = {
   method: 'POST',
