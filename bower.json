@@ -37,11 +37,11 @@
     "jquery-ui": "1.10.3",
     "jquery.cookie": "1.4.0",
     "js-emoji": "snicker/js-emoji#f25d8a303f",
-    "remarkable": "^1.6.2",
     "ngInfiniteScroll": "1.0.0",
     "pnotify": "1.3.1",
     "sticky": "*",
-    "swagger-ui": "wordnik/swagger-ui#v2.0.24"
+    "swagger-ui": "wordnik/swagger-ui#v2.0.24",
+    "habitica-markdown": "^1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "1.3.9"
