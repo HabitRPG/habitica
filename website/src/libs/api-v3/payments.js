@@ -1,22 +1,22 @@
 import _ from 'lodash' ;
-import analytics from '../../../libs/api-v3/analyticsService';
+import analytics from './analyticsService';
 import async from 'async';
 import cc from 'coupon-code';
 import {
   getUserInfo,
   sendTxn as txnEmail,
-} from '../../../libs/api-v3/email';
-import members from '../../api-v3/members';
+} from './email';
+import members from '../../controllers/api-v3/members';
 import moment from 'moment';
 import mongoose from 'mongoose';
 import nconf from 'nconf';
-import pushNotify from '../../../libs/api-v3/pushNotifications';
-import shared from '../../../../../common' ;
+import pushNotify from './pushNotifications';
+import shared from '../../../../common' ;
 
-import amazon from './amazon';
-import iap from './iap';
-import paypal from './paypal';
-import stripe from './stripe';
+import amazon from '../../controllers/top-level/payments/amazon';
+import iap from '../../controllers/top-level/payments/iap';
+import paypal from '../../controllers/top-level/payments/paypal';
+import stripe from '../../controllers/top-level/payments/stripe';
 
 const IS_PROD = nconf.get('NODE_ENV') === 'production';
 
@@ -38,8 +38,6 @@ function revealMysteryItems (user) {
 
 // @TODO: HEREHERE
 api.createSubscription = async function createSubscription (data) {
-}
-api.createSubscription = function createSubscription (data, cb) {
   let recipient = data.gift ? data.gift.member : data.user;
   let plan = recipient.purchased.plan;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
@@ -130,33 +128,34 @@ api.createSubscription = function createSubscription (data, cb) {
 /**
  * Sets their subscription to be cancelled later
  */
-api.cancelSubscription = function cancelSubscription (data, cb) {
+api.cancelSubscription = function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
+  let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
+  let nowStrFormat = 'MM/DD/YYYY';
 
   plan.dateTerminated =
-    moment(`${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`)
+    moment(nowStr, nowStrFormat)
     .add({days: remaining}) // end their subscription 1mo from their last payment
-    .add({months: Math.ceil(plan.extraMonths)})// plus any extra time (carry-over, gifted subscription, etc) they have. FIXME: moment can't add months in fractions...
+    .add({days: Math.ceil(30 * plan.extraMonths)}) // plus any extra time (carry-over, gifted subscription, etc) they have.
     .toDate();
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
-  data.user.save(cb);
+  data.user.save();
+
   txnEmail(data.user, 'cancel-subscription');
-  let analyticsData = {
+
+  analytics.track('unsubscribe', {
     uuid: data.user._id,
     gaCategory: 'commerce',
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,
-  };
-  analytics.track('unsubscribe', analyticsData);
+  });
 };
 
 // @TODO: HEREHERE
 api.buyGems = async function buyGems (data) {
-};
-api.buyGems = function buyGems (data, cb) {
   let amt = data.amount || 5;
   amt = data.gift ? data.gift.gems.amount / 4 : amt;
   (data.gift ? data.gift.member : data.user).balance += amt;
