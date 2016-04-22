@@ -72,5 +72,6 @@
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Available until October 31",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Available until December 31",
+    "springEventAvailability": "Available until April 30"
 }

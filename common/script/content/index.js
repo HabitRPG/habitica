@@ -506,7 +506,15 @@ api.premiumHatchingPotions = {
     canBuy: (function() {
       return false;
     })
-  }
+  },
+  Floral: {
+    value: 2,
+    text: t('hatchingPotionFloral'),
+    limited: true,
+    canBuy: (function() {
+      return true;
+    }),
+  },
 };
 
 _.each(api.dropHatchingPotions, function(pot, key) {
