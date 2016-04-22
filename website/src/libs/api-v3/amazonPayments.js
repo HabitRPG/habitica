@@ -26,8 +26,13 @@ api.getTokenInfo = (token) => {
   });
 };
 
+/**
+ * From: https://payments.amazon.com/documentation/apireference/201751670#201751670
+ */
 api.createOrderReferenceId = (inputSet) => {
   let amzPayment = connect(amazonPayments);
+  inputSet.AWSAccessKeyId = nconf.get('AMAZON_PAYMENTS:MWS_KEY');
+
   return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.createOrderReferenceForId(inputSet, (err, response) => {
       if (err) return reject(err);

@@ -3,21 +3,25 @@ import * as amzLib from '../../../../../website/src/libs/api-v3/amazonPayments';
 import amazonPayments from 'amazon-payments';
 var User = require('mongoose').model('User');
 
-describe('amazonPayments', () => {
-  beforeEach(() => {
-  });
-
-  describe('#getTokenInfo stubbed', () => {
+describe.only('amazonPayments', () => {
+  describe('stubbed', () => {
     let thisToken = 'this token info';
     let amzOldConnect;
 
     beforeEach(() => {
       amzOldConnect = amazonPayments.connect;
       amazonPayments.connect = () => {
-        let api = { getTokenInfo: (token, cb) => {
-          return cb(undefined, thisToken);
-        } };
-        return { api };
+        let api = {
+          getTokenInfo: (token, cb) => {
+            return cb(undefined, thisToken);
+          },
+        };
+        let offAmazonPayments = {
+          createOrderReferenceForId: (input, cb) => {
+            return cb(undefined, { OrderReferenceDetails: { AmazonOrderReferenceId: true } });
+          },
+        };
+        return { api, offAmazonPayments };
       };
     });
 
@@ -25,10 +29,16 @@ describe('amazonPayments', () => {
       amazonPayments.connect = amzOldConnect;
     });
 
-    it('returns tokenInfo', async (done) => {
+    it('#getTokenInfo - returns tokenInfo', async (done) => {
       let result = await amzLib.getTokenInfo();
       expect(result).to.eql(thisToken);
       done();
+    });
+
+    it('#createOrderReferenceId', async () => {
+      let result = await amzLib.createOrderReferenceId({});
+      expect(result.OrderReferenceDetails).to.exist;
+      expect(result.OrderReferenceDetails.AmazonOrderReferenceId).to.exist;
     });
   });
 
@@ -50,20 +60,10 @@ describe('amazonPayments', () => {
         delete inputSet.Id;
         await amzLib.createOrderReferenceId(inputSet);
       } catch (e) {
-
-        /* console.log('error!', e);
-        console.log('error keys!', Object.keys(e));
-        for (var key in e) {
-          console.log(e[key]);
-        } // */
-
         expect(e.type).to.eql('InvalidParameterValue');
         expect(e.body.ErrorResponse.Error.Message).to.eql('Parameter AWSAccessKeyId cannot be empty.');
         done();
       }
-    });
-
-    xit('succeeds', () => {
     });
   });
 
@@ -91,13 +91,12 @@ describe('amazonPayments', () => {
     xit('succeeds');
   });
 
-  describe.only('#executePayment', () => {
+  describe('#executePayment', () => {
     it('succeeds not as a gift', () => {
     });
 
     it('succeeds as a gift', () => {
     });
   });
-
 
 });

@@ -26,6 +26,7 @@ let api = {};
 api.verifyAccessToken = {
   method: 'POST',
   url: '/payments/amazon/verifyAccessToken',
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     await amzLib.getTokenInfo(req.body.access_token)
     .then(() => {
@@ -47,15 +48,15 @@ api.verifyAccessToken = {
 api.createOrderReferenceId = {
   method: 'POST',
   url: '/payments/amazon/createOrderReferenceId',
-  // middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
 
+    // @TODO: HEREHERE
     try {
       let response = await amzLib.createOrderReferenceId({
         Id: req.body.billingAgreementId,
         IdType: 'BillingAgreement',
         ConfirmNow: false,
-        AWSAccessKeyId: 'something',
       });
       res.respond(200, {
         orderReferenceId: response.OrderReferenceDetails.AmazonOrderReferenceId,
