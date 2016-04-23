@@ -100,6 +100,8 @@
   "noAdminAccess": "You don't have admin access.",
   "pageMustBeNumber": "req.query.page must be a number",
   "missingUnsubscriptionCode": "Missing unsubscription code.",
+  "missingSubscription": "User does not have a plan subscription",
+  "missingSubscriptionCode": "Missing subscription code. Possible values: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo.",
   "userNotFound": "User not found.",
   "spellNotFound": "Spell \"<%= spellId %>\" not found.",
   "partyNotFound": "Party not found",
@@ -173,6 +175,5 @@
   "equipmentAlreadyOwned": "You already own that piece of equipment",
   "missingAccessToken": "The request is missing a required parameter : access_token",
   "missingBillingAgreementId": "Missing billing agreement id",
-  "missingAttributesFromAmazon": "Missing attributes from Amazon",
   "paymentNotSuccessful": "The payment was not successful"
 }

@@ -67,17 +67,11 @@ describe.only('amazonPayments', () => {
     });
   });
 
-  describe('#checkout', () => {
-    xit('succeeds');
-  });
+  describe('#checkout');
 
-  describe('#setOrderReferenceDetails', () => {
-    xit('succeeds');
-  });
+  describe('#setOrderReferenceDetails');
 
-  describe('#confirmOrderReference', () => {
-    xit('succeeds');
-  });
+  describe('#confirmOrderReference');
 
   describe('#authorize', () => {
     xit('succeeds');
@@ -87,9 +81,15 @@ describe.only('amazonPayments', () => {
     xit('had an error');
   });
 
-  describe('#closeOrderReference', () => {
-    xit('succeeds');
-  });
+  describe('#authorizeOnBillingAgreement');
+
+  describe('#confirmBillingAgreement');
+
+  describe('#setBillingAgreementDetails');
+
+  describe('#closeOrderReference');
+
+  describe('#closeBillingAgreement');
 
   describe('#executePayment', () => {
     it('succeeds not as a gift', () => {
@@ -99,4 +99,7 @@ describe.only('amazonPayments', () => {
     });
   });
 
+  describe('#subscribe');
+
+  describe('#subscribeCancel');
 });

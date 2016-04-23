@@ -3,69 +3,42 @@ import nconf from 'nconf';
 import common from '../../../../common';
 let t = common.i18n.t;
 const IS_PROD = nconf.get('NODE_ENV') === 'production';
+import Q from 'q';
 
 let api = {};
 
-function connect (amazonPayments) { // eslint-disable-line no-shadow
-  return amazonPayments.connect({
-    environment: amazonPayments.Environment[IS_PROD ? 'Production' : 'Sandbox'],
-    sellerId: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
-    mwsAccessKey: nconf.get('AMAZON_PAYMENTS:MWS_KEY'),
-    mwsSecretKey: nconf.get('AMAZON_PAYMENTS:MWS_SECRET'),
-    clientId: nconf.get('AMAZON_PAYMENTS:CLIENT_ID'),
-  });
-}
-
-api.getTokenInfo = (token) => {
-  let amzPayment = connect(amazonPayments);
-  return new Promise((resolve, reject) => {
-    amzPayment.api.getTokenInfo(token, (err, tokenInfo) => {
-      if (err) return reject(err);
-      return resolve(tokenInfo);
-    });
-  });
-};
+let amzPayment = amazonPayments.connect({
+  environment: amazonPayments.Environment[IS_PROD ? 'Production' : 'Sandbox'],
+  sellerId: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
+  mwsAccessKey: nconf.get('AMAZON_PAYMENTS:MWS_KEY'),
+  mwsSecretKey: nconf.get('AMAZON_PAYMENTS:MWS_SECRET'),
+  clientId: nconf.get('AMAZON_PAYMENTS:CLIENT_ID'),
+});
 
 /**
  * From: https://payments.amazon.com/documentation/apireference/201751670#201751670
  */
-api.createOrderReferenceId = (inputSet) => {
-  let amzPayment = connect(amazonPayments);
-  inputSet.AWSAccessKeyId = nconf.get('AMAZON_PAYMENTS:MWS_KEY');
+api.getTokenInfo = (token) => {
+  let thisBinding = Q.nbind(amzPayment.api.getTokenInfo, amzPayment.api);
+  return thisBinding(inputSet);
+};
 
-  return new Promise((resolve, reject) => {
-    amzPayment.offAmazonPayments.createOrderReferenceForId(inputSet, (err, response) => {
-      if (err) return reject(err);
-      if (!response.OrderReferenceDetails || !response.OrderReferenceDetails.AmazonOrderReferenceId) {
-        return reject(t('missingAttributesFromAmazon'));
-      }
-      return resolve(response);
-    });
-  });
+api.createOrderReferenceId = (inputSet) => {
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.createOrderReferenceForId, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet);
 };
 
 api.setOrderReferenceDetails = (inputSet) => {
-  let amzPayment = connect(amazonPayments);
-  return new Promise((resolve, reject) => {
-    amzPayment.offAmazonPayments.setOrderReferenceDetails(inputSet, (err, response) => {
-      if (err) return reject(err);
-      return resolve(response);
-    });
-  });
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.setOrderReferenceDetails, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet);
 };
 
 api.confirmOrderReference = (inputSet) => {
-  let amzPayment = connect(amazonPayments);
-  return new Promise((resolve, reject) => {
-    amzPayment.offAmazonPayments.confirmOrderReference(inputSet, (err, response) => {
-      if (err) return reject(err);
-      return resolve(response);
-    });
-  });
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.confirmOrderReference, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet);
 };
 
 api.authorize = (inputSet) => {
-  let amzPayment = connect(amazonPayments);
   return new Promize((resolve, reject) => {
     amzPayment.offAmazonPayments.authorize(inputSet, (err, response) => {
       if (err) return reject(err);
@@ -76,23 +49,31 @@ api.authorize = (inputSet) => {
 };
 
 api.closeOrderReference = (inputSet) => {
-  let amzPayment = connect(amazonPayments);
-  return new Promize((resolve, reject) => {
-    amzPayment.offAmazonPayments.closeOrderReference(inputSet, (err, response) => {
-      if (err) return reject(err);
-      return resolve(response);
-    });
-  });
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.closeOrderReference, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet);
 };
 
-api.executePayment = (inputSet) => {
-  let amzPayment = connect(amazonPayments);
-  return new Promize((resolve, reject) => {
-    amzPayment.offAmazonPayments.closeOrderReference(inputSet, (err, response) => {
-      if (err) return reject(err);
-      return resolve(response);
-    });
-  });
+api.setBillingAgreementDetails = (inputSet) => {
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.setBillingAgreementDetails, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet); 
+};
+
+api.confirmBillingAgreement = (inputSet) => {
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.confirmBillingAgreement, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet); 
+};
+
+api.authorizeOnBillingAgreement = (inputSet) => {
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.authorizeOnBillingAgreement, amzPayment.offAmazonPayments)
+  .then(res) {
+    if (res.AuthorizationDetails.AuthorizationStatus.State === 'Declined') throw new Error(t('paymentNotSuccessful'));
+  };
+  return thisBinding(inputSet); 
+};
+
+api.closeBillingAgreement = (inputSet) => {
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.closeBillingAgreement, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet); 
 };
 
 module.exports = api;

@@ -18,7 +18,7 @@ import iap from '../../controllers/top-level/payments/iap';
 import paypal from '../../controllers/top-level/payments/paypal';
 import stripe from '../../controllers/top-level/payments/stripe';
 
-const IS_PROD = nconf.get('NODE_ENV') === 'production';
+const IS_PROD = nconf.get('IS_PROD');
 
 let api = {};
 
@@ -36,7 +36,6 @@ function revealMysteryItems (user) {
   });
 }
 
-// @TODO: HEREHERE
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   let plan = recipient.purchased.plan;
@@ -79,6 +78,7 @@ api.createSubscription = async function createSubscription (data) {
     plan.consecutive.trinkets += perks;
   }
   revealMysteryItems(recipient);
+
   if (IS_PROD) {
     if (!data.gift) txnEmail(data.user, 'subscription-begins');
 
@@ -94,7 +94,9 @@ api.createSubscription = async function createSubscription (data) {
     };
     analytics.trackPurchase(analyticsData);
   }
+
   data.user.purchased.txnCount++;
+
   if (data.gift) {
     members.sendMessage(data.user, data.gift.member, data.gift);
 
@@ -111,24 +113,15 @@ api.createSubscription = async function createSubscription (data) {
       pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedSubscription'), `${months} months - by ${byUserName}`);
     }
   }
-  async.parallel([
-    function saveGiftingUserData (cb2) {
-      data.user.save(cb2);
-    },
-    function saveRecipientUserData (cb2) {
-      if (data.gift) {
-        data.gift.member.save(cb2);
-      } else {
-        cb2(null);
-      }
-    },
-  ], cb);
+
+  await data.user.save();
+  if (data.gift) await data.gift.member.save();
 };
 
 /**
  * Sets their subscription to be cancelled later
  */
-api.cancelSubscription = function cancelSubscription (data) {
+api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
@@ -142,7 +135,7 @@ api.cancelSubscription = function cancelSubscription (data) {
     .toDate();
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
-  data.user.save();
+  await data.user.save();
 
   txnEmail(data.user, 'cancel-subscription');
 
@@ -154,7 +147,6 @@ api.cancelSubscription = function cancelSubscription (data) {
   });
 };
 
-// @TODO: HEREHERE
 api.buyGems = async function buyGems (data) {
   let amt = data.amount || 5;
   amt = data.gift ? data.gift.gems.amount / 4 : amt;
@@ -206,6 +198,7 @@ api.buyGems = async function buyGems (data) {
   ], cb);
 };
 
+// @TODO: this shouldn't be here or should not be a middleware
 api.validCoupon = function validCoupon (req, res, next) {
   mongoose.model('Coupon').findOne({_id: cc.validate(req.params.code), event: 'google_6mo'}, function couponErrorCheck (err, coupon) {
     if (err) return next(err);
@@ -225,11 +218,11 @@ api.paypalCheckout = paypal.createPayment;
 api.paypalCheckoutSuccess = paypal.executePayment;
 api.paypalIPN = paypal.ipn;
 
-api.amazonVerifyAccessToken = amazon.verifyAccessToken;
-api.amazonCreateOrderReferenceId = amazon.createOrderReferenceId;
-api.amazonCheckout = amazon.checkout;
-api.amazonSubscribe = amazon.subscribe;
-api.amazonSubscribeCancel = amazon.subscribeCancel;
+// api.amazonVerifyAccessToken = amazon.verifyAccessToken;
+// api.amazonCreateOrderReferenceId = amazon.createOrderReferenceId;
+// api.amazonCheckout = amazon.checkout;
+// api.amazonSubscribe = amazon.subscribe;
+// api.amazonSubscribeCancel = amazon.subscribeCancel;
 
 api.iapAndroidVerify = iap.androidVerify;
 api.iapIosVerify = iap.iosVerify;

@@ -373,7 +373,8 @@ gulp.task('test:api-v3:integration', (done) => {
 });
 
 gulp.task('test:api-v3:integration:watch', () => {
-  gulp.watch(['website/src/controllers/api-v3/**/*', 'test/api/v3/integration/**/*', 'common/script/ops/*'], ['test:api-v3:integration']);
+  gulp.watch(['website/src/controllers/api-v3/**/*', 'common/script/ops/*', 'website/src/libs/api-v3/*.js',
+              'test/api/v3/integration/**/*'], ['test:api-v3:integration']);
 });
 
 gulp.task('test:api-v3:integration:separate-server', (done) => {

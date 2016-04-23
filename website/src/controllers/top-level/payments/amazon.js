@@ -1,17 +1,16 @@
-/* import async from 'async';
-import cc from 'coupon-code';
+/*
 import mongoose from 'mongoose';
-import moment from 'moment';
-import shared from '../../../../../common';
 import { model as User } from '../../../models/user'; */
 import {
-  // NotFound,
-  // NotAuthorized,
   BadRequest,
 } from '../../../libs/api-v3/errors';
 import amzLib from '../../../libs/api-v3/amazonPayments';
 import { authWithHeaders } from '../../../middlewares/api-v3/auth';
-var payments = require('../../../libs/api-v3/payments');
+import shared from '../../../../../common';
+import payments from '../../../libs/api-v3/payments';
+import moment from 'moment';
+import { model as Coupon } from '../../../models/coupon';
+import cc from 'coupon-code';
 
 let api = {};
 
@@ -20,7 +19,9 @@ let api = {};
  * @apiVersion 3.0.0
  * @apiName AmazonVerifyAccessToken
  * @apiGroup Payments
+ *
  * @apiParam {string} access_token the access token
+ *
  * @apiSuccess {} empty
  **/
 api.verifyAccessToken = {
@@ -28,12 +29,12 @@ api.verifyAccessToken = {
   url: '/payments/amazon/verifyAccessToken',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    await amzLib.getTokenInfo(req.body.access_token)
-    .then(() => {
+    try {
+      await amzLib.getTokenInfo(req.body.access_token);
       res.respond(200, {});
-    }).catch((error) => {
+    } catch (error) {
       throw new BadRequest(error.body.error_description);
-    });
+    };
   },
 };
 
@@ -42,16 +43,16 @@ api.verifyAccessToken = {
  * @apiVersion 3.0.0
  * @apiName AmazonCreateOrderReferenceId
  * @apiGroup Payments
+ *
  * @apiParam {string} billingAgreementId billing agreement id
- * @apiSuccess {object} object containing { orderReferenceId }
+ *
+ * @apiSuccess {object} data.orderReferenceId The order reference id.
  **/
 api.createOrderReferenceId = {
   method: 'POST',
   url: '/payments/amazon/createOrderReferenceId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-
-    // @TODO: HEREHERE
     try {
       let response = await amzLib.createOrderReferenceId({
         Id: req.body.billingAgreementId,
@@ -64,7 +65,6 @@ api.createOrderReferenceId = {
     } catch (error) {
       throw new BadRequest(error);
     }
-
   },
 };
 
@@ -75,6 +75,7 @@ api.createOrderReferenceId = {
  * @apiGroup Payments
  *
  * @apiParam {string} billingAgreementId billing agreement id
+ *
  * @apiSuccess {object} object containing { orderReferenceId }
  **/
 api.checkout = {
@@ -94,10 +95,6 @@ api.checkout = {
         amount = shared.content.subscriptionBlocks[gift.subscription.key].price;
       }
     }
-
-    /* if (!req.body || !req.body.orderReferenceId) {
-      return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
-    } */
 
     try {
       await amzLib.setOrderReferenceDetails({
@@ -132,12 +129,11 @@ api.checkout = {
       await amzLib.closeOrderReference({ AmazonOrderReferenceId: orderReferenceId });
 
       // execute payment
-      let giftUser = await User.findById(gift ? gift.uuid : undefined);
-      let data = { giftUser, paymentMethod: 'Amazon Payments' };
       let method = 'buyGems';
+      let data = { user, paymentMethod: 'Amazon Payments' };
       if (gift) {
         if (gift.type === 'subscription') method = 'createSubscription';
-        gift.member = giftUser;
+        gift.member = await User.findById(gift ? gift.uuid : undefined);
         data.gift = gift;
         data.paymentMethod = 'Gift';
       }
@@ -150,36 +146,40 @@ api.checkout = {
   },
 };
 
+/**
+ * @api {post} /api/v3/payments/amazon/subscribe Subscribe
+ * @apiVersion 3.0.0
+ * @apiName AmazonSubscribe
+ * @apiGroup Payments
+ *
+ * @apiParam {string} billingAgreementId billing agreement id
+ * @apiParam {string} subscription Subscription plan
+ * @apiParam {string} coupon Coupon
+ *
+ * @apiSuccess {object} data.orderReferenceId The order reference id.
+ **/
+api.subscribe = {
+  method: 'POST',
+  url: '/payments/amazon/subscribe',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let billingAgreementId = req.body.billingAgreementId;
+    let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
+    let coupon = req.body.coupon;
+    let user = res.locals.user;
 
+    if (!sub) {
+      throw new BadRequest(res.t('missingSubscriptionCode'));
+    }
 
-/*
-api.subscribe = function subscribe (req, res, next) {
-  if (!req.body || !req.body.billingAgreementId) {
-    return res.status(400).json({err: 'Billing Agreement Id not supplied.'});
-  }
+    try {
+      if (sub.discount) { // apply discount
+        if (!coupon) throw new BadRequest(res.t('couponCodeRequired'));
+        let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key});
+        if (!result) throw new BadRequest(res.t('invalidCoupon'));
+      }
 
-  let billingAgreementId = req.body.billingAgreementId;
-  let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
-  let coupon = req.body.coupon;
-  let user = res.locals.user;
-
-  if (!sub) {
-    return res.status(400).json({err: 'Subscription plan not found.'});
-  }
-
-  async.series({
-    applyDiscount (cb) {
-      if (!sub.discount) return cb();
-      if (!coupon) return cb(new Error('Please provide a coupon code for this plan.'));
-      mongoose.model('Coupon').findOne({_id: cc.validate(coupon), event: sub.key}, function couponResult (err) {
-        if (err) return cb(err);
-        if (!coupon) return cb(new Error('Coupon code not found.'));
-        cb();
-      });
-    },
-
-    setBillingAgreementDetails (cb) {
-      amzPayment.offAmazonPayments.setBillingAgreementDetails({
+      await amzLib.setBillingAgreementDetails({
         AmazonBillingAgreementId: billingAgreementId,
         BillingAgreementAttributes: {
           SellerNote: 'HabitRPG Subscription',
@@ -189,17 +189,13 @@ api.subscribe = function subscribe (req, res, next) {
             CustomInformation: 'HabitRPG Subscription',
           },
         },
-      }, cb);
-    },
+      });
 
-    confirmBillingAgreement (cb) {
-      amzPayment.offAmazonPayments.confirmBillingAgreement({
+      await amzLib.confirmBillingAgreement({
         AmazonBillingAgreementId: billingAgreementId,
-      }, cb);
-    },
+      });
 
-    authorizeOnBillingAgreement (cb) {
-      amzPayment.offAmazonPayments.authorizeOnBillingAgreement({
+      await amzLib.authorizeOnBillingAgreement({
         AmazonBillingAgreementId: billingAgreementId,
         AuthorizationReferenceId: shared.uuid().substring(0, 32),
         AuthorizationAmount: {
@@ -214,68 +210,61 @@ api.subscribe = function subscribe (req, res, next) {
           SellerOrderId: shared.uuid(),
           StoreName: 'HabitRPG',
         },
-      }, function billingAgreementResult (err) {
-        if (err) return cb(err);
-
-        if (res.AuthorizationDetails.AuthorizationStatus.State === 'Declined') {
-          return cb(new Error('The payment was not successful.'));
-        }
-
-        return cb();
       });
-    },
 
-    createSubscription (cb) {
-      payments.createSubscription({
+      await payments.createSubscription({
         user,
         customerId: billingAgreementId,
         paymentMethod: 'Amazon Payments',
         sub,
-      }, cb);
-    },
-  }, function subscribeResult (err) {
-    if (err) return next(err);
+      });
 
-    res.sendStatus(200);
-  });
+      res.respond(200);
+    } catch (error) {
+      throw new BadRequest(error);
+    }
+  },
 };
 
-api.subscribeCancel = function subscribeCancel (req, res, next) {
-  let user = res.locals.user;
-  if (!user.purchased.plan.customerId)
-    return res.status(401).json({err: 'User does not have a plan subscription'});
+/**
+ * @api {delete} /api/v3/payments/amazon/subscribe SubscribeCancel
+ * @apiVersion 3.0.0
+ * @apiName AmazonSubscribe
+ * @apiGroup Payments
+ *
+ * @apiParam {string} billingAgreementId billing agreement id
+ * @apiParam {string} subscription Subscription plan
+ * @apiParam {string} coupon Optional Coupon for discount
+ *
+ * @apiSuccess {object} data.orderReferenceId The order reference id.
+ **/
+api.subscribeCancel = {
+  method: 'DELETE',
+  url: '/payments/amazon/subscribe',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let billingAgreementId = user.purchased.plan.customerId;
 
-  let billingAgreementId = user.purchased.plan.customerId;
+    if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));
 
-  async.series({
-    closeBillingAgreement (cb) {
-      amzPayment.offAmazonPayments.closeBillingAgreement({
+    try {
+      await amzLib.closeBillingAgreement({
         AmazonBillingAgreementId: billingAgreementId,
-      }, cb);
-    },
+      });
 
-    cancelSubscription (cb) {
       let data = {
         user,
-        // Date of next bill
-        nextBill: moment(user.purchased.plan.lastBillingDate).add({days: 30}),
+        nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: 30 }),
         paymentMethod: 'Amazon Payments',
       };
+      await payments.cancelSubscription(data);
 
-      payments.cancelSubscription(data, cb);
-    },
-  }, function subscribeCancelResult (err) {
-    if (err) return next(err); // don't json this, let toString() handle errors
-
-    if (req.query.noRedirect) {
-      res.sendStatus(200);
-    } else {
-      res.redirect('/');
+      res.respond(200, {});
+    } catch (error) {
+      throw new BadRequest(error);
     }
-
-    user = null;
-  });
+  },
 };
-*/
 
 module.exports = api;
