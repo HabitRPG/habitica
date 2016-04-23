@@ -25,23 +25,46 @@ export async function resetHabiticaDB () {
     mongoose.connection.db.dropDatabase((dbErr) => {
       if (dbErr) return reject(dbErr);
       let groups = mongoose.connection.db.collection('groups');
+      let users = mongoose.connection.db.collection('users');
 
-      // For some mysterious reason after a dropDatabase there can still be a group...
-      groups.count({_id: TAVERN_ID}, (err, count) => {
+      users.count({_id: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0'}, (err, count) => {
         if (err) return reject(err);
         if (count > 0) return resolve();
 
-        groups.insertOne({
-          _id: TAVERN_ID,
-          chat: [],
-          leader: '9',
-          name: 'HabitRPG',
-          type: 'guild',
-          privacy: 'public',
+        // create the leader for the tavern
+        users.insertOne({
+          _id: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0',
+          apiToken: TAVERN_ID,
+          auth: {
+            local: {
+              username: 'username',
+              lowerCaseUsername: 'username',
+              email: 'username@email.com',
+              salt: 'salt',
+              hashed_password: 'hashed_password', // eslint-disable-line camelcase
+            },
+          },
         }, (insertErr) => {
           if (insertErr) return reject(insertErr);
 
-          resolve();
+          // For some mysterious reason after a dropDatabase there can still be a group...
+          groups.count({_id: TAVERN_ID}, (err2, count2) => {
+            if (err2) return reject(err2);
+            if (count2 > 0) return resolve();
+
+            groups.insertOne({
+              _id: TAVERN_ID,
+              chat: [],
+              leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
+              name: 'HabitRPG',
+              type: 'guild',
+              privacy: 'public',
+            }, (insertErr2) => {
+              if (insertErr2) return reject(insertErr2);
+
+              resolve();
+            });
+          });
         });
       });
     });
