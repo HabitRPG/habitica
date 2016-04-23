@@ -23,6 +23,53 @@ describe('Groups Controller', function() {
     });
   });
 
+  describe("isMemberOfPendingQuest", function() {
+    var party;
+    var partyStub;
+
+    beforeEach(function () {
+      party = specHelper.newGroup({
+        _id: "unique-party-id",
+        type: 'party',
+        members: ['leader-id'] // Ensure we wouldn't pass automatically.
+      });
+
+      partyStub = sandbox.stub(groups, "party", function() {
+        return party;
+      });
+    });
+
+    it("returns false if group is does not have a quest", function() {
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.not.be.ok;
+    });
+
+    it("returns false if group quest has not members", function() {
+      party.quest = {
+        'key': 'random-key',
+      };
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.not.be.ok;
+    });
+
+    it("returns false if group quest is active", function() {
+      party.quest = {
+        'key': 'random-key',
+        'members': {},
+        'active': true,
+      };
+      party.quest.members[user._id] = true;
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.not.be.ok;
+    });
+
+    it("returns true if user is a member of a pending quest", function() {
+      party.quest = {
+        'key': 'random-key',
+        'members': {},
+      };
+      party.quest.members[user._id] = true;
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.be.ok;
+    });
+  });
+
   describe("isMemberOfGroup", function() {
     it("returns true if group is the user's party retrieved from groups service", function() {
       var party = specHelper.newGroup({
@@ -31,7 +78,7 @@ describe('Groups Controller', function() {
         members: ['leader-id'] // Ensure we wouldn't pass automatically.
       });
 
-      var partyStub = sandbox.stub(groups,"party", function() {
+      var partyStub = sandbox.stub(groups, "party", function() {
         return party;
       });
 
@@ -46,7 +93,7 @@ describe('Groups Controller', function() {
         members: [user._id]
       });
 
-      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
+      var myGuilds = sandbox.stub(groups, "myGuilds", function() {
         return [guild];
       });
 

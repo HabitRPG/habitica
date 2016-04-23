@@ -1,20 +1,36 @@
 'use strict';
 
 habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social',
-    function($rootScope,$scope,Groups,Chat,User,Challenges,$state,$compile,Analytics,Quests,Social) {
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social) {
 
       var user = User.user;
 
       $scope.type = 'party';
       $scope.text = window.env.t('party');
-      $scope.group = $rootScope.party = Groups.party();
-      $scope.newGroup = new Groups.Group({type:'party'});
+
+      //@TODO: cache
+      Groups.Group.syncParty()
+        .then(function successCallback(response) {
+          $scope.group = response.data.data;
+          checkForNotifications();
+        }, function errorCallback(response) {
+          $scope.newGroup = $scope.group = { type: 'party' };
+        });
+
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
 
       if ($state.is('options.social.party')) {
-        $scope.group.$syncParty(); // Sync party automatically when navigating to party page
-
+        Groups.Group.syncParty()
+          .then(function successCallback(response) {
+            $scope.group = response.data.data;
+            checkForNotifications();
+          }, function errorCallback(response) {
+            $scope.newGroup = { type: 'party' };
+          });
+      }
+      // Chat.seenMessage($scope.group._id);
+      function checkForNotifications () {
         // Checks if user's party has reached 2 players for the first time.
         if(!user.achievements.partyUp
             && $scope.group.memberCount >= 2) {
@@ -30,36 +46,35 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         }
       }
 
-      Chat.seenMessage($scope.group._id);
-
-      $scope.create = function(group){
+      $scope.create = function (group) {
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
-        group.$save(function(){
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'party','privacy':'private'});
-          Analytics.updateUser({'partyID':group.id,'partySize':1});
+        Groups.Group.create(group, function() {
+          Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
+          Analytics.updateUser({'party.id': group.id, 'partySize': 1});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
       };
 
-      $scope.join = function(party){
-        var group = new Groups.Group({_id: party.id, name: party.name});
-        group.$join(function(){
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
-          Analytics.updateUser({'partyID':party.id});
-          $rootScope.hardRedirect('/#/options/groups/party');
-        });
+      $scope.join = function (party) {
+        Groups.Group.join(party.id)
+          .then(function (response) {
+            Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
+            Analytics.updateUser({'partyID': party.id});
+            $rootScope.hardRedirect('/#/options/groups/party');
+          });
       };
 
       // TODO: refactor guild and party leave into one function
-      $scope.leave = function(keep) {
+      $scope.leave = function (keep) {
         if (keep == 'cancel') {
           $scope.selectedGroup = undefined;
           $scope.popoverEl.popover('destroy');
         } else {
-          Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
-            Analytics.updateUser({'partySize':null,'partyID':null});
-            $rootScope.hardRedirect('/#/options/groups/party');
-          });
+          Groups.Group.leave($scope.selectedGroup._id, keep)
+            .then(function (response) {
+              Analytics.updateUser({'partySize':null,'partyID':null});
+              $rootScope.hardRedirect('/#/options/groups/party');
+            });
         }
       };
 
@@ -69,21 +84,27 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           $scope.selectedGroup = group;
           $scope.popoverEl = $($event.target).closest('.btn');
           var html, title;
-          Challenges.Challenge.query(function(challenges) {
-              challenges = _.pluck(_.filter(challenges, function(c) {
-                  return c.group._id == group._id;
-              }), '_id');
-              if (_.intersection(challenges, User.user.challenges).length > 0) {
-                  html = $compile(
-              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
-          )($scope);
-                  title = window.env.t('leavePartyCha');
-              } else {
-                  html = $compile(
-                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
-                  )($scope);
-                  title = window.env.t('leaveParty');
-              }
+          html = $compile('<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>')($scope);
+          title = window.env.t('leavePartyCha');
+
+          //TODO: Move this to challenge service
+          //@TODO: Implement this when we convert front-end challenge service
+          // Challenges.Challenge.query(function(challenges) {
+          //     challenges = _.pluck(_.filter(challenges, function(c) {
+          //         return c.group._id == group._id;
+          //     }), '_id');
+          //     if (_.intersection(challenges, User.user.challenges).length > 0) {
+          //         html = $compile(
+          //     '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+          // )($scope);
+          //         title = window.env.t('leavePartyCha');
+          //     } else {
+          //         html = $compile(
+          //             '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+          //         )($scope);
+          //         title = window.env.t('leaveParty');
+          //     }
+
           $scope.popoverEl.popover('destroy').popover({
               html: true,
               placement: 'top',
@@ -91,10 +112,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
                   title: title,
               content: html
           }).popover('show');
-          });
+          // });
       };
 
-      $scope.clickStartQuest = function(){
+      $scope.clickStartQuest = function () {
         Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
         var hasQuests = _.find(User.user.items.quests, function(quest) {
           return quest > 0;
@@ -109,7 +130,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.leaveOldPartyAndJoinNewParty = function(newPartyId, newPartyName) {
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
-          Groups.Group.leave({gid: Groups.party()._id, keep:false}, undefined, function() {
+          Groups.Group.leave({gid: Groups.party()._id, keep: false}, undefined, function() {
             $scope.group = {
               loadingNewParty: true
             };
@@ -118,7 +139,8 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         }
       }
 
-      $scope.reject = function(){
+      $scope.reject = function(party) {
+        Groups.Group.rejectInvite(party.id);
         User.set({'invitations.party':{}});
       }
 

@@ -3,24 +3,24 @@
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
   function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
 
-    $scope.isMemberOfPendingQuest = function(userid, group) {
+    $scope.isMemberOfPendingQuest = function (userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
       return userid in group.quest.members && group.quest.members[userid] != false;
     };
 
-    $scope.isMemberOfRunningQuest = function(userid, group) {
+    $scope.isMemberOfRunningQuest = function (userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (!group.quest.active) return false; // quest is pending, not started
       return group.quest.members[userid];
     };
 
-    $scope.isMemberOfGroup = function(userid, group){
-
+    $scope.isMemberOfGroup = function (userid, group) {
       // If the group is a guild, just check for an intersection with the
       // current user's guilds, rather than checking the members of the group.
       if(group.type === 'guild') {
-        return _.detect(Groups.myGuilds(), function(g) { return g._id === group._id });
+        var guilds = Groups.myGuilds();
+        return _.detect(guilds, function(g) { return g._id === group._id });
       }
 
       // Similarly, if we're dealing with the user's current party, return true.
@@ -34,7 +34,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       return ~(memberIds.indexOf(userid));
     };
 
-    $scope.isMember = function(user, group){
+    $scope.isMember = function (user, group) {
       return ~(group.members.indexOf(user._id));
     };
 
@@ -47,7 +47,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       group._editing = true;
     };
 
-
     $scope.saveEdit = function (group) {
       var newLeader = $scope.groupCopy._newLeader && $scope.groupCopy._newLeader._id;
 
@@ -57,7 +56,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
       angular.copy($scope.groupCopy, group);
 
-      group.$save();
+      Groups.Group.update(group);
 
       $scope.cancelEdit(group);
     };
@@ -91,7 +90,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
     };
 
-
     $scope.removeMember = function(group, member, isMember){
       // TODO find a better way to do this (share data with remove member modal)
       $scope.removeMemberData = {
@@ -103,12 +101,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.confirmRemoveMember = function(confirm){
-      if(confirm){
-        Groups.Group.removeMember({
-          gid: $scope.removeMemberData.group._id,
-          uuid: $scope.removeMemberData.member._id,
-          message: $scope.removeMemberData.message,
-        }, undefined, function(){
+      if (confirm) {
+        Groups.Group.removeMember(
+          $scope.removeMemberData.group._id,
+          $scope.removeMemberData.member._id,
+          $scope.removeMemberData.message,
+        ).then(function (response) {
           if($scope.removeMemberData.isMember){
             _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);
           }else{
@@ -117,7 +115,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
           $scope.removeMemberData = undefined;
         });
-      }else{
+      } else {
         $scope.removeMemberData = undefined;
       }
     };
@@ -141,5 +139,4 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
       });
     }
-
   }]);

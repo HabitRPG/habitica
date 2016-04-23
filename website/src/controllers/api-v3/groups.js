@@ -103,7 +103,7 @@ api.getGroups = {
     let results = await Group.getGroups({user, types, groupFields, sort});
 
     // If no valid value for type was supplied, return an error
-    if (results.length === 0) throw new BadRequest(res.t('groupTypesRequired'));
+    // if (results.length === 0) throw new BadRequest(res.t('groupTypesRequired'));
 
     res.respond(200, results);
   },
@@ -278,7 +278,10 @@ api.joinGroup = {
     await Q.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
-    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let leader = await User.findById(response.leader).select(nameFields).exec();
+    if (leader) {
+      response.leader = leader.toJSON({minimize: true});
+    }
     res.respond(200, response);
 
     firebase.addUserToGroup(group._id, user._id);

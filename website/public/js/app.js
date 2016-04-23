@@ -152,10 +152,11 @@ window.habitrpg = angular.module('habitrpg',
           title: env.t('titleGuilds'),
           controller: ['$scope', 'Groups', 'Chat', '$stateParams',
           function($scope, Groups, Chat, $stateParams){
-            Groups.Group.get({gid:$stateParams.gid}, function(group){
-              $scope.group = group;
-              Chat.seenMessage(group._id);
-            });
+            Groups.Group.get($stateParams.gid)
+              .then(function (response) {
+                $scope.group = response.data.data;
+                Chat.seenMessage($scope.group._id);
+              });
           }]
         })
 

@@ -2,6 +2,7 @@
 
 describe("Party Controller", function() {
   var scope, ctrl, user, User, questsService, groups, rootScope, $controller;
+  var party;
 
   beforeEach(function() {
     user = specHelper.newUser(),
@@ -10,7 +11,13 @@ describe("Party Controller", function() {
       user: user,
       sync: sandbox.spy(),
       set: sandbox.spy()
-    }
+    };
+
+    party = specHelper.newGroup({
+      _id: "unique-party-id",
+      type: 'party',
+      members: ['leader-id'] // Ensure we wouldn't pass automatically.
+    });
 
     module(function($provide) {
       $provide.value('User', User);
@@ -133,6 +140,25 @@ describe("Party Controller", function() {
           expect(rootScope.openModal).to.not.be.called;
         });
       });
+    });
+  });
+
+  describe.only("create", function() {
+    var partyStub;
+
+    beforeEach(function () {
+      partyStub = sandbox.stub(groups.Group, "create", function() {
+        return party;
+      });
+    });
+
+    it("creates a new party", function() {
+      var group = {
+        type: 'party',
+      };
+      scope.create(group);
+      expect(partyStub).to.be.calledOnce;
+      //@TODO: Check user party  console.log(User.user.party.id)
     });
   });
 
