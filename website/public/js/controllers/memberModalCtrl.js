@@ -20,16 +20,17 @@ habitrpg
       });
 
       $scope.sendPrivateMessage = function(uuid, message){
-        // Don't do anything if the user somehow gets here without a message.
         if (!message) return;
 
-        $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
-          Notification.text(window.env.t('messageSentAlert'));
-          $rootScope.User.sync();
-          $scope.$close();
-        });
+        Members.sendPrivateMessage(message, uuid)
+          .then(function (response) {
+            Notification.text(window.env.t('messageSentAlert'));
+            $rootScope.User.sync();
+            $scope.$close();
+          });
       };
 
+      //@TODO: We don't send subscriptions so the structure has changed in the back. Update this when we update the views.
       $scope.gift = {
         type: 'gems',
         gems: {amount:0, fromBalance:true},
@@ -37,12 +38,13 @@ habitrpg
         message:''
       };
 
-      $scope.sendGift = function(uuid, gift){
-        $http.post('/api/v2/members/'+uuid+'/gift', gift).success(function(){
-          Notification.text('Gift sent!')
-          $rootScope.User.sync();
-          $scope.$close();
-        })
+      $scope.sendGift = function (uuid, gift) {
+        Members.transferGems(message, uuid, $scope.gift.gems.amount)
+          .then(function (response) {
+            Notification.text('Gift sent!')
+            $rootScope.User.sync();
+            $scope.$close();
+          });
       };
 
       $scope.reportAbuse = function(reporter, message, groupId) {

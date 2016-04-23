@@ -150,12 +150,16 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams',
-          function($scope, Groups, Chat, $stateParams){
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members',
+          function($scope, Groups, Chat, $stateParams, Members){
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
                 $scope.group = response.data.data;
                 Chat.markChatSeen($scope.group._id);
+                Members.getGroupMembers($scope.group._id)
+                  .then(function (response) {
+                    $scope.group.members = response.data.data;
+                  });
               });
           }]
         })
