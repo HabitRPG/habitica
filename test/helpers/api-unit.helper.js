@@ -6,6 +6,7 @@ import { model as Group } from '../../website/src/models/group';
 import mongo from './mongo'; // eslint-disable-line
 import moment from 'moment';
 import i18n from '../../common/script/i18n';
+import * as Tasks from '../../website/src/models/task';
 
 afterEach((done) => {
   sandbox.restore();
@@ -69,4 +70,34 @@ export function generateHistory (days) {
   }
 
   return history;
+}
+
+export function generateTodo (user) {
+  let todo = {
+    text: 'test todo',
+    type: 'todo',
+    value: 0,
+    completed: false,
+  };
+
+  let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line babel/new-cap
+  task.userId = user._id;
+  task.save();
+
+  return task;
+}
+
+export function generateDaily (user) {
+  let daily = {
+    text: 'test daily',
+    type: 'daily',
+    value: 0,
+    completed: false,
+  };
+
+  let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+  task.userId = user._id;
+  task.save();
+
+  return task;
 }
