@@ -9,7 +9,8 @@
     var remarkable = new Remarkable({
       // TODO: Add in code highlighting?
       // highlight: function (#<{(|str, lang|)}>#) { return ''; }
-      linkify: true
+      linkify: true,
+      linkTarget: '_blank',
     });
 
     emoji.img_path = 'common/img/emoji/unicode/';
@@ -92,14 +93,12 @@
           var replaceMarkdown = function(){
 
             var markdown = value;
-            var linktarget = attrs.target || '_self';
             var userName = scope.User.user.profile.name;
             var userHighlight = "@"+userName;
             var html = md.toHtml(markdown);
 
             html = html.replace(userHighlight, "<u>@"+userName+"</u>");
 
-            html = html.replace(' href',' target="'+linktarget+'" href');
             element.html(html);
 
             if(MOBILE_APP) {
@@ -139,8 +138,6 @@
   habitrpg.filter('markdown', function() {
     return function(input){
       var html = md.toHtml(input);
-
-      html = html.replace(' href',' target="_blank" href');
 
       return html;
     };
