@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Groups', [ '$location', '$resource', '$rootScope', '$http', 'Analytics', 'ApiUrl', 'Challenges','User',
-  function($location, $resource, $rootScope, $http, Analytics, ApiUrl, Challenges, User) {
+.factory('Groups', [ '$location', '$rootScope', '$http', 'Analytics', 'ApiUrl', 'Challenges', 'User', '$q',
+  function($location, $rootScope, $http, Analytics, ApiUrl, Challenges, User, $q) {
     var data =  {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined };
     var groupApiURLPrefix = "/api/v3/groups";
 
@@ -94,7 +94,6 @@ angular.module('habitrpg')
       });
     };
 
-
     Group.startQuest = function(gid) {
       return $http({
         method: "POST",
@@ -116,35 +115,52 @@ angular.module('habitrpg')
     }
 
     function publicGuilds() {
+      var deferred = $q.defer();
+
       if (!data.publicGuilds) {
         Group.getGroups('publicGuilds')
-          .then(function successCallback(response) {
+          .then(function (response) {
             data.publicGuilds = response.data.data;
-          }, function errorCallback(response) {
-
+            deferred.resolve(data.publicGuilds);
           });
       } else {
-        return data.publicGuilds;
+        deferred.resolve(data.publicGuilds);
       }
+
+      return deferred.promise;
       //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
     }
 
     function myGuilds() {
+      var deferred = $q.defer();
+
       if (!data.myGuilds) {
         Group.getGroups('privateGuilds')
-          .then(function successCallback(response) {
+          .then(function (response) {
             data.myGuilds = response.data.data;
-          }, function errorCallback(response) {
-
+            deferred.resolve(data.myGuilds);
           });
       } else {
-        return data.myGuilds;
+        deferred.resolve(data.myGuilds);
       }
+
+      return deferred.promise;
     }
 
-    function tavern() {
-      if (!data.tavern) data.tavern = Group.get({gid:'habitrpg'});
-      return data.tavern;
+    function tavern () {
+      var deferred = $q.defer();
+
+      if (!data.tavern) {
+        Group.get('habitrpg')
+          .then(function (response) {
+            data.tavern = response.data.data;
+            deferred.resolve(data.tavern);
+          });
+      } else {
+        deferred.resolve(data.tavern);
+      }
+
+      return deferred.promise;
     }
 
     function inviteOrStartParty (group) {

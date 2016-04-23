@@ -105,7 +105,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         Groups.Group.removeMember(
           $scope.removeMemberData.group._id,
           $scope.removeMemberData.member._id,
-          $scope.removeMemberData.message,
+          $scope.removeMemberData.message
         ).then(function (response) {
           if($scope.removeMemberData.isMember){
             _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);

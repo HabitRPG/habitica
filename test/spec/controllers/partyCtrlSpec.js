@@ -143,7 +143,7 @@ describe("Party Controller", function() {
     });
   });
 
-  describe.only("create", function() {
+  describe("create", function() {
     var partyStub;
 
     beforeEach(function () {

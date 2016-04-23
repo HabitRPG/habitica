@@ -44,8 +44,9 @@ describe('groupServices', function() {
 
   it('calls update group', function() {
     var gid = 1;
+    var groupDetails = { _id: gid };
     $httpBackend.expectPUT(groupApiUrlPrefix + '/' + gid).respond({});
-    groups.Group.update(gid, {});
+    groups.Group.update(groupDetails);
     $httpBackend.flush();
   });
 
@@ -70,27 +71,67 @@ describe('groupServices', function() {
     $httpBackend.flush();
   });
 
-  xit('calls tavern endpoint', function() {
+  it('calls tavern endpoint when tavern is not cached', function() {
     $httpBackend.expectGET(groupApiUrlPrefix + '/habitrpg').respond({});
     groups.tavern();
     $httpBackend.flush();
   });
 
-  xit('calls public guilds endpoint', function() {
-    $httpBackend.expectGET(groupApiUrlPrefix + '?type=public').respond([]);
+  it('returns tavern if cached', function (done) {
+    var uid = 'abc';
+    var tavern = {
+      _id: uid,
+    };
+    groups.data.tavern = tavern;
+    groups.tavern()
+      .then(function (tavern) {
+        expect(tavern).to.eql(tavern);
+        done();
+      });
+    $httpBackend.flush();
+  });
+
+  it('calls public guilds endpoint', function() {
+    $httpBackend.expectGET(groupApiUrlPrefix + '?type=publicGuilds').respond([]);
     groups.publicGuilds();
     $httpBackend.flush();
   });
 
-  xit('calls my guilds endpoint', function() {
-    $httpBackend.expectGET(groupApiUrlPrefix + '?type=guilds').respond([]);
+  it('returns public guilds if cached', function (done) {
+    var uid = 'abc';
+    var publicGuilds = [
+      {_id: uid},
+    ];
+    groups.data.publicGuilds = publicGuilds;
+
+    groups.publicGuilds()
+      .then(function (publicGuilds) {
+        expect(publicGuilds).to.eql(publicGuilds);
+        done();
+      });
+
+    $httpBackend.flush();
+  });
+
+  it('calls my guilds endpoint', function() {
+    $httpBackend.expectGET(groupApiUrlPrefix + '?type=privateGuilds').respond([]);
     groups.myGuilds();
     $httpBackend.flush();
   });
 
-  xit('calls join endpoint', function() {
-    $httpBackend.expectPOST(groupApiUrlPrefix + '/1/join').respond([]);
-    groups.Group.join({gid: 1});
+  it('returns my guilds if cached', function (done) {
+    var uid = 'abc';
+    var myGuilds = [
+      {_id: uid},
+    ];
+    groups.data.myGuilds = myGuilds;
+
+    groups.myGuilds()
+      .then(function (myGuilds) {
+        expect(myGuilds).to.eql(myGuilds);
+        done();
+      });
+
     $httpBackend.flush();
   });
 });
