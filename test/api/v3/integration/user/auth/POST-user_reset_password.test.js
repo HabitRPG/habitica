@@ -16,7 +16,7 @@ describe('POST /user/reset-password', async () => {
     let response = await user.post(endpoint, {
       email: user.auth.local.email,
     });
-    expect(response).to.eql({ message: t('passwordReset') });
+    expect(response).to.eql({ data: {}, message: t('passwordReset') });
     await user.sync();
     expect(user.auth.local.hashed_password).to.not.eql(previousPassword);
   });
@@ -25,7 +25,7 @@ describe('POST /user/reset-password', async () => {
     let response = await user.post(endpoint, {
       email: 'nonExistent@email.com',
     });
-    expect(response).to.eql({ message: t('passwordReset') });
+    expect(response).to.eql({ data: {}, message: t('passwordReset') });
   });
 
   it('errors if email is not provided', async () => {
@@ -36,4 +36,3 @@ describe('POST /user/reset-password', async () => {
     });
   });
 });
-

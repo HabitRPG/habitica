@@ -3,8 +3,6 @@ import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import splitWhitespace from '../libs/splitWhitespace';
-import _ from 'lodash';
 
 module.exports = function releaseMounts (user, req = {}, analytics) {
   let mount;
@@ -34,14 +32,12 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
     });
   }
 
-  let response = {
-    data: _.pick(user, splitWhitespace('mounts')),
-    message: i18n.t('mountsReleased'),
-  };
-
   if (req.v2 === true) {
     return user;
   } else {
-    return response;
+    return [
+      user.items.mounts,
+      i18n.t('mountsReleased'),
+    ];
   }
 };

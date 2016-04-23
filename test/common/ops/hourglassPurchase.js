@@ -126,9 +126,9 @@ describe('user.ops.hourglassPurchase', () => {
     it('buys a pet', () => {
       user.purchased.plan.consecutive.trinkets = 2;
 
-      let response = hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}});
+      let [, message] = hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}});
 
-      expect(response.message).to.eql(i18n.t('hourglassPurchase'));
+      expect(message).to.eql(i18n.t('hourglassPurchase'));
       expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
       expect(user.items.pets).to.eql({'MantisShrimp-Base': 5});
     });
@@ -136,8 +136,8 @@ describe('user.ops.hourglassPurchase', () => {
     it('buys a mount', () => {
       user.purchased.plan.consecutive.trinkets = 2;
 
-      let response = hourglassPurchase(user, {params: {type: 'mounts', key: 'MantisShrimp-Base'}});
-      expect(response.message).to.eql(i18n.t('hourglassPurchase'));
+      let [, message] = hourglassPurchase(user, {params: {type: 'mounts', key: 'MantisShrimp-Base'}});
+      expect(message).to.eql(i18n.t('hourglassPurchase'));
       expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
       expect(user.items.mounts).to.eql({'MantisShrimp-Base': true});
     });

@@ -15,12 +15,12 @@ describe('POST /user/disable-classes', () => {
     let res = await user.post('/user/disable-classes');
     await user.sync();
 
-    expect(res).to.eql({
-      data: JSON.parse(JSON.stringify({
+    expect(res).to.eql(JSON.parse(
+      JSON.stringify({
         preferences: user.preferences,
         stats: user.stats,
         flags: user.flags,
-      })),
-    });
+      })
+    ));
   });
 });

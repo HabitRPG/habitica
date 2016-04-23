@@ -33,14 +33,12 @@ module.exports = function sell (user, req = {}) {
   user.items[type][key]--;
   user.stats.gp += content[type][key].value;
 
-  let response = {
-    data: _.pick(user, splitWhitespace('stats items')),
-    message: i18n.t('sold', {type, key}),
-  };
-
   if (req.v2 === true) {
-    return response.data;
+    return _.pick(user, splitWhitespace('stats items'));
   } else {
-    return response;
+    return [
+      _.pick(user, splitWhitespace('stats items')),
+      i18n.t('sold', {type, key}),
+    ];
   }
 };

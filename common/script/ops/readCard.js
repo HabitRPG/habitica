@@ -24,9 +24,9 @@ module.exports = function readCard (user, req = {}) {
   if (req.v2 === true) {
     return _.pick(user, splitWhitespace('items.special flags.cardReceived'));
   } else {
-    return {
-      message: i18n.t('readCard', {cardType}, req.language),
-      data: _.pick(user, splitWhitespace('items.special flags.cardReceived')),
-    };
+    return [
+      { specialItems: user.items.special, cardReceived: user.flags.cardReceived },
+      i18n.t('readCard', {cardType}, req.language),
+    ];
   }
 };

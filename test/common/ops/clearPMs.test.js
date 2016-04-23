@@ -13,7 +13,7 @@ describe('shared.ops.clearPMs', () => {
 
   it('clears messages', () => {
     expect(user.inbox.messages).to.not.eql({});
-    let result = clearPMs(user);
+    let [result] = clearPMs(user);
     expect(user.inbox.messages).to.eql({});
     expect(result).to.eql({});
   });

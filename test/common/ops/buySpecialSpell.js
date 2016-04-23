@@ -60,7 +60,7 @@ describe('shared.ops.buySpecialSpell', () => {
     user.stats.gp = 11;
     let item = content.special.thankyou;
 
-    let res = buySpecialSpell(user, {
+    let [data, message] = buySpecialSpell(user, {
       params: {
         key: 'thankyou',
       },
@@ -68,11 +68,11 @@ describe('shared.ops.buySpecialSpell', () => {
 
     expect(user.stats.gp).to.equal(1);
     expect(user.items.special.thankyou).to.equal(1);
-    expect(res.data).to.eql({
+    expect(data).to.eql({
       items: user.items,
       stats: user.stats,
     });
-    expect(res.message).to.equal(i18n.t('messageBought', {
+    expect(message).to.equal(i18n.t('messageBought', {
       itemText: item.text(),
     }));
   });

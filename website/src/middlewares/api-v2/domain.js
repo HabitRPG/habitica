@@ -7,7 +7,7 @@ var request = require('request');
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 
 module.exports = function(server,mongoose) {
-  if (IS_PROD) {
+  /* if (IS_PROD) {
     var mins = 3, // how often to run this check
       useAvg = false, // use average over 3 minutes, or simply the last minute's report
       url = 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=Apdex&values[]=score';
@@ -35,7 +35,7 @@ module.exports = function(server,mongoose) {
         throw memoryLeakMessage;
       }
     }, mins*60*1000);
-  }
+  } */
 
   return domainMiddleware({
     server: {

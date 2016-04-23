@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import splitWhitespace from '../libs/splitWhitespace';
 import {
   ATTRIBUTES,
 } from '../constants';
@@ -26,5 +25,7 @@ module.exports = function allocate (user, req = {}) {
     throw new NotAuthorized(i18n.t('notEnoughAttrPoints', req.language));
   }
 
-  return _.pick(user, splitWhitespace('stats'));
+  return [
+    user.stats,
+  ];
 };

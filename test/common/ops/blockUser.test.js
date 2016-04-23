@@ -26,10 +26,10 @@ describe('shared.ops.blockUser', () => {
   });
 
   it('blocks user', () => {
-    let result = blockUser(user, { params: { uuid: blockedUser._id } });
+    let [result] = blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id]);
     expect(result).to.eql([blockedUser._id]);
-    result = blockUser(user, { params: { uuid: blockedUser2._id } });
+    [result] = blockUser(user, { params: { uuid: blockedUser2._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id, blockedUser2._id]);
     expect(result).to.eql([blockedUser._id, blockedUser2._id]);
   });
@@ -37,7 +37,7 @@ describe('shared.ops.blockUser', () => {
   it('blocks, then unblocks user', () => {
     blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id]);
-    let result = blockUser(user, { params: { uuid: blockedUser._id } });
+    let [result] = blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([]);
     expect(result).to.eql([]);
   });

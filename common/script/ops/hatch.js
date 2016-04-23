@@ -36,9 +36,9 @@ module.exports = function hatch (user, req = {}) {
   if (req.v2 === true) {
     return user.items;
   } else {
-    return {
-      message: i18n.t('messageHatched', req.language),
-      data: user.items,
-    };
+    return [
+      user.items,
+      i18n.t('messageHatched', req.language),
+    ];
   }
 };

@@ -47,9 +47,9 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
   if (req.v2 === true) {
     return pickDeep(user, splitWhitespace('items purchased.plan.consecutive'));
   } else {
-    return {
-      data: pickDeep(user, splitWhitespace('items purchased.plan.consecutive')),
-      message: i18n.t('hourglassPurchaseSet', req.language),
-    };
+    return [
+      { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
+      i18n.t('hourglassPurchaseSet', req.language),
+    ];
   }
 };

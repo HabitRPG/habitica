@@ -94,9 +94,9 @@ module.exports = function feed (user, req = {}) {
       value: userPets[pet],
     };
   } else {
-    return {
-      data: userPets[pet],
+    return [
+      userPets[pet],
       message,
-    };
+    ];
   }
 };

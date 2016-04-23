@@ -3,8 +3,6 @@ import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import splitWhitespace from '../libs/splitWhitespace';
-import _ from 'lodash';
 
 module.exports = function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {
@@ -32,14 +30,12 @@ module.exports = function releasePets (user, req = {}, analytics) {
     });
   }
 
-  let response = {
-    data: _.pick(user, splitWhitespace('user.items.pets')),
-    message: i18n.t('petsReleased'),
-  };
-
   if (req.v2 === true) {
     return user;
   } else {
-    return response;
+    return [
+      user.items.pets,
+      i18n.t('petsReleased'),
+    ];
   }
 };

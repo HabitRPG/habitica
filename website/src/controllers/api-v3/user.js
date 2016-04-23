@@ -422,7 +422,7 @@ api.castSpell = {
  * @apiName UserSleep
  * @apiGroup User
  *
- * @apiSuccess {Object} data Will return an object with the new `user.preferences.sleep` value. Example `{preferences: {sleep: true}}`
+ * @apiSuccess {boolean} data user.preferences.sleep
  */
 api.sleep = {
   method: 'POST',
@@ -432,7 +432,7 @@ api.sleep = {
     let user = res.locals.user;
     let sleepRes = common.ops.sleep(user);
     await user.save();
-    res.respond(200, sleepRes);
+    res.respond(200, ...sleepRes);
   },
 };
 
@@ -442,7 +442,9 @@ api.sleep = {
  * @apiName UserAllocate
  * @apiGroup User
  *
- * @apiSuccess {Object} Returs `user.stats`
+ * @apiParam {string} stat Query parameter - Defaults to 'str', mast be one of be of str, con, int or per
+ *
+ * @apiSuccess {Object} data user.stats
  */
 api.allocate = {
   method: 'POST',
@@ -452,7 +454,7 @@ api.allocate = {
     let user = res.locals.user;
     let allocateRes = common.ops.allocate(user, req);
     await user.save();
-    res.respond(200, allocateRes);
+    res.respond(200, ...allocateRes);
   },
 };
 
@@ -462,7 +464,7 @@ api.allocate = {
  * @apiName UserAllocateNow
  * @apiGroup User
  *
- * @apiSuccess {Object} data `stats`
+ * @apiSuccess {Object} data user.stats
  */
 api.allocateNow = {
   method: 'POST',
@@ -472,21 +474,18 @@ api.allocateNow = {
     let user = res.locals.user;
     let allocateNowRes = common.ops.allocateNow(user, req);
     await user.save();
-    res.respond(200, allocateNowRes);
+    res.respond(200, ...allocateNowRes);
   },
 };
 
 /**
- * @api {post} /api/v3/user/buy/:key Buy a content item.
+ * @api {post} /user/buy/:key Buy gear, armoire or potion
+ * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
  * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
  *
  * @apiParam {string} key The item to buy.
- *
- * @apiSuccess {Object} data `items, achievements, stats, flags`
- * @apiSuccess {object} armoireResp Optional extra item given by the armoire
- * @apiSuccess {string} message
  */
 api.buy = {
   method: 'POST',
@@ -496,20 +495,95 @@ api.buy = {
     let user = res.locals.user;
     let buyRes = common.ops.buy(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyRes);
+    res.respond(200, ...buyRes);
   },
 };
 
 /**
- * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set.
+ * @api {post} /user/buy-gear/:key Buy a piece of gear.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyGear
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {object} data.items user.items
+ * @apiSuccess {object} data.flags user.flags
+ * @apiSuccess {object} data.achievements user.achievements
+ * @apiSuccess {object} data.stats user.stats
+ * @apiSuccess {string} message Success message
+ */
+api.buyGear = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-gear/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyGearRes = common.ops.buyGear(user, req, res.analytics);
+    await user.save();
+    res.respond(200, ...buyGearRes);
+  },
+};
+
+/**
+ * @api {post} /user/buy-armoire Buy an armoire item.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyArmoire
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {object} data.items user.items
+ * @apiSuccess {object} data.flags user.flags
+ * @apiSuccess {object} data.armoire Extra item given by the armoire
+ * @apiSuccess {string} message Success message
+ */
+api.buyArmoire = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-armoire',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyArmoireResponse = common.ops.buyArmoire(user, req, res.analytics);
+    await user.save();
+    res.respond(200, ...buyArmoireResponse);
+  },
+};
+
+/**
+ * @api {post} /user/buy-potion Buy a potion.
+ * @apiVersion 3.0.0
+ * @apiName UserBuyPotion
+ * @apiGroup User
+ *
+ * @apiParam {string} key The item to buy.
+ *
+ * @apiSuccess {Object} data user.stats
+ * @apiSuccess {string} message Success message
+ */
+api.buyPotion = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/buy-potion',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyPotionResponse = common.ops.buyPotion(user, req, res.analytics);
+    await user.save();
+    res.respond(200, ...buyPotionResponse);
+  },
+};
+
+/**
+ * @api {post} /user/buy-mystery-set/:key Buy a mystery set.
  * @apiVersion 3.0.0
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
  * @apiParam {string} key The mystery set to buy.
  *
- * @apiSuccess {Object} data `items, purchased.plan.consecutive`
- * @apiSuccess {string} message
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
+ * @apiSuccess {string} message Success message
  */
 api.buyMysterySet = {
   method: 'POST',
@@ -519,7 +593,7 @@ api.buyMysterySet = {
     let user = res.locals.user;
     let buyMysterySetRes = common.ops.buyMysterySet(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyMysterySetRes);
+    res.respond(200, ...buyMysterySetRes);
   },
 };
 
@@ -531,8 +605,8 @@ api.buyMysterySet = {
  *
  * @apiParam {string} key The quest spell to buy.
  *
- * @apiSuccess {Object} data `items.quests`
- * @apiSuccess {string} message
+ * @apiSuccess {Object} data `user.items.quests`
+ * @apiSuccess {string} message Success message
  */
 api.buyQuest = {
   method: 'POST',
@@ -542,7 +616,7 @@ api.buyQuest = {
     let user = res.locals.user;
     let buyQuestRes = common.ops.buyQuest(user, req, res.analytics);
     await user.save();
-    res.respond(200, buyQuestRes);
+    res.respond(200, ...buyQuestRes);
   },
 };
 
@@ -554,8 +628,9 @@ api.buyQuest = {
  *
  * @apiParam {string} key The special spell to buy.
  *
- * @apiSuccess {Object} data `items, stats`
- * @apiSuccess {string} message
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {string} message Success message
  */
 api.buySpecialSpell = {
   method: 'POST',
@@ -565,7 +640,7 @@ api.buySpecialSpell = {
     let user = res.locals.user;
     let buySpecialSpellRes = common.ops.buySpecialSpell(user, req);
     await user.save();
-    res.respond(200, buySpecialSpellRes);
+    res.respond(200, ...buySpecialSpellRes);
   },
 };
 
@@ -578,7 +653,7 @@ api.buySpecialSpell = {
  * @apiParam {string} egg The egg to use.
  * @apiParam {string} hatchingPotion The hatching potion to use.
  *
- * @apiSuccess {Object} data `user.items`
+ * @apiSuccess {Object} data user.items
  * @apiSuccess {string} message
  */
 api.hatch = {
@@ -589,7 +664,7 @@ api.hatch = {
     let user = res.locals.user;
     let hatchRes = common.ops.hatch(user, req);
     await user.save();
-    res.respond(200, hatchRes);
+    res.respond(200, ...hatchRes);
   },
 };
 
@@ -599,11 +674,11 @@ api.hatch = {
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam {string} type
- * @apiParam {string} key
+ * @apiParam {string} type The type of item to equip (mount, pet, costume or equipped)
+ * @apiParam {string} key The item to equip
  *
- * @apiSuccess {Object} data `user.items`
- * @apiSuccess {string} message Optional
+ * @apiSuccess {Object} data user.items
+ * @apiSuccess {string} message Optional success message
  */
 api.equip = {
   method: 'POST',
@@ -613,7 +688,7 @@ api.equip = {
     let user = res.locals.user;
     let equipRes = common.ops.equip(user, req);
     await user.save();
-    res.respond(200, equipRes);
+    res.respond(200, ...equipRes);
   },
 };
 
@@ -626,8 +701,8 @@ api.equip = {
  * @apiParam {string} pet
  * @apiParam {string} food
  *
- * @apiSuccess {Object} data The fed pet
- * @apiSuccess {string} message
+ * @apiSuccess {number} data The pet value
+ * @apiSuccess {string} message Success message
  */
 api.feed = {
   method: 'POST',
@@ -637,19 +712,23 @@ api.feed = {
     let user = res.locals.user;
     let feedRes = common.ops.feed(user, req);
     await user.save();
-    res.respond(200, feedRes);
+    res.respond(200, ...feedRes);
   },
 };
 
 /**
 * @api {post} /api/v3/user/change-class Change class.
+* @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
 * @apiVersion 3.0.0
 * @apiName UserChangeClass
 * @apiGroup User
 *
-* @apiParam {string} class ?class={warrior|rogue|wizard|healer}. If missing will
+* @apiParam {string} class Query parameter - ?class={warrior|rogue|wizard|healer}.
 *
-* @apiSuccess {Object} data `stats flags items preferences`
+* @apiSuccess {object} data.flags user.flags
+* @apiSuccess {object} data.stats user.stats
+* @apiSuccess {object} data.preferences user.preferences
+* @apiSuccess {object} data.items user.items
 */
 api.changeClass = {
   method: 'POST',
@@ -659,7 +738,7 @@ api.changeClass = {
     let user = res.locals.user;
     let changeClassRes = common.ops.changeClass(user, req, res.analytics);
     await user.save();
-    res.respond(200, changeClassRes);
+    res.respond(200, ...changeClassRes);
   },
 };
 
@@ -669,7 +748,9 @@ api.changeClass = {
 * @apiName UserDisableClasses
 * @apiGroup User
 *
-* @apiSuccess {Object} data `stats flags preferences`
+* @apiSuccess {object} data.flags user.flags
+* @apiSuccess {object} data.stats user.stats
+* @apiSuccess {object} data.preferences user.preferences
 */
 api.disableClasses = {
   method: 'POST',
@@ -679,7 +760,7 @@ api.disableClasses = {
     let user = res.locals.user;
     let disableClassesRes = common.ops.disableClasses(user, req);
     await user.save();
-    res.respond(200, disableClassesRes);
+    res.respond(200, ...disableClassesRes);
   },
 };
 
@@ -689,10 +770,12 @@ api.disableClasses = {
 * @apiName UserPurchase
 * @apiGroup User
 *
-* @apiParam {string} type Type of item to purchase
+* @apiParam {string} type Type of item to purchase. Must be one of: gem, gems, eggs, hatchingPotions, food, quests or gear
 * @apiParam {string} key Item's key
 *
-* @apiSuccess {Object} data `items balance`
+* @apiSuccess {object} data.items user.items
+* @apiSuccess {number} data.balance user.balance
+* @apiSuccess {string} message Success message
 */
 api.purchase = {
   method: 'POST',
@@ -700,9 +783,9 @@ api.purchase = {
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseResponse = common.ops.purchase(user, req, res.analytics);
+    let purchaseRes = common.ops.purchase(user, req, res.analytics);
     await user.save();
-    res.respond(200, purchaseResponse);
+    res.respond(200, ...purchaseRes);
   },
 };
 
@@ -712,10 +795,12 @@ api.purchase = {
 * @apiName UserPurchaseHourglass
 * @apiGroup User
 *
-* @apiParam {string} type {pets|mounts}. The type of item to purchase
+* @apiParam {string} type The type of item to purchase (pets or mounts)
 * @apiParam {string} key Ex: {MantisShrimp-Base}. The key for the mount/pet
 *
-* @apiSuccess {Object} data `items purchased.plan.consecutive`
+* @apiSuccess {object} data.items user.items
+* @apiSuccess {object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
+* @apiSuccess {string} message Success message
 */
 api.userPurchaseHourglass = {
   method: 'POST',
@@ -723,9 +808,9 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseHourglassResponse = common.ops.purchaseHourglass(user, req, res.analytics);
+    let purchaseHourglassRes = common.ops.purchaseHourglass(user, req, res.analytics);
     await user.save();
-    res.respond(200, purchaseHourglassResponse);
+    res.respond(200, ...purchaseHourglassRes);
   },
 };
 
@@ -737,7 +822,9 @@ api.userPurchaseHourglass = {
 *
 * @apiParam {string} cardType Type of card to read
 *
-* @apiSuccess {Object} data `items.special flags.cardReceived`
+* @apiSuccess {object} data.specialItems user.items.special
+* @apiSuccess {boolean} data.cardReceived user.flags.cardReceived
+* @apiSuccess {string} message Success message
 */
 api.readCard = {
   method: 'POST',
@@ -745,9 +832,9 @@ api.readCard = {
   url: '/user/read-card/:cardType',
   async handler (req, res) {
     let user = res.locals.user;
-    let readCardResponse = common.ops.readCard(user, req);
+    let readCardRes = common.ops.readCard(user, req);
     await user.save();
-    res.respond(200, readCardResponse);
+    res.respond(200, ...readCardRes);
   },
 };
 
@@ -757,7 +844,8 @@ api.readCard = {
 * @apiName UserOpenMysteryItem
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user.items.gear.owned`
+* @apiSuccess {Object} data user.items.gear.owned
+* @apiSuccess {string} message Success message
 */
 api.userOpenMysteryItem = {
   method: 'POST',
@@ -765,66 +853,78 @@ api.userOpenMysteryItem = {
   url: '/user/open-mystery-item',
   async handler (req, res) {
     let user = res.locals.user;
-    let openMysteryItemResponse = common.ops.openMysteryItem(user, req, res.analytics);
+    let openMysteryItemRes = common.ops.openMysteryItem(user, req, res.analytics);
     await user.save();
-    res.respond(200, openMysteryItemResponse);
+    res.respond(200, ...openMysteryItemRes);
   },
 };
 
-/**
- * @api {post} /api/v3/user/webhook
- * @apiVersion 3.0.0
- * @apiName UserAddWebhook
- * @apiGroup User
- * @apiSuccess {Object} webhook The created webhook
- **/
+/*
+* @api {post} /api/v3/user/webhook
+* @apiVersion 3.0.0
+* @apiName UserAddWebhook
+* @apiGroup User
+*
+* @apiParam {string} url Body parameter - The webhook's urò
+* @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
+*
+* @apiSuccess {Object} data The created webhook
+*/
 api.addWebhook = {
   method: 'POST',
   middlewares: [authWithHeaders()],
   url: '/user/webhook',
   async handler (req, res) {
     let user = res.locals.user;
-    let result = common.ops.addWebhook(user, req);
+    let addWebhookRes = common.ops.addWebhook(user, req);
     await user.save();
-    res.respond(200, result);
+    res.respond(200, ...addWebhookRes);
   },
 };
 
-/**
- * @api {put} /api/v3/user/webhook/:id
- * @apiVersion 3.0.0
- * @apiName UserUpdateWebhook
- * @apiGroup User
- * @apiSuccess {Object} webhook The updated webhook
- **/
+/*
+* @api {put} /api/v3/user/webhook/:id
+* @apiVersion 3.0.0
+* @apiName UserUpdateWebhook
+* @apiGroup User
+*
+* @apiParam {UUID} id The id of the webhook to update
+* @apiParam {string} url Body parameter - The webhook's urò
+* @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
+*
+* @apiSuccess {Object} data The updated webhook
+*/
 api.updateWebhook = {
   method: 'PUT',
   middlewares: [authWithHeaders()],
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    let result = common.ops.updateWebhook(user, req);
+    let updateWebhookRes = common.ops.updateWebhook(user, req);
     await user.save();
-    res.respond(200, result);
+    res.respond(200, ...updateWebhookRes);
   },
 };
 
-/**
- * @api {delete} /api/v3/user/webhook/:id
- * @apiVersion 3.0.0
- * @apiName UserDeleteWebhook
- * @apiGroup User
- * @apiSuccess {Object} webhooks The user webhooks
- **/
+/*
+* @api {delete} /api/v3/user/webhook/:id
+* @apiVersion 3.0.0
+* @apiName UserDeleteWebhook
+* @apiGroup User
+*
+* @apiParam {UUID} id The id of the webhook to delete
+*
+* @apiSuccess {Object} data The user webhooks
+*/
 api.deleteWebhook = {
   method: 'DELETE',
   middlewares: [authWithHeaders()],
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    common.ops.deleteWebhook(user, req);
+    let deleteWebhookRes = common.ops.deleteWebhook(user, req);
     await user.save();
-    res.respond(200, {});
+    res.respond(200, ...deleteWebhookRes);
   },
 };
 
@@ -834,7 +934,8 @@ api.deleteWebhook = {
 * @apiName UserReleasePets
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user.items.pets`
+* @apiSuccess {Object} data.items `user.items.pets`
+* @apiSuccess {string} message Success message
 */
 api.userReleasePets = {
   method: 'POST',
@@ -842,9 +943,9 @@ api.userReleasePets = {
   url: '/user/release-pets',
   async handler (req, res) {
     let user = res.locals.user;
-    let releasePetsResponse = common.ops.releasePets(user, req, res.analytics);
+    let releasePetsRes = common.ops.releasePets(user, req, res.analytics);
     await user.save();
-    res.respond(200, releasePetsResponse);
+    res.respond(200, ...releasePetsRes);
   },
 };
 
@@ -853,8 +954,11 @@ api.userReleasePets = {
 * @apiVersion 3.0.0
 * @apiName UserReleaseBoth
 * @apiGroup User
-*
-* @apiSuccess {Object} data `user.items.gear.owned`
+
+* @apiSuccess {Object} data.achievements
+* @apiSuccess {Object} data.items
+* @apiSuccess {number} data.balance
+* @apiSuccess {string} message Success message
 */
 api.userReleaseBoth = {
   method: 'POST',
@@ -862,9 +966,9 @@ api.userReleaseBoth = {
   url: '/user/release-both',
   async handler (req, res) {
     let user = res.locals.user;
-    let releaseBothResponse = common.ops.releaseBoth(user, req, res.analytics);
+    let releaseBothRes = common.ops.releaseBoth(user, req, res.analytics);
     await user.save();
-    res.respond(200, releaseBothResponse);
+    res.respond(200, ...releaseBothRes);
   },
 };
 
@@ -874,7 +978,8 @@ api.userReleaseBoth = {
 * @apiName UserReleaseMounts
 * @apiGroup User
 *
-* @apiSuccess {Object} data `mounts`
+* @apiSuccess {Object} data user.items.mounts
+* @apiSuccess {string} message Success message
 */
 api.userReleaseMounts = {
   method: 'POST',
@@ -882,19 +987,24 @@ api.userReleaseMounts = {
   url: '/user/release-mounts',
   async handler (req, res) {
     let user = res.locals.user;
-    let releaseMountsResponse = common.ops.releaseMounts(user, req, res.analytics);
+    let releaseMountsRes = common.ops.releaseMounts(user, req, res.analytics);
     await user.save();
-    res.respond(200, releaseMountsResponse);
+    res.respond(200, ...releaseMountsRes);
   },
 };
 
 /*
-* @api {post} /api/v3/user/sell/:type/:key Sells user's items.
+* @api {post} /api/v3/user/sell/:type/:key Sells a gold item owned by the user.
 * @apiVersion 3.0.0
 * @apiName UserSell
 * @apiGroup User
 *
-* @apiSuccess {Object} data `stats items`
+* @apiParam {string} type The type of item to sell. Acceptable types are eggs, hatchingPotions, food
+* @apiParam {string} key The key of the item
+*
+* @apiSuccess {Object} data.stats
+* @apiSuccess {Object} data.items
+* @apiSuccess {string} message Success message
 */
 api.userSell = {
   method: 'POST',
@@ -902,9 +1012,9 @@ api.userSell = {
   url: '/user/sell/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let sellResponse = common.ops.sell(user, req);
+    let sellRes = common.ops.sell(user, req);
     await user.save();
-    res.respond(200, sellResponse);
+    res.respond(200, ...sellRes);
   },
 };
 
@@ -914,7 +1024,12 @@ api.userSell = {
 * @apiName UserUnlock
 * @apiGroup User
 *
-* @apiSuccess {Object} data `purchased preferences items`
+* @apiParam {string} path Query parameter. The path to unlock
+*
+* @apiSuccess {Object} data.purchased
+* @apiSuccess {Object} data.items`
+* @apiSuccess {Object} data.preferences`
+* @apiSuccess {string} message`
 */
 api.userUnlock = {
   method: 'POST',
@@ -922,9 +1037,9 @@ api.userUnlock = {
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
-    let unlockResponse = common.ops.unlock(user, req);
+    let unlockRes = common.ops.unlock(user, req);
     await user.save();
-    res.respond(200, unlockResponse);
+    res.respond(200, ...unlockRes);
   },
 };
 
@@ -934,7 +1049,8 @@ api.userUnlock = {
 * @apiName UserRevive
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user.items`
+* @apiSuccess {Object} data user.items
+* @apiSuccess {string} message Success message
 */
 api.userRevive = {
   method: 'POST',
@@ -942,9 +1058,9 @@ api.userRevive = {
   url: '/user/revive',
   async handler (req, res) {
     let user = res.locals.user;
-    let reviveResponse = common.ops.revive(user, req, res.analytics);
+    let reviveRes = common.ops.revive(user, req, res.analytics);
     await user.save();
-    res.respond(200, reviveResponse);
+    res.respond(200, ...reviveRes);
   },
 };
 
@@ -954,7 +1070,9 @@ api.userRevive = {
 * @apiName UserRebirth
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user`
+* @apiSuccess {Object} data.userr
+* @apiSuccess {array} data.tasks User's modified tasks (no rewards)
+* @apiSuccess {string} message Success message
 */
 api.userRebirth = {
   method: 'POST',
@@ -967,22 +1085,25 @@ api.userRebirth = {
       type: {$in: ['daily', 'habit', 'todo']},
     };
     let tasks = await Tasks.Task.find(query).exec();
-    let rebirthResponse = common.ops.rebirth(user, tasks, req, res.analytics);
+    let rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
 
     await user.save();
 
     await Q.all(tasks.map(task => task.save()));
 
-    res.respond(200, rebirthResponse);
+    res.respond(200, ...rebirthRes);
   },
 };
 
 /**
- * @api {post} /api/v3/user/block/:uuid blocks and unblocks a user
+ * @api {post} /api/v3/user/block/:uuid Blocks and unblocks a user
  * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User
- * @apiSuccess user.inbox.blocks
+ *
+ * @apiParam {UUID} uuid The uuid of the user to block / unblock
+ *
+ * @apiSuccess {array} data user.inbox.blocks
 **/
 api.blockUser = {
   method: 'POST',
@@ -990,18 +1111,21 @@ api.blockUser = {
   url: '/user/block/:uuid',
   async handler (req, res) {
     let user = res.locals.user;
-    let blocks = common.ops.blockUser(user, req);
+    let blockUserRes = common.ops.blockUser(user, req);
     await user.save();
-    res.respond(200, blocks);
+    res.respond(200, ...blockUserRes);
   },
 };
 
 /**
- * @api {delete} /api/v3/user/messages/:id delete this message
+ * @api {delete} /api/v3/user/messages/:id Delete a message
  * @apiVersion 3.0.0
  * @apiName deleteMessage
  * @apiGroup User
- * @apiSuccess user.inbox.messages
+ *
+ * @apiParam {UUID} id The id of the message to delete
+ *
+ * @apiSuccess {object} data user.inbox.messages
 **/
 api.deleteMessage = {
   method: 'DELETE',
@@ -1009,18 +1133,19 @@ api.deleteMessage = {
   url: '/user/messages/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    let messages = common.ops.deletePM(user, req);
+    let deletePMRes = common.ops.deletePM(user, req);
     await user.save();
-    res.respond(200, messages);
+    res.respond(200, ...deletePMRes);
   },
 };
 
 /**
- * @api {delete} /api/v3/user/messages delete all messages
+ * @api {delete} /api/v3/user/messages Delete all messages
  * @apiVersion 3.0.0
  * @apiName clearMessages
  * @apiGroup User
- * @apiSuccess user.inbox.messages
+ *
+ * @apiSuccess {object} data user.inbox.messages
 **/
 api.clearMessages = {
   method: 'DELETE',
@@ -1028,9 +1153,9 @@ api.clearMessages = {
   url: '/user/messages',
   async handler (req, res) {
     let user = res.locals.user;
-    let PMs = common.ops.clearPMs(user, req);
+    let clearPMsRes = common.ops.clearPMs(user, req);
     await user.save();
-    res.respond(200, PMs);
+    res.respond(200, ...clearPMsRes);
   },
 };
 
@@ -1040,7 +1165,9 @@ api.clearMessages = {
 * @apiName UserReroll
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user`
+* @apiSuccess {Object} data.user
+* @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
+* @apiSuccess {Object} message Success message
 */
 api.userReroll = {
   method: 'POST',
@@ -1053,14 +1180,14 @@ api.userReroll = {
       type: {$in: ['daily', 'habit', 'todo']},
     };
     let tasks = await Tasks.Task.find(query).exec();
-    let rerollResponse = common.ops.reroll(user, tasks, req, res.analytics);
+    let rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
 
     let promises = tasks.map(task => task.save());
     promises.push(user.save());
 
     await Q.all(promises);
 
-    res.respond(200, rerollResponse);
+    res.respond(200, ...rerollRes);
   },
 };
 
@@ -1070,7 +1197,11 @@ api.userReroll = {
 * @apiName UserAddPushDevice
 * @apiGroup User
 *
-* @apiSuccess {Object} data `pushDevices`
+* @apiParam {string} regId The id of the push device
+* @apiParam {string} uuid The type of push device
+*
+* @apiSuccess {Object} data List of push devices
+* @apiSuccess {string} message Success message
 */
 api.userAddPushDevice = {
   method: 'POST',
@@ -1079,10 +1210,10 @@ api.userAddPushDevice = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let addPushDeviceResponse = common.ops.addPushDevice(user, req);
+    let addPushDeviceRes = common.ops.addPushDevice(user, req);
     await user.save();
 
-    res.respond(200, addPushDeviceResponse);
+    res.respond(200, ...addPushDeviceRes);
   },
 };
 
@@ -1092,7 +1223,9 @@ api.userAddPushDevice = {
 * @apiName UserReset
 * @apiGroup User
 *
-* @apiSuccess {Object} data `user`
+* @apiSuccess {Object} data.user
+* @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
+* @apiSuccess {string} message Success message
 */
 api.userReset = {
   method: 'POST',
@@ -1103,11 +1236,11 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({userId: user._id}).select('_id type challenge').exec();
 
-    let resetResponse = common.ops.reset(user, tasks);
+    let resetRes = common.ops.reset(user, tasks);
 
-    await Q.all([Tasks.Task.remove({_id: {$in: resetResponse.data.tasksToRemove}, userId: user._id}), user.save()]);
+    await Q.all([Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}), user.save()]);
 
-    res.respond(200, resetResponse);
+    res.respond(200, ...resetRes);
   },
 };
 

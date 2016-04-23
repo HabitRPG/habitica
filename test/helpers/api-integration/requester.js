@@ -92,7 +92,14 @@ function _parseRes (res) {
   if (apiVersion === 'v2') {
     return res.body;
   } else if (apiVersion === 'v3') {
-    return res.body.data;
+    if (res.body.message) {
+      return {
+        data: res.body.data,
+        message: res.body.message,
+      };
+    } else {
+      return res.body.data;
+    }
   }
 }
 
