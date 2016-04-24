@@ -101,20 +101,23 @@ angular.module('habitrpg')
       });
     };
 
-    function party(cb) {
+    function party () {
+      var deferred = $q.defer();
+
       if (!data.party) {
         Group.get('party')
-          .then(function successCallback(response) {
+          .then(function (response) {
             data.party = response.data.data;
-          }, function errorCallback(response) {
-
+            deferred.resolve(data.party);
           });
       } else {
-        return data.party;
+        deferred.resolve(data.party);
       }
+
+      return deferred.promise;
     }
 
-    function publicGuilds() {
+    function publicGuilds () {
       var deferred = $q.defer();
 
       if (!data.publicGuilds) {
@@ -131,7 +134,7 @@ angular.module('habitrpg')
       //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
     }
 
-    function myGuilds() {
+    function myGuilds () {
       var deferred = $q.defer();
 
       if (!data.myGuilds) {

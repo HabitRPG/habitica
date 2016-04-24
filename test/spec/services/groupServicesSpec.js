@@ -71,6 +71,26 @@ describe('groupServices', function() {
     $httpBackend.flush();
   });
 
+  it('calls party endpoint when party is not cached', function() {
+    $httpBackend.expectGET(groupApiUrlPrefix + '/party').respond({});
+    groups.party();
+    $httpBackend.flush();
+  });
+
+  it('returns party if cached', function (done) {
+    var uid = 'abc';
+    var party = {
+      _id: uid,
+    };
+    groups.data.party = party;
+    groups.party()
+      .then(function (result) {
+        expect(result).to.eql(party);
+        done();
+      });
+    $httpBackend.flush();
+  });
+
   it('calls tavern endpoint when tavern is not cached', function() {
     $httpBackend.expectGET(groupApiUrlPrefix + '/habitrpg').respond({});
     groups.tavern();
@@ -84,8 +104,8 @@ describe('groupServices', function() {
     };
     groups.data.tavern = tavern;
     groups.tavern()
-      .then(function (tavern) {
-        expect(tavern).to.eql(tavern);
+      .then(function (result) {
+        expect(result).to.eql(tavern);
         done();
       });
     $httpBackend.flush();
@@ -105,8 +125,8 @@ describe('groupServices', function() {
     groups.data.publicGuilds = publicGuilds;
 
     groups.publicGuilds()
-      .then(function (publicGuilds) {
-        expect(publicGuilds).to.eql(publicGuilds);
+      .then(function (result) {
+        expect(result).to.eql(publicGuilds);
         done();
       });
 
