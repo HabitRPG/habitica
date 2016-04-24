@@ -475,7 +475,6 @@ function _isOnQuest (user, progress, group) {
 // Returns a promise
 schema.statics.collectQuest = async function collectQuest (user, progress) {
   let group = await this.getGroup({user, groupId: 'party'});
-
   if (!_isOnQuest(user, progress, group)) return;
   let quest = shared.content.quests[group.quest.key];
 
