@@ -3,9 +3,14 @@ common/dist/
 common/transpiled-babel/
 coverage/
 database_reports/
-migrations/
 website/build/
 website/transpiled-babel/
+
+migrations/*
+!migrations/api_v3
+!migrations/api_v3
+!migrations/api_v3
+migrations/api_v3/old_models
 
 # The files in website/public/js should be moved out and browserified
 website/public/

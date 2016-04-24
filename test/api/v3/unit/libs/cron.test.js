@@ -1,0 +1,573 @@
+/* eslint-disable global-require */
+import moment from 'moment';
+import { cron } from '../../../../../website/src/libs/api-v3/cron';
+import { model as User } from '../../../../../website/src/models/user';
+import * as Tasks from '../../../../../website/src/models/task';
+import { clone } from 'lodash';
+import common from '../../../../../common';
+
+// const scoreTask = common.ops.scoreTask;
+
+describe('cron', () => {
+  let user;
+  let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
+  let daysMissed = 0;
+  let analytics = {
+    track: sinon.spy(),
+  };
+
+  beforeEach(() => {
+    user = new User({
+      auth: {
+        local: {
+          username: 'username',
+          lowerCaseUsername: 'username',
+          email: 'email@email.email',
+          salt: 'salt',
+          hashed_password: 'hashed_password', // eslint-disable-line camelcase
+        },
+      },
+    });
+
+    user._statsComputed = {
+      mp: 10,
+    };
+  });
+
+  it('updates user.auth.timestamps.loggedin and lastCron', () => {
+    let now = new Date();
+
+    cron({user, tasksByType, daysMissed, analytics, now});
+
+    expect(user.auth.timestamps.loggedin).to.equal(now);
+    expect(user.lastCron).to.equal(now);
+  });
+
+  it('updates user.preferences.timezoneOffsetAtLastCron', () => {
+    let timezoneOffsetFromUserPrefs = 1;
+
+    cron({user, tasksByType, daysMissed, analytics, timezoneOffsetFromUserPrefs});
+
+    expect(user.preferences.timezoneOffsetAtLastCron).to.equal(timezoneOffsetFromUserPrefs);
+  });
+
+  it('resets user.items.lastDrop.count', () => {
+    user.items.lastDrop.count = 4;
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(user.items.lastDrop.count).to.equal(0);
+  });
+
+  it('increments user cron count', () => {
+    let cronCountBefore = user.flags.cronCount;
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(user.flags.cronCount).to.be.greaterThan(cronCountBefore);
+  });
+
+  describe('end of the month perks', () => {
+    beforeEach(() => {
+      user.purchased.plan.customerId = 'subscribedId';
+      user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
+    });
+
+    it('resets plan.gemsBought on a new month', () => {
+      user.purchased.plan.gemsBought = 10;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.gemsBought).to.equal(0);
+    });
+
+    it('resets plan.dateUpdated on a new month', () => {
+      let currentMonth = moment().format('MMYYYY');
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(moment(user.purchased.plan.dateUpdated).format('MMYYYY')).to.equal(currentMonth);
+    });
+
+    it('increments plan.consecutive.count', () => {
+      user.purchased.plan.consecutive.count = 0;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.count).to.equal(1);
+    });
+
+    it('decrements plan.consecutive.offset when offset is greater than 0', () => {
+      user.purchased.plan.consecutive.offset = 1;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
+    });
+
+    it('increments plan.consecutive.trinkets when user has reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+    });
+
+    it('increments plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+    });
+
+    it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
+      user.purchased.plan.consecutive.gemCapExtra = 25;
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+    });
+
+    it('does not reset plan stats if we are before the last day of the cancelled month', () => {
+      user.purchased.plan.dateTerminated = moment(new Date()).add({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.customerId).to.exist;
+    });
+
+    it('does reset plan stats until we are after the last day of the cancelled month', () => {
+      user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
+      user.purchased.plan.consecutive.gemCapExtra = 20;
+      user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.purchased.plan.customerId).to.not.exist;
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.be.empty;
+      expect(user.purchased.plan.consecutive.count).to.be.empty;
+      expect(user.purchased.plan.consecutive.offset).to.be.empty;
+    });
+  });
+
+  describe('end of the month perks when user is not subscribed', () => {
+    it('does not reset plan.gemsBought on a new month', () => {
+      user.purchased.plan.gemsBought = 10;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.gemsBought).to.equal(10);
+    });
+
+    it('does not reset plan.dateUpdated on a new month', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.dateUpdated).to.be.empty;
+    });
+
+    it('does not increment plan.consecutive.count', () => {
+      user.purchased.plan.consecutive.count = 0;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.count).to.equal(0);
+    });
+
+    it('does not decrement plan.consecutive.offset when offset is greater than 0', () => {
+      user.purchased.plan.consecutive.offset = 1;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.offset).to.equal(1);
+    });
+
+    it('does not increment plan.consecutive.trinkets when user has reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(0);
+    });
+
+    it('doest not increment plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
+    });
+
+    it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
+      user.purchased.plan.consecutive.gemCapExtra = 25;
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+    });
+
+    it('does nothing to plan stats if we are before the last day of the cancelled month', () => {
+      user.purchased.plan.dateTerminated = moment(new Date()).add({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.customerId).to.not.exist;
+    });
+
+    xit('does nothing to plan stats when we are after the last day of the cancelled month', () => {
+      user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
+      user.purchased.plan.consecutive.gemCapExtra = 20;
+      user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.purchased.plan.customerId).to.exist;
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.exist;
+      expect(user.purchased.plan.consecutive.count).to.exist;
+      expect(user.purchased.plan.consecutive.offset).to.exist;
+    });
+  });
+
+  describe('user is sleeping', () => {
+    beforeEach(() => {
+      user.preferences.sleep = true;
+    });
+
+    it('clears user buffs', () => {
+      user.stats.buffs = {
+        str: 1,
+        int: 1,
+        per: 1,
+        con: 1,
+        stealth: 1,
+        streaks: true,
+      };
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.equal(0);
+      expect(user.stats.buffs.int).to.equal(0);
+      expect(user.stats.buffs.per).to.equal(0);
+      expect(user.stats.buffs.con).to.equal(0);
+      expect(user.stats.buffs.stealth).to.equal(0);
+      expect(user.stats.buffs.streaks).to.be.false;
+    });
+
+    it('resets all dailies without damaging user', () => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+        frequency: 'daily',
+        everyX: 5,
+        startDate: new Date(),
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      tasksByType.dailys.push(task);
+      tasksByType.dailys[0].completed = true;
+
+      let healthBefore = user.stats.hp;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.dailys[0].completed).to.be.false;
+      expect(user.stats.hp).to.equal(healthBefore);
+    });
+  });
+
+  describe('todos', () => {
+    beforeEach(() => {
+      let todo = {
+        text: 'test todo',
+        type: 'todo',
+        value: 0,
+      };
+
+      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line babel/new-cap
+      tasksByType.todos.push(task);
+    });
+
+    it('should make uncompleted todos redder', () => {
+      let valueBefore = tasksByType.todos[0].value;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.todos[0].value).to.be.lessThan(valueBefore);
+    });
+
+    it('should add history of completed todos to user history', () => {
+      tasksByType.todos[0].completed = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.history.todos).to.be.lengthOf(1);
+    });
+  });
+
+  describe('dailys', () => {
+    beforeEach(() => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      tasksByType.dailys = [];
+      tasksByType.dailys.push(task);
+
+      user._statsComputed = {
+        con: 1,
+      };
+    });
+
+    it('should add history', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].history).to.be.lengthOf(1);
+    });
+
+    it('should set tasks completed to false', () => {
+      tasksByType.dailys[0].completed = true;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].completed).to.be.false;
+    });
+
+    it('should set task checklist to completed for completed dailys', () => {
+      tasksByType.dailys[0].checklist.push({title: 'test', completed: false});
+      tasksByType.dailys[0].completed = true;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].checklist[0].completed).to.be.true;
+    });
+
+    it('should set task checklist to completed for dailys with scheduled misses', () => {
+      daysMissed = 10;
+      tasksByType.dailys[0].checklist.push({title: 'test', completed: false});
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].checklist[0].completed).to.be.true;
+    });
+
+    it('should do damage for missing a daily', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.be.lessThan(hpBefore);
+    });
+
+    it('should not do damage for missing a daily if user stealth buff is greater than or equal to days missed', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      user.stats.buffs.stealth = 2;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.equal(hpBefore);
+    });
+
+    it('should do less damage for missing a daily with partial completion', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      let hpDifferenceOfFullyIncompleteDaily = hpBefore - user.stats.hp;
+
+      hpBefore = user.stats.hp;
+      tasksByType.dailys[0].checklist.push({title: 'test', completed: true});
+      tasksByType.dailys[0].checklist.push({title: 'test2', completed: false});
+      cron({user, tasksByType, daysMissed, analytics});
+      let hpDifferenceOfPartiallyIncompleteDaily = hpBefore - user.stats.hp;
+
+      expect(hpDifferenceOfPartiallyIncompleteDaily).to.be.lessThan(hpDifferenceOfFullyIncompleteDaily);
+    });
+
+    it('should decrement quest progress down for missing a daily', () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      let progress = cron({user, tasksByType, daysMissed, analytics});
+
+      expect(progress.down).to.equal(-1);
+    });
+  });
+
+  describe('habits', () => {
+    beforeEach(() => {
+      let habit = {
+        text: 'test habit',
+        type: 'habit',
+      };
+
+      let task = new Tasks.habit(Tasks.Task.sanitize(habit)); // eslint-disable-line babel/new-cap
+      tasksByType.habits = [];
+      tasksByType.habits.push(task);
+    });
+
+    it('should decrement only up value', () => {
+      tasksByType.habits[0].value = 1;
+      tasksByType.habits[0].down = false;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.habits[0].value).to.be.lessThan(1);
+    });
+
+    it('should decrement only down value', () => {
+      tasksByType.habits[0].value = 1;
+      tasksByType.habits[0].up = false;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.habits[0].value).to.be.lessThan(1);
+    });
+
+    it('should do nothing to habits with both up and down', () => {
+      tasksByType.habits[0].value = 1;
+      tasksByType.habits[0].up = true;
+      tasksByType.habits[0].down = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.habits[0].value).to.equal(1);
+    });
+  });
+
+  describe('perfect day', () => {
+    beforeEach(() => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      tasksByType.dailys = [];
+      tasksByType.dailys.push(task);
+
+      user._statsComputed = {
+        con: 1,
+      };
+    });
+
+    it('stores a new entry in user.history.exp', () => {
+      user.stats.lvl = 2;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.history.exp).to.have.lengthOf(1);
+      expect(user.history.exp[0].value).to.equal(150);
+    });
+
+    it('increments perfect day achievement', () => {
+      tasksByType.dailys[0].completed = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.achievements.perfect).to.equal(1);
+    });
+
+    it('increments user buffs if they have a perfect day', () => {
+      tasksByType.dailys[0].completed = true;
+
+      let previousBuffs = clone(user.stats.buffs);
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.be.greaterThan(previousBuffs.str);
+      expect(user.stats.buffs.int).to.be.greaterThan(previousBuffs.int);
+      expect(user.stats.buffs.per).to.be.greaterThan(previousBuffs.per);
+      expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
+    });
+
+    it('clears buffs if user does not have a perfect day', () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = false;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      user.stats.buffs = {
+        str: 1,
+        int: 1,
+        per: 1,
+        con: 1,
+        stealth: 0,
+        streaks: true,
+      };
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.equal(0);
+      expect(user.stats.buffs.int).to.equal(0);
+      expect(user.stats.buffs.per).to.equal(0);
+      expect(user.stats.buffs.con).to.equal(0);
+      expect(user.stats.buffs.stealth).to.equal(0);
+      expect(user.stats.buffs.streaks).to.be.false;
+    });
+  });
+
+  describe('adding mp', () => {
+    it('should add mp to user', () => {
+      let mpBefore = user.stats.mp;
+      tasksByType.dailys[0].completed = true;
+      user._statsComputed.maxMP = 100;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.stats.mp).to.be.greaterThan(mpBefore);
+    });
+
+    it('set user\'s mp to user._statsComputed.maxMP when user.stats.mp is greater', () => {
+      user.stats.mp = 120;
+      user._statsComputed.maxMP = 100;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.stats.mp).to.equal(user._statsComputed.maxMP);
+    });
+  });
+
+  describe('quest progress', () => {
+    beforeEach(() => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      tasksByType.dailys = [];
+      tasksByType.dailys.push(task);
+
+      user._statsComputed = {
+        con: 1,
+      };
+
+      daysMissed = 1;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+    });
+
+    it('resets user progress', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.party.quest.progress.up).to.equal(0);
+      expect(user.party.quest.progress.down).to.equal(0);
+      expect(user.party.quest.progress.collect).to.be.empty;
+    });
+
+    it('applies the user progress', () => {
+      let progress = cron({user, tasksByType, daysMissed, analytics});
+      expect(progress.down).to.equal(-1);
+    });
+  });
+
+  describe('private messages', () => {
+    let lastMessageId;
+
+    beforeEach(() => {
+      let maxPMs = 200;
+      for (let index = 0; index < maxPMs - 1; index += 1) {
+        let messageId = common.uuid();
+        user.inbox.messages[messageId] = {
+          id: messageId,
+          text: `test ${index}`,
+          timestamp: Number(new Date()),
+          likes: {},
+          flags: {},
+          flagCount: 0,
+        };
+      }
+
+      lastMessageId = common.uuid();
+      user.inbox.messages[lastMessageId] = {
+        id: lastMessageId,
+        text: `test ${lastMessageId}`,
+        timestamp: Number(new Date()),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+      };
+    });
+
+    xit('does not clear pms under 200', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.inbox.messages[lastMessageId]).to.exist;
+    });
+
+    xit('clears pms over 200', () => {
+      let messageId = common.uuid();
+      user.inbox.messages[messageId] = {
+        id: messageId,
+        text: `test ${messageId}`,
+        timestamp: Number(new Date()),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+      };
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.inbox.messages[messageId]).to.not.exist;
+    });
+  });
+});
