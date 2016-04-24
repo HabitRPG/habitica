@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('memberServices', function() {
+describe('memberServices', function() {
   var $httpBackend, members;
   var apiV3Prefix = '/api/v3';
 
