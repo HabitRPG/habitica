@@ -173,10 +173,12 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: 'partials/options.social.challenges.detail.html',
           title: env.t('titleChallenges'),
           controller: ['$scope', 'Challenges', '$stateParams',
-            function($scope, Challenges, $stateParams){
-              $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
-                $scope.challenge._locked = true;
-              });
+            function ($scope, Challenges, $stateParams) {
+              Challenges.getChallenge($stateParams.cid)
+                .then(function (response) {
+                  $scope.obj = $scope.challenge = response.data.data;
+                  $scope.challenge._locked = true;
+                });
             }]
         })
         .state('options.social.challenges.edit', {
@@ -184,10 +186,12 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: 'partials/options.social.challenges.detail.html',
           title: env.t('titleChallenges'),
           controller: ['$scope', 'Challenges', '$stateParams',
-            function($scope, Challenges, $stateParams){
-              $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
-                $scope.challenge._locked = false;
-              });
+            function ($scope, Challenges, $stateParams) {
+              Challenges.getChallenge($stateParams.cid)
+                .then(function (response) {
+                  $scope.obj = $scope.challenge = response.data.data;
+                  $scope.challenge._locked = false;
+                });
             }]
         })
         .state('options.social.challenges.detail.member', {
