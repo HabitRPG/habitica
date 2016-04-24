@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-unused-vars */
+/* eslint-disable no-console */
 
 // Migrate users collection to new schema
 // This should run AFTER challenges migration
@@ -9,12 +9,11 @@
 
 console.log('Starting migrations/api_v3/users.js.');
 
+import Q from 'q';
+import MongoDB from 'mongodb';
 import nconf from 'nconf';
 import mongoose from 'mongoose';
-import MongoDB from 'mongodb';
-import Q from 'q';
-
-const MongoClient = MongoDB.MongoClient;
+import _ from 'lodash';
 
 // Initialize configuration
 import setupNconf from '../../website/src/libs/api-v3/setupNconf';
@@ -23,38 +22,68 @@ setupNconf();
 const MONGODB_OLD = nconf.get('MONGODB_OLD');
 const MONGODB_NEW = nconf.get('MONGODB_NEW');
 
-// Initialize mongoose and connect to the database containing the old data
-mongoose.Promise = Q.Promise;
-
-const mongooseDbInstance = mongoose.connect(MONGODB_OLD, {
-  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-}, (err) => {
-  if (err) throw err;
-  console.log(`Connected with Mongoose to ${MONGODB_OLD}.`);
-});
+mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
 
 // Load old and new models
-const OldUserModel = require('./old_models/user').model;
 import { model as NewUser } from '../../website/src/models/user';
 import * as Tasks from '../../website/src/models/task';
 
 // To be defined later when MongoClient connects
-let mongoDbInstance;
+let mongoDbOldInstance;
+let oldUserCollection;
+
+let mongoDbNewInstance;
+let newUserCollection;
+let newTaskCollection;
 
 async function processUser (_id) {
-  let oldUser = await OldUserModel
-    .findById(_id)
-    .lean()
-    .exec();
-
-  console.log(`Processing ${oldUser._id}.`);
+  let [oldUser] = await oldUserCollection
+    .find({_id})
+    .limit(1)
+    .toArray();
 
   let oldTasks = oldUser.habits.concat(oldUser.dailys).concat(oldUser.rewards).concat(oldUser.todos);
   oldUser.habits = oldUser.dailys = oldUser.rewards = oldUser.todos = undefined;
 
-  console.log(oldUser, oldTasks);
-};
+  oldUser.challenges = [];
+  oldUser.invitations.guilds = [];
+  oldUser.invitations.party = {};
+  oldUser.party = {};
+  oldUser.tags = oldUser.tags.map(tag => {
+    return {
+      _id: tag.id,
+      name: tag.name,
+      challenge: tag.challenge,
+    };
+  });
+
+  let newUser = new NewUser(oldUser);
+
+  let batchInsertTasks = newTaskCollection.initializeUnorderedBulkOp();
+  oldTasks.forEach(oldTask => {
+    let newTask = new Tasks[oldTask.type](oldTask);
+    newTask.userId = newUser._id;
+
+    newTask.challenge = {};
+    if (!oldTask.text) newTask.text = 'text';
+    newTask.tags = _.map(oldTask.tags, (tagPresent, tagId) => {
+      return tagPresent && tagId;
+    });
+
+    newUser.tasksOrder[`${oldTask.type}s`].push(newTask._id);
+
+    // newTask.legacyId = oldTask.id;
+
+    batchInsertTasks.insert(newTask.toObject());
+  });
+
+  await Q.all([
+    newUserCollection.insertOne(newUser.toObject()),
+    batchInsertTasks.execute(),
+  ]);
+
+  console.log(`Saved user ${newUser._id} and their tasks.`);
+}
 
 /*
 
@@ -176,10 +205,25 @@ var processUser = function(gt) {
 };
 */
 
-// Connect to the database for new data
-MongoClient.connect(MONGODB_NEW, (err, dbInstance) => {
-  if (err) throw err;
+// Connect to the databases
+const MongoClient = MongoDB.MongoClient;
 
-  mongoDbInstance = dbInstance;
-  console.log(`Connected with MongoClient to ${MONGODB_NEW}.`);
+Q.all([
+  MongoClient.connect(MONGODB_OLD),
+  MongoClient.connect(MONGODB_NEW),
+])
+.then(([oldInstance, newInstance]) => {
+  mongoDbOldInstance = oldInstance;
+  oldUserCollection = mongoDbOldInstance.collection('users');
+
+  mongoDbNewInstance = newInstance;
+  newUserCollection = mongoDbNewInstance.collection('users');
+  newTaskCollection = mongoDbNewInstance.collection('tasks');
+
+  console.log(`Connected with MongoClient to ${MONGODB_OLD} and ${MONGODB_NEW}.`);
+
+  return processUser(nconf.get('USER_ID'));
+})
+.catch(err => {
+  throw err;
 });
