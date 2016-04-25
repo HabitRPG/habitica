@@ -91,21 +91,6 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 // Basic fields to fetch for populating a group info
 export let basicFields = 'name type privacy';
 
-// TODO migration
-/**
- * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration
- * to remove duplicates, then take these fucntions out
- */
-/* function removeDuplicates(doc){
-  // Remove duplicate members
-  if (doc.members) {
-    var uniqMembers = _.uniq(doc.members);
-    if (uniqMembers.length != doc.members.length) {
-      doc.members = uniqMembers;
-    }
-  }
-}*/
-
 // TODO test
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();

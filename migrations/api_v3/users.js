@@ -7,6 +7,10 @@
 
 // It requires two environment variables: MONGODB_OLD and MONGODB_NEW
 
+/*
+  tags must have a name
+*/
+
 console.log('Starting migrations/api_v3/users.js.');
 
 import Q from 'q';
@@ -72,9 +76,10 @@ async function processUser (_id) {
 
     newUser.tasksOrder[`${oldTask.type}s`].push(newTask._id);
 
-    // newTask.legacyId = oldTask.id;
+    let newTaskObject = newTask.toObject();
+    newTaskObject.legacyId = oldTask.id;
 
-    batchInsertTasks.insert(newTask.toObject());
+    batchInsertTasks.insert(newTaskObject);
   });
 
   await Q.all([
