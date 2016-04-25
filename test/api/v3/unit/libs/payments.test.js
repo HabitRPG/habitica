@@ -1,12 +1,5 @@
 import * as sender from '../../../../../website/src/libs/api-v3/email';
-import {
-  getUserInfo,
-  sendTxn as txnEmail,
-} from '../../../../../website/src/libs/api-v3/email'
 import * as api from '../../../../../website/src/libs/api-v3/payments';
-import {
-  generateUser
-} from '../../../../helpers/api-integration/v3';
 import { model as User } from '../../../../../website/src/models/user';
 import moment from 'moment';
 

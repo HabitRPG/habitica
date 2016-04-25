@@ -10,6 +10,7 @@ import shared from '../../../../../common';
 import payments from '../../../libs/api-v3/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
+import { model as User } from '../../../models/user';
 import cc from 'coupon-code';
 
 let api = {};
@@ -34,7 +35,7 @@ api.verifyAccessToken = {
       res.respond(200, {});
     } catch (error) {
       throw new BadRequest(error.body.error_description);
-    };
+    }
   },
 };
 
@@ -140,7 +141,7 @@ api.checkout = {
       await payments[method](data);
 
       res.respond(200);
-    } catch(error) {
+    } catch (error) {
       throw new BadRequest(error);
     }
   },

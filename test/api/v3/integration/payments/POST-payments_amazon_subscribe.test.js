@@ -2,8 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import cc from 'coupon-code';
-import { model as Coupon } from '../../../../../website/src/models/coupon';
 
 describe('payments - amazon - #subscribe', () => {
   let endpoint = '/payments/amazon/subscribe';

@@ -1,6 +1,5 @@
 import {
   generateUser,
-  translate as t,
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments - amazon - #createOrderReferenceId', () => {

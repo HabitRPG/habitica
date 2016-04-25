@@ -1,6 +1,5 @@
 import _ from 'lodash' ;
 import analytics from './analyticsService';
-import async from 'async';
 import cc from 'coupon-code';
 import {
   getUserInfo,
@@ -13,7 +12,6 @@ import nconf from 'nconf';
 import pushNotify from './pushNotifications';
 import shared from '../../../../common' ;
 
-import amazon from '../../controllers/top-level/payments/amazon';
 import iap from '../../controllers/top-level/payments/iap';
 import paypal from '../../controllers/top-level/payments/paypal';
 import stripe from '../../controllers/top-level/payments/stripe';
@@ -138,7 +136,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   await data.user.save();
 
   txnEmail(data.user, 'cancel-subscription');
-  
+
   analytics.track('unsubscribe', {
     uuid: data.user._id,
     gaCategory: 'commerce',
@@ -183,19 +181,9 @@ api.buyGems = async function buyGems (data) {
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
       pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
     }
+    await data.gift.member.save();
   }
-  async.parallel([
-    function saveGiftingUserData (cb2) {
-      data.user.save(cb2);
-    },
-    function saveRecipientUserData (cb2) {
-      if (data.gift) {
-        data.gift.member.save(cb2);
-      } else {
-        cb2(null);
-      }
-    },
-  ], cb);
+  await data.user.save();
 };
 
 // @TODO: this shouldn't be here or should not be a middleware
@@ -217,12 +205,6 @@ api.paypalSubscribeCancel = paypal.cancelSubscription;
 api.paypalCheckout = paypal.createPayment;
 api.paypalCheckoutSuccess = paypal.executePayment;
 api.paypalIPN = paypal.ipn;
-
-// api.amazonVerifyAccessToken = amazon.verifyAccessToken;
-// api.amazonCreateOrderReferenceId = amazon.createOrderReferenceId;
-// api.amazonCheckout = amazon.checkout;
-// api.amazonSubscribe = amazon.subscribe;
-// api.amazonSubscribeCancel = amazon.subscribeCancel;
 
 api.iapAndroidVerify = iap.androidVerify;
 api.iapIosVerify = iap.iosVerify;

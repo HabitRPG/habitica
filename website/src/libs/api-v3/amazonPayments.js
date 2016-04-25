@@ -27,14 +27,14 @@ let confirmBillingAgreement = Q.nbind(amzPayment.offAmazonPayments.confirmBillin
 let closeBillingAgreement = Q.nbind(amzPayment.offAmazonPayments.closeBillingAgreement, amzPayment.offAmazonPayments);
 
 let authorizeOnBillingAgreement = (inputSet) => {
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorizeOnBillingAgreement(inputSet, (err, response) => {
       if (err) return reject(err);
       if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(t('paymentNotSuccessful'));
       return resolve(response);
-    })
+    });
   });
-}
+};
 
 let authorize = (inputSet) => {
   return new Promise((resolve, reject) => {
@@ -54,7 +54,6 @@ module.exports = {
   closeOrderReference,
   confirmBillingAgreement,
   setBillingAgreementDetails,
-  confirmBillingAgreement,
   closeBillingAgreement,
   authorizeOnBillingAgreement,
   authorize,
