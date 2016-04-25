@@ -109,6 +109,8 @@ angular.module('habitrpg')
           .then(function (response) {
             data.party = response.data.data;
             deferred.resolve(data.party);
+          }, function (response) {
+            deferred.reject(response);
           });
       } else {
         deferred.resolve(data.party);
@@ -125,6 +127,8 @@ angular.module('habitrpg')
           .then(function (response) {
             data.publicGuilds = response.data.data;
             deferred.resolve(data.publicGuilds);
+          }, function (response) {
+            deferred.reject(response);
           });
       } else {
         deferred.resolve(data.publicGuilds);
@@ -142,6 +146,8 @@ angular.module('habitrpg')
           .then(function (response) {
             data.myGuilds = response.data.data;
             deferred.resolve(data.myGuilds);
+          }, function (response) {
+            deferred.reject(response);
           });
       } else {
         deferred.resolve(data.myGuilds);
@@ -158,6 +164,8 @@ angular.module('habitrpg')
           .then(function (response) {
             data.tavern = response.data.data;
             deferred.resolve(data.tavern);
+          }, function (response) {
+            deferred.reject(response);
           });
       } else {
         deferred.resolve(data.tavern);
