@@ -227,20 +227,16 @@ api.subscribe = {
 };
 
 /**
- * @api {delete} /api/v3/payments/amazon/subscribe SubscribeCancel
+ * @api {get} /api/v3/payments/amazon/subscribeCancel SubscribeCancel
  * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  *
- * @apiParam {string} billingAgreementId billing agreement id
- * @apiParam {string} subscription Subscription plan
- * @apiParam {string} coupon Optional Coupon for discount
- *
- * @apiSuccess {object} data.orderReferenceId The order reference id.
+ * @apiSuccess {object} empty object
  **/
 api.subscribeCancel = {
-  method: 'DELETE',
-  url: '/payments/amazon/subscribe',
+  method: 'GET',
+  url: '/payments/amazon/subscribeCancel',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;

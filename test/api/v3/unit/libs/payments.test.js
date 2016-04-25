@@ -10,7 +10,7 @@ import {
 import { model as User } from '../../../../../website/src/models/user';
 import moment from 'moment';
 
-describe('payments/index', () => {
+describe.only('payments/index', () => {
   let fakeSend;
   let data;
   let user;
@@ -71,8 +71,8 @@ describe('payments/index', () => {
       expect(data.user.purchased.plan.dateTerminated).to.exist;
     });
 
-    it('sends a text', () => {
-      api.cancelSubscription(data);
+    it('sends a text', async () => {
+      await api.cancelSubscription(data);
       sinon.assert.calledOnce(fakeSend);
     });
   });

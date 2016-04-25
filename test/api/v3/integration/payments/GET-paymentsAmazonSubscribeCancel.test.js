@@ -12,10 +12,10 @@ describe('payments : amazon', () => {
   });
 
   it('#subscribeCancel', async () => {
-    await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
+    await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: t('missingAccessToken'),
+      message: t('missingSubscription'),
     });
   });
 });

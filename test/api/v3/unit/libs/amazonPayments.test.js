@@ -1,7 +1,8 @@
 import * as amzLib from '../../../../../website/src/libs/api-v3/amazonPayments';
 import * as amzStub from 'amazon-payments';
 import amazonPayments from 'amazon-payments';
-let User = require('mongoose').model('User');
+import { model as User } from '../../../../../website/src/models/user';
+// let User = require('mongoose').model('User');
 
 describe('amazonPayments', () => {
   xdescribe('stubbed', () => {

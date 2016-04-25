@@ -18,7 +18,7 @@ let amzPayment = amazonPayments.connect({
 /**
  * From: https://payments.amazon.com/documentation/apireference/201751670#201751670
  */
-api.getTokenInfo = (token) => {
+api.getTokenInfo = (inputSet) => {
   let thisBinding = Q.nbind(amzPayment.api.getTokenInfo, amzPayment.api);
   return thisBinding(inputSet);
 };
