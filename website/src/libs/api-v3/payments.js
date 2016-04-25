@@ -138,7 +138,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   await data.user.save();
 
   txnEmail(data.user, 'cancel-subscription');
-
+  
   analytics.track('unsubscribe', {
     uuid: data.user._id,
     gaCategory: 'commerce',

@@ -1,4 +1,8 @@
 import * as sender from '../../../../../website/src/libs/api-v3/email';
+import {
+  getUserInfo,
+  sendTxn as txnEmail,
+} from '../../../../../website/src/libs/api-v3/email'
 import * as api from '../../../../../website/src/libs/api-v3/payments';
 import {
   generateUser
@@ -9,20 +13,31 @@ import moment from 'moment';
 describe('payments/index', () => {
   let fakeSend;
   let data;
+  let user;
 
-  beforeEach(() => {
-    fakeSend = sinon.spy(sender, 'sendTxn');
-    data = { user: new User() };
-  });
+  describe('#createSubscription', () => {
+    beforeEach(async () => {
+      user = new User();
+    });
 
-  afterEach(() => {
-    fakeSend.restore();
-  });
-
-  describe('#createSubscription', async () => {
+    it('succeeds', async () => {
+      data = { user, sub: { key: 'basic_3mo' } };
+      expect(user.purchased.plan.planId).to.not.exist;
+      await api.createSubscription(data);
+      expect(user.purchased.plan.planId).to.exist;
+    });
   });
 
   describe('#cancelSubscription', () => {
+    beforeEach(() => {
+      fakeSend = sinon.spy(sender, 'sendTxn');
+      data = { user: new User() };
+    });
+
+    afterEach(() => {
+      fakeSend.restore();
+    });
+
     it('plan.extraMonths is defined', () => {
       api.cancelSubscription(data);
       let terminated = data.user.purchased.plan.dateTerminated;

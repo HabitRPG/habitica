@@ -1,10 +1,10 @@
 import * as amzLib from '../../../../../website/src/libs/api-v3/amazonPayments';
-// import * as amzStub from 'amazon-payments';
+import * as amzStub from 'amazon-payments';
 import amazonPayments from 'amazon-payments';
-var User = require('mongoose').model('User');
+let User = require('mongoose').model('User');
 
-describe.only('amazonPayments', () => {
-  describe('stubbed', () => {
+describe('amazonPayments', () => {
+  xdescribe('stubbed', () => {
     let thisToken = 'this token info';
     let amzOldConnect;
 
@@ -35,14 +35,14 @@ describe.only('amazonPayments', () => {
       done();
     });
 
-    it('#createOrderReferenceId', async () => {
+    /* xit('#createOrderReferenceId', async () => {
       let result = await amzLib.createOrderReferenceId({});
       expect(result.OrderReferenceDetails).to.exist;
       expect(result.OrderReferenceDetails.AmazonOrderReferenceId).to.exist;
-    });
+    }); */
   });
 
-  describe('#getTokenInfo', () => {
+  xdescribe('#getTokenInfo', () => {
     it('validates access_token parameter', async (done) => {
       try {
         await amzLib.getTokenInfo();
@@ -67,7 +67,7 @@ describe.only('amazonPayments', () => {
     });
   });
 
-  describe('#checkout');
+  /* describe('#checkout');
 
   describe('#setOrderReferenceDetails');
 
@@ -101,5 +101,5 @@ describe.only('amazonPayments', () => {
 
   describe('#subscribe');
 
-  describe('#subscribeCancel');
+  describe('#subscribeCancel'); */
 });

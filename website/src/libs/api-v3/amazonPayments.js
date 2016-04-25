@@ -64,11 +64,10 @@ api.confirmBillingAgreement = (inputSet) => {
 };
 
 api.authorizeOnBillingAgreement = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.authorizeOnBillingAgreement, amzPayment.offAmazonPayments)
-  .then(res) {
+  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.authorizeOnBillingAgreement, amzPayment.offAmazonPayments);
+  return thisBinding(inputSet).then((res) => {
     if (res.AuthorizationDetails.AuthorizationStatus.State === 'Declined') throw new Error(t('paymentNotSuccessful'));
-  };
-  return thisBinding(inputSet); 
+  });
 };
 
 api.closeBillingAgreement = (inputSet) => {
