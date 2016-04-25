@@ -2,7 +2,6 @@
 
 /**
  * Markdown
- * See http://www.heikura.me/#!/angularjs-markdown-directive
  */
 (function(){
   var md = function () {
@@ -26,7 +25,7 @@
     };
   }();
 
-  habitrpg.directive('markdown', ['$timeout','MOBILE_APP', function($timeout, MOBILE_APP) {
+  habitrpg.directive('markdown', ['$timeout', function($timeout) {
     return {
       restrict: 'E',
       link: function(scope, element, attrs) {
@@ -47,33 +46,14 @@
 
             element.html(html);
 
-            if(MOBILE_APP) {
-              var elements = element.find("a");
-              _.forEach(elements, function(link){
-                if(link.href) {
-
-                  link.onclick = function (e) {
-                    scope.externalLink(this.href);
-
-                    e.preventDefault();
-                    e.stopPropagation();
-                  };
-                }
-              });
-            }
-
-            if(removeWatch)
-            {
+            if (removeWatch) {
               doRemoveWatch();
             }
           };
 
-          if(useTimeout)
-          {
+          if(useTimeout) {
             $timeout(replaceMarkdown, timeoutTime);
-          }
-          else
-          {
+          } else {
             replaceMarkdown();
           }
         });
