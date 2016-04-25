@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('payments : amazon', () => {
+describe('payments : amazon #subscribeCancel', () => {
   let endpoint = '/payments/amazon/subscribeCancel';
   let user;
 
@@ -11,11 +11,15 @@ describe('payments : amazon', () => {
     user = await generateUser();
   });
 
-  it('#subscribeCancel', async () => {
+  it('verifies subscription', async () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('missingSubscription'),
     });
+  });
+
+  it('succeeds', async () => {
+
   });
 });
