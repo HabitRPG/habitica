@@ -160,6 +160,10 @@ window.habitrpg = angular.module('habitrpg',
                   .then(function (response) {
                     $scope.group.members = response.data.data;
                   });
+                Members.getGroupInvites($scope.group._id)
+                  .then(function (response) {
+                    $scope.group.invites = response.data.data;
+                  });
               });
           }]
         })
