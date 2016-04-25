@@ -1,6 +1,7 @@
 'use strict';
 
-habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification) {
+habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification',
+  function($scope, User, Groups, injectedGroup, $http, Notification) {
     $scope.group = injectedGroup;
 
     $scope.inviter = User.user.profile.name;
@@ -17,8 +18,9 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
     $scope.inviteNewUsers = function(inviteMethod) {
       if (!$scope.group._id) {
         $scope.group.name = $scope.group.name || env.t('possessiveParty', {name: User.user.profile.name});
-        return $scope.group.$save()
-          .then(function(res) {
+        return Groups.Group.create($scope.group)
+          .then(function(response) {
+            $scope.group = response.data.data;
             _inviteByMethod(inviteMethod);
           });
       }
@@ -39,12 +41,13 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
         return console.log('Invalid invite method.')
       }
 
-      Groups.Group.invite({gid: $scope.group._id}, invitationDetails, function(){
-        Notification.text(window.env.t('invitationsSent'));
-        _resetInvitees();
-      }, function(){
-        _resetInvitees();
-      });
+      Groups.Group.invite($scope.group._id, invitationDetails)
+        .then(function() {
+          Notification.text(window.env.t('invitationsSent'));
+          _resetInvitees();
+        }, function(){
+          _resetInvitees();
+        });
     }
 
     function _getOnlyUuids() {

@@ -102,14 +102,14 @@ angular.module('habitrpg')
                     op(req,function(err,response) {
                       for(var updatedItem in req.body) {
                         var itemUpdateResponse = userNotifications[updatedItem];
-                        if(itemUpdateResponse) Notification.text(itemUpdateResponse);
+                        if(itemUpdateResponse) Notification.text(itemUpdateResponse.data.message);
                       }
                       if (err) {
-                        var message = err.code ? err.message : err;
-                        if (MOBILE_APP) Notification.push({type:'text',text:message});
+                        var message = err.code ? err.data.message : err;
+                        if (MOBILE_APP) Notification.push({type:'text', text: message});
                         else Notification.text(message);
                         // In the case of 200s, they're friendly alert messages like "Your pet has hatched!" - still send the op
-                        if ((err.code && err.code >= 400) || !err.code) return; 
+                        if ((err.code && err.code >= 400) || !err.code) return;
                       }
                       userServices.log({op:k, params: req.params, query:req.query, body:req.body});
                     });
