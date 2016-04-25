@@ -18,8 +18,4 @@ describe('payments : amazon #subscribeCancel', () => {
       message: t('missingSubscription'),
     });
   });
-
-  it('succeeds', async () => {
-
-  });
 });

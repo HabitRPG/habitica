@@ -5,8 +5,6 @@ let t = common.i18n.t;
 const IS_PROD = nconf.get('NODE_ENV') === 'production';
 import Q from 'q';
 
-let api = {};
-
 let amzPayment = amazonPayments.connect({
   environment: amazonPayments.Environment[IS_PROD ? 'Production' : 'Sandbox'],
   sellerId: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
@@ -18,28 +16,28 @@ let amzPayment = amazonPayments.connect({
 /**
  * From: https://payments.amazon.com/documentation/apireference/201751670#201751670
  */
-api.getTokenInfo = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.api.getTokenInfo, amzPayment.api);
-  return thisBinding(inputSet);
-};
 
-api.createOrderReferenceId = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.createOrderReferenceForId, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet);
-};
+let getTokenInfo = Q.nbind(amzPayment.api.getTokenInfo, amzPayment.api);
+let createOrderReferenceId = Q.nbind(amzPayment.offAmazonPayments.createOrderReferenceForId, amzPayment.offAmazonPayments);
+let setOrderReferenceDetails = Q.nbind(amzPayment.offAmazonPayments.setOrderReferenceDetails, amzPayment.offAmazonPayments);
+let confirmOrderReference = Q.nbind(amzPayment.offAmazonPayments.confirmOrderReference, amzPayment.offAmazonPayments);
+let closeOrderReference = Q.nbind(amzPayment.offAmazonPayments.closeOrderReference, amzPayment.offAmazonPayments);
+let setBillingAgreementDetails = Q.nbind(amzPayment.offAmazonPayments.setBillingAgreementDetails, amzPayment.offAmazonPayments);
+let confirmBillingAgreement = Q.nbind(amzPayment.offAmazonPayments.confirmBillingAgreement, amzPayment.offAmazonPayments);
+let closeBillingAgreement = Q.nbind(amzPayment.offAmazonPayments.closeBillingAgreement, amzPayment.offAmazonPayments);
 
-api.setOrderReferenceDetails = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.setOrderReferenceDetails, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet);
-};
+let authorizeOnBillingAgreement = (inputSet) => {
+  new Promise((resolve, reject) => {
+    amzPayment.offAmazonPayments.authorizeOnBillingAgreement(inputSet, (err, response) => {
+      if (err) return reject(err);
+      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(t('paymentNotSuccessful'));
+      return resolve(response);
+    })
+  });
+}
 
-api.confirmOrderReference = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.confirmOrderReference, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet);
-};
-
-api.authorize = (inputSet) => {
-  return new Promize((resolve, reject) => {
+let authorize = (inputSet) => {
+  return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorize(inputSet, (err, response) => {
       if (err) return reject(err);
       if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(t('paymentNotSuccessful'));
@@ -48,31 +46,16 @@ api.authorize = (inputSet) => {
   });
 };
 
-api.closeOrderReference = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.closeOrderReference, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet);
+module.exports = {
+  getTokenInfo,
+  createOrderReferenceId,
+  setOrderReferenceDetails,
+  confirmOrderReference,
+  closeOrderReference,
+  confirmBillingAgreement,
+  setBillingAgreementDetails,
+  confirmBillingAgreement,
+  closeBillingAgreement,
+  authorizeOnBillingAgreement,
+  authorize,
 };
-
-api.setBillingAgreementDetails = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.setBillingAgreementDetails, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet); 
-};
-
-api.confirmBillingAgreement = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.confirmBillingAgreement, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet); 
-};
-
-api.authorizeOnBillingAgreement = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.authorizeOnBillingAgreement, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet).then((res) => {
-    if (res.AuthorizationDetails.AuthorizationStatus.State === 'Declined') throw new Error(t('paymentNotSuccessful'));
-  });
-};
-
-api.closeBillingAgreement = (inputSet) => {
-  let thisBinding = Q.nbind(amzPayment.offAmazonPayments.closeBillingAgreement, amzPayment.offAmazonPayments);
-  return thisBinding(inputSet); 
-};
-
-module.exports = api;

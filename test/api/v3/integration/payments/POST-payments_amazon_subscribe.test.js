@@ -13,26 +13,11 @@ describe('payments - amazon - #subscribe', () => {
     user = await generateUser();
   });
 
-  it('successfully subscribes', async () => {
+  it('verifies subscription code', async () => {
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('missingSubscriptionCode'),
     });
-  });
-
-  it('applies discount', async (done) => {
-    let coupon = new Coupon({ _id: cc.generate(), event: 'google_6mo' });
-    await coupon.save();
-    try {
-      await user.post(endpoint, {
-        subscription: 'google_6mo', 
-        coupon: coupon._id
-      });
-    } catch (e) {
-      expect(e.code).to.eql(400);
-      expect(e.error).to.eql('BadRequest'); // Parameter AWSAccessKeyId cannot be empty.
-      done();
-    }    
   });
 });

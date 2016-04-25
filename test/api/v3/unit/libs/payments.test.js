@@ -10,7 +10,7 @@ import {
 import { model as User } from '../../../../../website/src/models/user';
 import moment from 'moment';
 
-describe.only('payments/index', () => {
+describe('payments/index', () => {
   let fakeSend;
   let data;
   let user;

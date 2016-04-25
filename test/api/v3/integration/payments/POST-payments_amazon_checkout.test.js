@@ -11,7 +11,7 @@ describe('payments - amazon - #checkout', () => {
     user = await generateUser();
   });
 
-  it('success', async (done) => {
+  it('verifies credentials', async (done) => {
     try {
       await user.post(endpoint);
     } catch (e) {
@@ -20,6 +20,4 @@ describe('payments - amazon - #checkout', () => {
       done();
     }
   });
-
-  it('applies gift');
 });

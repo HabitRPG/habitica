@@ -258,7 +258,7 @@ api.subscribeCancel = {
 
       res.respond(200, {});
     } catch (error) {
-      throw new BadRequest(error);
+      throw new BadRequest(error.message);
     }
   },
 };
