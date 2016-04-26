@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Chat', ['$resource', '$http', 'ApiUrl', 'User',
-  function($resource, $http, ApiUrl, User) {
+.factory('Chat', ['$http', 'ApiUrl', 'User',
+  function($http, ApiUrl, User) {
     var apiV3Prefix = '/api/v3';
 
     function getChat (groupId) {
@@ -63,6 +63,7 @@ angular.module('habitrpg')
     }
 
     function markChatSeen (groupId) {
+      if (User.user.newMessages) delete User.user.newMessages[gid];
       return $http({
         method: 'POST',
         url: apiV3Prefix + '/groups/' + groupId + '/chat/seen',
@@ -77,8 +78,10 @@ angular.module('habitrpg')
       flagChatMessage: flagChatMessage,
       clearFlagCount: clearFlagCount,
       markChatSeen: markChatSeen,
+      clearCards: clearCards,
     }
 
+    //@TOOD: Port when User service is updated
     function clearCards() {
       User.user.ops.update && User.set({'flags.cardReceived':false});
     }
