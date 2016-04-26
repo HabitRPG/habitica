@@ -24,7 +24,7 @@ router.get('/', i18n.getUserLanguage, locals, function(req, res) {
 
 // -------- Static Pages --------
 
-var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines', 'old-news', 'press-kit', 'faq', 'overview', 'apps', 'clear-browser-data', 'merch'];
+var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines', 'old-news', 'press-kit', 'faq', 'overview', 'apps', 'clear-browser-data', 'merch', 'login'];
 
 _.each(pages, function(name){
   router.get('/static/' + name, i18n.getUserLanguage, locals, function(req, res) {
