@@ -148,7 +148,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(passport.session());
 
   var maxAge = isProd ? 31536000000 : 0;
-  // Cache emojis without copying them to build, they are too many
   oldApp.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
   oldApp.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
   oldApp.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
