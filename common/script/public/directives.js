@@ -7,15 +7,11 @@
   var md = function () {
     var mdown = window.habiticaMarkdown;
 
-    emoji.img_path = 'common/img/emoji/unicode/';
-
     var toHtml = function (markdown) {
       if (markdown == undefined)
         return '';
 
       markdown = mdown.render(markdown);
-      markdown = emoji.replace_colons(markdown);
-      markdown = emoji.replace_unified(markdown);
 
       return markdown;
     };
