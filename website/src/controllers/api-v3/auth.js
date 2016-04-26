@@ -2,11 +2,6 @@ import validator from 'validator';
 import moment from 'moment';
 import passport from 'passport';
 import nconf from 'nconf';
-
-// @TODO: move to test?
-import setupNconf from '../../libs/api-v3/setupNconf';
-setupNconf();
-
 import {
   authWithHeaders,
 } from '../../middlewares/api-v3/auth';

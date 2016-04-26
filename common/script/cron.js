@@ -28,7 +28,7 @@ function sanitizeOptions (o) {
   let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
   let timezoneOffset;
-  let timezoneOffsetDefault = Number(moment().utcOffset());
+  let timezoneOffsetDefault = Number(moment().zone());
   if (_.isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
   } else if (_.isFinite(o.timezoneOffset)) {

@@ -186,15 +186,6 @@ api.buyGems = async function buyGems (data) {
   await data.user.save();
 };
 
-// @TODO: this shouldn't be here or should not be a middleware
-api.validCoupon = function validCoupon (req, res, next) {
-  mongoose.model('Coupon').findOne({_id: cc.validate(req.params.code), event: 'google_6mo'}, function couponErrorCheck (err, coupon) {
-    if (err) return next(err);
-    if (!coupon) return res.status(401).json({err: 'Invalid coupon code'});
-    return res.sendStatus(200);
-  });
-};
-
 api.stripeCheckout = stripe.checkout;
 api.stripeSubscribeCancel = stripe.subscribeCancel;
 api.stripeSubscribeEdit = stripe.subscribeEdit;

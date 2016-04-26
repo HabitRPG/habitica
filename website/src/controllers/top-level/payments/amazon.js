@@ -243,7 +243,7 @@ api.subscribeCancel = {
     let user = res.locals.user;
     let billingAgreementId = user.purchased.plan.customerId;
 
-    if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));
+    if (!billingAgreementId) throw new BadRequest(res.t('missingSubscription'));
 
     try {
       await amzLib.closeBillingAgreement({
