@@ -7,27 +7,21 @@ ul.items.rewards
       +specialSkill(dispel,skill)
 
 // Class Skills
+- var frostNoAdditionalBenefitText = '{{k=="frost" && user.stats.buffs.streaks ? env.t("spellWizardFrostAlreadyCast") : ""}}'
+- var stealthNumberOfCastsText = '{{k=="stealth" ? env.t("spellRogueStealthDaliesAvoided", { number: user.stats.buffs.stealth }) : ""}}'
+- var stealthNoAdditionalBenefitText = '{{k=="stealth" && user.stats.buffs.stealth >= user.dailys.length ? env.t("spellRogueStealthMaxedOut") : ""}}'
 ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
   li.task.reward-item.list-group-item(ng-repeat='(k,skill) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= skill.lvl',popover-trigger='mouseenter', popover-placement='top',
-  popover='{{skill.notes()}}{{k=="frost" && user.stats.buffs.streaks ? " You have already cast this today. Your streaks are frozen, and there\'s no need to cast this again." : ""}}}{{k=="stealth" ? " Number of dailies avoided: " + user.stats.buffs.stealth + "." : ""}}{{k=="stealth" && user.stats.buffs.stealth >= user.dailys.length ? " You have already avoided all your dailies, there\'s no need to cast this again." : ""}}')
+  popover='{{skill.notes()}}#{frostNoAdditionalBenefitText}#{stealthNumberOfCastsText}#{stealthNoAdditionalBenefitText}')
     .task-meta-controls
       span.task-notes
         span.glyphicon.glyphicon-comment
     //left-hand size commands
     .task-controls.task-primary
-      a.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-if='!( k=="frost" || k=="stealth" )')
-        span.reward-cost
-          strong {{::skill.mana}}
-          =env.t('mp')
-      a.btn.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-class='{"disabled": user.stats.buffs.streaks}', ng-if='k=="frost"')
-        span.reward-cost
-          strong {{::skill.mana}}
-          =env.t('mp')
-      a.btn.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-class='{"disabled": user.stats.buffs.stealth >= user.dailys.length}', ng-if='k=="stealth"')
+      a.btn.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-class='{"disabled": isSpellDisabled(user, k)}')
         span.reward-cost
           strong {{::skill.mana}}
           =env.t('mp')
     // main content
     span(ng-class='{"shop_{{::skill.key}} shop-sprite item-img": true}').reward-img
     p.task-text {{::skill.text()}}
-    

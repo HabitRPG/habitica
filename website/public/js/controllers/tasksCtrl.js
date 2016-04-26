@@ -258,4 +258,23 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         $rootScope.playSound('Reward');
       }
     }
+
+    /*
+     ------------------------
+     Disabling Spells
+     ------------------------
+     */
+
+    $scope.isSpellDisabled = function(user, skill) {
+      if ( skill == "frost" && user.stats.buffs.streaks )
+      {
+        return false;
+      }
+      else if ( skill == "stealth" && user.stats.buffs.stealth >= user.dailys.length)
+      {
+        return true;
+      }
+      return false;
+    }
+
   }]);
