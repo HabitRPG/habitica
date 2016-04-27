@@ -1,24 +1,22 @@
 import _ from 'lodash' ;
-import analytics from '../../../libs/api-v3/analyticsService';
-import async from 'async';
+import analytics from './analyticsService';
 import cc from 'coupon-code';
 import {
   getUserInfo,
   sendTxn as txnEmail,
-} from '../../../libs/api-v3/email';
-import members from '../../api-v3/members';
+} from './email';
+import members from '../../controllers/api-v3/members';
 import moment from 'moment';
 import mongoose from 'mongoose';
 import nconf from 'nconf';
-import pushNotify from '../../../libs/api-v3/pushNotifications';
-import shared from '../../../../../common' ;
+import pushNotify from './pushNotifications';
+import shared from '../../../../common' ;
 
-import amazon from './amazon';
-import iap from './iap';
-import paypal from './paypal';
-import stripe from './stripe';
+import iap from '../../controllers/top-level/payments/iap';
+import paypal from '../../controllers/top-level/payments/paypal';
+import stripe from '../../controllers/top-level/payments/stripe';
 
-const IS_PROD = nconf.get('NODE_ENV') === 'production';
+const IS_PROD = nconf.get('IS_PROD');
 
 let api = {};
 
@@ -36,10 +34,7 @@ function revealMysteryItems (user) {
   });
 }
 
-// @TODO: HEREHERE
 api.createSubscription = async function createSubscription (data) {
-}
-api.createSubscription = function createSubscription (data, cb) {
   let recipient = data.gift ? data.gift.member : data.user;
   let plan = recipient.purchased.plan;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
@@ -81,6 +76,7 @@ api.createSubscription = function createSubscription (data, cb) {
     plan.consecutive.trinkets += perks;
   }
   revealMysteryItems(recipient);
+
   if (IS_PROD) {
     if (!data.gift) txnEmail(data.user, 'subscription-begins');
 
@@ -96,7 +92,9 @@ api.createSubscription = function createSubscription (data, cb) {
     };
     analytics.trackPurchase(analyticsData);
   }
+
   data.user.purchased.txnCount++;
+
   if (data.gift) {
     members.sendMessage(data.user, data.gift.member, data.gift);
 
@@ -113,50 +111,41 @@ api.createSubscription = function createSubscription (data, cb) {
       pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedSubscription'), `${months} months - by ${byUserName}`);
     }
   }
-  async.parallel([
-    function saveGiftingUserData (cb2) {
-      data.user.save(cb2);
-    },
-    function saveRecipientUserData (cb2) {
-      if (data.gift) {
-        data.gift.member.save(cb2);
-      } else {
-        cb2(null);
-      }
-    },
-  ], cb);
+
+  await data.user.save();
+  if (data.gift) await data.gift.member.save();
 };
 
 /**
  * Sets their subscription to be cancelled later
  */
-api.cancelSubscription = function cancelSubscription (data, cb) {
+api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
+  let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
+  let nowStrFormat = 'MM/DD/YYYY';
 
   plan.dateTerminated =
-    moment(`${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`)
+    moment(nowStr, nowStrFormat)
     .add({days: remaining}) // end their subscription 1mo from their last payment
-    .add({months: Math.ceil(plan.extraMonths)})// plus any extra time (carry-over, gifted subscription, etc) they have. FIXME: moment can't add months in fractions...
+    .add({days: Math.ceil(30 * plan.extraMonths)}) // plus any extra time (carry-over, gifted subscription, etc) they have.
     .toDate();
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
-  data.user.save(cb);
+  await data.user.save();
+
   txnEmail(data.user, 'cancel-subscription');
-  let analyticsData = {
+
+  analytics.track('unsubscribe', {
     uuid: data.user._id,
     gaCategory: 'commerce',
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,
-  };
-  analytics.track('unsubscribe', analyticsData);
+  });
 };
 
-// @TODO: HEREHERE
 api.buyGems = async function buyGems (data) {
-};
-api.buyGems = function buyGems (data, cb) {
   let amt = data.amount || 5;
   amt = data.gift ? data.gift.gems.amount / 4 : amt;
   (data.gift ? data.gift.member : data.user).balance += amt;
@@ -192,27 +181,9 @@ api.buyGems = function buyGems (data, cb) {
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
       pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
     }
+    await data.gift.member.save();
   }
-  async.parallel([
-    function saveGiftingUserData (cb2) {
-      data.user.save(cb2);
-    },
-    function saveRecipientUserData (cb2) {
-      if (data.gift) {
-        data.gift.member.save(cb2);
-      } else {
-        cb2(null);
-      }
-    },
-  ], cb);
-};
-
-api.validCoupon = function validCoupon (req, res, next) {
-  mongoose.model('Coupon').findOne({_id: cc.validate(req.params.code), event: 'google_6mo'}, function couponErrorCheck (err, coupon) {
-    if (err) return next(err);
-    if (!coupon) return res.status(401).json({err: 'Invalid coupon code'});
-    return res.sendStatus(200);
-  });
+  await data.user.save();
 };
 
 api.stripeCheckout = stripe.checkout;
@@ -225,12 +196,6 @@ api.paypalSubscribeCancel = paypal.cancelSubscription;
 api.paypalCheckout = paypal.createPayment;
 api.paypalCheckoutSuccess = paypal.executePayment;
 api.paypalIPN = paypal.ipn;
-
-api.amazonVerifyAccessToken = amazon.verifyAccessToken;
-api.amazonCreateOrderReferenceId = amazon.createOrderReferenceId;
-api.amazonCheckout = amazon.checkout;
-api.amazonSubscribe = amazon.subscribe;
-api.amazonSubscribeCancel = amazon.subscribeCancel;
 
 api.iapAndroidVerify = iap.androidVerify;
 api.iapIosVerify = iap.iosVerify;
