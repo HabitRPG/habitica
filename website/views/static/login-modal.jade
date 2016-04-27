@@ -35,8 +35,7 @@ script(id='modals/login.html', type='text/ng-template')
       li
         a.zocial.icon.twitter(alt="Twitter", ng-click='socialLogin("twitter")') Twitter
     hr
-    div.alert.alert-info
-      a(href='/static/login' target='_blank')=env.t('loginTroubles')
+
     tabset(justified='true')
       tab(heading=env.t('login'))
         form#loginForm(ng-submit='auth()', method='POST', name='loginForm')
@@ -68,6 +67,9 @@ script(id='modals/login.html', type='text/ng-template')
                   //span.help-inline {.errors.passwordReset}
                 .form-group
                   input.btn.btn-default(type='submit', value=env.t('submit'))
+        hr
+
+        a.btn.btn-default.btn-block(href='/static/login' target='_blank')=env.t('loginTroubles')
 
       tab(heading=env.t('register'))
         +registrationForm
