@@ -2,7 +2,10 @@ import {
   BadRequest,
 } from '../../../libs/api-v3/errors';
 import amzLib from '../../../libs/api-v3/amazonPayments';
-import { authWithHeaders } from '../../../middlewares/api-v3/auth';
+import {
+  authWithHeaders,
+  authWithUrl,
+} from '../../../middlewares/api-v3/auth';
 import shared from '../../../../../common';
 import payments from '../../../libs/api-v3/payments';
 import moment from 'moment';
@@ -235,7 +238,7 @@ api.subscribe = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/payments/amazon/subscribe/cancel',
-  middlewares: [authWithUrl()],
+  middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
     let billingAgreementId = user.purchased.plan.customerId;

@@ -132,7 +132,7 @@ api.subscribeEdit = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/payments/stripe/subscribe/cancel',
-  middlewares: [authWithUrl()],
+  middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
     if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));

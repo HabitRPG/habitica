@@ -55,3 +55,25 @@ export function authWithSession (req, res, next) {
   })
   .catch(next);
 }
+
+/**
+ * @apiParam {string} _id       The user _id in query
+ * @apiParam {string} apiToken  The apiToken in query
+ **/
+export function authWithUrl (req, res, next) {
+  let userId = req.query._id;
+  let apiToken = req.query.apiToken;
+
+  if (!userId || !apiToken) {
+    throw new NotAuthorized(res.t('missingAuthHeaders'));
+  }
+
+  User.findOne({ _id: req.query._id, apiToken }).exec()
+  .then((user) => {
+    if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+
+    res.locals.user = user;
+    next();
+  })
+  .catch(next);
+}
