@@ -28,11 +28,13 @@ require('../../website/src/libs/api-v3/setupNconf')();
 var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
+var MongoClient = MongoDB.MongoClient;
+
 mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
 
 // Load old and new models
-//import { model as NewUser } from '../../website/src/models/user';
-//import * as Tasks from '../../website/src/models/task';
+var NewUser = require('../../website/src/models/user').model;
+var Tasks = require('../../website/src/models/task');
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;
@@ -51,7 +53,7 @@ var totoalProcessedTasks = 0;
 var AFTER_USER_ID = nconf.get('AFTER_USER_ID');
 var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
 
-/* TODO
+/* TODO compare old and new model
 - _id 9
 - challenges
 - groups
@@ -70,10 +72,14 @@ function processUsers (afterId) {
     query._id = {$lte: BEFORE_USER_ID};
   }
 
+  if ((afterId || AFTER_USER_ID) && !query._id) {
+    query._id = {};
+  }
+
   if (afterId) {
-    query._id = {$gt: afterId};
+    query._id.$gt = afterId;
   } else if (AFTER_USER_ID) {
-    query._id = {$gt: AFTER_USER_ID};
+    query._id.$gt = AFTER_USER_ID;
   }
 
   var batchInsertTasks = newTaskCollection.initializeUnorderedBulkOp();
@@ -95,17 +101,13 @@ function processUsers (afterId) {
       lastUser = oldUsers[oldUsers.length - 1]._id;
     }
 
-
     oldUsers.forEach(function (oldUser) {
       var oldTasks = oldUser.habits.concat(oldUser.dailys).concat(oldUser.rewards).concat(oldUser.todos);
-      oldUser.habits = oldUser.dailys = oldUser.rewards = oldUser.todos = undefined;
+      delete oldUser.habits;
+      delete oldUser.dailys;
+      delete oldUser.rewards;
+      delete oldUser.todos;
 
-      oldUser.challenges = [];
-      if (oldUser.invitations) {
-        oldUser.invitations.guilds = [];
-        oldUser.invitations.party = {};
-      }
-      oldUser.party = {};
       oldUser.tags = oldUser.tags.map(function (tag) {
         return {
           _id: tag.id,
@@ -114,37 +116,31 @@ function processUsers (afterId) {
         };
       });
 
-      oldUser.tasksOrder = {
-        habits: [],
-        dailys: [],
-        rewards: [],
-        todos: [],
-      };
-
-      //let newUser = new NewUser(oldUser);
+      var newUser = new NewUser(oldUser);
 
       oldTasks.forEach(function (oldTask) {
         oldTask._id = uuid.v4(); // create a new unique uuid
-        oldTask.userId = oldUser._id;
+        oldTask.userId = newUser._id;
         oldTask.legacyId = oldTask.id; // store the old task id
+        delete oldTask.id;
 
         oldTask.challenge = {};
-        if (!oldTask.text) oldTask.text = 'text';
+        if (!oldTask.text) oldTask.text = 'task text'; // required
         oldTask.tags = _.map(oldTask.tags, function (tagPresent, tagId) {
           return tagPresent && tagId;
         });
 
         if (oldTask.type !== 'todo' || (oldTask.type === 'todo' && !oldTask.completed)) {
-          oldUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
+          newUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         }
 
-        //let newTask = new Tasks[oldTask.type](oldTask);
+        var newTask = new Tasks[oldTask.type](oldTask);
 
-        batchInsertTasks.insert(oldTask);
+        batchInsertTasks.insert(newTask.toObject());
         processedTasks++;
       });
 
-      batchInsertUsers.insert(oldUser);
+      batchInsertUsers.insert(newUser.toObject());
     });
 
     console.log(`Saving ${oldUsers.length} users and ${processedTasks} tasks.`);
@@ -171,126 +167,28 @@ function processUsers (afterId) {
 /*
 
 TODO var challengeTasksChangedId = {};
-... given a user
 
-let processed = 0;
-let batchSize = 1000;
-
-var db; // defined later by MongoClient
-var dbNewUsers;
-var dbTasks;
-
-var processUser = function(gt) {
-  var query = {
-    _id: {}
-  };
-  if(gt) query._id.$gt = gt;
-
-  console.log('Launching query', query);
-
-  // take batchsize docs from users and process them
-  OldUserModel
-    .find(query)
-    .lean() // Use plain JS objects as old user data won't match the new model
-    .limit(batchSize)
-    .sort({_id: 1})
-    .exec(function(err, users) {
-      if(err) throw err;
-
-      console.log('Processing ' + users.length + ' users.', 'Already processed: ' + processed);
-
-      var lastUser = null;
-      if(users.length === batchSize){
-        lastUser = users[users.length - 1];
-      }
-
-      var tasksToSave = 0;
-
-      // Initialize batch operation for later
-      var batchInsertUsers = dbNewUsers.initializeUnorderedBulkOp();
-      var batchInsertTasks = dbTasks.initializeUnorderedBulkOp();
-
-      users.forEach(function(user){
-        // user obj is a plain js object because we used .lean()
-
-        // add tasks order arrays
-        user.tasksOrder = {
-          habits: [],
-          rewards: [],
-          todos: [],
-          dailys: []
-        };
-
-        // ... convert tasks to individual models
-
-        var tasksArr = user.dailys
-                          .concat(user.habits)
-                          .concat(user.todos)
-                          .concat(user.rewards);
-
-        // free memory?
-        user.dailys = user.habits = user.todos = user.rewards = undefined;
-
-        tasksArr.forEach(function(task){
-          task.userId = user._id;
-
-          task._id = shared.uuid(); // we rely on these to be unique... hopefully!
-          task.legacyId = task.id;
-          task.id = undefined;
-
-          task.challenge = task.challenge || {};
-          if(task.challenge.id) {
-            // If challengeTasksChangedId[task._id] then we got on of the duplicates from the challenges migration
-            if (challengeTasksChangedId[task.legacyId]) {
-              var res = _.find(challengeTasksChangedId[task.legacyId], function(arr){
-                return arr[1] === task.challenge.id;
-              });
-
-              // If res, id changed, otherwise matches the original one
-              task.challenge.taskId = res ? res[0] : task.legacyId;
-            } else {
-              task.challenge.taskId = task.legacyId;
-            }
-          }
-
-          if(!task.type) console.log('Task without type ', task._id, ' user ', user._id);
-
-          task = new TaskModel(task); // this should also fix dailies that wen to the habits array or vice-versa
-          user.tasksOrder[task.type + 's'].push(task._id);
-          tasksToSave++;
-          batchInsertTasks.insert(task.toObject());
-        });
-
-        batchInsertUsers.insert((new NewUserModel(user)).toObject());
+tasksArr.forEach(function(task){
+  task.challenge = task.challenge || {};
+  if(task.challenge.id) {
+    // If challengeTasksChangedId[task._id] then we got on of the duplicates from the challenges migration
+    if (challengeTasksChangedId[task.legacyId]) {
+      var res = _.find(challengeTasksChangedId[task.legacyId], function(arr){
+        return arr[1] === task.challenge.id;
       });
 
-      console.log('Saving', users.length, 'users and', tasksToSave, 'tasks');
+      // If res, id changed, otherwise matches the original one
+      task.challenge.taskId = res ? res[0] : task.legacyId;
+    } else {
+      task.challenge.taskId = task.legacyId;
+    }
+  }
 
-      // Save in the background and dispatch another processUser();
-
-      batchInsertUsers.execute(function(err, result){
-        if(err) throw err // we can't simply accept errors
-        console.log('Saved', result.nInserted, 'users')
-      });
-
-      batchInsertTasks.execute(function(err, result){
-        if(err) throw err // we can't simply accept errors
-        console.log('Saved', result.nInserted, 'tasks')
-      });
-
-      processed = processed + users.length;
-      if(lastUser && lastUser._id){
-        processUser(lastUser._id);
-      } else {
-        console.log('Done!');
-      }
-    });
-};
+  if(!task.type) console.log('Task without type ', task._id, ' user ', user._id);
+});
 */
 
 // Connect to the databases
-var MongoClient = MongoDB.MongoClient;
-
 Q.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
