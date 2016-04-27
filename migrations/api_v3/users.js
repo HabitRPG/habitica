@@ -1,93 +1,171 @@
-/* eslint-disable no-console */
-
 // Migrate users collection to new schema
 // This should run AFTER challenges migration
 
-// This code makes heavy use of ES6 / 7 features and should be compiled / run with BabelJS.
+// The console-stamp module must be installed (not included in package.json)
 
 // It requires two environment variables: MONGODB_OLD and MONGODB_NEW
 
-/*
-  tags must have a name
-*/
-
+// Due to some big user profiles it needs more RAM than is allowed by default by v8 (arounf 1.7GB).
+// Run the script with --max-old-space-size=4096 to allow up to 4GB of RAM
 console.log('Starting migrations/api_v3/users.js.');
 
-import Q from 'q';
-import MongoDB from 'mongodb';
-import nconf from 'nconf';
-import mongoose from 'mongoose';
-import _ from 'lodash';
+require('babel-register');
+
+var Q = require('q');
+var MongoDB = require('mongodb');
+var nconf = require('nconf');
+var mongoose = require('mongoose');
+var _ = require('lodash');
+var uuid = require('uuid');
+var consoleStamp = require('console-stamp');
+
+// Add timestamps to console messages
+consoleStamp(console);
 
 // Initialize configuration
-import setupNconf from '../../website/src/libs/api-v3/setupNconf';
-setupNconf();
+require('../../website/src/libs/api-v3/setupNconf')();
 
-const MONGODB_OLD = nconf.get('MONGODB_OLD');
-const MONGODB_NEW = nconf.get('MONGODB_NEW');
+var MONGODB_OLD = nconf.get('MONGODB_OLD');
+var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
 
 // Load old and new models
-import { model as NewUser } from '../../website/src/models/user';
-import * as Tasks from '../../website/src/models/task';
+//import { model as NewUser } from '../../website/src/models/user';
+//import * as Tasks from '../../website/src/models/task';
 
 // To be defined later when MongoClient connects
-let mongoDbOldInstance;
-let oldUserCollection;
+var mongoDbOldInstance;
+var oldUserCollection;
 
-let mongoDbNewInstance;
-let newUserCollection;
-let newTaskCollection;
+var mongoDbNewInstance;
+var newUserCollection;
+var newTaskCollection;
 
-async function processUser (_id) {
-  let [oldUser] = await oldUserCollection
-    .find({_id})
-    .limit(1)
-    .toArray();
+var BATCH_SIZE = 1000;
 
-  let oldTasks = oldUser.habits.concat(oldUser.dailys).concat(oldUser.rewards).concat(oldUser.todos);
-  oldUser.habits = oldUser.dailys = oldUser.rewards = oldUser.todos = undefined;
+var processedUsers = 0;
+var totoalProcessedTasks = 0;
 
-  oldUser.challenges = [];
-  oldUser.invitations.guilds = [];
-  oldUser.invitations.party = {};
-  oldUser.party = {};
-  oldUser.tags = oldUser.tags.map(tag => {
-    return {
-      _id: tag.id,
-      name: tag.name,
-      challenge: tag.challenge,
-    };
-  });
+// Only process users that fall in a interval ie -> 0000-4000-0000-0000
+var AFTER_USER_ID = nconf.get('AFTER_USER_ID');
+var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
 
-  let newUser = new NewUser(oldUser);
+/* TODO
+- _id 9
+- challenges
+- groups
+- invitations
+- challenges' tasks
+*/
 
-  let batchInsertTasks = newTaskCollection.initializeUnorderedBulkOp();
-  oldTasks.forEach(oldTask => {
-    let newTask = new Tasks[oldTask.type](oldTask);
-    newTask.userId = newUser._id;
+function processUsers (afterId) {
+  var processedTasks = 0;
+  var lastUser = null;
+  var oldUsers;
 
-    newTask.challenge = {};
-    if (!oldTask.text) newTask.text = 'text';
-    newTask.tags = _.map(oldTask.tags, (tagPresent, tagId) => {
-      return tagPresent && tagId;
+  var query = {};
+
+  if (BEFORE_USER_ID) {
+    query._id = {$lte: BEFORE_USER_ID};
+  }
+
+  if (afterId) {
+    query._id = {$gt: afterId};
+  } else if (AFTER_USER_ID) {
+    query._id = {$gt: AFTER_USER_ID};
+  }
+
+  var batchInsertTasks = newTaskCollection.initializeUnorderedBulkOp();
+  var batchInsertUsers = newUserCollection.initializeUnorderedBulkOp();
+
+  console.log(`Executing users query.\nMatching users after ${afterId ? afterId : AFTER_USER_ID} and before ${BEFORE_USER_ID} (included).`);
+
+  return oldUserCollection
+  .find(query)
+  .sort({_id: 1})
+  .limit(BATCH_SIZE)
+  .toArray()
+  .then(function (oldUsersR) {
+    oldUsers = oldUsersR;
+
+    console.log(`Processing ${oldUsers.length} users. Already processed ${processedUsers} users and ${totoalProcessedTasks} tasks.`);
+
+    if (oldUsers.length === BATCH_SIZE) {
+      lastUser = oldUsers[oldUsers.length - 1]._id;
+    }
+
+
+    oldUsers.forEach(function (oldUser) {
+      var oldTasks = oldUser.habits.concat(oldUser.dailys).concat(oldUser.rewards).concat(oldUser.todos);
+      oldUser.habits = oldUser.dailys = oldUser.rewards = oldUser.todos = undefined;
+
+      oldUser.challenges = [];
+      if (oldUser.invitations) {
+        oldUser.invitations.guilds = [];
+        oldUser.invitations.party = {};
+      }
+      oldUser.party = {};
+      oldUser.tags = oldUser.tags.map(function (tag) {
+        return {
+          _id: tag.id,
+          name: tag.name,
+          challenge: tag.challenge,
+        };
+      });
+
+      oldUser.tasksOrder = {
+        habits: [],
+        dailys: [],
+        rewards: [],
+        todos: [],
+      };
+
+      //let newUser = new NewUser(oldUser);
+
+      oldTasks.forEach(function (oldTask) {
+        oldTask._id = uuid.v4(); // create a new unique uuid
+        oldTask.userId = oldUser._id;
+        oldTask.legacyId = oldTask.id; // store the old task id
+
+        oldTask.challenge = {};
+        if (!oldTask.text) oldTask.text = 'text';
+        oldTask.tags = _.map(oldTask.tags, function (tagPresent, tagId) {
+          return tagPresent && tagId;
+        });
+
+        if (oldTask.type !== 'todo' || (oldTask.type === 'todo' && !oldTask.completed)) {
+          oldUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
+        }
+
+        //let newTask = new Tasks[oldTask.type](oldTask);
+
+        batchInsertTasks.insert(oldTask);
+        processedTasks++;
+      });
+
+      batchInsertUsers.insert(oldUser);
     });
 
-    newUser.tasksOrder[`${oldTask.type}s`].push(newTask._id);
+    console.log(`Saving ${oldUsers.length} users and ${processedTasks} tasks.`);
 
-    let newTaskObject = newTask.toObject();
-    newTaskObject.legacyId = oldTask.id;
+    return Q.all([
+      batchInsertUsers.execute(),
+      batchInsertTasks.execute(),
+    ]);
+  })
+  .then(function () {
+    totoalProcessedTasks += processedTasks;
+    processedUsers += oldUsers.length;
 
-    batchInsertTasks.insert(newTaskObject);
+    console.log(`Saved ${oldUsers.length} users and their tasks.`);
+
+    if (lastUser) {
+      return processUsers(lastUser);
+    } else {
+      return console.log('Done!');
+    }
   });
-
-  await Q.all([
-    newUserCollection.insertOne(newUser.toObject()),
-    batchInsertTasks.execute(),
-  ]);
-
-  console.log(`Saved user ${newUser._id} and their tasks.`);
 }
 
 /*
@@ -211,13 +289,16 @@ var processUser = function(gt) {
 */
 
 // Connect to the databases
-const MongoClient = MongoDB.MongoClient;
+var MongoClient = MongoDB.MongoClient;
 
 Q.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])
-.then(([oldInstance, newInstance]) => {
+.then(function (result) {
+  var oldInstance = result[0];
+  var newInstance = result[1];
+
   mongoDbOldInstance = oldInstance;
   oldUserCollection = mongoDbOldInstance.collection('users');
 
@@ -227,8 +308,8 @@ Q.all([
 
   console.log(`Connected with MongoClient to ${MONGODB_OLD} and ${MONGODB_NEW}.`);
 
-  return processUser(nconf.get('USER_ID'));
+  return processUsers();
 })
-.catch(err => {
-  throw err;
+.catch(function (err) {
+  console.error(err);
 });
