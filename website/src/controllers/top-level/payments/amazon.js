@@ -1,6 +1,3 @@
-/*
-import mongoose from 'mongoose';
-import { model as User } from '../../../models/user'; */
 import {
   BadRequest,
 } from '../../../libs/api-v3/errors';
@@ -238,7 +235,7 @@ api.subscribe = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/payments/amazon/subscribe/cancel',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithUrl()],
   async handler (req, res) {
     let user = res.locals.user;
     let billingAgreementId = user.purchased.plan.customerId;

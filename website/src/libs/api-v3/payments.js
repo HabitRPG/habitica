@@ -1,13 +1,11 @@
 import _ from 'lodash' ;
 import analytics from './analyticsService';
-import cc from 'coupon-code';
 import {
   getUserInfo,
   sendTxn as txnEmail,
 } from './email';
 import members from '../../controllers/api-v3/members';
 import moment from 'moment';
-import mongoose from 'mongoose';
 import nconf from 'nconf';
 import pushNotify from './pushNotifications';
 import shared from '../../../../common' ;
