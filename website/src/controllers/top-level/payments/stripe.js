@@ -8,6 +8,10 @@ import payments from '../../../libs/api-v3/payments';
 import nconf from 'nconf';
 import { model as User } from '../../../models/user';
 import cc from 'coupon-code';
+import {
+  authWithHeaders,
+  authWithUrl,
+} from '../../../middlewares/api-v3/auth';
 
 const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 
@@ -37,6 +41,7 @@ api.checkout = {
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
     let coupon;
+    let response;
 
     if (sub) {
       if (sub.discount) {
@@ -50,7 +55,7 @@ api.checkout = {
         card: token,
         plan: sub.key,
       };
-      await stripe.customers.create(customer);
+      response = await stripe.customers.create(customer);
     } else {
       let amount = 500; // $5
       if (gift) {
@@ -60,7 +65,7 @@ api.checkout = {
           amount = `${gift.gems.amount / 4 * 100}`;
         }
       }
-      let response = await stripe.charges.create({
+      response = await stripe.charges.create({
         amount,
         currency: 'usd',
         card: token,
