@@ -27,37 +27,38 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
       var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
-      Chat.utils.postChat({gid: group._id, message:message, previousMsg: previousMsg}, undefined, function(data){
-        if(data.chat){
-          group.chat = data.chat;
-        }else if(data.message){
-          group.chat.unshift(data.message);
-        }
-        $scope.message.content = '';
-        $scope._sending = false;
-        if (group.type == 'party') {
-          Analytics.updateUser({'partyID':group.id,'partySize':group.memberCount});
-        }
-        if (group.privacy == 'public'){
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy,'groupName':group.name});
-        } else {
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy});
-        }
-      }, function(err){
-        $scope._sending = false;
-      });
+      Chat.postChat(group._id, message, previousMsg)
+        .then(function(response) {
+          var message = response.data.data.message;
+
+          group.chat.unshift(message);
+
+          $scope.message.content = '';
+          $scope._sending = false;
+
+          if (group.type == 'party') {
+            Analytics.updateUser({'partyID': group.id, 'partySize': group.memberCount});
+          }
+
+          if (group.privacy == 'public'){
+            Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy,'groupName':group.name});
+          } else {
+            Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy});
+          }
+        }, function(err){
+          $scope._sending = false;
+        });
     }
 
     $scope.deleteChatMessage = function(group, message){
       if(message.uuid === User.user.id || (User.user.backer && User.user.contributor.admin)){
         var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
-        if(confirm('Are you sure you want to delete this message?')){
-          Chat.utils.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
-            if(data.chat) group.chat = data.chat;
-
-            var i = _.findIndex(group.chat, {id: message.id});
-            if(i !== -1) group.chat.splice(i, 1);
-          });
+        if (confirm('Are you sure you want to delete this message?')) {
+          Chat.deleteChat(group._id, message.id, previousMsg)
+            .then(function (response) {
+              var i = _.findIndex(group.chat, {id: message.id});
+              if(i !== -1) group.chat.splice(i, 1);
+            });
         }
       }
     }
@@ -65,28 +66,33 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
     $scope.likeChatMessage = function(group,message) {
       if (message.uuid == User.user._id)
         return Notification.text(window.env.t('foreverAlone'));
+
       if (!message.likes) message.likes = {};
+
       if (message.likes[User.user._id]) {
         delete message.likes[User.user._id];
       } else {
         message.likes[User.user._id] = true;
       }
-      Chat.utils.like({ gid:group._id, messageId:message.id }, undefined);
+
+      Chat.like(group._id, message.id);
     }
 
     $scope.flagChatMessage = function(groupId,message) {
       if(!message.flags) message.flags = {};
-      if(message.flags[User.user._id])
+
+      if (message.flags[User.user._id]) {
         Notification.text(window.env.t('abuseAlreadyReported'));
-      else {
+      } else {
         $scope.abuseObject = message;
         $scope.groupId = groupId;
-        Members.selectMember(message.uuid, function(){
-          $rootScope.openModal('abuse-flag',{
-            controller:'MemberModalCtrl',
-            scope: $scope
+        Members.selectMember(message.uuid)
+          .then(function () {
+            $rootScope.openModal('abuse-flag',{
+              controller:'MemberModalCtrl',
+              scope: $scope
+            });
           });
-        });
       }
     };
 
@@ -116,7 +122,7 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       }
       // When the user clicks fetch recent messages we need to update
       // that the user has seen the new messages
-      Chat.seenMessage(group._id);
+      Chat.markChatSeen(group._id);
     }
 
     // List of Ordering options for the party members list

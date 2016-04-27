@@ -155,7 +155,7 @@ window.habitrpg = angular.module('habitrpg',
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
                 $scope.group = response.data.data;
-                Chat.seenMessage($scope.group._id);
+                Chat.markChatSeen($scope.group._id);
               });
           }]
         })
