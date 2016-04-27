@@ -5,12 +5,6 @@ angular.module('habitrpg')
   function(ApiUrl, $resource, $http) {
     var apiV3Prefix = '/api/v3';
 
-    var Challenge = $resource(ApiUrl.get() + '/api/v2/challenges/:cid',
-      {cid:'@_id'},
-      {
-        getMember: {method: "GET", url: ApiUrl.get() + '/api/v2/challenges/:cid/member/:uid'}
-      });
-
     function createChallenge (challengeData) {
       return $http({
         method: 'POST',
@@ -87,7 +81,6 @@ angular.module('habitrpg')
     }
 
     return {
-      Challenge: Challenge,
       createChallenge: createChallenge,
       joinChallenge: joinChallenge,
       leaveChallenge: leaveChallenge,

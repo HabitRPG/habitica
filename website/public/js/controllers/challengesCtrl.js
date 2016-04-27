@@ -10,7 +10,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     _getChallenges();
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
-    $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
+    $scope.groups = [];
+    Groups.Group.getGroups('party,publicGuilds,privateGuilds,habitrpg')
+      .then(function (response) {
+        $scope.groups = response.data.data;
+      });
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
     $scope.score = function(){}
@@ -119,19 +123,25 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         return alert(window.env.t('challengeNotEnoughGems'));
       }
 
-      Challenges.createChallenge(challenge)
-        .then(function (response) {
-          var _challenge = response.data.data;
-
-          if (isNew) {
+      if (isNew) {
+        Challenges.createChallenge(challenge)
+          .then(function (response) {
+            var _challenge = response.data.data;
             Notification.text(window.env.t('challengeCreated'));
             User.sync();
-          }
-
-          $state.transitionTo('options.social.challenges.detail', { cid: _challenge._id }, {
-            reload: true, inherit: false, notify: true
+            $state.transitionTo('options.social.challenges.detail', { cid: _challenge._id }, {
+              reload: true, inherit: false, notify: true
+            });
           });
-        });
+      } else {
+        Challenges.updateChallenge(challenge)
+          .then(function (response) {
+            var _challenge = response.data.data;
+            $state.transitionTo('options.social.challenges.detail', { cid: _challenge._id }, {
+              reload: true, inherit: false, notify: true
+            });
+          });
+      }
     };
 
     /**
@@ -140,7 +150,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.discard = function() {
       $scope.newChallenge = null;
     };
-
 
     /**
      * Close Challenge
@@ -343,7 +352,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.groupsFilter = _.uniq(_.pluck($scope.challenges, 'group'), function(g) {return g._id});
 
       $scope.search = {
-        group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
+        group: _.transform($scope.groups, function(m,g){ m[g._id] = true;}),
         _isMember: "either",
         _isOwner: "either"
       };

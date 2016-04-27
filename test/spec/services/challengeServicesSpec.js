@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('challengeServices', function() {
+describe('challengeServices', function() {
   var $httpBackend, $http, challenges, user;
   var apiV3Prefix = '/api/v3';
 
