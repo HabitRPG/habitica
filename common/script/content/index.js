@@ -2572,11 +2572,11 @@ api.quests = {
       items: [
         {
           type: 'pets',
-          key: 'Bumblebee-Base',
+          key: 'MagicalBee-Base',
           text: t('questBewilderDropBumblebeePet')
         }, {
           type: 'mounts',
-          key: 'Bumblebee-Base',
+          key: 'MagicalBee-Base',
           text: t('questBewilderDropBumblebeeMount')
         }, {
           type: 'food',
