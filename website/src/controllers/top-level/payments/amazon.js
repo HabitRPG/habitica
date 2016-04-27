@@ -228,7 +228,7 @@ api.subscribe = {
 };
 
 /**
- * @api {get} /api/v3/payments/amazon/subscribeCancel SubscribeCancel
+ * @api {get} /api/v3/payments/amazon/subscribe/cancel SubscribeCancel
  * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
@@ -237,7 +237,7 @@ api.subscribe = {
  **/
 api.subscribeCancel = {
   method: 'GET',
-  url: '/payments/amazon/subscribeCancel',
+  url: '/payments/amazon/subscribe/cancel',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
