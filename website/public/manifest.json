@@ -15,6 +15,7 @@
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "bower_components/Angular-At-Directive/src/at.js",
             "bower_components/Angular-At-Directive/src/caret.js",
+            "bower_components/js-emoji/emoji.js",
             "bower_components/sticky/jquery.sticky.js",
             "bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
             "bower_components/select2/select2.js",

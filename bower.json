@@ -36,6 +36,7 @@
     "jquery-colorbox": "1.4.36",
     "jquery-ui": "1.10.3",
     "jquery.cookie": "1.4.0",
+    "js-emoji": "snicker/js-emoji#f25d8a303f",
     "ngInfiniteScroll": "1.0.0",
     "pnotify": "1.3.1",
     "sticky": "*",
