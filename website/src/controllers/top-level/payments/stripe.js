@@ -117,10 +117,17 @@ api.subscribeEdit = {
     let token = req.body.id;
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
-    let subscriptions = await stripe.customers.listSubscriptions(customerId);
-    let subscriptionId = subscriptions.data[0].id;
-    await stripe.customers.updateSubscription(customerId, subscriptionId, { card: token });
-    res.respond(200, {});
+
+    if (!customerId) throw new BadRequest(res.t('missingSubscription'));
+
+    try {
+      let subscriptions = await stripe.customers.listSubscriptions(customerId);
+      let subscriptionId = subscriptions.data[0].id;
+      await stripe.customers.updateSubscription(customerId, subscriptionId, { card: token });
+      res.respond(200, {});
+    } catch (error) {
+      throw new BadRequest(error.message);
+    }
   },
 };
 
