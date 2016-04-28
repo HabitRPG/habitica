@@ -67,7 +67,7 @@ function questsOfCategory (userQuests, category) {
   return count;
 }
 
-export default {
+module.exports = {
   beastMasterProgress,
   dropPetsCurrentlyOwned,
   mountMasterProgress,

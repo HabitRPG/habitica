@@ -28,7 +28,12 @@ var TaskSchema = {
     broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED
     winner: String // user.profile.name
     // group: {type: 'Strign', ref: 'Group'} // if we restore this, rename `id` above to `challenge`
-  }
+  },
+  reminders: [{
+    id: {type:String,'default':shared.uuid},
+    startDate: Date,
+    time: Date
+  }]
 };
 
 var HabitSchema = new Schema(

@@ -1,5 +1,5 @@
 {
-    "tavern": "Karczma",
+    "tavern": "Pogaduszki w Karczmie",
     "innCheckOut": "Wymelduj się z Gospody",
     "innCheckIn": "Odpoczywaj w Gospodzie",
     "innText": "Odpoczywasz w Gospodzie! Dopóki jesteś zameldowany, twoje Codzienne nie zadadzą ci obrażeń na koniec dnia, jednak w dalszym ciągu codziennie będą się odświeżać. Uważaj: Jeśli uczestniczysz w misji z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej drużyny ominą Codzienne, chyba że również odpoczywają w Gospodzie! Również twoje obrażenia zadane bossowi (lub zebrane przedmioty) nie zostaną uwzględnione, dopóki nie wymeldujesz się z Gospody.",
@@ -101,7 +101,7 @@
     "inbox": "Skrzynka odbiorcza",
     "abuseFlag": "Zgłoś naruszenie regulaminu społeczności.",
     "abuseFlagModalHeading": "Zgłosić naruszenie zasad przez <%= name %>?",
-    "abuseFlagModalBody": "Czy jesteś pewien, że chcesz zgłosić tę wiadomość? Powinieneś zgłaszać WYŁĄCZNIE wiadomości, które naruszają <%= firstLinkStart %>Regulamin Społeczności<%= linkEnd %> i/lub <%= secondLinkStart %>Warunki Korzystania z Usług<%= linkEnd %>. Niewłaściwe zgłaszanie wiadomości jest naruszeniem Regulaminu Społeczności i może być potraktowane jako wykroczenie. Właściwe powody do oznaczenia wiadomości to między innymi: <p></p></br><ul style='margin-left: 10px;'><li>przekleństwa, przysięgi religijne</li><li>bigoteria, oszczerstwa</li><li>tematy tylko dla dorosłych</li><li>przemoc (nawet, jako żart)</li><li>spam, bezsensowne wiadomości</li></ul>",
+    "abuseFlagModalBody": "Czy na pewno chcesz zgłosić ten post? Powinieneś TYLKO zgłaszać posty, które naruszają  <%= firstLinkStart %>Regulamin Społeczności<%= linkEnd %>oraz/lub <%= secondLinkStart %>Warunki<%= linkEnd %>.  Niewłaściwe zgłaszanie postów jest naruszeniem Regulaminu Społeczności i może doprowadzić do zgłoszenia. Właściwymi powodami do oznaczania postów są, ale i nie tylko: <br><br><ul style='margin-left: 10px;'><li>przeklinanie, slóbowania religijne</li><li>fanatyzm, bełkot</li><li>tematy dla dorosłych</li><li>przemoc, nawet w żartach</li><li>spam, iadomości bez sensu</li><li>",
     "abuseFlagModalButton": "Zgłoś nadużycie",
     "abuseReported": "Dziękujemy za zgłoszenie. Moderatorzy zostali powiadomieni.",
     "abuseAlreadyReported": "Już zgłosiłeś tę wiadomość.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "Twój czat drużynowy jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
     "guildChatEmpty": "Czat tej gildii jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
     "possessiveParty": "Drużyna należąca do <%= name %>",
-    "requestAcceptGuidelines": "Jeżeli chcesz pisać w Gospodzie lub drużynie, czy też jakimkolwiek czacie gildii, proszę, przeczytaj najpierw <%= linkStart %>Wytyczne Społeczności<%= linkEnd %>, a następnie kliknij poniższy przycisk, aby potwierdzić, że je akceptujesz."
+    "requestAcceptGuidelines": "Jeżeli chcesz pisać w Gospodzie lub drużynie, czy też jakimkolwiek czacie gildii, proszę, przeczytaj najpierw <%= linkStart %>Wytyczne Społeczności<%= linkEnd %>, a następnie kliknij poniższy przycisk, aby potwierdzić, że je akceptujesz.",
+    "partyUpName": "Razem raźniej",
+    "partyOnName": "Jeden za wszystkich, wszyscy za jednego",
+    "partyUpAchievement": "Dołączył do drużyny z inną osobą! Dobrej zabawy przy walce z potworami i wspieraniu się nawzajem.",
+    "partyOnAchievement": "Dołączył do co najmniej czteroosobowej drużyny! Ciesz się zwiększoną odpowiedzialnością po dołączeniu do przyjaciół w zwyciężaniu wrogów!"
 }

@@ -1,7 +1,7 @@
 {
     "statsAch": "Statistiche e medaglie",
     "profile": "Profilo",
-    "avatar": "Avatar",
+    "avatar": "Personalizza Avatar",
     "other": "Altro",
     "fullName": "Nome completo",
     "displayName": "Nome mostrato",
@@ -34,6 +34,7 @@
     "beard": "Barba",
     "mustache": "Baffi",
     "flower": "Fiore",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Skin base",
     "rainbowSkins": "Skin arcobaleno",
     "pastelSkins": "Skin pastello",
@@ -83,7 +84,7 @@
     "allocateInt": "Punti assegnati a Intelligenza:",
     "allocateIntPop": "Aggiungi un punto a Intelligenza (INT)",
     "noMoreAllocate": "Ora che hai raggiunto il livello 100, non guadagnerai altri Punti Attributo. Puoi continuare a salire di livello, o iniziare una nuova avventura dal livello 1 usando la <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>, ora disponibile gratuitamente nel Mercato.",
-    "stats": "Statistiche",
+    "stats": "Statistiche Avatar",
     "strength": "Forza",
     "strengthText": "L'attributo Forza aumenta la probabilità di sferrare \"colpi critici\", aumentando l'oro, l'esperienza e la probabilità di drop che potrai guadagnare grazie ad essi. In più, permette di arrecare maggiori danni ai boss delle missioni.",
     "constitution": "Costituzione",
@@ -136,7 +137,7 @@
     "respawn": "Risorgi!",
     "youDied": "Sei morto!",
     "dieText": "Hai perso un livello, tutto il tuo oro, e un pezzo casuale dell'equipaggiamento. Risorgi, Habiteer, e provaci ancora! Metti un freno alle cattive abitudini, sii attento al completamento delle Daily, e tieni la morte a debita distanza con una Pozione di Salute se stai vacillando!",
-    "sureReset": "Sei sicuro? Questo resetterà la classe del tuo personaggio e i punti allocati (potrai ri-allocarli in seguito), e costa 3 Gemme",
+    "sureReset": "Sei sicuro? Questo resetterà la classe e i punti allocati del tuo personaggio (ti verranno ridati per poter essere ri-allocati), e ti costerà 3 gemme.",
     "purchaseFor": "Comprare per <%= cost %> Gemme?",
     "notEnoughMana": "Non hai abbastanza Mana.",
     "invalidTarget": "Bersaglio non valido",
@@ -160,5 +161,8 @@
     "str": "STR",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Mostra allocazione delle statistiche",
+    "hideQuickAllocation": "Nascondi allocazione delle statistiche",
+    "quickAllocationLevelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad un attributo a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica che trovi in Utente -> Statistiche."
 }

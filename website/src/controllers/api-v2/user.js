@@ -15,7 +15,6 @@ let acceptablePUTPaths;
 let restrictedPUTSubPaths;
 
 var api = module.exports;
-var qs = require('qs');
 var firebase = require('../../libs/firebase');
 var webhook = require('../../libs/webhook');
 
@@ -75,10 +74,10 @@ api.score = function(req, res, next) {
   var clearMemory = function(){user = task = id = direction = null;}
 
   // Send error responses for improper API call
-  if (!id) return res.json(400, {err: ':id required'});
+  if (!id) return res.status(400).json({err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
     if (direction == 'unlink' || direction == 'sort') return next();
-    return res.json(400, {err: ":direction must be 'up' or 'down'"});
+    return res.status(400).json({err: ":direction must be 'up' or 'down'"});
   }
   // If exists already, score it
   if (task = user.tasks[id]) {
@@ -108,7 +107,7 @@ api.score = function(req, res, next) {
 
     var userStats = saved.toJSON().stats;
     var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
-    res.json(200, resJsonData);
+    res.status(200).json(resJsonData);
 
     var webhookData = _generateWebhookTaskData(
       task, direction, delta, userStats, user
@@ -161,8 +160,8 @@ api.getTasks = function(req, res, next) {
  */
 api.getTask = function(req, res, next) {
   var task = findTask(req,res);
-  if (!task) return res.json(404, {err: shared.i18n.t('messageTaskNotFound')});
-  return res.json(200, task);
+  if (!task) return res.status(404).json({err: shared.i18n.t('messageTaskNotFound')});
+  return res.status(200).json(task);
 };
 
 
@@ -184,7 +183,7 @@ api.getTask = function(req, res, next) {
 
 api.getBuyList = function (req, res, next) {
    var list = shared.updateStore(res.locals.user);
-   return res.json(200, list);
+   return res.status(200).json(list);
 };
 
 /*
@@ -206,7 +205,7 @@ api.getUser = function(req, res, next) {
     delete user.auth.local.hashed_password;
     delete user.auth.local.salt;
   }
-  return res.json(200, user);
+  return res.status(200).json(user);
 };
 
 /**
@@ -279,7 +278,7 @@ api.getUserAnonymized = function(req, res, next) {
     cleanChecklist(task);
   });
 
-  return res.json(200, user);
+  return res.status(200).json(user);
 };
 
 /**
@@ -309,6 +308,7 @@ let requiresPurchase = {
   'preferences.shirt': 'shirt',
   'preferences.size': 'size',
   'preferences.skin': 'skin',
+  'preferences.chair': 'chair',
   'preferences.hair.bangs': 'hair.bangs',
   'preferences.hair.base': 'hair.base',
   'preferences.hair.beard': 'hair.beard',
@@ -336,7 +336,7 @@ api.update = (req, res, next) => {
   let user = res.locals.user;
   let errors = [];
 
-  if (_.isEmpty(req.body)) return res.json(200, user);
+  if (_.isEmpty(req.body)) return res.status(200).json(user);
 
   _.each(req.body, (v, k) => {
     let purchasable = requiresPurchase[k];
@@ -354,17 +354,25 @@ api.update = (req, res, next) => {
   });
 
   user.save((err) => {
-    if (!_.isEmpty(errors)) return res.json(401, {err: errors});
-    if (err) return next(err);
+    if (!_.isEmpty(errors)) return res.status(401).json({err: errors});
+    if (err) {
+      if (err.name == 'ValidationError') {
+        let errorMessages = _.map(_.values(err.errors), (error) => {
+          return error.message;
+        });
+        return res.status(400).json({err: errorMessages});
+      }
+      return next(err);
+    }
 
-    res.json(200, user);
+    res.status(200).json(user);
     user = errors = null;
   });
 };
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    progress = user.fns.cron({analytics:utils.analytics}),
+    progress = user.fns.cron({analytics:utils.analytics, timezoneOffset:req.headers['x-user-timezoneoffset']}),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
@@ -403,7 +411,7 @@ api.delete = function(req, res, next) {
   var plan = user.purchased.plan;
 
   if (plan && plan.customerId && !plan.dateTerminated){
-    return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
+    return res.status(400).json({err:"You have an active subscription, cancel your plan before deleting your account."});
   }
 
   Group.find({
@@ -422,7 +430,7 @@ api.delete = function(req, res, next) {
         if(err) return next(err);
 
         firebase.deleteUser(user._id);
-        res.send(200);
+        res.sendStatus(200);
       });
     });
   });
@@ -442,7 +450,7 @@ if (nconf.get('NODE_ENV') === 'development') {
 
     user.save(function(err){
       if (err) return next(err);
-      res.send(204);
+      res.sendStatus(204);
     });
   };
 
@@ -453,7 +461,7 @@ if (nconf.get('NODE_ENV') === 'development') {
 
     user.save(function(err){
       if (err) return next(err);
-      res.send(204);
+      res.sendStatus(204);
     });
   };
 }
@@ -480,8 +488,8 @@ api.cast = function(req, res, next) {
     klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class,
     spell = shared.content.spells[klass][req.params.spell];
 
-  if (!spell) return res.json(404, {err: 'Spell "' + req.params.spell + '" not found.'});
-  if (spell.mana > user.stats.mp) return res.json(400, {err: 'Not enough mana to cast spell'});
+  if (!spell) return res.status(404).json({err: 'Spell "' + req.params.spell + '" not found.'});
+  if (spell.mana > user.stats.mp) return res.status(400).json({err: 'Not enough mana to cast spell'});
 
   var done = function(){
     var err = arguments[0];
@@ -493,7 +501,7 @@ api.cast = function(req, res, next) {
 
   switch (targetType) {
     case 'task':
-      if (!user.tasks[targetId]) return res.json(404, {err: 'Task "' + targetId + '" not found.'});
+      if (!user.tasks[targetId]) return res.status(404).json({err: 'Task "' + targetId + '" not found.'});
       spell.cast(user, user.tasks[targetId]);
       user.save(done);
       break;
@@ -589,12 +597,12 @@ _.each(shared.wrap({}).ops, function(op,k){
         // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
         if (err) {
           if (!err.code) return next(err);
-          if (err.code >= 400) return res.json(err.code,{err:err.message});
+          if (err.code >= 400) return res.status(err.code).json({err:err.message});
           // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
         }
         res.locals.user.save(function(err){
           if (err) return next(err);
-          res.json(200,response);
+          res.status(200).json(response);
         })
       }, analytics);
     }
@@ -610,7 +618,7 @@ _.each(shared.wrap({}).ops, function(op,k){
 api.batchUpdate = function(req, res, next) {
   if (_.isEmpty(req.body)) req.body = []; // cases of {} or null
   if (req.body[0] && req.body[0].data)
-    return res.json(501, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
+    return res.status(501).json({err: "API has been updated, please refresh your browser or upgrade your mobile app."})
 
   var user = res.locals.user;
   var oldSend = res.send;
@@ -658,17 +666,17 @@ api.batchUpdate = function(req, res, next) {
 
     // return only drops & streaks
     if (response._tmp && response._tmp.drop){
-      res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+      res.status(200).json({_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
     } else if (response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
       response.todos = shared.preenTodos(response.todos);
-      res.json(200, response);
+      res.status(200).json(response);
 
     // return only the version number
     } else{
-      res.json(200, {_v: response._v});
+      res.status(200).json({_v: response._v});
     }
   });
 };

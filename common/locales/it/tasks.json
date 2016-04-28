@@ -56,7 +56,7 @@
     "complete": "Completi",
     "dated": "Con scadenza",
     "due": "Incomplete",
-    "notDue": "Non dovuto",
+    "notDue": "Non Scade",
     "grey": "Grigie",
     "score": "Punti",
     "reward": "Ricompensa",
@@ -92,8 +92,8 @@
     "confirmFortify": "Sei sicuro?",
     "sureDelete": "Vuoi davvero eliminare la <%= taskType %> con il testo \"<%= taskText %>\"?",
     "streakCoins": "Bonus serie!",
-    "pushTaskToTop": "Metti in cima alla lista. Tieni premuto CTRL per mettere in fondo.",
-    "emptyTask": "Inserisci prima il titolo dell'attività.",
+    "pushTaskToTop": "Metti in cima alla lista. Tieni premuto CTRL o cmd per mettere in fondo.",
+    "emptyTask": "Inserisci prima il titolo dell'attività",
     "dailiesRestingInInn": "Stai riposando nella Locanda! Le tue Daily NON ti danneggeranno stanotte, PERÒ si resetteranno comunque ogni giorno. Se stai partecipando ad una missione, non infliggerai danni/raccoglierai oggetti finchè non lasci la Locanda, ma puoi comunque essere danneggiato dal Boss se i tuoi compagni di squadra non completano le proprie Daily.",
     "habitHelp1": "Gli Habit Positivi sono quelli che completi spesso. Ti premiano con Oro ed Esperienza ogni volta che clicchi <%= plusIcon %>.",
     "habitHelp2": "Gli Habit Cattivi sono quelli che vuoi evitare. Ti tolgono Saluta ogni volta che clicchi <%= minusIcon %>.",
@@ -111,6 +111,6 @@
     "rewardHelp1": "L'equipaggiamento che compri per il tuo avatar viene messo in <%= linkStart %>Inventario > Equipaggiamento<%= linkEnd %>.",
     "rewardHelp2": "L'equipaggiamento condiziona le tue statistiche (<%= linkStart %>Utente > Statistiche<%= linkEnd %>).",
     "rewardHelp3": "Gli equipaggiamenti speciali compariranno qui durante gli Eventi Globali.",
-    "rewardHelp4": "Non aver paura di impostare le tue ricompense! Guarda <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>qualche esempio qui</a>.",
+    "rewardHelp4": "Non aver paura di creare le tue ricompense! Guarda <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>qualche esempio qui</a>.",
     "clickForHelp": "Fai click per suggerimenti"
 }

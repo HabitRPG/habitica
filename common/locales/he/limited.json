@@ -25,7 +25,7 @@
     "polarBearPup": "דובון קוטב",
     "jackolantern": "ג'ק-או-לנטרן",
     "seasonalShop": "חנות עונתית",
-    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>לסלי<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>מכשפה עונתית<%= linkEnd %>",
     "seasonalShopClosedText": "החנות העונתית סגורה כרגע!! אני לא יודע איפה קוסמת החנות כרגע, אבל היא תחזור במהלך <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>נשף הרשף</a> הבא!",
     "seasonalShopText": "ברוכים הבאים לחנות העונתית!! אנחנו אוגרים <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>מהדורות עונתיות</a> של טובין אביביים כרגע. כל מה שפה ניתן יהיה לרכישה במהלך ארוע ״סטוץ האביב״ בכל שנה, אך אנחנו פתוחים רק עד ה 30 באפריל, אז הזדרזו לאגור כבר עכשיו, או שתאלצו לחכות שנה כדי לרכוש את החפצים האלו שוב!",
@@ -67,6 +67,10 @@
     "witchyWizardSet": "אשף קוסם (מכשף)",
     "mummyMedicSet": "מומיה רופאה (מרפא)",
     "vampireSmiterSet": "ערפד מייסר (נוכל)",
+    "bewareDogSet": "כלב זהירות (לוחם)",
+    "magicianBunnySet": "ארנב קוסים (מכשף)",
+    "comfortingKittySet": "חתלתול מנחם (מרפא)",
+    "sneakySqueakerSet": "חורק מתגנב (נוכל)",
     "fallEventAvailability": "זמין עד ה 31 באוקטובר",
     "winterEventAvailability": "זמין עד ה 31 בדצמבר"
 }

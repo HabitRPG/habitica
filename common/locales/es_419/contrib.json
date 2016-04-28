@@ -28,11 +28,11 @@
     "helped": "Ayudó con el crecimiento de Habit",
     "helpedText1": "Ayudó a mejorar Habitica completando",
     "helpedText2": "esta encuesta.",
-    "hall": "Salón",
+    "hall": "Salón de Héroes",
     "contribTitle": "Título de colaborador (p ej, \"Herrero\")",
     "contribLevel": "Nivel de colaborador",
     "contribHallText": "1-7 para los colaboradores normales, 8 para moderadores, 9 para el personal. Esto determina cuáles artículos, mascotas y monturas están disponibles. También determina el color de la etiqueta de nombre. A los de nivel 8 y 9 se les da estatus de administrador automáticamente.",
-    "hallHeroes": "Salón de Héroes",
+    "hallContributors": "Salón de Colaboradores",
     "hallPatrons": "Salón de Patrocinadores",
     "rewardUser": "Recompensar usuario",
     "UUID": "UUID",
@@ -60,5 +60,5 @@
     "blurbGuildsPage": "Los Gremios son salas de chat con temas de interés común creados por jugadores para jugadores. ¡Echa un vistazo a la lista y únete a los Gremios que te interesen!",
     "blurbChallenges": "Los Desafíos son creados por los usuarios. Al unirte a un Desafío éste añadirá tareas a tu cuenta, ¡y si ganas el Desafío obtendrás un logro y algunas veces gemas!",
     "blurbHallPatrons": "Éste es el Salón de Patrocinadores, donde honramos a los nobles aventureros que apoyaron al Kickstarter original de Habitica. ¡Les agradecemos por ayudarnos a dar vida a Habitica!",
-    "blurbHallHeroes": "Éste es el Salón de los Héroes, donde los colaboradores del código abierto de Habitica son honrados. Ya sea a través de código, arte, música, escritura o solamente ayudando, ellos han ganado <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> gemas, equipamiento exclusivo</a>, y <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'> prestigiosos títulos </a>. ¡Tú también puedes contribuir! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Averigua más aquí. </a>"
+    "blurbHallContributors": "Éste es el Salón de Colaboradores, donde los colaboradores del código abierto de Habitica son honrados. Ya sea a través de código, arte, música, escritura o simplemente ayudando, ellos han obtenido <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> gemas, equipamento exclusivo</a> y <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'> títulos prestigiosos</a>. ¡Tú también puedes contribuir! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Averigua más aquí. </a>"
 }

@@ -36,7 +36,7 @@
     "paymentMethods": "Purchase using",
 
     "classGear": "Class Gear",
-    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing your apprentice <strong><%= klass %></strong> equipment. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
+    "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Auto Allocate",
     "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
@@ -47,7 +47,7 @@
 
     "tourWelcome": "Welcome to Habitica! This is your To-Do list. Check off a task to proceed!",
     "tourExp": "Great job! Checking off a task gives you Experience and Gold!",
-    "tourDailies": "This column is for Daily tasks. To proceed, enter a task you should do every day! <b>Sample Dailies</b>: <b>Make Bed</b>, <b>Floss</b>, <b>Check Work Email</b>",
+    "tourDailies": "This column is for Daily tasks. To proceed, enter a task you should do every day! <strong>Sample Dailies</strong>: <strong>Make Bed</strong>, <strong>Floss</strong>, <strong>Check Work Email</strong>",
     "tourCron": "Splendid! Your Dailies will reset every day.",
     "tourHP": "Watch out! If you don't complete a Daily by midnight, it will hurt you!",
     "tourHabits": "This column is for good and bad Habits that you do many times a day! To proceed, click the pencil to edit the names, then click the checkmark to save.",

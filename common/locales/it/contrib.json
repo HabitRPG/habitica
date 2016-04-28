@@ -7,7 +7,7 @@
     "eliteFourth": "Quando il tuo <strong>quarto</strong> set di contributi verrà approvato, la <strong>Spada di Cristallo</strong> sarà resa disponibile nel negozio delle Ricompense. Come premio per il tuo impegno, riceverai anche <strong>4 Gemme</strong>.",
     "champion": "Campione",
     "championFifth": "Quando il tuo <strong>quinto</strong> set di contributi verrà approvato, lo <strong>Scudo di Cristallo</strong> sarà reso disponibile nel negozio delle Ricompense. Come premio per il tuo incessante lavoro, riceverai anche <strong>4 Gemme</strong>.",
-    "championSixth": "Quando il tuo <strong>sesto</strong> set di contributi verrà approvato, riceverai l'animale <strong>Idrat</strong>. Inoltre, riceverai <strong>4 Gemme</strong>.",
+    "championSixth": "Quando il tuo <strong>sesto</strong> set di contributi verrà approvato, riceverai l'animale <strong>Idra</strong>. Inoltre, riceverai <strong>4 Gemme</strong>.",
     "legendary": "Leggendario",
     "legSeventh": "Quando il tuo <strong>settimo</strong> set di contributi verrà approvato, riceverai <strong>4 Gemme</strong> e diventerai un membro onorario della Gilda dei Sostenitori, conferendoti il privilegio di accedere al \"dietro le quinte\" di Habitica! Ulteriori contribuzioni non aumenteranno il tuo livello, ma potrai continuare ad ottenere Gemme e ulteriori titoli.",
     "moderator": "Moderatore",
@@ -28,11 +28,11 @@
     "helped": "Ha aiutato Habit a crescere",
     "helpedText1": "Ha aiutato Habitica a crescere, compilando",
     "helpedText2": "questo sondaggio.",
-    "hall": "Salone",
+    "hall": "Salone degli Eroi",
     "contribTitle": "Titolo onorifico (per esempio \"Fabbro\")",
     "contribLevel": "Livello di contribuzione",
     "contribHallText": "Dall'1 al 7 per i sostenitori normali, 8 per i moderatori, 9 per lo staff. Questo determina quali oggetti, animali e cavalcature sono disponibili, nonché il colore dell'etichetta del nome. Ai gradi 8 e 9 viene automaticamente attribuito lo status di admin (amministratore).",
-    "hallHeroes": "Salone degli Eroi",
+    "hallContributors": "Salone dei Collaboratori",
     "hallPatrons": "Salone dei Mecenati",
     "rewardUser": "Premia utente",
     "UUID": "UUID",
@@ -60,5 +60,5 @@
     "blurbGuildsPage": "Le Gilde sono gruppi di chat per persone con interessi comuni, create dai giocatori per i giocatori. Scorri la lista ed unisciti alle gilde che ti interessano!",
     "blurbChallenges": "Le Sfide sono create dagli utenti. Unirsi a una sfida aggiungerà degli elementi nella tua pagina delle attività. Vincere una sfida ti conferirà una medaglia e spesso un premio in Gemme!",
     "blurbHallPatrons": "Questo è il salone dei Mecenati, nel quale vengono onorati i nobili avventurieri che hanno sostenuto la nostra campagna su Kickstarter. Li ringraziamo per aver aiutato a far nascere Habitica!",
-    "blurbHallHeroes": "Questo è il Salone degli Eroi, dove viene reso onore agli aiutanti open-source di Habitica. Che sia attraverso codice, arte, musica, testi o anche semplice disponibilità, hanno guadagnato <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>gemme, equipaggiamento esclusivo</a> e <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>titoli prestigiosi</a>. Anche tu puoi contribuire ad Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Clicca qui per avere maggiori informazioni.</a>"
+    "blurbHallContributors": "Questo è il Salone dei Collaboratori, dove coloro che hanno contribuito ad Habitica sono onorati. Che sia attraverso programmazione, arte, musica, scrittura, o anche solo disponibilità, hanno guadagnato <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> gemme, equipaggiamento esclusivo</a>, e <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>titoli prestigiosi</a>. Anche tu puoi contribuire ad Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Scopri di più qui. </a>"
 }

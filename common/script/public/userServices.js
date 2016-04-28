@@ -170,8 +170,10 @@ angular.module('habitrpg')
 
         authenticate: function (uuid, token, cb) {
           if (!!uuid && !!token) {
+            var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
             $http.defaults.headers.common['x-api-user'] = uuid;
             $http.defaults.headers.common['x-api-key'] = token;
+            $http.defaults.headers.common['x-user-timezoneOffset'] = offset;
             authenticated = true;
             settings.auth.apiId = uuid;
             settings.auth.apiToken = token;
@@ -179,7 +181,6 @@ angular.module('habitrpg')
             if (user && user._v) user._v--; // shortcut to always fetch new updates on page reload
             userServices.log({}, function(){
               // If they don't have timezone, set it
-              var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
               if (user.preferences.timezoneOffset !== offset)
                 userServices.set({'preferences.timezoneOffset': offset});
               cb && cb();

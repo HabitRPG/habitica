@@ -54,7 +54,7 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
 
       $scope.clickLeave = function(group, $event){
           $scope.selectedGroup = group;
-          $scope.popoverEl = $($event.target);
+          $scope.popoverEl = $($event.target).closest('.btn');
           var html, title;
           Challenges.Challenge.query(function(challenges) {
             challenges = _.pluck(_.filter(challenges, function(c) {

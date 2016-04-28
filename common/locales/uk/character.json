@@ -1,7 +1,7 @@
 {
     "statsAch": "Герой і здобутки",
     "profile": "Профіль",
-    "avatar": "Обкладинка профіля",
+    "avatar": "Customize Avatar",
     "other": "Інше",
     "fullName": "Повне ім'я",
     "displayName": "Ім’я на показ",
@@ -34,6 +34,7 @@
     "beard": "Борода",
     "mustache": "Вуса",
     "flower": "Квітка",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Прості кольори",
     "rainbowSkins": "Кольори веселки",
     "pastelSkins": "Пастельні кольори",
@@ -83,7 +84,7 @@
     "allocateInt": "Призначено очок інтелекту:",
     "allocateIntPop": "Додати очко інтелекту",
     "noMoreAllocate": "Ви досягли 100-го рівня, тому ви більше не будете отримувати Очки Характеристик. Ви можете продовжувати підвищувати свій рівень або почати ваші пригоди з першого рівня, скористувавшись  <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Кулею Переродження</a>, яку можно бескоштовно отримати на Ринку.",
-    "stats": "Характеристики",
+    "stats": "Avatar Stats",
     "strength": "Сила",
     "strengthText": "Сила зменшує ступінь небезпеки завдань (почервоніння), збільшує приріст від випадкових \"критичних ударів\" та допомагає завдавати ушкодження монстрам-босам.",
     "constitution": "Комплекція",
@@ -136,7 +137,7 @@
     "respawn": "Відродження!",
     "youDied": "Ви загинули!",
     "dieText": "Ви втратили один рівень, усе Ваше золото та випадковий предмет спорядження. Підводьтеся та спробуйте ще раз! Приборкайте шкідливі звички, будьте старанними у виконанні щоденних завдань і тримайтеся від Смерті подалі, використовуючи еліксир здоров'я, якщо відчуваєте слабкість!",
-    "sureReset": "Ви впевнені? Це коштує 3 самоцвіти. Ваш клас буде змінено, а очки характеристик розподіляться (треба буде заново перерозподіляти).",
+    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
     "purchaseFor": "Придбати за <%= cost %> самоцвітів?",
     "notEnoughMana": "Недостатньо мани.",
     "invalidTarget": "Хибна ціль",
@@ -160,5 +161,8 @@
     "str": "СИЛ",
     "con": "КОМ",
     "per": "СПР",
-    "int": "ІНТ"
+    "int": "ІНТ",
+    "showQuickAllocation": "Show stat allocation",
+    "hideQuickAllocation": "Hide stat allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }

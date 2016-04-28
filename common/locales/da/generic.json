@@ -116,7 +116,7 @@
     "audioTheme_luneFoxTheme": "Lunefox' Tema",
     "askQuestion": "Stil et Spørgsmål",
     "reportBug": "Rapporter en Fejl",
-    "HabiticaWiki": "The Habitica Wiki",
+    "HabiticaWiki": "Habitica Wikien",
     "HabiticaWikiFrontPage": "http://habitica.wikia.com/wiki/Habitica_Wiki",
     "contributeToHRPG": "Bidrag til Habitica",
     "overview": "Oversigt for Nye Brugere",
@@ -137,6 +137,8 @@
     "achievementStressbeastText": "Var med til at overvinde Det Afskyelige Stressbæst i 2014 Vintereventyr-eventet!",
     "achievementBurnout": "Trivselsmarkernes Redning",
     "achievementBurnoutText": "Var med til at overvinde Udbrand og genskabe Udmattelsesånderne i Efterårsfestival-eventet 2015!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Tjek mine fremskridt i Habitica!",
     "cardReceived": "Modtog et kort!",
     "cardReceivedFrom": "<%= cardType %> fra <%= userName %>",
@@ -158,7 +160,7 @@
     "thankyou3": "Jeg er virkelig taknemmelig - tak!",
     "thankyouCardAchievementTitle": "Temmelig Taknemmelig",
     "thankyouCardAchievementText": "Tak for at være taknemmelig! Har sendt eller modtaget <%= cards %> Takkekort.",
-    "birthdayCard": "Birthday Card",
+    "birthdayCard": "Fødselsdagskort",
     "birthdayCardExplanation": "You both receive the Birthday Bonanza achievement!",
     "birthdayCardNotes": "Send a birthday card to a party member.",
     "birthday0": "Happy birthday to you!",
@@ -175,5 +177,6 @@
     "hatchPetShare": "Jeg har udklækket et nyt kæledyr ved at færdiggøre opgaver i mit virkelige liv!",
     "raisePetShare": "Jeg opdrættede et kæledyr til et ridedyr ved at færdiggøre opgaver i mit virkelige liv!",
     "wonChallengeShare": "Jeg har vundet en udfordring i Habitica!",
-    "achievementShare": "Jeg har opnået en ny præstation i Habitica!"
+    "achievementShare": "Jeg har opnået en ny præstation i Habitica!",
+    "orderBy": "Order By <%= item %>"
 }

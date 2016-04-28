@@ -2,13 +2,13 @@ script(type='text/ng-template', id='partials/options.social.hall.html')
   ul.options-submenu
     li(ng-class="{ active: $state.includes('options.social.hall.heroes') }")
       a(ui-sref='options.social.hall.heroes')
-        =env.t('hallHeroes')
+        =env.t('hallContributors')
     li(ng-class="{ active: $state.includes('options.social.hall.patrons') }")
       a(ui-sref='options.social.hall.patrons')
         =env.t('hallPatrons')
 
   .options-blurbmenu
-    small.muted(ng-if="$state.includes('options.social.hall.heroes')")!=env.t('blurbHallHeroes')
+    small.muted(ng-if="$state.includes('options.social.hall.heroes')")!=env.t('blurbHallContributors')
     small.muted(ng-if="$state.includes('options.social.hall.patrons')")=env.t('blurbHallPatrons')
 
   .tab-content

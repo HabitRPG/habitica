@@ -1,5 +1,5 @@
 {
-    "tavern": "Værtshus",
+    "tavern": "Tavern Chat",
     "innCheckOut": "Forlad Kroen",
     "innCheckIn": "Slap af på Kroen",
     "innText": "Du hviler på Kroen. Mens du hviler på Kroen tager du ikke skade fra Daglige, men de bliver stadig nulstillet hver dag. Advarsel: Hvis du deltager i en Boss Quest vil du stadig tage skade fra de Daglige de andre i gruppen ikke får udført, med mindre de også er på Kroen. Derudover kan du ikke skade Bossen eller samle ting før du forlader Kroen.",
@@ -101,7 +101,7 @@
     "inbox": "Indbakke",
     "abuseFlag": "Anmeld overtrædelse af Retningslinjer for Fællesskabet",
     "abuseFlagModalHeading": "Anmeld <%= name %> for overtrædelse?",
-    "abuseFlagModalBody": "Er du sikker på at du vil anmelde denne besked? Du skal KUN anmelde en besked, der overtræder <%= firstLinkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og/eller <%= secondLinkStart %>Betingelser og Vilkår<%= linkEnd %>. Hvis du anmelder en besked for andre ting end disse har du selv brudt Retningslinjer for Fællesskabet og kan få en overtrædelse. Passende grunde til at anmelde en besked inkluderer, men er ikke begrænset til: <p></p></br><ul style='margin-left: 10px;'><li>banden, religiøse eder</li><li>snæversynethed, bagtale</li><li>voksenemner</li><li>vold, inklusiv som en joke</li><li>spam, meningsløse beskeder</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Anmeld Overtrædelse",
     "abuseReported": "Tak for at anmelde denne overtrædelse. Moderatorerne er blevet informeret.",
     "abuseAlreadyReported": "Du har allerede anmeldt denne besked.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "Din gruppechat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "guildChatEmpty": "Denne klanchat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "possessiveParty": "<%= name %>s Gruppe",
-    "requestAcceptGuidelines": "Hvis du gerne vil skrive beskeder i Værtshuset, din gruppe eller en klan, skal du først læse vores <%= linkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og så klikke på knappen under for at indikere at du accepterer dem."
+    "requestAcceptGuidelines": "Hvis du gerne vil skrive beskeder i Værtshuset, din gruppe eller en klan, skal du først læse vores <%= linkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og så klikke på knappen under for at indikere at du accepterer dem.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

@@ -1,28 +1,16 @@
 .container-fluid
   .stable.row: .col-xs-12
-    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_closed'}").pull-left-sm.col-centered
+    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_open'}").pull-left-sm.col-centered
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
-      h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+      h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
       .popover-content
-        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
-        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
+        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopText')
+        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopText')
 
-  // .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
+  .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
 
-  // li.customize-menu.inventory-gear
-    menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{yeti:env.t("yetiSet"), candycane:env.t("candycaneSet"), snowflake:env.t("snowflakeSet"), ski:env.t("skiSet"), winter2015Warrior:env.t("gingerbreadSet"), winter2015Mage:env.t("northMageSet"), winter2015Healer:env.t("soothingSkaterSet"), winter2015Rogue:env.t("icicleDrakeSet")}')
-      div(ng-repeat='item in ::getSeasonalShopArray(set)',
-        ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}")
-        button.customize-option(class='shop_{{::item.key}}',
-          popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
-          popover-trigger='mouseenter', popover-placement='right',
-          popover-append-to-body='true',
-          ng-click='purchase(item.type,item)')
-        div
-          | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
-          span.Pet_Currency_Gem1x.inline-gems
-
+  li.customize-menu.inventory-gear
     menu.pets-menu(label=env.t('quests'))
       div(ng-repeat='quest in ::getSeasonalShopQuests()')
         button.customize-option(ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"'
@@ -34,15 +22,15 @@
           span.Pet_Currency_Gem1x.inline-gems
     menu.pets-menu(label=env.t('seasonalItems'))
       div
-        button.customize-option(class='inventory_special_snowball',
-          popover='{{::Content.spells.special.snowball.notes()}}',
-          popover-title='{{::Content.spells.special.snowball.text()}}',
+        button.customize-option(class='inventory_special_shinySeed',
+          popover='{{::Content.spells.special.shinySeed.notes()}}',
+          popover-title='{{::Content.spells.special.shinySeed.text()}}',
           popover-trigger='mouseenter', popover-placement='right',
           popover-append-to-body='true',
-          ng-click='purchase("special", Content.spells.special.snowball)')
-        p {{::Content.spells.special.snowball.value}}
+          ng-click='purchase("special", Content.spells.special.shinySeed)')
+        p {{::Content.spells.special.shinySeed.value}}
           span(class='shop_gold')
-      div
+      // div
         button.customize-option(class='Pet_HatchingPotion_Peppermint',
           popover='{{::Content.hatchingPotions.Peppermint.notes()}}',
           popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions.Peppermint.text()}}"}),
@@ -51,7 +39,18 @@
           ng-click='purchase("hatchingPotions", Content.hatchingPotions.Peppermint)')
         p {{::Content.hatchingPotions.Peppermint.value}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
-      div
+      // div
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
         p {{Content.spells.special.nye.value}}
           span(class='shop_gold')
+    menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{springWarrior:env.t("mightyBunnySet"), springMage:env.t("magicMouseSet"), springHealer:env.t("lovingPupSet"), springRogue:env.t("stealthyKittySet"), spring2015Warrior:env.t("bewareDogSet"), spring2015Mage:env.t("magicianBunnySet"), spring2015Healer:env.t("comfortingKittySet"), spring2015Rogue:env.t("sneakySqueakerSet")}')
+      div(ng-repeat='item in ::getSeasonalShopArray(set)',
+        ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}")
+        button.customize-option(class='shop_{{::item.key}}',
+          popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+          popover-trigger='mouseenter', popover-placement='right',
+          popover-append-to-body='true',
+          ng-click='purchase(item.type,item)')
+        div
+          | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
+          span.Pet_Currency_Gem1x.inline-gems

@@ -1,5 +1,5 @@
 {
-    "tavern": "Krčma",
+    "tavern": "Tavern Chat",
     "innCheckOut": "Odhlásit se z hostince",
     "innCheckIn": "Odpočívat v hostinci",
     "innText": "Odpočíváš v Hostinci! Zatímco tu budeš, tvé Denní úkoly ti na konci dne nijak neublíží, ale vždy se resetují. Ale pozor: pokud jsi v boji s příšerou, ublíží ti nesplněné úkoly tvých přátel v družině, pokud také nejsou v Hostinci! Navíc, jakákoliv újma, kterou uštědříš příšeře (nebo nasbírané předměty) se ti nepřipíšou dokud se z Hostince neodhlásíš.",
@@ -101,7 +101,7 @@
     "inbox": "Příchozí zprávy",
     "abuseFlag": "Nahlaš porušení Zásad komunity",
     "abuseFlagModalHeading": "Nahlásit <%= name %> za porušení?",
-    "abuseFlagModalBody": "Opravdu chceš nahlásit tento příspěvek? Měl bys hlásit POUZE příspěvky, které porušují <%= firstLinkStart %>Zásady komunity<%= linkEnd %> a/nebo <%= secondLinkStart %>Pravidla používání<%= linkEnd %>. Neoprávněné hlášení příspěvku porušuje Zásady komunity a může být trestáno. Oprávněné důvody pro nahlášení příspěvku jsou například: <p></p></br><ul style='margin-left: 10px;'><li>nadávky, urážky náboženství</li><li>předsudky, urážky</li><li>nevhodná témata</li><li>násilí, i když je myšleno jako vtip</li><li>spam, nesmyslné zprávy</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Nahlásit porušení pravidel",
     "abuseReported": "Děkujeme za nahlášení tohoto příspěvku. Moderátoři byli upozorněni.",
     "abuseAlreadyReported": "Již jsi tento příspěvek nahlásil.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "Chat tvé družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "guildChatEmpty": "Chat této družiny je prázdný! Napiš zprávu do okna nahoře a začni si povídat.",
     "possessiveParty": "Družina <%= name %>",
-    "requestAcceptGuidelines": "Pokud chceš přidávat zprávy v Krčmě nebo v chatu v  jakékoliv družině nebo cechu, prosíme, nejprve si přečti <%= linkStart %>Zásady komunity<%= linkEnd %> a poté klikni na tlačítko níže na znamení, že jim rozumíš."
+    "requestAcceptGuidelines": "Pokud chceš přidávat zprávy v Krčmě nebo v chatu v  jakékoliv družině nebo cechu, prosíme, nejprve si přečti <%= linkStart %>Zásady komunity<%= linkEnd %> a poté klikni na tlačítko níže na znamení, že jim rozumíš.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

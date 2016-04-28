@@ -49,7 +49,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     // styling helpers
-    $scope.userLevelStyle = function(user,style){
+    $rootScope.userLevelStyle = function(user,style){
       style = style || '';
       var npc = (user && user.backer && user.backer.npc) ? user.backer.npc : '';
       var level = (user && user.contributor && user.contributor.level) ? user.contributor.level : '';

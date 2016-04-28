@@ -39,10 +39,12 @@ each(GEAR_TYPES, (type) => {
   each(allGearTypes, (klass) => {
     each(gear[type][klass], (item, index) => {
       let key = `${type}_${klass}_${index}`;
+      let set = `${klass}-${index}`;
 
       defaults(item, {
         type,
         key,
+        set,
         klass,
         index,
         str: 0,
@@ -78,7 +80,7 @@ each(GEAR_TYPES, (type) => {
   });
 });
 
-export default {
+module.exports = {
   tree: gear,
   flat,
 };

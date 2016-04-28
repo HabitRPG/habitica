@@ -12,7 +12,7 @@
     "rebirthInList2": "Les Défis, les Guildes et les appartenances à des Groupes sont conservés.",
     "rebirthInList3": "Les Gemmes, les paliers de soutien et les niveaux de contributeur sont conservés.",
     "rebirthInList4": "Les objets obtenus via des Gemmes ou des butins (tels que les familiers et les montures) sont conservés, bien que vous ne puissiez pas y accéder jusqu'à ce que vous les ayez débloqués de nouveau.",
-    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
+    "rebirthInList5": "L'équipement en édition limitée que vous avez acheté peut être de nouveau acheté, même si l’événement en question est terminé. Pour acheter de l'équipement spécifique à une classe, vous devez d'abord passer à cette classe.",
     "rebirthEarnAchievement": "Vous avez également obtenu un Succès pour avoir commencé une nouvelle aventure !",
     "beReborn": "Renaître",
     "rebirthAchievement": "Vous avez commencé une nouvelle aventure ! C'est votre Renaissance n°<%= number %> et le niveau le plus élevé que vous avez atteint est <%= level %>. Pour cumuler ce Succès, commencez votre nouvelle aventure une fois que vous aurez atteint un niveau encore plus élevé !",

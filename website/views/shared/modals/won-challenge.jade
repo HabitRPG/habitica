@@ -5,7 +5,7 @@ script(type='text/ng-template', id='modals/wonChallenge.html')
   .modal-content(style='min-width:28em')
     .modal-body.text-center
       h3(style='margin-bottom: 0')=env.t('wonChallenge')
-      h4 {{::user.achievements.challenges[user.achievements.challenges.length - 1]}}
+      h4: markdown(text='::user.achievements.challenges[user.achievements.challenges.length - 1]')
       .container-fluid
         .row(style='margin-bottom:1em', ng-controller='UserCtrl')
           .col-xs-4(style='padding:0')

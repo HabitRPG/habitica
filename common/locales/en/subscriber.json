@@ -30,7 +30,7 @@
     "cancelSub": "Cancel Subscription",
     "canceledSubscription": "Canceled Subscription",
     "adminSub": "Administrator Subscriptions",
-    "morePlans": "More Plans<br/>Coming Soon",
+    "morePlans": "More Plans<br>Coming Soon",
     "organizationSub": "Private Organization",
     "organizationSubText": "Members of the organization participate outside of Habitica proper, providing focus for your participants.",
     "hostingType": "Hosting Type",
@@ -98,6 +98,9 @@
     "mysterySet201511": "Wood Warrior Set",
     "mysterySet201512": "Winter Flame Set",
     "mysterySet201601": "Champion of Resolution Set",
+    "mysterySet201602": "Heartbreaker Set",
+    "mysterySet201603": "Lucky Clover Set",
+    "mysterySet201604": "Leaf Warrior Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Accessories Set",
 

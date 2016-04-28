@@ -11,4 +11,4 @@ let eyewear = {
   armoire: armoireEyewear,
 };
 
-export default eyewear;
+module.exports = eyewear;

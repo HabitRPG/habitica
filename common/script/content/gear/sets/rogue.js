@@ -167,4 +167,4 @@ let rogueSet = {
   weapon,
 };
 
-export default rogueSet;
+module.exports = rogueSet;

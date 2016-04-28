@@ -40,26 +40,29 @@ describe("Coupons", function() {
   describe("POST /api/v2/coupons/generate/:event", function() {
     context("while sudo user", function() {
       before(function(done) {
-        return makeSudoUser(user, done);
+        makeSudoUser(user, done);
       });
-      return it("generates coupons", function(done) {
+
+      it("generates coupons", function(done) {
         var queries;
         queries = '?count=10';
-        return request.post(baseURL + '/coupons/generate/wondercon' + queries).end(function(err, res) {
+
+        request.post(baseURL + '/coupons/generate/wondercon' + queries).end(function(err, res) {
           expectCode(res, 200);
-          return Coupon.find({
+          Coupon.find({
             event: 'wondercon'
           }, function(err, _coupons) {
             coupons = _coupons;
             expect(coupons.length).to.equal(10);
             _(coupons).each(function(c) {
-              return expect(c.event).to.equal('wondercon');
+              expect(c.event).to.equal('wondercon');
             }).value();
-            return done();
+            done();
           });
         });
       });
     });
+
     return context("while regular user", function() {
       before(function(done) {
         return registerNewUser(done, true);

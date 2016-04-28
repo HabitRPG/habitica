@@ -24,7 +24,7 @@
     "messageDropFood": "Našli ste <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našli ste <%= dropText %> Jaje! <%= dropNotes %>",
     "messageDropPotion": "Našli ste <%= dropText %> Napitak! <%= dropNotes %>",
-    "messageDropQuest": "You've found a quest!",
+    "messageDropQuest": "Našli ste misiju!",
     "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
     "messageFoundQuest": "Našli ste misiju „<%= questText %>”!",
     "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",

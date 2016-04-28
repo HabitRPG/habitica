@@ -22,7 +22,7 @@ var fetchMember = function(uuid, restrict){
 }
 
 var sendErr = function(err, res, next){
-  err.code ? res.json(err.code, {err: err.err}) : next(err);
+  err.code ? res.status(err.code).json({err: err.err}) : next(err);
 }
 
 api.getMember = function(req, res, next) {
@@ -38,8 +38,16 @@ api.sendMessage = function(user, member, data){
     msg = data.message
   } else {
     msg = "`Hello " + member.profile.name + ", " + user.profile.name + " has sent you ";
-    msg += (data.type=='gems') ? data.gems.amount + " gems!`" : shared.content.subscriptionBlocks[data.subscription.key].months + " months of subscription!`";
-    msg += data.message;
+    if (data.type == 'gems') {
+      var gemAmount = data.gems.amount;
+      var gemLabel = gemAmount > 1 ? "gems" : "gem";
+      msg += gemAmount + " " + gemLabel + "!`";
+    } else {
+      var monthAmount = shared.content.subscriptionBlocks[data.subscription.key].months;
+      var monthLabel = monthAmount > 1 ? "months" : "month";
+      msg += monthAmount + " " + monthLabel + " of subscription!`";
+    }
+    msg += data.message ? data.message : '';
   }
   shared.refPush(member.inbox.messages, groups.chatDefaults(msg, user));
   member.inbox.newMessages++;
@@ -77,7 +85,7 @@ api.sendPrivateMessage = function(req, res, next){
       ]);
     }
 
-    res.send(200);
+    res.sendStatus(200);
   })
 }
 
@@ -121,6 +129,6 @@ api.sendGift = function(req, res, next){
     }
   ], function(err) {
     if (err) return sendErr(err, res, next);
-    res.send(200);
+    res.sendStatus(200);
   });
 }

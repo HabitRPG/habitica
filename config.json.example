@@ -6,6 +6,7 @@
     "FACEBOOK_KEY":"123456789012345",
     "FACEBOOK_SECRET":"aaaabbbbccccddddeeeeffff00001111",
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
+    "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
     "NODE_ENV":"development",
     "SESSION_SECRET":"YOUR SECRET HERE",
     "ADMIN_EMAIL": "you@example.com",
@@ -28,7 +29,7 @@
         "MWS_KEY": "",
         "MWS_SECRET": ""
     },
-    "FLAG_REPORT_EMAIL": ["email@mod.com"],
+    "FLAG_REPORT_EMAIL": "email@mod.com,email2@mod.com",
     "EMAIL_SERVER": {
         "url": "http://example.com",
         "authUser": "user",

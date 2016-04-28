@@ -1,5 +1,5 @@
 {
-    "tavern": "Hostinec",
+    "tavern": "Tavern Chat",
     "innCheckOut": "Odíď z hostinca",
     "innCheckIn": "Odpočiň si v hostinci",
     "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
@@ -101,7 +101,7 @@
     "inbox": "Inbox",
     "abuseFlag": "Report violation of Community Guidelines",
     "abuseFlagModalHeading": "Nahlásiť <%= name %> za priestupok?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Nahlásiť priestupok",
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
     "abuseAlreadyReported": "You have already reported this message.",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "Your party chat is empty! Type a message in the box above to start chatting.",
     "guildChatEmpty": "This guild's chat is empty! Type a message in the box above to start chatting.",
     "possessiveParty": "<%= name %>'s Party",
-    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them."
+    "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them.",
+    "partyUpName": "Party Up",
+    "partyOnName": "Party On",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
 }

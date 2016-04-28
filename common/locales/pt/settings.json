@@ -102,7 +102,7 @@
     "invitedParty": "Convidado para Equipe",
     "invitedGuild": "Convidado para Guilda",
     "importantAnnouncements": "Sua conta está inativa",
-    "weeklyRecaps": "Resumo das atividades em sua conta na última semana",
+    "weeklyRecaps": "Resumos de atividades da sua conta na semana passada ( Nota: Atualmente está desativado devido a problemas de desempenho, mas esperamos ter isto novamente e enviar e-mails em breve! )",
     "questStarted": "Sua Missão começou",
     "invitedQuest": "Convidado para Missão",
     "kickedGroup": "Expulso do grupo",
@@ -140,7 +140,7 @@
     "mysticHourglass": "<%= amount %> Ampulhetas Místicas",
     "mysticHourglassText": "Ampulhetas Místicas te permitem comprar conjuntos Misteriosos de meses anteriores.",
     "purchasedPlanId": "Redepositar $<%= price %> dólares a cada <%= months %> mês(es) (<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
+    "purchasedPlanExtraMonths": "Você tem <%= months %> meses de créditos para inscrições extras.",
     "consecutiveSubscription": "Assinatura Consecutiva ",
     "consecutiveMonths": "Meses Consecutivos:",
     "gemCapExtra": "Número Máximo de Gemas extra:",
@@ -149,5 +149,5 @@
     "amazonPayments": "Amazon Payments",
     "timezone": "Fuso Horário",
     "timezoneUTC": "O Habitica usa o fuso horário definido no seu computador, que é <strong><%= utc %></strong>",
-    "timezoneInfo": "Se este fuso horário estiver incorreto, primeiramente atualize esta página para garantir que o Habitica tem as informações mais recentes. Caso continue errado, ajuste o fuso horário do seu computador e então atualize esta página novamente.<br><br> <strong>Se você usa o Habitica em outros computadores ou aparelhos móveis, o fuso horário deve ser o mesmo em todos eles.</strong> Se suas Tarefas Diárias estiverem sendo redefinidas no horário errado, faça uma nova verificação em todos os outros computadores e navegadores. "
+    "timezoneInfo": "Se este fuso horário estiver incorreto, primeiro atualize esta página para garantir que Habitica tem as informações mais recentes. Caso continue errado, ajuste o fuso horário do seu computador e então atualize esta página novamente.<br><br> <strong>Se você utiliza Habitica em outros computadores ou aparelhos móveis, o fuso horário deve ser o mesmo em todos eles.</strong> Se suas Tarefas Diárias estiverem sendo redefinidas no horário errado, faça uma nova verificação em todos os outros computadores e navegadores de dispositivos móveis. "
 }

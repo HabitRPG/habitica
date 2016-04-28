@@ -232,6 +232,25 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         pre.prettyprint {{user.apiToken}}
         h6=env.t('qrCode')
         img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+        br
+        h3=env.t('thirdPartyApps')
+        ul
+          li
+            a(target='_blank' href='https://www.beeminder.com/habitica')=env.t('beeminder')
+            br
+            =env.t('beeminderDesc')
+          li
+            a(target='_blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb')=env.t('chromeChatExtension')
+            br
+            =env.t('chromeChatExtensionDesc')
+          li
+            a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+            br
+            =env.t('dataToolDesc')
+          li
+            !=env.t('otherExtensions')
+            br
+            =env.t('otherDesc')
 
         hr
 

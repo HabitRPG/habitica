@@ -12,7 +12,7 @@
     "rebirthInList2": "Le sfide, le gilde e la tua squadra rimangono.",
     "rebirthInList3": "Gemme, gradi di sostenitore e livelli di contribuzione rimangono.",
     "rebirthInList4": "Gli oggetti trovati o ottenuti con le Gemme (come animali e cavalcature) rimangono, non potrai però utilizzarli fin quando non li avrai sbloccati di nuovo.",
-    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
+    "rebirthInList5": "L'equipaggiamento in edizione limitata che avevi acquistato può essere ricomprato, anche se l'evento è finito. Per riacquistare oggetti specifici per una classe, devi prima passare a quella classe.",
     "rebirthEarnAchievement": "Ottieni inoltre una Medaglia per aver iniziato una nuova avventura!",
     "beReborn": "Rinasci",
     "rebirthAchievement": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è <%= level %>. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto un livello ancora più alto!",

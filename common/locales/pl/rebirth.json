@@ -12,7 +12,7 @@
     "rebirthInList2": "Wyzwania, Gildia oraz Drużyna pozostają bez zmian.",
     "rebirthInList3": "Zachowujesz Klejnoty, odznaki fundatora oraz pomocnika.",
     "rebirthInList4": "Przedmioty uzyskane za Klejnoty lub z łupów (takie jak chowańce i wierzchowce) pozostaną, jednakże nie będziesz miał do nich dostępu, dopóki nie odblokujesz ich ponownie.",
-    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
+    "rebirthInList5": "Przedmioty z limitowanych edycji mogą zostać ponownie zakupione, nawet, jeśli ich termin dostępności minął. Aby ponownie kupić sprzęt przeznaczony dla konkretnej klasy, najpierw trzeba wcielić się w tę klasę.",
     "rebirthEarnAchievement": "Dodatkowo otrzymujesz nowe Osiągnięcie za rozpoczęcie nowej przygody!",
     "beReborn": "Odródź się.",
     "rebirthAchievement": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to <%= level %>.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę, gdy osiągnąłeś jeszcze wyższy Poziom!",

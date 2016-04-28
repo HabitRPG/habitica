@@ -1,7 +1,7 @@
 {
     "statsAch": "Statystyki i osiągnięcia",
     "profile": "Profil",
-    "avatar": "Awatar",
+    "avatar": "Dostosuj Awatara",
     "other": "Inne",
     "fullName": "Pełne imię",
     "displayName": "Nazwa gracza",
@@ -34,6 +34,7 @@
     "beard": "Broda",
     "mustache": "Wąsy",
     "flower": "Kwiatek",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Podstawowe kolory",
     "rainbowSkins": "Tęczowe kolory",
     "pastelSkins": "Pastelowe kolory",
@@ -83,7 +84,7 @@
     "allocateInt": "Punkty przydzielone do Inteligencji:",
     "allocateIntPop": "Dodaj punkt do Inteligencji",
     "noMoreAllocate": "Teraz, gdy osiągnąłeś poziom 100, nie będziesz już zyskiwać punktów atrybutów. Możesz dalej podnosić poziom lub zacząć przygodę nową od poziomu 1 używając <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>, dostępnej teraz za darmo na Targu.",
-    "stats": "Statystyki",
+    "stats": "Statystki Awatara",
     "strength": "Siła",
     "strengthText": "Siła zwiększa szansę na losowe \"trafienia krytyczne\", a także wpływa na ilość otrzymanego za nie Złota, Doświadczenia i prawdopodobieństwa łupów. Pomaga także zadawać obrażenia bossom.",
     "constitution": "Kondycja",
@@ -136,7 +137,7 @@
     "respawn": "Odrodzenie!",
     "youDied": "Zginąłeś!",
     "dieText": "Straciłeś jeden Poziom, losowo wybrany przedmiot z Ekwipunku oraz całe Złoto. A teraz powstań, dzielny Habitaninie, i jeszcze raz spróbuj sił w walce! Okiełznaj złe Nawyki, czujnie dopełniaj Codzienne, a jeśli zasłabniesz, wymknij się śmierci zażywając Eliksiru Zdrowia!",
-    "sureReset": "Jesteś pewien? Zresetuje to klasę twojej postaci oraz przydzielone punkty (dostaniesz je z powrotem do ponownego rozdzielenia). Cena – 3 klejnoty.",
+    "sureReset": "Na pewno? Ta opcja kosztuje 3 klejnoty i zresetuje klasę twojego awatara i przydzielone punkty (wrócą do puli do ponownego rozdzielenia).",
     "purchaseFor": "Kupić za <%= cost %> klejnoty?",
     "notEnoughMana": "Masz za mało many.",
     "invalidTarget": "Nieprawidłowy cel",
@@ -160,5 +161,8 @@
     "str": "SIŁ",
     "con": "KON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Pokaż przydział atrybutów",
+    "hideQuickAllocation": "Ukryj przydział atrybutów",
+    "quickAllocationLevelPopover": "Z każdym poziomem otrzymujesz jeden punkt, który możesz przydzielić wybranemu atrybutowi. Możesz to zrobić ręcznie, lub zdać się na jedną z możliwych opcji Automatycznej Alokacji, dostępnych w Użytkownik -> Statystyki Awatara."
 }

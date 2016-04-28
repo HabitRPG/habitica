@@ -1,7 +1,7 @@
 {
     "statsAch": "Atribute și Realizări",
     "profile": "Profil",
-    "avatar": "Avatar",
+    "avatar": "Customize Avatar",
     "other": "Altele",
     "fullName": "Numele complet",
     "displayName": "Numele afișat",
@@ -34,6 +34,7 @@
     "beard": "Barbă",
     "mustache": "Mustață",
     "flower": "Floare",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Piei de bază",
     "rainbowSkins": "Piei curcubeu",
     "pastelSkins": "Pastel Skins",
@@ -83,7 +84,7 @@
     "allocateInt": "Puncte atribuite la INT:",
     "allocateIntPop": "Adaugă un punct la Inteligență",
     "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
-    "stats": "Atribute",
+    "stats": "Avatar Stats",
     "strength": "Forță",
     "strengthText": "Forța crește șansele unor \"lovituri critice\" și le îmbunătățește șansele de câștig în Obiecte, Aur și Experiență. De asemenea ajută la rănirea monștrilor speciali.",
     "constitution": "Constituție",
@@ -136,7 +137,7 @@
     "respawn": "Renaște!",
     "youDied": "Ai murit!",
     "dieText": "Ai pierdut un Nivel, tot Aurul tău și o piesă de echipament aleatorie. Ridică-te, Habitanule, și mai încearcă o dată! Pune frâu obiceiurilor negative, fii vigilent la îndeplinirea Cotidienelor și ține moartea la distanță cu o Poțiune de Sănătate dacă te împiedici!",
-    "sureReset": "Sigur? Asta va reseta clasa personajului tău și punctele alocate (le vei primi pe toate înapoi pentru a le realoca) și va costa 3 nestemate.",
+    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
     "purchaseFor": "Achiziționează pentru <%= cost %> Nestemate ?",
     "notEnoughMana": "Nu ai destulă mana.",
     "invalidTarget": "Țintă necorespunzătoare",
@@ -160,5 +161,8 @@
     "str": "STR",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Show stat allocation",
+    "hideQuickAllocation": "Hide stat allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }

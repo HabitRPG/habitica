@@ -1,9 +1,8 @@
 var _ = require('lodash');
-var csv = require('express-csv');
 var express = require('express');
+var csvStringify = require('csv-stringify');
 var nconf = require('nconf');
 var moment = require('moment');
-var dataexport = module.exports;
 var js2xmlparser = require("js2xmlparser");
 var pd = require('pretty-data').pd;
 var User = require('../models/user').model;
@@ -22,6 +21,8 @@ var request = require('request');
   ------------------------------------------------------------------------
 */
 
+var dataexport = module.exports;
+
 dataexport.history = function(req, res) {
   var user = res.locals.user;
   var output = [
@@ -29,13 +30,26 @@ dataexport.history = function(req, res) {
   ];
   _.each(user.tasks, function(task) {
     _.each(task.history, function(history) {
-      output.push(
-        [task.text, task.id, task.type, moment(history.date).format("MM-DD-YYYY HH:mm:ss"), history.value]
-      );
+      output.push([
+        task.text,
+        task.id,
+        task.type,
+        moment(history.date).format("MM-DD-YYYY HH:mm:ss"),
+        history.value
+      ]);
     });
   });
-  return res.csv(output);
-}
+
+  res.set({
+    'Content-Type': 'text/csv',
+    'Content-disposition': `attachment; filename=habitica-tasks-history.csv`,
+  });
+
+  csvStringify(output, (err, csv) => {
+    if (err) return next(err);
+    res.status(200).send(csv);
+  });
+};
 
 var userdata = function(user) {
   if(user.auth && user.auth.local) {
@@ -47,8 +61,8 @@ var userdata = function(user) {
 
 dataexport.leanuser = function(req, res, next) {
   User.findOne({_id: res.locals.user._id}).lean().exec(function(err, user) {
-    if (err) return res.json(500, {err: err});
-    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+    if (err) return res.status(500).json({err: err});
+    if (_.isEmpty(user)) return res.status(401).json(NO_USER_FOUND);
     res.locals.user = user;
     return next();
   });
@@ -115,9 +129,8 @@ dataexport.avatarImage = function(req, res, next) {
       return res.redirect(301, 'https://' + bucket + '.s3.amazonaws.com/' + filename);
     new Pageres()//{delay:1}
     .src(nconf.get('BASE_URL') + '/export/avatar-' + req.params.uuid + '.html', ['140x147'], {crop: true, filename: filename.replace('.png', '')})
-    .run(function (err, file) {
-      if (err) return next(err);
-      // see http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#createMultipartUpload-property
+    .run()
+    .then(function (file) {
       var upload = s3Stream.upload({
         Bucket: bucket,
         Key: filename,
@@ -133,6 +146,6 @@ dataexport.avatarImage = function(req, res, next) {
         res.redirect(details.Location);
       });
       file[0].pipe(upload);
-    });
+    }).catch(next);
   })
 };

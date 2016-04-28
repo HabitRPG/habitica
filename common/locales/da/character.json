@@ -1,7 +1,7 @@
 {
     "statsAch": "Stats og præstationer",
     "profile": "Profil",
-    "avatar": "Avatar",
+    "avatar": "Customize Avatar",
     "other": "Andet",
     "fullName": "Fuldt navn",
     "displayName": "Skærmnavn",
@@ -34,6 +34,7 @@
     "beard": "Skæg",
     "mustache": "Overskæg",
     "flower": "Blomst",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Basis-skins",
     "rainbowSkins": "Regnbue-skins",
     "pastelSkins": "Pastel-skins",
@@ -83,7 +84,7 @@
     "allocateInt": "Point tilføjet til Intelligens:",
     "allocateIntPop": "Tilføj et point til Intelligens",
     "noMoreAllocate": "Nu hvor du er blevet niveau 100, kan du ikke længere tjene attributpoint. Du kan stadig stige i niveau, eller starte et nyt eventyr fra niveau 1 ved at bruge en  <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Genfødselskugle</a>, der nu er gratis på Markedet.",
-    "stats": "Stats",
+    "stats": "Avatar Stats",
     "strength": "Styrke",
     "strengthText": "Styrke øger chancen for vilkårlige \"fuldtræffere\" og Guld-, Erfarings- og dropchance-boost fra dem. Det hjælper også med at skade Boss-monstre.",
     "constitution": "Konstitution",
@@ -136,7 +137,7 @@
     "respawn": "Genopstå!",
     "youDied": "Du døde!",
     "dieText": "Du har tabt et niveau, alt dit Guld, og et vilkårligt stykke Udstyr. Rejs dig, Habitør, og prøv igen! Tøjl dine negative Vaner, vær opmærksom på at fuldføre Daglige, og hold Døden på afstand med en Livseliksir hvis du vakler!",
-    "sureReset": "Er du sikker? Dette vil nulstille din karakters klasse og de tildelte point (du vil få dem alle tilbage så du kan fordele dem igen), og koster 3 ædelsten.",
+    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
     "purchaseFor": "Køb for <%= cost %> Ædelsten?",
     "notEnoughMana": "Ikke nok mana.",
     "invalidTarget": "Ugyldigt mål",
@@ -160,5 +161,8 @@
     "str": "STY",
     "con": "KON",
     "per": "OPF",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Show stat allocation",
+    "hideQuickAllocation": "Hide stat allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }

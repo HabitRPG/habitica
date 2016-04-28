@@ -1,7 +1,7 @@
 {
     "statsAch": "屬性及成就",
     "profile": "基本資料",
-    "avatar": "角色",
+    "avatar": "客制化角色圖像",
     "other": "其他",
     "fullName": "全名",
     "displayName": "顯示名稱",
@@ -34,6 +34,7 @@
     "beard": "落腮鬍",
     "mustache": "八字鬍",
     "flower": "花朵",
+    "wheelchair": "Wheelchair",
     "basicSkins": "基本膚色",
     "rainbowSkins": "彩色膚色",
     "pastelSkins": "柔和膚色",
@@ -83,7 +84,7 @@
     "allocateInt": "分配給智力的屬性點：",
     "allocateIntPop": "增加一點智力",
     "noMoreAllocate": "恭喜您！您的角色已經達到了等級 100，所以往後的等級您將不會再獲得屬性點。您可以使用這個角色續續升級，又或者透過巿集取得免費的<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>重生之球</a>，從等級 1 開始一場嶄新的冒險。",
-    "stats": "屬性",
+    "stats": "角色狀態",
     "strength": "力量",
     "strengthText": "力量會增加「會心一擊」的機率，而會心一擊時會提升金幣、經驗和物品掉落的機率。力量還能幫助你傷害 BOSS。",
     "constitution": "體質",
@@ -125,9 +126,9 @@
     "mageText": "法師善於學習，獲得經驗值和升級比其他職業快。他們還有大量的魔力以使用特殊的法術。如果你如果你喜歡玩得有策略性，或者你強烈地希望升級解鎖更多的遊戲內容，來玩法師吧！",
     "rogueText": "盜賊熱衷於積累財富，比其他人獲得更多的金幣，還擅長尋找隨機物品。他們特有的匿蹤技能使得他們能夠躲避未完成的每日任務帶來的傷害。如果你希望獲得更多的獎勵、成就並渴求戰利品及徽章，來玩盜賊吧！",
     "healerText": "醫者頑強地對抗突如其來的傷害，並且保護其他的人。錯過的日常任務和一些壞習慣不太能影響他們，他們總是想方設法幫你治療。如果你熱衷於輔助其他的隊友或者是享受那種從死神手裡奪回生命的快感，那就成為一名醫者吧！",
-    "optOutOfClasses": "Opt Out",
-    "optOutOfPMs": "Opt Out",
-    "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User -> Stats.",
+    "optOutOfClasses": "暫時不選擇",
+    "optOutOfPMs": "暫時不選擇",
+    "optOutOfClassesText": "不想要選擇職業，或是想稍候再做選擇？如果暫時不選擇，你將會是一位戰士，並沒有任何特別的屬性。你可以從遊戲維基取得各種職業的資訊，並且稍候在設定裏選擇職業。",
     "select": "選擇",
     "stealth": "匿蹤",
     "stealthNewDay": "新的一天開始時，錯過了的每日任務不會傷害到你。",
@@ -160,5 +161,8 @@
     "str": "力量",
     "con": "體質",
     "per": "感知",
-    "int": "智力"
+    "int": "智力",
+    "showQuickAllocation": "開啟分配狀態",
+    "hideQuickAllocation": "關閉分配狀態",
+    "quickAllocationLevelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統在使用者->屬性下幫你自動完成。"
 }

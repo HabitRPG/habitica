@@ -1,6 +1,6 @@
 var nconf = require('nconf');
 var express = require('express');
-var router = new express.Router();
+var router = express.Router();
 var auth = require('../../controllers/api-v2/auth');
 var coupon = require('../../controllers/api-v2/coupon');
 var i18n = require('../../libs/i18n');

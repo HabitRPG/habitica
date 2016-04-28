@@ -22,4 +22,4 @@ let head = {
   armoire: armoireHead,
 };
 
-export default head;
+module.exports = head;

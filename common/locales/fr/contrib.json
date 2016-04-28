@@ -28,11 +28,11 @@
     "helped": "A aidé Habit à s'agrandir",
     "helpedText1": "A aidé Habitica à s'agrandir en remplissant",
     "helpedText2": "cette enquête.",
-    "hall": "Panthéon",
+    "hall": "Panthéon des héros",
     "contribTitle": "Titre de Contributeur (par exemple, \"Forgeron\")",
     "contribLevel": "Palier de Contributeur",
     "contribHallText": "1 à 7 pour les contributeurs normaux, 8 pour les modérateurs, 9 pour l'équipe. Détermine quels objets, familiers et montures sont accessibles. Définit également la couleur de l'étiquette du nom. Les paliers 8 et 9 se voient automatiquement attribuer un statut d'admin.",
-    "hallHeroes": "Panthéon des Héros",
+    "hallContributors": "Panthéon des contributeurs",
     "hallPatrons": "Panthéon des Sponsors",
     "rewardUser": "Récompenser l'Utilisateur",
     "UUID": "UUID",
@@ -60,5 +60,5 @@
     "blurbGuildsPage": "Les Guildes sont des groupes de discussion créés par les joueurs pour les joueurs pour regrouper les personnes autour de leurs centres d'intérêt. Jetez un œil à la liste et rejoignez les Guildes qui vous intéressent !",
     "blurbChallenges": "Les Défis sont des listes de tâches créées par des membres ! Rejoindre un défi ajoutera ses tâches aux vôtres dans la page des tâches ; gagner un Défi vous fera gagner un succès ainsi que, souvent, des gemmes !",
     "blurbHallPatrons": "Voici le Panthéon des Sponsors, où nous rendons hommage aux nobles aventuriers qui ont soutenu le Kickstarter original de Habitica. Nous les remercions de nous avoir aidés à donner la vie à Habitica !",
-    "blurbHallHeroes": "Ceci est le Panthéon des Héros, où tous les contributeurs open-source d'Habitica sont honorés. Que ce soit par du code, de l'art, de la musique, de l'écriture, ou juste de l'aide, ils ont mérité\n<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> des gemmes, de l'équipment exclusif</a>, et <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>des titres prestigieux</a>. Vous pouvez aussi contribuer à Habitica ! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Apprenez-en plus ici. </a>"
+    "blurbHallContributors": "Voici le Panthéon des Contributeurs, où sont honorés tous les contributeurs \"open-source\" d'Habitica. Que ce soit grâce à du code, de l'art, de la musique, de l'écriture ou même simplement de l'aide, ils ont gagné <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>des gemmes, de l'équipement exclusif</a>, et <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>des titres prestigieux</a>. Vous pouvez,  vous aussi, contribuer à Habitica ! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Apprenez-en plus ici.</a>"
 }

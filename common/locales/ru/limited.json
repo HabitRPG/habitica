@@ -25,7 +25,7 @@
     "polarBearPup": "Детеныш белого медведя",
     "jackolantern": "Тыквенная лампа",
     "seasonalShop": "Сезонная лавка",
-    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %>Лесли<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Чародейка<%= linkEnd %>",
     "seasonalShopClosedText": "Сезонная лавка сейчас закрыта!! Я понятия не имею, куда ушла Сезонная Чародейка, но она уж точно вернется к следующему <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>большому событию</a>!",
     "seasonalShopText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары весеннего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно в дни Весенней Веселухи, но мы открыты только до 30 апреля, так что спешите закупиться сейчас, иначе придется ждать целый год!",
@@ -67,6 +67,10 @@
     "witchyWizardSet": "Ведь-маг (маг)",
     "mummyMedicSet": "Мумифицированный доктор (целитель)",
     "vampireSmiterSet": "Вампир-убийца (разбойник)",
+    "bewareDogSet": "Предупредительный пес (Воин)",
+    "magicianBunnySet": "Кролик фокусника (Маг)",
+    "comfortingKittySet": "Успокаивающий котенок (Целитель)",
+    "sneakySqueakerSet": "Скрытный пискун (Разбойник)",
     "fallEventAvailability": "Доступно до 31 октября",
     "winterEventAvailability": "Доступен до 31 декабря"
 }

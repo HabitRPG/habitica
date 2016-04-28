@@ -175,4 +175,27 @@ describe('PUT /user', () => {
       });
     });
   });
+
+  context('Improvement Categories', () => {
+    it('sets valid categories', async () => {
+      await user.put('/user', {
+        'preferences.improvementCategories': ['work', 'school'],
+      });
+
+      await user.sync();
+
+      expect(user.preferences.improvementCategories).to.eql(['work', 'school']);
+    });
+
+    it('discards invalid categories', async () => {
+      await expect(user.put('/user', {
+        'preferences.improvementCategories': ['work', 'procrastination', 'school'],
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        text: [
+          'Validator failed for path `preferences.improvementCategories` with value `work,procrastination,school`',
+        ],
+      });
+    });
+  });
 });

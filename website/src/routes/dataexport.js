@@ -1,5 +1,5 @@
 var express = require('express');
-var router = new express.Router();
+var router = express.Router();
 var dataexport = require('../controllers/dataexport');
 var auth = require('../controllers/api-v2/auth');
 var nconf = require('nconf');

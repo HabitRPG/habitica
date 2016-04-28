@@ -1,7 +1,7 @@
 {
     "statsAch": "Stats & Achievements",
     "profile": "Profile",
-    "avatar": "Avatar",
+    "avatar": "Customise Avatar",
     "other": "Other",
     "fullName": "Full Name",
     "displayName": "Display Name",
@@ -34,6 +34,7 @@
     "beard": "Beard",
     "mustache": "Moustache",
     "flower": "Flower",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Basic Skins",
     "rainbowSkins": "Rainbow Skins",
     "pastelSkins": "Pastel Skins",
@@ -83,7 +84,7 @@
     "allocateInt": "Points allocated to Intelligence:",
     "allocateIntPop": "Add a point to Intelligence",
     "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue levelling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
-    "stats": "Stats",
+    "stats": "Avatar Stats",
     "strength": "Strength",
     "strengthText": "Strength increases the chance of random \"critical hits\" and the Gold, Experience, and drop chance boost from them. It also helps deal damage to boss monsters.",
     "constitution": "Constitution",
@@ -136,7 +137,7 @@
     "respawn": "Respawn!",
     "youDied": "You Died!",
     "dieText": "You've lost a Level, all your Gold, and a random piece of Equipment. Arise, Habiteer, and try again! Curb those negative Habits, be vigilant in completion of Dailies, and hold death at arm's length with a Health Potion if you falter!",
-    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems",
+    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
     "purchaseFor": "Purchase for <%= cost %> Gems?",
     "notEnoughMana": "Not enough mana.",
     "invalidTarget": "Invalid target",
@@ -160,5 +161,8 @@
     "str": "STR",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Show stats allocation",
+    "hideQuickAllocation": "Hide stats allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }

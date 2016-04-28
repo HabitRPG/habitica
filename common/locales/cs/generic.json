@@ -137,6 +137,8 @@
     "achievementStressbeastText": "Pomož přemoci Zavrženíhodnou Strespříšeru při příležitosti Zimní říše divů 2014!",
     "achievementBurnout": "Vychutnej si kvetoucí pole",
     "achievementBurnoutText": "Pomož přemoci Vyhoření a obnovit Vyčerpané duchy během Podzimního festivalu 2015!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Koukejte, jaký pokrok se mi povedl v zemi Habitica!",
     "cardReceived": "Obdržel jsi přání!",
     "cardReceivedFrom": "<%= cardType %> od <%= userName %>",
@@ -175,5 +177,6 @@
     "hatchPetShare": "Díky plnění úkolů se mi vylíhl nový mazlíček!",
     "raisePetShare": "Mazlíček mi vyrostl v silné zvíře, protože jsem svědomitě plnil úkoly!",
     "wonChallengeShare": "V Habitica jsem vyhrál výzvu!",
-    "achievementShare": "Získal jsem v zemi Habitica nové ocenění!"
+    "achievementShare": "Získal jsem v zemi Habitica nové ocenění!",
+    "orderBy": "Order By <%= item %>"
 }

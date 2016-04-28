@@ -33,3 +33,21 @@ mixin ownedQuests(popoverAppend, popoverPlacement)
             popover-append-to-body='#{popoverAppend}',
             popover-placement='#{popoverPlacement}')
               .badge.badge-info.stack-count {{points}}
+
+mixin statAllocation
+  -
+    var stats = {
+      str: { title:"allocateStr",popover:'strengthText',allocatepop:'allocateStrPop' },
+      int: { title:"allocateInt",popover:'intText',allocatepop:'allocateIntPop' },
+      con: { title:"allocateCon",popover:'conText',allocatepop:'allocateConPop' },
+      per: { title:"allocatePer",popover:'perText',allocatepop:'allocatePerPop' }
+    }
+
+  each statInfo, stat in stats
+    tr
+      td
+        span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t(statInfo.popover))
+          =env.t(statInfo.title) + ' {{user.stats.' + stat + '}}'
+      td
+        a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("#{stat}")',
+          popover-trigger='mouseenter', popover-placement='right', popover=env.t(statInfo.allocatepop)) +

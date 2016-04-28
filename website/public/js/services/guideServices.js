@@ -67,7 +67,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
           state: 'options.inventory.equipment',
           element: '.equipment-tab',
           title: window.env.t('classGear'),
-          content: window.env.t('classGearText', {klass: User.user.stats.class})
+          content: window.env.t('classGearText')
         }, {
           state: 'options.profile.stats',
           element: ".allocate-stats",

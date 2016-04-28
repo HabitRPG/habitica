@@ -1,7 +1,7 @@
 {
     "statsAch": "Statistiky a úspěchy",
     "profile": "Profil",
-    "avatar": "Postava",
+    "avatar": "Customize Avatar",
     "other": "Další",
     "fullName": "Celé jméno",
     "displayName": "Zobrazené jméno",
@@ -34,6 +34,7 @@
     "beard": "Plnovous",
     "mustache": "Knír",
     "flower": "Květina",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Základní barvy kůže",
     "rainbowSkins": "Duhové kůže",
     "pastelSkins": "Pastelové kůže",
@@ -83,7 +84,7 @@
     "allocateInt": "Body přiřazené k Inteligenci:",
     "allocateIntPop": "Přiřadit bod k inteligenci",
     "noMoreAllocate": "Nyní, když jsi dosáhl úrovně 100, už nebudeš dostávat žádné body atributů. Můžeš pokračovat v dosahování dalších úrovní, nebo můžeš začít nové dobrodružství na úrovni 1, když použiješ <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb Znovuzrození</a>, který nyní najdeš zdarma na Trhu.",
-    "stats": "Statistiky",
+    "stats": "Avatar Stats",
     "strength": "Síla",
     "strengthText": "Síla zvyšuje šanci náhodných \"kritických zásahů\" a díky tomu i bonus ke zlaťákům, zkušenosti a nalézání předmětů. Také ovlivňuje vážnost zranění příšery.",
     "constitution": "Obrana",
@@ -136,7 +137,7 @@
     "respawn": "Oživení!",
     "youDied": "Zemřel jsi!",
     "dieText": "Propadl jsi o úroveň níž a přišel jsi o všechny zlaťáky a náhodný kus vybavení. Povstaň, Habiťane, a zkus to znovu! Zbav se zlozvyků, poctivě plň denní úkoly a v případě zaváhání se vyhni smrti pomocí léčivého lektvaru.",
-    "sureReset": "Jsi si jistý? Toto resetuje povolání tvé postavy a přidělené body vlastností (které budeš mít šanci všechny přiřadit podle potřeby) a přijde tě to na 3 drahokamy",
+    "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
     "purchaseFor": "Koupit za <%= cost %> drahokamů?",
     "notEnoughMana": "Nedostatek many.",
     "invalidTarget": "Neplatný cíl",
@@ -160,5 +161,8 @@
     "str": "SÍL",
     "con": "OBR",
     "per": "VNM",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Show stat allocation",
+    "hideQuickAllocation": "Hide stat allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }

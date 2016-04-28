@@ -1,7 +1,7 @@
 {
     "statsAch": "Caractéristiques & Succès",
     "profile": "Profil",
-    "avatar": "Avatar",
+    "avatar": "Personnalisez votre avatar",
     "other": "Autres",
     "fullName": "Nom complet",
     "displayName": "Pseudonyme",
@@ -34,6 +34,7 @@
     "beard": "Barbe",
     "mustache": "Moustache",
     "flower": "Fleur",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Peaux de base",
     "rainbowSkins": "Peaux arc-en-ciel",
     "pastelSkins": "Peaux Pastel",
@@ -67,7 +68,7 @@
     "levelUp": "Montée de niveau !",
     "gainedLevel": "Vous avez passé un niveau !",
     "leveledUp": "En atteignant vos buts dans la vie réelle, vous êtes parvenu au <strong>niveau <%= level %> !</strong>",
-    "fullyHealed": "Vous avez été complètement guéri(e) !",
+    "fullyHealed": "Vous avez été complètement guéri·e !",
     "huzzah": "Bravo !",
     "mana": "Mana",
     "hp": "Vie",
@@ -83,7 +84,7 @@
     "allocateInt": "Points alloués en Intelligence :",
     "allocateIntPop": "Ajouter un point en Intelligence",
     "noMoreAllocate": "Maintenant que vous avez atteint le niveau 100, vous ne gagnerez plus de Points d'Attribut. Vous pouvez continuer à passer des niveaux ou commencer une nouvelle aventure depuis le niveau 1 en utilisant l'<a href='http://fr.habitica.wikia.com/wiki/Orbe_de_Renaissance'>Orbe de Renaissance</a>, disponible gratuitement au Marché dès maintenant.",
-    "stats": "Caractéristiques",
+    "stats": "Caractéristiques de l'avatar",
     "strength": "Force",
     "strengthText": "La Force augmente les chances de \"coups critiques\" aléatoires et donc les bonus d'or, d'expérience et de gain de butin qui en découlent. Elle aide aussi à infliger des dommages aux boss.",
     "constitution": "Constitution",
@@ -136,7 +137,7 @@
     "respawn": "Résurrection !",
     "youDied": "Vous êtes mort !",
     "dieText": "Vous avez perdu un Niveau, tout votre Or et une pièce d'Équipement aléatoire. Relevez-vous, Habiticien·ne, et essayez encore ! Mettez un frein à ces Habitudes négatives, complétez vos tâches Quotidiennes avec vigilance et tenez la mort à distance avec une Potion de Santé si vous fléchissez !",
-    "sureReset": "Êtes-vous sûr ? Ceci réinitialisera la classe de votre personnage et vos points alloués (vous les récupérerez tous pour les ré-allouer) et vous coûtera 3 gemmes.",
+    "sureReset": "Êtes-vous sûr·e ? Ceci réinitialisera la classe de votre personnage ainsi que vos points alloués (vous les récupérerez tous pour les ré-allouer), et vous coûtera 3 gemmes.",
     "purchaseFor": "Acheter pour <%= cost %> Gemmes ?",
     "notEnoughMana": "Pas assez de mana.",
     "invalidTarget": "Cible invalide",
@@ -160,5 +161,8 @@
     "str": "FOR",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Voir la répartition des statistiques",
+    "hideQuickAllocation": "Cacher la répartition des statistiques",
+    "quickAllocationLevelPopover": "Chaque niveau vous rapporte un point que vous pouvez assigner à un attribut de votre choix. Vous pouvez le faire manuellement ou laissez le jeu décider pour vous, en utilisant les options d'Attribution Automatique qui se trouvent dans Utilisateur -> Caractéristiques."
 }

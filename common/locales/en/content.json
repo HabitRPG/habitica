@@ -49,7 +49,7 @@
 
   "dropEggBearCubText": "Bear Cub",
   "dropEggBearCubMountText": "Bear",
-  "dropEggBearCubAdjective": "a cuddly",
+  "dropEggBearCubAdjective": "a brave",
 
   "questEggGryphonText": "Gryphon",
   "questEggGryphonMountText": "Gryphon",
@@ -69,7 +69,7 @@
 
   "questEggRatText": "Rat",
   "questEggRatMountText": "Rat",
-  "questEggRatAdjective": "a dirty",
+  "questEggRatAdjective": "a sociable",
 
   "questEggOctopusText": "Octopus",
   "questEggOctopusMountText": "Octopus",
@@ -155,6 +155,14 @@
   "questEggMonkeyMountText": "Monkey",
   "questEggMonkeyAdjective": "a mischievous",
 
+  "questEggSnailText": "Snail",
+  "questEggSnailMountText": "Snail",
+  "questEggSnailAdjective": "a slow but steady",
+
+  "questEggFalconText": "Falcon",
+  "questEggFalconMountText": "Falcon",
+  "questEggFalconAdjective": "a swift",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -169,6 +177,7 @@
   "hatchingPotionGolden": "Golden",
   "hatchingPotionSpooky": "Spooky",
   "hatchingPotionPeppermint": "Peppermint",
+  "hatchingPotionFloral": "Floral",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

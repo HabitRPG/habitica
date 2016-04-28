@@ -1,7 +1,7 @@
 {
     "statsAch": "Statistik & Prestationer",
     "profile": "Profil",
-    "avatar": "Avatar",
+    "avatar": "Skräddarsy Avatar",
     "other": "Annat",
     "fullName": "Fullständigt namn",
     "displayName": "Användarnamn",
@@ -34,6 +34,7 @@
     "beard": "Skägg",
     "mustache": "Mustasch",
     "flower": "Blomma",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Grundläggande hudtyper",
     "rainbowSkins": "Regnbågshud",
     "pastelSkins": "Pastellfärgade hudtyper",
@@ -83,7 +84,7 @@
     "allocateInt": "Poäng tilldelade till intelligens:",
     "allocateIntPop": "Lägg till ett poäng till Intelligens",
     "noMoreAllocate": "Nu när du uppnåt nivå 100 kommer du inte få några fler attributpoäng. Du kan fortsätta att gå upp i nivå, eller starta ett nytt äventyr på nivå 1 genom att använda <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Återfödelsens sfär</a>, nu gratis på Marknaden!",
-    "stats": "Statistik",
+    "stats": "Avatar Statistik",
     "strength": "Styrka",
     "strengthText": "Styrka ökar chansen för slumpmässiga \"kritiska träffar\" och guld-, erfarenhet-, och fyndchansen höjs. Styrka hjälper också för att tillfoga skada till bossar.",
     "constitution": "Tålighet",
@@ -136,7 +137,7 @@
     "respawn": "Återuppstå!",
     "youDied": "Du dog!",
     "dieText": "Du har förlorat en nivå, allt ditt guld och en slumpmässigt utvald del av din utrustning. Res dig upp, Habitant, och försök igen! Stå emot dina negativa vanor, var vaksam i fullföljandet av dagliga uppgifter, och håll döden på armlängds avstånd med en hälsodryck om du vacklar!",
-    "sureReset": "Är du säker? Detta kommer att återställa din karaktärs klass och tilldelade poäng (du får tillbaka alla för att omfördela dem), och kostar 3 Juveler.",
+    "sureReset": "Är du säker? Detta kommer att återställa din karaktärs klass och fördelade poäng (du får tillbaka allt för att åter fördela dem), och det kostar 3 juveler.",
     "purchaseFor": "Köp för <%= cost %> Juveler?",
     "notEnoughMana": "Inte tillräckligt med mana.",
     "invalidTarget": "Ogiltigt mål",
@@ -160,5 +161,8 @@
     "str": "STY",
     "con": "TÅL",
     "per": "UPP",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Show stat allocation",
+    "hideQuickAllocation": "Hide stat allocation",
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
 }

@@ -34,6 +34,7 @@
     "beard": "落腮胡",
     "mustache": "八字胡",
     "flower": "花",
+    "wheelchair": "Wheelchair",
     "basicSkins": "基本肤色",
     "rainbowSkins": "彩虹肤色",
     "pastelSkins": "柔和肤色",
@@ -83,7 +84,7 @@
     "allocateInt": "分配到智力的点数",
     "allocateIntPop": "增加一点智力",
     "noMoreAllocate": "现在你已经达到了100级，你不会再获得任何属性点。你可以继续升级，或者使用 <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>重生之球</a>从1级开始新的冒险。现在重生之球在市场免费提供。",
-    "stats": "属性",
+    "stats": "角色属性及成就",
     "strength": "力量",
     "strengthText": "力量增加“暴击”的几率。暴击时，金币、经验值、和物品掉落的机会都会有所增长。它也能帮助你伤害boss。",
     "constitution": "体质",
@@ -136,7 +137,7 @@
     "respawn": "重生！",
     "youDied": "你已经死亡！",
     "dieText": "你掉了一级，失去所有的金币，和随机的一件装备。起来吧，Habit世界的居民，再接再厉！远离那些坏习惯、注意完成每日任务、并在快支撑不住的时候使用生命药水免于死亡！",
-    "sureReset": "你确定吗？这样做会重置你的职业和属性点 (他们会回到未分配的状态)，并花费3个宝石。",
+    "sureReset": "你确定吗？这将会重置你角色职业和已经分配的属性点(它们将会被返还让你重新分配)，消耗3个宝石。",
     "purchaseFor": "花费<%= cost %>宝石购买？",
     "notEnoughMana": "魔法值不足。",
     "invalidTarget": "无效的目标",
@@ -160,5 +161,8 @@
     "str": "力量",
     "con": "体质",
     "per": "感知",
-    "int": "智力"
+    "int": "智力",
+    "showQuickAllocation": "显示属性分配",
+    "hideQuickAllocation": "隐藏属性分配",
+    "quickAllocationLevelPopover": "每个等级获得一点属性点供你分配。你可以手工分配或者用一种自动分配选项让游戏帮你决定，在 玩家 -> 角色属性及成就 中选择。"
 }

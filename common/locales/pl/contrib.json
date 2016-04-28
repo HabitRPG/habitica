@@ -28,11 +28,11 @@
     "helped": "Pomógł rozwijać się Habitowi",
     "helpedText1": "Pomógł rozwinąć Habitica poprzez wypełnienie",
     "helpedText2": "tej ankiety.",
-    "hall": "Sala",
+    "hall": "Sala Bohaterów",
     "contribTitle": "Tytuł pomocnika (np. \"Kowal\")",
     "contribLevel": "Ranga pomocnika",
     "contribHallText": "1-7 dla zwykłych pomocników, 8 dla moderatorów, 9 dla pracowników. Określa które przedmioty, chowańce, oraz wierzchowce są dostępne. Wyznacza też kolor ramki z imieniem. Rangi 8 i 9 automatycznie zostają administratorami.",
-    "hallHeroes": "Sala bohaterów",
+    "hallContributors": "Sala Współtwórców",
     "hallPatrons": "Sala patronów",
     "rewardUser": "Nagrodź użytkownika",
     "UUID": "UUID",
@@ -60,5 +60,5 @@
     "blurbGuildsPage": "Gildie są grupami czatowymi zrzeszającymi graczy o wspólnych zainteresowaniach. Tworzone są przez graczy i dla graczy. Przeszukaj listę i dołącz do Gildii, które cię interesują.",
     "blurbChallenges": "Wyzwania są tworzone przez twoich współtowarzyszy. Dołączenie do wyzwania doda jego zadania do twojej tablicy, a wygranie wyzwania nagrodzi osiągnięciem, a czasami nagrodą w postaci klejnotów!",
     "blurbHallPatrons": "To jest Sala patronów, gdzie oddajemy cześć szlachetnym poszukiwaczom przygód, którzy wsparli Habitica w pierwszej zbiórce na Kickstarterze. Dziękujemy im za pomoc w powołaniu Habitiki do życia!",
-    "blurbHallHeroes": "To jest Sala bohaterów, gdzie uhonorowani zostali open-source'owi współautorzy Habitiki. Niezależnie czy za pomocą kodu, sztuki, muzyki, pisania, czy nawet tylko uczynności, zdobyli oni <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> klejnoty, ekskluzywne wyposażenie</a> oraz <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestiżowy tytuł</a>. Ty również możesz współtworzyć Habitikę! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Tutaj dowiesz się więcej. </a>"
+    "blurbHallContributors": "To jest Sala Współtwórców, gdzie uhonorowani zostali open-source'owi współtwórcy Habitiki. Czy to za pomocą kodu, sztuki, muzyki, pisania, czy jedynie uczynności, zdobyli oni <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> klejnoty, ekskluzywne wyposażenie</a> oraz <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestiżowe tytuły</a>. Ty również możesz współtworzyć Habitikę! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Tutaj dowiesz się więcej. </a>"
 }

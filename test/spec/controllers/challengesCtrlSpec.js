@@ -149,7 +149,7 @@ describe('Challenges Controller', function() {
         expect(scope.filterChallenges(notOwnNotMem)).to.eql(true);
       });
 
-      it('it filters challenges to a single group when group id filter is set', inject(function($controller) {
+      it('filters challenges to a single group when group id filter is set', inject(function($controller) {
         scope.search = { };
         scope.groups = {
           0: specHelper.newGroup({_id: 'group-one'}),

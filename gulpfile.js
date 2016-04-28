@@ -6,7 +6,7 @@
  * directory, and it will automatically be included.
  */
 
-require('babel-core/register');
+require('babel-register');
 
 if (process.env.NODE_ENV === 'production') {
   require('./tasks/gulp-newstuff');

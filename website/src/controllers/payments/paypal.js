@@ -28,7 +28,7 @@ paypal.configure({
 var parseErr = function(res, err){
   //var error = err.response ? err.response.message || err.response.details[0].issue : err;
   var error = JSON.stringify(err);
-  return res.json(400,{err:error});
+  return res.status(400).json({err:error});
 }
 
 exports.createBillingAgreement = function(req,res,next){
@@ -166,7 +166,7 @@ exports.executePayment = function(req, res) {
 exports.cancelSubscription = function(req, res, next){
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
-    return res.json(401, {err: "User does not have a plan subscription"});
+    return res.status(401).json({err: "User does not have a plan subscription"});
   async.auto({
     get_cus: function(cb){
       paypal.billingAgreement.get(user.purchased.plan.customerId, cb);
@@ -197,7 +197,7 @@ exports.cancelSubscription = function(req, res, next){
  */
 exports.ipn = function(req, res, next) {
   console.log('IPN Called');
-  res.send(200); // Must respond to PayPal IPN request with an empty 200 first
+  res.sendStatus(200); // Must respond to PayPal IPN request with an empty 200 first
   ipn.verify(req.body, function(err, msg) {
     if (err) return logger.error(msg);
     switch (req.body.txn_type) {

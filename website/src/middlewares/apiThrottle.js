@@ -4,7 +4,9 @@ var limiter = require('connect-ratelimit');
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 
 module.exports = function(app) {
-  if (!IS_PROD) return;
+  // TODO review later
+  // disable the rate limiter middleware
+  if (/*!IS_PROD || */true) return;
   app.use(limiter({
     end:false,
     categories:{
@@ -16,7 +18,7 @@ module.exports = function(app) {
     }
   })).use(function(req,res,next){
     //logging.info(res.ratelimit);
-    if (res.ratelimit.exceeded) return res.json(429,{err:'Rate limit exceeded'});
+    if (res.ratelimit.exceeded) return res.status(429).json({err:'Rate limit exceeded'});
     next();
   });
 };

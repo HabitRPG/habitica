@@ -12,7 +12,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.score = function(task, direction) {
       switch (task.type) {
           case 'reward':
-              $rootScope.playSound('Reward');
+              playRewardSound(task);
               break;
           case 'daily':
               $rootScope.playSound('Daily');
@@ -220,8 +220,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.armoire = Content.armoire;
 
     $scope.buy = function(item) {
+      playRewardSound(item);
       User.user.ops.buy({params:{key:item.key}});
-      $rootScope.playSound('Reward');
     };
 
 
@@ -250,6 +250,12 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           return false; // Because "rewards" list includes only the user's own
         case "all":
           return true;
+      }
+    }
+
+    function playRewardSound (task) {
+      if (task.value <= User.user.stats.gp){
+        $rootScope.playSound('Reward');
       }
     }
   }]);

@@ -216,7 +216,7 @@ habitrpg.controller("InventoryCtrl",
       var questArray = _.toArray(Content.quests);
 
       var filteredArray = _.filter(questArray, function(q){
-        return q.key.indexOf('evilsanta') !== -1;
+        return q.key === ('egg');
       });
 
       return filteredArray;

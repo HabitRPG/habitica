@@ -83,7 +83,6 @@ script(id='modals/achievements/beastMaster.html', type='text/ng-template')
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
     +achievementFooter
 
-
 // Mount Master
 script(id='modals/achievements/mountMaster.html', type='text/ng-template')
   .modal-content(style='min-width:28em')
@@ -129,6 +128,28 @@ script(id='modals/achievements/rebirth.html', type='text/ng-template')
         =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
       div(ng-if='user.achievements.rebirthLevel >= 100')
         =env.t('rebirthAchievement100', {number: "{{user.achievements.rebirths}}"})
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
+
+// Party Up
+script(id='modals/achievements/partyUp.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('partyUp',0)
+      p=env.t('partyUpAchievement')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
+
+// Party On
+script(id='modals/achievements/partyOn.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('partyOn',0)
+      p=env.t('partyOnAchievement')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
     +achievementFooter

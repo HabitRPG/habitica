@@ -1,5 +1,5 @@
 {
-    "tavern": "Taberna",
+    "tavern": "Chat de la Taberna",
     "innCheckOut": "Dejar la Posada",
     "innCheckIn": "Descansar en la Posada",
     "innText": "¡Estás descansando en la Posada! Mientras sigas en ella, tus tareas diarias no te causarán daños al final del día, pero seguirán restableciéndose cada día. Por otra parte, ten cuidado: si estás participando en alguna misión contra un jefe, el jefe seguirá haciéndote daño cuando tus compañeros de grupo no cumplan sus tareas diarias, a menos que ellos también estén en la Posada. Además, el daño que provoques al jefe (o los objetos que recopiles) no tendrá efecto hasta que salgas de la Posada.",
@@ -101,7 +101,7 @@
     "inbox": "Bandeja de entrada",
     "abuseFlag": "Notificación de violación de las normas de la comunidad",
     "abuseFlagModalHeading": "¿Notificar a <%= name %> por infracción?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to: <p></p></br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Estás seguro/a de que quieres denunciar este mensaje? SOLO deberías denunciar un mensaje que viole las <%= firstLinkStart %> Normas de la Comunidad <%= linkEnd %> y/o los <%= secondLinkStart %> Términos de Servicio <%= linkEnd %>. Denunciar inapropiadamente  un mensaje es una violación de las Normas de la Comunidad y puede provocarte una infracción. Razones apropiadas para señalar un mensaje incluyen pero no están limitadas a:<br><br><ul style='margin-left: 10px;'><li> insultar, juramentos religiosos</li><li>fanatismo, farfullar</li><li>temas adultos</li><li>violencia, incluso en bromas</li><li>spam, mensajes sin sentido</li></ul>.",
     "abuseFlagModalButton": "Informar de una infracción",
     "abuseReported": "Gracias por notificar esta infracción. Los moderadores han sido informados.",
     "abuseAlreadyReported": "Ya has notificado este mensaje.",
@@ -134,7 +134,7 @@
     "sendGiftSubscription": "<%= months %> Mes(es): $<%= price %> USD",
     "battleWithFriends": "Combate monstruos con amigos",
     "startPartyWithFriends": "¡Forma un grupo con tus amigos!",
-    "startAParty": "Introduce un Grupo",
+    "startAParty": "Crear un Grupo",
     "addToParty": "Añade alguien a tu grupo",
     "likePost": "¡Haz clic aquí si te gusta esta publicación!",
     "partyExplanation1": "¡Juega a Habitica con tus amigos y aprende a ser responsable!",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "El chat de este grupo está vacío. Escribe un mensaje en el cuadro de arriba para romper el hielo.",
     "guildChatEmpty": "El chat de este gremio está vacío. Escribe un mensaje en el cuadro de arriba para empezar una conversación.",
     "possessiveParty": "Grupo de <%= name %>",
-    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de algún grupo o gremio, lee primero las <%= linkStart %>Normas de la Comunidad<%= linkEnd %> y, a continuación, haz clic en el botón de abajo para indicar que las aceptas."
+    "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de algún grupo o gremio, lee primero las <%= linkStart %>Normas de la Comunidad<%= linkEnd %> y, a continuación, haz clic en el botón de abajo para indicar que las aceptas.",
+    "partyUpName": "¡Ese grupo!",
+    "partyOnName": "¡Toma grupo!",
+    "partyUpAchievement": "Se unió a un grupo con otra persona. Pasadlo bien luchando contra monstruos y apoyándoos mutuamente.",
+    "partyOnAchievement": "Se unió a un grupo con cuatro personas o más. Disfrutad de lo responsables que sois entre todos y venced a vuestros enemigos con la ayuda de vuestros amigos."
 }

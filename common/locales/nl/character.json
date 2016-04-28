@@ -1,7 +1,7 @@
 {
     "statsAch": "Statistieken en prestaties",
     "profile": "Profiel",
-    "avatar": "Avatar",
+    "avatar": "Avatar aanpassen",
     "other": "Overige",
     "fullName": "Volledige naam",
     "displayName": "Weergegeven naam",
@@ -34,6 +34,7 @@
     "beard": "Baard",
     "mustache": "Snor",
     "flower": "Bloem",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Basishuidskleuren",
     "rainbowSkins": "Regenbooghuidskleuren",
     "pastelSkins": "Pastelhuidskleuren",
@@ -83,7 +84,7 @@
     "allocateInt": "Punten toegewezen aan Intelligentie:",
     "allocateIntPop": "Voeg punt toe aan Intelligentie",
     "noMoreAllocate": "Nu je niveau 100 bent, verdien je geen nieuwe eigenschapspunten meer. Je kunt doorgaan met hogere niveaus bereiken of een nieuw avontuur beginnen vanaf niveau 1 door de <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Bol der Hergeboorte</a> te gebruiken. Deze is nu gratis te krijgen op de markt.",
-    "stats": "Statistieken",
+    "stats": "Statistieken avatar",
     "strength": "Kracht",
     "strengthText": "Kracht verhoogt de kans op willekeurige \"voltreffers\" en de extra goud, ervaringspunten, en vondstkans van deze voltreffers. Het helpt ook schade toe te brengen aan eindbazen.",
     "constitution": "Lichaam",
@@ -136,7 +137,7 @@
     "respawn": "Herrijs!",
     "youDied": "Je bent doodgegaan!",
     "dieText": "Je hebt een niveau, al je goud, en een willekeurig onderdeel van je uitrusting verloren. Herrijs, Habiteer, en probeer het opnieuw! Bedwing die slechte gewoontes, let erop je Dagelijkse Taken bij te houden, en houd de dood van je af met een Gezondheidsdrankje als je wankelt!",
-    "sureReset": "Weet je het zeker? Dit reset de klasse van je personage en je toegewezen ervaringspunten punten (je krijgt ze allemaal terug om opnieuw toe te wijzen), en het kost 3 edelstenen",
+    "sureReset": "Weet je het zeker? Dit zal je karakters klasse en toegewezen punten resetten (je krijgt ze allemaal terug om opnieuw toe te wijzen) en kost 3 edelstenen.",
     "purchaseFor": "Kopen voor <%= cost %> edelstenen?",
     "notEnoughMana": "Niet genoeg mana.",
     "invalidTarget": "Ongeldig doel",
@@ -160,5 +161,8 @@
     "str": "KRA",
     "con": "LIC",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Toon verdeling eigenschapspunten",
+    "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
+    "quickAllocationLevelPopover": "Met ieder level verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker."
 }

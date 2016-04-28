@@ -12,7 +12,7 @@
     "rebirthInList2": "La afiliación a Desafíos, Gremios y Equipos permanece.",
     "rebirthInList3": "Las Gemas, los niveles de sponsor y los niveles de colaborador permanecen.",
     "rebirthInList4": "Los objetos conseguidos con Gemas o como botines (como mascotas y monturas) permanecen, pero no tienes acceso hasta que los desbloquees.",
-    "rebirthInList5": "Limited edition equipment you've purchased can be repurchased, even if its event has ended. To repurchase class-specific equipment, you must first change to the correct class.",
+    "rebirthInList5": "El equipamiento de edición limitada que compraste se puede comprar de nuevo, incluso si su evento ya finalizó. Para volver a comprar equipamiento específico de clase, primero debes cambiarte a la clase correcta.",
     "rebirthEarnAchievement": "¡También recibirás un Logro por haber empezado una nueva aventura!",
     "beReborn": "Renacer",
     "rebirthAchievement": "¡Has comenzado una nueva aventura! Éste es tu Renacimiento número <%= number %>, y el Nivel más alto que has alcanzado es <%= level %>. Para acumular este Logro, ¡empieza tu aventura siguiente después de haber conseguido un nivel aún más alto!",

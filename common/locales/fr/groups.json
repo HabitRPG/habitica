@@ -1,9 +1,9 @@
 {
-    "tavern": "Taverne",
+    "tavern": "Discussion de la Taverne",
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
     "innText": "Vous êtes installé à l'Auberge ! Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours. Attention : si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Equipe, sauf s'ils séjournent aussi à l'Auberge ! Et vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge.",
-    "innTextBroken": "Vous êtes installé à l'Auberge, je suppose... Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours... Si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Équipe... sauf s'ils séjournent aussi à l'Auberge... De plus, vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge... si fatigué...",
+    "innTextBroken": "Vous êtes installé à l'Auberge, je suppose... Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours... Si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les membres de votre Équipe... sauf s'ils séjournent aussi à l'Auberge... De plus, vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge... si fatigué...",
     "lfgPosts": "Sujets de recherche de Groupe (Recherche d'Équipe)",
     "tutorial": "Tutoriel",
     "glossary": "Glossaire",
@@ -101,7 +101,7 @@
     "inbox": "Boîte de Réception",
     "abuseFlag": "Signaler une infraction aux Règles de la Communauté",
     "abuseFlagModalHeading": "Signaler <%= name %> pour infraction ?",
-    "abuseFlagModalBody": "Êtes-vous sûr de vouloir signaler cette publication? Vous devez signaler UNIQUEMENT celles qui enfreignent les <%= firstLinkStart %>Règles de la Communauté<%= linkEnd %> et/ou les<%= secondLinkStart %>Conditions Générales<%= linkEnd %>. Le signalement inapproprié d'une publication est une violation des Règles de la Communauté et peut vous affecter d'une infraction. Les raisons appropriées pour signaler une publication incluent mais ne sont pas limitée à: <p></p></br><ul style='margin-left: 10px;'><li> jurer, serments religieux</li><li>bigoterie, insultes</li><li>sujets adultes</li><li>violence, également en tant que blague</li><li>spam, messages absurdes</li></ul>",
+    "abuseFlagModalBody": "Êtes vous sûr de vouloir signaler ce post ? Vous ne devez reporter UNIQUEMENT les posts qui sont contraîre les <%= firstLinkStart %>Règles de la Communauté<%= linkEnd %> et/ou les <%= secondLinkStart %>Conditions Générales d'Utilisation <%= linkEnd%>. Signaler inutilement un post est une violation des Règles de la Communauté et peux vous faire recevoir un avertissement. Les raisons qui justifient le signalement d'un post incluent mais ne se limitent pas : <br><br><ul style='margin-left: 10px;'><li>aux insultes ou la diffamation</li><li>à l'intolérance ou propos à caractères religieux</li><li>aux sujets 'réservés aux adultes'</li><li>à la violence, même sous forme de plaisanterie</li><li>au spamming et aux messages incompréhensibles ou volontairement sans aucun sens</li></ul>",
     "abuseFlagModalButton": "Signaler une infraction",
     "abuseReported": "Merci d'avoir signalé cette infraction. Les modérateurs en ont été informé.",
     "abuseAlreadyReported": "Vous avez déjà signalé ce message.",
@@ -131,7 +131,7 @@
     "sendGiftFromBalance": "Offrir vos propres Gemmes",
     "sendGiftPurchase": "Acheter les Gemmes",
     "sendGiftMessagePlaceholder": "Message personnel (facultatif)",
-    "sendGiftSubscription": "<%= months %> Mois : €<%= price %> EUR",
+    "sendGiftSubscription": "<%= months %> Mois : <%= price %>$ USD",
     "battleWithFriends": "Combattez des Monstres aux côtés d'Amis",
     "startPartyWithFriends": "Créez une équipe avec vos amis !",
     "startAParty": "Former une Equipe",
@@ -147,5 +147,9 @@
     "partyChatEmpty": "Votre discussion d'équipe est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
     "guildChatEmpty": "La discussion de cette guilde est vide ! Écrivez un message dans le champ ci-dessus pour commencer la discussion.",
     "possessiveParty": "Équipe de <%= name %>",
-    "requestAcceptGuidelines": "Si vous souhaitez envoyer des messages dans la Taverne ou dans le chat d'une équipe ou d'une guilde, veuillez d'abord s'il vous plait lire nos <%= linkStart %>Règles de Vie en Communauté<%= linkEnd %> et cliquez sur le bouton ci-dessous pour indiquer que vous les acceptez."
+    "requestAcceptGuidelines": "Si vous souhaitez envoyer des messages dans la Taverne ou dans le chat d'une équipe ou d'une guilde, veuillez d'abord s'il vous plait lire nos <%= linkStart %>Règles de Vie en Communauté<%= linkEnd %> et cliquez sur le bouton ci-dessous pour indiquer que vous les acceptez.",
+    "partyUpName": "Une joyeuse équipe",
+    "partyOnName": "Une équipe festive",
+    "partyUpAchievement": "A rejoint une équipe avec une autre personne ! Amusez vous à combattre des monstres et à vous encourager.",
+    "partyOnAchievement": "A rejoint une équipe d'au moins quatre personnes ! Profitez de votre plus grande responsabilité en vous regroupant avec vos amis pour vaincre vos ennemis !"
 }

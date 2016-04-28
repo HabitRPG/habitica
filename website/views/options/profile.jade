@@ -68,6 +68,13 @@ mixin customizeProfile(mobile)
             popover-placement='right', popover-append-to-body='true',
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
 
+        // Wheelchair
+        li.customize-menu
+          menu(label=env.t('wheelchair'))
+            button.customize-option(ng-repeat='item in ::["black"]', class='button_chair_{{::item}}',
+              ng-class="{selectableInventory: user.preferences.chair == item}",
+              ng-click='user.preferences.chair != item ? set({"preferences.chair":item}) : set({"preferences.chair":"none"})')
+
     .col-md-4
         h3(class=mobile?'item item-divider':'')=env.t('bodyHead')
         menu(type='list')
@@ -83,7 +90,7 @@ mixin customizeProfile(mobile)
               each color in ['pblue','pgreen','porange','ppink','ppurple','pyellow']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")', ng-class='{selectableInventory: user.preferences.hair.color == "#{color}"}')
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
-          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors', 'disabled')
+          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors')
           +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
           +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors', 'disabled')
 
@@ -150,7 +157,7 @@ mixin customizeProfile(mobile)
           +buyPref('skin', ['bear','cactus','fox','lion','panda','pig','tiger','wolf'], 'animalSkins')
 
           // Seasonal event skins. Note that Spooky Skins are a legacy set and should always be disabled for purchase
-          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
+          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins')
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
           +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
           +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins', 'disabled')
@@ -207,22 +214,7 @@ mixin profileStats
                       span.glyphicon.glyphicon-download
                       |&nbsp;
                       =env.t('distributePoints')
-            tr
-              td= env.t('allocateStr') + ' {{user.stats.str}}'
-              td
-                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateStrPop')) +
-            tr
-              td= env.t('allocateInt') + ' {{user.stats.int}}'
-              td
-                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateIntPop')) +
-            tr
-              td= env.t('allocateCon') + ' {{user.stats.con}}'
-              td
-                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateConPop')) +
-            tr
-              td= env.t('allocatePer') + ' {{user.stats.per}}'
-              td
-                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocatePerPop')) +
+            +statAllocation
 
 
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
@@ -264,8 +256,9 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
         //{{profile.profile.blurb | linky:'_blank'}}
 
       form.col-md-4(ng-show='_editing.profile', ng-submit='save()')
+        .alert.alert-info.alert-sm
+          !=env.t("communityGuidelinesWarning")
         input.btn.btn-primary(type='submit', value=env.t('save'))
-
         // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
         .form-group
           label=env.t('displayName')

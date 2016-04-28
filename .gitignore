@@ -1,6 +1,8 @@
 .DS_Store
 website/public/gen
 website/public/common
+website/transpiled-babel/
+common/transpiled-babel/
 node_modules
 *.swp
 .idea*
@@ -28,6 +30,10 @@ coverage
 coverage.html
 common/dist/scripts/*
 common/dist/sprites/habitrpg-shared.css
-.elasticbeanstalk/config.yml
 
 test/spec/mocks/translations.js
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

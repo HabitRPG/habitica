@@ -2,6 +2,9 @@
 
 habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social',
     function($rootScope,$scope,Groups,Chat,User,Challenges,$state,$compile,Analytics,Quests,Social) {
+
+      var user = User.user;
+
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
@@ -11,6 +14,20 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       if ($state.is('options.social.party')) {
         $scope.group.$syncParty(); // Sync party automatically when navigating to party page
+
+        // Checks if user's party has reached 2 players for the first time.
+        if(!user.achievements.partyUp
+            && $scope.group.memberCount >= 2) {
+          User.set({'achievements.partyUp':true});
+          $rootScope.openModal('achievements/partyUp', {controller:'UserCtrl', size:'sm'});
+        }
+
+        // Checks if user's party has reached 4 players for the first time.
+        if(!user.achievements.partyOn
+            && $scope.group.memberCount >= 4) {
+          User.set({'achievements.partyOn':true});
+          $rootScope.openModal('achievements/partyOn', {controller:'UserCtrl', size:'sm'});
+        }
       }
 
       Chat.seenMessage($scope.group._id);
@@ -50,7 +67,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.clickLeave = function(group, $event){
           Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
           $scope.selectedGroup = group;
-          $scope.popoverEl = $($event.target);
+          $scope.popoverEl = $($event.target).closest('.btn');
           var html, title;
           Challenges.Challenge.query(function(challenges) {
               challenges = _.pluck(_.filter(challenges, function(c) {

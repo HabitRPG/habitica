@@ -1,7 +1,7 @@
 {
     "statsAch": "Estatísticas & Conquistas",
     "profile": "Perfil",
-    "avatar": "Avatar",
+    "avatar": "Personalizar Avatar",
     "other": "Outros",
     "fullName": "Nome Completo",
     "displayName": "Nome de Exibição",
@@ -34,6 +34,7 @@
     "beard": "Barba",
     "mustache": "Bigode",
     "flower": "Flor",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Peles Básicas",
     "rainbowSkins": "Peles de Arco-Íris",
     "pastelSkins": "Peles em Tons Pastel",
@@ -83,7 +84,7 @@
     "allocateInt": "Pontos distribuídos em Inteligência:",
     "allocateIntPop": "Adicionar um ponto em Inteligência",
     "noMoreAllocate": "Agora que você chegou no nível 100, não receberá mais Pontos de Atributo. Você pode continuar subindo de nível ou começar uma nova aventura no nível 1 usando um <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe do Renascimento</a>, agora disponível de graça no Mercado.",
-    "stats": "Estatísticas",
+    "stats": "Status do Avatar",
     "strength": "Força",
     "strengthText": "Força aumenta a chance de \"golpes críticos\" aleatórios e o bônus de Ouro, Experiência e chance de drop. Também ajuda a causar dano aos chefões.",
     "constitution": "Constituição",
@@ -136,7 +137,7 @@
     "respawn": "Reviver!",
     "youDied": "Você Morreu!",
     "dieText": "Você perdeu um nível, todo seu Ouro, e uma peça aleatória de Equipamento. Erga-se, Habiteer, e tente novamente! Acabe com esses Hábitos negativos, esteja atento a realização de suas Tarefas Diárias, e afaste a morte com uma Poção de Vida caso vacilar!",
-    "sureReset": "Tem certeza? Isso reiniciará a classe e os pontos distribuídos (você os receberá de volta para redistribuí-los) do seu personagem, e custa 3 gemas",
+    "sureReset": "Você tem certeza? Isso irá reiniciar a classe do seu personagem e os pontos distribuídos (você receberá eles de volta para redistribuir) e custará 3 gemas.",
     "purchaseFor": "Comprar por <%= cost %> Gemas?",
     "notEnoughMana": "Mana insuficiente.",
     "invalidTarget": "Alvo inválido",
@@ -160,5 +161,8 @@
     "str": "FOR",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Mostrar distribuição de status",
+    "hideQuickAllocation": "Esconder distribuição de status",
+    "quickAllocationLevelPopover": "Cada nível concederá a você um ponto para distribuir em um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Status do Avatar."
 }

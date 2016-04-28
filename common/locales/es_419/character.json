@@ -1,10 +1,10 @@
 {
     "statsAch": "Estadísticas y Logros",
     "profile": "Perfil",
-    "avatar": "Avatar",
+    "avatar": "Personalizar Avatar",
     "other": "Otro",
     "fullName": "Nombre completo",
-    "displayName": "Nombre de usuario",
+    "displayName": "Nombre para mostrar",
     "displayPhoto": "Foto",
     "displayBlurb": "Sobre mí",
     "displayBlurbPlaceholder": "Por favor, preséntate",
@@ -34,6 +34,7 @@
     "beard": "Barba",
     "mustache": "Bigote",
     "flower": "Flor",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Pieles básicas",
     "rainbowSkins": "Pieles arco iris",
     "pastelSkins": "Pieles pastel",
@@ -83,7 +84,7 @@
     "allocateInt": "Puntos asignados a Inteligencia:",
     "allocateIntPop": "Añadir un punto a Inteligencia",
     "noMoreAllocate": "Ahora que has alcanzado el nivel 100, ya no ganarás más Puntos de Atributo. Puedes seguir subiendo de nivel, o empezar una nueva aventura desde el nivel 1 utilizando la <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Esfera de Renacimiento</a>, que ahora se encuentra disponible gratuitamente en el Mercado.",
-    "stats": "Estadísticas",
+    "stats": "Estadísticas del Avatar",
     "strength": "Fuerza",
     "strengthText": "La Fuerza aumenta la probabilidad de conseguir \"golpes críticos\" aleatorios y el Oro, la Experiencia y la probabilidad de conseguir botín al asestarlos. También ayuda a hacer daño a los monstruos jefe.",
     "constitution": "Constitución",
@@ -136,7 +137,7 @@
     "respawn": "¡Reaparecer!",
     "youDied": "¡Has muerto!",
     "dieText": "Has perdido un Nivel, todo tu Oro, y una pieza de Equipamiento al azar. ¡Levántate Habitero e inténtalo otra vez! ¡Domina esos Hábitos negativos, mantente atento para cumplir las Diarias y mantén a la muerte a raya con una Poción de Salud cuando flaqueas!",
-    "sureReset": "¿Estás seguro? Esto reiniciará la clase de tu personaje y los puntos que hayas asignado (los recibirás todos para reasignarlos) y cuesta 3 gemas.",
+    "sureReset": "¿Estás seguro? Esto reiniciará la clase de tu personaje y los puntos que hayas asignado (los recuperarás todos para reasignarlos), y cuesta 3 gemas.",
     "purchaseFor": "¿Comprar por <%= cost %> Gemas?",
     "notEnoughMana": "No tienes maná suficiente.",
     "invalidTarget": "Objetivo inválido",
@@ -160,5 +161,8 @@
     "str": "FUE",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Mostrar asignación de estadísticas",
+    "hideQuickAllocation": "Ocultar asignación de estadísticas",
+    "quickAllocationLevelPopover": "Con cada nivel consigues un punto para asignar a un atributo de tu elección. Lo puedes asignar manualmente o dejar que el juego decida por ti usando una de las opciones de Asignación Automática que se encuentran en Usuario -> Estadísticas."
 }

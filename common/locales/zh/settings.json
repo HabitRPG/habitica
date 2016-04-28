@@ -102,7 +102,7 @@
     "invitedParty": "队伍邀请",
     "invitedGuild": "公会邀请",
     "importantAnnouncements": "你的账号处于失效状态",
-    "weeklyRecaps": "过去几周内你账户活动的总结",
+    "weeklyRecaps": "过去一周内你的活跃账号总结 (注意: 由于性能的问题，当前不可用，但我们希望有一个备份并很快再次发送电子邮件！)",
     "questStarted": "你的任务已经开始",
     "invitedQuest": "任务邀请",
     "kickedGroup": "从小组踢出",
@@ -140,7 +140,7 @@
     "mysticHourglass": "<%= amount %> 个神秘沙漏",
     "mysticHourglassText": "神秘沙漏能让你购买几个月之前的神秘道具套装。",
     "purchasedPlanId": "每<%= months %>月充值<%= price %>美元(<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
+    "purchasedPlanExtraMonths": "你有 <%= months %> 个月的临时订阅者资格",
     "consecutiveSubscription": "连续捐助",
     "consecutiveMonths": "持续的月份：",
     "gemCapExtra": "宝石额外上限：",
@@ -149,5 +149,5 @@
     "amazonPayments": "亚马逊支付",
     "timezone": "时区",
     "timezoneUTC": "Habitica直接引用你电脑上的时区设置：<strong><%= utc %></strong>",
-    "timezoneInfo": "如果这个时区显示错误，首先让你的网页浏览器刷新页面，保证Habitica有最新的信息。如果依旧错误，在你的电脑上调节时区设置，并再次刷新页面。<br><br><strong>如果你在其他电脑或移动设备上使用Habitica，所有时区必须保持一致。</strong>如果你的每日任务在错误的世界重置，请在所有的电脑或移动设备上检查这项设置。"
+    "timezoneInfo": "如果这个时区显示错误，首先让你的网页浏览器刷新页面，保证Habitica有最新的信息。如果依旧错误，在你的电脑上调节时区设置，并再次刷新页面。<br><br><strong>如果你在其他电脑或移动设备上使用Habitica，所有时区必须保持一致。</strong>如果你的每日任务在错误的时间重置，请在所有的电脑或移动设备上检查这项设置。"
 }

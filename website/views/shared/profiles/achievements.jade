@@ -87,6 +87,20 @@ div(ng-if='(user._id == profile._id) || #{ultimateGearCheck}')
           =env.t('warrior')
   hr
 
+div(ng-if='::profile.achievements.partyUp || user._id == profile._id')
+  .achievement.achievement-partyUp(ng-if='::profile.achievements.partyUp')
+  div(ng-class='::{muted: !profile.achievements.partyUp}')
+    h5=env.t('partyUpName')
+    small=env.t('partyUpAchievement')
+  hr
+
+div(ng-if='::profile.achievements.partyOn || user._id == profile._id')
+  .achievement.achievement-partyOn(ng-if='::profile.achievements.partyOn')
+  div(ng-class='::{muted: !profile.achievements.partyOn}')
+    h5=env.t('partyOnName')
+    small=env.t('partyOnAchievement')
+  hr
+
 div(ng-if='::profile.achievements.beastMaster || user._id == profile._id')
   .achievement.achievement-rat(ng-if='::profile.achievements.beastMaster')
   div(ng-class='::{muted: !profile.achievements.beastMaster}')
@@ -149,7 +163,7 @@ div(ng-if='::profile.achievements.challenges.length || user._id == profile._id')
     h5=env.t('challengeWinner')
     table.table.table-striped
       tr(ng-repeat='chal in profile.achievements.challenges track by $index')
-        td {{::chal}}
+        td: markdown(text='::chal')
   hr
 
 div(ng-if='::profile.achievements.quests || user._id == profile._id')
@@ -227,6 +241,13 @@ div(ng-if='::profile.achievements.quests.burnout')
   h5=env.t('achievementBurnout')
   small
     =env.t('achievementBurnoutText')
+  hr
+
+div(ng-if='::profile.achievements.quests.bewilder')
+  .achievement.achievement-bewilder
+  h5=env.t('achievementBewilder')
+  small
+    =env.t('achievementBewilderText')
   hr
 
 div(ng-if='::profile.achievements.costumeContests')

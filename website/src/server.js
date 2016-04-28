@@ -1,4 +1,6 @@
-require('babel-core/register');
+if (process.env.NODE_ENV !== 'production') {
+  require('babel-register');
+}
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require("cluster");
 var _ = require('lodash');
@@ -10,10 +12,13 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 var DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
 var cores = +nconf.get("WEB_CONCURRENCY") || 0;
+var moment = require('moment');
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
-  _.times(cores, cluster.fork);
+  _.times(cores, function () {
+    cluster.fork();
+  });
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
@@ -22,6 +27,14 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
 } else {
   var express = require("express");
+  var bodyParser = require('body-parser');
+  var session = require('cookie-session');
+  var logger = require('morgan');
+  var compression = require('compression');
+  var favicon = require('serve-favicon');
+
+  var BODY_PARSER_LIMIT = '1mb';
+
   var http = require("http");
   var path = require("path");
   var swagger = require("swagger-node-express");
@@ -97,8 +110,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var oldApp = express(); // api v1 and v2, and not scoped routes
   var newApp = express(); // api v3
 
-  // Route requests to the right app
-  app.use(app.router);
   // Matches all request except the ones going to /api/v3/**
   app.all(/^(?!\/api\/v3).+/i, oldApp);
   // Matches all requests going to /api/v3
@@ -106,33 +117,37 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
   require('./middlewares/apiThrottle')(oldApp);
   oldApp.use(require('./middlewares/domain')(server,mongoose));
-  if (!isProd && !DISABLE_LOGGING) oldApp.use(express.logger("dev"));
-  oldApp.use(express.compress());
+  if (!isProd && !DISABLE_LOGGING) oldApp.use(logger("dev"));
+  oldApp.use(compression());
   oldApp.set("views", __dirname + "/../views");
   oldApp.set("view engine", "jade");
-  oldApp.use(express.favicon(publicDir + '/favicon.ico'));
+  oldApp.use(favicon(publicDir + '/favicon.ico'));
   oldApp.use(require('./middlewares/cors'));
 
   var redirects = require('./middlewares/redirects');
   oldApp.use(redirects.forceHabitica);
   oldApp.use(redirects.forceSSL);
-  oldApp.use(express.urlencoded());
-  oldApp.use(express.json());
+  oldApp.use(bodyParser.urlencoded({
+    extended: true,
+    limit: BODY_PARSER_LIMIT,
+  }));
+  oldApp.use(bodyParser.json({
+    limit: BODY_PARSER_LIMIT,
+  }));
   oldApp.use(require('method-override')());
-  //oldApp.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-  oldApp.use(express.cookieParser());
-  oldApp.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
-  //oldApp.use(express.session());
+  oldApp.use(session({
+    name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
+    secret: nconf.get('SESSION_SECRET'),
+    httpOnly: false,
+    maxAge: TWO_WEEKS
+  }));
 
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   oldApp.use(passport.initialize());
   oldApp.use(passport.session());
 
-  oldApp.use(oldApp.router);
-
   var maxAge = isProd ? 31536000000 : 0;
-  // Cache emojis without copying them to build, they are too many
   oldApp.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
   oldApp.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
   oldApp.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
@@ -141,15 +156,15 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   oldApp.use(express['static'](publicDir));
 
   // Custom Directives
-  oldApp.use(require('./routes/pages').middleware);
-  oldApp.use(require('./routes/payments').middleware);
-  oldApp.use(require('./routes/api-v2/auth').middleware);
-  oldApp.use(require('./routes/api-v2/coupon').middleware);
-  oldApp.use(require('./routes/api-v2/unsubscription').middleware);
+  oldApp.use('/', require('./routes/pages'));
+  oldApp.use('/', require('./routes/payments'));
+  oldApp.use('/', require('./routes/api-v2/auth'));
+  oldApp.use('/', require('./routes/api-v2/coupon'));
+  oldApp.use('/', require('./routes/api-v2/unsubscription'));
   var v2 = express();
   oldApp.use('/api/v2', v2);
-  oldApp.use('/api/v1', require('./routes/api-v1').middleware);
-  oldApp.use('/export', require('./routes/dataexport').middleware);
+  oldApp.use('/api/', require('./routes/api-v1'));
+  oldApp.use('/export', require('./routes/dataexport'));
   require('./routes/api-v2/swagger')(swagger, v2);
   oldApp.use(require('./middlewares/errorHandler'));
 

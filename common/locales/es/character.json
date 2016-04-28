@@ -1,7 +1,7 @@
 {
     "statsAch": "Estadísticas y Logros",
     "profile": "Perfil",
-    "avatar": "Avatar",
+    "avatar": "Personalizar avatar",
     "other": "Otro",
     "fullName": "Nombre Completo",
     "displayName": "Nombre de Usuario",
@@ -34,6 +34,7 @@
     "beard": "Barba",
     "mustache": "Bigote",
     "flower": "Flor",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Pieles Básicas",
     "rainbowSkins": "Pieles Arcoiris",
     "pastelSkins": "Pieles pastel",
@@ -83,7 +84,7 @@
     "allocateInt": "Puntos asignados a Inteligencia:",
     "allocateIntPop": "Añadir un punto a Inteligencia",
     "noMoreAllocate": "Ahora que has alcanzado el nivel 100, no ganarás más puntos de atributo. Puedes seguir subiendo de nivel o empezar una nueva aventura desde el nivel 1 con la <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de renacimiento</a>, ya disponible gratis en el Mercado.",
-    "stats": "Estadísticas",
+    "stats": "Atributos del avatar",
     "strength": "Fuerza",
     "strengthText": "La fuerza aumenta la probabilidad de conseguir «golpes críticos» aleatorios y el Oro, la Experiencia y la probabilidad de conseguir botín al asestarlos. También ayuda a hacer daño a los monstruos jefe.",
     "constitution": "Constitución",
@@ -136,7 +137,7 @@
     "respawn": "¡Reaparecer!",
     "youDied": "¡Has muerto!",
     "dieText": "Has perdido un Nivel, todo tu Oro y una pieza de equipamiento al azar. ¡Levántate Habiteer e inténtalo otra vez! ¡Ataca esos Hábitos negativos, mantente atento para cumplir las tareas Diarias y mantén a la muerte a raya con una Poción de Salud cuando falles!",
-    "sureReset": "¿Estás seguro? Esto deshará la clase de tu personaje y los puntos que hayas asignado (los recibirás todos nuevamente), cuesta 3 gemas.",
+    "sureReset": "¿Seguro? Se restablecerán la clase y los puntos asignados a tu personaje (que recuperarás y podrás volver a asignar), y te costará 3 gemas.",
     "purchaseFor": "¿Comprar por  <%= cost %> Gemas?",
     "notEnoughMana": "No hay suficiente Maná.",
     "invalidTarget": "Objetivo inválido",
@@ -160,5 +161,8 @@
     "str": "FUE",
     "con": "CON",
     "per": "PER",
-    "int": "INT"
+    "int": "INT",
+    "showQuickAllocation": "Mostrar asignación de puntos",
+    "hideQuickAllocation": "Ocultar asignación de puntos",
+    "quickAllocationLevelPopover": "Con cada nivel, ganas un punto que puedes asignar al atributo que elijas. Puedes hacerlo de forma manual o dejar que el juego decida por ti con una de las opciones de asignación automática que encontrarás en Usuario -> Estadísticas."
 }

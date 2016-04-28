@@ -8,15 +8,16 @@ var request = require('request');
 var isProd, baseUrl;
 
 module.exports.sendEmail = function(mailData) {
-  var smtpTransport = nodemailer.createTransport("SMTP",{
+  var smtpTransport = nodemailer.createTransport({
     service: nconf.get('SMTP_SERVICE'),
     auth: {
       user: nconf.get('SMTP_USER'),
       pass: nconf.get('SMTP_PASS')
     }
   });
+
   smtpTransport.sendMail(mailData, function(error, response){
-      var logging = require('./logging');
+    var logging = require('./logging');
     if(error) logging.error(error);
     else logging.info("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
@@ -174,8 +175,8 @@ module.exports.setupConfig = function(){
 
   if (nconf.get('NODE_ENV') === "development")
     Error.stackTraceLimit = Infinity;
-  //if (nconf.get('NODE_ENV') === 'production')
-    //require('newrelic');
+  if (nconf.get('NODE_ENV') === 'production' && nconf.get('NEW_RELIC_ENABLED') === 'true')
+    require('newrelic');
 
   isProd = nconf.get('NODE_ENV') === 'production';
   baseUrl = nconf.get('BASE_URL');
