@@ -13,9 +13,9 @@ describe('payments - stripe - #subscribeEdit', () => {
 
   it('verifies credentials', async () => {
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('missingAuthHeaders'),
+      code: 400,
+      error: 'BadRequest',
+      message: t('missingSubscription'),
     });
   });
 });
