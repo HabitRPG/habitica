@@ -94,10 +94,10 @@ angular.module('habitrpg')
       });
     };
 
-    Group.startQuest = function(gid) {
+    Group.startQuest = function(gid, key) {
       return $http({
         method: "POST",
-        url: groupApiURLPrefix + '/' + gid + '/questAccept',
+        url: groupApiURLPrefix + '/' + gid + '/quests/invite/' + key,
       });
     };
 

@@ -1,25 +1,16 @@
 'use strict';
 
-(function(){
-  angular
-    .module('habitrpg')
-    .factory('Quests', questsFactory);
-
-  questsFactory.$inject = [
-    '$http',
-    '$state',
-    '$q',
-    'ApiUrl',
-    'Content',
-    'Groups',
-    'User',
-    'Analytics'
-  ];
-
+angular.module('habitrpg')
+.factory('Quests', ['$http', '$state','$q', 'ApiUrl', 'Content', 'Groups', 'User', 'Analytics',
   function questsFactory($http, $state, $q, ApiUrl, Content, Groups, User, Analytics) {
 
     var user = User.user;
-    var party = Groups.party();
+    var party;
+
+    Groups.party()
+      .then(function (partyFound) {
+        party = partyFound;
+      });
 
     function lockQuest(quest,ignoreLevel) {
       if (!ignoreLevel){
@@ -106,20 +97,20 @@
 
     function initQuest(key) {
       return $q(function(resolve, reject) {
-        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName': key});
-        Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
-        party.$startQuest({key:key}, function(){
-          party.$syncParty();
-          $state.go('options.social.party');
-          resolve();
-        });
+        Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'quest', 'owner':true, 'response':'accept', 'questName': key});
+        Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
+        Groups.Group.startQuest(party._id, key)
+          .then(function() {
+            Groups.Group.syncParty();
+            $state.go('options.social.party');
+            resolve();
+          });
       });
     }
 
     function sendAction(action) {
       return $q(function(resolve, reject) {
-
-        $http.post(ApiUrl.get() + '/api/v2/groups/' + party._id + '/' + action)
+        $http.post(ApiUrl.get() + '/api/v3/groups/' + party._id + '/' + action)
           .then(function(response) {
             User.sync();
 
@@ -128,7 +119,7 @@
               partySize: party.memberCount
             });
 
-            var quest = response.data.quest;
+            var quest = response.data.data;
             resolve(quest);
           });;
       });
@@ -142,5 +133,4 @@
       showQuest: showQuest,
       initQuest: initQuest
     }
-  }
-}());
+  }]);
