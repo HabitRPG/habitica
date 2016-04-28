@@ -8,9 +8,10 @@ describe('Group Model', () => {
   context('Instance Methods', () => {
     describe('#startQuest', () => {
       let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
+      let fakeEmail;
 
       beforeEach(async () => {
-        sandbox.stub(email, 'sendTxn');
+        fakeEmail = sandbox.stub(email, 'sendTxn');
 
         party = new Group({
           name: 'test party',
@@ -46,6 +47,10 @@ describe('Group Model', () => {
           nonParticipatingMember.save(),
           undecidedMember.save(),
         ]);
+      });
+
+      afterEach(() => {
+        fakeEmail.restore();
       });
 
       context('Failure Conditions', () => {

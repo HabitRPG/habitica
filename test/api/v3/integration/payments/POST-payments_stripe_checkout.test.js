@@ -10,13 +10,11 @@ describe('payments - stripe - #checkout', () => {
     user = await generateUser();
   });
 
-  it('verifies credentials', async (done) => {
-    try {
-      await user.post(endpoint);
-    } catch (e) {
-      expect(e.error).to.eql('BadRequest');
-      expect(e.message.type).to.eql('InvalidParameterValue');
-      done();
-    }
+  it('verifies credentials', async () => {
+    await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'Error',
+      message: 'Invalid API Key provided: ****************************1111',
+    });
   });
 });

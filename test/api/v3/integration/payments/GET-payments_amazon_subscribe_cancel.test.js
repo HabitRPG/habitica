@@ -13,9 +13,9 @@ describe('payments : amazon #subscribeCancel', () => {
 
   it('verifies subscription', async () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('missingSubscription'),
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('missingAuthParams'),
     });
   });
 });

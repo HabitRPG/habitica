@@ -1,5 +1,6 @@
 import {
   generateUser,
+  translate as t,
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments - stripe - #subscribeEdit', () => {
@@ -10,13 +11,11 @@ describe('payments - stripe - #subscribeEdit', () => {
     user = await generateUser();
   });
 
-  it('verifies credentials', async (done) => {
-    try {
-      await user.post(endpoint);
-    } catch (e) {
-      expect(e.error).to.eql('BadRequest');
-      expect(e.message.type).to.eql('InvalidParameterValue');
-      done();
-    }
+  it('verifies credentials', async () => {
+    await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('missingAuthHeaders'),
+    });
   });
 });

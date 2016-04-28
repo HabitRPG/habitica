@@ -65,7 +65,7 @@ export function authWithUrl (req, res, next) {
   let apiToken = req.query.apiToken;
 
   if (!userId || !apiToken) {
-    throw new NotAuthorized(res.t('missingAuthHeaders'));
+    throw new NotAuthorized(res.t('missingAuthParams'));
   }
 
   User.findOne({ _id: req.query._id, apiToken }).exec()

@@ -23,12 +23,10 @@ describe('payments/index', () => {
 
   describe('#cancelSubscription', () => {
     beforeEach(() => {
-      fakeSend = sinon.spy(sender, 'sendTxn');
       data = { user: new User() };
     });
 
     afterEach(() => {
-      fakeSend.restore();
     });
 
     it('plan.extraMonths is defined', () => {
@@ -65,8 +63,12 @@ describe('payments/index', () => {
     });
 
     it('sends a text', async () => {
+      fakeSend = sinon.spy(sender, 'sendTxn');
+
       await api.cancelSubscription(data);
       sinon.assert.calledOnce(fakeSend);
+
+      fakeSend.restore();
     });
   });
 
