@@ -12,6 +12,8 @@ import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
+import setupNconf from '../../libs/api-v3/setupNconf';
+setupNconf();
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };

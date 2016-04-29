@@ -56,10 +56,6 @@ export function authWithSession (req, res, next) {
   .catch(next);
 }
 
-/**
- * @apiParam {string} _id       The user _id in query
- * @apiParam {string} apiToken  The apiToken in query
- **/
 export function authWithUrl (req, res, next) {
   let userId = req.query._id;
   let apiToken = req.query.apiToken;
@@ -68,7 +64,7 @@ export function authWithUrl (req, res, next) {
     throw new NotAuthorized(res.t('missingAuthParams'));
   }
 
-  User.findOne({ _id: req.query._id, apiToken }).exec()
+  User.findOne({ _id: userId, apiToken }).exec()
   .then((user) => {
     if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 

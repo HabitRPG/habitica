@@ -18,7 +18,7 @@ const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 let api = {};
 
 /**
- * @api {post} /api/v3/payments/stripe/checkout Stripe checkout
+ * @api {post} /stripe/checkout Stripe checkout
  * @apiVersion 3.0.0
  * @apiName StripeCheckout
  * @apiGroup Payments
@@ -100,7 +100,7 @@ api.checkout = {
 };
 
 /**
- * @api {post} /api/v3/payments/stripe/subscribe/edit Stripe subscribeEdit
+ * @api {post} /stripe/subscribe/edit Stripe subscribeEdit
  * @apiVersion 3.0.0
  * @apiName StripeSubscribeEdit
  * @apiGroup Payments
@@ -132,7 +132,7 @@ api.subscribeEdit = {
 };
 
 /**
- * @api {get} /api/v3/payments/stripe/subscribe/cancel Stripe subscribeCancel
+ * @api {get} /stripe/subscribe/cancel Stripe subscribeCancel
  * @apiVersion 3.0.0
  * @apiName StripeSubscribeCancel
  * @apiGroup Payments
@@ -148,15 +148,19 @@ api.subscribeCancel = {
   async handler (req, res) {
     let user = res.locals.user;
     if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));
-    let customer = await stripe.customers.retrieve(user.purchased.plan.customeerId);
-    await stripe.customers.del(user.purchased.plan.customerId);
-    let data = {
-      user,
-      nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
-      paymentMethod: 'Stripe',
-    };
-    await payments.cancelSubscriptoin(data);
-    res.respond(200, {});
+    try {
+      let customer = await stripe.customers.retrieve(user.purchased.plan.customeerId);
+      await stripe.customers.del(user.purchased.plan.customerId);
+      let data = {
+        user,
+        nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
+        paymentMethod: 'Stripe',
+      };
+      await payments.cancelSubscriptoin(data);
+      res.respond(200, {});
+    } catch (e) {
+      throw new BadRequest(e);
+    }
   },
 };
 

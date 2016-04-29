@@ -49,10 +49,6 @@ describe('Group Model', () => {
         ]);
       });
 
-      afterEach(() => {
-        fakeEmail.restore();
-      });
-
       context('Failure Conditions', () => {
         it('throws an error if group is not a party', async () => {
           let guild = new Group({
