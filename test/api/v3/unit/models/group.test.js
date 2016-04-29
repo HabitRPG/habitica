@@ -8,10 +8,9 @@ describe('Group Model', () => {
   context('Instance Methods', () => {
     describe('#startQuest', () => {
       let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
-      let fakeEmail;
 
       beforeEach(async () => {
-        fakeEmail = sandbox.stub(email, 'sendTxn');
+        sandbox.stub(email, 'sendTxn');
 
         party = new Group({
           name: 'test party',

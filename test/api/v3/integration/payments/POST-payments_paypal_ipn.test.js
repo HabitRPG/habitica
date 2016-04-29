@@ -10,12 +10,8 @@ describe('payments - paypal - #ipn', () => {
     user = await generateUser();
   });
 
-  // @TODO: this will definitely not pass
   it('verifies credentials', async () => {
-    await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'Error',
-      message: 'Invalid API Key provided: ****************************1111',
-    });
+    let result = await user.post(endpoint);
+    expect(result).to.eql({});
   });
 });

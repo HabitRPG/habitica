@@ -11,12 +11,11 @@ describe('payments : paypal #checkoutSuccess', () => {
     user = await generateUser();
   });
 
-  // @TODO: this should actually pass
   it('verifies subscription', async () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('missingAuthParams'),
+      message: t('invalidCredentials'),
     });
   });
 });

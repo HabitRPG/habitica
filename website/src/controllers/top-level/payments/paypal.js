@@ -1,29 +1,35 @@
-var nconf = require('nconf');
-var moment = require('moment');
-var async = require('async');
-var _ = require('lodash');
-var url = require('url');
-var User = require('mongoose').model('User');
-var payments = require('../../../libs/api-v3/payments');
-var logger = require('../../../libs/api-v2/logging');
-var ipn = require('paypal-ipn');
-var paypal = require('paypal-rest-sdk');
-var shared = require('../../../../../common');
-var mongoose = require('mongoose');
-var cc = require('coupon-code');
+let nconf = require('nconf');
+let moment = require('moment');
+let _ = require('lodash');
+let payments = require('../../../libs/api-v3/payments');
+let ipn = require('paypal-ipn');
+let paypal = require('paypal-rest-sdk');
+let shared = require('../../../../../common');
+let cc = require('coupon-code');
+import { model as Coupon } from '../../../models/coupon';
+import { model as User } from '../../../models/user';
+import {
+  authWithUrl,
+  authWithSession,
+} from '../../../middlewares/api-v3/auth';
+import {
+  BadRequest,
+} from '../../../libs/api-v3/errors';
 
 // @TODO: I still need this? _vp_ 20160428
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
 _.each(shared.content.subscriptionBlocks, (block) => {
-  block.paypalKey = nconf.get("PAYPAL:billing_plans:" + block.key);
+  block.paypalKey = nconf.get(`PAYPAL:billing_plans:${block.key}`);
 });
 
+/* eslint-disable camelcase */
+
 paypal.configure({
-  mode: nconf.get("PAYPAL:mode"), // sandbox or live
-  client_id: nconf.get("PAYPAL:client_id"),
-  client_secret: nconf.get("PAYPAL:client_secret"),
+  mode: nconf.get('PAYPAL:mode'), // sandbox or live
+  client_id: nconf.get('PAYPAL:client_id'), // eslint-disable-line camelcase
+  client_secret: nconf.get('PAYPAL:client_secret'),
 });
 
 let api = {};
@@ -38,18 +44,14 @@ let api = {};
  *
  * @apiSuccess {} redirect
  **/
-api.checkout = { // formerly paypal.createPayment @TODO:
+api.checkout = {
   method: 'GET',
   url: '/payments/paypal/checkout',
   middlewares: [authWithUrl],
   async handler (req, res) {
-    let user = res.locals.user;
-
-    // @TODO: can be abstracted
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     req.session.gift = req.query.gift;
 
-    // TODO: can be abstracted
     let amount = 5.00;
     let description = 'HabitRPG gems';
     if (gift) {
@@ -62,15 +64,12 @@ api.checkout = { // formerly paypal.createPayment @TODO:
       }
     }
 
-    if (gift) {
-      if
-
     let createPayment = {
       intent: 'sale',
       payer: { payment_method: 'Paypal' },
       redirect_urls: {
         return_url: `${nconf.get('BASE_URL')}/paypal/checkout/success`,
-        cancel_url: `${nconf.get('BASE_URL')},
+        cancel_url: `${nconf.get('BASE_URL')}`,
       },
       transactions: [{
         item_list: {
@@ -78,7 +77,7 @@ api.checkout = { // formerly paypal.createPayment @TODO:
             name: description,
             price: amount,
             currency: 'USD',
-            quality: 1
+            quality: 1,
           }],
         },
         amount: {
@@ -86,7 +85,7 @@ api.checkout = { // formerly paypal.createPayment @TODO:
           total: amount,
         },
         description,
-      }]
+      }],
     };
     try {
       let result = await paypal.payment.create(createPayment);
@@ -112,7 +111,7 @@ api.checkout = { // formerly paypal.createPayment @TODO:
 api.checkoutSuccess = { // @TODO: formerly paypal.executePayment
   method: 'GET',
   url: '/payments/paypal/checkout/success',
-  middlewares: [withWithSession],
+  middlewares: [authWithSession],
   async handler (req, res) {
     let paymentId = req.query.paymentId;
     let customerId = req.query.payerID;
@@ -135,7 +134,7 @@ api.checkoutSuccess = { // @TODO: formerly paypal.executePayment
         data.gift = gift;
       }
 
-      let payment = await paypal.payment.execute(paymentId, { payer_id: customerId });
+      await paypal.payment.execute(paymentId, { payer_id: customerId });
       await payments[method](data);
       res.redirect('/');
     } catch (e) {
@@ -155,15 +154,15 @@ api.checkoutSuccess = { // @TODO: formerly paypal.executePayment
  *
  * @apiSuccess {} empty object
  **/
-api.checkoutSuccess = { // @TODO: formerly paypal.createBillingAgreement
+api.subscribe = { // @TODO: formerly paypal.createBillingAgreement
   method: 'GET',
   url: '/payments/paypal/subscribe',
-  middlewares: [withWithUrl],
+  middlewares: [authWithUrl],
   async handler (req, res) {
     let sub = shared.content.subscriptionBlocks[req.query.sub];
     if (sub.discount) {
       if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-      coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
+      let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
       if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
     }
 
@@ -203,7 +202,7 @@ api.checkoutSuccess = { // @TODO: formerly paypal.createBillingAgreement
 api.subscribeSuccess = { // @TODO: formerly paypal.executeBillingAgreement
   method: 'GET',
   url: '/payments/paypal/subscribe/success',
-  middlewares: [withWithSession],
+  middlewares: [authWithSession],
   async handler (req, res) {
     let user = res.locals.user;
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
@@ -236,14 +235,14 @@ api.subscribeSuccess = { // @TODO: formerly paypal.executeBillingAgreement
 api.subscribeCancel = { // @TODO: formerly paypal.cancelSubscription
   method: 'GET',
   url: '/payments/paypal/subscribe/cancel',
-  middlewares: [withWithUrl],
+  middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
     if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));
     try {
       let customer = await paypal.billingAgreement.get(customerId);
-      let nextBillingDate: customer.agreement_details.next_billing_date;
+      let nextBillingDate = customer.agreement_details.next_billing_date;
       if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
         throw new BadRequest(res.t('planNotActive', { nextBillingDate }));
       }
@@ -279,18 +278,19 @@ api.ipn = {
   async handler (req, res) {
     res.respond(200);
     try {
-      let response = await ipn.verify(req.body);
-      switch (req.body.txn_type) {
-        case 'recurring_payment_profile_cancel':
-        case 'subscr_cancel':
-          let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
-          if (user) {
-            payments.cancelSubscriptoin({ user, paymentMethod: 'Paypal' });
-          }
-        break;
+      await ipn.verify(req.body);
+      if (req.body.txn_type === 'recurring_payment_profile_cancel' || req.body.txn_type === 'subscr_cancel') {
+        let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
+        if (user) {
+          payments.cancelSubscriptoin({ user, paymentMethod: 'Paypal' });
+        }
       }
     } catch (e) {
-      console.log('Problem with Paypal ipn:', e);
+      console.log('Problem with Paypal ipn:', e); // eslint-disable-line no-console
     }
   },
 };
+
+/* eslint-disable camelcase */
+
+module.exports = api;

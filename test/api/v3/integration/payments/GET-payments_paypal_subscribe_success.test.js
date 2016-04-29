@@ -15,7 +15,7 @@ describe('payments : paypal #subscribeSuccess', () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('missingAuthParams'),
+      message: t('invalidCredentials'),
     });
   });
 });
