@@ -52,7 +52,9 @@ api.list = async function(req, res, next) {
       let obj = challenge.toJSON();
 
       obj._isMember = user.challenges.indexOf(challenge._id) !== -1;
+      return obj;
     });
+
     // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Q.all(resChals.map((chal, index) => {
       return Q.all([
@@ -195,7 +197,8 @@ api.create = async function(req, res, next){
     req.body.rewards = req.body.rewards || [];
 
     var chalTasks = req.body.habits.concat(req.body.rewards)
-                  .concat(req.body.dailys).concat(req.body.todos);
+                  .concat(req.body.dailys).concat(req.body.todos)
+                  .map(v2Task => Tasks.Task.fromJSONV2(v2Task));
 
     chalTasks = chalTasks.map(function(task) {
       var newTask = new Tasks[task.type](Tasks.Task.sanitize(task));
@@ -318,7 +321,7 @@ api.selectWinner = async function(req, res, next) {
     if (!challenge) return next('Challenge ' + req.params.cid + ' not found');
     if (!challenge.canModify(res.locals.user)) return next(shared.i18n.t('noPermissionCloseChallenge'));
 
-    let winner = await User.findOne({_id: req.params.uid}).exec();
+    let winner = await User.findOne({_id: req.query.uid}).exec();
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) return next('Winner ' + req.query.uid + ' not found.');
 
     // Close channel in background, some ops are run in the background without `await`ing
