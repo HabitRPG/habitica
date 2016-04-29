@@ -1,11 +1,11 @@
-let nconf = require('nconf');
-let moment = require('moment');
-let _ = require('lodash');
-let payments = require('../../../libs/api-v3/payments');
-let ipn = require('paypal-ipn');
-let paypal = require('paypal-rest-sdk');
-let shared = require('../../../../../common');
-let cc = require('coupon-code');
+import nconf from 'nconf';
+import moment from 'moment';
+import _ from 'lodash';
+import payments from '../../../libs/api-v3/payments';
+import ipn from 'paypal-ipn';
+import paypal from 'paypal-rest-sdk';
+import shared from '../../../../../common';
+import cc from 'coupon-code';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
 import {
@@ -15,8 +15,8 @@ import {
 import {
   BadRequest,
 } from '../../../libs/api-v3/errors';
+import * as logger from '../../../libs/api-v3/logger';
 
-// @TODO: I still need this? _vp_ 20160428
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
@@ -28,7 +28,7 @@ _.each(shared.content.subscriptionBlocks, (block) => {
 
 paypal.configure({
   mode: nconf.get('PAYPAL:mode'), // sandbox or live
-  client_id: nconf.get('PAYPAL:client_id'), // eslint-disable-line camelcase
+  client_id: nconf.get('PAYPAL:client_id'),
   client_secret: nconf.get('PAYPAL:client_secret'),
 });
 
@@ -108,7 +108,7 @@ api.checkout = {
  *
  * @apiSuccess {} redirect
  **/
-api.checkoutSuccess = { // @TODO: formerly paypal.executePayment
+api.checkoutSuccess = {
   method: 'GET',
   url: '/payments/paypal/checkout/success',
   middlewares: [authWithSession],
@@ -154,7 +154,7 @@ api.checkoutSuccess = { // @TODO: formerly paypal.executePayment
  *
  * @apiSuccess {} empty object
  **/
-api.subscribe = { // @TODO: formerly paypal.createBillingAgreement
+api.subscribe = {
   method: 'GET',
   url: '/payments/paypal/subscribe',
   middlewares: [authWithUrl],
@@ -199,7 +199,7 @@ api.subscribe = { // @TODO: formerly paypal.createBillingAgreement
  *
  * @apiSuccess {} redirect
  **/
-api.subscribeSuccess = { // @TODO: formerly paypal.executeBillingAgreement
+api.subscribeSuccess = {
   method: 'GET',
   url: '/payments/paypal/subscribe/success',
   middlewares: [authWithSession],
@@ -232,7 +232,7 @@ api.subscribeSuccess = { // @TODO: formerly paypal.executeBillingAgreement
  *
  * @apiSuccess {} redirect
  **/
-api.subscribeCancel = { // @TODO: formerly paypal.cancelSubscription
+api.subscribeCancel = {
   method: 'GET',
   url: '/payments/paypal/subscribe/cancel',
   middlewares: [authWithUrl],
@@ -286,7 +286,7 @@ api.ipn = {
         }
       }
     } catch (e) {
-      console.log('Problem with Paypal ipn:', e); // eslint-disable-line no-console
+      logger.error(e);
     }
   },
 };
