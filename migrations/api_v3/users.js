@@ -32,9 +32,9 @@ var MongoClient = MongoDB.MongoClient;
 
 mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
 
-// Load old and new models
+// Load new models
 var NewUser = require('../../website/src/models/user').model;
-var Tasks = require('../../website/src/models/task');
+var NewTasks = require('../../website/src/models/task');
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;
@@ -49,7 +49,7 @@ var BATCH_SIZE = 1000;
 var processedUsers = 0;
 var totoalProcessedTasks = 0;
 
-// Only process users that fall in a interval ie -> 0000-4000-0000-0000
+// Only process users that fall in a interval ie up to -> 0000-4000-0000-0000
 var AFTER_USER_ID = nconf.get('AFTER_USER_ID');
 var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
 
@@ -59,6 +59,7 @@ var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
 - groups
 - invitations
 - challenges' tasks
+- checklists from .id to ._id (reminders too!)
 */
 
 function processUsers (afterId) {
@@ -134,7 +135,7 @@ function processUsers (afterId) {
           newUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         }
 
-        var newTask = new Tasks[oldTask.type](oldTask);
+        var newTask = new NewTasks[oldTask.type](oldTask);
 
         batchInsertTasks.insert(newTask.toObject());
         processedTasks++;
