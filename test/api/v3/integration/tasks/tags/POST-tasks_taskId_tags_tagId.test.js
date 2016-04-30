@@ -18,9 +18,9 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
     });
 
     let tag = await user.post('/tags', {name: 'Tag 1'});
-    let savedTask = await user.post(`/tasks/${task._id}/tags/${tag._id}`);
+    let savedTask = await user.post(`/tasks/${task._id}/tags/${tag.id}`);
 
-    expect(savedTask.tags[0]).to.equal(tag._id);
+    expect(savedTask.tags[0]).to.equal(tag.id);
   });
 
   it('does not add a tag to a task twice', async () => {
@@ -31,9 +31,9 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
 
     let tag = await user.post('/tags', {name: 'Tag 1'});
 
-    await user.post(`/tasks/${task._id}/tags/${tag._id}`);
+    await user.post(`/tasks/${task._id}/tags/${tag.id}`);
 
-    await expect(user.post(`/tasks/${task._id}/tags/${tag._id}`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post(`/tasks/${task._id}/tags/${tag.id}`)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('alreadyTagged'),

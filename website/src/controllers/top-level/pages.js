@@ -2,7 +2,7 @@ import locals from '../../middlewares/api-v3/locals';
 import _ from 'lodash';
 import markdownIt from 'markdown-it';
 
-const md = new markdownIt({
+const md = markdownIt({
   html: true,
 });
 

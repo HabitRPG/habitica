@@ -345,7 +345,7 @@ describe('POST /tasks/user', () => {
       expect(task.checklist[0]).to.be.an('object');
       expect(task.checklist[0].text).to.eql('checklist');
       expect(task.checklist[0].completed).to.eql(false);
-      expect(task.checklist[0]._id).to.be.a('string');
+      expect(task.checklist[0].id).to.be.a('string');
     });
   });
 
@@ -487,7 +487,7 @@ describe('POST /tasks/user', () => {
       expect(task.checklist[0]).to.be.an('object');
       expect(task.checklist[0].text).to.eql('checklist');
       expect(task.checklist[0].completed).to.eql(false);
-      expect(task.checklist[0]._id).to.be.a('string');
+      expect(task.checklist[0].id).to.be.a('string');
     });
   });
 

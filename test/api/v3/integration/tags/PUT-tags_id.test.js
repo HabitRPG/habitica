@@ -12,12 +12,12 @@ describe('PUT /tags/:tagId', () => {
   it('updates a tag given it\'s id', async () => {
     let updatedTagName = 'Tag updated';
     let createdTag = await user.post('/tags', {name: 'Tag 1'});
-    let updatedTag = await user.put(`/tags/${createdTag._id}`, {
+    let updatedTag = await user.put(`/tags/${createdTag.id}`, {
       name: updatedTagName,
       ignored: true,
     });
 
-    createdTag = await user.get(`/tags/${updatedTag._id}`);
+    createdTag = await user.get(`/tags/${updatedTag.id}`);
 
     expect(updatedTag.name).to.equal(updatedTagName);
     expect(updatedTag.ignored).to.not.exist;

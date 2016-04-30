@@ -62,8 +62,8 @@ describe('POST /tasks/:taskId/checklist/', () => {
     expect(savedTask.checklist.length).to.equal(1);
     expect(savedTask.checklist[0].text).to.equal('Checklist Item 1');
     expect(savedTask.checklist[0].completed).to.equal(false);
-    expect(savedTask.checklist[0]._id).to.be.a('string');
-    expect(savedTask.checklist[0]._id).to.not.equal('123');
+    expect(savedTask.checklist[0].id).to.be.a('string');
+    expect(savedTask.checklist[0].id).to.not.equal('123');
     expect(savedTask.checklist[0].ignored).to.be.an('undefined');
   });
 
@@ -82,8 +82,8 @@ describe('POST /tasks/:taskId/checklist/', () => {
     expect(savedTask.checklist.length).to.equal(1);
     expect(savedTask.checklist[0].text).to.equal('Checklist Item 1');
     expect(savedTask.checklist[0].completed).to.equal(false);
-    expect(savedTask.checklist[0]._id).to.be.a('string');
-    expect(savedTask.checklist[0]._id).to.not.equal('123');
+    expect(savedTask.checklist[0].id).to.be.a('string');
+    expect(savedTask.checklist[0].id).to.not.equal('123');
     expect(savedTask.checklist[0].ignored).to.be.an('undefined');
   });
 

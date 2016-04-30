@@ -14,7 +14,7 @@ describe('DELETE /tags/:tagId', () => {
     let tag = await user.post('/tags', {name: tagName});
     let numberOfTags = (await user.get('/tags')).length;
 
-    await user.del(`/tags/${tag._id}`);
+    await user.del(`/tags/${tag.id}`);
 
     let tags = await user.get('/tags');
     let tagNames = tags.map((t) => {
