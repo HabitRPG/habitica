@@ -19,7 +19,6 @@ website/src/routes/payments.js
 website/src/routes/pages.js
 website/src/middlewares/apiThrottle.js
 website/src/middlewares/forceRefresh.js
-website/src/controllers/top-level/payments/paypal.js
 
 debug-scripts/*
 tasks/*.js

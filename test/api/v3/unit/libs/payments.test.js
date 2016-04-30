@@ -66,10 +66,7 @@ describe('payments/index', () => {
 
     it('sends a text', async () => {
       await api.cancelSubscription(data);
-      sinon.assert.calledOnce(fakeSend);
+      sinon.assert.called(fakeSend);
     });
-  });
-
-  describe('#buyGems', async () => {
   });
 });

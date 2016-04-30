@@ -38,6 +38,7 @@ let billingPlanAttributes = {
     cycles: '0',
   }],
 };
+
 _.each(blocks, function defineBlock (block) {
   block.definition = _.cloneDeep(billingPlanAttributes);
   _.merge(block.definition.payment_definitions[0], {

@@ -55,3 +55,21 @@ export function authWithSession (req, res, next) {
   })
   .catch(next);
 }
+
+export function authWithUrl (req, res, next) {
+  let userId = req.query._id;
+  let apiToken = req.query.apiToken;
+
+  if (!userId || !apiToken) {
+    throw new NotAuthorized(res.t('missingAuthParams'));
+  }
+
+  User.findOne({ _id: userId, apiToken }).exec()
+  .then((user) => {
+    if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+
+    res.locals.user = user;
+    next();
+  })
+  .catch(next);
+}

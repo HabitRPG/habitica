@@ -1,11 +1,11 @@
-/*
-import mongoose from 'mongoose';
-import { model as User } from '../../../models/user'; */
 import {
   BadRequest,
 } from '../../../libs/api-v3/errors';
 import amzLib from '../../../libs/api-v3/amazonPayments';
-import { authWithHeaders } from '../../../middlewares/api-v3/auth';
+import {
+  authWithHeaders,
+  authWithUrl,
+} from '../../../middlewares/api-v3/auth';
 import shared from '../../../../../common';
 import payments from '../../../libs/api-v3/payments';
 import moment from 'moment';
@@ -16,7 +16,7 @@ import cc from 'coupon-code';
 let api = {};
 
 /**
- * @api {post} /api/v3/payments/amazon/verifyAccessToken verify access token
+ * @api {post} /amazon/verifyAccessToken verify access token
  * @apiVersion 3.0.0
  * @apiName AmazonVerifyAccessToken
  * @apiGroup Payments
@@ -40,7 +40,7 @@ api.verifyAccessToken = {
 };
 
 /**
- * @api {post} /api/v3/payments/amazon/createOrderReferenceId create order reference id
+ * @api {post} /amazon/createOrderReferenceId create order reference id
  * @apiVersion 3.0.0
  * @apiName AmazonCreateOrderReferenceId
  * @apiGroup Payments
@@ -70,7 +70,7 @@ api.createOrderReferenceId = {
 };
 
 /**
- * @api {post} /api/v3/payments/amazon/checkout do checkout
+ * @api {post} /amazon/checkout do checkout
  * @apiVersion 3.0.0
  * @apiName AmazonCheckout
  * @apiGroup Payments
@@ -148,7 +148,7 @@ api.checkout = {
 };
 
 /**
- * @api {post} /api/v3/payments/amazon/subscribe Subscribe
+ * @api {post} /amazon/subscribe Subscribe
  * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
@@ -228,7 +228,7 @@ api.subscribe = {
 };
 
 /**
- * @api {get} /api/v3/payments/amazon/subscribe/cancel SubscribeCancel
+ * @api {get} /amazon/subscribe/cancel SubscribeCancel
  * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
@@ -238,7 +238,7 @@ api.subscribe = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/payments/amazon/subscribe/cancel',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
     let billingAgreementId = user.purchased.plan.customerId;

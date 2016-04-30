@@ -1,5 +1,6 @@
 {
   "missingAuthHeaders": "Missing authentication headers.",
+  "missingAuthParams": "Missing authentication parameters.",
   "missingUsernameEmail": "Missing username or email.",
   "missingEmail": "Missing email.",
   "missingUsername": "Missing username.",
@@ -175,5 +176,7 @@
   "equipmentAlreadyOwned": "You already own that piece of equipment",
   "missingAccessToken": "The request is missing a required parameter : access_token",
   "missingBillingAgreementId": "Missing billing agreement id",
-  "paymentNotSuccessful": "The payment was not successful"
+  "paymentNotSuccessful": "The payment was not successful",
+  "planNotActive": "The plan hasn't activated yet (due to a PayPal bug). It will begin <%= nextBillingDate %>, after which you can cancel to retain your full benefits",
+  "cancelingSubscription": "Canceling the subscription"
 }

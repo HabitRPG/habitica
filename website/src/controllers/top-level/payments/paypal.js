@@ -1,218 +1,296 @@
-var nconf = require('nconf');
-var moment = require('moment');
-var async = require('async');
-var _ = require('lodash');
-var url = require('url');
-var User = require('mongoose').model('User');
-var payments = require('../../../libs/api-v3/payments');
-var logger = require('../../../libs/api-v2/logging');
-var ipn = require('paypal-ipn');
-var paypal = require('paypal-rest-sdk');
-var shared = require('../../../../../common');
-var mongoose = require('mongoose');
-var cc = require('coupon-code');
+import nconf from 'nconf';
+import moment from 'moment';
+import _ from 'lodash';
+import payments from '../../../libs/api-v3/payments';
+import ipn from 'paypal-ipn';
+import paypal from 'paypal-rest-sdk';
+import shared from '../../../../../common';
+import cc from 'coupon-code';
+import { model as Coupon } from '../../../models/coupon';
+import { model as User } from '../../../models/user';
+import {
+  authWithUrl,
+  authWithSession,
+} from '../../../middlewares/api-v3/auth';
+import {
+  BadRequest,
+} from '../../../libs/api-v3/errors';
+import * as logger from '../../../libs/api-v3/logger';
 
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
-_.each(shared.content.subscriptionBlocks, function(block){
-  block.paypalKey = nconf.get("PAYPAL:billing_plans:"+block.key);
+_.each(shared.content.subscriptionBlocks, (block) => {
+  block.paypalKey = nconf.get(`PAYPAL:billing_plans:${block.key}`);
 });
+
+/* eslint-disable camelcase */
 
 paypal.configure({
-  'mode': nconf.get("PAYPAL:mode"), //sandbox or live
-  'client_id': nconf.get("PAYPAL:client_id"),
-  'client_secret': nconf.get("PAYPAL:client_secret")
+  mode: nconf.get('PAYPAL:mode'), // sandbox or live
+  client_id: nconf.get('PAYPAL:client_id'),
+  client_secret: nconf.get('PAYPAL:client_secret'),
 });
 
-var parseErr = function (res, err) {
-  //var error = err.response ? err.response.message || err.response.details[0].issue : err;
-  var error = JSON.stringify(err);
-  return res.status(400).json({err:error});
-}
-
-/*
-exports.createBillingAgreement = function(req,res,next){
-  var sub = shared.content.subscriptionBlocks[req.query.sub];
-  async.waterfall([
-    function(cb){
-      if (!sub.discount) return cb(null, null);
-      if (!req.query.coupon) return cb('Please provide a coupon code for this plan.');
-      mongoose.model('Coupon').findOne({_id:cc.validate(req.query.coupon), event:sub.key}, cb);
-    },
-    function(coupon, cb){
-      if (sub.discount && !coupon) return cb('Invalid coupon code.');
-      var billingPlanTitle = "HabitRPG Subscription" + ' ($'+sub.price+' every '+sub.months+' months, recurring)';
-      var billingAgreementAttributes = {
-        "name": billingPlanTitle,
-        "description": billingPlanTitle,
-        "start_date": moment().add({minutes:5}).format(),
-        "plan": {
-          "id": sub.paypalKey
-        },
-        "payer": {
-          "payment_method": "paypal"
-        }
-      };
-      paypal.billingAgreement.create(billingAgreementAttributes, cb);
-    }
-  ], function(err, billingAgreement){
-    if (err) return parseErr(res, err);
-    // For approving subscription via Paypal, first redirect user to: approval_url
-    req.session.paypalBlock = req.query.sub;
-    var approval_url = _.find(billingAgreement.links, {rel:'approval_url'}).href;
-    res.redirect(approval_url);
-  });
-}
-
-exports.executeBillingAgreement = function(req,res,next){
-  var block = shared.content.subscriptionBlocks[req.session.paypalBlock];
-  delete req.session.paypalBlock;
-  async.auto({
-    exec: function (cb) {
-      paypal.billingAgreement.execute(req.query.token, {}, cb);
-    },
-    get_user: function (cb) {
-      User.findById(req.session.userId, cb);
-    },
-    create_sub: ['exec', 'get_user', function (cb, results) {
-      payments.createSubscription({
-        user: results.get_user,
-        customerId: results.exec.id,
-        paymentMethod: 'Paypal',
-        sub: block
-      }, cb);
-    }]
-  },function(err){
-    if (err) return parseErr(res, err);
-    res.redirect('/');
-  })
-}
-
-exports.createPayment = function(req, res) {
-  // if we're gifting to a user, put it in session for the `execute()`
-  req.session.gift = req.query.gift || undefined;
-  var gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
-  var price = !gift ? 5.00
-    : gift.type=='gems' ? Number(gift.gems.amount/4).toFixed(2)
-    : Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
-  var description = !gift ? "HabitRPG Gems"
-    : gift.type=='gems' ? "HabitRPG Gems (Gift)"
-    : shared.content.subscriptionBlocks[gift.subscription.key].months + "mo. HabitRPG Subscription (Gift)";
-  var create_payment = {
-    "intent": "sale",
-    "payer": {
-      "payment_method": "paypal"
-    },
-    "redirect_urls": {
-      "return_url": nconf.get('BASE_URL') + '/paypal/checkout/success',
-      "cancel_url": nconf.get('BASE_URL')
-    },
-    "transactions": [{
-      "item_list": {
-        "items": [{
-          "name": description,
-          //"sku": "1",
-          "price": price,
-          "currency": "USD",
-          "quantity": 1
-        }]
-      },
-      "amount": {
-        "currency": "USD",
-        "total": price
-      },
-      "description": description
-    }]
-  };
-  paypal.payment.create(create_payment, function (err, payment) {
-    if (err) return parseErr(res, err);
-    var link = _.find(payment.links, {rel: 'approval_url'}).href;
-    res.redirect(link);
-  });
-}
-
-exports.executePayment = function(req, res) {
-  var paymentId = req.query.paymentId,
-    PayerID = req.query.PayerID,
-    gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
-  delete req.session.gift;
-  async.waterfall([
-    function(cb){
-      paypal.payment.execute(paymentId, {payer_id: PayerID}, cb);
-    },
-    function(payment, cb){
-      async.parallel([
-        function(cb2){ User.findById(req.session.userId, cb2); },
-        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2); }
-      ], cb);
-    },
-    function(results, cb){
-      if (_.isEmpty(results[0])) return cb("User not found when completing paypal transaction");
-      var data = {user:results[0], customerId:PayerID, paymentMethod:'Paypal', gift:gift}
-      var method = 'buyGems';
-      if (gift) {
-        gift.member = results[1];
-        if (gift.type=='subscription') method = 'createSubscription';
-        data.paymentMethod = 'Gift';
-      }
-      payments[method](data, cb);
-    }
-  ],function(err){
-    if (err) return parseErr(res, err);
-    res.redirect('/');
-  })
-}
-
-exports.cancelSubscription = function(req, res, next){
-  var user = res.locals.user;
-  if (!user.purchased.plan.customerId)
-    return res.status(401).json({err: "User does not have a plan subscription"});
-  async.auto({
-    get_cus: function(cb){
-      paypal.billingAgreement.get(user.purchased.plan.customerId, cb);
-    },
-    verify_cus: ['get_cus', function(cb, results){
-      var hasntBilledYet = results.get_cus.agreement_details.cycles_completed == "0";
-      if (hasntBilledYet)
-        return cb("The plan hasn't activated yet (due to a PayPal bug). It will begin "+results.get_cus.agreement_details.next_billing_date+", after which you can cancel to retain your full benefits");
-      cb();
-    }],
-    del_cus: ['verify_cus', function(cb, results){
-      paypal.billingAgreement.cancel(user.purchased.plan.customerId, {note: "Canceling the subscription"}, cb);
-    }],
-    cancel_sub: ['get_cus', 'verify_cus', function(cb, results){
-      var data = {user: user, paymentMethod: 'Paypal', nextBill: results.get_cus.agreement_details.next_billing_date};
-      payments.cancelSubscription(data, cb)
-    }]
-  }, function(err){
-    if (err) return parseErr(res, err);
-    res.redirect('/');
-    user = null;
-  });
-} // */
+let api = {};
 
 /**
- * General IPN handler. We catch cancelled HabitRPG subscriptions for users who manually cancel their
- * recurring paypal payments in their paypal dashboard. Remove this when we can move to webhooks or some other solution
- */
-/*
-exports.ipn = function(req, res, next) {
-  console.log('IPN Called');
-  res.sendStatus(200); // Must respond to PayPal IPN request with an empty 200 first
-  ipn.verify(req.body, function(err, msg) {
-    if (err) return logger.error(msg);
-    switch (req.body.txn_type) {
-      // TODO what's the diff b/w the two data.txn_types below? The docs recommend subscr_cancel, but I'm getting the other one instead...
-      case 'recurring_payment_profile_cancel':
-      case 'subscr_cancel':
-        User.findOne({'purchased.plan.customerId':req.body.recurring_payment_id},function(err, user){
-          if (err) return logger.error(err);
-          if (_.isEmpty(user)) return; // looks like the cancellation was already handled properly above (see api.paypalSubscribeCancel)
-          payments.cancelSubscription({user:user, paymentMethod: 'Paypal'});
-        });
-        break;
+ * @api {get} /paypal/checkout checkout
+ * @apiVersion 3.0.0
+ * @apiName PaypalCheckout
+ * @apiGroup Payments
+ *
+ * @apiParam {string} gift The stringified object representing the user, the gift recepient.
+ *
+ * @apiSuccess {} redirect
+ **/
+api.checkout = {
+  method: 'GET',
+  url: '/payments/paypal/checkout',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+    req.session.gift = req.query.gift;
+
+    let amount = 5.00;
+    let description = 'HabitRPG gems';
+    if (gift) {
+      if (gift.type === 'gems') {
+        amount = Number(gift.gems.amount / 4).toFixed(2);
+        description = `${description} (Gift)`;
+      } else {
+        amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
+        description = 'monthly HabitRPG Subscription (Gift)';
+      }
     }
-  });
+
+    let createPayment = {
+      intent: 'sale',
+      payer: { payment_method: 'Paypal' },
+      redirect_urls: {
+        return_url: `${nconf.get('BASE_URL')}/paypal/checkout/success`,
+        cancel_url: `${nconf.get('BASE_URL')}`,
+      },
+      transactions: [{
+        item_list: {
+          items: [{
+            name: description,
+            price: amount,
+            currency: 'USD',
+            quality: 1,
+          }],
+        },
+        amount: {
+          currency: 'USD',
+          total: amount,
+        },
+        description,
+      }],
+    };
+    try {
+      let result = await paypal.payment.create(createPayment);
+      let link = _.find(result.links, { rel: 'approval_url' }).href;
+      res.redirect(link);
+    } catch (e) {
+      throw new BadRequest(e);
+    }
+  },
 };
-*/
+
+/**
+ * @api {get} /paypal/checkout/success Paypal checkout success
+ * @apiVersion 3.0.0
+ * @apiName PaypalCheckoutSuccess
+ * @apiGroup Payments
+ *
+ * @apiParam {string} paymentId The payment id
+ * @apiParam {string} payerID The payer id, notice ID not id
+ *
+ * @apiSuccess {} redirect
+ **/
+api.checkoutSuccess = {
+  method: 'GET',
+  url: '/payments/paypal/checkout/success',
+  middlewares: [authWithSession],
+  async handler (req, res) {
+    let paymentId = req.query.paymentId;
+    let customerId = req.query.payerID;
+    let method = 'buyGems';
+    let data = {
+      user: res.locals.user,
+      customerId,
+      paymentMethod: 'Paypal',
+    };
+
+    try {
+      let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
+      delete req.session.gift;
+      if (gift) {
+        gift.member = await User.findById(gift.uuid);
+        if (gift.type === 'subscription') {
+          method = 'createSubscription';
+          data.paymentMethod = 'Gift';
+        }
+        data.gift = gift;
+      }
+
+      await paypal.payment.execute(paymentId, { payer_id: customerId });
+      await payments[method](data);
+      res.redirect('/');
+    } catch (e) {
+      throw new BadRequest(e);
+    }
+  },
+};
+
+/**
+ * @api {get} /paypal/subscribe Paypal subscribe
+ * @apiVersion 3.0.0
+ * @apiName PaypalSubscribe
+ * @apiGroup Payments
+ *
+ * @apiParam {string} sub subscription, possible values are: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo
+ * @apiParam {string} coupon coupon for the matching subscription, required only for certain subscriptions
+ *
+ * @apiSuccess {} empty object
+ **/
+api.subscribe = {
+  method: 'GET',
+  url: '/payments/paypal/subscribe',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    let sub = shared.content.subscriptionBlocks[req.query.sub];
+    if (sub.discount) {
+      if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
+      let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
+      if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
+    }
+
+    let billingPlanTitle = `HabitRPG Subscription ($${sub.price} every ${sub.months} months, recurring)`;
+    let billingAgreementAttributes = {
+      name: billingPlanTitle,
+      description: billingPlanTitle,
+      start_date: moment().add({ minutes: 5}).format(),
+      plan: {
+        id: sub.paypalKey,
+      },
+      payer: {
+        payment_method: 'Paypal',
+      },
+    };
+    try {
+      let billingAgreement = await paypal.billingAgreement.create(billingAgreementAttributes);
+      req.session.paypalBlock = req.query.sub;
+      let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
+      res.redirect(link);
+    } catch (e) {
+      throw new BadRequest(e);
+    }
+  },
+};
+
+/**
+ * @api {get} /paypal/subscribe/success Paypal subscribe success
+ * @apiVersion 3.0.0
+ * @apiName PaypalSubscribeSuccess
+ * @apiGroup Payments
+ *
+ * @apiParam {string} token The token in query
+ *
+ * @apiSuccess {} redirect
+ **/
+api.subscribeSuccess = {
+  method: 'GET',
+  url: '/payments/paypal/subscribe/success',
+  middlewares: [authWithSession],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
+    delete req.session.paypalBlock;
+    try {
+      let result = await paypal.billingAgreement.execute(req.query.token, {});
+      await payments.createSubscription({
+        user,
+        customerId: result.id,
+        paymentMethod: 'Paypal',
+        sub: block,
+      });
+      res.redirect('/');
+    } catch (e) {
+      throw new BadRequest(e);
+    }
+  },
+};
+
+/**
+ * @api {get} /paypal/subscribe/cancel Paypal subscribe cancel
+ * @apiVersion 3.0.0
+ * @apiName PaypalSubscribeCancel
+ * @apiGroup Payments
+ *
+ * @apiParam {string} token The token in query
+ *
+ * @apiSuccess {} redirect
+ **/
+api.subscribeCancel = {
+  method: 'GET',
+  url: '/payments/paypal/subscribe/cancel',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let customerId = user.purchased.plan.customerId;
+    if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));
+    try {
+      let customer = await paypal.billingAgreement.get(customerId);
+      let nextBillingDate = customer.agreement_details.next_billing_date;
+      if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
+        throw new BadRequest(res.t('planNotActive', { nextBillingDate }));
+      }
+      await paypal.billingAgreement.cancel(customerId, { note: res.t('cancelingSubscription') });
+      let data = {
+        user,
+        paymentMethod: 'Paypal',
+        nextBill: nextBillingDate,
+      };
+      await payments.cancelSubscription(data);
+      res.redirect('/');
+    } catch (e) {
+      throw new BadRequest(e);
+    }
+  },
+};
+
+/**
+ * @api {post} /paypal/ipn Paypal IPN
+ * @apiVersion 3.0.0
+ * @apiName PaypalIpn
+ * @apiGroup Payments
+ *
+ * @apiParam {string} txn_type txn_type
+ * @apiParam {string} recurring_payment_id recurring_payment_id
+ *
+ * @apiSuccess {} empty object
+ **/
+api.ipn = {
+  method: 'POST',
+  url: '/payments/paypal/ipn',
+  middlewares: [],
+  async handler (req, res) {
+    res.respond(200);
+    try {
+      await ipn.verify(req.body);
+      if (req.body.txn_type === 'recurring_payment_profile_cancel' || req.body.txn_type === 'subscr_cancel') {
+        let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
+        if (user) {
+          payments.cancelSubscriptoin({ user, paymentMethod: 'Paypal' });
+        }
+      }
+    } catch (e) {
+      logger.error(e);
+    }
+  },
+};
+
+/* eslint-disable camelcase */
+
+module.exports = api;

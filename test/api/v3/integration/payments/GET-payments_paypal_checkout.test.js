@@ -3,8 +3,8 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('payments : amazon #subscribeCancel', () => {
-  let endpoint = '/payments/amazon/subscribeCancel';
+describe('payments : paypal #checkout', () => {
+  let endpoint = '/payments/paypal/checkout';
   let user;
 
   beforeEach(async () => {
@@ -13,9 +13,9 @@ describe('payments : amazon #subscribeCancel', () => {
 
   it('verifies subscription', async () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('missingSubscription'),
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('missingAuthParams'),
     });
   });
 });
