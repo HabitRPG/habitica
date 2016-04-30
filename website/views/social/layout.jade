@@ -22,6 +22,9 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     meta(name='twitter:image' content='https://s3.amazonaws.com/habitica-assets/assets/gryphon_logo.png')
     meta(name='twitter:description' content=socialDescription)
     meta(name='apple-itunes-app' content='app-id=994882113')
+    meta(name='google-play-app' content='app-id=com.habitrpg.android.habitica')
+    link(rel='apple-touch-icon' href='/logo.png')
+    link(rel='android-touch-icon' href='/logo.png')
     link(rel='canonical', href='', type='text/html')
     link(rel='shortcut icon', href='/favicon.ico')
     link(rel='mask-icon', href='/favicon.ico')
@@ -42,3 +45,14 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     include ../shared/mixins
     .container
       block content
+    // Smart App Banner
+    script(type='text/javascript').
+      new SmartBanner({
+          title: 'Habitica: Gamify Your Tasks',
+          author: 'HabitRPG, Inc.',
+          button: 'GET',
+          store: {
+              ios: 'On the App Store',
+              android: 'In Google Play'
+          }
+      });
