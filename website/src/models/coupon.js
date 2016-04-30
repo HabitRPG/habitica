@@ -13,6 +13,9 @@ import {
 export let schema = new mongoose.Schema({
   event: {type: String, enum: ['wondercon', 'google_6mo']},
   user: {type: String, ref: 'User'},
+}, {
+  strict: true,
+  minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {

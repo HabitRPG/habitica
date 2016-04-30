@@ -676,7 +676,14 @@ api.cast = async function(req, res, next) {
 
         if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
         spell.cast(user, partyMembers, req);
-        await partyMembers.save();
+        if (partyMembers === user) {
+          await partyMembers.save();
+        } else {
+          await Q.all([
+            await partyMembers.save(),
+            await user.save(),
+          ]);
+        }
       }
 
       if (party && !spell.silent) {

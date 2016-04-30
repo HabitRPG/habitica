@@ -350,7 +350,15 @@ api.castSpell = {
       if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
 
       spell.cast(user, task, req);
-      await task.save();
+      if (user.isModified()) {
+        await Q.all([
+          user.save(),
+          task.save(),
+        ]);
+      } else {
+        await task.save();
+      }
+
       res.respond(200, task);
     } else if (targetType === 'self') {
       spell.cast(user, null, req);
@@ -370,7 +378,8 @@ api.castSpell = {
 
       let toSave = tasks.filter(t => t.isModified());
       let isUserModified = user.isModified();
-      toSave.unshift(user.save());
+
+      if (isUserModified) toSave.unshift(user.save());
       let saved = await Q.all(toSave);
 
       let response = {
@@ -403,7 +412,14 @@ api.castSpell = {
 
         if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
         spell.cast(user, partyMembers, req);
-        await partyMembers.save();
+        if (user.isModified()) {
+          await Q.all([
+            user.save(),
+            partyMembers.save(),
+          ]);
+        } else {
+          await partyMembers.save();
+        }
       }
       res.respond(200, partyMembers);
 

@@ -4,8 +4,7 @@ var router = express.Router();
 var _ = require('lodash');
 var locals = require('../middlewares/api-v2/locals');
 var i18n = require('../libs/api-v2/i18n');
-var Remarkable = require('remarkable');
-var md = new Remarkable({
+var md = require('markdown-it')({
   html: true,
 });
 

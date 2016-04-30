@@ -23,7 +23,10 @@ let schema = new Schema({
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   memberCount: {type: Number, default: 1},
-  prize: {type: Number, default: 0, min: 0}, // TODO no update?
+  prize: {type: Number, default: 0, min: 0},
+}, {
+  strict: true,
+  minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
@@ -153,6 +156,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
 
   // Sync each user sequentially
   // TODO are we sure it's the best solution?
+  // use bulk ops? http://stackoverflow.com/questions/16726330/mongoose-mongodb-batch-insert
   for (let memberId of membersIds) {
     let updateTasksOrderQ = {$push: {}};
     let toSave = [];

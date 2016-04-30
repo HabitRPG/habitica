@@ -15,6 +15,9 @@ export let schema = new mongoose.Schema({
     lowercase: true, // TODO migrate existing to lowerCase
     validator: [validator.isEmail, 'Invalid email.'],
   },
+}, {
+  strict: true,
+  minimize: false, // So empty objects are returned
 });
 
 export let model = mongoose.model('EmailUnsubscription', schema);

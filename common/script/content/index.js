@@ -506,7 +506,15 @@ api.premiumHatchingPotions = {
     canBuy: (function() {
       return false;
     })
-  }
+  },
+  Floral: {
+    value: 2,
+    text: t('hatchingPotionFloral'),
+    limited: true,
+    canBuy: (function() {
+      return true;
+    }),
+  },
 };
 
 _.each(api.dropHatchingPotions, function(pot, key) {
@@ -2564,11 +2572,11 @@ api.quests = {
       items: [
         {
           type: 'pets',
-          key: 'Bumblebee-Base',
+          key: 'MagicalBee-Base',
           text: t('questBewilderDropBumblebeePet')
         }, {
           type: 'mounts',
-          key: 'Bumblebee-Base',
+          key: 'MagicalBee-Base',
           text: t('questBewilderDropBumblebeeMount')
         }, {
           type: 'food',
