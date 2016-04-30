@@ -19,7 +19,7 @@ describe('shared.ops.updateTask', () => {
       }],
     });
 
-    let res = updateTask(habit, {
+    let [res] = updateTask(habit, {
       body: {
         text: 'updated',
         id: '123',

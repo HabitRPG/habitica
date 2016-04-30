@@ -18,11 +18,7 @@ describe('POST /user/allocate-now', () => {
     let res = await user.post('/user/allocate-now');
     await user.sync();
 
-    expect(res).to.eql({
-      data: {
-        stats: user.stats,
-      },
-    });
+    expect(res).to.eql(user.stats);
     expect(user.stats.points).to.equal(0);
     expect(user.stats.con).to.equal(9);
     expect(user.stats.int).to.equal(8);

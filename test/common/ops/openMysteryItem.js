@@ -29,10 +29,10 @@ describe('shared.ops.openMysteryItem', () => {
 
     user.purchased.plan.mysteryItems = [mysteryItemKey];
 
-    let response = openMysteryItem(user);
+    let [data, message] = openMysteryItem(user);
 
     expect(user.items.gear.owned[mysteryItemKey]).to.be.true;
-    expect(response.message).to.equal(i18n.t('mysteryItemOpened'));
-    expect(response.data).to.equal(user.items.gear.owned);
+    expect(message).to.equal(i18n.t('mysteryItemOpened'));
+    expect(data).to.equal(user.items.gear.owned);
   });
 });

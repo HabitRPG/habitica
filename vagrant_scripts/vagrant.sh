@@ -65,7 +65,7 @@ apt-get install -qq ntp
 echo Installing nvm, node and global node modules...
 /vagrant/vagrant_scripts/install_node.sh
 
-echo All done! run npm install to install the required node modules and then npm start to start the server
+echo "'vagrant up' is finished. Continue with the instructions at http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally"
 
 # Uncomment both lines to autostart the habitica server when provisioning
 # echo Starting Habitica server...

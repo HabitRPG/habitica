@@ -136,8 +136,8 @@
                 |  {{::pot.value}}&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems
 
-        // li.customize-menu
-          menu.pets-menu!=env.t('magicHatchingPotions') + " - " + env.t('winterEventAvailability')
+        li.customize-menu
+          menu.pets-menu!=env.t('magicHatchingPotions') + " - " + env.t('springEventAvailability')
             p.muted=env.t('premiumPotionNoDropExplanation')
             div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy(user)')
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',

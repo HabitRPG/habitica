@@ -35,8 +35,6 @@ describe('POST /user/equip/:type/:key', () => {
     let res = await user.post('/user/equip/equipped/weapon_warrior_2');
     await user.sync();
 
-    expect(res).to.eql({
-      data: JSON.parse(JSON.stringify(user.items)),
-    });
+    expect(res).to.eql(JSON.parse(JSON.stringify(user.items)));
   });
 });

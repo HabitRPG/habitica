@@ -33,9 +33,9 @@ describe('shared.ops.releaseBoth', () => {
   });
 
   it('grants triad bingo with gems', () => {
-    let response = releaseBoth(user);
+    let [, message] = releaseBoth(user);
 
-    expect(response.message).to.equal(i18n.t('mountsAndPetsReleased'));
+    expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.achievements.triadBingoCount).to.equal(1);
   });
 
@@ -44,24 +44,24 @@ describe('shared.ops.releaseBoth', () => {
     user.achievements.triadBingo = 1;
     user.achievements.triadBingoCount = 1;
 
-    let response = releaseBoth(user);
+    let [, message] = releaseBoth(user);
 
-    expect(response.message).to.equal(i18n.t('mountsAndPetsReleased'));
+    expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.achievements.triadBingoCount).to.equal(2);
   });
 
   it('releases pets', () => {
-    let response = releaseBoth(user);
+    let [, message] = releaseBoth(user);
 
-    expect(response.message).to.equal(i18n.t('mountsAndPetsReleased'));
+    expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.items.pets[animal]).to.be.empty;
     expect(user.items.mounts[animal]).to.equal(null);
   });
 
   it('releases mounts', () => {
-    let response = releaseBoth(user);
+    let [, message] = releaseBoth(user);
 
-    expect(response.message).to.equal(i18n.t('mountsAndPetsReleased'));
+    expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.items.mounts[animal]).to.equal(null);
   });
 

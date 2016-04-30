@@ -4,7 +4,6 @@ import _ from 'lodash';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import splitWhitespace from '../libs/splitWhitespace';
 import randomVal from '../fns/randomVal';
 
 module.exports = function revive (user, req = {}, analytics) {
@@ -97,14 +96,12 @@ module.exports = function revive (user, req = {}, analytics) {
     });
   }
 
-  let response = {
-    data: _.pick(user, splitWhitespace('user.items')),
-    message,
-  };
-
   if (req.v2 === true) {
     return user;
   } else {
-    return response;
+    return [
+      user.items,
+      message,
+    ];
   }
 };

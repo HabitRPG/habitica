@@ -39,9 +39,9 @@ describe('shared.ops.readCard', () => {
   });
 
   it('reads a card', () => {
-    let response = readCard(user, {params: {cardType: 'greeting'}});
+    let [, message] = readCard(user, {params: {cardType: 'greeting'}});
 
-    expect(response.message).to.equal(i18n.t('readCard', {cardType}));
+    expect(message).to.equal(i18n.t('readCard', {cardType}));
     expect(user.items.special[`${cardType}Received`]).to.be.empty;
     expect(user.flags.cardReceived).to.be.false;
   });

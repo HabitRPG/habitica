@@ -36,9 +36,7 @@ describe('POST /user/buy/:key', () => {
     await user.sync();
 
     expect(user.stats.hp).to.equal(50);
-    expect(res.data).to.eql({
-      stats: user.stats,
-    });
+    expect(res.data).to.eql(user.stats);
     expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
   });
 

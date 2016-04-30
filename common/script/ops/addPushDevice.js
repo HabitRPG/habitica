@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import i18n from '../i18n';
-import splitWhitespace from '../libs/splitWhitespace';
 import {
   BadRequest,
   NotAuthorized,
@@ -35,10 +34,8 @@ module.exports = function addPushDevice (user, req = {}) {
 
   pushDevices.push(item);
 
-  let response = {
-    data: _.pick(user, splitWhitespace('pushDevices')),
-    message: i18n.t('pushDeviceAdded', req.language),
-  };
-
-  return response;
+  return [
+    user.pushDevices,
+    i18n.t('pushDeviceAdded', req.language),
+  ];
 };

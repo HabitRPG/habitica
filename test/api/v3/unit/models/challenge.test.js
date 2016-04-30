@@ -110,7 +110,7 @@ describe('Challenge Model', () => {
         };
 
         Tasks.Task.sanitize(req.body);
-        _.assign(task, common.ops.updateTask(task.toObject(), req));
+        _.assign(task, common.ops.updateTask(task.toObject(), req)[0]);
 
         await challenge.updateTask(task);
 

@@ -40,11 +40,11 @@ module.exports = function buyQuest (user, req = {}, analytics) {
   if (req.v2 === true) {
     return user.items.quests;
   } else {
-    return {
-      data: user.items.quests,
-      message: i18n.t('messageBought', {
+    return [
+      user.items.quests,
+      i18n.t('messageBought', {
         itemText: item.text(req.language),
       }, req.language),
-    };
+    ];
   }
 };

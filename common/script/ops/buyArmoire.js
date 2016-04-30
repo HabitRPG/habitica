@@ -101,16 +101,15 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
     });
   }
 
-  let res = {
-    data: _.pick(user, splitWhitespace('items flags')),
-    message,
-  };
-
-  if (armoireResp) res.armoire = armoireResp;
+  let resData = _.pick(user, splitWhitespace('items flags'));
+  if (armoireResp) resData.armoire = armoireResp;
 
   if (req.v2 === true) {
-    return res.data;
+    return resData;
   } else {
-    return res;
+    return [
+      resData,
+      message,
+    ];
   }
 };

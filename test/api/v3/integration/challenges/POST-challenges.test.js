@@ -236,7 +236,7 @@ describe('POST /challenges', () => {
         official: true,
       });
 
-      expect(challenge.official).to.be.undefined;
+      expect(challenge.official).to.eql(false);
     });
 
     it('returns an error when challenge validation fails; doesn\'s save user or group', async () => {
@@ -284,7 +284,7 @@ describe('POST /challenges', () => {
       expect(challenge.name).to.eql(name);
       expect(challenge.shortName).to.eql(shortName);
       expect(challenge.description).to.eql(description);
-      expect(challenge.official).to.be.undefined;
+      expect(challenge.official).to.eql(false);
       expect(challenge.group).to.eql({
         _id: group._id,
         privacy: group.privacy,

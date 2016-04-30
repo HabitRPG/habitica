@@ -58,14 +58,11 @@ module.exports = function equip (user, req = {}) {
     }
   }
 
-  let res = {
-    data: user.items,
-  };
-  if (message) res.message = message;
-
   if (req.v2 === true) {
     return user.items;
   } else {
+    let res = [user.items];
+    if (message) res.push(message);
     return res;
   }
 };

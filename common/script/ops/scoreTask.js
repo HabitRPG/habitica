@@ -257,5 +257,5 @@ module.exports = function scoreTask (options = {}, req = {}) {
   }
 
   updateStats(user, stats, req);
-  return delta;
+  return [delta];
 };

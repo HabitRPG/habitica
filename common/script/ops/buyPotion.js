@@ -1,7 +1,5 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
-import splitWhitespace from '../libs/splitWhitespace';
 import {
   NotAuthorized,
 } from '../libs/errors';
@@ -39,14 +37,12 @@ module.exports = function buyPotion (user, req = {}, analytics) {
     });
   }
 
-  let res = {
-    data: _.pick(user, splitWhitespace('stats')),
-    message,
-  };
-
   if (req.v2 === true) {
-    return res.data;
+    return user.stats;
   } else {
-    return res;
+    return [
+      user.stats,
+      message,
+    ];
   }
 };

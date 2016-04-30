@@ -207,7 +207,7 @@ api.joinGroup = {
     let user = res.locals.user;
     let inviter;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -251,7 +251,12 @@ api.joinGroup = {
       }
     }
 
-    if (isUserInvited && group.type === 'guild') user.guilds.push(group._id); // Add group to user's guilds
+    if (isUserInvited && group.type === 'guild') {
+      if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
+        throw new NotAuthorized(res.t('userAlreadyInGroup'));
+      }
+      user.guilds.push(group._id); // Add group to user's guilds
+    }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 
     if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
@@ -297,7 +302,7 @@ api.rejectGroupInvite = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

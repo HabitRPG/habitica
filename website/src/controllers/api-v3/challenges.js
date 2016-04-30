@@ -83,7 +83,7 @@ api.createChallenge = {
     group.challengeCount += 1;
 
     req.body.leader = user._id;
-    req.body.official = user.contributor.admin && req.body.official;
+    req.body.official = user.contributor.admin && req.body.official ? true : false;
     let challenge = new Challenge(Challenge.sanitize(req.body));
 
     // First validate challenge so we don't save group if it's invalid (only runs sync validators)
@@ -108,6 +108,7 @@ api.createChallenge = {
       type: group.type,
       privacy: group.privacy,
     };
+
     res.respond(201, response);
   },
 };

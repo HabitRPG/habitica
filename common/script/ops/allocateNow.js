@@ -8,8 +8,8 @@ module.exports = function allocateNow (user, req = {}) {
   if (req.v2 === true) {
     return _.pick(user, 'stats');
   } else {
-    return {
-      data: _.pick(user, 'stats'),
-    };
+    return [
+      user.stats,
+    ];
   }
 };

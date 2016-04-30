@@ -91,21 +91,6 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 // Basic fields to fetch for populating a group info
 export let basicFields = 'name type privacy';
 
-// TODO migration
-/**
- * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration
- * to remove duplicates, then take these fucntions out
- */
-/* function removeDuplicates(doc){
-  // Remove duplicate members
-  if (doc.members) {
-    var uniqMembers = _.uniq(doc.members);
-    if (uniqMembers.length != doc.members.length) {
-      doc.members = uniqMembers;
-    }
-  }
-}*/
-
 // TODO test
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
@@ -475,7 +460,6 @@ function _isOnQuest (user, progress, group) {
 // Returns a promise
 schema.statics.collectQuest = async function collectQuest (user, progress) {
   let group = await this.getGroup({user, groupId: 'party'});
-
   if (!_isOnQuest(user, progress, group)) return;
   let quest = shared.content.quests[group.quest.key];
 
@@ -647,32 +631,32 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   let promises = [];
 
-  // If user is the last one in group and group is private, delete it
-  if (group.memberCount <= 1 && group.privacy === 'private') {
-    return await group.remove();
-  }
-
-  // otherwise just remove a member TODO create User.methods.removeFromGroup?
+  // remove the group from the user's groups
   if (group.type === 'guild') {
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
   }
 
-  // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-  let update = {
-    $inc: {memberCount: -1},
-  };
+  // If user is the last one in group and group is private, delete it
+  if (group.memberCount <= 1 && group.privacy === 'private') {
+    return await group.remove();
+  } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+    let update = {
+      $inc: {memberCount: -1},
+    };
 
-  if (group.leader === user._id) {
-    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
-    query._id = {$ne: user._id};
-    let seniorMember = await User.findOne(query).select('_id').exec();
+    if (group.leader === user._id) {
+      let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+      query._id = {$ne: user._id};
+      let seniorMember = await User.findOne(query).select('_id').exec();
 
-    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
-    if (seniorMember) update.$set = {leader: seniorMember._id};
+      // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+      if (seniorMember) update.$set = {leader: seniorMember._id};
+    }
+    promises.push(group.update(update).exec());
   }
-  promises.push(group.update(update).exec());
+
   firebase.removeUserFromGroup(group._id, user._id);
 
   return Q.all(promises);
@@ -746,7 +730,7 @@ if (!nconf.get('IS_TEST')) {
     new model({ // eslint-disable-line babel/new-cap
       _id: TAVERN_ID,
       leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
-      name: 'HabitRPG',
+      name: 'Tavern',
       type: 'guild',
       privacy: 'public',
     }).save();

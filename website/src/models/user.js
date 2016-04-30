@@ -115,10 +115,10 @@ export let schema = new Schema({
   },
 
   balance: {type: Number, default: 0},
-  // Not saved on the user TODO remove with migration
-  /* filters: {type: Schema.Types.Mixed, default: () => {
+  // Not saved on the user right now
+  filters: {type: Schema.Types.Mixed, default: () => {
     return {};
-  }}, */
+  }},
 
   purchased: {
     ads: {type: Boolean, default: false},
@@ -400,7 +400,7 @@ export let schema = new Schema({
     hideHeader: {type: Boolean, default: false},
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
-    timezoneOffset: Number,
+    timezoneOffset: {type: Number, default: 0},
     sound: {type: String, default: 'off', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
@@ -524,7 +524,7 @@ export let schema = new Schema({
   },
 }, {
   strict: true,
-  minimize: false, // So empty objects are returned TODO make sure it's in every model
+  minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {

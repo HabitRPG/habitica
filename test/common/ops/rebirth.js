@@ -35,18 +35,18 @@ describe('shared.ops.rebirth', () => {
   });
 
   it('rebirths a user with enough gems', () => {
-    let response = rebirth(user);
+    let [, message] = rebirth(user);
 
-    expect(response.message).to.equal(i18n.t('rebirthComplete'));
+    expect(message).to.equal(i18n.t('rebirthComplete'));
   });
 
   it('rebirths a user with not enough gems but max level', () => {
     user.balance = 0;
     user.stats.lvl = MAX_LEVEL;
 
-    let response = rebirth(user);
+    let [, message] = rebirth(user);
 
-    expect(response.message).to.equal(i18n.t('rebirthComplete'));
+    expect(message).to.equal(i18n.t('rebirthComplete'));
   });
 
   it('resets user\'s taks values except for rewards to 0', () => {

@@ -3,9 +3,10 @@ common/dist/
 common/transpiled-babel/
 coverage/
 database_reports/
-migrations/
 website/build/
 website/transpiled-babel/
+
+migrations/*
 
 # The files in website/public/js should be moved out and browserified
 website/public/

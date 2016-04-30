@@ -383,7 +383,7 @@ api.updatePassword = {
  *
  * @apiParam {string} email Body parameter - The email address of the user
  *
- * @apiSuccess {string} data.message The localized success message
+ * @apiSuccess {string} message The localized success message
  **/
 api.resetPassword = {
   method: 'POST',
@@ -423,7 +423,7 @@ api.resetPassword = {
       });
       await user.save();
     }
-    res.respond(200, { message: res.t('passwordReset') });
+    res.respond(200, {}, res.t('passwordReset'));
   },
 };
 

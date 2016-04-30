@@ -31,9 +31,9 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('releases pets', () => {
-    let response = releasePets(user);
+    let [, message] = releasePets(user);
 
-    expect(response.message).to.equal(i18n.t('petsReleased'));
+    expect(message).to.equal(i18n.t('petsReleased'));
     expect(user.items.pets[animal]).to.equal(0);
   });
 

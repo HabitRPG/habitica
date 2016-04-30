@@ -304,7 +304,8 @@ api.updateTask = {
 
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     // TODO regarding comment above, make sure other models with nested fields are using this trick too
-    _.assign(task, Tasks.Task.sanitize(common.ops.updateTask(task.toObject(), req)));
+    let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
+    _.assign(task, Tasks.Task.sanitize(updatedTaskObj));
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
@@ -376,7 +377,7 @@ api.scoreTask = {
 
     let wasCompleted = task.completed;
 
-    let delta = common.ops.scoreTask({task, user, direction}, req);
+    let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 

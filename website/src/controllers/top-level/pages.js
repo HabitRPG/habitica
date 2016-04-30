@@ -1,7 +1,10 @@
 import locals from '../../middlewares/api-v3/locals';
 import _ from 'lodash';
+import Remarkable from 'remarkable';
 
-const marked = require('marked');
+const md = new Remarkable({
+  html: true,
+});
 
 let api = {};
 
@@ -39,7 +42,7 @@ _.each(staticPages, (name) => {
     async handler (req, res) {
       res.render(`static/${name}.jade`, {
         env: res.locals.habitrpg,
-        marked,
+        md,
         userCount: TOTAL_USER_COUNT,
       });
     },
@@ -57,7 +60,7 @@ _.each(shareables, (name) => {
     async handler (req, res) {
       res.render(`social/${name}`, {
         env: res.locals.habitrpg,
-        marked,
+        md,
         userCount: TOTAL_USER_COUNT,
       });
     },

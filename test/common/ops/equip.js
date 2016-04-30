@@ -37,20 +37,20 @@ describe('shared.ops.equip', () => {
       equip(user, {params: {key: 'weapon_warrior_1'}});
 
       // one-handed to one-handed
-      let res = equip(user, {params: {key: 'weapon_warrior_2'}});
-      expect(res.message).to.not.exists;
+      let [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
+      expect(message).to.not.exists;
 
       // one-handed to two-handed
-      res = equip(user, {params: {key: 'weapon_wizard_1'}});
-      expect(res.message).to.not.exists;
+      [, message] = equip(user, {params: {key: 'weapon_wizard_1'}});
+      expect(message).to.not.exists;
 
       // two-handed to two-handed
-      res = equip(user, {params: {key: 'weapon_wizard_2'}});
-      expect(res.message).to.not.exists;
+      [, message] = equip(user, {params: {key: 'weapon_wizard_2'}});
+      expect(message).to.not.exists;
 
       // two-handed to one-handed
-      res = equip(user, {params: {key: 'weapon_warrior_2'}});
-      expect(res.message).to.not.exists;
+      [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
+      expect(message).to.not.exists;
     });
 
     it('should send messages if equipping a two-hander causes the off-hander to be unequipped', () => {
@@ -58,10 +58,11 @@ describe('shared.ops.equip', () => {
       equip(user, {params: {key: 'shield_warrior_1'}});
 
       // equipping two-hander
-      let res = equip(user, {params: {key: 'weapon_wizard_1'}});
+      let [data, message] = equip(user, {params: {key: 'weapon_wizard_1'}});
       let weapon = content.gear.flat.weapon_wizard_1;
       let item = content.gear.flat.shield_warrior_1;
 
+      let res = {data, message};
       expect(res).to.eql({
         message: i18n.t('messageTwoHandedEquip', {twoHandedText: weapon.text(), offHandedText: item.text()}),
         data: user.items,
@@ -74,8 +75,9 @@ describe('shared.ops.equip', () => {
       let weapon = content.gear.flat.weapon_wizard_1;
       let shield = content.gear.flat.shield_warrior_1;
 
-      let res = equip(user, {params: {key: 'shield_warrior_1'}});
+      let [data, message] = equip(user, {params: {key: 'shield_warrior_1'}});
 
+      let res = {data, message};
       expect(res).to.eql({
         message: i18n.t('messageTwoHandedUnequip', {twoHandedText: weapon.text(), offHandedText: shield.text()}),
         data: user.items,

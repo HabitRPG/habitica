@@ -46,14 +46,12 @@ describe('shared.ops.changeClass', () => {
       user.stats.class = 'healer';
       user.items.gear.owned.armor_rogue_1 = true; // eslint-disable-line camelcase
 
-      let res = changeClass(user, {query: {class: 'rogue'}});
-      expect(res).to.eql({
-        data: {
-          preferences: user.preferences,
-          stats: user.stats,
-          flags: user.flags,
-          items: user.items,
-        },
+      let [data] = changeClass(user, {query: {class: 'rogue'}});
+      expect(data).to.eql({
+        preferences: user.preferences,
+        stats: user.stats,
+        flags: user.flags,
+        items: user.items,
       });
 
       expect(user.stats.class).to.equal('rogue');
@@ -80,14 +78,12 @@ describe('shared.ops.changeClass', () => {
       user.stats.int = 4;
       user.flags.classSelected = true;
 
-      let res = changeClass(user);
-      expect(res).to.eql({
-        data: {
-          preferences: user.preferences,
-          stats: user.stats,
-          flags: user.flags,
-          items: user.items,
-        },
+      let [data] = changeClass(user);
+      expect(data).to.eql({
+        preferences: user.preferences,
+        stats: user.stats,
+        flags: user.flags,
+        items: user.items,
       });
 
       expect(user.preferences.disableClasses).to.be.false;
@@ -122,14 +118,12 @@ describe('shared.ops.changeClass', () => {
         user.stats.int = 4;
         user.flags.classSelected = true;
 
-        let res = changeClass(user);
-        expect(res).to.eql({
-          data: {
-            preferences: user.preferences,
-            stats: user.stats,
-            flags: user.flags,
-            items: user.items,
-          },
+        let [data] = changeClass(user);
+        expect(data).to.eql({
+          preferences: user.preferences,
+          stats: user.stats,
+          flags: user.flags,
+          items: user.items,
         });
 
         expect(user.balance).to.equal(0.25);

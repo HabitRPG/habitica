@@ -8,7 +8,7 @@
             "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-sanitize/angular-sanitize.js",
-            "bower_components/marked/lib/marked.js",
+            "bower_components/habitica-markdown/dist/habitica-markdown.min.js",
             "bower_components/angular-ui-router/release/angular-ui-router.js",
             "bower_components/angular-resource/angular-resource.min.js",
             "bower_components/angular-ui-utils/ui-utils.min.js",
@@ -31,6 +31,8 @@
             "bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
+
+            "bower_components/smart-app-banner/smart-app-banner.js",
 
             "js/env.js",
 
@@ -97,6 +99,7 @@
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
             "bower_components/css-social-buttons/css/zocial.css",
+            "bower_components/smart-app-banner/smart-app-banner.css",
             "app.css",
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
@@ -117,6 +120,9 @@
             "bower_components/hello/dist/hello.all.min.js",
 
             "bower_components/angular-loading-bar/build/loading-bar.js",
+
+            "bower_components/smart-app-banner/smart-app-banner.js",
+
             "js/env.js",
             "js/static.js",
             "js/services/analyticsServices.js",
@@ -132,6 +138,7 @@
             "bower_components/bootstrap/dist/css/bootstrap.css",
             "bower_components/css-social-buttons/css/zocial.css",
             "bower_components/jquery-colorbox/example1/colorbox.css",
+            "bower_components/smart-app-banner/smart-app-banner.css",
             "app.css",
             "common/dist/sprites/habitrpg-shared.css",
             "static.css"
@@ -146,6 +153,9 @@
             "bower_components/hello/dist/hello.all.min.js",
 
             "bower_components/angular-loading-bar/build/loading-bar.js",
+
+            "bower_components/smart-app-banner/smart-app-banner.js",
+
             "js/env.js",
             "js/static.js",
             "js/services/analyticsServices.js",
@@ -159,6 +169,7 @@
         ],
         "css": [
             "bower_components/css-social-buttons/css/zocial.css",
+            "bower_components/smart-app-banner/smart-app-banner.css",
             "front/staticstyle.css",
             "common/dist/sprites/habitrpg-shared.css",
             "app.css"
