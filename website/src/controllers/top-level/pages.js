@@ -1,8 +1,8 @@
 import locals from '../../middlewares/api-v3/locals';
 import _ from 'lodash';
-import Remarkable from 'remarkable';
+import markdownIt from 'markdown-it';
 
-const md = new Remarkable({
+const md = markdownIt({
   html: true,
 });
 

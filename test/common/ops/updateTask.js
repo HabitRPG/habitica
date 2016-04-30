@@ -13,7 +13,7 @@ describe('shared.ops.updateTask', () => {
       ],
 
       reminders: [{
-        _id: '123',
+        id: '123',
         startDate: now,
         time: now,
       }],
@@ -29,7 +29,7 @@ describe('shared.ops.updateTask', () => {
         checklist: [{
           completed: false,
           text: 'item',
-          _id: '123',
+          id: '123',
         }],
       },
     });
@@ -41,10 +41,10 @@ describe('shared.ops.updateTask', () => {
     expect(res.checklist).to.eql([{
       completed: false,
       text: 'item',
-      _id: '123',
+      id: '123',
     }]);
     expect(res.reminders).to.eql([{
-      _id: '123',
+      id: '123',
       startDate: now,
       time: now,
     }]);

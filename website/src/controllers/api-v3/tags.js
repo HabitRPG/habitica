@@ -72,7 +72,7 @@ api.getTag = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = user.tags.id(req.params.tagId);
+    let tag = _.find(user.tags, {id: req.params.tagId});
     if (!tag) throw new NotFound(res.t('tagNotFound'));
     res.respond(200, tag);
   },
@@ -102,13 +102,13 @@ api.updateTag = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = user.tags.id(tagId);
+    let tag = _.find(user.tags, {id: tagId});
     if (!tag) throw new NotFound(res.t('tagNotFound'));
 
     _.merge(tag, Tag.sanitize(req.body));
 
     let savedUser = await user.save();
-    res.respond(200, savedUser.tags.id(tagId));
+    res.respond(200, _.find(savedUser.tags, {id: tagId}));
   },
 };
 
@@ -134,7 +134,7 @@ api.deleteTag = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = user.tags.id(req.params.tagId);
+    let tag = _.find(user.tags, {id: req.params.tagId});
     if (!tag) throw new NotFound(res.t('tagNotFound'));
     tag.remove();
 
@@ -143,7 +143,7 @@ api.deleteTag = {
       userId: user._id,
     }, {
       $pull: {
-        tags: tag._id,
+        tags: tag.id,
       },
     }, {multi: true}).exec();
 

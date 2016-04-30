@@ -45,7 +45,8 @@ export let TaskSchema = new Schema({
   },
 
   reminders: [{
-    _id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
+    _id: false,
+    id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
     startDate: {type: Date, required: true},
     time: {type: Date, required: true},
   }],
@@ -67,15 +68,15 @@ TaskSchema.plugin(baseModel, {
   timestamps: true,
 });
 
-// Sanitize checklist objects (disallowing _id)
+// Sanitize checklist objects (disallowing id)
 TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
-  delete checklistObj._id;
+  delete checklistObj.id;
   return checklistObj;
 };
 
 // Sanitize reminder objects (disallowing id)
 TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
-  delete reminderObj.id; // TODO convert to _id?
+  delete reminderObj.id;
   return reminderObj;
 };
 
@@ -159,8 +160,9 @@ let dailyTodoSchema = () => {
     collapseChecklist: {type: Boolean, default: false},
     checklist: [{
       completed: {type: Boolean, default: false},
-      text: {type: String, required: true},
-      _id: {type: String, default: shared.uuid, validate: [validator.isUUID, 'Invalid uuid.']},
+      text: {type: String, required: false, default: ''}, // required:false because it can be empty on creation
+      _id: false,
+      id: {type: String, default: shared.uuid, validate: [validator.isUUID, 'Invalid uuid.']},
     }],
   };
 };
