@@ -106,10 +106,11 @@ describe('cron middleware', () => {
     });
   });
 
-  it('should call next is user was not modified after cron', (done) => {
+  it.only('should call next is user was not modified after cron', (done) => {
     let hpBefore = user.stats.hp;
     user.lastCron = moment(new Date()).subtract({days: 2});
     generateDaily(user);
+    console.log('here')
 
     cronMiddleware(req, res, () => {
       expect(user.stats.hp).to.be.equal(hpBefore);

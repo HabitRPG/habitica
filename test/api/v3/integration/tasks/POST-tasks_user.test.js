@@ -154,14 +154,14 @@ describe('POST /tasks/user', () => {
         text: 'test habit',
         type: 'habit',
         reminders: [
-          {_id: id1, startDate: new Date(), time: new Date()},
+          {id: id1, startDate: new Date(), time: new Date()},
         ],
       });
 
       expect(task.reminders).to.be.an('array');
       expect(task.reminders.length).to.eql(1);
       expect(task.reminders[0]).to.be.an('object');
-      expect(task.reminders[0]._id).to.eql(id1);
+      expect(task.reminders[0].id).to.eql(id1);
       expect(task.reminders[0].startDate).to.be.a('string'); // json doesn't have dates
       expect(task.reminders[0].time).to.be.a('string');
     });
