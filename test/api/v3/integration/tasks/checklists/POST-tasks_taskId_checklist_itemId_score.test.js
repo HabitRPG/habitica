@@ -22,7 +22,7 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
       completed: false,
     });
 
-    savedTask = await user.post(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}/score`);
+    savedTask = await user.post(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}/score`);
 
     expect(savedTask.checklist.length).to.equal(1);
     expect(savedTask.checklist[0].completed).to.equal(true);
