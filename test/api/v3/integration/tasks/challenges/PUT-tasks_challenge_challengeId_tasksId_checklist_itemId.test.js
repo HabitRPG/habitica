@@ -48,7 +48,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
 
     let anotherUser = await generateUser();
 
-    await expect(anotherUser.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`, {
+    await expect(anotherUser.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`, {
       text: 'updated',
       completed: true,
       _id: 123, // ignored
@@ -71,7 +71,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
       completed: false,
     });
 
-    savedTask = await user.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`, {
+    savedTask = await user.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`, {
       text: 'updated',
       completed: true,
       _id: 123, // ignored
@@ -80,7 +80,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     expect(savedTask.checklist.length).to.equal(1);
     expect(savedTask.checklist[0].text).to.equal('updated');
     expect(savedTask.checklist[0].completed).to.equal(true);
-    expect(savedTask.checklist[0]._id).to.not.equal('123');
+    expect(savedTask.checklist[0].id).to.not.equal('123');
   });
 
   it('updates a checklist item on todos', async () => {
@@ -94,7 +94,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
       completed: false,
     });
 
-    savedTask = await user.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`, {
+    savedTask = await user.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`, {
       text: 'updated',
       completed: true,
       _id: 123, // ignored
@@ -103,7 +103,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     expect(savedTask.checklist.length).to.equal(1);
     expect(savedTask.checklist[0].text).to.equal('updated');
     expect(savedTask.checklist[0].completed).to.equal(true);
-    expect(savedTask.checklist[0]._id).to.not.equal('123');
+    expect(savedTask.checklist[0].id).to.not.equal('123');
   });
 
   it('fails on habits', async () => {

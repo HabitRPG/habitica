@@ -16,7 +16,7 @@ describe('POST /tags', () => {
       ignored: false,
     });
 
-    let tag = await user.get(`/tags/${createdTag._id}`);
+    let tag = await user.get(`/tags/${createdTag.id}`);
 
     expect(tag.name).to.equal(tagName);
     expect(tag.ignored).to.not.exist;

@@ -518,7 +518,7 @@ api.addChecklistItem = {
 
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body)); // TODO why not allow to supply _id on creation?
+    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
     let savedTask = await task.save();
 
     res.respond(200, savedTask);
@@ -558,7 +558,7 @@ api.scoreCheckListItem = {
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let item = _.find(task.checklist, {_id: req.params.itemId});
+    let item = _.find(task.checklist, {id: req.params.itemId});
 
     if (!item) throw new NotFound(res.t('checklistItemNotFound'));
     item.completed = !item.completed;
@@ -608,7 +608,7 @@ api.updateChecklistItem = {
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let item = _.find(task.checklist, {_id: req.params.itemId});
+    let item = _.find(task.checklist, {id: req.params.itemId});
     if (!item) throw new NotFound(res.t('checklistItemNotFound'));
 
     _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
@@ -659,7 +659,7 @@ api.removeChecklistItem = {
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let hasItem = removeFromArray(task.checklist, { _id: req.params.itemId });
+    let hasItem = removeFromArray(task.checklist, { id: req.params.itemId });
     if (!hasItem) throw new NotFound(res.t('checklistItemNotFound'));
 
     let savedTask = await task.save();
@@ -687,7 +687,7 @@ api.addTagToTask = {
     let user = res.locals.user;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    let userTags = user.tags.map(tag => tag._id);
+    let userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
     let validationErrors = req.validationErrors();

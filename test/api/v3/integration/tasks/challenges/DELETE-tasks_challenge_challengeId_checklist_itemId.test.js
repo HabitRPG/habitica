@@ -51,7 +51,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
 
     let anotherUser = await generateUser();
 
-    await expect(anotherUser.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`))
+    await expect(anotherUser.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -67,7 +67,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
 
     let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
 
-    await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`);
+    await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`);
     savedTask = await user.get(`/tasks/${task._id}`);
 
     expect(savedTask.checklist.length).to.equal(0);
@@ -81,7 +81,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
 
     let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
 
-    await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0]._id}`);
+    await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`);
     savedTask = await user.get(`/tasks/${task._id}`);
 
     expect(savedTask.checklist.length).to.equal(0);

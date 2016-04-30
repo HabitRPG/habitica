@@ -19,8 +19,8 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
 
     let tag = await user.post('/tags', {name: 'Tag 1'});
 
-    await user.post(`/tasks/${task._id}/tags/${tag._id}`);
-    await user.del(`/tasks/${task._id}/tags/${tag._id}`);
+    await user.post(`/tasks/${task._id}/tags/${tag.id}`);
+    await user.del(`/tasks/${task._id}/tags/${tag.id}`);
 
     let updatedTask = await user.get(`/tasks/${task._id}`);
 
