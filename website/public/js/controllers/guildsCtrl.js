@@ -17,7 +17,6 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
           $scope.groups.public = guilds;
         });
 
-
       $scope.type = 'guild';
       $scope.text = window.env.t('guild');
 

@@ -76,7 +76,7 @@ angular.module('habitrpg')
     Group.removeMember = function(gid, memberId, message) {
       return $http({
         method: "POST",
-        url: groupApiURLPrefix + gid + '/removeMember/' + memberId,
+        url: groupApiURLPrefix + '/' + gid + '/removeMember/' + memberId,
         data: {
           message: message,
         },

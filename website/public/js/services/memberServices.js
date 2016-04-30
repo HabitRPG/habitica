@@ -1,49 +1,105 @@
 'use strict';
-(function(){
-  angular
-    .module('habitrpg')
-    .factory('Members', membersFactory);
 
-  membersFactory.$inject = [
-    '$rootScope',
-    'Shared',
-    'ApiUrl',
-    '$resource'
-  ];
-
-  function membersFactory($rootScope, Shared, ApiUrl, $resource) {
+angular.module('habitrpg')
+.factory('Members', [ '$rootScope', 'Shared', 'ApiUrl', '$resource', '$http', '$q',
+  function($rootScope, Shared, ApiUrl, $resource, $http, $q) {
     var members = {};
-    var fetchMember = $resource(ApiUrl.get() + '/api/v2/members/:uid', { uid: '@_id' }).get;
+    var selectedMember = {};
+    var apiV3Prefix = '/api/v3';
 
-    function selectMember(uid, cb) {
+    function fetchMember (memberId) {
+      return $http({
+        method: 'GET',
+        url: apiV3Prefix + '/members/' + memberId,
+      });
+    }
 
+    //@TODO: Add paging
+    function getGroupMembers (groupId) {
+      return $http({
+        method: 'GET',
+        url: apiV3Prefix + '/groups/' + groupId + '/members',
+      });
+    }
+
+    function getGroupInvites (groupId) {
+      return $http({
+        method: 'GET',
+        url: apiV3Prefix + '/groups/' + groupId + '/invites',
+      });
+    }
+
+    function getChallengeMembers (challengeId) {
+      return $http({
+        method: 'GET',
+        url: apiV3Prefix + '/challenges/' + challengeId + '/members',
+      });
+    }
+
+    function getChallengeMemberProgress (challengeId, memberId) {
+      return $http({
+        method: 'GET',
+        url: apiV3Prefix + '/challenges/' + challengeId + '/members/' + memberId,
+      });
+    }
+
+    function sendPrivateMessage (message, toUserId) {
+      return $http({
+        method: 'POST',
+        url: apiV3Prefix + '/members/send-private-message',
+        data: {
+          message: message,
+          toUserId: toUserId,
+        }
+      });
+    }
+
+    function transferGems (message, toUserId, gemAmount) {
+      return $http({
+        method: 'POST',
+        url: apiV3Prefix + '/members/send-private-message',
+        data: {
+          message: message,
+          toUserId: toUserId,
+          gemAmount: gemAmount,
+        }
+      });
+    }
+
+    function selectMember (uid) {
       var self = this;
+      var deferred = $q.defer();
       var memberIsReady = _checkIfMemberIsReady(members[uid]);
 
       if (memberIsReady) {
-        _prepareMember(self, members[uid], cb);
+        _prepareMember(members[uid], self);
+        deferred.resolve();
       } else {
-        fetchMember({ uid: uid }, function(member) {
-          addToMembersList(member); // lazy load for later
-          _prepareMember(self, member, cb);
-        });
+        fetchMember(uid)
+          .then(function (response) {
+            var member = response.data.data;
+            addToMembersList(member, self); // lazy load for later
+            _prepareMember(member, self);
+            deferred.resolve();
+          });
       }
+
+      return deferred.promise;
     }
 
-    function addToMembersList(member){
+    function addToMembersList (member, self) {
       if (member._id) {
-        members[member._id] = member;
+        self.members[member._id] = member;
       }
     }
 
-    function _checkIfMemberIsReady(member) {
+    function _checkIfMemberIsReady (member) {
       return member && member.items && member.items.weapon;
     }
 
-    function _prepareMember(self, member, cb) {
+    function _prepareMember(member, self) {
       Shared.wrap(member, false);
-      self.selectedMember = members[member._id];
-      cb();
+      self.selectedMember = self.members[member._id];
     }
 
     $rootScope.$on('userUpdated', function(event, user){
@@ -54,7 +110,13 @@
       members: members,
       addToMembersList: addToMembersList,
       selectedMember: undefined,
-      selectMember: selectMember
+      selectMember: selectMember,
+      fetchMember: fetchMember,
+      getGroupMembers: getGroupMembers,
+      getGroupInvites: getGroupInvites,
+      getChallengeMembers: getChallengeMembers,
+      getChallengeMemberProgress: getChallengeMemberProgress,
+      sendPrivateMessage: sendPrivateMessage,
+      transferGems: transferGems,
     }
-  }
-}());
+ }]);

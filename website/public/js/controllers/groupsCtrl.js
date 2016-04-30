@@ -2,7 +2,6 @@
 
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
   function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
-
     $scope.isMemberOfPendingQuest = function (userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
@@ -39,7 +38,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.Members = Members;
-    $scope._editing = {group:false};
+
+    $scope._editing = {group: false};
     $scope.groupCopy = {};
 
     $scope.editGroup = function (group) {
@@ -74,7 +74,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     // ------ Modals ------
 
-    $scope.clickMember = function(uid, forceShow) {
+    $scope.clickMember = function (uid, forceShow) {
       if (User.user._id == uid && !forceShow) {
         if ($state.is('tasks')) {
           $state.go('options.profile.avatar');
@@ -84,13 +84,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       } else {
         // We need the member information up top here, but then we pass it down to the modal controller
         // down below. Better way of handling this?
-        Members.selectMember(uid, function(){
-          $rootScope.openModal('member', {controller:'MemberModalCtrl', windowClass:'profile-modal', size:'lg'});
-        });
+        Members.selectMember(uid)
+          .then(function () {
+            $rootScope.openModal('member', {controller: 'MemberModalCtrl', windowClass: 'profile-modal', size: 'lg'});
+          });
       }
     };
 
-    $scope.removeMember = function(group, member, isMember){
+    $scope.removeMember = function (group, member, isMember) {
       // TODO find a better way to do this (share data with remove member modal)
       $scope.removeMemberData = {
         group: group,
@@ -100,7 +101,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $rootScope.openModal('remove-member', {scope: $scope});
     };
 
-    $scope.confirmRemoveMember = function(confirm){
+    $scope.confirmRemoveMember = function (confirm) {
       if (confirm) {
         Groups.Group.removeMember(
           $scope.removeMemberData.group._id,
@@ -120,10 +121,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
     };
 
-    $scope.openInviteModal = function(group){
+    $scope.openInviteModal = function (group) {
       if (group.type !== 'party' && group.type !== 'guild') {
         return console.log('Invalid group type.')
       }
+
       $rootScope.openModal('invite-' + group.type, {
         controller:'InviteToGroupCtrl',
         resolve: {
@@ -134,9 +136,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       });
     };
 
-    $scope.quickReply = function(uid) {
-      Members.selectMember(uid, function(){
-        $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
-      });
+    $scope.quickReply = function (uid) {
+      Members.selectMember(uid)
+        .then(function (response) {
+          $rootScope.openModal('private-message', {controller: 'MemberModalCtrl'});
+        });
     }
   }]);
