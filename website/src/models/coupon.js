@@ -11,6 +11,7 @@ import {
 } from '../libs/api-v3/errors';
 
 export let schema = new mongoose.Schema({
+  _id: {type: String, default: couponCode.generate},
   event: {type: String, enum: ['wondercon', 'google_6mo']},
   user: {type: String, ref: 'User'},
 }, {
@@ -20,13 +21,8 @@ export let schema = new mongoose.Schema({
 
 schema.plugin(baseModel, {
   timestamps: true,
+  _id: false,
 });
-
-// Add _id field after plugin to override default _id format
-schema.add({
-  _id: {type: String, default: couponCode.generate},
-});
-
 
 schema.statics.generate = async function generateCoupons (event, count = 1) {
   let coupons = _.times(count, () => {

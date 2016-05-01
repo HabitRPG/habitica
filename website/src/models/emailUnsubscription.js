@@ -1,23 +1,24 @@
 import mongoose from 'mongoose';
-import common from '../../../common';
 import validator from 'validator';
+import baseModel from '../libs/api-v3/baseModel';
 
 // A collection used to store mailing list unsubscription for non registered email addresses
 export let schema = new mongoose.Schema({
-  _id: {
-    type: String,
-    default: common.uuid,
-  },
   email: {
     type: String,
     required: true,
     trim: true,
-    lowercase: true, // TODO migrate existing to lowerCase
+    lowercase: true,
     validator: [validator.isEmail, 'Invalid email.'],
   },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+});
+
+schema.plugin(baseModel, {
+  noSet: ['_id'],
+  timestamps: true,
 });
 
 export let model = mongoose.model('EmailUnsubscription', schema);

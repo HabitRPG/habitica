@@ -5,6 +5,7 @@ import {
   NotFound,
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 
 let api = {};
 
@@ -134,9 +135,8 @@ api.deleteTag = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = _.find(user.tags, {id: req.params.tagId});
+    let tag = removeFromArray(user.tags, { id: req.params.tagId });
     if (!tag) throw new NotFound(res.t('tagNotFound'));
-    tag.remove();
 
     // Remove from all the tasks TODO test
     await Tasks.Task.update({

@@ -6,7 +6,6 @@ import validator from 'validator';
 let Schema = mongoose.Schema;
 
 export let schema = new Schema({
-  _id: false, // use id not _id
   id: {
     type: String,
     default: uuid,
@@ -17,10 +16,12 @@ export let schema = new Schema({
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  _id: false, // use id instead of _id
 });
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'id', 'challenge'],
+  _id: false, // use id instead of _id
 });
 
 export let model = mongoose.model('Tag', schema);
