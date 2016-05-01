@@ -23,7 +23,9 @@ describe('GET /models/:model/paths', () => {
     it(`returns the model paths for ${model}`, async () => {
       let res = await user.get(`/models/${model}/paths`);
 
-      expect(res._id).to.equal('String');
+      if (model !== 'tag') expect(res._id).to.equal('String');
+      if (model === 'tag') expect(res.id).to.equal('String');
+
       expect(res).to.not.have.keys('__v');
     });
   });
