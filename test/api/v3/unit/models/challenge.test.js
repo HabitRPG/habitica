@@ -96,7 +96,7 @@ describe('Challenge Model', () => {
         });
 
         expect(updatedNewMember.challenges).to.contain(challenge._id);
-        expect(updatedNewMember.tags[3]._id).to.equal(challenge._id);
+        expect(updatedNewMember.tags[3].id).to.equal(challenge._id);
         expect(updatedNewMember.tags[3].name).to.equal(challenge.shortName);
         expect(syncedTask).to.exist;
       });
