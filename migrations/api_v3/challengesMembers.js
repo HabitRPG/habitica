@@ -1,4 +1,5 @@
-// Migrate challenges collection to new schema (except for members)
+// Migrate challenges members
+// Run AFTER users migration
 
 // The console-stamp module must be installed (not included in package.json)
 
@@ -6,7 +7,7 @@
 
 // Due to some big user profiles it needs more RAM than is allowed by default by v8 (arounf 1.7GB).
 // Run the script with --max-old-space-size=4096 to allow up to 4GB of RAM
-console.log('Starting migrations/api_v3/challenges.js.');
+console.log('Starting migrations/api_v3/challengesMembers.js.');
 
 require('babel-register');
 
@@ -31,22 +32,16 @@ var MongoClient = MongoDB.MongoClient;
 
 mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
 
-// Load new models
-var NewChallenge = require('../../website/src/models/challenge').model;
-var Tasks = require('../../website/src/models/task');
-
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;
 var oldChallengeCollection;
 
 var mongoDbNewInstance;
-var newChallengeCollection;
-var newTaskCollection;
+var newUserCollection;
 
 var BATCH_SIZE = 1000;
 
 var processedChallenges = 0;
-var totoalProcessedTasks = 0;
 
 // Only process challenges that fall in a interval ie -> up to 0000-4000-0000-0000
 var AFTER_CHALLENGE_ID = nconf.get('AFTER_CHALLENGE_ID');
@@ -73,9 +68,6 @@ function processChallenges (afterId) {
     query._id.$gt = AFTER_CHALLENGE_ID;
   }
 
-  var batchInsertTasks = newTaskCollection.initializeUnorderedBulkOp();
-  var batchInsertChallenges = newChallengeCollection.initializeUnorderedBulkOp();
-
   console.log(`Executing challenges query.\nMatching challenges after ${afterId ? afterId : AFTER_CHALLENGE_ID} and before ${BEFORE_CHALLENGE_ID} (included).`);
 
   return oldChallengeCollection
@@ -86,70 +78,30 @@ function processChallenges (afterId) {
   .then(function (oldChallengesR) {
     oldChallenges = oldChallengesR;
 
-    console.log(`Processing ${oldChallenges.length} challenges. Already processed ${processedChallenges} challenges and ${totoalProcessedTasks} tasks.`);
+    var promises = [];
+
+    console.log(`Processing ${oldChallenges.length} challenges. Already processed ${processedChallenges} challenges.`);
 
     if (oldChallenges.length === BATCH_SIZE) {
       lastChallenge = oldChallenges[oldChallenges.length - 1]._id;
     }
 
     oldChallenges.forEach(function (oldChallenge) {
-      var oldTasks = oldChallenge.habits.concat(oldChallenge.dailys).concat(oldChallenge.rewards).concat(oldChallenge.todos);
-      delete oldChallenge.habits;
-      delete oldChallenge.dailys;
-      delete oldChallenge.rewards;
-      delete oldChallenge.todos;
-
-      var createdAt = oldChallenge.timestamp;
-
-      oldChallenge.memberCount = oldChallenge.members.length;
-      if (!oldChallenge.prize <= 0) oldChallenge.prize = 0;
-      if (!oldChallenge.name) oldChallenge.name = 'challenge name';
-      if (!oldChallenge.shortName) oldChallenge.name = 'challenge-name';
-
-      if (!oldChallenge.group) throw new Error('challenge.group is required');
-      if (!oldChallenge.leader) throw new Error('challenge.leader is required');
-
-      var newChallenge = new NewChallenge(oldChallenge);
-
-      newChallenge.createdAt = createdAt;
-
-      oldTasks.forEach(function (oldTask) {
-        oldTask._id = oldTask.id; // keep the old uuid unless duplicated
-        delete oldTask.id;
-
-        oldTask.tags = _.map(oldTask.tags || {}, function (tagPresent, tagId) {
-          return tagPresent && tagId;
-        });
-
-        if (!oldTask.text) oldTask.text = 'task text'; // required
-
-        oldTask.challenge = oldTask.challenge || {};
-        oldTask.challenge.id = oldChallenge._id;
-
-        newChallenge.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
-        if (oldTask.completed) oldTask.completed = false;
-
-        var newTask = new Tasks[oldTask.type](oldTask);
-
-        batchInsertTasks.insert(newTask.toObject());
-        processedTasks++;
-      });
-
-      batchInsertChallenges.insert(newChallenge.toObject());
+      promises.push(newUserCollection.updateMany({
+        _id: {$in: oldChallenge.members},
+      }, {
+        $push: {challenges: oldChallenge._id},
+      }, {multi: true}));
     });
 
-    console.log(`Saving ${oldChallenges.length} challenges and ${processedTasks} tasks.`);
+    console.log(`Migrating members of ${oldChallenges.length} challenges.`);
 
-    return Q.all([
-      batchInsertChallenges.execute(),
-      batchInsertTasks.execute(),
-    ]);
+    return Q.all(promises);
   })
   .then(function () {
-    totoalProcessedTasks += processedTasks;
     processedChallenges += oldChallenges.length;
 
-    console.log(`Saved ${oldChallenges.length} challenges and their tasks.`);
+    console.log(`Migrated members of ${oldChallenges.length} challenges.`);
 
     if (lastChallenge) {
       return processChallenges(lastChallenge);
@@ -172,8 +124,7 @@ Q.all([
   oldChallengeCollection = mongoDbOldInstance.collection('challenges');
 
   mongoDbNewInstance = newInstance;
-  newChallengeCollection = mongoDbNewInstance.collection('challenges');
-  newTaskCollection = mongoDbNewInstance.collection('tasks');
+  newUserCollection = mongoDbNewInstance.collection('users');
 
   console.log(`Connected with MongoClient to ${MONGODB_OLD} and ${MONGODB_NEW}.`);
 

@@ -59,7 +59,6 @@ var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
 - groups
 - invitations
 - challenges' tasks
-- checklists from .id to ._id (reminders too!)
 */
 
 function processUsers (afterId) {
@@ -111,8 +110,8 @@ function processUsers (afterId) {
 
       oldUser.tags = oldUser.tags.map(function (tag) {
         return {
-          _id: tag.id,
-          name: tag.name,
+          id: tag.id,
+          name: tag.name || 'tag name',
           challenge: tag.challenge,
         };
       });
@@ -125,7 +124,11 @@ function processUsers (afterId) {
         oldTask.legacyId = oldTask.id; // store the old task id
         delete oldTask.id;
 
-        oldTask.challenge = {};
+        oldTask.challenge = oldTask.challenge || {};
+        if (oldTask.challenge.id) {
+          oldTask.challenge.taskId = oldTask.legacyId;
+        }
+
         if (!oldTask.text) oldTask.text = 'task text'; // required
         oldTask.tags = _.map(oldTask.tags, function (tagPresent, tagId) {
           return tagPresent && tagId;
@@ -165,30 +168,6 @@ function processUsers (afterId) {
   });
 }
 
-/*
-
-TODO var challengeTasksChangedId = {};
-
-tasksArr.forEach(function(task){
-  task.challenge = task.challenge || {};
-  if(task.challenge.id) {
-    // If challengeTasksChangedId[task._id] then we got on of the duplicates from the challenges migration
-    if (challengeTasksChangedId[task.legacyId]) {
-      var res = _.find(challengeTasksChangedId[task.legacyId], function(arr){
-        return arr[1] === task.challenge.id;
-      });
-
-      // If res, id changed, otherwise matches the original one
-      task.challenge.taskId = res ? res[0] : task.legacyId;
-    } else {
-      task.challenge.taskId = task.legacyId;
-    }
-  }
-
-  if(!task.type) console.log('Task without type ', task._id, ' user ', user._id);
-});
-*/
-
 // Connect to the databases
 Q.all([
   MongoClient.connect(MONGODB_OLD),
@@ -210,5 +189,5 @@ Q.all([
   return processUsers();
 })
 .catch(function (err) {
-  console.error(err);
+  console.error(err.stack || err);
 });

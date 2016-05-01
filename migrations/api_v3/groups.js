@@ -1,17 +1,184 @@
 /*
-  name is required
-  leader is required
-  type is required
-  privacy is required
-  leaderOnly.challenges is required
   members are not stored anymore
   invites are not stored anymore
-  challenges are not stored anymore
-  balance > 0
-  memberCount must be checked
-  challengeCount must be checked
-  quest.leader must be present (default to party leader)
-  quest.key must be valid (otherwise remove)
 
   tavern id and leader must be updated
 */
+
+// Migrate groups collection to new schema
+// Run AFTER users migration
+
+// The console-stamp module must be installed (not included in package.json)
+
+// It requires two environment variables: MONGODB_OLD and MONGODB_NEW
+
+// Due to some big user profiles it needs more RAM than is allowed by default by v8 (arounf 1.7GB).
+// Run the script with --max-old-space-size=4096 to allow up to 4GB of RAM
+console.log('Starting migrations/api_v3/groups.js.');
+
+require('babel-register');
+
+var Q = require('q');
+var MongoDB = require('mongodb');
+var nconf = require('nconf');
+var mongoose = require('mongoose');
+var _ = require('lodash');
+var uuid = require('uuid');
+var consoleStamp = require('console-stamp');
+
+// Add timestamps to console messages
+consoleStamp(console);
+
+// Initialize configuration
+require('../../website/src/libs/api-v3/setupNconf')();
+
+var MONGODB_OLD = nconf.get('MONGODB_OLD');
+var MONGODB_NEW = nconf.get('MONGODB_NEW');
+
+var MongoClient = MongoDB.MongoClient;
+
+mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+
+// Load new models
+var NewGroup = require('../../website/src/models/group').model;
+
+// To be defined later when MongoClient connects
+var mongoDbOldInstance;
+var oldGroupCollection;
+
+var mongoDbNewInstance;
+var newGroupCollection;
+var newUserCollection;
+
+var BATCH_SIZE = 1000;
+
+var processedGroups = 0;
+
+// Only process groups that fall in a interval ie -> up to 0000-4000-0000-0000
+var AFTER_GROUP_ID = nconf.get('AFTER_GROUP_ID');
+var BEFORE_GROUP_ID = nconf.get('BEFORE_GROUP_ID');
+
+function processGroups (afterId) {
+  var processedTasks = 0;
+  var lastGroup = null;
+  var oldGroups;
+
+  var query = {};
+
+  if (BEFORE_GROUP_ID) {
+    query._id = {$lte: BEFORE_GROUP_ID};
+  }
+
+  if ((afterId || AFTER_GROUP_ID) && !query._id) {
+    query._id = {};
+  }
+
+  if (afterId) {
+    query._id.$gt = afterId;
+  } else if (AFTER_GROUP_ID) {
+    query._id.$gt = AFTER_GROUP_ID;
+  }
+
+  var batchInsertGroups = newGroupCollection.initializeUnorderedBulkOp();
+
+  console.log(`Executing groups query.\nMatching groups after ${afterId ? afterId : AFTER_GROUP_ID} and before ${BEFORE_GROUP_ID} (included).`);
+
+  return oldGroupCollection
+  .find(query)
+  .sort({_id: 1})
+  .limit(BATCH_SIZE)
+  .toArray()
+  .then(function (oldGroupsR) {
+    oldGroups = oldGroupsR;
+
+    var promises = [];
+
+    console.log(`Processing ${oldGroups.length} groups. Already processed ${processedGroups} groups.`);
+
+    if (oldGroups.length === BATCH_SIZE) {
+      lastGroup = oldGroups[oldGroups.length - 1]._id;
+    }
+
+    oldGroups.forEach(function (oldGroup) {
+      if (!oldGroup.members || oldGroup.members.length === 0) return; // delete empty groups
+      oldGroup.memberCount = oldGroup.members.length;
+      if (oldGroup.challenges) oldGroup.challengeCount = oldGroup.challenges.length;
+
+      if (!oldGroup.balance <= 0) oldGroup.balance = 0;
+      if (!oldGroup.name) oldGroup.name = 'group name';
+      if (!oldGroup.leaderOnly) oldGroup.leaderOnly = {};
+      if (!oldGroup.leaderOnly.challenges) oldGroup.leaderOnly.challenges = false;
+
+      if (!oldGroup.type) {
+        //console.log(oldGroup);
+        console.error('group.type is required');
+      }
+      if (!oldGroup.leader) {
+        //console.log(oldGroup);
+        console.error('group.leader is required');
+      }
+      if (!oldGroup.privacy) {
+        //console.log(oldGroup);
+        console.error('group.privacy is required');
+      }
+
+      var updateMembers = {};
+
+      if (oldGroup.type === 'guild') {
+        updateMembers.$push = {guilds: oldGroup._id};
+      } else if (oldGroup.type === 'party') {
+        updateMembers.$set = {'party._id': oldGroup._id};
+      }
+
+      if (oldGroup.type) {
+        promises.push(newUserCollection.updateMany({
+          _id: {$in: oldGroup.members},
+        }, updateMembers, {multi: true}));
+      }
+
+      var newGroup = new NewGroup(oldGroup);
+
+      batchInsertGroups.insert(newGroup.toObject());
+    });
+
+    console.log(`Saving ${oldGroups.length} groups and migrating members to users collection.`);
+
+    promises.push(batchInsertGroups.execute());
+    return Q.all(promises);
+  })
+  .then(function () {
+    processedGroups += oldGroups.length;
+
+    console.log(`Saved ${oldGroups.length} groups and migrated their members to the user collection.`);
+
+    if (lastGroup) {
+      return processGroups(lastGroup);
+    } else {
+      return console.log('Done!');
+    }
+  });
+}
+
+// Connect to the databases
+Q.all([
+  MongoClient.connect(MONGODB_OLD),
+  MongoClient.connect(MONGODB_NEW),
+])
+.then(function (result) {
+  var oldInstance = result[0];
+  var newInstance = result[1];
+
+  mongoDbOldInstance = oldInstance;
+  oldGroupCollection = mongoDbOldInstance.collection('groups');
+
+  mongoDbNewInstance = newInstance;
+  newGroupCollection = mongoDbNewInstance.collection('groups');
+  newUserCollection = mongoDbNewInstance.collection('users');
+
+  console.log(`Connected with MongoClient to ${MONGODB_OLD} and ${MONGODB_NEW}.`);
+
+  return processGroups();
+})
+.catch(function (err) {
+  console.error(err.stack || err);
+});
