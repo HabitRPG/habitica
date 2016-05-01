@@ -83,7 +83,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
 
   // Sync tags
   let userTags = user.tags;
-  let i = _.findIndex(userTags, {_id: challenge._id});
+  let i = _.findIndex(userTags, {id: challenge._id});
 
   if (i !== -1) {
     if (userTags[i].name !== challenge.shortName) {
@@ -92,7 +92,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
     }
   } else {
     userTags.push({
-      _id: challenge._id,
+      id: challenge._id,
       name: challenge.shortName,
       challenge: true,
     });
