@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import common from '../../../common';
 import validator from 'validator';
 import baseModel from '../libs/api-v3/baseModel';
 
