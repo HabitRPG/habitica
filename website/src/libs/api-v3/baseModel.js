@@ -4,13 +4,15 @@ import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
 import _ from 'lodash';
 
 module.exports = function baseModel (schema, options = {}) {
-  schema.add({
-    _id: {
-      type: String,
-      default: uuid,
-      validate: [validator.isUUID, 'Invalid uuid.'],
-    },
-  });
+  if (options._id !== false) {
+    schema.add({
+      _id: {
+        type: String,
+        default: uuid,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+    });
+  }
 
   if (options.timestamps) {
     schema.add({

@@ -760,7 +760,7 @@ schema.methods.addTasksToUser = function addTasksToUser (tasks) {
 
   obj.tags = obj.tags.map(tag => {
     return {
-      id: tag._id,
+      id: tag.id,
       name: tag.name,
       challenge: tag.challenge,
     };

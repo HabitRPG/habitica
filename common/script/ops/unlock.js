@@ -44,9 +44,11 @@ module.exports = function unlock (user, req = {}, analytics) {
 
     if (alreadyOwnedItems === setPaths.length) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
-    } else if (alreadyOwnedItems > 0) {
+    // TODO write math formula to check if buying the full set is cheaper than the items individually
+    // (item cost * number of remaining items) < setCost`
+    } /* else if (alreadyOwnedItems > 0) {
       throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
-    }
+    } */
   } else {
     alreadyOwns = _.get(user, `purchased.${path}`) === true;
   }
