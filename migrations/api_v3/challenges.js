@@ -1,78 +1,6 @@
 /*
-  name is required,
-  shortName is required,
-  tasksOrder
-  habits, dailys, todos and rewards must be removed
-  leader is required
-  group is required
   members must be removed
-  memberCount must be checked
-  prize must be >= 0
 */
-
-// A map of (original taskId) -> [new taskId in challenge, challendId] of tasks belonging to challenges where the task id had to change
-// This way later we can have use the right task.challenge.taskId in user's tasks
-var duplicateTasks = {};
-
-        // ... convert tasks to individual models
-        async.each(
-          challenge.dailys
-            .concat(challenge.habits)
-            .concat(challenge.rewards)
-            .concat(challenge.todos),
-          function(task, cb1) {
-
-            task = new TaskModel(task); // this should also fix dailies that wen to the habits array or vice-versa
-
-            TaskModel.findOne({_id: task._id}, function(err, taskSameId){
-              if(err) return cb1(err);
-
-              // We already have a task with the same id, change this one
-              // and will require special handling
-              if(taskSameId) {
-                task._id = shared.uuid();
-                task.legacyId = taskSameId._id; // We set this for challenge tasks too
-                // we use an array as the same task may have multiple duplicates
-                duplicateTasks[taskSameId._id] = duplicateTasks[taskSameId._id] || [];
-                duplicateTasks[taskSameId._id].push([task._id, challenge._id]);
-                console.log('Duplicate task ', taskSameId._id, 'challenge ', challenge._id, 'new id ', task._id);
-              }
-
-              task.save(function(err, savedTask){
-                if(err) return cb1(err);
-
-                challenge.tasksOrder[savedTask.type + 's'].push(savedTask._id);
-                cb1();
-              });
-            });
-          }, function(err) {
-            if(err) return cb(err);
-
-            var newChallenge = new NewChallengeModel(challenge); // This will make sure old data is discarded
-            newChallenge.save(function(err, chal){
-              if(err) return cb(err);
-              console.log('Processed: ', chal._id);
-              cb();
-            });
-          });
-      }, function(err) {
-        if(err) throw err;
-
-        processed = processed + challenges.length;
-        console.log('Processed ' + challenges.length + ' challenges.', 'Total: ' + processed);
-
-        if(lastChal && lastChal._id){
-          processChal(lastChal._id);
-        } else {
-          console.log('Done!');
-          // outputting the duplicate tasks
-          console.log(JSON.stringify(duplicateTasks, null, 4));
-        }
-      });
-    });
-};
-
-processChal();
 
 // Migrate users collection to new schema
 // This should run AFTER challenges migration
@@ -83,7 +11,7 @@ processChal();
 
 // Due to some big user profiles it needs more RAM than is allowed by default by v8 (arounf 1.7GB).
 // Run the script with --max-old-space-size=4096 to allow up to 4GB of RAM
-console.log('Starting migrations/api_v3/users.js.');
+console.log('Starting migrations/api_v3/challenges.js.');
 
 require('babel-register');
 
@@ -153,7 +81,7 @@ function processChallenges (afterId) {
   var batchInsertTasks = newTaskCollection.initializeUnorderedBulkOp();
   var batchInsertChallenges = newChallengeCollection.initializeUnorderedBulkOp();
 
-  console.log(`Executing challenges query.\nMatching challenges after ${afterId ? afterId : AFTER_USER_ID} and before ${BEFORE_USER_ID} (included).`);
+  console.log(`Executing challenges query.\nMatching challenges after ${afterId ? afterId : AFTER_CHALLENGE_ID} and before ${BEFORE_CHALLENGE_ID} (included).`);
 
   return oldChallengeCollection
   .find(query)
@@ -176,20 +104,28 @@ function processChallenges (afterId) {
       delete oldChallenge.rewards;
       delete oldChallenge.todos;
 
+      oldChallenge.memberCount = oldChallenge.members.length;
+      if (!oldChallenge.prize <= 0) oldChallenge.prize = 0;
+      if (!oldChallenge.name) oldChallenge.name = 'challenge name';
+      if (!oldChallenge.shortName) oldChallenge.name = 'challenge-name';
+
+      if (!oldChallenge.group) throw new Error('challenge.group is required');
+      if (!oldChallenge.leader) throw new Error('challenge.leader is required');
+
       var newChallenge = new NewChallenge(oldChallenge);
 
       oldTasks.forEach(function (oldTask) {
-        // TODO
         oldTask._id = oldTask.id; // keep the old uuid unless duplicated
         delete oldTask.id;
 
-        oldTask.challenge = oldTask.challenge || {};
-        oldTask.challenge.id = oldChallenge.id;
-
-        if (!oldTask.text) oldTask.text = 'task text'; // required
-        oldTask.tags = _.map(oldTask.tags, function (tagPresent, tagId) { // TODO used for challenges' tasks?
+        oldTask.tags = _.map(oldTask.tags || {}, function (tagPresent, tagId) {
           return tagPresent && tagId;
         });
+
+        if (!oldTask.text) oldTask.text = 'task text'; // required
+
+        oldTask.challenge = oldTask.challenge || {};
+        oldTask.challenge.id = oldChallenge._id;
 
         newChallenge.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         if (oldTask.completed) oldTask.completed = false;
@@ -205,18 +141,15 @@ function processChallenges (afterId) {
 
     console.log(`Saving ${oldChallenges.length} users and ${processedTasks} tasks.`);
 
-    return Q.all([
-      batchInsertChallenges.execute(),
-      batchInsertTasks.execute(),
-    ]);
+    return batchInsertChallenges.execute();
   })
   .then(function () {
     totoalProcessedTasks += processedTasks;
     processedChallenges += oldChallenges.length;
 
-    console.log(`Saved ${oldChallenges.length} users and their tasks.`);
+    console.log(`Saved ${oldChallenges.length} challenges and their tasks.`);
 
-    if (lastUser) {
+    if (lastChallenge) {
       return processChallenges(lastChallenge);
     } else {
       return console.log('Done!');

@@ -493,21 +493,21 @@ api.getTags = function (req, res, next) {
   res.json(res.locals.user.tags.toObject().map(tag => {
     return {
       name: tag.name,
-      id: tag._id,
+      id: tag.id,
       challenge: tag.challenge,
     }
   }));
 };
 
 api.getTag = function (req, res, next) {
-  let tag = res.locals.user.tags.id(req.params.id);
+  let tag = _.find(res.locals.user.tags, {id: req.params.id});
   if (!tag) {
     return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
   }
 
   res.json({
     name: tag.name,
-    id: tag._id,
+    id: tag.id,
     challenge: tag.challenge,
   });
 };
@@ -522,7 +522,7 @@ api.addTag = function (req, res, next) {
     res.json(user.tags.toObject().map(tag => {
       return {
         name: tag.name,
-        id: tag._id,
+        id: tag.id,
         challenge: tag.challenge,
       }
     }));
@@ -532,7 +532,7 @@ api.addTag = function (req, res, next) {
 api.updateTag = function (req, res, next) {
   let user = res.locals.user;
 
-  let tag = user.tags.id(req.params.id);
+  let tag = _.find(res.locals.user.tags, {id: req.params.id});
   if (!tag) {
     return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
   }
@@ -543,7 +543,7 @@ api.updateTag = function (req, res, next) {
 
     res.json({
       name: tag.name,
-      id: tag._id,
+      id: tag.id,
       challenge: tag.challenge,
     });
   });
@@ -566,7 +566,7 @@ api.sortTag = function (req, res, next) {
     res.json(user.tags.toObject().map(tag => {
       return {
         name: tag.name,
-        id: tag._id,
+        id: tag.id,
         challenge: tag.challenge,
       }
     }));
@@ -576,18 +576,17 @@ api.sortTag = function (req, res, next) {
 api.deleteTag = function (req, res, next) {
   let user = res.locals.user;
 
-  let tag = user.tags.id(req.params.id);
+  let tag = removeFromArray(user.tags, { id: req.params.id });
   if (!tag) {
     return res.status(404).json({err: i18n.t('messageTagNotFound', req.language)});
   }
 
-  tag.remove();
 
   Tasks.Task.update({
     userId: user._id,
   }, {
     $pull: {
-      tags: tag._id,
+      tags: tag.id,
     },
   }, {multi: true}).exec();
 
@@ -597,7 +596,7 @@ api.deleteTag = function (req, res, next) {
     res.json(user.tags.toObject().map(tag => {
       return {
         name: tag.name,
-        id: tag._id,
+        id: tag.id,
         challenge: tag.challenge,
       }
     }));
