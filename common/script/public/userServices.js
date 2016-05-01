@@ -109,7 +109,7 @@ angular.module('habitrpg')
                         if (MOBILE_APP) Notification.push({type:'text',text:message});
                         else Notification.text(message);
                         // In the case of 200s, they're friendly alert messages like "Your pet has hatched!" - still send the op
-                        if ((err.code && err.code >= 400) || !err.code) return; 
+                        if ((err.code && err.code >= 400) || !err.code) return;
                       }
                       userServices.log({op:k, params: req.params, query:req.query, body:req.body});
                     });

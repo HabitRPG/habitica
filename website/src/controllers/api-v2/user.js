@@ -988,6 +988,7 @@ api.batchUpdate = function(req, res, next) {
         response = transformedData;
 
         response.todos = shared.preenTodos(response.todos);
+        response.wasModified = true;
         res.status(200).json(response);
       });
     // return only the version number
