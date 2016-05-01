@@ -42,6 +42,8 @@ mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
 // Load new models
 var NewGroup = require('../../website/src/models/group').model;
 
+var TAVERN_ID = require('../../website/src/models/group').TAVERN_ID;
+
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;
 var oldGroupCollection;
@@ -100,26 +102,37 @@ function processGroups (afterId) {
     }
 
     oldGroups.forEach(function (oldGroup) {
-      if (!oldGroup.members || oldGroup.members.length === 0) return; // delete empty groups
-      oldGroup.memberCount = oldGroup.members.length;
-      if (oldGroup.challenges) oldGroup.challengeCount = oldGroup.challenges.length;
+      if ((!oldGroup.privacy || oldGroup.privacy === 'private') && (!oldGroup.members || oldGroup.members.length === 0)) return; // delete empty private groups
+      oldGroup.memberCount = oldGroup.members ? oldGroup.members.length : 0;
+      oldGroup.memberCount = oldGroup.challenges ? oldGroup.challenges.length : 0;
 
       if (!oldGroup.balance <= 0) oldGroup.balance = 0;
       if (!oldGroup.name) oldGroup.name = 'group name';
       if (!oldGroup.leaderOnly) oldGroup.leaderOnly = {};
       if (!oldGroup.leaderOnly.challenges) oldGroup.leaderOnly.challenges = false;
 
+      // Tavern
+      if (oldGroup._id === 'habitrpg') {
+        oldGroup._id = TAVERN_ID;
+        oldGroup.leader = '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0'; // Siena Leslie
+      }
+
       if (!oldGroup.type) {
-        //console.log(oldGroup);
-        console.error('group.type is required');
+        // throw new Error('group.type is required');
+        oldGroup.type = 'guild';
       }
+
       if (!oldGroup.leader) {
-        //console.log(oldGroup);
-        console.error('group.leader is required');
+        if (oldGroup.members && oldGroup.members.length > 0) {
+          oldGroup.leader = oldGroup.members[0];
+        } else {
+          throw new Error('group.leader is required and no member available!');
+        }
       }
+
       if (!oldGroup.privacy) {
-        //console.log(oldGroup);
-        console.error('group.privacy is required');
+        // throw new Error('group.privacy is required');
+        group.privacy = 'private';
       }
 
       var updateMembers = {};
@@ -130,7 +143,7 @@ function processGroups (afterId) {
         updateMembers.$set = {'party._id': oldGroup._id};
       }
 
-      if (oldGroup.type) {
+      if (oldGroup.members) {
         promises.push(newUserCollection.updateMany({
           _id: {$in: oldGroup.members},
         }, updateMembers, {multi: true}));
@@ -177,6 +190,10 @@ Q.all([
 
   console.log(`Connected with MongoClient to ${MONGODB_OLD} and ${MONGODB_NEW}.`);
 
+  // First delete the tavern group created by having required the group model
+  return newGroupCollection.deleteOne({_id: TAVERN_ID});
+})
+.then(function () {
   return processGroups();
 })
 .catch(function (err) {

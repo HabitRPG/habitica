@@ -18,6 +18,7 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var uuid = require('uuid');
 var consoleStamp = require('console-stamp');
+var common = require('../../common');
 
 // Add timestamps to console messages
 consoleStamp(console);
@@ -28,6 +29,7 @@ require('../../website/src/libs/api-v3/setupNconf')();
 var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
+var taskDefaults = common.taskDefaults;
 var MongoClient = MongoDB.MongoClient;
 
 mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
@@ -116,6 +118,10 @@ function processUsers (afterId) {
         };
       });
 
+      if (oldUser._id === '9') { // Tyler Renelle
+        oldUser._id = '00000000-0000-4000-9000-000000000000';
+      }
+
       var newUser = new NewUser(oldUser);
 
       oldTasks.forEach(function (oldTask) {
@@ -129,6 +135,8 @@ function processUsers (afterId) {
           oldTask.challenge.taskId = oldTask.legacyId;
         }
 
+        oldTask.createdAt = old.dateCreated;
+
         if (!oldTask.text) oldTask.text = 'task text'; // required
         oldTask.tags = _.map(oldTask.tags, function (tagPresent, tagId) {
           return tagPresent && tagId;
@@ -138,9 +146,21 @@ function processUsers (afterId) {
           newUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         }
 
-        var newTask = new NewTasks[oldTask.type](oldTask);
+        var allTasksFields = ['_id', 'type', 'text', 'notes', 'tags', 'value', 'priority', 'attribute', 'challenge', 'reminders'];
+        // using mongoose models is too slow
+        if (oldTask.type === 'habit') {
+          oldTask = _.pick(oldTask, allTasksFields.concat(['history', 'up', 'down']));
+        } else if (oldTask.type === 'daily') {
+          oldTask = _.pick(oldTask, allTasksFields.concat(['completed', 'collapseChecklist', 'checklist', 'history', 'frequency', 'everyX', 'startDate', 'repeat', 'streak']));
+        } else if (oldTask.type === 'todo') {
+          oldTask = _.pick(oldTask, allTasksFields.concat(['completed', 'collapseChecklist', 'checklist', 'date', 'dateCompleted']));
+        } else if (oldTask.type === 'reward') {
+          oldTask = _.pick(oldTask, allTasksFields);
+        } else {
+          throw new Error('Task with no or invalid type!');
+        }
 
-        batchInsertTasks.insert(newTask.toObject());
+        batchInsertTasks.insert(taskDefaults(oldTask));
         processedTasks++;
       });
 

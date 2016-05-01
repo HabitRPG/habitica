@@ -114,7 +114,8 @@ function processChallenges (afterId) {
       newChallenge.createdAt = createdAt;
 
       oldTasks.forEach(function (oldTask) {
-        oldTask._id = oldTask.id; // keep the old uuid unless duplicated
+        oldTask._id = uuid.v4(); // TODO keep the old uuid unless duplicated
+        oldTask.legacyId = oldTask.id; // store the old task id
         delete oldTask.id;
 
         oldTask.tags = _.map(oldTask.tags || {}, function (tagPresent, tagId) {

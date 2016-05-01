@@ -18,6 +18,7 @@ export let schema = new mongoose.Schema({
 
 schema.plugin(baseModel, {
   noSet: ['_id'],
+  timestamps: true,
 });
 
 export let model = mongoose.model('EmailUnsubscription', schema);
