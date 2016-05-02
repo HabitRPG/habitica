@@ -90,7 +90,7 @@ mixin customizeProfile(mobile)
               each color in ['pblue','pgreen','porange','ppink','ppurple','pyellow']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")', ng-class='{selectableInventory: user.preferences.hair.color == "#{color}"}')
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
-          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors')
+          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors', 'disabled')
           +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
           +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors', 'disabled')
 
@@ -157,7 +157,7 @@ mixin customizeProfile(mobile)
           +buyPref('skin', ['bear','cactus','fox','lion','panda','pig','tiger','wolf'], 'animalSkins')
 
           // Seasonal event skins. Note that Spooky Skins are a legacy set and should always be disabled for purchase
-          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins')
+          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
           +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
           +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins', 'disabled')
