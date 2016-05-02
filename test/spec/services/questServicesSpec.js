@@ -346,7 +346,7 @@ describe('Quests Service', function() {
       fakeBackend.when('GET', 'partials/main.html').respond({});
       fakeBackend.when('GET', 'partials/main.html').respond({});
       fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
-      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/invite/' + key).respond();
+      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/invite/' + key).respond({quest: { key: 'whale' } });
       fakeBackend.flush();
     }));
 
@@ -355,7 +355,7 @@ describe('Quests Service', function() {
       expect(promise).to.respondTo('then');
     });
 
-    it('accepts quest', function(done) {
+    it('starts a quest', function(done) {
       fakeBackend.expectPOST( '/api/v3/groups/party-id/quests/invite/' + key);
 
       questsService.initQuest(key)

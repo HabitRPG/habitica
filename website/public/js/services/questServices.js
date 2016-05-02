@@ -99,9 +99,10 @@ angular.module('habitrpg')
       return $q(function(resolve, reject) {
         Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'quest', 'owner':true, 'response':'accept', 'questName': key});
         Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
-        Groups.Group.startQuest(party._id, key)
-          .then(function() {
-            Groups.Group.syncParty();
+        Groups.Group.inviteToQuest(party._id, key)
+          .then(function(response) {
+            party.quest = response.data.data;
+            Groups.data.party = party;
             $state.go('options.social.party');
             resolve();
           });
@@ -119,7 +120,7 @@ angular.module('habitrpg')
               partySize: party.memberCount
             });
 
-            var quest = response.data.data;
+            var quest = response.data.quest;
             resolve(quest);
           });;
       });

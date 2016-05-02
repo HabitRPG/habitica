@@ -94,7 +94,7 @@ angular.module('habitrpg')
       });
     };
 
-    Group.startQuest = function(gid, key) {
+    Group.inviteToQuest = function(gid, key) {
       return $http({
         method: "POST",
         url: groupApiURLPrefix + '/' + gid + '/quests/invite/' + key,
