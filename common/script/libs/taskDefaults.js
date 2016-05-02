@@ -23,7 +23,7 @@ module.exports = function taskDefaults (task = {}) {
     value: task.type === 'reward' ? 10 : 0,
     priority: 1,
     challenge: {},
-    reminders: {},
+    reminders: [],
     attribute: 'str',
     createdAt: new Date(), // TODO these are going to be overwritten by the server...
     updatedAt: new Date(),

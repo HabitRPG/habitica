@@ -24,7 +24,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.user.ops.score({params:{id: task.id, direction:direction}});
+      Tasks.scoreTask(task.id, direction)
+        .success(function (response) {
+          User.user.stats = response.data;
+        });
       Analytics.updateUser();
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
@@ -33,11 +36,16 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       var newTask = {
         text: task,
         type: listDef.type,
-        tags: _.transform(User.user.filters, function(m,v,k){
-          if (v) m[k]=v;
-        })
+        tags: _.transform(task.tags, function(m, v, k) {
+         if (v) m.push(v);
+        }),
       };
-      User.user.ops.addTask({body:newTask});
+
+      Tasks.createUserTasks(newTask)
+        .success(function (response) {
+          var task = response.data;
+          User.user[task.type + 's'].push(task)
+        });
     }
 
     $scope.addTask = function(addTo, listDef) {
@@ -70,14 +78,18 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     /**
      * Add the new task to the actions log
      */
-    $scope.clearDoneTodos = function() {};
+    $scope.clearDoneTodos = function() {
+      Tasks.clearCompletedTodos();
+    };
 
     /**
      * Pushes task to top or bottom of list
      */
     $scope.pushTask = function(task, index, location) {
       var to = (location === 'bottom' || $scope.ctrlPressed) ? -1 : 0;
-      User.user.ops.sortTask({params:{id:task.id},query:{from:index, to:to}})
+      Tasks.moveTask(task.id, to);
+      User.user[task.type + 's'].splice(index, 1);
+      User.user[task.type + 's'].splice(to, 0, task);
     };
 
     /**
@@ -91,18 +103,27 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     };
 
-    $scope.removeTask = function(task) {
+    $scope.removeTask = function(task, index) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      User.user.ops.deleteTask({params:{id:task.id}})
+      User.user[task.type + 's'].splice(index, 1);
+      Tasks.deleteTask(task.id);
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
-      if (task.checklist)
-        task.checklist = _.filter(task.checklist,function(i){return !!i.text});
-      User.user.ops.updateTask({params:{id:task.id},body:task});
+      //@TODO: We will need to fix tag saving when user service is ported since tags are attached at the user level
+
+      if (task.checklist) {
+        task.checklist = _.filter(task.checklist, function(i) {return !!i.text});
+      }
+
+      Tasks.updateTask(task.id, task)
+
       if (!stayOpen) task._editing = false;
-      if (isSaveAndClose)
+
+      if (isSaveAndClose) {
         $("#task-" + task.id).parent().children('.popover').removeClass('in');
+      }
+
       if (task.type == 'habit') Guide.goto('intro', 3);
     };
 
@@ -120,9 +141,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     };
 
     $scope.unlink = function(task, keep) {
-      // TODO move this to userServices, turn userSerivces.user into ng-resource
-      $http.post(ApiUrl.get() + '/api/v2/user/tasks/' + task.id + '/unlink?keep=' + keep)
-        .success(function(){
+      Tasks.unlinkTask(task.id, keep)
+        .success(function () {
           User.log({});
         });
     };
@@ -157,50 +177,57 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         $('#task-'+task.id+' .checklist-form input[type="text"]')[index].focus();
       });
     }
+
     $scope.addChecklist = function(task) {
-      task.checklist = [{completed:false,text:""}];
+      task.checklist = [{completed:false, text:""}];
       focusChecklist(task,0);
     }
-    $scope.addChecklistItem = function(task,$event,$index) {
+
+    $scope.addChecklistItem = function(task, $event, $index) {
       if (!task.checklist[$index].text) {
         // Don't allow creation of an empty checklist item
         // TODO Provide UI feedback that this item is still blank
-      } else if ($index == task.checklist.length-1){
-        User.user.ops.updateTask({params:{id:task.id},body:task}); // don't preen the new empty item
-        task.checklist.push({completed:false,text:''});
-        focusChecklist(task,task.checklist.length-1);
+      } else if ($index == task.checklist.length - 1) {
+        Tasks.addChecklistItem(task.id, task.checklist[$index]);
+        task.checklist.push({completed: false, text: ''});
+        focusChecklist(task, task.checklist.length - 1);
       } else {
-        $scope.saveTask(task,true);
-        focusChecklist(task,$index+1);
+        $scope.saveTask(task, true);
+        focusChecklist(task, $index + 1);
       }
     }
-    $scope.removeChecklistItem = function(task,$event,$index,force){
+
+    $scope.removeChecklistItem = function(task, $event, $index, force){
       // Remove item if clicked on trash icon
       if (force) {
-        task.checklist.splice($index,1);
-        $scope.saveTask(task,true);
+        Tasks.removeChecklistItem(task.id, task.checklist[$index]._id);
+        task.checklist.splice($index, 1);
       } else if (!task.checklist[$index].text) {
         // User deleted all the text and is now wishing to delete the item
         // saveTask will prune the empty item
-        $scope.saveTask(task,true);
+        Tasks.removeChecklistItem(task.id, task.checklist[$index]._id);
         // Move focus if the list is still non-empty
         if ($index > 0)
-          focusChecklist(task,$index-1);
+          focusChecklist(task, $index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
       }
     }
+
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
       var toSwap = task.checklist.splice(oldIndex, 1)[0];
       task.checklist.splice(newIndex, 0, toSwap);
       $scope.saveTask(task, true);
     }
+
     $scope.navigateChecklist = function(task,$index,$event){
       focusChecklist(task, $event.keyCode == '40' ? $index+1 : $index-1);
     }
+
     $scope.checklistCompletion = function(checklist){
       return _.reduce(checklist,function(m,i){return m+(i.completed ? 1 : 0);},0)
     }
+
     $scope.collapseChecklist = function(task) {
       task.collapseChecklist = !task.collapseChecklist;
       $scope.saveTask(task,true);
@@ -223,7 +250,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       playRewardSound(item);
       User.user.ops.buy({params:{key:item.key}});
     };
-
 
     /*
      ------------------------

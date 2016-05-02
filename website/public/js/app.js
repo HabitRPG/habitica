@@ -180,12 +180,20 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:cid',
           templateUrl: 'partials/options.social.challenges.detail.html',
           title: env.t('titleChallenges'),
-          controller: ['$scope', 'Challenges', '$stateParams',
-            function ($scope, Challenges, $stateParams) {
+          controller: ['$scope', 'Challenges', '$stateParams', 'Tasks',
+            function ($scope, Challenges, $stateParams, Tasks) {
               Challenges.getChallenge($stateParams.cid)
                 .then(function (response) {
                   $scope.obj = $scope.challenge = response.data.data;
                   $scope.challenge._locked = true;
+                  return Tasks.getChallengeTasks($scope.challenge._id);
+                })
+                .then(function (response) {
+                  var tasks = response.data.data;
+                  tasks.forEach(function (element, index, array) {
+                    if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
+                    $scope.challenge[element.type + 's'].push(element);
+                  })
                 });
             }]
         })
@@ -193,12 +201,20 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:cid/edit',
           templateUrl: 'partials/options.social.challenges.detail.html',
           title: env.t('titleChallenges'),
-          controller: ['$scope', 'Challenges', '$stateParams',
-            function ($scope, Challenges, $stateParams) {
+          controller: ['$scope', 'Challenges', '$stateParams', 'Tasks',
+            function ($scope, Challenges, $stateParams, Tasks) {
               Challenges.getChallenge($stateParams.cid)
                 .then(function (response) {
                   $scope.obj = $scope.challenge = response.data.data;
                   $scope.challenge._locked = false;
+                  return Tasks.getChallengeTasks($scope.challenge._id);
+                })
+                .then(function (response) {
+                  var tasks = response.data.data;
+                  tasks.forEach(function (element, index, array) {
+                    if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
+                    $scope.challenge[element.type + 's'].push(element);
+                  })
                 });
             }]
         })

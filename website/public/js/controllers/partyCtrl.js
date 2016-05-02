@@ -46,7 +46,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         }
       }
 
-      Chat.markChatSeen($scope.group._id);
+      // Chat.markChatSeen($scope.group._id);
 
       $scope.create = function(group) {
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
