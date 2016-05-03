@@ -149,7 +149,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.questCancel = function(){
         if (!confirm(window.env.t('sureCancel'))) return;
 
-        Quests.sendAction('questCancel')
+        Quests.sendAction('quests/cancel')
           .then(function(quest) {
             $scope.group.quest = quest;
           });
@@ -159,7 +159,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!confirm(window.env.t('sureAbort'))) return;
         if (!confirm(window.env.t('doubleSureAbort'))) return;
 
-        Quests.sendAction('questAbort')
+        Quests.sendAction('quests/abort')
           .then(function(quest) {
             $scope.group.quest = quest;
           });
@@ -168,28 +168,35 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.questLeave = function(){
         if (!confirm(window.env.t('sureLeave'))) return;
 
-        Quests.sendAction('questLeave')
+        Quests.sendAction('quests/leave')
           .then(function(quest) {
             $scope.group.quest = quest;
           });
       }
 
       $scope.questAccept = function(){
-        Quests.sendAction('questAccept')
+        Quests.sendAction('quests/accept')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
+      };
+
+      $scope.questForceStart = function(){
+        Quests.sendAction('quests/force-start')
           .then(function(quest) {
             $scope.group.quest = quest;
           });
       };
 
       $scope.questReject = function(){
-        Quests.sendAction('questReject')
+        Quests.sendAction('quests/reject')
           .then(function(quest) {
             $scope.group.quest = quest;
           });
       };
 
-      $scope.canEditQuest = function(party) {
-        var isQuestLeader = party.quest && party.quest.leader === User.user._id;
+      $scope.canEditQuest = function() {
+        var isQuestLeader = $scope.group.quest && $scope.group.quest.leader === User.user._id;
 
         return isQuestLeader;
       };

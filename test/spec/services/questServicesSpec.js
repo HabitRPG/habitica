@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var groupsService, quest, questsService, user, content, resolveSpy, rejectSpy;
+  var groupsService, quest, questsService, user, content, resolveSpy, rejectSpy, state;
 
   beforeEach(function() {
     user = specHelper.newUser();
@@ -16,10 +16,11 @@ describe('Quests Service', function() {
       $provide.value('User', {sync: sinon.stub(), user: user});
     });
 
-    inject(function(Quests, Groups, Content) {
+    inject(function(Quests, Groups, Content, _$state_) {
       questsService = Quests;
       groupsService = Groups;
       content = Content;
+      state = _$state_;
     });
 
     sandbox.stub(groupsService, 'inviteOrStartParty');
@@ -335,13 +336,36 @@ describe('Quests Service', function() {
   });
 
   describe('#initQuest', function() {
+    var fakeBackend, scope, key = 'whale';
+
+    beforeEach(inject(function($httpBackend, $rootScope) {
+      scope = $rootScope.$new();
+      fakeBackend = $httpBackend;
+      var partyResponse = {data:{_id: 'party-id'}};
+
+      fakeBackend.when('GET', 'partials/main.html').respond({});
+      fakeBackend.when('GET', 'partials/main.html').respond({});
+      fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
+      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/invite/' + key).respond({quest: { key: 'whale' } });
+      fakeBackend.flush();
+    }));
 
     it('returns a promise', function() {
-      var promise = questsService.initQuest('whale');
+      var promise = questsService.initQuest(key);
       expect(promise).to.respondTo('then');
     });
 
-    it('accepts quest');
+    it('starts a quest', function(done) {
+      fakeBackend.expectPOST( '/api/v3/groups/party-id/quests/invite/' + key);
+
+      questsService.initQuest(key)
+        .then(function(res) {
+          done();
+        });
+
+      fakeBackend.flush();
+      scope.$apply();
+    });
 
     it('brings user to party page');
   });
@@ -352,22 +376,23 @@ describe('Quests Service', function() {
     beforeEach(inject(function($httpBackend, $rootScope) {
       scope = $rootScope.$new();
       fakeBackend = $httpBackend;
+      var partyResponse = {data:{_id: 'party-id'}};
 
       fakeBackend.when('GET', 'partials/main.html').respond({});
-      fakeBackend.when('GET', '/api/v2/groups/party').respond({_id: 'party-id'});
-      fakeBackend.when('POST', '/api/v2/groups/party-id/questReject').respond({quest: { key: 'whale' } });
+      fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
+      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/reject').respond({quest: { key: 'whale' } });
       fakeBackend.flush();
     }));
 
     it('returns a promise', function() {
-      var promise = questsService.sendAction('questReject');
+      var promise = questsService.sendAction('quests/reject');
       expect(promise).to.respondTo('then');
     });
 
     it('calls specified quest endpoint', function(done) {
-      fakeBackend.expectPOST('/api/v2/groups/party-id/questReject');
+      fakeBackend.expectPOST('/api/v3/groups/party-id/quests/reject');
 
-      questsService.sendAction('questReject')
+      questsService.sendAction('quests/reject')
         .then(function(res) {
           expect(res.key).to.eql('whale');
           done();
@@ -378,7 +403,7 @@ describe('Quests Service', function() {
     });
 
     it('syncs User', function() {
-      questsService.sendAction('questReject')
+      questsService.sendAction('quests/reject')
         .then(function(res) {
           expect(User.sync).to.be.calledOnce;
           done();
