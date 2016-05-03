@@ -208,6 +208,8 @@
   "weaponArmoireMiningPickaxNotes": "Mine the maximum amount of gold from your tasks! Increases Perception by <%= per %>. Enchanted Armoire: Miner Set (Item 3 of 3).",
   "weaponArmoireBasicLongbowText": "Basic Longbow",
   "weaponArmoireBasicLongbowNotes": "A serviceable hand-me-down bow. Increases Strength by <%= str %>. Enchanted Armoire: Basic Archer Set (Item 1 of 3).",
+  "weaponArmoireHabiticanDiplomaText": "Habitican Diploma",
+  "weaponArmoireHabiticanDiplomaNotes": "A certificate of significant achievement -- well done! Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 1 of 3).",
 
   "armor": "armor",
 
@@ -435,6 +437,8 @@
   "armorArmoireMinerOverallsNotes": "They may seem worn, but they are enchanted to repel dirt. Increases Constitution by <%= con %>. Enchanted Armoire: Miner Set (Item 2 of 3).",
   "armorArmoireBasicArcherArmorText": "Basic Archer Armor",
   "armorArmoireBasicArcherArmorNotes": "This camouflaged vest lets you slip unnoticed through the forests. Increases Perception by <%= per %>. Enchanted Armoire: Basic Archer Set (Item 2 of 3).",
+  "armorArmoireGraduateRobeText": "Graduate Robe",
+  "armorArmoireGraduateRobeNotes": "Congratulations! This weighty robe hangs heavy with all the knowledge you have accrued. Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 2 of 3).",
 
   "headgear": "headgear",
 
@@ -676,6 +680,8 @@
   "headArmoireMinerHelmetNotes": "Protect your head from falling tasks! Increases Intelligence by <%= int %>. Enchanted Armoire: Miner Set (Item 1 of 3).",
   "headArmoireBasicArcherCapText": "Basic Archer Cap",
   "headArmoireBasicArcherCapNotes": "No archer would be complete without a jaunty cap! Increases Perception by <%= per %>. Enchanted Armoire: Basic Archer Set (Item 3 of 3).",
+  "headArmoireGraduateCapText": "Graduate Cap",
+  "headArmoireGraduateCapNotes": "Congratulations! Your deep thoughts have earned you this thinking cap. Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 3 of 3).",
 
   "offhand": "shield-hand item",
 
@@ -797,6 +803,8 @@
   "shieldArmoireDragonTamerShieldNotes": "Distract enemies with this dragon-shaped shield. Increases Perception by <%= per %>. Enchanted Armoire: Dragon Tamer Set (Item 2 of 3).",
   "shieldArmoireMysticLampText": "Mystic Lamp",
   "shieldArmoireMysticLampNotes": "Light the darkest caves with this mystic lamp! Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+  "shieldArmoireFloralBouquetText": "Bouquet o' Flowers",
+  "shieldArmoireFloralBouquetNotes": "Not much help in battle, but aren't they beautiful? Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
