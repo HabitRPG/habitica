@@ -3,6 +3,7 @@
     "stringNotFound": "String '<%= string %>' not found.",
     "titleIndex": "Habitica | Your Life The Role Playing Game",
     "habitica": "Habitica",
+    "habiticaLink": "<a href='http://habitica.wikia.com/wiki/Habitica' target='_blank'>Habitica</a>",
     
     "titleTasks": "Tasks",
     "titleAvatar": "Avatar",
@@ -76,6 +77,8 @@
     "gems": "Gems",
     "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "More Info",
+    "moreInfoChallengesLink": "http://habitica.wikia.com/wiki/Challenges",
+    "moreInfoTagsLink": "http://habitica.wikia.com/wiki/Tags",
     "showMoreMore": "(show more)",
     "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
