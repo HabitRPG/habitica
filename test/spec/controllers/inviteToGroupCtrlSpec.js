@@ -44,69 +44,97 @@ describe('Invite to Group Controller', function() {
   });
 
   describe('inviteNewUsers', function() {
+    var groupInvite, groupCreate;
+
     beforeEach(function() {
       scope.group = specHelper.newGroup({
         type: 'party',
-        $save: sinon.stub().returns({
-          then: function(cb) { cb(); }
-        })
       });
 
-      sandbox.stub(groups.Group, 'invite');
+      groupCreate = sandbox.stub(groups.Group, 'create');
+      groupInvite = sandbox.stub(groups.Group, 'invite');
     });
 
     context('if the party does not already exist', function() {
+      var groupResponse;
+
       beforeEach(function() {
         delete scope.group._id;
+        groupResponse = {data: {data: scope.group}}
       });
 
       it('saves the group if a new group is being created', function() {
+        groupCreate.returns(Promise.resolve(groupResponse));
         scope.inviteNewUsers('uuid');
-        expect(scope.group.$save).to.be.calledOnce;
+        expect(groupCreate).to.be.calledOnce;
       });
 
       it('uses provided name', function() {
         scope.group.name = 'test party';
+
+        groupCreate.returns(Promise.resolve(groupResponse));
+
         scope.inviteNewUsers('uuid');
+
+        expect(groupCreate).to.be.calledWith(scope.group);
         expect(scope.group.name).to.eql('test party');
       });
 
       it('names the group if no name is provided', function() {
         scope.group.name = '';
+
+        groupCreate.returns(Promise.resolve(groupResponse));
+
         scope.inviteNewUsers('uuid');
+
+        expect(groupCreate).to.be.calledWith(scope.group);
         expect(scope.group.name).to.eql(env.t('possessiveParty', {name: user.profile.name}));
       });
     });
 
     context('email', function() {
-      it('invites user with emails', function() {
+      it('invites user with emails', function(done) {
         scope.emails = [
           {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
           {name: 'Mario', email: 'mario@tmk.com'}
         ];
 
-        scope.inviteNewUsers('email');
-        expect(groups.Group.invite).to.be.calledOnce;
-        expect(groups.Group.invite).to.be.calledWith({
-          gid: scope.group._id,
-        }, {
+        var inviteDetails = {
           inviter: user.profile.name,
           emails: [
             {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
             {name: 'Mario', email: 'mario@tmk.com'}
           ]
+        };
 
-        });
+        groupInvite.returns(
+          Promise.resolve()
+            .then(function () {
+              expect(groupInvite).to.be.calledOnce;
+              expect(groupInvite).to.be.calledWith(scope.group._id, inviteDetails);
+              done();
+            })
+        );
+
+        scope.inviteNewUsers('email');
       });
 
-      it('resets email list after sending', function() {
-        groups.Group.invite.yields();
+      it('resets email list after sending', function(done) {
         scope.emails[0].name = 'Luigi';
         scope.emails[0].email = 'mario_bro@themushroomkingdom.com';
 
-        scope.inviteNewUsers('email');
+        groupInvite.returns(
+          Promise.resolve()
+            .then(function () {
+              //We use a timeout to test items that happen after the promise is resolved
+              setTimeout(function(){
+                expect(scope.emails).to.eql([{name:'', email: ''},{name:'', email: ''}]);
+                done();
+              }, 1000);
+            })
+        );
 
-        expect(scope.emails).to.eql([{name:'', email: ''},{name:'', email: ''}]);
+        scope.inviteNewUsers('email');
       });
 
       it('filters out blank email inputs', function() {
@@ -116,66 +144,89 @@ describe('Invite to Group Controller', function() {
           {name: 'Mario', email: 'mario@tmk.com'}
         ];
 
-        scope.inviteNewUsers('email');
-        expect(groups.Group.invite).to.be.calledOnce;
-        expect(groups.Group.invite).to.be.calledWith({
-          gid: scope.group._id,
-        }, {
+        var inviteDetails = {
           inviter: user.profile.name,
           emails: [
             {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
             {name: 'Mario', email: 'mario@tmk.com'}
           ]
-        });
+        };
+
+        groupInvite.returns(
+          Promise.resolve()
+            .then(function () {
+              expect(groupInvite).to.be.calledOnce;
+              expect(groupInvite).to.be.calledWith(scope.group._id, inviteDetails);
+              done();
+            })
+        );
+
+        scope.inviteNewUsers('email');
       });
     });
 
     context('uuid', function() {
-      it('invites user with uuid', function() {
+      it('invites user with uuid', function(done) {
         scope.invitees = [{uuid: '1234'}];
 
+        groupInvite.returns(
+          Promise.resolve()
+            .then(function () {
+              expect(groupInvite).to.be.calledOnce;
+              expect(groupInvite).to.be.calledWith(scope.group._id, { uuids: ['1234'] });
+              done();
+            })
+        );
+
         scope.inviteNewUsers('uuid');
-        expect(groups.Group.invite).to.be.calledOnce;
-        expect(groups.Group.invite).to.be.calledWith({
-          gid: scope.group._id,
-        }, {
-          uuids: ['1234']
-        });
       });
 
-      it('invites users with uuids', function() {
+      it('invites users with uuids', function(done) {
         scope.invitees = [{uuid: 'user1'}, {uuid: 'user2'}, {uuid: 'user3'}];
 
+        groupInvite.returns(
+          Promise.resolve()
+            .then(function () {
+              expect(groupInvite).to.be.calledOnce;
+              expect(groupInvite).to.be.calledWith(scope.group._id, { uuids: ['user1', 'user2', 'user3'] });
+              done();
+            })
+        );
+
         scope.inviteNewUsers('uuid');
-        expect(groups.Group.invite).to.be.calledOnce;
-        expect(groups.Group.invite).to.be.calledWith({
-          gid: scope.group._id,
-        }, {
-          uuids: ['user1', 'user2', 'user3']
-        });
       });
 
-      it('resets invitee list after sending', function() {
-        groups.Group.invite.yields();
+      it('resets invitee list after sending', function(done) {
         scope.invitees = [{uuid: 'user1'}, {uuid: 'user2'}, {uuid: 'user3'}];
 
-        scope.inviteNewUsers('uuid');
+        groupInvite.returns(
+          Promise.resolve()
+            .then(function () {
+              //We use a timeout to test items that happen after the promise is resolved
+              setTimeout(function(){
+                expect(scope.invitees).to.eql([{uuid: ''}]);
+                done();
+              }, 1000);
+              done();
+            })
+        );
 
-        expect(scope.invitees).to.eql([{uuid: ''}]);
+        scope.inviteNewUsers('uuid');
       });
 
       it('removes blank fields from being sent', function() {
-        groups.Group.invite.yields();
         scope.invitees = [{uuid: 'user1'}, {uuid: ''}, {uuid: 'user3'}];
 
-        scope.inviteNewUsers('uuid');
+        groupInvite.returns(
+          Promise.resolve()
+            .then(function () {
+              expect(groupInvite).to.be.calledOnce;
+              expect(groupInvite).to.be.calledWith(scope.group._id, { uuids: ['user1', 'user3'] });
+              done();
+            })
+        );
 
-        expect(groups.Group.invite).to.be.calledOnce;
-        expect(groups.Group.invite).to.be.calledWith({
-          gid: scope.group._id,
-        }, {
-          uuids: ['user1', 'user3']
-        });
+        scope.inviteNewUsers('uuid');
       });
     });
 

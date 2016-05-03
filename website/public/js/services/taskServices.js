@@ -1,7 +1,7 @@
 'use strict';
 
 (function(){
-  var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'dateCreated', 'history', 'id', 'streak'];
+  var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'dateCreated', 'history', 'id', 'streak', 'createdAt'];
 
   angular
     .module('habitrpg')

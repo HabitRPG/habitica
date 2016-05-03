@@ -1,7 +1,7 @@
 'use strict';
 
 describe("Party Controller", function() {
-  var scope, ctrl, user, User, questsService, groups, rootScope, $controller;
+  var scope, ctrl, user, User, questsService, groups, rootScope, $controller, deferred;
   var party;
 
   beforeEach(function() {
@@ -23,7 +23,7 @@ describe("Party Controller", function() {
       $provide.value('User', User);
     });
 
-    inject(function(_$rootScope_, _$controller_, Groups, Quests){
+    inject(function(_$rootScope_, _$controller_, Groups, Quests, _$q_){
 
       rootScope = _$rootScope_;
 
@@ -42,11 +42,15 @@ describe("Party Controller", function() {
   });
 
   describe('initialization', function() {
+    var groupResponse;
+
     function initializeControllerWithStubbedState() {
       inject(function(_$state_) {
         var state = _$state_;
         sandbox.stub(state, 'is').returns(true);
-        $controller('PartyCtrl', { $scope: scope, $state: state });
+        var syncParty = sinon.stub(groups.Group, 'syncParty')
+        syncParty.returns(Promise.resolve(groupResponse));
+        $controller('PartyCtrl', { $scope: scope, $state: state, User: User });
         expect(state.is).to.be.calledOnce; // ensure initialization worked as desired
       });
     };
@@ -57,10 +61,7 @@ describe("Party Controller", function() {
 
     context('party has 1 member', function() {
       it('awards no new achievements', function() {
-        sandbox.stub(groups, 'party').returns({
-          $syncParty: function() {},
-          memberCount: 1
-        });
+        groupResponse = {data: {data: {_id: "test", type: "party", memberCount: 1}}};
 
         initializeControllerWithStubbedState();
 
@@ -71,30 +72,28 @@ describe("Party Controller", function() {
 
     context('party has 2 members', function() {
       context('user does not have "Party Up" achievement', function() {
-        it('awards "Party Up" achievement', function() {
-          sandbox.stub(groups, 'party').returns({
-            $syncParty: function() {},
-            memberCount: 2
-          });
+        it('awards "Party Up" achievement', function(done) {
+          groupResponse = {data: {data: {_id: "test", type: "party", memberCount: 2}}};
 
           initializeControllerWithStubbedState();
 
-          expect(User.set).to.be.calledOnce;
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyUp': true }
-          );
-          expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+          setTimeout(function() {
+            expect(User.set).to.be.calledTwice;
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyUp': true }
+            );
+            expect(rootScope.openModal).to.be.calledTwice;
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+            done();
+          }, 1000);
         });
       });
     });
 
     context('party has 4 members', function() {
+
       beforeEach(function() {
-        sandbox.stub(groups, 'party').returns({
-          $syncParty: function() {},
-          memberCount: 4
-        });
+        groupResponse = {data: {data: {_id: "test", type: "party", memberCount: 4}}};
       });
 
       context('user has "Party Up" but not "Party On" achievement', function() {
@@ -103,12 +102,15 @@ describe("Party Controller", function() {
 
           initializeControllerWithStubbedState();
 
-          expect(User.set).to.be.calledOnce;
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyOn': true }
-          );
-          expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+          setTimeout(function(){
+            expect(User.set).to.be.calledTwice;
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyOn': true }
+            );
+            expect(rootScope.openModal).to.be.calledTwice;
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+            done();
+          }, 1000);
         });
       });
 
@@ -116,16 +118,19 @@ describe("Party Controller", function() {
         it('awards "Party Up" and "Party On" achievements', function() {
           initializeControllerWithStubbedState();
 
-          expect(User.set).to.be.calledTwice;
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyUp': true}
-          );
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyOn': true}
-          );
-          expect(rootScope.openModal).to.be.calledTwice;
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+          setTimeout(function(){
+            expect(User.set).to.be.calledTwice;
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyUp': true}
+            );
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyOn': true}
+            );
+            expect(rootScope.openModal).to.be.calledTwice;
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+            done();
+          }, 1000);
         });
       });
 
@@ -223,6 +228,9 @@ describe("Party Controller", function() {
   describe('questCancel', function() {
     var party, cancelSpy, windowSpy;
     beforeEach(function() {
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
       sandbox.stub(questsService, 'sendAction').returns({
         then: sandbox.stub().yields({members: {another: true}})
       });
@@ -251,6 +259,9 @@ describe("Party Controller", function() {
 
   describe('questAbort', function() {
     beforeEach(function() {
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
       sandbox.stub(questsService, 'sendAction').returns({
         then: sandbox.stub().yields({members: {another: true}})
       });

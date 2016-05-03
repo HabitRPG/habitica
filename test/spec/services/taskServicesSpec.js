@@ -86,20 +86,18 @@ describe('Tasks Service', function() {
         var task = specHelper.newTask();
         var clonedTask = tasks.cloneTask(task);
 
-        expect(clonedTask.id).to.exist;
-        expect(clonedTask.id).to.not.eql(task.id);
         expect(clonedTask._id).to.exist;
         expect(clonedTask._id).to.not.eql(task._id);
       });
 
       it('does not clone original task\'s dateCreated attribute', function() {
         var task = specHelper.newTask({
-          dateCreated: new Date(2014, 5, 1, 1, 1, 1, 1),
+          createdAt: new Date(2014, 5, 1, 1, 1, 1, 1),
         });
         var clonedTask = tasks.cloneTask(task);
 
-        expect(clonedTask.dateCreated).to.exist;
-        expect(clonedTask.dateCreated).to.not.eql(task.dateCreated);
+        expect(clonedTask.createdAt).to.exist;
+        expect(clonedTask.createdAt).to.not.eql(task.createdAt);
       });
 
       it('does not clone original task\'s value', function() {

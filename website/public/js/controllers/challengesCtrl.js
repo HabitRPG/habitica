@@ -256,7 +256,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         });
     }
 
-    $scope.leave = function(keep) {
+    $scope.leave = function(keep, challenge) {
       if (keep == 'cancel') {
         $scope.selectedChal = undefined;
       } else {

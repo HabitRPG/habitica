@@ -128,11 +128,13 @@ habitrpg.controller("InventoryCtrl",
           eggKey: egg.key,
           pet: 'Pet-' + egg.key + '-' + potion.key
         };
+
         $rootScope.openModal('hatchPet', {
           scope: $scope,
           size: 'sm'
         });
       }
+
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
 
