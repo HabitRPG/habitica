@@ -149,25 +149,35 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         queries.push(this.getGroup({user, groupId: 'party', fields: groupFields, populateLeader}));
         break;
       }
+      case 'guilds': {
+        let userGuildsQuery = this.find({
+          type: 'guild',
+          _id: {$in: user.guilds},
+        }).select(groupFields);
+        if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
+        userGuildsQuery.sort(sort).exec();
+        queries.push(userGuildsQuery);
+        break;
+      }
       case 'privateGuilds': {
-        let privateGroupQuery = this.find({
+        let privateGuildsQuery = this.find({
           type: 'guild',
           privacy: 'private',
           _id: {$in: user.guilds},
         }).select(groupFields);
-        if (populateLeader === true) privateGroupQuery.populate('leader', nameFields);
-        privateGroupQuery.sort(sort).exec();
-        queries.push(privateGroupQuery);
+        if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
+        privateGuildsQuery.sort(sort).exec();
+        queries.push(privateGuildsQuery);
         break;
       }
       case 'publicGuilds': {
-        let publicGroupQuery = this.find({
+        let publicGuildsQuery = this.find({
           type: 'guild',
           privacy: 'public',
         }).select(groupFields);
-        if (populateLeader === true) publicGroupQuery.populate('leader', nameFields);
-        publicGroupQuery.sort(sort).exec();
-        queries.push(publicGroupQuery); // TODO use lean?
+        if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        publicGuildsQuery.sort(sort).exec();
+        queries.push(publicGuildsQuery); // TODO use lean?
         break;
       }
       case 'tavern': {

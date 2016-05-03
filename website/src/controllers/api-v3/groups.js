@@ -79,7 +79,7 @@ api.createGroup = {
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, privateGuilds, publicGuilds, tavern
+ * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
  *
  * @apiSuccess {Array} data An array of the requested groups
  */
