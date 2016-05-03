@@ -86,6 +86,13 @@ function processChallenges (afterId) {
       lastChallenge = oldChallenges[oldChallenges.length - 1]._id;
     }
 
+    // Tyler Renelle
+    oldChallenge.members.forEach(function (id, index) {
+      if (id === '9') {
+        oldChallenge.members[index] = '00000000-0000-4000-9000-000000000000';
+      }
+    });
+
     oldChallenges.forEach(function (oldChallenge) {
       promises.push(newUserCollection.updateMany({
         _id: {$in: oldChallenge.members},

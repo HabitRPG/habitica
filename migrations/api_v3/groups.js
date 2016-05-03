@@ -144,6 +144,13 @@ function processGroups (afterId) {
       }
 
       if (oldGroup.members) {
+        // Tyler Renelle
+        oldGroup.members.forEach(function (id, index) {
+          if (id === '9') {
+            oldGroup.members[index] = '00000000-0000-4000-9000-000000000000';
+          }
+        });
+
         promises.push(newUserCollection.updateMany({
           _id: {$in: oldGroup.members},
         }, updateMembers, {multi: true}));

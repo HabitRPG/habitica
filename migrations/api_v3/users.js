@@ -51,6 +51,12 @@ var BATCH_SIZE = 1000;
 var processedUsers = 0;
 var totoalProcessedTasks = 0;
 
+var challengeTaskWithMatchingId = 0;
+var challengeTaskNoMatchingId = 0;
+
+// Load the new tasks ids for challenges tasks
+var newTasksIds = require('./newTasksIds.json');
+
 // Only process users that fall in a interval ie up to -> 0000-4000-0000-0000
 var AFTER_USER_ID = nconf.get('AFTER_USER_ID');
 var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
@@ -110,6 +116,8 @@ function processUsers (afterId) {
       delete oldUser.rewards;
       delete oldUser.todos;
 
+      delete oldUser.id;
+
       oldUser.tags = oldUser.tags.map(function (tag) {
         return {
           id: tag.id,
@@ -132,10 +140,24 @@ function processUsers (afterId) {
 
         oldTask.challenge = oldTask.challenge || {};
         if (oldTask.challenge.id) {
-          oldTask.challenge.taskId = oldTask.legacyId;
+          if (oldTask.challenge.broken) {
+            oldTask.challenge.taskId = oldTask.legacyId;
+          } else {
+            var newId = newTasksIds[oldTask.legacyId + '-' + oldTask.challenge.id];
+
+            // Challenges' tasks ids changed
+            if (!newId && !oldTask.challenge.broken) {
+              challengeTaskNoMatchingId++;
+              oldTask.challenge.taskId = oldTask.legacyId;
+              oldTask.challenge.broken = 'CHALLENGE_TASK_NOT_FOUND';
+            } else {
+              challengeTaskWithMatchingId++;
+              oldTask.challenge.taskId = newId;
+            }
+          }
         }
 
-        oldTask.createdAt = old.dateCreated;
+        oldTask.createdAt = oldTask.dateCreated;
 
         if (!oldTask.text) oldTask.text = 'task text'; // required
         oldTask.tags = _.map(oldTask.tags, function (tagPresent, tagId) {
@@ -179,6 +201,8 @@ function processUsers (afterId) {
     processedUsers += oldUsers.length;
 
     console.log(`Saved ${oldUsers.length} users and their tasks.`);
+    console.log('Challenges\' tasks no matching id: ', challengeTaskNoMatchingId);
+    console.log('Challenges\' tasks with matching id: ', challengeTaskWithMatchingId);
 
     if (lastUser) {
       return processUsers(lastUser);
