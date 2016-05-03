@@ -510,7 +510,7 @@ export async function _closeChal (challenge, broken = {}) {
  * @apiName DeleteChallenge
  * @apiGroup Challenge
  *
- * challengeId {UUID} The _id for the challenge to delete
+ * @apiParam {UUID} challengeId The _id for the challenge to delete
  *
  * @apiSuccess {object} data An empty object
  */
@@ -542,8 +542,8 @@ api.deleteChallenge = {
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
- * challengeId {UUID} The _id for the challenge to close with a winner
- * winnerId {UUID} The _id of the winning user
+ * @apiParam {UUID} challengeId The _id for the challenge to close with a winner
+ * @apiParam {UUID} winnerId The _id of the winning user
  *
  * @apiSuccess {object} data An empty object
  */
