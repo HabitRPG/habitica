@@ -30,13 +30,10 @@ export let schema = new Schema({
     local: {
       email: {
         type: String,
-        trim: true,
-        lowercase: true,
         validate: [validator.isEmail, shared.i18n.t('invalidEmail')], // TODO translate error messages here, use preferences.language?
       },
       username: {
         type: String,
-        trim: true,
       },
       // Store a lowercase version of username to check for duplicates
       lowerCaseUsername: String,
