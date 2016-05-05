@@ -19,6 +19,7 @@ var _ = require('lodash');
 var uuid = require('uuid');
 var consoleStamp = require('console-stamp');
 var common = require('../../common');
+var moment = require('moment');
 
 // Add timestamps to console messages
 consoleStamp(console);
@@ -61,18 +62,12 @@ var newTasksIds = require('./newTasksIds.json');
 var AFTER_USER_ID = nconf.get('AFTER_USER_ID');
 var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
 
-/* TODO compare old and new model
-- _id 9
-- challenges
-- groups
-- invitations
-- challenges' tasks
-*/
-
 function processUsers (afterId) {
   var processedTasks = 0;
   var lastUser = null;
   var oldUsers;
+
+  var now = new Date();
 
   var query = {};
 
@@ -131,6 +126,7 @@ function processUsers (afterId) {
       }
 
       var newUser = new NewUser(oldUser);
+      var isSubscribed = newUser.isSubscribed();
 
       oldTasks.forEach(function (oldTask) {
         oldTask._id = uuid.v4(); // create a new unique uuid
@@ -154,6 +150,13 @@ function processUsers (afterId) {
               challengeTaskWithMatchingId++;
               oldTask.challenge.taskId = newId;
             }
+          }
+        }
+
+        // Delete old completed todos
+        if (oldTask.type === 'todo' && oldTask.completed && (!oldTask.challenge.id || oldTask.challenge.broken)) {
+          if (moment(now).subtract(isSubscribed ? 90 : 30, 'days').toDate() > moment(oldTask.dateCompleted).toDate()) {
+            return;
           }
         }
 
