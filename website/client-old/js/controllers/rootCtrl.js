@@ -223,13 +223,13 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       switch(id) {
         case 'exp':
-          width = $(".row").width() - 5;
+          width = $(".row").width() - 20;
           break;
         case 'todos':
-          width = $(".task-column.todos").width() - 5;
+          width = $(".task-column.todos").width();
           break;
         default:
-          width = $(".task-text").width() - 5;
+          width = $(".task-text").width() - 15;
           break;
       }
 
@@ -256,8 +256,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         chartArea: {
           left: 50,
           top: 30,  
-          right: 65,
+          right: 20,
           bottom: 65
+        },
+        legend: {
+          position: 'none'
         }
       };
 
