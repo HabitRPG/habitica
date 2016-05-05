@@ -29,7 +29,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
             $scope.newGroup = { type: 'party' };
           });
       }
-      // Chat.seenMessage($scope.group._id);
+
       function checkForNotifications () {
         // Checks if user's party has reached 2 players for the first time.
         if(!user.achievements.partyUp

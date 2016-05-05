@@ -68,7 +68,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.deleteAllMessages = function() {
       if (confirm(window.env.t('confirmDeleteAllMessages'))) {
-        User.user.ops.clearPMs({});
+        User.clearPMs();
       }
     };
 

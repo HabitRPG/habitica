@@ -24,7 +24,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.user.ops.score({params:{id: task.id, direction:direction}});
+      User.score({params:{id: task.id, direction:direction}});
       Analytics.updateUser();
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
@@ -38,7 +38,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         }),
       };
 
-      User.user.ops.addTask({body:newTask});
+      User.addTask({body:newTask});
     }
 
     $scope.addTask = function(addTo, listDef) {
@@ -80,7 +80,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
     $scope.pushTask = function(task, index, location) {
       var to = (location === 'bottom' || $scope.ctrlPressed) ? -1 : 0;
-      User.user.ops.sortTask({params:{id:task.id},query:{from:index, to:to}})
+      User.sortTask({params:{id:task.id},query:{from:index, to:to}})
     };
 
     /**
@@ -96,18 +96,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.removeTask = function(task) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      User.user.ops.deleteTask({params:{id:task.id}})
+      User.deleteTask({params:{id:task.id}})
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
-      //@TODO: We will need to fix tag saving when user service is ported since tags are attached at the user level
-
-      if (task.checklist) {
-        task.checklist = _.filter(task.checklist, function(i) {return !!i.text});
-      }
-
-      User.user.ops.updateTask({params:{id:task.id},body:task});
-
+      if (task.checklist)
+        task.checklist = _.filter(task.checklist,function(i){return !!i.text});
+      User.updateTask({params:{id:task.id},body:task});
       if (!stayOpen) task._editing = false;
 
       if (isSaveAndClose) {
@@ -177,10 +172,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (!task.checklist[$index].text) {
         // Don't allow creation of an empty checklist item
         // TODO Provide UI feedback that this item is still blank
-      } else if ($index == task.checklist.length - 1) {
-        User.user.ops.updateTask({params:{id:task.id},body:task});
-        task.checklist.push({completed: false, text: ''});
-        focusChecklist(task, task.checklist.length - 1);
+      } else if ($index == task.checklist.length-1){
+        User.updateTask({params:{id:task.id},body:task}); // don't preen the new empty item
+        task.checklist.push({completed:false,text:''});
+        focusChecklist(task,task.checklist.length-1);
       } else {
         $scope.saveTask(task, true);
         focusChecklist(task, $index + 1);
@@ -238,7 +233,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.buy = function(item) {
       playRewardSound(item);
-      User.user.ops.buy({params:{key:item.key}});
+      User.buy({params:{key:item.key}});
     };
 
     /*

@@ -21,7 +21,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
         // clear inbox when entering or exiting inbox tab
         if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {
-          User.user.ops.update && User.set({'inbox.newMessages':0});
+          //@TODO: Protected path. We need a url
+          User.set({'inbox.newMessages': 0});
         }
       });
 
@@ -218,11 +219,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
          key: itemKey
       };
 
-      user.ops.equip({ params: equipParams });
+      User.equip({ params: equipParams });
     }
 
     $rootScope.purchase = function(type, item){
-      if (type == 'special') return user.ops.buySpecialSpell({params:{key:item.key}});
+      if (type == 'special') return User.buySpecialSpell({params:{key:item.key}});
 
       var gems = user.balance * 4;
       var price = item.value;
@@ -248,7 +249,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       message += window.env.t('buyThis', {text: itemName, price: price, gems: gems});
       if ($window.confirm(message))
-        user.ops.purchase({params:{type:type,key:item.key}});
+        User.purchase({params:{type:type,key:item.key}});
     };
 
     function _canBuyEquipment(itemKey) {
