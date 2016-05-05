@@ -24,10 +24,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      Tasks.scoreTask(task.id, direction)
-        .success(function (response) {
-          User.user.stats = response.data;
-        });
+      User.user.ops.score({params:{id: task.id, direction:direction}});
       Analytics.updateUser();
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
@@ -36,16 +33,12 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       var newTask = {
         text: task,
         type: listDef.type,
-        tags: _.transform(task.tags, function(m, v, k) {
+        tags: _.transform(User.user.filters, function(m, v, k) {
          if (v) m.push(v);
         }),
       };
 
-      Tasks.createUserTasks(newTask)
-        .success(function (response) {
-          var task = response.data;
-          User.user[task.type + 's'].push(task)
-        });
+      User.user.ops.addTask({body:newTask});
     }
 
     $scope.addTask = function(addTo, listDef) {
@@ -87,9 +80,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
     $scope.pushTask = function(task, index, location) {
       var to = (location === 'bottom' || $scope.ctrlPressed) ? -1 : 0;
-      Tasks.moveTask(task.id, to);
-      User.user[task.type + 's'].splice(index, 1);
-      User.user[task.type + 's'].splice(to, 0, task);
+      User.user.ops.sortTask({params:{id:task.id},query:{from:index, to:to}})
     };
 
     /**
@@ -105,8 +96,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.removeTask = function(task, index) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      User.user[task.type + 's'].splice(index, 1);
-      Tasks.deleteTask(task.id);
+      User.user.ops.deleteTask({params:{id:task.id}})
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
@@ -116,7 +106,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         task.checklist = _.filter(task.checklist, function(i) {return !!i.text});
       }
 
-      Tasks.updateTask(task.id, task)
+      User.user.ops.updateTask({params:{id:task.id},body:task});
 
       if (!stayOpen) task._editing = false;
 
@@ -188,7 +178,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         // Don't allow creation of an empty checklist item
         // TODO Provide UI feedback that this item is still blank
       } else if ($index == task.checklist.length - 1) {
-        Tasks.addChecklistItem(task.id, task.checklist[$index]);
+        User.user.ops.updateTask({params:{id:task.id},body:task});
         task.checklist.push({completed: false, text: ''});
         focusChecklist(task, task.checklist.length - 1);
       } else {
