@@ -187,12 +187,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.charts = {};
     $rootScope.toggleChart = function(id, task) {
-      if($rootScope.charts[id] === undefined) {
-        $(window).resize(function() { 
-          $rootScope.drawChart(id, data);
-        });
-      }
-
       var history = [], matrix, data, options, container;
       switch (id) {
         case 'exp':
@@ -209,16 +203,24 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           if (task && task._editing) task._editing = false;
       }
 
+      if($rootScope.charts[id]) {
+        var handleResize = _.debounce(function() {
+          drawChart(id, data);
+        }, 300);
+
+        $(window).resize(handleResize);
+      }
+
       matrix = [[env.t('date'), env.t('score')]];
       _.each(history, function(obj) {
         matrix.push([moment(obj.date).format(User.user.preferences.dateFormat.toUpperCase().replace('YYYY','YY') ), obj.value]);
       });
       data = google.visualization.arrayToDataTable(matrix);
 
-      $rootScope.drawChart(id, data);
+      drawChart(id, data);
     };
 
-    $rootScope.drawChart = function(id, data, options) {
+    function drawChart(id, data, options) {
       var chart, width;
 
       switch(id) {
