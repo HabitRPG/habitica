@@ -171,7 +171,7 @@ api.exportUserAvatarHtml = {
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
     res.render('avatar-static', {
       title: member.profile.name,
-      env: _.defaults({member}, res.locals.habitrpg), // TODO review once static pages are done
+      env: _.defaults({member}, res.locals.habitrpg),
     });
   },
 };

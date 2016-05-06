@@ -123,12 +123,12 @@ module.exports = function cronMiddleware (req, res, next) {
         $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days').toDate(),
       },
       'challenge.id': {$exists: false},
-    }).exec(); // TODO wait before returning?
+    }).exec();
 
     let ranCron = user.isModified();
     let quest = common.content.quests[user.party.quest.key];
 
-    // if (ranCron) res.locals.wasModified = true; // TODO remove?
+    // if (ranCron) res.locals.wasModified = true; // TODO remove after v2 is retired
     if (!ranCron) return next();
 
     // Group.tavernBoss(user, progress);

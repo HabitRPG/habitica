@@ -39,7 +39,7 @@ export let TaskSchema = new Schema({
 
   challenge: {
     id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
-    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task TODO unique index?
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED']},
     winner: String, // user.profile.name of the winner
   },
@@ -149,7 +149,7 @@ export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
 let habitDailySchema = () => {
-  return {history: Array}; // [{date:Date, value:Number}], // this causes major performance problems TODO revisit
+  return {history: Array}; // [{date:Date, value:Number}], // this causes major performance problems
 };
 
 // dailys and todos shared fields
@@ -197,7 +197,7 @@ export let daily = Task.discriminator('daily', DailySchema);
 
 export let TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
-  // TODO we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
+  // TODO we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date see http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
   date: String, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
 export let todo = Task.discriminator('todo', TodoSchema);

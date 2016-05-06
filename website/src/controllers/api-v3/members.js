@@ -16,6 +16,7 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
 import Q from 'q';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
 
 let api = {};
 
@@ -349,8 +350,7 @@ api.transferGems = {
       ]);
     }
 
-    // TODO: Add push notifications
-    // pushNotify.sendNotify(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
+    sendPushNotification(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
 
     res.respond(200, {});
   },

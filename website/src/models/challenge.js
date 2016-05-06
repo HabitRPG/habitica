@@ -123,7 +123,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
     } else {
       _.merge(matchingTask, _syncableAttrs(chalTask));
-      // Make sure the task is in user.tasksOrder TODO necessary?
+      // Make sure the task is in user.tasksOrder
       let orderList = user.tasksOrder[`${chalTask.type}s`];
       if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
     }
@@ -155,7 +155,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let membersIds = await _fetchMembersIds(challenge._id);
 
   // Sync each user sequentially
-  // TODO are we sure it's the best solution?
+  // TODO are we sure it's the best solution? Use cwait
   // use bulk ops? http://stackoverflow.com/questions/16726330/mongoose-mongodb-batch-insert
   for (let memberId of membersIds) {
     let updateTasksOrderQ = {$push: {}};

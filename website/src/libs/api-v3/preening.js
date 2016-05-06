@@ -30,12 +30,12 @@ Subscribers and challenges:
 - 1 value each year for the previous years
  */
 export function preenHistory (history, isSubscribed, timezoneOffset) {
-  // history = _.filter(history, historyEntry => Boolean(historyEntry)); // Filter missing entries TODO add to migration
+  // history = _.filter(history, historyEntry => Boolean(historyEntry)); // Filter missing entries
   let now = timezoneOffset ? moment().zone(timezoneOffset) : moment();
   // Date after which to begin compressing data
   let cutOff = now.subtract(isSubscribed ? 365 : 60, 'days').startOf('day');
 
-  // Keep uncompressed entries (modifies history)
+  // Keep uncompressed entries (modifies history and returns removed items)
   let newHistory = _.remove(history, entry => {
     let date = moment(entry.date);
     return date.isSame(cutOff) || date.isAfter(cutOff);

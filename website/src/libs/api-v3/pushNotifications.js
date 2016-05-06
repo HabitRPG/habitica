@@ -26,10 +26,7 @@ if (gcm) {
 }
 
 module.exports = function sendNotification (user, title, message, timeToLive = 15) {
-  // TODO need investigation:
-  // https://github.com/HabitRPG/habitrpg/issues/5252
-
-  if (!user) throw new Error('User is required.');
+  if (!user) return;
 
   _.each(user.pushDevices, pushDevice => {
     switch (pushDevice.type) {

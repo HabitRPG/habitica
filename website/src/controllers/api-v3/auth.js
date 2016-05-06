@@ -127,7 +127,7 @@ api.registerLocal = {
       newUser = fbUser;
     } else {
       newUser = new User(newUser);
-      newUser.registeredThrough = req.headers['x-client']; // TODO is this saved somewhere?
+      newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
     }
 
     // we check for partyInvite for backward compatibility

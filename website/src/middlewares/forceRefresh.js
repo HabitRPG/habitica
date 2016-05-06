@@ -1,4 +1,4 @@
-// TODO do we need this module?
+// TODO do we need this module anymore in v3? No
 
 module.exports.siteVersion = 1;
 

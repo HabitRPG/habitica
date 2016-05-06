@@ -420,7 +420,7 @@ schema.methods.finishQuest = function finishQuest (quest) {
   let updates = {$inc: {}, $set: {}};
 
   updates.$inc[`achievements.quests.${questK}`] = 1;
-  updates.$inc['stats.gp'] = Number(quest.drop.gp); // TODO are this castings necessary?
+  updates.$inc['stats.gp'] = Number(quest.drop.gp);
   updates.$inc['stats.exp'] = Number(quest.drop.exp);
   updates.$inc._v = 1;
 
@@ -530,7 +530,8 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   }, {multi: true}).exec();
   // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
-  // must be notModified or otherwise could overwrite future changes
+  // must be notModified or otherwise could overwrite future changes: if the user is saved it'll save
+  // the modified user.stats.hp but that must not happen as the hp value has already been updated by the User.update above
   // if (down) user.stats.hp += down;
 
   // Boss slain, finish quest

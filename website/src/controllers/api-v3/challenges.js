@@ -475,7 +475,7 @@ export async function _closeChal (challenge, broken = {}) {
       ]);
     }
 
-    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
+    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name);
   }
 
   // Run some operations in the background withouth blocking the thread
@@ -501,7 +501,7 @@ export async function _closeChal (challenge, broken = {}) {
     }, {multi: true}).exec(),
   ];
 
-  Q.allSettled(backgroundTasks); // TODO look if allSettled could be useful somewhere else
+  Q.all(backgroundTasks);
 }
 
 /**
