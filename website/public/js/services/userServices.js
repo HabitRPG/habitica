@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'MOBILE_APP', 'Notification', 'ApiUrl',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, MOBILE_APP, Notification, ApiUrl) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -51,7 +51,7 @@ angular.module('habitrpg')
           url: 'api/v3/user/',
         })
         .then(function (response) {
-          Notification.text(response.data.message);
+          if (response.data.message) Notification.text(response.data.message);
 
           _.extend(user, response.data.data);
 
@@ -70,8 +70,7 @@ angular.module('habitrpg')
                   }
                   if (err) {
                     var message = err.code ? err.message : err;
-                    if (MOBILE_APP) Notification.push({type:'text',text:message});
-                    else Notification.text(message);
+                    Notification.text(message);
                     // In the case of 200s, they're friendly alert messages like "Your pet has hatched!" - still send the op
                     if ((err.code && err.code >= 400) || !err.code) return;
                   }
@@ -113,7 +112,7 @@ angular.module('habitrpg')
           body: body,
         })
         .then(function (response) {
-          Notification.text(response.data.message);
+          if (response.data.message) Notification.text(response.data.message);
           save();
         })
       }
@@ -122,8 +121,6 @@ angular.module('habitrpg')
         for (var key in updates) {
           user[key] = updates[key];
         }
-
-        sync();
       }
 
       var userServices = {
@@ -201,6 +198,16 @@ angular.module('habitrpg')
           })
         },
 
+        clearNewMessages: function () {
+          $http({
+            method: "POST",
+            url: 'api/v3/user/mark-pms-read',
+          })
+          .then(function (response) {
+            sync();
+          })
+        },
+
         clearPMs: function () {
           callOpsFunctionAndRequest('clearPMs', 'messages', "DELETE");
         },
@@ -259,12 +266,19 @@ angular.module('habitrpg')
         },
 
         unlock: function (data) {
-          $window.habitrpgShared.ops['unlock'](user, data);
           callOpsFunctionAndRequest('unlock', 'unlock', "POST", '', data);
         },
 
         set: function(updates) {
           setUser(updates);
+          $http({
+            method: "PUT",
+            url: 'api/v3/user',
+            data: updates,
+          })
+          .then(function (response) {
+            sync();
+          })
         },
 
         reroll: function () {
@@ -358,11 +372,9 @@ angular.module('habitrpg')
           }
 
           save();
-          // syncQueue(cb);
         },
 
         sync: function(){
-          user._v--;
           userServices.log({});
           sync();
         },
@@ -387,26 +399,20 @@ angular.module('habitrpg')
 
       //If user does not have ApiID that forward him to settings.
       if (!settings.auth.apiId || !settings.auth.apiToken) {
-
-        if (MOBILE_APP) {
-          $location.path("/login");
+        //var search = $location.search(); // FIXME this should be working, but it's returning an empty object when at a root url /?_id=...
+        var search = $location.search($window.location.search.substring(1)).$$search; // so we use this fugly hack instead
+        if (search.err) return alert(search.err);
+        if (search._id && search.apiToken) {
+          userServices.authenticate(search._id, search.apiToken, function(){
+            $window.location.href='/';
+          });
         } else {
-          //var search = $location.search(); // FIXME this should be working, but it's returning an empty object when at a root url /?_id=...
-          var search = $location.search($window.location.search.substring(1)).$$search; // so we use this fugly hack instead
-          if (search.err) return alert(search.err);
-          if (search._id && search.apiToken) {
-            userServices.authenticate(search._id, search.apiToken, function(){
-              $window.location.href='/';
-            });
-          } else {
-            var isStaticOrSocial = $window.location.pathname.match(/^\/(static|social)/);
-            if (!isStaticOrSocial){
-              localStorage.clear();
-              $window.location.href = '/logout';
-            }
+          var isStaticOrSocial = $window.location.pathname.match(/^\/(static|social)/);
+          if (!isStaticOrSocial){
+            localStorage.clear();
+            $window.location.href = '/logout';
           }
         }
-
       } else {
         userServices.authenticate(settings.auth.apiId, settings.auth.apiToken)
       }

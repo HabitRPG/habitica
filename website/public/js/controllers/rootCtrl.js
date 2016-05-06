@@ -21,8 +21,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
         // clear inbox when entering or exiting inbox tab
         if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {
-          //@TODO: Protected path. We need a url
-          User.set({'inbox.newMessages': 0});
+          User.clearNewMessages();
         }
       });
 
