@@ -46,7 +46,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         }
       }
 
-      if ($scope.group) {
+      if ($scope.group && $scope.group._id) {
         Chat.markChatSeen($scope.group._id);
       }
 

@@ -398,7 +398,7 @@ describe('Challenges Controller', function() {
         scope.save(challenge);
       });
 
-      it('saves new challenge and syncs User', function() {
+      it('saves new challenge and syncs User', function(done) {
         sinon.stub(notification, 'text');
 
         var challenge = specHelper.newChallenge();
@@ -703,8 +703,8 @@ describe('Challenges Controller', function() {
       members.selectMember.returns(Promise.resolve());
     });
 
-    describe('sendMessageToChallengeParticipant', function(done) {
-      it('opens private-message modal', function() {
+    describe('sendMessageToChallengeParticipant', function() {
+      it('opens private-message modal', function(done) {
         scope.sendMessageToChallengeParticipant(user._id);
 
         setTimeout(function() {
@@ -719,7 +719,7 @@ describe('Challenges Controller', function() {
     });
 
     describe('sendGiftToChallengeParticipant', function() {
-      it('opens send-gift modal', function() {
+      it('opens send-gift modal', function(done) {
         scope.sendGiftToChallengeParticipant(user._id);
 
         setTimeout(function() {
