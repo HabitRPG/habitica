@@ -3,7 +3,6 @@ var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
 var cc = require('coupon-code');
-var autoinc = require('mongoose-id-autoinc');
 
 var CouponSchema = new mongoose.Schema({
   _id: {type: String, 'default': cc.generate},
@@ -48,11 +47,6 @@ CouponSchema.statics.apply = function(user, code, next){
     next(null,results.apply_coupon[0]);
   })
 }
-
-CouponSchema.plugin(autoinc.plugin, {
-  model: 'Coupon',
-  field: 'seq'
-});
 
 module.exports.schema = CouponSchema;
 module.exports.model = mongoose.model("Coupon", CouponSchema);

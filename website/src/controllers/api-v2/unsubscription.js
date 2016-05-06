@@ -15,7 +15,7 @@ api.unsubscribe = function(req, res, next){
       $set: {'preferences.emailNotifications.unsubscribeFromAll': true}
     }, {multi: false}, function(err, updateRes){
       if(err) return next(err);
-      if(updateRes !== 1) return res.status(404).json({err: 'User not found'});
+      if(updateRes.n !== 1) return res.status(404).json({err: 'User not found'});
 
       res.send('<h1>' + i18n.t('unsubscribedSuccessfully', null, req.language) + '</h1>' + i18n.t('unsubscribedTextUsers', null, req.language));
     });

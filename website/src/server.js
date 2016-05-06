@@ -38,7 +38,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var http = require("http");
   var path = require("path");
   var swagger = require("swagger-node-express");
-  var autoinc = require('mongoose-id-autoinc');
   var shared = require('../../common');
 
   // Setup translations
@@ -58,7 +57,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
     if (err) throw err;
     logging.info('Connected with Mongoose');
   });
-  autoinc.init(db);
 
   require('./libs/firebase');
 
