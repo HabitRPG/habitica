@@ -132,7 +132,7 @@ function processGroups (afterId) {
 
       if (!oldGroup.privacy) {
         // throw new Error('group.privacy is required');
-        group.privacy = 'private';
+        oldGroup.privacy = 'private';
       }
 
       var updateMembers = {};
