@@ -95,7 +95,7 @@ function processChallenges (afterId) {
       });
 
       promises.push(newUserCollection.updateMany({
-        _id: {$in: oldChallenge.members},
+        _id: {$in: oldChallenge.members || []},
       }, {
         $push: {challenges: oldChallenge._id},
       }, {multi: true}));

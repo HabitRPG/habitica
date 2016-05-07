@@ -102,9 +102,11 @@ function processGroups (afterId) {
     }
 
     oldGroups.forEach(function (oldGroup) {
-      if ((!oldGroup.privacy || oldGroup.privacy === 'private') && (!oldGroup.members || oldGroup.members.length === 0)) return; // delete empty private groups
+      if ((!oldGroup.privacy || oldGroup.privacy === 'private') && (!oldGroup.members || oldGroup.members.length === 0)) return; // delete empty private groups TODO must also delete challenges or this won't work
+
+      oldGroup.members = oldGroup.members || [];
       oldGroup.memberCount = oldGroup.members ? oldGroup.members.length : 0;
-      oldGroup.memberCount = oldGroup.challenges ? oldGroup.challenges.length : 0;
+      oldGroup.challengeCount = oldGroup.challenges ? oldGroup.challenges.length : 0;
 
       if (!oldGroup.balance <= 0) oldGroup.balance = 0;
       if (!oldGroup.name) oldGroup.name = 'group name';
