@@ -112,6 +112,15 @@ function processChallenges (afterId) {
       if (!oldChallenge.group) throw new Error('challenge.group is required');
       if (!oldChallenge.leader) throw new Error('challenge.leader is required');
 
+
+      if (oldChallenge.leader === '9') {
+        oldChallenge.leader = '00000000-0000-4000-9000-000000000000';
+      }
+
+      if (oldChallenge.group === 'habitrpg') {
+        oldChallenge.group = '00000000-0000-4000-A000-000000000000';
+      }
+
       delete oldChallenge.id;
 
       var newChallenge = new NewChallenge(oldChallenge);
