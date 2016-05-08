@@ -210,6 +210,17 @@ describe('Challenges Controller', function() {
     });
 
     describe('addTask', function() {
+      var challenge;
+
+      beforeEach(function () {
+        challenge = specHelper.newChallenge({
+          description: 'You are the owner and member',
+          leader: user._id,
+          members: [user],
+          _isMember: true
+        });
+      });
+
       it('adds default task to array', function() {
         var taskArray = [];
         var listDef = {
@@ -217,26 +228,27 @@ describe('Challenges Controller', function() {
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef);
+        scope.addTask(taskArray, listDef, challenge);
 
-        expect(taskArray.length).to.eql(1);
-        expect(taskArray[0].text).to.eql('new todo text');
-        expect(taskArray[0].type).to.eql('todo');
+        expect(challenge['todos'].length).to.eql(1);
+        expect(challenge['todos'][0].text).to.eql('new todo text');
+        expect(challenge['todos'][0].type).to.eql('todo');
       });
 
       it('adds the task to the front of the array', function() {
         var previousTask = specHelper.newTodo({ text: 'previous task' });
-        var taskArray = [previousTask];
+        var taskArray = [];
+        challenge['todos'] = [previousTask];
         var listDef = {
           newTask: 'new todo',
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef);
+        scope.addTask(taskArray, listDef, challenge);
 
-        expect(taskArray.length).to.eql(2);
-        expect(taskArray[0].text).to.eql('new todo');
-        expect(taskArray[1].text).to.eql('previous task');
+        expect(challenge['todos'].length).to.eql(2);
+        expect(challenge['todos'][0].text).to.eql('new todo');
+        expect(challenge['todos'][1].text).to.eql('previous task');
       });
 
       it('removes text from new task input box', function() {
@@ -246,7 +258,7 @@ describe('Challenges Controller', function() {
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef);
+        scope.addTask(taskArray, listDef, challenge);
 
         expect(listDef.newTask).to.not.exist;
       });
@@ -261,31 +273,37 @@ describe('Challenges Controller', function() {
     });
 
     describe('removeTask', function() {
-      var task, list;
+      var task, challenge;
 
       beforeEach(function() {
         sandbox.stub(window, 'confirm');
         task = specHelper.newTodo();
-        list = [task];
+        challenge = specHelper.newChallenge({
+          description: 'You are the owner and member',
+          leader: user._id,
+          members: [user],
+          _isMember: true
+        });
+        challenge['todos'] = [task];
       });
 
       it('asks user to confirm deletion', function() {
-        scope.removeTask(task, list);
+        scope.removeTask(task, challenge);
         expect(window.confirm).to.be.calledOnce;
       });
 
       it('does not remove task from list if not confirmed', function() {
         window.confirm.returns(false);
-        scope.removeTask(task, list);
+        scope.removeTask(task, challenge);
 
-        expect(list).to.include(task);
+        expect(challenge['todos']).to.include(task);
       });
 
       it('removes task from list', function() {
         window.confirm.returns(true);
-        scope.removeTask(task, list);
+        scope.removeTask(task, challenge);
 
-        expect(list).to.not.include(task);
+        expect(challenge['todos']).to.not.include(task);
       });
     });
 
