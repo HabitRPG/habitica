@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Groups', [ '$location', '$rootScope', '$http', 'Analytics', 'ApiUrl', 'Challenges', 'User', '$q',
-  function($location, $rootScope, $http, Analytics, ApiUrl, Challenges, User, $q) {
+.factory('Groups', [ '$location', '$rootScope', '$http', 'Analytics', 'ApiUrl', 'Challenges', '$q',
+  function($location, $rootScope, $http, Analytics, ApiUrl, Challenges, $q) {
     var data =  {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined };
     var groupApiURLPrefix = "/api/v3/groups";
 

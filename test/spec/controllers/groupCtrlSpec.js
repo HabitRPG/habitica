@@ -169,12 +169,12 @@ describe('Groups Controller', function() {
       scope.editGroup(guild);
     });
 
-    it('calls group.save', () => {
-      let guildSave = sandbox.spy(scope.groupCopy, '$save');
+    it('calls group update', () => {
+      let guildUpdate = sandbox.spy(groups.Group, 'update');
 
       scope.saveEdit(guild);
 
-      expect(guildSave).to.be.calledOnce;
+      expect(guildUpdate).to.be.calledOnce;
     });
 
     it('calls cancelEdit', () => {

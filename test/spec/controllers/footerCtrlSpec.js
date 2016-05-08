@@ -4,7 +4,6 @@ describe('Footer Controller', function() {
   var scope, user;
 
   beforeEach(inject(function($rootScope, $controller) {
-    console.log(window.env.NODE_ENV);
     user = specHelper.newUser();
     var User = {log: sandbox.stub(), set: sandbox.stub(), user: user};
     scope = $rootScope.$new();
