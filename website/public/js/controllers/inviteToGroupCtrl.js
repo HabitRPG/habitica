@@ -18,6 +18,7 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
     $scope.inviteNewUsers = function(inviteMethod) {
       if (!$scope.group._id) {
         $scope.group.name = $scope.group.name || env.t('possessiveParty', {name: User.user.profile.name});
+
         return Groups.Group.create($scope.group)
           .then(function(response) {
             $scope.group = response.data.data;
@@ -68,7 +69,6 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
     function _resetInvitees() {
       var emptyEmails = [{name:"",email:""},{name:"",email:""}];
       var emptyInvitees = [{uuid: ''}];
-
       $scope.emails = emptyEmails;
       $scope.invitees = emptyInvitees;
     }

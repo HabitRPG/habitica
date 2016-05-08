@@ -1,6 +1,6 @@
 'use strict';
 
-var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'dateCreated', 'history', 'id', 'streak', 'createdAt'];
+var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt'];
 
 angular.module('habitrpg')
 .factory('Tasks',  ['$rootScope', 'Shared', 'User', '$http',
