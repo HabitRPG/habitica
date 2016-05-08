@@ -234,11 +234,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       var task = Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
       Tasks.createChallengeTasks(challenge._id, task);
       if (!challenge[task.type + 's']) challenge[task.type + 's'] = [];
-      challenge[task.type + 's'].push(task);
+      challenge[task.type + 's'].unshift(task);
       delete listDef.newTask;
     };
 
-    $scope.removeTask = function(task, list) {
+    $scope.removeTask = function(task, challenge) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
       Tasks.deleteTask(task._id);
       var index = challenge[task.type + 's'].indexOf(task);
