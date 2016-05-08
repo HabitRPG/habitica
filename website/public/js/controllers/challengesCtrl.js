@@ -132,9 +132,16 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
             $state.transitionTo('options.social.challenges.detail', { cid: _challenge._id }, {
               reload: true, inherit: false, notify: true
             });
+
+            var challengeTasks = [];
+            challengeTasks.concat(challenge.todos);
+            challengeTasks.concat(challenge.habits);
+            challengeTasks.concat(challenge.dailys);
+            challengeTasks.concat(challenge.reqards);
+            Tasks.createChallengeTasks(_challenge._id, challengeTasks);
           });
       } else {
-        Challenges.updateChallenge(challenge)
+        Challenges.updateChallenge(challenge._id, challenge)
           .then(function (response) {
             var _challenge = response.data.data;
             $state.transitionTo('options.social.challenges.detail', { cid: _challenge._id }, {
@@ -223,19 +230,19 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     //------------------------------------------------------------
     // Tasks
     //------------------------------------------------------------
-
-    $scope.addTask = function(addTo, listDef) {
+    $scope.addTask = function(addTo, listDef, challenge) {
       var task = Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
-      addTo.unshift(task);
-      //User.log({op: "addTask", data: task}); //TODO persist
+      Tasks.createChallengeTasks(challenge._id, task);
+      if (!challenge[task.type + 's']) challenge[task.type + 's'] = [];
+      challenge[task.type + 's'].push(task);
       delete listDef.newTask;
     };
 
     $scope.removeTask = function(task, list) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      //TODO persist
-      // User.log({op: "delTask", data: task});
-      _.remove(list, task);
+      Tasks.deleteTask(task._id);
+      var index = challenge[task.type + 's'].indexOf(task);
+      challenge[task.type + 's'].splice(index, 1);
     };
 
     $scope.saveTask = function(task){
@@ -407,7 +414,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     function _getChallenges() {
       if ($scope.cid) {
         Challenges.getChallenge($scope.cid)
-          .then(function (challenge) {
+          .then(function (response) {
+            var challenge = response.data.data;
             $scope.challenges = [challenge];
           });
       } else {
