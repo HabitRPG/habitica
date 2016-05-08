@@ -12,6 +12,8 @@ import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
+import Q from 'q';
+
 import setupNconf from '../../libs/api-v3/setupNconf';
 setupNconf();
 
@@ -89,12 +91,14 @@ api.postChat = {
 
     group.sendChat(req.body.message, user);
 
+    let toSave = [group.save()];
+
     if (group.type === 'party') {
       user.party.lastMessageSeen = group.chat[0].id;
-      user.save(); // TODO why this is non-blocking? must catch?
+      toSave.push(user.save());
     }
 
-    let savedGroup = await group.save();
+    let [savedGroup] = await Q.all(toSave);
     if (chatUpdated) {
       res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {

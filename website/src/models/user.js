@@ -30,13 +30,10 @@ export let schema = new Schema({
     local: {
       email: {
         type: String,
-        trim: true,
-        lowercase: true,
-        validate: [validator.isEmail, shared.i18n.t('invalidEmail')], // TODO translate error messages here, use preferences.language?
+        validate: [validator.isEmail, shared.i18n.t('invalidEmail')],
       },
       username: {
         type: String,
-        trim: true,
       },
       // Store a lowercase version of username to check for duplicates
       lowerCaseUsername: String,
@@ -529,14 +526,14 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   // TODO revisit a lot of things are missing. Given how many attributes we do have here we should white-list the ones that can be updated
-  // TODO this is a only used for creating an user, on update we use a whitelist
+  // This is not really used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password',
     'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest',
     'invitations', 'balance', 'backer', 'contributor'],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
-    // plainObj.filters = {}; TODO Not saved
-    plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs TODO how to test?
+    // plainObj.filters = {}; TODO Not saved, remove?
+    plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
 
     return plainObj;
   },
@@ -593,7 +590,7 @@ function _populateDefaultTasks (user, taskTypes) {
       return newTask.save();
     });
 
-    tasksToCreate.push(...tasksOfType); // TODO find better way since this creates each task individually
+    tasksToCreate.push(...tasksOfType);
   });
 
   return Q.all(tasksToCreate)

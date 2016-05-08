@@ -61,8 +61,8 @@ api.list = async function(req, res, next) {
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
-        resChals[index].leader = populatedData[0].toJSON({minimize: true});
-        resChals[index].group = populatedData[1].toJSON({minimize: true});
+        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
+        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
       });
     }));
 
@@ -88,7 +88,8 @@ api.get = async function(req, res, next) {
     let group = await Group.getGroup({user, groupId: challenge.group, optionalMembership: true});
     if (!group || !challenge.canView(user, group)) return res.status(404).json({err: 'Challenge ' + req.params.cid + ' not found'});
 
-    let leaderRes = (await User.findById(challenge.leader).select('profile.name').exec()).toJSON({minimize: true});
+    let leaderRes = await User.findById(challenge.leader).select('profile.name').exec();
+    leaderRes = leaderRes ? leaderRes.toJSON({minimize: true}) : null;
 
     challenge.getTransformedData({
       populateMembers: 'profile.name',

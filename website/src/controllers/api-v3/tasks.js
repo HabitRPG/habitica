@@ -85,7 +85,7 @@ api.createUserTasks = {
  */
 api.createChallengeTasks = {
   method: 'POST',
-  url: '/tasks/challenge/:challengeId', // TODO should be /tasks/challengeS/:challengeId ? plural?
+  url: '/tasks/challenge/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
@@ -303,7 +303,6 @@ api.updateTask = {
     }
 
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
-    // TODO regarding comment above, make sure other models with nested fields are using this trick too
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
     _.assign(task, Tasks.Task.sanitize(updatedTaskObj));
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
@@ -360,7 +359,7 @@ api.scoreTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
+    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -389,7 +388,7 @@ api.scoreTask = {
       } else if (wasCompleted && !task.completed) {
         let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
         if (!hasTask) {
-          user.tasksOrder.todos.push(task._id); // TODO push at the top?
+          user.tasksOrder.todos.push(task._id);
         } // If for some reason it hadn't been removed previously don't do anything
       }
     }

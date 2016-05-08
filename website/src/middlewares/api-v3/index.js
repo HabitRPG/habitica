@@ -52,7 +52,6 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(forceSSL);
   app.use(forceHabitica);
 
-  // TODO if we don't manage to move the client off $resource the limit for bodyParser.json must be increased to 1mb from 100kb (default)
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
   }));

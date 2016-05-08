@@ -5,7 +5,7 @@ import {
   model as User,
 } from '../../models/user';
 
-// TODO how to translate the strings here since getUserLanguage hasn't run yet?
+// Strins won't be translated here because getUserLanguage has not run yet
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication

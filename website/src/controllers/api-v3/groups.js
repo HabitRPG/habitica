@@ -79,7 +79,7 @@ api.createGroup = {
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, privateGuilds, publicGuilds, tavern
+ * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
  *
  * @apiSuccess {Array} data An array of the requested groups
  */
@@ -95,7 +95,6 @@ api.getGroups = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    // TODO validate types are acceptable? probably not necessary
     let types = req.query.type.split(',');
     let groupFields = basicGroupFields.concat('description memberCount balance');
     let sort = '-memberCount';
@@ -444,7 +443,7 @@ api.removeGroupMember = {
         group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined; // TODO remmeber to check these are mark modified everywhere
+        group.quest.members[member._id] = undefined;
         group.markModified('quest.members');
       }
 

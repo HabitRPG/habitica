@@ -17,6 +17,7 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var uuid = require('uuid');
 var consoleStamp = require('console-stamp');
+var fs = require('fs');
 
 // Add timestamps to console messages
 consoleStamp(console);
@@ -47,6 +48,8 @@ var BATCH_SIZE = 1000;
 
 var processedChallenges = 0;
 var totoalProcessedTasks = 0;
+
+var newTasksIds = {}; // a map of old id -> [new id, challengeId]
 
 // Only process challenges that fall in a interval ie -> up to 0000-4000-0000-0000
 var AFTER_CHALLENGE_ID = nconf.get('AFTER_CHALLENGE_ID');
@@ -109,14 +112,34 @@ function processChallenges (afterId) {
       if (!oldChallenge.group) throw new Error('challenge.group is required');
       if (!oldChallenge.leader) throw new Error('challenge.leader is required');
 
+
+      if (oldChallenge.leader === '9') {
+        oldChallenge.leader = '00000000-0000-4000-9000-000000000000';
+      }
+
+      if (oldChallenge.group === 'habitrpg') {
+        oldChallenge.group = '00000000-0000-4000-A000-000000000000';
+      }
+
+      delete oldChallenge.id;
+
       var newChallenge = new NewChallenge(oldChallenge);
 
       newChallenge.createdAt = createdAt;
 
       oldTasks.forEach(function (oldTask) {
-        oldTask._id = uuid.v4(); // TODO keep the old uuid unless duplicated
+        oldTask._id = uuid.v4();
         oldTask.legacyId = oldTask.id; // store the old task id
         delete oldTask.id;
+
+        oldTask.challenge = oldTask.challenge || {};
+        oldTask.challenge.id = newChallenge._id;
+
+        if (newTasksIds[oldTask.legacyId + '-' + newChallenge._id]) {
+          throw new Error('duplicate :(');
+        } else {
+          newTasksIds[oldTask.legacyId + '-' + newChallenge._id] = oldTask._id;
+        }
 
         oldTask.tags = _.map(oldTask.tags || {}, function (tagPresent, tagId) {
           return tagPresent && tagId;
@@ -124,8 +147,7 @@ function processChallenges (afterId) {
 
         if (!oldTask.text) oldTask.text = 'task text'; // required
 
-        oldTask.challenge = oldTask.challenge || {};
-        oldTask.challenge.id = oldChallenge._id;
+        oldTask.createdAt = oldTask.dateCreated;
 
         newChallenge.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         if (oldTask.completed) oldTask.completed = false;
@@ -155,6 +177,8 @@ function processChallenges (afterId) {
     if (lastChallenge) {
       return processChallenges(lastChallenge);
     } else {
+      console.log('Writing newTasksIds.json...')
+      fs.writeFileSync('newTasksIds.json', JSON.stringify(newTasksIds, null, 4), 'utf8');
       return console.log('Done!');
     }
   });

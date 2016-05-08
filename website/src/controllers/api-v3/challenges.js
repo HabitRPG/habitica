@@ -153,7 +153,8 @@ api.joinChallenge = {
       type: group.type,
       privacy: group.privacy,
     };
-    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let chalLeader = await User.findById(response.leader).select(nameFields).exec();
+    response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
     res.respond(200, response);
   },
@@ -233,8 +234,8 @@ api.getUserChallenges = {
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
-        resChals[index].leader = populatedData[0].toJSON({minimize: true});
-        resChals[index].group = populatedData[1].toJSON({minimize: true});
+        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
+        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
       });
     }));
 
@@ -278,7 +279,7 @@ api.getGroupChallenges = {
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Q.all(resChals.map((chal, index) => {
       return User.findById(chal.leader).select(nameFields).exec().then(populatedLeader => {
-        resChals[index].leader = populatedLeader.toJSON({minimize: true});
+        resChals[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
       });
     }));
 
@@ -322,7 +323,8 @@ api.getChallenge = {
     let chalRes = challenge.toJSON();
     chalRes.group = group.toJSON({minimize: true});
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    chalRes.leader = (await User.findById(chalRes.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
+    chalRes.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
     res.respond(200, chalRes);
   },
@@ -441,7 +443,8 @@ api.updateChallenge = {
       type: group.type,
       privacy: group.privacy,
     };
-    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let chalLeader = await User.findById(response.leader).select(nameFields).exec();
+    response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
     res.respond(200, response);
   },
 };
@@ -475,7 +478,7 @@ export async function _closeChal (challenge, broken = {}) {
       ]);
     }
 
-    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
+    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name);
   }
 
   // Run some operations in the background withouth blocking the thread
@@ -501,7 +504,7 @@ export async function _closeChal (challenge, broken = {}) {
     }, {multi: true}).exec(),
   ];
 
-  Q.allSettled(backgroundTasks); // TODO look if allSettled could be useful somewhere else
+  Q.all(backgroundTasks);
 }
 
 /**
@@ -510,7 +513,7 @@ export async function _closeChal (challenge, broken = {}) {
  * @apiName DeleteChallenge
  * @apiGroup Challenge
  *
- * challengeId {UUID} The _id for the challenge to delete
+ * @apiParam {UUID} challengeId The _id for the challenge to delete
  *
  * @apiSuccess {object} data An empty object
  */
@@ -542,8 +545,8 @@ api.deleteChallenge = {
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
- * challengeId {UUID} The _id for the challenge to close with a winner
- * winnerId {UUID} The _id of the winning user
+ * @apiParam {UUID} challengeId The _id for the challenge to close with a winner
+ * @apiParam {UUID} winnerId The _id of the winning user
  *
  * @apiSuccess {object} data An empty object
  */
