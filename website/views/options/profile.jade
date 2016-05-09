@@ -71,7 +71,7 @@ mixin customizeProfile(mobile)
         // Wheelchair
         li.customize-menu
           menu(label=env.t('wheelchair'))
-            button.customize-option(ng-repeat='item in ::["black"]', class='button_chair_{{::item}}',
+            button.customize-option(ng-repeat='item in ::["black","blue","green","pink","red","yellow"]', class='button_chair_{{::item}}',
               ng-class="{selectableInventory: user.preferences.chair == item}",
               ng-click='user.preferences.chair != item ? set({"preferences.chair":item}) : set({"preferences.chair":"none"})')
 
