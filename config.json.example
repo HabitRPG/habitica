@@ -1,5 +1,6 @@
 {
     "PORT":3000,
+    "ENABLE_CONSOLE_LOGS_IN_PROD":"false",
     "IP":"0.0.0.0",
     "CORES":1,
     "BASE_URL":"http://localhost:3000",
@@ -33,7 +34,7 @@
     "EMAIL_SERVER": {
         "url": "http://example.com",
         "authUser": "user",
-        "authPassword": "password" 
+        "authPassword": "password"
     },
     "S3":{
         "bucket":"bucket",
@@ -60,7 +61,7 @@
         "subdomain": "subdomain",
         "token": "token",
         "username": "username",
-        "password": "password"    
+        "password": "password"
     },
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",

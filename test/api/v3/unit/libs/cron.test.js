@@ -298,19 +298,19 @@ describe('cron', () => {
       expect(tasksByType.dailys[0].completed).to.be.false;
     });
 
-    it('should set task checklist to completed for completed dailys', () => {
+    it('should reset task checklist for completed dailys', () => {
       tasksByType.dailys[0].checklist.push({title: 'test', completed: false});
       tasksByType.dailys[0].completed = true;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(tasksByType.dailys[0].checklist[0].completed).to.be.true;
+      expect(tasksByType.dailys[0].checklist[0].completed).to.be.false;
     });
 
-    it('should set task checklist to completed for dailys with scheduled misses', () => {
+    it('should reset task checklist for dailys with scheduled misses', () => {
       daysMissed = 10;
       tasksByType.dailys[0].checklist.push({title: 'test', completed: false});
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
       cron({user, tasksByType, daysMissed, analytics});
-      expect(tasksByType.dailys[0].checklist[0].completed).to.be.true;
+      expect(tasksByType.dailys[0].checklist[0].completed).to.be.false;
     });
 
     it('should do damage for missing a daily', () => {
