@@ -17,38 +17,38 @@ script(type='text/ng-template', id='modals/restore.html')
     form.form-horizontal
       h3=env.t('stats')
       .form-group.row
-        .col-md-6
+        .col-sm-3
           label.control-label=env.t('health')
-        .col-md-6
+        .col-sm-9
           input.form-control(type='number', step="any", data-for='stats.hp', ng-model='$parent.restoreValues.stats.hp')
       .form-group.row
-        .col-md-6
+        .col-sm-3
           label.control-label=env.t('experience')
-        .col-md-6
+        .col-sm-9
           input.form-control(type='number', step="any", data-for='stats.exp', ng-model='$parent.restoreValues.stats.exp')
       .form-group.row
-        .col-md-6
+        .col-sm-3
           label.control-label=env.t('gold')
-        .col-md-6
+        .col-sm-9
           input.form-control(type='number', step="any", data-for='stats.gp', ng-model='$parent.restoreValues.stats.gp')
         //input.form-control(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
         //-p.alert
           small=env.t('disabledWinterEvent')
       .form-group.row
-        .col-md-6
+        .col-sm-3
           label.control-label=env.t('mana')
-        .col-md-6
+        .col-sm-9
           input.form-control(type='number', step="any", data-for='stats.mp', ng-model='$parent.restoreValues.stats.mp')
       .form-group.row
-        .col-md-6
+        .col-sm-3
           label.control-label=env.t('level')
-        .col-md-6
+        .col-sm-9
           input.form-control(type='number', data-for='stats.lvl', ng-model='$parent.restoreValues.stats.lvl')
       h3=env.t('achievements')
       .form-group.row
-        .col-md-6
+        .col-sm-3
           label.control-label=env.t('fix21Streaks')
-        .col-md-6
+        .col-sm-9
           input.form-control(type='number', data-for='achievements.streak', ng-model='$parent.restoreValues.achievements.streak')
     //- This is causing too many problems for users
       h3=env.t('other')
