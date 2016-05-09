@@ -5,17 +5,19 @@ import _ from 'lodash';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
+const ENABLE_CONSOLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
 
 const logger = new winston.Logger();
 
 if (IS_PROD) {
   // TODO production logging, use loggly and new relic too
-  // log errors to console too
-  logger
-    .add(winston.transports.Console, {
+
+  if (ENABLE_CONSOLE_LOGS_IN_PROD) {
+    logger.add(winston.transports.Console, {
       colorize: true,
       prettyPrint: true,
     });
+  }
 } else if (IS_TEST) {
   // Do not log anything when testing
 } else {
@@ -53,10 +55,8 @@ let loggerInterface = {
 
 // Logs unhandled promises errors
 // when no catch is attached to a promise a unhandledRejection event will be triggered
-process.on('unhandledRejection', function handlePromiseRejection (reason, promise) {
-  loggerInterface.error(reason, {
-    promise,
-  });
+process.on('unhandledRejection', function handlePromiseRejection (reason) {
+  loggerInterface.error(reason);
 });
 
 module.exports = loggerInterface;
