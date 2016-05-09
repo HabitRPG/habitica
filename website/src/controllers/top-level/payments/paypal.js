@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import nconf from 'nconf';
 import moment from 'moment';
 import _ from 'lodash';
@@ -17,14 +19,14 @@ import {
 } from '../../../libs/api-v3/errors';
 import * as logger from '../../../libs/api-v3/logger';
 
+const BASE_URL = nconf.get('BASE_URL');
+
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
 _.each(shared.content.subscriptionBlocks, (block) => {
   block.paypalKey = nconf.get(`PAYPAL:billing_plans:${block.key}`);
 });
-
-/* eslint-disable camelcase */
 
 paypal.configure({
   mode: nconf.get('PAYPAL:mode'), // sandbox or live
@@ -35,18 +37,18 @@ paypal.configure({
 let api = {};
 
 /**
- * @api {get} /paypal/checkout checkout
+ * @apiIgnore Payments are considered part of the private API
+ * @api {get} /paypal/checkout Paypal checkout
+ * @apiDescription Redirects to Paypal
  * @apiVersion 3.0.0
  * @apiName PaypalCheckout
  * @apiGroup Payments
  *
- * @apiParam {string} gift The stringified object representing the user, the gift recepient.
- *
- * @apiSuccess {} redirect
+ * @apiParam {string} gift Query parameter - The stringified object representing the user, the gift recepient.
  **/
 api.checkout = {
   method: 'GET',
-  url: '/payments/paypal/checkout',
+  url: '/paypal/checkout',
   middlewares: [authWithUrl],
   async handler (req, res) {
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
@@ -68,8 +70,8 @@ api.checkout = {
       intent: 'sale',
       payer: { payment_method: 'Paypal' },
       redirect_urls: {
-        return_url: `${nconf.get('BASE_URL')}/paypal/checkout/success`,
-        cancel_url: `${nconf.get('BASE_URL')}`,
+        return_url: `${BASE_URL}/paypal/checkout/success`,
+        cancel_url: `${BASE_URL}`,
       },
       transactions: [{
         item_list: {
@@ -87,6 +89,7 @@ api.checkout = {
         description,
       }],
     };
+
     try {
       let result = await paypal.payment.create(createPayment);
       let link = _.find(result.links, { rel: 'approval_url' }).href;
@@ -98,6 +101,7 @@ api.checkout = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/checkout/success Paypal checkout success
  * @apiVersion 3.0.0
  * @apiName PaypalCheckoutSuccess
@@ -110,7 +114,7 @@ api.checkout = {
  **/
 api.checkoutSuccess = {
   method: 'GET',
-  url: '/payments/paypal/checkout/success',
+  url: '/paypal/checkout/success',
   middlewares: [authWithSession],
   async handler (req, res) {
     let paymentId = req.query.paymentId;
@@ -144,6 +148,7 @@ api.checkoutSuccess = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe Paypal subscribe
  * @apiVersion 3.0.0
  * @apiName PaypalSubscribe
@@ -156,7 +161,7 @@ api.checkoutSuccess = {
  **/
 api.subscribe = {
   method: 'GET',
-  url: '/payments/paypal/subscribe',
+  url: '/paypal/subscribe',
   middlewares: [authWithUrl],
   async handler (req, res) {
     let sub = shared.content.subscriptionBlocks[req.query.sub];
@@ -190,6 +195,7 @@ api.subscribe = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe/success Paypal subscribe success
  * @apiVersion 3.0.0
  * @apiName PaypalSubscribeSuccess
@@ -201,7 +207,7 @@ api.subscribe = {
  **/
 api.subscribeSuccess = {
   method: 'GET',
-  url: '/payments/paypal/subscribe/success',
+  url: '/paypal/subscribe/success',
   middlewares: [authWithSession],
   async handler (req, res) {
     let user = res.locals.user;
@@ -223,6 +229,7 @@ api.subscribeSuccess = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe/cancel Paypal subscribe cancel
  * @apiVersion 3.0.0
  * @apiName PaypalSubscribeCancel
@@ -234,7 +241,7 @@ api.subscribeSuccess = {
  **/
 api.subscribeCancel = {
   method: 'GET',
-  url: '/payments/paypal/subscribe/cancel',
+  url: '/paypal/subscribe/cancel',
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
@@ -261,6 +268,7 @@ api.subscribeCancel = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {post} /paypal/ipn Paypal IPN
  * @apiVersion 3.0.0
  * @apiName PaypalIpn
@@ -273,7 +281,7 @@ api.subscribeCancel = {
  **/
 api.ipn = {
   method: 'POST',
-  url: '/payments/paypal/ipn',
+  url: '/paypal/ipn',
   middlewares: [],
   async handler (req, res) {
     res.respond(200);

@@ -2,6 +2,7 @@ import stripeModule from 'stripe';
 import shared from '../../../../../common';
 import {
   BadRequest,
+  NotAuthorized,
 } from '../../../libs/api-v3/errors';
 import { model as Coupon } from '../../../models/coupon';
 import payments from '../../../libs/api-v3/payments';
@@ -18,22 +19,23 @@ const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 let api = {};
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {post} /stripe/checkout Stripe checkout
  * @apiVersion 3.0.0
  * @apiName StripeCheckout
  * @apiGroup Payments
  *
- * @apiParam {string} id The token
- * @apiParam {string} gift stringified json object, gift
- * @apiParam {string} sub subscription, possible values are: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo
- * @apiParam {string} coupon coupon for the matching subscription, required only for certain subscriptions
- * @apiParam {string} email the customer email
+ * @apiParam {string} id Body parameter - The token
+ * @apiParam {string} email Body parameter - the customer email
+ * @apiParam {string} gift Query parameter - stringified json object, gift
+ * @apiParam {string} sub Query parameter - subscription, possible values are: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo
+ * @apiParam {string} coupon Query parameter - coupon for the matching subscription, required only for certain subscriptions
  *
- * @apiSuccess {} empty object
+ * @apiSuccess {Object} data Empty object
  **/
 api.checkout = {
   method: 'POST',
-  url: '/payments/stripe/checkout',
+  url: '/stripe/checkout',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let token = req.body.id;
@@ -49,15 +51,16 @@ api.checkout = {
         coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
         if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
       }
-      let customer = {
+
+      response = await stripe.customers.create({
         email: req.body.email,
         metadata: { uuid: user._id },
         card: token,
         plan: sub.key,
-      };
-      response = await stripe.customers.create(customer);
+      });
     } else {
       let amount = 500; // $5
+
       if (gift) {
         if (gift.type === 'subscription') {
           amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
@@ -65,6 +68,7 @@ api.checkout = {
           amount = `${gift.gems.amount / 4 * 100}`;
         }
       }
+
       response = await stripe.charges.create({
         amount,
         currency: 'usd',
@@ -87,80 +91,74 @@ api.checkout = {
         paymentMethod: 'Stripe',
         gift,
       };
+
       if (gift) {
         let member = await User.findById(gift.uuid);
         gift.member = member;
         if (gift.type === 'subscription') method = 'createSubscription';
         data.paymentMethod = 'Gift';
       }
+
       await payments[method](data);
     }
+
     res.respond(200, {});
   },
 };
 
 /**
- * @api {post} /stripe/subscribe/edit Stripe subscribeEdit
+ * @apiIgnore Payments are considered part of the private API
+ * @api {post} /stripe/subscribe/edit Edit Stripe subscription
  * @apiVersion 3.0.0
  * @apiName StripeSubscribeEdit
  * @apiGroup Payments
  *
- * @apiParam {string} id The token
+ * @apiParam {string} id Body parameter - The token
  *
- * @apiSuccess {}
+ * @apiSuccess {Object} data Empty object
  **/
 api.subscribeEdit = {
   method: 'POST',
-  url: '/payments/stripe/subscribe/edit',
+  url: '/stripe/subscribe/edit',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let token = req.body.id;
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
 
-    if (!customerId) throw new BadRequest(res.t('missingSubscription'));
+    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
 
-    try {
-      let subscriptions = await stripe.customers.listSubscriptions(customerId);
-      let subscriptionId = subscriptions.data[0].id;
-      await stripe.customers.updateSubscription(customerId, subscriptionId, { card: token });
-      res.respond(200, {});
-    } catch (error) {
-      throw new BadRequest(error.message);
-    }
+    let subscriptions = await stripe.customers.listSubscriptions(customerId);
+    let subscriptionId = subscriptions.data[0].id;
+    await stripe.customers.updateSubscription(customerId, subscriptionId, { card: token });
+    res.respond(200, {});
   },
 };
 
 /**
- * @api {get} /stripe/subscribe/cancel Stripe subscribeCancel
+ * @apiIgnore Payments are considered part of the private API
+ * @api {get} /stripe/subscribe/cancel Cancel Stripe subscription
  * @apiVersion 3.0.0
  * @apiName StripeSubscribeCancel
  * @apiGroup Payments
- *
- * @apiParam
- *
- * @apiSuccess {}
  **/
 api.subscribeCancel = {
   method: 'GET',
-  url: '/payments/stripe/subscribe/cancel',
+  url: '/stripe/subscribe/cancel',
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
-    if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));
-    try {
-      let customer = await stripe.customers.retrieve(user.purchased.plan.customeerId);
-      await stripe.customers.del(user.purchased.plan.customerId);
-      let data = {
-        user,
-        nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
-        paymentMethod: 'Stripe',
-      };
-      await payments.cancelSubscriptoin(data);
-      res.respond(200, {});
-    } catch (e) {
-      throw new BadRequest(e);
-    }
+    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+
+    let customer = await stripe.customers.retrieve(user.purchased.plan.customeerId);
+    await stripe.customers.del(user.purchased.plan.customerId);
+    await payments.cancelSubscriptoin({
+      user,
+      nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
+      paymentMethod: 'Stripe',
+    });
+
+    res.redirect('/');
   },
 };
 

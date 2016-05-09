@@ -10,10 +10,6 @@ import nconf from 'nconf';
 import pushNotify from './pushNotifications';
 import shared from '../../../../common' ;
 
-import iap from '../../controllers/top-level/payments/iap';
-import paypal from '../../controllers/top-level/payments/paypal';
-import stripe from '../../controllers/top-level/payments/stripe';
-
 const IS_PROD = nconf.get('IS_PROD');
 
 let api = {};
@@ -45,6 +41,7 @@ api.createSubscription = async function createSubscription (data) {
       plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       if (!plan.dateUpdated) plan.dateUpdated = new Date();
     }
+
     if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
   } else {
     _(plan).merge({ // override with these values
@@ -73,12 +70,13 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
     plan.consecutive.trinkets += perks;
   }
+
   revealMysteryItems(recipient);
 
   if (IS_PROD) {
     if (!data.gift) txnEmail(data.user, 'subscription-begins');
 
-    let analyticsData = {
+    analytics.trackPurchase({
       uuid: data.user._id,
       itemPurchased: 'Subscription',
       sku: `${data.paymentMethod.toLowerCase()}-subscription`,
@@ -87,8 +85,7 @@ api.createSubscription = async function createSubscription (data) {
       quantity: 1,
       gift: Boolean(data.gift),
       purchaseValue: block.price,
-    };
-    analytics.trackPurchase(analyticsData);
+    });
   }
 
   data.user.purchased.txnCount++;
@@ -114,9 +111,7 @@ api.createSubscription = async function createSubscription (data) {
   if (data.gift) await data.gift.member.save();
 };
 
-/**
- * Sets their subscription to be cancelled later
- */
+// Sets their subscription to be cancelled later
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
@@ -146,12 +141,14 @@ api.cancelSubscription = async function cancelSubscription (data) {
 api.buyGems = async function buyGems (data) {
   let amt = data.amount || 5;
   amt = data.gift ? data.gift.gems.amount / 4 : amt;
+
   (data.gift ? data.gift.member : data.user).balance += amt;
   data.user.purchased.txnCount++;
+
   if (IS_PROD) {
     if (!data.gift) txnEmail(data.user, 'donation');
 
-    let analyticsData = {
+    analytics.trackPurchase({
       uuid: data.user._id,
       itemPurchased: 'Gems',
       sku: `${data.paymentMethod.toLowerCase()}-checkout`,
@@ -160,8 +157,7 @@ api.buyGems = async function buyGems (data) {
       quantity: 1,
       gift: Boolean(data.gift),
       purchaseValue: amt,
-    };
-    analytics.trackPurchase(analyticsData);
+    });
   }
 
   if (data.gift) {
@@ -179,23 +175,11 @@ api.buyGems = async function buyGems (data) {
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
       pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
     }
+
     await data.gift.member.save();
   }
+
   await data.user.save();
 };
-
-api.stripeCheckout = stripe.checkout;
-api.stripeSubscribeCancel = stripe.subscribeCancel;
-api.stripeSubscribeEdit = stripe.subscribeEdit;
-
-api.paypalSubscribe = paypal.createBillingAgreement;
-api.paypalSubscribeSuccess = paypal.executeBillingAgreement;
-api.paypalSubscribeCancel = paypal.cancelSubscription;
-api.paypalCheckout = paypal.createPayment;
-api.paypalCheckoutSuccess = paypal.executePayment;
-api.paypalIPN = paypal.ipn;
-
-api.iapAndroidVerify = iap.androidVerify;
-api.iapIosVerify = iap.iosVerify;
 
 module.exports = api;

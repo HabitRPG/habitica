@@ -22,6 +22,7 @@ website/src/middlewares/apiThrottle.js
 website/src/middlewares/forceRefresh.js
 
 debug-scripts/*
+scripts/*
 tasks/*.js
 gulpfile.js
 Gruntfile.js

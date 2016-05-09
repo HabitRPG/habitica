@@ -289,8 +289,6 @@ api.update = function(req, res, next){
   });
 }
 
-import { _closeChal } from '../api-v3/challenges';
-
 /**
  * Delete & close
  */
@@ -304,7 +302,7 @@ api.delete = async function(req, res, next){
     if (!challenge.canModify(user)) return next(shared.i18n.t('noPermissionCloseChallenge'));
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
+    await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
     res.sendStatus(200);
   } catch (err) {
     next(err);
@@ -326,7 +324,7 @@ api.selectWinner = async function(req, res, next) {
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) return next('Winner ' + req.query.uid + ' not found.');
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
+    await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
     res.respond(200, {});
   } catch (err) {
     next(err);

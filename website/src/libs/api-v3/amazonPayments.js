@@ -1,9 +1,13 @@
 import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
 import common from '../../../../common';
-let t = common.i18n.t;
-const IS_PROD = nconf.get('NODE_ENV') === 'production';
 import Q from 'q';
+import {
+  BadRequest,
+} from './errors';
+
+const t = common.i18n.t;
+const IS_PROD = nconf.get('NODE_ENV') === 'production';
 
 let amzPayment = amazonPayments.connect({
   environment: amazonPayments.Environment[IS_PROD ? 'Production' : 'Sandbox'],
@@ -12,10 +16,6 @@ let amzPayment = amazonPayments.connect({
   mwsSecretKey: nconf.get('AMAZON_PAYMENTS:MWS_SECRET'),
   clientId: nconf.get('AMAZON_PAYMENTS:CLIENT_ID'),
 });
-
-/**
- * From: https://payments.amazon.com/documentation/apireference/201751670#201751670
- */
 
 let getTokenInfo = Q.nbind(amzPayment.api.getTokenInfo, amzPayment.api);
 let createOrderReferenceId = Q.nbind(amzPayment.offAmazonPayments.createOrderReferenceForId, amzPayment.offAmazonPayments);
@@ -30,7 +30,7 @@ let authorizeOnBillingAgreement = (inputSet) => {
   return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorizeOnBillingAgreement(inputSet, (err, response) => {
       if (err) return reject(err);
-      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(t('paymentNotSuccessful'));
+      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(new BadRequest(t('paymentNotSuccessful')));
       return resolve(response);
     });
   });
@@ -40,7 +40,7 @@ let authorize = (inputSet) => {
   return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorize(inputSet, (err, response) => {
       if (err) return reject(err);
-      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(t('paymentNotSuccessful'));
+      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(new BadRequest(t('paymentNotSuccessful')));
       return resolve(response);
     });
   });

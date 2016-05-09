@@ -1,5 +1,6 @@
 import {
   BadRequest,
+  NotAuthorized,
 } from '../../../libs/api-v3/errors';
 import amzLib from '../../../libs/api-v3/amazonPayments';
 import {
@@ -16,6 +17,7 @@ import cc from 'coupon-code';
 let api = {};
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/verifyAccessToken verify access token
  * @apiVersion 3.0.0
  * @apiName AmazonVerifyAccessToken
@@ -23,11 +25,11 @@ let api = {};
  *
  * @apiParam {string} access_token the access token
  *
- * @apiSuccess {} empty
+ * @apiSuccess {Object} data Empty object
  **/
 api.verifyAccessToken = {
   method: 'POST',
-  url: '/payments/amazon/verifyAccessToken',
+  url: '/amazon/verifyAccessToken',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     try {
@@ -40,6 +42,7 @@ api.verifyAccessToken = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/createOrderReferenceId create order reference id
  * @apiVersion 3.0.0
  * @apiName AmazonCreateOrderReferenceId
@@ -51,7 +54,7 @@ api.verifyAccessToken = {
  **/
 api.createOrderReferenceId = {
   method: 'POST',
-  url: '/payments/amazon/createOrderReferenceId',
+  url: '/amazon/createOrderReferenceId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     try {
@@ -70,6 +73,7 @@ api.createOrderReferenceId = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/checkout do checkout
  * @apiVersion 3.0.0
  * @apiName AmazonCheckout
@@ -81,7 +85,7 @@ api.createOrderReferenceId = {
  **/
 api.checkout = {
   method: 'POST',
-  url: '/payments/amazon/checkout',
+  url: '/amazon/checkout',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let gift = req.body.gift;
@@ -148,6 +152,7 @@ api.checkout = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/subscribe Subscribe
  * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
@@ -161,7 +166,7 @@ api.checkout = {
  **/
 api.subscribe = {
   method: 'POST',
-  url: '/payments/amazon/subscribe',
+  url: '/amazon/subscribe',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let billingAgreementId = req.body.billingAgreementId;
@@ -228,22 +233,21 @@ api.subscribe = {
 };
 
 /**
+ * @apiIgnore Payments are considered part of the private API
  * @api {get} /amazon/subscribe/cancel SubscribeCancel
  * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
- *
- * @apiSuccess {object} empty object
  **/
 api.subscribeCancel = {
   method: 'GET',
-  url: '/payments/amazon/subscribe/cancel',
+  url: '/amazon/subscribe/cancel',
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
     let billingAgreementId = user.purchased.plan.customerId;
 
-    if (!billingAgreementId) throw new BadRequest(res.t('missingSubscription'));
+    if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
 
     try {
       await amzLib.closeBillingAgreement({
@@ -257,7 +261,7 @@ api.subscribeCancel = {
       };
       await payments.cancelSubscription(data);
 
-      res.respond(200, {});
+      res.redirect('/');
     } catch (error) {
       throw new BadRequest(error.message);
     }

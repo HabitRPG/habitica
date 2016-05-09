@@ -143,6 +143,8 @@ function processChallenges (afterId) {
 
         oldTask.tags = _.map(oldTask.tags || {}, function (tagPresent, tagId) {
           return tagPresent && tagId;
+        }).filter(function (tag) {
+          return tag !== false;
         });
 
         if (!oldTask.text) oldTask.text = 'task text'; // required
