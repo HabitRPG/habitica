@@ -16,31 +16,31 @@ script(type='text/ng-template', id='modals/restore.html')
     p=env.t('fixValuesText2')
     form.form-horizontal
       h3=env.t('stats')
-      .form-group
+      .form-group.row
         .col-md-6
           input.form-control(type='number', step="any", data-for='stats.hp', ng-model='$parent.restoreValues.stats.hp')
         label.control-label=env.t('health')
-      .form-group
+      .form-group.row
         .col-md-6
           input.form-control(type='number', step="any", data-for='stats.exp', ng-model='$parent.restoreValues.stats.exp')
         label.control-label=env.t('experience')
-      .form-group
+      .form-group.row
         .col-md-6
           input.form-control(type='number', step="any", data-for='stats.gp', ng-model='$parent.restoreValues.stats.gp')
         //input.form-control(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
         label.control-label=env.t('gold')
         //-p.alert
           small=env.t('disabledWinterEvent')
-      .form-group
+      .form-group.row
         .col-md-6
           input.form-control(type='number', step="any", data-for='stats.mp', ng-model='$parent.restoreValues.stats.mp')
         label.control-label=env.t('mana')
-      .form-group
+      .form-group.row
         .col-md-6
           input.form-control(type='number', data-for='stats.lvl', ng-model='$parent.restoreValues.stats.lvl')
         label.control-label=env.t('level')
       h3=env.t('achievements')
-      .form-group
+      .form-group.row
         .col-md-6
           input.form-control(type='number', data-for='achievements.streak', ng-model='$parent.restoreValues.achievements.streak')
         label.control-label=env.t('fix21Streaks')
