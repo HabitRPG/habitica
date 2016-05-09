@@ -1189,9 +1189,9 @@ api.markPmsRead = {
   url: '/user/mark-pms-read',
   async handler (req, res) {
     let user = res.locals.user;
-    user.inbox.newMessages = 0;
+    let markPmsResponse = common.ops.markPmsRead(user, req);
     await user.save();
-    res.respond(200, user.inbox.newMessages);
+    res.respond(200, markPmsResponse);
   },
 };
 

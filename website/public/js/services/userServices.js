@@ -199,13 +199,7 @@ angular.module('habitrpg')
         },
 
         clearNewMessages: function () {
-          $http({
-            method: "POST",
-            url: 'api/v3/user/mark-pms-read',
-          })
-          .then(function (response) {
-            sync();
-          })
+          callOpsFunctionAndRequest('markPmsRead', 'mark-pms-read', "POST");
         },
 
         clearPMs: function () {

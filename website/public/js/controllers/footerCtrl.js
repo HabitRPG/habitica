@@ -92,7 +92,6 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
 
     $scope.addHourglass = function(){
       User.addHourglass();
-      //User.log({});
     };
 
     $scope.addGold = function(){
