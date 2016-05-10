@@ -5,7 +5,14 @@ import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
 import * as Tasks from './task';
 import { model as User } from './user';
+import {
+  model as Group,
+  TAVERN_ID,
+} from './group';
 import { removeFromArray } from '../libs/api-v3/collectionManipulators';
+import shared from '../../../common';
+import { sendTxn as txnEmail } from '../libs/api-v3/email';
+import sendPushNotification from '../libs/api-v3/pushNotifications';
 
 let Schema = mongoose.Schema;
 
@@ -249,6 +256,65 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
     taskPromises.push(user.save());
     return Q.all(taskPromises);
   }
+};
+
+// TODO everything here should be moved to a worker
+// actually even for a worker it's probably just too big and will kill mongo
+schema.methods.closeChal = async function closeChal (broken = {}) {
+  let challenge = this;
+
+  let winner = broken.winner;
+  let brokenReason = broken.broken;
+
+  // Delete the challenge
+  await this.model('Challenge').remove({_id: challenge._id}).exec();
+
+  // Refund the leader if the challenge is closed and the group not the tavern
+  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
+    await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
+  }
+
+  // Update the challengeCount on the group
+  await Group.update({_id: challenge.group}, {$inc: {challengeCount: -1}}).exec();
+
+  // Award prize to winner and notify
+  if (winner) {
+    winner.achievements.challenges.push(challenge.name);
+    winner.balance += challenge.prize / 4;
+    let savedWinner = await winner.save();
+    if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
+      txnEmail(savedWinner, 'won-challenge', [
+        {name: 'CHALLENGE_NAME', content: challenge.name},
+      ]);
+    }
+
+    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name);
+  }
+
+  // Run some operations in the background withouth blocking the thread
+  let backgroundTasks = [
+    // And it's tasks
+    Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
+    // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
+    User.update({
+      challenges: challenge._id,
+      'tags._id': challenge._id,
+    }, {
+      $set: {'tags.$.challenge': false},
+      $pull: {challenges: challenge._id},
+    }, {multi: true}).exec(),
+    // Break users' tasks
+    Tasks.Task.update({
+      'challenge.id': challenge._id,
+    }, {
+      $set: {
+        'challenge.broken': brokenReason,
+        'challenge.winner': winner && winner.profile.name,
+      },
+    }, {multi: true}).exec(),
+  ];
+
+  Q.all(backgroundTasks);
 };
 
 // Methods to adapt the new schema to API v2 responses (mostly tasks inside the challenge model)

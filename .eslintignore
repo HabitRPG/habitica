@@ -20,9 +20,9 @@ website/src/routes/payments.js
 website/src/routes/pages.js
 website/src/middlewares/apiThrottle.js
 website/src/middlewares/forceRefresh.js
-website/src/controllers/payments/
 
 debug-scripts/*
+scripts/*
 tasks/*.js
 gulpfile.js
 Gruntfile.js

@@ -2,13 +2,15 @@
 // payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
 // file will be used once for initing your billing plan (then you get the resultant plan.id to store in config.json),
 // and once for any time you need to edit the plan thereafter
+
 var path = require('path');
 var nconf = require('nconf');
-_ = require('lodash');
-nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));
+var _ = require('lodash');
 var paypal = require('paypal-rest-sdk');
 var blocks = require('../../../../common').content.subscriptionBlocks;
 var live = nconf.get('PAYPAL:mode')=='live';
+
+nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));
 
 var OP = 'create'; // list create update remove
 

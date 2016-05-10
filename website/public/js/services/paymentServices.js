@@ -37,7 +37,7 @@ function($rootScope, User, $http, Content) {
         $http.post(url, res).success(function() {
           window.location.reload(true);
         }).error(function(res) {
-          alert(res.err);
+          alert(res.message);
         });
       }
     });
@@ -55,7 +55,7 @@ function($rootScope, User, $http, Content) {
         $http.post(url, data).success(function() {
           window.location.reload(true);
         }).error(function(data) {
-          alert(data.err);
+          alert(data.message);
         });
       }
     });
@@ -127,12 +127,12 @@ function($rootScope, User, $http, Content) {
             var url = '/amazon/createOrderReferenceId'
             $http.post(url, {
               billingAgreementId: Payments.amazonPayments.billingAgreementId
-            }).success(function(data){
+            }).success(function(res){
               Payments.amazonPayments.loggedIn = true;
-              Payments.amazonPayments.orderReferenceId = data.orderReferenceId;
+              Payments.amazonPayments.orderReferenceId = res.data.orderReferenceId;
               Payments.amazonPayments.initWidgets();
             }).error(function(res){
-              alert(res.err);
+              alert(res.message);
             });
           }
         },
@@ -146,7 +146,7 @@ function($rootScope, User, $http, Content) {
 
             var url = '/amazon/verifyAccessToken'
             $http.post(url, response).error(function(res){
-              alert(res.err);
+              alert(res.message);
             });
           });
         },
@@ -232,7 +232,7 @@ function($rootScope, User, $http, Content) {
         Payments.amazonPayments.reset();
         window.location.reload(true);
       }).error(function(res){
-        alert(res.err);
+        alert(res.message);
         Payments.amazonPayments.reset();
       });
     }else if(Payments.amazonPayments.type === 'subscription'){
@@ -246,7 +246,7 @@ function($rootScope, User, $http, Content) {
         Payments.amazonPayments.reset();
         window.location.reload(true);
       }).error(function(res){
-        alert(res.err);
+        alert(res.message);
         Payments.amazonPayments.reset();
       });
     }
