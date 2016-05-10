@@ -134,10 +134,10 @@ angular.module('habitrpg')
       });
     };
 
-    function editTask(task) {
+    function editTask(task, user) {
       task._editing = !task._editing;
-      // task._tags = !User.user.preferences.tagsCollapsed;
-      // task._advanced = !User.user.preferences.advancedCollapsed;
+      task._tags = !user.preferences.tagsCollapsed;
+      task._advanced = !user.preferences.advancedCollapsed;
       if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
     }
 

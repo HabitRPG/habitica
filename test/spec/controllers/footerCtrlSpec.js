@@ -39,7 +39,7 @@ describe('Footer Controller', function() {
 
     describe('#addTenGems', function() {
       it('posts to /user/addTenGems', inject(function($httpBackend) {
-        $httpBackend.expectPOST('/api/v2/user/addTenGems').respond({});
+        $httpBackend.expectPOST('/api/v3/debug/add-ten-gems').respond({});
 
         scope.addTenGems();
 

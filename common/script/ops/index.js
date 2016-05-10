@@ -46,7 +46,7 @@ import allocate from './allocate';
 import readCard from './readCard';
 import openMysteryItem from './openMysteryItem';
 import scoreTask from './scoreTask';
-import markPmsRead from './markPmsRead';
+import markPmsRead from './markPMSRead';
 
 
 module.exports = {

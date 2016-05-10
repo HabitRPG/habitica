@@ -25,7 +25,11 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
     };
 
     $scope.toggleFilter = function(tag) {
-      user.filters[tag.id] = !user.filters[tag.id];
+      if (!user.filters[tag.id]) {
+        user.filters[tag.id] = true;
+      } else {
+        user.filters[tag.id] = !user.filters[tag.id];
+      }
       // no longer persisting this, it was causing a lot of confusion - users thought they'd permanently lost tasks
       // Note: if we want to persist for just this computer, easy method is:
       // User.save();

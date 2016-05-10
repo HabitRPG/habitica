@@ -147,7 +147,7 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import addPushDevice from './ops/addPushDevice';
 import reset from './ops/reset';
-import markPmsRead from './ops/markPmsRead';
+import markPmsRead from './ops/markPMSRead';
 
 api.ops = {
   scoreTask,

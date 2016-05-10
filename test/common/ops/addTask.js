@@ -8,6 +8,10 @@ describe('shared.ops.addTask', () => {
 
   beforeEach(() => {
     user = generateUser();
+    user.habits = [];
+    user.todos = [];
+    user.dailys = [];
+    user.rewards = [];
   });
 
   it('adds an habit', () => {

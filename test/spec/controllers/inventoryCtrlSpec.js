@@ -4,11 +4,9 @@ describe('Inventory Controller', function() {
   var scope, ctrl, user, rootScope;
 
   beforeEach(function() {
-    module(function($provide) {
-      $provide.value('User', {});
-    });
+    module(function($provide) {});
 
-    inject(function($rootScope, $controller, Shared){
+    inject(function($rootScope, $controller, Shared, User) {
       user = specHelper.newUser({
         balance: 4,
         items: {
@@ -33,10 +31,13 @@ describe('Inventory Controller', function() {
       scope = $rootScope.$new();
       rootScope = $rootScope;
 
-      // Load RootCtrl to ensure shared behaviors are loaded
-      $controller('RootCtrl',  {$scope: scope, User: {user: user}, $window: mockWindow});
+      User.user = user;
+      User.setUser(user);
 
-      ctrl = $controller('InventoryCtrl', {$scope: scope, User: {user: user}, $window: mockWindow});
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: User, $window: mockWindow});
+
+      ctrl = $controller('InventoryCtrl', {$scope: scope, User: User, $window: mockWindow});
     });
   });
 

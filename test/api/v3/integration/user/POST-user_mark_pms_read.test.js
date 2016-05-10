@@ -15,7 +15,7 @@ describe('POST /user/mark-pms-read', () => {
     await user.update({
       'inbox.newMessages': 1,
     });
-    let res = await user.post('/user/mark-pms-read');
+    await user.post('/user/mark-pms-read');
     await user.sync();
     expect(user.inbox.newMessages).to.equal(0);
   });
