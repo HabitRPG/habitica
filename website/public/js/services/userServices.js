@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -48,7 +48,7 @@ angular.module('habitrpg')
       function sync() {
         $http({
           method: "GET",
-          url: 'api/v3/user/',
+          url: '/api/v3/user/',
         })
         .then(function (response) {
           if (response.data.message) Notification.text(response.data.message);
@@ -82,7 +82,19 @@ angular.module('habitrpg')
 
           save();
           $rootScope.$emit('userSynced');
+
+          return Tasks.getUserTasks();
         })
+        .then(function (response) {
+          var tasks = response.data.data;
+          user.habits = [];
+          user.todos = [];
+          user.dailys = [];
+          user.rewards = [];
+          tasks.forEach(function (element, index, array) {
+            user[element.type + 's'].push(element)
+          })
+        });
       }
       sync();
 
@@ -95,7 +107,7 @@ angular.module('habitrpg')
         if (!opData) opData = {};
         $window.habitrpgShared.ops[opName](user, opData);
 
-        var url = 'api/v3/user/' + endPoint;
+        var url = '/api/v3/user/' + endPoint;
         if (paramString) {
           url += '/' + paramString
         }
@@ -119,7 +131,7 @@ angular.module('habitrpg')
 
       function setUser(updates) {
         for (var key in updates) {
-          user[key] = updates[key];
+          _.set(user, key, updates[key]);
         }
       }
 
@@ -135,46 +147,53 @@ angular.module('habitrpg')
         },
 
         addTask: function (data) {
-          //@TODO: Should this been on habitrpgShared?
           user.ops.addTask(data);
           save();
-          //@TODO: Call task service when PR is merged
+          Tasks.createUserTasks(data.body);
         },
 
         score: function (data) {
-          user.ops.scoreTask(data);
+          $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
           save();
-          //@TODO: Call task service when PR is merged
+          Tasks.scoreTask(data.params.task._id, data.params.direction);
         },
 
         sortTask: function (data) {
           user.ops.sortTask(data);
           save();
-          //@TODO: Call task service when PR is merged
+          Tasks.moveTask(data.params.id, data.query.to);
         },
 
-        updateTask: function (data) {
-          user.ops.updateTask(data);
+        updateTask: function (task, data) {
+          $window.habitrpgShared.ops.updateTask(task, data);
           save();
-          //@TODO: Call task service when PR is merged
+          Tasks.updateTask(task._id, data.body);
         },
 
         deleteTask: function (data) {
           user.ops.deleteTask(data);
           save();
-          //@TODO: Call task service when PR is merged
+          Tasks.deleteTask(data.params.id);
         },
 
         addTag: function(data) {
           user.ops.addTag(data);
           save();
-          //@TODO: Call task service when PR is merged
+          $http({
+            method: "PUT",
+            url: '/api/v3/user',
+            data: {filters: user.filters},
+          });
         },
 
         updateTag: function(data) {
           user.ops.updateTag(data);
           save();
-          //@TODO: Call task service when PR is merged
+          $http({
+            method: "PUT",
+            url: '/api/v3/user',
+            data: {filters: user.filters},
+          });
         },
 
         addTenGems: function () {
@@ -222,7 +241,7 @@ angular.module('habitrpg')
 
           $http({
             method: "POST",
-            url: 'api/v3/user/' + 'buy-special-spell/' + key,
+            url: '/api/v3/user/' + 'buy-special-spell/' + key,
           })
           .then(function (response) {
             Notification.text(response.data.message);
@@ -267,12 +286,9 @@ angular.module('habitrpg')
           setUser(updates);
           $http({
             method: "PUT",
-            url: 'api/v3/user',
+            url: '/api/v3/user',
             data: updates,
-          })
-          .then(function (response) {
-            sync();
-          })
+          });
         },
 
         reroll: function () {
@@ -334,13 +350,18 @@ angular.module('habitrpg')
             settings.auth.apiId = uuid;
             settings.auth.apiToken = token;
             settings.online = true;
-            if (user && user._v) user._v--; // shortcut to always fetch new updates on page reload
-            userServices.log({}, function(){
-              // If they don't have timezone, set it
-              if (user.preferences.timezoneOffset !== offset)
-                userServices.set({'preferences.timezoneOffset': offset});
-              cb && cb();
-            });
+            save();
+            sync();
+            if (cb) {
+              cb();
+            }
+            //@TODO: Do we need the timezone set?
+            // userServices.log({}, function(){
+            //   // If they don't have timezone, set it
+            //   if (user.preferences.timezoneOffset !== offset)
+            //     userServices.set({'preferences.timezoneOffset': offset});
+            //   cb && cb();
+            // });
           } else {
             alert('Please enter your ID and Token in settings.')
           }

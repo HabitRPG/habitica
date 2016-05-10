@@ -16,7 +16,7 @@
           ui.item.data('startIndex', ui.item.index());
         },
         stop: function (event, ui) {
-          User.user.ops.sortTag({
+          User.sortTag({
             query: {
               from: ui.item.data('startIndex'),
               to:ui.item.index()

@@ -24,7 +24,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.score({params:{id: task.id, direction:direction}});
+      User.score({params:{task: task, direction:direction}});
       Analytics.updateUser();
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
@@ -33,12 +33,12 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       var newTask = {
         text: task,
         type: listDef.type,
-        tags: _.transform(User.user.filters, function(m, v, k) {
-         if (v) m.push(v);
-        }),
+        // tags: _.transform(User.user.filters, function(m, v, k) {
+        //  if (v) m.push(v);
+        // }),
       };
 
-      User.addTask({body:newTask});
+      User.addTask({body: newTask});
     }
 
     $scope.addTask = function(addTo, listDef) {
@@ -80,7 +80,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
     $scope.pushTask = function(task, index, location) {
       var to = (location === 'bottom' || $scope.ctrlPressed) ? -1 : 0;
-      User.sortTask({params:{id:task.id},query:{from:index, to:to}})
+      User.sortTask({params:{id: task._id, taskType: task.type}, query:{from:index, to:to}})
     };
 
     /**
@@ -96,17 +96,17 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.removeTask = function(task) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      User.deleteTask({params:{id:task.id}})
+      User.deleteTask({params:{id: task._id, taskType: task.type}})
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
       if (task.checklist)
         task.checklist = _.filter(task.checklist,function(i){return !!i.text});
-      User.updateTask({params:{id:task.id},body:task});
+      User.updateTask(task, {body: task});
       if (!stayOpen) task._editing = false;
 
       if (isSaveAndClose) {
-        $("#task-" + task.id).parent().children('.popover').removeClass('in');
+        $("#task-" + task._id).parent().children('.popover').removeClass('in');
       }
 
       if (task.type == 'habit') Guide.goto('intro', 3);
@@ -126,7 +126,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     };
 
     $scope.unlink = function(task, keep) {
-      Tasks.unlinkTask(task.id, keep)
+      Tasks.unlinkTask(task._id, keep)
         .success(function () {
           User.log({});
         });
@@ -159,7 +159,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
     function focusChecklist(task,index) {
       window.setTimeout(function(){
-        $('#task-'+task.id+' .checklist-form input[type="text"]')[index].focus();
+        $('#task-'+task._id+' .checklist-form input[type="text"]')[index].focus();
       });
     }
 
@@ -173,7 +173,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         // Don't allow creation of an empty checklist item
         // TODO Provide UI feedback that this item is still blank
       } else if ($index == task.checklist.length-1){
-        User.updateTask({params:{id:task.id},body:task}); // don't preen the new empty item
+        User.updateTask({params:{id:task._id},body:task}); // don't preen the new empty item
         task.checklist.push({completed:false,text:''});
         focusChecklist(task,task.checklist.length-1);
       } else {
@@ -185,12 +185,12 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.removeChecklistItem = function(task, $event, $index, force){
       // Remove item if clicked on trash icon
       if (force) {
-        Tasks.removeChecklistItem(task.id, task.checklist[$index]._id);
+        Tasks.removeChecklistItem(task._id, task.checklist[$index]._id);
         task.checklist.splice($index, 1);
       } else if (!task.checklist[$index].text) {
         // User deleted all the text and is now wishing to delete the item
         // saveTask will prune the empty item
-        Tasks.removeChecklistItem(task.id, task.checklist[$index]._id);
+        Tasks.removeChecklistItem(task._id, task.checklist[$index]._id);
         // Move focus if the list is still non-empty
         if ($index > 0)
           focusChecklist(task, $index-1);

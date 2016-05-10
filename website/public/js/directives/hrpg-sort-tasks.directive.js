@@ -20,8 +20,8 @@
         stop: function (event, ui) {
           var task = angular.element(ui.item[0]).scope().task;
           var startIndex = ui.item.data('startIndex');
-          User.user.ops.sortTask({
-            params: { id: task.id },
+          User.sortTask({
+            params: { id: task._id, taskType: task.type },
             query: {
               from: startIndex,
               to: ui.item.index()

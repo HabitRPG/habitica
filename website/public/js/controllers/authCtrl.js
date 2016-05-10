@@ -64,7 +64,7 @@ angular.module('habitrpg')
           }).error(errorAlert);
       };
 
-      $scope.playButtonClick = function(){
+      $scope.playButtonClick = function() {
         Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Play'})
         if (User.authenticated()) {
           window.location.href = ('/' + window.location.hash);

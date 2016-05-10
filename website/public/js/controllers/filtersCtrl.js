@@ -14,7 +14,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
         _.each(User.user.tags, function(tag){
           // Send an update op for each changed tag (excluding new tags & deleted tags, this if() packs a punch)
           if (tagsSnap[tag.id] && tagsSnap[tag.id].name != tag.name)
-            User.updateTag({params:{id:tag.id},body:{name:tag.name}});
+            User.updateTag({params:{id:tag.id}, body:{name:tag.name}});
         })
         $scope._editing = false;
       } else {
@@ -37,7 +37,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
     $scope.updateTaskFilter();
 
     $scope.createTag = function() {
-      User.addTag({body:{name:$scope._newTag.name, id:Shared.uuid()}});
+      User.addTag({body:{name: $scope._newTag.name, id: Shared.uuid()}});
       $scope._newTag.name = '';
     };
 }]);

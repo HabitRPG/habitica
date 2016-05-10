@@ -3,20 +3,20 @@
 var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt'];
 
 angular.module('habitrpg')
-.factory('Tasks',  ['$rootScope', 'Shared', 'User', '$http',
-  function tasksFactory($rootScope, Shared, User, $http) {
+.factory('Tasks', ['$rootScope', 'Shared', '$http',
+  function tasksFactory($rootScope, Shared, $http) {
 
     function getUserTasks () {
       return $http({
         method: 'GET',
-        url: 'api/v3/tasks/user',
+        url: '/api/v3/tasks/user',
       });
     };
 
     function createUserTasks (taskDetails) {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/user',
+        url: '/api/v3/tasks/user',
         data: taskDetails,
       });
     };
@@ -24,14 +24,14 @@ angular.module('habitrpg')
     function getChallengeTasks (challengeId) {
       return $http({
         method: 'GET',
-        url: 'api/v3/tasks/challenge/' + challengeId,
+        url: '/api/v3/tasks/challenge/' + challengeId,
       });
     };
 
     function createChallengeTasks (challengeId, taskDetails) {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/challenge/' + challengeId,
+        url: '/api/v3/tasks/challenge/' + challengeId,
         data: taskDetails,
       });
     };
@@ -39,14 +39,14 @@ angular.module('habitrpg')
     function getTask (taskId) {
       return $http({
         method: 'GET',
-        url: 'api/v3/tasks/' + taskId,
+        url: '/api/v3/tasks/' + taskId,
       });
     };
 
     function updateTask (taskId, taskDetails) {
       return $http({
         method: 'PUT',
-        url: 'api/v3/tasks/' + taskId,
+        url: '/api/v3/tasks/' + taskId,
         data: taskDetails,
       });
     };
@@ -54,28 +54,28 @@ angular.module('habitrpg')
     function deleteTask (taskId) {
       return $http({
         method: 'DELETE',
-        url: 'api/v3/tasks/' + taskId,
+        url: '/api/v3/tasks/' + taskId,
       });
     };
 
     function scoreTask (taskId, direction) {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/' + taskId + '/score/' + direction,
+        url: '/api/v3/tasks/' + taskId + '/score/' + direction,
       });
     };
 
     function moveTask (taskId, position) {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/' + taskId + '/move/to/' + position,
+        url: '/api/v3/tasks/' + taskId + '/move/to/' + position,
       });
     };
 
     function addChecklistItem (taskId, checkListItem) {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/' + taskId + '/checklist',
+        url: '/api/v3/tasks/' + taskId + '/checklist',
         data: checkListItem,
       });
     };
@@ -83,14 +83,14 @@ angular.module('habitrpg')
     function scoreCheckListItem (taskId, itemId) {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/' + taskId + '/checklist/' + itemId + '/score',
+        url: '/api/v3/tasks/' + taskId + '/checklist/' + itemId + '/score',
       });
     };
 
     function updateChecklistItem (taskId, itemId, itemDetails) {
       return $http({
         method: 'PUT',
-        url: 'api/v3/tasks/' + taskId + '/checklist/' + itemId,
+        url: '/api/v3/tasks/' + taskId + '/checklist/' + itemId,
         data: itemDetails,
       });
     };
@@ -98,21 +98,21 @@ angular.module('habitrpg')
     function removeChecklistItem (taskId, itemId) {
       return $http({
         method: 'DELETE',
-        url: 'api/v3/tasks/' + taskId + '/checklist/' + itemId,
+        url: '/api/v3/tasks/' + taskId + '/checklist/' + itemId,
       });
     };
 
     function addTagToTask (taskId, tagId) {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/' + taskId + '/tags/' + tagId,
+        url: '/api/v3/tasks/' + taskId + '/tags/' + tagId,
       });
     };
 
     function removeTagFromTask (taskId, tagId) {
       return $http({
         method: 'DELETE',
-        url: 'api/v3/tasks/' + taskId + '/tags/' + tagId,
+        url: '/api/v3/tasks/' + taskId + '/tags/' + tagId,
       });
     };
 
@@ -123,21 +123,21 @@ angular.module('habitrpg')
 
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/unlink/' + taskId + '?keep=' + keep,
+        url: '/api/v3/tasks/unlink/' + taskId + '?keep=' + keep,
       });
     };
 
     function clearCompletedTodos () {
       return $http({
         method: 'POST',
-        url: 'api/v3/tasks/clearCompletedTodos',
+        url: '/api/v3/tasks/clearCompletedTodos',
       });
     };
 
     function editTask(task) {
       task._editing = !task._editing;
-      task._tags = !User.user.preferences.tagsCollapsed;
-      task._advanced = !User.user.preferences.advancedCollapsed;
+      // task._tags = !User.user.preferences.tagsCollapsed;
+      // task._advanced = !User.user.preferences.advancedCollapsed;
       if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
     }
 
