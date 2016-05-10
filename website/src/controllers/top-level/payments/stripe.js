@@ -45,6 +45,8 @@ api.checkout = {
     let coupon;
     let response;
 
+    if (!token) throw new BadRequest('Missing req.body.id');
+
     if (sub) {
       if (sub.discount) {
         if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
@@ -127,10 +129,12 @@ api.subscribeEdit = {
     let customerId = user.purchased.plan.customerId;
 
     if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    if (!token) throw new BadRequest('Missing req.body.id');
 
     let subscriptions = await stripe.customers.listSubscriptions(customerId);
     let subscriptionId = subscriptions.data[0].id;
     await stripe.customers.updateSubscription(customerId, subscriptionId, { card: token });
+
     res.respond(200, {});
   },
 };

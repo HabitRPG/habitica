@@ -6,7 +6,9 @@ import {
   BadRequest,
 } from './errors';
 
-const t = common.i18n.t;
+// TODO better handling of errors
+
+const i18n = common.i18n;
 const IS_PROD = nconf.get('NODE_ENV') === 'production';
 
 let amzPayment = amazonPayments.connect({
@@ -30,7 +32,7 @@ let authorizeOnBillingAgreement = (inputSet) => {
   return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorizeOnBillingAgreement(inputSet, (err, response) => {
       if (err) return reject(err);
-      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(new BadRequest(t('paymentNotSuccessful')));
+      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(new BadRequest(i18n.t('paymentNotSuccessful')));
       return resolve(response);
     });
   });
@@ -40,7 +42,7 @@ let authorize = (inputSet) => {
   return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorize(inputSet, (err, response) => {
       if (err) return reject(err);
-      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(new BadRequest(t('paymentNotSuccessful')));
+      if (response.AuthorizationDetails.AuthorizationStatus.State === 'Declined') return reject(new BadRequest(i18n.t('paymentNotSuccessful')));
       return resolve(response);
     });
   });
