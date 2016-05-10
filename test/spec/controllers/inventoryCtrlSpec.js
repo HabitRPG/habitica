@@ -6,7 +6,7 @@ describe('Inventory Controller', function() {
   beforeEach(function() {
     module(function($provide) {});
 
-    inject(function($rootScope, $controller, Shared, User) {
+    inject(function($rootScope, $controller, Shared, User, $location, $window) {
       user = specHelper.newUser({
         balance: 4,
         items: {
@@ -24,10 +24,11 @@ describe('Inventory Controller', function() {
 
       Shared.wrap(user);
       var mockWindow = {
-        confirm: function(msg){
+        confirm: function(msg) {
           return true;
-        }
+        },
       };
+
       scope = $rootScope.$new();
       rootScope = $rootScope;
 

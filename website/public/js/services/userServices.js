@@ -425,13 +425,13 @@ angular.module('habitrpg')
         if (search.err) return alert(search.err);
         if (search._id && search.apiToken) {
           userServices.authenticate(search._id, search.apiToken, function(){
-            $window.location.href='/';
+            $window.location.href = '/';
           });
         } else {
           var isStaticOrSocial = $window.location.pathname.match(/^\/(static|social)/);
           if (!isStaticOrSocial){
             localStorage.clear();
-            $window.location.href = '/logout';
+            $location.path('/logout');
           }
         }
       } else {
