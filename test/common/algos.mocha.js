@@ -394,6 +394,13 @@ describe('User', () => {
       expect(user).toHaveHP(50);
       expect(user.items.gear.owned).to.eql({
         weapon_warrior_0: false,
+        eyewear_special_blackTopFrame: true,
+        eyewear_special_blueTopFrame: true,
+        eyewear_special_greenTopFrame: true,
+        eyewear_special_pinkTopFrame: true,
+        eyewear_special_redTopFrame: true,
+        eyewear_special_yellowTopFrame: true,
+        eyewear_special_whiteTopFrame: true,
       });
     });
 
