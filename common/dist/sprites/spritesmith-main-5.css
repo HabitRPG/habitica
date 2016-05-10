@@ -784,85 +784,127 @@
   width: 40px;
   height: 40px;
 }
-.eyewear_blackTopFrame {
+.eyewear_special_blackTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -455px -1326px;
   width: 90px;
   height: 90px;
 }
-.eyewear_blueTopFrame {
+.customize-option.eyewear_special_blackTopFrame {
+  background-image: url(spritesmith-main-5.png);
+  background-position: -480px -1341px;
+  width: 60px;
+  height: 60px;
+}
+.eyewear_special_blueTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -546px -1326px;
   width: 90px;
   height: 90px;
 }
-.eyewear_greenTopFrame {
+.customize-option.eyewear_special_blueTopFrame {
+  background-image: url(spritesmith-main-5.png);
+  background-position: -571px -1341px;
+  width: 60px;
+  height: 60px;
+}
+.eyewear_special_greenTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -637px -1326px;
   width: 90px;
   height: 90px;
 }
-.eyewear_pinkTopFrame {
+.customize-option.eyewear_special_greenTopFrame {
+  background-image: url(spritesmith-main-5.png);
+  background-position: -662px -1341px;
+  width: 60px;
+  height: 60px;
+}
+.eyewear_special_pinkTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -728px -1326px;
   width: 90px;
   height: 90px;
 }
-.eyewear_redTopFrame {
+.customize-option.eyewear_special_pinkTopFrame {
+  background-image: url(spritesmith-main-5.png);
+  background-position: -753px -1341px;
+  width: 60px;
+  height: 60px;
+}
+.eyewear_special_redTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -819px -1326px;
   width: 90px;
   height: 90px;
 }
-.eyewear_whiteTopFrame {
+.customize-option.eyewear_special_redTopFrame {
+  background-image: url(spritesmith-main-5.png);
+  background-position: -844px -1341px;
+  width: 60px;
+  height: 60px;
+}
+.eyewear_special_whiteTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -910px -1326px;
   width: 90px;
   height: 90px;
 }
-.eyewear_yellowTopFrame {
+.customize-option.eyewear_special_whiteTopFrame {
+  background-image: url(spritesmith-main-5.png);
+  background-position: -935px -1341px;
+  width: 60px;
+  height: 60px;
+}
+.eyewear_special_yellowTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -1001px -1326px;
   width: 90px;
   height: 90px;
 }
-.shop_eyewear_blackTopFrame {
+.customize-option.eyewear_special_yellowTopFrame {
+  background-image: url(spritesmith-main-5.png);
+  background-position: -1026px -1341px;
+  width: 60px;
+  height: 60px;
+}
+.shop_eyewear_special_blackTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -615px -1599px;
   width: 40px;
   height: 40px;
 }
-.shop_eyewear_blueTopFrame {
+.shop_eyewear_special_blueTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -574px -1599px;
   width: 40px;
   height: 40px;
 }
-.shop_eyewear_greenTopFrame {
+.shop_eyewear_special_greenTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -533px -1599px;
   width: 40px;
   height: 40px;
 }
-.shop_eyewear_pinkTopFrame {
+.shop_eyewear_special_pinkTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -492px -1599px;
   width: 40px;
   height: 40px;
 }
-.shop_eyewear_redTopFrame {
+.shop_eyewear_special_redTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -451px -1599px;
   width: 40px;
   height: 40px;
 }
-.shop_eyewear_whiteTopFrame {
+.shop_eyewear_special_whiteTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -410px -1599px;
   width: 40px;
   height: 40px;
 }
-.shop_eyewear_yellowTopFrame {
+.shop_eyewear_special_yellowTopFrame {
   background-image: url(spritesmith-main-5.png);
   background-position: -369px -1599px;
   width: 40px;
