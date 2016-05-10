@@ -12,6 +12,6 @@ describe('payments - paypal - #ipn', () => {
 
   it('verifies credentials', async () => {
     let result = await user.post(endpoint);
-    expect(result).to.eql({});
+    expect(result).to.eql('OK');
   });
 });
