@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments : amazon', () => {
-  let endpoint = '/payments/amazon/verifyAccessToken';
+  let endpoint = '/amazon/verifyAccessToken';
   let user;
 
   beforeEach(async () => {

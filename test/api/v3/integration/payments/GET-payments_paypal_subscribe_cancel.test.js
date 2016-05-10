@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments : paypal #subscribeCancel', () => {
-  let endpoint = '/payments/paypal/subscribe/cancel';
+  let endpoint = '/paypal/subscribe/cancel';
   let user;
 
   beforeEach(async () => {

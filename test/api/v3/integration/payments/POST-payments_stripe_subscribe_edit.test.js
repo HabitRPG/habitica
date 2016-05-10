@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments - stripe - #subscribeEdit', () => {
-  let endpoint = '/payments/stripe/subscribe/edit';
+  let endpoint = '/stripe/subscribe/edit';
   let user;
 
   beforeEach(async () => {

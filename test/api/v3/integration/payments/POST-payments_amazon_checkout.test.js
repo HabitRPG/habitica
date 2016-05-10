@@ -3,7 +3,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments - amazon - #checkout', () => {
-  let endpoint = '/payments/amazon/checkout';
+  let endpoint = '/amazon/checkout';
   let user;
 
   beforeEach(async () => {

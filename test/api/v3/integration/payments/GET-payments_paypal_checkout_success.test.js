@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments : paypal #checkoutSuccess', () => {
-  let endpoint = '/payments/paypal/checkout/success';
+  let endpoint = '/paypal/checkout/success';
   let user;
 
   beforeEach(async () => {

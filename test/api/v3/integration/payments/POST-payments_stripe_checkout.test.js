@@ -3,7 +3,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments - stripe - #checkout', () => {
-  let endpoint = '/payments/stripe/checkout';
+  let endpoint = '/stripe/checkout';
   let user;
 
   beforeEach(async () => {

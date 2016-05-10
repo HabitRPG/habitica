@@ -3,7 +3,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('payments - paypal - #ipn', () => {
-  let endpoint = '/payments/paypal/ipn';
+  let endpoint = '/paypal/ipn';
   let user;
 
   beforeEach(async () => {
