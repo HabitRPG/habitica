@@ -49,6 +49,7 @@
             "js/services/memberServices.js",
             "js/services/guideServices.js",
             "js/services/taskServices.js",
+            "js/services/tagsServices.js",
             "js/services/challengeServices.js",
             "js/services/paymentServices.js",
             "js/services/questServices.js",
@@ -133,6 +134,7 @@
             "js/services/socialServices.js",
             "js/services/statServices.js",
             "js/services/taskServices.js",
+            "js/services/tagsServices.js",
             "js/services/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
@@ -168,6 +170,7 @@
             "js/services/socialServices.js",
             "js/services/statServices.js",
             "js/services/taskServices.js",
+            "js/services/tagsServices.js",
             "js/services/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"

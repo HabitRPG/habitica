@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -185,21 +185,13 @@ angular.module('habitrpg')
         addTag: function(data) {
           user.ops.addTag(data);
           save();
-          $http({
-            method: "PUT",
-            url: '/api/v3/user',
-            data: {filters: user.filters},
-          });
+          Tags.createTag(data.body);
         },
 
         updateTag: function(data) {
           user.ops.updateTag(data);
           save();
-          $http({
-            method: "PUT",
-            url: '/api/v3/user',
-            data: {filters: user.filters},
-          });
+          Tags.updateTag(data.params.id, data.body);
         },
 
         addTenGems: function () {
