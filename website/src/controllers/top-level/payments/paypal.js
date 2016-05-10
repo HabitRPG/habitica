@@ -8,6 +8,7 @@ import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
 import shared from '../../../../../common';
 import cc from 'coupon-code';
+import Q from 'q';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
 import {
@@ -16,8 +17,8 @@ import {
 } from '../../../middlewares/api-v3/auth';
 import {
   BadRequest,
+  NotAuthorized,
 } from '../../../libs/api-v3/errors';
-import * as logger from '../../../libs/api-v3/logger';
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -34,17 +35,24 @@ paypal.configure({
   client_secret: nconf.get('PAYPAL:client_secret'),
 });
 
+// TODO better handling of errors
+const paypalPaymentCreate = Q.nbind(paypal.payment.create, paypal.payment);
+const paypalPaymentExecute = Q.nbind(paypal.payment.execute, paypal.payment);
+const paypalBillingAgreementCreate = Q.nbind(paypal.billingAgreement.create, paypal.billingAgreement);
+const paypalBillingAgreementExecute = Q.nbind(paypal.billingAgreement.execute, paypal.billingAgreement);
+const paypalBillingAgreementGet = Q.nbind(paypal.billingAgreement.get, paypal.billingAgreement);
+const paypalBillingAgreementCancel = Q.nbind(paypal.billingAgreement.cancel, paypal.billingAgreement);
+
+const ipnVerifyAsync = Q.nbind(ipn.verify, ipn);
+
 let api = {};
 
 /**
  * @apiIgnore Payments are considered part of the private API
- * @api {get} /paypal/checkout Paypal checkout
- * @apiDescription Redirects to Paypal
+ * @api {get} /paypal/checkout Paypal: checkout
  * @apiVersion 3.0.0
  * @apiName PaypalCheckout
  * @apiGroup Payments
- *
- * @apiParam {string} gift Query parameter - The stringified object representing the user, the gift recepient.
  **/
 api.checkout = {
   method: 'GET',
@@ -62,7 +70,7 @@ api.checkout = {
         description = `${description} (Gift)`;
       } else {
         amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
-        description = 'monthly HabitRPG Subscription (Gift)';
+        description = 'mo. HabitRPG Subscription (Gift)';
       }
     }
 
@@ -77,6 +85,7 @@ api.checkout = {
         item_list: {
           items: [{
             name: description,
+            // sku: 1,
             price: amount,
             currency: 'USD',
             quality: 1,
@@ -90,27 +99,18 @@ api.checkout = {
       }],
     };
 
-    try {
-      let result = await paypal.payment.create(createPayment);
-      let link = _.find(result.links, { rel: 'approval_url' }).href;
-      res.redirect(link);
-    } catch (e) {
-      throw new BadRequest(e);
-    }
+    let result = await paypalPaymentCreate(createPayment);
+    let link = _.find(result.links, { rel: 'approval_url' }).href;
+    res.redirect(link);
   },
 };
 
 /**
  * @apiIgnore Payments are considered part of the private API
- * @api {get} /paypal/checkout/success Paypal checkout success
+ * @api {get} /paypal/checkout/success Paypal: checkout success
  * @apiVersion 3.0.0
  * @apiName PaypalCheckoutSuccess
  * @apiGroup Payments
- *
- * @apiParam {string} paymentId The payment id
- * @apiParam {string} payerID The payer id, notice ID not id
- *
- * @apiSuccess {} redirect
  **/
 api.checkoutSuccess = {
   method: 'GET',
@@ -119,6 +119,7 @@ api.checkoutSuccess = {
   async handler (req, res) {
     let paymentId = req.query.paymentId;
     let customerId = req.query.payerID;
+
     let method = 'buyGems';
     let data = {
       user: res.locals.user,
@@ -126,38 +127,31 @@ api.checkoutSuccess = {
       paymentMethod: 'Paypal',
     };
 
-    try {
-      let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
-      delete req.session.gift;
-      if (gift) {
-        gift.member = await User.findById(gift.uuid);
-        if (gift.type === 'subscription') {
-          method = 'createSubscription';
-          data.paymentMethod = 'Gift';
-        }
-        data.gift = gift;
+    let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
+    delete req.session.gift;
+
+    if (gift) {
+      gift.member = await User.findById(gift.uuid);
+      if (gift.type === 'subscription') {
+        method = 'createSubscription';
       }
 
-      await paypal.payment.execute(paymentId, { payer_id: customerId });
-      await payments[method](data);
-      res.redirect('/');
-    } catch (e) {
-      throw new BadRequest(e);
+      data.paymentMethod = 'Gift';
+      data.gift = gift;
     }
+
+    await paypalPaymentExecute(paymentId, { payer_id: customerId });
+    await payments[method](data);
+    res.redirect('/');
   },
 };
 
 /**
  * @apiIgnore Payments are considered part of the private API
- * @api {get} /paypal/subscribe Paypal subscribe
+ * @api {get} /paypal/subscribe Paypal: subscribe
  * @apiVersion 3.0.0
  * @apiName PaypalSubscribe
  * @apiGroup Payments
- *
- * @apiParam {string} sub subscription, possible values are: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo
- * @apiParam {string} coupon coupon for the matching subscription, required only for certain subscriptions
- *
- * @apiSuccess {} empty object
  **/
 api.subscribe = {
   method: 'GET',
@@ -165,17 +159,18 @@ api.subscribe = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let sub = shared.content.subscriptionBlocks[req.query.sub];
+
     if (sub.discount) {
       if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
       let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
-      if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
+      if (!coupon) throw new NotAuthorized(res.t('invalidCoupon'));
     }
 
     let billingPlanTitle = `HabitRPG Subscription ($${sub.price} every ${sub.months} months, recurring)`;
     let billingAgreementAttributes = {
       name: billingPlanTitle,
       description: billingPlanTitle,
-      start_date: moment().add({ minutes: 5}).format(),
+      start_date: moment().add({ minutes: 5 }).format(),
       plan: {
         id: sub.paypalKey,
       },
@@ -183,27 +178,20 @@ api.subscribe = {
         payment_method: 'Paypal',
       },
     };
-    try {
-      let billingAgreement = await paypal.billingAgreement.create(billingAgreementAttributes);
-      req.session.paypalBlock = req.query.sub;
-      let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
-      res.redirect(link);
-    } catch (e) {
-      throw new BadRequest(e);
-    }
+    let billingAgreement = await paypalBillingAgreementCreate(billingAgreementAttributes);
+
+    req.session.paypalBlock = req.query.sub;
+    let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
+    res.redirect(link);
   },
 };
 
 /**
  * @apiIgnore Payments are considered part of the private API
- * @api {get} /paypal/subscribe/success Paypal subscribe success
+ * @api {get} /paypal/subscribe/success Paypal: subscribe success
  * @apiVersion 3.0.0
  * @apiName PaypalSubscribeSuccess
  * @apiGroup Payments
- *
- * @apiParam {string} token The token in query
- *
- * @apiSuccess {} redirect
  **/
 api.subscribeSuccess = {
   method: 'GET',
@@ -213,31 +201,25 @@ api.subscribeSuccess = {
     let user = res.locals.user;
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
     delete req.session.paypalBlock;
-    try {
-      let result = await paypal.billingAgreement.execute(req.query.token, {});
-      await payments.createSubscription({
-        user,
-        customerId: result.id,
-        paymentMethod: 'Paypal',
-        sub: block,
-      });
-      res.redirect('/');
-    } catch (e) {
-      throw new BadRequest(e);
-    }
+
+    let result = await paypalBillingAgreementExecute(req.query.token, {});
+    await payments.createSubscription({
+      user,
+      customerId: result.id,
+      paymentMethod: 'Paypal',
+      sub: block,
+    });
+
+    res.redirect('/');
   },
 };
 
 /**
  * @apiIgnore Payments are considered part of the private API
- * @api {get} /paypal/subscribe/cancel Paypal subscribe cancel
+ * @api {get} /paypal/subscribe/cancel Paypal: subscribe cancel
  * @apiVersion 3.0.0
  * @apiName PaypalSubscribeCancel
  * @apiGroup Payments
- *
- * @apiParam {string} token The token in query
- *
- * @apiSuccess {} redirect
  **/
 api.subscribeCancel = {
   method: 'GET',
@@ -246,26 +228,28 @@ api.subscribeCancel = {
   async handler (req, res) {
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
-    if (!user.purchased.plan.customerId) throw new BadRequest(res.t('missingSubscription'));
-    try {
-      let customer = await paypal.billingAgreement.get(customerId);
-      let nextBillingDate = customer.agreement_details.next_billing_date;
-      if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
-        throw new BadRequest(res.t('planNotActive', { nextBillingDate }));
-      }
-      await paypal.billingAgreement.cancel(customerId, { note: res.t('cancelingSubscription') });
-      let data = {
-        user,
-        paymentMethod: 'Paypal',
-        nextBill: nextBillingDate,
-      };
-      await payments.cancelSubscription(data);
-      res.redirect('/');
-    } catch (e) {
-      throw new BadRequest(e);
+    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+
+    let customer = await paypalBillingAgreementGet(customerId);
+
+    let nextBillingDate = customer.agreement_details.next_billing_date;
+    if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
+      throw new BadRequest(res.t('planNotActive', { nextBillingDate }));
     }
+
+    await paypalBillingAgreementCancel(customerId, { note: res.t('cancelingSubscription') });
+    await payments.cancelSubscription({
+      user,
+      paymentMethod: 'Paypal',
+      nextBill: nextBillingDate,
+    });
+
+    res.redirect('/');
   },
 };
+
+// General IPN handler. We catch cancelled HabitRPG subscriptions for users who manually cancel their
+// recurring paypal payments in their paypal dashboard. TODO ? Remove this when we can move to webhooks or some other solution
 
 /**
  * @apiIgnore Payments are considered part of the private API
@@ -273,32 +257,22 @@ api.subscribeCancel = {
  * @apiVersion 3.0.0
  * @apiName PaypalIpn
  * @apiGroup Payments
- *
- * @apiParam {string} txn_type txn_type
- * @apiParam {string} recurring_payment_id recurring_payment_id
- *
- * @apiSuccess {} empty object
  **/
 api.ipn = {
   method: 'POST',
   url: '/paypal/ipn',
-  middlewares: [],
   async handler (req, res) {
-    res.respond(200);
-    try {
-      await ipn.verify(req.body);
-      if (req.body.txn_type === 'recurring_payment_profile_cancel' || req.body.txn_type === 'subscr_cancel') {
-        let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
-        if (user) {
-          payments.cancelSubscriptoin({ user, paymentMethod: 'Paypal' });
-        }
+    res.sendStatus(200);
+
+    await ipnVerifyAsync(req.body);
+
+    if (req.body.txn_type === 'recurring_payment_profile_cancel' || req.body.txn_type === 'subscr_cancel') {
+      let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
+      if (user) {
+        await payments.cancelSubscription({ user, paymentMethod: 'Paypal' });
       }
-    } catch (e) {
-      logger.error(e);
     }
   },
 };
-
-/* eslint-disable camelcase */
 
 module.exports = api;
