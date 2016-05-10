@@ -37,7 +37,7 @@ function($rootScope, User, $http, Content) {
         $http.post(url, res).success(function() {
           window.location.reload(true);
         }).error(function(res) {
-          alert(res.err);
+          alert(res.message);
         });
       }
     });
@@ -55,7 +55,7 @@ function($rootScope, User, $http, Content) {
         $http.post(url, data).success(function() {
           window.location.reload(true);
         }).error(function(data) {
-          alert(data.err);
+          alert(data.message);
         });
       }
     });
