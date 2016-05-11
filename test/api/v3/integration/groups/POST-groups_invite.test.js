@@ -173,16 +173,20 @@ describe('Post /groups/:groupId/invite', () => {
     });
 
     it('invites a user to a group by email', async () => {
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
+      let res = await inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
         inviter: 'inviter name',
-      })).to.exist;
+      });
+
+      expect(res).to.exist;
     });
 
     it('invites multiple users to a group by email', async () => {
-      await expect(inviter.post(`/groups/${group._id}/invite`, {
+      let res = await inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite, {name: 'test2', email: 'test2@habitica.com'}],
-      })).to.exist;
+      });
+
+      expect(res).to.exist;
     });
   });
 
