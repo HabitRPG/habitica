@@ -9,9 +9,10 @@ import logger from '../../../../../website/src/libs/api-v3/logger';
 function defer () {
   let resolve;
   let reject;
-  let promise = new Bluebird(() => {
-    resolve = arguments[0];
-    reject = arguments[1];
+
+  let promise = new Bluebird((resolveParam, rejectParam) => {
+    resolve = resolveParam;
+    reject = rejectParam;
   });
 
   return {
