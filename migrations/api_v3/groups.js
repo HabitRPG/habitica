@@ -37,7 +37,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
 var NewGroup = require('../../website/src/models/group').model;
@@ -102,9 +102,11 @@ function processGroups (afterId) {
     }
 
     oldGroups.forEach(function (oldGroup) {
-      if ((!oldGroup.privacy || oldGroup.privacy === 'private') && (!oldGroup.members || oldGroup.members.length === 0)) return; // delete empty private groups
+      if ((!oldGroup.privacy || oldGroup.privacy === 'private') && (!oldGroup.members || oldGroup.members.length === 0)) return; // delete empty private groups TODO must also delete challenges or this won't work
+
+      oldGroup.members = oldGroup.members || [];
       oldGroup.memberCount = oldGroup.members ? oldGroup.members.length : 0;
-      oldGroup.memberCount = oldGroup.challenges ? oldGroup.challenges.length : 0;
+      oldGroup.challengeCount = oldGroup.challenges ? oldGroup.challenges.length : 0;
 
       if (!oldGroup.balance <= 0) oldGroup.balance = 0;
       if (!oldGroup.name) oldGroup.name = 'group name';
@@ -132,7 +134,7 @@ function processGroups (afterId) {
 
       if (!oldGroup.privacy) {
         // throw new Error('group.privacy is required');
-        group.privacy = 'private';
+        oldGroup.privacy = 'private';
       }
 
       var updateMembers = {};
@@ -144,6 +146,13 @@ function processGroups (afterId) {
       }
 
       if (oldGroup.members) {
+        // Tyler Renelle
+        oldGroup.members.forEach(function (id, index) {
+          if (id === '9') {
+            oldGroup.members[index] = '00000000-0000-4000-9000-000000000000';
+          }
+        });
+
         promises.push(newUserCollection.updateMany({
           _id: {$in: oldGroup.members},
         }, updateMembers, {multi: true}));
@@ -157,7 +166,7 @@ function processGroups (afterId) {
     console.log(`Saving ${oldGroups.length} groups and migrating members to users collection.`);
 
     promises.push(batchInsertGroups.execute());
-    return Q.all(promises);
+    return Bluebird.all(promises);
   })
   .then(function () {
     processedGroups += oldGroups.length;
@@ -173,7 +182,7 @@ function processGroups (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

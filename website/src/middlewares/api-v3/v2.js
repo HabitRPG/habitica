@@ -19,8 +19,6 @@ v2app.use(responseHandler);
 
 // Custom Directives
 v2app.use('/', require('../../routes/api-v2/auth'));
-v2app.use('/', require('../../routes/api-v2/coupon')); // TODO REMOVE - ONLY v3
-v2app.use('/', require('../../routes/api-v2/unsubscription')); // TODO REMOVE - ONLY v3
 
 require('../../routes/api-v2/swagger')(swagger, v2app);
 

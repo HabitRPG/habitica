@@ -49,7 +49,7 @@ module.exports = function randomDrop (user, modifiers, req = {}) {
     user.markModified('party.quest.progress');
   }
 
-  if (user.purchased && user.purchased.plan && user.purchased.plan.custsomerId) {
+  if (user.purchased && user.purchased.plan && user.purchased.plan.customerId) {
     dropMultiplier = 2;
   } else {
     dropMultiplier = 1;

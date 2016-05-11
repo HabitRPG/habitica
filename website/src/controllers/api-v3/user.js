@@ -11,7 +11,7 @@ import {
   model as Group,
 } from '../../models/group';
 import { model as User } from '../../models/user';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as firebase from '../../libs/api-v3/firebase';
 import * as passwordUtils from '../../libs/api-v3/password';
@@ -218,7 +218,7 @@ api.deleteUser = {
       return group.leave(user, 'remove-all');
     });
 
-    await Q.all(groupLeavePromises);
+    await Bluebird.all(groupLeavePromises);
 
     await Tasks.Task.remove({
       userId: user._id,
@@ -351,7 +351,7 @@ api.castSpell = {
 
       spell.cast(user, task, req);
       if (user.isModified()) {
-        await Q.all([
+        await Bluebird.all([
           user.save(),
           task.save(),
         ]);
@@ -380,7 +380,7 @@ api.castSpell = {
       let isUserModified = user.isModified();
 
       if (isUserModified) toSave.unshift(user.save());
-      let saved = await Q.all(toSave);
+      let saved = await Bluebird.all(toSave);
 
       let response = {
         tasks: isUserModified ? _.rest(saved) : saved,
@@ -400,7 +400,7 @@ api.castSpell = {
         }
 
         spell.cast(user, partyMembers, req);
-        await Q.all(partyMembers.map(m => m.save()));
+        await Bluebird.all(partyMembers.map(m => m.save()));
       } else {
         if (!party && (!targetId || user._id === targetId)) {
           partyMembers = user;
@@ -413,7 +413,7 @@ api.castSpell = {
         if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
         spell.cast(user, partyMembers, req);
         if (user.isModified()) {
-          await Q.all([
+          await Bluebird.all([
             user.save(),
             partyMembers.save(),
           ]);
@@ -1105,7 +1105,7 @@ api.userRebirth = {
 
     await user.save();
 
-    await Q.all(tasks.map(task => task.save()));
+    await Bluebird.all(tasks.map(task => task.save()));
 
     res.respond(200, ...rebirthRes);
   },
@@ -1221,7 +1221,7 @@ api.userReroll = {
     let promises = tasks.map(task => task.save());
     promises.push(user.save());
 
-    await Q.all(promises);
+    await Bluebird.all(promises);
 
     res.respond(200, ...rerollRes);
   },
@@ -1274,7 +1274,7 @@ api.userReset = {
 
     let resetRes = common.ops.reset(user, tasks);
 
-    await Q.all([Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}), user.save()]);
+    await Bluebird.all([Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}), user.save()]);
 
     res.respond(200, ...resetRes);
   },

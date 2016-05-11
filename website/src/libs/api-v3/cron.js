@@ -182,7 +182,7 @@ export function cron (options = {}) {
     task.completed = false;
 
     if (completed || scheduleMisses > 0) {
-      task.checklist.forEach(i => i.completed = true); // FIXME this should not happen for grey tasks unless they are completed
+      task.checklist.forEach(i => i.completed = false); // FIXME this should not happen for grey tasks unless they are completed
     }
   });
 
@@ -262,7 +262,7 @@ export function cron (options = {}) {
     gaLabel: 'Cron Count',
     gaValue: user.flags.cronCount,
     uuid: user._id,
-    user, // TODO is it really necessary passing the whole user object?
+    user,
     resting: user.preferences.sleep,
     cronCount: user.flags.cronCount,
     progressUp: _.min([_progress.up, 900]),

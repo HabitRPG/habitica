@@ -19,6 +19,7 @@ var _ = require('lodash');
 var uuid = require('uuid');
 var consoleStamp = require('console-stamp');
 var common = require('../../common');
+var moment = require('moment');
 
 // Add timestamps to console messages
 consoleStamp(console);
@@ -32,7 +33,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 var taskDefaults = common.taskDefaults;
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
 var NewUser = require('../../website/src/models/user').model;
@@ -51,22 +52,22 @@ var BATCH_SIZE = 1000;
 var processedUsers = 0;
 var totoalProcessedTasks = 0;
 
+var challengeTaskWithMatchingId = 0;
+var challengeTaskNoMatchingId = 0;
+
+// Load the new tasks ids for challenges tasks
+var newTasksIds = require('./newTasksIds.json');
+
 // Only process users that fall in a interval ie up to -> 0000-4000-0000-0000
 var AFTER_USER_ID = nconf.get('AFTER_USER_ID');
 var BEFORE_USER_ID = nconf.get('BEFORE_USER_ID');
-
-/* TODO compare old and new model
-- _id 9
-- challenges
-- groups
-- invitations
-- challenges' tasks
-*/
 
 function processUsers (afterId) {
   var processedTasks = 0;
   var lastUser = null;
   var oldUsers;
+
+  var now = new Date();
 
   var query = {};
 
@@ -110,6 +111,8 @@ function processUsers (afterId) {
       delete oldUser.rewards;
       delete oldUser.todos;
 
+      delete oldUser.id;
+
       oldUser.tags = oldUser.tags.map(function (tag) {
         return {
           id: tag.id,
@@ -123,6 +126,7 @@ function processUsers (afterId) {
       }
 
       var newUser = new NewUser(oldUser);
+      var isSubscribed = newUser.isSubscribed();
 
       oldTasks.forEach(function (oldTask) {
         oldTask._id = uuid.v4(); // create a new unique uuid
@@ -132,21 +136,44 @@ function processUsers (afterId) {
 
         oldTask.challenge = oldTask.challenge || {};
         if (oldTask.challenge.id) {
-          oldTask.challenge.taskId = oldTask.legacyId;
+          if (oldTask.challenge.broken) {
+            oldTask.challenge.taskId = oldTask.legacyId;
+          } else {
+            var newId = newTasksIds[oldTask.legacyId + '-' + oldTask.challenge.id];
+
+            // Challenges' tasks ids changed
+            if (!newId && !oldTask.challenge.broken) {
+              challengeTaskNoMatchingId++;
+              oldTask.challenge.taskId = oldTask.legacyId;
+              oldTask.challenge.broken = 'CHALLENGE_TASK_NOT_FOUND';
+            } else {
+              challengeTaskWithMatchingId++;
+              oldTask.challenge.taskId = newId;
+            }
+          }
         }
 
-        oldTask.createdAt = old.dateCreated;
+        // Delete old completed todos
+        if (oldTask.type === 'todo' && oldTask.completed && (!oldTask.challenge.id || oldTask.challenge.broken)) {
+          if (moment(now).subtract(isSubscribed ? 90 : 30, 'days').toDate() > moment(oldTask.dateCompleted).toDate()) {
+            return;
+          }
+        }
+
+        oldTask.createdAt = oldTask.dateCreated;
 
         if (!oldTask.text) oldTask.text = 'task text'; // required
         oldTask.tags = _.map(oldTask.tags, function (tagPresent, tagId) {
           return tagPresent && tagId;
+        }).filter(function (tag) {
+          return tag !== false;
         });
 
         if (oldTask.type !== 'todo' || (oldTask.type === 'todo' && !oldTask.completed)) {
           newUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         }
 
-        var allTasksFields = ['_id', 'type', 'text', 'notes', 'tags', 'value', 'priority', 'attribute', 'challenge', 'reminders'];
+        var allTasksFields = ['_id', 'type', 'text', 'notes', 'tags', 'value', 'priority', 'attribute', 'challenge', 'reminders', 'userId', 'legacyId'];
         // using mongoose models is too slow
         if (oldTask.type === 'habit') {
           oldTask = _.pick(oldTask, allTasksFields.concat(['history', 'up', 'down']));
@@ -169,7 +196,7 @@ function processUsers (afterId) {
 
     console.log(`Saving ${oldUsers.length} users and ${processedTasks} tasks.`);
 
-    return Q.all([
+    return Bluebird.all([
       batchInsertUsers.execute(),
       batchInsertTasks.execute(),
     ]);
@@ -179,6 +206,8 @@ function processUsers (afterId) {
     processedUsers += oldUsers.length;
 
     console.log(`Saved ${oldUsers.length} users and their tasks.`);
+    console.log('Challenges\' tasks no matching id: ', challengeTaskNoMatchingId);
+    console.log('Challenges\' tasks with matching id: ', challengeTaskWithMatchingId);
 
     if (lastUser) {
       return processUsers(lastUser);
@@ -189,7 +218,7 @@ function processUsers (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

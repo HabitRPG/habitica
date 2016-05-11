@@ -10,7 +10,7 @@ import {
   BadRequest,
 } from '../../libs/api-v3/errors';
 import common from '../../../../common';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/api-v3/logger';
 
@@ -48,7 +48,7 @@ async function _createTasks (req, res, user, challenge) {
 
   toSave.unshift((challenge || user).save());
 
-  let tasks = await Q.all(toSave);
+  let tasks = await Bluebird.all(toSave);
   tasks.splice(0, 1); // Remove user or challenge
   return tasks;
 }
@@ -85,7 +85,7 @@ api.createUserTasks = {
  */
 api.createChallengeTasks = {
   method: 'POST',
-  url: '/tasks/challenge/:challengeId', // TODO should be /tasks/challengeS/:challengeId ? plural?
+  url: '/tasks/challenge/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
@@ -303,7 +303,6 @@ api.updateTask = {
     }
 
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
-    // TODO regarding comment above, make sure other models with nested fields are using this trick too
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
     _.assign(task, Tasks.Task.sanitize(updatedTaskObj));
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
@@ -360,7 +359,7 @@ api.scoreTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']); // TODO what about rewards? maybe separate route?
+    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -389,12 +388,12 @@ api.scoreTask = {
       } else if (wasCompleted && !task.completed) {
         let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
         if (!hasTask) {
-          user.tasksOrder.todos.push(task._id); // TODO push at the top?
+          user.tasksOrder.todos.push(task._id);
         } // If for some reason it hadn't been removed previously don't do anything
       }
     }
 
-    let results = await Q.all([
+    let results = await Bluebird.all([
       user.save(),
       task.save(),
     ]);
@@ -790,7 +789,7 @@ api.unlinkTask = {
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
         removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
-        await Q.all([user.save(), task.remove()]);
+        await Bluebird.all([user.save(), task.remove()]);
       } else {
         await task.remove();
       }
@@ -871,7 +870,7 @@ api.deleteTask = {
 
     if (task.type !== 'todo' || !task.completed) {
       removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
-      await Q.all([(challenge || user).save(), task.remove()]);
+      await Bluebird.all([(challenge || user).save(), task.remove()]);
     } else {
       await task.remove();
     }

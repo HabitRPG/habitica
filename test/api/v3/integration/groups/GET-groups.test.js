@@ -9,7 +9,8 @@ import {
 
 describe('GET /groups', () => {
   let user;
-  const NUMBER_OF_PUBLIC_GUILDS = 3;
+  const NUMBER_OF_PUBLIC_GUILDS = 3; // 2 + the tavern
+  const NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER = 1;
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
   const NUMBER_OF_GROUPS_USER_CAN_VIEW = 5;
 
@@ -85,6 +86,11 @@ describe('GET /groups', () => {
   it('returns all public guilds when publicGuilds passed in as query', async () => {
     await expect(user.get('/groups?type=publicGuilds'))
       .to.eventually.have.a.lengthOf(NUMBER_OF_PUBLIC_GUILDS);
+  });
+
+  it('returns all the user\'s guilds when guilds passed in as query', async () => {
+    await expect(user.get('/groups?type=guilds'))
+      .to.eventually.have.a.lengthOf(NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER + NUMBER_OF_USERS_PRIVATE_GUILDS);
   });
 
   it('returns all private guilds user is a part of when privateGuilds passed in as query', async () => {

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import common from '../../../../common';
 import * as Tasks from '../../models/task';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import { cron } from '../../libs/api-v3/cron';
@@ -123,12 +123,12 @@ module.exports = function cronMiddleware (req, res, next) {
         $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days').toDate(),
       },
       'challenge.id': {$exists: false},
-    }).exec(); // TODO wait before returning?
+    }).exec();
 
     let ranCron = user.isModified();
     let quest = common.content.quests[user.party.quest.key];
 
-    // if (ranCron) res.locals.wasModified = true; // TODO remove?
+    // if (ranCron) res.locals.wasModified = true; // TODO remove after v2 is retired
     if (!ranCron) return next();
 
     // Group.tavernBoss(user, progress);
@@ -139,7 +139,7 @@ module.exports = function cronMiddleware (req, res, next) {
       toSave.push(task.save());
     });
 
-    Q.all(toSave)
+    Bluebird.all(toSave)
     .then(saved => {
       user = res.locals.user = saved[0];
       if (!quest) return;

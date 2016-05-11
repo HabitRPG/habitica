@@ -12,7 +12,7 @@ import {
 } from '../../libs/api-v3/errors';
 import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import {removeFromArray} from './../../libs/api-v3/collectionManipulators';
 var utils = require('./../../libs/api-v2/utils');
 var analytics = utils.analytics;
@@ -434,7 +434,7 @@ api.delete = function(req, res, next) {
 
   Group.getGroups({user, types, groupFields})
   .then(groups => {
-    return Q.all(groups.map((group) => {
+    return Bluebird.all(groups.map((group) => {
       return group.leave(user, 'remove-all');
     }));
   })
@@ -651,7 +651,7 @@ api.cast = async function(req, res, next) {
       let toSave = tasks.filter(t => t.isModified());
       let isUserModified = user.isModified();
       toSave.unshift(user.save());
-      let saved = await Q.all(toSave);
+      let saved = await Bluebird.all(toSave);
     } else if (targetType === 'party' || targetType === 'user') {
       let party = await Group.getGroup({groupId: 'party', user});
       // arrays of users when targetType is 'party' otherwise single users
@@ -665,7 +665,7 @@ api.cast = async function(req, res, next) {
         }
 
         spell.cast(user, partyMembers, req);
-        await Q.all(partyMembers.map(m => m.save()));
+        await Bluebird.all(partyMembers.map(m => m.save()));
       } else {
         if (!party && (!targetId || user._id === targetId)) {
           partyMembers = user;
@@ -678,7 +678,7 @@ api.cast = async function(req, res, next) {
         if (partyMembers === user) {
           await partyMembers.save();
         } else {
-          await Q.all([
+          await Bluebird.all([
             await partyMembers.save(),
             await user.save(),
           ]);
@@ -869,7 +869,7 @@ api.addTask = function(req, res, next) {
   let validationErrors = task.validateSync();
   if (validationErrors) return next(validationErrors);
 
-  Q.all([
+  Bluebird.all([
     user.save(),
     task.save({validateBeforeSave: false}) // already done ^
   ]).then(results => {

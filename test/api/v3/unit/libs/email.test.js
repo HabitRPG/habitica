@@ -2,8 +2,25 @@
 import request from 'request';
 import nconf from 'nconf';
 import nodemailer from 'nodemailer';
-import Q from 'q';
+import Bluebird from 'bluebird';
+import requireAgain from 'require-again';
 import logger from '../../../../../website/src/libs/api-v3/logger';
+
+function defer () {
+  let resolve;
+  let reject;
+
+  let promise = new Bluebird((resolveParam, rejectParam) => {
+    resolve = resolveParam;
+    reject = rejectParam;
+  });
+
+  return {
+    resolve,
+    reject,
+    promise,
+  };
+}
 
 function getUser () {
   return {
@@ -34,25 +51,21 @@ function getUser () {
 describe('emails', () => {
   let pathToEmailLib = '../../../../../website/src/libs/api-v3/email';
 
-  beforeEach(() => {
-    delete require.cache[require.resolve(pathToEmailLib)];
-  });
-
   describe('sendEmail', () => {
     it('can send an email using the default transport', () => {
-      let sendMailSpy = sandbox.stub().returns(Q.defer().promise);
+      let sendMailSpy = sandbox.stub().returns(defer().promise);
 
       sandbox.stub(nodemailer, 'createTransport').returns({
         sendMail: sendMailSpy,
       });
 
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
     });
 
     it('logs errors', (done) => {
-      let deferred = Q.defer();
+      let deferred = defer();
       let sendMailSpy = sandbox.stub().returns(deferred.promise);
 
       sandbox.stub(nodemailer, 'createTransport').returns({
@@ -60,7 +73,7 @@ describe('emails', () => {
       });
       sandbox.stub(logger, 'error');
 
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
       deferred.reject();
@@ -75,13 +88,13 @@ describe('emails', () => {
 
   describe('getUserInfo', () => {
     it('returns an empty object if no field request', () => {
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let getUserInfo = attachEmail.getUserInfo;
       expect(getUserInfo({}, [])).to.be.empty;
     });
 
     it('returns correct user data', () => {
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
@@ -93,7 +106,7 @@ describe('emails', () => {
     });
 
     it('returns correct user data [facebook users]', () => {
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
       delete user.profile.name;
@@ -108,7 +121,7 @@ describe('emails', () => {
     });
 
     it('has fallbacks for missing data', () => {
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
       delete user.profile.name;
@@ -135,7 +148,7 @@ describe('emails', () => {
 
     it('can send a txn email to one recipient', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let sendTxnEmail = attachEmail.sendTxn;
       let emailType = 'an email type';
       let mailingInfo = {
@@ -158,7 +171,7 @@ describe('emails', () => {
 
     it('does not send email if address is missing', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let sendTxnEmail = attachEmail.sendTxn;
       let emailType = 'an email type';
       let mailingInfo = {
@@ -172,7 +185,7 @@ describe('emails', () => {
 
     it('uses getUserInfo in case of user data', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let sendTxnEmail = attachEmail.sendTxn;
       let emailType = 'an email type';
       let mailingInfo = getUser();
@@ -190,7 +203,7 @@ describe('emails', () => {
 
     it('sends email with some default variables', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = require(pathToEmailLib);
+      let attachEmail = requireAgain(pathToEmailLib);
       let sendTxnEmail = attachEmail.sendTxn;
       let emailType = 'an email type';
       let mailingInfo = {

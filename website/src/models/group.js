@@ -12,7 +12,7 @@ import { InternalServerError } from '../libs/api-v3/errors';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
 
@@ -149,25 +149,35 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         queries.push(this.getGroup({user, groupId: 'party', fields: groupFields, populateLeader}));
         break;
       }
+      case 'guilds': {
+        let userGuildsQuery = this.find({
+          type: 'guild',
+          _id: {$in: user.guilds},
+        }).select(groupFields);
+        if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
+        userGuildsQuery.sort(sort).exec();
+        queries.push(userGuildsQuery);
+        break;
+      }
       case 'privateGuilds': {
-        let privateGroupQuery = this.find({
+        let privateGuildsQuery = this.find({
           type: 'guild',
           privacy: 'private',
           _id: {$in: user.guilds},
         }).select(groupFields);
-        if (populateLeader === true) privateGroupQuery.populate('leader', nameFields);
-        privateGroupQuery.sort(sort).exec();
-        queries.push(privateGroupQuery);
+        if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
+        privateGuildsQuery.sort(sort).exec();
+        queries.push(privateGuildsQuery);
         break;
       }
       case 'publicGuilds': {
-        let publicGroupQuery = this.find({
+        let publicGuildsQuery = this.find({
           type: 'guild',
           privacy: 'public',
         }).select(groupFields);
-        if (populateLeader === true) publicGroupQuery.populate('leader', nameFields);
-        publicGroupQuery.sort(sort).exec();
-        queries.push(publicGroupQuery); // TODO use lean?
+        if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        publicGuildsQuery.sort(sort).exec();
+        queries.push(publicGuildsQuery); // TODO use lean?
         break;
       }
       case 'tavern': {
@@ -179,7 +189,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
     }
   });
 
-  let groupsArray = _.reduce(await Q.all(queries), (previousValue, currentValue) => {
+  let groupsArray = _.reduce(await Bluebird.all(queries), (previousValue, currentValue) => {
     if (_.isEmpty(currentValue)) return previousValue; // don't add anything to the results if the query returned null or an empty array
     return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]); // otherwise concat the new results to the previousValue
   }, []);
@@ -218,7 +228,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
     return user.save();
   });
 
-  return Q.all(userUpdates);
+  return Bluebird.all(userUpdates);
 };
 
 // Return true if user is a member of the group
@@ -410,7 +420,7 @@ schema.methods.finishQuest = function finishQuest (quest) {
   let updates = {$inc: {}, $set: {}};
 
   updates.$inc[`achievements.quests.${questK}`] = 1;
-  updates.$inc['stats.gp'] = Number(quest.drop.gp); // TODO are this castings necessary?
+  updates.$inc['stats.gp'] = Number(quest.drop.gp);
   updates.$inc['stats.exp'] = Number(quest.drop.exp);
   updates.$inc._v = 1;
 
@@ -520,7 +530,8 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   }, {multi: true}).exec();
   // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
-  // must be notModified or otherwise could overwrite future changes
+  // must be notModified or otherwise could overwrite future changes: if the user is saved it'll save
+  // the modified user.stats.hp but that must not happen as the hp value has already been updated by the User.update above
   // if (down) user.stats.hp += down;
 
   // Boss slain, finish quest
@@ -627,7 +638,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let challengesToRemoveUserFrom = challenges.map(chal => {
     return chal.unlinkTasks(user, keep);
   });
-  await Q.all(challengesToRemoveUserFrom);
+  await Bluebird.all(challengesToRemoveUserFrom);
 
   let promises = [];
 
@@ -659,7 +670,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   firebase.removeUserFromGroup(group._id, user._id);
 
-  return Q.all(promises);
+  return Bluebird.all(promises);
 };
 
 // API v2 compatibility methods
@@ -703,7 +714,7 @@ schema.methods.getTransformedData = function getTransformedData (options) {
   let membersQuery = User.find(queryMembers).select(selectDataMembers);
   if (options.limitPopulation) membersQuery.limit(15);
 
-  Q.all([
+  Bluebird.all([
     membersQuery.exec(),
     User.find(queryInvites).select(populateInvites).exec(),
     Challenge.find({group: obj._id}).select(populateMembers).exec(),

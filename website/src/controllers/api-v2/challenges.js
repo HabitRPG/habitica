@@ -21,7 +21,7 @@ var csvStringify = require('csv-stringify');
 var utils = require('../../libs/api-v2/utils');
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
-import Q from 'q';
+import Bluebird from 'bluebird';
 import v3MembersController from '../api-v3/members';
 /*
   ------------------------------------------------------------------------
@@ -56,13 +56,13 @@ api.list = async function(req, res, next) {
     });
 
     // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Q.all(resChals.map((chal, index) => {
-      return Q.all([
+    await Bluebird.all(resChals.map((chal, index) => {
+      return Bluebird.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
-        resChals[index].leader = populatedData[0].toJSON({minimize: true});
-        resChals[index].group = populatedData[1].toJSON({minimize: true});
+        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
+        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
       });
     }));
 
@@ -88,7 +88,8 @@ api.get = async function(req, res, next) {
     let group = await Group.getGroup({user, groupId: challenge.group, optionalMembership: true});
     if (!group || !challenge.canView(user, group)) return res.status(404).json({err: 'Challenge ' + req.params.cid + ' not found'});
 
-    let leaderRes = (await User.findById(challenge.leader).select('profile.name').exec()).toJSON({minimize: true});
+    let leaderRes = await User.findById(challenge.leader).select('profile.name').exec();
+    leaderRes = leaderRes ? leaderRes.toJSON({minimize: true}) : null;
 
     challenge.getTransformedData({
       populateMembers: 'profile.name',
@@ -206,7 +207,7 @@ api.create = async function(req, res, next){
       return newTask.save();
     });
 
-    let results = await Q.all([challenge.save({
+    let results = await Bluebird.all([challenge.save({
       validateBeforeSave: false, // already validated
     }), group.save()].concat(chalTasks));
     let savedChal = results[0];
@@ -288,8 +289,6 @@ api.update = function(req, res, next){
   });
 }
 
-import { _closeChal } from '../api-v3/challenges';
-
 /**
  * Delete & close
  */
@@ -303,7 +302,7 @@ api.delete = async function(req, res, next){
     if (!challenge.canModify(user)) return next(shared.i18n.t('noPermissionCloseChallenge'));
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
+    await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
     res.sendStatus(200);
   } catch (err) {
     next(err);
@@ -325,7 +324,7 @@ api.selectWinner = async function(req, res, next) {
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) return next('Winner ' + req.query.uid + ' not found.');
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
+    await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
     res.respond(200, {});
   } catch (err) {
     next(err);
@@ -347,7 +346,7 @@ api.join = async function(req, res, next){
     challenge.memberCount += 1;
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    await Q.all([challenge.syncToUser(user), challenge.save()]);
+    await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
 
     challenge.getTransformedData({
       cb (err, transformedChal) {
@@ -378,7 +377,7 @@ api.leave = async function(req, res, next){
     challenge.memberCount -= 1;
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Q.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
 
     challenge.getTransformedData({
       cb (err, transformedChal) {
@@ -417,7 +416,7 @@ api.unlink = async function(req, res, next) {
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
         removeFromArray(user.tasksOrder[`${task.type}s`], tid);
-        await Q.all([user.save(), task.remove()]);
+        await Bluebird.all([user.save(), task.remove()]);
       } else {
         await task.remove();
       }

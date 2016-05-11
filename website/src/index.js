@@ -10,6 +10,8 @@ if (process.env.NODE_ENV !== 'production') {
 // The BabelJS polyfill is needed in production too
 require('babel-polyfill');
 
+global.Promise = require('bluebird');
+
 // Only do the minimal amount of work before forking just in case of a dyno restart
 const cluster = require('cluster');
 const nconf = require('nconf');

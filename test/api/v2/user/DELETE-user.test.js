@@ -8,7 +8,7 @@ import {
   find,
   map,
 } from 'lodash';
-import Q from 'q';
+import Bluebird from 'bluebird';
 
 describe('DELETE /user', () => {
   let user;
@@ -30,7 +30,7 @@ describe('DELETE /user', () => {
 
     await user.del('/user');
 
-    await Q.all(map(ids, id => {
+    await Bluebird.all(map(ids, id => {
       return expect(checkExistence('tasks', id)).to.eventually.eql(false);
     }));
   });

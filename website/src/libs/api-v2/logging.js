@@ -22,9 +22,9 @@ if (nconf.get('LOGGLY:enabled')){
 
 if (!logger) {
   logger = new (winston.Logger)({});
+  logger.add(winston.transports.Console, {colorize:true}); // TODO remove
 
   if (nconf.get('NODE_ENV') !== 'production') {
-    logger.add(winston.transports.Console, {colorize:true});
     logger.add(winston.transports.File, {filename: 'habitrpg.log'});
   }
 }

@@ -52,6 +52,12 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
     });
   }
 
+  // Handle Stripe Card errors errors (can be safely shown to the users)
+  // https://stripe.com/docs/api/node#errors
+  if (err.type === 'StripeCardError') {
+    responseErr = new BadRequest(err.message);
+  }
+
   if (!responseErr || responseErr.httpCode >= 500) {
     // Try to identify the error...
     // ...

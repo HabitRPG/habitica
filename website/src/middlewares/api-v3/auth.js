@@ -5,7 +5,7 @@ import {
   model as User,
 } from '../../models/user';
 
-// TODO how to translate the strings here since getUserLanguage hasn't run yet?
+// Strins won't be translated here because getUserLanguage has not run yet
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
@@ -47,6 +47,24 @@ export function authWithSession (req, res, next) {
     _id: userId,
   })
   .exec()
+  .then((user) => {
+    if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+
+    res.locals.user = user;
+    next();
+  })
+  .catch(next);
+}
+
+export function authWithUrl (req, res, next) {
+  let userId = req.query._id;
+  let apiToken = req.query.apiToken;
+
+  if (!userId || !apiToken) {
+    throw new NotAuthorized(res.t('missingAuthParams'));
+  }
+
+  User.findOne({ _id: userId, apiToken }).exec()
   .then((user) => {
     if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 

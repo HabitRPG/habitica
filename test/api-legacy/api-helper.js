@@ -6,8 +6,8 @@ superagentDefaults = require("superagent-defaults");
 global.request = superagentDefaults();
 
 global.mongoose = require("mongoose");
-var Q = require('q');
-mongoose.Promise = Q.Promise;
+var Bluebird = require('bluebird');
+mongoose.Promise = Bluebird;
 
 global.moment = require("moment");
 

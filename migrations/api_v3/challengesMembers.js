@@ -30,7 +30,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;
@@ -87,8 +87,15 @@ function processChallenges (afterId) {
     }
 
     oldChallenges.forEach(function (oldChallenge) {
+      // Tyler Renelle
+      oldChallenge.members.forEach(function (id, index) {
+        if (id === '9') {
+          oldChallenge.members[index] = '00000000-0000-4000-9000-000000000000';
+        }
+      });
+
       promises.push(newUserCollection.updateMany({
-        _id: {$in: oldChallenge.members},
+        _id: {$in: oldChallenge.members || []},
       }, {
         $push: {challenges: oldChallenge._id},
       }, {multi: true}));
@@ -96,7 +103,7 @@ function processChallenges (afterId) {
 
     console.log(`Migrating members of ${oldChallenges.length} challenges.`);
 
-    return Q.all(promises);
+    return Bluebird.all(promises);
   })
   .then(function () {
     processedChallenges += oldChallenges.length;
@@ -112,7 +119,7 @@ function processChallenges (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

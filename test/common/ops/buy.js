@@ -46,6 +46,16 @@ describe('shared.ops.buy', () => {
   it('adds equipment to inventory', () => {
     user.stats.gp = 31;
     buy(user, {params: {key: 'armor_warrior_1'}});
-    expect(user.items.gear.owned).to.eql({ weapon_warrior_0: true, armor_warrior_1: true });
+    expect(user.items.gear.owned).to.eql({
+      weapon_warrior_0: true,
+      armor_warrior_1: true,
+      eyewear_special_blackTopFrame: true,
+      eyewear_special_blueTopFrame: true,
+      eyewear_special_greenTopFrame: true,
+      eyewear_special_pinkTopFrame: true,
+      eyewear_special_redTopFrame: true,
+      eyewear_special_whiteTopFrame: true,
+      eyewear_special_yellowTopFrame: true,
+    });
   });
 });

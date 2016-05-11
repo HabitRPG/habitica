@@ -1,11 +1,18 @@
 import mongoose from 'mongoose';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import validator from 'validator';
 import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
 import * as Tasks from './task';
 import { model as User } from './user';
+import {
+  model as Group,
+  TAVERN_ID,
+} from './group';
 import { removeFromArray } from '../libs/api-v3/collectionManipulators';
+import shared from '../../../common';
+import { sendTxn as txnEmail } from '../libs/api-v3/email';
+import sendPushNotification from '../libs/api-v3/pushNotifications';
 
 let Schema = mongoose.Schema;
 
@@ -98,7 +105,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
     });
   }
 
-  let [challengeTasks, userTasks] = await Q.all([
+  let [challengeTasks, userTasks] = await Bluebird.all([
     // Find original challenge tasks
     Tasks.Task.find({
       userId: {$exists: false},
@@ -123,7 +130,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
     } else {
       _.merge(matchingTask, _syncableAttrs(chalTask));
-      // Make sure the task is in user.tasksOrder TODO necessary?
+      // Make sure the task is in user.tasksOrder
       let orderList = user.tasksOrder[`${chalTask.type}s`];
       if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
     }
@@ -142,7 +149,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   });
 
   toSave.push(user.save());
-  return Q.all(toSave);
+  return Bluebird.all(toSave);
 };
 
 async function _fetchMembersIds (challengeId) {
@@ -155,7 +162,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let membersIds = await _fetchMembersIds(challenge._id);
 
   // Sync each user sequentially
-  // TODO are we sure it's the best solution?
+  // TODO are we sure it's the best solution? Use cwait
   // use bulk ops? http://stackoverflow.com/questions/16726330/mongoose-mongodb-batch-insert
   for (let memberId of membersIds) {
     let updateTasksOrderQ = {$push: {}};
@@ -182,7 +189,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
 
     // Update the user
     toSave.unshift(User.update({_id: memberId}, updateTasksOrderQ).exec());
-    await Q.all(toSave); // eslint-disable-line babel/no-await-in-loop
+    await Bluebird.all(toSave); // eslint-disable-line babel/no-await-in-loop
   }
 };
 
@@ -247,8 +254,67 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
     });
     user.markModified('tasksOrder');
     taskPromises.push(user.save());
-    return Q.all(taskPromises);
+    return Bluebird.all(taskPromises);
   }
+};
+
+// TODO everything here should be moved to a worker
+// actually even for a worker it's probably just too big and will kill mongo
+schema.methods.closeChal = async function closeChal (broken = {}) {
+  let challenge = this;
+
+  let winner = broken.winner;
+  let brokenReason = broken.broken;
+
+  // Delete the challenge
+  await this.model('Challenge').remove({_id: challenge._id}).exec();
+
+  // Refund the leader if the challenge is closed and the group not the tavern
+  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
+    await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
+  }
+
+  // Update the challengeCount on the group
+  await Group.update({_id: challenge.group}, {$inc: {challengeCount: -1}}).exec();
+
+  // Award prize to winner and notify
+  if (winner) {
+    winner.achievements.challenges.push(challenge.name);
+    winner.balance += challenge.prize / 4;
+    let savedWinner = await winner.save();
+    if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
+      txnEmail(savedWinner, 'won-challenge', [
+        {name: 'CHALLENGE_NAME', content: challenge.name},
+      ]);
+    }
+
+    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name);
+  }
+
+  // Run some operations in the background withouth blocking the thread
+  let backgroundTasks = [
+    // And it's tasks
+    Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
+    // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
+    User.update({
+      challenges: challenge._id,
+      'tags._id': challenge._id,
+    }, {
+      $set: {'tags.$.challenge': false},
+      $pull: {challenges: challenge._id},
+    }, {multi: true}).exec(),
+    // Break users' tasks
+    Tasks.Task.update({
+      'challenge.id': challenge._id,
+    }, {
+      $set: {
+        'challenge.broken': brokenReason,
+        'challenge.winner': winner && winner.profile.name,
+      },
+    }, {multi: true}).exec(),
+  ];
+
+  Bluebird.all(backgroundTasks);
 };
 
 // Methods to adapt the new schema to API v2 responses (mostly tasks inside the challenge model)
@@ -340,7 +406,7 @@ schema.methods.getTransformedData = function getTransformedData (options) {
   let membersQuery = User.find(queryMembers).select(selectDataMembers);
   if (options.limitPopulation) membersQuery.limit(15);
 
-  Q.all([
+  Bluebird.all([
     membersQuery.exec(),
     self.getTasks(),
   ])

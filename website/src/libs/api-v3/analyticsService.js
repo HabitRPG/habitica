@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import nconf from 'nconf';
 import Amplitude from 'amplitude';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import googleAnalytics from 'universal-analytics';
 import {
   each,
@@ -109,7 +109,7 @@ let _sendDataToAmplitude = (eventType, data) => {
 
   amplitudeData.event_type = eventType;
 
-  return Q.promise((resolve, reject) => {
+  return new Bluebird((resolve, reject) => {
     amplitude.track(amplitudeData)
       .then(resolve)
       .catch(reject);
@@ -160,7 +160,7 @@ let _sendDataToGoogle = (eventType, data) => {
     eventData.ev = value;
   }
 
-  return Q.promise((resolve, reject) => {
+  return new Bluebird((resolve, reject) => {
     ga.event(eventData, (err) => {
       if (err) return reject(err);
       resolve();
@@ -174,7 +174,7 @@ let _sendPurchaseDataToAmplitude = (data) => {
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
-  return Q.promise((resolve, reject) => {
+  return new Bluebird((resolve, reject) => {
     amplitude.track(amplitudeData)
       .then(resolve)
       .catch(reject);
@@ -199,7 +199,7 @@ let _sendPurchaseDataToGoogle = (data) => {
     ev: price,
   };
 
-  return Q.promise((resolve) => {
+  return new Bluebird((resolve) => {
     ga.event(eventData).send();
 
     ga.transaction(data.uuid, price)
@@ -211,14 +211,14 @@ let _sendPurchaseDataToGoogle = (data) => {
 };
 
 function track (eventType, data) {
-  return Q.all([
+  return Bluebird.all([
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
   ]);
 }
 
 function trackPurchase (data) {
-  return Q.all([
+  return Bluebird.all([
     _sendPurchaseDataToAmplitude(data),
     _sendPurchaseDataToGoogle(data),
   ]);

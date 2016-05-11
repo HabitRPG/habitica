@@ -14,11 +14,8 @@ import {
   NotFound,
   NotAuthorized,
 } from '../../libs/api-v3/errors';
-import shared from '../../../../common';
 import * as Tasks from '../../models/task';
-import { sendTxn as txnEmail } from '../../libs/api-v3/email';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import csvStringify from '../../libs/api-v3/csvStringify';
 
 let api = {};
@@ -90,7 +87,7 @@ api.createChallenge = {
     let challengeValidationErrors = challenge.validateSync();
     if (challengeValidationErrors) throw challengeValidationErrors;
 
-    let results = await Q.all([challenge.save({
+    let results = await Bluebird.all([challenge.save({
       validateBeforeSave: false, // already validate
     }), group.save()]);
     let savedChal = results[0];
@@ -144,7 +141,7 @@ api.joinChallenge = {
     challenge.memberCount += 1;
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    let results = await Q.all([challenge.syncToUser(user), challenge.save()]);
+    let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
 
     let response = results[1].toJSON();
     response.group = { // we already have the group data
@@ -153,7 +150,8 @@ api.joinChallenge = {
       type: group.type,
       privacy: group.privacy,
     };
-    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let chalLeader = await User.findById(response.leader).select(nameFields).exec();
+    response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
     res.respond(200, response);
   },
@@ -192,7 +190,7 @@ api.leaveChallenge = {
     challenge.memberCount -= 1;
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Q.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
     res.respond(200, {});
   },
 };
@@ -228,13 +226,13 @@ api.getUserChallenges = {
 
     let resChals = challenges.map(challenge => challenge.toJSON());
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Q.all(resChals.map((chal, index) => {
-      return Q.all([
+    await Bluebird.all(resChals.map((chal, index) => {
+      return Bluebird.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
-        resChals[index].leader = populatedData[0].toJSON({minimize: true});
-        resChals[index].group = populatedData[1].toJSON({minimize: true});
+        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
+        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
       });
     }));
 
@@ -276,9 +274,9 @@ api.getGroupChallenges = {
 
     let resChals = challenges.map(challenge => challenge.toJSON());
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Q.all(resChals.map((chal, index) => {
+    await Bluebird.all(resChals.map((chal, index) => {
       return User.findById(chal.leader).select(nameFields).exec().then(populatedLeader => {
-        resChals[index].leader = populatedLeader.toJSON({minimize: true});
+        resChals[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
       });
     }));
 
@@ -322,7 +320,8 @@ api.getChallenge = {
     let chalRes = challenge.toJSON();
     chalRes.group = group.toJSON({minimize: true});
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    chalRes.leader = (await User.findById(chalRes.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
+    chalRes.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
     res.respond(200, chalRes);
   },
@@ -359,7 +358,7 @@ api.exportChallengeCsv = {
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    let [members, tasks] = await Q.all([
+    let [members, tasks] = await Bluebird.all([
       User.find({challenges: challengeId})
         .select(nameFields)
         .sort({_id: 1})
@@ -441,68 +440,11 @@ api.updateChallenge = {
       type: group.type,
       privacy: group.privacy,
     };
-    response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+    let chalLeader = await User.findById(response.leader).select(nameFields).exec();
+    response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
     res.respond(200, response);
   },
 };
-
-// TODO everything here should be moved to a worker
-// actually even for a worker it's probably just too big and will kill mongo
-// Exported because it's used in v2 controller
-export async function _closeChal (challenge, broken = {}) {
-  let winner = broken.winner;
-  let brokenReason = broken.broken;
-
-  // Delete the challenge
-  await Challenge.remove({_id: challenge._id}).exec();
-
-  // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
-    await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
-  }
-
-  // Update the challengeCount on the group
-  await Group.update({_id: challenge.group}, {$inc: {challengeCount: -1}}).exec();
-
-  // Award prize to winner and notify
-  if (winner) {
-    winner.achievements.challenges.push(challenge.name);
-    winner.balance += challenge.prize / 4;
-    let savedWinner = await winner.save();
-    if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
-      txnEmail(savedWinner, 'won-challenge', [
-        {name: 'CHALLENGE_NAME', content: challenge.name},
-      ]);
-    }
-
-    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name); // TODO translate
-  }
-
-  // Run some operations in the background withouth blocking the thread
-  let backgroundTasks = [
-    // And it's tasks
-    Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
-    // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
-    User.update({
-      challenges: challenge._id,
-      'tags._id': challenge._id,
-    }, {
-      $set: {'tags.$.challenge': false},
-      $pull: {challenges: challenge._id},
-    }, {multi: true}).exec(),
-    // Break users' tasks
-    Tasks.Task.update({
-      'challenge.id': challenge._id,
-    }, {
-      $set: {
-        'challenge.broken': brokenReason,
-        'challenge.winner': winner && winner.profile.name,
-      },
-    }, {multi: true}).exec(),
-  ];
-
-  Q.allSettled(backgroundTasks); // TODO look if allSettled could be useful somewhere else
-}
 
 /**
  * @api {delete} /api/v3/challenges/:challengeId Delete a challenge
@@ -510,7 +452,7 @@ export async function _closeChal (challenge, broken = {}) {
  * @apiName DeleteChallenge
  * @apiGroup Challenge
  *
- * challengeId {UUID} The _id for the challenge to delete
+ * @apiParam {UUID} challengeId The _id for the challenge to delete
  *
  * @apiSuccess {object} data An empty object
  */
@@ -531,7 +473,7 @@ api.deleteChallenge = {
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await _closeChal(challenge, {broken: 'CHALLENGE_DELETED'});
+    await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
     res.respond(200, {});
   },
 };
@@ -542,8 +484,8 @@ api.deleteChallenge = {
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
- * challengeId {UUID} The _id for the challenge to close with a winner
- * winnerId {UUID} The _id of the winning user
+ * @apiParam {UUID} challengeId The _id for the challenge to close with a winner
+ * @apiParam {UUID} winnerId The _id of the winning user
  *
  * @apiSuccess {object} data An empty object
  */
@@ -568,7 +510,7 @@ api.selectChallengeWinner = {
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.params.winnerId}));
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await _closeChal(challenge, {broken: 'CHALLENGE_CLOSED', winner});
+    await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
     res.respond(200, {});
   },
 };

@@ -2,7 +2,9 @@ import {
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import xml2js from 'xml2js';
-import Q from 'q';
+import Bluebird from 'bluebird';
+
+let parseStringAsync = Bluebird.promisify(xml2js.parseString, {context: xml2js});
 
 describe('GET /export/userdata.xml', () => {
   it('should return a valid XML file with user data', async () => {
@@ -22,7 +24,7 @@ describe('GET /export/userdata.xml', () => {
     ]);
 
     let response = await user.get('/export/userdata.xml');
-    let {user: res} = await Q.npost(xml2js, 'parseString', [response, {explicitArray: false}]);
+    let {user: res} = await parseStringAsync(response, {explicitArray: false});
 
     expect(res._id).to.equal(user._id);
     expect(res).to.contain.all.keys(['tasks', 'flags', 'tasksOrder', 'auth']);

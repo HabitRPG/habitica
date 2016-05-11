@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import analytics from '../../libs/api-v3/analyticsService';
 import {
@@ -95,7 +95,7 @@ api.inviteToQuest = {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Q.all([
+    let [savedGroup] = await Bluebird.all([
       group.save(),
       user.save(),
     ]);
@@ -170,7 +170,7 @@ api.acceptQuest = {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Q.all([
+    let [savedGroup] = await Bluebird.all([
       group.save(),
       user.save(),
     ]);
@@ -229,7 +229,7 @@ api.rejectQuest = {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Q.all([
+    let [savedGroup] = await Bluebird.all([
       group.save(),
       user.save(),
     ]);
@@ -282,7 +282,7 @@ api.forceStart = {
 
     await group.startQuest(user);
 
-    let [savedGroup] = await Q.all([
+    let [savedGroup] = await Bluebird.all([
       group.save(),
       user.save(),
     ]);
@@ -336,7 +336,7 @@ api.cancelQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [savedGroup] = await Q.all([
+    let [savedGroup] = await Bluebird.all([
       group.save(),
       User.update(
         {'party._id': groupId},
@@ -397,7 +397,7 @@ api.abortQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [groupSaved] = await Q.all([group.save(), memberUpdates, questLeaderUpdate]);
+    let [groupSaved] = await Bluebird.all([group.save(), memberUpdates, questLeaderUpdate]);
 
     res.respond(200, groupSaved.quest);
   },
@@ -440,7 +440,7 @@ api.leaveQuest = {
     user.party.quest = Group.cleanQuestProgress();
     user.markModified('party.quest');
 
-    let [savedGroup] = await Q.all([
+    let [savedGroup] = await Bluebird.all([
       group.save(),
       user.save(),
     ]);

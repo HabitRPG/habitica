@@ -29,7 +29,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
 var EmailUnsubscription = require('../../website/src/models/emailUnsubscription').model;
@@ -113,7 +113,7 @@ function processUnsubscriptions (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

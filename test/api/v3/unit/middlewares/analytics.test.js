@@ -6,6 +6,7 @@ import {
 } from '../../../../helpers/api-unit.helper';
 import analyticsService from '../../../../../website/src/libs/api-v3/analyticsService';
 import nconf from 'nconf';
+import requireAgain from 'require-again';
 
 describe('analytics middleware', () => {
   let res, req, next;
@@ -17,15 +18,8 @@ describe('analytics middleware', () => {
     next = generateNext();
   });
 
-  afterEach(() => {
-    // The nconf.get('IS_PROD') occurs when the file is required
-    // Since node caches IS_PROD, we have to delete it from the cache
-    // to test prod vs non-prod behaviors
-    delete require.cache[require.resolve(pathToAnalyticsMiddleware)];
-  });
-
   it('attaches analytics object res.locals', () => {
-    let attachAnalytics = require(pathToAnalyticsMiddleware);
+    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware);
 
     attachAnalytics(req, res, next);
 
@@ -34,7 +28,7 @@ describe('analytics middleware', () => {
 
   it('attaches stubbed methods for non-prod environments', () => {
     sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(false);
-    let attachAnalytics = require(pathToAnalyticsMiddleware);
+    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware);
 
     attachAnalytics(req, res, next);
 
@@ -45,7 +39,7 @@ describe('analytics middleware', () => {
   it('attaches real methods for prod environments', () => {
     sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
 
-    let attachAnalytics = require(pathToAnalyticsMiddleware);
+    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware);
 
     attachAnalytics(req, res, next);
 

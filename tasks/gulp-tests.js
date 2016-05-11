@@ -9,7 +9,7 @@ import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
-import Q                          from 'q';
+import Bluebird                   from 'bluebird';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
 import nconf                      from 'nconf';
@@ -265,7 +265,7 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
   ].map(exec);
   support.push(server);
 
-  Q.all([
+  Bluebird.all([
     awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
@@ -286,7 +286,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
     'npm run test:e2e:webdriver',
   ].map(exec);
 
-  Q.all([
+  Bluebird.all([
     awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
@@ -358,6 +358,10 @@ gulp.task('test:api-v3:unit', (done) => {
   pipe(runner);
 });
 
+gulp.task('test:api-v3:unit:watch', () => {
+  gulp.watch(['website/src/libs/api-v3/*', 'test/api/v3/unit/**/*', 'website/src/controllers/**/*'], ['test:api-v3:unit']);
+});
+
 gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/integration --recursive'),
@@ -369,7 +373,8 @@ gulp.task('test:api-v3:integration', (done) => {
 });
 
 gulp.task('test:api-v3:integration:watch', () => {
-  gulp.watch(['website/src/controllers/api-v3/**/*', 'test/api/v3/integration/**/*', 'common/script/ops/*'], ['test:api-v3:integration']);
+  gulp.watch(['website/src/controllers/api-v3/**/*', 'common/script/ops/*', 'website/src/libs/api-v3/*.js',
+              'test/api/v3/integration/**/*'], ['test:api-v3:integration']);
 });
 
 gulp.task('test:api-v3:integration:separate-server', (done) => {

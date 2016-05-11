@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import _ from 'lodash';
 import {
   INVITES_LIMIT,
@@ -55,7 +55,7 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    let results = await Q.all([user.save(), group.save()]);
+    let results = await Bluebird.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -79,7 +79,7 @@ api.createGroup = {
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, privateGuilds, publicGuilds, tavern
+ * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
  *
  * @apiSuccess {Array} data An array of the requested groups
  */
@@ -95,7 +95,6 @@ api.getGroups = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    // TODO validate types are acceptable? probably not necessary
     let types = req.query.type.split(',');
     let groupFields = basicGroupFields.concat('description memberCount balance');
     let sort = '-memberCount';
@@ -275,7 +274,7 @@ api.joinGroup = {
       }
     }
 
-    await Q.all(promises);
+    promises = await Bluebird.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
@@ -447,7 +446,7 @@ api.removeGroupMember = {
         group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined; // TODO remmeber to check these are mark modified everywhere
+        group.quest.members[member._id] = undefined;
         group.markModified('quest.members');
       }
 
@@ -479,7 +478,7 @@ api.removeGroupMember = {
     let message = req.query.message;
     if (message) _sendMessageToRemoved(group, member, message);
 
-    await Q.all([
+    await Bluebird.all([
       member.save(),
       group.save(),
     ]);
@@ -657,13 +656,13 @@ api.inviteToGroup = {
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));
-      let uuidResults = await Q.all(uuidInvites);
+      let uuidResults = await Bluebird.all(uuidInvites);
       results.push(...uuidResults);
     }
 
     if (emails) {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
-      let emailResults = await Q.all(emailInvites);
+      let emailResults = await Bluebird.all(emailInvites);
       results.push(...emailResults);
     }
 

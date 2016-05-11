@@ -208,6 +208,8 @@
   "weaponArmoireMiningPickaxNotes": "Mine the maximum amount of gold from your tasks! Increases Perception by <%= per %>. Enchanted Armoire: Miner Set (Item 3 of 3).",
   "weaponArmoireBasicLongbowText": "Basic Longbow",
   "weaponArmoireBasicLongbowNotes": "A serviceable hand-me-down bow. Increases Strength by <%= str %>. Enchanted Armoire: Basic Archer Set (Item 1 of 3).",
+  "weaponArmoireHabiticanDiplomaText": "Habitican Diploma",
+  "weaponArmoireHabiticanDiplomaNotes": "A certificate of significant achievement -- well done! Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 1 of 3).",
 
   "armor": "armor",
 
@@ -435,6 +437,8 @@
   "armorArmoireMinerOverallsNotes": "They may seem worn, but they are enchanted to repel dirt. Increases Constitution by <%= con %>. Enchanted Armoire: Miner Set (Item 2 of 3).",
   "armorArmoireBasicArcherArmorText": "Basic Archer Armor",
   "armorArmoireBasicArcherArmorNotes": "This camouflaged vest lets you slip unnoticed through the forests. Increases Perception by <%= per %>. Enchanted Armoire: Basic Archer Set (Item 2 of 3).",
+  "armorArmoireGraduateRobeText": "Graduate Robe",
+  "armorArmoireGraduateRobeNotes": "Congratulations! This weighty robe hangs heavy with all the knowledge you have accrued. Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 2 of 3).",
 
   "headgear": "headgear",
 
@@ -676,6 +680,8 @@
   "headArmoireMinerHelmetNotes": "Protect your head from falling tasks! Increases Intelligence by <%= int %>. Enchanted Armoire: Miner Set (Item 1 of 3).",
   "headArmoireBasicArcherCapText": "Basic Archer Cap",
   "headArmoireBasicArcherCapNotes": "No archer would be complete without a jaunty cap! Increases Perception by <%= per %>. Enchanted Armoire: Basic Archer Set (Item 3 of 3).",
+  "headArmoireGraduateCapText": "Graduate Cap",
+  "headArmoireGraduateCapNotes": "Congratulations! Your deep thoughts have earned you this thinking cap. Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 3 of 3).",
 
   "offhand": "shield-hand item",
 
@@ -748,7 +754,7 @@
   "shieldSpecialWinter2015HealerNotes": "This shield deflects the freezing wind. Increases Constitution by <%= con %>. Limited Edition 2014-2015 Winter Gear.",
 
   "shieldSpecialSpring2015RogueText": "Exploding Squeak",
-  "shieldSpecialSpring2015RogueNotes": "Don't let the sound fool you - these explosives pack a punch. Increases Strength <%= str %>. Limited Edition 2015 Spring Gear.",
+  "shieldSpecialSpring2015RogueNotes": "Don't let the sound fool you - these explosives pack a punch. Increases Strength by <%= str %>. Limited Edition 2015 Spring Gear.",
   "shieldSpecialSpring2015WarriorText": "Dish Discus",
   "shieldSpecialSpring2015WarriorNotes": "Hurl it at your enemies.... or just hold it, because it will fill up with yummy kibble at dinnertime. Increases Constitution by <%= con %>. Limited Edition 2015 Spring Gear.",
   "shieldSpecialSpring2015HealerText": "Patterned Pillow",
@@ -797,6 +803,8 @@
   "shieldArmoireDragonTamerShieldNotes": "Distract enemies with this dragon-shaped shield. Increases Perception by <%= per %>. Enchanted Armoire: Dragon Tamer Set (Item 2 of 3).",
   "shieldArmoireMysticLampText": "Mystic Lamp",
   "shieldArmoireMysticLampNotes": "Light the darkest caves with this mystic lamp! Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+  "shieldArmoireFloralBouquetText": "Bouquet o' Flowers",
+  "shieldArmoireFloralBouquetNotes": "Not much help in battle, but aren't they beautiful? Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -917,6 +925,21 @@
   "eyewear": "Eyewear",
   "eyewearBase0Text": "No Eyewear",
   "eyewearBase0Notes": "No Eyewear.",
+
+  "eyewearSpecialBlackTopFrameText": "Black Standard Eyeglasses",
+  "eyewearSpecialBlackTopFrameNotes": "Glasses with a black frame above the lenses. Confers no benefit.",
+  "eyewearSpecialBlueTopFrameText": "Blue Standard Eyeglasses",
+  "eyewearSpecialBlueTopFrameNotes": "Glasses with a blue frame above the lenses. Confers no benefit.",
+  "eyewearSpecialGreenTopFrameText": "Green Standard Eyeglasses",
+  "eyewearSpecialGreenTopFrameNotes": "Glasses with a green frame above the lenses. Confers no benefit.",
+  "eyewearSpecialPinkTopFrameText": "Pink Standard Eyeglasses",
+  "eyewearSpecialPinkTopFrameNotes": "Glasses with a pink frame above the lenses. Confers no benefit.",
+  "eyewearSpecialRedTopFrameText": "Red Standard Eyeglasses",
+  "eyewearSpecialRedTopFrameNotes": "Glasses with a red frame above the lenses. Confers no benefit.",
+  "eyewearSpecialWhiteTopFrameText": "White Standard Eyeglasses",
+  "eyewearSpecialWhiteTopFrameNotes": "Glasses with a white frame above the lenses. Confers no benefit.",
+  "eyewearSpecialYellowTopFrameText": "Yellow Standard Eyeglasses",
+  "eyewearSpecialYellowTopFrameNotes": "Glasses with a yellow frame above the lenses. Confers no benefit.",
 
   "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
   "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",
