@@ -93,12 +93,9 @@ describe('Groups Controller', function() {
         members: [user._id]
       });
 
-      var myGuilds = sandbox.stub(groups, "myGuilds", function() {
-        return [guild];
-      });
+      user.guilds = [guild._id];
 
       expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
-      expect(myGuilds).to.be.called;
     });
 
     it('does not return true if guild is not included in myGuilds call', function(){
@@ -109,12 +106,9 @@ describe('Groups Controller', function() {
         members: ['not-user-id']
       });
 
-      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
-        return [];
-      });
+      user.guilds = [];
 
       expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
-      expect(myGuilds).to.be.calledOnce;
     });
   });
 

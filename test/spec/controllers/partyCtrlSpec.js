@@ -78,11 +78,11 @@ describe("Party Controller", function() {
           initializeControllerWithStubbedState();
 
           setTimeout(function() {
-            expect(User.set).to.be.calledTwice;
+            expect(User.set).to.be.calledOnce;
             expect(User.set).to.be.calledWith(
               { 'achievements.partyUp': true }
             );
-            expect(rootScope.openModal).to.be.calledTwice;
+            expect(rootScope.openModal).to.be.calledOnce;
             expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
             done();
           }, 1000);
@@ -103,11 +103,11 @@ describe("Party Controller", function() {
           initializeControllerWithStubbedState();
 
           setTimeout(function(){
-            expect(User.set).to.be.calledTwice;
+            expect(User.set).to.be.calledOnce;
             expect(User.set).to.be.calledWith(
               { 'achievements.partyOn': true }
             );
-            expect(rootScope.openModal).to.be.calledTwice;
+            expect(rootScope.openModal).to.be.calledOnce;
             expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
             done();
           }, 1000);
@@ -152,9 +152,9 @@ describe("Party Controller", function() {
     var partyStub;
 
     beforeEach(function () {
-      partyStub = sandbox.stub(groups.Group, "create", function() {
-        return party;
-      });
+      partyStub = sinon.stub(groups.Group, "create");
+      partyStub.returns(Promise.resolve(party));
+      sinon.stub(rootScope, 'hardRedirect');
     });
 
     it("creates a new party", function() {
