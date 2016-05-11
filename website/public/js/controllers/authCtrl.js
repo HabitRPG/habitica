@@ -26,10 +26,11 @@ angular.module('habitrpg')
 
       function errorAlert(data, status, headers, config) {
         $scope.registrationInProgress = false;
+        console.log(data)
         if (status === 0) {
           $window.alert(window.env.t('noReachServer'));
-        } else if (!!data && !!data.err) {
-          $window.alert(data.data.message);
+        } else if (!!data && !!data.error) {
+          $window.alert(data.message);
         } else {
           $window.alert(window.env.t('errorUpCase') + ' ' + status);
         }
@@ -104,7 +105,7 @@ angular.module('habitrpg')
               runAuth(data.data.id, data.data.apiToken);
             }).error(errorAlert);
         }, function( e ){
-          alert("Signin error: " + e.error.message );
+          alert("Signin error: " + e.message );
         });
       };
 
