@@ -8,15 +8,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.type = 'party';
       $scope.text = window.env.t('party');
 
-      //@TODO: cache
-      Groups.Group.syncParty()
-        .then(function successCallback(response) {
-          $scope.group = response.data.data;
-          checkForNotifications();
-        }, function errorCallback(response) {
-          $scope.newGroup = $scope.group = { type: 'party' };
-        });
-
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
 
@@ -52,11 +43,12 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.create = function(group) {
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
-        Groups.Group.create(group, function() {
-          Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
-          Analytics.updateUser({'party.id': group.id, 'partySize': 1});
-          $rootScope.hardRedirect('/#/options/groups/party');
-        });
+        Groups.Group.create(group)
+          .then(function(response) {
+            Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
+            Analytics.updateUser({'party.id': group.id, 'partySize': 1});
+            $rootScope.hardRedirect('/#/options/groups/party');
+          });
       };
 
       $scope.join = function (party) {

@@ -24,7 +24,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
       // Similarly, if we're dealing with the user's current party, return true.
       if(group.type === 'party') {
-        var currentParty = Groups.party();
+        var currentParty = group;
         if(currentParty._id && currentParty._id === group._id) return true;
       }
 

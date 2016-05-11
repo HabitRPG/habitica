@@ -110,7 +110,8 @@ angular.module('habitrpg')
             data.party = response.data.data;
             deferred.resolve(data.party);
           }, function (response) {
-            deferred.reject(response);
+            data.party = { type: 'party' };
+            deferred.reject(data.party);
           });
       } else {
         deferred.resolve(data.party);
