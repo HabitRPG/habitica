@@ -236,7 +236,7 @@ export let schema = new Schema({
     gear: {
       owned: _.transform(shared.content.gear.flat, (m, v) => {
         m[v.key] = {type: Boolean};
-        if (v.key.match(/[armor|head|shield]_warrior_0/)) {
+        if (v.key.match(/[armor|head|shield]_warrior_0/) || v.gearSet === 'glasses') {
           m[v.key].default = true;
         }
       }),
