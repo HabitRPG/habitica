@@ -28,8 +28,8 @@ angular.module('habitrpg')
         $scope.registrationInProgress = false;
         if (status === 0) {
           $window.alert(window.env.t('noReachServer'));
-        } else if (!!data && !!data.err) {
-          $window.alert(data.err);
+        } else if (!!data && !!data.error) {
+          $window.alert(data.message);
         } else {
           $window.alert(window.env.t('errorUpCase') + ' ' + status);
         }
@@ -46,10 +46,10 @@ angular.module('habitrpg')
 
         $scope.registrationInProgress = true;
 
-        var url = ApiUrl.get() + "/api/v2/register";
+        var url = ApiUrl.get() + "/api/v3/user/auth/local/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
-        $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
-          runAuth(data.id, data.apiToken);
+        $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
+          runAuth(res.data.id, res.data.apiToken);
         }).error(errorAlert);
       };
 
@@ -58,13 +58,14 @@ angular.module('habitrpg')
           username: $scope.loginUsername || $('#loginForm input[name="username"]').val(),
           password: $scope.loginPassword || $('#loginForm input[name="password"]').val()
         };
-        $http.post(ApiUrl.get() + "/api/v2/user/auth/local", data)
-          .success(function(data, status, headers, config) {
-            runAuth(data.id, data.token);
+        //@TODO: Move all the $http methods to a service
+        $http.post(ApiUrl.get() + "/api/v3/user/auth/local/login", data)
+          .success(function(res, status, headers, config) {
+            runAuth(res.data.id, res.data.apiToken);
           }).error(errorAlert);
       };
 
-      $scope.playButtonClick = function(){
+      $scope.playButtonClick = function() {
         Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Play'})
         if (User.authenticated()) {
           window.location.href = ('/' + window.location.hash);
@@ -80,7 +81,7 @@ angular.module('habitrpg')
         if(email == null || email.length == 0) {
           alert(window.env.t('invalidEmail'));
         } else {
-          $http.post(ApiUrl.get() + '/api/v2/user/reset-password', {email:email})
+          $http.post(ApiUrl.get() + '/api/v3/user/reset-password', {email:email})
             .success(function(){
               alert(window.env.t('newPassSent'));
             })
@@ -98,12 +99,12 @@ angular.module('habitrpg')
 
       $scope.socialLogin = function(network){
         hello(network).login({scope:'email'}).then(function(auth){
-          $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
-            .success(function(data, status, headers, config) {
-              runAuth(data.id, data.token);
+          $http.post(ApiUrl.get() + "/api/v3/user/auth/social", auth)
+            .success(function(res, status, headers, config) {
+              runAuth(res.data.id, res.data.apiToken);
             }).error(errorAlert);
         }, function( e ){
-          alert("Signin error: " + e.error.message );
+          alert("Signin error: " + e.message );
         });
       };
 

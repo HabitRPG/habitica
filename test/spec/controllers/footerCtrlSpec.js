@@ -1,11 +1,17 @@
 'use strict';
 
 describe('Footer Controller', function() {
-  var scope, user;
+  var scope, user, User;
 
   beforeEach(inject(function($rootScope, $controller) {
     user = specHelper.newUser();
-    var User = {log: sandbox.stub(), set: sandbox.stub(), user: user};
+    User = {
+      log: sandbox.stub(),
+      set: sandbox.stub(),
+      addTenGems: sandbox.stub(),
+      addHourglass: sandbox.stub(),
+      user: user
+    };
     scope = $rootScope.$new();
     $controller('FooterCtrl', {$scope: scope, User: User});
   }));
@@ -39,21 +45,17 @@ describe('Footer Controller', function() {
 
     describe('#addTenGems', function() {
       it('posts to /user/addTenGems', inject(function($httpBackend) {
-        $httpBackend.expectPOST('/api/v2/user/addTenGems').respond({});
-
         scope.addTenGems();
 
-        $httpBackend.flush();
+        expect(User.addTenGems).to.have.been.called;
       }));
     });
 
     describe('#addHourglass', function() {
       it('posts to /user/addHourglass', inject(function($httpBackend) {
-        $httpBackend.expectPOST('/api/v2/user/addHourglass').respond({});
-
         scope.addHourglass();
 
-        $httpBackend.flush();
+        expect(User.addHourglass).to.have.been.called;
       }));
     });
 

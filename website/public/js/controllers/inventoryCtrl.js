@@ -99,7 +99,7 @@ habitrpg.controller("InventoryCtrl",
       var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
       if (selected) {
         var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
-        user.ops.sell({params:{type:type, key: $scope[selected].key}});
+        User.sell({params:{type:type, key: $scope[selected].key}});
         if (user.items[type][$scope[selected].key] < 1) {
           $scope[selected] = null;
         }
@@ -118,7 +118,7 @@ habitrpg.controller("InventoryCtrl",
       var userHasPet = user.items.pets[egg.key + '-' + potion.key] > 0;
       var isPremiumPet = Content.hatchingPotions[potion.key].premium && !Content.dropEggs[egg.key];
 
-      user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
+      User.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
 
       if (!user.preferences.suppressModals.hatchPet && !userHasPet && !isPremiumPet) {
         $scope.hatchedPet = {
@@ -172,7 +172,7 @@ habitrpg.controller("InventoryCtrl",
         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
           return;
         }
-        User.user.ops.feed({params:{pet: pet, food: food.key}});
+        User.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
 
         _updateDropAnimalCount(user.items);
@@ -198,12 +198,12 @@ habitrpg.controller("InventoryCtrl",
 
       // Selecting Pet
       } else {
-        User.user.ops.equip({params:{type: 'pet', key: pet}});
+        User.equip({params:{type: 'pet', key: pet}});
       }
     }
 
     $scope.chooseMount = function(egg, potion) {
-      User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
+      User.equip({params:{type: 'mount', key: egg + '-' + potion}});
     }
 
     $scope.getSeasonalShopArray = function(set){
@@ -230,7 +230,7 @@ habitrpg.controller("InventoryCtrl",
           for (item in user.items.gear.equipped){
             var itemKey = user.items.gear.equipped[item];
             if (user.items.gear.owned[itemKey]) {
-              user.ops.equip({params: {key: itemKey}});
+              User.equip({params: {key: itemKey}});
             }
           }
           break;
@@ -239,7 +239,7 @@ habitrpg.controller("InventoryCtrl",
           for (item in user.items.gear.costume){
             var itemKey = user.items.gear.costume[item];
             if (user.items.gear.owned[itemKey]) {
-              user.ops.equip({params: {type:"costume", key: itemKey}});
+              User.equip({params: {type:"costume", key: itemKey}});
             }
           }
           break;
@@ -247,17 +247,17 @@ habitrpg.controller("InventoryCtrl",
         case "petMountBackground":
           var pet = user.items.currentPet;
           if (pet) {
-            user.ops.equip({params:{type: 'pet', key: pet}});
+            User.equip({params:{type: 'pet', key: pet}});
           }
 
           var mount = user.items.currentMount;
           if (mount) {
-            user.ops.equip({params:{type: 'mount', key: mount}});
+            User.equip({params:{type: 'mount', key: mount}});
           }
 
           var background = user.preferences.background;
           if (background) {
-            User.user.ops.unlock({query:{path:"background."+background}});
+            User.unlock({query:{path:"background."+background}});
           }
 
           break;
@@ -310,9 +310,9 @@ habitrpg.controller("InventoryCtrl",
     };
 
     $scope.clickTimeTravelItem = function(type,key) {
-      if (user.purchased.plan.consecutive.trinkets < 1) return user.ops.hourglassPurchase({params:{type:type,key:key}});
+      if (user.purchased.plan.consecutive.trinkets < 1) return User.hourglassPurchase({params:{type:type,key:key}});
       if (!window.confirm(window.env.t('hourglassBuyItemConfirm'))) return;
-      user.ops.hourglassPurchase({params:{type:type,key:key}});
+      User.hourglassPurchase({params:{type:type,key:key}});
     };
 
     function _updateDropAnimalCount(items) {

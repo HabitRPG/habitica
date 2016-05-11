@@ -17,17 +17,17 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     });
 
     $scope.allocate = function(stat){
-      User.user.ops.allocate({query:{stat:stat}});
+      User.allocate({query:{stat:stat}});
     }
 
     $scope.changeClass = function(klass){
       if (!klass) {
         if (!confirm(window.env.t('sureReset')))
           return;
-        return User.user.ops.changeClass({});
+        return User.changeClass({});
       }
 
-      User.user.ops.changeClass({query:{class:klass}});
+      User.changeClass({query:{class:klass}});
       $scope.selectedClass = undefined;
       Shared.updateStore(User.user);
       Guide.goto('classes', 0,true);
@@ -46,7 +46,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.acknowledgeHealthWarning = function(){
-      User.user.ops.update && User.set({'flags.warnedLowHealth':true});
+      User.set({'flags.warnedLowHealth':true});
     }
 
     /**
@@ -69,7 +69,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
         if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
         if (User.user.balance < cost) return $rootScope.openModal('buyGems');
       }
-      User.user.ops.unlock({query:{path:path}})
+      User.unlock({query:{path:path}})
     }
 
     $scope.ownsSet = function(type,_set) {

@@ -33,7 +33,7 @@
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
             "bower_components/smart-app-banner/smart-app-banner.js",
 
-            "common/dist/scripts/habitrpg-shared.js",            
+            "common/dist/scripts/habitrpg-shared.js",
 
             "js/env.js",
 
@@ -42,7 +42,6 @@
 
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
-            "common/script/public/userServices.js",
             "common/script/public/directives.js",
             "js/services/analyticsServices.js",
             "js/services/groupServices.js",
@@ -50,11 +49,13 @@
             "js/services/memberServices.js",
             "js/services/guideServices.js",
             "js/services/taskServices.js",
+            "js/services/tagsServices.js",
             "js/services/challengeServices.js",
             "js/services/paymentServices.js",
             "js/services/questServices.js",
             "js/services/socialServices.js",
             "js/services/statServices.js",
+            "js/services/userServices.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",
@@ -132,7 +133,9 @@
             "js/services/sharedServices.js",
             "js/services/socialServices.js",
             "js/services/statServices.js",
-            "common/script/public/userServices.js",
+            "js/services/taskServices.js",
+            "js/services/tagsServices.js",
+            "js/services/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
         ],
@@ -166,7 +169,9 @@
             "js/services/sharedServices.js",
             "js/services/socialServices.js",
             "js/services/statServices.js",
-            "common/script/public/userServices.js",
+            "js/services/taskServices.js",
+            "js/services/tagsServices.js",
+            "js/services/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
         ],

@@ -171,5 +171,6 @@
   "pushDeviceAlreadyAdded": "The user already has the push device",
   "resetComplete": "Reset completed",
   "lvl10ChangeClass": "To change class you must be at least level 10.",
-  "equipmentAlreadyOwned": "You already own that piece of equipment"
+  "equipmentAlreadyOwned": "You already own that piece of equipment",
+  "pmsMarkedRead": "Your private messages have been marked as read"
 }

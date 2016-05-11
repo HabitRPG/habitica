@@ -8,7 +8,7 @@ div(ng-if='task._editing')
         p
           a(ng-click='unlink(task, "keep")')=env.t('keepIt')
           | &nbsp;&nbsp;
-          a(ng-click="removeTask(task, obj")=env.t('removeIt')
+          a(ng-click="removeTask(task, obj)")=env.t('removeIt')
       div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
         p
           |&nbsp;

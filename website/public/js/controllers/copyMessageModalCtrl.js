@@ -9,7 +9,7 @@ habitrpg.controller("CopyMessageModalCtrl", ['$scope', 'User', 'Notification',
           notes: $scope.notes
         };
 
-        User.user.ops.addTask({body:newTask});
+        User.addTask({body:newTask});
         Notification.text(window.env.t('messageAddedAsToDo'));
 
         $scope.$close();

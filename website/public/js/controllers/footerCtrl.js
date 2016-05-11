@@ -78,6 +78,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
       });
     };
 
+    //@TODO: Route?
     $scope.addMissedDay = function(numberOfDays){
       if (!confirm("Are you sure you want to reset the day by " + numberOfDays + " day(s)?")) return;
       var dayBefore = moment(User.user.lastCron).subtract(numberOfDays, 'days').toDate();
@@ -86,15 +87,11 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
     };
 
     $scope.addTenGems = function(){
-      $http.post(ApiUrl.get() + '/api/v2/user/addTenGems').success(function(){
-        User.log({});
-      })
+      User.addTenGems();
     };
 
     $scope.addHourglass = function(){
-      $http.post(ApiUrl.get() + '/api/v2/user/addHourglass').success(function(){
-        User.log({});
-      })
+      User.addHourglass();
     };
 
     $scope.addGold = function(){
@@ -124,6 +121,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
     };
 
     $scope.addBossQuestProgressUp = function(){
+      //@TODO: Route?
       User.set({
         'party.quest.progress.up': User.user.party.quest.progress.up + 1000
       });
