@@ -1,33 +1,88 @@
 'use strict';
 
-angular.module('habitrpg').factory('Chat',
-['$resource', '$http', 'ApiUrl', 'User',
-function($resource, $http, ApiUrl, User) {
-  var utils = $resource(ApiUrl.get() + '/api/v2/groups/:gid',
-    {gid:'@_id', messageId: '@_messageId'},
-    {
-      postChat: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat'},
-      like: {method: 'POST', isArray: true, url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId/like'},
-      deleteChatMessage: {method: "DELETE", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId'},
-      flagChatMessage: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId/flag'},
-      clearFlagCount: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId/clearflags'},
-    });
+angular.module('habitrpg')
+.factory('Chat', ['$http', 'ApiUrl', 'User',
+  function($http, ApiUrl, User) {
+    var apiV3Prefix = '/api/v3';
 
-  var chatService = {
-    seenMessage: seenMessage,
-    clearCards: clearCards,
-    utils: utils
-  };
+    function getChat (groupId) {
+      return $http({
+        method: 'GET',
+        url: apiV3Prefix + '/groups/' + groupId + '/chat',
+      });
+    }
 
-  return chatService;
+    function postChat (groupId, message, previousMsg) {
+      var url = apiV3Prefix + '/groups/' + groupId + '/chat';
 
-  function clearCards() {
-    User.user.ops.update && User.set({'flags.cardReceived':false});
-  }
+      if (previousMsg) {
+        url += '?previousMsg=' + previousMsg;
+      }
 
-  function seenMessage(gid) {
-    // On enter, set chat message to "seen"
-    $http.post(ApiUrl.get() + '/api/v2/groups/'+gid+'/chat/seen');
-    if (User.user.newMessages) delete User.user.newMessages[gid];
-  }
-}]);
+      return $http({
+        method: 'POST',
+        url: url,
+        data: {
+          message: message,
+        }
+      });
+    }
+
+    function deleteChat (groupId, chatId, previousMsg) {
+      var url = apiV3Prefix + '/groups/' + groupId + '/chat/' + chatId;
+
+      if (previousMsg) {
+        url += '?previousMsg=' + previousMsg;
+      }
+
+      return $http({
+        method: 'DELETE',
+        url: url,
+      });
+    }
+
+    function like (groupId, chatId) {
+      return $http({
+        method: 'POST',
+        url: apiV3Prefix + '/groups/' + groupId + '/chat/' + chatId + '/like',
+      });
+    }
+
+    function flagChatMessage (groupId, chatId) {
+      return $http({
+        method: 'POST',
+        url: apiV3Prefix + '/groups/' + groupId + '/chat/' + chatId + '/flag',
+      });
+    }
+
+    function clearFlagCount (groupId, chatId) {
+      return $http({
+        method: 'POST',
+        url: apiV3Prefix + '/groups/' + groupId + '/chat/' + chatId + '/clearflags',
+      });
+    }
+
+    function markChatSeen (groupId) {
+      if (User.user.newMessages) delete User.user.newMessages[gid];
+      return $http({
+        method: 'POST',
+        url: apiV3Prefix + '/groups/' + groupId + '/chat/seen',
+      });
+    }
+
+    return {
+      getChat: getChat,
+      postChat: postChat,
+      deleteChat: deleteChat,
+      like: like,
+      flagChatMessage: flagChatMessage,
+      clearFlagCount: clearFlagCount,
+      markChatSeen: markChatSeen,
+      clearCards: clearCards,
+    }
+
+    //@TOOD: Port when User service is updated
+    function clearCards() {
+      User.user.ops.update && User.set({'flags.cardReceived':false});
+    }
+  }]);

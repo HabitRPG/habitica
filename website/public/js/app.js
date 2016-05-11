@@ -150,12 +150,21 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams',
-          function($scope, Groups, Chat, $stateParams){
-            Groups.Group.get({gid:$stateParams.gid}, function(group){
-              $scope.group = group;
-              Chat.seenMessage(group._id);
-            });
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members',
+          function($scope, Groups, Chat, $stateParams, Members){
+            Groups.Group.get($stateParams.gid)
+              .then(function (response) {
+                $scope.group = response.data.data;
+                Chat.markChatSeen($scope.group._id);
+                Members.getGroupMembers($scope.group._id)
+                  .then(function (response) {
+                    $scope.group.members = response.data.data;
+                  });
+                Members.getGroupInvites($scope.group._id)
+                  .then(function (response) {
+                    $scope.group.invites = response.data.data;
+                  });
+              });
           }]
         })
 
@@ -171,22 +180,42 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:cid',
           templateUrl: 'partials/options.social.challenges.detail.html',
           title: env.t('titleChallenges'),
-          controller: ['$scope', 'Challenges', '$stateParams',
-            function($scope, Challenges, $stateParams){
-              $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
-                $scope.challenge._locked = true;
-              });
+          controller: ['$scope', 'Challenges', '$stateParams', 'Tasks',
+            function ($scope, Challenges, $stateParams, Tasks) {
+              Challenges.getChallenge($stateParams.cid)
+                .then(function (response) {
+                  $scope.obj = $scope.challenge = response.data.data;
+                  $scope.challenge._locked = true;
+                  return Tasks.getChallengeTasks($scope.challenge._id);
+                })
+                .then(function (response) {
+                  var tasks = response.data.data;
+                  tasks.forEach(function (element, index, array) {
+                    if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
+                    $scope.challenge[element.type + 's'].push(element);
+                  })
+                });
             }]
         })
         .state('options.social.challenges.edit', {
           url: '/:cid/edit',
           templateUrl: 'partials/options.social.challenges.detail.html',
           title: env.t('titleChallenges'),
-          controller: ['$scope', 'Challenges', '$stateParams',
-            function($scope, Challenges, $stateParams){
-              $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
-                $scope.challenge._locked = false;
-              });
+          controller: ['$scope', 'Challenges', '$stateParams', 'Tasks',
+            function ($scope, Challenges, $stateParams, Tasks) {
+              Challenges.getChallenge($stateParams.cid)
+                .then(function (response) {
+                  $scope.obj = $scope.challenge = response.data.data;
+                  $scope.challenge._locked = false;
+                  return Tasks.getChallengeTasks($scope.challenge._id);
+                })
+                .then(function (response) {
+                  var tasks = response.data.data;
+                  tasks.forEach(function (element, index, array) {
+                    if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
+                    $scope.challenge[element.type + 's'].push(element);
+                  })
+                });
             }]
         })
         .state('options.social.challenges.detail.member', {
@@ -281,6 +310,7 @@ window.habitrpg = angular.module('habitrpg',
         });
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
+
       if (settings && settings.auth) {
         $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;

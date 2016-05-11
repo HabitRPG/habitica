@@ -1,24 +1,143 @@
 'use strict';
 
-(function(){
-  var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'dateCreated', 'history', 'id', 'streak'];
+var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt'];
 
-  angular
-    .module('habitrpg')
-    .factory('Tasks', tasksFactory);
+angular.module('habitrpg')
+.factory('Tasks', ['$rootScope', 'Shared', '$http',
+  function tasksFactory($rootScope, Shared, $http) {
 
-  tasksFactory.$inject = [
-    '$rootScope',
-    'Shared',
-    'User'
-  ];
+    function getUserTasks () {
+      return $http({
+        method: 'GET',
+        url: '/api/v3/tasks/user',
+      });
+    };
 
-  function tasksFactory($rootScope, Shared, User) {
+    function createUserTasks (taskDetails) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/user',
+        data: taskDetails,
+      });
+    };
 
-    function editTask(task) {
+    function getChallengeTasks (challengeId) {
+      return $http({
+        method: 'GET',
+        url: '/api/v3/tasks/challenge/' + challengeId,
+      });
+    };
+
+    function createChallengeTasks (challengeId, taskDetails) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/challenge/' + challengeId,
+        data: taskDetails,
+      });
+    };
+
+    function getTask (taskId) {
+      return $http({
+        method: 'GET',
+        url: '/api/v3/tasks/' + taskId,
+      });
+    };
+
+    function updateTask (taskId, taskDetails) {
+      return $http({
+        method: 'PUT',
+        url: '/api/v3/tasks/' + taskId,
+        data: taskDetails,
+      });
+    };
+
+    function deleteTask (taskId) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/v3/tasks/' + taskId,
+      });
+    };
+
+    function scoreTask (taskId, direction) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/score/' + direction,
+      });
+    };
+
+    function moveTask (taskId, position) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/move/to/' + position,
+      });
+    };
+
+    function addChecklistItem (taskId, checkListItem) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/checklist',
+        data: checkListItem,
+      });
+    };
+
+    function scoreCheckListItem (taskId, itemId) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/checklist/' + itemId + '/score',
+      });
+    };
+
+    function updateChecklistItem (taskId, itemId, itemDetails) {
+      return $http({
+        method: 'PUT',
+        url: '/api/v3/tasks/' + taskId + '/checklist/' + itemId,
+        data: itemDetails,
+      });
+    };
+
+    function removeChecklistItem (taskId, itemId) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/v3/tasks/' + taskId + '/checklist/' + itemId,
+      });
+    };
+
+    function addTagToTask (taskId, tagId) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/tags/' + tagId,
+      });
+    };
+
+    function removeTagFromTask (taskId, tagId) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/v3/tasks/' + taskId + '/tags/' + tagId,
+      });
+    };
+
+    function unlinkTask (taskId, keep) {
+      if (!keep) {
+        keep = "keep-all";
+      }
+
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/unlink/' + taskId + '?keep=' + keep,
+      });
+    };
+
+    function clearCompletedTodos () {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/clearCompletedTodos',
+      });
+    };
+
+    function editTask(task, user) {
       task._editing = !task._editing;
-      task._tags = !User.user.preferences.tagsCollapsed;
-      task._advanced = !User.user.preferences.advancedCollapsed;
+      task._tags = !user.preferences.tagsCollapsed;
+      task._advanced = !user.preferences.advancedCollapsed;
       if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
     }
 
@@ -46,8 +165,24 @@
     }
 
     return {
+      getUserTasks: getUserTasks,
+      createUserTasks: createUserTasks,
+      getChallengeTasks: getChallengeTasks,
+      createChallengeTasks: createChallengeTasks,
+      getTask: getTask,
+      updateTask: updateTask,
+      deleteTask: deleteTask,
+      scoreTask: scoreTask,
+      moveTask: moveTask,
+      addChecklistItem: addChecklistItem,
+      scoreCheckListItem: scoreCheckListItem,
+      updateChecklistItem: updateChecklistItem,
+      removeChecklistItem: removeChecklistItem,
+      addTagToTask: addTagToTask,
+      removeTagFromTask: removeTagFromTask,
+      unlinkTask: unlinkTask,
+      clearCompletedTodos: clearCompletedTodos,
       editTask: editTask,
       cloneTask: cloneTask
     };
-  }
-})();
+  }]);

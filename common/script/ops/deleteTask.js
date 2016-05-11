@@ -6,16 +6,17 @@ import _ from 'lodash';
 
 module.exports = function deleteTask (user, req = {}) {
   let tid = _.get(req, 'params.id');
-  let task = user.tasks[tid];
+  let taskType = _.get(req, 'params.taskType');
 
-  if (!task) {
+  let index = _.findIndex(user[`${taskType}s`], function findById (task) {
+    return task._id === tid;
+  });
+
+  if (index === -1) {
     throw new NotFound(i18n.t('messageTaskNotFound', req.language));
   }
 
-  let index = user[`${task.type}s`].indexOf(task);
-  if (index !== -1) {
-    user[`${task.type}s`].splice(index, 1);
-  }
+  user[`${taskType}s`].splice(index, 1);
 
   return {};
 };

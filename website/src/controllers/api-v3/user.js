@@ -1175,6 +1175,26 @@ api.clearMessages = {
   },
 };
 
+/**
+ * @api {post} /api/v3/user/mark-pms-read Marks Private Messages as read
+ * @apiVersion 3.0.0
+ * @apiName markPmsRead
+ * @apiGroup User
+ *
+ * @apiSuccess {object} data user.inbox.messages
+**/
+api.markPmsRead = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/mark-pms-read',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let markPmsResponse = common.ops.markPmsRead(user, req);
+    await user.save();
+    res.respond(200, markPmsResponse);
+  },
+};
+
 /*
 * @api {post} /api/v3/user/reroll Rerolls a user.
 * @apiVersion 3.0.0

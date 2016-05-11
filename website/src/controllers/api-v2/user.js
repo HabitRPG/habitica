@@ -458,7 +458,7 @@ api.delete = function(req, res, next) {
  Development Only Operations
  ------------------------------------------------------------------------
  */
-if (true || nconf.get('NODE_ENV') === 'development') {
+if (nconf.get('NODE_ENV') === 'development') {
 
   api.addTenGems = function(req, res, next) {
     var user = res.locals.user;

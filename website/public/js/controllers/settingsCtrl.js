@@ -99,7 +99,7 @@ habitrpg.controller('SettingsCtrl',
       $scope.popoverEl.popover('destroy');
 
       if (confirm) {
-        User.user.ops.reroll({});
+        User.reroll({});
         $rootScope.$state.go('tasks');
       }
     }
@@ -124,7 +124,7 @@ habitrpg.controller('SettingsCtrl',
       $scope.popoverEl.popover('destroy');
 
       if (confirm) {
-        User.user.ops.rebirth({});
+        User.rebirth({});
         $rootScope.$state.go('tasks');
       }
     }
@@ -175,7 +175,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.reset = function(){
-      User.user.ops.reset({});
+      User.reset({});
       $rootScope.$state.go('tasks');
     }
 
@@ -235,7 +235,7 @@ habitrpg.controller('SettingsCtrl',
       var releaseFunction = RELEASE_ANIMAL_TYPES[type];
 
       if (releaseFunction) {
-        User.user.ops[releaseFunction]({});
+        User[releaseFunction]({});
         $rootScope.$state.go('tasks');
       }
     }
@@ -246,15 +246,15 @@ habitrpg.controller('SettingsCtrl',
       $scope.hasWebhooks = _.size(webhooks);
     })
     $scope.addWebhook = function(url) {
-      User.user.ops.addWebhook({body:{url:url, id:Shared.uuid()}});
+      User.addWebhook({body:{url:url, id:Shared.uuid()}});
       $scope._newWebhook.url = '';
     }
     $scope.saveWebhook = function(id,webhook) {
       delete webhook._editing;
-      User.user.ops.updateWebhook({params:{id:id}, body:webhook});
+      User.updateWebhook({params:{id:id}, body:webhook});
     }
     $scope.deleteWebhook = function(id) {
-      User.user.ops.deleteWebhook({params:{id:id}});
+      User.deleteWebhook({params:{id:id}});
     }
 
     $scope.applyCoupon = function(coupon){

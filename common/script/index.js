@@ -147,6 +147,7 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import addPushDevice from './ops/addPushDevice';
 import reset from './ops/reset';
+import markPmsRead from './ops/markPMSRead';
 
 api.ops = {
   scoreTask,
@@ -187,6 +188,7 @@ api.ops = {
   reroll,
   addPushDevice,
   reset,
+  markPmsRead,
 };
 
 /*
@@ -288,6 +290,7 @@ api.wrap = function wrapUser (user, main = true) {
       readCard: _.partial(importedOps.readCard, user),
       openMysteryItem: _.partial(importedOps.openMysteryItem, user),
       score: _.partial(importedOps.scoreTask, user),
+      markPmsRead: _.partial(importedOps.markPmsRead, user),
     };
   }
 

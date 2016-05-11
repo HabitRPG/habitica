@@ -19,7 +19,7 @@ describe('Menu Controller', function() {
 
     describe('clearMessage', function() {
       it('is Chat.seenMessage', inject(function(Chat) {
-        expect(scope.clearMessages).to.eql(Chat.seenMessage);
+        expect(scope.clearMessages).to.eql(Chat.markChatSeen);
       }));
     });
   });

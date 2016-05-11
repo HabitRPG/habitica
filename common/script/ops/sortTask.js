@@ -8,23 +8,26 @@ import _ from 'lodash';
 
 // TODO used only in client, move there?
 
-module.exports = function sortTag (user, req = {}) {
+module.exports = function sortTask (user, req = {}) {
   let id = _.get(req, 'params.id');
   let to = _.get(req, 'query.to');
   let fromParam = _.get(req, 'query.from');
+  let taskType = _.get(req, 'params.taskType');
 
-  let task = user.tasks[id];
+  let index = _.findIndex(user[`${taskType}s`], function findById (task) {
+    return task._id === id;
+  });
 
-  if (!task) {
+  if (index === -1) {
     throw new NotFound(i18n.t('messageTaskNotFound', req.language));
   }
   if (!to && !fromParam) {
     throw new BadRequest('?to=__&from=__ are required');
   }
 
-  let tasks = user[`${task.type}s`];
+  let tasks = user[`${taskType}s`];
 
-  if (task.type === 'todo' && tasks[fromParam] !== task) {
+  if (taskType === 'todo') {
     let preenedTasks = preenTodos(tasks);
 
     if (to !== -1) {
@@ -32,10 +35,6 @@ module.exports = function sortTag (user, req = {}) {
     }
 
     fromParam = tasks.indexOf(preenedTasks[fromParam]);
-  }
-
-  if (tasks[fromParam] !== task) {
-    throw new NotFound(i18n.t('messageTaskNotFound', req.language));
   }
 
   let movedTask = tasks.splice(fromParam, 1)[0];

@@ -26,7 +26,7 @@ angular.module('habitrpg')
         }
       }
 
-      $scope.clearMessages = Chat.seenMessage;
+      $scope.clearMessages = Chat.markChatSeen;
       $scope.clearCards = Chat.clearCards;
 
       $scope.iconClasses = function() {

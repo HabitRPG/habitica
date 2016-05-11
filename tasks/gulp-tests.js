@@ -390,6 +390,7 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
 gulp.task('test', (done) => {
   runSequence(
     'test:common',
+    'test:karma',
     'test:api-v3:unit',
     'test:api-v3:integration',
     'test:api-v2:integration',

@@ -175,6 +175,7 @@
   "resetComplete": "Reset completed",
   "lvl10ChangeClass": "To change class you must be at least level 10.",
   "equipmentAlreadyOwned": "You already own that piece of equipment",
+  "pmsMarkedRead": "Your private messages have been marked as read",
   "paymentNotSuccessful": "The payment was not successful",
   "planNotActive": "The plan hasn't activated yet (due to a PayPal bug). It will begin <%= nextBillingDate %>, after which you can cancel to retain your full benefits",
   "cancelingSubscription": "Canceling the subscription"

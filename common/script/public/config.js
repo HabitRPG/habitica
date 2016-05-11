@@ -1,5 +1,7 @@
 'use strict';
-angular.module('habitrpg').config(['$httpProvider', function($httpProvider){
+
+angular.module('habitrpg')
+.config(['$httpProvider', function($httpProvider){
   $httpProvider.interceptors.push(['$q', '$rootScope', function($q, $rootScope){
     return {
       response: function(response) {
@@ -28,15 +30,15 @@ angular.module('habitrpg').config(['$httpProvider', function($httpProvider){
 
         // 400 range?
         } else if (response.status < 500) {
-          $rootScope.$broadcast('responseText', response.data.err || response.data);
+          $rootScope.$broadcast('responseText', response.data.err || response.data.message);
           // Need to reject the prompse so the error is handled correctly
-          if (response.status === 401)
+          if (response.status === 401) {
             return $q.reject(response);
-
+          }
         // Error
         } else {
-          var error = window.env.t('requestError') + '<br><br>"' + 
-          window.env.t('error') + ' ' + (response.data.err || response.data || 'something went wrong') + 
+          var error = window.env.t('requestError') + '<br><br>"' +
+          window.env.t('error') + ' ' + (response.data.err || response.data || 'something went wrong') +
           '" <br><br>' + window.env.t('seeConsole');
           if (mobileApp) error = 'Error contacting the server. Please try again in a few minutes.';
           $rootScope.$broadcast('responseError', error);
