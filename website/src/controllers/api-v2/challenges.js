@@ -21,7 +21,7 @@ var csvStringify = require('csv-stringify');
 var utils = require('../../libs/api-v2/utils');
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
-import Q from 'q';
+import Bluebird from 'bluebird';
 import v3MembersController from '../api-v3/members';
 /*
   ------------------------------------------------------------------------
@@ -56,8 +56,8 @@ api.list = async function(req, res, next) {
     });
 
     // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Q.all(resChals.map((chal, index) => {
-      return Q.all([
+    await Bluebird.all(resChals.map((chal, index) => {
+      return Bluebird.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
@@ -207,7 +207,7 @@ api.create = async function(req, res, next){
       return newTask.save();
     });
 
-    let results = await Q.all([challenge.save({
+    let results = await Bluebird.all([challenge.save({
       validateBeforeSave: false, // already validated
     }), group.save()].concat(chalTasks));
     let savedChal = results[0];
@@ -346,7 +346,7 @@ api.join = async function(req, res, next){
     challenge.memberCount += 1;
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    await Q.all([challenge.syncToUser(user), challenge.save()]);
+    await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
 
     challenge.getTransformedData({
       cb (err, transformedChal) {
@@ -377,7 +377,7 @@ api.leave = async function(req, res, next){
     challenge.memberCount -= 1;
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Q.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
 
     challenge.getTransformedData({
       cb (err, transformedChal) {
@@ -416,7 +416,7 @@ api.unlink = async function(req, res, next) {
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
         removeFromArray(user.tasksOrder[`${task.type}s`], tid);
-        await Q.all([user.save(), task.remove()]);
+        await Bluebird.all([user.save(), task.remove()]);
       } else {
         await task.remove();
       }

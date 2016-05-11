@@ -10,7 +10,7 @@ import {
   BadRequest,
 } from '../../libs/api-v3/errors';
 import common from '../../../../common';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/api-v3/logger';
 
@@ -48,7 +48,7 @@ async function _createTasks (req, res, user, challenge) {
 
   toSave.unshift((challenge || user).save());
 
-  let tasks = await Q.all(toSave);
+  let tasks = await Bluebird.all(toSave);
   tasks.splice(0, 1); // Remove user or challenge
   return tasks;
 }
@@ -393,7 +393,7 @@ api.scoreTask = {
       }
     }
 
-    let results = await Q.all([
+    let results = await Bluebird.all([
       user.save(),
       task.save(),
     ]);
@@ -789,7 +789,7 @@ api.unlinkTask = {
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
         removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
-        await Q.all([user.save(), task.remove()]);
+        await Bluebird.all([user.save(), task.remove()]);
       } else {
         await task.remove();
       }
@@ -870,7 +870,7 @@ api.deleteTask = {
 
     if (task.type !== 'todo' || !task.completed) {
       removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
-      await Q.all([(challenge || user).save(), task.remove()]);
+      await Bluebird.all([(challenge || user).save(), task.remove()]);
     } else {
       await task.remove();
     }

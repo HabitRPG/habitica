@@ -2,9 +2,24 @@
 import request from 'request';
 import nconf from 'nconf';
 import nodemailer from 'nodemailer';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import requireAgain from 'require-again';
 import logger from '../../../../../website/src/libs/api-v3/logger';
+
+function defer () {
+  let resolve;
+  let reject;
+  let promise = new Bluebird(() => {
+    resolve = arguments[0];
+    reject = arguments[1];
+  });
+
+  return {
+    resolve,
+    reject,
+    promise,
+  };
+}
 
 function getUser () {
   return {
@@ -37,7 +52,7 @@ describe('emails', () => {
 
   describe('sendEmail', () => {
     it('can send an email using the default transport', () => {
-      let sendMailSpy = sandbox.stub().returns(Q.defer().promise);
+      let sendMailSpy = sandbox.stub().returns(defer().promise);
 
       sandbox.stub(nodemailer, 'createTransport').returns({
         sendMail: sendMailSpy,
@@ -49,7 +64,7 @@ describe('emails', () => {
     });
 
     it('logs errors', (done) => {
-      let deferred = Q.defer();
+      let deferred = defer();
       let sendMailSpy = sandbox.stub().returns(deferred.promise);
 
       sandbox.stub(nodemailer, 'createTransport').returns({

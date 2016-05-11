@@ -12,7 +12,7 @@ import Pageres from 'pageres';
 import AWS from 'aws-sdk';
 import nconf from 'nconf';
 import got from 'got';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import locals from '../../middlewares/api-v3/locals';
 
 let S3 = new AWS.S3({
@@ -222,7 +222,16 @@ api.exportUserAvatarPng = {
       Body: stream,
     });
 
-    let s3res = await Q.ninvoke(s3upload, 'send');
+    let s3res = await new Bluebird((resolve, reject) => {
+      s3upload.send((err, s3uploadRes) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(s3uploadRes);
+        }
+      });
+    });
+
     res.redirect(s3res.Location);
   },
 };

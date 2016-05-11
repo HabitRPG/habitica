@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import _ from 'lodash';
 import {
   INVITES_LIMIT,
@@ -55,7 +55,7 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    let results = await Q.all([user.save(), group.save()]);
+    let results = await Bluebird.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -274,7 +274,7 @@ api.joinGroup = {
       }
     }
 
-    await Q.all(promises);
+    await Bluebird.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
     response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
@@ -475,7 +475,7 @@ api.removeGroupMember = {
     let message = req.query.message;
     if (message) _sendMessageToRemoved(group, member, message);
 
-    await Q.all([
+    await Bluebird.all([
       member.save(),
       group.save(),
     ]);
@@ -653,13 +653,13 @@ api.inviteToGroup = {
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));
-      let uuidResults = await Q.all(uuidInvites);
+      let uuidResults = await Bluebird.all(uuidInvites);
       results.push(...uuidResults);
     }
 
     if (emails) {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
-      let emailResults = await Q.all(emailInvites);
+      let emailResults = await Bluebird.all(emailInvites);
       results.push(...emailResults);
     }
 

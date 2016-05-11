@@ -1,17 +1,17 @@
 import common from '../../../../common';
 import _ from 'lodash';
 import { langCodes } from '../../libs/api-v3/i18n';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import fsCallback from 'fs';
 import path from 'path';
 import logger from '../../libs/api-v3/logger';
 
 // Transform fs methods that accept callbacks in ones that return promises
 const fs = {
-  readFile: Q.denodeify(fsCallback.readFile),
-  writeFile: Q.denodeify(fsCallback.writeFile),
-  stat: Q.denodeify(fsCallback.stat),
-  mkdir: Q.denodeify(fsCallback.mkdir),
+  readFile: Bluebird.promisify(fsCallback.readFile, {context: fsCallback}),
+  writeFile: Bluebird.promisify(fsCallback.writeFile, {context: fsCallback}),
+  stat: Bluebird.promisify(fsCallback.stat, {context: fsCallback}),
+  mkdir: Bluebird.promisify(fsCallback.mkdir, {context: fsCallback}),
 };
 
 let api = {};

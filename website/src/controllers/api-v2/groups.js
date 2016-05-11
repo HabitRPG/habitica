@@ -1013,7 +1013,7 @@ api.questAccept = function(req, res, next) {
 
       if (canStartQuestAutomatically(group)) {
         group.startQuest(user).then(() => {
-          return Q.all([group.save(), user.save()])
+          return Bluebird.all([group.save(), user.save()])
         })
         .then(results => {
           results[0].getTransformedData({
@@ -1027,7 +1027,7 @@ api.questAccept = function(req, res, next) {
         .catch(next);
 
       } else {
-        Q.all([group.save(), user.save()])
+        Bluebird.all([group.save(), user.save()])
         .then(results => {
           results[0].getTransformedData({
             cb (err, groupTransformed) {
@@ -1049,7 +1049,7 @@ api.questAccept = function(req, res, next) {
 
     if (canStartQuestAutomatically(group)) {
       group.startQuest(user).then(() => {
-        return Q.all([group.save(), user.save()])
+        return Bluebird.all([group.save(), user.save()])
       })
       .then(results => {
         results[0].getTransformedData({
@@ -1063,7 +1063,7 @@ api.questAccept = function(req, res, next) {
       .catch(next);
 
     } else {
-      Q.all([group.save(), user.save()])
+      Bluebird.all([group.save(), user.save()])
       .then(results => {
         results[0].getTransformedData({
           cb (err, groupTransformed) {
@@ -1090,7 +1090,7 @@ api.questReject = function(req, res, next) {
 
   if (canStartQuestAutomatically(group)) {
     group.startQuest(user).then(() => {
-      return Q.all([group.save(), user.save()])
+      return Bluebird.all([group.save(), user.save()])
     })
     .then(results => {
       results[0].getTransformedData({
@@ -1104,7 +1104,7 @@ api.questReject = function(req, res, next) {
     .catch(next);
 
   } else {
-    Q.all([group.save(), user.save()])
+    Bluebird.all([group.save(), user.save()])
     .then(results => {
       results[0].getTransformedData({
         cb (err, groupTransformed) {
@@ -1124,7 +1124,7 @@ api.questCancel = function(req, res, next){
   group.quest = Group.cleanGroupQuest();
   group.markModified('quest');
 
-  Q.all([
+  Bluebird.all([
     group.save(),
     User.update(
       {'party._id': group._id},
@@ -1167,7 +1167,7 @@ api.questAbort = function(req, res, next){
   group.quest = Group.cleanGroupQuest();
   group.markModified('quest');
 
-  Q.all([group.save(), memberUpdates, questLeaderUpdate])
+  Bluebird.all([group.save(), memberUpdates, questLeaderUpdate])
   .then(results => {
     results[0].getTransformedData({
       cb (err, groupTransformed) {
@@ -1203,10 +1203,10 @@ api.questLeave = function(req, res, next) {
   user.party.quest = Group.cleanQuestProgress();
   user.markModified('party.quest');
 
-  var groupSavePromise = Q.nbind(group.save, group);
-  var userSavePromise = Q.nbind(user.save, user);
+  var groupSavePromise = Bluebird.promisify(group.save, {context: group});
+  var userSavePromise = Bluebird.promisify(user.save, {context: user});
 
-  Q.all([groupSavePromise(), userSavePromise()])
+  Bluebird.all([groupSavePromise(), userSavePromise()])
     .done(function(values) {
       return res.sendStatus(204);
     }, function(error) {

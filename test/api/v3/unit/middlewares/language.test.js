@@ -8,7 +8,7 @@ import {
   attachTranslateFunction,
 } from '../../../../../website/src/middlewares/api-v3/language';
 import common from '../../../../../common';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import { model as User } from '../../../../../website/src/models/user';
 
 const i18n = common.i18n;
@@ -162,7 +162,7 @@ describe('language middleware', () => {
             return this;
           },
           exec () {
-            return Q.resolve({
+            return Bluebird.resolve({
               preferences: {
                 language: 'it',
               },

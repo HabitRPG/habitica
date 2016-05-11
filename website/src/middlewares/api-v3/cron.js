@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import common from '../../../../common';
 import * as Tasks from '../../models/task';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import { cron } from '../../libs/api-v3/cron';
@@ -139,7 +139,7 @@ module.exports = function cronMiddleware (req, res, next) {
       toSave.push(task.save());
     });
 
-    Q.all(toSave)
+    Bluebird.all(toSave)
     .then(saved => {
       user = res.locals.user = saved[0];
       if (!quest) return;

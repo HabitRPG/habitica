@@ -30,7 +30,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird.all; // otherwise mongoose models won't work
 
 // Load new models
 var NewChallenge = require('../../website/src/models/challenge').model;
@@ -165,7 +165,7 @@ function processChallenges (afterId) {
 
     console.log(`Saving ${oldChallenges.length} challenges and ${processedTasks} tasks.`);
 
-    return Q.all([
+    return Bluebird.all([
       batchInsertChallenges.execute(),
       batchInsertTasks.execute(),
     ]);
@@ -187,7 +187,7 @@ function processChallenges (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

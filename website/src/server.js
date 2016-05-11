@@ -3,6 +3,9 @@ import logger from './libs/api-v3/logger';
 import express from 'express';
 import http from 'http';
 import attachMiddlewares from './middlewares/api-v3/index';
+import Bluebird from 'bluebird';
+
+global.Promise = Bluebird;
 
 const server = http.createServer();
 const app = express();

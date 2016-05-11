@@ -2,7 +2,7 @@ import {
   times,
   map,
 } from 'lodash';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import { v4 as generateUUID } from 'uuid';
 import { ApiUser, ApiGroup, ApiChallenge } from '../api-classes';
 import { requester } from '../requester';
@@ -57,7 +57,7 @@ export async function generateGroup (leader, details = {}, update = {}) {
     guild: { guilds: [group._id] },
   };
 
-  await Q.all(
+  await Bluebird.all(
     map(members, (member) => {
       return member.update(groupMembershipTypes[group.type]);
     })
@@ -96,7 +96,7 @@ export async function createAndPopulateGroup (settings = {}) {
     guild: { guilds: [group._id] },
   };
 
-  let members = await Q.all(
+  let members = await Bluebird.all(
     times(numberOfMembers, () => {
       return generateUser(groupMembershipTypes[group.type]);
     })
@@ -104,7 +104,7 @@ export async function createAndPopulateGroup (settings = {}) {
 
   await group.update({ memberCount: numberOfMembers + 1});
 
-  let invitees = await Q.all(
+  let invitees = await Bluebird.all(
     times(numberOfInvites, () => {
       return generateUser();
     })
@@ -116,7 +116,7 @@ export async function createAndPopulateGroup (settings = {}) {
     });
   });
 
-  await Q.all(invitationPromises);
+  await Bluebird.all(invitationPromises);
 
   return {
     groupLeader,

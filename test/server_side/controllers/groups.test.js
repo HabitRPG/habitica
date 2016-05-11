@@ -3,7 +3,7 @@ var chai = require("chai");
 chai.use(require("sinon-chai"));
 var expect = chai.expect;
 
-var Q = require('q');
+var Bluebird = require('bluebird');
 var Group = require('../../../website/src/models/group').model;
 var groupsController = require('../../../website/src/controllers/api-v2/groups');
 
@@ -301,7 +301,7 @@ describe('Groups Controller', function() {
     });
 
     afterEach(function() {
-      Q.all.restore();
+      Promise.all.restore();
     });
 
     context('error conditions', function() {
@@ -342,7 +342,7 @@ describe('Groups Controller', function() {
       });
 
       it('sends 500 if group cannot save', function() {
-        Q.all.returns({
+        Promise.all.returns({
           done: sinon.stub().callsArgWith(1, {err: 'save error'})
         });
         var nextSpy = sinon.spy();

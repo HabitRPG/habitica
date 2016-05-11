@@ -2,12 +2,12 @@ import nconf from 'nconf';
 import logger from './logger';
 import autoinc from 'mongoose-id-autoinc';
 import mongoose from 'mongoose';
-import Q from 'q';
+import Bluebird from 'bluebird';
 
 const IS_PROD = nconf.get('IS_PROD');
 
 // Use Q promises instead of mpromise in mongoose
-mongoose.Promise = Q.Promise;
+mongoose.Promise = Bluebird;
 
 let mongooseOptions = !IS_PROD ? {} : {
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },

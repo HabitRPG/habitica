@@ -30,7 +30,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird.all; // otherwise mongoose models won't work
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;
@@ -103,7 +103,7 @@ function processChallenges (afterId) {
 
     console.log(`Migrating members of ${oldChallenges.length} challenges.`);
 
-    return Q.all(promises);
+    return Bluebird.all(promises);
   })
   .then(function () {
     processedChallenges += oldChallenges.length;
@@ -119,7 +119,7 @@ function processChallenges (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

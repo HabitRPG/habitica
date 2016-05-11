@@ -9,7 +9,7 @@ import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
-import Q                          from 'q';
+import Bluebird                   from 'bluebird';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
 import nconf                      from 'nconf';
@@ -265,7 +265,7 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
   ].map(exec);
   support.push(server);
 
-  Q.all([
+  Bluebird.all([
     awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
@@ -286,7 +286,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
     'npm run test:e2e:webdriver',
   ].map(exec);
 
-  Q.all([
+  Bluebird.all([
     awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {

@@ -8,7 +8,7 @@ import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
 import shared from '../../../../../common';
 import cc from 'coupon-code';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
 import {
@@ -36,14 +36,14 @@ paypal.configure({
 });
 
 // TODO better handling of errors
-const paypalPaymentCreate = Q.nbind(paypal.payment.create, paypal.payment);
-const paypalPaymentExecute = Q.nbind(paypal.payment.execute, paypal.payment);
-const paypalBillingAgreementCreate = Q.nbind(paypal.billingAgreement.create, paypal.billingAgreement);
-const paypalBillingAgreementExecute = Q.nbind(paypal.billingAgreement.execute, paypal.billingAgreement);
-const paypalBillingAgreementGet = Q.nbind(paypal.billingAgreement.get, paypal.billingAgreement);
-const paypalBillingAgreementCancel = Q.nbind(paypal.billingAgreement.cancel, paypal.billingAgreement);
+const paypalPaymentCreate = Bluebird.promisify(paypal.payment.create, {context: paypal.payment});
+const paypalPaymentExecute = Bluebird.promisify(paypal.payment.execute, {context: paypal.payment});
+const paypalBillingAgreementCreate = Bluebird.promisify(paypal.billingAgreement.create, {context: paypal.billingAgreement});
+const paypalBillingAgreementExecute = Bluebird.promisify(paypal.billingAgreement.execute, {context: paypal.billingAgreement});
+const paypalBillingAgreementGet = Bluebird.promisify(paypal.billingAgreement.get, {context: paypal.billingAgreement});
+const paypalBillingAgreementCancel = Bluebird.promisify(paypal.billingAgreement.cancel, {context: paypal.billingAgreement});
 
-const ipnVerifyAsync = Q.nbind(ipn.verify, ipn);
+const ipnVerifyAsync = Bluebird.promisify(ipn.verify, {context: ipn});
 
 let api = {};
 

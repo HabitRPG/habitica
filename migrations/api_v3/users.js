@@ -33,7 +33,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 var taskDefaults = common.taskDefaults;
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird.all; // otherwise mongoose models won't work
 
 // Load new models
 var NewUser = require('../../website/src/models/user').model;
@@ -196,7 +196,7 @@ function processUsers (afterId) {
 
     console.log(`Saving ${oldUsers.length} users and ${processedTasks} tasks.`);
 
-    return Q.all([
+    return Bluebird.all([
       batchInsertUsers.execute(),
       batchInsertTasks.execute(),
     ]);
@@ -218,7 +218,7 @@ function processUsers (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

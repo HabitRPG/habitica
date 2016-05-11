@@ -4,7 +4,7 @@ import _ from 'lodash';
 import validator from 'validator';
 import moment from 'moment';
 import * as Tasks from './task';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import { schema as TagSchema } from './tag';
 import baseModel from '../libs/api-v3/baseModel';
 import {
@@ -593,7 +593,7 @@ function _populateDefaultTasks (user, taskTypes) {
     tasksToCreate.push(...tasksOfType);
   });
 
-  return Q.all(tasksToCreate)
+  return Bluebird.all(tasksToCreate)
     .then((tasksCreated) => {
       _.each(tasksCreated, (task) => {
         user.tasksOrder[`${task.type}s`].push(task._id);
@@ -720,7 +720,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];
-  await Q.all(promises);
+  await Bluebird.all(promises);
 };
 
 // Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)

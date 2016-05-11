@@ -15,7 +15,7 @@ import {
   getUserInfo,
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
 
 let api = {};
@@ -330,7 +330,7 @@ api.transferGems = {
     receiver.balance += amount;
     sender.balance -= amount;
     let promises = [receiver.save(), sender.save()];
-    await Q.all(promises);
+    await Bluebird.all(promises);
 
     let message = res.t('privateMessageGiftIntro', {
       receiverName: receiver.profile.name,

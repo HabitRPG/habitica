@@ -10,7 +10,7 @@ import {
   BadRequest,
   NotFound,
 } from '../../libs/api-v3/errors';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import * as passwordUtils from '../../libs/api-v3/password';
 import logger from '../../libs/api-v3/logger';
 import { model as User } from '../../models/user';
@@ -215,17 +215,15 @@ api.loginLocal = {
 };
 
 function _passportFbProfile (accessToken) {
-  let deferred = Q.defer();
-
-  passport._strategies.facebook.userProfile(accessToken, (err, profile) => {
-    if (err) {
-      deferred.rejec();
-    } else {
-      deferred.resolve(profile);
-    }
+  return new Bluebird((resolve, reject) => {
+    passport._strategies.facebook.userProfile(accessToken, (err, profile) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(profile);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
 // Called as a callback by Facebook (or other social providers). Internal route

@@ -12,7 +12,7 @@ import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
-import Q from 'q';
+import Bluebird from 'bluebird';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -95,7 +95,7 @@ api.postChat = {
       toSave.push(user.save());
     }
 
-    let [savedGroup] = await Q.all(toSave);
+    let [savedGroup] = await Bluebird.all(toSave);
     if (chatUpdated) {
       res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {

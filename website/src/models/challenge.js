@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import validator from 'validator';
 import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
@@ -105,7 +105,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
     });
   }
 
-  let [challengeTasks, userTasks] = await Q.all([
+  let [challengeTasks, userTasks] = await Bluebird.all([
     // Find original challenge tasks
     Tasks.Task.find({
       userId: {$exists: false},
@@ -149,7 +149,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   });
 
   toSave.push(user.save());
-  return Q.all(toSave);
+  return Bluebird.all(toSave);
 };
 
 async function _fetchMembersIds (challengeId) {
@@ -189,7 +189,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
 
     // Update the user
     toSave.unshift(User.update({_id: memberId}, updateTasksOrderQ).exec());
-    await Q.all(toSave); // eslint-disable-line babel/no-await-in-loop
+    await Bluebird.all(toSave); // eslint-disable-line babel/no-await-in-loop
   }
 };
 
@@ -254,7 +254,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
     });
     user.markModified('tasksOrder');
     taskPromises.push(user.save());
-    return Q.all(taskPromises);
+    return Bluebird.all(taskPromises);
   }
 };
 
@@ -314,7 +314,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     }, {multi: true}).exec(),
   ];
 
-  Q.all(backgroundTasks);
+  Bluebird.all(backgroundTasks);
 };
 
 // Methods to adapt the new schema to API v2 responses (mostly tasks inside the challenge model)
@@ -406,7 +406,7 @@ schema.methods.getTransformedData = function getTransformedData (options) {
   let membersQuery = User.find(queryMembers).select(selectDataMembers);
   if (options.limitPopulation) membersQuery.limit(15);
 
-  Q.all([
+  Bluebird.all([
     membersQuery.exec(),
     self.getTasks(),
   ])

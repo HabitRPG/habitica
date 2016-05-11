@@ -37,7 +37,7 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
 
-mongoose.Promise = Q.Promise; // otherwise mongoose models won't work
+mongoose.Promise = Bluebird.all; // otherwise mongoose models won't work
 
 // Load new models
 var NewGroup = require('../../website/src/models/group').model;
@@ -166,7 +166,7 @@ function processGroups (afterId) {
     console.log(`Saving ${oldGroups.length} groups and migrating members to users collection.`);
 
     promises.push(batchInsertGroups.execute());
-    return Q.all(promises);
+    return Bluebird.all(promises);
   })
   .then(function () {
     processedGroups += oldGroups.length;
@@ -182,7 +182,7 @@ function processGroups (afterId) {
 }
 
 // Connect to the databases
-Q.all([
+Bluebird.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

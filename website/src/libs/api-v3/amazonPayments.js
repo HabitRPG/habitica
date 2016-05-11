@@ -1,7 +1,7 @@
 import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
 import common from '../../../../common';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import {
   BadRequest,
 } from './errors';
@@ -19,14 +19,14 @@ let amzPayment = amazonPayments.connect({
   clientId: nconf.get('AMAZON_PAYMENTS:CLIENT_ID'),
 });
 
-let getTokenInfo = Q.nbind(amzPayment.api.getTokenInfo, amzPayment.api);
-let createOrderReferenceId = Q.nbind(amzPayment.offAmazonPayments.createOrderReferenceForId, amzPayment.offAmazonPayments);
-let setOrderReferenceDetails = Q.nbind(amzPayment.offAmazonPayments.setOrderReferenceDetails, amzPayment.offAmazonPayments);
-let confirmOrderReference = Q.nbind(amzPayment.offAmazonPayments.confirmOrderReference, amzPayment.offAmazonPayments);
-let closeOrderReference = Q.nbind(amzPayment.offAmazonPayments.closeOrderReference, amzPayment.offAmazonPayments);
-let setBillingAgreementDetails = Q.nbind(amzPayment.offAmazonPayments.setBillingAgreementDetails, amzPayment.offAmazonPayments);
-let confirmBillingAgreement = Q.nbind(amzPayment.offAmazonPayments.confirmBillingAgreement, amzPayment.offAmazonPayments);
-let closeBillingAgreement = Q.nbind(amzPayment.offAmazonPayments.closeBillingAgreement, amzPayment.offAmazonPayments);
+let getTokenInfo = Bluebird.promisify(amzPayment.api.getTokenInfo, {context: amzPayment.api});
+let createOrderReferenceId = Bluebird.promisify(amzPayment.offAmazonPayments.createOrderReferenceForId, {context: amzPayment.offAmazonPayments});
+let setOrderReferenceDetails = Bluebird.promisify(amzPayment.offAmazonPayments.setOrderReferenceDetails, {context: amzPayment.offAmazonPayments});
+let confirmOrderReference = Bluebird.promisify(amzPayment.offAmazonPayments.confirmOrderReference, {context: amzPayment.offAmazonPayments});
+let closeOrderReference = Bluebird.promisify(amzPayment.offAmazonPayments.closeOrderReference, {context: amzPayment.offAmazonPayments});
+let setBillingAgreementDetails = Bluebird.promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails, {context: amzPayment.offAmazonPayments});
+let confirmBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.confirmBillingAgreement, {context: amzPayment.offAmazonPayments});
+let closeBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.closeBillingAgreement, {context: amzPayment.offAmazonPayments});
 
 let authorizeOnBillingAgreement = (inputSet) => {
   return new Promise((resolve, reject) => {

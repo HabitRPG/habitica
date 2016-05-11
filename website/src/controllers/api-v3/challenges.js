@@ -15,7 +15,7 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import * as Tasks from '../../models/task';
-import Q from 'q';
+import Bluebird from 'bluebird';
 import csvStringify from '../../libs/api-v3/csvStringify';
 
 let api = {};
@@ -87,7 +87,7 @@ api.createChallenge = {
     let challengeValidationErrors = challenge.validateSync();
     if (challengeValidationErrors) throw challengeValidationErrors;
 
-    let results = await Q.all([challenge.save({
+    let results = await Bluebird.all([challenge.save({
       validateBeforeSave: false, // already validate
     }), group.save()]);
     let savedChal = results[0];
@@ -141,7 +141,7 @@ api.joinChallenge = {
     challenge.memberCount += 1;
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    let results = await Q.all([challenge.syncToUser(user), challenge.save()]);
+    let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
 
     let response = results[1].toJSON();
     response.group = { // we already have the group data
@@ -190,7 +190,7 @@ api.leaveChallenge = {
     challenge.memberCount -= 1;
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Q.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
     res.respond(200, {});
   },
 };
@@ -226,8 +226,8 @@ api.getUserChallenges = {
 
     let resChals = challenges.map(challenge => challenge.toJSON());
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Q.all(resChals.map((chal, index) => {
-      return Q.all([
+    await Bluebird.all(resChals.map((chal, index) => {
+      return Bluebird.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
@@ -274,7 +274,7 @@ api.getGroupChallenges = {
 
     let resChals = challenges.map(challenge => challenge.toJSON());
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Q.all(resChals.map((chal, index) => {
+    await Bluebird.all(resChals.map((chal, index) => {
       return User.findById(chal.leader).select(nameFields).exec().then(populatedLeader => {
         resChals[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
       });
@@ -358,7 +358,7 @@ api.exportChallengeCsv = {
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    let [members, tasks] = await Q.all([
+    let [members, tasks] = await Bluebird.all([
       User.find({challenges: challengeId})
         .select(nameFields)
         .sort({_id: 1})
