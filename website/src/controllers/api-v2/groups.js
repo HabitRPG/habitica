@@ -8,7 +8,7 @@ function clone(a) {
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var Q = require('q');
+var Bluebird = require('bluebird');
 var utils = require('./../../libs/api-v2/utils');
 var shared = require('../../../../common');
 
