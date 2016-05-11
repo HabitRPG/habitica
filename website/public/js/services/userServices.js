@@ -339,7 +339,7 @@ angular.module('habitrpg')
         },
 
         authenticate: function (uuid, token, cb) {
-          if (!!uuid && !!token) {
+          if (uuid && token) {
             var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
             $http.defaults.headers.common['x-api-user'] = uuid;
             $http.defaults.headers.common['x-api-key'] = token;

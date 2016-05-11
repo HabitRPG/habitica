@@ -49,7 +49,7 @@ angular.module('habitrpg')
         var url = ApiUrl.get() + "/api/v3/user/auth/local/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
-          runAuth(res.data.id, res.data.apiToken);
+          runAuth(res.data._id, res.data.apiToken);
         }).error(errorAlert);
       };
 
