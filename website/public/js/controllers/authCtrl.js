@@ -26,7 +26,6 @@ angular.module('habitrpg')
 
       function errorAlert(data, status, headers, config) {
         $scope.registrationInProgress = false;
-        console.log(data)
         if (status === 0) {
           $window.alert(window.env.t('noReachServer'));
         } else if (!!data && !!data.error) {
@@ -49,8 +48,8 @@ angular.module('habitrpg')
 
         var url = ApiUrl.get() + "/api/v3/user/auth/local/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
-        $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
-          runAuth(data.data.id, data.data.apiToken);
+        $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
+          runAuth(res.data.id, res.data.apiToken);
         }).error(errorAlert);
       };
 
@@ -61,8 +60,8 @@ angular.module('habitrpg')
         };
         //@TODO: Move all the $http methods to a service
         $http.post(ApiUrl.get() + "/api/v3/user/auth/local/login", data)
-          .success(function(data, status, headers, config) {
-            runAuth(data.data.id, data.data.apiToken);
+          .success(function(res, status, headers, config) {
+            runAuth(res.data.id, res.data.apiToken);
           }).error(errorAlert);
       };
 
@@ -101,8 +100,8 @@ angular.module('habitrpg')
       $scope.socialLogin = function(network){
         hello(network).login({scope:'email'}).then(function(auth){
           $http.post(ApiUrl.get() + "/api/v3/user/auth/social", auth)
-            .success(function(data, status, headers, config) {
-              runAuth(data.data.id, data.data.apiToken);
+            .success(function(res, status, headers, config) {
+              runAuth(res.data.id, res.data.apiToken);
             }).error(errorAlert);
         }, function( e ){
           alert("Signin error: " + e.message );
