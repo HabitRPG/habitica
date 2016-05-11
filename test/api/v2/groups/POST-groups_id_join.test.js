@@ -104,7 +104,7 @@ describe('POST /groups/:id/join', () => {
 
       group = await user.get(`/groups/${group._id}`);
 
-      await expect(group.leader._id).to.eql(user._id);
+      expect(group.leader._id).to.eql(user._id);
     });
   });
 });
