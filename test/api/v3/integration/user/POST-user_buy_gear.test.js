@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import {
   generateUser,
   translate as t,
@@ -29,6 +31,15 @@ describe('POST /user/buy-gear/:key', () => {
     await user.post(`/user/buy-gear/${key}`);
     await user.sync();
 
-    expect(user.items.gear.owned).to.eql({ armor_warrior_1: true }); // eslint-disable-line camelcase
+    expect(user.items.gear.owned).to.eql({
+      armor_warrior_1: true,
+      eyewear_special_blackTopFrame: true,
+      eyewear_special_blueTopFrame: true,
+      eyewear_special_greenTopFrame: true,
+      eyewear_special_pinkTopFrame: true,
+      eyewear_special_redTopFrame: true,
+      eyewear_special_whiteTopFrame: true,
+      eyewear_special_yellowTopFrame: true,
+    });
   });
 });

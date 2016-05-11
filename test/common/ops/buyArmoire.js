@@ -69,7 +69,16 @@ describe('shared.ops.buyArmoire', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
-        expect(user.items.gear.owned).to.eql({weapon_warrior_0: true});
+        expect(user.items.gear.owned).to.eql({
+          weapon_warrior_0: true,
+          eyewear_special_blackTopFrame: true,
+          eyewear_special_blueTopFrame: true,
+          eyewear_special_greenTopFrame: true,
+          eyewear_special_pinkTopFrame: true,
+          eyewear_special_redTopFrame: true,
+          eyewear_special_whiteTopFrame: true,
+          eyewear_special_yellowTopFrame: true,
+        });
         expect(user.items.food).to.be.empty;
         expect(user.stats.exp).to.eql(0);
         done();
@@ -85,7 +94,16 @@ describe('shared.ops.buyArmoire', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('cannotBuyItem'));
-        expect(user.items.gear.owned).to.eql({weapon_warrior_0: true});
+        expect(user.items.gear.owned).to.eql({
+          weapon_warrior_0: true,
+          eyewear_special_blackTopFrame: true,
+          eyewear_special_blueTopFrame: true,
+          eyewear_special_greenTopFrame: true,
+          eyewear_special_pinkTopFrame: true,
+          eyewear_special_redTopFrame: true,
+          eyewear_special_whiteTopFrame: true,
+          eyewear_special_yellowTopFrame: true,
+        });
         expect(user.items.food).to.be.empty;
         expect(user.stats.exp).to.eql(0);
         done();

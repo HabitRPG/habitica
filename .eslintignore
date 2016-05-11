@@ -30,7 +30,6 @@ newrelic.js
 
 test/api-legacy/**/*
 test/common/simulations/**/*
-test/common_old/
 test/content/**/*
 test/server_side/**/*
 test/spec/**/*

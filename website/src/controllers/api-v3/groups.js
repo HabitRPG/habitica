@@ -274,7 +274,7 @@ api.joinGroup = {
       }
     }
 
-    await Bluebird.all(promises);
+    promises = await Bluebird.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
     response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
