@@ -46,7 +46,7 @@ angular.module('habitrpg')
       user._wrapped = false;
 
       function sync() {
-        $http({
+        return $http({
           method: "GET",
           url: '/api/v3/user/',
         })
@@ -349,10 +349,11 @@ angular.module('habitrpg')
             settings.auth.apiToken = token;
             settings.online = true;
             save();
-            sync();
-            if (cb) {
-              cb();
-            }
+            sync().then(function () {
+              if (cb) {
+                cb();
+              }
+            });
             //@TODO: Do we need the timezone set?
             // userServices.log({}, function(){
             //   // If they don't have timezone, set it
