@@ -49,8 +49,8 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(favicon(`${PUBLIC_DIR}/favicon.ico`));
 
   app.use(cors);
-  app.use(forceSSL);
-  app.use(forceHabitica);
+  //app.use(forceSSL);
+  //app.use(forceHabitica);
 
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
