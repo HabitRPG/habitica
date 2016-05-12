@@ -17,10 +17,10 @@ angular.module('habitrpg')
       var runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
           if(!err) $scope.registrationInProgress = false;
-          $window.location.href = ('/' + window.location.hash);
           Analytics.login();
           Analytics.updateUser();
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
+          $window.location.href = ('/' + window.location.hash);
         });
       };
 
