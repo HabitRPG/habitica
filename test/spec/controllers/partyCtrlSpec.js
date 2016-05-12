@@ -61,7 +61,7 @@ describe("Party Controller", function() {
 
     context('party has 1 member', function() {
       it('awards no new achievements', function() {
-        groupResponse = {data: {data: {_id: "test", type: "party", memberCount: 1}}};
+        groupResponse = {_id: "test", type: "party", memberCount: 1};
 
         initializeControllerWithStubbedState();
 
@@ -73,7 +73,7 @@ describe("Party Controller", function() {
     context('party has 2 members', function() {
       context('user does not have "Party Up" achievement', function() {
         it('awards "Party Up" achievement', function(done) {
-          groupResponse = {data: {data: {_id: "test", type: "party", memberCount: 2}}};
+          groupResponse = {_id: "test", type: "party", memberCount: 2};
 
           initializeControllerWithStubbedState();
 
@@ -93,7 +93,7 @@ describe("Party Controller", function() {
     context('party has 4 members', function() {
 
       beforeEach(function() {
-        groupResponse = {data: {data: {_id: "test", type: "party", memberCount: 4}}};
+        groupResponse = {_id: "test", type: "party", memberCount: 4};
       });
 
       context('user has "Party Up" but not "Party On" achievement', function() {
