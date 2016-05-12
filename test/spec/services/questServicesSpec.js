@@ -8,6 +8,7 @@ describe('Quests Service', function() {
     user.ops = {
       buyQuest: sandbox.spy()
     };
+    user.party._id = 'unique-party-id';
 
     user.achievements.quests = {};
     quest = {lvl:20};

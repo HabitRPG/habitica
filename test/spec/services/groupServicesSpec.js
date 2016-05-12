@@ -6,14 +6,16 @@ describe('groupServices', function() {
 
   beforeEach(function() {
     module(function($provide) {
-      $provide.value('User', {user:user});
+      user = specHelper.newUser();
+      user._id = "unique-user-id"
+      user.party._id = 'unique-party-id';
+      user.sync = function(){};
+      $provide.value('User', {user: user});
     });
 
     inject(function(_$httpBackend_, Groups, User) {
       $httpBackend = _$httpBackend_;
       groups = Groups;
-      user = User;
-      user.sync = function(){};
     });
   });
 
@@ -152,6 +154,6 @@ describe('groupServices', function() {
         done();
       });
 
-    $httpBackend.flush();
+    $httpBackend.flush()
   });
 });
