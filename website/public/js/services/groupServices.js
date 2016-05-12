@@ -101,28 +101,34 @@ angular.module('habitrpg')
       });
     };
 
+    //On page load, multiple controller request the party.
+    //So, we cache the promise until the first result is returned
+    var _cachedPartyPromise;
     function party () {
-      var deferred = $q.defer();
+      if (_cachedPartyPromise) return _cachedPartyPromise.promise;
+      _cachedPartyPromise = $q.defer();
 
       if (!User.user.party._id) {
         data.party = { type: 'party' };
-        deferred.reject(data.party);
+        _cachedPartyPromise.reject(data.party);
       }
 
       if (!data.party) {
         Group.get('party')
           .then(function (response) {
             data.party = response.data.data;
-            deferred.resolve(data.party);
+            _cachedPartyPromise.resolve(data.party);
           }, function (response) {
             data.party = { type: 'party' };
-            deferred.reject(data.party);
+            _cachedPartyPromise.reject(data.party);
+          }).finally(function(){
+             _cachePartyPromise = null;
           });
       } else {
-        deferred.resolve(data.party);
+        _cachedPartyPromise.resolve(data.party);
       }
 
-      return deferred.promise;
+      return _cachedPartyPromise.promise;
     }
 
     function publicGuilds () {
