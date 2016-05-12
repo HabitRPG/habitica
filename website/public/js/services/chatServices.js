@@ -63,7 +63,7 @@ angular.module('habitrpg')
     }
 
     function markChatSeen (groupId) {
-      if (User.user.newMessages) delete User.user.newMessages[gid];
+      if (User.user.newMessages) delete User.user.newMessages[groupId];
       return $http({
         method: 'POST',
         url: apiV3Prefix + '/groups/' + groupId + '/chat/seen',

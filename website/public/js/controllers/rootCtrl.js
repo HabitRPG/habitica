@@ -277,9 +277,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if (spell.target == 'self') {
         $scope.castEnd(null, 'self');
       } else if (spell.target == 'party') {
-        var party = Groups.party();
-        party = (_.isArray(party) ? party : []).concat(User.user);
-        $scope.castEnd(party, 'party');
+        Groups.party()
+          .then(function (party) {
+            party = (_.isArray(party) ? party : []).concat(User.user);
+            $scope.castEnd(party, 'party');
+          });
       }
     }
 

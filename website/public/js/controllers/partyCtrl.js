@@ -8,15 +8,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.type = 'party';
       $scope.text = window.env.t('party');
 
-      //@TODO: cache
-      Groups.Group.syncParty()
-        .then(function successCallback(response) {
-          $scope.group = response.data.data;
-          checkForNotifications();
-        }, function errorCallback(response) {
-          $scope.newGroup = $scope.group = { type: 'party' };
-        });
-
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
 
@@ -52,11 +43,12 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.create = function(group) {
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
-        Groups.Group.create(group, function() {
-          Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
-          Analytics.updateUser({'party.id': group.id, 'partySize': 1});
-          $rootScope.hardRedirect('/#/options/groups/party');
-        });
+        Groups.Group.create(group)
+          .then(function(response) {
+            Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
+            Analytics.updateUser({'party.id': group.id, 'partySize': 1});
+            $rootScope.hardRedirect('/#/options/groups/party');
+          });
       };
 
       $scope.join = function (party) {
@@ -92,31 +84,32 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           title = window.env.t('leavePartyCha');
 
           //TODO: Move this to challenge service
-          //@TODO: Implement this when we convert front-end challenge service
-          // Challenges.Challenge.query(function(challenges) {
-          //     challenges = _.pluck(_.filter(challenges, function(c) {
-          //         return c.group._id == group._id;
-          //     }), '_id');
-          //     if (_.intersection(challenges, User.user.challenges).length > 0) {
-          //         html = $compile(
-          //     '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
-          // )($scope);
-          //         title = window.env.t('leavePartyCha');
-          //     } else {
-          //         html = $compile(
-          //             '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
-          //         )($scope);
-          //         title = window.env.t('leaveParty');
-          //     }
+          Challenges.getGroupChallenges(group._id)
+          .then(function(response) {
+              var challenges = _.pluck(_.filter(response.data.data, function(c) {
+                  return c.group._id == group._id;
+              }), '_id');
 
-          $scope.popoverEl.popover('destroy').popover({
-              html: true,
-              placement: 'top',
-              trigger: 'manual',
-                  title: title,
-              content: html
-          }).popover('show');
-          // });
+              if (_.intersection(challenges, User.user.challenges).length > 0) {
+                html = $compile(
+                          '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+                        )($scope);
+                title = window.env.t('leavePartyCha');
+              } else {
+                html = $compile(
+                          '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+                        )($scope);
+                title = window.env.t('leaveParty');
+              }
+
+              $scope.popoverEl.popover('destroy').popover({
+                  html: true,
+                  placement: 'top',
+                  trigger: 'manual',
+                      title: title,
+                  content: html
+              }).popover('show');
+          });
       };
 
       $scope.clickStartQuest = function () {

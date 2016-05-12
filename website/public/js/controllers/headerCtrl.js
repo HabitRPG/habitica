@@ -8,15 +8,19 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
 
     $scope.inviteOrStartParty = Groups.inviteOrStartParty;
 
-    $scope.party = Groups.party(function(){
-        var triggerResort = function() {
-            $scope.partyMinusSelf = resortParty();
-        };
+    function handlePartyResponse (party) {
+      $scope.party = party;
 
-        triggerResort();
-        $scope.$watch('user.party.order', triggerResort);
-        $scope.$watch('user.party.orderAscending', triggerResort);
-    });
+      var triggerResort = function() {
+        $scope.partyMinusSelf = resortParty();
+      };
+
+      triggerResort();
+      $scope.$watch('user.party.order', triggerResort);
+      $scope.$watch('user.party.orderAscending', triggerResort);
+    }
+
+    Groups.party().then(handlePartyResponse, handlePartyResponse);
 
     function resortParty() {
       var result = _.sortBy(

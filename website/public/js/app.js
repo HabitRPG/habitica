@@ -150,8 +150,8 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members',
-          function($scope, Groups, Chat, $stateParams, Members){
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges',
+          function($scope, Groups, Chat, $stateParams, Members, Challenges){
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
                 $scope.group = response.data.data;
@@ -163,6 +163,10 @@ window.habitrpg = angular.module('habitrpg',
                 Members.getGroupInvites($scope.group._id)
                   .then(function (response) {
                     $scope.group.invites = response.data.data;
+                  });
+                Challenges.getGroupChallenges($scope.group._id)
+                  .then(function (response) {
+                    $scope.group.challenges = response.data.data;
                   });
               });
           }]

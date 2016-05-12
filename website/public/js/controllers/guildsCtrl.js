@@ -3,8 +3,8 @@
 habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile', 'Analytics',
     function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile, Analytics) {
       $scope.groups = {
-        guilds: Groups.myGuilds(),
-        public: Groups.publicGuilds(),
+        guilds: [],
+        public: [],
       };
 
       Groups.myGuilds()
@@ -88,8 +88,9 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
 
         var html, title;
 
-        Challenges.Challenge.query(function(challenges) {
-          challenges = _.pluck(_.filter(challenges, function(c) {
+        Challenges.getGroupChallenges(group._id)
+        .then(function(response) {
+          var challenges = _.pluck(_.filter(response.data.data, function(c) {
               return c.group._id == group._id;
           }), '_id');
 
