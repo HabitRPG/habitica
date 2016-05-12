@@ -10,8 +10,8 @@ const IS_PROD = nconf.get('IS_PROD');
 mongoose.Promise = Bluebird;
 
 let mongooseOptions = !IS_PROD ? {} : {
-  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 120, connectTimeoutMS: 30000 } },
+  server: { socketOptions: { keepAlive: 120, connectTimeoutMS: 30000 } },
 };
 let db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, (err) => {
   if (err) throw err;
