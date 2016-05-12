@@ -45,6 +45,7 @@ describe('GET /groups/:groupId/members', () => {
     expect(res.length).to.equal(1);
     expect(res[0]).to.eql({
       _id: user._id,
+      id: user._id,
       profile: {name: user.profile.name},
     });
   });
@@ -52,7 +53,7 @@ describe('GET /groups/:groupId/members', () => {
   it('populates only some fields', async () => {
     await generateGroup(user, {type: 'party', name: generateUUID()});
     let res = await user.get('/groups/party/members');
-    expect(res[0]).to.have.all.keys(['_id', 'profile']);
+    expect(res[0]).to.have.all.keys(['_id', 'id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
@@ -68,7 +69,7 @@ describe('GET /groups/:groupId/members', () => {
     let res = await user.get('/groups/party/members');
     expect(res.length).to.equal(30);
     res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'profile']);
+      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
   });

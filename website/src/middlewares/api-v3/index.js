@@ -49,8 +49,8 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(favicon(`${PUBLIC_DIR}/favicon.ico`));
 
   app.use(cors);
-  //app.use(forceSSL);
-  //app.use(forceHabitica);
+  app.use(forceSSL);
+  app.use(forceHabitica);
 
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
@@ -70,9 +70,9 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use(v3); // the main app, also setup top-level routes
   app.use('/api/v2', v2);
   app.use('/api/v1', v1);
+  app.use(v3); // the main app, also setup top-level routes
   staticMiddleware(app);
 
   app.use(notFoundHandler);

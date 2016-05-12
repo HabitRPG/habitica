@@ -78,7 +78,7 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
     await groupLeader.post(`/tasks/challenge/${challenge._id}`, [{type: 'habit', text: taskText}]);
 
     let memberProgress = await user.get(`/challenges/${challenge._id}/members/${groupLeader._id}`);
-    expect(memberProgress).to.have.all.keys(['_id', 'profile', 'tasks']);
+    expect(memberProgress).to.have.all.keys(['_id', 'id', 'profile', 'tasks']);
     expect(memberProgress.profile).to.have.all.keys(['name']);
     expect(memberProgress.tasks.length).to.equal(1);
   });

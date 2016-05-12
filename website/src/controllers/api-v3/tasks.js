@@ -108,6 +108,8 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
+
+    return null;
   },
 };
 
@@ -185,7 +187,7 @@ api.getUserTasks = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    await _getTasks(req, res, res.locals.user);
+    return await _getTasks(req, res, res.locals.user);
   },
 };
 
@@ -220,7 +222,7 @@ api.getChallengeTasks = {
     let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    await _getTasks(req, res, res.locals.user, challenge);
+    return await _getTasks(req, res, res.locals.user, challenge);
   },
 };
 
@@ -312,6 +314,8 @@ api.updateTask = {
     let savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+
+    return null;
   },
 };
 
@@ -418,6 +422,8 @@ api.scoreTask = {
         logger.error(e);
       }
     }
+
+    return null;
   },
 };
 
@@ -522,6 +528,8 @@ api.addChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+
+    return null;
   },
 };
 
@@ -615,6 +623,8 @@ api.updateChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+
+    return null;
   },
 };
 
@@ -664,6 +674,8 @@ api.removeChecklistItem = {
     let savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+
+    return null;
   },
 };
 
@@ -877,6 +889,8 @@ api.deleteTask = {
 
     res.respond(200, {});
     if (challenge) challenge.removeTask(task);
+
+    return null;
   },
 };
 

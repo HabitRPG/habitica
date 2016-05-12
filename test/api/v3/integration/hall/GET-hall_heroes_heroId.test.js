@@ -47,7 +47,7 @@ describe('GET /heroes/:heroId', () => {
     let heroRes = await user.get(`/hall/heroes/${hero._id}`);
 
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
+      '_id', 'id', 'balance', 'profile', 'purchased',
       'contributor', 'auth', 'items',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);

@@ -80,6 +80,7 @@ let updatablePaths = [
   'flags.welcomed',
   'flags.cardReceived',
   'flags.warnedLowHealth',
+  'flags.newStuff',
 
   'achievements',
 

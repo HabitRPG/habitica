@@ -48,6 +48,7 @@ describe('GET /groups/:groupId/invites', () => {
     expect(res.length).to.equal(1);
     expect(res[0]).to.eql({
       _id: invited._id,
+      id: invited._id,
       profile: {name: invited.profile.name},
     });
   });
@@ -57,7 +58,7 @@ describe('GET /groups/:groupId/invites', () => {
     let invited = await generateUser();
     await user.post(`/groups/${group._id}/invite`, {uuids: [invited._id]});
     let res = await user.get('/groups/party/invites');
-    expect(res[0]).to.have.all.keys(['_id', 'profile']);
+    expect(res[0]).to.have.all.keys(['_id', 'id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
@@ -73,7 +74,7 @@ describe('GET /groups/:groupId/invites', () => {
     let res = await user.get('/groups/party/invites');
     expect(res.length).to.equal(30);
     res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'profile']);
+      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
   });

@@ -76,6 +76,7 @@ describe('PUT /challenges/:challengeId', () => {
 
     expect(res.leader).to.eql({
       _id: member._id,
+      id: member._id,
       profile: {name: member.profile.name},
     });
     expect(res.name).to.equal('New Challenge Name');

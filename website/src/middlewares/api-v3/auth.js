@@ -19,7 +19,7 @@ export function authWithHeaders (optional = false) {
       return next(new NotAuthorized(res.t('missingAuthHeaders')));
     }
 
-    User.findOne({
+    return User.findOne({
       _id: userId,
       apiToken,
     })
@@ -31,7 +31,7 @@ export function authWithHeaders (optional = false) {
       res.locals.user = user;
       // TODO use either session/cookie or headers, not both
       req.session.userId = user._id;
-      next();
+      return next();
     })
     .catch(next);
   };
@@ -43,7 +43,7 @@ export function authWithSession (req, res, next) {
 
   if (!userId) return next(new NotAuthorized(res.t('invalidCredentials')));
 
-  User.findOne({
+  return User.findOne({
     _id: userId,
   })
   .exec()
@@ -51,7 +51,7 @@ export function authWithSession (req, res, next) {
     if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 
     res.locals.user = user;
-    next();
+    return next();
   })
   .catch(next);
 }
@@ -64,12 +64,12 @@ export function authWithUrl (req, res, next) {
     throw new NotAuthorized(res.t('missingAuthParams'));
   }
 
-  User.findOne({ _id: userId, apiToken }).exec()
+  return User.findOne({ _id: userId, apiToken }).exec()
   .then((user) => {
     if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 
     res.locals.user = user;
-    next();
+    return next();
   })
   .catch(next);
 }

@@ -35,6 +35,7 @@ describe('GET challenges/user', () => {
     expect(foundChallenge).to.exist;
     expect(foundChallenge.leader).to.eql({
       _id: publicGuild.leader._id,
+      id: publicGuild.leader._id,
       profile: {name: user.profile.name},
     });
     expect(foundChallenge.group).to.eql({
@@ -52,6 +53,7 @@ describe('GET challenges/user', () => {
     expect(foundChallenge1).to.exist;
     expect(foundChallenge1.leader).to.eql({
       _id: publicGuild.leader._id,
+      id: publicGuild.leader._id,
       profile: {name: user.profile.name},
     });
     expect(foundChallenge1.group).to.eql({
@@ -64,6 +66,7 @@ describe('GET challenges/user', () => {
     expect(foundChallenge2).to.exist;
     expect(foundChallenge2.leader).to.eql({
       _id: publicGuild.leader._id,
+      id: publicGuild.leader._id,
       profile: {name: user.profile.name},
     });
     expect(foundChallenge2.group).to.eql({
@@ -81,6 +84,7 @@ describe('GET challenges/user', () => {
     expect(foundChallenge1).to.exist;
     expect(foundChallenge1.leader).to.eql({
       _id: publicGuild.leader._id,
+      id: publicGuild.leader._id,
       profile: {name: user.profile.name},
     });
     expect(foundChallenge1.group).to.eql({
@@ -93,6 +97,7 @@ describe('GET challenges/user', () => {
     expect(foundChallenge2).to.exist;
     expect(foundChallenge2.leader).to.eql({
       _id: publicGuild.leader._id,
+      id: publicGuild.leader._id,
       profile: {name: user.profile.name},
     });
     expect(foundChallenge2.group).to.eql({

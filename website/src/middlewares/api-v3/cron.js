@@ -139,7 +139,7 @@ module.exports = function cronMiddleware (req, res, next) {
       toSave.push(task.save());
     });
 
-    Bluebird.all(toSave)
+    return Bluebird.all(toSave)
     .then(saved => {
       user = res.locals.user = saved[0];
       if (!quest) return;
@@ -150,6 +150,8 @@ module.exports = function cronMiddleware (req, res, next) {
       .then(() => User.findById(user._id).exec()) // fetch the updated user...
       .then(updatedUser => {
         res.locals.user = updatedUser;
+
+        return null;
       });
     })
     .then(() => next())

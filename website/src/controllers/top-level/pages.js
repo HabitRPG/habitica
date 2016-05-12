@@ -20,7 +20,7 @@ api.getFrontPage = {
       return res.redirect('/static/front');
     }
 
-    res.render('index.jade', {
+    return res.render('index.jade', {
       title: 'Habitica | Your Life The Role Playing Game',
       env: res.locals.habitrpg,
     });
@@ -40,7 +40,7 @@ _.each(staticPages, (name) => {
     middlewares: [locals],
     runCron: false,
     async handler (req, res) {
-      res.render(`static/${name}.jade`, {
+      return res.render(`static/${name}.jade`, {
         env: res.locals.habitrpg,
         md,
         userCount: TOTAL_USER_COUNT,
@@ -58,7 +58,7 @@ _.each(shareables, (name) => {
     middlewares: [locals],
     runCron: false,
     async handler (req, res) {
-      res.render(`social/${name}`, {
+      return res.render(`social/${name}`, {
         env: res.locals.habitrpg,
         md,
         userCount: TOTAL_USER_COUNT,
@@ -72,7 +72,7 @@ api.redirectExtensionsPage = {
   url: '/static/extensions',
   runCron: false,
   async handler (req, res) {
-    res.redirect('http://habitica.wikia.com/wiki/App_and_Extension_Integrations');
+    return res.redirect('http://habitica.wikia.com/wiki/App_and_Extension_Integrations');
   },
 };
 

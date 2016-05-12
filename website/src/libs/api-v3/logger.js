@@ -12,7 +12,7 @@ const logger = new winston.Logger();
 if (IS_PROD) {
   // TODO production logging, use loggly and new relic too
 
-  if (ENABLE_CONSOLE_LOGS_IN_PROD) {
+  if (ENABLE_CONSOLE_LOGS_IN_PROD === 'true') {
     logger.add(winston.transports.Console, {
       colorize: true,
       prettyPrint: true,

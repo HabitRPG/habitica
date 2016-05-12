@@ -156,12 +156,14 @@ api.registerLocal = {
         uuid: savedUser._id,
       });
     }
+
+    return null;
   },
 };
 
 function _loginRes (user, req, res) {
   if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
-  res.respond(200, {id: user._id, apiToken: user.apiToken});
+  return res.respond(200, {id: user._id, apiToken: user.apiToken});
 }
 
 /**
@@ -210,7 +212,7 @@ api.loginLocal = {
     let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
     let isValidPassword = user && user.auth.local.hashed_password === passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
-    _loginRes(user, ...arguments);
+    return _loginRes(user, ...arguments);
   },
 };
 
@@ -275,6 +277,8 @@ api.loginSocial = {
         gaLabel: network,
         uuid: savedUser._id,
       });
+
+      return null;
     }
   },
 };

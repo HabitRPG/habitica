@@ -74,7 +74,7 @@ export function getUserLanguage (req, res, next) {
     req.language = _getFromUser(req.locals.user, req);
     return next();
   } else if (req.session && req.session.userId) { // Same thing if the user has a valid session
-    User.findOne({
+    return User.findOne({
       _id: req.session.userId,
     }, 'preferences.language')
     .lean()
