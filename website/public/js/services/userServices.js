@@ -80,9 +80,6 @@ angular.module('habitrpg')
             });
           }
 
-          save();
-          $rootScope.$emit('userSynced');
-
           return Tasks.getUserTasks();
         })
         .then(function (response) {
@@ -94,6 +91,9 @@ angular.module('habitrpg')
           tasks.forEach(function (element, index, array) {
             user[element.type + 's'].push(element)
           })
+          
+          save();
+          $rootScope.$emit('userSynced');
         });
       }
       sync();

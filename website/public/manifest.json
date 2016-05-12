@@ -130,12 +130,12 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/userServices.js",
             "js/services/sharedServices.js",
             "js/services/socialServices.js",
             "js/services/statServices.js",
             "js/services/taskServices.js",
             "js/services/tagsServices.js",
-            "js/services/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
         ],
