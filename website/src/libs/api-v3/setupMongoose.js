@@ -13,7 +13,7 @@ let mongooseOptions = !IS_PROD ? {} : {
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
   server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
 };
-let db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, (err) => {
+let db = mongoose.connect(nconf.get('NODE_DB_URI'), {}, (err) => {
   if (err) throw err;
   logger.info('Connected with Mongoose.');
 });
