@@ -9,11 +9,11 @@ const IS_PROD = nconf.get('IS_PROD');
 // Use Q promises instead of mpromise in mongoose
 mongoose.Promise = Bluebird;
 
-let mongooseOptions = !IS_PROD ? {} : {
+let mongooseOptions = true ? {} : {
   replset: { socketOptions: { keepAlive: 120, connectTimeoutMS: 30000 } },
   server: { socketOptions: { keepAlive: 120, connectTimeoutMS: 30000 } },
 };
-let db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, (err) => {
+let db = mongoose.connect(nconf.get('NODE_DB_URI'), (err) => {
   if (err) throw err;
   logger.info('Connected with Mongoose.');
 });
