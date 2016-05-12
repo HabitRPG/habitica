@@ -106,7 +106,12 @@ angular.module('habitrpg')
       function callOpsFunctionAndRequest (opName, endPoint, method, paramString, opData) {
         if (!opData) opData = {};
 
-        $window.habitrpgShared.ops[opName](user, opData);
+        try {
+          $window.habitrpgShared.ops[opName](user, opData);
+        } catch(err) {
+          Notification.text(err.message);
+          return;
+        }
 
         var url = '/api/v3/user/' + endPoint;
         if (paramString) {
