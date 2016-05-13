@@ -8,7 +8,10 @@ import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
 import { removeFromArray } from '../libs/api-v3/collectionManipulators';
-import { InternalServerError } from '../libs/api-v3/errors';
+import {
+  InternalServerError,
+  BadRequest,
+} from '../libs/api-v3/errors';
 import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
@@ -139,9 +142,15 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   return group;
 };
 
+export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
+
 schema.statics.getGroups = async function getGroups (options = {}) {
   let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
   let queries = [];
+
+  // Throw error if an invalid type is supplied
+  let areValidTypes = types.every(type => VALID_QUERY_TYPES.indexOf(type) !== -1);
+  if (!areValidTypes) throw new BadRequest(shared.i18n.t('groupTypesRequired'));
 
   types.forEach(type => {
     switch (type) {
