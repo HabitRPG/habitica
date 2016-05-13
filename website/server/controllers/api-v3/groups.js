@@ -100,10 +100,6 @@ api.getGroups = {
     let sort = '-memberCount';
 
     let results = await Group.getGroups({user, types, groupFields, sort});
-
-    // If no valid value for type was supplied, return an error
-    if (results.length === 0) throw new BadRequest(res.t('groupTypesRequired'));
-
     res.respond(200, results);
   },
 };

@@ -2,6 +2,7 @@ import {
   generateUser,
   resetHabiticaDB,
   generateGroup,
+  translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import {
   TAVERN_ID,
@@ -67,6 +68,15 @@ describe('GET /groups', () => {
         code: 400,
         error: 'BadRequest',
         message: 'Invalid request parameters.',
+      });
+  });
+
+  it('returns error when an invalid ?type query is passed', async () => {
+    await expect(user.get('/groups?type=invalid'))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('groupTypesRequired'),
       });
   });
 
