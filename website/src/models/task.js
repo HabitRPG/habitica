@@ -47,7 +47,7 @@ export let TaskSchema = new Schema({
   reminders: [{
     _id: false,
     id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
-    startDate: {type: Date, required: true},
+    startDate: {type: Date},
     time: {type: Date, required: true},
   }],
 }, _.defaults({
