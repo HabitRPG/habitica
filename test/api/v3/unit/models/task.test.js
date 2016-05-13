@@ -1,7 +1,7 @@
-import { model as Challenge } from '../../../../../website/src/models/challenge';
-import { model as Group } from '../../../../../website/src/models/group';
-import { model as User } from '../../../../../website/src/models/user';
-import * as Tasks from '../../../../../website/src/models/task';
+import { model as Challenge } from '../../../../../website/server/models/challenge';
+import { model as Group } from '../../../../../website/server/models/group';
+import { model as User } from '../../../../../website/server/models/user';
+import * as Tasks from '../../../../../website/server/models/task';
 import { each } from 'lodash';
 import { generateHistory } from '../../../../helpers/api-unit.helper.js';
 

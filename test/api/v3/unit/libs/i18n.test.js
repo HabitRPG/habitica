@@ -2,7 +2,7 @@ import {
   translations,
   localePath,
   langCodes,
-} from '../../../../../website/src/libs/api-v3/i18n';
+} from '../../../../../website/server/libs/api-v3/i18n';
 import fs from 'fs';
 import path from 'path';
 

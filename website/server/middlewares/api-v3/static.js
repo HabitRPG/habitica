@@ -4,7 +4,7 @@ import path from 'path';
 
 const IS_PROD = nconf.get('IS_PROD');
 const MAX_AGE = IS_PROD ? 31536000000 : 0;
-const PUBLIC_DIR = path.join(__dirname, '/../../../public');
+const PUBLIC_DIR = path.join(__dirname, '/../../../client');
 const BUILD_DIR = path.join(__dirname, '/../../../build');
 
 module.exports = function staticMiddleware (expressApp) {

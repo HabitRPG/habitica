@@ -1,12 +1,12 @@
-import '../../website/src/libs/api-v3/i18n';
+import '../../website/server/libs/api-v3/i18n';
 import mongoose from 'mongoose';
 import { defaultsDeep as defaults } from 'lodash';
-import { model as User } from '../../website/src/models/user';
-import { model as Group } from '../../website/src/models/group';
+import { model as User } from '../../website/server/models/user';
+import { model as Group } from '../../website/server/models/group';
 import mongo from './mongo'; // eslint-disable-line
 import moment from 'moment';
 import i18n from '../../common/script/i18n';
-import * as Tasks from '../../website/src/models/task';
+import * as Tasks from '../../website/server/models/task';
 
 afterEach((done) => {
   sandbox.restore();

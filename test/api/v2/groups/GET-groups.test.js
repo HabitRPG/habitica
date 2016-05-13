@@ -5,7 +5,7 @@ import {
 } from '../../../helpers/api-integration/v2';
 import {
   TAVERN_ID,
-} from '../../../../website/src/models/group';
+} from '../../../../website/server/models/group';
 
 describe('GET /groups', () => {
   const NUMBER_OF_PUBLIC_GUILDS = 3;

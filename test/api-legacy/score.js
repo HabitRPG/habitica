@@ -1,4 +1,4 @@
-require("../../website/src/server");
+require("../../website/server/server");
 
 describe("Score", function() {
   before(function(done) {

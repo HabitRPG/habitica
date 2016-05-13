@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var nconf = require('nconf');
 var _ = require('lodash');
-var manifestFiles = require("../../../public/manifest.json");
+var manifestFiles = require("../../../client/manifest.json");
 
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 var buildFiles = [];

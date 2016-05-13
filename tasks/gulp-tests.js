@@ -68,7 +68,7 @@ gulp.task('test:prepare:mongo', (cb) => {
 
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
-    server = exec(testBin(`node ./website/src/index.js`, `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
+    server = exec(testBin(`node ./website/server/index.js`, `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
       if (error) { throw `Problem with the server: ${error}`; }
       if (stderr) { console.error(stderr); }
     });
@@ -219,7 +219,7 @@ gulp.task('test:api-legacy:watch', [
   'test:prepare:mongo',
   'test:api-legacy:clean'
 ], () => {
-  gulp.watch(['website/src/**', 'test/api-legacy/**'], ['test:api-legacy:clean']);
+  gulp.watch(['website/server/**', 'test/api-legacy/**'], ['test:api-legacy:clean']);
 });
 
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
@@ -318,7 +318,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 
 gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
   process.env.RUN_INTEGRATION_TEST_FOREVER = true;
-  gulp.watch(['website/src/**', 'test/api/v2/**'], ['test:api-v2']);
+  gulp.watch(['website/server/**', 'test/api/v2/**'], ['test:api-v2']);
 });
 
 gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
@@ -359,7 +359,7 @@ gulp.task('test:api-v3:unit', (done) => {
 });
 
 gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/src/libs/api-v3/*', 'test/api/v3/unit/**/*', 'website/src/controllers/**/*'], ['test:api-v3:unit']);
+  gulp.watch(['website/server/libs/api-v3/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], ['test:api-v3:unit']);
 });
 
 gulp.task('test:api-v3:integration', (done) => {
@@ -373,7 +373,7 @@ gulp.task('test:api-v3:integration', (done) => {
 });
 
 gulp.task('test:api-v3:integration:watch', () => {
-  gulp.watch(['website/src/controllers/api-v3/**/*', 'common/script/ops/*', 'website/src/libs/api-v3/*.js',
+  gulp.watch(['website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/api-v3/*.js',
               'test/api/v3/integration/**/*'], ['test:api-v3:integration']);
 });
 
@@ -417,7 +417,7 @@ gulp.task('test:api-v3:unit', (done) => {*/
 /*});
 
 gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/src/**', 'test/api/v3/unit/**'], ['test:api-v3:unit']);
+  gulp.watch(['website/server/**', 'test/api/v3/unit/**'], ['test:api-v3:unit']);
 });
 
 gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
@@ -429,7 +429,7 @@ gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
 
 gulp.task('test:api-v3:integration:watch', ['test:prepare:server'], () => {
   process.env.RUN_INTEGRATION_TEST_FOREVER = true;
-  gulp.watch(['website/src/**', 'test/api/v3/integration/**'], ['test:api-v3:integration']);
+  gulp.watch(['website/server/**', 'test/api/v3/integration/**'], ['test:api-v3:integration']);
 });
 
 gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {

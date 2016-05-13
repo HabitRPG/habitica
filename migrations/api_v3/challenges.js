@@ -23,7 +23,7 @@ var fs = require('fs');
 consoleStamp(console);
 
 // Initialize configuration
-require('../../website/src/libs/api-v3/setupNconf')();
+require('../../website/server/libs/api-v3/setupNconf')();
 
 var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
@@ -33,8 +33,8 @@ var MongoClient = MongoDB.MongoClient;
 mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
-var NewChallenge = require('../../website/src/models/challenge').model;
-var Tasks = require('../../website/src/models/task');
+var NewChallenge = require('../../website/server/models/challenge').model;
+var Tasks = require('../../website/server/models/task');
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;

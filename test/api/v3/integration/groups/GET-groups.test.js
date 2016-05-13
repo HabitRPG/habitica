@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import {
   TAVERN_ID,
-} from '../../../../../website/src/models/group';
+} from '../../../../../website/server/models/group';
 
 describe('GET /groups', () => {
   let user;
