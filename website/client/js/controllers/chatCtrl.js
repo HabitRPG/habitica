@@ -63,7 +63,7 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       }
     }
 
-    $scope.likeChatMessage = function(group,message) {
+    $scope.likeChatMessage = function(group, message) {
       if (message.uuid == User.user._id)
         return Notification.text(window.env.t('foreverAlone'));
 
@@ -114,14 +114,13 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       });
     };
 
-    $scope.sync = function(group){
-      if(group.type == 'party') {
-        group.$syncParty(); // Syncs the whole party, not just 15 members
-      } else {
-        group.$get();
-      }
-      // When the user clicks fetch recent messages we need to update
-      // that the user has seen the new messages
+    $scope.sync = function(group) {
+      //@TODO: We need to use chat service here
+      Groups.Group.get(group._id)
+        .then(function (response) {
+          $scope.group = response.data.data;
+        })
+
       Chat.markChatSeen(group._id);
     }
 

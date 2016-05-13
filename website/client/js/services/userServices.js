@@ -91,7 +91,7 @@ angular.module('habitrpg')
           tasks.forEach(function (element, index, array) {
             user[element.type + 's'].push(element)
           })
-          
+
           save();
           $rootScope.$emit('userSynced');
         });
@@ -322,7 +322,7 @@ angular.module('habitrpg')
         hourglassPurchase: function (data) {
           var type = data.params.type;
           var key = data.params.key;
-          callOpsFunctionAndRequest('hourglassPurchase', 'purchase-hourglass', "POST", type + '/' + key, data);
+          callOpsFunctionAndRequest('purchaseHourglass', 'purchase-hourglass', "POST", type + '/' + key, data);
         },
 
         unlock: function (data) {
@@ -403,17 +403,10 @@ angular.module('habitrpg')
             settings.online = true;
             save();
             sync().then(function () {
-              if (cb) {
-                cb();
-              }
+              if (user.preferences.timezoneOffset !== offset)
+                userServices.set({'preferences.timezoneOffset': offset});
+              if (cb) cb();
             });
-            //@TODO: Do we need the timezone set?
-            // userServices.log({}, function(){
-            //   // If they don't have timezone, set it
-            //   if (user.preferences.timezoneOffset !== offset)
-            //     userServices.set({'preferences.timezoneOffset': offset});
-            //   cb && cb();
-            // });
           } else {
             alert('Please enter your ID and Token in settings.')
           }

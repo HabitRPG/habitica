@@ -33,7 +33,10 @@ describe('groupServices', function() {
   });
 
   it('calls party endpoint', function() {
-    $httpBackend.expectGET(groupApiUrlPrefix + '/party').respond({});
+    var groupId = '1234';
+    var groupResponse = {data: {_id: groupId}};
+    $httpBackend.expectGET(groupApiUrlPrefix + '/party').respond(groupResponse);
+    $httpBackend.expectGET('/api/v3/groups/' + groupId + '/members?includeAllPublicFields=true').respond({});
     groups.Group.syncParty();
     $httpBackend.flush();
   });
@@ -74,7 +77,10 @@ describe('groupServices', function() {
   });
 
   it('calls party endpoint when party is not cached', function() {
-    $httpBackend.expectGET(groupApiUrlPrefix + '/party').respond({});
+    var groupId = '1234';
+    var groupResponse = {data: {_id: groupId}};
+    $httpBackend.expectGET(groupApiUrlPrefix + '/party').respond(groupResponse);
+    $httpBackend.expectGET('/api/v3/groups/' + groupId + '/members?includeAllPublicFields=true').respond({});
     groups.party();
     $httpBackend.flush();
   });
@@ -136,7 +142,7 @@ describe('groupServices', function() {
   });
 
   it('calls my guilds endpoint', function() {
-    $httpBackend.expectGET(groupApiUrlPrefix + '?type=privateGuilds').respond([]);
+    $httpBackend.expectGET(groupApiUrlPrefix + '?type=guilds').respond([]);
     groups.myGuilds();
     $httpBackend.flush();
   });
