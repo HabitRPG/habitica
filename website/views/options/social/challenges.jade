@@ -199,10 +199,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   p!=env.t('prizeValue', {gemcount: "{{challenge.prize}}", gemicon: "<span class='inline-block Pet_Currency_Gem1x'></span>"})
                 li.bg-transparent
                   // leave / join
-                  a.btn.btn-sm.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
+                  a.btn.btn-sm.btn-danger(ng-show='isUserMemberOf(challenge)', ng-click='clickLeave(challenge, $event)')
                     span.glyphicon.glyphicon-ban-circle
                     =env.t('leave')
-                  a.btn.btn-sm.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
+                  a.btn.btn-sm.btn-success(ng-hide='isUserMemberOf(challenge)', ng-click='join(challenge)')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
               a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)')

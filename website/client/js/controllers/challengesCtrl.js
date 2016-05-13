@@ -30,6 +30,10 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       });
     };
 
+    $scope.isUserMemberOf = function (challenge) {
+      return User.user.challenges.indexOf(challenge._id) !== -1;
+    }
+
     $scope.editTask = Tasks.editTask;
 
     /**
