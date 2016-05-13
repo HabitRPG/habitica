@@ -158,7 +158,7 @@ angular.module('habitrpg')
       var deferred = $q.defer();
 
       if (!data.myGuilds) {
-        Group.getGroups('privateGuilds')
+        Group.getGroups('guilds')
           .then(function (response) {
             data.myGuilds = response.data.data;
             deferred.resolve(data.myGuilds);
