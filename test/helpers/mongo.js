@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TAVERN_ID } from '../../website/src/models/group';
+import { TAVERN_ID } from '../../website/server/models/group';
 
 // Useful for checking things that have been deleted,
 // but you no longer have access to,

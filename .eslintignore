@@ -8,18 +8,18 @@ website/transpiled-babel/
 
 migrations/*
 
-# The files in website/public/js should be moved out and browserified
-website/public/
+# The files in website/client/js should be moved out and browserified
+website/client/
 
 # Temporarilly disabled. These should be removed when the linting errors are fixed
 common/script/content/index.js
 common/script/public/**/*.js
 
-website/src/**/api-v2/**/*.js
-website/src/routes/payments.js
-website/src/routes/pages.js
-website/src/middlewares/apiThrottle.js
-website/src/middlewares/forceRefresh.js
+website/server/**/api-v2/**/*.js
+website/server/routes/payments.js
+website/server/routes/pages.js
+website/server/middlewares/apiThrottle.js
+website/server/middlewares/forceRefresh.js
 
 debug-scripts/*
 scripts/*

@@ -5,12 +5,12 @@ import {
   generateTodo,
   generateDaily,
 } from '../../../../helpers/api-unit.helper';
-import cronMiddleware from '../../../../../website/src/middlewares/api-v3/cron';
+import cronMiddleware from '../../../../../website/server/middlewares/api-v3/cron';
 import moment from 'moment';
-import { model as User } from '../../../../../website/src/models/user';
-import { model as Group } from '../../../../../website/src/models/group';
-import * as Tasks from '../../../../../website/src/models/task';
-import analyticsService from '../../../../../website/src/libs/api-v3/analyticsService';
+import { model as User } from '../../../../../website/server/models/user';
+import { model as Group } from '../../../../../website/server/models/group';
+import * as Tasks from '../../../../../website/server/models/task';
+import analyticsService from '../../../../../website/server/libs/api-v3/analyticsService';
 import { v4 as generateUUID } from 'uuid';
 
 describe('cron middleware', () => {

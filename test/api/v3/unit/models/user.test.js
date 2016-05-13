@@ -1,4 +1,4 @@
-import { model as User } from '../../../../../website/src/models/user';
+import { model as User } from '../../../../../website/server/models/user';
 
 describe('User Model', () => {
   it('keeps user._tmp when calling .toJSON', () => {

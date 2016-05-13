@@ -1,4 +1,4 @@
-import analyticsService from '../../../../../website/src/libs/api-v3/analyticsService';
+import analyticsService from '../../../../../website/server/libs/api-v3/analyticsService';
 
 import nock from 'nock';
 

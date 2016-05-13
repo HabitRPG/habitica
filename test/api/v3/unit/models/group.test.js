@@ -1,8 +1,8 @@
 import { sleep } from '../../../../helpers/api-unit.helper';
-import { model as Group } from '../../../../../website/src/models/group';
-import { model as User } from '../../../../../website/src/models/user';
+import { model as Group } from '../../../../../website/server/models/group';
+import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
-import * as email from '../../../../../website/src/libs/api-v3/email';
+import * as email from '../../../../../website/server/libs/api-v3/email';
 
 describe('Group Model', () => {
   context('Instance Methods', () => {

@@ -5,7 +5,7 @@ import Bluebird from 'bluebird';
 import { v4 as generateUUID } from 'uuid';
 import { ApiUser, ApiGroup, ApiChallenge } from '../api-classes';
 import { requester } from '../requester';
-import * as Tasks from '../../../../website/src/models/task';
+import * as Tasks from '../../../../website/server/models/task';
 
 // Creates a new user and returns it
 // If you need the user to have specific requirements,

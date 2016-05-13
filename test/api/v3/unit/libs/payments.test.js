@@ -1,6 +1,6 @@
-import * as sender from '../../../../../website/src/libs/api-v3/email';
-import * as api from '../../../../../website/src/libs/api-v3/payments';
-import { model as User } from '../../../../../website/src/models/user';
+import * as sender from '../../../../../website/server/libs/api-v3/email';
+import * as api from '../../../../../website/server/libs/api-v3/payments';
+import { model as User } from '../../../../../website/server/models/user';
 import moment from 'moment';
 
 describe('payments/index', () => {

@@ -30,7 +30,7 @@ var consoleStamp = require('console-stamp');
 consoleStamp(console);
 
 // Initialize configuration
-require('../../website/src/libs/api-v3/setupNconf')();
+require('../../website/server/libs/api-v3/setupNconf')();
 
 var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
@@ -40,9 +40,9 @@ var MongoClient = MongoDB.MongoClient;
 mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
-var NewGroup = require('../../website/src/models/group').model;
+var NewGroup = require('../../website/server/models/group').model;
 
-var TAVERN_ID = require('../../website/src/models/group').TAVERN_ID;
+var TAVERN_ID = require('../../website/server/models/group').TAVERN_ID;
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;

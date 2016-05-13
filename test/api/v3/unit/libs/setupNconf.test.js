@@ -1,4 +1,4 @@
-import setupNconf from '../../../../../website/src/libs/api-v3/setupNconf';
+import setupNconf from '../../../../../website/server/libs/api-v3/setupNconf';
 
 import path from 'path';
 import nconf from 'nconf';

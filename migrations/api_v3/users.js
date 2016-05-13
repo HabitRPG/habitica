@@ -25,7 +25,7 @@ var moment = require('moment');
 consoleStamp(console);
 
 // Initialize configuration
-require('../../website/src/libs/api-v3/setupNconf')();
+require('../../website/server/libs/api-v3/setupNconf')();
 
 var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
@@ -36,8 +36,8 @@ var MongoClient = MongoDB.MongoClient;
 mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
-var NewUser = require('../../website/src/models/user').model;
-var NewTasks = require('../../website/src/models/task');
+var NewUser = require('../../website/server/models/user').model;
+var NewTasks = require('../../website/server/models/task');
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;

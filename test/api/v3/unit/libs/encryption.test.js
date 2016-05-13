@@ -1,7 +1,7 @@
 import {
   encrypt,
   decrypt,
-} from '../../../../../website/src/libs/api-v3/encryption';
+} from '../../../../../website/server/libs/api-v3/encryption';
 
 describe('encryption', () => {
   it('can encrypt and decrypt', () => {

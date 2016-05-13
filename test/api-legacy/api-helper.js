@@ -17,7 +17,7 @@ global._ = require("lodash");
 
 global.shared = require("../../common");
 
-global.User = require("../../website/src/models/user").model;
+global.User = require("../../website/server/models/user").model;
 
 global.chai = require("chai");
 

@@ -4,7 +4,7 @@ import nconf from 'nconf';
 import nodemailer from 'nodemailer';
 import Bluebird from 'bluebird';
 import requireAgain from 'require-again';
-import logger from '../../../../../website/src/libs/api-v3/logger';
+import logger from '../../../../../website/server/libs/api-v3/logger';
 
 function defer () {
   let resolve;
@@ -49,7 +49,7 @@ function getUser () {
 }
 
 describe('emails', () => {
-  let pathToEmailLib = '../../../../../website/src/libs/api-v3/email';
+  let pathToEmailLib = '../../../../../website/server/libs/api-v3/email';
 
   describe('sendEmail', () => {
     it('can send an email using the default transport', () => {

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import autoinc  from 'mongoose-id-autoinc';
-import logger  from '../website/src/libs/api-v3/logger';
+import logger  from '../website/server/libs/api-v3/logger';
 import nconf    from 'nconf';
 import repl     from 'repl';
 import gulp     from 'gulp';
@@ -18,9 +18,9 @@ let improveRepl = (context) => {
     process.stdout.write('\u001B[2J\u001B[0;0f');
   }});
 
-  context.Challenge = require('../website/src/models/challenge').model;
-  context.Group     = require('../website/src/models/group').model;
-  context.User      = require('../website/src/models/user').model;
+  context.Challenge = require('../website/server/models/challenge').model;
+  context.Group     = require('../website/server/models/group').model;
+  context.User      = require('../website/server/models/user').model;
 
   var isProd = nconf.get('NODE_ENV') === 'production';
   var mongooseOptions = !isProd ? {} : {

@@ -15,7 +15,7 @@ import { NotAuthorized } from '../libs/errors';
     web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
     own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
     you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
+    spell is correct. Take a look at habitrpg/website/server/models/user.js and habitrpg/website/server/models/task.js for what attributes are
     available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
     so you'll want to iterate over them like: `_.each(target,function(member){...})`
 

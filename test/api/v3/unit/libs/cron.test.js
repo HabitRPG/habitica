@@ -1,8 +1,8 @@
 /* eslint-disable global-require */
 import moment from 'moment';
-import { cron } from '../../../../../website/src/libs/api-v3/cron';
-import { model as User } from '../../../../../website/src/models/user';
-import * as Tasks from '../../../../../website/src/models/task';
+import { cron } from '../../../../../website/server/libs/api-v3/cron';
+import { model as User } from '../../../../../website/server/models/user';
+import * as Tasks from '../../../../../website/server/models/task';
 import { clone } from 'lodash';
 import common from '../../../../../common';
 

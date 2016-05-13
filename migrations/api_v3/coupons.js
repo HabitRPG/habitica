@@ -22,7 +22,7 @@ var consoleStamp = require('console-stamp');
 consoleStamp(console);
 
 // Initialize configuration
-require('../../website/src/libs/api-v3/setupNconf')();
+require('../../website/server/libs/api-v3/setupNconf')();
 
 var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
@@ -32,7 +32,7 @@ var MongoClient = MongoDB.MongoClient;
 mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
-var Coupon = require('../../website/src/models/coupon').model;
+var Coupon = require('../../website/server/models/coupon').model;
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;

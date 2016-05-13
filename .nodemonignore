@@ -2,7 +2,7 @@ node_modules/**
 .bower-cache/**
 .bower-tmp/**
 .bower-registry/**
-website/public/**
+website/client/**
 website/views/**
 website/build/**
 .git/**
