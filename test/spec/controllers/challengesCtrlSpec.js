@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Challenges Controller', function() {
-  var rootScope, scope, user, User, ctrl, groups, members, notification, state, challenges;
+  var rootScope, scope, user, User, ctrl, groups, members, notification, state, challenges, tasks;
 
   beforeEach(function() {
     module(function($provide) {
@@ -14,7 +14,7 @@ describe('Challenges Controller', function() {
       $provide.value('User', User);
     });
 
-    inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_, _Challenges_){
+    inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_, _Challenges_, _Tasks_){
       scope = $rootScope.$new();
       rootScope = $rootScope;
 
@@ -24,6 +24,7 @@ describe('Challenges Controller', function() {
       ctrl = $controller('ChallengesCtrl', {$scope: scope, User: User});
 
       challenges = _Challenges_;
+      tasks = _Tasks_;
       groups = _Groups_;
       members = _Members_;
       notification = _Notification_;
@@ -320,13 +321,17 @@ describe('Challenges Controller', function() {
 
   context('challenge owner interactions', function() {
     describe("save challenge", function() {
-      var alert, createChallengeSpy, challengeResponse;
+      var alert, createChallengeSpy, challengeResponse, taskChallengeCreateSpy;
 
       beforeEach(function(){
         alert = sandbox.stub(window, "alert");
         createChallengeSpy = sinon.stub(challenges, 'createChallenge');
         challengeResponse = {data: {data: {_id: 'new-challenge'}}};
         createChallengeSpy.returns(Promise.resolve(challengeResponse));
+
+        taskChallengeCreateSpy = sinon.stub(tasks, 'createChallengeTasks');
+        var taskResponse = {data: {data: []}};
+        taskChallengeCreateSpy.returns(Promise.resolve(taskResponse));
       });
 
       it("opens an alert box if challenge.group is not specified", function() {
