@@ -322,7 +322,7 @@ angular.module('habitrpg')
         hourglassPurchase: function (data) {
           var type = data.params.type;
           var key = data.params.key;
-          callOpsFunctionAndRequest('hourglassPurchase', 'purchase-hourglass', "POST", type + '/' + key, data);
+          callOpsFunctionAndRequest('purchaseHourglass', 'purchase-hourglass', "POST", type + '/' + key, data);
         },
 
         unlock: function (data) {
