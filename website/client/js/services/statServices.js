@@ -22,7 +22,7 @@
     }
 
     function classBonus(user, stat) {
-      var computedStats = user.fns.statsComputed ? user.fns.statsComputed() : null;
+      var computedStats = (user.fns && user.fns.statsComputed) ? user.fns.statsComputed() : null;
 
       if(computedStats) {
         var bonus = computedStats[stat]
@@ -95,7 +95,7 @@
 
     function mpDisplay(user) {
       var remainingMP = Math.floor(user.stats.mp);
-      var totalMP = user.fns.statsComputed ? user.fns.statsComputed().maxMP : null;
+      var totalMP = (user.fns && user.fns.statsComputed) ? user.fns.statsComputed().maxMP : null;
       var display = _formatOutOfTotalDisplay(remainingMP, totalMP);
 
       return display;
