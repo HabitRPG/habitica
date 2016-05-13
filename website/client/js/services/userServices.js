@@ -153,8 +153,20 @@ angular.module('habitrpg')
           callOpsFunctionAndRequest('allocate', 'allocate', "POST",'', data);
         },
 
+        allocateNow: function () {
+          callOpsFunctionAndRequest('allocateNow', 'allocate-now', "POST");
+        },
+
         changeClass: function (data) {
           callOpsFunctionAndRequest('changeClass', 'change-class', "POST",'', data);
+        },
+
+        disableClasses: function () {
+          callOpsFunctionAndRequest('disableClasses', 'disable-classes', "POST");
+        },
+
+        revive: function (data) {
+          callOpsFunctionAndRequest('revive', 'revive', "POST");
         },
 
         addTask: function (data) {
@@ -187,6 +199,12 @@ angular.module('habitrpg')
           Tasks.deleteTask(data.params.id);
         },
 
+        clearCompleted: function () {
+          user.ops.clearCompleted(user.todos);
+          save();
+          Tasks.clearCompletedTodos();
+        },
+
         addTag: function(data) {
           user.ops.addTag(data);
           save();
@@ -197,6 +215,12 @@ angular.module('habitrpg')
           user.ops.updateTag(data);
           save();
           Tags.updateTag(data.params.id, data.body);
+        },
+
+        deleteTag: function(data) {
+          user.ops.deleteTag(data);
+          save();
+          Tags.deleteTag(data.params.id);
         },
 
         addTenGems: function () {
@@ -228,8 +252,16 @@ angular.module('habitrpg')
           callOpsFunctionAndRequest('clearPMs', 'messages', "DELETE");
         },
 
+        deletePM: function (data) {
+          callOpsFunctionAndRequest('deletePM', 'messages', "DELETE", data.params.id, data);
+        },
+
         buy: function (data) {
           callOpsFunctionAndRequest('buy', 'buy', "POST", data.params.key, data);
+        },
+
+        buyQuest: function (data) {
+          callOpsFunctionAndRequest('buyQuest', 'buy-quest', "POST", data.params.key, data);
         },
 
         purchase: function (data) {
@@ -249,6 +281,18 @@ angular.module('habitrpg')
           .then(function (response) {
             Notification.text(response.data.message);
           })
+        },
+
+        buyMysterySet: function (data) {
+          callOpsFunctionAndRequest('buyMysterySet', 'buy-mystery-set', "POST", data.params.key, data);
+        },
+
+        readCard: function (data) {
+          callOpsFunctionAndRequest('readCard', 'read-card', "POST", data.params.cardType, data);
+        },
+
+        openMysteryItem: function (data) {
+          callOpsFunctionAndRequest('openMysteryItem', 'open-mystery-item', "POST");
         },
 
         sell: function (data) {
@@ -332,6 +376,10 @@ angular.module('habitrpg')
 
         sleep: function () {
           callOpsFunctionAndRequest('sleep', 'sleep', "POST");
+        },
+
+        blockUser: function (data) {
+          callOpsFunctionAndRequest('blockUser', 'block', "POST", data.params.uuid, data);
         },
 
         online: function (status) {
