@@ -5,7 +5,10 @@ import extendableBuiltin from './extendableBuiltin';
 export class CustomError extends extendableBuiltin(Error) {
   constructor () {
     super();
-    Error.captureStackTrace(this, this.constructor);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    }
   }
 }
 
