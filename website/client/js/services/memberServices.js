@@ -15,10 +15,16 @@ angular.module('habitrpg')
     }
 
     //@TODO: Add paging
-    function getGroupMembers (groupId) {
+    function getGroupMembers (groupId, includeAllPublicFields) {
+      var url = apiV3Prefix + '/groups/' + groupId + '/members';
+
+      if (includeAllPublicFields) {
+        url += '?includeAllPublicFields=true';
+      }
+
       return $http({
         method: 'GET',
-        url: apiV3Prefix + '/groups/' + groupId + '/members',
+        url: url,
       });
     }
 

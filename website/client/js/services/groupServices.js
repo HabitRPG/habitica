@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Groups', [ '$location', '$rootScope', '$http', 'Analytics', 'ApiUrl', 'Challenges', '$q', 'User',
-  function($location, $rootScope, $http, Analytics, ApiUrl, Challenges, $q, User) {
+.factory('Groups', [ '$location', '$rootScope', '$http', 'Analytics', 'ApiUrl', 'Challenges', '$q', 'User', 'Members',
+  function($location, $rootScope, $http, Analytics, ApiUrl, Challenges, $q, User, Members) {
     var data =  {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined };
     var groupApiURLPrefix = "/api/v3/groups";
 
@@ -117,7 +117,11 @@ angular.module('habitrpg')
         Group.get('party')
           .then(function (response) {
             data.party = response.data.data;
-            _cachedPartyPromise.resolve(data.party);
+            Members.getGroupMembers(data.party._id, true)
+              .then(function (response) {
+                data.party.members = response.data.data;
+                _cachedPartyPromise.resolve(data.party);
+              });
           }, function (response) {
             data.party = { type: 'party' };
             _cachedPartyPromise.reject(data.party);
