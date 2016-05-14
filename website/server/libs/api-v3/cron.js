@@ -70,6 +70,7 @@ function performSleepTasks (user, tasksByType, now) {
     let thatDay = moment(now).subtract({days: 1});
 
     if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
+      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitrpg/pull/7218#issuecomment-219256016
       daily.checklist.forEach(box => box.completed = false);
     }
 
