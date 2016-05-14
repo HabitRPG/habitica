@@ -37,8 +37,12 @@ function grantEndOfTheMonthPerks (user, now) {
       if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
     }
   }
+}
 
-  // If user cancelled subscription, we give them until 30day's end until it terminates
+function removeTerminatedSubscription (user) {
+  // If subscription's termination date has arrived
+  let plan = user.purchased.plan;
+
   if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(new Date())) {
     _.merge(plan, {
       planId: null,
@@ -71,17 +75,14 @@ function performSleepTasks (user, tasksByType, now) {
   });
 }
 
-// At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-// For incomplete Dailys, deduct experience
-// Make sure to run this function once in a while as server will not take care of overnight calculations.
-// And you have to run it every time client connects.
+// Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
 
   user.auth.timestamps.loggedin = now;
   user.lastCron = now;
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
-  // Reset the lastDrop count to zero
+  // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
 
   // "Perfect Day" achievement for perfect-days
@@ -89,6 +90,7 @@ export function cron (options = {}) {
 
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
+    removeTerminatedSubscription(user);
   }
 
   // User is resting at the inn.
@@ -105,7 +107,7 @@ export function cron (options = {}) {
   // Tally each task
   let todoTally = 0;
 
-  tasksByType.todos.forEach(task => { // make uncompleted todos redder
+  tasksByType.todos.forEach(task => { // make uncompleted To-Dos redder (further incentive to complete them)
     scoreTask({
       task,
       user,
@@ -117,8 +119,9 @@ export function cron (options = {}) {
     todoTally += task.value;
   });
 
+  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
   let dailyChecked = 0; // how many dailies were checked?
-  let dailyDueUnchecked = 0; // how many dailies were cun-hecked?
+  let dailyDueUnchecked = 0; // how many dailies were un-checked?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
   tasksByType.dailys.forEach((task) => {
@@ -186,6 +189,7 @@ export function cron (options = {}) {
     }
   });
 
+  // move singleton Habits towards yellow.
   tasksByType.habits.forEach((task) => { // slowly reset 'onlies' value to 0
     if (task.up === false || task.down === false) {
       task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
@@ -206,8 +210,8 @@ export function cron (options = {}) {
   user.history.exp.push({date: now, value: expTally});
 
   // preen user history so that it doesn't become a performance problem
-  // also for subscribed users but differentyly
-  // premium subscribers can keep their full history.
+  // also for subscribed users but differently
+  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitrpg/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
   preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
 
   if (perfect) {
@@ -242,7 +246,7 @@ export function cron (options = {}) {
   _.merge(progress, {down: 0, up: 0});
   progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
 
-  // @TODO: Clean PMs - keep 200 for subscribers and 50 for free users
+  // @TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
   // let numberOfPMs = Object.keys(user.inbox.messages).length;
   // if (numberOfPMs > maxPMs) {
   //   _(user.inbox.messages)
@@ -257,7 +261,7 @@ export function cron (options = {}) {
 
   // Analytics
   user.flags.cronCount++;
-  analytics.track('Cron', {
+  analytics.track('Cron', { // TODO also do while resting in the inn. https://github.com/HabitRPG/habitrpg/issues/7161#issuecomment-218214191
     category: 'behavior',
     gaLabel: 'Cron Count',
     gaValue: user.flags.cronCount,

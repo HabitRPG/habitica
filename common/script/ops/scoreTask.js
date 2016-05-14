@@ -87,7 +87,6 @@ function _gainMP (user, val) {
   if (user.stats.mp >= user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
   if (user.stats.mp < 0) {
     user.stats.mp = 0;
-    return user.stats.mp;
   }
 }
 
@@ -181,10 +180,9 @@ module.exports = function scoreTask (options = {}, req = {}) {
   // the API consumer, then cleared afterwards
   user._tmp = {};
 
-  // If they're trying to purhcase a too-expensive reward, don't allow them to do that.
+  // If they're trying to purchase a too-expensive reward, don't allow them to do that.
   if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
 
-  // ===== starting to actually do stuff, most of above was definitions =====
   if (task.type === 'habit') {
     delta += _changeTaskValue(user, task, direction, times, cron);
 
