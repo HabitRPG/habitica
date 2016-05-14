@@ -335,7 +335,11 @@ angular.module('habitrpg')
             method: "PUT",
             url: '/api/v3/user',
             data: updates,
-          });
+          })
+          .then(function () {
+            save();
+            $rootScope.$emit('userSynced');
+          })
         },
 
         reroll: function () {
