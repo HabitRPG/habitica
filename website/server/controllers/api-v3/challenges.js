@@ -52,7 +52,7 @@ api.createChallenge = {
     }
 
     if (group._id === TAVERN_ID && prize < 1) {
-      throw new NotAuthorized(res.t('pubChalsMinPrize'));
+      throw new NotAuthorized(res.t('tavChalsMinPrize'));
     }
 
     if (prize > 0) {
