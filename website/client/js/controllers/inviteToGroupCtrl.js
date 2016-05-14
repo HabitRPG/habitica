@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification',
-  function($scope, User, Groups, injectedGroup, $http, Notification) {
+habitrpg.controller('InviteToGroupCtrl', ['$scope', '$rootScope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification',
+  function($scope, $rootScope, User, Groups, injectedGroup, $http, Notification) {
     $scope.group = injectedGroup;
 
     $scope.inviter = User.user.profile.name;
@@ -22,6 +22,8 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
         return Groups.Group.create($scope.group)
           .then(function(response) {
             $scope.group = response.data.data;
+            User.sync();
+            Groups.data.party = $scope.group;
             _inviteByMethod(inviteMethod);
           });
       }
@@ -46,6 +48,7 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
         .then(function() {
           Notification.text(window.env.t('invitationsSent'));
           _resetInvitees();
+          $rootScope.hardRedirect('/#/options/groups/party');
         }, function(){
           _resetInvitees();
         });

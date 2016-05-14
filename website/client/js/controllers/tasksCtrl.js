@@ -33,9 +33,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       var newTask = {
         text: task,
         type: listDef.type,
-        // tags: _.transform(User.user.filters, function(m, v, k) {
-        //  if (v) m.push(v);
-        // }),
+        tags: _.keys(User.user.filters),
       };
 
       User.addTask({body: newTask});
@@ -141,6 +139,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
     $scope._today = moment().add({days: 1});
+
+    $scope.loadedCompletedTodos = function () {
+      Tasks.getUserTasks(true)
+        .then(function (response) {
+          User.user.todos.concat(response.data.data);
+        });
+    }
 
     /*
      ------------------------
@@ -270,6 +275,23 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     function playRewardSound (task) {
       if (task.value <= User.user.stats.gp){
         $rootScope.playSound('Reward');
+      }
+    }
+
+    /*
+    ------------------------
+    Tags
+    ------------------------
+    */
+
+    $scope.updateTaskTags = function (tagId, task) {
+      var tagIndex = task.tags.indexOf(tagId);
+      if (tagIndex === -1) {
+        Tasks.addTagToTask(task._id, tagId);
+        task.tags.push(tagId);
+      } else {
+        Tasks.removeTagFromTask(task._id, tagId);
+        task.tags.splice(tagIndex, 0);
       }
     }
   }]);

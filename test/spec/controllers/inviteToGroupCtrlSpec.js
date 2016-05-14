@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Invite to Group Controller', function() {
-  var scope, ctrl, groups, user, guild, $rootScope;
+  var scope, ctrl, groups, user, guild, rootScope, $controller;
 
   beforeEach(function() {
     user = specHelper.newUser({
@@ -13,8 +13,12 @@ describe('Invite to Group Controller', function() {
       $provide.value('injectedGroup', { user: user });
     });
 
-    inject(function($rootScope, $controller, Groups){
-      scope = $rootScope.$new();
+    inject(function(_$rootScope_, _$controller_, Groups) {
+      rootScope = _$rootScope_;
+
+      scope = _$rootScope_.$new();
+
+      $controller = _$controller_;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       $controller('RootCtrl',  {$scope: scope, User: {user: user}});
@@ -93,6 +97,10 @@ describe('Invite to Group Controller', function() {
     });
 
     context('email', function() {
+      beforeEach(function () {
+        sinon.stub(rootScope, 'hardRedirect');
+      });
+
       it('invites user with emails', function(done) {
         scope.emails = [
           {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
@@ -166,6 +174,10 @@ describe('Invite to Group Controller', function() {
     });
 
     context('uuid', function() {
+      beforeEach(function () {
+        sinon.stub(rootScope, 'hardRedirect');
+      });
+
       it('invites user with uuid', function(done) {
         scope.invitees = [{uuid: '1234'}];
 
