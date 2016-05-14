@@ -82,7 +82,7 @@ export function cron (options = {}) {
   user.auth.timestamps.loggedin = now;
   user.lastCron = now;
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
-  // Allow user to get drops again
+  // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
 
   // "Perfect Day" achievement for perfect-days
@@ -189,7 +189,7 @@ export function cron (options = {}) {
     }
   });
 
-//  move singleton Habits towards yellow.
+  // move singleton Habits towards yellow.
   tasksByType.habits.forEach((task) => { // slowly reset 'onlies' value to 0
     if (task.up === false || task.down === false) {
       task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
