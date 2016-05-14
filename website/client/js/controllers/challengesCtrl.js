@@ -11,7 +11,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = [];
-    Groups.Group.getGroups('party,publicGuilds,privateGuilds,habitrpg')
+    Groups.Group.getGroups('party,publicGuilds,privateGuilds,tavern')
       .then(function (response) {
         $scope.groups = response.data.data;
       });
