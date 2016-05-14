@@ -293,11 +293,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       User.save();
 
       var spell = $scope.spell;
-      var targetId = (type == 'party' || type == 'self') ? '' : type == 'task' ? target.id : target._id;
+      var targetId = target._id;
       $scope.spell = null;
       $rootScope.applyingAction = false;
 
-      $http.post(ApiUrl.get() + '/api/v2/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
+      $http.post(ApiUrl.get() + '/api/v3/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
         .success(function(){
           var msg = window.env.t('youCast', {spell: spell.text()});
           switch (type) {
