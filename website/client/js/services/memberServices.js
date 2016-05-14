@@ -63,7 +63,7 @@ angular.module('habitrpg')
     function transferGems (message, toUserId, gemAmount) {
       return $http({
         method: 'POST',
-        url: apiV3Prefix + '/members/send-private-message',
+        url: apiV3Prefix + '/members/transfer-gems',
         data: {
           message: message,
           toUserId: toUserId,

@@ -79,7 +79,7 @@ describe('POST /members/transfer-gems', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('notEnoughGemsToSend'),
+      message: t('badAmountOfGemsToSend'),
     });
   });
 
@@ -92,7 +92,7 @@ describe('POST /members/transfer-gems', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('notEnoughGemsToSend'),
+      message: t('badAmountOfGemsToSend'),
     });
   });
 
@@ -105,7 +105,7 @@ describe('POST /members/transfer-gems', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('notEnoughGemsToSend'),
+      message: t('badAmountOfGemsToSend'),
     });
   });
 

@@ -297,6 +297,7 @@ api.sendPrivateMessage = {
  *
  * @apiParam {String} message Body parameter The message
  * @apiParam {UUID} toUserId Body parameter The toUser _id
+ * @apiParam {Integer} gemAmount Body parameter The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -307,6 +308,7 @@ api.transferGems = {
   async handler (req, res) {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
+    req.checkBody('gemAmount', res.t('gemAmountRequired')).notEmpty().isInt();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -324,7 +326,7 @@ api.transferGems = {
     let amount = gemAmount / 4;
 
     if (!amount || amount <= 0 || sender.balance < amount) {
-      throw new NotAuthorized(res.t('notEnoughGemsToSend'));
+      throw new NotAuthorized(res.t('badAmountOfGemsToSend'));
     }
 
     receiver.balance += amount;
