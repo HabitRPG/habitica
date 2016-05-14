@@ -140,6 +140,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
     $scope._today = moment().add({days: 1});
 
+    $scope.loadedCompletedTodos = function () {
+      Tasks.getUserTasks(true)
+        .then(function (response) {
+          User.user.todos.concat(response.data.data);
+        });
+    }
+
     /*
      ------------------------
      Dailies

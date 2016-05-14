@@ -32,7 +32,7 @@ mixin taskColumnTabs(position)
       li(ng-class='{active: list.view == "dated"}')
         a(ng-click='list.view = "dated"')=env.t('dated')
       li(ng-class='{active: list.view == "complete"}')
-        a(ng-click='list.view = "complete"')=env.t('complete')
+        a(ng-click='list.view = "complete";loadedCompletedTodos()')=env.t('complete')
   // Rewards Tabs
   div(ng-if='::main && list.type=="reward"', class='tabbable tabs-below')
     ul.task-filter

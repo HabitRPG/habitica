@@ -6,10 +6,14 @@ angular.module('habitrpg')
 .factory('Tasks', ['$rootScope', 'Shared', '$http',
   function tasksFactory($rootScope, Shared, $http) {
 
-    function getUserTasks () {
+    function getUserTasks (getCompletedTodos) {
+      var url = '/api/v3/tasks/user';
+
+      if (getCompletedTodos) url += '?type=completedTodos';
+
       return $http({
         method: 'GET',
-        url: '/api/v3/tasks/user',
+        url: url,
       });
     };
 
