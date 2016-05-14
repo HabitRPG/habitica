@@ -166,7 +166,7 @@ async function _getTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {get} /api/v3/tasks/user Get an user's tasks
+ * @api {get} /api/v3/tasks/user Get a user's tasks
  * @apiVersion 3.0.0
  * @apiName GetUserTasks
  * @apiGroup Task
@@ -259,7 +259,7 @@ api.getTask = {
       if (!challenge || (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
         throw new NotFound(res.t('taskNotFound'));
       }
-    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
 
@@ -300,7 +300,7 @@ api.updateTask = {
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
 
@@ -517,7 +517,7 @@ api.addChecklistItem = {
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
 
@@ -610,7 +610,7 @@ api.updateChecklistItem = {
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -663,7 +663,7 @@ api.removeChecklistItem = {
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -874,7 +874,7 @@ api.deleteTask = {
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by an user make it's the current one
+    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));

@@ -728,7 +728,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
 // Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
 // These will be removed once API v2 is discontinued
 
-// Get all the tasks belonging to an user,
+// Get all the tasks belonging to a user,
 schema.methods.getTasks = function getUserTasks () {
   let args = Array.from(arguments);
   let cb;

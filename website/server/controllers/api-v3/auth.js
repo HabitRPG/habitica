@@ -168,7 +168,7 @@ function _loginRes (user, req, res) {
 
 /**
  * @api {post} /api/v3/user/auth/local/login Login
- * @apiDescription Login an user with email / username and password
+ * @apiDescription Login a user with email / username and password
  * @apiVersion 3.0.0
  * @apiName UserLoginLocal
  * @apiGroup User
