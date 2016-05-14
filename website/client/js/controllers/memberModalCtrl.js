@@ -41,7 +41,7 @@ habitrpg
       $scope.sendGift = function (uuid, gift) {
         Members.transferGems($scope.gift.message, uuid, $scope.gift.gems.amount)
           .then(function (response) {
-            Notification.text('Gift sent!')
+            Notification.text(window.env.t('sentGems'));
             $rootScope.User.sync();
             $scope.$close();
           });
