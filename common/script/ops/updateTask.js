@@ -2,25 +2,24 @@ import _ from 'lodash';
 
 // From server pass task.toObject() not the task document directly
 module.exports = function updateTask (task, req = {}) {
+  let body = req.body || {};
+
   // If reminders are updated -> replace the original ones
-  if (req.body.reminders) {
-    task.reminders = req.body.reminders;
-    delete req.body.reminders;
+  if (body.reminders) {
+    task.reminders = body.reminders;
   }
 
   // If checklist is updated -> replace the original one
-  if (req.body.checklist) {
-    task.checklist = req.body.checklist;
-    delete req.body.checklist;
+  if (body.checklist) {
+    task.checklist = body.checklist;
   }
 
   // If tags are updated -> replace the original ones
-  if (req.body.tags) {
-    task.tags = req.body.tags;
-    delete req.body.tags;
+  if (body.tags) {
+    task.tags = body.tags;
   }
 
-  _.merge(task, _.omit(req.body, ['_id', 'id', 'type']));
+  _.merge(task, _.omit(body, ['_id', 'id', 'type', 'reminders', 'checklist', 'tags']));
 
   return [task];
 };
