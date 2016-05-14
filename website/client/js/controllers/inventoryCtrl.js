@@ -230,7 +230,7 @@ habitrpg.controller("InventoryCtrl",
           for (item in user.items.gear.equipped){
             var itemKey = user.items.gear.equipped[item];
             if (user.items.gear.owned[itemKey]) {
-              User.equip({params: {key: itemKey}});
+              User.equip({params: {type: 'equipped', key: itemKey}});
             }
           }
           break;
