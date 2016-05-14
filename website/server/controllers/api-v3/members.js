@@ -325,7 +325,7 @@ api.transferGems = {
     let gemAmount = req.body.gemAmount;
     let amount = gemAmount / 4;
 
-    if (!amount || amount <= 0 || sender.balance < amount) {
+    if (amount <= 0 || sender.balance < amount) {
       throw new NotAuthorized(res.t('badAmountOfGemsToSend'));
     }
 

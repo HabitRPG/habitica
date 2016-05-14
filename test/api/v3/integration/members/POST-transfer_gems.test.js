@@ -9,14 +9,13 @@ describe('POST /members/transfer-gems', () => {
   let receiver;
   let message = 'Test Private Message';
   let gemAmount = 20;
-  let giftType = 'gems';
 
   beforeEach(async () => {
     userToSendMessage = await generateUser({balance: 5});
     receiver = await generateUser();
   });
 
-  it('returns error when giftType is not provided', async () => {
+  it('returns error when no parameters are provided', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems'))
       .to.eventually.be.rejected.and.eql({
         code: 400,
@@ -26,10 +25,10 @@ describe('POST /members/transfer-gems', () => {
   });
 
   it('returns error when message is not provided', async () => {
-    await expect(userToSendMessage.post('/members/transfer-gems'), {
-      giftType,
-      message,
-    }).to.eventually.be.rejected.and.eql({
+    await expect(userToSendMessage.post('/members/transfer-gems', {
+      gemAmount,
+      toUserId: receiver._id,
+    })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'Invalid request parameters.',
@@ -38,8 +37,8 @@ describe('POST /members/transfer-gems', () => {
 
   it('returns error when toUserId is not provided', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
-      giftType,
       message,
+      gemAmount,
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -49,8 +48,8 @@ describe('POST /members/transfer-gems', () => {
 
   it('returns error when to user is not found', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
-      giftType,
       message,
+      gemAmount,
       toUserId: generateUUID(),
     })).to.eventually.be.rejected.and.eql({
       code: 404,
@@ -61,8 +60,8 @@ describe('POST /members/transfer-gems', () => {
 
   it('returns error when to user attempts to send gems to themselves', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
-      giftType,
       message,
+      gemAmount,
       toUserId: userToSendMessage._id,
     })).to.eventually.be.rejected.and.eql({
       code: 401,
@@ -71,21 +70,31 @@ describe('POST /members/transfer-gems', () => {
     });
   });
 
-  it('returns error when there is no amount', async () => {
+  it('returns error when there is no gemAmount', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
-      giftType,
       message,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('badAmountOfGemsToSend'),
+      code: 400,
+      error: 'BadRequest',
+      message: 'Invalid request parameters.',
+    });
+  });
+
+  it('returns error when gemAmount is not an integer', async () => {
+    await expect(userToSendMessage.post('/members/transfer-gems', {
+      message,
+      gemAmount: 1.5,
+      toUserId: receiver._id,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: 'Invalid request parameters.',
     });
   });
 
   it('returns error when gemAmount is negative', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
-      giftType,
       message,
       gemAmount: -5,
       toUserId: receiver._id,
@@ -98,7 +107,6 @@ describe('POST /members/transfer-gems', () => {
 
   it('returns error when gemAmount is more than the sender\'s balance', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
-      giftType,
       message,
       gemAmount: gemAmount + 4,
       toUserId: receiver._id,
@@ -111,7 +119,6 @@ describe('POST /members/transfer-gems', () => {
 
   it('sends a private message about gems to a user', async () => {
     await userToSendMessage.post('/members/transfer-gems', {
-      giftType,
       message,
       gemAmount,
       toUserId: receiver._id,
