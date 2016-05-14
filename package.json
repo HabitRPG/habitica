@@ -128,7 +128,7 @@
     "coveralls": "^2.11.2",
     "csv": "~0.3.6",
     "deep-diff": "~0.1.4",
-    "eslint": "^2.7.0",
+    "eslint": "2.9.0",
     "eslint-config-habitrpg": "^1.0.0",
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-mocha": "^2.1.0",
