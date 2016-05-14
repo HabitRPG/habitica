@@ -316,7 +316,7 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('allow inviting an user to a party if he\'s partying solo', async () => {
+    it('allow inviting a user to a party if he\'s partying solo', async () => {
       let userToInvite = await generateUser();
       await userToInvite.post('/groups', { // add user to a party
         name: 'Another Test Party',

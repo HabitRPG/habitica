@@ -70,7 +70,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
         });
     });
 
-    it('return an error when an user rejects an invite twice', async () => {
+    it('return an error when a user rejects an invite twice', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
 
@@ -82,7 +82,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
       });
     });
 
-    it('return an error when an user rejects an invite already accepted', async () => {
+    it('return an error when a user rejects an invite already accepted', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
 

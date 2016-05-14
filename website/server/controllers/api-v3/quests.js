@@ -177,7 +177,7 @@ api.acceptQuest = {
 
     res.respond(200, savedGroup.quest);
 
-    // track that an user has accepted the quest
+    // track that a user has accepted the quest
     analytics.track('quest', {
       category: 'behavior',
       owner: false,
