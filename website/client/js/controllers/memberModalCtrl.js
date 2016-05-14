@@ -33,12 +33,12 @@ habitrpg
       //@TODO: We don't send subscriptions so the structure has changed in the back. Update this when we update the views.
       $scope.gift = {
         type: 'gems',
-        gems: {amount:0, fromBalance:true},
-        subscription: {key:''},
-        message:''
+        gems: {amount: 0, fromBalance: true},
+        subscription: {key: ''},
+        message: ''
       };
 
-      $scope.sendGift = function (uuid, gift) {
+      $scope.sendGift = function (uuid) {
         Members.transferGems($scope.gift.message, uuid, $scope.gift.gems.amount)
           .then(function (response) {
             Notification.text(window.env.t('sentGems'));
