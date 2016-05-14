@@ -37,7 +37,7 @@ describe('POST /challenges', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('pubChalsMinPrize'),
+      message: t('tavChalsMinPrize'),
     });
   });
 

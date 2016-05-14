@@ -54,7 +54,7 @@
   "canOnlyInviteEmailUuid": "Can only invite using uuids or emails.",
   "inviteMissingEmail": "Missing email address in invite.",
   "onlyGroupLeaderChal": "Only the group leader can create challenges",
-  "pubChalsMinPrize": "Prize must be at least 1 Gem for public challenges.",
+  "tavChalsMinPrize": "Prize must be at least 1 Gem for Tavern challenges.",
   "cantAfford": "You can't afford this prize. Purchase more gems or lower the prize amount.",
   "challengeIdRequired": "\"challengeId\" must be a valid UUID.",
   "winnerIdRequired": "\"winnerId\" must be a valid UUID.",
