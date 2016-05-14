@@ -2,7 +2,9 @@ import moment from 'moment';
 import common from '../../../../common/';
 import { preenUserHistory } from '../../libs/api-v3/preening';
 import _ from 'lodash';
+import nconf from 'nconf';
 
+const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
@@ -90,7 +92,7 @@ export function cron (options = {}) {
 
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
-    removeTerminatedSubscription(user);
+    if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
   }
 
   // User is resting at the inn.
@@ -149,7 +151,8 @@ export function cron (options = {}) {
         }
       }
 
-      if (scheduleMisses > EvadeTask) {
+      if (scheduleMisses > EvadeTask && !CRON_SAFE_MODE) {
+        // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
         perfect = false;
 
         if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
