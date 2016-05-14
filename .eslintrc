@@ -2,5 +2,8 @@
   "extends": [
     "habitrpg/server",
     "habitrpg/babel"
-  ]
+  ],
+  "globals": {
+    "Promise": true
+  }
 }

@@ -32,7 +32,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
             .form-horizontal
               h5=env.t('language')
-              select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
+              select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in availableLanguages', ng-change='changeLanguage()')
               small
                 !=env.t('americanEnglishGovern')
                 br
@@ -92,7 +92,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
-            button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+            button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
 
             hr
 
@@ -229,7 +229,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h6=env.t('userId')
         pre.prettyprint {{user.id}}
         h6=env.t('APIToken')
-        pre.prettyprint {{user.apiToken}}
+        pre.prettyprint {{User.settings.auth.apiToken}}
         h6=env.t('qrCode')
         img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
         br
@@ -405,4 +405,3 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
           .col-xs-4
             a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")
               img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
-

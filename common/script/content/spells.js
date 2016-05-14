@@ -1,6 +1,6 @@
 import t from './translation';
 import _ from 'lodash';
-
+import { NotAuthorized } from '../libs/errors';
 /*
   ---------------------------------------------------------------
   Spells
@@ -15,7 +15,7 @@ import _ from 'lodash';
     web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
     own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
     you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
+    spell is correct. Take a look at habitrpg/website/server/models/user.js and habitrpg/website/server/models/task.js for what attributes are
     available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
     so you'll want to iterate over them like: `_.each(target,function(member){...})`
 
@@ -40,14 +40,12 @@ spells.wizard = {
     lvl: 11,
     target: 'task',
     notes: t('spellWizardFireballNotes'),
-    cast (user, target) {
+    cast (user, target, req) {
       let bonus = user._statsComputed.int * user.fns.crit('per');
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress) user.party.quest.progress = 0;
       user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 0.1);
-      // TODO change, pass req to spell?
-      let req = {language: user.preferences.language};
       user.fns.updateStats(user.stats, req);
     },
   },
@@ -166,12 +164,11 @@ spells.rogue = {
     lvl: 12,
     target: 'task',
     notes: t('spellRogueBackStabNotes'),
-    cast (user, target) {
+    cast (user, target, req) {
       let _crit = user.fns.crit('str', 0.3);
       let bonus = calculateBonus(target.value, user._statsComputed.str, _crit);
       user.stats.exp += diminishingReturns(bonus, 75, 50);
       user.stats.gp += diminishingReturns(bonus, 18, 75);
-      let req = {language: user.preferences.language};
       user.fns.updateStats(user.stats, req);
     },
   },
@@ -218,10 +215,10 @@ spells.healer = {
     text: t('spellHealerBrightnessText'),
     mana: 15,
     lvl: 12,
-    target: 'self',
+    target: 'tasks',
     notes: t('spellHealerBrightnessNotes'),
-    cast (user) {
-      _.each(user.tasks, (task) => {
+    cast (user, tasks) {
+      _.each(tasks, (task) => {
         if (task.type !== 'reward') {
           task.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40));
         }
@@ -262,9 +259,11 @@ spells.special = {
     text: t('spellSpecialSnowballAuraText'),
     mana: 0,
     value: 15,
+    previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
-    cast (user, target) {
+    cast (user, target, req) {
+      if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = true;
       target.stats.buffs.spookDust = false;
       target.stats.buffs.shinySeed = false;
@@ -290,9 +289,11 @@ spells.special = {
     text: t('spellSpecialSpookDustText'),
     mana: 0,
     value: 15,
+    previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSpookDustNotes'),
-    cast (user, target) {
+    cast (user, target, req) {
+      if (!user.items.special.spookDust) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
       target.stats.buffs.spookDust = true;
       target.stats.buffs.shinySeed = false;
@@ -318,9 +319,11 @@ spells.special = {
     text: t('spellSpecialShinySeedText'),
     mana: 0,
     value: 15,
+    previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    cast (user, target) {
+    cast (user, target, req) {
+      if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
       target.stats.buffs.spookDust = false;
       target.stats.buffs.shinySeed = true;
@@ -346,9 +349,11 @@ spells.special = {
     text: t('spellSpecialSeafoamText'),
     mana: 0,
     value: 15,
+    previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
-    cast (user, target) {
+    cast (user, target, req) {
+      if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
       target.stats.buffs.spookDust = false;
       target.stats.buffs.shinySeed = false;
@@ -499,8 +504,8 @@ _.each(spells, (spellClass) => {
   _.each(spellClass, (spell, key) => {
     spell.key = key;
     let _cast = spell.cast;
-    spell.cast = function castSpell (user, target) {
-      _cast(user, target);
+    spell.cast = function castSpell (user, target, req) {
+      _cast(user, target, req);
       user.stats.mp -= spell.mana;
     };
   });

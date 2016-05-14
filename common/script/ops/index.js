@@ -30,6 +30,9 @@ import releasePets from './releasePets';
 import releaseMounts from './releaseMounts';
 import releaseBoth from './releaseBoth';
 import buy from './buy';
+import buyGear from './buyGear';
+import buyPotion from './buyPotion';
+import buyArmoire from './buyArmoire';
 import buyQuest from './buyQuest';
 import buyMysterySet from './buyMysterySet';
 import hourglassPurchase from './hourglassPurchase';
@@ -42,7 +45,9 @@ import disableClasses from './disableClasses';
 import allocate from './allocate';
 import readCard from './readCard';
 import openMysteryItem from './openMysteryItem';
-import score from './score';
+import scoreTask from './scoreTask';
+import markPmsRead from './markPMSRead';
+
 
 module.exports = {
   update,
@@ -77,6 +82,9 @@ module.exports = {
   releaseMounts,
   releaseBoth,
   buy,
+  buyGear,
+  buyPotion,
+  buyArmoire,
   buyQuest,
   buyMysterySet,
   hourglassPurchase,
@@ -89,5 +97,6 @@ module.exports = {
   allocate,
   readCard,
   openMysteryItem,
-  score,
+  scoreTask,
+  markPmsRead,
 };

@@ -1,26 +1,32 @@
 import i18n from '../i18n';
 import _ from 'lodash';
+import { NotFound } from '../libs/errors';
 
-module.exports = function(user, req, cb) {
-  var i, tag, tid;
-  tid = req.params.id;
-  i = _.findIndex(user.tags, {
-    id: tid
+// TODO used only in client, move there?
+
+module.exports = function deleteTag (user, req = {}) {
+  let tid = _.get(req, 'params.id');
+
+  let index = _.findIndex(user.tags, {
+    id: tid,
   });
-  if (!~i) {
-    return typeof cb === "function" ? cb({
-      code: 404,
-      message: i18n.t('messageTagNotFound', req.language)
-    }) : void 0;
+
+  if (index === -1) {
+    throw new NotFound(i18n.t('messageTagNotFound', req.language));
   }
-  tag = user.tags[i];
+
+  let tag = user.tags[index];
   delete user.filters[tag.id];
-  user.tags.splice(i, 1);
-  _.each(user.tasks, function(task) {
+
+  user.tags.splice(index, 1);
+
+  _.each(user.tasks, (task) => {
     return delete task.tags[tag.id];
   });
-  _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
-    return typeof user.markModified === "function" ? user.markModified(type) : void 0;
+
+  _.each(['habits', 'dailys', 'todos', 'rewards'], (type) => {
+    user.markModified(type);
   });
-  return typeof cb === "function" ? cb(null, user.tags) : void 0;
+
+  return user.tags;
 };

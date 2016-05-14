@@ -8,6 +8,8 @@ describe('Tasks Controller', function() {
     User = {
       user: user
     };
+
+    User.deleteTask = sandbox.stub();
     User.user.ops = {
       deleteTask:  sandbox.stub(),
     };
@@ -51,13 +53,13 @@ describe('Tasks Controller', function() {
     it('does not remove task if not confirmed', function() {
       window.confirm.returns(false);
       scope.removeTask(task);
-      expect(user.ops.deleteTask).to.not.be.called;
+      expect(User.deleteTask).to.not.be.called;
     });
 
     it('removes task', function() {
       window.confirm.returns(true);
       scope.removeTask(task);
-      expect(user.ops.deleteTask).to.be.calledOnce;
+      expect(User.deleteTask).to.be.calledOnce;
     });
   });
 

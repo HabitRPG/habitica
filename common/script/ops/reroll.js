@@ -1,29 +1,38 @@
 import i18n from '../i18n';
 import _ from 'lodash';
+import {
+  NotAuthorized,
+} from '../libs/errors';
 
-module.exports = function(user, req, cb, analytics) {
-  var analyticsData;
+module.exports = function reroll (user, tasks = [], req = {}, analytics) {
   if (user.balance < 1) {
-    return typeof cb === "function" ? cb({
-      code: 401,
-      message: i18n.t('notEnoughGems', req.language)
-    }) : void 0;
+    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
+
   user.balance--;
-  _.each(user.tasks, function(task) {
+  user.stats.hp = 50;
+
+  _.each(tasks, function resetTaskValues (task) {
     if (task.type !== 'reward') {
-      return task.value = 0;
+      task.value = 0;
     }
   });
-  user.stats.hp = 50;
-  analyticsData = {
-    uuid: user._id,
-    acquireMethod: 'Gems',
-    gemCost: 4,
-    category: 'behavior'
-  };
-  if (analytics != null) {
-    analytics.track('Fortify Potion', analyticsData);
+
+  if (analytics) {
+    analytics.track('Fortify Potion', {
+      uuid: user._id,
+      acquireMethod: 'Gems',
+      gemCost: 4,
+      category: 'behavior',
+    });
   }
-  return typeof cb === "function" ? cb(null, user) : void 0;
+
+  if (req.v2 === true) {
+    return user;
+  } else {
+    return [
+      {user, tasks},
+      i18n.t('rerollComplete'),
+    ];
+  }
 };

@@ -78,5 +78,6 @@
     "whichQuestStart": "Which quest do you want to start?",
     "getMoreQuests": "Get more quests",
     "unlockedAQuest": "You unlocked a quest!",
-    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!"
+    "leveledUpReceivedQuest": "You leveled up to <strong>Level <%= level %></strong> and received a quest scroll!",
+    "questInvitationDoesNotExist": "No quest invitation has been sent out yet."
 }
