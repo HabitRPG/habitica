@@ -41,6 +41,8 @@ function grantEndOfTheMonthPerks (user, now) {
 
 function removeTerminatedSubscription (user) {
   // If subscription's termination date has arrived
+  let plan = user.purchased.plan;
+
   if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(new Date())) {
     _.merge(plan, {
       planId: null,
