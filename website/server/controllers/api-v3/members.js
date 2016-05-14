@@ -306,7 +306,6 @@ api.transferGems = {
   url: '/members/transfer-gems',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
     req.checkBody('gemAmount', res.t('gemAmountRequired')).notEmpty().isInt();
 
@@ -339,7 +338,10 @@ api.transferGems = {
       senderName: sender.profile.name,
     });
     message += res.t('privateMessageGiftGemsMessage', {gemAmount});
-    message += req.body.message;
+
+    if (req.body.message) {
+      message += req.body.message;
+    }
 
     await sender.sendMessage(receiver, message);
 

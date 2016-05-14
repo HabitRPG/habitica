@@ -24,17 +24,6 @@ describe('POST /members/transfer-gems', () => {
       });
   });
 
-  it('returns error when message is not provided', async () => {
-    await expect(userToSendMessage.post('/members/transfer-gems', {
-      gemAmount,
-      toUserId: receiver._id,
-    })).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: 'Invalid request parameters.',
-    });
-  });
-
   it('returns error when toUserId is not provided', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
       message,
@@ -141,6 +130,38 @@ describe('POST /members/transfer-gems', () => {
     });
     messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
     messageSentContent += message;
+
+    expect(sendersMessageInReceiversInbox).to.exist;
+    expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
+    expect(updatedReceiver.balance).to.equal(gemAmount / 4);
+
+    expect(sendersMessageInSendersInbox).to.exist;
+    expect(sendersMessageInSendersInbox.text).to.equal(messageSentContent);
+    expect(updatedSender.balance).to.equal(0);
+  });
+
+  it('does not requrie a message', async () => {
+    await userToSendMessage.post('/members/transfer-gems', {
+      gemAmount,
+      toUserId: receiver._id,
+    });
+
+    let updatedReceiver = await receiver.get('/user');
+    let updatedSender = await userToSendMessage.get('/user');
+
+    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (inboxMessage) => {
+      return inboxMessage.uuid === userToSendMessage._id;
+    });
+
+    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (inboxMessage) => {
+      return inboxMessage.uuid === receiver._id;
+    });
+
+    let messageSentContent = t('privateMessageGiftIntro', {
+      receiverName: receiver.profile.name,
+      senderName: userToSendMessage.profile.name,
+    });
+    messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
