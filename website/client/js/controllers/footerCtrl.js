@@ -124,5 +124,9 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
         'party.quest.progress.up': User.user.party.quest.progress.up + 1000
       });
     };
+
+    $scope.makeAdmin = function () {
+      User.makeAdmin();
+    };
   }
 }])
