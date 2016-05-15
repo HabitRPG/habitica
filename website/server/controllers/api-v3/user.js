@@ -313,7 +313,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiParam {string} spellId The spell to cast.
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a spell on a party member or a task.
  *
- * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated.
+ * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
  */
 api.castSpell = {
   method: 'POST',
@@ -357,11 +357,14 @@ api.castSpell = {
         task.save(),
       ]);
 
-      res.respond(200, results[0]);
+      res.respond(200, {
+        user: results[0],
+        task: results[1],
+      });
     } else if (targetType === 'self') {
       spell.cast(user, null, req);
       await user.save();
-      res.respond(200, user);
+      res.respond(200, { user });
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
@@ -425,7 +428,10 @@ api.castSpell = {
         }
       }
 
-      res.respond(200, partyMembers);
+      res.respond(200, {
+        partyMembers: Array.isArray(partyMembers) ? partyMembers : [partyMembers],
+        user,
+      });
 
       if (party && !spell.silent) {
         let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
