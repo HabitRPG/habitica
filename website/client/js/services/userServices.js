@@ -244,6 +244,21 @@ angular.module('habitrpg')
           })
         },
 
+        setCron: function (numberOfDays) {
+          var date = moment(user.lastCron).subtract(numberOfDays, 'days').toDate();
+
+          $http({
+            method: "POST",
+            url: 'api/v3/debug/update-user',
+            data: {
+              lastCron: date
+            }
+          })
+          .then(function (response) {
+            Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
+          });
+        },
+
         clearNewMessages: function () {
           callOpsFunctionAndRequest('markPmsRead', 'mark-pms-read', "POST");
         },

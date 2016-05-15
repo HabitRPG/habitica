@@ -78,12 +78,10 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
       });
     };
 
-    //@TODO: Route?
     $scope.addMissedDay = function(numberOfDays){
       if (!confirm("Are you sure you want to reset the day by " + numberOfDays + " day(s)?")) return;
-      var dayBefore = moment(User.user.lastCron).subtract(numberOfDays, 'days').toDate();
-      User.set({'lastCron': dayBefore});
-      Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
+
+      User.setCron(numberOfDays);
     };
 
     $scope.addTenGems = function(){
