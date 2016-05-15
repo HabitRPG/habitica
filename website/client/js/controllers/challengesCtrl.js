@@ -264,7 +264,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.removeTask = function(task, challenge) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      Tasks.deleteTask(task._id);
+      //We only pass to the api if the challenge exists, otherwise, the tasks only exist on the client
+      if (challenge._id) Tasks.deleteTask(task._id);
       var index = challenge[task.type + 's'].indexOf(task);
       challenge[task.type + 's'].splice(index, 1);
     };
