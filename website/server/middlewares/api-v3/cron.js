@@ -136,7 +136,7 @@ module.exports = function cronMiddleware (req, res, next) {
     // Save user and tasks
     let toSave = [user.save()];
     tasks.forEach(task => {
-      toSave.push(task.save());
+      if (task.isModified()) toSave.push(task.save());
     });
 
     return Bluebird.all(toSave)
