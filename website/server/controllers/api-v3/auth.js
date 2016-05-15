@@ -373,7 +373,7 @@ api.updatePassword = {
 };
 
 /**
- * @api {post} /api/v3/user/reset-password Reser password
+ * @api {post} /api/v3/user/reset-password Reset password
  * @apiDescription Reset the user password
  * @apiVersion 3.0.0
  * @apiName ResetPassword
@@ -427,7 +427,7 @@ api.resetPassword = {
 
 /**
  * @api {put} /api/v3/user/auth/update-email Update email
- * @apiDescription Che the user email
+ * @apiDescription Change the user email address
  * @apiVersion 3.0.0
  * @apiName UpdateEmail
  * @apiGroup User

@@ -177,7 +177,7 @@ api.updateUser = {
 };
 
 /**
- * @api {delete} /api/v3/user DELETE an authenticated user's account
+ * @api {delete} /api/v3/user Delete an authenticated user's account
  * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
@@ -240,7 +240,7 @@ function _cleanChecklist (task) {
 }
 
 /**
- * @api {get} /api/v3/user/anonymized
+ * @api {get} /api/v3/user/anonymized Get anonymized user data
  * @apiVersion 3.0.0
  * @apiName UserGetAnonymized
  * @apiGroup User
@@ -876,12 +876,12 @@ api.userOpenMysteryItem = {
 };
 
 /*
-* @api {post} /api/v3/user/webhook
+* @api {post} /api/v3/user/webhook Create a new webhook
 * @apiVersion 3.0.0
 * @apiName UserAddWebhook
 * @apiGroup User
 *
-* @apiParam {string} url Body parameter - The webhook's urò
+* @apiParam {string} url Body parameter - The webhook's URL
 * @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
 *
 * @apiSuccess {Object} data The created webhook
@@ -899,13 +899,13 @@ api.addWebhook = {
 };
 
 /*
-* @api {put} /api/v3/user/webhook/:id
+* @api {put} /api/v3/user/webhook/:id Edit a webhook
 * @apiVersion 3.0.0
 * @apiName UserUpdateWebhook
 * @apiGroup User
 *
 * @apiParam {UUID} id The id of the webhook to update
-* @apiParam {string} url Body parameter - The webhook's urò
+* @apiParam {string} url Body parameter - The webhook's URL
 * @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
 *
 * @apiSuccess {Object} data The updated webhook
@@ -923,7 +923,7 @@ api.updateWebhook = {
 };
 
 /*
-* @api {delete} /api/v3/user/webhook/:id
+* @api {delete} /api/v3/user/webhook/:id Delete a webhook
 * @apiVersion 3.0.0
 * @apiName UserDeleteWebhook
 * @apiGroup User
