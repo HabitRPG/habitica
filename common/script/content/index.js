@@ -594,6 +594,14 @@ api.questMounts = _.transform(api.questEggs, function(m, egg) {
   }));
 });
 
+api.premiumMounts = _.transform(api.dropEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    if (pot.premium) {
+      return m2[egg.key + "-" + pot.key] = true;
+    }
+  }));
+});
+
 api.food = {
   Meat: {
     text: t('foodMeat'),
