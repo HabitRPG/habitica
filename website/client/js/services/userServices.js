@@ -170,7 +170,13 @@ angular.module('habitrpg')
         },
 
         addTask: function (data) {
-          user.ops.addTask(data);
+          if (_.isArray(data.body)) {
+            data.body.forEach(function (task) {
+              user.ops.addTask({body: task});
+            });
+          } else {
+            user.ops.addTask(data);
+          }
           save();
           Tasks.createUserTasks(data.body);
         },

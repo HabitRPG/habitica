@@ -29,14 +29,18 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
 
-    function addTask(addTo, listDef, task) {
-      var newTask = {
-        text: task,
-        type: listDef.type,
-        tags: _.keys(User.user.filters),
-      };
+    function addTask(addTo, listDef, tasks) {
+      tasks = _.isArray(tasks) ? tasks : [tasks];
 
-      User.addTask({body: newTask});
+      User.addTask({
+        body: tasks.map(function (task) {
+          return {
+            text: task,
+            type: listDef.type,
+            tags: _.keys(User.user.filters),
+          }
+        }),
+      });
     }
 
     $scope.addTask = function(addTo, listDef) {
@@ -44,9 +48,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         var tasks = listDef.newTask.split(/[\n\r]+/);
         //Reverse the order of tasks so the tasks will appear in the order the user entered them
         tasks.reverse();
-        _.each(tasks, function(t) {
-          addTask(addTo, listDef, t);
-        });
+        addTask(addTo, listDef, tasks);
         listDef.bulk = false;
       } else {
         addTask(addTo, listDef, listDef.newTask);
