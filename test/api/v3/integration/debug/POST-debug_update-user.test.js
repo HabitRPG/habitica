@@ -14,7 +14,7 @@ describe('POST /debug/update-user', () => {
     nconf.set('IS_PROD', false);
   });
 
-  it('sets protected values', async () => {
+  xit('sets protected values', async () => {
     let newCron = new Date(2015, 11, 20);
 
     await user.post('/debug/update-user', {
@@ -28,7 +28,7 @@ describe('POST /debug/update-user', () => {
     expect(user.balance).to.eql(100);
   });
 
-  it('sets nested values', async () => {
+  xit('sets nested values', async () => {
     await user.post('/debug/update-user', {
       'contributor.level': 9,
       'purchased.txnCount': 100,

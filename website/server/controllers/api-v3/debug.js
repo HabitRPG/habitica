@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 let api = {};
 
@@ -61,21 +61,21 @@ api.addHourglass = {
  *
  * @apiSuccess {Object} data An empty Object
  */
-api.setCron = {
-  method: 'POST',
-  url: '/debug/update-user',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    _.each(req.body, (value, key) => {
-      _.set(user, key, value);
-    });
-
-    await user.save();
-
-    res.respond(200, {});
-  },
-};
+// api.setCron = {
+//   method: 'POST',
+//   url: '/debug/update-user',
+//   middlewares: [ensureDevelpmentMode, authWithHeaders()],
+//   async handler (req, res) {
+//     let user = res.locals.user;
+//
+//     _.each(req.body, (value, key) => {
+//       _.set(user, key, value);
+//     });
+//
+//     await user.save();
+//
+//     res.respond(200, {});
+//   },
+// };
 
 module.exports = api;
