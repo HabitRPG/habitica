@@ -32,6 +32,10 @@ module.exports = function baseModel (schema, options = {}) {
       if (!this.isNew) this.updatedAt = Date.now();
       next();
     });
+
+    schema.pre('update', function preUpdateModel () {
+      this.update({}, { $set: { updatedAt: new Date() } });
+    });
   }
 
   let noSetFields = ['createdAt', 'updatedAt'];

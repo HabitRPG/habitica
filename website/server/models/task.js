@@ -142,7 +142,6 @@ TaskSchema.statics.fromJSONV2 = function fromJSONV2 (taskObj) {
   return taskObj;
 };
 
-
 // END of API v2 methods
 
 export let Task = mongoose.model('Task', TaskSchema);

@@ -383,7 +383,6 @@ api.abortQuest = {
       'party._id': groupId,
     }, {
       $set: {'party.quest': Group.cleanQuestProgress()},
-      $inc: {_v: 1}, // TODO update middleware
     }, {multi: true}).exec();
 
     let questLeaderUpdate = User.update({

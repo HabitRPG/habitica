@@ -36,10 +36,10 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete user.apiToken;
 
-    // TODO move to model (maybe virtuals, maybe in toJSON)
+    // TODO move to model? (maybe virtuals, maybe in toJSON)
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
-    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    user.stats.maxMP = common.statsComputed(user).maxMP;
 
     return res.respond(200, user);
   },
@@ -210,7 +210,7 @@ api.deleteUser = {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
     }
 
-    let types = ['party', 'publicGuilds', 'privateGuilds'];
+    let types = ['party', 'guilds'];
     let groupFields = basicGroupFields.concat(' leader memberCount');
 
     let groupsUserIsMemberOf = await Group.getGroups({user, types, groupFields});

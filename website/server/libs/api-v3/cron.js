@@ -24,8 +24,8 @@ function grantEndOfTheMonthPerks (user, now) {
     plan.dateUpdated = now;
     // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
     // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
-    // TODO use month diff instead of ++ / --?
-    _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0}); // FIXME see https://github.com/HabitRPG/habitrpg/issues/4317
+    // TODO use month diff instead of ++ / --? see https://github.com/HabitRPG/habitrpg/issues/4317
+    _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0});
 
     plan.consecutive.count++;
 

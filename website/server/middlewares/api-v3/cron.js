@@ -128,7 +128,7 @@ module.exports = function cronMiddleware (req, res, next) {
     let ranCron = user.isModified();
     let quest = common.content.quests[user.party.quest.key];
 
-    // if (ranCron) res.locals.wasModified = true; // TODO remove after v2 is retired
+    if (ranCron) res.locals.wasModified = true; // TODO remove after v2 is retired
     if (!ranCron) return next();
 
     // Group.tavernBoss(user, progress);

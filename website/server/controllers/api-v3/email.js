@@ -44,9 +44,9 @@ api.unsubscribe = {
 
       res.send(`<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextUsers')}`);
     } else {
-      let unsubscribedEmail = await EmailUnsubscription.findOne({email: data.email});
+      let unsubscribedEmail = await EmailUnsubscription.findOne({email: data.email.toLowerCase()});
       let okResponse = `<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextOthers')}`;
-      if (!unsubscribedEmail) await EmailUnsubscription.create({email: data.email});
+      if (!unsubscribedEmail) await EmailUnsubscription.create({email: data.email.toLowerCase()});
       res.send(okResponse);
     }
   },

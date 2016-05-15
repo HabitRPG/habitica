@@ -29,7 +29,7 @@ export function authWithHeaders (optional = false) {
       if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
 
       res.locals.user = user;
-      // TODO use either session/cookie or headers, not both
+
       req.session.userId = user._id;
       return next();
     })

@@ -74,7 +74,7 @@ schema.methods.canView = function canViewChallenge (user, group) {
 function _syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes']; // TODO what to do with updatedAt?
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt'];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -222,7 +222,7 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
     'challenge.id': challenge.id,
     'challenge.taskId': task._id,
   }, {
-    $set: {'challenge.broken': 'TASK_DELETED'}, // TODO what about updatedAt?
+    $set: {'challenge.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
 };
 
@@ -238,7 +238,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
-      $set: {challenge: {}}, // TODO what about updatedAt?
+      $set: {challenge: {}},
     }, {multi: true}).exec();
 
     await user.save();
@@ -259,7 +259,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
 };
 
 // TODO everything here should be moved to a worker
-// actually even for a worker it's probably just too big and will kill mongo
+// actually even for a worker it's probably just too big and will kill mongo, figure out something else
 schema.methods.closeChal = async function closeChal (broken = {}) {
   let challenge = this;
 

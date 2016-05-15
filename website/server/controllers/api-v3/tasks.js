@@ -323,7 +323,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
   let extendedStats = _.extend(stats, {
     toNextLevel: common.tnl(user.stats.lvl),
     maxHealth: common.maxHealth,
-    maxMP: user._statsComputed.maxMP, // TODO refactor as method not getter
+    maxMP: common.statsComputed(user).maxMP,
   });
 
   let userData = {
@@ -428,7 +428,6 @@ api.scoreTask = {
 };
 
 // completed todos cannot be moved, they'll be returned ordered by date of completion
-// TODO support challenges?
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
  * @apiVersion 3.0.0

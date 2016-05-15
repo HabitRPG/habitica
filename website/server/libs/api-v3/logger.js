@@ -2,7 +2,6 @@
 import winston from 'winston';
 import nconf from 'nconf';
 import _ from 'lodash';
-import Bluebird from 'bluebird';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
@@ -11,8 +10,6 @@ const ENABLE_CONSOLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') ===
 const logger = new winston.Logger();
 
 if (IS_PROD) {
-  // TODO production logging, use loggly and new relic too
-
   if (ENABLE_CONSOLE_LOGS_IN_PROD === 'true') {
     logger.add(winston.transports.Console, {
       colorize: true,
@@ -53,15 +50,6 @@ let loggerInterface = {
     }
   },
 };
-
-// Disable warnings for missed returns in Bluebird.
-// See https://github.com/petkaantonov/bluebird/issues/903
-Bluebird.config({
-  // Enables all warnings except forgotten return statements.
-  warnings: {
-    wForgottenReturn: false,
-  },
-});
 
 // Logs unhandled promises errors
 // when no catch is attached to a promise a unhandledRejection event will be triggered

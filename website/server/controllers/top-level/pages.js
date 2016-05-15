@@ -27,8 +27,7 @@ api.getFrontPage = {
   },
 };
 
-// TODO remove api static page
-let staticPages = ['front', 'privacy', 'terms', 'api', 'features',
+let staticPages = ['front', 'privacy', 'terms', 'api-v2', 'features',
             'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
             'old-news', 'press-kit', 'faq', 'overview', 'apps',
             'clear-browser-data', 'merch'];

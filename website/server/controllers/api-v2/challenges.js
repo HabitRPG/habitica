@@ -55,7 +55,7 @@ api.list = async function(req, res, next) {
       return obj;
     });
 
-    // TODO Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Bluebird.all(resChals.map((chal, index) => {
       return Bluebird.all([
         User.findById(chal.leader).select(nameFields).exec(),
@@ -268,8 +268,7 @@ api.update = function(req, res, next){
           async.forEachOf(newTasksObj, function(newTask, taskId, cb2){
             // some properties can't be changed
             newTask = Tasks.Task.sanitize(newTask);
-            // TODO we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
-            // TODO regarding comment above, make sure other models with nested fields are using this trick too
+            // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
             _.assign(updatedTasks[taskId], shared.ops.updateTask(updatedTasks[taskId].toObject(), {body: newTask}));
             _before.chal.updateTask(updatedTasks[taskId]).then(cb2).catch(cb2);
           }, cb1);

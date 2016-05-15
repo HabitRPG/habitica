@@ -525,11 +525,8 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  // TODO revisit a lot of things are missing. Given how many attributes we do have here we should white-list the ones that can be updated
-  // This is not really used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
-  noSet: ['_id', 'apiToken', 'auth.blocked', 'auth.timestamps', 'lastCron', 'auth.local.hashed_password',
-    'auth.local.salt', 'tasksOrder', 'tags', 'stats', 'challenges', 'guilds', 'party._id', 'party.quest',
-    'invitations', 'balance', 'backer', 'contributor'],
+  // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
+  noSet: [],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj.id = plainObj._id;
@@ -638,7 +635,6 @@ function _setProfileName (user) {
 schema.pre('save', true, function preSaveUser (next, done) {
   next();
 
-  // TODO remove all unnecessary checks
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
   }
@@ -697,7 +693,10 @@ schema.pre('save', true, function preSaveUser (next, done) {
   }
 });
 
-// TODO unit test this?
+schema.pre('update', function preUpdateUser () {
+  this.update({}, {$inc: {_v: 1}});
+});
+
 schema.methods.isSubscribed = function isSubscribed () {
   return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
 };

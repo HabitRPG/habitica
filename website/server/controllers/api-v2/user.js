@@ -429,7 +429,7 @@ api.delete = function(req, res, next) {
     return res.status(400).json({err:"You have an active subscription, cancel your plan before deleting your account."});
   }
 
-  let types = ['party', 'publicGuilds', 'privateGuilds'];
+  let types = ['party', 'guilds'];
   let groupFields = basicGroupFields.concat(' leader memberCount');
 
   Group.getGroups({user, types, groupFields})

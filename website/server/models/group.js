@@ -33,7 +33,6 @@ export let schema = new Schema({
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   type: {type: String, enum: ['guild', 'party'], required: true},
   privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
-  // _v: {type: Number,'default': 0}, // TODO ?
   chat: Array,
   /*
   #    [{
@@ -94,7 +93,6 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 // Basic fields to fetch for populating a group info
 export let basicFields = 'name type privacy';
 
-// TODO test
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
   try {
@@ -179,14 +177,16 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         queries.push(privateGuildsQuery);
         break;
       }
+      // NOTE: when returning publicGuilds we use `.lean()` so all mongoose methods won't be available.
+      // Docs are going to be plain javascript objects
       case 'publicGuilds': {
         let publicGuildsQuery = this.find({
           type: 'guild',
           privacy: 'public',
         }).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
-        publicGuildsQuery.sort(sort).exec();
-        queries.push(publicGuildsQuery); // TODO use lean?
+        publicGuildsQuery.sort(sort).lean().exec();
+        queries.push(publicGuildsQuery);
         break;
       }
       case 'tavern': {
