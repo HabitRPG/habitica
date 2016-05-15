@@ -178,7 +178,13 @@ angular.module('habitrpg')
         score: function (data) {
           $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
           save();
-          Tasks.scoreTask(data.params.task._id, data.params.direction);
+          Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
+            var drop = res.data.data._tmp.drop;
+
+            if (drop) {
+              user._tmp.drop = drop;
+            }
+          });
         },
 
         sortTask: function (data) {
