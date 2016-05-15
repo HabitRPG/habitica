@@ -179,11 +179,15 @@ angular.module('habitrpg')
           $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
           save();
           Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
-            var drop = res.data.data._tmp.drop;
+            var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
 
-            if (drop) {
-              user._tmp.drop = drop;
-            }
+            var drop = tmp.drop;
+            var crit = tmp.crit;
+            var streakBonus = tmp.streakBonus;
+
+            if (drop) user._tmp.drop = drop;
+            if (crit) user._tmp.crit = crit;
+            if (streakBonus) user._tmp.streakBonus = streakBonus;
           });
         },
 
