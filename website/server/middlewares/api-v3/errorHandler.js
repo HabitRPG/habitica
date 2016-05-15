@@ -6,12 +6,15 @@ import {
   BadRequest,
   InternalServerError,
 } from '../../libs/api-v3/errors';
-import { map } from 'lodash';
+import {
+  map,
+  omit,
+} from 'lodash';
 
 module.exports = function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
   logger.error(err, {
     originalUrl: req.originalUrl,
-    headers: req.headers,
+    headers: omit(req.headers, ['x-api-key']),
     body: req.body,
   });
 
