@@ -365,13 +365,12 @@ api.castSpell = {
       spell.cast(user, null, req);
       await user.save();
       res.respond(200, user);
-    } else if (targetType === 'tasks') { // new target type when all the user's tasks are necessary
+    } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
-        'challenge.id': {$exists: false}, // exclude challenge tasks
-        $or: [ // Exclude completed todos
-          {type: 'todo', completed: false},
-          {type: {$in: ['habit', 'daily', 'reward']}},
+        $or: [ // exclude challenge tasks
+          {'challenge.id': {$exists: false}},
+          {'challenge.broken': {$exists: true}},
         ],
       }).exec();
 

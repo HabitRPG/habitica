@@ -281,29 +281,47 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           .then(function (party) {
             party = (_.isArray(party) ? party : []).concat(User.user);
             $scope.castEnd(party, 'party');
+          })
+          .catch(function (party) { // not in a party, act as a solo party
+            if (party && party.type === 'party') {
+              party = [User.user];
+              $scope.castEnd(party, 'party');
+            }
           });
+      } else if (spell.target == 'tasks') {
+        var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.rewards);
+        // exclude challenge tasks
+        tasks = tasks.filter(function (t) {
+          if (!t.challenge) return true;
+          return (!task.challenge.id || task.challenge.broken);
+        });
+        $scope.castEnd(tasks, 'tasks');
       }
     }
 
     $scope.castEnd = function(target, type, $event){
       if (!$rootScope.applyingAction) return 'No applying action';
       $event && ($event.stopPropagation(),$event.preventDefault());
+
       if ($scope.spell.target != type) return Notification.text(window.env.t('invalidTarget'));
       $scope.spell.cast(User.user, target);
       User.save();
 
       var spell = $scope.spell;
-      var targetId = target._id;
+      var targetId = target ? target._id : null;
       $scope.spell = null;
       $rootScope.applyingAction = false;
 
-      $http.post(ApiUrl.get() + '/api/v3/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
+      var spellUrl = ApiUrl.get() + '/api/v3/user/class/cast/' + spell.key;
+      if (targetId) spellUrl += '?targetId=' + targetId;
+
+      $http.post(spellUrl)
         .success(function(){
           var msg = window.env.t('youCast', {spell: spell.text()});
           switch (type) {
-           case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
-           case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
-           case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
+            case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
+            case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
+            case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
           }
           Notification.markdown(msg);
           User.sync();

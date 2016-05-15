@@ -54,7 +54,7 @@ export function preenHistory (history, isSubscribed, timezoneOffset) {
   return newHistory;
 }
 
-// Preen history for users and tasks. This code runs only on the server.
+// Preen history for users and tasks.
 export function preenUserHistory (user, tasksByType) {
   let isSubscribed = user.isSubscribed();
   let timezoneOffset = user.preferences.timezoneOffset;

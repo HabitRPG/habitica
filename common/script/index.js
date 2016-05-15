@@ -199,7 +199,7 @@ User (prototype wrapper to give it ops, helper funcs, and virtuals
 
 /*
 User is now wrapped (both on client and server), adding a few new properties:
-  * getters (_statsComputed, tasks, etc)
+  * getters (_statsComputed)
   * user.fns, which is a bunch of helper functions
     These were originally up above, but they make more sense belonging to the user object so we don't have to pass
     the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.

@@ -185,7 +185,7 @@ export function cron (options = {}) {
     task.completed = false;
 
     if (completed || scheduleMisses > 0) {
-      task.checklist.forEach(i => i.completed = false); // FIXME this should not happen for grey tasks unless they are completed
+      task.checklist.forEach(i => i.completed = false); // TODO this should not happen for grey tasks unless they are completed
     }
   });
 
