@@ -199,7 +199,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       if (!challenge.winner) return;
       if (!confirm(window.env.t('youSure'))) return;
 
-      Challenges.selectWinner(challenge._id, challenge.winner)
+      Challenges.selectChallengeWinner(challenge._id, challenge.winner)
         .then(function (response) {
           $scope.popoverEl.popover('destroy');
           _backToChallenges();
