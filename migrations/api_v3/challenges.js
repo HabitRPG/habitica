@@ -105,7 +105,7 @@ function processChallenges (afterId) {
       var createdAt = oldChallenge.timestamp;
 
       oldChallenge.memberCount = oldChallenge.members.length;
-      if (!oldChallenge.prize <= 0) oldChallenge.prize = 0;
+      if (oldChallenge.prize <= 0) oldChallenge.prize = 0;
       if (!oldChallenge.name) oldChallenge.name = 'challenge name';
       if (!oldChallenge.shortName) oldChallenge.name = 'challenge-name';
 
