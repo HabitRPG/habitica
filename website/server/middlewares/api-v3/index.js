@@ -61,7 +61,8 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(cookieSession({
     name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
     secret: SESSION_SECRET,
-    httpOnly: false, // TODO this should be true for security, what about https only (secure) ?
+    httpOnly: true, // so cookies are not accessible with browser JS
+    // TODO what about https only (secure) ?
     maxAge: TWO_WEEKS,
   }));
 

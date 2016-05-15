@@ -77,7 +77,7 @@
   "uuidsMustBeAnArray": "UUIDs invites must be a an Array.",
   "emailsMustBeAnArray": "Email invites must be a an Array.",
   "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
-  "cantOnlyUnlinkChalTask": "Only challenges tasks can be unlinked.",
+  "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
   "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
   "questInviteNotFound": "No quest invitation found.",
   "guildQuestsNotSupported": "Guilds cannot be invited on quests.",

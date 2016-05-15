@@ -13,6 +13,7 @@ import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import shared from '../../../common';
 import { sendTxn as txnEmail } from '../libs/api-v3/email';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
+import cwait from 'cwait';
 
 let Schema = mongoose.Schema;
 
@@ -156,41 +157,45 @@ async function _fetchMembersIds (challengeId) {
   return (await User.find({challenges: {$in: [challengeId]}}).select('_id').lean().exec()).map(member => member._id);
 }
 
+async function _addTaskFn (challenge, tasks, memberId) {
+  let updateTasksOrderQ = {$push: {}};
+  let toSave = [];
+
+  tasks.forEach(chalTask => {
+    let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
+    userTask.challenge = {taskId: chalTask._id, id: challenge._id};
+    userTask.userId = memberId;
+
+    let tasksOrderList = updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`];
+    if (!tasksOrderList) {
+      updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`] = {
+        $position: 0, // unshift
+        $each: [userTask._id],
+      };
+    } else {
+      tasksOrderList.$each.unshift(userTask._id);
+    }
+
+    toSave.push(userTask.save({
+      validateBeforeSave: false, // no user data supplied
+    }));
+  });
+
+  // Update the user
+  toSave.unshift(User.update({_id: memberId}, updateTasksOrderQ).exec());
+  return await Bluebird.all(toSave);
+}
+
 // Add a new task to challenge members
 schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let challenge = this;
   let membersIds = await _fetchMembersIds(challenge._id);
 
-  // Sync each user sequentially
-  // TODO are we sure it's the best solution? Use cwait
-  // use bulk ops? http://stackoverflow.com/questions/16726330/mongoose-mongodb-batch-insert
-  for (let memberId of membersIds) {
-    let updateTasksOrderQ = {$push: {}};
-    let toSave = [];
+  let queue = new cwait.TaskQueue(Bluebird, 5); // process only 5 users concurrently
 
-    // TODO eslint complaints about having a function inside a loop -> make sure it works
-    tasks.forEach(chalTask => { // eslint-disable-line no-loop-func
-      let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
-      userTask.challenge = {taskId: chalTask._id, id: challenge._id};
-      userTask.userId = memberId;
-
-      let tasksOrderList = updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`];
-      if (!tasksOrderList) {
-        updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`] = {
-          $position: 0, // unshift
-          $each: [userTask._id],
-        };
-      } else {
-        tasksOrderList.$each.unshift(userTask._id);
-      }
-
-      toSave.push(userTask.save());
-    });
-
-    // Update the user
-    toSave.unshift(User.update({_id: memberId}, updateTasksOrderQ).exec());
-    await Bluebird.all(toSave); // eslint-disable-line babel/no-await-in-loop
-  }
+  await Bluebird.map(membersIds, queue.wrap((memberId) => {
+    return _addTaskFn(challenge, tasks, memberId);
+  }));
 };
 
 // Sync updated task to challenge members

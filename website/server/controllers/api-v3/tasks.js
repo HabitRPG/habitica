@@ -760,7 +760,6 @@ api.removeTagFromTask = {
   },
 };
 
-// TODO this method needs some limitation, like to check if the challenge is really broken?
 /**
  * @api {post} /api/v3/tasks/unlink/:taskId Unlink a challenge task
  * @apiVersion 3.0.0
@@ -793,6 +792,7 @@ api.unlinkTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
+    if (!task.challenge.broken) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
 
     if (keep === 'keep') {
       task.challenge = {};

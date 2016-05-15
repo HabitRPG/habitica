@@ -246,7 +246,7 @@ export function cron (options = {}) {
   _.merge(progress, {down: 0, up: 0});
   progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
 
-  // @TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
+  // TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
   // let numberOfPMs = Object.keys(user.inbox.messages).length;
   // if (numberOfPMs > maxPMs) {
   //   _(user.inbox.messages)

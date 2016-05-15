@@ -7,7 +7,6 @@ import {
 
 let api = {};
 
-// TODO move to top-level controllers?
 /**
  * @api {get} /api/v3/email/unsubscribe Unsubscribe an email or user from email notifications
  * @apiDescription Does not require authentication

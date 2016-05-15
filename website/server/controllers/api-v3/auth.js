@@ -229,7 +229,6 @@ function _passportFbProfile (accessToken) {
 }
 
 // Called as a callback by Facebook (or other social providers). Internal route
-// TODO move to top-level/auth?
 api.loginSocial = {
   method: 'POST',
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
