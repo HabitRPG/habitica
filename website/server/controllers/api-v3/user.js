@@ -415,13 +415,13 @@ api.castSpell = {
 
         spell.cast(user, partyMembers, req);
 
-        if (user.isModified()) {
+        if (partyMembers !== user) {
           await Bluebird.all([
             user.save(),
             partyMembers.save(),
           ]);
         } else {
-          await partyMembers.save();
+          await partyMembers.save(); // partyMembers is user
         }
       }
 
