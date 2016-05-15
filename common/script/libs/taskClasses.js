@@ -5,6 +5,9 @@ import {
 /*
 Task classes given everything about the class
 */
+
+// TODO move to the client
+
 module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCron = Number(new Date()), showCompleted = false, main = false) {
   if (!task) {
     return '';
@@ -18,16 +21,18 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
   if (main && !task._editing) {
     for (let filter in filters) {
       let enabled = filters[filter];
-      if (!task.tags) task.tags = {};
-      if (enabled && !task.tags[filter]) {
+      if (!task.tags) task.tags = [];
+      if (enabled && task.tags.indexOf(filter) === -1) {
         return 'hidden';
       }
     }
   }
+
   classes = task.type;
   if (task._editing) {
     classes += ' beingEdited';
   }
+
   if (type === 'todo' || type === 'daily') {
     if (completed || (type === 'daily' && !shouldDo(Number(new Date()), task, { // eslint-disable-line no-extra-parens
       dayStart,
@@ -44,6 +49,7 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
       classes += ' habit-narrow';
     }
   }
+
   if (priority === 0.1) {
     classes += ' difficulty-trivial';
   } else if (priority === 1) {
@@ -53,6 +59,7 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
   } else if (priority === 2) {
     classes += ' difficulty-hard';
   }
+
   if (value < -20) {
     classes += ' color-worst';
   } else if (value < -10) {
@@ -68,5 +75,6 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
   } else {
     classes += ' color-best';
   }
+
   return classes;
 };
