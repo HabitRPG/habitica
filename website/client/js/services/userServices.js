@@ -250,6 +250,35 @@ angular.module('habitrpg')
           })
         },
 
+        setCron: function (numberOfDays) {
+          var date = moment(user.lastCron).subtract(numberOfDays, 'days').toDate();
+
+          $http({
+            method: "POST",
+            url: 'api/v3/debug/update-user',
+            data: {
+              lastCron: date
+            }
+          })
+          .then(function (response) {
+            Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
+          });
+        },
+
+        makeAdmin: function () {
+          $http({
+            method: "POST",
+            url: 'api/v3/debug/update-user',
+            data: {
+              'contributor.admin': true
+            }
+          })
+          .then(function (response) {
+            Notification.text('You are now an admin! Go to the Hall of Heroes to change your contributor level.');
+            sync()
+          });
+        },
+
         clearNewMessages: function () {
           callOpsFunctionAndRequest('markPmsRead', 'mark-pms-read', "POST");
         },
