@@ -104,6 +104,7 @@
     "emailNotifications": "Email Notifications",
     "wonChallenge": "You won a Challenge!",
     "newPM": "Received Private Message",
+    "sentGems": "Sent gems!",
     "giftedGems": "Gifted Gems",
     "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Gifted Subscription",

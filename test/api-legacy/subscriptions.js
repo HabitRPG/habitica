@@ -1,8 +1,8 @@
 var app, payments;
 
-payments = require("../../website/src/controllers/payments");
+payments = require("../../website/server/controllers/payments");
 
-app = require("../../website/src/server");
+app = require("../../website/server/server");
 
 describe("Subscriptions", function() {
   before(function(done) {

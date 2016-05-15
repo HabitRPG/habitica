@@ -79,7 +79,7 @@ footer.footer(ng-controller='FooterCtrl')
               tr
                 td
                   iframe(src='/bower_components/github-buttons/github-btn.html?user=habitrpg&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
-        else if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
+        if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
           h4 Debug
           .btn-group-vertical
             a.btn.btn-default(ng-click='setHealthLow()') Health = 1
@@ -92,6 +92,9 @@ footer.footer(ng-controller='FooterCtrl')
             a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP +MP
             a.btn.btn-default(ng-click='addOneLevel()') +1 Level
             a.btn.btn-default(ng-click='addBossQuestProgressUp()') +1000 Boss Quest Progress Up
+            // TODO Re-enable after v3 prod testing
+            // a.btn.btn-default(ng-click='makeAdmin()') Make Admin
+            a.btn.btn-default(ng-click='openModifyInventoryModal()') Modify Inventory
 
   div(ng-init='deferredScripts()')
 
