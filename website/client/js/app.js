@@ -236,6 +236,15 @@ window.habitrpg = angular.module('habitrpg',
               Members.getChallengeMemberProgress($stateParams.cid, $stateParams.uid)
                 .then(function(response) {
                   $scope.obj = response.data.data;
+
+                  $scope.obj.habits = [];
+                  $scope.obj.todos = [];
+                  $scope.obj.dailys = [];
+                  $scope.obj.rewards = [];
+                  $scope.obj.tasks.forEach(function (element, index, array) {
+                    $scope.obj[element.type + 's'].push(element)
+                  });
+
                   $scope.obj._locked = true;
                 });
             }]
