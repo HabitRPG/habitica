@@ -128,5 +128,49 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
     $scope.makeAdmin = function () {
       User.makeAdmin();
     };
+
+    $scope.openModifyInventoryModal = function () {
+      $rootScope.openModal('modify-inventory', {controller: 'FooterCtrl', scope: $scope });
+      $scope.showInv = { };
+      $scope.inv = {
+        gear: {},
+        special: {},
+        pets: {},
+        mounts: {},
+        eggs: {},
+        hatchingPotions: {},
+        food: {},
+        quests: {},
+      };
+      $scope.setAllItems = function (type, value) {
+        var set = $scope.inv[type];
+
+        for (var item in set) {
+          if (set.hasOwnProperty(item)) {
+            set[item] = value;
+          }
+        }
+      };
+    };
+
+    $scope.modifyInventory = function () {
+      $http({
+        method: "POST",
+        url: 'api/v3/debug/modify-inventory',
+        data: {
+          gear: $scope.showInv.gear ? $scope.inv.gear : null,
+          special: $scope.showInv.special ? $scope.inv.special : null,
+          pets: $scope.showInv.pets ? $scope.inv.pets : null,
+          mounts: $scope.showInv.mounts ? $scope.inv.mounts : null,
+          eggs: $scope.showInv.eggs ? $scope.inv.eggs : null,
+          hatchingPotions: $scope.showInv.hatchingPotions ? $scope.inv.hatchingPotions : null,
+          food: $scope.showInv.food ? $scope.inv.food : null,
+          quests: $scope.showInv.quests ? $scope.inv.quests : null,
+        }
+      })
+      .then(function (response) {
+        Notification.text('Inventory updated. Refresh or sync.');
+      })
+    };
   }
 }])

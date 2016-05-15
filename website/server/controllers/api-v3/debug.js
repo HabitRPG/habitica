@@ -101,4 +101,44 @@ api.setCron = {
 //   },
 // };
 
+/**
+ * @api {post} /api/v3/debug/modify-inventory Manipulate user's inventory
+ * @apiDescription Only available in development mode.
+ * @apiVersion 3.0.0
+ * @apiName modifyInventory
+ * @apiGroup Development
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
+api.modifyInventory = {
+  method: 'POST',
+  url: '/debug/modify-inventory',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let { gear } = req.body;
+
+    if (gear) {
+      user.items.gear.owned = gear;
+    }
+
+    [
+      'special',
+      'pets',
+      'mounts',
+      'eggs',
+      'hatchingPotions',
+      'food',
+      'quests',
+    ].forEach((type) => {
+      if (req.body[type]) {
+        user.items[type] = req.body[type];
+      }
+    });
+
+    await user.save();
+
+    res.respond(200, {});
+  },
+};
 module.exports = api;
