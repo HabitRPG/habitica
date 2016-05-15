@@ -142,7 +142,7 @@ angular.module('habitrpg')
       task._editing = !task._editing;
       task._tags = !user.preferences.tagsCollapsed;
       task._advanced = !user.preferences.advancedCollapsed;
-      if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
+      if($rootScope.charts[task._id]) $rootScope.charts[task.id] = false;
     }
 
     function cloneTask(task) {

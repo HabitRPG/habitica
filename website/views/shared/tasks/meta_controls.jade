@@ -48,7 +48,7 @@
       | &nbsp;
 
     // chart
-    a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip=env.t('progress'))
+    a(ng-show='task.history', ng-click='toggleChart(obj._id+task._id, task)', tooltip=env.t('progress'))
       span.glyphicon.glyphicon-signal
       | &nbsp;
     // notes
