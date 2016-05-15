@@ -11,9 +11,10 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = [];
-    Groups.Group.getGroups('party,publicGuilds,privateGuilds,tavern')
+    Groups.Group.getGroups('party,guilds')
       .then(function (response) {
         $scope.groups = response.data.data;
+        console.log($scope.groups)
       });
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
