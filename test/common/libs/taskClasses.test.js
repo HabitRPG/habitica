@@ -7,7 +7,7 @@ describe('taskClasses', () => {
 
   describe('a todo task', () => {
     beforeEach(() => {
-      task = { type: 'todo', _editing: false, tags: { a: false } };
+      task = { type: 'todo', _editing: false, tags: [] };
     });
 
     it('is hidden', () => {
