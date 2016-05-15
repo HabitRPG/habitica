@@ -351,16 +351,13 @@ api.castSpell = {
       if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
 
       spell.cast(user, task, req);
-      if (user.isModified()) {
-        await Bluebird.all([
-          user.save(),
-          task.save(),
-        ]);
-      } else {
-        await task.save();
-      }
 
-      res.respond(200, task);
+      let results = await Bluebird.all([
+        user.save(),
+        task.save(),
+      ]);
+
+      res.respond(200, results[0]);
     } else if (targetType === 'self') {
       spell.cast(user, null, req);
       await user.save();
@@ -377,15 +374,14 @@ api.castSpell = {
       spell.cast(user, tasks, req);
 
       let toSave = tasks.filter(t => t.isModified());
-      let isUserModified = user.isModified();
-
-      if (isUserModified) toSave.unshift(user.save());
+      toSave.unshift(user.save());
       let saved = await Bluebird.all(toSave);
 
       let response = {
-        tasks: isUserModified ? _.rest(saved) : saved,
+        tasks: saved,
+        user,
       };
-      if (isUserModified) response.user = user;
+
       res.respond(200, response);
     } else if (targetType === 'party' || targetType === 'user') {
       let party = await Group.getGroup({groupId: 'party', user});
@@ -396,7 +392,12 @@ api.castSpell = {
         if (!party) {
           partyMembers = [user]; // Act as solo party
         } else {
-          partyMembers = await User.find({'party._id': party._id}).select(partyMembersFields).exec();
+          partyMembers = await User.find({
+            'party._id': party._id,
+            _id: { $ne: user._id }, // add separately
+          }).select(partyMembersFields).exec();
+
+          partyMembers.unshift(user);
         }
 
         spell.cast(user, partyMembers, req);
@@ -411,7 +412,9 @@ api.castSpell = {
         }
 
         if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
+
         spell.cast(user, partyMembers, req);
+
         if (user.isModified()) {
           await Bluebird.all([
             user.save(),
@@ -421,6 +424,7 @@ api.castSpell = {
           await partyMembers.save();
         }
       }
+
       res.respond(200, partyMembers);
 
       if (party && !spell.silent) {
