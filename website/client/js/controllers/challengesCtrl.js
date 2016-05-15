@@ -14,7 +14,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     Groups.Group.getGroups('party,guilds')
       .then(function (response) {
         $scope.groups = response.data.data;
-        console.log($scope.groups)
       });
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
@@ -240,7 +239,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     //------------------------------------------------------------
     // Tasks
     //------------------------------------------------------------
-    $scope.addTask = function(addTo, listDef, challenge) {
+    function addTask (addTo, listDef, challenge) {
       var task = Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
       //If the challenge has not been created, we bulk add tasks on save
       if (challenge._id) Tasks.createChallengeTasks(challenge._id, task);
@@ -248,6 +247,21 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       challenge[task.type + 's'].unshift(task);
       delete listDef.newTask;
     };
+
+    $scope.addTask = function(addTo, listDef, challenge) {
+      if (listDef.bulk) {
+        var tasks = listDef.newTask.split(/[\n\r]+/);
+        //Reverse the order of tasks so the tasks will appear in the order the user entered them
+        tasks.reverse();
+        _.each(tasks, function(t) {
+          listDef.newTask = t;
+          addTask(addTo, listDef, challenge);
+        });
+        listDef.bulk = false;
+      } else {
+        addTask(addTo, listDef, challenge);
+      }
+    }
 
     $scope.removeTask = function(task, challenge) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
@@ -260,6 +274,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       task._editing = false;
       // TODO persist
     }
+
+    $scope.toggleBulk = function(list) {
+      if (typeof list.bulk === 'undefined') {
+        list.bulk = false;
+      }
+      list.bulk = !list.bulk;
+      list.focus = true;
+    };
 
     /*
     --------------------------
