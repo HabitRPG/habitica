@@ -660,7 +660,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
-    return await group.remove();
+    promises.push(group.remove());
   } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
     let update = {
       $inc: {memberCount: -1},
@@ -679,7 +679,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   firebase.removeUserFromGroup(group._id, user._id);
 
-  return Bluebird.all(promises);
+  return await Bluebird.all(promises);
 };
 
 // API v2 compatibility methods
