@@ -11,7 +11,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = [];
-    Groups.Group.getGroups('party,guilds')
+    Groups.Group.getGroups('party,guilds,tavern')
       .then(function (response) {
         $scope.groups = response.data.data;
       });
@@ -40,7 +40,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      * Create
      */
     $scope.create = function() {
-
       //If the user has one filter selected, assume that the user wants to default to that group
       var defaultGroup;
       //Our filters contain all groups, but we only want groups that have atleast one challenge
@@ -49,12 +48,12 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       var filterCount = 0;
 
       for ( var i = 0; i < len; i += 1 ) {
-        if ( $scope.search.group[groupsWithChallenges[i]] == true ) {
+        if ($scope.search.group[groupsWithChallenges[i]] === true) {
           filterCount += 1;
           defaultGroup = groupsWithChallenges[i];
         }
-        if (filterCount > 1) {
-          defaultGroup = $scope.groups[0]._id
+
+        if (filterCount > 1 && defaultGroup) {
           break;
         }
       }
@@ -405,7 +404,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.groupsFilter = _.uniq(_.pluck($scope.challenges, 'group'), function(g) {return g._id});
 
       $scope.search = {
-        group: _.transform($scope.groups, function(m,g){ m[g._id] = true;}),
+        group: _.transform($scope.groups, function(m,g) { m[g._id] = true;}),
         _isMember: "either",
         _isOwner: "either"
       };
