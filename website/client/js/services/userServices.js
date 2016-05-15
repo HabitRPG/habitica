@@ -479,7 +479,7 @@ angular.module('habitrpg')
 
         sync: function(){
           userServices.log({});
-          sync();
+          return sync();
         },
 
         save: save,

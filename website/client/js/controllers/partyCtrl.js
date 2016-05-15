@@ -71,7 +71,9 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           Groups.Group.leave($scope.selectedGroup._id, keep)
             .then(function (response) {
               Analytics.updateUser({'partySize':null,'partyID':null});
-              $rootScope.hardRedirect('/#/options/groups/party');
+              User.sync().then(function () {
+                $rootScope.hardRedirect('/#/options/groups/party');
+              });
             });
         }
       };
