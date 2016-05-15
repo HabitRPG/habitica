@@ -2,6 +2,7 @@
 import winston from 'winston';
 import nconf from 'nconf';
 import _ from 'lodash';
+import Bluebird from 'bluebird';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
@@ -52,6 +53,15 @@ let loggerInterface = {
     }
   },
 };
+
+// Disable warnings for missed returns in Bluebird.
+// See https://github.com/petkaantonov/bluebird/issues/903
+Bluebird.config({
+  // Enables all warnings except forgotten return statements.
+  warnings: {
+    wForgottenReturn: false,
+  },
+});
 
 // Logs unhandled promises errors
 // when no catch is attached to a promise a unhandledRejection event will be triggered

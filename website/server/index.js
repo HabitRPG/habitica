@@ -10,6 +10,7 @@ if (process.env.NODE_ENV !== 'production') {
 // The BabelJS polyfill is needed in production too
 require('babel-polyfill');
 
+// Setup Bluebird as the global promise library
 global.Promise = require('bluebird');
 
 // Only do the minimal amount of work before forking just in case of a dyno restart
