@@ -443,7 +443,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       var groupSelected = $scope.search.group[chal.group._id];
       var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
-      var checkMember = $scope.search._isMember === 'either' || (chal._isMember === $scope.search._isMember);
+      var checkMember = $scope.search._isMember === 'either' || ($scope.isUserMemberOf(chal) === $scope.search._isMember);
 
       return groupSelected && checkOwner && checkMember;
     }

@@ -178,7 +178,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
 
         // Challenges list
         .panel-group
-          .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges track by challenge._id ')
+          .panel.panel-default(ng-repeat='challenge in challenges | filter:filterChallenges track by challenge._id ')
             .panel-heading
               ul.pull-right.challenge-accordion-header-specs
                 li.bg-transparent(ng-if='challenge.official')
