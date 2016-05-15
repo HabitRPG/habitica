@@ -53,7 +53,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           defaultGroup = groupsWithChallenges[i];
         }
 
-        if (filterCount > 1 && defaultGroup) {
+        if (filterCount >= 1 && defaultGroup) {
           break;
         }
       }

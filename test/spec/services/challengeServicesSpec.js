@@ -81,7 +81,7 @@ describe('challengeServices', function() {
   it('calls select challenge winner endpoint', function() {
     var challengeId = 1;
     var winnerId = 2;
-    $httpBackend.expectPOST(apiV3Prefix + '/challenges/' + challengeId + 'selectWinner/' + winnerId).respond({});
+    $httpBackend.expectPOST(apiV3Prefix + '/challenges/' + challengeId + '/selectWinner/' + winnerId).respond({});
     challenges.selectChallengeWinner(challengeId, winnerId);
     $httpBackend.flush();
   });
