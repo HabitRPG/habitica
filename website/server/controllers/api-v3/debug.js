@@ -1,6 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode';
-// import _ from 'lodash';
 
 let api = {};
 
@@ -53,7 +52,7 @@ api.addHourglass = {
 };
 
 /**
- * @api {post} /api/v3/debug/set-property Sets properties on user, even protected fields
+ * @api {post} /api/v3/debug/set-cron Sets lastCron for user
  * @apiDescription Only available in development mode.
  * @apiVersion 3.0.0
  * @apiName setCron
@@ -61,21 +60,44 @@ api.addHourglass = {
  *
  * @apiSuccess {Object} data An empty Object
  */
-// api.setCron = {
-//   method: 'POST',
-//   url: '/debug/update-user',
-//   middlewares: [ensureDevelpmentMode, authWithHeaders()],
-//   async handler (req, res) {
-//     let user = res.locals.user;
-//
-//     _.each(req.body, (value, key) => {
-//       _.set(user, key, value);
-//     });
-//
-//     await user.save();
-//
-//     res.respond(200, {});
-//   },
-// };
+api.setCron = {
+  method: 'POST',
+  url: '/debug/set-cron',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let cron = req.body.lastCron;
+
+    user.lastCron = cron;
+
+    await user.save();
+
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /api/v3/debug/make-admin Sets contributor.admin to true
+ * @apiDescription Only available in development mode.
+ * @apiVersion 3.0.0
+ * @apiName setCron
+ * @apiGroup Development
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
+api.makeAdmin = {
+  method: 'POST',
+  url: '/debug/make-admin',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    user.contributor.admin = true;
+
+    await user.save();
+
+    res.respond(200, {});
+  },
+};
 
 module.exports = api;
