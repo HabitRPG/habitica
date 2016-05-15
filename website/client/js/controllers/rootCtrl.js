@@ -316,7 +316,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if (targetId) spellUrl += '?targetId=' + targetId;
 
       $http.post(spellUrl)
-        .success(function(){
+        .success(function(){ // TODO response will always include the modified data, no need to sync!
           var msg = window.env.t('youCast', {spell: spell.text()});
           switch (type) {
             case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
