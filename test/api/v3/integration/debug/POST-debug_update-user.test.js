@@ -22,7 +22,7 @@ describe('POST /debug/update-user', () => {
       lastCron: newCron,
     });
 
-    await user.sync()
+    await user.sync();
 
     expect(user.lastCron).to.eql(newCron);
     expect(user.balance).to.eql(100);
@@ -34,7 +34,7 @@ describe('POST /debug/update-user', () => {
       'purchased.txnCount': 100,
     });
 
-    await user.sync()
+    await user.sync();
 
     expect(user.contributor.level).to.eql(9);
     expect(user.purchased.txnCount).to.eql(100);
