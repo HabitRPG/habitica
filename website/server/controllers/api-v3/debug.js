@@ -85,19 +85,20 @@ api.setCron = {
  *
  * @apiSuccess {Object} data An empty Object
  */
-api.makeAdmin = {
-  method: 'POST',
-  url: '/debug/make-admin',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    user.contributor.admin = true;
-
-    await user.save();
-
-    res.respond(200, {});
-  },
-};
+// TODO: Re-enable after v3 prod testing is done
+// api.makeAdmin = {
+//   method: 'POST',
+//   url: '/debug/make-admin',
+//   middlewares: [ensureDevelpmentMode, authWithHeaders()],
+//   async handler (req, res) {
+//     let user = res.locals.user;
+//
+//     user.contributor.admin = true;
+//
+//     await user.save();
+//
+//     res.respond(200, {});
+//   },
+// };
 
 module.exports = api;
