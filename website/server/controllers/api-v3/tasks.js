@@ -54,7 +54,7 @@ async function _createTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {post} /api/v3/tasks/user Create a new task the user.
+ * @api {post} /api/v3/tasks/user Create a new task belonging to the user.
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateUserTasks
