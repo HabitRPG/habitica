@@ -50,9 +50,28 @@ angular.module('habitrpg')
         user.todos = [];
         user.dailys = [];
         user.rewards = [];
-        tasks.forEach(function (element, index, array) {
-          user[element.type + 's'].push(element)
-        });
+
+        // Order tasks based on tasksOrder
+        var groupedTasks = _(tasks)
+          .groupBy('type')
+          .forEach(function (tasksOfType, type) {
+            var order = user.tasksOrder[type + 's'];
+            var orderedTasks = new Array(tasksOfType.length);
+            var unorderedTasks = []; // what we want to add later
+
+            tasksOfType.forEach((task, index) => {
+              var taskId = task._id;
+              var i = order[index] === taskId ? index : order.indexOf(taskId);
+              if (i === -1) {
+                unorderedTasks.push(task);
+              } else {
+                orderedTasks[i] = task;
+              }
+            });
+
+            // Remove empty values from the array and add any unordered task
+            user[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
+          }).value();
       }
 
       function sync() {
