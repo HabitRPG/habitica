@@ -59,7 +59,7 @@ angular.module('habitrpg')
             var orderedTasks = new Array(tasksOfType.length);
             var unorderedTasks = []; // what we want to add later
 
-            tasksOfType.forEach((task, index) => {
+            tasksOfType.forEach(function (task, index) {
               var taskId = task._id;
               var i = order[index] === taskId ? index : order.indexOf(taskId);
               if (i === -1) {
