@@ -33,7 +33,7 @@ let api = {};
 api.getMember = {
   method: 'GET',
   url: '/members/:memberId',
-  middlewares: [authWithHeaders()],
+  middlewares: [],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 

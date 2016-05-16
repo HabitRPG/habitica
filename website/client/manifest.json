@@ -136,6 +136,7 @@
             "js/services/statServices.js",
             "js/services/taskServices.js",
             "js/services/tagsServices.js",
+            "js/services/memberServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
         ],
@@ -172,6 +173,7 @@
             "js/services/taskServices.js",
             "js/services/tagsServices.js",
             "js/services/userServices.js",
+            "js/services/memberServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
         ],
