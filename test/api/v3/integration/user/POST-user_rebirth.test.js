@@ -31,6 +31,7 @@ describe('POST /user/rebirth', () => {
     let daily = await generateDaily({
       text: 'test habit',
       type: 'daily',
+      value: 1,
       streak: 1,
       userId: user._id,
     });

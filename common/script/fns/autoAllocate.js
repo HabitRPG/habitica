@@ -10,17 +10,19 @@ import splitWhitespace from '../libs/splitWhitespace';
 function getStatToAllocate (user) {
   let suggested;
 
+  let statsObj = user.stats.toObject ? user.stats.toObject() : user.stats;
+
   switch (user.preferences.allocationMode) {
     case 'flat': {
-      let stats = _.pick(user.stats, splitWhitespace('con str per int'));
+      let stats = _.pick(statsObj, splitWhitespace('con str per int'));
       return _.invert(stats)[_.min(stats)];
     }
     case 'classbased': {
-      let lvlDiv7 = user.stats.lvl / 7;
+      let lvlDiv7 = statsObj.lvl / 7;
       let ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
 
       let preference;
-      switch (user.stats.class) {
+      switch (statsObj.class) {
         case 'wizard': {
           preference = ['int', 'per', 'con', 'str'];
           break;
@@ -39,10 +41,10 @@ function getStatToAllocate (user) {
       }
 
       let diff = [
-        user.stats[preference[0]] - ideal[0],
-        user.stats[preference[1]] - ideal[1],
-        user.stats[preference[2]] - ideal[2],
-        user.stats[preference[3]] - ideal[3],
+        statsObj[preference[0]] - ideal[0],
+        statsObj[preference[1]] - ideal[1],
+        statsObj[preference[2]] - ideal[2],
+        statsObj[preference[3]] - ideal[3],
       ];
 
       suggested = _.findIndex(diff, (val) => {
@@ -52,9 +54,9 @@ function getStatToAllocate (user) {
       return suggested !== -1 ? preference[suggested] : 'str';
     }
     case 'taskbased': {
-      suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
+      suggested = _.invert(statsObj.training)[_.max(statsObj.training)];
 
-      let training = user.stats.training;
+      let training = statsObj.training;
       training.str = 0;
       training.int = 0;
       training.con = 0;

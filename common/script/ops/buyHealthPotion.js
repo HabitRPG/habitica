@@ -4,7 +4,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 
-module.exports = function buyPotion (user, req = {}, analytics) { // health potion
+module.exports = function buyHealthPotion (user, req = {}, analytics) {
   let item = content.potion;
 
   if (user.stats.gp < item.value) {

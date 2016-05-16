@@ -11,16 +11,11 @@ import equip from './equip';
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
 module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
-  let analyticsData;
-  let flags;
-  let lvl;
-  let stats;
-
   if (user.balance < 2 && user.stats.lvl < MAX_LEVEL) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  analyticsData = {
+  let analyticsData = {
     uuid: user._id,
     category: 'behavior',
   };
@@ -38,18 +33,20 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     analytics.track('Rebirth', analyticsData);
   }
 
-  lvl = capByLevel(user.stats.lvl);
+  let lvl = capByLevel(user.stats.lvl);
 
   _.each(tasks, function resetTasks (task) {
-    if (task.type !== 'reward') {
-      task.value = 0;
-    }
-    if (task.type === 'daily') {
-      task.streak = 0;
+    if (!task.challenge || !task.challenge.id || task.challenge.broken) {
+      if (task.type !== 'reward') {
+        task.value = 0;
+      }
+      if (task.type === 'daily') {
+        task.streak = 0;
+      }
     }
   });
 
-  stats = user.stats;
+  let stats = user.stats;
   stats.buffs = {};
   stats.hp = 50;
   stats.lvl = 1;
@@ -79,7 +76,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     });
   }
 
-  flags = user.flags;
+  let flags = user.flags;
   if (!user.achievements.beastMaster) {
     flags.rebirthEnabled = false;
   }

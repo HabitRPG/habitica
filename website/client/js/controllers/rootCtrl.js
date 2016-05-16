@@ -289,7 +289,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
             }
           });
       } else if (spell.target == 'tasks') {
-        var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.rewards);
+        var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.rewards).concat(User.user.todos);
         // exclude challenge tasks
         tasks = tasks.filter(function (t) {
           if (!t.challenge) return true;
@@ -316,7 +316,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if (targetId) spellUrl += '?targetId=' + targetId;
 
       $http.post(spellUrl)
-        .success(function(){
+        .success(function(){ // TODO response will always include the modified data, no need to sync!
           var msg = window.env.t('youCast', {spell: spell.text()});
           switch (type) {
             case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;

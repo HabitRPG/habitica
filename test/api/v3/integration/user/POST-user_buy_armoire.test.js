@@ -18,6 +18,7 @@ describe('POST /user/buy-armoire', () => {
     await user.update({
       'stats.gp': 5,
     });
+
     await expect(user.post('/user/buy-armoire'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
@@ -28,6 +29,7 @@ describe('POST /user/buy-armoire', () => {
 
   it('reduces gold when buying from the armoire', async () => {
     await user.post('/user/buy-armoire');
+
     await user.sync();
 
     expect(user.stats.gp).to.equal(300);

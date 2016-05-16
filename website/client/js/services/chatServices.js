@@ -81,8 +81,7 @@ angular.module('habitrpg')
       clearCards: clearCards,
     }
 
-    //@TOOD: Port when User service is updated
     function clearCards() {
-      User.user.ops.update && User.set({'flags.cardReceived':false});
+      User.user._wrapped && User.set({'flags.cardReceived':false});
     }
   }]);

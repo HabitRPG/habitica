@@ -61,7 +61,7 @@ async function saveContentToDisk (language, content) {
 }
 
 /**
- * @api {get} /api/v3/content Get all available content objects.
+ * @api {get} /api/v3/content Get all available content objects
  * @apiDescription Does not require authentication.
  * @apiVersion 3.0.0
  * @apiName ContentGet

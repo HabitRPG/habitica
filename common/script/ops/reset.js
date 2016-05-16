@@ -13,7 +13,6 @@ module.exports = function reset (user, tasks = [], req = {}) {
       tasksToRemove.push(task._id);
       let i = user.tasksOrder[`${task.type}s`].indexOf(task._id);
       if (i !== -1) user.tasksOrder[`${task.type}s`].splice(i, 1);
-      tasksToRemove.push(task._id);
     }
   });
 

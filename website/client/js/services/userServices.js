@@ -61,21 +61,13 @@ angular.module('habitrpg')
             // replicated. We need to wrap each op to provide a callback to send that operation
             $window.habitrpgShared.wrap(user);
             _.each(user.ops, function(op,k){
-              user.ops[k] = function(req,cb){
-                if (cb) return op(req,cb);
-                op(req,function(err,response) {
-                  for(var updatedItem in req.body) {
-                    var itemUpdateResponse = userNotifications[updatedItem];
-                    if(itemUpdateResponse) Notification.text(itemUpdateResponse);
-                  }
-                  if (err) {
-                    var message = err.code ? err.message : err;
-                    Notification.text(message);
-                    // In the case of 200s, they're friendly alert messages like "Your pet has hatched!" - still send the op
-                    if ((err.code && err.code >= 400) || !err.code) return;
-                  }
-                  userServices.log({op:k, params: req.params, query:req.query, body:req.body});
-                });
+              user.ops[k] = function(req){
+                try {
+                  op(req);
+                } catch (err) {
+                  Notification.text(err.message);
+                  return;
+                }
               }
             });
           }
@@ -106,11 +98,25 @@ angular.module('habitrpg')
       function callOpsFunctionAndRequest (opName, endPoint, method, paramString, opData) {
         if (!opData) opData = {};
 
+        var clientResponse;
+
         try {
-          $window.habitrpgShared.ops[opName](user, opData);
-        } catch(err) {
+          var args = [user];
+          if (opName === 'rebirth' || opName === 'reroll' || opName === 'reset') {
+            args.push(user.habits.concat(user.dailys).concat(user.rewards).concat(user.todos));
+          }
+
+          args.push(opData);
+          clientResponse = $window.habitrpgShared.ops[opName].apply(null, args);
+        } catch (err) {
           Notification.text(err.message);
           return;
+        }
+
+        var clientMessage = clientResponse[1];
+
+        if (clientMessage) {
+          Notification.text(clientMessage);
         }
 
         var url = '/api/v3/user/' + endPoint;
@@ -130,7 +136,7 @@ angular.module('habitrpg')
           body: body,
         })
         .then(function (response) {
-          if (response.data.message) Notification.text(response.data.message);
+          if (response.data.message && response.data.message !== clientMessage) Notification.text(response.data.message);
           save();
         })
       }
@@ -182,7 +188,12 @@ angular.module('habitrpg')
         },
 
         score: function (data) {
-          $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
+          try {
+            $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
+          } catch (err) {
+            Notification.text(err.message);
+            return;
+          }
           save();
           Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses

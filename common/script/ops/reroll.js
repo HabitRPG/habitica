@@ -13,8 +13,10 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
   user.stats.hp = 50;
 
   _.each(tasks, function resetTaskValues (task) {
-    if (task.type !== 'reward') {
-      task.value = 0;
+    if (!task.challenge || !task.challenge.id || task.challenge.broken) {
+      if (task.type !== 'reward') {
+        task.value = 0;
+      }
     }
   });
 

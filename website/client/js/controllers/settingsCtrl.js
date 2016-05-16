@@ -176,6 +176,7 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.reset = function(){
       User.reset({});
+      User.sync();
       $rootScope.$state.go('tasks');
     }
 

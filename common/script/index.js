@@ -114,7 +114,7 @@ import sleep from './ops/sleep';
 import allocate from './ops/allocate';
 import buy from './ops/buy';
 import buyGear from './ops/buyGear';
-import buyPotion from './ops/buyPotion';
+import buyHealthPotion from './ops/buyHealthPotion';
 import buyArmoire from './ops/buyArmoire';
 import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
@@ -155,7 +155,7 @@ api.ops = {
   allocate,
   buy,
   buyGear,
-  buyPotion,
+  buyHealthPotion,
   buyArmoire,
   buyMysterySet,
   buySpecialSpell,
@@ -274,7 +274,7 @@ api.wrap = function wrapUser (user, main = true) {
       releaseMounts: _.partial(importedOps.releaseMounts, user),
       releaseBoth: _.partial(importedOps.releaseBoth, user),
       buy: _.partial(importedOps.buy, user),
-      buyPotion: _.partial(importedOps.buyPotion, user),
+      buyHealthPotion: _.partial(importedOps.buyHealthPotion, user),
       buyArmoire: _.partial(importedOps.buyArmoire, user),
       buyGear: _.partial(importedOps.buyGear, user),
       buyQuest: _.partial(importedOps.buyQuest, user),
