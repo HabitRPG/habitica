@@ -194,7 +194,7 @@ spells.rogue = {
     notes: t('spellRogueStealthNotes'),
     cast (user) {
       if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
-      user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.dailys.length * 0.64, 55));
+      user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.tasksOrder.dailys.length * 0.64, 55));
     },
   },
 };
