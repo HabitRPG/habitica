@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Members', [ '$rootScope', 'Shared', 'ApiUrl', '$resource', '$http', '$q',
-  function($rootScope, Shared, ApiUrl, $resource, $http, $q) {
+.factory('Members', [ '$rootScope', 'Shared', 'ApiUrl', '$http', '$q',
+  function($rootScope, Shared, ApiUrl, $http, $q) {
     var members = {};
     var selectedMember = {};
     var apiV3Prefix = '/api/v3';
