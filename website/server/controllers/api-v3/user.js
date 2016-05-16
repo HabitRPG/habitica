@@ -557,8 +557,6 @@ api.buyGear = {
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
- * @apiParam {string} key The item to buy.
- *
  * @apiSuccess {object} data.items user.items
  * @apiSuccess {object} data.flags user.flags
  * @apiSuccess {object} data.armoire Extra item given by the armoire
@@ -577,12 +575,10 @@ api.buyArmoire = {
 };
 
 /**
- * @api {post} /user/buy-potion Buy a potion.
+ * @api {post} /user/buy-potion Buy a health potion
  * @apiVersion 3.0.0
  * @apiName UserBuyPotion
  * @apiGroup User
- *
- * @apiParam {string} key The item to buy.
  *
  * @apiSuccess {Object} data user.stats
  * @apiSuccess {string} message Success message
