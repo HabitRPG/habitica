@@ -118,11 +118,15 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl, Social) {
       });
     };
 
-    $scope.addBossQuestProgressUp = function(){
-      //@TODO: Route?
-      User.set({
-        'party.quest.progress.up': User.user.party.quest.progress.up + 1000
-      });
+    $scope.addQuestProgress = function(){
+      $http({
+        method: "POST",
+        url: 'api/v3/debug/quest-progress'
+      })
+      .then(function (response) {
+        Notification.text('Quest progress increased');
+        User.sync();
+      })
     };
 
     $scope.makeAdmin = function () {

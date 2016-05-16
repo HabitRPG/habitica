@@ -1,5 +1,8 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode';
+import { BadRequest } from '../../libs/api-v3/errors';
+import { content } from '../../../../common';
+import _ from 'lodash';
 
 let api = {};
 
@@ -141,4 +144,47 @@ api.modifyInventory = {
     res.respond(200, {});
   },
 };
+
+/**
+ * @api {post} /api/v3/debug/quest-progress Artificially accelerate quest progress
+ * @apiDescription Only available in development mode.
+ * @apiVersion 3.0.0
+ * @apiName questProgress
+ * @apiGroup Development
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
+api.questProgress = {
+  method: 'POST',
+  url: '/debug/quest-progress',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let key = _.get(user, 'party.quest.key');
+    let quest = content.quests[key];
+
+    if (!quest) {
+      throw new BadRequest('User is not on a valid quest.');
+    }
+
+    if (quest.boss) {
+      user.party.quest.progress.up += 1000;
+    }
+
+    if (quest.collect) {
+      let collect = user.party.quest.progress.collect;
+      _.each(quest.collect, (details, item) => {
+        collect[item] = collect[item] || 0;
+        collect[item] += 300;
+      });
+    }
+
+    user.markModified('party.quest.progress');
+
+    await user.save();
+
+    res.respond(200, {});
+  },
+};
+
 module.exports = api;
