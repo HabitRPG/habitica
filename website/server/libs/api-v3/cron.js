@@ -2,7 +2,9 @@ import moment from 'moment';
 import common from '../../../../common/';
 import { preenUserHistory } from '../../libs/api-v3/preening';
 import _ from 'lodash';
+import nconf from 'nconf';
 
+const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
@@ -68,6 +70,7 @@ function performSleepTasks (user, tasksByType, now) {
     let thatDay = moment(now).subtract({days: 1});
 
     if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
+      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitrpg/pull/7218#issuecomment-219256016
       daily.checklist.forEach(box => box.completed = false);
     }
 
@@ -90,7 +93,7 @@ export function cron (options = {}) {
 
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
-    removeTerminatedSubscription(user);
+    if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
   }
 
   // User is resting at the inn.
@@ -150,31 +153,36 @@ export function cron (options = {}) {
       }
 
       if (scheduleMisses > EvadeTask) {
-        perfect = false;
-
-        if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
-          let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
-          dailyDueUnchecked += 1 - fractionChecked;
-          dailyChecked += fractionChecked;
+        // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
+        if (CRON_SAFE_MODE) {
+          dailyChecked += 1; // allows full allotment of mp to be gained
         } else {
-          dailyDueUnchecked += 1;
+          perfect = false;
+
+          if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
+            let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
+            dailyDueUnchecked += 1 - fractionChecked;
+            dailyChecked += fractionChecked;
+          } else {
+            dailyDueUnchecked += 1;
+          }
+
+          let delta = scoreTask({
+            user,
+            task,
+            direction: 'down',
+            times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
+            cron: true,
+          });
+
+          // Apply damage from a boss, less damage for Trivial priority (difficulty)
+          user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+          // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+          // initially, and when we realised, we could not fix it because users are used to
+          // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+          // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+          // setting between Trivial and Easy.
         }
-
-        let delta = scoreTask({
-          user,
-          task,
-          direction: 'down',
-          times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
-          cron: true,
-        });
-
-        // Apply damage from a boss, less damage for Trivial priority (difficulty)
-        user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-        // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-        // initially, and when we realised, we could not fix it because users are used to
-        // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-        // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-        // setting between Trivial and Easy.
       }
     }
 
@@ -185,7 +193,7 @@ export function cron (options = {}) {
     task.completed = false;
 
     if (completed || scheduleMisses > 0) {
-      task.checklist.forEach(i => i.completed = false); // TODO this should not happen for grey tasks unless they are completed
+      task.checklist.forEach(i => i.completed = false);
     }
   });
 
@@ -231,14 +239,9 @@ export function cron (options = {}) {
 
   // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
   // Adjust for fraction of dailies completed
-  user.stats.mp += _.max([10, 0.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
-  if (user.stats.mp > user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
-
   if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
   user.stats.mp += _.max([10, 0.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
-  if (user.stats.mp > user._statsComputed.maxMP) {
-    user.stats.mp = user._statsComputed.maxMP;
-  }
+  if (user.stats.mp > user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
