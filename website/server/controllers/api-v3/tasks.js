@@ -54,7 +54,7 @@ async function _createTasks (req, res, user, challenge) {
 }
 
 /**
- * @api {post} /api/v3/tasks/user Create a new task belonging to the user.
+ * @api {post} /api/v3/tasks/user Create a new task belonging to the user
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateUserTasks
@@ -73,13 +73,13 @@ api.createUserTasks = {
 };
 
 /**
- * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to a challenge.
+ * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to a challenge
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiVersion 3.0.0
  * @apiName CreateChallengeTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to.
+ * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to
  *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
  */
@@ -171,7 +171,7 @@ async function _getTasks (req, res, user, challenge) {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that requested separately.
+ * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately.
  *
  * @apiSuccess {Array} data An array of tasks
  */
@@ -197,7 +197,7 @@ api.getUserTasks = {
  * @apiName GetChallengeTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks.
+ * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
  *
  * @apiSuccess {Array} data An array of tasks
@@ -427,9 +427,9 @@ api.scoreTask = {
   },
 };
 
-// completed todos cannot be moved, they'll be returned ordered by date of completion
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
+ * @apiDescription Note: completed To-Dos are not sortable, do not appear in user.tasksOrder.todos, and are ordered by date of completion.
  * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task

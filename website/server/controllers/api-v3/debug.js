@@ -7,7 +7,7 @@ import _ from 'lodash';
 let api = {};
 
 /**
- * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user.
+ * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user
  * @apiDescription Only available in development mode.
  * @apiVersion 3.0.0
  * @apiName AddTenGems
@@ -31,7 +31,7 @@ api.addTenGems = {
 };
 
 /**
- * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user.
+ * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user
  * @apiDescription Only available in development mode.
  * @apiVersion 3.0.0
  * @apiName AddHourglass

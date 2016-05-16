@@ -9,8 +9,8 @@ import _ from 'lodash';
 let api = {};
 
 /**
- * @api {get} /api/v3/hall/patrons Get all Patrons.
- * @apiDescription Only the first 50 patrons are returned. More can be accessed passing ?page=n.
+ * @api {get} /api/v3/hall/patrons Get all patrons
+ * @apiDescription Only the first 50 patrons are returned. More can be accessed passing ?page=n
  * @apiVersion 3.0.0
  * @apiName GetPatrons
  * @apiGroup Hall
@@ -79,13 +79,13 @@ api.getHeroes = {
 const heroAdminFields = 'contributor balance profile.name purchased items auth';
 
 /**
- * @api {get} /api/v3/hall/heroes/:heroId Get an hero given his _id.
- * @apiDescription Must be an admin to make this request
+ * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
+ * @apiDescription Must be an admin to make this request.
  * @apiVersion 3.0.0
  * @apiName GetHero
  * @apiGroup Hall
  *
- * @apiSuccess {Object} data The hero object
+ * @apiSuccess {Object} data The user object
  */
 api.getHero = {
   method: 'GET',
@@ -117,13 +117,13 @@ api.getHero = {
 const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 
 /**
- * @api {put} /api/v3/hall/heroes/:heroId Update an hero.
- * @apiDescription Must be an admin to make this request
+ * @api {put} /api/v3/hall/heroes/:heroId Update any user ("hero")
+ * @apiDescription Must be an admin to make this request.
  * @apiVersion 3.0.0
  * @apiName UpdateHero
  * @apiGroup Hall
  *
- * @apiSuccess {Object} data The updated hero object
+ * @apiSuccess {Object} data The updated user object
  */
 api.updateHero = {
   method: 'PUT',
