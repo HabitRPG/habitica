@@ -517,7 +517,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
-  let bossAttack = nconf.get('CRON_SAFE_MODE') ? `${quest.boss.name('en')} did not attack the party because it was asleep while maintenance was happening.` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
+  let bossAttack = nconf.get('CRON_SAFE_MODE') === 'true' ? `${quest.boss.name('en')} did not attack the party because it was asleep while maintenance was happening.` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
 
   // If boss has Rage, increment Rage as well
