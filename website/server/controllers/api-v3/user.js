@@ -1106,16 +1106,22 @@ api.userRebirth = {
   url: '/user/rebirth',
   async handler (req, res) {
     let user = res.locals.user;
-    let query = {
+    let tasks = await Tasks.Task.find({
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-    };
-    let tasks = await Tasks.Task.find(query).exec();
+      $or: [ // exclude challenge tasks
+        {'challenge.id': {$exists: false}},
+        {'challenge.broken': {$exists: true}},
+      ],
+    }).exec();
+
     let rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
 
-    await user.save();
+    let toSave = tasks.map(task => task.save());
 
-    await Bluebird.all(tasks.map(task => task.save()));
+    toSave.push(user.save());
+
+    await Bluebird.all(toSave);
 
     res.respond(200, ...rebirthRes);
   },
@@ -1224,6 +1230,10 @@ api.userReroll = {
     let query = {
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
+      $or: [ // exclude challenge tasks
+        {'challenge.id': {$exists: false}},
+        {'challenge.broken': {$exists: true}},
+      ],
     };
     let tasks = await Tasks.Task.find(query).exec();
     let rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
@@ -1280,11 +1290,20 @@ api.userReset = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let tasks = await Tasks.Task.find({userId: user._id}).select('_id type challenge').exec();
+    let tasks = await Tasks.Task.find({
+      userId: user._id,
+      $or: [ // exclude challenge tasks
+        {'challenge.id': {$exists: false}},
+        {'challenge.broken': {$exists: true}},
+      ],
+    }).select('_id type challenge').exec();
 
-    let resetRes = common.ops.reset(user, tasks);
+    let resetRes = common.ops.reset(user, tasks, req);
 
-    await Bluebird.all([Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}), user.save()]);
+    await Bluebird.all([
+      Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
+      user.save(),
+    ]);
 
     res.respond(200, ...resetRes);
   },
