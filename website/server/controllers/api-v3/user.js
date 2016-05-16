@@ -887,7 +887,7 @@ api.userOpenMysteryItem = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/webhook Create a new webhook
 * @apiVersion 3.0.0
 * @apiName UserAddWebhook
@@ -910,7 +910,7 @@ api.addWebhook = {
   },
 };
 
-/*
+/**
 * @api {put} /api/v3/user/webhook/:id Edit a webhook
 * @apiVersion 3.0.0
 * @apiName UserUpdateWebhook
@@ -934,7 +934,7 @@ api.updateWebhook = {
   },
 };
 
-/*
+/**
 * @api {delete} /api/v3/user/webhook/:id Delete a webhook
 * @apiVersion 3.0.0
 * @apiName UserDeleteWebhook
@@ -977,7 +977,7 @@ api.userReleasePets = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
 * @apiVersion 3.0.0
 * @apiName UserReleaseBoth
@@ -1000,7 +1000,7 @@ api.userReleaseBoth = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/release-mounts Release mounts
 * @apiVersion 3.0.0
 * @apiName UserReleaseMounts
@@ -1021,7 +1021,7 @@ api.userReleaseMounts = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
 * @apiVersion 3.0.0
 * @apiName UserSell
@@ -1046,7 +1046,7 @@ api.userSell = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/unlock Unlock item or set of items by purchase
 * @apiVersion 3.0.0
 * @apiName UserUnlock
@@ -1092,7 +1092,7 @@ api.userRevive = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
 * @apiVersion 3.0.0
 * @apiName UserRebirth
@@ -1214,7 +1214,7 @@ api.markPmsRead = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
 * @apiVersion 3.0.0
 * @apiName UserReroll
@@ -1250,7 +1250,7 @@ api.userReroll = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/addPushDevice Add a push device to a user
 * @apiVersion 3.0.0
 * @apiName UserAddPushDevice
@@ -1276,7 +1276,7 @@ api.userAddPushDevice = {
   },
 };
 
-/*
+/**
 * @api {post} /api/v3/user/reset Reset user
 * @apiVersion 3.0.0
 * @apiName UserReset
