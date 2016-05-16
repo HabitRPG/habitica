@@ -387,6 +387,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.falcon != null) > 0;
     }),
   },
+  Treeling: {
+    text: t('questEggTreelingText'),
+    adjective: t('questEggTreelingAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.treeling != null) > 0;
+    }),
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -2654,6 +2661,38 @@ api.quests = {
       gp: 49,
       exp: 425,
       unlock: t('questFalconUnlockText'),
+    },
+  },
+  treeling: {
+    text: t('questTreelingText'),
+    notes: t('questTreelingNotes'),
+    completion: t('questTreelingCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTreelingBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questTreelingUnlockText'),
     },
   },
 };
