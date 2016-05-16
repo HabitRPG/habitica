@@ -29,41 +29,21 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
 
-    function addTask(addTo, listDef, task) {
-      var newTask = {
-        text: task,
-        type: listDef.type,
-        tags: _.transform(User.user.filters, function(m,v,k){
-          if (v) m[k]=v;
-        })
-      };
-      User.user.ops.addTask({body:newTask});
-    }
-
-    $scope.addTask = function(addTo, listDef) {
-      if (listDef.bulk) {
-        var tasks = listDef.newTask.split(/[\n\r]+/);
-        //Reverse the order of tasks so the tasks will appear in the order the user entered them
-        tasks.reverse();
-        _.each(tasks, function(t) {
-          addTask(addTo, listDef, t);
-        });
-        listDef.bulk = false;
-      } else {
-        addTask(addTo, listDef, listDef.newTask);
-      }
-      delete listDef.newTask;
-      delete listDef.focus;
+    $scope.addTask = function(list, listDef) {
+      Tasks.addTask(listDef, function(t) { 
+        var task = {
+          text: t,
+          type: listDef.type,
+          tags: _.transform(User.user.filters, function(m,v,k){
+            if (v) m[k]=v;
+          })
+        };
+        User.user.ops.addTask({body:task});
+      });
       if (listDef.type=='daily') Guide.goto('intro', 2);
     };
 
-    $scope.toggleBulk = function(list) {
-      if (typeof list.bulk === 'undefined') {
-        list.bulk = false;
-      }
-      list.bulk = !list.bulk;
-      list.focus = true;
-    };
+    $scope.toggleBulk = Tasks.toggleBulk;
 
     $scope.editTask = Tasks.editTask;
 
