@@ -108,7 +108,7 @@ describe('POST /tasks/user', () => {
     });
 
     it(`ignores setting userId, history, createdAt,
-                        updatedAt, challenge, completed, streak,
+                        updatedAt, challenge, completed,
                         dateCompleted fields`, async () => {
       let task = await user.post('/tasks/user', {
         text: 'test daily',
@@ -119,7 +119,6 @@ describe('POST /tasks/user', () => {
         updatedAt: 'tomorrow',
         challenge: 'no',
         completed: true,
-        streak: 25,
         dateCompleted: 'never',
         value: 324, // ignored because not a reward
       });
@@ -130,7 +129,6 @@ describe('POST /tasks/user', () => {
       expect(task.updatedAt).not.to.equal('tomorrow');
       expect(task.challenge).not.to.equal('no');
       expect(task.completed).to.equal(false);
-      expect(task.streak).to.equal(0);
       expect(task.streak).not.to.equal('never');
       expect(task.value).not.to.equal(324);
     });

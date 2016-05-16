@@ -56,7 +56,7 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: ['challenge', 'userId', 'completed', 'history', 'streak', 'dateCompleted', 'completed'],
+  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', 'completed'],
   sanitizeTransform (taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
