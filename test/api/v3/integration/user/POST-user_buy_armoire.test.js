@@ -18,7 +18,7 @@ describe('POST /user/buy-armoire', () => {
   // More tests in common code unit tests
 
   it('returns an error if user does not have enough gold', async () => {
-    await expect(user.post('/user/buy-potion'))
+    await expect(user.post('/user/buy-health-potion'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -32,7 +32,7 @@ describe('POST /user/buy-armoire', () => {
     });
 
     let potion = content.potion;
-    let res = await user.post('/user/buy-potion');
+    let res = await user.post('/user/buy-health-potion');
     await user.sync();
 
     expect(user.stats.hp).to.equal(50);

@@ -2,13 +2,13 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import buyPotion from '../../../common/script/ops/buyPotion';
+import buyHealthPotion from '../../../common/script/ops/buyHealthPotion';
 import {
   NotAuthorized,
 } from '../../../common/script/libs/errors';
 import i18n from '../../../common/script/i18n';
 
-describe('shared.ops.buyPotion', () => {
+describe('shared.ops.buyHealthPotion', () => {
   let user;
 
   beforeEach(() => {
@@ -30,19 +30,19 @@ describe('shared.ops.buyPotion', () => {
   context('Potion', () => {
     it('recovers 15 hp', () => {
       user.stats.hp = 30;
-      buyPotion(user);
+      buyHealthPotion(user);
       expect(user.stats.hp).to.eql(45);
     });
 
     it('does not increase hp above 50', () => {
       user.stats.hp = 45;
-      buyPotion(user);
+      buyHealthPotion(user);
       expect(user.stats.hp).to.eql(50);
     });
 
     it('deducts 25 gp', () => {
       user.stats.hp = 45;
-      buyPotion(user);
+      buyHealthPotion(user);
 
       expect(user.stats.gp).to.eql(175);
     });
@@ -51,7 +51,7 @@ describe('shared.ops.buyPotion', () => {
       user.stats.hp = 45;
       user.stats.gp = 5;
       try {
-        buyPotion(user);
+        buyHealthPotion(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));

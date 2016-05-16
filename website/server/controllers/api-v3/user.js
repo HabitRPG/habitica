@@ -578,25 +578,23 @@ api.buyArmoire = {
 };
 
 /**
- * @api {post} /user/buy-potion Buy a potion.
+ * @api {post} /user/buy-health-potion Buy a health potion
  * @apiVersion 3.0.0
  * @apiName UserBuyPotion
  * @apiGroup User
  *
- * @apiParam {string} key The item to buy.
- *
  * @apiSuccess {Object} data user.stats
  * @apiSuccess {string} message Success message
  */
-api.buyPotion = {
+api.buyHealthPotion = {
   method: 'POST',
   middlewares: [authWithHeaders()],
-  url: '/user/buy-potion',
+  url: '/user/buy-health-potion',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyPotionResponse = common.ops.buyPotion(user, req, res.analytics);
+    let buyHealthPotionResponse = common.ops.buyHealthPotion(user, req, res.analytics);
     await user.save();
-    res.respond(200, ...buyPotionResponse);
+    res.respond(200, ...buyHealthPotionResponse);
   },
 };
 
