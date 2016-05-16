@@ -184,8 +184,8 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:cid',
           templateUrl: 'partials/options.social.challenges.detail.html',
           title: env.t('titleChallenges'),
-          controller: ['$scope', 'Challenges', '$stateParams', 'Tasks',
-            function ($scope, Challenges, $stateParams, Tasks) {
+          controller: ['$scope', 'Challenges', '$stateParams', 'Tasks', 'Members',
+            function ($scope, Challenges, $stateParams, Tasks, Members) {
               Challenges.getChallenge($stateParams.cid)
                 .then(function (response) {
                   $scope.obj = $scope.challenge = response.data.data;
@@ -198,6 +198,11 @@ window.habitrpg = angular.module('habitrpg',
                     if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
                     $scope.challenge[element.type + 's'].push(element);
                   })
+
+                  return Members.getChallengeMembers($scope.challenge._id);
+                })
+                .then(function (response) {
+                  $scope.challenge.members = response.data.data;
                 });
             }]
         })
@@ -226,11 +231,22 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:uid',
           templateUrl: 'partials/options.social.challenges.detail.member.html',
           title: env.t('titleChallenges'),
-          controller: ['$scope', 'Challenges', '$stateParams',
-            function($scope, Challenges, $stateParams){
-              $scope.obj = Challenges.Challenge.getMember({cid:$stateParams.cid, uid:$stateParams.uid}, function(){
-                $scope.obj._locked = true;
-              });
+          controller: ['$scope', 'Members', '$stateParams',
+            function($scope, Members, $stateParams){
+              Members.getChallengeMemberProgress($stateParams.cid, $stateParams.uid)
+                .then(function(response) {
+                  $scope.obj = response.data.data;
+
+                  $scope.obj.habits = [];
+                  $scope.obj.todos = [];
+                  $scope.obj.dailys = [];
+                  $scope.obj.rewards = [];
+                  $scope.obj.tasks.forEach(function (element, index, array) {
+                    $scope.obj[element.type + 's'].push(element)
+                  });
+
+                  $scope.obj._locked = true;
+                });
             }]
         })
 

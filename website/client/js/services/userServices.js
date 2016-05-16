@@ -45,6 +45,16 @@ angular.module('habitrpg')
 
       user._wrapped = false;
 
+      function syncUserTasks (tasks) {
+        user.habits = [];
+        user.todos = [];
+        user.dailys = [];
+        user.rewards = [];
+        tasks.forEach(function (element, index, array) {
+          user[element.type + 's'].push(element)
+        });
+      }
+
       function sync() {
         return $http({
           method: "GET",
@@ -76,14 +86,7 @@ angular.module('habitrpg')
         })
         .then(function (response) {
           var tasks = response.data.data;
-          user.habits = [];
-          user.todos = [];
-          user.dailys = [];
-          user.rewards = [];
-          tasks.forEach(function (element, index, array) {
-            user[element.type + 's'].push(element)
-          })
-
+          syncUserTasks(tasks);
           save();
           $rootScope.$emit('userSynced');
         });
@@ -495,6 +498,8 @@ angular.module('habitrpg')
           userServices.log({});
           return sync();
         },
+
+        syncUserTasks: syncUserTasks,
 
         save: save,
 

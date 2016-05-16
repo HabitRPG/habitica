@@ -76,7 +76,7 @@ angular.module('habitrpg')
     function selectChallengeWinner (challengeId, winnerId) {
       return $http({
         method: 'POST',
-        url: apiV3Prefix + '/challenges/' + challengeId + 'selectWinner/' + winnerId,
+        url: apiV3Prefix + '/challenges/' + challengeId + '/selectWinner/' + winnerId,
       });
     }
 

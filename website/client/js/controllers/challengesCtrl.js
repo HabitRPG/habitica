@@ -11,7 +11,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = [];
-    Groups.Group.getGroups('party,publicGuilds,privateGuilds,tavern')
+    Groups.Group.getGroups('party,guilds,tavern')
       .then(function (response) {
         $scope.groups = response.data.data;
       });
@@ -40,7 +40,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      * Create
      */
     $scope.create = function() {
-
       //If the user has one filter selected, assume that the user wants to default to that group
       var defaultGroup;
       //Our filters contain all groups, but we only want groups that have atleast one challenge
@@ -49,12 +48,12 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       var filterCount = 0;
 
       for ( var i = 0; i < len; i += 1 ) {
-        if ( $scope.search.group[groupsWithChallenges[i]] == true ) {
+        if ($scope.search.group[groupsWithChallenges[i]] === true) {
           filterCount += 1;
           defaultGroup = groupsWithChallenges[i];
         }
-        if (filterCount > 1) {
-          defaultGroup = $scope.groups[0]._id
+
+        if (filterCount >= 1 && defaultGroup) {
           break;
         }
       }
@@ -200,7 +199,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       if (!challenge.winner) return;
       if (!confirm(window.env.t('youSure'))) return;
 
-      Challenges.selectWinner(challenge._id, challenge.winner)
+      Challenges.selectChallengeWinner(challenge._id, challenge.winner)
         .then(function (response) {
           $scope.popoverEl.popover('destroy');
           _backToChallenges();
@@ -239,7 +238,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     //------------------------------------------------------------
     // Tasks
     //------------------------------------------------------------
-    $scope.addTask = function(addTo, listDef, challenge) {
+    function addTask (addTo, listDef, challenge) {
       var task = Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
       //If the challenge has not been created, we bulk add tasks on save
       if (challenge._id) Tasks.createChallengeTasks(challenge._id, task);
@@ -248,9 +247,25 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       delete listDef.newTask;
     };
 
+    $scope.addTask = function(addTo, listDef, challenge) {
+      if (listDef.bulk) {
+        var tasks = listDef.newTask.split(/[\n\r]+/);
+        //Reverse the order of tasks so the tasks will appear in the order the user entered them
+        tasks.reverse();
+        _.each(tasks, function(t) {
+          listDef.newTask = t;
+          addTask(addTo, listDef, challenge);
+        });
+        listDef.bulk = false;
+      } else {
+        addTask(addTo, listDef, challenge);
+      }
+    }
+
     $scope.removeTask = function(task, challenge) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      Tasks.deleteTask(task._id);
+      //We only pass to the api if the challenge exists, otherwise, the tasks only exist on the client
+      if (challenge._id) Tasks.deleteTask(task._id);
       var index = challenge[task.type + 's'].indexOf(task);
       challenge[task.type + 's'].splice(index, 1);
     };
@@ -259,6 +274,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       task._editing = false;
       // TODO persist
     }
+
+    $scope.toggleBulk = function(list) {
+      if (typeof list.bulk === 'undefined') {
+        list.bulk = false;
+      }
+      list.bulk = !list.bulk;
+      list.focus = true;
+    };
 
     /*
     --------------------------
@@ -269,7 +292,13 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.join = function (challenge) {
       Challenges.joinChallenge(challenge._id)
         .then(function (response) {
-          _getChallenges()
+          User.user.challenges.push(challenge._id);
+          _getChallenges();
+          return Tasks.getUserTasks();
+        })
+        .then(function (response) {
+          var tasks = response.data.data;
+          User.syncUserTasks(tasks);
         });
     }
 
@@ -279,7 +308,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       } else {
         Challenges.leaveChallenge($scope.selectedChal._id, keep)
           .then(function (response) {
-            _getChallenges()
+            var index = User.user.challenges.indexOf($scope.selectedChal._id);
+            delete User.user.challenges[index];
+            _getChallenges();
+            return Tasks.getUserTasks();
+          })
+          .then(function (response) {
+            var tasks = response.data.data;
+            User.syncUserTasks(tasks);
           });
       }
       $scope.popoverEl.popover('destroy');
@@ -369,7 +405,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.groupsFilter = _.uniq(_.pluck($scope.challenges, 'group'), function(g) {return g._id});
 
       $scope.search = {
-        group: _.transform($scope.groups, function(m,g){ m[g._id] = true;}),
+        group: _.transform($scope.groups, function(m,g) { m[g._id] = true;}),
         _isMember: "either",
         _isOwner: "either"
       };
@@ -407,7 +443,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       var groupSelected = $scope.search.group[chal.group._id];
       var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
-      var checkMember = $scope.search._isMember === 'either' || (chal._isMember === $scope.search._isMember);
+      var checkMember = $scope.search._isMember === 'either' || ($scope.isUserMemberOf(chal) === $scope.search._isMember);
 
       return groupSelected && checkOwner && checkMember;
     }

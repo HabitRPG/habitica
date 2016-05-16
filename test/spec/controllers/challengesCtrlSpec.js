@@ -41,29 +41,35 @@ describe('Challenges Controller', function() {
           description: 'You are the owner and member',
           leader: user._id,
           members: [user],
-          _isMember: true
+          _isMember: true,
+          _id: 'ownMem-id',
         });
 
         ownNotMem = specHelper.newChallenge({
           description: 'You are the owner, but not a member',
           leader: user._id,
           members: [],
-          _isMember: false
+          _isMember: false,
+          _id: 'ownNotMem-id',
         });
 
         notOwnMem = specHelper.newChallenge({
           description: 'Not owner but a member',
           leader: {_id:"test"},
           members: [user],
-          _isMember: true
+          _isMember: true,
+          _id: 'notOwnMem-id',
         });
 
         notOwnNotMem = specHelper.newChallenge({
           description: 'Not owner or member',
           leader: {_id:"test"},
           members: [],
-          _isMember: false
+          _isMember: false,
+          _id: 'notOwnNotMem-id',
         });
+
+        user.challenges = [ownMem._id, notOwnMem._id];
 
         scope.search = {
           group: _.transform(groups, function(m,g){m[g._id]=true;})
