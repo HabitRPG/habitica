@@ -31,7 +31,7 @@ import releaseMounts from './releaseMounts';
 import releaseBoth from './releaseBoth';
 import buy from './buy';
 import buyGear from './buyGear';
-import buyPotion from './buyPotion';
+import buyHealthPotion from './buyHealthPotion';
 import buyArmoire from './buyArmoire';
 import buyQuest from './buyQuest';
 import buyMysterySet from './buyMysterySet';
@@ -83,7 +83,7 @@ module.exports = {
   releaseBoth,
   buy,
   buyGear,
-  buyPotion,
+  buyHealthPotion,
   buyArmoire,
   buyQuest,
   buyMysterySet,
