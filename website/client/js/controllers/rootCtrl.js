@@ -289,7 +289,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
             }
           });
       } else if (spell.target == 'tasks') {
-        var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.rewards);
+        var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.rewards).concat(User.user.todos);
         // exclude challenge tasks
         tasks = tasks.filter(function (t) {
           if (!t.challenge) return true;

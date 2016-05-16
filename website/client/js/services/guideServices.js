@@ -264,8 +264,8 @@ function($rootScope, User, $timeout, $state, Analytics) {
   }
 
   //Init and show the welcome tour (only after user is pulled from server & wrapped).
-  var watcher = $rootScope.$watch('User.user.ops.update', function(updateFn){
-    if (!updateFn) return; // only run after user has been wrapped
+  var watcher = $rootScope.$watch('User.user._wrapped', function(wrapped){
+    if (!wrapped) return; // only run after user has been wrapped
     watcher(); // deregister watcher
     if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
     if (User.user.flags.welcomed == false) {
