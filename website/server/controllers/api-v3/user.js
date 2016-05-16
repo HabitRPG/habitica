@@ -1093,12 +1093,12 @@ api.userRevive = {
 };
 
 /*
-* @api {post} /api/v3/user/rebirth Resets a user.
+* @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
 * @apiVersion 3.0.0
 * @apiName UserRebirth
 * @apiGroup User
 *
-* @apiSuccess {Object} data.userr
+* @apiSuccess {Object} data.user
 * @apiSuccess {array} data.tasks User's modified tasks (no rewards)
 * @apiSuccess {string} message Success message
 */
