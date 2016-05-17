@@ -128,11 +128,19 @@ describe('Tasks Service', function() {
     $httpBackend.flush();
   });
 
-  it('calls unlink task endpoint', function() {
+  it('calls unlinkOneTask endpoint', function() {
     var taskId = 1;
+    var keep = "keep";
+    $httpBackend.expectPOST(apiV3Prefix + '/unlink-one/' + taskId + '?keep=' + keep).respond({});
+    tasks.unlinkOneTask(taskId);
+    $httpBackend.flush();
+  });
+
+  it('calls unlinkAllTasks endpoint', function() {
+    var challengeId = 1;
     var keep = "keep-all";
-    $httpBackend.expectPOST(apiV3Prefix + '/unlink/' + taskId + '?keep=' + keep).respond({});
-    tasks.unlinkTask(taskId);
+    $httpBackend.expectPOST(apiV3Prefix + '/unlink-all/' + challengeId + '?keep=' + keep).respond({});
+    tasks.unlinkAllTasks(challengeId);
     $httpBackend.flush();
   });
 

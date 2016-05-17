@@ -132,7 +132,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           .then(function (response) {
             _challenge = response.data.data;
             Notification.text(window.env.t('challengeCreated'));
-            User.sync();
 
             var challengeTasks = [];
             challengeTasks = challengeTasks.concat(challenge.todos);
@@ -146,6 +145,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
             $state.transitionTo('options.social.challenges.detail', { cid: _challenge._id }, {
               reload: true, inherit: false, notify: true
             });
+            User.sync();
           });
       } else {
         Challenges.updateChallenge(challenge._id, challenge)
@@ -154,6 +154,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
             $state.transitionTo('options.social.challenges.detail', { cid: _challenge._id }, {
               reload: true, inherit: false, notify: true
             });
+            User.sync();
           });
       }
     };
