@@ -17,15 +17,17 @@ import { shouldDo, daysSince } from './cron';
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
 
-// TODO under api.constants?
+// TODO under api.constants? and capitalize exported names too
 import {
   MAX_HEALTH,
   MAX_LEVEL,
   MAX_STAT_POINTS,
+  TAVERN_ID,
 } from './constants';
 api.maxLevel = MAX_LEVEL;
 api.maxHealth = MAX_HEALTH;
 api.maxStatPoints = MAX_STAT_POINTS;
+api.TAVERN_ID = TAVERN_ID;
 
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';

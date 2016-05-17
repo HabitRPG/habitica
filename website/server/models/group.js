@@ -23,7 +23,7 @@ const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
 
 export const INVITES_LIMIT = 100;
-export const TAVERN_ID = '00000000-0000-4000-A000-000000000000';
+export const TAVERN_ID = shared.TAVERN_ID;
 
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
