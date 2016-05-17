@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Challenges Controller', function() {
-  var rootScope, scope, user, User, ctrl, groups, members, notification, state, challenges, tasks;
+  var rootScope, scope, user, User, ctrl, groups, members, notification, state, challenges, tasks, tavernId;
 
   beforeEach(function() {
     module(function($provide) {
@@ -14,7 +14,7 @@ describe('Challenges Controller', function() {
       $provide.value('User', User);
     });
 
-    inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_, _Challenges_, _Tasks_){
+    inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_, _Challenges_, _Tasks_, _TAVERN_ID_){
       scope = $rootScope.$new();
       rootScope = $rootScope;
 
@@ -29,6 +29,7 @@ describe('Challenges Controller', function() {
       members = _Members_;
       notification = _Notification_;
       state = _$state_;
+      tavernId = _TAVERN_ID_;
     });
   });
 
@@ -486,7 +487,7 @@ describe('Challenges Controller', function() {
       it('defaults to tavern if no group can be set as default', function() {
         scope.create();
 
-        expect(scope.newChallenge.group).to.eql('habitrpg');
+        expect(scope.newChallenge.group).to.eql(tavernId);
       });
 
       it('calculates maxPrize', function() {
@@ -508,7 +509,7 @@ describe('Challenges Controller', function() {
         expect(chal.todos).to.eql([]);
         expect(chal.rewards).to.eql([]);
         expect(chal.leader).to.eql('unique-user-id');
-        expect(chal.group).to.eql('habitrpg');
+        expect(chal.group).to.eql(tavernId);
         expect(chal.timestamp).to.be.greaterThan(0);
         expect(chal.official).to.eql(false);
       });
@@ -519,7 +520,7 @@ describe('Challenges Controller', function() {
         it('returns true if user has no gems', function() {
           User.user.balance = 0;
           scope.newChallenge = specHelper.newChallenge({
-            group: 'habitrpg'
+            group: tavernId
           });
 
           var cannotCreateTavernChallenge = scope.insufficientGemsForTavernChallenge();
@@ -529,7 +530,7 @@ describe('Challenges Controller', function() {
         it('returns false if user has gems', function() {
           User.user.balance = .25;
           scope.newChallenge = specHelper.newChallenge({
-            group: 'habitrpg'
+            group: tavernId
           });
 
           var cannotCreateTavernChallenge = scope.insufficientGemsForTavernChallenge();
