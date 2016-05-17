@@ -195,7 +195,8 @@ angular.module('habitrpg')
       removeChecklistItem: removeChecklistItem,
       addTagToTask: addTagToTask,
       removeTagFromTask: removeTagFromTask,
-      unlinkTask: unlinkTask,
+      unlinkOneTask: unlinkOneTask,
+      unlinkAllTasks: unlinkAllTasks,
       clearCompletedTodos: clearCompletedTodos,
       editTask: editTask,
       cloneTask: cloneTask
