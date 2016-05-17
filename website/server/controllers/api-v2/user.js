@@ -110,8 +110,8 @@ api.score = function(req, res, next) {
       // Defaults. Other defaults are handled in user.ops.addTask()
       task = new Tasks.Task({
         _id: id, // TODO this might easily lead to conflicts as ids are now unique db-wide
-        type: body.type,
-        text: body.text,
+        type: body.type || 'habit',
+        text: body.text || id,
         userId: user._id,
         notes: body.notes || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task." // TODO translate
       });
