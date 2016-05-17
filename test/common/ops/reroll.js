@@ -34,7 +34,7 @@ describe('shared.ops.reroll', () => {
   it('rerolls a user with enough gems', () => {
     let [, message] = reroll(user);
 
-    expect(message).to.equal(i18n.t('rerollComplete'));
+    expect(message).to.equal(i18n.t('fortifyComplete'));
   });
 
   it('reduces a user\'s balance', () => {
