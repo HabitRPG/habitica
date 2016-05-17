@@ -120,14 +120,25 @@ angular.module('habitrpg')
       });
     };
 
-    function unlinkTask (taskId, keep) {
+    function unlinkOneTask (taskId, keep) { // single task
+      if (!keep) {
+        keep = "keep";
+      }
+
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/unlink-one/' + taskId + '?keep=' + keep,
+      });
+    };
+
+    function unlinkAllTasks (challengeId, keep) { // all tasks
       if (!keep) {
         keep = "keep-all";
       }
 
       return $http({
         method: 'POST',
-        url: '/api/v3/tasks/unlink/' + taskId + '?keep=' + keep,
+        url: '/api/v3/tasks/unlink-all/' + challengeId + '?keep=' + keep,
       });
     };
 

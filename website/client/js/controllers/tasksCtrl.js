@@ -129,10 +129,17 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     };
 
     $scope.unlink = function(task, keep) {
-      Tasks.unlinkTask(task._id, keep)
-        .success(function () {
-          User.log({});
-        });
+      if (keep.search('-all') !== -1) { // unlink all tasks
+        Tasks.unlinkAllTasks(task.challenge.id, keep)
+          .success(function () {
+            User.sync({});
+          });
+      } else { // unlink a task
+        Tasks.unlinkOneTask(task._id, keep)
+          .success(function () {
+            User.sync({});
+          });
+      }
     };
 
     /*

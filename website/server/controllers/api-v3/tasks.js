@@ -761,18 +761,81 @@ api.removeTagFromTask = {
 };
 
 /**
- * @api {post} /api/v3/tasks/unlink/:taskId Unlink a challenge task
+ * @api {post} /api/v3/tasks/unlink-all/:challengeId Unlink all tasks from a challenge
  * @apiVersion 3.0.0
- * @apiName UnlinkTask
+ * @apiName UnlinkAllTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam {string} keep Query parameter - keep-all or remove-all
  *
  * @apiSuccess {object} data An empty object
  */
-api.unlinkTask = {
+api.unlinkAllTasks = {
   method: 'POST',
-  url: '/tasks/unlink/:taskId',
+  url: '/tasks/unlink-all/:challengeId',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkQuery('keep', res.t('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let keep = req.query.keep;
+    let challengeId = req.params.challengeId;
+
+    let tasks = await Tasks.Task.find({
+      'challenge.id': challengeId,
+      userId: user._id,
+    }).exec();
+
+    let validTasks = tasks.every(task => {
+      return task.challenge.broken;
+    });
+
+    if (!validTasks) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
+
+    if (keep === 'keep-all') {
+      await Bluebird.all(tasks.map(task => {
+        task.challenge = {};
+        return task.save();
+      }));
+    } else { // remove
+      let toSave = [];
+
+      tasks.forEach(task => {
+        if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
+          removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
+        }
+
+        toSave.push(task.remove());
+      });
+
+      toSave.push(user.save());
+
+      await Bluebird.all(toSave);
+    }
+
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /api/v3/tasks/unlink-one/:taskId Unlink a challenge task
+ * @apiVersion 3.0.0
+ * @apiName UnlinkOneTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The task _id
+ * @apiParam {string} keep Query parameter - keep or remove
+ *
+ * @apiSuccess {object} data An empty object
+ */
+api.unlinkOneTask = {
+  method: 'POST',
+  url: '/tasks/unlink-one/:taskId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
