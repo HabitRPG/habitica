@@ -17,6 +17,7 @@ export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 // Important
 // When something changes here remember to update the client side model at common/script/libs/taskDefaults
 export let TaskSchema = new Schema({
+  _legacyId: String, // TODO Remove when v2 is deprecated
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
@@ -119,7 +120,11 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 // toJSON for API v2
 TaskSchema.methods.toJSONV2 = function toJSONV2 () {
   let toJSON = this.toJSON();
-  toJSON.id = toJSON._id;
+  if (toJSON._legacyId) {
+    toJSON.id = toJSON._legacyId;
+  } else {
+    toJSON.id = toJSON._id;
+  }
 
   let v3Tags = this.tags;
 
