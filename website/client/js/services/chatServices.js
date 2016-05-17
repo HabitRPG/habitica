@@ -70,6 +70,10 @@ angular.module('habitrpg')
       });
     }
 
+    function clearCards () {
+      User.user._wrapped && User.set({'flags.cardReceived':false});
+    }
+
     return {
       getChat: getChat,
       postChat: postChat,
@@ -79,9 +83,5 @@ angular.module('habitrpg')
       clearFlagCount: clearFlagCount,
       markChatSeen: markChatSeen,
       clearCards: clearCards,
-    }
-
-    function clearCards() {
-      User.user._wrapped && User.set({'flags.cardReceived':false});
     }
   }]);

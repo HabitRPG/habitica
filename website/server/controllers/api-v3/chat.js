@@ -327,8 +327,9 @@ api.seenChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    // Do not validate group existence, it doesn't really matter and make it works if the group gets deleted
+    // let group = await Group.getGroup({user, groupId});
+    // if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let update = {$unset: {}};
     update.$unset[`newMessages.${groupId}`] = true;
