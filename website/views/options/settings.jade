@@ -218,7 +218,7 @@ script(type='text/ng-template', id='partials/options.settings.promo.html')
               input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
             .form-group
               button.btn.btn-primary(type='submit')=env.t('generate')
-              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}')=env.t('getCodes')
+              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}')=env.t('getCodes')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .container-fluid
@@ -231,7 +231,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h6=env.t('APIToken')
         pre.prettyprint {{User.settings.auth.apiToken}}
         h6=env.t('qrCode')
-        img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+        img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{User.settings.auth.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
         br
         h3=env.t('thirdPartyApps')
         ul
@@ -400,7 +400,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
           .col-xs-4
             a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
           .col-xs-4
-            a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')
+            a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')
               img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
           .col-xs-4
             a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")
