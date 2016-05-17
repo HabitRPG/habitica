@@ -34,7 +34,7 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
   } else {
     return [
       {user, tasks},
-      i18n.t('rerollComplete'),
+      i18n.t('fortifyComplete'),
     ];
   }
 };
