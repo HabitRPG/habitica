@@ -56,6 +56,8 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.join = function (party) {
         Groups.Group.join(party.id)
           .then(function (response) {
+            $scope.group = response.data.data;
+            User.sync();
             Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
             Analytics.updateUser({'partyID': party.id});
             $rootScope.hardRedirect('/#/options/groups/party');
