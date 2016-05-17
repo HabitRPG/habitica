@@ -173,7 +173,7 @@ function processUsers (afterId) {
           newUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         }
 
-        var allTasksFields = ['_id', 'type', 'text', 'notes', 'tags', 'value', 'priority', 'attribute', 'challenge', 'reminders', 'userId', 'legacyId'];
+        var allTasksFields = ['_id', 'type', 'text', 'notes', 'tags', 'value', 'priority', 'attribute', 'challenge', 'reminders', 'userId', 'legacyId', 'createdAt'];
         // using mongoose models is too slow
         if (oldTask.type === 'habit') {
           oldTask = _.pick(oldTask, allTasksFields.concat(['history', 'up', 'down']));
