@@ -181,6 +181,7 @@ angular.module('habitrpg')
 
     return {
       getUserTasks: getUserTasks,
+      loadedCompletedTodos: false,
       createUserTasks: createUserTasks,
       getChallengeTasks: getChallengeTasks,
       createChallengeTasks: createChallengeTasks,
