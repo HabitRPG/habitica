@@ -57,12 +57,15 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
           .then(function (response) {
             var joinedGroup = response.data.data;
 
+            User.user.guilds.push(joinedGroup._id);
+
             if (joinedGroup.privacy == 'public') {
               Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':false, 'groupType':'guild','privacy': joinedGroup.privacy, 'groupName': joinedGroup.name})
             } else {
               Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':false, 'groupType':'guild','privacy': joinedGroup.privacy})
             }
-            $rootScope.hardRedirect('/#/options/groups/guilds/' + joinedGroup._id);
+
+            $location.path('/options/groups/guilds/' + joinedGroup._id);
           });
       }
 
@@ -77,7 +80,10 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
          } else {
            Groups.Group.leave($scope.selectedGroup._id, keep)
             .success(function (data) {
-             $rootScope.hardRedirect('/#/options/groups/guilds');
+              var index = User.user.guilds.indexOf($scope.selectedGroup._id);
+              delete User.user.guilds[index];
+              $scope.selectedGroup = undefined;
+              $location.path('/options/groups/guilds');
             });
          }
       }
