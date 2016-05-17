@@ -6,6 +6,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.gear", ng-click="showInv.gear = true") Show Gear
+          button.btn.btn-default.pull-right(ng-if="showInv.gear", ng-click="showInv.gear = false") Hide Gear
           h4 Gear
           div(ng-if="showInv.gear")
             button.btn.btn-default(ng-click="setAllItems('gear', true)") Own All
@@ -35,6 +36,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.special", ng-click="showInv.special = true") Show Special Items
+          button.btn.btn-default.pull-right(ng-if="showInv.special", ng-click="showInv.special = false") Hide Special Items
           h4 Special Items
           div(ng-if="showInv.special")
             button.btn.btn-default(ng-click="setAllItems('special', 999)") Set All to 999
@@ -44,7 +46,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
             hr
 
             ul.list-group
-              li.list-group-item(ng-repeat="item in Content.special" ng-init="inv.special[item.key] = user.items.special[item.key]")
+              li.list-group-item(ng-repeat="item in Content.special" ng-init="inv.special[item.key] = user.items.special[item.key]" ng-if="item.value === 15")
                 .form-inline.clearfix
                   .pull-left(class="inventory_special_{{::item.key}}" style="margin-right: 10px")
                   p {{::item.text()}}
@@ -55,9 +57,10 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.pets", ng-click="showInv.pets = true") Show Pets
+          button.btn.btn-default.pull-right(ng-if="showInv.pets", ng-click="showInv.pets = false") Hide Pets
           h4 Pets
           div(ng-if="showInv.pets")
-            button.btn.btn-default(ng-click="setAllItems('pets', 99)") Set All to 99
+            button.btn.btn-default(ng-click="setAllItems('pets', 45)") Set All to 45
             button.btn.btn-default(ng-click="setAllItems('pets', 0)") Set All to 0
             button.btn.btn-default(ng-click="setAllItems('pets', -1)") Set All to -1
             button.btn.btn-default(ng-click="setAllItems('pets', undefined)") Set All to undefined
@@ -101,6 +104,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.mounts", ng-click="showInv.mounts = true") Show Mounts
+          button.btn.btn-default.pull-right(ng-if="showInv.mounts", ng-click="showInv.mounts = false") Hide Mounts
           h4 Mounts
           div(ng-if="showInv.mounts")
             button.btn.btn-default(ng-click="setAllItems('mounts', true)") Set all to Owned
@@ -165,6 +169,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.hatchingPotions", ng-click="showInv.hatchingPotions = true") Show Hatching Potions
+          button.btn.btn-default.pull-right(ng-if="showInv.hatchingPotions", ng-click="showInv.hatchingPotions = false") Hide Hatching Potions
           h4 Hatching Potions
           div(ng-if="showInv.hatchingPotions")
             button.btn.btn-default(ng-click="setAllItems('hatchingPotions', 999)") Set All to 999
@@ -185,6 +190,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.eggs", ng-click="showInv.eggs = true") Show Eggs
+          button.btn.btn-default.pull-right(ng-if="showInv.eggs", ng-click="showInv.eggs = false") Hide Eggs
           h4 Eggs
           div(ng-if="showInv.eggs")
             button.btn.btn-default(ng-click="setAllItems('eggs', 999)") Set All to 999
@@ -205,6 +211,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.food", ng-click="showInv.food = true") Show Food
+          button.btn.btn-default.pull-right(ng-if="showInv.food", ng-click="showInv.food = false") Hide Food
           h4 Food
           div(ng-if="showInv.food")
             button.btn.btn-default(ng-click="setAllItems('food', 999)") Set All to 999
@@ -225,6 +232,7 @@ script(type='text/ng-template', id='modals/modify-inventory.html')
       .row
         .col-xs-12
           button.btn.btn-default.pull-right(ng-if="!showInv.quests", ng-click="showInv.quests = true") Show Quests
+          button.btn.btn-default.pull-right(ng-if="showInv.quests", ng-click="showInv.quests = false") Hide Quests
           h4 Quests
           div(ng-if="showInv.quests")
             button.btn.btn-default(ng-click="setAllItems('quests', 999)") Set All to 999
