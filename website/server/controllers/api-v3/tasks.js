@@ -127,7 +127,7 @@ async function _getTasks (req, res, user, challenge) {
         type: 'todo',
         completed: true,
       }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
-        dateCompleted: 1,
+        dateCompleted: -1,
       });
     } else {
       query.type = type.slice(0, -1); // removing the final "s"

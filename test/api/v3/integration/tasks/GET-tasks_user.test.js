@@ -22,7 +22,7 @@ describe('GET /tasks/user', () => {
     expect(tasks[0]._id).to.equal(createdTasks[0]._id);
   });
 
-  it('returns completed todos sorted by completion date if req.query.type === "completeTodos"', async () => {
+  it('returns completed todos sorted by reverse completion date if req.query.type === "completeTodos"', async () => {
     let todo1 = await user.post('/tasks/user', {text: 'todo to complete 1', type: 'todo'});
     let todo2 = await user.post('/tasks/user', {text: 'todo to complete 2', type: 'todo'});
 
@@ -37,6 +37,6 @@ describe('GET /tasks/user', () => {
 
     let completedTodos = await user.get('/tasks/user?type=completedTodos');
     expect(completedTodos.length).to.equal(2);
-    expect(completedTodos[completedTodos.length - 1].text).to.equal('todo to complete 1'); // last is the todo that was completed later
+    expect(completedTodos[completedTodos.length - 1].text).to.equal('todo to complete 2'); // last is the todo that was completed most recently
   });
 });
