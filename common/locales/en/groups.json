@@ -110,6 +110,8 @@
     "copyMessageAsToDo": "Copy message as To-Do",
     "messageAddedAsToDo": "Message copied as To-Do.",
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Message Preview",
     "leaderOnlyChallenges": "Only group leader can create challenges",
     "sendGift": "Send Gift",

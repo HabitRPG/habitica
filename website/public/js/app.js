@@ -96,6 +96,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.inbox', {
           url: "/inbox",
           templateUrl: "partials/options.social.inbox.html",
+          controller: 'InboxCtrl',
           title: env.t('titleInbox')
         })
 
