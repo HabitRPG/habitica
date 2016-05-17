@@ -430,15 +430,15 @@ angular.module('habitrpg')
         },
 
         releaseBoth: function () {
-          callOpsFunctionAndRequest('releaseBoth', 'releaseBoth', "POST");
+          callOpsFunctionAndRequest('releaseBoth', 'release-both', "POST");
         },
 
         releaseMounts: function () {
-          callOpsFunctionAndRequest('releaseMounts', 'releaseMounts', "POST");
+          callOpsFunctionAndRequest('releaseMounts', 'release-mounts', "POST");
         },
 
         releasePets: function () {
-          callOpsFunctionAndRequest('releasePets', 'releasePets', "POST");
+          callOpsFunctionAndRequest('releasePets', 'release-pets', "POST");
         },
 
         addWebhook: function (data) {
