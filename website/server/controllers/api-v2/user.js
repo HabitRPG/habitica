@@ -90,7 +90,6 @@ api.score = function(req, res, next) {
     direction = req.params.direction,
     user = res.locals.user,
     body = req.body || {},
-    taskQuery = { userId: user._id },
     task;
 
   // Send error responses for improper API call
@@ -100,14 +99,23 @@ api.score = function(req, res, next) {
     return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
 
-  if (validator.isUUID(id)) {
-    taskQuery._id = id;
-  } else {
-    taskQuery._legacyId = id;
-  }
+  asyncM.waterfall([
+    function (cb) {
+      Tasks.Task.findOne({
+        _id: id,
+        userId: user._id,
+      }, cb);
+    },
+    function (task, cb) {
+      if (task) return cb(null, task);
 
-  Tasks.Task.findOne(taskQuery, function(err, task){
-    if(err) return next(err);
+      Tasks.Task.findOne({
+        _legacyId: id,
+        userId: user._id,
+      }, cb);
+    },
+  ], function (err, task) {
+    if (err) return next(err);
 
     // If exists already, score it
     if (!task) {
@@ -199,7 +207,6 @@ api.score = function(req, res, next) {
       });
     });
   });
-
 };
 
 /**
@@ -219,16 +226,24 @@ api.getTasks = function(req, res, next) {
  */
 api.getTask = function(req, res, next) {
   var user = res.locals.user,
-  id = req.params.id,
-  taskQuery = { userId: user._id };
+  id = req.params.id;
 
-  if (validator.isUUID(id)) {
-    taskQuery._id = id;
-  } else {
-    taskQuery._legacyId = id;
-  }
+  asyncM.waterfall([
+    function (cb) {
+      Tasks.Task.findOne({
+        _id: id,
+        userId: user._id,
+      }, cb);
+    },
+    function (task, cb) {
+      if (task) return cb(null, task);
 
-  Tasks.Task.findOne(taskQuery, function (err, task) {
+      Tasks.Task.findOne({
+        _legacyId: id,
+        userId: user._id,
+      }, cb);
+    },
+  ], function (err, task) {
     if (err) return next(err);
     if (!task) return res.status(404).json({err: shared.i18n.t('messageTaskNotFound')});
     res.status(200).json(task.toJSONV2());
@@ -853,13 +868,22 @@ api.updateTask = function(req, res, next) {
 
   req.body = Tasks.Task.fromJSONV2(req.body);
 
-  if (validator.isUUID(id)) {
-    taskQuery._id = id;
-  } else {
-    taskQuery._legacyId = id;
-  }
+  asyncM.waterfall([
+    function (cb) {
+      Tasks.Task.findOne({
+        _id: id,
+        userId: user._id,
+      }, cb);
+    },
+    function (task, cb) {
+      if (task) return cb(null, task);
 
-  Tasks.Task.findOne(taskQuery, function(err, task) {
+      Tasks.Task.findOne({
+        _legacyId: id,
+        userId: user._id,
+      }, cb);
+    },
+  ], function (err, task) {
     if(err) return next(err);
     if(!task) return res.status(404).json({err: 'Task not found.'})
 
