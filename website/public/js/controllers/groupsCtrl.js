@@ -111,6 +111,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }, undefined, function(){
           if($scope.removeMemberData.isMember){
             _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);
+            $scope.removeMemberData.group.memberCount -= 1;
           }else{
             _.pull($scope.removeMemberData.group.invites, $scope.removeMemberData.member);
           }
@@ -121,6 +122,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.removeMemberData = undefined;
       }
     };
+
+    $scope.isOverPartyCap = Groups.isOverPartyCap;
 
     $scope.openInviteModal = function(group){
       if (group.type !== 'party' && group.type !== 'guild') {

@@ -77,6 +77,21 @@
         $location.path("/options/groups/party");
       }
     }
+    
+    function isOverPartyCap(group) {
+      return group.memberCount + group.invites.length >= group.partyCap;
+    }
+
+    function isOverPartyCapWarning(group) {
+      var partyCapWarningBoundary = 5;
+      return group.memberCount + group.invites.length > group.partyCap - partyCapWarningBoundary;
+    }
+
+    function memberAndInviteCount(group) {
+      if(!group) return 0;
+      if(!group.invites) return group.memberCount;
+      return group.memberCount + group.invites.length;
+    };
 
     return {
       party: party,
@@ -84,6 +99,9 @@
       myGuilds: myGuilds,
       tavern: tavern,
       inviteOrStartParty: inviteOrStartParty,
+      isOverPartyCap: isOverPartyCap,
+      isOverPartyCapWarning: isOverPartyCapWarning,
+      memberAndInviteCount: memberAndInviteCount,
 
       data: data,
       Group: Group

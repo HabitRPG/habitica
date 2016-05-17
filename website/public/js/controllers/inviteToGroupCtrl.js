@@ -26,6 +26,10 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
       _inviteByMethod(inviteMethod);
     };
 
+    $scope.isOverPartyCap = Groups.isOverPartyCap;
+    $scope.isOverPartyCapWarning = Groups.isOverPartyCapWarning;
+    $scope.memberAndInviteCount = Groups.memberAndInviteCount;
+
     function _inviteByMethod(inviteMethod) {
       var invitationDetails;
 
@@ -39,8 +43,9 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
         return console.log('Invalid invite method.')
       }
 
-      Groups.Group.invite({gid: $scope.group._id}, invitationDetails, function(){
+      Groups.Group.invite({gid: $scope.group._id}, invitationDetails, function(group){
         Notification.text(window.env.t('invitationsSent'));
+        if (group && group.invites) $scope.group.invites = group.invites;
         _resetInvitees();
       }, function(){
         _resetInvitees();

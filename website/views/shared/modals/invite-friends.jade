@@ -54,6 +54,8 @@ script(type='text/ng-template', id='modals/invite-party.html')
     div(ng-if='!group._id')
       h4(style='margin-top:0')=env.t('nameYourParty')
       input.form-control#new-group-name.input-medium.option-content(required, type='text', ng-model='group.name')
+    p.alert.alert-warning(ng-if='isOverPartyCapWarning(group)')
+      = env.t('partyCapWarning', {partyCap: '{{group.partyCap}}', memberAndInviteCount: '{{memberAndInviteCount(group)}}'})
     tabset
       tab(heading=env.t('inviteByEmail'))
         p.alert.alert-info=env.t('inviteByEmailExplanation')

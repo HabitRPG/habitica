@@ -685,6 +685,10 @@ api.invite = function(req, res, next){
   if (group.privacy === 'private' && !_.contains(group.members,res.locals.user._id)) {
     return res.status(401).json({err: "Only a member can invite new members!"});
   }
+  if (group.type === 'party' && group.isOverPartyCap) {
+    return res.json(400, {err: "Over 30 member party cap"});
+  } 
+
   if (req.body.uuids) {
     inviteByUUIDs(req.body.uuids, group, req, res, next);
   } else if (req.body.emails) {

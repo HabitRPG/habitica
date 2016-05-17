@@ -8,6 +8,8 @@ var logging = require('../libs/logging');
 var Challenge = require('./../models/challenge').model;
 var firebase = require('../libs/firebase');
 
+const PARTY_CAP = 30;
+
 // NOTE any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
 var GroupSchema = new Schema({
@@ -59,7 +61,21 @@ var GroupSchema = new Schema({
   }
 }, {
   strict: 'throw',
-  minimize: false // So empty objects are returned
+  minimize: false, // So empty objects are returned
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
+});
+
+GroupSchema.virtual('partyCap').get(function(){ return PARTY_CAP });
+
+GroupSchema.virtual('isOverPartyCap').get(function(){
+  return this.type === 'party' 
+      && this.invites
+      && (this.memberCount + this.invites.length >= this.partyCap);
 });
 
 /**
@@ -132,6 +148,7 @@ GroupSchema.methods.toJSON = function(){
 
   return doc;
 }
+
 
 var chatDefaults = module.exports.chatDefaults = function(msg,user){
   var message = {
