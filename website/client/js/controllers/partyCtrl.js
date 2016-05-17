@@ -183,6 +183,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.questForceStart = function(){
         Quests.sendAction('quests/force-start')
           .then(function(quest) {
+            console.log(quest)
             $scope.group.quest = quest;
           });
       };
