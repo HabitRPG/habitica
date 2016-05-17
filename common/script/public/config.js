@@ -33,7 +33,13 @@ angular.module('habitrpg')
           // never triggered because we're in responseError
           $rootScope.$broadcast('responseText', response.data.message);
         } else if (response.status < 500) {
-          $rootScope.$broadcast('responseError', response.data.message);
+          if (response.status === 400 && response.data.errors && _.isArray(response.data.errors)) { // bad requests with more info
+            response.data.errors.forEach(function (err) {
+              $rootScope.$broadcast('responseError', err.message);
+            });
+          } else {
+            $rootScope.$broadcast('responseError', response.data.message);
+          }
           // Need to reject the prompse so the error is handled correctly
           if (response.status === 401) {
             return $q.reject(response);
@@ -41,7 +47,7 @@ angular.module('habitrpg')
         // Error
         } else {
           var error = window.env.t('requestError') + '<br><br>"' +
-          window.env.t('error') + ' ' + (response.data.err || response.data || 'something went wrong') +
+          window.env.t('error') + ' ' + (response.data.message || response.data.error || response.data || 'something went wrong') +
           '" <br><br>' + window.env.t('seeConsole');
           if (mobileApp) error = 'Error contacting the server. Please try again in a few minutes.';
           $rootScope.$broadcast('responseError500', error);
