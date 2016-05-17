@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments','$sce','$window','Analytics',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments, $sce, $window, Analytics) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments','$sce','$window','Analytics','TAVERN_ID',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments, $sce, $window, Analytics, TAVERN_ID) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -25,6 +25,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         }
       });
 
+    $rootScope.TAVERN_ID = TAVERN_ID;
     $rootScope.User = User;
     $rootScope.user = user;
     $rootScope.moment = window.moment;

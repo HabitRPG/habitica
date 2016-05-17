@@ -160,12 +160,12 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                       .Pet_Currency_Gem1x
                     input.form-control(type='number', placeholder=env.t('prize'),
                       ng-disabled='insufficientGemsForTavernChallenge()'
-                      min="{{newChallenge.group=='habitrpg' ? 1 : 0}}",
+                      min="{{newChallenge.group==TAVERN_ID ? 1 : 0}}",
                       max="{{maxPrize}}", ng-model='newChallenge.prize')
-                  a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}",
+                  a.hint(popover="{{newChallenge.group==TAVERN_ID ? env.t('prizePopTavern') : env.t('prizePop')}}",
                     popover-trigger='mouseenter', popover-placement='right')
                     =env.t('moreInfo')
-                  div(ng-show='newChallenge.group=="habitrpg"')
+                  div(ng-show='newChallenge.group==TAVERN_ID')
                     !=env.t('publicChallenges')
 
               .form-group(ng-if='user.contributor.admin')

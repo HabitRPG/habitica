@@ -1,5 +1,5 @@
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks', 'TAVERN_ID',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks, TAVERN_ID) {
 
     // Use presence of cid to determine whether to show a list or a single
     // challenge
@@ -58,7 +58,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         }
       }
 
-      if(!defaultGroup) defaultGroup = 'habitrpg';
+      if(!defaultGroup) defaultGroup = TAVERN_ID;
 
       $scope.obj = $scope.newChallenge = {
         name: '',
@@ -181,7 +181,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope["delete"] = function(challenge) {
       var warningMsg;
 
-      if(challenge.group._id == 'habitrpg') {
+      if(challenge.group._id == TAVERN_ID) {
         warningMsg = window.env.t('sureDelChaTavern');
       } else {
         warningMsg = window.env.t('sureDelCha');
@@ -356,7 +356,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       _calculateMaxPrize(gid);
 
-      if (gid == 'habitrpg') {
+      if (gid == TAVERN_ID) {
         $scope.newChallenge.prize = 1;
       }
     })
@@ -379,7 +379,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.insufficientGemsForTavernChallenge = function() {
       var balance = User.user.balance || 0;
-      var isForTavern = $scope.newChallenge.group == 'habitrpg';
+      var isForTavern = $scope.newChallenge.group == TAVERN_ID;
 
       if (isForTavern) {
         return balance <= 0;
@@ -403,7 +403,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.filterInitialChallenges = function() {
-      $scope.groupsFilter = _.uniq(_.pluck($scope.challenges, 'group'), function(g) {return g._id});
+      $scope.groupsFilter = _.uniq(_.compact(_.pluck($scope.challenges, 'group')), function(g) {return g._id});
 
       $scope.search = {
         group: _.transform($scope.groups, function(m,g) { m[g._id] = true;}),
@@ -442,7 +442,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       // case where a challenge's leader deletes their account
       var userIsOwner = (chal.leader && chal.leader._id) === User.user.id;
 
-      var groupSelected = $scope.search.group[chal.group._id];
+      var groupSelected = $scope.search.group[chal.group ? chal.group._id : null];
       var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
       var checkMember = $scope.search._isMember === 'either' || ($scope.isUserMemberOf(chal) === $scope.search._isMember);
 
