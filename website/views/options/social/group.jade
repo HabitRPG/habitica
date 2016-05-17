@@ -60,7 +60,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       .text-center(ng-if='group.type === "party"')
         .row.row-margin: .col-sm-6.col-sm-offset-3
           button.btn.btn-success.btn-block(
-            ng-if='!party.quest.key',
+            ng-if='!group.quest.key',
             ng-click='clickStartQuest();'
           )=env.t('startAQuest')
 
