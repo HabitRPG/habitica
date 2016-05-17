@@ -133,12 +133,13 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.leaveOldPartyAndJoinNewParty = function(newPartyId, newPartyName) {
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
-          Groups.Group.leave({gid: Groups.party()._id, keep: false}, undefined, function() {
-            $scope.group = {
-              loadingNewParty: true
-            };
-            $scope.join({ id: newPartyId, name: newPartyName });
-          });
+          Groups.Group.leave(Groups.data.party._id, false)
+            .then(function() {
+              $scope.group = {
+                loadingNewParty: true
+              };
+              $scope.join({ id: newPartyId, name: newPartyName });
+            });
         }
       }
 
