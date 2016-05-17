@@ -150,9 +150,8 @@ describe('shared.ops.purchase', () => {
       let type = 'eggs';
       let key = 'Wolf';
 
-      let [, message] = purchase(user, {params: {type, key}});
+      purchase(user, {params: {type, key}});
 
-      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -160,9 +159,8 @@ describe('shared.ops.purchase', () => {
       let type = 'hatchingPotions';
       let key = 'Base';
 
-      let [, message] = purchase(user, {params: {type, key}});
+      purchase(user, {params: {type, key}});
 
-      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -170,9 +168,8 @@ describe('shared.ops.purchase', () => {
       let type = 'food';
       let key = 'Meat';
 
-      let [, message] = purchase(user, {params: {type, key}});
+      purchase(user, {params: {type, key}});
 
-      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -180,9 +177,8 @@ describe('shared.ops.purchase', () => {
       let type = 'quests';
       let key = 'gryphon';
 
-      let [, message] = purchase(user, {params: {type, key}});
+      purchase(user, {params: {type, key}});
 
-      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items[type][key]).to.equal(1);
     });
 
@@ -190,9 +186,8 @@ describe('shared.ops.purchase', () => {
       let type = 'gear';
       let key = 'headAccessory_special_tigerEars';
 
-      let [, message] = purchase(user, {params: {type, key}});
+      purchase(user, {params: {type, key}});
 
-      expect(message).to.equal(i18n.t('purchased', {type, key}));
       expect(user.items.gear.owned[key]).to.be.true;
     });
   });

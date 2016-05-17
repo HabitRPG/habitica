@@ -28,9 +28,12 @@ angular.module('habitrpg')
           localStorage.clear();
           window.location.href = mobileApp ? '/app/login' : '/logout'; //location.reload()
 
-        // 400 range?
+        // 400 range
+        } else if (response.status < 400) {
+          // never triggered because we're in responseError
+          $rootScope.$broadcast('responseText', response.data.message);
         } else if (response.status < 500) {
-          $rootScope.$broadcast('responseText', response.data.err || response.data.message);
+          $rootScope.$broadcast('responseError', response.data.message);
           // Need to reject the prompse so the error is handled correctly
           if (response.status === 401) {
             return $q.reject(response);
@@ -41,7 +44,7 @@ angular.module('habitrpg')
           window.env.t('error') + ' ' + (response.data.err || response.data || 'something went wrong') +
           '" <br><br>' + window.env.t('seeConsole');
           if (mobileApp) error = 'Error contacting the server. Please try again in a few minutes.';
-          $rootScope.$broadcast('responseError', error);
+          $rootScope.$broadcast('responseError500', error);
           console.error(response);
         }
 

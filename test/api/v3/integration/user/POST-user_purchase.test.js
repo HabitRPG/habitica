@@ -26,10 +26,9 @@ describe('POST /user/purchase/:type/:key', () => {
   });
 
   it('purchases a gem item', async () => {
-    let res = await user.post(`/user/purchase/${type}/${key}`);
+    await user.post(`/user/purchase/${type}/${key}`);
     await user.sync();
 
-    expect(res.message).to.equal(t('purchased', {type, key}));
     expect(user.items[type][key]).to.equal(1);
   });
 });

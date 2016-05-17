@@ -38,7 +38,6 @@ module.exports = function sell (user, req = {}) {
   } else {
     return [
       _.pick(user, splitWhitespace('stats items')),
-      i18n.t('sold', {type, key}),
     ];
   }
 };

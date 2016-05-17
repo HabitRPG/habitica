@@ -33,10 +33,9 @@ describe('POST /user/sell/:type/:key', () => {
       },
     });
 
-    let response = await user.post(`/user/sell/${type}/${key}`);
+    await user.post(`/user/sell/${type}/${key}`);
     await user.sync();
 
-    expect(response.message).to.equal(t('sold', {type, key}));
     expect(user.stats.gp).to.equal(content[type][key].value);
   });
 });

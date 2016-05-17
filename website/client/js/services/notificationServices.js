@@ -54,8 +54,8 @@ angular.module("habitrpg").factory("Notification",
     _notify(_sign(val) + " " + _round(val) + " " + window.env.t('experience'), 'xp', 'glyphicon glyphicon-star');
   }
 
-  function error(error){
-    _notify(error, "danger", 'glyphicon glyphicon-exclamation-sign');
+  function error(error, canHide){
+    _notify(error, "danger", 'glyphicon glyphicon-exclamation-sign', canHide);
   }
 
   function gp(val, bonus) {
@@ -107,14 +107,14 @@ angular.module("habitrpg").factory("Notification",
   // Used to stack notifications, must be outside of _notify
   var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
 
-  function _notify(html, type, icon) {
+  function _notify(html, type, icon, canHide) {
     var notice = $.pnotify({
       type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
       text: html,
       opacity: 1,
       addclass: 'alert-' + type,
       delay: 7000,
-      hide: (type == 'error' || type == 'danger') ? false : true,
+      hide: ((type == 'error' || type == 'danger') && !canHide) ? false : true,
       mouse_reset: false,
       width: "250px",
       stack: stack_topright,

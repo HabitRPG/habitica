@@ -122,7 +122,6 @@ module.exports = function purchase (user, req = {}, analytics) {
   } else {
     return [
       _.pick(user, splitWhitespace('items balance')),
-      i18n.t('purchased', {type, key}),
     ];
   }
 };

@@ -24,7 +24,7 @@ module.exports = function feed (user, req = {}) {
   let pet = _.get(req, 'params.pet');
   let foodK = _.get(req, 'params.food');
 
-  if (!pet || !foodK) throw new BadRequest(i18n.t('missingPetFoodFeed'));
+  if (!pet || !foodK) throw new BadRequest(i18n.t('missingPetFoodFeed', req.language));
 
   if (pet.indexOf('-') === -1) {
     throw new BadRequest(i18n.t('invalidPetName', req.language));
@@ -43,8 +43,8 @@ module.exports = function feed (user, req = {}) {
 
   let [egg, potion] = pet.split('-');
 
-  let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
-  let eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+  let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text(req.language) : potion;
+  let eggText = content.eggs[egg] ? content.eggs[egg].text(req.language) : egg;
 
   let petDisplayName = i18n.t('petName', {
     potion: potionText,

@@ -66,16 +66,14 @@ describe('shared.ops.sell', () => {
   });
 
   it('reduces item count from user', () => {
-    let [, message] = sell(user, {params: { type, key } });
+    sell(user, {params: { type, key } });
 
-    expect(message).to.equal(i18n.t('sold', {type, key}));
     expect(user.items[type][key]).to.equal(0);
   });
 
   it('increases user\'s gold', () => {
-    let [, message] = sell(user, {params: { type, key } });
+    sell(user, {params: { type, key } });
 
-    expect(message).to.equal(i18n.t('sold', {type, key}));
     expect(user.stats.gp).to.equal(content[type][key].value);
   });
 });

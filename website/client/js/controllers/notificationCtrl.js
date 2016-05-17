@@ -180,9 +180,13 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.openModal('questInvitation', {controller:'PartyCtrl'});
     });
 
-    $rootScope.$on('responseError', function(ev, error){
+    $rootScope.$on('responseError500', function(ev, error){
       Notification.error(error);
     });
+    $rootScope.$on('responseError', function(ev, error){
+      Notification.error(error, true);
+    });
+
     $rootScope.$on('responseText', function(ev, error){
       Notification.text(error);
     });
