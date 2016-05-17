@@ -80,6 +80,25 @@ var findTask = function(req, res) {
   return res.locals.user.tasks[req.params.id];
 };
 
+function findTaskByIdOrLegacyId (user, taskId, callback) {
+  asyncM.waterfall([
+    function (cb) {
+      Tasks.Task.findOne({
+        _id: taskId,
+        userId: user._id,
+      }, cb);
+    },
+    function (task, cb) {
+      if (task) return cb(null, task);
+
+      Tasks.Task.findOne({
+        _legacyId: taskId,
+        userId: user._id,
+      }, cb);
+    },
+  ], callback);
+}
+
 /*
   API Routes
   ---------------
@@ -99,22 +118,7 @@ api.score = function(req, res, next) {
     return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
 
-  asyncM.waterfall([
-    function (cb) {
-      Tasks.Task.findOne({
-        _id: id,
-        userId: user._id,
-      }, cb);
-    },
-    function (task, cb) {
-      if (task) return cb(null, task);
-
-      Tasks.Task.findOne({
-        _legacyId: id,
-        userId: user._id,
-      }, cb);
-    },
-  ], function (err, task) {
+  findTaskByIdOrLegacyId(user, id, function (err, task) {
     if (err) return next(err);
 
     // If exists already, score it
@@ -228,22 +232,7 @@ api.getTask = function(req, res, next) {
   var user = res.locals.user,
   id = req.params.id;
 
-  asyncM.waterfall([
-    function (cb) {
-      Tasks.Task.findOne({
-        _id: id,
-        userId: user._id,
-      }, cb);
-    },
-    function (task, cb) {
-      if (task) return cb(null, task);
-
-      Tasks.Task.findOne({
-        _legacyId: id,
-        userId: user._id,
-      }, cb);
-    },
-  ], function (err, task) {
+  findTaskByIdOrLegacyId(user, id, function (err, task) {
     if (err) return next(err);
     if (!task) return res.status(404).json({err: shared.i18n.t('messageTaskNotFound')});
     res.status(200).json(task.toJSONV2());
@@ -863,27 +852,11 @@ api.deleteTask = function(req, res, next) {
 
 api.updateTask = function(req, res, next) {
   var user = res.locals.user,
-  taskQuery = { userId: user._id },
   id = req.params.id;
 
   req.body = Tasks.Task.fromJSONV2(req.body);
 
-  asyncM.waterfall([
-    function (cb) {
-      Tasks.Task.findOne({
-        _id: id,
-        userId: user._id,
-      }, cb);
-    },
-    function (task, cb) {
-      if (task) return cb(null, task);
-
-      Tasks.Task.findOne({
-        _legacyId: id,
-        userId: user._id,
-      }, cb);
-    },
-  ], function (err, task) {
+  findTaskByIdOrLegacyId(user, id, function (err, task) {
     if(err) return next(err);
     if(!task) return res.status(404).json({err: 'Task not found.'})
 
