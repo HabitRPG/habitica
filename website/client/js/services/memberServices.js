@@ -93,7 +93,7 @@ angular.module('habitrpg')
       return deferred.promise;
     }
 
-    function addToMembersList (member, self) {
+    function addToMembersList (member) {
       if (member._id) {
         members[member._id] = member;
       }
