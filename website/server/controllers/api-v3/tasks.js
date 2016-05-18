@@ -121,6 +121,7 @@ async function _getTasks (req, res, user, challenge) {
   if (type) {
     if (type === 'todos') {
       query.completed = false; // Exclude completed todos
+      query.type = 'todo';
     } else if (type === 'completedTodos') {
       query = Tasks.Task.find({
         userId: user._id,
