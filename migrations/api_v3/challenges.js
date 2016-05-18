@@ -129,16 +129,16 @@ function processChallenges (afterId) {
 
       oldTasks.forEach(function (oldTask) {
         oldTask._id = uuid.v4();
-        oldTask.legacyId = oldTask.id; // store the old task id
+        oldTask._legacyId = oldTask.id; // store the old task id
         delete oldTask.id;
 
         oldTask.challenge = oldTask.challenge || {};
         oldTask.challenge.id = newChallenge._id;
 
-        if (newTasksIds[oldTask.legacyId + '-' + newChallenge._id]) {
+        if (newTasksIds[oldTask._legacyId + '-' + newChallenge._id]) {
           throw new Error('duplicate :(');
         } else {
-          newTasksIds[oldTask.legacyId + '-' + newChallenge._id] = oldTask._id;
+          newTasksIds[oldTask._legacyId + '-' + newChallenge._id] = oldTask._id;
         }
 
         oldTask.tags = _.map(oldTask.tags || {}, function (tagPresent, tagId) {

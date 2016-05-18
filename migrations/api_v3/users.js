@@ -131,20 +131,20 @@ function processUsers (afterId) {
       oldTasks.forEach(function (oldTask) {
         oldTask._id = uuid.v4(); // create a new unique uuid
         oldTask.userId = newUser._id;
-        oldTask.legacyId = oldTask.id; // store the old task id
+        oldTask._legacyId = oldTask.id; // store the old task id
         delete oldTask.id;
 
         oldTask.challenge = oldTask.challenge || {};
         if (oldTask.challenge.id) {
           if (oldTask.challenge.broken) {
-            oldTask.challenge.taskId = oldTask.legacyId;
+            oldTask.challenge.taskId = oldTask._legacyId;
           } else {
-            var newId = newTasksIds[oldTask.legacyId + '-' + oldTask.challenge.id];
+            var newId = newTasksIds[oldTask._legacyId + '-' + oldTask.challenge.id];
 
             // Challenges' tasks ids changed
             if (!newId && !oldTask.challenge.broken) {
               challengeTaskNoMatchingId++;
-              oldTask.challenge.taskId = oldTask.legacyId;
+              oldTask.challenge.taskId = oldTask._legacyId;
               oldTask.challenge.broken = 'CHALLENGE_TASK_NOT_FOUND';
             } else {
               challengeTaskWithMatchingId++;
@@ -173,7 +173,7 @@ function processUsers (afterId) {
           newUser.tasksOrder[`${oldTask.type}s`].push(oldTask._id);
         }
 
-        var allTasksFields = ['_id', 'type', 'text', 'notes', 'tags', 'value', 'priority', 'attribute', 'challenge', 'reminders', 'userId', 'legacyId', 'createdAt'];
+        var allTasksFields = ['_id', 'type', 'text', 'notes', 'tags', 'value', 'priority', 'attribute', 'challenge', 'reminders', 'userId', '_legacyId', 'createdAt'];
         // using mongoose models is too slow
         if (oldTask.type === 'habit') {
           oldTask = _.pick(oldTask, allTasksFields.concat(['history', 'up', 'down']));
