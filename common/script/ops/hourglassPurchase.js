@@ -9,7 +9,7 @@ module.exports = function(user, req, cb, analytics) {
   if (!content.timeTravelStable[type]) {
     return typeof cb === "function" ? cb({
       code: 403,
-      message: i18n.t('typeNotAllowedHourglass', req.language) + JSON.stringify(_.keys(content.timeTravelStable))
+      message: i18n.t('typeNotAllowedHourglass', {allowedTypes: _.keys(content.timeTravelStable).toString()}, req.language)
     }) : void 0;
   }
   if (!_.contains(_.keys(content.timeTravelStable[type]), key)) {
