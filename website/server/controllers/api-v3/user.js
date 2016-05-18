@@ -37,6 +37,8 @@ api.getUser = {
     delete user.apiToken;
 
     // TODO move to model? (maybe virtuals, maybe in toJSON)
+    // NOTE: if an item is manually added to user.stats common/fns/predictableRandom must be tweaked
+    // so it's not considered. Otherwise the client will have it while the server won't and the results will be different.
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
     user.stats.maxMP = common.statsComputed(user).maxMP;
