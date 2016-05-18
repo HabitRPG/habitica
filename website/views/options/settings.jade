@@ -133,11 +133,11 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-body
             div(ng-if='user.auth.facebook.id')
               button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
-              button.btn.btn-danger(ng-click='http("delete","/api/v2/user/auth/social",null,"detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
+              button.btn.btn-danger(ng-click='http("delete", "/api/v3/user/auth/social/facebook", null, "detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
               hr
               div(ng-if='!user.auth.local.username')
                 p=env.t('addLocalAuth')
-                form(ng-submit='http("post","/api/v2/register",localAuth,"addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
+                form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
                   //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted')=env.t('fillAll')
                   .form-group
                     input.form-control(type='text', placeholder=env.t('username'), ng-model='localAuth.username', required)
@@ -218,7 +218,7 @@ script(type='text/ng-template', id='partials/options.settings.promo.html')
               input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
             .form-group
               button.btn.btn-primary(type='submit')=env.t('generate')
-              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}')=env.t('getCodes')
+              a.btn.btn-default(href='/api/v3/coupons?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}')=env.t('getCodes')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .container-fluid
