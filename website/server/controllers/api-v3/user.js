@@ -1310,4 +1310,28 @@ api.userReset = {
   },
 };
 
+/**
+* @api {post} /api/v3/user/set-cron Sets lastCron for user
+* @apiVersion 3.0.0
+* @apiName UserSetCron
+* @apiGroup User
+*
+* @apiSuccess {Object} data An empty Object
+*/
+api.userSetCron = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/set-cron',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let cron = req.body.lastCron;
+
+    user.lastCron = cron;
+
+    await user.save();
+
+    res.respond(200, {});
+  },
+};
+
 module.exports = api;

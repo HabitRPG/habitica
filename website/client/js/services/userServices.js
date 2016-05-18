@@ -310,6 +310,19 @@ angular.module('habitrpg')
           });
         },
 
+        setLastCron: function (date) {
+          $http({
+            method: "POST",
+            url: 'api/v3/user/set-cron',
+            data: {
+              lastCron: date
+            }
+          })
+          .then(function (response) {
+            Notification.text('Last cron updated. Remember to refresh');
+          });
+        },
+
         makeAdmin: function () {
           $http({
             method: "POST",

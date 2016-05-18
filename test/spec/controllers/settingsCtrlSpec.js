@@ -17,6 +17,7 @@ describe('Settings Controller', function () {
         releasePets: sandbox.stub(),
         releaseMounts: sandbox.stub(),
         releaseBoth: sandbox.stub(),
+        setLastCron: sandbox.stub(),
         user: user
       };
 
@@ -97,8 +98,8 @@ describe('Settings Controller', function () {
       expect(User.set).to.be.calledOnce;
       expect(User.set).to.be.calledWith({
         'preferences.dayStart': 5,
-        'lastCron': expectedTime
       });
+      expect(User.setLastCron).to.be.calledWith(expectedTime);
     });
   });
 
