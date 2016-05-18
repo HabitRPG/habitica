@@ -14,10 +14,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       if ($state.is('options.social.party')) {
         Groups.Group.syncParty()
           .then(function successCallback(group) {
-            $scope.group = group;
+            $rootScope.party = $scope.group = group;
             checkForNotifications();
           }, function errorCallback(response) {
-            $scope.group = $scope.newGroup = { type: 'party' };
+            $rootScope.party = $scope.group = $scope.newGroup = { type: 'party' };
           });
       }
 
@@ -45,7 +45,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
-            $scope.group = response.data.data;
+            $rootScope.party = $scope.group = response.data.data;
             User.sync();
             Groups.data.party = $scope.group;
             Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
@@ -56,7 +56,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.join = function (party) {
         Groups.Group.join(party.id)
           .then(function (response) {
-            $scope.group = response.data.data;
+            $rootScope.party = $scope.group = response.data.data;
             User.sync();
             Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
             Analytics.updateUser({'partyID': party.id});
@@ -135,7 +135,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
           Groups.Group.leave(Groups.data.party._id, false)
             .then(function() {
-              $scope.group = {
+              $rootScope.party = $scope.group = {
                 loadingNewParty: true
               };
               $scope.join({ id: newPartyId, name: newPartyName });

@@ -88,7 +88,7 @@ api.checkout = {
             // sku: 1,
             price: amount,
             currency: 'USD',
-            quality: 1,
+            quantity: 1,
           }],
         },
         amount: {

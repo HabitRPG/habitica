@@ -40,6 +40,9 @@ angular.module('habitrpg')
           } else {
             $rootScope.$broadcast('responseError', response.data.message);
           }
+
+          if ($rootScope.User && $rootScope.User.sync) $rootScope.User.sync();
+
           // Need to reject the prompse so the error is handled correctly
           if (response.status === 401) {
             return $q.reject(response);
