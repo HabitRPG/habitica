@@ -165,5 +165,7 @@
     "int": "INT",
     "showQuickAllocation": "Show stat allocation",
     "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats.",
+    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
+    "notEnoughAttrPoints": "You don't have enough attribute points."
 }

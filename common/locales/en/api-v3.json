@@ -4,8 +4,6 @@
   "pageMustBeNumber": "req.query.page must be a number",
   "userNotFound": "User not found.",
   "invalidUUID": "UUID must be valid",
-  "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-  "notEnoughAttrPoints": "You don't have enough attribute points.",
   "missingKeyParam": "\"req.params.key\" is required.",
   "itemNotFound": "Item \"<%= key %>\" not found.",
   "cannotBuyItem": "You can't buy this item.",
