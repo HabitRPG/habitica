@@ -1,5 +1,8 @@
 import {
   generateUser,
+  generateGroup,
+  sleep,
+  generateChallenge,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
@@ -43,8 +46,8 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.createdAt).to.equal(task.createdAt);
       expect(savedTask.updatedAt).to.be.greaterThan(task.updatedAt);
       expect(savedTask.challenge).to.equal(task.challenge);
-      expect(savedTask.completed).to.equal(task.completed);
-      expect(savedTask.streak).to.equal(task.streak);
+      expect(savedTask.completed).to.eql(task.completed);
+      expect(savedTask.streak).to.equal(savedTask.streak); // it's an habit, dailies can change it
       expect(savedTask.dateCompleted).to.equal(task.dateCompleted);
     });
 
@@ -54,6 +57,90 @@ describe('PUT /tasks/:id', () => {
       });
 
       expect(savedTask.notValid).to.be.undefined;
+    });
+
+    it(`only allows setting streak, reminders, checklist, notes, attribute, tags
+        fields for challenge tasks owned by a user`, async () => {
+      let guild = await generateGroup(user);
+      let challenge = await generateChallenge(user, guild);
+
+      let challengeTask = await user.post(`/tasks/challenge/${challenge._id}`, {
+        type: 'daily',
+        text: 'Daily in challenge',
+        reminders: [
+          {time: new Date(), startDate: new Date()},
+        ],
+        checklist: [
+          {text: 123, completed: false},
+        ],
+      });
+      await sleep(2);
+
+      await user.sync();
+
+      // Pick challenge task
+      let challengeUserTaskId = user.tasksOrder.dailys[user.tasksOrder.dailys.length - 1];
+
+      let challengeUserTask = await user.get(`/tasks/${challengeUserTaskId}`);
+
+      let savedChallengeUserTask = await user.put(`/tasks/${challengeUserTaskId}`, {
+        _id: 123,
+        type: 'daily',
+        userId: 123,
+        history: [123],
+        createdAt: 'yesterday',
+        updatedAt: 'tomorrow',
+        challenge: 'no',
+        completed: true,
+        streak: 25,
+        priority: 1.5,
+        repeat: {
+          m: false,
+        },
+        everyX: 15,
+        frequency: 'weekly',
+        text: 'new text',
+        dateCompleted: 'never',
+        reminders: [
+          {time: new Date(), startDate: new Date()},
+          {time: new Date(), startDate: new Date()},
+        ],
+        checklist: [
+          {text: 123, completed: false},
+          {text: 456, completed: true},
+        ],
+        notes: 'new notes',
+        attribute: 'per',
+        tags: [challengeUserTaskId],
+      });
+
+      // original task is not touched
+      let updatedChallengeTask = await user.get(`/tasks/${challengeTask._id}`);
+      expect(updatedChallengeTask).to.eql(challengeTask);
+
+      // ignored
+      expect(savedChallengeUserTask._id).to.equal(challengeUserTask._id);
+      expect(savedChallengeUserTask.type).to.equal(challengeUserTask.type);
+      expect(savedChallengeUserTask.repeat.m).to.equal(true);
+      expect(savedChallengeUserTask.priority).to.equal(challengeUserTask.priority);
+      expect(savedChallengeUserTask.frequency).to.equal(challengeUserTask.frequency);
+      expect(savedChallengeUserTask.userId).to.equal(challengeUserTask.userId);
+      expect(savedChallengeUserTask.text).to.equal(challengeUserTask.text);
+      expect(savedChallengeUserTask.history).to.eql(challengeUserTask.history);
+      expect(savedChallengeUserTask.createdAt).to.equal(challengeUserTask.createdAt);
+      expect(savedChallengeUserTask.updatedAt).to.be.greaterThan(challengeUserTask.updatedAt);
+      expect(savedChallengeUserTask.challenge).to.eql(challengeUserTask.challenge);
+      expect(savedChallengeUserTask.completed).to.equal(challengeUserTask.completed);
+      expect(savedChallengeUserTask.dateCompleted).to.equal(challengeUserTask.dateCompleted);
+      expect(savedChallengeUserTask.priority).to.equal(challengeUserTask.priority);
+
+      // changed
+      expect(savedChallengeUserTask.notes).to.equal('new notes');
+      expect(savedChallengeUserTask.attribute).to.equal('per');
+      expect(savedChallengeUserTask.tags).to.eql([challengeUserTaskId]);
+      expect(savedChallengeUserTask.streak).to.equal(25);
+      expect(savedChallengeUserTask.reminders.length).to.equal(2);
+      expect(savedChallengeUserTask.checklist.length).to.equal(2);
     });
   });
 

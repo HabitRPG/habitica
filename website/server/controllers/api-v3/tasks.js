@@ -307,7 +307,18 @@ api.updateTask = {
 
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
-    _.assign(task, Tasks.Task.sanitize(updatedTaskObj));
+
+
+    // Sanitize differently user tasks linked to a challenge
+    let sanitizedObj;
+
+    if (!challenge && task.userId && task.challenge && task.challenge.id) {
+      sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
+    } else {
+      sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
+    }
+
+    _.assign(task, sanitizedObj);
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749

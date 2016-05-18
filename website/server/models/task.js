@@ -57,7 +57,7 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', 'completed'],
+  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId'],
   sanitizeTransform (taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
@@ -68,6 +68,14 @@ TaskSchema.plugin(baseModel, {
   private: [],
   timestamps: true,
 });
+
+// Sanitize user tasks linked to a challenge
+// See http://habitica.wikia.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
+TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
+  let initialSanitization = this.sanitize(taskObj);
+
+  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes']);
+};
 
 // Sanitize checklist objects (disallowing id)
 TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
