@@ -26,10 +26,10 @@ if (process.env.LOAD_SERVER === '0') { // when the server is in a different proc
   require('../../website/server/libs/api-v3/setupNconf')('./config.json');
   // Use Q promises instead of mpromise in mongoose
   mongoose.Promise = Bluebird;
-  mongoose.connect(nconf.get('NODE_DB_URI'));
+  mongoose.connect(nconf.get('TEST_DB_URI'));
 } else { // When running tests and the server in the same process
   require('../../website/server/libs/api-v3/setupNconf')('./config.json.example');
-  nconf.set('NODE_DB_URI', 'mongodb://localhost/habitrpg_test');
+  nconf.set('NODE_DB_URI', nconf.get('TEST_DB_URI'));
   nconf.set('NODE_ENV', 'test');
   nconf.set('IS_TEST', true);
   // We require src/server and npt src/index because
