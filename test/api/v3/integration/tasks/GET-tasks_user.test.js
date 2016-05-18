@@ -16,13 +16,55 @@ describe('GET /tasks/user', () => {
   });
 
   it('returns only a type of user\'s tasks if req.query.type is specified', async () => {
-    let createdTasks = await user.post('/tasks/user', [{text: 'test habit', type: 'habit'}, {text: 'test todo', type: 'todo'}]);
-    let tasks = await user.get('/tasks/user?type=habits');
-    expect(tasks.length).to.equal(1);
-    expect(tasks[0]._id).to.equal(createdTasks[0]._id);
+    let createdTasks = await user.post('/tasks/user', [
+      {text: 'test habit', type: 'habit'},
+      {text: 'test daily', type: 'daily'},
+      {text: 'test reward', type: 'reward'},
+      {text: 'test todo', type: 'todo'},
+    ]);
+    let habits = await user.get('/tasks/user?type=habits');
+    let dailys = await user.get('/tasks/user?type=dailys');
+    let rewards = await user.get('/tasks/user?type=rewards');
+
+    expect(habits.length).to.be.at.least(1);
+    expect(habits[0]._id).to.equal(createdTasks[0]._id);
+    expect(dailys.length).to.be.at.least(1);
+    expect(dailys[0]._id).to.equal(createdTasks[1]._id);
+    expect(rewards.length).to.be.at.least(1);
+    expect(rewards[0]._id).to.equal(createdTasks[2]._id);
   });
 
-  it('returns completed todos sorted by reverse completion date if req.query.type === "completeTodos"', async () => {
+  it('returns uncompleted todos if req.query.type is "todos"', async () => {
+    let existingTodos = await user.get('/tasks/user?type=todos');
+
+    // populate user with other task types
+    await user.post('/tasks/user', [
+      {text: 'daily', type: 'daily'},
+      {text: 'reward', type: 'reward'},
+      {text: 'habit', type: 'habit'},
+    ]);
+
+    let newUncompletedTodos = await user.post('/tasks/user', [
+      {text: 'test todo 1', type: 'todo'},
+      {text: 'test todo 2', type: 'todo'},
+    ]);
+    let todoToBeCompleted = await user.post('/tasks/user', {
+      text: 'wll be completed todo', type: 'todo',
+    });
+
+    await user.post(`/tasks/${todoToBeCompleted._id}/score/up`);
+
+    let uncompletedTodos = [...existingTodos, ...newUncompletedTodos];
+
+    let todos = await user.get('/tasks/user?type=todos');
+
+    expect(todos.length).to.be.gte(2);
+    expect(todos.length).to.eql(uncompletedTodos.length);
+    expect(todos.every(task => task.type === 'todo'));
+    expect(todos.every(task => task.completed === false));
+  });
+
+  it('returns completed todos sorted by reverse completion date if req.query.type is "completeTodos"', async () => {
     let todo1 = await user.post('/tasks/user', {text: 'todo to complete 1', type: 'todo'});
     let todo2 = await user.post('/tasks/user', {text: 'todo to complete 2', type: 'todo'});
 
