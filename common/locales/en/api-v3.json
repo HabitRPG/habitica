@@ -1,12 +1,3 @@
 {
   "invalidTasksOwner": "\"tasksOwner\" must be \"user\" or \"challenge\".",
-  "noAdminAccess": "You don't have admin access.",
-  "pageMustBeNumber": "req.query.page must be a number",
-  "userNotFound": "User not found.",
-  "invalidUUID": "UUID must be valid",
-  "invalidUrl": "invalid url",
-  "invalidEnabled": "the \"enabled\" parameter should be a boolean",
-  "regIdRequired": "RegId is required",
-  "pushDeviceAdded": "Push device added successfully",
-  "pushDeviceAlreadyAdded": "The user already has the push device",
 }
