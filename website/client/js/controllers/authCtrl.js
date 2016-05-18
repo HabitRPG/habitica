@@ -31,7 +31,7 @@ angular.module('habitrpg')
         } else if (status === 400 && data.errors && _.isArray(data.errors)) { // bad requests
           data.errors.forEach(function (err) {
             $window.alert(err.message);
-          });
+          }); 
         } else if (!!data && !!data.error) {
           $window.alert(data.message);
         } else {
@@ -51,7 +51,15 @@ angular.module('habitrpg')
         $scope.registrationInProgress = true;
 
         var url = ApiUrl.get() + "/api/v3/user/auth/local/register";
-        if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
+        if (location.search && location.search.indexOf('Invite=') !== -1) { // matches groupInvite and partyInvite
+          url += location.search;
+        }
+
+        if($rootScope.selectedLanguage) {
+          var toAppend = url.indexOf('?') !== -1 ? '&' : '?';
+          url = url + toAppend + 'lang=' + $rootScope.selectedLanguage.code;
+        }
+
         $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
           runAuth(res.data._id, res.data.apiToken);
         }).error(errorAlert);

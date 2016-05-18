@@ -568,7 +568,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
       inviter: inviter._id,
       sentAt: Date.now(), // so we can let it expire
     });
-    let link = `?groupInvite=${encrypt(groupQueryString)}`;
+    let link = `/static/front?groupInvite=${encrypt(groupQueryString)}`;
 
     let variables = [
       {name: 'LINK', content: link},
