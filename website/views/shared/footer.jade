@@ -48,10 +48,6 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('communityFeature')
           li
-            a(target='_blank', href='/apidoc')=env.t('API v3')
-          li
-            a(target='_blank', href='/static/api-v2')=env.t('API v2 - Deprecated')
-          li
             a(href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('communityExtensions')
           li
             a(target='_blank', href='http://habitica.wikia.com/wiki/Special:Forum')=env.t('communityForum')
@@ -61,6 +57,14 @@ footer.footer(ng-controller='FooterCtrl')
             a(target='_blank', href='https://www.facebook.com/Habitica')=env.t('communityFacebook')
           li
             a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
+        h4=env.t('footerDevs')
+        ul.list-unstyled
+          li
+            a(target='_blank', href='http://devs.habitica.com')=env.t('devBlog') + ' - The Forge'
+          li
+            a(target='_blank', href='/apidoc')=env.t('APIv3')
+          li
+            a(target='_blank', href='/static/api-v2')=env.t('APIv2')
       .col-sm-3
         if (env.NODE_ENV === 'production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
