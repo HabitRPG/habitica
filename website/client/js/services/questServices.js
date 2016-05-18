@@ -121,6 +121,7 @@ angular.module('habitrpg')
             });
 
             var quest = response.data.quest;
+            if (!quest) quest = response.data.data;
             resolve(quest);
           });;
       });

@@ -423,7 +423,9 @@ describe("Party Controller", function() {
   describe('#leaveOldPartyAndJoinNewParty', function() {
     beforeEach(function() {
       sandbox.stub(scope, 'join');
-      sandbox.stub(groups.Group, 'leave').yields();
+      groups.data.party = { _id: 'old-party' };
+      var groupLeave = sandbox.stub(groups.Group, 'leave');
+      groupLeave.returns(Promise.resolve({}));
       sandbox.stub(groups, 'party').returns({
         _id: 'old-party'
       });
@@ -441,20 +443,17 @@ describe("Party Controller", function() {
       scope.leaveOldPartyAndJoinNewParty('some-id', 'some-name');
 
       expect(groups.Group.leave).to.be.calledOnce;
-      expect(groups.Group.leave).to.be.calledWith({
-        gid: 'old-party',
-        keep: false
-      });
+      expect(groups.Group.leave).to.be.calledWith('old-party', false);
     });
 
-    it('joins the new party', function() {
+    it('joins the new party', function(done) {
       scope.leaveOldPartyAndJoinNewParty('some-id', 'some-name');
 
-      expect(scope.join).to.be.calledOnce;
-      expect(scope.join).to.be.calledWith({
-        id: 'some-id',
-        name: 'some-name'
-      });
+      setTimeout(function() {
+        expect(scope.join).to.be.calledOnce;
+        expect(scope.join).to.be.calledWith({id: 'some-id', name: 'some-name'});
+        done();
+      }, 1000);
     });
   });
 

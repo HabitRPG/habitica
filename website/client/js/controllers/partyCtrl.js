@@ -56,6 +56,8 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.join = function (party) {
         Groups.Group.join(party.id)
           .then(function (response) {
+            $scope.group = response.data.data;
+            User.sync();
             Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
             Analytics.updateUser({'partyID': party.id});
             $rootScope.hardRedirect('/#/options/groups/party');
@@ -131,12 +133,13 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.leaveOldPartyAndJoinNewParty = function(newPartyId, newPartyName) {
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
-          Groups.Group.leave({gid: Groups.party()._id, keep: false}, undefined, function() {
-            $scope.group = {
-              loadingNewParty: true
-            };
-            $scope.join({ id: newPartyId, name: newPartyName });
-          });
+          Groups.Group.leave(Groups.data.party._id, false)
+            .then(function() {
+              $scope.group = {
+                loadingNewParty: true
+              };
+              $scope.join({ id: newPartyId, name: newPartyName });
+            });
         }
       }
 
@@ -183,6 +186,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.questForceStart = function(){
         Quests.sendAction('quests/force-start')
           .then(function(quest) {
+            console.log(quest)
             $scope.group.quest = quest;
           });
       };
