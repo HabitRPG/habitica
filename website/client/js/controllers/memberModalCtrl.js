@@ -49,18 +49,20 @@ habitrpg
 
       $scope.reportAbuse = function(reporter, message, groupId) {
         message.flags[reporter._id] = true;
-        Chat.utils.flagChatMessage({gid: groupId, messageId: message.id}, undefined, function(data){
-          Notification.text(window.env.t('abuseReported'));
-          $scope.$close();
-        });
+        Chat.flagChatMessage(groupId, message.id)
+          .then(function(data){
+            Notification.text(window.env.t('abuseReported'));
+            $scope.$close();
+          });
       };
 
       $scope.clearFlagCount = function(message, groupId) {
-        Chat.utils.clearFlagCount({gid: groupId, messageId: message.id}, undefined, function(data){
-          message.flagCount = 0;
-          Notification.text("Flags cleared");
-          $scope.$close();
-        });
+        Chat.clearFlagCount(groupId, message.id)
+          .then(function(data){
+            message.flagCount = 0;
+            Notification.text("Flags cleared");
+            $scope.$close();
+          });
       }
     }
   ]);
