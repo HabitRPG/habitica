@@ -1,5 +1,5 @@
 {
-  "name": "habitrpg",
+  "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
   "version": "3.0.0",
   "main": "./website/server/index.js",
