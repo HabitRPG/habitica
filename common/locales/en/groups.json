@@ -151,6 +151,19 @@
     "partyUpName": "Party Up",
     "partyOnName": "Party On",
     "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!"
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
+    "groupIdRequired": "\"groupId\" must be a valid UUID",
+    "groupNotFound": "Group not found.",
+    "groupTypesRequired": "You must supply a valid \"type\" query string.",
+    "questLeaderCannotLeaveGroup": "You cannot leave your party when you have started a quest. Abort the quest first.",
+    "cannotLeaveWhileActiveQuest": "You cannot leave party during an active quest. Please leave the quest first.",
+    "onlyLeaderCanRemoveMember": "Only group leader can remove a member!",
+    "memberCannotRemoveYourself": "You cannot remove yourself!",
+    "groupMemberNotFound": "User not found among group's members",
+    "mustBeGroupMember": "Must be member of the group.",
+    "keepOrRemoveAll": "req.query.keep must be either \"keep-all\" or \"remove-all\"",
+    "keepOrRemove": "req.query.keep must be either \"keep\" or \"remove\"",
+    "canOnlyInviteEmailUuid": "Can only invite using uuids or emails.",
+    "inviteMissingEmail": "Missing email address in invite.",
 }
 
