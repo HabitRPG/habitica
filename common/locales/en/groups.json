@@ -187,4 +187,3 @@
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
     "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!"
 }
-
