@@ -114,12 +114,19 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       });
     };
 
+    function handleGroupResponse (response) {
+      $scope.group = response;
+      if (!$scope.group._id) $scope.group = response.data.data;
+    };
+
     $scope.sync = function(group) {
-      //@TODO: We need to use chat service here
-      Groups.Group.get(group._id)
-        .then(function (response) {
-          $scope.group = response.data.data;
-        })
+      if (group.name === Groups.TAVERN_NAME) {
+        Groups.tavern(true).then(handleGroupResponse);
+      } else if (group._id === User.user.party._id) {
+        Groups.party(true).then(handleGroupResponse);
+      } else {
+        Groups.Group.get(group._id).then(handleGroupResponse);
+      }
 
       Chat.markChatSeen(group._id);
     }
