@@ -1,0 +1,22 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title Habitica &VerticalLine;&nbsp;
+    =env.t('maintenance')
+
+block content
+  .lead
+    =env.t('habiticaBackSoon')
+  .row.text-center
+    img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/maintenance.png')
+  .text-center
+    p=env.t('importantMaintenance')
+    ul.lead
+      li=env.t('noDamageKeepStreaks')
+      li=env.t('veteranPetAward')
+    p=env.t('maintenanceMoreInfo')
+    a=env.t('checkInfoPage')
+    p=env.t('thanksForPatience')
