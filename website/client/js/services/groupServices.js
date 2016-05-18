@@ -5,6 +5,7 @@ angular.module('habitrpg')
   function($location, $rootScope, $http, Analytics, ApiUrl, Challenges, $q, User, Members) {
     var data =  {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined };
     var groupApiURLPrefix = "/api/v3/groups";
+    var TAVERN_NAME = 'HabitRPG';
 
     var Group = {};
 
@@ -104,8 +105,8 @@ angular.module('habitrpg')
     //On page load, multiple controller request the party.
     //So, we cache the promise until the first result is returned
     var _cachedPartyPromise;
-    function party () {
-      if (_cachedPartyPromise) return _cachedPartyPromise.promise;
+    function party (forceUpdate) {
+      if (_cachedPartyPromise && !forceUpdate) return _cachedPartyPromise.promise;
       _cachedPartyPromise = $q.defer();
 
       if (!User.user.party._id) {
@@ -113,7 +114,7 @@ angular.module('habitrpg')
         _cachedPartyPromise.reject(data.party);
       }
 
-      if (!data.party) {
+      if (!data.party || forceUpdate) {
         Group.get('party')
           .then(function (response) {
             data.party = response.data.data;
@@ -125,7 +126,8 @@ angular.module('habitrpg')
           }, function (response) {
             data.party = { type: 'party' };
             _cachedPartyPromise.reject(data.party);
-          }).finally(function(){
+          })
+          .finally(function() {
              _cachePartyPromise = null;
           });
       } else {
@@ -172,10 +174,10 @@ angular.module('habitrpg')
       return deferred.promise;
     }
 
-    function tavern () {
+    function tavern (forceUpdate) {
       var deferred = $q.defer();
 
-      if (!data.tavern) {
+      if (!data.tavern || forceUpdate) {
         Group.get('habitrpg')
           .then(function (response) {
             data.tavern = response.data.data;
@@ -206,6 +208,7 @@ angular.module('habitrpg')
     }
 
     return {
+      TAVERN_NAME: TAVERN_NAME,
       party: party,
       publicGuilds: publicGuilds,
       myGuilds: myGuilds,
