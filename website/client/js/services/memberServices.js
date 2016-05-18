@@ -84,7 +84,7 @@ angular.module('habitrpg')
         fetchMember(uid)
           .then(function (response) {
             var member = response.data.data;
-            addToMembersList(member, self); // lazy load for later
+            addToMembersList(member); // lazy load for later
             _prepareMember(member, self);
             deferred.resolve();
           });
@@ -95,7 +95,7 @@ angular.module('habitrpg')
 
     function addToMembersList (member, self) {
       if (member._id) {
-        self.members[member._id] = member;
+        members[member._id] = member;
       }
     }
 
@@ -105,7 +105,7 @@ angular.module('habitrpg')
 
     function _prepareMember(member, self) {
       Shared.wrap(member, false);
-      self.selectedMember = self.members[member._id];
+      self.selectedMember = members[member._id];
     }
 
     $rootScope.$on('userUpdated', function(event, user){
