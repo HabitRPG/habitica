@@ -64,13 +64,6 @@ function _requestMaker (user, method, additionalSets = {}) {
             return reject(parsedError);
           }
 
-          // if any cookies was sent, save it for the next request
-          if (response.headers['set-cookie']) {
-            additionalSets.cookie = response.headers['set-cookie'].map(cookieString => {
-              return cookieString.split(';')[0];
-            }).join('; ');
-          }
-
           resolve(_parseRes(response));
         });
     });

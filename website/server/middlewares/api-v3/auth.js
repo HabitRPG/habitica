@@ -41,7 +41,14 @@ export function authWithHeaders (optional = false) {
 export function authWithSession (req, res, next) {
   let userId = req.session.userId;
 
-  if (!userId) return next(new NotAuthorized(res.t('invalidCredentials')));
+  // Always allow authentication with headers
+  if (!userId) {
+    if (!req.header('x-api-user') || !req.header('x-api-key')) {
+      return next(new NotAuthorized(res.t('invalidCredentials')));
+    } else {
+      return authWithHeaders()(req, res, next);
+    }
+  }
 
   return User.findOne({
     _id: userId,
@@ -60,8 +67,13 @@ export function authWithUrl (req, res, next) {
   let userId = req.query._id;
   let apiToken = req.query.apiToken;
 
+  // Always allow authentication with headers
   if (!userId || !apiToken) {
-    throw new NotAuthorized(res.t('missingAuthParams'));
+    if (!req.header('x-api-user') || !req.header('x-api-key')) {
+      return next(new NotAuthorized(res.t('missingAuthParams')));
+    } else {
+      return authWithHeaders()(req, res, next);
+    }
   }
 
   return User.findOne({ _id: userId, apiToken }).exec()

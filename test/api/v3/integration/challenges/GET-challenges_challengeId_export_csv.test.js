@@ -40,6 +40,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
 
   it('fails if challenge doesn\'t exists', async () => {
     user = await generateUser();
+    user.get('/user');
     await expect(user.get(`/challenges/${generateUUID()}/export/csv`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -49,6 +50,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
 
   it('fails if user doesn\'t have access to the challenge', async () => {
     user = await generateUser();
+    user.get('/user');
 
     await expect(user.get(`/challenges/${challenge._id}/export/csv`)).to.eventually.be.rejected.and.eql({
       code: 404,
