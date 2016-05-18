@@ -417,7 +417,7 @@ api.removeGroupMember = {
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
-    let member = await User.findOne({_id: uuid}).select('party guilds invitations newMessages').exec();
+    let member = await User.findOne({_id: uuid}).exec();
 
     // We're removing the user from a guild or a party? is the user invited only?
     let isInGroup;
