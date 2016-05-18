@@ -15,8 +15,6 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser();
-
     let populatedGroup = await createAndPopulateGroup({
       members: 3,
     });
@@ -41,6 +39,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   });
 
   it('fails if challenge doesn\'t exists', async () => {
+    user = await generateUser();
     await expect(user.get(`/challenges/${generateUUID()}/export/csv`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -49,6 +48,8 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   });
 
   it('fails if user doesn\'t have access to the challenge', async () => {
+    user = await generateUser();
+
     await expect(user.get(`/challenges/${challenge._id}/export/csv`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
