@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('payments : paypal #checkout', () => {
+xdescribe('payments : paypal #checkout', () => {
   let endpoint = '/paypal/checkout';
   let user;
 
@@ -15,7 +15,7 @@ describe('payments : paypal #checkout', () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('missingAuthParams'),
+      message: t('missingSubscription'),
     });
   });
 });

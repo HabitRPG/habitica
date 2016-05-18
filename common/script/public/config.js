@@ -3,6 +3,9 @@
 angular.module('habitrpg')
 .config(['$httpProvider', function($httpProvider){
   $httpProvider.interceptors.push(['$q', '$rootScope', function($q, $rootScope){
+    var resyncNumber = 0;
+    var lastResync = 0;
+
     return {
       response: function(response) {
         return response;
@@ -41,7 +44,13 @@ angular.module('habitrpg')
             $rootScope.$broadcast('responseError', response.data.message);
           }
 
-          if ($rootScope.User && $rootScope.User.sync) $rootScope.User.sync();
+          if ($rootScope.User && $rootScope.User.sync) {
+            if (resyncNumber < 100 && (Date.now() - lastResync) > 500) { // avoid thousands of requests when user is not found
+              $rootScope.User.sync();
+              resyncNumber++;
+              lastResync = Date.now();
+            }
+          }
 
           // Need to reject the prompse so the error is handled correctly
           if (response.status === 401) {

@@ -262,7 +262,7 @@ function($rootScope, User, $http, Content) {
       paymentMethod = paymentMethod.toLowerCase();
     }
 
-    window.location.href = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.user.apiToken;
+    window.location.href = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
   }
 
   Payments.encodeGift = function(uuid, gift){

@@ -202,7 +202,7 @@ habitrpg.controller('SettingsCtrl',
         .success(function(res,code){
           $scope._codes = {};
           if (code!==200) return;
-          window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
+          window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.settings.auth.apiToken;
         })
     }
 
