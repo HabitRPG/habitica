@@ -1,6 +1,7 @@
 var url = require('url');
 var ipn = require('paypal-ipn');
 var _ = require('lodash');
+var validator = require('validator');
 var nconf = require('nconf');
 var asyncM = require('async');
 var shared = require('../../../../common');
@@ -79,6 +80,25 @@ var findTask = function(req, res) {
   return res.locals.user.tasks[req.params.id];
 };
 
+function findTaskByIdOrLegacyId (user, taskId, callback) {
+  asyncM.waterfall([
+    function (cb) {
+      Tasks.Task.findOne({
+        _id: taskId,
+        userId: user._id,
+      }, cb);
+    },
+    function (task, cb) {
+      if (task) return cb(null, task);
+
+      Tasks.Task.findOne({
+        _legacyId: taskId,
+        userId: user._id,
+      }, cb);
+    },
+  ], callback);
+}
+
 /*
   API Routes
   ---------------
@@ -98,23 +118,27 @@ api.score = function(req, res, next) {
     return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
 
-  Tasks.Task.findOne({
-    _id: id,
-    userId: user._id
-  }, function(err, task){
-    if(err) return next(err);
+  findTaskByIdOrLegacyId(user, id, function (err, task) {
+    if (err) return next(err);
 
     // If exists already, score it
     if (!task) {
       // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
       // Defaults. Other defaults are handled in user.ops.addTask()
-      task = new Tasks.Task({
-        _id: id, // TODO this might easily lead to conflicts as ids are now unique db-wide
-        type: body.type,
-        text: body.text,
+      var taskOptions = {
+        type: body.type || 'habit',
+        text: body.text || id,
         userId: user._id,
         notes: body.notes || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task." // TODO translate
-      });
+      }
+
+      if (validator.isUUID(id)) {
+        taskOptions._id = id; // TODO this might easily lead to conflicts as ids are now unique db-wide
+      } else {
+        taskOptions._legacyId = id;
+      }
+
+      task = new Tasks.Task(taskOptions);
 
       user.tasksOrder[task.type + 's'].unshift(task._id);
     }
@@ -187,7 +211,6 @@ api.score = function(req, res, next) {
       });
     });
   });
-
 };
 
 /**
@@ -206,12 +229,10 @@ api.getTasks = function(req, res, next) {
  * Get Task
  */
 api.getTask = function(req, res, next) {
-  var user = res.locals.user;
+  var user = res.locals.user,
+  id = req.params.id;
 
-  Tasks.Task.findOne({
-    userId: user._id,
-    _id: req.params.id,
-  }, function (err, task) {
+  findTaskByIdOrLegacyId(user, id, function (err, task) {
     if (err) return next(err);
     if (!task) return res.status(404).json({err: shared.i18n.t('messageTaskNotFound')});
     res.status(200).json(task.toJSONV2());
@@ -830,13 +851,12 @@ api.deleteTask = function(req, res, next) {
 };
 
 api.updateTask = function(req, res, next) {
-  var user = res.locals.user;
+  var user = res.locals.user,
+  id = req.params.id;
+
   req.body = Tasks.Task.fromJSONV2(req.body);
 
-  Tasks.Task.findOne({
-    _id: req.params.id,
-    userId: user._id
-  }, function(err, task) {
+  findTaskByIdOrLegacyId(user, id, function (err, task) {
     if(err) return next(err);
     if(!task) return res.status(404).json({err: 'Task not found.'})
 
