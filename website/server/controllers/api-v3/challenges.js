@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders, authWithSession } from '../../middlewares/api-v3/auth';
 import _ from 'lodash';
 import { model as Challenge } from '../../models/challenge';
 import {
@@ -340,7 +340,7 @@ api.getChallenge = {
 api.exportChallengeCsv = {
   method: 'GET',
   url: '/challenges/:challengeId/export/csv',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithSession],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 

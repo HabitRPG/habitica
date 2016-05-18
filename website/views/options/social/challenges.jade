@@ -55,7 +55,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
   // Member List
   div(bindonce='challenge', ng-if='challenge.members.length > 0')
-    a.btn.btn-primary.btn-sm.pull-right(ng-href='/api/v2/challenges/{{challenge._id}}/csv')
+    a.btn.btn-primary.btn-sm.pull-right(ng-href='/api/v3/challenges/{{challenge._id}}/export/csv')
       =env.t('exportChallengeCSV')
     h3=env.t('hows')
     menu
