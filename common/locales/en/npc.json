@@ -89,6 +89,7 @@
     "tourPetsPage": "This is the Stable! After level 3, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into powerful mounts.",
     "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. (Pets, mounts, and food are available after level 3.) Click a mount to saddle up!",
     "tourEquipmentPage": "This is where your Equipment is stored! Your Battle Gear affects your stats. If you want to show different Equipment on your avatar without changing your stats, click \"Enable Costume.\"",
+    "equipmentAlreadyOwned": "You already own that piece of equipment",
 
     "tourOkay": "Okay!",
     "tourAwesome": "Awesome!",

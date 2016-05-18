@@ -24,5 +24,6 @@
     "rebirthPop": "Begin a new character at Level 1 while retaining achievements, collectibles, and tasks with history.",
     "rebirthName": "Orb of Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
-    "confirmReborn": "Are you sure?"
+    "confirmReborn": "Are you sure?",
+    "rebirthComplete": "You have been reborn!"
 }

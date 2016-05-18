@@ -92,6 +92,7 @@
     "send": "Send",
     "messageSentAlert": "Message sent",
     "pmHeading": "Private message to <%= name %>",
+    "pmsMarkedRead": "Your private messages have been marked as read",
     "clearAll": "Delete All Messages",
     "confirmDeleteAllMessages": "Are you sure you want to delete all messages in your inbox? Other users will still see messages you have sent to them.",
     "optOutPopover": "Don't like private messages? Click to completely opt out",
