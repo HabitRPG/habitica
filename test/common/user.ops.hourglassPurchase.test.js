@@ -26,7 +26,7 @@ describe('user.ops.hourglassPurchase', () => {
     context('failure conditions', () => {
       it('does not allow purchase of unsupported item types', (done) => {
         user.ops.hourglassPurchase({params: {type: 'hatchingPotions', key: 'Base'}}, (response) => {
-          expect(response.message).to.eql('Item type not supported for purchase with Mystic Hourglass. Allowed types: ["pets","mounts"]');
+          expect(response.message).to.eql('Item type not supported for purchase with Mystic Hourglass. Allowed types: pets,mounts');
           expect(user.items.hatchingPotions).to.eql({});
           done();
         });
