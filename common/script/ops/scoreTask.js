@@ -9,8 +9,10 @@ import crit from '../fns/crit';
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
 const CLOSE_ENOUGH = 0.00001;
+const POW_BASE = 0.9747;
 
 function _getTaskValue (taskValue) {
+  // Min/max on task redness/blueness.
   if (taskValue < MIN_TASK_VALUE) {
     return MIN_TASK_VALUE;
   } else if (taskValue > MAX_TASK_VALUE) {
@@ -22,20 +24,31 @@ function _getTaskValue (taskValue) {
 
 // Calculates the next task.value based on direction
 // Uses a capped inverse log y=.95^x, y>= -5
+// See also comments in _changeTaskValue for _calculateDelta versus _calculateReverseDelta
 function _calculateDelta (task, direction, cron) {
-  // Min/max on task redness
   let currVal = _getTaskValue(task.value);
-  let nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+  let nextDelta = Math.pow(POW_BASE, currVal) * (direction === 'down' ? -1 : 1);
+  // nextDelta is negative (makes task value more red, down) when:
+  //     - cron makes uncompleted Dailies more red
+  //     - cron makes uncompleted To-Dos more red (and completed ones https://github.com/HabitRPG/habitrpg/issues/6488 TODO)
+  //     - cron moves blue/green Habits towards yellow
+  //     - THIS IS NOT USED when a user clicks a Habit's negative button (see _calculateReverseDelta for that - bug? TODO)
+  // nextDelta is positive (makes task value more blue, up) when:
+  //     - cron makes completed Dailies more blue
+  //     - cron moves orange/red Habits towards yellow
+  //     - a user ticks a Daily or To-Do (up, more positive, more blue)
+  //     - a user clicks a Habit's positive button (up)
 
   // Checklists
   if (task.checklist && task.checklist.length > 0) {
-    // If the Daily, only dock them a portion based on their checklist completion
     if (direction === 'down' && task.type === 'daily' && cron) {
+      // For uncompleted Dailies, cron docks only a portion of health, based on checklist completion
       nextDelta *= 1 - _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
     }
 
-    // If To-Do, point-match the TD per checklist item completed
     if (task.type === 'todo') {
+      // A user completing a To-Do earns more points for more completed checklist items.
+      // When cron reddens a To-Do, it becomes more red for more completed checklist items. TODO Bug? Bad for challenge value comparison (user can add checklist).
       nextDelta *= 1 + _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
@@ -43,19 +56,21 @@ function _calculateDelta (task, direction, cron) {
   return nextDelta;
 }
 
-// Approximates the reverse delta for the task value
+// When a user unticks a previously-completed Daily or To-Do (value goes down, more negative, more red),
+// this approximates the reverse delta for the task value.
 // This is meant to return the task value to its original value when unchecking a task.
-// First, calculate the value using the normal way for our first guess although
-// it will be a bit off
-function _calculateReverseDelta (task, direction) {
+// This is also used when a user clicks a Habit's negative button - TODO A bug? Use _calculateDelta instead?
+// See also comments in _changeTaskValue for _calculateDelta versus _calculateReverseDelta
+function _calculateReverseDelta (task) { // direction is always down (more negative, redder)
+  // First, calculate the value using the normal way for our first guess although it will be a bit wrong.
   let currVal = _getTaskValue(task.value);
-  let testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+  let testVal = currVal + Math.pow(POW_BASE, currVal) * -1; // -1 because direction is down
 
   // Now keep moving closer to the original value until we get "close enough"
-  // Check how close we are to the original value by computing the delta off our guess
+  // Check how close we are to the original value by computing the delta from our guess
   // and looking at the difference between that and our current value.
   while (true) { // eslint-disable-line no-constant-condition
-    let calc = testVal + Math.pow(0.9747, testVal);
+    let calc = testVal + Math.pow(POW_BASE, testVal);
     let diff = currVal - calc;
 
     if (Math.abs(diff) < CLOSE_ENOUGH) break;
@@ -72,8 +87,9 @@ function _calculateReverseDelta (task, direction) {
   // before the task was checked.
   let nextDelta = testVal - currVal;
 
-  // Checklists - If To-Do, point-match the TD per checklist item completed
   if (task.checklist && task.checklist.length > 0 && task.type === 'todo') {
+    // In _calculateDelta, a user completing a To-Do earns more points for more completed checklist items.
+    // So here, when a user unticks a To-Do, they must lose more points for more completed checklist items.
     nextDelta *= 1 + _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
   }
 
@@ -141,27 +157,34 @@ function _changeTaskValue (user, task, direction, times, cron) {
 
   // If multiple days have passed, multiply times days missed
   _.times(times, () => {
-    // Each iteration calculate the nextDelta, which is then accumulated in the total delta.
-    let nextDelta = !cron && direction === 'down' ? _calculateReverseDelta(task, direction) : _calculateDelta(task, direction, cron);
-
-    if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
-      user.stats.training[task.attribute] += nextDelta;
-    }
-
-    if (direction === 'up') { // Make progress on quest based on STR
-      user.party.quest.progress.up = user.party.quest.progress.up || 0;
-
-      if (task.type === 'todo' || task.type === 'daily') {
-        user.party.quest.progress.up += nextDelta * (1 + user._statsComputed.str / 200);
-      } else if (task.type === 'habit') {
-        user.party.quest.progress.up += nextDelta * (0.5 + user._statsComputed.str / 400);
-      }
-    }
-
-    task.value += nextDelta;
-
-    addToDelta += nextDelta;
+    // Each iteration calculates a change in task value, which is then accumulated in the total delta.
+    addToDelta += !cron && direction === 'down' ? _calculateReverseDelta(task) : _calculateDelta(task, direction, cron);
   });
+  // _calculateReverseDelta is used when:
+  //     - a user (not cron) unticks a previously-completed Daily or To-Do (value goes down, more negative, more red)
+  //     - a user (not cron) clicks a Habit's negative button (down)
+  // _calculateDelta is used when:
+  //     - a user ticks a Daily or To-Do (up, more positive, more blue)
+  //     - a user clicks a Habit's positive button (up)
+  //     - cron processes a completed Daily (up) or and uncompleted Daily (down) or an uncompleted To-Do (down)
+  //     - cron processes a Habit (moves it up or down towards yellow)
+
+  task.value += addToDelta;
+
+  if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased') {
+    user.stats.training[task.attribute] += addToDelta;
+  }
+
+  if (direction === 'up') { // Make progress on quest based on STR
+    user.party.quest.progress.up = user.party.quest.progress.up || 0;
+    // TODO reverse this on 'down' https://github.com/HabitRPG/habitrpg/issues/5648
+
+    if (task.type === 'todo' || task.type === 'daily') {
+      user.party.quest.progress.up += nextDelta * (1 + user._statsComputed.str / 200);
+    } else if (task.type === 'habit') {
+      user.party.quest.progress.up += nextDelta * (0.5 + user._statsComputed.str / 400);
+    }
+  }
 
   return addToDelta;
 }
