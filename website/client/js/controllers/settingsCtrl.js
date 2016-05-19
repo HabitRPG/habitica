@@ -146,7 +146,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.changeUser = function(attr, updates){
-      $http.post(ApiUrl.get() + '/api/v2/user/change-'+attr, updates)
+      $http.put(ApiUrl.get() + '/api/v3/user/auth/update-'+attr, updates)
         .success(function(){
           alert(window.env.t(attr+'Success'));
           _.each(updates, function(v,k){updates[k]=null;});
@@ -181,7 +181,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope['delete'] = function(){
-      $http['delete'](ApiUrl.get() + '/api/v2/user')
+      $http['delete'](ApiUrl.get() + '/api/v3/user')
         .success(function(res, code){
           if (res.err) return alert(res.err);
           localStorage.clear();
@@ -190,7 +190,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.enterCoupon = function(code) {
-      $http.post(ApiUrl.get() + '/api/v2/user/coupon/' + code).success(function(res,code){
+      $http.post(ApiUrl.get() + '/api/v3/coupons/enter/' + code).success(function(res,code){
         if (code!==200) return;
         User.sync();
         Notification.text(env.t('promoCodeApplied'));
@@ -259,7 +259,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.applyCoupon = function(coupon){
-      $http.get(ApiUrl.get() + '/api/v2/coupons/valid-discount/'+coupon)
+      $http.get(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
       .success(function(){
         Notification.text("Coupon applied!");
         var subs = Content.subscriptionBlocks;
