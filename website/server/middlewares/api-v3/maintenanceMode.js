@@ -19,13 +19,13 @@ module.exports = function maintenanceMode (req, res, next) {
       maintenanceEnd: MAINTENANCE_END,
       moment,
       t: res.t,
-    }
+    };
 
     if (req.headers && req.headers.accept && req.headers.accept.indexOf('text/html') !== -1) {
       if (req.path === '/views/static/maintenance-info') {
-        return res.status(503).render('../../../views/static/maintenance-info', pageVariables)
+        return res.status(503).render('../../../views/static/maintenance-info', pageVariables);
       } else {
-        return res.status(503).render('../../../views/static/maintenance', pageVariables)
+        return res.status(503).render('../../../views/static/maintenance', pageVariables);
       }
     } else {
       return res.status(503).send({
