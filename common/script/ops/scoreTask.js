@@ -96,6 +96,9 @@ function _calculateReverseDelta (task) { // direction is always down (more negat
   return nextDelta;
 }
 
+// Adjust user's MP up / down when:
+// - user does positive / negative Habits
+// - user ticks / unticks Dailies and To-Dos
 function _gainMP (user, val) {
   val *= user._tmp.crit || 1;
   user.stats.mp += val;
@@ -106,6 +109,9 @@ function _gainMP (user, val) {
   }
 }
 
+// Decrease user's health when:
+// - user does negative Habits
+// - cron finds uncompleted Dailies
 function _subtractPoints (user, task, stats, delta) {
   let conBonus = 1 - user._statsComputed.con / 250; // CON decreases HP loss
   if (conBonus < 0.1) conBonus = 0.1;
@@ -115,6 +121,9 @@ function _subtractPoints (user, task, stats, delta) {
   return stats.hp;
 }
 
+// Adjust user's stats (XP, GP) up or down:
+// - up when doing positive Habits and completing Dailies and To-Dos
+// - down when unticking previously-completed Dailies and To-Dos (e.g., after accidental completion).
 function _addPoints (user, task, stats, direction, delta) {
   // allow critical hit only when checking off a task, not when unchecking it:
   let _crit = direction === 'up' ? crit(user) : 1;
@@ -127,7 +136,7 @@ function _addPoints (user, task, stats, direction, delta) {
   let perBonus = 1 + user._statsComputed.per * 0.02; // PER increases GP gain
   let gpMod = delta * task.priority * _crit * perBonus;
 
-  if (task.streak) {  // streak increases GP gain
+  if (task.streak) { // streak increases GP gain
     let currStreak = direction === 'down' ? task.streak - 1 : task.streak;
     let streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
     let afterStreak = gpMod * streakBonus;
@@ -200,7 +209,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
     } else {
       _subtractPoints(user, task, stats, delta);
     }
-    _gainMP(user, _.max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
     task.history = task.history || [];
     // Add history entry, even more than 1 per day
@@ -215,7 +223,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
     } else {
       if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta); // obviously for delta>0, but also a trick to undo accidental checkboxes
-      _gainMP(user, _.max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
       if (direction === 'up') {
         task.streak += 1;
@@ -241,15 +248,27 @@ module.exports = function scoreTask (options = {}, req = {}) {
     if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
     _addPoints(user, task, stats, direction, delta);
 
-    // MP++ per checklist item in ToDo, bonus per CLI
-    let multiplier = _.max([_.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
-    _gainMP(user, _.max([multiplier, 0.01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
   } else if (task.type === 'reward') {
     // Don't adjust values for rewards
     // If they're trying to purchase a too-expensive reward, don't allow them to do that.
     if (task.value > user.stats.gp) throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
     // purchase item
     stats.gp -= Math.abs(task.value);
+  }
+
+  // User gains / loses MP for their 'up' / 'down' actions on tasks
+  // Must be done after other stat changes, because INT affects maxMP
+  // TODO refactor - put all/most in _gainMP; pass in task / task.type; extract numbers out to variables
+  if (!cron) {
+    if (task.type === 'habit') {
+      _gainMP(user, _.max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
+    } else if (task.type === 'daily') {
+      _gainMP(user, _.max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
+    } else if (task.type === 'todo' && !cron) { // don't touch stats on cron
+      // MP++ per checklist item in ToDo, bonus per CLI
+      let multiplier = _.max([_.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
+      _gainMP(user, _.max([multiplier, 0.01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
+    }
   }
 
   updateStats(user, stats, req);
