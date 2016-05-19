@@ -191,9 +191,9 @@ module.exports = function scoreTask (options = {}, req = {}) {
   // the API consumer, then cleared afterwards
   user._tmp = {};
 
-  if (task.type === 'habit') {
-    delta += _changeTaskValue(user, task, direction, times, cron);
+  if (task.type !== 'reward') delta += _changeTaskValue(user, task, direction, times, cron);
 
+  if (task.type === 'habit') {
     // Add habit value to habit-history (if different)
     if (delta > 0) {
       _addPoints(user, task, stats, direction, delta);
@@ -210,11 +210,9 @@ module.exports = function scoreTask (options = {}, req = {}) {
     });
   } else if (task.type === 'daily') {
     if (cron) {
-      delta += _changeTaskValue(user, task, direction, times, cron);
       _subtractPoints(user, task, stats, delta);
       if (!user.stats.buffs.streaks) task.streak = 0;
     } else {
-      delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta); // obviously for delta>0, but also a trick to undo accidental checkboxes
       _gainMP(user, _.max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
@@ -231,26 +229,21 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = false;
       }
     }
-  } else if (task.type === 'todo') {
-    if (cron) { // don't touch stats on cron
-      delta += _changeTaskValue(user, task, direction, times, cron);
-    } else {
-      if (direction === 'up') {
-        task.dateCompleted = new Date();
-        task.completed = true;
-      } else if (direction === 'down') {
-        task.completed = false;
-        task.dateCompleted = undefined;
-      }
-
-      delta += _changeTaskValue(user, task, direction, times, cron);
-      if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
-      _addPoints(user, task, stats, direction, delta);
-
-      // MP++ per checklist item in ToDo, bonus per CLI
-      let multiplier = _.max([_.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
-      _gainMP(user, _.max([multiplier, 0.01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
+  } else if (task.type === 'todo' && !cron) { // don't touch stats on cron
+    if (direction === 'up') {
+      task.dateCompleted = new Date();
+      task.completed = true;
+    } else if (direction === 'down') {
+      task.completed = false;
+      task.dateCompleted = undefined;
     }
+
+    if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
+    _addPoints(user, task, stats, direction, delta);
+
+    // MP++ per checklist item in ToDo, bonus per CLI
+    let multiplier = _.max([_.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
+    _gainMP(user, _.max([multiplier, 0.01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
   } else if (task.type === 'reward') {
     // Don't adjust values for rewards
     // If they're trying to purchase a too-expensive reward, don't allow them to do that.
