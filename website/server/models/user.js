@@ -529,9 +529,7 @@ schema.plugin(baseModel, {
   noSet: [],
   private: ['auth.local.hashed_password', 'auth.local.salt'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
-    plainObj.id = plainObj._id;
-
-    // plainObj.filters = {}; TODO Not saved, remove?
+    // plainObj.filters = {}; // TODO Not saved, remove?
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
 
     return plainObj;

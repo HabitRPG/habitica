@@ -60,6 +60,9 @@ module.exports = function baseModel (schema, options = {}) {
       objectPath.del(plainObj, fieldPath);
     });
 
+    // Always return `id`
+    if (!plainObj.id && plainObj._id) plainObj.id = plainObj._id;
+
     // Allow an additional toJSON transform function to be used
     return options.toJSONTransform ? options.toJSONTransform(plainObj, doc) : plainObj;
   };

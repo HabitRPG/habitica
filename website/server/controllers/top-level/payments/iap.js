@@ -95,7 +95,7 @@ api.iapAndroidVerify = {
  **/
 api.iapiOSVerify = {
   method: 'POST',
-  url: '/iap/android/verify',
+  url: '/iap/ios/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let iapBody = req.body;
