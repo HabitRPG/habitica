@@ -14,6 +14,7 @@ import favicon from 'serve-favicon';
 import methodOverride from 'method-override';
 import passport from 'passport';
 import path from 'path';
+import maintenanceMode from './maintenanceMode';
 import {
   forceSSL,
   forceHabitica,
@@ -47,6 +48,8 @@ module.exports = function attachMiddlewares (app, server) {
 
   app.use(compression());
   app.use(favicon(`${PUBLIC_DIR}/favicon.ico`));
+
+  app.use(maintenanceMode);
 
   app.use(cors);
   app.use(forceSSL);

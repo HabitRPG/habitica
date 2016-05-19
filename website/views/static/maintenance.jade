@@ -1,0 +1,15 @@
+title Habitica &VerticalLine;&nbsp;
+  =t('maintenance')
+
+head
+  link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css')
+
+body.text-center
+  h1=t('habiticaBackSoon')
+  img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/maintenance.png')
+  p=t('importantMaintenance', {localDate: maintenanceEndDate, localTime: maintenanceEndTime})
+  ul.lead(style='list-style-position:inside')
+    li=t('noDamageKeepStreaks')
+    li=t('veteranPetAward')
+  p!=t('maintenanceMoreInfo')
+  p.lead=t('thanksForPatience')

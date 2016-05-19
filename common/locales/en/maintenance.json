@@ -1,0 +1,9 @@
+{
+  "habiticaBackSoon": "Don't worry, Habitica will be back soon!",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until <%= localDate %> at <%= localTime %>.",
+  "maintenance": "Maintenance",
+  "maintenanceMoreInfo": "Want more information about the maintenance? <a href='https://habitica.com'>Check out our info page</a>.",
+  "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",
+  "thanksForPatience": "Thanks for your patience!",
+  "veteranPetAward": "At the end, you will receive a Veteran pet!"
+}
