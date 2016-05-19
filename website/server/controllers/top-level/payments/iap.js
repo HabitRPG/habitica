@@ -130,7 +130,7 @@ api.iapiOSVerify = {
           if (purchaseDataList.length > 0) {
             let correctReceipt = true;
 
-            for (let index of purchaseDataList) {
+            for (let index in purchaseDataList) {
               switch (purchaseDataList[index].productId) {
                 case 'com.habitrpg.ios.Habitica.4gems':
                   payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 1});
