@@ -310,16 +310,16 @@ angular.module('habitrpg')
           });
         },
 
-        setLastCron: function (date) {
+        setCustomDayStart: function (dayStart) {
           $http({
             method: "POST",
-            url: 'api/v3/user/set-cron',
+            url: 'api/v3/user/set-custom-day-start',
             data: {
-              lastCron: date
+              dayStart: dayStart
             }
           })
           .then(function (response) {
-            Notification.text('Last cron updated. Remember to refresh');
+            Notification.text('Day start updated. Remember to refresh');
           });
         },
 

@@ -77,8 +77,7 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.saveDayStart = function() {
-      User.set({'preferences.dayStart': Math.floor($scope.dayStart)});
-      User.setLastCron(+new Date);
+      User.setCustomDayStart(Math.floor($scope.dayStart));
     };
 
     $scope.language = window.env.language;

@@ -1311,22 +1311,22 @@ api.userReset = {
 };
 
 /**
-* @api {post} /api/v3/user/set-cron Sets lastCron for user
+* @api {post} /api/v3/user/set-custom-day-start Sets preferences.dayStart for user
 * @apiVersion 3.0.0
-* @apiName UserSetCron
+* @apiName UserSetCustomDayStart
 * @apiGroup User
 *
 * @apiSuccess {Object} data An empty Object
 */
-api.userSetCron = {
+api.userSetCustomDayStart = {
   method: 'POST',
   middlewares: [authWithHeaders()],
-  url: '/user/set-cron',
+  url: '/user/set-custom-day-start',
   async handler (req, res) {
     let user = res.locals.user;
-    let cron = req.body.lastCron;
+    let dayStart = req.body.dayStart;
 
-    user.lastCron = cron;
+    user.preferences.dayStart = dayStart;
 
     await user.save();
 
