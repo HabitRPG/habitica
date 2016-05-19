@@ -178,9 +178,9 @@ function _changeTaskValue (user, task, direction, times, cron) {
     // TODO reverse this on 'down' https://github.com/HabitRPG/habitrpg/issues/5648
 
     if (task.type === 'todo' || task.type === 'daily') {
-      user.party.quest.progress.up += nextDelta * (1 + user._statsComputed.str / 200);
+      user.party.quest.progress.up += addToDelta * (1 + user._statsComputed.str / 200);
     } else if (task.type === 'habit') {
-      user.party.quest.progress.up += nextDelta * (0.5 + user._statsComputed.str / 400);
+      user.party.quest.progress.up += addToDelta * (0.5 + user._statsComputed.str / 400);
     }
   }
 
@@ -219,7 +219,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
       date: Number(new Date()),
       value: task.value,
     });
-
   } else if (task.type === 'daily') {
     if (cron) {
       _subtractPoints(user, task, stats, delta);
@@ -241,7 +240,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = false;
       }
     }
-
   } else if (task.type === 'todo' && !cron) { // don't touch stats on cron
     if (direction === 'up') {
       task.dateCompleted = new Date();
@@ -253,7 +251,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
 
     if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
     _addPoints(user, task, stats, direction, delta);
-
   } else if (task.type === 'reward') {
     // Don't adjust values for rewards
     // If they're trying to purchase a too-expensive reward, don't allow them to do that.
