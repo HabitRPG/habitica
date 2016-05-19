@@ -136,6 +136,7 @@ function _addPoints (user, task, stats, direction, delta) {
 }
 
 function _changeTaskValue (user, task, direction, times, cron) {
+  if (task.type === 'reward') return 0;
   let addToDelta = 0;
 
   // If multiple days have passed, multiply times days missed
@@ -143,23 +144,21 @@ function _changeTaskValue (user, task, direction, times, cron) {
     // Each iteration calculate the nextDelta, which is then accumulated in the total delta.
     let nextDelta = !cron && direction === 'down' ? _calculateReverseDelta(task, direction) : _calculateDelta(task, direction, cron);
 
-    if (task.type !== 'reward') {
-      if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
-        user.stats.training[task.attribute] += nextDelta;
-      }
-
-      if (direction === 'up') { // Make progress on quest based on STR
-        user.party.quest.progress.up = user.party.quest.progress.up || 0;
-
-        if (task.type === 'todo' || task.type === 'daily') {
-          user.party.quest.progress.up += nextDelta * (1 + user._statsComputed.str / 200);
-        } else if (task.type === 'habit') {
-          user.party.quest.progress.up += nextDelta * (0.5 + user._statsComputed.str / 400);
-        }
-      }
-
-      task.value += nextDelta;
+    if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
+      user.stats.training[task.attribute] += nextDelta;
     }
+
+    if (direction === 'up') { // Make progress on quest based on STR
+      user.party.quest.progress.up = user.party.quest.progress.up || 0;
+
+      if (task.type === 'todo' || task.type === 'daily') {
+        user.party.quest.progress.up += nextDelta * (1 + user._statsComputed.str / 200);
+      } else if (task.type === 'habit') {
+        user.party.quest.progress.up += nextDelta * (0.5 + user._statsComputed.str / 400);
+      }
+    }
+
+    task.value += nextDelta;
 
     addToDelta += nextDelta;
   });
@@ -179,9 +178,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
   // This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
   user._tmp = {};
-
-  // If they're trying to purchase a too-expensive reward, don't allow them to do that.
-  if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
 
   if (task.type === 'habit') {
     delta += _changeTaskValue(user, task, direction, times, cron);
@@ -245,14 +241,10 @@ module.exports = function scoreTask (options = {}, req = {}) {
     }
   } else if (task.type === 'reward') {
     // Don't adjust values for rewards
-    delta += _changeTaskValue(user, task, direction, times, cron);
+    // If they're trying to purchase a too-expensive reward, don't allow them to do that.
+    if (task.value > user.stats.gp) throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
     // purchase item
     stats.gp -= Math.abs(task.value);
-    // hp - gp difference
-    if (stats.gp < 0) {
-      stats.hp += stats.gp;
-      stats.gp = 0;
-    }
   }
 
   updateStats(user, stats, req);
