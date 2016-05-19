@@ -106,45 +106,34 @@ function _gainMP (user, val) {
   }
 }
 
-// HP modifier
-// ===== CONSTITUTION =====
-// TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
 function _subtractPoints (user, task, stats, delta) {
-  let conBonus = 1 - user._statsComputed.con / 250;
+  let conBonus = 1 - user._statsComputed.con / 250; // CON decreases HP loss
   if (conBonus < 0.1) conBonus = 0.1;
 
   let hpMod = delta * conBonus * task.priority * 2; // constant 2 multiplier for better results
-  stats.hp += Math.round(hpMod * 10) / 10; // round to 1dp
+  stats.hp += Math.round(hpMod * 10) / 10;
   return stats.hp;
 }
 
 function _addPoints (user, task, stats, direction, delta) {
-  // ===== CRITICAL HITS =====
   // allow critical hit only when checking off a task, not when unchecking it:
-  let _crit = delta > 0 ? crit(user) : 1;
+  let _crit = direction === 'up' ? crit(user) : 1;
   // if there was a crit, alert the user via notification
   if (_crit > 1) user._tmp.crit = _crit;
 
-  // Exp Modifier
-  // ===== Intelligence =====
-  // TODO Increases Experience gain by .2% per point.
-  let intBonus = 1 + user._statsComputed.int * 0.025;
+  let intBonus = 1 + user._statsComputed.int * 0.025; // INT increases XP gain
   stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
 
-  // GP modifier
-  // ===== PERCEPTION =====
-  // TODO Increases Gold gained from tasks by .3% per point.
-  let perBonus = 1 + user._statsComputed.per * 0.02;
+  let perBonus = 1 + user._statsComputed.per * 0.02; // PER increases GP gain
   let gpMod = delta * task.priority * _crit * perBonus;
 
-  if (task.streak) {
+  if (task.streak) {  // streak increases GP gain
     let currStreak = direction === 'down' ? task.streak - 1 : task.streak;
     let streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
     let afterStreak = gpMod * streakBonus;
     if (currStreak > 0 && gpMod > 0) {
       user._tmp.streakBonus = afterStreak - gpMod; // keep this on-hand for later, so we can notify streak-bonus
     }
-
     stats.gp += afterStreak;
   } else {
     stats.gp += gpMod;
