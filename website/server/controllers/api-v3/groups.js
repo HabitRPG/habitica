@@ -513,6 +513,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
+  let groupTemplate = group.type === 'guild' ? 'guild' : 'party';
   if (userToInvite.preferences.emailNotifications[`invited${groupLabel}`] !== false) {
     let emailVars = [
       {name: 'INVITER', content: inviter.profile.name},
@@ -530,7 +531,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       );
     }
 
-    sendTxnEmail(userToInvite, `invited-${groupLabel}`, emailVars);
+    sendTxnEmail(userToInvite, `invited-${groupTemplate}`, emailVars);
   }
 
   sendPushNotification(

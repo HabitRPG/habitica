@@ -378,7 +378,10 @@ api.castSpell = {
 
       spell.cast(user, tasks, req);
 
-      let toSave = tasks.filter(t => t.isModified());
+      let toSave = tasks
+        .filter(t => t.isModified())
+        .map(t => t.save());
+
       toSave.unshift(user.save());
       let saved = await Bluebird.all(toSave);
 
