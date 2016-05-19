@@ -635,6 +635,10 @@ api.cast = async function(req, res, next) {
     let spellId = req.params.spell;
     let targetId = req.query.targetId;
 
+    if (spellId === 'heallAll') {
+      spellId = 'healAll';
+    }
+
     let klass = shared.content.spells.special[spellId] ? 'special' : user.stats.class;
     let spell = shared.content.spells[klass][spellId];
 

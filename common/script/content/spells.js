@@ -239,7 +239,7 @@ spells.healer = {
       });
     },
   },
-  heallAll: { // Blessing
+  healAll: { // Blessing
     text: t('spellHealerHealAllText'),
     mana: 25,
     lvl: 14,
