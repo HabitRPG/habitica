@@ -1,22 +1,15 @@
-extends ./layout
+title Habitica &VerticalLine;&nbsp;
+  =t('maintenance')
 
-block vars
-  - var layoutEnv = env
+head
+  link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css')
 
-block title
-  title Habitica &VerticalLine;&nbsp;
-    =env.t('maintenance')
-
-block content
-  .lead
-    =env.t('habiticaBackSoon')
-  .row.text-center
-    img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/maintenance.png')
-  .text-center
-    p=env.t('importantMaintenance')
-    ul.lead
-      li=env.t('noDamageKeepStreaks')
-      li=env.t('veteranPetAward')
-    p=env.t('maintenanceMoreInfo')
-    a=env.t('checkInfoPage')
-    p=env.t('thanksForPatience')
+body.text-center
+  h1=t('habiticaBackSoon')
+  img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/maintenance.png')
+  p=t('importantMaintenance', {localDate: maintenanceEndDate, localTime: maintenanceEndTime})
+  ul.lead(style='list-style-position:inside')
+    li=t('noDamageKeepStreaks')
+    li=t('veteranPetAward')
+  p!=t('maintenanceMoreInfo')
+  p.lead=t('thanksForPatience')
