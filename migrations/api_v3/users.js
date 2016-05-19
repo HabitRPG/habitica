@@ -113,6 +113,16 @@ function processUsers (afterId) {
 
       delete oldUser.id;
 
+      // spookDust -> spookySparkles
+      oldUser.achievements.spookySparkles = oldUser.achievements.spookDust;
+      oldUser.items.special.spookySparkles = oldUser.items.special.spookDust;
+      oldUser.stats.buffs.spookySparkles = oldUser.stats.buffs.spookDust;
+
+      delete oldUser.achievements.spookDust;
+      delete oldUser.items.special.spookDust;
+      delete oldUser.stats.buffs.spookDust;
+      // end spookDust -> spookySparkles
+
       oldUser.tags = oldUser.tags.map(function (tag) {
         return {
           id: tag.id,

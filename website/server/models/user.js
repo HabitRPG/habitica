@@ -65,7 +65,7 @@ export let schema = new Schema({
     triadBingoCount: Number,
     veteran: Boolean,
     snowball: Number,
-    spookDust: Number,
+    spookySparkles: Number,
     shinySeed: Number,
     seafoam: Number,
     streak: Number,
@@ -265,7 +265,7 @@ export let schema = new Schema({
 
     special: {
       snowball: {type: Number, default: 0},
-      spookDust: {type: Number, default: 0},
+      spookySparkles: {type: Number, default: 0},
       shinySeed: {type: Number, default: 0},
       seafoam: {type: Number, default: 0},
       valentine: {type: Number, default: 0},
@@ -481,7 +481,7 @@ export let schema = new Schema({
       stealth: {type: Number, default: 0},
       streaks: {type: Boolean, default: false},
       snowball: {type: Boolean, default: false},
-      spookDust: {type: Boolean, default: false},
+      spookySparkles: {type: Boolean, default: false},
       shinySeed: {type: Boolean, default: false},
       seafoam: {type: Boolean, default: false},
     },

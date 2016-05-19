@@ -265,7 +265,7 @@ spells.special = {
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = true;
-      target.stats.buffs.spookDust = false;
+      target.stats.buffs.spookySparkles = false;
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.snowball) target.achievements.snowball = 0;
@@ -285,22 +285,22 @@ spells.special = {
       user.stats.gp -= 5;
     },
   },
-  spookDust: {
-    text: t('spellSpecialSpookDustText'),
+  spookySparkles: {
+    text: t('spellSpecialSpookySparklesText'),
     mana: 0,
     value: 15,
     previousPurchase: true,
     target: 'user',
-    notes: t('spellSpecialSpookDustNotes'),
+    notes: t('spellSpecialSpookySparklesNotes'),
     cast (user, target, req) {
-      if (!user.items.special.spookDust) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
-      target.stats.buffs.spookDust = true;
+      target.stats.buffs.spookySparkles = true;
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
-      if (!target.achievements.spookDust) target.achievements.spookDust = 0;
-      target.achievements.spookDust++;
-      user.items.special.spookDust--;
+      if (!target.achievements.spookySparkles) target.achievements.spookySparkles = 0;
+      target.achievements.spookySparkles++;
+      user.items.special.spookySparkles--;
     },
   },
   opaquePotion: {
@@ -311,7 +311,7 @@ spells.special = {
     target: 'self',
     notes: t('spellSpecialOpaquePotionNotes'),
     cast (user) {
-      user.stats.buffs.spookDust = false;
+      user.stats.buffs.spookySparkles = false;
       user.stats.gp -= 5;
     },
   },
@@ -325,7 +325,7 @@ spells.special = {
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
-      target.stats.buffs.spookDust = false;
+      target.stats.buffs.spookySparkles = false;
       target.stats.buffs.shinySeed = true;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.shinySeed) target.achievements.shinySeed = 0;
@@ -355,7 +355,7 @@ spells.special = {
     cast (user, target, req) {
       if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
-      target.stats.buffs.spookDust = false;
+      target.stats.buffs.spookySparkles = false;
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = true;
       if (!target.achievements.seafoam) target.achievements.seafoam = 0;

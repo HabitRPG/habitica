@@ -637,6 +637,8 @@ api.cast = async function(req, res, next) {
 
     if (spellId === 'heallAll') {
       spellId = 'healAll';
+    } else if (spellId === 'spookDust') {
+      spellId = 'spookySparkles';
     }
 
     let klass = shared.content.spells.special[spellId] ? 'special' : user.stats.class;
