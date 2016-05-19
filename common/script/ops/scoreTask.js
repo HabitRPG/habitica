@@ -200,22 +200,26 @@ module.exports = function scoreTask (options = {}, req = {}) {
   // the API consumer, then cleared afterwards
   user._tmp = {};
 
+  // Change the task's value (up or down)
+  // Record the amount of change to use for calculating user stat changes
   if (task.type !== 'reward') delta += _changeTaskValue(user, task, direction, times, cron);
 
+  // Adjust tasks in other ways
+  // Calculate user stat changes (MP is done later)
   if (task.type === 'habit') {
-    // Add habit value to habit-history (if different)
     if (delta > 0) {
       _addPoints(user, task, stats, direction, delta);
     } else {
       _subtractPoints(user, task, stats, delta);
     }
 
-    task.history = task.history || [];
     // Add history entry, even more than 1 per day
+    task.history = task.history || [];
     task.history.push({
       date: Number(new Date()),
       value: task.value,
     });
+
   } else if (task.type === 'daily') {
     if (cron) {
       _subtractPoints(user, task, stats, delta);
@@ -228,6 +232,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.streak += 1;
         // Give a streak achievement when the streak is a multiple of 21
         if (task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+        // TODO https://github.com/HabitRPG/habitrpg/issues/2578 Zero-day streak gives achievement (also adjust achievement subtraction below)
         task.completed = true;
       } else if (direction === 'down') {
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
@@ -236,6 +241,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = false;
       }
     }
+
   } else if (task.type === 'todo' && !cron) { // don't touch stats on cron
     if (direction === 'up') {
       task.dateCompleted = new Date();
