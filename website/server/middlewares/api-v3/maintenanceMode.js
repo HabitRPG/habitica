@@ -1,4 +1,4 @@
-import { getUserLanguage, } from './language';
+import { getUserLanguage } from './language';
 import nconf from 'nconf';
 
 const MAINTENANCE_MODE = nconf.get('MAINTENANCE_MODE');
@@ -6,7 +6,7 @@ const MAINTENANCE_MODE = nconf.get('MAINTENANCE_MODE');
 module.exports = function maintenanceMode (req, res, next) {
   if (MAINTENANCE_MODE !== 'true') return next();
 
-  getUserLanguage(req, res, function (err) {
+  getUserLanguage(req, res, function maintenanceMiddleware (err) {
     if (err) return next(err);
 
     const MAINTENANCE_START = nconf.get('MAINTENANCE_START');
@@ -29,7 +29,7 @@ module.exports = function maintenanceMode (req, res, next) {
       }
     } else {
       return res.status(503).send({
-        error: 'Maintenance', 
+        error: 'Maintenance',
         message: 'Server offline for maintenance.',
       });
     }
