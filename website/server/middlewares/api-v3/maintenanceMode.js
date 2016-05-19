@@ -10,13 +10,10 @@ module.exports = function maintenanceMode (req, res, next) {
   getUserLanguage(req, res, function maintenanceMiddleware (err) {
     if (err) return next(err);
 
-    const MAINTENANCE_START = nconf.get('MAINTENANCE_START');
-    const MAINTENANCE_END = nconf.get('MAINTENANCE_END');
-
     let pageVariables = {
       env: res.locals.habitrpg,
-      maintenanceStart: MAINTENANCE_START,
-      maintenanceEnd: MAINTENANCE_END,
+      maintenanceStart: nconf.get('MAINTENANCE_START'),
+      maintenanceEnd: nconf.get('MAINTENANCE_END'),
       moment,
       t: res.t,
     };
