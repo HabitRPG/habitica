@@ -11,15 +11,13 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
 
-      if ($state.is('options.social.party')) {
-        Groups.Group.syncParty()
-          .then(function successCallback(group) {
-            $rootScope.party = $scope.group = group;
-            checkForNotifications();
-          }, function errorCallback(response) {
-            $rootScope.party = $scope.group = $scope.newGroup = { type: 'party' };
-          });
-      }
+      Groups.Group.syncParty()
+        .then(function successCallback(group) {
+          $rootScope.party = $scope.group = group;
+          checkForNotifications();
+        }, function errorCallback(response) {
+          $rootScope.party = $scope.group = $scope.newGroup = { type: 'party' };
+        });
 
       function checkForNotifications () {
         // Checks if user's party has reached 2 players for the first time.
@@ -147,6 +145,15 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         Groups.Group.rejectInvite(party.id);
         User.set({'invitations.party':{}});
       }
+
+      $scope.questInit = function() {
+        var key = $rootScope.selectedQuest.key;
+
+        Quests.initQuest(key).then(function() {
+          $rootScope.selectedQuest = undefined;
+          $scope.$close();
+        });
+      };
 
       $scope.questCancel = function(){
         if (!confirm(window.env.t('sureCancel'))) return;
