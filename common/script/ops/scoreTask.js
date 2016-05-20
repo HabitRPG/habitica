@@ -207,7 +207,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
       if (!user.stats.buffs.streaks) task.streak = 0;
     } else {
       delta += _changeTaskValue(user, task, direction, times, cron);
-      if (direction === 'down') delta = _calculateDelta(task, direction, delta); // recalculate delta for unchecking so the gp and exp come out correctly
+      if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta); // obviously for delta>0, but also a trick to undo accidental checkboxes
       _gainMP(user, _.max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
@@ -236,7 +236,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
       }
 
       delta += _changeTaskValue(user, task, direction, times, cron);
-      if (direction === 'down') delta = _calculateDelta(task, direction, delta); // recalculate delta for unchecking so the gp and exp come out correctly
+      if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta);
 
       // MP++ per checklist item in ToDo, bonus per CLI
