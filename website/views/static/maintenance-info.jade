@@ -18,7 +18,7 @@ body
     h3=t('maintenanceInfoAddFeatures')
     p=t('maintenanceInfoAddFeaturesText')
     h3=t('maintenanceInfoHowLong')
-    p!=t('maintenanceInfoHowLongText', {localStartTime: maintenanceStart.toLocaleTimeString(), localEndTime: maintenanceEnd.toLocaleTimeString()})
+    p!=t('maintenanceInfoHowLongText', {localStartTime: '<span id="start-time">' + maintenanceStart + '</span>', localEndTime: '<span id="end-time">' + maintenanceEnd + '</span>'})
     h3=t('maintenanceInfoStatsAffected')
     p=t('maintenanceInfoStatsAffectedText1')
     p=t('maintenanceInfoStatsAffectedText2')
@@ -28,3 +28,13 @@ body
     p=t('maintenanceInfoRarePetText')
     h3=t('maintenanceInfoWho')
     p=t('maintenanceInfoWhoText')
+
+  script.
+    var startTime = document.getElementById('start-time');
+    var endTime = document.getElementById('end-time');
+
+    var startUtc = startTime.innerHTML;
+    var endUtc = endTime.innerHTML;
+
+    startTime.innerHTML = new Date(startUtc).toLocaleString();
+    endTime.innerHTML = new Date(endUtc).toLocaleString();
