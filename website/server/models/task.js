@@ -134,12 +134,16 @@ TaskSchema.methods.toJSONV2 = function toJSONV2 () {
     toJSON.id = toJSON._id;
   }
 
+  if (!toJSON.challenge) toJSON.challenge = {};
+
   let v3Tags = this.tags;
 
   toJSON.tags = {};
   v3Tags.forEach(tag => {
     toJSON.tags[tag] = true;
   });
+
+  toJSON.dateCreated = this.createdAt;
 
   return toJSON;
 };
