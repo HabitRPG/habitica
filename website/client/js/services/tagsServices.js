@@ -34,6 +34,14 @@ angular.module('habitrpg')
       });
     };
 
+    function updateTags (tags) {
+      return $http({
+        method: 'PUT',
+        url: 'api/v3/tags',
+        data: {tags: tags},
+      });
+    };
+
     function deleteTag (tagId) {
       return $http({
         method: 'DELETE',
@@ -46,6 +54,7 @@ angular.module('habitrpg')
       createTag: createTag,
       getTag: getTag,
       updateTag: updateTag,
+      updateTags: updateTags,
       deleteTag: deleteTag,
     };
   }]);

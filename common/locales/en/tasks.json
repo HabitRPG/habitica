@@ -73,6 +73,7 @@
     "clearTags": "Clear",
     "hideTags": "Hide",
     "showTags": "Show",
+    "tagsRequired": "Tags are required",
     "startDate": "Start Date",
     "startDateHelpTitle": "When should this task start?",
     "startDateHelp": "Set the date for which this task takes effect. Will not be due on earlier days.",

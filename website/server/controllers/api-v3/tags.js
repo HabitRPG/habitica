@@ -114,6 +114,35 @@ api.updateTag = {
 };
 
 /**
+ * @api {put} /api/v3/tag/ Update multiple tags
+ * @apiVersion 3.0.0
+ * @apiName UpdateTags
+ * @apiGroup Tag
+ *
+ * @apiParam {Array} tags An array of tags
+ *
+ * @apiSuccess {object} data The updated tags
+ */
+api.updateTags = {
+  method: 'PUT',
+  url: '/tags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody('tags', res.t('tagsRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    user.tags = req.body.tags;
+
+    let savedUser = await user.save();
+    res.respond(200, savedUser.tags);
+  },
+};
+
+/**
  * @api {delete} /api/v3/tag/:tagId Delete a user tag given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTag
