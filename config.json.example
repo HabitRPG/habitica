@@ -73,5 +73,7 @@
         "APP": "app-name",
         "SECRET": "secret",
         "ENABLED": "false"
-    }
+    },
+    "MAINTENANCE_START": "Sat May 21 2016 20:00:00 UTC",
+    "MAINTENANCE_END": "Sat May 22 2016 5:00:00 UTC"
 }

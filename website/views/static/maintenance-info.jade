@@ -1,4 +1,6 @@
 - var t = t || env.t;
+- var maintenanceStart = maintenanceStart || env.maintenanceStart;
+- var maintenanceEnd = maintenanceEnd || env.maintenanceEnd;
 
 title Habitica &VerticalLine;&nbsp;
   =t('maintenance')
@@ -23,7 +25,7 @@ body
     p=t('maintenanceInfoAddFeaturesText')
     h3=t('maintenanceInfoHowLong')
     img.pull-right(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/scene_chatter.png')
-    p!=t('maintenanceInfoHowLongText')
+    p!=t('maintenanceInfoHowLongText', {localStartTime: '<span id="start-time">' + maintenanceStart + '</span>', localEndTime: '<span id="end-time">' + maintenanceEnd + '</span>'})
     h3=t('maintenanceInfoStatsAffected')
     p=t('maintenanceInfoStatsAffectedText1')
     p=t('maintenanceInfoStatsAffectedText2')
@@ -35,3 +37,13 @@ body
     h3=t('maintenanceInfoWho')
     p=t('maintenanceInfoWhoText')
     p=t('maintenanceInfoTesting')
+
+  script.
+    var startTime = document.getElementById('start-time');
+    var endTime = document.getElementById('end-time');
+
+    var startUtc = startTime.innerHTML;
+    var endUtc = endTime.innerHTML;
+
+    startTime.innerHTML = new Date(startUtc).toLocaleString();
+    endTime.innerHTML = new Date(endUtc).toLocaleString();
