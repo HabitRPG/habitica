@@ -9,10 +9,6 @@ var forceRefresh = require('./forceRefresh');
 var tavernQuest = require('../models/group').tavernQuest;
 var mods = require('../models/user').mods;
 
-// TODO Remove once v3 maintenance is done
-const MAINTENANCE_START = nconf.get('MAINTENANCE_START');
-const MAINTENANCE_END = nconf.get('MAINTENANCE_END');
-
 // To avoid stringifying more data then we need,
 // items from `env` used on the client will have to be specified in this array
 var clientVars = ['language', 'isStaticPage', 'avalaibleLanguages', 'translations',
@@ -59,9 +55,6 @@ module.exports = function(req, res, next) {
     // Defined here and not outside of the middleware because tavernQuest might be an
     // empty object until the query to fetch it finishes
     worldDmg: (tavernQuest && tavernQuest.extra && tavernQuest.extra.worldDmg) || {},
-    // TODO Remove once v3 maintenance is done
-    maintenanceStart: MAINTENANCE_START,
-    maintenanceEnd: MAINTENANCE_END,
   });
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)
