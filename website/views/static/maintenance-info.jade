@@ -1,6 +1,4 @@
 - var t = t || env.t;
-- var maintenanceStart = maintenanceStart || env.maintenanceStart;
-- var maintenanceEnd = maintenanceEnd || env.maintenanceEnd;
 
 title Habitica &VerticalLine;&nbsp;
   =t('maintenance')
@@ -37,13 +35,3 @@ body
     h3=t('maintenanceInfoWho')
     p=t('maintenanceInfoWhoText')
     p=t('maintenanceInfoTesting')
-
-  script.
-    var startTime = document.getElementById('start-time');
-    var endTime = document.getElementById('end-time');
-
-    var startUtc = startTime.innerHTML;
-    var endUtc = endTime.innerHTML;
-
-    startTime.innerHTML = new Date(startUtc).toLocaleString();
-    endTime.innerHTML = new Date(endUtc).toLocaleString();
