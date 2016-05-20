@@ -1,3 +1,5 @@
+- var t = env ? env.t : translation;
+
 title Habitica &VerticalLine;&nbsp;
   =t('maintenance')
 
@@ -6,9 +8,11 @@ head
 
 body
   .container
-    h1=t('maintenanceInfoTitle')
+    h1.text-center=t('maintenanceInfoTitle')
+    img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/scene_maintenance.png')
     h2=t('maintenanceInfoWhat')
     p!=t('maintenanceInfoWhatText')
+    img.pull-left(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/scene_new.png')
     h2=t('maintenanceInfoWhy')
     p=t('maintenanceInfoWhyText')
     p!=t('maintenanceInfoTechDetails')
@@ -18,7 +22,8 @@ body
     h3=t('maintenanceInfoAddFeatures')
     p=t('maintenanceInfoAddFeaturesText')
     h3=t('maintenanceInfoHowLong')
-    p!=t('maintenanceInfoHowLongText', {localStartTime: '<span id="start-time">' + maintenanceStart + '</span>', localEndTime: '<span id="end-time">' + maintenanceEnd + '</span>'})
+    img.pull-right(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/scene_chatter.png')
+    p!=t('maintenanceInfoHowLongText')
     h3=t('maintenanceInfoStatsAffected')
     p=t('maintenanceInfoStatsAffectedText1')
     p=t('maintenanceInfoStatsAffectedText2')
@@ -26,15 +31,7 @@ body
     p=t('maintenanceInfoSeeTasksText')
     h3=t('maintenanceInfoRarePet')
     p=t('maintenanceInfoRarePetText')
+    img.pull-left(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/scene_coding.png')
     h3=t('maintenanceInfoWho')
     p=t('maintenanceInfoWhoText')
-
-  script.
-    var startTime = document.getElementById('start-time');
-    var endTime = document.getElementById('end-time');
-
-    var startUtc = startTime.innerHTML;
-    var endUtc = endTime.innerHTML;
-
-    startTime.innerHTML = new Date(startUtc).toLocaleString();
-    endTime.innerHTML = new Date(endUtc).toLocaleString();
+    p=t('maintenanceInfoTesting')

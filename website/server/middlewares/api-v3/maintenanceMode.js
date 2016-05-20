@@ -12,7 +12,7 @@ module.exports = function maintenanceMode (req, res, next) {
     let pageVariables = {
       maintenanceStart: nconf.get('MAINTENANCE_START'),
       maintenanceEnd: nconf.get('MAINTENANCE_END'),
-      t: res.t,
+      translation: res.t,
     };
 
     if (req.headers && req.headers.accept && req.headers.accept.indexOf('text/html') !== -1) {
