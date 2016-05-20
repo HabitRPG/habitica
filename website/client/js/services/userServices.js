@@ -310,6 +310,20 @@ angular.module('habitrpg')
           });
         },
 
+        setCustomDayStart: function (dayStart) {
+          $http({
+            method: "POST",
+            url: 'api/v3/user/custom-day-start',
+            data: {
+              dayStart: dayStart
+            }
+          })
+          .then(function (response) {
+            Notification.text(response.data.data.message);
+            sync();
+          });
+        },
+
         makeAdmin: function () {
           $http({
             method: "POST",

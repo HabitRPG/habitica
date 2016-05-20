@@ -1313,4 +1313,31 @@ api.userReset = {
   },
 };
 
+/**
+* @api {post} /api/v3/user/custom-day-start Sets preferences.dayStart for user
+* @apiVersion 3.0.0
+* @apiName setCustomDayStart
+* @apiGroup User
+*
+* @apiSuccess {Object} data An empty Object
+*/
+api.setCustomDayStart = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/custom-day-start',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let dayStart = req.body.dayStart;
+
+    user.preferences.dayStart = dayStart;
+    user.lastCron = new Date();
+
+    await user.save();
+
+    res.respond(200, {
+      message: res.t('customDayStartHasChanged'),
+    });
+  },
+};
+
 module.exports = api;
