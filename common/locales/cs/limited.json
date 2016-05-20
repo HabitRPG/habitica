@@ -67,10 +67,11 @@
     "witchyWizardSet": "Čarodějný čaroděj (Mág)",
     "mummyMedicSet": "Mumie medika (Léčitel)",
     "vampireSmiterSet": "Lovec upírů (Zloděj)",
-    "bewareDogSet": "Beware Dog (Warrior)",
+    "bewareDogSet": "Strážný Pes (Válečník)",
     "magicianBunnySet": "Mágův králíček (Mág)",
     "comfortingKittySet": "Utěšující kotě (Léčitel)",
-    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
+    "sneakySqueakerSet": "Záludný Kníkač (Zloděj)",
     "fallEventAvailability": "Dostupné do 31. října",
-    "winterEventAvailability": "Dostupné do 31. prosince"
+    "winterEventAvailability": "Dostupné do 31. prosince",
+    "springEventAvailability": "Available until May 31"
 }

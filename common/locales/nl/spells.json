@@ -21,7 +21,7 @@
     "spellRogueBackStabNotes": "Je verraadt een dwaze taak. Je ontvangt goud en ervaringspunten! Klik op een taak om de spreuk uit te spreken. (Gebaseerd op Kracht.)",
     "spellRogueToolsOfTradeText": "Dievenkneepjes",
     "spellRogueToolsOfTradeNotes": "Je deelt je kennis met de groep. De Perceptie van je groep wordt versterkt! (Gebaseerd op oorspronkelijke Perceptie zonder bonussen.)",
-    "spellRogueStealthText": "Heimelijkheid ",
+    "spellRogueStealthText": "Heimelijkheid",
     "spellRogueStealthNotes": "Je schuilt in de schaduw en bent onzichtbaar. Sommige onafgemaakte Dagelijkse Taken zullen je deze nacht niet kunnen vinden en hun roodheid en steries zullen niet veranderen. (Spreek meerdere keren uit om meer Dagelijkse Taken te beïnvloeden.)",
     "spellHealerHealText": "Helend Licht",
     "spellHealerHealNotes": "Licht bedekt je lichaam en heelt je wonden. Je krijgt er gezondheidspunten bij. (Gebaseerd op Lichaam en Intelligentie.)",
@@ -46,5 +46,11 @@
     "spellSpecialSeafoamText": "Zeeschuim",
     "spellSpecialSeafoamNotes": "Verander een vriend in een zeedier!",
     "spellSpecialSandText": "Zand",
-    "spellSpecialSandNotes": "Verwijder de effecten van Zeeschuim."
+    "spellSpecialSandNotes": "Verwijder de effecten van Zeeschuim.",
+    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
+    "partyNotFound": "Party not found",
+    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "spellNotOwned": "You don't own this skill.",
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

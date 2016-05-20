@@ -19,7 +19,7 @@
     "orca": "Orca",
     "royalPurpleGryphon": "Grifo real morado",
     "phoenix": "Fénix",
-    "bumblebee": "Bumblebee",
+    "magicalBee": "Abeja mágica",
     "rarePetPop1": "¡Haz clic en la pata dorada para saber cómo puedes conseguir esta mascota contribuyendo con Habitica!",
     "rarePetPop2": "¡Como Obtener Esta Mascota!",
     "potion": "Poción <%= potionType %>",
@@ -62,6 +62,7 @@
     "hatchedPet": "¡Ha nacido un/a <%= egg %> <%= potion %>!",
     "displayNow": "Llevar ahora",
     "displayLater": "Llevar más adelante",
+    "petNotOwned": "You do not own this pet.",
     "earnedCompanion": "Tu productividad te ha granjeado un nuevo acompañante. Aliméntalo y crecerá.",
     "feedPet": "¿Dar de comer <%= article %><%= text %>a su <%= name %>?",
     "useSaddle": "¿Ensillar <%= pet %>?",
@@ -83,5 +84,8 @@
     "petKeyBoth": "Soltar ambas",
     "confirmPetKey": "¿Está seguro?",
     "petKeyNeverMind": "Aún no",
+    "petsReleased": "Pets released.",
+    "mountsAndPetsReleased": "Mounts and pets released",
+    "mountsReleased": "Mounts released",
     "gemsEach": "gemas cada uno"
 }

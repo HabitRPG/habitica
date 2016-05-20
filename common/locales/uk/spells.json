@@ -46,5 +46,11 @@
     "spellSpecialSeafoamText": "Морська Піна",
     "spellSpecialSeafoamNotes": "Перетворіть друга на морське створіння! ",
     "spellSpecialSandText": "Пісок",
-    "spellSpecialSandNotes": "Відмінити ефект Морської Піни"
+    "spellSpecialSandNotes": "Відмінити ефект Морської Піни",
+    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
+    "partyNotFound": "Party not found",
+    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "spellNotOwned": "You don't own this skill.",
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

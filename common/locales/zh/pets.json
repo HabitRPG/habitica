@@ -19,7 +19,7 @@
     "orca": "兽人",
     "royalPurpleGryphon": "紫御狮鹫",
     "phoenix": "凤凰",
-    "bumblebee": "Bumblebee",
+    "magicalBee": "魔法蜜蜂",
     "rarePetPop1": "按按金色的爪印查看怎么通过为Habitica贡献来获得这只稀有宠物！",
     "rarePetPop2": "得到这个宠物的方法！",
     "potion": "<%= potionType %> 药水",
@@ -62,6 +62,7 @@
     "hatchedPet": "你孵化了 <%= potion %> <%= egg %>!",
     "displayNow": "现在显示",
     "displayLater": "稍后显示",
+    "petNotOwned": "You do not own this pet.",
     "earnedCompanion": "因为你的不懈努力，你又获得了一个新的伙伴，好好喂养它，让它成长!",
     "feedPet": "喂你的<%= name %>一个<%= article %><%= text %>？",
     "useSaddle": "把鞍用在<%= pet %>上？",
@@ -83,5 +84,8 @@
     "petKeyBoth": "全部释放",
     "confirmPetKey": "你确定吗？",
     "petKeyNeverMind": "还没有",
+    "petsReleased": "Pets released.",
+    "mountsAndPetsReleased": "Mounts and pets released",
+    "mountsReleased": "Mounts released",
     "gemsEach": "每颗宝石"
 }

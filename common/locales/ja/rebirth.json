@@ -3,15 +3,15 @@
     "rebirthUnlock": "「生まれかわり」の機能を解除しました!　この特別なアイテムを市場で買うと、登録したタスクや実績、ペットその他はそのままにレベル1からやり直すことができます。Habitica はやりつくしたとか、はじめたばかりのキャラクターの新鮮な目で、新機能を体験したいなあと感じたら、この機能を使って、新しい命に息を吹きこんでください。",
     "rebirthBegin": "転生: 新しい冒険をはじめる",
     "rebirthStartOver": "生まれかわりでキャラクターをレベル 1 からやり直す。",
-    "rebirthAdvList1": "あなたのHPは満タンになります。",
+    "rebirthAdvList1": "体力が満タンに回復します。",
     "rebirthAdvList2": "経験値、ゴールド、所持品、すべて持っていません ( ミステリーアイテムのような無料のものを除く)。",
-    "rebirthAdvList3": "習慣、日課、そして To-Do は黄色にリセットされ、連続実施記録もリセットされます。",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "新しいクラスを獲得するまでは、あなたは初期の戦士クラスです。",
     "rebirthInherit": "あなたの新しいキャラクターは前のキャラクターからいくつかを引き継ぎます:",
     "rebirthInList1": "タスク、履歴および設定は残ります。",
     "rebirthInList2": "チャレンジ、ギルド、そしてパーティー会員登録は残ります。",
     "rebirthInList3": "ジェム、資金提供段位、および貢献段位は残ります。",
-    "rebirthInList4": "ジェムでの購入または落し物で手に入れたアイテム (例えばペットや乗用獣など) は残りますが、再び機能を解除するまでアクセスできません。",
+    "rebirthInList4": "ジェムでの購入または落し物で手に入れたアイテム (例えばペットや騎獣など) は残りますが、再び機能を解除するまでアクセスできません。",
     "rebirthInList5": "購入した限定版の装備は、該当するイベントが終了していても再購入できます。クラス特有のアイテムは、まず適切なクラスに変更しなくてはなりません。",
     "rebirthEarnAchievement": "新しい冒険のはじまり の実績を解除できます!",
     "beReborn": "転生する",
@@ -24,5 +24,6 @@
     "rebirthPop": "実績、収集物、およびタスクと履歴を残して、レベル1 の新しいキャラクターではじめます。",
     "rebirthName": "転生のオーブ",
     "reborn": "転生しました、最大レベル<%= reLevel %>",
-    "confirmReborn": "本当によろしいですか？"
+    "confirmReborn": "本当によろしいですか？",
+    "rebirthComplete": "You have been reborn!"
 }

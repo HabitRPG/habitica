@@ -5,7 +5,7 @@
     "rebirthStartOver": "复活后你的角色从1级开始。",
     "rebirthAdvList1": "生命值完全复原",
     "rebirthAdvList2": "你没有经验，金币，装备(免费物品例外如神秘物品)。",
-    "rebirthAdvList3": "你的习惯，每日任务，待办事项会被重置为黄色，连击数也会被重置。",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "你的初始职业是战士，但你以后可以解锁新的职业。",
     "rebirthInherit": "你的新角色继承了一些前身的东西：",
     "rebirthInList1": "任务，历史记录和设置保留了下来。",
@@ -24,5 +24,6 @@
     "rebirthPop": "开始一个1级的新角色并保留成就，物品和任务历史。",
     "rebirthName": "重生球",
     "reborn": "重生, 最高级别 <%= reLevel %>",
-    "confirmReborn": "你确定吗？"
+    "confirmReborn": "你确定吗？",
+    "rebirthComplete": "You have been reborn!"
 }

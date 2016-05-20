@@ -23,7 +23,7 @@
     "turkey": "Індичка",
     "gildedTurkey": "Gilded Turkey",
     "polarBearPup": "Біле ведмежа",
-    "jackolantern": "Світильник Джека",
+    "jackolantern": "Джек-ліхтар",
     "seasonalShop": "Сезонна крамниця",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Available until October 31",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Available until December 31",
+    "springEventAvailability": "Available until May 31"
 }
