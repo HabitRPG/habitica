@@ -313,13 +313,14 @@ angular.module('habitrpg')
         setCustomDayStart: function (dayStart) {
           $http({
             method: "POST",
-            url: 'api/v3/user/set-custom-day-start',
+            url: 'api/v3/user/custom-day-start',
             data: {
               dayStart: dayStart
             }
           })
           .then(function (response) {
-            Notification.text('Day start updated. Remember to refresh');
+            Notification.text(response.data.data.message);
+            sync();
           });
         },
 

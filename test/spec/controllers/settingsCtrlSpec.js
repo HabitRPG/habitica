@@ -17,7 +17,7 @@ describe('Settings Controller', function () {
         releasePets: sandbox.stub(),
         releaseMounts: sandbox.stub(),
         releaseBoth: sandbox.stub(),
-        setLastCron: sandbox.stub(),
+        setCustomDayStart: sandbox.stub(),
         user: user
       };
 
@@ -87,19 +87,11 @@ describe('Settings Controller', function () {
   });
 
   describe('#saveDayStart', function () {
-
-    it('updates user\'s custom day start and last cron', function () {
-      var fakeCurrentTime = new Date(2013, 3, 1, 8, 12).getTime();
-      var expectedTime = fakeCurrentTime;
-      sandbox.useFakeTimers(fakeCurrentTime);
+    it('updates user\'s custom day start', function () {
       scope.dayStart = 5;
       scope.saveDayStart();
 
-      expect(User.set).to.be.calledOnce;
-      expect(User.set).to.be.calledWith({
-        'preferences.dayStart': 5,
-      });
-      expect(User.setLastCron).to.be.calledWith(expectedTime);
+      expect(User.setCustomDayStart).to.be.calledWith(5);
     });
   });
 
