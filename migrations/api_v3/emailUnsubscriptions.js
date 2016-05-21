@@ -9,6 +9,7 @@
 console.log('Starting migrations/api_v3/unsubscriptions.js.');
 
 require('babel-register');
+require('babel-polyfill');
 
 var Bluebird = require('bluebird');
 var MongoDB = require('mongodb');
