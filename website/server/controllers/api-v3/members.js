@@ -290,7 +290,7 @@ api.sendPrivateMessage = {
 };
 
 /**
- * @api {posts} /members/transfer-gems Send a gift to a member
+ * @api {posts} /members/transfer-gems Send a gem gift to a member
  * @apiVersion 3.0.0
  * @apiName TransferGems
  * @apiGroup Members
