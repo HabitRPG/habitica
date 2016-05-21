@@ -19,7 +19,7 @@
     "orca": "Orka",
     "royalPurpleGryphon": "Purpurowy królewski gryf",
     "phoenix": "Feniks",
-    "bumblebee": "Bumblebee",
+    "magicalBee": "Magiczna Pszczoła",
     "rarePetPop1": "Kliknij na złotą łapę, aby dowiedzieć się, jak możesz zdobyć tego rzadkiego chowańca poprzez pomoc w tworzeniu Habitiki!",
     "rarePetPop2": "Jak zdobyć tego Chowańca?",
     "potion": "Eliksir <%= potionType %>",
@@ -62,6 +62,7 @@
     "hatchedPet": "<%= potion %> <%= egg %> się wykluło!",
     "displayNow": "Wyświetl teraz",
     "displayLater": "Wyświetl później",
+    "petNotOwned": "You do not own this pet.",
     "earnedCompanion": "Dzięki swej produktywności masz nowego towarzysza. Nakarm go by urósł!",
     "feedPet": "Nakarmić <%= text %> twojego <%= name %>?",
     "useSaddle": "Osiodłać <%= pet %>?",
@@ -83,5 +84,8 @@
     "petKeyBoth": "Wypuść wszystkich",
     "confirmPetKey": "Na pewno?",
     "petKeyNeverMind": "Jeszcze nie",
+    "petsReleased": "Pets released.",
+    "mountsAndPetsReleased": "Mounts and pets released",
+    "mountsReleased": "Mounts released",
     "gemsEach": "klejnotów każdy"
 }

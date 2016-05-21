@@ -5,7 +5,7 @@
     "rebirthStartOver": "La rinascita riporta il tuo personaggio al livello 1.",
     "rebirthAdvList1": "Torni ad avere tutti i punti vita.",
     "rebirthAdvList2": "Non hai punti esperienza, oro o equipaggiamento (ad eccezione degli oggetti gratuiti come gli Oggetti Misteriosi)",
-    "rebirthAdvList3": "Le tue Habit, le Daily e i To-Do si resettano tornando al colore giallo, e le serie si azzerano.",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "La tua classe iniziale sarà Guerriero fino a quando non otterrai una nuova classe.",
     "rebirthInherit": "Il tuo nuovo personaggio eredita delle cose dal suo predecessore:",
     "rebirthInList1": "Attività, cronologia e impostazioni rimangono.",
@@ -24,5 +24,6 @@
     "rebirthPop": "Ricomincia con un nuovo personaggio al livello 1 mantenendo medaglie, oggetti, attività e cronologia.",
     "rebirthName": "Sfera della Rinascita",
     "reborn": "Rinasci, livello massimo <%= reLevel %>",
-    "confirmReborn": "Sei sicuro?"
+    "confirmReborn": "Sei sicuro?",
+    "rebirthComplete": "Rinascita completata!"
 }

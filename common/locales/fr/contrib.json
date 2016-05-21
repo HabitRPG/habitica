@@ -35,8 +35,12 @@
     "hallContributors": "Panthéon des contributeurs",
     "hallPatrons": "Panthéon des Sponsors",
     "rewardUser": "Récompenser l'Utilisateur",
-    "UUID": "UUID",
+    "UUID": "ID d'utilisateur",
     "loadUser": "Charger l'Utilisateur",
+    "noAdminAccess": "Vous n'avez pas l'accès administrateur.",
+    "pageMustBeNumber": "req.query.page doit être un nombre",
+    "userNotFound": "Utilisateur introuvable.",
+    "invalidUUID": "UUID doit être valide.",
     "title": "Titre",
     "moreDetails": "Plus de détails (1-7)",
     "moreDetails2": "plus de détails (8-9)",
@@ -60,5 +64,5 @@
     "blurbGuildsPage": "Les Guildes sont des groupes de discussion créés par les joueurs pour les joueurs pour regrouper les personnes autour de leurs centres d'intérêt. Jetez un œil à la liste et rejoignez les Guildes qui vous intéressent !",
     "blurbChallenges": "Les Défis sont des listes de tâches créées par des membres ! Rejoindre un défi ajoutera ses tâches aux vôtres dans la page des tâches ; gagner un Défi vous fera gagner un succès ainsi que, souvent, des gemmes !",
     "blurbHallPatrons": "Voici le Panthéon des Sponsors, où nous rendons hommage aux nobles aventuriers qui ont soutenu le Kickstarter original de Habitica. Nous les remercions de nous avoir aidés à donner la vie à Habitica !",
-    "blurbHallContributors": "Voici le Panthéon des Contributeurs, où sont honorés tous les contributeurs \"open-source\" d'Habitica. Que ce soit grâce à du code, de l'art, de la musique, de l'écriture ou même simplement de l'aide, ils ont gagné <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>des gemmes, de l'équipement exclusif</a>, et <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>des titres prestigieux</a>. Vous pouvez,  vous aussi, contribuer à Habitica ! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Apprenez-en plus ici.</a>"
+    "blurbHallContributors": "Voici le Panthéon des Contributeurs, où sont honorés tous les contributeurs \"open-source\" d'Habitica. Que ce soit grâce à du code, de l'art, de la musique, de l'écriture ou même simplement de l'aide, ils ont gagné <a href='http://fr.habitica.wikia.com/wiki/R%C3%A9compenses_de_Contribution' target='_blank'>des gemmes, de l'équipement exclusif</a>, et <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>des titres prestigieux</a>. Vous pouvez,  vous aussi, contribuer à Habitica ! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Apprenez-en plus ici.</a>"
 }

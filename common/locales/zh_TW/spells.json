@@ -46,5 +46,11 @@
     "spellSpecialSeafoamText": "水藍",
     "spellSpecialSeafoamNotes": "把朋友變成海洋生物！",
     "spellSpecialSandText": "沙子",
-    "spellSpecialSandNotes": "取消水藍的效果。"
+    "spellSpecialSandNotes": "取消水藍的效果。",
+    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
+    "partyNotFound": "Party not found",
+    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "spellNotOwned": "You don't own this skill.",
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

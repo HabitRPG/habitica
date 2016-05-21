@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "Ten en cuenta que tu Nombre de Usuario, foto de perfil y sobre mí deben ajustarse a <a href='https://habitica.com/static/community-guidelines' target='_blank'>Normas de la Comunidad</a> (p.ej. nada de obscenidades, temas adultos, insultos, etc.) Si tienes alguna pregunta sobre si algo es apropiado o no, ¡puedes mandar un correo electrónico a <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Estadísticas y Logros",
     "profile": "Perfil",
     "avatar": "Personalizar avatar",
@@ -34,7 +35,7 @@
     "beard": "Barba",
     "mustache": "Bigote",
     "flower": "Flor",
-    "wheelchair": "Wheelchair",
+    "wheelchair": "Silla de ruedas",
     "basicSkins": "Pieles Básicas",
     "rainbowSkins": "Pieles Arcoiris",
     "pastelSkins": "Pieles pastel",
@@ -109,6 +110,7 @@
     "mage": "Mago",
     "mystery": "Misterio",
     "changeClass": "Cambiar Clase, Devolver Puntos de Atributo",
+    "lvl10ChangeClass": "Para cambiar de clase debes estar como mínimo en el nivel 10.",
     "levelPopover": "Con cada nivel consigues un punto para asignar a un atributo a tu elección. Lo puedes asignar manualmente o dejar que el juego decida por tí usando una de las opciones de Asignación Automática.",
     "unallocated": "Puntos de Atributo no Asignados",
     "haveUnallocated": "Tienes <%= points %> puntos de Atributo(s) no asignados",
@@ -164,5 +166,7 @@
     "int": "INT",
     "showQuickAllocation": "Mostrar asignación de puntos",
     "hideQuickAllocation": "Ocultar asignación de puntos",
-    "quickAllocationLevelPopover": "Con cada nivel, ganas un punto que puedes asignar al atributo que elijas. Puedes hacerlo de forma manual o dejar que el juego decida por ti con una de las opciones de asignación automática que encontrarás en Usuario -> Estadísticas."
+    "quickAllocationLevelPopover": "Con cada nivel, ganas un punto que puedes asignar al atributo que elijas. Puedes hacerlo de forma manual o dejar que el juego decida por ti con una de las opciones de asignación automática que encontrarás en Usuario -> Estadísticas.",
+    "invalidAttribute": "\"<%= attr %>\" no es un atributo válido.",
+    "notEnoughAttrPoints": "No tienes suficientes puntos de atributo."
 }
