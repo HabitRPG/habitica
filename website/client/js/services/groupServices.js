@@ -126,16 +126,16 @@ angular.module('habitrpg')
             Members.getGroupMembers(data.party._id, true)
               .then(function (response) {
                 data.party.members = response.data.data;
-              });
-            Members.getGroupInvites(data.party._id)
+                return Members.getGroupInvites(data.party._id);
+              })
               .then(function (response) {
                 data.party.invites = response.data.data;
-              });
-            Challenges.getGroupChallenges(data.party._id)
+                return Challenges.getGroupChallenges(data.party._id)
+              })
               .then(function (response) {
                 data.party.challenges = response.data.data;
+                _cachedPartyPromise.resolve(data.party);
               });
-            _cachedPartyPromise.resolve(data.party);
           }, function (response) {
             data.party = { type: 'party' };
             _cachedPartyPromise.reject(data.party);
