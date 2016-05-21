@@ -139,7 +139,7 @@ api.reorderTags = {
 
     user.tags.splice(req.body.to, 0, user.tags.splice(req.body.from, 1)[0]);
 
-    let savedUser = await user.save();
+    await user.save();
     res.respond(200, {});
   },
 };
