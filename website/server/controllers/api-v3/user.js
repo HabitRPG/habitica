@@ -445,7 +445,7 @@ api.castSpell = {
       // Only return some fields.
       // See comment above on why we can't just select the necessary fields when querying
       partyMembersRes = partyMembersRes.map(partyMember => {
-        return common.pickDeep(partyMember, common.splitWhitespace(partyMembersFields));
+        return common.pickDeep(partyMember.toJSON(), common.splitWhitespace(partyMembersFields));
       });
 
       res.respond(200, {
