@@ -95,7 +95,7 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
           },
           {
             name: 'RECIPIENT_UNSUB_URL',
-            content: `/unsubscribe?code=${encrypt(JSON.stringify({
+            content: `/email/unsubscribe?code=${encrypt(JSON.stringify({
               _id: mailingInfo._id,
               email: mailingInfo.email,
             }))}`,
@@ -121,7 +121,7 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
         },
         {
           name: 'RECIPIENT_UNSUB_URL',
-          content: `/unsubscribe?code=${encrypt(JSON.stringify({
+          content: `/email/unsubscribe?code=${encrypt(JSON.stringify({
             _id: temporaryPersonalVariables[singlePersonalVariables.rcpt]._id,
             email: singlePersonalVariables.rcpt,
           }))}`,
