@@ -110,7 +110,7 @@
     "mage": "Magier",
     "mystery": "Überraschung",
     "changeClass": "Wechsle die Klasse und erhalte alle Attributpunkte zurück",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Um Deine Klasse zu ändern, musst Du mindestens auf Level 10 sein.",
     "levelPopover": "Jedes Level erhältst Du einen Punkt, den Du in ein Attribut Deiner Wahl setzen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen indem Du eines der vorgegebenen Verteilungsmuster auswählst.",
     "unallocated": "Freie Attributpunkte",
     "haveUnallocated": "Du hast <%= points %> freie(n) Attributpunkt(e)",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "Statuswertverteilung einblenden",
     "hideQuickAllocation": "Statuswertverteilung ausblenden",
     "quickAllocationLevelPopover": "Mit jedem Level erhältst Du einen Punkt, den Du einem Attribut Deiner Wahl zuweisen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen indem Du eines der vorgegebenen Verteilungsmuster unter Benutzer -> Werte&Erfolge auswählst.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "\"<%= attr %>\" ist keine gültige Eigenschaft.",
+    "notEnoughAttrPoints": "Du hast nicht genügend Eigenschaftspunkte."
 }

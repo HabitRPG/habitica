@@ -13,5 +13,5 @@
     "lowHealthTips3": "日課をやらないで夜を越すとダメージを受けます。はじめにたくさんの日課を追加しすぎないように!",
     "lowHealthTips4": "特定の日には日課をやらないでいいのなら、鉛筆アイコンをクリックして無効にします。",
     "goodLuck": "がんばって!",
-    "cannotRevive": "Cannot revive if not dead"
+    "cannotRevive": "生きている間は復活できません。"
 }

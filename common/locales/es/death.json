@@ -13,5 +13,5 @@
     "lowHealthTips3": "Las tareas diarias que no cumples te dañan por la noche: no añadas demasiadas al principio.",
     "lowHealthTips4": "Si tienes alguna tarea diaria que no sea necesario realizar un día concreto, haz clic en el icono del lápiz y desactiva ese día.",
     "goodLuck": "¡Suerte!",
-    "cannotRevive": "Cannot revive if not dead"
+    "cannotRevive": "No se puede revivir si el jugador no está muerto."
 }

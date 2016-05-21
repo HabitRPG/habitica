@@ -1,8 +1,8 @@
 {
-  "habiticaBackSoon": "Don't worry, Habitica will be back soon!",
-  "importantMaintenance": "We are doing important maintenance that we estimate will last until <%= localDate %> in your timezone.",
+  "habiticaBackSoon": "Don' ye worry, Habitica be back before before ye flash yer deadlights!",
+  "importantMaintenance": "We be doin' important maintenance that we estimate gunna last 'til <%= localDate %> in ye timezone.",
   "maintenance": "Maintenance",
-  "maintenanceMoreInfo": "Want more information about the maintenance? <%= linkStart %>Check out our info page<%= linkEnd %>.",
+  "maintenanceMoreInfo": "Want more information 'bout th' maintenance? <%= linkStart %>Ye better check out the rutters<%= linkEnd %>.",
   "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",
   "thanksForPatience": "Thanks for your patience!",
   "twitterMaintenanceUpdates": "For the most recent updates, watch our <a href='https://twitter.com/habitica'>Twitter</a>, where we will be posting status information.",

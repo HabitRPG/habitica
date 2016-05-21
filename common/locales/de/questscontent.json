@@ -315,10 +315,10 @@
     "questFalconBoss": "Zeitraubvögel",
     "questFalconDropFalconEgg": "Falke (Ei)",
     "questFalconUnlockText": "Ermöglicht den Kauf von Falkeneiern auf dem Marktplatz.",
-    "questTreelingText": "The Tangle Tree",
-    "questTreelingNotes": "It's the annual Garden Competition, and everyone is talking about the mysterious project which @aurakami has promised to unveil. You join the crowd on the day of the big announcement, and marvel at the introduction of a moving tree. @fuzzytrees explains that the tree will help with garden maintenance, showing how it can mow the lawn, trim the hedge and prune the roses all at the same time – until the tree suddenly goes wild, turning its secateurs on its creator! The crowd panics as everyone tries to flee, but you aren't afraid – you leap forward, ready to do battle.",
-    "questTreelingCompletion": "You dust yourself off as the last few leaves drift to the floor. In spite of the upset, the Garden Competition is now safe – although the tree you just reduced to a heap of wood chips won't be winning any prizes! \"Still a few kinks to work out there,\" @PainterProphet says. \"Perhaps someone else would do a better job of training the saplings. Do you fancy a go?\"",
-    "questTreelingBoss": "Tangle Tree",
-    "questTreelingDropTreelingEgg": "Treeling (Egg)",
-    "questTreelingUnlockText": "Unlocks purchasable Treeling eggs in the Market"
+    "questTreelingText": "Das Baumgewirr",
+    "questTreelingNotes": "Der alljährliche Gartenwettbewerb finder statt, und jeder redet über das geheimnisvolle Projekt, das @aurakami zu enthüllen verspochen hat. Du mischst Dich am Tag der Kundgebung unter die Menge und staunst über die Vorstellung eines sich bewegenden Baumes. @fuzzytrees erklärt, dass der Baum bei der Gartenpflege hilft, und demonstriert wie er den Rasen mäht, die Hecken stutzt und die Rosen schneidet, alles zu selben Zeit - bis der Baum plötzlich außer Kontrolle gerät und seine Rebschere gegen ihren Schöpfer richtet! Die Menge gerät in Panik, als alle zu fliehen versuchen, nicht aber Du - Du springst vorwärts, bereit Dich in den Kampf zu stürzen.",
+    "questTreelingCompletion": "Du machst Dich sauber, als die letzten paar Blätter auf den Boden fallen. Trotz des Ärgers ist der Gartenwettbewerb nun sicher - obwohl der Baum, den Du eben auf ein paar Holzspäne zurückgestutzt hast, wohl kaum noch einen Preis erlangen mag! \"Hier müssen wohl noch ein paar Kleinigkeiten verbessert werden\", meint @PainterProphet. \"Vielleicht gelingt es ja jemand anders besser die jungen Bäume zu trainieren. Hast Du Lust darauf?\"",
+    "questTreelingBoss": "Baumgewirr",
+    "questTreelingDropTreelingEgg": "Bäumlein (Ei)",
+    "questTreelingUnlockText": "Ermöglicht den Kauf von Bäumlingeiern auf dem Marktplatz"
 }

@@ -62,7 +62,7 @@
     "hatchedPet": "Vylíhl se ti <%= potion %> <%= egg %>!",
     "displayNow": "Zobrazit hned",
     "displayLater": "Zobrazit později",
-    "petNotOwned": "You do not own this pet.",
+    "petNotOwned": "Nevlastníte tohoto mazlíčka.",
     "earnedCompanion": "Za svou pracovitost sis vysloužil nového kamaráda. Nakrm ho, aby vyrostl!",
     "feedPet": "Myslíš, že <%= name %> si pochutná na něčem takovém jako je <%= article %><%= text %> ?",
     "useSaddle": "Koho osedláme? Bude to <%= pet %>?",
@@ -84,8 +84,8 @@
     "petKeyBoth": "Vypusť oba",
     "confirmPetKey": "Jsi si jistý?",
     "petKeyNeverMind": "Ještě ne",
-    "petsReleased": "Pets released.",
-    "mountsAndPetsReleased": "Mounts and pets released",
-    "mountsReleased": "Mounts released",
+    "petsReleased": "Mazlíčci propuštěni.",
+    "mountsAndPetsReleased": "Zvířata k osedlání a mazlíčci propuštěni",
+    "mountsReleased": "Zvířata k osedlání propuštěna",
     "gemsEach": "drahokamů každý"
 }

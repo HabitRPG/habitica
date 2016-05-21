@@ -47,10 +47,10 @@
     "spellSpecialSeafoamNotes": "Transformez un ami en une créature marine !",
     "spellSpecialSandText": "Sable",
     "spellSpecialSandNotes": "Annule les effets de l'Écume.",
-    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellNotFound": "Compétence \"<%= spellId %>\" introuvable.",
+    "partyNotFound": "Équipe non trouvée.",
+    "targetIdUUID": "\"targetId\" doit être un nom d'utilisateur valide.",
+    "challengeTasksNoCast": "Impossible de lancer une compétence sur une tâche de Défis",
+    "spellNotOwned": "Vous n'avez pas obtenu cette compétence.",
+    "spellLevelTooHigh": "Vous devez être niveau <%= level %>  pour utiliser cette compétence."
 }

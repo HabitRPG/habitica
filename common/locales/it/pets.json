@@ -62,7 +62,7 @@
     "hatchedPet": "E' nato un <%= egg %> <%= potion %>!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
-    "petNotOwned": "You do not own this pet.",
+    "petNotOwned": "Non possiedi questo animale.",
     "earnedCompanion": "Con tutta la tua produttività, ti sei guadagnato un nuovo compagno. Nutrilo per farlo crescere!",
     "feedPet": "Dare da mangiare <%= article %><%= text %> al tuo <%= name %>?",
     "useSaddle": "Mettere la sella a <%= pet %>?",
@@ -84,8 +84,8 @@
     "petKeyBoth": "Libera entrambi",
     "confirmPetKey": "Sei sicuro?",
     "petKeyNeverMind": "Non ancora",
-    "petsReleased": "Pets released.",
-    "mountsAndPetsReleased": "Mounts and pets released",
-    "mountsReleased": "Mounts released",
+    "petsReleased": "Animali liberati.",
+    "mountsAndPetsReleased": "Cavalcature e animali liberati",
+    "mountsReleased": "Cavalcature liberate",
     "gemsEach": "gemme ciascuno"
 }

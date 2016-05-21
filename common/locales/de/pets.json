@@ -62,7 +62,7 @@
     "hatchedPet": "Du hast einen <%= potion %> <%= egg %> ausgebrütet!",
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",
-    "petNotOwned": "You do not own this pet.",
+    "petNotOwned": "Du hast dieses Haustier noch nicht.",
     "earnedCompanion": "Durch all Deine Produktivität hast Du einen neuen Begleiter erhalten. Füttere ihn damit er wächst!",
     "feedPet": "'Verfüttere <%= article %> <%= text %> an <%= name %>?",
     "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?",
@@ -84,8 +84,8 @@
     "petKeyBoth": "Lasse meine Haus- und meine Reittiere frei",
     "confirmPetKey": "Bist Du sicher?",
     "petKeyNeverMind": "Noch nicht.",
-    "petsReleased": "Pets released.",
-    "mountsAndPetsReleased": "Mounts and pets released",
-    "mountsReleased": "Mounts released",
+    "petsReleased": "Haustiere freigelassen.",
+    "mountsAndPetsReleased": "Reit- und Haustiere freigelassen",
+    "mountsReleased": "Reittiere freigelassen",
     "gemsEach": "Edelsteine jeweils"
 }

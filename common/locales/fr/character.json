@@ -110,7 +110,7 @@
     "mage": "Mage",
     "mystery": "Mystère",
     "changeClass": "Changer de classe et rembourser les points d'attribut.",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Vous devez être au moins au niveau 10 pour changer de classe.",
     "levelPopover": "Vous pouvez affecter un point à un attribut de votre choix à chaque niveau gagné. Cette attribution peut se faire manuellement ou en laissant le jeu décider pour vous, en utilisant une des options d'Attribution Automatique.",
     "unallocated": "Points d'Attribut non alloués",
     "haveUnallocated": "Vous avez <%= points %> Point(s) d'Attribut non alloué(s).",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "Voir la répartition des statistiques",
     "hideQuickAllocation": "Cacher la répartition des statistiques",
     "quickAllocationLevelPopover": "Chaque niveau vous rapporte un point que vous pouvez assigner à un attribut de votre choix. Vous pouvez le faire manuellement ou laissez le jeu décider pour vous, en utilisant les options d'Attribution Automatique qui se trouvent dans Utilisateur -> Caractéristiques.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "\"<%= attr %>\" n'est pas un attribut valide.",
+    "notEnoughAttrPoints": "Vous n'avez pas assez de points d'attribut."
 }

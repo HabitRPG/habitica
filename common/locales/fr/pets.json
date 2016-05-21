@@ -62,7 +62,7 @@
     "hatchedPet": "Vous avez fait éclore un <%= egg %><%= potion %>!",
     "displayNow": "Afficher tout de suite",
     "displayLater": "Afficher plus tard",
-    "petNotOwned": "You do not own this pet.",
+    "petNotOwned": "Vous ne possédez pas ce familier.",
     "earnedCompanion": "Grâce à votre productivité, vous avez gagné un nouveau compagnon. Nourrissez-le pour le faire grandir !",
     "feedPet": "Donner <%= article %><%= text %> à <%= name %> ?",
     "useSaddle": "Seller <%= pet %> ?",
@@ -84,8 +84,8 @@
     "petKeyBoth": "Relâcher les Deux",
     "confirmPetKey": "Êtes-vous sur·e ?",
     "petKeyNeverMind": "Pas Encore",
-    "petsReleased": "Pets released.",
-    "mountsAndPetsReleased": "Mounts and pets released",
-    "mountsReleased": "Mounts released",
+    "petsReleased": "Familiers libérées.",
+    "mountsAndPetsReleased": "Montures et familiers libérées",
+    "mountsReleased": "Montures libérées",
     "gemsEach": "gemmes chacun"
 }

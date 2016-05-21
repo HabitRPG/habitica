@@ -47,10 +47,10 @@
     "spellSpecialSeafoamNotes": "Trasforma un amico in una creatura del mare!",
     "spellSpecialSandText": "Sabbia",
     "spellSpecialSandNotes": "Annulla gli effetti della Schiumarina.",
-    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellNotFound": "Abilità \"<%= spellId %>\" non trovata.",
+    "partyNotFound": "Squadra non trovata.",
+    "targetIdUUID": "\"targetId\" deve essere un ID Utente valido.",
+    "challengeTasksNoCast": "Usare un'abilità sulle attività delle sfide non è supportato.",
+    "spellNotOwned": "Non possiedi questa abilità.",
+    "spellLevelTooHigh": "Devi aver raggiunto il livello <%= level %> per usare questa abilità."
 }

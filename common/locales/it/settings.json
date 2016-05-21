@@ -147,7 +147,7 @@
     "webhooks": "Webhooks",
     "enabled": "Abilitato",
     "webhookURL": "URL Webhook",
-    "invalidUrl": "invalid url",
+    "invalidUrl": "url non valido",
     "invalidEnabled": "the \"enabled\" parameter should be a boolean",
     "regIdRequired": "RegId is required",
     "pushDeviceAdded": "Push device added successfully",

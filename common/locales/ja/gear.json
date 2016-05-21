@@ -170,7 +170,7 @@
     "weaponArmoireIronCrookText": "鉄製の羊飼いのつえ",
     "weaponArmoireIronCrookNotes": "鉄から激しく「つち」できたえられた、この羊飼いのつえは、羊を集めるのにぴったりです。知覚と力が <%= attrs %> ずつ上がります。魔法の戸棚 : 角の生えた鉄製品 セット ( 3 個中 3 つめのアイテム)。",
     "weaponArmoireGoldWingStaffText": "金の羽のつえ",
-    "weaponArmoireGoldWingStaffNotes": "このつえに生えている翼はいつも羽ばたき、ふわふわとしています。すべての属性が <%= attrs %> ずつ上がります。魔法の戸棚 : 個別のアイテム。",
+    "weaponArmoireGoldWingStaffNotes": "このつえに生えている翼はいつも羽ばたき、ふわふわとしています。すべての能力値が <%= attrs %> ずつ上がります。魔法の戸棚 : 個別のアイテム。",
     "weaponArmoireBatWandText": "コウモリのつえ",
     "weaponArmoireBatWandNotes": "このつえは、どんなタスクでもコウモリに変えることができます!　ふりかざして、タスクが飛んでいくのを見届けましょう。知能が <%= int %> 、知覚が <%= per %> 上がります。魔法の戸棚 : 個別のアイテム。",
     "weaponArmoireShepherdsCrookText": "牧童のかぎづえ",

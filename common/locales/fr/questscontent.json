@@ -315,10 +315,10 @@
     "questFalconBoss": "Les Oiseaux de la Proiecrastination",
     "questFalconDropFalconEgg": "Faucon (œuf)",
     "questFalconUnlockText": "Déverrouille l'achat d’œufs de faucon au Marché",
-    "questTreelingText": "The Tangle Tree",
-    "questTreelingNotes": "It's the annual Garden Competition, and everyone is talking about the mysterious project which @aurakami has promised to unveil. You join the crowd on the day of the big announcement, and marvel at the introduction of a moving tree. @fuzzytrees explains that the tree will help with garden maintenance, showing how it can mow the lawn, trim the hedge and prune the roses all at the same time – until the tree suddenly goes wild, turning its secateurs on its creator! The crowd panics as everyone tries to flee, but you aren't afraid – you leap forward, ready to do battle.",
+    "questTreelingText": "L'Arbre tortueux",
+    "questTreelingNotes": "C'est la Compétition annuelle de jardinage et tout le monde parle du mystérieux projet qu'@aurakami a promis de révélé. Vous vous joignez à la foule le jour de la grande annonce et vous émerveillez devant l'arbre animé. @fuzzytrees explique que cet arbre aidera à la maintenance des jardins, en montrant qu'il peut tondre la pelouse, couper la haie et tailler les rosiers en même temps... jusqu'à ce l'arbre devienne sauvage et retourne son sécateur contre son créateur ! La foule est en panique. Alors que tous essaient de s'enfuir, vous vous avancez d'un bond, sans peur et prêt au combat.",
     "questTreelingCompletion": "You dust yourself off as the last few leaves drift to the floor. In spite of the upset, the Garden Competition is now safe – although the tree you just reduced to a heap of wood chips won't be winning any prizes! \"Still a few kinks to work out there,\" @PainterProphet says. \"Perhaps someone else would do a better job of training the saplings. Do you fancy a go?\"",
-    "questTreelingBoss": "Tangle Tree",
-    "questTreelingDropTreelingEgg": "Treeling (Egg)",
-    "questTreelingUnlockText": "Unlocks purchasable Treeling eggs in the Market"
+    "questTreelingBoss": "Arbre tortueux",
+    "questTreelingDropTreelingEgg": "Arbuste (œuf)",
+    "questTreelingUnlockText": "Déverrouille l'achat d’œufs d'arbuste au Marché"
 }

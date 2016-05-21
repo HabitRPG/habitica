@@ -25,5 +25,5 @@
     "rebirthName": "重生球",
     "reborn": "重生, 最高级别 <%= reLevel %>",
     "confirmReborn": "你确定吗？",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "你已经重生了！"
 }

@@ -189,7 +189,7 @@
     "weaponArmoireMiningPickaxNotes": "¡Extrae la máxima cantidad de oro de tus tareas! Incrementa la Percepción por <%= per %>. Armario Encantado: Conjunto de Minero (Artículo 3 de 3).",
     "weaponArmoireBasicLongbowText": "Arco Largo Básico",
     "weaponArmoireBasicLongbowNotes": "Un arco útil de segunda mano. Incrementa la Fuerza por <%=str%>. Armario Encantado: Conjunto Básico de Arquero (Artículo 1 de 3).",
-    "weaponArmoireHabiticanDiplomaText": "Habitican Diploma",
+    "weaponArmoireHabiticanDiplomaText": "Diploma Habiticano",
     "weaponArmoireHabiticanDiplomaNotes": "A certificate of significant achievement -- well done! Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 1 of 3).",
     "armor": "armadura",
     "armorBase0Text": "Ropa Simple",

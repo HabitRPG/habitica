@@ -35,7 +35,7 @@
     "hallContributors": "Зал участников",
     "hallPatrons": "Зал покровителей",
     "rewardUser": "Наградить пользователя",
-    "UUID": "User ID",
+    "UUID": "ID пользователя",
     "loadUser": "Загрузить пользователя",
     "noAdminAccess": "You don't have admin access.",
     "pageMustBeNumber": "req.query.page must be a number",

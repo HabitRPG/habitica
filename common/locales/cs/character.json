@@ -110,7 +110,7 @@
     "mage": "Mág",
     "mystery": "Záhadný",
     "changeClass": "Změň povolání, znovu přiřaď body vlastností",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Pro změnu povolání musíte být alespoň úroveň 10.",
     "levelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení.",
     "unallocated": "Nepřidělené body vlastností",
     "haveUnallocated": "Máš ( <%= points %> ) nepřiřazených Vlastnostních bodů.",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "Zobrazit přidělení",
     "hideQuickAllocation": "Skrýt přidělení",
     "quickAllocationLevelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení, které nalezneš v Uživatel -> Statistiky",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "„<%= attr %>\" není platná vlastnost.",
+    "notEnoughAttrPoints": "Nemáte dostatek bodů vlastností."
 }

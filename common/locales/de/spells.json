@@ -47,10 +47,10 @@
     "spellSpecialSeafoamNotes": "Verwandle einen Freund in ein Meereslebewesen!",
     "spellSpecialSandText": "Sand",
     "spellSpecialSandNotes": "Beendet den Effekt von Meeresschaum.",
-    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellNotFound": "Fähigkeit \"<%= spellId %>\" nicht gefunden.",
+    "partyNotFound": "Gruppe nicht gefunden",
+    "targetIdUUID": "\"targetId\" muss eine gültige Benutzer-ID sein.",
+    "challengeTasksNoCast": "Eine Fähigkeit auf Wettbewerbs-Aufgaben anzuwenden wird nicht unterstützt.",
+    "spellNotOwned": "Du besitzt diese Fähigkeit nicht.",
+    "spellLevelTooHigh": "Du musst Level <%= level %> sein, um diese Fähigkeit zu benutzen."
 }

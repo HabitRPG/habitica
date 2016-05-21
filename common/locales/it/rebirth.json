@@ -25,5 +25,5 @@
     "rebirthName": "Sfera della Rinascita",
     "reborn": "Rinasci, livello massimo <%= reLevel %>",
     "confirmReborn": "Sei sicuro?",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "Rinascita completata!"
 }

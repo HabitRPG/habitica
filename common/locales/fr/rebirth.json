@@ -5,7 +5,7 @@
     "rebirthStartOver": "Renaissance fait recommencer votre personnage au Niveau 1.",
     "rebirthAdvList1": "Vous repartez avec une Santé complète.",
     "rebirthAdvList2": "Vous n'avez ni Expérience, ni Or, ni Équipement (à l'exception d'objets gratuits comme les objets Mystère).",
-    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
+    "rebirthAdvList3": "Vos Habitudes, Quotidiennes et Tâches sont remises au jaune et les combos sont remis à zéro, à l'exception des tâches relatives à un défi.",
     "rebirthAdvList4": "Vous avez la classe de départ de Guerrier jusqu'à ce que vous obteniez une nouvelle classe.",
     "rebirthInherit": "Votre nouveau personnage a hérité de quelques petites choses de son prédécesseur :",
     "rebirthInList1": "Les tâches, l'historique et les réglages sont conservés.",
@@ -25,5 +25,5 @@
     "rebirthName": "Orbe de Renaissance",
     "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
     "confirmReborn": "Êtes-vous sûr·e ?",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "Vous avez été ressuscité !"
 }
