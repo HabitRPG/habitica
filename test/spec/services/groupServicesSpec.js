@@ -37,6 +37,8 @@ describe('groupServices', function() {
     var groupResponse = {data: {_id: groupId}};
     $httpBackend.expectGET(groupApiUrlPrefix + '/party').respond(groupResponse);
     $httpBackend.expectGET('/api/v3/groups/' + groupId + '/members?includeAllPublicFields=true').respond({});
+    $httpBackend.expectGET('/api/v3/groups/' + groupId + '/invites').respond({});
+    $httpBackend.expectGET('/api/v3/challenges/groups/' + groupId).respond({});
     groups.Group.syncParty();
     $httpBackend.flush();
   });
@@ -81,6 +83,8 @@ describe('groupServices', function() {
     var groupResponse = {data: {_id: groupId}};
     $httpBackend.expectGET(groupApiUrlPrefix + '/party').respond(groupResponse);
     $httpBackend.expectGET('/api/v3/groups/' + groupId + '/members?includeAllPublicFields=true').respond({});
+    $httpBackend.expectGET('/api/v3/groups/' + groupId + '/invites').respond({});
+    $httpBackend.expectGET('/api/v3/challenges/groups/' + groupId).respond({});
     groups.party();
     $httpBackend.flush();
   });

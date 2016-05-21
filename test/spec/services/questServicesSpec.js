@@ -349,6 +349,8 @@ describe('Quests Service', function() {
       fakeBackend.when('GET', 'partials/main.html').respond({});
       fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
       fakeBackend.when('GET', '/api/v3/groups/party-id/members?includeAllPublicFields=true').respond({});
+      fakeBackend.when('GET', '/api/v3/groups/party-id/invites').respond({});
+      fakeBackend.when('GET', '/api/v3/challenges/groups/party-id').respond({});
       fakeBackend.when('POST', '/api/v3/groups/party-id/quests/invite/' + key).respond({quest: { key: 'whale' } });
       fakeBackend.flush();
     }));
