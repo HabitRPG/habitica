@@ -160,7 +160,10 @@ angular.module('habitrpg')
           body: body,
         })
         .then(function (response) {
-          if (response.data.message && response.data.message !== clientMessage) Notification.text(response.data.message);
+          if (response.data.message && response.data.message !== clientMessage) {
+            Notification.text(response.data.message);
+          }
+
           save();
         })
       }
@@ -219,16 +222,12 @@ angular.module('habitrpg')
             return;
           }
           save();
+
           Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
-
             var drop = tmp.drop;
-            var crit = tmp.crit;
-            var streakBonus = tmp.streakBonus;
 
             if (drop) user._tmp.drop = drop;
-            if (crit) user._tmp.crit = crit;
-            if (streakBonus) user._tmp.streakBonus = streakBonus;
           });
         },
 

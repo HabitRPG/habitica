@@ -6,8 +6,43 @@ angular.module('habitrpg')
     var resyncNumber = 0;
     var lastResync = 0;
 
+    // Verify that the user was not updated from another browser/app/client
+    // If it was, sync
+    function verifyUserUpdated (response) {
+      var isApiCall = response.config.url.indexOf('api/v3') !== -1;
+      var isUserAvailable = $rootScope.User && $rootScope.User.user && $rootScope.User.user._wrapped === true;
+      var hasUserV = response.data && response.data.userV;
+      var isNotSync = response.config.url.indexOf('/api/v3/user') !== 0;
+
+      if (isApiCall && isUserAvailable && hasUserV) {
+        var oldUserV = $rootScope.User.user._v;
+        $rootScope.User.user._v = response.data.userV;
+
+        // Something has changed on the user object that was not tracked here, sync the user
+        if (isNotSync && ($rootScope.User.user._v - oldUserV) > 1) {
+          $rootScope.User.sync();
+        }
+      }
+    }
+
     return {
+      request: function (config) {
+        var url = config.url;
+
+        if (url.indexOf('api/v3') !== -1) {
+          if ($rootScope.User && $rootScope.User.user) {
+            if (url.indexOf('?') !== -1) {
+              config.url += '&userV=' + $rootScope.User.user._v;
+            } else {
+              config.url += '?userV=' + $rootScope.User.user._v;
+            }
+          }
+        }
+
+        return config;
+      },
       response: function(response) {
+        verifyUserUpdated(response);
         return response;
       },
       responseError: function(response) {
@@ -26,7 +61,7 @@ angular.module('habitrpg')
           if (!mobileApp) // skip mobile for now
             $rootScope.$broadcast('responseError', "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again.");
 
-        } else if (response.data.code && response.data.code === 'ACCOUNT_SUSPENDED') {
+        } else if (response.data && response.data.code && response.data.code === 'ACCOUNT_SUSPENDED') {
           confirm(response.data.err);
           localStorage.clear();
           window.location.href = mobileApp ? '/app/login' : '/logout'; //location.reload()
@@ -34,14 +69,14 @@ angular.module('habitrpg')
         // 400 range
         } else if (response.status < 400) {
           // never triggered because we're in responseError
-          $rootScope.$broadcast('responseText', response.data.message);
+          $rootScope.$broadcast('responseText', response.data && response.data.message);
         } else if (response.status < 500) {
-          if (response.status === 400 && response.data.errors && _.isArray(response.data.errors)) { // bad requests with more info
+          if (response.status === 400 && response.data && response.data.errors && _.isArray(response.data.errors)) { // bad requests with more info
             response.data.errors.forEach(function (err) {
               $rootScope.$broadcast('responseError', err.message);
             });
           } else {
-            $rootScope.$broadcast('responseError', response.data.message);
+            $rootScope.$broadcast('responseError', response.data && response.data.message);
           }
 
           if ($rootScope.User && $rootScope.User.sync) {
