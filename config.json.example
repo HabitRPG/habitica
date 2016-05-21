@@ -10,6 +10,7 @@
     "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
     "NODE_ENV":"development",
     "CRON_SAFE_MODE":"false",
+    "MAINTENANCE_MODE": "false",
     "SESSION_SECRET":"YOUR SECRET HERE",
     "ADMIN_EMAIL": "you@example.com",
     "SMTP_USER":"user@example.com",
