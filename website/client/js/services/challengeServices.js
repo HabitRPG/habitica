@@ -59,10 +59,14 @@ angular.module('habitrpg')
     }
 
     function updateChallenge (challengeId, updateData) {
+
+      var challengeDataToSend = _.omit(updateData, ['tasks', 'habits', 'todos', 'rewards', 'group']);
+      if (challengeDataToSend.leader && challengeDataToSend.leader._id) challengeDataToSend.leader = challengeDataToSend.leader._id;
+
       return $http({
         method: 'PUT',
         url: apiV3Prefix + '/challenges/' + challengeId,
-        data: updateData,
+        data: challengeDataToSend,
       });
     }
 

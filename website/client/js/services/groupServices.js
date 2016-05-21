@@ -43,10 +43,15 @@ angular.module('habitrpg')
 
     Group.update = function(groupDetails) {
       //@TODO: Check for what has changed?
+
+      //Remove populated fields
+      var groupDetailsToSend = _.omit(groupDetails, ['challenges', 'members', 'invites']);
+      if (groupDetailsToSend.leader && groupDetailsToSend.leader._id) groupDetailsToSend.leader = groupDetailsToSend.leader._id;
+
       return $http({
         method: "PUT",
-        url: groupApiURLPrefix + '/' + groupDetails._id,
-        data: groupDetails,
+        url: groupApiURLPrefix + '/' + groupDetailsToSend._id,
+        data: groupDetailsToSend,
       });
     };
 
