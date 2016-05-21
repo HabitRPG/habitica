@@ -400,10 +400,14 @@ api.castSpell = {
         if (!party) {
           partyMembers = [user]; // Act as solo party
         } else {
-          partyMembers = await User.find({
-            'party._id': party._id,
-            _id: { $ne: user._id }, // add separately
-          }).select(partyMembersFields).exec();
+          partyMembers = await User
+            .find({
+              'party._id': party._id,
+              _id: { $ne: user._id }, // add separately
+            })
+            // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
+            // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+            .exec();
 
           partyMembers.unshift(user);
         }
@@ -416,7 +420,11 @@ api.castSpell = {
         } else {
           if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
           if (!party) throw new NotFound(res.t('partyNotFound'));
-          partyMembers = await User.findOne({_id: targetId, 'party._id': party._id}).select(partyMembersFields).exec();
+          partyMembers = await User
+            .findOne({_id: targetId, 'party._id': party._id})
+            // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
+            // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+            .exec();
         }
 
         if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
@@ -433,8 +441,15 @@ api.castSpell = {
         }
       }
 
+      let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
+      // Only return some fields.
+      // See comment above on why we can't just select the necessary fields when querying
+      partyMembersRes = partyMembersRes.map(partyMember => {
+        return common.pickDeep(partyMember, common.splitWhitespace(partyMembersFields));
+      });
+
       res.respond(200, {
-        partyMembers: Array.isArray(partyMembers) ? partyMembers : [partyMembers],
+        partyMembers: partyMembersRes,
         user,
       });
 
