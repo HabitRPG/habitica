@@ -34,11 +34,11 @@ angular.module('habitrpg')
       });
     };
 
-    function updateTags (tags) {
+    function sortTag (orderDetails) {
       return $http({
-        method: 'PUT',
-        url: 'api/v3/tags',
-        data: {tags: tags},
+        method: 'POST',
+        url: 'api/v3/reorder-tags',
+        data: orderDetails,
       });
     };
 
@@ -54,7 +54,7 @@ angular.module('habitrpg')
       createTag: createTag,
       getTag: getTag,
       updateTag: updateTag,
-      updateTags: updateTags,
+      sortTag: sortTag,
       deleteTag: deleteTag,
     };
   }]);

@@ -270,7 +270,7 @@ angular.module('habitrpg')
 
         sortTag: function (data) {
           user.ops.sortTag(data);
-          Tags.updateTags(user.tags);
+          Tags.sortTag(data.query);
         },
 
         deleteTag: function(data) {

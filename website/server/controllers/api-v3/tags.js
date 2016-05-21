@@ -114,31 +114,33 @@ api.updateTag = {
 };
 
 /**
- * @api {put} /api/v3/tag/ Update multiple tags
+ * @api {post} /api/v3/reorder-tags Reorder a tag
  * @apiVersion 3.0.0
- * @apiName UpdateTags
+ * @apiName ReorderTags
  * @apiGroup Tag
  *
- * @apiParam {Array} tags An array of tags
+ * @apiParam {from} number Position the tag is moving from
+ * @apiParam {to} number Position the tag is moving to
  *
- * @apiSuccess {object} data The updated tags
+ * @apiSuccess {object} data An empty object
  */
-api.updateTags = {
-  method: 'PUT',
-  url: '/tags',
+api.reorderTags = {
+  method: 'POST',
+  url: '/reorder-tags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkBody('tags', res.t('tagsRequired')).notEmpty();
+    req.checkBody('from', res.t('fromRequired')).notEmpty();
+    req.checkBody('to', res.t('toRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    user.tags = req.body.tags;
+    user.tags.splice(req.body.to, 0, user.tags.splice(req.body.from, 1)[0]);
 
     let savedUser = await user.save();
-    res.respond(200, savedUser.tags);
+    res.respond(200, {});
   },
 };
 
