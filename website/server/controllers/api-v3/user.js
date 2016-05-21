@@ -904,7 +904,7 @@ api.userOpenMysteryItem = {
 };
 
 /**
-* @api {post} /api/v3/user/webhook Create a new webhook
+* @api {post} /api/v3/user/webhook Create a new webhook - BETA
 * @apiVersion 3.0.0
 * @apiName UserAddWebhook
 * @apiGroup User
@@ -927,7 +927,7 @@ api.addWebhook = {
 };
 
 /**
-* @api {put} /api/v3/user/webhook/:id Edit a webhook
+* @api {put} /api/v3/user/webhook/:id Edit a webhook - BETA
 * @apiVersion 3.0.0
 * @apiName UserUpdateWebhook
 * @apiGroup User
@@ -951,7 +951,7 @@ api.updateWebhook = {
 };
 
 /**
-* @api {delete} /api/v3/user/webhook/:id Delete a webhook
+* @api {delete} /api/v3/user/webhook/:id Delete a webhook - BETA
 * @apiVersion 3.0.0
 * @apiName UserDeleteWebhook
 * @apiGroup User
