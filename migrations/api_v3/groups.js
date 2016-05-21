@@ -18,7 +18,7 @@ console.log('Starting migrations/api_v3/groups.js.');
 
 require('babel-register');
 
-var Q = require('q');
+var Bluebird = require('bluebird');
 var MongoDB = require('mongodb');
 var nconf = require('nconf');
 var mongoose = require('mongoose');
