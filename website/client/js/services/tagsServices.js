@@ -34,6 +34,14 @@ angular.module('habitrpg')
       });
     };
 
+    function sortTag (tagId, to) {
+      return $http({
+        method: 'POST',
+        url: 'api/v3/reorder-tags',
+        data: {tagId: tagId, to: to},
+      });
+    };
+
     function deleteTag (tagId) {
       return $http({
         method: 'DELETE',
@@ -46,6 +54,7 @@ angular.module('habitrpg')
       createTag: createTag,
       getTag: getTag,
       updateTag: updateTag,
+      sortTag: sortTag,
       deleteTag: deleteTag,
     };
   }]);

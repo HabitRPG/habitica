@@ -114,6 +114,41 @@ api.updateTag = {
 };
 
 /**
+ * @api {post} /api/v3/reorder-tags Reorder a tag
+ * @apiVersion 3.0.0
+ * @apiName ReorderTags
+ * @apiGroup Tag
+ *
+ * @apiParam {tagId} UUID Id of the tag to move
+ * @apiParam {to} number Position the tag is moving to
+ *
+ * @apiSuccess {object} data An empty object
+ */
+api.reorderTags = {
+  method: 'POST',
+  url: '/reorder-tags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody('to', res.t('toRequired')).notEmpty();
+    req.checkBody('tagId', res.t('tagIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let tagIndex = _.findIndex(user.tags, function findTag (tag) {
+      return tag.id === req.body.tagId;
+    });
+    if (tagIndex === -1) throw new NotFound(res.t('tagNotFound'));
+    user.tags.splice(req.body.to, 0, user.tags.splice(tagIndex, 1)[0]);
+
+    await user.save();
+    res.respond(200, {});
+  },
+};
+
+/**
  * @api {delete} /api/v3/tag/:tagId Delete a user tag given its id
  * @apiVersion 3.0.0
  * @apiName DeleteTag

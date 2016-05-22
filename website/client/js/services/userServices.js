@@ -267,6 +267,11 @@ angular.module('habitrpg')
           Tags.updateTag(data.params.id, data.body);
         },
 
+        sortTag: function (data) {
+          user.ops.sortTag(data);
+          Tags.sortTag(user.tags[data.query.from].id, data.query.to);
+        },
+
         deleteTag: function(data) {
           user.ops.deleteTag(data);
           save();

@@ -19,7 +19,7 @@
           User.sortTag({
             query: {
               from: ui.item.data('startIndex'),
-              to:ui.item.index()
+              to: ui.item.index()
             }
           });
         }
