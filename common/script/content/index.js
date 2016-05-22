@@ -426,6 +426,7 @@ api.specialPets = {
   'Phoenix-Base': 'phoenix',
   'Turkey-Gilded': 'gildedTurkey',
   'MagicalBee-Base': 'magicalBee',
+  'Lion-Veteran': 'veteranLion',
 };
 
 api.specialMounts = {
