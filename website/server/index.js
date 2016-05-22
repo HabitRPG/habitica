@@ -13,14 +13,14 @@ require('babel-polyfill');
 // Setup Bluebird as the global promise library
 global.Promise = require('bluebird');
 
-// Only do the minimal amount of work before forking just in case of a dyno restart
-const cluster = require('cluster');
-const nconf = require('nconf');
-const logger = require('./libs/api-v3/logger');
-
-// Initialize configuration
+// Initialize configuration BEFORE anything
 const setupNconf = require('./libs/api-v3/setupNconf');
 setupNconf();
+
+const nconf = require('nconf');
+
+const cluster = require('cluster');
+const logger = require('./libs/api-v3/logger');
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');
