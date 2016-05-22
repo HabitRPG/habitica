@@ -10,7 +10,7 @@ const ENABLE_CONSOLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') ===
 const logger = new winston.Logger();
 
 if (IS_PROD) {
-  if (ENABLE_CONSOLE_LOGS_IN_PROD === 'true') {
+  if (ENABLE_CONSOLE_LOGS_IN_PROD) {
     logger.add(winston.transports.Console, {
       colorize: true,
       prettyPrint: true,
