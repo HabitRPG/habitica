@@ -5,7 +5,7 @@
   "maintenanceMoreInfo": "Vous voulez plus d'information sur la maintenance ? <%= linkStart %>Allez voir notre page d'information<%= linkEnd %>.",
   "noDamageKeepStreaks": "Vous ne prendrez AUCUN dommage et ne perdrez aucun de combos !",
   "thanksForPatience": "Merci pour votre patience !",
-  "twitterMaintenanceUpdates": "Pour vous tenir informeé des mises à jours récentes, suivez notre <a href='https://twitter.com/habitica'>compte Twitter</a>, où nous posterons toutes les informations.",
+  "twitterMaintenanceUpdates": "Pour vous tenir informé des mises à jours récentes, suivez notre <a href='https://twitter.com/habitica'>compte Twitter</a>, où nous posterons toutes les informations.",
   "veteranPetAward": "À la fin, vous recevrez un familier Vétéran !",
 
   "maintenanceInfoTitle": "Information à propos des maintenances à venir sur Habitica",
@@ -27,7 +27,7 @@
   "maintenanceInfoSeeTasks": "Que faire si j'ai besoin de voir ma liste de tâches ?",
   "maintenanceInfoSeeTasksText": "Si vous savez déjà que vous aurez besoin de voir votre liste de tâches samedi pour vous souvenir de ce que vous avez à faire, nous vous recommandons de prendre une capture d'écran de vos tâches avant que la maintenance ne démarre, pour l'utiliser comme référence.",
   "maintenanceInfoRarePet": "Quel type de familier rare vais-je recevoir ?",
-  "maintenanceInfoRarePetText": "Pour vous remercier de votre patience pendant cette indisponibilité, tout le monde recevra un rare familier vétéran. Si vous n'en avez jamais reçu précédemment, vous recevrez le loup vétéran. Si vous avez déjà le loup vétéran, vous recevrez le tigre vétéran. Et si vous avez déjà le tigre vétéran, vous recevrez un tout nouveau familier vétéran ! Votre familier vétéran pourrait apparaître plusieurs heures après la fin de la maintenance, mais ne craignez rien, tout le monde en aura un.",
+  "maintenanceInfoRarePetText": "Pour vous remercier de votre patience pendant cette indisponibilité, tout le monde recevra un familier vétéran rare. Si vous n'en avez jamais reçu précédemment, vous recevrez le loup vétéran. Si vous avez déjà le loup vétéran, vous recevrez le tigre vétéran. Et si vous avez déjà le tigre vétéran, vous recevrez un tout nouveau familier vétéran ! Votre familier vétéran pourrait apparaître plusieurs heures après la fin de la maintenance, mais ne craignez rien, tout le monde en aura un.",
   "maintenanceInfoWho": "Qui a travaillé sur cet énorme projet ?",
   "maintenanceInfoWhoText": "Nous sommes heureux que vous le demandiez ! Il a été dirigé par notre merveilleux contributeur paglias, aidé généreusement de Blade, de TheHollidayInn, de SabreCat, de Victor, de Pudeyevn, de TheUnknown et d'Alys.",
   "maintenanceInfoTesting": "La nouvelle version a aussi été testée sans relâche par bon nombre d'incroyables volontaires open-source. Merci ! Nous n'aurions pas réussi sans vous."
