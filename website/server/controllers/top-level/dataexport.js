@@ -171,7 +171,7 @@ api.exportUserAvatarHtml = {
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
     res.render('avatar-static', {
       title: member.profile.name,
-      env: _.defaults({member}, res.locals.habitrpg),
+      env: _.defaults({user: member}, res.locals.habitrpg),
     });
   },
 };
@@ -197,7 +197,7 @@ api.exportUserAvatarPng = {
     let memberId = req.params.memberId;
 
     let filename = `avatars/${memberId}.png`;
-    let s3url = `https://${S3_BUCKET}+'.s3.amazonaws.com/${filename}`;
+    let s3url = `https://${S3_BUCKET}.s3.amazonaws.com/${filename}`;
 
     let response;
     try {
@@ -208,9 +208,9 @@ api.exportUserAvatarPng = {
       }
     }
 
-    // cache images for 10 minutes on aws, else upload a new one
-    if (response && response.statusCode === 200 && moment().diff(response.headers['last-modified'], 'minutes') < 10) {
-      return res.redirect(301, s3url);
+    // cache images for 30 minutes on aws, else upload a new one
+    if (response && response.statusCode === 200 && moment().diff(response.headers['last-modified'], 'minutes') < 30) {
+      return res.redirect(s3url);
     }
 
     let [stream] = await new Pageres()
@@ -226,7 +226,7 @@ api.exportUserAvatarPng = {
       ACL: 'public-read',
       StorageClass: 'REDUCED_REDUNDANCY',
       ContentType: 'image/png',
-      Expires: moment().add({minutes: 3}).toDate(),
+      Expires: moment().add({minutes: 5}).toDate(),
       Body: stream,
     });
 
