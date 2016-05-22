@@ -196,7 +196,7 @@ api.exportUserAvatarPng = {
 
     let memberId = req.params.memberId;
 
-    let filename = `avatars/${memberId}/.png`;
+    let filename = `avatars/${memberId}.png`;
     let s3url = `https://${S3_BUCKET}+'.s3.amazonaws.com/${filename}`;
     let response = await got.head(s3url);
 
