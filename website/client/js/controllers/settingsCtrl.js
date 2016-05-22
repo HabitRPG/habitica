@@ -177,13 +177,16 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
-    $scope['delete'] = function(){
-      $http['delete'](ApiUrl.get() + '/api/v3/user')
-        .success(function(res, code){
-          if (res.err) return alert(res.err);
-          localStorage.clear();
-          window.location.href = '/logout';
-        });
+    $scope['delete'] = function(password) {
+      $http({
+        url: ApiUrl.get() + '/api/v3/user',
+        method: 'DELETE',
+        data: {password: password},
+      })
+      .then(function(res, code) {
+        localStorage.clear();
+        window.location.href = '/logout';
+      });
     }
 
     $scope.enterCoupon = function(code) {
