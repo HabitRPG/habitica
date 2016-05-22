@@ -140,7 +140,7 @@ api.reorderTags = {
     let tagIndex = _.findIndex(user.tags, function findTag (tag) {
       return tag.id === req.body.tagId;
     });
-    if (tagIndex === !1) throw new NotFound(res.t('tagNotFound'));
+    if (tagIndex === -1) throw new NotFound(res.t('tagNotFound'));
     user.tags.splice(req.body.to, 0, user.tags.splice(tagIndex, 1)[0]);
 
     await user.save();

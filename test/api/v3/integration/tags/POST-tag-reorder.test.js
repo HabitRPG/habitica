@@ -1,5 +1,6 @@
 import {
   generateUser,
+  translate as t,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /reorder-tags', () => {
@@ -15,6 +16,15 @@ describe('POST /reorder-tags', () => {
         code: 400,
         error: 'BadRequest',
         message: 'Invalid request parameters.',
+      });
+  });
+
+  it('returns error when tag is not found', async () => {
+    await expect(user.post('/reorder-tags', {tagId: 'fake-id', to: 3}))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('tagNotFound'),
       });
   });
 
