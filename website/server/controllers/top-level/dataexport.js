@@ -226,7 +226,7 @@ api.exportUserAvatarPng = {
       ACL: 'public-read',
       StorageClass: 'REDUCED_REDUNDANCY',
       ContentType: 'image/png',
-      Expires: moment().add({minutes: 3}),
+      Expires: moment().add({minutes: 3}).toDate(),
       Body: stream,
     });
 
