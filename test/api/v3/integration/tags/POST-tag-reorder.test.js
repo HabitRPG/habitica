@@ -25,7 +25,7 @@ describe('POST /reorder-tags', () => {
     await user.post('/tags', {name: tag2Name});
     await user.sync();
 
-    await user.post('/reorder-tags', {from: 4, to: 3});
+    await user.post('/reorder-tags', {tagId: user.tags[4].id, to: 3});
     await user.sync();
 
     expect(user.tags[3].name).to.equal(tag2Name);

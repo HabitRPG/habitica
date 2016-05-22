@@ -73,7 +73,6 @@
     "clearTags": "Clear",
     "hideTags": "Hide",
     "showTags": "Show",
-    "fromRequired": "You must supply a from value",
     "toRequired": "You must supply a to value",
     "startDate": "Start Date",
     "startDateHelpTitle": "When should this task start?",

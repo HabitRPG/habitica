@@ -119,7 +119,7 @@ api.updateTag = {
  * @apiName ReorderTags
  * @apiGroup Tag
  *
- * @apiParam {from} number Position the tag is moving from
+ * @apiParam {tagId} UUID Id of the tag to move
  * @apiParam {to} number Position the tag is moving to
  *
  * @apiSuccess {object} data An empty object
@@ -131,13 +131,17 @@ api.reorderTags = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkBody('from', res.t('fromRequired')).notEmpty();
     req.checkBody('to', res.t('toRequired')).notEmpty();
+    req.checkBody('tagId', res.t('tagIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    user.tags.splice(req.body.to, 0, user.tags.splice(req.body.from, 1)[0]);
+    let tagIndex = _.findIndex(user.tags, function findTag (tag) {
+      return tag.id === req.body.tagId;
+    });
+    if (tagIndex === !1) throw new NotFound(res.t('tagNotFound'));
+    user.tags.splice(req.body.to, 0, user.tags.splice(tagIndex, 1)[0]);
 
     await user.save();
     res.respond(200, {});

@@ -34,11 +34,11 @@ angular.module('habitrpg')
       });
     };
 
-    function sortTag (orderDetails) {
+    function sortTag (tagId, to) {
       return $http({
         method: 'POST',
         url: 'api/v3/reorder-tags',
-        data: orderDetails,
+        data: {tagId: tagId, to: to},
       });
     };
 
