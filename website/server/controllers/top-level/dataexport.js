@@ -198,10 +198,18 @@ api.exportUserAvatarPng = {
 
     let filename = `avatars/${memberId}.png`;
     let s3url = `https://${S3_BUCKET}+'.s3.amazonaws.com/${filename}`;
-    let response = await got.head(s3url);
+
+    let response;
+    try {
+      response = await got.head(s3url);
+    } catch (gotError) {
+      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode !== 404) {
+        throw gotError;
+      }
+    }
 
     // cache images for 10 minutes on aws, else upload a new one
-    if (response.statusCode === 200 && moment().diff(response.headers['last-modified'], 'minutes') < 10) {
+    if (response && response.statusCode === 200 && moment().diff(response.headers['last-modified'], 'minutes') < 10) {
       return res.redirect(301, s3url);
     }
 
