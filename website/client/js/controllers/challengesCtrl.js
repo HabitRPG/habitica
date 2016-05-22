@@ -120,6 +120,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.save = function(challenge) {
       if (!challenge.group) return alert(window.env.t('selectGroup'));
 
+      if (!challenge.shortName || challenge.shortName.length < 3) return alert(window.env.t('shortNameTooShort'));
+
       var isNew = !challenge._id;
 
       if(isNew && challenge.prize > $scope.maxPrize) {
