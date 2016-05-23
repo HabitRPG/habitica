@@ -118,7 +118,7 @@ api.checkoutSuccess = {
   middlewares: [authWithSession],
   async handler (req, res) {
     let paymentId = req.query.paymentId;
-    let customerId = req.query.payerID;
+    let customerId = req.query.PayerID;
 
     let method = 'buyGems';
     let data = {
