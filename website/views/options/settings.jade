@@ -175,7 +175,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               h5=env.t('changeEmail')
               form(ng-submit='changeUser("email", emailUpdates)', ng-show='user.auth.local', name='changeEmail', novalidate)
                 .form-group
-                  input.form-control(type='text', placeholder=env.t('newEmail'), ng-model='emailUpdates.email', required)
+                  input.form-control(type='text', placeholder=env.t('newEmail'), ng-model='emailUpdates.newEmail', required)
                 .form-group
                   input.form-control(type='password', placeholder=env.t('password'), ng-model='emailUpdates.password', required)
                 input.btn.btn-default(type='submit', ng-disabled='changeEmail.$invalid', value=env.t('submit'))
@@ -389,7 +389,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               input.form-control(type='text', ng-model='_subscription.coupon', placeholder= env.t('couponPlaceholder'))
             .form-group
               button.pull-right.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
-          
+
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
