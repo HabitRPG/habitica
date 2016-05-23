@@ -47,6 +47,7 @@
     "customDayStart": "התחלת יום מותאמת אישית",
     "changeCustomDayStart": "שנה את מועד תחילת היום?",
     "sureChangeCustomDayStart": "האם אתם בטוחים שאתם מעוניינים לשנות את מועד תחילת היום?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "שמור מועד תחילת יום מותאם-אישית",
     "customDayStartInfo1": "האביטיקה מכוונת לבדוק ולאפס את המטלות היומיות בחצות של אזור הזמן שלכם, מידי יום. תוכלו לשנות זאת כאן.",
     "misc": "שונות",

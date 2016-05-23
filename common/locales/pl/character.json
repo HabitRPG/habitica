@@ -110,7 +110,7 @@
     "mage": "Mag",
     "mystery": "Tajemniczy",
     "changeClass": "Zmień klasę i przywróć punkty atrybutów",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Aby zmienić klasę musisz mieć co najmniej 10 level. ",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",
     "haveUnallocated": "Nieprzydzielone Punkty Atrybutów: <%= points %>",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "Pokaż przydział atrybutów",
     "hideQuickAllocation": "Ukryj przydział atrybutów",
     "quickAllocationLevelPopover": "Z każdym poziomem otrzymujesz jeden punkt, który możesz przydzielić wybranemu atrybutowi. Możesz to zrobić ręcznie, lub zdać się na jedną z możliwych opcji Automatycznej Alokacji, dostępnych w Użytkownik -> Statystyki Awatara.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "\"<%= attr %>\" nie jest poprawnym atrybutem.",
+    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów."
 }

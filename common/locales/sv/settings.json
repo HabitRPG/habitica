@@ -47,6 +47,7 @@
     "customDayStart": "Skräddarsydd Dagsstart",
     "changeCustomDayStart": "Ändra skräddarsydd dagsstarten?",
     "sureChangeCustomDayStart": "Är du säker på att du vill ändrar skräddarsydd dagsstarten?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Dina dagliga utmaningar kommer återställas den första gången du använder Habitica efter <%= time %>. Se till att ha avslutat dina dagliga utmaningar innan det händer!",
     "customDayStartInfo1": "Habitica återställer alltid dina dagliga utmaningar vid midnatt i din tidszon varje dag. Du kan ställa in den tiden här.",
     "misc": "Blandat",

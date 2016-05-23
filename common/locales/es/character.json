@@ -67,7 +67,7 @@
     "ultimGearText": "Has conseguido el conjunto de armas y armadura de mayor nivel en las siguientes clases:",
     "level": "Nivel",
     "levelUp": "¡Subiste de Nivel!",
-    "gainedLevel": "Has ganado un nivel!",
+    "gainedLevel": "¡Has subido de nivel!",
     "leveledUp": "Por cumplir tus tareas en la vida real has subido al <strong>Nivel <%= level %>!</strong>",
     "fullyHealed": "Has recobrado tu salud!",
     "huzzah": "Oh si!",

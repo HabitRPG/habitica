@@ -5,7 +5,7 @@
     "annoyingFriends": "Otravní přátelé",
     "annoyingFriendsText": "Byl členy družiny zkoulován <%= snowballs %> krát.",
     "alarmingFriends": "Strašliví přátelé",
-    "alarmingFriendsText": "Byl <%= spookDust %>krát vyděšen členy družiny.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Zemědělští přátelé",
     "agriculturalFriendsText": "Byl kamarády transformován <%= seeds %>krát na kytku.",
     "aquaticFriends": "Podvodní přátelé",

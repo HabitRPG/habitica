@@ -47,6 +47,7 @@
     "customDayStart": "Egyedi nap kezdet",
     "changeCustomDayStart": "Megváltoztatod az egyedi nap kezdetet?",
     "sureChangeCustomDayStart": "Biztosan meg akarod változtatni, mikor kezdődjön a nap?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "A napi feladataid legközelebb akkor indulnak újra, amikor a Habiticat <%= time %> után használod. Bizonyosodj meg róla, hogy ez előtt az idő előtt befejezed a napi feladataid.",
     "customDayStartInfo1": "A Habitican a napi feladataid újraindítása a saját időzónádbeli éjfélre van alapértelmezve. Ezt az időt itt tudod tesreszabni",
     "misc": "Egyéb",

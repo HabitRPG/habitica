@@ -12,6 +12,7 @@
     "etherealLion": "灵狮",
     "veteranWolf": "退伍军狼",
     "veteranTiger": "退伍老虎",
+    "veteranLion": "Veteran Lion",
     "cerberusPup": "地狱小狗",
     "hydra": "三头蛇",
     "mantisShrimp": "虾蛄",
@@ -62,7 +63,7 @@
     "hatchedPet": "你孵化了 <%= potion %> <%= egg %>!",
     "displayNow": "现在显示",
     "displayLater": "稍后显示",
-    "petNotOwned": "You do not own this pet.",
+    "petNotOwned": "你没有拥有这个宠物。",
     "earnedCompanion": "因为你的不懈努力，你又获得了一个新的伙伴，好好喂养它，让它成长!",
     "feedPet": "喂你的<%= name %>一个<%= article %><%= text %>？",
     "useSaddle": "把鞍用在<%= pet %>上？",
@@ -84,8 +85,8 @@
     "petKeyBoth": "全部释放",
     "confirmPetKey": "你确定吗？",
     "petKeyNeverMind": "还没有",
-    "petsReleased": "Pets released.",
-    "mountsAndPetsReleased": "Mounts and pets released",
-    "mountsReleased": "Mounts released",
+    "petsReleased": "宠物发布。",
+    "mountsAndPetsReleased": "坐骑和宠物发布",
+    "mountsReleased": "坐骑发布",
     "gemsEach": "每颗宝石"
 }

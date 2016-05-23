@@ -73,6 +73,7 @@
     "clearTags": "Limpar",
     "hideTags": "Ocultar",
     "showTags": "Mostrar",
+    "toRequired": "You must supply a to value",
     "startDate": "Data Inicial",
     "startDateHelpTitle": "Quando esta tarefa deve começar?",
     "startDateHelp": "Defina a data para a qual esta tarefa entra em vigor. Não será debitada nos dias anteriores.",

@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "パーティーの仲間に雪玉を投げましょう！　何か問題でも?　翌日まで効果がつづきます。",
     "spellSpecialSaltText": "塩",
     "spellSpecialSaltNotes": "だれかに雪玉を投げつけられた。ハハ、とてもおもしろい。だれかこの雪を拭いてくれ！",
-    "spellSpecialSpookDustText": "不気味なきらめき",
-    "spellSpecialSpookDustNotes": "友達を目が付いた空飛ぶ毛布に変えよう!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "不透明ポーション",
     "spellSpecialOpaquePotionNotes": "不気味なきらめきの効果を取り消す。",
     "spellSpecialShinySeedText": "輝く種",
@@ -50,7 +50,7 @@
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
     "partyNotFound": "Party not found",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

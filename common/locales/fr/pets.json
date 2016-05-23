@@ -12,6 +12,7 @@
     "etherealLion": "Lion Éthéré",
     "veteranWolf": "Loup de Vétéran",
     "veteranTiger": "Tigre de Vétéran",
+    "veteranLion": "Veteran Lion",
     "cerberusPup": "Chiot Cerbère",
     "hydra": "Hydre",
     "mantisShrimp": "Crevette-mante",
@@ -84,8 +85,8 @@
     "petKeyBoth": "Relâcher les Deux",
     "confirmPetKey": "Êtes-vous sur·e ?",
     "petKeyNeverMind": "Pas Encore",
-    "petsReleased": "Familiers libérées.",
-    "mountsAndPetsReleased": "Montures et familiers libérées",
+    "petsReleased": "Familiers libérés.",
+    "mountsAndPetsReleased": "Montures et familiers libérés",
     "mountsReleased": "Montures libérées",
     "gemsEach": "gemmes chacun"
 }

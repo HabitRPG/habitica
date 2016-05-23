@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Tira una palla di neve a un compagno di squadra! Cosa potrebbe mai andare storto? L'effetto scomparirà quando inizierà la nuova giornata del tuo \"bersaglio\".",
     "spellSpecialSaltText": "Sale",
     "spellSpecialSaltNotes": "Qualcuno ti ha tirato una palla di neve. Ah ah, divertente. Ora però toglimi questa neve di dosso!",
-    "spellSpecialSpookDustText": "Luci Sinistre",
-    "spellSpecialSpookDustNotes": "Trasforma un amico in un lenzuolo fluttuante con due occhi!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Pozione Opaca",
     "spellSpecialOpaquePotionNotes": "Annulla l'effetto di Luci Sinistre",
     "spellSpecialShinySeedText": "Seme Brillante",
@@ -50,7 +50,7 @@
     "spellNotFound": "Abilità \"<%= spellId %>\" non trovata.",
     "partyNotFound": "Squadra non trovata.",
     "targetIdUUID": "\"targetId\" deve essere un ID Utente valido.",
-    "challengeTasksNoCast": "Usare un'abilità sulle attività delle sfide non è supportato.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "Non possiedi questa abilità.",
     "spellLevelTooHigh": "Devi aver raggiunto il livello <%= level %> per usare questa abilità."
 }

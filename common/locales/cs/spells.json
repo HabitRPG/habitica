@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Hoď sněhovou koulí po členu družiny, co by se tak mohlo stát? Vydrží mu až do druhého dne.",
     "spellSpecialSaltText": "Sůl",
     "spellSpecialSaltNotes": "Někdo po tobě hodil sněhovou kouli. Ha ha, strašně vtipné. A teď ze mě dostaňte ten sníh!",
-    "spellSpecialSpookDustText": "Strašidelné jiskry",
-    "spellSpecialSpookDustNotes": "Změň kamaráda na poletující deku s očima!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Neprůhledný lektvar",
     "spellSpecialOpaquePotionNotes": "Zruš účinky strašidelných jisker.",
     "spellSpecialShinySeedText": "Třpytivé semínko",
@@ -50,7 +50,7 @@
     "spellNotFound": "Schopnost „<%= spellId %>\" nenalezena.",
     "partyNotFound": "Družina nenalezena",
     "targetIdUUID": "„cílovéId\" musí být platné ID uživatele. ",
-    "challengeTasksNoCast": "Použití schopností na výzvu není povoleno.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "Nevlastníte tuto schopnost.",
     "spellLevelTooHigh": "Pro použití této schopnosti musíte být úroveň <%= level %>."
 }

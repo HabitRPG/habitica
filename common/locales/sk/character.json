@@ -110,7 +110,7 @@
     "mage": "Mág",
     "mystery": "Záhada",
     "changeClass": "Zmeniť povolanie, vrátiť pridelené body atribútov",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Aby si mohol zmeniť povolanie, musíš byť aspoň level 10.",
     "levelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do atribútu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\".",
     "unallocated": "Nepridelené body atribútov",
     "haveUnallocated": "Máš <%= points %> nepriradených bodov atribútov",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "Zobraziť rozdelenie štatistík",
     "hideQuickAllocation": "Skryť rozdelenie štatistík",
     "quickAllocationLevelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do atribútu podľa svojho výberu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\", ktorú môžeš nájsť v časti Užívateľ -> Štatistiky.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
+    "invalidAttribute": "\"<%= attr %>\" nie je platný atribút.",
     "notEnoughAttrPoints": "You don't have enough attribute points."
 }

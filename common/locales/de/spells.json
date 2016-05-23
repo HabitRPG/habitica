@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Wirf einen Schneeball auf ein Gruppenmitglied! Was kann dabei schon schief gehen? Dauert bis zum Tageswechsel des Gruppenmitglieds an.",
     "spellSpecialSaltText": "Salz",
     "spellSpecialSaltNotes": "Jemand hat Dich mit Schnee eingeseift. Haha, sehr lustig. Jetzt ist aber Schluss!",
-    "spellSpecialSpookDustText": "Spukglitzer",
-    "spellSpecialSpookDustNotes": "Verwandle einen Freund in ein schwebendes Bettlaken mit Augen!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Trank der Entgeisterung",
     "spellSpecialOpaquePotionNotes": "Beendet den Effekt von Spukglitzer.",
     "spellSpecialShinySeedText": "Schimmernde Saat",
@@ -50,7 +50,7 @@
     "spellNotFound": "Fähigkeit \"<%= spellId %>\" nicht gefunden.",
     "partyNotFound": "Gruppe nicht gefunden",
     "targetIdUUID": "\"targetId\" muss eine gültige Benutzer-ID sein.",
-    "challengeTasksNoCast": "Eine Fähigkeit auf Wettbewerbs-Aufgaben anzuwenden wird nicht unterstützt.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "Du besitzt diese Fähigkeit nicht.",
     "spellLevelTooHigh": "Du musst Level <%= level %> sein, um diese Fähigkeit zu benutzen."
 }

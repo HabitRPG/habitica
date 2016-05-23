@@ -91,7 +91,7 @@
     "noActiveQuestToLeave": "Nessuna missione attiva da abbandonare",
     "questLeaderCannotLeaveQuest": "Quest leader cannot leave quest",
     "notPartOfQuest": "You are not part of the quest",
-    "noActiveQuestToAbort": "There is no active quest to abort.",
+    "noActiveQuestToAbort": "Non c'è una missione attiva da annullare.",
     "onlyLeaderAbortQuest": "Only the group or quest leader can abort a quest.",
     "questAlreadyRejected": "You already rejected the quest invitation.",
     "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",

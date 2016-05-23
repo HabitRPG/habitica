@@ -73,6 +73,7 @@
     "clearTags": "Ryd",
     "hideTags": "Skjul",
     "showTags": "Vis",
+    "toRequired": "You must supply a to value",
     "startDate": "Startdato",
     "startDateHelpTitle": "Hvornår skal denne opgave starte?",
     "startDateHelp": "Sæt datoen for, hvornår denne opgave begynder. Opgaven er ikke aktuel før den valgte dag.",

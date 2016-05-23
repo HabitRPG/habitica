@@ -5,7 +5,7 @@
     "annoyingFriends": "困った友達",
     "annoyingFriendsText": "パーティーの仲間から <%= snowballs %> 回、雪玉を投げられました。",
     "alarmingFriends": "要注意の友達",
-    "alarmingFriendsText": "パーティーの仲間から <%= spookDust %> 回、オバケにされました。",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "ぶざまな友達",
     "agriculturalFriendsText": "パーティーの仲間から <%= seeds %> 回、花にされました。",
     "aquaticFriends": "水の中の仲間たち",
@@ -73,5 +73,5 @@
     "sneakySqueakerSet": "こそこそしたピヨピヨ (盗賊)",
     "fallEventAvailability": "10月31日まで有効",
     "winterEventAvailability": "12月31日まで有効",
-    "springEventAvailability": "Available until May 31"
+    "springEventAvailability": "5月31日まで有効"
 }

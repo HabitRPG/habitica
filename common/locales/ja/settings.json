@@ -47,6 +47,7 @@
     "customDayStart": "日付更新の設定",
     "changeCustomDayStart": "日付更新する時間を変更しますか?",
     "sureChangeCustomDayStart": "日付更新する時間を変更します。よろしいですか?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "あなたの日課が次に更新されるのは <%= time %> です。この時間までに日課を片付けておきましょう!",
     "customDayStartInfo1": "Habitica の標準設定では、日課は、毎日あなたのタイム ゾーンでの深夜に更新されます。その時間をカスタマイズします。",
     "misc": "その他",

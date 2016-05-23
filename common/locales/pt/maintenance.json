@@ -1,10 +1,10 @@
 {
-  "habiticaBackSoon": "Don't worry, Habitica will be back soon!",
+  "habiticaBackSoon": "Não se preocupe. Habitica estará de volta em breve!",
   "importantMaintenance": "We are doing important maintenance that we estimate will last until <%= localDate %> in your timezone.",
-  "maintenance": "Maintenance",
+  "maintenance": "Manutenção",
   "maintenanceMoreInfo": "Want more information about the maintenance? <%= linkStart %>Check out our info page<%= linkEnd %>.",
-  "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",
-  "thanksForPatience": "Thanks for your patience!",
+  "noDamageKeepStreaks": "NÃO receberá dano ou perderá a sua sequência!",
+  "thanksForPatience": "Obrigado pela sua paciência!",
   "twitterMaintenanceUpdates": "For the most recent updates, watch our <a href='https://twitter.com/habitica'>Twitter</a>, where we will be posting status information.",
   "veteranPetAward": "At the end, you will receive a Veteran pet!",
 

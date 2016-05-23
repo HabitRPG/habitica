@@ -5,7 +5,7 @@
     "annoyingFriends": "Złośliwi znajomi",
     "annoyingFriendsText": "Dostał <%= snowballs %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
-    "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Rolniczy przyjaciele",
     "agriculturalFriendsText": "Przemieniony w kwiat <%= seeds %> razy przez członków drużyny.",
     "aquaticFriends": "Wodni przyjaciele",
@@ -73,5 +73,5 @@
     "sneakySqueakerSet": "Przebiegły Kwikacz (Łotrzyk)",
     "fallEventAvailability": "Dostępne do 31 października",
     "winterEventAvailability": "Dostępne do 31 grudnia",
-    "springEventAvailability": "Available until May 31"
+    "springEventAvailability": "Dostępne do 31 maja"
 }

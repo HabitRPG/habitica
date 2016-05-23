@@ -182,8 +182,8 @@
     "userAlreadyInAParty": "Uživatel již je v družině.",
     "userWithIDNotFound": "Uživatel s id „<%= userId %>\" nenalezen.",
     "userHasNoLocalRegistration": "User does not have a local registration (username, email, password).",
-    "uuidsMustBeAnArray": "UUIDs invites must be a an Array.",
-    "emailsMustBeAnArray": "Email invites must be a an Array.",
+    "uuidsMustBeAnArray": "User ID invites must be an array.",
+    "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "Můžete pozvat pouze „<%= maxInvites %>\" najednou.",
     "onlyCreatorOrAdminCanDeleteChat": "Nemáte oprávnění k smazání této zprávy."
 }

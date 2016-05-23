@@ -12,6 +12,7 @@
     "etherealLion": "Éterický lev",
     "veteranWolf": "Vlk veterán",
     "veteranTiger": "Tiger Veterán",
+    "veteranLion": "Veteran Lion",
     "cerberusPup": "Cerberusove šteniatko",
     "hydra": "Hydra",
     "mantisShrimp": "Garnát",
@@ -62,7 +63,7 @@
     "hatchedPet": "Vyliahol si <%= potion %> <%= egg %>!",
     "displayNow": "Ukázať teraz",
     "displayLater": "Ukázať neskôr",
-    "petNotOwned": "You do not own this pet.",
+    "petNotOwned": "Nevlastníš toto zvieratko.",
     "earnedCompanion": "Vďaka tvojej produktivite si získal nového spoločníka. Nakŕm ho, aby vyrástol!",
     "feedPet": "Chceš nakŕmiť toto zvieratko: <%= name %> týmto: <%= article %><%= text %>?",
     "useSaddle": "Chceš osedlať toto zvieratko: <%= pet %>?",
@@ -84,8 +85,8 @@
     "petKeyBoth": "Vypusti oboje",
     "confirmPetKey": "Si si istý?",
     "petKeyNeverMind": "Ešte nie",
-    "petsReleased": "Pets released.",
-    "mountsAndPetsReleased": "Mounts and pets released",
-    "mountsReleased": "Mounts released",
+    "petsReleased": "Zvieratka vypustené.",
+    "mountsAndPetsReleased": "Tátoše a zvieratká vypustené",
+    "mountsReleased": "Tátoše vypustené",
     "gemsEach": "drahokamy za každý"
 }

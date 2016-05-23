@@ -131,7 +131,7 @@
     "notAllowedHourglass": "Pet/Mount not available for purchase with Mystic Hourglass.",
     "readCard": "<%= cardType %> has been read",
     "cardTypeRequired": "Card type required",
-    "cardTypeNotAllowed": "Unkown card type.",
+    "cardTypeNotAllowed": "Unknown card type.",
     "invalidCoupon": "Invalid coupon code.",
     "couponUsed": "Coupon code already used.",
     "noSudoAccess": "You don't have sudo access.",

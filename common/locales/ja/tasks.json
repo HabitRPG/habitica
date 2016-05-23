@@ -73,6 +73,7 @@
     "clearTags": "クリア",
     "hideTags": "非表示にする",
     "showTags": "表示する",
+    "toRequired": "You must supply a to value",
     "startDate": "開始日",
     "startDateHelpTitle": "このタスクはいつ始める?",
     "startDateHelp": "タスクが効果を発する開始日を設定します。ただし、過去の日付を設定することができません。",

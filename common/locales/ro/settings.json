@@ -47,6 +47,7 @@
     "customDayStart": "Când începe ziua",
     "changeCustomDayStart": "Dorești schimbarea orei de început a zilei?",
     "sureChangeCustomDayStart": "Sigur dorești schimbarea orei de început a zilei?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Sarcinile tale zilnice se vor reseta prima dată când folosești Habitica după ora <%= time %>. Ai grijă să completezi sarcinile zilnice înainte de această oră!",
     "customDayStartInfo1": "Habitica defaults to check and reset your Dailies at midnight in your own time zone each day. You can customize that time here.",
     "misc": "Altele",

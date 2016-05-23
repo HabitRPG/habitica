@@ -1,5 +1,5 @@
 {
-  "habiticaBackSoon": "Don't worry, Habitica will be back soon!",
+  "habiticaBackSoon": "心配しないでください、ハビティカもすぐに換えてします！",
   "importantMaintenance": "We are doing important maintenance that we estimate will last until <%= localDate %> in your timezone.",
   "maintenance": "Maintenance",
   "maintenanceMoreInfo": "Want more information about the maintenance? <%= linkStart %>Check out our info page<%= linkEnd %>.",

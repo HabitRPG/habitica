@@ -110,7 +110,7 @@
     "mage": "מכשף",
     "mystery": "מסתורין",
     "changeClass": "שינוי מקצוע, החזרת נקודות תכונה",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "כדי לשנות מקצוע עליך להיות לפחות ברמה 10.",
     "levelPopover": "כל דרגה מעניקה לך נקודה אחת להקצות לתכונה לפי בחירתך. ניתן לעשות זאת באופן ידני, או לתת למשחק להחליט בשבילך באמצעות אחת האופציות להקצאה אוטומטית.",
     "unallocated": "נקודות תכונה שטרם הוקצו",
     "haveUnallocated": "יש לך <%= points %> נקודות תכונה שטרם הקצית.",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "הצגת הקצאת תכונות",
     "hideQuickAllocation": "הסתרת הקצאת תכונות",
     "quickAllocationLevelPopover": "כל דרגה מקנה לכם נקודה אחת לטובת תכונה כרצונכם. תוכלו לעשות זאת ידנית, או לתת למשחק להחליט בשבילכם באמצעות אופציית הקצאת הנקודות האוטומטית שניתן למצוא תחת משתמש -> תכונות דמות.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "\"<%= attr %>\" אינה תכונה תקפה.",
+    "notEnoughAttrPoints": "אין לך מספיק נקודות תכונה."
 }

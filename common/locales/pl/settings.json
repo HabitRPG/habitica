@@ -47,6 +47,7 @@
     "customDayStart": "Własny początek dnia",
     "changeCustomDayStart": "Zmienić własny początek dnia?",
     "sureChangeCustomDayStart": "Czy na pewno chcesz zmienić własny początek dnia?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Twoje Codzienne zresetują się po pierwszym użyciu Habitiki po <%= time %>. Upewnij się, że ukończyłeś swoje Codzienne przed tym czasem!",
     "customDayStartInfo1": "Habitica domyślnie sprawdza i resetuje twoje Codzienne o północy każdego dnia w twojej strefie czasowej. Tutaj możesz zmienić ten czas.",
     "misc": "Pozostałe",
@@ -166,5 +167,5 @@
     "amazonPayments": "Płatności Amazon",
     "timezone": "Strefa czasowa",
     "timezoneUTC": "Habitica korzysta ze strefy czasowej ustawionej na twoim komputerze, to znaczy: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezoneInfo": "Jeśli strefa czasowa jest błędna, spróbuj najpierw odświeżyć stronę przyciskiem odświeżania w przeglądarce, aby upewnić się, że Habitica ma dostęp do najnowszych danych. Jeśli strefa wciąż jest nieprawidłowa, ustaw ją na swoim komputerze i znów odśwież stronę.<br><br> <strong>Jeśli używasz Habitiki na innych komputerach lub urządzeniach mobilnych, strefa czasowa na każdym z nich musi być taka sama.</strong> Jeśli twoje codzienne zadania resetują się o niewłaściwej porze, sprawdź w ten sam sposób inne komputery oraz przeglądarki w twoich urządzeniach mobilnych."
 }

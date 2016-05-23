@@ -47,6 +47,7 @@
     "customDayStart": "Vlastní začátek dne",
     "changeCustomDayStart": "Změnit vlastní začátek dne?",
     "sureChangeCustomDayStart": "Jsi si jistý, že chceš změnit svůj vlastní začátek dne?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Tve Denní úkoly se resetují ve chvíli, kdy se po <%= time %> vrátíš do země Habitica. Ujisti se, že jsi je všechny stihnul dokončit před tímto časem!",
     "customDayStartInfo1": "Při základním nastavení program Habitica kontroluje a resetuje tvé Denní úkoly každý den o půlnoci ve tvé časové zóně. Tento čas můžeš změnit zde.",
     "misc": "Ostatní",

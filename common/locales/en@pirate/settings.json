@@ -47,6 +47,7 @@
     "customDayStart": "Custom Day Start",
     "changeCustomDayStart": "Change Custom Day Start, matey?",
     "sureChangeCustomDayStart": "Arr ye sure ye want t' change yer custom day start?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Yer Dailies will next reset the first time you use Habitica after <%= time %>. Ye better be sure ye've completed yer Dailies by that time!",
     "customDayStartInfo1": "Habitica defaults t' check an' reset yer Dailies at midnight in yer own time zone ev'ry day. Ye c'n customize that time here.",
     "misc": "Misc",

@@ -73,6 +73,7 @@
     "clearTags": "Wyczyść",
     "hideTags": "Ukryj",
     "showTags": "Pokaż",
+    "toRequired": "You must supply a to value",
     "startDate": "Data rozpoczęcia",
     "startDateHelpTitle": "Kiedy to zadanie powinno się rozpocząć?",
     "startDateHelp": "Wyznacz termin wykonania tego zadania. Przed wybraną datą nie będą z nim związane żadne efekty.",

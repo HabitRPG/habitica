@@ -81,10 +81,10 @@
     "leveledUpReceivedQuest": "Vous avez atteint le <strong>niveau <%= level %></strong> et reçu un parchemin de quête !",
     "questInvitationDoesNotExist": "Aucune invitation à la quête n'a été envoyée pour l'instant.",
     "questInviteNotFound": "Aucune invitation à la quête trouvée.",
-    "guildQuestsNotSupported": "Les guildes ne peuvent pas être invitées dans des quêtes.",
+    "guildQuestsNotSupported": "Les guildes ne peuvent pas être invitées à joindre une quête.",
     "questNotFound": "Quête \"<%= key %>\" introuvable.",
     "questNotOwned": "Vous ne possédez pas ce parchemin de quête.",
-    "questNotGoldPurchasable": "La quête \"<%= key %>\" n'est pas une quête achetable avec de l'or.",
+    "questNotGoldPurchasable": "La quête \"<%= key %>\" n'est pas achetable avec de l'or.",
     "questLevelTooHigh": "Vous devez être au moins au niveau <%= level %> pour commencer cette quête.",
     "questAlreadyUnderway": "Votre équipe est déjà en quête. Essayez à nouveau lorsque la quête actuelle sera terminée.",
     "questAlreadyAccepted": "Vous avez déjà accepté l'invitation à la quête.",
@@ -94,8 +94,8 @@
     "noActiveQuestToAbort": "Il n'y a pas de quête active à interrompre.",
     "onlyLeaderAbortQuest": "Seul le responsable du groupe ou de la quête peut interrompre une quête.",
     "questAlreadyRejected": "Vous avez déjà rejeté l'invitation à la quête.",
-    "cantCancelActiveQuest": "Vous ne pouvez pas annuler une quête active, utilisez la fonctionnalité interrompre à la place.",
+    "cantCancelActiveQuest": "Vous ne pouvez pas annuler une quête active, utilisez la fonction interrompre à la place.",
     "onlyLeaderCancelQuest": "Seul le responsable du groupe ou de la quête peut annuler la quête.",
-    "questNotPending": "Il n'y a pas de quête à démarrer.",
-    "questOrGroupLeaderOnlyStartQuest": "Seul le responsable de quête du groupe peut forcer le début de la quête"
+    "questNotPending": "Il n'y a aucune quête à commencer.",
+    "questOrGroupLeaderOnlyStartQuest": "Seul le responsable du groupe ou de la quête peut forcer le début de la quête"
 }

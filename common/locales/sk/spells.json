@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Hoď snehovou guľou po členovi svojej družiny! Čo zlé by sa mohlo stať? Trvá do konca jeho dňa.",
     "spellSpecialSaltText": "Soľ",
     "spellSpecialSaltNotes": "Niekto do teba hodil snehovú guľu. Ha ha, veľmi vtipné. Teraz zo mňa dostaň ten sneh!",
-    "spellSpecialSpookDustText": "Strašidelné iskričky",
-    "spellSpecialSpookDustNotes": "Premení tvojho priateľa na lietajúcu plachtu s očami!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Elixír nepriehľadnosti",
     "spellSpecialOpaquePotionNotes": "Zruší účinky strašidelných iskričiek.",
     "spellSpecialShinySeedText": "Lesklé semienko",
@@ -50,7 +50,7 @@
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
     "partyNotFound": "Party not found",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

@@ -131,7 +131,7 @@
     "notAllowedHourglass": "Haustier/Reittier nicht zum Kauf mit mystischen Sanduhren verfügbar.",
     "readCard": "<%= cardType %> wurde gelesen",
     "cardTypeRequired": "Kartentyp erforderlich",
-    "cardTypeNotAllowed": "Unbekannter Kartentyp.",
+    "cardTypeNotAllowed": "Unknown card type.",
     "invalidCoupon": "Ungültiger Gutschein-Code",
     "couponUsed": "Gutschein wurde bereits eingelöst.",
     "noSudoAccess": "Du hast keine sudo-Rechte.",

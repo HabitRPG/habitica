@@ -73,6 +73,7 @@
     "clearTags": "Очистити",
     "hideTags": "Приховати",
     "showTags": "Показати",
+    "toRequired": "You must supply a to value",
     "startDate": "Дата початку",
     "startDateHelpTitle": "Коли має починатися це завдання?",
     "startDateHelp": "Вкажіть дату, коли це завдання набуде чинності. До цієї дати воно буде не обов'язковим.",
