@@ -2,7 +2,7 @@
 
 habitrpg.controller("TavernCtrl", ['$scope', 'Groups', 'User', 'Challenges',
     function($scope, Groups, User, Challenges) {
-      Groups.tavern()
+      Groups.tavern(true)
         .then(function (tavern) {
           $scope.group = tavern;
           Challenges.getGroupChallenges($scope.group._id)

@@ -11,13 +11,20 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
 
-      Groups.Group.syncParty()
-        .then(function successCallback(group) {
-          $rootScope.party = $scope.group = group;
-          checkForNotifications();
-        }, function errorCallback(response) {
-          $rootScope.party = $scope.group = $scope.newGroup = { type: 'party' };
-        });
+      function handlePartyResponse (group) {
+        $rootScope.party = $scope.group = group;
+        checkForNotifications();
+      }
+
+      function handlePartyError (response) {
+        $rootScope.party = $scope.group = $scope.newGroup = { type: 'party' };
+      }
+
+      if ($state.is('options.social.party')) {
+        Groups.party(true).then(handlePartyResponse, handlePartyError);
+      } else {
+        Groups.Group.syncParty().then(handlePartyResponse, handlePartyError);
+      }
 
       function checkForNotifications () {
         // Checks if user's party has reached 2 players for the first time.
