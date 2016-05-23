@@ -2,42 +2,54 @@ import i18n from '../i18n';
 import content from '../content/index';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
+import pickDeep from '../libs/pickDeep';
+import {
+  BadRequest,
+  NotAuthorized,
+  NotFound,
+} from '../libs/errors';
 
-module.exports = function(user, req, cb, analytics) {
-  var mysterySet, ref;
+module.exports = function buyMysterySet (user, req = {}, analytics) {
+  let key = _.get(req, 'params.key');
+  if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
+
   if (!(user.purchased.plan.consecutive.trinkets > 0)) {
-    return typeof cb === "function" ? cb({
-      code: 401,
-      message: i18n.t('notEnoughHourglasses', req.language)
-    }) : void 0;
+    throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
   }
-  mysterySet = (ref = content.timeTravelerStore(user.items.gear.owned)) != null ? ref[req.params.key] : void 0;
-  if ((typeof window !== "undefined" && window !== null ? window.confirm : void 0) != null) {
-    if (!window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) {
-      return;
-    }
-  }
+
+  let ref = content.timeTravelerStore(user.items.gear.owned);
+  let mysterySet = ref ? ref[key] : undefined;
+
   if (!mysterySet) {
-    return typeof cb === "function" ? cb({
-      code: 404,
-      message: "Mystery set not found, or set already owned"
-    }) : void 0;
+    throw new NotFound(i18n.t('mysterySetNotFound', req.language));
   }
-  _.each(mysterySet.items, function(i) {
-    var analyticsData;
-    user.items.gear.owned[i.key] = true;
-    analyticsData = {
-      uuid: user._id,
-      itemKey: i.key,
-      itemType: 'Subscriber Gear',
-      acquireMethod: 'Hourglass',
-      category: 'behavior'
-    };
-    return analytics != null ? analytics.track('acquire item', analyticsData) : void 0;
+
+  if (typeof window !== 'undefined' && window.confirm) { // TODO move to client
+    if (!window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) return;
+  }
+
+  _.each(mysterySet.items, item => {
+    user.items.gear.owned[item.key] = true;
+    if (analytics) {
+      analytics.track('acquire item', {
+        uuid: user._id,
+        itemKey: item.key,
+        itemType: 'Subscriber Gear',
+        acquireMethod: 'Hourglass',
+        category: 'behavior',
+      });
+    }
   });
+
   user.purchased.plan.consecutive.trinkets--;
-  return typeof cb === "function" ? cb({
-    code: 200,
-    message: i18n.t('hourglassPurchaseSet', req.language)
-  }, _.pick(user, splitWhitespace('items purchased.plan.consecutive'))) : void 0;
+
+
+  if (req.v2 === true) {
+    return pickDeep(user, splitWhitespace('items purchased.plan.consecutive'));
+  } else {
+    return [
+      { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
+      i18n.t('hourglassPurchaseSet', req.language),
+    ];
+  }
 };

@@ -1,13 +1,16 @@
 'use strict';
 
 describe('Filters Controller', function() {
-  var scope, user;
+  var scope, user, userService;
 
-  beforeEach(inject(function($rootScope, $controller, Shared) {
+  beforeEach(inject(function($rootScope, $controller, Shared, User) {
     user = specHelper.newUser();
     Shared.wrap(user);
     scope = $rootScope.$new();
-    $controller('FiltersCtrl', {$scope: scope, User: {user: user}});
+    // user.filters = {};
+    User.setUser(user);
+    userService = User;
+    $controller('FiltersCtrl', {$scope: scope, User: User});
   }));
 
   describe('tags', function(){
@@ -22,9 +25,9 @@ describe('Filters Controller', function() {
     it('toggles tag filtering', inject(function(Shared){
       var tag = {id: Shared.uuid(), name: 'myTag'};
       scope.toggleFilter(tag);
-      expect(user.filters[tag.id]).to.eql(true);
+      expect(userService.user.filters[tag.id]).to.eql(true);
       scope.toggleFilter(tag);
-      expect(user.filters[tag.id]).to.eql(false);
+      expect(userService.user.filters[tag.id]).to.eql(false);
     }));
   });
 
@@ -33,7 +36,7 @@ describe('Filters Controller', function() {
       scope.filterQuery = 'task';
       scope.updateTaskFilter();
 
-      expect(user.filterQuery).to.eql(scope.filterQuery);
+      expect(userService.user.filterQuery).to.eql(scope.filterQuery);
     });
   });
 });
