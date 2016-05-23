@@ -1,12 +1,10 @@
-// TODO move to client
-
-module.exports = function percent (x, y, dir) {
-  let roundFn;
+module.exports = function(x, y, dir) {
+  var roundFn;
   switch (dir) {
-    case 'up':
+    case "up":
       roundFn = Math.ceil;
       break;
-    case 'down':
+    case "down":
       roundFn = Math.floor;
       break;
     default:

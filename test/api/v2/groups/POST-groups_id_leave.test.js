@@ -28,9 +28,9 @@ describe('POST /groups/:id/leave', () => {
     it('leaves the group', async () => {
       await user.post(`/groups/${group._id}/leave`);
 
-      await user.sync();
+      await group.sync();
 
-      expect(user.guilds).to.not.include(group._id);
+      expect(group.members).to.not.include(user._id);
     });
   });
 

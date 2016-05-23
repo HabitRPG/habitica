@@ -1,18 +1,14 @@
 /* eslint-disable no-use-before-define */
 
 import superagent from 'superagent';
-import nconf from 'nconf';
-import { isEmpty, cloneDeep } from 'lodash';
 
-const API_TEST_SERVER_PORT = nconf.get('PORT');
+const API_TEST_SERVER_PORT = 3003;
 let apiVersion;
 
-// Sets up an object that can make all REST requests
+// Sets up an abject that can make all REST requests
 // If a user is passed in, the uuid and api token of
 // the user are used to make the requests
-export function requester (user = {}, additionalSets = {}) {
-  additionalSets = cloneDeep(additionalSets); // cloning because it could be modified later to set cookie
-
+export function requester (user = {}, additionalSets) {
   return {
     get: _requestMaker(user, 'get', additionalSets),
     post: _requestMaker(user, 'post', additionalSets),
@@ -25,21 +21,12 @@ requester.setApiVersion = (version) => {
   apiVersion = version;
 };
 
-function _requestMaker (user, method, additionalSets = {}) {
+function _requestMaker (user, method, additionalSets) {
   if (!apiVersion) throw new Error('apiVersion not set');
 
   return (route, send, query) => {
     return new Promise((resolve, reject) => {
-      let url = `http://localhost:${API_TEST_SERVER_PORT}`;
-
-      // do not prefix with api/apiVersion requests to top level routes like dataexport, payments and emails
-      if (route.indexOf('/email') === 0 || route.indexOf('/export') === 0 || route.indexOf('/paypal') === 0 || route.indexOf('/amazon') === 0 || route.indexOf('/stripe') === 0) {
-        url += `${route}`;
-      } else {
-        url += `/api/${apiVersion}${route}`;
-      }
-
-      let request = superagent[method](url)
+      let request = superagent[method](`http://localhost:${API_TEST_SERVER_PORT}/api/${apiVersion}${route}`)
         .accept('application/json');
 
       if (user && user._id && user.apiToken) {
@@ -48,7 +35,7 @@ function _requestMaker (user, method, additionalSets = {}) {
           .set('x-api-key', user.apiToken);
       }
 
-      if (!isEmpty(additionalSets)) {
+      if (additionalSets) {
         request.set(additionalSets);
       }
 
@@ -59,58 +46,14 @@ function _requestMaker (user, method, additionalSets = {}) {
           if (err) {
             if (!err.response) return reject(err);
 
-            let parsedError = _parseError(err);
-
-            return reject(parsedError);
+            return reject({
+              code: err.status,
+              text: err.response.body.err,
+            });
           }
 
-          resolve(_parseRes(response));
+          resolve(response.body);
         });
     });
   };
-}
-
-function _parseRes (res) {
-  let contentType = res.headers['content-type'] || '';
-  let contentDisposition = res.headers['content-disposition'] || '';
-
-  if (contentType.indexOf('json') === -1) { // not a json response
-    return res.text;
-  }
-
-  if (contentDisposition.indexOf('attachment') !== -1) {
-    return res.body;
-  }
-
-  if (apiVersion === 'v2') {
-    return res.body;
-  } else if (apiVersion === 'v3') {
-    if (res.body.message) {
-      return {
-        data: res.body.data,
-        message: res.body.message,
-      };
-    } else {
-      return res.body.data;
-    }
-  }
-}
-
-function _parseError (err) {
-  let parsedError;
-
-  if (apiVersion === 'v2') {
-    parsedError = {
-      code: err.status,
-      text: err.response.body.err,
-    };
-  } else if (apiVersion === 'v3') {
-    parsedError = {
-      code: err.status,
-      error: err.response.body.error,
-      message: err.response.body.message,
-    };
-  }
-
-  return parsedError;
 }

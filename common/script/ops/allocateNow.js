@@ -1,15 +1,10 @@
 import _ from 'lodash';
-import autoAllocate from '../fns/autoAllocate';
 
-module.exports = function allocateNow (user, req = {}) {
-  _.times(user.stats.points, () => autoAllocate(user));
+module.exports = function(user, req, cb) {
+  _.times(user.stats.points, user.fns.autoAllocate);
   user.stats.points = 0;
-
-  if (req.v2 === true) {
-    return _.pick(user, 'stats');
-  } else {
-    return [
-      user.stats,
-    ];
+  if (typeof user.markModified === "function") {
+    user.markModified('stats');
   }
+  return typeof cb === "function" ? cb(null, user.stats) : void 0;
 };

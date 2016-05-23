@@ -12,7 +12,7 @@
           td
             a(ui-sref='options.social.challenges.detail({cid:challenge._id, groupIdFilter: group._id})')
               markdown(text='challenge.name')
-    div(ng-if='!group.challenges || group.challenges.length == 0')
+    div(ng-if='group.challenges.length == 0')
       p
         |&nbsp;
         =env.t('noChallenges')

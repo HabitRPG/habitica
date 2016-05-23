@@ -3,12 +3,12 @@ div(ng-if='task._editing')
 
     // Broken Challenge
     .well(ng-if='task.challenge.broken')
-      div(ng-if='task.challenge.broken=="TASK_DELETED" || task.challenge.broken=="CHALLENGE_TASK_NOT_FOUND')
+      div(ng-if='task.challenge.broken=="TASK_DELETED"')
         p=env.t('brokenTask')
         p
           a(ng-click='unlink(task, "keep")')=env.t('keepIt')
           | &nbsp;&nbsp;
-          a(ng-click="removeTask(task, obj)")=env.t('removeIt')
+          a(ng-click="removeTask(task, obj[list.type+'s'])")=env.t('removeIt')
       div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
         p
           |&nbsp;

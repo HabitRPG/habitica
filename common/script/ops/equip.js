@@ -1,68 +1,52 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import handleTwoHanded from '../fns/handleTwoHanded';
-import {
-  NotFound,
-  BadRequest,
-} from '../libs/errors';
-import _ from 'lodash';
 
-module.exports = function equip (user, req = {}) {
-  // Being type a parameter followed by another parameter
-  // when using the API it must be passes specifically in the URL, it's won't default to equipped
-  let type = _.get(req, 'params.type', 'equipped');
-  let key = _.get(req, 'params.key');
-
-  if (!key || !type) throw new BadRequest(i18n.t('missingTypeKeyEquip', req.language));
-  if (['mount', 'pet', 'costume', 'equipped'].indexOf(type) === -1) {
-    throw new BadRequest(i18n.t('invalidTypeEquip', req.language));
-  }
-
-  let message;
-
+module.exports = function(user, req, cb) {
+  var item, key, message, ref, type;
+  ref = [req.params.type || 'equipped', req.params.key], type = ref[0], key = ref[1];
   switch (type) {
-    case 'mount': {
+    case 'mount':
       if (!user.items.mounts[key]) {
-        throw new NotFound(i18n.t('mountNotOwned', req.language));
+        return typeof cb === "function" ? cb({
+          code: 404,
+          message: ":You do not own this mount."
+        }) : void 0;
       }
-
       user.items.currentMount = user.items.currentMount === key ? '' : key;
       break;
-    }
-    case 'pet': {
+    case 'pet':
       if (!user.items.pets[key]) {
-        throw new NotFound(i18n.t('petNotOwned', req.language));
+        return typeof cb === "function" ? cb({
+          code: 404,
+          message: ":You do not own this pet."
+        }) : void 0;
       }
-
       user.items.currentPet = user.items.currentPet === key ? '' : key;
       break;
-    }
     case 'costume':
-    case 'equipped': {
+    case 'equipped':
+      item = content.gear.flat[key];
       if (!user.items.gear.owned[key]) {
-        throw new NotFound(i18n.t('gearNotOwned', req.language));
+        return typeof cb === "function" ? cb({
+          code: 404,
+          message: ":You do not own this gear."
+        }) : void 0;
       }
-
-      let item = content.gear.flat[key];
-
       if (user.items.gear[type][item.type] === key) {
-        user.items.gear[type][item.type] = `${item.type}_base_0`;
+        user.items.gear[type][item.type] = item.type + "_base_0";
         message = i18n.t('messageUnEquipped', {
-          itemText: item.text(req.language),
+          itemText: item.text(req.language)
         }, req.language);
       } else {
         user.items.gear[type][item.type] = item.key;
-        message = handleTwoHanded(user, item, type, req);
+        message = user.fns.handleTwoHanded(item, type, req);
       }
-      break;
-    }
+      if (typeof user.markModified === "function") {
+        user.markModified("items.gear." + type);
+      }
   }
-
-  if (req.v2 === true) {
-    return user.items;
-  } else {
-    let res = [user.items];
-    if (message) res.push(message);
-    return res;
-  }
+  return typeof cb === "function" ? cb((message ? {
+    code: 200,
+    message: message
+  } : null), user.items) : void 0;
 };

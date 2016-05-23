@@ -5,7 +5,7 @@
     "annoyingFriends": "Annoying Friends",
     "annoyingFriendsText": "Got snowballed <%= snowballs %> times by party members.",
     "alarmingFriends": "Alarming Friends",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "agriculturalFriends": "Agricultural Friends",
     "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "aquaticFriends": "Aquatic Friends",

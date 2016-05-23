@@ -33,9 +33,9 @@ script(type='text/ng-template', id='modals/member.html')
             include ../profiles/achievements
   .modal-footer
     .btn-group.pull-left(ng-if='::user')
-      button.btn.btn-md.btn-default(ng-if='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="User.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+      button.btn.btn-md.btn-default(ng-if='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
         span.glyphicon.glyphicon-plus
-      button.btn.btn-md.btn-default(ng-if='profile._id != user._id && !profile.contributor.admin && !(user.inbox.blocks | contains:profile._id)', tooltip=env.t('block'), ng-click="User.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+      button.btn.btn-md.btn-default(ng-if='profile._id != user._id && !profile.contributor.admin && !(user.inbox.blocks | contains:profile._id)', tooltip=env.t('block'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
         span.glyphicon.glyphicon-ban-circle
       button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
         span.glyphicon.glyphicon-envelope
@@ -94,9 +94,9 @@ script(type='text/ng-template', id='modals/send-gift.html')
 
   .modal-footer
     - var fromBal = "gift.type=='gems' && gift.gems.fromBalance"
-    button.btn.btn-primary(ng-show=fromBal, ng-click='sendGift(profile._id)')=env.t("send")
+    button.btn.btn-primary(ng-show=fromBal, ng-click='sendGift(profile._id, gift)')=env.t("send")
     a.btn.btn-primary(ng-hide=fromBal, ng-click='Payments.showStripe({gift:gift, uuid:profile._id})')=env.t('card')
-    a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?_id={{::user._id}}&apiToken={{::User.settings.auth.apiToken}}&gift={{Payments.encodeGift(profile._id, gift)}}') PayPal
+    a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?_id={{::user._id}}&apiToken={{::user.apiToken}}&gift={{Payments.encodeGift(profile._id, gift)}}') PayPal
     .btn.btn-success(ng-hide=fromBal, ng-click="Payments.amazonPayments.init({type: 'single', gift: gift, giftedTo: profile._id})") Amazon Payments
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
 

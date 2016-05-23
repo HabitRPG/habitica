@@ -12,12 +12,6 @@ describe('Settings Controller', function () {
       user = specHelper.newUser();
       User = {
         set: sandbox.stub(),
-        reroll: sandbox.stub(),
-        rebirth: sandbox.stub(),
-        releasePets: sandbox.stub(),
-        releaseMounts: sandbox.stub(),
-        releaseBoth: sandbox.stub(),
-        setCustomDayStart: sandbox.stub(),
         user: user
       };
 
@@ -87,11 +81,19 @@ describe('Settings Controller', function () {
   });
 
   describe('#saveDayStart', function () {
-    it('updates user\'s custom day start', function () {
+
+    it('updates user\'s custom day start and last cron', function () {
+      var fakeCurrentTime = new Date(2013, 3, 1, 8, 12).getTime();
+      var expectedTime = fakeCurrentTime;
+      sandbox.useFakeTimers(fakeCurrentTime);
       scope.dayStart = 5;
       scope.saveDayStart();
 
-      expect(User.setCustomDayStart).to.be.calledWith(5);
+      expect(User.set).to.be.calledOnce;
+      expect(User.set).to.be.calledWith({
+        'preferences.dayStart': 5,
+        'lastCron': expectedTime
+      });
     });
   });
 
@@ -121,7 +123,7 @@ describe('Settings Controller', function () {
 
         scope.reroll(true);
 
-        expect(User.reroll).to.be.calledWith({});
+        expect(user.ops.reroll).to.be.calledWith({});
       });
 
       it('navigates to the tasks page when confirmed', function () {
@@ -171,7 +173,7 @@ describe('Settings Controller', function () {
 
         scope.rebirth(true);
 
-        expect(User.rebirth).to.be.calledWith({});
+        expect(user.ops.rebirth).to.be.calledWith({});
       });
 
       it('navigates to tasks page when confirmed', function () {
@@ -214,9 +216,9 @@ describe('Settings Controller', function () {
       it('doesn\'t call any release method if type is not provided', function () {
         scope.releaseAnimals();
 
-        expect(User.releasePets).to.not.be.called;
-        expect(User.releaseMounts).to.not.be.called;
-        expect(User.releaseBoth).to.not.be.called;
+        expect(User.user.ops.releasePets).to.not.be.called;
+        expect(User.user.ops.releaseMounts).to.not.be.called;
+        expect(User.user.ops.releaseBoth).to.not.be.called;
       });
 
       it('doesn\'t redirect to tasks page if type is not provided', function () {
@@ -228,7 +230,7 @@ describe('Settings Controller', function () {
       it('calls releasePets when "pets" is provided', function () {
         scope.releaseAnimals('pets');
 
-        expect(User.releasePets).to.be.calledOnce;
+        expect(User.user.ops.releasePets).to.be.calledOnce;
       });
 
       it('navigates to the tasks page when "pets" is provided', function () {
@@ -240,7 +242,7 @@ describe('Settings Controller', function () {
       it('calls releaseMounts when "mounts" is provided', function () {
         scope.releaseAnimals('mounts');
 
-        expect(User.releaseMounts).to.be.calledOnce;
+        expect(User.user.ops.releaseMounts).to.be.calledOnce;
       });
 
       it('navigates to the tasks page when "mounts" is provided', function () {
@@ -252,7 +254,7 @@ describe('Settings Controller', function () {
       it('calls releaseBoth when "both" is provided', function () {
         scope.releaseAnimals('both');
 
-        expect(User.releaseBoth).to.be.calledOnce;
+        expect(User.user.ops.releaseBoth).to.be.calledOnce;
       });
 
       it('navigates to the tasks page when "both" is provided', function () {
@@ -264,9 +266,9 @@ describe('Settings Controller', function () {
       it('does not call release functions when non-applicable argument is passed in', function () {
         scope.releaseAnimals('dummy');
 
-        expect(User.releasePets).to.not.be.called;
-        expect(User.releaseMounts).to.not.be.called;
-        expect(User.releaseBoth).to.not.be.called;
+        expect(User.user.ops.releasePets).to.not.be.called;
+        expect(User.user.ops.releaseMounts).to.not.be.called;
+        expect(User.user.ops.releaseBoth).to.not.be.called;
       });
     });
 

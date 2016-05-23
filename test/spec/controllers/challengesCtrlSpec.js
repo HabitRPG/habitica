@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Challenges Controller', function() {
-  var rootScope, scope, user, User, ctrl, groups, members, notification, state, challenges, tasks, tavernId;
+  var rootScope, scope, user, User, ctrl, groups, members, notification, state;
 
   beforeEach(function() {
     module(function($provide) {
@@ -14,7 +14,7 @@ describe('Challenges Controller', function() {
       $provide.value('User', User);
     });
 
-    inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_, _Challenges_, _Tasks_, _TAVERN_ID_){
+    inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_){
       scope = $rootScope.$new();
       rootScope = $rootScope;
 
@@ -23,13 +23,10 @@ describe('Challenges Controller', function() {
 
       ctrl = $controller('ChallengesCtrl', {$scope: scope, User: User});
 
-      challenges = _Challenges_;
-      tasks = _Tasks_;
       groups = _Groups_;
       members = _Members_;
       notification = _Notification_;
       state = _$state_;
-      tavernId = _TAVERN_ID_;
     });
   });
 
@@ -42,35 +39,29 @@ describe('Challenges Controller', function() {
           description: 'You are the owner and member',
           leader: user._id,
           members: [user],
-          _isMember: true,
-          _id: 'ownMem-id',
+          _isMember: true
         });
 
         ownNotMem = specHelper.newChallenge({
           description: 'You are the owner, but not a member',
           leader: user._id,
           members: [],
-          _isMember: false,
-          _id: 'ownNotMem-id',
+          _isMember: false
         });
 
         notOwnMem = specHelper.newChallenge({
           description: 'Not owner but a member',
           leader: {_id:"test"},
           members: [user],
-          _isMember: true,
-          _id: 'notOwnMem-id',
+          _isMember: true
         });
 
         notOwnNotMem = specHelper.newChallenge({
           description: 'Not owner or member',
           leader: {_id:"test"},
           members: [],
-          _isMember: false,
-          _id: 'notOwnNotMem-id',
+          _isMember: false
         });
-
-        user.challenges = [ownMem._id, notOwnMem._id];
 
         scope.search = {
           group: _.transform(groups, function(m,g){m[g._id]=true;})
@@ -218,17 +209,6 @@ describe('Challenges Controller', function() {
     });
 
     describe('addTask', function() {
-      var challenge;
-
-      beforeEach(function () {
-        challenge = specHelper.newChallenge({
-          description: 'You are the owner and member',
-          leader: user._id,
-          members: [user],
-          _isMember: true
-        });
-      });
-
       it('adds default task to array', function() {
         var taskArray = [];
         var listDef = {
@@ -236,27 +216,26 @@ describe('Challenges Controller', function() {
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef, challenge);
+        scope.addTask(taskArray, listDef);
 
-        expect(challenge['todos'].length).to.eql(1);
-        expect(challenge['todos'][0].text).to.eql('new todo text');
-        expect(challenge['todos'][0].type).to.eql('todo');
+        expect(taskArray.length).to.eql(1);
+        expect(taskArray[0].text).to.eql('new todo text');
+        expect(taskArray[0].type).to.eql('todo');
       });
 
       it('adds the task to the front of the array', function() {
         var previousTask = specHelper.newTodo({ text: 'previous task' });
-        var taskArray = [];
-        challenge['todos'] = [previousTask];
+        var taskArray = [previousTask];
         var listDef = {
           newTask: 'new todo',
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef, challenge);
+        scope.addTask(taskArray, listDef);
 
-        expect(challenge['todos'].length).to.eql(2);
-        expect(challenge['todos'][0].text).to.eql('new todo');
-        expect(challenge['todos'][1].text).to.eql('previous task');
+        expect(taskArray.length).to.eql(2);
+        expect(taskArray[0].text).to.eql('new todo');
+        expect(taskArray[1].text).to.eql('previous task');
       });
 
       it('removes text from new task input box', function() {
@@ -266,7 +245,7 @@ describe('Challenges Controller', function() {
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef, challenge);
+        scope.addTask(taskArray, listDef);
 
         expect(listDef.newTask).to.not.exist;
       });
@@ -281,37 +260,31 @@ describe('Challenges Controller', function() {
     });
 
     describe('removeTask', function() {
-      var task, challenge;
+      var task, list;
 
       beforeEach(function() {
         sandbox.stub(window, 'confirm');
         task = specHelper.newTodo();
-        challenge = specHelper.newChallenge({
-          description: 'You are the owner and member',
-          leader: user._id,
-          members: [user],
-          _isMember: true
-        });
-        challenge['todos'] = [task];
+        list = [task];
       });
 
       it('asks user to confirm deletion', function() {
-        scope.removeTask(task, challenge);
+        scope.removeTask(task, list);
         expect(window.confirm).to.be.calledOnce;
       });
 
       it('does not remove task from list if not confirmed', function() {
         window.confirm.returns(false);
-        scope.removeTask(task, challenge);
+        scope.removeTask(task, list);
 
-        expect(challenge['todos']).to.include(task);
+        expect(list).to.include(task);
       });
 
       it('removes task from list', function() {
         window.confirm.returns(true);
-        scope.removeTask(task, challenge);
+        scope.removeTask(task, list);
 
-        expect(challenge['todos']).to.not.include(task);
+        expect(list).to.not.include(task);
       });
     });
 
@@ -328,23 +301,16 @@ describe('Challenges Controller', function() {
 
   context('challenge owner interactions', function() {
     describe("save challenge", function() {
-      var alert, createChallengeSpy, challengeResponse, taskChallengeCreateSpy;
+      var alert;
 
       beforeEach(function(){
         alert = sandbox.stub(window, "alert");
-        createChallengeSpy = sinon.stub(challenges, 'createChallenge');
-        challengeResponse = {data: {data: {_id: 'new-challenge'}}};
-        createChallengeSpy.returns(Promise.resolve(challengeResponse));
-
-        taskChallengeCreateSpy = sinon.stub(tasks, 'createChallengeTasks');
-        var taskResponse = {data: {data: []}};
-        taskChallengeCreateSpy.returns(Promise.resolve(taskResponse));
       });
 
-      it("opens an alert box if challenge.group is not specified", function() {
+      it("opens an alert box if challenge.group is not specified", function()
+        {
         var challenge = specHelper.newChallenge({
           name: 'Challenge without a group',
-          shortName: 'chal without group',
           group: null
         });
 
@@ -357,7 +323,6 @@ describe('Challenges Controller', function() {
       it("opens an alert box if isNew and user does not have enough gems", function() {
         var challenge = specHelper.newChallenge({
           name: 'Challenge without enough gems',
-          shortName: 'chal without gem',
           prize: 5
         });
 
@@ -369,84 +334,81 @@ describe('Challenges Controller', function() {
       });
 
       it("saves the challenge if user does not have enough gems, but the challenge is not new", function() {
-        var updateChallengeSpy = sinon.spy(challenges, 'updateChallenge');
-
         var challenge = specHelper.newChallenge({
           _id: 'challenge-has-id-so-its-not-new',
           name: 'Challenge without enough gems',
-          shortName: 'chal without gem',
           prize: 5,
+          $save: sandbox.spy() // stub $save
         });
 
         scope.maxPrize = 0;
         scope.save(challenge);
 
-        expect(updateChallengeSpy).to.be.calledOnce;
+        expect(challenge.$save).to.be.calledOnce;
         expect(alert).to.not.be.called;
       });
 
       it("saves the challenge if user has enough gems and challenge is new", function() {
         var challenge = specHelper.newChallenge({
           name: 'Challenge without enough gems',
-          shortName: 'chal without gem',
           prize: 5,
+          $save: sandbox.spy() // stub $save
         });
 
         scope.maxPrize = 5;
         scope.save(challenge);
 
-        expect(createChallengeSpy).to.be.calledOnce;
+        expect(challenge.$save).to.be.calledOnce;
         expect(alert).to.not.be.called;
       });
 
-      it('saves challenge and then proceeds to detail page', function(done) {
+      it('saves challenge and then proceeds to detail page', function() {
+        var saveSpy = sandbox.stub();
+        saveSpy.yields({_id: 'challenge-id'});
         sandbox.stub(state, 'transitionTo');
 
         var challenge = specHelper.newChallenge({
-          name: 'Challenge',
-          shortName: 'chal',
+          $save: saveSpy // stub $save
         });
 
-        setTimeout(function() {
-          expect(createChallengeSpy).to.be.calledOnce;
-          expect(state.transitionTo).to.be.calledWith(
-            'options.social.challenges.detail',
-            { cid: 'new-challenge' },
-            {
-              reload: true, inherit: false, notify: true
-            }
-          );
-          done();
-        }, 1000);
-
         scope.save(challenge);
+
+        expect(state.transitionTo).to.be.calledOnce;
+        expect(state.transitionTo).to.be.calledWith(
+         'options.social.challenges.detail',
+         { cid: 'challenge-id' },
+         {
+            reload: true, inherit: false, notify: true
+          }
+        );
       });
 
-      it('saves new challenge and syncs User', function(done) {
-        var challenge = specHelper.newChallenge();
-        challenge.shortName = 'chal';
+      it('saves new challenge and syncs User', function() {
+        var saveSpy = sandbox.stub();
+        saveSpy.yields({_id: 'new-challenge'});
 
-        setTimeout(function() {
-          expect(User.sync).to.be.calledOnce;
-          done();
-        }, 1000);
+        var challenge = specHelper.newChallenge({
+          $save: saveSpy // stub $save
+        });
 
         scope.save(challenge);
+
+        expect(User.sync).to.be.calledOnce;
       });
 
-      it('saves new challenge and syncs User', function(done) {
+      it('saves new challenge and syncs User', function() {
+        var saveSpy = sandbox.stub();
+        saveSpy.yields({_id: 'new-challenge'});
         sinon.stub(notification, 'text');
 
-        var challenge = specHelper.newChallenge();
-        challenge.shortName = 'chal';
-
-        setTimeout(function() {
-          expect(notification.text).to.be.calledOnce;
-          expect(notification.text).to.be.calledWith(window.env.t('challengeCreated'));
-          done();
-        }, 1000);
+        var challenge = specHelper.newChallenge({
+          $save: saveSpy // stub $save
+        });
 
         scope.save(challenge);
+
+        expect(notification.text).to.be.calledOnce;
+        expect(notification.text).to.be.calledWith(window.env.t('challengeCreated'));
       });
     });
 
@@ -494,7 +456,7 @@ describe('Challenges Controller', function() {
       it('defaults to tavern if no group can be set as default', function() {
         scope.create();
 
-        expect(scope.newChallenge.group).to.eql(tavernId);
+        expect(scope.newChallenge.group).to.eql('habitrpg');
       });
 
       it('calculates maxPrize', function() {
@@ -516,7 +478,7 @@ describe('Challenges Controller', function() {
         expect(chal.todos).to.eql([]);
         expect(chal.rewards).to.eql([]);
         expect(chal.leader).to.eql('unique-user-id');
-        expect(chal.group).to.eql(tavernId);
+        expect(chal.group).to.eql('habitrpg');
         expect(chal.timestamp).to.be.greaterThan(0);
         expect(chal.official).to.eql(false);
       });
@@ -527,7 +489,7 @@ describe('Challenges Controller', function() {
         it('returns true if user has no gems', function() {
           User.user.balance = 0;
           scope.newChallenge = specHelper.newChallenge({
-            group: tavernId
+            group: 'habitrpg'
           });
 
           var cannotCreateTavernChallenge = scope.insufficientGemsForTavernChallenge();
@@ -537,7 +499,7 @@ describe('Challenges Controller', function() {
         it('returns false if user has gems', function() {
           User.user.balance = .25;
           scope.newChallenge = specHelper.newChallenge({
-            group: tavernId
+            group: 'habitrpg'
           });
 
           var cannotCreateTavernChallenge = scope.insufficientGemsForTavernChallenge();
@@ -665,16 +627,15 @@ describe('Challenges Controller', function() {
 
   context('User interactions', function() {
     describe('join', function() {
-      it('calls challenge join', function(){
-        var joinChallengeSpy = sinon.spy(challenges, 'joinChallenge');
-
+      it('calls challenge.$join', function(){
         var challenge = specHelper.newChallenge({
           _id: 'challenge-to-join',
+          $join: sandbox.spy()
         });
 
         scope.join(challenge);
 
-        expect(joinChallengeSpy).to.be.calledOnce;
+        expect(challenge.$join).to.be.calledOnce;
       });
     });
 
@@ -708,6 +669,7 @@ describe('Challenges Controller', function() {
     describe('leave', function() {
       var challenge = specHelper.newChallenge({
         _id: 'challenge-to-leave',
+        $leave: sandbox.spy()
       });
 
       var clickEvent = {
@@ -723,12 +685,11 @@ describe('Challenges Controller', function() {
         expect(scope.selectedChal).to.not.exist;
       });
 
-      it('calls challenge leave when anything but cancel is chosen', function() {
-        var leaveChallengeSpy = sinon.spy(challenges, 'leaveChallenge');
+      it('calls challenge.$leave when anything but cancel is chosen', function() {
         scope.clickLeave(challenge, clickEvent);
 
-        scope.leave('not-cancel', challenge);
-        expect(leaveChallengeSpy).to.be.calledOnce;
+        scope.leave('not-cancel');
+        expect(challenge.$leave).to.be.calledOnce;
       });
     });
   });
@@ -737,36 +698,31 @@ describe('Challenges Controller', function() {
     beforeEach(function() {
       sandbox.stub(members, 'selectMember');
       sandbox.stub(rootScope, 'openModal');
-      members.selectMember.returns(Promise.resolve());
     });
 
     describe('sendMessageToChallengeParticipant', function() {
-      it('opens private-message modal', function(done) {
+      it('opens private-message modal', function() {
+        members.selectMember.yields();
         scope.sendMessageToChallengeParticipant(user._id);
 
-        setTimeout(function() {
-          expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith(
-            'private-message',
-            { controller: 'MemberModalCtrl' }
-          );
-          done();
-        }, 1000);
+        expect(rootScope.openModal).to.be.calledOnce;
+        expect(rootScope.openModal).to.be.calledWith(
+          'private-message',
+          { controller: 'MemberModalCtrl' }
+        );
       });
     });
 
     describe('sendGiftToChallengeParticipant', function() {
-      it('opens send-gift modal', function(done) {
+      it('opens send-gift modal', function() {
+        members.selectMember.yields();
         scope.sendGiftToChallengeParticipant(user._id);
 
-        setTimeout(function() {
-          expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith(
-            'send-gift',
-            { controller: 'MemberModalCtrl' }
-          );
-          done();
-        }, 1000);
+        expect(rootScope.openModal).to.be.calledOnce;
+        expect(rootScope.openModal).to.be.calledWith(
+          'send-gift',
+          { controller: 'MemberModalCtrl' }
+        );
       });
     });
   });

@@ -182,8 +182,8 @@
     "userAlreadyInAParty": "User already in a party.",
     "userWithIDNotFound": "User with id \"<%= userId %>\" not found.",
     "userHasNoLocalRegistration": "User does not have a local registration (username, email, password).",
-    "uuidsMustBeAnArray": "User ID invites must be an array.",
-    "emailsMustBeAnArray": "Email address invites must be an array.",
+    "uuidsMustBeAnArray": "UUIDs invites must be a an Array.",
+    "emailsMustBeAnArray": "Email invites must be a an Array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
     "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!"
 }

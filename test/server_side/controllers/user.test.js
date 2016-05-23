@@ -4,7 +4,7 @@ chai.use(require("sinon-chai"))
 var expect = chai.expect
 var rewire = require('rewire');
 
-var userController = rewire('../../../website/server/controllers/api-v2/user');
+var userController = rewire('../../../website/src/controllers/api-v2/user');
 
 describe('User Controller', function() {
 
@@ -359,7 +359,7 @@ describe('User Controller', function() {
       });
 
       it('sends webhooks', function() {
-        var webhook = require('../../../website/server/libs/webhook');
+        var webhook = require('../../../website/src/libs/webhook');
         sinon.spy(webhook, 'sendTaskWebhook');
 
         userController.score(req, res);
@@ -384,7 +384,7 @@ describe('User Controller', function() {
     });
 
     context('save callback dealing with non challenge tasks', function() {
-      var Challenge = require('../../../website/server/models/challenge').model;
+      var Challenge = require('../../../website/src/models/challenge').model;
 
       beforeEach(function() {
         user.save.yields(null, user);
@@ -446,7 +446,7 @@ describe('User Controller', function() {
     });
 
     context('save callback dealing with challenge tasks', function() {
-      var Challenge = require('../../../website/server/models/challenge').model;
+      var Challenge = require('../../../website/src/models/challenge').model;
       var chal;
 
       beforeEach(function() {

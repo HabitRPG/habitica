@@ -1,41 +1,20 @@
 import _ from 'lodash';
-import i18n from '../i18n';
-import {
-  BadRequest,
-  NotAuthorized,
-} from '../libs/errors';
 
-// TODO move to server code
-module.exports = function addPushDevice (user, req = {}) {
-  let regId = _.get(req, 'body.regId');
-  if (!regId) throw new BadRequest(i18n.t('regIdRequired', req.language));
-
-  let type = _.get(req, 'body.type');
-  if (!type) throw new BadRequest(i18n.t('typeRequired', req.language));
-
+module.exports = function(user, req, cb) {
+  var i, item, pd;
   if (!user.pushDevices) {
     user.pushDevices = [];
   }
-
-  let pushDevices = user.pushDevices;
-
-  let item = {
-    regId,
-    type,
+  pd = user.pushDevices;
+  item = {
+    regId: req.body.regId,
+    type: req.body.type
   };
-
-  let indexOfPushDevice = _.findIndex(pushDevices, {
-    regId: item.regId,
+  i = _.findIndex(pd, {
+    regId: item.regId
   });
-
-  if (indexOfPushDevice !== -1) {
-    throw new NotAuthorized(i18n.t('pushDeviceAlreadyAdded', req.language));
+  if (i === -1) {
+    pd.push(item);
   }
-
-  pushDevices.push(item);
-
-  return [
-    user.pushDevices,
-    i18n.t('pushDeviceAdded', req.language),
-  ];
+  return typeof cb === "function" ? cb(null, user.pushDevices) : void 0;
 };

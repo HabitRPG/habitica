@@ -35,7 +35,7 @@ describe('POST /user/tasks', () => {
     });
   });
 
-  xit('does not create a task with an id that already exists', async () => {
+  it('does not create a task with an id that already exists', async () => {
     let todo = user.todos[0];
 
     return expect(user.post('/user/tasks', {

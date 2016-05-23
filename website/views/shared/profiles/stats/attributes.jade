@@ -7,7 +7,7 @@ table.table.table-striped
         span.hint(popover-title=env.t(statInfo.title), popover-placement='right',
           popover=env.t(statInfo.popover), popover-trigger='mouseenter')
           strong=env.t(statInfo.title)
-        strong : {{profile.fns.statsComputed().#{stat}}}
+        strong : {{profile._statsComputed.#{stat}}}
 
       td: ul.list-unstyled
         +statList('statCalc.levelBonus(profile.stats.lvl)', 'levelBonus', 'level', true)

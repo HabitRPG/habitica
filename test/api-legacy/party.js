@@ -2,9 +2,9 @@ var Group, app, diff;
 
 diff = require("deep-diff");
 
-Group = require("../../website/server/models/group").model;
+Group = require("../../website/src/models/group").model;
 
-app = require("../../website/server/server");
+app = require("../../website/src/server");
 
 describe("Party", function() {
   return context("Quests", function() {

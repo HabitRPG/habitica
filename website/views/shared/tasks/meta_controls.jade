@@ -23,15 +23,15 @@
       |{{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
     span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
     // edit
-    a(ng-hide='task._editing', ng-click='editTask(task, user)', tooltip=env.t('edit'))
+    a(ng-hide='task._editing', ng-click='editTask(task)', tooltip=env.t('edit'))
       | &nbsp;
       span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
     | &nbsp;
-    a(ng-hide='!task._editing', ng-click='editTask(task, user)', tooltip=env.t('cancel'))
+    a(ng-hide='!task._editing', ng-click='editTask(task)', tooltip=env.t('cancel'))
       span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
       | &nbsp;
     // save
-    a(ng-hide='!task._editing', ng-click='editTask(task, user);saveTask(task)', tooltip=env.t('save'))
+    a(ng-hide='!task._editing', ng-click='editTask(task);saveTask(task)', tooltip=env.t('save'))
       span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
     | &nbsp;
     //challenges
@@ -43,12 +43,12 @@
         span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
         | &nbsp;
     // delete
-    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id', ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
+    a(ng-if='!task.challenge.id', ng-click='removeTask(task, obj[list.type+"s"])', tooltip=env.t('delete'))
       span.glyphicon.glyphicon-trash
       | &nbsp;
 
     // chart
-    a(ng-show='task.history', ng-click='toggleChart(obj._id+task._id, task)', tooltip=env.t('progress'))
+    a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip=env.t('progress'))
       span.glyphicon.glyphicon-signal
       | &nbsp;
     // notes

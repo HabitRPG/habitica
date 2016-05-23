@@ -31,7 +31,7 @@
           li.filters-edit(ng-class='{active: user.filters[tag.id]}', ng-repeat='tag in user.tags', bindonce='user.tags')
             form.hrpg-input-group
               input(type='text', ng-model='tag.name', ui-keyup="{13: 'saveOrEdit()'}")
-              button(type='button', ng-click='User.deleteTag({params:{id:tag.id}})')
+              button(type='button', ng-click='user.ops.deleteTag({params:{id:tag.id}})')
                 span.glyphicon.glyphicon-trash
         ul(ng-if='!_editing', hrpg-sort-tags)
           li.filters-tags(ng-class='{active: user.filters[tag.id], challenge: tag.challenge}', ng-repeat='tag in user.tags', bindonce='user.tags')

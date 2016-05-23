@@ -1,23 +1,27 @@
 import taskDefaults from '../libs/taskDefaults';
+import i18n from '../i18n';
 
-// TODO move to client since it's only used there?
-
-module.exports = function addTask (user, req = {body: {}}) {
-  let task = taskDefaults(req.body);
-  user.tasksOrder[`${task.type}s`].unshift(task._id);
-  user[`${task.type}s`].unshift(task);
-
+module.exports = function(user, req, cb) {
+  var task;
+  task = taskDefaults(req.body);
+  if (user.tasks[task.id] != null) {
+    return typeof cb === "function" ? cb({
+      code: 409,
+      message: i18n.t('messageDuplicateTaskID', req.language)
+    }) : void 0;
+  }
+  user[task.type + "s"].unshift(task);
   if (user.preferences.newTaskEdit) {
     task._editing = true;
   }
-
   if (user.preferences.tagsCollapsed) {
     task._tags = true;
   }
-
   if (!user.preferences.advancedCollapsed) {
     task._advanced = true;
   }
-
+  if (typeof cb === "function") {
+    cb(null, task);
+  }
   return task;
 };

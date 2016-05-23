@@ -9,7 +9,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "website/client/bower_components",
+    "public/bower_components",
     "test",
     "tests"
   ],

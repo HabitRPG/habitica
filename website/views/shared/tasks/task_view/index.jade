@@ -28,13 +28,13 @@
 
   // Daily & Todos
   span.task-checker.action-yesno(ng-if='::task.type=="daily" || task.type=="todo"')
-    input.task-input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task._id}}', type='checkbox',
+    input.task-input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task.id}}', type='checkbox',
       ng-model='task.completed', ng-if='$state.includes("tasks")',
-      ng-change='changeCheck(task)'
+      ng-change='task.type=="todo" && pushTask(task,$index,"bottom"); changeCheck(task)'
       ui-keypress='{13:"task.completed = !task.completed; changeCheck(task)"}' )
-    input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task._id}}', type='checkbox',
+    input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task.id}}', type='checkbox',
       ng-if='!$state.includes("tasks")')
-    label(for='box-{{::obj._id}}_{{::task._id}}')
+    label(for='box-{{::obj._id}}_{{::task.id}}')
 
 // main content
 .task-text(ng-dblclick='task._editing ? saveTask(task) : editTask(task)')

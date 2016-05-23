@@ -1,31 +1,36 @@
 import _ from 'lodash';
 import content from '../content/index';
 
-// Return the list of gear items available for purchase
+/*
+  Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
+ */
 
-let sortOrder = _.reduce(content.gearTypes, (accumulator, val, key) => {
-  accumulator[val] = key;
-  return accumulator;
-}, {});
+var sortOrder = _.reduce(content.gearTypes, (function(m, v, k) {
+  m[v] = k;
+  return m;
+}), {});
 
-module.exports = function updateStore (user) {
-  let changes = [];
-
-  _.each(content.gearTypes, (type) => {
-    let found = _.find(content.gear.tree[type][user.stats.class], (item) => {
+module.exports = function(user) {
+  var changes;
+  if (!user) {
+    return;
+  }
+  changes = [];
+  _.each(content.gearTypes, function(type) {
+    var found;
+    found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
       return !user.items.gear.owned[item.key];
     });
-
-    if (found) changes.push(found);
-  });
-
-  changes = changes.concat(_.filter(content.gear.flat, (val) => {
-    if (['special', 'mystery', 'armoire'].indexOf(val.klass) !== -1 && !user.items.gear.owned[val.key] && (val.canOwn ? val.canOwn(user) : false)) {
-      return true;
-    } else {
-      return false;
+    if (found) {
+      changes.push(found);
     }
+    return true;
+  });
+  changes = changes.concat(_.filter(content.gear.flat, function(v) {
+    var ref;
+    return ((ref = v.klass) === 'special' || ref === 'mystery' || ref === 'armoire') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
   }));
-
-  return _.sortBy(changes, (change) => sortOrder[change.type]);
+  return _.sortBy(changes, function(c) {
+    return sortOrder[c.type];
+  });
 };

@@ -3,26 +3,24 @@ common/dist/
 common/transpiled-babel/
 coverage/
 database_reports/
+migrations/
 website/build/
 website/transpiled-babel/
 
-migrations/*
-
-# The files in website/client/js should be moved out and browserified
-website/client/
+# The files in website/public/js should be moved out and browserified
+website/public/
 
 # Temporarilly disabled. These should be removed when the linting errors are fixed
+common/script/index.js
 common/script/content/index.js
+common/script/ops/**/*.js
+common/script/fns/**/*.js
+common/script/libs/**/*.js
 common/script/public/**/*.js
 
-website/server/**/api-v2/**/*.js
-website/server/routes/payments.js
-website/server/routes/pages.js
-website/server/middlewares/apiThrottle.js
-website/server/middlewares/forceRefresh.js
+website/src/**/*.js
 
 debug-scripts/*
-scripts/*
 tasks/*.js
 gulpfile.js
 Gruntfile.js

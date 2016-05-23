@@ -1,29 +1,35 @@
-import resetGear from '../fns/resetGear';
-import i18n from '../i18n';
+import _ from 'lodash';
 
-module.exports = function reset (user, tasks = [], req = {}) {
+module.exports = function(user, req, cb) {
+  var gear;
+  user.habits = [];
+  user.dailys = [];
+  user.todos = [];
+  user.rewards = [];
   user.stats.hp = 50;
   user.stats.lvl = 1;
   user.stats.gp = 0;
   user.stats.exp = 0;
-
-  let tasksToRemove = [];
-  tasks.forEach(task => {
-    if (!task.challenge || !task.challenge.id || task.challenge.broken) {
-      tasksToRemove.push(task._id);
-      let i = user.tasksOrder[`${task.type}s`].indexOf(task._id);
-      if (i !== -1) user.tasksOrder[`${task.type}s`].splice(i, 1);
-    }
+  gear = user.items.gear;
+  _.each(['equipped', 'costume'], function(type) {
+    gear[type].armor = 'armor_base_0';
+    gear[type].weapon = 'weapon_base_0';
+    gear[type].head = 'head_base_0';
+    return gear[type].shield = 'shield_base_0';
   });
-
-  resetGear(user);
-
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      {user, tasksToRemove},
-      i18n.t('resetComplete'),
-    ];
+  if (typeof gear.owned === 'undefined') {
+    gear.owned = {};
   }
+  _.each(gear.owned, function(v, k) {
+    if (gear.owned[k]) {
+      gear.owned[k] = false;
+    }
+    return true;
+  });
+  gear.owned.weapon_warrior_0 = true;
+  if (typeof user.markModified === "function") {
+    user.markModified('items.gear.owned');
+  }
+  user.preferences.costume = false;
+  return typeof cb === "function" ? cb(null, user) : void 0;
 };

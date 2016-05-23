@@ -24,7 +24,7 @@ mixin taskColumnTabs(position)
       div(ng-show='list.view == "complete"')
         .alert
           =env.t('lotOfToDos')
-        button.task-action-btn.tile.spacious.bright(ng-click='User.clearCompleted({})',popover=env.t('deleteToDosExplanation'),popover-trigger='mouseenter')=env.t('clearCompleted')
+        button.task-action-btn.tile.spacious.bright(ng-click='user.ops.clearCompleted({})',popover=env.t('deleteToDosExplanation'),popover-trigger='mouseenter')=env.t('clearCompleted')
     // remaining/completed tabs
     ul.task-filter
       li(ng-class='{active: list.view == "remaining"}')
@@ -32,7 +32,7 @@ mixin taskColumnTabs(position)
       li(ng-class='{active: list.view == "dated"}')
         a(ng-click='list.view = "dated"')=env.t('dated')
       li(ng-class='{active: list.view == "complete"}')
-        a(ng-click='list.view = "complete";loadedCompletedTodos()')=env.t('complete')
+        a(ng-click='list.view = "complete"')=env.t('complete')
   // Rewards Tabs
   div(ng-if='::main && list.type=="reward"', class='tabbable tabs-below')
     ul.task-filter

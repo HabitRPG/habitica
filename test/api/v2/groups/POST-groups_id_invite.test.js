@@ -27,8 +27,8 @@ describe('POST /groups/:id/invite', () => {
         await inviter.post(`/groups/${group._id}/invite`, {
           uuids: [invitee._id],
         });
-        group = await inviter.get(`/groups/${group._id}`);
-        expect(_.find(group.invites, {_id: invitee._id})._id).to.exists;
+        await group.sync();
+        expect(group.invites).to.include(invitee._id);
       });
     });
   });
@@ -53,8 +53,8 @@ describe('POST /groups/:id/invite', () => {
           await inviter.post(`/groups/${group._id}/invite`, {
             uuids: [invitee._id],
           });
-          group = await inviter.get(`/groups/${group._id}`);
-          expect(_.find(group.invites, {_id: invitee._id})._id).to.exists;
+          await group.sync();
+          expect(group.invites).to.include(invitee._id);
         });
       });
     });

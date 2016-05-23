@@ -1,7 +1,6 @@
 .DS_Store
-website/client/gen
-website/client/common
-website/client/apidoc
+website/public/gen
+website/public/common
 website/transpiled-babel/
 common/transpiled-babel/
 node_modules
@@ -10,8 +9,8 @@ node_modules
 config.json
 npm-debug.log*
 lib
-website/client/bower_components
-website/client/new-stuff.html
+website/public/bower_components
+website/public/new-stuff.html
 website/build
 newrelic_agent.log
 .bower-tmp
@@ -25,7 +24,7 @@ src/*/*.map
 src/*/*/*.map
 test/*.js
 test/*.map
-website/client/docs
+website/public/docs
 *.sublime-workspace
 coverage
 coverage.html

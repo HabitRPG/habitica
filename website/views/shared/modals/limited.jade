@@ -9,4 +9,4 @@ script(id='modals/cards.html', type='text/ng-template')
       markdown(text='::cardMessage')
   .modal-footer
     small.pull-left {{::env.t(cardType + 'CardExplanation')}}
-    button.btn.btn-default(ng-click='User.readCard({params: {cardType: cardType}}); $close()')=env.t('ok')
+    button.btn.btn-default(ng-click='user.ops.readCard({params: {cardType: cardType}}); $close()')=env.t('ok')

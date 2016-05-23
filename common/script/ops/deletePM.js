@@ -1,9 +1,7 @@
-import _ from 'lodash';
-
-module.exports = function deletePM (user, req = {}) {
-  delete user.inbox.messages[_.get(req, 'params.id')];
-  user.markModified(`inbox.messages.${req.params.id}`);
-  return [
-    user.inbox.messages,
-  ];
+module.exports = function(user, req, cb) {
+  delete user.inbox.messages[req.params.id];
+  if (typeof user.markModified === "function") {
+    user.markModified('inbox.messages.' + req.params.id);
+  }
+  return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
 };

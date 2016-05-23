@@ -1,5 +1,5 @@
 - var newParty = 'User.user.invitations.party'
-.containter-fluid(ng-if='#{newParty}.id && group._id')
+.containter-fluid(ng-if='#{newParty}.id && party._id')
   .row.text-center
     .col-sm-6.col-sm-offset-3.alert.alert-warning
       p {{::env.t('invitedToNewParty', { partyName: #{newParty}.name })}}

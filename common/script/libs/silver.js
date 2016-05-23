@@ -2,13 +2,10 @@
 Silver amount from their money
  */
 
-// TODO move to client
-
-module.exports = function silver (num) {
+module.exports = function(num) {
   if (num) {
-    let centCount = Math.floor((num - Math.floor(num)) * 100);
-    return `0${centCount}`.slice(-2);
+    return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
   } else {
-    return '00';
+    return "00";
   }
 };

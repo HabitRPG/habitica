@@ -1,8 +1,8 @@
 var Coupon, app, makeSudoUser;
 
-app = require("../../website/server/server");
+app = require("../../website/src/server");
 
-Coupon = require("../../website/server/models/coupon").model;
+Coupon = require("../../website/src/models/coupon").model;
 
 makeSudoUser = function(usr, cb) {
   return registerNewUser(function() {

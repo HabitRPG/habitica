@@ -1,4 +1,4 @@
-require("../../website/server/server");
+require("../../website/src/server");
 
 describe("Todos", function() {
   before(function(done) {

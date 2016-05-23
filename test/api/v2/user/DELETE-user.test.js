@@ -4,11 +4,7 @@ import {
   generateGroup,
   generateUser,
 } from '../../../helpers/api-integration/v2';
-import {
-  find,
-  map,
-} from 'lodash';
-import Bluebird from 'bluebird';
+import { find } from 'lodash';
 
 describe('DELETE /user', () => {
   let user;
@@ -21,18 +17,6 @@ describe('DELETE /user', () => {
     return expect(user.del('/user').then(() => {
       return checkExistence('users', user._id);
     })).to.eventually.eql(false);
-  });
-
-  it('deletes the user\'s tasks', async () => {
-    // gets the user's todos ids
-    let ids = user.todos.map(todo => todo._id);
-    expect(ids.length).to.be.above(0); // make sure the user has some task to delete
-
-    await user.del('/user');
-
-    await Bluebird.all(map(ids, id => {
-      return expect(checkExistence('tasks', id)).to.eventually.eql(false);
-    }));
   });
 
   context('user has active subscription', () => {

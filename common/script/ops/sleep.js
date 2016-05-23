@@ -1,9 +1,4 @@
-module.exports = function sleep (user, req = {}) {
+module.exports = function(user, req, cb) {
   user.preferences.sleep = !user.preferences.sleep;
-
-  if (req.v2 === true) {
-    return {};
-  } else {
-    return [user.preferences.sleep];
-  }
+  return typeof cb === "function" ? cb(null, {}) : void 0;
 };

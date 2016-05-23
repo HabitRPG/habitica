@@ -1,12 +1,12 @@
 var app, iapMock, inApp, rewire, sinon;
 
-app = require('../../website/server/server');
+app = require('../../website/src/server');
 
 rewire = require('rewire');
 
 sinon = require('sinon');
 
-inApp = rewire('../../website/server/controllers/payments/iap');
+inApp = rewire('../../website/src/controllers/payments/iap');
 
 iapMock = {};
 

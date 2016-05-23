@@ -1,5 +1,5 @@
 // Events
-- var seasonalSkills = {'snowball':'salt', 'spookySparkles':'opaquePotion', 'shinySeed':'petalFreePotion', 'seafoam':'sand'}
+- var seasonalSkills = {'snowball':'salt', 'spookDust':'opaquePotion', 'shinySeed':'petalFreePotion', 'seafoam':'sand'}
 ul.items.rewards
   each dispel,skill in seasonalSkills
     span(ng-if='main && list.type=="reward" && (user.items.special.#{skill}>0 || user.stats.buffs.#{skill})')

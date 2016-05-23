@@ -43,11 +43,11 @@ module.exports = function(grunt) {
         options: {
           compress: false, // AFTER
           'include css': true,
-          paths: ['website/client']
+          paths: ['website/public']
         },
         files: {
-          'website/build/app.css': ['website/client/css/index.styl'],
-          'website/build/static.css': ['website/client/css/static.styl']
+          'website/build/app.css': ['website/public/css/index.styl'],
+          'website/build/static.css': ['website/public/css/static.styl']
         }
       }
     },
@@ -55,13 +55,13 @@ module.exports = function(grunt) {
     copy: {
       build: {
         files: [
-          {expand: true, cwd: 'website/client/', src: 'favicon.ico', dest: 'website/build/'},
-          {expand: true, cwd: 'website/client/', src: 'favicon_192x192.png', dest: 'website/build/'},
+          {expand: true, cwd: 'website/public/', src: 'favicon.ico', dest: 'website/build/'},
+          {expand: true, cwd: 'website/public/', src: 'favicon_192x192.png', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/dist/sprites/spritesmith*.png', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/backer-only/*.gif', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/npc_ian.gif', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/quest_*.gif', dest: 'website/build/'},
-          {expand: true, cwd: 'website/client/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
+          {expand: true, cwd: 'website/public/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
         ]
       }
     },
@@ -88,9 +88,9 @@ module.exports = function(grunt) {
     }
   });
 
-  //Load build files from client/manifest.json
-  grunt.registerTask('loadManifestFiles', 'Load all build files from client/manifest.json', function(){
-    var files = grunt.file.readJSON('./website/client/manifest.json');
+  //Load build files from public/manifest.json
+  grunt.registerTask('loadManifestFiles', 'Load all build files from public/manifest.json', function(){
+    var files = grunt.file.readJSON('./website/public/manifest.json');
     var uglify = {};
     var cssmin = {};
 
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
       _.each(files[key].js, function(val){
         var path = "./";
         if( val.indexOf('common/') == -1)
-          path = './website/client/';
+          path = './website/public/';
         js.push(path + val);
       });
 
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
       _.each(files[key].css, function(val){
         var path = "./";
         if( val.indexOf('common/') == -1) {
-          path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/client/';
+          path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/public/';
         }
         css.push(path + val)
       });
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
 
     grunt.config.set('cssmin.build.files', cssmin);
     // Rewrite urls to relative path
-    grunt.config.set('cssmin.build.options', {'target': 'website/client/css/whatever-css.css'});
+    grunt.config.set('cssmin.build.options', {'target': 'website/public/css/whatever-css.css'});
   });
 
   // Register tasks.
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('test:prepare:translations', function() {
-    var i18n  = require('./website/server/libs/api-v3/i18n'),
+    var i18n  = require('./website/src/libs/i18n'),
         fs    = require('fs');
     fs.writeFileSync('test/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +

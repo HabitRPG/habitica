@@ -1,7 +1,5 @@
-// TODO remove once v2 is retired
-
-module.exports = function nullify (user) {
+module.exports = function(user) {
   user.ops = null;
   user.fns = null;
-  user = null;
+  return user = null;
 };

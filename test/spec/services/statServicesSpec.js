@@ -76,11 +76,7 @@ describe('Stats Service', function() {
         "armor" : "armor_warrior_1"
       };
       var user = {
-        fns: {
-          statsComputed: function () {
-            return { str: 50 };
-          },
-        },
+        _statsComputed: { str: 50 },
         stats: {
           lvl: 10,
           buffs: { str: 10 },
@@ -256,8 +252,7 @@ describe('Stats Service', function() {
 
   describe('mpDisplay', function() {
     it('displays mp as "mp / totalMP"', function() {
-      user.fns = {};
-      user.fns.statsComputed = function () { return { maxMP: 100 } };
+      user._statsComputed = { maxMP: 100 };
       user.stats.mp = 30;
       var mpDisplay = statCalc.mpDisplay(user);
 
@@ -265,8 +260,7 @@ describe('Stats Service', function() {
     });
 
     it('Rounds mp down when given a decimal', function() {
-      user.fns = {};
-      user.fns.statsComputed = function () { return { maxMP: 100 } };
+      user._statsComputed = { maxMP: 100 };
       user.stats.mp = 30.99;
       var mpDisplay = statCalc.mpDisplay(user);
 

@@ -1,31 +1,15 @@
 import _ from 'lodash';
-import {
-  ATTRIBUTES,
-} from '../constants';
-import {
-  BadRequest,
-  NotAuthorized,
-} from '../libs/errors';
-import i18n from '../i18n';
+import splitWhitespace from '../libs/splitWhitespace';
 
-module.exports = function allocate (user, req = {}) {
-  let stat = _.get(req, 'query.stat', 'str');
-
-  if (ATTRIBUTES.indexOf(stat) === -1) {
-    throw new BadRequest(i18n.t('invalidAttribute', {attr: stat}, req.language));
-  }
-
+module.exports = function(user, req, cb) {
+  var stat;
+  stat = req.query.stat || 'str';
   if (user.stats.points > 0) {
     user.stats[stat]++;
     user.stats.points--;
     if (stat === 'int') {
       user.stats.mp++;
     }
-  } else {
-    throw new NotAuthorized(i18n.t('notEnoughAttrPoints', req.language));
   }
-
-  return [
-    user.stats,
-  ];
+  return typeof cb === "function" ? cb(null, _.pick(user, splitWhitespace('stats'))) : void 0;
 };

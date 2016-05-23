@@ -1,6 +1,6 @@
 import t from './translation';
 import _ from 'lodash';
-import { NotAuthorized } from '../libs/errors';
+
 /*
   ---------------------------------------------------------------
   Spells
@@ -15,7 +15,7 @@ import { NotAuthorized } from '../libs/errors';
     web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
     own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
     you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-    spell is correct. Take a look at habitrpg/website/server/models/user.js and habitrpg/website/server/models/task.js for what attributes are
+    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
     available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
     so you'll want to iterate over them like: `_.each(target,function(member){...})`
 
@@ -40,12 +40,14 @@ spells.wizard = {
     lvl: 11,
     target: 'task',
     notes: t('spellWizardFireballNotes'),
-    cast (user, target, req) {
+    cast (user, target) {
       let bonus = user._statsComputed.int * user.fns.crit('per');
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress) user.party.quest.progress = 0;
       user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 0.1);
+      // TODO change, pass req to spell?
+      let req = {language: user.preferences.language};
       user.fns.updateStats(user.stats, req);
     },
   },
@@ -164,11 +166,12 @@ spells.rogue = {
     lvl: 12,
     target: 'task',
     notes: t('spellRogueBackStabNotes'),
-    cast (user, target, req) {
+    cast (user, target) {
       let _crit = user.fns.crit('str', 0.3);
       let bonus = calculateBonus(target.value, user._statsComputed.str, _crit);
       user.stats.exp += diminishingReturns(bonus, 75, 50);
       user.stats.gp += diminishingReturns(bonus, 18, 75);
+      let req = {language: user.preferences.language};
       user.fns.updateStats(user.stats, req);
     },
   },
@@ -194,7 +197,7 @@ spells.rogue = {
     notes: t('spellRogueStealthNotes'),
     cast (user) {
       if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
-      user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.tasksOrder.dailys.length * 0.64, 55));
+      user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.dailys.length * 0.64, 55));
     },
   },
 };
@@ -215,10 +218,10 @@ spells.healer = {
     text: t('spellHealerBrightnessText'),
     mana: 15,
     lvl: 12,
-    target: 'tasks',
+    target: 'self',
     notes: t('spellHealerBrightnessNotes'),
-    cast (user, tasks) {
-      _.each(tasks, (task) => {
+    cast (user) {
+      _.each(user.tasks, (task) => {
         if (task.type !== 'reward') {
           task.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40));
         }
@@ -239,7 +242,7 @@ spells.healer = {
       });
     },
   },
-  healAll: { // Blessing
+  heallAll: { // Blessing
     text: t('spellHealerHealAllText'),
     mana: 25,
     lvl: 14,
@@ -259,13 +262,11 @@ spells.special = {
     text: t('spellSpecialSnowballAuraText'),
     mana: 0,
     value: 15,
-    previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
-    cast (user, target, req) {
-      if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
+    cast (user, target) {
       target.stats.buffs.snowball = true;
-      target.stats.buffs.spookySparkles = false;
+      target.stats.buffs.spookDust = false;
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.snowball) target.achievements.snowball = 0;
@@ -285,22 +286,20 @@ spells.special = {
       user.stats.gp -= 5;
     },
   },
-  spookySparkles: {
-    text: t('spellSpecialSpookySparklesText'),
+  spookDust: {
+    text: t('spellSpecialSpookDustText'),
     mana: 0,
     value: 15,
-    previousPurchase: true,
     target: 'user',
-    notes: t('spellSpecialSpookySparklesNotes'),
-    cast (user, target, req) {
-      if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
+    notes: t('spellSpecialSpookDustNotes'),
+    cast (user, target) {
       target.stats.buffs.snowball = false;
-      target.stats.buffs.spookySparkles = true;
+      target.stats.buffs.spookDust = true;
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
-      if (!target.achievements.spookySparkles) target.achievements.spookySparkles = 0;
-      target.achievements.spookySparkles++;
-      user.items.special.spookySparkles--;
+      if (!target.achievements.spookDust) target.achievements.spookDust = 0;
+      target.achievements.spookDust++;
+      user.items.special.spookDust--;
     },
   },
   opaquePotion: {
@@ -311,7 +310,7 @@ spells.special = {
     target: 'self',
     notes: t('spellSpecialOpaquePotionNotes'),
     cast (user) {
-      user.stats.buffs.spookySparkles = false;
+      user.stats.buffs.spookDust = false;
       user.stats.gp -= 5;
     },
   },
@@ -319,13 +318,11 @@ spells.special = {
     text: t('spellSpecialShinySeedText'),
     mana: 0,
     value: 15,
-    previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    cast (user, target, req) {
-      if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
+    cast (user, target) {
       target.stats.buffs.snowball = false;
-      target.stats.buffs.spookySparkles = false;
+      target.stats.buffs.spookDust = false;
       target.stats.buffs.shinySeed = true;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.shinySeed) target.achievements.shinySeed = 0;
@@ -349,13 +346,11 @@ spells.special = {
     text: t('spellSpecialSeafoamText'),
     mana: 0,
     value: 15,
-    previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
-    cast (user, target, req) {
-      if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
+    cast (user, target) {
       target.stats.buffs.snowball = false;
-      target.stats.buffs.spookySparkles = false;
+      target.stats.buffs.spookDust = false;
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = true;
       if (!target.achievements.seafoam) target.achievements.seafoam = 0;
@@ -396,10 +391,7 @@ spells.special = {
 
       if (!target.items.special.nyeReceived) target.items.special.nyeReceived = [];
       target.items.special.nyeReceived.push(user.profile.name);
-
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
-
       user.stats.gp -= 10;
     },
   },
@@ -424,10 +416,7 @@ spells.special = {
 
       if (!target.items.special.valentineReceived) target.items.special.valentineReceived = [];
       target.items.special.valentineReceived.push(user.profile.name);
-
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
-
       user.stats.gp -= 10;
     },
   },
@@ -451,10 +440,7 @@ spells.special = {
 
       if (!target.items.special.greetingReceived) target.items.special.greetingReceived = [];
       target.items.special.greetingReceived.push(user.profile.name);
-
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
-
       user.stats.gp -= 10;
     },
   },
@@ -479,10 +465,7 @@ spells.special = {
 
       if (!target.items.special.thankyouReceived) target.items.special.thankyouReceived = [];
       target.items.special.thankyouReceived.push(user.profile.name);
-
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
-
       user.stats.gp -= 10;
     },
   },
@@ -504,13 +487,9 @@ spells.special = {
           u.achievements.birthday++;
         });
       }
-
       if (!target.items.special.birthdayReceived) target.items.special.birthdayReceived = [];
       target.items.special.birthdayReceived.push(user.profile.name);
-
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
-
       user.stats.gp -= 10;
     },
   },
@@ -520,8 +499,8 @@ _.each(spells, (spellClass) => {
   _.each(spellClass, (spell, key) => {
     spell.key = key;
     let _cast = spell.cast;
-    spell.cast = function castSpell (user, target, req) {
-      _cast(user, target, req);
+    spell.cast = function castSpell (user, target) {
+      _cast(user, target);
       user.stats.mp -= spell.mana;
     };
   });

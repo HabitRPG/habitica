@@ -28,9 +28,6 @@ var specHelper = {};
 
     var user = {
       _id: 'unique-user-id',
-      profile: {
-        name: 'dummy-name',
-      },
       auth: { timestamps: {} },
       stats: stats,
       items: items,

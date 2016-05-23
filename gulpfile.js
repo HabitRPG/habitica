@@ -9,7 +9,6 @@
 require('babel-register');
 
 if (process.env.NODE_ENV === 'production') {
-  require('./tasks/gulp-apidoc');
   require('./tasks/gulp-newstuff');
   require('./tasks/gulp-build');
   require('./tasks/gulp-babelify');

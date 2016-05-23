@@ -1,10 +1,12 @@
 import _ from 'lodash';
 
-// TODO move to client since it's only used there?
-// TODO rename file to clearCompletedTodos
-
-module.exports = function clearCompletedTodos (todos) {
-  _.remove(todos, todo => {
-    return todo.completed && (!todo.challenge || !todo.challenge.id || todo.challenge.broken);
+module.exports = function(user, req, cb) {
+  _.remove(user.todos, function(t) {
+    var ref;
+    return t.completed && !((ref = t.challenge) != null ? ref.id : void 0);
   });
+  if (typeof user.markModified === "function") {
+    user.markModified('todos');
+  }
+  return typeof cb === "function" ? cb(null, user.todos) : void 0;
 };

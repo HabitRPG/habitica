@@ -1,14 +1,13 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var groupsService, quest, questsService, user, content, resolveSpy, rejectSpy, state;
+  var groupsService, quest, questsService, user, content, resolveSpy, rejectSpy;
 
   beforeEach(function() {
     user = specHelper.newUser();
     user.ops = {
       buyQuest: sandbox.spy()
     };
-    user.party._id = 'unique-party-id';
 
     user.achievements.quests = {};
     quest = {lvl:20};
@@ -17,11 +16,10 @@ describe('Quests Service', function() {
       $provide.value('User', {sync: sinon.stub(), user: user});
     });
 
-    inject(function(Quests, Groups, Content, _$state_) {
+    inject(function(Quests, Groups, Content) {
       questsService = Quests;
       groupsService = Groups;
       content = Content;
-      state = _$state_;
     });
 
     sandbox.stub(groupsService, 'inviteOrStartParty');
@@ -74,8 +72,7 @@ describe('Quests Service', function() {
       scope = $rootScope.$new();
     }));
 
-    //@TODO: This is fixed in a Quest Service PR port
-    xit('returns a promise', function() {
+    it('returns a promise', function() {
       var promise = questsService.buyQuest('whale');
       expect(promise).to.respondTo('then');
     });
@@ -228,7 +225,7 @@ describe('Quests Service', function() {
       scope = $rootScope.$new();
     }));
 
-    xit('returns a promise', function() {
+    it('returns a promise', function() {
       var promise = questsService.showQuest('whale');
       expect(promise).to.respondTo('then');
     });
@@ -338,67 +335,39 @@ describe('Quests Service', function() {
   });
 
   describe('#initQuest', function() {
-    var fakeBackend, scope, key = 'whale';
-
-    beforeEach(inject(function($httpBackend, $rootScope) {
-      scope = $rootScope.$new();
-      fakeBackend = $httpBackend;
-      var partyResponse = {data:{_id: 'party-id'}};
-
-      fakeBackend.when('GET', 'partials/main.html').respond({});
-      fakeBackend.when('GET', 'partials/main.html').respond({});
-      fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
-      fakeBackend.when('GET', '/api/v3/groups/party-id/members?includeAllPublicFields=true').respond({});
-      fakeBackend.when('GET', '/api/v3/groups/party-id/invites').respond({});
-      fakeBackend.when('GET', '/api/v3/challenges/groups/party-id').respond({});
-      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/invite/' + key).respond({quest: { key: 'whale' } });
-      fakeBackend.flush();
-    }));
 
     it('returns a promise', function() {
-      var promise = questsService.initQuest(key);
+      var promise = questsService.initQuest('whale');
       expect(promise).to.respondTo('then');
     });
 
-    it('starts a quest', function(done) {
-      fakeBackend.expectPOST( '/api/v3/groups/party-id/quests/invite/' + key);
-
-      questsService.initQuest(key)
-        .then(function(res) {
-          done();
-        });
-
-      fakeBackend.flush();
-      scope.$apply();
-    });
+    it('accepts quest');
 
     it('brings user to party page');
   });
 
-  //@TODO: This is fixed in a Quest Service PR port
-  xdescribe('#sendAction', function() {
+  describe('#sendAction', function() {
     var fakeBackend, scope;
 
     beforeEach(inject(function($httpBackend, $rootScope) {
       scope = $rootScope.$new();
       fakeBackend = $httpBackend;
-      var partyResponse = {data:{_id: 'party-id'}};
 
       fakeBackend.when('GET', 'partials/main.html').respond({});
-      fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
-      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/reject').respond({quest: { key: 'whale' } });
+      fakeBackend.when('GET', '/api/v2/groups/party').respond({_id: 'party-id'});
+      fakeBackend.when('POST', '/api/v2/groups/party-id/questReject').respond({quest: { key: 'whale' } });
       fakeBackend.flush();
     }));
 
     it('returns a promise', function() {
-      var promise = questsService.sendAction('quests/reject');
+      var promise = questsService.sendAction('questReject');
       expect(promise).to.respondTo('then');
     });
 
     it('calls specified quest endpoint', function(done) {
-      fakeBackend.expectPOST('/api/v3/groups/party-id/quests/reject');
+      fakeBackend.expectPOST('/api/v2/groups/party-id/questReject');
 
-      questsService.sendAction('quests/reject')
+      questsService.sendAction('questReject')
         .then(function(res) {
           expect(res.key).to.eql('whale');
           done();
@@ -409,7 +378,7 @@ describe('Quests Service', function() {
     });
 
     it('syncs User', function() {
-      questsService.sendAction('quests/reject')
+      questsService.sendAction('questReject')
         .then(function(res) {
           expect(User.sync).to.be.calledOnce;
           done();

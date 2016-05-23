@@ -205,7 +205,7 @@ nav.toolbar(ng-controller='MenuCtrl')
                   span.glyphicon.glyphicon-plus-sign
                   span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
               li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-                a(ng-click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ', data-close-menu)
+                a(ng-click='k === party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ', data-close-menu)
                   span.glyphicon.glyphicon-comment
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')

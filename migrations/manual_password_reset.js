@@ -7,7 +7,7 @@ nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../config.jso
 
 var Users = require('mongoskin').db(nconf.get("PRODUCTION_DB:URL"), nconf.get("PRODUCTION_DB").CREDS).collection('users'),
   async = require('async'),
-  utils = require('../website/server/utils'),
+  utils = require('../website/src/utils'),
   salt = utils.makeSalt(),
   newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
   hashed_password = utils.encryptPassword(newPassword, salt);

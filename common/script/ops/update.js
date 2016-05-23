@@ -1,11 +1,9 @@
 import _ from 'lodash';
 
-// TODO used only in client, move there?
-
-module.exports = function updateUser (user, req = {}) {
-  _.each(req.body, (val, key) => {
-    _.set(user, key, val);
+module.exports = function(user, req, cb) {
+  _.each(req.body, function(v, k) {
+    user.fns.dotSet(k, v);
+    return true;
   });
-
-  return user;
+  return typeof cb === "function" ? cb(null, user) : void 0;
 };

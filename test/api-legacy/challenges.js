@@ -1,10 +1,10 @@
 var Challenge, Group, app;
 
-app = require("../../website/server/server");
+app = require("../../website/src/server");
 
-Group = require("../../website/server/models/group").model;
+Group = require("../../website/src/models/group").model;
 
-Challenge = require("../../website/server/models/challenge").model;
+Challenge = require("../../website/src/models/challenge").model;
 
 describe("Challenges", function() {
   var challenge, group, updateTodo;

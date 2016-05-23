@@ -1,8 +1,7 @@
 import {
   times,
-  map,
 } from 'lodash';
-import Bluebird from 'bluebird';
+import Q from 'q';
 import { v4 as generateUUID } from 'uuid';
 import { ApiUser, ApiGroup, ApiChallenge } from '../api-classes';
 import { requester } from '../requester';
@@ -42,29 +41,11 @@ export async function generateGroup (leader, details = {}, update = {}) {
   details.privacy = details.privacy || 'private';
   details.name = details.name || 'test group';
 
-  let members;
-
-  if (details.members) {
-    members = details.members;
-    delete details.members;
-  }
-
   let group = await leader.post('/groups', details);
   let apiGroup = new ApiGroup(group);
 
-  const groupMembershipTypes = {
-    party: { 'party._id': group._id},
-    guild: { guilds: [group._id] },
-  };
-
-  await Bluebird.all(
-    map(members, (member) => {
-      return member.update(groupMembershipTypes[group.type]);
-    })
-  );
-
   await apiGroup.update(update);
-  await apiGroup.sync();
+
   return apiGroup;
 }
 
@@ -91,20 +72,20 @@ export async function createAndPopulateGroup (settings = {}) {
   let groupLeader = await generateUser(leaderDetails);
   let group = await generateGroup(groupLeader, groupDetails);
 
-  const groupMembershipTypes = {
-    party: { 'party._id': group._id},
-    guild: { guilds: [group._id] },
-  };
-
-  let members = await Bluebird.all(
+  let members = await Q.all(
     times(numberOfMembers, () => {
-      return generateUser(groupMembershipTypes[group.type]);
+      return generateUser();
     })
   );
 
-  await group.update({ memberCount: numberOfMembers + 1});
+  let memberIds = members.map((member) => {
+    return member._id;
+  });
+  memberIds.push(groupLeader._id);
 
-  let invitees = await Bluebird.all(
+  await group.update({ members: memberIds });
+
+  let invitees = await Q.all(
     times(numberOfInvites, () => {
       return generateUser();
     })
@@ -116,7 +97,7 @@ export async function createAndPopulateGroup (settings = {}) {
     });
   });
 
-  await Bluebird.all(invitationPromises);
+  await Q.all(invitationPromises);
 
   return {
     groupLeader,

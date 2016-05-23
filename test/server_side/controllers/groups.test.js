@@ -3,12 +3,12 @@ var chai = require("chai");
 chai.use(require("sinon-chai"));
 var expect = chai.expect;
 
-var Bluebird = require('bluebird');
-var Group = require('../../../website/server/models/group').model;
-var groupsController = require('../../../website/server/controllers/api-v2/groups');
+var Q = require('q');
+var Group = require('../../../website/src/models/group').model;
+var groupsController = require('../../../website/src/controllers/api-v2/groups');
 
 describe('Groups Controller', function() {
-  var utils = require('../../../website/server/libs/api-v2/utils');
+  var utils = require('../../../website/src/libs/utils');
 
   describe('#invite', function() {
     var res, req, user, group;
@@ -69,7 +69,7 @@ describe('Groups Controller', function() {
     });
 
     context('emails', function() {
-      var EmailUnsubscription = require('../../../website/server/models/emailUnsubscription').model;
+      var EmailUnsubscription = require('../../../website/src/models/emailUnsubscription').model;
       var execStub, selectStub;
 
       beforeEach(function() {
@@ -301,7 +301,7 @@ describe('Groups Controller', function() {
     });
 
     afterEach(function() {
-      Promise.all.restore();
+      Q.all.restore();
     });
 
     context('error conditions', function() {
@@ -342,7 +342,7 @@ describe('Groups Controller', function() {
       });
 
       it('sends 500 if group cannot save', function() {
-        Promise.all.returns({
+        Q.all.returns({
           done: sinon.stub().callsArgWith(1, {err: 'save error'})
         });
         var nextSpy = sinon.spy();

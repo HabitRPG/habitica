@@ -1,4 +1,3 @@
-// TODO what can be moved to /website/server?
 /*
   ------------------------------------------------------
   Cron and time / day functions

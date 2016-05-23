@@ -33,13 +33,13 @@ describe('PUT /user/tasks/:id', () => {
       text: 'new text',
       notes: 'new notes',
       value: 10000,
-      priority: 0.1,
+      priority: 0.5,
       attribute: 'str',
     }).then((updatedTask) => {
       expect(updatedTask.text).to.eql('new text');
       expect(updatedTask.notes).to.eql('new notes');
       expect(updatedTask.value).to.eql(10000);
-      expect(updatedTask.priority).to.eql(0.1);
+      expect(updatedTask.priority).to.eql(0.5);
       expect(updatedTask.attribute).to.eql('str');
     });
   });

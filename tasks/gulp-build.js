@@ -1,5 +1,4 @@
 import gulp from 'gulp';
-import runSequence from 'run-sequence';
 import babel from 'gulp-babel';
 require('gulp-grunt')(gulp);
 
@@ -12,7 +11,7 @@ gulp.task('build', () => {
 });
 
 gulp.task('build:src', () => {
-  return gulp.src('website/server/**/*.js')
+  return gulp.src('website/src/**/*.js')
     .pipe(babel())
     .pipe(gulp.dest('website/transpiled-babel/'));
 });
@@ -30,13 +29,9 @@ gulp.task('build:dev', ['browserify', 'prepare:staticNewStuff'], (done) => {
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
-  gulp.watch(['website/client/**/*.styl', 'common/script/*']);
+  gulp.watch(['website/public/**/*.styl', 'common/script/*']);
 });
 
 gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff'], (done) => {
-  runSequence(
-    'grunt-build:prod',
-    'apidoc',
-    done
-  );
+  gulp.start('grunt-build:prod', done);
 });

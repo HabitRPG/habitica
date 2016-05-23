@@ -1,102 +1,78 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
-import {
-  BadRequest,
-  NotAuthorized,
-  NotFound,
-} from '../libs/errors';
 
-function evolve (user, pet, petDisplayName, req) {
-  user.items.pets[pet] = -1;
-  user.items.mounts[pet] = true;
-
-  if (pet === user.items.currentPet) {
-    user.items.currentPet = '';
-  }
-
-  return i18n.t('messageEvolve', {
-    egg: petDisplayName,
-  }, req.language);
-}
-
-module.exports = function feed (user, req = {}) {
-  let pet = _.get(req, 'params.pet');
-  let foodK = _.get(req, 'params.food');
-
-  if (!pet || !foodK) throw new BadRequest(i18n.t('missingPetFoodFeed', req.language));
-
-  if (pet.indexOf('-') === -1) {
-    throw new BadRequest(i18n.t('invalidPetName', req.language));
-  }
-
-  let food = content.food[foodK];
-  if (!food) {
-    throw new NotFound(i18n.t('messageFoodNotFound', req.language));
-  }
-
-  let userPets = user.items.pets;
-
-  if (!userPets[pet]) {
-    throw new NotFound(i18n.t('messagePetNotFound', req.language));
-  }
-
-  let [egg, potion] = pet.split('-');
-
-  let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text(req.language) : potion;
-  let eggText = content.eggs[egg] ? content.eggs[egg].text(req.language) : egg;
-
-  let petDisplayName = i18n.t('petName', {
+module.exports = function(user, req, cb) {
+  var egg, eggText, evolve, food, message, pet, petDisplayName, potion, potionText, ref, ref1, ref2, userPets;
+  ref = req.params, pet = ref.pet, food = ref.food;
+  food = content.food[food];
+  ref1 = pet.split('-'), egg = ref1[0], potion = ref1[1];
+  userPets = user.items.pets;
+  potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
+  eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+  petDisplayName = i18n.t('petName', {
     potion: potionText,
-    egg: eggText,
-  }, req.language);
-
-  if (!user.items.food[food.key]) {
-    throw new NotFound(i18n.t('messageFoodNotFound', req.language));
+    egg: eggText
+  });
+  if (!userPets[pet]) {
+    return typeof cb === "function" ? cb({
+      code: 404,
+      message: i18n.t('messagePetNotFound', req.language)
+    }) : void 0;
   }
-
+  if (!((ref2 = user.items.food) != null ? ref2[food.key] : void 0)) {
+    return typeof cb === "function" ? cb({
+      code: 404,
+      message: i18n.t('messageFoodNotFound', req.language)
+    }) : void 0;
+  }
   if (content.specialPets[pet]) {
-    throw new NotAuthorized(i18n.t('messageCannotFeedPet', req.language));
+    return typeof cb === "function" ? cb({
+      code: 401,
+      message: i18n.t('messageCannotFeedPet', req.language)
+    }) : void 0;
   }
-
   if (user.items.mounts[pet]) {
-    throw new NotAuthorized(i18n.t('messageAlreadyMount', req.language));
+    return typeof cb === "function" ? cb({
+      code: 401,
+      message: i18n.t('messageAlreadyMount', req.language)
+    }) : void 0;
   }
-
-  let message;
-
+  message = '';
+  evolve = function() {
+    userPets[pet] = -1;
+    user.items.mounts[pet] = true;
+    if (pet === user.items.currentPet) {
+      user.items.currentPet = "";
+    }
+    return message = i18n.t('messageEvolve', {
+      egg: petDisplayName
+    }, req.language);
+  };
   if (food.key === 'Saddle') {
-    message = evolve(user, pet, petDisplayName, req);
+    evolve();
   } else {
     if (food.target === potion || content.hatchingPotions[potion].premium) {
       userPets[pet] += 5;
       message = i18n.t('messageLikesFood', {
         egg: petDisplayName,
-        foodText: food.text(req.language),
+        foodText: food.text(req.language)
       }, req.language);
     } else {
       userPets[pet] += 2;
       message = i18n.t('messageDontEnjoyFood', {
         egg: petDisplayName,
-        foodText: food.text(req.language),
+        foodText: food.text(req.language)
       }, req.language);
     }
-
     if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
-      message = evolve(user, pet, petDisplayName, req);
+      evolve();
     }
   }
-
   user.items.food[food.key]--;
-
-  if (req.v2 === true) {
-    return {
-      value: userPets[pet],
-    };
-  } else {
-    return [
-      userPets[pet],
-      message,
-    ];
-  }
+  return typeof cb === "function" ? cb({
+    code: 200,
+    message: message
+  }, {
+    value: userPets[pet]
+  }) : void 0;
 };

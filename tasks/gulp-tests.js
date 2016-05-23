@@ -9,12 +9,10 @@ import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
-import Bluebird                   from 'bluebird';
+import Q                          from 'q';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
 import nconf                      from 'nconf';
-
-// TODO rewrite
 
 const TEST_SERVER_PORT  = 3003
 let server;
@@ -22,7 +20,6 @@ let server;
 const TEST_DB_URI       = nconf.get('TEST_DB_URI');
 
 const API_V2_TEST_COMMAND = 'npm run test:api-v2:integration';
-const API_V3_TEST_COMMAND = 'npm run test:api-v3';
 const LEGACY_API_TEST_COMMAND = 'npm run test:api-legacy';
 const COMMON_TEST_COMMAND = 'npm run test:common';
 const CONTENT_TEST_COMMAND = 'npm run test:content';
@@ -44,9 +41,9 @@ let testBin = (string, additionalEnvVariables = '') => {
       additionalEnvVariables = additionalEnvVariables.split(' ').join('&&set ');
       additionalEnvVariables = 'set ' + additionalEnvVariables + '&&';
     }
-    return `set NODE_ENV=test&&${additionalEnvVariables}${string}`;
+    return `set NODE_ENV=testing&&${additionalEnvVariables}${string}`;
   } else {
-    return `NODE_ENV=test ${additionalEnvVariables} ${string}`;
+    return `NODE_ENV=testing ${additionalEnvVariables} ${string}`;
   }
 };
 
@@ -68,7 +65,7 @@ gulp.task('test:prepare:mongo', (cb) => {
 
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
-    server = exec(testBin(`node ./website/server/index.js`, `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
+    server = exec(testBin('node ./website/src/server.js', `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT} `), (error, stdout, stderr) => {
       if (error) { throw `Problem with the server: ${error}`; }
       if (stderr) { console.error(stderr); }
     });
@@ -104,7 +101,7 @@ gulp.task('test:common:clean', (cb) => {
 });
 
 gulp.task('test:common:watch', ['test:common:clean'], () => {
-  gulp.watch(['common/script/**/*', 'test/common/**/*'], ['test:common:clean']);
+  gulp.watch(['common/script/**', 'test/common/**'], ['test:common:clean']);
 });
 
 gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
@@ -219,7 +216,7 @@ gulp.task('test:api-legacy:watch', [
   'test:prepare:mongo',
   'test:api-legacy:clean'
 ], () => {
-  gulp.watch(['website/server/**', 'test/api-legacy/**'], ['test:api-legacy:clean']);
+  gulp.watch(['website/src/**', 'test/api-legacy/**'], ['test:api-legacy:clean']);
 });
 
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
@@ -265,7 +262,7 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
   ].map(exec);
   support.push(server);
 
-  Bluebird.all([
+  Q.all([
     awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
@@ -286,7 +283,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
     'npm run test:e2e:webdriver',
   ].map(exec);
 
-  Bluebird.all([
+  Q.all([
     awaitPort(TEST_SERVER_PORT),
     awaitPort(4444)
   ]).then(() => {
@@ -309,16 +306,16 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
   });
 });
 
-/*gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
-  process.env.API_VERSION = 'v2';
+gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
+
   awaitPort(TEST_SERVER_PORT).then(() => {
-    runMochaTests('./test/api/v2/**//*.js', server, done)
+    runMochaTests('./test/api/v2/**/*.js', server, done)
   });
 });
 
 gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
   process.env.RUN_INTEGRATION_TEST_FOREVER = true;
-  gulp.watch(['website/server/**', 'test/api/v2/**'], ['test:api-v2']);
+  gulp.watch(['website/src/**', 'test/api/v2/**'], ['test:api-v2']);
 });
 
 gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
@@ -327,118 +324,7 @@ gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
       testBin(API_V2_TEST_COMMAND),
       (err, stdout, stderr) => {
         testResults.push({
-          suite: 'API V2 Specs\t',
-          pass: testCount(stdout, /(\d+) passing/),
-          fail: testCount(stderr, /(\d+) failing/),
-          pend: testCount(stdout, /(\d+) pending/)
-        });
-        done();
-      }
-    );
-    pipe(runner);
-  });
-});*/
-
-gulp.task('test:api-v2:integration', (done) => {
-  let runner = exec(
-    testBin('mocha test/api/v2 --recursive'),
-    {maxBuffer: 500*1024},
-    (err, stdout, stderr) => done(err)
-  )
-
-  pipe(runner);
-});
-
-gulp.task('test:api-v3:unit', (done) => {
-  let runner = exec(
-    testBin('mocha test/api/v3/unit --recursive'),
-    (err, stdout, stderr) => done(err)
-  )
-
-  pipe(runner);
-});
-
-gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/server/libs/api-v3/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], ['test:api-v3:unit']);
-});
-
-gulp.task('test:api-v3:integration', (done) => {
-  let runner = exec(
-    testBin('mocha test/api/v3/integration --recursive'),
-    {maxBuffer: 500*1024},
-    (err, stdout, stderr) => done(err)
-  )
-
-  pipe(runner);
-});
-
-gulp.task('test:api-v3:integration:watch', () => {
-  gulp.watch(['website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/api-v3/*.js',
-              'test/api/v3/integration/**/*'], ['test:api-v3:integration']);
-});
-
-gulp.task('test:api-v3:integration:separate-server', (done) => {
-  let runner = exec(
-    testBin('mocha test/api/v3/integration --recursive', 'LOAD_SERVER=0'),
-    {maxBuffer: 500*1024},
-    (err, stdout, stderr) => done(err)
-  )
-
-  pipe(runner);
-});
-
-gulp.task('test', (done) => {
-  runSequence(
-    'test:common',
-    'test:karma',
-    'test:api-v3:unit',
-    'test:api-v3:integration',
-    'test:api-v2:integration',
-    done
-  );
-});
-
-gulp.task('test:api-v3', (done) => {
-  runSequence(
-    'test:api-v3:unit',
-    'test:api-v3:integration',
-    done
-  );
-});
-
-// Old tests tasks
-/*
-gulp.task('test:api-v3', ['test:api-v3:unit', 'test:api-v3:integration']);
-
-gulp.task('test:api-v3:watch', ['test:api-v3:unit:watch', 'test:api-v3:integration:watch']);
-
-gulp.task('test:api-v3:unit', (done) => {*/
-//  runMochaTests('./test/api/v3/unit/**/*.js', null, done)
-/*});
-
-gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/server/**', 'test/api/v3/unit/**'], ['test:api-v3:unit']);
-});
-
-gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
-  process.env.API_VERSION = 'v3';
-  awaitPort(TEST_SERVER_PORT).then(() => {*/
-//    runMochaTests('./test/api/v3/integration/**/*.js', server, done)
-/*  });
-});
-
-gulp.task('test:api-v3:integration:watch', ['test:prepare:server'], () => {
-  process.env.RUN_INTEGRATION_TEST_FOREVER = true;
-  gulp.watch(['website/server/**', 'test/api/v3/integration/**'], ['test:api-v3:integration']);
-});
-
-gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
-  awaitPort(TEST_SERVER_PORT).then(() => {
-    let runner = exec(
-      testBin(API_V3_TEST_COMMAND),
-      (err, stdout, stderr) => {
-        testResults.push({
-          suite: 'API V3 Specs\t',
+          suite: 'API Specs\t',
           pass: testCount(stdout, /(\d+) passing/),
           fail: testCount(stdout, /(\d+) failing/),
           pend: testCount(stdout, /(\d+) pending/)
@@ -452,14 +338,13 @@ gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
 
 gulp.task('test:all', (done) => {
   runSequence(
-  //'test:e2e:safe',
-  //'test:common:safe',
-  //'test:content:safe',
+  'test:e2e:safe',
+  'test:common:safe',
+  'test:content:safe',
   // 'test:server_side:safe',
-  //'test:karma:safe',
-  //'test:api-legacy:safe',
-  //'test:api-v2:safe',
-  'test:api-v3:safe',
+  'test:karma:safe',
+  'test:api-legacy:safe',
+  'test:api-v2:safe',
   done);
 });
 
@@ -500,4 +385,4 @@ gulp.task('test', ['test:all'], () => {
     console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
     process.exit();
   }
-});*/
+});

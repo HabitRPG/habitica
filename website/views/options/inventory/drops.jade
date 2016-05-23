@@ -57,7 +57,7 @@
                   ng-click='castStart(Content.special.#{k})')
                   .badge.badge-info.stack-count {{user.items.special.#{k}}}
             +specialItem('snowball')
-            +specialItem('spookySparkles')
+            +specialItem('spookDust')
             +specialItem('shinySeed')
             +specialItem('seafoam')
 
@@ -65,7 +65,7 @@
               button.customize-option(class='inventory_present inventory_present_{{moment().format("MM")}}',
                 popover=env.t('subscriberItemText'), popover-trigger='mouseenter',
                 popover-placement='right', popover-append-to-body='true',
-                ng-click="User.openMysteryItem({})")
+                ng-click="user.ops.openMysteryItem({})")
                 .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
             div(ng-if='user.purchased.plan.consecutive.trinkets')
@@ -199,7 +199,7 @@
               button.customize-option(popover=env.t('subGemPop'), popover-title=env.t('subGemName'),
                 popover-trigger='mouseenter', popover-placement='top',
                 popover-append-to-body='true',
-                ng-click='User.purchase({params:{type:"gems",key:"gem"}})')
+                ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
                 span.Pet_Currency_Gem.inline-gems
                 .badge.badge-success.stack-count {{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}
               p
