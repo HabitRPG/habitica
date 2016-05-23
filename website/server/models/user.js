@@ -345,6 +345,7 @@ export let schema = new Schema({
   },
 
   lastCron: {type: Date, default: Date.now},
+  _cronSignature: String, // Private property to avoid double cron
 
   // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
   newMessages: {type: Schema.Types.Mixed, default: () => {
@@ -528,7 +529,7 @@ export let schema = new Schema({
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt'],
+  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     // plainObj.filters = {}; // TODO Not saved, remove?
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
