@@ -6,6 +6,7 @@ import Bluebird from 'bluebird';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import { cron } from '../../libs/api-v3/cron';
+import { v4 as uuid } from 'uuid';
 
 const daysSince = common.daysSince;
 
@@ -98,20 +99,43 @@ module.exports = function cronMiddleware (req, res, next) {
 
   if (daysMissed <= 0) return next();
 
-  // Fetch active tasks (no completed todos)
-  Tasks.Task.find({
-    userId: user._id,
-    $or: [ // Exclude completed todos
-      {type: 'todo', completed: false},
-      {type: {$in: ['habit', 'daily', 'reward']}},
-    ],
+  let quest;
+  let progress;
+  let tasks;
+
+  // To avoid double cron we set _cronSignature on the user to a random string
+  // and check that it has remained the same before saving
+  user._cronSignature = uuid();
+
+  User.update({
+    _id: user._id,
+    _cronSignature: 'not-running',
+  }, {
+    $set: {
+      _cronSignature: user._cronSignature,
+    },
   }).exec()
-  .then(tasks => {
+  .then((updateResult) => { // Fetch active tasks (no completed todos)
+    // if the cron signature is set, throw an error and recover later
+    if (updateResult.nMatched === 0 || updateResult.nUpdated === 0) {
+      throw new Error('cron-already-running');
+    }
+
+    return Tasks.Task.find({
+      userId: user._id,
+      $or: [ // Exclude completed todos
+        {type: 'todo', completed: false},
+        {type: {$in: ['habit', 'daily', 'reward']}},
+      ],
+    }).exec();
+  })
+  .then(tasksFetched => {
+    tasks = tasksFetched;
     let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
     tasks.forEach(task => tasksByType[`${task.type}s`].push(task));
 
     // Run cron
-    let progress = cron({user, tasksByType, now, daysMissed, analytics, timezoneOffsetFromUserPrefs});
+    progress = cron({user, tasksByType, now, daysMissed, analytics, timezoneOffsetFromUserPrefs});
 
     // Clear old completed todos - 30 days for free users, 90 for subscribers
     // Do not delete challenges completed todos TODO unless the task is broken?
@@ -126,7 +150,7 @@ module.exports = function cronMiddleware (req, res, next) {
     }).exec();
 
     let ranCron = user.isModified();
-    let quest = common.content.quests[user.party.quest.key];
+    quest = common.content.quests[user.party.quest.key];
 
     if (ranCron) res.locals.wasModified = true; // TODO remove after v2 is retired
     if (!ranCron) return next();
@@ -134,27 +158,65 @@ module.exports = function cronMiddleware (req, res, next) {
     // Group.tavernBoss(user, progress);
 
     // Save user and tasks
-    let toSave = [user.save()];
+    // Uses mongoose's internals to get update command
+    let mongooseDelta = user.$__delta();
+    if (mongooseDelta instanceof Error) {
+      throw mongooseDelta;
+    }
+
+    let mongooseWhere = user.$__where(mongooseDelta[0]);
+    if (mongooseWhere instanceof Error) {
+      throw mongooseWhere;
+    }
+    mongooseWhere._cronSignature = user._cronSignature; // Only update the user if cron signature matches
+
+    return User.update(mongooseWhere, mongooseDelta[1]);
+  })
+  .then(updateResult => {
+    // if the cron signature is set, throw an error and recover later
+    if (updateResult.nMatched === 0 || updateResult.nUpdated === 0) {
+      throw new Error('cron-already-running');
+    }
+
+    let toSave = [];
     tasks.forEach(task => {
       if (task.isModified()) toSave.push(task.save());
     });
 
-    return Bluebird.all(toSave)
-    .then(saved => {
-      user = res.locals.user = saved[0];
-      if (!quest) return;
-      // If user is on a quest, roll for boss & player, or handle collections
-      let questType = quest.boss ? 'boss' : 'collect';
-      // TODO this saves user, runs db updates, loads user. Is there a better way to handle this?
-      return Group[`${questType}Quest`](user, progress)
-      .then(() => User.findById(user._id).exec()) // fetch the updated user...
-      .then(updatedUser => {
-        res.locals.user = updatedUser;
+    return Bluebird.all(toSave);
+  })
+  .then(() => {
+    if (!quest) return;
+    // If user is on a quest, roll for boss & player, or handle collections
+    let questType = quest.boss ? 'boss' : 'collect';
+    // TODO this saves user, runs db updates, loads user. Is there a better way to handle this?
+    return Group[`${questType}Quest`](user, progress);
+  })
+  .then(() => {
+    User.findByIdAndUpdate(user._id, {
+      $set: {_cronSignature: 'not-running'},
+    }, {
+      new: true, // return the updated document
+    }).exec();
+  }) // fetch the updated user...
+  .then(updatedUser => {
+    user = res.locals.user = updatedUser;
 
-        return null;
-      });
-    })
-    .then(() => next())
-    .catch(next);
+    return null;
+  })
+  .then(() => next())
+  .catch((err) => {
+    if (err.message === 'cron-already-running') {
+      // recovering after abort, wait 200ms and reload user
+      setTimeout(() => {
+        User.findById(user._id, (reloadErr, reloadedUser) => {
+          if (reloadErr) return next(reloadErr);
+          user = res.locals.user = reloadedUser;
+          return next();
+        });
+      }, 200);
+    } else {
+      return next(err);
+    }
   });
 };

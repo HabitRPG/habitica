@@ -281,7 +281,7 @@ schema.methods.sendChat = function sendChat (message, user) {
   this.chat.splice(200);
 
   // Kick off chat notifications in the background.
-  let lastSeenUpdate = {$set: {}, $inc: {_v: 1}};
+  let lastSeenUpdate = {$set: {}};
   lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
@@ -431,7 +431,6 @@ schema.methods.finishQuest = function finishQuest (quest) {
   updates.$inc[`achievements.quests.${questK}`] = 1;
   updates.$inc['stats.gp'] = Number(quest.drop.gp);
   updates.$inc['stats.exp'] = Number(quest.drop.exp);
-  updates.$inc._v = 1;
 
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
@@ -535,9 +534,9 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
 
   // Everyone takes damage
   await User.update({
-    _id: {$in: _.keys(group.quest.members)},
+    _id: {$in: _.keys(group.quest.members.toObject ? group.quest.members.toObject() : group.quest.members)},
   }, {
-    $inc: {'stats.hp': down, _v: 1},
+    $inc: {'stats.hp': down},
   }, {multi: true}).exec();
   // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
