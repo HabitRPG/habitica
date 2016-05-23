@@ -156,7 +156,7 @@ api.subscribeCancel = {
 
     let customer = await stripe.customers.retrieve(user.purchased.plan.customeerId);
     await stripe.customers.del(user.purchased.plan.customerId);
-    await payments.cancelSubscriptoin({
+    await payments.cancelSubscription({
       user,
       nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
       paymentMethod: 'Stripe',
