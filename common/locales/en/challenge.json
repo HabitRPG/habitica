@@ -79,5 +79,5 @@
     "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
     "userAlreadyInChallenge": "User is already participating in this challenge.",
     "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
-    "shortNameTooShort": "Short Name must have at least 3 characters."
+    "shortNameTooShort": "Tag Name must have at least 3 characters."
 }
