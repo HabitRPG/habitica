@@ -1,47 +1,53 @@
 "use strict";
 
-habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrl', '$resource',
-  function($scope, $rootScope, User, Notification, ApiUrl, $resource) {
-    var Hero = $resource(ApiUrl.get() + '/api/v3/hall/heroes/:uid', {uid:'@_id'});
+habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrl', 'Hall',
+  function($scope, $rootScope, User, Notification, ApiUrl, Hall) {
     $scope.hero = undefined;
-    $scope.loadHero = function(uuid){
-      Hero.query({uid:uuid}, function (heroData) {
-        $scope.hero = heroData.data;
+    $scope.currentHeroIndex = undefined;
+    $scope.heroes = [];
+
+    Hall.getHeroes()
+      .then(function (response) {
+        $scope.heroes = response.data.data;
       });
+
+    $scope.loadHero = function(uuid, heroIndex) {
+      $scope.currentHeroIndex = heroIndex;
+      Hall.getHero(uuid)
+        .then(function (response) {
+          $scope.hero = response.data.data;
+        });
     }
+
     $scope.saveHero = function(hero) {
       $scope.hero.contributor.admin = ($scope.hero.contributor.level > 7) ? true : false;
-      hero.$save(function(){
-        Notification.text("User updated");
-        $scope.hero = undefined;
-        $scope._heroID = undefined;
-        Hero.query({}, function (heroesData) {
-          $scope.heroes = heroesData.data;
+      Hall.updateHero($scope.hero)
+        .then(function (response) {
+          Notification.text("User updated");
+          $scope.hero = undefined;
+          $scope._heroID = undefined;
+          $scope.heroes[$scope.currentHeroIndex] = response.data.data;
+          $scope.currentHeroIndex = undefined;
         });
-      })
     }
-    Hero.query({}, function (heroesData) {
-      $scope.heroes = heroesData.data;
-    });
 
-    $scope.populateContributorInput = function(id) {
+    $scope.populateContributorInput = function(id, index) {
       $scope._heroID = id;
-      window.scrollTo(0,200);
-      $scope.loadHero(id);
+      window.scrollTo(0, 200);
+      $scope.loadHero(id, index);
     };
   }]);
 
-habitrpg.controller("HallPatronsCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrl', '$resource',
-  function($scope, $rootScope, User, Notification, ApiUrl, $resource) {
-    var Patron = $resource(ApiUrl.get() + '/api/v3/hall/patrons/:uid', {uid:'@_id'});
-
+habitrpg.controller("HallPatronsCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrl', 'Hall',
+  function($scope, $rootScope, User, Notification, ApiUrl, Hall) {
     var page = 0;
     $scope.patrons = [];
 
-    $scope.loadMore = function(){
-      Patron.query({page: page++}, function(patronsData){
-        $scope.patrons = $scope.patrons.concat(patronsData.data);
-      })
+    $scope.loadMore = function() {
+      Hall.getPatrons(page++)
+        .then(function (response) {
+          $scope.patrons = $scope.patrons.concat(response.data.data);
+        });
     }
     $scope.loadMore();
 

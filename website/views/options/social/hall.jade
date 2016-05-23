@@ -88,7 +88,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
                 span(ng-class='userAdminGlyphiconStyle(hero)')
             span(ng-if='!hero.contributor.admin')
               a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
-          td(ng-if='user.contributor.admin', ng-click='populateContributorInput(hero._id)').btn-link {{hero._id}}
+          td(ng-if='user.contributor.admin', ng-click='populateContributorInput(hero._id, $index)').btn-link {{hero._id}}
           td {{hero.contributor.level}}
           td {{hero.contributor.text}}
           td
