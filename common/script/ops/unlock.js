@@ -5,6 +5,7 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../libs/errors';
+import setWith from 'lodash.setwith'; // Not available in lodash 3
 
 // If item is already purchased -> equip it
 // Otherwise unlock it
@@ -60,10 +61,12 @@ module.exports = function unlock (user, req = {}, analytics) {
   if (isFullSet) {
     _.each(setPaths, function markItemsAsPurchased (pathPart) {
       if (path.indexOf('gear.') !== -1) {
-        _.set(user, pathPart, true);
+        // Using Object so path[1] won't create an array but an object {path: {1: value}}
+        setWith(user, pathPart, true);
       }
 
-      _.set(user, `purchased.${pathPart}`, true);
+      // Using Object so path[1] won't create an array but an object {path: {1: value}}
+      setWith(user, `purchased.${pathPart}`, true, Object);
     });
   } else {
     if (alreadyOwns) { // eslint-disable-line no-lonely-if
@@ -74,9 +77,11 @@ module.exports = function unlock (user, req = {}, analytics) {
         value = '';
       }
 
-      _.set(user, `preferences.${key}`, value);
+      // Using Object so path[1] won't create an array but an object {path: {1: value}}
+      setWith(user, `preferences.${key}`, value);
     } else {
-      _.set(user, `purchased.${path}`, true);
+      // Using Object so path[1] won't create an array but an object {path: {1: value}}
+      setWith(user, `purchased.${path}`, true, Object);
     }
   }
 
