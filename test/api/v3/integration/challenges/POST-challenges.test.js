@@ -115,7 +115,7 @@ describe('POST /challenges', () => {
       let chal = await groupMember.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
       });
 
       expect(chal.leader).to.eql({
@@ -131,7 +131,7 @@ describe('POST /challenges', () => {
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
         prize: 0,
       });
 
@@ -143,7 +143,7 @@ describe('POST /challenges', () => {
       await expect(groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
         prize: 20,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -160,7 +160,7 @@ describe('POST /challenges', () => {
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
         prize,
       });
 
@@ -175,7 +175,7 @@ describe('POST /challenges', () => {
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
         prize,
       });
 
@@ -191,7 +191,7 @@ describe('POST /challenges', () => {
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
         prize,
       });
 
@@ -205,7 +205,7 @@ describe('POST /challenges', () => {
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
       });
 
       await expect(group.sync()).to.eventually.have.property('challengeCount', oldChallengeCount + 1);
@@ -221,7 +221,7 @@ describe('POST /challenges', () => {
       let challenge = await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
         official: true,
       });
 
@@ -232,7 +232,7 @@ describe('POST /challenges', () => {
       let challenge = await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
         official: true,
       });
 
@@ -265,7 +265,7 @@ describe('POST /challenges', () => {
 
     it('sets all properites of the challenge as passed', async () => {
       let name = 'Test Challenge';
-      let shortName = 'TC';
+      let shortName = 'TC Label';
       let description = 'Test Description';
       let prize = 4;
 
@@ -299,7 +299,7 @@ describe('POST /challenges', () => {
       let challenge = await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
-        shortName: 'TC',
+        shortName: 'TC Label',
       });
 
       await expect(groupLeader.sync()).to.eventually.have.property('challenges').to.include(challenge._id);
