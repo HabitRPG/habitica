@@ -21,6 +21,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       }
 
       if ($state.is('options.social.party') && $rootScope.party) {
+        $scope.group = {loadingParty: true}
         Groups.party(true).then(handlePartyResponse, handlePartyError);
       } else {
         Groups.Group.syncParty().then(handlePartyResponse, handlePartyError);
@@ -47,6 +48,8 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       }
 
       $scope.create = function(group) {
+        group.loadingParty = true;
+
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
@@ -141,7 +144,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           Groups.Group.leave(Groups.data.party._id, false)
             .then(function() {
               $rootScope.party = $scope.group = {
-                loadingNewParty: true
+                loadingParty: true
               };
               $scope.join({ id: newPartyId, name: newPartyName });
             });
