@@ -62,7 +62,7 @@ module.exports = function unlock (user, req = {}, analytics) {
     _.each(setPaths, function markItemsAsPurchased (pathPart) {
       if (path.indexOf('gear.') !== -1) {
         // Using Object so path[1] won't create an array but an object {path: {1: value}}
-        setWith(user, pathPart, true);
+        setWith(user, pathPart, true, Object);
       }
 
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
@@ -78,7 +78,7 @@ module.exports = function unlock (user, req = {}, analytics) {
       }
 
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
-      setWith(user, `preferences.${key}`, value);
+      setWith(user, `preferences.${key}`, value, Object);
     } else {
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `purchased.${path}`, true, Object);
