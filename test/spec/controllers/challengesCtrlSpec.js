@@ -344,6 +344,7 @@ describe('Challenges Controller', function() {
       it("opens an alert box if challenge.group is not specified", function() {
         var challenge = specHelper.newChallenge({
           name: 'Challenge without a group',
+          shortName: 'chal without group',
           group: null
         });
 
@@ -356,6 +357,7 @@ describe('Challenges Controller', function() {
       it("opens an alert box if isNew and user does not have enough gems", function() {
         var challenge = specHelper.newChallenge({
           name: 'Challenge without enough gems',
+          shortName: 'chal without gem',
           prize: 5
         });
 
@@ -372,6 +374,7 @@ describe('Challenges Controller', function() {
         var challenge = specHelper.newChallenge({
           _id: 'challenge-has-id-so-its-not-new',
           name: 'Challenge without enough gems',
+          shortName: 'chal without gem',
           prize: 5,
         });
 
@@ -385,6 +388,7 @@ describe('Challenges Controller', function() {
       it("saves the challenge if user has enough gems and challenge is new", function() {
         var challenge = specHelper.newChallenge({
           name: 'Challenge without enough gems',
+          shortName: 'chal without gem',
           prize: 5,
         });
 
@@ -400,6 +404,7 @@ describe('Challenges Controller', function() {
 
         var challenge = specHelper.newChallenge({
           name: 'Challenge',
+          shortName: 'chal',
         });
 
         setTimeout(function() {
@@ -419,6 +424,7 @@ describe('Challenges Controller', function() {
 
       it('saves new challenge and syncs User', function(done) {
         var challenge = specHelper.newChallenge();
+        challenge.shortName = 'chal';
 
         setTimeout(function() {
           expect(User.sync).to.be.calledOnce;
@@ -432,6 +438,7 @@ describe('Challenges Controller', function() {
         sinon.stub(notification, 'text');
 
         var challenge = specHelper.newChallenge();
+        challenge.shortName = 'chal';
 
         setTimeout(function() {
           expect(notification.text).to.be.calledOnce;

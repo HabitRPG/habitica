@@ -19,7 +19,7 @@ let Schema = mongoose.Schema;
 
 let schema = new Schema({
   name: {type: String, required: true},
-  shortName: {type: String, required: true},
+  shortName: {type: String, required: true, minlength: 3},
   description: String,
   official: {type: Boolean, default: false},
   tasksOrder: {

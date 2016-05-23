@@ -145,7 +145,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
 
               .row
                 .form-group.col-md-6.col-sm-12
-                  input.form-control(type='text', minlength="3",
+                  input.form-control(type='text',
                     ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
                     ng-disabled='insufficientGemsForTavernChallenge()')
                   |&nbsp;
