@@ -23,6 +23,53 @@ describe('Groups Controller', function() {
     });
   });
 
+  describe("isMemberOfPendingQuest", function() {
+    var party;
+    var partyStub;
+
+    beforeEach(function () {
+      party = specHelper.newGroup({
+        _id: "unique-party-id",
+        type: 'party',
+        members: ['leader-id'] // Ensure we wouldn't pass automatically.
+      });
+
+      partyStub = sandbox.stub(groups, "party", function() {
+        return party;
+      });
+    });
+
+    it("returns false if group is does not have a quest", function() {
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.not.be.ok;
+    });
+
+    it("returns false if group quest has not members", function() {
+      party.quest = {
+        'key': 'random-key',
+      };
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.not.be.ok;
+    });
+
+    it("returns false if group quest is active", function() {
+      party.quest = {
+        'key': 'random-key',
+        'members': {},
+        'active': true,
+      };
+      party.quest.members[user._id] = true;
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.not.be.ok;
+    });
+
+    it("returns true if user is a member of a pending quest", function() {
+      party.quest = {
+        'key': 'random-key',
+        'members': {},
+      };
+      party.quest.members[user._id] = true;
+      expect(scope.isMemberOfPendingQuest(user._id, party)).to.be.ok;
+    });
+  });
+
   describe("isMemberOfGroup", function() {
     it("returns true if group is the user's party retrieved from groups service", function() {
       var party = specHelper.newGroup({
@@ -31,7 +78,7 @@ describe('Groups Controller', function() {
         members: ['leader-id'] // Ensure we wouldn't pass automatically.
       });
 
-      var partyStub = sandbox.stub(groups,"party", function() {
+      var partyStub = sandbox.stub(groups, "party", function() {
         return party;
       });
 
@@ -46,12 +93,9 @@ describe('Groups Controller', function() {
         members: [user._id]
       });
 
-      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
-        return [guild];
-      });
+      user.guilds = [guild._id];
 
       expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
-      expect(myGuilds).to.be.called;
     });
 
     it('does not return true if guild is not included in myGuilds call', function(){
@@ -62,12 +106,9 @@ describe('Groups Controller', function() {
         members: ['not-user-id']
       });
 
-      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
-        return [];
-      });
+      user.guilds = [];
 
       expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
-      expect(myGuilds).to.be.calledOnce;
     });
   });
 
@@ -122,12 +163,12 @@ describe('Groups Controller', function() {
       scope.editGroup(guild);
     });
 
-    it('calls group.save', () => {
-      let guildSave = sandbox.spy(scope.groupCopy, '$save');
+    it('calls group update', () => {
+      let guildUpdate = sandbox.spy(groups.Group, 'update');
 
       scope.saveEdit(guild);
 
-      expect(guildSave).to.be.calledOnce;
+      expect(guildUpdate).to.be.calledOnce;
     });
 
     it('calls cancelEdit', () => {

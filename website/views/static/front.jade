@@ -34,6 +34,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
 
     script(type='text/javascript').
       window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
+
     != env.getManifestFiles("tmp_static_front")
 
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js')

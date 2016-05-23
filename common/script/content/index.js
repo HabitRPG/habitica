@@ -426,6 +426,7 @@ api.specialPets = {
   'Phoenix-Base': 'phoenix',
   'Turkey-Gilded': 'gildedTurkey',
   'MagicalBee-Base': 'magicalBee',
+  'Lion-Veteran': 'veteranLion',
 };
 
 api.specialMounts = {
@@ -596,6 +597,14 @@ api.mounts = _.transform(api.dropEggs, function(m, egg) {
 api.questMounts = _.transform(api.questEggs, function(m, egg) {
   return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
     if (!pot.premium) {
+      return m2[egg.key + "-" + pot.key] = true;
+    }
+  }));
+});
+
+api.premiumMounts = _.transform(api.dropEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    if (pot.premium) {
       return m2[egg.key + "-" + pot.key] = true;
     }
   }));
