@@ -352,17 +352,26 @@ api.updatePassword = {
 
     if (!user.auth.local.hashed_password) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
-
     req.checkBody({
       password: {
-        notEmpty: {errorMessage: res.t('missingNewPassword')},
-      },
-      newPassword: {
         notEmpty: {errorMessage: res.t('missingPassword')},
       },
+      newPassword: {
+        notEmpty: {errorMessage: res.t('missingNewPassword')},
+      },
+      confirmPassword: {
+        notEmpty: {errorMessage: res.t('missingNewPassword')},
+      },
     });
+
+    let validationErrors = req.validationErrors();
+
+    if (validationErrors) {
+      throw validationErrors;
+    }
+
+    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
 
     if (req.body.newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
 
