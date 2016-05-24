@@ -110,6 +110,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       function _cloneTaskAndPush(taskToClone) {
         var task = Tasks.cloneTask(taskToClone);
+        task.challenge = undefined;
         clonedTasks[task.type].push(task);
       }
     };
