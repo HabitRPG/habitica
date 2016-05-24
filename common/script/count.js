@@ -8,7 +8,7 @@ import content from './content/index';
 
 const DROP_ANIMALS = keys(content.pets);
 
-function beastMasterProgress (pets) {
+function beastMasterProgress (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, (animal) => {
@@ -19,7 +19,7 @@ function beastMasterProgress (pets) {
   return count;
 }
 
-function dropPetsCurrentlyOwned (pets) {
+function dropPetsCurrentlyOwned (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, (animal) => {
@@ -30,7 +30,7 @@ function dropPetsCurrentlyOwned (pets) {
   return count;
 }
 
-function mountMasterProgress (mounts) {
+function mountMasterProgress (mounts = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, (animal) => {
@@ -41,7 +41,7 @@ function mountMasterProgress (mounts) {
   return count;
 }
 
-function remainingGearInSet (userGear, set) {
+function remainingGearInSet (userGear = {}, set) {
   let gear = filter(content.gear.flat, (item) => {
     let setMatches = item.klass === set;
     let hasItem = userGear[item.key];
@@ -54,7 +54,7 @@ function remainingGearInSet (userGear, set) {
   return count;
 }
 
-function questsOfCategory (userQuests, category) {
+function questsOfCategory (userQuests = {}, category) {
   let quests = filter(content.quests, (quest) => {
     let categoryMatches = quest.category === category;
     let hasQuest = userQuests[quest.key];
