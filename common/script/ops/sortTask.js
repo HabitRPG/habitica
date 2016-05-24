@@ -21,7 +21,7 @@ module.exports = function sortTask (user, req = {}) {
   if (index === -1) {
     throw new NotFound(i18n.t('messageTaskNotFound', req.language));
   }
-  if (!to && !fromParam) {
+  if (to == null && fromParam == null) { // eslint-disable-line eqeqeq
     throw new BadRequest('?to=__&from=__ are required');
   }
 

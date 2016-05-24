@@ -357,7 +357,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
 }
 
 /**
- * @api {put} /api/v3/tasks/:taskId/score/:direction Score a task
+ * @api {post} /api/v3/tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task

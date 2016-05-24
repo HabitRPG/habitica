@@ -193,24 +193,27 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         // Don't allow creation of an empty checklist item
         // TODO Provide UI feedback that this item is still blank
       } else if ($index == task.checklist.length - 1) {
-        Tasks.addChecklistItem(task._id, task.checklist[$index]);
-        task.checklist.push({completed:false,text:''});
-        focusChecklist(task,task.checklist.length-1);
+        Tasks.addChecklistItem(task._id, task.checklist[$index])
+          .then(function (response) {
+            task.checklist[$index] = response.data.data.checklist[$index];
+          });
+        task.checklist.push({completed:false, text:''});
+        focusChecklist(task, task.checklist.length - 1);
       } else {
         $scope.saveTask(task, true);
         focusChecklist(task, $index + 1);
       }
     }
 
-    $scope.removeChecklistItem = function(task, $event, $index, force){
+    $scope.removeChecklistItem = function(task, $event, $index, force) {
       // Remove item if clicked on trash icon
       if (force) {
-        Tasks.removeChecklistItem(task._id, task.checklist[$index].id);
+        if (task.checklist[$index].id) Tasks.removeChecklistItem(task._id, task.checklist[$index].id);
         task.checklist.splice($index, 1);
       } else if (!task.checklist[$index].text) {
         // User deleted all the text and is now wishing to delete the item
         // saveTask will prune the empty item
-        Tasks.removeChecklistItem(task._id, task.checklist[$index].id);
+        if (task.checklist[$index].id) Tasks.removeChecklistItem(task._id, task.checklist[$index].id);
         // Move focus if the list is still non-empty
         if ($index > 0)
           focusChecklist(task, $index-1);
