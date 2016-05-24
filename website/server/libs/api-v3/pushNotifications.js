@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import _ from 'lodash';
 import nconf from 'nconf';
 import pushNotify from 'push-notify';
@@ -26,9 +28,12 @@ if (gcm) {
 }
 
 module.exports = function sendNotification (user, title, message, timeToLive = 15) {
-  if (!user) return;
+  return; // TODO push notifications are not currently enabled
 
-  _.each(user.pushDevices, pushDevice => {
+  if (!user) return;
+  let pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
+
+  _.each(pushDevices, pushDevice => {
     switch (pushDevice.type) {
       case 'android':
         if (gcm) {

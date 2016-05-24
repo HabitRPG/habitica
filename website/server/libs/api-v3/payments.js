@@ -6,7 +6,7 @@ import {
 } from './email';
 import moment from 'moment';
 import nconf from 'nconf';
-import pushNotify from './pushNotifications';
+import sendPushNotification from './pushNotifications';
 import shared from '../../../../common' ;
 
 const IS_PROD = nconf.get('IS_PROD');
@@ -102,7 +102,7 @@ api.createSubscription = async function createSubscription (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
-      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedSubscription'), `${months} months - by ${byUserName}`);
+      sendPushNotification(data.gift.member, shared.i18n.t('giftedSubscription'), `${months} months - by ${byUserName}`);
     }
   }
 
@@ -172,7 +172,7 @@ api.buyGems = async function buyGems (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
-      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
+      sendPushNotification(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
     }
 
     await data.gift.member.save();
