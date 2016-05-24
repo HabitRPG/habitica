@@ -27,7 +27,30 @@ describe('shared.fns.ultimateGear', () => {
     };
 
     user.items = items;
+    user.achievements.ultimateGearSets.toObject = function () { return this; }
     ultimateGear(user);
     expect(user.flags.armoireEnabled).to.equal(true);
+  });
+
+  it('does not set armoirEnabled when gear is not owned', () => {
+    let items = {
+      gear: {
+        owned: {
+          toObject: () => {
+            return {
+              armor_warrior_5: true, // eslint-disable-line camelcase
+              shield_warrior_5: true, // eslint-disable-line camelcase
+              head_warrior_5: true, // eslint-disable-line camelcase
+              weapon_warrior_6: false, // eslint-disable-line camelcase
+            };
+          },
+        },
+      },
+    };
+
+    user.items = items;
+    user.achievements.ultimateGearSets.toObject = function () { return this; }
+    ultimateGear(user);
+    expect(user.flags.armoireEnabled).to.equal(false);
   });
 });
