@@ -109,7 +109,7 @@ function processGroups (afterId) {
       oldGroup.memberCount = oldGroup.members ? oldGroup.members.length : 0;
       oldGroup.challengeCount = oldGroup.challenges ? oldGroup.challenges.length : 0;
 
-      if (!oldGroup.balance <= 0) oldGroup.balance = 0;
+      if (oldGroup.balance <= 0) oldGroup.balance = 0;
       if (!oldGroup.name) oldGroup.name = 'group name';
       if (!oldGroup.leaderOnly) oldGroup.leaderOnly = {};
       if (!oldGroup.leaderOnly.challenges) oldGroup.leaderOnly.challenges = false;
