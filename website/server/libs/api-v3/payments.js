@@ -4,7 +4,6 @@ import {
   getUserInfo,
   sendTxn as txnEmail,
 } from './email';
-import members from '../../controllers/api-v3/members';
 import moment from 'moment';
 import nconf from 'nconf';
 import pushNotify from './pushNotifications';
