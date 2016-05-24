@@ -8,6 +8,9 @@ describe('shared.fns.ultimateGear', () => {
 
   beforeEach(() => {
     user = generateUser();
+    user.achievements.ultimateGearSets.toObject = function () {
+      return this;
+    };
   });
 
   it('sets armoirEnabled when partial achievement already achieved', () => {
@@ -27,7 +30,6 @@ describe('shared.fns.ultimateGear', () => {
     };
 
     user.items = items;
-    user.achievements.ultimateGearSets.toObject = function () { return this; }
     ultimateGear(user);
     expect(user.flags.armoireEnabled).to.equal(true);
   });
@@ -49,7 +51,6 @@ describe('shared.fns.ultimateGear', () => {
     };
 
     user.items = items;
-    user.achievements.ultimateGearSets.toObject = function () { return this; }
     ultimateGear(user);
     expect(user.flags.armoireEnabled).to.equal(false);
   });
