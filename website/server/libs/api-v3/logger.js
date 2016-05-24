@@ -12,7 +12,7 @@ const logger = new winston.Logger();
 if (IS_PROD) {
   if (ENABLE_CONSOLE_LOGS_IN_PROD) {
     logger.add(winston.transports.Console, {
-      colorize: true,
+      colorize: IS_PROD ? false : true,
       prettyPrint: true,
     });
   }

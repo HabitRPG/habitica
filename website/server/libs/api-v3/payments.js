@@ -91,7 +91,7 @@ api.createSubscription = async function createSubscription (data) {
   data.user.purchased.txnCount++;
 
   if (data.gift) {
-    members.sendMessage(data.user, data.gift.member, data.gift);
+    data.user.sendMessage(data.user, data.gift.member, data.gift);
 
     let byUserName = getUserInfo(data.user, ['name']).name;
 
@@ -164,7 +164,7 @@ api.buyGems = async function buyGems (data) {
     let byUsername = getUserInfo(data.user, ['name']).name;
     let gemAmount = data.gift.gems.amount || 20;
 
-    members.sendMessage(data.user, data.gift.member, data.gift);
+    data.user.sendMessage(data.user, data.gift.member, data.gift);
     if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
       txnEmail(data.gift.member, 'gifted-gems', [
         {name: 'GIFTER', content: byUsername},
