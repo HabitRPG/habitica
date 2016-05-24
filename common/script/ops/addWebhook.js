@@ -5,12 +5,24 @@ import {
   BadRequest,
 } from '../libs/errors';
 import _ from 'lodash';
+import { v4 as uuid } from 'uuid';
 
 module.exports = function addWebhook (user, req = {}) {
-  let wh = user.preferences.webhooks;
+  let webhooks = user.preferences.webhooks;
 
-  if (!validator.isURL(_.get(req, 'body.url'))) throw new BadRequest(i18n.t('invalidUrl', req.language));
-  if (!validator.isBoolean(_.get(req, 'body.enabled'))) throw new BadRequest(i18n.t('invalidEnabled', req.language));
+  let id = _.get(req, 'body.id', uuid); // Use uuid if not supplied
+  let enabled = _.get(req, 'body.enabled', true); // Enabled by default
+  let url = _.get(req, 'body.url');
+
+  if (!validator.isURL(id)) {
+    throw new BadRequest(i18n.t('invalidUuid', req.language));
+  }
+  if (!url || !validator.isURL(url)) {
+    throw new BadRequest(i18n.t('invalidUrl', req.language));
+  }
+  if (!validator.isBoolean(enabled)) {
+    throw new BadRequest(i18n.t('invalidEnabled', req.language));
+  }
 
   user.markModified('preferences.webhooks');
 
@@ -18,9 +30,10 @@ module.exports = function addWebhook (user, req = {}) {
     return user.preferences.webhooks;
   } else {
     return [
-      refPush(wh, {
-        url: req.body.url,
-        enabled: req.body.enabled,
+      refPush(webhooks, {
+        id,
+        url,
+        enabled,
       }),
     ];
   }
