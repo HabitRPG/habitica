@@ -5,6 +5,7 @@ import _ from 'lodash';
 import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
+const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
@@ -175,13 +176,15 @@ export function cron (options = {}) {
             cron: true,
           });
 
-          // Apply damage from a boss, less damage for Trivial priority (difficulty)
-          user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-          // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-          // initially, and when we realised, we could not fix it because users are used to
-          // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-          // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-          // setting between Trivial and Easy.
+          if (!CRON_SEMI_SAFE_MODE) {
+            // Apply damage from a boss, less damage for Trivial priority (difficulty)
+            user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+            // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+            // initially, and when we realised, we could not fix it because users are used to
+            // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+            // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+            // setting between Trivial and Easy.
+          }
         }
       }
     }
