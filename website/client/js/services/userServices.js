@@ -355,6 +355,17 @@ angular.module('habitrpg')
           callOpsFunctionAndRequest('buy', 'buy', "POST", data.params.key, data);
         },
 
+        buyArmoire: function () {
+          $http({
+            method: "POST",
+            url: '/api/v3/user/buy-armoire',
+          })
+          .then(function (response) {
+            Notification.text(response.data.message);
+            sync();
+          })
+        },
+
         buyQuest: function (data) {
           callOpsFunctionAndRequest('buyQuest', 'buy-quest', "POST", data.params.key, data);
         },
