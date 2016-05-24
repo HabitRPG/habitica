@@ -112,7 +112,6 @@ angular.module('habitrpg')
           $rootScope.$emit('userSynced');
         });
       }
-      sync();
 
       var save = function () {
         localStorage.setItem(STORAGE_USER_ID, JSON.stringify(user));
