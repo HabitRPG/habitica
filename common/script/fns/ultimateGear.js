@@ -15,7 +15,14 @@ module.exports = function ultimateGear (user) {
     }
   });
 
-  let hasFullSet = _.includes(Object.values(user.achievements.ultimateGearSets.toObject()), true);
+  let ultimateGearSetValues;
+  if (user.achievements.ultimateGearSets.toObject) {
+    ultimateGearSetValues = Object.values(user.achievements.ultimateGearSets.toObject());
+  } else {
+    ultimateGearSetValues = Object.values(user.achievements.ultimateGearSets);
+  }
+
+  let hasFullSet = _.includes(ultimateGearSetValues, true);
 
   if (hasFullSet && user.flags.armoireEnabled !== true) {
     user.flags.armoireEnabled = true;
