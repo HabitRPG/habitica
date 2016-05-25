@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Kast en snebold efter et gruppemedlem! Kom nu, hvad kan der ske? Holder indtil medlemmet skifter dag.",
     "spellSpecialSaltText": "Salt",
     "spellSpecialSaltNotes": "Nogen har kastet en snebold på dig! Haha, skideskægt... Fjern nu bare sneen fra mig!",
-    "spellSpecialSpookDustText": "Skræmmende Gnister",
-    "spellSpecialSpookDustNotes": "Gør din ven til et svævende lagen med øjne!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Uigennemsigtig Eliksir",
     "spellSpecialOpaquePotionNotes": "Fjerner effekterne af Skræmmende Gnister.",
     "spellSpecialShinySeedText": "Skinnende Frø",
@@ -46,5 +46,11 @@
     "spellSpecialSeafoamText": "Havskum",
     "spellSpecialSeafoamNotes": "Gør en ven til et søuhyre!",
     "spellSpecialSandText": "Sand",
-    "spellSpecialSandNotes": "Fjerner effekterne af Havskum."
+    "spellSpecialSandNotes": "Fjerner effekterne af Havskum.",
+    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
+    "partyNotFound": "Party not found",
+    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
+    "spellNotOwned": "You don't own this skill.",
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

@@ -163,6 +163,10 @@
   "questEggFalconMountText": "Falcon",
   "questEggFalconAdjective": "a swift",
 
+  "questEggTreelingText": "Treeling",
+  "questEggTreelingMountText": "Treeling",
+  "questEggTreelingAdjective": "a leafy",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -219,5 +223,4 @@
   "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
 
   "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
-
 }

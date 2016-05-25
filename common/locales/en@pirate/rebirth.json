@@ -5,7 +5,7 @@
     "rebirthStartOver": "Rebirth starts yer character over from Level 1.",
     "rebirthAdvList1": "Ye return t' full Health.",
     "rebirthAdvList2": "Ye 'ave no Experience, Doubloons, or Equipment (with th' exception of free items like Mystery Items)",
-    "rebirthAdvList3": "Yer Habits, Dailies, an' T'-Dos reset t' yellow, an' streaks reset.",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "Ye have the startin' class o' Mercenary 'til ye earn a new class.",
     "rebirthInherit": "Yer new character inherits a few things from their predecessor:",
     "rebirthInList1": "Tasks, history, an' settings remain.",
@@ -24,5 +24,6 @@
     "rebirthPop": "Begin a new character at Level 1 whilst retainin' achievements, collectibles, an' tasks with history.",
     "rebirthName": "Orb o' Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
-    "confirmReborn": "Be ye positive?"
+    "confirmReborn": "Be ye positive?",
+    "rebirthComplete": "You have been reborn!"
 }

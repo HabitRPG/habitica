@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "请注意您的显示名称、照片和简介，它们必须遵从<a href='https://habitica.com/static/community-guidelines' target='_blank'>社区指南</a> (例如，没有亵渎言论，没有成人话题，没有侮辱言论)。如果您对是否适当有任何问题，欢迎发送电子邮件给<a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>！",
     "statsAch": "角色属性及成就",
     "profile": "角色信息",
     "avatar": "角色形象",
@@ -34,7 +35,7 @@
     "beard": "落腮胡",
     "mustache": "八字胡",
     "flower": "花",
-    "wheelchair": "Wheelchair",
+    "wheelchair": " 轮椅",
     "basicSkins": "基本肤色",
     "rainbowSkins": "彩虹肤色",
     "pastelSkins": "柔和肤色",
@@ -109,6 +110,7 @@
     "mage": "法师",
     "mystery": "神秘",
     "changeClass": "更改职业，重新分配属性点",
+    "lvl10ChangeClass": "To change class you must be at least level 10.",
     "levelPopover": "每一级你可以获得一个可自由分配的属性点。你可以手动分配，或者让系统为你自动分配。",
     "unallocated": "未分配的属性点",
     "haveUnallocated": "你有 <%= points %> 点未分配的属性点",
@@ -164,5 +166,7 @@
     "int": "智力",
     "showQuickAllocation": "显示属性分配",
     "hideQuickAllocation": "隐藏属性分配",
-    "quickAllocationLevelPopover": "每个等级获得一点属性点供你分配。你可以手工分配或者用一种自动分配选项让游戏帮你决定，在 玩家 -> 角色属性及成就 中选择。"
+    "quickAllocationLevelPopover": "每个等级获得一点属性点供你分配。你可以手工分配或者用一种自动分配选项让游戏帮你决定，在 玩家 -> 角色属性及成就 中选择。",
+    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
+    "notEnoughAttrPoints": "You don't have enough attribute points."
 }

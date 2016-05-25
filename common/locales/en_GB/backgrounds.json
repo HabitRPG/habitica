@@ -156,9 +156,16 @@
     "backgroundStoneCircleNotes": "Cast spells in a Circle of Stones.",
     "backgrounds042016": "SET 23: Released April 2016",
     "backgroundArcheryRangeText": "Archery Range",
-    "backgroundArcheryRangeNotes": "Practice on the Archery Range.",
+    "backgroundArcheryRangeNotes": "Practise on the Archery Range.",
     "backgroundGiantFlowersText": "Giant Flowers",
     "backgroundGiantFlowersNotes": "Frolic atop Giant Flowers.",
     "backgroundRainbowsEndText": "End of the Rainbow",
-    "backgroundRainbowsEndNotes": "Discover gold at the End of the Rainbow."
+    "backgroundRainbowsEndNotes": "Discover gold at the End of the Rainbow.",
+    "backgrounds052016": "SET 24: Released May 2016",
+    "backgroundBeehiveText": "Beehive",
+    "backgroundBeehiveNotes": "Buzz and dance in a Beehive.",
+    "backgroundGazeboText": "Gazebo",
+    "backgroundGazeboNotes": "Battle a Gazebo.",
+    "backgroundTreeRootsText": "Tree Roots",
+    "backgroundTreeRootsNotes": "Explore the Tree Roots."
 }

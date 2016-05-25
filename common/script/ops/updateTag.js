@@ -1,18 +1,20 @@
 import i18n from '../i18n';
 import _ from 'lodash';
+import { NotFound } from '../libs/errors';
 
-module.exports = function(user, req, cb) {
-  var i, tid;
-  tid = req.params.id;
-  i = _.findIndex(user.tags, {
-    id: tid
+// TODO used only in client, move there?
+
+module.exports = function updateTag (user, req = {}) {
+  let tid = _.get(req, 'params.id');
+
+  let index = _.findIndex(user.tags, {
+    id: tid,
   });
-  if (!~i) {
-    return typeof cb === "function" ? cb({
-      code: 404,
-      message: i18n.t('messageTagNotFound', req.language)
-    }) : void 0;
+
+  if (index === -1) {
+    throw new NotFound(i18n.t('messageTagNotFound', req.language));
   }
-  user.tags[i].name = req.body.name;
-  return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
+
+  user.tags[index].name = _.get(req, 'body.name');
+  return user.tags[index];
 };

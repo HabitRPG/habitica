@@ -1,3 +1,4 @@
-module.exports = function(s) {
+
+module.exports = function splitWhitespace (s) {
   return s.split(' ');
 };
