@@ -500,11 +500,11 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
   // Still needs completing
   if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
     return group.quest.progress.collect[k] < v.count;
-  })) return group.save();
+  })) return await group.save();
 
   await group.finishQuest(quest);
   group.sendChat('`All items found! Party has received their rewards.`');
-  return group.save();
+  return await group.save();
 };
 
 schema.statics.bossQuest = async function bossQuest (user, progress) {
@@ -538,7 +538,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
 
   // Everyone takes damage
   await User.update({
-    _id: {$in: _.keys(group.quest.members.toObject ? group.quest.members.toObject() : group.quest.members)},
+    _id: {$in: _.keys(group.quest.members)},
   }, {
     $inc: {'stats.hp': down},
   }, {multi: true}).exec();
@@ -554,10 +554,9 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
-    return group.save();
   }
 
-  return group.save();
+  return await group.save();
 };
 
 // to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
