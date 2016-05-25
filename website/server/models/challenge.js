@@ -231,7 +231,7 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
   }, {multi: true}).exec();
 };
 
-// Unlink challenges tasks (and the challenge itself) from user
+// Unlink challenges tasks (and the challenge itself) from user. TODO rename to 'leave'
 schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
   let challengeId = this._id;
   let findQuery = {
