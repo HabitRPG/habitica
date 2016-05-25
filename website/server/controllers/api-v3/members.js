@@ -183,14 +183,18 @@ api.getInvitesForGroup = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge
- * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results. You can also use ?includeAllMembers=true but it's slow and discouraged.
+ * @apiDescription With a limit of 30 member per request.
+ * To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results. 
+ * BETA You can also use ?includeAllMembers=true. This option is currently in BETA and may be removed in future.
+ * Its use is discouraged and its performaces are not optimized especially for large challenges.
+ *
  * @apiVersion 3.0.0
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
  * @apiParam {UUID} challengeId The challenge id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {string} includeAllMembers Query parameter - If 'true' all challenge members are returned
+ * @apiParam {string} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
 
  * @apiSuccess {array} data An array of members, sorted by _id
  */
