@@ -10,6 +10,33 @@ import { v4 as uuid } from 'uuid';
 
 const daysSince = common.daysSince;
 
+async function recoverCron (status, req, res, next) {
+  try {
+    let user = res.locals.user;
+
+    await Bluebird.delay(300);
+    let reloadedUser = await User.findOne({_id: user._id}).exec();
+
+    if (!reloadedUser) {
+      throw new Error(`User ${user._id} not found while recovering.`);
+    } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
+      console.log((new Date()).toISOString(), 'RECOVERED FROM CRON - STILL RUNNING', req.originalUrl, req.method);
+      status.times++;
+      if (status.times < 4) {
+        await recoverCron(status, req, res, next);
+      } else {
+        throw new Error(`Impossible to recover from cron for user ${user._id}.`);
+      }
+    } else {
+      console.log((new Date()).toISOString(), 'RECOVERED FROM CRON', req.originalUrl, req.method);
+      res.locals.user = reloadedUser;
+      return next();
+    }
+  } catch (err) {
+    return next(err);
+  }
+}
+
 module.exports = async function cronMiddleware (req, res, next) {
   let user = res.locals.user;
   if (!user) return next(); // User might not be available when authentication is not mandatory
@@ -19,13 +46,13 @@ module.exports = async function cronMiddleware (req, res, next) {
   let _cronSignature = uuid();
 
   try {
-    console.log('CHECKING RUN CRON', req.originalUrl, req.method, (new Date()).toISOString());
+    console.log((new Date()).toISOString(), 'CHECKING RUN CRON', req.originalUrl, req.method);
 
     // If the user's timezone has changed (due to travel or daylight savings),
     // cron can be triggered twice in one day, so we check for that and use
     // both timezones to work out if cron should run.
     // CDS = Custom Day Start time.
-    let timezoneOffsetFromUserPrefs = user.preferences.timezoneOffset || 0;
+    let timezoneOffsetFromUserPrefs = user.preferences.timezoneOffset;
     let timezoneOffsetAtLastCron = _.isFinite(user.preferences.timezoneOffsetAtLastCron) ? user.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
     let timezoneOffsetFromBrowser = Number(req.header('x-user-timezoneoffset'));
     timezoneOffsetFromBrowser = _.isFinite(timezoneOffsetFromBrowser) ? timezoneOffsetFromBrowser : timezoneOffsetFromUserPrefs;
@@ -99,23 +126,28 @@ module.exports = async function cronMiddleware (req, res, next) {
       }
     }
 
-    if (daysMissed <= 0) return next();
-    console.log('RUNNING CRON FOR REAL', req.originalUrl, req.method, (new Date()).toISOString());
+    if (daysMissed <= 0) {
+      if (user.isModified()) await user.save();
+      return next();
+    }
+
+    console.log((new Date()).toISOString(), 'RUNNING CRON FOR REAL', req.originalUrl, req.method);
 
     // To avoid double cron we first set _cronSignature to now and then check that it's not changed while processing
     let userUpdateResult = await User.update({
       _id: user._id,
-      _cronSignature: 'not-running', // Check that in the meantime another cron has not started
+      _cronSignature: 'NOT_RUNNING', // Check that in the meantime another cron has not started
     }, {
       $set: {
         _cronSignature,
       },
     }).exec();
-    console.log('FIRST USER UPDATE?', userUpdateResult, req.originalUrl, req.method, (new Date()).toISOString());
+    console.log((new Date()).toISOString(), 'FIRST USER UPDATE?', userUpdateResult, req.originalUrl, req.method);
 
-    // if the cron signature is set, throw an error and recover later
+    // If the cron signature is already set, cron is running in another request
+    // throw an error and recover later,
     if (userUpdateResult.nMatched === 0 || userUpdateResult.nModified === 0) {
-      throw new Error('cron-already-running');
+      throw new Error('CRON_ALREADY_RUNNING');
     }
 
     let tasks = await Tasks.Task.find({
@@ -144,65 +176,61 @@ module.exports = async function cronMiddleware (req, res, next) {
       'challenge.id': {$exists: false},
     }).exec();
 
-    let quest = common.content.quests[user.party.quest.key];
-
     res.locals.wasModified = true; // TODO remove after v2 is retired
 
     // Group.tavernBoss(user, progress);
-    let reallyModifiedPaths = {}; // Mongoose stores both path and path.nested in user.modifiedPaths()
 
-    user.modifiedPaths().forEach(path => {
-      let rootPath = path.split('.')[0];
-      if (Object.keys(reallyModifiedPaths).indexOf(rootPath) === -1) {
-        let dataForPath = user[rootPath].toObject ? user[rootPath].toObject() : user[rootPath];
-        reallyModifiedPaths[rootPath] = dataForPath;
-      }
+    // Save user and tasks
+    let toSave = [user.save()];
+    tasks.forEach(task => {
+      if (task.isModified()) toSave.push(task.save());
     });
-    reallyModifiedPaths._cronSignature = 'not-running'; // Finish running cron
+    await Bluebird.all(toSave);
 
-    // Save user (only if another cron has done it already!)
-    let secondUserUpdateResult = await User.update({
-      _id: user._id,
-      _cronSignature,
-    }, {
-      $set: reallyModifiedPaths,
-    }).exec();
-    console.log('SECOND USER UPDATE?', secondUserUpdateResult, req.originalUrl, req.method, (new Date()).toISOString());
+    let quest = common.content.quests[user.party.quest.key];
 
-    // if cron already run, throw and recover later
-    if (secondUserUpdateResult.nMatched === 0 || secondUserUpdateResult.nModified === 0) {
-      throw new Error('cron-already-running');
+    if (quest) {
+      // If user is on a quest, roll for boss & player, or handle collections
+      let questType = quest.boss ? 'boss' : 'collect';
+      await Group[`${questType}Quest`](user, progress);
     }
 
-    let tasksToSave = [];
-    tasks.forEach(task => {
-      if (task.isModified()) tasksToSave.push(task.save());
-    });
-    await Bluebird.all(tasksToSave);
+    // Set _cronSignature, lastCron and auth.timestamps.loggedin to signal end of cron
+    await User.update({
+      _id: user._id,
+    }, {
+      $set: {
+        _cronSignature: 'NOT_RUNNING',
+        lastCron: now,
+        'auth.timestamps.loggedin': now,
+      },
+    }).exec();
 
-    if (!quest) return;
-
-    // If user is on a quest, roll for boss & player, or handle collections
-    let questType = quest.boss ? 'boss' : 'collect';
-    // TODO this saves user, runs db updates, loads user. Is there a better way to handle this?
-    await Group[`${questType}Quest`](user, progress);
-
-    res.locals.user = await User.findById(user._id).exec();
-
+    // Reload user
+    res.locals.user = await User.findOne({_id: user._id}).exec();
     return next();
   } catch (err) {
-    if (err.message === 'cron-already-running') {
-      console.log('RECOVERING FROM CRON', req.originalUrl, req.method, (new Date()).toISOString());
-      // recovering after abort, wait 200ms and reload user
-      Bluebird.delay(200).then(() => {
-        return User.findById(user._id).exec();
-      }).then((reloadedUser) => {
-        res.locals.user = reloadedUser;
-        console.log('RECOVERED FROM CRON', req.originalUrl, req.method, (new Date()).toISOString());
-        return next();
-      }).catch(secondError => next(secondError));
+    // If cron was aborted for a race condition try to recover from it
+    if (err.message === 'CRON_ALREADY_RUNNING') {
+      console.log((new Date()).toISOString(), 'RECOVERING FROM CRON', req.originalUrl, req.method);
+      // Recovering after abort, wait 300ms and reload user
+      // do it for max 4 times then reset _cronSignature so that it doesn't prevent cron from running
+      // at the next request
+      let recoveryStatus = {
+        times: 0,
+      };
+
+      recoverCron(recoveryStatus, req, res, next);
     } else {
-      return next(err);
+      // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
+      // at the next request
+      await User.update({
+        _id: user._id,
+      }, {
+        _cronSignature: 'NOT_RUNNING',
+      }).exec()
+      .then(() => next(err))
+      .catch(secondError => next(secondError));
     }
   }
 };

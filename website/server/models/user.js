@@ -345,7 +345,7 @@ export let schema = new Schema({
   },
 
   lastCron: {type: Date, default: Date.now},
-  _cronSignature: String, // Private property to avoid double cron
+  _cronSignature: {type: String, default: 'NOT_RUNNING'}, // Private property used to avoid double cron
 
   // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
   newMessages: {type: Schema.Types.Mixed, default: () => {
