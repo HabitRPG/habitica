@@ -5,7 +5,7 @@
     "rebirthStartOver": "Rebirth starts your character over from Level 1.",
     "rebirthAdvList1": "You return to full Health.",
     "rebirthAdvList2": "You have no Experience, Gold, or Equipment (with the exception of free items like Mystery items).",
-    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset.",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "You have the starting class of Warrior until you earn a new class.",
     "rebirthInherit": "Your new character inherits a few things from their predecessor:",
     "rebirthInList1": "Tasks, history, and settings remain.",
@@ -24,5 +24,6 @@
     "rebirthPop": "Begin a new character at Level 1 while retaining achievements, collectibles, and tasks with history.",
     "rebirthName": "Orb of Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
-    "confirmReborn": "Are you sure?"
+    "confirmReborn": "Are you sure?",
+    "rebirthComplete": "You have been reborn!"
 }

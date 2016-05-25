@@ -9,7 +9,7 @@ gulp.task('nodemon', () => {
   nodemon({
     script: pkg.main,
     ignore: [
-      'website/public/*',
+      'website/client/*',
       'website/views/*',
       'common/dist/script/content/*',
     ]

@@ -63,5 +63,20 @@
     "congratulations": "Congratulations!",
     "hurray": "Hurray!",
     "noChallengeOwner": "no owner",
-    "noChallengeOwnerPopover": "This challenge does not have an owner because th' person who created th' challenge deleted their account."
+    "noChallengeOwnerPopover": "This challenge does not have an owner because th' person who created th' challenge deleted their account.",
+    "challengeMemberNotFound": "User not found among challenge's members",
+    "onlyGroupLeaderChal": "Only the group leader can create challenges",
+    "tavChalsMinPrize": "Prize must be at least 1 Gem for Tavern challenges.",
+    "cantAfford": "You can't afford this prize. Purchase more gems or lower the prize amount.",
+    "challengeIdRequired": "\"challengeId\" must be a valid UUID.",
+    "winnerIdRequired": "\"winnerId\" must be a valid UUID.",
+    "challengeNotFound": "Challenge not found.",
+    "onlyLeaderDeleteChal": "Only the challenge leader can delete it.",
+    "onlyLeaderUpdateChal": "Only the challenge leader can update it.",
+    "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge.",
+    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching a challenge tasks.",
+    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
+    "userAlreadyInChallenge": "User is already participating in this challenge.",
+    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked."
 }

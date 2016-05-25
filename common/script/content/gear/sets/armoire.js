@@ -126,6 +126,14 @@ let armor = {
     set: 'basicArcher',
     canOwn: ownsItem('armor_armoire_basicArcherArmor'),
   },
+  graduateRobe: {
+    text: t('armorArmoireGraduateRobeText'),
+    notes: t('armorArmoireGraduateRobeNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'graduate',
+    canOwn: ownsItem('armor_armoire_graduateRobe'),
+  },
 };
 
 let eyewear = {
@@ -330,6 +338,14 @@ let head = {
     set: 'basicArcher',
     canOwn: ownsItem('head_armoire_basicArcherCap'),
   },
+  graduateCap: {
+    text: t('headArmoireGraduateCapText'),
+    notes: t('headArmoireGraduateCapNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    set: 'graduate',
+    canOwn: ownsItem('head_armoire_graduateCap'),
+  },
 };
 
 let shield = {
@@ -374,6 +390,13 @@ let shield = {
     value: 100,
     per: 15,
     canOwn: ownsItem('shield_armoire_mysticLamp'),
+  },
+  floralBouquet: {
+    text: t('shieldArmoireFloralBouquetText'),
+    notes: t('shieldArmoireFloralBouquetNotes', { con: 3 }),
+    value: 100,
+    con: 3,
+    canOwn: ownsItem('shield_armoire_floralBouquet'),
   },
 };
 
@@ -520,6 +543,14 @@ let weapon = {
     twoHanded: true,
     set: 'basicArcher',
     canOwn: ownsItem('weapon_armoire_basicLongbow'),
+  },
+  habiticanDiploma: {
+    text: t('weaponArmoireHabiticanDiplomaText'),
+    notes: t('weaponArmoireHabiticanDiplomaNotes', { int: 11 }),
+    value: 100,
+    int: 11,
+    set: 'graduate',
+    canOwn: ownsItem('weapon_armoire_habiticanDiploma'),
   },
 };
 

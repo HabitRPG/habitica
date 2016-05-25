@@ -1,9 +1,19 @@
-module.exports = function(user, req, cb) {
-  var from, ref, to;
-  ref = req.query, to = ref.to, from = ref.from;
-  if (!((to != null) && (from != null))) {
-    return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
+import { BadRequest } from '../libs/errors';
+import _ from 'lodash';
+
+// TODO used only in client, move there?
+
+module.exports = function sortTag (user, req = {}) {
+  let to = _.get(req, 'query.to');
+  let fromParam = _.get(req, 'query.from');
+
+  let invalidTo = !to && to !== 0;
+  let invalidFrom = !fromParam && fromParam !== 0;
+
+  if (invalidTo || invalidFrom) {
+    throw new BadRequest('?to=__&from=__ are required');
   }
-  user.tags.splice(to, 0, user.tags.splice(from, 1)[0]);
-  return typeof cb === "function" ? cb(null, user.tags) : void 0;
+
+  user.tags.splice(to, 0, user.tags.splice(fromParam, 1)[0]);
+  return user.tags;
 };

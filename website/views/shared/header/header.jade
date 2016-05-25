@@ -25,13 +25,13 @@
       .meter-label(tooltip='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         span.glyphicon.glyphicon-fire
       .meter.mana(ng-if='user.flags.classSelected && !user.preferences.disableClasses', tooltip='{{Math.round(user.stats.mp * 100) / 100}}')
-        .bar(ng-style='{"width": (user.stats.mp / user._statsComputed.maxMP * 100) + "%"}')
+        .bar(ng-style='{"width": (user.stats.mp / user.fns.statsComputed().maxMP * 100) + "%"}')
         span.meter-text.value
           span
-          | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
+          | {{Math.floor(user.stats.mp)}} / {{user.fns.statsComputed().maxMP}}
     // party
     .party(ng-controller='PartyCtrl')
-      button.party-invite.btn.btn-primary(ng-click="inviteOrStartParty(group)",
+      button.party-invite.btn.btn-primary(ng-click="inviteOrStartParty(party)",
         ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1",
         popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")
         span=env.t("battleWithFriends")

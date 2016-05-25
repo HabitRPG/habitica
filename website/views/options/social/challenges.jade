@@ -55,7 +55,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
   // Member List
   div(bindonce='challenge', ng-if='challenge.members.length > 0')
-    a.btn.btn-primary.btn-sm.pull-right(ng-href='/api/v2/challenges/{{challenge._id}}/csv')
+    a.btn.btn-primary.btn-sm.pull-right(ng-href='/api/v3/challenges/{{challenge._id}}/export/csv')
       =env.t('exportChallengeCSV')
     h3=env.t('hows')
     menu
@@ -145,7 +145,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
 
               .row
                 .form-group.col-md-6.col-sm-12
-                  input.form-control(type='text', minlength="3",
+                  input.form-control(type='text',
                     ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
                     ng-disabled='insufficientGemsForTavernChallenge()')
                   |&nbsp;
@@ -160,12 +160,12 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                       .Pet_Currency_Gem1x
                     input.form-control(type='number', placeholder=env.t('prize'),
                       ng-disabled='insufficientGemsForTavernChallenge()'
-                      min="{{newChallenge.group=='habitrpg' ? 1 : 0}}",
+                      min="{{newChallenge.group==TAVERN_ID ? 1 : 0}}",
                       max="{{maxPrize}}", ng-model='newChallenge.prize')
-                  a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}",
+                  a.hint(popover="{{newChallenge.group==TAVERN_ID ? env.t('prizePopTavern') : env.t('prizePop')}}",
                     popover-trigger='mouseenter', popover-placement='right')
                     =env.t('moreInfo')
-                  div(ng-show='newChallenge.group=="habitrpg"')
+                  div(ng-show='newChallenge.group==TAVERN_ID')
                     !=env.t('publicChallenges')
 
               .form-group(ng-if='user.contributor.admin')
@@ -178,7 +178,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
 
         // Challenges list
         .panel-group
-          .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges track by challenge._id ')
+          .panel.panel-default(ng-repeat='challenge in challenges | filter:filterChallenges track by challenge._id ')
             .panel-heading
               ul.pull-right.challenge-accordion-header-specs
                 li.bg-transparent(ng-if='challenge.official')
@@ -199,10 +199,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   p!=env.t('prizeValue', {gemcount: "{{challenge.prize}}", gemicon: "<span class='inline-block Pet_Currency_Gem1x'></span>"})
                 li.bg-transparent
                   // leave / join
-                  a.btn.btn-sm.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
+                  a.btn.btn-sm.btn-danger(ng-show='isUserMemberOf(challenge)', ng-click='clickLeave(challenge, $event)')
                     span.glyphicon.glyphicon-ban-circle
                     =env.t('leave')
-                  a.btn.btn-sm.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
+                  a.btn.btn-sm.btn-success(ng-hide='isUserMemberOf(challenge)', ng-click='join(challenge)')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
               a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)')

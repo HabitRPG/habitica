@@ -433,6 +433,48 @@ let eyewear = {
     notes: t('eyewearSpecialSummerWarriorNotes'),
     value: 20,
   },
+  blackTopFrame: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialBlackTopFrameText'),
+    notes: t('eyewearSpecialBlackTopFrameNotes'),
+    value: 0,
+  },
+  blueTopFrame: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialBlueTopFrameText'),
+    notes: t('eyewearSpecialBlueTopFrameNotes'),
+    value: 0,
+  },
+  greenTopFrame: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialGreenTopFrameText'),
+    notes: t('eyewearSpecialGreenTopFrameNotes'),
+    value: 0,
+  },
+  pinkTopFrame: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialPinkTopFrameText'),
+    notes: t('eyewearSpecialPinkTopFrameNotes'),
+    value: 0,
+  },
+  redTopFrame: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialRedTopFrameText'),
+    notes: t('eyewearSpecialRedTopFrameNotes'),
+    value: 0,
+  },
+  whiteTopFrame: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialWhiteTopFrameText'),
+    notes: t('eyewearSpecialWhiteTopFrameNotes'),
+    value: 0,
+  },
+  yellowTopFrame: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialYellowTopFrameText'),
+    notes: t('eyewearSpecialYellowTopFrameNotes'),
+    value: 0,
+  },
 };
 
 let head = {

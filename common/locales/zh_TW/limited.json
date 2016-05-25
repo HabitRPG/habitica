@@ -5,7 +5,7 @@
     "annoyingFriends": "吵鬧的朋友",
     "annoyingFriendsText": "被隊員的雪球砸中<%= snowballs %>次。",
     "alarmingFriends": "愛嚇人的好友",
-    "alarmingFriendsText": "被隊員嚇到 <%= spookDust %> 次。",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "園藝之友",
     "agriculturalFriendsText": "隊伍成員變身成一朵花共計<%= seeds %>次",
     "aquaticFriends": "水族夥伴",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "即日起至10月31日",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Available until December 31",
+    "springEventAvailability": "Available until May 31"
 }

@@ -5,7 +5,7 @@
     "annoyingFriends": "Irritante vrienden",
     "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door groepsleden.",
     "alarmingFriends": "Verontrustende vrienden",
-    "alarmingFriendsText": "Is <%= spookDust %> keer bespookt door groepsleden.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Vrienden met groene vingers",
     "agriculturalFriendsText": "Is <%= seeds %> keer door groepsgenoten in een bloem omgetoverd.",
     "aquaticFriends": "Spetterende vrienden",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Troostend Katje (Heler)",
     "sneakySqueakerSet": "Sneaky Pieper (Dief)",
     "fallEventAvailability": "Beschikbaar tot 31 oktober",
-    "winterEventAvailability": "Beschikbaar tot 31 december"
+    "winterEventAvailability": "Beschikbaar tot 31 december",
+    "springEventAvailability": "Beschikbaar tot 31 mei"
 }

@@ -29,7 +29,7 @@ mixin chatMessages(inbox)
           a(ng-click="quickReply(message.uuid)")
             span.glyphicon.glyphicon-share-alt(tooltip=env.t('pm-reply'))
         span(ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}') &nbsp; &nbsp;
-          a(ng-click='#{inbox? "user.ops.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}')
+          a(ng-click='#{inbox? "User.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}')
             span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
         span(ng-if=':: user.contributor.admin || (!message.sent && user.flags.communityGuidelinesAccepted && message.uuid != user.id && message.uuid != "system")') &nbsp; &nbsp;
           a(ng-click="flagChatMessage(group._id, message)")
