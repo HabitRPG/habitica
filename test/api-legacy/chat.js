@@ -2,9 +2,9 @@ var Group, app, diff;
 
 diff = require("deep-diff");
 
-Group = require("../../website/src/models/group").model;
+Group = require("../../website/server/models/group").model;
 
-app = require("../../website/src/server");
+app = require("../../website/server/server");
 
 describe("Chat", function() {
   var chat, group;

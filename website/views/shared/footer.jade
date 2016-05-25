@@ -48,8 +48,6 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('communityFeature')
           li
-            a(target='_blank', href='https://habitica.com/static/api')=env.t('API')
-          li
             a(href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('communityExtensions')
           li
             a(target='_blank', href='http://habitica.wikia.com/wiki/Special:Forum')=env.t('communityForum')
@@ -59,6 +57,14 @@ footer.footer(ng-controller='FooterCtrl')
             a(target='_blank', href='https://www.facebook.com/Habitica')=env.t('communityFacebook')
           li
             a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
+        h4=env.t('footerDevs')
+        ul.list-unstyled
+          li
+            a(target='_blank', href='http://devs.habitica.com')=env.t('devBlog') + ' - The Forge'
+          li
+            a(target='_blank', href='/apidoc')=env.t('APIv3')
+          li
+            a(target='_blank', href='/static/api-v2')=env.t('APIv2')
       .col-sm-3
         if (env.NODE_ENV === 'production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
@@ -79,7 +85,7 @@ footer.footer(ng-controller='FooterCtrl')
               tr
                 td
                   iframe(src='/bower_components/github-buttons/github-btn.html?user=habitrpg&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
-        else if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
+        if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
           h4 Debug
           .btn-group-vertical
             a.btn.btn-default(ng-click='setHealthLow()') Health = 1
@@ -91,7 +97,9 @@ footer.footer(ng-controller='FooterCtrl')
             a.btn.btn-default(ng-click='addMana()') +MP
             a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP +MP
             a.btn.btn-default(ng-click='addOneLevel()') +1 Level
-            a.btn.btn-default(ng-click='addBossQuestProgressUp()') +1000 Boss Quest Progress Up
+            a.btn.btn-default(ng-click='addQuestProgress()' tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-default(ng-click='makeAdmin()') Make Admin
+            a.btn.btn-default(ng-click='openModifyInventoryModal()') Modify Inventory
 
   div(ng-init='deferredScripts()')
 

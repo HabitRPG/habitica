@@ -56,6 +56,22 @@ mixin customizeProfile(mobile)
             each num in [1,2,3,4,5,6]
               button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})', ng-class='{selectableInventory: user.preferences.hair.flower == "#{num}"}')
 
+        // Eyeglasses
+        li.customize-menu
+          menu(label=env.t('eyewear'))
+          button.customize-option(ng-repeat='item in ::getGearArray("glasses")', class='{{::item.key}}',
+            ng-class="{selectableInventory: user.preferences.costume ? user.items.gear.costume.eyewear === item.key : user.items.gear.equipped.eyewear === item.key}",
+            popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
+            popover-placement='right', popover-append-to-body='true',
+            ng-click='equip(item.key)')
+
+        // Wheelchair
+        li.customize-menu
+          menu(label=env.t('wheelchair'))
+            button.customize-option(ng-repeat='item in ::["black","blue","green","pink","red","yellow"]', class='button_chair_{{::item}}',
+              ng-class="{selectableInventory: user.preferences.chair == item}",
+              ng-click='user.preferences.chair != item ? set({"preferences.chair":item}) : set({"preferences.chair":"none"})')
+
         // Animal Ears
         li.customize-menu
           menu(label=env.t('animalEars'))
@@ -67,13 +83,6 @@ mixin customizeProfile(mobile)
             popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
             popover-placement='right', popover-append-to-body='true',
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
-
-        // Wheelchair
-        li.customize-menu
-          menu(label=env.t('wheelchair'))
-            button.customize-option(ng-repeat='item in ::["black"]', class='button_chair_{{::item}}',
-              ng-class="{selectableInventory: user.preferences.chair == item}",
-              ng-click='user.preferences.chair != item ? set({"preferences.chair":item}) : set({"preferences.chair":"none"})')
 
     .col-md-4
         h3(class=mobile?'item item-divider':'')=env.t('bodyHead')
@@ -210,7 +219,7 @@ mixin profileStats
                         input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
                         span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))=env.t('taskAllocation')
                   div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                    a.btn.btn-primary.btn-xs(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
+                    a.btn.btn-primary.btn-xs(ng-click='User.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
                       span.glyphicon.glyphicon-download
                       |&nbsp;
                       =env.t('distributePoints')
@@ -218,7 +227,7 @@ mixin profileStats
 
 
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
-        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
         hr(ng-if='user.preferences.disableClasses')
         include ../shared/profiles/achievements
 

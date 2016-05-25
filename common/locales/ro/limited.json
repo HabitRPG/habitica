@@ -5,7 +5,7 @@
     "annoyingFriends": "Prieteni enervanți",
     "annoyingFriendsText": "Lovit de <%= snowballs %> cu bulgări de zăpadă de coechipieri.",
     "alarmingFriends": "Prieteni Alarmanți",
-    "alarmingFriendsText": "Speriat de <%= spookDust %> ori de colegii din echipă",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Prieteni agricoli",
     "agriculturalFriendsText": "Am fost transformat(ă) într-o floare de <%= seeds %> ori de coechipieri.",
     "aquaticFriends": "Prieteni acvatici",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Available until October 31",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Available until December 31",
+    "springEventAvailability": "Available until May 31"
 }

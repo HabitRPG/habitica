@@ -1,6 +1,6 @@
 var app, rewire, sinon;
 
-app = require("../../website/src/server");
+app = require("../../website/server/server");
 
 rewire = require('rewire');
 
@@ -21,7 +21,7 @@ describe("Push-Notifications", function() {
     });
     context("Challenges", function() {
       var challengeMock, challenges, userMock;
-      challenges = rewire("../../website/src/controllers/api-v2/challenges");
+      challenges = rewire("../../website/server/controllers/api-v2/challenges");
       challenges.__set__('pushNotify', pushSpy);
       challengeMock = {
         findById: function(arg, cb) {
@@ -76,7 +76,7 @@ describe("Push-Notifications", function() {
     context("Groups", function() {
       var groups, recipient;
       recipient = null;
-      groups = rewire("../../website/src/controllers/api-v2/groups");
+      groups = rewire("../../website/server/controllers/api-v2/groups");
       groups.__set__('pushNotify', pushSpy);
       before(function(done) {
         return registerNewUser(function(err, _user) {
@@ -304,7 +304,7 @@ describe("Push-Notifications", function() {
       });
       context("sending gems from balance", function() {
         var members;
-        members = rewire("../../website/src/controllers/api-v2/members");
+        members = rewire("../../website/server/controllers/api-v2/members");
         members.sendMessage = function() {
           return true;
         };
@@ -342,7 +342,7 @@ describe("Push-Notifications", function() {
       });
       return describe("Purchases", function() {
         var membersMock, payments;
-        payments = rewire("../../website/src/controllers/payments");
+        payments = rewire("../../website/server/controllers/payments");
         payments.__set__('pushNotify', pushSpy);
         membersMock = {
           sendMessage: function() {

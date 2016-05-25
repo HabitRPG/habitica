@@ -5,7 +5,7 @@
     "rebirthStartOver": "Reinkarnacija vraća vašeg lika na nivo 1.",
     "rebirthAdvList1": "Zdravlje će Vam biti napunjeno.",
     "rebirthAdvList2": "Nemate iskustva,zlata ili opreme (sa izuzecima besplatnih predmeta kao što su Tajanstveni predmeti).",
-    "rebirthAdvList3": "Svi podešeni zadaci biće vraćeni na žuto, i serije će biti prekinute.",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "Bićete Ratnik dok ne otključate novu klasu.",
     "rebirthInherit": "Novi lik će naslediti neke stvari od svog prethodnika:",
     "rebirthInList1": "Zadaci, istorija, i postavke ostaće nepromenjeni.",
@@ -24,5 +24,6 @@
     "rebirthPop": "Počnite iz početka s nivoa 1, i zadržite odlikovanja, kolekcionarske predmete, i zadatke, zajedno sa istorijom.",
     "rebirthName": "Sfera za reinkarnaciju",
     "reborn": "Reinkarniran, najviši nivo <%= reLevel %>",
-    "confirmReborn": "Jeste li sigurni?"
+    "confirmReborn": "Jeste li sigurni?",
+    "rebirthComplete": "You have been reborn!"
 }

@@ -63,5 +63,21 @@
     "congratulations": "Gratulacje!",
     "hurray": "Hurra!",
     "noChallengeOwner": "brak właściciela",
-    "noChallengeOwnerPopover": "To wyzwanie nie posiada właściciela, ponieważ osoba zakładająca to wyzwanie usunęła swoje konto."
+    "noChallengeOwnerPopover": "To wyzwanie nie posiada właściciela, ponieważ osoba zakładająca to wyzwanie usunęła swoje konto.",
+    "challengeMemberNotFound": "Nie znaleziono użytkownika wśród uczestników wyzwania",
+    "onlyGroupLeaderChal": "Tylko przywódca grupy może tworzyć wyzwania",
+    "tavChalsMinPrize": "Nagroda za wyzwania karczmy musi wynosić co najmniej jeden klejnot.",
+    "cantAfford": "Nie stać cię na tę nagrodę. Kup więcej klejnotów lub obniż jej wysokość.",
+    "challengeIdRequired": "\"challengeId\" must be a valid UUID.",
+    "winnerIdRequired": "\"winnerId\" must be a valid UUID.",
+    "challengeNotFound": "Nie znaleziono wyzwania.",
+    "onlyLeaderDeleteChal": "Tylko przywódca wyzwania może je usunąć.",
+    "onlyLeaderUpdateChal": "Tylko przywódca wyzwania może je zaktualizować.",
+    "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge.",
+    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching challenge tasks.",
+    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "onlyChalLeaderEditTasks": "Zadanie należące do wyzwania może być zmieniane jedynie przez przywódcę.",
+    "userAlreadyInChallenge": "Użytkownik bierze już udział w tym wyzwaniu.",
+    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
+    "shortNameTooShort": "Tag Name must have at least 3 characters."
 }

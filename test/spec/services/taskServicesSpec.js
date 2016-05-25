@@ -1,20 +1,153 @@
 'use strict';
 
 describe('Tasks Service', function() {
-  var rootScope, tasks, user;
+  var rootScope, tasks, user, $httpBackend;
+  var apiV3Prefix = '/api/v3/tasks';
 
   beforeEach(function() {
-
     module(function($provide) {
       user = specHelper.newUser();
       $provide.value('User', {user: user});
     });
 
-    inject(function(_$rootScope_, Tasks, User) {
+    inject(function(_$httpBackend_, _$rootScope_, Tasks, User) {
+      $httpBackend = _$httpBackend_;
       rootScope = _$rootScope_;
       rootScope.charts = {};
       tasks = Tasks;
     });
+  });
+
+  it('calls get user tasks endpoint', function() {
+    $httpBackend.expectGET(apiV3Prefix + '/user').respond({});
+    tasks.getUserTasks();
+    $httpBackend.flush();
+  });
+
+  it('calls post user tasks endpoint', function() {
+    $httpBackend.expectPOST(apiV3Prefix + '/user').respond({});
+    tasks.createUserTasks();
+    $httpBackend.flush();
+  });
+
+  it('calls get challenge tasks endpoint', function() {
+    var challengeId = 1;
+    $httpBackend.expectGET(apiV3Prefix + '/challenge/' + challengeId).respond({});
+    tasks.getChallengeTasks(challengeId);
+    $httpBackend.flush();
+  });
+
+  it('calls create challenge tasks endpoint', function() {
+    var challengeId = 1;
+    $httpBackend.expectPOST(apiV3Prefix + '/challenge/' + challengeId).respond({});
+    tasks.createChallengeTasks(challengeId, {});
+    $httpBackend.flush();
+  });
+
+  it('calls get task endpoint', function() {
+    var taskId = 1;
+    $httpBackend.expectGET(apiV3Prefix + '/' + taskId).respond({});
+    tasks.getTask(taskId);
+    $httpBackend.flush();
+  });
+
+  it('calls update task endpoint', function() {
+    var taskId = 1;
+    $httpBackend.expectPUT(apiV3Prefix + '/' + taskId).respond({});
+    tasks.updateTask(taskId, {});
+    $httpBackend.flush();
+  });
+
+  it('calls delete task endpoint', function() {
+    var taskId = 1;
+    $httpBackend.expectDELETE(apiV3Prefix + '/' + taskId).respond({});
+    tasks.deleteTask(taskId);
+    $httpBackend.flush();
+  });
+
+  it('calls score task endpoint', function() {
+    var taskId = 1;
+    var direction = "down";
+    $httpBackend.expectPOST(apiV3Prefix + '/' + taskId + '/score/' + direction).respond({});
+    tasks.scoreTask(taskId, direction);
+    $httpBackend.flush();
+  });
+
+  it('calls move task endpoint', function() {
+    var taskId = 1;
+    var position = 0;
+    $httpBackend.expectPOST(apiV3Prefix + '/' + taskId + '/move/to/' + position).respond({});
+    tasks.moveTask(taskId, position);
+    $httpBackend.flush();
+  });
+
+  it('calls add check list item endpoint', function() {
+    var taskId = 1;
+    $httpBackend.expectPOST(apiV3Prefix + '/' + taskId + '/checklist').respond({});
+    tasks.addChecklistItem(taskId, {});
+    $httpBackend.flush();
+  });
+
+  it('calls score check list item endpoint', function() {
+    var taskId = 1;
+    var itemId = 2;
+    $httpBackend.expectPOST(apiV3Prefix + '/' + taskId + '/checklist/' + itemId + '/score').respond({});
+    tasks.scoreCheckListItem(taskId, itemId);
+    $httpBackend.flush();
+  });
+
+  it('calls update check list item endpoint', function() {
+    var taskId = 1;
+    var itemId = 2;
+    $httpBackend.expectPUT(apiV3Prefix + '/' + taskId + '/checklist/' + itemId).respond({});
+    tasks.updateChecklistItem(taskId, itemId, {});
+    $httpBackend.flush();
+  });
+
+  it('calls remove check list item endpoint', function() {
+    var taskId = 1;
+    var itemId = 2;
+    $httpBackend.expectDELETE(apiV3Prefix + '/' + taskId + '/checklist/' + itemId).respond({});
+    tasks.removeChecklistItem(taskId, itemId);
+    $httpBackend.flush();
+  });
+
+  it('calls add tag to list item endpoint', function() {
+    var taskId = 1;
+    var tagId = 2;
+    $httpBackend.expectPOST(apiV3Prefix + '/' + taskId + '/tags/' + tagId).respond({});
+    tasks.addTagToTask(taskId, tagId);
+    $httpBackend.flush();
+  });
+
+  it('calls remove tag to list item endpoint', function() {
+    var taskId = 1;
+    var tagId = 2;
+    $httpBackend.expectDELETE(apiV3Prefix + '/' + taskId + '/tags/' + tagId).respond({});
+    tasks.removeTagFromTask(taskId, tagId);
+    $httpBackend.flush();
+  });
+
+  it('calls unlinkOneTask endpoint', function() {
+    var taskId = 1;
+    var keep = "keep";
+    $httpBackend.expectPOST(apiV3Prefix + '/unlink-one/' + taskId + '?keep=' + keep).respond({});
+    tasks.unlinkOneTask(taskId);
+    $httpBackend.flush();
+  });
+
+  it('calls unlinkAllTasks endpoint', function() {
+    var challengeId = 1;
+    var keep = "keep-all";
+    $httpBackend.expectPOST(apiV3Prefix + '/unlink-all/' + challengeId + '?keep=' + keep).respond({});
+    tasks.unlinkAllTasks(challengeId);
+    $httpBackend.flush();
+  });
+
+  it('calls clear completed todo task endpoint', function() {
+    $httpBackend.expectPOST(apiV3Prefix + '/clearCompletedTodos').respond({});
+    tasks.clearCompletedTodos();
+    $httpBackend.flush();
   });
 
   describe('editTask', function() {
@@ -26,35 +159,35 @@ describe('Tasks Service', function() {
     });
 
     it('toggles the _editing property', function() {
-      tasks.editTask(task);
+      tasks.editTask(task, user);
       expect(task._editing).to.eql(true);
-      tasks.editTask(task);
+      tasks.editTask(task, user);
       expect(task._editing).to.eql(false);
     });
 
     it('sets _tags to true by default', function() {
-      tasks.editTask(task);
+      tasks.editTask(task, user);
 
       expect(task._tags).to.eql(true);
     });
 
     it('sets _tags to false if preference for collapsed tags is turned on', function() {
       user.preferences.tagsCollapsed = true;
-      tasks.editTask(task);
+      tasks.editTask(task, user);
 
       expect(task._tags).to.eql(false);
     });
 
     it('sets _advanced to true by default', function(){
       user.preferences.advancedCollapsed = true;
-      tasks.editTask(task);
+      tasks.editTask(task, user);
 
       expect(task._advanced).to.eql(false);
     });
 
     it('sets _advanced to false if preference for collapsed advance menu is turned on', function() {
       user.preferences.advancedCollapsed = false;
-      tasks.editTask(task);
+      tasks.editTask(task, user);
 
       expect(task._advanced).to.eql(true);
     });
@@ -62,7 +195,7 @@ describe('Tasks Service', function() {
     it('closes task chart if it exists', function() {
       rootScope.charts[task.id] = true;
 
-      tasks.editTask(task);
+      tasks.editTask(task, user);
       expect(rootScope.charts[task.id]).to.eql(false);
     });
   });
@@ -82,24 +215,22 @@ describe('Tasks Service', function() {
         expect(clonedTask.attribute).to.eql(task.attribute);
       });
 
-      it('does not clone original task\'s id or _id', function() {
+      it('does not clone original task\'s _id', function() {
         var task = specHelper.newTask();
         var clonedTask = tasks.cloneTask(task);
 
-        expect(clonedTask.id).to.exist;
-        expect(clonedTask.id).to.not.eql(task.id);
         expect(clonedTask._id).to.exist;
         expect(clonedTask._id).to.not.eql(task._id);
       });
 
       it('does not clone original task\'s dateCreated attribute', function() {
         var task = specHelper.newTask({
-          dateCreated: new Date(2014, 5, 1, 1, 1, 1, 1),
+          createdAt: new Date(2014, 5, 1, 1, 1, 1, 1),
         });
         var clonedTask = tasks.cloneTask(task);
 
-        expect(clonedTask.dateCreated).to.exist;
-        expect(clonedTask.dateCreated).to.not.eql(task.dateCreated);
+        expect(clonedTask.createdAt).to.exist;
+        expect(clonedTask.createdAt).to.not.eql(task.createdAt);
       });
 
       it('does not clone original task\'s value', function() {
