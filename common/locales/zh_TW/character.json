@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "屬性及成就",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
@@ -34,7 +35,7 @@
     "beard": "落腮鬍",
     "mustache": "八字鬍",
     "flower": "花朵",
-    "wheelchair": "Wheelchair",
+    "wheelchair": "輪椅",
     "basicSkins": "基本膚色",
     "rainbowSkins": "彩色膚色",
     "pastelSkins": "柔和膚色",
@@ -109,6 +110,7 @@
     "mage": "法師",
     "mystery": "神秘",
     "changeClass": "變更職業並重新分配屬性點",
+    "lvl10ChangeClass": "To change class you must be at least level 10.",
     "levelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統幫你自動完成。",
     "unallocated": "未分配的屬性點",
     "haveUnallocated": "你有( <%= points %> )點未分配的屬性點",
@@ -164,5 +166,7 @@
     "int": "智力",
     "showQuickAllocation": "開啟分配狀態",
     "hideQuickAllocation": "關閉分配狀態",
-    "quickAllocationLevelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統在使用者->屬性下幫你自動完成。"
+    "quickAllocationLevelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統在使用者->屬性下幫你自動完成。",
+    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
+    "notEnoughAttrPoints": "You don't have enough attribute points."
 }

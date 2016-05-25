@@ -1,85 +1,197 @@
-import moment from 'moment';
 import _ from 'lodash';
 
-import {
-  daysSince,
-  shouldDo,
-} from './cron';
+// When using a common module from the website or the server NEVER import the module directly
+// but access it through `api` (the main common) module, otherwise you would require the non transpiled version of the file in production.
+let api = module.exports = {};
+
+import content from './content/index';
+api.content = content;
+
+import * as errors from './libs/errors';
+api.errors = errors;
+import i18n from './i18n';
+api.i18n = i18n;
+
+// TODO under api.libs.cron?
+import { shouldDo, daysSince } from './cron';
+api.shouldDo = shouldDo;
+api.daysSince = daysSince;
+
+// TODO under api.constants? and capitalize exported names too
 import {
   MAX_HEALTH,
   MAX_LEVEL,
   MAX_STAT_POINTS,
+  TAVERN_ID,
 } from './constants';
-import * as statHelpers from './statHelpers';
-
-import importedLibs from './libs';
-
-var $w, preenHistory, sortOrder,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-import content from './content/index';
-import i18n from './i18n';
-
-let api = module.exports = {};
-
-api.i18n = i18n;
-api.shouldDo = shouldDo;
-
 api.maxLevel = MAX_LEVEL;
-api.capByLevel = statHelpers.capByLevel;
 api.maxHealth = MAX_HEALTH;
+api.maxStatPoints = MAX_STAT_POINTS;
+api.TAVERN_ID = TAVERN_ID;
+
+// TODO under api.libs.statHelpers?
+import * as statHelpers from './statHelpers';
+api.capByLevel = statHelpers.capByLevel;
 api.tnl = statHelpers.toNextLevel;
 api.diminishingReturns = statHelpers.diminishingReturns;
 
-$w = api.$w = importedLibs.splitWhitespace;
-api.dotSet = importedLibs.dotSet;
-api.dotGet = importedLibs.dotGet;
-api.refPush = importedLibs.refPush;
-api.planGemLimits = importedLibs.planGemLimits;
+import splitWhitespace from './libs/splitWhitespace';
+api.$w = splitWhitespace;
 
-preenHistory = importedLibs.preenHistory;
+import dotSet from './libs/dotSet';
+api.dotSet = dotSet;
 
-api.preenTodos = importedLibs.preenTodos;
-api.updateStore = importedLibs.updateStore;
+import dotGet from './libs/dotGet';
+api.dotGet = dotGet;
 
+import refPush from './libs/refPush';
+api.refPush = refPush;
 
-/*
-------------------------------------------------------
-Content
-------------------------------------------------------
- */
+import planGemLimits from './libs/planGemLimits';
+api.planGemLimits = planGemLimits;
 
-api.content = content;
+import preenTodos from './libs/preenTodos';
+api.preenTodos = preenTodos;
 
+import updateStore from './libs/updateStore';
+api.updateStore = updateStore;
 
-/*
-------------------------------------------------------
-Misc Helpers
-------------------------------------------------------
- */
+import uuid from './libs/uuid';
+api.uuid = uuid;
 
-api.uuid = importedLibs.uuid;
-api.countExists = importedLibs.countExists;
-api.taskDefaults = importedLibs.taskDefaults;
-api.percent = importedLibs.percent;
-api.removeWhitespace = importedLibs.removeWhitespace;
-api.encodeiCalLink = importedLibs.encodeiCalLink;
-api.gold = importedLibs.gold;
-api.silver = importedLibs.silver;
-api.taskClasses = importedLibs.taskClasses;
-api.friendlyTimestamp = importedLibs.friendlyTimestamp;
-api.newChatMessages = importedLibs.newChatMessages;
-api.noTags = importedLibs.noTags;
-api.appliedTags = importedLibs.appliedTags;
+import taskDefaults from './libs/taskDefaults';
+api.taskDefaults = taskDefaults;
 
+import percent from './libs/percent';
+api.percent = percent;
 
-/*
-Various counting functions
- */
+import gold from './libs/gold';
+api.gold = gold;
+
+import silver from './libs/silver';
+api.silver = silver;
+
+import taskClasses from './libs/taskClasses';
+api.taskClasses = taskClasses;
+
+import noTags from './libs/noTags';
+api.noTags = noTags;
+
+import appliedTags from './libs/appliedTags';
+api.appliedTags = appliedTags;
+
+import pickDeep from './libs/pickDeep';
+api.pickDeep = pickDeep;
 
 import count from './count';
 api.count = count;
 
+import statsComputed from './libs/statsComputed';
+api.statsComputed = statsComputed;
+
+import autoAllocate from './fns/autoAllocate';
+import crit from './fns/crit';
+import handleTwoHanded from './fns/handleTwoHanded';
+import predictableRandom from './fns/predictableRandom';
+import randomDrop from './fns/randomDrop';
+import randomVal from './fns/randomVal';
+import resetGear from './fns/resetGear';
+import ultimateGear from './fns/ultimateGear';
+import updateStats from './fns/updateStats';
+
+api.fns = {
+  autoAllocate,
+  crit,
+  handleTwoHanded,
+  predictableRandom,
+  randomDrop,
+  randomVal,
+  resetGear,
+  ultimateGear,
+  updateStats,
+};
+
+import scoreTask from './ops/scoreTask';
+import sleep from './ops/sleep';
+import allocate from './ops/allocate';
+import buy from './ops/buy';
+import buyGear from './ops/buyGear';
+import buyHealthPotion from './ops/buyHealthPotion';
+import buyArmoire from './ops/buyArmoire';
+import buyMysterySet from './ops/buyMysterySet';
+import buyQuest from './ops/buyQuest';
+import buySpecialSpell from './ops/buySpecialSpell';
+import allocateNow from './ops/allocateNow';
+import hatch from './ops/hatch';
+import feed from './ops/feed';
+import equip from './ops/equip';
+import changeClass from './ops/changeClass';
+import disableClasses from './ops/disableClasses';
+import purchase from './ops/purchase';
+import purchaseHourglass from './ops/hourglassPurchase';
+import readCard from './ops/readCard';
+import openMysteryItem from './ops/openMysteryItem';
+import addWebhook from './ops/addWebhook';
+import updateWebhook from './ops/updateWebhook';
+import deleteWebhook from './ops/deleteWebhook';
+import releasePets from './ops/releasePets';
+import releaseBoth from './ops/releaseBoth';
+import releaseMounts from './ops/releaseMounts';
+import updateTask from './ops/updateTask';
+import clearCompleted from './ops/clearCompleted';
+import sell from './ops/sell';
+import unlock from './ops/unlock';
+import revive from './ops/revive';
+import rebirth from './ops/rebirth';
+import blockUser from './ops/blockUser';
+import clearPMs from './ops/clearPMs';
+import deletePM from './ops/deletePM';
+import reroll from './ops/reroll';
+import addPushDevice from './ops/addPushDevice';
+import reset from './ops/reset';
+import markPmsRead from './ops/markPMSRead';
+
+api.ops = {
+  scoreTask,
+  sleep,
+  allocate,
+  buy,
+  buyGear,
+  buyHealthPotion,
+  buyArmoire,
+  buyMysterySet,
+  buySpecialSpell,
+  buyQuest,
+  allocateNow,
+  hatch,
+  feed,
+  equip,
+  changeClass,
+  disableClasses,
+  purchase,
+  purchaseHourglass,
+  readCard,
+  openMysteryItem,
+  addWebhook,
+  updateWebhook,
+  deleteWebhook,
+  releasePets,
+  releaseBoth,
+  releaseMounts,
+  updateTask,
+  clearCompleted,
+  sell,
+  unlock,
+  revive,
+  rebirth,
+  blockUser,
+  clearPMs,
+  deletePM,
+  reroll,
+  addPushDevice,
+  reset,
+  markPmsRead,
+};
 
 /*
 ------------------------------------------------------
@@ -87,10 +199,9 @@ User (prototype wrapper to give it ops, helper funcs, and virtuals
 ------------------------------------------------------
  */
 
-
 /*
 User is now wrapped (both on client and server), adding a few new properties:
-  * getters (_statsComputed, tasks, etc)
+  * getters (_statsComputed)
   * user.fns, which is a bunch of helper functions
     These were originally up above, but they make more sense belonging to the user object so we don't have to pass
     the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
@@ -121,14 +232,16 @@ TODO
 import importedOps from './ops';
 import importedFns from './fns';
 
-api.wrap = function(user, main) {
-  if (main == null) {
-    main = true;
-  }
-  if (user._wrapped) {
-    return;
-  }
+// TODO Kept for the client side
+api.wrap = function wrapUser (user, main = true) {
+  if (user._wrapped) return;
   user._wrapped = true;
+
+  // Make markModified available on the client side as a noop function
+  if (!user.markModified) {
+    user.markModified = function noopMarkModified () {};
+  }
+
   if (main) {
     user.ops = {
       update: _.partial(importedOps.update, user),
@@ -163,6 +276,9 @@ api.wrap = function(user, main) {
       releaseMounts: _.partial(importedOps.releaseMounts, user),
       releaseBoth: _.partial(importedOps.releaseBoth, user),
       buy: _.partial(importedOps.buy, user),
+      buyHealthPotion: _.partial(importedOps.buyHealthPotion, user),
+      buyArmoire: _.partial(importedOps.buyArmoire, user),
+      buyGear: _.partial(importedOps.buyGear, user),
       buyQuest: _.partial(importedOps.buyQuest, user),
       buyMysterySet: _.partial(importedOps.buyMysterySet, user),
       hourglassPurchase: _.partial(importedOps.hourglassPurchase, user),
@@ -175,11 +291,12 @@ api.wrap = function(user, main) {
       allocate: _.partial(importedOps.allocate, user),
       readCard: _.partial(importedOps.readCard, user),
       openMysteryItem: _.partial(importedOps.openMysteryItem, user),
-      score: _.partial(importedOps.score, user),
+      score: _.partial(importedOps.scoreTask, user),
+      markPmsRead: _.partial(importedOps.markPmsRead, user),
     };
   }
+
   user.fns = {
-    getItem: _.partial(importedFns.getItem, user),
     handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
     predictableRandom: _.partial(importedFns.predictableRandom, user),
     crit: _.partial(importedFns.crit, user),
@@ -189,34 +306,14 @@ api.wrap = function(user, main) {
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
-    cron: _.partial(importedFns.cron, user),
-    preenUserHistory: _.partial(importedFns.preenUserHistory, user),
+    statsComputed: _.partial(statsComputed, user),
     ultimateGear: _.partial(importedFns.ultimateGear, user),
     nullify: _.partial(importedFns.nullify, user),
   };
+
   Object.defineProperty(user, '_statsComputed', {
-    get: function() {
-      var computed;
-      computed = _.reduce(['per', 'con', 'str', 'int'], (function(_this) {
-        return function(m, stat) {
-          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
-            var item, val;
-            val = user.fns.dotGet(path);
-            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
-          }, 0);
-          m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
-          return m;
-        };
-      })(this), {});
-      computed.maxMP = computed.int * 2 + 30;
-      return computed;
-    }
-  });
-  return Object.defineProperty(user, 'tasks', {
-    get: function() {
-      var tasks;
-      tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
-      return _.object(_.pluck(tasks, "id"), tasks);
-    }
+    get () {
+      return statsComputed(user);
+    },
   });
 };

@@ -33,7 +33,7 @@
     "italics": "*курсив*",
     "bold": "**Жирний**",
     "strikethrough": "~~Закреслено~~",
-    "emojiExample": ":смайлик:",
+    "emojiExample": ":smile:",
     "markdownLinkEx": "[Habitica - це круто!](https://habitica.com)",
     "markdownImageEx": "![mandatory alt text](https://habitica.com/cake.png \"optional mouseover title\")",
     "unorderedListHTML": "+ First item<br>+ Second item<br>+ Third item",

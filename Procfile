@@ -1,1 +1,1 @@
-web: node ./website/transpiled-babel/server.js
+web: node ./website/transpiled-babel/index.js

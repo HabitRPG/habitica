@@ -5,7 +5,7 @@
     "annoyingFriends": "חברים מרגיזים",
     "annoyingFriendsText": "חטף <%= snowballs %> כדורי שלג לפרצוף משאר החבורה.",
     "alarmingFriends": "חברים מפחידים",
-    "alarmingFriendsText": "הופחד/ה <%= spookDust %> פעמים ע\"י שאר החבורה שלו/ה.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "חברים חקלאיים",
     "agriculturalFriendsText": "הוחלף לפרח <%= seeds %> פעמים על-ידי חברי חבורה.",
     "aquaticFriends": "חברים ימיים",
@@ -45,7 +45,7 @@
     "toAndFromCard": "אל: <%= toName %>, מאת: <%= fromName %>",
     "nyeCard": "כרטיס לשנה החדשה",
     "nyeCardExplanation": "על חגיגות השנה החדשה יחד, שניכם מקבלים את תג ״המכרים הוותיקים״!",
-    "nyeCardNotes": "שליחת כרטיס שנה טובה לחבר/ת חבורה.",
+    "nyeCardNotes": "שליחת כרטיס שנה טובה לחברי חבורה.",
     "seasonalItems": "חפצים עונתיים",
     "nyeCardAchievementTitle": "מכרים וותיקים",
     "nyeCardAchievementText": "שנה טובה! שלחתם או קיבלתם <%= cards %> כרטיסי שנה טובה.",
@@ -68,9 +68,10 @@
     "mummyMedicSet": "מומיה רופאה (מרפא)",
     "vampireSmiterSet": "ערפד מייסר (נוכל)",
     "bewareDogSet": "כלב זהירות (לוחם)",
-    "magicianBunnySet": "ארנב קוסים (מכשף)",
+    "magicianBunnySet": "ארנב קוסמים (מכשף)",
     "comfortingKittySet": "חתלתול מנחם (מרפא)",
     "sneakySqueakerSet": "חורק מתגנב (נוכל)",
     "fallEventAvailability": "זמין עד ה 31 באוקטובר",
-    "winterEventAvailability": "זמין עד ה 31 בדצמבר"
+    "winterEventAvailability": "זמין עד ה 31 בדצמבר",
+    "springEventAvailability": "Available until May 31"
 }

@@ -1,5 +1,5 @@
 import i18n from '../../../common/script/i18n';
-i18n.translations = require('../../../website/src/libs/i18n.js').translations;
+i18n.translations = require('../../../website/server/libs/api-v3/i18n').translations;
 
 // Use this to verify error messages returned by the server
 // That way, if the translated string changes, the test
@@ -16,4 +16,3 @@ export function translate (key, variables) {
 
   return translatedString;
 }
-

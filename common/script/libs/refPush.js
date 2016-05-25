@@ -7,13 +7,14 @@ import uuid from './uuid';
   no problem. To maintain sorting, we use these helper functions:
  */
 
-module.exports = function(reflist, item, prune) {
-  if (prune == null) {
-    prune = 0;
-  }
+module.exports = function refPush (reflist, item) {
   item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
+
   if (!(item.id && !reflist[item.id])) {
     item.id = uuid();
   }
-  return reflist[item.id] = item;
+
+  reflist[item.id] = item;
+
+  return reflist[item.id];
 };

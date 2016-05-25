@@ -1,7 +1,7 @@
 span.option-box.pull-right(ng-if='::main')
   a.option-action(ng-if='list.type=="todo"', ng-show='obj.history.todos', ng-click='toggleChart("todos")', tooltip=env.t('progress'), style='margin-right:5px;')
     span.glyphicon.glyphicon-signal
-  //a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
+  //a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{User.settings.auth.apiToken}}', tooltip='iCal')
   //-a.option-action(ng-if='list.type=="todo"', ng-click='notPorted()', tooltip='iCal', ng-show='false')
     span.glyphicon.glyphicon-calendar
   // <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a>

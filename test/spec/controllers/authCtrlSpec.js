@@ -25,7 +25,7 @@ describe('Auth Controller', function() {
   describe('logging in', function() {
 
     it('should log in users with correct uname / pass', function() {
-      $httpBackend.expectPOST('/api/v2/user/auth/local').respond({id: 'abc', token: 'abc'});
+      $httpBackend.expectPOST('/api/v3/user/auth/local/login').respond({data: {id: 'abc', apiToken: 'abc'}});
       scope.auth();
       $httpBackend.flush();
       expect(user.authenticate).to.be.calledOnce;
@@ -33,7 +33,7 @@ describe('Auth Controller', function() {
     });
 
     it('should not log in users with incorrect uname / pass', function() {
-      $httpBackend.expectPOST('/api/v2/user/auth/local').respond(404, '');
+      $httpBackend.expectPOST('/api/v3/user/auth/local/login').respond(404, '');
       scope.auth();
       $httpBackend.flush();
       expect(user.authenticate).to.not.be.called;

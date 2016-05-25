@@ -5,7 +5,7 @@
     "annoyingFriends": "Otravní přátelé",
     "annoyingFriendsText": "Byl členy družiny zkoulován <%= snowballs %> krát.",
     "alarmingFriends": "Strašliví přátelé",
-    "alarmingFriendsText": "Byl <%= spookDust %>krát vyděšen členy družiny.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Zemědělští přátelé",
     "agriculturalFriendsText": "Byl kamarády transformován <%= seeds %>krát na kytku.",
     "aquaticFriends": "Podvodní přátelé",
@@ -67,10 +67,11 @@
     "witchyWizardSet": "Čarodějný čaroděj (Mág)",
     "mummyMedicSet": "Mumie medika (Léčitel)",
     "vampireSmiterSet": "Lovec upírů (Zloděj)",
-    "bewareDogSet": "Beware Dog (Warrior)",
+    "bewareDogSet": "Strážný Pes (Válečník)",
     "magicianBunnySet": "Mágův králíček (Mág)",
     "comfortingKittySet": "Utěšující kotě (Léčitel)",
-    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
+    "sneakySqueakerSet": "Záludný Kníkač (Zloděj)",
     "fallEventAvailability": "Dostupné do 31. října",
-    "winterEventAvailability": "Dostupné do 31. prosince"
+    "winterEventAvailability": "Dostupné do 31. prosince",
+    "springEventAvailability": "Dostupné do 31. května"
 }
