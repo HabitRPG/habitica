@@ -10,7 +10,7 @@ mixin buyGemsDropdown()
         p
           small.muted=env.t('paymentMethods')
         a.purchase.btn.btn-primary(ng-click='Payments.showStripe({})')=env.t('card')
-        a.purchase(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}')
+        a.purchase(href='/paypal/checkout?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}')
           img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt='Pay now with Paypal')
         a.purchase(ng-click="Payments.amazonPayments.init({type: 'single'})")
           img(src='https://payments.amazon.com/gp/cba/button',alt='Pay now with Amazon Payments')
@@ -34,7 +34,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
             .container-fluid
               .row
                 .col-md-3
-                  button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
+                  button.customize-option(ng-click='User.purchase({params:{type:"gems",key:"gem"}})')
                     span.Pet_Currency_Gem.inline-gems
                      .badge.badge-success.stack-count {{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}
                   p

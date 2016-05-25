@@ -2,7 +2,7 @@
 TEST_DB = process.env.DB_NAME = 'habitrpg_migration_test'
 process.env.NODE_DB_URI = 'mongodb://localhost/' + TEST_DB
 
-app = require('../../website/src/server')
+app = require('../../website/server/server')
 sh = require('shelljs')
 
 runMigration = ->

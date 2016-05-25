@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Jogue uma bola de neve em um membro da equipe! O que poderia dar errado? Dura até o novo dia do membro.",
     "spellSpecialSaltText": "Sal",
     "spellSpecialSaltNotes": "Alguém jogou uma bola de neve em você. Ha ha, muito engraçado. Agora tire essa neve de mim!",
-    "spellSpecialSpookDustText": "Brilhos Assustadores",
-    "spellSpecialSpookDustNotes": "Transforme um amigo em um lençol flutuante com olhos!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Poção Opaca",
     "spellSpecialOpaquePotionNotes": "Cancela os efeitos de Brilhos Assustadores.",
     "spellSpecialShinySeedText": "Semente Cintilante",
@@ -46,5 +46,11 @@
     "spellSpecialSeafoamText": "Espuma do mar",
     "spellSpecialSeafoamNotes": "Transforma um amigo em uma criatura marinha!",
     "spellSpecialSandText": "Areia",
-    "spellSpecialSandNotes": "Cancela os efeitos da espuma do mar."
+    "spellSpecialSandNotes": "Cancela os efeitos da espuma do mar.",
+    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
+    "partyNotFound": "Party not found",
+    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
+    "spellNotOwned": "You don't own this skill.",
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

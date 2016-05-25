@@ -1,3 +1,4 @@
+require('babel-core/register');
 var path, superagentDefaults;
 
 superagentDefaults = require("superagent-defaults");
@@ -5,6 +6,8 @@ superagentDefaults = require("superagent-defaults");
 global.request = superagentDefaults();
 
 global.mongoose = require("mongoose");
+var Bluebird = require('bluebird');
+mongoose.Promise = Bluebird;
 
 global.moment = require("moment");
 
@@ -14,7 +17,7 @@ global._ = require("lodash");
 
 global.shared = require("../../common");
 
-global.User = require("../../website/src/models/user").model;
+global.User = require("../../website/server/models/user").model;
 
 global.chai = require("chai");
 

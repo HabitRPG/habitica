@@ -5,7 +5,7 @@
     "rebirthStartOver": "Genfødsel genstarter din karakter fra Niveau 1.",
     "rebirthAdvList1": "Du vender tilbage til fuldt Liv.",
     "rebirthAdvList2": "Du har ingen Erfaring, Guld eller Udstyr (med undtagelse af gratis ting såsom Mystiske Varer)",
-    "rebirthAdvList3": "Dine Vaner, Daglige og To-Dos nulstilles til gul, og striber nulstilles.",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "Din startklasse er Kriger, indtil du kan vælge en ny Klasse.",
     "rebirthInherit": "Din nye karakter arver nogle få ting fra sin forgænger:",
     "rebirthInList1": "Opgaver, historik og indstillinger forbliver.",
@@ -24,5 +24,6 @@
     "rebirthPop": "Begynd en ny karakter på Niveau 1 mens du beholder præstationer, samlerobjekter, og opgaver med historik.",
     "rebirthName": "Genfødselskugle",
     "reborn": "Genfødt, højeste Niveau <%= reLevel %>",
-    "confirmReborn": "Er du sikker?"
+    "confirmReborn": "Er du sikker?",
+    "rebirthComplete": "You have been reborn!"
 }

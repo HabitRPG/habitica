@@ -4,7 +4,7 @@ import { requester } from './requester';
 import {
   getDocument as getDocumentFromMongo,
   updateDocument as updateDocumentInMongo,
-} from './mongo';
+} from '../mongo';
 import {
   assign,
   each,
@@ -58,6 +58,29 @@ export class ApiGroup extends ApiObject {
     super(options);
 
     this._docType = 'groups';
+  }
+
+  async addChat (chat) {
+    let group = this;
+
+    if (!chat) {
+      chat = {
+        id: 'Test_ID',
+        text: 'Test message',
+        flagCount: 0,
+        timestamp: Date(),
+        likes: {},
+        flags: {},
+        uuid: group.leader,
+        contributor: {},
+        backer: {},
+        user: group.leader,
+      };
+    }
+
+    let update = { chat };
+
+    return await this.update(update);
   }
 }
 

@@ -9,8 +9,9 @@
     "toRegainHealth": "Per ripristinare la Salute:",
     "lowHealthTips1": "Sali di livello per curarti completamente!",
     "lowHealthTips2": "Compra una Pozione di Salute nella colonna delle Ricompense per ripristinare 15 punti Salute.",
-    "losingHealthQuickly": "Perdi Salute rapidamente?",
-    "lowHealthTips3": "Le Giornaliere incomplete ti danneggiano a fine giornata, quindi fai attenzione a non aggiungerne troppe all'inizio!",
+    "losingHealthQuickly": "Perdi punti Salute rapidamente?",
+    "lowHealthTips3": "Le Daily incomplete ti danneggiano a fine giornata, quindi fai attenzione a non aggiungerne troppe all'inizio!",
     "lowHealthTips4": "Se una Giornaliera non va completata in un certo giorno, puoi disattivarla cliccando sull'icona a forma di matita.",
-    "goodLuck": "Buona fortuna!"
+    "goodLuck": "Buona fortuna!",
+    "cannotRevive": "Cannot revive if not dead"
 }
