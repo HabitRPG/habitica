@@ -69,7 +69,25 @@ describe('GET /challenges/:challengeId/members', () => {
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
-  it('returns only first 30 members', async () => {
+  it('returns only first 30 members if req.query.includeAllMembers is not true', async () => {
+    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+    let challenge = await generateChallenge(user, group);
+
+    let usersToGenerate = [];
+    for (let i = 0; i < 31; i++) {
+      usersToGenerate.push(generateUser({challenges: [challenge._id]}));
+    }
+    await Promise.all(usersToGenerate);
+
+    let res = await user.get(`/challenges/${challenge._id}/members?includeAllMembers=not-true`);
+    expect(res.length).to.equal(30);
+    res.forEach(member => {
+      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member.profile).to.have.all.keys(['name']);
+    });
+  });
+
+  it('returns only first 30 members if req.query.includeAllMembers is not defined', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
 
@@ -81,6 +99,24 @@ describe('GET /challenges/:challengeId/members', () => {
 
     let res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res.length).to.equal(30);
+    res.forEach(member => {
+      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member.profile).to.have.all.keys(['name']);
+    });
+  });
+
+  it('returns all members if req.query.includeAllMembers is true', async () => {
+    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+    let challenge = await generateChallenge(user, group);
+
+    let usersToGenerate = [];
+    for (let i = 0; i < 31; i++) {
+      usersToGenerate.push(generateUser({challenges: [challenge._id]}));
+    }
+    await Promise.all(usersToGenerate);
+
+    let res = await user.get(`/challenges/${challenge._id}/members?includeAllMembers=true`);
+    expect(res.length).to.equal(32);
     res.forEach(member => {
       expect(member).to.have.all.keys(['_id', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);

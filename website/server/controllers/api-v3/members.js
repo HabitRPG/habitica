@@ -85,7 +85,13 @@ function _getMembersForItem (type) {
 
       // optionalMembership is set to true because even if you're not member of the group you may be able to access the challenge
       // for example if you've been booted from it, are the leader or a site admin
-      group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
+      group = await Group.getGroup({
+        user,
+        groupId: challenge.group,
+        fields: '_id type privacy',
+        optionalMembership: true,
+      });
+
       if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     } else {
       group = await Group.getGroup({user, groupId, fields: '_id type'});
@@ -117,10 +123,17 @@ function _getMembersForItem (type) {
 
     if (lastId) query._id = {$gt: lastId};
 
+    let limit = 30;
+
+    // Allow for all challenges members to be returned
+    if (type === 'challenge-members' && req.query.includeAllMembers === 'true') {
+      limit = 0; // no limit
+    }
+
     let members = await User
       .find(query)
       .sort({_id: 1})
-      .limit(30)
+      .limit(limit)
       .select(fields)
       .exec();
 
@@ -170,14 +183,15 @@ api.getInvitesForGroup = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge
- * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results. You can also use ?includeAllMembers=true but it's slow and discouraged.
  * @apiVersion 3.0.0
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
  * @apiParam {UUID} challengeId The challenge id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- *
+ * @apiParam {string} includeAllMembers Query parameter - If 'true' all challenge members are returned
+
  * @apiSuccess {array} data An array of members, sorted by _id
  */
 api.getMembersForChallenge = {
