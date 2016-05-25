@@ -7,7 +7,7 @@ import {
 import common from '../../../../../common';
 import { v4 as generateUUID } from 'uuid';
 
-describe('GET /user/anonymized', () => {
+describe.only('GET /user/anonymized', () => {
   let user;
   let endpoint = '/user/anonymized';
 
