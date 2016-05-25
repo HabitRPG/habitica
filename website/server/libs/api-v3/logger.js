@@ -5,20 +5,19 @@ import _ from 'lodash';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
-const ENABLE_CONSOLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
+const ENABLE_LOGS_IN_TEST = nconf.get('ENABLE_CONSOLE_LOGS_IN_TEST') === 'true';
+const ENABLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
 
 const logger = new winston.Logger();
 
 if (IS_PROD) {
-  if (ENABLE_CONSOLE_LOGS_IN_PROD) {
+  if (ENABLE_LOGS_IN_PROD) {
     logger.add(winston.transports.Console, {
       colorize: false,
       prettyPrint: false,
     });
   }
-} else if (IS_TEST) {
-  // Do not log anything when testing
-} else {
+} else if (!IS_TEST || IS_TEST && ENABLE_LOGS_IN_TEST) { // Do not log anything when testing unless specified
   logger
     .add(winston.transports.Console, {
       colorize: true,
