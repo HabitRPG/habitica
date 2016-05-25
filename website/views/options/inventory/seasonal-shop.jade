@@ -1,16 +1,16 @@
 .container-fluid
   .stable.row: .col-xs-12
-    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_open'}").pull-left-sm.col-centered
+    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_closed'}").pull-left-sm.col-centered
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
-      h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+      h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
       .popover-content
-        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopText')
-        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopText')
+        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
+        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
 
-  .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
+  // .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
 
-  li.customize-menu.inventory-gear
+  // li.customize-menu.inventory-gear
     menu.pets-menu(label=env.t('quests'))
       div(ng-repeat='quest in ::getSeasonalShopQuests()')
         button.customize-option(ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"'
@@ -30,7 +30,7 @@
           ng-click='purchase("special", Content.spells.special.shinySeed)')
         p {{::Content.spells.special.shinySeed.value}}
           span(class='shop_gold')
-      // div
+      div
         button.customize-option(class='Pet_HatchingPotion_Peppermint',
           popover='{{::Content.hatchingPotions.Peppermint.notes()}}',
           popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions.Peppermint.text()}}"}),
@@ -39,7 +39,7 @@
           ng-click='purchase("hatchingPotions", Content.hatchingPotions.Peppermint)')
         p {{::Content.hatchingPotions.Peppermint.value}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
-      // div
+      div
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
         p {{Content.spells.special.nye.value}}
           span(class='shop_gold')

@@ -1,32 +1,41 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import {
+  NotAuthorized,
+} from '../libs/errors';
 
-module.exports = function(user, req, cb, analytics) {
-  var analyticsData, pet;
+module.exports = function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {
-    return typeof cb === "function" ? cb({
-      code: 401,
-      message: i18n.t('notEnoughGems', req.language)
-    }) : void 0;
+    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  }
+
+  user.balance -= 1;
+  user.items.currentPet = '';
+
+  for (let pet in content.pets) {
+    user.items.pets[pet] = 0;
+  }
+
+  if (!user.achievements.beastMasterCount) {
+    user.achievements.beastMasterCount = 0;
+  }
+  user.achievements.beastMasterCount++;
+
+  if (analytics) {
+    analytics.track('release pets', {
+      uuid: user._id,
+      acquireMethod: 'Gems',
+      gemCost: 4,
+      category: 'behavior',
+    });
+  }
+
+  if (req.v2 === true) {
+    return user;
   } else {
-    user.balance -= 1;
-    for (pet in content.pets) {
-      user.items.pets[pet] = 0;
-    }
-    if (!user.achievements.beastMasterCount) {
-      user.achievements.beastMasterCount = 0;
-    }
-    user.achievements.beastMasterCount++;
-    user.items.currentPet = "";
+    return [
+      user.items.pets,
+      i18n.t('petsReleased'),
+    ];
   }
-  analyticsData = {
-    uuid: user._id,
-    acquireMethod: 'Gems',
-    gemCost: 4,
-    category: 'behavior'
-  };
-  if (analytics != null) {
-    analytics.track('release pets', analyticsData);
-  }
-  return typeof cb === "function" ? cb(null, user) : void 0;
 };

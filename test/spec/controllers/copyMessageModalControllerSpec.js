@@ -4,11 +4,9 @@ describe("CopyMessageModal controller", function() {
   var scope, ctrl, user, Notification, $rootScope, $controller;
 
   beforeEach(function() {
-    module(function($provide) {
-      $provide.value('User', {});
-    });
+    module(function($provide) {});
 
-    inject(function($rootScope, _$controller_, _Notification_){
+    inject(function($rootScope, _$controller_, _Notification_, User){
       user = specHelper.newUser();
       user._id = "unique-user-id";
       user.ops = {
@@ -20,10 +18,12 @@ describe("CopyMessageModal controller", function() {
 
       $controller = _$controller_;
 
-      // Load RootCtrl to ensure shared behaviors are loaded
-      $controller('RootCtrl',  {$scope: scope, User: {user: user}});
+      User.setUser(user);
 
-      ctrl = $controller('CopyMessageModalCtrl', {$scope: scope, User: {user: user}});
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: User});
+
+      ctrl = $controller('CopyMessageModalCtrl', {$scope: scope, User: User});
 
       Notification = _Notification_;
       Notification.text = sandbox.spy();

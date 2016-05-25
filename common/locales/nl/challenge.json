@@ -63,5 +63,21 @@
     "congratulations": "Gefeliciteerd!",
     "hurray": "Hoera!",
     "noChallengeOwner": "geen eigenaar",
-    "noChallengeOwnerPopover": "Deze uitdaging heeft geen eigenaar omdat de eigenaar zijn of haar account heeft verwijderd."
+    "noChallengeOwnerPopover": "Deze uitdaging heeft geen eigenaar omdat de eigenaar zijn of haar account heeft verwijderd.",
+    "challengeMemberNotFound": "Gebruiker niet gevonden onder deelnemers aan de uitdaging",
+    "onlyGroupLeaderChal": "Alleen de groepsleider kan uitdagingen creëren",
+    "tavChalsMinPrize": "Prijs moet ten minste 1 Juweel zijn voor Herberg uitdagingen",
+    "cantAfford": "You can't afford this prize. Purchase more gems or lower the prize amount.",
+    "challengeIdRequired": "\"challengeId\" must be a valid UUID.",
+    "winnerIdRequired": "\"winnerId\" must be a valid UUID.",
+    "challengeNotFound": "Uitdaging niet gevonden",
+    "onlyLeaderDeleteChal": "Alleen de uitdagingsleider kan het verwijderen.",
+    "onlyLeaderUpdateChal": "Alleen de uitdagingsleider kan het updaten.",
+    "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge.",
+    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching challenge tasks.",
+    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
+    "userAlreadyInChallenge": "User is already participating in this challenge.",
+    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
+    "shortNameTooShort": "Tag Name must have at least 3 characters."
 }

@@ -154,7 +154,7 @@ describe('notificationServices', function() {
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('info');
-    expect(arg.text).to.eql('<p><span class="emoji" style="background-image:url(common/img/emoji/unicode/1f604.png)">:smile:</span> - task name</p>\n');
+    expect(arg.text).to.eql('<p><img class="habitica-emoji" style="height: 1.5em; width: 1.5em" src="https://s3.amazonaws.com/habitica-assets/cdn/emoji/smile.png" alt="smile"> - task name</p>\n');
     expect(arg.icon).to.eql(false);
   });
 

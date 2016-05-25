@@ -387,6 +387,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.falcon != null) > 0;
     }),
   },
+  Treeling: {
+    text: t('questEggTreelingText'),
+    adjective: t('questEggTreelingAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.treeling != null) > 0;
+    }),
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -419,6 +426,7 @@ api.specialPets = {
   'Phoenix-Base': 'phoenix',
   'Turkey-Gilded': 'gildedTurkey',
   'MagicalBee-Base': 'magicalBee',
+  'Lion-Veteran': 'veteranLion',
 };
 
 api.specialMounts = {
@@ -589,6 +597,14 @@ api.mounts = _.transform(api.dropEggs, function(m, egg) {
 api.questMounts = _.transform(api.questEggs, function(m, egg) {
   return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
     if (!pot.premium) {
+      return m2[egg.key + "-" + pot.key] = true;
+    }
+  }));
+});
+
+api.premiumMounts = _.transform(api.dropEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    if (pot.premium) {
       return m2[egg.key + "-" + pot.key] = true;
     }
   }));
@@ -2572,11 +2588,11 @@ api.quests = {
       items: [
         {
           type: 'pets',
-          key: 'Bumblebee-Base',
+          key: 'MagicalBee-Base',
           text: t('questBewilderDropBumblebeePet')
         }, {
           type: 'mounts',
-          key: 'Bumblebee-Base',
+          key: 'MagicalBee-Base',
           text: t('questBewilderDropBumblebeeMount')
         }, {
           type: 'food',
@@ -2654,6 +2670,38 @@ api.quests = {
       gp: 49,
       exp: 425,
       unlock: t('questFalconUnlockText'),
+    },
+  },
+  treeling: {
+    text: t('questTreelingText'),
+    notes: t('questTreelingNotes'),
+    completion: t('questTreelingCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTreelingBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questTreelingUnlockText'),
     },
   },
 };

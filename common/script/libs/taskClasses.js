@@ -1,51 +1,45 @@
 import {
-  shouldDo
+  shouldDo,
 } from '../cron';
+
 /*
 Task classes given everything about the class
 */
-module.exports = function(task, filters, dayStart, lastCron, showCompleted, main) {
-  var classes, completed, enabled, filter, priority, ref, repeat, type, value;
-  if (filters == null) {
-    filters = [];
-  }
-  if (dayStart == null) {
-    dayStart = 0;
-  }
-  if (lastCron == null) {
-    lastCron = +(new Date);
-  }
-  if (showCompleted == null) {
-    showCompleted = false;
-  }
-  if (main == null) {
-    main = false;
-  }
+
+// TODO move to the client
+
+module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCron = Number(new Date()), showCompleted = false, main = false) {
   if (!task) {
-    return;
+    return '';
   }
-  type = task.type, completed = task.completed, value = task.value, repeat = task.repeat, priority = task.priority;
-  if (main) {
-    if (!task._editing) {
-      for (filter in filters) {
-        enabled = filters[filter];
-        if (enabled && !((ref = task.tags) != null ? ref[filter] : void 0)) {
-          return 'hidden';
-        }
+  let type = task.type;
+  let classes = task.type;
+  let completed = task.completed;
+  let value = task.value;
+  let priority = task.priority;
+
+  if (main && !task._editing) {
+    for (let filter in filters) {
+      let enabled = filters[filter];
+      if (!task.tags) task.tags = [];
+      if (enabled && task.tags.indexOf(filter) === -1) {
+        return 'hidden';
       }
     }
   }
-  classes = type;
+
+  classes = task.type;
   if (task._editing) {
-    classes += " beingEdited";
+    classes += ' beingEdited';
   }
+
   if (type === 'todo' || type === 'daily') {
-    if (completed || (type === 'daily' && !shouldDo(+(new Date), task, {
-      dayStart: dayStart
+    if (completed || (type === 'daily' && !shouldDo(Number(new Date()), task, { // eslint-disable-line no-extra-parens
+      dayStart,
     }))) {
-      classes += " completed";
+      classes += ' completed';
     } else {
-      classes += " uncompleted";
+      classes += ' uncompleted';
     }
   } else if (type === 'habit') {
     if (task.down && task.up) {
@@ -55,6 +49,7 @@ module.exports = function(task, filters, dayStart, lastCron, showCompleted, main
       classes += ' habit-narrow';
     }
   }
+
   if (priority === 0.1) {
     classes += ' difficulty-trivial';
   } else if (priority === 1) {
@@ -64,6 +59,7 @@ module.exports = function(task, filters, dayStart, lastCron, showCompleted, main
   } else if (priority === 2) {
     classes += ' difficulty-hard';
   }
+
   if (value < -20) {
     classes += ' color-worst';
   } else if (value < -10) {
@@ -79,5 +75,6 @@ module.exports = function(task, filters, dayStart, lastCron, showCompleted, main
   } else {
     classes += ' color-best';
   }
+
   return classes;
 };
