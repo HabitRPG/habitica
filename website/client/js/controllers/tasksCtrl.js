@@ -259,6 +259,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.buy({params:{key:item.key}});
     };
 
+    $scope.buyArmoire = function () {
+      playRewardSound($scope.armoire);
+      User.buyArmoire();
+    }
+
     /*
      ------------------------
      Hiding Tasks
