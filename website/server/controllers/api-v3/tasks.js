@@ -422,12 +422,14 @@ api.scoreTask = {
 
     sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
 
-    if (task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+    if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
       try {
         let chalTask = await Tasks.Task.findOne({
           _id: task.challenge.taskId,
         }).exec();
+
+        if (!chalTask) return;
 
         await chalTask.scoreChallengeTask(delta);
       } catch (e) {
