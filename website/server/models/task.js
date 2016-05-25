@@ -10,7 +10,10 @@ let Schema = mongoose.Schema;
 let discriminatorOptions = {
   discriminatorKey: 'type', // the key that distinguishes task types
 };
-let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {_id: false});
+let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {
+  _id: false,
+  minimize: false,
+});
 
 export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
@@ -52,7 +55,7 @@ export let TaskSchema = new Schema({
     time: {type: Date, required: true},
   }],
 }, _.defaults({
-  minimize: true, // So empty objects are returned
+  minimize: false, // So empty objects are returned
   strict: true,
 }, discriminatorOptions));
 
