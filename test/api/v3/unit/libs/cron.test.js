@@ -34,15 +34,6 @@ describe('cron', () => {
     };
   });
 
-  it('updates user.auth.timestamps.loggedin and lastCron', () => {
-    let now = new Date();
-
-    cron({user, tasksByType, daysMissed, analytics, now});
-
-    expect(user.auth.timestamps.loggedin).to.equal(now);
-    expect(user.lastCron).to.equal(now);
-  });
-
   it('updates user.preferences.timezoneOffsetAtLastCron', () => {
     let timezoneOffsetFromUserPrefs = 1;
 

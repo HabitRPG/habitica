@@ -10,44 +10,36 @@ import { v4 as uuid } from 'uuid';
 
 const daysSince = common.daysSince;
 
-async function recoverCron (status, req, res, next) {
-  try {
-    let user = res.locals.user;
+async function recoverCron (status, req, res) {
+  let user = res.locals.user;
 
-    await Bluebird.delay(300);
-    let reloadedUser = await User.findOne({_id: user._id}).exec();
+  await Bluebird.delay(300);
+  let reloadedUser = await User.findOne({_id: user._id}).exec();
 
-    if (!reloadedUser) {
-      throw new Error(`User ${user._id} not found while recovering.`);
-    } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
-      console.log((new Date()).toISOString(), 'RECOVERED FROM CRON - STILL RUNNING', req.originalUrl, req.method);
-      status.times++;
-      if (status.times < 4) {
-        await recoverCron(status, req, res, next);
-      } else {
-        throw new Error(`Impossible to recover from cron for user ${user._id}.`);
-      }
+  if (!reloadedUser) {
+    throw new Error(`User ${user._id} not found while recovering.`);
+  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
+    status.times++;
+
+    if (status.times < 4) {
+      await recoverCron(status, req, res);
     } else {
-      console.log((new Date()).toISOString(), 'RECOVERED FROM CRON', req.originalUrl, req.method);
-      res.locals.user = reloadedUser;
-      return next();
+      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
     }
-  } catch (err) {
-    return next(err);
+  } else {
+    res.locals.user = reloadedUser;
+    return null;
   }
 }
 
-module.exports = async function cronMiddleware (req, res, next) {
+async function cronAsync (req, res) {
   let user = res.locals.user;
-  if (!user) return next(); // User might not be available when authentication is not mandatory
+  if (!user) return null; // User might not be available when authentication is not mandatory
 
   let analytics = res.analytics;
   let now = new Date();
-  let _cronSignature = uuid();
 
   try {
-    console.log((new Date()).toISOString(), 'CHECKING RUN CRON', req.originalUrl, req.method);
-
     // If the user's timezone has changed (due to travel or daylight savings),
     // cron can be triggered twice in one day, so we check for that and use
     // both timezones to work out if cron should run.
@@ -128,10 +120,10 @@ module.exports = async function cronMiddleware (req, res, next) {
 
     if (daysMissed <= 0) {
       if (user.isModified()) await user.save();
-      return next();
+      return null;
     }
 
-    console.log((new Date()).toISOString(), 'RUNNING CRON FOR REAL', req.originalUrl, req.method);
+    let _cronSignature = uuid();
 
     // To avoid double cron we first set _cronSignature to now and then check that it's not changed while processing
     let userUpdateResult = await User.update({
@@ -142,7 +134,6 @@ module.exports = async function cronMiddleware (req, res, next) {
         _cronSignature,
       },
     }).exec();
-    console.log((new Date()).toISOString(), 'FIRST USER UPDATE?', userUpdateResult, req.originalUrl, req.method);
 
     // If the cron signature is already set, cron is running in another request
     // throw an error and recover later,
@@ -208,11 +199,10 @@ module.exports = async function cronMiddleware (req, res, next) {
 
     // Reload user
     res.locals.user = await User.findOne({_id: user._id}).exec();
-    return next();
+    return null;
   } catch (err) {
     // If cron was aborted for a race condition try to recover from it
     if (err.message === 'CRON_ALREADY_RUNNING') {
-      console.log((new Date()).toISOString(), 'RECOVERING FROM CRON', req.originalUrl, req.method);
       // Recovering after abort, wait 300ms and reload user
       // do it for max 4 times then reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
@@ -220,17 +210,31 @@ module.exports = async function cronMiddleware (req, res, next) {
         times: 0,
       };
 
-      recoverCron(recoveryStatus, req, res, next);
+      recoverCron(recoveryStatus, req, res);
     } else {
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
-      await User.update({
-        _id: user._id,
-      }, {
-        _cronSignature: 'NOT_RUNNING',
-      }).exec()
-      .then(() => next(err))
-      .catch(secondError => next(secondError));
+      try {
+        await User.update({
+          _id: user._id,
+        }, {
+          _cronSignature: 'NOT_RUNNING',
+        }).exec();
+
+        throw err; // re-throw original error
+      } catch (secondErr) {
+        throw secondErr;
+      }
     }
   }
+}
+
+module.exports = function cronMiddleware (req, res, next) {
+  cronAsync(req, res)
+    .then(() => {
+      next();
+    })
+    .catch(err => {
+      next(err);
+    });
 };
