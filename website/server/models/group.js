@@ -25,6 +25,9 @@ const Schema = mongoose.Schema;
 export const INVITES_LIMIT = 100;
 export const TAVERN_ID = shared.TAVERN_ID;
 
+const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
+const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
 export let schema = new Schema({
@@ -516,7 +519,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
-  let bossAttack = nconf.get('CRON_SAFE_MODE') === 'true' || nconf.get('CRON_SEMI_SAFE_MODE') === 'true' ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
+  let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   // TODO Consider putting the safe mode boss attack message in an ENV var
   group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
 

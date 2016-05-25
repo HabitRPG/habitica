@@ -119,7 +119,7 @@ api.getGroup = {
   url: '/groups/:groupId',
   // Disable cron when getting groups to avoid race conditions when the site is loaded
   // and requests for party and user data are concurrent
-  runCron: false,
+  runCron: true,
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
