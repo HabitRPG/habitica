@@ -224,8 +224,13 @@ angular.module('habitrpg')
 
           Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
+            var crit = tmp.crit;
             var drop = tmp.drop;
 
+            if (crit) {
+              var critBonus = crit * 100 - 100;
+              Notification.crit(critBonus);
+            }
             if (drop) user._tmp.drop = drop;
           });
         },
