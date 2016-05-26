@@ -47,11 +47,11 @@ describe('cron middleware', () => {
 
   it('calls next when user is not attached', (done) => {
     res.locals.user = null;
-    cronMiddleware(req, res, (err) => done(err));
+    cronMiddleware(req, res, done);
   });
 
   it('calls next when days have not been missed', (done) => {
-    cronMiddleware(req, res, (err) => done(err));
+    cronMiddleware(req, res, done);
   });
 
   it('should clear todos older than 30 days for free users', async (done) => {
