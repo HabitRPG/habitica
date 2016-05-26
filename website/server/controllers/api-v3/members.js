@@ -355,7 +355,7 @@ api.transferGems = {
       receiverName: receiver.profile.name,
       senderName: sender.profile.name,
     });
-    message += ` ${res.t('privateMessageGiftGemsMessage', {gemAmount})}`;
+    message += res.t('privateMessageGiftGemsMessage', {gemAmount});
 
     if (req.body.message) {
       message += req.body.message;
