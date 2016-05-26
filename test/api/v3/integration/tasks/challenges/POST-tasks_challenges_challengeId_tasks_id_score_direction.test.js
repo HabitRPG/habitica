@@ -26,6 +26,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test habit',
         type: 'habit',
       });
+      await Bluebird.delay(1000);
       let updatedUser = await user.get('/user');
       usersChallengeTaskId = updatedUser.tasksOrder.habits[0];
     });
@@ -63,6 +64,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test daily',
         type: 'daily',
       });
+      await Bluebird.delay(1000);
       let updatedUser = await user.get('/user');
       usersChallengeTaskId = updatedUser.tasksOrder.dailys[0];
     });
@@ -99,6 +101,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test todo',
         type: 'todo',
       });
+      await Bluebird.delay(1000);
       let updatedUser = await user.get('/user');
       usersChallengeTaskId = updatedUser.tasksOrder.todos[0];
     });
@@ -123,6 +126,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test reward',
         type: 'reward',
       });
+      await Bluebird.delay(1000);
       let updatedUser = await user.get('/user');
       usersChallengeTaskId = updatedUser.tasksOrder.todos[0];
     });
