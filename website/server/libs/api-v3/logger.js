@@ -60,11 +60,12 @@ let loggerInterface = {
       }
 
       let loggerArgs = [stack, errorData, ...otherArgs];
-      // Treat 4xx errors as warnings, 5xx and uncaught errors as serious problems
-      if (!errorData || !errorData.statusCode || errorData.statusCode > 499) {
+
+      // Treat 4xx errors that are handled as warnings, 5xx and uncaught errors as serious problems
+      if (!errorData || !errorData.isHandledError || errorData.httpCode >= 500) {
         logger.error(...loggerArgs);
       } else {
-        logger.warn(stack, errorData, ...otherArgs);
+        logger.warn(...loggerArgs);
       }
     } else {
       logger.error(...args);
