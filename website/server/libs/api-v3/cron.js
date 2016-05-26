@@ -72,7 +72,9 @@ function performSleepTasks (user, tasksByType, now) {
 
     if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
       // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitrpg/pull/7218#issuecomment-219256016
-      daily.checklist.forEach(box => box.completed = false);
+      if (daily.checklist) {
+        daily.checklist.forEach(box => box.completed = false);
+      }
     }
 
     daily.completed = false;
@@ -196,7 +198,9 @@ export function cron (options = {}) {
     task.completed = false;
 
     if (completed || scheduleMisses > 0) {
-      task.checklist.forEach(i => i.completed = false);
+      if (task.checklist) {
+        task.checklist.forEach(i => i.completed = false);
+      }
     }
   });
 
