@@ -20,9 +20,7 @@ angular.module('habitrpg')
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (isNotSync && ($rootScope.User.user._v - oldUserV) > 1) {
-          console.log('before sync', Date.now())
           $rootScope.User.sync();
-          console.log('after sync', Date.now())
         }
       }
     }

@@ -82,9 +82,7 @@ angular.module('habitrpg')
         .then(function (response) {
           if (response.data.message) Notification.text(response.data.message);
 
-          console.log('before extend', Date.now())
           _.extend(user, response.data.data);
-          console.log('after extend', Date.now())
 
           $rootScope.$emit('userUpdated', user);
 
