@@ -168,6 +168,8 @@ describe('errorHandler', () => {
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,
+      httpCode: 400,
+      isHandledError: true,
     });
   });
 });
