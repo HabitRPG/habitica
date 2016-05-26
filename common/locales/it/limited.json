@@ -5,7 +5,7 @@
     "annoyingFriends": "Amici Fastidiosi",
     "annoyingFriendsText": "I compagni di squadra gli hanno tirato <%= snowballs %> palle di neve.",
     "alarmingFriends": "Amici Inquietanti",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "E' stato spaventato <%= spookySparkles %> volte dai compagni di squadra.",
     "agriculturalFriends": "Amici Floreali",
     "agriculturalFriendsText": "E' stato trasformato in un fiore <%= seeds %> volte dai compagni di squadra.",
     "aquaticFriends": "Amici acquatici",

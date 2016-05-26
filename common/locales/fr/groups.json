@@ -182,8 +182,8 @@
     "userAlreadyInAParty": "Utilisateur déjà dans une équipe.",
     "userWithIDNotFound": "Utilisateur avec l'ID \"<%= userId %>\" non trouvé.",
     "userHasNoLocalRegistration": "L'utilisateur n'a pas un enregistrement local (nom d'utilisateur, courriel, mot de passe).",
-    "uuidsMustBeAnArray": "User ID invites must be an array.",
-    "emailsMustBeAnArray": "Email address invites must be an array.",
+    "uuidsMustBeAnArray": "Les ID d'utilisateurs des invitations doivent être un tableau.",
+    "emailsMustBeAnArray": "Les emails des invitations doivent être un tableau.",
     "canOnlyInviteMaxInvites": "Vous ne pouvez envoyer que \"<%= maxInvites %>\" invitations à la fois",
     "onlyCreatorOrAdminCanDeleteChat": "Vous n'êtes pas autorisé à supprimer ce message !"
 }

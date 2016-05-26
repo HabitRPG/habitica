@@ -47,7 +47,7 @@
     "customDayStart": "Tageswechsel einstellen",
     "changeCustomDayStart": "Tageswechsel ändern?",
     "sureChangeCustomDayStart": "Willst Du Deinen Tageswechsel wirklich ändern?",
-    "customDayStartHasChanged": "Your custom day start has changed.",
+    "customDayStartHasChanged": "Dein persönlicher Tagesstart wurde geändert.",
     "nextCron": "Deine täglichen Aufgaben werden das nächste Mal überprüft und zurückgesetzt, wenn Du Habitica das erste Mal nach <%= time %> nutzt. Stelle sicher, dass Du Deine täglichen Aufgaben vor diesem Zeitpunkt erledigt hast.",
     "customDayStartInfo1": "Normalerweise werden Deine täglichen Aufgaben jeden Tag um Mitternacht Deiner Ortszeit von Habitica überprüft und zurückgesetzt. Du kannst diesen Zeitpunkt hier ändern.",
     "misc": "Verschiedenes",

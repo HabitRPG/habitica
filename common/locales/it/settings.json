@@ -47,7 +47,7 @@
     "customDayStart": "Data di inizio giorno personalizzata",
     "changeCustomDayStart": "Cambiare l'ora di inizio della giornata?",
     "sureChangeCustomDayStart": "Sei sicuro di voler cambiare l'inizio della giornata personalizzata?",
-    "customDayStartHasChanged": "Your custom day start has changed.",
+    "customDayStartHasChanged": "La tua ora di inizio giorno è stata cambiata.",
     "nextCron": "Le tue Daily verranno ripristinate la prima volta che usi Habitica dopo <%= time %>. Assicurati di aver completato le tue Daily prima di allora!",
     "customDayStartInfo1": "Habitica è impostato per resettare le tue Daily a mezzanotte nel tuo fuso orario ogni giorno. Qui puoi modificare l'ora di \"reset\".",
     "misc": "Altro",
@@ -149,10 +149,10 @@
     "enabled": "Abilitato",
     "webhookURL": "URL Webhook",
     "invalidUrl": "url non valido",
-    "invalidEnabled": "the \"enabled\" parameter should be a boolean",
+    "invalidEnabled": "Il parametro \"enabled\" dovrebbe essere un booleano",
     "regIdRequired": "RegId è richiesto",
-    "pushDeviceAdded": "Push device added successfully",
-    "pushDeviceAlreadyAdded": "The user already has the push device",
+    "pushDeviceAdded": "Dispositivo push aggiunto con successo.",
+    "pushDeviceAlreadyAdded": "L'utente ha già il dispositivo push",
     "add": "Aggiungi",
     "buyGemsGoldCap": "Limite alzato a <%= amount %>",
     "mysticHourglass": "<%= amount %> Clessidra Mistica",
@@ -167,5 +167,5 @@
     "amazonPayments": "Pagamenti su Amazon",
     "timezone": "Fuso orario",
     "timezoneUTC": "Habitica usa il fuso orario impostato sul tuo PC, ovvero: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezoneInfo": "Se il fuso orario è sbagliato, ricarica questa pagina tramite il bottone di ricarica o aggiornamento della pagina del browser, per assicurarti che Habitica contenga le informazioni più aggiornate. Se è ancora sbagliato, imposta il fuso orario corretto sul tuo PC e poi ricarica di nuovo questa pagina.<br><br> <strong>Se usi Habitica su altri PC o su altri dispositivi mobili, il fuso orario deve essere identico su ognuno di essi.</strong> Se le tue Daily sono state reimpostate ad un'ora sbagliata, ripeti questo controllo su tutti gli altri PC e su un browser sui tuoi dispositivi mobili."
 }

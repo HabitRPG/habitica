@@ -74,9 +74,10 @@
     "onlyLeaderDeleteChal": "Nur der Wettbewerbsleiter kann es löschen.",
     "onlyLeaderUpdateChal": "Nur der Wettbewerbsleiter kann es aktualisieren.",
     "winnerNotFound": "Gewinner mit ID \"<%= userId %>\" nicht gefunden, oder nimmt nicht am Wettbewerb teil.",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" wird nicht unterstützt, wenn Wettbewerbsaufgaben heruntergeladen werden.",
+    "noCompletedTodosChallenge": "\"includeComepletedTodos\" wird beim Herunterladen von Wettbewerbsaufgaben nicht unterstützt.",
     "userTasksNoChallengeId": "Wenn \"tasksOwner\" \"user\" ist, kann \"challengeId\" nicht angegeben werden.",
     "onlyChalLeaderEditTasks": "Aufgaben, die zu einem Wettbewerb gehören, können nur vom Leiter bearbeitet werden.",
     "userAlreadyInChallenge": "Der Benutzer nimmt bereits an diesem Wettbewerb teil.",
-    "cantOnlyUnlinkChalTask": "Nur ungültige Wettbewerbsaufgaben können entfernt werden."
+    "cantOnlyUnlinkChalTask": "Nur ungültige Wettbewerbsaufgaben können entfernt werden.",
+    "shortNameTooShort": "Tag-Namen müssen mindestens 3 Zeichen lang sein."
 }

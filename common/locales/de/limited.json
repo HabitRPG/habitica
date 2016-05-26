@@ -5,7 +5,7 @@
     "annoyingFriends": "Nervige Freunde",
     "annoyingFriendsText": "Hat sich <%= snowballs %> Schneebälle von Gruppenmitgliedern eingefangen.",
     "alarmingFriends": "Unheimliche Freunde",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "Wurde <%= spookySparkles %> mal von Gruppenmitgliedern erschreckt.",
     "agriculturalFriends": "Gartenbegeisterte Freunde",
     "agriculturalFriendsText": "Wurde <%= seeds %> mal von Gruppenmitgliedern in eine Blume verwandelt.",
     "aquaticFriends": "Wasserliebende Freunde",

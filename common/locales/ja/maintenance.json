@@ -1,10 +1,10 @@
 {
   "habiticaBackSoon": "心配しないでください、ハビティカもすぐに換えてします！",
   "importantMaintenance": "We are doing important maintenance that we estimate will last until <%= localDate %> in your timezone.",
-  "maintenance": "Maintenance",
+  "maintenance": "メンテナンス",
   "maintenanceMoreInfo": "Want more information about the maintenance? <%= linkStart %>Check out our info page<%= linkEnd %>.",
   "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",
-  "thanksForPatience": "Thanks for your patience!",
+  "thanksForPatience": "御辛抱いただいてありがとうございました。",
   "twitterMaintenanceUpdates": "For the most recent updates, watch our <a href='https://twitter.com/habitica'>Twitter</a>, where we will be posting status information.",
   "veteranPetAward": "At the end, you will receive a Veteran pet!",
 

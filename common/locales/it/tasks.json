@@ -122,7 +122,7 @@
     "checklistOnlyDailyTodo": "Le checklist sono supportate solo su Daily e To-Do.",
     "checklistItemNotFound": "Non è stato trovato alcun elemento checklist con l'id specificato.",
     "itemIdRequired": "\"itemId\" deve essere un UUID valido.",
-    "tagNotFound": "No tag item was found with given id.",
+    "tagNotFound": "Non è stata trovata alcuna etichetta con l'id specificato.",
     "tagIdRequired": "\"tagId\" deve essere un UUID valido e deve corrispondere a un'etichetta appartenente all'utente.",
     "positionRequired": "\"position\" è richiesto e deve essere un numero.",
     "cantMoveCompletedTodo": "Non è possibile spostare una To-Do completata.",

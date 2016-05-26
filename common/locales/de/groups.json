@@ -182,8 +182,8 @@
     "userAlreadyInAParty": "Benutzer bereits in einer Gruppe.",
     "userWithIDNotFound": "Benutzer mit ID \"<%= userId %>\" nicht gefunden",
     "userHasNoLocalRegistration": "Benutzer ist lokal nicht registriert (Benutzername, E-Mail, Passwort).",
-    "uuidsMustBeAnArray": "User ID invites must be an array.",
-    "emailsMustBeAnArray": "Email address invites must be an array.",
+    "uuidsMustBeAnArray": "Benutzer-ID-Einladungen müssen ein Array sein.",
+    "emailsMustBeAnArray": "E-Mail-Adress-Einladungen müssen ein Array sein.",
     "canOnlyInviteMaxInvites": "Du kannst nur \"<%= maxInvites %>\" Benutzer gleichzeitig einladen",
     "onlyCreatorOrAdminCanDeleteChat": "Löschen der Nachricht nicht erlaubt!"
 }

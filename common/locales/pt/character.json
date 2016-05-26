@@ -110,7 +110,7 @@
     "mage": "Mago",
     "mystery": "Mistério",
     "changeClass": "Alterar Classe, Restituir Pontos de Atributo",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Para mudar de classe você precisa ser pelo menos nível 10.",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",
     "unallocated": "Pontos de Atributo não Distribuídos",
     "haveUnallocated": "Você tem <%= points %> Ponto(s) de Atributo não usados",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "Mostrar distribuição de status",
     "hideQuickAllocation": "Esconder distribuição de status",
     "quickAllocationLevelPopover": "Cada nível concederá à você um ponto para distribuir em um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Status do Avatar.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "\"<%= attr %>\" não é um atributo válido.",
+    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes."
 }
