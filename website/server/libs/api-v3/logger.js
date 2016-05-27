@@ -2,6 +2,9 @@
 import winston from 'winston';
 import nconf from 'nconf';
 import _ from 'lodash';
+import {
+  CustomError,
+} from './errors';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
@@ -42,8 +45,28 @@ let loggerInterface = {
       // pass the error stack as the first parameter to logger.error
       let stack = err.stack || err.message || err;
 
-      if (_.isPlainObject(errorData) && !errorData.fullError) errorData.fullError = err;
-      logger.error(stack, errorData, ...otherArgs);
+      if (_.isPlainObject(errorData) && !errorData.fullError) {
+        // If the error object has interesting data (not only httpCode, message and name from the CustomError class)
+        // add it to the logs
+        if (err instanceof CustomError) {
+          let errWithoutCommonProps = _.omit(err, ['name', 'httpCode', 'message']);
+
+          if (Object.keys(errWithoutCommonProps).length > 0) {
+            errorData.fullError = errWithoutCommonProps;
+          }
+        } else {
+          errorData.fullError = err;
+        }
+      }
+
+      let loggerArgs = [stack, errorData, ...otherArgs];
+
+      // Treat 4xx errors that are handled as warnings, 5xx and uncaught errors as serious problems
+      if (!errorData || !errorData.isHandledError || errorData.httpCode >= 500) {
+        logger.error(...loggerArgs);
+      } else {
+        logger.warn(...loggerArgs);
+      }
     } else {
       logger.error(...args);
     }
