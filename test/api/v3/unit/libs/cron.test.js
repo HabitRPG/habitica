@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 import moment from 'moment';
-import { cron } from '../../../../../website/server/libs/api-v3/cron';
+import Bluebird from 'bluebird';
+import { recoverCron, cron } from '../../../../../website/server/libs/api-v3/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
 import { clone } from 'lodash';
@@ -32,15 +33,6 @@ describe('cron', () => {
     user._statsComputed = {
       mp: 10,
     };
-  });
-
-  it('updates user.auth.timestamps.loggedin and lastCron', () => {
-    let now = new Date();
-
-    cron({user, tasksByType, daysMissed, analytics, now});
-
-    expect(user.auth.timestamps.loggedin).to.equal(now);
-    expect(user.lastCron).to.equal(now);
   });
 
   it('updates user.preferences.timezoneOffsetAtLastCron', () => {
@@ -569,5 +561,70 @@ describe('cron', () => {
 
       expect(user.inbox.messages[messageId]).to.not.exist;
     });
+  });
+});
+
+describe('recoverCron', () => {
+  let locals, status, execStub;
+
+  beforeEach(() => {
+    execStub = sandbox.stub();
+    sandbox.stub(User, 'findOne').returns({ exec: execStub });
+
+    status = { times: 0 };
+    locals = {
+      user: new User({
+        auth: {
+          local: {
+            username: 'username',
+            lowerCaseUsername: 'username',
+            email: 'email@email.email',
+            salt: 'salt',
+            hashed_password: 'hashed_password', // eslint-disable-line camelcase
+          },
+        },
+      }),
+    };
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('throws an error if user cannot be found', async (done) => {
+    execStub.returns(Bluebird.resolve(null));
+
+    try {
+      await recoverCron(status, locals);
+    } catch (err) {
+      expect(err.message).to.eql(`User ${locals.user._id} not found while recovering.`);
+
+      done();
+    }
+  });
+
+  it('increases status.times count and reruns up to 3 times', async (done) => {
+    execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
+    execStub.onCall(3).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
+
+    await recoverCron(status, locals);
+
+    expect(status.times).to.eql(3);
+    expect(locals.user).to.eql({_cronSignature: 'NOT_RUNNING'});
+
+    done();
+  });
+
+  it('throws an error if recoverCron runs 4 times', async (done) => {
+    execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
+
+    try {
+      await recoverCron(status, locals);
+    } catch (err) {
+      expect(status.times).to.eql(4);
+      expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
+
+      done();
+    }
   });
 });

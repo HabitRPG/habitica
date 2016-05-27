@@ -1,4 +1,6 @@
 import moment from 'moment';
+import Bluebird from 'bluebird';
+import { model as User } from '../../models/user';
 import common from '../../../../common/';
 import { preenUserHistory } from '../../libs/api-v3/preening';
 import _ from 'lodash';
@@ -81,12 +83,33 @@ function performSleepTasks (user, tasksByType, now) {
   });
 }
 
+export async function recoverCron (status, locals) {
+  let {user} = locals;
+
+  await Bluebird.delay(300);
+
+  let reloadedUser = await User.findOne({_id: user._id}).exec();
+
+  if (!reloadedUser) {
+    throw new Error(`User ${user._id} not found while recovering.`);
+  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
+    status.times++;
+
+    if (status.times < 4) {
+      await recoverCron(status, locals);
+    } else {
+      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
+    }
+  } else {
+    locals.user = reloadedUser;
+    return null;
+  }
+}
+
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
 
-  user.auth.timestamps.loggedin = now;
-  user.lastCron = now;
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;

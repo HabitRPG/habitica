@@ -25,6 +25,9 @@ const Schema = mongoose.Schema;
 export const INVITES_LIMIT = 100;
 export const TAVERN_ID = shared.TAVERN_ID;
 
+const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
+const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
 export let schema = new Schema({
@@ -281,7 +284,7 @@ schema.methods.sendChat = function sendChat (message, user) {
   this.chat.splice(200);
 
   // Kick off chat notifications in the background.
-  let lastSeenUpdate = {$set: {}, $inc: {_v: 1}};
+  let lastSeenUpdate = {$set: {}};
   lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
@@ -431,7 +434,6 @@ schema.methods.finishQuest = function finishQuest (quest) {
   updates.$inc[`achievements.quests.${questK}`] = 1;
   updates.$inc['stats.gp'] = Number(quest.drop.gp);
   updates.$inc['stats.exp'] = Number(quest.drop.exp);
-  updates.$inc._v = 1;
 
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
@@ -498,11 +500,11 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
   // Still needs completing
   if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
     return group.quest.progress.collect[k] < v.count;
-  })) return group.save();
+  })) return await group.save();
 
   await group.finishQuest(quest);
   group.sendChat('`All items found! Party has received their rewards.`');
-  return group.save();
+  return await group.save();
 };
 
 schema.statics.bossQuest = async function bossQuest (user, progress) {
@@ -517,7 +519,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
-  let bossAttack = nconf.get('CRON_SAFE_MODE') === 'true' || nconf.get('CRON_SEMI_SAFE_MODE') === 'true' ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
+  let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   // TODO Consider putting the safe mode boss attack message in an ENV var
   group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
 
@@ -538,7 +540,7 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   await User.update({
     _id: {$in: _.keys(group.quest.members)},
   }, {
-    $inc: {'stats.hp': down, _v: 1},
+    $inc: {'stats.hp': down},
   }, {multi: true}).exec();
   // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
@@ -552,10 +554,9 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
-    return group.save();
   }
 
-  return group.save();
+  return await group.save();
 };
 
 // to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
