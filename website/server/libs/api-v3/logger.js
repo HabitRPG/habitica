@@ -16,6 +16,7 @@ const logger = new winston.Logger();
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
     logger.add(winston.transports.Console, {
+      timestamp: true,
       colorize: false,
       prettyPrint: false,
     });
@@ -23,6 +24,7 @@ if (IS_PROD) {
 } else if (!IS_TEST || IS_TEST && ENABLE_LOGS_IN_TEST) { // Do not log anything when testing unless specified
   logger
     .add(winston.transports.Console, {
+      timestamp: true,
       colorize: true,
       prettyPrint: true,
     });
