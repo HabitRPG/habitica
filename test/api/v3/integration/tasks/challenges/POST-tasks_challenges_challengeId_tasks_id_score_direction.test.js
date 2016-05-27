@@ -3,6 +3,7 @@ import {
   generateGroup,
   generateChallenge,
 } from '../../../../../helpers/api-integration/v3';
+import Bluebird from 'bluebird';
 import { find } from 'lodash';
 
 describe('POST /tasks/:id/score/:direction', () => {
