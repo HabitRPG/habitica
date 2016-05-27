@@ -61,13 +61,8 @@
         "client_secret":"client_secret"
     },
     "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
-    "LOGGLY": {
-        "enabled": false,
-        "subdomain": "subdomain",
-        "token": "token",
-        "username": "username",
-        "password": "password"
-    },
+    "LOGGLY_TOKEN": "token",
+    "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
         "APN_PEM_FILES": {
