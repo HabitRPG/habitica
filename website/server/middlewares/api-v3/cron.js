@@ -5,32 +5,10 @@ import * as Tasks from '../../models/task';
 import Bluebird from 'bluebird';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
-import { cron } from '../../libs/api-v3/cron';
+import { recoverCron, cron } from '../../libs/api-v3/cron';
 import { v4 as uuid } from 'uuid';
 
 const daysSince = common.daysSince;
-
-async function recoverCron (status, req, res) {
-  let user = res.locals.user;
-
-  await Bluebird.delay(300);
-  let reloadedUser = await User.findOne({_id: user._id}).exec();
-
-  if (!reloadedUser) {
-    throw new Error(`User ${user._id} not found while recovering.`);
-  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
-    status.times++;
-
-    if (status.times < 4) {
-      await recoverCron(status, req, res);
-    } else {
-      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
-    }
-  } else {
-    res.locals.user = reloadedUser;
-    return null;
-  }
-}
 
 async function cronAsync (req, res) {
   let user = res.locals.user;
@@ -210,7 +188,7 @@ async function cronAsync (req, res) {
         times: 0,
       };
 
-      recoverCron(recoveryStatus, req, res);
+      recoverCron(recoveryStatus, res.locals);
     } else {
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request

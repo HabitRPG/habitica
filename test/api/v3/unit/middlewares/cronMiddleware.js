@@ -4,12 +4,14 @@ import {
   generateTodo,
   generateDaily,
 } from '../../../../helpers/api-unit.helper';
+import { cloneDeep } from 'lodash';
 import cronMiddleware from '../../../../../website/server/middlewares/api-v3/cron';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
 import * as Tasks from '../../../../../website/server/models/task';
 import analyticsService from '../../../../../website/server/libs/api-v3/analyticsService';
+import * as cronLib from '../../../../../website/server/libs/api-v3/cron';
 import { v4 as generateUUID } from 'uuid';
 
 describe('cron middleware', () => {
@@ -43,6 +45,10 @@ describe('cron middleware', () => {
       done();
     })
     .catch(done);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it('calls next when user is not attached', (done) => {
@@ -188,6 +194,30 @@ describe('cron middleware', () => {
 
     cronMiddleware(req, res, () => {
       expect(user.stats.hp).to.be.lessThan(hpBefore);
+      done();
+    });
+  });
+
+  it('recovers from failed cron and does not error when user is already cronning', async (done) => {
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    await user.save();
+
+    let updatedUser = cloneDeep(user);
+    updatedUser.nMatched = 0;
+
+    sandbox.spy(cronLib, 'recoverCron');
+
+    sandbox.stub(User, 'update')
+      .withArgs({ _id: user._id, _cronSignature: 'NOT_RUNNING' })
+      .returns({
+        exec () {
+          return Promise.resolve(updatedUser);
+        },
+      });
+
+    cronMiddleware(req, res, () => {
+      expect(cronLib.recoverCron).to.be.calledOnce;
+
       done();
     });
   });
