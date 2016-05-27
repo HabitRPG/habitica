@@ -59,7 +59,6 @@
     "js2xmlparser": "~1.0.0",
     "lodash": "^3.10.1",
     "lodash.setwith": "^4.2.0",
-    "loggly": "~1.0.8",
     "markdown-it": "^6.0.1",
     "merge-stream": "^1.0.0",
     "method-override": "^2.3.5",
