@@ -181,7 +181,7 @@ let dailyTodoSchema = () => {
       completed: {type: Boolean, default: false},
       text: {type: String, required: false, default: ''}, // required:false because it can be empty on creation
       _id: false,
-      id: {type: String, default: shared.uuid, validate: [validator.isUUID, 'Invalid uuid.']},
+      id: {type: String, default: shared.uuid, required: true, validate: [validator.isUUID, 'Invalid uuid.']},
     }],
   };
 };
