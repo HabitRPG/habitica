@@ -27,6 +27,7 @@ export const TAVERN_ID = shared.TAVERN_ID;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+// const CRON_SLIGHTLY_SAFE_MODE = nconf.get('CRON_SLIGHTLY_SAFE_MODE') === 'true';
 
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
@@ -519,7 +520,17 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
-  let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
+  let bossAttack = `${quest.boss.name('en')} `;
+  if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
+    bossAttack += `does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!`;
+  } else if (CRON_SLIGHTLY_SAFE_MODE && down === 0) {
+    // ALYS TODO TODAY pass something in from cron() in website/server/libs/api-v3/cron.js so that we only run this when we really are making the double-cron assumtion (i.e., not just when the user got a perfect day)
+    bossAttack += `does not attack, because it thinks a bug made you swing and miss.`;
+  } else {
+    bossAttack += `attacks party for ${Math.abs(down).toFixed(1)} damage.`;
+  }
+
+
   // TODO Consider putting the safe mode boss attack message in an ENV var
   group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
 

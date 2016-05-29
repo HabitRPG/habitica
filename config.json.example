@@ -12,6 +12,7 @@
     "ENABLE_CONSOLE_LOGS_IN_TEST": false,
     "CRON_SAFE_MODE":"false",
     "CRON_SEMI_SAFE_MODE":"false",
+    "CRON_SLIGHTLY_SAFE_MODE":"false",
     "MAINTENANCE_MODE": "false",
     "SESSION_SECRET":"YOUR SECRET HERE",
     "ADMIN_EMAIL": "you@example.com",

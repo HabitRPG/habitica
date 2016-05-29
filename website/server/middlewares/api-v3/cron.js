@@ -103,7 +103,7 @@ async function cronAsync (req, res) {
 
     let _cronSignature = uuid();
 
-    // To avoid double cron we first set _cronSignature to now and then check that it's not changed while processing
+    // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
     let userUpdateResult = await User.update({
       _id: user._id,
       _cronSignature: 'NOT_RUNNING', // Check that in the meantime another cron has not started
