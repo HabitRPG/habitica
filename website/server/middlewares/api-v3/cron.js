@@ -164,13 +164,13 @@ async function cronAsync (req, res) {
       await Group[`${questType}Quest`](user, progress);
     }
 
-    // Set _cronSignature, lastCron and auth.timestamps.loggedin to signal end of cron
+    // Set _cronSignature and auth.timestamps.loggedin to signal end of cron
     await User.update({
       _id: user._id,
     }, {
       $set: {
         _cronSignature: 'NOT_RUNNING',
-        lastCron: now,
+        // lastCron: now, // TODO does moving this back into cron() help prevent this double-cron bug: https://github.com/HabitRPG/habitrpg/issues/2805#issuecomment-222314260
         'auth.timestamps.loggedin': now,
       },
     }).exec();

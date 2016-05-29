@@ -110,6 +110,7 @@ export async function recoverCron (status, locals) {
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
 
+  user.lastCron = now; // TODO does putting this here help prevent this double-cron bug: https://github.com/HabitRPG/habitrpg/issues/2805#issuecomment-222314260
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
