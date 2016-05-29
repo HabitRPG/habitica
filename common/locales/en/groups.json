@@ -177,6 +177,7 @@
     "inviteMissingEmail": "Missing email address in invite.",
     "partyMustbePrivate": "Parties must be private",
     "userAlreadyInGroup": "User already in that group.",
+    "cannotInviteSelfToGroup": "You cannot invite yourself to a group.",
     "userAlreadyInvitedToGroup": "User already invited to that group.",
     "userAlreadyPendingInvitation": "User already pending invitation.",
     "userAlreadyInAParty": "User already in a party.",
