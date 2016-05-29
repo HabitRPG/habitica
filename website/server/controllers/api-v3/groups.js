@@ -117,6 +117,7 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
+  runCron: false, // TODO Decide if this is needed. Ref: https://github.com/HabitRPG/habitrpg/compare/v3.3.3...v3.4.0?w=1#diff-b950a7c557b35ea58bc2685532c46170L120 and https://github.com/HabitRPG/habitrpg/issues/2805#issuecomment-222314260
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;

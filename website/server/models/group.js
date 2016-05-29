@@ -508,7 +508,7 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
 };
 
 schema.statics.bossQuest = async function bossQuest (user, progress) {
-  let group = await this.getGroup({user, groupId: 'party'});
+  let group = await this.getGroup({user, groupId: 'party'}); // TODO Is the new form of double cron sneaking in here? getGroup() runs cron and bossQuest() runs within cron. Example of bug: https://github.com/HabitRPG/habitrpg/issues/2805#issuecomment-222314260
   if (!_isOnQuest(user, progress, group)) return;
 
   let quest = shared.content.quests[group.quest.key];
