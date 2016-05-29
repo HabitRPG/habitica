@@ -34,7 +34,7 @@ api.createTag = {
 };
 
 /**
- * @api {get} /api/v3/tag Get a user's tags
+ * @api {get} /api/v3/tags Get a user's tags
  * @apiVersion 3.0.0
  * @apiName GetTags
  * @apiGroup Tag
