@@ -487,6 +487,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
   if (!userToInvite) {
     throw new NotFound(res.t('userWithIDNotFound', {userId: uuid}));
+  } else if (inviter._id === userToInvite._id) {
+    throw new BadRequest(res.t('cannotInviteSelfToGroup'));
   }
 
   if (group.type === 'guild') {
