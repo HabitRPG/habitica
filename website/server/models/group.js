@@ -18,6 +18,7 @@ import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
+import logger from '../libs/api-v3/logger';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -27,7 +28,8 @@ export const TAVERN_ID = shared.TAVERN_ID;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
-// const CRON_SLIGHTLY_SAFE_MODE = nconf.get('CRON_SLIGHTLY_SAFE_MODE') === 'true';
+const CRON_SLIGHTLY_SAFE_MODE = nconf.get('CRON_SLIGHTLY_SAFE_MODE') === 'true';
+CONST MIN_PROGRESS_UP = 2; // if damage to boss is not more than this, we could have a duplicate cron https://github.com/HabitRPG/habitrpg/issues/2805#issuecomment-222336424
 
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
@@ -523,9 +525,12 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   let bossAttack = `${quest.boss.name('en')} `;
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
     bossAttack += `does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!`;
-  } else if (CRON_SLIGHTLY_SAFE_MODE && down === 0) {
-    // ALYS TODO TODAY pass something in from cron() in website/server/libs/api-v3/cron.js so that we only run this when we really are making the double-cron assumtion (i.e., not just when the user got a perfect day)
+  } else if (CRON_SLIGHTLY_SAFE_MODE && progress.up <= MIN_PROGRESS_UP && down !== 0) {
+    // player did tiny amount of damage and did not have a perfect day, so this might be a duplicate cron
+    // (it might also be a duplicate cron if down === 0 but that's a harmless bug so no special handling)
+    down = 0;
     bossAttack += `does not attack, because it thinks a bug made you swing and miss.`;
+    logger.warn(`tiny progress.up for ${user._id} - double cron?`); // ALYS TODO TODAY write test
   } else {
     bossAttack += `attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   }

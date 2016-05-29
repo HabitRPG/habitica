@@ -8,7 +8,6 @@ import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
-const CRON_SLIGHTLY_SAFE_MODE = nconf.get('CRON_SLIGHTLY_SAFE_MODE') === 'true';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
@@ -21,7 +20,6 @@ let CLEAR_BUFFS = {
   stealth: 0,
   streaks: false,
 };
-let MIN_PROGRESS_UP = 2; // if damage to boss is not more than this, assume duplicate cron, when running in CRON_SLIGHTLY_SAFE_MODE https://github.com/HabitRPG/habitrpg/issues/2805#issuecomment-222336424
 
 function grantEndOfTheMonthPerks (user, now) {
   let plan = user.purchased.plan;
@@ -135,10 +133,6 @@ export function cron (options = {}) {
   // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
   // When site-wide difficulty settings are introduced, this can be a user preference option.
 
-  // If running in CRON_SLIGHTLY_SAFE_MODE, assume that small damage to a boss means this is a double cron
-  let progress = user.party.quest.progress;
-  let progressUpIsTiny = CRON_SLIGHTLY_SAFE_MODE && progress.up <= MIN_PROGRESS_UP;
-
   // Tally each task
   let todoTally = 0;
 
@@ -207,8 +201,7 @@ export function cron (options = {}) {
             cron: true,
           });
 
-
-          if (!CRON_SEMI_SAFE_MODE && !progressIsTiny) {
+          if (!CRON_SEMI_SAFE_MODE) {
             // Apply damage from a boss, less damage for Trivial priority (difficulty)
             user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
             // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
@@ -280,7 +273,8 @@ export function cron (options = {}) {
   user.stats.mp += _.max([10, 0.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
   if (user.stats.mp > user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
 
-  // Progress up user's effect on quest, return those values & reset the user's
+  // After all is said and done, progress up user's effect on quest, return those values & reset the user's
+  let progress = user.party.quest.progress;
   let _progress = _.cloneDeep(progress);
   _.merge(progress, {down: 0, up: 0});
   progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
