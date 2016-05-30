@@ -2796,7 +2796,24 @@ api.userDefaults = {
     {
       type: 'todo',
       text: t('defaultTodo1Text'),
-      notes: t('defaultTodoNotes'),
+      notes: t('defaultTodo1Notes'),
+      completed: false,
+      attribute: 'int'
+    },
+    {
+      type: 'todo',
+      text: t('defaultTodo2Text'),
+      notes: t('defaultTodo2Notes'),
+      checklist: [
+        {
+          text: t('defaultTodo2Checklist1'),
+          completed: false
+        },
+        {
+          text: t('defaultTodo2Checklist2'),
+          completed: false
+        }
+      ],
       completed: false,
       attribute: 'int'
     }
