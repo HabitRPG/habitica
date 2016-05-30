@@ -2816,6 +2816,30 @@ api.userDefaults = {
       ],
       completed: false,
       attribute: 'int'
+    },
+    {
+      type: 'todo',
+      text: t('defaultTodo3Text'),
+      notes: t('defaultTodo3Notes'),
+      completed: false,
+      attribute: 'int'
+    },
+    {
+      type: 'todo',
+      text: t('defaultTodo4Text'),
+      notes: t('defaultTodo4Notes'),
+      checklist: [
+        {
+          text: t('defaultTodo4Checklist1'),
+          completed: false
+        },
+        {
+          text: t('defaultTodo4Checklist2'),
+          completed: false
+        }
+      ],
+      completed: false,
+      attribute: 'int'
     }
   ],
   rewards: [
