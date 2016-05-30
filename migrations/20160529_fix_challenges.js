@@ -146,7 +146,7 @@ function getUserChallenges (data) {
 function getChallengeTasks (data) {
   logger.info('Looking up original challenge tasks...');
 
-  return db.collection('tasks').find({'userId': null, 'challenge.id': { '$in': data.challenges }}, [ 'text', 'type', 'challenge' ]).toArray().then((docs) => {
+  return db.collection('tasks').find({'userId': null, 'challenge.id': { '$in': data.challenges }}, [ 'text', 'type', 'challenge', '_legacyId' ]).toArray().then((docs) => {
     logger.success('Found', docs.length, 'challenge tasks.');
 
     let challengeTasks = {};
@@ -167,7 +167,8 @@ function getChallengeTasks (data) {
 function correctUserTasks (data) {
   logger.info('Correcting user tasks...');
 
-  let tasksToUpdate = [];
+  let tasksToUpdate = {};
+  let duplicateTasks = {};
 
   for (let user in data.userChallenges) {
     if (user === authorUuid) {
@@ -185,17 +186,22 @@ function correctUserTasks (data) {
             let text = challengeTask.text;
             let type = challengeTask.type;
             let taskId = challengeTask._id;
+            let legacyId = challengeTask._legacyId;
 
             let foundTask = userTasks.find((task) => {
-              return task.type === type && task.text === text;
+              return TASK_IDS.indexOf(task._id) > -1 && task._legacyId === legacyId && task.type === type && task.text === text;
             })
 
-            if (foundTask) {
-              foundTask.challenge.id = chal;
-              foundTask.challenge.broken = null;
-              foundTask.challenge.taskId = taskId;
-
-              tasksToUpdate.push(foundTask);
+            if (foundTask && !tasksToUpdate[foundTask._id]) {
+              tasksToUpdate[foundTask._id] = {
+                id: chal,
+                broken: null,
+                taskId,
+              }
+            } else if (foundTask && taskId !== tasksToUpdate[foundTask._id].taskId) {
+              logger.error('Duplicate task found, id:', foundTask._id);
+              duplicateTasks[foundTask._id] = duplicateTasks[foundTask._id] || [tasksToUpdate[foundTask._id].taskId];
+              duplicateTasks[foundTask._id].push(taskId);
             }
           });
         }
@@ -203,22 +209,39 @@ function correctUserTasks (data) {
     }
   }
 
+  let numberOfDuplicateTasksFound = Object.keys(duplicateTasks).length;
+
+  if (numberOfDuplicateTasksFound > 0) {
+    logger.error('Found', numberOfDuplicateTasksFound, 'duplicate taks');
+  }
+
+
   data.tasksToUpdate = tasksToUpdate;
 
   return Promise.resolve(data);
 }
 
 function updateTasks (data) {
-  logger.info('About to update', TASK_IDS.length, 'tasks...');
-
   let tasksToUpdate = data.tasksToUpdate;
-  let promises = tasksToUpdate.map((task) => {
-    return db.collection('tasks').findOneAndUpdate({_id: task._id, 'challenge.broken': 'CHALLENGE_TASK_NOT_FOUND'}, {$set: {challenge: task.challenge}}, {returnOriginal: false})
+  let taskIdsToUpdate = Object.keys(tasksToUpdate);
+
+  logger.info('About to update', taskIdsToUpdate.length, 'tasks...');
+
+  let promises = taskIdsToUpdate.map((taskId) => {
+    return db.collection('tasks').findOneAndUpdate({_id: taskId, 'challenge.broken': 'CHALLENGE_TASK_NOT_FOUND'}, {$set: {challenge: tasksToUpdate[taskId]}}, {returnOriginal: false})
   })
 
   return Promise.all(promises).then((result) => {
     let updates = result.filter(res => res.lastErrorObject.updatedExisting)
+    let failures = result.filter(res => !res.lastErrorObject.updatedExisting).map(res => res.value._id);
+
     logger.success(updates.length, 'tasks have been fixed');
+
+    if (failures.length > 0) {
+      logger.error(failures.length, 'tasks could not be updated');
+      logger.error('Manually check these ids');
+      logger.error(failures);
+    }
 
     return Promise.resolve(data);
   });
