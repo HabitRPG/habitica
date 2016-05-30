@@ -64,6 +64,32 @@ describe('GET challenges/group/:groupId', () => {
         profile: {name: user.profile.name},
       });
     });
+
+    it('should return official challenges first', async () => {
+      await user.update({
+        contributor: {
+          admin: true,
+        },
+      });
+
+      let officialChallenge =  await generateChallenge(user, publicGuild, {
+        official: true,
+      });
+
+      let challenges = await nonMember.get(`/challenges/groups/${publicGuild._id}`);
+
+      let foundChallengeIndex = _.findIndex(challenges, { _id: officialChallenge._id });
+      expect(foundChallengeIndex).to.eql(0);
+    });
+
+    it('should return newest challenges first', async () => {
+      let newChallenge = await generateChallenge(user, publicGuild);
+
+      let challenges = await nonMember.get(`/challenges/groups/${publicGuild._id}`);
+
+      let foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
+      expect(foundChallengeIndex).to.eql(1);
+    });
   });
 
   context('Private Guild', () => {

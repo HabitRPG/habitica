@@ -113,6 +113,32 @@ describe('GET challenges/user', () => {
     });
   });
 
+  it('should return official challenges first', async () => {
+    await user.update({
+      contributor: {
+        admin: true,
+      },
+    });
+
+    let officialChallenge =  await generateChallenge(user, publicGuild, {
+      official: true,
+    });
+
+    let challenges = await user.get('/challenges/user');
+
+    let foundChallengeIndex = _.findIndex(challenges, { _id: officialChallenge._id });
+    expect(foundChallengeIndex).to.eql(0);
+  });
+
+  it('should return newest challenges first', async () => {
+    let newChallenge = await generateChallenge(user, publicGuild);
+
+    let challenges = await user.get('/challenges/user');
+
+    let foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
+    expect(foundChallengeIndex).to.eql(1);
+  });
+
   it('should not return challenges user doesn\'t have access to', async () => {
     let { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
