@@ -126,6 +126,7 @@
     "babel-eslint": "^6.0.0",
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
+    "chalk": "^1.1.3",
     "coveralls": "^2.11.2",
     "csv": "~0.3.6",
     "deep-diff": "~0.1.4",
