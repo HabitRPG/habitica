@@ -11,7 +11,7 @@ module.exports = function addTask (user, req = {body: {}}) {
     task._editing = true;
   }
 
-  if (user.preferences.tagsCollapsed) {
+  if (!user.preferences.tagsCollapsed) {
     task._tags = true;
   }
 
