@@ -162,6 +162,11 @@ angular.module('habitrpg')
           if (response.data.message && response.data.message !== clientMessage) {
             Notification.text(response.data.message);
           }
+          if (opName === 'openMysteryItem') {
+            var openedItem = clientResponse[2];
+            var text = Content.gear.flat[openedItem.key].text();
+            Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), openedItem);
+          }
 
           save();
         })
@@ -267,9 +272,6 @@ angular.module('habitrpg')
               } else if (drop.type === 'Quest') {
                 $rootScope.selectedQuest = Content.quests[drop.key];
                 $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
-              } else if (drop.notificationType === 'Mystery') {
-                text = Content.gear.flat[drop.key].text();
-                Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), drop);
               } else {
                 // Keep support for another type of drops that might be added
                 Notification.drop(drop.dialog);
