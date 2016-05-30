@@ -27,7 +27,8 @@ function _logger (type, color) {
 const NODE_DB_URI = 'mongodb://localhost/new-prod-copy';
 
 // Cached ids from running the findBrokenChallengeTasks query on a local copy of the db
-const TASK_IDS = require('../taskids.json');
+// These are all the ids that _are_ fixable
+const TASK_IDS = require('../fixable_task_ids.json');
 
 let db;
 let count = 0;
@@ -166,7 +167,6 @@ function getChallengeTasks (data) {
 function correctUserTasks (data) {
   logger.info('Correcting user tasks...');
 
-  let nonExistantChallenges = [];
   let tasksToUpdate = [];
 
   for (let user in data.userChallenges) {
@@ -198,24 +198,18 @@ function correctUserTasks (data) {
               tasksToUpdate.push(foundTask);
             }
           });
-        } else {
-          nonExistantChallenges.push(chal);
         }
       });
     }
   }
 
   data.tasksToUpdate = tasksToUpdate;
-  data.nonExistantChallenges = unique(nonExistantChallenges);
-
-  logger.success('Found', tasksToUpdate.length, 'tasks to update.');
-  logger.error('Found', data.nonExistantChallenges.length, 'challenge ids that do not belong to a challenge.');
 
   return Promise.resolve(data);
 }
 
 function updateTasks (data) {
-  logger.info('About to update', data.tasksToUpdate.length, 'tasks...');
+  logger.info('About to update', TASK_IDS.length, 'tasks...');
 
   let tasksToUpdate = data.tasksToUpdate;
   let promises = tasksToUpdate.map((task) => {
@@ -223,7 +217,9 @@ function updateTasks (data) {
   })
 
   return Promise.all(promises).then((result) => {
-    logger.success('Tasks have been fixed');
+    let updates = result.filter(res => res.lastErrorObject.updatedExisting)
+    logger.success(updates.length, 'tasks have been fixed');
+
     return Promise.resolve(data);
   });
 }
