@@ -1,11 +1,22 @@
 'use strict';
 
+/****************************************
+ * Reason: After the api v3 maintenance migration, some challenge tasks
+ * became unlinked from their challenges. We're still not sure why,
+ * but this re-links them
+ *
+ * Note: We ran this on a local backup of the DB, and from that, grabbed
+ * the ids of the tasks that could be fixed and the updates that would
+ * be applied to them. We only ran the `updateTasks` promise task.
+ ***************************************/
+
 const authorName = 'Blade';
 const authorUuid = '75f270e8-c5db-4722-a5e6-a83f1b23f76b';
 
 global.Promise = require('bluebird');
 const MongoClient = require('mongodb').MongoClient;
 const chalk = require('chalk');
+const TaskQueue = require('cwait').TaskQueue;
 
 const logger = {
   info: _logger('info', 'cyan'),
@@ -29,6 +40,7 @@ const NODE_DB_URI = 'mongodb://localhost/new-prod-copy';
 // Cached ids from running the findBrokenChallengeTasks query on a local copy of the db
 // These are all the ids that _are_ fixable
 const TASK_IDS = require('../fixable_task_ids.json');
+const TASK_UPDATE_DATA = require('../challenge_fixes.json');
 
 let db;
 let count = 0;
@@ -41,11 +53,11 @@ var timer = setInterval(function(){
 }, 1000);
 
 connectToDb()
-  .then(findBrokenChallengeTasks)
-  .then(getDataFromTasks)
-  .then(getUserChallenges)
-  .then(getChallengeTasks)
-  .then(correctUserTasks)
+  // .then(findBrokenChallengeTasks)
+  // .then(getDataFromTasks)
+  // .then(getUserChallenges)
+  // .then(getChallengeTasks)
+  // .then(correctUserTasks)
   .then(updateTasks)
   .then(closeDb)
   .catch(reportError)
@@ -222,24 +234,32 @@ function correctUserTasks (data) {
 }
 
 function updateTasks (data) {
-  let tasksToUpdate = data.tasksToUpdate;
+  let tasksToUpdate = TASK_UPDATE_DATA;
   let taskIdsToUpdate = Object.keys(tasksToUpdate);
+  let queue = new TaskQueue(Promise, 300);
+  let promiseCount = 0;
 
-  logger.info('About to update', taskIdsToUpdate.length, 'tasks...');
+  logger.info('About to update', taskIdsToUpdate.length, 'user tasks');
 
-  let promises = taskIdsToUpdate.map((taskId) => {
+  function updateTaskById (taskId) {
+    promiseCount++;
+
+    if (promiseCount % 500 === 0) {
+      logger.info(promiseCount, 'updates started');
+    }
+
     return db.collection('tasks').findOneAndUpdate({_id: taskId, 'challenge.broken': 'CHALLENGE_TASK_NOT_FOUND'}, {$set: {challenge: tasksToUpdate[taskId]}}, {returnOriginal: false})
-  })
+  }
 
-  return Promise.all(promises).then((result) => {
+  return Promise.map(taskIdsToUpdate, queue.wrap(updateTaskById)).then((result) => {
     let updates = result.filter(res => res.lastErrorObject.updatedExisting)
-    let failures = result.filter(res => !res.lastErrorObject.updatedExisting).map(res => res.value._id);
+    let failures = result.filter(res => !res.lastErrorObject.updatedExisting);
 
     logger.success(updates.length, 'tasks have been fixed');
 
     if (failures.length > 0) {
       logger.error(failures.length, 'tasks could not be updated');
-      logger.error('Manually check these ids');
+      logger.error('Manually check these results');
       logger.error(failures);
     }
 
