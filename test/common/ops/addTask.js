@@ -113,27 +113,29 @@ describe('shared.ops.addTask', () => {
     expect(reward.up).to.not.exists;
   });
 
-  context('respects preferences', () => {
-    it('true', () => {
+  context('user preferences', () => {
+    it('respects newTaskEdit preference', () => {
       user.preferences.newTaskEdit = true;
-      user.preferences.tagsCollapsed = true;
-      user.preferences.advancedCollapsed = false;
-      let task = addTask(user);
+      expect(addTask(user)._editing).to.be.ok;
 
-      expect(task._editing).to.be.true;
-      expect(task._tags).to.be.true;
-      expect(task._advanced).to.be.true;
+      user.preferences.newTaskEdit = false;
+      expect(addTask(user)._editing).not.be.ok
     });
 
-    it('false', () => {
-      user.preferences.newTaskEdit = false;
-      user.preferences.tagsCollapsed = false;
-      user.preferences.advancedCollapsed = true;
-      let task = addTask(user);
+    it('respects tagsCollapsed preference', () => {
+      user.preferences.tagsCollapsed = true;
+      expect(addTask(user)._tags).to.not.be.ok;
 
-      expect(task._editing).to.not.exists;
-      expect(task._tags).to.not.exists;
-      expect(task._advanced).to.not.exists;
+      user.preferences.tagsCollapsed = false;
+      expect(addTask(user)._tags).to.be.ok;
+    });
+
+    it('respects advancedCollapsed preference', () => {
+      user.preferences.advancedCollapsed = true;
+      expect(addTask(user)._advanced).not.be.ok
+
+      user.preferences.advancedCollapsed = false;
+      expect(addTask(user)._advanced).to.be.ok;
     });
   });
 });
