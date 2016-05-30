@@ -76,7 +76,7 @@ describe('GET challenges/group/:groupId', () => {
         official: true,
       });
 
-      let challenges = await nonMember.get(`/challenges/groups/${publicGuild._id}`);
+      let challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
 
       let foundChallengeIndex = _.findIndex(challenges, { _id: officialChallenge._id });
       expect(foundChallengeIndex).to.eql(0);
@@ -85,7 +85,7 @@ describe('GET challenges/group/:groupId', () => {
     it('should return newest challenges first', async () => {
       let newChallenge = await generateChallenge(user, publicGuild);
 
-      let challenges = await nonMember.get(`/challenges/groups/${publicGuild._id}`);
+      let challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
 
       let foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
       expect(foundChallengeIndex).to.eql(1);
