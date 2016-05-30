@@ -15,23 +15,8 @@ const authorUuid = '75f270e8-c5db-4722-a5e6-a83f1b23f76b';
 
 global.Promise = require('bluebird');
 const MongoClient = require('mongodb').MongoClient;
-const chalk = require('chalk');
 const TaskQueue = require('cwait').TaskQueue;
-
-const logger = {
-  info: _logger('info', 'cyan'),
-  success: _logger('info', 'green'),
-  error: _logger('error', 'red'),
-  log: _logger('log', 'white'),
-  warn: _logger('warn', 'yellow'),
-}
-
-function _logger (type, color) {
-  return function () {
-    let args = Array.from(arguments).map(arg => chalk[color](arg));
-    console[type].apply(null, args);
-  }
-}
+const logger = require('./utils/logger');
 
 // PROD: Enable prod db
 // const NODE_DB_URI = 'mongodb://username:password@dsXXXXXX-a0.mlab.com:XXXXX,dsXXXXXX-a1.mlab.com:XXXXX/habitica?replicaSet=rs-dsXXXXXX';
