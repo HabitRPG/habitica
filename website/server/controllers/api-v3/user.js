@@ -888,7 +888,7 @@ api.readCard = {
 * @apiName UserOpenMysteryItem
 * @apiGroup User
 *
-* @apiSuccess {Object} data user.items.gear.owned
+* @apiSuccess {Object} data The item obtained 
 * @apiSuccess {string} message Success message
 */
 api.userOpenMysteryItem = {
