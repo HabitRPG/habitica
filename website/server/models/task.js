@@ -12,7 +12,7 @@ let discriminatorOptions = {
 };
 let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {
   _id: false,
-  minimize: false,
+  minimize: false, // So empty objects are returned
 });
 
 export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];

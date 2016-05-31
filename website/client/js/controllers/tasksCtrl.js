@@ -191,7 +191,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.addChecklistItem = function(task, $event, $index) {
       if (task.checklist[$index].text) {
         $scope.saveTask(task, true);
-        if ($index == task.checklist.length - 1)
+        if ($index === task.checklist.length - 1)
           task.checklist.push({ completed: false, text: '' });
         focusChecklist(task, $index + 1);
       } else {
