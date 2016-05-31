@@ -657,6 +657,8 @@ api.cast = async function(req, res, next) {
       if (!task) {
         return res.status(404).json({err: 'Task "' + targetId + '" not found.'});
       }
+      if (task.challenge.id) return res.status(40).json({err: 'Cannot cast spell on challenge task.'});
+
 
       spell.cast(user, task, req);
       await task.save();
