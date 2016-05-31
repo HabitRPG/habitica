@@ -603,25 +603,25 @@ describe('recoverCron', () => {
     }
   });
 
-  it('increases status.times count and reruns up to 3 times', async (done) => {
+  it('increases status.times count and reruns up to 4 times', async (done) => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
-    execStub.onCall(3).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
+    execStub.onCall(4).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
 
     await recoverCron(status, locals);
 
-    expect(status.times).to.eql(3);
+    expect(status.times).to.eql(4);
     expect(locals.user).to.eql({_cronSignature: 'NOT_RUNNING'});
 
     done();
   });
 
-  it('throws an error if recoverCron runs 4 times', async (done) => {
+  it('throws an error if recoverCron runs 5 times', async (done) => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
 
     try {
       await recoverCron(status, locals);
     } catch (err) {
-      expect(status.times).to.eql(4);
+      expect(status.times).to.eql(5);
       expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
 
       done();
