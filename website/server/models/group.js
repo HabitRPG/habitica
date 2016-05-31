@@ -279,6 +279,7 @@ export function chatDefaults (msg, user) {
 }
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
+
 schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
   this.chat.splice(200);
@@ -425,9 +426,9 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
-// Participants: Grant rewards & achievements, finish quest
-// Returns the promise from update().exec()
-schema.methods.finishQuest = function finishQuest (quest) {
+// Participants: Grant rewards & achievements, finish quest.
+// Changes the group object update members
+schema.methods.finishQuest = async function finishQuest (quest) {
   let questK = quest.key;
   let updates = {$inc: {}, $set: {}};
 
@@ -471,14 +472,14 @@ schema.methods.finishQuest = function finishQuest (quest) {
   let q = this._id === TAVERN_ID ? {} : {_id: {$in: _.keys(this.quest.members)}};
   this.quest = {};
   this.markModified('quest');
-  return User.update(q, updates, {multi: true}).exec();
+
+  return await User.update(q, updates, {multi: true}).exec();
 };
 
 function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-// Returns a promise
 schema.statics.collectQuest = async function collectQuest (user, progress) {
   let group = await this.getGroup({user, groupId: 'party'});
   if (!_isOnQuest(user, progress, group)) return;
@@ -504,6 +505,7 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
 
   await group.finishQuest(quest);
   group.sendChat('`All items found! Party has received their rewards.`');
+
   return await group.save();
 };
 
