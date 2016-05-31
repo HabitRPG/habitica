@@ -163,7 +163,7 @@ angular.module('habitrpg')
             Notification.text(response.data.message);
           }
           if (opName === 'openMysteryItem') {
-            var openedItem = clientResponse[2];
+            var openedItem = clientResponse[0];
             var text = Content.gear.flat[openedItem.key].text();
             Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), openedItem);
           }
