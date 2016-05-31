@@ -79,8 +79,7 @@ describe('GET challenges/group/:groupId', () => {
       expect(foundChallengeIndex).to.eql(0);
     });
   });
-
-
+  
   context('Private Guild', () => {
     let privateGuild, user, nonMember, challenge, challenge2;
 
