@@ -165,6 +165,7 @@ describe('errorHandler', () => {
 
     expect(logger.error).to.be.calledOnce;
     expect(logger.error).to.be.calledWithExactly(error, {
+      method: req.method,
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,
