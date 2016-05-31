@@ -305,7 +305,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         task.tags.push(tagId);
       } else {
         Tasks.removeTagFromTask(task._id, tagId);
-        task.tags.splice(tagIndex, 0);
+        task.tags.splice(tagIndex, 1);
       }
     }
   }]);
