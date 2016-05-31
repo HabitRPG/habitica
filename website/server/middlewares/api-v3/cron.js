@@ -103,13 +103,15 @@ async function cronAsync (req, res) {
 
     let _cronSignature = uuid();
 
-    // To avoid double cron we first set _cronSignature to now and then check that it's not changed while processing
+    // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
     let userUpdateResult = await User.update({
       _id: user._id,
       _cronSignature: 'NOT_RUNNING', // Check that in the meantime another cron has not started
     }, {
       $set: {
         _cronSignature,
+        lastCron: now, // setting lastCron now so we don't risk re-running parts of cron if it fails
+        'auth.timestamps.loggedin': now,
       },
     }).exec();
 
@@ -170,8 +172,6 @@ async function cronAsync (req, res) {
     }, {
       $set: {
         _cronSignature: 'NOT_RUNNING',
-        lastCron: now,
-        'auth.timestamps.loggedin': now,
       },
     }).exec();
 
@@ -182,27 +182,23 @@ async function cronAsync (req, res) {
     // If cron was aborted for a race condition try to recover from it
     if (err.message === 'CRON_ALREADY_RUNNING') {
       // Recovering after abort, wait 300ms and reload user
-      // do it for max 4 times then reset _cronSignature so that it doesn't prevent cron from running
+      // do it for max 5 times then reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
       let recoveryStatus = {
         times: 0,
       };
 
-      recoverCron(recoveryStatus, res.locals);
+      await recoverCron(recoveryStatus, res.locals);
     } else {
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
-      try {
-        await User.update({
-          _id: user._id,
-        }, {
-          _cronSignature: 'NOT_RUNNING',
-        }).exec();
+      await User.update({
+        _id: user._id,
+      }, {
+        _cronSignature: 'NOT_RUNNING',
+      }).exec();
 
-        throw err; // re-throw original error
-      } catch (secondErr) {
-        throw secondErr;
-      }
+      throw err; // re-throw the original error
     }
   }
 }
@@ -212,7 +208,5 @@ module.exports = function cronMiddleware (req, res, next) {
     .then(() => {
       next();
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 };
