@@ -18,6 +18,7 @@ import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
+import logger from '../libs/api-v3/logger';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -27,6 +28,8 @@ export const TAVERN_ID = shared.TAVERN_ID;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const CRON_SLIGHTLY_SAFE_MODE = nconf.get('CRON_SLIGHTLY_SAFE_MODE') === 'true';
+CONST MIN_PROGRESS_UP = 2; // if damage to boss is not more than this, we could have a duplicate cron https://github.com/HabitRPG/habitrpg/issues/2805#issuecomment-222336424
 
 // NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
@@ -519,7 +522,20 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
-  let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
+  let bossAttack = `${quest.boss.name('en')} `;
+  if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
+    bossAttack += `does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!`;
+  } else if (CRON_SLIGHTLY_SAFE_MODE && progress.up <= MIN_PROGRESS_UP && down !== 0) {
+    // player did tiny amount of damage and did not have a perfect day, so this might be a duplicate cron
+    // (it might also be a duplicate cron if down === 0 but that's a harmless bug so no special handling)
+    down = 0;
+    bossAttack += `does not attack, because it thinks a bug made you swing and miss.`;
+    logger.warn(`tiny progress.up for ${user._id} - double cron?`); // ALYS TODO TODAY write test
+  } else {
+    bossAttack += `attacks party for ${Math.abs(down).toFixed(1)} damage.`;
+  }
+
+
   // TODO Consider putting the safe mode boss attack message in an ENV var
   group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
 
