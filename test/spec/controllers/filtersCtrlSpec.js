@@ -27,7 +27,7 @@ describe('Filters Controller', function() {
       scope.toggleFilter(tag);
       expect(userService.user.filters[tag.id]).to.eql(true);
       scope.toggleFilter(tag);
-      expect(userService.user.filters[tag.id]).to.eql(false);
+      expect(userService.user.filters[tag.id]).to.not.eql(true);
     }));
   });
 
