@@ -13,7 +13,6 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
   }
 
   item = _.cloneDeep(content.gear.flat[item]);
-  item.notificationType = 'Mystery';
   user.items.gear.owned[item.key] = true;
 
   user.markModified('purchased.plan.mysteryItems');
@@ -28,16 +27,11 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
     });
   }
 
-  if (typeof window !== 'undefined') {
-    if (!user._tmp) user._tmp = {};
-    user._tmp.drop = item;
-  }
-
   if (req.v2 === true) {
     return user.items.gear.owned;
   } else {
     return [
-      user.items.gear.owned,
+      item,
       i18n.t('mysteryItemOpened', req.language),
     ];
   }
