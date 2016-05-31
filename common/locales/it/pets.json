@@ -12,6 +12,7 @@
     "etherealLion": "Leone Etereo",
     "veteranWolf": "Lupo Veterano",
     "veteranTiger": "Tigre Veterana",
+    "veteranLion": "Leone Veterano",
     "cerberusPup": "Cucciolo di Cerbero",
     "hydra": "Idra",
     "mantisShrimp": "Canocchia",
@@ -19,7 +20,7 @@
     "orca": "Orca",
     "royalPurpleGryphon": "Grifone Viola Reale",
     "phoenix": "Fenice",
-    "bumblebee": "Bumblebee",
+    "magicalBee": "Ape Magica",
     "rarePetPop1": "Clicca sulla zampa d'oro per scoprire come ottenere questo raro animale contribuendo a migliorare Habitica!",
     "rarePetPop2": "Come ottenere questo animale?",
     "potion": "Pozione <%= potionType %>",
@@ -62,6 +63,7 @@
     "hatchedPet": "E' nato un <%= egg %> <%= potion %>!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
+    "petNotOwned": "Non possiedi questo animale.",
     "earnedCompanion": "Con tutta la tua produttività, ti sei guadagnato un nuovo compagno. Nutrilo per farlo crescere!",
     "feedPet": "Dare da mangiare <%= article %><%= text %> al tuo <%= name %>?",
     "useSaddle": "Mettere la sella a <%= pet %>?",
@@ -83,5 +85,8 @@
     "petKeyBoth": "Libera entrambi",
     "confirmPetKey": "Sei sicuro?",
     "petKeyNeverMind": "Non ancora",
+    "petsReleased": "Animali liberati.",
+    "mountsAndPetsReleased": "Cavalcature e animali liberati",
+    "mountsReleased": "Cavalcature liberate",
     "gemsEach": "gemme ciascuno"
 }

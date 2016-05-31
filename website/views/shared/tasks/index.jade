@@ -23,7 +23,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             i.glyphicon.glyphicon-warning-sign &nbsp;
             =env.t('dailiesRestingInInn')
 
-            button.btn-block.btn.btn-lg.btn-success(ng-click='User.user.ops.sleep({})')
+            button.btn-block.btn.btn-lg.btn-success(ng-click='User.sleep({})')
               | {{env.t('innCheckOut')}}
 
           +taskColumnTabs('top')

@@ -18,7 +18,7 @@
     "spellRoguePickPocketText": "Borseggio",
     "spellRoguePickPocketNotes": "Derubi un'attività nelle vicinanze. Ottieni oro! Fai click su un'attività per usare quest'abilità. (Dipende da: PER)",
     "spellRogueBackStabText": "Pugnalata alle spalle",
-    "spellRogueBackStabNotes": "Tradisci un'attività ingenua. Guadagni oro e XP! Fai click su un'attività per usare quest'abilità. (Dipende da: STR) ",
+    "spellRogueBackStabNotes": "Tradisci un'attività ingenua. Guadagni oro e XP! Fai click su un'attività per usare quest'abilità. (Dipende da: STR)",
     "spellRogueToolsOfTradeText": "Attrezzi del Mestiere",
     "spellRogueToolsOfTradeNotes": "Condividi i tuoi talenti con i tuoi amici. Tutta la squadra guadagna un bonus di Percezione! (Dipende da: PER senza bonus)",
     "spellRogueStealthText": "Furtività",
@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Tira una palla di neve a un compagno di squadra! Cosa potrebbe mai andare storto? L'effetto scomparirà quando inizierà la nuova giornata del tuo \"bersaglio\".",
     "spellSpecialSaltText": "Sale",
     "spellSpecialSaltNotes": "Qualcuno ti ha tirato una palla di neve. Ah ah, divertente. Ora però toglimi questa neve di dosso!",
-    "spellSpecialSpookDustText": "Luci Sinistre",
-    "spellSpecialSpookDustNotes": "Trasforma un amico in un lenzuolo fluttuante con due occhi!",
+    "spellSpecialSpookySparklesText": "Luci Sinistre",
+    "spellSpecialSpookySparklesNotes": "Trasforma un amico in un lenzuolo fluttuante!",
     "spellSpecialOpaquePotionText": "Pozione Opaca",
     "spellSpecialOpaquePotionNotes": "Annulla l'effetto di Luci Sinistre",
     "spellSpecialShinySeedText": "Seme Brillante",
@@ -46,5 +46,11 @@
     "spellSpecialSeafoamText": "Schiumarina",
     "spellSpecialSeafoamNotes": "Trasforma un amico in una creatura del mare!",
     "spellSpecialSandText": "Sabbia",
-    "spellSpecialSandNotes": "Annulla gli effetti della Schiumarina."
+    "spellSpecialSandNotes": "Annulla gli effetti della Schiumarina.",
+    "spellNotFound": "Abilità \"<%= spellId %>\" non trovata.",
+    "partyNotFound": "Squadra non trovata.",
+    "targetIdUUID": "\"targetId\" deve essere un ID Utente valido.",
+    "challengeTasksNoCast": "Usare un'abilità sulle attività delle sfide non è permesso.",
+    "spellNotOwned": "Non possiedi questa abilità.",
+    "spellLevelTooHigh": "Devi aver raggiunto il livello <%= level %> per usare questa abilità."
 }

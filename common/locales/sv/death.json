@@ -12,5 +12,6 @@
     "losingHealthQuickly": "Tappar du hälsa snabbt?",
     "lowHealthTips3": "Oavklarade Dagliga Uppgifter skadar dig under natten, så var försiktig och inte lägga till för många i början!",
     "lowHealthTips4": "Om en daglig uppgift inte behöver göras på en viss veckodag, så kan du avaktivera det genom att klicka på penn-symbolen.",
-    "goodLuck": "Lycka till!"
+    "goodLuck": "Lycka till!",
+    "cannotRevive": "Cannot revive if not dead"
 }

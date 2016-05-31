@@ -23,7 +23,7 @@ div(ng-if='group.quest.active===true')
   include ./ianQuestInfo
 
   unless tavern
-    button.btn.btn-sm.btn-warning(ng-if='::canEditQuest(party)',
+    button.btn.btn-sm.btn-warning(ng-if='::canEditQuest()',
       ng-click='questAbort()')=env.t('abort')
     button.btn.btn-sm.btn-warning(ng-if='!(group.quest.leader && group.quest.leader === user._id) && isMemberOfRunningQuest(user._id,group)',
       ng-click='questLeave()')=env.t('leaveQuest')

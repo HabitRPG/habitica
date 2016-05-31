@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Jetez une boule de neige à un membre de votre équipe ! Qu'est-ce qui pourrait mal tourner ? L'effet dure jusqu'à la fin du jour pour ce membre.",
     "spellSpecialSaltText": "Sel",
     "spellSpecialSaltNotes": "Quelqu'un vous a envoyé une boule de neige. Ha, ha, ha, très drôle. Enlevez-moi cette neige de là, maintenant !",
-    "spellSpecialSpookDustText": "Poudre Poltergeist",
-    "spellSpecialSpookDustNotes": "Change un ami en drap flottant avec des yeux !",
+    "spellSpecialSpookySparklesText": "Etincelles effrayantes",
+    "spellSpecialSpookySparklesNotes": "Changez un·e ami·e en couverture flottante avec des yeux !",
     "spellSpecialOpaquePotionText": "Potion Opaque",
     "spellSpecialOpaquePotionNotes": "Annule les effets de la Poudre Poltergeist.",
     "spellSpecialShinySeedText": "Graine Brillante",
@@ -46,5 +46,11 @@
     "spellSpecialSeafoamText": "Écume",
     "spellSpecialSeafoamNotes": "Transformez un ami en une créature marine !",
     "spellSpecialSandText": "Sable",
-    "spellSpecialSandNotes": "Annule les effets de l'Écume."
+    "spellSpecialSandNotes": "Annule les effets de l'Écume.",
+    "spellNotFound": "Compétence \"<%= spellId %>\" introuvable.",
+    "partyNotFound": "Équipe non trouvée.",
+    "targetIdUUID": "\"targetId\" doit être un nom d'utilisateur valide.",
+    "challengeTasksNoCast": "Utiliser une compétence sur des tâches de défis est interdit.",
+    "spellNotOwned": "Vous ne possédez pas cette compétence.",
+    "spellLevelTooHigh": "Vous devez être au niveau <%= level %>  pour utiliser cette compétence."
 }

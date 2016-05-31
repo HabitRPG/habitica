@@ -5,7 +5,7 @@
     "rebirthStartOver": "「重生」讓你的角色重返等級 1 !",
     "rebirthAdvList1": "生命值完全復原",
     "rebirthAdvList2": "你沒有任何經驗值，黃金，或裝備。(除了一些免費的物品例如「神秘物品」)",
-    "rebirthAdvList3": "你的習慣、日常任務、待辦事項會被重置為黃色，連擊數也會被重置。",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "你會從戰士職業開始，直到你解鎖了新的職業。",
     "rebirthInherit": "你的新角色繼承了一些前輩的東西：",
     "rebirthInList1": "任務、歷史記錄和設置會保留下​​來。",
@@ -24,5 +24,6 @@
     "rebirthPop": "開始一個等級 1 的新角色，並保留成就、物品和任務歷史。",
     "rebirthName": "重生之球",
     "reborn": "重生，最高級別 <%= reLevel %>",
-    "confirmReborn": "你確定嗎？"
+    "confirmReborn": "你確定嗎？",
+    "rebirthComplete": "You have been reborn!"
 }

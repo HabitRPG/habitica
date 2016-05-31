@@ -63,5 +63,21 @@
     "congratulations": "Parabéns!",
     "hurray": "Hurra!",
     "noChallengeOwner": "sem dono",
-    "noChallengeOwnerPopover": "Esse desafio não possui um dono porque quem criou o desafio deletou sua conta."
+    "noChallengeOwnerPopover": "Esse desafio não possui um dono porque quem criou o desafio deletou sua conta.",
+    "challengeMemberNotFound": "Usuário não encontrado entre os membros do desafio.",
+    "onlyGroupLeaderChal": "Somente o líder do grupo pode criar desafios",
+    "tavChalsMinPrize": "O prêmio precisa ser de no mínimo 1 gema para desafios da Taverna.",
+    "cantAfford": "Você não consegue pagar esse prêmio. Compre mais gemas ou reduza o tamanho do prêmio.",
+    "challengeIdRequired": "\"challengeId\" precisa ser um UUID válido.",
+    "winnerIdRequired": "\"winnerId\" precisa ser um UUID válido.",
+    "challengeNotFound": "Desafio não encontrado.",
+    "onlyLeaderDeleteChal": "Apenas o líder desafio pode excluí-lo.",
+    "onlyLeaderUpdateChal": "Apenas o líder desafio pode atualizá-lo.",
+    "winnerNotFound": "Vencedor com id \"<%= userId %>\" não encontrado ou não faz parte do desafio.",
+    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching challenge tasks.",
+    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "onlyChalLeaderEditTasks": "Tarefas pertencentes a um desafio só podem ser editadas pelo líder.",
+    "userAlreadyInChallenge": "Usuário já está participando desse desafio.",
+    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
+    "shortNameTooShort": "Nome da etiqueta deve ter pelo menos 3 caracteres."
 }

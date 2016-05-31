@@ -1,39 +1,44 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import _ from 'lodash';
+import {
+  BadRequest,
+  NotAuthorized,
+  NotFound,
+} from '../libs/errors';
 
-module.exports = function(user, req, cb) {
-  var egg, hatchingPotion, pet, ref;
-  ref = req.params, egg = ref.egg, hatchingPotion = ref.hatchingPotion;
+module.exports = function hatch (user, req = {}) {
+  let egg = _.get(req, 'params.egg');
+  let hatchingPotion = _.get(req, 'params.hatchingPotion');
+
   if (!(egg && hatchingPotion)) {
-    return typeof cb === "function" ? cb({
-      code: 400,
-      message: "Please specify query.egg & query.hatchingPotion"
-    }) : void 0;
+    throw new BadRequest(i18n.t('missingEggHatchingPotionHatch', req.language));
   }
+
   if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
-    return typeof cb === "function" ? cb({
-      code: 403,
-      message: i18n.t('messageMissingEggPotion', req.language)
-    }) : void 0;
+    throw new NotFound(i18n.t('messageMissingEggPotion', req.language));
   }
+
   if (content.hatchingPotions[hatchingPotion].premium && !content.dropEggs[egg]) {
-    return typeof cb === "function" ? cb({
-      code: 403,
-      message: i18n.t('messageInvalidEggPotionCombo', req.language)
-    }) : void 0;
+    throw new BadRequest(i18n.t('messageInvalidEggPotionCombo', req.language));
   }
-  pet = egg + "-" + hatchingPotion;
+
+  let pet = `${egg}-${hatchingPotion}`;
+
   if (user.items.pets[pet] && user.items.pets[pet] > 0) {
-    return typeof cb === "function" ? cb({
-      code: 403,
-      message: i18n.t('messageAlreadyPet', req.language)
-    }) : void 0;
+    throw new NotAuthorized(i18n.t('messageAlreadyPet', req.language));
   }
+
   user.items.pets[pet] = 5;
   user.items.eggs[egg]--;
   user.items.hatchingPotions[hatchingPotion]--;
-  return typeof cb === "function" ? cb({
-    code: 200,
-    message: i18n.t('messageHatched', req.language)
-  }, user.items) : void 0;
+
+  if (req.v2 === true) {
+    return user.items;
+  } else {
+    return [
+      user.items,
+      i18n.t('messageHatched', req.language),
+    ];
+  }
 };

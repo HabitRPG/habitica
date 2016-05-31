@@ -12,5 +12,6 @@
     "losingHealthQuickly": "Gyorsan fogy az életerőd?",
     "lowHealthTips3": "A kihagyott napi feladatok az éjszaka folyamán megsebeznek téged, vigyázz, hogy ne adj túl sok feladatot hozzá az elején!",
     "lowHealthTips4": "Ha egy napi feladatot nem kell bizonyos napokon elvégezned, kikapcsolhatod őket, a ceruza ikonra kattintva.",
-    "goodLuck": "Sok szerencsét!"
+    "goodLuck": "Sok szerencsét!",
+    "cannotRevive": "Cannot revive if not dead"
 }

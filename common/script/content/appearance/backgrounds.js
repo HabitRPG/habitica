@@ -325,6 +325,20 @@ let backgrounds = {
       notes: t('backgroundRainbowsEndNotes'),
     },
   },
+  backgrounds052016: {
+    beehive: {
+      text: t('backgroundBeehiveText'),
+      notes: t('backgroundBeehiveNotes'),
+    },
+    gazebo: {
+      text: t('backgroundGazeboText'),
+      notes: t('backgroundGazeboNotes'),
+    },
+    tree_roots: {
+      text: t('backgroundTreeRootsText'),
+      notes: t('backgroundTreeRootsNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 

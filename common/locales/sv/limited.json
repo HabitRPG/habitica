@@ -5,11 +5,11 @@
     "annoyingFriends": "Jobbiga Vänner",
     "annoyingFriendsText": "Fick <%= snowballs %> snöbollar kastad på sig av sällskapsmedlemmar.",
     "alarmingFriends": "Oroväckande Vänner",
-    "alarmingFriendsText": "Blev skrämd <%= spookDust %> gånger av sällskapsmedlemmar.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Jordbruksvänner",
     "agriculturalFriendsText": "Transformerades till en blomma <%= seeds %> gånger av sällskapsmedlemmar.",
     "aquaticFriends": "Akvatiska Vänner",
-    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
+    "aquaticFriendsText": "Blev nedstänkt <%= seafoam %> gånger av sällskapsdeltagare.",
     "valentineCard": "Alla Hjärtans Dag-kort",
     "valentineCardExplanation": "For enduring such a saccharine poem, you both receive the \"Adoring Friends\" badge!",
     "valentineCardNotes": "Skicka ett Alla Hjärtans Dag-kort till en sällskapsdeltagare.",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Tillgänglig till 31:e oktober",
-    "winterEventAvailability": "Tillgänglig till 31:e december"
+    "winterEventAvailability": "Tillgänglig till 31:e december",
+    "springEventAvailability": "Available until May 31"
 }

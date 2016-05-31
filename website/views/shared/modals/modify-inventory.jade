@@ -1,0 +1,252 @@
+script(type='text/ng-template', id='modals/modify-inventory.html')
+  .modal-header
+    h4 Modify Inventory for {{::user.profile.name}}
+  .modal-body
+    .container-fluid
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.gear", ng-click="showInv.gear = true") Show Gear
+          button.btn.btn-default.pull-right(ng-if="showInv.gear", ng-click="showInv.gear = false") Hide Gear
+          h4 Gear
+          div(ng-if="showInv.gear")
+            button.btn.btn-default(ng-click="setAllItems('gear', true)") Own All
+            button.btn.btn-default(ng-click="setAllItems('gear', false)") Previously Own All
+            button.btn.btn-default(ng-click="setAllItems('gear', undefined)") Never Own All
+
+            hr
+
+            ul.list-group
+              li.list-group-item(ng-repeat="item in Content.gear.flat" ng-init="inv.gear[item.key] = user.items.gear.owned[item.key]")
+                .pull-left(class="shop_{{::item.key}}" style="margin-right: 10px")
+                | {{::item.text()}}
+
+                .clearfix
+                  label.radio-inline
+                    input(type="radio" name="gear-{{::item.key}}" ng-model="inv.gear[item.key]" ng-value="true")
+                    | Owned
+                  label.radio-inline
+                    input(type="radio" name="gear-{{::item.key}}" ng-model="inv.gear[item.key]" ng-value="false")
+                    | Previously Owned
+                  label.radio-inline
+                    input(type="radio" name="gear-{{::item.key}}" ng-model="inv.gear[item.key]" ng-value="undefined")
+                    | Never Owned
+
+      hr
+
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.special", ng-click="showInv.special = true") Show Special Items
+          button.btn.btn-default.pull-right(ng-if="showInv.special", ng-click="showInv.special = false") Hide Special Items
+          h4 Special Items
+          div(ng-if="showInv.special")
+            button.btn.btn-default(ng-click="setAllItems('special', 999)") Set All to 999
+            button.btn.btn-default(ng-click="setAllItems('special', 0)") Set All to 0
+            button.btn.btn-default(ng-click="setAllItems('special', undefined)") Set All to undefined
+
+            hr
+
+            ul.list-group
+              li.list-group-item(ng-repeat="item in Content.special" ng-init="inv.special[item.key] = user.items.special[item.key]" ng-if="item.value === 15")
+                .form-inline.clearfix
+                  .pull-left(class="inventory_special_{{::item.key}}" style="margin-right: 10px")
+                  p {{::item.text()}}
+                  input.form-control(type="number" ng-model="inv.special[item.key]")
+
+      hr
+
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.pets", ng-click="showInv.pets = true") Show Pets
+          button.btn.btn-default.pull-right(ng-if="showInv.pets", ng-click="showInv.pets = false") Hide Pets
+          h4 Pets
+          div(ng-if="showInv.pets")
+            button.btn.btn-default(ng-click="setAllItems('pets', 45)") Set All to 45
+            button.btn.btn-default(ng-click="setAllItems('pets', 0)") Set All to 0
+            button.btn.btn-default(ng-click="setAllItems('pets', -1)") Set All to -1
+            button.btn.btn-default(ng-click="setAllItems('pets', undefined)") Set All to undefined
+
+            hr
+
+            h5 Drop Pets
+            ul.list-group
+              li.list-group-item(ng-repeat="(pet, value) in Content.pets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                .form-inline.clearfix
+                  .pull-left(class="Pet-{{::pet}}" style="margin-right: 10px")
+                  p {{::pet}}
+                  input.form-control(type="number" ng-model="inv.pets[pet]")
+
+            h5 Quest Pets
+            ul.list-group
+              li.list-group-item(ng-repeat="(pet, value) in Content.questPets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                .form-inline.clearfix
+                  .pull-left(class="Pet-{{::pet}}" style="margin-right: 10px")
+                  p {{::pet}}
+                  input.form-control(type="number" ng-model="inv.pets[pet]")
+
+            h5 Special Pets
+            ul.list-group
+              li.list-group-item(ng-repeat="(pet, value) in Content.specialPets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                .form-inline.clearfix
+                  .pull-left(class="Pet-{{::pet}}" style="margin-right: 10px")
+                  p {{::pet}}
+                  input.form-control(type="number" ng-model="inv.pets[pet]")
+
+            h5 Premium Pets
+            ul.list-group
+              li.list-group-item(ng-repeat="(pet, value) in Content.premiumPets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                .form-inline.clearfix
+                  .pull-left(class="Pet-{{::pet}}" style="margin-right: 10px")
+                  p {{::pet}}
+                  input.form-control(type="number" ng-model="inv.pets[pet]")
+
+      hr
+
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.mounts", ng-click="showInv.mounts = true") Show Mounts
+          button.btn.btn-default.pull-right(ng-if="showInv.mounts", ng-click="showInv.mounts = false") Hide Mounts
+          h4 Mounts
+          div(ng-if="showInv.mounts")
+            button.btn.btn-default(ng-click="setAllItems('mounts', true)") Set all to Owned
+            button.btn.btn-default(ng-click="setAllItems('mounts', undefined)") Set all to Not Owned
+
+            hr
+
+            h5 Drop Mounts
+            ul.list-group
+              li.list-group-item(ng-repeat="(mount, value) in Content.mounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                .pull-left(class="Mount_Icon_{{::mount}}" style="margin-right: 10px")
+                | {{::mount}}
+                .clearfix
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="true")
+                    | Owned
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="undefined")
+                    | Not Owned
+
+            h5 Quest Mounts
+            ul.list-group
+              li.list-group-item(ng-repeat="(mount, value) in Content.questMounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                .pull-left(class="Mount_Icon_{{::mount}}" style="margin-right: 10px")
+                | {{::mount}}
+                .clearfix
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="true")
+                    | Owned
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="undefined")
+                    | Not Owned
+
+            h5 Special Mounts
+            ul.list-group
+              li.list-group-item(ng-repeat="(mount, value) in Content.specialMounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                .pull-left(class="Mount_Icon_{{::mount}}" style="margin-right: 10px")
+                | {{::mount}}
+                .clearfix
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="true")
+                    | Owned
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="undefined")
+                    | Not Owned
+
+            h5 Premium Mounts
+            ul.list-group
+              li.list-group-item(ng-repeat="(mount, value) in Content.premiumMounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                .pull-left(class="Mount_Icon_{{::mount}}" style="margin-right: 10px")
+                | {{::mount}}
+                .clearfix
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="true")
+                    | Owned
+                  label.radio-inline
+                    input(type="radio" name="mounts-{{::mount}}" ng-model="inv.mounts[mount]" ng-value="undefined")
+                    | Not Owned
+
+      hr
+
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.hatchingPotions", ng-click="showInv.hatchingPotions = true") Show Hatching Potions
+          button.btn.btn-default.pull-right(ng-if="showInv.hatchingPotions", ng-click="showInv.hatchingPotions = false") Hide Hatching Potions
+          h4 Hatching Potions
+          div(ng-if="showInv.hatchingPotions")
+            button.btn.btn-default(ng-click="setAllItems('hatchingPotions', 999)") Set All to 999
+            button.btn.btn-default(ng-click="setAllItems('hatchingPotions', 0)") Set All to 0
+            button.btn.btn-default(ng-click="setAllItems('hatchingPotions', undefined)") Set All to undefined
+
+            hr
+
+            ul.list-group
+              li.list-group-item(ng-repeat="item in Content.hatchingPotions" ng-init="inv.hatchingPotions[item.key] = user.items.hatchingPotions[item.key]")
+                .form-inline.clearfix
+                  .pull-left(class="Pet_HatchingPotion_{{::item.key}}" style="margin-right: 10px")
+                  p {{::item.text()}}
+                  input.form-control(type="number" ng-model="inv.hatchingPotions[item.key]")
+
+      hr
+
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.eggs", ng-click="showInv.eggs = true") Show Eggs
+          button.btn.btn-default.pull-right(ng-if="showInv.eggs", ng-click="showInv.eggs = false") Hide Eggs
+          h4 Eggs
+          div(ng-if="showInv.eggs")
+            button.btn.btn-default(ng-click="setAllItems('eggs', 999)") Set All to 999
+            button.btn.btn-default(ng-click="setAllItems('eggs', 0)") Set All to 0
+            button.btn.btn-default(ng-click="setAllItems('eggs', undefined)") Set All to undefined
+
+            hr
+
+            ul.list-group
+              li.list-group-item(ng-repeat="item in Content.eggs" ng-init="inv.eggs[item.key] = user.items.eggs[item.key]")
+                .form-inline.clearfix
+                  .pull-left(class="Pet_Egg_{{::item.key}}" style="margin-right: 10px")
+                  p {{::item.text()}}
+                  input.form-control(type="number" ng-model="inv.eggs[item.key]")
+
+      hr
+
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.food", ng-click="showInv.food = true") Show Food
+          button.btn.btn-default.pull-right(ng-if="showInv.food", ng-click="showInv.food = false") Hide Food
+          h4 Food
+          div(ng-if="showInv.food")
+            button.btn.btn-default(ng-click="setAllItems('food', 999)") Set All to 999
+            button.btn.btn-default(ng-click="setAllItems('food', 0)") Set All to 0
+            button.btn.btn-default(ng-click="setAllItems('food', undefined)") Set All to undefined
+
+            hr
+
+            ul.list-group
+              li.list-group-item(ng-repeat="item in Content.food" ng-init="inv.food[item.key] = user.items.food[item.key]")
+                .form-inline.clearfix
+                  .pull-left(class="Pet_Food_{{::item.key}}" style="margin-right: 10px")
+                  p {{::item.text()}}
+                  input.form-control(type="number" ng-model="inv.food[item.key]")
+
+      hr
+
+      .row
+        .col-xs-12
+          button.btn.btn-default.pull-right(ng-if="!showInv.quests", ng-click="showInv.quests = true") Show Quests
+          button.btn.btn-default.pull-right(ng-if="showInv.quests", ng-click="showInv.quests = false") Hide Quests
+          h4 Quests
+          div(ng-if="showInv.quests")
+            button.btn.btn-default(ng-click="setAllItems('quests', 999)") Set All to 999
+            button.btn.btn-default(ng-click="setAllItems('quests', 0)") Set All to 0
+            button.btn.btn-default(ng-click="setAllItems('quests', undefined)") Set All to undefined
+
+            hr
+
+            ul.list-group
+              li.list-group-item(ng-repeat="item in Content.quests" ng-init="inv.quests[item.key] = user.items.quests[item.key]" ng-if="item.category !== 'world'")
+                .form-inline.clearfix
+                  .pull-left(class="inventory_quest_scroll_{{::item.key}}" style="margin-right: 10px")
+                  p {{::item.text()}}
+                  input.form-control(type="number" ng-model="inv.quests[item.key]")
+  .modal-footer
+    button.btn.btn-default(ng-click="$close()")=env.t('close')
+    button.btn.btn-primary(ng-click="$close();modifyInventory()") Apply Changes
