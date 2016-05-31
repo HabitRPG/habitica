@@ -259,7 +259,7 @@ api.getChallengeMemberProgress = {
 };
 
 /**
- * @api {posts} /members/send-private-message Send a private message to a member
+ * @api {posts} /api/v3/members/send-private-message Send a private message to a member
  * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
  * @apiGroup Members
@@ -308,7 +308,7 @@ api.sendPrivateMessage = {
 };
 
 /**
- * @api {posts} /members/transfer-gems Send a gem gift to a member
+ * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiVersion 3.0.0
  * @apiName TransferGems
  * @apiGroup Members
