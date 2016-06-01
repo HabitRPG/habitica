@@ -10,6 +10,7 @@ import {
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+import { getUserInfo } from '../../libs/api-v3/email';
 import { sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
@@ -209,19 +210,9 @@ api.flagChat = {
       update
     );
 
-    let reporterEmailContent;
-    if (user.auth.local) {
-      reporterEmailContent = user.auth.local.email;
-    } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) {
-      reporterEmailContent = user.auth.facebook.emails[0].value;
-    }
+    let reporterEmailContent = getUserInfo(user, ['email']).email;
 
-    let authorEmailContent;
-    if (author.auth.local) {
-      authorEmailContent = author.auth.local.email;
-    } else if (author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) {
-      authorEmailContent = author.auth.facebook.emails[0].value;
-    }
+    let authorEmailContent = getUserInfo(author, ['email']).email;
 
     let groupUrl;
     if (group._id === TAVERN_ID) {
@@ -300,21 +291,11 @@ api.clearChatFlags = {
       {$set: {'chat.$.flagCount': message.flagCount}}
     );
 
-    let adminEmailContent;
-    if (user.auth.local) {
-      adminEmailContent = user.auth.local.email;
-    } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) {
-      adminEmailContent = user.auth.facebook.emails[0].value;
-    }
+    let adminEmailContent = getUserInfo(user, ['email']).email;
 
     let author = await User.findOne({_id: message.uuid}, {auth: 1});
 
-    let authorEmailContent;
-    if (author.auth.local) {
-      authorEmailContent = author.auth.local.email;
-    } else if (author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) {
-      authorEmailContent = author.auth.facebook.emails[0].value;
-    }
+    let authorEmailContent = getUserInfo(author, ['email']).email;
 
     let groupUrl;
     if (group._id === TAVERN_ID) {
@@ -325,8 +306,7 @@ api.clearChatFlags = {
       groupUrl = 'party';
     }
 
-    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
-      {name: 'STATUS', content: 'UNFLAGGED BY ADMIN'},
+    sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
       {name: 'MESSAGE_TEXT', content: message.text},
 
