@@ -66,7 +66,6 @@ describe('PUT /heroes/:heroId', () => {
     await hero.sync();
     expect(hero.balance).to.equal(3 + 0.75); // 3+0.75 for first contrib level
     expect(hero.contributor.level).to.equal(1);
-    expect(hero.flags.contributor).to.equal(true);
     expect(hero.purchased.ads).to.equal(true);
     expect(hero.auth.blocked).to.equal(true);
   });
@@ -95,7 +94,6 @@ describe('PUT /heroes/:heroId', () => {
     await hero.sync();
     expect(hero.balance).to.equal(1); // 0+1 for sixth contrib level
     expect(hero.contributor.level).to.equal(6);
-    expect(hero.flags.contributor).to.equal(true);
     expect(hero.items.pets['Dragon-Hydra']).to.equal(5);
   });
 
