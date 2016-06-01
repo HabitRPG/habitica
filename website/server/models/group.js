@@ -491,10 +491,13 @@ function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-schema.statics.collectQuest = async function collectQuest (user, progress) {
-  let group = await this.getGroup({user, groupId: 'party'});
-  if (!_isOnQuest(user, progress, group)) return;
-  let quest = shared.content.quests[group.quest.key];
+async function processCollectionQuest (options) {
+  let {
+    user,
+    progress,
+    quest,
+    group,
+  } = options;
 
   _.each(progress.collect, (v, k) => {
     group.quest.progress.collect[k] += v;
@@ -505,7 +508,7 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
     return m;
   }, []);
 
-  foundText = foundText ? foundText.join(', ') : 'nothing';
+  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
   group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
   group.markModified('quest.progress.collect');
 
@@ -518,14 +521,15 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
   group.sendChat('`All items found! Party has received their rewards.`');
 
   return await group.save();
-};
+}
 
-schema.statics.bossQuest = async function bossQuest (user, progress) {
-  let group = await this.getGroup({user, groupId: 'party'});
-  if (!_isOnQuest(user, progress, group)) return;
-
-  let quest = shared.content.quests[group.quest.key];
-  if (!progress || !quest) return; // TODO why is this ever happening, progress should be defined at this point, log?
+async function processBossQuest (options) {
+  let {
+    user,
+    progress,
+    quest,
+    group,
+  } = options;
 
   let down = progress.down * quest.boss.str; // multiply by boss strength
 
@@ -570,6 +574,28 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   }
 
   return await group.save();
+}
+
+schema.statics.processBossQuest = processBossQuest;
+schema.statics.processCollectionQuest = processCollectionQuest;
+
+schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
+  let group = await this.getGroup({user, groupId: 'party'});
+
+  if (!_isOnQuest(user, progress, group)) return;
+
+  let quest = shared.content.quests[group.quest.key];
+
+  if (!quest) return; // TODO should this throw an error instead?
+
+  let questType = quest.boss ? 'Boss' : 'Collection';
+
+  await this[`process${questType}Quest`]({
+    user,
+    progress,
+    quest,
+    group,
+  });
 };
 
 // to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`

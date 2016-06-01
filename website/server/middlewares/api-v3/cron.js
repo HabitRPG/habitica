@@ -158,13 +158,7 @@ async function cronAsync (req, res) {
     });
     await Bluebird.all(toSave);
 
-    let quest = common.content.quests[user.party.quest.key];
-
-    if (quest) {
-      // If user is on a quest, roll for boss & player, or handle collections
-      let questType = quest.boss ? 'boss' : 'collect';
-      await Group[`${questType}Quest`](user, progress);
-    }
+    await Group.processQuestProgress(user, progress);
 
     // Set _cronSignature, lastCron and auth.timestamps.loggedin to signal end of cron
     await User.update({
