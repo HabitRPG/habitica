@@ -20,7 +20,7 @@ function revealMysteryItems (user) {
         moment().isAfter(shared.content.mystery[item.mystery].start) &&
         moment().isBefore(shared.content.mystery[item.mystery].end) &&
         !user.items.gear.owned[item.key] &&
-        user.purchased.plan.mysteryItems.indexOf(item.key) !== -1
+        user.purchased.plan.mysteryItems.indexOf(item.key) === -1
       ) {
       user.purchased.plan.mysteryItems.push(item.key);
     }
