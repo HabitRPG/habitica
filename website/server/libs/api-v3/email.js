@@ -1,5 +1,6 @@
 import { createTransport } from 'nodemailer';
 import nconf from 'nconf';
+import { TAVERN_ID } from '../../models/group';
 import { encrypt } from './encryption';
 import request from 'request';
 import logger from './logger';
@@ -62,6 +63,19 @@ export function getUserInfo (user, fields = []) {
   }
 
   return info;
+}
+
+export function getGroupUrl (group) {
+  let groupUrl;
+  if (group._id === TAVERN_ID) {
+    groupUrl = '/#/options/groups/tavern';
+  } else if (group.type === 'guild') {
+    groupUrl = `/#/options/groups/guilds/${group._id}`;
+  } else {
+    groupUrl = 'party';
+  }
+
+  return groupUrl;
 }
 
 // Send a transactional email using Mandrill through the external email server

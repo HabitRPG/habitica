@@ -1,8 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import {
-  model as Group,
-  TAVERN_ID,
-} from '../../models/group';
+import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
@@ -10,8 +7,7 @@ import {
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import { getUserInfo } from '../../libs/api-v3/email';
-import { sendTxn } from '../../libs/api-v3/email';
+import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 
@@ -214,14 +210,7 @@ api.flagChat = {
 
     let authorEmailContent = getUserInfo(author, ['email']).email;
 
-    let groupUrl;
-    if (group._id === TAVERN_ID) {
-      groupUrl = '/#/options/groups/tavern';
-    } else if (group.type === 'guild') {
-      groupUrl = `/#/options/groups/guilds/${group._id}`;
-    } else {
-      groupUrl = 'party';
-    }
+    let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
@@ -297,14 +286,7 @@ api.clearChatFlags = {
 
     let authorEmailContent = getUserInfo(author, ['email']).email;
 
-    let groupUrl;
-    if (group._id === TAVERN_ID) {
-      groupUrl = '/#/options/groups/tavern';
-    } else if (group.type === 'guild') {
-      groupUrl = `/#/options/groups/guilds/${group._id}`;
-    } else {
-      groupUrl = 'party';
-    }
+    let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
