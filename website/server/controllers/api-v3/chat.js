@@ -300,6 +300,52 @@ api.clearChatFlags = {
       {$set: {'chat.$.flagCount': message.flagCount}}
     );
 
+    let adminEmailContent;
+    if (user.auth.local) {
+      adminEmailContent = user.auth.local.email;
+    } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) {
+      adminEmailContent = user.auth.facebook.emails[0].value;
+    }
+
+    let author = await User.findOne({_id: message.uuid}, {auth: 1});
+
+    let authorEmailContent;
+    if (author.auth.local) {
+      authorEmailContent = author.auth.local.email;
+    } else if (author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) {
+      authorEmailContent = author.auth.facebook.emails[0].value;
+    }
+
+    let groupUrl;
+    if (group._id === TAVERN_ID) {
+      groupUrl = '/#/options/groups/tavern';
+    } else if (group.type === 'guild') {
+      groupUrl = `/#/options/groups/guilds/${group._id}`;
+    } else {
+      groupUrl = 'party';
+    }
+
+    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
+      {name: 'STATUS', content: 'UNFLAGGED BY ADMIN'},
+      {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
+      {name: 'MESSAGE_TEXT', content: message.text},
+
+      {name: 'ADMIN_USERNAME', content: user.profile.name},
+      {name: 'ADMIN_UUID', content: user._id},
+      {name: 'ADMIN_EMAIL', content: adminEmailContent},
+      {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+
+      {name: 'AUTHOR_USERNAME', content: message.user},
+      {name: 'AUTHOR_UUID', content: message.uuid},
+      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'GROUP_TYPE', content: group.type},
+      {name: 'GROUP_ID', content: group._id},
+      {name: 'GROUP_URL', content: groupUrl},
+    ]);
+
     res.respond(200, {});
   },
 };
