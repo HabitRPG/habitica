@@ -106,8 +106,8 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
     });
 
-    $rootScope.$watch('user.flags.contributor', function(after, before){
-      if (after === before || after !== true) return;
+    $rootScope.$watch('user.contributor.level', function(after, before){
+      if (after === before || after < before || after == null) return;
       $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
     });
 

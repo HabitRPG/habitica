@@ -201,7 +201,6 @@ export let schema = new Schema({
     itemsEnabled: {type: Boolean, default: false},
     newStuff: {type: Boolean, default: false},
     rewrite: {type: Boolean, default: true},
-    contributor: Boolean,
     classSelected: {type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, default: false},
