@@ -9,8 +9,17 @@ describe('payments/index', () => {
   let user;
 
   describe('#createSubscription', () => {
+    const MYSTERY_AWARD_COUNT = 2;
+    const MYSTERY_AWARD_UNIX_TIME = 1464725113000;
+    let fakeClock;
+
     beforeEach(async () => {
       user = new User();
+      fakeClock = sinon.useFakeTimers(MYSTERY_AWARD_UNIX_TIME);
+    });
+
+    afterEach(() => {
+      fakeClock.restore();
     });
 
     it('succeeds', async () => {
@@ -18,6 +27,12 @@ describe('payments/index', () => {
       expect(user.purchased.plan.planId).to.not.exist;
       await api.createSubscription(data);
       expect(user.purchased.plan.planId).to.exist;
+    });
+
+    it('awards mystery items', async () => {
+      data = { user, sub: { key: 'basic_3mo' } };
+      await api.createSubscription(data);
+      expect(user.purchased.plan.mysteryItems.length).to.eql(MYSTERY_AWARD_COUNT);
     });
   });
 
