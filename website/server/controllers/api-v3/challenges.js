@@ -218,7 +218,7 @@ api.getUserChallenges = {
       ],
       _id: {$ne: '95533e05-1ff9-4e46-970b-d77219f199e9'}, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug TODO revisit
     })
-    .sort('-official -timestamp')
+    .sort('-official -createdAt')
     // see below why we're not using populate
     // .populate('group', basicGroupFields)
     // .populate('leader', nameFields)
@@ -268,7 +268,7 @@ api.getGroupChallenges = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let challenges = await Challenge.find({group: groupId})
-      .sort('-official -timestamp')
+      .sort('-official -createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
