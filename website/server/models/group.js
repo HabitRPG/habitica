@@ -110,6 +110,27 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
+// return a clean object for user.quest
+function _cleanQuestProgress (merge) {
+  let clean = {
+    key: null,
+    progress: {
+      up: 0,
+      down: 0,
+      collect: {},
+    },
+    completed: null,
+    RSVPNeeded: false,
+  };
+
+  if (merge) {
+    _.merge(clean, _.omit(merge, 'progress'));
+    if (merge.progress) _.merge(clean.progress, merge.progress);
+  }
+
+  return clean;
+}
+
 schema.statics.getGroup = async function getGroup (options = {}) {
   let {user, groupId, fields, optionalMembership = false, populateLeader = false, requireMembership = false} = options;
   let query;
@@ -332,10 +353,11 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
+  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+    return !member;
+  }));
+
   // Changes quest.members to only include participating members
-  // TODO: is that important? What does it matter if the non-participating members
-  // are still on the object?
-  // TODO: is it important to run clean quest progress on non-members like we did in v2?
   this.quest.members = _.pick(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
@@ -372,6 +394,16 @@ schema.methods.startQuest = async function startQuest (user) {
     },
   }, { multi: true }).exec();
 
+  // update the users who are not participating
+  // Do not block updates
+  User.update({
+    _id: { $in: nonMembers },
+  }, {
+    $set: {
+      'party.quest': _cleanQuestProgress(),
+    },
+  }, { multi: true }).exec();
+
   // send notifications in the background without blocking
   User.find(
     { _id: { $in: nonUserQuestMembers } },
@@ -389,27 +421,6 @@ schema.methods.startQuest = async function startQuest (user) {
     ]);
   });
 };
-
-// return a clean object for user.quest
-function _cleanQuestProgress (merge) {
-  let clean = {
-    key: null,
-    progress: {
-      up: 0,
-      down: 0,
-      collect: {},
-    },
-    completed: null,
-    RSVPNeeded: false,
-  };
-
-  if (merge) {
-    _.merge(clean, _.omit(merge, 'progress'));
-    if (merge.progress) _.merge(clean.progress, merge.progress);
-  }
-
-  return clean;
-}
 
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
 
