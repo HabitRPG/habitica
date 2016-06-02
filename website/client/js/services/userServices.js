@@ -319,8 +319,9 @@ angular.module('habitrpg')
         },
 
         sortTag: function (data) {
+          let fromId = user.tags[data.query.from].id;
           user.ops.sortTag(data);
-          Tags.sortTag(user.tags[data.query.from].id, data.query.to);
+          Tags.sortTag(fromId, data.query.to);
         },
 
         deleteTag: function(data) {
