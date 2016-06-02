@@ -117,7 +117,7 @@ function _cleanQuestProgress (merge) {
     progress: {
       up: 0,
       down: 0,
-      collect: {},
+      collect: 0,
     },
     completed: null,
     RSVPNeeded: false,
@@ -365,7 +365,6 @@ schema.methods.startQuest = async function startQuest (user) {
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
     user.party.quest.progress.down = 0;
-    user.party.quest.progress.collect = collected;
     user.party.quest.completed = null;
     user.markModified('party.quest');
   }
@@ -389,7 +388,6 @@ schema.methods.startQuest = async function startQuest (user) {
     $set: {
       'party.quest.key': this.quest.key,
       'party.quest.progress.down': 0,
-      'party.quest.progress.collect': collected,
       'party.quest.completed': null,
     },
   }, { multi: true }).exec();
@@ -499,11 +497,18 @@ async function processCollectionQuest (options) {
     group,
   } = options;
 
-  _.each(progress.collect, (v, k) => {
-    group.quest.progress.collect[k] += v;
+  let itemsFound = {};
+
+  _.times(progress.collect, () => {
+    let item = shared.fns.randomVal(user, quest.collect, {key: true});
+    if (!itemsFound[item]) {
+      itemsFound[item] = 0;
+    }
+    itemsFound[item]++;
+    group.quest.progress.collect[item]++;
   });
 
-  let foundText = _.reduce(progress.collect, (m, v, k) => {
+  let foundText = _.reduce(itemsFound, (m, v, k) => {
     m.push(`${v} ${quest.collect[k].text('en')}`);
     return m;
   }, []);

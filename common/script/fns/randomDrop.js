@@ -17,9 +17,7 @@ module.exports = function randomDrop (user, options, req = {}) {
   let acceptableDrops;
   let chance;
   let drop;
-  let dropK;
   let dropMultiplier;
-  let quest;
   let rarity;
   let task;
 
@@ -38,15 +36,8 @@ module.exports = function randomDrop (user, options, req = {}) {
     }, 0) || 0));
   chance = diminishingReturns(chance, 0.75);
 
-  if (user.party.quest.key)
-    quest = content.quests[user.party.quest.key];
-  if (quest && quest.collect && predictableRandom(user, user.stats.gp) < chance) {
-    dropK = randomVal(user, quest.collect, {
-      key: true,
-    });
-    if (!user.party.quest.progress.collect[dropK])
-      user.party.quest.progress.collect[dropK] = 0;
-    user.party.quest.progress.collect[dropK]++;
+  if (predictableRandom(user, user.stats.gp) < chance) {
+    user.party.quest.progress.collect++;
     user.markModified('party.quest.progress');
   }
 

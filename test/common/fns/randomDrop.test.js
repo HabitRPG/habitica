@@ -6,7 +6,6 @@ import {
   generateDaily,
   generateReward,
 } from '../../helpers/common.helper';
-import content from '../../../common/script/content/index';
 
 describe('common.fns.randomDrop', () => {
   let user;
@@ -22,23 +21,16 @@ describe('common.fns.randomDrop', () => {
     };
   });
 
-  /**
-   * function signature as follows:
-   * randomDrop(user, modifiers) {}
-   * modifiers = { task, delta = null }
-   **/
-
   it('drops an item for the user.party.quest.progress', () => {
-    expect(user.party.quest.progress.collect).to.eql({});
+    expect(user.party.quest.progress.collect).to.eql(0);
     user.party.quest.key = 'vice2';
-    let collectWhat = Object.keys(content.quests[user.party.quest.key].collect)[0]; // lightCrystal
     predictableRandom = () => {
       return 0.0001;
     };
     randomDrop(user, { task, predictableRandom });
-    expect(user.party.quest.progress.collect[collectWhat]).to.eql(1);
+    expect(user.party.quest.progress.collect).to.eql(1);
     randomDrop(user, { task, predictableRandom });
-    expect(user.party.quest.progress.collect[collectWhat]).to.eql(2);
+    expect(user.party.quest.progress.collect).to.eql(2);
   });
 
   context('drops enabled', () => {

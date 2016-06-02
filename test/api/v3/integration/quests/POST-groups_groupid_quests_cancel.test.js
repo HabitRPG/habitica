@@ -114,7 +114,7 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       progress: {
         up: 0,
         down: 0,
-        collect: {},
+        collect: 0,
       },
       completed: null,
       RSVPNeeded: false,

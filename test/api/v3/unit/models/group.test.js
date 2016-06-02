@@ -146,7 +146,7 @@ describe('Group Model', () => {
 
           expect(participatingMember.party.quest.key).to.eql('whale');
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collect).to.eql({});
+          expect(participatingMember.party.quest.progress.collect).to.eql(0);
           expect(participatingMember.party.quest.completed).to.eql(null);
         });
 
@@ -158,12 +158,12 @@ describe('Group Model', () => {
 
           expect(participatingMember.party.quest.key).to.eql('whale');
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collect).to.eql({});
+          expect(participatingMember.party.quest.progress.collect).to.eql(0);
           expect(participatingMember.party.quest.completed).to.eql(null);
 
           expect(questLeader.party.quest.key).to.eql('whale');
           expect(questLeader.party.quest.progress.down).to.eql(0);
-          expect(questLeader.party.quest.progress.collect).to.eql({});
+          expect(questLeader.party.quest.progress.collect).to.eql(0);
           expect(questLeader.party.quest.completed).to.eql(null);
         });
 
@@ -255,7 +255,6 @@ describe('Group Model', () => {
               $set: {
                 'party.quest.key': 'whale',
                 'party.quest.progress.down': 0,
-                'party.quest.progress.collect': {},
                 'party.quest.completed': null,
               },
             }
@@ -284,7 +283,7 @@ describe('Group Model', () => {
 
           expect(userQuest.key).to.eql('whale');
           expect(userQuest.progress.down).to.eql(0);
-          expect(userQuest.progress.collect).to.eql({});
+          expect(userQuest.progress.collect).to.eql(0);
           expect(userQuest.completed).to.eql(null);
         });
 
@@ -554,9 +553,7 @@ describe('Group Model', () => {
 
       beforeEach(async () => {
         progress = {
-          collect: {
-            soapBars: 5,
-          },
+          collect: 5,
         };
         quest = questScrolls.atom1;
 
@@ -582,7 +579,7 @@ describe('Group Model', () => {
           group: party,
         });
 
-        expect(party.quest.progress.collect.soapBars).to.eq(5)
+        expect(party.quest.progress.collect.soapBars).to.eq(5);
       });
 
       it('sends a chat message about progress', async () => {
@@ -598,7 +595,7 @@ describe('Group Model', () => {
       });
 
       it('sends a chat message if no progress is made', async () => {
-        delete progress.collect.soapBars;
+        progress.collect = 0;
 
         await Group.processCollectionQuest({
           user: participatingMember,
@@ -612,7 +609,7 @@ describe('Group Model', () => {
       });
 
       it('sends message about victory', async () => {
-        progress.collect.soapBars = 500;
+        progress.collect = 500;
 
         await Group.processCollectionQuest({
           user: participatingMember,
@@ -626,7 +623,7 @@ describe('Group Model', () => {
       });
 
       it('calls finishQuest when all items are found', async () => {
-        progress.collect.soapBars = 999;
+        progress.collect = 999;
         sandbox.spy(party, 'finishQuest');
 
         await Group.processCollectionQuest({
