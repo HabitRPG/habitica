@@ -3,7 +3,7 @@ import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
-import predictableRandom from './predictableRandom';
+import _predictableRandom from './predictableRandom';
 import randomVal from './randomVal';
 
 // Clone a drop object maintaining its functions so that we can change it without affecting the original item
@@ -13,7 +13,7 @@ function cloneDropItem (drop) {
   });
 }
 
-module.exports = function randomDrop (user, modifiers, req = {}) {
+module.exports = function randomDrop (user, options, req = {}) {
   let acceptableDrops;
   let chance;
   let drop;
@@ -23,7 +23,8 @@ module.exports = function randomDrop (user, modifiers, req = {}) {
   let rarity;
   let task;
 
-  task = modifiers.task;
+  let predictableRandom = options.predictableRandom || _predictableRandom;
+  task = options.task;
 
   chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority *                             // Task priority: +50% for Medium, +100% for Hard
