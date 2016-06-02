@@ -13,34 +13,42 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='mobile-web-app-capable', content='yes')
 
-    include ./shared/new-relic
-    //FIXME for some reason this won't load when in footerCtrl.js#deferredScripts()
-    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
+    != env.getManifestFiles("app", "css")
 
-    script(type='text/javascript').
-     window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
-
-    != env.getManifestFiles("app")
+    // Does not work correctly inside .css file
+    style(type='text/css').
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
 
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
 
+    // TODO for some reason this won't load when in footerCtrl.js#deferredScripts()
+    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
 
-  body(ng-cloak, ng-controller='GroupsCtrl')
-    include ./shared/noscript
-    include ./shared/mixins
-    include ./shared/avatar/index
-    include ./shared/header/menu
-    include ./shared/modals/index
-    include ./shared/header/header
-    include ./shared/tasks/index
-    include ./main/index
-    include ./options/index
+  body
+    div#loadingScreen(ng-if="!appLoaded")
+      h1 Loading
+    div.ng-cloak(ng-if="appLoaded", ng-controller='GroupsCtrl')
+      include ./shared/mixins
+      include ./shared/avatar/index
+      include ./shared/header/menu
+      include ./shared/modals/index
+      include ./shared/header/header
+      include ./shared/tasks/index
+      include ./main/index
+      include ./options/index
 
-    #notification-area(ng-controller='NotificationCtrl')
-    #wrap.container-fluid
-      .row
-        .col-md-12.exp-chart(ng-show='charts.exp')
-        #main(ui-view)
+      #notification-area(ng-controller='NotificationCtrl')
+      #wrap.container-fluid
+        .row
+          .col-md-12.exp-chart(ng-show='charts.exp')
+          #main(ui-view)
 
-    include ./shared/footer
+      include ./shared/footer
+
+    script(type='text/javascript').
+     window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
+
+    != env.getManifestFiles("app", "js")

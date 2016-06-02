@@ -25,6 +25,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         }
       });
 
+    $rootScope.appLoaded = false;
     $rootScope.TAVERN_ID = TAVERN_ID;
     $rootScope.User = User;
     $rootScope.user = user;

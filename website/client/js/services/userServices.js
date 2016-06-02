@@ -38,11 +38,6 @@ angular.module('habitrpg')
       //first we populate user with schema
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
 
-      //than we try to load localStorage
-      if (localStorage.getItem(STORAGE_USER_ID)) {
-        _.extend(user, JSON.parse(localStorage.getItem(STORAGE_USER_ID)));
-      }
-
       user._wrapped = false;
 
       function syncUserTasks (tasks) {
@@ -110,11 +105,11 @@ angular.module('habitrpg')
           syncUserTasks(tasks);
           save();
           $rootScope.$emit('userSynced');
+          $rootScope.appLoaded = true;
         });
       }
 
       var save = function () {
-        localStorage.setItem(STORAGE_USER_ID, JSON.stringify(user));
         localStorage.setItem(STORAGE_SETTINGS_ID, JSON.stringify(settings));
       };
 
