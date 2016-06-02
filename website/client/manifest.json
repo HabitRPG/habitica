@@ -38,11 +38,11 @@
             "js/env.js",
 
             "js/app.js",
-            "common/script/public/config.js",
+            "js/config.js",
 
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
-            "common/script/public/directives.js",
+            "js/directives/directives.js",
             "js/services/analyticsServices.js",
             "js/services/groupServices.js",
             "js/services/chatServices.js",

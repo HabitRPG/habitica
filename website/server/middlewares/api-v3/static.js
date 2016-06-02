@@ -12,7 +12,6 @@ module.exports = function staticMiddleware (expressApp) {
   expressApp.use(express.static(BUILD_DIR, { maxAge: MAX_AGE }));
   expressApp.use('/common/dist', express.static(`${PUBLIC_DIR}/../../common/dist`, { maxAge: MAX_AGE }));
   expressApp.use('/common/audio', express.static(`${PUBLIC_DIR}/../../common/audio`, { maxAge: MAX_AGE }));
-  expressApp.use('/common/script/public', express.static(`${PUBLIC_DIR}/../../common/script/public`, { maxAge: MAX_AGE }));
   expressApp.use('/common/img', express.static(`${PUBLIC_DIR}/../../common/img`, { maxAge: MAX_AGE }));
   expressApp.use(express.static(PUBLIC_DIR));
 };
