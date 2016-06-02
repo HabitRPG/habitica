@@ -23,10 +23,6 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
 
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
-
-    // TODO for some reason this won't load when in footerCtrl.js#deferredScripts()
-    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
-
   body
     div#loadingScreen(ng-if="!appLoaded")
       h1 Loading
@@ -47,8 +43,13 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
           #main(ui-view)
 
       include ./shared/footer
+    include ./shared/noscript
 
+    // Load javascript at the end
     script(type='text/javascript').
      window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 
     != env.getManifestFiles("app", "js")
+
+    // TODO for some reason this won't load when in footerCtrl.js#deferredScripts()
+    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
