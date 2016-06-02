@@ -24,9 +24,9 @@ html(ng-app='habitrpg', ng-controller="RootCtrl", ng-class='{"applying-action":a
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
   body
-    div#loadingScreen(ng-if='!appLoaded')
+    #loadingScreen(ng-if='!appLoaded')
       h1 Loading
-    div.ng-cloak(ng-if='appLoaded', ng-controller='GroupsCtrl')
+    .ng-cloak(ng-if='appLoaded', ng-controller='GroupsCtrl')
       include ./shared/mixins
       include ./shared/avatar/index
       include ./shared/header/menu
