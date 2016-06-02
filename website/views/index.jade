@@ -1,6 +1,6 @@
 doctype html
 //html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
-html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}", ng-keydown="$broadcast('habit:keydown', $event)", ng-keyup="$broadcast('habit:keyup', $event)")
+html(ng-app='habitrpg', ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}", ng-keydown="$broadcast('habit:keydown', $event)", ng-keyup="$broadcast('habit:keyup', $event)")
   head
     title(ng-bind="env.t('habitica') + ' | ' + $root.pageTitle")
     // ?v=1 needed to force refresh
@@ -24,9 +24,9 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
   body
-    div#loadingScreen(ng-if="!appLoaded")
+    div#loadingScreen(ng-if='!appLoaded')
       h1 Loading
-    div.ng-cloak(ng-if="appLoaded", ng-controller='GroupsCtrl')
+    div.ng-cloak(ng-if='appLoaded', ng-controller='GroupsCtrl')
       include ./shared/mixins
       include ./shared/avatar/index
       include ./shared/header/menu
@@ -49,7 +49,7 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     script(type='text/javascript').
      window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 
-    != env.getManifestFiles("app", "js")
+    != env.getManifestFiles('app', 'js')
 
     // TODO for some reason this won't load when in footerCtrl.js#deferredScripts()
-    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
+    script(type='text/javascript', src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4', async='async')
