@@ -1,5 +1,6 @@
 {
     "PORT":3000,
+    "ENABLE_CONSOLE_LOGS_IN_PROD":"false",
     "IP":"0.0.0.0",
     "CORES":1,
     "BASE_URL":"http://localhost:3000",
@@ -8,6 +9,10 @@
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
     "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
     "NODE_ENV":"development",
+    "ENABLE_CONSOLE_LOGS_IN_TEST": false,
+    "CRON_SAFE_MODE":"false",
+    "CRON_SEMI_SAFE_MODE":"false",
+    "MAINTENANCE_MODE": "false",
     "SESSION_SECRET":"YOUR SECRET HERE",
     "ADMIN_EMAIL": "you@example.com",
     "SMTP_USER":"user@example.com",
@@ -19,6 +24,7 @@
     "STRIPE_API_KEY":"aaaabbbbccccddddeeeeffff00001111",
     "STRIPE_PUB_KEY":"22223333444455556666777788889999",
     "NEW_RELIC_LICENSE_KEY":"NEW_RELIC_LICENSE_KEY",
+    "NEW_RELIC_NO_CONFIG_FILE":"true",
     "NEW_RELIC_APPLICATION_ID":"NEW_RELIC_APPLICATION_ID",
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
@@ -33,7 +39,7 @@
     "EMAIL_SERVER": {
         "url": "http://example.com",
         "authUser": "user",
-        "authPassword": "password" 
+        "authPassword": "password"
     },
     "S3":{
         "bucket":"bucket",
@@ -55,13 +61,8 @@
         "client_secret":"client_secret"
     },
     "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
-    "LOGGLY": {
-        "enabled": false,
-        "subdomain": "subdomain",
-        "token": "token",
-        "username": "username",
-        "password": "password"    
-    },
+    "LOGGLY_TOKEN": "token",
+    "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
         "APN_PEM_FILES": {

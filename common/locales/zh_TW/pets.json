@@ -12,6 +12,7 @@
     "etherealLion": "靈獅",
     "veteranWolf": "退伍軍狼",
     "veteranTiger": "資深的老虎",
+    "veteranLion": "Veteran Lion",
     "cerberusPup": "三頭地獄幼犬",
     "hydra": "三頭蛇",
     "mantisShrimp": "瀨尿蝦",
@@ -19,7 +20,7 @@
     "orca": "逆戟鯨",
     "royalPurpleGryphon": "紫禦獅鷲",
     "phoenix": "鳳凰",
-    "bumblebee": "Bumblebee",
+    "magicalBee": "Magical Bee",
     "rarePetPop1": "按按金色的爪印，看看怎麼為Habitica貢獻而獲得這隻稀有寵物！",
     "rarePetPop2": "得到這個寵物的方法！",
     "potion": "<%= potionType %> 藥水",
@@ -62,6 +63,7 @@
     "hatchedPet": "您孵出了一個 <%= potion %> <%= egg %>！",
     "displayNow": "現在顯示",
     "displayLater": "稍後顯示",
+    "petNotOwned": "You do not own this pet.",
     "earnedCompanion": "因為你的效率，你已經獲得了一個新的同伴。餵養它，使其茁壯成長！",
     "feedPet": "餵一個<%= article %><%= text %> 給 <%= name %>？",
     "useSaddle": "把鞍用在<%= pet %>上？",
@@ -83,5 +85,8 @@
     "petKeyBoth": "釋放所有寵物與座騎",
     "confirmPetKey": "你確定嗎？",
     "petKeyNeverMind": "還不是時候",
+    "petsReleased": "Pets released.",
+    "mountsAndPetsReleased": "Mounts and pets released",
+    "mountsReleased": "Mounts released",
     "gemsEach": "寶石/次"
 }

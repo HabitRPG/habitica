@@ -12,5 +12,6 @@
     "losingHealthQuickly": "Mister du hurtigt Liv?",
     "lowHealthTips3": "Ufærdige Daglige skader dig i løbet af natten, så pas på med at tilføje for mange til at starte med!",
     "lowHealthTips4": "Hvis en Daglig ikke er forfalden på en given dag, kan du deaktivere den ved at klikke på blyanten.",
-    "goodLuck": "Held og lykke!"
+    "goodLuck": "Held og lykke!",
+    "cannotRevive": "Cannot revive if not dead"
 }

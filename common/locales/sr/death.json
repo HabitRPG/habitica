@@ -12,5 +12,6 @@
     "losingHealthQuickly": "Gubite zdravlje prebrzo?",
     "lowHealthTips3": "Nezavršeni svakodnevni zadaci povređuju vas preko noći, budite pažljivi da ne dodate previše na početku.",
     "lowHealthTips4": "Ako svakodnevni zadatak nije zadat za određen dan, možete ga isključiti klikom na sličicu olovke.",
-    "goodLuck": "Srećno!"
+    "goodLuck": "Srećno!",
+    "cannotRevive": "Cannot revive if not dead"
 }

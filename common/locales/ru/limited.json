@@ -5,7 +5,7 @@
     "annoyingFriends": "Вредные друзья",
     "annoyingFriendsText": "Прилетело снежков от членов команды: <%= snowballs %>.",
     "alarmingFriends": "Пугающие друзья",
-    "alarmingFriendsText": "Напуган членами команды <%= spookDust %> раз(а).",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Сельскохозяйственные друзья",
     "agriculturalFriendsText": "Превращен в цветок членами команды <%= seeds %> раз(а).",
     "aquaticFriends": "Водяные друзья",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Успокаивающий котенок (Целитель)",
     "sneakySqueakerSet": "Скрытный пискун (Разбойник)",
     "fallEventAvailability": "Доступно до 31 октября",
-    "winterEventAvailability": "Доступен до 31 декабря"
+    "winterEventAvailability": "Доступен до 31 декабря",
+    "springEventAvailability": "Available until May 31"
 }

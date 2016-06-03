@@ -1,4 +1,9 @@
 {
   "presets": ["es2015"],
-  "plugins": ["syntax-async-functions","transform-regenerator"]
+  "plugins": [
+    ["transform-async-to-module-method", {
+      "module": "bluebird",
+      "method": "coroutine"
+    }]
+  ]
 }

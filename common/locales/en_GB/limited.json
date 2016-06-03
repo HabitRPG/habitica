@@ -5,7 +5,7 @@
     "annoyingFriends": "Annoying Friends",
     "annoyingFriendsText": "Got snowballed <%= snowballs %> times by party members.",
     "alarmingFriends": "Alarming Friends",
-    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Agricultural Mates",
     "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "aquaticFriends": "Aquatic Friends",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Available until 31 October",
-    "winterEventAvailability": "Available until 31 December"
+    "winterEventAvailability": "Available until 31 December",
+    "springEventAvailability": "Available until 31 May"
 }

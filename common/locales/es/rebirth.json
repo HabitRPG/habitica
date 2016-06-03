@@ -5,7 +5,7 @@
     "rebirthStartOver": "Con el renacimiento, tu personaje vuelve al nivel 1.",
     "rebirthAdvList1": "Restauras completamente tu salud.",
     "rebirthAdvList2": "No tienes experiencia, oro ni equipos (salvo los artículos gratuitos, como los objetos misteriosos).",
-    "rebirthAdvList3": "Tus hábitos, Diarias, y Quehaceres se vuelven amarillos, y las rachas se restablecen.",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "Al principio tienes la clase de Guerrero hasta que consigues una clase nueva.",
     "rebirthInherit": "Tu nuevo personaje hereda unas pocas cosas de su predecesor:",
     "rebirthInList1": "Las tareas, el historial, y los ajustes permanecen.",
@@ -24,5 +24,6 @@
     "rebirthPop": "Comienza con un personaje en Nivel 1, manteniendo logros, coleccionables, y tareas con historial.",
     "rebirthName": "Esfera de Renacimiento",
     "reborn": "Renacido, nivel máximo <%= reLevel %>",
-    "confirmReborn": "¿Está seguro?"
+    "confirmReborn": "¿Está seguro?",
+    "rebirthComplete": "You have been reborn!"
 }
