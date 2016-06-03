@@ -49,23 +49,6 @@ function getUser () {
   };
 }
 
-function getGroup (type) {
-  if (type === 'tavern') {
-    return {
-      _id: TAVERN_ID,
-      type: 'guild',
-    };
-  } else if (type === 'guild') {
-    return {
-      _id: 'random _id',
-      type: 'guild',
-    };
-  } else return {
-    _id: 'random _id',
-    type: 'group',
-  };
-}
-
 describe('emails', () => {
   let pathToEmailLib = '../../../../../website/server/libs/api-v3/email';
 
@@ -157,24 +140,18 @@ describe('emails', () => {
 
   describe('getGroupUrl', () => {
     it('returns correct url if group is the tavern', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      let getGroupUrl = attachEmail.getGroupUrl;
-      let group = getGroup('tavern');
-      expect(getGroupUrl(group)).to.eql('/#/options/groups/tavern');
+      let getGroupUrl = require(pathToEmailLib).getGroupUrl;
+      expect(getGroupUrl({_id: TAVERN_ID, type: 'guild'})).to.eql('/#/options/groups/tavern');
     });
 
     it('returns correct url if group is a guild', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      let getGroupUrl = attachEmail.getGroupUrl;
-      let group = getGroup('guild');
-      expect(getGroupUrl(group)).to.eql(`/#/options/groups/guilds/${group._id}`);
+      let getGroupUrl = require(pathToEmailLib).getGroupUrl;
+      expect(getGroupUrl({_id: 'random _id', type: 'guild'})).to.eql('/#/options/groups/guilds/random _id');
     });
 
     it('returns correct url if group is a party', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      let getGroupUrl = attachEmail.getGroupUrl;
-      let group = getGroup('party');
-      expect(getGroupUrl(group)).to.eql('party');
+      let getGroupUrl = require(pathToEmailLib).getGroupUrl;
+      expect(getGroupUrl({_id: 'random _id', type: 'party'})).to.eql('party');
     });
   });
 

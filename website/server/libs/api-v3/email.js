@@ -71,7 +71,7 @@ export function getGroupUrl (group) {
     groupUrl = '/#/options/groups/tavern';
   } else if (group.type === 'guild') {
     groupUrl = `/#/options/groups/guilds/${group._id}`;
-  } else {
+  } else if (group.type === 'party') {
     groupUrl = 'party';
   }
 
