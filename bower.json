@@ -15,7 +15,6 @@
   ],
   "dependencies": {
     "Angular-At-Directive": "snicker/Angular-At-Directive#c27bae207aa06d1e",
-    "BrowserQuest": "browserquest/BrowserQuest#c3a960b03031dad5d",
     "angular": "1.3.9",
     "angular-bootstrap": "0.13.0",
     "angular-filter": "0.5.1",
