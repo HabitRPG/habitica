@@ -5,21 +5,22 @@ script(type='text/ng-template', id='modals/death.html')
     h3.text-center=env.t('lostAllHealth')
   .modal-body
     .container-fluid(ng-controller='UserCtrl')
-      .col-md-6
-        .hero-stats
-          .meter-label(tooltip=env.t('health'))
-            span.glyphicon.glyphicon-heart
-          .meter.health(tooltip='{{Math.round(user.stats.hp * 100) / 100}}')
-            .bar(ng-style='{"width": Shared.percent(user.stats.hp, Shared.maxHealth)+"%"}')
-            span.meter-text.value
-              | {{Math.ceil(user.stats.hp)}} / {{::Shared.maxHealth}}
-        figure.herobox.text-center
-          .character-sprites
-            +generatedAvatar({sleep:true})
-            span(class='knockout')
-      .col-md-6
-        h4(style='margin-top:1.5em')=env.t('dontDespair')
-        p(style='margin-top:1.5em')=env.t('deathPenaltyDetails')
+      .row
+        .col-sm-6.col-xs-12
+          .hero-stats
+            .meter-label(tooltip=env.t('health'))
+              span.glyphicon.glyphicon-heart
+            .meter.health(tooltip='{{Math.round(user.stats.hp * 100) / 100}}')
+              .bar(ng-style='{"width": Shared.percent(user.stats.hp, Shared.maxHealth)+"%"}')
+              span.meter-text.value
+                | {{Math.ceil(user.stats.hp)}} / {{::Shared.maxHealth}}
+          figure.herobox.text-center
+            .character-sprites
+              +generatedAvatar({sleep:true})
+              span(class='knockout')
+        .col-sm-6.col-xs-12
+          h4(style='margin-top:1.5em')=env.t('dontDespair')
+          p(style='margin-top:1.5em')=env.t('deathPenaltyDetails')
     .modal-footer
-      a.btn.btn-danger.btn-lg.flex-column(ng-click='User.revive(); $close()')=env.t('refillHealthTryAgain')
+      a.btn.btn-danger.btn-lg.flex-column.btn-wrap(ng-click='User.revive(); $close()')=env.t('refillHealthTryAgain')
       h4.text-center!=env.t('dyingOftenTips')
