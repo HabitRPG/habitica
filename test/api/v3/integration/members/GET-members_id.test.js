@@ -35,7 +35,7 @@ describe('GET /members/:memberId', () => {
     ]);
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql(['size', 'hair', 'skin', 'shirt',
-      'costume', 'sleep', 'background'].sort());
+      'chair', 'costume', 'sleep', 'background'].sort());
   });
 
   it('handles non-existing members', async () => {
