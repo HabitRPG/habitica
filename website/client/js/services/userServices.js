@@ -73,6 +73,7 @@ angular.module('habitrpg')
         return $http({
           method: "GET",
           url: '/api/v3/user/',
+          ignoreLoadingBar: $rootScope.appLoaded !== true,
         })
         .then(function (response) {
           if (response.data.message) Notification.text(response.data.message);
