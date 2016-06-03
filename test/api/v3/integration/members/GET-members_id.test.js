@@ -34,8 +34,8 @@ describe('GET /members/:memberId', () => {
       'backer', 'contributor', 'auth', 'items',
     ]);
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
-    expect(Object.keys(memberRes.preferences).sort()).to.eql(['size', 'hair', 'skin', 'shirt',
-      'costume', 'sleep', 'background'].sort());
+    expect(Object.keys(memberRes.preferences)).to.eql(['size', 'hair', 'skin', 'shirt',
+      'chair', 'costume', 'sleep', 'background'].sort());
   });
 
   it('handles non-existing members', async () => {
