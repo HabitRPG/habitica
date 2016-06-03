@@ -12,7 +12,7 @@ import {
 
 export let schema = new mongoose.Schema({
   _id: {type: String, default: couponCode.generate},
-  event: {type: String, enum: ['wondercon', 'google_6mo']},
+  event: {type: String, enum: ['wondercon', 'google_6mo', 'focusme_6mo']},
   user: {type: String, ref: 'User'},
 }, {
   strict: true,

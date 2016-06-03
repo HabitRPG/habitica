@@ -54,6 +54,7 @@
             "basic_3mo":"basic_3mo",
             "basic_6mo":"basic_6mo",
             "google_6mo":"google_6mo",
+            "focusme_6mo":"focusme_6mo",
             "basic_12mo":"basic_12mo"
         },
         "mode":"sandbox",

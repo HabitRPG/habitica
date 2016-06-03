@@ -2756,6 +2756,12 @@ api.subscriptionBlocks = {
     discount: true,
     original: 30
   },
+  focusme_6mo: {
+    months: 6,
+    price: 24,
+    discount: true,
+    original: 30
+  },
   basic_12mo: {
     months: 12,
     price: 48

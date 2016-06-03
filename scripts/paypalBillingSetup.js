@@ -73,7 +73,7 @@ switch(OP) {
     });
     break;
   case "create":
-    paypal.billingPlan.create(blocks["google_6mo"].definition, function(err,plan){
+    paypal.billingPlan.create(blocks["focusme_6mo"].definition, function(err,plan){
       if (err) return console.log(err);
       if (plan.state == "ACTIVE")
         return console.log({err:err, plan:plan});
