@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer';
 import Bluebird from 'bluebird';
 import requireAgain from 'require-again';
 import logger from '../../../../../website/server/libs/api-v3/logger';
+import { TAVERN_ID } from '../../../../../website/server/models/group';
 
 function defer () {
   let resolve;
@@ -45,6 +46,23 @@ function getUser () {
         unsubscribeFromAll: false,
       },
     },
+  };
+}
+
+function getGroup (type) {
+  if (type === 'tavern') {
+    return {
+      _id: TAVERN_ID,
+      type: 'guild',
+    };
+  } else if (type === 'guild') {
+    return {
+      _id: 'random _id',
+      type: 'guild',
+    };
+  } else return {
+    _id: 'random _id',
+    type: 'group',
   };
 }
 
@@ -134,6 +152,29 @@ describe('emails', () => {
       expect(data).not.to.have.property('email');
       expect(data).to.have.property('_id', user._id);
       expect(data).to.have.property('canSend', true);
+    });
+  });
+
+  describe('getGroupUrl', () => {
+    it('returns correct url if group is the tavern', () => {
+      let attachEmail = requireAgain(pathToEmailLib);
+      let getGroupUrl = attachEmail.getGroupUrl;
+      let group = getGroup('tavern');
+      expect(getGroupUrl(group)).to.eql('/#/options/groups/tavern');
+    });
+
+    it('returns correct url if group is a guild', () => {
+      let attachEmail = requireAgain(pathToEmailLib);
+      let getGroupUrl = attachEmail.getGroupUrl;
+      let group = getGroup('guild');
+      expect(getGroupUrl(group)).to.eql(`/#/options/groups/guilds/${group._id}`);
+    });
+
+    it('returns correct url if group is a party', () => {
+      let attachEmail = requireAgain(pathToEmailLib);
+      let getGroupUrl = attachEmail.getGroupUrl;
+      let group = getGroup('party');
+      expect(getGroupUrl(group)).to.eql('party');
     });
   });
 
