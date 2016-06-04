@@ -68,15 +68,16 @@
     "onlyGroupLeaderChal": "グループのリーダーだけが、チャレンジをつくることができます。",
     "tavChalsMinPrize": "キャンプ場チャレンジの賞品は、最低 1 ジェムです。",
     "cantAfford": "賞品分のジェムがありません。ジェムを追加購入するか、より安い賞品にしてください。",
-    "challengeIdRequired": "「チャレンジＩＤ」の UUID が無効です。",
-    "winnerIdRequired": "「優勝者ＩＤ」が無効です。",
+    "challengeIdRequired": "\"challengeId\" の UUID が無効です。",
+    "winnerIdRequired": "\"winnerId\" のUUIDが無効です。",
     "challengeNotFound": "チャレンジが見つかりません。",
     "onlyLeaderDeleteChal": "削除できるのは、チャレンジのリーダーだけです。",
     "onlyLeaderUpdateChal": "更新できるのは、チャレンジのリーダーだけです。",
     "winnerNotFound": "「<%= userId %>」の優勝者が見つからないか、チャレンジのメンバーではありません。",
-    "noCompletedTodosChallenge": "「完了した To Do をふくむ」は、チャレンジ タスクには対応していません。",
-    "userTasksNoChallengeId": "「タスクのオーナー」が「ユーザー」「チャレンジＩＤ」の場合は先に進めません。",
+    "noCompletedTodosChallenge": "\"includeComepletedTodos\" はチャレンジ タスクと関連しているものは対応していません。",
+    "userTasksNoChallengeId": "「タスクのオーナー」が「ユーザー」「チャレンジID」の場合は先に進めません。",
     "onlyChalLeaderEditTasks": "チャレンジのタスクは、リーダーだけが編集できます。",
     "userAlreadyInChallenge": "ユーザーはすでにこのチャレンジに参加しています。",
-    "cantOnlyUnlinkChalTask": "チャレンジとの連関が切れたタスクのみ、リンクを解除できます。"
+    "cantOnlyUnlinkChalTask": "チャレンジとの連関が切れたタスクのみ、リンクを解除できます。",
+    "shortNameTooShort": "タグ名は 3 文字以上にしてください。"
 }

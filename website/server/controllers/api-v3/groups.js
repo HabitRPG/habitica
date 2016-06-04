@@ -117,6 +117,7 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
+  runCron: false, // Do not run cron to avoid double cronning because it's called in parallel to GET /user when the site loads
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;

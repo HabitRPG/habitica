@@ -28,7 +28,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
       if (!user.filters[tag.id]) {
         user.filters[tag.id] = true;
       } else {
-        user.filters[tag.id] = !user.filters[tag.id];
+        delete user.filters[tag.id];
       }
 
       // no longer persisting this, it was causing a lot of confusion - users thought they'd permanently lost tasks

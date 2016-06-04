@@ -82,55 +82,6 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
-    $rootScope.$watch('user._tmp.drop', function(after, before){
-      // won't work when getting the same item twice?
-      if (_.isEqual(after, before) || !after) return;
-      var text, notes, type;
-      $rootScope.playSound('Item_Drop');
-
-      // Note: For Mystery Item gear, after.type will be 'head', 'armor', etc
-      // so we use after.notificationType below.
-
-      if (after.type !== 'gear' && after.type !== 'Quest' && after.notificationType !== 'Mystery') {
-        if (after.type === 'Food') {
-          type = 'food';
-        } else if (after.type === 'HatchingPotion') {
-          type = 'hatchingPotions';
-        } else {
-          type = after.type.toLowerCase() + 's';
-        }
-        if(!User.user.items[type][after.key]){
-          User.user.items[type][after.key] = 0;
-        }
-        User.user.items[type][after.key]++;
-      }
-
-      if (after.type === 'HatchingPotion'){
-        text = Content.hatchingPotions[after.key].text();
-        notes = Content.hatchingPotions[after.key].notes();
-        Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}), after);
-      } else if (after.type === 'Egg'){
-        text = Content.eggs[after.key].text();
-        notes = Content.eggs[after.key].notes();
-        Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}), after);
-      } else if (after.type === 'Food'){
-        text = Content.food[after.key].text();
-        notes = Content.food[after.key].notes();
-        Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
-      } else if (after.type === 'Quest') {
-        $rootScope.selectedQuest = Content.quests[after.key];
-        $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
-      } else if (after.notificationType === 'Mystery') {
-        text = Content.gear.flat[after.key].text();
-        Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), after);
-      } else {
-        // Keep support for another type of drops that might be added
-        Notification.drop(User.user._tmp.drop.dialog);
-      }
-
-      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
-    });
-
     $rootScope.$watch('user.achievements.streak', function(after, before){
       if(before == undefined || after <= before) return;
       Notification.streak(User.user.achievements.streak);
@@ -155,8 +106,8 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
     });
 
-    $rootScope.$watch('user.flags.contributor', function(after, before){
-      if (after === before || after !== true) return;
+    $rootScope.$watch('user.contributor.level', function(after, before){
+      if (after === before || after < before || after == null) return;
       $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
     });
 

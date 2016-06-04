@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "השליכו כדור שלג על החבר שלכם, מה כבר יקרה? נמשך עד היום הבא של החבר הפגוע.",
     "spellSpecialSaltText": "מלח",
     "spellSpecialSaltNotes": "מישהו/י זרק/ה עלייך כדור שלג. פפחחחחחח, זה קורע, משהו היסטרי. טוב, נו, בוא נוריד את השלג הזה ממך!",
-    "spellSpecialSpookySparklesText": "Spooky Sparkles",
-    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookySparklesText": "נצנצים מלחיצים",
+    "spellSpecialSpookySparklesNotes": "היפכו חבר לשמיכה מרחפת עם חורים לעיניים!",
     "spellSpecialOpaquePotionText": "שיקוי עכור",
     "spellSpecialOpaquePotionNotes": "מבטלת את השפעת הנצנצים המלחיצים.",
     "spellSpecialShinySeedText": "זרע מנצנץ",
@@ -47,10 +47,10 @@
     "spellSpecialSeafoamNotes": "הפוך חבר ליצור ים!",
     "spellSpecialSandText": "חול",
     "spellSpecialSandNotes": "בטל את ההשפעה של קצף הים.",
-    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellNotFound": "היכולת המיוחדת \"<%= spellId %>\" לא נמצאה.",
+    "partyNotFound": "חבורה לא נמצאה",
+    "targetIdUUID": "\"targetId\" חייב להיות מזהה משתמש תקין.",
+    "challengeTasksNoCast": "לא ניתן להשתמש ביכולות מיוחדות על משימות של אתגרים.",
+    "spellNotOwned": "אין לכם את היכולת הזו.",
+    "spellLevelTooHigh": "עליכם להיות בדרגה <%= level %> כדי להשתמש ביכולת מיוחדת."
 }

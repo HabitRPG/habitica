@@ -126,6 +126,6 @@
     "tagIdRequired": "\"tagId\" doit être un UUID valide correspondant à une étiquette appartenant à l'utilisateur.",
     "positionRequired": "\"position\" est requis et doit être un nombre.",
     "cantMoveCompletedTodo": "Impossible de déplacer une tâche À Faire complétée.",
-    "directionUpDown": "\"direction\" est requis et doit être 'up' ou 'down'",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "La tâche est déjà étiquetée avec l'étiquette utilisée."
 }

@@ -126,6 +126,6 @@
     "tagIdRequired": "\"tagId\" deve essere un UUID valido e deve corrispondere a un'etichetta appartenente all'utente.",
     "positionRequired": "\"position\" è richiesto e deve essere un numero.",
     "cantMoveCompletedTodo": "Non è possibile spostare una To-Do completata.",
-    "directionUpDown": "\"direction\" è richiesto è deve essere 'up' oppure 'down'.",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "L'attività ha già l'etichetta specificata."
 }

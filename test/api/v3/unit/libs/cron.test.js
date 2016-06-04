@@ -80,21 +80,25 @@ describe('cron', () => {
     });
 
     it('decrements plan.consecutive.offset when offset is greater than 0', () => {
-      user.purchased.plan.consecutive.offset = 1;
+      user.purchased.plan.consecutive.offset = 2;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.consecutive.offset).to.equal(0);
+      expect(user.purchased.plan.consecutive.offset).to.equal(1);
     });
 
     it('increments plan.consecutive.trinkets when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
     it('increments plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
     it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
@@ -603,25 +607,25 @@ describe('recoverCron', () => {
     }
   });
 
-  it('increases status.times count and reruns up to 3 times', async (done) => {
+  it('increases status.times count and reruns up to 4 times', async (done) => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
-    execStub.onCall(3).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
+    execStub.onCall(4).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
 
     await recoverCron(status, locals);
 
-    expect(status.times).to.eql(3);
+    expect(status.times).to.eql(4);
     expect(locals.user).to.eql({_cronSignature: 'NOT_RUNNING'});
 
     done();
   });
 
-  it('throws an error if recoverCron runs 4 times', async (done) => {
+  it('throws an error if recoverCron runs 5 times', async (done) => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
 
     try {
       await recoverCron(status, locals);
     } catch (err) {
-      expect(status.times).to.eql(4);
+      expect(status.times).to.eql(5);
       expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
 
       done();

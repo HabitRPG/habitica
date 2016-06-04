@@ -64,6 +64,20 @@ describe('GET challenges/group/:groupId', () => {
         profile: {name: user.profile.name},
       });
     });
+
+    it('should return newest challenges first', async () => {
+      let challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
+
+      let foundChallengeIndex = _.findIndex(challenges, { _id: challenge2._id });
+      expect(foundChallengeIndex).to.eql(0);
+
+      let newChallenge = await generateChallenge(user, publicGuild);
+
+      challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
+
+      foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
+      expect(foundChallengeIndex).to.eql(0);
+    });
   });
 
   context('Private Guild', () => {
@@ -113,6 +127,58 @@ describe('GET challenges/group/:groupId', () => {
         id: privateGuild.leader._id,
         profile: {name: user.profile.name},
       });
+    });
+  });
+
+  context('official challenge is present', () => {
+    let publicGuild, user, officialChallenge, challenge, challenge2;
+
+    before(async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'TestGuild',
+          type: 'guild',
+          privacy: 'public',
+        },
+      });
+
+      user = groupLeader;
+      publicGuild = group;
+
+      await user.update({
+        'contributor.admin': true,
+      });
+
+      officialChallenge = await generateChallenge(user, group, {
+        official: true,
+      });
+
+      challenge = await generateChallenge(user, group);
+      challenge2 = await generateChallenge(user, group);
+    });
+
+    it('should return official challenges first', async () => {
+      let challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
+
+      let foundChallengeIndex = _.findIndex(challenges, { _id: officialChallenge._id });
+      expect(foundChallengeIndex).to.eql(0);
+    });
+
+    it('should return newest challenges first, after official ones', async () => {
+      let challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
+
+      let foundChallengeIndex = _.findIndex(challenges, { _id: challenge._id });
+      expect(foundChallengeIndex).to.eql(2);
+
+      foundChallengeIndex = _.findIndex(challenges, { _id: challenge2._id });
+      expect(foundChallengeIndex).to.eql(1);
+
+      let newChallenge = await generateChallenge(user, publicGuild);
+
+      challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
+
+      foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
+      expect(foundChallengeIndex).to.eql(1);
     });
   });
 });

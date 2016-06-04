@@ -317,8 +317,8 @@
     "questFalconUnlockText": "משחרר ביצי פאלקון לרכישה בשוק",
     "questTreelingText": "עץ ההסתבכות",
     "questTreelingNotes": "זוהי תחרות הגן השנתית, וכולם מדברים על הפרוייקט המסתורי ש @aurakami הבטיח לחשוף. אתם מצטרפים לקהל ביום ההכרזה, ומשתאים למראה עץ מתנועע. @fuzzytrees מסביר כיצד העץ יסייע בתחזוקת הגן, ומראה איך הוא יכול לכסח את הדשא, לקצץ את הגדר ולגזום את הורדים בעת ובעונה אחת - עד שלפתע העץ משתולל, ומפנה את מזמרותיו לעבר היוצר שלו! הקהל נכנס לפאניקה כשכולם בורחים מהמקום, אבל אתם לא מפחדים - מזנקים קדימה, ומכנים אלי קרב.",
-    "questTreelingCompletion": "You dust yourself off as the last few leaves drift to the floor. In spite of the upset, the Garden Competition is now safe – although the tree you just reduced to a heap of wood chips won't be winning any prizes! \"Still a few kinks to work out there,\" @PainterProphet says. \"Perhaps someone else would do a better job of training the saplings. Do you fancy a go?\"",
-    "questTreelingBoss": "Tangle Tree",
-    "questTreelingDropTreelingEgg": "Treeling (Egg)",
-    "questTreelingUnlockText": "Unlocks purchasable Treeling eggs in the Market"
+    "questTreelingCompletion": "אתם מנקים מעליכם את שאריות האבק בעוד העלים האחרונים צונחים אל הרצפה. למרות התרעומת, תחרות הגן בטוחה כעת - אפילו שהעץ שהרגע הפכתם לערמת נסורת לא יזכה בשום פרסים! \"עדיין נשארו מספר עניינים לפתור כאן, @PainterProphet אומר. \"יתכן שמישהו אחר יעשה עבודה טובה יותר באימון השתילים. האם את/ה מעוניין/ת לנסות?",
+    "questTreelingBoss": "סבך עץ",
+    "questTreelingDropTreelingEgg": "עצון (ביצה)",
+    "questTreelingUnlockText": "משחרר ביצי עצון לרכישה בשוק"
 }

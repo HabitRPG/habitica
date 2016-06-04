@@ -110,6 +110,27 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
+// return a clean object for user.quest
+function _cleanQuestProgress (merge) {
+  let clean = {
+    key: null,
+    progress: {
+      up: 0,
+      down: 0,
+      collect: {},
+    },
+    completed: null,
+    RSVPNeeded: false,
+  };
+
+  if (merge) {
+    _.merge(clean, _.omit(merge, 'progress'));
+    if (merge.progress) _.merge(clean.progress, merge.progress);
+  }
+
+  return clean;
+}
+
 schema.statics.getGroup = async function getGroup (options = {}) {
   let {user, groupId, fields, optionalMembership = false, populateLeader = false, requireMembership = false} = options;
   let query;
@@ -279,6 +300,7 @@ export function chatDefaults (msg, user) {
 }
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
+
 schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
   this.chat.splice(200);
@@ -331,10 +353,11 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
+  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+    return !member;
+  }));
+
   // Changes quest.members to only include participating members
-  // TODO: is that important? What does it matter if the non-participating members
-  // are still on the object?
-  // TODO: is it important to run clean quest progress on non-members like we did in v2?
   this.quest.members = _.pick(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
@@ -371,6 +394,16 @@ schema.methods.startQuest = async function startQuest (user) {
     },
   }, { multi: true }).exec();
 
+  // update the users who are not participating
+  // Do not block updates
+  User.update({
+    _id: { $in: nonMembers },
+  }, {
+    $set: {
+      'party.quest': _cleanQuestProgress(),
+    },
+  }, { multi: true }).exec();
+
   // send notifications in the background without blocking
   User.find(
     { _id: { $in: nonUserQuestMembers } },
@@ -389,27 +422,6 @@ schema.methods.startQuest = async function startQuest (user) {
   });
 };
 
-// return a clean object for user.quest
-function _cleanQuestProgress (merge) {
-  let clean = {
-    key: null,
-    progress: {
-      up: 0,
-      down: 0,
-      collect: {},
-    },
-    completed: null,
-    RSVPNeeded: false,
-  };
-
-  if (merge) {
-    _.merge(clean, _.omit(merge, 'progress'));
-    if (merge.progress) _.merge(clean.progress, merge.progress);
-  }
-
-  return clean;
-}
-
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
 
 // returns a clean object for group.quest
@@ -425,9 +437,9 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
-// Participants: Grant rewards & achievements, finish quest
-// Returns the promise from update().exec()
-schema.methods.finishQuest = function finishQuest (quest) {
+// Participants: Grant rewards & achievements, finish quest.
+// Changes the group object update members
+schema.methods.finishQuest = async function finishQuest (quest) {
   let questK = quest.key;
   let updates = {$inc: {}, $set: {}};
 
@@ -471,14 +483,14 @@ schema.methods.finishQuest = function finishQuest (quest) {
   let q = this._id === TAVERN_ID ? {} : {_id: {$in: _.keys(this.quest.members)}};
   this.quest = {};
   this.markModified('quest');
-  return User.update(q, updates, {multi: true}).exec();
+
+  return await User.update(q, updates, {multi: true}).exec();
 };
 
 function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-// Returns a promise
 schema.statics.collectQuest = async function collectQuest (user, progress) {
   let group = await this.getGroup({user, groupId: 'party'});
   if (!_isOnQuest(user, progress, group)) return;
@@ -504,6 +516,7 @@ schema.statics.collectQuest = async function collectQuest (user, progress) {
 
   await group.finishQuest(quest);
   group.sendChat('`All items found! Party has received their rewards.`');
+
   return await group.save();
 };
 

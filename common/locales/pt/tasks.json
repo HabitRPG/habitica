@@ -126,6 +126,6 @@
     "tagIdRequired": "\"tagId\" precisa ser um UUID válido correspondente a uma etiqueta pertencente ao usuário.",
     "positionRequired": "\"position\" é necessária e precisa ser um número.",
     "cantMoveCompletedTodo": "Não é possível mover um afazer concluído.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "A tarefa fá foi etiquetada com essa etiqueta."
 }

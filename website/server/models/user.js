@@ -201,7 +201,6 @@ export let schema = new Schema({
     itemsEnabled: {type: Boolean, default: false},
     newStuff: {type: Boolean, default: false},
     rewrite: {type: Boolean, default: true},
-    contributor: Boolean,
     classSelected: {type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, default: false},
@@ -540,8 +539,8 @@ schema.plugin(baseModel, {
 
 // A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
 export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
-  preferences.costume preferences.sleep preferences.background profile stats achievements party
-  backer contributor auth.timestamps items`;
+  preferences.chair preferences.costume preferences.sleep preferences.background profile stats
+  achievements party backer contributor auth.timestamps items`;
 
 // The minimum amount of data needed when populating multiple users
 export let nameFields = 'profile.name';

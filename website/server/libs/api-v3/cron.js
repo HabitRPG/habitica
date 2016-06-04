@@ -12,6 +12,29 @@ const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
 
+export async function recoverCron (status, locals) {
+  let {user} = locals;
+
+  await Bluebird.delay(300);
+
+  let reloadedUser = await User.findOne({_id: user._id}).exec();
+
+  if (!reloadedUser) {
+    throw new Error(`User ${user._id} not found while recovering.`);
+  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
+    status.times++;
+
+    if (status.times < 5) {
+      await recoverCron(status, locals);
+    } else {
+      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
+    }
+  } else {
+    locals.user = reloadedUser;
+    return null;
+  }
+}
+
 let CLEAR_BUFFS = {
   str: 0,
   int: 0,
@@ -34,9 +57,10 @@ function grantEndOfTheMonthPerks (user, now) {
 
     plan.consecutive.count++;
 
-    if (plan.consecutive.offset > 0) {
+    if (plan.consecutive.offset > 1) {
       plan.consecutive.offset--;
     } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+      if (plan.consecutive.offset === 1) plan.consecutive.offset--;
       plan.consecutive.trinkets++;
       plan.consecutive.gemCapExtra += 5;
       if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
@@ -81,29 +105,6 @@ function performSleepTasks (user, tasksByType, now) {
 
     daily.completed = false;
   });
-}
-
-export async function recoverCron (status, locals) {
-  let {user} = locals;
-
-  await Bluebird.delay(300);
-
-  let reloadedUser = await User.findOne({_id: user._id}).exec();
-
-  if (!reloadedUser) {
-    throw new Error(`User ${user._id} not found while recovering.`);
-  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
-    status.times++;
-
-    if (status.times < 4) {
-      await recoverCron(status, locals);
-    } else {
-      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
-    }
-  } else {
-    locals.user = reloadedUser;
-    return null;
-  }
 }
 
 // Perform various beginning-of-day reset actions.

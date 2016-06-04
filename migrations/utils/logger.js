@@ -1,3 +1,5 @@
+'use strict';
+
 const chalk = require('chalk');
 
 const logger = {
