@@ -80,21 +80,25 @@ describe('cron', () => {
     });
 
     it('decrements plan.consecutive.offset when offset is greater than 0', () => {
-      user.purchased.plan.consecutive.offset = 1;
+      user.purchased.plan.consecutive.offset = 2;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.consecutive.offset).to.equal(0);
+      expect(user.purchased.plan.consecutive.offset).to.equal(1);
     });
 
     it('increments plan.consecutive.trinkets when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
     it('increments plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
     it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {

@@ -57,9 +57,10 @@ function grantEndOfTheMonthPerks (user, now) {
 
     plan.consecutive.count++;
 
-    if (plan.consecutive.offset > 0) {
+    if (plan.consecutive.offset > 1) {
       plan.consecutive.offset--;
     } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+      if (plan.consecutive.offset === 1) plan.consecutive.offset--;
       plan.consecutive.trinkets++;
       plan.consecutive.gemCapExtra += 5;
       if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
