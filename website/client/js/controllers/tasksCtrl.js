@@ -308,16 +308,15 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     }
 
-    $scope.hoverIn = function () {
-      document.addEventListener('keydown', isCtrlPressed);
-      document.addEventListener('keyup', isCtrlLetGo);
-    }
+    document.addEventListener('keydown', isCtrlPressed);
+    document.addEventListener('keyup', isCtrlLetGo);
 
-    $scope.hoverOut = function () {
-      $scope.ctrlPressed = false;
-      document.removeEventListener('keydown', isCtrlPressed);
-      document.removeEventListener('keyup', isCtrlLetGo);
-    }
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
+      if (toState.name.indexOf('tasks') < 0) {
+        document.removeEventListener('keydown', isCtrlPressed);
+        document.removeEventListener('keyup', isCtrlLetGo);
+      }
+    });
 
     /*
     ------------------------
