@@ -379,7 +379,7 @@ describe('Group Model', () => {
         expect(Group.processCollectionQuest).to.not.be.called;
       });
 
-      it('calls processCollectionQuest if quest is a boss quest', async () => {
+      it('calls processCollectionQuest if quest is a collection quest', async () => {
         party.quest.key = 'evilsanta2';
         await party.save();
 
@@ -606,6 +606,27 @@ describe('Group Model', () => {
 
         expect(party.sendChat).to.be.calledOnce;
         expect(party.sendChat).to.be.calledWith('`Participating Member found nothing.`');
+      });
+
+      it('handles collection quests with multiple items', async () => {
+        progress.collect = 10;
+        party.quest.key = 'evilsanta2';
+        party.quest.active = false;
+        quest = questScrolls.evilsanta2;
+
+        await party.save();
+        await party.startQuest(questLeader);
+
+        await Group.processCollectionQuest({
+          user: participatingMember,
+          progress,
+          quest,
+          group: party,
+        });
+
+        expect(party.sendChat).to.be.calledOnce;
+        expect(party.sendChat).to.be.calledWithMatch(/`Participating Member found/);;
+        expect(party.sendChat).to.be.calledWithMatch(/\d* (Tracks|Broken Twigs)/);
       });
 
       it('sends message about victory', async () => {

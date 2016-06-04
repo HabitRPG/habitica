@@ -500,7 +500,8 @@ async function processCollectionQuest (options) {
   let itemsFound = {};
 
   _.times(progress.collect, () => {
-    let item = shared.fns.randomVal(user, quest.collect, {key: true});
+    let item = shared.fns.randomVal(user, quest.collect, {key: true, seed: Math.random()});
+
     if (!itemsFound[item]) {
       itemsFound[item] = 0;
     }
@@ -518,7 +519,7 @@ async function processCollectionQuest (options) {
   group.markModified('quest.progress.collect');
 
   // Still needs completing
-  if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
+  if (_.find(quest.collect, (v, k) => {
     return group.quest.progress.collect[k] < v.count;
   })) return await group.save();
 
