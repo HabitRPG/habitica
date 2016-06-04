@@ -5,7 +5,7 @@
     "annoyingFriends": "困った友達",
     "annoyingFriendsText": "パーティーの仲間から <%= snowballs %> 回、雪玉を投げられました。",
     "alarmingFriends": "要注意の友達",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "パーティーの仲間から<%= spookySparkles %> 回、ドッキリさせられました。",
     "agriculturalFriends": "ぶざまな友達",
     "agriculturalFriendsText": "パーティーの仲間から <%= seeds %> 回、花にされました。",
     "aquaticFriends": "水の中の仲間たち",

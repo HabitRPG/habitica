@@ -1,5 +1,5 @@
 {
-  "habiticaBackSoon": "Não se preocupe. Habitica estará de volta em breve!",
+  "habiticaBackSoon": "Não se preocupe Habitica estará de volta em breve!",
   "importantMaintenance": "Estamos a realizar manutenção importante que estimamos due até <%= localDate %> na sua zona local.",
   "maintenance": "Manutenção",
   "maintenanceMoreInfo": "Deseja mais informação acerca das operações de manutenção? <%= linkStart %>Veja a nossa página de informação<%= linkEnd %>.",

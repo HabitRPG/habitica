@@ -5,7 +5,7 @@
     "annoyingFriends": "Amis Pénibles",
     "annoyingFriendsText": "A été touché·e <%= snowballs %> fois par des boules de neige lancées par un membre de l'équipe.",
     "alarmingFriends": "Amis Inquiétants",
-    "alarmingFriendsText": "A été effrayé·e <%= spookySparkles %> fois par des membres de l'équipe.",
+    "alarmingFriendsText": "A été transformé·e en fantôme <%= spookySparkles %> fois par des membres de l'équipe.",
     "agriculturalFriends": "Amis Agricoles",
     "agriculturalFriendsText": "A été transformé·e en fleur <%= seeds %> fois par un membre de son équipe.",
     "aquaticFriends": "Amis Aquatiques",

@@ -126,6 +126,6 @@
     "tagIdRequired": "\"tagId\" musí mať platné UUID zhodujúce sa so štítkom, ktorý patrí užívateľovi. ",
     "positionRequired": "\"position\" je vyžadovaná a musí to byť číslo.",
     "cantMoveCompletedTodo": "Hotový to-do sa nedá presunúť.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "Úloha už má tento štítok."
 }
