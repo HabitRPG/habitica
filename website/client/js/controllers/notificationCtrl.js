@@ -23,17 +23,6 @@ habitrpg.controller('NotificationCtrl',
       Notification.exp(after - before);
     });
 
-    $rootScope.$watch('user.achievements', function(){
-      $rootScope.playSound('Achievement_Unlocked');
-    }, true);
-
-    $rootScope.$watch('user.achievements.challenges.length', function(after, before) {
-      if (after === before) return;
-      if (after > before) {
-        $rootScope.openModal('wonChallenge', {controller: 'UserCtrl', size: 'sm'});
-      }
-    });
-
     $rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
@@ -82,33 +71,51 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
-    $rootScope.$watch('user.achievements.streak', function(after, before){
-      if(before == undefined || after <= before) return;
-      Notification.streak(User.user.achievements.streak);
-      $rootScope.playSound('Achievement_Unlocked');
-      if (!User.user.preferences.suppressModals.streak) {
-        $rootScope.openModal('achievements/streak', {controller:'UserCtrl'});
-      }
+    // Since we don't use localStorage anymore, notifications for achievements and new contributor levels
+    // are now stored user.notifications.
+    $rootScope.$watchCollection('user.notifications', function (after) {
+      if (!after || after.length === 0) return;
+
+      after.forEach(function (notification) {
+        var markAsRead = true;
+
+        switch (notification.type) {
+          case 'WON_CHALLENGE':
+            $rootScope.openModal('wonChallenge', {controller: 'UserCtrl', size: 'sm'});
+            break;
+          case 'STREAK_ACHIEVEMENT':
+            Notification.streak(User.user.achievements.streak);
+            $rootScope.playSound('Achievement_Unlocked');
+            if (!User.user.preferences.suppressModals.streak) {
+              $rootScope.openModal('achievements/streak', {controller:'UserCtrl'});
+            }
+            break;
+          case 'ULTIMATE_GEAR_ACHIEVEMENT':
+            $rootScope.openModal('achievements/ultimateGear', {controller:'UserCtrl'});
+            break;
+          case 'REBIRTH_ACHIEVEMENT':
+            $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
+            break;
+          case 'NEW_CONTRIBUTOR_LEVEL':
+            $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
+            break;
+          default:
+            markAsRead = false; // If the notification is not implemented, skip it
+            break;
+        }
+
+        if (markAsRead) User.readNotification(notification.id);
+      });
     });
 
-    $rootScope.$watch('user.achievements.ultimateGearSets', function(after, before){
-      if (_.isEqual(after,before) || !_.contains(User.user.achievements.ultimateGearSets, true)) return;
-      $rootScope.openModal('achievements/ultimateGear', {controller:'UserCtrl'});
+    // TODO what about this?
+    $rootScope.$watch('user.achievements', function(){
+      $rootScope.playSound('Achievement_Unlocked');
     }, true);
 
     $rootScope.$watch('user.flags.armoireEmpty', function(after,before){
-      if (before == undefined || after == before || after == false) return;
+      if (after == before || after == false) return;
       $rootScope.openModal('armoireEmpty');
-    });
-
-    $rootScope.$watch('user.achievements.rebirths', function(after, before){
-      if(after === before) return;
-      $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
-    });
-
-    $rootScope.$watch('user.contributor.level', function(after, before){
-      if (after === before || after < before || after == null) return;
-      $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
     });
 
     // Completed quest modal

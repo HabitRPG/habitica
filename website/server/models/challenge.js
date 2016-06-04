@@ -15,7 +15,7 @@ import { sendTxn as txnEmail } from '../libs/api-v3/email';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
 import cwait from 'cwait';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 let schema = new Schema({
   name: {type: String, required: true},

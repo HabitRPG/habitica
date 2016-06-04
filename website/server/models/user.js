@@ -6,6 +6,7 @@ import moment from 'moment';
 import * as Tasks from './task';
 import Bluebird from 'bluebird';
 import { schema as TagSchema } from './tag';
+import { schema as UserNotificationSchema } from './userNotification';
 import baseModel from '../libs/api-v3/baseModel';
 import {
   chatDefaults,
@@ -13,7 +14,7 @@ import {
 } from './group';
 import { defaults } from 'lodash';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // User schema definition
 export let schema = new Schema({
@@ -494,6 +495,7 @@ export let schema = new Schema({
     },
   },
 
+  notifications: [UserNotificationSchema],
   tags: [TagSchema],
 
   inbox: {

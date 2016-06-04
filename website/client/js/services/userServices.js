@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content', 'UserNotifications',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content, UserNotifications) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -104,7 +104,6 @@ angular.module('habitrpg')
         .then(function (response) {
           var tasks = response.data.data;
           syncUserTasks(tasks);
-          save();
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
         });
@@ -163,8 +162,6 @@ angular.module('habitrpg')
             var text = Content.gear.flat[openedItem.key].text();
             Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), openedItem);
           }
-
-          save();
         })
       }
 
@@ -210,7 +207,6 @@ angular.module('habitrpg')
           } else {
             user.ops.addTask(data);
           }
-          save();
           Tasks.createUserTasks(data.body);
         },
 
@@ -221,7 +217,6 @@ angular.module('habitrpg')
             Notification.text(err.message);
             return;
           }
-          save();
 
           Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
@@ -280,37 +275,41 @@ angular.module('habitrpg')
 
         sortTask: function (data) {
           user.ops.sortTask(data);
-          save();
           Tasks.moveTask(data.params.id, data.query.to);
         },
 
         updateTask: function (task, data) {
           $window.habitrpgShared.ops.updateTask(task, data);
-          save();
           Tasks.updateTask(task._id, data.body);
         },
 
         deleteTask: function (data) {
           user.ops.deleteTask(data);
-          save();
           Tasks.deleteTask(data.params.id);
         },
 
         clearCompleted: function () {
           user.ops.clearCompleted(user.todos);
-          save();
           Tasks.clearCompletedTodos();
+        },
+
+        addNotification: function (data) {
+          user.ops.addNotification(data);
+          UserNotifications.addNotification(data.body);
+        },
+
+        readNotification: function (notificationId) {
+          user.ops.readNotification(data);
+          UserNotifications.addNotification(data.params.id);
         },
 
         addTag: function(data) {
           user.ops.addTag(data);
-          save();
           Tags.createTag(data.body);
         },
 
         updateTag: function(data) {
           user.ops.updateTag(data);
-          save();
           Tags.updateTag(data.params.id, data.body);
         },
 
@@ -321,7 +320,6 @@ angular.module('habitrpg')
 
         deleteTag: function(data) {
           user.ops.deleteTag(data);
-          save();
           Tags.deleteTag(data.params.id);
         },
 
@@ -490,7 +488,6 @@ angular.module('habitrpg')
             data: updates,
           })
           .then(function () {
-            save();
             $rootScope.$emit('userSynced');
           })
         },

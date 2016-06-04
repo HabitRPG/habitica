@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 import baseModel from '../libs/api-v3/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
+import common from '../../../common';
 
+const NOTIFICATIONS_TYPES = common.USER_NOTIFICATION_TYPES;
 const Schema = mongoose.Schema;
 
 export let schema = new Schema({
@@ -11,8 +13,10 @@ export let schema = new Schema({
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
   },
-  name: {type: String, required: true},
-  challenge: {type: String},
+  type: {type: String, required: true, enum: NOTIFICATIONS_TYPES},
+  data: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -20,8 +24,8 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'id', 'challenge'],
+  noSet: ['_id', 'id'],
   _id: false, // use id instead of _id
 });
 
-export let model = mongoose.model('Tag', schema);
+export let model = mongoose.model('UserNotification', schema);
