@@ -2,9 +2,15 @@ import mongoose from 'mongoose';
 import baseModel from '../libs/api-v3/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
-import common from '../../../common';
 
-const NOTIFICATIONS_TYPES = common.USER_NOTIFICATION_TYPES;
+const NOTIFICATION_TYPES = [
+  'WON_CHALLENGE',
+  'STREAK_ACHIEVEMENT',
+  'ULTIMATE_GEAR_ACHIEVEMENT',
+  'REBIRTH_ACHIEVEMENT',
+  'NEW_CONTRIBUTOR_LEVEL',
+];
+
 const Schema = mongoose.Schema;
 
 export let schema = new Schema({
@@ -13,7 +19,7 @@ export let schema = new Schema({
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
   },
-  type: {type: String, required: true, enum: NOTIFICATIONS_TYPES},
+  type: {type: String, required: true, enum: NOTIFICATION_TYPES},
   data: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},

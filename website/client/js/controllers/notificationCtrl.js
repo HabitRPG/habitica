@@ -80,6 +80,14 @@ habitrpg.controller('NotificationCtrl',
         var markAsRead = true;
 
         switch (notification.type) {
+          case 'DROPS_ENABLED':
+            var eggs = User.user.items.eggs;
+            if (!eggs['Wolf']) eggs['Wolf'] = 1; // This is also set on the server
+            $rootScope.openModal('dropsEnabled');
+            break;
+          case 'REBIRTH_ENABLED':
+            $rootScope.openModal('rebirthEnabled');
+            break;
           case 'WON_CHALLENGE':
             $rootScope.openModal('wonChallenge', {controller: 'UserCtrl', size: 'sm'});
             break;
@@ -106,6 +114,8 @@ habitrpg.controller('NotificationCtrl',
 
         if (markAsRead) User.readNotification(notification.id);
       });
+
+      User.user.notifications = []; // reset the notifications
     });
 
     // TODO what about this?

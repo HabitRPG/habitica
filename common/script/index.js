@@ -23,13 +23,11 @@ import {
   MAX_LEVEL,
   MAX_STAT_POINTS,
   TAVERN_ID,
-  USER_NOTIFICATION_TYPES,
 } from './constants';
 api.maxLevel = MAX_LEVEL;
 api.maxHealth = MAX_HEALTH;
 api.maxStatPoints = MAX_STAT_POINTS;
 api.TAVERN_ID = TAVERN_ID;
-api.USER_NOTIFICATION_TYPES = USER_NOTIFICATION_TYPES;
 
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
@@ -152,8 +150,6 @@ import reroll from './ops/reroll';
 import addPushDevice from './ops/addPushDevice';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
-import readNotification from './ops/readNotification';
-import addNotification from './ops/addNotification';
 
 api.ops = {
   scoreTask,
@@ -195,8 +191,6 @@ api.ops = {
   addPushDevice,
   reset,
   markPmsRead,
-  readNotification,
-  addNotification,
 };
 
 /*
@@ -299,8 +293,6 @@ api.wrap = function wrapUser (user, main = true) {
       openMysteryItem: _.partial(importedOps.openMysteryItem, user),
       score: _.partial(importedOps.scoreTask, user),
       markPmsRead: _.partial(importedOps.markPmsRead, user),
-      readNotification: _.partial(importedOps.readNotification, user),
-      addNotification: _.partial(importedOps.addNotification, user),
     };
   }
 

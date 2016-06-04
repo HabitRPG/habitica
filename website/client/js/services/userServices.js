@@ -293,14 +293,8 @@ angular.module('habitrpg')
           Tasks.clearCompletedTodos();
         },
 
-        addNotification: function (data) {
-          user.ops.addNotification(data);
-          UserNotifications.addNotification(data.body);
-        },
-
         readNotification: function (notificationId) {
-          user.ops.readNotification(data);
-          UserNotifications.addNotification(data.params.id);
+          UserNotifications.readNotification(notificationId);
         },
 
         addTag: function(data) {

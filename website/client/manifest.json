@@ -55,6 +55,7 @@
             "js/services/questServices.js",
             "js/services/socialServices.js",
             "js/services/statServices.js",
+            "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/hallServices.js",
 

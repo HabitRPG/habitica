@@ -1,37 +1,19 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import common from '../../../../common';
+import _ from 'lodash';
+import {
+  NotFound,
+} from '../../libs/api-v3/errors';
 
 let api = {};
 
 /**
  * @apiIgnore Not yet part of the public API
- * @api {post} /api/v3/notifications Create a new notification
- * @apiVersion 3.0.0
- * @apiName CreateTag
- * @apiGroup Tag
- *
- * @apiSuccess {Object} data The newly created notification
- */
-api.createNotification = {
-  method: 'POST',
-  url: '/notifications',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    let addNotificationRes = common.ops.addNotification(user, req);
-    await user.save();
-
-    res.respond(200, ...addNotificationRes);
-  },
-};
-
-/**
- * @apiIgnore Not yet part of the public API
- * @api {post} /api/v3/notifications/:notificationId/read Read a notification
+ * @api {post} /api/v3/notifications/:notificationId/read Mark one notification as read
  * @apiVersion 3.0.0
  * @apiName ReadNotification
  * @apiGroup Notification
+ *
+ * @apiParam {UUID} notificationId
  *
  * @apiSuccess {Object} data user.notifications
  */
@@ -42,10 +24,23 @@ api.readNotification = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let readNotificationRes = common.ops.readNotification(user, req);
+    req.checkParams('notificationId', res.t('notificationIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let index = _.findIndex(user.notifications, {
+      id: req.params.notificationId,
+    });
+
+    if (index === -1) {
+      throw new NotFound(res.t('messageNotificationNotFound'));
+    }
+
+    user.notifications.splice(index, 1);
     await user.save();
 
-    res.respond(200, ...readNotificationRes);
+    res.respond(200, user.notifications);
   },
 };
 
