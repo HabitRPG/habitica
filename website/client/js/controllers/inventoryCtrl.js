@@ -264,9 +264,17 @@ habitrpg.controller("InventoryCtrl",
       }
     };
 
-    $scope.$on("habit:keydown", function (e, keyEvent) {
-      if (keyEvent.keyCode == "27") {
+    var listenForEscape = function (event) {
+      if (event.keyCode === 27) {
         $scope.deselectItem();
+      }
+    }
+
+    document.addEventListener('keydown', listenForEscape);
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
+      if (toState.name.indexOf('options.inventory') < 0) {
+        document.removeEventListener('keydown', listenForEscape);
       }
     });
 
