@@ -489,54 +489,14 @@ function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-async function processCollectionQuest (options) {
+schema.methods._processBossQuest = async function processBossQuest (options) {
   let {
     user,
     progress,
-    quest,
-    group,
   } = options;
 
-  let itemsFound = {};
-
-  _.times(progress.collect, () => {
-    let item = shared.fns.randomVal(user, quest.collect, {key: true, seed: Math.random()});
-
-    if (!itemsFound[item]) {
-      itemsFound[item] = 0;
-    }
-    itemsFound[item]++;
-    group.quest.progress.collect[item]++;
-  });
-
-  let foundText = _.reduce(itemsFound, (m, v, k) => {
-    m.push(`${v} ${quest.collect[k].text('en')}`);
-    return m;
-  }, []);
-
-  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
-  group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
-  group.markModified('quest.progress.collect');
-
-  // Still needs completing
-  if (_.find(quest.collect, (v, k) => {
-    return group.quest.progress.collect[k] < v.count;
-  })) return await group.save();
-
-  await group.finishQuest(quest);
-  group.sendChat('`All items found! Party has received their rewards.`');
-
-  return await group.save();
-}
-
-async function processBossQuest (options) {
-  let {
-    user,
-    progress,
-    quest,
-    group,
-  } = options;
-
+  let group = this;
+  let quest = questScrolls[group.quest.key];
   let down = progress.down * quest.boss.str; // multiply by boss strength
 
   group.quest.progress.hp -= progress.up;
@@ -580,10 +540,47 @@ async function processBossQuest (options) {
   }
 
   return await group.save();
-}
+};
 
-schema.statics.processBossQuest = processBossQuest;
-schema.statics.processCollectionQuest = processCollectionQuest;
+schema.methods._processCollectionQuest = async function processCollectionQuest (options) {
+  let {
+    user,
+    progress,
+  } = options;
+
+  let group = this;
+  let quest = questScrolls[group.quest.key];
+  let itemsFound = {};
+
+  _.times(progress.collect, () => {
+    let item = shared.fns.randomVal(user, quest.collect, {key: true, seed: Math.random()});
+
+    if (!itemsFound[item]) {
+      itemsFound[item] = 0;
+    }
+    itemsFound[item]++;
+    group.quest.progress.collect[item]++;
+  });
+
+  let foundText = _.reduce(itemsFound, (m, v, k) => {
+    m.push(`${v} ${quest.collect[k].text('en')}`);
+    return m;
+  }, []);
+
+  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
+  group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
+  group.markModified('quest.progress.collect');
+
+  // Still needs completing
+  if (_.find(quest.collect, (v, k) => {
+    return group.quest.progress.collect[k] < v.count;
+  })) return await group.save();
+
+  await group.finishQuest(quest);
+  group.sendChat('`All items found! Party has received their rewards.`');
+
+  return await group.save();
+};
 
 schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
   let group = await this.getGroup({user, groupId: 'party'});
@@ -607,10 +604,9 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 
   let questType = quest.boss ? 'Boss' : 'Collection';
 
-  await this[`process${questType}Quest`]({
+  await group[`_process${questType}Quest`]({
     user,
     progress,
-    quest,
     group,
   });
 };
