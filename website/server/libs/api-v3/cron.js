@@ -277,7 +277,10 @@ export function cron (options = {}) {
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
   let _progress = _.cloneDeep(progress);
-  _.merge(progress, {down: 0, up: 0, collect: 0});
+  _.merge(progress, {down: 0, up: 0, collectedItems: 0});
+  // change format of collection quest items (different in user object vs group object)
+  _progress.collect = _progress.collectedItems;
+  delete _progress.collectedItems;
 
   // TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
   // let numberOfPMs = Object.keys(user.inbox.messages).length;
