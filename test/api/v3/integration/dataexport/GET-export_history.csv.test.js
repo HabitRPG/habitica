@@ -17,16 +17,19 @@ describe('GET /export/history.csv', () => {
     ]);
 
     // score all the tasks twice
-    await Promise.all(tasks.map(task => {
-      return user.post(`/tasks/${task._id}/score/up`);
-    }));
-    await Promise.all(tasks.map(task => {
-      return user.post(`/tasks/${task._id}/score/up`);
-    }));
+    await user.post(`/tasks/${tasks[0]._id}/score/up`);
+    await user.post(`/tasks/${tasks[1]._id}/score/up`);
+    await user.post(`/tasks/${tasks[2]._id}/score/up`);
+    await user.post(`/tasks/${tasks[3]._id}/score/up`);
+
+    await user.post(`/tasks/${tasks[0]._id}/score/up`);
+    await user.post(`/tasks/${tasks[1]._id}/score/up`);
+    await user.post(`/tasks/${tasks[2]._id}/score/up`);
+    await user.post(`/tasks/${tasks[3]._id}/score/up`);
 
     // adding an history entry to daily 1 manually because cron didn't run yet
     await updateDocument('tasks', tasks[1], {
-      history: {value: 3.2, date: Number(new Date())},
+      history: [{value: 3.2, date: Number(new Date())}],
     });
 
     // get updated tasks

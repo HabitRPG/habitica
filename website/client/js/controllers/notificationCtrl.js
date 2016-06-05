@@ -71,9 +71,7 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
-    // Since we don't use localStorage anymore, notifications for achievements and new contributor levels
-    // are now stored user.notifications.
-    $rootScope.$watchCollection('user.notifications', function (after) {
+    function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
       after.forEach(function (notification) {
@@ -81,8 +79,6 @@ habitrpg.controller('NotificationCtrl',
 
         switch (notification.type) {
           case 'DROPS_ENABLED':
-            var eggs = User.user.items.eggs;
-            if (!eggs['Wolf']) eggs['Wolf'] = 1; // This is also set on the server
             $rootScope.openModal('dropsEnabled');
             break;
           case 'REBIRTH_ENABLED':
@@ -116,7 +112,19 @@ habitrpg.controller('NotificationCtrl',
       });
 
       User.user.notifications = []; // reset the notifications
+    }
+
+    // Since we don't use localStorage anymore, notifications for achievements and new contributor levels
+    // are now stored user.notifications.
+    $rootScope.$watchCollection('userNotifications', function (after) {
+      if (!User.user._wrapped) return;
+      handleUserNotifications(after);
     });
+
+    var handleUserNotificationsOnFirstSync = _.once(function () {
+      handleUserNotifications($rootScope.userNotifications);
+    });
+    $rootScope.$on('userUpdated', handleUserNotificationsOnFirstSync);
 
     // TODO what about this?
     $rootScope.$watch('user.achievements', function(){

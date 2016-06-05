@@ -40,7 +40,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.Groups = Groups;
     $rootScope.toJson = angular.toJson;
     $rootScope.Payments = Payments;
-
+    $rootScope.userNotifications = [];
+    
     // Angular UI Router
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;

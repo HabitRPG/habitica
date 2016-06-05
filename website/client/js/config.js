@@ -25,6 +25,12 @@ angular.module('habitrpg')
       }
     }
 
+    function verifyNewNotifications (response) {
+      if (response && response.data && response.data.notifications && response.data.notifications.length > 0) {
+        $rootScope.userNotifications = response.data.notifications;
+      }
+    }
+
     return {
       request: function (config) {
         var url = config.url;
@@ -43,6 +49,7 @@ angular.module('habitrpg')
       },
       response: function(response) {
         verifyUserUpdated(response);
+        verifyNewNotifications(response);
         return response;
       },
       responseError: function(response) {

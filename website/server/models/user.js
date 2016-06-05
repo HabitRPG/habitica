@@ -6,7 +6,9 @@ import moment from 'moment';
 import * as Tasks from './task';
 import Bluebird from 'bluebird';
 import { schema as TagSchema } from './tag';
-import { schema as UserNotificationSchema } from './userNotification';
+import {
+  schema as UserNotificationSchema,
+} from './userNotification';
 import baseModel from '../libs/api-v3/baseModel';
 import {
   chatDefaults,
@@ -723,6 +725,12 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
 
   let promises = [userToReceiveMessage.save(), sender.save()];
   await Bluebird.all(promises);
+};
+
+schema.methods.addNotification = function addUserNotification (type) {
+  this.notifications.push({
+    type,
+  });
 };
 
 // Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)

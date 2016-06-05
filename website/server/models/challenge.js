@@ -286,7 +286,11 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   if (winner) {
     winner.achievements.challenges.push(challenge.name);
     winner.balance += challenge.prize / 4;
+
+    winner.addNotification('WON_CHALLENGE');
+
     let savedWinner = await winner.save();
+
     if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
       txnEmail(savedWinner, 'won-challenge', [
         {name: 'CHALLENGE_NAME', content: challenge.name},
