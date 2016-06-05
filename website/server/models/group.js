@@ -552,6 +552,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   let quest = questScrolls[group.quest.key];
   let itemsFound = {};
 
+  if (!quest.collectedItems) quest.collectedItems = 0;
   _.times(progress.collectedItems, () => {
     let item = shared.fns.randomVal(user, quest.collectedItems, {key: true, seed: Math.random()});
 
