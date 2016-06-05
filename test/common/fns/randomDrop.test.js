@@ -22,15 +22,15 @@ describe('common.fns.randomDrop', () => {
   });
 
   it('drops an item for the user.party.quest.progress', () => {
-    expect(user.party.quest.progress.collect).to.eql(0);
+    expect(user.party.quest.progress.collectedItems).to.eql(0);
     user.party.quest.key = 'vice2';
     predictableRandom = () => {
       return 0.0001;
     };
     randomDrop(user, { task, predictableRandom });
-    expect(user.party.quest.progress.collect).to.eql(1);
+    expect(user.party.quest.progress.collectedItems).to.eql(1);
     randomDrop(user, { task, predictableRandom });
-    expect(user.party.quest.progress.collect).to.eql(2);
+    expect(user.party.quest.progress.collectedItems).to.eql(2);
   });
 
   context('drops enabled', () => {

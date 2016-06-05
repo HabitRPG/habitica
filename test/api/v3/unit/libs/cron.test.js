@@ -508,7 +508,7 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.party.quest.progress.up).to.equal(0);
       expect(user.party.quest.progress.down).to.equal(0);
-      expect(user.party.quest.progress.collect).to.be.empty;
+      expect(user.party.quest.progress.collectedItems).to.be.empty;
     });
 
     it('applies the user progress', () => {

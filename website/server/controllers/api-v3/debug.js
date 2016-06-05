@@ -171,7 +171,7 @@ api.questProgress = {
     }
 
     if (quest.collect) {
-      user.party.quest.progress.collect += 300;
+      user.party.quest.progress.collectedItems += 300;
     }
 
     user.markModified('party.quest.progress');
