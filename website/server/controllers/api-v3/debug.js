@@ -171,11 +171,7 @@ api.questProgress = {
     }
 
     if (quest.collect) {
-      let collect = user.party.quest.progress.collect;
-      _.each(quest.collect, (details, item) => {
-        collect[item] = collect[item] || 0;
-        collect[item] += 300;
-      });
+      user.party.quest.progress.collect += 300;
     }
 
     user.markModified('party.quest.progress');

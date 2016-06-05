@@ -380,7 +380,7 @@ describe('Groups Controller', function() {
         expect(user.party.quest.progress).to.eql({
           up: 0,
           down: 0,
-          collect: {}
+          collect: 0,
         });
       });
 
