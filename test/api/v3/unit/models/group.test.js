@@ -58,7 +58,7 @@ describe('Group Model', () => {
         progress = {
           up: 5,
           down: -5,
-          collectedItems: 5,
+          collect: 5,
         };
 
         party.quest.members = {
