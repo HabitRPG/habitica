@@ -736,7 +736,7 @@ api.addTagToTask = {
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag from atask
+ * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag from a task
  * @apiVersion 3.0.0
  * @apiName RemoveTagFromTask
  * @apiGroup Task
