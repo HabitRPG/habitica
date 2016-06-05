@@ -116,7 +116,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
       progress: {
         up: 0,
         down: 0,
-        collect: 0,
+        collectedItems: 0,
       },
       completed: null,
       RSVPNeeded: false,
