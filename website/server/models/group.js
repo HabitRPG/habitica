@@ -117,6 +117,9 @@ function _cleanQuestProgress (merge) {
     progress: {
       up: 0,
       down: 0,
+      collect: {type: Schema.Types.Mixed, default: () => {
+        return {};
+      }},
       collectedItems: 0,
     },
     completed: null,
