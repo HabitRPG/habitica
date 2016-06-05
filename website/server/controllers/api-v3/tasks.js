@@ -392,17 +392,6 @@ api.scoreTask = {
 
     let wasCompleted = task.completed;
 
-    // TEMPORARY, remove once collection migration completes
-    if (typeof user.party.quest.progress.collect === 'object') {
-      let totalItemsFound = _.reduce(user.party.quest.progress.collect, (total, amount) => {
-        return total + amount;
-      }, 0);
-
-      user.party.quest.progress.collect = totalItemsFound;
-    } else if (!user.party.quest.progress.collect) {
-      user.party.quest.progress.collect = 0;
-    }
-
     let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);

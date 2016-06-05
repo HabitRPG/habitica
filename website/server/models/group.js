@@ -587,17 +587,6 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 
   if (!_isOnQuest(user, progress, group)) return;
 
-  // TEMPORARY, remove once collection migration completes
-  if (typeof progress.collect === 'object') {
-    let totalItemsFound = _.reduce(progress.collect, (total, amount) => {
-      return total + amount;
-    }, 0);
-
-    progress.collect = totalItemsFound;
-  } else if (!progress.collect) {
-    progress.collect = 0;
-  }
-
   let quest = shared.content.quests[group.quest.key];
 
   if (!quest) return; // TODO should this throw an error instead?
