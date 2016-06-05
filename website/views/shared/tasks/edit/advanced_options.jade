@@ -56,23 +56,9 @@ div(ng-if='::task.type!="reward"')
     div(ng-if='::(user.preferences.allocationMode == "taskbased" && user.preferences.automaticAllocation) || $state.is("options.social.challenges")')
       legend.option-title.pull-left=env.t('attributes')
       ul.task-attributes
-        li
-          button(type='button', ng-class='{active: task.attribute=="str"}',
-            ng-click='task.attribute="str"',
-            popover=env.t('strengthExample'), popover-trigger='mouseenter', popover-placement='top')
-            =env.t('strength')
-        li
-          button(type='button', ng-class='{active: task.attribute=="int"}',
-            ng-click='task.attribute="int"',
-            popover=env.t('intelligenceExample'), popover-trigger='mouseenter', popover-placement='top')
-            =env.t('intelligence')
-        li
-          button(type='button', ng-class='{active: task.attribute=="con"}',
-            ng-click='task.attribute="con"',
-            popover=env.t('constitutionExample'), popover-trigger='mouseenter', popover-placement='top')
-            =env.t('constitution')
-        li
-          button(type='button', ng-class='{active: task.attribute=="per"}',
-            ng-click='task.attribute="per"',
-            popover=env.t('perceptionExamples'), popover-trigger='mouseenter', popover-placement='top')
-            =env.t('perception')
+        each attribute, short in {str: 'strength', int: 'intelligence', con: 'constitution', per: 'perception'}
+          li
+            button(type='button', ng-class='{active: task.attribute=="#{short}"}',
+              ng-click='task.attribute="#{short}"',
+              popover=env.t('#{attribute}Example'), popover-trigger='mouseenter', popover-placement='top')
+              =env.t(attribute)
