@@ -11,6 +11,7 @@ const NOTIFICATION_TYPES = [
   'ULTIMATE_GEAR_ACHIEVEMENT',
   'REBIRTH_ACHIEVEMENT',
   'NEW_CONTRIBUTOR_LEVEL',
+  'CRON',
 ];
 
 const Schema = mongoose.Schema;
@@ -22,6 +23,9 @@ export let schema = new Schema({
     validate: [validator.isUUID, 'Invalid uuid.'],
   },
   type: {type: String, required: true, enum: NOTIFICATION_TYPES},
+  data: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

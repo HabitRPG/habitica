@@ -25,7 +25,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         }
       });
 
-    $rootScope.appLoaded = false;
+    $rootScope.appLoaded = false; // also used to indicate when the user is fully loaded
     $rootScope.TAVERN_ID = TAVERN_ID;
     $rootScope.User = User;
     $rootScope.user = user;

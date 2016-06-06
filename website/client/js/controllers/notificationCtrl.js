@@ -74,7 +74,9 @@ habitrpg.controller('NotificationCtrl',
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
+      console.log(after.length)
       after.forEach(function (notification) {
+        console.log(notification);
         var markAsRead = true;
 
         switch (notification.type) {
@@ -102,6 +104,12 @@ habitrpg.controller('NotificationCtrl',
             break;
           case 'NEW_CONTRIBUTOR_LEVEL':
             $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
+            break;
+          case 'CRON':
+            if (notification.data) {
+              if (notification.data.hp) Notification.hp(notification.data.hp, 'hp');
+              if (notification.data.mp) Notification.mp(notification.data.mp);
+            }
             break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it

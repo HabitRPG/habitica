@@ -37,9 +37,10 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
   await Bluebird.all(promises);
 };
 
-schema.methods.addNotification = function addUserNotification (type) {
+schema.methods.addNotification = function addUserNotification (type, data = {}) {
   this.notifications.push({
     type,
+    data,
   });
 };
 
