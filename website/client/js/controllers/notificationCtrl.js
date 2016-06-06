@@ -74,9 +74,7 @@ habitrpg.controller('NotificationCtrl',
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
-      console.log(after.length)
       after.forEach(function (notification) {
-        console.log(notification);
         var markAsRead = true;
 
         switch (notification.type) {
