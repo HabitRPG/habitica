@@ -111,6 +111,7 @@ angular.module('habitrpg')
 
       var save = function () {
         localStorage.setItem(STORAGE_SETTINGS_ID, JSON.stringify(settings));
+        localStorage.removeItem(STORAGE_USER_ID); // TODO remember to remove once it's been live for a few days
       };
 
       function callOpsFunctionAndRequest (opName, endPoint, method, paramString, opData) {
