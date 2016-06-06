@@ -309,7 +309,7 @@ describe('Group Model', () => {
         });
 
         it('sends a chat message if no progress is made', async () => {
-          progress.collectedItems = 0;
+          progress.collect = 0; // TODO should this be collectedItems? What is this testing?
 
           await Group.processQuestProgress(participatingMember, progress);
 
@@ -320,7 +320,7 @@ describe('Group Model', () => {
         });
 
         it('handles collection quests with multiple items', async () => {
-          progress.collectedItems = 10;
+          progress.collectedItems = 10; // TODO why does this work when progress.collectedItems doesn't work for the other TODO comments?
           party.quest.key = 'evilsanta2';
           party.quest.active = false;
 
@@ -337,7 +337,7 @@ describe('Group Model', () => {
         });
 
         it('sends message about victory', async () => {
-          progress.collectedItems = 500;
+          progress.collect = 500; // TODO should this be collectedItems? What is this testing?
 
           await Group.processQuestProgress(participatingMember, progress);
 
@@ -351,7 +351,7 @@ describe('Group Model', () => {
           let quest = questScrolls[party.quest.key];
           let finishQuest = sandbox.spy(Group.prototype, 'finishQuest');
 
-          progress.collectedItems = 999;
+          progress.collect = 999; // TODO should this be collectedItems? What is this testing?
 
           await Group.processQuestProgress(participatingMember, progress);
 
