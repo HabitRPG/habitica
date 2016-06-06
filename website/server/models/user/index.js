@@ -27,4 +27,4 @@ mongoose.model('User')
   .then((foundMods) => {
     // Using push to maintain the reference to mods
     mods.push(...foundMods);
-  }); // In case of failure we don't want this to crash the whole server
+  });
