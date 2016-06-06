@@ -58,7 +58,7 @@ describe('Group Model', () => {
         progress = {
           up: 5,
           down: -5,
-          collect: 5,
+          collectedItems: 5,
         };
 
         party.quest.members = {
@@ -309,7 +309,7 @@ describe('Group Model', () => {
         });
 
         it('sends a chat message if no progress is made', async () => {
-          progress.collect = 0;
+          progress.collectedItems = 0;
 
           await Group.processQuestProgress(participatingMember, progress);
 
@@ -320,7 +320,7 @@ describe('Group Model', () => {
         });
 
         it('handles collection quests with multiple items', async () => {
-          progress.collect = 10;
+          progress.collectedItems = 10;
           party.quest.key = 'evilsanta2';
           party.quest.active = false;
 
@@ -337,7 +337,7 @@ describe('Group Model', () => {
         });
 
         it('sends message about victory', async () => {
-          progress.collect = 500;
+          progress.collectedItems = 500;
 
           await Group.processQuestProgress(participatingMember, progress);
 
@@ -351,7 +351,7 @@ describe('Group Model', () => {
           let quest = questScrolls[party.quest.key];
           let finishQuest = sandbox.spy(Group.prototype, 'finishQuest');
 
-          progress.collect = 999;
+          progress.collectedItems = 999; // TODO should this be collectedItems? What is this testing?
 
           await Group.processQuestProgress(participatingMember, progress);
 
@@ -458,7 +458,7 @@ describe('Group Model', () => {
 
           expect(participatingMember.party.quest.key).to.eql('whale');
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collect).to.eql(0);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(0);
           expect(participatingMember.party.quest.completed).to.eql(null);
         });
 
@@ -470,12 +470,12 @@ describe('Group Model', () => {
 
           expect(participatingMember.party.quest.key).to.eql('whale');
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collect).to.eql(0);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(0);
           expect(participatingMember.party.quest.completed).to.eql(null);
 
           expect(questLeader.party.quest.key).to.eql('whale');
           expect(questLeader.party.quest.progress.down).to.eql(0);
-          expect(questLeader.party.quest.progress.collect).to.eql(0);
+          expect(questLeader.party.quest.progress.collectedItems).to.eql(0);
           expect(questLeader.party.quest.completed).to.eql(null);
         });
 
@@ -595,7 +595,7 @@ describe('Group Model', () => {
 
           expect(userQuest.key).to.eql('whale');
           expect(userQuest.progress.down).to.eql(0);
-          expect(userQuest.progress.collect).to.eql(0);
+          expect(userQuest.progress.collectedItems).to.eql(0);
           expect(userQuest.completed).to.eql(null);
         });
 

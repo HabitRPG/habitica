@@ -167,11 +167,13 @@ api.questProgress = {
     }
 
     if (quest.boss) {
+      if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += 1000;
     }
 
     if (quest.collect) {
-      user.party.quest.progress.collect += 300;
+      if (!user.party.quest.progress.collectedItems) user.party.quest.progress.collectedItems = 0;
+      user.party.quest.progress.collectedItems += 300;
     }
 
     user.markModified('party.quest.progress');

@@ -102,7 +102,8 @@ describe('POST /groups/:groupId/quests/abort', () => {
       progress: {
         up: 0,
         down: 0,
-        collect: 0,
+        collect: {},
+        collectedItems: 0,
       },
       completed: null,
       RSVPNeeded: false,
