@@ -74,10 +74,10 @@
     "onlyLeaderDeleteChal": "仅有挑战发起者能删除它。",
     "onlyLeaderUpdateChal": "仅有挑战发起者能更新它。",
     "winnerNotFound": "获胜者ID \"<%= userId %>\"找不到或者不是挑战的一部分。",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching challenge tasks.",
+    "noCompletedTodosChallenge": "当抓取挑战任务时“包含完成的任务”不支持。",
     "userTasksNoChallengeId": "当\"tasksOwner\"是\"user\" \"challengeId\"，则不会通过。",
     "onlyChalLeaderEditTasks": "属于一个挑战的任务仅能被发起者编辑。",
     "userAlreadyInChallenge": "用户已经加入此挑战。",
     "cantOnlyUnlinkChalTask": "仅有破碎的挑战任务能被拆开。",
-    "shortNameTooShort": "Tag Name must have at least 3 characters."
+    "shortNameTooShort": "标签名至少需要3个字符。"
 }

@@ -7,11 +7,11 @@ script(type='text/ng-template', id='modals/levelUp.html')
       h3(style='margin-bottom: 0')=env.t('gainedLevel')
       .container-fluid
         .row
-          .herobox(style='margin:auto 8.3em; width: 6em; height: 9em; padding-top: 0')
+          .herobox(style='margin:auto 8.3em; width: 6em; height: 9em; padding-top: 0; cursor:default')
             .character-sprites(style='margin: 0; width: 0')
               +generatedAvatar
         .row
-          .herobox(style='margin:auto 8.9em; width: 6em; height: 0; padding-top: 0')
+          .herobox(style='margin:auto 8.9em; width: 6em; height: 0; padding-top: 0; cursor:default')
             .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'
       h4(style='margin-top: 1em')!=env.t('leveledUp', {level:'{{user.stats.lvl}}'})
       p=env.t('fullyHealed')

@@ -44,7 +44,7 @@ spells.wizard = {
       let bonus = user._statsComputed.int * user.fns.crit('per');
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
-      if (!user.party.quest.progress) user.party.quest.progress = 0;
+      if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 0.1);
       user.fns.updateStats(user.stats, req);
     },
@@ -100,7 +100,7 @@ spells.warrior = {
     cast (user, target) {
       let bonus = user._statsComputed.str * user.fns.crit('con');
       target.value += diminishingReturns(bonus, 2.5, 35);
-      if (!user.party.quest.progress.up) user.party.quest.progress.base = 0;
+      if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
     },
   },

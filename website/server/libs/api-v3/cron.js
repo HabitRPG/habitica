@@ -57,9 +57,10 @@ function grantEndOfTheMonthPerks (user, now) {
 
     plan.consecutive.count++;
 
-    if (plan.consecutive.offset > 0) {
+    if (plan.consecutive.offset > 1) {
       plan.consecutive.offset--;
     } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+      if (plan.consecutive.offset === 1) plan.consecutive.offset--;
       plan.consecutive.trinkets++;
       plan.consecutive.gemCapExtra += 5;
       if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
@@ -276,8 +277,7 @@ export function cron (options = {}) {
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
   let _progress = _.cloneDeep(progress);
-  _.merge(progress, {down: 0, up: 0});
-  progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
+  _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
   // let numberOfPMs = Object.keys(user.inbox.messages).length;

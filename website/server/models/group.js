@@ -110,6 +110,28 @@ schema.post('remove', function postRemoveGroup (group) {
   firebase.deleteGroup(group._id);
 });
 
+// return a clean object for user.quest
+function _cleanQuestProgress (merge) {
+  let clean = {
+    key: null,
+    progress: {
+      up: 0,
+      down: 0,
+      collect: {},
+      collectedItems: 0,
+    },
+    completed: null,
+    RSVPNeeded: false,
+  };
+
+  if (merge) {
+    _.merge(clean, _.omit(merge, 'progress'));
+    if (merge.progress) _.merge(clean.progress, merge.progress);
+  }
+
+  return clean;
+}
+
 schema.statics.getGroup = async function getGroup (options = {}) {
   let {user, groupId, fields, optionalMembership = false, populateLeader = false, requireMembership = false} = options;
   let query;
@@ -332,10 +354,11 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
+  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+    return !member;
+  }));
+
   // Changes quest.members to only include participating members
-  // TODO: is that important? What does it matter if the non-participating members
-  // are still on the object?
-  // TODO: is it important to run clean quest progress on non-members like we did in v2?
   this.quest.members = _.pick(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
@@ -343,7 +366,6 @@ schema.methods.startQuest = async function startQuest (user) {
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
     user.party.quest.progress.down = 0;
-    user.party.quest.progress.collect = collected;
     user.party.quest.completed = null;
     user.markModified('party.quest');
   }
@@ -367,8 +389,17 @@ schema.methods.startQuest = async function startQuest (user) {
     $set: {
       'party.quest.key': this.quest.key,
       'party.quest.progress.down': 0,
-      'party.quest.progress.collect': collected,
       'party.quest.completed': null,
+    },
+  }, { multi: true }).exec();
+
+  // update the users who are not participating
+  // Do not block updates
+  User.update({
+    _id: { $in: nonMembers },
+  }, {
+    $set: {
+      'party.quest': _cleanQuestProgress(),
     },
   }, { multi: true }).exec();
 
@@ -389,27 +420,6 @@ schema.methods.startQuest = async function startQuest (user) {
     ]);
   });
 };
-
-// return a clean object for user.quest
-function _cleanQuestProgress (merge) {
-  let clean = {
-    key: null,
-    progress: {
-      up: 0,
-      down: 0,
-      collect: {},
-    },
-    completed: null,
-    RSVPNeeded: false,
-  };
-
-  if (merge) {
-    _.merge(clean, _.omit(merge, 'progress'));
-    if (merge.progress) _.merge(clean.progress, merge.progress);
-  }
-
-  return clean;
-}
 
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
 
@@ -480,42 +490,14 @@ function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
-schema.statics.collectQuest = async function collectQuest (user, progress) {
-  let group = await this.getGroup({user, groupId: 'party'});
-  if (!_isOnQuest(user, progress, group)) return;
-  let quest = shared.content.quests[group.quest.key];
+schema.methods._processBossQuest = async function processBossQuest (options) {
+  let {
+    user,
+    progress,
+  } = options;
 
-  _.each(progress.collect, (v, k) => {
-    group.quest.progress.collect[k] += v;
-  });
-
-  let foundText = _.reduce(progress.collect, (m, v, k) => {
-    m.push(`${v} ${quest.collect[k].text('en')}`);
-    return m;
-  }, []);
-
-  foundText = foundText ? foundText.join(', ') : 'nothing';
-  group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
-  group.markModified('quest.progress.collect');
-
-  // Still needs completing
-  if (_.find(shared.content.quests[group.quest.key].collect, (v, k) => {
-    return group.quest.progress.collect[k] < v.count;
-  })) return await group.save();
-
-  await group.finishQuest(quest);
-  group.sendChat('`All items found! Party has received their rewards.`');
-
-  return await group.save();
-};
-
-schema.statics.bossQuest = async function bossQuest (user, progress) {
-  let group = await this.getGroup({user, groupId: 'party'});
-  if (!_isOnQuest(user, progress, group)) return;
-
-  let quest = shared.content.quests[group.quest.key];
-  if (!progress || !quest) return; // TODO why is this ever happening, progress should be defined at this point, log?
-
+  let group = this;
+  let quest = questScrolls[group.quest.key];
   let down = progress.down * quest.boss.str; // multiply by boss strength
 
   group.quest.progress.hp -= progress.up;
@@ -559,6 +541,64 @@ schema.statics.bossQuest = async function bossQuest (user, progress) {
   }
 
   return await group.save();
+};
+
+schema.methods._processCollectionQuest = async function processCollectionQuest (options) {
+  let {
+    user,
+    progress,
+  } = options;
+
+  let group = this;
+  let quest = questScrolls[group.quest.key];
+  let itemsFound = {};
+
+  _.times(progress.collectedItems, () => {
+    let item = shared.fns.randomVal(user, quest.collect, {key: true, seed: Math.random()});
+
+    if (!itemsFound[item]) {
+      itemsFound[item] = 0;
+    }
+    itemsFound[item]++;
+    group.quest.progress.collect[item]++;
+  });
+
+  let foundText = _.reduce(itemsFound, (m, v, k) => {
+    m.push(`${v} ${quest.collect[k].text('en')}`);
+    return m;
+  }, []);
+
+  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
+  group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
+  group.markModified('quest.progress.collect');
+
+  // Still needs completing
+  if (_.find(quest.collect, (v, k) => {
+    return group.quest.progress.collect[k] < v.count;
+  })) return await group.save();
+
+  await group.finishQuest(quest);
+  group.sendChat('`All items found! Party has received their rewards.`');
+
+  return await group.save();
+};
+
+schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
+  let group = await this.getGroup({user, groupId: 'party'});
+
+  if (!_isOnQuest(user, progress, group)) return;
+
+  let quest = shared.content.quests[group.quest.key];
+
+  if (!quest) return; // TODO should this throw an error instead?
+
+  let questType = quest.boss ? 'Boss' : 'Collection';
+
+  await group[`_process${questType}Quest`]({
+    user,
+    progress,
+    group,
+  });
 };
 
 // to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`

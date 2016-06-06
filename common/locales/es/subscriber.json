@@ -4,7 +4,7 @@
     "subDescription": "Comprar Joyas con Oro",
     "buyGemsGold": "Comprar Gemas con oro",
     "buyGemsGoldText": "Alejandro el Mercader le venderá Joyas por <%= gemCost %> por joya. Sus envíos mensuales tienen un límite de <%= gemLimit %> Joyas por mes. Sin embargo, este límite aumenta cada mes en 5 Joyas por cada tres meses de suscripción consecutiva, ¡hasta un máximo de 50 Joyas al mes!",
-    "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
+    "mustSubscribeToPurchaseGems": "Debes estar suscrito para conseguir gemas con oro.",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month.",
     "retainHistory": "Retener entradas adicionales al historial",
     "retainHistoryText": "Hace que las tareas completadas y el historial de tareas estén disponibles durante más tiempo.",

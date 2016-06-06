@@ -110,7 +110,7 @@
     "mage": "Mag",
     "mystery": "Tajemniczy",
     "changeClass": "Zmień klasę i przywróć punkty atrybutów",
-    "lvl10ChangeClass": "Aby zmienić klasę musisz mieć co najmniej 10 level. ",
+    "lvl10ChangeClass": "Aby zmienić klasę musisz być na poziomie co najmniej 10. ",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",
     "haveUnallocated": "Nieprzydzielone Punkty Atrybutów: <%= points %>",

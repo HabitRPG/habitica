@@ -278,7 +278,7 @@ describe('Groups Controller', function() {
               progress : {
                   up : 50,
                   down : 0,
-                  collect : {}
+                  collectedItems : {}
               },
               completed : null,
               RSVPNeeded : false
@@ -368,6 +368,7 @@ describe('Groups Controller', function() {
         user.party.quest.progress = {
           up: 100,
           down: 32,
+          collectedItems: 16,
           collect: {
             foo: 12,
             bar: 4
@@ -380,7 +381,7 @@ describe('Groups Controller', function() {
         expect(user.party.quest.progress).to.eql({
           up: 0,
           down: 0,
-          collect: {}
+          collectedItems: 0,
         });
       });
 

@@ -126,6 +126,6 @@
     "tagIdRequired": "\"tagId\" must be a valid UUID corresponding to a tag belonging to the user.",
     "positionRequired": "Je požadována „pozice\", který musí být číslem.",
     "cantMoveCompletedTodo": "Nelze pohnout s dokončeným ůkolem.",
-    "directionUpDown": "Je požadován „směr\", který musí být 'nahoru' nebo 'dolu'",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "Tento úkoly jste již označili tímto štítkem."
 }

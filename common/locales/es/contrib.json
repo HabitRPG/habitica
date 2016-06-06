@@ -56,7 +56,7 @@
     "visitHeroes": "Visite el Salón de Héroes (colaboradores y patrocinadores)",
     "conLearn": "Aprenda más acerca de las recompensas de colaborador",
     "conLearnHow": "Aprenda cómo contribuir a Habitica",
-    "surveysSingle": "Helped Habitica grow, either by filling out a survey or helping with a major testing effort. Thank you!",
+    "surveysSingle": "Ayudaste a Habitica a crecer, mediante una encuesta o ayudando a ",
     "surveysMultiple": "Helped Habitica grow on <%= surveys %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
     "currentSurvey": "Encuesta Actual",
     "surveyWhen": "Este logro será concedido a todos los participantes cuando la encuesta haya sido procesada a finales de marzo.",
