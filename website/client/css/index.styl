@@ -46,6 +46,8 @@ hr
   border-bottom: 1px solid #ddd
   border-color: rgba(0,0,0,0.1)
 
+/* Loading screen */
+
 #loadingScreen
   z-index: 9999
   width: 100%
@@ -60,17 +62,22 @@ hr
   display: block
   margin: 0 auto
   width: 90%
-  max-width: 282.5px
-  max-height: 87.5px
 
-.spinner
+#loadingScreen .loading-logo-icon
+  max-width: 87.5px
+  margin-bottom: 15px
+
+#loadingScreen .loading-logo-text
+  max-width: 282.5px
+
+.loading-spinner
   margin: 100px auto 0
   width: 105px
   padding-left: 5px
   text-align: center
   margin-top: 20px
 
-.spinner > div
+.loading-spinner > div
   width: 16px
   height: 16px
   background-color: #432476
@@ -79,13 +86,13 @@ hr
   animation: sk-bouncedelay 1.7s infinite ease-in-out both
   margin-right: 5px
 
-.spinner .spinner__item1
+.loading-spinner .spinner__item1
   animation-delay: -0.60s
 
-.spinner .spinner__item2
+.loading-spinner .spinner__item2
   animation-delay: -0.40s
 
-.spinner .spinner__item3
+.loading-spinner .spinner__item3
   animation-delay: -0.20s
 
 @keyframes sk-bouncedelay
