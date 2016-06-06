@@ -117,7 +117,7 @@ function _cleanQuestProgress (merge) {
     progress: {
       up: 0,
       down: 0,
-      collect {},
+      collect: {},
       collectedItems: 0,
     },
     completed: null,
