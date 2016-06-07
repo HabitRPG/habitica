@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Jogue uma bola de neve em um membro da equipe! O que poderia dar errado? Dura até o novo dia do membro.",
     "spellSpecialSaltText": "Sal",
     "spellSpecialSaltNotes": "Alguém jogou uma bola de neve em você. Ha ha, muito engraçado. Agora tire essa neve de mim!",
-    "spellSpecialSpookDustText": "Brilhos Assustadores",
-    "spellSpecialSpookDustNotes": "Transforme um amigo em um lençol flutuante com olhos!",
+    "spellSpecialSpookySparklesText": "Brilhos Assustadores",
+    "spellSpecialSpookySparklesNotes": "Transforme um amigo em um lençol voador com olhos!",
     "spellSpecialOpaquePotionText": "Poção Opaca",
     "spellSpecialOpaquePotionNotes": "Cancela os efeitos de Brilhos Assustadores.",
     "spellSpecialShinySeedText": "Semente Cintilante",
@@ -47,10 +47,10 @@
     "spellSpecialSeafoamNotes": "Transforma um amigo em uma criatura marinha!",
     "spellSpecialSandText": "Areia",
     "spellSpecialSandNotes": "Cancela os efeitos da espuma do mar.",
-    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellNotFound": "Habilidade \"<%= spellId %>\" não encontrada.",
+    "partyNotFound": "Equipe não encontrada.",
+    "targetIdUUID": "\"targetId\" precisa ser um ID de usuário válido.",
+    "challengeTasksNoCast": "O uso de habilidade em tarefas de desafio não é permitido.",
+    "spellNotOwned": "Você não possui essa habilidade.",
+    "spellLevelTooHigh": "Você precisa ter nível <%= level %> para usar essa habilidade."
 }

@@ -47,6 +47,7 @@
     "customDayStart": "設定開始日期",
     "changeCustomDayStart": "要更改設定日期嗎？",
     "sureChangeCustomDayStart": "你確定你要更改設定日期嗎？",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "在<%= time %>以後，重新登入 Habitica，你的每日任務將會重新設定。確保<%= time %>前完成你的每日任務。",
     "customDayStartInfo1": "Habitica 預設每日午夜將會重新結算當日的每日任務於你所在的時區。你可以在這裡更改每日任務結算時間。",
     "misc": "其他",

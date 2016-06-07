@@ -3,7 +3,7 @@ import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
-import predictableRandom from './predictableRandom';
+import _predictableRandom from './predictableRandom';
 import randomVal from './randomVal';
 
 // Clone a drop object maintaining its functions so that we can change it without affecting the original item
@@ -13,17 +13,16 @@ function cloneDropItem (drop) {
   });
 }
 
-module.exports = function randomDrop (user, modifiers, req = {}) {
+module.exports = function randomDrop (user, options, req = {}) {
   let acceptableDrops;
   let chance;
   let drop;
-  let dropK;
   let dropMultiplier;
-  let quest;
   let rarity;
   let task;
 
-  task = modifiers.task;
+  let predictableRandom = options.predictableRandom || _predictableRandom;
+  task = options.task;
 
   chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority *                             // Task priority: +50% for Medium, +100% for Hard
@@ -37,15 +36,9 @@ module.exports = function randomDrop (user, modifiers, req = {}) {
     }, 0) || 0));
   chance = diminishingReturns(chance, 0.75);
 
-  if (user.party.quest.key)
-    quest = content.quests[user.party.quest.key];
-  if (quest && quest.collect && predictableRandom(user, user.stats.gp) < chance) {
-    dropK = randomVal(user, quest.collect, {
-      key: true,
-    });
-    if (!user.party.quest.progress.collect[dropK])
-      user.party.quest.progress.collect[dropK] = 0;
-    user.party.quest.progress.collect[dropK]++;
+  if (predictableRandom(user, user.stats.gp) < chance) {
+    if (!user.party.quest.progress.collectedItems) user.party.quest.progress.collectedItems = 0;
+    user.party.quest.progress.collectedItems++;
     user.markModified('party.quest.progress');
   }
 

@@ -47,6 +47,7 @@
     "customDayStart": "Comienzo de Día Personalizado",
     "changeCustomDayStart": "¿Cambiar inicio de día?",
     "sureChangeCustomDayStart": "¿Seguro que quieres cambiar la hora a la que empieza cada día?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Tus tareas diarias se restablecerán la próxima vez que uses Habitica a partir del <%= time %>. ¡No te olvides de completar las tareas diarias antes de esa hora!",
     "customDayStartInfo1": "De forma predeterminada, Habitica comprueba si has realizado las tareas diarias y las restablece todos los días a medianoche, de acuerdo con tu zona horaria. Aquí puedes cambiar la hora a la que lo hace.",
     "misc": "Varios",

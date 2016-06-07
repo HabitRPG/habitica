@@ -1,13 +1,39 @@
 import moment from 'moment';
+import Bluebird from 'bluebird';
+import { model as User } from '../../models/user';
 import common from '../../../../common/';
 import { preenUserHistory } from '../../libs/api-v3/preening';
 import _ from 'lodash';
 import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
+const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
+
+export async function recoverCron (status, locals) {
+  let {user} = locals;
+
+  await Bluebird.delay(300);
+
+  let reloadedUser = await User.findOne({_id: user._id}).exec();
+
+  if (!reloadedUser) {
+    throw new Error(`User ${user._id} not found while recovering.`);
+  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
+    status.times++;
+
+    if (status.times < 5) {
+      await recoverCron(status, locals);
+    } else {
+      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
+    }
+  } else {
+    locals.user = reloadedUser;
+    return null;
+  }
+}
 
 let CLEAR_BUFFS = {
   str: 0,
@@ -31,9 +57,10 @@ function grantEndOfTheMonthPerks (user, now) {
 
     plan.consecutive.count++;
 
-    if (plan.consecutive.offset > 0) {
+    if (plan.consecutive.offset > 1) {
       plan.consecutive.offset--;
     } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+      if (plan.consecutive.offset === 1) plan.consecutive.offset--;
       plan.consecutive.trinkets++;
       plan.consecutive.gemCapExtra += 5;
       if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
@@ -71,7 +98,9 @@ function performSleepTasks (user, tasksByType, now) {
 
     if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
       // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitrpg/pull/7218#issuecomment-219256016
-      daily.checklist.forEach(box => box.completed = false);
+      if (daily.checklist) {
+        daily.checklist.forEach(box => box.completed = false);
+      }
     }
 
     daily.completed = false;
@@ -82,8 +111,6 @@ function performSleepTasks (user, tasksByType, now) {
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
 
-  user.auth.timestamps.loggedin = now;
-  user.lastCron = now;
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
@@ -175,13 +202,15 @@ export function cron (options = {}) {
             cron: true,
           });
 
-          // Apply damage from a boss, less damage for Trivial priority (difficulty)
-          user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-          // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-          // initially, and when we realised, we could not fix it because users are used to
-          // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-          // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-          // setting between Trivial and Easy.
+          if (!CRON_SEMI_SAFE_MODE) {
+            // Apply damage from a boss, less damage for Trivial priority (difficulty)
+            user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+            // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+            // initially, and when we realised, we could not fix it because users are used to
+            // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+            // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+            // setting between Trivial and Easy.
+          }
         }
       }
     }
@@ -193,7 +222,9 @@ export function cron (options = {}) {
     task.completed = false;
 
     if (completed || scheduleMisses > 0) {
-      task.checklist.forEach(i => i.completed = false);
+      if (task.checklist) {
+        task.checklist.forEach(i => i.completed = false);
+      }
     }
   });
 
@@ -246,8 +277,7 @@ export function cron (options = {}) {
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
   let _progress = _.cloneDeep(progress);
-  _.merge(progress, {down: 0, up: 0});
-  progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
+  _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
   // let numberOfPMs = Object.keys(user.inbox.messages).length;

@@ -201,7 +201,6 @@ export let schema = new Schema({
     itemsEnabled: {type: Boolean, default: false},
     newStuff: {type: Boolean, default: false},
     rewrite: {type: Boolean, default: true},
-    contributor: Boolean,
     classSelected: {type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, default: false},
@@ -345,6 +344,7 @@ export let schema = new Schema({
   },
 
   lastCron: {type: Date, default: Date.now},
+  _cronSignature: {type: String, default: 'NOT_RUNNING'}, // Private property used to avoid double cron
 
   // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
   newMessages: {type: Schema.Types.Mixed, default: () => {
@@ -378,7 +378,8 @@ export let schema = new Schema({
         down: {type: Number, default: 0},
         collect: {type: Schema.Types.Mixed, default: () => {
           return {};
-        }}, // {feather:1, ingot:2}
+        }},
+        collectedItems: {type: Number, default: 0},
       },
       completed: String, // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
       RSVPNeeded: {type: Boolean, default: false}, // Set to true when invite is pending, set to false when quest invite is accepted or rejected, quest starts, or quest is cancelled
@@ -528,7 +529,7 @@ export let schema = new Schema({
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt'],
+  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     // plainObj.filters = {}; // TODO Not saved, remove?
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
@@ -539,8 +540,8 @@ schema.plugin(baseModel, {
 
 // A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
 export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
-  preferences.costume preferences.sleep preferences.background profile stats achievements party
-  backer contributor auth.timestamps items`;
+  preferences.chair preferences.costume preferences.sleep preferences.background profile stats
+  achievements party backer contributor auth.timestamps items`;
 
 // The minimum amount of data needed when populating multiple users
 export let nameFields = 'profile.name';

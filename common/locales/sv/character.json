@@ -110,7 +110,7 @@
     "mage": "Magiker",
     "mystery": "Mysterium",
     "changeClass": "Byt Klass, Återbetala Egenskapspoäng",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "För att byta klass måste du vara minst level 10.",
     "levelPopover": "Varje nivå ger dig en poäng att dela ut till valfri egenskap. Du kan antingen göra det manuellt eller låta spelet bestämma åt dig genom att använda ett av alternativen under automatisk utdelning.",
     "unallocated": "Outdelade Egenskapspoäng",
     "haveUnallocated": "Du har <%= points %> outdela(t/de) egenskapspoäng",
@@ -167,6 +167,6 @@
     "showQuickAllocation": "Visa poängfördelning",
     "hideQuickAllocation": "Göm poängfördelning",
     "quickAllocationLevelPopover": "Varje nivå ger dig en poäng att lägga ut på ett valfritt attribut. Du kan gör så själv eller låta spelet bestämma åt dig genom en av inställningarna under Användare -> Statistik & Prestationer",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "\"<%= attr %>\" är inte en godkänd egenskap.",
+    "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng."
 }

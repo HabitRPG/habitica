@@ -74,6 +74,23 @@ describe('GET /groups/:groupId/members', () => {
     });
   });
 
+  it('returns only first 30 members even when ?includeAllMembers=true', async () => {
+    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+
+    let usersToGenerate = [];
+    for (let i = 0; i < 31; i++) {
+      usersToGenerate.push(generateUser({party: {_id: group._id}}));
+    }
+    await Promise.all(usersToGenerate);
+
+    let res = await user.get('/groups/party/members?includeAllMembers=true');
+    expect(res.length).to.equal(30);
+    res.forEach(member => {
+      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member.profile).to.have.all.keys(['name']);
+    });
+  });
+
   it('supports using req.query.lastId to get more members', async () => {
     let leader = await generateUser({balance: 4});
     let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});

@@ -117,7 +117,7 @@ describe('POST /challenges/:challengeId/leave', () => {
       });
 
       expect(testTask).to.not.be.undefined;
-      expect(testTask.challenge).to.be.undefined;
+      expect(testTask.challenge).to.eql({});
     });
   });
 });

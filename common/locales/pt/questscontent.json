@@ -315,10 +315,10 @@
     "questFalconBoss": "Aves de Rapinrolação",
     "questFalconDropFalconEgg": "Falcão (Ovo)",
     "questFalconUnlockText": "Desbloqueia ovos de Falcão para compra no Mercado",
-    "questTreelingText": "The Tangle Tree",
-    "questTreelingNotes": "It's the annual Garden Competition, and everyone is talking about the mysterious project which @aurakami has promised to unveil. You join the crowd on the day of the big announcement, and marvel at the introduction of a moving tree. @fuzzytrees explains that the tree will help with garden maintenance, showing how it can mow the lawn, trim the hedge and prune the roses all at the same time – until the tree suddenly goes wild, turning its secateurs on its creator! The crowd panics as everyone tries to flee, but you aren't afraid – you leap forward, ready to do battle.",
-    "questTreelingCompletion": "You dust yourself off as the last few leaves drift to the floor. In spite of the upset, the Garden Competition is now safe – although the tree you just reduced to a heap of wood chips won't be winning any prizes! \"Still a few kinks to work out there,\" @PainterProphet says. \"Perhaps someone else would do a better job of training the saplings. Do you fancy a go?\"",
-    "questTreelingBoss": "Tangle Tree",
-    "questTreelingDropTreelingEgg": "Treeling (Egg)",
-    "questTreelingUnlockText": "Unlocks purchasable Treeling eggs in the Market"
+    "questTreelingText": "A Árvore Emaranhada",
+    "questTreelingNotes": "É a Competição de Jardinagem anual e todos estão falando sobre o projeto misterioso que @aurakami prometeu revelar. Você se junta à multidão naquele dia do grande anúncio e se admira com a entrada de uma árvore que se mexe. @fuzzytrees explica que a árvore ajudará com a manutenção do jardim, mostrando como ela pode cortar a grama, aparar os arbustos e podar as roseiras tudo ao mesmo tempo - até que de repente a árvore fica louca, virando suas tesouras de poda contra o seu criador! A multidão entra em pânico e todo mundo tenta fugir, mas você não tem medo - você se inclina para a frente, pronto para batalhar.",
+    "questTreelingCompletion": "Você tira seu pó quando as últimas folhas caem no chão. Em vez de triste, a Competição de Jardinagem agora está segura - apesar de que a árvore que você reduziu a uma pilha de lascas de madeira não ganhará nenhum prêmio! \"Ainda alguns nós para serem trabalhados aqui\", diz @PainterProphet. \"Talvez alguém mais faça um bom trabalho treinando os brotos. Você arrisca uma tentativa?\"",
+    "questTreelingBoss": "Árvore Emaranhada",
+    "questTreelingDropTreelingEgg": "Arvorezinha (Ovo)",
+    "questTreelingUnlockText": "Desbloqueia ovos de Arvorezinhas compráveis no Mercado"
 }

@@ -48,6 +48,15 @@ _.each(staticPages, (name) => {
   };
 });
 
+api.redirectApi = {
+  method: 'GET',
+  url: '/static/api',
+  runCron: false,
+  async handler (req, res) {
+    res.redirect(301, '/apidoc');
+  },
+};
+
 let shareables = ['level-up', 'hatch-pet', 'raise-pet', 'unlock-quest', 'won-challenge', 'achievement'];
 
 _.each(shareables, (name) => {

@@ -183,11 +183,11 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               h5=env.t('changePass')
               form(ng-submit='changeUser("password", passwordUpdates)', ng-show='user.auth.local', name='changePassword', novalidate)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='passwordUpdates.oldPassword', required)
+                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='passwordUpdates.password', required)
                 .form-group
                   input.form-control(type='password', placeholder=env.t('newPass'), ng-model='passwordUpdates.newPassword', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='passwordUpdates.confirmNewPassword', required)
+                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='passwordUpdates.confirmPassword', required)
                 input.btn.btn-default(type='submit', ng-disabled='changePassword.$invalid', value=env.t('submit'))
 
 

@@ -47,6 +47,7 @@
     "customDayStart": "Brugerdefineret Dagstart",
     "changeCustomDayStart": "Skift Brugerdefineret Dagstart?",
     "sureChangeCustomDayStart": "Er du sikker på, at du vil ændre din brugerdefinerede dagsstart?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Dine Daglige vil blive nulstillet første gang du bruger Habitica efter <%= time %>. Vær sikker på, at du har færdiggjort dine Daglige før dette tidspunkt!",
     "customDayStartInfo1": "Som udgangspunkt vil Habitica tjekke og nulstille dine Daglige ved midnat hver dag. Du kan ændre dette her.",
     "misc": "Diverse",

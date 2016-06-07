@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Throw a snowball at a party member! What could possibly go wrong? Lasts until member's new day.",
     "spellSpecialSaltText": "Salt",
     "spellSpecialSaltNotes": "Someone has snowballed you. Ha ha, very funny. Now get this snow off me!",
-    "spellSpecialSpookDustText": "Spooky Sparkles",
-    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Opaque Potion",
     "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles.",
     "spellSpecialShinySeedText": "Shiny Seed",
@@ -50,7 +50,7 @@
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
     "partyNotFound": "Party not found",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

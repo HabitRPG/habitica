@@ -5,7 +5,7 @@
     "annoyingFriends": "חברים מרגיזים",
     "annoyingFriendsText": "חטף <%= snowballs %> כדורי שלג לפרצוף משאר החבורה.",
     "alarmingFriends": "חברים מפחידים",
-    "alarmingFriendsText": "הופחד/ה <%= spookDust %> פעמים ע\"י שאר החבורה שלו/ה.",
+    "alarmingFriendsText": "חברי חבורה הבהילו אתכם <%= spookySparkles %> פעמים.",
     "agriculturalFriends": "חברים חקלאיים",
     "agriculturalFriendsText": "הוחלף לפרח <%= seeds %> פעמים על-ידי חברי חבורה.",
     "aquaticFriends": "חברים ימיים",
@@ -73,5 +73,5 @@
     "sneakySqueakerSet": "חורק מתגנב (נוכל)",
     "fallEventAvailability": "זמין עד ה 31 באוקטובר",
     "winterEventAvailability": "זמין עד ה 31 בדצמבר",
-    "springEventAvailability": "Available until May 31"
+    "springEventAvailability": "זמין עד ה 31 במאי"
 }

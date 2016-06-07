@@ -154,9 +154,9 @@ api.subscribeCancel = {
     let user = res.locals.user;
     if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
 
-    let customer = await stripe.customers.retrieve(user.purchased.plan.customeerId);
+    let customer = await stripe.customers.retrieve(user.purchased.plan.customerId);
     await stripe.customers.del(user.purchased.plan.customerId);
-    await payments.cancelSubscriptoin({
+    await payments.cancelSubscription({
       user,
       nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
       paymentMethod: 'Stripe',

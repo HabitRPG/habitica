@@ -163,9 +163,16 @@
     "backgroundRainbowsEndNotes": "Trova l'oro alla fine dell'arcobaleno!",
     "backgrounds052016": "SERIE 24: Maggio 2016",
     "backgroundBeehiveText": "Alveare",
-    "backgroundBeehiveNotes": "Ronza e danza nell'Alveare.",
+    "backgroundBeehiveNotes": "Ronza e danza in un alveare.",
     "backgroundGazeboText": "Gazebo",
     "backgroundGazeboNotes": "Combatti in un Gazebo.",
     "backgroundTreeRootsText": "Radici dell'Albero",
-    "backgroundTreeRootsNotes": "Esplora le Radici dell'Albero."
+    "backgroundTreeRootsNotes": "Esplora le Radici dell'Albero.",
+    "backgrounds062016": "SET 25: Released June 2016",
+    "backgroundLighthouseShoreText": "Lighthouse Shore",
+    "backgroundLighthouseShoreNotes": "Stroll down the Lighthouse Shore.",
+    "backgroundLilypadText": "Lilypad",
+    "backgroundLilypadNotes": "Hop on a Lilypad.",
+    "backgroundWaterfallRockText": "Waterfall Rock",
+    "backgroundWaterfallRockNotes": "Splash on a Waterfall Rock."
 }

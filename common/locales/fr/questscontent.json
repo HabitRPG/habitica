@@ -317,8 +317,8 @@
     "questFalconUnlockText": "Déverrouille l'achat d’œufs de faucon au Marché",
     "questTreelingText": "L'Arbre tortueux",
     "questTreelingNotes": "C'est la Compétition annuelle de jardinage et tout le monde parle du mystérieux projet qu'@aurakami a promis de révélé. Vous vous joignez à la foule le jour de la grande annonce et vous émerveillez devant l'arbre animé. @fuzzytrees explique que cet arbre aidera à la maintenance des jardins, en montrant qu'il peut tondre la pelouse, couper la haie et tailler les rosiers en même temps... jusqu'à ce l'arbre devienne sauvage et retourne son sécateur contre son créateur ! La foule est en panique. Alors que tous essaient de s'enfuir, vous vous avancez d'un bond, sans peur et prêt au combat.",
-    "questTreelingCompletion": "You dust yourself off as the last few leaves drift to the floor. In spite of the upset, the Garden Competition is now safe – although the tree you just reduced to a heap of wood chips won't be winning any prizes! \"Still a few kinks to work out there,\" @PainterProphet says. \"Perhaps someone else would do a better job of training the saplings. Do you fancy a go?\"",
+    "questTreelingCompletion": "Vous vous dépoussiérez alors que les toutes dernières feuilles tombent au sol. Malgré les mécontents, la Compétition de jardinage est maintenant hors de danger – quoique l'arbre que vous venez de réduire en un tas de copeaux ne gagnera pas le moindre prix ! « Il reste quelques petits défauts à travailler, dit @PainterProphet. Quelqu'un saura peut-être mieux entraîner ces arbrisseaux. Voulez-vous vous lancer ? »",
     "questTreelingBoss": "Arbre tortueux",
-    "questTreelingDropTreelingEgg": "Arbuste (œuf)",
-    "questTreelingUnlockText": "Déverrouille l'achat d’œufs d'arbuste au Marché"
+    "questTreelingDropTreelingEgg": "Arbrisseau (œuf)",
+    "questTreelingUnlockText": "Déverrouille l'achat d’œufs d'arbrisseau au Marché"
 }

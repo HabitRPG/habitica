@@ -25,5 +25,5 @@
     "rebirthName": "Orb znovuzrodenia",
     "reborn": "Znovuzrodený, najvyšší dosiahnutý level: <%= reLevel %>",
     "confirmReborn": "Si si istý?",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "Bol si znovuzrodený!"
 }

@@ -7,17 +7,9 @@ module.exports = function addTask (user, req = {body: {}}) {
   user.tasksOrder[`${task.type}s`].unshift(task._id);
   user[`${task.type}s`].unshift(task);
 
-  if (user.preferences.newTaskEdit) {
-    task._editing = true;
-  }
-
-  if (user.preferences.tagsCollapsed) {
-    task._tags = true;
-  }
-
-  if (!user.preferences.advancedCollapsed) {
-    task._advanced = true;
-  }
+  task._editing = user.preferences.newTaskEdit;
+  task._tags = !user.preferences.tagsCollapsed;
+  task._advanced = !user.preferences.advancedCollapsed;
 
   return task;
 };

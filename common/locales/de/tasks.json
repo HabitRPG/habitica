@@ -73,6 +73,7 @@
     "clearTags": "Aufräumen",
     "hideTags": "Verbergen",
     "showTags": "Anzeigen",
+    "toRequired": "Du musst einen gültigen Endwert eingeben",
     "startDate": "Starttermin",
     "startDateHelpTitle": "Wann soll diese Aufgabe beginnen?",
     "startDateHelp": "Setze das Datum fest, ab dem diese Aufgabe in Kraft tritt. Davor wird sie nicht fällig werden.",
@@ -125,6 +126,6 @@
     "tagIdRequired": "\"tagId\" muss eine gültige UUID sein, passend zu einem dem Benutzer zugeordneten Tag.",
     "positionRequired": "\"position\" wird benötigt und muss eine Zahl sein.",
     "cantMoveCompletedTodo": "Abgeschlossenes To-Do kann nicht verschoben werden.",
-    "directionUpDown": "\"Richtung\" wird benötigt und muss 'up' oder 'down' sein.",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "Die Aufgabe besitzt bereits dieses Tag."
 }

@@ -191,7 +191,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let challenge = this;
   let membersIds = await _fetchMembersIds(challenge._id);
 
-  let queue = new cwait.TaskQueue(Bluebird, 5); // process only 5 users concurrently
+  let queue = new cwait.TaskQueue(Bluebird, 25); // process only 5 users concurrently
 
   await Bluebird.map(membersIds, queue.wrap((memberId) => {
     return _addTaskFn(challenge, tasks, memberId);
@@ -231,7 +231,7 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
   }, {multi: true}).exec();
 };
 
-// Unlink challenges tasks (and the challenge itself) from user
+// Unlink challenges tasks (and the challenge itself) from user. TODO rename to 'leave'
 schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
   let challengeId = this._id;
   let findQuery = {

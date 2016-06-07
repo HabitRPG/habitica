@@ -164,8 +164,15 @@
     "backgrounds052016": "第24组：2016年5月推出",
     "backgroundBeehiveText": "蜂窝",
     "backgroundBeehiveNotes": "在蜂窝里嗡嗡嗡地跳舞",
-    "backgroundGazeboText": "Gazebo",
-    "backgroundGazeboNotes": "Battle a Gazebo.",
-    "backgroundTreeRootsText": "Tree Roots",
-    "backgroundTreeRootsNotes": "Explore the Tree Roots."
+    "backgroundGazeboText": "亭子",
+    "backgroundGazeboNotes": "攻击一个亭子",
+    "backgroundTreeRootsText": "树根",
+    "backgroundTreeRootsNotes": "探索茂密的树根",
+    "backgrounds062016": "SET 25: Released June 2016",
+    "backgroundLighthouseShoreText": "Lighthouse Shore",
+    "backgroundLighthouseShoreNotes": "Stroll down the Lighthouse Shore.",
+    "backgroundLilypadText": "Lilypad",
+    "backgroundLilypadNotes": "Hop on a Lilypad.",
+    "backgroundWaterfallRockText": "Waterfall Rock",
+    "backgroundWaterfallRockNotes": "Splash on a Waterfall Rock."
 }

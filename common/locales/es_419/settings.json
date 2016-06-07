@@ -47,6 +47,7 @@
     "customDayStart": "Comienzo de día personalizado",
     "changeCustomDayStart": "¿Cambiar día de inicio personalizado?",
     "sureChangeCustomDayStart": "¿Estás seguro de que quieres cambiar tu día de inicio personalizado?",
+    "customDayStartHasChanged": "Your custom day start has changed.",
     "nextCron": "Tus Diarias se reiniciarán la primera vez que uses Habitica después de <%= time %>. ¡Asegúrate de haber completado tus Diarias antes de esa hora!",
     "customDayStartInfo1": "Habitica por defecto chequea y reinicia tus Diarias a la medianoche en tu propia zona horaria cada día. Puedes personalizar ese horario aquí.",
     "misc": "Varios",

@@ -73,6 +73,7 @@
     "clearTags": "Återställ",
     "hideTags": "Förminska",
     "showTags": "Visa",
+    "toRequired": "You must supply a to value",
     "startDate": "Startdatum",
     "startDateHelpTitle": "När Borde Detta Uppdraget Börja?",
     "startDateHelp": "Ställ in det datum för vilket den här uppgiften börjar. Kommer inte infalla på föreliggande dagar.",
@@ -115,7 +116,7 @@
     "rewardHelp4": "Var inte rädd för att sätta personliga belöningar! Spana in <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>några exempel här</a>.",
     "clickForHelp": "Klicka För Hjälp",
     "taskIdRequired": "\"taskId\" must be a valid UUID.",
-    "taskNotFound": "Task not found.",
+    "taskNotFound": "Uppgift hittades inte.",
     "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
     "cantDeleteChallengeTasks": "A task belonging to a challenge can't be deleted.",
     "checklistOnlyDailyTodo": "Checklists are supported only on dailies and todos",
@@ -125,6 +126,6 @@
     "tagIdRequired": "\"tagId\" must be a valid UUID corresponding to a tag belonging to the user.",
     "positionRequired": "\"position\" is required and must be a number.",
     "cantMoveCompletedTodo": "Can't move a completed todo.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "The task is already tagged with given tag."
 }

@@ -50,4 +50,43 @@ describe('PUT /user/auth/update-password', async () => {
       message: t('wrongPassword'),
     });
   });
+
+  it('returns an error when password is missing', async () => {
+    let body = {
+      newPassword,
+      confirmPassword: newPassword,
+    };
+
+    await expect(user.put(ENDPOINT, body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns an error when newPassword is missing', async () => {
+    let body = {
+      password,
+      confirmPassword: newPassword,
+    };
+
+    await expect(user.put(ENDPOINT, body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns an error when confirmPassword is missing', async () => {
+    let body = {
+      password,
+      newPassword,
+    };
+
+    await expect(user.put(ENDPOINT, body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
 });

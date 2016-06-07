@@ -73,6 +73,7 @@
     "clearTags": "Clear",
     "hideTags": "Hide",
     "showTags": "Show",
+    "toRequired": "You must supply a to value",
     "startDate": "Start Date",
     "startDateHelpTitle": "When should this task start?",
     "startDateHelp": "Set th' date for which this task takes effect. Will not be due on earlier days.",
@@ -125,6 +126,6 @@
     "tagIdRequired": "\"tagId\" must be a valid UUID corresponding to a tag belonging to the user.",
     "positionRequired": "\"position\" is required and must be a number.",
     "cantMoveCompletedTodo": "Can't move a completed todo.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "The task is already tagged with given tag."
 }

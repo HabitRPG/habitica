@@ -39,7 +39,14 @@ angular.module("habitrpg").factory("Notification",
         case "Food":
           dropClass = 'Pet_Food_' + item.key;
           break;
-        case "Mystery":
+        case "armor":
+        case "back":
+        case "body":
+        case "eyewear":
+        case "head":
+        case "headAccessory":
+        case "shield":
+        case "weapon":
           dropClass = 'shop_' + item.key;
           break;
         default:

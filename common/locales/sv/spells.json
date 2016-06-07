@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Kasta en snöboll på en sällskapsdeltagare! Vad kan gå fel? Varar fram till deltagarens nästa dag.",
     "spellSpecialSaltText": "Salt",
     "spellSpecialSaltNotes": "Någon kastade en snöboll på dig. Ha ha, väldigt roligt. Se nu till att få bort den här snön från mig!",
-    "spellSpecialSpookDustText": "Spöklik hud",
-    "spellSpecialSpookDustNotes": "Transformera en vän till en flytande filt med ögon.",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Ogenomskinlig Dryck",
     "spellSpecialOpaquePotionNotes": "Avbryt effekterna av spöklik hud.",
     "spellSpecialShinySeedText": "Glänsande Frö",
@@ -50,7 +50,7 @@
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
     "partyNotFound": "Party not found",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

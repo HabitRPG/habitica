@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Throw a snowball at a party member! What could possibly go wrong? Lasts until member's new day.",
     "spellSpecialSaltText": "Sare",
     "spellSpecialSaltNotes": "Cineva te-a lovit cu un bulgăre de zăpadă. Ha ha, foarte amuzant. Acum dă zăpada asta jos de pe mine!",
-    "spellSpecialSpookDustText": "Spooky Sparkles",
-    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Poțiune opacă",
     "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles.",
     "spellSpecialShinySeedText": "Shiny Seed",
@@ -50,7 +50,7 @@
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
     "partyNotFound": "Party not found",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not supported.",
+    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

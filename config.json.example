@@ -9,7 +9,9 @@
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
     "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
     "NODE_ENV":"development",
+    "ENABLE_CONSOLE_LOGS_IN_TEST": false,
     "CRON_SAFE_MODE":"false",
+    "CRON_SEMI_SAFE_MODE":"false",
     "MAINTENANCE_MODE": "false",
     "SESSION_SECRET":"YOUR SECRET HERE",
     "ADMIN_EMAIL": "you@example.com",
@@ -59,13 +61,8 @@
         "client_secret":"client_secret"
     },
     "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
-    "LOGGLY": {
-        "enabled": false,
-        "subdomain": "subdomain",
-        "token": "token",
-        "username": "username",
-        "password": "password"
-    },
+    "LOGGLY_TOKEN": "token",
+    "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
         "APN_PEM_FILES": {

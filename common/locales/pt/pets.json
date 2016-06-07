@@ -12,6 +12,7 @@
     "etherealLion": "Leão Etéreo",
     "veteranWolf": "Lobo Veterano",
     "veteranTiger": "Tigre Veterano",
+    "veteranLion": "Leão Veterano",
     "cerberusPup": "Filhote de Cérbero",
     "hydra": "Hidra",
     "mantisShrimp": "Camarão Mantis",
@@ -62,7 +63,7 @@
     "hatchedPet": "Você chocou um <%= potion %> <%= egg %>!",
     "displayNow": "Mostrar Agora",
     "displayLater": "Mostrar Depois",
-    "petNotOwned": "You do not own this pet.",
+    "petNotOwned": "Você não possui esse mascote.",
     "earnedCompanion": "Com toda sua produtividade, você conseguiu um novo companheiro. Lhe dê comida para fazê-lo crescer!",
     "feedPet": "Alimentar <%= article %><%= text %> para o seu <%= name %>?",
     "useSaddle": "Selar <%= pet %>?",
@@ -84,8 +85,8 @@
     "petKeyBoth": "Solte Ambos",
     "confirmPetKey": "Tem certeza?",
     "petKeyNeverMind": "Não ainda",
-    "petsReleased": "Pets released.",
-    "mountsAndPetsReleased": "Mounts and pets released",
-    "mountsReleased": "Mounts released",
+    "petsReleased": "Mascotes liberados.",
+    "mountsAndPetsReleased": "Montarias e mascotes liberados.",
+    "mountsReleased": "Montarias liberadas.",
     "gemsEach": "gemas cada"
 }
