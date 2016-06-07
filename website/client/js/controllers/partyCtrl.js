@@ -7,6 +7,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.type = 'party';
       $scope.text = window.env.t('party');
+      $scope.group = {loadingParty: true}
 
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
@@ -20,8 +21,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         $rootScope.party = $scope.group = $scope.newGroup = { type: 'party' };
       }
 
-      if ($state.is('options.social.party') && $rootScope.party) {
-        $scope.group = {loadingParty: true}
+      if ($state.is('options.social.party') && $rootScope.party && $rootScope.party.id) {
         Groups.party(true).then(handlePartyResponse, handlePartyError);
       } else {
         Groups.Group.syncParty().then(handlePartyResponse, handlePartyError);
