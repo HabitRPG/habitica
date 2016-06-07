@@ -71,10 +71,22 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
+    // Avoid showing the same notiication more than once
+    var lastShownNotifications = [];
+
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
       after.forEach(function (notification) {
+        if (lastShownNotifications.indexOf(notification.id) !== -1) {
+          return;
+        }
+
+        lastShownNotifications.push(notification.id);
+        if (lastShownNotifications.length > 10) {
+          lastShownNotifications.splice(0, 9);
+        }
+
         var markAsRead = true;
 
         switch (notification.type) {
