@@ -80,8 +80,6 @@ angular.module('habitrpg')
 
           _.extend(user, response.data.data);
 
-          $rootScope.$emit('userUpdated', user);
-
           if (!user._wrapped) {
             // This wraps user with `ops`, which are functions shared both on client and mobile. When performed on client,
             // they update the user in the browser and then send the request to the server, where the same operation is
@@ -106,6 +104,7 @@ angular.module('habitrpg')
           syncUserTasks(tasks);
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
+          $rootScope.$emit('userUpdated', user);
         });
       }
 

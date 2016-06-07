@@ -8,9 +8,12 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     var user = User.user;
 
     var initSticky = _.once(function(){
-      if (window.env.IS_MOBILE || User.user.preferences.stickyHeader === false) return;
-      $('.header-wrap').sticky({topSpacing:0});
-    })
+      $timeout(function () {
+        if (window.env.IS_MOBILE || User.user.preferences.stickyHeader === false) return;
+        $('.header-wrap').sticky({topSpacing:0});
+      });
+    });
+
     $rootScope.$on('userUpdated',initSticky);
 
     $rootScope.$on('$stateChangeSuccess',
