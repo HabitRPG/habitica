@@ -25,6 +25,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         }
       });
 
+    $rootScope.appLoaded = false; // also used to indicate when the user is fully loaded
     $rootScope.TAVERN_ID = TAVERN_ID;
     $rootScope.User = User;
     $rootScope.user = user;
@@ -39,7 +40,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.Groups = Groups;
     $rootScope.toJson = angular.toJson;
     $rootScope.Payments = Payments;
-
+    $rootScope.userNotifications = [];
+    
     // Angular UI Router
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;

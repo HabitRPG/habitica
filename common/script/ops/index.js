@@ -48,7 +48,6 @@ import openMysteryItem from './openMysteryItem';
 import scoreTask from './scoreTask';
 import markPmsRead from './markPMSRead';
 
-
 module.exports = {
   update,
   sleep,

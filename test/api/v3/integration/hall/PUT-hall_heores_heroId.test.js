@@ -68,6 +68,8 @@ describe('PUT /heroes/:heroId', () => {
     expect(hero.contributor.level).to.equal(1);
     expect(hero.purchased.ads).to.equal(true);
     expect(hero.auth.blocked).to.equal(true);
+    expect(hero.notifications.length).to.equal(1);
+    expect(hero.notifications[0].type).to.equal('NEW_CONTRIBUTOR_LEVEL');
   });
 
   it('updates contributor level', async () => {

@@ -12,6 +12,10 @@ module.exports = function ultimateGear (user) {
         });
         return soFarGood && (!found || owned[found.key] === true);
       }, true);
+
+      if (user.achievements.ultimateGearSets[klass] === true) {
+        user.addNotification('ULTIMATE_GEAR_ACHIEVEMENT');
+      }
     }
   });
 

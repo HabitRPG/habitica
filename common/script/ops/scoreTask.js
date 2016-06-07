@@ -214,7 +214,10 @@ module.exports = function scoreTask (options = {}, req = {}) {
       if (direction === 'up') {
         task.streak += 1;
         // Give a streak achievement when the streak is a multiple of 21
-        if (task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+        if (task.streak % 21 === 0) {
+          user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+          user.addNotification('STREAK_ACHIEVEMENT');
+        }
         task.completed = true;
       } else if (direction === 'down') {
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone

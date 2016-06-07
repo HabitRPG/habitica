@@ -1,22 +1,16 @@
 import mongoose from 'mongoose';
-import shared from '../../../common';
+import shared from '../../../../common';
 import _ from 'lodash';
 import validator from 'validator';
-import moment from 'moment';
-import * as Tasks from './task';
-import Bluebird from 'bluebird';
-import { schema as TagSchema } from './tag';
-import baseModel from '../libs/api-v3/baseModel';
+import { schema as TagSchema } from '../tag';
 import {
-  chatDefaults,
-  TAVERN_ID,
-} from './group';
-import { defaults } from 'lodash';
+  schema as UserNotificationSchema,
+} from '../userNotification';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // User schema definition
-export let schema = new Schema({
+let schema = new Schema({
   apiToken: {
     type: String,
     default: shared.uuid,
@@ -495,6 +489,7 @@ export let schema = new Schema({
     },
   },
 
+  notifications: [UserNotificationSchema],
   tags: [TagSchema],
 
   inbox: {
@@ -514,312 +509,13 @@ export let schema = new Schema({
   extra: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
-  pushDevices: {
-    type: [{
-      regId: {type: String},
-      type: {type: String},
-    }],
-    default: () => [],
-  },
+  pushDevices: [{
+    regId: {type: String},
+    type: {type: String},
+  }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
-schema.plugin(baseModel, {
-  // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
-  noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'],
-  toJSONTransform: function userToJSON (plainObj, originalDoc) {
-    // plainObj.filters = {}; // TODO Not saved, remove?
-    plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
-
-    return plainObj;
-  },
-});
-
-// A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
-export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
-  preferences.chair preferences.costume preferences.sleep preferences.background profile stats
-  achievements party backer contributor auth.timestamps items`;
-
-// The minimum amount of data needed when populating multiple users
-export let nameFields = 'profile.name';
-
-schema.post('init', function postInitUser (doc) {
-  shared.wrap(doc);
-});
-
-function _populateDefaultTasks (user, taskTypes) {
-  let tagsI = taskTypes.indexOf('tag');
-
-  if (tagsI !== -1) {
-    user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
-      let newTag = _.cloneDeep(tag);
-
-      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-      newTag.id = shared.uuid();
-      // Render tag's name in user's language
-      newTag.name = newTag.name(user.preferences.language);
-      return newTag;
-    });
-  }
-
-  let tasksToCreate = [];
-
-  if (tagsI !== -1) {
-    taskTypes = _.clone(taskTypes);
-    taskTypes.splice(tagsI, 1);
-  }
-
-  _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
-      let newTask = new Tasks[taskType](taskDefaults);
-
-      newTask.userId = user._id;
-      newTask.text = taskDefaults.text(user.preferences.language);
-      if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
-      if (taskDefaults.checklist) {
-        newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
-          checklistItem.text = checklistItem.text(user.preferences.language);
-          return checklistItem;
-        });
-      }
-
-      return newTask.save();
-    });
-
-    tasksToCreate.push(...tasksOfType);
-  });
-
-  return Bluebird.all(tasksToCreate)
-    .then((tasksCreated) => {
-      _.each(tasksCreated, (task) => {
-        user.tasksOrder[`${task.type}s`].push(task._id);
-      });
-    });
-}
-
-function _populateDefaultsForNewUser (user) {
-  let taskTypes;
-  let iterableFlags = user.flags.toObject();
-
-  if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
-    taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
-
-    _.each(iterableFlags.tutorial.common, (val, section) => {
-      user.flags.tutorial.common[section] = true;
-    });
-  } else {
-    taskTypes = ['todo', 'tag'];
-    user.flags.showTour = false;
-
-    _.each(iterableFlags.tour, (val, section) => {
-      user.flags.tour[section] = -2;
-    });
-  }
-
-  return _populateDefaultTasks(user, taskTypes);
-}
-
-function _setProfileName (user) {
-  let fb = user.auth.facebook;
-
-  let localUsername = user.auth.local && user.auth.local.username;
-  let facebookUsername = fb && (fb.displayName || fb.name || fb.username || `${fb.first_name && fb.first_name} ${fb.last_name}`);
-  let anonymous = 'Anonymous';
-
-  return localUsername || facebookUsername || anonymous;
-}
-
-schema.pre('save', true, function preSaveUser (next, done) {
-  next();
-
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
-    this.preferences.dayStart = 0;
-  }
-
-  if (!this.profile.name) {
-    this.profile.name = _setProfileName(this);
-  }
-
-  // Determines if Beast Master should be awarded
-  let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
-
-  if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true;
-  }
-
-  // Determines if Mount Master should be awarded
-  let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
-
-  if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
-    this.achievements.mountMaster = true;
-  }
-
-  // Determines if Triad Bingo should be awarded
-
-  let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
-  let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
-
-  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
-    this.achievements.triadBingo = true;
-  }
-
-  // Enable weekly recap emails for old users who sign in
-  if (this.flags.lastWeeklyRecapDiscriminator) {
-    // Enable weekly recap emails in 24 hours
-    this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
-    // Unset the field so this is run only once
-    this.flags.lastWeeklyRecapDiscriminator = undefined;
-  }
-
-  // EXAMPLE CODE for allowing all existing and new players to be
-  // automatically granted an item during a certain time period:
-  // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
-  // this.items.pets['JackOLantern-Base'] = 5;
-
-  // our own version incrementer
-  if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
-  this._v++;
-
-  // Populate new users with default content
-  if (this.isNew) {
-    _populateDefaultsForNewUser(this)
-      .then(() => done())
-      .catch(done);
-  } else {
-    done();
-  }
-});
-
-schema.pre('update', function preUpdateUser () {
-  this.update({}, {$inc: {_v: 1}});
-});
-
-schema.methods.isSubscribed = function isSubscribed () {
-  return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
-};
-
-// Get an array of groups ids the user is member of
-schema.methods.getGroups = function getUserGroups () {
-  let userGroups = this.guilds.slice(0); // clone user.guilds so we don't modify the original
-  if (this.party._id) userGroups.push(this.party._id);
-  userGroups.push(TAVERN_ID);
-  return userGroups;
-};
-
-schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, message) {
-  let sender = this;
-
-  shared.refPush(userToReceiveMessage.inbox.messages, chatDefaults(message, sender));
-  userToReceiveMessage.inbox.newMessages++;
-  userToReceiveMessage._v++;
-  userToReceiveMessage.markModified('inbox.messages');
-
-  shared.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(message, userToReceiveMessage)));
-  sender.markModified('inbox.messages');
-
-  let promises = [userToReceiveMessage.save(), sender.save()];
-  await Bluebird.all(promises);
-};
-
-// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
-// These will be removed once API v2 is discontinued
-
-// Get all the tasks belonging to a user,
-schema.methods.getTasks = function getUserTasks () {
-  let args = Array.from(arguments);
-  let cb;
-  let type;
-
-  if (args.length === 1) {
-    cb = args[0];
-  } else {
-    type = args[0];
-    cb = args[1];
-  }
-
-  let query = {
-    userId: this._id,
-  };
-
-  if (type) query.type = type;
-
-  Tasks.Task.find(query, cb);
-};
-
-// Given user and an array of tasks, return an API compatible user + tasks obj
-schema.methods.addTasksToUser = function addTasksToUser (tasks) {
-  let obj = this.toJSON();
-
-  obj.id = obj._id;
-  obj.filters = {};
-
-  obj.tags = obj.tags.map(tag => {
-    return {
-      id: tag.id,
-      name: tag.name,
-      challenge: tag.challenge,
-    };
-  });
-
-  let tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
-
-  obj.habits = [];
-  obj.dailys = [];
-  obj.todos = [];
-  obj.rewards = [];
-
-  obj.tasksOrder = undefined;
-  let unordered = [];
-
-  tasks.forEach((task) => {
-    // We want to push the task at the same position where it's stored in tasksOrder
-    let pos = tasksOrder[`${task.type}s`].indexOf(task._id);
-    if (pos === -1) { // Should never happen, it means the lists got out of sync
-      unordered.push(task.toJSONV2());
-    } else {
-      obj[`${task.type}s`][pos] = task.toJSONV2();
-    }
-  });
-
-  // Reconcile unordered items
-  unordered.forEach((task) => {
-    obj[`${task.type}s`].push(task);
-  });
-
-  // Remove null values that can be created when inserting tasks at an index > length
-  ['habits', 'dailys', 'rewards', 'todos'].forEach((type) => {
-    obj[type] = _.compact(obj[type]);
-  });
-
-  return obj;
-};
-
-// Return the data maintaining backward compatibility
-schema.methods.getTransformedData = function getTransformedData (cb) {
-  let self = this;
-  this.getTasks((err, tasks) => {
-    if (err) return cb(err);
-    cb(null, self.addTasksToUser(tasks));
-  });
-};
-
-// END of API v2 methods
-export let model = mongoose.model('User', schema);
-
-// Initially export an empty object so external requires will get
-// the right object by reference when it's defined later
-// Otherwise it would remain undefined if requested before the query executes
-export let mods = [];
-
-mongoose.model('User')
-  .find({'contributor.admin': true})
-  .sort('-contributor.level -backer.npc profile.name')
-  .select('profile contributor backer')
-  .exec()
-  .then((foundMods) => {
-    // Using push to maintain the reference to mods
-    mods.push(...foundMods);
-  }); // In case of failure we don't want this to crash the whole server
+module.exports = schema;

@@ -5,6 +5,7 @@ habitrpg
     function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats) {
 
       $controller('RootCtrl', {$scope: $scope});
+      $rootScope.appLoaded = true;
 
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format($rootScope.User.user.preferences.dateFormat.toUpperCase());

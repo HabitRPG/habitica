@@ -517,6 +517,60 @@ describe('cron', () => {
     });
   });
 
+  describe('notifications', () => {
+    it('adds a user notification', () => {
+      let mpBefore = user.stats.mp;
+      tasksByType.dailys[0].completed = true;
+      user._statsComputed.maxMP = 100;
+
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications[0].type).to.equal('CRON');
+      expect(user.notifications[0].data).to.eql({
+        hp: user.stats.hp - hpBefore,
+        mp: user.stats.mp - mpBefore,
+      });
+    });
+
+    it('condenses multiple notifications into one', () => {
+      let mpBefore1 = user.stats.mp;
+      tasksByType.dailys[0].completed = true;
+      user._statsComputed.maxMP = 100;
+
+      daysMissed = 1;
+      let hpBefore1 = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications[0].type).to.equal('CRON');
+      expect(user.notifications[0].data).to.eql({
+        hp: user.stats.hp - hpBefore1,
+        mp: user.stats.mp - mpBefore1,
+      });
+
+      let hpBefore2 = user.stats.hp;
+      let mpBefore2 = user.stats.mp;
+
+      user.lastCron = moment(new Date()).subtract({days: 2});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications[0].type).to.equal('CRON');
+      expect(user.notifications[0].data).to.eql({
+        hp: user.stats.hp - hpBefore2 - (hpBefore2 - hpBefore1),
+        mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
+      });
+    });
+  });
+
   describe('private messages', () => {
     let lastMessageId;
 

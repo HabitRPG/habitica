@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content', 'UserNotifications',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content, UserNotifications) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -37,11 +37,6 @@ angular.module('habitrpg')
 
       //first we populate user with schema
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
-
-      //than we try to load localStorage
-      if (localStorage.getItem(STORAGE_USER_ID)) {
-        _.extend(user, JSON.parse(localStorage.getItem(STORAGE_USER_ID)));
-      }
 
       user._wrapped = false;
 
@@ -78,6 +73,7 @@ angular.module('habitrpg')
         return $http({
           method: "GET",
           url: '/api/v3/user/',
+          ignoreLoadingBar: $rootScope.appLoaded !== true,
         })
         .then(function (response) {
           if (response.data.message) Notification.text(response.data.message);
@@ -108,14 +104,14 @@ angular.module('habitrpg')
         .then(function (response) {
           var tasks = response.data.data;
           syncUserTasks(tasks);
-          save();
           $rootScope.$emit('userSynced');
+          $rootScope.appLoaded = true;
         });
       }
 
       var save = function () {
-        localStorage.setItem(STORAGE_USER_ID, JSON.stringify(user));
         localStorage.setItem(STORAGE_SETTINGS_ID, JSON.stringify(settings));
+        localStorage.removeItem(STORAGE_USER_ID); // TODO remember to remove once it's been live for a few days
       };
 
       function callOpsFunctionAndRequest (opName, endPoint, method, paramString, opData) {
@@ -167,8 +163,6 @@ angular.module('habitrpg')
             var text = Content.gear.flat[openedItem.key].text();
             Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), openedItem);
           }
-
-          save();
         })
       }
 
@@ -214,7 +208,6 @@ angular.module('habitrpg')
           } else {
             user.ops.addTask(data);
           }
-          save();
           Tasks.createUserTasks(data.body);
         },
 
@@ -225,7 +218,6 @@ angular.module('habitrpg')
             Notification.text(err.message);
             return;
           }
-          save();
 
           Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
@@ -284,37 +276,35 @@ angular.module('habitrpg')
 
         sortTask: function (data) {
           user.ops.sortTask(data);
-          save();
           Tasks.moveTask(data.params.id, data.query.to);
         },
 
         updateTask: function (task, data) {
           $window.habitrpgShared.ops.updateTask(task, data);
-          save();
           Tasks.updateTask(task._id, data.body);
         },
 
         deleteTask: function (data) {
           user.ops.deleteTask(data);
-          save();
           Tasks.deleteTask(data.params.id);
         },
 
         clearCompleted: function () {
           user.ops.clearCompleted(user.todos);
-          save();
           Tasks.clearCompletedTodos();
+        },
+
+        readNotification: function (notificationId) {
+          UserNotifications.readNotification(notificationId);
         },
 
         addTag: function(data) {
           user.ops.addTag(data);
-          save();
           Tags.createTag(data.body);
         },
 
         updateTag: function(data) {
           user.ops.updateTag(data);
-          save();
           Tags.updateTag(data.params.id, data.body);
         },
 
@@ -326,7 +316,6 @@ angular.module('habitrpg')
 
         deleteTag: function(data) {
           user.ops.deleteTag(data);
-          save();
           Tags.deleteTag(data.params.id);
         },
 
@@ -495,7 +484,6 @@ angular.module('habitrpg')
             data: updates,
           })
           .then(function () {
-            save();
             $rootScope.$emit('userSynced');
           })
         },

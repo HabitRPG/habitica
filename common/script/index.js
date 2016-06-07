@@ -242,6 +242,11 @@ api.wrap = function wrapUser (user, main = true) {
     user.markModified = function noopMarkModified () {};
   }
 
+  // same for addNotification
+  if (!user.addNotification) {
+    user.addNotification = function noopAddNotification () {};
+  }
+
   if (main) {
     user.ops = {
       update: _.partial(importedOps.update, user),
