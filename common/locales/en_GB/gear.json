@@ -632,7 +632,7 @@
     "headArmoireGraduateCapText": "Mortar Board",
     "headArmoireGraduateCapNotes": "Congratulations! Your deep thoughts have earned you this thinking cap. Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 3 of 3).",
     "headArmoireGreenFloppyHatText": "Green Floppy Hat",
-    "headArmoireGreenFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a gorgeous green color. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
+    "headArmoireGreenFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a gorgeous green colour. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
     "offhand": "shield-hand item",
     "shieldBase0Text": "No Shield-Hand Equipment",
     "shieldBase0Notes": "No shield or second weapon.",

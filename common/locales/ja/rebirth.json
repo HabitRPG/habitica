@@ -5,7 +5,7 @@
     "rebirthStartOver": "生まれかわりでキャラクターをレベル 1 からやり直す。",
     "rebirthAdvList1": "体力が満タンに回復します。",
     "rebirthAdvList2": "経験値、ゴールド、所持品、すべて持っていません ( ミステリーアイテムのような無料のものを除く)。",
-    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
+    "rebirthAdvList3": "週間、日課、To Do を黄色にリセットします。連続実行もリセットします。チャレンジ関連のタスクは除外されます。",
     "rebirthAdvList4": "新しいクラスを獲得するまでは、あなたは初期の戦士クラスです。",
     "rebirthInherit": "あなたの新しいキャラクターは前のキャラクターからいくつかを引き継ぎます:",
     "rebirthInList1": "タスク、履歴および設定は残ります。",
@@ -25,5 +25,5 @@
     "rebirthName": "転生のオーブ",
     "reborn": "転生しました、最大レベル<%= reLevel %>",
     "confirmReborn": "本当によろしいですか？",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "復活しました!"
 }

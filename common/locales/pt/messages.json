@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Mensagem não encontrada!",
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de bandeira!",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
-    "messageUserOperationNotFound": "<%= operation %> operação não encontrada"
+    "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
+    "messageNotificationNotFound": "Notification not found."
 }

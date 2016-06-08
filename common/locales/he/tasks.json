@@ -28,9 +28,6 @@
     "medium": "בינוני",
     "hard": "קשה",
     "attributes": "תכונות",
-    "physical": "גופני",
-    "mental": "מוחני",
-    "otherExamples": "למשל עיסוקים מקצועיים, תחביבים, ניהול כספים וכיוב'.",
     "progress": "התקדמות",
     "daily": "יומי",
     "dailies": "מטלות",
@@ -126,6 +123,10 @@
     "tagIdRequired": "\"tagId\" חייב להיות UUID - זהות משתמש ייחודי - תקף התואם לתווית השייכת למשתמש.",
     "positionRequired": "\"position\" נדרש למילוי, וחייב להיות מספר.",
     "cantMoveCompletedTodo": "לא ניתן להזיז משימה שהושלמה.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
-    "alreadyTagged": "המטלה כבר מתוייגת עם התווית הנתונה."
+    "directionUpDown": "\"direction\" נדארש למילוי, וחייב להיות \"למעלה\" או \"למטה\".",
+    "alreadyTagged": "המטלה כבר מתוייגת עם התווית הנתונה.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

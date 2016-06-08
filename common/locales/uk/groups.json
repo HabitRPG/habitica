@@ -36,7 +36,7 @@
     "invitedToNewParty": "You were invited to join a party! Do you want to leave this party and join <%= partyName %>?",
     "joinNewParty": "Join New Party",
     "declineInvitation": "Decline Invitation",
-    "loadingNewParty": "Your new party is loading. Please wait...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "Нове повідомлення у „<%= name %>“",
     "chat": "Гутірка",
     "sendChat": "Надіслати",

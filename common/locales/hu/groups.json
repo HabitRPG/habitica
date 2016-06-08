@@ -36,7 +36,7 @@
     "invitedToNewParty": "You were invited to join a party! Do you want to leave this party and join <%= partyName %>?",
     "joinNewParty": "Új Csapatba Csatlakozás",
     "declineInvitation": "Meghívás Visszautasítása",
-    "loadingNewParty": "Az új csapatod töltődik. Kérlek várj...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "Új üzenet \"<%= name %>\"",
     "chat": "Csevegő",
     "sendChat": "Üzenet küldése",

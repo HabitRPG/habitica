@@ -36,7 +36,7 @@
     "invitedToNewParty": "¡Te han invitado a unirte a un nuevo equipo! ¿Quieres abandonar el equipo en el que estás actualmente y unirte a <%= partyName %>?",
     "joinNewParty": "Unirte al nuevo Equipo",
     "declineInvitation": "Rechazar invitación",
-    "loadingNewParty": "Tu nuevo equipo está cargando. Por favor espera...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "Mensaje nuevo en \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Enviar Chat",

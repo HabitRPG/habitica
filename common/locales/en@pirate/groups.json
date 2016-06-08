@@ -36,7 +36,7 @@
     "invitedToNewParty": "Ye be invited to join a party! Do ye want to leave this party and join <%= partyName %>?",
     "joinNewParty": "Join New Crew",
     "declineInvitation": "Decline Invitation",
-    "loadingNewParty": "Yer new party be loadin'. Calm yerself an' wait...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "New message in \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Send a Message-In-A-Bottle",

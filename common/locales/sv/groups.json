@@ -36,7 +36,7 @@
     "invitedToNewParty": "You were invited to join a party! Do you want to leave this party and join <%= partyName %>?",
     "joinNewParty": "Gå med i ett nytt sällskap",
     "declineInvitation": "Avböj Inbjudan",
-    "loadingNewParty": "Ditt nya sällskap laddar. Vänta...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "Nytt meddelande i \"<%= name %>\"",
     "chat": "Chatt",
     "sendChat": "Skicka Chatt",

@@ -49,11 +49,11 @@
     "seasonalItems": "Szezonális tárgyak",
     "nyeCardAchievementTitle": "Régi Ismerős",
     "nyeCardAchievementText": "Boldog Újévet! Küldj vagy kapj <%= cards %> Újév üdvözlőkártyát.",
-    "nye0": "Happy New Year! May you slay many a bad Habit.",
-    "nye1": "Happy New Year! May you reap many Rewards.",
-    "nye2": "Happy New Year! May you earn many a Perfect Day.",
-    "nye3": "Happy New Year! May your To-Do list stay short and sweet.",
-    "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
+    "nye0": "Boldog új évet! Pusztíts el sok rossz Szokást.",
+    "nye1": "Boldog új évet! Arass sok Jutalmat.",
+    "nye2": "Boldog új évet! Legyen sok Tökéletes Napod.",
+    "nye3": "Boldog Új Évet! Legyen a teendőid listája ugyanolyan rövid és aranyos mint mindig.",
+    "nye4": "Boldog új évet! Ne támadjon meg téged egy dühöngő Hippogriff se.",
     "holidayCard": "Egy ünnepi üdvözlőkártyád érkezett.",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Varázsegér (Mágus)",
@@ -73,5 +73,5 @@
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Elérhető október 31-ig ",
     "winterEventAvailability": "Elérhető december 31-ig",
-    "springEventAvailability": "Available until May 31"
+    "springEventAvailability": "Elérhető május 31-ig."
 }

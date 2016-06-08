@@ -36,7 +36,7 @@
     "invitedToNewParty": "Du blev inviteret til en gruppe! Vil du forlade denne gruppe og slutte dig til <%= partyName %>?",
     "joinNewParty": "Slut dig til ny Gruppe",
     "declineInvitation": "Afslå Invitation",
-    "loadingNewParty": "Din ny gruppe indlæses. Vent venligst...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "Ny besked i \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Send Besked",

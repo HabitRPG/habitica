@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar la cuenta!",
     "messageUserOperationProtected": "la ruta <%= operation %> no se guardó porque es una ruta protegida.",
-    "messageUserOperationNotFound": "<%= operation %> no encontrado"
+    "messageUserOperationNotFound": "<%= operation %> no encontrado",
+    "messageNotificationNotFound": "Notification not found."
 }

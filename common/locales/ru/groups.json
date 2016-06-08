@@ -36,7 +36,7 @@
     "invitedToNewParty": "Вас пригласили в команду! Вы хотите покинуть эту команду и вступить в <%= partyName %>?",
     "joinNewParty": "Вступить в новую команду",
     "declineInvitation": "Отклонить приглашение",
-    "loadingNewParty": "Ваша новая команда в процессе загрузки. Пожалуйста, подождите...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "Новое сообщение в «<%= name %>»",
     "chat": "Чат",
     "sendChat": "Написать в чат",

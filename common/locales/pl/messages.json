@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Nie znaleziono wiadomości!",
     "messageGroupChatAdminClearFlagCount": "Tylko administrator może wyczyścić licznik flag!",
     "messageUserOperationProtected": "Ścieżka `<%= operation %>` nie została zapisana, gdyż jest chronniona przed zapisem.",
-    "messageUserOperationNotFound": "Operacja <%= operation %> nie znaleziona"
+    "messageUserOperationNotFound": "Operacja <%= operation %> nie znaleziona",
+    "messageNotificationNotFound": "Notification not found."
 }

@@ -36,7 +36,7 @@
     "invitedToNewParty": "Bol si pozvaný do družiny! Chceš opustiť túto družinu a pridať sa k <%= partyName %>?",
     "joinNewParty": "Pridať sa k novej družine",
     "declineInvitation": "Odmietnuť pozvánku",
-    "loadingNewParty": "Tvoja nová družina sa načítava. Prosím počkaj...",
+    "loadingNewParty": "Your party is loading. Please wait...",
     "newMsg": "Nová správa v \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Odoslať",

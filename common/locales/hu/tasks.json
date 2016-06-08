@@ -28,9 +28,6 @@
     "medium": "Közepes",
     "hard": "Nehéz",
     "attributes": "Jellemzők",
-    "physical": "Fizikai",
-    "mental": "Szellemi",
-    "otherExamples": "Például szakmai célok, hobbik, pénzügyek, stb.",
     "progress": "Haladás",
     "daily": "Napi feladat",
     "dailies": "Napi feladatok",
@@ -127,5 +124,9 @@
     "positionRequired": "\"position\" is required and must be a number.",
     "cantMoveCompletedTodo": "Can't move a completed todo.",
     "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
-    "alreadyTagged": "A feladathoz már használod ezt a címkét."
+    "alreadyTagged": "A feladathoz már használod ezt a címkét.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

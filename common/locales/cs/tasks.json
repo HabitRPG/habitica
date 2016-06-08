@@ -28,9 +28,6 @@
     "medium": "Středně těžké",
     "hard": "Těžké",
     "attributes": "Vlastnosti",
-    "physical": "Fyzické",
-    "mental": "Duševní",
-    "otherExamples": "Např. profesní postup, koníčky, finance, atd.",
     "progress": "Pokrok",
     "daily": "Denně",
     "dailies": "Denní úkoly",
@@ -127,5 +124,9 @@
     "positionRequired": "Je požadována „pozice\", který musí být číslem.",
     "cantMoveCompletedTodo": "Nelze pohnout s dokončeným ůkolem.",
     "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
-    "alreadyTagged": "Tento úkoly jste již označili tímto štítkem."
+    "alreadyTagged": "Tento úkoly jste již označili tímto štítkem.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

@@ -28,9 +28,6 @@
     "medium": "中等",
     "hard": "困难",
     "attributes": "属性",
-    "physical": "身体上的",
-    "mental": "精神上的",
-    "otherExamples": "例如，职业上的追求，业余爱好，经济相关的，等等。",
     "progress": "进度",
     "daily": "日常",
     "dailies": "每日任务",
@@ -126,6 +123,10 @@
     "tagIdRequired": "\"tagId\"必须是一个对应于属于用户的一个标签的有效UUID。",
     "positionRequired": "\"position\"是必须的并且必须为一个数字。",
     "cantMoveCompletedTodo": "不能移动一个完成的待办事项。",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
-    "alreadyTagged": "任务已经被给出的标签标记。"
+    "directionUpDown": "\"direction\"是必须的并且必须为'up'或'down'中的一个。\n",
+    "alreadyTagged": "任务已经被给出的标签标记。",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }
