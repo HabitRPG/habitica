@@ -48,12 +48,15 @@ describe("Party Controller", function() {
       inject(function(_$state_) {
         var state = _$state_;
         sandbox.stub(state, 'is').returns(true);
+
         var syncParty = sinon.stub(groups.Group, 'syncParty')
         syncParty.returns(Promise.resolve(groupResponse));
+
+        var froceSyncParty = sinon.stub(groups, 'party')
+        froceSyncParty.returns(Promise.resolve(groupResponse));
+
         $controller('PartyCtrl', { $scope: scope, $state: state, User: User });
-        // @TODO: I have update the party ctrl to sync the user whenever it is called rather than only on the party page
-        // Since I have cached the promise, this should not be a performance issue, but let's keep this test here in case anything breaks.
-        // expect(state.is).to.be.calledOnce; // ensure initialization worked as desired
+        expect(state.is).to.be.calledOnce;
       });
     };
 
