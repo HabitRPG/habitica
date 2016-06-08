@@ -51,9 +51,8 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   stats.hp = 50;
   stats.lvl = 1;
   stats.class = 'warrior';
-  
-  let preferences = user.preferences;
-  preferences.automaticAllocation = false;
+
+  user.preferences.automaticAllocation = false;
 
   _.each(USERSTATSLIST, function resetStats (value) {
     stats[value] = 0;

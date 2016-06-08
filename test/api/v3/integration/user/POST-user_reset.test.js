@@ -101,4 +101,30 @@ describe('POST /user/reset', () => {
 
     expect(userChallengeTask).to.eql(task);
   });
+
+  it('keeps automaticAllocation false', async () => {
+    await user.update({
+      preferences: {
+        automaticAllocation: false,
+      },
+    });
+
+    await user.post('/user/reset');
+    await user.sync();
+
+    expect(user.preferences.automaticAllocation).to.be.false;
+  });
+
+  it('sets automaticAllocation to false when true', async () => {
+    await user.update({
+      preferences: {
+        automaticAllocation: true,
+      },
+    });
+
+    await user.post('/user/reset');
+    await user.sync();
+
+    expect(user.preferences.automaticAllocation).to.be.false;
+  });
 });
