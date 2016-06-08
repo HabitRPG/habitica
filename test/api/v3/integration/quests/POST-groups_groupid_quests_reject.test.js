@@ -4,6 +4,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import Bluebird from 'bluebird';
 
 describe('POST /groups/:groupId/quests/reject', () => {
   let questingGroup;
@@ -116,6 +117,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
         up: 0,
         down: 0,
         collect: {},
+        collectedItems: 0,
       },
       completed: null,
       RSVPNeeded: false,
@@ -141,6 +143,27 @@ describe('POST /groups/:groupId/quests/reject', () => {
       await questingGroup.sync();
 
       expect(questingGroup.quest.active).to.be.true;
+    });
+
+    it('cleans up user quest data for non-quest members when last member rejects', async () => {
+      let rejectingMember = partyMembers[1];
+
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      // quest will start after everyone has accepted or rejected
+      await rejectingMember.post(`/groups/${questingGroup._id}/quests/reject`);
+
+      await Bluebird.delay(500);
+
+      await questingGroup.sync();
+
+      expect(questingGroup.quest.active).to.be.true;
+
+      await rejectingMember.sync();
+
+      expect(rejectingMember.party.quest.RSVPNeeded).to.eql(false);
+      expect(rejectingMember.party.quest.key).to.not.exist;
+      expect(rejectingMember.party.quest.completed).to.not.exist;
     });
   });
 });

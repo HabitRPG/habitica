@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Nachricht wurde nicht gefunden!",
     "messageGroupChatAdminClearFlagCount": "Nur Admins können den Zählmarker zurücksetzen!",
     "messageUserOperationProtected": "Pfad `<%= operation %>` wurde nicht gespeichert, da dieser geschützt ist.",
-    "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden"
+    "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden",
+    "messageNotificationNotFound": "Notification not found."
 }

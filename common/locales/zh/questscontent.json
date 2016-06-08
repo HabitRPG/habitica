@@ -315,10 +315,10 @@
     "questFalconBoss": "掠食明天之鸟",
     "questFalconDropFalconEgg": "猎鹰(宠物蛋)",
     "questFalconUnlockText": "解锁猎鹰蛋购买功能",
-    "questTreelingText": "The Tangle Tree",
+    "questTreelingText": "纠结树",
     "questTreelingNotes": "It's the annual Garden Competition, and everyone is talking about the mysterious project which @aurakami has promised to unveil. You join the crowd on the day of the big announcement, and marvel at the introduction of a moving tree. @fuzzytrees explains that the tree will help with garden maintenance, showing how it can mow the lawn, trim the hedge and prune the roses all at the same time – until the tree suddenly goes wild, turning its secateurs on its creator! The crowd panics as everyone tries to flee, but you aren't afraid – you leap forward, ready to do battle.",
     "questTreelingCompletion": "You dust yourself off as the last few leaves drift to the floor. In spite of the upset, the Garden Competition is now safe – although the tree you just reduced to a heap of wood chips won't be winning any prizes! \"Still a few kinks to work out there,\" @PainterProphet says. \"Perhaps someone else would do a better job of training the saplings. Do you fancy a go?\"",
-    "questTreelingBoss": "Tangle Tree",
-    "questTreelingDropTreelingEgg": "Treeling (Egg)",
-    "questTreelingUnlockText": "Unlocks purchasable Treeling eggs in the Market"
+    "questTreelingBoss": "纠结树",
+    "questTreelingDropTreelingEgg": "树芽(蛋)",
+    "questTreelingUnlockText": "解锁树芽蛋购买功能"
 }

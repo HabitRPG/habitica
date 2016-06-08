@@ -29,9 +29,9 @@
     "messageFoundQuest": "Našiel si zvitok s popisom výpravy: \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Tento výstroj si si kúpil v minulosti, ale momentálne ho nevlastníš. Môžeš si ho kúpiť znovu v stĺpci s odmenami na stránke s úlohami.",
     "messageAlreadyOwnGear": "Tento predmet už vlastníš. Vyzbroj sa ním na stránke s výstrojom. ",
-    "armoireEquipment": "<%= image %> Našiel si časť vzácneho výstroja v zbrojnici <%= dropText %>! Úžasné!",
-    "armoireFood": "<%= image %> Prehrabával si sa v zbroji a našiel si <%= dropArticle %><%= dropText %>. Čo to tam robí?",
-    "armoireExp": "Zápasil si so zbrojou a získal si skúsenosti. Tu máš!",
+    "armoireEquipment": "<%= image %> Našiel si časť vzácneho výstroja v skrini: <%= dropText %>! Úžasné!",
+    "armoireFood": "<%= image %> Prehrabával si sa v skrini a našiel si <%= dropArticle %><%= dropText %>. Čo to tam robí?",
+    "armoireExp": "Zápasil si so skriňou a získal si skúsenosti. Tu máš!",
     "messageInsufficientGems": "Nemáš dostatok drahokamov!",
     "messageAuthPasswordMustMatch": ":heslo a :potvrďHeslo sa nezhodujú",
     "messageAuthCredentialsRequired": ":používateľskéMeno, :email, :heslo, :potvrďHeslo sú požadované",
@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Správa sa nenašla!",
     "messageGroupChatAdminClearFlagCount": "Len správca môže vynulovať počet označení.",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebola uložená, keďže je to chránená cesta.",
-    "messageUserOperationNotFound": "<%= operation %> operácia sa nenašla"
+    "messageUserOperationNotFound": "<%= operation %> operácia sa nenašla",
+    "messageNotificationNotFound": "Notification not found."
 }

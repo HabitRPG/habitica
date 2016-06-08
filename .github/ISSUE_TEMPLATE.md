@@ -1,4 +1,4 @@
-[//]: # (Before logging this issue, look through common problems at https://github.com/HabitRPG/habitrpg/issue If you find your issue there, read at least the first post to see if there is a workaround for you)
+[//]: # (Before logging this issue, look through common problems at https://github.com/HabitRPG/habitrpg/issues If you find your issue there, read at least the first post to see if there is a workaround for you)
 
 [//]: # (Github is primarily used for reporting bugs. If you have a feature request, use "Help > Request a Feature" so that the feature request can be vetted by the larger Habitica community)
 

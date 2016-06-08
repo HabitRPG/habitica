@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Rzuć w członka drużyny śnieżną pigułą! Co może pójść nie tak? Trwa aż do jego następnego dnia.",
     "spellSpecialSaltText": "Sól",
     "spellSpecialSaltNotes": "Ktoś rzucił w ciebie kulą śnieżną. Ha ha, bardzo śmieszne. A teraz otrzepcie mnie z tego śniegu!",
-    "spellSpecialSpookySparklesText": "Spooky Sparkles",
-    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookySparklesText": "Straszne iskierki",
+    "spellSpecialSpookySparklesNotes": "Zamień przyjaciela w latający koc z oczami!",
     "spellSpecialOpaquePotionText": "Nieprzejrzysty eliksir",
     "spellSpecialOpaquePotionNotes": "Anuluje efekt strasznych iskierek.",
     "spellSpecialShinySeedText": "Lśniące nasiono",
@@ -48,9 +48,9 @@
     "spellSpecialSandText": "Piasek",
     "spellSpecialSandNotes": "Anuluj skutki Piany Morskiej",
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
+    "partyNotFound": "Nie znaleziono drużyny.",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
-    "spellNotOwned": "You don't own this skill.",
+    "spellNotOwned": "Nie posiadasz tej umiejętności.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

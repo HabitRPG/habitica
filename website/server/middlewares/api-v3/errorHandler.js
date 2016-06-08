@@ -12,12 +12,6 @@ import {
 } from 'lodash';
 
 module.exports = function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
-  logger.error(err, {
-    originalUrl: req.originalUrl,
-    headers: omit(req.headers, ['x-api-key']),
-    body: req.body,
-  });
-
   // In case of a CustomError class, use it's data
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
   // If we can't identify it, respond with a generic 500 error
@@ -69,6 +63,16 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
     // Use it also in case of identified errors but with httpCode === 500
     responseErr = new InternalServerError();
   }
+
+  // log the error
+  logger.error(err, {
+    method: req.method,
+    originalUrl: req.originalUrl,
+    headers: omit(req.headers, ['x-api-key', 'cookie']), // don't send sensitive information that only adds noise
+    body: req.body,
+    httpCode: responseErr.httpCode,
+    isHandledError: responseErr.httpCode < 500,
+  });
 
   let jsonRes = {
     success: false,

@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "找不到留言 !",
     "messageGroupChatAdminClearFlagCount": "只有管理員才可以把標記計數清除！",
     "messageUserOperationProtected": "路徑`<%= operation %>`沒有保留，因為它是一個受保護的路徑。",
-    "messageUserOperationNotFound": "<%= operation %> 找不到行動"
+    "messageUserOperationNotFound": "<%= operation %> 找不到行動",
+    "messageNotificationNotFound": "Notification not found."
 }

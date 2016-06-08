@@ -28,9 +28,6 @@
     "medium": "Medium",
     "hard": "Harrrd",
     "attributes": "Attributes",
-    "physical": "Physical",
-    "mental": "Mental",
-    "otherExamples": "Eg, treasure huntin', parrot-trainin', plunderin', etc.",
     "progress": "Progress",
     "daily": "Daily",
     "dailies": "Dailies",
@@ -126,6 +123,10 @@
     "tagIdRequired": "\"tagId\" must be a valid UUID corresponding to a tag belonging to the user.",
     "positionRequired": "\"position\" is required and must be a number.",
     "cantMoveCompletedTodo": "Can't move a completed todo.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
-    "alreadyTagged": "The task is already tagged with given tag."
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
+    "alreadyTagged": "The task is already tagged with given tag.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

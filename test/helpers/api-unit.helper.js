@@ -16,7 +16,7 @@ afterEach((done) => {
 export { sleep } from './sleep';
 
 export function generateUser (options = {}) {
-  return new User(options).toObject();
+  return new User(options);
 }
 
 export function generateGroup (options = {}) {

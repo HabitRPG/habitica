@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "パーティーの仲間に雪玉を投げましょう！　何か問題でも?　翌日まで効果がつづきます。",
     "spellSpecialSaltText": "塩",
     "spellSpecialSaltNotes": "だれかに雪玉を投げつけられた。ハハ、とてもおもしろい。だれかこの雪を拭いてくれ！",
-    "spellSpecialSpookySparklesText": "Spooky Sparkles",
-    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookySparklesText": "不気味な光",
+    "spellSpecialSpookySparklesNotes": "友達を目が付いた空飛ぶ毛布に変えよう!",
     "spellSpecialOpaquePotionText": "不透明ポーション",
     "spellSpecialOpaquePotionNotes": "不気味なきらめきの効果を取り消す。",
     "spellSpecialShinySeedText": "輝く種",
@@ -47,10 +47,10 @@
     "spellSpecialSeafoamNotes": "友達を海の生き物に変えよう!",
     "spellSpecialSandText": "砂",
     "spellSpecialSandNotes": "海の泡の効果を取り消す。",
-    "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellNotFound": "スキル\"<%= spellId %>\" が見つかりません。",
+    "partyNotFound": "パーティが見つかりません。",
+    "targetIdUUID": "\"targetId\" のUserIDが無効です。",
+    "challengeTasksNoCast": "スキルはチャレンジのタスクには唱えられません。",
+    "spellNotOwned": "あなたはこのスキルを習得していません。",
+    "spellLevelTooHigh": "このスキルを使うにはレベル<%= level %>が必要です。"
 }

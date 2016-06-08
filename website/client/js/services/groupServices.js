@@ -45,7 +45,7 @@ angular.module('habitrpg')
       //@TODO: Check for what has changed?
 
       //Remove populated fields
-      var groupDetailsToSend = _.omit(groupDetails, ['challenges', 'members', 'invites']);
+      var groupDetailsToSend = _.omit(groupDetails, ['chat', 'challenges', 'members', 'invites']);
       if (groupDetailsToSend.leader && groupDetailsToSend.leader._id) groupDetailsToSend.leader = groupDetailsToSend.leader._id;
 
       return $http({
@@ -110,6 +110,7 @@ angular.module('habitrpg')
     //On page load, multiple controller request the party.
     //So, we cache the promise until the first result is returned
     var _cachedPartyPromise;
+
     function party (forceUpdate) {
       if (_cachedPartyPromise && !forceUpdate) return _cachedPartyPromise.promise;
       _cachedPartyPromise = $q.defer();
@@ -148,6 +149,10 @@ angular.module('habitrpg')
       }
 
       return _cachedPartyPromise.promise;
+    }
+
+    function removePartyCache () {
+      _cachedPartyPromise = null;
     }
 
     function publicGuilds () {
@@ -207,8 +212,10 @@ angular.module('habitrpg')
 
     function inviteOrStartParty (group) {
       Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
+
       if (group.type === "party" || $location.$$path === "/options/groups/party") {
        group.type = 'party';
+
        $rootScope.openModal('invite-party', {
          controller:'InviteToGroupCtrl',
          resolve: {
@@ -227,6 +234,7 @@ angular.module('habitrpg')
       myGuilds: myGuilds,
       tavern: tavern,
       inviteOrStartParty: inviteOrStartParty,
+      removePartyCache: removePartyCache,
 
       data: data,
       Group: Group,

@@ -5,6 +5,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
+    var CTRL_KEYS = [17, 224, 91];
+
     $scope.armoireCount = function(gear) {
       return Shared.count.remainingGearInSet(gear, 'armoire');
     };
@@ -189,19 +191,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     }
 
     $scope.addChecklistItem = function(task, $event, $index) {
-      if (!task.checklist[$index].text) {
-        // Don't allow creation of an empty checklist item
-        // TODO Provide UI feedback that this item is still blank
-      } else if ($index == task.checklist.length - 1) {
-        Tasks.addChecklistItem(task._id, task.checklist[$index])
-          .then(function (response) {
-            task.checklist[$index] = response.data.data.checklist[$index];
-          });
-        task.checklist.push({completed:false, text:''});
-        focusChecklist(task, task.checklist.length - 1);
-      } else {
+      if (task.checklist[$index].text) {
         $scope.saveTask(task, true);
+        if ($index === task.checklist.length - 1)
+          task.checklist.push({ completed: false, text: '' });
         focusChecklist(task, $index + 1);
+      } else {
+        // TODO Provide UI feedback that this item is still blank
       }
     }
 
@@ -298,6 +294,30 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     }
 
+    var isCtrlPressed = function (keyEvent) {
+      if (CTRL_KEYS.indexOf(keyEvent.keyCode) > -1) {
+        $scope.ctrlPressed = true;
+        $scope.$apply();
+      }
+    }
+
+    var isCtrlLetGo = function (keyEvent) {
+      if (CTRL_KEYS.indexOf(keyEvent.keyCode) > -1) {
+        $scope.ctrlPressed = false;
+        $scope.$apply();
+      }
+    }
+
+    document.addEventListener('keydown', isCtrlPressed);
+    document.addEventListener('keyup', isCtrlLetGo);
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
+      if (toState.name.indexOf('tasks') < 0) {
+        document.removeEventListener('keydown', isCtrlPressed);
+        document.removeEventListener('keyup', isCtrlLetGo);
+      }
+    });
+
     /*
     ------------------------
     Tags
@@ -311,7 +331,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         task.tags.push(tagId);
       } else {
         Tasks.removeTagFromTask(task._id, tagId);
-        task.tags.splice(tagIndex, 0);
+        task.tags.splice(tagIndex, 1);
       }
     }
   }]);

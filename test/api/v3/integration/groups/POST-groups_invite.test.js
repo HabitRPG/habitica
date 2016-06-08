@@ -33,6 +33,17 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('returns an error when inviting yourself to a group', async () => {
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        uuids: [inviter._id],
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('cannotInviteSelfToGroup'),
+      });
+    });
+
     it('returns an error when uuids is not an array', async () => {
       let fakeID = generateUUID();
 

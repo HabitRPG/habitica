@@ -5,7 +5,7 @@
     "rebirthStartOver": "לידה מחדש מתחילה את הדמות שלכם מחדש ברמה 1.",
     "rebirthAdvList1": "אתה חוזר לרפואה שלמה.",
     "rebirthAdvList2": "אין לכם ניסיון, זהב, או ציוד (למעט חפצים חופשיים כמו חפצים מיסתוריים).",
-    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
+    "rebirthAdvList3": "ההרגלים שלכם, המטלות היומיות, והמשימות - אופסו להיות צהובים, והרצפים אופסו, למעט המשימות של האתגרים.",
     "rebirthAdvList4": "המקצוע שלך יהיה לוחם/ת עד שתרוויח/י מקצוע חדש.",
     "rebirthInherit": "הדמות החדשה שלך יורשת מספר דברים מהקודמת:",
     "rebirthInList1": "מטלות, היסטוריה, והגדרות נשארים כשהיו.",
@@ -25,5 +25,5 @@
     "rebirthName": "כדור הלידה מחדש",
     "reborn": "היוולדו מחדש. רמה מירבית: <%= reLevel %>",
     "confirmReborn": "האם אתם בטוחים?",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "נולדתם מחדש!"
 }

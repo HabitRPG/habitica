@@ -178,5 +178,5 @@
     "raisePetShare": "Hátassá neveltem egy háziállatot, azzal, hogy való-életbeli tennivalóim elvégeztem!",
     "wonChallengeShare": "Megnyertem egy kihívást a Habiticán!",
     "achievementShare": "Új kitüntetést szereztem a Habiticán!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Renezés <%= item %> szerint"
 }

@@ -42,7 +42,7 @@
     "messageAuthMustIncludeTokens": "你的请求内容里必须包括uid(user id)和勋章",
     "messageGroupNotFound": "没有找到这个小组，或者你没有权限",
     "messageGroupAlreadyInParty": "你已加入这个队伍，请刷新页面",
-    "messageGroupOnlyLeaderCanUpdate": "只有小组官员才可以更新小组信息",
+    "messageGroupOnlyLeaderCanUpdate": "只有小组长才可以更新小组信息！",
     "messageGroupRequiresInvite": "无法加入没有邀请你的小组",
     "messageGroupCannotRemoveSelf": "你不能将自己移除",
     "messageGroupChatBlankMessage": "你不能发送空白消息",
@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "找不到消息。",
     "messageGroupChatAdminClearFlagCount": "只有管理员可以去除计数！",
     "messageUserOperationProtected": "路径 `<%= operation %>`因受到保护未保存。",
-    "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。"
+    "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。",
+    "messageNotificationNotFound": "Notification not found."
 }

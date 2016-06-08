@@ -5,7 +5,7 @@
     "annoyingFriends": "Irritante vrienden",
     "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door groepsleden.",
     "alarmingFriends": "Verontrustende vrienden",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "Is <%= spookySparkles %> keer laten schrikken door groepsleden.",
     "agriculturalFriends": "Vrienden met groene vingers",
     "agriculturalFriendsText": "Is <%= seeds %> keer door groepsgenoten in een bloem omgetoverd.",
     "aquaticFriends": "Spetterende vrienden",

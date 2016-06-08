@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 import moment from 'moment';
-import { cron } from '../../../../../website/server/libs/api-v3/cron';
+import Bluebird from 'bluebird';
+import { recoverCron, cron } from '../../../../../website/server/libs/api-v3/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
 import { clone } from 'lodash';
@@ -32,15 +33,6 @@ describe('cron', () => {
     user._statsComputed = {
       mp: 10,
     };
-  });
-
-  it('updates user.auth.timestamps.loggedin and lastCron', () => {
-    let now = new Date();
-
-    cron({user, tasksByType, daysMissed, analytics, now});
-
-    expect(user.auth.timestamps.loggedin).to.equal(now);
-    expect(user.lastCron).to.equal(now);
   });
 
   it('updates user.preferences.timezoneOffsetAtLastCron', () => {
@@ -88,21 +80,25 @@ describe('cron', () => {
     });
 
     it('decrements plan.consecutive.offset when offset is greater than 0', () => {
-      user.purchased.plan.consecutive.offset = 1;
+      user.purchased.plan.consecutive.offset = 2;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.consecutive.offset).to.equal(0);
+      expect(user.purchased.plan.consecutive.offset).to.equal(1);
     });
 
     it('increments plan.consecutive.trinkets when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
     it('increments plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.offset = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
     it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
@@ -512,12 +508,66 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.party.quest.progress.up).to.equal(0);
       expect(user.party.quest.progress.down).to.equal(0);
-      expect(user.party.quest.progress.collect).to.be.empty;
+      expect(user.party.quest.progress.collectedItems).to.be.empty;
     });
 
     it('applies the user progress', () => {
       let progress = cron({user, tasksByType, daysMissed, analytics});
       expect(progress.down).to.equal(-1);
+    });
+  });
+
+  describe('notifications', () => {
+    it('adds a user notification', () => {
+      let mpBefore = user.stats.mp;
+      tasksByType.dailys[0].completed = true;
+      user._statsComputed.maxMP = 100;
+
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications[0].type).to.equal('CRON');
+      expect(user.notifications[0].data).to.eql({
+        hp: user.stats.hp - hpBefore,
+        mp: user.stats.mp - mpBefore,
+      });
+    });
+
+    it('condenses multiple notifications into one', () => {
+      let mpBefore1 = user.stats.mp;
+      tasksByType.dailys[0].completed = true;
+      user._statsComputed.maxMP = 100;
+
+      daysMissed = 1;
+      let hpBefore1 = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications[0].type).to.equal('CRON');
+      expect(user.notifications[0].data).to.eql({
+        hp: user.stats.hp - hpBefore1,
+        mp: user.stats.mp - mpBefore1,
+      });
+
+      let hpBefore2 = user.stats.hp;
+      let mpBefore2 = user.stats.mp;
+
+      user.lastCron = moment(new Date()).subtract({days: 2});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications[0].type).to.equal('CRON');
+      expect(user.notifications[0].data).to.eql({
+        hp: user.stats.hp - hpBefore2 - (hpBefore2 - hpBefore1),
+        mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
+      });
     });
   });
 
@@ -569,5 +619,70 @@ describe('cron', () => {
 
       expect(user.inbox.messages[messageId]).to.not.exist;
     });
+  });
+});
+
+describe('recoverCron', () => {
+  let locals, status, execStub;
+
+  beforeEach(() => {
+    execStub = sandbox.stub();
+    sandbox.stub(User, 'findOne').returns({ exec: execStub });
+
+    status = { times: 0 };
+    locals = {
+      user: new User({
+        auth: {
+          local: {
+            username: 'username',
+            lowerCaseUsername: 'username',
+            email: 'email@email.email',
+            salt: 'salt',
+            hashed_password: 'hashed_password', // eslint-disable-line camelcase
+          },
+        },
+      }),
+    };
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('throws an error if user cannot be found', async (done) => {
+    execStub.returns(Bluebird.resolve(null));
+
+    try {
+      await recoverCron(status, locals);
+    } catch (err) {
+      expect(err.message).to.eql(`User ${locals.user._id} not found while recovering.`);
+
+      done();
+    }
+  });
+
+  it('increases status.times count and reruns up to 4 times', async (done) => {
+    execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
+    execStub.onCall(4).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
+
+    await recoverCron(status, locals);
+
+    expect(status.times).to.eql(4);
+    expect(locals.user).to.eql({_cronSignature: 'NOT_RUNNING'});
+
+    done();
+  });
+
+  it('throws an error if recoverCron runs 5 times', async (done) => {
+    execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
+
+    try {
+      await recoverCron(status, locals);
+    } catch (err) {
+      expect(status.times).to.eql(5);
+      expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
+
+      done();
+    }
   });
 });

@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Gooi een sneeuwbal naar een groepslid! Wat kan er nou misgaan? Duurt tot een nieuwe dag aanbreekt voor dit groepslid.",
     "spellSpecialSaltText": "Zout",
     "spellSpecialSaltNotes": "Iemand heeft een sneeuwbal naar je gegooid. Ha ha, heel grappig. Help me nu die sneeuw van me af te krijgen!",
-    "spellSpecialSpookySparklesText": "Spooky Sparkles",
-    "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookySparklesText": "Spookachtige Glitters",
+    "spellSpecialSpookySparklesNotes": "Verander een vriend in een zwevende deken met ogen!",
     "spellSpecialOpaquePotionText": "Ondoorzichtig toverdrankje",
     "spellSpecialOpaquePotionNotes": "Verwijder het effect van Spookachtige Glitters.",
     "spellSpecialShinySeedText": "Glanzend zaadje",
@@ -49,8 +49,8 @@
     "spellSpecialSandNotes": "Verwijder de effecten van Zeeschuim.",
     "spellNotFound": "Vaardigheid \"<%= spellId %>\" niet gevonden.",
     "partyNotFound": "Groep niet gevonden",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "targetIdUUID": "\"targetId\" moet een valide User ID zijn.",
+    "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan",
+    "spellNotOwned": "Je bezit deze vaardigheid niet.",
+    "spellLevelTooHigh": "Je niet niveau <%= level %> zijn om deze vaardigheid te kunnen gebruiken."
 }

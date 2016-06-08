@@ -48,14 +48,13 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', '$rootScope', 'User', 'Group
         .then(function() {
           Notification.text(window.env.t('invitationsSent'));
           _resetInvitees();
-          var redirectTo = '/#/options/groups/'
           if ($scope.group.type === 'party') {
-            redirectTo += 'party';
-          } else {
-            redirectTo += ('guilds/' + $scope.group._id);
+            Groups.removePartyCache();
+            $rootScope.$state.go('options.social.party');
+            return;
           }
 
-          $rootScope.hardRedirect(redirectTo);
+          $rootScope.hardRedirect('/#/options/groups/guilds/' + $scope.group._id);
         }, function(){
           _resetInvitees();
         });

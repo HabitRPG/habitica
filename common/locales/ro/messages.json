@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Mesajul nu a fost găsit!",
     "messageGroupChatAdminClearFlagCount": "Doar un administrator poate curăța numărul de atenționări!",
     "messageUserOperationProtected": "calea `<%= operation %>` nu a fost salvată pentru că este protejată",
-    "messageUserOperationNotFound": "nu a fost găsită operațiunea <%= operation %>"
+    "messageUserOperationNotFound": "nu a fost găsită operațiunea <%= operation %>",
+    "messageNotificationNotFound": "Notification not found."
 }

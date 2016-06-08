@@ -14,6 +14,7 @@ angular.module('habitrpg')
       return $http({
         method: 'GET',
         url: url,
+        ignoreLoadingBar: $rootScope.appLoaded !== true,
       });
     };
 

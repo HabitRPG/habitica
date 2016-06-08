@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "הודעה לא נמצאה!",
     "messageGroupChatAdminClearFlagCount": "רק מנהל מערכת יכול לאפס את ספירת הדגלים!",
     "messageUserOperationProtected": "הדרך `<%= operation %>` לא נשמרה, כיוון שהיא מוגנת. ",
-    "messageUserOperationNotFound": "הפעולה <%= operation %> לא נמצאה"
+    "messageUserOperationNotFound": "הפעולה <%= operation %> לא נמצאה",
+    "messageNotificationNotFound": "Notification not found."
 }
