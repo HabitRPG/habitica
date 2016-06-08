@@ -6,7 +6,7 @@ import {
 
 module.exports = function updateWebhook (user, req) {
   if (!validator.isURL(req.body.url)) throw new BadRequest(i18n.t('invalidUrl', req.language));
-  if (!validator.isBoolean(String(req.body.enabled))) throw new BadRequest(i18n.t('invalidEnabled', req.language));
+  if (!validator.isBoolean(req.body.enabled)) throw new BadRequest(i18n.t('invalidEnabled', req.language));
 
   user.markModified('preferences.webhooks');
   user.preferences.webhooks[req.params.id].url = req.body.url;
