@@ -12,6 +12,29 @@ const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
 
+export async function recoverCron (status, locals) {
+  let {user} = locals;
+
+  await Bluebird.delay(300);
+
+  let reloadedUser = await User.findOne({_id: user._id}).exec();
+
+  if (!reloadedUser) {
+    throw new Error(`User ${user._id} not found while recovering.`);
+  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
+    status.times++;
+
+    if (status.times < 5) {
+      await recoverCron(status, locals);
+    } else {
+      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
+    }
+  } else {
+    locals.user = reloadedUser;
+    return null;
+  }
+}
+
 let CLEAR_BUFFS = {
   str: 0,
   int: 0,
@@ -34,9 +57,10 @@ function grantEndOfTheMonthPerks (user, now) {
 
     plan.consecutive.count++;
 
-    if (plan.consecutive.offset > 0) {
+    if (plan.consecutive.offset > 1) {
       plan.consecutive.offset--;
     } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+      if (plan.consecutive.offset === 1) plan.consecutive.offset--;
       plan.consecutive.trinkets++;
       plan.consecutive.gemCapExtra += 5;
       if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
@@ -83,32 +107,12 @@ function performSleepTasks (user, tasksByType, now) {
   });
 }
 
-export async function recoverCron (status, locals) {
-  let {user} = locals;
-
-  await Bluebird.delay(300);
-
-  let reloadedUser = await User.findOne({_id: user._id}).exec();
-
-  if (!reloadedUser) {
-    throw new Error(`User ${user._id} not found while recovering.`);
-  } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
-    status.times++;
-
-    if (status.times < 4) {
-      await recoverCron(status, locals);
-    } else {
-      throw new Error(`Impossible to recover from cron for user ${user._id}.`);
-    }
-  } else {
-    locals.user = reloadedUser;
-    return null;
-  }
-}
-
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
+
+  // Record pre-cron values of HP and MP to show notifications later
+  let beforeCronStats = _.pick(user.stats, ['hp', 'mp']);
 
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
@@ -276,8 +280,26 @@ export function cron (options = {}) {
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
   let _progress = _.cloneDeep(progress);
-  _.merge(progress, {down: 0, up: 0});
-  progress.collect = _.transform(progress.collect, (m, v, k) => m[k] = 0);
+  _.merge(progress, {down: 0, up: 0, collectedItems: 0});
+
+  // Send notification for changes in HP and MP
+
+  // First remove a possible previous cron notification
+  // we don't want to flood the users with many cron notifications at once
+
+  let oldCronNotif = user.notifications.toObject().find((notif, index) => {
+    if (notif.type === 'CRON') {
+      user.notifications.splice(index, 1);
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  user.addNotification('CRON', {
+    hp: user.stats.hp - beforeCronStats.hp - (oldCronNotif ? oldCronNotif.data.hp : 0),
+    mp: user.stats.mp - beforeCronStats.mp - (oldCronNotif ? oldCronNotif.data.mp : 0),
+  });
 
   // TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
   // let numberOfPMs = Object.keys(user.inbox.messages).length;

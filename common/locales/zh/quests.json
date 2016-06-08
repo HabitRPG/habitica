@@ -89,13 +89,13 @@
     "questAlreadyUnderway": "你的队伍已经开始一个探索任务。当前探索任务结束后请再试一次。",
     "questAlreadyAccepted": "你已经接收探索任务邀请。",
     "noActiveQuestToLeave": "没有正进行的探索任务来退出",
-    "questLeaderCannotLeaveQuest": "任务业主不能放弃任务",
+    "questLeaderCannotLeaveQuest": "探索任务发起者不能离开探索任务",
     "notPartOfQuest": "您不是任务的一部分",
-    "noActiveQuestToAbort": "There is no active quest to abort.",
-    "onlyLeaderAbortQuest": "Only the group or quest leader can abort a quest.",
+    "noActiveQuestToAbort": "没有正进行的探索任务来放弃。",
+    "onlyLeaderAbortQuest": "仅有小组长或任务发起者能放弃一个任务。",
     "questAlreadyRejected": "您已经拒绝了任务邀请。",
-    "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
-    "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
-    "questNotPending": "There is no quest to start.",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "cantCancelActiveQuest": "你不能取消一个正进行的探索任务，运用放弃功能。",
+    "onlyLeaderCancelQuest": "仅有小组长或任务发起者能取消一个任务。",
+    "questNotPending": "现在没有开始的探索任务。",
+    "questOrGroupLeaderOnlyStartQuest": "仅有小组长或任务发起者能强制开始一个任务"
 }

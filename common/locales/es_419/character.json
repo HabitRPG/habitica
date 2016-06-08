@@ -110,7 +110,7 @@
     "mage": "Mago",
     "mystery": "Misterio",
     "changeClass": "Cambiar clase, devolver puntos de atributo",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Para cambiar de clase, debes ser al menos nivel 10.",
     "levelPopover": "Con cada nivel consigues un punto para asignar a un atributo de tu elección. Lo puedes asignar manualmente o dejar que el juego decida por ti usando una de las opciones de Asignación Automática.",
     "unallocated": "Puntos de Atributo no asignados",
     "haveUnallocated": "Tienes <%= points %> Punto(s) de Atributo no asignado(s).",

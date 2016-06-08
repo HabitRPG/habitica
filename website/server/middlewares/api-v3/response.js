@@ -14,8 +14,11 @@ module.exports = function responseHandler (req, res, next) {
     // sends back the current user._v in the response so that the client
     // can verify if it's the most up to date data.
     // Considered part of the private API for now and not officially supported
-    if (user && req.query.userV) {
-      response.userV = user._v;
+    if (user) {
+      response.notifications = user.notifications.map(notification => notification.toJSON());
+      if (req.query.userV) {
+        response.userV = user._v;
+      }
     }
 
     res.status(status).json(response);

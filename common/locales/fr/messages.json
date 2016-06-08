@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Message introuvable !",
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
-    "messageUserOperationNotFound": "<%= operation %> opération introuvable"
+    "messageUserOperationNotFound": "<%= operation %> opération introuvable",
+    "messageNotificationNotFound": "Notification not found."
 }

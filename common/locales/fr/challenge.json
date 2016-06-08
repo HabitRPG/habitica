@@ -74,9 +74,10 @@
     "onlyLeaderDeleteChal": "Seul le responsable du défi peut le supprimer.",
     "onlyLeaderUpdateChal": "Seul le responsable du défi peut le mettre à jour.",
     "winnerNotFound": "Le vainqueur avec l'identifiant \"<%= userId %> n'a pas été trouvé ou ne fait pas partie du défi.",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" n'est pas supporté lors de la récupération des tâches d'un défi.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" n'est pas supporté lors de la récupération des tâches d'un défi.",
     "userTasksNoChallengeId": "Lorsque \"tasksOwner\" est \"user\", \"challengeId\" ne peut être passé.",
     "onlyChalLeaderEditTasks": "Les tâches appartenant à un défi ne peuvent être modifiées que par son responsable.",
     "userAlreadyInChallenge": "L'utilisateur participe déjà à ce défi.",
-    "cantOnlyUnlinkChalTask": "Seules les tâches des défis cassés peuvent être déliées."
+    "cantOnlyUnlinkChalTask": "Seules les tâches des défis cassés peuvent être déliées.",
+    "shortNameTooShort": "Le nom de l'étiquette doit contenir au moins 3 caractères."
 }

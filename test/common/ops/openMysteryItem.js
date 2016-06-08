@@ -5,6 +5,7 @@ import {
 import {
   BadRequest,
 } from '../../../common/script/libs/errors';
+import content from '../../../common/script/content/index';
 import i18n from '../../../common/script/i18n';
 
 describe('shared.ops.openMysteryItem', () => {
@@ -33,6 +34,6 @@ describe('shared.ops.openMysteryItem', () => {
 
     expect(user.items.gear.owned[mysteryItemKey]).to.be.true;
     expect(message).to.equal(i18n.t('mysteryItemOpened'));
-    expect(data).to.equal(user.items.gear.owned);
+    expect(data).to.eql(content.gear.flat[mysteryItemKey]);
   });
 });

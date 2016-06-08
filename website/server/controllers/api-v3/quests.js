@@ -301,7 +301,7 @@ api.forceStart = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/quests/cancel Cancels a quest
+ * @api {post} /api/v3/groups/:groupId/quests/cancel Cancels a quest that is not active
  * @apiVersion 3.0.0
  * @apiName CancelQuest
  * @apiGroup Group

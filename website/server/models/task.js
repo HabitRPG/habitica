@@ -6,7 +6,8 @@ import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
 import { preenHistory } from '../libs/api-v3/preening';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+
 let discriminatorOptions = {
   discriminatorKey: 'type', // the key that distinguishes task types
 };

@@ -28,9 +28,6 @@
     "medium": "Moyen",
     "hard": "Difficile",
     "attributes": "Attributs",
-    "physical": "Physique",
-    "mental": "Mental",
-    "otherExamples": "Par exemple, suivis professionnels, passe-temps, finances, etc.",
     "progress": "Progrès",
     "daily": "Quotidienne",
     "dailies": "Quotidiennes",
@@ -127,5 +124,9 @@
     "positionRequired": "\"position\" est requis et doit être un nombre.",
     "cantMoveCompletedTodo": "Impossible de déplacer une tâche À Faire complétée.",
     "directionUpDown": "\"direction\" est requis et doit être 'up' ou 'down'",
-    "alreadyTagged": "La tâche est déjà étiquetée avec l'étiquette utilisée."
+    "alreadyTagged": "La tâche est déjà étiquetée avec l'étiquette utilisée.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

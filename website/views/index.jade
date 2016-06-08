@@ -1,6 +1,6 @@
 doctype html
 //html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
-html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}", ng-keydown="$broadcast('habit:keydown', $event)", ng-keyup="$broadcast('habit:keyup', $event)")
+html(ng-app='habitrpg', ng-controller='RootCtrl', ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}")
   head
     title(ng-bind="env.t('habitica') + ' | ' + $root.pageTitle")
     // ?v=1 needed to force refresh
@@ -13,34 +13,50 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='mobile-web-app-capable', content='yes')
 
-    include ./shared/new-relic
-    //FIXME for some reason this won't load when in footerCtrl.js#deferredScripts()
-    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
+    != env.getManifestFiles("app", "css")
 
-    script(type='text/javascript').
-     window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
-
-    != env.getManifestFiles("app")
+    // Does not work correctly inside .css file
+    style(type='text/css').
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
 
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
+  body
+    #loadingScreen(ng-if='!appLoaded')
+      // Loading screen images are inlined to avoid lag while loading (~5-6KB)
+      img.loading-logo-icon(src='data:image/png;base64,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')
+      img.loading-logo-text(src='data:image/png;base64,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')
+      .loading-spinner
+        .spinner__item1
+        .spinner__item2
+        .spinner__item3
+        .spinner__item4
+    .ng-cloak(ng-if='appLoaded', ng-controller='GroupsCtrl')
+      include ./shared/mixins
+      include ./shared/avatar/index
+      include ./shared/header/menu
+      include ./shared/modals/index
+      include ./shared/header/header
+      include ./shared/tasks/index
+      include ./main/index
+      include ./options/index
 
+      #notification-area(ng-controller='NotificationCtrl')
+      #wrap.container-fluid
+        .row
+          .col-md-12.exp-chart(ng-show='charts.exp')
+          #main(ui-view)
 
-  body(ng-cloak, ng-controller='GroupsCtrl')
+      include ./shared/footer
     include ./shared/noscript
-    include ./shared/mixins
-    include ./shared/avatar/index
-    include ./shared/header/menu
-    include ./shared/modals/index
-    include ./shared/header/header
-    include ./shared/tasks/index
-    include ./main/index
-    include ./options/index
 
-    #notification-area(ng-controller='NotificationCtrl')
-    #wrap.container-fluid
-      .row
-        .col-md-12.exp-chart(ng-show='charts.exp')
-        #main(ui-view)
+    // Load javascript at the end
+    script(type='text/javascript').
+     window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 
-    include ./shared/footer
+    != env.getManifestFiles('app', 'js')
+
+    // TODO for some reason this won't load when in footerCtrl.js#deferredScripts()
+    script(type='text/javascript', src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4', async='async')

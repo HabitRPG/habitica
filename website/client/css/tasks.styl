@@ -67,6 +67,9 @@ for $stage in $stages
   color: darken($completed,30%)
   background-color: $completed
   border: 1px solid shade($completed,10%)
+  .task-text
+    .habitica-emoji
+      opacity: .39
   .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
     li
       hrpg-button-color-mixin($completed)

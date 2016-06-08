@@ -1,8 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import {
-  model as Group,
-  TAVERN_ID,
-} from '../../models/group';
+import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
@@ -10,7 +7,7 @@ import {
 } from '../../libs/api-v3/errors';
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import { sendTxn } from '../../libs/api-v3/email';
+import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/api-v3/email';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 
@@ -209,28 +206,11 @@ api.flagChat = {
       update
     );
 
-    let reporterEmailContent;
-    if (user.auth.local) {
-      reporterEmailContent = user.auth.local.email;
-    } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) {
-      reporterEmailContent = user.auth.facebook.emails[0].value;
-    }
+    let reporterEmailContent = getUserInfo(user, ['email']).email;
 
-    let authorEmailContent;
-    if (author.auth.local) {
-      authorEmailContent = author.auth.local.email;
-    } else if (author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) {
-      authorEmailContent = author.auth.facebook.emails[0].value;
-    }
+    let authorEmailContent = getUserInfo(author, ['email']).email;
 
-    let groupUrl;
-    if (group._id === TAVERN_ID) {
-      groupUrl = '/#/options/groups/tavern';
-    } else if (group.type === 'guild') {
-      groupUrl = `/#/options/groups/guilds/${group._id}`;
-    } else {
-      groupUrl = 'party';
-    }
+    let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
@@ -299,6 +279,34 @@ api.clearChatFlags = {
       {_id: group._id, 'chat.id': message.id},
       {$set: {'chat.$.flagCount': message.flagCount}}
     );
+
+    let adminEmailContent = getUserInfo(user, ['email']).email;
+
+    let author = await User.findOne({_id: message.uuid}, {auth: 1});
+
+    let authorEmailContent = getUserInfo(author, ['email']).email;
+
+    let groupUrl = getGroupUrl(group);
+
+    sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
+      {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
+      {name: 'MESSAGE_TEXT', content: message.text},
+
+      {name: 'ADMIN_USERNAME', content: user.profile.name},
+      {name: 'ADMIN_UUID', content: user._id},
+      {name: 'ADMIN_EMAIL', content: adminEmailContent},
+      {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+
+      {name: 'AUTHOR_USERNAME', content: message.user},
+      {name: 'AUTHOR_UUID', content: message.uuid},
+      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'GROUP_TYPE', content: group.type},
+      {name: 'GROUP_ID', content: group._id},
+      {name: 'GROUP_URL', content: groupUrl},
+    ]);
 
     res.respond(200, {});
   },

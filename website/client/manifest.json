@@ -38,11 +38,11 @@
             "js/env.js",
 
             "js/app.js",
-            "common/script/public/config.js",
+            "js/config.js",
 
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
-            "common/script/public/directives.js",
+            "js/directives/directives.js",
             "js/services/analyticsServices.js",
             "js/services/groupServices.js",
             "js/services/chatServices.js",
@@ -55,6 +55,7 @@
             "js/services/questServices.js",
             "js/services/socialServices.js",
             "js/services/statServices.js",
+            "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/hallServices.js",
 
@@ -131,6 +132,7 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/sharedServices.js",
             "js/services/socialServices.js",
@@ -173,6 +175,7 @@
             "js/services/statServices.js",
             "js/services/taskServices.js",
             "js/services/tagsServices.js",
+            "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/memberServices.js",
             "js/controllers/authCtrl.js",

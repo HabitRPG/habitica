@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Dermesztő fagy",
     "spellWizardFrostNotes": "Jég lepi be a feladataidat. Egyik szériád sem nullázódik le holnap! (Egyszeri varázslat hatással van minden szériára.)",
     "spellWarriorSmashText": "Brutális zúzás",
-    "spellWarriorSmashNotes": "You hit a task with all of your might. It gets more blue/less red, and you deal extra damage to Bosses! Click on a task to cast. (Based on: STR)",
+    "spellWarriorSmashNotes": "Mindent beleadva vágsz bele a feladatba. Egyre jobban kékül/kevésbé vörös, és extra sebzést osztasz a főellenségnek! Válassz egy feladatot, hogy elvarázsold. (STR alapján)",
     "spellWarriorDefensiveStanceText": "Védekező állás",
     "spellWarriorDefensiveStanceNotes": "You prepare yourself for the onslaught of your tasks. You gain a buff to Constitution! (Based on: Unbuffed CON)",
     "spellWarriorValorousPresenceText": "Bátor Megjelenés",

@@ -35,7 +35,7 @@
     "spellSpecialSnowballAuraNotes": "¡Lanza una bola de nieve a un miembro de tu grupo! ¿Que podría salir mal? Dura hasta el final del día de ese miembro.",
     "spellSpecialSaltText": "Sal",
     "spellSpecialSaltNotes": "Alguien te ha lanzado una bola de nieve. Ja Ja, muy gracioso. ¡Ahora quítame esto de encima!",
-    "spellSpecialSpookySparklesText": "Spooky Sparkles",
+    "spellSpecialSpookySparklesText": "Brillantina espeluznante",
     "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Poción Opaco",
     "spellSpecialOpaquePotionNotes": "Cancela los efectos de la brillantina espeluznante.",
@@ -48,9 +48,9 @@
     "spellSpecialSandText": "Arena",
     "spellSpecialSandNotes": "Cancela los efectos de la espuma de mar",
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "partyNotFound": "Grupo no encontrado.",
+    "targetIdUUID": "\"targetId\" debe ser un ID de Usuario válido.",
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
-    "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellNotOwned": "No posees esta habilidad.",
+    "spellLevelTooHigh": "Debes ser nivel <%= level %> para usar esta habilidad."
 }

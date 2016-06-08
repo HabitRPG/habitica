@@ -39,7 +39,7 @@ export function getBuildUrl (url) {
   return `/${buildFiles[url] || url}`;
 }
 
-export function getManifestFiles (page) {
+export function getManifestFiles (page, type) {
   let files = manifestFiles[page];
 
   if (!files) throw new Error(`Page "${page}" not found!`);
@@ -47,15 +47,25 @@ export function getManifestFiles (page) {
   let htmlCode = '';
 
   if (IS_PROD) {
-    htmlCode += `<link rel="stylesheet" type="text/css" href="${getBuildUrl(page + '.css')}">`; // eslint-disable-line prefer-template
-    htmlCode += `<script type="text/javascript" src="${getBuildUrl(page + '.js')}"></script>`; // eslint-disable-line prefer-template
+    if (type !== 'js') {
+      htmlCode += `<link rel="stylesheet" type="text/css" href="${getBuildUrl(page + '.css')}">`; // eslint-disable-line prefer-template
+    }
+
+    if (type !== 'css') {
+      htmlCode += `<script type="text/javascript" src="${getBuildUrl(page + '.js')}"></script>`; // eslint-disable-line prefer-template
+    }
   } else {
-    files.css.forEach((file) => {
-      htmlCode += `<link rel="stylesheet" type="text/css" href="${getBuildUrl(file)}">`;
-    });
-    files.js.forEach((file) => {
-      htmlCode += `<script type="text/javascript" src="${getBuildUrl(file)}"></script>`;
-    });
+    if (type !== 'js') {
+      files.css.forEach((file) => {
+        htmlCode += `<link rel="stylesheet" type="text/css" href="${getBuildUrl(file)}">`;
+      });
+    }
+
+    if (type !== 'css') {
+      files.js.forEach((file) => {
+        htmlCode += `<script type="text/javascript" src="${getBuildUrl(file)}"></script>`;
+      });
+    }
   }
 
   return htmlCode;

@@ -520,7 +520,7 @@ api.premiumHatchingPotions = {
     text: t('hatchingPotionFloral'),
     limited: true,
     canBuy: (function() {
-      return true;
+      return false;
     }),
   },
 };

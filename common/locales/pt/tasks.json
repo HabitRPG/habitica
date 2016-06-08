@@ -28,9 +28,6 @@
     "medium": "Médio",
     "hard": "Difícil",
     "attributes": "Atributos",
-    "physical": "Físico",
-    "mental": "Mental",
-    "otherExamples": "Ex.: atividades profissionais, hobbies, financeiro, etc.",
     "progress": "Progresso",
     "daily": "Diariamente",
     "dailies": "Tarefas Diárias",
@@ -126,6 +123,10 @@
     "tagIdRequired": "\"tagId\" precisa ser um UUID válido correspondente a uma etiqueta pertencente ao usuário.",
     "positionRequired": "\"position\" é necessária e precisa ser um número.",
     "cantMoveCompletedTodo": "Não é possível mover um afazer concluído.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
-    "alreadyTagged": "A tarefa fá foi etiquetada com essa etiqueta."
+    "directionUpDown": "A \"direção\" é necessária e precisa ser '+' ou '-'.",
+    "alreadyTagged": "A tarefa fá foi etiquetada com essa etiqueta.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

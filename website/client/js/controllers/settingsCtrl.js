@@ -259,7 +259,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.applyCoupon = function(coupon){
-      $http.get(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
+      $http.post(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
       .success(function(){
         Notification.text("Coupon applied!");
         var subs = Content.subscriptionBlocks;

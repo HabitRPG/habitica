@@ -28,9 +28,6 @@
     "medium": "Stredné",
     "hard": "Ťažké",
     "attributes": "Vlastnosti",
-    "physical": "Fyzické",
-    "mental": "Mentálne",
-    "otherExamples": "Napr. profesné ciele, koníčky, finančné, atď.",
     "progress": "Postup",
     "daily": "Denná úloha",
     "dailies": "Denné úlohy",
@@ -126,6 +123,10 @@
     "tagIdRequired": "\"tagId\" musí mať platné UUID zhodujúce sa so štítkom, ktorý patrí užívateľovi. ",
     "positionRequired": "\"position\" je vyžadovaná a musí to byť číslo.",
     "cantMoveCompletedTodo": "Hotový to-do sa nedá presunúť.",
-    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'",
-    "alreadyTagged": "Úloha už má tento štítok."
+    "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
+    "alreadyTagged": "Úloha už má tento štítok.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

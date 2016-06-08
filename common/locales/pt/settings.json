@@ -66,7 +66,7 @@
     "deleteText": "Tem certeza? Isso deletará sua conta para sempre, e nunca poderá ser recuperada! Você precisará registrar uma nova conta para usar Habitica de novo. Gemas gastas ou no banco não serão restituídas. Se tiver certeza absoluta, digite <strong><%= deleteWord %></strong> na caixa de texto abaixo.",
     "API": "API",
     "APIv3": "API v3",
-    "APIv2": "API v2 - Deprecated",
+    "APIv2": "API v2 - Obsoleta",
     "APIText": "Copie isso para uso em aplicações de terceiros. Entretanto, pense no seu API Token como uma senha, não divulgue publicamente. Seu ID de Usuário pode ser, ocasionalmente, solicitado, mas nunca divulgue seu API Token em lugares onde outros possam ver, incluindo o Github.",
     "APIToken": "API Token (isso é uma senha - veja o aviso acima!)",
     "thirdPartyApps": "Aplicativos Terceirizados",
@@ -149,10 +149,10 @@
     "enabled": "Habilitado",
     "webhookURL": "URL do Webhook",
     "invalidUrl": "url inválida",
-    "invalidEnabled": "the \"enabled\" parameter should be a boolean",
-    "regIdRequired": "RegId is required",
-    "pushDeviceAdded": "Push device added successfully",
-    "pushDeviceAlreadyAdded": "The user already has the push device",
+    "invalidEnabled": "o parâmetro \"enabled\" deve ser um boolean",
+    "regIdRequired": "RegId é necessário",
+    "pushDeviceAdded": "Dispositivo para Push adicionado con sucesso.",
+    "pushDeviceAlreadyAdded": "O utilizador já possui o dispositivo para Push",
     "add": "Adicionar",
     "buyGemsGoldCap": "Máximo aumentado para <%= amount %>",
     "mysticHourglass": "<%= amount %> Ampulhetas Místicas",
@@ -167,5 +167,5 @@
     "amazonPayments": "Amazon Payments",
     "timezone": "Fuso Horário",
     "timezoneUTC": "O Habitica usa o fuso horário definido no seu computador, que é <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices."
+    "timezoneInfo": "Se esse fuso horário não for o correto, primeiro recarregue esta página utilizando o botão de recarregar do seu navegador para garantir que Habitica tenha a informação mais recente. Se ainda estiver errado, ajuste o fuso horário no seu computador e recarrege esta página novamente. <br><br><strong>Se você usa Habitica em outros computadores ou dispositivos móveis, o fuso horário deve ser o mesmo em todos eles.</strong> Se suas tarefas diárias têm sido reiniciadas na hora errada, repita esta operação em todos os outros computadores e em um navegador em seus dispositivos móveis."
 }

@@ -8,6 +8,9 @@
  * Note: We ran this on a local backup of the DB, and from that, grabbed
  * the ids of the tasks that could be fixed and the updates that would
  * be applied to them. We only ran the `updateTasks` promise task.
+ *
+ * IMPORTANT - Setting challenge.broken to null caused issues
+ * see https://github.com/HabitRPG/habitrpg/issues/7546
  ***************************************/
 
 const authorName = 'Blade';
@@ -192,7 +195,7 @@ function correctUserTasks (data) {
             if (foundTask && !tasksToUpdate[foundTask._id]) {
               tasksToUpdate[foundTask._id] = {
                 id: chal,
-                broken: null,
+                broken: null, // NOTE: this caused a lot of problems
                 taskId,
               }
             } else if (foundTask && taskId !== tasksToUpdate[foundTask._id].taskId) {

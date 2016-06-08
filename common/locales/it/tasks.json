@@ -28,9 +28,6 @@
     "medium": "Medio",
     "hard": "Difficile",
     "attributes": "Attributi",
-    "physical": "Fisico",
-    "mental": "Mentale",
-    "otherExamples": "Ad esempio le attività professionali, gli hobby, ecc.",
     "progress": "Progressi",
     "daily": "Daily",
     "dailies": "Daily",
@@ -126,6 +123,10 @@
     "tagIdRequired": "\"tagId\" deve essere un UUID valido e deve corrispondere a un'etichetta appartenente all'utente.",
     "positionRequired": "\"position\" è richiesto e deve essere un numero.",
     "cantMoveCompletedTodo": "Non è possibile spostare una To-Do completata.",
-    "directionUpDown": "\"direction\" è richiesto è deve essere 'up' oppure 'down'.",
-    "alreadyTagged": "L'attività ha già l'etichetta specificata."
+    "directionUpDown": "\"direction\" è richiesto e deve essere 'up' oppure 'down'.",
+    "alreadyTagged": "L'attività ha già l'etichetta specificata.",
+    "strengthExample": "Relating to exercise and activity",
+    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
+    "perceptionExample": "Relating to work or financial tasks",
+    "constitutionExample": "Relating to health, wellness, and social interaction"
 }

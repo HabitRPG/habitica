@@ -243,14 +243,14 @@
     "passwordReset": "Se nós tivermos seu email em arquivo, o link para restauração da sua senha será enviado ao seu email.",
     "passwordResetEmailSubject": "Reiniciar senha para o Habitica",
     "passwordResetEmailText": "A senha para <%= username %> foi reiniciada para <%= newPassword %>. Importante! Tanto o nome de usuário quanto a senha diferenciam maiúsculas de minúsculas - você precisa escrever exatamente como mostrado aqui. Nós recomendamos que copie e cole ambas em vez de digitá-las. Entre em <%= baseUrl %>. Depois de entrar, vá para <%= baseUrl %>/#/options/settings/settings e mude sua senha.",
-    "passwordResetEmailHtml": "Password for <strong><%= username %></strong> has been reset to <strong><%= newPassword %></strong>.<br /><br />Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them.<br /><br />Log in at <%= baseUrl %>. After you have logged in, head to <%= baseUrl %>/#/options/settings/settings and change your password.",
+    "passwordResetEmailHtml": "A senha de <strong><%= username %></strong> foi redefinida para <strong><%= newPassword %></strong>.<br /><br />Importante! Ambos o usuário e a senha diferenciam maiúsculas de minúsculas -- você deve digitá-los exatamente como mostrado aqui. Nós recomendamos copiar e colar ambos em vez de digitar.<br /><br />Inicie sessão em <%= baseUrl %>. Após ter iniciado sessão, vá para <%= baseUrl %>/#/options/settings/settings e troque sua senha.",
     "invalidLoginCredentialsLong": "Oh não - seu nome de usuário ou senha está incorreto.\n- Tenha certeza de que seu nome de usuário e senha estão digitados corretamente. \n- Você pode ter se cadastrado com o Facebook, não com o email. Cheque tentando login com o Facebook.\n- Se você esqueceu sua senha, clique \"Esqueci Senha\".",
     "invalidCredentials": "Não há conta que use essas credenciais.",
-    "accountSuspended": "Account has been suspended, please contact leslie@habitica.com with your User ID \"<%= userId %>\" for assistance.",
+    "accountSuspended": "A conta foi suspensa, por favor contate leslie@habitica.com. com ID de Usuário \"<%= userId %>\" para assistência.",
     "onlyFbSupported": "Somente Facebook é suportado atualmente.",
     "cantDetachFb": "A conta não possui outro método de autenticação, não pode desvincular Facebook.",
     "onlySocialAttachLocal": "Autenticação local só pode ser adicionada a uma conta social.",
     "invalidReqParams": "Parâmetros requeridos inválidos.",
-    "memberIdRequired": "\"member\" must be a valid UUID.",
-    "heroIdRequired": "\"heroId\" must be a valid UUID."
+    "memberIdRequired": "\"member\" precisa ser um UUID válido.",
+    "heroIdRequired": "\"heroId\" precisa ser um UUID válido."
 }

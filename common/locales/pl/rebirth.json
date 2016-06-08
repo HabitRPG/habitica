@@ -5,7 +5,7 @@
     "rebirthStartOver": "Po odrodzeniu twoja postać rozpocznie grę na poziomie 1.",
     "rebirthAdvList1": "Odzyskujesz pełnię zdrowia.",
     "rebirthAdvList2": "Nie posiadasz żadnych punktów doświadczenia, złota ani ekwipunku (z pominięciem darmowych przedmiotów takich jak tajemnicze przedmioty).",
-    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
+    "rebirthAdvList3": "Twoje nawykiNawyki, codzienne obowiązkiCodzienne, oraz zadania doDo-zrobieniaZrobienia zostaną zresetowane do poziomu żółtego, a ich serie wyzerowane. Wyjątkiem są zadania z wyzwań.",
     "rebirthAdvList4": "Na początku jesteś w klasie Wojownika, dopóki nie zapracujesz sobie na zmianę klasy.",
     "rebirthInherit": "Twoja postać dziedziczy pewne cechy ze swojego poprzedniego wcielenia.",
     "rebirthInList1": "Zadania, historia oraz ustawienia konta pozostają bez zmian.",
@@ -25,5 +25,5 @@
     "rebirthName": "Kula Odrodzenia",
     "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>",
     "confirmReborn": "Na pewno?",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "Zostałeś odrodzony!"
 }

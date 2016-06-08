@@ -9,6 +9,7 @@ describe('Filters Controller', function() {
     scope = $rootScope.$new();
     // user.filters = {};
     User.setUser(user);
+    User.user.filters = {};
     userService = User;
     $controller('FiltersCtrl', {$scope: scope, User: User});
   }));
@@ -27,7 +28,7 @@ describe('Filters Controller', function() {
       scope.toggleFilter(tag);
       expect(userService.user.filters[tag.id]).to.eql(true);
       scope.toggleFilter(tag);
-      expect(userService.user.filters[tag.id]).to.eql(false);
+      expect(userService.user.filters[tag.id]).to.not.eql(true);
     }));
   });
 

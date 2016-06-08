@@ -138,7 +138,7 @@
     "achievementBurnout": "繁栄の地の救世主",
     "achievementBurnoutText": "2015年秋の収穫祭イベントで「燃えつきと消耗の悪霊」の打倒に協力しました!",
     "achievementBewilder": "霧がかりの救世主",
-    "achievementBewilderText": "2016年春の元気なダンス イベントで、「まごつかせのビ・ワイルダー」の打倒に協力しました!",
+    "achievementBewilderText": "2016年春の元気なダンス イベントで、「まどわしのビ・ワイルダー」の打倒に協力しました!",
     "checkOutProgress": "Habatica での進行状況を見てください!",
     "cardReceived": "カードが届きました!",
     "cardReceivedFrom": "<%= userName %> からの <%= cardType %>",

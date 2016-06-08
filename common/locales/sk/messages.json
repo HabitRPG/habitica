@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Správa sa nenašla!",
     "messageGroupChatAdminClearFlagCount": "Len správca môže vynulovať počet označení.",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebola uložená, keďže je to chránená cesta.",
-    "messageUserOperationNotFound": "<%= operation %> operácia sa nenašla"
+    "messageUserOperationNotFound": "<%= operation %> operácia sa nenašla",
+    "messageNotificationNotFound": "Notification not found."
 }
