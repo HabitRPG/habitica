@@ -55,8 +55,8 @@ function _populateDefaultTasks (user, taskTypes) {
         newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
           let text = checklistItem.text(user.preferences.language);
           let newChecklistItem = {
-            text: text,
-            enabled: checklistItem.enabled
+            text,
+            enabled: checklistItem.enabled,
           };
           return newChecklistItem;
         });
