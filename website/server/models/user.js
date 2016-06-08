@@ -581,8 +581,8 @@ function _populateDefaultTasks (user, taskTypes) {
       if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
       if (taskDefaults.checklist) {
         newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
-          checklistItem.text = checklistItem.text(user.preferences.language);
-          return checklistItem;
+          let text = checklistItem.text(user.preferences.language);
+          return { text: text, completed: checklistItem.completed };
         });
       }
 
