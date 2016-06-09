@@ -108,9 +108,9 @@ let schema = new Schema({
 
   balance: {type: Number, default: 0},
   // Not saved on the user right now
-  filters: {type: Schema.Types.Mixed, default: () => {
-    return {};
-  }},
+  // filters: {type: Schema.Types.Mixed, default: () => {
+  //   return {};
+  // }},
 
   purchased: {
     ads: {type: Boolean, default: false},
