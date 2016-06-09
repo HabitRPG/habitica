@@ -57,32 +57,4 @@ describe('POST /user/rebirth', () => {
     expect(updatedDaily.value).to.equal(0);
     expect(updatedReward.value).to.equal(1);
   });
-
-  it('keeps automaticAllocation false', async () => {
-    await user.update({
-      balance: 2,
-      preferences: {
-        automaticAllocation: false,
-      },
-    });
-
-    await user.post('/user/rebirth');
-    await user.sync();
-
-    expect(user.preferences.automaticAllocation).to.be.false;
-  });
-
-  it('sets automaticAllocation to false when true', async () => {
-    await user.update({
-      balance: 2,
-      preferences: {
-        automaticAllocation: true,
-      },
-    });
-
-    await user.post('/user/rebirth');
-    await user.sync();
-
-    expect(user.preferences.automaticAllocation).to.be.false;
-  });
 });

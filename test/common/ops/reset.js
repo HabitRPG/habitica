@@ -76,4 +76,20 @@ describe('shared.ops.reset', () => {
     expect(user.tasksOrder.dailys).to.be.empty;
     expect(user.tasksOrder.rewards).to.be.empty;
   });
+
+  it('keeps automaticAllocation false', async () => {
+    user.preferences.automaticAllocation = false;
+
+    reset(user);
+
+    expect(user.preferences.automaticAllocation).to.be.false;
+  });
+
+  it('sets automaticAllocation to false when true', async () => {
+    user.preferences.automaticAllocation = true;
+
+    reset(user);
+
+    expect(user.preferences.automaticAllocation).to.be.false;
+  });
 });
