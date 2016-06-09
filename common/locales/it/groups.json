@@ -163,7 +163,7 @@
     "partyUpAchievement": "Ti sei unito ad una Squadra con un'altra persona! Divertiti a combattere mostri e a sostenervi a vicenda.",
     "partyOnAchievement": "Ti sei unito ad una Squadra con almeno quattro persone! Goditi la tua maggiore responsabilità mentre ti unisci con i tuoi amici per sconfiggere i tuoi nemici!",
     "groupIdRequired": "\"groupId\" deve essere un UUID valido.",
-    "groupNotFound": "Gruppo non trovato.",
+    "groupNotFound": "Group not found or you don't have access.",
     "groupTypesRequired": "È necessario fornire un \"tipo\" stringa di richiesta valido.",
     "questLeaderCannotLeaveGroup": "Non puoi lasciare la squadra quando hai iniziato una missione. Devi interrompere prima la missione",
     "cannotLeaveWhileActiveQuest": "Non puoi lasciare la squadra durante una missione. Per favore prima abbandona la missione.",

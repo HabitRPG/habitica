@@ -125,8 +125,8 @@
     "cantMoveCompletedTodo": "Não é possível mover um afazer concluído.",
     "directionUpDown": "A \"direção\" é necessária e precisa ser '+' ou '-'.",
     "alreadyTagged": "A tarefa fá foi etiquetada com essa etiqueta.",
-    "strengthExample": "Relating to exercise and activity",
-    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
-    "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "strengthExample": "Relacionado a exercício e atividade",
+    "intelligenceExample": "Relacionado a atividades acadêmicas ou mentalmente desafiadoras",
+    "perceptionExample": "Relacionado a trabalho ou tarefas financeiras",
+    "constitutionExample": "Relacionado a saúde, bem estar e interação social"
 }

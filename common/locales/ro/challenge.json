@@ -70,7 +70,7 @@
     "cantAfford": "Nu îți poți permite acest premiu. Cumpără mai multe cristale sau micșorează cantitatea premiului.",
     "challengeIdRequired": "„ldprovocare” trebuie sa fie un UUID valid.",
     "winnerIdRequired": "„idcâștigător” trebuie sa fie un UUID valid.",
-    "challengeNotFound": "Provocarea nu a fost găsită.",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "Numai liderul provocării o poate șterge.",
     "onlyLeaderUpdateChal": "Numai liderul provocării o poate actualiza.",
     "winnerNotFound": "Câștigătorul cu id \"<%= userId %>\" nu a fost identificat sau nu ia parte la provocare.",

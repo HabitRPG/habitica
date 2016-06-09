@@ -63,7 +63,7 @@
     "dangerZone": "危險區域",
     "resetText1": "警告！此功能會重設你角色的多數資料。強烈不建議你這樣做，但是有些人短暫地玩這個網站後，希望能重新開始。",
     "resetText2": "You will lose all your levels, gold, and experience points. All your tasks (except those from challenges) will be deleted permanently and you will lose all of their historical data. You will lose all your equipment but you will be able to buy it all back, including all limited edition equipment or subscriber Mystery items that you already own (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks.",
-    "deleteText": "確定嗎？這會永久地刪除你的帳號，並且再也無法恢復！如果希望再次使用 Habitica，需要註冊一個全新的帳號。舊帳號內儲存的和花掉的寶石也無法被退費。如果你非常確定要刪除帳號，在下面的文字欄中輸入<strong><%= deleteWord %></strong>。",
+    "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
     "API": "API",
     "APIv3": "API v3",
     "APIv2": "API v2 - Deprecated",

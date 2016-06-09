@@ -163,7 +163,7 @@
     "partyUpAchievement": "Dołączył do drużyny z inną osobą! Dobrej zabawy przy walce z potworami i wspieraniu się nawzajem.",
     "partyOnAchievement": "Dołączył do co najmniej czteroosobowej drużyny! Ciesz się zwiększoną odpowiedzialnością po dołączeniu do przyjaciół w zwyciężaniu wrogów!",
     "groupIdRequired": "\"groupId\" must be a valid UUID",
-    "groupNotFound": "Grupa nie znaleziona.",
+    "groupNotFound": "Group not found or you don't have access.",
     "groupTypesRequired": "You must supply a valid \"type\" query string.",
     "questLeaderCannotLeaveGroup": "Nie możesz odejść z drużyny, jeśli zacząłeś misję – musisz ją najpierw przerwać.",
     "cannotLeaveWhileActiveQuest": "Nie możesz odejść z drużyny w trakcie trwania misji. Najpierw powinieneś opuścić misję.",

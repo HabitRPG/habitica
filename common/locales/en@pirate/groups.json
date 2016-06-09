@@ -163,7 +163,7 @@
     "partyUpAchievement": "Joined a Crew with a mate! Have fun battlin' monsters an' supportin' each other.",
     "partyOnAchievement": "Joined a Crew with at least four mates! Enjoy yer increased accountability as ye unite with yer friends t' vanquish yer foes!",
     "groupIdRequired": "\"groupId\" must be a valid UUID",
-    "groupNotFound": "Group not found.",
+    "groupNotFound": "Group not found or you don't have access.",
     "groupTypesRequired": "You must supply a valid \"type\" query string.",
     "questLeaderCannotLeaveGroup": "You cannot leave your party when you have started a quest. Abort the quest first.",
     "cannotLeaveWhileActiveQuest": "You cannot leave party during an active quest. Please leave the quest first.",

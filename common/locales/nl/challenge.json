@@ -70,7 +70,7 @@
     "cantAfford": "Je kunt deze beloning niet betalen. Koop meer Edelstenen of verlaag het bedrag van de prijs",
     "challengeIdRequired": "\"challengeId\" moet een valide UUID zijn",
     "winnerIdRequired": "\"winnerId\" moet een valide UUID zijn.",
-    "challengeNotFound": "Uitdaging niet gevonden",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "Alleen de uitdagingsleider kan het verwijderen.",
     "onlyLeaderUpdateChal": "Alleen de uitdagingsleider kan het updaten.",
     "winnerNotFound": "De winnaar met id \"<%= userId %>\" is niet gevonden of maakt geen deel uit van de uitdaging.",

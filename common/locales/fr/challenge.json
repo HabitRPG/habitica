@@ -70,7 +70,7 @@
     "cantAfford": "Vous ne pouvez pas payer cette récompense. Achetez plus de gemmes ou diminuez le montant de la récompense.",
     "challengeIdRequired": "\"challengeId\" doit être un UUID valide.",
     "winnerIdRequired": "\"winnerId\" doit être un UUID valide.",
-    "challengeNotFound": "Défi non trouvé.",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "Seul le responsable du défi peut le supprimer.",
     "onlyLeaderUpdateChal": "Seul le responsable du défi peut le mettre à jour.",
     "winnerNotFound": "Le vainqueur avec l'identifiant \"<%= userId %> n'a pas été trouvé ou ne fait pas partie du défi.",

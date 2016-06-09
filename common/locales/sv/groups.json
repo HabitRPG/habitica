@@ -163,7 +163,7 @@
     "partyUpAchievement": "Gick med i ett sällskap med en annan person! Ha kul med att slåss mot monster och stötta varandra.",
     "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
     "groupIdRequired": "\"groupId\" must be a valid UUID",
-    "groupNotFound": "Group not found.",
+    "groupNotFound": "Group not found or you don't have access.",
     "groupTypesRequired": "You must supply a valid \"type\" query string.",
     "questLeaderCannotLeaveGroup": "You cannot leave your party when you have started a quest. Abort the quest first.",
     "cannotLeaveWhileActiveQuest": "You cannot leave party during an active quest. Please leave the quest first.",

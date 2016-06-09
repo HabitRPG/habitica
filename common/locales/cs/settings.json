@@ -63,7 +63,7 @@
     "dangerZone": "Nebezpečná zóna",
     "resetText1": "POZOR! Tímto resetujete mnoho částí svého účtu. Silně nedoporučujeme tuto možnost používat, ale vyhovuje to některým uživatelům, kteří si se stránkou na začátku trochu hrají.",
     "resetText2": "Ztratíte veškeré úrovně, zlato, a zkušenosti. Všechny vaše úkoly (kromě těch z výzev) budou navždy vymazány a ztratíte všechny jejich data. Přijdete o všechno své vybavení ale budete si ho moci opět koupit, včetně všeho vybavení limitované edice nebo předplatitelských Záhadných předmětů, které již vlastníte (budete muset mít správné povolání k opakovanému koupení výbavy pro specifické povolání). Zůstane vám vaše povolání, mazlíčci a zvířata k osedlání. Zvažte použití Orbu znovuzrození, což je mnohem bezpečnější možnost, která vám zanechá vaše úkoly",
-    "deleteText": "Jsi si jist? Tímto smažeš svůj účet navždy a již nebude moci být obnoven! Budeš se muset znovu registrovat a vytvořit nový účet. Zakoupené a použité drahokamy nebudou proplaceny a budou ztraceny. Pokud si jsi absolutně jist, napiš <strong><%= deleteWord %></strong> do řádku níže.",
+    "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
     "API": "API",
     "APIv3": "API v3",
     "APIv2": "API v2 - Deprecated",

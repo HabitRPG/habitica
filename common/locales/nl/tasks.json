@@ -125,8 +125,8 @@
     "cantMoveCompletedTodo": "Een voltooide todo kan niet verplaatst worden.",
     "directionUpDown": "\"direction\" is nodig en moet \"up\" of \"down\" zijn.",
     "alreadyTagged": "De taak is al gelabeld met het opgegeven label.",
-    "strengthExample": "Relating to exercise and activity",
-    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
-    "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "strengthExample": "Gerelateerd aan lichaamsbeweging en activiteit",
+    "intelligenceExample": "Gerelateerd aan academisch of mentaal uitdagende streven",
+    "perceptionExample": "Gerelateerd aan werk of financiële taken",
+    "constitutionExample": "Gerelateerd aan gezondheid, welzijn, en sociale interactie"
 }

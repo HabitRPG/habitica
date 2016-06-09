@@ -94,13 +94,13 @@
     "pushTaskToTop": "Verschiebe die Aufgabe nach oben. Halte dabei strg oder cmd, um sie nach unten zu verschieben.",
     "emptyTask": "Gib der Aufgabe zunächst einen Titel.",
     "dailiesRestingInInn": "Du ruhst Dich im Gasthaus aus! Deine täglichen Aufgaben werden Dir heute Nacht keinen Schaden zufügen, sie werden sich aber dennoch täglich aktualisieren. Falls Du Dich in einer Quest befindest, wirst Du keinen Schaden austeilen/Gegenstände finden bis Du das Gasthaus wieder verlässt, allerdings kannst Du durch einen Boss verletzt werden, wenn Deine Gruppe tägliche Aufgaben nicht erledigt.",
-    "habitHelp1": "Gute Gewohnheiten sind Aktivitäten, die Du oft machen sollst. Sie bringen Gold und Erfahrung immer wenn Du auf <%= plusIcon %> klickst.",
+    "habitHelp1": "Gute Gewohnheiten sind Aktivitäten, die Du oft machen sollst. Sie bringen Gold und Erfahrung jedes mal wenn Du auf <%= plusIcon %> klickst.",
     "habitHelp2": "Schlechte Gewohnheiten sind Aktivitäten, die Du vermeiden solltest. Sie ziehen Dir jedes mal Leben ab, wenn Du auf <%= minusIcon %> klickst.",
     "habitHelp3": "Schau Dir zur Inspiration diese <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>Gewohnheitsbeispiele</a> an!",
     "newbieGuild": "Du hast weitere Fragen? Du kannst sie in der <%= linkStart %>Newbies-Gilde<%= linkEnd %> loswerden!",
     "dailyHelp1": "Tägliche Aufgaben wiederholen sich an<%= emphasisStart %>allen Tagen<%= emphasisEnd %>, an denen sie aktiv sind. Klicke den <%= pencilIcon %>, um die Tage zu ändern, an denen eine tägliche Aufgabe aktiv ist.",
     "dailyHelp2": "Wenn Du aktive tägliche Aufgaben nicht beendest, verlierst Du am Ende des Tages Gesundheit.",
-    "dailyHelp3": "Tägliche Aufgaben werden <%= emphasisStart %>röter<%= emphasisEnd %>, wenn Du sie nicht verpasst, und <%= emphasisStart %>blauer<%= emphasisEnd %>, wenn Du sie erledigst. Je röter die tägliche Aufgabe ist, desto größer fällt Deine Belohnung aus ... oder Deine Bestrafung.",
+    "dailyHelp3": "Tägliche Aufgaben werden <%= emphasisStart %>röter<%= emphasisEnd %>, wenn Du sie verpasst, und <%= emphasisStart %>blauer<%= emphasisEnd %>, wenn Du sie erledigst. Je röter die tägliche Aufgabe ist, desto größer fällt Deine Belohnung aus ... oder Deine Bestrafung.",
     "dailyHelp4": "Um die Uhrzeit für den Beginn des neuen Tages festzulegen, gehe zu <%= linkStart %> Einstellungen > Seite<%= linkEnd %> > Tageswechsel einstellen.",
     "dailyHelp5": "Schau Dir zur Inspiration diese <a href='http://habitica.wikia.com/wiki/Sample_Dailies' target='_blank'>Beispiele täglicher Aufgaben</a> an!",
     "toDoHelp1": "Einmalige Aufgaben sind anfangs gelb, werden aber röter (wertvoller) je später sie beendet werden.",
@@ -125,8 +125,8 @@
     "cantMoveCompletedTodo": "Abgeschlossenes To-Do kann nicht verschoben werden.",
     "directionUpDown": "\"Richtung\" wird benötigt und muss 'hoch' oder 'runter' sein.",
     "alreadyTagged": "Die Aufgabe besitzt bereits dieses Tag.",
-    "strengthExample": "Relating to exercise and activity",
-    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
-    "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "strengthExample": "Alles was mit Sport oder sonstigen Aktivitäten zu tun hat.",
+    "intelligenceExample": "Alles was mit Schule zu tun hat oder sonst Deinen Kopf anstrengt",
+    "perceptionExample": "Alles was mit Arbeit oder Finanzen zu tun hat",
+    "constitutionExample": "Alles was mit Gesundheit, Wellness und sozialen Kontakten zu tun hat."
 }

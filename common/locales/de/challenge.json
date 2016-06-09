@@ -70,7 +70,7 @@
     "cantAfford": "Du kannst Dir diesen Preis nicht leisten. Kaufe mehr Edelsteine oder verringere den Preis.",
     "challengeIdRequired": "\"challengeId\" muss eine gültige UUID sein.",
     "winnerIdRequired": "\"winnerId\" muss eine gültige UUID sein.",
-    "challengeNotFound": "Wettbewerb nicht gefunden.",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "Nur der Wettbewerbsleiter kann es löschen.",
     "onlyLeaderUpdateChal": "Nur der Wettbewerbsleiter kann es aktualisieren.",
     "winnerNotFound": "Gewinner mit ID \"<%= userId %>\" nicht gefunden, oder nimmt nicht am Wettbewerb teil.",

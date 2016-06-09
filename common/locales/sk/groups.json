@@ -163,7 +163,7 @@
     "partyUpAchievement": "Pripojil sa k družine s iným hráčom. Zabávaj sa bojovaním s príšerami a podporovaním sa navzájom.",
     "partyOnAchievement": "Pripojil sa k družine aspoň so štyrmi hráčmi! Užívaj si svoju zvýšenú zodpovednosť keď sa spájaš s tvojimi priateľmi aby si porazil svojich protivníkov!",
     "groupIdRequired": "\"groupId\" must be a valid UUID",
-    "groupNotFound": "Group not found.",
+    "groupNotFound": "Group not found or you don't have access.",
     "groupTypesRequired": "You must supply a valid \"type\" query string.",
     "questLeaderCannotLeaveGroup": "You cannot leave your party when you have started a quest. Abort the quest first.",
     "cannotLeaveWhileActiveQuest": "You cannot leave party during an active quest. Please leave the quest first.",

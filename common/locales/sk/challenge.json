@@ -70,7 +70,7 @@
     "cantAfford": "Túto odmenu si nemôžeš dovoliť. Kúp si viac drahokamov alebo zníž výšku odmeny.",
     "challengeIdRequired": "\"challengeId\" musí mať platné UUID.",
     "winnerIdRequired": "\"winnerId\" musí mať platné UUID.",
-    "challengeNotFound": "Výzva nebola nájdená.",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "Len majiteľ výzvy môže výzvu vymazať. ",
     "onlyLeaderUpdateChal": "Len majiteľ výzvy môže výzvu aktualizovať.",
     "winnerNotFound": "Víťaz s ID \"<%= userId %>\" nebol nájdený alebo sa nezúčastnil výzvy.",

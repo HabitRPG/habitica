@@ -110,7 +110,7 @@
     "mage": "法师",
     "mystery": "神秘",
     "changeClass": "更改职业，重新分配属性点",
-    "lvl10ChangeClass": "您必须达到等级10才可以更换职业。",
+    "lvl10ChangeClass": "您必须达到10级才可以改变职业。",
     "levelPopover": "每一级你可以获得一个可自由分配的属性点。你可以手动分配，或者让系统为你自动分配。",
     "unallocated": "未分配的属性点",
     "haveUnallocated": "你有 <%= points %> 点未分配的属性点",
@@ -139,7 +139,7 @@
     "respawn": "重生！",
     "youDied": "你已经死亡！",
     "dieText": "你掉了一级，失去所有的金币，和随机的一件装备。起来吧，Habit世界的居民，再接再厉！远离那些坏习惯、注意完成每日任务、并在快支撑不住的时候使用生命药水免于死亡！",
-    "sureReset": "你确定吗？这将会重置你角色职业和已经分配的属性点(它们将会被返还让你重新分配)，消耗3个宝石。",
+    "sureReset": "你确定吗？这将会重置你角色的职业和已经分配的属性点(它们将会被返并让你重新分配)，这将会消耗3个宝石。",
     "purchaseFor": "花费<%= cost %>宝石购买？",
     "notEnoughMana": "魔法值不足。",
     "invalidTarget": "无效的目标",
@@ -166,7 +166,7 @@
     "int": "智力",
     "showQuickAllocation": "显示属性分配",
     "hideQuickAllocation": "隐藏属性分配",
-    "quickAllocationLevelPopover": "每个等级获得一点属性点供你分配。你可以手工分配或者用一种自动分配选项让游戏帮你决定，在 玩家 -> 角色属性及成就 中选择。",
+    "quickAllocationLevelPopover": "每一级你可以获得一个可自由分配的属性点。你可以手动分配，或者让系统为你自动分配，在 玩家 -> 角色属性及成就 中选择。",
     "invalidAttribute": "\"<%= attr %>\" 不是一个有效的属性点分配数字。",
     "notEnoughAttrPoints": "您没有足够的属性点点数。"
 }

@@ -125,8 +125,8 @@
     "cantMoveCompletedTodo": "Impossible de déplacer une tâche À Faire complétée.",
     "directionUpDown": "\"direction\" est requis et doit être 'up' ou 'down'",
     "alreadyTagged": "La tâche est déjà étiquetée avec l'étiquette utilisée.",
-    "strengthExample": "Relating to exercise and activity",
-    "intelligenceExample": "Relating to academic or mentally challenging pursuits",
-    "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "strengthExample": "Relatif aux exercices et activités physiques",
+    "intelligenceExample": "Relatif aux activités académiques et mentales",
+    "perceptionExample": "Relatif au tâches professionnelles ou financières",
+    "constitutionExample": "Relatif à la santé, au bien-être et aux interactions sociales"
 }

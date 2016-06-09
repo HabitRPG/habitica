@@ -70,7 +70,7 @@
     "cantAfford": "你不能支付这个奖励。请购买更多宝石或减少奖励数量。",
     "challengeIdRequired": "\"challengeId\"必须是一个有效的UUID。",
     "winnerIdRequired": "\"winnerId\"必须是一个有效的UUID。",
-    "challengeNotFound": "找不到挑战。",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "仅有挑战发起者能删除它。",
     "onlyLeaderUpdateChal": "仅有挑战发起者能更新它。",
     "winnerNotFound": "获胜者ID \"<%= userId %>\"找不到或者不是挑战的一部分。",

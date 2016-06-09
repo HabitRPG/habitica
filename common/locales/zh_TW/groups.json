@@ -163,7 +163,7 @@
     "partyUpAchievement": "成功加入一個隊伍！快去和怪物戰鬥並支援彼此吧。",
     "partyOnAchievement": "成功加入一個四人以上的隊伍！享受團隊帶給你額外的責任感，征服所有敵人吧！",
     "groupIdRequired": "\"groupId\" must be a valid UUID",
-    "groupNotFound": "Group not found.",
+    "groupNotFound": "Group not found or you don't have access.",
     "groupTypesRequired": "You must supply a valid \"type\" query string.",
     "questLeaderCannotLeaveGroup": "You cannot leave your party when you have started a quest. Abort the quest first.",
     "cannotLeaveWhileActiveQuest": "You cannot leave party during an active quest. Please leave the quest first.",

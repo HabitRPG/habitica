@@ -70,7 +70,7 @@
     "cantAfford": "Nie stać cię na tę nagrodę. Kup więcej klejnotów lub obniż jej wysokość.",
     "challengeIdRequired": "\"challengeId\" musi być prawidłowym UUID.",
     "winnerIdRequired": "\"winnerId\" musi być prawidłowym UUID.",
-    "challengeNotFound": "Nie znaleziono wyzwania.",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "Tylko przywódca wyzwania może je usunąć.",
     "onlyLeaderUpdateChal": "Tylko przywódca wyzwania może je zaktualizować.",
     "winnerNotFound": "Zwycięzca o numerze ID \"<%= userId %>\" nie znaleziony jako uczestnik wyzwania.",

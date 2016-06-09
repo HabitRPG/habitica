@@ -70,7 +70,7 @@
     "cantAfford": "הפרס הזה יקר מידי עבורך. יש לרכוש עוד אבני חן, או להנמיך את הכמות בפרס.",
     "challengeIdRequired": "\"challengeId\" חייב להיות UUID - זהות משתמש ייחודי - תקף.",
     "winnerIdRequired": "\"winnerId\" חייב להיות UUID - זהות משתמש ייחודי - תקף.",
-    "challengeNotFound": "האתגר לא נמצא.",
+    "challengeNotFound": "Challenge not found or you don't have access.",
     "onlyLeaderDeleteChal": "רק מנהיג/ת האתגר יכול/ה למחוק אותו.",
     "onlyLeaderUpdateChal": "רק מנהיג/ת האתגר יכול/ה לעדכן אותו.",
     "winnerNotFound": "מנצח/ת עם זהות משתמש \"<%= userId %>\" לא נמצא או לא חלק מהאתגר.",

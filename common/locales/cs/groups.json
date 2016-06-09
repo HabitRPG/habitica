@@ -163,7 +163,7 @@
     "partyUpAchievement": "Připojil jsi se k Družině s jiným hráčem! Měj zábavu s porážením příšer a pomáhání si navzájem.",
     "partyOnAchievement": "Připojil jsi se k Družině s alespoň čtyřmi dalšími hráči! Užij jsi tvoji zvýšenou odpovědnost jak se spojíte s tvými přáteli aby jste porazili vaše nepřítele!",
     "groupIdRequired": "„groupId\" musí být platné UUID",
-    "groupNotFound": "Skupina nenalezena.",
+    "groupNotFound": "Group not found or you don't have access.",
     "groupTypesRequired": "You must supply a valid \"type\" query string.",
     "questLeaderCannotLeaveGroup": "Nemůžete opustit družinu, když jste začali výpravu. Nejdříve zrušte výpravu.",
     "cannotLeaveWhileActiveQuest": "Nemůžete opustit družinu během výpravy. Nejdříve, prosím opusťte výpravu.",
