@@ -334,4 +334,34 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         task.tags.splice(tagIndex, 1);
       }
     }
+
+    /*
+     ------------------------
+     Disabling Spells
+     ------------------------
+     */
+
+    $scope.spellDisabled = function (skill) {
+      if (skill === 'frost' && $scope.user.stats.buffs.streaks) {
+        return true;
+      } else if (skill === 'stealth' && $scope.user.stats.buffs.stealth >= $scope.user.dailys.length) {
+        return true;
+      }
+
+      return false;
+    };
+
+    $scope.skillNotes = function (skill) {
+      var notes = skill.notes();
+
+      if (skill.key === 'frost' && $scope.spellDisabled(skill.key)) {
+        notes = window.env.t('spellWizardFrostAlreadyCast');
+      } else if (skill.key === 'stealth' && $scope.spellDisabled(skill.key)) {
+        notes = window.env.t('spellRogueStealthMaxedOut');
+      } else if (skill.key === 'stealth') {
+        notes = window.env.t('spellRogueStealthDaliesAvoided', { originalText: notes, number: $scope.user.stats.buffs.stealth });
+      }
+
+      return notes;
+    };
   }]);
