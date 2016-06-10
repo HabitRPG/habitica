@@ -28,7 +28,7 @@ describe('GET /tasks/:id', () => {
       expect(getTask).to.eql(task);
     });
 
-    it('can use shortName to retrive task', async () => {
+    it('can use shortName to retrieve task', async () => {
       let getTask = await user.get(`/tasks/${task.shortName}`);
 
       expect(getTask).to.eql(task);
