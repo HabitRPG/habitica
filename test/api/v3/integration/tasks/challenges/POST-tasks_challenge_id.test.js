@@ -49,6 +49,18 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
   });
 
+  it('returns error when user tries to create task with a shortName', async () => {
+    await expect(user.post(`/tasks/challenge/${challenge._id}`, {
+      text: 'test habit',
+      type: 'habit',
+      shortName: 'a-short-name',
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: 'habit validation failed',
+    });
+  });
+
   it('returns error when non leader tries to edit challenge', async () => {
     let userThatIsNotLeaderOfChallenge = await generateUser({
       challenges: [challenge._id],

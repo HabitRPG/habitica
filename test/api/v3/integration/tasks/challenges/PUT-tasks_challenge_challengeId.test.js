@@ -3,7 +3,7 @@ import {
   generateGroup,
   generateChallenge,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:id', () => {
@@ -52,6 +52,16 @@ describe('PUT /tasks/:id', () => {
         code: 401,
         error: 'NotAuthorized',
         message: t('onlyChalLeaderEditTasks'),
+      });
+    });
+
+    it('returns error when user attempts to update task with a shortName', async () => {
+      await expect(user.put(`/tasks/${task._id}`, {
+        shortName: 'a-short-name',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'habit validation failed',
       });
     });
   });

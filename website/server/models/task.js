@@ -28,13 +28,10 @@ export let TaskSchema = new Schema({
   notes: {type: String, default: ''},
   shortName: {
     type: String,
-    validate: [(val) => {
-      // shortNames cannot be uuids because they would conflict with task ids in
-      // routes. They must be alphanumeric + dashes and underscores to be
-      // easy to read in urls
-      return !validator.isUUID(val) && val.match(SHORT_NAME_VALIDATION_REGEX);
+    validate: [function validateShortName (val) {
+      return validator.toBoolean(this.userId) && !validator.isUUID(val) && val.match(SHORT_NAME_VALIDATION_REGEX);
     },
-    'shortName can only contain alphanumeric characters or dashses.'],
+    'shortName can only contain alphanumeric characters, underscores and dashses. They must be owned by a user.'],
   },
   tags: [{
     type: String,
