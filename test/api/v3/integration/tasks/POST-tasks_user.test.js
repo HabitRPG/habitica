@@ -142,6 +142,52 @@ describe('POST /tasks/user', () => {
 
       expect(task).not.to.have.property('notValid');
     });
+
+    it('errors if shortName already exists on another task', async () => {
+      await user.post('/tasks/user', { // first task that will succeed
+        type: 'habit',
+        text: 'todo text',
+        shortName: 'short-name',
+      });
+
+      await expect(user.post('/tasks/user', {
+        type: 'todo',
+        text: 'todo text',
+        shortName: 'short-name',
+      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+        code: 400,
+        error: 'BadRequest',
+        message: 'shortName must be unique',
+      });
+    });
+
+    it('errors if shortName is contains invalid values', async () => {
+      await expect(user.post('/tasks/user', {
+        type: 'todo',
+        text: 'todo text',
+        shortName: 'short name!',
+      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+        code: 400,
+        error: 'BadRequest',
+        message: 'todo validation failed',
+      });
+    });
+
+    it('errors if the same shortname is used on 2 or more tasks', async () => {
+      await expect(user.post('/tasks/user', [{
+        type: 'habit',
+        text: 'habit text',
+        shortName: 'short-name',
+      }, {
+        type: 'todo',
+        text: 'todo text',
+        shortName: 'short-name',
+      }])).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'shortName must be unique',
+      });
+    });
   });
 
   context('all types', () => {

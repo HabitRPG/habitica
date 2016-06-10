@@ -24,6 +24,7 @@ describe('shared.ops.updateTask', () => {
         text: 'updated',
         id: '123',
         _id: '123',
+        shortName: 'short-name',
         type: 'todo',
         tags: ['678'],
         checklist: [{
@@ -38,6 +39,7 @@ describe('shared.ops.updateTask', () => {
     expect(res._id).to.not.equal('123');
     expect(res.type).to.equal('habit');
     expect(res.text).to.equal('updated');
+    expect(res.shortName).to.eql('short-name');
     expect(res.checklist).to.eql([{
       completed: false,
       text: 'item',
@@ -49,5 +51,19 @@ describe('shared.ops.updateTask', () => {
       time: now,
     }]);
     expect(res.tags).to.eql(['678']);
+  });
+
+  it('does not update shortName if already set', () => {
+    let habit = generateHabit({
+      shortName: 'preexisting-short-name',
+    });
+
+    let [res] = updateTask(habit, {
+      body: {
+        shortName: 'new-short-name',
+      },
+    });
+
+    expect(res.shortName).to.eql('preexisting-short-name');
   });
 });

@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { preenHistory } from '../libs/api-v3/preening';
 
 const Schema = mongoose.Schema;
+const SHORT_NAME_VALIDATION_REGEX = /^[a-zA-Z0-9-_]+$/;
 
 let discriminatorOptions = {
   discriminatorKey: 'type', // the key that distinguishes task types
@@ -25,6 +26,13 @@ export let TaskSchema = new Schema({
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
+  shortName: {
+    type: String,
+    validate: [(val) => {
+      return val.match(SHORT_NAME_VALIDATION_REGEX);
+    },
+    'shortName can only contain alphanumeric characters or dashses.'],
+  },
   tags: [{
     type: String,
     validate: [validator.isUUID, 'Invalid uuid.'],

@@ -4,6 +4,7 @@
     "habitrpg/babel"
   ],
   "globals": {
-    "Promise": true
+    "Promise": true,
+    "Set": true
   }
 }

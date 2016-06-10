@@ -16,6 +16,27 @@ import logger from '../../libs/api-v3/logger';
 
 let api = {};
 
+async function _checkShortNameUniqueness (user, tasks) {
+  let shortNames = tasks.map(task => task.shortName).filter(name => name);
+
+  if (shortNames.length !== [...new Set(shortNames)].length) {
+    throw new BadRequest('shortName must be unique'); // TODO locale
+  }
+
+  let tasksWithShortnames = await Tasks.Task.find({
+    userId: user._id,
+    shortName: {$exists: true},
+  }, {shortName: 1}).exec();
+
+  let preExistingShortNames = tasksWithShortnames.map(task => task.shortName);
+
+  let shortNameAlreadyExists = shortNames.find((name) => preExistingShortNames.indexOf(name) > -1);
+
+  if (shortNameAlreadyExists) {
+    throw new BadRequest('shortName must be unique');
+  }
+}
+
 // challenge must be passed only when a challenge task is being created
 async function _createTasks (req, res, user, challenge) {
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
@@ -42,7 +63,11 @@ async function _createTasks (req, res, user, challenge) {
     (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
-  }).map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
+  });
+
+  await _checkShortNameUniqueness(user, toSave);
+
+  toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
     validateBeforeSave: false,
   }));
 
@@ -193,6 +218,29 @@ api.getUserTasks = {
 };
 
 /**
+ * @api {get} /api/v3/tasks/user/:shortName Get a user's task by shortName property
+ * @apiName GetUserTaskByShortName
+ * @apiGroup Task
+ *
+ * @apiSuccess {object} data The task object
+ */
+api.getUserTaskByShortName = {
+  method: 'GET',
+  url: '/tasks/user/:shortName',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let shortName = req.params.shortName;
+    let task = await Tasks.Task.findOne({
+      userId: user._id,
+      shortName,
+    }).exec();
+
+    res.respond(200, task);
+  },
+};
+
+/**
  * @api {get} /api/v3/tasks/challenge/:challengeId Get a challenge's tasks
  * @apiVersion 3.0.0
  * @apiName GetChallengeTasks
@@ -308,6 +356,9 @@ api.updateTask = {
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
 
+    if (updatedTaskObj.shortName !== task.shortName) {
+      await _checkShortNameUniqueness(user, [updatedTaskObj]);
+    }
 
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
@@ -356,6 +407,62 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
   };
 }
 
+async function scoreWrapper (task, req, res) {
+  let user = res.locals.user;
+  let direction = req.params.direction;
+
+  if (!task) throw new NotFound(res.t('taskNotFound'));
+
+  let wasCompleted = task.completed;
+
+  let [delta] = common.ops.scoreTask({task, user, direction}, req);
+  // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+  if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+  // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+  // TODO move to common code?
+  if (task.type === 'todo') {
+    if (!wasCompleted && task.completed) {
+      removeFromArray(user.tasksOrder.todos, task._id);
+    } else if (wasCompleted && !task.completed) {
+      let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
+      if (!hasTask) {
+        user.tasksOrder.todos.push(task._id);
+      } // If for some reason it hadn't been removed previously don't do anything
+    }
+  }
+
+  let results = await Bluebird.all([
+    user.save(),
+    task.save(),
+  ]);
+
+  let savedUser = results[0];
+
+  let userStats = savedUser.stats.toJSON();
+  let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+  res.respond(200, resJsonData);
+
+  sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+
+  if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+    // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      let chalTask = await Tasks.Task.findOne({
+        _id: task.challenge.taskId,
+      }).exec();
+
+      if (!chalTask) return;
+
+      await chalTask.scoreChallengeTask(delta);
+    } catch (e) {
+      logger.error(e);
+    }
+  }
+
+  return null;
+}
+
 /**
  * @api {post} /api/v3/tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
@@ -380,64 +487,44 @@ api.scoreTask = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let direction = req.params.direction;
-
     let task = await Tasks.Task.findOne({
       _id: req.params.taskId,
-      userId: user._id,
+      userId: res.locals.user._id,
     }).exec();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    await scoreWrapper(task, req, res);
+  },
+};
 
-    let wasCompleted = task.completed;
+/**
+ * @api {post} /api/v3/tasks/user/:shortName/score/:direction Score a task
+ * @apiName ScoreTaskWithShortName
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} shortName The task shortName
+ * @apiParam {string="up","down"} direction The direction for scoring the task
+ *
+ * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
+ * @apiSuccess {number} data.delta
+ * @apiSuccess {object} data The user stats
+ */
+api.scoreTaskWithShortName = {
+  method: 'POST',
+  url: '/tasks/user/:shortName/score/:direction',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('shortName', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
-    let [delta] = common.ops.scoreTask({task, user, direction}, req);
-    // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
 
-    // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
-    // TODO move to common code?
-    if (task.type === 'todo') {
-      if (!wasCompleted && task.completed) {
-        removeFromArray(user.tasksOrder.todos, task._id);
-      } else if (wasCompleted && !task.completed) {
-        let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
-        if (!hasTask) {
-          user.tasksOrder.todos.push(task._id);
-        } // If for some reason it hadn't been removed previously don't do anything
-      }
-    }
+    let task = await Tasks.Task.findOne({
+      shortName: req.params.shortName,
+      userId: res.locals.user._id,
+    }).exec();
 
-    let results = await Bluebird.all([
-      user.save(),
-      task.save(),
-    ]);
-
-    let savedUser = results[0];
-
-    let userStats = savedUser.stats.toJSON();
-    let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
-    res.respond(200, resJsonData);
-
-    sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
-
-    if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
-      // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
-      try {
-        let chalTask = await Tasks.Task.findOne({
-          _id: task.challenge.taskId,
-        }).exec();
-
-        if (!chalTask) return;
-
-        await chalTask.scoreChallengeTask(delta);
-      } catch (e) {
-        logger.error(e);
-      }
-    }
-
-    return null;
+    await scoreWrapper(task, req, res);
   },
 };
 

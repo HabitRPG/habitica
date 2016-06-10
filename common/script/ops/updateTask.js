@@ -19,7 +19,11 @@ module.exports = function updateTask (task, req = {}) {
     task.tags = body.tags;
   }
 
-  _.merge(task, _.omit(body, ['_id', 'id', 'type', 'reminders', 'checklist', 'tags']));
+  if (body.shortName && !task.shortName) {
+    task.shortName = body.shortName;
+  }
+
+  _.merge(task, _.omit(body, ['_id', 'id', 'type', 'reminders', 'checklist', 'tags', 'shortName']));
 
   return [task];
 };

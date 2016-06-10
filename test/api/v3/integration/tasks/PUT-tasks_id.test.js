@@ -9,7 +9,7 @@ import { v4 as generateUUID } from 'uuid';
 describe('PUT /tasks/:id', () => {
   let user;
 
-  before(async () => {
+  beforeEach(async () => {
     user = await generateUser();
   });
 
@@ -175,6 +175,42 @@ describe('PUT /tasks/:id', () => {
       expect(savedDaily.reminders.length).to.equal(2);
       expect(savedDaily.reminders[0].id).to.equal(id1);
       expect(savedDaily.reminders[1].id).to.equal(id2);
+    });
+
+    it('can set a shortName if the shortName does not already exist', async () => {
+      let savedDaily = await user.put(`/tasks/${daily._id}`, {
+        shortName: 'short-name',
+      });
+
+      expect(savedDaily.shortName).to.eql('short-name');
+    });
+
+    it('ignores shortName if it is already set', async () => {
+      await user.put(`/tasks/${daily._id}`, {
+        shortName: 'some-short-name',
+      });
+
+      let savedDaily = await user.put(`/tasks/${daily._id}`, {
+        shortName: 'some-other-short-name',
+      });
+
+      expect(savedDaily.shortName).to.eql('some-short-name');
+    });
+
+    it('does not set shortName to a shortName that already exists', async () => {
+      await user.post('/tasks/user', {
+        type: 'todo',
+        text: 'a todo',
+        shortName: 'some-short-name',
+      });
+
+      await expect(user.put(`/tasks/${daily._id}`, {
+        shortName: 'some-short-name',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'shortName must be unique',
+      });
     });
   });
 
