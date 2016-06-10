@@ -173,6 +173,18 @@ describe('POST /tasks/user', () => {
       });
     });
 
+    it('errors if shortName is a valid uuid', async () => {
+      await expect(user.post('/tasks/user', {
+        type: 'todo',
+        text: 'todo text',
+        shortName: generateUUID(),
+      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+        code: 400,
+        error: 'BadRequest',
+        message: 'todo validation failed',
+      });
+    });
+
     it('errors if the same shortname is used on 2 or more tasks', async () => {
       await expect(user.post('/tasks/user', [{
         type: 'habit',
