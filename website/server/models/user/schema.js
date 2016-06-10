@@ -3,6 +3,7 @@ import shared from '../../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import { schema as TagSchema } from '../tag';
+import { schema as PushDeviceSchema } from '../pushDevice';
 import {
   schema as UserNotificationSchema,
 } from '../userNotification';
@@ -516,11 +517,7 @@ let schema = new Schema({
   extra: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
-  pushDevices: [{
-    regId: {type: String},
-    type: {type: String},
-    createdAt: {type: Date, default: Date.now},
-  }],
+  pushDevices: [PushDeviceSchema],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

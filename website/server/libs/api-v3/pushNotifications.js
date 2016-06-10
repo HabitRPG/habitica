@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import nconf from 'nconf';
 import pushNotify from 'push-notify';
-var apnLib = require('apn');
+import apnLib from 'apn';
 
 const GCM_API_KEY = nconf.get('PUSH_CONFIGS:GCM_SERVER_API_KEY');
 
@@ -20,22 +20,22 @@ let apn = APN_KEY ? pushNotify.apn({
 }) : undefined;
 
 if (apn) {
-  var feedback = apnLib.Feedback({
+  let feedback = apnLib.Feedback({
     key: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY'),
     cert: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:CERT'),
-    "batchFeedback": true,
-    "interval": 3600, //Check for feedback once an hour
+    batchFeedback: true,
+    interval: 3600, //Check for feedback once an hour
   });
   feedback.on("feedback", function(devices) {
-    console.log("GOT FEEDBACK");
-    console.log(devices);
+    //console.log("GOT FEEDBACK");
+    //console.log(devices);
   });
 }
 
-module.exports = function sendNotification (user, title, message, identifier, category = "", payload = {}, timeToLive = 15) {
+module.exports = function sendNotification (user, title, message, identifier, category = '', payload = {}, timeToLive = 15) {
 
   if (!user) return;
-  if (user.preferences && user.preferences.pushNotifications && user.preferences.pushNotifications.unsubscribeFromAll === true) return;
+  if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
   let pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
 
   payload.identifier = identifier;

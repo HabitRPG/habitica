@@ -421,7 +421,7 @@ schema.methods.startQuest = async function startQuest (user) {
       return member.preferences.pushNotifications.questStarted !== false &&
         member._id !== user._id;
     });
-    _.each(membersToPush, function pushNotificationMembers (member) {
+    _.each(membersToPush, (member) => {
       sendPushNotification(member, quest.text(), `${shared.i18n.t('questStarted')}: ${quest.text()}`, 'questStarted');
     });
   });
