@@ -12,6 +12,7 @@ import {
 import common from '../../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import validator from 'validator';
 import logger from '../../libs/api-v3/logger';
 
 let api = {};
@@ -220,29 +221,6 @@ api.getUserTasks = {
 };
 
 /**
- * @api {get} /api/v3/tasks/user/:shortName Get a user's task by shortName property
- * @apiName GetUserTaskByShortName
- * @apiGroup Task
- *
- * @apiSuccess {object} data The task object
- */
-api.getUserTaskByShortName = {
-  method: 'GET',
-  url: '/tasks/user/:shortName',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    let user = res.locals.user;
-    let shortName = req.params.shortName;
-    let task = await Tasks.Task.findOne({
-      userId: user._id,
-      shortName,
-    }).exec();
-
-    res.respond(200, task);
-  },
-};
-
-/**
  * @api {get} /api/v3/tasks/challenge/:challengeId Get a challenge's tasks
  * @apiVersion 3.0.0
  * @apiName GetChallengeTasks
@@ -283,7 +261,7 @@ api.getChallengeTasks = {
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|shortName} taskId The task _id or shortName
  *
  * @apiSuccess {object} data The task object
  */
@@ -293,15 +271,17 @@ api.getTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
+    let taskId = req.params.taskId;
+    let taskQuery = {};
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    if (validator.isUUID(taskId)) {
+      taskQuery._id = taskId;
+    } else {
+      taskQuery.userId = user._id;
+      taskQuery.shortName = taskId;
+    }
 
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let task = await Tasks.Task.findOne(taskQuery).exec();
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -409,69 +389,13 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
   };
 }
 
-async function scoreWrapper (task, req, res) {
-  let user = res.locals.user;
-  let direction = req.params.direction;
-
-  if (!task) throw new NotFound(res.t('taskNotFound'));
-
-  let wasCompleted = task.completed;
-
-  let [delta] = common.ops.scoreTask({task, user, direction}, req);
-  // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-  if (direction === 'up') user.fns.randomDrop({task, delta}, req);
-
-  // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
-  // TODO move to common code?
-  if (task.type === 'todo') {
-    if (!wasCompleted && task.completed) {
-      removeFromArray(user.tasksOrder.todos, task._id);
-    } else if (wasCompleted && !task.completed) {
-      let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
-      if (!hasTask) {
-        user.tasksOrder.todos.push(task._id);
-      } // If for some reason it hadn't been removed previously don't do anything
-    }
-  }
-
-  let results = await Bluebird.all([
-    user.save(),
-    task.save(),
-  ]);
-
-  let savedUser = results[0];
-
-  let userStats = savedUser.stats.toJSON();
-  let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
-  res.respond(200, resJsonData);
-
-  sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
-
-  if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
-    // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
-    try {
-      let chalTask = await Tasks.Task.findOne({
-        _id: task.challenge.taskId,
-      }).exec();
-
-      if (!chalTask) return;
-
-      await chalTask.scoreChallengeTask(delta);
-    } catch (e) {
-      logger.error(e);
-    }
-  }
-
-  return null;
-}
-
 /**
  * @api {post} /api/v3/tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|shortName} taskId The task _id or shortName
  * @apiParam {string="up","down"} direction The direction for scoring the task
  *
  * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
@@ -483,50 +407,75 @@ api.scoreTask = {
   url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: res.locals.user._id,
-    }).exec();
+    let user = res.locals.user;
+    let {taskId} = req.params;
 
-    await scoreWrapper(task, req, res);
-  },
-};
+    let taskQuery = { userId: user._id};
 
-/**
- * @api {post} /api/v3/tasks/user/:shortName/score/:direction Score a task
- * @apiName ScoreTaskWithShortName
- * @apiGroup Task
- *
- * @apiParam {UUID} shortName The task shortName
- * @apiParam {string="up","down"} direction The direction for scoring the task
- *
- * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
- * @apiSuccess {number} data.delta
- * @apiSuccess {object} data The user stats
- */
-api.scoreTaskWithShortName = {
-  method: 'POST',
-  url: '/tasks/user/:shortName/score/:direction',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    req.checkParams('shortName', res.t('taskIdRequired')).notEmpty();
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
+    if (validator.isUUID(taskId)) {
+      taskQuery._id = taskId;
+    } else {
+      taskQuery.shortName = taskId;
+    }
 
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    let task = await Tasks.Task.findOne(taskQuery).exec();
+    let direction = req.params.direction;
 
-    let task = await Tasks.Task.findOne({
-      shortName: req.params.shortName,
-      userId: res.locals.user._id,
-    }).exec();
+    if (!task) throw new NotFound(res.t('taskNotFound'));
 
-    await scoreWrapper(task, req, res);
+    let wasCompleted = task.completed;
+
+    let [delta] = common.ops.scoreTask({task, user, direction}, req);
+    // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+    // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+    // TODO move to common code?
+    if (task.type === 'todo') {
+      if (!wasCompleted && task.completed) {
+        removeFromArray(user.tasksOrder.todos, task._id);
+      } else if (wasCompleted && !task.completed) {
+        let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
+        if (!hasTask) {
+          user.tasksOrder.todos.push(task._id);
+        } // If for some reason it hadn't been removed previously don't do anything
+      }
+    }
+
+    let results = await Bluebird.all([
+      user.save(),
+      task.save(),
+    ]);
+
+    let savedUser = results[0];
+
+    let userStats = savedUser.stats.toJSON();
+    let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+    res.respond(200, resJsonData);
+
+    sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+
+    if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+      // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
+      try {
+        let chalTask = await Tasks.Task.findOne({
+          _id: task.challenge.taskId,
+        }).exec();
+
+        if (!chalTask) return;
+
+        await chalTask.scoreChallengeTask(delta);
+      } catch (e) {
+        logger.error(e);
+      }
+    }
+
+    return null;
   },
 };
 

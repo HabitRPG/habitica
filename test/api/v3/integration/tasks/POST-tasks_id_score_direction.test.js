@@ -14,12 +14,28 @@ describe('POST /tasks/:id/score/:direction', () => {
   });
 
   context('all', () => {
-    it('requires a task id', async () => {
-      await expect(user.post('/tasks/123/score/up')).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('invalidReqParams'),
+    it('can use an id to identify the task', async () => {
+      let todo = await user.post('/tasks/user', {
+        text: 'test todo',
+        type: 'todo',
+        shortName: 'short-name',
       });
+
+      let res = await user.post(`/tasks/${todo._id}/score/up`);
+
+      expect(res).to.be.ok;
+    });
+
+    it('can use a shortName in place of the id', async () => {
+      let todo = await user.post('/tasks/user', {
+        text: 'test todo',
+        type: 'todo',
+        shortName: 'short-name',
+      });
+
+      let res = await user.post(`/tasks/${todo.shortName}/score/up`);
+
+      expect(res).to.be.ok;
     });
 
     it('requires a task direction', async () => {
