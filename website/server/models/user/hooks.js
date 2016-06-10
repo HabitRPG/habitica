@@ -13,7 +13,7 @@ schema.plugin(baseModel, {
   private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
-    plainObj.filters = undefined;
+    delete plainObj.filters;
 
     return plainObj;
   },

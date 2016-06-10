@@ -25,9 +25,6 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
     };
 
     $scope.toggleFilter = function(tag) {
-      if (user.filters === undefined) {
-        user.filters = {};
-      }
       if (!user.filters[tag.id]) {
         user.filters[tag.id] = true;
       } else {
