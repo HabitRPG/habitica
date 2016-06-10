@@ -19,6 +19,9 @@ let api = {};
 async function _checkShortNameUniqueness (user, tasks) {
   let shortNames = tasks.map(task => task.shortName).filter(name => name);
 
+  // Compares the short names in tasks against
+  // a Set, where values cannot repeat. If the
+  // lengths are different, some name was duplicated
   if (shortNames.length !== [...new Set(shortNames)].length) {
     throw new BadRequest('shortName must be unique'); // TODO locale
   }
@@ -29,7 +32,6 @@ async function _checkShortNameUniqueness (user, tasks) {
   }, {shortName: 1}).exec();
 
   let preExistingShortNames = tasksWithShortnames.map(task => task.shortName);
-
   let shortNameAlreadyExists = shortNames.find((name) => preExistingShortNames.indexOf(name) > -1);
 
   if (shortNameAlreadyExists) {
