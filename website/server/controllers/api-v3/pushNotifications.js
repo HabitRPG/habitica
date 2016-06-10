@@ -27,16 +27,11 @@ api.addPushDevice = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    console.log("ASDF", req);
     let regId = _.get(req, 'body.regId');
-    if (!regId) throw new BadRequest(res.t('regIdRequired', req.language));
+    if (!regId) throw new BadRequest(res.t('regIdRequired'));
 
     let type = _.get(req, 'body.type');
-    if (!type) throw new BadRequest(res.t('typeRequired', req.language));
-
-    if (!user.pushDevices) {
-      user.pushDevices = [];
-    }
+    if (!type) throw new BadRequest(res.t('typeRequired'));
 
     let pushDevices = user.pushDevices;
 
@@ -50,14 +45,14 @@ api.addPushDevice = {
     });
 
     if (indexOfPushDevice !== -1) {
-      throw new NotAuthorized(res.t('pushDeviceAlreadyAdded', req.language));
+      throw new NotAuthorized(res.t('pushDeviceAlreadyAdded'));
     }
 
     pushDevices.push(item);
 
     await user.save();
 
-    res.respond(200, ...[{pushDevices: user.pushDevices}, res.t('pushDeviceAdded')]);
+    res.respond(200, {pushDevices: user.pushDevices}, res.t('pushDeviceAdded'));
   },
 };
 
@@ -82,9 +77,6 @@ api.removePushDevice = {
 
     req.checkParams('regId', res.t('regIdRequired')).notEmpty();
     let regId = req.params.regId;
-    if (!user.pushDevices) {
-      user.pushDevices = [];
-    }
 
     let pushDevices = user.pushDevices;
 
@@ -94,14 +86,13 @@ api.removePushDevice = {
 
 
     if (indexOfPushDevice === -1) {
-      throw new BadRequest(res.t('pushDeviceNotFound', req.language));
+      throw new BadRequest(res.t('pushDeviceNotFound'));
     }
 
-    pushDevices.splice(indexOfPushDevice);
-    user.pushDevices = pushDevices;
+    pushDevices.splice(indexOfPushDevice, 1);
     await user.save();
 
-    res.respond(200, ...[{pushDevices: user.pushDevices}, res.t('pushDeviceRemoved')]);
+    res.respond(200, {pushDevices: user.pushDevices}, res.t('pushDeviceRemoved'));
   },
 };
 

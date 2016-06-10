@@ -20,7 +20,6 @@ import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
-import common from '../../../../common';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
 let api = {};
 
@@ -542,7 +541,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     sendPushNotification(
       userToInvite,
       group.name,
-      common.i18n.t(identifier),
+      res.t(identifier),
       identifier,
       {groupID: group._id}
     );
