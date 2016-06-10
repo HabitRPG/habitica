@@ -151,7 +151,7 @@ angular.module('habitrpg')
         $http({
           method: method,
           url: url + queryString,
-          body: body,
+          data: body,
         })
         .then(function (response) {
           if (response.data.message && response.data.message !== clientMessage) {
@@ -512,15 +512,15 @@ angular.module('habitrpg')
         },
 
         addWebhook: function (data) {
-          callOpsFunctionAndRequest('addWebhook', 'webhook', "POST", '', data, data.body);
+          callOpsFunctionAndRequest('addWebhook', 'webhook', "POST", '', data);
         },
 
         updateWebhook: function (data) {
-          callOpsFunctionAndRequest('updateWebhook', 'webhook', "PUT", data.params.id, data, data.body);
+          callOpsFunctionAndRequest('updateWebhook', 'webhook', "PUT", data.params.id, data);
         },
 
         deleteWebhook: function (data) {
-          callOpsFunctionAndRequest('deleteWebhook', 'webhook', "DELETE", data.params.id, data, data.body);
+          callOpsFunctionAndRequest('deleteWebhook', 'webhook', "DELETE", data.params.id, data);
         },
 
         sleep: function () {
