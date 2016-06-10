@@ -57,7 +57,7 @@ describe('POST /tasks/user', () => {
       let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
       await expect(user.post('/tasks/user', {
         type: 'habit',
-      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+      })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
@@ -72,7 +72,7 @@ describe('POST /tasks/user', () => {
       await expect(user.post('/tasks/user', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
-      ])).to.eventually.be.rejected.and.eql({ // this block is necessary
+      ])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
@@ -87,7 +87,7 @@ describe('POST /tasks/user', () => {
       await expect(user.post('/tasks/user', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
-      ])).to.eventually.be.rejected.and.eql({ // this block is necessary
+      ])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
@@ -154,7 +154,7 @@ describe('POST /tasks/user', () => {
         type: 'todo',
         text: 'todo text',
         shortName: 'short-name',
-      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+      })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('taskShortNameAlreadyUsed'),
@@ -166,7 +166,7 @@ describe('POST /tasks/user', () => {
         type: 'todo',
         text: 'todo text',
         shortName: 'short name!',
-      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+      })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'todo validation failed',
@@ -178,7 +178,7 @@ describe('POST /tasks/user', () => {
         type: 'todo',
         text: 'todo text',
         shortName: generateUUID(),
-      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+      })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'todo validation failed',
