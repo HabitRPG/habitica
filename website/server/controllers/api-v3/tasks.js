@@ -17,14 +17,14 @@ import logger from '../../libs/api-v3/logger';
 
 let api = {};
 
-async function _checkShortNameUniqueness (user, tasks) {
+async function _checkShortNameUniqueness (user, tasks, res) {
   let shortNames = tasks.map(task => task.shortName).filter(name => name);
 
   // Compares the short names in tasks against
   // a Set, where values cannot repeat. If the
   // lengths are different, some name was duplicated
   if (shortNames.length !== [...new Set(shortNames)].length) {
-    throw new BadRequest('shortName must be unique'); // TODO locale
+    throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
   }
 
   let tasksWithShortnames = await Tasks.Task.find({
@@ -36,7 +36,7 @@ async function _checkShortNameUniqueness (user, tasks) {
   let shortNameAlreadyExists = shortNames.find((name) => preExistingShortNames.indexOf(name) > -1);
 
   if (shortNameAlreadyExists) {
-    throw new BadRequest('shortName must be unique');
+    throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
   }
 }
 
@@ -68,7 +68,7 @@ async function _createTasks (req, res, user, challenge) {
     return newTask;
   });
 
-  await _checkShortNameUniqueness(user, toSave);
+  await _checkShortNameUniqueness(user, toSave, res);
 
   toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
     validateBeforeSave: false,
@@ -339,7 +339,7 @@ api.updateTask = {
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
 
     if (updatedTaskObj.shortName !== task.shortName) {
-      await _checkShortNameUniqueness(user, [updatedTaskObj]);
+      await _checkShortNameUniqueness(user, [updatedTaskObj], res);
     }
 
     // Sanitize differently user tasks linked to a challenge

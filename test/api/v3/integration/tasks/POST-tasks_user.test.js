@@ -157,7 +157,7 @@ describe('POST /tasks/user', () => {
       })).to.eventually.be.rejected.and.eql({ // this block is necessary
         code: 400,
         error: 'BadRequest',
-        message: 'shortName must be unique',
+        message: t('taskShortNameAlreadyUsed'),
       });
     });
 
@@ -197,7 +197,7 @@ describe('POST /tasks/user', () => {
       }])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: 'shortName must be unique',
+        message: t('taskShortNameAlreadyUsed'),
       });
     });
   });
