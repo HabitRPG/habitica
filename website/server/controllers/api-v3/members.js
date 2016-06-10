@@ -302,6 +302,16 @@ api.sendPrivateMessage = {
         {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
       ]);
     }
+    if (receiver.preferences.pushNotifications.newPM !== false) {
+      sendPushNotification(
+        receiver,
+        res.t('newPM'),
+        res.t('newPMInfo', { name: getUserInfo(sender, ['name']).name, message }),
+        'newPM',
+        'newPM',
+        {replyTo: sender._id}
+      );
+    }
 
     res.respond(200, {});
   },
@@ -372,8 +382,14 @@ api.transferGems = {
         {name: 'X_GEMS_GIFTED', content: gemAmount},
       ]);
     }
-
-    sendPushNotification(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
+    if (receiver.preferences.pushNotifications.giftedGems !== false) {
+      sendPushNotification(receiver,
+        res.t('giftedGems'),
+        res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+        'giftedGems',
+        '',
+        {replyTo: sender._id});
+    }
 
     res.respond(200, {});
   },
