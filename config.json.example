@@ -66,8 +66,8 @@
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
         "APN_PEM_FILES": {
-          "KEY": "key.pem",
-          "CERT": "cert.pem"
+          "KEY": "",
+          "CERT": ""
         }
     },
     "FIREBASE": {

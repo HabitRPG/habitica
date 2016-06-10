@@ -537,11 +537,16 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     sendTxnEmail(userToInvite, `invited-${groupTemplate}`, emailVars);
   }
 
-  sendPushNotification(
-    userToInvite,
-    common.i18n.t(group.type === 'guild' ? 'invitedGuild' : 'invitedParty'),
-    group.name
-  );
+  if (userToInvite.preferences.pushNotifications[`invited${groupLabel}`] !== false) {
+    let identifier = group.type === 'guild' ? 'invitedGuild' : 'invitedParty';
+    sendPushNotification(
+      userToInvite,
+      group.name,
+      common.i18n.t(identifier),
+      identifier,
+      {groupID: group._id}
+    );
+  }
 
   let userInvited = await userToInvite.save();
   if (group.type === 'guild') {
