@@ -63,7 +63,7 @@
     "dangerZone": "Zona de Perigo",
     "resetText1": "ATENÇÃO! Isso redefine várias partes da sua conta. Isso é altamente desencorajado, mas algumas pessoas acham útil no início, após brincarem com o site por um curto período de tempo.",
     "resetText2": "Você perderá todos os seus níveis, ouro, e pontos de experiência. Todas as suas tarefas (exceto aquelas de desafios) serão deletadas permanentemente e você perderá todo os dados históricos delas. Você perderá todo o seu equipamento, mas poderá comprá-lo de volta, incluindo todo o equipamento de edição limitada ou os itens misteriosos dos assinantes que você já possua (você precisará ter a classe correta para recomprar equipamento classe-específico). Você manterá sua classe atual e seus mascotes e montarias. Você pode preferir usar a Orbe do Renascimento em vez disso, que é uma opção muito mais segura e que preservará suas tarefas.",
-    "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
+    "deleteLocalAccountText": "Você tem certeza? Isso apagará sua conta para sempre e ela nunca mais poderá ser recuperada! Você precisará registrar uma nova conta para usar o Habitica novamente. Gemas gastas ou armazenadas não serão reembolsadas. Se você tiver certeza absoluta, digite sua senha na caixa de texto abaixo.",
     "API": "API",
     "APIv3": "API v3",
     "APIv2": "API v2 - Obsoleta",
