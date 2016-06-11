@@ -24,7 +24,7 @@
     "messageDropFood": "מצאת <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "מצאת ביצת <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "מצאת שיקוי <%= dropText %> לבקיעה! <%= dropNotes %>",
-    "messageDropQuest": "מצאתם הרפתקאה!",
+    "messageDropQuest": "מצאתם הרפתקה!",
     "messageDropMysteryItem": "אתם פותחים קופסה ומוצאים <%= dropText %>!",
     "messageFoundQuest": "מצאת את המשימה \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "רכשתם את החפץ הזה בעבר, אך כעת הוא לא ברשותכם. תוכלו לרכוש אותו שוב בעמודת הפרסים בדף המשימות.",

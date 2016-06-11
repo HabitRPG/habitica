@@ -70,7 +70,7 @@
     "cantAfford": "賞品分のジェムがありません。ジェムを追加購入するか、より安い賞品にしてください。",
     "challengeIdRequired": "\"challengeId\" の UUID が無効です。",
     "winnerIdRequired": "\"winnerId\" のUUIDが無効です。",
-    "challengeNotFound": "Challenge not found or you don't have access.",
+    "challengeNotFound": "チャレンジが見つからなかったか、アクセスできません。",
     "onlyLeaderDeleteChal": "削除できるのは、チャレンジのリーダーだけです。",
     "onlyLeaderUpdateChal": "更新できるのは、チャレンジのリーダーだけです。",
     "winnerNotFound": "「<%= userId %>」の優勝者が見つからないか、チャレンジのメンバーではありません。",
