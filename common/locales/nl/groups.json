@@ -163,7 +163,7 @@
     "partyUpAchievement": "Is bij een groep gegaan met een andere persoon! Veel plezier met het vechten tegen monsters en het ondersteunen van elkaar.",
     "partyOnAchievement": "Is bij een groep gegaan met minstens vier mensen! Geniet van je verhoogde verantwoordelijkheid wanneer je je bij je vrienden voegt om je vijanden te verslaan!",
     "groupIdRequired": "\"groupId\" moet een geldige UUID zijn",
-    "groupNotFound": "Group not found or you don't have access.",
+    "groupNotFound": "Groep niet gevonden of je hebt geen toegang.",
     "groupTypesRequired": "Je moet een geldig \"type\" query string geven.",
     "questLeaderCannotLeaveGroup": "Je kan de groep niet verlaten als je een Queeste hebt gestart. Annuleer eerst de Queeste.",
     "cannotLeaveWhileActiveQuest": "Je kan de groep niet verlaten gedurende een actieve Queeste. Verlaat eerst de Queeste.",

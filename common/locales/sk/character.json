@@ -84,7 +84,7 @@
     "allocatePerPop": "Pridať bod do postrehu",
     "allocateInt": "Body pridelené do Inteligencie:",
     "allocateIntPop": "Pridať bod do inteligencie",
-    "noMoreAllocate": "Teraz, keď si dosiahol level 100, nezískaš žiadne ďaľšie body atribútov. Môžeš pokračovať v levelovaní, alebo začať nové dobrodružstvo na úrovni 1 pomocou použitia <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbu znovuzrodenia</a>, ktorý je teraz dostupný zdarma na trhu.",
+    "noMoreAllocate": "Teraz, keď si dosiahol level 100, nezískaš žiadne ďaľšie body vlastností. Môžeš pokračovať v levelovaní, alebo začať nové dobrodružstvo na úrovni 1 pomocou použitia <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbu znovuzrodenia</a>, ktorý je teraz dostupný zdarma na trhu.",
     "stats": "Štatistiky avatara",
     "strength": "Sila",
     "strengthText": "Sila zvyšuje šancu náhodných \"kritických zásahov\" a tým aj možnosť získať z nich viac zlata, skúseností a predmetov. Taktiež pomáha zasadiť silnejšiu ranu boss monštrám.",
@@ -166,7 +166,7 @@
     "int": "INT",
     "showQuickAllocation": "Zobraziť rozdelenie štatistík",
     "hideQuickAllocation": "Skryť rozdelenie štatistík",
-    "quickAllocationLevelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do atribútu podľa svojho výberu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\", ktorú môžeš nájsť v časti Užívateľ -> Štatistiky.",
-    "invalidAttribute": "\"<%= attr %>\" nie je platný atribút.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "quickAllocationLevelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do vlastnosti podľa svojho výberu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\", ktorú môžeš nájsť v časti Užívateľ -> Štatistiky.",
+    "invalidAttribute": "\"<%= attr %>\" nie je platná vlastnosť.",
+    "notEnoughAttrPoints": "Nemáš dosť bodov vlastností."
 }

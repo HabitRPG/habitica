@@ -57,7 +57,7 @@
     "conLearn": "Zisti viac o prispievateľských odmenách",
     "conLearnHow": "Zisti ako prispieť do Habitica",
     "surveysSingle": "Pomohol Habitice rásť vyplnením dotazníka alebo s testovaním. Ďakujeme!",
-    "surveysMultiple": "Helped Habitica grow on <%= surveys %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
+    "surveysMultiple": "Pomohol Habitike rásť pri rôznych príležitostiach <%= surveys %> krát, buď vyplnením dotazníka alebo pomáhal s testovaním. Ďakujeme!",
     "currentSurvey": "Aktuálny dotazník",
     "surveyWhen": "Odznak dostanú všetci účastníci najneskôr v marci po spracovaní dotazníkov.",
     "blurbInbox": "Tu sú uchované tvoje súkromné správy! Môžeš niekomu poslať správu kliknutím na ikonu obálky pri jeho mene v chate v hostinci, družine alebo cechu. Ak si dostal nevhodnú súkromnú správu, mal by si mailom odoslať screenshot tejto správy hráčovi Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",

@@ -191,7 +191,7 @@
     "weaponArmoireBasicLongbowNotes": "Un arco útil de segunda mano. Incrementa la Fuerza por <%=str%>. Armario Encantado: Conjunto Básico de Arquero (Artículo 1 de 3).",
     "weaponArmoireHabiticanDiplomaText": "Diploma Habiticano",
     "weaponArmoireHabiticanDiplomaNotes": "A certificate of significant achievement -- well done! Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 1 of 3).",
-    "weaponArmoireSandySpadeText": "Sandy Spade",
+    "weaponArmoireSandySpadeText": "Pala arenosa",
     "weaponArmoireSandySpadeNotes": "A tool for digging, as well as flicking sand into the eyes of enemy monsters. Increases Strength by <%= str %>. Enchanted Armoire: Seaside Set (Item 1 of 3).",
     "armor": "armadura",
     "armorBase0Text": "Ropa Simple",
