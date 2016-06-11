@@ -54,11 +54,16 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.$watch('user.items.gear', function(gear){
       $scope.gear = {};
+      $scope.gearByType = {};
       _.each(gear.owned, function(v,key){
         if (v === false) return;
         var item = Content.gear.flat[key];
-        if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
+        if (!$scope.gear[item.klass])
+          $scope.gear[item.klass] = [];
         $scope.gear[item.klass].push(item);
+        if (!$scope.gearByType[item.type])
+          $scope.gearByType[item.type] = [];
+        $scope.gearByType[item.type].push(item);
       })
     }, true);
 
