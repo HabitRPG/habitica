@@ -55,6 +55,7 @@ api.createSubscription = async function createSubscription (data) {
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
       lastBillingDate: data.paymentMethod === 'Amazon Payments' ? new Date() : undefined,
+      subscriptionLengthMonths: months,
     }).defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date(),
       mysteryItems: [],
@@ -117,7 +118,8 @@ api.createSubscription = async function createSubscription (data) {
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
-  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
+  let defaultRemaining = plan.subscriptionLengthMonths ? plan.subscriptionLengthMonths * 30 : 30;
+  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : defaultRemaining;
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 

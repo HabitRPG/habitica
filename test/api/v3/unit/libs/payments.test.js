@@ -29,6 +29,12 @@ describe('payments/index', () => {
       expect(user.purchased.plan.planId).to.exist;
     });
 
+    it('sets subscription length', async () => {
+      data = { user, sub: { key: 'basic_3mo' }, paymentMethod: 'Amazon Payments' };
+      await api.createSubscription(data);
+      expect(user.purchased.plan.subscriptionLengthMonths).to.be.eql(3);
+    });
+
     it('awards mystery items', async () => {
       data = { user, sub: { key: 'basic_3mo' } };
       await api.createSubscription(data);
@@ -53,6 +59,21 @@ describe('payments/index', () => {
       api.cancelSubscription(data);
       let difference = Math.abs(moment(terminated).diff(data.user.purchased.plan.dateTerminated, 'days'));
       expect(difference - 60).to.be.lessThan(3); // the difference is approximately two months, +/- 2 days
+    });
+
+    it('data.nextBill is undefined', () => {
+      data.user.purchased.plan.subscriptionLengthMonths = 3;
+      api.cancelSubscription(data);
+      let terminated = data.user.purchased.plan.dateTerminated;
+      let difference = moment(terminated).diff(data.user.purchased.lastBillingDate, 'days');
+      expect(difference).to.be.eql(89);
+    });
+
+    it('data.nextBill is undefined and plan.subscriptionLengthMonths is undefined', () => {
+      api.cancelSubscription(data);
+      let terminated = data.user.purchased.plan.dateTerminated;
+      let difference = moment(terminated).diff(data.user.purchased.lastBillingDate, 'days');
+      expect(difference).to.be.eql(29);
     });
 
     it('plan.extraMonth is a fraction', () => {
