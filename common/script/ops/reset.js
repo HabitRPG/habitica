@@ -18,6 +18,8 @@ module.exports = function reset (user, tasks = [], req = {}) {
 
   resetGear(user);
 
+  user.preferences.automaticAllocation = false;
+
   if (req.v2 === true) {
     return user;
   } else {
