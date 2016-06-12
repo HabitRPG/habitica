@@ -101,6 +101,15 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   return reminderObj;
 };
 
+TaskSchema.statics.checkShortNameAvailability = async function checkShortNameAvailability (userId, shortName) {
+    let taskWithSameShortname = await this.findOne({
+      userId,
+      shortName,
+    }).exec();
+
+    return !taskWithSameShortname;
+};
+
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta) {
   let chalTask = this;
 

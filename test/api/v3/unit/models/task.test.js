@@ -71,4 +71,43 @@ describe('Task Model', () => {
       });
     });
   });
+
+  describe('Static Methods', () => {
+    describe('checkShortNameAvailability', () => {
+      let user;
+
+      beforeEach(async () => {
+        user = new User();
+        await user.save();
+
+        let task = new Tasks.todo({
+          text: 'Sample todo',
+          shortName: 'todo-short-name',
+          userId: user._id,
+        });
+
+        await task.save();
+      });
+
+      it('returns false if another user task has the shortName', async () => {
+        let shortNameAvailable = await Tasks.Task.checkShortNameAvailability(user._id, 'todo-short-name');
+
+        expect(shortNameAvailable).to.eql(false);
+      });
+
+      it('returns true if no other user task has the shortName', async () => {
+        let shortNameAvailable = await Tasks.Task.checkShortNameAvailability(user._id, 'unique-short-name');
+
+        expect(shortNameAvailable).to.eql(true);
+      });
+
+      it('returns true if another user has the shortName, but current user does not', async () => {
+        let anotherUser = new User();
+
+        let shortNameAvailable = await Tasks.Task.checkShortNameAvailability(anotherUser._id, 'todo-short-name');
+
+        expect(shortNameAvailable).to.eql(true);
+      });
+    });
+  });
 });

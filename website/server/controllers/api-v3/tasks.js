@@ -27,15 +27,12 @@ async function _checkShortNameUniqueness (user, tasks, res) {
     throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
   }
 
-  let tasksWithShortnames = await Tasks.Task.find({
-    userId: user._id,
-    shortName: {$exists: true},
-  }, {shortName: 1}).exec();
+  let results = await Bluebird.map(shortNames, (name) => {
+    return Tasks.Task.checkShortNameAvailability(user._id, name)
+  });
 
-  let preExistingShortNames = tasksWithShortnames.map(task => task.shortName);
-  let shortNameAlreadyExists = shortNames.find((name) => preExistingShortNames.indexOf(name) > -1);
-
-  if (shortNameAlreadyExists) {
+  // Error if any short name was already used
+  if (results.some(shortNameAvailable => !shortNameAvailable)) {
     throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
   }
 }
@@ -339,7 +336,11 @@ api.updateTask = {
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
 
     if (updatedTaskObj.shortName !== task.shortName) {
-      await _checkShortNameUniqueness(user, [updatedTaskObj], res);
+      let shortNameAvailable = await Tasks.Task.checkShortNameAvailability(user._id, updatedTaskObj.shortName);
+
+      if (!shortNameAvailable) {
+        throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
+      }
     }
 
     // Sanitize differently user tasks linked to a challenge
