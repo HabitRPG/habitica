@@ -52,18 +52,4 @@ describe('shared.ops.updateTask', () => {
     }]);
     expect(res.tags).to.eql(['678']);
   });
-
-  it('does not update shortName if already set', () => {
-    let habit = generateHabit({
-      shortName: 'preexisting-short-name',
-    });
-
-    let [res] = updateTask(habit, {
-      body: {
-        shortName: 'new-short-name',
-      },
-    });
-
-    expect(res.shortName).to.eql('preexisting-short-name');
-  });
 });

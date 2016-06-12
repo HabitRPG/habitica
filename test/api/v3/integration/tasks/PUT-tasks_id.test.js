@@ -60,7 +60,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.notValid).to.be.undefined;
     });
 
-    it(`only allows setting streak, reminders, checklist, notes, attribute, tags
+    it(`only allows setting streak, shortName, reminders, checklist, notes, attribute, tags
         fields for challenge tasks owned by a user`, async () => {
       let guild = await generateGroup(user);
       let challenge = await generateChallenge(user, guild);
@@ -88,6 +88,7 @@ describe('PUT /tasks/:id', () => {
         _id: 123,
         type: 'daily',
         userId: 123,
+        shortName: 'a-short-task-name',
         history: [123],
         createdAt: 'yesterday',
         updatedAt: 'tomorrow',
@@ -178,7 +179,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedDaily.reminders[1].id).to.equal(id2);
     });
 
-    it('can set a shortName if the shortName does not already exist', async () => {
+    it('can set a shortName if no other task has that shortName', async () => {
       let savedDaily = await user.put(`/tasks/${daily._id}`, {
         shortName: 'short-name',
       });
@@ -186,19 +187,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedDaily.shortName).to.eql('short-name');
     });
 
-    it('ignores shortName if it is already set', async () => {
-      await user.put(`/tasks/${daily._id}`, {
-        shortName: 'some-short-name',
-      });
-
-      let savedDaily = await user.put(`/tasks/${daily._id}`, {
-        shortName: 'some-other-short-name',
-      });
-
-      expect(savedDaily.shortName).to.eql('some-short-name');
-    });
-
-    it('does not set shortName to a shortName that already exists', async () => {
+    it('does not set shortName to a shortName that is already in use', async () => {
       await user.post('/tasks/user', {
         type: 'todo',
         text: 'a todo',
