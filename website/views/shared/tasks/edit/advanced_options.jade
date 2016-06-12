@@ -4,6 +4,11 @@ div(ng-if='::task.type!="reward"')
     ng-click='task._advanced = !task._advanced', tooltip=env.t('expandCollapse'))
     =env.t('advancedOptions')
 
+  fieldset.option-group.advanced-option(ng-if="task.userId" ng-show="task._advanced")
+    legend.option-title
+      span.hint(popover-trigger='mouseenter', popover=env.t('taskShortNamePopover'))=env.t('taskShortName')
+    input.form-control(ng-model='task.shortName' type='text')
+
   div(ng-show='task._advanced')
     div(ng-if='::task.type == "daily"')
       .form-group
