@@ -29,9 +29,9 @@ export let TaskSchema = new Schema({
   shortName: {
     type: String,
     validate: [function validateShortName (val) {
-      return validator.toBoolean(this.userId) && !validator.isUUID(val) && val.match(SHORT_NAME_VALIDATION_REGEX);
+      return Boolean(this.userId) && !validator.isUUID(val) && val.match(SHORT_NAME_VALIDATION_REGEX);
     },
-    'shortName can only contain alphanumeric characters, underscores and dashses. They must be owned by a user.'],
+    'Task short names can only contain alphanumeric characters, underscores and dashses. They must be owned by a user.'],
   },
   tags: [{
     type: String,
