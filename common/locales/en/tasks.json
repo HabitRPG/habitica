@@ -22,6 +22,7 @@
     "advancedOptions": "Advanced Options",
     "taskShortName": "Short Name",
     "taskShortNamePopover": "This short name can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The short name must be unique among all your tasks.",
+    "taskShortNamePopoverWarning": "WARNING: Changing this value will break any 3rd party integrations that rely on the short name.",
     "difficulty": "Difficulty",
     "difficultyHelpTitle": "How difficult is this task?",
     "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
