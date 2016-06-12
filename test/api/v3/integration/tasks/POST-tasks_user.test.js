@@ -161,7 +161,7 @@ describe('POST /tasks/user', () => {
       });
     });
 
-    it('errors if shortName is contains invalid values', async () => {
+    it('errors if shortName contains invalid values', async () => {
       await expect(user.post('/tasks/user', {
         type: 'todo',
         text: 'todo text',
