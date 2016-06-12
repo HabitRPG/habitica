@@ -5,7 +5,7 @@
   "groupBy": "Group By <%= type %>",
 
   "weapon": "weapon",
-  "waeaponCapitalized" : "Weapon",
+  "weaponCapitalized" : "Weapon",
 
   "weaponBase0Text": "No Weapon",
   "weaponBase0Notes": "No Weapon.",
