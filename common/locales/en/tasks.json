@@ -115,7 +115,7 @@
     "rewardHelp4": "Don't be afraid to set custom Rewards! Check out <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>some samples here</a>.",
     "clickForHelp": "Click for help",
     "taskIdRequired": "\"taskId\" must be a valid UUID.",
-    "taskShortNameAlreadyUsed": "Short name already used on another task",
+    "taskShortNameAlreadyUsed": "Short name already used on another task.",
     "taskNotFound": "Task not found.",
     "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
     "cantDeleteChallengeTasks": "A task belonging to a challenge can't be deleted.",
