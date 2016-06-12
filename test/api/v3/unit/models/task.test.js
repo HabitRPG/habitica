@@ -80,13 +80,13 @@ describe('Task Model', () => {
         user = new User();
         await user.save();
 
-        let task = new Tasks.todo({
+        let todo = new Tasks.todo({ // eslint-disable-line babel/new-cap
           text: 'Sample todo',
           shortName: 'todo-short-name',
           userId: user._id,
         });
 
-        await task.save();
+        await todo.save();
       });
 
       it('returns false if another user task has the shortName', async () => {

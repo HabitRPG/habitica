@@ -28,7 +28,7 @@ async function _checkShortNameUniqueness (user, tasks, res) {
   }
 
   let results = await Bluebird.map(shortNames, (name) => {
-    return Tasks.Task.checkShortNameAvailability(user._id, name)
+    return Tasks.Task.checkShortNameAvailability(user._id, name);
   });
 
   // Error if any short name was already used
