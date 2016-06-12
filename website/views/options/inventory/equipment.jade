@@ -15,10 +15,10 @@ mixin orderByButton
 
 mixin groupingButton
   .btn-group
-    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', ng-init='setGrouping("klazz")')
+    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', ng-init='setGrouping("klass")')
       | {{env.t("groupingBy") + " " + env.t(groupingChoice)}} #[span.caret]
     ul.dropdown-menu
-      - each grouping in ["klazz", "equipmentType"]
+      - each grouping in ["klass", "equipmentType"]
           li(ng-class="{ 'active': groupingChoice === '#{grouping}' }")
             a(ng-click="setGrouping('#{grouping}')")=env.t(grouping)
 
@@ -31,12 +31,12 @@ mixin equipmentButton(type)
         popover-append-to-body='true')
 
 mixin equipmentList(equipmentType)
-  menu.pets-menu(label='{{::label}}', ng-show='gear[klass]', ng-if='groupingChoice === "klazz"',
+  menu.pets-menu(label='{{::label}}', ng-show='gear[klass]', ng-if='groupingChoice === "klass"',
     ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
     div(ng-repeat='item in gear[klass] | orderBy: order')
       +equipmentButton(equipmentType)
   menu.pets-menu(label='{{::label}}', ng-show='gearByType[type]', ng-if='groupingChoice === "equipmentType"',
-    ng-repeat='(type,label) in {headAccessory:env.t("headAccessory"), head:env.t("headgear"), eyewear:env.t("eyewear"), weapon:env.t("weapon"), shield:env.t("offhand"), armor:env.t("armor"), body:env.t("body"), back:env.t("back")}')
+    ng-repeat='(type,label) in {headAccessory:env.t("headAccessoryCapitalized"), head:env.t("headgearCapitalized"), eyewear:env.t("eyewear"), weapon:env.t("weaponCapitalized"), shield:env.t("offhandCapitalized"), armor:env.t("armorCapitalized"), body:env.t("body"), back:env.t("back")}')
     div(ng-repeat='item in gearByType[type] | orderBy: order', ng-show='item.klass !== "base"')
       +equipmentButton(equipmentType)
 
