@@ -7,7 +7,6 @@ import _ from 'lodash';
 import { preenHistory } from '../libs/api-v3/preening';
 
 const Schema = mongoose.Schema;
-const SHORT_NAME_VALIDATION_REGEX = /^[a-zA-Z0-9-_]+$/;
 
 let discriminatorOptions = {
   discriminatorKey: 'type', // the key that distinguishes task types
@@ -28,10 +27,18 @@ export let TaskSchema = new Schema({
   notes: {type: String, default: ''},
   shortName: {
     type: String,
-    validate: [function validateShortName (val) {
-      return Boolean(this.userId) && !validator.isUUID(val) && val.match(SHORT_NAME_VALIDATION_REGEX);
-    },
-    'Task short names can only contain alphanumeric characters, underscores and dashses. They must be owned by a user.'],
+    match: [/^[a-zA-Z0-9-_]+$/, 'Task short names can only contain alphanumeric characters, underscores and dashes.'],
+    validate: [{
+      validator: function validateShortNameOwnedByUser () {
+        return Boolean(this.userId);
+      },
+      msg: 'Task short names can only be applied to tasks in a user\'s own task list.',
+    }, {
+      validator: function validateShortNameIsNotUuid (val) {
+        return !validator.isUUID(val);
+      },
+      msg: 'Task short names cannot be uuids.',
+    }],
   },
   tags: [{
     type: String,
@@ -99,15 +106,6 @@ TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj)
 TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   delete reminderObj.id;
   return reminderObj;
-};
-
-TaskSchema.statics.checkShortNameAvailability = async function checkShortNameAvailability (userId, shortName) {
-  let taskWithSameShortname = await this.findOne({
-    userId,
-    shortName,
-  }).exec();
-
-  return !taskWithSameShortname;
 };
 
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta) {
@@ -183,6 +181,19 @@ TaskSchema.statics.fromJSONV2 = function fromJSONV2 (taskObj) {
 // END of API v2 methods
 
 export let Task = mongoose.model('Task', TaskSchema);
+
+Task.schema.path('shortName').validate(function valiateShortNameNotTaken (shortName, respond) {
+  Task.findOne({
+    userId: this.userId,
+    shortName,
+  }).exec().then((task) => {
+    let shortNameAvailable = !task;
+
+    respond(shortNameAvailable);
+  }).catch(() => {
+    respond(false);
+  });
+}, 'Task short name already used on another task.');
 
 // habits and dailies shared fields
 let habitDailySchema = () => {

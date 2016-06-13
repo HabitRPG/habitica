@@ -3,7 +3,6 @@ import {
   generateGroup,
   sleep,
   generateChallenge,
-  translate as t,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
@@ -199,7 +198,7 @@ describe('PUT /tasks/:id', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('taskShortNameAlreadyUsed'),
+        message: 'daily validation failed',
       });
     });
   });

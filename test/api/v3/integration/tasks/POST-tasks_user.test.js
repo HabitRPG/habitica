@@ -157,7 +157,7 @@ describe('POST /tasks/user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('taskShortNameAlreadyUsed'),
+        message: 'todo validation failed',
       });
     });
 
@@ -197,7 +197,7 @@ describe('POST /tasks/user', () => {
       }])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('taskShortNameAlreadyUsed'),
+        message: 'habit validation failed',
       });
     });
   });
@@ -220,6 +220,16 @@ describe('POST /tasks/user', () => {
       expect(task.reminders[0].id).to.eql(id1);
       expect(task.reminders[0].startDate).to.be.a('string'); // json doesn't have dates
       expect(task.reminders[0].time).to.be.a('string');
+    });
+
+    it('can create a task with a shortName', async () => {
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+        shortName: 'a_short-NAME012',
+      });
+
+      expect(task.shortName).to.eql('a_short-NAME012');
     });
   });
 

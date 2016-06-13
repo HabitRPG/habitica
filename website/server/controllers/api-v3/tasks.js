@@ -17,26 +17,6 @@ import logger from '../../libs/api-v3/logger';
 
 let api = {};
 
-async function _checkShortNameUniqueness (user, tasks, res) {
-  let shortNames = tasks.map(task => task.shortName).filter(name => name);
-
-  // Compares the short names in tasks against
-  // a Set, where values cannot repeat. If the
-  // lengths are different, some name was duplicated
-  if (shortNames.length !== [...new Set(shortNames)].length) {
-    throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
-  }
-
-  let results = await Bluebird.map(shortNames, (name) => {
-    return Tasks.Task.checkShortNameAvailability(user._id, name);
-  });
-
-  // Error if any short name was already used
-  if (results.some(shortNameAvailable => !shortNameAvailable)) {
-    throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
-  }
-}
-
 // challenge must be passed only when a challenge task is being created
 async function _createTasks (req, res, user, challenge) {
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
@@ -65,7 +45,11 @@ async function _createTasks (req, res, user, challenge) {
     return newTask;
   });
 
-  await _checkShortNameUniqueness(user, toSave, res);
+  let tasksWithShortNames = toSave.filter(task => task.shortName);
+
+  await Bluebird.map(tasksWithShortNames, (task) => {
+    return task.validate();
+  });
 
   toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
     validateBeforeSave: false,
@@ -334,14 +318,6 @@ api.updateTask = {
 
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
-
-    if (updatedTaskObj.shortName !== task.shortName) {
-      let shortNameAvailable = await Tasks.Task.checkShortNameAvailability(user._id, updatedTaskObj.shortName);
-
-      if (!shortNameAvailable) {
-        throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
-      }
-    }
 
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
