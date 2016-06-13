@@ -9,13 +9,13 @@ export let schema = new Schema({
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
-  _id: false, // use id instead of _id
+  _id: false,
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id'],
+  noSet: ['_id', 'regId'],
   timestamps: true,
-  _id: false, // use id instead of _id
+  _id: false,
 });
 
 export let model = mongoose.model('PushDevice', schema);

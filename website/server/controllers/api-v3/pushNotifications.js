@@ -1,14 +1,14 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import {
-  BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../libs/api-v3/errors';
 
 let api = {};
 
 /**
  * @apiIgnore
- * @api {post} /api/v3/user/add-push-device Add a push device to a user
+ * @api {post} /api/v3/user/push-devices Add a push device to a user
  * @apiVersion 3.0.0
  * @apiName UserAddPushDevice
  * @apiGroup User
@@ -47,13 +47,13 @@ api.addPushDevice = {
 
     await user.save();
 
-    res.respond(200, {pushDevices: user.pushDevices}, res.t('pushDeviceAdded'));
+    res.respond(200, user.pushDevices, res.t('pushDeviceAdded'));
   },
 };
 
 /**
  * @apiIgnore
- * @api {get} /api/v3/user/remove-push-device remove a push device from a user
+ * @api {delete} /api/v3/user/push-devices remove a push device from a user
  * @apiVersion 3.0.0
  * @apiName UserRemovePushDevice
  * @apiGroup User
@@ -82,13 +82,13 @@ api.removePushDevice = {
     });
 
     if (indexOfPushDevice === -1) {
-      throw new BadRequest(res.t('pushDeviceNotFound'));
+      throw new NotFound(res.t('pushDeviceNotFound'));
     }
 
     pushDevices.splice(indexOfPushDevice, 1);
     await user.save();
 
-    res.respond(200, {pushDevices: user.pushDevices}, res.t('pushDeviceRemoved'));
+    res.respond(200, user.pushDevices, res.t('pushDeviceRemoved'));
   },
 };
 
