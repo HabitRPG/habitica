@@ -184,6 +184,7 @@ export let Task = mongoose.model('Task', TaskSchema);
 
 Task.schema.path('shortName').validate(function valiateShortNameNotTaken (shortName, respond) {
   Task.findOne({
+    _id: { $ne: this._id },
     userId: this.userId,
     shortName,
   }).exec().then((task) => {
