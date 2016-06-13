@@ -12,13 +12,11 @@ describe('DELETE /user/push-devices', () => {
     user = await generateUser();
   });
 
-  // More tests in common code unit tests
-
   it('returns an error if user does not have the push device', async () => {
     await expect(user.del(`/user/push-devices/${regId}`))
       .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
+        code: 404,
+        error: 'NotFound',
         message: t('pushDeviceNotFound'),
       });
   });
