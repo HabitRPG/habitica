@@ -305,11 +305,13 @@ api.sendPrivateMessage = {
     if (receiver.preferences.pushNotifications.newPM !== false) {
       sendPushNotification(
         receiver,
-        res.t('newPM'),
-        res.t('newPMInfo', { name: getUserInfo(sender, ['name']).name, message }),
-        'newPM',
-        'newPM',
-        {replyTo: sender._id}
+        {
+          title: res.t('newPM'),
+          message: res.t('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
+          identifier: 'newPM',
+          category: 'newPM',
+          payload: {replyTo: sender._id},
+        }
       );
     }
 
@@ -384,11 +386,12 @@ api.transferGems = {
     }
     if (receiver.preferences.pushNotifications.giftedGems !== false) {
       sendPushNotification(receiver,
-        res.t('giftedGems'),
-        res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
-        'giftedGems',
-        '',
-        {replyTo: sender._id});
+        {
+          title: res.t('giftedGems'),
+          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+          identifier: 'giftedGems',
+          payload: {replyTo: sender._id},
+        });
     }
 
     res.respond(200, {});

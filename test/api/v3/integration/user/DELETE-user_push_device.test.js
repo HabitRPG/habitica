@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('GET /user/remove-push-device', () => {
+describe('DELETE /user/push-devices', () => {
   let user;
   let regId = '10';
   let type = 'ios';
@@ -12,8 +12,10 @@ describe('GET /user/remove-push-device', () => {
     user = await generateUser();
   });
 
+  // More tests in common code unit tests
+
   it('returns an error if user does not have the push device', async () => {
-    await expect(user.get(`/user/remove-push-device/${regId}`))
+    await expect(user.del(`/user/push-devices/${regId}`))
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -21,11 +23,9 @@ describe('GET /user/remove-push-device', () => {
       });
   });
 
-// More tests in common code unit tests
-
   it('removes a push device from the user', async () => {
-    await user.post('/user/add-push-device', {type, regId});
-    let response = await user.get(`/user/remove-push-device/${regId}`);
+    await user.post('/user/push-devices', {type, regId});
+    let response = await user.del(`/user/push-devices/${regId}`);
     await user.sync();
 
     expect(response.message).to.equal(t('pushDeviceRemoved'));

@@ -32,38 +32,42 @@ if (apn) {
   });
 }
 
-module.exports = function sendNotification (user, title, message, identifier, category = '', payload = {}, timeToLive = 15) {
-
+module.exports = function sendNotification (user, details={}) {
   if (!user) return;
   if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
   let pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
 
-  payload.identifier = identifier;
+  if (!details.identifier) return;
+  if (!details.title) return;
+  if (!details.message) return;
+
+  let payload = details.payload ? details.payload : {};
+  payload.identifier = details.identifier;
   _.each(pushDevices, pushDevice => {
     switch (pushDevice.type) {
       case 'android':
         if (gcm) {
-          payload.title = title;
-          payload.message = message;
+          payload.title = details.title;
+          payload.message = details.message;
           gcm.send({
             registrationId: pushDevice.regId,
-            // collapseKey: 'COLLAPSE_KEY',
             delayWhileIdle: true,
-            timeToLive,
+            timeToLive: details.timeToLive ? details.timeToLive : 15,
             data: payload
           });
         }
-
         break;
 
       case 'ios':
-        apn.send({
-          token: pushDevice.regId,
-          alert: message,
-          sound: "default",
-          category,
-          payload
-        });
+        if (apn) {
+          apn.send({
+            token: pushDevice.regId,
+            alert: details.message,
+            sound: "default",
+            category: details.category,
+            payload
+          });
+        }
         break;
     }
   });

@@ -422,7 +422,12 @@ schema.methods.startQuest = async function startQuest (user) {
         member._id !== user._id;
     });
     _.each(membersToPush, (member) => {
-      sendPushNotification(member, quest.text(), `${shared.i18n.t('questStarted')}: ${quest.text()}`, 'questStarted');
+      sendPushNotification(member,
+        {
+          title: quest.text(),
+          message: `${shared.i18n.t('questStarted')}: ${quest.text()}`,
+          identifier: 'questStarted',
+        });
     });
   });
 };
