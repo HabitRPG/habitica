@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import _ from 'lodash';
 import {
   BadRequest,
   NotAuthorized,
@@ -22,29 +21,25 @@ let api = {};
  */
 api.addPushDevice = {
   method: 'POST',
-  url: '/user/add-push-device',
+  url: '/user/push-devices',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
-    let regId = _.get(req, 'body.regId');
-    if (!regId) throw new BadRequest(res.t('regIdRequired'));
+    req.checkBody('regId', res.t('regIdRequired')).notEmpty();
+    req.checkBody('type', res.t('typeRequired')).notEmpty();
 
-    let type = _.get(req, 'body.type');
-    if (!type) throw new BadRequest(res.t('typeRequired'));
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
 
     let pushDevices = user.pushDevices;
 
     let item = {
-      regId,
-      type,
+      regId: req.body.regId,
+      type: req.body.type,
     };
 
-    let indexOfPushDevice = _.findIndex(pushDevices, {
-      regId: item.regId,
-    });
-
-    if (indexOfPushDevice !== -1) {
+    if (pushDevices.find(device => device.regId === item.regId)) {
       throw new NotAuthorized(res.t('pushDeviceAlreadyAdded'));
     }
 
@@ -69,21 +64,22 @@ api.addPushDevice = {
  * @apiSuccess {string} message Success message
  */
 api.removePushDevice = {
-  method: 'GET',
-  url: '/user/remove-push-device/:regId',
+  method: 'DELETE',
+  url: '/user/push-devices/:regId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
     req.checkParams('regId', res.t('regIdRequired')).notEmpty();
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
     let regId = req.params.regId;
 
     let pushDevices = user.pushDevices;
 
-    let indexOfPushDevice = _.findIndex(pushDevices, {
-      regId,
+    let indexOfPushDevice = pushDevices.findIndex((element) => {
+      return element.regId === regId;
     });
-
 
     if (indexOfPushDevice === -1) {
       throw new BadRequest(res.t('pushDeviceNotFound'));

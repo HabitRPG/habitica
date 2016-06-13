@@ -109,10 +109,13 @@ api.inviteToQuest = {
       if (member.preferences.pushNotifications.invitedQuest !== false) {
         sendPushNotification(
           member,
-          res.t('questInvitationTitle'),
-          res.t('questInvitationInfo', {quest: quest.text(req.language)}),
-          'questInvitation',
-          'questInvitation'
+          {
+            title: res.t('questInvitationTitle'),
+            message: res.t('questInvitationInfo', {quest: quest.text(req.language)}),
+            identifier: 'questInvitation',
+            category: 'questInvitation',
+          }
+
         );
       }
 

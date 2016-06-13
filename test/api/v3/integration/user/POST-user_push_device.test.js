@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('POST /user/add-push-device', () => {
+describe('POST /user/push-devices', () => {
   let user;
   let regId = '10';
   let type = 'ios';
@@ -13,26 +13,26 @@ describe('POST /user/add-push-device', () => {
   });
 
   it('returns an error when regId is not provided', async () => {
-    await expect(user.post('/user/add-push-device'))
+    await expect(user.post('/user/push-devices'), {type})
       .to.eventually.be.rejected.and.to.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('regIdRequired'),
+        message: 'Invalid request parameters.',
       });
   });
 
   it('returns an error when type is not provided', async () => {
-    await expect(user.post('/user/add-push-device', {regId }))
+    await expect(user.post('/user/push-devices', {regId}))
       .to.eventually.be.rejected.and.to.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('typeRequired'),
+        message: 'Invalid request parameters.',
       });
   });
 
   it('returns an error if user already has the push device', async () => {
-    await user.post('/user/add-push-device', {type, regId});
-    await expect(user.post('/user/add-push-device', {type, regId}))
+    await user.post('/user/push-devices', {type, regId});
+    await expect(user.post('/user/push-devices', {type, regId}))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -43,7 +43,7 @@ describe('POST /user/add-push-device', () => {
   // More tests in common code unit tests
 
   it('adds a push device to the user', async () => {
-    let response = await user.post('/user/add-push-device', {type, regId});
+    let response = await user.post('/user/push-devices', {type, regId});
     await user.sync();
 
     expect(response.message).to.equal(t('pushDeviceAdded'));

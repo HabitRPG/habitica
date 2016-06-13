@@ -540,10 +540,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     let identifier = group.type === 'guild' ? 'invitedGuild' : 'invitedParty';
     sendPushNotification(
       userToInvite,
-      group.name,
-      res.t(identifier),
-      identifier,
-      {groupID: group._id}
+      {
+        title: group.name,
+        message: res.t(identifier),
+        identifier,
+        payload: {groupID: group._id},
+      }
     );
   }
 

@@ -297,7 +297,12 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
       ]);
     }
     if (savedWinner.preferences.pushNotifications.wonChallenge !== false) {
-      sendPushNotification(savedWinner, challenge.name, shared.i18n.t('wonChallenge'), 'wonChallenge');
+      sendPushNotification(savedWinner,
+        {
+          title: challenge.name,
+          message: shared.i18n.t('wonChallenge'),
+          identifier: 'wonChallenge',
+        });
     }
   }
 

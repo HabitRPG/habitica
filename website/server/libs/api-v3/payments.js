@@ -107,11 +107,13 @@ api.createSubscription = async function createSubscription (data) {
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
-          shared.i18n.t('giftedSubscription'),
-          shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}),
-          'giftedSubscription',
-          '',
-          {replyTo: data.user._id});
+          {
+            title: shared.i18n.t('giftedSubscription'),
+            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}),
+            identifier: 'giftedSubscription',
+            payload: {replyTo: data.user._id},
+          }
+        );
       }
     }
   }
@@ -186,7 +188,14 @@ api.buyGems = async function buyGems (data) {
 
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
       if (data.gift.member.preferences.pushNotifications.giftedGems !== false) {
-        sendPushNotification(data.gift.member, shared.i18n.t('giftedGems'), shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}), 'giftedGems');
+        sendPushNotification(
+          data.gift.member,
+          {
+            title: shared.i18n.t('giftedGems'),
+            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+            identifier: 'giftedGems',
+          }
+        );
       }
     }
 
