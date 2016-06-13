@@ -394,6 +394,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.treeling != null) > 0;
     }),
   },
+  Axolotl: {
+    text: t('questEggAxolotlText'),
+    adjective: t('questEggAxolotlAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.axolotl != null) > 0;
+    }),
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -2702,6 +2709,38 @@ api.quests = {
       gp: 43,
       exp: 350,
       unlock: t('questTreelingUnlockText'),
+    },
+  },
+  axolotl: {
+    text: t('questAxolotlText'),
+    notes: t('questAxolotlNotes'),
+    completion: t('questAxolotlCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questAxolotlBoss'),
+      hp: 500,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Axolotl',
+          text: t('questAxolotlDropAxolotlEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Axolotl',
+          text: t('questAxolotlDropAxolotlEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Axolotl',
+          text: t('questAxolotlDropAxolotlEgg'),
+        }
+      ],
+      gp: 37,
+      exp: 275,
+      unlock: t('questAxolotlUnlockText'),
     },
   },
 };

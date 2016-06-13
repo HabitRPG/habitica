@@ -372,5 +372,12 @@
   "questTreelingCompletion": "You dust yourself off as the last few leaves drift to the floor. In spite of the upset, the Garden Competition is now safe – although the tree you just reduced to a heap of wood chips won't be winning any prizes! \"Still a few kinks to work out there,\" @PainterProphet says. \"Perhaps someone else would do a better job of training the saplings. Do you fancy a go?\"",
   "questTreelingBoss": "Tangle Tree",
   "questTreelingDropTreelingEgg": "Treeling (Egg)",
-  "questTreelingUnlockText": "Unlocks purchasable Treeling eggs in the Market"
+  "questTreelingUnlockText": "Unlocks purchasable Treeling eggs in the Market",
+
+  "questAxolotlText": "",
+  "questAxolotlNotes": "",
+  "questAxolotlCompletion": "",
+  "questAxolotlBoss": "",
+  "questAxolotlDropAxolotlEgg": "Axolotl (Egg)",
+  "questAxolotlUnlockText": "Unlocks purchasable Axolotl eggs in the Market"
 }
