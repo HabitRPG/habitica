@@ -5,6 +5,6 @@
   ],
   "globals": {
     "Promise": true,
-    "Set": true
+    "Set": false
   }
 }

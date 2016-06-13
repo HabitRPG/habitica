@@ -17,6 +17,22 @@ import logger from '../../libs/api-v3/logger';
 
 let api = {};
 
+async function _validateShortNames (tasks, res) {
+  let tasksWithShortNames = tasks.filter(task => task.shortName);
+  let shortNames = tasksWithShortNames.map(task => task.shortName);
+
+  // Compares the short names in tasks against
+  // a Set, where values cannot repeat. If the
+  // lengths are different, some name was duplicated
+  if (shortNames.length !== [...new Set(shortNames)].length) {
+    throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
+  }
+
+  await Bluebird.map(tasksWithShortNames, (task) => {
+    return task.validate();
+  });
+}
+
 // challenge must be passed only when a challenge task is being created
 async function _createTasks (req, res, user, challenge) {
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
@@ -45,11 +61,8 @@ async function _createTasks (req, res, user, challenge) {
     return newTask;
   });
 
-  let tasksWithShortNames = toSave.filter(task => task.shortName);
-
-  await Bluebird.map(tasksWithShortNames, (task) => {
-    return task.validate();
-  });
+  // tasks with shortNames need to be validated asyncronously
+  await _validateShortNames(toSave, res);
 
   toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
     validateBeforeSave: false,

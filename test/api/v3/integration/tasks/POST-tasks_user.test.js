@@ -193,11 +193,14 @@ describe('POST /tasks/user', () => {
       }, {
         type: 'todo',
         text: 'todo text',
+      }, {
+        type: 'todo',
+        text: 'todo text',
         shortName: 'short-name',
       }])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: 'habit validation failed',
+        message: t('taskShortNameAlreadyUsed'),
       });
     });
   });
