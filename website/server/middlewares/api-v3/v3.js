@@ -14,7 +14,18 @@ const v3app = express();
 v3app.set('view engine', 'jade');
 v3app.set('views', `${__dirname}/../../../views`);
 
-v3app.use(expressValidator());
+v3app.use(expressValidator({
+  customValidators: {
+    notEmailDomains (email, domains) {
+      let result = true;
+      for (let domain in domains) {
+        let regexp = new RegExp(`${domain}$`, 'i');
+        result = result && !regexp.test(email);
+      }
+      return result;
+    },
+  },
+}));
 v3app.use(analytics);
 v3app.use(setupBody);
 
