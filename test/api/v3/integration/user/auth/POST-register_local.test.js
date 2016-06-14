@@ -98,6 +98,42 @@ describe('POST /user/auth/local/register', () => {
         message: t('invalidReqParams'),
       });
     });
+    
+    it('fails on a habitica.com email', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@habitica.com`;
+      let password = 'password';
+      let confirmPassword = 'password';
+
+      await expect(api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usesHabiticaEmail'),
+      });
+    });
+    
+    it('fails on a habitrpg.com email', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@habitrpg.com`;
+      let password = 'password';
+      let confirmPassword = 'password';
+
+      await expect(api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usesHabiticaEmail'),
+      });
+    });
 
     it('requires a password', async () => {
       let username = generateRandomUserName();
