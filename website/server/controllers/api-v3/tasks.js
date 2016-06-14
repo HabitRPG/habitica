@@ -255,7 +255,7 @@ api.getChallengeTasks = {
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {UUID|shortName} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or shortName
  *
  * @apiSuccess {object} data The task object
  */
@@ -298,7 +298,7 @@ api.getTask = {
  * @apiName UpdateTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  *
  * @apiSuccess {object} data The updated task
  */
@@ -310,14 +310,22 @@ api.updateTask = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let taskQuery = {};
+
+    if (validator.isUUID(taskId)) {
+      taskQuery._id = taskId;
+    } else {
+      taskQuery.userId = user._id;
+      taskQuery.shortName = taskId;
+    }
+
+    let task = await Tasks.Task.findOne(taskQuery).exec();
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -385,7 +393,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {UUID|shortName} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {string="up","down"} direction The direction for scoring the task
  *
  * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
@@ -952,7 +960,7 @@ api.clearCompletedTodos = {
  * @apiName DeleteTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  *
  * @apiSuccess {object} data An empty object
  */
@@ -964,13 +972,17 @@ api.deleteTask = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findById(taskId).exec();
+    let taskQuery = {};
+
+    if (validator.isUUID(taskId)) {
+      taskQuery._id = taskId;
+    } else {
+      taskQuery.userId = user._id;
+      taskQuery.shortName = taskId;
+    }
+
+    let task = await Tasks.Task.findOne(taskQuery).exec();
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));

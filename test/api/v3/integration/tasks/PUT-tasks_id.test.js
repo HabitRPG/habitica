@@ -201,6 +201,20 @@ describe('PUT /tasks/:id', () => {
         message: 'daily validation failed',
       });
     });
+
+    it('can use shortName to update a task', async () => {
+      daily = await user.put(`/tasks/${daily._id}`, {
+        shortName: 'short-name',
+      });
+
+      await user.put(`/tasks/${daily.shortName}`, {
+        text: 'saved',
+      });
+
+      let fetchedDaily = await user.get(`/tasks/${daily._id}`);
+
+      expect(fetchedDaily.text).to.eql('saved');
+    });
   });
 
   context('habits', () => {
