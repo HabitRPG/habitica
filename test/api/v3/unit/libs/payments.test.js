@@ -52,7 +52,7 @@ describe('payments/index', () => {
       fakeSend.restore();
     });
 
-    it('plan.extraMonths is defined', () => {
+    it('adds extra months', () => {
       api.cancelSubscription(data);
       let terminated = data.user.purchased.plan.dateTerminated;
       data.user.purchased.plan.extraMonths = 2;
@@ -61,22 +61,22 @@ describe('payments/index', () => {
       expect(difference - 60).to.be.lessThan(3); // the difference is approximately two months, +/- 2 days
     });
 
-    it('data.nextBill is undefined', () => {
+    it('defaults terminated date to last billed date + subscription length', () => {
       data.user.purchased.plan.subscriptionLengthMonths = 3;
       api.cancelSubscription(data);
       let terminated = data.user.purchased.plan.dateTerminated;
       let difference = moment(terminated).diff(data.user.purchased.lastBillingDate, 'days');
-      expect(difference).to.be.eql(89);
+      expect(difference).to.be.eql(89); // 90 days minus one becasue today is a partial day
     });
 
-    it('data.nextBill is undefined and plan.subscriptionLengthMonths is undefined', () => {
+    it('defaults missing subscription lenth plans to 30 days', () => {
       api.cancelSubscription(data);
       let terminated = data.user.purchased.plan.dateTerminated;
       let difference = moment(terminated).diff(data.user.purchased.lastBillingDate, 'days');
-      expect(difference).to.be.eql(29);
+      expect(difference).to.be.eql(29); // 30 days minus one becasue today is a partial day
     });
 
-    it('plan.extraMonth is a fraction', () => {
+    it('handles extra month fractions', () => {
       api.cancelSubscription(data);
       let terminated = data.user.purchased.plan.dateTerminated;
       data.user.purchased.plan.extraMonths = 0.3;
@@ -85,7 +85,7 @@ describe('payments/index', () => {
       expect(difference - 10).to.be.lessThan(3); // the difference should be 10 days.
     });
 
-    it('nextBill is defined', () => {
+    it('terminates at next billing date if it exists', () => {
       api.cancelSubscription(data);
       let terminated = data.user.purchased.plan.dateTerminated;
       data.nextBill = moment().add({ days: 25 });
