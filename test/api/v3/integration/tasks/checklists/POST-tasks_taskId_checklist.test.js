@@ -31,6 +31,27 @@ describe('POST /tasks/:taskId/checklist/', () => {
     expect(savedTask.checklist[0].ignored).to.be.an('undefined');
   });
 
+  it('can use a shortName to add checklist', async () => {
+    let task = await user.post('/tasks/user', {
+      type: 'daily',
+      text: 'Daily with checklist',
+      shortName: 'task-with-shortname',
+    });
+
+    let savedTask = await user.post(`/tasks/${task.shortName}/checklist`, {
+      text: 'Checklist Item 1',
+      ignored: false,
+      _id: 123,
+    });
+
+    expect(savedTask.checklist.length).to.equal(1);
+    expect(savedTask.checklist[0].text).to.equal('Checklist Item 1');
+    expect(savedTask.checklist[0].completed).to.equal(false);
+    expect(savedTask.checklist[0].id).to.be.a('string');
+    expect(savedTask.checklist[0].id).to.not.equal('123');
+    expect(savedTask.checklist[0].ignored).to.be.an('undefined');
+  });
+
   it('does not add a checklist to habits', async () => {
     let habit = await user.post('/tasks/user', {
       type: 'habit',

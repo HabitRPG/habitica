@@ -266,16 +266,7 @@ api.getTask = {
   async handler (req, res) {
     let user = res.locals.user;
     let taskId = req.params.taskId;
-    let taskQuery = {};
-
-    if (validator.isUUID(taskId)) {
-      taskQuery._id = taskId;
-    } else {
-      taskQuery.userId = user._id;
-      taskQuery.shortName = taskId;
-    }
-
-    let task = await Tasks.Task.findOne(taskQuery).exec();
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -316,16 +307,7 @@ api.updateTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let taskQuery = {};
-
-    if (validator.isUUID(taskId)) {
-      taskQuery._id = taskId;
-    } else {
-      taskQuery.userId = user._id;
-      taskQuery.shortName = taskId;
-    }
-
-    let task = await Tasks.Task.findOne(taskQuery).exec();
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -413,15 +395,7 @@ api.scoreTask = {
     let user = res.locals.user;
     let {taskId} = req.params;
 
-    let taskQuery = { userId: user._id};
-
-    if (validator.isUUID(taskId)) {
-      taskQuery._id = taskId;
-    } else {
-      taskQuery.shortName = taskId;
-    }
-
-    let task = await Tasks.Task.findOne(taskQuery).exec();
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, {userId: user._id});
     let direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
@@ -484,7 +458,7 @@ api.scoreTask = {
  * @apiName MoveTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {array} data The new tasks order (user.tasksOrder.{task.type}s)
@@ -494,19 +468,17 @@ api.moveTask = {
   url: '/tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
+    let taskId = req.params.taskId;
     let to = Number(req.params.position);
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
@@ -539,7 +511,7 @@ api.moveTask = {
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  *
  * @apiSuccess {object} data The updated task
  */
@@ -551,14 +523,13 @@ api.addChecklistItem = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -588,7 +559,7 @@ api.addChecklistItem = {
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -600,16 +571,14 @@ api.scoreCheckListItem = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -630,7 +599,7 @@ api.scoreCheckListItem = {
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -643,15 +612,14 @@ api.updateChecklistItem = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -683,7 +651,7 @@ api.updateChecklistItem = {
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -696,15 +664,14 @@ api.removeChecklistItem = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -734,7 +701,7 @@ api.removeChecklistItem = {
  * @apiName AddTagToTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {object} data The updated task
@@ -746,17 +713,15 @@ api.addTagToTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     let userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     let tagId = req.params.tagId;
@@ -777,7 +742,7 @@ api.addTagToTask = {
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {object} data The updated task
@@ -789,16 +754,14 @@ api.removeTagFromTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -878,7 +841,7 @@ api.unlinkAllTasks = {
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {UUID|string} taskId The task _id or shortName
  * @apiParam {string} keep Query parameter - keep or remove
  *
  * @apiSuccess {object} data An empty object
@@ -898,10 +861,7 @@ api.unlinkOneTask = {
     let keep = req.query.keep;
     let taskId = req.params.taskId;
 
-    let task = await Tasks.Task.findOne({
-      _id: taskId,
-      userId: user._id,
-    }).exec();
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
@@ -973,16 +933,7 @@ api.deleteTask = {
     let challenge;
 
     let taskId = req.params.taskId;
-    let taskQuery = {};
-
-    if (validator.isUUID(taskId)) {
-      taskQuery._id = taskId;
-    } else {
-      taskQuery.userId = user._id;
-      taskQuery.shortName = taskId;
-    }
-
-    let task = await Tasks.Task.findOne(taskQuery).exec();
+    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));

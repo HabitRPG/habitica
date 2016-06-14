@@ -27,6 +27,23 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
     expect(updatedTask.tags.length).to.equal(0);
   });
 
+  it('removes a tag from a task using task short name', async () => {
+    let task = await user.post('/tasks/user', {
+      type: 'habit',
+      text: 'Task with tag',
+      shortName: 'habit-with-short-name',
+    });
+
+    let tag = await user.post('/tags', {name: 'Tag 1'});
+
+    await user.post(`/tasks/${task._id}/tags/${tag.id}`);
+    await user.del(`/tasks/${task.shortName}/tags/${tag.id}`);
+
+    let updatedTask = await user.get(`/tasks/${task._id}`);
+
+    expect(updatedTask.tags.length).to.equal(0);
+  });
+
   it('only deletes existing tags', async () => {
     let createdTask = await user.post('/tasks/user', {
       type: 'habit',
