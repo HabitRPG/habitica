@@ -2721,6 +2721,13 @@ api.quests = {
       name: t('questAxolotlBoss'),
       hp: 500,
       str: 1.5,
+      rage: {
+        title: t('questAxolotlRageTitle'),
+        description: t('questAxolotlRageDescription'),
+        value: 50,
+        healing: .3,
+        effect: t('questAxolotlRageEffect'),
+      },
     },
     drop: {
       items: [
