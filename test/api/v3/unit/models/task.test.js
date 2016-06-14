@@ -2,6 +2,7 @@ import { model as Challenge } from '../../../../../website/server/models/challen
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
+import { InternalServerError } from '../../../../../website/server/libs/api-v3/errors';
 import { each } from 'lodash';
 import { generateHistory } from '../../../../helpers/api-unit.helper.js';
 
@@ -73,6 +74,85 @@ describe('Task Model', () => {
   });
 
   describe('Static Methods', () => {
+    describe('findByIdOrShortName', () => {
+      let task, user;
+
+      beforeEach(async () => {
+        user = new User();
+        await user.save();
+
+        task = new Tasks.todo({
+          text: 'some text',
+          shortName: 'short-name',
+          userId: user.id,
+        })
+        await task.save();
+
+        sandbox.spy(Tasks.Task, 'findOne');
+      });
+
+      it('throws an error if task identifier is not passed in', async (done) => {
+        try {
+          await Tasks.Task.findByIdOrShortName(null, user._id);
+        } catch (err) {
+          expect(err).to.exist;
+          expect(err).to.eql(new InternalServerError('Task identifier is a required argument'));
+
+          done();
+        }
+      });
+
+      it('throws an error if user identifier is not passed in', async (done) => {
+        try {
+          await Tasks.Task.findByIdOrShortName(task._id);
+        } catch (err) {
+          expect(err).to.exist;
+          expect(err).to.eql(new InternalServerError('User identifier is a required argument'));
+
+          done();
+        }
+      });
+
+      it('returns task by id', async () => {
+        let foundTodo = await Tasks.Task.findByIdOrShortName(task._id, user._id);
+
+        expect(foundTodo.text).to.eql(task.text);
+      });
+
+      it('returns task by shortName', async () => {
+        let foundTodo = await Tasks.Task.findByIdOrShortName(task.shortName, user._id);
+
+        expect(foundTodo.text).to.eql(task.text);
+      });
+
+      it('scopes shortName lookup to user', async () => {
+        await Tasks.Task.findByIdOrShortName(task.shortName, user._id);
+
+        expect(Tasks.Task.findOne).to.be.calledOnce;
+        expect(Tasks.Task.findOne).to.be.calledWithMatch({
+          shortName: task.shortName,
+          userId: user._id,
+        });
+      });
+
+      it('returns null if task cannot be found', async () => {
+        let foundTask = await Tasks.Task.findByIdOrShortName('not-found', user._id)
+
+        expect(foundTask).to.eql(null);
+      });
+
+      it('accepts additional query parameters', async () => {
+        await Tasks.Task.findByIdOrShortName(task.shortName, user._id, { foo: 'bar' });
+
+        expect(Tasks.Task.findOne).to.be.calledOnce;
+        expect(Tasks.Task.findOne).to.be.calledWithMatch({
+          foo: 'bar',
+          shortName: task.shortName,
+          userId: user._id,
+        });
+      });
+    });
+
     describe('sanitizeUserChallengeTask ', () => {
     });
 

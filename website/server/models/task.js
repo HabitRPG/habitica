@@ -3,6 +3,10 @@ import shared from '../../../common';
 import validator from 'validator';
 import moment from 'moment';
 import baseModel from '../libs/api-v3/baseModel';
+import {
+  InternalServerError,
+  BadRequest,
+} from '../libs/api-v3/errors';
 import _ from 'lodash';
 import { preenHistory } from '../libs/api-v3/preening';
 
@@ -87,6 +91,25 @@ TaskSchema.plugin(baseModel, {
   private: [],
   timestamps: true,
 });
+
+TaskSchema.statics.findByIdOrShortName = async function findByIdOrShortName (identifier, userId, additionalQueries = {}) {
+  // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
+  if (!identifier) throw new InternalServerError('Task identifier is a required argument');
+  if (!userId) throw new InternalServerError('User identifier is a required argument');
+
+  let query = _.cloneDeep(additionalQueries);
+
+  if (validator.isUUID(identifier)) {
+    query._id = identifier;
+  } else {
+    query.userId = userId;
+    query.shortName = identifier;
+  }
+
+  let task = await this.findOne(query).exec();
+
+  return task;
+};
 
 // Sanitize user tasks linked to a challenge
 // See http://habitica.wikia.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
