@@ -18,8 +18,8 @@ v3app.use(expressValidator({
   customValidators: {
     notEmailDomains (email, domains) {
       let result = true;
-      for (let domain in domains) {
-        let regexp = new RegExp(`${domain}$`, 'i');
+      for (let domain of domains) {
+        let regexp = new RegExp(`${domain}\$`, 'i');
         result = result && !regexp.test(email);
       }
       return result;
