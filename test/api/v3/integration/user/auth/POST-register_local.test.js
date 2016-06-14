@@ -98,7 +98,7 @@ describe('POST /user/auth/local/register', () => {
         message: t('invalidReqParams'),
       });
     });
-    
+
     it('fails on a habitica.com email', async () => {
       let username = generateRandomUserName();
       let email = `${username}@habitica.com`;
@@ -116,7 +116,7 @@ describe('POST /user/auth/local/register', () => {
         message: t('usesHabiticaEmail'),
       });
     });
-    
+
     it('fails on a habitrpg.com email', async () => {
       let username = generateRandomUserName();
       let email = `${username}@habitrpg.com`;
