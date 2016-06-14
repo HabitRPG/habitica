@@ -9,6 +9,7 @@ const md = markdownIt({
 let api = {};
 
 const TOTAL_USER_COUNT = '1,100,000';
+const LOADING_SCREEN_TIPS = 32;
 
 api.getFrontPage = {
   method: 'GET',
@@ -23,6 +24,7 @@ api.getFrontPage = {
     return res.render('index.jade', {
       title: 'Habitica | Your Life The Role Playing Game',
       env: res.locals.habitrpg,
+      loadingScreenTip: Math.floor(Math.random() * LOADING_SCREEN_TIPS) + 1, // Random tip between 1 and LOADING_SCREEN_TIPS
     });
   },
 };

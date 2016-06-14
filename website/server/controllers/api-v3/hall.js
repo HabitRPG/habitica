@@ -154,6 +154,8 @@ api.updateHero = {
         tierDiff--;
         newTier--; // give them gems for the next tier down if they weren't aready that tier
       }
+
+      hero.addNotification('NEW_CONTRIBUTOR_LEVEL');
     }
 
     if (updateData.contributor) _.assign(hero.contributor, updateData.contributor);

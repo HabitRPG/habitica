@@ -10,6 +10,8 @@
 
   "spellWizardFrostText": "Chilling Frost",
   "spellWizardFrostNotes": "Ice covers your tasks. None of your streaks will reset to zero tomorrow! (One cast affects all streaks.)",
+  "spellWizardFrostAlreadyCast": " You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
+
 
   "spellWarriorSmashText": "Brutal Smash",
   "spellWarriorSmashNotes": "You hit a task with all of your might. It gets more blue/less red, and you deal extra damage to Bosses! Click on a task to cast. (Based on: STR)",
@@ -34,6 +36,8 @@
 
   "spellRogueStealthText": "Stealth",
   "spellRogueStealthNotes": "You are too sneaky to spot. Some of your undone Dailies will not cause damage tonight, and their streaks/color will not change. (Cast multiple times to affect more Dailies)",
+  "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies avoided: <%= number %>.",
+  "spellRogueStealthMaxedOut": " You have already avoided all your dailies; there's no need to cast this again.",
 
   "spellHealerHealText": "Healing Light",
   "spellHealerHealNotes": "Light covers your body, healing your wounds. You regain health! (Based on: CON and INT)",

@@ -38,7 +38,7 @@ angular.module('habitrpg')
     function getChallengeMembers (challengeId) {
       return $http({
         method: 'GET',
-        url: apiV3Prefix + '/challenges/' + challengeId + '/members',
+        url: apiV3Prefix + '/challenges/' + challengeId + '/members?includeAllMembers=true',
       });
     }
 

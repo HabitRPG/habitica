@@ -6,11 +6,15 @@ import baseModel from '../libs/api-v3/baseModel';
 import _ from 'lodash';
 import { preenHistory } from '../libs/api-v3/preening';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+
 let discriminatorOptions = {
   discriminatorKey: 'type', // the key that distinguishes task types
 };
-let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {_id: false});
+let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {
+  _id: false,
+  minimize: false, // So empty objects are returned
+});
 
 export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
@@ -52,7 +56,7 @@ export let TaskSchema = new Schema({
     time: {type: Date, required: true},
   }],
 }, _.defaults({
-  minimize: true, // So empty objects are returned
+  minimize: false, // So empty objects are returned
   strict: true,
 }, discriminatorOptions));
 
@@ -178,7 +182,7 @@ let dailyTodoSchema = () => {
       completed: {type: Boolean, default: false},
       text: {type: String, required: false, default: ''}, // required:false because it can be empty on creation
       _id: false,
-      id: {type: String, default: shared.uuid, validate: [validator.isUUID, 'Invalid uuid.']},
+      id: {type: String, default: shared.uuid, required: true, validate: [validator.isUUID, 'Invalid uuid.']},
     }],
   };
 };

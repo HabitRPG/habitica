@@ -29,7 +29,7 @@
     "invalidPetName": "无效的宠物名提供。",
     "missingEggHatchingPotionHatch": "\"egg\"和\"hatchingPotion\"是必须的参数。",
     "invalidTypeEquip": "\"type\"必须是'equipped',，'pet'， 'mount'， 'costume'中的一个。",
-    "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>.",
+    "mustPurchaseToSet": "必须购买 <%= val %>来把它使用在<%= key %>上。",
     "typeRequired": "需要Type",
     "keyRequired": "需要Key",
     "notAccteptedType": "Type必须在 [eggs, hatchingPotions, food, quests, gear] 中",

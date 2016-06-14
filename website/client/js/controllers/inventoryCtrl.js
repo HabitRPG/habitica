@@ -53,12 +53,25 @@ habitrpg.controller("InventoryCtrl",
     $scope.$watch('user.items.quests', function(quest){ $scope.questCount = countStacks(quest); }, true);
 
     $scope.$watch('user.items.gear', function(gear){
-      $scope.gear = {};
+      $scope.gearByClass = {};
+      $scope.gearByType = {};
       _.each(gear.owned, function(v,key){
-        if (v === false) return;
+        if (v === false) {
+          return;
+        }
+
         var item = Content.gear.flat[key];
-        if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
-        $scope.gear[item.klass].push(item);
+
+        if (!$scope.gearByClass[item.klass]) {
+          $scope.gearByClass[item.klass] = [];
+        }
+        $scope.gearByClass[item.klass].push(item);
+
+        if (!$scope.gearByType[item.type]) {
+          $scope.gearByType[item.type] = [];
+        }
+
+        $scope.gearByType[item.type].push(item);
       })
     }, true);
 
@@ -264,9 +277,17 @@ habitrpg.controller("InventoryCtrl",
       }
     };
 
-    $scope.$on("habit:keydown", function (e, keyEvent) {
-      if (keyEvent.keyCode == "27") {
+    var listenForEscape = function (event) {
+      if (event.keyCode === 27) {
         $scope.deselectItem();
+      }
+    }
+
+    document.addEventListener('keydown', listenForEscape);
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
+      if (toState.name.indexOf('options.inventory') < 0) {
+        document.removeEventListener('keydown', listenForEscape);
       }
     });
 

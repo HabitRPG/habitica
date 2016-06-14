@@ -31,9 +31,7 @@ describe('userServices', function() {
   it('saves user data to local storage', function(){
     user.save();
     var settings = JSON.parse(localStorage[STORAGE_SETTINGS_ID]);
-    var user_id = JSON.parse(localStorage[STORAGE_USER_ID]);
     expect(settings).to.eql(user.settings);
-    expect(user_id).to.eql(user.user);
   });
 
   xit('alerts when not authenticated', function(){

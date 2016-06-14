@@ -6,7 +6,7 @@ import {
 } from './email';
 import moment from 'moment';
 import nconf from 'nconf';
-import pushNotify from './pushNotifications';
+import sendPushNotification from './pushNotifications';
 import shared from '../../../../common' ;
 
 const IS_PROD = nconf.get('IS_PROD');
@@ -20,7 +20,7 @@ function revealMysteryItems (user) {
         moment().isAfter(shared.content.mystery[item.mystery].start) &&
         moment().isBefore(shared.content.mystery[item.mystery].end) &&
         !user.items.gear.owned[item.key] &&
-        user.purchased.plan.mysteryItems.indexOf(item.key) !== -1
+        user.purchased.plan.mysteryItems.indexOf(item.key) === -1
       ) {
       user.purchased.plan.mysteryItems.push(item.key);
     }
@@ -90,7 +90,10 @@ api.createSubscription = async function createSubscription (data) {
   data.user.purchased.txnCount++;
 
   if (data.gift) {
-    data.user.sendMessage(data.user, data.gift.member, data.gift);
+    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
+    if (data.gift.message) message += ` ${data.gift.message}`;
+
+    data.user.sendMessage(data.gift.member, message);
 
     let byUserName = getUserInfo(data.user, ['name']).name;
 
@@ -102,7 +105,7 @@ api.createSubscription = async function createSubscription (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
-      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedSubscription'), `${months} months - by ${byUserName}`);
+      sendPushNotification(data.gift.member, shared.i18n.t('giftedSubscription'), `${months} months - by ${byUserName}`);
     }
   }
 
@@ -163,7 +166,10 @@ api.buyGems = async function buyGems (data) {
     let byUsername = getUserInfo(data.user, ['name']).name;
     let gemAmount = data.gift.gems.amount || 20;
 
-    data.user.sendMessage(data.user, data.gift.member, data.gift);
+    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${gemAmount} gems!\``;
+    if (data.gift.message) message += ` ${data.gift.message}`;
+    data.user.sendMessage(data.gift.member, message);
+
     if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
       txnEmail(data.gift.member, 'gifted-gems', [
         {name: 'GIFTER', content: byUsername},
@@ -172,7 +178,7 @@ api.buyGems = async function buyGems (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
-      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
+      sendPushNotification(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
     }
 
     await data.gift.member.save();

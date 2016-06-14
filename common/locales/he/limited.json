@@ -5,7 +5,7 @@
     "annoyingFriends": "חברים מרגיזים",
     "annoyingFriendsText": "חטף <%= snowballs %> כדורי שלג לפרצוף משאר החבורה.",
     "alarmingFriends": "חברים מפחידים",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "חברי חבורה הבהילו אתכם <%= spookySparkles %> פעמים.",
     "agriculturalFriends": "חברים חקלאיים",
     "agriculturalFriendsText": "הוחלף לפרח <%= seeds %> פעמים על-ידי חברי חבורה.",
     "aquaticFriends": "חברים ימיים",
@@ -52,7 +52,7 @@
     "nye0": "שנה טובה! שתחסלו הרבה הרגלים רעים.",
     "nye1": "שנה טובה! שתקטפו הרבה הצלחות.",
     "nye2": "שנה טובה! שתרוויחו הרבה ״יום מושלם״.",
-    "nye3": "שנה טובה! שרשימת המטרות שלכם תהיה קצרה ומתוקה.",
+    "nye3": "שנה טובה! שרשימת המשימות שלכם תהיה קצרה ומתוקה.",
     "nye4": "שנה טובה! שלא תותקפו על ידי היפוגריפון זועם.",
     "holidayCard": "קיבל/ה כרטיס לחגים!",
     "mightyBunnySet": "ארנב כוחני (לוחם)",
@@ -73,5 +73,5 @@
     "sneakySqueakerSet": "חורק מתגנב (נוכל)",
     "fallEventAvailability": "זמין עד ה 31 באוקטובר",
     "winterEventAvailability": "זמין עד ה 31 בדצמבר",
-    "springEventAvailability": "Available until May 31"
+    "springEventAvailability": "זמין עד ה 31 במאי"
 }

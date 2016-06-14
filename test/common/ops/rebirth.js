@@ -233,4 +233,20 @@ describe('shared.ops.rebirth', () => {
     expect(user.achievements.rebirths).to.equal(2);
     expect(user.achievements.rebirthLevel).to.equal(MAX_LEVEL);
   });
+
+  it('keeps automaticAllocation false', () => {
+    user.preferences.automaticAllocation = false;
+
+    rebirth(user);
+
+    expect(user.preferences.automaticAllocation).to.be.false;
+  });
+
+  it('sets automaticAllocation to false when true', () => {
+    user.preferences.automaticAllocation = true;
+
+    rebirth(user);
+
+    expect(user.preferences.automaticAllocation).to.be.false;
+  });
 });

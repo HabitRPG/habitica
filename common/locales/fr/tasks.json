@@ -28,9 +28,6 @@
     "medium": "Moyen",
     "hard": "Difficile",
     "attributes": "Attributs",
-    "physical": "Physique",
-    "mental": "Mental",
-    "otherExamples": "Par exemple, suivis professionnels, passe-temps, finances, etc.",
     "progress": "Progrès",
     "daily": "Quotidienne",
     "dailies": "Quotidiennes",
@@ -73,7 +70,7 @@
     "clearTags": "Nettoyer",
     "hideTags": "Masquer",
     "showTags": "Afficher",
-    "toRequired": "You must supply a to value",
+    "toRequired": "Vous devez fournir une valeur to",
     "startDate": "Date de début",
     "startDateHelpTitle": "Quand cette tâche devrait-elle démarrer ?",
     "startDateHelp": "Définissez la date à laquelle cette tâche prendra effet. Elle ne sera pas active avant cette date.",
@@ -127,5 +124,9 @@
     "positionRequired": "\"position\" est requis et doit être un nombre.",
     "cantMoveCompletedTodo": "Impossible de déplacer une tâche À Faire complétée.",
     "directionUpDown": "\"direction\" est requis et doit être 'up' ou 'down'",
-    "alreadyTagged": "La tâche est déjà étiquetée avec l'étiquette utilisée."
+    "alreadyTagged": "La tâche est déjà étiquetée avec l'étiquette utilisée.",
+    "strengthExample": "Relatif aux exercices et activités physiques",
+    "intelligenceExample": "Relatif aux activités académiques et mentales",
+    "perceptionExample": "Relatif au tâches professionnelles ou financières",
+    "constitutionExample": "Relatif à la santé, au bien-être et aux interactions sociales"
 }

@@ -13,7 +13,7 @@ describe('GET /user/anonymized', () => {
 
   before(async () => {
     user = await generateUser();
-    await user.update({ newMessages: ['some', 'new', 'messages'], profile: 'profile', 'purchased.plan': 'purchased plan',
+    await user.update({ newMessages: ['some', 'new', 'messages'], 'profile.name': 'profile', 'purchased.plan': 'purchased plan',
                         contributor: 'contributor', invitations: 'invitations', 'items.special.nyeReceived': 'some', 'items.special.valentineReceived': 'some',
                         webhooks: 'some', 'achievements.challenges': 'some',
                         'inbox.messages': [{ text: 'some text' }],

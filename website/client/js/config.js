@@ -10,9 +10,9 @@ angular.module('habitrpg')
     // If it was, sync
     function verifyUserUpdated (response) {
       var isApiCall = response.config.url.indexOf('api/v3') !== -1;
-      var isUserAvailable = $rootScope.User && $rootScope.User.user && $rootScope.User.user._wrapped === true;
+      var isUserAvailable = $rootScope.appLoaded === true;
       var hasUserV = response.data && response.data.userV;
-      var isNotSync = response.config.url.indexOf('/api/v3/user') !== 0;
+      var isNotSync = response.config.url.indexOf('/api/v3/user') !== 0 || response.config.method !== 'GET';
 
       if (isApiCall && isUserAvailable && hasUserV) {
         var oldUserV = $rootScope.User.user._v;
@@ -22,6 +22,24 @@ angular.module('habitrpg')
         if (isNotSync && ($rootScope.User.user._v - oldUserV) > 1) {
           $rootScope.User.sync();
         }
+      }
+    }
+
+    function verifyNewNotifications (response) {
+      // Ignore CRON notifications for manual syncs
+      var isUserLoaded = $rootScope.appLoaded === true; 
+
+      if (response && response.data && response.data.notifications && response.data.notifications.length > 0) {
+        $rootScope.userNotifications = response.data.notifications.filter(function (notification) {
+          if (isUserLoaded && notification.type === 'CRON') {
+            // If the user is already loaded, do not show the notification, syncing will show it 
+            // (the user will be synced automatically)
+            $rootScope.User.readNotification(notification.id);
+            return false;
+          }
+
+          return true;
+        });
       }
     }
 
@@ -43,6 +61,7 @@ angular.module('habitrpg')
       },
       response: function(response) {
         verifyUserUpdated(response);
+        verifyNewNotifications(response);
         return response;
       },
       responseError: function(response) {

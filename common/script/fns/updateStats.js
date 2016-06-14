@@ -59,6 +59,8 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
   }
   if (!user.flags.dropsEnabled && user.stats.lvl >= 3) {
     user.flags.dropsEnabled = true;
+    user.addNotification('DROPS_ENABLED');
+
     if (user.items.eggs.Wolf > 0) {
       user.items.eggs.Wolf++;
     } else {
@@ -92,6 +94,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
     }
   });
   if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.beastMaster)) {
+    user.addNotification('REBIRTH_ENABLED');
     user.flags.rebirthEnabled = true;
   }
 };

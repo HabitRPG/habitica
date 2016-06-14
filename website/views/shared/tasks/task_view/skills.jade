@@ -8,13 +8,14 @@ ul.items.rewards
 
 // Class Skills
 ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
-  li.task.reward-item(ng-repeat='(k,skill) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= skill.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{skill.notes()}}')
+  li.task.reward-item.list-group-item(ng-repeat='(k,skill) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= skill.lvl',popover-trigger='mouseenter', popover-placement='top',
+  popover='{{skillNotes(skill)}}')
     .task-meta-controls
       span.task-notes
         span.glyphicon.glyphicon-comment
     //left-hand size commands
     .task-controls.task-primary
-      a.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-class='{active: skill.key == spell.key}')
+      a.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-class='{"disabled": spellDisabled(k)}')
         span.reward-cost
           strong {{::skill.mana}}
           =env.t('mp')

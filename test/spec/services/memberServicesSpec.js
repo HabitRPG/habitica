@@ -47,7 +47,7 @@ describe('memberServices', function() {
 
   it('calls get challenge members', function() {
     var challengeId = 1;
-    var memberUrl = apiV3Prefix + '/challenges/' + challengeId + '/members';
+    var memberUrl = apiV3Prefix + '/challenges/' + challengeId + '/members?includeAllMembers=true';
     $httpBackend.expectGET(memberUrl).respond({});
     members.getChallengeMembers(challengeId);
     $httpBackend.flush();
