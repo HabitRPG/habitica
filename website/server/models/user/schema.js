@@ -136,6 +136,7 @@ let schema = new Schema({
       gemsBought: {type: Number, default: 0},
       mysteryItems: {type: Array, default: () => []},
       lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
+      subscriptionLengthMonths: Number, // Length of Subscription
       consecutive: {
         count: {type: Number, default: 0},
         offset: {type: Number, default: 0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
