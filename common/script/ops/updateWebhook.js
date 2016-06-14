@@ -9,7 +9,7 @@ import _ from 'lodash';
 module.exports = function updateWebhook (user, req) {
   let url = _.get(req, 'body.url');
   let enabled = _.get(req, 'body.enabled');
-  let id = _.get(req, 'body.enabled');
+  let id = _.get(req, 'params.id');
 
   if (!id) throw new BadRequest(i18n.t('missingWebhookId', req.language));
   if (url && !validator.isURL(url)) throw new BadRequest(i18n.t('invalidUrl', req.language));
