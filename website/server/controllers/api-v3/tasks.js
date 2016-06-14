@@ -12,7 +12,6 @@ import {
 import common from '../../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import validator from 'validator';
 import logger from '../../libs/api-v3/logger';
 
 let api = {};

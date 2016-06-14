@@ -3,10 +3,7 @@ import shared from '../../../common';
 import validator from 'validator';
 import moment from 'moment';
 import baseModel from '../libs/api-v3/baseModel';
-import {
-  InternalServerError,
-  BadRequest,
-} from '../libs/api-v3/errors';
+import { InternalServerError } from '../libs/api-v3/errors';
 import _ from 'lodash';
 import { preenHistory } from '../libs/api-v3/preening';
 
