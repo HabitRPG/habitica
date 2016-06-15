@@ -95,7 +95,10 @@ api.postChat = {
 
     let [savedGroup] = await Bluebird.all(toSave);
 
-    pusher.trigger(`private-group-${savedGroup._id}`, 'new_chat', newChatMessage);
+    // real-time chat is only enabled for private groups
+    if (savedGroup.privacy === 'private') {
+      pusher.trigger(`private-group-${savedGroup._id}`, 'new_chat', newChatMessage);
+    }
 
     if (chatUpdated) {
       res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
