@@ -309,7 +309,7 @@ api.pusherAuth = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let socketId = req.body.socker_id;
+    let socketId = req.body.socket_id;
     let channelName = req.body.channel_name;
 
     let isPresenceChannel = channelName.indexOf('presence-') === 0;

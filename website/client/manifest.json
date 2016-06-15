@@ -1,6 +1,7 @@
 {
     "app": {
         "js": [
+            "bower_components/pusher-websocket-iso/dist/web/pusher.js",
             "bower_components/jquery/dist/jquery.min.js",
             "bower_components/jquery.cookie/jquery.cookie.js",
             "bower_components/pnotify/jquery.pnotify.min.js",
@@ -58,6 +59,7 @@
             "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/hallServices.js",
+            "js/services/pusherService.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",

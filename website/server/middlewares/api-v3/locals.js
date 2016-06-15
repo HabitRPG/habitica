@@ -15,7 +15,7 @@ import { mods } from '../../models/user';
 const CLIENT_VARS = ['language', 'isStaticPage', 'availableLanguages', 'translations',
                   'FACEBOOK_KEY', 'NODE_ENV', 'BASE_URL', 'GA_ID',
                   'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
-                  'worldDmg', 'mods', 'IS_MOBILE'];
+                  'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER'];
 
 let env = {
   getManifestFiles,
@@ -29,6 +29,10 @@ let env = {
   AMAZON_PAYMENTS: {
     SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
     CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID'),
+  },
+  PUSHER: {
+    KEY: nconf.get('PUSHER:KEY'),
+    ENABLED: nconf.get('PUSHER:ENABLED'),
   },
 };
 

@@ -7,14 +7,19 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
   function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments, $sce, $window, Analytics, TAVERN_ID) {
     var user = User.user;
 
-    var initSticky = _.once(function(){
-      $timeout(function () {
-        if (window.env.IS_MOBILE || User.user.preferences.stickyHeader === false) return;
-        $('.header-wrap').sticky({topSpacing:0});
-      });
-    });
+    // Setup page once user is synced
+    var clearAppLoadedListener = $rootScope.$watch('appLoaded', function (after) {
+      if (after === true) {
+        // Initialize sticky header
+        $timeout(function () {
+          if (window.env.IS_MOBILE || User.user.preferences.stickyHeader === false) return;
+          $('.header-wrap').sticky({topSpacing:0});
+        });
 
-    $rootScope.$on('userUpdated',initSticky);
+        // Remove listener
+        clearAppLoadedListener();
+      }
+    });
 
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){

@@ -54,8 +54,8 @@ api.getChat = {
  * @apiGroup Chat
  *
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {message} Body parameter - message The message to post
- * @apiParam {previousMsg} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
+ * @apiParam {string} message Body parameter - message The message to post
+ * @apiParam {UUID} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
  *
  * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
  */
@@ -97,7 +97,9 @@ api.postChat = {
 
     // real-time chat is only enabled for private groups
     if (savedGroup.privacy === 'private') {
-      pusher.trigger(`private-group-${savedGroup._id}`, 'new_chat', newChatMessage);
+      // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
+      // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
+      pusher.trigger(`private-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
     }
 
     if (chatUpdated) {
@@ -114,8 +116,8 @@ api.postChat = {
  * @apiName LikeChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message _id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message _id
  *
  * @apiSuccess {Object} data The liked chat message
  */
@@ -161,8 +163,8 @@ api.likeChat = {
  * @apiName FlagChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess {object} data The flagged chat message
  */
@@ -250,8 +252,8 @@ api.flagChat = {
  * @apiName ClearFlags
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data An empty object
  */
@@ -325,7 +327,7 @@ api.clearChatFlags = {
  * @apiName SeenChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data An empty object
  */
@@ -361,8 +363,8 @@ api.seenChat = {
  * @apiGroup Chat
  *
  * @apiParam {string} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string} chatId The chat message id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess data The updated chat array or an empty object if no message was posted after previousMsg
  * @apiSuccess {Object} data An empty object when the previous message was deleted
