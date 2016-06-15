@@ -522,7 +522,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Everyone takes damage
   await User.update({
-    _id: {$in: _.keys(group.quest.members)},
+    _id: {$in: _.keys(_.pick(group.quest.members, _.identity))},
   }, {
     $inc: {'stats.hp': down},
   }, {multi: true}).exec();
