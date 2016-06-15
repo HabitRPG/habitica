@@ -36,7 +36,7 @@ let schema = new Schema({
               result = result && !regexp.test(email);
             }
             return result;
-          }, 
+          },
           msg: shared.i18n.t('usesHabiticaEmail'),
         }],
       },
