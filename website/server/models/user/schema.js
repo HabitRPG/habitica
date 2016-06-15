@@ -24,7 +24,21 @@ let schema = new Schema({
     local: {
       email: {
         type: String,
-        validate: [validator.isEmail, shared.i18n.t('invalidEmail')],
+        validate: [{
+          validator: validator.isEmail,
+          msg: shared.i18n.t('invalidEmail'),
+        }, {
+          validator: function notEmailDomains (email) {
+            let domains = ['habitica\\.com', 'habitrpg\\.com'];
+            let result = true;
+            for (let domain of domains) {
+              let regexp = new RegExp(`${domain}$`, 'i');
+              result = result && !regexp.test(email);
+            }
+            return result;
+          }, 
+          msg: shared.i18n.t('usesHabiticaEmail'),
+        }],
       },
       username: {
         type: String,

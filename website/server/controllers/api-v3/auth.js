@@ -75,10 +75,6 @@ api.registerLocal = {
       email: {
         notEmpty: {errorMessage: res.t('missingEmail')},
         isEmail: {errorMessage: res.t('notAnEmail')},
-        notEmailDomains: {
-          options: ['habitica\\.com', 'habitrpg\\.com'],
-          errorMessage: res.t('usesHabiticaEmail'),
-        },
       },
       username: {notEmpty: {errorMessage: res.t('missingUsername')}},
       password: {
