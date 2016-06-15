@@ -8,6 +8,7 @@ import {
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/api-v3/email';
+import pusher from '../../libs/api-v3/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 
@@ -83,7 +84,7 @@ api.postChat = {
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
-    group.sendChat(req.body.message, user);
+    let newChatMessage = group.sendChat(req.body.message, user);
 
     let toSave = [group.save()];
 
@@ -93,6 +94,9 @@ api.postChat = {
     }
 
     let [savedGroup] = await Bluebird.all(toSave);
+
+    pusher.trigger(`private-group-${savedGroup._id}`, 'new_chat', newChatMessage);
+
     if (chatUpdated) {
       res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {

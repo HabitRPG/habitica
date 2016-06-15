@@ -239,12 +239,14 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // Not putting into toJSON because there we can't access user
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   let toJSON = group.toJSON();
+
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
       return chatMsg.flagCount >= 2;
     });
   }
+
   return toJSON;
 };
 
@@ -308,7 +310,9 @@ export function chatDefaults (msg, user) {
 }
 
 schema.methods.sendChat = function sendChat (message, user) {
-  this.chat.unshift(chatDefaults(message, user));
+  let newMessage = chatDefaults(message, user);
+
+  this.chat.unshift(newMessage);
   this.chat.splice(200);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
@@ -331,6 +335,8 @@ schema.methods.sendChat = function sendChat (message, user) {
   query._id = { $ne: user ? user._id : ''};
 
   User.update(query, lastSeenUpdate, {multi: true}).exec();
+
+  return newMessage;
 };
 
 schema.methods.startQuest = async function startQuest (user) {
