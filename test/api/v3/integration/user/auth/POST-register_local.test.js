@@ -95,7 +95,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: 'User validation failed',
       });
     });
 
@@ -112,7 +112,7 @@ describe('POST /user/auth/local/register', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: 'User validation failed',
       });
     });
 
