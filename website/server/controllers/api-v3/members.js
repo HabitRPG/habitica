@@ -15,6 +15,7 @@ import {
   getUserInfo,
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
+import _ from 'lodash';
 import Bluebird from 'bluebird';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
 
@@ -356,6 +357,7 @@ api.transferGems = {
       senderName: sender.profile.name,
     });
     message += res.t('privateMessageGiftGemsMessage', {gemAmount});
+    message = '`' + _.trim(message) + '` ';
 
     if (req.body.message) {
       message += req.body.message;
