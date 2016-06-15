@@ -27,6 +27,7 @@ let schema = new Schema({
     dailys: [{type: String, ref: 'Task'}],
     todos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
+    test: {type: String, required: true },
   },
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
@@ -42,6 +43,12 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
+// Returns true if user is a member of the challenge
+schema.methods.validate = function validate (challenge) {
+  console.log( schema.tree );
+  console.log( model );
+  console.log( challenge.validate() );
+};
 // A list of additional fields that cannot be updated (but can be set on creation)
 let noUpdate = ['group', 'official', 'shortName', 'prize'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
