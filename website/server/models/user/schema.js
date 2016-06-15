@@ -9,6 +9,8 @@ import {
 
 const Schema = mongoose.Schema;
 
+const INVALID_DOMAINS = ['habitica.com', 'habitrpg.com'];
+
 // User schema definition
 let schema = new Schema({
   apiToken: {
@@ -29,13 +31,7 @@ let schema = new Schema({
           msg: shared.i18n.t('invalidEmail'),
         }, {
           validator: function notEmailDomains (email) {
-            let domains = ['habitica\\.com', 'habitrpg\\.com'];
-            let result = true;
-            for (let domain of domains) {
-              let regexp = new RegExp(`${domain}$`, 'i');
-              result = result && !regexp.test(email);
-            }
-            return result;
+            return INVALID_DOMAINS.every(domain => new RegExp(`${domain}$`, 'i').test(email) === false);
           },
           msg: shared.i18n.t('usesHabiticaEmail'),
         }],
