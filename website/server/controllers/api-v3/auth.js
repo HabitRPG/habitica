@@ -20,6 +20,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { decrypt } from '../../libs/api-v3/encryption';
 import FirebaseTokenGenerator from 'firebase-token-generator';
 import { send as sendEmail } from '../../libs/api-v3/email';
+import pusher from '../../libs/api-v3/pusher';
 
 let api = {};
 
@@ -279,6 +280,55 @@ api.loginSocial = {
 
       return null;
     }
+  },
+};
+
+/*
+ * @apiIgnore
+ * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
+ * @apiDescription Authentication for Pusher.com private and presence channels, private route
+ * @apiVersion 3.0.0
+ * @apiName UserAuthPusher
+ * @apiGroup User
+ *
+ * @apiParam {String} socker_id Body parameter
+ * @apiParam {String} channel_name Body parameter
+ *
+ * @apiSuccess {String} auth The authentication token
+ */
+api.pusherAuth = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/auth/pusher',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody('socket_id').notEmpty();
+    req.checkBody('channel_name').notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let socketId = req.body.socker_id;
+    let channelName = req.body.channel_name;
+
+    let isPresenceChannel = channelName.indexOf('presence-') === 0;
+    let authResult;
+
+    if (isPresenceChannel) {
+      let presenceData = {
+        user_id: user._id, // eslint-disable-line camelcase
+        // Max 1KB
+        user_info: {}, // eslint-disable-line camelcase
+      };
+
+      authResult = pusher.authenticate(socketId, channelName, presenceData);
+    } else {
+      authResult = pusher.authenticate(socketId, channelName);
+    }
+
+    // Not using res.respond because Pusher requires a different response format
+    res.status(200).json(authResult);
   },
 };
 
