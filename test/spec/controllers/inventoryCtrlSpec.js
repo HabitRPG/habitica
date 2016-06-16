@@ -1,10 +1,19 @@
 'use strict';
 
-xdescribe('Inventory Controller', function() {
+describe('Inventory Controller', function() {
   var scope, ctrl, user, rootScope;
 
   beforeEach(function() {
-    module(function($provide) {});
+    module(function($provide) {
+      var mockWindow = {
+        confirm: function(msg) {
+          return true;
+        },
+        location: {search: '', pathname: '', href: ''},
+      };
+
+      $provide.value('$window', mockWindow);
+    });
 
     inject(function($rootScope, $controller, Shared, User, $location, $window) {
       user = specHelper.newUser({
@@ -23,12 +32,6 @@ xdescribe('Inventory Controller', function() {
       });
 
       Shared.wrap(user);
-      var mockWindow = {
-        confirm: function(msg) {
-          return true;
-        },
-        location: {href: sandbox.spy()},
-      };
 
       scope = $rootScope.$new();
       rootScope = $rootScope;
@@ -37,9 +40,9 @@ xdescribe('Inventory Controller', function() {
       User.setUser(user);
 
       // Load RootCtrl to ensure shared behaviors are loaded
-      $controller('RootCtrl',  {$scope: scope, User: User, $window: mockWindow});
+      $controller('RootCtrl',  {$scope: scope, User: User});
 
-      ctrl = $controller('InventoryCtrl', {$scope: scope, User: User, $window: mockWindow});
+      ctrl = $controller('InventoryCtrl', {$scope: scope, User: User});
     });
   });
 

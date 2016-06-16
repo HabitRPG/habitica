@@ -83,7 +83,7 @@ angular.module('habitrpg')
           if (!user.filters) {
             user.filters = {};
           }
-          
+
           if (!user._wrapped) {
             // This wraps user with `ops`, which are functions shared both on client and mobile. When performed on client,
             // they update the user in the browser and then send the request to the server, where the same operation is
@@ -129,7 +129,7 @@ angular.module('habitrpg')
           }
 
           args.push(opData);
-          clientResponse = $window.habitrpgShared.ops[opName].apply(null, args);
+          clientResponse = habitrpgShared.ops[opName].apply(null, args);
         } catch (err) {
           Notification.text(err.message);
           return;
