@@ -2,7 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
-import _ from 'lodash';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /members/transfer-gems', () => {
@@ -130,7 +129,7 @@ describe('POST /members/transfer-gems', () => {
       senderName: userToSendMessage.profile.name,
     });
     messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
-    messageSentContent = '`' + _.trim(messageSentContent) + '` ';
+    messageSentContent =  `\`${messageSentContent}\` `;
     messageSentContent += message;
 
     expect(sendersMessageInReceiversInbox).to.exist;
@@ -164,7 +163,7 @@ describe('POST /members/transfer-gems', () => {
       senderName: userToSendMessage.profile.name,
     });
     messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
-    messageSentContent = '`' + _.trim(messageSentContent) + '` ';
+    messageSentContent =  `\`${messageSentContent}\` `;
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
