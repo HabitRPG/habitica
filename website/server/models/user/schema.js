@@ -30,7 +30,7 @@ let schema = new Schema({
           validator: validator.isEmail,
           msg: shared.i18n.t('invalidEmail'),
         }, {
-          validator: function notEmailDomains (email) {
+          validator (email) {
             return INVALID_DOMAINS.every(domain => new RegExp(`${domain}$`, 'i').test(email) === false);
           },
           msg: shared.i18n.t('usesHabiticaEmail'),
