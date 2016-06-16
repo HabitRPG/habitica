@@ -65,6 +65,8 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
               Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':false, 'groupType':'guild','privacy': joinedGroup.privacy})
             }
 
+            _.pull(User.user.invitations.guilds, group);
+
             $location.path('/options/groups/guilds/' + joinedGroup._id);
           });
       }
