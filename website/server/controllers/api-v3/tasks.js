@@ -477,7 +477,7 @@ api.moveTask = {
     let taskId = req.params.taskId;
     let to = Number(req.params.position);
 
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
