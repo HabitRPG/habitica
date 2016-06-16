@@ -23,11 +23,13 @@ import {
   MAX_LEVEL,
   MAX_STAT_POINTS,
   TAVERN_ID,
+  INVALID_DOMAINS
 } from './constants';
 api.maxLevel = MAX_LEVEL;
 api.maxHealth = MAX_HEALTH;
 api.maxStatPoints = MAX_STAT_POINTS;
 api.TAVERN_ID = TAVERN_ID;
+api.INVALID_DOMAINS = INVALID_DOMAINS;
 
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
