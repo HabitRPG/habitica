@@ -100,11 +100,13 @@ angular.module('habitrpg')
               }
             });
           }
-
-          return Tasks.getUserTasks();
+          let completedTodos = Tasks.getUserTasks(true);
+          let nonCompletedTasks = Tasks.getUserTasks();
+          return Promise.all([completedTodos, nonCompletedTasks]);
         })
         .then(function (response) {
-          var tasks = response.data.data;
+          Tasks.loadedCompletedTodos = true;
+          var tasks = _.union( response[0].data.data, response[1].data.data);
           syncUserTasks(tasks);
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
