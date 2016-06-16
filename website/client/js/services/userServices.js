@@ -41,6 +41,7 @@ angular.module('habitrpg')
       user._wrapped = false;
 
       function syncUserTasks (tasks) {
+        tasks = tasks.concat(_.filter(user.todos, 'completed')); // haven't loaded in the completed todos yet so we need to keep them from memory
         user.habits = [];
         user.todos = [];
         user.dailys = [];
@@ -100,14 +101,22 @@ angular.module('habitrpg')
               }
             });
           }
-          let completedTodos = Tasks.getUserTasks(true);
-          let nonCompletedTasks = Tasks.getUserTasks();
-          return Promise.all([completedTodos, nonCompletedTasks]);
+
+          return Tasks.getUserTasks();
         })
+        // refresh all tasks but completed todos
         .then(function (response) {
-          Tasks.loadedCompletedTodos = true;
-          var tasks = _.union( response[0].data.data, response[1].data.data);
+          var tasks = response.data.data;
           syncUserTasks(tasks);
+          return Tasks.getUserTasks(true)
+        })
+        // refresh completed todos
+        .then(function (response) {
+          user.todos = _.reject(user.todos, 'completed') // clear the completed todo data before adding the refreshed data
+          user.todos = user.todos.concat(response.data.data);
+          Tasks.loadedCompletedTodos = true;
+        })
+        .then(function() {
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
           $rootScope.$emit('userUpdated', user);
