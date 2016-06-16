@@ -625,7 +625,7 @@ angular.module('habitrpg')
           var isStaticOrSocial = $window.location.pathname.match(/^\/(static|social)/);
           if (!isStaticOrSocial){
             localStorage.clear();
-            $location.path('/logout');
+            window.location.href = '/logout';
           }
         }
       } else {
