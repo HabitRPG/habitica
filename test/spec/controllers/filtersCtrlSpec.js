@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Filters Controller', function() {
+xdescribe('Filters Controller', function() {
   var scope, user, userService;
 
   beforeEach(inject(function($rootScope, $controller, Shared, User) {

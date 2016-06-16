@@ -1,6 +1,6 @@
 'use strict';
 
-describe("CopyMessageModal controller", function() {
+xdescribe("CopyMessageModal controller", function() {
   var scope, ctrl, user, Notification, $rootScope, $controller;
 
   beforeEach(function() {

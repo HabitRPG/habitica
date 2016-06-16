@@ -7,7 +7,7 @@ describe('userServices', function() {
 
   beforeEach(function(){
     module(function($provide){
-      $window = {href: '', alert: sandbox.spy(), location: {search: '', pathname: ''}};
+      $window = {href: '', alert: sandbox.spy(), location: {search: '', pathname: '', href: ''}};
       $provide.value('$window', $window);
     });
 
