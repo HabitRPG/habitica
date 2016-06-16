@@ -163,7 +163,7 @@
     "partyUpAchievement": "A rejoint une équipe avec une autre personne ! Amusez vous à combattre des monstres et à vous encourager.",
     "partyOnAchievement": "A rejoint une équipe d'au moins quatre personnes ! Profitez de votre plus grande responsabilité en vous regroupant avec vos amis pour vaincre vos ennemis !",
     "groupIdRequired": "\"groupId\" doit être un UUID valide",
-    "groupNotFound": "Group not found or you don't have access.",
+    "groupNotFound": "Groupe introuvable ou vous n'y avez pas accès.",
     "groupTypesRequired": "Vous devez fournir une requête \"type\" valide.",
     "questLeaderCannotLeaveGroup": "Vous ne pouvez pas quitter une équipe si vous avez démarré une quête. Abandonnez la quête d'abord.",
     "cannotLeaveWhileActiveQuest": "Vous ne pouvez pas quitter une équipe pendant une quête active. Veuillez d'abord quitter la quête.",

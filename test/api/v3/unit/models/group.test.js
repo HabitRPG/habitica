@@ -211,6 +211,38 @@ describe('Group Model', () => {
           expect(updatedUndecidedMember.stats.hp).to.eql(50);
         });
 
+        it('applies damage only to participating members of party even under buggy conditions', async () => {
+          // stops unfair damage from mbugs like https://github.com/HabitRPG/habitrpg/issues/7653
+          party.quest.members = {
+            [questLeader._id]: true,
+            [participatingMember._id]: true,
+            [nonParticipatingMember._id]: false,
+            [undecidedMember._id]: null,
+          };
+          await party.save();
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          party = await Group.findOne({_id: party._id});
+
+          let [
+            updatedLeader,
+            updatedParticipatingMember,
+            updatedNonParticipatingMember,
+            updatedUndecidedMember,
+          ] = await Promise.all([
+            User.findById(questLeader._id),
+            User.findById(participatingMember._id),
+            User.findById(nonParticipatingMember._id),
+            User.findById(undecidedMember._id),
+          ]);
+
+          expect(updatedLeader.stats.hp).to.eql(42.5);
+          expect(updatedParticipatingMember.stats.hp).to.eql(42.5);
+          expect(updatedNonParticipatingMember.stats.hp).to.eql(50);
+          expect(updatedUndecidedMember.stats.hp).to.eql(50);
+        });
+
         it('sends message about victory', async () => {
           progress.up = 999;
 

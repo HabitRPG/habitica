@@ -111,7 +111,7 @@ api.createChallenge = {
 };
 
 /**
- * @api {post} /api/v3/challenges/:challengeId/join Joins a challenge
+ * @api {post} /api/v3/challenges/:challengeId/join Join a challenge
  * @apiVersion 3.0.0
  * @apiName JoinChallenge
  * @apiGroup Challenge
@@ -158,7 +158,7 @@ api.joinChallenge = {
 };
 
 /**
- * @api {post} /api/v3/challenges/:challengeId/leave Leaves a challenge
+ * @api {post} /api/v3/challenges/:challengeId/leave Leave a challenge
  * @apiVersion 3.0.0
  * @apiName LeaveChallenge
  * @apiGroup Challenge
@@ -241,7 +241,7 @@ api.getUserChallenges = {
 };
 
 /**
- * @api {get} /api/v3/challenges/group/group:Id Get challenges for a group
+ * @api {get} /api/v3/challenges/group/:groupId Get challenges for a group
  * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
  * @apiVersion 3.0.0
  * @apiName GetGroupChallenges

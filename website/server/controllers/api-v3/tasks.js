@@ -249,7 +249,7 @@ api.getChallengeTasks = {
 };
 
 /**
- * @api {get} /api/v3/task/:taskId Get a task
+ * @api {get} /api/v3/tasks/:taskId Get a task
  * @apiVersion 3.0.0
  * @apiName GetTask
  * @apiGroup Task

@@ -859,7 +859,7 @@ api.userPurchaseHourglass = {
 };
 
 /**
-* @api {post} /api/v3/user/read-card/:cardType Reads a card
+* @api {post} /api/v3/user/read-card/:cardType Read a card
 * @apiVersion 3.0.0
 * @apiName UserReadCard
 * @apiGroup User
@@ -1329,7 +1329,7 @@ api.userReset = {
 };
 
 /**
-* @api {post} /api/v3/user/custom-day-start Sets preferences.dayStart for user
+* @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
 * @apiVersion 3.0.0
 * @apiName setCustomDayStart
 * @apiGroup User

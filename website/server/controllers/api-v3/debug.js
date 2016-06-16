@@ -55,7 +55,7 @@ api.addHourglass = {
 };
 
 /**
- * @api {post} /api/v3/debug/set-cron Sets lastCron for user
+ * @api {post} /api/v3/debug/set-cron Set lastCron for user
  * @apiDescription Only available in development mode.
  * @apiVersion 3.0.0
  * @apiName setCron

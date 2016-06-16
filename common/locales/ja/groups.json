@@ -163,7 +163,7 @@
     "partyUpAchievement": "別の人のパーティーに参加しました!　楽しんで、モンスターと戦ってお互いを助け合いましょう。",
     "partyOnAchievement": "4人以上のパーティーに参加しました!　責任感が強くなったことを楽しんで、自分自身の敵と戦うために友達と協力しましょう!",
     "groupIdRequired": "\"groupId\" の UUID が無効です。",
-    "groupNotFound": "Group not found or you don't have access.",
+    "groupNotFound": "グループが見つからなかったか、アクセスできません。",
     "groupTypesRequired": "有効な \"type\" のクエリー文字列を指定してください。",
     "questLeaderCannotLeaveGroup": "クエスト中は、パーティーを抜けられません。まず、クエストを中止してください。",
     "cannotLeaveWhileActiveQuest": "クエスト中は、パーティーを抜けられません。まず、クエストから抜けてください。",

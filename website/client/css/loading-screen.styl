@@ -3,10 +3,25 @@
   width: 100%
   height: 100%
   padding-top: 150px
+  text-align: center
 
-@media (max-device-width: 768px), (orientation: landscape)
+#loadingScreen h2
+  margin-top: 60px
+
+#loadingScreen h3
+  margin-top: 20px
+
+@media (max-device-width: 768px) and (orientation: landscape)
   #loadingScreen
     padding-top: 75px
+
+@media (max-device-width: 768px)
+  #loadingScreen h3
+    padding-left: 10px
+    padding-right: 10px
+
+  #loadingScreen h2
+    margin-top: 30px
 
 #loadingScreen img
   display: block

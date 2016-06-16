@@ -1,7 +1,11 @@
 {
   "set": "Set",
+  "equipmentType" : "Type",
+  "klass": "Class",
+  "groupBy": "Group By <%= type %>",
 
   "weapon": "weapon",
+  "weaponCapitalized" : "Weapon",
 
   "weaponBase0Text": "No Weapon",
   "weaponBase0Notes": "No Weapon.",
@@ -214,6 +218,7 @@
   "weaponArmoireSandySpadeNotes": "A tool for digging, as well as flicking sand into the eyes of enemy monsters. Increases Strength by <%= str %>. Enchanted Armoire: Seaside Set (Item 1 of 3).",
 
   "armor": "armor",
+  "armorCapitalized": "Armor",
 
   "armorBase0Text": "Plain Clothing",
   "armorBase0Notes": "Ordinary clothing. Confers no benefit.",
@@ -447,6 +452,7 @@
   "armorArmoireStripedSwimsuitNotes": "What could be more fun than battling sea monsters on the beach? Increases Constitution by <%= con %>. Enchanted Armoire: Seaside Set (Item 2 of 3).",
 
   "headgear": "headgear",
+  "headgearCapitalized": "Headgear",
 
   "headBase0Text": "No Helm",
   "headBase0Notes": "No headgear.",
@@ -694,6 +700,7 @@
   "headArmoireGreenFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a gorgeous green color. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
 
   "offhand": "shield-hand item",
+  "offhandCapitalized": "Shield-Hand Item",
 
   "shieldBase0Text": "No Shield-Hand Equipment",
   "shieldBase0Notes": "No shield or second weapon.",
@@ -868,6 +875,7 @@
   "bodySpecialSummer2015HealerNotes": "Yo ho ho? No, no, no! Confers no benefit. Limited Edition 2015 Summer Gear.",
 
   "headAccessory": "head accessory",
+  "headAccessoryCapitalizaed": "Head Accessory",
   "accessories": "Accessories",
   "animalEars": "Animal Ears",
 
