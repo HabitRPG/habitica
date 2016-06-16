@@ -254,7 +254,7 @@ api.getChallengeTasks = {
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  *
  * @apiSuccess {object} data The task object
  */
@@ -288,7 +288,7 @@ api.getTask = {
  * @apiName UpdateTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  *
  * @apiSuccess {object} data The updated task
  */
@@ -374,7 +374,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {string="up","down"} direction The direction for scoring the task
  *
  * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
@@ -457,7 +457,7 @@ api.scoreTask = {
  * @apiName MoveTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {array} data The new tasks order (user.tasksOrder.{task.type}s)
@@ -510,7 +510,7 @@ api.moveTask = {
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  *
  * @apiSuccess {object} data The updated task
  */
@@ -558,7 +558,7 @@ api.addChecklistItem = {
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -598,7 +598,7 @@ api.scoreCheckListItem = {
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -650,7 +650,7 @@ api.updateChecklistItem = {
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -700,7 +700,7 @@ api.removeChecklistItem = {
  * @apiName AddTagToTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {object} data The updated task
@@ -741,7 +741,7 @@ api.addTagToTask = {
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {object} data The updated task
@@ -840,7 +840,7 @@ api.unlinkAllTasks = {
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  * @apiParam {string} keep Query parameter - keep or remove
  *
  * @apiSuccess {object} data An empty object
@@ -919,7 +919,7 @@ api.clearCompletedTodos = {
  * @apiName DeleteTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or alias
+ * @apiParam {string} taskId The task _id or alias
  *
  * @apiSuccess {object} data An empty object
  */
