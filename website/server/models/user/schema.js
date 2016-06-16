@@ -9,8 +9,6 @@ import {
 
 const Schema = mongoose.Schema;
 
-const INVALID_DOMAINS = ['habitica.com', 'habitrpg.com'];
-
 // User schema definition
 let schema = new Schema({
   apiToken: {
