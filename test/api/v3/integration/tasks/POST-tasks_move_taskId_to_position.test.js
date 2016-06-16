@@ -45,10 +45,10 @@ describe('POST /tasks/:taskId/move/to/:position', () => {
     expect(newOrder.length).to.equal(5);
   });
 
-  it('can move task to new position using shortName', async () => {
+  it('can move task to new position using alias', async () => {
     let tasks = await user.post('/tasks/user', [
       {type: 'habit', text: 'habit 1'},
-      {type: 'habit', text: 'habit 2', shortName: 'move'},
+      {type: 'habit', text: 'habit 2', alias: 'move'},
       {type: 'daily', text: 'daily 1'},
       {type: 'habit', text: 'habit 3'},
       {type: 'habit', text: 'habit 4'},
@@ -58,7 +58,7 @@ describe('POST /tasks/:taskId/move/to/:position', () => {
 
     let taskToMove = tasks[1];
     expect(taskToMove.text).to.equal('habit 2');
-    let newOrder = await user.post(`/tasks/${taskToMove.shortName}/move/to/3`);
+    let newOrder = await user.post(`/tasks/${taskToMove.alias}/move/to/3`);
     expect(newOrder[3]).to.equal(taskToMove._id);
     expect(newOrder.length).to.equal(5);
   });

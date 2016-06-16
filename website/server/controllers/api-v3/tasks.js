@@ -16,18 +16,18 @@ import logger from '../../libs/api-v3/logger';
 
 let api = {};
 
-async function _validateShortNames (tasks, res) {
-  let tasksWithShortNames = tasks.filter(task => task.shortName);
-  let shortNames = tasksWithShortNames.map(task => task.shortName);
+async function _validateTaskAlias (tasks, res) {
+  let tasksWithAliases = tasks.filter(task => task.alias);
+  let aliases = tasksWithAliases.map(task => task.alias);
 
   // Compares the short names in tasks against
   // a Set, where values cannot repeat. If the
   // lengths are different, some name was duplicated
-  if (shortNames.length !== [...new Set(shortNames)].length) {
-    throw new BadRequest(res.t('taskShortNameAlreadyUsed'));
+  if (aliases.length !== [...new Set(aliases)].length) {
+    throw new BadRequest(res.t('taskAliasAlreadyUsed'));
   }
 
-  await Bluebird.map(tasksWithShortNames, (task) => {
+  await Bluebird.map(tasksWithAliases, (task) => {
     return task.validate();
   });
 }
@@ -60,8 +60,8 @@ async function _createTasks (req, res, user, challenge) {
     return newTask;
   });
 
-  // tasks with shortNames need to be validated asyncronously
-  await _validateShortNames(toSave, res);
+  // tasks with aliases need to be validated asyncronously
+  await _validateTaskAlias(toSave, res);
 
   toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
     validateBeforeSave: false,
@@ -254,7 +254,7 @@ api.getChallengeTasks = {
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  *
  * @apiSuccess {object} data The task object
  */
@@ -265,7 +265,7 @@ api.getTask = {
   async handler (req, res) {
     let user = res.locals.user;
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -288,7 +288,7 @@ api.getTask = {
  * @apiName UpdateTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  *
  * @apiSuccess {object} data The updated task
  */
@@ -306,7 +306,7 @@ api.updateTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -374,7 +374,7 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {string="up","down"} direction The direction for scoring the task
  *
  * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
@@ -394,7 +394,7 @@ api.scoreTask = {
     let user = res.locals.user;
     let {taskId} = req.params;
 
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, {userId: user._id});
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
     let direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
@@ -457,7 +457,7 @@ api.scoreTask = {
  * @apiName MoveTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {array} data The new tasks order (user.tasksOrder.{task.type}s)
@@ -477,7 +477,7 @@ api.moveTask = {
     let taskId = req.params.taskId;
     let to = Number(req.params.position);
 
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
@@ -510,7 +510,7 @@ api.moveTask = {
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  *
  * @apiSuccess {object} data The updated task
  */
@@ -528,7 +528,7 @@ api.addChecklistItem = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -558,7 +558,7 @@ api.addChecklistItem = {
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -577,7 +577,7 @@ api.scoreCheckListItem = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -598,7 +598,7 @@ api.scoreCheckListItem = {
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -618,7 +618,7 @@ api.updateChecklistItem = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -650,7 +650,7 @@ api.updateChecklistItem = {
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {object} data The updated task
@@ -670,7 +670,7 @@ api.removeChecklistItem = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -700,7 +700,7 @@ api.removeChecklistItem = {
  * @apiName AddTagToTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {object} data The updated task
@@ -720,7 +720,7 @@ api.addTagToTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     let tagId = req.params.tagId;
@@ -741,7 +741,7 @@ api.addTagToTask = {
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {object} data The updated task
@@ -760,7 +760,7 @@ api.removeTagFromTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -840,7 +840,7 @@ api.unlinkAllTasks = {
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  * @apiParam {string} keep Query parameter - keep or remove
  *
  * @apiSuccess {object} data An empty object
@@ -860,7 +860,7 @@ api.unlinkOneTask = {
     let keep = req.query.keep;
     let taskId = req.params.taskId;
 
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
@@ -919,7 +919,7 @@ api.clearCompletedTodos = {
  * @apiName DeleteTask
  * @apiGroup Task
  *
- * @apiParam {UUID|string} taskId The task _id or shortName
+ * @apiParam {UUID|string} taskId The task _id or alias
  *
  * @apiSuccess {object} data An empty object
  */
@@ -932,7 +932,7 @@ api.deleteTask = {
     let challenge;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrShortName(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));

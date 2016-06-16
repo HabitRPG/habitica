@@ -49,11 +49,11 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
   });
 
-  it('returns error when user tries to create task with a shortName', async () => {
+  it('returns error when user tries to create task with a alias', async () => {
     await expect(user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit',
       type: 'habit',
-      shortName: 'a-short-name',
+      alias: 'a-alias',
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',

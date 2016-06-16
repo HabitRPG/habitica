@@ -34,11 +34,11 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     expect(savedTask.checklist[0].id).to.not.equal('123');
   });
 
-  it('updates a checklist item using task shortName', async () => {
+  it('updates a checklist item using task alias', async () => {
     let task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
-      shortName: 'daily-with-shortname',
+      alias: 'daily-with-shortname',
     });
 
     let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
@@ -46,7 +46,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
       completed: false,
     });
 
-    savedTask = await user.put(`/tasks/${task.shortName}/checklist/${savedTask.checklist[0].id}`, {
+    savedTask = await user.put(`/tasks/${task.alias}/checklist/${savedTask.checklist[0].id}`, {
       text: 'updated',
       completed: true,
       _id: 123, // ignored

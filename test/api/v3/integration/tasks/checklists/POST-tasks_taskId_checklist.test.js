@@ -31,14 +31,14 @@ describe('POST /tasks/:taskId/checklist/', () => {
     expect(savedTask.checklist[0].ignored).to.be.an('undefined');
   });
 
-  it('can use a shortName to add checklist', async () => {
+  it('can use a alias to add checklist', async () => {
     let task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
-      shortName: 'task-with-shortname',
+      alias: 'task-with-shortname',
     });
 
-    let savedTask = await user.post(`/tasks/${task.shortName}/checklist`, {
+    let savedTask = await user.post(`/tasks/${task.alias}/checklist`, {
       text: 'Checklist Item 1',
       ignored: false,
       _id: 123,

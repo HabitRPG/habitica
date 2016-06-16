@@ -17,7 +17,7 @@ describe('DELETE /tasks/:id', () => {
       task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
-        shortName: 'task-to-be-deleted',
+        alias: 'task-to-be-deleted',
       });
     });
 
@@ -31,8 +31,8 @@ describe('DELETE /tasks/:id', () => {
       });
     });
 
-    it('can use a shortName to delete a task', async () => {
-      await user.del(`/tasks/${task.shortName}`);
+    it('can use a alias to delete a task', async () => {
+      await user.del(`/tasks/${task.alias}`);
 
       await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,

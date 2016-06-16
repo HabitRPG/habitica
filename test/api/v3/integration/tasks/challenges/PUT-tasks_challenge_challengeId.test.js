@@ -55,9 +55,9 @@ describe('PUT /tasks/:id', () => {
       });
     });
 
-    it('returns error when user attempts to update task with a shortName', async () => {
+    it('returns error when user attempts to update task with a alias', async () => {
       await expect(user.put(`/tasks/${task._id}`, {
-        shortName: 'a-short-name',
+        alias: 'a-alias',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',

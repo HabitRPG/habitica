@@ -59,7 +59,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.notValid).to.be.undefined;
     });
 
-    it(`only allows setting streak, shortName, reminders, checklist, notes, attribute, tags
+    it(`only allows setting streak, alias, reminders, checklist, notes, attribute, tags
         fields for challenge tasks owned by a user`, async () => {
       let guild = await generateGroup(user);
       let challenge = await generateChallenge(user, guild);
@@ -87,7 +87,7 @@ describe('PUT /tasks/:id', () => {
         _id: 123,
         type: 'daily',
         userId: 123,
-        shortName: 'a-short-task-name',
+        alias: 'a-short-task-name',
         history: [123],
         createdAt: 'yesterday',
         updatedAt: 'tomorrow',
@@ -178,23 +178,23 @@ describe('PUT /tasks/:id', () => {
       expect(savedDaily.reminders[1].id).to.equal(id2);
     });
 
-    it('can set a shortName if no other task has that shortName', async () => {
+    it('can set a alias if no other task has that alias', async () => {
       let savedDaily = await user.put(`/tasks/${daily._id}`, {
-        shortName: 'short-name',
+        alias: 'alias',
       });
 
-      expect(savedDaily.shortName).to.eql('short-name');
+      expect(savedDaily.alias).to.eql('alias');
     });
 
-    it('does not set shortName to a shortName that is already in use', async () => {
+    it('does not set alias to a alias that is already in use', async () => {
       await user.post('/tasks/user', {
         type: 'todo',
         text: 'a todo',
-        shortName: 'some-short-name',
+        alias: 'some-alias',
       });
 
       await expect(user.put(`/tasks/${daily._id}`, {
-        shortName: 'some-short-name',
+        alias: 'some-alias',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -202,12 +202,12 @@ describe('PUT /tasks/:id', () => {
       });
     });
 
-    it('can use shortName to update a task', async () => {
+    it('can use alias to update a task', async () => {
       daily = await user.put(`/tasks/${daily._id}`, {
-        shortName: 'short-name',
+        alias: 'alias',
       });
 
-      await user.put(`/tasks/${daily.shortName}`, {
+      await user.put(`/tasks/${daily.alias}`, {
         text: 'saved',
       });
 

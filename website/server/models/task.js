@@ -26,16 +26,16 @@ export let TaskSchema = new Schema({
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
-  shortName: {
+  alias: {
     type: String,
     match: [/^[a-zA-Z0-9-_]+$/, 'Task short names can only contain alphanumeric characters, underscores and dashes.'],
     validate: [{
-      validator: function validateShortNameOwnedByUser () {
+      validator () {
         return Boolean(this.userId);
       },
       msg: 'Task short names can only be applied to tasks in a user\'s own task list.',
     }, {
-      validator: function validateShortNameIsNotUuid (val) {
+      validator (val) {
         return !validator.isUUID(val);
       },
       msg: 'Task short names cannot be uuids.',
@@ -89,7 +89,7 @@ TaskSchema.plugin(baseModel, {
   timestamps: true,
 });
 
-TaskSchema.statics.findByIdOrShortName = async function findByIdOrShortName (identifier, userId, additionalQueries = {}) {
+TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier, userId, additionalQueries = {}) {
   // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
   if (!identifier) throw new InternalServerError('Task identifier is a required argument');
   if (!userId) throw new InternalServerError('User identifier is a required argument');
@@ -100,7 +100,7 @@ TaskSchema.statics.findByIdOrShortName = async function findByIdOrShortName (ide
     query._id = identifier;
   } else {
     query.userId = userId;
-    query.shortName = identifier;
+    query.alias = identifier;
   }
 
   let task = await this.findOne(query).exec();
@@ -202,19 +202,19 @@ TaskSchema.statics.fromJSONV2 = function fromJSONV2 (taskObj) {
 
 export let Task = mongoose.model('Task', TaskSchema);
 
-Task.schema.path('shortName').validate(function valiateShortNameNotTaken (shortName, respond) {
+Task.schema.path('alias').validate(function valiateAliasNotTaken (alias, respond) {
   Task.findOne({
     _id: { $ne: this._id },
     userId: this.userId,
-    shortName,
+    alias,
   }).exec().then((task) => {
-    let shortNameAvailable = !task;
+    let aliasAvailable = !task;
 
-    respond(shortNameAvailable);
+    respond(aliasAvailable);
   }).catch(() => {
     respond(false);
   });
-}, 'Task short name already used on another task.');
+}, 'Task alias already used on another task.');
 
 // habits and dailies shared fields
 let habitDailySchema = () => {

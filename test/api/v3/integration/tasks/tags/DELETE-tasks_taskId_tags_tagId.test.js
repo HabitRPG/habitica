@@ -31,13 +31,13 @@ describe('DELETE /tasks/:taskId/tags/:tagId', () => {
     let task = await user.post('/tasks/user', {
       type: 'habit',
       text: 'Task with tag',
-      shortName: 'habit-with-short-name',
+      alias: 'habit-with-alias',
     });
 
     let tag = await user.post('/tags', {name: 'Tag 1'});
 
     await user.post(`/tasks/${task._id}/tags/${tag.id}`);
-    await user.del(`/tasks/${task.shortName}/tags/${tag.id}`);
+    await user.del(`/tasks/${task.alias}/tags/${tag.id}`);
 
     let updatedTask = await user.get(`/tasks/${task._id}`);
 

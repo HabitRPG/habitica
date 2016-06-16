@@ -143,17 +143,17 @@ describe('POST /tasks/user', () => {
       expect(task).not.to.have.property('notValid');
     });
 
-    it('errors if shortName already exists on another task', async () => {
+    it('errors if alias already exists on another task', async () => {
       await user.post('/tasks/user', { // first task that will succeed
         type: 'habit',
         text: 'todo text',
-        shortName: 'short-name',
+        alias: 'alias',
       });
 
       await expect(user.post('/tasks/user', {
         type: 'todo',
         text: 'todo text',
-        shortName: 'short-name',
+        alias: 'alias',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -161,11 +161,11 @@ describe('POST /tasks/user', () => {
       });
     });
 
-    it('errors if shortName contains invalid values', async () => {
+    it('errors if alias contains invalid values', async () => {
       await expect(user.post('/tasks/user', {
         type: 'todo',
         text: 'todo text',
-        shortName: 'short name!',
+        alias: 'short name!',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -173,11 +173,11 @@ describe('POST /tasks/user', () => {
       });
     });
 
-    it('errors if shortName is a valid uuid', async () => {
+    it('errors if alias is a valid uuid', async () => {
       await expect(user.post('/tasks/user', {
         type: 'todo',
         text: 'todo text',
-        shortName: generateUUID(),
+        alias: generateUUID(),
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -189,18 +189,18 @@ describe('POST /tasks/user', () => {
       await expect(user.post('/tasks/user', [{
         type: 'habit',
         text: 'habit text',
-        shortName: 'short-name',
+        alias: 'alias',
       }, {
         type: 'todo',
         text: 'todo text',
       }, {
         type: 'todo',
         text: 'todo text',
-        shortName: 'short-name',
+        alias: 'alias',
       }])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('taskShortNameAlreadyUsed'),
+        message: t('taskAliasAlreadyUsed'),
       });
     });
   });
@@ -225,14 +225,14 @@ describe('POST /tasks/user', () => {
       expect(task.reminders[0].time).to.be.a('string');
     });
 
-    it('can create a task with a shortName', async () => {
+    it('can create a task with a alias', async () => {
       let task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
-        shortName: 'a_short-NAME012',
+        alias: 'a_alias012',
       });
 
-      expect(task.shortName).to.eql('a_short-NAME012');
+      expect(task.alias).to.eql('a_alias012');
     });
   });
 

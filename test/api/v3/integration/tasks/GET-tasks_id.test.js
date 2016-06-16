@@ -18,7 +18,7 @@ describe('GET /tasks/:id', () => {
       task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
-        shortName: 'short-name',
+        alias: 'alias',
       });
     });
 
@@ -28,8 +28,8 @@ describe('GET /tasks/:id', () => {
       expect(getTask).to.eql(task);
     });
 
-    it('can use shortName to retrieve task', async () => {
-      let getTask = await user.get(`/tasks/${task.shortName}`);
+    it('can use alias to retrieve task', async () => {
+      let getTask = await user.get(`/tasks/${task.alias}`);
 
       expect(getTask).to.eql(task);
     });

@@ -74,26 +74,26 @@ describe('Task Model', () => {
   });
 
   describe('Static Methods', () => {
-    describe('findByIdOrShortName', () => {
-      let taskWithShortName, user;
+    describe('findByIdOrAlias', () => {
+      let taskWithAlias, user;
 
       beforeEach(async () => {
         user = new User();
         await user.save();
 
-        taskWithShortName = new Tasks.todo({ // eslint-disable-line babel/new-cap
+        taskWithAlias = new Tasks.todo({ // eslint-disable-line babel/new-cap
           text: 'some text',
-          shortName: 'short-name',
+          alias: 'short-name',
           userId: user.id,
         });
-        await taskWithShortName.save();
+        await taskWithAlias.save();
 
         sandbox.spy(Tasks.Task, 'findOne');
       });
 
       it('throws an error if task identifier is not passed in', async (done) => {
         try {
-          await Tasks.Task.findByIdOrShortName(null, user._id);
+          await Tasks.Task.findByIdOrAlias(null, user._id);
         } catch (err) {
           expect(err).to.exist;
           expect(err).to.eql(new InternalServerError('Task identifier is a required argument'));
@@ -104,7 +104,7 @@ describe('Task Model', () => {
 
       it('throws an error if user identifier is not passed in', async (done) => {
         try {
-          await Tasks.Task.findByIdOrShortName(taskWithShortName._id);
+          await Tasks.Task.findByIdOrAlias(taskWithAlias._id);
         } catch (err) {
           expect(err).to.exist;
           expect(err).to.eql(new InternalServerError('User identifier is a required argument'));
@@ -114,40 +114,40 @@ describe('Task Model', () => {
       });
 
       it('returns task by id', async () => {
-        let foundTodo = await Tasks.Task.findByIdOrShortName(taskWithShortName._id, user._id);
+        let foundTodo = await Tasks.Task.findByIdOrAlias(taskWithAlias._id, user._id);
 
-        expect(foundTodo.text).to.eql(taskWithShortName.text);
+        expect(foundTodo.text).to.eql(taskWithAlias.text);
       });
 
-      it('returns task by shortName', async () => {
-        let foundTodo = await Tasks.Task.findByIdOrShortName(taskWithShortName.shortName, user._id);
+      it('returns task by alias', async () => {
+        let foundTodo = await Tasks.Task.findByIdOrAlias(taskWithAlias.alias, user._id);
 
-        expect(foundTodo.text).to.eql(taskWithShortName.text);
+        expect(foundTodo.text).to.eql(taskWithAlias.text);
       });
 
-      it('scopes shortName lookup to user', async () => {
-        await Tasks.Task.findByIdOrShortName(taskWithShortName.shortName, user._id);
+      it('scopes alias lookup to user', async () => {
+        await Tasks.Task.findByIdOrAlias(taskWithAlias.alias, user._id);
 
         expect(Tasks.Task.findOne).to.be.calledOnce;
         expect(Tasks.Task.findOne).to.be.calledWithMatch({
-          shortName: taskWithShortName.shortName,
+          alias: taskWithAlias.alias,
           userId: user._id,
         });
       });
 
       it('returns null if task cannot be found', async () => {
-        let foundTask = await Tasks.Task.findByIdOrShortName('not-found', user._id);
+        let foundTask = await Tasks.Task.findByIdOrAlias('not-found', user._id);
 
         expect(foundTask).to.eql(null);
       });
 
       it('accepts additional query parameters', async () => {
-        await Tasks.Task.findByIdOrShortName(taskWithShortName.shortName, user._id, { foo: 'bar' });
+        await Tasks.Task.findByIdOrAlias(taskWithAlias.alias, user._id, { foo: 'bar' });
 
         expect(Tasks.Task.findOne).to.be.calledOnce;
         expect(Tasks.Task.findOne).to.be.calledWithMatch({
           foo: 'bar',
-          shortName: taskWithShortName.shortName,
+          alias: taskWithAlias.alias,
           userId: user._id,
         });
       });

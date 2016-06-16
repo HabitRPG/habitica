@@ -18,7 +18,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       let todo = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
-        shortName: 'short-name',
+        alias: 'alias',
       });
 
       let res = await user.post(`/tasks/${todo._id}/score/up`);
@@ -26,14 +26,14 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(res).to.be.ok;
     });
 
-    it('can use a shortName in place of the id', async () => {
+    it('can use a alias in place of the id', async () => {
       let todo = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
-        shortName: 'short-name',
+        alias: 'alias',
       });
 
-      let res = await user.post(`/tasks/${todo.shortName}/score/up`);
+      let res = await user.post(`/tasks/${todo.alias}/score/up`);
 
       expect(res).to.be.ok;
     });

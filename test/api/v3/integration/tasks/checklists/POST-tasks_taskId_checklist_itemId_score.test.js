@@ -28,11 +28,11 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
     expect(savedTask.checklist[0].completed).to.equal(true);
   });
 
-  it('can use a shortName to score a checklist item', async () => {
+  it('can use a alias to score a checklist item', async () => {
     let task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
-      shortName: 'daily-with-shortname',
+      alias: 'daily-with-shortname',
     });
 
     let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
@@ -40,7 +40,7 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
       completed: false,
     });
 
-    savedTask = await user.post(`/tasks/${task.shortName}/checklist/${savedTask.checklist[0].id}/score`);
+    savedTask = await user.post(`/tasks/${task.alias}/checklist/${savedTask.checklist[0].id}/score`);
 
     expect(savedTask.checklist.length).to.equal(1);
     expect(savedTask.checklist[0].completed).to.equal(true);

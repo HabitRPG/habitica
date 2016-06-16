@@ -23,15 +23,15 @@ describe('POST /tasks/:taskId/tags/:tagId', () => {
     expect(savedTask.tags[0]).to.equal(tag.id);
   });
 
-  it('adds a tag to a task with shortName', async () => {
+  it('adds a tag to a task with alias', async () => {
     let task = await user.post('/tasks/user', {
       type: 'habit',
       text: 'Task with tag',
-      shortName: 'habit-with-short-name',
+      alias: 'habit-with-alias',
     });
 
     let tag = await user.post('/tags', {name: 'Tag 1'});
-    let savedTask = await user.post(`/tasks/${task.shortName}/tags/${tag.id}`);
+    let savedTask = await user.post(`/tasks/${task.alias}/tags/${tag.id}`);
 
     expect(savedTask.tags[0]).to.equal(tag.id);
   });
