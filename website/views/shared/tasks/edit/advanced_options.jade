@@ -6,7 +6,7 @@ div(ng-if='::task.type!="reward"')
 
   fieldset.option-group.advanced-option(ng-if="task.userId" ng-show="task._advanced")
     legend.option-title
-      a.hint(href='http://habitica.wikia.com/wiki/Using_a_Task_Alias_in_3rd_Party_Integrations', target='_blank', popover-trigger='mouseenter', popover="{{::env.t('taskAliasPopover')}} {{::task.alias ? '\n\n\' + env.t('taskAliasPopoverWarning') : ''}}")=env.t('taskAlias')
+      a.hint(href='http://habitica.wikia.com/wiki/Task_Alias', target='_blank', popover-trigger='mouseenter', popover="{{::env.t('taskAliasPopover')}} {{::task.alias ? '\n\n\' + env.t('taskAliasPopoverWarning') : ''}}")=env.t('taskAlias')
     input.form-control(ng-model='task.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
 
   div(ng-show='task._advanced')
