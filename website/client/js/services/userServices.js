@@ -600,9 +600,17 @@ angular.module('habitrpg')
       };
 
       //load settings if we have them
-      if (localStorage.getItem(STORAGE_SETTINGS_ID)) {
+      var storedSettings;
+      try {
+        storedSettings = localStorage.getItem(STORAGE_SETTINGS_ID) || {};
+        storedSettings = JSON.parse(storedSettings);
+      } catch (e) {
+        storedSettings = {};
+      }
+
+      if (storedSettings.auth && storedSettings.auth.apiId && storedSettings.auth.apiToken) {
         //use extend here to make sure we keep object reference in other angular controllers
-        _.extend(settings, JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID)));
+        _.extend(settings, storedSettings);
 
         //if settings were saved while fetch was in process reset the flag.
         settings.fetching = false;
@@ -613,7 +621,7 @@ angular.module('habitrpg')
       }
 
       //If user does not have ApiID that forward him to settings.
-      if (!settings.auth.apiId || !settings.auth.apiToken) {
+      if (!settings || !settings.auth || !settings.auth.apiId || !settings.auth.apiToken) {
         //var search = $location.search(); // FIXME this should be working, but it's returning an empty object when at a root url /?_id=...
         var search = $location.search($window.location.search.substring(1)).$$search; // so we use this fugly hack instead
         if (search.err) return alert(search.err);
