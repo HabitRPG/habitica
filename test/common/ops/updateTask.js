@@ -24,6 +24,7 @@ describe('shared.ops.updateTask', () => {
         text: 'updated',
         id: '123',
         _id: '123',
+        shortName: 'short-name',
         type: 'todo',
         tags: ['678'],
         checklist: [{
@@ -38,6 +39,7 @@ describe('shared.ops.updateTask', () => {
     expect(res._id).to.not.equal('123');
     expect(res.type).to.equal('habit');
     expect(res.text).to.equal('updated');
+    expect(res.shortName).to.eql('short-name');
     expect(res.checklist).to.eql([{
       completed: false,
       text: 'item',
