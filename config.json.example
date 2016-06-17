@@ -66,7 +66,8 @@
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
         "APN_PEM_FILES": {
-          "KEY": "",
+          "KEY_PART_1": "",
+          "KEY_PART_2": "",
           "CERT": ""
         }
     },

@@ -10,17 +10,19 @@ let gcm = GCM_API_KEY ? pushNotify.gcm({
   retries: 3,
 }) : undefined;
 
-let APN_KEY = nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY');
+const APN_CERT = nconf.get('PUSH_CONFIGS:APN_PEM_FILES:CERT');
 
-let apn = APN_KEY ? pushNotify.apn({
-  key: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY'),
-  cert: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:CERT'),
+// Split key into two parts, because we have to stay below 4096 bytes for env
+// Variables.
+let apn = APN_CERT ? pushNotify.apn({
+  key: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_1') + nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PARTY_2'),
+  cert: APN_CERT,
 }) : undefined;
 
 if (apn) {
   let feedback = new apnLib.Feedback({
-    key: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY'),
-    cert: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:CERT'),
+    key: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_1') + nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PARTY_2'),
+    cert: APN_CERT,
     batchFeedback: true,
     interval: 3600, // Check for feedback once an hour
   });
