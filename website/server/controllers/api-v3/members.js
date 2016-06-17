@@ -208,8 +208,8 @@ api.getMembersForChallenge = {
 /**
  * @api {get} /api/v3/challenges/:challengeId/members/:memberId Get a challenge member progress
  * @apiVersion 3.0.0
- * @apiName GetChallenge
- * @apiGroup Challenge
+ * @apiName GetChallengeMemberProgress
+ * @apiGroup Member
  *
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {UUID} member The member _id
@@ -262,7 +262,7 @@ api.getChallengeMemberProgress = {
  * @api {posts} /api/v3/members/send-private-message Send a private message to a member
  * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
- * @apiGroup Members
+ * @apiGroup Member
  *
  * @apiParam {String} message Body parameter - The message
  * @apiParam {UUID} toUserId Body parameter - The user to contact
@@ -311,7 +311,7 @@ api.sendPrivateMessage = {
  * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiVersion 3.0.0
  * @apiName TransferGems
- * @apiGroup Members
+ * @apiGroup Member
  *
  * @apiParam {String} message Body parameter The message
  * @apiParam {UUID} toUserId Body parameter The toUser _id
