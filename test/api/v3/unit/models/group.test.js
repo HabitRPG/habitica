@@ -269,8 +269,6 @@ describe('Group Model', () => {
         });
 
         it('gives out rewards when quest finishes', async () => {
-          let quest = questScrolls[party.quest.key];
-
           progress.up = 999;
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -417,8 +415,6 @@ describe('Group Model', () => {
         });
 
         it('gives out rewards when quest finishes', async () => {
-          let quest = questScrolls[party.quest.key];
-
           progress.collectedItems = 999;
 
           await Group.processQuestProgress(participatingMember, progress);
