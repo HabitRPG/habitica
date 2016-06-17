@@ -39,41 +39,41 @@ describe('pushNotifications', () => {
   });
 
   it('returns if user is not supplied', () => {
-    sendPushNotification();
+    expect(sendPushNotification).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
   it('returns if user.preferences.pushNotifications.unsubscribeFromAll is true', () => {
     user.preferences.pushNotifications.unsubscribeFromAll = true;
-    sendPushNotification(user);
+    expect(() => sendPushNotification(user)).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
   it('returns if details.identifier is not supplied', () => {
-    sendPushNotification(user, {
+    expect(() => sendPushNotification(user, {
       title,
       message,
-    });
+    })).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
   it('returns if details.title is not supplied', () => {
-    sendPushNotification(user, {
+    expect(() => sendPushNotification(user, {
       identifier,
       message,
-    });
+    })).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
   it('returns if details.message is not supplied', () => {
-    sendPushNotification(user, {
+    expect(() => sendPushNotification(user, {
       identifier,
       title,
-    });
+    })).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });

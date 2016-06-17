@@ -46,13 +46,13 @@ if (apn) {
 }
 
 module.exports = function sendNotification (user, details = {}) {
-  if (!user) return;
+  if (!user) throw new Error('User is required.');
   if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
   let pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
 
-  if (!details.identifier) return;
-  if (!details.title) return;
-  if (!details.message) return;
+  if (!details.identifier) throw new Error('details.identifier is required.');
+  if (!details.title) throw new Error('details.title is required.');
+  if (!details.message) throw new Error('details.message is required.');
 
   let payload = details.payload ? details.payload : {};
   payload.identifier = details.identifier;
