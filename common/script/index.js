@@ -23,7 +23,7 @@ import {
   MAX_LEVEL,
   MAX_STAT_POINTS,
   TAVERN_ID,
-  INVALID_DOMAINS
+  INVALID_DOMAINS,
 } from './constants';
 api.maxLevel = MAX_LEVEL;
 api.maxHealth = MAX_HEALTH;
