@@ -1,8 +1,7 @@
-/* eslint-disable */
-
 import _ from 'lodash';
 import nconf from 'nconf';
 import pushNotify from 'push-notify';
+import apnLib from 'apn';
 
 const GCM_API_KEY = nconf.get('PUSH_CONFIGS:GCM_SERVER_API_KEY');
 
@@ -11,47 +10,64 @@ let gcm = GCM_API_KEY ? pushNotify.gcm({
   retries: 3,
 }) : undefined;
 
-// TODO review and test this file when push notifications are added back
+const APN_CERT = nconf.get('PUSH_CONFIGS:APN_PEM_FILES:CERT');
 
-if (gcm) {
-  gcm.on('transmitted', (/* result, message, registrationId */) => {
-    // console.info("transmitted", result, message, registrationId);
+// Split key into two parts, because we have to stay below 4096 bytes for env
+// Variables.
+let apn = APN_CERT ? pushNotify.apn({
+  key: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_1') + nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PARTY_2'),
+  cert: APN_CERT,
+}) : undefined;
+
+if (apn) {
+  let feedback = new apnLib.Feedback({
+    key: nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_1') + nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PARTY_2'),
+    cert: APN_CERT,
+    batchFeedback: true,
+    interval: 3600, // Check for feedback once an hour
   });
-
-  gcm.on('transmissionError', (/* error, message, registrationId */) => {
-    // console.info("transmissionError", error, message, registrationId);
-  });
-
-  gcm.on('updated', (/* result, registrationId */) => {
-    // console.info("updated", result, registrationId);
+  feedback.on('feedback', () => {
+    // console.log("GOT FEEDBACK");
+    // console.log(devices);
   });
 }
 
-module.exports = function sendNotification (user, title, message, timeToLive = 15) {
-  return; // TODO push notifications are not currently enabled
-
+module.exports = function sendNotification (user, details = {}) {
   if (!user) return;
+  if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
   let pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
 
+  if (!details.identifier) return;
+  if (!details.title) return;
+  if (!details.message) return;
+
+  let payload = details.payload ? details.payload : {};
+  payload.identifier = details.identifier;
   _.each(pushDevices, pushDevice => {
     switch (pushDevice.type) {
       case 'android':
         if (gcm) {
+          payload.title = details.title;
+          payload.message = details.message;
           gcm.send({
             registrationId: pushDevice.regId,
-            // collapseKey: 'COLLAPSE_KEY',
             delayWhileIdle: true,
-            timeToLive,
-            data: {
-              title,
-              message,
-            },
+            timeToLive: details.timeToLive ? details.timeToLive : 15,
+            data: payload,
           });
         }
-
         break;
 
       case 'ios':
+        if (apn) {
+          apn.send({
+            token: pushDevice.regId,
+            alert: details.message,
+            sound: 'default',
+            category: details.category,
+            payload,
+          });
+        }
         break;
     }
   });

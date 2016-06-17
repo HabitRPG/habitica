@@ -20,7 +20,6 @@ import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
-import common from '../../../../common';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
 let api = {};
 
@@ -537,11 +536,18 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     sendTxnEmail(userToInvite, `invited-${groupTemplate}`, emailVars);
   }
 
-  sendPushNotification(
-    userToInvite,
-    common.i18n.t(group.type === 'guild' ? 'invitedGuild' : 'invitedParty'),
-    group.name
-  );
+  if (userToInvite.preferences.pushNotifications[`invited${groupLabel}`] !== false) {
+    let identifier = group.type === 'guild' ? 'invitedGuild' : 'invitedParty';
+    sendPushNotification(
+      userToInvite,
+      {
+        title: group.name,
+        message: res.t(identifier),
+        identifier,
+        payload: {groupID: group._id},
+      }
+    );
+  }
 
   let userInvited = await userToInvite.save();
   if (group.type === 'guild') {
