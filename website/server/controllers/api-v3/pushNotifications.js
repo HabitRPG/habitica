@@ -27,7 +27,7 @@ api.addPushDevice = {
     let user = res.locals.user;
 
     req.checkBody('regId', res.t('regIdRequired')).notEmpty();
-    req.checkBody('type', res.t('typeRequired')).notEmpty();
+    req.checkBody('type', res.t('typeRequired')).notEmpty().isIn(['ios', 'android']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

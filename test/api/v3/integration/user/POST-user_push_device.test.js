@@ -30,6 +30,15 @@ describe('POST /user/push-devices', () => {
       });
   });
 
+  it('returns an error when type is not valid', async () => {
+    await expect(user.post('/user/push-devices', {regId, type: 'invalid'}))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'Invalid request parameters.',
+      });
+  });
+
   it('returns an error if user already has the push device', async () => {
     await user.post('/user/push-devices', {type, regId});
     await expect(user.post('/user/push-devices', {type, regId}))

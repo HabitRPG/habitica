@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 export let schema = new Schema({
   regId: {type: String, required: true},
-  type: {type: String},
+  type: {type: String, required: true, enum: ['ios', 'android']},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
