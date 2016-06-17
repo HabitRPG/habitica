@@ -268,6 +268,29 @@ describe('Group Model', () => {
           expect(finishQuest).to.be.calledWith(quest);
         });
 
+        it('gives out rewards when quest finishes', async () => {
+          let quest = questScrolls[party.quest.key];
+
+          progress.up = 999;
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          let [
+            updatedLeader,
+            updatedParticipatingMember,
+          ] = await Promise.all([
+            User.findById(questLeader._id),
+            User.findById(participatingMember._id),
+          ]);
+
+          expect(updatedLeader.achievements.quests[party.quest.key]).to.eql(1);
+          expect(updatedLeader.stats.exp).to.be.greaterThan(0);
+          expect(updatedLeader.stats.gp).to.be.greaterThan(0);
+          expect(updatedParticipatingMember.achievements.quests[party.quest.key]).to.eql(1);
+          expect(updatedParticipatingMember.stats.exp).to.be.greaterThan(0);
+          expect(updatedParticipatingMember.stats.gp).to.be.greaterThan(0);
+        });
+
         context('with Rage', () => {
           beforeEach(async () => {
             party.quest.active = false;
@@ -385,12 +408,35 @@ describe('Group Model', () => {
           let quest = questScrolls[party.quest.key];
           let finishQuest = sandbox.spy(Group.prototype, 'finishQuest');
 
-          progress.collectedItems = 999; // TODO should this be collectedItems? What is this testing?
+          progress.collectedItems = 999;
 
           await Group.processQuestProgress(participatingMember, progress);
 
           expect(finishQuest).to.be.calledOnce;
           expect(finishQuest).to.be.calledWith(quest);
+        });
+
+        it('gives out rewards when quest finishes', async () => {
+          let quest = questScrolls[party.quest.key];
+
+          progress.collectedItems = 999;
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          let [
+            updatedLeader,
+            updatedParticipatingMember,
+          ] = await Promise.all([
+            User.findById(questLeader._id),
+            User.findById(participatingMember._id),
+          ]);
+
+          expect(updatedLeader.achievements.quests[party.quest.key]).to.eql(1);
+          expect(updatedLeader.stats.exp).to.be.greaterThan(0);
+          expect(updatedLeader.stats.gp).to.be.greaterThan(0);
+          expect(updatedParticipatingMember.achievements.quests[party.quest.key]).to.eql(1);
+          expect(updatedParticipatingMember.stats.exp).to.be.greaterThan(0);
+          expect(updatedParticipatingMember.stats.gp).to.be.greaterThan(0);
         });
       });
     });
