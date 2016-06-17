@@ -116,20 +116,6 @@ let _sendDataToAmplitude = (eventType, data) => {
   });
 };
 
-let _generateCategoryForGoogleAnalytics = (data) => {
-  let category;
-
-  if (data.category) {
-    category = data.category;
-  } else if (data.gaCategory) {
-    category = data.gaCategory;
-  } else {
-    category = 'behavior';
-  }
-
-  return category;
-};
-
 let _generateLabelForGoogleAnalytics = (data) => {
   let label;
 
@@ -158,7 +144,7 @@ let _generateValueForGoogleAnalytics = (data) => {
 
 let _sendDataToGoogle = (eventType, data) => {
   let eventData = {
-    ec: _generateCategoryForGoogleAnalytics(data);
+    ec: data.category || data.gaCategory || 'behavior',
     ea: eventType,
   };
 
