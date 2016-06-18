@@ -97,6 +97,7 @@ angular.module('habitrpg')
 
     function initQuest(key) {
       return $q(function(resolve, reject) {
+        let party = User.user.party;
         Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'quest', 'owner':true, 'response':'accept', 'questName': key});
         Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
         Groups.Group.inviteToQuest(party._id, key)

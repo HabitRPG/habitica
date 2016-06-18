@@ -38,10 +38,14 @@ habitrpg.controller("InventoryCtrl",
     $scope.questInit = function() {
       var key = $rootScope.selectedQuest.key;
 
-      Quests.initQuest(key).then(function() {
-        $rootScope.selectedQuest = undefined;
-        $scope.$close();
-      });
+      if( User.user.party._id ) {
+        Quests.initQuest(key).then(function() {
+          $rootScope.selectedQuest = undefined;
+          $scope.$close();
+        });
+      } else {
+        $window.alert(window.env.t('needPartyToStartQuest'))
+      }
     };
 
     // count egg, food, hatchingPotion stack totals

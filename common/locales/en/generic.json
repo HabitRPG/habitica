@@ -71,6 +71,7 @@
     "buyMoreGems": "Buy More Gems",
     "notEnoughGems": "Not enough Gems",
     "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "needPartyToStartQuest": "Whoops! You need to create or join a party before you can start a quest!",
     "delete": "Delete",
     "gemsPopoverTitle": "Gems",
     "gems": "Gems",
