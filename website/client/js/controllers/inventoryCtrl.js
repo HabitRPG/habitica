@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social', 'Notification',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social, Notification) {
 
     var user = User.user;
 
@@ -44,7 +44,7 @@ habitrpg.controller("InventoryCtrl",
           $scope.$close();
         });
       } else {
-        $window.alert(window.env.t('needPartyToStartQuest'))
+        Notification.text((env.t('needPartyToStartQuest')));
       }
     };
 
