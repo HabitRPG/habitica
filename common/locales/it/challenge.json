@@ -74,10 +74,10 @@
     "onlyLeaderDeleteChal": "Solo il leader della sfida può cancellarla.",
     "onlyLeaderUpdateChal": "Solo il leader della sfida può aggiornarla.",
     "winnerNotFound": "Vincitore con id \"<%= userId %>\" non trovato o non ha partecipato a questa sfida.",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching challenge tasks.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
     "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
-    "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
+    "onlyChalLeaderEditTasks": "I compiti appartenenti a una sfida possono essere modificati solo dal leader.",
     "userAlreadyInChallenge": "L'utente sta già partecipando a questa sfida.",
     "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
-    "shortNameTooShort": "Tag Name must have at least 3 characters."
+    "shortNameTooShort": "Il nome dell'etichetta deve avere almeno 3 caratteri."
 }

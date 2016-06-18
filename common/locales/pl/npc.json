@@ -27,7 +27,7 @@
     "missingTypeKeyEquip": "Wymagane parametry \"key\" oraz\" type\".",
     "missingPetFoodFeed": "Wymagane parametry \"pet\" oraz \"food\".",
     "invalidPetName": "Podano niepoprawną nazwę chowańca.",
-    "missingEggHatchingPotionHatch": "\"egg\" and \"hatchingPotion\" are required parameters.",
+    "missingEggHatchingPotionHatch": "Wymagane parametry \"egg\" oraz \"hatchingPotion\".",
     "invalidTypeEquip": "\"type\" must be one of 'equipped', 'pet', 'mount', 'costume'.",
     "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>.",
     "typeRequired": "Wymagany typ.",

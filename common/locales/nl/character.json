@@ -168,5 +168,5 @@
     "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
     "quickAllocationLevelPopover": "Met ieder level verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker.",
     "invalidAttribute": "\"<%= attr %>\" is geen geldige eigenschap.",
-    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschap punten"
+    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten"
 }

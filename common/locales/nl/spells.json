@@ -55,5 +55,5 @@
     "targetIdUUID": "\"targetId\" moet een valide User ID zijn.",
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan",
     "spellNotOwned": "Je bezit deze vaardigheid niet.",
-    "spellLevelTooHigh": "Je niet niveau <%= level %> zijn om deze vaardigheid te kunnen gebruiken."
+    "spellLevelTooHigh": "Je moet niveau <%= level %> zijn om deze vaardigheid te kunnen gebruiken."
 }

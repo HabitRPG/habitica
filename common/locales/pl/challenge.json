@@ -74,7 +74,7 @@
     "onlyLeaderDeleteChal": "Tylko przywódca wyzwania może je usunąć.",
     "onlyLeaderUpdateChal": "Tylko przywódca wyzwania może je zaktualizować.",
     "winnerNotFound": "Zwycięzca o numerze ID \"<%= userId %>\" nie znaleziony jako uczestnik wyzwania.",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" nie wspierany podczas odbierania zadań wyzwania.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
     "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
     "onlyChalLeaderEditTasks": "Zadanie należące do wyzwania może być zmieniane jedynie przez przywódcę.",
     "userAlreadyInChallenge": "Użytkownik bierze już udział w tym wyzwaniu.",
