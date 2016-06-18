@@ -5,7 +5,7 @@
     "annoyingFriends": "Otravní kamaráti",
     "annoyingFriendsText": "<%= snowballs %>-krát schytal snehovou guľou od člena družiny.",
     "alarmingFriends": "Znepokojujúci priatelia",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "Členovia družiny ťa vystrašili <%= spookySparkles %> krát.",
     "agriculturalFriends": "Poľnohospodárski priatelia",
     "agriculturalFriendsText": "Členovia družiny ťa premenili na kvetinu <%= seeds %> krát.",
     "aquaticFriends": "Vodní priatelia",

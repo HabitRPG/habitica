@@ -74,7 +74,7 @@
     "onlyLeaderDeleteChal": "Len majiteľ výzvy môže výzvu vymazať. ",
     "onlyLeaderUpdateChal": "Len majiteľ výzvy môže výzvu aktualizovať.",
     "winnerNotFound": "Víťaz s ID \"<%= userId %>\" nebol nájdený alebo sa nezúčastnil výzvy.",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching challenge tasks.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
     "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
     "onlyChalLeaderEditTasks": "Úloha patriaca k výzve môže byť upravená len majiteľom.",
     "userAlreadyInChallenge": "Užívateľ sa už účastní tejto výzvy.",

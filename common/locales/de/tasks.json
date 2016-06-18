@@ -20,6 +20,10 @@
     "extraNotes": "Zusatznotizen",
     "direction/Actions": "Leitung/Aktionen",
     "advancedOptions": "Erweiterte Optionen",
+    "taskAlias": "Task Alias",
+    "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
+    "taskAliasPlaceholder": "your-task-alias-here",
+    "taskAliasPopoverWarning": "WARNING: Changing this value will break any 3rd party integrations that rely on the task alias.",
     "difficulty": "Schwierigkeit",
     "difficultyHelpTitle": "Wie schwer ist die Aufgabe?",
     "difficultyHelpContent": "Je schwieriger eine Aufgabe ist, desto mehr Erfahrung und Gold bekommst Du, wenn Du sie abhakst ... aber sie verursacht auch umso mehr Schaden, wenn es eine tägliche Aufgabe oder schlechte Gewohnheit ist!",
@@ -113,6 +117,7 @@
     "rewardHelp4": "Scheue Dich nicht davor eigene Belohnungen hinzuzufügen! Sieh Dir einige <a href='http://de.habitica.wikia.com/wiki/Beispiele_f%C3%BCr_selbsterstellte_Belohnungen' target='_blank'>Beispielbelohnungen</a> durch.",
     "clickForHelp": "Klicke hier für Hilfe",
     "taskIdRequired": "\"taskId\" muss eine gültige UUID sein.",
+    "taskAliasAlreadyUsed": "Task alias already used on another task.",
     "taskNotFound": "Aufgabe nicht gefunden.",
     "invalidTaskType": "Task-Typ muss eines der folgenden sein: \"Gewohnheit\", \"tägliche Aufgabe\", \"To-Do\", \"Belohnung\".",
     "cantDeleteChallengeTasks": "Eine Aufgabe, die zu einem Wettbewerb gehört, kann nicht gelöscht werden.",
@@ -128,5 +133,5 @@
     "strengthExample": "Alles was mit Sport oder sonstigen Aktivitäten zu tun hat.",
     "intelligenceExample": "Alles was mit Schule zu tun hat oder sonst Deinen Kopf anstrengt",
     "perceptionExample": "Alles was mit Arbeit oder Finanzen zu tun hat",
-    "constitutionExample": "Alles was mit Gesundheit, Wellness und sozialen Kontakten zu tun hat."
+    "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat."
 }

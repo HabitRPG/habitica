@@ -1,5 +1,5 @@
 {
-  "habiticaBackSoon": "心配しないでください、ハビティカもすぐに換えてします！",
+  "habiticaBackSoon": "ご心配なく！Habiticaはすぐに帰ってきます！",
   "importantMaintenance": "重要なメンテナンスをしています。あなたの地域の時間で<%= localDate %>に終了する予定です。",
   "maintenance": "メンテナンス",
   "maintenanceMoreInfo": "メンテナンスに対する詳しい情報が必要ですか？<%= linkStart %>公式の情報をご参照下さい<%= linkEnd %>。",
@@ -10,9 +10,9 @@
 
   "maintenanceInfoTitle": "Habiticaの次回メンテナンスについての情報",
   "maintenanceInfoWhat": "何が起こりましたか？",
-  "maintenanceInfoWhatText": "On May 21, Habitica will be down for maintenance for most of the day. You will not take any damage or have your account harmed during that weekend, even if you can’t log in to check off your Dailies in time! We will be working very hard to make the downtime as short as possible, and will be posting regular updates on <a href='https://twitter.com/habitica' target='_blank'>our Twitter account</a>. At the end of the downtime, to thank everyone for their patience, you will all receive a rare pet!",
-  "maintenanceInfoWhy": "Why is this happening?",
-  "maintenanceInfoWhyText": "For the past several months, we have been thoroughly revamping Habitica behind-the-scenes. Specifically, we have rewritten the API. While it may not look much different on the surface, it’s a whole new world underneath. This will allow us WAY more flexibility when we want to build features in the future, and lead to improved performance!",
+  "maintenanceInfoWhatText": "5月21日、Habiticaはメンテナンスのために終日アクセスできなくなります。プレイヤーはこの週末の期間中、日課をチェック出来なくてもあらゆるダメージを受けませんし、アカウントに害もありません！私たちはできるだけメンテナンス時間を減らすよう一生懸命努力します。アップデートの内容は、 <a href='https://twitter.com/habitica' target='_blank'>公式ツイッターアカウント</a>に投稿されます。メンテナンス終了後、我慢していただいたお礼としてレアペットを配布します。",
+  "maintenanceInfoWhy": "何が起こりましたか？",
+  "maintenanceInfoWhyText": "この過去数カ月間で、私達はHabiticaのシステムを徹底的に改修しました。特筆すべきは、APIを書き直したことです。表面上はあまり変化はありませんが、その下には新しい世界が隠れているのです。この改修は私達が新たなコンテンツをこの先作ろうとする時、新たな道を開いてくれるでしょう。そして性能も改善されていくはずです！",
   "maintenanceInfoTechDetails": "Want more details on the technical side of the process? Visit <a href='http://devs.habitica.com/' target='_blank'>The Forge, our dev blog</a>.",
   "maintenanceInfoMore": "More Information",
   "maintenanceInfoAccountChanges": "What changes will I see to my account after the rewrite is complete?",

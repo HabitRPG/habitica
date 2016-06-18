@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "3.12.0",
+  "version": "3.13.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "accepts": "^1.3.2",
@@ -130,7 +130,7 @@
     "coveralls": "^2.11.2",
     "csv": "~0.3.6",
     "deep-diff": "~0.1.4",
-    "eslint": "^2.10.1",
+    "eslint": "~2.12.0",
     "eslint-config-habitrpg": "^1.0.0",
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-mocha": "^2.1.0",

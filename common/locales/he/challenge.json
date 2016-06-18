@@ -74,7 +74,7 @@
     "onlyLeaderDeleteChal": "רק מנהיג/ת האתגר יכול/ה למחוק אותו.",
     "onlyLeaderUpdateChal": "רק מנהיג/ת האתגר יכול/ה לעדכן אותו.",
     "winnerNotFound": "מנצח/ת עם זהות משתמש \"<%= userId %>\" לא נמצא או לא חלק מהאתגר.",
-    "noCompletedTodosChallenge": "\"includeCompletedTodos\" איננו נמתמך בעת הבאת משימות אתגר.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" איננו נתמך בעת הבאת משימות אתגר.",
     "userTasksNoChallengeId": "כאשר \"tasksOwner\" הוא/היא \"user\" \"challengeId\" איננו יכול לעבור.",
     "onlyChalLeaderEditTasks": "מטלות השייכות לאתגר יכולות לעבור עריכה רק על ידי המנהיג/ה.",
     "userAlreadyInChallenge": "המשתמשים כבר משתתפים באתגר הזה.",
