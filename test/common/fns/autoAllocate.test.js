@@ -12,8 +12,8 @@ describe('shared.fns.autoAllocate', () => {
     user.stats.toObject = function () {
       let obj = JSON.parse(JSON.stringify(this));
 
-      return obj
-    }
+      return obj;
+    };
   });
 
   context('flat allocation mode', () => {
