@@ -74,7 +74,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      * Add the new task to the actions log
      */
     $scope.clearDoneTodos = function() {
+      if (!confirm(window.env.t('sureDeleteCompletedTodos'))) {
+        return;
+      }
       Tasks.clearCompletedTodos();
+      User.user.todos = _.reject(User.user.todos, 'completed');
     };
 
     /**
