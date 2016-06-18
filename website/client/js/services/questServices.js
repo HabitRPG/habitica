@@ -5,12 +5,6 @@ angular.module('habitrpg')
   function questsFactory($http, $state, $q, ApiUrl, Content, Groups, User, Analytics) {
 
     var user = User.user;
-    var party;
-
-    Groups.party()
-      .then(function (partyFound) {
-        party = partyFound;
-      });
 
     function lockQuest(quest,ignoreLevel) {
       if (!ignoreLevel){
@@ -47,7 +41,7 @@ angular.module('habitrpg')
 
         if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
           if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
-          Groups.inviteOrStartParty(party)
+          Groups.inviteOrStartParty(user.party)
           return reject('Invite or start party');
         }
 
@@ -97,7 +91,7 @@ angular.module('habitrpg')
 
     function initQuest(key) {
       return $q(function(resolve, reject) {
-        let party = User.user.party;
+        var party = user.party;
         Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'quest', 'owner':true, 'response':'accept', 'questName': key});
         Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
         Groups.Group.inviteToQuest(party._id, key)
@@ -112,13 +106,13 @@ angular.module('habitrpg')
 
     function sendAction(action) {
       return $q(function(resolve, reject) {
-        $http.post(ApiUrl.get() + '/api/v3/groups/' + party._id + '/' + action)
+        $http.post(ApiUrl.get() + '/api/v3/groups/' + user.party._id + '/' + action)
           .then(function(response) {
             User.sync();
 
             Analytics.updateUser({
-              partyID: party._id,
-              partySize: party.memberCount
+              partyID: user.party._id,
+              partySize: user.party.memberCount
             });
 
             var quest = response.data.quest;
