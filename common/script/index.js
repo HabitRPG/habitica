@@ -138,7 +138,6 @@ import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
 import updateTask from './ops/updateTask';
-import clearCompleted from './ops/clearCompleted';
 import sell from './ops/sell';
 import unlock from './ops/unlock';
 import revive from './ops/revive';
@@ -179,7 +178,6 @@ api.ops = {
   releaseBoth,
   releaseMounts,
   updateTask,
-  clearCompleted,
   sell,
   unlock,
   revive,
@@ -256,7 +254,6 @@ api.wrap = function wrapUser (user, main = true) {
       reroll: _.partial(importedOps.reroll, user),
       rebirth: _.partial(importedOps.rebirth, user),
       allocateNow: _.partial(importedOps.allocateNow, user),
-      clearCompleted: _.partial(importedOps.clearCompleted, user),
       sortTask: _.partial(importedOps.sortTask, user),
       updateTask: _.partial(importedOps.updateTask, user),
       deleteTask: _.partial(importedOps.deleteTask, user),

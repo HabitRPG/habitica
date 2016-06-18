@@ -292,11 +292,6 @@ angular.module('habitrpg')
           Tasks.deleteTask(data.params.id);
         },
 
-        clearCompleted: function () {
-          user.ops.clearCompleted(user.todos);
-          Tasks.clearCompletedTodos();
-        },
-
         readNotification: function (notificationId) {
           UserNotifications.readNotification(notificationId);
         },
