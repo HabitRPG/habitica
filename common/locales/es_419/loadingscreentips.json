@@ -1,5 +1,5 @@
 {
-  "tipTitle": "Consejo #<%=tipNumber%>",
+  "tipTitle": "Consejo #<%= tipNumber %>",
   "tip1": "verificar las misiones y avanza con la aplicacion de Habitica mobile ",
   "tip2": "Alcanza el nivel 100 para desbloquear  el orbe del renacimiento gratis y empezar una nueva aventura",
   "tip3": "Usa a emoji para rapidamente diferenciarte entre tus misiones",
@@ -10,8 +10,7 @@
   "tip8": "Envia un mensaje privado a alguien haciendo click puesto cerca de su nombre en el mensaje!",
   "tip9": "Visita el gremio Pirate Cove por consejos iniciandote en el gremio",
   "tip10": "Tu puedes ganar gemas compitiendo en desafios. adquiirendo uno nuevo cada dia!",
-  "tip11": "Si tu disfrutas vistiendo tu avatar, evalua los trajes del gremio carnival.
-",
+  "tip11": "Si tu disfrutas vistiendo tu avatar, evalua los trajes del gremio carnival.",
   "tip12": "Unete en \"Acepta el desafio\" el gremio por regularidad tiene horarios de desafios aleatorios ",
   "tip13": "Teniendo mas de cuatro miembros incrementa tu contabilidad",
   "tip14": "Tu puedes agregar encabezados o citas de inspiracion en tu lista como hábito sin (+/-).",
