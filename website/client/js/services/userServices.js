@@ -41,7 +41,6 @@ angular.module('habitrpg')
       user._wrapped = false;
 
       function syncUserTasks (tasks) {
-        tasks = tasks.concat(_.filter(user.todos, 'completed')); // haven't loaded in the completed todos yet so we need to keep them from memory
         user.habits = [];
         user.todos = [];
         user.dailys = [];
@@ -71,6 +70,7 @@ angular.module('habitrpg')
       }
 
       function sync() {
+        var tasks;
         return $http({
           method: "GET",
           url: '/api/v3/user/',
@@ -104,19 +104,29 @@ angular.module('habitrpg')
 
           return Tasks.getUserTasks();
         })
-        // refresh all tasks but completed todos
+        // refresh all but completed todos
         .then(function (response) {
-          var tasks = response.data.data;
-          syncUserTasks(tasks);
-          return Tasks.getUserTasks(true)
+          tasks = response.data.data;
+
+          // only refresh completed todos if the user has the completed tabs list open
+          var taskButton = document.getElementById('completedTasksButton');
+          if (taskButton && taskButton.classList.contains('active')) {
+            return Tasks.getUserTasks(true)
+          }
         })
         // refresh completed todos
         .then(function (response) {
-          user.todos = _.reject(user.todos, 'completed') // clear the completed todo data before adding the refreshed data
-          user.todos = user.todos.concat(response.data.data);
-          Tasks.loadedCompletedTodos = true;
+          if (response) {
+            tasks = tasks.concat(response.data.data);
+            Tasks.loadedCompletedTodos = true;
+          }
+          // if we didn't refresh the completed todos, let the window know that it needs to reload them when selected
+          else {
+            Tasks.loadedCompletedTodos = false;
+          }
         })
         .then(function() {
+          syncUserTasks(tasks);
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
           $rootScope.$emit('userUpdated', user);
