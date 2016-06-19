@@ -22,8 +22,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         $rootScope.pageTitle = $state.current.title;
 
         if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
-        // clear inbox when entering or exiting inbox tab
-        if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {
+        // clear inbox when entering inbox tab
+        if (toState.name=='options.social.inbox') {
           User.clearNewMessages();
         }
       });

@@ -106,6 +106,9 @@ angular.module('habitrpg')
         .then(function (response) {
           var tasks = response.data.data;
           syncUserTasks(tasks);
+          if ($rootScope.$state && $rootScope.$state.current.name=='options.social.inbox') {
+            userServices.clearNewMessages();
+          }
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
           $rootScope.$emit('userUpdated', user);
