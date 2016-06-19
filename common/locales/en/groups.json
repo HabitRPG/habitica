@@ -28,6 +28,7 @@
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "wantExistingParty": "Want to join an existing party? Go to the <%= linkStart %>Party Wanted Guild<%= linkEnd %> and post this User ID:",
     "joinExistingParty": "Join Someone Else's Party",
+    "needPartyToStartQuest": "Whoops! You need to <a href='http://habitica.wikia.com/wiki/Party' target='_blank'>create or join a party</a> before you can start a quest!",
     "create": "Create",
     "userId": "User ID",
     "invite": "Invite",
