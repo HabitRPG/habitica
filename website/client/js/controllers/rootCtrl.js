@@ -22,8 +22,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         $rootScope.pageTitle = $state.current.title;
 
         if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
-        // clear inbox when entering inbox tab
-        if (toState.name=='options.social.inbox') {
+        if (toState.name=='options.social.inbox' && User.user.inbox && User.user.inbox.newMessages > 0) {
           User.clearNewMessages();
         }
       });
@@ -44,7 +43,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.toJson = angular.toJson;
     $rootScope.Payments = Payments;
     $rootScope.userNotifications = [];
-    
+
     // Angular UI Router
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
