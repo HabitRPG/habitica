@@ -71,7 +71,7 @@
     "buyMoreGems": "Buy More Gems",
     "notEnoughGems": "Not enough Gems",
     "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
-    "needPartyToStartQuest": "Whoops! You need to create or join a party before you can start a quest!",
+    "needPartyToStartQuest": "<a href='http://habitica.wikia.com/wiki/Party'>Whoops! You need to create or join a party before you can start a quest!</a>",
     "delete": "Delete",
     "gemsPopoverTitle": "Gems",
     "gems": "Gems",
