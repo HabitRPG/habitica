@@ -25,6 +25,9 @@ const Schema = mongoose.Schema;
 export const INVITES_LIMIT = 100;
 export const TAVERN_ID = shared.TAVERN_ID;
 
+const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
+const LARGE_GROUP_CUTOFF = 5000; // Guilds larger than 5000 cannot receive notifications.
+
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
@@ -81,6 +84,12 @@ export let schema = new Schema({
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  toObject: {
+    virtuals: true,
+  },
+  toJSON: {
+    virtuals: true,
+  },
 });
 
 schema.plugin(baseModel, {
@@ -300,7 +309,9 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
-const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
+schema.virtual('isTooLargeForChatNotifications').get(function isTooLargeForChatNotifications () {
+  return this.memberCount > LARGE_GROUP_CUTOFF;
+});
 
 schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
@@ -311,7 +322,7 @@ schema.methods.sendChat = function sendChat (message, user) {
   lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
-  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > 5000) {
+  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.isTooLargeForChatNotifications) {
     // TODO For Tavern, only notify them if their name was mentioned
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
