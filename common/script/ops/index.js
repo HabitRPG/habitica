@@ -5,7 +5,6 @@ import reset from './reset';
 import reroll from './reroll';
 import rebirth from './rebirth';
 import allocateNow from './allocateNow';
-import clearCompleted from './clearCompleted';
 import sortTask from './sortTask';
 import updateTask from './updateTask';
 import deleteTask from './deleteTask';
@@ -30,6 +29,9 @@ import releasePets from './releasePets';
 import releaseMounts from './releaseMounts';
 import releaseBoth from './releaseBoth';
 import buy from './buy';
+import buyGear from './buyGear';
+import buyHealthPotion from './buyHealthPotion';
+import buyArmoire from './buyArmoire';
 import buyQuest from './buyQuest';
 import buyMysterySet from './buyMysterySet';
 import hourglassPurchase from './hourglassPurchase';
@@ -42,7 +44,8 @@ import disableClasses from './disableClasses';
 import allocate from './allocate';
 import readCard from './readCard';
 import openMysteryItem from './openMysteryItem';
-import score from './score';
+import scoreTask from './scoreTask';
+import markPmsRead from './markPMSRead';
 
 module.exports = {
   update,
@@ -52,7 +55,6 @@ module.exports = {
   reroll,
   rebirth,
   allocateNow,
-  clearCompleted,
   sortTask,
   updateTask,
   deleteTask,
@@ -77,6 +79,9 @@ module.exports = {
   releaseMounts,
   releaseBoth,
   buy,
+  buyGear,
+  buyHealthPotion,
+  buyArmoire,
   buyQuest,
   buyMysterySet,
   hourglassPurchase,
@@ -89,5 +94,6 @@ module.exports = {
   allocate,
   readCard,
   openMysteryItem,
-  score,
+  scoreTask,
+  markPmsRead,
 };

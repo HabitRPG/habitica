@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "Por favor, tenha em mente que seu Nome de exibição, foto de perfil, e sinopse devem estar de acordo com as <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a> (ou seja, sem profanidades, sem tópicos adultos, sem insultos, etc). Se você tem qualquer dúvida sobre se algo é ou não apropriado, entre em contato pelo email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Estatísticas & Conquistas",
     "profile": "Perfil",
     "avatar": "Personalizar Avatar",
@@ -34,6 +35,7 @@
     "beard": "Barba",
     "mustache": "Bigode",
     "flower": "Flor",
+    "wheelchair": "Cadeira de rodas",
     "basicSkins": "Peles Básicas",
     "rainbowSkins": "Peles de Arco-Íris",
     "pastelSkins": "Peles em Tons Pastel",
@@ -108,6 +110,7 @@
     "mage": "Mago",
     "mystery": "Mistério",
     "changeClass": "Alterar Classe, Restituir Pontos de Atributo",
+    "lvl10ChangeClass": "Para mudar de classe você precisa ser pelo menos nível 10.",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",
     "unallocated": "Pontos de Atributo não Distribuídos",
     "haveUnallocated": "Você tem <%= points %> Ponto(s) de Atributo não usados",
@@ -136,7 +139,7 @@
     "respawn": "Reviver!",
     "youDied": "Você Morreu!",
     "dieText": "Você perdeu um nível, todo seu Ouro, e uma peça aleatória de Equipamento. Erga-se, Habiteer, e tente novamente! Acabe com esses Hábitos negativos, esteja atento a realização de suas Tarefas Diárias, e afaste a morte com uma Poção de Vida caso vacilar!",
-    "sureReset": "Você tem certeza? Isso irá resetar a classe do seu personagem e os pontos distribuídos (você receberá eles de volta para redistribuir), e custa 3 gemas.",
+    "sureReset": "Você tem certeza? Isso irá reiniciar a classe do seu personagem e os pontos distribuídos (você receberá eles de volta para redistribuir) e custará 3 gemas.",
     "purchaseFor": "Comprar por <%= cost %> Gemas?",
     "notEnoughMana": "Mana insuficiente.",
     "invalidTarget": "Alvo inválido",
@@ -163,5 +166,7 @@
     "int": "INT",
     "showQuickAllocation": "Mostrar distribuição de status",
     "hideQuickAllocation": "Esconder distribuição de status",
-    "quickAllocationLevelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Status do Avatar"
+    "quickAllocationLevelPopover": "Cada nível concederá à você um ponto para distribuir em um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Status do Avatar.",
+    "invalidAttribute": "\"<%= attr %>\" não é um atributo válido.",
+    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes."
 }

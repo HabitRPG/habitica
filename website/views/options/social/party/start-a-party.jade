@@ -19,5 +19,5 @@
 
   .row.row-margin
     .btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
-    .btn.btn-default(ng-click='create(newGroup); group.loadingNewParty = true')=env.t('inviteFriendsLater')
+    .btn.btn-default(ng-click='create(newGroup)')=env.t('inviteFriendsLater')
     .btn.btn-default(ng-click='openModal("user-id",{track:"Join Existing Party"})')=env.t('joinExistingParty')

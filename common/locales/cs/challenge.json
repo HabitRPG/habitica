@@ -63,5 +63,21 @@
     "congratulations": "Gratulujeme!",
     "hurray": "Hurá!",
     "noChallengeOwner": "bez majitele",
-    "noChallengeOwnerPopover": "Tato Výzva nemá majitele, jelikož uživatel, který ji vytvořil, si smazal účet."
+    "noChallengeOwnerPopover": "Tato Výzva nemá majitele, jelikož uživatel, který ji vytvořil, si smazal účet.",
+    "challengeMemberNotFound": "Uživatel nenalezen mezi členy výzvy",
+    "onlyGroupLeaderChal": "Pouze vůdce družiny může začít výzvy",
+    "tavChalsMinPrize": "Cena za výzvu v krčmě musí být alespoň 1 drahokam.",
+    "cantAfford": "Nemůžete zadat tuto odměnu. Kupte si více drahokamů nebo snižte odměnu.",
+    "challengeIdRequired": "„challengeId\" musí být platné UUID.",
+    "winnerIdRequired": "„winnerId\" musí být platné UUID.",
+    "challengeNotFound": "Challenge not found or you don't have access.",
+    "onlyLeaderDeleteChal": "Pouze vůdce výzvy ji může smazat.",
+    "onlyLeaderUpdateChal": "Pouze vůdce výzvy ji může aktualizovat.",
+    "winnerNotFound": "Vítěz s id „<%= userId %>\" nenalezen, nebo se neúčastnil výzvy.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
+    "userTasksNoChallengeId": "Pokud \"tasksOwner\" je \"user\" \"challengeId\" nemůže být předána.",
+    "onlyChalLeaderEditTasks": "Úkoly náležící výzvě mohou být změněny pouze vůdcem.",
+    "userAlreadyInChallenge": "Uživatel se již účastní výzvy.",
+    "cantOnlyUnlinkChalTask": "Pouze nefunkční výzvy mohou být odendány.",
+    "shortNameTooShort": "Jméno tagu musí mít alespoň 3 znaky."
 }

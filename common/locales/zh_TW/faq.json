@@ -2,7 +2,7 @@
     "frequentlyAskedQuestions": "常見問題",
     "faqQuestion0": "我不知道怎麼玩，有遊戲介紹嗎？",
     "iosFaqAnswer0": "首先，你要設定好你的每日任務。接著，當你在現實生活中完成時，再把每日任務打勾，你會因此得到經驗值和金幣。金幣可以購買裝備和物品，而經驗值能使你的角色升級並且隨著等級提升還能解鎖其他功能，像是：寵物、技能，以及關卡任務！你可以調整你自己的角色在選單「玩家」＞「角色」裡面。\n\n另外，有些基本的功能作用需要注意：點選手機螢幕介面右上角的(+)可以增加新任務。新增任務後，可以輕按現有任務便可再度編輯。按住不放將任務往左邊滑過便可刪除。在畫面左上角有一個標籤可幫助你分類，你可以點選任務來增加或減少清單。",
-    "webFaqAnswer0": "First, you'll set up tasks that you want to do in your everyday life. Then, as you complete the tasks in real life and check them off, you'll earn Experience and Gold. Gold is used to buy equipment and some items, as well as custom rewards. Experience causes your character to level up and unlock content such as pets, skills, and quests! For more detail, check out a step-by-step overview of the game at [Help -> Overview for New Users](https://habitica.com/static/overview).",
+    "webFaqAnswer0": "首先，你要設定好你的每日任務。接著，當你在現實生活中完成時，再把每日任務打勾，你會因此得到經驗值和金幣。金幣可以購買裝備和物品，當然還有自製獎勵，而經驗值能使你的角色升級並且隨著等級提升還能解鎖其他功能，像是：寵物、技能，以及關卡任務！詳情請見在[幫助 -> 新手總覽](https://habitica.com/static/overview)中。",
     "faqQuestion1": "我要如何設定每日任務？",
     "iosFaqAnswer1": "好習慣(+符號)就是你每天可以做很多次的那種正面任務，像是多吃菜。壞習慣(-符號)則是你應該要避免的負面任務，像是咬指甲。有些習慣同時擁有+和-，代表它可以同時兼具好的一面和壞的一面，像是走樓梯vs搭電梯。達成好習慣會獎勵你金幣和經驗。壞習慣則會減損生命值。\n\n每日任務是你每天都會做到的事情，像是刷牙或檢查電子信箱。你可以透過點擊來指定每日任務的天數。如果你沒有在每日任務指定的日子完成它的話，你的角色會在隔天減少生命值。所以小心不要一口氣增加太多每日任務！\n\n待辦事項是你的待辦清單，完成待辦事項也能夠得到金幣和經驗值。你不會因為待辦事項完成與否而受到攻擊。對著待辦事項點選也可以編輯指定日期。",
     "webFaqAnswer1": "好習慣( <span class='glyphicon glyphicon-plus'></span>)就是你每天可以做很多次的那種正面任務，像是多吃菜。壞習慣(<span class='glyphicon glyphicon-minus'></span>)則是你應該要避免的負面任務，像是咬指甲。有些習慣同時擁有 <span class='glyphicon glyphicon-plus'></span>和<span class='glyphicon glyphicon-minus'></span>，代表它可以同時兼具好的一面和壞的一面，像是走樓梯vs搭電梯。達成好習慣會獎勵你金幣和經驗。壞習慣則會減損生命值。\n<br><br>\n每日任務是你每天都會做到的事情，像是刷牙或檢查電子信箱。你可以透過點擊來指定每日任務的天數。如果你沒有在每日任務指定的日子完成它的話，你的角色會在隔天減少生命值。所以小心不要一口氣增加太多每日任務！\n<br><br>\n待辦事項是你的待辦清單，完成待辦事項也能夠得到金幣和經驗值。你不會因為待辦事項完成與否而受到攻擊。對著待辦事項點選鉛筆按鈕也可以編輯指定日期。",
@@ -39,6 +39,6 @@
     "faqQuestion12": "我要如何才能夠挑戰世界老闆?",
     "iosFaqAnswer12": "世界BOSS是出現在酒館的特別怪獸。所有使用者都會自動跟Boss作戰，完成日常任務和使用技能都會自動對Boss造成傷害。\n\n你也可以同時解任務，當你完成每日任務和使用技能都會同時對隊伍正在解的活動任務的Boss和世界Boss造成傷害。\n\n世界Boss無法傷害你或者你的帳號。取而代之，它有一個憤怒值，當使用者沒有完成日常任務時就會增加。當憤怒值滿了，它就會攻擊網站裡其中一位非玩家角色，而且改變他們的圖像。\n\n你可以從wiki中獲得更多關於以往世界BOSS的歷史。 [以往 World Bosses](http://habitica.wikia.com/wiki/World_Bosses) ",
     "webFaqAnswer12": "世界BOSS是出現在酒館的特別怪獸。所有使用者都會自動跟Boss作戰，完成日常任務和使用技能都會自動對Boss造成傷害。<br><br>\n\n你也可以同時解任務，當你完成每日任務和使用技能都會同時對隊伍正在解的活動任務的Boss和世界Boss造成傷害。\n<br><br>\n世界Boss無法傷害你或者你的帳號。取而代之，它有一個憤怒值，當使用者沒有完成日常任務時就會增加。當憤怒值滿了，它就會攻擊網站裡其中一位非玩家角色，而且改變他們的圖像。\n<br><br>\n你可以從wiki中獲得更多關於以往世界BOSS的歷史。 [以往 World Bosses](http://habitica.wikia.com/wiki/World_Bosses) ",
-    "iosFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.wikia.com/wiki/FAQ), come ask in the Tavern chat under Menu > Tavern! We're happy to help.",
-    "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.wikia.com/wiki/FAQ), come ask in the [Newbies Guild](https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! We're happy to help."
+    "iosFaqStillNeedHelp": "如果你有疑問，可是沒在 [這裡](http://habitica.wikia.com/wiki/FAQ)看到解答的話，到社交 > 酒館聊天，我們很高興為你服務！",
+    "webFaqStillNeedHelp": "如果你有疑問，可是沒在 [這裡](http://habitica.wikia.com/wiki/FAQ)看到解答的話，來這裏問問 [新手公會](https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a)，我們很高興為你服務！"
 }

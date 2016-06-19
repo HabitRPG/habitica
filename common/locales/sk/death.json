@@ -12,5 +12,6 @@
     "losingHealthQuickly": "Strácaš život rýchlo?",
     "lowHealthTips3": "Nedokončené denné úlohy ťa ublížia cez noc, takže buď opatrní, aby si ich nepridal príliš veľa na začiatku.",
     "lowHealthTips4": "Ak denná úloha nieje splatná na určitý deň, môžete to vypnúť kliknutím na ikonu ceruzky.",
-    "goodLuck": "Veľa šťastia!"
+    "goodLuck": "Veľa šťastia!",
+    "cannotRevive": "Nemôžeš sa znovuzrodiť, ak nie si mŕtvy"
 }

@@ -139,6 +139,8 @@
     "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2014 Winter Wonderland Event!",
     "achievementBurnout": "Savior of the Flourishing Fields",
     "achievementBurnoutText": "Helped defeat Burnout and restore the Exhaust Spirits during the 2015 Fall Festival Event!",
+    "achievementBewilder": "Savior of Mistiflying",
+    "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Check out my progress in Habitica!",
     "cardReceived": "Received a card!",
     "cardReceivedFrom": "<%= cardType %> from <%= userName %>",

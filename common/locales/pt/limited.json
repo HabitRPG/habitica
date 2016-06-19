@@ -5,7 +5,7 @@
     "annoyingFriends": "Amigos Irritantes",
     "annoyingFriendsText": "Membros da equipe jogaram bolas de neve em você <%= snowballs %> vezes.",
     "alarmingFriends": "Amigos Alarmantes",
-    "alarmingFriendsText": "Membros da equipe te assustaram <%= spookDust %> vezes.",
+    "alarmingFriendsText": "Foi transformado em fantasma <%= spookySparkles %> por membros da equipe.",
     "agriculturalFriends": "Amigos Agrícolas",
     "agriculturalFriendsText": "Membros da equipe te transformaram em flor <%= seeds %> vezes.",
     "aquaticFriends": "Amigos aquáticos",
@@ -68,9 +68,10 @@
     "mummyMedicSet": "Médico Múmia (Curandeiro)",
     "vampireSmiterSet": "Vampiro Violento (Ladino)",
     "bewareDogSet": "Cuidado com o Cão (Guerreiro)",
-    "magicianBunnySet": "Coelho dos Magos (Mago)",
+    "magicianBunnySet": "Coelho do Mago (Mago)",
     "comfortingKittySet": "Gatinho Confortante (Curandeiro)",
     "sneakySqueakerSet": "Ladrão Sorrateiro (Ladino)",
     "fallEventAvailability": "Disponível até 31 de Outubro.",
-    "winterEventAvailability": "Disponível até 31 de Dezembro"
+    "winterEventAvailability": "Disponível até 31 de Dezembro",
+    "springEventAvailability": "Disponível até 31 de Maio"
 }

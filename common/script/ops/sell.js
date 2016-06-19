@@ -1,23 +1,43 @@
 import content from '../content/index';
+import i18n from '../i18n';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
+import {
+  NotFound,
+  NotAuthorized,
+  BadRequest,
+} from '../libs/errors';
 
-module.exports = function(user, req, cb) {
-  var key, ref, type;
-  ref = req.params, key = ref.key, type = ref.type;
-  if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
-    return typeof cb === "function" ? cb({
-      code: 404,
-      message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
-    }) : void 0;
+const ACCEPTEDTYPES = ['eggs', 'hatchingPotions', 'food'];
+
+module.exports = function sell (user, req = {}) {
+  let key = _.get(req.params, 'key');
+  let type = _.get(req.params, 'type');
+
+  if (!type) {
+    throw new BadRequest(i18n.t('typeRequired', req.language));
   }
+
+  if (!key) {
+    throw new BadRequest(i18n.t('keyRequired', req.language));
+  }
+
+  if (ACCEPTEDTYPES.indexOf(type) === -1) {
+    throw new NotAuthorized(i18n.t('typeNotSellable', {acceptedTypes: ACCEPTEDTYPES.join(', ')}, req.language));
+  }
+
   if (!user.items[type][key]) {
-    return typeof cb === "function" ? cb({
-      code: 404,
-      message: ":key not found for user.items." + type
-    }) : void 0;
+    throw new NotFound(i18n.t('userItemsKeyNotFound', {type}, req.language));
   }
+
   user.items[type][key]--;
   user.stats.gp += content[type][key].value;
-  return typeof cb === "function" ? cb(null, _.pick(user, splitWhitespace('stats items'))) : void 0;
+
+  if (req.v2 === true) {
+    return _.pick(user, splitWhitespace('stats items'));
+  } else {
+    return [
+      _.pick(user, splitWhitespace('stats items')),
+    ];
+  }
 };

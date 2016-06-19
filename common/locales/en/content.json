@@ -159,6 +159,18 @@
   "questEggSnailMountText": "Snail",
   "questEggSnailAdjective": "a slow but steady",
 
+  "questEggFalconText": "Falcon",
+  "questEggFalconMountText": "Falcon",
+  "questEggFalconAdjective": "a swift",
+
+  "questEggTreelingText": "Treeling",
+  "questEggTreelingMountText": "Treeling",
+  "questEggTreelingAdjective": "a leafy",
+
+  "questEggAxolotlText": "Axolotl",
+  "questEggAxolotlMountText": "Axolotl",
+  "questEggAxolotlAdjective": "a little",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -173,6 +185,7 @@
   "hatchingPotionGolden": "Golden",
   "hatchingPotionSpooky": "Spooky",
   "hatchingPotionPeppermint": "Peppermint",
+  "hatchingPotionFloral": "Floral",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
@@ -214,5 +227,4 @@
   "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
 
   "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
-
 }

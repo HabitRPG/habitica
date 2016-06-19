@@ -118,6 +118,30 @@ let armor = {
     set: 'miner',
     canOwn: ownsItem('armor_armoire_minerOveralls'),
   },
+  basicArcherArmor: {
+    text: t('armorArmoireBasicArcherArmorText'),
+    notes: t('armorArmoireBasicArcherArmorNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'basicArcher',
+    canOwn: ownsItem('armor_armoire_basicArcherArmor'),
+  },
+  graduateRobe: {
+    text: t('armorArmoireGraduateRobeText'),
+    notes: t('armorArmoireGraduateRobeNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'graduate',
+    canOwn: ownsItem('armor_armoire_graduateRobe'),
+  },
+  stripedSwimsuit: {
+    text: t('armorArmoireStripedSwimsuitText'),
+    notes: t('armorArmoireStripedSwimsuitNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'seaside',
+    canOwn: ownsItem('armor_armoire_stripedSwimsuit'),
+  },
 };
 
 let eyewear = {
@@ -314,6 +338,31 @@ let head = {
     set: 'miner',
     canOwn: ownsItem('head_armoire_minerHelmet'),
   },
+  basicArcherCap: {
+    text: t('headArmoireBasicArcherCapText'),
+    notes: t('headArmoireBasicArcherCapNotes', { per: 6 }),
+    value: 100,
+    per: 6,
+    set: 'basicArcher',
+    canOwn: ownsItem('head_armoire_basicArcherCap'),
+  },
+  graduateCap: {
+    text: t('headArmoireGraduateCapText'),
+    notes: t('headArmoireGraduateCapNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    set: 'graduate',
+    canOwn: ownsItem('head_armoire_graduateCap'),
+  },
+  greenFloppyHat: {
+    text: t('headArmoireGreenFloppyHatText'),
+    notes: t('headArmoireGreenFloppyHatNotes', { attrs: 8 }),
+    value: 100,
+    per: 8,
+    int: 8,
+    con: 8,
+    canOwn: ownsItem('head_armoire_greenFloppyHat'),
+  },
 };
 
 let shield = {
@@ -358,6 +407,30 @@ let shield = {
     value: 100,
     per: 15,
     canOwn: ownsItem('shield_armoire_mysticLamp'),
+  },
+  floralBouquet: {
+    text: t('shieldArmoireFloralBouquetText'),
+    notes: t('shieldArmoireFloralBouquetNotes', { con: 3 }),
+    value: 100,
+    con: 3,
+    canOwn: ownsItem('shield_armoire_floralBouquet'),
+  },
+  sandyBucket: {
+    text: t('shieldArmoireSandyBucketText'),
+    notes: t('shieldArmoireSandyBucketNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'seaside',
+    canOwn: ownsItem('shield_armoire_sandyBucket'),
+  },
+};
+
+let headAccessory = {
+  comicalArrow: {
+    text: t('headAccessoryArmoireComicalArrowText'),
+    notes: t('headAccessoryArmoireComicalArrowNotes'),
+    value: 100,
+    canOwn: ownsItem('headAccessory_armoire_comicalArrow'),
   },
 };
 
@@ -476,6 +549,7 @@ let weapon = {
     value: 100,
     int: 8,
     per: 8,
+    set: 'jester',
     canOwn: ownsItem('weapon_armoire_jesterBaton'),
   },
   miningPickax: {
@@ -483,7 +557,33 @@ let weapon = {
     notes: t('weaponArmoireMiningPickaxNotes', { per: 15 }),
     value: 100,
     per: 15,
+    set: 'miner',
     canOwn: ownsItem('weapon_armoire_miningPickax'),
+  },
+  basicLongbow: {
+    text: t('weaponArmoireBasicLongbowText'),
+    notes: t('weaponArmoireBasicLongbowNotes', { str: 6 }),
+    value: 100,
+    str: 6,
+    twoHanded: true,
+    set: 'basicArcher',
+    canOwn: ownsItem('weapon_armoire_basicLongbow'),
+  },
+  habiticanDiploma: {
+    text: t('weaponArmoireHabiticanDiplomaText'),
+    notes: t('weaponArmoireHabiticanDiplomaNotes', { int: 11 }),
+    value: 100,
+    int: 11,
+    set: 'graduate',
+    canOwn: ownsItem('weapon_armoire_habiticanDiploma'),
+  },
+  sandySpade: {
+    text: t('weaponArmoireSandySpadeText'),
+    notes: t('weaponArmoireSandySpadeNotes', { str: 10 }),
+    value: 100,
+    str: 10,
+    set: 'seaside',
+    canOwn: ownsItem('weapon_armoire_sandySpade'),
   },
 };
 
@@ -491,6 +591,7 @@ let armoireSet = {
   armor,
   eyewear,
   head,
+  headAccessory,
   shield,
   weapon,
 };

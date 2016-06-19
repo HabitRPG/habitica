@@ -5,7 +5,7 @@
     "annoyingFriends": "Złośliwi znajomi",
     "annoyingFriendsText": "Dostał <%= snowballs %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
-    "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
+    "alarmingFriendsText": "Przestraszony <%= spookySparkles %> razy przez członków drużyny.",
     "agriculturalFriends": "Rolniczy przyjaciele",
     "agriculturalFriendsText": "Przemieniony w kwiat <%= seeds %> razy przez członków drużyny.",
     "aquaticFriends": "Wodni przyjaciele",
@@ -67,10 +67,11 @@
     "witchyWizardSet": "Wiedźmi czarodziej (Mag)",
     "mummyMedicSet": "Ratownik mumiczny (Uzdrowiciel)",
     "vampireSmiterSet": "Łowca wampirów (Łotrzyk)",
-    "bewareDogSet": "Beware Dog (Warrior)",
-    "magicianBunnySet": "Magician's Bunny (Mage)",
-    "comfortingKittySet": "Comforting Kitty (Healer)",
-    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
+    "bewareDogSet": "Uważny Pies (Wojownik)",
+    "magicianBunnySet": "Króliczek Maga (Mag)",
+    "comfortingKittySet": "Wygodnicki Kotek (Uzdrowiciel)",
+    "sneakySqueakerSet": "Przebiegły Kwikacz (Łotrzyk)",
     "fallEventAvailability": "Dostępne do 31 października",
-    "winterEventAvailability": "Dostępne do 31 grudnia"
+    "winterEventAvailability": "Dostępne do 31 grudnia",
+    "springEventAvailability": "Dostępne do 31 maja"
 }

@@ -63,5 +63,21 @@
     "congratulations": "Congratulazioni!",
     "hurray": "Evviva!",
     "noChallengeOwner": "nessun proprietario",
-    "noChallengeOwnerPopover": "Questa sfida non ha un proprietario perché la persona che ha creato la sfida ha eliminato il proprio account."
+    "noChallengeOwnerPopover": "Questa sfida non ha un proprietario perché la persona che ha creato la sfida ha eliminato il proprio account.",
+    "challengeMemberNotFound": "Utente non rilevato tra i membri della sfida",
+    "onlyGroupLeaderChal": "Solo il leader del gruppo può creare le sfide",
+    "tavChalsMinPrize": "Il premio deve essere almeno di 1 gemma per le sfide della taverna",
+    "cantAfford": "Non puoi permetterti questo premio. Acquista più gemme o abbassa l'ammontare del premio.",
+    "challengeIdRequired": "\"challengeId\" deve essere un UUID valido.",
+    "winnerIdRequired": "\"winnerId\" deve essere un UUID valido.",
+    "challengeNotFound": "Sfida non trovata o non hai l'accesso.",
+    "onlyLeaderDeleteChal": "Solo il leader della sfida può cancellarla.",
+    "onlyLeaderUpdateChal": "Solo il leader della sfida può aggiornarla.",
+    "winnerNotFound": "Vincitore con id \"<%= userId %>\" non trovato o non ha partecipato a questa sfida.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
+    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "onlyChalLeaderEditTasks": "I compiti appartenenti a una sfida possono essere modificati solo dal leader.",
+    "userAlreadyInChallenge": "L'utente sta già partecipando a questa sfida.",
+    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
+    "shortNameTooShort": "Il nome dell'etichetta deve avere almeno 3 caratteri."
 }

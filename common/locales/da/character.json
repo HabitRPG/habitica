@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Stats og præstationer",
     "profile": "Profil",
     "avatar": "Customize Avatar",
@@ -34,6 +35,7 @@
     "beard": "Skæg",
     "mustache": "Overskæg",
     "flower": "Blomst",
+    "wheelchair": "Kørestol",
     "basicSkins": "Basis-skins",
     "rainbowSkins": "Regnbue-skins",
     "pastelSkins": "Pastel-skins",
@@ -108,6 +110,7 @@
     "mage": "Magiker",
     "mystery": "Mystisk",
     "changeClass": "Skift klasse, Refunder attributpoint",
+    "lvl10ChangeClass": "To change class you must be at least level 10.",
     "levelPopover": "Hvert niveau giver dig et point du kan tildele en attribut efter eget valg. Du kan gøre det manuelt, eller lade spillet bestemme for dig ved hjælp af en af de automatiske tildelingsmuligheder.",
     "unallocated": "Ufordelte attributpoint",
     "haveUnallocated": "Du har <%= points %> ubrugt(e) attributpoint",
@@ -163,5 +166,7 @@
     "int": "INT",
     "showQuickAllocation": "Show stat allocation",
     "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats.",
+    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
+    "notEnoughAttrPoints": "You don't have enough attribute points."
 }

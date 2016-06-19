@@ -5,7 +5,7 @@
     "annoyingFriends": "Iritantni prijatelji",
     "annoyingFriendsText": "Članovi družine gađali su Vas grudvama <%= snowballs %> puta.",
     "alarmingFriends": "Zastrašujući prijatelji",
-    "alarmingFriendsText": "Članovi družine uplašili su Vas <%= spookDust %> puta.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Prijatelji zemljoradnici",
     "agriculturalFriendsText": "Članovi družine pretvorili su Vas u cvet <%= seeds %> puta.",
     "aquaticFriends": "Aquatic Friends",
@@ -72,5 +72,6 @@
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
     "fallEventAvailability": "Available until October 31",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Available until December 31",
+    "springEventAvailability": "Available until May 31"
 }

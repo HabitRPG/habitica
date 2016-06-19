@@ -63,5 +63,21 @@
     "congratulations": "ברכות!",
     "hurray": "יש!!",
     "noChallengeOwner": "אין בעלים",
-    "noChallengeOwnerPopover": "אין לאתגר זה בעלים כיוון שמי שיצר את האתגר מחק את החשבון שלו."
+    "noChallengeOwnerPopover": "אין לאתגר זה בעלים כיוון שמי שיצר את האתגר מחק את החשבון שלו.",
+    "challengeMemberNotFound": "המשתמש לא נמצא בין חברי האתגר",
+    "onlyGroupLeaderChal": "רק מנהיגי הקבוצה יכולים ליצור אתגרים",
+    "tavChalsMinPrize": "הפרס חייב להיות לפחות אבן חן 1 עבור אתגרי הפונדק.",
+    "cantAfford": "הפרס הזה יקר מידי עבורך. יש לרכוש עוד אבני חן, או להנמיך את הכמות בפרס.",
+    "challengeIdRequired": "\"challengeId\" חייב להיות UUID - זהות משתמש ייחודי - תקף.",
+    "winnerIdRequired": "\"winnerId\" חייב להיות UUID - זהות משתמש ייחודי - תקף.",
+    "challengeNotFound": "אתגר לא נמצא או שאין לכם גישה.",
+    "onlyLeaderDeleteChal": "רק מנהיג/ת האתגר יכול/ה למחוק אותו.",
+    "onlyLeaderUpdateChal": "רק מנהיג/ת האתגר יכול/ה לעדכן אותו.",
+    "winnerNotFound": "מנצח/ת עם זהות משתמש \"<%= userId %>\" לא נמצא או לא חלק מהאתגר.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" איננו נתמך בעת הבאת משימות אתגר.",
+    "userTasksNoChallengeId": "כאשר \"tasksOwner\" הוא/היא \"user\" \"challengeId\" איננו יכול לעבור.",
+    "onlyChalLeaderEditTasks": "מטלות השייכות לאתגר יכולות לעבור עריכה רק על ידי המנהיג/ה.",
+    "userAlreadyInChallenge": "המשתמשים כבר משתתפים באתגר הזה.",
+    "cantOnlyUnlinkChalTask": "רק מטלות אתגרים שבורים יכולות להיות לא מקושרות.",
+    "shortNameTooShort": "שם תגית חייב להכיל לפחות 3 תווים."
 }

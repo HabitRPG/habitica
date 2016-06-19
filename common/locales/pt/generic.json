@@ -137,6 +137,8 @@
     "achievementStressbeastText": "Ajudou a derrotar a Abominável Besta do Estresse durante o Evento de Inverno do País das Maravilhas em 2014!",
     "achievementBurnout": "Salvador dos Campos Prósperos",
     "achievementBurnoutText": "Ajudou a derrotar o Desgaste e recuperar os Espíritos Exaustos durante o evento do Festival de Outono de 2015!",
+    "achievementBewilder": "Salvador de Mistiflying",
+    "achievementBewilderText": "Ajudou a derrotar o Be-Wilder durante o event do festival do Caso de Primavera de 2016!",
     "checkOutProgress": "Veja o meu progresso em Habitica! ",
     "cardReceived": "Recebeu um cartão!",
     "cardReceivedFrom": "<%= cardType %> de <%= userName %>",
