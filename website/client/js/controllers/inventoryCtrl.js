@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social', 'Notification',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social, Notification) {
 
     var user = User.user;
 
@@ -38,10 +38,14 @@ habitrpg.controller("InventoryCtrl",
     $scope.questInit = function() {
       var key = $rootScope.selectedQuest.key;
 
-      Quests.initQuest(key).then(function() {
-        $rootScope.selectedQuest = undefined;
-        $scope.$close();
-      });
+      if( User.user.party._id ) {
+        Quests.initQuest(key).then(function() {
+          $rootScope.selectedQuest = undefined;
+          $scope.$close();
+        });
+      } else {
+        Notification.text((env.t('needPartyToStartQuest')));
+      }
     };
 
     // count egg, food, hatchingPotion stack totals

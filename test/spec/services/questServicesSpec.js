@@ -343,15 +343,13 @@ describe('Quests Service', function() {
     beforeEach(inject(function($httpBackend, $rootScope) {
       scope = $rootScope.$new();
       fakeBackend = $httpBackend;
-      var partyResponse = {data:{_id: 'party-id'}};
 
       fakeBackend.when('GET', 'partials/main.html').respond({});
       fakeBackend.when('GET', 'partials/main.html').respond({});
-      fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
-      fakeBackend.when('GET', '/api/v3/groups/party-id/members?includeAllPublicFields=true').respond({});
-      fakeBackend.when('GET', '/api/v3/groups/party-id/invites').respond({});
-      fakeBackend.when('GET', '/api/v3/challenges/groups/party-id').respond({});
-      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/invite/' + key).respond({quest: { key: 'whale' } });
+      fakeBackend.when('GET', '/api/v3/groups/unique-party-id/members?includeAllPublicFields=true').respond({});
+      fakeBackend.when('GET', '/api/v3/groups/unique-party-id/invites').respond({});
+      fakeBackend.when('GET', '/api/v3/challenges/groups/unique-party-id').respond({});
+      fakeBackend.when('POST', '/api/v3/groups/unique-party-id/quests/invite/' + key).respond({quest: { key: 'whale' } });
       fakeBackend.flush();
     }));
 
@@ -361,7 +359,7 @@ describe('Quests Service', function() {
     });
 
     it('starts a quest', function(done) {
-      fakeBackend.expectPOST( '/api/v3/groups/party-id/quests/invite/' + key);
+      fakeBackend.expectPOST( '/api/v3/groups/unique-party-id/quests/invite/' + key);
 
       questsService.initQuest(key)
         .then(function(res) {
@@ -382,11 +380,9 @@ describe('Quests Service', function() {
     beforeEach(inject(function($httpBackend, $rootScope) {
       scope = $rootScope.$new();
       fakeBackend = $httpBackend;
-      var partyResponse = {data:{_id: 'party-id'}};
 
       fakeBackend.when('GET', 'partials/main.html').respond({});
-      fakeBackend.when('GET', '/api/v3/groups/party').respond(partyResponse);
-      fakeBackend.when('POST', '/api/v3/groups/party-id/quests/reject').respond({quest: { key: 'whale' } });
+      fakeBackend.when('POST', '/api/v3/groups/unique-party-id/quests/reject').respond({quest: { key: 'whale' } });
       fakeBackend.flush();
     }));
 
@@ -396,7 +392,7 @@ describe('Quests Service', function() {
     });
 
     it('calls specified quest endpoint', function(done) {
-      fakeBackend.expectPOST('/api/v3/groups/party-id/quests/reject');
+      fakeBackend.expectPOST('/api/v3/groups/unique-party-id/quests/reject');
 
       questsService.sendAction('quests/reject')
         .then(function(res) {
