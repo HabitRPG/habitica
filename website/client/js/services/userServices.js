@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content', 'UserNotifications',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content, UserNotifications) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', '$state', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content', 'UserNotifications',
+    function($rootScope, $http, $location, $window, $state, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content, UserNotifications) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -106,6 +106,9 @@ angular.module('habitrpg')
         .then(function (response) {
           var tasks = response.data.data;
           syncUserTasks(tasks);
+          if ($state.current.name=='options.social.inbox' && user.inbox.newMessages > 0) {
+            userServices.clearNewMessages();
+          }
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
           $rootScope.$emit('userUpdated', user);
