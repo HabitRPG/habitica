@@ -134,9 +134,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      * Reset $scope.task to $scope.originalTask
      */
     $scope.cancelTaskEdit = function(task) {
-      var unedittedTask = _.find(originalTasks, {'_id': task._id})
+      var uneditedTask = _.find(originalTasks, {'_id': task._id})
       _.remove(originalTasks, {'_id': task._id})
-      _.assign(task, unedittedTask);
+      _.assign(task, uneditedTask);
       task._editing = false;
     };
 
