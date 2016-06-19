@@ -6,6 +6,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.user = User.user;
 
     var CTRL_KEYS = [17, 224, 91];
+    var originalTasks = [];
 
     $scope.armoireCount = function(gear) {
       return Shared.count.remainingGearInSet(gear, 'armoire');
@@ -68,8 +69,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       list.focus = true;
     };
 
-    $scope.editTask = Tasks.editTask;
-
     /**
      * Add the new task to the actions log
      */
@@ -100,8 +99,17 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     };
 
+    $scope.editTask = function(task, user) {
+      originalTasks.push(_.cloneDeep(task));
+      task._editing = !task._editing;
+      task._tags = !user.preferences.tagsCollapsed;
+      task._advanced = !user.preferences.advancedCollapsed;
+      if($rootScope.charts[task._id]) $rootScope.charts[task.id] = false;
+    }
+
     $scope.removeTask = function(task) {
       if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
+      _.remove(originalTasks, {'_id': task._id})
       User.deleteTask({params:{id: task._id, taskType: task.type}})
     };
 
@@ -111,6 +119,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           return !!i.text
         });
       }
+      _.remove(originalTasks, {'_id': task._id})
       User.updateTask(task, {body: task});
       if (!stayOpen) task._editing = false;
 
@@ -124,14 +133,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     /**
      * Reset $scope.task to $scope.originalTask
      */
-    $scope.cancel = function() {
-      var key;
-      for (key in $scope.task) {
-        $scope.task[key] = $scope.originalTask[key];
-      }
-      $scope.originalTask = null;
-      $scope.editedTask = null;
-      $scope.editing = false;
+    $scope.cancelTaskEdit = function(task) {
+      var unedittedTask = _.find(originalTasks, {'_id': task._id})
+      _.remove(originalTasks, {'_id': task._id})
+      _.assign(task, unedittedTask);
+      task._editing = false;
     };
 
     $scope.unlink = function(task, keep) {
