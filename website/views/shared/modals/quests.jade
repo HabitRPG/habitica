@@ -46,8 +46,9 @@ script(type='text/ng-template', id='modals/showQuest.html')
     p(ng-if='env.worldDmg.quests')=env.t('questWarningBroken')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
-    button.btn.btn-primary(ng-click='questInit()')
+    button.btn.btn-primary(ng-click='questInit()', ng-class='{"btn-info": !user.party._id}')
       | {{:: party.memberCount > 1  ? env.t('inviteParty') : env.t('startQuest')}}
+    p.text-info(ng-if='!user.party._id')=env.t('needPartyToStartQuest')
 
 script(type='text/ng-template', id='modals/buyQuest.html')
   .modal-header
