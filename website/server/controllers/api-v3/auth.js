@@ -291,7 +291,7 @@ api.loginSocial = {
  * @apiName UserAuthPusher
  * @apiGroup User
  *
- * @apiParam {String} socker_id Body parameter
+ * @apiParam {String} socket_id Body parameter
  * @apiParam {String} channel_name Body parameter
  *
  * @apiSuccess {String} auth The authentication token
