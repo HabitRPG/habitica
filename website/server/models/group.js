@@ -85,11 +85,11 @@ export let schema = new Schema({
   strict: true,
   minimize: false, // So empty objects are returned
   toObject: {
-    virtuals: true
+    virtuals: true,
   },
   toJSON: {
-    virtuals: true
-  }
+    virtuals: true,
+  },
 });
 
 schema.plugin(baseModel, {
@@ -309,7 +309,7 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
-schema.virtual('isTooLargeForChatNotifications').get(function () {
+schema.virtual('isTooLargeForChatNotifications').get(function isTooLargeForChatNotifications () {
   return this.memberCount > LARGE_GROUP_CUTOFF;
 });
 
