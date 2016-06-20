@@ -419,8 +419,16 @@ describe('Group Model', () => {
         party.sendChat('a new message', {
           _id: 'user-id',
           profile: { name: 'user name' },
-          contributor: { toObject () { return 'contributor object'; } },
-          backer: { toObject () { return 'backer object'; } },
+          contributor: {
+            toObject () {
+              return 'contributor object';
+            },
+          },
+          backer: {
+            toObject () {
+              return 'backer object';
+            },
+          },
         });
 
         let chat = party.chat[0];
@@ -449,15 +457,15 @@ describe('Group Model', () => {
         expect(chat.flags).to.eql({});
         expect(chat.flagCount).to.eql(0);
         expect(chat.uuid).to.eql('system');
-        expect(chat.contributor).to.not.exist;;
-        expect(chat.backer).to.not.exist;;
-        expect(chat.user).to.not.exist;;
+        expect(chat.contributor).to.not.exist;
+        expect(chat.backer).to.not.exist;
+        expect(chat.user).to.not.exist;
       });
 
       it('cuts down chat to 200 messages', () => {
-        for (var i = 0; i < 220; i++) {
+        for (let i = 0; i < 220; i++) {
           party.chat.push({ text: 'a message' });
-        };
+        }
 
         expect(party.chat).to.have.a.lengthOf(220);
 
@@ -492,7 +500,7 @@ describe('Group Model', () => {
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
-          'guilds': group._id,
+          guilds: group._id,
           _id: { $ne: '' },
         }, {
           $set: {
