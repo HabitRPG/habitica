@@ -43,7 +43,9 @@ if (apn) {
   });
 
   feedback.on('feedback', (devices) => {
-    logger.info('Delivery of push notifications failed for some Apple devices.', devices);
+    if (devices && devices.length > 0) {
+      logger.info('Delivery of push notifications failed for some Apple devices.', devices);
+    }
   });
 }
 
