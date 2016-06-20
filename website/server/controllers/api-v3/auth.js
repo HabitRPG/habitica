@@ -283,10 +283,12 @@ api.loginSocial = {
   },
 };
 
+const PUSHER_CHANNEL_TYPES = ['private', 'presence'];
+
 /*
- * @apiIgnore
+ * @apiIgnore Private route
  * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
- * @apiDescription Authentication for Pusher.com private and presence channels, private route
+ * @apiDescription Authentication for Pusher.com private and presence channels
  * @apiVersion 3.0.0
  * @apiName UserAuthPusher
  * @apiGroup User
@@ -312,10 +314,30 @@ api.pusherAuth = {
     let socketId = req.body.socket_id;
     let channelName = req.body.channel_name;
 
-    let isPresenceChannel = channelName.indexOf('presence-') === 0;
+    // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
+    let [channelType, resourceType, ...resourceId] = channelName.split('-');
+
+    if (PUSHER_CHANNEL_TYPES.indexOf(channelType) === -1) {
+      throw new BadRequest('Invalid Pusher channel type.');
+    }
+
+    if (resourceType !== 'group') { // only groups are supported
+      throw new BadRequest('Invalid Pusher resource type.');
+    }
+
+    resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
+    if (!validator.isUUID(resourceId)) {
+      throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
+    }
+
+    // Only the user's party is supported for now
+    if (user.party._id !== resourceId) {
+      throw new NotFound('Resource id must be the user\'s party.');
+    }
+
     let authResult;
 
-    if (isPresenceChannel) {
+    if (channelType === 'presence') {
       let presenceData = {
         user_id: user._id, // eslint-disable-line camelcase
         // Max 1KB
