@@ -17,13 +17,18 @@ import { shouldDo, daysSince } from './cron';
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
 
-// TODO under api.constants? and capitalize exported names too
 import {
   MAX_HEALTH,
   MAX_LEVEL,
   MAX_STAT_POINTS,
   TAVERN_ID,
+  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
 } from './constants';
+
+api.constants = {
+  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+};
+// TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
 api.maxHealth = MAX_HEALTH;
 api.maxStatPoints = MAX_STAT_POINTS;

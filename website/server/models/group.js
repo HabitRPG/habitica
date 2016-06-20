@@ -25,6 +25,9 @@ const Schema = mongoose.Schema;
 export const INVITES_LIMIT = 100;
 export const TAVERN_ID = shared.TAVERN_ID;
 
+const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
+const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
@@ -300,34 +303,30 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
-const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
-
 schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
   this.chat.splice(200);
 
-  // Kick off chat notifications in the background.
-  let lastSeenUpdate = {$set: {}};
-  lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
-
   // do not send notifications for guilds with more than 5000 users and for the tavern
-  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > 5000) {
-    // TODO For Tavern, only notify them if their name was mentioned
-    // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
-    // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
-  } else {
-    let query = {};
-
-    if (this.type === 'party') {
-      query['party._id'] = this._id;
-    } else {
-      query.guilds = this._id;
-    }
-
-    query._id = { $ne: user ? user._id : ''};
-
-    User.update(query, lastSeenUpdate, {multi: true}).exec();
+  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
+    return;
   }
+
+  // Kick off chat notifications in the background.
+  let lastSeenUpdate = {$set: {
+    [`newMessages.${this._id}`]: {name: this.name, value: true},
+  }};
+  let query = {};
+
+  if (this.type === 'party') {
+    query['party._id'] = this._id;
+  } else {
+    query.guilds = this._id;
+  }
+
+  query._id = { $ne: user ? user._id : ''};
+
+  User.update(query, lastSeenUpdate, {multi: true}).exec();
 };
 
 schema.methods.startQuest = async function startQuest (user) {
