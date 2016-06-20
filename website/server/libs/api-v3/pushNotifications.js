@@ -18,13 +18,15 @@ if (gcm) {
 }
 
 const APN_CERT = nconf.get('PUSH_CONFIGS:APN_PEM_FILES:CERT');
-const APN_KEY = nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_1') + nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PARTY_2');
+const APN_KEY_PART_1 = (nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_1') || '').trim();
+const APN_KEY_PART_2 = (nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_2') || '').trim();
+const APN_KEY = APN_KEY_PART_1 + APN_KEY_PART_2;
 
 // Split key into two parts, because we have to stay below 4096 bytes for env
 // Variables.
 let apn = APN_CERT ? pushNotify.apn({
-  key: APN_KEY,
-  cert: APN_CERT,
+  key: APN_KEY.trim(),
+  cert: APN_CERT.trim(),
 }) : undefined;
 
 if (apn) {
