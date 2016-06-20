@@ -49,8 +49,6 @@ describe('POST /user/push-devices', () => {
       });
   });
 
-  // More tests in common code unit tests
-
   it('adds a push device to the user', async () => {
     let response = await user.post('/user/push-devices', {type, regId});
     await user.sync();

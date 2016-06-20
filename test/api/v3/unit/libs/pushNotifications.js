@@ -38,20 +38,20 @@ describe('pushNotifications', () => {
     sandbox.restore();
   });
 
-  it('returns if user is not supplied', () => {
+  it('throws if user is not supplied', () => {
     expect(sendPushNotification).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
-  it('returns if user.preferences.pushNotifications.unsubscribeFromAll is true', () => {
+  it('throws if user.preferences.pushNotifications.unsubscribeFromAll is true', () => {
     user.preferences.pushNotifications.unsubscribeFromAll = true;
     expect(() => sendPushNotification(user)).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
-  it('returns if details.identifier is not supplied', () => {
+  it('throws if details.identifier is not supplied', () => {
     expect(() => sendPushNotification(user, {
       title,
       message,
@@ -60,7 +60,7 @@ describe('pushNotifications', () => {
     expect(apnSendSpy).to.not.have.been.called;
   });
 
-  it('returns if details.title is not supplied', () => {
+  it('throws if details.title is not supplied', () => {
     expect(() => sendPushNotification(user, {
       identifier,
       message,
@@ -69,7 +69,7 @@ describe('pushNotifications', () => {
     expect(apnSendSpy).to.not.have.been.called;
   });
 
-  it('returns if details.message is not supplied', () => {
+  it('throws if details.message is not supplied', () => {
     expect(() => sendPushNotification(user, {
       identifier,
       title,
@@ -78,7 +78,7 @@ describe('pushNotifications', () => {
     expect(apnSendSpy).to.not.have.been.called;
   });
 
-  it('return is no device is registered', () => {
+  it('returns if no device is registered', () => {
     sendPushNotification(user, {
       identifier,
       title,
