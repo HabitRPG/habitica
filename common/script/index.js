@@ -17,13 +17,18 @@ import { shouldDo, daysSince } from './cron';
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
 
-// TODO under api.constants? and capitalize exported names too
 import {
   MAX_HEALTH,
   MAX_LEVEL,
   MAX_STAT_POINTS,
   TAVERN_ID,
+  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
 } from './constants';
+
+api.constants = {
+  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+};
+// TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
 api.maxHealth = MAX_HEALTH;
 api.maxStatPoints = MAX_STAT_POINTS;
@@ -138,7 +143,6 @@ import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
 import updateTask from './ops/updateTask';
-import clearCompleted from './ops/clearCompleted';
 import sell from './ops/sell';
 import unlock from './ops/unlock';
 import revive from './ops/revive';
@@ -179,7 +183,6 @@ api.ops = {
   releaseBoth,
   releaseMounts,
   updateTask,
-  clearCompleted,
   sell,
   unlock,
   revive,
@@ -256,7 +259,6 @@ api.wrap = function wrapUser (user, main = true) {
       reroll: _.partial(importedOps.reroll, user),
       rebirth: _.partial(importedOps.rebirth, user),
       allocateNow: _.partial(importedOps.allocateNow, user),
-      clearCompleted: _.partial(importedOps.clearCompleted, user),
       sortTask: _.partial(importedOps.sortTask, user),
       updateTask: _.partial(importedOps.updateTask, user),
       deleteTask: _.partial(importedOps.deleteTask, user),

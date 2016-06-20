@@ -5,7 +5,6 @@ import reset from './reset';
 import reroll from './reroll';
 import rebirth from './rebirth';
 import allocateNow from './allocateNow';
-import clearCompleted from './clearCompleted';
 import sortTask from './sortTask';
 import updateTask from './updateTask';
 import deleteTask from './deleteTask';
@@ -56,7 +55,6 @@ module.exports = {
   reroll,
   rebirth,
   allocateNow,
-  clearCompleted,
   sortTask,
   updateTask,
   deleteTask,

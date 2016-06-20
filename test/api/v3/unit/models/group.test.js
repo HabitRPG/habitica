@@ -3,6 +3,8 @@ import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
 import * as email from '../../../../../website/server/libs/api-v3/email';
+import validator from 'validator';
+import { TAVERN_ID } from '../../../../../common/script/';
 
 describe('Group Model', () => {
   let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
@@ -395,6 +397,155 @@ describe('Group Model', () => {
   });
 
   context('Instance Methods', () => {
+    describe('#sendChat', () => {
+      beforeEach(() => {
+        sandbox.spy(User, 'update');
+      });
+
+      it('puts message at top of chat array', () => {
+        let oldMessage = {
+          text: 'a message',
+        };
+        party.chat.push(oldMessage, oldMessage, oldMessage);
+
+        party.sendChat('a new message', {_id: 'user-id', profile: { name: 'user name' }});
+
+        expect(party.chat).to.have.a.lengthOf(4);
+        expect(party.chat[0].text).to.eql('a new message');
+        expect(party.chat[0].uuid).to.eql('user-id');
+      });
+
+      it('formats message', () => {
+        party.sendChat('a new message', {
+          _id: 'user-id',
+          profile: { name: 'user name' },
+          contributor: {
+            toObject () {
+              return 'contributor object';
+            },
+          },
+          backer: {
+            toObject () {
+              return 'backer object';
+            },
+          },
+        });
+
+        let chat = party.chat[0];
+
+        expect(chat.text).to.eql('a new message');
+        expect(validator.isUUID(chat.id)).to.eql(true);
+        expect(chat.timestamp).to.be.a('number');
+        expect(chat.likes).to.eql({});
+        expect(chat.flags).to.eql({});
+        expect(chat.flagCount).to.eql(0);
+        expect(chat.uuid).to.eql('user-id');
+        expect(chat.contributor).to.eql('contributor object');
+        expect(chat.backer).to.eql('backer object');
+        expect(chat.user).to.eql('user name');
+      });
+
+      it('formats message as system if no user is passed in', () => {
+        party.sendChat('a system message');
+
+        let chat = party.chat[0];
+
+        expect(chat.text).to.eql('a system message');
+        expect(validator.isUUID(chat.id)).to.eql(true);
+        expect(chat.timestamp).to.be.a('number');
+        expect(chat.likes).to.eql({});
+        expect(chat.flags).to.eql({});
+        expect(chat.flagCount).to.eql(0);
+        expect(chat.uuid).to.eql('system');
+        expect(chat.contributor).to.not.exist;
+        expect(chat.backer).to.not.exist;
+        expect(chat.user).to.not.exist;
+      });
+
+      it('cuts down chat to 200 messages', () => {
+        for (let i = 0; i < 220; i++) {
+          party.chat.push({ text: 'a message' });
+        }
+
+        expect(party.chat).to.have.a.lengthOf(220);
+
+        party.sendChat('message');
+
+        expect(party.chat).to.have.a.lengthOf(200);
+      });
+
+      it('updates users about new messages in party', () => {
+        party.sendChat('message');
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWithMatch({
+          'party._id': party._id,
+          _id: { $ne: '' },
+        }, {
+          $set: {
+            [`newMessages.${party._id}`]: {
+              name: party.name,
+              value: true,
+            },
+          },
+        });
+      });
+
+      it('updates users about new messages in group', () => {
+        let group = new Group({
+          type: 'guild',
+        });
+
+        group.sendChat('message');
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWithMatch({
+          guilds: group._id,
+          _id: { $ne: '' },
+        }, {
+          $set: {
+            [`newMessages.${group._id}`]: {
+              name: group.name,
+              value: true,
+            },
+          },
+        });
+      });
+
+      it('does not send update to user that sent the message', () => {
+        party.sendChat('message', {_id: 'user-id', profile: { name: 'user' }});
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWithMatch({
+          'party._id': party._id,
+          _id: { $ne: 'user-id' },
+        }, {
+          $set: {
+            [`newMessages.${party._id}`]: {
+              name: party.name,
+              value: true,
+            },
+          },
+        });
+      });
+
+      it('skips sending new message notification for guilds with > 5000 members', () => {
+        party.memberCount = 5001;
+
+        party.sendChat('message');
+
+        expect(User.update).to.not.be.called;
+      });
+
+      it('skips sending messages to the tavern', () => {
+        party._id = TAVERN_ID;
+
+        party.sendChat('message');
+
+        expect(User.update).to.not.be.called;
+      });
+    });
+
     describe('#startQuest', () => {
       context('Failure Conditions', () => {
         it('throws an error if group is not a party', async () => {

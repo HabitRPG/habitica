@@ -127,6 +127,9 @@ angular.module('habitrpg')
         })
         .then(function() {
           syncUserTasks(tasks);
+          if ($rootScope.$state && $rootScope.$state.current.name=='options.social.inbox' && user.inbox.newMessages > 0) {
+            userServices.clearNewMessages();
+          }
           $rootScope.$emit('userSynced');
           $rootScope.appLoaded = true;
           $rootScope.$emit('userUpdated', user);
@@ -311,11 +314,6 @@ angular.module('habitrpg')
         deleteTask: function (data) {
           user.ops.deleteTask(data);
           Tasks.deleteTask(data.params.id);
-        },
-
-        clearCompleted: function () {
-          user.ops.clearCompleted(user.todos);
-          Tasks.clearCompletedTodos();
         },
 
         readNotification: function (notificationId) {
