@@ -144,7 +144,7 @@ let _generateValueForGoogleAnalytics = (data) => {
 
 let _sendDataToGoogle = (eventType, data) => {
   let eventData = {
-    ec: data.category || data.gaCategory || 'behavior',
+    ec: data.gaCategory || data.category || 'behavior',
     ea: eventType,
   };
 
