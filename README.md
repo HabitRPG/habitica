@@ -28,3 +28,8 @@ node debug-scripts/name-of-script.js
 ```
 
 If there are more arguments required to make the script work, it will print out the usage and an explanation of what the script does.
+
+## Licensing
+* The source code of Habitica is available under the [GPLv3 license](http://www.gnu.org/licenses/gpl-3.0.txt), see `LICENSE` for more information.
+* The included assets and content designed for Mozilla BrowserQuest are available under the [CC-BY-SA 3.0 license](http://creativecommons.org/licenses/by-sa/3.0/).
+* The included assets and content designed for HabitRPG are available under the [CC-BY-NC-SA 3.0 license](http://creativecommons.org/licenses/by-nc-sa/3.0/).
