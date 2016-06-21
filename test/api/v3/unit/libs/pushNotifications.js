@@ -19,7 +19,7 @@ describe('pushNotifications', () => {
     gcmSendSpy = sinon.spy();
     apnSendSpy = sinon.spy();
 
-    sandbox.stub(nconf, 'get').returns('STRING');
+    sandbox.stub(nconf, 'get').returns('true');
 
     sandbox.stub(pushNotify, 'gcm').returns({
       on: () => null,
