@@ -70,7 +70,7 @@ angular.module('habitrpg')
       }
 
       function sync() {
-        var tasks;
+        var tasks = [];
         return $http({
           method: "GET",
           url: '/api/v3/user/',
@@ -106,11 +106,11 @@ angular.module('habitrpg')
         })
         // refresh all but completed todos
         .then(function (response) {
-          tasks = response.data.data;
+          tasks.push.apply(tasks, response.data.data);
+
 
           // only refresh completed todos if the user has the completed tabs list open
-          var taskButton = document.getElementById('completedTasksButton');
-          if (taskButton && taskButton.classList.contains('active')) {
+          if ($rootScope.lists && $rootScope.pageTitle == 'Tasks' && _.find($rootScope.lists, {'type':'todo'}).view == 'complete') {
             return Tasks.getUserTasks(true)
           }
         })
