@@ -70,6 +70,7 @@ angular.module('habitrpg')
       }
 
       function sync() {
+        var tasks = [];
         return $http({
           method: "GET",
           url: '/api/v3/user/',
@@ -103,8 +104,24 @@ angular.module('habitrpg')
 
           return Tasks.getUserTasks();
         })
+        // refresh all but completed todos
         .then(function (response) {
-          var tasks = response.data.data;
+          tasks.push.apply(tasks, response.data.data);
+
+          // only refresh completed todos if the user has the completed tabs list open
+          if ($rootScope.lists && $rootScope.$state && $rootScope.$state.current.name == 'tasks' && _.find($rootScope.lists, {'type':'todo'}).view == 'complete') {
+            return Tasks.getUserTasks(true)
+          }
+        })
+        // refresh completed todos
+        .then(function (response) {
+          if (response) {
+            tasks.push.apply(tasks, response.data.data);
+          }
+
+          Tasks.loadedCompletedTodos = Boolean(response);
+        })
+        .then(function() {
           syncUserTasks(tasks);
           if ($rootScope.$state && $rootScope.$state.current.name=='options.social.inbox' && user.inbox.newMessages > 0) {
             userServices.clearNewMessages();
