@@ -17,16 +17,14 @@ if (gcm) {
   });
 }
 
-const APN_CERT = nconf.get('PUSH_CONFIGS:APN_PEM_FILES:CERT');
-const APN_KEY_PART_1 = (nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_1') || '').trim();
-const APN_KEY_PART_2 = (nconf.get('PUSH_CONFIGS:APN_PEM_FILES:KEY_PART_2') || '').trim();
-const APN_KEY = APN_KEY_PART_1 + APN_KEY_PART_2;
+const APN_ENABLED = nconf.get('PUSH_CONFIGS:APN:ENABLED') === 'true';
+const APN_FILES_PATH = nconf.get('PUSH_CONFIGS:APN:FILES_PATH');
+const APN_KEY_PATH = `${APN_FILES_PATH}/key.pem`;
+const APN_CERT_PATH = `${APN_FILES_PATH}/cert.pem`;
 
-// Split key into two parts, because we have to stay below 4096 bytes for env
-// Variables.
-let apn = APN_CERT ? pushNotify.apn({
-  key: APN_KEY.trim(),
-  cert: APN_CERT.trim(),
+let apn = APN_ENABLED ? pushNotify.apn({
+  key: APN_KEY_PATH,
+  cert: APN_CERT_PATH,
 }) : undefined;
 
 if (apn) {
@@ -36,8 +34,8 @@ if (apn) {
   });
 
   let feedback = new apnLib.Feedback({
-    key: APN_KEY,
-    cert: APN_CERT,
+    key: APN_KEY_PATH,
+    cert: APN_CERT_PATH,
     batchFeedback: true,
     interval: 3600, // Check for feedback once an hour
   });
