@@ -108,9 +108,8 @@ angular.module('habitrpg')
         .then(function (response) {
           tasks.push.apply(tasks, response.data.data);
 
-
           // only refresh completed todos if the user has the completed tabs list open
-          if ($rootScope.lists && $rootScope.pageTitle == 'Tasks' && _.find($rootScope.lists, {'type':'todo'}).view == 'complete') {
+          if ($rootScope.lists && $rootScope.$state && $rootScope.$state.current.name == 'tasks' && _.find($rootScope.lists, {'type':'todo'}).view == 'complete') {
             return Tasks.getUserTasks(true)
           }
         })
