@@ -52,6 +52,24 @@ describe('Group Model', () => {
     ]);
   });
 
+  describe('Virtual properties', () => {
+    describe('participatingQuestMembers', () => {
+      it('is an array of members with quest status set to true', () => {
+        party.quest.members = {
+          [participatingMember._id]: true,
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        };
+
+        expect(party.quest.participatingMembers).to.eql([
+          participatingMember._id,
+          questLeader._id,
+        ]);
+      });
+    });
+  });
+
   describe('Static Methods', () => {
     describe('processQuestProgress', () => {
       let progress;

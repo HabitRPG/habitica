@@ -90,6 +90,10 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount'],
 });
 
+schema.virtual('quest.participatingMembers').get(function getParticipatingQuestMembers () {
+  return Object.keys(this.quest.members).filter(member => this.quest.members[member]);
+});
+
 // A list of additional fields that cannot be updated (but can be set on creation)
 let noUpdate = ['privacy', 'type'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
@@ -478,7 +482,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: _.keys(this.quest.members)}};
+  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.quest.participatingMembers}};
   this.quest = {};
   this.markModified('quest');
 
@@ -521,7 +525,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Everyone takes damage
   await User.update({
-    _id: {$in: _.keys(_.pick(group.quest.members, _.identity))},
+    _id: {$in: this.quest.participatingMembers},
   }, {
     $inc: {'stats.hp': down},
   }, {multi: true}).exec();
