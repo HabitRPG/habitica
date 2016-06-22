@@ -321,25 +321,46 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
       .personal-options.col-md-6
         .panel.panel-default
           .panel-heading
-            =env.t('emailNotifications')
+            =env.t('notifications')
           .panel-body
-
-            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps']
-              -var preference = 'user.preferences.emailNotifications.' + notification
-              -var unsubscribeFromAll = 'user.preferences.emailNotifications.unsubscribeFromAll'
-
-              .checkbox: label
-                input(type='checkbox', ng-model='#{preference}',
-                  ng-disabled='#{unsubscribeFromAll} === true',
-                  ng-checked='#{unsubscribeFromAll} === false && #{preference} === true',
-                  ng-change='set({"preferences.emailNotifications.#{notification}": #{preference} ? true: false})')
-                span=env.t(notification)
+            table.table
+              tr
+                td
+                th
+                  span=env.t("email")
+                th
+                  span=env.t("push")
+              -var unsubscribeFromAllEmails = 'user.preferences.emailNotifications.unsubscribeFromAll'
+              -var unsubscribeFromAllPush = 'user.preferences.pushNotifications.unsubscribeFromAll'
+              each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps']
+                tr
+                  td
+                    span=env.t(notification)
+                  td
+                    -var preference = 'user.preferences.emailNotifications.' + notification
+                    input(type='checkbox', ng-model='#{preference}',
+                      ng-disabled='#{unsubscribeFromAllEmails} === true || #{preference} === undefined',
+                      ng-checked='#{unsubscribeFromAllEmails} === false && #{preference} === true',
+                      ng-change='set({"preferences.emailNotifications.#{notification}": #{preference} ? true: false})')
+                  td
+                    -var preference = 'user.preferences.pushNotifications.' + notification
+                    input(type='checkbox', ng-model='#{preference}',
+                      ng-disabled='#{unsubscribeFromAllPush} === true || #{preference} === undefined',
+                      ng-checked='#{unsubscribeFromAllPush} === false && #{preference} === true',
+                      ng-change='set({"preferences.pushNotifications.#{notification}": #{preference} ? true: false})')
 
             hr
 
             .checkbox
               label
-                input(type='checkbox', ng-model='user.preferences.emailNotifications.unsubscribeFromAll', ng-change='set({"preferences.emailNotifications.unsubscribeFromAll": user.preferences.emailNotifications.unsubscribeFromAll ? true: false})')
+                input(type='checkbox', ng-model='user.preferences.pushNotifications.unsubscribeFromAll',
+                ng-change='set({"preferences.pushNotifications.unsubscribeFromAll": user.preferences.pushNotifications.unsubscribeFromAll ? true: false})')
+                span=env.t('unsubscribeAllPush')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.emailNotifications.unsubscribeFromAll',
+                ng-change='set({"preferences.emailNotifications.unsubscribeFromAll": user.preferences.emailNotifications.unsubscribeFromAll ? true: false})')
                 span=env.t('unsubscribeAllEmails')
 
             small=env.t('unsubscribeAllEmailsText')

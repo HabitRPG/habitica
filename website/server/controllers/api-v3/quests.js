@@ -106,11 +106,18 @@ api.inviteToQuest = {
     let inviterVars = getUserInfo(user, ['name', 'email']);
     let membersToEmail = members.filter(member => {
       // send push notifications while filtering members before sending emails
-      sendPushNotification(
-        member,
-        common.i18n.t('questInvitationTitle'),
-        common.i18n.t('questInvitationInfo', { quest: quest.text() })
-      );
+      if (member.preferences.pushNotifications.invitedQuest !== false) {
+        sendPushNotification(
+          member,
+          {
+            title: res.t('questInvitationTitle'),
+            message: res.t('questInvitationInfo', {quest: quest.text(req.language)}),
+            identifier: 'questInvitation',
+            category: 'questInvitation',
+          }
+
+        );
+      }
 
       return member.preferences.emailNotifications.invitedQuest !== false;
     });

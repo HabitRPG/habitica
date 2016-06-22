@@ -3,6 +3,7 @@ import shared from '../../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import { schema as TagSchema } from '../tag';
+import { schema as PushDeviceSchema } from '../pushDevice';
 import {
   schema as UserNotificationSchema,
 } from '../userNotification';
@@ -431,6 +432,17 @@ let schema = new Schema({
       importantAnnouncements: {type: Boolean, default: true},
       weeklyRecaps: {type: Boolean, default: true},
     },
+    pushNotifications: {
+      unsubscribeFromAll: {type: Boolean, default: false},
+      newPM: {type: Boolean, default: true},
+      wonChallenge: {type: Boolean, default: true},
+      giftedGems: {type: Boolean, default: true},
+      giftedSubscription: {type: Boolean, default: true},
+      invitedParty: {type: Boolean, default: true},
+      invitedGuild: {type: Boolean, default: true},
+      questStarted: {type: Boolean, default: true},
+      invitedQuest: {type: Boolean, default: true},
+    },
     suppressModals: {
       levelUp: {type: Boolean, default: false},
       hatchPet: {type: Boolean, default: false},
@@ -505,10 +517,7 @@ let schema = new Schema({
   extra: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
-  pushDevices: [{
-    regId: {type: String},
-    type: {type: String},
-  }],
+  pushDevices: [PushDeviceSchema],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
