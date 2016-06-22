@@ -35,14 +35,13 @@ if (APN_ENABLED) {
     }).promise(),
     S3.getObject({
       Bucket: S3_BUCKET,
-      Key: 'apple_apn/cert.pem',
+      Key: 'apple_apn/key.pem',
     }).promise(),
   ])
   .then(([certObj, keyObj]) => {
     let cert = certObj.Body.toString();
     let key = keyObj.Body.toString();
 
-    console.log(cert, key);
     apn = pushNotify.apn({
       key: cert,
       cert: key,
