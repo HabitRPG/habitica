@@ -9,16 +9,14 @@ import csvStringify from '../../libs/api-v3/csvStringify';
 import moment from 'moment';
 import js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
-import AWS from 'aws-sdk';
 import nconf from 'nconf';
 import got from 'got';
 import Bluebird from 'bluebird';
 import locals from '../../middlewares/api-v3/locals';
+import {
+  S3,
+} from '../../libs/api-v3/aws';
 
-let S3 = new AWS.S3({
-  accessKeyId: nconf.get('S3:accessKeyId'),
-  secretAccessKey: nconf.get('S3:secretAccessKey'),
-});
 const S3_BUCKET = nconf.get('S3:bucket');
 
 const BASE_URL = nconf.get('BASE_URL');

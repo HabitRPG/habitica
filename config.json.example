@@ -65,10 +65,7 @@
     "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
-        "APN": {
-            "FILES_PATH": "",
-            "ENABLED": "false"
-        }
+        "APN_ENABLED": "true"
     },
     "FIREBASE": {
         "APP": "app-name",
