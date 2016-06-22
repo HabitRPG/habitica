@@ -42,10 +42,9 @@ if (APN_ENABLED) {
     let cert = certObj.Body.toString();
     let key = keyObj.Body.toString();
 
-    console.log(cert, key);
     apn = pushNotify.apn({
-      key: cert,
-      cert: key,
+      key,
+      cert,
     });
 
     apn.on('error', err => logger.error('APN error', err));
@@ -54,8 +53,8 @@ if (APN_ENABLED) {
     });
 
     let feedback = new apnLib.Feedback({
-      key: cert,
-      cert: key,
+      key,
+      cert,
       batchFeedback: true,
       interval: 3600, // Check for feedback once an hour
     });
