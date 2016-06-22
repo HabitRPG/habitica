@@ -428,7 +428,7 @@ api.resetPassword = {
                                                 baseUrl: nconf.get('BASE_URL'),
                                               }),
       });
-     
+
       await user.save();
     }
 
