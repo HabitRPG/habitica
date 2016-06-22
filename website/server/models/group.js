@@ -443,11 +443,14 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
   let questK = quest.key;
-  let updates = {$inc: {}, $set: {}};
-
-  updates.$inc[`achievements.quests.${questK}`] = 1;
-  updates.$inc['stats.gp'] = Number(quest.drop.gp);
-  updates.$inc['stats.exp'] = Number(quest.drop.exp);
+  let updates = {
+    $inc: {
+      [`achievements.quests.${questK}`]: 1,
+      ['stats.gp']: Number(quest.drop.gp),
+      ['stats.exp']: Number(quest.drop.exp),
+    },
+    $set: {},
+  };
 
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
