@@ -42,6 +42,7 @@ if (APN_ENABLED) {
     let cert = certObj.Body.toString();
     let key = keyObj.Body.toString();
 
+    console.log(cert, key);
     apn = pushNotify.apn({
       key: cert,
       cert: key,
