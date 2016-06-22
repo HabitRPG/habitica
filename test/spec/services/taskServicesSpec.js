@@ -150,56 +150,6 @@ describe('Tasks Service', function() {
     $httpBackend.flush();
   });
 
-  describe('editTask', function() {
-
-    var task;
-
-    beforeEach(function(){
-      task = specHelper.newTask();
-    });
-
-    it('toggles the _editing property', function() {
-      tasks.editTask(task, user);
-      expect(task._editing).to.eql(true);
-      tasks.editTask(task, user);
-      expect(task._editing).to.eql(false);
-    });
-
-    it('sets _tags to true by default', function() {
-      tasks.editTask(task, user);
-
-      expect(task._tags).to.eql(true);
-    });
-
-    it('sets _tags to false if preference for collapsed tags is turned on', function() {
-      user.preferences.tagsCollapsed = true;
-      tasks.editTask(task, user);
-
-      expect(task._tags).to.eql(false);
-    });
-
-    it('sets _advanced to true by default', function(){
-      user.preferences.advancedCollapsed = true;
-      tasks.editTask(task, user);
-
-      expect(task._advanced).to.eql(false);
-    });
-
-    it('sets _advanced to false if preference for collapsed advance menu is turned on', function() {
-      user.preferences.advancedCollapsed = false;
-      tasks.editTask(task, user);
-
-      expect(task._advanced).to.eql(true);
-    });
-
-    it('closes task chart if it exists', function() {
-      rootScope.charts[task.id] = true;
-
-      tasks.editTask(task, user);
-      expect(rootScope.charts[task.id]).to.eql(false);
-    });
-  });
-
   describe('cloneTask', function() {
 
     context('generic tasks', function() {
