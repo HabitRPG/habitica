@@ -38,7 +38,10 @@ if (APN_ENABLED) {
       Key: 'apple_apn/cert.pem',
     }).promise(),
   ])
-  .then(([cert, key]) => {
+  .then(([certObj, keyObj]) => {
+    let cert = certObj.Body.toString();
+    let key = keyObj.Body.toString();
+
     console.log(cert, key);
     apn = pushNotify.apn({
       key: cert,
