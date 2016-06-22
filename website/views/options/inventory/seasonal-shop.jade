@@ -20,17 +20,17 @@
           ng-click='buyQuest(quest.key)')
         p {{::quest.value}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
-    // menu.pets-menu(label=env.t('seasonalItems'))
+    menu.pets-menu(label=env.t('seasonalItems'))
       div
-        button.customize-option(class='inventory_special_shinySeed',
-          popover='{{::Content.spells.special.shinySeed.notes()}}',
-          popover-title='{{::Content.spells.special.shinySeed.text()}}',
+        button.customize-option(class='inventory_special_seafoam',
+          popover='{{::Content.spells.special.seafoam.notes()}}',
+          popover-title='{{::Content.spells.special.seafoam.text()}}',
           popover-trigger='mouseenter', popover-placement='right',
           popover-append-to-body='true',
-          ng-click='purchase("special", Content.spells.special.shinySeed)')
-        p {{::Content.spells.special.shinySeed.value}}
+          ng-click='purchase("special", Content.spells.special.seafoam)')
+        p {{::Content.spells.special.seafoam.value}}
           span(class='shop_gold')
-      div
+      // div
         button.customize-option(class='Pet_HatchingPotion_Peppermint',
           popover='{{::Content.hatchingPotions.Peppermint.notes()}}',
           popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions.Peppermint.text()}}"}),
@@ -39,7 +39,7 @@
           ng-click='purchase("hatchingPotions", Content.hatchingPotions.Peppermint)')
         p {{::Content.hatchingPotions.Peppermint.value}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
-      div
+      // div
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
         p {{Content.spells.special.nye.value}}
           span(class='shop_gold')
