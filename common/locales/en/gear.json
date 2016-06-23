@@ -3,6 +3,7 @@
   "equipmentType" : "Type",
   "klass": "Class",
   "groupBy": "Group By <%= type %>",
+  "classBonus": "(This item matches your class, so it gets an additional 1.5 stat multiplier.)",
 
   "weapon": "weapon",
   "weaponCapitalized" : "Weapon",
