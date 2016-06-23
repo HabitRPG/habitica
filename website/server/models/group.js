@@ -446,8 +446,8 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   let updates = {
     $inc: {
       [`achievements.quests.${questK}`]: 1,
-      ['stats.gp']: Number(quest.drop.gp),
-      ['stats.exp']: Number(quest.drop.exp),
+      'stats.gp': Number(quest.drop.gp),
+      'stats.exp': Number(quest.drop.exp),
     },
     $set: {},
   };
