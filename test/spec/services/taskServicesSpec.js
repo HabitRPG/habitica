@@ -158,7 +158,7 @@ describe('Tasks Service', function() {
       task = specHelper.newTask();
     });
 
-    it('toggles the _editing property', function() {
+    it('sets _editing to true', function() {
       tasks.editTask(task, user);
       expect(task._editing).to.eql(true);
     });
@@ -206,7 +206,7 @@ describe('Tasks Service', function() {
       task = specHelper.newTask();
     });
 
-    it('sets editing to false', function() {
+    it('sets _editing to false', function() {
       task._editing = true;
       tasks.cancelTaskEdit(task);
       expect(task._editing).to.eql(false);
