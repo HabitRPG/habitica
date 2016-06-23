@@ -151,7 +151,6 @@ import blockUser from './ops/blockUser';
 import clearPMs from './ops/clearPMs';
 import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
-import addPushDevice from './ops/addPushDevice';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
 
@@ -191,7 +190,6 @@ api.ops = {
   clearPMs,
   deletePM,
   reroll,
-  addPushDevice,
   reset,
   markPmsRead,
 };
@@ -272,7 +270,6 @@ api.wrap = function wrapUser (user, main = true) {
       addWebhook: _.partial(importedOps.addWebhook, user),
       updateWebhook: _.partial(importedOps.updateWebhook, user),
       deleteWebhook: _.partial(importedOps.deleteWebhook, user),
-      addPushDevice: _.partial(importedOps.addPushDevice, user),
       clearPMs: _.partial(importedOps.clearPMs, user),
       deletePM: _.partial(importedOps.deletePM, user),
       blockUser: _.partial(importedOps.blockUser, user),

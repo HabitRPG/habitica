@@ -18,7 +18,6 @@ import deleteTag from './deleteTag';
 import addWebhook from './addWebhook';
 import updateWebhook from './updateWebhook';
 import deleteWebhook from './deleteWebhook';
-import addPushDevice from './addPushDevice';
 import clearPMs from './clearPMs';
 import deletePM from './deletePM';
 import blockUser from './blockUser';
@@ -68,7 +67,6 @@ module.exports = {
   addWebhook,
   updateWebhook,
   deleteWebhook,
-  addPushDevice,
   clearPMs,
   deletePM,
   blockUser,

@@ -405,18 +405,29 @@ schema.methods.startQuest = async function startQuest (user) {
   // send notifications in the background without blocking
   User.find(
     { _id: { $in: nonUserQuestMembers } },
-    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications pushDevices profile.name'
+    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications preferences.pushNotifications pushDevices profile.name'
   ).exec().then((membersToNotify) => {
     let membersToEmail = _.filter(membersToNotify, (member) => {
       // send push notifications and filter users that disabled emails
-      sendPushNotification(member, 'HabitRPG', `${shared.i18n.t('questStarted')}: ${quest.text()}`);
-
       return member.preferences.emailNotifications.questStarted !== false &&
         member._id !== user._id;
     });
     sendTxnEmail(membersToEmail, 'quest-started', [
       { name: 'PARTY_URL', content: '/#/options/groups/party' },
     ]);
+    let membersToPush = _.filter(membersToNotify, (member) => {
+      // send push notifications and filter users that disabled emails
+      return member.preferences.pushNotifications.questStarted !== false &&
+        member._id !== user._id;
+    });
+    _.each(membersToPush, (member) => {
+      sendPushNotification(member,
+        {
+          title: quest.text(),
+          message: `${shared.i18n.t('questStarted')}: ${quest.text()}`,
+          identifier: 'questStarted',
+        });
+    });
   });
 };
 
