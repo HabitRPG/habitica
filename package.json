@@ -8,6 +8,7 @@
     "amazon-payments": "0.0.4",
     "amplitude": "^2.0.3",
     "apidoc": "^0.16.0",
+    "apn": "^1.7.6",
     "async": "^1.5.0",
     "aws-sdk": "^2.0.25",
     "babel-plugin-transform-async-to-module-method": "^6.8.0",
