@@ -1,10 +1,10 @@
 habitrpg.controller('SortableInventoryController', ['$scope',
   function ($scope) {
     var attributeSort = {
-      constitution: ['-con', '-(con+int+per+str)'],
-      intelligence: ['-int', '-(con+int+per+str)'],
-      perception: ['-per', '-(con+int+per+str)'],
-      strength: ['-str', '-(con+int+per+str)'],
+      constitution: ['-(_effectiveCon)', '-(_effectiveCon+_effectiveInt+_effectivePer+_effectiveStr)'],
+      intelligence: ['-(_effectiveInt)', '-(_effectiveCon+_effectiveInt+_effectivePer+_effectiveStr)'],
+      perception: ['-(_effectivePer)', '-(_effectiveCon+_effectiveInt+_effectivePer+_effectiveStr)'],
+      strength: ['-(_effectiveStr)', '-(_effectiveCon+_effectiveInt+_effectivePer+_effectiveStr)'],
       set: 'set'
     }
 

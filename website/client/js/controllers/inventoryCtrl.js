@@ -62,6 +62,16 @@ habitrpg.controller("InventoryCtrl",
 
         var item = Content.gear.flat[key];
 
+        var bonusMultiplier = 1;
+        if (item.klass === User.user.stats.class || item.specialClass === User.user.stats.class) {
+          bonusMultiplier = 1.5;
+        }
+
+        item._effectiveStr = item.str * bonusMultiplier;
+        item._effectiveCon = item.con * bonusMultiplier;
+        item._effectivePer = item.per * bonusMultiplier;
+        item._effectiveInt = item.int * bonusMultiplier;
+
         if (!$scope.gearByClass[item.klass]) {
           $scope.gearByClass[item.klass] = [];
         }
