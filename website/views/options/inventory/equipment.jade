@@ -26,7 +26,7 @@ mixin equipmentButton(type)
       button.customize-option(class='shop_{{::item.key}}',
         ng-class='{selectableInventory: user.items.gear.#{type}[item.type] == item.key}',
         ng-click='equip(item.key, "#{type}")',
-        popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+        popover='{{::item.notes()}} {{::classBonusNotes(item)}}', popover-title='{{::item.text()}}',
         popover-trigger='mouseenter', popover-placement='right',
         popover-append-to-body='true')
 

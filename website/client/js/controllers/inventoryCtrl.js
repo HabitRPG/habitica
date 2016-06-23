@@ -63,7 +63,7 @@ habitrpg.controller("InventoryCtrl",
         var item = Content.gear.flat[key];
 
         var bonusMultiplier = 1;
-        if (item.klass === User.user.stats.class || item.specialClass === User.user.stats.class) {
+        if (_isClassItem(item)) {
           bonusMultiplier = 1.5;
         }
 
@@ -317,6 +317,12 @@ habitrpg.controller("InventoryCtrl",
       });
     };
 
+    $scope.classBonusNotes = function (item) {
+      if (_isClassItem(item)) {
+        return window.env.t('classBonus');
+      }
+    };
+
     $scope.hasAllTimeTravelerItems = function() {
       return ($scope.hasAllTimeTravelerItemsOfType('mystery') &&
         $scope.hasAllTimeTravelerItemsOfType('pets') &&
@@ -357,6 +363,12 @@ habitrpg.controller("InventoryCtrl",
       var random = Math.random() * numberOfVariations;
       var selection = Math.floor(random);
       return env.t(kind + selection);
+    }
+
+    function _isClassItem(item) {
+      var userClass = user.stats.class;
+
+      return item.klass === userClass || item.specialClass === userClass;
     }
   }
 ]);
