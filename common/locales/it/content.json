@@ -121,7 +121,7 @@
     "questEggTreelingAdjective": "un frondoso",
     "questEggAxolotlText": "Axolotl",
     "questEggAxolotlMountText": "Axolotl",
-    "questEggAxolotlAdjective": "a little",
+    "questEggAxolotlAdjective": "un piccolo",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

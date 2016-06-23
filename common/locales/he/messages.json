@@ -16,7 +16,7 @@
     "messageUnEquipped": "<%= itemText %> לא מצוייד.",
     "messageMissingEggPotion": "חסרה לך הביצה או התרופה הזו",
     "messageInvalidEggPotionCombo": "לא תוכלו להבקיע ביצים של חיות מחמד באמצעות שיקויים קסומים! נסו ביצים אחרות.",
-    "messageAlreadyPet": "כבר השגת חיית מחמד זו. נסה/י שילוב אחר!",
+    "messageAlreadyPet": "כבר השגתם חיית מחמד זו. נסו שילוב אחר!",
     "messageHatched": "הביצה שלך בקעה! בקר באורווה כדי לראות את חיית המחמד החדשה שלך.",
     "messageNotEnoughGold": "אין מספיק זהב",
     "messageTwoHandedEquip": "אחיזה ב<%= twoHandedText %> דורשת שתי ידיים, ולכן הורדתם את <%= offHandedText %>.",

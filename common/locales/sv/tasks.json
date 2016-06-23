@@ -94,6 +94,7 @@
     "confirmFortify": "Är du säker?",
     "fortifyComplete": "Fortify complete!",
     "sureDelete": "Är du säker på att du vill radera <%= taskType %> med texten \"<%= taskText %>\"?",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "Följdbonus!",
     "pushTaskToTop": "Flytta uppgifterna till toppen. Håll ned ctrl eller cmd för att flytta dem nedåt.",
     "emptyTask": "Skriv in uppgiftens titel först.",

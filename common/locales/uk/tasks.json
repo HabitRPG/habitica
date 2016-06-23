@@ -94,6 +94,7 @@
     "confirmFortify": "Ви впевнені?",
     "fortifyComplete": "Fortify complete!",
     "sureDelete": "Ви впевнені, що хочете видалити <%= taskType %> під назвою \"<%= taskText %>\"?",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "Бонус за серію!",
     "pushTaskToTop": "Перемістити завдання нагору. Натисніть CTRL або CMD, щоб перемістити його донизу",
     "emptyTask": "Спочатку введіть назву завдання",

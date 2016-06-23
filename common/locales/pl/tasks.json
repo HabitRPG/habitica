@@ -94,6 +94,7 @@
     "confirmFortify": "Na pewno?",
     "fortifyComplete": "Wzmocnienie ukończone!",
     "sureDelete": "Czy na pewno chcesz usunąć <%= taskType %> opisany \"<%= taskText %>\"?",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "Premia za serię!",
     "pushTaskToTop": "Umieść zadanie na górze listy. Przytrzymaj CTRL lub CMD, aby umieścić je na samym dole.",
     "emptyTask": "Najpierw wpisz nazwę zadania.",

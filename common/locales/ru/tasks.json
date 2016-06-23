@@ -94,6 +94,7 @@
     "confirmFortify": "Вы уверены?",
     "fortifyComplete": "Укрепление завершено!",
     "sureDelete": "Вы уверены, что хотите удалить <%= taskType %> с текстом \"<%= taskText %>\"?",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "Бонус за серию!",
     "pushTaskToTop": "Нажмите, чтобы переместить в начало списка. Удерживайте ctrl или cmd при нажатии, чтобы переместить в конец.",
     "emptyTask": "Сначала введите название задания.",

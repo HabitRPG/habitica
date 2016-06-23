@@ -94,6 +94,7 @@
     "confirmFortify": "Si si istý?",
     "fortifyComplete": "Fortify complete!",
     "sureDelete": "Si si istý, že chceš zmazať <%= taskType %> \"<%= taskText %>\"?",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "Bonus za sériu!",
     "pushTaskToTop": "Presuň úlohu navrch. Drž ctrl alebo cmd aby si  ju presunul naspodok.",
     "emptyTask": "Najskôr vlož názov úlohy.",
