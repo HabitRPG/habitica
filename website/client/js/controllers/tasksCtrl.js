@@ -160,7 +160,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
       Tasks.getUserTasks(true)
         .then(function (response) {
-          User.user.todos = User.user.todos.concat(response.data.data);
+          User.user.todos = _.uniq(User.user.todos.concat(response.data.data), 'id');
           Tasks.loadedCompletedTodos = true;
         });
     }
