@@ -737,7 +737,7 @@ api.equip = {
 };
 
 /**
- * @api {post} /api/v3/user/equip/:pet/:food Feed a pet
+ * @api {post} /api/v3/user/feed/:pet/:food Feed a pet
  * @apiVersion 3.0.0
  * @apiName UserFeed
  * @apiGroup User
