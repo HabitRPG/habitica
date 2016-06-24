@@ -175,7 +175,7 @@ api.exportUserAvatarHtml = {
 };
 
 /**
- * @api {get} /export/avatar-:uuid.html Export a user avatar as a PNG file
+ * @api {get} /export/avatar-:uuid.png Render a user avatar as a PNG file
  * @apiVersion 3.0.0
  * @apiName ExportUserAvatarPng
  * @apiGroup DataExport
