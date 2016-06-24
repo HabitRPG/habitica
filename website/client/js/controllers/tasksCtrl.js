@@ -156,11 +156,15 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope._today = moment().add({days: 1});
 
     $scope.loadedCompletedTodos = function () {
-      if (Tasks.loadedCompletedTodos === true) return;
+      if (Tasks.loadedCompletedTodos === true) {
+        return;
+      }
+
+      User.user.todos = _.reject(User.user.todos, 'completed')
 
       Tasks.getUserTasks(true)
         .then(function (response) {
-          User.user.todos = _.uniq(User.user.todos.concat(response.data.data), 'id');
+          User.user.todos = User.user.todos.concat(response.data.data);
           Tasks.loadedCompletedTodos = true;
         });
     }
