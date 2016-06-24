@@ -199,7 +199,6 @@ describe('Tasks Service', function() {
   });
 
   describe('cancelTaskEdit', function() {
-
     var task;
 
     beforeEach(function(){
