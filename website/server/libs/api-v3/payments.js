@@ -118,8 +118,8 @@ api.createSubscription = async function createSubscription (data) {
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
-  let defaultRemaining = plan.subscriptionLengthMonths ? plan.subscriptionLengthMonths * 30 : 30;
-  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : defaultRemaining;
+  let defaultNextBill = plan.subscriptionLengthMonths ? data.lastBillingDate.plusDays(plan.subscriptionLengthMonths * 30) : data.lastBillingDate.plusDays(30);
+  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : moment(defaultNextBill).diff(new Date(), 'days');
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 
