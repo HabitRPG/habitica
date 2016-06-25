@@ -9,6 +9,7 @@ import {
 } from '../../../middlewares/api-v3/auth';
 import shared from '../../../../../common';
 import payments from '../../../libs/api-v3/payments';
+import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
 import cc from 'coupon-code';
@@ -238,8 +239,11 @@ api.subscribeCancel = {
       AmazonBillingAgreementId: billingAgreementId,
     });
 
+    let subscriptionLength = user.purchased.plan.subscriptionLengthMonths ? 30 * user.purchased.plan.subscriptionLengthMonths : 30;
+
     await payments.cancelSubscription({
       user,
+      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
     });
 

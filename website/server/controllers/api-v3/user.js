@@ -737,7 +737,7 @@ api.equip = {
 };
 
 /**
- * @api {post} /api/v3/user/equip/:pet/:food Feed a pet
+ * @api {post} /api/v3/user/feed/:pet/:food Feed a pet
  * @apiVersion 3.0.0
  * @apiName UserFeed
  * @apiGroup User
@@ -1263,32 +1263,6 @@ api.userReroll = {
     await Bluebird.all(promises);
 
     res.respond(200, ...rerollRes);
-  },
-};
-
-/**
-* @api {post} /api/v3/user/addPushDevice Add a push device to a user
-* @apiVersion 3.0.0
-* @apiName UserAddPushDevice
-* @apiGroup User
-*
-* @apiParam {string} regId The id of the push device
-* @apiParam {string} uuid The type of push device
-*
-* @apiSuccess {Object} data List of push devices
-* @apiSuccess {string} message Success message
-*/
-api.userAddPushDevice = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/addPushDevice',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    let addPushDeviceRes = common.ops.addPushDevice(user, req);
-    await user.save();
-
-    res.respond(200, ...addPushDeviceRes);
   },
 };
 

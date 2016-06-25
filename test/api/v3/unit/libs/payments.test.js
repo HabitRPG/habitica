@@ -61,14 +61,6 @@ describe('payments/index', () => {
       expect(difference - 60).to.be.lessThan(3); // the difference is approximately two months, +/- 2 days
     });
 
-    it('defaults terminated date to last billed date + subscription length', () => {
-      data.user.purchased.plan.subscriptionLengthMonths = 3;
-      api.cancelSubscription(data);
-      let terminated = data.user.purchased.plan.dateTerminated;
-      let difference = moment(terminated).diff(data.user.purchased.lastBillingDate, 'days');
-      expect(difference).to.be.eql(89); // 90 days minus one becasue today is a partial day
-    });
-
     it('defaults missing subscription lenth plans to 30 days', () => {
       api.cancelSubscription(data);
       let terminated = data.user.purchased.plan.dateTerminated;

@@ -71,6 +71,10 @@
     "magicianBunnySet": "Кролик фокусника (Маг)",
     "comfortingKittySet": "Успокаивающий котенок (Целитель)",
     "sneakySqueakerSet": "Скрытный пискун (Разбойник)",
+    "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
+    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
+    "strappingSailorSet": "Strapping Sailor (Healer)",
+    "reefRenegadeSet": "Reef Renegade (Rogue)",
     "fallEventAvailability": "Доступно до 31 октября",
     "winterEventAvailability": "Доступен до 31 декабря",
     "springEventAvailability": "Доступно до 31 Мая"

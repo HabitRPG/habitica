@@ -74,7 +74,7 @@
     "onlyLeaderDeleteChal": "削除できるのは、チャレンジのリーダーだけです。",
     "onlyLeaderUpdateChal": "更新できるのは、チャレンジのリーダーだけです。",
     "winnerNotFound": "「<%= userId %>」の優勝者が見つからないか、チャレンジのメンバーではありません。",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" はチャレンジ タスクと関連しているものは対応していません。",
+    "noCompletedTodosChallenge": "チャレンジ関連タスクは \"includeCompletedTodos\" に対応していません。",
     "userTasksNoChallengeId": "「タスクのオーナー」が「ユーザー」「チャレンジID」の場合は先に進めません。",
     "onlyChalLeaderEditTasks": "チャレンジのタスクは、リーダーだけが編集できます。",
     "userAlreadyInChallenge": "ユーザーはすでにこのチャレンジに参加しています。",

@@ -11,14 +11,6 @@ describe('POST /tasks/:taskId/move/to/:position', () => {
     user = await generateUser();
   });
 
-  it('requires a valid taskId', async () => {
-    await expect(user.post('/tasks/123/move/to/1')).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('invalidReqParams'),
-    });
-  });
-
   it('requires a numeric position parameter', async () => {
     await expect(user.post(`/tasks/${generateUUID()}/move/to/notANumber`)).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -49,6 +41,24 @@ describe('POST /tasks/:taskId/move/to/:position', () => {
     let taskToMove = tasks[1];
     expect(taskToMove.text).to.equal('habit 2');
     let newOrder = await user.post(`/tasks/${tasks[1]._id}/move/to/3`);
+    expect(newOrder[3]).to.equal(taskToMove._id);
+    expect(newOrder.length).to.equal(5);
+  });
+
+  it('can move task to new position using alias', async () => {
+    let tasks = await user.post('/tasks/user', [
+      {type: 'habit', text: 'habit 1'},
+      {type: 'habit', text: 'habit 2', alias: 'move'},
+      {type: 'daily', text: 'daily 1'},
+      {type: 'habit', text: 'habit 3'},
+      {type: 'habit', text: 'habit 4'},
+      {type: 'todo', text: 'todo 1'},
+      {type: 'habit', text: 'habit 5'},
+    ]);
+
+    let taskToMove = tasks[1];
+    expect(taskToMove.text).to.equal('habit 2');
+    let newOrder = await user.post(`/tasks/${taskToMove.alias}/move/to/3`);
     expect(newOrder[3]).to.equal(taskToMove._id);
     expect(newOrder.length).to.equal(5);
   });

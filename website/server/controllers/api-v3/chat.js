@@ -149,9 +149,9 @@ api.likeChat = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/flag Flag a group chat message
  * @apiVersion 3.0.0
- * @apiName LikeChat
+ * @apiName FlagChat
  * @apiGroup Chat
  *
  * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
@@ -194,7 +194,7 @@ api.flagChat = {
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
     if (user.contributor.admin) {
-      // Arbitraty amount, higher than 2
+      // Arbitrary amount, higher than 2
       message.flagCount = 5;
     } else {
       message.flagCount++;

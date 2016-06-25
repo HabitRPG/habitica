@@ -25,6 +25,9 @@ const Schema = mongoose.Schema;
 export const INVITES_LIMIT = 100;
 export const TAVERN_ID = shared.TAVERN_ID;
 
+const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
+const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
@@ -245,6 +248,10 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   return toJSON;
 };
 
+schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
+  return Object.keys(this.quest.members).filter(member => this.quest.members[member]);
+};
+
 schema.methods.removeGroupInvitations = async function removeGroupInvitations () {
   let group = this;
 
@@ -300,34 +307,30 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
-const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
-
 schema.methods.sendChat = function sendChat (message, user) {
   this.chat.unshift(chatDefaults(message, user));
   this.chat.splice(200);
 
-  // Kick off chat notifications in the background.
-  let lastSeenUpdate = {$set: {}};
-  lastSeenUpdate.$set[`newMessages.${this._id}`] = {name: this.name, value: true};
-
   // do not send notifications for guilds with more than 5000 users and for the tavern
-  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > 5000) {
-    // TODO For Tavern, only notify them if their name was mentioned
-    // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
-    // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
-  } else {
-    let query = {};
-
-    if (this.type === 'party') {
-      query['party._id'] = this._id;
-    } else {
-      query.guilds = this._id;
-    }
-
-    query._id = { $ne: user ? user._id : ''};
-
-    User.update(query, lastSeenUpdate, {multi: true}).exec();
+  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
+    return;
   }
+
+  // Kick off chat notifications in the background.
+  let lastSeenUpdate = {$set: {
+    [`newMessages.${this._id}`]: {name: this.name, value: true},
+  }};
+  let query = {};
+
+  if (this.type === 'party') {
+    query['party._id'] = this._id;
+  } else {
+    query.guilds = this._id;
+  }
+
+  query._id = { $ne: user ? user._id : ''};
+
+  User.update(query, lastSeenUpdate, {multi: true}).exec();
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -406,18 +409,29 @@ schema.methods.startQuest = async function startQuest (user) {
   // send notifications in the background without blocking
   User.find(
     { _id: { $in: nonUserQuestMembers } },
-    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications pushDevices profile.name'
+    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications preferences.pushNotifications pushDevices profile.name'
   ).exec().then((membersToNotify) => {
     let membersToEmail = _.filter(membersToNotify, (member) => {
       // send push notifications and filter users that disabled emails
-      sendPushNotification(member, 'HabitRPG', `${shared.i18n.t('questStarted')}: ${quest.text()}`);
-
       return member.preferences.emailNotifications.questStarted !== false &&
         member._id !== user._id;
     });
     sendTxnEmail(membersToEmail, 'quest-started', [
       { name: 'PARTY_URL', content: '/#/options/groups/party' },
     ]);
+    let membersToPush = _.filter(membersToNotify, (member) => {
+      // send push notifications and filter users that disabled emails
+      return member.preferences.pushNotifications.questStarted !== false &&
+        member._id !== user._id;
+    });
+    _.each(membersToPush, (member) => {
+      sendPushNotification(member,
+        {
+          title: quest.text(),
+          message: `${shared.i18n.t('questStarted')}: ${quest.text()}`,
+          identifier: 'questStarted',
+        });
+    });
   });
 };
 
@@ -440,11 +454,14 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
   let questK = quest.key;
-  let updates = {$inc: {}, $set: {}};
-
-  updates.$inc[`achievements.quests.${questK}`] = 1;
-  updates.$inc['stats.gp'] = Number(quest.drop.gp);
-  updates.$inc['stats.exp'] = Number(quest.drop.exp);
+  let updates = {
+    $inc: {
+      [`achievements.quests.${questK}`]: 1,
+      'stats.gp': Number(quest.drop.gp),
+      'stats.exp': Number(quest.drop.exp),
+    },
+    $set: {},
+  };
 
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
@@ -479,7 +496,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: _.keys(this.quest.members)}};
+  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
   this.quest = {};
   this.markModified('quest');
 
@@ -522,7 +539,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Everyone takes damage
   await User.update({
-    _id: {$in: _.keys(group.quest.members)},
+    _id: {$in: this.getParticipatingQuestMembers()},
   }, {
     $inc: {'stats.hp': down},
   }, {multi: true}).exec();

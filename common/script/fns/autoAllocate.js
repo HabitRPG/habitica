@@ -18,10 +18,10 @@ function getStatToAllocate (user) {
       return _.invert(stats)[_.min(stats)];
     }
     case 'classbased': {
+      let preference;
       let lvlDiv7 = statsObj.lvl / 7;
       let ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
 
-      let preference;
       switch (statsObj.class) {
         case 'wizard': {
           preference = ['int', 'per', 'con', 'str'];
@@ -56,11 +56,10 @@ function getStatToAllocate (user) {
     case 'taskbased': {
       suggested = _.invert(statsObj.training)[_.max(statsObj.training)];
 
-      let training = statsObj.training;
-      training.str = 0;
-      training.int = 0;
-      training.con = 0;
-      training.per = 0;
+      user.stats.training.str = 0;
+      user.stats.training.int = 0;
+      user.stats.training.con = 0;
+      user.stats.training.per = 0;
 
       return suggested || 'str';
     }
@@ -71,5 +70,7 @@ function getStatToAllocate (user) {
 }
 
 module.exports = function autoAllocate (user) {
-  return user.stats[getStatToAllocate(user)]++;
+  let statToIncrease = getStatToAllocate(user);
+
+  return user.stats[statToIncrease]++;
 };

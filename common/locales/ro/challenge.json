@@ -74,7 +74,7 @@
     "onlyLeaderDeleteChal": "Numai liderul provocării o poate șterge.",
     "onlyLeaderUpdateChal": "Numai liderul provocării o poate actualiza.",
     "winnerNotFound": "Câștigătorul cu id \"<%= userId %>\" nu a fost identificat sau nu ia parte la provocare.",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" nu este suportat atunci când se înapoiază sarcinile provocării.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
     "userTasksNoChallengeId": "Când  \"tasksOwner\" este \"user\" \"challengeId\" nu poate fi ",
     "onlyChalLeaderEditTasks": "Sarcinile care aparțin unei provocări pot fi modificate numai de lider.",
     "userAlreadyInChallenge": "Utilizatorul participă, deja, la această provocare.",

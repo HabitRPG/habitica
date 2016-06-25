@@ -410,7 +410,7 @@ api.resetPassword = {
     let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
     let hashedPassword = passwordUtils.encrypt(newPassword, salt);
 
-    let user = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 });
+    let user = await User.findOne({ 'auth.local.email': email });
 
     if (user) {
       user.auth.local.salt = salt;
@@ -428,8 +428,10 @@ api.resetPassword = {
                                                 baseUrl: nconf.get('BASE_URL'),
                                               }),
       });
+
       await user.save();
     }
+
     res.respond(200, {}, res.t('passwordReset'));
   },
 };
