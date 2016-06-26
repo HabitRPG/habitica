@@ -127,14 +127,16 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
+  let extraDays = Math.ceil(30 * plan.extraMonths);
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 
   plan.dateTerminated =
     moment(nowStr, nowStrFormat)
-    .add({days: remaining}) // end their subscription 1mo from their last payment
-    .add({days: Math.ceil(30 * plan.extraMonths)}) // plus any extra time (carry-over, gifted subscription, etc) they have.
+    .add({days: remaining})
+    .add({days: extraDays})
     .toDate();
+
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
   await data.user.save();
