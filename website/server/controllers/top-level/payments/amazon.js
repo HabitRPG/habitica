@@ -239,9 +239,11 @@ api.subscribeCancel = {
       AmazonBillingAgreementId: billingAgreementId,
     });
 
+    let subscriptionLength = user.purchased.plan.subscriptionLengthMonths ? 30 * user.purchased.plan.subscriptionLengthMonths : 30;
+
     await payments.cancelSubscription({
       user,
-      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: 30 }),
+      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
     });
 
