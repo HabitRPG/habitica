@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 import moment from 'moment';
+import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import { recoverCron, cron } from '../../../../../website/server/libs/api-v3/cron';
 import { model as User } from '../../../../../website/server/models/user';
@@ -159,7 +160,7 @@ describe('cron', () => {
       expect(user.purchased.plan.consecutive.trinkets).to.equal(0);
     });
 
-    it('doest not increment plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
+    it('does not increment plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
@@ -319,6 +320,17 @@ describe('cron', () => {
       expect(user.stats.hp).to.be.lessThan(hpBefore);
     });
 
+    it('should not do damage for missing a daily when CRON_SAFE_MODE is set', () => {
+      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns(true);
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.equal(hpBefore);
+    });
+
     it('should not do damage for missing a daily if user stealth buff is greater than or equal to days missed', () => {
       daysMissed = 1;
       let hpBefore = user.stats.hp;
@@ -432,6 +444,22 @@ describe('cron', () => {
 
     it('increments user buffs if they have a perfect day', () => {
       tasksByType.dailys[0].completed = true;
+
+      let previousBuffs = clone(user.stats.buffs);
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.be.greaterThan(previousBuffs.str);
+      expect(user.stats.buffs.int).to.be.greaterThan(previousBuffs.int);
+      expect(user.stats.buffs.per).to.be.greaterThan(previousBuffs.per);
+      expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
+    });
+
+    it('still grants a perfect day when CRON_SAFE_MODE is set', () => {
+      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns(true);
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = false;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
       let previousBuffs = clone(user.stats.buffs);
 
