@@ -2,15 +2,19 @@ import { model as User } from '../../../../../website/server/models/user';
 import iapLibrary from 'in-app-purchase';
 import iap from '../../../../../website/server/libs/api-v3/inAppPurchases';
 
-describe.only('In App Purchases', () => {
+describe('In App Purchases', () => {
   let user;
+  let setupSpy;
+  let validateSpy;
 
   beforeEach(() => {
     user = new User();
+    setupSpy = sinon.spy();
+    validateSpy = sinon.spy();
 
     sandbox.stub(iapLibrary, 'setup').yields();
     sandbox.stub(iapLibrary, 'validate').yields();
-    sandbox.stub(iapLibrary, 'isValidated').yields();
+    sandbox.stub(iapLibrary, 'isValidated').returns();
   });
 
   afterEach(() => {
@@ -19,21 +23,22 @@ describe.only('In App Purchases', () => {
 
   describe('Android', () => {
     it('applies new valid receipt', async () => {
-      let res = await iap.iapAndroidVerify(user, {
+      iapLibrary.setup.yields(undefined, setupSpy);
+
+      await iap.iapAndroidVerify(user, {
         receipt: {token: 1},
       });
 
-      console.log(res);
+      expect(setupSpy).to.have.been.called;
+      expect(validateSpy).to.have.been.called;
     });
 
     it('example with stub yielding an error', async () => {
       iapLibrary.setup.yields(new Error('an error'));
 
-      let res = await iap.iapAndroidVerify(user, {
+      await iap.iapAndroidVerify(user, {
         receipt: {token: 1},
       });
-
-      console.log(res);
     });
   });
 });

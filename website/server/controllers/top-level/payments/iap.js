@@ -24,7 +24,9 @@ api.iapAndroidVerify = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let resObject = await iapAndroidVerify(res.locals.user, req.body);
-    return res.json(resObject);
+    return res
+      .status(resObject.ok ? 200 : 500)
+      .json(resObject);
   },
 };
 
@@ -41,7 +43,9 @@ api.iapiOSVerify = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let resObject = await iapIOSVerify(res.locals.user, req.body);
-    return res.json(resObject);
+    return res
+      .status(resObject.ok ? 200 : 500)
+      .json(resObject);
   },
 };
 
