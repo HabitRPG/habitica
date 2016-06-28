@@ -325,13 +325,13 @@ describe('cron', () => {
 
     it('should not do damage for missing a daily when CRON_SAFE_MODE is set', () => {
       sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
-      let cron = requireAgain(pathToCronLib).cron;
+      let cronOverride = requireAgain(pathToCronLib).cron;
 
       daysMissed = 1;
       let hpBefore = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
-      cron({user, tasksByType, daysMissed, analytics});
+      cronOverride({user, tasksByType, daysMissed, analytics});
 
       expect(user.stats.hp).to.equal(hpBefore);
     });
@@ -462,14 +462,14 @@ describe('cron', () => {
 
     it('still grants a perfect day when CRON_SAFE_MODE is set', () => {
       sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
-      let cron = requireAgain(pathToCronLib).cron;
+      let cronOverride = requireAgain(pathToCronLib).cron;
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
       let previousBuffs = clone(user.stats.buffs);
 
-      cron({user, tasksByType, daysMissed, analytics});
+      cronOverride({user, tasksByType, daysMissed, analytics});
 
       expect(user.stats.buffs.str).to.be.greaterThan(previousBuffs.str);
       expect(user.stats.buffs.int).to.be.greaterThan(previousBuffs.int);
