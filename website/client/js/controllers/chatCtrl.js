@@ -34,7 +34,11 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
         .then(function(response) {
           var message = response.data.data.message;
 
-          group.chat.unshift(message);
+          if (message) {
+            group.chat.unshift(message);
+          } else {
+            group.chat = response.data.data.chat;
+          }
 
           $scope.message.content = '';
           $scope._sending = false;
