@@ -2,6 +2,7 @@
 import moment from 'moment';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
+import requireAgain from 'require-again';
 import { recoverCron, cron } from '../../../../../website/server/libs/api-v3/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
@@ -9,6 +10,8 @@ import { clone } from 'lodash';
 import common from '../../../../../common';
 
 // const scoreTask = common.ops.scoreTask;
+
+let pathToCronLib = '../../../../../website/server/libs/api-v3/cron';
 
 describe('cron', () => {
   let user;
@@ -321,7 +324,9 @@ describe('cron', () => {
     });
 
     it('should not do damage for missing a daily when CRON_SAFE_MODE is set', () => {
-      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns(true);
+      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
+      let cron = requireAgain(pathToCronLib).cron;
+
       daysMissed = 1;
       let hpBefore = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
@@ -456,7 +461,8 @@ describe('cron', () => {
     });
 
     it('still grants a perfect day when CRON_SAFE_MODE is set', () => {
-      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns(true);
+      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
+      let cron = requireAgain(pathToCronLib).cron;
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
