@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Сховати розподілення характеристик",
     "quickAllocationLevelPopover": "Кожного рівню Ви отримуєте одне очко, яке можна призначити на характеристику на Ваш вибір. Ви можете зробити це самотужки, або ж дозволити грі зробити вибір за Вас, обравши один з варіантів автоматичного розподілу.",
     "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "notEnoughAttrPoints": "You don't have enough attribute points.",
+    "gearNotOwned": "You do not own this item."
 }

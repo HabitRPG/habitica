@@ -98,7 +98,7 @@
     "buyThis": "Kaufe <%= text %> mit <%= price %> Deiner <%= gems %> Edelsteinen?",
     "noReachServer": "Der Server ist momentan nicht erreichbar, versuche es später noch einmal",
     "errorUpCase": "FEHLER:",
-    "newPassSent": "Neues Passwort wurde gesendet.",
+    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
     "serverUnreach": "Der Server ist momentan nicht erreichbar.",
     "requestError": "Ojeh, ein Fehler ist aufgetreten! <strong> Bitte lade die Seite neu, </strong> Deine letzte Aktion wurde vielleicht nicht korrekt gespeichert.",
     "seeConsole": "Tritt der Fehler weiterhin auf, melde ihn unter Hilfe > Berichte einen Bug. Falls Du weißt, wie Du die Konsole Deines Internetbrowsers einsehen kannst, füge die entsprechenden Fehlernachrichten bei.",

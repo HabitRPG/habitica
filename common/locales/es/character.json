@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Ocultar asignación de puntos",
     "quickAllocationLevelPopover": "Con cada nivel, ganas un punto que puedes asignar al atributo que elijas. Puedes hacerlo de forma manual o dejar que el juego decida por ti con una de las opciones de asignación automática que encontrarás en Usuario -> Estadísticas.",
     "invalidAttribute": "\"<%= attr %>\" no es un atributo válido.",
-    "notEnoughAttrPoints": "No tienes suficientes puntos de atributo."
+    "notEnoughAttrPoints": "No tienes suficientes puntos de atributo.",
+    "gearNotOwned": "You do not own this item."
 }

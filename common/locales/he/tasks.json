@@ -94,7 +94,7 @@
     "confirmFortify": "האם אתם בטוחים?",
     "fortifyComplete": "ההתבצרות הושלמה!",
     "sureDelete": "האם אתם בטוחים שאתם מעוניינים למחוק את ה<%= taskType %> עם הטקסט ״<%= taskText %>״?",
-    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
+    "sureDeleteCompletedTodos": "האם אתם בטוחים שאתם מעוניינים למחוק את המשימות שהושלמו?",
     "streakCoins": "בונוס התמדה!",
     "pushTaskToTop": "העלו משימות לראש הרשימה. החזיקו את כפתור ה ctrl או cmd כדי להוריד אותן לתחתית.",
     "emptyTask": "התחל בהקלדת שם המטלה.",

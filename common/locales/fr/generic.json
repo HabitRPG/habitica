@@ -98,7 +98,7 @@
     "buyThis": "Acheter ce <%= text %> avec <%= price %> de vos <%= gems %> Gemmes ?",
     "noReachServer": "Serveur inaccessible, réessayez plus tard",
     "errorUpCase": "ERREUR :",
-    "newPassSent": "Nouveau mot de passe envoyé.",
+    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
     "serverUnreach": "Serveur inaccessible.",
     "requestError": "Oups, il y a eu une erreur! <strong>Veuillez s.v.p. actualiser la page,</strong> votre dernière action peut ne pas avoir été enregistrée correctement.",
     "seeConsole": "Si l'erreur persiste, veuillez la signaler à Aide > Signaler un Bug. Si vous avez connaissance de la console de votre navigateur, veuillez inclure les messages d'erreur de celle-ci.",

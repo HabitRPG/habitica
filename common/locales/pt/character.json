@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Esconder distribuição de status",
     "quickAllocationLevelPopover": "Cada nível concederá à você um ponto para distribuir em um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Status do Avatar.",
     "invalidAttribute": "\"<%= attr %>\" não é um atributo válido.",
-    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes."
+    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes.",
+    "gearNotOwned": "You do not own this item."
 }

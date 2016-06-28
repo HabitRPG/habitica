@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Cacher la répartition des statistiques",
     "quickAllocationLevelPopover": "Chaque niveau vous rapporte un point que vous pouvez assigner à un attribut de votre choix. Vous pouvez le faire manuellement ou laissez le jeu décider pour vous, en utilisant les options d'Attribution Automatique qui se trouvent dans Utilisateur -> Caractéristiques.",
     "invalidAttribute": "\"<%= attr %>\" n'est pas un attribut valide.",
-    "notEnoughAttrPoints": "Vous n'avez pas assez de points d'attribut."
+    "notEnoughAttrPoints": "Vous n'avez pas assez de points d'attribut.",
+    "gearNotOwned": "You do not own this item."
 }

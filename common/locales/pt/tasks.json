@@ -94,7 +94,7 @@
     "confirmFortify": "Tem certeza?",
     "fortifyComplete": "Fortificação completa!",
     "sureDelete": "Você tem certeza de que deseja deletar <%= taskType %> com o texto \"<%= taskText %>\"?",
-    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
+    "sureDeleteCompletedTodos": "Você tem certeza de que quer apagar seus afazeres completos?",
     "streakCoins": "Bônus de Combo!",
     "pushTaskToTop": "Enviar tarefa para o topo. Segure CTRL ou CMD para enviar para baixo.",
     "emptyTask": "Insira o título da tarefa primeiro.",

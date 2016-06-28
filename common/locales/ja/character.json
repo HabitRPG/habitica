@@ -168,5 +168,6 @@
     "hideQuickAllocation": "割りあてを非表示",
     "quickAllocationLevelPopover": "レベルが上がるたびに、能力値のどれかに割りあてできる1ポイントを得ることができます。手動で好きなように割りあてることもできますし、「自動割りあて」設定でシステムに任せることもできます。",
     "invalidAttribute": "<%= attr %> は無効な能力値です。",
-    "notEnoughAttrPoints": "能力値ポイントが足りません。"
+    "notEnoughAttrPoints": "能力値ポイントが足りません。",
+    "gearNotOwned": "You do not own this item."
 }

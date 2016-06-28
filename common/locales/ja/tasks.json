@@ -94,7 +94,7 @@
     "confirmFortify": "本当によろしいですか？",
     "fortifyComplete": "防御を完了しました。",
     "sureDelete": "「<%= taskText %>」の<%= taskType %>を削除して、本当によろしいですか?",
-    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
+    "sureDeleteCompletedTodos": "完了した To-Do を削除します。よろしいですか?",
     "streakCoins": "連続実行ボーナス！",
     "pushTaskToTop": "タスクを一番上に表示します。[ctrl] もしくは [cmd]キーを押しながらクリックすると一番下へ。",
     "emptyTask": "まずタスクのタイトルを入力してください。",
