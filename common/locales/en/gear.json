@@ -81,6 +81,8 @@
   "weaponSpecial3Notes": "Meetings, monsters, malaise: managed! Mash! Increases Strength, Intelligence, and Constitution by <%= attrs %> each.",
   "weaponSpecialCriticalText": "Critical Hammer of Bug-Crushing",
   "weaponSpecialCriticalNotes": "This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases Strength and Perception by <%= attrs %> each.",
+  "weaponSpecialTakeThisText": "Take This Sword",
+  "weaponSpecialTakeThisNotes": "This sword was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
   "weaponSpecialTridentOfCrashingTidesText": "Trident of Crashing Tides",
   "weaponSpecialTridentOfCrashingTidesNotes": "Gives you the ability to command fish, and also deliver some mighty stabs to your tasks. Increases Intelligence by <%= int %>.",
 
@@ -283,6 +285,8 @@
   "armorSpecial1Notes": "Its tireless power inures the wearer to mundane discomfort. Increases all attributes by <%= attrs %>.",
   "armorSpecial2Text": "Jean Chalard's Noble Tunic",
   "armorSpecial2Notes": "Makes you extra fluffy! Increases Constitution and Intelligence by <%= attrs %> each.",
+  "armorSpecialTakeThisText": "Take This Armor",
+  "armorSpecialTakeThisNotes": "This armor was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
   "armorSpecialFinnedOceanicArmorText": "Finned Oceanic Armor",
   "armorSpecialFinnedOceanicArmorNotes": "Although delicate, this armor makes your skin as harmful to the touch as a fire coral. Increases Strength by <%= str %>.",
 
@@ -528,6 +532,8 @@
   "headSpecial1Notes": "The favored crown of those who lead by example. Increases all attributes by <%= attrs %>.",
   "headSpecial2Text": "Nameless Helm",
   "headSpecial2Notes": "A testament to those who gave of themselves while asking nothing in return. Increases Intelligence and Strength by <%= attrs %> each.",
+  "headSpecialTakeThisText": "Take This Helm",
+  "headSpecialTakeThisNotes": "This helm was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
   "headSpecialFireCoralCircletText": "Fire Coral Circlet",
   "headSpecialFireCoralCircletNotes": "This circlet, designed by Habitica's greatest alchemists, allows you to breathe water and dive for treasure! Increases Perception by <%= per %>.",
 
@@ -763,6 +769,8 @@
   "shieldSpecial0Notes": "Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases Perception by <%= per %>.",
   "shieldSpecial1Text": "Crystal Shield",
   "shieldSpecial1Notes": "Shatters arrows and deflects the words of naysayers. Increases all attributes by <%= attrs %>.",
+  "shieldSpecialTakeThisText": "Take This Shield",
+  "shieldSpecialTakeThisNotes": "This shield was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
   "shieldSpecialMoonpearlShieldText": "Moonpearl Shield",
   "shieldSpecialMoonpearlShieldNotes": "Designed for fast swimming, and also some defense. Increases Constitution by <%= con %>.",
 
@@ -887,6 +895,8 @@
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
   "backSpecialWonderconBlackText": "Sneaky Cape",
   "backSpecialWonderconBlackNotes": "Spun of shadows and whispers. Confers no benefit. Special Edition Convention Item.",
+  "backSpecialTakeThisText": "Take This Wings",
+  "backSpecialTakeThisNotes": "These wings were earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
 
   "body": "Body Accessory",
   "bodyBase0Text": "No Body Accessory",
@@ -898,6 +908,8 @@
   "bodySpecialWonderconGoldNotes": "An attractive gold collar! Confers no benefit. Special Edition Convention Item.",
   "bodySpecialWonderconBlackText": "Ebony Collar",
   "bodySpecialWonderconBlackNotes": "An attractive ebony collar! Confers no benefit. Special Edition Convention Item.",
+  "bodySpecialTakeThisText": "Take This Pauldrons",
+  "bodySpecialTakeThisNotes": "These pauldrons were earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
 
   "bodySpecialSummerMageText": "Shining Capelet",
   "bodySpecialSummerMageNotes": "Neither salt water nor fresh water can tarnish this metallic capelet. Confers no benefit. Limited Edition 2014 Summer Gear.",
