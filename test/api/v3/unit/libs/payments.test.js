@@ -1,14 +1,47 @@
 import * as sender from '../../../../../website/server/libs/api-v3/email';
 import * as api from '../../../../../website/server/libs/api-v3/payments';
+import analytics from '../../../../../website/server/libs/api-v3/analyticsService';
 import { model as User } from '../../../../../website/server/models/user';
 import moment from 'moment';
 
 describe('payments/index', () => {
-  let user;
+  let user, data, plan;
 
   beforeEach(() => {
     user = new User();
-    sandbox.spy(sender, 'sendTxn');
+    user.profile.name = 'sender';
+
+    sandbox.stub(sender, 'sendTxn');
+    sandbox.stub(user, 'sendMessage');
+    sandbox.stub(analytics, 'trackPurchase');
+    sandbox.stub(analytics, 'track');
+
+    data = {
+      user,
+      sub: {
+        key: 'basic_3mo',
+      },
+      customerId: 'customer-id',
+      paymentMethod: 'Payment Method',
+    };
+
+    plan = {
+      planId: 'basic_3mo',
+      customerId: 'customer-id',
+      dateUpdated: new Date(),
+      gemsBought: 0,
+      paymentMethod: 'paymentMethod',
+      extraMonths: 0,
+      dateTerminated: null,
+      lastBillingDate: new Date(),
+      dateCreated: new Date(),
+      mysteryItems: [],
+      consecutive: {
+        trinkets: 0,
+        offset: 0,
+        gemCapExtra: 0,
+      },
+    };
   });
 
   afterEach(() => {
@@ -17,38 +50,122 @@ describe('payments/index', () => {
 
   describe('#createSubscription', () => {
     context('Purchasing a subscription as a gift', () => {
-      it('adds extra months to an existing subscription');
+      let recipient;
 
-      it('sets a dateTerminated date for a user without an existing subscription');
+      beforeEach(() => {
+        recipient = new User();
+        recipient.profile.name = 'recipient';
+        data.gift = {
+          member: recipient,
+          subscription: {
+            key: 'basic_3mo',
+            months: 3,
+          },
+        };
+      });
 
-      it('sets plan.dateUpdated if it did not previously exist');
+      it('adds extra months to an existing subscription', async () => {
+        recipient.purchased.plan = plan;
 
-      it('does not change plan.customerId if it already exists');
+        expect(recipient.purchased.plan.extraMonths).to.eql(0);
 
-      it('sets plan.customerId to "Gift" if it does not already exist');
+        await api.createSubscription(data);
 
-      it('increases the buyer\'s transaction count');
+        expect(recipient.purchased.plan.extraMonths).to.eql(3);
+      });
 
-      it('sends a private message about the gift');
+      it('updates date terminated for an existing plan with a terminated date', async () => {
+        let dateTerminated = new Date();
+        recipient.purchased.plan = plan;
+        recipient.purchased.plan.dateTerminated = dateTerminated;
 
-      it('sends an email about the gift');
+        await api.createSubscription(data);
 
-      it('sends a push notification about the gift');
+        expect(recipient.purchased.plan.dateTerminated).to.eql(moment(dateTerminated).add(3, 'months').toDate());
+      });
 
-      it('tracks subscription purchase as gift (if prod)');
+      it('sets a dateTerminated date for a user without an existing subscription', async () => {
+        expect(recipient.purchased.plan.dateTerminated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.dateTerminated).to.exist;
+      });
+
+      it('sets plan.dateUpdated if it did not previously exist', async () => {
+        expect(recipient.purchased.plan.dateUpdated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.dateUpdated).to.exist;
+      });
+
+      it('does not change plan.customerId if it already exists', async () => {
+        recipient.purchased.plan = plan;
+        data.customerId = 'purchaserCustomerId';
+
+        expect(recipient.purchased.plan.customerId).to.eql('customer-id');
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.customerId).to.eql('customer-id');
+      });
+
+      it('sets plan.customerId to "Gift" if it does not already exist', async () => {
+        expect(recipient.purchased.plan.customerId).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.customerId).to.eql('Gift');
+      });
+
+      it('increases the buyer\'s transaction count', async () => {
+        expect(user.purchased.txnCount).to.eql(0);
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.txnCount).to.eql(1);
+      });
+
+      it('sends a private message about the gift', async () => {
+        await api.createSubscription(data);
+
+        expect(user.sendMessage).to.be.calledOnce;
+        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 3 months of subscription!\`');
+      });
+
+      it('sends an email about the gift', async () => {
+        await api.createSubscription(data);
+
+        expect(sender.sendTxn).to.be.calledOnce;
+        expect(sender.sendTxn).to.be.calledWith(recipient, 'gifted-subscription', [
+          {name: 'GIFTER', content: 'sender'},
+          {name: 'X_MONTHS_SUBSCRIPTION', content: 3},
+        ]);
+      });
+
+      xit('sends a push notification about the gift', async () => {
+        // TODO: the push notification library needs to be refactored to export an object with properties to better stub it
+      });
+
+      it('tracks subscription purchase as gift', async () => {
+        await api.createSubscription(data);
+
+        expect(analytics.trackPurchase).to.be.calledOnce;
+        expect(analytics.trackPurchase).to.be.calledWith({
+          uuid: user._id,
+          itemPurchased: 'Subscription',
+          sku: 'payment method-subscription',
+          purchaseType: 'subscribe',
+          paymentMethod: data.paymentMethod,
+          quantity: 1,
+          gift: true,
+          purchaseValue: 15,
+        });
+      });
     });
 
     context('Purchasing a subscription for self', () => {
       it('creates a subscription', async () => {
-        let data = {
-          user,
-          sub: {
-            key: 'basic_3mo',
-          },
-          customerId: 'customer-id',
-          paymentMethod: 'Payment Method',
-        };
-
         expect(user.purchased.plan.planId).to.not.exist;
 
         await api.createSubscription(data);
@@ -64,34 +181,128 @@ describe('payments/index', () => {
         expect(user.purchased.plan.dateCreated).to.exist;
       });
 
-      it('sets extraMonths if plan has dateTerminated date');
+      it('sets extraMonths if plan has dateTerminated date', async () => {
+        user.purchased.plan = plan;
+        user.purchased.plan.dateTerminated = moment(new Date()).add(2, 'months');
+        expect(user.purchased.plan.extraMonths).to.eql(0);
 
-      it('sets lastBillingDate if payment method is "Amazon Payments"');
+        await api.createSubscription(data);
 
-      it('increases the user\'s transcation count');
+        expect(user.purchased.plan.extraMonths).to.within(1.9, 2);
+      });
 
-      it('sends a transaction email (if prod)');
+      it('sets lastBillingDate if payment method is "Amazon Payments"', async () => {
+        data.paymentMethod = 'Amazon Payments';
 
-      it('tracks subscription purchase (if prod)');
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.lastBillingDate).to.exist;
+      });
+
+      it('increases the user\'s transcation count', async () => {
+        expect(user.purchased.txnCount).to.eql(0);
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.txnCount).to.eql(1);
+      });
+
+      it('sends a transaction email', async () => {
+        await api.createSubscription(data);
+
+        expect(sender.sendTxn).to.be.calledOnce;
+        expect(sender.sendTxn).to.be.calledWith(data.user, 'subscription-begins');
+      });
+
+      it('tracks subscription purchase', async () => {
+        await api.createSubscription(data);
+
+        expect(analytics.trackPurchase).to.be.calledOnce;
+        expect(analytics.trackPurchase).to.be.calledWith({
+          uuid: user._id,
+          itemPurchased: 'Subscription',
+          sku: 'payment method-subscription',
+          purchaseType: 'subscribe',
+          paymentMethod: data.paymentMethod,
+          quantity: 1,
+          gift: false,
+          purchaseValue: 15,
+        });
+      });
     });
 
     context('Block subscription perks', () => {
-      it('adds block months to plan.consecutive.offset');
+      it('adds block months to plan.consecutive.offset', async () => {
+        await api.createSubscription(data);
 
-      it('does not add to plans.consecutive.offset if 1 month subscription');
+        expect(user.purchased.plan.consecutive.offset).to.eql(3);
+      });
 
-      it('adds 5 to plan.consecutive.gemCapExtra for every 3 months');
+      it('does not add to plans.consecutive.offset if 1 month subscription', async () => {
+        await api.createSubscription(data);
 
-      it('does not raise plan.consecutive.gemCapExtra higher than 25');
+        expect(user.purchased.plan.extraMonths).to.eql(0);
+      });
 
-      it('adds a plan.consecutive.trinkets for every 3 months');
+      it('adds 5 to plan.consecutive.gemCapExtra for 3 month block', async () => {
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(5);
+      });
+
+      it('adds 10 to plan.consecutive.gemCapExtra for 6 month block', async () => {
+        data.sub.key = 'basic_6mo';
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(10);
+      });
+
+      it('adds 20 to plan.consecutive.gemCapExtra for 12 month block', async () => {
+        data.sub.key = 'basic_12mo';
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(20);
+      });
+
+      it('does not raise plan.consecutive.gemCapExtra higher than 25', async () => {
+        data.sub.key = 'basic_12mo';
+
+        await api.createSubscription(data);
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(25);
+      });
+
+      it('adds a plan.consecutive.trinkets for 3 month block', async () => {
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
+      });
+
+      it('adds 2 plan.consecutive.trinkets for 6 month block', async () => {
+        data.sub.key = 'basic_6mo';
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.trinkets).to.eql(2);
+      });
+
+      it('adds 4 plan.consecutive.trinkets for 12 month block', async () => {
+        data.sub.key = 'basic_12mo';
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+      });
     });
 
     context('Mystery Items', () => {
       it('awards mystery items when within the timeframe for a mystery item', async () => {
         let mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
         let fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
-        let data = { user, sub: { key: 'basic_3mo' } };
+        data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
         await api.createSubscription(data);
 
@@ -105,7 +316,7 @@ describe('payments/index', () => {
       it('does not awards mystery items when not within the timeframe for a mystery item', async () => {
         const noMysteryItemTimeframe = 1462183920000; // May 2nd 2016
         let fakeClock = sinon.useFakeTimers(noMysteryItemTimeframe);
-        let data = { user, sub: { key: 'basic_3mo' } };
+        data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
         await api.createSubscription(data);
 
@@ -120,7 +331,7 @@ describe('payments/index', () => {
         let mayMysteryItem = 'armor_mystery_201605';
         user.items.gear.owned[mayMysteryItem] = true;
 
-        let data = { user, sub: { key: 'basic_3mo' } };
+        data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
         await api.createSubscription(data);
 
@@ -138,7 +349,7 @@ describe('payments/index', () => {
 
         sandbox.spy(user.purchased.plan.mysteryItems, 'push');
 
-        let data = { user, sub: { key: 'basic_3mo' } };
+        data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
         await api.createSubscription(data);
 
@@ -151,8 +362,6 @@ describe('payments/index', () => {
   });
 
   describe('#cancelSubscription', () => {
-    let data;
-
     beforeEach(() => {
       data = { user };
     });
@@ -216,20 +425,77 @@ describe('payments/index', () => {
   });
 
   describe('#buyGems', () => {
-    context('Self Purchase', () => {
-      it('amount property defaults to 5');
+    beforeEach(() => {
+      data = {
+        user,
+        paymentMethod: 'payment',
+      };
+    });
 
-      it('sends a donation email (if prod)');
+    context('Self Purchase', () => {
+      it('amount property defaults to 5', async () => {
+        expect(user.balance).to.eql(0);
+
+        await api.buyGems(data);
+
+        expect(user.balance).to.eql(5);
+      });
+
+      it('can set amount that is purchased', async () => {
+        data.amount = 13;
+
+        await api.buyGems(data);
+
+        expect(user.balance).to.eql(13);
+      });
+
+      it('sends a donation email', async () => {
+        await api.buyGems(data);
+
+        expect(sender.sendTxn).to.be.calledOnce;
+        expect(sender.sendTxn).to.be.calledWith(data.user, 'donation');
+      });
     });
 
     context('Gift', () => {
-      it('calculates balance from gem amount if gift');
+      let recipient;
 
-      it('sends a gifted-gems email (if prod)');
+      beforeEach(() => {
+        recipient = new User();
+        recipient.profile.name = 'recipient';
 
-      it('sends a message from purchaser to recipient');
+        data.gift = {
+          gems: {
+            amount: 4,
+          },
+          member: recipient,
+        };
+      });
 
-      it('sends a push notification if user did not gift to self');
+      it('calculates balance from gem amount if gift', async () => {
+        expect(recipient.balance).to.eql(0);
+
+        await api.buyGems(data);
+
+        expect(recipient.balance).to.eql(1);
+      });
+
+      it('sends a gifted-gems email', async () => {
+        await api.buyGems(data);
+
+        expect(sender.sendTxn).to.be.calledOnce;
+        expect(sender.sendTxn).to.be.calledWith(data.gift.member, 'gifted-gems');
+      });
+
+      it('sends a message from purchaser to recipient', async () => {
+        await api.buyGems(data);
+
+        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 4 gems!\`');
+      });
+
+      xit('sends a push notification if user did not gift to self', async () => {
+        // TODO: the push notification library needs to be refactored to export an object with properties to better stub it
+      });
     });
   });
 });

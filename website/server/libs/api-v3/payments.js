@@ -5,11 +5,8 @@ import {
   sendTxn as txnEmail,
 } from './email';
 import moment from 'moment';
-import nconf from 'nconf';
 import sendPushNotification from './pushNotifications';
 import shared from '../../../../common' ;
-
-const IS_PROD = nconf.get('IS_PROD');
 
 let api = {};
 
@@ -72,20 +69,20 @@ api.createSubscription = async function createSubscription (data) {
 
   revealMysteryItems(recipient);
 
-  if (IS_PROD) {
-    if (!data.gift) txnEmail(data.user, 'subscription-begins');
-
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      itemPurchased: 'Subscription',
-      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-      purchaseType: 'subscribe',
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: block.price,
-    });
+  if (!data.gift) {
+    txnEmail(data.user, 'subscription-begins');
   }
+
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    itemPurchased: 'Subscription',
+    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+    purchaseType: 'subscribe',
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    gift: Boolean(data.gift),
+    purchaseValue: block.price,
+  });
 
   data.user.purchased.txnCount++;
 
@@ -158,20 +155,18 @@ api.buyGems = async function buyGems (data) {
   (data.gift ? data.gift.member : data.user).balance += amt;
   data.user.purchased.txnCount++;
 
-  if (IS_PROD) {
-    if (!data.gift) txnEmail(data.user, 'donation');
+  if (!data.gift) txnEmail(data.user, 'donation');
 
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      itemPurchased: 'Gems',
-      sku: `${data.paymentMethod.toLowerCase()}-checkout`,
-      purchaseType: 'checkout',
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: amt,
-    });
-  }
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    itemPurchased: 'Gems',
+    sku: `${data.paymentMethod.toLowerCase()}-checkout`,
+    purchaseType: 'checkout',
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    gift: Boolean(data.gift),
+    purchaseValue: amt,
+  });
 
   if (data.gift) {
     let byUsername = getUserInfo(data.user, ['name']).name;
