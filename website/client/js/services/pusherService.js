@@ -4,7 +4,7 @@ angular.module('habitrpg')
 .factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID',
   function($rootScope, STORAGE_SETTINGS_ID) {
     var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
-    var IS_PUSHER_ENABLED = window.env.PUSHER.ENABLED === 'true';
+    var IS_PUSHER_ENABLED = window.env['PUSHER:ENABLED'] === 'true';
 
     var api = {
       pusher: undefined,
@@ -12,7 +12,7 @@ angular.module('habitrpg')
     };
 
     if (IS_PUSHER_ENABLED) {
-      api.pusher = new Pusher(window.env.PUSHER.KEY, {
+      api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
         authEndpoint: '/api/v3/user/auth/pusher',
         auth: {

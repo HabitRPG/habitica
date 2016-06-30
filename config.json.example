@@ -72,5 +72,5 @@
         "APP_ID": "appId",
         "KEY": "key",
         "SECRET": "secret"
-    },
+    }
 }
