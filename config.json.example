@@ -73,9 +73,4 @@
         "KEY": "key",
         "SECRET": "secret"
     },
-    "FIREBASE": {
-        "APP": "app-name",
-        "SECRET": "secret",
-        "ENABLED": "false"
-    }
 }

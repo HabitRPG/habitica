@@ -12,7 +12,6 @@ import {
   InternalServerError,
   BadRequest,
 } from '../libs/api-v3/errors';
-import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import Bluebird from 'bluebird';
@@ -31,8 +30,6 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
-// NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
-// changes made directly to the db will cause Firebase to get out of sync
 export let schema = new Schema({
   name: {type: String, required: true},
   description: String,
@@ -107,10 +104,6 @@ schema.pre('remove', true, async function preRemoveGroup (next, done) {
   } catch (err) {
     done(err);
   }
-});
-
-schema.post('remove', function postRemoveGroup (group) {
-  firebase.deleteGroup(group._id);
 });
 
 // return a clean object for user.quest
@@ -745,8 +738,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     }
     promises.push(group.update(update).exec());
   }
-
-  firebase.removeUserFromGroup(group._id, user._id);
 
   return await Bluebird.all(promises);
 };

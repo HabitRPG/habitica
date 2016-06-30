@@ -17,10 +17,10 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
+
 let api = {};
 
 /**
@@ -66,9 +66,6 @@ api.createGroup = {
       profile: {name: user.profile.name},
     };
     res.respond(201, response); // do not remove chat flags data as we've just created the group
-
-    firebase.updateGroupData(savedGroup);
-    firebase.addUserToGroup(savedGroup._id, user._id);
   },
 };
 
@@ -179,8 +176,6 @@ api.updateGroup = {
       };
     }
     res.respond(200, response);
-
-    firebase.updateGroupData(savedGroup);
   },
 };
 
@@ -278,8 +273,6 @@ api.joinGroup = {
       response.leader = leader.toJSON({minimize: true});
     }
     res.respond(200, response);
-
-    firebase.addUserToGroup(group._id, user._id);
   },
 };
 
