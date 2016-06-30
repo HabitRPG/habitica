@@ -313,7 +313,7 @@ api.clearChatFlags = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/seen Seen a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/seen Mark all messages as read for a group
  * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
