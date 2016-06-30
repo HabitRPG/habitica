@@ -20,6 +20,7 @@ import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import pusher from '../../libs/api-v3/pusher';
 
 let api = {};
 
@@ -442,7 +443,15 @@ api.removeGroupMember = {
       if (isInGroup === 'guild') {
         removeFromArray(member.guilds, group._id);
       }
-      if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
+      if (isInGroup === 'party') {
+        // Tell the realtime clients that a user is being removed
+        // If the user that is being removed is still connected, they'll get disconnected automatically
+        pusher.trigger(`presence-group-${group._id}`, 'user-removed', {
+          userId: user._id,
+        });
+
+        member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
+      }
 
       if (member.newMessages[group._id]) {
         member.newMessages[group._id] = undefined;

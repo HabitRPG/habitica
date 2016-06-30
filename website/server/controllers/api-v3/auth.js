@@ -282,8 +282,6 @@ api.loginSocial = {
   },
 };
 
-const PUSHER_CHANNEL_TYPES = ['private', 'presence'];
-
 /*
  * @apiIgnore Private route
  * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
@@ -316,7 +314,7 @@ api.pusherAuth = {
     // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
     let [channelType, resourceType, ...resourceId] = channelName.split('-');
 
-    if (PUSHER_CHANNEL_TYPES.indexOf(channelType) === -1) {
+    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds too
       throw new BadRequest('Invalid Pusher channel type.');
     }
 
@@ -336,6 +334,7 @@ api.pusherAuth = {
 
     let authResult;
 
+    // Max 100 members for presence channel - parties only
     if (channelType === 'presence') {
       let presenceData = {
         user_id: user._id, // eslint-disable-line camelcase

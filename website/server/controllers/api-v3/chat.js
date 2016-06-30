@@ -95,11 +95,11 @@ api.postChat = {
 
     let [savedGroup] = await Bluebird.all(toSave);
 
-    // real-time chat is only enabled for private groups
-    if (savedGroup.privacy === 'private') {
+    // real-time chat is only enabled for private groups (for now only for parties)
+    if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
       // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
       // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`private-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
+      pusher.trigger(`presence-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
     }
 
     if (chatUpdated) {

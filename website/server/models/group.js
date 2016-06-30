@@ -17,6 +17,7 @@ import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
+import pusher from '../libs/api-v3/pusher';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -718,6 +719,11 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
+    // Tell the realtime clients that a user has left
+    // If the user that left is still connected, they'll get disconnected
+    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
+      userId: user._id,
+    });
   }
 
   // If user is the last one in group and group is private, delete it
