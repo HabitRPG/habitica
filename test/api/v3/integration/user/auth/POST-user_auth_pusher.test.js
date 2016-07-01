@@ -69,7 +69,7 @@ describe('POST /user/auth/pusher', () => {
 
   it('returns an error if an invalid resource type is passed', async () => {
     await expect(user.post(endpoint, {
-      channel_name: 'private-user-123',
+      channel_name: 'presence-user-123',
       socket_id: '123',
     })).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -91,7 +91,7 @@ describe('POST /user/auth/pusher', () => {
 
   it('returns an error if the passed resource id doesn\'t match the user\'s party', async () => {
     await expect(user.post(endpoint, {
-      channel_name: `private-group-${generateUUID()}`,
+      channel_name: `presence-group-${generateUUID()}`,
       socket_id: '123',
     })).to.eventually.be.rejected.and.eql({
       code: 404,
