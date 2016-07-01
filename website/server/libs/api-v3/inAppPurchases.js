@@ -90,6 +90,8 @@ async function iapIOSVerify (user, iapBody) {
     if (iap.isValidated(appleRes)) {
       token = appleRes.receipt.transactionIdentifier;
 
+      console.log(JSON.stringify(appleRes), JSON.stringify(appleRes.receipt));
+
       let existingReceipt = await IapPurchaseReceipt.findOne({
         _id: token,
       }).exec();
