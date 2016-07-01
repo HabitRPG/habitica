@@ -37,7 +37,7 @@ describe('POST /user/auth/local/register', () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';
-      let usernameWithSpaces = "  " + username + "  ";
+      let usernameWithSpaces = `  ${username}  `;
       let user = await api.post('/user/auth/local/register', {
         username: usernameWithSpaces,
         email,
