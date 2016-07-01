@@ -44,7 +44,7 @@ async function iapAndroidVerify (user, iapBody) {
         await IapPurchaseReceipt.create({
           _id: token,
           consumed: true,
-          userID: user._id,
+          userId: user._id,
         });
 
         await payments.buyGems({
@@ -98,7 +98,7 @@ async function iapIOSVerify (user, iapBody) {
         await IapPurchaseReceipt.create({
           _id: token,
           consumed: true,
-          userID: user._id,
+          userId: user._id,
         });
       } else {
         throw new Error('RECEIPT_ALREADY_USED');

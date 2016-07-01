@@ -25,7 +25,7 @@ api.iapAndroidVerify = {
   async handler (req, res) {
     let resObject = await iapAndroidVerify(res.locals.user, req.body);
     return res
-      .status(resObject.ok ? 200 : 500)
+      .status(resObject.ok === true ? 200 : 500)
       .json(resObject);
   },
 };
@@ -44,7 +44,7 @@ api.iapiOSVerify = {
   async handler (req, res) {
     let resObject = await iapIOSVerify(res.locals.user, req.body);
     return res
-      .status(resObject.ok ? 200 : 500)
+      .status(resObject.ok === true ? 200 : 500)
       .json(resObject);
   },
 };
