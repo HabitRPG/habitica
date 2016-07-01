@@ -49,7 +49,7 @@ api.getChat = {
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiVersion 3.0.0
- * @apiName PostCat
+ * @apiName PostChat
  * @apiGroup Chat
  *
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
