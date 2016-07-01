@@ -33,7 +33,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.auth.local.username).to.eql(username);
     });
 
-    it('registers a new user with space in username', async () => {
+    it('removes spaces from beginning and end of username', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';
