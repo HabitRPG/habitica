@@ -36,6 +36,7 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
 
           if (message) {
             group.chat.unshift(message);
+            group.chat.splice(200);
           } else {
             group.chat = response.data.data.chat;
           }

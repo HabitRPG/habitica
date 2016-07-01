@@ -24,7 +24,7 @@ angular.module('habitrpg')
         url: url,
         data: {
           message: message,
-          pusherSocketId: Pusher.socketId,
+          pusherSocketId: Pusher.socketId, // to make sure the send doesn't get notified of it's own message
         }
       });
     }

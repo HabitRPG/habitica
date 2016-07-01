@@ -35,6 +35,11 @@ angular.module('habitrpg')
         },
       });
 
+      api.pusher.connection.bind('error', function(err) {
+        console.error(err);
+        // TODO if( err.data.code === 4004 ) detected connection limit
+      });
+
       api.pusher.connection.bind('connected', function () {
         api.socketId = api.pusher.connection.socket_id;
       });
@@ -42,14 +47,24 @@ angular.module('habitrpg')
       var partyChannelName = 'presence-group-' + partyId;
       var partyChannel = api.pusher.subscribe(partyChannelName);
 
-      partyChannel.bind('new-chat', function (data) {
-        if (Groups.data.party) {
-          
-        } else {
-          Groups.party().then(function () {
-            
-          });
-        }
+      // When an error occurs while joining the channel
+      partyChannel.bind('pusher:subscription_error', function(status) {
+        console.error('Impossible to join the Pusher channel for your party, status: ', status);
+      });
+
+      // When the user correctly enters the party channel
+      partyChannel.bind('pusher:subscription_succeeded', function(members) {
+        // TODO members = [{id, info}]
+      });
+
+      // When a member enters the party channel
+      partyChannel.bind('pusher:member_added', function(member) {
+        // TODO member = {id, info}
+      });
+
+      // When a member leaves the party channel
+      partyChannel.bind('pusher:member_removed', function(member) {
+        // TODO member = {id, info}
       });
 
       // When the user is booted from the party, they get disconnected from Pusher
@@ -66,14 +81,12 @@ angular.module('habitrpg')
         }
       });
 
+      // When a new chat message is posted
       partyChannel.bind('new-chat', function (data) {
-        if (Groups.data.party) {
-          Groups.data.party.chat.unshift(data);
-        } else {
-          Groups.party().then(function () {
-            Groups.data.party.chat.unshift(data);
-          });
-        }
+        Groups.party().then(function () {
+          // Groups.data.party.chat.unshift(data);
+          // Groups.data.party.chat.splice(200);
+        });
       });
     });
 
