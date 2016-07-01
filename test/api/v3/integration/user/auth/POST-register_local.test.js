@@ -33,6 +33,23 @@ describe('POST /user/auth/local/register', () => {
       expect(user.auth.local.username).to.eql(username);
     });
 
+    it('registers a new user with space in username', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+      let usernameWithSpaces = "  " + username + "  ";
+      let user = await api.post('/user/auth/local/register', {
+        username: usernameWithSpaces,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user._id).to.exist;
+      expect(user.apiToken).to.exist;
+      expect(user.auth.local.username).to.eql(username);
+    });
+
     it('requires password and confirmPassword to match', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
