@@ -24,7 +24,7 @@
     "planFamily": "Familj (Kommer snart)",
     "planGroup": "Grupp (Kommer snart)",
     "dedicatedHost": "Dedikerad Server",
-    "dedicatedHostText": "Dedikerad Server: du får din egen databas och server underhållen av Habitica, alternativt installerar vi in dem i din organisations nätverk. Om du inte väljer det här alternativet väljs istället \"Delad Server\": din organisation använder samma databas som vanliga Habitica, men funktionerar självständigt från resten av Habitica. Dina medlemmar är skyddade från Krogen och Gillen, men fortfarande på samma server/databas.",
+    "dedicatedHostText": "Dedikerad Server: du får din egen databas och server underhållen av Habitica, alternativt installerar vi in dem i din organisations nätverk. Om du inte väljer det här alternativet väljs istället \"Delad Server\": din organisation använder samma databas som vanliga Habitica, men funktionerar självständigt från resten av Habitica. Dina medlemmar är skyddade från Värdshuset och Gillen, men fortfarande på samma server/databas.",
     "individualSub": "Individuellt Abonnemang",
     "subscribe": "Abonnera",
     "subscribed": "Abonnerat",

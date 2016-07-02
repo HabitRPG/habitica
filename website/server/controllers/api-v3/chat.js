@@ -50,7 +50,7 @@ api.getChat = {
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiVersion 3.0.0
- * @apiName PostCat
+ * @apiName PostChat
  * @apiGroup Chat
  *
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
@@ -322,7 +322,7 @@ api.clearChatFlags = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/seen Seen a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/seen Mark all messages as read for a group
  * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat

@@ -21,7 +21,7 @@
     "direction/Actions": "Направление/Действия",
     "advancedOptions": "Дополнительные параметры",
     "taskAlias": "Псевдоним задания",
-    "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
+    "taskAliasPopover": "Этот псевдоним может быть использован для интеграции со сторонними ресурсами. Поддерживаются только тире, нижнее подчёркивание, цифры и буквы. Псевдоним задания должен быть уникальным.",
     "taskAliasPlaceholder": "псевдоним-вашего-задания-здесь",
     "taskAliasPopoverWarning": "ПРЕДУПРЕЖДЕНИЕ: Изменение этого значения может сломать любые сторонние связи, которые полагаются на псевдоним задания.",
     "difficulty": "Сложность",
