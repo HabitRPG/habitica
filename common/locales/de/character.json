@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "Mit jedem Level erhältst Du einen Punkt, den Du einem Attribut Deiner Wahl zuweisen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen indem Du eines der vorgegebenen Verteilungsmuster unter Benutzer -> Werte&Erfolge auswählst.",
     "invalidAttribute": "\"<%= attr %>\" ist keine gültige Eigenschaft.",
     "notEnoughAttrPoints": "Du hast nicht genügend Eigenschaftspunkte.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Du hast diesen Gegenstand nicht."
 }
