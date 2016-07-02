@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile', 'Analytics',
-    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile, Analytics) {
+habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile', 'Analytics', 'Pusher',
+    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile, Analytics, Pusher) {
       $scope.groups = {
         guilds: [],
         public: [],

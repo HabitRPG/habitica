@@ -6,7 +6,6 @@ var async = require('async');
 var utils = require('../../libs/api-v2/utils');
 var nconf = require('nconf');
 var request = require('request');
-var FirebaseTokenGenerator = require('firebase-token-generator');
 import {
   model as User,
 } from '../../models/user';
@@ -350,28 +349,6 @@ api.changePassword = function(req, res, next) {
     res.sendStatus(200);
   })
 };
-
-// DISABLED FOR API v2
-/*var firebaseTokenGeneratorInstance = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
-api.getFirebaseToken = function(req, res, next) {
-  var user = res.locals.user;
-  // Expires 24 hours after now (60*60*24*1000) (in milliseconds)
-  var expires = new Date();
-  expires.setTime(expires.getTime() + 86400000);
-
-  var token = firebaseTokenGeneratorInstance
-    .createToken({
-      uid: user._id,
-      isHabiticaUser: true
-    }, {
-      expires: expires
-    });
-
-  res.status(200).json({
-    token: token,
-    expires: expires
-  });
-};*/
 
 // DISABLED FOR API v2
 /*api.setupPassport = function(router) {

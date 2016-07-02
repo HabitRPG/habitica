@@ -32,7 +32,6 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
 var analytics = utils.analytics;
-var firebase = require('../../libs/api-v2/firebase');
 
 /*
   ------------------------------------------------------------------------
@@ -233,8 +232,6 @@ api.create = function(req, res, next) {
       function(cb){user.save(cb)},
       function(saved,ct,cb){group.save(cb)},
       function(saved,ct,cb){
-        firebase.updateGroupData(saved);
-        firebase.addUserToGroup(saved._id, user._id);
         saved.getTransformedData({
           populateMembers: nameFields,
           cb,
@@ -278,7 +275,6 @@ api.update = function(req, res, next) {
   group.save(function(err, saved){
     if (err) return next(err);
 
-    firebase.updateGroupData(saved);
     res.sendStatus(204);
   });
 }
@@ -548,7 +544,6 @@ api.join = function(req, res, next) {
       group.save(cb);
     },
     function(cb){
-      firebase.addUserToGroup(group._id, user._id);
       group.getTransformedData({
         cb,
         populateMembers: group.type === 'party' ? partyFields : nameFields,

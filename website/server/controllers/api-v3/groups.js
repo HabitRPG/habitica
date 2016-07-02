@@ -17,10 +17,11 @@ import {
   NotAuthorized,
 } from '../../libs/api-v3/errors';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import * as firebase from '../../libs/api-v3/firebase';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
 import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import pusher from '../../libs/api-v3/pusher';
+
 let api = {};
 
 /**
@@ -66,9 +67,6 @@ api.createGroup = {
       profile: {name: user.profile.name},
     };
     res.respond(201, response); // do not remove chat flags data as we've just created the group
-
-    firebase.updateGroupData(savedGroup);
-    firebase.addUserToGroup(savedGroup._id, user._id);
   },
 };
 
@@ -179,8 +177,6 @@ api.updateGroup = {
       };
     }
     res.respond(200, response);
-
-    firebase.updateGroupData(savedGroup);
   },
 };
 
@@ -278,8 +274,6 @@ api.joinGroup = {
       response.leader = leader.toJSON({minimize: true});
     }
     res.respond(200, response);
-
-    firebase.addUserToGroup(group._id, user._id);
   },
 };
 
@@ -449,7 +443,15 @@ api.removeGroupMember = {
       if (isInGroup === 'guild') {
         removeFromArray(member.guilds, group._id);
       }
-      if (isInGroup === 'party') member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
+      if (isInGroup === 'party') {
+        // Tell the realtime clients that a user is being removed
+        // If the user that is being removed is still connected, they'll get disconnected automatically
+        pusher.trigger(`presence-group-${group._id}`, 'user-removed', {
+          userId: user._id,
+        });
+
+        member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
+      }
 
       if (member.newMessages[group._id]) {
         member.newMessages[group._id] = undefined;
