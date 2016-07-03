@@ -36,7 +36,7 @@ angular.module('habitrpg')
           count++;
         }
 
-        if($scope.user.purchased.plans && $scope.user.purchased.plans.mysterItems.length){
+        if($scope.user.purchased.plans && $scope.user.purchased.plans.mysteryItems.length){
           count++;
         }
 
