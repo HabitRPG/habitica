@@ -706,7 +706,7 @@
     "shieldSpecialTakeThisNotes": "This shield was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
     "shieldSpecialMoonpearlShieldText": "Moonpearl Shield",
     "shieldSpecialMoonpearlShieldNotes": "Designed for fast swimming, and also some defense. Increases Constitution by <%= con %>.",
-    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightText": "Mustaines Milstolpsmosande Morgonstjärna",
     "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Yeti-Tamer Shield",
     "shieldSpecialYetiNotes": "This shield reflects light from the snow. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
