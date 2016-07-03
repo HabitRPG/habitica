@@ -29,7 +29,7 @@ angular.module('habitrpg')
       $scope.clearMessages = Chat.markChatSeen;
       $scope.clearCards = Chat.clearCards;
 
-      $scope.newMessagesCountFunc = function() {
+      $scope.getNotificationsCount = function() {
         var count = 0;
 
         if($scope.user.invitations.party && $scope.user.invitations.party.id){
@@ -49,15 +49,7 @@ angular.module('habitrpg')
         }
 
         if($scope.user.newMessages) {
-          for (var k in $scope.user.newMessages) {
-            if ($scope.user.newMessages.hasOwnProperty(k)){
-              count++;
-            }
-          }
-        }
-
-        if(!count) {
-          return 0;
+          count += Object.keys($scope.user.newMessages).length;
         }
 
         return count;

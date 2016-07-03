@@ -177,7 +177,7 @@ nav.toolbar(ng-controller='MenuCtrl')
       li.toolbar-notifs
         a(data-expand-menu, menu='notifs')
           span.glyphicon(ng-class='iconClasses()')
-          span.notification-counter(ng-if='newMessagesCountFunc()') {{newMessagesCountFunc()}}
+          span.notification-counter(ng-if='getNotificationsCount()') {{getNotificationsCount()}}
         div(ng-show='_expandedMenu.menu === "notifs"')
           h4=env.t('notifications')
           div
