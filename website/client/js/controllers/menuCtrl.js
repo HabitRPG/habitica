@@ -29,6 +29,40 @@ angular.module('habitrpg')
       $scope.clearMessages = Chat.markChatSeen;
       $scope.clearCards = Chat.clearCards;
 
+      $scope.newMessagesCountFunc = function() {
+        var count = 0;
+
+        if($scope.user.invitations.party && $scope.user.invitations.party.id){
+          count++;
+        }
+
+        if($scope.user.purchased.plans && $scope.user.purchased.plans.mysterItems.length){
+          count++;
+        }
+
+        if($scope.user.invitations.guilds){
+          count += $scope.user.invitations.guilds.length;
+        }
+
+        if($scope.user.flags.classSelected && !$scope.user.preferences.disableClasses && $scope.user.stats.points){
+          count += $scope.user.stats.points > 0 ? 1 : 0;
+        }
+
+        if($scope.user.newMessages) {
+          for (var k in $scope.user.newMessages) {
+            if ($scope.user.newMessages.hasOwnProperty(k)){
+              count++;
+            }
+          }
+        }
+
+        if(!count) {
+          return 0;
+        }
+
+        return count;
+      };
+
       $scope.iconClasses = function() {
         return selectNotificationValue(
           'glyphicon-gift',
