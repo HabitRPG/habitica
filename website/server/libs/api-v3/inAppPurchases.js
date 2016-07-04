@@ -15,71 +15,11 @@ iap.config({
   googlePublicKeyPath: nconf.get('IAP_GOOGLE_KEYDIR'),
 });
 
-let iapSetup = Bluebird.promisify(iap.setup, { context: iap });
-let iapValidate = Bluebird.promisify(iap.validate, { context: iap });
-
-async function iapAndroidVerify (user, iapBody) {
-  // Defining these 2 variables here so they can be logged in case of error
-  let googleRes;
-  let token;
-
-  try {
-    await iapSetup();
-
-    console.log('iapbody', JSON.stringify(iapBody), typeof iapBody.transaction.receipt);
-    let testObj = {
-      data: iapBody.transaction.receipt,
-      signature: iapBody.transaction.signature,
-    };
-
-    googleRes = await iapValidate(iap.GOOGLE, testObj);
-
-    if (iap.isValidated(googleRes)) {
-      let receiptObj = JSON.parse(testObj.data);
-      console.log(receiptObj);
-      token = receiptObj.token || receiptObj.purchaseToken;
-
-      let existingReceipt = await IapPurchaseReceipt.findOne({
-        _id: token,
-      }).exec();
-
-      if (!existingReceipt) {
-        await IapPurchaseReceipt.create({
-          _id: token,
-          consumed: true,
-          userId: user._id,
-        });
-
-        await payments.buyGems({
-          user,
-          paymentMethod: 'IAP GooglePlay',
-          amount: 5.25,
-        });
-
-        return {
-          ok: true,
-          data: googleRes,
-        };
-      } else {
-        throw new Error('RECEIPT_ALREADY_USED');
-      }
-    } else {
-      throw new Error('INVALID_RECEIPT');
-    }
-  } catch (err) {
-    logger.error(err, {
-      userId: user._id,
-      iapBody,
-      googleRes,
-      token,
-    });
-
-    return {
-      ok: false,
-      data: 'An error occurred while processing the purchase.',
-    };
-  }
-}
+module.exports = {
+  setup: Bluebird.promisify(iap.setup, { context: iap }),
+  validate: Bluebird.promisify(iap.validate, { context: iap }),
+  GOOGLE: iap.GOOGLE,
+};
 
 async function iapIOSVerify (user, iapBody) {
   // Defining these 2 variables here so they can be logged in case of error

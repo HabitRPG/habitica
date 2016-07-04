@@ -2,12 +2,12 @@ import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/api-v3/auth';
+import iap from '../../../libs/api-v3/inAppPurchases';
+import payments from '../../../libs/api-v3/payments';
 import {
-  iapAndroidVerify,
-  iapIOSVerify,
-} from '../../../libs/api-v3/inAppPurchases';
-
-// IMPORTANT: NOT PORTED TO v3 standards (not using res.respond)
+  NotAuthorized,
+} from '../../../libs/api-v3/errors';
+import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
 
 let api = {};
 
@@ -23,13 +23,50 @@ api.iapAndroidVerify = {
   url: '/iap/android/verify',
   middlewares: [authWithUrl],
   async handler (req, res) {
-    let resObject = await iapAndroidVerify(res.locals.user, req.body);
-    console.log(resObject);
-    return res
-      .status(resObject.ok === true ? 200 : 500)
-      .json(resObject);
+    let user = res.locals.user;
+    let iapBody = req.body;
+
+    await iap.setup();
+
+    let testObj = {
+      data: iapBody.transaction.receipt,
+      signature: iapBody.transaction.signature,
+    };
+
+    let googleRes = await iap.validate(iap.GOOGLE, testObj);
+
+    if (iap.isValidated(googleRes)) {
+      let receiptObj = JSON.parse(testObj.data); // passed as a string
+      let token = receiptObj.token || receiptObj.purchaseToken;
+
+      let existingReceipt = await IapPurchaseReceipt.findOne({
+        _id: token,
+      }).exec();
+
+      if (!existingReceipt) {
+        await IapPurchaseReceipt.create({
+          _id: token,
+          consumed: true,
+          userId: user._id,
+        });
+
+        await payments.buyGems({
+          user,
+          paymentMethod: 'IAP GooglePlay',
+          amount: 5.25,
+        });
+      } else {
+        throw new NotAuthorized('RECEIPT_ALREADY_USED');
+      }
+    } else {
+      throw new NotAuthorized('INVALID_RECEIPT');
+    }
+
+    res.respond(200, googleRes);
   },
 };
+
+// IMPORTANT: NOT PORTED TO v3 standards (not using res.respond)
 
 /**
  * @apiIgnore Payments are considered part of the private API
@@ -44,7 +81,7 @@ api.iapiOSVerify = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let resObject = await iapIOSVerify(res.locals.user, req.body);
-    console.log(resObject)
+
     return res
       .status(resObject.ok === true ? 200 : 500)
       .json(resObject);
