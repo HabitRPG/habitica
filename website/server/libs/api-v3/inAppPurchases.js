@@ -93,9 +93,3 @@ async function iapIOSVerify (user, iapBody) {
     };
   }
 }
-
-module.exports = {
-  iapAndroidVerify,
-  iapIOSVerify,
-  iapSetup,
-};
