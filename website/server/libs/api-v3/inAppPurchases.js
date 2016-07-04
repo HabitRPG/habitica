@@ -26,7 +26,7 @@ async function iapAndroidVerify (user, iapBody) {
   try {
     await iapSetup();
 
-    console.log('iapbody', JSON.stringify(iapBody));
+    console.log('iapbody', JSON.stringify(iapBody), typeof iapBody.transaction.receipt);
     let testObj = {
       data: iapBody.transaction.receipt,
       signature: iapBody.transaction.signature,
