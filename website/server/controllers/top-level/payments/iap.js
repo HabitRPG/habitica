@@ -99,7 +99,6 @@ api.iapiOSVerify = {
       // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
       for (let index in purchaseDataList) {
         let purchaseData = purchaseDataList[index];
-        console.log('purchaseData', purchaseData, index);
         let token = purchaseData.transactionId;
 
         let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line babel/no-await-in-loop
