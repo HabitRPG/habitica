@@ -26,6 +26,7 @@ async function iapAndroidVerify (user, iapBody) {
   try {
     await iapSetup();
 
+    console.log('iapbody', JSON.stringify(iapBody));
     let testObj = {
       data: iapBody.transaction.receipt,
       signature: iapBody.transaction.signature,
@@ -34,6 +35,7 @@ async function iapAndroidVerify (user, iapBody) {
     googleRes = await iapValidate(iap.GOOGLE, testObj);
 
     if (iap.isValidated(googleRes)) {
+      console.log('test obj', JSON.stringify(testObj));
       token = testObj.data.token || testObj.data.purchaseToken;
 
       let existingReceipt = await IapPurchaseReceipt.findOne({
