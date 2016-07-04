@@ -2,6 +2,9 @@
 
 habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', 'Analytics',
     function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics){
+    if ($scope.group) {
+      Chat.markChatSeen($scope.group.id);
+    }
     $scope.message = {content:''};
     $scope._sending = false;
 
@@ -26,12 +29,17 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
-      var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
-      Chat.postChat(group._id, message, previousMsg)
+      // var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
+      Chat.postChat(group._id, message) //, previousMsg) not sending the previousMsg as we have real time updates
         .then(function(response) {
           var message = response.data.data.message;
 
-          group.chat.unshift(message);
+          if (message) {
+            group.chat.unshift(message);
+            group.chat.splice(200);
+          } else {
+            group.chat = response.data.data.chat;
+          }
 
           $scope.message.content = '';
           $scope._sending = false;

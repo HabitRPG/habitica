@@ -4,13 +4,18 @@ import { model as User } from '../../../../../website/server/models/user';
 import moment from 'moment';
 
 describe('payments/index', () => {
+  let user;
+
+  beforeEach(() => {
+    user = new User();
+    sandbox.spy(sender, 'sendTxn');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   describe('#createSubscription', () => {
-    let user;
-
-    beforeEach(async () => {
-      user = new User();
-    });
-
     context('Purchasing a subscription as a gift', () => {
       it('adds extra months to an existing subscription');
 
@@ -146,20 +151,14 @@ describe('payments/index', () => {
   });
 
   describe('#cancelSubscription', () => {
-    let data, user;
+    let data;
 
     beforeEach(() => {
-      sandbox.spy(sender, 'sendTxn');
-      user = new User();
       data = { user };
     });
 
-    afterEach(() => {
-      sandbox.restore();
-    });
-
-    it('adds a month termination date by default', () => {
-      api.cancelSubscription(data);
+    it('adds a month termination date by default', async () => {
+      await api.cancelSubscription(data);
 
       let now = new Date();
       let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
@@ -167,10 +166,10 @@ describe('payments/index', () => {
       expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
     });
 
-    it('adds extraMonths to dateTerminated value', () => {
+    it('adds extraMonths to dateTerminated value', async () => {
       user.purchased.plan.extraMonths = 2;
 
-      api.cancelSubscription(data);
+      await api.cancelSubscription(data);
 
       let now = new Date();
       let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
@@ -178,10 +177,10 @@ describe('payments/index', () => {
       expect(daysTillTermination).to.be.within(89, 90); // 3 months +/- 1 days
     });
 
-    it('handles extra month fractions', () => {
+    it('handles extra month fractions', async () => {
       user.purchased.plan.extraMonths = 0.3;
 
-      api.cancelSubscription(data);
+      await api.cancelSubscription(data);
 
       let now = new Date();
       let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
@@ -189,10 +188,10 @@ describe('payments/index', () => {
       expect(daysTillTermination).to.be.within(38, 39); // should be about 1 month + 1/3 month
     });
 
-    it('terminates at next billing date if it exists', () => {
+    it('terminates at next billing date if it exists', async () => {
       data.nextBill = moment().add({ days: 15 });
 
-      api.cancelSubscription(data);
+      await api.cancelSubscription(data);
 
       let now = new Date();
       let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
@@ -200,10 +199,10 @@ describe('payments/index', () => {
       expect(daysTillTermination).to.be.within(13, 15);
     });
 
-    it('resets plan.extraMonths', () => {
+    it('resets plan.extraMonths', async () => {
       user.purchased.plan.extraMonths = 5;
 
-      api.cancelSubscription(data);
+      await api.cancelSubscription(data);
 
       expect(user.purchased.plan.extraMonths).to.eql(0);
     });

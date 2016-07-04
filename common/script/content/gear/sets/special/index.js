@@ -4,6 +4,7 @@ import {
 import { ownsItem } from '../../gear-helper';
 import backerGear from './special-backer';
 import contributorGear from './special-contributor';
+import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
@@ -11,6 +12,7 @@ let armor = {
   0: backerGear.armorSpecial0,
   1: contributorGear.armorSpecial1,
   2: backerGear.armorSpecial2,
+  takeThis: takeThisGear.armorSpecialTakeThis,
   finnedOceanicArmor: {
     text: t('armorSpecialFinnedOceanicArmorText'),
     notes: t('armorSpecialFinnedOceanicArmorNotes', { str: 15 }),
@@ -422,12 +424,14 @@ let armor = {
 let back = {
   wondercon_red: wonderconGear.backSpecialWonderconRed,  // eslint-disable-line camelcase
   wondercon_black: wonderconGear.backSpecialWonderconBlack,  // eslint-disable-line camelcase
+  takeThis: takeThisGear.backSpecialTakeThis,
 };
 
 let body = {
   wondercon_red: wonderconGear.bodySpecialWonderconRed,  // eslint-disable-line camelcase
   wondercon_gold: wonderconGear.bodySpecialWonderconGold,  // eslint-disable-line camelcase
   wondercon_black: wonderconGear.bodySpecialWonderconBlack,  // eslint-disable-line camelcase
+  takeThis: takeThisGear.bodySpecialTakeThis,
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
@@ -561,6 +565,7 @@ let head = {
   0: backerGear.headSpecial0,
   1: contributorGear.headSpecial1,
   2: backerGear.headSpecial2,
+  takeThis: takeThisGear.headSpecialTakeThis,
   fireCoralCirclet: {
     text: t('headSpecialFireCoralCircletText'),
     notes: t('headSpecialFireCoralCircletNotes', { per: 15 }),
@@ -1140,6 +1145,7 @@ let headAccessory = {
 let shield = {
   0: backerGear.shieldSpecial0,
   1: contributorGear.shieldSpecial1,
+  takeThis: takeThisGear.shieldSpecialTakeThis,
   goldenknight: {
     text: t('shieldSpecialGoldenknightText'),
     notes: t('shieldSpecialGoldenknightNotes', { attrs: 25 }),
@@ -1445,6 +1451,7 @@ let weapon = {
   2: backerGear.weaponSpecial2,
   3: backerGear.weaponSpecial3,
   critical: contributorGear.weaponSpecialCritical,
+  takeThis: takeThisGear.weaponSpecialTakeThis,
   tridentOfCrashingTides: {
     text: t('weaponSpecialTridentOfCrashingTidesText'),
     notes: t('weaponSpecialTridentOfCrashingTidesNotes', { int: 15 }),

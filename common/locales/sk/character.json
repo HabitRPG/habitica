@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Skryť rozdelenie štatistík",
     "quickAllocationLevelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do vlastnosti podľa svojho výberu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\", ktorú môžeš nájsť v časti Užívateľ -> Štatistiky.",
     "invalidAttribute": "\"<%= attr %>\" nie je platná vlastnosť.",
-    "notEnoughAttrPoints": "Nemáš dosť bodov vlastností."
+    "notEnoughAttrPoints": "Nemáš dosť bodov vlastností.",
+    "gearNotOwned": "You do not own this item."
 }

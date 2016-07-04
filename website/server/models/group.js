@@ -12,12 +12,12 @@ import {
   InternalServerError,
   BadRequest,
 } from '../libs/api-v3/errors';
-import * as firebase from '../libs/api-v2/firebase';
 import baseModel from '../libs/api-v3/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
+import pusher from '../libs/api-v3/pusher';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -31,8 +31,6 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
-// NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
-// changes made directly to the db will cause Firebase to get out of sync
 export let schema = new Schema({
   name: {type: String, required: true},
   description: String,
@@ -107,10 +105,6 @@ schema.pre('remove', true, async function preRemoveGroup (next, done) {
   } catch (err) {
     done(err);
   }
-});
-
-schema.post('remove', function postRemoveGroup (group) {
-  firebase.deleteGroup(group._id);
 });
 
 // return a clean object for user.quest
@@ -239,12 +233,14 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // Not putting into toJSON because there we can't access user
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   let toJSON = group.toJSON();
+
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
       return chatMsg.flagCount >= 2;
     });
   }
+
   return toJSON;
 };
 
@@ -308,7 +304,9 @@ export function chatDefaults (msg, user) {
 }
 
 schema.methods.sendChat = function sendChat (message, user) {
-  this.chat.unshift(chatDefaults(message, user));
+  let newMessage = chatDefaults(message, user);
+
+  this.chat.unshift(newMessage);
   this.chat.splice(200);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
@@ -331,6 +329,8 @@ schema.methods.sendChat = function sendChat (message, user) {
   query._id = { $ne: user ? user._id : ''};
 
   User.update(query, lastSeenUpdate, {multi: true}).exec();
+
+  return newMessage;
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -719,6 +719,11 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
+    // Tell the realtime clients that a user has left
+    // If the user that left is still connected, they'll get disconnected
+    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
+      userId: user._id,
+    });
   }
 
   // If user is the last one in group and group is private, delete it
@@ -739,8 +744,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     }
     promises.push(group.update(update).exec());
   }
-
-  firebase.removeUserFromGroup(group._id, user._id);
 
   return await Bluebird.all(promises);
 };

@@ -16,6 +16,5 @@ router.post('/user/reset-password', getUserLanguage, auth.resetPassword);
 router.post('/user/change-password', getUserLanguage, auth.auth, auth.changePassword);
 router.post('/user/change-username', getUserLanguage, auth.auth, auth.changeUsername);
 router.post('/user/change-email', getUserLanguage, auth.auth, auth.changeEmail);
-// router.post('/user/auth/firebase', i18n.getUserLanguage, auth.auth, auth.getFirebaseToken);
 
 module.exports = router;

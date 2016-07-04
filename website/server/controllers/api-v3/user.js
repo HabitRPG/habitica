@@ -13,7 +13,6 @@ import {
 import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import * as firebase from '../../libs/api-v3/firebase';
 import * as passwordUtils from '../../libs/api-v3/password';
 
 let api = {};
@@ -230,8 +229,6 @@ api.deleteUser = {
     await user.remove();
 
     res.respond(200, {});
-
-    firebase.deleteUser(user._id);
   },
 };
 

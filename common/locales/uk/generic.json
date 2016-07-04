@@ -98,7 +98,7 @@
     "buyThis": "Придбати <%= text %> за <%= price %> з Ваших <%= gems %> самоцвітів?",
     "noReachServer": "Наразі сервер недоступний, спробуйте пізніше",
     "errorUpCase": "ПОМИЛКА:",
-    "newPassSent": "Новий пароль надіслано.",
+    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
     "serverUnreach": "Наразі сервер недоступний.",
     "requestError": "Yikes, an error occurred! <strong>Please reload the page,</strong> your last action may not have been saved correctly.",
     "seeConsole": "If the error persists, please report it at Help > Report a Bug. If you're familiar with your browser's console, please include any error messages.",

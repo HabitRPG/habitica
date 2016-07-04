@@ -62,6 +62,11 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
           .form-group
             .checkbox
               label
+                input(type='checkbox', ng-model='hero.flags.chatRevoked')
+                | Chat Priveleges Revoked
+          .form-group
+            .checkbox
+              label
                 input(type='checkbox', ng-model='hero.auth.blocked')
                 | Blocked
 

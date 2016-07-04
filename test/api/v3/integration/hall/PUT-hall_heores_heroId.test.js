@@ -52,7 +52,7 @@ describe('PUT /heroes/:heroId', () => {
     // test response
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
+      'contributor', 'auth', 'items', 'flags',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
@@ -72,6 +72,18 @@ describe('PUT /heroes/:heroId', () => {
     expect(hero.notifications[0].type).to.equal('NEW_CONTRIBUTOR_LEVEL');
   });
 
+  it('updates chatRevoked flag', async () => {
+    let hero = await generateUser();
+
+    await user.put(`/hall/heroes/${hero._id}`, {
+      flags: {chatRevoked: true},
+    });
+
+    await hero.sync();
+
+    expect(hero.flags.chatRevoked).to.eql(true);
+  });
+
   it('updates contributor level', async () => {
     let hero = await generateUser({
       contributor: {level: 5},
@@ -83,7 +95,7 @@ describe('PUT /heroes/:heroId', () => {
     // test response
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
+      'contributor', 'auth', 'items', 'flags',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
@@ -110,7 +122,7 @@ describe('PUT /heroes/:heroId', () => {
     // test response
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
+      'contributor', 'auth', 'items', 'flags',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
@@ -134,7 +146,7 @@ describe('PUT /heroes/:heroId', () => {
     // test response
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
+      'contributor', 'auth', 'items', 'flags',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);

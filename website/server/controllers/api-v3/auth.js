@@ -18,8 +18,8 @@ import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { decrypt } from '../../libs/api-v3/encryption';
-import FirebaseTokenGenerator from 'firebase-token-generator';
 import { send as sendEmail } from '../../libs/api-v3/email';
+import pusher from '../../libs/api-v3/pusher';
 
 let api = {};
 
@@ -282,6 +282,76 @@ api.loginSocial = {
   },
 };
 
+/*
+ * @apiIgnore Private route
+ * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
+ * @apiDescription Authentication for Pusher.com private and presence channels
+ * @apiVersion 3.0.0
+ * @apiName UserAuthPusher
+ * @apiGroup User
+ *
+ * @apiParam {String} socket_id Body parameter
+ * @apiParam {String} channel_name Body parameter
+ *
+ * @apiSuccess {String} auth The authentication token
+ */
+api.pusherAuth = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/auth/pusher',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody('socket_id').notEmpty();
+    req.checkBody('channel_name').notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let socketId = req.body.socket_id;
+    let channelName = req.body.channel_name;
+
+    // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
+    let [channelType, resourceType, ...resourceId] = channelName.split('-');
+
+    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds too
+      throw new BadRequest('Invalid Pusher channel type.');
+    }
+
+    if (resourceType !== 'group') { // only groups are supported
+      throw new BadRequest('Invalid Pusher resource type.');
+    }
+
+    resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
+    if (!validator.isUUID(resourceId)) {
+      throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
+    }
+
+    // Only the user's party is supported for now
+    if (user.party._id !== resourceId) {
+      throw new NotFound('Resource id must be the user\'s party.');
+    }
+
+    let authResult;
+
+    // Max 100 members for presence channel - parties only
+    if (channelType === 'presence') {
+      let presenceData = {
+        user_id: user._id, // eslint-disable-line camelcase
+        // Max 1KB
+        user_info: {}, // eslint-disable-line camelcase
+      };
+
+      authResult = pusher.authenticate(socketId, channelName, presenceData);
+    } else {
+      authResult = pusher.authenticate(socketId, channelName);
+    }
+
+    // Not using res.respond because Pusher requires a different response format
+    res.status(200).json(authResult);
+  },
+};
+
 /**
  * @api {put} /api/v3/user/auth/update-username Update username
  * @apiDescription Update the username of a local user
@@ -469,28 +539,6 @@ api.updateEmail = {
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });
-  },
-};
-
-const firebaseTokenGenerator = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
-
-// Internal route
-api.getFirebaseToken = {
-  method: 'POST',
-  url: '/user/auth/firebase',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    let user = res.locals.user;
-    // Expires 24 hours from now (60*60*24*1000) (in milliseconds)
-    let expires = new Date();
-    expires.setTime(expires.getTime() + 86400000);
-
-    let token = firebaseTokenGenerator.createToken({
-      uid: user._id,
-      isHabiticaUser: true,
-    }, { expires });
-
-    res.respond(200, {token, expires});
   },
 };
 

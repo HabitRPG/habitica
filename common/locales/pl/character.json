@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Ukryj przydział atrybutów",
     "quickAllocationLevelPopover": "Z każdym poziomem otrzymujesz jeden punkt, który możesz przydzielić wybranemu atrybutowi. Możesz to zrobić ręcznie, lub zdać się na jedną z możliwych opcji Automatycznej Alokacji, dostępnych w Użytkownik -> Statystyki Awatara.",
     "invalidAttribute": "\"<%= attr %>\" nie jest poprawnym atrybutem.",
-    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów."
+    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów.",
+    "gearNotOwned": "You do not own this item."
 }

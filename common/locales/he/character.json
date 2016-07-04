@@ -155,7 +155,7 @@
     "unequipPetMountBackground": "הסר את חיית המחמד, חיית הרכיבה ותמונת הרקע",
     "animalSkins": "עורות דמוי בע״ח",
     "chooseClassHeading": "בחר את המקצוע שלך! או דחה את הבחירה לשלב מאוחר יותר.",
-    "warriorWiki": "<a href='http://habitica.wikia.com/wiki/Warrior' target='_blank'לוחם</a>",
+    "warriorWiki": "<a href='http://habitica.wikia.com/wiki/Warrior' target='_blank'>לוחם</a>",
     "mageWiki": "<a href='http://habitica.wikia.com/wiki/Mage' target='_blank'>מכשף</a>",
     "rogueWiki": "<a href='http://habitica.wikia.com/wiki/Rogue' target='_blank'>נוכל</a>",
     "healerWiki": "<a href='http://habitica.wikia.com/wiki/Healer' target='_blank'>מרפא</a>",
@@ -168,5 +168,6 @@
     "hideQuickAllocation": "הסתרת הקצאת תכונות",
     "quickAllocationLevelPopover": "כל דרגה מקנה לכם נקודה אחת לטובת תכונה כרצונכם. תוכלו לעשות זאת ידנית, או לתת למשחק להחליט בשבילכם באמצעות אופציית הקצאת הנקודות האוטומטית שניתן למצוא תחת משתמש -> תכונות דמות.",
     "invalidAttribute": "\"<%= attr %>\" אינה תכונה תקפה.",
-    "notEnoughAttrPoints": "אין לך מספיק נקודות תכונה."
+    "notEnoughAttrPoints": "אין לך מספיק נקודות תכונה.",
+    "gearNotOwned": "חפץ זה אינו בבעלותכם."
 }

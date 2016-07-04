@@ -94,7 +94,7 @@
     "confirmFortify": "Sei sicuro?",
     "fortifyComplete": "Fortificazione completa!",
     "sureDelete": "Vuoi davvero eliminare la <%= taskType %> con il testo \"<%= taskText %>\"?",
-    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
+    "sureDeleteCompletedTodos": "Vuoi davvero eliminare le tue To-Do completate?",
     "streakCoins": "Bonus serie!",
     "pushTaskToTop": "Metti in cima alla lista. Tieni premuto CTRL o cmd per mettere in fondo.",
     "emptyTask": "Inserisci prima il titolo dell'attività",
