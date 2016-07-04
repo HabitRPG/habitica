@@ -53,7 +53,7 @@
     "gulp.spritesmith": "^4.1.0",
     "icalendar": "lefnire/node-icalendar#e06da0e55901f0ba940dfadc42c158ed0b1fead9",
     "image-size": "~0.3.2",
-    "in-app-purchase": "^0.2.0",
+    "in-app-purchase": "^1.1.6",
     "jade": "~1.11.0",
     "js2xmlparser": "~1.0.0",
     "lodash": "^3.10.1",
