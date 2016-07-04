@@ -12,6 +12,8 @@ import logger from '../../../libs/api-v3/logger';
 
 let api = {};
 
+// TODO missing tests
+
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /iap/android/verify Android Verify IAP
@@ -81,7 +83,6 @@ api.iapiOSVerify = {
     let iapBody = req.body;
 
     let appleRes;
-    let token;
 
     try {
       await iap.setup();
@@ -96,8 +97,10 @@ api.iapiOSVerify = {
       let correctReceipt = true;
 
       // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
-      for (let purchaseData of purchaseDataList) {
-        token = purchaseData.transactionId;
+      for (let index in purchaseDataList) {
+        let purchaseData = purchaseDataList[index];
+        console.log('purchaseData', purchaseData, index);
+        let token = purchaseData.transactionId;
 
         let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line babel/no-await-in-loop
           _id: token,
