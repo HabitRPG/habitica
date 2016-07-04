@@ -35,8 +35,9 @@ async function iapAndroidVerify (user, iapBody) {
     googleRes = await iapValidate(iap.GOOGLE, testObj);
 
     if (iap.isValidated(googleRes)) {
-      console.log('test obj', JSON.stringify(testObj));
-      token = testObj.data.token || testObj.data.purchaseToken;
+      let receiptObj = JSON.parse(testObj.data);
+      console.log(receiptObj);
+      token = receiptObj.token || receiptObj.purchaseToken;
 
       let existingReceipt = await IapPurchaseReceipt.findOne({
         _id: token,
