@@ -142,6 +142,14 @@ let armor = {
     set: 'seaside',
     canOwn: ownsItem('armor_armoire_stripedSwimsuit'),
   },
+  cannoneerRags: {
+    text: t('armorArmoireCannoneerRagsText'),
+    notes: t('armorArmoireCannoneerRagsNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'cannoneer',
+    canOwn: ownsItem('armor_armoire_cannoneerRags'),
+  },
 };
 
 let eyewear = {
@@ -362,6 +370,15 @@ let head = {
     int: 8,
     con: 8,
     canOwn: ownsItem('head_armoire_greenFloppyHat'),
+  },
+  cannoneerBandanna: {
+    text: t('headArmoireCannoneerBandannaText'),
+    notes: t('headArmoireCannoneerBandannaNotes', { attrs: 15 }),
+    value: 100,
+    int: 15,
+    per: 15,
+    set: 'cannoneer',
+    canOwn: ownsItem('head_armoire_cannoneerBandanna'),
   },
 };
 
@@ -584,6 +601,14 @@ let weapon = {
     str: 10,
     set: 'seaside',
     canOwn: ownsItem('weapon_armoire_sandySpade'),
+  },
+  cannon: {
+    text: t('weaponArmoireCannonText'),
+    notes: t('weaponArmoireCannonNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'cannoneer',
+    canOwn: ownsItem('weapon_armoire_cannon'),
   },
 };
 
