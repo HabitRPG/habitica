@@ -199,5 +199,13 @@
   "backgroundLilypadText": "Lilypad",
   "backgroundLilypadNotes": "Hop on a Lilypad.",
   "backgroundWaterfallRockText": "Waterfall Rock",
-  "backgroundWaterfallRockNotes": "Splash on a Waterfall Rock."
+  "backgroundWaterfallRockNotes": "Splash on a Waterfall Rock.",
+
+  "backgrounds072016": "SET 26: Released July 2016",
+  "backgroundAquariumText": "Aquarium",
+  "backgroundAquariumNotes": "Bob in an Aquarium.",
+  "backgroundDeepSeaText": "Deep Sea",
+  "backgroundDeepSeaNotes": "Dive to the Deep Sea.",
+  "backgroundDilatoryCastleText": "Castle of Dilatory",
+  "backgroundDilatoryCastleNotes": "Swim past the Castle of Dilatory."
 }
