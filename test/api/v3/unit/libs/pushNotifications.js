@@ -2,12 +2,14 @@ import { model as User } from '../../../../../website/server/models/user';
 import requireAgain from 'require-again';
 import pushNotify from 'push-notify';
 import nconf from 'nconf';
+import FCM from 'fcm-push';
 
 describe('pushNotifications', () => {
   let user;
   let sendPushNotification;
   let pathToPushNotifications = '../../../../../website/server/libs/api-v3/pushNotifications';
   let gcmSendSpy;
+  let fcmSendSpy;
   let apnSendSpy;
 
   let identifier = 'identifier';
@@ -17,9 +19,12 @@ describe('pushNotifications', () => {
   beforeEach(() => {
     user = new User();
     gcmSendSpy = sinon.spy();
+    fcmSendSpy = sinon.spy();
     apnSendSpy = sinon.spy();
 
-    sandbox.stub(nconf, 'get').returns('true');
+    sandbox.stub(nconf, 'get').returns('true-key');
+
+    sandbox.stub(FCM.prototype, 'send', fcmSendSpy);
 
     sandbox.stub(pushNotify, 'gcm').returns({
       on: () => null,
@@ -41,6 +46,7 @@ describe('pushNotifications', () => {
   it('throws if user is not supplied', () => {
     expect(sendPushNotification).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
+    expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -48,6 +54,7 @@ describe('pushNotifications', () => {
     user.preferences.pushNotifications.unsubscribeFromAll = true;
     expect(() => sendPushNotification(user)).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
+    expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -57,6 +64,7 @@ describe('pushNotifications', () => {
       message,
     })).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
+    expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -66,6 +74,7 @@ describe('pushNotifications', () => {
       message,
     })).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
+    expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -75,6 +84,7 @@ describe('pushNotifications', () => {
       title,
     })).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
+    expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -85,6 +95,7 @@ describe('pushNotifications', () => {
       message,
     });
     expect(gcmSendSpy).to.not.have.been.called;
+    expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -105,6 +116,18 @@ describe('pushNotifications', () => {
       timeToLive: 23,
     };
 
+    let fcmMessage = {
+      to: '123',
+      data: {
+        a: true,
+        b: true,
+      },
+      notification: {
+        title: details.title,
+        body: details.message,
+      },
+    };
+
     sendPushNotification(user, details);
     expect(gcmSendSpy).to.have.been.calledOnce;
     expect(gcmSendSpy).to.have.been.calledWithMatch({
@@ -119,6 +142,8 @@ describe('pushNotifications', () => {
         b: true,
       },
     });
+    expect(fcmSendSpy).to.have.been.calledOnce;
+    expect(fcmSendSpy).to.have.been.calledWithMatch(fcmMessage);
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -180,6 +205,7 @@ describe('pushNotifications', () => {
         b: true,
       },
     });
+    expect(fcmSendSpy).to.not.have.been.called;
     expect(gcmSendSpy).to.not.have.been.called;
   });
 });

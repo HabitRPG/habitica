@@ -7,8 +7,12 @@ import Bluebird from 'bluebird';
 import {
   S3,
 } from './aws';
+import FCM from 'fcm-push';
 
 const GCM_API_KEY = nconf.get('PUSH_CONFIGS:GCM_SERVER_API_KEY');
+const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
+
+let fcm = FCM_API_KEY ? new FCM(FCM_API_KEY) : undefined;
 
 let gcm = GCM_API_KEY ? pushNotify.gcm({
   apiKey: GCM_API_KEY,
@@ -82,14 +86,32 @@ module.exports = function sendNotification (user, details = {}) {
   _.each(pushDevices, pushDevice => {
     switch (pushDevice.type) {
       case 'android':
-        if (gcm) {
-          payload.title = details.title;
-          payload.message = details.message;
-          gcm.send({
-            registrationId: pushDevice.regId,
-            delayWhileIdle: true,
-            timeToLive: details.timeToLive ? details.timeToLive : 15,
+        // @TODO: Add this back in if pushNotify updates?
+        // if (gcm) {
+        //   payload.title = details.title;
+        //   payload.message = details.message;
+        //   gcm.send({
+        //     registrationId: pushDevice.regId,
+        //     delayWhileIdle: true,
+        //     timeToLive: details.timeToLive ? details.timeToLive : 15,
+        //     data: payload,
+        //   });
+        // }
+
+        if (fcm) {
+          let message = {
+            to: pushDevice.regId,
             data: payload,
+            notification: {
+              title: details.title,
+              body: details.message,
+            },
+          };
+
+          fcm.send(message, function sendFCM (err) {
+            if (err) {
+              logger.error('FCM Error', err);
+            }
           });
         }
         break;
