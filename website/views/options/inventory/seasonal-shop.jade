@@ -43,11 +43,11 @@
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
         p {{Content.spells.special.nye.value}}
           span(class='shop_gold')
-    menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{summerWarrior:env.t("daringSwashbucklerSet"), summerMage:env.t("emeraldMermageSet"), summerHealer:env.t("reefSeahealerSet"), summerRogue:env.t("roguishPirateSet"), summer2015Warrior:env.t("sunfishWarriorSet"), summer2015Mage:env.t("shipSoothsayerSet"), summer2015Healer:env.t("strappingSailorSet"), summer2015Rogue:env.t("reefRenegadeSet")}')
-      div(ng-repeat='item in ::getSeasonalShopArray(set)',
+    menu.pets-menu(label='{{category.text}}', ng-repeat='category in Shared.shops.getMemoizedSeasonalShopCategories(env.language)')
+      div(ng-repeat='item in category.items',
         ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}")
-        button.customize-option(class='shop_{{::item.key}}',
-          popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+        button.customize-option(class='shop_{{item.key}}',
+          popover='{{item.notes}}', popover-title='{{item.text}}',
           popover-trigger='mouseenter', popover-placement='right',
           popover-append-to-body='true',
           ng-click='purchase(item.type,item)')
