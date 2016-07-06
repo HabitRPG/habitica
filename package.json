@@ -32,8 +32,6 @@
     "express-csv": "~0.6.0",
     "express-validator": "^2.18.0",
     "fcm-push": "^1.0.7",
-    "firebase": "^2.2.9",
-    "firebase-token-generator": "^2.0.0",
     "glob": "^4.3.5",
     "got": "^6.1.1",
     "grunt": "~0.4.1",

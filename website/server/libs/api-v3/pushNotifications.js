@@ -9,21 +9,21 @@ import {
 } from './aws';
 import FCM from 'fcm-push';
 
-const GCM_API_KEY = nconf.get('PUSH_CONFIGS:GCM_SERVER_API_KEY');
+// const GCM_API_KEY = nconf.get('PUSH_CONFIGS:GCM_SERVER_API_KEY');
 const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
 
 let fcm = FCM_API_KEY ? new FCM(FCM_API_KEY) : undefined;
 
-let gcm = GCM_API_KEY ? pushNotify.gcm({
-  apiKey: GCM_API_KEY,
-  retries: 3,
-}) : undefined;
+// let gcm = GCM_API_KEY ? pushNotify.gcm({
+//   apiKey: GCM_API_KEY,
+//   retries: 3,
+// }) : undefined;
 
-if (gcm) {
-  gcm.on('transmissionError', (err, message, registrationId) => {
-    logger.error('GCM Error', err, message, registrationId);
-  });
-}
+// if (gcm) {
+//   gcm.on('transmissionError', (err, message, registrationId) => {
+//     logger.error('GCM Error', err, message, registrationId);
+//   });
+// }
 
 let apn;
 
