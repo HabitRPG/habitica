@@ -322,9 +322,9 @@
       "resolved": "https://registry.npmjs.org/async-each-series/-/async-each-series-1.1.0.tgz"
     },
     "aws-sdk": {
-      "version": "2.4.4",
+      "version": "2.4.5",
       "from": "aws-sdk@>=2.0.25 <3.0.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.4.4.tgz",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.4.5.tgz",
       "dependencies": {
         "lodash": {
           "version": "3.5.0",
@@ -6824,9 +6824,9 @@
       }
     },
     "newrelic": {
-      "version": "1.28.1",
+      "version": "1.28.2",
       "from": "newrelic@>=1.27.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/newrelic/-/newrelic-1.28.1.tgz",
+      "resolved": "https://registry.npmjs.org/newrelic/-/newrelic-1.28.2.tgz",
       "dependencies": {
         "concat-stream": {
           "version": "1.5.1",
@@ -6835,7 +6835,8 @@
           "dependencies": {
             "inherits": {
               "version": "2.0.1",
-              "from": "inherits@>=2.0.1 <2.1.0"
+              "from": "inherits@>=2.0.1 <2.1.0",
+              "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
             },
             "readable-stream": {
               "version": "2.0.6",
@@ -6922,7 +6923,8 @@
             },
             "inherits": {
               "version": "2.0.1",
-              "from": "inherits@>=2.0.1 <2.1.0"
+              "from": "inherits@>=2.0.1 <2.1.0",
+              "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
             },
             "isarray": {
               "version": "0.0.1",
