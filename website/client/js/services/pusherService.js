@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID', 'Groups',
-  function($rootScope, STORAGE_SETTINGS_ID, Groups) {
+.factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID', 'Groups', 'Shared',
+  function($rootScope, STORAGE_SETTINGS_ID, Groups, Shared) {
     var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
     var IS_PUSHER_ENABLED = window.env['PUSHER:ENABLED'] === 'true';
 
@@ -10,19 +10,13 @@ angular.module('habitrpg')
       pusher: undefined,
       socketId: undefined, // when defined the user is connected
     };
+    var tabIdKey = 'habitica-active-tab';
 
-    // Setup chat channels once app is ready, only for parties for now
-    var clearAppLoadedListener = $rootScope.$watch('appLoaded', function (after) {
-      if (!after) return;
-      clearAppLoadedListener(); // clean the event listerner
-
-      if (!IS_PUSHER_ENABLED) return;
-
-      var user = $rootScope.user;
-
-      // Connect the user to Pusher and to the party's chat channel
-      var partyId = user && $rootScope.user.party && $rootScope.user.party._id;
-      if (!partyId) return;
+    function connectToPusher (partyId) {
+      localStorage.setItem(tabIdKey, Shared.uuid());
+      window.onbeforeunload = function () {
+        localStorage.removeItem(tabIdKey);
+      }
 
       api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
@@ -88,6 +82,37 @@ angular.module('habitrpg')
           // Groups.data.party.chat.splice(200);
         });
       });
+    };
+
+    // Setup chat channels once app is ready, only for parties for now
+    var clearAppLoadedListener = $rootScope.$watch('appLoaded', function (after) {
+      if (!after) return;
+      clearAppLoadedListener(); // clean the event listerner
+
+      if (!IS_PUSHER_ENABLED) return;
+
+      var user = $rootScope.user;
+
+      // Connect the user to Pusher and to the party's chat channel
+      var partyId = user && $rootScope.user.party && $rootScope.user.party._id;
+      if (!partyId) return;
+
+      // See if another tab is already connected to Pusher
+      if (!localStorage.getItem(tabIdKey)) {
+        connectToPusher(partyId);
+      }
+
+      // when a tab is closed, connect the next one
+      // wait between 100 and 500ms to avoid two tabs connecting at the same time
+      window.addEventListener('storage', function(e) {  
+        if (e.key === tabIdKey && e.newValue === null) {
+          setTimeout(function () {
+            if (!localStorage.getItem(tabIdKey)) {
+              connectToPusher(partyId);
+            }
+          }, Math.floor(Math.random() * 501) + 100);
+        }
+      });      
     });
 
     return api;
