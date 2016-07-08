@@ -110,7 +110,7 @@
               button.btn.btn-primary.btn-block(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
 
       menu.inventory-list(type='list')
-        li.customize-menu(ng-repeat='category in Shared.shops.getMemoizedMarketCategories(env.language, user)')
+        li.customize-menu(ng-repeat='category in Shared.shops.getMemoizedMarketCategories(user)')
           menu.pets-menu(label='{{category.text}}')
             p.muted(ng-bind-html='category.notes')
 

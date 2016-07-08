@@ -1,46 +1,35 @@
 import _ from 'lodash';
 import content from '../content/index';
-import t from '../content/translation';
+import i18n from '../../../common/script/i18n';
 
 let shops = {};
 
-shops.getMarketCategories = function getMarket (language, user) {
+shops.getMarketCategories = function getMarket (user, language) {
   let categories = [];
   let eggsCategory = {
     identifier: 'eggs',
-    text: t('eggs')(language),
-    notes: t('dropsExplanation')(language),
+    text: i18n.t('eggs', language),
+    notes: i18n.t('dropsExplanation', language),
   };
-  let eggs = _.map(_.values(content.questEggs).filter(egg => egg.canBuy(user)), egg => {
+  eggsCategory.items = _(content.questEggs).values().filter(egg => egg.canBuy(user)).concat(_.values(content.dropEggs)).map(egg => {
     return {
       key: egg.key,
-      text: t('egg', {eggType: egg.text()})(language),
+      text: i18n.t('egg', {eggType: egg.text()}, language),
       notes: egg.notes(language),
       value: egg.value,
+      class: 'Pet_Egg_'+egg.key,
+      locked: false,
+      currency: 'gems',
     }
-  });
-  eggs = eggs.concat(_.map(_.values(content.dropEggs), egg => {
-    return {
-      key: egg.key,
-      text: t('egg', {eggType: egg.text()})(language),
-      notes: egg.notes(language),
-      value: egg.value,
-    }
-  }));
-  _.each(eggs, egg => {
-    egg.class = 'Pet_Egg_'+egg.key;
-    egg.locked = false;
-    egg.currency = 'gems';
-  });
-  eggsCategory.items = _.sortBy(eggs, 'key');
+  }).sortBy('key');
   categories.push(eggsCategory);
 
   let hatchingPotionsCategory = {
     identifier: 'hatchingPotions',
-    text: t('hatchingPotions')(language),
-    notes: t('dropsExplanation')(language),
+    text: i18n.t('hatchingPotions', language),
+    notes: i18n.t('dropsExplanation', language),
   };
-  let hatchingPotions = _.map(_.values(content.hatchingPotions).filter(hp => !hp.limited), hatchingPotion => {
+  hatchingPotionsCategory.items = _(content.hatchingPotions).values().filter(hp => !hp.limited).map(hatchingPotion => {
     return {
       key: hatchingPotion.key,
       text: hatchingPotion.text(language),
@@ -50,16 +39,15 @@ shops.getMarketCategories = function getMarket (language, user) {
       locked: false,
       currency: 'gems',
     }
-  });
-  hatchingPotionsCategory.items = _.sortBy(hatchingPotions, 'key');
+  }).sortBy('key');
   categories.push(hatchingPotionsCategory);
 
   let foodCategory = {
     identifier: 'food',
-    text: t('food')(language),
-    notes: t('dropsExplanation')(language),
+    text: i18n.t('food', language),
+    notes: i18n.t('dropsExplanation', language),
   };
-  let food = _.map(_.values(content.food).filter(food => food.canDrop || food.key === 'Saddle'), foodItem => {
+  foodCategory.items = _(content.food).values().filter(food => food.canDrop || food.key === 'Saddle').map(foodItem => {
     return {
       key: foodItem.key,
       text: foodItem.text(language),
@@ -69,8 +57,7 @@ shops.getMarketCategories = function getMarket (language, user) {
       locked: false,
       currency: 'gems',
   }
-  });
-  foodCategory.items = _.sortBy(food, 'key');
+  }).sortBy('key');
   categories.push(foodCategory);
 
   return categories;
@@ -85,14 +72,14 @@ shops.getTimeTravelerCategories = function getTimeTravelerCategories (language, 
 
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) {
   let availableSets = {
-    summerWarrior:t("daringSwashbucklerSet")(language),
-    summerMage:t("emeraldMermageSet")(language),
-    summerHealer:t("reefSeahealerSet")(language),
-    summerRogue:t("roguishPirateSet")(language),
-    summer2015Warrior:t("sunfishWarriorSet")(language),
-    summer2015Mage:t("shipSoothsayerSet")(language),
-    summer2015Healer:t("strappingSailorSet")(language),
-    summer2015Rogue:t("reefRenegadeSet")(language)
+    summerWarrior:i18n.t("daringSwashbucklerSet", language),
+    summerMage:i18n.t("emeraldMermageSet", language),
+    summerHealer:i18n.t("reefSeahealerSet", language),
+    summerRogue:i18n.t("roguishPirateSet", language),
+    summer2015Warrior:i18n.t("sunfishWarriorSet", language),
+    summer2015Mage:i18n.t("shipSoothsayerSet", language),
+    summer2015Healer:i18n.t("strappingSailorSet", language),
+    summer2015Rogue:i18n.t("reefRenegadeSet", language)
   };
 
   let categories = [];
@@ -105,7 +92,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) 
 
     var flatGearArray = _.toArray(content.gear.flat);
 
-    category.items = _.map(_.where(flatGearArray, {index: key}), gear => {
+    category.items = _(flatGearArray).where({index: key}).map(gear => {
       return {
         key: gear.key,
         text: gear.text(language),

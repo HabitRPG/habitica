@@ -23,7 +23,7 @@ api.getMarketItems = {
     let resObject = {
       identifier: 'market',
       text: res.t('market'),
-      categories: shops.getMarketCategories(req.language, user)
+      categories: shops.getMarketCategories(user, req.language)
     };
 
     res.respond(200, resObject);
@@ -50,7 +50,7 @@ api.getSeasonalShopItems = {
     let resObject = {
       identifier: 'seasonalShop',
       text: res.t('seasonalShop'),
-      categories: shops.getSeasonalShopCategories(req.language, user)
+      categories: shops.getSeasonalShopCategories(user, req.language)
     };
 
     res.respond(200, resObject);
