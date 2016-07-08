@@ -32,7 +32,34 @@ api.getMarketItems = {
 
 /**
  * @apiIgnore
- * @api {get} /api/v3/shops/seasonal-shop get the available items for the seasonal shop
+ * @api {get} /api/v3/shops/quests get the available items for the quests shop
+ * @apiVersion 3.0.0
+ * @apiName GetQuestShopItems
+ * @apiGroup Shops
+ *
+ * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {string} message Success message
+ */
+api.getQuestShopItems = {
+  method: 'GET',
+  url: '/shops/quests',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let resObject = {
+      identifier: 'questShop',
+      text: res.t('quests'),
+      categories: shops.getQuestShopCategories(user, req.language)
+    };
+
+    res.respond(200, resObject);
+  },
+};
+
+/**
+ * @apiIgnore
+ * @api {get} /api/v3/shops/seasonal get the available items for the seasonal shop
  * @apiVersion 3.0.0
  * @apiName GetSeasonalShopItems
  * @apiGroup Shops
@@ -42,7 +69,7 @@ api.getMarketItems = {
  */
 api.getSeasonalShopItems = {
   method: 'GET',
-  url: '/shops/seasonal-shop',
+  url: '/shops/seasonal',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;

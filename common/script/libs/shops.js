@@ -4,6 +4,12 @@ import i18n from '../../../common/script/i18n';
 
 let shops = {};
 
+function lockQuest(quest, user) {
+  if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  if (user.achievements.quests) return (quest.previous && !user.achievements.quests[quest.previous]);
+  return (quest.previous);
+}
+
 shops.getMarketCategories = function getMarket (user, language) {
   let categories = [];
   let eggsCategory = {
@@ -21,7 +27,7 @@ shops.getMarketCategories = function getMarket (user, language) {
       locked: false,
       currency: 'gems',
     }
-  }).sortBy('key');
+  }).sortBy('key').value();
   categories.push(eggsCategory);
 
   let hatchingPotionsCategory = {
@@ -39,7 +45,7 @@ shops.getMarketCategories = function getMarket (user, language) {
       locked: false,
       currency: 'gems',
     }
-  }).sortBy('key');
+  }).sortBy('key').value();
   categories.push(hatchingPotionsCategory);
 
   let foodCategory = {
@@ -57,7 +63,7 @@ shops.getMarketCategories = function getMarket (user, language) {
       locked: false,
       currency: 'gems',
   }
-  }).sortBy('key');
+  }).sortBy('key').value();
   categories.push(foodCategory);
 
   return categories;
@@ -65,9 +71,45 @@ shops.getMarketCategories = function getMarket (user, language) {
 
 shops.getMemoizedMarketCategories = _.memoize(shops.getMarketCategories);
 
+
+shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
+  let categories = [];
+
+  _.each(content.userCanOwnQuestCategories, type => {
+    let category = {
+      identifier: type,
+      text: i18n.t(type+"Quests", language)
+    };
+
+    category.items = _(content.questsByLevel).filter(quest => (quest.canBuy(user) && quest.category === type)).map(quest => {
+      return {
+        key: quest.key,
+        text: quest.text(language),
+        notes: quest.notes(language),
+        value: quest.value,
+        locked: lockQuest(quest, user),
+        unlockCondition: quest.unlockCondition,
+        drop: quest.drop,
+        boss: quest.boss,
+        collect: quest.collect,
+        lvl: quest.lvl,
+      }
+    }).value();
+
+    categories.push(category);
+  });
+
+  return categories;
+};
+
+shops.getMemoizedQuestShopCategories = _.memoize(shops.getQuestShopCategories);
+
+
 shops.getTimeTravelerCategories = function getTimeTravelerCategories (language, user) {
 
 };
+
+shops.getMemoizedTimeTravelerCategories = _.memoize(shops.getTimeTravelerCategories);
 
 
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) {
@@ -103,7 +145,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) 
         locked: false,
         currency: 'gems'
       };
-    });
+    }).value();
     categories.push(category);
   }
 
