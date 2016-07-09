@@ -98,14 +98,14 @@ module.exports = function sendNotification (user, details = {}) {
         //   });
         // }
 
+        // Required for fcm to be received in background
+        payload.title = details.title;
+        payload.body = details.message;
+
         if (fcm) {
           let message = {
             to: pushDevice.regId,
             data: payload,
-            notification: {
-              title: details.title,
-              body: details.message,
-            },
           };
 
           fcm.send(message, function sendFCM (err) {
