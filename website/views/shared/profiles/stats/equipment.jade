@@ -1,6 +1,6 @@
 unless mobile
   h4.stats-equipment(class=mobile?'item item-divider':'',
-    ng-show='user.flags.itemsEnabled')=env.t('equipment')
+    ng-show='user.flags.itemsEnabled')=env.t('battleGear')
   table.table.table-striped(ng-show='user.flags.itemsEnabled')
     tr(ng-repeat='(itemType,gear) in profile.items.gear.equipped',
       ng-init='piece=Content.gear.flat[gear]', ng-show='piece')
