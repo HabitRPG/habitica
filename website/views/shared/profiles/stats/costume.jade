@@ -1,0 +1,7 @@
+unless mobile
+  h4(class=mobile?'item item-divider':'',
+    ng-show='profile.preferences.costume && user._id != profile._id')=env.t('costume')
+  table.table.table-striped(ng-show='profile.preferences.costume && user._id != profile._id')
+    tr(ng-repeat='(itemType,gear) in profile.items.gear.costume', ng-init='piece=Content.gear.flat[gear]', ng-show='piece')
+      td
+        strong {{piece.text()}}
