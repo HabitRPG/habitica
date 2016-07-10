@@ -217,7 +217,7 @@ api.flagChat = {
 
     let reporterEmailContent = getUserInfo(user, ['email']).email;
 
-    let authorEmailContent = getUserInfo(author, ['email']).email;
+    let authorEmailContent = author ? getUserInfo(author, ['email']).email : 'system';
 
     let groupUrl = getGroupUrl(group);
 
