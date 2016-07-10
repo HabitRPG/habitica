@@ -94,13 +94,23 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       } else {
         $scope.abuseObject = message;
         $scope.groupId = groupId;
-        Members.selectMember(message.uuid)
-          .then(function () {
+
+        if (message.uuid === 'system') {
+            $scope.isSystemMessage = true;
             $rootScope.openModal('abuse-flag',{
               controller:'MemberModalCtrl',
               scope: $scope
             });
-          });
+        } else {
+          $scope.isSystemMessage = false;
+          Members.selectMember(message.uuid)
+            .then(function () {
+              $rootScope.openModal('abuse-flag',{
+                controller:'MemberModalCtrl',
+                scope: $scope
+              });
+            });
+        }
       }
     };
 
