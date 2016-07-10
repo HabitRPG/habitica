@@ -59,6 +59,33 @@ api.getQuestShopItems = {
 
 /**
  * @apiIgnore
+ * @api {get} /api/v3/shops/time-travelers get the available items for the time travelers shop
+ * @apiVersion 3.0.0
+ * @apiName GetTimeTravelersShopItems
+ * @apiGroup Shops
+ *
+ * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {string} message Success message
+ */
+api.getTimeTravelerShopItems = {
+  method: 'GET',
+  url: '/shops/time-travelers',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let resObject = {
+      identifier: 'timeTravelersShop',
+      text: res.t('timeTravelersShop'),
+      categories: shops.getTimeTravelersCategories(user, req.language)
+    };
+
+    res.respond(200, resObject);
+  },
+};
+
+/**
+ * @apiIgnore
  * @api {get} /api/v3/shops/seasonal get the available items for the seasonal shop
  * @apiVersion 3.0.0
  * @apiName GetSeasonalShopItems

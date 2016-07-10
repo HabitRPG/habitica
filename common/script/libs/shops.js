@@ -105,11 +105,55 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 shops.getMemoizedQuestShopCategories = _.memoize(shops.getQuestShopCategories);
 
 
-shops.getTimeTravelerCategories = function getTimeTravelerCategories (language, user) {
+shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
+  let categories = [];
+  let stable = {pets:'Pet-', mounts:'Mount_Head_'};
+  for (let type in stable) {
+    let category = {
+      identifier: type,
+      text: i18n.t(type, language),
+      items: [],
+    };
 
+    for (let key in content.timeTravelStable[type]) {
+      if (!user.items[type][key]) {
+        let item = {
+          key: key,
+          text: content.timeTravelStable[type][key](language),
+          class: stable[type]+key,
+        };
+        category.items.push(item);
+      }
+    }
+    if (category.items.length > 0) {
+      categories.push(category);
+    }
+  }
+
+  let sets = content.timeTravelerStore(user.items.gear.owned);
+  for (let setKey in  sets) {
+    let set = sets[setKey];
+    let category = {
+      identifier: set.key,
+      text: set.text(language),
+      purchaseAll: true,
+    };
+
+    category.items = _.map(set.items, item => {
+      return {
+        key: item.key,
+        text: item.text(language),
+        notes: item.notes(language)
+      }
+    });
+
+    categories.push(category);
+  }
+
+  return categories;
 };
 
-shops.getMemoizedTimeTravelerCategories = _.memoize(shops.getTimeTravelerCategories);
+shops.getMemoizedTimeTravelersCategories = _.memoize(shops.getTimeTravelersCategories);
 
 
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) {
