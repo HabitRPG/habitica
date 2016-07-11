@@ -208,8 +208,7 @@ api.getUserTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
-    types.push('completedTodos');
-    types.push('allCompletedTodos');
+    types.push('completedTodos', 'allCompletedTodos');
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
