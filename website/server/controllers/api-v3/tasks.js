@@ -143,12 +143,17 @@ async function _getTasks (req, res, user, challenge) {
     if (type === 'todos') {
       query.completed = false; // Exclude completed todos
       query.type = 'todo';
-    } else if (type === 'completedTodos') {
+    } else if (type === 'completedTodos' || type === 'allCompletedTodos') {
+      let limit = 30;
+
+      if (type === 'allCompletedTodos') {
+        limit = 0; // no limit
+      }
       query = Tasks.Task.find({
         userId: user._id,
         type: 'todo',
         completed: true,
-      }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
+      }).limit(limit).sort({
         dateCompleted: -1,
       });
     } else {
@@ -164,7 +169,7 @@ async function _getTasks (req, res, user, challenge) {
   let tasks = await Tasks.Task.find(query).exec();
 
   // Order tasks based on tasksOrder
-  if (type && type !== 'completedTodos') {
+  if (type && type !== 'completedTodos' && type !== 'allCompletedTodos') {
     let order = (challenge || user).tasksOrder[type];
     let orderedTasks = new Array(tasks.length);
     let unorderedTasks = []; // what we want to add later
@@ -193,7 +198,7 @@ async function _getTasks (req, res, user, challenge) {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately.
+ * @apiParam {string="habits","dailys","todos","rewards","completedTodos","allCompletedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed (best for performance if you don't need them all).
  *
  * @apiSuccess {Array} data An array of tasks
  */
@@ -204,6 +209,7 @@ api.getUserTasks = {
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos');
+    types.push('allCompletedTodos');
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();

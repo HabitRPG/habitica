@@ -64,7 +64,7 @@ describe('GET /tasks/user', () => {
     expect(todos.every(task => task.completed === false));
   });
 
-  it('returns completed todos sorted by reverse completion date if req.query.type is "completeTodos"', async () => {
+  it('returns completed todos sorted by reverse completion date if req.query.type is "completedTodos"', async () => {
     let todo1 = await user.post('/tasks/user', {text: 'todo to complete 1', type: 'todo'});
     let todo2 = await user.post('/tasks/user', {text: 'todo to complete 2', type: 'todo'});
 
@@ -80,5 +80,51 @@ describe('GET /tasks/user', () => {
     let completedTodos = await user.get('/tasks/user?type=completedTodos');
     expect(completedTodos.length).to.equal(2);
     expect(completedTodos[completedTodos.length - 1].text).to.equal('todo to complete 2'); // last is the todo that was completed most recently
+  });
+
+  it('returns completed todos sorted by reverse completion date if req.query.type is "allCompletedTodos"', async () => {
+    let todo1 = await user.post('/tasks/user', {text: 'todo to complete 1', type: 'todo'});
+    let todo2 = await user.post('/tasks/user', {text: 'todo to complete 2', type: 'todo'});
+
+    await user.sync();
+    let initialTodoCount = user.tasksOrder.todos.length;
+
+    await user.post(`/tasks/${todo2._id}/score/up`);
+    await user.post(`/tasks/${todo1._id}/score/up`);
+    await user.sync();
+
+    expect(user.tasksOrder.todos.length).to.equal(initialTodoCount - 2);
+
+    let allCompletedTodos = await user.get('/tasks/user?type=allCompletedTodos');
+    expect(allCompletedTodos.length).to.equal(2);
+    expect(allCompletedTodos[allCompletedTodos.length - 1].text).to.equal('todo to complete 2');
+  });
+
+  it('returns only some completed todos if req.query.type is "completedTodos" or "allCompletedTodos"', async () => {
+    const LIMIT = 30;
+    let numberOfTodos = LIMIT + 1;
+    let todosInput = [];
+
+    for (let i = 0; i < numberOfTodos; i++) {
+      todosInput[i] = {text: 'todo to complete ${i}', type: 'todo'};
+    }
+    let todos = await user.post('/tasks/user', todosInput);
+    await user.sync();
+    let initialTodoCount = user.tasksOrder.todos.length;
+
+    for (let i = 0; i < numberOfTodos; i++) {
+      let id = todos[i]._id;
+
+      await user.post(`/tasks/${id}/score/up`);
+    }
+    await user.sync();
+
+    expect(user.tasksOrder.todos.length).to.equal(initialTodoCount - numberOfTodos);
+
+    let completedTodos = await user.get('/tasks/user?type=completedTodos');
+    expect(completedTodos.length).to.equal(LIMIT);
+
+    let allCompletedTodos = await user.get('/tasks/user?type=allCompletedTodos');
+    expect(allCompletedTodos.length).to.equal(numberOfTodos);
   });
 });
