@@ -69,8 +69,6 @@ shops.getMarketCategories = function getMarket (user, language) {
   return categories;
 };
 
-shops.getMemoizedMarketCategories = _.memoize(shops.getMarketCategories);
-
 
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
@@ -101,8 +99,6 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
   return categories;
 };
-
-shops.getMemoizedQuestShopCategories = _.memoize(shops.getQuestShopCategories);
 
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
@@ -143,7 +139,8 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       return {
         key: item.key,
         text: item.text(language),
-        notes: item.notes(language)
+        notes: item.notes(language),
+        type: item.type,
       }
     });
 
@@ -152,8 +149,6 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 
   return categories;
 };
-
-shops.getMemoizedTimeTravelersCategories = _.memoize(shops.getTimeTravelersCategories);
 
 
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) {
@@ -195,8 +190,6 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) 
 
   return categories;
 };
-
-shops.getMemoizedSeasonalShopCategories = _.memoize(shops.getSeasonalShopCategories);
 
 
 module.exports = shops;

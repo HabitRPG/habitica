@@ -21,9 +21,10 @@
           ng-click='purchase("special", Content.spells.special.seafoam)')
         p {{::Content.spells.special.seafoam.value}}
           span(class='shop_gold')
-    menu.pets-menu(label='{{category.text}}', ng-repeat='category in Shared.shops.getMemoizedSeasonalShopCategories()')
+    menu.pets-menu(label='{{category.text}}', ng-repeat='category in seasonalShopCategories')
       div(ng-repeat='item in category.items',
-        ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}")
+        ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}",
+        ng-if='!user.items.gear.owned[item.key]')
         button.customize-option(class='shop_{{item.key}}',
           popover='{{item.notes}}', popover-title='{{item.text}}',
           popover-trigger='mouseenter', popover-placement='right',

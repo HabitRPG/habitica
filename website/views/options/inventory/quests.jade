@@ -18,7 +18,7 @@ include ../../shared/mixins
     .col-md-6.border-left
       li.customize-menu
         h3.equipment-title=env.t('questsForSale')
-        div(ng-repeat='category in Shared.shops.getMemoizedQuestShopCategories(user)')
+        div(ng-repeat='category in questShopCategories')
           menu.pets-menu(label='{{category.text}}')
             div(ng-repeat='quest in category.items')
               button.customize-option(ng-class='quest.locked ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
