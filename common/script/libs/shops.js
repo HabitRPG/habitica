@@ -4,10 +4,10 @@ import i18n from '../../../common/script/i18n';
 
 let shops = {};
 
-function lockQuest(quest, user) {
+function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
-  if (user.achievements.quests) return (quest.previous && !user.achievements.quests[quest.previous]);
-  return (quest.previous);
+  if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
+  return quest.previous;
 }
 
 shops.getMarketCategories = function getMarket (user, language) {
@@ -23,10 +23,10 @@ shops.getMarketCategories = function getMarket (user, language) {
       text: i18n.t('egg', {eggType: egg.text()}, language),
       notes: egg.notes(language),
       value: egg.value,
-      class: 'Pet_Egg_'+egg.key,
+      class: `Pet_Egg_${egg.key}`,
       locked: false,
       currency: 'gems',
-    }
+    };
   }).sortBy('key').value();
   categories.push(eggsCategory);
 
@@ -40,11 +40,11 @@ shops.getMarketCategories = function getMarket (user, language) {
       key: hatchingPotion.key,
       text: hatchingPotion.text(language),
       notes: hatchingPotion.notes(language),
-      class: 'Pet_HatchingPotion_' + hatchingPotion.key,
+      class: `Pet_HatchingPotion_${hatchingPotion.key}`,
       value: hatchingPotion.value,
       locked: false,
       currency: 'gems',
-    }
+    };
   }).sortBy('key').value();
   categories.push(hatchingPotionsCategory);
 
@@ -58,11 +58,11 @@ shops.getMarketCategories = function getMarket (user, language) {
       key: foodItem.key,
       text: foodItem.text(language),
       notes: foodItem.notes(language),
-      class: 'Pet_Food_'+foodItem.key,
+      class: `Pet_Food_${foodItem.key}`,
       value: foodItem.value,
       locked: false,
       currency: 'gems',
-  }
+    };
   }).sortBy('key').value();
   categories.push(foodCategory);
 
@@ -76,10 +76,10 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   _.each(content.userCanOwnQuestCategories, type => {
     let category = {
       identifier: type,
-      text: i18n.t(type+"Quests", language)
+      text: i18n.t(`${type}Quests`, language),
     };
 
-    category.items = _(content.questsByLevel).filter(quest => (quest.canBuy(user) && quest.category === type)).map(quest => {
+    category.items = _(content.questsByLevel).filter(quest => quest.canBuy(user) && quest.category === type).map(quest => {
       return {
         key: quest.key,
         text: quest.text(language),
@@ -91,7 +91,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
         boss: quest.boss,
         collect: quest.collect,
         lvl: quest.lvl,
-      }
+      };
     }).value();
 
     categories.push(category);
@@ -103,7 +103,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
-  let stable = {pets:'Pet-', mounts:'Mount_Head_'};
+  let stable = {pets: 'Pet-', mounts: 'Mount_Head_'};
   for (let type in stable) {
     let category = {
       identifier: type,
@@ -114,9 +114,9 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     for (let key in content.timeTravelStable[type]) {
       if (!user.items[type][key]) {
         let item = {
-          key: key,
+          key,
           text: content.timeTravelStable[type][key](language),
-          class: stable[type]+key,
+          class: stable[type] + key,
         };
         category.items.push(item);
       }
@@ -141,7 +141,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
         text: item.text(language),
         notes: item.notes(language),
         type: item.type,
-      }
+      };
     });
 
     categories.push(category);
@@ -153,14 +153,14 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) {
   let availableSets = {
-    summerWarrior:i18n.t("daringSwashbucklerSet", language),
-    summerMage:i18n.t("emeraldMermageSet", language),
-    summerHealer:i18n.t("reefSeahealerSet", language),
-    summerRogue:i18n.t("roguishPirateSet", language),
-    summer2015Warrior:i18n.t("sunfishWarriorSet", language),
-    summer2015Mage:i18n.t("shipSoothsayerSet", language),
-    summer2015Healer:i18n.t("strappingSailorSet", language),
-    summer2015Rogue:i18n.t("reefRenegadeSet", language)
+    summerWarrior: i18n.t('daringSwashbucklerSet', language),
+    summerMage: i18n.t('emeraldMermageSet', language),
+    summerHealer: i18n.t('reefSeahealerSet', language),
+    summerRogue: i18n.t('roguishPirateSet', language),
+    summer2015Warrior: i18n.t('sunfishWarriorSet', language),
+    summer2015Mage: i18n.t('shipSoothsayerSet', language),
+    summer2015Healer: i18n.t('strappingSailorSet', language),
+    summer2015Rogue: i18n.t('reefRenegadeSet', language),
   };
 
   let categories = [];
@@ -168,10 +168,10 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) 
   for (let key in availableSets) {
     let category = {
       identifier: key,
-      text: availableSets[key]
+      text: availableSets[key],
     };
 
-    var flatGearArray = _.toArray(content.gear.flat);
+    let flatGearArray = _.toArray(content.gear.flat);
 
     category.items = _(flatGearArray).where({index: key}).map(gear => {
       return {
@@ -182,7 +182,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) 
         type: gear.type,
         specialClass: gear.specialClass,
         locked: false,
-        currency: 'gems'
+        currency: 'gems',
       };
     }).value();
     categories.push(category);

@@ -23,7 +23,7 @@ api.getMarketItems = {
     let resObject = {
       identifier: 'market',
       text: res.t('market'),
-      categories: shops.getMarketCategories(user, req.language)
+      categories: shops.getMarketCategories(user, req.language),
     };
 
     res.respond(200, resObject);
@@ -50,7 +50,7 @@ api.getQuestShopItems = {
     let resObject = {
       identifier: 'questShop',
       text: res.t('quests'),
-      categories: shops.getQuestShopCategories(user, req.language)
+      categories: shops.getQuestShopCategories(user, req.language),
     };
 
     res.respond(200, resObject);
@@ -77,7 +77,7 @@ api.getTimeTravelerShopItems = {
     let resObject = {
       identifier: 'timeTravelersShop',
       text: res.t('timeTravelersShop'),
-      categories: shops.getTimeTravelersCategories(user, req.language)
+      categories: shops.getTimeTravelersCategories(user, req.language),
     };
 
     res.respond(200, resObject);
@@ -104,7 +104,7 @@ api.getSeasonalShopItems = {
     let resObject = {
       identifier: 'seasonalShop',
       text: res.t('seasonalShop'),
-      categories: shops.getSeasonalShopCategories(user, req.language)
+      categories: shops.getSeasonalShopCategories(user, req.language),
     };
 
     res.respond(200, resObject);
