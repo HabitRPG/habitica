@@ -401,6 +401,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.axolotl != null) > 0;
     }),
   },
+  Turtle: {
+    text: t('questEggTurtleText'),
+    adjective: t('questEggTurtleAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.turtle != null) > 0;
+    }),
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -2748,6 +2755,38 @@ api.quests = {
       gp: 37,
       exp: 275,
       unlock: t('questAxolotlUnlockText'),
+    },
+  },
+  turtle: {
+    text: t('questTurtleText'),
+    notes: t('questTurtleNotes'),
+    completion: t('questTurtleCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTurtleBoss'),
+      hp: 300,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Turtle',
+          text: t('questTurtleDropTurtleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Turtle',
+          text: t('questTurtleDropTurtleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Turtle',
+          text: t('questTurtleDropTurtleEgg'),
+        }
+      ],
+      gp: 25,
+      exp: 125,
+      unlock: t('questTurtleUnlockText'),
     },
   },
 };
