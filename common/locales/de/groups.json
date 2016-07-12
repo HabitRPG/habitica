@@ -38,6 +38,7 @@
     "joinNewParty": "Neuer Gruppe beitreten",
     "declineInvitation": "Einladung ablehnen",
     "loadingNewParty": "Deine Gruppe wird geladen. Bitte warten...",
+    "systemMessage": "System Message",
     "newMsg": "Neue Nachricht unter \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Nachricht senden",

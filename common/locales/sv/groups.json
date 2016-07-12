@@ -38,6 +38,7 @@
     "joinNewParty": "Gå med i ett nytt sällskap",
     "declineInvitation": "Avböj Inbjudan",
     "loadingNewParty": "Ditt sällskap laddar. Vänta...",
+    "systemMessage": "System Message",
     "newMsg": "Nytt meddelande i \"<%= name %>\"",
     "chat": "Chatt",
     "sendChat": "Skicka Chatt",

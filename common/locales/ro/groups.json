@@ -38,6 +38,7 @@
     "joinNewParty": "Join New Party",
     "declineInvitation": "Decline Invitation",
     "loadingNewParty": "Your party is loading. Please wait...",
+    "systemMessage": "System Message",
     "newMsg": "Mesaj nou în „<%= name %>”",
     "chat": "Chat",
     "sendChat": "Trimite Chat",

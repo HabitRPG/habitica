@@ -38,6 +38,7 @@
     "joinNewParty": "Вступить в новую команду",
     "declineInvitation": "Отклонить приглашение",
     "loadingNewParty": "Ваша команда загружается. Пожалуйста, подождите...",
+    "systemMessage": "System Message",
     "newMsg": "Новое сообщение в «<%= name %>»",
     "chat": "Чат",
     "sendChat": "Написать в чат",

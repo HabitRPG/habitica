@@ -174,5 +174,12 @@
     "backgroundLilypadText": "荷花",
     "backgroundLilypadNotes": "跳上荷花",
     "backgroundWaterfallRockText": "瀑布下的岩石",
-    "backgroundWaterfallRockNotes": "瀑布下的岩石飞溅"
+    "backgroundWaterfallRockNotes": "瀑布下的岩石飞溅",
+    "backgrounds072016": "SET 26: Released July 2016",
+    "backgroundAquariumText": "Aquarium",
+    "backgroundAquariumNotes": "Bob in an Aquarium.",
+    "backgroundDeepSeaText": "Deep Sea",
+    "backgroundDeepSeaNotes": "Dive to the Deep Sea.",
+    "backgroundDilatoryCastleText": "Castle of Dilatory",
+    "backgroundDilatoryCastleNotes": "Swim past the Castle of Dilatory."
 }

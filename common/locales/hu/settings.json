@@ -69,7 +69,7 @@
     "APIv2": "API v2 - Deprecated",
     "APIText": "Másold ki ezt, külső alkalmazások használatához. Egyébiránt úgy gondolj az API Kulcsodra, mint egy jelszóra és ne oszd meg senkivel nyilvánosan. Előfordulhat, hogy a felhasználói azonosítódat kérik, de soha ne írd be sehova az API Kulcsodat, ahol mások esetleg láthatják, még a Githubra se.",
     "APIToken": "API Kulcs (ez egy jelszó - lásd a figyelmeztetést lejjebb)",
-    "thirdPartyApps": "Third Party Apps",
+    "thirdPartyApps": "Harmadik féltől származó alkalmazások",
     "dataToolDesc": "A webpage that shows you certain information from your Habitica account, such as statistics about your tasks, equipment, and skills.",
     "beeminder": "Beeminder",
     "beeminderDesc": "Let Beeminder automatically monitor your Habitica To-Dos. You can commit to maintaining a target number of To-Dos completed per day or per week, or you can commit to gradually reducing your remaining number of uncompleted To-Dos. (By \"commit\" Beeminder means under threat of paying actual money! But you may also just like Beeminder's fancy graphs.)",

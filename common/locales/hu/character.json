@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "Minden szintlépés ad egy pontot, amit elkölthetsz egy általad választott tulajdonságra. Ezt teheted manuálisan, vagy a játékra is bízhatod a döntést az Automatikus elosztás menüpontban a Felhasználó -> Jellemzők alatt.",
     "invalidAttribute": "<%= attr %> nem valódi tulajdonság.",
     "notEnoughAttrPoints": "Nincs elég tulajdonság pontod.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Ez a tárgy nincs a birtokodban."
 }

@@ -38,6 +38,7 @@
     "joinNewParty": "Pridať sa k novej družine",
     "declineInvitation": "Odmietnuť pozvánku",
     "loadingNewParty": "Tvoja družina sa načítava. Prosím počkaj...",
+    "systemMessage": "System Message",
     "newMsg": "Nová správa v \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Odoslať",

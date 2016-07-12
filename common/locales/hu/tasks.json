@@ -20,7 +20,7 @@
     "extraNotes": "További feljegyzések",
     "direction/Actions": "Irány/Akció",
     "advancedOptions": "Haladó beállítások",
-    "taskAlias": "Task Alias",
+    "taskAlias": "Feladat álneve",
     "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
     "taskAliasPlaceholder": "your-task-alias-here",
     "taskAliasPopoverWarning": "WARNING: Changing this value will break any 3rd party integrations that rely on the task alias.",
