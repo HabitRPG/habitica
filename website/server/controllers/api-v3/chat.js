@@ -246,7 +246,7 @@ api.flagChat = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear a group chat message's flags
  * @apiDescription Admin-only
  * @apiVersion 3.0.0
  * @apiName ClearFlags
