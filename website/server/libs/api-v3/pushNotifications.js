@@ -66,8 +66,7 @@ if (APN_ENABLED) {
     });
   });
 }
-
-module.exports = function sendNotification (user, details = {}) {
+function sendNotification (user, details = {}) {
   if (!user) throw new Error('User is required.');
   if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
   let pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
@@ -107,4 +106,8 @@ module.exports = function sendNotification (user, details = {}) {
         break;
     }
   });
+}
+
+module.exports = {
+  sendNotification,
 };

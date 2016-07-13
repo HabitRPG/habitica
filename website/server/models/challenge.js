@@ -12,7 +12,7 @@ import {
 import { removeFromArray } from '../libs/api-v3/collectionManipulators';
 import shared from '../../../common';
 import { sendTxn as txnEmail } from '../libs/api-v3/email';
-import sendPushNotification from '../libs/api-v3/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/api-v3/pushNotifications';
 import cwait from 'cwait';
 
 const Schema = mongoose.Schema;

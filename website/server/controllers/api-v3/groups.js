@@ -19,7 +19,7 @@ import {
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
 import { encrypt } from '../../libs/api-v3/encryption';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import { sendNotification as sendPushNotification } from '../../libs/api-v3/pushNotifications';
 import pusher from '../../libs/api-v3/pusher';
 
 let api = {};

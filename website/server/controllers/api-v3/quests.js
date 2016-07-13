@@ -16,7 +16,7 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/api-v3/email';
 import common from '../../../../common';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import { sendNotification as sendPushNotification } from '../../libs/api-v3/pushNotifications';
 
 const questScrolls = common.content.quests;
 
