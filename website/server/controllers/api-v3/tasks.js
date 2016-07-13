@@ -143,10 +143,10 @@ async function _getTasks (req, res, user, challenge) {
     if (type === 'todos') {
       query.completed = false; // Exclude completed todos
       query.type = 'todo';
-    } else if (type === 'completedTodos' || type === 'allCompletedTodos') {
+    } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
       let limit = 30;
 
-      if (type === 'allCompletedTodos') {
+      if (type === '_allCompletedTodos') {
         limit = 0; // no limit
       }
       query = Tasks.Task.find({
@@ -169,7 +169,7 @@ async function _getTasks (req, res, user, challenge) {
   let tasks = await Tasks.Task.find(query).exec();
 
   // Order tasks based on tasksOrder
-  if (type && type !== 'completedTodos' && type !== 'allCompletedTodos') {
+  if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
     let order = (challenge || user).tasksOrder[type];
     let orderedTasks = new Array(tasks.length);
     let unorderedTasks = []; // what we want to add later
@@ -198,7 +198,7 @@ async function _getTasks (req, res, user, challenge) {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habits","dailys","todos","rewards","completedTodos","allCompletedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed (best for performance if you don't need them all).
+ * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
  *
  * @apiSuccess {Array} data An array of tasks
  */
@@ -208,7 +208,7 @@ api.getUserTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
-    types.push('completedTodos', 'allCompletedTodos');
+    types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
