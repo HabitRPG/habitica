@@ -33,7 +33,7 @@ async function _validateTaskAlias (tasks, res) {
 }
 
 // challenge must be passed only when a challenge task is being created
-async function _createTasks (req, res, user, challenge) {
+async function _createTasks (req, res, user, challenge, group) {
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
   toSave = toSave.map(taskData => {
@@ -45,6 +45,8 @@ async function _createTasks (req, res, user, challenge) {
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
+    } else if (group) {
+      newTask.group.id = group.id;
     } else {
       newTask.userId = user._id;
     }
@@ -55,7 +57,7 @@ async function _createTasks (req, res, user, challenge) {
     if (validationErrors) throw validationErrors;
 
     // Otherwise update the user/challenge
-    (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
+    if (!group) (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
@@ -134,9 +136,53 @@ api.createChallengeTasks = {
   },
 };
 
+/**
+ * @api {post} /api/v3/tasks/group/:groupId Create a new task belonging to a group
+ * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @apiVersion 3.0.0
+ * @apiName CreateGroupTasks
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} groupId The id of the group the new task(s) will belong to
+ *
+ * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ */
+api.createGroupTasks = {
+  method: 'POST',
+  url: '/tasks/group/:groupId',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    // req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.locals.user;
+
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderEditTasks'));
+
+    let tasks = await _createTasks(req, res, user, null, group);
+
+    res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    return null;
+  },
+};
+
 // challenge must be passed only when a challenge task is being created
-async function _getTasks (req, res, user, challenge) {
-  let query = challenge ? {'challenge.id': challenge.id, userId: {$exists: false}} : {userId: user._id};
+// @TODO: Factory - GetTasksQuery(type) - where type is user, challenge, group
+async function _getTasks (req, res, user, challenge, group) {
+  let query = {userId: user._id};
+
+  if (challenge) {
+    query =  {'challenge.id': challenge.id, userId: {$exists: false}};
+  } else if (group) {
+    query =  {'group.id': group.id, userId: {$exists: false}};
+  }
+
   let type = req.query.type;
 
   if (type) {
@@ -250,6 +296,38 @@ api.getChallengeTasks = {
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     return await _getTasks(req, res, res.locals.user, challenge);
+  },
+};
+
+/**
+ * @api {get} /api/v3/tasks/group/:groupId Get a group's tasks
+ * @apiVersion 3.0.0
+ * @apiName GetGroupTasks
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} groupId The id of the group from which to retrieve the tasks
+ * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
+ *
+ * @apiSuccess {Array} data An array of tasks
+ */
+api.getGroupTasks = {
+  method: 'GET',
+  url: '/tasks/group/:groupId',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    let types = Tasks.tasksTypes.map(type => `${type}s`);
+    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    return await _getTasks(req, res, res.locals.user, null, group);
   },
 };
 

@@ -192,5 +192,6 @@
     "uuidsMustBeAnArray": "User ID invites must be an array.",
     "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
-    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!"
+    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
+    "onlyGroupLeaderEditTasks": "Not authorized to manage tasks"
 }

@@ -64,6 +64,10 @@ export let TaskSchema = new Schema({
     winner: String, // user.profile.name of the winner
   },
 
+  group: {
+    id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
+  },
+
   reminders: [{
     _id: false,
     id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
