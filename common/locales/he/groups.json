@@ -38,6 +38,7 @@
     "joinNewParty": "הצטרפו לחבורה חדשה",
     "declineInvitation": "דחו הזמנה",
     "loadingNewParty": "החבורה שלכם בטעינה. אנא המתינו...",
+    "systemMessage": "System Message",
     "newMsg": "הודעה חדשה ב\"<%= name %>\"",
     "chat": "שיחה",
     "sendChat": "שילחו הודעה",

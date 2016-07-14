@@ -38,6 +38,7 @@
     "joinNewParty": "加入新隊伍",
     "declineInvitation": "拒絕邀請",
     "loadingNewParty": "Your party is loading. Please wait...",
+    "systemMessage": "System Message",
     "newMsg": "新消息在\"<%= name %>\"",
     "chat": "聊天",
     "sendChat": "發送",

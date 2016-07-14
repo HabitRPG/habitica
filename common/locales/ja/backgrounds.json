@@ -174,5 +174,12 @@
     "backgroundLilypadText": "スイレンの葉",
     "backgroundLilypadNotes": "スイレンの葉で飛びはねましょう。",
     "backgroundWaterfallRockText": "滝の岩",
-    "backgroundWaterfallRockNotes": "岩で滝に打たれましょう。"
+    "backgroundWaterfallRockNotes": "岩で滝に打たれましょう。",
+    "backgrounds072016": "SET 26: Released July 2016",
+    "backgroundAquariumText": "Aquarium",
+    "backgroundAquariumNotes": "Bob in an Aquarium.",
+    "backgroundDeepSeaText": "Deep Sea",
+    "backgroundDeepSeaNotes": "Dive to the Deep Sea.",
+    "backgroundDilatoryCastleText": "Castle of Dilatory",
+    "backgroundDilatoryCastleNotes": "Swim past the Castle of Dilatory."
 }

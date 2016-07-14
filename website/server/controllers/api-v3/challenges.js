@@ -216,7 +216,6 @@ api.getUserChallenges = {
         {group: {$in: user.getGroups()}}, // Challenges in groups where I'm a member
         {leader: user._id}, // Challenges where I'm the leader
       ],
-      _id: {$ne: '95533e05-1ff9-4e46-970b-d77219f199e9'}, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug TODO revisit
     })
     .sort('-official -createdAt')
     // see below why we're not using populate

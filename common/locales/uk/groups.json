@@ -38,6 +38,7 @@
     "joinNewParty": "Join New Party",
     "declineInvitation": "Decline Invitation",
     "loadingNewParty": "Your party is loading. Please wait...",
+    "systemMessage": "System Message",
     "newMsg": "Нове повідомлення у „<%= name %>“",
     "chat": "Гутірка",
     "sendChat": "Надіслати",
