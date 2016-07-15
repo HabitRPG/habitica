@@ -54,7 +54,7 @@ export async function _createTasks (req, res, options = {}) {
     if (validationErrors) throw validationErrors;
 
     // Otherwise update the user/challenge
-    if (!group) (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
+    (group || challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
