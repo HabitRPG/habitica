@@ -12,5 +12,6 @@
     "losingHealthQuickly": "Pierzi sănătate prea rapid?",
     "lowHealthTips3": "Sarcini zilnice necompletate te rănesc peste noapte, așa că ai grijă să nu adaugi prea multe la început.",
     "lowHealthTips4": "Dacă o sarcină zilnică nu trebuie realizată ziua respectivă, o poți dezactiva printr-un clic pe iconița cu creion.",
-    "goodLuck": "Baftă!"
+    "goodLuck": "Baftă!",
+    "cannotRevive": "Cannot revive if not dead"
 }

@@ -4,6 +4,11 @@ div(ng-if='::task.type!="reward"')
     ng-click='task._advanced = !task._advanced', tooltip=env.t('expandCollapse'))
     =env.t('advancedOptions')
 
+  fieldset.option-group.advanced-option(ng-if="task.userId" ng-show="task._advanced")
+    legend.option-title
+      a.hint(href='http://habitica.wikia.com/wiki/Task_Alias', target='_blank', popover-trigger='mouseenter', popover="{{::env.t('taskAliasPopover')}} {{::task.alias ? '\n\n\' + env.t('taskAliasPopoverWarning') : ''}}")=env.t('taskAlias')
+    input.form-control(ng-model='task.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
+
   div(ng-show='task._advanced')
     div(ng-if='::task.type == "daily"')
       .form-group
@@ -56,20 +61,9 @@ div(ng-if='::task.type!="reward"')
     div(ng-if='::(user.preferences.allocationMode == "taskbased" && user.preferences.automaticAllocation) || $state.is("options.social.challenges")')
       legend.option-title.pull-left=env.t('attributes')
       ul.task-attributes
-        li
-          button(type='button', ng-class='{active: task.attribute=="str"}',
-            ng-click='task.attribute="str"')
-            =env.t('physical')
-        li
-          button(type='button', ng-class='{active: task.attribute=="int"}',
-            ng-click='task.attribute="int"')
-            =env.t('mental')
-        li
-          button(type='button', ng-class='{active: task.attribute=="con"}',
-            ng-click='task.attribute="con"')
-            =env.t('social')
-        li
-          button(type='button', ng-class='{active: task.attribute=="per"}',
-            ng-click='task.attribute="per"',
-            popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')
-            =env.t('other')
+        each attribute, short in {str: 'strength', int: 'intelligence', con: 'constitution', per: 'perception'}
+          li
+            button(type='button', ng-class='{active: task.attribute=="#{short}"}',
+              ng-click='task.attribute="#{short}"',
+              popover=env.t('#{attribute}Example'), popover-trigger='mouseenter', popover-placement='top')
+              =env.t(attribute)

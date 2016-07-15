@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "Houd er rekening mee dat je Zichbare Naam, profielfoto en flaptekst overeen moeten komen met de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (bijvoorbeeld geen godslastering, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over het wel of niet geschikt zijn van iets, voel je dan vrij om te emailen naar <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Statistieken en prestaties",
     "profile": "Profiel",
     "avatar": "Avatar aanpassen",
@@ -34,6 +35,7 @@
     "beard": "Baard",
     "mustache": "Snor",
     "flower": "Bloem",
+    "wheelchair": "Rolstoel",
     "basicSkins": "Basishuidskleuren",
     "rainbowSkins": "Regenbooghuidskleuren",
     "pastelSkins": "Pastelhuidskleuren",
@@ -108,6 +110,7 @@
     "mage": "Magiër",
     "mystery": "Verrassingsartikelen",
     "changeClass": "Van klasse veranderen en eigenschapspunten terugkrijgen",
+    "lvl10ChangeClass": "Om van klasse te veranderen moet je ten minste niveau 10 zijn.",
     "levelPopover": "Elk niveau geeft je één punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit handmatig doen of het spel voor jou laten beslissen door gebruik te maken van één van de automatische verdelingsopties.",
     "unallocated": "nog niet toegewezen eigenschapspunten",
     "haveUnallocated": "Je hebt <%= points %> eigenschapspunt(en) nog niet toegewezen.",
@@ -161,7 +164,10 @@
     "con": "LIC",
     "per": "PER",
     "int": "INT",
-    "showQuickAllocation": "Show stat allocation",
-    "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "showQuickAllocation": "Toon verdeling eigenschapspunten",
+    "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
+    "quickAllocationLevelPopover": "Met ieder level verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker.",
+    "invalidAttribute": "\"<%= attr %>\" is geen geldige eigenschap.",
+    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten",
+    "gearNotOwned": "Je bezit dit voorwerp niet."
 }

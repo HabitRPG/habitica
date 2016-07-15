@@ -1,7 +1,8 @@
 'use strict';
 
 describe("Party Controller", function() {
-  var scope, ctrl, user, User, questsService, groups, rootScope, $controller;
+  var scope, ctrl, user, User, questsService, groups, rootScope, $controller, deferred;
+  var party;
 
   beforeEach(function() {
     user = specHelper.newUser(),
@@ -10,13 +11,19 @@ describe("Party Controller", function() {
       user: user,
       sync: sandbox.spy(),
       set: sandbox.spy()
-    }
+    };
+
+    party = specHelper.newGroup({
+      _id: "unique-party-id",
+      type: 'party',
+      members: ['leader-id'] // Ensure we wouldn't pass automatically.
+    });
 
     module(function($provide) {
       $provide.value('User', User);
     });
 
-    inject(function(_$rootScope_, _$controller_, Groups, Quests){
+    inject(function(_$rootScope_, _$controller_, Groups, Quests, _$q_){
 
       rootScope = _$rootScope_;
 
@@ -35,12 +42,21 @@ describe("Party Controller", function() {
   });
 
   describe('initialization', function() {
+    var groupResponse;
+
     function initializeControllerWithStubbedState() {
       inject(function(_$state_) {
         var state = _$state_;
         sandbox.stub(state, 'is').returns(true);
-        $controller('PartyCtrl', { $scope: scope, $state: state });
-        expect(state.is).to.be.calledOnce; // ensure initialization worked as desired
+
+        var syncParty = sinon.stub(groups.Group, 'syncParty')
+        syncParty.returns(Promise.resolve(groupResponse));
+
+        var froceSyncParty = sinon.stub(groups, 'party')
+        froceSyncParty.returns(Promise.resolve(groupResponse));
+
+        $controller('PartyCtrl', { $scope: scope, $state: state, User: User });
+        expect(state.is).to.be.calledOnce;
       });
     };
 
@@ -50,10 +66,7 @@ describe("Party Controller", function() {
 
     context('party has 1 member', function() {
       it('awards no new achievements', function() {
-        sandbox.stub(groups, 'party').returns({
-          $syncParty: function() {},
-          memberCount: 1
-        });
+        groupResponse = {_id: "test", type: "party", memberCount: 1};
 
         initializeControllerWithStubbedState();
 
@@ -64,61 +77,65 @@ describe("Party Controller", function() {
 
     context('party has 2 members', function() {
       context('user does not have "Party Up" achievement', function() {
-        it('awards "Party Up" achievement', function() {
-          sandbox.stub(groups, 'party').returns({
-            $syncParty: function() {},
-            memberCount: 2
-          });
+        it('awards "Party Up" achievement', function(done) {
+          groupResponse = {_id: "test", type: "party", memberCount: 2};
 
           initializeControllerWithStubbedState();
 
-          expect(User.set).to.be.calledOnce;
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyUp': true }
-          );
-          expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+          setTimeout(function() {
+            expect(User.set).to.be.calledOnce;
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyUp': true }
+            );
+            expect(rootScope.openModal).to.be.calledOnce;
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+            done();
+          }, 1000);
         });
       });
     });
 
     context('party has 4 members', function() {
+
       beforeEach(function() {
-        sandbox.stub(groups, 'party').returns({
-          $syncParty: function() {},
-          memberCount: 4
-        });
+        groupResponse = {_id: "test", type: "party", memberCount: 4};
       });
 
       context('user has "Party Up" but not "Party On" achievement', function() {
-        it('awards "Party On" achievement', function() {
+        it('awards "Party On" achievement', function(done) {
           user.achievements.partyUp = true;
 
           initializeControllerWithStubbedState();
 
-          expect(User.set).to.be.calledOnce;
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyOn': true }
-          );
-          expect(rootScope.openModal).to.be.calledOnce;
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+          setTimeout(function(){
+            expect(User.set).to.be.calledOnce;
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyOn': true }
+            );
+            expect(rootScope.openModal).to.be.calledOnce;
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+            done();
+          }, 1000);
         });
       });
 
       context('user has neither "Party Up" nor "Party On" achievements', function() {
-        it('awards "Party Up" and "Party On" achievements', function() {
+        it('awards "Party Up" and "Party On" achievements', function(done) {
           initializeControllerWithStubbedState();
 
-          expect(User.set).to.be.calledTwice;
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyUp': true}
-          );
-          expect(User.set).to.be.calledWith(
-            { 'achievements.partyOn': true}
-          );
-          expect(rootScope.openModal).to.be.calledTwice;
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
-          expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+          setTimeout(function(){
+            expect(User.set).to.have.been.called;
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyUp': true}
+            );
+            expect(User.set).to.be.calledWith(
+              { 'achievements.partyOn': true}
+            );
+            expect(rootScope.openModal).to.have.been.called;
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+            expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+            done();
+          }, 1000);
         });
       });
 
@@ -136,70 +153,107 @@ describe("Party Controller", function() {
     });
   });
 
+  describe("create", function() {
+    var partyStub;
+
+    beforeEach(function () {
+      partyStub = sinon.stub(groups.Group, "create");
+      partyStub.returns(Promise.resolve(party));
+      sinon.stub(rootScope, 'hardRedirect');
+    });
+
+    it("creates a new party", function() {
+      var group = {
+        type: 'party',
+      };
+      scope.create(group);
+      expect(partyStub).to.be.calledOnce;
+      //@TODO: Check user party  console.log(User.user.party.id)
+    });
+  });
+
   describe('questAccept', function() {
+    var sendAction;
+    var memberResponse;
+
     beforeEach(function() {
       scope.group = {
         quest: { members: { 'user-id': true } }
       };
-      sandbox.stub(questsService, 'sendAction').returns({
-        then: sandbox.stub().yields({members: {another: true}})
-      });
+
+      memberResponse = {members: {another: true}};
+      sinon.stub(questsService, 'sendAction')
+      questsService.sendAction.returns(Promise.resolve(memberResponse));
     });
 
     it('calls Quests.sendAction', function() {
       scope.questAccept();
 
       expect(questsService.sendAction).to.be.calledOnce;
-      expect(questsService.sendAction).to.be.calledWith('questAccept');
+      expect(questsService.sendAction).to.be.calledWith('quests/accept');
     });
 
 
-    it('updates quest object with new participants list', function() {
+    it('updates quest object with new participants list', function(done) {
       scope.group.quest = {
         members: { user: true, another: true }
       };
 
-      scope.questAccept();
+      setTimeout(function(){
+        expect(scope.group.quest).to.eql(memberResponse);
+        done();
+      }, 1000);
 
-      expect(scope.group.quest).to.eql({members: { another: true }});
+      scope.questAccept();
     });
   });
 
   describe('questReject', function() {
+    var memberResponse;
+
     beforeEach(function() {
       scope.group = {
         quest: { members: { 'user-id': true } }
       };
-      sandbox.stub(questsService, 'sendAction').returns({
-        then: sandbox.stub().yields({members: {another: true}})
-      });
+
+      memberResponse = {members: {another: true}};
+      var sendAction = sinon.stub(questsService, 'sendAction')
+      sendAction.returns(Promise.resolve(memberResponse));
     });
 
     it('calls Quests.sendAction', function() {
       scope.questReject();
 
       expect(questsService.sendAction).to.be.calledOnce;
-      expect(questsService.sendAction).to.be.calledWith('questReject');
+      expect(questsService.sendAction).to.be.calledWith('quests/reject');
     });
 
 
-    it('updates quest object with new participants list', function() {
+    it('updates quest object with new participants list', function(done) {
       scope.group.quest = {
         members: { user: true, another: true }
       };
 
-      scope.questReject();
+      setTimeout(function(){
+        expect(scope.group.quest).to.eql(memberResponse);
+        done();
+      }, 1000);
 
-      expect(scope.group.quest).to.eql({members: { another: true }});
+      scope.questReject();
     });
   });
 
   describe('questCancel', function() {
-    var party, cancelSpy, windowSpy;
+    var party, cancelSpy, windowSpy, memberResponse;
+
     beforeEach(function() {
-      sandbox.stub(questsService, 'sendAction').returns({
-        then: sandbox.stub().yields({members: {another: true}})
-      });
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
+
+      memberResponse = {members: {another: true}};
+      sinon.stub(questsService, 'sendAction')
+      questsService.sendAction.returns(Promise.resolve(memberResponse));
     });
 
     it('calls Quests.sendAction when alert box is confirmed', function() {
@@ -210,7 +264,7 @@ describe("Party Controller", function() {
       expect(window.confirm).to.be.calledOnce;
       expect(window.confirm).to.be.calledWith(window.env.t('sureCancel'));
       expect(questsService.sendAction).to.be.calledOnce;
-      expect(questsService.sendAction).to.be.calledWith('questCancel');
+      expect(questsService.sendAction).to.be.calledWith('quests/cancel');
     });
 
     it('does not call Quests.sendAction when alert box is not confirmed', function() {
@@ -224,10 +278,16 @@ describe("Party Controller", function() {
   });
 
   describe('questAbort', function() {
+    var memberResponse;
+
     beforeEach(function() {
-      sandbox.stub(questsService, 'sendAction').returns({
-        then: sandbox.stub().yields({members: {another: true}})
-      });
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
+
+      memberResponse = {members: {another: true}};
+      sinon.stub(questsService, 'sendAction')
+      questsService.sendAction.returns(Promise.resolve(memberResponse));
     });
 
     it('calls Quests.sendAction when two alert boxes are confirmed', function() {
@@ -239,7 +299,7 @@ describe("Party Controller", function() {
       expect(window.confirm).to.be.calledWith(window.env.t('doubleSureAbort'));
 
       expect(questsService.sendAction).to.be.calledOnce;
-      expect(questsService.sendAction).to.be.calledWith('questAbort');
+      expect(questsService.sendAction).to.be.calledWith('quests/abort');
     });
 
     it('does not call Quests.sendAction when first alert box is not confirmed', function() {
@@ -273,13 +333,16 @@ describe("Party Controller", function() {
   });
 
   describe('#questLeave', function() {
+    var memberResponse;
+
     beforeEach(function() {
       scope.group = {
         quest: { members: { 'user-id': true } }
       };
-      sandbox.stub(questsService, 'sendAction').returns({
-        then: sandbox.stub().yields({members: {another: true}})
-      });
+
+      memberResponse = {members: {another: true}};
+      sinon.stub(questsService, 'sendAction')
+      questsService.sendAction.returns(Promise.resolve(memberResponse));
     });
 
     it('calls Quests.sendAction when alert box is confirmed', function() {
@@ -290,7 +353,7 @@ describe("Party Controller", function() {
       expect(window.confirm).to.be.calledOnce;
       expect(window.confirm).to.be.calledWith(window.env.t('sureLeave'));
       expect(questsService.sendAction).to.be.calledOnce;
-      expect(questsService.sendAction).to.be.calledWith('questLeave');
+      expect(questsService.sendAction).to.be.calledWith('quests/leave');
     });
 
     it('does not call Quests.sendAction when alert box is not confirmed', function() {
@@ -302,15 +365,18 @@ describe("Party Controller", function() {
       questsService.sendAction.should.not.have.been.calledOnce;
     });
 
-    it('updates quest object with new participants list', function() {
+    it('updates quest object with new participants list', function(done) {
       scope.group.quest = {
         members: { user: true, another: true }
       };
       sandbox.stub(window, "confirm").returns(true);
 
-      scope.questLeave();
+      setTimeout(function(){
+        expect(scope.group.quest).to.eql(memberResponse);
+        done();
+      }, 1000);
 
-      expect(scope.group.quest).to.eql({members: { another: true }});
+      scope.questLeave();
     });
   });
 
@@ -362,7 +428,9 @@ describe("Party Controller", function() {
   describe('#leaveOldPartyAndJoinNewParty', function() {
     beforeEach(function() {
       sandbox.stub(scope, 'join');
-      sandbox.stub(groups.Group, 'leave').yields();
+      groups.data.party = { _id: 'old-party' };
+      var groupLeave = sandbox.stub(groups.Group, 'leave');
+      groupLeave.returns(Promise.resolve({}));
       sandbox.stub(groups, 'party').returns({
         _id: 'old-party'
       });
@@ -380,20 +448,17 @@ describe("Party Controller", function() {
       scope.leaveOldPartyAndJoinNewParty('some-id', 'some-name');
 
       expect(groups.Group.leave).to.be.calledOnce;
-      expect(groups.Group.leave).to.be.calledWith({
-        gid: 'old-party',
-        keep: false
-      });
+      expect(groups.Group.leave).to.be.calledWith('old-party', false);
     });
 
-    it('joins the new party', function() {
+    it('joins the new party', function(done) {
       scope.leaveOldPartyAndJoinNewParty('some-id', 'some-name');
 
-      expect(scope.join).to.be.calledOnce;
-      expect(scope.join).to.be.calledWith({
-        id: 'some-id',
-        name: 'some-name'
-      });
+      setTimeout(function() {
+        expect(scope.join).to.be.calledOnce;
+        expect(scope.join).to.be.calledWith({id: 'some-id', name: 'some-name'});
+        done();
+      }, 1000);
     });
   });
 
@@ -406,6 +471,7 @@ describe("Party Controller", function() {
         leader: {},
         quest: {}
       });
+      scope.group = party;
     });
 
     it('returns false if user is not the quest leader', function() {

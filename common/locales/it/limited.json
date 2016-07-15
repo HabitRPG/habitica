@@ -5,7 +5,7 @@
     "annoyingFriends": "Amici Fastidiosi",
     "annoyingFriendsText": "I compagni di squadra gli hanno tirato <%= snowballs %> palle di neve.",
     "alarmingFriends": "Amici Inquietanti",
-    "alarmingFriendsText": "Sei stato spaventato <%= spookDust %> volte dai tuoi compagni di squadra.",
+    "alarmingFriendsText": "E' stato spaventato <%= spookySparkles %> volte dai compagni di squadra.",
     "agriculturalFriends": "Amici Floreali",
     "agriculturalFriendsText": "E' stato trasformato in un fiore <%= seeds %> volte dai compagni di squadra.",
     "aquaticFriends": "Amici acquatici",
@@ -49,7 +49,7 @@
     "seasonalItems": "Oggetti Stagionali",
     "nyeCardAchievementTitle": "Vecchia conoscenza",
     "nyeCardAchievementText": "Buon anno! Inviati o ricevuti <%= cards %> biglietti di auguri per il nuovo anno.",
-    "nye0": "Buon anno! Che tu possa sconfiggere molte Habit cattive.",
+    "nye0": "Buon anno! Che tu possa sconfiggere molte cattive abitudini.",
     "nye1": "Buon anno! Che tu possa ottenere un mare di Ricompense.",
     "nye2": "Buon anno! Che tu possa trascorrere tanti Giorni Perfetti.",
     "nye3": "Buon anno! Che la tua lista di To-Do resti corta e piacevole.",
@@ -71,6 +71,11 @@
     "magicianBunnySet": "Coniglio del Mago (Mago)",
     "comfortingKittySet": "Gattino Confortante (Guaritore)",
     "sneakySqueakerSet": "Roditore Furtivo (Assassino)",
+    "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
+    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
+    "strappingSailorSet": "Strapping Sailor (Healer)",
+    "reefRenegadeSet": "Reef Renegade (Rogue)",
     "fallEventAvailability": "Disponibile fino al 31 ottobre",
-    "winterEventAvailability": "Disponibili fino al 31 dicembre"
+    "winterEventAvailability": "Disponibili fino al 31 dicembre",
+    "springEventAvailability": "Disponibile fino al 31 maggio"
 }

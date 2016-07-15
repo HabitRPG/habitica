@@ -50,7 +50,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
           h4 Update Item
           .form-group.well
             input.form-control(type='text',placeholder='Path (eg, items.pets.BearCub-Base)',ng-model='hero.itemPath')
-            small.muted Enter the <strong>item path</strong>. E.g., <code>items.pets.BearCub-Zombie</code> or <code>items.gear.owned.head_special_0</code> or <code>items.gear.equipped.head</code>. <a href='/api/v2/content/paths' target='_blank'>See all paths here.</a> When in doubt, ask Tyler.
+            small.muted Enter the <strong>item path</strong>. E.g., <code>items.pets.BearCub-Zombie</code> or <code>items.gear.owned.head_special_0</code> or <code>items.gear.equipped.head</code>. <a href='/api/v3/content' target='_blank'>See all paths here.</a> When in doubt, ask Tyler.
             br
             input.form-control(type='text',placeholder='Value (eg, 5)',ng-model='hero.itemVal')
             small.muted Enter the <strong>item value</strong>. E.g., <code>5</code> or <code>false</code> or <code>head_warrior_3</code> (respectively from above examples).
@@ -59,6 +59,11 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         accordion-group(heading='Auth')
           h4 Auth
           pre {{::toJson(hero.auth)}}
+          .form-group
+            .checkbox
+              label
+                input(type='checkbox', ng-model='hero.flags.chatRevoked')
+                | Chat Priveleges Revoked
           .form-group
             .checkbox
               label
@@ -88,7 +93,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
                 span(ng-class='userAdminGlyphiconStyle(hero)')
             span(ng-if='!hero.contributor.admin')
               a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
-          td(ng-if='user.contributor.admin', ng-click='populateContributorInput(hero._id)').btn-link {{hero._id}}
+          td(ng-if='user.contributor.admin', ng-click='populateContributorInput(hero._id, $index)').btn-link {{hero._id}}
           td {{hero.contributor.level}}
           td {{hero.contributor.text}}
           td

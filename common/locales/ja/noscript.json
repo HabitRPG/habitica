@@ -1,6 +1,6 @@
 {
-    "jsDisabledHeading": "哀れ、あなたのブラウザジャバスクリプトを非許容です",
-    "jsDisabledHeadingFull": "哀れ、あなたのブラウザジャバスクリプトを非許容です。だから、ハビチカは機能出来ません",
-    "jsDisabledText": "ハビチカはウェブサイトの展示をジャバスクリプト無し出来せん",
-    "jsDisabledLink": "ジャバスクリプトは許す、お願いします！"
+    "jsDisabledHeading": "おおっと。あなたのブラウザは JavaScript が有効になっていません。",
+    "jsDisabledHeadingFull": "おおっと。あなたのブラウザは JavaScript が有効になっていないか、導入されていないので、Habiticaを起動できません。",
+    "jsDisabledText": "HabiticaはJavaScriptなしでは起動できません！",
+    "jsDisabledLink": "JavaScriptの許可をお願いします！"
 }

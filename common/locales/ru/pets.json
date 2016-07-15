@@ -12,6 +12,7 @@
     "etherealLion": "Бесплотный лев",
     "veteranWolf": "Волк-ветеран",
     "veteranTiger": "Тигр-ветеран",
+    "veteranLion": "Лев-ветеран",
     "cerberusPup": "Щенок цербера",
     "hydra": "Гидра",
     "mantisShrimp": "Рак-богомол",
@@ -19,6 +20,7 @@
     "orca": "Косатка",
     "royalPurpleGryphon": "Королевский пурпурный грифон",
     "phoenix": "Феникс",
+    "magicalBee": "Волшебная пчелка",
     "rarePetPop1": "Нажмите золотую лапу, чтобы подробнее узнать, как получить этого редкого питомца, приняв участие в проекте Habitica!",
     "rarePetPop2": "Как получить этого питомца?",
     "potion": "<%= potionType %> эликсир",
@@ -61,6 +63,7 @@
     "hatchedPet": "У вас вылупился <%= potion %> <%= egg %>!",
     "displayNow": "Показать сейчас",
     "displayLater": "Показать позже",
+    "petNotOwned": "Вы не являетесь владельцем этого питомца.",
     "earnedCompanion": "Вы были так продуктивны, что заработали нового спутника. Кормите его, чтобы он вырос!",
     "feedPet": "Скормить <%= article %><%= text %> вашему питомцу: <%= name %>?",
     "useSaddle": "Оседлать <%= pet %>?",
@@ -82,5 +85,8 @@
     "petKeyBoth": "Освободить всех",
     "confirmPetKey": "Вы уверены?",
     "petKeyNeverMind": "Еще нет",
+    "petsReleased": "Питомцы освобождены.",
+    "mountsAndPetsReleased": "Скакуны и питомцы освобождены.",
+    "mountsReleased": "Скакуны освобождены.",
     "gemsEach": "самоцветов за каждый"
 }

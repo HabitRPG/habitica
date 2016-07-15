@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Stats & Achievements",
     "statsSeparate": "Stats",
     "achievsSeparate": "Achievements",
@@ -36,6 +37,7 @@
     "beard": "Beard",
     "mustache": "Mustache",
     "flower": "Flower",
+    "wheelchair": "Wheelchair",
     "basicSkins": "Basic Skins",
     "rainbowSkins": "Rainbow Skins",
     "pastelSkins": "Pastel Skins",
@@ -110,6 +112,7 @@
     "mage": "Mage",
     "mystery": "Mystery",
     "changeClass": "Change Class, Refund Attribute Points",
+    "lvl10ChangeClass": "To change class you must be at least level 10.",
     "levelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.",
     "unallocated": "Unallocated Attribute Points",
     "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
@@ -165,5 +168,8 @@
     "int": "INT",
     "showQuickAllocation": "Show stat allocation",
     "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats.",
+    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
+    "notEnoughAttrPoints": "You don't have enough attribute points.",
+    "gearNotOwned": "You do not own this item."
 }

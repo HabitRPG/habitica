@@ -5,7 +5,7 @@
     "annoyingFriends": "Irriterende venner",
     "annoyingFriendsText": "Blev ramt af <%= snowballs %> snebolde af gruppemedlemmer.",
     "alarmingFriends": "Foruroligende Venner",
-    "alarmingFriendsText": "Blev skræmt <%= spookDust %> gange af gruppemedlemmer.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
     "agriculturalFriends": "Landbrugsvenner",
     "agriculturalFriendsText": "Blev lavet om til en blomst <%= seeds %> gange af gruppemedlemmer.",
     "aquaticFriends": "Våde Venner",
@@ -71,6 +71,11 @@
     "magicianBunnySet": "Magician's Bunny (Mage)",
     "comfortingKittySet": "Comforting Kitty (Healer)",
     "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
+    "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
+    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
+    "strappingSailorSet": "Strapping Sailor (Healer)",
+    "reefRenegadeSet": "Reef Renegade (Rogue)",
     "fallEventAvailability": "Tilgængelig indtil 31. oktober",
-    "winterEventAvailability": "Tilgængelig indtil 31. december"
+    "winterEventAvailability": "Tilgængelig indtil 31. december",
+    "springEventAvailability": "Available until May 31"
 }

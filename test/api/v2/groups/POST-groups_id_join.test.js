@@ -30,9 +30,8 @@ describe('POST /groups/:id/join', () => {
       it(`allows user to join a ${groupType}`, async () => {
         await invitee.post(`/groups/${group._id}/join`);
 
-        await group.sync();
-
-        expect(group.members).to.include(invitee._id);
+        group = await invitee.get(`/groups/${group._id}`);
+        expect(_.find(group.members, {_id: invitee._id})._id).to.exists;
       });
     });
   });
@@ -78,9 +77,9 @@ describe('POST /groups/:id/join', () => {
     it('allows user to join a public guild', async () => {
       await user.post(`/groups/${group._id}/join`);
 
-      await group.sync();
+      group = await user.get(`/groups/${group._id}`);
 
-      expect(group.members).to.include(user._id);
+      expect(_.find(group.members, {_id: user._id})._id).to.exists;
     });
   });
 
@@ -103,9 +102,9 @@ describe('POST /groups/:id/join', () => {
     it('makes the joining user the leader', async () => {
       await user.post(`/groups/${group._id}/join`);
 
-      await group.sync();
+      group = await user.get(`/groups/${group._id}`);
 
-      await expect(group.leader).to.eql(user._id);
+      expect(group.leader._id).to.eql(user._id);
     });
   });
 });
