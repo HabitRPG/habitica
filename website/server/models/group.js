@@ -79,6 +79,12 @@ export let schema = new Schema({
       return {};
     }},
   },
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
