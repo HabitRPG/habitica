@@ -8,7 +8,7 @@
     "messageNotAvailable": "החפץ הזה אינו זמין כעת לרכישה.",
     "messageCannotFeedPet": "אינך יכול להאכיל חיה זו.",
     "messageAlreadyMount": "כבר השגת את חיית הרכיבה הזו. נסה להאכיל חיה אחרת.",
-    "messageEvolve": "הצלחת לאלף <%= egg %>, בוא נצא לרכיבה!",
+    "messageEvolve": "הצלחתם לאלף <%= egg %>, בואו נצא לרכיבה!",
     "messageLikesFood": "<%= egg %> נהנה לאכול <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> אכל את ה<%= foodText %> אך לא נראה שהוא נהנה במיוחד.",
     "messageBought": "קנית <%= itemText %>",

@@ -78,6 +78,6 @@
     "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
     "onlyChalLeaderEditTasks": "Tareas pertenecientes a un desafío solo pueden ser editadas por el líder.",
     "userAlreadyInChallenge": "El usuario ya está participando en este desafío.",
-    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
-    "shortNameTooShort": "Tag Name must have at least 3 characters."
+    "cantOnlyUnlinkChalTask": "Sólo las tareas de los retos dañados pueden ser desvinculados.",
+    "shortNameTooShort": "El nombre de la etiqueta debe contener al menos 3 caracteres."
 }

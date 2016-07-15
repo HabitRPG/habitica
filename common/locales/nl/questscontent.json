@@ -329,11 +329,11 @@
     "questAxolotlUnlockText": "Speelt het kopen van axolotleieren vrij op de markt",
     "questAxolotlRageTitle": "Axolotl Regeneratie",
     "questAxolotlRageDescription": "Deze balk wordt gevuld wanneer je je dagelijkse taken niet afvinkt. Wanneer het vol is, zal de Magische Axolotl voor 30% van zijn resterende gezondheid genezen.",
-    "questAxolotlRageEffect": "`Magical Axolotl uses AXOLOTL REGENERATION!`\n\n`A curtain of colorful bubbles obscures the monster for a moment, and when it clears, some of its wounds have vanished!`",
-    "questTurtleText": "Guide the Turtle",
-    "questTurtleNotes": "Help! This giant sea turtle cannot find her way to her nesting beach. She returns there every year to lay her eggs, but this year Inkomplete Bay is filled with toxic Task Flotsam made of red dailies and unchecked to-dos. \"She's thrashing in a panic!\" @JessicaChase says.<br><br>@UncommonCriminal nods. \"It's because her guiding senses are fogged and confused.\"<br><br>@Scarabsi grabs your arm. \"Can you help clear the Task Flotsam blocking her path? It may be hazardous, but we have to help her!\"",
-    "questTurtleCompletion": "Your valiant work has cleared the waters for our sea turtle to find her beach. You, @Bambin, and @JaizakAripaik watch as she buries her brood of eggs deep in the sand so they can grow and hatch into hundreds of little sea turtles. Ever the lady, she gives you three eggs each, asking that you feed and nurture them so one day they become big sea turtles themselves.",
-    "questTurtleBoss": "Task Flotsam",
-    "questTurtleDropTurtleEgg": "Turtle (Egg)",
-    "questTurtleUnlockText": "Unlocks purchasable Turtle eggs in the Market"
+    "questAxolotlRageEffect": "`Magische Axolotl gebruikt AXOLOTL REGENERATIE!`\n\n\n`Een gordijn van kleurijke bubbels verduistert het monster voor een ogenblik en wanneer het opheldert, zijn enkele van zijn wonden verdwenen!`",
+    "questTurtleText": "Begeleid de schildpad",
+    "questTurtleNotes": "Help! Deze grote zeeschildpad kan haar weg naar haar strandnest niet vinden. Ze gaat er ieder jaar naar toe om haar eieren te leggen, maar dit jaar is Onvoltooi Baai gevuld met giftige Taak Drijfhout gemaakt van rode dagelijkse taken en niet-afgevinkte to-do's. \"Ze is in paniek aan het afranselen!\" zegt @JessicaChase.<br><br>@UncommonCriminal knikt. \"Dat is omdat haar richtingszintuigen wazig en verward zijn.\"<br><br>@Scarabsi grijpt je arm. \"Kun je helpen met het Taak Drijfhout te verwijderen dat haar pad blokkeert? Het kan gevaarlijk zijn, maar we moeten haar helpen!\"",
+    "questTurtleCompletion": "Je moedig werk heeft het water opgehelderd voor onze zeeschildpad om haar strand te vinden. Jij, @Bambin en @JaizakAripaik kijken toe terwijl ze haar kroost van eieren diep in het zand begraaft, zodat ze kunnen groeien en uitkomen tot honderden kleine zeeschildpadjes. Altijd als de dame, geeft ze je elk drie eieren en vraagt om ze te voederen en er voor te zorgen zodat ze op een dag zelf grote zeeschildpadden worden.",
+    "questTurtleBoss": "Taak Drijfhout",
+    "questTurtleDropTurtleEgg": "Schildpad (Ei)",
+    "questTurtleUnlockText": "Maakt het kopen van schildpadeieren in de markt beschikbaar"
 }
