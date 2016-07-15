@@ -7,11 +7,8 @@ import { v4 as generateUUID } from 'uuid';
 import { each } from 'lodash';
 
 describe('GET /tasks/group/:groupId', () => {
-  let user;
-  let group;
-  let task;
+  let user, group, task, groupWithTask;
   let tasks = [];
-  let groupWithTask;
   let tasksToTest = {
     habit: {
       text: 'test habit',
