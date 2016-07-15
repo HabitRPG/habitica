@@ -1,6 +1,6 @@
 {
     "set": "Set",
-    "equipmentType": "Type",
+    "equipmentType": "Tip",
     "klass": "Class",
     "groupBy": "Group By <%= type %>",
     "classBonus": "(This item matches your class, so it gets an additional 1.5 stat multiplier.)",
@@ -74,7 +74,7 @@
     "weaponSpecial3Notes": "Susreti, zveri, problemi: rešeno jednim udarcem! Povećava Snagu, Inteligenciju i Vitalnost za  <%= attrs %>.",
     "weaponSpecialCriticalText": "Kritični malj istrebljivača bagova",
     "weaponSpecialCriticalNotes": "Ovaj junak je na Github-u savladao opasnog protivnika, pred kojim su mnogi pre njega poklekli. Ovaj malj, napravljen od kostiju poraženog Baga, zadaje moćne kritične udarce. Povećava Snagu i Opažanje za <%= attrs %>.",
-    "weaponSpecialTakeThisText": "Take This Sword",
+    "weaponSpecialTakeThisText": "Uzmi Ovaj Mač",
     "weaponSpecialTakeThisNotes": "This sword was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
     "weaponSpecialTridentOfCrashingTidesText": "Trident of Crashing Tides",
     "weaponSpecialTridentOfCrashingTidesNotes": "Gives you the ability to command fish, and also deliver some mighty stabs to your tasks. Increases Intelligence by <%= int %>.",

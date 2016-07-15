@@ -1,5 +1,5 @@
 {
-  "tipTitle": "Tip #<%= tipNumber %>",
+  "tipTitle": "Savet #<%= tipNumber %>",
   "tip1": "Check tasks on the go with the Habitica mobile apps.",
   "tip2": "Reach level 100 to unlock the Orb of Rebirth for free and start a new adventure!",
   "tip3": "Use emoji to quickly differentiate between your tasks.",

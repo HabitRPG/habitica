@@ -38,7 +38,7 @@
     "joinNewParty": "新しいパーティーに参加する",
     "declineInvitation": "招待を断る",
     "loadingNewParty": "パーティーを読み込んでいます。お待ちください...",
-    "systemMessage": "System Message",
+    "systemMessage": "システム メッセージ",
     "newMsg": "\"<%= name %>\"で新しいメッセージがあります",
     "chat": "チャット",
     "sendChat": "チャット送信",

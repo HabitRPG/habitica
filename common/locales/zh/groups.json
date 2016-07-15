@@ -38,7 +38,7 @@
     "joinNewParty": "加入新队伍",
     "declineInvitation": "拒绝邀请",
     "loadingNewParty": "你的队伍正在加载。请稍等...",
-    "systemMessage": "System Message",
+    "systemMessage": "系统消息",
     "newMsg": "有新消息 “<%= name %>”",
     "chat": "聊天",
     "sendChat": "发送",

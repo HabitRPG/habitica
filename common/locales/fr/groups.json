@@ -38,7 +38,7 @@
     "joinNewParty": "Rejoindre la nouvelle équipe",
     "declineInvitation": "Décliner l'Invitation",
     "loadingNewParty": "Votre équipe est en cours de chargement, veuillez patienter ...",
-    "systemMessage": "System Message",
+    "systemMessage": "Message du système",
     "newMsg": "Nouveau message dans \"<%= name %>\"",
     "chat": "Discussion",
     "sendChat": "Envoyer un Message",
