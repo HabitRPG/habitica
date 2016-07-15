@@ -136,6 +136,7 @@
     "inviteNewUsers": "Invite New Users",
     "sendInvitations": "Send Invitations",
     "invitationsSent": "Invitations sent!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Or share this link (copy/paste):",
     "sendGiftHeading": "Send Gift to <%= name %>",
     "sendGiftGemsBalance": "From <%= number %> Gems",
