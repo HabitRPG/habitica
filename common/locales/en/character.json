@@ -88,6 +88,7 @@
     "allocateIntPop": "Add a point to Intelligence",
     "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Avatar Stats",
+    "achievs": "Achievements",
     "strength": "Strength",
     "strengthText": "Strength increases the chance of random \"critical hits\" and the Gold, Experience, and drop chance boost from them. It also helps deal damage to boss monsters.",
     "constitution": "Constitution",
