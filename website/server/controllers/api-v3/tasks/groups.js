@@ -36,7 +36,7 @@ api.createGroupTasks = {
   url: '/tasks/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    // req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
@@ -46,7 +46,7 @@ api.createGroupTasks = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderEditTasks'));
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let tasks = await _createTasks(req, res, {user, null, group});
 

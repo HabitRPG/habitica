@@ -3,10 +3,10 @@ import {
   generateGroup,
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
+import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/group/:groupid', () => {
-  let user;
-  let guild;
+  let user, guild;
 
   beforeEach(async () => {
     user = await generateUser({balance: 1});
@@ -14,7 +14,7 @@ describe('POST /tasks/group/:groupid', () => {
   });
 
   it('returns error when group is not found', async () => {
-    await expect(user.post(`/tasks/group/${'fake-group-id'}`, {
+    await expect(user.post(`/tasks/group/${generateUUID()}`, {
       text: 'test habit',
       type: 'habit',
       up: false,
@@ -57,7 +57,7 @@ describe('POST /tasks/group/:groupid', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('onlyGroupLeaderEditTasks'),
+      message: t('onlyGroupLeaderCanEditTasks'),
     });
   });
 
