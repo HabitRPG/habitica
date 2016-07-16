@@ -551,6 +551,10 @@ angular.module('habitrpg')
           callOpsFunctionAndRequest('blockUser', 'block', "POST", data.params.uuid, data);
         },
 
+        clearInviteAcceptedNotification: function (data) {
+          callOpsFunctionAndRequest('clearInviteAcceptedNotification', 'clearInviteAcceptedNotification', "POST", data.params.invitedUsername + '/' + data.params.id, data);
+        },
+
         online: function (status) {
           if (status===true) {
             settings.online = true;

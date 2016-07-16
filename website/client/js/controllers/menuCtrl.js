@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat',
-    function($scope, $rootScope, $http, Chat) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'User',
+    function($scope, $rootScope, $http, Chat, User) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -13,7 +13,8 @@ angular.module('habitrpg')
         var user = $scope.user;
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
-        } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
+        } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)
+          || ( user.invitations.accepted && user.invitations.accepted.length > 0)) {
           return invitationValue;
         } else if (user.flags.cardReceived) {
           return cardValue;
@@ -28,6 +29,7 @@ angular.module('habitrpg')
 
       $scope.clearMessages = Chat.markChatSeen;
       $scope.clearCards = Chat.clearCards;
+      $scope.clearInviteAcceptedNotification = User.clearInviteAcceptedNotification;
 
       $scope.getNotificationsCount = function() {
         var count = 0;

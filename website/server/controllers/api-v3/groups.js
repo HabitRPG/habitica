@@ -236,10 +236,17 @@ api.joinGroup = {
       let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
 
       if (hasInvitation) {
+        inviter = hasInvitation.inviter;
         isUserInvited = true;
       } else {
         isUserInvited = group.privacy === 'private' ? false : true;
       }
+    }
+
+    if (inviter) {
+      let invitingUser = await User.findById(inviter).exec();
+      invitingUser.invitations.accepted.push({id: group._id, groupName: group.name, invitedUsername: user.profile.name, type: group.type});
+      invitingUser.save();
     }
 
     if (isUserInvited && group.type === 'guild') {

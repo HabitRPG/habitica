@@ -34,6 +34,7 @@
     "invite": "Invite",
     "leave": "Leave",
     "invitedTo": "Invited to <%= name %>",
+    "userAcceptedInvitationTo": "<%= username %> accepted your invitation to <%= groupName %>! ",
     "invitedToNewParty": "You were invited to join a party! Do you want to leave this party and join <%= partyName %>?",
     "joinNewParty": "Join New Party",
     "declineInvitation": "Decline Invitation",
