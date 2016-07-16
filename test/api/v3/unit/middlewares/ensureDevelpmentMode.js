@@ -4,8 +4,8 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import ensureDevelpmentMode from '../../../../../website/server/middlewares/api-v3/ensureDevelpmentMode';
-import { NotFound } from '../../../../../website/server/libs/api-v3/errors';
+import ensureDevelpmentMode from '../../../../../website/server/middlewares/ensureDevelpmentMode';
+import { NotFound } from '../../../../../website/server/libs/errors';
 import nconf from 'nconf';
 
 describe('developmentMode middleware', () => {
