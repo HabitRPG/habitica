@@ -1,0 +1,89 @@
+div(ng-if='::profile.achievements.habiticaDays')
+  .achievement.achievement-habiticaDay
+  h5=env.t('habiticaDay')
+  small(ng-if='::profile.achievements.habiticaDays == 1')
+    =env.t('habiticaDaySingularText')
+  small(ng-if='::profile.achievements.habiticaDays > 1')
+    =env.t('habiticaDayPluralText', {number: "{{::profile.achievements.habiticaDays}}"})
+  hr
+
+div(ng-if='::profile.achievements.habitBirthdays')
+  .achievement.achievement-habitBirthday
+  h5=env.t('habitBirthday')
+  small(ng-if='::profile.achievements.habitBirthdays == 1')
+    =env.t('habitBirthdayText')
+  small(ng-if='::profile.achievements.habitBirthdays > 1')
+    =env.t('habitBirthdayPluralText', {number: "{{::profile.achievements.habitBirthdays}}"})
+  hr
+
+div(ng-if='::profile.achievements.snowball')
+  .achievement.achievement-snowball
+  h5=env.t('annoyingFriends')
+  small
+    =env.t('annoyingFriendsText', {snowballs: "{{::profile.achievements.snowball}}"})
+  hr
+
+div(ng-if='::profile.achievements.spookySparkles')
+  .achievement.achievement-spookySparkles
+  h5=env.t('alarmingFriends')
+  small
+    =env.t('alarmingFriendsText', {spookySparkles: "{{::profile.achievements.spookySparkles}}"})
+  hr
+
+div(ng-if='::profile.achievements.shinySeed')
+  .achievement.achievement-shinySeed
+  h5=env.t('agriculturalFriends')
+  small
+    =env.t('agriculturalFriendsText', {seeds: "{{::profile.achievements.shinySeed}}"})
+  hr
+
+div(ng-if='::profile.achievements.seafoam')
+  .achievement.achievement-seafoam
+  h5=env.t('aquaticFriends')
+  small
+    =env.t('aquaticFriendsText', {seafoam: "{{::profile.achievements.seafoam}}"})
+  hr
+
+div(ng-if='::profile.achievements.quests.dilatory')
+  .achievement.achievement-dilatory
+  h5=env.t('achievementDilatory')
+  small
+    =env.t('achievementDilatoryText')
+  hr
+
+div(ng-if='::profile.achievements.quests.stressbeast')
+  .achievement.achievement-stoikalm
+  h5=env.t('achievementStressbeast')
+  small
+    =env.t('achievementStressbeastText')
+  hr
+
+div(ng-if='::profile.achievements.quests.burnout')
+  .achievement.achievement-burnout
+  h5=env.t('achievementBurnout')
+  small
+    =env.t('achievementBurnoutText')
+  hr
+
+div(ng-if='::profile.achievements.quests.bewilder')
+  .achievement.achievement-bewilder
+  h5=env.t('achievementBewilder')
+  small
+    =env.t('achievementBewilderText')
+  hr
+
+div(ng-if='::profile.achievements.costumeContests')
+  .achievement.achievement-costumeContest
+  h5=env.t('costumeContest')
+  small(ng-if='::profile.achievements.costumeContests === 1')
+    !=env.t('costumeContestText')
+  small(ng-if='::profile.achievements.costumeContests > 1')
+    !=env.t('costumeContestTextPlural', {number: "{{::profile.achievements.costumeContests}}"})
+  hr
+
+each card in ['greeting', 'thankyou', 'nye', 'valentine', 'birthday']
+  div(ng-if='::profile.achievements.#{card}')
+    div(class='achievement achievement-#{card}')
+    h5=env.t(card + 'CardAchievementTitle')
+    small=env.t(card + 'CardAchievementText', {cards: "{{::profile.achievements." + card + "}}"})
+    hr

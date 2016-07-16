@@ -1,0 +1,98 @@
+div(ng-if='::profile.achievements.streak || user._id == profile._id')
+  .achievement.achievement-thermometer(ng-if='::profile.achievements.streak')
+  div(ng-class='::{muted: !profile.achievements.streak}')
+    h5(ng-if='::profile.achievements.streak > 1 || !profile.achievements.streak')
+      | {{::profile.achievements.streak || 0 }}&nbsp;
+      =env.t('streakName')
+    small(ng-if='::profile.achievements.streak > 1 || !profile.achievements.streak')=env.t('streakText', {streaks: "{{::profile.achievements.streak || 0 }}"})
+    h5(ng-if='::profile.achievements.streak == 1')
+      =env.t('streakSingular')
+    small(ng-if='::profile.achievements.streak == 1')=env.t('streakSingularText')
+  hr
+
+div(ng-if='::profile.achievements.perfect || user._id == profile._id')
+  .achievement.achievement-perfect(ng-if='::profile.achievements.perfect')
+  div(ng-class='::{muted: !profile.achievements.perfect}')
+    h5(ng-if='::profile.achievements.perfect > 1 || !profile.achievements.perfect')
+      | {{::profile.achievements.perfect || 0 }}&nbsp;
+      =env.t('perfectName')
+    small(ng-if='::profile.achievements.perfect > 1 || !profile.achievements.perfect')=env.t('perfectText', {perfects: "{{::profile.achievements.perfect || 0 }}"})
+    h5(ng-if='::profile.achievements.perfect == 1')
+      =env.t('perfectSingular')
+    small(ng-if='::profile.achievements.perfect == 1')=env.t('perfectSingularText')
+  hr
+
+div(ng-if='::profile.achievements.partyUp || user._id == profile._id')
+  .achievement.achievement-partyUp(ng-if='::profile.achievements.partyUp')
+  div(ng-class='::{muted: !profile.achievements.partyUp}')
+    h5=env.t('partyUpName')
+    small=env.t('partyUpAchievement')
+  hr
+
+div(ng-if='::profile.achievements.partyOn || user._id == profile._id')
+  .achievement.achievement-partyOn(ng-if='::profile.achievements.partyOn')
+  div(ng-class='::{muted: !profile.achievements.partyOn}')
+    h5=env.t('partyOnName')
+    small=env.t('partyOnAchievement')
+  hr
+
+div(ng-if='::profile.achievements.beastMaster || user._id == profile._id')
+  .achievement.achievement-rat(ng-if='::profile.achievements.beastMaster')
+  div(ng-class='::{muted: !profile.achievements.beastMaster}')
+    h5=env.t('beastMasterName')
+    small=env.t('beastMasterText')
+    small(ng-if='::profile.achievements.beastMasterCount')
+      =env.t('beastMasterText2', {count: "{{::profile.achievements.beastMasterCount}}"})
+  hr
+
+div(ng-if='::profile.achievements.mountMaster || user._id == profile._id')
+  .achievement.achievement-wolf(ng-if='::profile.achievements.mountMaster')
+  div(ng-class='::{muted: !profile.achievements.mountMaster}')
+    h5=env.t('mountMasterName')
+    small=env.t('mountMasterText')
+    small(ng-if='::profile.achievements.mountMasterCount')
+      =env.t('mountMasterText2', {count: "{{::profile.achievements.mountMasterCount}}"})
+  hr
+
+div(ng-if='::profile.achievements.triadBingo || user._id == profile._id')
+  .achievement.achievement-triadbingo(ng-if='::profile.achievements.triadBingo')
+  div(ng-class='::{muted: !profile.achievements.triadBingo}')
+    h5=env.t('triadBingoName')
+    small=env.t('triadBingoText')
+    small(ng-if='::profile.achievements.triadBingoCount')
+      =env.t('triadBingoText2', {count: "{{::profile.achievements.triadBingoCount}}"})
+  hr
+
+- var ultimateGearCheck = 'profile.achievements.ultimateGearSets.healer || profile.achievements.ultimateGearSets.wizard || profile.achievements.ultimateGearSets.rogue || profile.achievements.ultimateGearSets.warrior'
+div(ng-if='(user._id == profile._id) || #{ultimateGearCheck}')
+  .achievement.achievement-armor(ng-if='#{ultimateGearCheck}')
+  div(ng-class='::{muted: !(#{ultimateGearCheck})}')
+    h5=env.t('ultimGearName')
+    small=env.t('ultimGearText')
+    table.multi-achievement
+      tr
+        td(ng-if='::profile.achievements.ultimateGearSets.healer').multi-achievement
+          .achievement-ultimate-healer.multi-achievement
+          =env.t('healer')
+        td(ng-if='::profile.achievements.ultimateGearSets.wizard').multi-achievement
+          .achievement-ultimate-mage.multi-achievement
+          =env.t('mage')
+        td(ng-if='::profile.achievements.ultimateGearSets.rogue').multi-achievement
+          .achievement-ultimate-rogue.multi-achievement
+          =env.t('rogue')
+        td(ng-if='::profile.achievements.ultimateGearSets.warrior').multi-achievement
+          .achievement-ultimate-warrior.multi-achievement
+          =env.t('warrior')
+  hr
+
+div(ng-if='::profile.achievements.rebirths')
+  .achievement.achievement-sun
+  h5(ng-if='::profile.achievements.rebirths == 1')=env.t('rebirthBegan')
+  h5(ng-if='::profile.achievements.rebirths > 1')
+    =env.t('rebirthText', {rebirths: "{{::profile.achievements.rebirths}}"})
+  small(ng-if='::profile.achievements.rebirthLevel < 100')
+    =env.t('rebirthOrb')
+    |&nbsp;{{::profile.achievements.rebirthLevel}}.
+  small(ng-if='::profile.achievements.rebirthLevel >= 100')
+    =env.t('rebirthOrb100')
+  hr

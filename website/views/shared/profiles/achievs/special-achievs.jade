@@ -1,0 +1,51 @@
+div(ng-if='::profile.achievements.habitSurveys || user._id == profile._id')
+  .achievement.achievement-tree(ng-if='::profile.achievements.habitSurveys')
+  div(ng-class='::{muted: !profile.achievements.habitSurveys}')
+    h5=env.t('helped')
+    small(ng-if='::profile.achievements.habitSurveys > 1')
+      =env.t('surveysMultiple', {surveys: "{{::profile.achievements.habitSurveys}}"})
+    small(ng-if='::!(profile.achievements.habitSurveys > 1)')
+      =env.t('surveysSingle')
+  hr
+
+div(ng-if='::profile.backer.npc')
+  .achievement.achievement-helm
+  h5
+    span.label.label-npc
+      | {{::profile.backer.npc}}
+      =env.t('npc')
+  small=env.t('npcText')
+  hr
+
+div(ng-if='::profile.contributor.level || user._id == profile._id')
+  .achievement.achievement-boot(ng-if='::profile.contributor.level')
+  div(ng-class='::{muted: !profile.contributor.level}')
+    h5
+      span.label.label-default(ng-if='::profile.contributor.level', class='label-contributor-{{::profile.contributor.level}}') {{::contribText(profile.contributor, profile.backer)}}
+      span.label.label-default(ng-if='::!profile.contributor.level')=env.t('contribName')
+    small
+      =env.t('contribText')
+      |&nbsp;
+      +aLink('http://habitica.wikia.com/wiki/Contributing_to_Habitica', env.t('readMore'))
+      | .
+  hr
+
+div(ng-if='::profile.backer.tier')
+  .achievement.achievement-heart
+  h5=env.t('kickstartName', {tier: "{{::profile.backer.tier}}"})
+  small=env.t('kickstartText')
+  hr
+
+div(ng-if='::profile.achievements.veteran')
+  .achievement.achievement-cake
+  div(ng-if='::profile.achievements.veteran')
+    h5=env.t('veteran')
+    small=env.t('veteranText')
+  hr
+
+div(ng-if='::profile.achievements.originalUser')
+  .achievement.achievement-alpha
+  div(ng-if='::profile.achievements.originalUser')
+    h5=env.t('originalUser')
+    small!=env.t('originalUserText')
+  hr
