@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/auth';
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import {
   model as User,
   publicFields as memberFields,
@@ -9,14 +9,14 @@ import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 import * as Tasks from '../../models/task';
 import {
   getUserInfo,
   sendTxn as sendTxnEmail,
-} from '../../libs/email';
+} from '../../libs/api-v3/email';
 import Bluebird from 'bluebird';
-import sendPushNotification from '../../libs/pushNotifications';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
 
 let api = {};
 

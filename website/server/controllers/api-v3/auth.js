@@ -4,22 +4,22 @@ import passport from 'passport';
 import nconf from 'nconf';
 import {
   authWithHeaders,
-} from '../../middlewares/auth';
+} from '../../middlewares/api-v3/auth';
 import {
   NotAuthorized,
   BadRequest,
   NotFound,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 import Bluebird from 'bluebird';
-import * as passwordUtils from '../../libs/password';
-import logger from '../../libs/logger';
+import * as passwordUtils from '../../libs/api-v3/password';
+import logger from '../../libs/api-v3/logger';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
-import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { decrypt } from '../../libs/encryption';
-import { send as sendEmail } from '../../libs/email';
-import pusher from '../../libs/pusher';
+import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
+import { decrypt } from '../../libs/api-v3/encryption';
+import { send as sendEmail } from '../../libs/api-v3/email';
+import pusher from '../../libs/api-v3/pusher';
 
 let api = {};
 

@@ -1,21 +1,21 @@
-import { authWithSession } from '../../middlewares/auth';
+import { authWithSession } from '../../middlewares/api-v3/auth';
 import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 import _ from 'lodash';
-import csvStringify from '../../libs/csvStringify';
+import csvStringify from '../../libs/api-v3/csvStringify';
 import moment from 'moment';
 import js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
 import nconf from 'nconf';
 import got from 'got';
 import Bluebird from 'bluebird';
-import locals from '../../middlewares/locals';
+import locals from '../../middlewares/api-v3/locals';
 import {
   S3,
-} from '../../libs/aws';
+} from '../../libs/api-v3/aws';
 
 const S3_BUCKET = nconf.get('S3:bucket');
 

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as Tasks from '../task';
 import Bluebird from 'bluebird';
-import baseModel from '../../libs/baseModel';
+import baseModel from '../../libs/api-v3/baseModel';
 
 import schema from './schema';
 

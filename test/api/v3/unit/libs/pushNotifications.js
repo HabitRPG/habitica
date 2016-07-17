@@ -6,7 +6,7 @@ import nconf from 'nconf';
 describe('pushNotifications', () => {
   let user;
   let sendPushNotification;
-  let pathToPushNotifications = '../../../../../website/server/libs/pushNotifications';
+  let pathToPushNotifications = '../../../../../website/server/libs/api-v3/pushNotifications';
   let gcmSendSpy;
   let apnSendSpy;
 

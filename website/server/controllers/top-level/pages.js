@@ -1,4 +1,4 @@
-import locals from '../../middlewares/locals';
+import locals from '../../middlewares/api-v3/locals';
 import _ from 'lodash';
 import markdownIt from 'markdown-it';
 
@@ -29,7 +29,7 @@ api.getFrontPage = {
   },
 };
 
-let staticPages = ['front', 'privacy', 'terms', 'features',
+let staticPages = ['front', 'privacy', 'terms', 'api-v2', 'features',
             'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
             'old-news', 'press-kit', 'faq', 'overview', 'apps',
             'clear-browser-data', 'merch', 'maintenance-info'];

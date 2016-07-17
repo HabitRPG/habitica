@@ -1,14 +1,14 @@
-import { authWithHeaders } from '../../middlewares/auth';
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 import _ from 'lodash';
-import { removeFromArray } from '../../libs/collectionManipulators';
-import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
-import pusher from '../../libs/pusher';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/api-v3/email';
+import pusher from '../../libs/api-v3/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 

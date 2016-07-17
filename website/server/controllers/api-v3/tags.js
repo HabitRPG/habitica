@@ -1,11 +1,11 @@
-import { authWithHeaders } from '../../middlewares/auth';
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 import _ from 'lodash';
-import { removeFromArray } from '../../libs/collectionManipulators';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 
 let api = {};
 

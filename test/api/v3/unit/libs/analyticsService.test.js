@@ -1,7 +1,7 @@
 // TODO These tests are pretty brittle
 // rewrite them to not depend on nock
 // Trust that the amplitude module works as intended and sends the requests
-import analyticsService from '../../../../../website/server/libs/analyticsService';
+import analyticsService from '../../../../../website/server/libs/api-v3/analyticsService';
 
 import nock from 'nock';
 

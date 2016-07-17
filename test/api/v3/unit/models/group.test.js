@@ -2,7 +2,7 @@ import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
-import * as email from '../../../../../website/server/libs/email';
+import * as email from '../../../../../website/server/libs/api-v3/email';
 import validator from 'validator';
 import { TAVERN_ID } from '../../../../../common/script/';
 

@@ -1,6 +1,6 @@
-import { authWithHeaders } from '../../middlewares/auth';
-import { sendTaskWebhook } from '../../libs/webhook';
-import { removeFromArray } from '../../libs/collectionManipulators';
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { sendTaskWebhook } from '../../libs/api-v3/webhook';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
@@ -8,11 +8,11 @@ import {
   NotFound,
   NotAuthorized,
   BadRequest,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 import common from '../../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import logger from '../../libs/logger';
+import logger from '../../libs/api-v3/logger';
 
 let api = {};
 

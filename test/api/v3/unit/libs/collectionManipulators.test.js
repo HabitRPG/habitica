@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import {
  removeFromArray,
-} from '../../../../../website/server/libs/collectionManipulators';
+} from '../../../../../website/server/libs/api-v3/collectionManipulators';
 
 describe('Collection Manipulators', () => {
   describe('removeFromArray', () => {
