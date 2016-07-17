@@ -8,13 +8,16 @@ div
       =env.t('surveysMultiple', {surveys: "{{::profile.achievements.habitSurveys}}"})
   hr
 
-div(ng-if='::profile.backer.npc')
-  .achievement.achievement-helm
-  h5
-    span.label.label-npc
-      | {{::profile.backer.npc}}
+div
+  .achievement.achievement-helm(ng-if='::profile.backer.npc')
+  div(ng-class='::{muted: !profile.backer.npc}')
+    h5(ng-if='::profile.backer.npc')
+      span.label.label-npc
+        | {{::profile.backer.npc}}
+        =env.t('npc')
+    h5(ng-if='::!profile.backer.npc')
       =env.t('npc')
-  small=env.t('npcText')
+    small=env.t('npcText')
   hr
 
 div
@@ -30,22 +33,26 @@ div
       | .
   hr
 
-div(ng-if='::profile.backer.tier')
-  .achievement.achievement-heart
-  h5=env.t('kickstartName', {tier: "{{::profile.backer.tier}}"})
-  small=env.t('kickstartText')
+div
+  .achievement.achievement-heart(ng-if='::profile.backer.tier')
+  div(ng-class='::{muted: !profile.backer.tier}')
+    h5(ng-if='::profile.backer.tier')
+      =env.t('kickstartName', {tier: "{{::profile.backer.tier}}"})
+    h5(ng-if='::!profile.backer.tier')
+      =env.t('kickstartNameNoTier')
+    small=env.t('kickstartText')
   hr
 
-div(ng-if='::profile.achievements.veteran')
-  .achievement.achievement-cake
-  div(ng-if='::profile.achievements.veteran')
+div
+  .achievement.achievement-cake(ng-if='::profile.achievements.veteran')
+  div(ng-class='::{muted: !profile.achievements.veteran}')
     h5=env.t('veteran')
     small=env.t('veteranText')
   hr
 
-div(ng-if='::profile.achievements.originalUser')
-  .achievement.achievement-alpha
-  div(ng-if='::profile.achievements.originalUser')
+div
+  .achievement.achievement-alpha(ng-if='::profile.achievements.originalUser')
+  div(ng-class='::{muted: !profile.achievements.originalUser}')
     h5=env.t('originalUser')
     small!=env.t('originalUserText')
   hr
