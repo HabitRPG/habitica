@@ -1,9 +1,9 @@
-import csvStringify from '../../libs/csvStringify';
+import csvStringify from '../../libs/api-v3/csvStringify';
 import {
   authWithHeaders,
   authWithSession,
-} from '../../middlewares/auth';
-import { ensureSudo } from '../../middlewares/ensureAccessRight';
+} from '../../middlewares/api-v3/auth';
+import { ensureSudo } from '../../middlewares/api-v3/ensureAccessRight';
 import { model as Coupon } from '../../models/coupon';
 import _ from 'lodash';
 import couponCode from 'coupon-code';

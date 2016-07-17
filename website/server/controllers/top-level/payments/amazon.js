@@ -1,14 +1,14 @@
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../libs/errors';
-import amzLib from '../../../libs/amazonPayments';
+} from '../../../libs/api-v3/errors';
+import amzLib from '../../../libs/api-v3/amazonPayments';
 import {
   authWithHeaders,
   authWithUrl,
-} from '../../../middlewares/auth';
+} from '../../../middlewares/api-v3/auth';
 import shared from '../../../../../common';
-import payments from '../../../libs/payments';
+import payments from '../../../libs/api-v3/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';

@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/auth';
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import {
@@ -15,12 +15,12 @@ import {
   NotFound,
   BadRequest,
   NotAuthorized,
-} from '../../libs/errors';
-import { removeFromArray } from '../../libs/collectionManipulators';
-import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { encrypt } from '../../libs/encryption';
-import sendPushNotification from '../../libs/pushNotifications';
-import pusher from '../../libs/pusher';
+} from '../../libs/api-v3/errors';
+import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
+import { encrypt } from '../../libs/api-v3/encryption';
+import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import pusher from '../../libs/api-v3/pusher';
 
 let api = {};
 

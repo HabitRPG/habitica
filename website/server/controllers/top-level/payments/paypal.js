@@ -3,7 +3,7 @@
 import nconf from 'nconf';
 import moment from 'moment';
 import _ from 'lodash';
-import payments from '../../../libs/payments';
+import payments from '../../../libs/api-v3/payments';
 import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
 import shared from '../../../../../common';
@@ -14,11 +14,11 @@ import { model as User } from '../../../models/user';
 import {
   authWithUrl,
   authWithSession,
-} from '../../../middlewares/auth';
+} from '../../../middlewares/api-v3/auth';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../libs/errors';
+} from '../../../libs/api-v3/errors';
 
 const BASE_URL = nconf.get('BASE_URL');
 

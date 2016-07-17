@@ -6,7 +6,7 @@ import {
 import {
   getUserLanguage,
   attachTranslateFunction,
-} from '../../../../../website/server/middlewares/language';
+} from '../../../../../website/server/middlewares/api-v3/language';
 import common from '../../../../../common';
 import Bluebird from 'bluebird';
 import { model as User } from '../../../../../website/server/models/user';

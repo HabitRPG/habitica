@@ -1,14 +1,14 @@
 import {
   authWithHeaders,
   authWithUrl,
-} from '../../../middlewares/auth';
-import iap from '../../../libs/inAppPurchases';
-import payments from '../../../libs/payments';
+} from '../../../middlewares/api-v3/auth';
+import iap from '../../../libs/api-v3/inAppPurchases';
+import payments from '../../../libs/api-v3/payments';
 import {
   NotAuthorized,
-} from '../../../libs/errors';
+} from '../../../libs/api-v3/errors';
 import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
-import logger from '../../../libs/logger';
+import logger from '../../../libs/api-v3/logger';
 
 let api = {};
 

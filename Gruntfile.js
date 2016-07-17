@@ -131,7 +131,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('test:prepare:translations', function() {
-    var i18n  = require('./website/server/libs/i18n'),
+    var i18n  = require('./website/server/libs/api-v3/i18n'),
         fs    = require('fs');
     fs.writeFileSync('test/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +

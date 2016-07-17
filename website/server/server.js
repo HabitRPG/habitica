@@ -1,8 +1,8 @@
 import nconf from 'nconf';
-import logger from './libs/logger';
+import logger from './libs/api-v3/logger';
 import express from 'express';
 import http from 'http';
-import attachMiddlewares from './middlewares/index';
+import attachMiddlewares from './middlewares/api-v3/index';
 import Bluebird from 'bluebird';
 
 global.Promise = Bluebird;
@@ -13,11 +13,11 @@ const app = express();
 app.set('port', nconf.get('PORT'));
 
 // Setup translations
-import './libs/i18n';
+import './libs/api-v3/i18n';
 
 // Load config files
-import './libs/setupMongoose';
-import './libs/setupPassport';
+import './libs/api-v3/setupMongoose';
+import './libs/api-v3/setupPassport';
 
 // Load some schemas & models
 import './models/challenge';

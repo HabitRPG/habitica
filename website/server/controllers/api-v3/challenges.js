@@ -1,4 +1,4 @@
-import { authWithHeaders, authWithSession } from '../../middlewares/auth';
+import { authWithHeaders, authWithSession } from '../../middlewares/api-v3/auth';
 import _ from 'lodash';
 import { model as Challenge } from '../../models/challenge';
 import {
@@ -13,10 +13,10 @@ import {
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 import * as Tasks from '../../models/task';
 import Bluebird from 'bluebird';
-import csvStringify from '../../libs/csvStringify';
+import csvStringify from '../../libs/api-v3/csvStringify';
 
 let api = {};
 

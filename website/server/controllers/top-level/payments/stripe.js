@@ -3,16 +3,16 @@ import shared from '../../../../../common';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../libs/errors';
+} from '../../../libs/api-v3/errors';
 import { model as Coupon } from '../../../models/coupon';
-import payments from '../../../libs/payments';
+import payments from '../../../libs/api-v3/payments';
 import nconf from 'nconf';
 import { model as User } from '../../../models/user';
 import cc from 'coupon-code';
 import {
   authWithHeaders,
   authWithUrl,
-} from '../../../middlewares/auth';
+} from '../../../middlewares/api-v3/auth';
 
 const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import baseModel from '../libs/baseModel';
+import baseModel from '../libs/api-v3/baseModel';
 
 const Schema = mongoose.Schema;
 

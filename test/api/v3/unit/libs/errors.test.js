@@ -5,7 +5,7 @@ import {
   BadRequest,
   InternalServerError,
   NotFound,
-} from '../../../../../website/server/libs/errors';
+} from '../../../../../website/server/libs/api-v3/errors';
 
 describe('Custom Errors', () => {
   describe('CustomError', () => {

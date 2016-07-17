@@ -1,8 +1,8 @@
-import { authWithHeaders } from '../../middlewares/auth';
+import { authWithHeaders } from '../../middlewares/api-v3/auth';
 import _ from 'lodash';
 import {
   NotFound,
-} from '../../libs/errors';
+} from '../../libs/api-v3/errors';
 
 let api = {};
 

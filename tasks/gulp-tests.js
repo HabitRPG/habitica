@@ -21,11 +21,15 @@ let server;
 
 const TEST_DB_URI       = nconf.get('TEST_DB_URI');
 
+const API_V2_TEST_COMMAND = 'npm run test:api-v2:integration';
 const API_V3_TEST_COMMAND = 'npm run test:api-v3';
+const LEGACY_API_TEST_COMMAND = 'npm run test:api-legacy';
 const COMMON_TEST_COMMAND = 'npm run test:common';
 const CONTENT_TEST_COMMAND = 'npm run test:content';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 const KARMA_TEST_COMMAND = 'npm run test:karma';
+const SERVER_SIDE_TEST_COMMAND = 'npm run test:api-v2:unit';
+const ISTANBUL_TEST_COMMAND = 'npm run test:api-legacy';
 
 /* Helper methods for reporting test summary */
 let testResults = [];
@@ -181,6 +185,43 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:api-legacy', ['test:prepare:mongo'], (cb) => {
+  let runner = exec(
+    testBin(ISTANBUL_TEST_COMMAND),
+    (err, stdout, stderr) => {
+      cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:api-legacy:safe', ['test:prepare:mongo'], (cb) => {
+  let runner = exec(
+    testBin(ISTANBUL_TEST_COMMAND),
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'API (legacy) Specs',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stdout, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+	  cb();
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:api-legacy:clean', (cb) => {
+  pipe(exec(testBin(LEGACY_API_TEST_COMMAND), () => cb()));
+});
+
+gulp.task('test:api-legacy:watch', [
+  'test:prepare:mongo',
+  'test:api-legacy:clean'
+], () => {
+  gulp.watch(['website/server/**', 'test/api-legacy/**'], ['test:api-legacy:clean']);
+});
+
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(KARMA_TEST_COMMAND),
@@ -268,6 +309,46 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
   });
 });
 
+/*gulp.task('test:api-v2', ['test:prepare:server'], (done) => {
+  process.env.API_VERSION = 'v2';
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    runMochaTests('./test/api/v2/**//*.js', server, done)
+  });
+});
+
+gulp.task('test:api-v2:watch', ['test:prepare:server'], () => {
+  process.env.RUN_INTEGRATION_TEST_FOREVER = true;
+  gulp.watch(['website/server/**', 'test/api/v2/**'], ['test:api-v2']);
+});
+
+gulp.task('test:api-v2:safe', ['test:prepare:server'], (done) => {
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    let runner = exec(
+      testBin(API_V2_TEST_COMMAND),
+      (err, stdout, stderr) => {
+        testResults.push({
+          suite: 'API V2 Specs\t',
+          pass: testCount(stdout, /(\d+) passing/),
+          fail: testCount(stderr, /(\d+) failing/),
+          pend: testCount(stdout, /(\d+) pending/)
+        });
+        done();
+      }
+    );
+    pipe(runner);
+  });
+});*/
+
+gulp.task('test:api-v2:integration', (done) => {
+  let runner = exec(
+    testBin('mocha test/api/v2 --recursive'),
+    {maxBuffer: 500*1024},
+    (err, stdout, stderr) => done(err)
+  )
+
+  pipe(runner);
+});
+
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/unit --recursive'),
@@ -278,7 +359,7 @@ gulp.task('test:api-v3:unit', (done) => {
 });
 
 gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/server/libs/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], ['test:api-v3:unit']);
+  gulp.watch(['website/server/libs/api-v3/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], ['test:api-v3:unit']);
 });
 
 gulp.task('test:api-v3:integration', (done) => {
@@ -292,7 +373,7 @@ gulp.task('test:api-v3:integration', (done) => {
 });
 
 gulp.task('test:api-v3:integration:watch', () => {
-  gulp.watch(['website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/*.js',
+  gulp.watch(['website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/api-v3/*.js',
               'test/api/v3/integration/**/*'], ['test:api-v3:integration']);
 });
 
@@ -312,6 +393,7 @@ gulp.task('test', (done) => {
     'test:karma',
     'test:api-v3:unit',
     'test:api-v3:integration',
+    'test:api-v2:integration',
     done
   );
 });
@@ -323,3 +405,99 @@ gulp.task('test:api-v3', (done) => {
     done
   );
 });
+
+// Old tests tasks
+/*
+gulp.task('test:api-v3', ['test:api-v3:unit', 'test:api-v3:integration']);
+
+gulp.task('test:api-v3:watch', ['test:api-v3:unit:watch', 'test:api-v3:integration:watch']);
+
+gulp.task('test:api-v3:unit', (done) => {*/
+//  runMochaTests('./test/api/v3/unit/**/*.js', null, done)
+/*});
+
+gulp.task('test:api-v3:unit:watch', () => {
+  gulp.watch(['website/server/**', 'test/api/v3/unit/**'], ['test:api-v3:unit']);
+});
+
+gulp.task('test:api-v3:integration', ['test:prepare:server'], (done) => {
+  process.env.API_VERSION = 'v3';
+  awaitPort(TEST_SERVER_PORT).then(() => {*/
+//    runMochaTests('./test/api/v3/integration/**/*.js', server, done)
+/*  });
+});
+
+gulp.task('test:api-v3:integration:watch', ['test:prepare:server'], () => {
+  process.env.RUN_INTEGRATION_TEST_FOREVER = true;
+  gulp.watch(['website/server/**', 'test/api/v3/integration/**'], ['test:api-v3:integration']);
+});
+
+gulp.task('test:api-v3:safe', ['test:prepare:server'], (done) => {
+  awaitPort(TEST_SERVER_PORT).then(() => {
+    let runner = exec(
+      testBin(API_V3_TEST_COMMAND),
+      (err, stdout, stderr) => {
+        testResults.push({
+          suite: 'API V3 Specs\t',
+          pass: testCount(stdout, /(\d+) passing/),
+          fail: testCount(stdout, /(\d+) failing/),
+          pend: testCount(stdout, /(\d+) pending/)
+        });
+        done();
+      }
+    );
+    pipe(runner);
+  });
+});
+
+gulp.task('test:all', (done) => {
+  runSequence(
+  //'test:e2e:safe',
+  //'test:common:safe',
+  //'test:content:safe',
+  // 'test:server_side:safe',
+  //'test:karma:safe',
+  //'test:api-legacy:safe',
+  //'test:api-v2:safe',
+  'test:api-v3:safe',
+  done);
+});
+
+gulp.task('test', ['test:all'], () => {
+  let totals = [0,0,0];
+
+  console.log('\n\x1b[36m\x1b[4mHabitica Test Summary\x1b[0m\n');
+  testResults.forEach((s) => {
+    totals[0] = totals[0] + s.pass;
+    totals[1] = totals[1] + s.fail;
+    totals[2] = totals[2] + s.pend;
+    console.log(
+      `\x1b[33m\x1b[4m${s.suite}\x1b[0m\t`,
+      `\x1b[32mPassing: ${s.pass},\t`,
+      `\x1b[31mFailed: ${s.fail},\t`,
+      `\x1b[36mPending: ${s.pend}\t`
+    );
+
+    if (s.pass === 0) {
+      console.error('ERROR: Detected a test suite with 0 passing tests. Something may be wrong causing the build to error.');
+      process.exit(1);
+    }
+  });
+
+  console.log(
+    '\n\x1b[33m\x1b[4mTotal:\x1b[0m\t\t\t',
+    `\x1b[32mPassing: ${totals[0]},\t`,
+    `\x1b[31mFailed: ${totals[1]},\t`,
+    `\x1b[36mPending: ${totals[2]}\t`
+  );
+
+  kill(server);
+
+  if (totals[1] > 0) {
+    console.error('ERROR: There are failing tests!');
+    process.exit(1);
+  } else {
+    console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
+    process.exit();
+  }
+});*/

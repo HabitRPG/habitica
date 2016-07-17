@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import moment from 'moment';
 import Bluebird from 'bluebird';
-import { recoverCron, cron } from '../../../../../website/server/libs/cron';
+import { recoverCron, cron } from '../../../../../website/server/libs/api-v3/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
 import { clone } from 'lodash';

@@ -1,5 +1,5 @@
 import request from 'request';
-import { sendTaskWebhook } from '../../../../../website/server/libs/webhook';
+import { sendTaskWebhook } from '../../../../../website/server/libs/api-v3/webhook';
 
 describe('webhooks', () => {
   beforeEach(() => {
