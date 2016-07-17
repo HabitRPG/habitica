@@ -1251,7 +1251,7 @@ api.quests = {
       str: 1.5
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: "vice2",
@@ -1276,7 +1276,7 @@ api.quests = {
       }
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: 'vice3',
@@ -1500,7 +1500,7 @@ api.quests = {
       }
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: "atom2",
@@ -1524,7 +1524,7 @@ api.quests = {
       str: 1
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: "atom3",
@@ -1677,7 +1677,7 @@ api.quests = {
       }
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: "moonstone2",
@@ -1701,7 +1701,7 @@ api.quests = {
       str: 3
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: 'moonstone3',
@@ -1782,7 +1782,7 @@ api.quests = {
       }
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: "goldenknight2",
@@ -1806,7 +1806,7 @@ api.quests = {
       str: 3
     },
     drop: {
-      items: [
+      itemsForOwner: [
         {
           type: 'quests',
           key: 'goldenknight3',

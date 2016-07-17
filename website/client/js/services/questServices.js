@@ -68,7 +68,7 @@ angular.module('habitrpg')
         }
       }
       text += '---\n\n';
-      text += '**' + window.env.t('rewards') + ':**\n\n';
+      text += '**' + window.env.t('rewardsAllParticipants') + ':**\n\n';
       if(quest.drop.items) {
         for (var item in quest.drop.items) {
           text += quest.drop.items[item].text() + '\n\n';
@@ -78,6 +78,13 @@ angular.module('habitrpg')
         text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
       if(quest.drop.gp)
         text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
+
+      if(quest.drop.itemsForOwner) {
+        text += '**' + window.env.t('rewardsQuestOwner') + ':**\n\n';
+        for (var item in quest.drop.itemsForOwner) {
+          text += quest.drop.itemsForOwner[item].text() + '\n\n';
+        }
+      }
 
       return text;
     }

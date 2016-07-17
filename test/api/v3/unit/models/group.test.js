@@ -929,9 +929,19 @@ describe('Group Model', () => {
 
           await party.finishQuest(questAwardQuest);
 
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.items.quests.vice3).to.eql(1);
+        });
+
+        it('doesn\'t award quest owner rewards to all participants', async () => {
+          let questAwardQuest = questScrolls.vice2;
+
+          await party.finishQuest(questAwardQuest);
+
           let updatedParticipatingMember = await User.findById(participatingMember._id);
 
-          expect(updatedParticipatingMember.items.quests.vice3).to.eql(1);
+          expect(updatedParticipatingMember.items.quests.vice3).to.not.exist;
         });
 
         it('awards pets', async () => {

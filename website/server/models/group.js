@@ -450,6 +450,38 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
+  let updates = {
+    $set: {},
+    $inc: {},
+  };
+  let dropK = itemToAward.key;
+
+  switch (itemToAward.type) {
+    case 'gear': {
+      // TODO This means they can lose their new gear on death, is that what we want?
+      updates.$set[`items.gear.owned.${dropK}`] = true;
+      break;
+    }
+    case 'eggs':
+    case 'food':
+    case 'hatchingPotions':
+    case 'quests': {
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.where(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      break;
+    }
+    case 'pets': {
+      updates.$set[`items.pets.${dropK}`] = 5;
+      break;
+    }
+    case 'mounts': {
+      updates.$set[`items.mounts.${dropK}`] = true;
+      break;
+    }
+  }
+  return updates;
+}
+
 // Participants: Grant rewards & achievements, finish quest.
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
@@ -470,37 +502,32 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   }
 
   _.each(quest.drop.items, (item) => {
-    let dropK = item.key;
-
-    switch (item.type) {
-      case 'gear': {
-        // TODO This means they can lose their new gear on death, is that what we want?
-        updates.$set[`items.gear.owned.${dropK}`] = true;
-        break;
-      }
-      case 'eggs':
-      case 'food':
-      case 'hatchingPotions':
-      case 'quests': {
-        updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
-        break;
-      }
-      case 'pets': {
-        updates.$set[`items.pets.${dropK}`] = 5;
-        break;
-      }
-      case 'mounts': {
-        updates.$set[`items.mounts.${dropK}`] = true;
-        break;
-      }
-    }
+    _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
+
+  let questOwnerUpdates = {
+    $inc: {},
+    $set: {},
+  };
+  let questLeader = this.quest.leader;
+
+  _.each(quest.drop.itemsForOwner, (item) => {
+    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.itemsForOwner));
+  });
+  questOwnerUpdates = _.omit(questOwnerUpdates, _.isEmpty);
 
   let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
   this.quest = {};
   this.markModified('quest');
 
-  return await User.update(q, updates, {multi: true}).exec();
+  let promises = [];
+  if (questLeader && !_.isEmpty(questOwnerUpdates)) {
+    promises.push(User.update({_id: questLeader}, questOwnerUpdates).exec());
+  }
+
+  promises.push(User.update(q, updates, {multi: true}).exec());
+
+  return await Bluebird.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
