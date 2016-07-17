@@ -1,4 +1,4 @@
-div(ng-if='::profile.achievements.quests || user._id == profile._id')
+div
   .achievement.achievement-alien(ng-if='::profile.achievements.quests')
   div(ng-class='::{muted: !profile.achievements.quests}')
     h5=env.t('completedQuests')

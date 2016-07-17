@@ -1,11 +1,11 @@
-div(ng-if='::profile.achievements.habitSurveys || user._id == profile._id')
+div
   .achievement.achievement-tree(ng-if='::profile.achievements.habitSurveys')
   div(ng-class='::{muted: !profile.achievements.habitSurveys}')
     h5=env.t('helped')
-    small(ng-if='::profile.achievements.habitSurveys > 1')
-      =env.t('surveysMultiple', {surveys: "{{::profile.achievements.habitSurveys}}"})
     small(ng-if='::!(profile.achievements.habitSurveys > 1)')
       =env.t('surveysSingle')
+    small(ng-if='::profile.achievements.habitSurveys > 1')
+      =env.t('surveysMultiple', {surveys: "{{::profile.achievements.habitSurveys}}"})
   hr
 
 div(ng-if='::profile.backer.npc')
@@ -17,7 +17,7 @@ div(ng-if='::profile.backer.npc')
   small=env.t('npcText')
   hr
 
-div(ng-if='::profile.contributor.level || user._id == profile._id')
+div
   .achievement.achievement-boot(ng-if='::profile.contributor.level')
   div(ng-class='::{muted: !profile.contributor.level}')
     h5
