@@ -1,8 +1,8 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import {
   NotAuthorized,
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 
 let api = {};
 

@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 import shared from '../../../common';
 import validator from 'validator';
 import moment from 'moment';
-import baseModel from '../libs/api-v3/baseModel';
-import { InternalServerError } from '../libs/api-v3/errors';
+import baseModel from '../libs/baseModel';
+import { InternalServerError } from '../libs/errors';
 import _ from 'lodash';
-import { preenHistory } from '../libs/api-v3/preening';
+import { preenHistory } from '../libs/preening';
 
 const Schema = mongoose.Schema;
 
@@ -22,7 +22,6 @@ export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 // Important
 // When something changes here remember to update the client side model at common/script/libs/taskDefaults
 export let TaskSchema = new Schema({
-  _legacyId: String, // TODO Remove when v2 is deprecated
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
@@ -159,46 +158,6 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 
   await chalTask.save();
 };
-
-
-// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
-// These will be removed once API v2 is discontinued
-
-// toJSON for API v2
-TaskSchema.methods.toJSONV2 = function toJSONV2 () {
-  let toJSON = this.toJSON();
-  if (toJSON._legacyId) {
-    toJSON.id = toJSON._legacyId;
-  } else {
-    toJSON.id = toJSON._id;
-  }
-
-  if (!toJSON.challenge) toJSON.challenge = {};
-
-  let v3Tags = this.tags;
-
-  toJSON.tags = {};
-  v3Tags.forEach(tag => {
-    toJSON.tags[tag] = true;
-  });
-
-  toJSON.dateCreated = this.createdAt;
-
-  return toJSON;
-};
-
-TaskSchema.statics.fromJSONV2 = function fromJSONV2 (taskObj) {
-  if (taskObj.id) taskObj._id = taskObj.id;
-
-  let v2Tags = taskObj.tags || {};
-
-  taskObj.tags = [];
-  taskObj.tags = _.map(v2Tags, (tag, key) => key);
-
-  return taskObj;
-};
-
-// END of API v2 methods
 
 export let Task = mongoose.model('Task', TaskSchema);
 

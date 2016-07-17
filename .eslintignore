@@ -13,13 +13,6 @@ website/client/
 
 # Temporarilly disabled. These should be removed when the linting errors are fixed
 common/script/content/index.js
-common/script/public/**/*.js
-
-website/server/**/api-v2/**/*.js
-website/server/routes/payments.js
-website/server/routes/pages.js
-website/server/middlewares/apiThrottle.js
-website/server/middlewares/forceRefresh.js
 
 debug-scripts/*
 scripts/*

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import autoinc  from 'mongoose-id-autoinc';
-import logger  from '../website/server/libs/api-v3/logger';
+import logger  from '../website/server/libs/logger';
 import nconf    from 'nconf';
 import repl     from 'repl';
 import gulp     from 'gulp';

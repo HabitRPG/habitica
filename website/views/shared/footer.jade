@@ -63,8 +63,6 @@ footer.footer(ng-controller='FooterCtrl')
             a(target='_blank', href='http://devs.habitica.com')=env.t('devBlog') + ' - The Forge'
           li
             a(target='_blank', href='/apidoc')=env.t('APIv3')
-          li
-            a(target='_blank', href='/static/api-v2')=env.t('APIv2')
       .col-sm-3
         if (env.NODE_ENV === 'production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
