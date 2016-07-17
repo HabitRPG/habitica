@@ -1251,11 +1251,12 @@ api.quests = {
       str: 1.5
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: "vice2",
-          text: t('questVice1DropVice2Quest')
+          text: t('questVice1DropVice2Quest'),
+          onlyOwner: true
         }
       ],
       gp: 20,
@@ -1276,11 +1277,12 @@ api.quests = {
       }
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: 'vice3',
-          text: t('questVice2DropVice3Quest')
+          text: t('questVice2DropVice3Quest'),
+          onlyOwner: true
         }
       ],
       gp: 20,
@@ -1500,11 +1502,12 @@ api.quests = {
       }
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: "atom2",
-          text: t('questAtom1Drop')
+          text: t('questAtom1Drop'),
+          onlyOwner: true
         }
       ],
       gp: 7,
@@ -1524,11 +1527,12 @@ api.quests = {
       str: 1
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: "atom3",
-          text: t('questAtom2Drop')
+          text: t('questAtom2Drop'),
+          onlyOwner: true
         }
       ],
       gp: 20,
@@ -1677,11 +1681,12 @@ api.quests = {
       }
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: "moonstone2",
-          text: t('questMoonstone1DropMoonstone2Quest')
+          text: t('questMoonstone1DropMoonstone2Quest'),
+          onlyOwner: true
         }
       ],
       gp: 50,
@@ -1701,11 +1706,12 @@ api.quests = {
       str: 3
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: 'moonstone3',
-          text: t('questMoonstone2DropMoonstone3Quest')
+          text: t('questMoonstone2DropMoonstone3Quest'),
+          onlyOwner: true
         }
       ],
       gp: 500,
@@ -1782,11 +1788,12 @@ api.quests = {
       }
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: "goldenknight2",
-          text: t('questGoldenknight1DropGoldenknight2Quest')
+          text: t('questGoldenknight1DropGoldenknight2Quest'),
+          onlyOwner: true
         }
       ],
       gp: 15,
@@ -1806,11 +1813,12 @@ api.quests = {
       str: 3
     },
     drop: {
-      itemsForOwner: [
+      items: [
         {
           type: 'quests',
           key: 'goldenknight3',
-          text: t('questGoldenknight2DropGoldenknight3Quest')
+          text: t('questGoldenknight2DropGoldenknight3Quest'),
+          onlyOwner: true
         }
       ],
       gp: 75,

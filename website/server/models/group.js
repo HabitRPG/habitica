@@ -501,7 +501,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
   }
 
-  _.each(quest.drop.items, (item) => {
+  _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
     _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
 
@@ -511,8 +511,8 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   };
   let questLeader = this.quest.leader;
 
-  _.each(quest.drop.itemsForOwner, (item) => {
-    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.itemsForOwner));
+  _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
   questOwnerUpdates = _.omit(questOwnerUpdates, _.isEmpty);
 
