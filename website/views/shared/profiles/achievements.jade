@@ -1,3 +1,11 @@
+mixin achiev(isEarned, spriteName)
+  div
+    .achievement(class='#{spriteName}', ng-if='::#{isEarned}')
+    div(ng-class='::{muted: !(#{isEarned})}')
+      block
+    hr
+
+
 if mobile
   .item.item-divider=env.t('achievements')
 
