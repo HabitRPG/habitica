@@ -63,26 +63,19 @@ div
       =env.t('triadBingoText2', {count: "{{::profile.achievements.triadBingoCount}}"})
   hr
 
-- var ultimateGearCheck = 'profile.achievements.ultimateGearSets.healer || profile.achievements.ultimateGearSets.wizard || profile.achievements.ultimateGearSets.rogue || profile.achievements.ultimateGearSets.warrior'
+each ultClass in ['healer', 'rogue', 'warrior']
+  div
+    .achievement(class='achievement-ultimate-#{ultClass}', ng-if='::profile.achievements.ultimateGearSets.#{ultClass}')
+    div(ng-class='::{muted: !profile.achievements.ultimateGearSets.#{ultClass}}')
+      h5=env.t('ultimGearName', {ultClass: env.t(ultClass)})
+      small=env.t(ultClass + 'UltimGearText')
+    hr
+
 div
-  .achievement.achievement-armor(ng-if='::#{ultimateGearCheck}')
-  div(ng-class='::{muted: !(#{ultimateGearCheck})}')
-    h5=env.t('ultimGearName')
-    small=env.t('ultimGearText')
-    table.multi-achievement
-      tr
-        td(ng-if='::profile.achievements.ultimateGearSets.healer').multi-achievement
-          .achievement-ultimate-healer.multi-achievement
-          =env.t('healer')
-        td(ng-if='::profile.achievements.ultimateGearSets.wizard').multi-achievement
-          .achievement-ultimate-mage.multi-achievement
-          =env.t('mage')
-        td(ng-if='::profile.achievements.ultimateGearSets.rogue').multi-achievement
-          .achievement-ultimate-rogue.multi-achievement
-          =env.t('rogue')
-        td(ng-if='::profile.achievements.ultimateGearSets.warrior').multi-achievement
-          .achievement-ultimate-warrior.multi-achievement
-          =env.t('warrior')
+  .achievement(class='achievement-ultimate-mage', ng-if='::profile.achievements.ultimateGearSets.wizard')
+  div(ng-class='::{muted: !profile.achievements.ultimateGearSets.wizard}')
+    h5=env.t('ultimGearName', {ultClass: env.t('mage')})
+    small=env.t('mageUltimGearText')
   hr
 
 div
