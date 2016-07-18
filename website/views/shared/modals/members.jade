@@ -24,7 +24,7 @@ script(type='text/ng-template', id='modals/member.html')
           h3=env.t('stats')
           // @TODO: Figure out why this isn't showing up in front page
           .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
-          include ../profiles/stats
+          include ../profiles/stats_all
         .col-md-6
           .row
             +herobox()

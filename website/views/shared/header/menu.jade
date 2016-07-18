@@ -18,6 +18,8 @@ nav.toolbar(ng-controller='MenuCtrl')
               li
                 a(ui-sref='options.profile.stats')=env.t('stats')
               li
+                a(ui-sref='options.profile.achievements')=env.t('achievs')
+              li
                 a(ui-sref='options.profile.profile')=env.t('profile')
             ul.toolbar-submenu
               li
@@ -91,6 +93,8 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(ui-sref='options.profile.backgrounds')=env.t('backgrounds')
             li
               a(ui-sref='options.profile.stats')=env.t('stats')
+            li
+              a(ui-sref='options.profile.achievements')=env.t('achievs')
             li
               a(ui-sref='options.profile.profile')=env.t('profile')
       li.toolbar-button-dropdown
