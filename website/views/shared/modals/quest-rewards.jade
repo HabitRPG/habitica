@@ -2,7 +2,7 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
   hr
   h5 {{::headerParticipant}}
   table.table.table-striped
-    tr(ng-repeat='_.reject(quest.drop.items, \'onlyOwner\')')
+    tr(ng-repeat='drop in _.reject(quest.drop.items, \'onlyOwner\')')
       td {{::drop.text()}}
     tr(ng-if='::quest.drop.exp > 0')
       td {{::quest.drop.exp}} 
