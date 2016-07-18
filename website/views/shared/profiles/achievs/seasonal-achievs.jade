@@ -12,33 +12,17 @@
   small(ng-if='::profile.achievements.habitBirthdays > 1')
     =env.t('habitBirthdayPluralText', {number: "{{::profile.achievements.habitBirthdays}}"})
 
-+achiev('profile.achievements.snowball', 'achievement-snowball')
-  h5=env.t('annoyingFriends')
-  small(ng-if='::!profile.achievements.snowball')
-    =env.t('annoyingFriendsText', {snowballs: "0"})
-  small(ng-if='::profile.achievements.snowball')
-    =env.t('annoyingFriendsText', {snowballs: "{{::profile.achievements.snowball}}"})
++achievWithSimpleCount('profile.achievements.snowball', 'achievement-snowball',
+  'annoyingFriends', 'annoyingFriendsText')
 
-+achiev('profile.achievements.spookySparkles', 'achievement-spookySparkles')
-  h5=env.t('alarmingFriends')
-  small(ng-if='::!profile.achievements.spookySparkles')
-    =env.t('alarmingFriendsText', {spookySparkles: "0"})
-  small(ng-if='::profile.achievements.spookySparkles')
-    =env.t('alarmingFriendsText', {spookySparkles: "{{::profile.achievements.spookySparkles}}"})
++achievWithSimpleCount('profile.achievements.spookySparkles', 'achievement-spookySparkles',
+  'alarmingFriends', 'alarmingFriendsText')
 
-+achiev('profile.achievements.shinySeed', 'achievement-shinySeed')
-  h5=env.t('agriculturalFriends')
-  small(ng-if='::!profile.achievements.shinySeed')
-    =env.t('agriculturalFriendsText', {seeds: "0"})
-  small(ng-if='::profile.achievements.shinySeed')
-    =env.t('agriculturalFriendsText', {seeds: "{{::profile.achievements.shinySeed}}"})
++achievWithSimpleCount('profile.achievements.shinySeed', 'achievement-shinySeed',
+  'agriculturalFriends', 'agriculturalFriendsText')
 
-+achiev('profile.achievements.seafoam', 'achievement-seafoam')
-  h5=env.t('aquaticFriends')
-  small(ng-if='::!profile.achievements.seafoam')
-    =env.t('aquaticFriendsText', {seafoam: "0"})
-  small(ng-if='::profile.achievements.seafoam')
-    =env.t('aquaticFriendsText', {seafoam: "{{::profile.achievements.seafoam}}"})
++achievWithSimpleCount('profile.achievements.seafoam', 'achievement-seafoam',
+  'aquaticFriends', 'aquaticFriendsText')
 
 +achiev('profile.achievements.quests.dilatory', 'achievement-dilatory')
   h5=env.t('achievementDilatory')
@@ -68,9 +52,5 @@
     !=env.t('costumeContestTextPlural', {number: "{{::profile.achievements.costumeContests}}"})
 
 each card in ['greeting', 'thankyou', 'nye', 'valentine', 'birthday']
-  +achiev('profile.achievements.' + card, 'achievement-' + card)
-    h5=env.t(card + 'CardAchievementTitle')
-    small(ng-if='::!profile.achievements.#{card}')
-      =env.t(card + 'CardAchievementText', {cards: "0"})
-    small(ng-if='::profile.achievements.#{card}')
-      =env.t(card + 'CardAchievementText', {cards: "{{::profile.achievements." + card + "}}"})
+  +achievWithSimpleCount('profile.achievements.' + card, 'achievement-' + card,
+    card + 'CardAchievementTitle', card + 'CardAchievementText')

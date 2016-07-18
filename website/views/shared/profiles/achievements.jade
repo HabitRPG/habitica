@@ -5,6 +5,14 @@ mixin achiev(isEarned, spriteName)
       block
     hr
 
+mixin achievWithSimpleCount(countVal, spriteName, title, desc)
+  +achiev(countVal, spriteName)
+    h5=env.t(title)
+    small(ng-if='::!(#{countVal})')
+      =env.t(desc, {count: "0"})
+    small(ng-if='::#{countVal}')
+      =env.t(desc, {count: "{{::" + countVal + "}}"})
+
 
 if mobile
   .item.item-divider=env.t('achievements')
