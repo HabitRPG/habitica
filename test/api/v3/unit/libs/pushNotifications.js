@@ -8,7 +8,6 @@ describe('pushNotifications', () => {
   let user;
   let sendPushNotification;
   let pathToPushNotifications = '../../../../../website/server/libs/api-v3/pushNotifications';
-  let gcmSendSpy;
   let fcmSendSpy;
   let apnSendSpy;
 
@@ -18,18 +17,12 @@ describe('pushNotifications', () => {
 
   beforeEach(() => {
     user = new User();
-    gcmSendSpy = sinon.spy();
     fcmSendSpy = sinon.spy();
     apnSendSpy = sinon.spy();
 
     sandbox.stub(nconf, 'get').returns('true-key');
 
     sandbox.stub(FCM.prototype, 'send', fcmSendSpy);
-
-    sandbox.stub(pushNotify, 'gcm').returns({
-      on: () => null,
-      send: gcmSendSpy,
-    });
 
     sandbox.stub(pushNotify, 'apn').returns({
       on: () => null,
@@ -45,7 +38,6 @@ describe('pushNotifications', () => {
 
   it('throws if user is not supplied', () => {
     expect(sendPushNotification).to.throw;
-    // expect(gcmSendSpy).to.not.have.been.called;
     expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
@@ -53,7 +45,6 @@ describe('pushNotifications', () => {
   it('throws if user.preferences.pushNotifications.unsubscribeFromAll is true', () => {
     user.preferences.pushNotifications.unsubscribeFromAll = true;
     expect(() => sendPushNotification(user)).to.throw;
-    // expect(gcmSendSpy).to.not.have.been.called;
     expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
@@ -63,7 +54,6 @@ describe('pushNotifications', () => {
       title,
       message,
     })).to.throw;
-    expect(gcmSendSpy).to.not.have.been.called;
     expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
@@ -73,7 +63,6 @@ describe('pushNotifications', () => {
       identifier,
       message,
     })).to.throw;
-    expect(gcmSendSpy).to.not.have.been.called;
     expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
@@ -83,7 +72,6 @@ describe('pushNotifications', () => {
       identifier,
       title,
     })).to.throw;
-    expect(gcmSendSpy).to.not.have.been.called;
     expect(fcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
@@ -94,83 +82,7 @@ describe('pushNotifications', () => {
       title,
       message,
     });
-    expect(gcmSendSpy).to.not.have.been.called;
     expect(fcmSendSpy).to.not.have.been.called;
-    expect(apnSendSpy).to.not.have.been.called;
-  });
-
-  xit('uses GCM for Android devices', () => {
-    user.pushDevices.push({
-      type: 'android',
-      regId: '123',
-    });
-
-    let details = {
-      identifier,
-      title,
-      message,
-      payload: {
-        a: true,
-        b: true,
-      },
-      timeToLive: 23,
-    };
-
-    let fcmMessage = {
-      to: '123',
-      data: {
-        a: true,
-        b: true,
-      },
-      notification: {
-        title: details.title,
-        body: details.message,
-      },
-    };
-
-    sendPushNotification(user, details);
-    expect(gcmSendSpy).to.have.been.calledOnce;
-    expect(gcmSendSpy).to.have.been.calledWithMatch({
-      registrationId: '123',
-      delayWhileIdle: true,
-      timeToLive: 23,
-      data: {
-        identifier,
-        title,
-        message,
-        a: true,
-        b: true,
-      },
-    });
-    expect(fcmSendSpy).to.have.been.calledOnce;
-    expect(fcmSendSpy).to.have.been.calledWithMatch(fcmMessage);
-    expect(apnSendSpy).to.not.have.been.called;
-  });
-
-  xit('defaults timeToLive to 15', () => {
-    user.pushDevices.push({
-      type: 'android',
-      regId: '123',
-    });
-
-    let details = {
-      identifier,
-      title,
-      message,
-    };
-
-    sendPushNotification(user, details);
-    expect(gcmSendSpy).to.have.been.calledOnce;
-    expect(gcmSendSpy).to.have.been.calledWithMatch({
-      registrationId: '123',
-      delayWhileIdle: true,
-      timeToLive: 15,
-      data: {
-        identifier,
-        title,
-        message,
-      },
-    });
     expect(apnSendSpy).to.not.have.been.called;
   });
 
@@ -206,6 +118,5 @@ describe('pushNotifications', () => {
       },
     });
     expect(fcmSendSpy).to.not.have.been.called;
-    expect(gcmSendSpy).to.not.have.been.called;
   });
 });
