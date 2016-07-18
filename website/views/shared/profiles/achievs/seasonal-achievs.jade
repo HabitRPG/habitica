@@ -1,16 +1,8 @@
-+achiev('profile.achievements.habiticaDays', 'achievement-habiticaDay')
-  h5=env.t('habiticaDay')
-  small(ng-if='::!(profile.achievements.habiticaDays > 1)')
-    =env.t('habiticaDaySingularText')
-  small(ng-if='::profile.achievements.habiticaDays > 1')
-    =env.t('habiticaDayPluralText', {number: "{{::profile.achievements.habiticaDays}}"})
++achievWithSingularPlural('profile.achievements.habiticaDays', 'achievement-habiticaDay',
+  'habiticaDay', 'habiticaDaySingularText', 'habiticaDay', 'habiticaDayPluralText')
 
-+achiev('profile.achievements.habitBirthdays', 'achievement-habitBirthday')
-  h5=env.t('habitBirthday')
-  small(ng-if='::!(profile.achievements.habitBirthdays > 1)')
-    =env.t('habitBirthdayText')
-  small(ng-if='::profile.achievements.habitBirthdays > 1')
-    =env.t('habitBirthdayPluralText', {number: "{{::profile.achievements.habitBirthdays}}"})
++achievWithSingularPlural('profile.achievements.habitBirthdays', 'achievement-habitBirthday',
+  'habitBirthday', 'habitBirthdayText', 'habitBirthday', 'habitBirthdayPluralText')
 
 +achievWithSimpleCount('profile.achievements.snowball', 'achievement-snowball',
   'annoyingFriends', 'annoyingFriendsText')
@@ -44,12 +36,8 @@
   small
     =env.t('achievementBewilderText')
 
-+achiev('profile.achievements.costumeContests', 'achievement-costumeContest')
-  h5=env.t('costumeContest')
-  small(ng-if='::!(profile.achievements.costumeContests > 1)')
-    !=env.t('costumeContestText')
-  small(ng-if='::profile.achievements.costumeContests > 1')
-    !=env.t('costumeContestTextPlural', {number: "{{::profile.achievements.costumeContests}}"})
++achievWithSingularPlural('profile.achievements.costumeContests', 'achievement-costumeContest',
+  'costumeContest', 'costumeContestText', 'costumeContest', 'costumeContestTextPlural')
 
 each card in ['greeting', 'thankyou', 'nye', 'valentine', 'birthday']
   +achievWithSimpleCount('profile.achievements.' + card, 'achievement-' + card,

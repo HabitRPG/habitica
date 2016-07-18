@@ -1,9 +1,5 @@
-+achiev('profile.achievements.habitSurveys', 'achievement-tree')
-  h5=env.t('helped')
-  small(ng-if='::!(profile.achievements.habitSurveys > 1)')
-    =env.t('surveysSingle')
-  small(ng-if='::profile.achievements.habitSurveys > 1')
-    =env.t('surveysMultiple', {surveys: "{{::profile.achievements.habitSurveys}}"})
++achievWithSingularPlural('profile.achievements.habitSurveys', 'achievement-tree',
+  'helped', 'surveysSingle', 'helped', 'surveysMultiple')
 
 +achiev('profile.backer.npc', 'achievement-helm')
   h5(ng-if='::profile.backer.npc')

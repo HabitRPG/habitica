@@ -13,6 +13,17 @@ mixin achievWithSimpleCount(countVal, spriteName, title, desc)
     small(ng-if='::#{countVal}')
       =env.t(desc, {count: "{{::" + countVal + "}}"})
 
+mixin achievWithSingularPlural(countVal, spriteName, sgTitle, sgDesc, plTitle, plDesc)
+  +achiev(countVal, spriteName)
+    h5(ng-if='::#{countVal} > 1')
+      =env.t(plTitle, {count: "{{::" + countVal + "}}"})
+    small(ng-if='::#{countVal} > 1')
+      =env.t(plDesc, {count: "{{::" + countVal + "}}"})
+    h5(ng-if='::!(#{countVal} > 1)')
+      =env.t(sgTitle)
+    small(ng-if='::!(#{countVal} > 1)')
+      =env.t(sgDesc)
+
 
 if mobile
   .item.item-divider=env.t('achievements')
