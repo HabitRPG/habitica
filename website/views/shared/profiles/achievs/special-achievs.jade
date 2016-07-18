@@ -27,10 +27,6 @@
     =env.t('kickstartNameNoTier')
   small=env.t('kickstartText')
 
-+achiev('profile.achievements.veteran', 'achievement-cake')
-  h5=env.t('veteran')
-  small=env.t('veteranText')
++simpleAchiev('profile.achievements.veteran', 'achievement-cake', env.t('veteran'), env.t('veteranText'))
 
-+achiev('profile.achievements.originalUser', 'achievement-alpha')
-  h5=env.t('originalUser')
-  small!=env.t('originalUserText')
++simpleAchiev('profile.achievements.originalUser', 'achievement-alpha', env.t('originalUser'), env.t('originalUserText'))

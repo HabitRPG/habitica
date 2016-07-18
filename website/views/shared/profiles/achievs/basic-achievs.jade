@@ -4,13 +4,9 @@
 +achievWithSingularPlural('profile.achievements.perfect', 'achievement-perfect',
   'perfectSingular', 'perfectSingularText', 'perfectName', 'perfectText')
 
-+achiev('profile.achievements.partyUp', 'achievement-partyUp')
-  h5=env.t('partyUpName')
-  small=env.t('partyUpAchievement')
++simpleAchiev('profile.achievements.partyUp', 'achievement-partyUp', env.t('partyUpName'), env.t('partyUpAchievement'))
 
-+achiev('profile.achievements.partyOn', 'achievement-partyOn')
-  h5=env.t('partyOnName')
-  small=env.t('partyOnAchievement')
++simpleAchiev('profile.achievements.partyOn', 'achievement-partyOn', env.t('partyOnName'), env.t('partyOnAchievement'))
 
 +achiev('profile.achievements.beastMaster', 'achievement-rat')
   h5=env.t('beastMasterName')
@@ -31,13 +27,11 @@
     =env.t('triadBingoText2', {count: "{{::profile.achievements.triadBingoCount}}"})
 
 each ultClass in ['healer', 'rogue', 'warrior']
-  +achiev('profile.achievements.ultimateGearSets.' + ultClass, 'achievement-ultimate-' + ultClass)
-    h5=env.t('ultimGearName', {ultClass: env.t(ultClass)})
-    small=env.t(ultClass + 'UltimGearText')
+  +simpleAchiev('profile.achievements.ultimateGearSets.' + ultClass, 'achievement-ultimate-' + ultClass,
+    env.t('ultimGearName', {ultClass: env.t(ultClass)}), env.t(ultClass + 'UltimGearText'))
 
-+achiev('profile.achievements.ultimateGearSets.wizard', 'achievement-ultimate-mage')
-  h5=env.t('ultimGearName', {ultClass: env.t('mage')})
-  small=env.t('mageUltimGearText')
++simpleAchiev('profile.achievements.ultimateGearSets.wizard', 'achievement-ultimate-mage',
+  env.t('ultimGearName', {ultClass: env.t('mage')}), env.t('mageUltimGearText'))
 
 +achiev('profile.achievements.rebirths', 'achievement-sun')
   h5(ng-if='::!(profile.achievements.rebirths > 1)')
