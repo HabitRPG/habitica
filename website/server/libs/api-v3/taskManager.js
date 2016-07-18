@@ -1,7 +1,5 @@
 import * as Tasks from '../../models/task';
 import {
-  NotFound,
-  NotAuthorized,
   BadRequest,
 } from '../api-v3/errors';
 import Bluebird from 'bluebird';

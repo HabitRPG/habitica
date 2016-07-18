@@ -1,22 +1,14 @@
 import { authWithHeaders } from '../../../middlewares/api-v3/auth';
-import { sendTaskWebhook } from '../../../libs/api-v3/webhook';
-import { removeFromArray } from '../../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../../models/task';
-import { model as Challenge } from '../../../models/challenge';
 import { model as Group } from '../../../models/group';
 import {
   NotFound,
   NotAuthorized,
-  BadRequest,
 } from '../../../libs/api-v3/errors';
 import {
   _createTasks,
   _getTasks,
 } from '../../../libs/api-v3/taskManager';
-import common from '../../../../../common';
-import Bluebird from 'bluebird';
-import _ from 'lodash';
-import logger from '../../../libs/api-v3/logger';
 
 let api = {};
 
@@ -48,7 +40,7 @@ api.createGroupTasks = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    let tasks = await _createTasks(req, res, {user, null, group});
+    let tasks = await _createTasks(req, res, {user, undefined, group});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
@@ -84,7 +76,7 @@ api.getGroupTasks = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    return await _getTasks(req, res, {user, null, group});
+    return await _getTasks(req, res, {user, undefined, group});
   },
 };
 
