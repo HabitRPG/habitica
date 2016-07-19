@@ -80,7 +80,7 @@ api.getTimeTravelerShopItems = {
     let resObject = {
       identifier: 'timeTravelersShop',
       text: res.t('timeTravelers'),
-      notes: user.purchased.plan.consecutive.trinkets > 0 ? res.t('timeTravelersPopover'): res.t('timeTravelersPopoverNoSub', {linkStart: "<a href='https://habitica.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"}),
+      notes: user.purchased.plan.consecutive.trinkets > 0 ? res.t('timeTravelersPopover') : res.t('timeTravelersPopoverNoSubMobile'),
       imageName: user.purchased.plan.consecutive.trinkets > 0 ? 'npc_timetravelers_active' : 'npc_timetravelers',
       categories: shops.getTimeTravelersCategories(user, req.language),
     };

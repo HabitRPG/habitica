@@ -2,9 +2,8 @@ import shared from '../../../common';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import i18n from '../../../common/script/i18n';
 
-describe.only('shops', () => {
+describe('shops', () => {
   let user = generateUser();
 
   describe('market', () => {

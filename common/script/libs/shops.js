@@ -90,14 +90,14 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
         notes: quest.notes(language),
         value: quest.goldValue ? quest.goldValue : quest.value,
         currency: quest.goldValue ? 'gold' : 'gems',
-        locked: locked,
+        locked,
         unlockCondition: quest.unlockCondition,
         drop: quest.drop,
         boss: quest.boss,
         collect: quest.collect,
         lvl: quest.lvl,
         class: locked ? `inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll_${quest.key}`,
-        purchaseType: 'quests'
+        purchaseType: 'quests',
       };
     }).value();
 
@@ -124,7 +124,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
           key,
           text: content.timeTravelStable[type][key](language),
           class: stable[type] + key,
-          type: type,
+          type,
           purchaseType: type,
           value: 1,
           notes: '',
@@ -158,7 +158,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
         value: 1,
         locked: false,
         currency: 'hourglasses',
-        class: `shop_${item.key}`
+        class: `shop_${item.key}`,
       };
     });
 
@@ -191,7 +191,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
     let flatGearArray = _.toArray(content.gear.flat);
 
-    category.items = _(flatGearArray).filter(function (gear) {
+    category.items = _(flatGearArray).filter((gear) => {
       if (gear.index !== key) {
         return false;
       }
