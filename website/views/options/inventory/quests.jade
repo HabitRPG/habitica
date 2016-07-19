@@ -21,7 +21,7 @@ include ../../shared/mixins
         div(ng-repeat='category in questShopCategories')
           menu.pets-menu(label='{{category.text}}')
             div(ng-repeat='quest in category.items')
-              button.customize-option(ng-class='quest.locked ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
+              button.customize-option(ng-class='quest.class',
                 data-popover-html="{{quest.locked ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
                 popover-title='{{quest.text}}', popover-append-to-body="true",
                 popover-trigger='mouseenter', ng-click='buyQuest(quest.key)')
@@ -31,7 +31,7 @@ include ../../shared/mixins
                 |  {{::quest.value}}&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems
               p(ng-if='category.identifier === "gold" && !quest.locked')
-                |  {{::quest.goldValue}}&nbsp;
+                |  {{::quest.value}}&nbsp;
                 span.shop_gold
               p(ng-if='quest.lvl && quest.locked')=env.t('level')
                 |  {{::quest.lvl}}

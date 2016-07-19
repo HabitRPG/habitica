@@ -355,7 +355,7 @@ habitrpg.controller("InventoryCtrl",
     $scope.marketShopCategories = Shared.shops.getMarketCategories(user);
     $scope.questShopCategories = Shared.shops.getQuestShopCategories(user);
     $scope.timeTravelersCategories = Shared.shops.getTimeTravelersCategories(user);
-    $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories();
+    $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories(user);
 
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);

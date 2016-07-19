@@ -23,6 +23,8 @@ api.getMarketItems = {
     let resObject = {
       identifier: 'market',
       text: res.t('market'),
+      notes: res.t('welcomeMarketMobile'),
+      imageName: 'npc_alex',
       categories: shops.getMarketCategories(user, req.language),
     };
 
@@ -50,6 +52,7 @@ api.getQuestShopItems = {
     let resObject = {
       identifier: 'questShop',
       text: res.t('quests'),
+      imageName: 'npc_ian',
       categories: shops.getQuestShopCategories(user, req.language),
     };
 
@@ -76,7 +79,9 @@ api.getTimeTravelerShopItems = {
 
     let resObject = {
       identifier: 'timeTravelersShop',
-      text: res.t('timeTravelersShop'),
+      text: res.t('timeTravelers'),
+      notes: user.purchased.plan.consecutive.trinkets > 0 ? res.t('timeTravelersPopover'): res.t('timeTravelersPopoverNoSub', {linkStart: "<a href='https://habitica.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"}),
+      imageName: user.purchased.plan.consecutive.trinkets > 0 ? 'npc_timetravelers_active' : 'npc_timetravelers',
       categories: shops.getTimeTravelersCategories(user, req.language),
     };
 
@@ -104,6 +109,8 @@ api.getSeasonalShopItems = {
     let resObject = {
       identifier: 'seasonalShop',
       text: res.t('seasonalShop'),
+      notes: res.t('seasonalShopSummerText'),
+      imageName: 'seasonalshop_open',
       categories: shops.getSeasonalShopCategories(user, req.language),
     };
 

@@ -26,6 +26,7 @@ shops.getMarketCategories = function getMarket (user, language) {
       class: `Pet_Egg_${egg.key}`,
       locked: false,
       currency: 'gems',
+      purchaseType: 'eggs',
     };
   }).sortBy('key').value();
   categories.push(eggsCategory);
@@ -44,6 +45,7 @@ shops.getMarketCategories = function getMarket (user, language) {
       value: hatchingPotion.value,
       locked: false,
       currency: 'gems',
+      purchaseType: 'hatchingpotions',
     };
   }).sortBy('key').value();
   categories.push(hatchingPotionsCategory);
@@ -62,6 +64,7 @@ shops.getMarketCategories = function getMarket (user, language) {
       value: foodItem.value,
       locked: false,
       currency: 'gems',
+      purchaseType: 'food',
     };
   }).sortBy('key').value();
   categories.push(foodCategory);
@@ -80,17 +83,21 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     };
 
     category.items = _(content.questsByLevel).filter(quest => quest.canBuy(user) && quest.category === type).map(quest => {
+      let locked = lockQuest(quest, user);
       return {
         key: quest.key,
         text: quest.text(language),
         notes: quest.notes(language),
-        value: quest.value,
-        locked: lockQuest(quest, user),
+        value: quest.goldValue ? quest.goldValue : quest.value,
+        currency: quest.goldValue ? 'gold' : 'gems',
+        locked: locked,
         unlockCondition: quest.unlockCondition,
         drop: quest.drop,
         boss: quest.boss,
         collect: quest.collect,
         lvl: quest.lvl,
+        class: locked ? `inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll_${quest.key}`,
+        purchaseType: 'quests'
       };
     }).value();
 
@@ -117,6 +124,9 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
           key,
           text: content.timeTravelStable[type][key](language),
           class: stable[type] + key,
+          purchaseType: type,
+          value: 1,
+          currency: 'hourglasses',
         };
         category.items.push(item);
       }
@@ -141,6 +151,9 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
         text: item.text(language),
         notes: item.notes(language),
         type: item.type,
+        purchaseType: 'gear',
+        value: 1,
+        currency: 'hourglasses',
       };
     });
 
@@ -151,7 +164,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 };
 
 
-shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) {
+shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   let availableSets = {
     summerWarrior: i18n.t('daringSwashbucklerSet', language),
     summerMage: i18n.t('emeraldMermageSet', language),
@@ -173,16 +186,23 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (language) 
 
     let flatGearArray = _.toArray(content.gear.flat);
 
-    category.items = _(flatGearArray).where({index: key}).map(gear => {
+    category.items = _(flatGearArray).filter(function (gear) {
+      if (gear.index !== key) {
+        return false;
+      }
+      console.log(user.items.gear.owned);
+      return user.items.gear.owned[gear.key] !== true;
+    }).where({index: key}).map(gear => {
       return {
         key: gear.key,
         text: gear.text(language),
         notes: gear.notes(language),
-        value: gear.value,
+        value: 1,
         type: gear.type,
         specialClass: gear.specialClass,
         locked: false,
         currency: 'gems',
+        purchaseType: 'gear',
       };
     }).value();
     categories.push(category);
