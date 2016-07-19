@@ -246,7 +246,7 @@ export let DailySchema = new Schema(_.defaults({
   frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly', 'sinceCompletion', 'timesInInterval']}, // 'Every X Interval', 'Certain Days of the Week', 'Every X Interval Since Completion', 'Y Times in X Interval'
   everyX: {type: Number, default: 1}, // e.g. once every X weeks
   completionTarget: {type: Number, default: 1}, // the Y in 'Y Times in X Interval'. How many successes are needed in the timeframe
-  intervalUnit: {type: String, default: 'days', enum: ['days', 'weeks', 'months', 'years'], // The 'Interval' in most frequencies
+  intervalUnit: {type: String, default: 'days', enum: ['days', 'weeks', 'months', 'years']}, // The 'Interval' in most frequencies
   startDate: {
     type: Date,
     default () {
