@@ -255,7 +255,7 @@ export let DailySchema = new Schema(_.defaults({
   },
   schedule: {type: Schema.Types.Mixed, default: () => {
     return {};
-  },
+  }},
   repeat: { // used only for 'weekly' frequency,
     m: {type: Boolean, default: true},
     t: {type: Boolean, default: true},
