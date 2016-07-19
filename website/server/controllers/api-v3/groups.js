@@ -466,8 +466,8 @@ api.removeGroupMember = {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') {
-        user.invitations.party = {};
-        user.markModified('invitations.party');
+        member.invitations.party = {};
+        member.markModified('invitations.party');
       }
     } else {
       throw new NotFound(res.t('groupMemberNotFound'));
@@ -514,6 +514,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
 
     userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
+    return userToInvite.save();
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';

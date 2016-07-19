@@ -128,6 +128,10 @@ export async function createAndPopulateGroup (settings = {}) {
 
   await Bluebird.all(invitationPromises);
 
+  await Bluebird.all(invitees.map((invitee) => {
+    return invitee.sync();
+  }));
+
   return {
     groupLeader,
     group,
