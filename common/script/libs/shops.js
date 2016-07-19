@@ -124,8 +124,11 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
           key,
           text: content.timeTravelStable[type][key](language),
           class: stable[type] + key,
+          type: type,
           purchaseType: type,
           value: 1,
+          notes: '',
+          locked: false,
           currency: 'hourglasses',
         };
         category.items.push(item);
@@ -153,7 +156,9 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
         type: item.type,
         purchaseType: 'gear',
         value: 1,
+        locked: false,
         currency: 'hourglasses',
+        class: `shop_${item.key}`
       };
     });
 
@@ -190,7 +195,6 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       if (gear.index !== key) {
         return false;
       }
-      console.log(user.items.gear.owned);
       return user.items.gear.owned[gear.key] !== true;
     }).where({index: key}).map(gear => {
       return {
