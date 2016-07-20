@@ -243,10 +243,28 @@ export let HabitSchema = new Schema(_.defaults({
 export let habit = Task.discriminator('habit', HabitSchema);
 
 export let DailySchema = new Schema(_.defaults({
-  frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly', 'sinceCompletion', 'timesInInterval']}, // 'Every X Interval', 'Certain Days of the Week', 'Every X Interval Since Completion', 'Y Times in X Interval'
+  frequency: {
+    type: String, 
+    default: 'weekly', 
+    enum: [
+      'daily', // Every X Interval
+      'weekly', // Certain Days of the Week
+      'sinceCompletion', // Every X Interval Since Completion
+      'timesInInterval', // Y Times in X Interval
+    ],
+  },
   everyX: {type: Number, default: 1}, // e.g. once every X weeks
   completionTarget: {type: Number, default: 1}, // the Y in 'Y Times in X Interval'. How many successes are needed in the timeframe
-  intervalUnit: {type: String, default: 'days', enum: ['days', 'weeks', 'months', 'years']}, // The 'Interval' in most frequencies
+  intervalUnit: { // The 'Interval' in most frequencies
+    type: String, 
+    default: 'days', 
+    enum: [
+      'days', 
+      'weeks', 
+      'months', 
+      'years',
+    ],
+  },
   startDate: {
     type: Date,
     default () {
