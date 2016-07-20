@@ -9,16 +9,14 @@ import csvStringify from '../../libs/api-v3/csvStringify';
 import moment from 'moment';
 import js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
-import AWS from 'aws-sdk';
 import nconf from 'nconf';
 import got from 'got';
 import Bluebird from 'bluebird';
 import locals from '../../middlewares/api-v3/locals';
+import {
+  S3,
+} from '../../libs/api-v3/aws';
 
-let S3 = new AWS.S3({
-  accessKeyId: nconf.get('S3:accessKeyId'),
-  secretAccessKey: nconf.get('S3:secretAccessKey'),
-});
 const S3_BUCKET = nconf.get('S3:bucket');
 
 const BASE_URL = nconf.get('BASE_URL');
@@ -177,7 +175,7 @@ api.exportUserAvatarHtml = {
 };
 
 /**
- * @api {get} /export/avatar-:uuid.html Export a user avatar as a PNG file
+ * @api {get} /export/avatar-:uuid.png Render a user avatar as a PNG file
  * @apiVersion 3.0.0
  * @apiName ExportUserAvatarPng
  * @apiGroup DataExport
@@ -203,7 +201,8 @@ api.exportUserAvatarPng = {
     try {
       response = await got.head(s3url);
     } catch (gotError) {
-      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode !== 404) {
+      // If the file does not exist AWS S3 can return a 403 error
+      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode !== 404 && gotError.statusCode !== 403) {
         throw gotError;
       }
     }

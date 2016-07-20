@@ -17,7 +17,6 @@ import './libs/api-v3/i18n';
 
 // Load config files
 import './libs/api-v3/setupMongoose';
-import './libs/api-v3/firebase';
 import './libs/api-v3/setupPassport';
 
 // Load some schemas & models

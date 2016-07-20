@@ -13,7 +13,6 @@ import {
 import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import * as firebase from '../../libs/api-v3/firebase';
 import * as passwordUtils from '../../libs/api-v3/password';
 
 let api = {};
@@ -230,8 +229,6 @@ api.deleteUser = {
     await user.remove();
 
     res.respond(200, {});
-
-    firebase.deleteUser(user._id);
   },
 };
 
@@ -737,7 +734,7 @@ api.equip = {
 };
 
 /**
- * @api {post} /api/v3/user/equip/:pet/:food Feed a pet
+ * @api {post} /api/v3/user/feed/:pet/:food Feed a pet
  * @apiVersion 3.0.0
  * @apiName UserFeed
  * @apiGroup User
@@ -859,7 +856,7 @@ api.userPurchaseHourglass = {
 };
 
 /**
-* @api {post} /api/v3/user/read-card/:cardType Reads a card
+* @api {post} /api/v3/user/read-card/:cardType Read a card
 * @apiVersion 3.0.0
 * @apiName UserReadCard
 * @apiGroup User
@@ -888,7 +885,7 @@ api.readCard = {
 * @apiName UserOpenMysteryItem
 * @apiGroup User
 *
-* @apiSuccess {Object} data user.items.gear.owned
+* @apiSuccess {Object} data The item obtained
 * @apiSuccess {string} message Success message
 */
 api.userOpenMysteryItem = {
@@ -1267,32 +1264,6 @@ api.userReroll = {
 };
 
 /**
-* @api {post} /api/v3/user/addPushDevice Add a push device to a user
-* @apiVersion 3.0.0
-* @apiName UserAddPushDevice
-* @apiGroup User
-*
-* @apiParam {string} regId The id of the push device
-* @apiParam {string} uuid The type of push device
-*
-* @apiSuccess {Object} data List of push devices
-* @apiSuccess {string} message Success message
-*/
-api.userAddPushDevice = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/addPushDevice',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    let addPushDeviceRes = common.ops.addPushDevice(user, req);
-    await user.save();
-
-    res.respond(200, ...addPushDeviceRes);
-  },
-};
-
-/**
 * @api {post} /api/v3/user/reset Reset user
 * @apiVersion 3.0.0
 * @apiName UserReset
@@ -1329,7 +1300,7 @@ api.userReset = {
 };
 
 /**
-* @api {post} /api/v3/user/custom-day-start Sets preferences.dayStart for user
+* @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
 * @apiVersion 3.0.0
 * @apiName setCustomDayStart
 * @apiGroup User

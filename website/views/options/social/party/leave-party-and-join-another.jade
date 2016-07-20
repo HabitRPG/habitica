@@ -5,4 +5,4 @@
       p {{::env.t('invitedToNewParty', { partyName: #{newParty}.name })}}
       p
         button.btn.btn-success(ng-click='leaveOldPartyAndJoinNewParty(#{newParty}.id, #{newParty}.name)')=env.t('joinNewParty')
-        button.btn.btn-default(ng-click='reject()')=env.t('declineInvitation')
+        button.btn.btn-default(ng-click='reject(#{newParty})')=env.t('declineInvitation')

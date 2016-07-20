@@ -208,8 +208,8 @@ api.getMembersForChallenge = {
 /**
  * @api {get} /api/v3/challenges/:challengeId/members/:memberId Get a challenge member progress
  * @apiVersion 3.0.0
- * @apiName GetChallenge
- * @apiGroup Challenge
+ * @apiName GetChallengeMemberProgress
+ * @apiGroup Member
  *
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {UUID} member The member _id
@@ -259,10 +259,10 @@ api.getChallengeMemberProgress = {
 };
 
 /**
- * @api {posts} /members/send-private-message Send a private message to a member
+ * @api {posts} /api/v3/members/send-private-message Send a private message to a member
  * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
- * @apiGroup Members
+ * @apiGroup Member
  *
  * @apiParam {String} message Body parameter - The message
  * @apiParam {UUID} toUserId Body parameter - The user to contact
@@ -302,16 +302,28 @@ api.sendPrivateMessage = {
         {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
       ]);
     }
+    if (receiver.preferences.pushNotifications.newPM !== false) {
+      sendPushNotification(
+        receiver,
+        {
+          title: res.t('newPM'),
+          message: res.t('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
+          identifier: 'newPM',
+          category: 'newPM',
+          payload: {replyTo: sender._id},
+        }
+      );
+    }
 
     res.respond(200, {});
   },
 };
 
 /**
- * @api {posts} /members/transfer-gems Send a gem gift to a member
+ * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiVersion 3.0.0
  * @apiName TransferGems
- * @apiGroup Members
+ * @apiGroup Member
  *
  * @apiParam {String} message Body parameter The message
  * @apiParam {UUID} toUserId Body parameter The toUser _id
@@ -356,6 +368,7 @@ api.transferGems = {
       senderName: sender.profile.name,
     });
     message += res.t('privateMessageGiftGemsMessage', {gemAmount});
+    message =  `\`${message}\` `;
 
     if (req.body.message) {
       message += req.body.message;
@@ -371,8 +384,15 @@ api.transferGems = {
         {name: 'X_GEMS_GIFTED', content: gemAmount},
       ]);
     }
-
-    sendPushNotification(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
+    if (receiver.preferences.pushNotifications.giftedGems !== false) {
+      sendPushNotification(receiver,
+        {
+          title: res.t('giftedGems'),
+          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+          identifier: 'giftedGems',
+          payload: {replyTo: sender._id},
+        });
+    }
 
     res.respond(200, {});
   },

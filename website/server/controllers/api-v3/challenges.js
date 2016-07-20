@@ -111,7 +111,7 @@ api.createChallenge = {
 };
 
 /**
- * @api {post} /api/v3/challenges/:challengeId/join Joins a challenge
+ * @api {post} /api/v3/challenges/:challengeId/join Join a challenge
  * @apiVersion 3.0.0
  * @apiName JoinChallenge
  * @apiGroup Challenge
@@ -158,7 +158,7 @@ api.joinChallenge = {
 };
 
 /**
- * @api {post} /api/v3/challenges/:challengeId/leave Leaves a challenge
+ * @api {post} /api/v3/challenges/:challengeId/leave Leave a challenge
  * @apiVersion 3.0.0
  * @apiName LeaveChallenge
  * @apiGroup Challenge
@@ -201,7 +201,7 @@ api.leaveChallenge = {
  * @apiName GetUserChallenges
  * @apiGroup Challenge
  *
- * @apiSuccess {Array} data An array of challenges
+ * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
  */
 api.getUserChallenges = {
   method: 'GET',
@@ -216,9 +216,8 @@ api.getUserChallenges = {
         {group: {$in: user.getGroups()}}, // Challenges in groups where I'm a member
         {leader: user._id}, // Challenges where I'm the leader
       ],
-      _id: {$ne: '95533e05-1ff9-4e46-970b-d77219f199e9'}, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug TODO revisit
     })
-    .sort('-official -timestamp')
+    .sort('-official -createdAt')
     // see below why we're not using populate
     // .populate('group', basicGroupFields)
     // .populate('leader', nameFields)
@@ -241,7 +240,7 @@ api.getUserChallenges = {
 };
 
 /**
- * @api {get} /api/v3/challenges/group/group:Id Get challenges for a group
+ * @api {get} /api/v3/challenges/group/:groupId Get challenges for a group
  * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
  * @apiVersion 3.0.0
  * @apiName GetGroupChallenges
@@ -249,7 +248,7 @@ api.getUserChallenges = {
  *
  * @apiParam {groupId} groupId The group _id
  *
- * @apiSuccess {Array} data An array of challenges
+ * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
  */
 api.getGroupChallenges = {
   method: 'GET',
@@ -268,7 +267,7 @@ api.getGroupChallenges = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let challenges = await Challenge.find({group: groupId})
-      .sort('-official -timestamp')
+      .sort('-official -createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 

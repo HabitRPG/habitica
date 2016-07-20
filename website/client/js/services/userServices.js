@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content', 'UserNotifications',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content, UserNotifications) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -37,11 +37,6 @@ angular.module('habitrpg')
 
       //first we populate user with schema
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
-
-      //than we try to load localStorage
-      if (localStorage.getItem(STORAGE_USER_ID)) {
-        _.extend(user, JSON.parse(localStorage.getItem(STORAGE_USER_ID)));
-      }
 
       user._wrapped = false;
 
@@ -75,16 +70,21 @@ angular.module('habitrpg')
       }
 
       function sync() {
+        var tasks;
+
         return $http({
           method: "GET",
           url: '/api/v3/user/',
+          ignoreLoadingBar: $rootScope.appLoaded !== true,
         })
         .then(function (response) {
           if (response.data.message) Notification.text(response.data.message);
 
           _.extend(user, response.data.data);
 
-          $rootScope.$emit('userUpdated', user);
+          if (!user.filters) {
+            user.filters = {};
+          }
 
           if (!user._wrapped) {
             // This wraps user with `ops`, which are functions shared both on client and mobile. When performed on client,
@@ -105,17 +105,37 @@ angular.module('habitrpg')
 
           return Tasks.getUserTasks();
         })
+        // refresh all but completed todos
         .then(function (response) {
-          var tasks = response.data.data;
+          tasks = response.data.data;
+
+          // only refresh completed todos if the user has the completed tabs list open
+          if ($rootScope.lists && $rootScope.$state && $rootScope.$state.current.name == 'tasks' && _.find($rootScope.lists, {'type':'todo'}).view == 'complete') {
+            return Tasks.getUserTasks(true)
+          }
+        })
+        // refresh completed todos
+        .then(function (response) {
+          if (response) {
+            tasks.push.apply(tasks, response.data.data);
+          }
+
+          Tasks.loadedCompletedTodos = Boolean(response);
+        })
+        .then(function() {
           syncUserTasks(tasks);
-          save();
+          if ($rootScope.$state && $rootScope.$state.current.name=='options.social.inbox' && user.inbox.newMessages > 0) {
+            userServices.clearNewMessages();
+          }
           $rootScope.$emit('userSynced');
+          $rootScope.appLoaded = true;
+          $rootScope.$emit('userUpdated', user);
         });
       }
 
       var save = function () {
-        localStorage.setItem(STORAGE_USER_ID, JSON.stringify(user));
         localStorage.setItem(STORAGE_SETTINGS_ID, JSON.stringify(settings));
+        localStorage.removeItem(STORAGE_USER_ID); // TODO remember to remove once it's been live for a few days
       };
 
       function callOpsFunctionAndRequest (opName, endPoint, method, paramString, opData) {
@@ -130,7 +150,7 @@ angular.module('habitrpg')
           }
 
           args.push(opData);
-          clientResponse = $window.habitrpgShared.ops[opName].apply(null, args);
+          clientResponse = habitrpgShared.ops[opName].apply(null, args);
         } catch (err) {
           Notification.text(err.message);
           return;
@@ -156,14 +176,17 @@ angular.module('habitrpg')
         $http({
           method: method,
           url: url + queryString,
-          body: body,
+          data: body,
         })
         .then(function (response) {
           if (response.data.message && response.data.message !== clientMessage) {
             Notification.text(response.data.message);
           }
-
-          save();
+          if (opName === 'openMysteryItem') {
+            var openedItem = clientResponse[0];
+            var text = Content.gear.flat[openedItem.key].text();
+            Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), openedItem);
+          }
         })
       }
 
@@ -209,7 +232,6 @@ angular.module('habitrpg')
           } else {
             user.ops.addTask(data);
           }
-          save();
           Tasks.createUserTasks(data.body);
         },
 
@@ -220,60 +242,99 @@ angular.module('habitrpg')
             Notification.text(err.message);
             return;
           }
-          save();
 
           Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
+            var crit = tmp.crit;
             var drop = tmp.drop;
 
-            if (drop) user._tmp.drop = drop;
+            if (crit) {
+              var critBonus = crit * 100 - 100;
+              Notification.crit(critBonus);
+            }
+            if (drop) {
+              var text, notes, type;
+              $rootScope.playSound('Item_Drop');
+
+              // Note: For Mystery Item gear, drop.type will be 'head', 'armor', etc
+              // so we use drop.notificationType below.
+
+              if (drop.type !== 'gear' && drop.type !== 'Quest' && drop.notificationType !== 'Mystery') {
+                if (drop.type === 'Food') {
+                  type = 'food';
+                } else if (drop.type === 'HatchingPotion') {
+                  type = 'hatchingPotions';
+                } else {
+                  type = drop.type.toLowerCase() + 's';
+                }
+                if(!user.items[type][drop.key]){
+                  user.items[type][drop.key] = 0;
+                }
+                user.items[type][drop.key]++;
+              }
+
+              if (drop.type === 'HatchingPotion'){
+                text = Content.hatchingPotions[drop.key].text();
+                notes = Content.hatchingPotions[drop.key].notes();
+                Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}), drop);
+              } else if (drop.type === 'Egg'){
+                text = Content.eggs[drop.key].text();
+                notes = Content.eggs[drop.key].notes();
+                Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}), drop);
+              } else if (drop.type === 'Food'){
+                text = Content.food[drop.key].text();
+                notes = Content.food[drop.key].notes();
+                Notification.drop(env.t('messageDropFood', {dropArticle: drop.article, dropText: text, dropNotes: notes}), drop);
+              } else if (drop.type === 'Quest') {
+                $rootScope.selectedQuest = Content.quests[drop.key];
+                $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
+              } else {
+                // Keep support for another type of drops that might be added
+                Notification.drop(drop.dialog);
+              }
+
+              // Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
+            }
           });
         },
 
         sortTask: function (data) {
           user.ops.sortTask(data);
-          save();
           Tasks.moveTask(data.params.id, data.query.to);
         },
 
         updateTask: function (task, data) {
           $window.habitrpgShared.ops.updateTask(task, data);
-          save();
           Tasks.updateTask(task._id, data.body);
         },
 
         deleteTask: function (data) {
           user.ops.deleteTask(data);
-          save();
           Tasks.deleteTask(data.params.id);
         },
 
-        clearCompleted: function () {
-          user.ops.clearCompleted(user.todos);
-          save();
-          Tasks.clearCompletedTodos();
+        readNotification: function (notificationId) {
+          UserNotifications.readNotification(notificationId);
         },
 
         addTag: function(data) {
           user.ops.addTag(data);
-          save();
           Tags.createTag(data.body);
         },
 
         updateTag: function(data) {
           user.ops.updateTag(data);
-          save();
           Tags.updateTag(data.params.id, data.body);
         },
 
         sortTag: function (data) {
+          var fromId = user.tags[data.query.from].id;
           user.ops.sortTag(data);
-          Tags.sortTag(user.tags[data.query.from].id, data.query.to);
+          Tags.sortTag(fromId, data.query.to);
         },
 
         deleteTag: function(data) {
           user.ops.deleteTag(data);
-          save();
           Tags.deleteTag(data.params.id);
         },
 
@@ -442,7 +503,6 @@ angular.module('habitrpg')
             data: updates,
           })
           .then(function () {
-            save();
             $rootScope.$emit('userSynced');
           })
         },
@@ -472,15 +532,15 @@ angular.module('habitrpg')
         },
 
         addWebhook: function (data) {
-          callOpsFunctionAndRequest('addWebhook', 'webhook', "POST", '', data, data.body);
+          callOpsFunctionAndRequest('addWebhook', 'webhook', "POST", '', data);
         },
 
         updateWebhook: function (data) {
-          callOpsFunctionAndRequest('updateWebhook', 'webhook', "PUT", data.params.id, data, data.body);
+          callOpsFunctionAndRequest('updateWebhook', 'webhook', "PUT", data.params.id, data);
         },
 
         deleteWebhook: function (data) {
-          callOpsFunctionAndRequest('deleteWebhook', 'webhook', "DELETE", data.params.id, data, data.body);
+          callOpsFunctionAndRequest('deleteWebhook', 'webhook', "DELETE", data.params.id, data);
         },
 
         sleep: function () {
@@ -556,9 +616,17 @@ angular.module('habitrpg')
       };
 
       //load settings if we have them
-      if (localStorage.getItem(STORAGE_SETTINGS_ID)) {
+      var storedSettings;
+      try {
+        storedSettings = localStorage.getItem(STORAGE_SETTINGS_ID) || {};
+        storedSettings = JSON.parse(storedSettings);
+      } catch (e) {
+        storedSettings = {};
+      }
+
+      if (storedSettings.auth && storedSettings.auth.apiId && storedSettings.auth.apiToken) {
         //use extend here to make sure we keep object reference in other angular controllers
-        _.extend(settings, JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID)));
+        _.extend(settings, storedSettings);
 
         //if settings were saved while fetch was in process reset the flag.
         settings.fetching = false;
@@ -569,7 +637,7 @@ angular.module('habitrpg')
       }
 
       //If user does not have ApiID that forward him to settings.
-      if (!settings.auth.apiId || !settings.auth.apiToken) {
+      if (!settings || !settings.auth || !settings.auth.apiId || !settings.auth.apiToken) {
         //var search = $location.search(); // FIXME this should be working, but it's returning an empty object when at a root url /?_id=...
         var search = $location.search($window.location.search.substring(1)).$$search; // so we use this fugly hack instead
         if (search.err) return alert(search.err);
@@ -581,7 +649,7 @@ angular.module('habitrpg')
           var isStaticOrSocial = $window.location.pathname.match(/^\/(static|social)/);
           if (!isStaticOrSocial){
             localStorage.clear();
-            $location.path('/logout');
+            $window.location.href = '/logout';
           }
         }
       } else {

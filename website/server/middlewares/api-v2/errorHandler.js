@@ -11,13 +11,6 @@ module.exports = function(err, req, res, next) {
     "\n\nbody: " + JSON.stringify(req.body) +
     (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
   logging.error(stack);
-  /*logging.loggly({
-    error: "Uncaught error",
-    stack: (err.stack || err.message || err),
-    body: req.body, headers: req.header,
-    auth: req.headers['x-api-user'],
-    originalUrl: req.originalUrl
-  });*/
   var message = err.message ? err.message : err;
   message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
   res.status(500).json({err:message}); //res.end(err.message);

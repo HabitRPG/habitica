@@ -63,14 +63,14 @@ api.checkout = {
     req.session.gift = req.query.gift;
 
     let amount = 5.00;
-    let description = 'HabitRPG gems';
+    let description = 'Habitica Gems';
     if (gift) {
       if (gift.type === 'gems') {
         amount = Number(gift.gems.amount / 4).toFixed(2);
         description = `${description} (Gift)`;
       } else {
         amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
-        description = 'mo. HabitRPG Subscription (Gift)';
+        description = 'mo. Habitica Subscription (Gift)';
       }
     }
 
@@ -166,7 +166,7 @@ api.subscribe = {
       if (!coupon) throw new NotAuthorized(res.t('invalidCoupon'));
     }
 
-    let billingPlanTitle = `HabitRPG Subscription ($${sub.price} every ${sub.months} months, recurring)`;
+    let billingPlanTitle = `Habitica Subscription ($${sub.price} every ${sub.months} months, recurring)`;
     let billingAgreementAttributes = {
       name: billingPlanTitle,
       description: billingPlanTitle,
@@ -248,7 +248,7 @@ api.subscribeCancel = {
   },
 };
 
-// General IPN handler. We catch cancelled HabitRPG subscriptions for users who manually cancel their
+// General IPN handler. We catch cancelled Habitica subscriptions for users who manually cancel their
 // recurring paypal payments in their paypal dashboard. TODO ? Remove this when we can move to webhooks or some other solution
 
 /**

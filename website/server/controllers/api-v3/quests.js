@@ -106,11 +106,18 @@ api.inviteToQuest = {
     let inviterVars = getUserInfo(user, ['name', 'email']);
     let membersToEmail = members.filter(member => {
       // send push notifications while filtering members before sending emails
-      sendPushNotification(
-        member,
-        common.i18n.t('questInvitationTitle'),
-        common.i18n.t('questInvitationInfo', { quest: quest.text() })
-      );
+      if (member.preferences.pushNotifications.invitedQuest !== false) {
+        sendPushNotification(
+          member,
+          {
+            title: res.t('questInvitationTitle'),
+            message: res.t('questInvitationInfo', {quest: quest.text(req.language)}),
+            identifier: 'questInvitation',
+            category: 'questInvitation',
+          }
+
+        );
+      }
 
       return member.preferences.emailNotifications.invitedQuest !== false;
     });
@@ -301,7 +308,7 @@ api.forceStart = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/quests/cancel Cancels a quest
+ * @api {post} /api/v3/groups/:groupId/quests/cancel Cancel a quest that is not active
  * @apiVersion 3.0.0
  * @apiName CancelQuest
  * @apiGroup Group
@@ -403,7 +410,7 @@ api.abortQuest = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/quests/leave Leaves the active quest
+ * @api {post} /api/v3/groups/:groupId/quests/leave Leave the active quest
  * @apiVersion 3.0.0
  * @apiName LeaveQuest
  * @apiGroup Group

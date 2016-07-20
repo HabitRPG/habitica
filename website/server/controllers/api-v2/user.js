@@ -33,7 +33,6 @@ import v3UserController from '../api-v3/user';
 let i18n = shared.i18n;
 
 var api = module.exports;
-var firebase = require('../../libs/api-v2/firebase');
 var webhook = require('../../libs/api-v2/webhook');
 
 const partyMembersFields = 'profile.name stats achievements items.special';
@@ -468,7 +467,6 @@ api.delete = function(req, res, next) {
     return user.remove();
   })
   .then(() => {
-    firebase.deleteUser(user._id);
     res.sendStatus(200);
   })
   .catch(next);
@@ -657,6 +655,8 @@ api.cast = async function(req, res, next) {
       if (!task) {
         return res.status(404).json({err: 'Task "' + targetId + '" not found.'});
       }
+      if (task.challenge.id) return res.status(40).json({err: 'Cannot cast spell on challenge task.'});
+
 
       spell.cast(user, task, req);
       await task.save();
@@ -867,7 +867,20 @@ api.updateTask = function(req, res, next) {
     if(!task) return res.status(404).json({err: 'Task not found.'})
 
     try {
-      _.assign(task, shared.ops.updateTask(task.toObject(), req)[0]);
+      // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
+      let [updatedTaskObj] = shared.ops.updateTask(task.toObject(), req);
+
+      // Sanitize differently user tasks linked to a challenge
+      let sanitizedObj;
+
+      if (task.userId && task.challenge && task.challenge.id) {
+        sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
+      } else {
+        sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
+      }
+
+      _.assign(task, sanitizedObj);
+
       task.save(function(err, task){
         if(err) return next(err);
 

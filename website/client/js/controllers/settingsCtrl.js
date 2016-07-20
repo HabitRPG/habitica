@@ -247,7 +247,7 @@ habitrpg.controller('SettingsCtrl',
       $scope.hasWebhooks = _.size(webhooks);
     })
     $scope.addWebhook = function(url) {
-      User.addWebhook({body:{url:url, id:Shared.uuid()}});
+      User.addWebhook({body:{url:url, enabled:true}});
       $scope._newWebhook.url = '';
     }
     $scope.saveWebhook = function(id,webhook) {
@@ -259,7 +259,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.applyCoupon = function(coupon){
-      $http.get(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
+      $http.post(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
       .success(function(){
         Notification.text("Coupon applied!");
         var subs = Content.subscriptionBlocks;

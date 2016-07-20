@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Message not found! ",
     "messageGroupChatAdminClearFlagCount": "Only an admin be able to clear the flag count!",
     "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
-    "messageUserOperationNotFound": "<%= operation %> operation not be here"
+    "messageUserOperationNotFound": "<%= operation %> operation not be here",
+    "messageNotificationNotFound": "Notification not found."
 }

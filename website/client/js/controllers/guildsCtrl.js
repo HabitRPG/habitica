@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile', 'Analytics',
-    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile, Analytics) {
+habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile', 'Analytics', 'Pusher',
+    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile, Analytics, Pusher) {
       $scope.groups = {
         guilds: [],
         public: [],
@@ -64,6 +64,8 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
             } else {
               Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':false, 'groupType':'guild','privacy': joinedGroup.privacy})
             }
+
+            _.pull(User.user.invitations.guilds, group);
 
             $location.path('/options/groups/guilds/' + joinedGroup._id);
           });

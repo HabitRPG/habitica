@@ -1,6 +1,7 @@
 {
     "app": {
         "js": [
+            "bower_components/pusher-websocket-iso/dist/web/pusher.js",
             "bower_components/jquery/dist/jquery.min.js",
             "bower_components/jquery.cookie/jquery.cookie.js",
             "bower_components/pnotify/jquery.pnotify.min.js",
@@ -38,11 +39,11 @@
             "js/env.js",
 
             "js/app.js",
-            "common/script/public/config.js",
+            "js/config.js",
 
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
-            "common/script/public/directives.js",
+            "js/directives/directives.js",
             "js/services/analyticsServices.js",
             "js/services/groupServices.js",
             "js/services/chatServices.js",
@@ -55,8 +56,10 @@
             "js/services/questServices.js",
             "js/services/socialServices.js",
             "js/services/statServices.js",
+            "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/hallServices.js",
+            "js/services/pusherService.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",
@@ -131,6 +134,7 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/sharedServices.js",
             "js/services/socialServices.js",
@@ -173,6 +177,7 @@
             "js/services/statServices.js",
             "js/services/taskServices.js",
             "js/services/tagsServices.js",
+            "js/services/userNotificationsService.js",
             "js/services/userServices.js",
             "js/services/memberServices.js",
             "js/controllers/authCtrl.js",

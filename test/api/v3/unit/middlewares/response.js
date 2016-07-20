@@ -32,6 +32,7 @@ describe('response middleware', () => {
     expect(res.json).to.be.calledWith({
       success: true,
       data: {field: 1},
+      notifications: [],
     });
   });
 
@@ -47,6 +48,7 @@ describe('response middleware', () => {
       success: true,
       data: {field: 1},
       message: 'hello',
+      notifications: [],
     });
   });
 
@@ -61,6 +63,45 @@ describe('response middleware', () => {
     expect(res.json).to.be.calledWith({
       success: false,
       data: {field: 1},
+      notifications: [],
+    });
+  });
+
+  it('returns userV if a user is authenticated req.query.userV is passed', () => {
+    responseMiddleware(req, res, next);
+    req.query.userV = 3;
+    res.respond(200, {field: 1});
+
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.json).to.be.calledWith({
+      success: true,
+      data: {field: 1},
+      notifications: [],
+      userV: 0,
+    });
+  });
+
+  it('returns notifications if a user is authenticated', () => {
+    res.locals.user.notifications.push({type: 'NEW_CONTRIBUTOR_LEVEL'});
+    let notification = res.locals.user.notifications[0].toJSON();
+
+    responseMiddleware(req, res, next);
+    res.respond(200, {field: 1});
+
+    expect(res.json).to.be.calledOnce;
+
+    expect(res.json).to.be.calledWith({
+      success: true,
+      data: {field: 1},
+      notifications: [
+        {
+          type: notification.type,
+          id: notification.id,
+          createdAt: notification.createdAt,
+          data: {},
+        },
+      ],
     });
   });
 });

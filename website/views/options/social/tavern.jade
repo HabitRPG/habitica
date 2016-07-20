@@ -51,7 +51,7 @@
                 a(target='_blank', href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html')=env.t('dataTool')
             tr
               td
-                a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportAP')
+                a(target='_blank', href='https://habitica.com/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac')=env.t('reportAP')
             tr
               td
                 a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')= ' ' + env.t('requestAF')
@@ -148,7 +148,7 @@
       h3=env.t('tavernTalk')
       include ./chat-box
       .alert.alert-info.alert-sm
-        != ' ' + env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.<br />' + env.t('moderatorIntro1')
+        != ' ' + env.t('tavernAlert1') + ' <a href="https://habitica.com/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac" target="_blank">' + env.t('tavernAlert2') + '</a>!<br />' + env.t('moderatorIntro1')
         //- FIXME this could be rendered server-side?
         span(ng-repeat='mod in env.mods')
           |&nbsp; &nbsp;

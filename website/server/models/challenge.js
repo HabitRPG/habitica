@@ -15,7 +15,7 @@ import { sendTxn as txnEmail } from '../libs/api-v3/email';
 import sendPushNotification from '../libs/api-v3/pushNotifications';
 import cwait from 'cwait';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 let schema = new Schema({
   name: {type: String, required: true},
@@ -191,7 +191,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let challenge = this;
   let membersIds = await _fetchMembersIds(challenge._id);
 
-  let queue = new cwait.TaskQueue(Bluebird, 5); // process only 5 users concurrently
+  let queue = new cwait.TaskQueue(Bluebird, 25); // process only 5 users concurrently
 
   await Bluebird.map(membersIds, queue.wrap((memberId) => {
     return _addTaskFn(challenge, tasks, memberId);
@@ -286,14 +286,24 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   if (winner) {
     winner.achievements.challenges.push(challenge.name);
     winner.balance += challenge.prize / 4;
+
+    winner.addNotification('WON_CHALLENGE');
+
     let savedWinner = await winner.save();
+
     if (savedWinner.preferences.emailNotifications.wonChallenge !== false) {
       txnEmail(savedWinner, 'won-challenge', [
         {name: 'CHALLENGE_NAME', content: challenge.name},
       ]);
     }
-
-    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name);
+    if (savedWinner.preferences.pushNotifications.wonChallenge !== false) {
+      sendPushNotification(savedWinner,
+        {
+          title: challenge.name,
+          message: shared.i18n.t('wonChallenge'),
+          identifier: 'wonChallenge',
+        });
+    }
   }
 
   // Run some operations in the background withouth blocking the thread

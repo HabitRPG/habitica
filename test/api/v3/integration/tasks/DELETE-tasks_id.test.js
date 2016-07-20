@@ -6,7 +6,7 @@ import {
 describe('DELETE /tasks/:id', () => {
   let user;
 
-  before(async () => {
+  beforeEach(async () => {
     user = await generateUser();
   });
 
@@ -17,11 +17,22 @@ describe('DELETE /tasks/:id', () => {
       task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
+        alias: 'task-to-be-deleted',
       });
     });
 
     it('deletes a user\'s task', async () => {
       await user.del(`/tasks/${task._id}`);
+
+      await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('taskNotFound'),
+      });
+    });
+
+    it('can use a alias to delete a task', async () => {
+      await user.del(`/tasks/${task.alias}`);
 
       await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,

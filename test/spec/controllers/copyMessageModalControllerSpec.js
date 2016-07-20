@@ -4,7 +4,11 @@ describe("CopyMessageModal controller", function() {
   var scope, ctrl, user, Notification, $rootScope, $controller;
 
   beforeEach(function() {
-    module(function($provide) {});
+    module(function($provide) {
+      var mockWindow = {href: '', alert: sandbox.spy(), location: {search: '', pathname: '', href: ''}};
+
+      $provide.value('$window', mockWindow);
+    });
 
     inject(function($rootScope, _$controller_, _Notification_, User){
       user = specHelper.newUser();

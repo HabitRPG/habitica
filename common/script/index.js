@@ -17,13 +17,18 @@ import { shouldDo, daysSince } from './cron';
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
 
-// TODO under api.constants? and capitalize exported names too
 import {
   MAX_HEALTH,
   MAX_LEVEL,
   MAX_STAT_POINTS,
   TAVERN_ID,
+  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
 } from './constants';
+
+api.constants = {
+  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+};
+// TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
 api.maxHealth = MAX_HEALTH;
 api.maxStatPoints = MAX_STAT_POINTS;
@@ -138,7 +143,6 @@ import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
 import updateTask from './ops/updateTask';
-import clearCompleted from './ops/clearCompleted';
 import sell from './ops/sell';
 import unlock from './ops/unlock';
 import revive from './ops/revive';
@@ -147,7 +151,6 @@ import blockUser from './ops/blockUser';
 import clearPMs from './ops/clearPMs';
 import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
-import addPushDevice from './ops/addPushDevice';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
 
@@ -179,7 +182,6 @@ api.ops = {
   releaseBoth,
   releaseMounts,
   updateTask,
-  clearCompleted,
   sell,
   unlock,
   revive,
@@ -188,7 +190,6 @@ api.ops = {
   clearPMs,
   deletePM,
   reroll,
-  addPushDevice,
   reset,
   markPmsRead,
 };
@@ -242,6 +243,11 @@ api.wrap = function wrapUser (user, main = true) {
     user.markModified = function noopMarkModified () {};
   }
 
+  // same for addNotification
+  if (!user.addNotification) {
+    user.addNotification = function noopAddNotification () {};
+  }
+
   if (main) {
     user.ops = {
       update: _.partial(importedOps.update, user),
@@ -251,7 +257,6 @@ api.wrap = function wrapUser (user, main = true) {
       reroll: _.partial(importedOps.reroll, user),
       rebirth: _.partial(importedOps.rebirth, user),
       allocateNow: _.partial(importedOps.allocateNow, user),
-      clearCompleted: _.partial(importedOps.clearCompleted, user),
       sortTask: _.partial(importedOps.sortTask, user),
       updateTask: _.partial(importedOps.updateTask, user),
       deleteTask: _.partial(importedOps.deleteTask, user),
@@ -265,7 +270,6 @@ api.wrap = function wrapUser (user, main = true) {
       addWebhook: _.partial(importedOps.addWebhook, user),
       updateWebhook: _.partial(importedOps.updateWebhook, user),
       deleteWebhook: _.partial(importedOps.deleteWebhook, user),
-      addPushDevice: _.partial(importedOps.addPushDevice, user),
       clearPMs: _.partial(importedOps.clearPMs, user),
       deletePM: _.partial(importedOps.deletePM, user),
       blockUser: _.partial(importedOps.blockUser, user),

@@ -57,7 +57,7 @@ describe('POST /tasks/user', () => {
       let originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
       await expect(user.post('/tasks/user', {
         type: 'habit',
-      })).to.eventually.be.rejected.and.eql({ // this block is necessary
+      })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
@@ -72,7 +72,7 @@ describe('POST /tasks/user', () => {
       await expect(user.post('/tasks/user', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
-      ])).to.eventually.be.rejected.and.eql({ // this block is necessary
+      ])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
@@ -87,7 +87,7 @@ describe('POST /tasks/user', () => {
       await expect(user.post('/tasks/user', [
         {type: 'habit'}, // Missing text
         {type: 'habit', text: 'valid'}, // Valid
-      ])).to.eventually.be.rejected.and.eql({ // this block is necessary
+      ])).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: 'habit validation failed',
@@ -142,6 +142,67 @@ describe('POST /tasks/user', () => {
 
       expect(task).not.to.have.property('notValid');
     });
+
+    it('errors if alias already exists on another task', async () => {
+      await user.post('/tasks/user', { // first task that will succeed
+        type: 'habit',
+        text: 'todo text',
+        alias: 'alias',
+      });
+
+      await expect(user.post('/tasks/user', {
+        type: 'todo',
+        text: 'todo text',
+        alias: 'alias',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'todo validation failed',
+      });
+    });
+
+    it('errors if alias contains invalid values', async () => {
+      await expect(user.post('/tasks/user', {
+        type: 'todo',
+        text: 'todo text',
+        alias: 'short name!',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'todo validation failed',
+      });
+    });
+
+    it('errors if alias is a valid uuid', async () => {
+      await expect(user.post('/tasks/user', {
+        type: 'todo',
+        text: 'todo text',
+        alias: generateUUID(),
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'todo validation failed',
+      });
+    });
+
+    it('errors if the same shortname is used on 2 or more tasks', async () => {
+      await expect(user.post('/tasks/user', [{
+        type: 'habit',
+        text: 'habit text',
+        alias: 'alias',
+      }, {
+        type: 'todo',
+        text: 'todo text',
+      }, {
+        type: 'todo',
+        text: 'todo text',
+        alias: 'alias',
+      }])).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('taskAliasAlreadyUsed'),
+      });
+    });
   });
 
   context('all types', () => {
@@ -162,6 +223,16 @@ describe('POST /tasks/user', () => {
       expect(task.reminders[0].id).to.eql(id1);
       expect(task.reminders[0].startDate).to.be.a('string'); // json doesn't have dates
       expect(task.reminders[0].time).to.be.a('string');
+    });
+
+    it('can create a task with a alias', async () => {
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+        alias: 'a_alias012',
+      });
+
+      expect(task.alias).to.eql('a_alias012');
     });
   });
 

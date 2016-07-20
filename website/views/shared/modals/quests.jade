@@ -38,15 +38,20 @@ script(type='text/ng-template', id='modals/showQuest.html')
     h4 {{::selectedQuest.text()}}
   .modal-body
     +questInfo
-    hr
-    div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
-    p(ng-if='!env.worldDmg.quests')=env.t('questSend')
-    p(ng-if='!env.worldDmg.quests')=env.t('questWarning')
-    p(ng-if='env.worldDmg.quests')=env.t('questSendBroken')
-    p(ng-if='env.worldDmg.quests')=env.t('questWarningBroken')
+
+    div(ng-if='user.party._id')
+      hr
+
+      div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
+      p(ng-if='!env.worldDmg.quests')=env.t('questSend')
+      p(ng-if='!env.worldDmg.quests')=env.t('questWarning')
+      p(ng-if='env.worldDmg.quests')=env.t('questSendBroken')
+      p(ng-if='env.worldDmg.quests')=env.t('questWarningBroken')
   .modal-footer
+    .alert.alert-warning(ng-if='!user.party._id')
+      p!=env.t('needPartyToStartQuest')
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
-    button.btn.btn-primary(ng-click='questInit()')
+    button.btn.btn-primary(ng-click='questInit()', ng-if='user.party._id')
       | {{:: party.memberCount > 1  ? env.t('inviteParty') : env.t('startQuest')}}
 
 script(type='text/ng-template', id='modals/buyQuest.html')
