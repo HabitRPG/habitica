@@ -1,6 +1,7 @@
 {
     "pets": "Pets",
     "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "Pets Found",
     "magicPets": "Magic Potion Pets",
     "rarePets": "Rare Pets",
