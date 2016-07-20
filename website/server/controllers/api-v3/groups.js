@@ -514,7 +514,6 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
 
     userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
-    return userToInvite.save();
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
