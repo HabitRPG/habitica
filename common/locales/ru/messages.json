@@ -53,5 +53,5 @@
     "messageGroupChatAdminClearFlagCount": "Только администратор может очистить счётчик отметок.",
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "Уведомление не найдено."
 }

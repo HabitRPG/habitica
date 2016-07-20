@@ -8,79 +8,119 @@ describe('shared.fns.autoAllocate', () => {
 
   beforeEach(() => {
     user = generateUser();
+    // necessary to test task training reset behavior
+    user.stats.toObject = function () {
+      let obj = JSON.parse(JSON.stringify(this));
+
+      return obj;
+    };
   });
 
-  it('user.preferences.allocationMode === flat', () => {
-    user.stats.con = 5;
-    user.stats.int = 5;
-    user.stats.per = 3;
-    user.stats.str = 8;
+  context('flat allocation mode', () => {
+    beforeEach(() => {
+      user.stats.con = 5;
+      user.stats.int = 5;
+      user.stats.per = 3;
+      user.stats.str = 8;
 
-    user.preferences.allocationMode = 'flat';
+      user.preferences.allocationMode = 'flat';
+    });
 
-    autoAllocate(user);
+    it('increases the lowest stat', () => {
+      autoAllocate(user);
 
-    expect(user.stats.con).to.equal(5);
-    expect(user.stats.int).to.equal(5);
-    expect(user.stats.per).to.equal(4);
-    expect(user.stats.str).to.equal(8);
+      expect(user.stats.con).to.equal(5);
+      expect(user.stats.int).to.equal(5);
+      expect(user.stats.per).to.equal(4);
+      expect(user.stats.str).to.equal(8);
+    });
   });
 
-  it('user.preferences.allocationMode === taskbased', () => {
-    user.stats.con = 5;
-    user.stats.int = 5;
-    user.stats.per = 3;
-    user.stats.str = 8;
-    user.stats.training.con = 2;
-    user.stats.training.int = 5;
-    user.stats.training.per = 7;
-    user.stats.training.str = 4;
+  context('task based allocation mode', () => {
+    beforeEach(() => {
+      user.stats.con = 5;
+      user.stats.int = 5;
+      user.stats.per = 3;
+      user.stats.str = 8;
 
-    user.preferences.allocationMode = 'taskbased';
+      user.stats.training.con = 2;
+      user.stats.training.int = 5;
+      user.stats.training.per = 7;
+      user.stats.training.str = 4;
 
-    autoAllocate(user);
+      user.preferences.allocationMode = 'taskbased';
+    });
 
-    expect(user.stats.con).to.equal(5);
-    expect(user.stats.int).to.equal(5);
-    expect(user.stats.per).to.equal(4);
-    expect(user.stats.str).to.equal(8);
+    it('increases highest training stat', () => {
+      autoAllocate(user);
 
-    expect(user.stats.training.con).to.equal(0);
-    expect(user.stats.training.int).to.equal(0);
-    expect(user.stats.training.per).to.equal(0);
-    expect(user.stats.training.str).to.equal(0);
+      expect(user.stats.con).to.equal(5);
+      expect(user.stats.int).to.equal(5);
+      expect(user.stats.per).to.equal(4);
+      expect(user.stats.str).to.equal(8);
+    });
+
+    it('increases strength if no stat can be suggested', () => {
+      user.stats.training = {};
+
+      autoAllocate(user);
+
+      expect(user.stats.con).to.equal(5);
+      expect(user.stats.int).to.equal(5);
+      expect(user.stats.per).to.equal(3);
+      expect(user.stats.str).to.equal(9);
+    });
+
+    it('resets training object', () => {
+      autoAllocate(user);
+
+      expect(user.stats.training.con).to.equal(0);
+      expect(user.stats.training.int).to.equal(0);
+      expect(user.stats.training.per).to.equal(0);
+      expect(user.stats.training.str).to.equal(0);
+    });
   });
 
-  it('user.preferences.allocationMode === classbased', () => {
-    user.stats.lvl = 35;
-    user.stats.class = 'healer';
-    user.stats.con = 5;
-    user.stats.int = 5;
-    user.stats.per = 3;
-    user.stats.str = 8;
+  context('class based allocation mode', () => {
+    beforeEach(() => {
+      user.stats.lvl = 35;
+      user.stats.con = 5;
+      user.stats.int = 5;
+      user.stats.per = 3;
+      user.stats.str = 8;
 
-    user.preferences.allocationMode = 'classbased';
+      user.preferences.allocationMode = 'classbased';
+    });
 
-    autoAllocate(user);
+    it('increases stats based on class preference', () => {
+      user.stats.class = 'healer';
 
-    expect(user.stats.con).to.equal(6);
-    expect(user.stats.int).to.equal(5);
-    expect(user.stats.per).to.equal(3);
-    expect(user.stats.str).to.equal(8);
+      autoAllocate(user);
+
+      expect(user.stats.con).to.equal(6);
+      expect(user.stats.int).to.equal(5);
+      expect(user.stats.per).to.equal(3);
+      expect(user.stats.str).to.equal(8);
+    });
   });
 
-  it('user.preferences.allocationMode === anything', () => {
-    user.stats.con = 5;
-    user.stats.int = 5;
-    user.stats.per = 3;
-    user.stats.str = 8;
-    user.preferences.allocationMode = 'wrong';
+  context('invalid alocation mode', () => {
+    beforeEach(() => {
+      user.stats.con = 5;
+      user.stats.int = 5;
+      user.stats.per = 3;
+      user.stats.str = 8;
 
-    autoAllocate(user);
+      user.preferences.allocationMode = 'wrong';
+    });
 
-    expect(user.stats.con).to.equal(5);
-    expect(user.stats.int).to.equal(5);
-    expect(user.stats.per).to.equal(3);
-    expect(user.stats.str).to.equal(9);
+    it('increases strenth', () => {
+      autoAllocate(user);
+
+      expect(user.stats.con).to.equal(5);
+      expect(user.stats.int).to.equal(5);
+      expect(user.stats.per).to.equal(3);
+      expect(user.stats.str).to.equal(9);
+    });
   });
 });

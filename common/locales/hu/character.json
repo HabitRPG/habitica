@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Kérünk, hogy profil neved, képed és bemutatkozó szöveged feleljen meg a <a href='https://habitica.com/static/community-guidelines' target='_blank'>Közösségi irányelveinknek</a> (például nincs benne káromkodás, felnőtt tartalom, mások megsértése stb.) Ha bármi kérdésed van azzal kapcsolatban, hogy mi az elfogadott, nyugodtan írj a  <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>-ra!",
     "statsAch": "Karakterlap és kitűntetések",
     "profile": "Profil",
     "avatar": "Avatár személyreszabása",
@@ -164,9 +164,10 @@
     "con": "ÁLL",
     "per": "ÉSZ",
     "int": "INT",
-    "showQuickAllocation": "Show stat allocation",
-    "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "showQuickAllocation": "Tulajdonság pont eloszlás mutatása",
+    "hideQuickAllocation": "Tulajdonság pont eloszlás elrelytése",
+    "quickAllocationLevelPopover": "Minden szintlépés ad egy pontot, amit elkölthetsz egy általad választott tulajdonságra. Ezt teheted manuálisan, vagy a játékra is bízhatod a döntést az Automatikus elosztás menüpontban a Felhasználó -> Jellemzők alatt.",
+    "invalidAttribute": "<%= attr %> nem valódi tulajdonság.",
+    "notEnoughAttrPoints": "Nincs elég tulajdonság pontod.",
+    "gearNotOwned": "Ez a tárgy nincs a birtokodban."
 }

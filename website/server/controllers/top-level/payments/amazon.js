@@ -105,10 +105,10 @@ api.checkout = {
           CurrencyCode: 'USD',
           Amount: amount,
         },
-        SellerNote: 'HabitRPG Payment',
+        SellerNote: 'Habitica Payment',
         SellerOrderAttributes: {
           SellerOrderId: shared.uuid(),
-          StoreName: 'HabitRPG',
+          StoreName: 'Habitica',
         },
       },
     });
@@ -122,7 +122,7 @@ api.checkout = {
         CurrencyCode: 'USD',
         Amount: amount,
       },
-      SellerAuthorizationNote: 'HabitRPG Payment',
+      SellerAuthorizationNote: 'Habitica Payment',
       TransactionTimeout: 0,
       CaptureNow: true,
     });
@@ -177,11 +177,11 @@ api.subscribe = {
     await amzLib.setBillingAgreementDetails({
       AmazonBillingAgreementId: billingAgreementId,
       BillingAgreementAttributes: {
-        SellerNote: 'HabitRPG Subscription',
+        SellerNote: 'Habitica Subscription',
         SellerBillingAgreementAttributes: {
           SellerBillingAgreementId: shared.uuid(),
-          StoreName: 'HabitRPG',
-          CustomInformation: 'HabitRPG Subscription',
+          StoreName: 'Habitica',
+          CustomInformation: 'Habitica Subscription',
         },
       },
     });
@@ -197,13 +197,13 @@ api.subscribe = {
         CurrencyCode: 'USD',
         Amount: sub.price,
       },
-      SellerAuthorizationNote: 'HabitRPG Subscription Payment',
+      SellerAuthorizationNote: 'Habitica Subscription Payment',
       TransactionTimeout: 0,
       CaptureNow: true,
-      SellerNote: 'HabitRPG Subscription Payment',
+      SellerNote: 'Habitica Subscription Payment',
       SellerOrderAttributes: {
         SellerOrderId: shared.uuid(),
-        StoreName: 'HabitRPG',
+        StoreName: 'Habitica',
       },
     });
 
@@ -239,9 +239,12 @@ api.subscribeCancel = {
       AmazonBillingAgreementId: billingAgreementId,
     });
 
+    let subscriptionBlock = shared.content.subscriptionBlocks[user.purchased.plan.planId];
+    let subscriptionLength = subscriptionBlock.months * 30;
+
     await payments.cancelSubscription({
       user,
-      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: 30 }),
+      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
     });
 

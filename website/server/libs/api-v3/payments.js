@@ -5,11 +5,8 @@ import {
   sendTxn as txnEmail,
 } from './email';
 import moment from 'moment';
-import nconf from 'nconf';
 import sendPushNotification from './pushNotifications';
 import shared from '../../../../common' ;
-
-const IS_PROD = nconf.get('IS_PROD');
 
 let api = {};
 
@@ -72,20 +69,20 @@ api.createSubscription = async function createSubscription (data) {
 
   revealMysteryItems(recipient);
 
-  if (IS_PROD) {
-    if (!data.gift) txnEmail(data.user, 'subscription-begins');
-
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      itemPurchased: 'Subscription',
-      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-      purchaseType: 'subscribe',
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: block.price,
-    });
+  if (!data.gift) {
+    txnEmail(data.user, 'subscription-begins');
   }
+
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    itemPurchased: 'Subscription',
+    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+    purchaseType: 'subscribe',
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    gift: Boolean(data.gift),
+    purchaseValue: block.price,
+  });
 
   data.user.purchased.txnCount++;
 
@@ -105,7 +102,16 @@ api.createSubscription = async function createSubscription (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
-      sendPushNotification(data.gift.member, shared.i18n.t('giftedSubscription'), `${months} months - by ${byUserName}`);
+      if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
+        sendPushNotification(data.gift.member,
+          {
+            title: shared.i18n.t('giftedSubscription'),
+            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}),
+            identifier: 'giftedSubscription',
+            payload: {replyTo: data.user._id},
+          }
+        );
+      }
     }
   }
 
@@ -118,14 +124,16 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
+  let extraDays = Math.ceil(30 * plan.extraMonths);
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 
   plan.dateTerminated =
     moment(nowStr, nowStrFormat)
-    .add({days: remaining}) // end their subscription 1mo from their last payment
-    .add({days: Math.ceil(30 * plan.extraMonths)}) // plus any extra time (carry-over, gifted subscription, etc) they have.
+    .add({days: remaining})
+    .add({days: extraDays})
     .toDate();
+
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
   await data.user.save();
@@ -147,20 +155,18 @@ api.buyGems = async function buyGems (data) {
   (data.gift ? data.gift.member : data.user).balance += amt;
   data.user.purchased.txnCount++;
 
-  if (IS_PROD) {
-    if (!data.gift) txnEmail(data.user, 'donation');
+  if (!data.gift) txnEmail(data.user, 'donation');
 
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      itemPurchased: 'Gems',
-      sku: `${data.paymentMethod.toLowerCase()}-checkout`,
-      purchaseType: 'checkout',
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: amt,
-    });
-  }
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    itemPurchased: 'Gems',
+    sku: `${data.paymentMethod.toLowerCase()}-checkout`,
+    purchaseType: 'checkout',
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    gift: Boolean(data.gift),
+    purchaseValue: amt,
+  });
 
   if (data.gift) {
     let byUsername = getUserInfo(data.user, ['name']).name;
@@ -178,7 +184,16 @@ api.buyGems = async function buyGems (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
-      sendPushNotification(data.gift.member, shared.i18n.t('giftedGems'), `${gemAmount}  Gems - by ${byUsername}`);
+      if (data.gift.member.preferences.pushNotifications.giftedGems !== false) {
+        sendPushNotification(
+          data.gift.member,
+          {
+            title: shared.i18n.t('giftedGems'),
+            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+            identifier: 'giftedGems',
+          }
+        );
+      }
     }
 
     await data.gift.member.save();

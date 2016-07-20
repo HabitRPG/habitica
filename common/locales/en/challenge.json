@@ -75,7 +75,7 @@
     "onlyLeaderDeleteChal": "Only the challenge leader can delete it.",
     "onlyLeaderUpdateChal": "Only the challenge leader can update it.",
     "winnerNotFound": "Winner with id \"<%= userId %>\" not found or not part of the challenge.",
-    "noCompletedTodosChallenge": "\"includeComepletedTodos\" is not supported when fetching challenge tasks.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
     "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
     "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
     "userAlreadyInChallenge": "User is already participating in this challenge.",

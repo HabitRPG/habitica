@@ -53,5 +53,5 @@
     "messageGroupChatAdminClearFlagCount": "フラグ数をクリアーできるのは管理者だけです!",
     "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
     "messageUserOperationNotFound": "<%= operation %> の操作は見つかりません",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "通知はありません。"
 }

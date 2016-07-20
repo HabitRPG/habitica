@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Nascondi allocazione delle statistiche",
     "quickAllocationLevelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad un attributo a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica che trovi in Utente -> Statistiche.",
     "invalidAttribute": "\"<%= attr %>\" non è un attributo valido.",
-    "notEnoughAttrPoints": "Non hai abbastanza punti attributo."
+    "notEnoughAttrPoints": "Non hai abbastanza punti attributo.",
+    "gearNotOwned": "Non possiedi questo oggetto."
 }

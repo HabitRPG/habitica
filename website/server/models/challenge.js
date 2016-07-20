@@ -296,8 +296,14 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
         {name: 'CHALLENGE_NAME', content: challenge.name},
       ]);
     }
-
-    sendPushNotification(savedWinner, shared.i18n.t('wonChallenge'), challenge.name);
+    if (savedWinner.preferences.pushNotifications.wonChallenge !== false) {
+      sendPushNotification(savedWinner,
+        {
+          title: challenge.name,
+          message: shared.i18n.t('wonChallenge'),
+          identifier: 'wonChallenge',
+        });
+    }
   }
 
   // Run some operations in the background withouth blocking the thread

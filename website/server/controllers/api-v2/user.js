@@ -33,7 +33,6 @@ import v3UserController from '../api-v3/user';
 let i18n = shared.i18n;
 
 var api = module.exports;
-var firebase = require('../../libs/api-v2/firebase');
 var webhook = require('../../libs/api-v2/webhook');
 
 const partyMembersFields = 'profile.name stats achievements items.special';
@@ -468,7 +467,6 @@ api.delete = function(req, res, next) {
     return user.remove();
   })
   .then(() => {
-    firebase.deleteUser(user._id);
     res.sendStatus(200);
   })
   .catch(next);

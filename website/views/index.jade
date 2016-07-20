@@ -33,6 +33,9 @@ html(ng-app='habitrpg', ng-controller='RootCtrl', ng-class='{"applying-action":a
         .spinner__item2
         .spinner__item3
         .spinner__item4
+
+      h2=env.t('tipTitle', {tipNumber: loadingScreenTip})
+      h3=env.t("tip" + loadingScreenTip)
     .ng-cloak(ng-if='appLoaded', ng-controller='GroupsCtrl')
       include ./shared/mixins
       include ./shared/avatar/index

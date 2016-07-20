@@ -8,7 +8,7 @@
     "messageNotAvailable": "החפץ הזה אינו זמין כעת לרכישה.",
     "messageCannotFeedPet": "אינך יכול להאכיל חיה זו.",
     "messageAlreadyMount": "כבר השגת את חיית הרכיבה הזו. נסה להאכיל חיה אחרת.",
-    "messageEvolve": "הצלחת לאלף <%= egg %>, בוא נצא לרכיבה!",
+    "messageEvolve": "הצלחתם לאלף <%= egg %>, בואו נצא לרכיבה!",
     "messageLikesFood": "<%= egg %> נהנה לאכול <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> אכל את ה<%= foodText %> אך לא נראה שהוא נהנה במיוחד.",
     "messageBought": "קנית <%= itemText %>",
@@ -16,7 +16,7 @@
     "messageUnEquipped": "<%= itemText %> לא מצוייד.",
     "messageMissingEggPotion": "חסרה לך הביצה או התרופה הזו",
     "messageInvalidEggPotionCombo": "לא תוכלו להבקיע ביצים של חיות מחמד באמצעות שיקויים קסומים! נסו ביצים אחרות.",
-    "messageAlreadyPet": "כבר השגת חיית מחמד זו. נסה/י שילוב אחר!",
+    "messageAlreadyPet": "כבר השגתם חיית מחמד זו. נסו שילוב אחר!",
     "messageHatched": "הביצה שלך בקעה! בקר באורווה כדי לראות את חיית המחמד החדשה שלך.",
     "messageNotEnoughGold": "אין מספיק זהב",
     "messageTwoHandedEquip": "אחיזה ב<%= twoHandedText %> דורשת שתי ידיים, ולכן הורדתם את <%= offHandedText %>.",
@@ -24,7 +24,7 @@
     "messageDropFood": "מצאת <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "מצאת ביצת <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "מצאת שיקוי <%= dropText %> לבקיעה! <%= dropNotes %>",
-    "messageDropQuest": "מצאתם הרפתקאה!",
+    "messageDropQuest": "מצאתם הרפתקה!",
     "messageDropMysteryItem": "אתם פותחים קופסה ומוצאים <%= dropText %>!",
     "messageFoundQuest": "מצאת את המשימה \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "רכשתם את החפץ הזה בעבר, אך כעת הוא לא ברשותכם. תוכלו לרכוש אותו שוב בעמודת הפרסים בדף המשימות.",
@@ -53,5 +53,5 @@
     "messageGroupChatAdminClearFlagCount": "רק מנהל מערכת יכול לאפס את ספירת הדגלים!",
     "messageUserOperationProtected": "הדרך `<%= operation %>` לא נשמרה, כיוון שהיא מוגנת. ",
     "messageUserOperationNotFound": "הפעולה <%= operation %> לא נמצאה",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "התראה לא נמצאה."
 }

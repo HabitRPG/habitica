@@ -22,8 +22,6 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', '$rootScope', 'User', 'Group
         return Groups.Group.create($scope.group)
           .then(function(response) {
             $scope.group = response.data.data;
-            User.sync();
-            Groups.data.party = $scope.group;
             _inviteByMethod(inviteMethod);
           });
       }
@@ -48,13 +46,12 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', '$rootScope', 'User', 'Group
         .then(function() {
           Notification.text(window.env.t('invitationsSent'));
           _resetInvitees();
-          if ($scope.group.type === 'party') {
-            Groups.removePartyCache();
-            $rootScope.$state.go('options.social.party');
-            return;
-          }
 
-          $rootScope.hardRedirect('/#/options/groups/guilds/' + $scope.group._id);
+          if ($scope.group.type === 'party') {
+            $rootScope.hardRedirect('/#/options/groups/party');
+          } else {
+            $rootScope.hardRedirect('/#/options/groups/guilds/' + $scope.group._id);
+          }
         }, function(){
           _resetInvitees();
         });

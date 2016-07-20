@@ -1,24 +1,18 @@
-import iap from 'in-app-purchase';
-import nconf from 'nconf';
 import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/api-v3/auth';
+import iap from '../../../libs/api-v3/inAppPurchases';
 import payments from '../../../libs/api-v3/payments';
-
-// NOT PORTED TO v3
-
-iap.config({
-  // this is the path to the directory containing iap-sanbox/iap-live files
-  googlePublicKeyPath: nconf.get('IAP_GOOGLE_KEYDIR'),
-});
-
-// Validation ERROR Codes
-const INVALID_PAYLOAD = 6778001;
-// const CONNECTION_FAILED = 6778002;
-// const PURCHASE_EXPIRED = 6778003;
+import {
+  NotAuthorized,
+} from '../../../libs/api-v3/errors';
+import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
+import logger from '../../../libs/api-v3/logger';
 
 let api = {};
+
+// TODO missing tests
 
 /**
  * @apiIgnore Payments are considered part of the private API
@@ -35,56 +29,43 @@ api.iapAndroidVerify = {
     let user = res.locals.user;
     let iapBody = req.body;
 
-    iap.setup((error) => {
-      if (error) {
-        let resObj = {
-          ok: false,
-          data: 'IAP Error',
-        };
+    await iap.setup();
 
-        return res.json(resObj);
-      }
+    let testObj = {
+      data: iapBody.transaction.receipt,
+      signature: iapBody.transaction.signature,
+    };
 
-      // google receipt must be provided as an object
-      // {
-      //   "data": "{stringified data object}",
-      //   "signature": "signature from google"
-      // }
-      let testObj = {
-        data: iapBody.transaction.receipt,
-        signature: iapBody.transaction.signature,
-      };
+    let googleRes = await iap.validate(iap.GOOGLE, testObj);
 
-      // iap is ready
-      iap.validate(iap.GOOGLE, testObj, (err, googleRes) => {
-        if (err) {
-          let resObj = {
-            ok: false,
-            data: {
-              code: INVALID_PAYLOAD,
-              message: err.toString(),
-            },
-          };
+    let isValidated = iap.isValidated(googleRes);
+    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
 
-          return res.json(resObj);
-        }
+    let receiptObj = JSON.parse(testObj.data); // passed as a string
+    let token = receiptObj.token || receiptObj.purchaseToken;
 
-        if (iap.isValidated(googleRes)) {
-          let resObj = {
-            ok: true,
-            data: googleRes,
-          };
+    let existingReceipt = await IapPurchaseReceipt.findOne({
+      _id: token,
+    }).exec();
+    if (existingReceipt) throw new NotAuthorized('RECEIPT_ALREADY_USED');
 
-          payments.buyGems({
-            user,
-            paymentMethod: 'IAP GooglePlay',
-            amount: 5.25,
-          }).then(() => res.json(resObj));
-        }
-      });
+    await IapPurchaseReceipt.create({
+      _id: token,
+      consumed: true,
+      userId: user._id,
     });
+
+    await payments.buyGems({
+      user,
+      paymentMethod: 'IAP GooglePlay',
+      amount: 5.25,
+    });
+
+    res.respond(200, googleRes);
   },
 };
+
+// IMPORTANT: NOT PORTED TO v3 standards (not using res.respond)
 
 /**
  * @apiIgnore Payments are considered part of the private API
@@ -98,93 +79,79 @@ api.iapiOSVerify = {
   url: '/iap/ios/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let iapBody = req.body;
     let user = res.locals.user;
+    let iapBody = req.body;
 
-    iap.setup(function iosSetupResult (error) {
-      if (error) {
-        let resObj = {
-          ok: false,
-          data: 'IAP Error',
-        };
+    let appleRes;
 
-        return res.json(resObj);
+    try {
+      await iap.setup();
+
+      appleRes = await iap.validate(iap.APPLE, iapBody.transaction.receipt);
+      let isValidated = iap.isValidated(appleRes);
+      if (!isValidated) throw new Error('INVALID_RECEIPT');
+
+      let purchaseDataList = iap.getPurchaseData(appleRes);
+      if (purchaseDataList.length === 0) throw new Error('NO_ITEM_PURCHASED');
+
+      let correctReceipt = true;
+
+      // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
+      for (let index in purchaseDataList) {
+        let purchaseData = purchaseDataList[index];
+        let token = purchaseData.transactionId;
+
+        let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line babel/no-await-in-loop
+          _id: token,
+        }).exec();
+
+        if (!existingReceipt) {
+          await IapPurchaseReceipt.create({ // eslint-disable-line babel/no-await-in-loop
+            _id: token,
+            consumed: true,
+            userId: user._id,
+          });
+        } else {
+          throw new Error('RECEIPT_ALREADY_USED');
+        }
+
+        switch (purchaseData.productId) {
+          case 'com.habitrpg.ios.Habitica.4gems':
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 1}); // eslint-disable-line babel/no-await-in-loop
+            break;
+          case 'com.habitrpg.ios.Habitica.8gems':
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 2}); // eslint-disable-line babel/no-await-in-loop
+            break;
+          case 'com.habitrpg.ios.Habitica.20gems':
+          case 'com.habitrpg.ios.Habitica.21gems':
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 5.25}); // eslint-disable-line babel/no-await-in-loop
+            break;
+          case 'com.habitrpg.ios.Habitica.42gems':
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 10.5}); // eslint-disable-line babel/no-await-in-loop
+            break;
+          default:
+            correctReceipt = false;
+        }
       }
 
-      // iap is ready
-      iap.validate(iap.APPLE, iapBody.transaction.receipt, (err, appleRes) => {
-        if (err) {
-          let resObj = {
-            ok: false,
-            data: {
-              code: INVALID_PAYLOAD,
-              message: err.toString(),
-            },
-          };
+      if (!correctReceipt) throw new Error('INVALID_ITEM_PURCHASED');
 
-          return res.json(resObj);
-        }
-
-        if (iap.isValidated(appleRes)) {
-          let purchaseDataList = iap.getPurchaseData(appleRes);
-          if (purchaseDataList.length > 0) {
-            let correctReceipt = true;
-
-            for (let index in purchaseDataList) {
-              switch (purchaseDataList[index].productId) {
-                case 'com.habitrpg.ios.Habitica.4gems':
-                  payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 1});
-                  break;
-                case 'com.habitrpg.ios.Habitica.8gems':
-                  payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 2});
-                  break;
-                case 'com.habitrpg.ios.Habitica.20gems':
-                case 'com.habitrpg.ios.Habitica.21gems':
-                  payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 5.25});
-                  break;
-                case 'com.habitrpg.ios.Habitica.42gems':
-                  payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 10.5});
-                  break;
-                default:
-                  correctReceipt = false;
-              }
-            }
-
-            if (correctReceipt) {
-              let resObj = {
-                ok: true,
-                data: appleRes,
-              };
-
-              // yay good!
-              return res.json(resObj);
-            }
-          }
-
-          // wrong receipt content
-          let resObj = {
-            ok: false,
-            data: {
-              code: INVALID_PAYLOAD,
-              message: 'Incorrect receipt content',
-            },
-          };
-
-          return res.json(resObj);
-        }
-
-        // invalid receipt
-        let resObj = {
-          ok: false,
-          data: {
-            code: INVALID_PAYLOAD,
-            message: 'Invalid receipt',
-          },
-        };
-
-        return res.json(resObj);
+      return res.status(200).json({
+        ok: true,
+        data: appleRes,
       });
-    });
+    } catch (err) {
+      logger.error(err, {
+        userId: user._id,
+        iapBody,
+        appleRes,
+      });
+
+      return res.status(500).json({
+        ok: false,
+        data: 'An error occurred while processing the purchase.',
+      });
+    }
   },
 };
 

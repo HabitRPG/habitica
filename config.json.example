@@ -65,14 +65,12 @@
     "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
-        "APN_PEM_FILES": {
-          "KEY": "key.pem",
-          "CERT": "cert.pem"
-        }
+        "APN_ENABLED": "true"
     },
-    "FIREBASE": {
-        "APP": "app-name",
-        "SECRET": "secret",
-        "ENABLED": "false"
+    "PUSHER": {
+        "ENABLED": "false",
+        "APP_ID": "appId",
+        "KEY": "key",
+        "SECRET": "secret"
     }
 }

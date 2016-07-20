@@ -45,7 +45,7 @@
     "beastMasterText": "Hat alle 90 Haustiere gesammelt (unglaublich schwer, gratuliere diesem Spieler!)",
     "beastMasterText2": "und hat seine Haustiere insgesamt <%= count %> mal freigelassen",
     "mountMasterProgress": "\"Meister aller Reittiere\" Fortschritt",
-    "stableMountMasterProgress": "Meister aller Bestien Fortschritt: <%= number %> Haustiere gefunden",
+    "stableMountMasterProgress": "Meister aller Reittiere Fortschritt: <%= number %> Reittiere gezähmt",
     "mountAchievement": "Du hast den Erfolg \"Meister aller Reittiere\" erhalten, da Du alle Reittiere gezähmt hast!",
     "mountMasterName": "Meister aller Reittiere",
     "mountMasterText": "Hat alle 90 Reittiere gezähmt (noch viel schwieriger, gratuliere diesem Spieler!)",

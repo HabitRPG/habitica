@@ -15,7 +15,7 @@ import { mods } from '../../models/user';
 const CLIENT_VARS = ['language', 'isStaticPage', 'availableLanguages', 'translations',
                   'FACEBOOK_KEY', 'NODE_ENV', 'BASE_URL', 'GA_ID',
                   'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
-                  'worldDmg', 'mods', 'IS_MOBILE'];
+                  'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
 
 let env = {
   getManifestFiles,
@@ -32,9 +32,11 @@ let env = {
   },
 };
 
-'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY AMPLITUDE_KEY'.split(' ').forEach(key => {
-  env[key] = nconf.get(key);
-});
+'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY AMPLITUDE_KEY PUSHER:KEY PUSHER:ENABLED'
+  .split(' ')
+  .forEach(key => {
+    env[key] = nconf.get(key);
+  });
 
 module.exports = function locals (req, res, next) {
   let language = _.find(i18n.availableLanguages, {code: req.language});

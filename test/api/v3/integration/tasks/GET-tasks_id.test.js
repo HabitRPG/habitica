@@ -7,7 +7,7 @@ import { v4 as generateUUID } from 'uuid';
 describe('GET /tasks/:id', () => {
   let user;
 
-  before(async () => {
+  beforeEach(async () => {
     user = await generateUser();
   });
 
@@ -18,11 +18,19 @@ describe('GET /tasks/:id', () => {
       task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
+        alias: 'alias',
       });
     });
 
     it('gets specified task', async () => {
       let getTask = await user.get(`/tasks/${task._id}`);
+
+      expect(getTask).to.eql(task);
+    });
+
+    it('can use alias to retrieve task', async () => {
+      let getTask = await user.get(`/tasks/${task.alias}`);
+
       expect(getTask).to.eql(task);
     });
 

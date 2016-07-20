@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Pusher',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher) {
 
       var user = User.user;
 
@@ -53,11 +53,9 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
-            $rootScope.party = $scope.group = response.data.data;
-            User.sync();
-            Groups.data.party = $scope.group;
             Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
             Analytics.updateUser({'party.id': $scope.group ._id, 'partySize': 1});
+            $rootScope.hardRedirect('/#/options/groups/party');
           });
       };
 
@@ -152,8 +150,9 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       }
 
       $scope.reject = function(party) {
-        Groups.Group.rejectInvite(party.id);
-        User.set({'invitations.party':{}});
+        Groups.Group.rejectInvite(party.id).then(function () {
+          User.sync();
+        });
       }
 
       $scope.questInit = function() {
