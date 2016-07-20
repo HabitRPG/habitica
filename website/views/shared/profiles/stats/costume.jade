@@ -3,3 +3,5 @@ table.table.table-striped(ng-show='profile.preferences.costume')
   tr(ng-repeat='(itemType,costume) in profile.items.gear.costume', ng-init='piece=Content.gear.flat[costume]', ng-show='piece')
     td
       strong {{piece.text()}}
+  +basicRow('activePet', '{{::isBasicAnimal(profile.items.currentPet, \'pet\') ? env.t(\'petName\', {potion: Content.hatchingPotions[petPotion].text(), egg: Content.eggs[petEgg].text()}) : env.t(Content.specialPets[profile.items.currentPet])}}')(ng-if='user._id != profile._id && profile.items.currentPet')
+  +basicRow('activeMount', '{{::isBasicAnimal(profile.items.currentMount, \'mount\') ? env.t(\'mountName\', {potion: Content.hatchingPotions[mountPotion].text(), mount: Content.eggs[mountEgg].text()}) : env.t(Content.specialMounts[profile.items.currentMount])}}')(ng-if='user._id != profile._id && profile.items.currentMount')

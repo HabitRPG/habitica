@@ -1,12 +1,14 @@
-div(ng-if='user.flags.dropsEnabled')
+div(ng-show='profile.flags.dropsEnabled')
   h4(class=mobile?'item item-divider':'')=env.t('pets')
 
   table.table.table-striped
+    +basicRow('activePet', '{{::isBasicAnimal(profile.items.currentPet, \'pet\') ? env.t(\'petName\', {potion: Content.hatchingPotions[petPotion].text(), egg: Content.eggs[petEgg].text()}) : env.t(Content.specialPets[profile.items.currentPet])}}')(ng-if='profile.items.currentPet')
     +basicRow('petsFound','{{::statCalc.totalCount(profile.items.pets)}}')
     +basicRow('beastMasterProgress','{{::statCalc.beastMasterProgress(profile.items.pets)}}')
 
   h4(class=mobile?'item item-divider':'')=env.t('mounts')
 
   table.table.table-striped
+    +basicRow('activeMount', '{{::isBasicAnimal(profile.items.currentMount, \'mount\') ? env.t(\'mountName\', {potion: Content.hatchingPotions[mountPotion].text(), mount: Content.eggs[mountEgg].text()}) : env.t(Content.specialMounts[profile.items.currentMount])}}')(ng-if='profile.items.currentMount')
     +basicRow('mountsTamed','{{::statCalc.totalCount(profile.items.mounts)}}')
     +basicRow('mountMasterProgress','{{::statCalc.mountMasterProgress(profile.items.mounts)}}')
