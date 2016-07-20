@@ -1,5 +1,5 @@
 div(ng-show='user._id != profile._id')
-  h4
+  h4=env.t('activePet') / =env.t('activeMount')
   table.table.table-striped
     +basicRow('activePet', '{{::profile.items.currentPet ? (isBasicAnimal(profile.items.currentPet, \'pet\') ? env.t(\'petName\', {potion: Content.hatchingPotions[petPotion].text(), egg: Content.eggs[petEgg].text()}) : env.t(Content.specialPets[profile.items.currentPet])) : env.t(\'noActivePet\')}}')
     +basicRow('activeMount', '{{::profile.items.currentMount ? (isBasicAnimal(profile.items.currentMount, \'mount\') ? env.t(\'mountName\', {potion: Content.hatchingPotions[mountPotion].text(), mount: Content.eggs[mountEgg].text()}) : env.t(Content.specialMounts[profile.items.currentMount])) : env.t(\'noActiveMount\')}}')
