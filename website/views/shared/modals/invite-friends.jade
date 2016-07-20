@@ -12,10 +12,10 @@ script(type='text/ng-template', id='modals/invite-guild.html')
           tr(ng-repeat='user in invitees track by $index')
             td
               input.form-control(type='text', ng-model='user.uuid')
-          tr
+           tr
             td
               a.btn.btn-xs.pull-right(ng-click='addUuid()')
-                i.glyphicon.glyphicon-plus
+               i.glyphicon.glyphicon-plus
           tr
             td
               .col-sm-4.col-sm-offset-8
