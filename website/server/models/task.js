@@ -247,10 +247,10 @@ export let DailySchema = new Schema(_.defaults({
     type: String,
     default: 'weekly',
     enum: [
-      'daily', // Every X Interval
+      'daily', // Every X Intervals
       'weekly', // Certain Days of the Week
       'sinceCompletion', // Every X Interval Since Completion
-      'timesInInterval', // Y Times in X Interval
+      'timesInInterval', // Y Times in X Intervals
     ],
   },
   everyX: {type: Number, default: 1}, // e.g. once every X weeks
@@ -271,9 +271,12 @@ export let DailySchema = new Schema(_.defaults({
       return moment().startOf('day').toDate();
     },
   },
-  schedule: {type: Schema.Types.Mixed, default: () => {
-    return {};
-  }},
+  nextActive: {
+    type: Date,
+    default () {
+      return moment().startOf('day').toDate();
+    },
+  },
   repeat: { // used only for 'weekly' frequency,
     m: {type: Boolean, default: true},
     t: {type: Boolean, default: true},
