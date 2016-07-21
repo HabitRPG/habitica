@@ -7,7 +7,7 @@ import {
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 
-export async function _validateTaskAlias (tasks, res) {
+async function _validateTaskAlias (tasks, res) {
   let tasksWithAliases = tasks.filter(task => task.alias);
   let aliases = tasksWithAliases.map(task => task.alias);
 
@@ -24,7 +24,7 @@ export async function _validateTaskAlias (tasks, res) {
 }
 
 // challenge must be passed only when a challenge task is being created
-export async function _createTasks (req, res, options = {}) {
+export async function createTasks (req, res, options = {}) {
   let {
     user,
     challenge,
@@ -43,7 +43,7 @@ export async function _createTasks (req, res, options = {}) {
     if (challenge) {
       newTask.challenge.id = challenge.id;
     } else if (group) {
-      newTask.group.id = group.id;
+      newTask.group.id = group._id;
     } else {
       newTask.userId = user._id;
     }
@@ -74,7 +74,7 @@ export async function _createTasks (req, res, options = {}) {
 }
 
 // challenge must be passed only when a challenge task is being created
-export async function _getTasks (req, res, options = {}) {
+export async function getTasks (req, res, options = {}) {
   let {
     user,
     challenge,
@@ -86,7 +86,7 @@ export async function _getTasks (req, res, options = {}) {
   if (challenge) {
     query =  {'challenge.id': challenge.id, userId: {$exists: false}};
   } else if (group) {
-    query =  {'group.id': group.id, userId: {$exists: false}};
+    query =  {'group.id': group._id, userId: {$exists: false}};
   }
 
   let type = req.query.type;
@@ -133,8 +133,8 @@ export async function _getTasks (req, res, options = {}) {
 
     // Remove empty values from the array and add any unordered task
     orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
-    res.respond(200, orderedTasks);
+    return orderedTasks;
   } else {
-    res.respond(200, tasks);
+    return tasks;
   }
 }
