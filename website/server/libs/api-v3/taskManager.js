@@ -84,7 +84,7 @@ export async function getTasks (req, res, options = {}) {
   if (challenge) {
     query =  {'challenge.id': challenge.id, userId: {$exists: false}};
   } else if (group) {
-    query =  {'group.id': group._id, userId: {$exists: false}};
+    query =  {'group.id': group.id, userId: {$exists: false}};
   }
 
   let type = req.query.type;
@@ -93,12 +93,17 @@ export async function getTasks (req, res, options = {}) {
     if (type === 'todos') {
       query.completed = false; // Exclude completed todos
       query.type = 'todo';
-    } else if (type === 'completedTodos') {
+    } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
+      let limit = 30;
+
+      if (type === '_allCompletedTodos') {
+        limit = 0; // no limit
+      }
       query = Tasks.Task.find({
         userId: user._id,
         type: 'todo',
         completed: true,
-      }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
+      }).limit(limit).sort({
         dateCompleted: -1,
       });
     } else {
@@ -114,7 +119,7 @@ export async function getTasks (req, res, options = {}) {
   let tasks = await Tasks.Task.find(query).exec();
 
   // Order tasks based on tasksOrder
-  if (type && type !== 'completedTodos') {
+  if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
     let order = (challenge || user).tasksOrder[type];
     let orderedTasks = new Array(tasks.length);
     let unorderedTasks = []; // what we want to add later
