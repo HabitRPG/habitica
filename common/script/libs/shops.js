@@ -17,7 +17,11 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('eggs', language),
     notes: i18n.t('dropsExplanation', language),
   };
-  eggsCategory.items = _(content.questEggs).values().filter(egg => egg.canBuy(user)).concat(_.values(content.dropEggs)).map(egg => {
+  eggsCategory.items = _(content.questEggs)
+    .values()
+    .filter(egg => egg.canBuy(user))
+    .concat(_.values(content.dropEggs))
+    .map(egg => {
     return {
       key: egg.key,
       text: i18n.t('egg', {eggType: egg.text()}, language),
@@ -36,7 +40,10 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('hatchingPotions', language),
     notes: i18n.t('dropsExplanation', language),
   };
-  hatchingPotionsCategory.items = _(content.hatchingPotions).values().filter(hp => !hp.limited).map(hatchingPotion => {
+  hatchingPotionsCategory.items = _(content.hatchingPotions)
+    .values()
+    .filter(hp => !hp.limited)
+    .map(hatchingPotion => {
     return {
       key: hatchingPotion.key,
       text: hatchingPotion.text(language),
@@ -55,7 +62,10 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('food', language),
     notes: i18n.t('dropsExplanation', language),
   };
-  foodCategory.items = _(content.food).values().filter(food => food.canDrop || food.key === 'Saddle').map(foodItem => {
+  foodCategory.items = _(content.food)
+    .values()
+    .filter(food => food.canDrop || food.key === 'Saddle')
+    .map(foodItem => {
     return {
       key: foodItem.key,
       text: foodItem.text(language),
@@ -72,7 +82,6 @@ shops.getMarketCategories = function getMarket (user, language) {
   return categories;
 };
 
-
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
 
@@ -82,7 +91,9 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       text: i18n.t(`${type}Quests`, language),
     };
 
-    category.items = _(content.questsByLevel).filter(quest => quest.canBuy(user) && quest.category === type).map(quest => {
+    category.items = _(content.questsByLevel)
+      .filter(quest => quest.canBuy(user) && quest.category === type)
+      .map(quest => {
       let locked = lockQuest(quest, user);
       return {
         key: quest.key,
@@ -106,7 +117,6 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
   return categories;
 };
-
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
@@ -168,7 +178,6 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
-
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   let availableSets = {
     summerWarrior: i18n.t('daringSwashbucklerSet', language),
@@ -214,6 +223,5 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
   return categories;
 };
-
 
 module.exports = shops;
