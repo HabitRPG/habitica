@@ -10,8 +10,8 @@ import {
   BadRequest,
 } from '../../libs/errors';
 import {
-  _createTasks,
-  _getTasks,
+  createTasks,
+  getTasks,
 } from '../../libs/api-v3/taskManager';
 import common from '../../../../common';
 import Bluebird from 'bluebird';
@@ -35,7 +35,7 @@ api.createUserTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-    let tasks = await _createTasks(req, res, {user});
+    let tasks = await createTasks(req, res, {user});
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
   },
 };
@@ -70,7 +70,7 @@ api.createChallengeTasks = {
     if (!challenge || user.challenges.indexOf(challengeId) === -1) throw new NotFound(res.t('challengeNotFound'));
     if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
 
-    let tasks = await _createTasks(req, res, {user, challenge});
+    let tasks = await createTasks(req, res, {user, challenge});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
@@ -105,7 +105,8 @@ api.getUserTasks = {
 
     let user = res.locals.user;
 
-    return await _getTasks(req, res, {user});
+    let tasks = await getTasks(req, res, {user});
+    return res.respond(200, tasks);
   },
 };
 
@@ -140,7 +141,8 @@ api.getChallengeTasks = {
     let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    return await _getTasks(req, res, {user, challenge});
+    let tasks = await getTasks(req, res, {user, challenge});
+    return res.respond(200, tasks);
   },
 };
 
