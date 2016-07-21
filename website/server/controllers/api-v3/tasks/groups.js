@@ -6,8 +6,8 @@ import {
   NotAuthorized,
 } from '../../../libs/api-v3/errors';
 import {
-  _createTasks,
-  _getTasks,
+  createTasks,
+  getTasks,
 } from '../../../libs/api-v3/taskManager';
 
 let api = {};
@@ -40,7 +40,7 @@ api.createGroupTasks = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    let tasks = await _createTasks(req, res, {user, undefined, group});
+    let tasks = await createTasks(req, res, {user, undefined, group});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
@@ -76,7 +76,8 @@ api.getGroupTasks = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    return await _getTasks(req, res, {user, undefined, group});
+    let tasks = await getTasks(req, res, {user, undefined, group});
+    res.respond(200, tasks);
   },
 };
 
