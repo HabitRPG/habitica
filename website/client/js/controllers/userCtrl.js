@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social',
-  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social) {
+habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Pets',
+  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social, Pets) {
     $scope.profile = User.user;
 
     $scope.statCalc = Stats;
@@ -16,12 +16,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       if(value === true) $scope.editingProfile = angular.copy(User.user.profile);
     });
     
-    $scope.isBasicAnimal = function(name, type) {
-      var tmp = name.split('-');
-      $scope[type + "Egg"] = tmp[0];
-      $scope[type + "Potion"] = tmp[1];
-      return Content.hatchingPotions[$scope[type + "Potion"]] ? true : false;
-    }
+    $scope.formatAnimal = Pets.formatAnimal;
 
     $scope.allocate = function(stat){
       User.allocate({query:{stat:stat}});
