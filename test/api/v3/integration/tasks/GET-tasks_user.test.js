@@ -82,7 +82,7 @@ describe('GET /tasks/user', () => {
     expect(completedTodos[completedTodos.length - 1].text).to.equal('todo to complete 2'); // last is the todo that was completed most recently
   });
 
-  it.only('returns completed todos sorted by reverse completion date if req.query.type is "_allCompletedTodos"', async () => {
+  it('returns completed todos sorted by reverse completion date if req.query.type is "_allCompletedTodos"', async () => {
     let todo1 = await user.post('/tasks/user', {text: 'todo to complete 1', type: 'todo'});
     let todo2 = await user.post('/tasks/user', {text: 'todo to complete 2', type: 'todo'});
 
@@ -100,7 +100,7 @@ describe('GET /tasks/user', () => {
     expect(allCompletedTodos[allCompletedTodos.length - 1].text).to.equal('todo to complete 2');
   });
 
-  it.only('returns only some completed todos if req.query.type is "completedTodos" or "_allCompletedTodos"', async () => {
+  it('returns only some completed todos if req.query.type is "completedTodos" or "_allCompletedTodos"', async () => {
     const LIMIT = 30;
     let numberOfTodos = LIMIT + 1;
     let todosInput = [];
