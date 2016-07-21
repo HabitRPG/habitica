@@ -63,5 +63,21 @@
     "congratulations": "Félicitations !",
     "hurray": "Hourra !",
     "noChallengeOwner": "Sans propriétaire",
-    "noChallengeOwnerPopover": "Ce défi n'a pas de propriétaire, parce que la personne qui a créé le défi a supprimé son compte."
+    "noChallengeOwnerPopover": "Ce défi n'a pas de propriétaire, parce que la personne qui a créé le défi a supprimé son compte.",
+    "challengeMemberNotFound": "L'utilisateur•trice n'a pas été trouvé•e parmi les membres du défi",
+    "onlyGroupLeaderChal": "Seul le responsable du groupe peut créer des défis",
+    "tavChalsMinPrize": "La récompense doit être d'au moins 1 gemme pour les défis de la Taverne.",
+    "cantAfford": "Vous ne pouvez pas payer cette récompense. Achetez plus de gemmes ou diminuez le montant de la récompense.",
+    "challengeIdRequired": "\"challengeId\" doit être un UUID valide.",
+    "winnerIdRequired": "\"winnerId\" doit être un UUID valide.",
+    "challengeNotFound": "Défi introuvable ou vous n'y avez pas accès.",
+    "onlyLeaderDeleteChal": "Seul le responsable du défi peut le supprimer.",
+    "onlyLeaderUpdateChal": "Seul le responsable du défi peut le mettre à jour.",
+    "winnerNotFound": "Le vainqueur avec l'identifiant \"<%= userId %> n'a pas été trouvé ou ne fait pas partie du défi.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" n'est pas supporté lors de la recherche des tâches de défi.",
+    "userTasksNoChallengeId": "Lorsque \"tasksOwner\" est \"user\", \"challengeId\" ne peut être passé.",
+    "onlyChalLeaderEditTasks": "Les tâches appartenant à un défi ne peuvent être modifiées que par son responsable.",
+    "userAlreadyInChallenge": "L'utilisateur•trice participe déjà à ce défi.",
+    "cantOnlyUnlinkChalTask": "Seules les tâches des défis cassés peuvent être déliées.",
+    "shortNameTooShort": "Le nom de l'étiquette doit contenir au moins 3 caractères."
 }

@@ -63,5 +63,21 @@
     "congratulations": "Вітаємо!",
     "hurray": "Ура!",
     "noChallengeOwner": "немає власника",
-    "noChallengeOwnerPopover": "У цього випробування немає власника, тому що людина, що створила його, вилучила свій акаунт."
+    "noChallengeOwnerPopover": "У цього випробування немає власника, тому що людина, що створила його, вилучила свій акаунт.",
+    "challengeMemberNotFound": "Користувач не знайдений серед учасників випробування",
+    "onlyGroupLeaderChal": "Тільки лідер групи може створювати випробування",
+    "tavChalsMinPrize": "Нагородою має бути як мінімум 1 Самоцвіт для випробувань з Таверни",
+    "cantAfford": "Ви не можете дозволити собі цей приз. Купіть більше самоцвітів або знижте кількість призів.",
+    "challengeIdRequired": "\"ID випробування\" має  мати дійсний UUID.",
+    "winnerIdRequired": "\"ID переможця\" має мати дійсний UUID.",
+    "challengeNotFound": "Випробування не знайдено або Ви не маєте доступу.",
+    "onlyLeaderDeleteChal": "Тільки лідер випробування може видалити це.",
+    "onlyLeaderUpdateChal": "Тільки лідер випробування може оновити це.",
+    "winnerNotFound": "Переможець з id \"<%= userId %>\" не знайдений або не приймає участь у випробуванні.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
+    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
+    "userAlreadyInChallenge": "User is already participating in this challenge.",
+    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
+    "shortNameTooShort": "Tag Name must have at least 3 characters."
 }

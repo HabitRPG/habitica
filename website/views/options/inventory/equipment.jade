@@ -13,16 +13,32 @@ mixin orderByButton
       - each attr in ["constitution", "intelligence", "perception", "strength"]
         +choice(attr)
 
-mixin equipmentList(type)
-  menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
-    ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
-    div(ng-repeat='item in gear[klass] | orderBy: order')
+mixin groupingButton
+  .btn-group
+    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', ng-init='setGrouping("klass")')
+      | {{env.t('groupBy', { type: env.t(groupingChoice) })}} #[span.caret]
+    ul.dropdown-menu
+      - each grouping in ["klass", "equipmentType"]
+          li(ng-class="{ 'active': groupingChoice === '#{grouping}' }")
+            a(ng-click="setGrouping('#{grouping}')")=env.t(grouping)
+
+mixin equipmentButton(type)
       button.customize-option(class='shop_{{::item.key}}',
         ng-class='{selectableInventory: user.items.gear.#{type}[item.type] == item.key}',
         ng-click='equip(item.key, "#{type}")',
-        popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+        popover='{{::item.notes()}} {{::classBonusNotes(item)}}', popover-title='{{::item.text()}}',
         popover-trigger='mouseenter', popover-placement='right',
         popover-append-to-body='true')
+
+mixin equipmentList(equipmentType)
+  menu.pets-menu(label='{{::label}}', ng-show='gearByClass[klass]', ng-if='groupingChoice === "klass"',
+    ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
+    div(ng-repeat='item in gearByClass[klass] | orderBy: order')
+      +equipmentButton(equipmentType)
+  menu.pets-menu(label='{{::label}}', ng-show='gearByType[type]', ng-if='groupingChoice === "equipmentType"',
+    ng-repeat='(type,label) in {headAccessory:env.t("headAccessoryCapitalized"), head:env.t("headgearCapitalized"), eyewear:env.t("eyewear"), weapon:env.t("weaponCapitalized"), shield:env.t("offhandCapitalized"), armor:env.t("armorCapitalized"), body:env.t("body"), back:env.t("back")}')
+    div(ng-repeat='item in gearByType[type] | orderBy: order', ng-show='item.klass !== "base"')
+      +equipmentButton(equipmentType)
 
 .container-fluid
   .row
@@ -41,6 +57,11 @@ mixin equipmentList(type)
       .btn-toolbar
         .btn-group
           button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
+
+      br
+
+      .btn-toolbar
+        +groupingButton
         +orderByButton
 
       li.customize-menu.inventory-gear
@@ -62,6 +83,11 @@ mixin equipmentList(type)
         .btn-group
           button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
           button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
+
+      br
+
+      .btn-toolbar(ng-if='user.preferences.costume')
+        +groupingButton
         +orderByButton
 
       li.customize-menu(ng-if='!user.preferences.costume')

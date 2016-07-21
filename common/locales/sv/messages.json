@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Meddelandet hittades inte!",
     "messageGroupChatAdminClearFlagCount": "Endast en administratör kan rensa flagg-räknaren!",
     "messageUserOperationProtected": "sökvägen `<%= operation %>` sparades inte, eftersom det är en skyddad sökväg.",
-    "messageUserOperationNotFound": "<%= operation %> operationen hittades inte"
+    "messageUserOperationNotFound": "<%= operation %> operationen hittades inte",
+    "messageNotificationNotFound": "Notification not found."
 }

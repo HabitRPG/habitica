@@ -1,13 +1,13 @@
 include ../../shared/avatar/generated_avatar
 
 script(type='text/ng-template', id='partials/options.social.party.html')
-  div(ng-if='group.loadingNewParty')
+  div(ng-if='group.loadingParty')
     include ./party/loading-new-party
 
   div(ng-if='group._id')
     include ./party/leave-party-and-join-another
     include ./group
 
-  div(ng-if='!group._id && !group.loadingNewParty')
+  div(ng-if='!group._id && !group.loadingParty')
     include ./party/party-invitation
     include ./party/start-a-party

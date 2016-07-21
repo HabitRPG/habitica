@@ -11,6 +11,12 @@
   height: 249px;
 }
 
+.quest_bewilder {
+  background: url("/common/img/sprites/quest_bewilder.gif") no-repeat;
+  width: 219px;
+  height: 219px;
+}
+
 .Gems {
   display:inline-block;
   margin-right:5px;

@@ -5,7 +5,7 @@
     "annoyingFriends": "Annoyin' Mates",
     "annoyingFriendsText": "Got snowballed <%= snowballs %> times by crew-mates.",
     "alarmingFriends": "Alarmin' Buckos",
-    "alarmingFriendsText": "Got spooked <%= spookDust %> times by crew mates.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by crew mates.",
     "agriculturalFriends": "Agricultural Friends",
     "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "aquaticFriends": "Friends o' th' Sea",
@@ -68,9 +68,14 @@
     "mummyMedicSet": "Mummy Medic (Doc)",
     "vampireSmiterSet": "Vampire Smiter (Scallywag)",
     "bewareDogSet": "Beware Dog (Warrior)",
-    "magicianBunnySet": "Magician's Bunny (Mage)",
-    "comfortingKittySet": "Comforting Kitty (Healer)",
-    "sneakySqueakerSet": "Sneaky Squeaker (Rogue)",
+    "magicianBunnySet": "Magician's Bunny (Wizard)",
+    "comfortingKittySet": "Comfortin' Kitty (Doc)",
+    "sneakySqueakerSet": "Sneaky Squeaker (Scallywag)",
+    "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
+    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
+    "strappingSailorSet": "Strapping Sailor (Healer)",
+    "reefRenegadeSet": "Reef Renegade (Rogue)",
     "fallEventAvailability": "Available 'til October 31",
-    "winterEventAvailability": "Available until December 31"
+    "winterEventAvailability": "Available until December 31",
+    "springEventAvailability": "Available 'til May 31"
 }

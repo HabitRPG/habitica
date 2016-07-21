@@ -28,9 +28,9 @@ describe('POST /groups/:id/leave', () => {
     it('leaves the group', async () => {
       await user.post(`/groups/${group._id}/leave`);
 
-      await group.sync();
+      await user.sync();
 
-      expect(group.members).to.not.include(user._id);
+      expect(user.guilds).to.not.include(group._id);
     });
   });
 
@@ -102,8 +102,8 @@ describe('POST /groups/:id/leave', () => {
     it('deletes the group invitations from users', async () => {
       await user.post(`/groups/${group._id}/leave`);
 
-      await expect(invitee1.get(`/user`)).to.eventually.have.deep.property('invitations.guilds').and.to.be.empty;
-      await expect(invitee2.get(`/user`)).to.eventually.have.deep.property('invitations.guilds').and.to.be.empty;
+      await expect(invitee1.get('/user')).to.eventually.have.deep.property('invitations.guilds').and.to.be.empty;
+      await expect(invitee2.get('/user')).to.eventually.have.deep.property('invitations.guilds').and.to.be.empty;
     });
   });
 
@@ -129,8 +129,8 @@ describe('POST /groups/:id/leave', () => {
     it('deletes the group invitations from users', async () => {
       await user.post(`/groups/${group._id}/leave`);
 
-      await expect(invitee1.get(`/user`)).to.eventually.have.deep.property('invitations.party').and.to.be.empty;
-      await expect(invitee2.get(`/user`)).to.eventually.have.deep.property('invitations.party').and.to.be.empty;
+      await expect(invitee1.get('/user')).to.eventually.have.deep.property('invitations.party').and.to.be.empty;
+      await expect(invitee2.get('/user')).to.eventually.have.deep.property('invitations.party').and.to.be.empty;
     });
   });
 });

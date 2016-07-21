@@ -12,6 +12,7 @@
     "etherealLion": "Æterisk Løve",
     "veteranWolf": "Veteranulv",
     "veteranTiger": "Veterantiger",
+    "veteranLion": "Veteranløve",
     "cerberusPup": "Kerberoshvalp",
     "hydra": "Hydra",
     "mantisShrimp": "Knælerreje",
@@ -19,6 +20,7 @@
     "orca": "Spækhugger",
     "royalPurpleGryphon": "Royal Lilla Grif",
     "phoenix": "Føniks",
+    "magicalBee": "Magisk Bi",
     "rarePetPop1": "Klik på den gyldne pote for at læse om, hvordan du kan opnå dette sjældne kæledyr ved at bidrage til Habitica!",
     "rarePetPop2": "Sådan får du dette kæledyr!",
     "potion": "<%= potionType %> Eliksir",
@@ -61,6 +63,7 @@
     "hatchedPet": "Du har udklækket et <%= potion %> <%= egg %>!",
     "displayNow": "Vis nu",
     "displayLater": "Vis senere",
+    "petNotOwned": "Du ejer ikke dette kæledyr.",
     "earnedCompanion": "Med all din produktivitet har du fortjent en ny følgesvend. Giv den mad for at få den til at vokse!",
     "feedPet": "Giv <%= text %> til <%= name %>?",
     "useSaddle": "Giv <%= pet %> sadel på?",
@@ -82,5 +85,8 @@
     "petKeyBoth": "Slip Begge Fri",
     "confirmPetKey": "Er du sikker?",
     "petKeyNeverMind": "Ikke endnu",
+    "petsReleased": "Kæledyr sluppet fri.",
+    "mountsAndPetsReleased": "Ride- og kæledyr sluppet fri",
+    "mountsReleased": "Ridedyr sluppet fri",
     "gemsEach": "ædelsten hver"
 }

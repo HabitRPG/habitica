@@ -12,6 +12,7 @@
     "etherealLion": "Etherische Leeuw",
     "veteranWolf": "Veteranenwolf",
     "veteranTiger": "Veteranentijger",
+    "veteranLion": "Veteranenleeuw",
     "cerberusPup": "Cerberuspup",
     "hydra": "Hydra",
     "mantisShrimp": "Bidsprinkhaankreeft",
@@ -19,6 +20,7 @@
     "orca": "Orka",
     "royalPurpleGryphon": "Regaal Paarse Griffioen",
     "phoenix": "Feniks",
+    "magicalBee": "Magische Bij",
     "rarePetPop1": "Klik op de gouden pootafdruk om meer te weten te komen over hoe je dit zeldzame dier kunt ontvangen door bij te dragen aan Habitica!",
     "rarePetPop2": "Hoe krijg ik dit huisdier?",
     "potion": "<%= potionType %> uitbroedtoverdrank",
@@ -61,6 +63,7 @@
     "hatchedPet": "Je heb een <%= potion %> <%= egg %> uitgebroed!",
     "displayNow": "Toon nu",
     "displayLater": "Toon later",
+    "petNotOwned": "Je bezit dit huisdier niet.",
     "earnedCompanion": "Door al jouw productiviteit heb je een nieuwe kameraad verdiend. Voer hem en laat hem groeien! ",
     "feedPet": "<%= text %> aan je <%= name %> voeren?",
     "useSaddle": "<%= pet %> zadelen?",
@@ -82,5 +85,8 @@
     "petKeyBoth": "Beide vrijlaten",
     "confirmPetKey": "Weet je het zeker?",
     "petKeyNeverMind": "Nog niet",
+    "petsReleased": "Huisdieren vrijgelaten.",
+    "mountsAndPetsReleased": "Rijdieren en huisdieren vrijgelaten",
+    "mountsReleased": "Rijdieren vrijgelaten",
     "gemsEach": "edelstenen elk"
 }
