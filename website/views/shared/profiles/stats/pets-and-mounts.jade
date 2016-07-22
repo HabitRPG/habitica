@@ -9,6 +9,6 @@ div(ng-if='profile.flags.dropsEnabled')
   h4(class=mobile?'item item-divider':'')=env.t('mounts')
 
   table.table.table-striped
-    +basicRow('activeMount', '{{::formatAnimal(profile.items.currentMount, \'mount\'))}}')(ng-if='profile.items.currentMount')
+    +basicRow('activeMount', '{{::formatAnimal(profile.items.currentMount, \'mount\')}}')(ng-if='profile.items.currentMount')
     +basicRow('mountsTamed','{{::statCalc.totalCount(profile.items.mounts)}}')
     +basicRow('mountMasterProgress','{{::statCalc.mountMasterProgress(profile.items.mounts)}}')
