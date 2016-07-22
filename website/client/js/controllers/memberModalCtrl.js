@@ -22,6 +22,8 @@ habitrpg
       
       $scope.formatAnimal = Costume.formatAnimal;
 
+      $scope.formatBackground = Costume.formatBackground;
+
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;
 

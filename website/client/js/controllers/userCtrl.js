@@ -18,6 +18,8 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     
     $scope.formatAnimal = Costume.formatAnimal;
 
+    $scope.formatBackground = Costume.formatBackground;
+
     $scope.allocate = function(stat){
       User.allocate({query:{stat:stat}});
     }

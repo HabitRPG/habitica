@@ -31,9 +31,31 @@
         return type == 'pet' ? window.env.t(Content.specialPets[name]) : window.env.t(Content.specialMounts[name]);
       }
     }
-    
+
+    function bgString(set, bg) {
+      var setString = window.env.t(set);
+      var setNumber = setString.match(/^[^:]+/)[0].toLowerCase();
+      var bgString = Content.backgrounds[set][bg].text(window.env.language.code);
+      return bgString + " - " + setNumber.charAt(0).toUpperCase() + setNumber.slice(1)
+    }
+
+    function formatBackground(background) {
+      var backgrounds = Content.backgrounds;
+      for (var set in backgrounds) {
+        for (var bg in backgrounds[set]) {
+          if (background === bg) {
+            return bgString(set, bg)
+          } else {
+            continue
+          }
+        }
+      }
+      return window.env.t('noBackground');
+    }
+
     return {
-      formatAnimal: formatAnimal
+      formatAnimal: formatAnimal,
+      formatBackground: formatBackground
     };
   }
 }());
