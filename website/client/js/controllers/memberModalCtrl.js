@@ -19,10 +19,10 @@ habitrpg
           $scope.profile = member;
         }
       });
-      
-      $scope.formatAnimal = Costume.formatAnimal;
 
-      $scope.formatBackground = Costume.formatBackground;
+      for (var method in Costume) {
+        $scope[method] = Costume[method];
+      }
 
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;
