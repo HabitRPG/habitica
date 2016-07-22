@@ -39,12 +39,13 @@ describe('GET /export/history.csv', () => {
 
     let res = await user.get('/export/history.csv');
     let splitRes = res.split('\n');
+
     expect(splitRes[0]).to.equal('Task Name,Task ID,Task Type,Date,Value');
     expect(splitRes[1]).to.equal(`habit 1,${tasks[0]._id},habit,${moment(tasks[0].history[0].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[0].history[0].value}`);
     expect(splitRes[2]).to.equal(`habit 1,${tasks[0]._id},habit,${moment(tasks[0].history[1].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[0].history[1].value}`);
-    expect(splitRes[3]).to.equal(`daily 1,${tasks[1]._id},daily,${moment(tasks[1].history[0].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[1].history[0].value}`);
-    expect(splitRes[4]).to.equal(`habit 2,${tasks[2]._id},habit,${moment(tasks[2].history[0].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[2].history[0].value}`);
-    expect(splitRes[5]).to.equal(`habit 2,${tasks[2]._id},habit,${moment(tasks[2].history[1].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[2].history[1].value}`);
+    expect(splitRes[3]).to.equal(`habit 2,${tasks[2]._id},habit,${moment(tasks[2].history[0].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[2].history[0].value}`);
+    expect(splitRes[4]).to.equal(`habit 2,${tasks[2]._id},habit,${moment(tasks[2].history[1].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[2].history[1].value}`);
+    expect(splitRes[5]).to.equal(`daily 1,${tasks[1]._id},daily,${moment(tasks[1].history[0].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[1].history[0].value}`);
     expect(splitRes[6]).to.equal('');
   });
 });
