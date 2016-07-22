@@ -106,7 +106,7 @@
 
       return total;
     }
-    
+
     function _formatOutOfTotalDisplay(stat, totalStat) {
       var display = stat + "/" + totalStat;
       return display;

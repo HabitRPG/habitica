@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Pets',
-  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social, Pets) {
+habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Costume',
+  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social, Costume) {
     $scope.profile = User.user;
 
     $scope.statCalc = Stats;

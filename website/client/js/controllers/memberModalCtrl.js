@@ -1,8 +1,8 @@
 "use strict";
 
 habitrpg
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats', 'Content', 'Pets',
-    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats, Content, Pets) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats', 'Content', 'Costume',
+    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats, Content, Costume) {
 
       $controller('RootCtrl', {$scope: $scope});
       $rootScope.appLoaded = true;
@@ -20,7 +20,7 @@ habitrpg
         }
       });
       
-      $scope.formatAnimal = Pets.formatAnimal;
+      $scope.formatAnimal = Costume.formatAnimal;
 
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;

@@ -3,14 +3,14 @@
 (function(){
   angular
     .module('habitrpg')
-    .factory('Pets', petsFactory);
+    .factory('Costume', costumeFactory);
 
-  petsFactory.$inject = [
+  costumeFactory.$inject = [
     'Content'
   ];
 
-  function petsFactory(Content) {
-    function isBasicAnimal(name, type) {
+  function costumeFactory(Content) {
+    function animalInfo(name, type) {
       var tmp = name.split('-');
       var data = {};
       data.egg = tmp[0];
@@ -20,7 +20,7 @@
     }
     
     function formatAnimal(name, type) {
-      var info = isBasicAnimal(name, type);
+      var info = animalInfo(name, type);
       if(info.isBasic) {
         var animal = {
           potion: Content.hatchingPotions[info.potion].text()
