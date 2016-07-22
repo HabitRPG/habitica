@@ -16,7 +16,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       if(value === true) $scope.editingProfile = angular.copy(User.user.profile);
     });
     
-    $scope.formatAnimal = Pets.formatAnimal;
+    $scope.formatAnimal = Costume.formatAnimal;
 
     $scope.allocate = function(stat){
       User.allocate({query:{stat:stat}});
