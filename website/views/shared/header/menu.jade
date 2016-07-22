@@ -283,5 +283,5 @@ nav.toolbar(ng-controller='MenuCtrl')
         .npc_justin_head.npc_bailey_head(popover='Continue Tour', popover-trigger='mouseenter', popover-placement='bottom', ng-click='Guide.goto("intro", user.flags.tour.intro + 1, true)')
 
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
-      li.toolbar-bailey-container(ng-if='user.flags.newStuff')
+      li.toolbar-bailey-container(ng-if='moment(user.flags.newStuffSeenDate).toDate() < moment(env.NEWS_DATE).toDate()')
         div(class="#{env.worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey'}" popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff",{size:"lg"})').npc_bailey_head

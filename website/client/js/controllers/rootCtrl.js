@@ -159,7 +159,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.dismissAlert = function() {
-      $rootScope.set({'flags.newStuff':false});
+      $rootScope.set({'flags.newStuffSeenDate':moment()});
     }
 
     $rootScope.acceptCommunityGuidelines = function() {
