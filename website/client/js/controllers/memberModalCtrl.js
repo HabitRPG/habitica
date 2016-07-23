@@ -20,9 +20,7 @@ habitrpg
         }
       });
 
-      for (var method in Costume) {
-        $scope[method] = Costume[method];
-      }
+      $scope.costume = Costume;
 
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;

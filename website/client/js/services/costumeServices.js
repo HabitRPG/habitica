@@ -25,7 +25,7 @@
         var animal = {
           potion: Content.hatchingPotions[info.potion].text()
         };
-        animal[type == 'pet' ? 'egg' : 'mount'] = Content.eggs[info.egg].text()
+        animal[type == 'pet' ? 'egg' : 'mount'] = Content.eggs[info.egg].text();
         return window.env.t(type+'Name', animal);
       } else {
         return type == 'pet' ? window.env.t(Content.specialPets[name]) : window.env.t(Content.specialMounts[name]);
@@ -36,7 +36,7 @@
       var setString = window.env.t(set);
       var setNumber = setString.match(/^[^:]+/)[0].toLowerCase();
       var bgString = Content.backgrounds[set][bg].text(window.env.language.code);
-      return bgString + " - " + setNumber.charAt(0).toUpperCase() + setNumber.slice(1)
+      return bgString + " - " + setNumber.charAt(0).toUpperCase() + setNumber.slice(1);
     }
 
     function formatBackground(background) {
@@ -44,9 +44,7 @@
       for (var set in backgrounds) {
         for (var bg in backgrounds[set]) {
           if (background === bg) {
-            return bgString(set, bg)
-          } else {
-            continue
+            return bgString(set, bg);
           }
         }
       }

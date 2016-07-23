@@ -16,9 +16,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       if(value === true) $scope.editingProfile = angular.copy(User.user.profile);
     });
     
-    for (var method in Costume) {
-      $scope[method] = Costume[method];
-    }
+    $scope.costume = Costume;
 
     $scope.allocate = function(stat){
       User.allocate({query:{stat:stat}});
