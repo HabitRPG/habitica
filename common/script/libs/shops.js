@@ -22,17 +22,17 @@ shops.getMarketCategories = function getMarket (user, language) {
     .filter(egg => egg.canBuy(user))
     .concat(_.values(content.dropEggs))
     .map(egg => {
-    return {
-      key: egg.key,
-      text: i18n.t('egg', {eggType: egg.text()}, language),
-      notes: egg.notes(language),
-      value: egg.value,
-      class: `Pet_Egg_${egg.key}`,
-      locked: false,
-      currency: 'gems',
-      purchaseType: 'eggs',
-    };
-  }).sortBy('key').value();
+      return {
+        key: egg.key,
+        text: i18n.t('egg', {eggType: egg.text()}, language),
+        notes: egg.notes(language),
+        value: egg.value,
+        class: `Pet_Egg_${egg.key}`,
+        locked: false,
+        currency: 'gems',
+        purchaseType: 'eggs',
+      };
+    }).sortBy('key').value();
   categories.push(eggsCategory);
 
   let hatchingPotionsCategory = {
@@ -44,17 +44,17 @@ shops.getMarketCategories = function getMarket (user, language) {
     .values()
     .filter(hp => !hp.limited)
     .map(hatchingPotion => {
-    return {
-      key: hatchingPotion.key,
-      text: hatchingPotion.text(language),
-      notes: hatchingPotion.notes(language),
-      class: `Pet_HatchingPotion_${hatchingPotion.key}`,
-      value: hatchingPotion.value,
-      locked: false,
-      currency: 'gems',
-      purchaseType: 'hatchingpotions',
-    };
-  }).sortBy('key').value();
+      return {
+        key: hatchingPotion.key,
+        text: hatchingPotion.text(language),
+        notes: hatchingPotion.notes(language),
+        class: `Pet_HatchingPotion_${hatchingPotion.key}`,
+        value: hatchingPotion.value,
+        locked: false,
+        currency: 'gems',
+        purchaseType: 'hatchingpotions',
+      };
+    }).sortBy('key').value();
   categories.push(hatchingPotionsCategory);
 
   let foodCategory = {
@@ -66,17 +66,17 @@ shops.getMarketCategories = function getMarket (user, language) {
     .values()
     .filter(food => food.canDrop || food.key === 'Saddle')
     .map(foodItem => {
-    return {
-      key: foodItem.key,
-      text: foodItem.text(language),
-      notes: foodItem.notes(language),
-      class: `Pet_Food_${foodItem.key}`,
-      value: foodItem.value,
-      locked: false,
-      currency: 'gems',
-      purchaseType: 'food',
-    };
-  }).sortBy('key').value();
+      return {
+        key: foodItem.key,
+        text: foodItem.text(language),
+        notes: foodItem.notes(language),
+        class: `Pet_Food_${foodItem.key}`,
+        value: foodItem.value,
+        locked: false,
+        currency: 'gems',
+        purchaseType: 'food',
+      };
+    }).sortBy('key').value();
   categories.push(foodCategory);
 
   return categories;
@@ -94,23 +94,23 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     category.items = _(content.questsByLevel)
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
-      let locked = lockQuest(quest, user);
-      return {
-        key: quest.key,
-        text: quest.text(language),
-        notes: quest.notes(language),
-        value: quest.goldValue ? quest.goldValue : quest.value,
-        currency: quest.goldValue ? 'gold' : 'gems',
-        locked,
-        unlockCondition: quest.unlockCondition,
-        drop: quest.drop,
-        boss: quest.boss,
-        collect: quest.collect,
-        lvl: quest.lvl,
-        class: locked ? `inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll_${quest.key}`,
-        purchaseType: 'quests',
-      };
-    }).value();
+        let locked = lockQuest(quest, user);
+        return {
+          key: quest.key,
+          text: quest.text(language),
+          notes: quest.notes(language),
+          value: quest.goldValue ? quest.goldValue : quest.value,
+          currency: quest.goldValue ? 'gold' : 'gems',
+          locked,
+          unlockCondition: quest.unlockCondition,
+          drop: quest.drop,
+          boss: quest.boss,
+          collect: quest.collect,
+          lvl: quest.lvl,
+          class: locked ? `inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll_${quest.key}`,
+          purchaseType: 'quests',
+        };
+      }).value();
 
     categories.push(category);
   });
