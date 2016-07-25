@@ -122,62 +122,71 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   let categories = [];
   let stable = {pets: 'Pet-', mounts: 'Mount_Head_'};
   for (let type in stable) {
-    let category = {
-      identifier: type,
-      text: i18n.t(type, language),
-      items: [],
-    };
+    if (!stable.hasOwnProperty(type)) {
+      let category = {
+        identifier: type,
+        text: i18n.t(type, language),
+        items: [],
+      };
 
-    for (let key in content.timeTravelStable[type]) {
-      if (!user.items[type][key]) {
-        let item = {
-          key,
-          text: content.timeTravelStable[type][key](language),
-          class: stable[type] + key,
-          type,
-          purchaseType: type,
-          value: 1,
-          notes: '',
-          locked: false,
-          currency: 'hourglasses',
-        };
-        category.items.push(item);
+      for (let key in content.timeTravelStable[type]) {
+        if (!content.timeTravelerStable[type].hasOwnProperty(key)) {
+          if (!user.items[type][key]) {
+            let item = {
+              key,
+              text: content.timeTravelStable[type][key](language),
+              class: stable[type] + key,
+              type,
+              purchaseType: type,
+              value: 1,
+              notes: '',
+              locked: false,
+              currency: 'hourglasses',
+            };
+            category.items.push(item);
+          }
+        }
       }
-    }
-    if (category.items.length > 0) {
-      categories.push(category);
+      if (category.items.length > 0) {
+        categories.push(category);
+      }
     }
   }
 
   let sets = content.timeTravelerStore(user.items.gear.owned);
   for (let setKey in  sets) {
-    let set = sets[setKey];
-    let category = {
-      identifier: set.key,
-      text: set.text(language),
-      purchaseAll: true,
-    };
-
-    category.items = _.map(set.items, item => {
-      return {
-        key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
-        type: item.type,
-        purchaseType: 'gear',
-        value: 1,
-        locked: false,
-        currency: 'hourglasses',
-        class: `shop_${item.key}`,
+    if (!sets.hasOwnProperty(setKey)) {
+      let set = sets[setKey];
+      let category = {
+        identifier: set.key,
+        text: set.text(language),
+        purchaseAll: true,
       };
-    });
 
-    categories.push(category);
+      category.items = _.map(set.items, item => {
+        return {
+          key: item.key,
+          text: item.text(language),
+          notes: item.notes(language),
+          type: item.type,
+          purchaseType: 'gear',
+          value: 1,
+          locked: false,
+          currency: 'hourglasses',
+          class: `shop_${item.key}`,
+        };
+      });
+      if (category.items.length > 0) {
+        categories.push(category);
+      }
+    }
   }
 
   return categories;
 };
 
+
+// To switch seasons/available inventory, edit the availableSets object to whatever should be sold.
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   let availableSets = {
     summerWarrior: i18n.t('daringSwashbucklerSet', language),
@@ -192,33 +201,37 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
   let categories = [];
 
+  let flatGearArray = _.toArray(content.gear.flat);
+
   for (let key in availableSets) {
-    let category = {
-      identifier: key,
-      text: availableSets[key],
-    };
-
-    let flatGearArray = _.toArray(content.gear.flat);
-
-    category.items = _(flatGearArray).filter((gear) => {
-      if (gear.index !== key) {
-        return false;
-      }
-      return user.items.gear.owned[gear.key] !== true;
-    }).where({index: key}).map(gear => {
-      return {
-        key: gear.key,
-        text: gear.text(language),
-        notes: gear.notes(language),
-        value: 1,
-        type: gear.type,
-        specialClass: gear.specialClass,
-        locked: false,
-        currency: 'gems',
-        purchaseType: 'gear',
+    if (!availableSets.hasOwnProperty(key)) {
+      let category = {
+        identifier: key,
+        text: availableSets[key],
       };
-    }).value();
-    categories.push(category);
+
+      category.items = _(flatGearArray).filter((gear) => {
+        if (gear.index !== key) {
+          return false;
+        }
+        return user.items.gear.owned[gear.key] !== true;
+      }).where({index: key}).map(gear => {
+        return {
+          key: gear.key,
+          text: gear.text(language),
+          notes: gear.notes(language),
+          value: 1,
+          type: gear.type,
+          specialClass: gear.specialClass,
+          locked: false,
+          currency: 'gems',
+          purchaseType: 'gear',
+        };
+      }).value();
+      if (category.items.length > 0) {
+        categories.push(category);
+      }
+    }
   }
 
   return categories;

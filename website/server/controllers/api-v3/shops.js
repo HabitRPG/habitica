@@ -52,6 +52,7 @@ api.getQuestShopItems = {
     let resObject = {
       identifier: 'questShop',
       text: res.t('quests'),
+      notes: res.t('ianTextMobile'),
       imageName: 'npc_ian',
       categories: shops.getQuestShopCategories(user, req.language),
     };
