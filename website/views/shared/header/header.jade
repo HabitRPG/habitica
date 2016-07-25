@@ -18,12 +18,12 @@
       .meter.experience(tooltip='{{Math.round(user.stats.exp * 100) / 100}}')
         .bar(ng-style='{"width": Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))+"%"}')
         span.meter-text.value
-          span(ng-show='statCalc.canLevelUp(user)' class="hidden-xs") Complete a Task to Level Up!
+          span(ng-show='statCalc.canLevelUp(user)' class="hidden-xs")=env.t('canLevelUp')
           span(ng-show='user.history.exp', tooltip=env.t('progress'))
             a(ng-click='toggleChart("exp")').glyphicon.glyphicon-signal
           span
           | {{statCalc.expDisplay(user)}}
-      span(ng-show='statCalc.canLevelUp(user)' class="visible-xs pull-right") Complete a Task to Level Up!
+      span(ng-show='statCalc.canLevelUp(user)' class="visible-xs pull-right")=env.t('canLevelUp')
       .meter-label(tooltip=env.t('mana'), ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         span.glyphicon.glyphicon-fire
       .meter.mana(ng-if='user.flags.classSelected && !user.preferences.disableClasses', tooltip='{{Math.round(user.stats.mp * 100) / 100}}')
