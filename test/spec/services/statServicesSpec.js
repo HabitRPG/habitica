@@ -139,22 +139,23 @@ describe('Stats Service', function() {
   });
 
   describe('canLevelUp', function() {
-  	it('returns true if a user has enough exp to level up', function() {
-  		user.stats.exp = 150;
-  		user.stats.lvl = 1;
-  		var canLevelUp = statCalc.canLevelUp(user);
+    it('returns true if a user has enough exp to level up', function() {
+      user.stats.exp = 150;
+      user.stats.lvl = 1;
+      var canLevelUp = statCalc.canLevelUp(user);
 
-  		expect(canLevelUp).to.eql(true);
-  	});
+      expect(canLevelUp).to.eql(true);
+    });
 
-  	it('returns false if a user doesn\'t have enough exp to level up', function() {
-  		user.stats.exp = 149;
-  		user.stats.lvl = 1;
-  		var canLevelUp = statCalc.canLevelUp(user);
+    it('returns false if a user doesn\'t have enough exp to level up', function() {
+      user.stats.exp = 149;
+      user.stats.lvl = 1;
+      var canLevelUp = statCalc.canLevelUp(user);
 
-  		expect(canLevelUp).to.eql(false);
-  	});
+      expect(canLevelUp).to.eql(false);
+    });
   });
+
   describe('equipmentStatBonus', function() {
     it('tallies up stats from equipment that is equipped', function() {
       var equippedGear = {

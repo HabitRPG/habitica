@@ -131,6 +131,6 @@
       mountMasterProgress: mountMasterProgress,
       mpDisplay: mpDisplay,
       totalCount: totalCount
-    }
+    };
   }
 }());
