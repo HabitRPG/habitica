@@ -61,6 +61,13 @@
       return display;
     }
 
+    function canLevelUp(user) {
+      var exp = Math.floor(user.stats.exp);
+      var toNextLevel = Shared.tnl(user.stats.lvl);
+
+      return (exp - toNextLevel) >= 0;
+    }
+
     function goldDisplay(gold) {
       var display = Math.floor(gold);
       return display;
@@ -117,12 +124,13 @@
       classBonus: classBonus,
       equipmentStatBonus: equipmentStatBonus,
       expDisplay: expDisplay,
+      canLevelUp: canLevelUp,
       goldDisplay: goldDisplay,
       hpDisplay: hpDisplay,
       levelBonus: levelBonus,
       mountMasterProgress: mountMasterProgress,
       mpDisplay: mpDisplay,
       totalCount: totalCount
-    }
+    };
   }
 }());
