@@ -23,7 +23,6 @@
             a(ng-click='toggleChart("exp")').glyphicon.glyphicon-signal
           span
           | {{statCalc.expDisplay(user)}}
-      span(ng-show='statCalc.canLevelUp(user)' class="visible-xs pull-right")=env.t('canLevelUp')
       .meter-label(tooltip=env.t('mana'), ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         span.glyphicon.glyphicon-fire
       .meter.mana(ng-if='user.flags.classSelected && !user.preferences.disableClasses', tooltip='{{Math.round(user.stats.mp * 100) / 100}}')
@@ -31,6 +30,7 @@
         span.meter-text.value
           span
           | {{statCalc.mpDisplay(user)}}
+      span(ng-show='statCalc.canLevelUp(user)' class="visible-xs pull-right")=env.t('canLevelUp')
     // party
     .party(ng-controller='PartyCtrl')
       button.party-invite.btn.btn-primary(ng-click="inviteOrStartParty(party)",
