@@ -122,7 +122,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   let categories = [];
   let stable = {pets: 'Pet-', mounts: 'Mount_Head_'};
   for (let type in stable) {
-    if (!stable.hasOwnProperty(type)) {
+    if (stable.hasOwnProperty(type)) {
       let category = {
         identifier: type,
         text: i18n.t(type, language),
@@ -130,7 +130,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       };
 
       for (let key in content.timeTravelStable[type]) {
-        if (!content.timeTravelerStable[type].hasOwnProperty(key)) {
+        if (content.timeTravelStable[type].hasOwnProperty(key)) {
           if (!user.items[type][key]) {
             let item = {
               key,
@@ -155,7 +155,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 
   let sets = content.timeTravelerStore(user.items.gear.owned);
   for (let setKey in  sets) {
-    if (!sets.hasOwnProperty(setKey)) {
+    if (sets.hasOwnProperty(setKey)) {
       let set = sets[setKey];
       let category = {
         identifier: set.key,
@@ -204,7 +204,8 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   let flatGearArray = _.toArray(content.gear.flat);
 
   for (let key in availableSets) {
-    if (!availableSets.hasOwnProperty(key)) {
+
+    if (availableSets.hasOwnProperty(key)) {
       let category = {
         identifier: key,
         text: availableSets[key],
