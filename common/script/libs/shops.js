@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import content from '../content/index';
-import i18n from '../../../common/script/i18n';
+import i18n from '../i18n';
 
 let shops = {};
 
