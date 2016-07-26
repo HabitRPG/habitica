@@ -8,63 +8,75 @@ describe('shops', () => {
 
   describe('market', () => {
     let shopCategories = shared.shops.getMarketCategories(user);
+
     it('contains at least the 3 default categories', () => {
       expect(shopCategories.length).to.be.greaterThan(2);
     });
+
     it('does not contain an empty category', () => {
       _.each(shopCategories, (category) => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
+
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.keys(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class']);
+          expect(item).to.have.all.keys(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class']);
         });
       });
     });
   });
+
   describe('questShop', () => {
     let shopCategories = shared.shops.getQuestShopCategories(user);
+
     it('does not contain an empty category', () => {
       _.each(shopCategories, (category) => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
+
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.keys('key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl');
+          expect(item).to.have.all.keys('key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl');
         });
       });
     });
   });
+
   describe('timeTravelers', () => {
     let shopCategories = shared.shops.getTimeTravelersCategories(user);
+
     it('does not contain an empty category', () => {
       _.each(shopCategories, (category) => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
+
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.keys('key', 'text', 'value', 'currency', 'locked', 'purchaseType', 'class', 'notes', 'class');
+          expect(item).to.have.all.keys('key', 'text', 'value', 'currency', 'locked', 'purchaseType', 'class', 'notes', 'class');
         });
       });
     });
   });
+
   describe('seasonalShop', () => {
     let shopCategories = shared.shops.getSeasonalShopCategories(user);
+
     it('does not contain an empty category', () => {
       _.each(shopCategories, (category) => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
+
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.keys('key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'specialClass', 'type');
+          expect(item).to.have.all.keys('key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'specialClass', 'type');
         });
       });
     });

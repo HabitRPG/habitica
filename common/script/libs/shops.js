@@ -17,6 +17,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('eggs', language),
     notes: i18n.t('dropsExplanation', language),
   };
+
   eggsCategory.items = _(content.questEggs)
     .values()
     .filter(egg => egg.canBuy(user))
@@ -185,8 +186,10 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
-
 // To switch seasons/available inventory, edit the availableSets object to whatever should be sold.
+// let availableSets = {
+//   setKey: i18n.t('setTranslationString', language),
+// };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   let availableSets = {
     summerWarrior: i18n.t('daringSwashbucklerSet', language),
@@ -204,7 +207,6 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   let flatGearArray = _.toArray(content.gear.flat);
 
   for (let key in availableSets) {
-
     if (availableSets.hasOwnProperty(key)) {
       let category = {
         identifier: key,
