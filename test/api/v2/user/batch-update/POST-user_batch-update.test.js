@@ -31,7 +31,7 @@ describe('POST /user/batch-update', () => {
     });
   });
 
-  context('development only operations', () => { // These tests will fail if your NODE_ENV is set to 'development' instead of 'testing'
+  xcontext('development only operations', () => { // These tests will fail if your NODE_ENV is set to 'development' instead of 'testing'
     let protectedOperations = {
       'Add Ten Gems': 'addTenGems',
       'Add Hourglass': 'addHourglass',

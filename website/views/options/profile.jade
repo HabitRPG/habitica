@@ -56,6 +56,22 @@ mixin customizeProfile(mobile)
             each num in [1,2,3,4,5,6]
               button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})', ng-class='{selectableInventory: user.preferences.hair.flower == "#{num}"}')
 
+        // Eyeglasses
+        li.customize-menu
+          menu(label=env.t('eyewear'))
+          button.customize-option(ng-repeat='item in ::getGearArray("glasses")', class='{{::item.key}}',
+            ng-class="{selectableInventory: user.preferences.costume ? user.items.gear.costume.eyewear === item.key : user.items.gear.equipped.eyewear === item.key}",
+            popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
+            popover-placement='right', popover-append-to-body='true',
+            ng-click='equip(item.key)')
+
+        // Wheelchair
+        li.customize-menu
+          menu(label=env.t('wheelchair'))
+            button.customize-option(ng-repeat='item in ::["black","blue","green","pink","red","yellow"]', class='button_chair_{{::item}}',
+              ng-class="{selectableInventory: user.preferences.chair == item}",
+              ng-click='user.preferences.chair != item ? set({"preferences.chair":item}) : set({"preferences.chair":"none"})')
+
         // Animal Ears
         li.customize-menu
           menu(label=env.t('animalEars'))
@@ -83,7 +99,7 @@ mixin customizeProfile(mobile)
               each color in ['pblue','pgreen','porange','ppink','ppurple','pyellow']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")', ng-class='{selectableInventory: user.preferences.hair.color == "#{color}"}')
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
-          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors')
+          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors', 'disabled')
           +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
           +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors', 'disabled')
 
@@ -150,10 +166,10 @@ mixin customizeProfile(mobile)
           +buyPref('skin', ['bear','cactus','fox','lion','panda','pig','tiger','wolf'], 'animalSkins')
 
           // Seasonal event skins. Note that Spooky Skins are a legacy set and should always be disabled for purchase
-          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins')
+          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
           +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
-          +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins', 'disabled')
+          +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins')
 
 
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
@@ -203,7 +219,7 @@ mixin profileStats
                         input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
                         span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))=env.t('taskAllocation')
                   div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                    a.btn.btn-primary.btn-xs(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
+                    a.btn.btn-primary.btn-xs(ng-click='User.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
                       span.glyphicon.glyphicon-download
                       |&nbsp;
                       =env.t('distributePoints')
@@ -211,7 +227,7 @@ mixin profileStats
 
 
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
-        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
         hr(ng-if='user.preferences.disableClasses')
         include ../shared/profiles/achievements
 
@@ -249,8 +265,9 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
         //{{profile.profile.blurb | linky:'_blank'}}
 
       form.col-md-4(ng-show='_editing.profile', ng-submit='save()')
+        .alert.alert-info.alert-sm
+          !=env.t("communityGuidelinesWarning")
         input.btn.btn-primary(type='submit', value=env.t('save'))
-
         // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
         .form-group
           label=env.t('displayName')

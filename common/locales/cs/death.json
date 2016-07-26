@@ -12,5 +12,6 @@
     "losingHealthQuickly": "Ztrácíš Zdraví rychle?",
     "lowHealthTips3": "Nedokončené Denní úkoly tě přes noc zraní, buď tedy opatrný s jejich přidáváním, hlavně na začátku!",
     "lowHealthTips4": "Pokud nemusíš v určitých dnech plnit některé ze svých Denních úkolů, po kliknutí na ikonu tužky v pravém rohu úkolu můžeš příslušné dny upravit.",
-    "goodLuck": "Hodně štěstí!"
+    "goodLuck": "Hodně štěstí!",
+    "cannotRevive": "Nejste-li mrtvý nelze se oživit"
 }

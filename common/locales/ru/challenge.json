@@ -63,5 +63,21 @@
     "congratulations": "Поздравляю!",
     "hurray": "Ура!",
     "noChallengeOwner": "нет владельца",
-    "noChallengeOwnerPopover": "Это испытание не имеет владельца, потому что игрок, который его создал, удалил свой аккаунт."
+    "noChallengeOwnerPopover": "Это испытание не имеет владельца, потому что игрок, который его создал, удалил свой аккаунт.",
+    "challengeMemberNotFound": "Пользователь не найден среди членов испытания",
+    "onlyGroupLeaderChal": "Только лидер группы может создавать испытания",
+    "tavChalsMinPrize": "Сумма приза должна составлять по крайней мере 1 самоцвет для испытаний таверны.",
+    "cantAfford": "Вы не можете позволить себе этот приз. Купите больше самоцветов, либо снизьте стоимость приза.",
+    "challengeIdRequired": "\"challengeId\" должен быть действительным UUID.",
+    "winnerIdRequired": "\"winnerId\" должен быть действительным UUID.",
+    "challengeNotFound": "Испытание не найдено, или у вас нет доступа.",
+    "onlyLeaderDeleteChal": "Только лидер испытания может удалить его.",
+    "onlyLeaderUpdateChal": "Только лидер испытания может обновить его.",
+    "winnerNotFound": "Победитель с ID \"<%= userId %>\" не найден или не участвует в этом испытании.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" не поддерживается  при получении заданий испытания.",
+    "userTasksNoChallengeId": "Когда \"tasksOwner\" - \"user\", \"challengeId\" не может быть передано",
+    "onlyChalLeaderEditTasks": "Задания, связанные с испытанием, может редактировать только лидер.",
+    "userAlreadyInChallenge": "Пользователь уже участвует в этом испытании.",
+    "cantOnlyUnlinkChalTask": "Только испорченные задания испытаний могут быть откреплены.",
+    "shortNameTooShort": "Название тега должно быть по крайней мере 3 символа."
 }

@@ -127,7 +127,7 @@ function calculateImgDimensions(img, addPadding) {
 }
 
 function checkForSpecialTreatment(name) {
-  let regex = /hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears/;
+  let regex = /^hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears|^eyewear_special_\w+TopFrame/;
   return name.match(regex) || name === 'head_0';
 }
 

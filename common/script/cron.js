@@ -1,3 +1,4 @@
+// TODO what can be moved to /website/server?
 /*
   ------------------------------------------------------
   Cron and time / day functions
@@ -25,8 +26,21 @@ export const DAY_MAPPING = {
 function sanitizeOptions (o) {
   let ref = Number(o.dayStart || 0);
   let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
-  let timezoneOffset = o.timezoneOffset ? Number(o.timezoneOffset) : Number(moment().zone());
-  // TODO: check and clean timezoneOffset as for dayStart (e.g., might not be a number)
+
+  let timezoneOffset;
+  let timezoneOffsetDefault = Number(moment().zone());
+  if (_.isFinite(o.timezoneOffsetOverride)) {
+    timezoneOffset = Number(o.timezoneOffsetOverride);
+  } else if (_.isFinite(o.timezoneOffset)) {
+    timezoneOffset = Number(o.timezoneOffset);
+  } else {
+    timezoneOffset = timezoneOffsetDefault;
+  }
+  if (timezoneOffset > 720 || timezoneOffset < -840) {
+    // timezones range from -12 (offset +720) to +14 (offset -840)
+    timezoneOffset = timezoneOffsetDefault;
+  }
+
   let now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
 
   // return a new object, we don't want to add "now" to user object

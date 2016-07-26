@@ -32,7 +32,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
             .form-horizontal
               h5=env.t('language')
-              select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
+              select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in availableLanguages', ng-change='changeLanguage()')
               small
                 !=env.t('americanEnglishGovern')
                 br
@@ -92,7 +92,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
-            button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+            button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
 
             hr
 
@@ -133,11 +133,11 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-body
             div(ng-if='user.auth.facebook.id')
               button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
-              button.btn.btn-danger(ng-click='http("delete","/api/v2/user/auth/social",null,"detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
+              button.btn.btn-danger(ng-click='http("delete", "/api/v3/user/auth/social/facebook", null, "detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
               hr
               div(ng-if='!user.auth.local.username')
                 p=env.t('addLocalAuth')
-                form(ng-submit='http("post","/api/v2/register",localAuth,"addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
+                form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
                   //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted')=env.t('fillAll')
                   .form-group
                     input.form-control(type='text', placeholder=env.t('username'), ng-model='localAuth.username', required)
@@ -175,7 +175,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               h5=env.t('changeEmail')
               form(ng-submit='changeUser("email", emailUpdates)', ng-show='user.auth.local', name='changeEmail', novalidate)
                 .form-group
-                  input.form-control(type='text', placeholder=env.t('newEmail'), ng-model='emailUpdates.email', required)
+                  input.form-control(type='text', placeholder=env.t('newEmail'), ng-model='emailUpdates.newEmail', required)
                 .form-group
                   input.form-control(type='password', placeholder=env.t('password'), ng-model='emailUpdates.password', required)
                 input.btn.btn-default(type='submit', ng-disabled='changeEmail.$invalid', value=env.t('submit'))
@@ -183,11 +183,11 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               h5=env.t('changePass')
               form(ng-submit='changeUser("password", passwordUpdates)', ng-show='user.auth.local', name='changePassword', novalidate)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='passwordUpdates.oldPassword', required)
+                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='passwordUpdates.password', required)
                 .form-group
                   input.form-control(type='password', placeholder=env.t('newPass'), ng-model='passwordUpdates.newPassword', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='passwordUpdates.confirmNewPassword', required)
+                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='passwordUpdates.confirmPassword', required)
                 input.btn.btn-default(type='submit', ng-disabled='changePassword.$invalid', value=env.t('submit'))
 
 
@@ -218,7 +218,7 @@ script(type='text/ng-template', id='partials/options.settings.promo.html')
               input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
             .form-group
               button.btn.btn-primary(type='submit')=env.t('generate')
-              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}')=env.t('getCodes')
+              a.btn.btn-default(href='/api/v3/coupons?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}')=env.t('getCodes')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .container-fluid
@@ -229,9 +229,28 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h6=env.t('userId')
         pre.prettyprint {{user.id}}
         h6=env.t('APIToken')
-        pre.prettyprint {{user.apiToken}}
+        pre.prettyprint {{User.settings.auth.apiToken}}
         h6=env.t('qrCode')
-        img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+        img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{User.settings.auth.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+        br
+        h3=env.t('thirdPartyApps')
+        ul
+          li
+            a(target='_blank' href='https://www.beeminder.com/habitica')=env.t('beeminder')
+            br
+            =env.t('beeminderDesc')
+          li
+            a(target='_blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb')=env.t('chromeChatExtension')
+            br
+            =env.t('chromeChatExtensionDesc')
+          li
+            a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+            br
+            =env.t('dataToolDesc')
+          li
+            !=env.t('otherExtensions')
+            br
+            =env.t('otherDesc')
 
         hr
 
@@ -302,25 +321,46 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
       .personal-options.col-md-6
         .panel.panel-default
           .panel-heading
-            =env.t('emailNotifications')
+            =env.t('notifications')
           .panel-body
-
-            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps']
-              -var preference = 'user.preferences.emailNotifications.' + notification
-              -var unsubscribeFromAll = 'user.preferences.emailNotifications.unsubscribeFromAll'
-
-              .checkbox: label
-                input(type='checkbox', ng-model='#{preference}',
-                  ng-disabled='#{unsubscribeFromAll} === true',
-                  ng-checked='#{unsubscribeFromAll} === false && #{preference} === true',
-                  ng-change='set({"preferences.emailNotifications.#{notification}": #{preference} ? true: false})')
-                span=env.t(notification)
+            table.table
+              tr
+                td
+                th
+                  span=env.t("email")
+                th
+                  span=env.t("push")
+              -var unsubscribeFromAllEmails = 'user.preferences.emailNotifications.unsubscribeFromAll'
+              -var unsubscribeFromAllPush = 'user.preferences.pushNotifications.unsubscribeFromAll'
+              each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps']
+                tr
+                  td
+                    span=env.t(notification)
+                  td
+                    -var preference = 'user.preferences.emailNotifications.' + notification
+                    input(type='checkbox', ng-model='#{preference}',
+                      ng-disabled='#{unsubscribeFromAllEmails} === true || #{preference} === undefined',
+                      ng-checked='#{unsubscribeFromAllEmails} === false && #{preference} === true',
+                      ng-change='set({"preferences.emailNotifications.#{notification}": #{preference} ? true: false})')
+                  td
+                    -var preference = 'user.preferences.pushNotifications.' + notification
+                    input(type='checkbox', ng-model='#{preference}',
+                      ng-disabled='#{unsubscribeFromAllPush} === true || #{preference} === undefined',
+                      ng-checked='#{unsubscribeFromAllPush} === false && #{preference} === true',
+                      ng-change='set({"preferences.pushNotifications.#{notification}": #{preference} ? true: false})')
 
             hr
 
             .checkbox
               label
-                input(type='checkbox', ng-model='user.preferences.emailNotifications.unsubscribeFromAll', ng-change='set({"preferences.emailNotifications.unsubscribeFromAll": user.preferences.emailNotifications.unsubscribeFromAll ? true: false})')
+                input(type='checkbox', ng-model='user.preferences.pushNotifications.unsubscribeFromAll',
+                ng-change='set({"preferences.pushNotifications.unsubscribeFromAll": user.preferences.pushNotifications.unsubscribeFromAll ? true: false})')
+                span=env.t('unsubscribeAllPush')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.emailNotifications.unsubscribeFromAll',
+                ng-change='set({"preferences.emailNotifications.unsubscribeFromAll": user.preferences.emailNotifications.unsubscribeFromAll ? true: false})')
                 span=env.t('unsubscribeAllEmails')
 
             small=env.t('unsubscribeAllEmailsText')
@@ -370,7 +410,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               input.form-control(type='text', ng-model='_subscription.coupon', placeholder= env.t('couponPlaceholder'))
             .form-group
               button.pull-right.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
-          
+
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
@@ -381,9 +421,8 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
           .col-xs-4
             a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
           .col-xs-4
-            a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')
+            a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')
               img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
           .col-xs-4
             a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")
               img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
-

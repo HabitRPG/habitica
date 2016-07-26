@@ -52,5 +52,6 @@
     "messageGroupChatNotFound": "Zpráva nenalezena!",
     "messageGroupChatAdminClearFlagCount": "Pouze admin může smazat počet označení!",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
-    "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena"
+    "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",
+    "messageNotificationNotFound": "Notification not found."
 }

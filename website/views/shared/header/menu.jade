@@ -60,7 +60,7 @@ nav.toolbar(ng-controller='MenuCtrl')
               li
                 a(target='_blank' href='https://habitica.com/static/overview')=env.t('overview')
               li
-                a(target='_blank' href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
+                a(target='_blank' href='https://habitica.com/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac')=env.t('reportBug')
               li
                 a(target='_blank' href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestion')
               li
@@ -161,7 +161,7 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(target='_blank' href='https://habitica.com/static/overview')=env.t('overview')
             li
-              a(target='_blank' href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
+              a(target='_blank' href='https://habitica.com/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac')=env.t('reportBug')
             li
               a(target='_blank' href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestion')
             li
@@ -177,6 +177,7 @@ nav.toolbar(ng-controller='MenuCtrl')
       li.toolbar-notifs
         a(data-expand-menu, menu='notifs')
           span.glyphicon(ng-class='iconClasses()')
+          span.notification-counter(ng-if='getNotificationsCount()') {{getNotificationsCount()}}
         div(ng-show='_expandedMenu.menu === "notifs"')
           h4=env.t('notifications')
           div
@@ -205,7 +206,7 @@ nav.toolbar(ng-controller='MenuCtrl')
                   span.glyphicon.glyphicon-plus-sign
                   span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
               li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-                a(ng-click='k === party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ', data-close-menu)
+                a(ng-click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ', data-close-menu)
                   span.glyphicon.glyphicon-comment
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
@@ -222,7 +223,7 @@ nav.toolbar(ng-controller='MenuCtrl')
           div
             ul.toolbar-submenu
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme']
                 li
                   a(ng-class="{'bg-primary':user.preferences.sound === '# {theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
@@ -280,4 +281,4 @@ nav.toolbar(ng-controller='MenuCtrl')
 
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
-        .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff",{size:"lg"})')
+        div(class="#{env.worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey'}" popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff",{size:"lg"})').npc_bailey_head

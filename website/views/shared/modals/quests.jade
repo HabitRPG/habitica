@@ -38,15 +38,20 @@ script(type='text/ng-template', id='modals/showQuest.html')
     h4 {{::selectedQuest.text()}}
   .modal-body
     +questInfo
-    hr
-    div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
-    p(ng-if='!env.worldDmg.quests')=env.t('questSend')
-    p(ng-if='!env.worldDmg.quests')=env.t('questWarning')
-    p(ng-if='env.worldDmg.quests')=env.t('questSendBroken')
-    p(ng-if='env.worldDmg.quests')=env.t('questWarningBroken')
+
+    div(ng-if='user.party._id')
+      hr
+
+      div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left
+      p(ng-if='!env.worldDmg.quests')=env.t('questSend')
+      p(ng-if='!env.worldDmg.quests')=env.t('questWarning')
+      p(ng-if='env.worldDmg.quests')=env.t('questSendBroken')
+      p(ng-if='env.worldDmg.quests')=env.t('questWarningBroken')
   .modal-footer
+    .alert.alert-warning(ng-if='!user.party._id')
+      p!=env.t('needPartyToStartQuest')
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
-    button.btn.btn-primary(ng-click='questInit()')
+    button.btn.btn-primary(ng-click='questInit()', ng-if='user.party._id')
       | {{:: party.memberCount > 1  ? env.t('inviteParty') : env.t('startQuest')}}
 
 script(type='text/ng-template', id='modals/buyQuest.html')
@@ -57,7 +62,7 @@ script(type='text/ng-template', id='modals/buyQuest.html')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
     button.btn.btn-primary(ng-if='::selectedQuest.category !== "gold"', ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest') + ': {{::selectedQuest.value}} ' + env.t('gems')
-    button.btn.btn-primary(ng-if='::selectedQuest.category === "gold"', ng-click='user.ops.buyQuest({params:{key:selectedQuest.key}}); closeQuest(); $close()')=env.t('buyQuest') + ': {{::selectedQuest.goldValue}} ' + env.t('gold')
+    button.btn.btn-primary(ng-if='::selectedQuest.category === "gold"', ng-click='User.buyQuest({params:{key:selectedQuest.key}}); closeQuest(); $close()')=env.t('buyQuest') + ': {{::selectedQuest.goldValue}} ' + env.t('gold')
 
 script(type='text/ng-template', id='modals/questInvitation.html')
   .modal-header
@@ -104,7 +109,8 @@ script(type='text/ng-template', id='modals/questDrop.html')
             .quest-icon(class='inventory_quest_scroll_{{::selectedQuest.key}}')
       h4!=env.t('leveledUpReceivedQuest', {level:'{{user.stats.lvl}}'})
       .row(style='margin-top:2em')
-        button.btn.btn-primary(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
+        button.btn.btn-primary(ng-click='inviteOrStartParty(party); $close()', ng-if='!User.user.party._id')=env.t('startAParty')
+        button.btn.btn-primary(ng-click='inviteOrStartParty(party); $close()', ng-if='!User.user.party._id && !party.members')=env.t('battleWithFriends')
         button.btn.btn-primary(ng-click='questInit(); $close()', ng-if='party.members')=env.t('inviteParty')
         button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
     .modal-footer(style='margin-top:0', ng-init='loadWidgets()')

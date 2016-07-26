@@ -1,17 +1,22 @@
 import i18n from '../i18n';
+import { NotFound } from '../libs/errors';
+import _ from 'lodash';
 
-module.exports = function(user, req, cb) {
-  var i, ref, task;
-  task = user.tasks[(ref = req.params) != null ? ref.id : void 0];
-  if (!task) {
-    return typeof cb === "function" ? cb({
-      code: 404,
-      message: i18n.t('messageTaskNotFound', req.language)
-    }) : void 0;
+// TODO used only in client, move there?
+
+module.exports = function deleteTask (user, req = {}) {
+  let tid = _.get(req, 'params.id');
+  let taskType = _.get(req, 'params.taskType');
+
+  let index = _.findIndex(user[`${taskType}s`], function findById (task) {
+    return task._id === tid;
+  });
+
+  if (index === -1) {
+    throw new NotFound(i18n.t('messageTaskNotFound', req.language));
   }
-  i = user[task.type + "s"].indexOf(task);
-  if (~i) {
-    user[task.type + "s"].splice(i, 1);
-  }
-  return typeof cb === "function" ? cb(null, {}) : void 0;
+
+  user[`${taskType}s`].splice(index, 1);
+
+  return {};
 };

@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v2';
 
-describe('POST /user/pushDevice', () => {
+xdescribe('POST /user/pushDevice', () => {
   let user;
 
   beforeEach(async () => {

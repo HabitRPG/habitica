@@ -1,5 +1,7 @@
 # So you want to write API integration tests?
 
+@TODO rewrite
+
 That's great! This README will serve as a quick primer for style conventions and practices for these tests.
 
 ## What is this?
@@ -73,7 +75,7 @@ POST-groups_id_leave.test.js
 To mitigate [callback hell](http://callbackhell.com/) :imp:, we've written a helper method to generate a user object that can make http requests that [return promises](https://babeljs.io/docs/learn-es2015/#promises).  This makes it very easy to chain together commands. All you need to do to make a subsequent request is return another promise and then call `.then((result) => {})` on the surrounding block, like so:
 
 ```js
-it('does something', () => { 
+it('does something', () => {
   let user;
 
   return generateUser().then((_user) => { // We return the initial promise so this test can be run asyncronously
@@ -97,7 +99,7 @@ it('does something', () => {
 If the test is simple, you can use the [chai-as-promised](http://chaijs.com/plugins/chai-as-promised) `return expect(somePromise).to.eventually` syntax to make your assertion.
 
 ```js
-it('makes the party creator the leader automatically', () => { 
+it('makes the party creator the leader automatically', () => {
   return expect(user.post('/groups', {
     type: 'party',
   })).to.eventually.have.deep.property('leader._id', user._id);
@@ -107,7 +109,7 @@ it('makes the party creator the leader automatically', () => {
 If the test is checking that the request returns an error, use the `.eventually.be.rejected.and.eql` syntax.
 
 ```js
-it('returns an error', () => { 
+it('returns an error', () => {
   return expect(user.get('/groups/id-of-a-party-that-user-does-not-belong-to'))
     .to.eventually.be.rejected.and.eql({
       code: 404,

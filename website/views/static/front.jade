@@ -22,6 +22,9 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     meta(name='twitter:description' content='Habitica is a free habit-building and productivity app that treats your real life like a game! Motivate yourself with in-game rewards and social encouragement.')
     meta(name='twitter:image' content='https://s3.amazonaws.com/habitica-assets/assets/gryphon_logo.png')
     meta(name='apple-itunes-app' content='app-id=994882113')
+    meta(name='google-play-app' content='app-id=com.habitrpg.android.habitica')
+    link(rel='apple-touch-icon' href='/logo.png')
+    link(rel='android-touch-icon' href='/logo.png')
     link(rel='canonical', href='', type='text/html')
     link(rel='shortcut icon', sizes="32x32", href='/favicon.ico')
     link(rel='shortcut icon', sizes="192x192", href='/favicon_192x192.png')
@@ -31,6 +34,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
 
     script(type='text/javascript').
       window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
+
     != env.getManifestFiles("tmp_static_front")
 
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js')
@@ -636,6 +640,17 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
         $('[data-toggle="tooltip"]').tooltip()
         $('[data-toggle="popover"]').popover()
       })
+    // Smart App Banner
+    script(type='text/javascript').
+      new SmartBanner({
+          title: 'Habitica: Gamify Your Tasks',
+          author: 'HabitRPG, Inc.',
+          button: 'GET',
+          store: {
+              ios: 'On the App Store',
+              android: 'In Google Play'
+          }
+      });
     // Hack fix for carousel (http://stackoverflow.com/a/22182184/362790)
     script.
       angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])

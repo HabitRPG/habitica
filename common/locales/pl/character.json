@@ -1,4 +1,5 @@
 {
+    "communityGuidelinesWarning": "Pamiętaj, że Twoja Nazwa Gracza, zdjęcie profilowe i krótki opis muszą być zgodne z  <a href='https://habitica.com/static/community-guidelines' target='_blank'>Wytycznymi Społeczności</a> (np. żadnej profanacji, tematów dla dorosłych, nic obraźliwego itp.). Jeśli masz pytania odnośnie tego, czy coś jest właściwe czy nie, pisz na e-mail <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Statystyki i osiągnięcia",
     "profile": "Profil",
     "avatar": "Dostosuj Awatara",
@@ -34,6 +35,7 @@
     "beard": "Broda",
     "mustache": "Wąsy",
     "flower": "Kwiatek",
+    "wheelchair": "Wózek inwalidzki",
     "basicSkins": "Podstawowe kolory",
     "rainbowSkins": "Tęczowe kolory",
     "pastelSkins": "Pastelowe kolory",
@@ -108,6 +110,7 @@
     "mage": "Mag",
     "mystery": "Tajemniczy",
     "changeClass": "Zmień klasę i przywróć punkty atrybutów",
+    "lvl10ChangeClass": "Aby zmienić klasę musisz być na poziomie co najmniej 10. ",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",
     "haveUnallocated": "Nieprzydzielone Punkty Atrybutów: <%= points %>",
@@ -161,7 +164,10 @@
     "con": "KON",
     "per": "PER",
     "int": "INT",
-    "showQuickAllocation": "Show stat allocation",
-    "hideQuickAllocation": "Hide stat allocation",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats."
+    "showQuickAllocation": "Pokaż przydział atrybutów",
+    "hideQuickAllocation": "Ukryj przydział atrybutów",
+    "quickAllocationLevelPopover": "Z każdym poziomem otrzymujesz jeden punkt, który możesz przydzielić wybranemu atrybutowi. Możesz to zrobić ręcznie, lub zdać się na jedną z możliwych opcji Automatycznej Alokacji, dostępnych w Użytkownik -> Statystyki Awatara.",
+    "invalidAttribute": "\"<%= attr %>\" nie jest poprawnym atrybutem.",
+    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów.",
+    "gearNotOwned": "Nie posiadasz tego przedmiotu."
 }

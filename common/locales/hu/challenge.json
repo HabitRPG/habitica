@@ -63,5 +63,21 @@
     "congratulations": "Gratulálok!",
     "hurray": "Hurrá!",
     "noChallengeOwner": "nincs tulajdonosa",
-    "noChallengeOwnerPopover": "Ennek a kihívásnak nincs tulajdonosa, mert a személy aki létrehozta a kihívást, törölte fiókját."
+    "noChallengeOwnerPopover": "Ennek a kihívásnak nincs tulajdonosa, mert a személy aki létrehozta a kihívást, törölte fiókját.",
+    "challengeMemberNotFound": "Nem található a felhasználó a kihívás résztvevői között",
+    "onlyGroupLeaderChal": "Csak a csapat vezető hozhat létre kihívásokat",
+    "tavChalsMinPrize": "A fogadóban a kihívás jutalma minimum 1 drágakő lehet.",
+    "cantAfford": "Nem engedheted meg magadnak. Vásárolj több drágakövet, vagy csökkentsd a jutalom mértékét.",
+    "challengeIdRequired": "\"challengeId\" valódi UUID-nek kell lennie.",
+    "winnerIdRequired": "\"winnerId\" valódi UUID-nek kell lennie.",
+    "challengeNotFound": "A kihívás nem található, vagy nincs hozzáférési jogusultságod.",
+    "onlyLeaderDeleteChal": "Csak a kihívás vezetője törölheti ezt.",
+    "onlyLeaderUpdateChal": "Csak a kihívás vezetője írhatja felül ezt.",
+    "winnerNotFound": "Nem található, vagy nem résztvevője a kihívásnak a \"<%= userId %>\" azonosító.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" nem támogatott, amikor kihívás feladatok töltődnek.",
+    "userTasksNoChallengeId": "Amikor \"tasksOwner\" a \"user\" \"challengeId\" nem továbbítható.",
+    "onlyChalLeaderEditTasks": "Feladat ami egy kihíváshoz tartozik, csak a vezető által szerkeszthető.",
+    "userAlreadyInChallenge": "A felhasználó már részt vesz ebben a kihívásban.",
+    "cantOnlyUnlinkChalTask": "Csak az törött kapcsolatú kihívás feladat kapcsolata bontható.",
+    "shortNameTooShort": "Címke neve legalább 3 karakter hosszú legyen."
 }

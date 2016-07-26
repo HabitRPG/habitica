@@ -378,7 +378,35 @@ api.questEggs = {
     adjective: t('questEggSnailAdjective'),
     canBuy: (function(u) {
       return u.achievements.quests && (u.achievements.quests.snail != null) > 0;
-    })
+    }),
+  },
+  Falcon: {
+    text: t('questEggFalconText'),
+    adjective: t('questEggFalconAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.falcon != null) > 0;
+    }),
+  },
+  Treeling: {
+    text: t('questEggTreelingText'),
+    adjective: t('questEggTreelingAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.treeling != null) > 0;
+    }),
+  },
+  Axolotl: {
+    text: t('questEggAxolotlText'),
+    adjective: t('questEggAxolotlAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.axolotl != null) > 0;
+    }),
+  },
+  Turtle: {
+    text: t('questEggTurtleText'),
+    adjective: t('questEggTurtleAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.turtle != null) > 0;
+    }),
   },
 };
 
@@ -411,6 +439,8 @@ api.specialPets = {
   'Tiger-Veteran': 'veteranTiger',
   'Phoenix-Base': 'phoenix',
   'Turkey-Gilded': 'gildedTurkey',
+  'MagicalBee-Base': 'magicalBee',
+  'Lion-Veteran': 'veteranLion',
 };
 
 api.specialMounts = {
@@ -422,7 +452,8 @@ api.specialMounts = {
   'Orca-Base': 'orca',
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
   'Phoenix-Base': 'phoenix',
-  'JackOLantern-Base': 'jackolantern'
+  'JackOLantern-Base': 'jackolantern',
+  'MagicalBee-Base': 'magicalBee',
 };
 
 api.timeTravelStable = {
@@ -497,7 +528,15 @@ api.premiumHatchingPotions = {
     canBuy: (function() {
       return false;
     })
-  }
+  },
+  Floral: {
+    value: 2,
+    text: t('hatchingPotionFloral'),
+    limited: true,
+    canBuy: (function() {
+      return false;
+    }),
+  },
 };
 
 _.each(api.dropHatchingPotions, function(pot, key) {
@@ -572,6 +611,14 @@ api.mounts = _.transform(api.dropEggs, function(m, egg) {
 api.questMounts = _.transform(api.questEggs, function(m, egg) {
   return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
     if (!pot.premium) {
+      return m2[egg.key + "-" + pot.key] = true;
+    }
+  }));
+});
+
+api.premiumMounts = _.transform(api.dropEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    if (pot.premium) {
       return m2[egg.key + "-" + pot.key] = true;
     }
   }));
@@ -1287,7 +1334,7 @@ api.quests = {
     completion: t('questEggHuntCompletion'),
     value: 1,
     canBuy: (function() {
-      return true;
+      return false;
     }),
     category: 'pet',
     collect: {
@@ -2526,6 +2573,221 @@ api.quests = {
       exp: 275,
       unlock: t('questSnailUnlockText')
     }
+  },
+  bewilder: {
+    text: t("questBewilderText"),
+    notes: t("questBewilderNotes"),
+    completion: t("questBewilderCompletion"),
+    completionChat: t('questBewilderCompletionChat'),
+    value: 0,
+    canBuy: (function() {
+      return false;
+    }),
+    category: 'world',
+    boss: {
+      name: t("questBewilderText"),
+      hp: 20000000,
+      str: 1,
+      def: 1,
+      rage: {
+        title: t("questBewilderBossRageTitle"),
+        description: t("questBewilderBossRageDescription"),
+        value: 800000,
+        bailey: t('questBewilderBossRageBailey'),
+        stables: t('questBewilderBossRageStables'),
+        market: t('questBewilderBossRageMarket')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'MagicalBee-Base',
+          text: t('questBewilderDropBumblebeePet')
+        }, {
+          type: 'mounts',
+          key: 'MagicalBee-Base',
+          text: t('questBewilderDropBumblebeeMount')
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat')
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk')
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('foodStrawberry')
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate')
+        }, {
+          type: 'food',
+          key: 'Fish',
+          text: t('foodFish')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat')
+        }, {
+          type: 'food',
+          key: 'CottonCandyPink',
+          text: t('foodCottonCandyPink')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('foodCottonCandyBlue')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney')
+        },
+      ],
+      gp: 0,
+      exp: 0,
+    },
+  },
+  falcon: {
+    text: t('questFalconText'),
+    notes: t('questFalconNotes'),
+    completion: t('questFalconCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questFalconBoss'),
+      hp: 700,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Falcon',
+          text: t('questFalconDropFalconEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Falcon',
+          text: t('questFalconDropFalconEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Falcon',
+          text: t('questFalconDropFalconEgg'),
+        }
+      ],
+      gp: 49,
+      exp: 425,
+      unlock: t('questFalconUnlockText'),
+    },
+  },
+  treeling: {
+    text: t('questTreelingText'),
+    notes: t('questTreelingNotes'),
+    completion: t('questTreelingCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTreelingBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Treeling',
+          text: t('questTreelingDropTreelingEgg'),
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questTreelingUnlockText'),
+    },
+  },
+  axolotl: {
+    text: t('questAxolotlText'),
+    notes: t('questAxolotlNotes'),
+    completion: t('questAxolotlCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questAxolotlBoss'),
+      hp: 500,
+      str: 1.5,
+      rage: {
+        title: t('questAxolotlRageTitle'),
+        description: t('questAxolotlRageDescription'),
+        value: 50,
+        healing: .3,
+        effect: t('questAxolotlRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Axolotl',
+          text: t('questAxolotlDropAxolotlEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Axolotl',
+          text: t('questAxolotlDropAxolotlEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Axolotl',
+          text: t('questAxolotlDropAxolotlEgg'),
+        }
+      ],
+      gp: 37,
+      exp: 275,
+      unlock: t('questAxolotlUnlockText'),
+    },
+  },
+  turtle: {
+    text: t('questTurtleText'),
+    notes: t('questTurtleNotes'),
+    completion: t('questTurtleCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTurtleBoss'),
+      hp: 300,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Turtle',
+          text: t('questTurtleDropTurtleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Turtle',
+          text: t('questTurtleDropTurtleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Turtle',
+          text: t('questTurtleDropTurtleEgg'),
+        }
+      ],
+      gp: 25,
+      exp: 125,
+      unlock: t('questTurtleUnlockText'),
+    },
   },
 };
 

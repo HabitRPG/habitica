@@ -5,13 +5,12 @@ describe('Header Controller', function() {
 
   beforeEach(function() {
     module(function($provide) {
-      $provide.value('User', {});
+      user = specHelper.newUser();
+      user._id = "unique-user-id"
+      $provide.value('User', {user: user});
     });
 
     inject(function(_$rootScope_, _$controller_, _$location_){
-      user = specHelper.newUser();
-      user._id = "unique-user-id"
-
       scope = _$rootScope_.$new();
       $rootScope = _$rootScope_;
 
