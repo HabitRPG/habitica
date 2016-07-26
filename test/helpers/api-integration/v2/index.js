@@ -3,6 +3,6 @@ import { requester } from '../requester';
 requester.setApiVersion('v2');
 export { requester };
 
-export { translate } from '../translate';
+export { translate } from '../../translate';
 export { checkExistence, resetHabiticaDB } from '../../mongo';
 export * from  './object-generators';

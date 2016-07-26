@@ -8,6 +8,7 @@ import {
   RewardSchema,
   TodoSchema,
 } from '../../website/server/models/task';
+export {translate} from './translate';
 
 export function generateUser (options = {}) {
   let user = new User(options).toObject();
