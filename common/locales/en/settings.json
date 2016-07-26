@@ -154,6 +154,7 @@
     "webhookURL": "Webhook URL",
     "invalidUrl": "invalid url",
     "invalidEnabled": "the \"enabled\" parameter should be a boolean",
+    "invalidWebhookKind": "\"<%= kind %>\" is not a valid type for the parameter \"kind\".",
     "regIdRequired": "RegId is required",
     "invalidPushClient": "Invalid client. Only Official Habitica clients can receive push notifications.",
     "pushDeviceAdded": "Push device added successfully",

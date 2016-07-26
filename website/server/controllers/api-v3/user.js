@@ -908,6 +908,7 @@ api.userOpenMysteryItem = {
 *
 * @apiParam {string} url Body parameter - The webhook's URL
 * @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
+* @apiParam {string} kind Body parameter - The webhook's kind. Available values: taskScored, taskCreated, groupChatRecieved
 *
 * @apiSuccess {Object} data The created webhook
 */

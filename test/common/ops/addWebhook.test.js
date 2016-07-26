@@ -2,9 +2,9 @@ import addWebhook from '../../../common/script/ops/addWebhook';
 import {
   BadRequest,
 } from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
 import {
   generateUser,
+  translate as t,
 } from '../../helpers/common.helper';
 
 describe('shared.ops.addWebhook', () => {
@@ -13,10 +13,12 @@ describe('shared.ops.addWebhook', () => {
 
   beforeEach(() => {
     user = generateUser();
-    req = { body: {
-      enabled: true,
-      url: 'http://some-url.com',
-    } };
+    req = {
+      body: {
+        enabled: true,
+        url: 'http://some-url.com',
+      },
+    };
   });
 
   context('adds webhook', () => {
@@ -26,7 +28,7 @@ describe('shared.ops.addWebhook', () => {
         addWebhook(user, req);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidUrl'));
+        expect(err.message).to.equal(t('invalidUrl'));
         done();
       }
     });
@@ -37,7 +39,32 @@ describe('shared.ops.addWebhook', () => {
         addWebhook(user, req);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidEnabled'));
+        expect(err.message).to.equal(t('invalidEnabled'));
+        done();
+      }
+    });
+
+    it('defaults kind to "taskScored"', () => {
+      let result = addWebhook(user, req);
+
+      expect(result[0].kind).to.eql('taskScored');
+    });
+
+    it('can set kind to acceptable webhook kind', () => {
+      req.body.kind = 'questActivity';
+      let result = addWebhook(user, req);
+
+      expect(result[0].kind).to.eql('questActivity');
+    });
+
+    it('throws an error if incompatible kind is passed', (done) => {
+      req.body.kind = 'not a webhook kind';
+
+      try {
+        addWebhook(user, req);
+      } catch (err) {
+        expect(err).to.be.an.instanceOf(BadRequest);
+        expect(err.message).to.equal(t('invalidWebhookKind', {kind: 'not a webhook kind'}));
         done();
       }
     });
