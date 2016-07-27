@@ -46,7 +46,7 @@ api.verifyAccessToken = {
  * @apiName AmazonCreateOrderReferenceId
  * @apiGroup Payments
  *
- * @apiSuccess {string} data.orderReferenceId The order reference id.
+ * @apiSuccess {String} data.orderReferenceId The order reference id.
  **/
 api.createOrderReferenceId = {
   method: 'POST',
@@ -76,7 +76,7 @@ api.createOrderReferenceId = {
  * @apiName AmazonCheckout
  * @apiGroup Payments
  *
- * @apiSuccess {object} data Empty object
+ * @apiSuccess {Object} data Empty object
  **/
 api.checkout = {
   method: 'POST',
@@ -153,7 +153,7 @@ api.checkout = {
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  *
- * @apiSuccess {object} data Empty object
+ * @apiSuccess {Object} data Empty object
  **/
 api.subscribe = {
   method: 'POST',
