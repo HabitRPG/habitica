@@ -85,19 +85,19 @@ describe('Notification Controller', function() {
     });
   });
 
-  describe('User challenge won modal watch', function() {
-    it('opens challenge won modal when a challenge is won', function() {
-      user.achievements.challenges = [];
+  describe('User challenge won notification watch', function() {
+    it('opens challenge won modal when a challenge-won notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
-      user.achievements.challenges = ['test-challenge'];
+      user.notifications.push({type='WON_CHALLENGE'});
       rootScope.$digest();
 
       expect(rootScope.openModal).to.be.called;
       expect(rootScope.openModal).to.be.calledWith('wonChallenge');
     });
 
-    it('does not open challenge won modal if no new challenge is won', function() {
-      user.achievements.challenges = [];
+    it('does not open challenge won modal if no new challenge-won notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
       rootScope.$digest();
 
@@ -105,19 +105,19 @@ describe('Notification Controller', function() {
     });
   });
 
-  describe('User streak achievement modal watch', function() {
-    it('opens streak achievement modal if streak count increases', function() {
-      user.achievements.streak = 0;
+  describe('User streak achievement notification watch', function() {
+    it('opens streak achievement modal when a streak-achievement notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
-      user.achievements.streak = 1;
+      user.notifications.push({type='STREAK_ACHIEVEMENT'});
       rootScope.$digest();
 
       expect(achievement.displayAchievement).to.be.called;
       expect(achievement.displayAchievement).to.be.calledWith('streak');
     });
 
-    it('does not open streak achievement modal if streak count stays the same', function() {
-      user.achievements.streak = 1;
+    it('does not open streak achievement modal if no new streak-achievement notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
       rootScope.$digest();
 
@@ -125,17 +125,19 @@ describe('Notification Controller', function() {
     });
   });
 
-  describe('User ultimate gear set achievement modal watch', function() {
-    it('opens ultimate gear set achievement modal if set is acquired', function() {
+  describe('User ultimate gear set achievement notification watch', function() {
+    it('opens ultimate gear set achievement modal when an ultimate-gear-achievement notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
-      user.achievements.ultimateGearSets = { warrior:true };
+      user.notifications.push({type='ULTIMATE_GEAR_ACHIEVEMENT'});
       rootScope.$digest();
 
       expect(achievement.displayAchievement).to.be.called;
       expect(achievement.displayAchievement).to.be.calledWith('ultimateGear');
     });
 
-    it('does not open ultimate gear set achievement modal if no new set is acquired', function() {
+    it('does not open ultimate gear set achievement modal if no new ultimate-gear-achievement notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
       rootScope.$digest();
 
@@ -143,19 +145,19 @@ describe('Notification Controller', function() {
     });
   });
 
-  describe('User rebirth achievement modal watch', function() {
-    it('opens rebirth achievement modal if rebirth count increases', function() {
-      user.achievements.rebirths = 0;
+  describe('User rebirth achievement notification watch', function() {
+    it('opens rebirth achievement modal when a rebirth-achievement notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
-      user.achievements.rebirths = 1;
+      user.notifications.push({type='REBIRTH_ACHIEVEMENT'});
       rootScope.$digest();
 
       expect(achievement.displayAchievement).to.be.called;
       expect(achievement.displayAchievement).to.be.calledWith('rebirth');
     });
 
-    it('does not open rebirth achievement modal if rebirth count stays the same', function() {
-      user.achievements.rebirths = 0;
+    it('does not open rebirth achievement modal if no new rebirth-achievement notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
       rootScope.$digest();
 
@@ -163,28 +165,19 @@ describe('Notification Controller', function() {
     });
   });
 
-  describe('User contributor flag modal watch', function() {
-    it('opens contributor achievement modal if contributor flag changes to true', function() {
-      user.flags.contributor = false;
+  describe('User contributor achievement notification watch', function() {
+    it('opens contributor achievement modal when a new-contributor-level notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
-      user.flags.contributor = true;
+      user.notifications.push({type='NEW_CONTRIBUTOR_LEVEL'});
       rootScope.$digest();
 
       expect(achievement.displayAchievement).to.be.called;
       expect(achievement.displayAchievement).to.be.calledWith('contributor');
     });
 
-    it('does not open contributor achievement modal if contributor flag changes to false', function() {
-      user.flags.contributor = true;
-      rootScope.$digest();
-      user.flags.contributor = false;
-      rootScope.$digest();
-
-      expect(achievement.displayAchievement).to.not.be.calledWith('contributor');
-    });
-
-    it('does not open contributor achievement modal if contributor flag stays the same', function() {
-      user.flags.contributor = true;
+    it('does not open contributor achievement modal if no new new-contributor-level notification is recieved', function() {
+      user.notifications = [];
       rootScope.$digest();
       rootScope.$digest();
 
