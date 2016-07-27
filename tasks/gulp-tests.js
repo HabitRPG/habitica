@@ -24,6 +24,7 @@ const TEST_DB_URI       = nconf.get('TEST_DB_URI');
 const API_V2_TEST_COMMAND = 'npm run test:api-v2:integration';
 const API_V3_TEST_COMMAND = 'npm run test:api-v3';
 const LEGACY_API_TEST_COMMAND = 'npm run test:api-legacy';
+const SANITY_TEST_COMMAND = 'npm run test:sanity';
 const COMMON_TEST_COMMAND = 'npm run test:common';
 const CONTENT_TEST_COMMAND = 'npm run test:content';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
@@ -88,6 +89,16 @@ gulp.task('test:prepare', [
   'test:prepare:mongo',
   'test:prepare:webdriver'
 ]);
+
+gulp.task('test:sanity', (cb) => {
+  let runner = exec(
+    testBin(SANITY_TEST_COMMAND),
+    (err, stdout, stderr) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
 
 gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
@@ -389,6 +400,7 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
 
 gulp.task('test', (done) => {
   runSequence(
+    'test:sanity',
     'test:common',
     'test:karma',
     'test:api-v3:unit',
