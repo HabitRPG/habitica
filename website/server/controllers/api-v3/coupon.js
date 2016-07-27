@@ -17,7 +17,7 @@ let api = {};
  * @apiName GetCoupons
  * @apiGroup Coupon
  *
- * @apiSuccess {string} Coupons in CSV format
+ * @apiSuccess {String} Coupons in CSV format
  */
 api.getCoupons = {
   method: 'GET',
@@ -46,10 +46,10 @@ api.getCoupons = {
  * @apiName GenerateCoupons
  * @apiGroup Coupon
  *
- * @apiParam {string} event The event for which the coupon should be generated
- * @apiParam {number} count Query parameter to specify the number of coupon codes to generate
+ * @apiParam {String} event The event for which the coupon should be generated
+ * @apiParam {Number} count Query parameter to specify the number of coupon codes to generate
  *
- * @apiSuccess {array} data Generated coupons
+ * @apiSuccess {Array} data Generated coupons
  */
 api.generateCoupons = {
   method: 'POST',
@@ -73,9 +73,9 @@ api.generateCoupons = {
  * @apiName EnterCouponCode
  * @apiGroup Coupon
  *
- * @apiParam {string} code The coupon code to apply
+ * @apiParam {String} code The coupon code to apply
  *
- * @apiSuccess {object} data User object
+ * @apiSuccess {Object} data User object
  */
 api.enterCouponCode = {
   method: 'POST',
@@ -100,7 +100,7 @@ api.enterCouponCode = {
  * @apiName ValidateCoupon
  * @apiGroup Coupon
  *
- * @apiSuccess {boolean} data.valid True or false
+ * @apiSuccess {Boolean} data.valid True or false
  */
 api.validateCoupon = {
   method: 'POST',

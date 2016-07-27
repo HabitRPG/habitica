@@ -6,7 +6,7 @@ let api = {};
  * @apiName GetStatus
  * @apiGroup Status
  *
- * @apiSuccess {status} data.status 'up' if everything is ok
+ * @apiSuccess {Status} data.status 'up' if everything is ok
  */
 api.getStatus = {
   method: 'GET',

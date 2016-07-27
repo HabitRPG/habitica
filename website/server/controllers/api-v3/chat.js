@@ -24,7 +24,7 @@ let api = {};
  * @apiName GetChat
  * @apiGroup Chat
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Array} data An array of chat messages
  */
@@ -54,7 +54,7 @@ api.getChat = {
  * @apiGroup Chat
  *
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string} message Body parameter - message The message to post
+ * @apiParam {String} message Body parameter - message The message to post
  * @apiParam {UUID} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
  *
  * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
@@ -166,7 +166,7 @@ api.likeChat = {
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} chatId The chat message id
  *
- * @apiSuccess {object} data The flagged chat message
+ * @apiSuccess {Object} data The flagged chat message
  */
 api.flagChat = {
   method: 'POST',
@@ -362,7 +362,7 @@ api.seenChat = {
  * @apiName DeleteChat
  * @apiGroup Chat
  *
- * @apiParam {string} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
+ * @apiParam {String} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} chatId The chat message id
  *
