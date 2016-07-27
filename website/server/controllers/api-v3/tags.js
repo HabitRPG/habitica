@@ -120,7 +120,7 @@ api.updateTag = {
  * @apiGroup Tag
  *
  * @apiParam {UUID} tagId Id of the tag to move
- * @apiParam {Number} number Position the tag is moving to
+ * @apiParam {to} number Position the tag is moving to
  *
  * @apiSuccess {Object} data An empty object
  */
