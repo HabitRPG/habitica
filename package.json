@@ -109,6 +109,7 @@
     "test:api-v3:integration": "gulp test:api-v3:integration",
     "test:api-v3:integration:separate-server": "gulp test:api-v3:integration:separate-server",
     "test:api-legacy": "istanbul cover -i \"website/server/**\" --dir coverage/api ./node_modules/mocha/bin/_mocha test/api-legacy",
+    "test:sanity": "mocha test/sanity --recursive",
     "test:common": "mocha test/common --recursive",
     "test:content": "mocha test/content --recursive",
     "test:karma": "karma start --single-run",
