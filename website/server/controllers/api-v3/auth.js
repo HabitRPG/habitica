@@ -162,10 +162,8 @@ api.registerLocal = {
 };
 
 function _loginRes (user, req, res) {
-  var newUser = false;
-  if (user.newUser) newUser = true;
   if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser});
+  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
 /**
