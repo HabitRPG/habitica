@@ -4,30 +4,51 @@ import i18n from '../i18n';
 import {
   BadRequest,
 } from '../libs/errors';
-import _ from 'lodash';
 
-const WEBHOOK_TYPES = [
-  'taskScored',
-  'taskCreated',
-  'groupChatReceived',
-  'questActivity',
-];
-const DEFAULT_WEBHOOK_TYPE = WEBHOOK_TYPES[0];
+// Enumerates webhook types and provides functions for sanitizing options
+const WEBHOOK_TYPES = {
+  taskScored () {
+    return {};
+  },
+  taskCreated () {
+    return {};
+  },
+  groupChatReceived (options = {}) {
+    if (!validator.isUUID(options.groupId)) {
+      throw new BadRequest(i18n.t('groupIdRequired'));
+    }
+
+    return {
+      groupId: options.groupId,
+    };
+  },
+  questActivity (options = {}) {
+    return {
+      onStart: options.onStart === true,
+      onComplete: options.onComplete === true,
+      onInvitation: options.onInvitation === true,
+    };
+  },
+};
+const DEFAULT_WEBHOOK_TYPE = 'taskScored';
 
 module.exports = function addWebhook (user, req = {}) {
   let wh = user.preferences.webhooks;
+  let body = req.body || {};
 
-  if (!validator.isURL(_.get(req, 'body.url'))) {
+  if (!validator.isURL(body.url)) {
     throw new BadRequest(i18n.t('invalidUrl', req.language));
-  } else if (!validator.isBoolean(_.get(req, 'body.enabled'))) {
+  } else if (!validator.isBoolean(body.enabled)) {
     throw new BadRequest(i18n.t('invalidEnabled', req.language));
   }
 
-  let kind = _.get(req, 'body.kind') || DEFAULT_WEBHOOK_TYPE;
+  let type = body.type || DEFAULT_WEBHOOK_TYPE;
 
-  if (WEBHOOK_TYPES.indexOf(kind) === -1) {
-    throw new BadRequest(i18n.t('invalidWebhookKind', {kind}, req.language));
+  if (!(type in WEBHOOK_TYPES)) {
+    throw new BadRequest(i18n.t('invalidWebhookType', {type}, req.language));
   }
+
+  let options = WEBHOOK_TYPES[type](body.options);
 
   user.markModified('preferences.webhooks');
 
@@ -37,7 +58,8 @@ module.exports = function addWebhook (user, req = {}) {
     return [
       refPush(wh, {
         url: req.body.url,
-        kind,
+        type,
+        options,
         enabled: req.body.enabled,
       }),
     ];
