@@ -26,7 +26,7 @@ let api = {};
  * @apiName CreateChallenge
  * @apiGroup Challenge
  *
- * @apiSuccess {object} data The newly created challenge
+ * @apiSuccess {Object} data The newly created challenge
  */
 api.createChallenge = {
   method: 'POST',
@@ -117,7 +117,7 @@ api.createChallenge = {
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} data The challenge the user joined
+ * @apiSuccess {Object} data The challenge the user joined
  */
 api.joinChallenge = {
   method: 'POST',
@@ -164,7 +164,7 @@ api.joinChallenge = {
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.leaveChallenge = {
   method: 'POST',
@@ -246,7 +246,7 @@ api.getUserChallenges = {
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
  *
- * @apiParam {groupId} groupId The group _id
+ * @apiParam {UUID} groupId The group _id
  *
  * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
  */
@@ -291,7 +291,7 @@ api.getGroupChallenges = {
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} data The challenge object
+ * @apiSuccess {Object} data The challenge object
  */
 api.getChallenge = {
   method: 'GET',
@@ -334,7 +334,7 @@ api.getChallenge = {
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {string} challenge A csv file
+ * @apiSuccess {String} challenge A csv file
  */
 api.exportChallengeCsv = {
   method: 'GET',
@@ -407,7 +407,7 @@ api.exportChallengeCsv = {
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
- * @apiSuccess {object} data The updated challenge
+ * @apiSuccess {Object} data The updated challenge
  */
 api.updateChallenge = {
   method: 'PUT',
@@ -453,7 +453,7 @@ api.updateChallenge = {
  *
  * @apiParam {UUID} challengeId The _id for the challenge to delete
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.deleteChallenge = {
   method: 'DELETE',
@@ -486,7 +486,7 @@ api.deleteChallenge = {
  * @apiParam {UUID} challengeId The _id for the challenge to close with a winner
  * @apiParam {UUID} winnerId The _id of the winning user
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.selectChallengeWinner = {
   method: 'POST',

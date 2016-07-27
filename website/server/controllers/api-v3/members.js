@@ -28,7 +28,7 @@ let api = {};
  *
  * @apiParam {UUID} memberId The member's id
  *
- * @apiSuccess {object} data The member object
+ * @apiSuccess {Object} data The member object
  */
 api.getMember = {
   method: 'GET',
@@ -194,7 +194,7 @@ api.getInvitesForGroup = {
  *
  * @apiParam {UUID} challengeId The challenge id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {string} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
+ * @apiParam {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
 
  * @apiSuccess {array} data An array of members, sorted by _id
  */
@@ -214,7 +214,7 @@ api.getMembersForChallenge = {
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {UUID} member The member _id
  *
- * @apiSuccess {object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
  */
 api.getChallengeMemberProgress = {
   method: 'GET',
