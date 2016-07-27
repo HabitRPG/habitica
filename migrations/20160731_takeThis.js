@@ -1,9 +1,10 @@
-var migrationName = 'new_stuff.js';
+var migrationName = '20160731_takeThis.js';
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 /*
- * set the newStuff flag in all user accounts so they see a Bailey message
+ * Award Take This Sword to Take This challenge participants who already own the Shield
+ * and Take This Shield to the rest of the list 
  */
 
 var mongo = require('mongoskin');
@@ -14,12 +15,13 @@ var dbUsers = mongo.db(connectionString).collection('users');
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
-  'flags.newStuff':false
+  // Participant List
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'flags.newStuff':1
+  'migration': 1,
+  'items.gear.owned.shield_special_takeThis': 1
 };
 
 console.warn('Updating users...');
@@ -34,7 +36,14 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   count++;
 
   // specify user data to change:
-  var set = {'migration':migrationName, 'flags.newStuff':true};
+  var set = {};
+  if (user.migration !== migrationName) {
+    if (typeof user.items.gear.owned.shield_special_takeThis !== 'undefined') {
+      set = {'migration':migrationName, 'items.gear.owned.weapon_special_takeThis':false};
+    } else {
+      set = {'migration':migrationName, 'items.gear.owned.shield_special_takeThis':false}; 
+    }
+  }
 
   dbUsers.update({_id:user._id}, {$set:set});
 
@@ -58,3 +67,4 @@ function exiting(code, msg) {
   }
   process.exit(code);
 }
+
