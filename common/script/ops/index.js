@@ -15,9 +15,11 @@ import getTags from './getTags';
 import getTag from './getTag';
 import updateTag from './updateTag';
 import deleteTag from './deleteTag';
-import addWebhook from './addWebhook';
-import updateWebhook from './updateWebhook';
-import deleteWebhook from './deleteWebhook';
+import {
+  addWebhook,
+  updateWebhook,
+  deleteWebhook,
+} from './webhooks';
 import clearPMs from './clearPMs';
 import deletePM from './deletePM';
 import blockUser from './blockUser';

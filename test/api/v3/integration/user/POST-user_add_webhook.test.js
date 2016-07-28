@@ -49,8 +49,6 @@ describe('POST /user/webhook', () => {
 
     expect(response.id).to.exist;
 
-    console.log(response);
-
     await user.sync();
 
     let webhookId = Object.keys(user.preferences.webhooks)[0];

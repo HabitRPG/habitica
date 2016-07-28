@@ -3,30 +3,58 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-let user;
+let user, webhookToUpdate;
 let url = 'http://new-url.com';
 let enabled = true;
 
 describe('PUT /user/webhook/:id', () => {
   beforeEach(async () => {
     user = await generateUser();
+
+    webhookToUpdate = await user.post('/user/webhook', {
+      url: 'http://some-url.com',
+      enabled: true,
+    });
+    await user.post('/user/webhook', {
+      url: 'http://some-other-url.com',
+      enabled: false,
+    });
+
+    await user.sync();
   });
 
-  it('validation fails', async () => {
-    await expect(user.put('/user/webhook/some-id'), { enabled: true }).to.eventually.be.rejected.and.eql({
+  it('returns an error if webhook with id does not exist', async () => {
+    await expect(user.put('/user/webhook/id-that-does-not-exist')).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: t('noWebhookWithId', {id: 'id-that-does-not-exist'}),
+    });
+  });
+
+  it('returns an error if validation fails', async () => {
+    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, { url: 'foo', enabled: true })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidUrl'),
     });
   });
 
-  it('succeeds', async () => {
-    let response = await user.post('/user/webhook', { enabled: true, url: 'http://some-url.com'});
+  it('updates a webhook', async () => {
+    let type = 'taskCreated';
+
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type});
+
     await user.sync();
-    expect(user.preferences.webhooks[response.id].url).to.not.eql(url);
-    let response2 = await user.put(`/user/webhook/${response.id}`, {url, enabled});
-    expect(response2.url).to.eql(url);
-    await user.sync();
-    expect(user.preferences.webhooks[response.id].url).to.eql(url);
+
+    expect(user.preferences.webhooks[webhookToUpdate.id].url).to.eql(url);
+    expect(user.preferences.webhooks[webhookToUpdate.id].type).to.eql(type);
+  });
+
+  it('returns the updated webhook', async () => {
+    let type = 'taskCreated';
+    let response = await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type});
+
+    expect(response.url).to.eql(url);
+    expect(response.type).to.eql(type);
   });
 });
