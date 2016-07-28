@@ -14,7 +14,8 @@ var dbUsers = mongo.db(connectionString).collection('users');
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
-  'auth.timestamps.loggedin':{$gt:new Date('2016-07-31')} // remove when running migration a second time
+  'auth.timestamps.loggedin':{$gt:new Date('2016-07-30')}, // Extend timeframe each run of migration
+  'challenges':{$in:['da8859b2-5c6e-4aa5-b8b2-8db93d5de9fc']}
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
@@ -44,7 +45,19 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     }
   }
 
-  dbUsers.update({_id:user._id}, {$set:set});
+  dbUsers.update({_id:user._id}, {$set:set, $inc:{
+    'achievements.habiticaDays': 1, 
+    'items.food.Cake_Skeleton': 1,
+    'items.food.Cake_Base': 1,
+    'items.food.Cake_CottonCandyBlue': 1,
+    'items.food.Cake_CottonCandyPink': 1,
+    'items.food.Cake_Shade': 1,
+    'items.food.Cake_White': 1,
+    'items.food.Cake_Golden': 1,
+    'items.food.Cake_Zombie': 1,
+    'items.food.Cake_Desert': 1,
+    'items.food.Cake_Red': 1
+  }});
 
   if (count%progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');
