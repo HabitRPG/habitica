@@ -15,7 +15,8 @@ var dbUsers = mongo.db(connectionString).collection('users');
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
-  // Participant List
+  'auth.timestamps.loggedin':{$gt:new Date('2016-07-30')}, // Extend timeframe each run of migration
+  'challenges':{$in:['da8859b2-5c6e-4aa5-b8b2-8db93d5de9fc']}
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
