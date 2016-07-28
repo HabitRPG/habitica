@@ -36,7 +36,21 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
 
   // specify user data to change:
   var set = {};
+  var inc = {};
   if (user.migration !== migrationName) {
+    inc = {
+      'achievements.habiticaDays': 1, 
+      'items.food.Cake_Skeleton': 1,
+      'items.food.Cake_Base': 1,
+      'items.food.Cake_CottonCandyBlue': 1,
+      'items.food.Cake_CottonCandyPink': 1,
+      'items.food.Cake_Shade': 1,
+      'items.food.Cake_White': 1,
+      'items.food.Cake_Golden': 1,
+      'items.food.Cake_Zombie': 1,
+      'items.food.Cake_Desert': 1,
+      'items.food.Cake_Red': 1
+    };
     if (user.items.mounts['Gryphon-RoyalPurple']) {
       set = {'migration':migrationName, 'items.pets.Gryphon-RoyalPurple':5};
     } else {
@@ -44,19 +58,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     }
   }
 
-  dbUsers.update({_id:user._id}, {$set:set, $inc:{
-    'achievements.habiticaDays': 1, 
-    'items.food.Cake_Skeleton': 1,
-    'items.food.Cake_Base': 1,
-    'items.food.Cake_CottonCandyBlue': 1,
-    'items.food.Cake_CottonCandyPink': 1,
-    'items.food.Cake_Shade': 1,
-    'items.food.Cake_White': 1,
-    'items.food.Cake_Golden': 1,
-    'items.food.Cake_Zombie': 1,
-    'items.food.Cake_Desert': 1,
-    'items.food.Cake_Red': 1
-  }});
+  dbUsers.update({_id:user._id}, {$set:set, $inc:inc});
 
   if (count%progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');
