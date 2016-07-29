@@ -2,9 +2,11 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
 import nconf from 'nconf';
+import requireAgain from 'require-again';
 
 describe('GET /user', () => {
   let user;
+  let pathToUserModelHooks = '../../../../../website/server/models/user/hooks';
 
   before(async () => {
     user = await generateUser({
@@ -30,6 +32,7 @@ describe('GET /user', () => {
 
   it('does not return paths hidden via env variable', async () => {
     sandbox.stub(nconf, 'get').withArgs('USER_PRIVATE_FIELDS').returns('items.gear.owned.shield_special_1,items.pets.Tiger-Veteran');
+    requireAgain(pathToUserModelHooks);
 
     let returnedUser = await user.get('/user');
 
