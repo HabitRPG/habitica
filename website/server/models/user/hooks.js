@@ -4,13 +4,16 @@ import moment from 'moment';
 import * as Tasks from '../task';
 import Bluebird from 'bluebird';
 import baseModel from '../../libs/api-v3/baseModel';
-
+import nconf from 'nconf';
 import schema from './schema';
+
+const ENV_PRIVATE_FIELDS = nconf.get('USER_PRIVATE_FIELDS') || '';
+const ADDITIONAL_PRIVATE_FIELDS = ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'];
 
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'],
+  private: ENV_PRIVATE_FIELDS.split(',').concat(ADDITIONAL_PRIVATE_FIELDS),
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
