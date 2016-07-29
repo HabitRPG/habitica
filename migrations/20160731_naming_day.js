@@ -14,12 +14,12 @@ var dbUsers = mongo.db(connectionString).collection('users');
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
+  'migration':{$ne:migrationName},
   'auth.timestamps.loggedin':{$gt:new Date('2016-07-30')} // Extend timeframe each run of migration
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'migration': 1,
   'items.mounts.Gryphon-RoyalPurple': 1
 };
 
@@ -37,25 +37,23 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   // specify user data to change:
   var set = {};
   var inc = {};
-  if (user.migration !== migrationName) {
-    inc = {
-      'achievements.habiticaDays': 1, 
-      'items.food.Cake_Skeleton': 1,
-      'items.food.Cake_Base': 1,
-      'items.food.Cake_CottonCandyBlue': 1,
-      'items.food.Cake_CottonCandyPink': 1,
-      'items.food.Cake_Shade': 1,
-      'items.food.Cake_White': 1,
-      'items.food.Cake_Golden': 1,
-      'items.food.Cake_Zombie': 1,
-      'items.food.Cake_Desert': 1,
-      'items.food.Cake_Red': 1
-    };
-    if (user.items.mounts['Gryphon-RoyalPurple']) {
-      set = {'migration':migrationName, 'items.pets.Gryphon-RoyalPurple':5};
-    } else {
-      set = {'migration':migrationName, 'items.mounts.Gryphon-RoyalPurple':true}; 
-    }
+  inc = {
+    'achievements.habiticaDays': 1,
+    'items.food.Cake_Skeleton': 1,
+    'items.food.Cake_Base': 1,
+    'items.food.Cake_CottonCandyBlue': 1,
+    'items.food.Cake_CottonCandyPink': 1,
+    'items.food.Cake_Shade': 1,
+    'items.food.Cake_White': 1,
+    'items.food.Cake_Golden': 1,
+    'items.food.Cake_Zombie': 1,
+    'items.food.Cake_Desert': 1,
+    'items.food.Cake_Red': 1
+  };
+  if (user.items.mounts['Gryphon-RoyalPurple']) {
+    set = {'migration':migrationName, 'items.pets.Gryphon-RoyalPurple':5};
+  } else {
+    set = {'migration':migrationName, 'items.mounts.Gryphon-RoyalPurple':true};
   }
 
   dbUsers.update({_id:user._id}, {$set:set, $inc:inc});

@@ -15,13 +15,13 @@ var dbUsers = mongo.db(connectionString).collection('users');
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
+  'migration':{$ne:migrationName},
   'auth.timestamps.loggedin':{$gt:new Date('2016-07-30')}, // Extend timeframe each run of migration
   'challenges':{$in:['da8859b2-5c6e-4aa5-b8b2-8db93d5de9fc']}
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'migration': 1,
   'items.gear.owned.shield_special_takeThis': 1
 };
 
@@ -38,12 +38,11 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
 
   // specify user data to change:
   var set = {};
-  if (user.migration !== migrationName) {
-    if (typeof user.items.gear.owned.shield_special_takeThis !== 'undefined') {
-      set = {'migration':migrationName, 'items.gear.owned.weapon_special_takeThis':false};
-    } else {
-      set = {'migration':migrationName, 'items.gear.owned.shield_special_takeThis':false}; 
-    }
+
+  if (typeof user.items.gear.owned.shield_special_takeThis !== 'undefined') {
+    set = {'migration':migrationName, 'items.gear.owned.weapon_special_takeThis':false};
+  } else {
+    set = {'migration':migrationName, 'items.gear.owned.shield_special_takeThis':false};
   }
 
   dbUsers.update({_id:user._id}, {$set:set});
