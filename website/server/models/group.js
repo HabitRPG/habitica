@@ -724,6 +724,11 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     pusher.trigger(`presence-group-${group._id}`, 'user-left', {
       userId: user._id,
     });
+
+    // remove member from quest
+    group.quest.members = _.omit(group.quest.members, user._id);
+    group.markModified('quest.members');
+    promises.push(group.save());
   }
 
   // If user is the last one in group and group is private, delete it

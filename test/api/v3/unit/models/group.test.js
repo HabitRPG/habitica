@@ -434,6 +434,24 @@ describe('Group Model', () => {
       });
     });
 
+    describe('#leaveGroup', () => {
+      it('removes user from group quest', async () => {
+        party.quest.members = {
+          [participatingMember._id]: true,
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        };
+
+        await party.leave(participatingMember);
+        expect(party.quest.members).to.eql({
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        });
+      });
+    });
+
     describe('#sendChat', () => {
       beforeEach(() => {
         sandbox.spy(User, 'update');
