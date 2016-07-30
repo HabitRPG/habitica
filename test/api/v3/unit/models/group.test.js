@@ -442,13 +442,26 @@ describe('Group Model', () => {
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
+        party.memberCount = 4;
+        await party.save();
 
         await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
         expect(party.quest.members).to.eql({
           [questLeader._id]: true,
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         });
+      });
+
+      it('deletes group if user is only member', async () => {
+        party.memberCount = 1;
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.not.exist;
       });
     });
 

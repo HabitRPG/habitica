@@ -701,6 +701,9 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
+  let update = {
+    $inc: {memberCount: -1},
+  };
 
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
@@ -725,19 +728,13 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
       userId: user._id,
     });
 
-    delete group.quest.members[user._id];
-    group.markModified('quest.members');
-    promises.push(group.save());
+    update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     promises.push(group.remove());
   } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    let update = {
-      $inc: {memberCount: -1},
-    };
-
     if (group.leader === user._id) {
       let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
       query._id = {$ne: user._id};
