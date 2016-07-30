@@ -172,9 +172,12 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
     it('removes users who are not in the party from quest.members', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
-
       let notInPartyUser = await generateUser();
-      questingGroup.quest.members[notInPartyUser._id] = true;
+
+      await questingGroup.update({
+        [`quest.members.${notInPartyUser._id}`]: true,
+      });
+      questingGroup.sync();
 
       expect(questingGroup.quest.members[notInPartyUser._id]).to.eql(true);
 
@@ -194,8 +197,10 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
 
-      questingGroup.quest.members[partyMemberThatRejects._id] = false;
-      questingGroup.quest.members[partyMemberThatIgnores._id] = null;
+      await questingGroup.update({
+        [`quest.members.${partyMemberThatRejects._id}`]: false,
+        [`quest.members.${partyMemberThatIgnores._id}`]: null,
+      });
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
