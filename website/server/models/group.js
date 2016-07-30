@@ -725,8 +725,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
       userId: user._id,
     });
 
-    // remove member from quest
-    group.quest.members = _.omit(group.quest.members, user._id);
+    delete group.quest.members[user._id];
     group.markModified('quest.members');
     promises.push(group.save());
   }
