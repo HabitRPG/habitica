@@ -67,7 +67,7 @@ async function saveContentToDisk (language, content) {
  * @apiName ContentGet
  * @apiGroup Content
  *
- * @apiParam {string} language Query parameter, the  language code used for the items' strings. Defaulting to english
+ * @apiParam {String} language Query parameter, the  language code used for the items' strings. Defaulting to english
  *
  * @apiSuccess {Object} data All the content available on Habitica
  */

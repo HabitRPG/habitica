@@ -359,8 +359,8 @@ api.pusherAuth = {
  * @apiName UpdateUsername
  * @apiGroup User
  *
- * @apiParam {string} password Body parameter - The current user password
- * @apiParam {string} username Body parameter - The new username
+ * @apiParam {String} password Body parameter - The current user password
+ * @apiParam {String} username Body parameter - The new username
 
  * @apiSuccess {String} data.username The new username
  **/
@@ -407,9 +407,9 @@ api.updateUsername = {
  * @apiName UpdatePassword
  * @apiGroup User
  *
- * @apiParam {string} password Body parameter - The old password
- * @apiParam {string} newPassword Body parameter - The new password
- * @apiParam {string} confirmPassword Body parameter - New password confirmation
+ * @apiParam {String} password Body parameter - The old password
+ * @apiParam {String} newPassword Body parameter - The new password
+ * @apiParam {String} confirmPassword Body parameter - New password confirmation
  *
  * @apiSuccess {Object} data An empty object
  **/
@@ -458,9 +458,9 @@ api.updatePassword = {
  * @apiName ResetPassword
  * @apiGroup User
  *
- * @apiParam {string} email Body parameter - The email address of the user
+ * @apiParam {String} email Body parameter - The email address of the user
  *
- * @apiSuccess {string} message The localized success message
+ * @apiSuccess {String} message The localized success message
  **/
 api.resetPassword = {
   method: 'POST',
@@ -513,10 +513,10 @@ api.resetPassword = {
  * @apiName UpdateEmail
  * @apiGroup User
  *
- * @apiParam {string} Body parameter - newEmail The new email address.
- * @apiParam {string} Body parameter - password The user password.
+ * @apiParam {String} Body parameter - newEmail The new email address.
+ * @apiParam {String} Body parameter - password The user password.
  *
- * @apiSuccess {string} data.email The updated email address
+ * @apiSuccess {String} data.email The updated email address
  */
 api.updateEmail = {
   method: 'PUT',

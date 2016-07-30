@@ -25,11 +25,11 @@ let api = {};
  * @apiName StripeCheckout
  * @apiGroup Payments
  *
- * @apiParam {string} id Body parameter - The token
- * @apiParam {string} email Body parameter - the customer email
- * @apiParam {string} gift Query parameter - stringified json object, gift
- * @apiParam {string} sub Query parameter - subscription, possible values are: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo
- * @apiParam {string} coupon Query parameter - coupon for the matching subscription, required only for certain subscriptions
+ * @apiParam {String} id Body parameter - The token
+ * @apiParam {String} email Body parameter - the customer email
+ * @apiParam {String} gift Query parameter - stringified json object, gift
+ * @apiParam {String} sub Query parameter - subscription, possible values are: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo
+ * @apiParam {String} coupon Query parameter - coupon for the matching subscription, required only for certain subscriptions
  *
  * @apiSuccess {Object} data Empty object
  **/
@@ -115,7 +115,7 @@ api.checkout = {
  * @apiName StripeSubscribeEdit
  * @apiGroup Payments
  *
- * @apiParam {string} id Body parameter - The token
+ * @apiParam {String} id Body parameter - The token
  *
  * @apiSuccess {Object} data Empty object
  **/
