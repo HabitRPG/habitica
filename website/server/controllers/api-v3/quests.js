@@ -287,13 +287,6 @@ api.forceStart = {
 
     group.markModified('quest');
 
-    // removes any users who haven't accepted the invitiation
-    _.forEach(group.quest.members, function(member){
-
-    });
-
-    // removes any users who aren't in the party
-    
     await group.startQuest(user);
 
     let [savedGroup] = await Bluebird.all([
