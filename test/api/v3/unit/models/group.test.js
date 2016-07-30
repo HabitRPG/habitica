@@ -455,13 +455,23 @@ describe('Group Model', () => {
         });
       });
 
-      it('deletes group if user is only member', async () => {
+      it('deletes a private group when the last member leaves', async () => {
         party.memberCount = 1;
 
         await party.leave(participatingMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.not.exist;
+      });
+
+      it('does not delete a public group when the last member leaves', async () => {
+        party.memberCount = 1;
+        party.privacy = 'public';
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
       });
     });
 
