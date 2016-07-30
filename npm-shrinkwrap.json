@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.25.2",
+  "version": "3.25.3",
   "dependencies": {
     "abbrev": {
       "version": "1.0.9",
