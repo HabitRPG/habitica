@@ -434,6 +434,47 @@ describe('Group Model', () => {
       });
     });
 
+    describe('#leaveGroup', () => {
+      it('removes user from group quest', async () => {
+        party.quest.members = {
+          [participatingMember._id]: true,
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        };
+        party.memberCount = 4;
+        await party.save();
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party.quest.members).to.eql({
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        });
+      });
+
+      it('deletes a private group when the last member leaves', async () => {
+        party.memberCount = 1;
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.not.exist;
+      });
+
+      it('does not delete a public group when the last member leaves', async () => {
+        party.memberCount = 1;
+        party.privacy = 'public';
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+      });
+    });
+
     describe('#sendChat', () => {
       beforeEach(() => {
         sandbox.spy(User, 'update');
