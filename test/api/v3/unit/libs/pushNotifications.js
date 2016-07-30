@@ -39,20 +39,20 @@ describe('pushNotifications', () => {
   });
 
   it('throws if user is not supplied', () => {
-    expect(sendPushNotification).to.throw;
+    expect(sendPushNotification.sendNotification).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
   it('throws if user.preferences.pushNotifications.unsubscribeFromAll is true', () => {
     user.preferences.pushNotifications.unsubscribeFromAll = true;
-    expect(() => sendPushNotification(user)).to.throw;
+    expect(() => sendPushNotification.sendNotification(user)).to.throw;
     expect(gcmSendSpy).to.not.have.been.called;
     expect(apnSendSpy).to.not.have.been.called;
   });
 
   it('throws if details.identifier is not supplied', () => {
-    expect(() => sendPushNotification(user, {
+    expect(() => sendPushNotification.sendNotification(user, {
       title,
       message,
     })).to.throw;
@@ -61,7 +61,7 @@ describe('pushNotifications', () => {
   });
 
   it('throws if details.title is not supplied', () => {
-    expect(() => sendPushNotification(user, {
+    expect(() => sendPushNotification.sendNotification(user, {
       identifier,
       message,
     })).to.throw;
@@ -70,7 +70,7 @@ describe('pushNotifications', () => {
   });
 
   it('throws if details.message is not supplied', () => {
-    expect(() => sendPushNotification(user, {
+    expect(() => sendPushNotification.sendNotification(user, {
       identifier,
       title,
     })).to.throw;
@@ -79,7 +79,7 @@ describe('pushNotifications', () => {
   });
 
   it('returns if no device is registered', () => {
-    sendPushNotification(user, {
+    sendPushNotification.sendNotification(user, {
       identifier,
       title,
       message,
@@ -105,7 +105,7 @@ describe('pushNotifications', () => {
       timeToLive: 23,
     };
 
-    sendPushNotification(user, details);
+    sendPushNotification.sendNotification(user, details);
     expect(gcmSendSpy).to.have.been.calledOnce;
     expect(gcmSendSpy).to.have.been.calledWithMatch({
       registrationId: '123',
@@ -134,7 +134,7 @@ describe('pushNotifications', () => {
       message,
     };
 
-    sendPushNotification(user, details);
+    sendPushNotification.sendNotification(user, details);
     expect(gcmSendSpy).to.have.been.calledOnce;
     expect(gcmSendSpy).to.have.been.calledWithMatch({
       registrationId: '123',
@@ -167,7 +167,7 @@ describe('pushNotifications', () => {
       },
     };
 
-    sendPushNotification(user, details);
+    sendPushNotification.sendNotification(user, details);
     expect(apnSendSpy).to.have.been.calledOnce;
     expect(apnSendSpy).to.have.been.calledWithMatch({
       token: '123',

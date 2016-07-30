@@ -16,7 +16,7 @@ import baseModel from '../libs/api-v3/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
-import sendPushNotification from '../libs/api-v3/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/api-v3/pushNotifications';
 import pusher from '../libs/api-v3/pusher';
 
 const questScrolls = shared.content.quests;
