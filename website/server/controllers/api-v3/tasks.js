@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import { sendTaskWebhook } from '../../libs/api-v3/webhook';
+import { taskScoredWebhook } from '../../libs/api-v3/webhook';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
@@ -348,31 +348,6 @@ api.updateTask = {
   },
 };
 
-function _generateWebhookTaskData (task, direction, delta, stats, user) {
-  let extendedStats = _.extend(stats, {
-    toNextLevel: common.tnl(user.stats.lvl),
-    maxHealth: common.maxHealth,
-    maxMP: common.statsComputed(user).maxMP,
-  });
-
-  let userData = {
-    _id: user._id,
-    _tmp: user._tmp,
-    stats: extendedStats,
-  };
-
-  let taskData = {
-    details: task,
-    direction,
-    delta,
-  };
-
-  return {
-    task: taskData,
-    user: userData,
-  };
-}
-
 /**
  * @api {post} /api/v3/tasks/:taskId/score/:direction Score a task
  * @apiVersion 3.0.0
@@ -434,7 +409,12 @@ api.scoreTask = {
     let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
-    sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+    taskScoredWebhook.send(user.preferences.webhooks, {
+      task,
+      direction,
+      delta,
+      user
+    });
 
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
