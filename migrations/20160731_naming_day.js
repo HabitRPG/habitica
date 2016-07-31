@@ -20,7 +20,7 @@ var query = {
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'items.mounts.Gryphon-RoyalPurple': 1
+  'items.mounts': 1
 };
 
 console.warn('Updating users...');

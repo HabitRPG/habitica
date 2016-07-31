@@ -22,7 +22,7 @@ var query = {
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'items.gear.owned.shield_special_takeThis': 1
+  'items.gear.owned': 1
 };
 
 console.warn('Updating users...');
