@@ -5949,11 +5949,6 @@
         }
       }
     },
-    "kerberos": {
-      "version": "0.0.3",
-      "from": "kerberos@0.0.3",
-      "resolved": "https://registry.npmjs.org/kerberos/-/kerberos-0.0.3.tgz"
-    },
     "kew": {
       "version": "0.7.0",
       "from": "kew@>=0.7.0 <0.8.0",
