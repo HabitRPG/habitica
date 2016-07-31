@@ -73,5 +73,5 @@
         "KEY": "key",
         "SECRET": "secret"
     },
-    "USER_PRIVATE_FIELDS": ""
+    "HIDE_LADDER_ITEMS": ""
 }
