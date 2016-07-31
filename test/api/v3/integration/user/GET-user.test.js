@@ -4,7 +4,7 @@ import {
 import nconf from 'nconf';
 import requireAgain from 'require-again';
 
-describe.only('GET /user', () => {
+describe('GET /user', () => {
   let user;
   let pathToUserModelHooks = '../../../../../website/server/models/user/hooks';
 
