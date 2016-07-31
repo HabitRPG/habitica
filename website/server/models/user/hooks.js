@@ -19,7 +19,9 @@ schema.plugin(baseModel, {
     delete plainObj.filters;
     if (HIDE_LADDER_ITEMS !== '' && plainObj.auth) {
       let hideLadderList = HIDE_LADDER_ITEMS.split(',');
-      let ladderHideArray, ladderHidePath, ladderHideDate;
+      let ladderHideArray;
+      let ladderHidePath;
+      let ladderHideDate;
 
       for (let item of hideLadderList) {
         ladderHideArray = item.split(':');
