@@ -32,7 +32,8 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   if (err) { return exiting(1, 'ERROR! ' + err); }
   if (!user) {
     console.warn('All appropriate users found and modified.');
-    return displayData();
+    setTimeout(displayData, 300000);
+    return;
   }
   count++;
 

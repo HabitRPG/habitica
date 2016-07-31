@@ -14,12 +14,11 @@ var dbUsers = mongo.db(connectionString).collection('users');
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
-  'flags.newStuff':false
+  'flags.newStuff':{$ne:true}
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'flags.newStuff':1
 };
 
 console.warn('Updating users...');
@@ -29,7 +28,8 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   if (err) { return exiting(1, 'ERROR! ' + err); }
   if (!user) {
     console.warn('All appropriate users found and modified.');
-    return displayData();
+    setTimeout(displayData, 300000);
+    return;
   }
   count++;
 
