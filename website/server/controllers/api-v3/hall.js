@@ -1,9 +1,9 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import { ensureAdmin } from '../../middlewares/api-v3/ensureAccessRight';
+import { authWithHeaders } from '../../middlewares/auth';
+import { ensureAdmin } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import {
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import _ from 'lodash';
 
 let api = {};

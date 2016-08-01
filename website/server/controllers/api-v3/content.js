@@ -1,10 +1,10 @@
 import common from '../../../../common';
 import _ from 'lodash';
-import { langCodes } from '../../libs/api-v3/i18n';
+import { langCodes } from '../../libs/i18n';
 import Bluebird from 'bluebird';
 import fsCallback from 'fs';
 import path from 'path';
-import logger from '../../libs/api-v3/logger';
+import logger from '../../libs/logger';
 
 // Transform fs methods that accept callbacks in ones that return promises
 const fs = {

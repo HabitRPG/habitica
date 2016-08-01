@@ -1,10 +1,10 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../../common';
 import {
   NotFound,
   BadRequest,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import {
   basicFields as basicGroupFields,
@@ -13,7 +13,7 @@ import {
 import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import * as passwordUtils from '../../libs/api-v3/password';
+import * as passwordUtils from '../../libs/password';
 
 let api = {};
 

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Bluebird from 'bluebird';
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import analytics from '../../libs/api-v3/analyticsService';
+import { authWithHeaders } from '../../middlewares/auth';
+import analytics from '../../libs/analyticsService';
 import {
   model as Group,
 } from '../../models/group';
@@ -10,13 +10,13 @@ import {
   NotFound,
   NotAuthorized,
   BadRequest,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import {
   getUserInfo,
   sendTxn as sendTxnEmail,
-} from '../../libs/api-v3/email';
+} from '../../libs/email';
 import common from '../../../../common';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import sendPushNotification from '../../libs/pushNotifications';
 
 const questScrolls = common.content.quests;
 

@@ -1,9 +1,9 @@
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
-import { decrypt } from '../../libs/api-v3/encryption';
+import { decrypt } from '../../libs/encryption';
 import {
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 
 let api = {};
 
