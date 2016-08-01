@@ -1,11 +1,14 @@
 import shared from '../../../../common';
 import _ from 'lodash';
+import unset from 'lodash.unset';
 import moment from 'moment';
 import * as Tasks from '../task';
 import Bluebird from 'bluebird';
 import baseModel from '../../libs/api-v3/baseModel';
-
+import nconf from 'nconf';
 import schema from './schema';
+
+const HIDE_LADDER_ITEMS = nconf.get('HIDE_LADDER_ITEMS') || '';
 
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
@@ -14,6 +17,22 @@ schema.plugin(baseModel, {
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
+    if (HIDE_LADDER_ITEMS !== '' && plainObj.auth) {
+      let hideLadderList = HIDE_LADDER_ITEMS.split(',');
+      let ladderHideArray;
+      let ladderHidePath;
+      let ladderHideDate;
+
+      for (let item of hideLadderList) {
+        ladderHideArray = item.split(':');
+        ladderHidePath = ladderHideArray[0];
+        ladderHideDate = new Date(ladderHideArray[1]);
+
+        if (plainObj.auth.timestamps.created > ladderHideDate) {
+          unset(plainObj, ladderHidePath);
+        }
+      }
+    }
 
     return plainObj;
   },

@@ -72,5 +72,6 @@
         "APP_ID": "appId",
         "KEY": "key",
         "SECRET": "secret"
-    }
+    },
+    "HIDE_LADDER_ITEMS": ""
 }

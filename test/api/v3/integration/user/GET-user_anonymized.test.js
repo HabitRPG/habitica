@@ -75,7 +75,7 @@ describe('GET /user/anonymized', () => {
     });
     // tasks
     expect(tasks2).to.exist;
-    expect(tasks2.length).to.eql(5); // +1 because generateUser() assigns one todo
+    expect(tasks2.length).to.eql(7); // +1 because generateUser() assigns one todo
     expect(tasks2[0].checklist).to.exist;
     _.forEach(tasks2, (task) => {
       expect(task.text).to.eql('task text');
