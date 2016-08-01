@@ -71,7 +71,7 @@ each(GEAR_TYPES, (type) => {
         };
       }
 
-      if (item.mystery) {
+      if (item.mystery || key.indexOf('takeThis') !== -1) {
         item.canOwn = ownsItem(key);
       }
 
