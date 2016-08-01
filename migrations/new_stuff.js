@@ -34,7 +34,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   count++;
 
   // specify user data to change:
-  var set = {'migration':migrationName, 'flags.newStuff':true};
+  var set = {'flags.newStuff':true};
 
   dbUsers.update({_id:user._id}, {$set:set});
 
