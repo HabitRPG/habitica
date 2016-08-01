@@ -162,7 +162,7 @@ api.acceptQuest = {
     if (validationErrors) throw validationErrors;
 
     user.party.quest.RSVPNeeded = false;
-    user.save();
+    await user.save();
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
 
