@@ -8,6 +8,7 @@ import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
 import { removeFromArray } from '../libs/api-v3/collectionManipulators';
+import { groupChatReceivedWebhook } from '../libs/api-v3/webhook';
 import {
   InternalServerError,
   BadRequest,
@@ -431,6 +432,28 @@ schema.methods.startQuest = async function startQuest (user) {
           message: `${shared.i18n.t('questStarted')}: ${quest.text()}`,
           identifier: 'questStarted',
         });
+    });
+  });
+};
+
+schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
+  let query = {
+    'preferences.webhooks': { $ne: {} },
+  };
+
+  if (this.type === 'party') {
+    query['party._id'] = this._id;
+  } else {
+    query.guilds = this._id;
+  }
+
+  User.find(query).select({'preferences.webhooks': 1}).lean().then((users) => {
+    users.forEach((user) => {
+      let {webhooks} = user.preferences;
+      groupChatReceivedWebhook.send(webhooks, {
+        group: this,
+        chat,
+      });
     });
   });
 };

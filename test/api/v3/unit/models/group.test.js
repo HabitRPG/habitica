@@ -3,6 +3,7 @@ import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
 import * as email from '../../../../../website/server/libs/api-v3/email';
+import { groupChatReceivedWebhook } from '../../../../../website/server/libs/api-v3/webhook';
 import validator from 'validator';
 import { TAVERN_ID } from '../../../../../common/script/';
 
@@ -1003,6 +1004,143 @@ describe('Group Model', () => {
 
           expect(updatedLeader.party.quest.completed).to.eql(tavernQuest.key);
         });
+      });
+    });
+
+    describe('sendGroupChatReceivedWebhooks', () => {
+      beforeEach(() => {
+        sandbox.stub(groupChatReceivedWebhook, 'send');
+      });
+
+      it('looks for users in specified guild with webhooks', () => {
+        sandbox.spy(User, 'find');
+
+        let guild = new Group({
+          type: 'guild',
+        });
+
+        guild.sendGroupChatReceivedWebhooks({})
+
+        expect(User.find).to.be.calledWith({
+          'preferences.webhooks': { $ne: {} },
+          guilds: guild._id,
+        });
+      });
+
+      it('looks for users in specified party with webhooks', () => {
+        sandbox.spy(User, 'find');
+
+        let party = new Group({
+          type: 'party',
+        });
+
+        party.sendGroupChatReceivedWebhooks({})
+
+        expect(User.find).to.be.calledWith({
+          'preferences.webhooks': { $ne: {} },
+          'party._id': party._id,
+        });
+      });
+
+      it('sends webhooks for users with webhooks', async () => {
+        let guild = new Group({
+          name: 'some guild',
+          type: 'guild',
+        });
+
+        let chat = {message: 'text'};
+        let memberWithWebhook = new User({
+          guilds: [guild._id],
+          'preferences.webhooks': {
+            'chat-webhook': {
+              type: 'groupChatReceived',
+              url: 'http://someurl.com',
+            }
+          },
+        });
+        let memberWithoutWebhook = new User({
+          guilds: [guild._id],
+        });
+        let nonMemberWithWebhooks = new User({
+          'preferences.webhooks': {
+            'chat-webhook': {
+              type: 'groupChatReceived',
+              url: 'http://someurl.com',
+            }
+          },
+        });
+
+        await Promise.all([
+          memberWithWebhook.save(),
+          memberWithoutWebhook.save(),
+          nonMemberWithWebhooks.save(),
+        ]);
+
+        guild.leader = memberWithWebhook._id;
+
+        await guild.save();
+
+        guild.sendGroupChatReceivedWebhooks(chat);
+
+        await sleep();
+
+        expect(groupChatReceivedWebhook.send).to.be.calledOnce;
+        expect(groupChatReceivedWebhook.send).to.be.calledWith(memberWithWebhook.preferences.webhooks, {group: guild, chat});
+      });
+
+      it('sends webhooks for each user with webhooks in group', async () => {
+        let guild = new Group({
+          name: 'some guild',
+          type: 'guild',
+        });
+
+        let chat = {message: 'text'};
+        let memberWithWebhook = new User({
+          guilds: [guild._id],
+          'preferences.webhooks': {
+            'chat-webhook': {
+              type: 'groupChatReceived',
+              url: 'http://someurl.com',
+            }
+          },
+        });
+        let memberWithWebhook2 = new User({
+          guilds: [guild._id],
+          'preferences.webhooks': {
+            'chat-webhook': {
+              type: 'groupChatReceived',
+              url: 'http://another-member.com',
+            }
+          },
+        });
+        let memberWithWebhook3 = new User({
+          guilds: [guild._id],
+          'preferences.webhooks': {
+            'chat-webhook': {
+              type: 'groupChatReceived',
+              url: 'http://a-third-member.com',
+            }
+          },
+        });
+
+        await Promise.all([
+          memberWithWebhook.save(),
+          memberWithWebhook2.save(),
+          memberWithWebhook3.save(),
+        ]);
+
+        guild.leader = memberWithWebhook._id;
+
+        await guild.save();
+
+        guild.sendGroupChatReceivedWebhooks(chat);
+
+        await sleep();
+
+        expect(groupChatReceivedWebhook.send).to.be.calledThrice;
+        expect(groupChatReceivedWebhook.send).to.be.calledWith(memberWithWebhook.preferences.webhooks, {group: guild, chat});
+        expect(groupChatReceivedWebhook.send).to.be.calledWith(memberWithWebhook2.preferences.webhooks, {group: guild, chat});
+        expect(groupChatReceivedWebhook.send).to.be.calledWith(memberWithWebhook3.preferences.webhooks, {group: guild, chat});
       });
     });
   });
