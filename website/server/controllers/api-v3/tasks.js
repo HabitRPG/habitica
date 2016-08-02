@@ -451,6 +451,17 @@ api.scoreTask = {
       }
     }
 
+    /*
+     * TODO: enable score task analytics if desired
+    res.analytics.track('score task', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction
+    });
+    */
+
     return null;
   },
 };

@@ -93,7 +93,8 @@
     "validator": "^4.9.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "winston": "^2.1.0"
+    "winston": "^2.1.0",
+    "useragent": "2.1.9"
   },
   "private": true,
   "engines": {
