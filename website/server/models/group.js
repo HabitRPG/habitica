@@ -370,7 +370,7 @@ schema.methods.startQuest = async function startQuest (user) {
   let partyId = this._id;
   let questMembers = this.quest.members;
   await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
-    let member = await User.findOne({_id: memberId, 'party._id': partyId});
+    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean();
 
     if (!member) {
       delete questMembers[memberId];

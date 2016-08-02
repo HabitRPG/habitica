@@ -153,9 +153,10 @@ describe('POST /groups/:groupId/quests/force-start', () => {
     it('removes users who have not accepted the quest from quest.members', async () => {
       let partyMemberThatRejects = partyMembers[1];
       let partyMemberThatIgnores = partyMembers[2];
+      let partyMemberThatAccepts = partyMembers[0];
 
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
-      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      await partyMemberThatAccepts.post(`/groups/${questingGroup._id}/quests/accept`);
       await partyMemberThatRejects.post(`/groups/${questingGroup._id}/quests/reject`);
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
@@ -166,7 +167,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       expect(questingGroup.quest.members[partyMemberThatRejects._id]).to.not.exist;
       expect(questingGroup.quest.members[partyMemberThatIgnores._id]).to.not.exist;
-      expect(questingGroup.quest.members[partyMembers[0]._id]).to.exist;
+      expect(questingGroup.quest.members[partyMemberThatAccepts._id]).to.exist;
       expect(questingGroup.quest.members[leader._id]).to.exist;
     });
 
@@ -177,7 +178,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       await questingGroup.update({
         [`quest.members.${notInPartyUser._id}`]: true,
       });
-      questingGroup.sync();
+      await questingGroup.sync();
 
       expect(questingGroup.quest.members[notInPartyUser._id]).to.eql(true);
 
