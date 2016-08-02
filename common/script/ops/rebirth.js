@@ -30,6 +30,9 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   }
 
   if (analytics) {
+
+    analyticsData.client = req.headers['x-client'];
+    analyticsData.useragent = req.headers['user-agent'];
     analytics.track('Rebirth', analyticsData);
   }
 

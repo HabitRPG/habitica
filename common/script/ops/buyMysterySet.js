@@ -37,6 +37,8 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
         itemType: 'Subscriber Gear',
         acquireMethod: 'Hourglass',
         category: 'behavior',
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
       });
     }
   });

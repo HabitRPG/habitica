@@ -22,6 +22,8 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
         acquireMethod: 'Gems',
         gemCost: 6,
         category: 'behavior',
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
       });
     }
 

@@ -85,6 +85,8 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
           itemKey: k,
           acquireMethod: 'Level Drop',
           category: 'behavior',
+          client: req.headers['x-client'],
+          useragent: req.headers['user-agent'],
         });
       }
       user._tmp.drop = {

@@ -29,6 +29,8 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
       acquireMethod: 'Gems',
       gemCost: 4,
       category: 'behavior',
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   }
 

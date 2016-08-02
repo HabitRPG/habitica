@@ -93,6 +93,8 @@ module.exports = function revive (user, req = {}, analytics) {
       lostItem,
       gaLabel: lostItem,
       category: 'behavior',
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   }
 

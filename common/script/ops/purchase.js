@@ -51,6 +51,8 @@ module.exports = function purchase (user, req = {}, analytics) {
         acquireMethod: 'Gold',
         goldCost: convRate,
         category: 'behavior',
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
       });
     }
 
@@ -114,6 +116,8 @@ module.exports = function purchase (user, req = {}, analytics) {
       acquireMethod: 'Gems',
       gemCost: item.value,
       category: 'behavior',
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   }
 

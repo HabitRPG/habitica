@@ -34,6 +34,8 @@ module.exports = function buyHealthPotion (user, req = {}, analytics) {
       acquireMethod: 'Gold',
       goldCost: item.value,
       category: 'behavior',
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   }
 

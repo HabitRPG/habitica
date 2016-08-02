@@ -154,6 +154,8 @@ api.registerLocal = {
         type: 'local',
         gaLabel: 'local',
         uuid: savedUser._id,
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
       });
     }
 
@@ -275,6 +277,8 @@ api.loginSocial = {
         type: network,
         gaLabel: network,
         uuid: savedUser._id,
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
       });
 
       return null;
