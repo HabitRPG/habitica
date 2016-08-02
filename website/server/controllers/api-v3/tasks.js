@@ -1,5 +1,8 @@
 import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import { taskScoredWebhook } from '../../libs/api-v3/webhook';
+import {
+  taskCreatedWebhook,
+  taskScoredWebhook,
+} from '../../libs/api-v3/webhook';
 import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
@@ -88,8 +91,12 @@ api.createUserTasks = {
   url: '/tasks/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let tasks = await _createTasks(req, res, res.locals.user);
+    let user = res.locals.user;
+    let tasks = await _createTasks(req, res, user);
+
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    taskCreatedWebhook(user.preferences.webhooks, {tasks});
   },
 };
 
