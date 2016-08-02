@@ -68,6 +68,7 @@
     "nconf": "~0.8.2",
     "newrelic": "^1.27.2",
     "nib": "^1.1.0",
+    "node-gcm": "^0.14.4",
     "nodemailer": "^2.3.2",
     "object-path": "^0.9.2",
     "pageres": "^4.1.1",

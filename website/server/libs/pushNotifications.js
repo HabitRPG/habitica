@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import nconf from 'nconf';
+// TODO remove this lib and use directly the apn module
 import pushNotify from 'push-notify';
 import apnLib from 'apn';
 import logger from './logger';
@@ -7,19 +8,11 @@ import Bluebird from 'bluebird';
 import {
   S3,
 } from './aws';
+import gcmLib from 'node-gcm'; // works with FCM notifications too
 
-const GCM_API_KEY = nconf.get('PUSH_CONFIGS:GCM_SERVER_API_KEY');
+const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
 
-let gcm = GCM_API_KEY ? pushNotify.gcm({
-  apiKey: GCM_API_KEY,
-  retries: 3,
-}) : undefined;
-
-if (gcm) {
-  gcm.on('transmissionError', (err, message, registrationId) => {
-    logger.error('GCM Error', err, message, registrationId);
-  });
-}
+const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
 
 let apn;
 
@@ -82,15 +75,18 @@ module.exports = function sendNotification (user, details = {}) {
   _.each(pushDevices, pushDevice => {
     switch (pushDevice.type) {
       case 'android':
-        if (gcm) {
-          payload.title = details.title;
-          payload.message = details.message;
-          gcm.send({
-            registrationId: pushDevice.regId,
-            delayWhileIdle: true,
-            timeToLive: details.timeToLive ? details.timeToLive : 15,
+        // Required for fcm to be received in background
+        payload.title = details.title;
+        payload.body = details.message;
+
+        if (fcmSender) {
+          let message = new gcmLib.Message({
             data: payload,
           });
+
+          fcmSender.send(message, {
+            registrationTokens: [pushDevice.regId],
+          }, 10, (err) => logger.error('FCM Error', err));
         }
         break;
 
