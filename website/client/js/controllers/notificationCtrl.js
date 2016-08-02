@@ -133,7 +133,7 @@ habitrpg.controller('NotificationCtrl',
     }
 
     // Since we don't use localStorage anymore, notifications for achievements and new contributor levels
-    // are now stored user.notifications.
+    // are now stored in user.notifications.
     $rootScope.$watchCollection('userNotifications', function (after) {
       if (!User.user._wrapped) return;
       handleUserNotifications(after);
