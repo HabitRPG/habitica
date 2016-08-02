@@ -19,7 +19,6 @@ angular.module('habitrpg')
           if(!err) $scope.registrationInProgress = false;
           Analytics.login();
           Analytics.updateUser();
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
           $window.location.href = ('/' + window.location.hash);
         });
       };

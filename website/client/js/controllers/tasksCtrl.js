@@ -28,7 +28,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
       User.score({params:{task: task, direction:direction}});
       Analytics.updateUser();
-      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
 
     function addTask(addTo, listDef, tasks) {

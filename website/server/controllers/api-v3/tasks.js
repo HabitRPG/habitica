@@ -451,6 +451,15 @@ api.scoreTask = {
       }
     }
 
+    /*
+    res.analytics.track('score task', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction: direction});
+    */
+
     return null;
   },
 };

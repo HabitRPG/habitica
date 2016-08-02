@@ -214,6 +214,16 @@ api.loginLocal = {
     let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
     let isValidPassword = user && user.auth.local.hashed_password === passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+
+    res.analytics.track('login', {
+      category: 'behaviour',
+      type: 'local',
+      gaLabel: 'local',
+      uuid: user._id,
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
+    });
+
     return _loginRes(user, ...arguments);
   },
 };

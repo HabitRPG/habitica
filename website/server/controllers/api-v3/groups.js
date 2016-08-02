@@ -66,6 +66,32 @@ api.createGroup = {
       _id: user._id,
       profile: {name: user.profile.name},
     };
+
+    if (savedGroup.privacy === 'public') {
+      res.analytics.track('join group', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        owner: true,
+        groupType: savedGroup.type,
+        privacy: savedGroup.privacy,
+        groupName: savedGroup.name,
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
+      });
+    } else {
+      res.analytics.track('join group', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        owner: true,
+        groupType: savedGroup.type,
+        privacy: savedGroup.privacy,
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
+      });
+    }
+
     res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
 };
@@ -273,6 +299,32 @@ api.joinGroup = {
     if (leader) {
       response.leader = leader.toJSON({minimize: true});
     }
+
+    if (group.privacy === 'public') {
+      res.analytics.track('join group', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        owner: false,
+        groupType: group.type,
+        privacy: group.privacy,
+        groupName: group.name,
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
+      });
+    } else {
+      res.analytics.track('join group', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        owner: false,
+        groupType: group.type,
+        privacy: group.privacy,
+        client: req.headers['x-client'],
+        useragent: req.headers['user-agent'],
+      });
+    }
+
     res.respond(200, response);
   },
 };
