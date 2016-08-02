@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import nconf from 'nconf';
+// TODO remove this lib and use directly the apn module
 import pushNotify from 'push-notify';
 import apnLib from 'apn';
 import logger from './logger';
@@ -7,11 +8,11 @@ import Bluebird from 'bluebird';
 import {
   S3,
 } from './aws';
-import FCM from 'fcm-push';
+import gcmLib from 'node-gcm'; // works with FCM notifications too
 
 const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
 
-let fcm = FCM_API_KEY ? new FCM(FCM_API_KEY) : undefined;
+const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
 
 let apn;
 
@@ -78,17 +79,14 @@ module.exports = function sendNotification (user, details = {}) {
         payload.title = details.title;
         payload.body = details.message;
 
-        if (fcm) {
-          let message = {
-            to: pushDevice.regId,
+        if (fcmSender) {
+          let message = new gcmLib.Message({
             data: payload,
-          };
-
-          fcm.send(message, function sendFCM (err) {
-            if (err) {
-              logger.error('FCM Error', err);
-            }
           });
+
+          fcmSender.send(message, {
+            registrationTokens: [pushDevice.regId],
+          }, 10, (err) => logger.error('FCM Error', err));
         }
         break;
 

@@ -2,7 +2,7 @@ import { model as User } from '../../../../../website/server/models/user';
 import requireAgain from 'require-again';
 import pushNotify from 'push-notify';
 import nconf from 'nconf';
-import FCM from 'fcm-push';
+import gcmLib from 'node-gcm'; // works with FCM notifications too
 
 describe('pushNotifications', () => {
   let user;
@@ -22,7 +22,7 @@ describe('pushNotifications', () => {
 
     sandbox.stub(nconf, 'get').returns('true-key');
 
-    sandbox.stub(FCM.prototype, 'send', fcmSendSpy);
+    sandbox.stub(gcmLib.Sender.prototype, 'send', fcmSendSpy);
 
     sandbox.stub(pushNotify, 'apn').returns({
       on: () => null,
