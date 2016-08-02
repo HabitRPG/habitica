@@ -8,7 +8,7 @@
         p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
         p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
 
-  // .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
+  // .well=env.t('seasonalShopRepurchase')
 
   // li.customize-menu.inventory-gear
     menu.pets-menu(label=env.t('seasonalItems'))
@@ -22,9 +22,7 @@
         p {{::Content.spells.special.seafoam.value}}
           span(class='shop_gold')
     menu.pets-menu(label='{{category.text}}', ng-repeat='category in seasonalShopCategories')
-      div(ng-repeat='item in category.items',
-        ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}",
-        ng-if='!user.items.gear.owned[item.key]')
+      div(ng-repeat='item in category.items')
         button.customize-option(class='shop_{{item.key}}',
           popover='{{item.notes}}', popover-title='{{item.text}}',
           popover-trigger='mouseenter', popover-placement='right',
