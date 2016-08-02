@@ -217,7 +217,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         if (gear.index !== key) {
           return false;
         }
-        return user.items.gear.owned[gear.key] !== true;
+        return user.items.gear.owned[gear.key] === false;
       }).where({index: key}).map(gear => {
         return {
           key: gear.key,
