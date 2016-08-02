@@ -3,11 +3,9 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-let user, webhookToUpdate;
-let url = 'http://new-url.com';
-let enabled = true;
-
 describe('PUT /user/webhook/:id', () => {
+  let user, webhookToUpdate;
+
   beforeEach(async () => {
     user = await generateUser();
 
@@ -40,6 +38,7 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('updates a webhook', async () => {
+    let url = 'http://a-new-url.com';
     let type = 'taskCreated';
 
     await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type});
@@ -52,6 +51,7 @@ describe('PUT /user/webhook/:id', () => {
 
   it('returns the updated webhook', async () => {
     let type = 'taskCreated';
+    let url = 'http://a-new-url.com';
     let response = await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type});
 
     expect(response.url).to.eql(url);
