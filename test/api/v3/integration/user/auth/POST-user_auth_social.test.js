@@ -24,7 +24,7 @@ describe('POST /user/auth/social', () => {
 
   it('fails if network is not facebook', async () => {
     await expect(api.post(endpoint, {
-      authResponse: {access_token: randomAccessToken},
+      authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
       network: 'NotFacebook',
     })).to.eventually.be.rejected.and.eql({
       code: 401,
@@ -35,7 +35,7 @@ describe('POST /user/auth/social', () => {
 
   it('registers a new user', async () => {
     let response = await api.post(endpoint, {
-      authResponse: {access_token: randomAccessToken},
+      authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
       network,
     });
 
@@ -48,7 +48,7 @@ describe('POST /user/auth/social', () => {
     await user.update({ 'auth.facebook.id': facebookId });
 
     let response = await api.post(endpoint, {
-      authResponse: {access_token: randomAccessToken},
+      authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
       network,
     });
 
