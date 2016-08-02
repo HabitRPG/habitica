@@ -107,6 +107,8 @@ api.postChat = {
     } else {
       res.respond(200, {message: savedGroup.chat[0]});
     }
+
+    group.sendGroupChatReceivedWebhooks(newChatMessage);
   },
 };
 
