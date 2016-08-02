@@ -2,7 +2,7 @@ import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
-import * as email from '../../../../../website/server/libs/api-v3/email';
+import * as email from '../../../../../website/server/libs/email';
 import validator from 'validator';
 import { TAVERN_ID } from '../../../../../common/script/';
 
@@ -431,6 +431,47 @@ describe('Group Model', () => {
           participatingMember._id,
           questLeader._id,
         ]);
+      });
+    });
+
+    describe('#leaveGroup', () => {
+      it('removes user from group quest', async () => {
+        party.quest.members = {
+          [participatingMember._id]: true,
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        };
+        party.memberCount = 4;
+        await party.save();
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party.quest.members).to.eql({
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        });
+      });
+
+      it('deletes a private group when the last member leaves', async () => {
+        party.memberCount = 1;
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.not.exist;
+      });
+
+      it('does not delete a public group when the last member leaves', async () => {
+        party.memberCount = 1;
+        party.privacy = 'public';
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
       });
     });
 

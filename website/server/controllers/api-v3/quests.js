@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Bluebird from 'bluebird';
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import analytics from '../../libs/api-v3/analyticsService';
+import { authWithHeaders } from '../../middlewares/auth';
+import analytics from '../../libs/analyticsService';
 import {
   model as Group,
 } from '../../models/group';
@@ -10,13 +10,13 @@ import {
   NotFound,
   NotAuthorized,
   BadRequest,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import {
   getUserInfo,
   sendTxn as sendTxnEmail,
-} from '../../libs/api-v3/email';
+} from '../../libs/email';
 import common from '../../../../common';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import sendPushNotification from '../../libs/pushNotifications';
 
 const questScrolls = common.content.quests;
 
@@ -34,8 +34,8 @@ let api = {};
  * @apiName InviteToQuest
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
- * @apiParam {string} questKey
+ * @apiParam {String} groupId The group _id (or 'party')
+ * @apiParam {String} questKey
  *
  * @apiSuccess {Object} data Quest object
  */
@@ -145,7 +145,7 @@ api.inviteToQuest = {
  * @apiName AcceptQuest
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  */
@@ -202,7 +202,7 @@ api.acceptQuest = {
  * @apiName RejectQuest
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  */
@@ -261,7 +261,7 @@ api.rejectQuest = {
  * @apiName ForceQuestStart
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  */
@@ -313,7 +313,7 @@ api.forceStart = {
  * @apiName CancelQuest
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  */
@@ -362,7 +362,7 @@ api.cancelQuest = {
  * @apiName AbortQuest
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  */
@@ -415,7 +415,7 @@ api.abortQuest = {
  * @apiName LeaveQuest
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id (or 'party')
+ * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  */

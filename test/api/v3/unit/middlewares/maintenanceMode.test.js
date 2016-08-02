@@ -8,7 +8,7 @@ import requireAgain from 'require-again';
 
 describe('maintenance mode middleware', () => {
   let res, req, next;
-  let pathToMaintenanceModeMiddleware = '../../../../../website/server/middlewares/api-v3/maintenanceMode';
+  let pathToMaintenanceModeMiddleware = '../../../../../website/server/middlewares/maintenanceMode';
 
   beforeEach(() => {
     res = generateRes();
