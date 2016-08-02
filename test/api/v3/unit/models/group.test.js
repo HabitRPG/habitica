@@ -1019,7 +1019,7 @@ describe('Group Model', () => {
           type: 'guild',
         });
 
-        guild.sendGroupChatReceivedWebhooks({})
+        guild.sendGroupChatReceivedWebhooks({});
 
         expect(User.find).to.be.calledWith({
           'preferences.webhooks': { $ne: {} },
@@ -1030,11 +1030,7 @@ describe('Group Model', () => {
       it('looks for users in specified party with webhooks', () => {
         sandbox.spy(User, 'find');
 
-        let party = new Group({
-          type: 'party',
-        });
-
-        party.sendGroupChatReceivedWebhooks({})
+        party.sendGroupChatReceivedWebhooks({});
 
         expect(User.find).to.be.calledWith({
           'preferences.webhooks': { $ne: {} },
@@ -1055,7 +1051,7 @@ describe('Group Model', () => {
             'chat-webhook': {
               type: 'groupChatReceived',
               url: 'http://someurl.com',
-            }
+            },
           },
         });
         let memberWithoutWebhook = new User({
@@ -1066,7 +1062,7 @@ describe('Group Model', () => {
             'chat-webhook': {
               type: 'groupChatReceived',
               url: 'http://someurl.com',
-            }
+            },
           },
         });
 
@@ -1101,7 +1097,7 @@ describe('Group Model', () => {
             'chat-webhook': {
               type: 'groupChatReceived',
               url: 'http://someurl.com',
-            }
+            },
           },
         });
         let memberWithWebhook2 = new User({
@@ -1110,7 +1106,7 @@ describe('Group Model', () => {
             'chat-webhook': {
               type: 'groupChatReceived',
               url: 'http://another-member.com',
-            }
+            },
           },
         });
         let memberWithWebhook3 = new User({
@@ -1119,7 +1115,7 @@ describe('Group Model', () => {
             'chat-webhook': {
               type: 'groupChatReceived',
               url: 'http://a-third-member.com',
-            }
+            },
           },
         });
 

@@ -1,5 +1,4 @@
 import request from 'request';
-import { each } from 'lodash';
 import common from '../../../../../common';
 import {
   WebhookSender,
@@ -27,7 +26,7 @@ describe('webhooks', () => {
             'group-id': true,
             'not-this-group-id': false,
           },
-        }
+        },
       },
     };
   });
@@ -71,7 +70,7 @@ describe('webhooks', () => {
           let dataToSend = Object.assign({baz: 'biz'}, data);
 
           return dataToSend;
-        }
+        },
       });
 
       let body = { foo: 'bar' };
@@ -220,7 +219,7 @@ describe('webhooks', () => {
         user: {
           _id: 'user-id',
           _tmp: {foo: 'bar'},
-          stats: {lvl: 5, int: 10, str: 5, exp: 423}
+          stats: {lvl: 5, int: 10, str: 5, exp: 423},
         },
         task: {
           text: 'text',
@@ -245,7 +244,7 @@ describe('webhooks', () => {
               toNextLevel: 40,
               maxHealth: common.maxHealth,
               maxMP: 103,
-            }
+            },
           },
           task: {
             details: {text: 'text'},
@@ -297,12 +296,12 @@ describe('webhooks', () => {
         body: {
           group: {
             id: 'group-id',
-            name: 'some group'
+            name: 'some group',
           },
           chat: {
             id: 'some-id',
             text: 'message',
-          }
+          },
         },
       });
     });
@@ -328,12 +327,12 @@ describe('webhooks', () => {
         body: {
           group: {
             id: 'not-this-group-id',
-            name: 'some group'
+            name: 'some group',
           },
           chat: {
             id: 'some-id',
             text: 'message',
-          }
+          },
         },
       });
     });
@@ -364,12 +363,12 @@ describe('webhooks', () => {
         body: {
           group: {
             id: 'group-id',
-            name: 'some group'
+            name: 'some group',
           },
           chat: {
             id: 'some-id',
             text: 'message',
-          }
+          },
         },
       });
     });

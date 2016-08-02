@@ -1,4 +1,3 @@
-import { each } from 'lodash';
 import { post } from 'request';
 import { isURL } from 'validator';
 import logger from './logger';
@@ -17,7 +16,7 @@ function isValidWebhook (hook) {
 }
 
 export class WebhookSender {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.type = options.type;
     this.transformData = options.transformData || WebhookSender.defaultTransformData;
     this.webhookFilter = options.webhookFilter || WebhookSender.defaultWebhookFilter;
@@ -79,7 +78,7 @@ export let taskScoredWebhook = new WebhookSender({
 
     return dataToSend;
   },
-})
+});
 
 export let taskCreatedWebhook = new WebhookSender({
   type: 'taskCreated',

@@ -420,7 +420,7 @@ api.scoreTask = {
       task,
       direction,
       delta,
-      user
+      user,
     });
 
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
