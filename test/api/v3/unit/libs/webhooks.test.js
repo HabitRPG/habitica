@@ -5,7 +5,7 @@ import {
   taskScoredWebhook,
   groupChatReceivedWebhook,
   taskCreatedWebhook,
-} from '../../../../../website/server/libs/api-v3/webhook';
+} from '../../../../../website/server/libs/webhook';
 
 describe('webhooks', () => {
   let webhooks;

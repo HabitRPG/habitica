@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../../common';
 
 let api = {};
@@ -108,3 +108,4 @@ api.deleteWebhook = {
   },
 };
 
+module.exports = api;

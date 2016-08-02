@@ -1,9 +1,9 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import {
   taskCreatedWebhook,
   taskScoredWebhook,
-} from '../../libs/api-v3/webhook';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+} from '../../libs/webhook';
+import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
@@ -11,11 +11,11 @@ import {
   NotFound,
   NotAuthorized,
   BadRequest,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import common from '../../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import logger from '../../libs/api-v3/logger';
+import logger from '../../libs/logger';
 
 let api = {};
 
@@ -266,9 +266,9 @@ api.getChallengeTasks = {
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The task object
+ * @apiSuccess {Object} data The task object
  */
 api.getTask = {
   method: 'GET',
@@ -300,9 +300,9 @@ api.getTask = {
  * @apiName UpdateTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.updateTask = {
   method: 'PUT',
@@ -361,12 +361,12 @@ api.updateTask = {
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
- * @apiParam {string="up","down"} direction The direction for scoring the task
+ * @apiParam {String} taskId The task _id or alias
+ * @apiParam {String="up","down"} direction The direction for scoring the task
  *
- * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
- * @apiSuccess {number} data.delta
- * @apiSuccess {object} data The user stats
+ * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
+ * @apiSuccess {Number} data.delta The delta
+ * @apiSuccess {Object} data The user stats
  */
 api.scoreTask = {
   method: 'POST',
@@ -449,10 +449,10 @@ api.scoreTask = {
  * @apiName MoveTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
- * @apiSuccess {array} data The new tasks order (user.tasksOrder.{task.type}s)
+ * @apiSuccess {Array} data The new tasks order (user.tasksOrder.{task.type}s)
  */
 api.moveTask = {
   method: 'POST',
@@ -502,9 +502,9 @@ api.moveTask = {
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.addChecklistItem = {
   method: 'POST',
@@ -550,10 +550,10 @@ api.addChecklistItem = {
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.scoreCheckListItem = {
   method: 'POST',
@@ -590,10 +590,10 @@ api.scoreCheckListItem = {
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.updateChecklistItem = {
   method: 'PUT',
@@ -642,10 +642,10 @@ api.updateChecklistItem = {
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.removeChecklistItem = {
   method: 'DELETE',
@@ -692,10 +692,10 @@ api.removeChecklistItem = {
  * @apiName AddTagToTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.addTagToTask = {
   method: 'POST',
@@ -733,10 +733,10 @@ api.addTagToTask = {
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.removeTagFromTask = {
   method: 'DELETE',
@@ -771,9 +771,9 @@ api.removeTagFromTask = {
  * @apiGroup Task
  *
  * @apiParam {UUID} challengeId The challenge _id
- * @apiParam {string} keep Query parameter - keep-all or remove-all
+ * @apiParam {String} keep Query parameter - keep-all or remove-all
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.unlinkAllTasks = {
   method: 'POST',
@@ -832,10 +832,10 @@ api.unlinkAllTasks = {
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
- * @apiParam {string} keep Query parameter - keep or remove
+ * @apiParam {String} taskId The task _id or alias
+ * @apiParam {String} keep Query parameter - keep or remove
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.unlinkOneTask = {
   method: 'POST',
@@ -880,7 +880,7 @@ api.unlinkOneTask = {
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.clearCompletedTodos = {
   method: 'POST',
@@ -911,9 +911,9 @@ api.clearCompletedTodos = {
  * @apiName DeleteTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.deleteTask = {
   method: 'DELETE',

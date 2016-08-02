@@ -4,7 +4,7 @@ import nconf from 'nconf';
 import nodemailer from 'nodemailer';
 import Bluebird from 'bluebird';
 import requireAgain from 'require-again';
-import logger from '../../../../../website/server/libs/api-v3/logger';
+import logger from '../../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../../website/server/models/group';
 
 function defer () {
@@ -50,7 +50,7 @@ function getUser () {
 }
 
 describe('emails', () => {
-  let pathToEmailLib = '../../../../../website/server/libs/api-v3/email';
+  let pathToEmailLib = '../../../../../website/server/libs/email';
 
   describe('sendEmail', () => {
     it('can send an email using the default transport', () => {

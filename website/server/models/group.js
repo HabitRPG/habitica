@@ -7,18 +7,18 @@ import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
-import { removeFromArray } from '../libs/api-v3/collectionManipulators';
-import { groupChatReceivedWebhook } from '../libs/api-v3/webhook';
+import { removeFromArray } from '../libs/collectionManipulators';
+import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
-} from '../libs/api-v3/errors';
-import baseModel from '../libs/api-v3/baseModel';
-import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
+} from '../libs/errors';
+import baseModel from '../libs/baseModel';
+import { sendTxn as sendTxnEmail } from '../libs/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
-import sendPushNotification from '../libs/api-v3/pushNotifications';
-import pusher from '../libs/api-v3/pusher';
+import sendPushNotification from '../libs/pushNotifications';
+import pusher from '../libs/pusher';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -96,7 +96,7 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 };
 
 // Basic fields to fetch for populating a group info
-export let basicFields = 'name type privacy';
+export let basicFields = 'name type privacy leader';
 
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
@@ -724,6 +724,9 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
+  let update = {
+    $inc: {memberCount: -1},
+  };
 
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
@@ -747,16 +750,14 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     pusher.trigger(`presence-group-${group._id}`, 'user-left', {
       userId: user._id,
     });
+
+    update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     promises.push(group.remove());
   } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    let update = {
-      $inc: {memberCount: -1},
-    };
-
     if (group.leader === user._id) {
       let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
       query._id = {$ne: user._id};
@@ -770,63 +771,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   return await Bluebird.all(promises);
 };
-
-// API v2 compatibility methods
-schema.methods.getTransformedData = function getTransformedData (options) {
-  let cb = options.cb;
-  let populateMembers = options.populateMembers;
-  let populateInvites = options.populateInvites;
-  let populateChallenges = options.populateChallenges;
-
-  let obj = this.toJSON();
-
-  let queryMembers = {};
-  let queryInvites = {};
-
-  if (this.type === 'guild') {
-    queryInvites['invitations.guilds.id'] = this._id;
-  } else {
-    queryInvites['invitations.party.id'] = this._id;
-  }
-
-  if (this.type === 'guild') {
-    queryMembers.guilds = this._id;
-  } else {
-    queryMembers['party._id'] = this._id;
-  }
-
-  let selectDataMembers = '_id';
-  let selectDataInvites = '_id';
-  let selectDataChallenges = '_id';
-
-  if (populateMembers) {
-    selectDataMembers += ` ${populateMembers}`;
-  }
-  if (populateInvites) {
-    selectDataInvites += ` ${populateInvites}`;
-  }
-  if (populateChallenges) {
-    selectDataChallenges += ` ${populateChallenges}`;
-  }
-
-  let membersQuery = User.find(queryMembers).select(selectDataMembers);
-  if (options.limitPopulation) membersQuery.limit(15);
-
-  Bluebird.all([
-    membersQuery.exec(),
-    User.find(queryInvites).select(populateInvites).exec(),
-    Challenge.find({group: obj._id}).select(populateMembers).exec(),
-  ])
-    .then((results) => {
-      obj.members = results[0];
-      obj.invites = results[1];
-      obj.challenges = results[2];
-
-      cb(null, obj);
-    })
-    .catch(cb);
-};
-// END API v2 compatibility methods
 
 export let model = mongoose.model('Group', schema);
 

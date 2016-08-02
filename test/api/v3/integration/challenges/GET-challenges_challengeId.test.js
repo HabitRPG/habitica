@@ -46,7 +46,14 @@ describe('GET /challenges/:challengeId', () => {
         id: groupLeader._id,
         profile: {name: groupLeader.profile.name},
       });
-      expect(chal.group).to.eql(_.pick(group, ['_id', 'id', 'name', 'type', 'privacy']));
+      expect(chal.group).to.eql({
+        _id: group._id,
+        id: group.id,
+        name: group.name,
+        type: group.type,
+        privacy: group.privacy,
+        leader: groupLeader.id,
+      });
     });
   });
 
@@ -91,7 +98,14 @@ describe('GET /challenges/:challengeId', () => {
         id: groupLeader._id,
         profile: {name: groupLeader.profile.name},
       });
-      expect(chal.group).to.eql(_.pick(group, ['_id', 'id', 'name', 'type', 'privacy']));
+      expect(chal.group).to.eql({
+        _id: group._id,
+        id: group.id,
+        name: group.name,
+        type: group.type,
+        privacy: group.privacy,
+        leader: groupLeader.id,
+      });
     });
   });
 
@@ -136,7 +150,14 @@ describe('GET /challenges/:challengeId', () => {
         id: groupLeader.id,
         profile: {name: groupLeader.profile.name},
       });
-      expect(chal.group).to.eql(_.pick(group, ['_id', 'id', 'name', 'type', 'privacy']));
+      expect(chal.group).to.eql({
+        _id: group._id,
+        id: group.id,
+        name: group.name,
+        type: group.type,
+        privacy: group.privacy,
+        leader: groupLeader.id,
+      });
     });
   });
 });
