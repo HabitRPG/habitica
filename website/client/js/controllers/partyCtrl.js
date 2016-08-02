@@ -3,7 +3,7 @@
 habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Pusher',
     function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher) {
 
-      const PARTY_LOADING_MESSAGES = 6;
+      var PARTY_LOADING_MESSAGES = 4;
 
       var user = User.user;
 
@@ -15,17 +15,15 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.loadWidgets = Social.loadWidgets;
 
       // Random message between 1 and PARTY_LOADING_MESSAGES
-      $scope.partyLoadingMessage = 1; // Math.floor(Math.random() * PARTY_LOADING_MESSAGES) + 1;
+      $scope.partyLoadingMessage = Math.floor(Math.random() * PARTY_LOADING_MESSAGES) + 1;
 
       function handlePartyResponse (group) {
         $rootScope.party = $scope.group = group;
-        //$scope.group.loadingParty = true;
         checkForNotifications();
       }
 
       function handlePartyError (response) {
         $rootScope.party = $scope.group = $scope.newGroup = { type: 'party' };
-        //$scope.group.loadingParty = true;
       }
 
       if ($state.is('options.social.party') && $rootScope.party && $rootScope.party.id) {

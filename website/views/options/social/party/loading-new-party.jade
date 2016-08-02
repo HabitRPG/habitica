@@ -1,5 +1,5 @@
 .container-fluid
   .row.text-center: .col-xs-12
-    h2=env.t('partyLoading' + partyLoadingMessage)
+    h2 {{::env.t('partyLoading' + partyLoadingMessage)}}
     img(src='/page-loader.gif')
 
