@@ -367,6 +367,20 @@ let backgrounds = {
       notes: t('backgroundDeepSeaNotes'),
     },
   },
+  backgrounds082016: {
+    idyllic_cabin: {
+      text: t('backgroundIdyllicCabinText'),
+      notes: t('backgroundIdyllicCabinNotes'),
+    },
+    mountain_pyramid: {
+      text: t('backgroundMountainPyramidText'),
+      notes: t('backgroundMountainPyramidNotes'),
+    },
+    stormy_ship: {
+      text: t('backgroundStormyShipText'),
+      notes: t('backgroundStormyShipNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 
