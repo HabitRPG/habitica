@@ -8,7 +8,11 @@ function sendWebhook (url, body) {
     url,
     body,
     json: true,
-  }, (err) => logger.error(err));
+  }, (err) => {
+    if (err) {
+      logger.error(err);
+    }
+  });
 }
 
 function isValidWebhook (hook) {
