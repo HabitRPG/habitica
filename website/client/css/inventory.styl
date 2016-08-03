@@ -1,7 +1,7 @@
 .gem-wallet
   cursor: pointer
-  padding-right: 15px
-  margin-right: 5px
+  &.pull-right
+    margin-right: 20px
   .tile
     background-color: darken($neutral, 10%)
   .add-gems-btn
@@ -12,6 +12,9 @@
       background-color: $good
     .tile
       opacity: 1
+    text-decoration: none
+.buy-gems .gem-wallet
+  margin-right: 0px
 
 .modal-header .gem-wallet
   padding-top: 0px
