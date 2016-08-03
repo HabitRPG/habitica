@@ -135,6 +135,8 @@ api.inviteToQuest = {
       gaLabel: 'accept',
       questName: questKey,
       uuid: user._id,
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   },
 };
@@ -192,6 +194,8 @@ api.acceptQuest = {
       gaLabel: 'accept',
       questName: group.quest.key,
       uuid: user._id,
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   },
 };
@@ -250,6 +254,8 @@ api.rejectQuest = {
       gaLabel: 'reject',
       questName: group.quest.key,
       uuid: user._id,
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   },
 };
@@ -303,6 +309,8 @@ api.forceStart = {
       gaLabel: 'force-start',
       questName: group.quest.key,
       uuid: user._id,
+      client: req.headers['x-client'],
+      useragent: req.headers['user-agent'],
     });
   },
 };
