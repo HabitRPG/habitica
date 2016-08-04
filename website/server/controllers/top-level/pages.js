@@ -8,7 +8,7 @@ const md = markdownIt({
 
 let api = {};
 
-const TOTAL_USER_COUNT = '1,100,000';
+const TOTAL_USER_COUNT = '1,500,000';
 const LOADING_SCREEN_TIPS = 32;
 
 api.getFrontPage = {
