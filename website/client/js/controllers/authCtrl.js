@@ -62,6 +62,7 @@ angular.module('habitrpg')
 
         $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
           runAuth(res.data._id, res.data.apiToken);
+          Analytics.register();
         }).error(errorAlert);
       };
 
