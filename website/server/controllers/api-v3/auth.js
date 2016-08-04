@@ -178,6 +178,7 @@ function _loginRes (user, req, res) {
  *
  * @apiSuccess {String} data._id The user's unique identifier
  * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
+ * @apiSuccess {Boolean} data.newUser Returns true if the user was just created (always false for local login).
  */
 api.loginLocal = {
   method: 'POST',
