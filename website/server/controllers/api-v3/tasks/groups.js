@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../../middlewares/auth';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
+import { model as User } from '../../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -108,6 +109,7 @@ api.assignTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.assignedUserId;
+    let assignedUser = await User.findById(assignedUserId);
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -128,7 +130,7 @@ api.assignTask = {
     task.assignedUserId = assignedUserId;
     await task.save();
 
-    // group.syncToAssignedTaskToUser(user, task);
+    group.syncTask(task, assignedUser);
 
     res.respond(201, task);
 

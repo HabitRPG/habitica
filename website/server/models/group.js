@@ -6,6 +6,7 @@ import {
 import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
+import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
 import {
@@ -765,6 +766,139 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   return await Bluebird.all(promises);
 };
+
+//  @TODO: Move to task manager/library
+// Takes a Task document and return a plain object of attributes that can be synced to the user
+function _syncableAttrs (task) {
+  let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
+  // only sync/compare important attrs
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt'];
+  if (t.type !== 'reward') omitAttrs.push('value');
+  return _.omit(t, omitAttrs);
+}
+
+schema.methods.syncTask = async function groupSyncTask (task, user) {
+  let group = this;
+
+  // Sync tags
+  let userTags = user.tags;
+  let i = _.findIndex(userTags, {id: group._id});
+
+  if (i !== -1) {
+    if (userTags[i].name !== group.name) {
+      // update the name - it's been changed since
+      userTags[i].name = group.name;
+    }
+  } else {
+    userTags.push({
+      id: group._id,
+      name: group.name,
+    });
+  }
+
+  let [groupTasks, userTasks] = await Bluebird.all([
+    // Find original challenge tasks
+    Tasks.Task.find({
+      userId: {$exists: false},
+      'group.id': group._id,
+    }).exec(),
+    // Find user's tasks linked to this challenge
+    Tasks.Task.find({
+      userId: user._id,
+      'group.id': group._id,
+    }).exec(),
+  ]);
+
+  let toSave = []; // An array of things to save
+
+  groupTasks.forEach(groupTask => {
+    let matchingTask = _.find(userTasks, userTask => userTask.group.id === group._id);
+
+    if (!matchingTask) { // If the task is new, create it
+      matchingTask = new Tasks[groupTask.type](Tasks.Task.sanitize(_syncableAttrs(groupTask)));
+      matchingTask.group.id = groupTask.group.id;
+      matchingTask.userId = user._id;
+      user.tasksOrder[`${groupTask.type}s`].push(matchingTask._id);
+    } else {
+      _.merge(matchingTask, _syncableAttrs(groupTask));
+      // Make sure the task is in user.tasksOrder
+      let orderList = user.tasksOrder[`${groupTask.type}s`];
+      if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+    }
+
+    if (!matchingTask.notes) matchingTask.notes = groupTask.notes; // don't override the notes, but provide it if not provided
+    if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
+    toSave.push(matchingTask.save());
+  });
+
+  // Flag deleted tasks as "broken"
+  // userTasks.forEach(userTask => {
+  //   if (!_.find(challengeTasks, groupTask => groupTask._id === userTask.challenge.taskId)) {
+  //     userTask.challenge.broken = 'TASK_DELETED';
+  //     toSave.push(userTask.save());
+  //   }
+  // });
+
+  toSave.push(user.save());
+  return Bluebird.all(toSave);
+};
+
+// API v2 compatibility methods
+schema.methods.getTransformedData = function getTransformedData (options) {
+  let cb = options.cb;
+  let populateMembers = options.populateMembers;
+  let populateInvites = options.populateInvites;
+  let populateChallenges = options.populateChallenges;
+
+  let obj = this.toJSON();
+
+  let queryMembers = {};
+  let queryInvites = {};
+
+  if (this.type === 'guild') {
+    queryInvites['invitations.guilds.id'] = this._id;
+  } else {
+    queryInvites['invitations.party.id'] = this._id;
+  }
+
+  if (this.type === 'guild') {
+    queryMembers.guilds = this._id;
+  } else {
+    queryMembers['party._id'] = this._id;
+  }
+
+  let selectDataMembers = '_id';
+  let selectDataInvites = '_id';
+  let selectDataChallenges = '_id';
+
+  if (populateMembers) {
+    selectDataMembers += ` ${populateMembers}`;
+  }
+  if (populateInvites) {
+    selectDataInvites += ` ${populateInvites}`;
+  }
+  if (populateChallenges) {
+    selectDataChallenges += ` ${populateChallenges}`;
+  }
+
+  let membersQuery = User.find(queryMembers).select(selectDataMembers);
+  if (options.limitPopulation) membersQuery.limit(15);
+
+  Bluebird.all([
+    membersQuery.exec(),
+    User.find(queryInvites).select(populateInvites).exec(),
+    Challenge.find({group: obj._id}).select(populateMembers).exec(),
+  ])
+    .then((results) => {
+      obj.members = results[0];
+      obj.invites = results[1];
+      obj.challenges = results[2];
+
+      cb(null, obj);
+    })
+    .catch(cb);
+};
+// END API v2 compatibility methods
 
 export let model = mongoose.model('Group', schema);
 

@@ -1,10 +1,10 @@
 import {
   generateUser,
-  generateGroup,
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import { find } from 'lodash';
 
 describe('POST /tasks/:taskId', () => {
   let user, guild, member, task;
@@ -41,7 +41,7 @@ describe('POST /tasks/:taskId', () => {
   });
 
   it('returns error when task is not a group task', async () => {
-    let nonGroupTask = await user.post(`/tasks/user`, {
+    let nonGroupTask = await user.post('/tasks/user', {
       text: 'test habit',
       type: 'habit',
       up: false,
@@ -83,5 +83,15 @@ describe('POST /tasks/:taskId', () => {
     let groupTask = await user.get(`/tasks/group/${guild._id}`);
 
     expect(groupTask[0].assignedUserId).to.equal(member._id);
+
+    let memberTasks = await member.get('/tasks/user');
+
+    let syncedTask = find(memberTasks, function findAssignedTask (memberTask) {
+      return memberTask.assignedUserId === member._id;
+    });
+
+    expect(syncedTask).to.exist;
   });
+
+  //  @TODO: Assign to multiple users
 });
