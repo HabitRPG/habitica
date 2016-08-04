@@ -1,6 +1,8 @@
 import {
   generateUser,
+  sleep,
   translate as t,
+  server,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
@@ -206,6 +208,30 @@ describe('POST /tasks/user', () => {
   });
 
   context('all types', () => {
+    it('sends task created webhooks', async () => {
+      let uuid = generateUUID();
+      await server.start();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskCreated',
+        enabled: true,
+      });
+
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await sleep();
+
+      server.close();
+
+      let body = server.getWebhookData(uuid);
+
+      expect(body.tasks[0]).to.eql(task);
+    });
+
     it('can create reminders', async () => {
       let id1 = generateUUID();
 

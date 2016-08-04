@@ -62,7 +62,8 @@ export let taskScoredWebhook = new WebhookSender({
       toNextLevel: common.tnl(user.stats.lvl),
       maxHealth: common.maxHealth,
       maxMP: common.statsComputed(user).maxMP,
-    }, user.stats);
+    }, user.stats.toJSON());
+
     let userData = {
       _id: user._id,
       _tmp: user._tmp,

@@ -1,7 +1,10 @@
 import {
   createAndPopulateGroup,
   translate as t,
+  sleep,
+  server,
 } from '../../../../helpers/api-v3-integration.helper';
+import { v4 as generateUUID } from 'uuid';
 
 describe('POST /chat', () => {
   let user, groupWithChat, userWithChatRevoked, member;
@@ -52,6 +55,38 @@ describe('POST /chat', () => {
     let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
 
     expect(message.message.id).to.exist;
+  });
+
+  it('sends group chat received webhooks', async () => {
+    let userUuid = generateUUID();
+    let memberUuid = generateUUID();
+    await server.start();
+
+    await user.post('/user/webhook', {
+      url: `http://localhost:${server.port}/webhooks/${userUuid}`,
+      type: 'groupChatReceived',
+      enabled: true,
+    });
+    await member.post('/user/webhook', {
+      url: `http://localhost:${server.port}/webhooks/${memberUuid}`,
+      type: 'groupChatReceived',
+      enabled: true,
+    });
+
+    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+
+    await sleep();
+
+    server.close();
+
+    let userBody = server.getWebhookData(userUuid);
+    let memberBody = server.getWebhookData(userUuid);
+
+    [userBody, memberBody].forEach((body) => {
+      expect(body.group.id).to.eql(groupWithChat._id);
+      expect(body.group.name).to.eql(groupWithChat.name);
+      expect(body.chat).to.eql(message.message);
+    });
   });
 
   it('notifies other users of new messages for a guild', async () => {

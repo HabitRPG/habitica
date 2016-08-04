@@ -1,6 +1,8 @@
 import {
   generateUser,
+  sleep,
   translate as t,
+  server,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
@@ -44,6 +46,36 @@ describe('POST /tasks/:id/score/:direction', () => {
         error: 'BadRequest',
         message: t('invalidReqParams'),
       });
+    });
+
+    it('sends task scored webhooks', async () => {
+      let uuid = generateUUID();
+      await server.start();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskScored',
+        enabled: true,
+      });
+
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.post(`/tasks/${task.id}/score/up`);
+
+      await sleep();
+
+      server.close();
+
+      let body = server.getWebhookData(uuid);
+
+      expect(body.user).to.have.all.keys('_id', '_tmp', 'stats');
+      expect(body.user.stats).to.have.all.keys('hp', 'mp', 'exp', 'gp', 'lvl', 'class', 'points', 'str', 'con', 'int', 'per', 'buffs', 'training', 'maxHealth', 'maxMP', 'toNextLevel');
+      expect(body.task.details.id).to.eql(task.id);
+      expect(body.task.direction).to.eql('up');
+      expect(body.task.delta).to.be.greaterThan(0);
     });
   });
 
