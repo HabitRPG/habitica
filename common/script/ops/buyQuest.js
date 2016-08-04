@@ -34,8 +34,7 @@ module.exports = function buyQuest (user, req = {}, analytics) {
       goldCost: item.goldValue,
       acquireMethod: 'Gold',
       category: 'behavior',
-      client: req.headers['x-client'],
-      useragent: req.headers['user-agent'],
+      headers: req.headers,
     });
   }
 

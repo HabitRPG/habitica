@@ -82,8 +82,7 @@ api.createSubscription = async function createSubscription (data) {
     quantity: 1,
     gift: Boolean(data.gift),
     purchaseValue: block.price,
-    client: req.headers['x-client'],
-    useragent: req.headers['user-agent'],
+    headers: data.headers,
   });
 
   data.user.purchased.txnCount++;
@@ -168,8 +167,7 @@ api.buyGems = async function buyGems (data) {
     quantity: 1,
     gift: Boolean(data.gift),
     purchaseValue: amt,
-    client: req.headers['x-client'],
-    useragent: req.headers['user-agent'],
+    headers: data.headers,
   });
 
   if (data.gift) {

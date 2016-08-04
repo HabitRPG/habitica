@@ -76,8 +76,7 @@ api.createGroup = {
         groupType: savedGroup.type,
         privacy: savedGroup.privacy,
         groupName: savedGroup.name,
-        client: req.headers['x-client'],
-        useragent: req.headers['user-agent'],
+        headers: req.headers,
       });
     } else {
       res.analytics.track('join group', {
@@ -87,8 +86,7 @@ api.createGroup = {
         owner: true,
         groupType: savedGroup.type,
         privacy: savedGroup.privacy,
-        client: req.headers['x-client'],
-        useragent: req.headers['user-agent'],
+        headers: req.headers,
       });
     }
 
@@ -309,8 +307,7 @@ api.joinGroup = {
         groupType: group.type,
         privacy: group.privacy,
         groupName: group.name,
-        client: req.headers['x-client'],
-        useragent: req.headers['user-agent'],
+        headers: req.headers,
       });
     } else {
       res.analytics.track('join group', {
@@ -320,8 +317,7 @@ api.joinGroup = {
         owner: false,
         groupType: group.type,
         privacy: group.privacy,
-        client: req.headers['x-client'],
-        useragent: req.headers['user-agent'],
+        headers: req.headers,
       });
     }
 

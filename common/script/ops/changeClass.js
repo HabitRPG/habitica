@@ -49,8 +49,7 @@ module.exports = function changeClass (user, req = {}, analytics) {
         acquireMethod: 'Gems',
         gemCost: 3,
         category: 'behavior',
-        client: req.headers['x-client'],
-        useragent: req.headers['user-agent'],
+        headers: req.headers,
       });
     }
   } else {

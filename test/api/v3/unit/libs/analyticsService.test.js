@@ -27,6 +27,9 @@ describe('analyticsService', () => {
         uuid: 'unique-user-id',
         resting: true,
         cronCount: 5,
+        headers: {'x-client': 'habitica-web',
+        'user-agent': '',
+        },
       };
     });
 
@@ -55,7 +58,7 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*Web.*/g, '');
 
-          data.client = 'habitica-web';
+          data.headers = {'x-client': 'habitica-web'};
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -67,7 +70,7 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*iOS.*/g, '');
 
-          data.client = 'habitica-ios';
+          data.headers = {'x-client': 'habitica-ios'};
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -79,7 +82,7 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*Android.*/g, '');
 
-          data.client = 'habitica-android';
+          data.headers = {'x-client': 'habitica-android'};
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -90,6 +93,8 @@ describe('analyticsService', () => {
         it('3rd Party', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*3rd\%20Party.*/g, '');
+
+          data.headers = {};
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -113,8 +118,8 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*os.*name.*iOS.*/g, '');
 
-          data.client = 'habitica-ios';
-          data.useragent =  'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)';
+          data.headers = {'x-client': 'habitica-ios',
+            'user-agent': 'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)'};
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -126,7 +131,7 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*os.*name.*Android.*/g, '');
 
-          data.client = 'habitica-android';
+          data.headers = {'x-client': 'habitica-android'};
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -280,6 +285,9 @@ describe('analyticsService', () => {
         purchaseType: 'checkout',
         gift: false,
         quantity: 1,
+        headers: {'x-client': 'habitica-web',
+          'user-agent': '',
+        },
       };
     });
 
@@ -308,7 +316,7 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*Web.*/g, '');
 
-          data.client = 'habitica-web';
+          data.headers = {'x-client': 'habitica-web'};
 
           return analyticsService.trackPurchase(data)
             .then(() => {
@@ -320,7 +328,7 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*iOS.*/g, '');
 
-          data.client = 'habitica-ios';
+          data.headers = {'x-client': 'habitica-ios'};
 
           return analyticsService.trackPurchase(data)
             .then(() => {
@@ -332,7 +340,7 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*Android.*/g, '');
 
-          data.client = 'habitica-android';
+          data.headers = {'x-client': 'habitica-android'};
 
           return analyticsService.trackPurchase(data)
             .then(() => {
@@ -343,6 +351,8 @@ describe('analyticsService', () => {
         it('3rd Party', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*3rd\%20Party.*/g, '');
+
+          data.headers = {};
 
           return analyticsService.trackPurchase(data)
             .then(() => {
@@ -366,8 +376,8 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*os.*name.*iOS.*/g, '');
 
-          data.client = 'habitica-ios';
-          data.useragent =  'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)';
+          data.headers = {'x-client': 'habitica-ios',
+            'user-agent': 'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)'};
 
           return analyticsService.trackPurchase(data)
             .then(() => {
@@ -379,8 +389,8 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*os.*name.*Android.*/g, '');
 
-          data.client = 'habitica-android';
-          data.useragent = '';
+          data.headers = {'x-client': 'habitica-android',
+            'user-agent': ''};
 
           return analyticsService.trackPurchase(data)
             .then(() => {

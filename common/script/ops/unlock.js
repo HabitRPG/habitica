@@ -100,8 +100,7 @@ module.exports = function unlock (user, req = {}, analytics) {
         acquireMethod: 'Gems',
         gemCost: cost / 0.25,
         category: 'behavior',
-        client: req.headers['x-client'],
-        useragent: req.headers['user-agent'],
+        headers: req.headers,
       });
     }
   }

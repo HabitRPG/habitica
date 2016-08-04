@@ -14,7 +14,7 @@ const AMPLIUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
-const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'client', 'useragent'];
+const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'headers'];
 
 let amplitude = new Amplitude(AMPLIUDE_TOKEN);
 let ga = googleAnalytics(GA_TOKEN);
@@ -114,8 +114,8 @@ let _formatUserAgentForAmplitude = (platform, agentString) => {
 
 let _formatDataForAmplitude = (data) => {
   let event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
-  let platform = _formatPlatformForAmplitude(data.client);
-  let agent = _formatUserAgentForAmplitude(platform, data.useragent);
+  let platform = _formatPlatformForAmplitude(data.headers['x-client']);
+  let agent = _formatUserAgentForAmplitude(platform, data.headers['user-agent']);
   let ampData = {
     user_id: data.uuid || 'no-user-id-was-provided',
     platform,
