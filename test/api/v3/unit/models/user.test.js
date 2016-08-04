@@ -1,4 +1,5 @@
 import { model as User } from '../../../../../website/server/models/user';
+import common from '../../../../../common';
 
 describe('User Model', () => {
   it('keeps user._tmp when calling .toJSON', () => {
@@ -29,6 +30,21 @@ describe('User Model', () => {
     expect(toJSON).to.have.any.key('_tmp');
     expect(toJSON._tmp).to.eql({ok: true});
     expect(toJSON).to.not.have.keys('_nonTmp');
+  });
+
+  it('can add computed stats to a JSONified user object', () => {
+    let user = new User();
+    let userToJSON = user.toJSON();
+
+    expect(userToJSON.stats.maxMP).to.not.exists;
+    expect(userToJSON.stats.maxHealth).to.not.exists;
+    expect(userToJSON.stats.toNextLevel).to.not.exists;
+
+    user.addComputedStatsToJSONObj(userToJSON);
+
+    expect(userToJSON.stats.maxMP).to.exists;
+    expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
+    expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
   });
 
   context('notifications', () => {
