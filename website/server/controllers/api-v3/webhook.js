@@ -60,7 +60,7 @@ api.addWebhook = {
     let user = res.locals.user;
     let addWebhookRes = common.ops.addWebhook(user, req);
     await user.save();
-    res.respond(200, ...addWebhookRes);
+    res.respond(201, ...addWebhookRes);
   },
 };
 
