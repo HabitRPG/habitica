@@ -53,7 +53,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         value: hatchingPotion.value,
         locked: false,
         currency: 'gems',
-        purchaseType: 'hatchingpotions',
+        purchaseType: 'hatchingPotions',
       };
     }).sortBy('key').value();
   categories.push(hatchingPotionsCategory);
@@ -192,14 +192,6 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   let availableSets = {
-    summerWarrior: i18n.t('daringSwashbucklerSet', language),
-    summerMage: i18n.t('emeraldMermageSet', language),
-    summerHealer: i18n.t('reefSeahealerSet', language),
-    summerRogue: i18n.t('roguishPirateSet', language),
-    summer2015Warrior: i18n.t('sunfishWarriorSet', language),
-    summer2015Mage: i18n.t('shipSoothsayerSet', language),
-    summer2015Healer: i18n.t('strappingSailorSet', language),
-    summer2015Rogue: i18n.t('reefRenegadeSet', language),
   };
 
   let categories = [];

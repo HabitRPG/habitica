@@ -111,8 +111,8 @@ api.getSeasonalShopItems = {
     let resObject = {
       identifier: 'seasonalShop',
       text: res.t('seasonalShop'),
-      notes: res.t('seasonalShopSummerText'),
-      imageName: 'seasonalshop_open',
+      notes: res.t('seasonalShopClosedText'),
+      imageName: 'seasonalshop_closed',
       categories: shops.getSeasonalShopCategories(user, req.language),
     };
 
