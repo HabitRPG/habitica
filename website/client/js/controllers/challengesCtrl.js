@@ -358,7 +358,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       _calculateMaxPrize(gid);
 
-      if (gid == TAVERN_ID) {
+      if (gid == TAVERN_ID && !($scope.newChallenge.prize > 0)) {
         $scope.newChallenge.prize = 1;
       }
     })

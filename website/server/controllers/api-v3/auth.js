@@ -163,7 +163,7 @@ api.registerLocal = {
 
 function _loginRes (user, req, res) {
   if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken});
+  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
 /**
@@ -178,6 +178,7 @@ function _loginRes (user, req, res) {
  *
  * @apiSuccess {String} data._id The user's unique identifier
  * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
+ * @apiSuccess {Boolean} data.newUser Returns true if the user was just created (always false for local login).
  */
 api.loginLocal = {
   method: 'POST',
@@ -260,6 +261,7 @@ api.loginSocial = {
 
       let savedUser = await user.save();
 
+      user.newUser = true;
       _loginRes(user, ...arguments);
 
       // Clean previous email preferences

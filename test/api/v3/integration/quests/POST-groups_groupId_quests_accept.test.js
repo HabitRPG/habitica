@@ -74,6 +74,21 @@ describe('POST /groups/:groupId/quests/accept', () => {
       });
     });
 
+    it('clears the invalid invite from the user when the request fails', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('questAlreadyAccepted'),
+      });
+
+      await partyMembers[0].sync();
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
+    });
+
     it('does not accept invite for a quest already underway', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);

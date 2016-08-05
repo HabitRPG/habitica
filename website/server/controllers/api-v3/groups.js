@@ -436,7 +436,7 @@ api.removeGroupMember = {
         group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined;
+        delete group.quest.members[member._id];
         group.markModified('quest.members');
       }
 
@@ -466,8 +466,8 @@ api.removeGroupMember = {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') {
-        user.invitations.party = {};
-        user.markModified('invitations.party');
+        member.invitations.party = {};
+        member.markModified('invitations.party');
       }
     } else {
       throw new NotFound(res.t('groupMemberNotFound'));
