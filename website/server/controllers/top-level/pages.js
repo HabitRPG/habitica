@@ -1,4 +1,4 @@
-import locals from '../../middlewares/api-v3/locals';
+import locals from '../../middlewares/locals';
 import _ from 'lodash';
 import markdownIt from 'markdown-it';
 
@@ -8,7 +8,8 @@ const md = markdownIt({
 
 let api = {};
 
-const TOTAL_USER_COUNT = '1,100,000';
+const TOTAL_USER_COUNT = '1,500,000';
+const LOADING_SCREEN_TIPS = 32;
 
 api.getFrontPage = {
   method: 'GET',
@@ -23,11 +24,12 @@ api.getFrontPage = {
     return res.render('index.jade', {
       title: 'Habitica | Your Life The Role Playing Game',
       env: res.locals.habitrpg,
+      loadingScreenTip: Math.floor(Math.random() * LOADING_SCREEN_TIPS) + 1, // Random tip between 1 and LOADING_SCREEN_TIPS
     });
   },
 };
 
-let staticPages = ['front', 'privacy', 'terms', 'api-v2', 'features',
+let staticPages = ['front', 'privacy', 'terms', 'features',
             'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
             'old-news', 'press-kit', 'faq', 'overview', 'apps',
             'clear-browser-data', 'merch', 'maintenance-info'];

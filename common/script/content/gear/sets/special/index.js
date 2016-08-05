@@ -4,6 +4,7 @@ import {
 import { ownsItem } from '../../gear-helper';
 import backerGear from './special-backer';
 import contributorGear from './special-contributor';
+import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
@@ -11,6 +12,7 @@ let armor = {
   0: backerGear.armorSpecial0,
   1: contributorGear.armorSpecial1,
   2: backerGear.armorSpecial2,
+  takeThis: takeThisGear.armorSpecialTakeThis,
   finnedOceanicArmor: {
     text: t('armorSpecialFinnedOceanicArmorText'),
     notes: t('armorSpecialFinnedOceanicArmorNotes', { str: 15 }),
@@ -361,17 +363,51 @@ let armor = {
     value: 90,
     con: 15,
   },
+  summer2016Rogue: {
+    event: EVENTS.summer2016,
+    specialClass: 'rogue',
+    text: t('armorSpecialSummer2016RogueText'),
+    notes: t('armorSpecialSummer2016RogueNotes', { per: 15 }),
+    value: 90,
+    per: 15,
+  },
+  summer2016Warrior: {
+    event: EVENTS.summer2016,
+    specialClass: 'warrior',
+    text: t('armorSpecialSummer2016WarriorText'),
+    notes: t('armorSpecialSummer2016WarriorNotes', { con: 9 }),
+    value: 90,
+    con: 9,
+  },
+  summer2016Mage: {
+    event: EVENTS.summer2016,
+    specialClass: 'wizard',
+    text: t('armorSpecialSummer2016MageText'),
+    notes: t('armorSpecialSummer2016MageNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  summer2016Healer: {
+    event: EVENTS.summer2016,
+    specialClass: 'healer',
+    text: t('armorSpecialSummer2016HealerText'),
+    notes: t('armorSpecialSummer2016HealerNotes', { con: 15 }),
+    value: 90,
+    con: 15,
+  },
 };
 
 let back = {
   wondercon_red: wonderconGear.backSpecialWonderconRed,  // eslint-disable-line camelcase
   wondercon_black: wonderconGear.backSpecialWonderconBlack,  // eslint-disable-line camelcase
+  takeThis: takeThisGear.backSpecialTakeThis,
 };
 
 let body = {
   wondercon_red: wonderconGear.bodySpecialWonderconRed,  // eslint-disable-line camelcase
   wondercon_gold: wonderconGear.bodySpecialWonderconGold,  // eslint-disable-line camelcase
   wondercon_black: wonderconGear.bodySpecialWonderconBlack,  // eslint-disable-line camelcase
+  takeThis: takeThisGear.bodySpecialTakeThis,
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
@@ -481,6 +517,7 @@ let head = {
   0: backerGear.headSpecial0,
   1: contributorGear.headSpecial1,
   2: backerGear.headSpecial2,
+  takeThis: takeThisGear.headSpecialTakeThis,
   fireCoralCirclet: {
     text: t('headSpecialFireCoralCircletText'),
     notes: t('headSpecialFireCoralCircletNotes', { per: 15 }),
@@ -832,6 +869,38 @@ let head = {
     value: 60,
     int: 7,
   },
+  summer2016Rogue: {
+    event: EVENTS.summer2016,
+    specialClass: 'rogue',
+    text: t('headSpecialSummer2016RogueText'),
+    notes: t('headSpecialSummer2016RogueNotes', { per: 9 }),
+    value: 60,
+    per: 9,
+  },
+  summer2016Warrior: {
+    event: EVENTS.summer2016,
+    specialClass: 'warrior',
+    text: t('headSpecialSummer2016WarriorText'),
+    notes: t('headSpecialSummer2016WarriorNotes', { str: 9 }),
+    value: 60,
+    str: 9,
+  },
+  summer2016Mage: {
+    event: EVENTS.summer2016,
+    specialClass: 'wizard',
+    text: t('headSpecialSummer2016MageText'),
+    notes: t('headSpecialSummer2016MageNotes', { per: 7 }),
+    value: 60,
+    per: 7,
+  },
+  summer2016Healer: {
+    event: EVENTS.summer2016,
+    specialClass: 'healer',
+    text: t('headSpecialSummer2016HealerText'),
+    notes: t('headSpecialSummer2016HealerNotes', { int: 7 }),
+    value: 60,
+    int: 7,
+  },
 };
 
 let headAccessory = {
@@ -1004,6 +1073,7 @@ let headAccessory = {
 let shield = {
   0: backerGear.shieldSpecial0,
   1: contributorGear.shieldSpecial1,
+  takeThis: takeThisGear.shieldSpecialTakeThis,
   goldenknight: {
     text: t('shieldSpecialGoldenknightText'),
     notes: t('shieldSpecialGoldenknightNotes', { attrs: 25 }),
@@ -1259,6 +1329,30 @@ let shield = {
     value: 70,
     con: 9,
   },
+  summer2016Rogue: {
+    event: EVENTS.summer2016,
+    specialClass: 'rogue',
+    text: t('shieldSpecialSummer2016RogueText'),
+    notes: t('shieldSpecialSummer2016RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  summer2016Warrior: {
+    event: EVENTS.summer2016,
+    specialClass: 'warrior',
+    text: t('shieldSpecialSummer2016WarriorText'),
+    notes: t('shieldSpecialSummer2016WarriorNotes', { con: 7 }),
+    value: 70,
+    con: 7,
+  },
+  summer2016Healer: {
+    event: EVENTS.summer2016,
+    specialClass: 'healer',
+    text: t('shieldSpecialSummer2016HealerText'),
+    notes: t('shieldSpecialSummer2016HealerNotes', { con: 9 }),
+    value: 70,
+    con: 9,
+  },
 };
 
 let weapon = {
@@ -1267,6 +1361,7 @@ let weapon = {
   2: backerGear.weaponSpecial2,
   3: backerGear.weaponSpecial3,
   critical: contributorGear.weaponSpecialCritical,
+  takeThis: takeThisGear.weaponSpecialTakeThis,
   tridentOfCrashingTides: {
     text: t('weaponSpecialTridentOfCrashingTidesText'),
     notes: t('weaponSpecialTridentOfCrashingTidesNotes', { int: 15 }),
@@ -1611,6 +1706,40 @@ let weapon = {
     specialClass: 'healer',
     text: t('weaponSpecialSpring2016HealerText'),
     notes: t('weaponSpecialSpring2016HealerNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  summer2016Rogue: {
+    event: EVENTS.summer2016,
+    specialClass: 'rogue',
+    text: t('weaponSpecialSummer2016RogueText'),
+    notes: t('weaponSpecialSummer2016RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  summer2016Warrior: {
+    event: EVENTS.summer2016,
+    specialClass: 'warrior',
+    text: t('weaponSpecialSummer2016WarriorText'),
+    notes: t('weaponSpecialSummer2016WarriorNotes', { str: 15 }),
+    value: 90,
+    str: 15,
+  },
+  summer2016Mage: {
+    event: EVENTS.summer2016,
+    specialClass: 'wizard',
+    twoHanded: true,
+    text: t('weaponSpecialSummer2016MageText'),
+    notes: t('weaponSpecialSummer2016MageNotes', { int: 15, per: 7 }),
+    value: 160,
+    int: 15,
+    per: 7,
+  },
+  summer2016Healer: {
+    event: EVENTS.summer2016,
+    specialClass: 'healer',
+    text: t('weaponSpecialSummer2016HealerText'),
+    notes: t('weaponSpecialSummer2016HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
   },

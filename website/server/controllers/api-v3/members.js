@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as User,
   publicFields as memberFields,
@@ -9,14 +9,14 @@ import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import {
   getUserInfo,
   sendTxn as sendTxnEmail,
-} from '../../libs/api-v3/email';
+} from '../../libs/email';
 import Bluebird from 'bluebird';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import sendPushNotification from '../../libs/pushNotifications';
 
 let api = {};
 
@@ -28,7 +28,7 @@ let api = {};
  *
  * @apiParam {UUID} memberId The member's id
  *
- * @apiSuccess {object} data The member object
+ * @apiSuccess {Object} data The member object
  */
 api.getMember = {
   method: 'GET',
@@ -50,7 +50,10 @@ api.getMember = {
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    res.respond(200, member.toJSON({minimize: true}));
+    let memberToJSON = member.toJSON({minimize: true});
+    member.addComputedStatsToJSONObj(memberToJSON);
+
+    res.respond(200, memberToJSON);
   },
 };
 
@@ -100,6 +103,7 @@ function _getMembersForItem (type) {
 
     let query = {};
     let fields = nameFields;
+    let addComputedStats = false; // add computes stats to the member info when items and stats are available
 
     if (type === 'challenge-members') {
       query.challenges = challenge._id;
@@ -111,6 +115,7 @@ function _getMembersForItem (type) {
 
         if (req.query.includeAllPublicFields === 'true') {
           fields = memberFields;
+          addComputedStats = true;
         }
       }
     } else if (type === 'group-invites') {
@@ -138,7 +143,13 @@ function _getMembersForItem (type) {
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    res.respond(200, members.map(member => member.toJSON({minimize: true})));
+    let membersToJSON = members.map(member => {
+      let memberToJSON = member.toJSON({minimize: true});
+      if (addComputedStats) member.addComputedStatsToJSONObj(memberToJSON);
+
+      return memberToJSON;
+    });
+    res.respond(200, membersToJSON);
   };
 }
 
@@ -194,7 +205,7 @@ api.getInvitesForGroup = {
  *
  * @apiParam {UUID} challengeId The challenge id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {string} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
+ * @apiParam {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
 
  * @apiSuccess {array} data An array of members, sorted by _id
  */
@@ -208,13 +219,13 @@ api.getMembersForChallenge = {
 /**
  * @api {get} /api/v3/challenges/:challengeId/members/:memberId Get a challenge member progress
  * @apiVersion 3.0.0
- * @apiName GetChallenge
- * @apiGroup Challenge
+ * @apiName GetChallengeMemberProgress
+ * @apiGroup Member
  *
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {UUID} member The member _id
  *
- * @apiSuccess {object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
  */
 api.getChallengeMemberProgress = {
   method: 'GET',
@@ -262,7 +273,7 @@ api.getChallengeMemberProgress = {
  * @api {posts} /api/v3/members/send-private-message Send a private message to a member
  * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
- * @apiGroup Members
+ * @apiGroup Member
  *
  * @apiParam {String} message Body parameter - The message
  * @apiParam {UUID} toUserId Body parameter - The user to contact
@@ -302,6 +313,18 @@ api.sendPrivateMessage = {
         {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
       ]);
     }
+    if (receiver.preferences.pushNotifications.newPM !== false) {
+      sendPushNotification(
+        receiver,
+        {
+          title: res.t('newPM'),
+          message: res.t('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
+          identifier: 'newPM',
+          category: 'newPM',
+          payload: {replyTo: sender._id},
+        }
+      );
+    }
 
     res.respond(200, {});
   },
@@ -311,7 +334,7 @@ api.sendPrivateMessage = {
  * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiVersion 3.0.0
  * @apiName TransferGems
- * @apiGroup Members
+ * @apiGroup Member
  *
  * @apiParam {String} message Body parameter The message
  * @apiParam {UUID} toUserId Body parameter The toUser _id
@@ -356,6 +379,7 @@ api.transferGems = {
       senderName: sender.profile.name,
     });
     message += res.t('privateMessageGiftGemsMessage', {gemAmount});
+    message =  `\`${message}\` `;
 
     if (req.body.message) {
       message += req.body.message;
@@ -371,8 +395,15 @@ api.transferGems = {
         {name: 'X_GEMS_GIFTED', content: gemAmount},
       ]);
     }
-
-    sendPushNotification(sender, res.t('giftedGems'), res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }));
+    if (receiver.preferences.pushNotifications.giftedGems !== false) {
+      sendPushNotification(receiver,
+        {
+          title: res.t('giftedGems'),
+          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+          identifier: 'giftedGems',
+          payload: {replyTo: sender._id},
+        });
+    }
 
     res.respond(200, {});
   },

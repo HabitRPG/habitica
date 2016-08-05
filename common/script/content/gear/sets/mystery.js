@@ -121,6 +121,18 @@ let armor = {
     mystery: '201605',
     value: 0,
   },
+  201606: {
+    text: t('armorMystery201606Text'),
+    notes: t('armorMystery201606Notes'),
+    mystery: '201606',
+    value: 0,
+  },
+  201607: {
+    text: t('armorMystery201607Text'),
+    notes: t('armorMystery201607Notes'),
+    mystery: '201607',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -314,6 +326,18 @@ let head = {
     text: t('headMystery201605Text'),
     notes: t('headMystery201605Notes'),
     mystery: '201605',
+    value: 0,
+  },
+  201606: {
+    text: t('headMystery201606Text'),
+    notes: t('headMystery201606Notes'),
+    mystery: '201606',
+    value: 0,
+  },
+  201607: {
+    text: t('headMystery201607Text'),
+    notes: t('headMystery201607Notes'),
+    mystery: '201607',
     value: 0,
   },
   301404: {

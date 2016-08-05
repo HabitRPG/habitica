@@ -92,8 +92,8 @@
     "backgroundIslandWaterfallsText": "島の滝",
     "backgroundIslandWaterfallsNotes": "島の滝の近くにピクニックする",
     "backgrounds072015": "セット14:  2015年7月リリース",
-    "backgroundDilatoryRuinsText": "先延ばしの廃墟",
-    "backgroundDilatoryRuinsNotes": "先延ばしの廃墟へ飛び込む",
+    "backgroundDilatoryRuinsText": "サキノバシティーの廃墟",
+    "backgroundDilatoryRuinsNotes": "サキノバシティーの廃墟へ飛び込む",
     "backgroundGiantWaveText": "高波",
     "backgroundGiantWaveNotes": "高波に乗ろう！",
     "backgroundSunkenShipText": "沈没船",
@@ -174,5 +174,12 @@
     "backgroundLilypadText": "スイレンの葉",
     "backgroundLilypadNotes": "スイレンの葉で飛びはねましょう。",
     "backgroundWaterfallRockText": "滝の岩",
-    "backgroundWaterfallRockNotes": "岩で滝に打たれましょう。"
+    "backgroundWaterfallRockNotes": "岩で滝に打たれましょう。",
+    "backgrounds072016": "セット26: 2016年7月リリース",
+    "backgroundAquariumText": "水族館",
+    "backgroundAquariumNotes": "水族館のボブ",
+    "backgroundDeepSeaText": "深海",
+    "backgroundDeepSeaNotes": "深海に潜りましょう。",
+    "backgroundDilatoryCastleText": "サキノバシティーの城",
+    "backgroundDilatoryCastleNotes": "かつてのサキノバシティーの城で泳ぎましょう。"
 }

@@ -59,7 +59,7 @@
     "costumeText": "Om du föredrar utseendet på annan utrustning än den du har på dig, kryssa i rutan \"Använd Dräkt\" för att visa upp din favoritdräkt medan du har på dig din stridsutrustning undertill.",
     "useCostume": "Använd Dräkt",
     "useCostumeInfo1": "Klicka på \"Använd kostym\" för att utrusta din avatar med föremål utan att påverka din stridsutrustnings status! Detta innebär att du kan utrusta för bästa status till vänster och klä ut din avatar med utrustningen till höger.",
-    "useCostumeInfo2": "När du klickat \"Använd kostym\" kommer din avatar se rätt enkel ut ... men oroa dig inte! Om du ser till vänster ser du att din stridsutrustning fortfarande är vald. Nu kan du göra saker snyggare! Allt som du utrustar till höger kommer inte att påverka din status, men kan göra att du ser jättehäftig ut. Välj olika kombinationer, mixa set och koordinera din kostym med dina husdjur, riddjur och bakgrunder.<br><br>Har du några frågor? Kolla in  <a href=\"http://habitica.wikia.com/wiki/Equipment#Costumes\">kostymsidan</a> på wikin. Hittat den perfekta outfiten? Visa upp den i <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Costume Carnival guild</a> eller skryt på Tavernan!",
+    "useCostumeInfo2": "När du klickat \"Använd kostym\" kommer din avatar se rätt enkel ut ... men oroa dig inte! Om du ser till vänster ser du att din stridsutrustning fortfarande är vald. Nu kan du göra saker snyggare! Allt som du utrustar till höger kommer inte att påverka din status, men kan göra att du ser jättehäftig ut. Välj olika kombinationer, mixa set och koordinera din kostym med dina husdjur, riddjur och bakgrunder.<br><br>Har du några frågor? Kolla in  <a href=\"http://habitica.wikia.com/wiki/Equipment#Costumes\">kostymsidan</a> på wikin. Hittat den perfekta outfiten? Visa upp den i <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Costume Carnival Gille</a> eller skryt på Värdshuset!",
     "gearAchievement": "Du har förtjänat prestationen \"Ultimat rustning\" för att ha uppgraderat din utrustning till max för din klass!. Du har fått tag på all utrustning för:",
     "moreGearAchievements": "För att få fler Ultimat utrustning-emblem, ändra klass på <a href='/#/options/profile/stats' target='_blank'>din statussida</a> och köp utrustningen för en ny klass!",
     "armoireUnlocked": "Du har låst upp det <strong>Förtrollade Klädskåpet</strong>. Klicka på Förtrollade Klädskåpet-belöningen för en slumpmässig chans att få specialutrustning. Det kan också ge dig slumpmässig XP eller mat.",
@@ -147,7 +147,7 @@
     "youCastTarget": "Du kastar <%= spell %> på <%= target %>.",
     "youCastParty": "Du kastar <%= spell %> på sällskapet.",
     "critBonus": "Kritisk träff! Bonus:",
-    "displayNameDescription1": "Det här är vad som visas i meddelanden du postar i tavernan, gillen, och sällskapschatt, tillsammans med vad som visas på din avatar. Gå till",
+    "displayNameDescription1": "Det här är vad som visas i meddelanden du postar i Värdshuset, Gillen, och sällskapschatt, tillsammans med vad som visas på din avatar. Gå till",
     "displayNameDescription2": "Inställningar->Sida",
     "displayNameDescription3": "och scrolla ner till registreringsavdelningen för att ändra ditt inloggningsnamn.",
     "unequipBattleGear": "Ta av stridsutrustning",
@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Göm poängfördelning",
     "quickAllocationLevelPopover": "Varje nivå ger dig en poäng att lägga ut på ett valfritt attribut. Du kan gör så själv eller låta spelet bestämma åt dig genom en av inställningarna under Användare -> Statistik & Prestationer",
     "invalidAttribute": "\"<%= attr %>\" är inte en godkänd egenskap.",
-    "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng."
+    "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng.",
+    "gearNotOwned": "You do not own this item."
 }

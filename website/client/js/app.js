@@ -330,13 +330,19 @@ window.habitrpg = angular.module('habitrpg',
           title: env.t('titleSettings')
         });
 
-      var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
+      var settings;
 
-      if (settings && settings.auth) {
-        $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
+      try {
+        settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
+      } catch (e) {
+        settings = {};
+      }
+
+      if (settings && settings.auth && settings.auth.apiId && settings.auth.apiToken) {
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
         $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiToken;
       }
 
+      $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
       $httpProvider.defaults.headers.common['x-client'] = 'habitica-web';
   }]);

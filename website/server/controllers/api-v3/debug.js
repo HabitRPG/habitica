@@ -1,6 +1,6 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode';
-import { BadRequest } from '../../libs/api-v3/errors';
+import { authWithHeaders } from '../../middlewares/auth';
+import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
+import { BadRequest } from '../../libs/errors';
 import { content } from '../../../../common';
 import _ from 'lodash';
 
@@ -55,7 +55,7 @@ api.addHourglass = {
 };
 
 /**
- * @api {post} /api/v3/debug/set-cron Sets lastCron for user
+ * @api {post} /api/v3/debug/set-cron Set lastCron for user
  * @apiDescription Only available in development mode.
  * @apiVersion 3.0.0
  * @apiName setCron

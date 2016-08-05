@@ -1,4 +1,4 @@
-import '../../website/server/libs/api-v3/i18n';
+import '../../website/server/libs/i18n';
 import mongoose from 'mongoose';
 import { defaultsDeep as defaults } from 'lodash';
 import { model as User } from '../../website/server/models/user';

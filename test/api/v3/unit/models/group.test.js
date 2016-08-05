@@ -2,7 +2,9 @@ import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../common/script/content';
-import * as email from '../../../../../website/server/libs/api-v3/email';
+import * as email from '../../../../../website/server/libs/email';
+import validator from 'validator';
+import { TAVERN_ID } from '../../../../../common/script/';
 
 describe('Group Model', () => {
   let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
@@ -211,6 +213,38 @@ describe('Group Model', () => {
           expect(updatedUndecidedMember.stats.hp).to.eql(50);
         });
 
+        it('applies damage only to participating members of party even under buggy conditions', async () => {
+          // stops unfair damage from mbugs like https://github.com/HabitRPG/habitrpg/issues/7653
+          party.quest.members = {
+            [questLeader._id]: true,
+            [participatingMember._id]: true,
+            [nonParticipatingMember._id]: false,
+            [undecidedMember._id]: null,
+          };
+          await party.save();
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          party = await Group.findOne({_id: party._id});
+
+          let [
+            updatedLeader,
+            updatedParticipatingMember,
+            updatedNonParticipatingMember,
+            updatedUndecidedMember,
+          ] = await Promise.all([
+            User.findById(questLeader._id),
+            User.findById(participatingMember._id),
+            User.findById(nonParticipatingMember._id),
+            User.findById(undecidedMember._id),
+          ]);
+
+          expect(updatedLeader.stats.hp).to.eql(42.5);
+          expect(updatedParticipatingMember.stats.hp).to.eql(42.5);
+          expect(updatedNonParticipatingMember.stats.hp).to.eql(50);
+          expect(updatedUndecidedMember.stats.hp).to.eql(50);
+        });
+
         it('sends message about victory', async () => {
           progress.up = 999;
 
@@ -351,18 +385,245 @@ describe('Group Model', () => {
           let quest = questScrolls[party.quest.key];
           let finishQuest = sandbox.spy(Group.prototype, 'finishQuest');
 
-          progress.collectedItems = 999; // TODO should this be collectedItems? What is this testing?
+          progress.collectedItems = 999;
 
           await Group.processQuestProgress(participatingMember, progress);
 
           expect(finishQuest).to.be.calledOnce;
           expect(finishQuest).to.be.calledWith(quest);
         });
+
+        it('gives out rewards when quest finishes', async () => {
+          progress.collectedItems = 999;
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          let [
+            updatedLeader,
+            updatedParticipatingMember,
+          ] = await Promise.all([
+            User.findById(questLeader._id),
+            User.findById(participatingMember._id),
+          ]);
+
+          expect(updatedLeader.achievements.quests[party.quest.key]).to.eql(1);
+          expect(updatedLeader.stats.exp).to.be.greaterThan(0);
+          expect(updatedLeader.stats.gp).to.be.greaterThan(0);
+          expect(updatedParticipatingMember.achievements.quests[party.quest.key]).to.eql(1);
+          expect(updatedParticipatingMember.stats.exp).to.be.greaterThan(0);
+          expect(updatedParticipatingMember.stats.gp).to.be.greaterThan(0);
+        });
       });
     });
   });
 
   context('Instance Methods', () => {
+    describe('#getParticipatingQuestMembers', () => {
+      it('returns an array of members whose quest status set to true', () => {
+        party.quest.members = {
+          [participatingMember._id]: true,
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        };
+
+        expect(party.getParticipatingQuestMembers()).to.eql([
+          participatingMember._id,
+          questLeader._id,
+        ]);
+      });
+    });
+
+    describe('#leaveGroup', () => {
+      it('removes user from group quest', async () => {
+        party.quest.members = {
+          [participatingMember._id]: true,
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        };
+        party.memberCount = 4;
+        await party.save();
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party.quest.members).to.eql({
+          [questLeader._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        });
+      });
+
+      it('deletes a private group when the last member leaves', async () => {
+        party.memberCount = 1;
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.not.exist;
+      });
+
+      it('does not delete a public group when the last member leaves', async () => {
+        party.memberCount = 1;
+        party.privacy = 'public';
+
+        await party.leave(participatingMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+      });
+    });
+
+    describe('#sendChat', () => {
+      beforeEach(() => {
+        sandbox.spy(User, 'update');
+      });
+
+      it('puts message at top of chat array', () => {
+        let oldMessage = {
+          text: 'a message',
+        };
+        party.chat.push(oldMessage, oldMessage, oldMessage);
+
+        party.sendChat('a new message', {_id: 'user-id', profile: { name: 'user name' }});
+
+        expect(party.chat).to.have.a.lengthOf(4);
+        expect(party.chat[0].text).to.eql('a new message');
+        expect(party.chat[0].uuid).to.eql('user-id');
+      });
+
+      it('formats message', () => {
+        party.sendChat('a new message', {
+          _id: 'user-id',
+          profile: { name: 'user name' },
+          contributor: {
+            toObject () {
+              return 'contributor object';
+            },
+          },
+          backer: {
+            toObject () {
+              return 'backer object';
+            },
+          },
+        });
+
+        let chat = party.chat[0];
+
+        expect(chat.text).to.eql('a new message');
+        expect(validator.isUUID(chat.id)).to.eql(true);
+        expect(chat.timestamp).to.be.a('number');
+        expect(chat.likes).to.eql({});
+        expect(chat.flags).to.eql({});
+        expect(chat.flagCount).to.eql(0);
+        expect(chat.uuid).to.eql('user-id');
+        expect(chat.contributor).to.eql('contributor object');
+        expect(chat.backer).to.eql('backer object');
+        expect(chat.user).to.eql('user name');
+      });
+
+      it('formats message as system if no user is passed in', () => {
+        party.sendChat('a system message');
+
+        let chat = party.chat[0];
+
+        expect(chat.text).to.eql('a system message');
+        expect(validator.isUUID(chat.id)).to.eql(true);
+        expect(chat.timestamp).to.be.a('number');
+        expect(chat.likes).to.eql({});
+        expect(chat.flags).to.eql({});
+        expect(chat.flagCount).to.eql(0);
+        expect(chat.uuid).to.eql('system');
+        expect(chat.contributor).to.not.exist;
+        expect(chat.backer).to.not.exist;
+        expect(chat.user).to.not.exist;
+      });
+
+      it('cuts down chat to 200 messages', () => {
+        for (let i = 0; i < 220; i++) {
+          party.chat.push({ text: 'a message' });
+        }
+
+        expect(party.chat).to.have.a.lengthOf(220);
+
+        party.sendChat('message');
+
+        expect(party.chat).to.have.a.lengthOf(200);
+      });
+
+      it('updates users about new messages in party', () => {
+        party.sendChat('message');
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWithMatch({
+          'party._id': party._id,
+          _id: { $ne: '' },
+        }, {
+          $set: {
+            [`newMessages.${party._id}`]: {
+              name: party.name,
+              value: true,
+            },
+          },
+        });
+      });
+
+      it('updates users about new messages in group', () => {
+        let group = new Group({
+          type: 'guild',
+        });
+
+        group.sendChat('message');
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWithMatch({
+          guilds: group._id,
+          _id: { $ne: '' },
+        }, {
+          $set: {
+            [`newMessages.${group._id}`]: {
+              name: group.name,
+              value: true,
+            },
+          },
+        });
+      });
+
+      it('does not send update to user that sent the message', () => {
+        party.sendChat('message', {_id: 'user-id', profile: { name: 'user' }});
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWithMatch({
+          'party._id': party._id,
+          _id: { $ne: 'user-id' },
+        }, {
+          $set: {
+            [`newMessages.${party._id}`]: {
+              name: party.name,
+              value: true,
+            },
+          },
+        });
+      });
+
+      it('skips sending new message notification for guilds with > 5000 members', () => {
+        party.memberCount = 5001;
+
+        party.sendChat('message');
+
+        expect(User.update).to.not.be.called;
+      });
+
+      it('skips sending messages to the tavern', () => {
+        party._id = TAVERN_ID;
+
+        party.sendChat('message');
+
+        expect(User.update).to.not.be.called;
+      });
+    });
+
     describe('#startQuest', () => {
       context('Failure Conditions', () => {
         it('throws an error if group is not a party', async () => {
@@ -609,6 +870,179 @@ describe('Group Model', () => {
           await party.startQuest(questLeader);
 
           expect(questLeader.items.quests.whale).to.eql(0);
+        });
+      });
+    });
+
+    describe('#finishQuest', () => {
+      let quest;
+
+      beforeEach(() => {
+        quest = questScrolls.whale;
+        party.quest.key = quest.key;
+        party.quest.active = false;
+        party.quest.leader = questLeader._id;
+        party.quest.members = {
+          [questLeader._id]: true,
+          [participatingMember._id]: true,
+          [nonParticipatingMember._id]: false,
+          [undecidedMember._id]: null,
+        };
+
+        sandbox.spy(User, 'update');
+      });
+
+      it('gives out achievements', async () => {
+        await party.finishQuest(quest);
+
+        let [
+          updatedLeader,
+          updatedParticipatingMember,
+        ] = await Promise.all([
+          User.findById(questLeader._id),
+          User.findById(participatingMember._id),
+        ]);
+
+        expect(updatedLeader.achievements.quests[quest.key]).to.eql(1);
+        expect(updatedParticipatingMember.achievements.quests[quest.key]).to.eql(1);
+      });
+
+      it('gives xp and gold', async () => {
+        await party.finishQuest(quest);
+
+        let [
+          updatedLeader,
+          updatedParticipatingMember,
+        ] = await Promise.all([
+          User.findById(questLeader._id),
+          User.findById(participatingMember._id),
+        ]);
+
+        expect(updatedLeader.stats.exp).to.eql(quest.drop.exp);
+        expect(updatedLeader.stats.gp).to.eql(quest.drop.gp);
+        expect(updatedParticipatingMember.stats.exp).to.eql(quest.drop.exp);
+        expect(updatedParticipatingMember.stats.gp).to.eql(quest.drop.gp);
+      });
+
+      context('drops', () => {
+        it('awards gear', async () => {
+          let gearQuest = questScrolls.vice3;
+
+          await party.finishQuest(gearQuest);
+
+          let updatedParticipatingMember = await User.findById(participatingMember._id);
+
+          expect(updatedParticipatingMember.items.gear.owned.weapon_special_2).to.eql(true);
+        });
+
+        it('awards eggs', async () => {
+          let eggQuest = questScrolls.vice3;
+
+          await party.finishQuest(eggQuest);
+
+          let updatedParticipatingMember = await User.findById(participatingMember._id);
+
+          expect(updatedParticipatingMember.items.eggs.Dragon).to.eql(2);
+        });
+
+        it('awards food', async () => {
+          let foodQuest = questScrolls.moonstone3;
+
+          await party.finishQuest(foodQuest);
+
+          let updatedParticipatingMember = await User.findById(participatingMember._id);
+
+          expect(updatedParticipatingMember.items.food.RottenMeat).to.eql(5);
+        });
+
+        it('awards hatching potions', async () => {
+          let hatchingPotionQuest = questScrolls.vice3;
+
+          await party.finishQuest(hatchingPotionQuest);
+
+          let updatedParticipatingMember = await User.findById(participatingMember._id);
+
+          expect(updatedParticipatingMember.items.hatchingPotions.Shade).to.eql(2);
+        });
+
+        it('awards quests', async () => {
+          let questAwardQuest = questScrolls.vice2;
+
+          await party.finishQuest(questAwardQuest);
+
+          let updatedParticipatingMember = await User.findById(participatingMember._id);
+
+          expect(updatedParticipatingMember.items.quests.vice3).to.eql(1);
+        });
+
+        it('awards pets', async () => {
+          let petQuest = questScrolls.evilsanta2;
+
+          await party.finishQuest(petQuest);
+
+          let updatedParticipatingMember = await User.findById(participatingMember._id);
+
+          expect(updatedParticipatingMember.items.pets['BearCub-Polar']).to.eql(5);
+        });
+
+        it('awards mounts', async () => {
+          let mountQuest = questScrolls.evilsanta;
+
+          await party.finishQuest(mountQuest);
+
+          let updatedParticipatingMember = await User.findById(participatingMember._id);
+
+          expect(updatedParticipatingMember.items.mounts['BearCub-Polar']).to.eql(true);
+        });
+      });
+
+      context('Party quests', () => {
+        it('updates participating members with rewards', async () => {
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledOnce;
+          expect(User.update).to.be.calledWithMatch({
+            _id: {
+              $in: [questLeader._id, participatingMember._id],
+            },
+          });
+        });
+
+        it('sets user quest object to a clean state', async () => {
+          await party.finishQuest(quest);
+
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.party.quest.completed).to.eql('whale');
+          expect(updatedLeader.party.quest.progress.up).to.eql(0);
+          expect(updatedLeader.party.quest.progress.down).to.eql(0);
+          expect(updatedLeader.party.quest.progress.collectedItems).to.eql(0);
+          expect(updatedLeader.party.quest.RSVPNeeded).to.eql(false);
+        });
+      });
+
+      context('World quests in Tavern', () => {
+        let tavernQuest;
+
+        beforeEach(() => {
+          party._id = TAVERN_ID;
+          party.quest.key = 'stressbeast';
+          tavernQuest = questScrolls.stressbeast;
+        });
+
+        it('updates all users with rewards', async () => {
+          await party.finishQuest(tavernQuest);
+
+          expect(User.update).to.be.calledOnce;
+          expect(User.update).to.be.calledWithMatch({});
+        });
+
+        it('sets quest completed to the world quest key', async () => {
+          await party.finishQuest(tavernQuest);
+
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.party.quest.completed).to.eql(tavernQuest.key);
         });
       });
     });

@@ -6,7 +6,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
-import { encrypt } from '../../../../../../website/server/libs/api-v3/encryption';
+import { encrypt } from '../../../../../../website/server/libs/encryption';
 
 describe('POST /user/auth/local/register', () => {
   context('username and email are free', () => {

@@ -1,7 +1,7 @@
 import {
   encrypt as encryptPassword,
   makeSalt,
-} from '../../../../../website/server/libs/api-v3/password';
+} from '../../../../../website/server/libs/password';
 
 describe('Password Utilities', () => {
   describe('Encrypt', () => {

@@ -25,6 +25,21 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
     expect(savedTask.checklist.length).to.equal(0);
   });
 
+  it('deletes a checklist item using task alias', async () => {
+    let task = await user.post('/tasks/user', {
+      type: 'daily',
+      text: 'Daily with checklist',
+      alias: 'daily-with-alias',
+    });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
+
+    await user.del(`/tasks/${task.alias}/checklist/${savedTask.checklist[0].id}`);
+    savedTask = await user.get(`/tasks/${task._id}`);
+
+    expect(savedTask.checklist.length).to.equal(0);
+  });
+
   it('does not work with habits', async () => {
     let habit = await user.post('/tasks/user', {
       type: 'habit',

@@ -3,7 +3,7 @@ import requireAgain from 'require-again';
 
 /* eslint-disable global-require */
 describe('logger', () => {
-  let pathToLoggerLib = '../../../../../website/server/libs/api-v3/logger';
+  let pathToLoggerLib = '../../../../../website/server/libs/logger';
   let infoSpy;
   let errorSpy;
 
