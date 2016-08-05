@@ -138,4 +138,58 @@ api.assignTask = {
   },
 };
 
+/**
+ * @api {post} /api/v3/tasks/:taskId/unassign/:assignedUserId Unassign a user from a task
+ * @apiDescription Unassigns a user to from a group task
+ * @apiVersion 3.0.0
+ * @apiName UnassignTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The id of the task that will be assigned
+ * @apiParam {UUID} userId The id of the user that will be assigned to the task
+ *
+ * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ */
+api.unassignTask = {
+  method: 'POST',
+  url: '/tasks/:taskId/unassign/:assignedUserId',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.locals.user;
+    let assignedUserId = req.params.assignedUserId;
+    let assignedUser = await User.findById(assignedUserId);
+
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    if (!task.group || !task.group.id) {
+      throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
+    }
+
+    let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+    task.assignedUserId = undefined;
+    await task.save();
+
+    group.unlinkTask(task, assignedUser);
+
+    res.respond(201, task);
+
+    return null;
+  },
+};
+
 module.exports = api;

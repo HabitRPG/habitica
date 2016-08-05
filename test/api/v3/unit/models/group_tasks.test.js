@@ -74,31 +74,9 @@ describe('Group Task Methods', () => {
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
 
         let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
-          return updatedLeadersTask.type === taskValue.type && updatedLeadersTask.text === taskValue.text;
+          return updatedLeadersTask.linkedTaskId === task._id;
         });
 
-        expect(syncedTask).to.exist;
-      });
-
-      xit('unassigns a task from a user', async () => {
-        await challenge.addTasks([task]);
-
-        let newMember = new User({
-          guilds: [guild._id],
-        });
-        await newMember.save();
-
-        await challenge.syncToUser(newMember);
-
-        let updatedNewMember = await User.findById(newMember._id);
-        let updatedNewMemberTasks = await Tasks.Task.find({_id: { $in: updatedNewMember.tasksOrder[`${taskType}s`]}});
-        let syncedTask = find(updatedNewMemberTasks, function findNewTask (updatedNewMemberTask) {
-          return updatedNewMemberTask.type === taskValue.type && updatedNewMemberTask.text === taskValue.text;
-        });
-
-        expect(updatedNewMember.challenges).to.contain(challenge._id);
-        expect(updatedNewMember.tags[3].id).to.equal(challenge._id);
-        expect(updatedNewMember.tags[3].name).to.equal(challenge.shortName);
         expect(syncedTask).to.exist;
       });
 
@@ -131,27 +109,27 @@ describe('Group Task Methods', () => {
         expect(updatedUserTask.challenge.broken).to.equal('TASK_DELETED');
       });
 
-      xit('unlinks and deletes challenge tasks for a user when remove-all is specified', async () => {
-        await challenge.addTasks([task]);
-        await challenge.unlinkTasks(leader, 'remove-all');
+      it('unlinks and deletes challenge tasks for a user when remove-all is specified', async () => {
+        await guild.syncTask(task, leader);
+        await guild.unlinkTask(task, leader, 'remove-all');
 
         let updatedLeader = await User.findOne({_id: leader._id});
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
         let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
-          return updatedLeadersTask.type === taskValue.type && updatedLeadersTask.text === taskValue.text;
+          return updatedLeadersTask.linkedTaskId === task._id;
         });
 
         expect(syncedTask).to.not.exist;
       });
 
-      xit('unlinks and keeps challenge tasks for a user when keep-all is specified', async () => {
-        await challenge.addTasks([task]);
-        await challenge.unlinkTasks(leader, 'keep-all');
+      it('unlinks and keeps challenge tasks for a user when keep-all is specified', async () => {
+        await guild.syncTask(task, leader);
+        await guild.unlinkTask(task, leader, 'keep-all');
 
         let updatedLeader = await User.findOne({_id: leader._id});
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
         let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
-          return updatedLeadersTask.type === taskValue.type && updatedLeadersTask.text === taskValue.text;
+          return updatedLeadersTask.linkedTaskId === task._id;
         });
 
         expect(syncedTask).to.exist;

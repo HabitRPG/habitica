@@ -818,6 +818,7 @@ schema.methods.syncTask = async function groupSyncTask (task, user) {
       matchingTask = new Tasks[groupTask.type](Tasks.Task.sanitize(_syncableAttrs(groupTask)));
       matchingTask.group.id = groupTask.group.id;
       matchingTask.userId = user._id;
+      matchingTask.linkedTaskId = groupTask._id;
       user.tasksOrder[`${groupTask.type}s`].push(matchingTask._id);
     } else {
       _.merge(matchingTask, _syncableAttrs(groupTask));
@@ -841,6 +842,29 @@ schema.methods.syncTask = async function groupSyncTask (task, user) {
 
   toSave.push(user.save());
   return Bluebird.all(toSave);
+};
+
+schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
+  let findQuery = {
+    linkedTaskId: unlinkingTask._id,
+  };
+
+  if (keep === 'keep-all') {
+    await Tasks.Task.update(findQuery, {
+      $set: {'group.id': undefined},
+    }).exec();
+
+    await user.save();
+  } else { // keep = 'remove-all'
+    let task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
+    // Remove task from user.tasksOrder and delete them
+    if (task.type !== 'todo' || !task.completed) {
+      removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
+      user.markModified('tasksOrder');
+    }
+
+    return Bluebird.all([task.remove(), user.save()]);
+  }
 };
 
 // API v2 compatibility methods
