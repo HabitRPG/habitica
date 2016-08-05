@@ -436,7 +436,7 @@ api.removeGroupMember = {
         group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined;
+        delete group.quest.members[member._id];
         group.markModified('quest.members');
       }
 
