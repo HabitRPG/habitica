@@ -62,21 +62,21 @@ mixin loginForm
           .form-group
             input.btn.btn-default(type='submit', value=env.t('submit'))
 
-mixin loginModal
-  script(id='modals/login.html', type='text/ng-template')
-    .modal-header
-      button.close(type='button', ng-click='$close()') ×
-      h4.modal-title=env.t('loginAndReg')
-    .modal-body(ng-controller='AuthCtrl')
-      +externalSiteLogin
 
-      hr
+script(id='modals/login.html', type='text/ng-template')
+  .modal-header
+    button.close(type='button', ng-click='$close()') ×
+    h4.modal-title=env.t('loginAndReg')
+  .modal-body(ng-controller='AuthCtrl')
+    +externalSiteLogin
 
-      tabset(justified='true')
-        tab(heading=env.t('login'))
-          +loginForm
-          hr
-          a.btn.btn-default.btn-block(href='/static/login' target='_blank')=env.t('loginTroubles')
+    hr
 
-        tab(heading=env.t('register'))
-          +registrationForm
+    tabset(justified='true')
+      tab(heading=env.t('login'))
+        +loginForm
+        hr
+        a.btn.btn-default.btn-block(href='/static/login' target='_blank')=env.t('loginTroubles')
+
+      tab(heading=env.t('register'))
+        +registrationForm
