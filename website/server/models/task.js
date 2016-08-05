@@ -68,6 +68,7 @@ export let TaskSchema = new Schema({
 
   group: {
     id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
+    broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'GROUP_TASK_NOT_FOUND']}, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
   },
 
   reminders: [{

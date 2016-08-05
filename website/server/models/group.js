@@ -832,14 +832,6 @@ schema.methods.syncTask = async function groupSyncTask (task, user) {
     toSave.push(matchingTask.save());
   });
 
-  // Flag deleted tasks as "broken"
-  // userTasks.forEach(userTask => {
-  //   if (!_.find(challengeTasks, groupTask => groupTask._id === userTask.challenge.taskId)) {
-  //     userTask.challenge.broken = 'TASK_DELETED';
-  //     toSave.push(userTask.save());
-  //   }
-  // });
-
   toSave.push(user.save());
   return Bluebird.all(toSave);
 };
@@ -865,6 +857,19 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
 
     return Bluebird.all([task.remove(), user.save()]);
   }
+};
+
+schema.methods.removeTask = async function groupRemoveTask (task) {
+  let group = this;
+
+  // Set the task as broken
+  await Tasks.Task.update({
+    userId: {$exists: true},
+    'group.id': group.id,
+    linkedTaskId: task._id,
+  }, {
+    $set: {'group.broken': 'TASK_DELETED'},
+  }, {multi: true}).exec();
 };
 
 // API v2 compatibility methods

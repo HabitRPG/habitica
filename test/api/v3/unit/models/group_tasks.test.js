@@ -99,14 +99,17 @@ describe('Group Task Methods', () => {
         expect(updatedUserTask.text).to.equal(updatedTaskName);
       });
 
-      xit('removes an assigned task and unlinks assignees', async () => {
-        await challenge.addTasks([task]);
-        await challenge.removeTask(task);
+      it('removes an assigned task and unlinks assignees', async () => {
+        await guild.syncTask(task, leader);
+        await guild.removeTask(task);
 
         let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedUserTask = await Tasks.Task.findOne({_id: updatedLeader.tasksOrder[`${taskType}s`][0]}).exec();
+        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
+        let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
+          return updatedLeadersTask.linkedTaskId === task._id;
+        });
 
-        expect(updatedUserTask.challenge.broken).to.equal('TASK_DELETED');
+        expect(syncedTask.group.broken).to.equal('TASK_DELETED');
       });
 
       it('unlinks and deletes challenge tasks for a user when remove-all is specified', async () => {
