@@ -219,7 +219,7 @@ describe('webhooks', () => {
         user: {
           _id: 'user-id',
           _tmp: {foo: 'bar'},
-          stats: {lvl: 5, int: 10, str: 5, exp: 423},
+          stats: {lvl: 5, int: 10, str: 5, exp: 423, toJSON: function () {return this}},
         },
         task: {
           text: 'text',
@@ -247,10 +247,10 @@ describe('webhooks', () => {
             },
           },
           task: {
-            details: {text: 'text'},
-            direction: 'up',
-            delta: 176,
+            text: 'text',
           },
+          direction: 'up',
+          delta: 176,
         },
       });
     });

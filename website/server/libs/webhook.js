@@ -70,15 +70,11 @@ export let taskScoredWebhook = new WebhookSender({
       stats: extendedStats,
     };
 
-    let taskData = {
-      details: task,
+    let dataToSend = {
       direction,
       delta,
-    };
-
-    let dataToSend = {
+      task,
       user: userData,
-      task: taskData,
     };
 
     return dataToSend;
