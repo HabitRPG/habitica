@@ -1,6 +1,6 @@
-import * as sender from '../../../../../website/server/libs/api-v3/email';
-import * as api from '../../../../../website/server/libs/api-v3/payments';
-import analytics from '../../../../../website/server/libs/api-v3/analyticsService';
+import * as sender from '../../../../../website/server/libs/email';
+import * as api from '../../../../../website/server/libs/payments';
+import analytics from '../../../../../website/server/libs/analyticsService';
 import { model as User } from '../../../../../website/server/models/user';
 import moment from 'moment';
 

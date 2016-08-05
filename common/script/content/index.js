@@ -441,6 +441,7 @@ api.specialPets = {
   'Turkey-Gilded': 'gildedTurkey',
   'MagicalBee-Base': 'magicalBee',
   'Lion-Veteran': 'veteranLion',
+  'Gryphon-RoyalPurple': 'royalPurpleGryphon',
 };
 
 api.specialMounts = {

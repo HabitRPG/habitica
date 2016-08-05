@@ -2,7 +2,7 @@ import { model as Challenge } from '../../../../../website/server/models/challen
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import { InternalServerError } from '../../../../../website/server/libs/api-v3/errors';
+import { InternalServerError } from '../../../../../website/server/libs/errors';
 import { each } from 'lodash';
 import { generateHistory } from '../../../../helpers/api-unit.helper.js';
 

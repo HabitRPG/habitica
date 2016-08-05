@@ -223,7 +223,7 @@ nav.toolbar(ng-controller='MenuCtrl')
           div
             ul.toolbar-submenu
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme']
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme']
                 li
                   a(ng-class="{'bg-primary':user.preferences.sound === '# {theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
