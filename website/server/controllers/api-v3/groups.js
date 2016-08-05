@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import {
@@ -15,12 +15,12 @@ import {
   NotFound,
   BadRequest,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
-import { encrypt } from '../../libs/api-v3/encryption';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
-import pusher from '../../libs/api-v3/pusher';
+} from '../../libs/errors';
+import { removeFromArray } from '../../libs/collectionManipulators';
+import { sendTxn as sendTxnEmail } from '../../libs/email';
+import { encrypt } from '../../libs/encryption';
+import sendPushNotification from '../../libs/pushNotifications';
+import pusher from '../../libs/pusher';
 
 let api = {};
 
@@ -76,7 +76,7 @@ api.createGroup = {
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam {string} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
  *
  * @apiSuccess {Array} data An array of the requested groups
  */
@@ -107,7 +107,7 @@ api.getGroups = {
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The group object
  */
@@ -142,7 +142,7 @@ api.getGroup = {
  * @apiName UpdateGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The updated group
  */
@@ -328,8 +328,8 @@ api.rejectGroupInvite = {
  * @apiName LeaveGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
  *
  * @apiSuccess {Object} data An empty object
  */
@@ -384,9 +384,9 @@ function _sendMessageToRemoved (group, removedUser, message) {
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} memberId The _id of the member to remove
- * @apiParam {string} message Query parameter - The message to send to the removed members
+ * @apiParam {String} message Query parameter - The message to send to the removed members
  *
  * @apiSuccess {Object} data An empty object
  */
@@ -436,7 +436,7 @@ api.removeGroupMember = {
         group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined;
+        delete group.quest.members[member._id];
         group.markModified('quest.members');
       }
 
@@ -606,13 +606,13 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiName InviteToGroup
  * @apiGroup Group
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiParam {array} emails Body parameter - An array of emails addresses to invite (optional)
- * @apiParam {array} uuids Body parameter - An array of uuids to invite (optional)
- * @apiParam {string} inviter Body parameter - The inviters' name (optional)
+ * @apiParam {Array} emails Body parameter - An array of emails addresses to invite (optional)
+ * @apiParam {Array} uuids Body parameter - An array of uuids to invite (optional)
+ * @apiParam {String} inviter Body parameter - The inviters' name (optional)
  *
- * @apiSuccess {array} data The invites
+ * @apiSuccess {Array} data The invites
  */
 api.inviteToGroup = {
   method: 'POST',

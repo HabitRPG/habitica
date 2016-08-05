@@ -4,22 +4,22 @@ import passport from 'passport';
 import nconf from 'nconf';
 import {
   authWithHeaders,
-} from '../../middlewares/api-v3/auth';
+} from '../../middlewares/auth';
 import {
   NotAuthorized,
   BadRequest,
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import Bluebird from 'bluebird';
-import * as passwordUtils from '../../libs/api-v3/password';
-import logger from '../../libs/api-v3/logger';
+import * as passwordUtils from '../../libs/password';
+import logger from '../../libs/logger';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
-import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
-import { decrypt } from '../../libs/api-v3/encryption';
-import { send as sendEmail } from '../../libs/api-v3/email';
-import pusher from '../../libs/api-v3/pusher';
+import { sendTxn as sendTxnEmail } from '../../libs/email';
+import { decrypt } from '../../libs/encryption';
+import { send as sendEmail } from '../../libs/email';
+import pusher from '../../libs/pusher';
 
 let api = {};
 
@@ -163,7 +163,7 @@ api.registerLocal = {
 
 function _loginRes (user, req, res) {
   if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken});
+  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
 /**
@@ -178,6 +178,7 @@ function _loginRes (user, req, res) {
  *
  * @apiSuccess {String} data._id The user's unique identifier
  * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
+ * @apiSuccess {Boolean} data.newUser Returns true if the user was just created (always false for local login).
  */
 api.loginLocal = {
   method: 'POST',
@@ -260,6 +261,7 @@ api.loginSocial = {
 
       let savedUser = await user.save();
 
+      user.newUser = true;
       _loginRes(user, ...arguments);
 
       // Clean previous email preferences
@@ -359,8 +361,8 @@ api.pusherAuth = {
  * @apiName UpdateUsername
  * @apiGroup User
  *
- * @apiParam {string} password Body parameter - The current user password
- * @apiParam {string} username Body parameter - The new username
+ * @apiParam {String} password Body parameter - The current user password
+ * @apiParam {String} username Body parameter - The new username
 
  * @apiSuccess {String} data.username The new username
  **/
@@ -407,9 +409,9 @@ api.updateUsername = {
  * @apiName UpdatePassword
  * @apiGroup User
  *
- * @apiParam {string} password Body parameter - The old password
- * @apiParam {string} newPassword Body parameter - The new password
- * @apiParam {string} confirmPassword Body parameter - New password confirmation
+ * @apiParam {String} password Body parameter - The old password
+ * @apiParam {String} newPassword Body parameter - The new password
+ * @apiParam {String} confirmPassword Body parameter - New password confirmation
  *
  * @apiSuccess {Object} data An empty object
  **/
@@ -458,9 +460,9 @@ api.updatePassword = {
  * @apiName ResetPassword
  * @apiGroup User
  *
- * @apiParam {string} email Body parameter - The email address of the user
+ * @apiParam {String} email Body parameter - The email address of the user
  *
- * @apiSuccess {string} message The localized success message
+ * @apiSuccess {String} message The localized success message
  **/
 api.resetPassword = {
   method: 'POST',
@@ -513,10 +515,10 @@ api.resetPassword = {
  * @apiName UpdateEmail
  * @apiGroup User
  *
- * @apiParam {string} Body parameter - newEmail The new email address.
- * @apiParam {string} Body parameter - password The user password.
+ * @apiParam {String} Body parameter - newEmail The new email address.
+ * @apiParam {String} Body parameter - password The user password.
  *
- * @apiSuccess {string} data.email The updated email address
+ * @apiSuccess {String} data.email The updated email address
  */
 api.updateEmail = {
   method: 'PUT',

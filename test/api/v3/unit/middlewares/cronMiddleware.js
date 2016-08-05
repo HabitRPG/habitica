@@ -5,13 +5,13 @@ import {
   generateDaily,
 } from '../../../../helpers/api-unit.helper';
 import { cloneDeep } from 'lodash';
-import cronMiddleware from '../../../../../website/server/middlewares/api-v3/cron';
+import cronMiddleware from '../../../../../website/server/middlewares/cron';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
 import * as Tasks from '../../../../../website/server/models/task';
-import analyticsService from '../../../../../website/server/libs/api-v3/analyticsService';
-import * as cronLib from '../../../../../website/server/libs/api-v3/cron';
+import analyticsService from '../../../../../website/server/libs/analyticsService';
+import * as cronLib from '../../../../../website/server/libs/cron';
 import { v4 as generateUUID } from 'uuid';
 
 describe('cron middleware', () => {

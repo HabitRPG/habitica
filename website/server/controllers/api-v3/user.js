@@ -1,10 +1,10 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../../common';
 import {
   NotFound,
   BadRequest,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import {
   basicFields as basicGroupFields,
@@ -13,7 +13,7 @@ import {
 import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import * as passwordUtils from '../../libs/api-v3/password';
+import * as passwordUtils from '../../libs/password';
 
 let api = {};
 
@@ -30,19 +30,14 @@ api.getUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    let user = res.locals.user.toJSON();
+    let user = res.locals.user;
+    let userToJSON = user.toJSON();
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
-    delete user.apiToken;
+    delete userToJSON.apiToken;
 
-    // TODO move to model? (maybe virtuals, maybe in toJSON)
-    // NOTE: if an item is manually added to user.stats common/fns/predictableRandom must be tweaked
-    // so it's not considered. Otherwise the client will have it while the server won't and the results will be different.
-    user.stats.toNextLevel = common.tnl(user.stats.lvl);
-    user.stats.maxHealth = common.maxHealth;
-    user.stats.maxMP = common.statsComputed(user).maxMP;
-
-    return res.respond(200, user);
+    user.addComputedStatsToJSONObj(userToJSON);
+    return res.respond(200, userToJSON);
   },
 };
 
@@ -149,7 +144,7 @@ let checkPreferencePurchase = (user, path, item) => {
  * @apiName UserUpdate
  * @apiGroup User
  *
- * @apiSuccess {object} data The updated user object
+ * @apiSuccess {Object} data The updated user object
  */
 api.updateUser = {
   method: 'PUT',
@@ -183,7 +178,7 @@ api.updateUser = {
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam {string} password The user's password (unless it's a Facebook account)
+ * @apiParam {String} password The user's password (unless it's a Facebook account)
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -309,7 +304,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiName UserCast
  * @apiGroup User
  *
- * @apiParam {string} spellId The skill to cast
+ * @apiParam {String} spellId The skill to cast
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a skill on a party member or a task
  *
  * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
@@ -485,7 +480,7 @@ api.sleep = {
  * @apiName UserAllocate
  * @apiGroup User
  *
- * @apiParam {string} stat Query parameter - Defaults to 'str', mast be one of be of str, con, int or per
+ * @apiParam {String} stat Query parameter - Defaults to 'str', mast be one of be of str, con, int or per
  *
  * @apiSuccess {Object} data user.stats
  */
@@ -529,7 +524,7 @@ api.allocateNow = {
  * @apiName UserBuy
  * @apiGroup User
  *
- * @apiParam {string} key The item to buy
+ * @apiParam {String} key The item to buy
  */
 api.buy = {
   method: 'POST',
@@ -549,13 +544,13 @@ api.buy = {
  * @apiName UserBuyGear
  * @apiGroup User
  *
- * @apiParam {string} key The item to buy
+ * @apiParam {String} key The item to buy
  *
- * @apiSuccess {object} data.items user.items
- * @apiSuccess {object} data.flags user.flags
- * @apiSuccess {object} data.achievements user.achievements
- * @apiSuccess {object} data.stats user.stats
- * @apiSuccess {string} message Success message
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.flags user.flags
+ * @apiSuccess {Object} data.achievements user.achievements
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {String} message Success message
  */
 api.buyGear = {
   method: 'POST',
@@ -575,10 +570,10 @@ api.buyGear = {
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
- * @apiSuccess {object} data.items user.items
- * @apiSuccess {object} data.flags user.flags
- * @apiSuccess {object} data.armoire Extra item given by the armoire
- * @apiSuccess {string} message Success message
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.flags user.flags
+ * @apiSuccess {Object} data.armoire Extra item given by the armoire
+ * @apiSuccess {String} message Success message
  */
 api.buyArmoire = {
   method: 'POST',
@@ -599,7 +594,7 @@ api.buyArmoire = {
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.stats
- * @apiSuccess {string} message Success message
+ * @apiSuccess {String} message Success message
  */
 api.buyHealthPotion = {
   method: 'POST',
@@ -619,11 +614,11 @@ api.buyHealthPotion = {
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
- * @apiParam {string} key The mystery set to buy
+ * @apiParam {String} key The mystery set to buy
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
- * @apiSuccess {string} message Success message
+ * @apiSuccess {String} message Success message
  */
 api.buyMysterySet = {
   method: 'POST',
@@ -643,10 +638,10 @@ api.buyMysterySet = {
  * @apiName UserBuyQuest
  * @apiGroup User
  *
- * @apiParam {string} key The quest scroll to buy
+ * @apiParam {String} key The quest scroll to buy
  *
  * @apiSuccess {Object} data `user.items.quests`
- * @apiSuccess {string} message Success message
+ * @apiSuccess {String} message Success message
  */
 api.buyQuest = {
   method: 'POST',
@@ -667,11 +662,11 @@ api.buyQuest = {
  * @apiName UserBuySpecialSpell
  * @apiGroup User
  *
- * @apiParam {string} key The special item to buy. Must be one of the keys from "content.special", such as birthday, snowball, salt.
+ * @apiParam {String} key The special item to buy. Must be one of the keys from "content.special", such as birthday, snowball, salt.
  *
  * @apiSuccess {Object} data.stats user.stats
  * @apiSuccess {Object} data.items user.items
- * @apiSuccess {string} message Success message
+ * @apiSuccess {String} message Success message
  */
 api.buySpecialSpell = {
   method: 'POST',
@@ -691,11 +686,11 @@ api.buySpecialSpell = {
  * @apiName UserHatch
  * @apiGroup User
  *
- * @apiParam {string} egg The egg to use
- * @apiParam {string} hatchingPotion The hatching potion to use
+ * @apiParam {String} egg The egg to use
+ * @apiParam {String} hatchingPotion The hatching potion to use
  *
  * @apiSuccess {Object} data user.items
- * @apiSuccess {string} message
+ * @apiSuccess {String} message
  */
 api.hatch = {
   method: 'POST',
@@ -715,11 +710,11 @@ api.hatch = {
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam {string} type The type of item to equip (mount, pet, costume or equipped)
- * @apiParam {string} key The item to equip
+ * @apiParam {String} type The type of item to equip (mount, pet, costume or equipped)
+ * @apiParam {String} key The item to equip
  *
  * @apiSuccess {Object} data user.items
- * @apiSuccess {string} message Optional success message
+ * @apiSuccess {String} message Optional success message
  */
 api.equip = {
   method: 'POST',
@@ -739,11 +734,11 @@ api.equip = {
  * @apiName UserFeed
  * @apiGroup User
  *
- * @apiParam {string} pet
- * @apiParam {string} food
+ * @apiParam {String} pet
+ * @apiParam {String} food
  *
- * @apiSuccess {number} data The pet value
- * @apiSuccess {string} message Success message
+ * @apiSuccess {Number} data The pet value
+ * @apiSuccess {String} message Success message
  */
 api.feed = {
   method: 'POST',
@@ -764,12 +759,12 @@ api.feed = {
 * @apiName UserChangeClass
 * @apiGroup User
 *
-* @apiParam {string} class Query parameter - ?class={warrior|rogue|wizard|healer}
+* @apiParam {String} class Query parameter - ?class={warrior|rogue|wizard|healer}
 *
-* @apiSuccess {object} data.flags user.flags
-* @apiSuccess {object} data.stats user.stats
-* @apiSuccess {object} data.preferences user.preferences
-* @apiSuccess {object} data.items user.items
+* @apiSuccess {Object} data.flags user.flags
+* @apiSuccess {Object} data.stats user.stats
+* @apiSuccess {Object} data.preferences user.preferences
+* @apiSuccess {Object} data.items user.items
 */
 api.changeClass = {
   method: 'POST',
@@ -789,9 +784,9 @@ api.changeClass = {
 * @apiName UserDisableClasses
 * @apiGroup User
 *
-* @apiSuccess {object} data.flags user.flags
-* @apiSuccess {object} data.stats user.stats
-* @apiSuccess {object} data.preferences user.preferences
+* @apiSuccess {Object} data.flags user.flags
+* @apiSuccess {Object} data.stats user.stats
+* @apiSuccess {Object} data.preferences user.preferences
 */
 api.disableClasses = {
   method: 'POST',
@@ -811,12 +806,12 @@ api.disableClasses = {
 * @apiName UserPurchase
 * @apiGroup User
 *
-* @apiParam {string} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
-* @apiParam {string} key Item's key (use "gem" for purchasing gems)
+* @apiParam {String} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
+* @apiParam {String} key Item's key (use "gem" for purchasing gems)
 *
-* @apiSuccess {object} data.items user.items
-* @apiSuccess {number} data.balance user.balance
-* @apiSuccess {string} message Success message
+* @apiSuccess {Object} data.items user.items
+* @apiSuccess {Number} data.balance user.balance
+* @apiSuccess {String} message Success message
 */
 api.purchase = {
   method: 'POST',
@@ -836,12 +831,12 @@ api.purchase = {
 * @apiName UserPurchaseHourglass
 * @apiGroup User
 *
-* @apiParam {string} type The type of item to purchase (pets or mounts)
-* @apiParam {string} key Ex: {MantisShrimp-Base}. The key for the mount/pet
+* @apiParam {String} type The type of item to purchase (pets or mounts)
+* @apiParam {String} key Ex: {MantisShrimp-Base}. The key for the mount/pet
 *
-* @apiSuccess {object} data.items user.items
-* @apiSuccess {object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
-* @apiSuccess {string} message Success message
+* @apiSuccess {Object} data.items user.items
+* @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
+* @apiSuccess {String} message Success message
 */
 api.userPurchaseHourglass = {
   method: 'POST',
@@ -861,11 +856,11 @@ api.userPurchaseHourglass = {
 * @apiName UserReadCard
 * @apiGroup User
 *
-* @apiParam {string} cardType Type of card to read
+* @apiParam {String} cardType Type of card to read
 *
-* @apiSuccess {object} data.specialItems user.items.special
-* @apiSuccess {boolean} data.cardReceived user.flags.cardReceived
-* @apiSuccess {string} message Success message
+* @apiSuccess {Object} data.specialItems user.items.special
+* @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
+* @apiSuccess {String} message Success message
 */
 api.readCard = {
   method: 'POST',
@@ -886,7 +881,7 @@ api.readCard = {
 * @apiGroup User
 *
 * @apiSuccess {Object} data The item obtained
-* @apiSuccess {string} message Success message
+* @apiSuccess {String} message Success message
 */
 api.userOpenMysteryItem = {
   method: 'POST',
@@ -906,8 +901,8 @@ api.userOpenMysteryItem = {
 * @apiName UserAddWebhook
 * @apiGroup User
 *
-* @apiParam {string} url Body parameter - The webhook's URL
-* @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
+* @apiParam {String} url Body parameter - The webhook's URL
+* @apiParam {Boolean} enabled Body parameter - If the webhook should be enabled
 *
 * @apiSuccess {Object} data The created webhook
 */
@@ -930,8 +925,8 @@ api.addWebhook = {
 * @apiGroup User
 *
 * @apiParam {UUID} id The id of the webhook to update
-* @apiParam {string} url Body parameter - The webhook's URL
-* @apiParam {boolean} enabled Body parameter - If the webhook should be enabled
+* @apiParam {String} url Body parameter - The webhook's URL
+* @apiParam {Boolean} enabled Body parameter - If the webhook should be enabled
 *
 * @apiSuccess {Object} data The updated webhook
 */
@@ -976,7 +971,7 @@ api.deleteWebhook = {
 * @apiGroup User
 *
 * @apiSuccess {Object} data.items `user.items.pets`
-* @apiSuccess {string} message Success message
+* @apiSuccess {String} message Success message
 */
 api.userReleasePets = {
   method: 'POST',
@@ -998,8 +993,8 @@ api.userReleasePets = {
 
 * @apiSuccess {Object} data.achievements
 * @apiSuccess {Object} data.items
-* @apiSuccess {number} data.balance
-* @apiSuccess {string} message Success message
+* @apiSuccess {Number} data.balance
+* @apiSuccess {String} message Success message
 */
 api.userReleaseBoth = {
   method: 'POST',
@@ -1020,7 +1015,7 @@ api.userReleaseBoth = {
 * @apiGroup User
 *
 * @apiSuccess {Object} data user.items.mounts
-* @apiSuccess {string} message Success message
+* @apiSuccess {String} message Success message
 */
 api.userReleaseMounts = {
   method: 'POST',
@@ -1040,12 +1035,12 @@ api.userReleaseMounts = {
 * @apiName UserSell
 * @apiGroup User
 *
-* @apiParam {string} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
-* @apiParam {string} key The key of the item
+* @apiParam {String} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
+* @apiParam {String} key The key of the item
 *
 * @apiSuccess {Object} data.stats
 * @apiSuccess {Object} data.items
-* @apiSuccess {string} message Success message
+* @apiSuccess {String} message Success message
 */
 api.userSell = {
   method: 'POST',
@@ -1065,12 +1060,12 @@ api.userSell = {
 * @apiName UserUnlock
 * @apiGroup User
 *
-* @apiParam {string} path Query parameter. The path to unlock
+* @apiParam {String} path Query parameter. The path to unlock
 *
 * @apiSuccess {Object} data.purchased
 * @apiSuccess {Object} data.items
 * @apiSuccess {Object} data.preferences
-* @apiSuccess {string} message
+* @apiSuccess {String} message
 */
 api.userUnlock = {
   method: 'POST',
@@ -1091,7 +1086,7 @@ api.userUnlock = {
 * @apiGroup User
 *
 * @apiSuccess {Object} data user.items
-* @apiSuccess {string} message Success message
+* @apiSuccess {String} message Success message
 */
 api.userRevive = {
   method: 'POST',
@@ -1112,8 +1107,8 @@ api.userRevive = {
 * @apiGroup User
 *
 * @apiSuccess {Object} data.user
-* @apiSuccess {array} data.tasks User's modified tasks (no rewards)
-* @apiSuccess {string} message Success message
+* @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
+* @apiSuccess {String} message Success message
 */
 api.userRebirth = {
   method: 'POST',
@@ -1151,7 +1146,7 @@ api.userRebirth = {
  *
  * @apiParam {UUID} uuid The uuid of the user to block / unblock
  *
- * @apiSuccess {array} data user.inbox.blocks
+ * @apiSuccess {Array} data user.inbox.blocks
 **/
 api.blockUser = {
   method: 'POST',
@@ -1173,7 +1168,7 @@ api.blockUser = {
  *
  * @apiParam {UUID} id The id of the message to delete
  *
- * @apiSuccess {object} data user.inbox.messages
+ * @apiSuccess {Object} data user.inbox.messages
 **/
 api.deleteMessage = {
   method: 'DELETE',
@@ -1193,7 +1188,7 @@ api.deleteMessage = {
  * @apiName clearMessages
  * @apiGroup User
  *
- * @apiSuccess {object} data user.inbox.messages
+ * @apiSuccess {Object} data user.inbox.messages
 **/
 api.clearMessages = {
   method: 'DELETE',
@@ -1213,7 +1208,7 @@ api.clearMessages = {
  * @apiName markPmsRead
  * @apiGroup User
  *
- * @apiSuccess {object} data user.inbox.messages
+ * @apiSuccess {Object} data user.inbox.messages
 **/
 api.markPmsRead = {
   method: 'POST',
@@ -1271,7 +1266,7 @@ api.userReroll = {
 *
 * @apiSuccess {Object} data.user
 * @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
-* @apiSuccess {string} message Success message
+* @apiSuccess {String} message Success message
 */
 api.userReset = {
   method: 'POST',
