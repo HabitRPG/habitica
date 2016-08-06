@@ -70,6 +70,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.editTask = Tasks.editTask;
 
+    $scope.canEdit = function(task) {
+      // can't edit challenge tasks
+      return ! task.challenge.id;
+    }
+
     /**
      * Add the new task to the actions log
      */

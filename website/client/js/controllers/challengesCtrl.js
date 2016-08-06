@@ -1,5 +1,5 @@
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks', 'TAVERN_ID',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks, TAVERN_ID) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Tasks', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks', 'TAVERN_ID',
+  function($rootScope, $scope, Shared, User, Tasks, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks, TAVERN_ID) {
 
     // Use presence of cid to determine whether to show a list or a single
     // challenge
@@ -35,6 +35,10 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     }
 
     $scope.editTask = Tasks.editTask;
+
+    $scope.canEdit = function(task) {
+      return true;
+    }
 
     /**
      * Create
@@ -274,8 +278,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.saveTask = function(task){
+      Tasks.updateTask(task._id, task);
       task._editing = false;
-      // TODO persist
     }
 
     $scope.toggleBulk = function(list) {
