@@ -38,7 +38,13 @@ export class WebhookSender {
     let hooks = Object.keys(webhooks)
       .map(hook => webhooks[hook])
       .filter(isValidWebhook)
-      .filter(hook => this.type === hook.type)
+      // Until the migration to add the taskScored field to the webhooks is complete, we'll assume that any webhooks without a type are taskScored
+      // TODO: Change back to this when migration is complete
+      // .filter(hook => this.type === hook.type)
+      .filter((hook) => {
+        let type = hook.type || 'taskScored';
+        return this.type === type
+      })
       .filter(hook => this.webhookFilter(hook, data));
 
     if (hooks.length < 1) {
