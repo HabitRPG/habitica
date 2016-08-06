@@ -30,7 +30,7 @@ const WEBHOOK_TYPES = {
 const DEFAULT_WEBHOOK_TYPE = 'taskScored';
 
 function generateWebhookObject (webhook, req) {
-  if (!validator.isURL(webhook.url)) {
+  if (!webhook.url || !validator.isURL(webhook.url)) {
     throw new BadRequest(i18n.t('invalidUrl', req.language));
   } else if (!validator.isBoolean(webhook.enabled)) {
     throw new BadRequest(i18n.t('invalidEnabled', req.language));
