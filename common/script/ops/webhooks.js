@@ -1,6 +1,7 @@
 import refPush from '../libs/refPush';
 import validator from 'validator';
 import i18n from '../i18n';
+import { v4 as uuid } from 'uuid';
 import {
   BadRequest,
   NotFound,
@@ -44,6 +45,7 @@ function generateWebhookObject (webhook, req) {
   let options = WEBHOOK_TYPES[type](webhook.options);
 
   return {
+    id: webhook.id,
     url: webhook.url,
     enabled: webhook.enabled,
     type,
@@ -54,8 +56,14 @@ function generateWebhookObject (webhook, req) {
 function addWebhook (user, req = {}) {
   let wh = user.preferences.webhooks;
   let body = req.body || {};
+  let id = body.id || uuid();
+
+  if (!validator.isUUID(id)) {
+    throw new BadRequest(i18n.t('invalidWebhookId', req.language));
+  }
 
   let webhook = generateWebhookObject({
+    id,
     url: body.url,
     enabled: body.enabled,
     type: body.type || DEFAULT_WEBHOOK_TYPE,
@@ -83,6 +91,7 @@ function updateWebhook (user, req = {}) {
   }
 
   let webhook = {
+    id: oldWebhook.id,
     url: body.url || oldWebhook.url,
     type: body.type || oldWebhook.type,
     options: body.options || oldWebhook.options,

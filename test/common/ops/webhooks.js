@@ -25,6 +25,7 @@ describe('webhooks', () => {
     beforeEach(() => {
       req = {
         body: {
+          id: generateUUID(),
           enabled: true,
           url: 'http://some-url.com',
         },
@@ -40,6 +41,26 @@ describe('webhooks', () => {
         expect(err.message).to.equal(t('invalidUrl'));
         done();
       }
+    });
+
+    it('validates req.body.id', (done) => {
+      req.body.id = 'not-a-uuid';
+
+      try {
+        addWebhook(user, req);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(t('invalidWebhookId'));
+        done();
+      }
+    });
+
+    it('supplies a default id if none is passed', () => {
+      delete req.body.id;
+
+      let result = addWebhook(user, req);
+
+      expect(result[0].id).to.exist;
     });
 
     it('validates req.body.enabled', (done) => {
