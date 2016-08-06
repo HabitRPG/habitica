@@ -10,7 +10,7 @@ let api = {};
 *
 * @apiParam {String} url Body parameter - The webhook's URL
 * @apiParam {Boolean} enabled Body parameter - If the webhook should be enabled
-* @apiParam {Sring="taskScored","taskCreated","groupChatReceived","questActivity"} type="taskScored" Body parameter - The webhook's type.
+* @apiParam {Sring="taskScored","taskCreated","groupChatReceived"} type="taskScored" Body parameter - The webhook's type.
 * @apiParam {Object} options Body parameter - The webhook's options. Wil differ depending on type. The options are enumerated below:
 * @apiParamExample {json} Basic Example
 *   {
@@ -22,17 +22,6 @@ let api = {};
 *     "enabled": true,
 *     "url": "http://some-webhook-url.com",
 *     "type": "taskCreated",
-*   }
-* @apiParamExample {json} Quest Activity Example
-*   {
-*     "enabled": true,
-*     "url": "http://some-webhook-url.com",
-*     "type": "questActivity",
-*     "options": {
-*       "onStart": false,
-*       "onComplete": false,
-*       "onInvitation": false
-*     }
 *   }
 * @apiParamExample {json} Group Chat Received Example
 *   {

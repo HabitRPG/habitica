@@ -60,10 +60,10 @@ describe('webhooks', () => {
     });
 
     it('can set type to acceptable webhook type', () => {
-      req.body.type = 'questActivity';
+      req.body.type = 'taskCreated';
       let result = addWebhook(user, req);
 
-      expect(result[0].type).to.eql('questActivity');
+      expect(result[0].type).to.eql('taskCreated');
     });
 
     it('throws an error if incompatible type is passed', (done) => {
@@ -105,18 +105,6 @@ describe('webhooks', () => {
       let result = addWebhook(user, req);
 
       expect(result[0].options).to.eql({});
-    });
-
-    it('returns an object with default settings for questActivity options', () => {
-      req.body.type = 'questActivity';
-
-      let result = addWebhook(user, req);
-
-      expect(result[0].options).to.eql({
-        onStart: false,
-        onComplete: false,
-        onInvitation: false,
-      });
     });
 
     it('throws an error if supplied Id param for groupIds in groupChatRecieved is not a uuid', (done) => {
@@ -196,7 +184,7 @@ describe('webhooks', () => {
         },
         body: {
           url: 'http://new-url.com',
-          type: 'questActivity',
+          type: 'taskScored',
           enabled: true,
         },
       };
@@ -293,19 +281,12 @@ describe('webhooks', () => {
     it('sanitizes options', () => {
       req.body.options = {
         foo: 'bar',
-        onStart: { dummy: 'value' },
-        onComplete: true,
-        onInvitation: false,
       };
-      req.body.type = 'questActivity';
+      req.body.type = 'taskScored';
 
       let result = updateWebhook(user, req);
 
-      expect(result[0].options).to.eql({
-        onStart: false,
-        onComplete: true,
-        onInvitation: false,
-      });
+      expect(result[0].options).to.eql({});
     });
 
     it('updates webhook', () => {
@@ -315,7 +296,7 @@ describe('webhooks', () => {
 
       expect(webhook.url).to.eql('http://new-url.com');
       expect(webhook.enabled).to.eql(true);
-      expect(webhook.type).to.eql('questActivity');
+      expect(webhook.type).to.eql('taskScored');
     });
   });
 });

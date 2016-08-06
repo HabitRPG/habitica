@@ -25,13 +25,6 @@ const WEBHOOK_TYPES = {
       groupId,
     };
   },
-  questActivity (options = {}) {
-    return {
-      onStart: options.onStart === true,
-      onComplete: options.onComplete === true,
-      onInvitation: options.onInvitation === true,
-    };
-  },
 };
 const DEFAULT_WEBHOOK_TYPE = 'taskScored';
 
