@@ -67,7 +67,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       await sleep();
 
-      server.close();
+      await server.close();
 
       let body = server.getWebhookData(uuid);
 

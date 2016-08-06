@@ -1,9 +1,10 @@
 'use strict';
 
 let express = require('express');
+let uuid = require('uuid');
 let bodyParser = require('body-parser');
 let app = express();
-let server;
+let server = require('http').createServer(app);
 
 const PORT = process.env.TEST_WEBHOOK_APP_PORT || 3099; // eslint-disable-line no-process-env
 
@@ -17,34 +18,45 @@ app.use(bodyParser.json());
 app.post('/webhooks/:id', function (req, res) {
   let id = req.params.id;
 
-  if (webhookData[id]) {
-    throw new Error(`ID must be unique. ${id} is already used!`);
+  if (!webhookData[id]) {
+    webhookData[id] = [];
   }
 
-  webhookData[id] = req.body;
+  webhookData[id].push(req.body);
 
   res.status(200);
 });
 
+// Helps close down server from within mocha test
+// See http://stackoverflow.com/a/37054753/2601552
+let sockets = {};
+server.on('connection', (socket) => {
+  let id = uuid.v4();
+  sockets[id] = socket;
+
+  socket.once('close', () => {
+    delete sockets[id];
+  });
+});
+
 function start () {
   return new Promise((resolve) => {
-    if (server) {
-      resolve();
-      return;
-    }
-    server = app.listen(PORT, resolve);
+    server.listen(PORT, resolve);
   });
 }
 
 function close () {
-  if (!server) {
-    return;
-  }
-  server.close();
+  return new Promise((resolve) => {
+    server.close(resolve);
+
+    Object.keys(sockets).forEach((socket) => {
+      sockets[socket].end();
+    });
+  });
 }
 
 function getWebhookData (id) {
-  return webhookData[id];
+  return webhookData[id].pop();
 }
 
 module.exports = {

@@ -83,7 +83,7 @@ describe('POST /chat', () => {
 
     await sleep();
 
-    server.close();
+    await server.close();
 
     let userBody = server.getWebhookData(userUuid);
     let memberBody = server.getWebhookData(userUuid);

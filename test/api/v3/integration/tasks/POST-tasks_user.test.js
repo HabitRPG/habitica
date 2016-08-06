@@ -9,7 +9,7 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /tasks/user', () => {
   let user;
 
-  before(async () => {
+  beforeEach(async () => {
     user = await generateUser();
   });
 
@@ -207,10 +207,17 @@ describe('POST /tasks/user', () => {
     });
   });
 
-  context('all types', () => {
+  context('sending task created webhooks', () => {
+    before(async () => {
+      await server.start();
+    });
+
+    after(async () => {
+      await server.close();
+    });
+
     it('sends task created webhooks', async () => {
       let uuid = generateUUID();
-      await server.start();
 
       await user.post('/user/webhook', {
         url: `http://localhost:${server.port}/webhooks/${uuid}`,
@@ -225,13 +232,41 @@ describe('POST /tasks/user', () => {
 
       await sleep();
 
-      server.close();
-
       let body = server.getWebhookData(uuid);
 
-      expect(body.tasks[0]).to.eql(task);
+      expect(body.task).to.eql(task);
     });
 
+    it('sends a task created webhooks for each task', async () => {
+      let uuid = generateUUID();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskCreated',
+        enabled: true,
+      });
+
+      let tasks = await user.post('/tasks/user', [{
+        text: 'test habit',
+        type: 'habit',
+      }, {
+        text: 'test todo',
+        type: 'todo',
+      }]);
+
+      await sleep();
+
+      let taskBodies = [
+        server.getWebhookData(uuid),
+        server.getWebhookData(uuid),
+      ];
+
+      expect(taskBodies.find(body => body.task.id === tasks[0].id)).to.exist;
+      expect(taskBodies.find(body => body.task.id === tasks[1].id)).to.exist;
+    });
+  });
+
+  context('all types', () => {
     it('can create reminders', async () => {
       let id1 = generateUUID();
 

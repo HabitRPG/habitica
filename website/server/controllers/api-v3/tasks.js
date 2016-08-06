@@ -96,7 +96,9 @@ api.createUserTasks = {
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
-    taskCreatedWebhook.send(user.preferences.webhooks, {tasks});
+    tasks.forEach((task) => {
+      taskCreatedWebhook.send(user.preferences.webhooks, {task});
+    });
   },
 };
 
