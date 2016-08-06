@@ -43,7 +43,7 @@ export class WebhookSender {
       // .filter(hook => this.type === hook.type)
       .filter((hook) => {
         let type = hook.type || 'taskScored';
-        return this.type === type
+        return this.type === type;
       })
       .filter(hook => this.webhookFilter(hook, data));
 
