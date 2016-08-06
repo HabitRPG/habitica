@@ -2,6 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import { v4 as generateUUID } from 'uuid';
 
 let user;
 let endpoint = '/user/webhook';
@@ -38,12 +39,13 @@ describe('POST /user/webhook', () => {
   it('successfully adds a webhook of a specific type', async () => {
     expect(user.preferences.webhooks).to.eql({});
 
+    let groupId = generateUUID();
     let response = await user.post(endpoint, {
       enabled: true,
       url: 'http://some-url.com',
-      type: 'questActivity',
+      type: 'groupChatReceived',
       options: {
-        onStart: true,
+        groupId,
       },
     });
 
@@ -54,11 +56,9 @@ describe('POST /user/webhook', () => {
     let webhookId = Object.keys(user.preferences.webhooks)[0];
     let webhook = user.preferences.webhooks[webhookId];
 
-    expect(webhook.type).to.eql('questActivity');
+    expect(webhook.type).to.eql('groupChatReceived');
     expect(webhook.options).to.eql({
-      onStart: true,
-      onComplete: false,
-      onInvitation: false,
+      groupId,
     });
   });
 });

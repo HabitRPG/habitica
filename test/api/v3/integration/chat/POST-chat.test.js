@@ -86,7 +86,7 @@ describe('POST /chat', () => {
     await server.close();
 
     let userBody = server.getWebhookData(userUuid);
-    let memberBody = server.getWebhookData(userUuid);
+    let memberBody = server.getWebhookData(memberUuid);
 
     [userBody, memberBody].forEach((body) => {
       expect(body.group.id).to.eql(groupWithChat._id);
