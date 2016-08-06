@@ -2,7 +2,6 @@ import { model as Challenge } from '../../../../../website/server/models/challen
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import common from '../../../../../common/';
 import { each, find } from 'lodash';
 
 describe('Group Task Methods', () => {
@@ -77,26 +76,26 @@ describe('Group Task Methods', () => {
           return updatedLeadersTask.linkedTaskId === task._id;
         });
 
+        expect(task.assignedUserId).to.equal(leader._id);
         expect(syncedTask).to.exist;
       });
 
-      xit('scores an assigned task', async () => {
-        let updatedTaskName = 'Updated Test Habit';
-        await challenge.addTasks([task]);
-
-        let req = {
-          body: { text: updatedTaskName },
-        };
-
-        Tasks.Task.sanitize(req.body);
-        _.assign(task, common.ops.updateTask(task.toObject(), req)[0]);
-
-        await challenge.updateTask(task);
+      it('syncs updated info for assigned task to a user', async () => {
+        await guild.syncTask(task, leader);
+        let updatedTaskName = 'Update Task name';
+        task.text = updatedTaskName;
+        await guild.syncTask(task, leader);
 
         let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedUserTask = await Tasks.Task.findById(updatedLeader.tasksOrder[`${taskType}s`][0]);
+        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
 
-        expect(updatedUserTask.text).to.equal(updatedTaskName);
+        let syncedTask = find(updatedLeadersTasks, function findNewTask (updatedLeadersTask) {
+          return updatedLeadersTask.linkedTaskId === task._id;
+        });
+
+        expect(task.assignedUserId).to.equal(leader._id);
+        expect(syncedTask).to.exist;
+        expect(syncedTask.text).to.equal(task.text);
       });
 
       it('removes an assigned task and unlinks assignees', async () => {
@@ -122,6 +121,7 @@ describe('Group Task Methods', () => {
           return updatedLeadersTask.linkedTaskId === task._id;
         });
 
+        expect(task.assignedUserId).to.not.exist;
         expect(syncedTask).to.not.exist;
       });
 
@@ -135,6 +135,7 @@ describe('Group Task Methods', () => {
           return updatedLeadersTask.linkedTaskId === task._id;
         });
 
+        expect(task.assignedUserId).to.not.exist;
         expect(syncedTask).to.exist;
         expect(syncedTask.challenge._id).to.be.empty;
       });

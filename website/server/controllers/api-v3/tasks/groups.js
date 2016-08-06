@@ -127,10 +127,7 @@ api.assignTask = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    task.assignedUserId = assignedUserId;
-    await task.save();
-
-    group.syncTask(task, assignedUser);
+    group.assignTask(task, assignedUser);
 
     res.respond(201, task);
 

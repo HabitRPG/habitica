@@ -777,8 +777,11 @@ function _syncableAttrs (task) {
   return _.omit(t, omitAttrs);
 }
 
-schema.methods.syncTask = async function groupSyncTask (task, user) {
+schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   let group = this;
+  let toSave = [];
+
+  taskToSync.assignedUserId = user._id;
 
   // Sync tags
   let userTags = user.tags;
@@ -796,42 +799,32 @@ schema.methods.syncTask = async function groupSyncTask (task, user) {
     });
   }
 
-  let [groupTasks, userTasks] = await Bluebird.all([
-    // Find original challenge tasks
-    Tasks.Task.find({
-      userId: {$exists: false},
-      'group.id': group._id,
-    }).exec(),
-    // Find user's tasks linked to this challenge
-    Tasks.Task.find({
-      userId: user._id,
-      'group.id': group._id,
-    }).exec(),
-  ]);
+  let findQuery = {
+    linkedTaskId: taskToSync._id,
+    userId: user._id,
+    'group.id': group._id,
+  };
 
-  let toSave = []; // An array of things to save
+  let matchingTask = await Tasks.Task.findOne(findQuery).exec();
 
-  groupTasks.forEach(groupTask => {
-    let matchingTask = _.find(userTasks, userTask => userTask.group.id === group._id);
+  if (!matchingTask) { // If the task is new, create it
+    matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(_syncableAttrs(taskToSync)));
+    matchingTask.group.id = taskToSync.group.id;
+    matchingTask.userId = user._id;
+    matchingTask.linkedTaskId = taskToSync._id;
+    user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
+  } else {
+    _.merge(matchingTask, _syncableAttrs(taskToSync));
+    // Make sure the task is in user.tasksOrder
+    let orderList = user.tasksOrder[`${taskToSync.type}s`];
+    if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+  }
 
-    if (!matchingTask) { // If the task is new, create it
-      matchingTask = new Tasks[groupTask.type](Tasks.Task.sanitize(_syncableAttrs(groupTask)));
-      matchingTask.group.id = groupTask.group.id;
-      matchingTask.userId = user._id;
-      matchingTask.linkedTaskId = groupTask._id;
-      user.tasksOrder[`${groupTask.type}s`].push(matchingTask._id);
-    } else {
-      _.merge(matchingTask, _syncableAttrs(groupTask));
-      // Make sure the task is in user.tasksOrder
-      let orderList = user.tasksOrder[`${groupTask.type}s`];
-      if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
-    }
+  if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
+  if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
 
-    if (!matchingTask.notes) matchingTask.notes = groupTask.notes; // don't override the notes, but provide it if not provided
-    if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
-    toSave.push(matchingTask.save());
-  });
-
+  toSave.push(matchingTask.save());
+  toSave.push(taskToSync.save());
   toSave.push(user.save());
   return Bluebird.all(toSave);
 };
@@ -840,6 +833,8 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
   let findQuery = {
     linkedTaskId: unlinkingTask._id,
   };
+
+  unlinkingTask.assignedUserId = undefined;
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -855,7 +850,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       user.markModified('tasksOrder');
     }
 
-    return Bluebird.all([task.remove(), user.save()]);
+    return Bluebird.all([task.remove(), user.save(), unlinkingTask.save()]);
   }
 };
 

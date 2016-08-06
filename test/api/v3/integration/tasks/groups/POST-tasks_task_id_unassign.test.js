@@ -88,7 +88,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     let syncedTask = find(memberTasks, function findAssignedTask (memberTask) {
       return memberTask.assignedUserId === member._id;
     });
-    // console.log(syncedTask);
+
     expect(syncedTask).to.not.exist;
   });
 });
