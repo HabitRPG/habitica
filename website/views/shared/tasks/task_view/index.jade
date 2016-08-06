@@ -38,7 +38,7 @@
 
 // main content
 // don't allow a double click to edit if the object is locked
-.task-text(ng-dblclick='obj._locked ? {} : task._editing ? saveTask(task) : editTask(task, obj)')
+.task-text(ng-dblclick='doubleClickTask(obj, task)')
   markdown(text='task.text',target='_blank')
 
   div(ng-if='task.checklist && !$state.includes("options.social.challenges") && !task.collapseChecklist && !task._editing')

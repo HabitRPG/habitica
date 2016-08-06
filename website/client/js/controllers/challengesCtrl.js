@@ -40,6 +40,18 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       return true;
     }
 
+    $scope.doubleClickTask = function (obj, task) {
+      if (obj._locked) {
+        return false;
+      }
+
+      if (task._editing) {
+        $scope.saveTask(task);
+      } else {
+        $scope.editTask(task);
+      }
+    }
+
     /**
      * Create
      */

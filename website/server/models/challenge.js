@@ -209,20 +209,7 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
     updateCmd.$set[key] = syncableAttrs[key];
   }
 
-  let taskSchema;
-  switch (task.type) {
-    case 'habit':
-      taskSchema = Tasks.habit;
-      break;
-    case 'todo':
-      taskSchema = Tasks.todo;
-      break;
-    case 'daily':
-      taskSchema = Tasks.daily;
-      break;
-    default:
-      taskSchema = Tasks.Task;
-  }
+  let taskSchema = Tasks[task.type] ? Tasks[task.type] : Tasks.Task;
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
   await taskSchema.update({
     userId: {$exists: true},

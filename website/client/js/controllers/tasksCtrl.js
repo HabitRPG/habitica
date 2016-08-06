@@ -75,6 +75,18 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       return ! task.challenge.id;
     }
 
+    $scope.doubleClickTask = function (obj, task) {
+      if (obj._locked) {
+        return false;
+      }
+
+      if (task._editing) {
+        $scope.saveTask(task);
+      } else {
+        $scope.editTask(task);
+      }
+    }
+
     /**
      * Add the new task to the actions log
      */
