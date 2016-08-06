@@ -54,7 +54,7 @@ function generateWebhookObject (webhook, req) {
 }
 
 function addWebhook (user, req = {}) {
-  let wh = user.preferences.webhooks;
+  let webhooks = user.preferences.webhooks;
   let body = req.body || {};
   let id = body.id || uuid();
 
@@ -72,7 +72,7 @@ function addWebhook (user, req = {}) {
 
   user.markModified('preferences.webhooks');
 
-  webhook = refPush(wh, webhook);
+  webhook = refPush(webhooks, webhook);
 
   if (req.v2 === true) {
     return user.preferences.webhooks;
