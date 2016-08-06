@@ -88,12 +88,7 @@ export let taskCreatedWebhook = new WebhookSender({
 export let groupChatReceivedWebhook = new WebhookSender({
   type: 'groupChatReceived',
   webhookFilter (hook, data) {
-    if (hook.options.allGroups) {
-      return true;
-    }
-
-    let groupId = data.group.id;
-    return hook.options.groupIds[groupId];
+    return hook.options.groupId === data.group.id;
   },
   transformData (data) {
     let { group, chat } = data;

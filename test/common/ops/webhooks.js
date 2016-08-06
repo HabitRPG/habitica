@@ -80,32 +80,14 @@ describe('webhooks', () => {
 
     it('applies options if provided', () => {
       req.body.options = {
-        groupIds: {
-          [generateUUID()]: true,
-          [generateUUID()]: true,
-        },
+        groupId: generateUUID(),
       };
       req.body.type = 'groupChatReceived';
 
       let result = addWebhook(user, req);
 
       expect(result[0].options).to.eql({
-        allGroups: false,
-        groupIds: req.body.options.groupIds,
-      });
-    });
-
-    it('sanitizes options', () => {
-      req.body.options = {
-        foo: 'bar',
-      };
-      req.body.type = 'groupChatReceived';
-
-      let result = addWebhook(user, req);
-
-      expect(result[0].options).to.eql({
-        allGroups: true,
-        groupIds: {},
+        groupId: req.body.options.groupId,
       });
     });
 
@@ -140,7 +122,7 @@ describe('webhooks', () => {
     it('throws an error if supplied Id param for groupIds in groupChatRecieved is not a uuid', (done) => {
       req.body.type = 'groupChatReceived';
       req.body.options = {
-        groupIds: {'not a uuid': true},
+        groupId: 'not a uuid',
       };
 
       try {
@@ -297,17 +279,14 @@ describe('webhooks', () => {
 
     it('applies options if provided', () => {
       req.body.options = {
-        groupIds: {
-          [generateUUID()]: true,
-        },
+        groupId: generateUUID(),
       };
       req.body.type = 'groupChatReceived';
 
       let result = updateWebhook(user, req);
 
       expect(result[0].options).to.eql({
-        allGroups: false,
-        groupIds: req.body.options.groupIds,
+        groupId: req.body.options.groupId,
       });
     });
 

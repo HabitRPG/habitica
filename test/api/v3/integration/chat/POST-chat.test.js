@@ -66,11 +66,17 @@ describe('POST /chat', () => {
       url: `http://localhost:${server.port}/webhooks/${userUuid}`,
       type: 'groupChatReceived',
       enabled: true,
+      options: {
+        groupId: groupWithChat.id,
+      },
     });
     await member.post('/user/webhook', {
       url: `http://localhost:${server.port}/webhooks/${memberUuid}`,
       type: 'groupChatReceived',
       enabled: true,
+      options: {
+        groupId: groupWithChat.id,
+      },
     });
 
     let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});

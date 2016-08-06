@@ -21,11 +21,7 @@ describe('webhooks', () => {
         enabled: true,
         type: 'groupChatReceived',
         options: {
-          allGroups: false,
-          groupIds: {
-            'group-id': true,
-            'not-this-group-id': false,
-          },
+          groupId: 'group-id',
         },
       },
     };
@@ -219,7 +215,15 @@ describe('webhooks', () => {
         user: {
           _id: 'user-id',
           _tmp: {foo: 'bar'},
-          stats: {lvl: 5, int: 10, str: 5, exp: 423, toJSON: function () {return this}},
+          stats: {
+            lvl: 5,
+            int: 10,
+            str: 5,
+            exp: 423,
+            toJSON () {
+              return this;
+            },
+          },
         },
         task: {
           text: 'text',
@@ -306,44 +310,12 @@ describe('webhooks', () => {
       });
     });
 
-    it('sends chat for all groups if hook.options.allGroups is true', () => {
-      webhooks.groupChatReceived.options.allGroups = true;
-
+    it('does not send chat data for group if not selected', () => {
       let data = {
         group: {
-          id: 'not-this-group-id',
+          id: 'not-group-id',
           name: 'some group',
-        },
-        chat: {
-          id: 'some-id',
-          text: 'message',
-        },
-      };
-
-      groupChatReceivedWebhook.send(webhooks, data);
-
-      expect(request.post).to.be.calledOnce;
-      expect(request.post).to.be.calledWithMatch({
-        body: {
-          group: {
-            id: 'not-this-group-id',
-            name: 'some group',
-          },
-          chat: {
-            id: 'some-id',
-            text: 'message',
-          },
-        },
-      });
-    });
-
-    it('sends chat for only specified groups if hook.options.allGroups is false', () => {
-      webhooks.groupChatReceived.options.allGroups = false;
-
-      let data = {
-        group: {
-          id: 'not-this-group-id',
-          name: 'some group',
+          otherData: 'foo',
         },
         chat: {
           id: 'some-id',
@@ -354,23 +326,6 @@ describe('webhooks', () => {
       groupChatReceivedWebhook.send(webhooks, data);
 
       expect(request.post).to.not.be.called;
-
-      data.group.id = 'group-id';
-      groupChatReceivedWebhook.send(webhooks, data);
-
-      expect(request.post).to.be.calledOnce;
-      expect(request.post).to.be.calledWithMatch({
-        body: {
-          group: {
-            id: 'group-id',
-            name: 'some group',
-          },
-          chat: {
-            id: 'some-id',
-            text: 'message',
-          },
-        },
-      });
     });
   });
 });

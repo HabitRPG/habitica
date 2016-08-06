@@ -1,5 +1,4 @@
 import refPush from '../libs/refPush';
-import { isObject } from 'lodash';
 import validator from 'validator';
 import i18n from '../i18n';
 import {
@@ -16,24 +15,15 @@ const WEBHOOK_TYPES = {
     return {};
   },
   groupChatReceived (options = {}) {
-    let webhookOptions = {
-      allGroups: false,
-      groupIds: {},
-    };
+    let { groupId } = options;
 
-    if (!options.groupIds) {
-      webhookOptions.allGroups = true;
-    } else if (isObject(options.groupIds)) {
-      Object.keys(options.groupIds).forEach((id) => {
-        if (!validator.isUUID(id)) {
-          throw new BadRequest(i18n.t('groupIdRequired'));
-        }
-      });
-
-      webhookOptions.groupIds = options.groupIds;
+    if (!validator.isUUID(groupId)) {
+      throw new BadRequest(i18n.t('groupIdRequired'));
     }
 
-    return webhookOptions;
+    return {
+      groupId,
+    };
   },
   questActivity (options = {}) {
     return {
