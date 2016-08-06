@@ -247,7 +247,12 @@ habitrpg.controller('SettingsCtrl',
       $scope.hasWebhooks = _.size(webhooks);
     })
     $scope.addWebhook = function(url) {
-      User.addWebhook({body:{url:url, enabled:true}});
+      User.addWebhook({body:{
+        id: Shared.uuid(),
+        type: 'taskScored',
+        url:url,
+        enabled:true
+      }});
       $scope._newWebhook.url = '';
     }
     $scope.saveWebhook = function(id,webhook) {
