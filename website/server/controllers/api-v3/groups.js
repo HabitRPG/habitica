@@ -347,10 +347,14 @@ api.leaveGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat', requireMembership: true});
+    let groupId = req.params.groupId;
+    let group = await Group.getGroup({user, groupId, fields: '-chat', requireMembership: true});
     if (!group) {
-      delete user.party._id;
-      removeFromArray(user.guilds, req.params.groupId);
+      if (groupId === user.party._id) {
+        delete user.party._id;
+      } else {
+        removeFromArray(user.guilds, groupId);
+      }
       await user.save();
 
       throw new NotFound(res.t('groupNotFound'));
