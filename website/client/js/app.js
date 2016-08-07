@@ -348,7 +348,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.settings', {
           url: "/settings",
           controller: 'SettingsCtrl',
-          templateUrl: "partials/options.settings.html"
+          templateUrl: "partials/options.settings.html",
         })
         .state('options.settings.settings', {
           url: "/settings",
