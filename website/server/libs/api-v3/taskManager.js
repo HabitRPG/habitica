@@ -86,7 +86,7 @@ export async function getTasks (req, res, options = {}) {
   if (challenge) {
     query =  {'challenge.id': challenge.id, userId: {$exists: false}};
   } else if (group) {
-    query =  {'group.id': group.id};
+    query =  {'group.id': group._id};
   }
 
   let type = req.query.type;
