@@ -4,6 +4,7 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -234,6 +235,15 @@ api.updateTask = {
     // see https://github.com/Automattic/mongoose/issues/2749
 
     let savedTask = await task.save();
+
+    if (task.group.id && task.assignedUserId) {
+      let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      let assignedUser = await User.findOne({_id: task.assignedUserId});
+      await group.syncTask(savedTask, assignedUser);
+    }
+
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
 
