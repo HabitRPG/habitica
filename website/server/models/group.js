@@ -19,6 +19,9 @@ import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/pushNotifications';
 import pusher from '../libs/pusher';
+import {
+  syncableAttrs,
+} from '../libs/taskManager';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -767,16 +770,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   return await Bluebird.all(promises);
 };
 
-//  @TODO: Move to task manager/library
-// Takes a Task document and return a plain object of attributes that can be synced to the user
-function _syncableAttrs (task) {
-  let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
-  // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt'];
-  if (t.type !== 'reward') omitAttrs.push('value');
-  return _.omit(t, omitAttrs);
-}
-
 schema.methods.updateTask = async function updateTask (taskToSync) {
   let group = this;
   let listOfPromises = [];
@@ -823,13 +816,13 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   let matchingTask = await Tasks.Task.findOne(findQuery).exec();
 
   if (!matchingTask) { // If the task is new, create it
-    matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(_syncableAttrs(taskToSync)));
+    matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
     matchingTask.linkedTaskId = taskToSync._id;
     user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
   } else {
-    _.merge(matchingTask, _syncableAttrs(taskToSync));
+    _.merge(matchingTask, syncableAttrs(taskToSync));
     // Make sure the task is in user.tasksOrder
     let orderList = user.tasksOrder[`${taskToSync.type}s`];
     if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);

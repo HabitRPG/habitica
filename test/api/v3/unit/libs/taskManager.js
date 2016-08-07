@@ -1,6 +1,7 @@
 import {
   createTasks,
   getTasks,
+  syncableAttrs,
 } from '../../../../../website/server/libs/taskManager';
 import i18n from '../../../../../common/script/i18n';
 import {
@@ -147,5 +148,24 @@ describe('taskManager', () => {
     expect(task.down).to.equal(testHabit.down);
     expect(task.createdAt).isNotEmtpy;
     expect(task.challenge.id).to.equal(challenge._id);
+  });
+
+  it('returns syncable attibutes', async () => {
+    req.body = testHabit;
+    res.t = i18n.t;
+
+    let tasks = await createTasks(req, res, {user, challenge, undefined});
+
+    let syncableTask = syncableAttrs(tasks[0]);
+
+    expect(syncableTask._id).to.not.exist;
+    expect(syncableTask.userId).to.not.exist;
+    expect(syncableTask.challenge).to.not.exist;
+    expect(syncableTask.history).to.not.exist;
+    expect(syncableTask.tags).to.not.exist;
+    expect(syncableTask.completed).to.not.exist;
+    expect(syncableTask.streak).to.not.exist;
+    expect(syncableTask.notes).to.not.exist;
+    expect(syncableTask.updatedAt).to.not.exist;
   });
 });
