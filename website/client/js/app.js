@@ -127,38 +127,38 @@ window.habitrpg = angular.module('habitrpg',
           url: "/tavern",
           templateUrl: "partials/options.social.tavern.html",
           controller: 'TavernCtrl',
-          title: env.t('titleTavern'),
+          title: env.t('titleTavern')
         })
 
         .state('options.social.party', {
           url: '/party',
           templateUrl: "partials/options.social.party.html",
           controller: 'PartyCtrl',
-          title: env.t('titleParty'),
+          title: env.t('titleParty')
         })
 
         .state('options.social.hall', {
           url: '/hall',
-          templateUrl: "partials/options.social.hall.html",
+          templateUrl: "partials/options.social.hall.html"
         })
         .state('options.social.hall.heroes', {
           url: '/heroes',
           templateUrl: "partials/options.social.hall.heroes.html",
           controller: 'HallHeroesCtrl',
-          title: env.t('titleHeroes'),
+          title: env.t('titleHeroes')
         })
         .state('options.social.hall.patrons', {
           url: '/patrons',
           templateUrl: "partials/options.social.hall.patrons.html",
           controller: 'HallPatronsCtrl',
-          title: env.t('titlePatrons'),
+          title: env.t('titlePatrons')
         })
 
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
           controller: 'GuildsCtrl',
-          title: env.t('titleGuilds'),
+          title: env.t('titleGuilds')
         })
         .state('options.social.guilds.public', {
           url: '/public',
@@ -209,7 +209,7 @@ window.habitrpg = angular.module('habitrpg',
           params: { groupIdFilter: null },
           controller: 'ChallengesCtrl',
           templateUrl: "partials/options.social.challenges.html",
-          title: env.t('titleChallenges'),
+          title: env.t('titleChallenges')
         })
         .state('options.social.challenges.detail', {
           url: '/:cid',
@@ -348,7 +348,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.settings', {
           url: "/settings",
           controller: 'SettingsCtrl',
-          templateUrl: "partials/options.settings.html",
+          templateUrl: "partials/options.settings.html"
         })
         .state('options.settings.settings', {
           url: "/settings",
