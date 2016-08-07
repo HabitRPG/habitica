@@ -475,4 +475,5 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           });
       }
     };
+    window.scrollTo(0, 0);
 }]);

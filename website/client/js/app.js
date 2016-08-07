@@ -51,14 +51,19 @@ window.habitrpg = angular.module('habitrpg',
         .state('tasks', {
           url: "/tasks",
           templateUrl: "partials/main.html",
-          title: env.t('titleTasks')
+          title: env.t('titleTasks'),
+          controller: function(){
+            window.scrollTo(0, 0);
+          }
         })
 
         // Options
         .state('options', {
           url: "/options",
           templateUrl: "partials/options.html",
-          controller: function(){}
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
 
         // Options > Profile
@@ -70,82 +75,106 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.profile.avatar', {
           url: "/avatar",
           templateUrl: "partials/options.profile.avatar.html",
-          title: env.t('titleAvatar')
+          title: env.t('titleAvatar'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.profile.backgrounds', {
           url: '/backgrounds',
           templateUrl: "partials/options.profile.backgrounds.html",
-          title: env.t('titleBackgrounds')
+          title: env.t('titleBackgrounds'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.profile.stats', {
           url: "/stats",
           templateUrl: "partials/options.profile.stats.html",
-          title: env.t('titleStats')
+          title: env.t('titleStats'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.profile.profile', {
           url: "/profile",
           templateUrl: "partials/options.profile.profile.html",
-          title: env.t('titleProfile')
+          title: env.t('titleProfile'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
 
         // Options > Groups
         .state('options.social', {
           url: "/groups",
-          templateUrl: "partials/options.social.html"
+          templateUrl: "partials/options.social.html",
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
 
         .state('options.social.inbox', {
           url: "/inbox",
           templateUrl: "partials/options.social.inbox.html",
-          title: env.t('titleInbox')
+          title: env.t('titleInbox'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
 
         .state('options.social.tavern', {
           url: "/tavern",
           templateUrl: "partials/options.social.tavern.html",
           controller: 'TavernCtrl',
-          title: env.t('titleTavern')
+          title: env.t('titleTavern'),
         })
 
         .state('options.social.party', {
           url: '/party',
           templateUrl: "partials/options.social.party.html",
           controller: 'PartyCtrl',
-          title: env.t('titleParty')
+          title: env.t('titleParty'),
         })
 
         .state('options.social.hall', {
           url: '/hall',
-          templateUrl: "partials/options.social.hall.html"
+          templateUrl: "partials/options.social.hall.html",
         })
         .state('options.social.hall.heroes', {
           url: '/heroes',
           templateUrl: "partials/options.social.hall.heroes.html",
           controller: 'HallHeroesCtrl',
-          title: env.t('titleHeroes')
+          title: env.t('titleHeroes'),
         })
         .state('options.social.hall.patrons', {
           url: '/patrons',
           templateUrl: "partials/options.social.hall.patrons.html",
           controller: 'HallPatronsCtrl',
-          title: env.t('titlePatrons')
+          title: env.t('titlePatrons'),
         })
 
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
           controller: 'GuildsCtrl',
-          title: env.t('titleGuilds')
+          title: env.t('titleGuilds'),
         })
         .state('options.social.guilds.public', {
           url: '/public',
           templateUrl: "partials/options.social.guilds.public.html",
-          title: env.t('titleGuilds')
+          title: env.t('titleGuilds'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.social.guilds.create', {
           url: '/create',
           templateUrl: "partials/options.social.guilds.create.html",
-          title: env.t('titleGuilds')
+          title: env.t('titleGuilds'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.social.guilds.detail', {
           url: '/:gid',
@@ -170,6 +199,7 @@ window.habitrpg = angular.module('habitrpg',
                     $scope.group.challenges = response.data.data;
                   });
               });
+            window.scrollTo(0, 0);
           }]
         })
 
@@ -179,7 +209,7 @@ window.habitrpg = angular.module('habitrpg',
           params: { groupIdFilter: null },
           controller: 'ChallengesCtrl',
           templateUrl: "partials/options.social.challenges.html",
-          title: env.t('titleChallenges')
+          title: env.t('titleChallenges'),
         })
         .state('options.social.challenges.detail', {
           url: '/:cid',
@@ -260,37 +290,58 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.inventory.drops', {
           url: '/drops',
           templateUrl: "partials/options.inventory.drops.html",
-          title: env.t('titleDrops')
+          title: env.t('titleDrops'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.inventory.quests', {
           url: '/quests',
           templateUrl: "partials/options.inventory.quests.html",
-          title: env.t('titleQuests')
+          title: env.t('titleQuests'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.inventory.pets', {
           url: '/pets',
           templateUrl: "partials/options.inventory.pets.html",
-          title: env.t('titlePets')
+          title: env.t('titlePets'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.inventory.mounts', {
           url: '/mounts',
           templateUrl: "partials/options.inventory.mounts.html",
-          title: env.t('titleMounts')
+          title: env.t('titleMounts'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.inventory.equipment', {
           url: '/equipment',
           templateUrl: "partials/options.inventory.equipment.html",
-          title: env.t('titleEquipment')
+          title: env.t('titleEquipment'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.inventory.timetravelers', {
           url: '/timetravelers',
           templateUrl: "partials/options.inventory.timetravelers.html",
-          title: env.t('titleTimeTravelers')
+          title: env.t('titleTimeTravelers'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.inventory.seasonalshop', {
           url: '/seasonalshop',
           templateUrl: "partials/options.inventory.seasonalshop.html",
-          title: env.t('titleSeasonalShop')
+          title: env.t('titleSeasonalShop'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
 
         // Options > Settings
@@ -302,32 +353,50 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.settings.settings', {
           url: "/settings",
           templateUrl: "partials/options.settings.settings.html",
-          title: env.t('titleSettings')
+          title: env.t('titleSettings'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.settings.api', {
           url: "/api",
           templateUrl: "partials/options.settings.api.html",
-          title: env.t('titleSettings')
+          title: env.t('titleSettings'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.settings.export', {
           url: "/export",
           templateUrl: "partials/options.settings.export.html",
-          title: env.t('titleSettings')
+          title: env.t('titleSettings'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.settings.promo', {
           url: "/promo",
           templateUrl: "partials/options.settings.promo.html",
-          title: env.t('titleSettings')
+          title: env.t('titleSettings'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.settings.subscription', {
           url: "/subscription",
           templateUrl: "partials/options.settings.subscription.html",
-          title: env.t('titleSettings')
+          title: env.t('titleSettings'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         })
         .state('options.settings.notifications', {
           url: "/notifications",
           templateUrl: "partials/options.settings.notifications.html",
-          title: env.t('titleSettings')
+          title: env.t('titleSettings'),
+          controller: function () {
+              window.scrollTo(0, 0);
+          }
         });
 
       var settings;
