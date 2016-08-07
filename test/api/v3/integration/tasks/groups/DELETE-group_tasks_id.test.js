@@ -5,7 +5,11 @@ import {
 import { find } from 'lodash';
 
 describe('DELETE /tasks/:id', () => {
-  let user, guild, member, task;
+  let user, guild, member, member2, task;
+
+  function findAssignedTask (memberTask) {
+    return memberTask.group.id === guild._id;
+  }
 
   beforeEach(async () => {
     let {group, members, groupLeader} = await createAndPopulateGroup({
@@ -13,12 +17,13 @@ describe('DELETE /tasks/:id', () => {
         name: 'Test Guild',
         type: 'guild',
       },
-      members: 1,
+      members: 2,
     });
 
     guild = group;
     user = groupLeader;
     member = members[0];
+    member2 = members[1];
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test habit',
@@ -29,6 +34,7 @@ describe('DELETE /tasks/:id', () => {
     });
 
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await user.post(`/tasks/${task._id}/assign/${member2._id}`);
   });
 
   it('deletes a group task', async () => {
@@ -42,15 +48,25 @@ describe('DELETE /tasks/:id', () => {
       });
   });
 
-  it('unlinks assignee', async () => {
+  it('unlinks assigned user', async () => {
     await user.del(`/tasks/${task._id}`);
 
     let memberTasks = await member.get('/tasks/user');
-
-    let syncedTask = find(memberTasks, function findAssignedTask (memberTask) {
-      return memberTask.assignedUserId === member._id;
-    });
+    let syncedTask = find(memberTasks, findAssignedTask);
 
     expect(syncedTask.group.broken).to.equal('TASK_DELETED');
+  });
+
+  it('unlinks all assigned users', async () => {
+    await user.del(`/tasks/${task._id}`);
+
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    let member2Tasks = await member2.get('/tasks/user');
+    let member2SyncedTask = find(member2Tasks, findAssignedTask);
+
+    expect(syncedTask.group.broken).to.equal('TASK_DELETED');
+    expect(member2SyncedTask.group.broken).to.equal('TASK_DELETED');
   });
 });
