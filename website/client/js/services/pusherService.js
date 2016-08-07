@@ -34,7 +34,7 @@ angular.module('habitrpg')
       });
 
       // Disconnect after 30m of inactivity
-      var DISCONNECTION_AFTER = 5000; // 30m
+      var DISCONNECTION_AFTER = 1800000; // 30m
       var disconnectionTimeout;
 
       var awaitIdle = function() {
