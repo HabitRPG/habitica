@@ -42,10 +42,12 @@ export async function createTasks (req, res, options = {}) {
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
-    } else if (group) {
-      newTask.group.id = group._id;
     } else {
       newTask.userId = user._id;
+    }
+
+    if (group) {
+      newTask.group.id = group._id;
     }
 
     // Validate that the task is valid and throw if it isn't

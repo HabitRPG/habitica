@@ -127,7 +127,7 @@ api.assignTask = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    group.assignTask(task, assignedUser);
+    group.syncTask(task, assignedUser);
 
     res.respond(201, task);
 
@@ -177,9 +177,6 @@ api.unassignTask = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-
-    task.assignedUserId = undefined;
-    await task.save();
 
     group.unlinkTask(task, assignedUser);
 

@@ -855,6 +855,14 @@ api.deleteTask = {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
     }
 
+    if (task.group.id) {
+      //  @TODO: Abstract this access snippet
+      let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      group.removeTask(task);
+    }
+
     if (task.type !== 'todo' || !task.completed) {
       removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
       await Bluebird.all([(challenge || user).save(), task.remove()]);
