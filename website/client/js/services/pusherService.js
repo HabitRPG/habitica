@@ -4,7 +4,7 @@ angular.module('habitrpg')
 .factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID', 'Groups', 'Shared',
   function($rootScope, STORAGE_SETTINGS_ID, Groups, Shared) {
     var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
-    var IS_PUSHER_ENABLED = true;
+    var IS_PUSHER_ENABLED = window.env['PUSHER:ENABLED'] === 'true';
 
     var partyId;
     var onActivityEvent;
