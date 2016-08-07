@@ -36,6 +36,7 @@ describe('Notification Controller', function() {
 
     sandbox.stub(rootScope, 'openModal');
     sandbox.stub(achievement, 'displayAchievement');
+    sandbox.stub(achievement, 'displayBulkyAchievement');
   });
 
   describe('Quest Invitation modal watch', function() {
@@ -116,15 +117,15 @@ describe('Notification Controller', function() {
       rootScope.userNotifications.push({type: 'STREAK_ACHIEVEMENT'});
       rootScope.$digest();
 
-      expect(achievement.displayAchievement).to.be.called;
-      expect(achievement.displayAchievement).to.be.calledWith('streak');
+      expect(achievement.displayBulkyAchievement).to.be.called;
+      expect(achievement.displayBulkyAchievement).to.be.calledWith('streak');
     });
 
     it('does not open streak achievement modal if no new streak-achievement notification is recieved', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(achievement.displayAchievement).to.not.be.calledWith('streak');
+      expect(achievement.displayBulkyAchievement).to.not.be.calledWith('streak');
     });
   });
 
@@ -134,15 +135,15 @@ describe('Notification Controller', function() {
       rootScope.userNotifications.push({type: 'ULTIMATE_GEAR_ACHIEVEMENT'});
       rootScope.$digest();
 
-      expect(achievement.displayAchievement).to.be.called;
-      expect(achievement.displayAchievement).to.be.calledWith('ultimateGear');
+      expect(achievement.displayBulkyAchievement).to.be.called;
+      expect(achievement.displayBulkyAchievement).to.be.calledWith('ultimateGear');
     });
 
     it('does not open ultimate gear set achievement modal if no new ultimate-gear-achievement notification is recieved', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(achievement.displayAchievement).to.not.be.calledWith('ultimateGear');
+      expect(achievement.displayBulkyAchievement).to.not.be.calledWith('ultimateGear');
     });
   });
 
@@ -170,15 +171,15 @@ describe('Notification Controller', function() {
       rootScope.userNotifications.push({type: 'NEW_CONTRIBUTOR_LEVEL'});
       rootScope.$digest();
 
-      expect(achievement.displayAchievement).to.be.called;
-      expect(achievement.displayAchievement).to.be.calledWith('contributor');
+      expect(achievement.displayBulkyAchievement).to.be.called;
+      expect(achievement.displayBulkyAchievement).to.be.calledWith('contributor');
     });
 
     it('does not open contributor achievement modal if no new new-contributor-level notification is recieved', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(achievement.displayAchievement).to.not.be.calledWith('contributor');
+      expect(achievement.displayBulkyAchievement).to.not.be.calledWith('contributor');
     });
   });
 });

@@ -12,7 +12,13 @@ angular.module('habitrpg').factory('Achievement',
       {controller:'UserCtrl', size:'sm'});
   }
 
+  function displayBulkyAchievement(achievementName) {
+    $rootScope.openModal('achievements/' + achievementName,
+      {controller:'UserCtrl'});
+  }
+
   return {
-    displayAchievement: displayAchievement
+    displayAchievement: displayAchievement,
+    displayBulkyAchievement: displayBulkyAchievement
   };
 }]);

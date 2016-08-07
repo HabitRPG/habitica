@@ -14,30 +14,41 @@ describe('achievementServices', function() {
     });
   });
 
-  it('passes given achievement name to openModal', function() {
-    achievementService.displayAchievement('beastMaster');
+  describe('#displayAchievement', function() {
+    it('passes given achievement name to openModal', function() {
+      achievementService.displayAchievement('beastMaster');
 
-    expect(rootScope.openModal).to.be.calledOnce;
-    expect(rootScope.openModal).to.be.calledWith('achievements/beastMaster');
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('achievements/beastMaster');
+    });
+
+    it('calls openModal with UserCtrl and specified small modal size', function() {
+      achievementService.displayAchievement('test');
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith(
+        'achievements/test',
+        { controller: 'UserCtrl', size: 'sm' }
+      );
+    });
   });
 
-  it('calls openModal with UserCtrl', function() {
-    achievementService.displayAchievement('test');
+  describe('#displayBulkyAchievement', function() {
+    it('passes given achievement name to openModal', function() {
+      achievementService.displayBulkyAchievement('beastMaster');
 
-    expect(rootScope.openModal).to.be.calledOnce;
-    expect(rootScope.openModal).to.be.calledWith(
-      'achievements/test',
-      sinon.match({ controller: 'UserCtrl' })
-    );
-  });
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('achievements/beastMaster');
+    });
 
-  it('calls openModal with specified small modal size', function() {
-    achievementService.displayAchievement('test');
+    it('calls openModal with UserCtrl and unspecified modal size', function() {
+      achievementService.displayBulkyAchievement('test');
 
-    expect(rootScope.openModal).to.be.calledOnce;
-    expect(rootScope.openModal).to.be.calledWith(
-      'achievements/test',
-      sinon.match({ size: 'sm' })
-    );
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith(
+        'achievements/test',
+        { controller: 'UserCtrl' }
+      );
+    });
   });
 });
