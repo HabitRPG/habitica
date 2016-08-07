@@ -102,7 +102,7 @@ describe('POST /tasks/:taskId', () => {
     let memberTasks = await member.get('/tasks/user');
     let member1SyncedTask = find(memberTasks, findAssignedTask);
 
-    let member2Tasks = await member.get('/tasks/user');
+    let member2Tasks = await member2.get('/tasks/user');
     let member2SyncedTask = find(member2Tasks, findAssignedTask);
 
     expect(groupTask[0].assignedUsers).to.contain(member._id);

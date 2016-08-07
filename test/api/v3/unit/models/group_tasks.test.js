@@ -121,7 +121,7 @@ describe('Group Task Methods', () => {
           return updatedLeadersTask.linkedTaskId === task._id;
         });
 
-        expect(task.assignedUserId).to.not.exist;
+        expect(task.assignedUsers).to.not.contain(leader._id);
         expect(syncedTask).to.not.exist;
       });
 
@@ -135,7 +135,7 @@ describe('Group Task Methods', () => {
           return updatedLeadersTask.linkedTaskId === task._id;
         });
 
-        expect(task.assignedUserId).to.not.exist;
+        expect(task.assignedUsers).to.not.contain(leader._id);
         expect(syncedTask).to.exist;
         expect(syncedTask.challenge._id).to.be.empty;
       });

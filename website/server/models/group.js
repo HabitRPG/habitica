@@ -834,9 +834,11 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
   let findQuery = {
     linkedTaskId: unlinkingTask._id,
+    userId: user._id,
   };
 
-  unlinkingTask.assignedUserId = undefined;
+  let assignedUserIndex = unlinkingTask.assignedUsers.indexOf(user._id);
+  unlinkingTask.assignedUsers.splice(assignedUserIndex, 1);
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
