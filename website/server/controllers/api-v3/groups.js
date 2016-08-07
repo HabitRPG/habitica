@@ -124,8 +124,11 @@ api.getGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    let groupId = req.params.groupId;
+    let group = await Group.getGroup({user, groupId, populateLeader: false});
+    if (!group) {
+      throw new NotFound(res.t('groupNotFound'));
+    }
 
     group = Group.toJSONCleanChat(group, user);
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -347,8 +350,11 @@ api.leaveGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat', requireMembership: true});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    let groupId = req.params.groupId;
+    let group = await Group.getGroup({user, groupId, fields: '-chat', requireMembership: true});
+    if (!group) {
+      throw new NotFound(res.t('groupNotFound'));
+    }
 
     // During quests, checke wheter user can leave
     if (group.type === 'party') {
@@ -510,7 +516,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
       // Allow user to be invited to a new party when they're partying solo
-      if (userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
 
     userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
