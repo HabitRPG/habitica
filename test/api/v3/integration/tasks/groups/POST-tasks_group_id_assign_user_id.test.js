@@ -7,7 +7,11 @@ import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
 
 describe('POST /tasks/:taskId', () => {
-  let user, guild, member, task;
+  let user, guild, member, member2, task;
+
+  function findAssignedTask (memberTask) {
+    return memberTask.group.id === guild._id;
+  }
 
   beforeEach(async () => {
     let {group, members, groupLeader} = await createAndPopulateGroup({
@@ -15,12 +19,13 @@ describe('POST /tasks/:taskId', () => {
         name: 'Test Guild',
         type: 'guild',
       },
-      members: 1,
+      members: 2,
     });
 
     guild = group;
     user = groupLeader;
     member = members[0];
+    member2 = members[1];
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test habit',
@@ -81,17 +86,28 @@ describe('POST /tasks/:taskId', () => {
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
 
     let groupTask = await user.get(`/tasks/group/${guild._id}`);
-
-    expect(groupTask[0].assignedUserId).to.equal(member._id);
-
     let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
 
-    let syncedTask = find(memberTasks, function findAssignedTask (memberTask) {
-      return memberTask.assignedUserId === member._id;
-    });
-
+    expect(groupTask[0].assignedUsers).to.contain(member._id);
     expect(syncedTask).to.exist;
   });
 
-  //  @TODO: Assign to multiple users
+  it('assigns a task to multiple users', async () => {
+    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await user.post(`/tasks/${task._id}/assign/${member2._id}`);
+
+    let groupTask = await user.get(`/tasks/group/${guild._id}`);
+
+    let memberTasks = await member.get('/tasks/user');
+    let member1SyncedTask = find(memberTasks, findAssignedTask);
+
+    let member2Tasks = await member.get('/tasks/user');
+    let member2SyncedTask = find(member2Tasks, findAssignedTask);
+
+    expect(groupTask[0].assignedUsers).to.contain(member._id);
+    expect(groupTask[0].assignedUsers).to.contain(member2._id);
+    expect(member1SyncedTask).to.exist;
+    expect(member2SyncedTask).to.exist;
+  });
 });

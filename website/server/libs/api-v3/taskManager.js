@@ -1,7 +1,5 @@
 import * as Tasks from '../../models/task';
 import {
-  NotFound,
-  NotAuthorized,
   BadRequest,
 } from '../api-v3/errors';
 import Bluebird from 'bluebird';
@@ -88,7 +86,7 @@ export async function getTasks (req, res, options = {}) {
   if (challenge) {
     query =  {'challenge.id': challenge.id, userId: {$exists: false}};
   } else if (group) {
-    query =  {'group.id': group._id, userId: {$exists: false}};
+    query =  {'group.id': group.id};
   }
 
   let type = req.query.type;

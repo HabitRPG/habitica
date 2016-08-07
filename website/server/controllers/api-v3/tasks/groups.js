@@ -79,7 +79,7 @@ api.getGroupTasks = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let tasks = await getTasks(req, res, {user, undefined, group});
+    let tasks = await getTasks(req, res, {user, group});
     res.respond(200, tasks);
   },
 };

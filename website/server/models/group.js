@@ -781,7 +781,9 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   let group = this;
   let toSave = [];
 
-  taskToSync.assignedUserId = user._id;
+  if (taskToSync.assignedUsers.indexOf(user._id) === -1) {
+    taskToSync.assignedUsers.push(user._id);
+  }
 
   // Sync tags
   let userTags = user.tags;
