@@ -348,7 +348,13 @@ api.leaveGroup = {
     if (validationErrors) throw validationErrors;
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat', requireMembership: true});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (!group) {
+      delete user.party._id;
+      removeFromArray(user.guilds, req.params.groupId);
+      await user.save();
+
+      throw new NotFound(res.t('groupNotFound'));
+    }
 
     // During quests, checke wheter user can leave
     if (group.type === 'party') {
