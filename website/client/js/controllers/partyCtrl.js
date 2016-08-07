@@ -15,7 +15,8 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.loadWidgets = Social.loadWidgets;
 
       // Random message between 1 and PARTY_LOADING_MESSAGES
-      $scope.partyLoadingMessage = Math.floor(Math.random() * PARTY_LOADING_MESSAGES) + 1;
+      var partyMessageNumber = Math.floor(Math.random() * PARTY_LOADING_MESSAGES) + 1;
+      $scope.partyLoadingMessage = window.env.t('partyLoading' + partyMessageNumber);
 
       function handlePartyResponse (group) {
         $rootScope.party = $scope.group = group;
