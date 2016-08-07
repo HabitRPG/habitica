@@ -4,7 +4,11 @@ import {
 import { find } from 'lodash';
 
 describe('PUT /tasks/:id', () => {
-  let user, guild, member, task;
+  let user, guild, member, member2, task;
+
+  function findAssignedTask (memberTask) {
+    return memberTask.group.id === guild._id;
+  }
 
   beforeEach(async () => {
     let {group, members, groupLeader} = await createAndPopulateGroup({
@@ -12,12 +16,13 @@ describe('PUT /tasks/:id', () => {
         name: 'Test Guild',
         type: 'guild',
       },
-      members: 1,
+      members: 2,
     });
 
     guild = group;
     user = groupLeader;
     member = members[0];
+    member2 = members[1];
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test habit',
@@ -28,6 +33,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await user.post(`/tasks/${task._id}/assign/${member2._id}`);
   });
 
   it('updates a group task', async () => {
@@ -54,12 +60,33 @@ describe('PUT /tasks/:id', () => {
 
 
     let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, function findAssignedTask (memberTask) {
-      return memberTask.assignedUserId === member._id;
-    });
+    let syncedTask = find(memberTasks, findAssignedTask);
 
     expect(syncedTask.text).to.eql('some new text');
     expect(syncedTask.up).to.eql(false);
     expect(syncedTask.down).to.eql(false);
+  });
+
+  it('updates the linked tasks for all assigned users', async () => {
+    await user.put(`/tasks/${task._id}`, {
+      text: 'some new text',
+      up: false,
+      down: false,
+      notes: 'some new notes',
+    });
+
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    let member2Tasks = await member2.get('/tasks/user');
+    let member2SyncedTask = find(member2Tasks, findAssignedTask);
+
+    expect(syncedTask.text).to.eql('some new text');
+    expect(syncedTask.up).to.eql(false);
+    expect(syncedTask.down).to.eql(false);
+
+    expect(member2SyncedTask.text).to.eql('some new text');
+    expect(member2SyncedTask.up).to.eql(false);
+    expect(member2SyncedTask.down).to.eql(false);
   });
 });

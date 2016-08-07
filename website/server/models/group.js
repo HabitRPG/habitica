@@ -777,6 +777,19 @@ function _syncableAttrs (task) {
   return _.omit(t, omitAttrs);
 }
 
+schema.methods.updateTask = async function updateTask (taskToSync) {
+  let group = this;
+  let listOfPromises = [];
+
+  let usersToSync = await User.find({_id: { $in: taskToSync.assignedUsers} });
+
+  usersToSync.forEach(function syncAssignedUser (user) {
+    listOfPromises.push(group.syncTask(taskToSync, user));
+  });
+
+  return Bluebird.all(listOfPromises);
+};
+
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   let group = this;
   let toSave = [];
