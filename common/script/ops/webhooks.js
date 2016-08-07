@@ -57,6 +57,7 @@ function addWebhook (user, req = {}) {
   let webhooks = user.preferences.webhooks;
   let body = req.body || {};
   let id = body.id || uuid();
+  let enabled = 'enabled' in body ? body.enabled : true;
 
   if (!validator.isUUID(id)) {
     throw new BadRequest(i18n.t('invalidWebhookId', req.language));
@@ -65,7 +66,7 @@ function addWebhook (user, req = {}) {
   let webhook = generateWebhookObject({
     id,
     url: body.url,
-    enabled: body.enabled,
+    enabled,
     type: body.type || DEFAULT_WEBHOOK_TYPE,
     options: body.options,
   }, req);

@@ -64,7 +64,7 @@ describe('webhooks', () => {
     });
 
     it('validates req.body.enabled', (done) => {
-      delete req.body.enabled;
+      req.body.enabled = 'not a boolean';
       try {
         addWebhook(user, req);
       } catch (err) {
@@ -72,6 +72,22 @@ describe('webhooks', () => {
         expect(err.message).to.equal(t('invalidEnabled'));
         done();
       }
+    });
+
+    it('sets req.body.enabled to true by default if not passed in', () => {
+      delete req.body.enabled;
+
+      let result = addWebhook(user, req);
+
+      expect(result[0].enabled).to.be.true;
+    });
+
+    it('can initiliaze enabled as false', () => {
+      req.body.enabled = false;
+
+      let result = addWebhook(user, req);
+
+      expect(result[0].enabled).to.be.false;
     });
 
     it('defaults type to "taskScored"', () => {
