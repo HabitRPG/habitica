@@ -98,15 +98,15 @@ describe('Notification Controller', function() {
       rootScope.userNotifications.push({type: 'WON_CHALLENGE'});
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.be.called;
-      expect(rootScope.openModal).to.be.calledWith('wonChallenge');
+      expect(achievement.displayAchievement).to.be.called;
+      expect(achievement.displayAchievement).to.be.calledWith('wonChallenge');
     });
 
     it('does not open challenge won modal if no new challenge-won notification is recieved', function() {
       rootScope.$digest();
       rootScope.$digest();
 
-      expect(rootScope.openModal).to.not.be.calledWith('wonChallenge');
+      expect(achievement.displayAchievement).to.not.be.calledWith('wonChallenge');
     });
   });
 
