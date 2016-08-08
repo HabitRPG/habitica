@@ -75,11 +75,7 @@ function addWebhook (user, req = {}) {
 
   webhook = refPush(webhooks, webhook);
 
-  if (req.v2 === true) {
-    return user.preferences.webhooks;
-  } else {
-    return [webhook];
-  }
+  return [webhook];
 }
 
 function updateWebhook (user, req = {}) {
@@ -113,11 +109,7 @@ function updateWebhook (user, req = {}) {
   user.preferences.webhooks[id].type = webhook.type;
   user.preferences.webhooks[id].options = webhook.options;
 
-  if (req.v2 === true) {
-    return user.preferences.webhooks;
-  } else {
-    return [user.preferences.webhooks[id]];
-  }
+  return [user.preferences.webhooks[id]];
 }
 
 function deleteWebhook (user, req = {}) {
