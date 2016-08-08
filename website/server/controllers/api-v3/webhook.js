@@ -11,7 +11,7 @@ let api = {};
 * @apiParam {UUID} [id="Randomly Generated UUID"] Body parameter - The webhook's id
 * @apiParam {String} url Body parameter - The webhook's URL
 * @apiParam {Boolean} [enabled=true] Body parameter - If the webhook should be enabled
-* @apiParam {Sring="taskScored","taskCreated","groupChatReceived"} [type="taskScored"] Body parameter - The webhook's type.
+* @apiParam {Sring="taskActivity","groupChatReceived"} [type="taskActivity"] Body parameter - The webhook's type.
 * @apiParam {Object} [options] Body parameter - The webhook's options. Wil differ depending on type. Required for `groupChatReceived` type. If a webhook supports options, the dfault values are displayed in the examples below
 * @apiParamExample {json} Basic Example (Task Scored)
 *   {
@@ -23,13 +23,19 @@ let api = {};
 *     "id": "a-valid-uuid-goes-here",
 *     "enabled": true,
 *     "url": "http://some-webhook-url.com",
-*     "type": "taskScored"
+*     "type": "taskActivity"
 *   }
-* @apiParamExample {json} Task Created Example
+* @apiParamExample {json} Task Activity Example
 *   {
 *     "enabled": true,
 *     "url": "http://some-webhook-url.com",
-*     "type": "taskCreated"
+*     "type": "taskActivity",
+*     "options": {
+*       "created": false,
+*       "updated": false,
+*       "deleted": false,
+*       "scored": true
+*     }
 *   }
 * @apiParamExample {json} Group Chat Received Example
 *   {
@@ -75,12 +81,12 @@ api.addWebhook = {
 * @apiParam {UUID} id URL parameter - The id of the webhook to update
 * @apiParam {String} [url] Body parameter - The webhook's URL
 * @apiParam {Boolean} [enabled] Body parameter - If the webhook should be enabled
-* @apiParam {Sring="taskScored","taskCreated","groupChatReceived"} [type] Body parameter - The webhook's type.
+* @apiParam {Sring="taskActivity","groupChatReceived"} [type] Body parameter - The webhook's type.
 * @apiParam {Object} [options] Body parameter - The webhook's options. Wil differ depending on type. The options are enumerated in the [add webhook examples](#api-Webhook-UserAddWebhook).
 * @apiParamExample {json} Update Enabled and Type Properties
 *   {
 *     "enabled": false,
-*     "type": "taskCreated"
+*     "type": "taskActivity"
 *   }
 * @apiParamExample {json} Update Group Id for Group Chat Receieved Webhook
 *   {

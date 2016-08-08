@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import {
-  taskCreatedWebhook,
+  taskActivityWebhook,
   taskScoredWebhook,
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
@@ -97,7 +97,10 @@ api.createUserTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach((task) => {
-      taskCreatedWebhook.send(user.preferences.webhooks, {task});
+      taskActivityWebhook.send(user.preferences.webhooks, {
+        type: 'created',
+        task,
+      });
     });
   },
 };

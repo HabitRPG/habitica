@@ -41,7 +41,7 @@ export class WebhookSender {
       // TODO: Change back to this when migration is complete
       // .filter(hook => this.type === hook.type)
       .filter((hook) => {
-        let type = hook.type || 'taskScored';
+        let type = hook.type || 'taskActivity';
         return this.type === type;
       })
       .filter(hook => this.webhookFilter(hook, data));
@@ -59,7 +59,10 @@ export class WebhookSender {
 }
 
 export let taskScoredWebhook = new WebhookSender({
-  type: 'taskScored',
+  type: 'taskActivity',
+  webhookFilter (hook) {
+    return hook.options.scored;
+  },
   transformData (data) {
     let { user, task, direction, delta } = data;
 
@@ -82,8 +85,12 @@ export let taskScoredWebhook = new WebhookSender({
   },
 });
 
-export let taskCreatedWebhook = new WebhookSender({
-  type: 'taskCreated',
+export let taskActivityWebhook = new WebhookSender({
+  type: 'taskActivity',
+  webhookFilter (hook, data) {
+    let { type } = data;
+    return hook.options[type];
+  },
 });
 
 export let groupChatReceivedWebhook = new WebhookSender({

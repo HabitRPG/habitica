@@ -32,8 +32,19 @@ describe('webhooks', () => {
       };
     });
 
-    it('validates req.body.url', (done) => {
+    it('requires req.body.url', (done) => {
       delete req.body.url;
+      try {
+        addWebhook(user, req);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(t('invalidUrl'));
+        done();
+      }
+    });
+
+    it('validates req.body.url', (done) => {
+      req.body.url = 'not a url';
       try {
         addWebhook(user, req);
       } catch (err) {
@@ -90,17 +101,20 @@ describe('webhooks', () => {
       expect(result[0].enabled).to.be.false;
     });
 
-    it('defaults type to "taskScored"', () => {
+    it('defaults type to "taskActivity"', () => {
       let result = addWebhook(user, req);
 
-      expect(result[0].type).to.eql('taskScored');
+      expect(result[0].type).to.eql('taskActivity');
     });
 
     it('can set type to acceptable webhook type', () => {
-      req.body.type = 'taskCreated';
+      req.body.type = 'groupChatReceived';
+      req.body.options = {
+        groupId: generateUUID(),
+      };
       let result = addWebhook(user, req);
 
-      expect(result[0].type).to.eql('taskCreated');
+      expect(result[0].type).to.eql('groupChatReceived');
     });
 
     it('throws an error if incompatible type is passed', (done) => {
@@ -128,20 +142,44 @@ describe('webhooks', () => {
       });
     });
 
-    it('returns an empty object for taskScored options', () => {
-      req.body.type = 'taskScored';
+    it('returns an default object for taskActivity options', () => {
+      req.body.type = 'taskActivity';
 
       let result = addWebhook(user, req);
 
-      expect(result[0].options).to.eql({});
+      expect(result[0].options).to.eql({
+        created: false,
+        updated: false,
+        deleted: false,
+        scored: true,
+      });
     });
 
-    it('returns an empty object for taskCreated options', () => {
-      req.body.type = 'taskCreated';
+    it('throws an error if non-boolean values are provided for created parameter', () => {
+      let errorCount = 0;
 
-      let result = addWebhook(user, req);
+      req.body.type = 'taskActivity';
+      req.body.options = {
+        created: true,
+        updated: true,
+        deleted: true,
+        scored: true,
+      };
 
-      expect(result[0].options).to.eql({});
+      Object.keys(req.body.options).forEach((key) => {
+        req.body.options[key] = 'foo';
+
+        try {
+          addWebhook(user, req);
+        } catch (err) {
+          expect(err).to.be.an.instanceOf(BadRequest);
+          expect(err.message).to.eql(t('webhookBooleanOption', { option: key}));
+          req.body.options[key] = true;
+          errorCount += 1;
+        }
+      });
+
+      expect(errorCount).to.eql(4);
     });
 
     it('throws an error if supplied Id param for groupIds in groupChatRecieved is not a uuid', (done) => {
@@ -159,10 +197,10 @@ describe('webhooks', () => {
       }
     });
 
-    it('calls marksModified()', () => {
+    it('calls markModified()', () => {
       user.markModified = sinon.spy();
       addWebhook(user, req);
-      expect(user.markModified.called).to.eql(true);
+      expect(user.markModified.calledOnce).to.eql(true);
     });
 
     it('creates a new webhook', () => {
@@ -197,6 +235,12 @@ describe('webhooks', () => {
       expect(user.preferences.webhooks).to.eql({'another-id': {}});
     });
 
+    it('calls markModified()', () => {
+      user.markModified = sinon.spy();
+      deleteWebhook(user, req);
+      expect(user.markModified.calledOnce).to.eql(true);
+    });
+
     it('returns the remaining webhooks object', () => {
       let [data] = deleteWebhook(user, req);
 
@@ -212,8 +256,13 @@ describe('webhooks', () => {
         id: 'this-id',
         url: 'http://old-url.com',
         enabled: false,
-        type: 'taskCreated',
-        options: {},
+        type: 'taskActivity',
+        options: {
+          created: true,
+          updated: true,
+          deleted: false,
+          scored: false,
+        },
       };
       req = {
         params: {
@@ -221,7 +270,7 @@ describe('webhooks', () => {
         },
         body: {
           url: 'http://new-url.com',
-          type: 'taskScored',
+          type: 'taskActivity',
           enabled: true,
         },
       };
@@ -318,12 +367,25 @@ describe('webhooks', () => {
     it('sanitizes options', () => {
       req.body.options = {
         foo: 'bar',
+        created: true,
+        scored: false,
       };
-      req.body.type = 'taskScored';
+      req.body.type = 'taskActivity';
 
       let result = updateWebhook(user, req);
 
-      expect(result[0].options).to.eql({});
+      expect(result[0].options).to.eql({
+        created: true,
+        deleted: false,
+        scored: false,
+        updated: false,
+      });
+    });
+
+    it('calls markModified()', () => {
+      user.markModified = sinon.spy();
+      updateWebhook(user, req);
+      expect(user.markModified.calledOnce).to.eql(true);
     });
 
     it('updates webhook', () => {
@@ -333,7 +395,7 @@ describe('webhooks', () => {
 
       expect(webhook.url).to.eql('http://new-url.com');
       expect(webhook.enabled).to.eql(true);
-      expect(webhook.type).to.eql('taskScored');
+      expect(webhook.type).to.eql('taskActivity');
     });
   });
 });

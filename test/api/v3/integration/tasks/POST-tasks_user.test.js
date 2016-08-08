@@ -207,7 +207,7 @@ describe('POST /tasks/user', () => {
     });
   });
 
-  context('sending task created webhooks', () => {
+  context('sending task activity webhooks', () => {
     before(async () => {
       await server.start();
     });
@@ -216,13 +216,16 @@ describe('POST /tasks/user', () => {
       await server.close();
     });
 
-    it('sends task created webhooks', async () => {
+    it('sends task activity webhooks', async () => {
       let uuid = generateUUID();
 
       await user.post('/user/webhook', {
         url: `http://localhost:${server.port}/webhooks/${uuid}`,
-        type: 'taskCreated',
+        type: 'taskActivity',
         enabled: true,
+        options: {
+          created: true,
+        },
       });
 
       let task = await user.post('/tasks/user', {
@@ -237,13 +240,16 @@ describe('POST /tasks/user', () => {
       expect(body.task).to.eql(task);
     });
 
-    it('sends a task created webhooks for each task', async () => {
+    it('sends a task activity webhook for each task', async () => {
       let uuid = generateUUID();
 
       await user.post('/user/webhook', {
         url: `http://localhost:${server.port}/webhooks/${uuid}`,
-        type: 'taskCreated',
+        type: 'taskActivity',
         enabled: true,
+        options: {
+          created: true,
+        },
       });
 
       let tasks = await user.post('/tasks/user', [{

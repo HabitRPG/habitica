@@ -7,18 +7,35 @@ import {
   NotFound,
 } from '../libs/errors';
 
+const TASK_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
+  created: false,
+  updated: false,
+  deleted: false,
+  scored: true,
+});
 // Enumerates webhook types and provides functions for sanitizing options
 const WEBHOOK_TYPES = {
-  taskScored () {
-    return {};
-  },
-  taskCreated () {
-    return {};
+  taskActivity (options = {}) {
+    options = Object.assign({}, TASK_ACTIVITY_DEFAULT_OPTIONS, options);
+
+
+    Object.keys(TASK_ACTIVITY_DEFAULT_OPTIONS).forEach((key) => {
+      if (typeof options[key] !== 'boolean') {
+        throw new BadRequest(i18n.t('webhookBooleanOption', {option: key}));
+      }
+    });
+
+    return {
+      created: options.created,
+      updated: options.updated,
+      deleted: options.deleted,
+      scored: options.scored,
+    };
   },
   groupChatReceived (options = {}) {
     let { groupId } = options;
 
-    if (!validator.isUUID(groupId)) {
+    if (!(groupId && validator.isUUID(groupId))) {
       throw new BadRequest(i18n.t('groupIdRequired'));
     }
 
@@ -27,12 +44,12 @@ const WEBHOOK_TYPES = {
     };
   },
 };
-const DEFAULT_WEBHOOK_TYPE = 'taskScored';
+const DEFAULT_WEBHOOK_TYPE = 'taskActivity';
 
 function generateWebhookObject (webhook, req) {
-  if (!webhook.url || !validator.isURL(webhook.url)) {
+  if (!(webhook.url && validator.isURL(webhook.url))) {
     throw new BadRequest(i18n.t('invalidUrl', req.language));
-  } else if (!validator.isBoolean(webhook.enabled)) {
+  } else if (typeof webhook.enabled !== 'boolean') {
     throw new BadRequest(i18n.t('invalidEnabled', req.language));
   }
 
@@ -59,7 +76,7 @@ function addWebhook (user, req = {}) {
   let id = body.id || uuid();
   let enabled = 'enabled' in body ? body.enabled : true;
 
-  if (!validator.isUUID(id)) {
+  if (!(id && validator.isUUID(id))) {
     throw new BadRequest(i18n.t('invalidWebhookId', req.language));
   }
 

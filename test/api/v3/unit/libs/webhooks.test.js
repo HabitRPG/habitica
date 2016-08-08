@@ -3,7 +3,7 @@ import {
   WebhookSender,
   taskScoredWebhook,
   groupChatReceivedWebhook,
-  taskCreatedWebhook,
+  taskActivityWebhook,
 } from '../../../../../website/server/libs/webhook';
 
 describe('webhooks', () => {
@@ -13,8 +13,17 @@ describe('webhooks', () => {
     sandbox.stub(request, 'post');
 
     webhooks = {
-      taskScored: { url: 'http://task-scored.com', enabled: true, type: 'taskScored' },
-      taskCreated: { url: 'http://task-created.com', enabled: true, type: 'taskCreated' },
+      taskActivity: {
+        url: 'http://task-scored.com',
+        enabled: true,
+        type: 'taskActivity',
+        options: {
+          created: true,
+          updated: true,
+          deleted: true,
+          scored: true,
+        },
+      },
       groupChatReceived: {
         url: 'http://group-chat-received.com',
         enabled: true,
@@ -205,8 +214,10 @@ describe('webhooks', () => {
   });
 
   describe('taskScoredWebhook', () => {
-    it('sends task and stats data', () => {
-      let data = {
+    let data;
+
+    beforeEach(() => {
+      data = {
         user: {
           _id: 'user-id',
           _tmp: {foo: 'bar'},
@@ -237,7 +248,9 @@ describe('webhooks', () => {
         direction: 'up',
         delta: 176,
       };
+    });
 
+    it('sends task and stats data', () => {
       taskScoredWebhook.send(webhooks, data);
 
       expect(request.post).to.be.calledOnce;
@@ -264,23 +277,49 @@ describe('webhooks', () => {
         },
       });
     });
+
+    it('does not send task scored data if scored option is not true', () => {
+      webhooks.taskActivity.options.scored = false;
+
+      taskScoredWebhook.send(webhooks, data);
+
+      expect(request.post).to.not.be.called;
+    });
   });
 
-  describe('taskCreatedWebhook', () => {
-    it('sends newly created tasks', () => {
-      let data = {
-        tasks: [{
+  describe('taskActivityWebhook', () => {
+    let data;
+
+    beforeEach(() => {
+      data = {
+        task: {
           text: 'text',
-        }],
-      };
-
-      taskCreatedWebhook.send(webhooks, data);
-
-      expect(request.post).to.be.calledOnce;
-      expect(request.post).to.be.calledWithMatch({
-        body: {
-          tasks: data.tasks,
         },
+      };
+    });
+
+    ['created', 'updated', 'deleted'].forEach((type) => {
+      it(`sends ${type} tasks`, () => {
+        data.type = type;
+
+        taskActivityWebhook.send(webhooks, data);
+
+        expect(request.post).to.be.calledOnce;
+        expect(request.post).to.be.calledWithMatch({
+          body: {
+            type,
+            task: data.task,
+          },
+        });
+      });
+
+      it(`does not send task ${type} data if ${type} option is not true`, () => {
+        data.type = type;
+        webhooks.taskActivity.options[type] = false;
+
+        taskActivityWebhook.send(webhooks, data);
+
+        expect(request.post).to.not.be.called;
       });
     });
   });

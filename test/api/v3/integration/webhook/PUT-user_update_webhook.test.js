@@ -39,7 +39,7 @@ describe('PUT /user/webhook/:id', () => {
 
   it('updates a webhook', async () => {
     let url = 'http://a-new-url.com';
-    let type = 'taskCreated';
+    let type = 'taskActivity';
 
     await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type});
 
@@ -50,7 +50,7 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('returns the updated webhook', async () => {
-    let type = 'taskCreated';
+    let type = 'taskActivity';
     let url = 'http://a-new-url.com';
     let response = await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type});
 

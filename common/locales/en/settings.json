@@ -156,6 +156,7 @@
     "invalidWebhookId": "the \"id\" parameter should be a valid UUID.",
     "missingWebhookId": "The webhook's id is required.",
     "invalidWebhookType": "\"<%= type %>\" is not a valid value for the parameter \"type\".",
+    "webhookBooleanOption": "\"<%= option %>\" must be a Boolean value.",
     "noWebhookWithId": "There is no webhook with the id <%= id %>.",
     "regIdRequired": "RegId is required",
     "invalidPushClient": "Invalid client. Only Official Habitica clients can receive push notifications.",
