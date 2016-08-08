@@ -51,7 +51,7 @@ api.getMember = {
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
-    member.addComputedStatsToJSONObj(memberToJSON);
+    member.addComputedStatsToJSONObj(memberToJSON.stats);
 
     res.respond(200, memberToJSON);
   },

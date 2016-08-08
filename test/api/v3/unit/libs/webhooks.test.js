@@ -1,5 +1,4 @@
 import request from 'request';
-import common from '../../../../../common';
 import {
   WebhookSender,
   taskScoredWebhook,
@@ -207,10 +206,6 @@ describe('webhooks', () => {
 
   describe('taskScoredWebhook', () => {
     it('sends task and stats data', () => {
-      sandbox.stub(common, 'statsComputed').returns({
-        maxMP: 103,
-      });
-      sandbox.stub(common, 'tnl').returns(40);
       let data = {
         user: {
           _id: 'user-id',
@@ -223,6 +218,17 @@ describe('webhooks', () => {
             toJSON () {
               return this;
             },
+          },
+          addComputedStatsToJSONObj () {
+            let mockStats = Object.assign({
+              maxHealth: 50,
+              maxMP: 103,
+              toNextLevel: 40,
+            }, this.stats);
+
+            delete mockStats.toJSON;
+
+            return mockStats;
           },
         },
         task: {
@@ -246,7 +252,7 @@ describe('webhooks', () => {
               str: 5,
               exp: 423,
               toNextLevel: 40,
-              maxHealth: common.maxHealth,
+              maxHealth: 50,
               maxMP: 103,
             },
           },

@@ -1,7 +1,6 @@
 import { post } from 'request';
 import { isURL } from 'validator';
 import logger from './logger';
-import common from '../../../common';
 
 function sendWebhook (url, body) {
   post({
@@ -64,11 +63,7 @@ export let taskScoredWebhook = new WebhookSender({
   transformData (data) {
     let { user, task, direction, delta } = data;
 
-    let extendedStats = Object.assign({
-      toNextLevel: common.tnl(user.stats.lvl),
-      maxHealth: common.maxHealth,
-      maxMP: common.statsComputed(user).maxMP,
-    }, user.stats.toJSON());
+    let extendedStats = user.addComputedStatsToJSONObj(user.stats.toJSON());
 
     let userData = {
       _id: user._id,
