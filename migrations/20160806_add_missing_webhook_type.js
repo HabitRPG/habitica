@@ -5,7 +5,7 @@
  *
  * Reason: Webhooks now support a type
  * property. Old webhooks are of type
- * "taskScored", so this migration updates
+ * "taskActivity", so this migration updates
  * the data to have the correct type.
  ***************************************/
 
@@ -64,7 +64,13 @@ function findUsersWithWebhooks () {
         let webhook = webhooks[id]
 
         if (!webhook.type) {
-          webhook.type = 'taskScored';
+          webhook.type = 'taskActivity';
+          webhook.options = {
+            created: false,
+            updated: false,
+            deleted: false,
+            scored: true,
+          };
         }
       });
     });

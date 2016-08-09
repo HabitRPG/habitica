@@ -32,7 +32,7 @@ describe('POST /user/webhook', () => {
     let webhook = user.preferences.webhooks[webhookId];
 
     expect(webhook.enabled).to.be.true;
-    expect(webhook.type).to.eql('taskScored'); // default value
+    expect(webhook.type).to.eql('taskActivity'); // default value
     expect(webhook.url).to.eql('http://some-url.com');
   });
 

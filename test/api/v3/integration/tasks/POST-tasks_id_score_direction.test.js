@@ -54,8 +54,12 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       await user.post('/user/webhook', {
         url: `http://localhost:${server.port}/webhooks/${uuid}`,
-        type: 'taskScored',
+        type: 'taskActivity',
         enabled: true,
+        options: {
+          created: false,
+          scored: true,
+        },
       });
 
       let task = await user.post('/tasks/user', {
