@@ -1,7 +1,7 @@
 import {
   createTasks,
   getTasks,
-} from '../../../../../website/server/libs/api-v3/taskManager';
+} from '../../../../../website/server/libs/taskManager';
 import i18n from '../../../../../common/script/i18n';
 import {
   generateUser,

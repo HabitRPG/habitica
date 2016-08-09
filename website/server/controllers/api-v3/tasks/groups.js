@@ -1,14 +1,14 @@
-import { authWithHeaders } from '../../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../../middlewares/auth';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import {
   NotFound,
   NotAuthorized,
-} from '../../../libs/api-v3/errors';
+} from '../../../libs/errors';
 import {
   createTasks,
   getTasks,
-} from '../../../libs/api-v3/taskManager';
+} from '../../../libs/taskManager';
 
 let api = {};
 
