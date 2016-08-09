@@ -21,7 +21,7 @@
     "contribModal": "<%= name %>, you awesome person! You're now a tier <%= level %> contributor for helping Habitica. See",
     "contribLink": "what prizes you've earned for your contribution!",
     "contribName": "Contributor",
-    "contribText": "Has contributed to Habitica (code, design, pixel art, legal advice, docs, etc). Want this badge? ",
+    "contribText": "Has contributed to Habitica (code, design, pixel art, legal advice, docs, etc). Want this badge? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Read more.</a>",
     "readMore": "Read More",
     "kickstartName": "Kickstarter Backer - $<%= tier %> Tier",
     "kickstartText": "Backed the Kickstarter Project",
