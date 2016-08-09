@@ -94,7 +94,7 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let task2 = await createTasks(req, res, {user, undefined, group});
+    await createTasks(req, res, {user, undefined, group});
 
     req.body = {};
     req.query = {
