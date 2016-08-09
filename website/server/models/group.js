@@ -160,6 +160,17 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   if (fields) mQuery.select(fields);
   if (populateLeader === true) mQuery.populate('leader', nameFields);
   let group = await mQuery.exec();
+
+  if (!group) {
+    if (groupId === user.party._id) {
+      // reset party object to default state
+      user.party = {};
+    } else {
+      removeFromArray(user.guilds, groupId);
+    }
+    await user.save();
+  }
+
   return group;
 };
 
