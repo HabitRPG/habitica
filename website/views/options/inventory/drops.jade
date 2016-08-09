@@ -116,7 +116,7 @@
 
             div(ng-repeat='item in category.items')
               button.customize-option(class='{{item.class}}',
-                popover='{{item.notes}}', popover-append-to-body='true',
+                popover='{{item.notes}} {{item.addlNotes}}', popover-append-to-body='true',
                 popover-title!='{{item.text}}',
                 popover-trigger='mouseenter', popover-placement='top',
                 ng-click='purchase(category.identifier, item)')
