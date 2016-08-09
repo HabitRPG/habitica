@@ -67,28 +67,21 @@ api.createGroup = {
       profile: {name: user.profile.name},
     };
 
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: true,
+      groupType: savedGroup.type,
+      privacy: savedGroup.privacy,
+      headers: req.headers,
+    };
+
     if (savedGroup.privacy === 'public') {
-      res.analytics.track('join group', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        owner: true,
-        groupType: savedGroup.type,
-        privacy: savedGroup.privacy,
-        groupName: savedGroup.name,
-        headers: req.headers,
-      });
-    } else {
-      res.analytics.track('join group', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        owner: true,
-        groupType: savedGroup.type,
-        privacy: savedGroup.privacy,
-        headers: req.headers,
-      });
+      analyticsObject.groupName = savedGroup.name;
     }
+
+    res.analytics.track('join group', analyticsObject);
 
     res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
@@ -298,28 +291,21 @@ api.joinGroup = {
       response.leader = leader.toJSON({minimize: true});
     }
 
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: false,
+      groupType: group.type,
+      privacy: group.privacy,
+      headers: req.headers,
+    };
+
     if (group.privacy === 'public') {
-      res.analytics.track('join group', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        owner: false,
-        groupType: group.type,
-        privacy: group.privacy,
-        groupName: group.name,
-        headers: req.headers,
-      });
-    } else {
-      res.analytics.track('join group', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        owner: false,
-        groupType: group.type,
-        privacy: group.privacy,
-        headers: req.headers,
-      });
+      analyticsObject.groupName = group.name;
     }
+
+    res.analytics.track('join group', analyticsObject);
 
     res.respond(200, response);
   },

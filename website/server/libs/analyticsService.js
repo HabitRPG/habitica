@@ -16,6 +16,12 @@ const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
 const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'headers'];
 
+const PLATFORM_MAP = Object.freeze({
+  'habitica-web': 'Web',
+  'habitica-ios': 'iOS',
+  'habitica-android': 'Android',
+});
+
 let amplitude = new Amplitude(AMPLIUDE_TOKEN);
 let ga = googleAnalytics(GA_TOKEN);
 
@@ -83,16 +89,11 @@ let _formatUserData = (user) => {
 };
 
 let _formatPlatformForAmplitude = (platform) => {
-  switch (platform) {
-    case 'habitica-web':
-      return 'Web';
-    case 'habitica-ios':
-      return 'iOS';
-    case 'habitica-android':
-      return 'Android';
-    default:
-      return '3rd Party';
+  if (platform in PLATFORM_MAP) {
+    return PLATFORM_MAP[platform];
   }
+
+  return '3rd Party';
 };
 
 let _formatUserAgentForAmplitude = (platform, agentString) => {
@@ -135,7 +136,6 @@ let _formatDataForAmplitude = (data) => {
   }
   return ampData;
 };
-
 
 let _sendDataToAmplitude = (eventType, data) => {
   let amplitudeData = _formatDataForAmplitude(data);
