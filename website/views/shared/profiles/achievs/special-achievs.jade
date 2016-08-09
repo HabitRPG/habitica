@@ -1,32 +1,14 @@
-+achievWithSingularPlural('profile.achievements.habitSurveys', 'achievement-tree',
-  'helped', 'surveysSingle', 'helped', 'surveysMultiple')
-
-+achiev('profile.backer.npc', 'achievement-helm')
-  h5(ng-if='::profile.backer.npc')
++achiev('profile.backer.npc', 'achievement-helm')(ng-if='::profile.backer.npc')
+  h5
     span.label.label-npc
       | {{::profile.backer.npc}}
       =env.t('npc')
-  h5(ng-if='::!profile.backer.npc')
-    =env.t('npc')
   small=env.t('npcText')
 
-+achiev('profile.contributor.level', 'achievement-boot')
-  h5
-    span.label.label-default(ng-if='::profile.contributor.level', class='label-contributor-{{::profile.contributor.level}}') {{::contribText(profile.contributor, profile.backer)}}
-    span.label.label-default(ng-if='::!profile.contributor.level')=env.t('contribName')
-  small
-    =env.t('contribText')
-    |&nbsp;
-    +aLink('http://habitica.wikia.com/wiki/Contributing_to_Habitica', env.t('readMore'))
-    | .
-
-+achiev('profile.backer.tier', 'achievement-heart')
-  h5(ng-if='::profile.backer.tier')
-    =env.t('kickstartName', {tier: "{{::profile.backer.tier}}"})
-  h5(ng-if='::!profile.backer.tier')
-    =env.t('kickstartNameNoTier')
++achiev('profile.backer.tier', 'achievement-heart')(ng-if='::profile.backer.tier')
+  h5=env.t('kickstartName', {tier: "{{::profile.backer.tier}}"})
   small=env.t('kickstartText')
 
-+simpleAchiev('profile.achievements.veteran', 'achievement-cake', env.t('veteran'), env.t('veteranText'))
++simpleAchiev('profile.achievements.veteran', 'achievement-cake', env.t('veteran'), env.t('veteranText'))(ng-if='::profile.achievements.veteran')
 
-+simpleAchiev('profile.achievements.originalUser', 'achievement-alpha', env.t('originalUser'), env.t('originalUserText'))
++simpleAchiev('profile.achievements.originalUser', 'achievement-alpha', env.t('originalUser'), env.t('originalUserText'))(ng-if='::profile.achievements.originalUser')

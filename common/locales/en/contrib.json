@@ -24,7 +24,6 @@
     "contribText": "Has contributed to Habitica (code, design, pixel art, legal advice, docs, etc). Want this badge? ",
     "readMore": "Read More",
     "kickstartName": "Kickstarter Backer - $<%= tier %> Tier",
-    "kickstartNameNoTier": "Kickstarter Backer",
     "kickstartText": "Backed the Kickstarter Project",
     "helped": "Helped Habit Grow",
     "helpedText1": "Helped Habitica grow by filling out",
