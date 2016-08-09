@@ -596,7 +596,21 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
     return m;
   }, []);
 
-  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
+  // Text for no found quest items
+  let questItems = Object.keys(this.quest.progress.collect);
+  for (let i = 0; i < questItems.length; i++) {
+    questItems[i] = quest.collect[questItems[i]].text('en');
+  }
+  let noFoundQuestItems = 'no ';
+  if (questItems.length < 3) {
+    noFoundQuestItems += questItems.join(' and no ');
+  } else {
+    noFoundQuestItems += questItems.slice(0, questItems.length).join(', no ');
+    noFoundQuestItems += ', and no ';
+    noFoundQuestItems += questItems[questItems.length];
+  }
+
+  foundText = foundText.length > 0 ? foundText.join(', ') : noFoundQuestItems;
   group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
   group.markModified('quest.progress.collect');
 
