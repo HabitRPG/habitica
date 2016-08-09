@@ -72,7 +72,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.canEdit = function(task) {
       // can't edit challenge tasks
-      return ! task.challenge.id;
+      return !task.challenge.id;
     }
 
     $scope.doubleClickTask = function (obj, task) {
