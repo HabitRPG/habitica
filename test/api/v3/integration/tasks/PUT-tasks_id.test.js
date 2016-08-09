@@ -3,6 +3,7 @@ import {
   generateGroup,
   sleep,
   generateChallenge,
+  server,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
@@ -142,6 +143,81 @@ describe('PUT /tasks/:id', () => {
       expect(savedChallengeUserTask.streak).to.equal(25);
       expect(savedChallengeUserTask.reminders.length).to.equal(2);
       expect(savedChallengeUserTask.checklist.length).to.equal(2);
+    });
+  });
+
+  context('sending task activity webhooks', () => {
+    before(async () => {
+      await server.start();
+    });
+
+    after(async () => {
+      await server.close();
+    });
+
+    it('sends task activity webhooks if task is user owned', async () => {
+      let uuid = generateUUID();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskActivity',
+        enabled: true,
+        options: {
+          created: false,
+          updated: true,
+        },
+      });
+
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      let updatedTask = await user.put(`/tasks/${task.id}`, {
+        text: 'updated text',
+      });
+
+      await sleep();
+
+      let body = server.getWebhookData(uuid);
+
+      expect(body.type).to.eql('updated');
+      expect(body.task).to.eql(updatedTask);
+    });
+
+    it('does not send task activity webhooks if task is not user owned', async () => {
+      let uuid = generateUUID();
+
+      await user.update({
+        balance: 10,
+      });
+      let guild = await generateGroup(user);
+      let challenge = await generateChallenge(user, guild);
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskActivity',
+        enabled: true,
+        options: {
+          created: false,
+          updated: true,
+        },
+      });
+
+      let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.put(`/tasks/${task.id}`, {
+        text: 'updated text',
+      });
+
+      await sleep();
+
+      let body = server.getWebhookData(uuid);
+
+      expect(body).to.not.exist;
     });
   });
 

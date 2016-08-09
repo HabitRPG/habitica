@@ -354,7 +354,14 @@ api.updateTask = {
 
     let savedTask = await task.save();
     res.respond(200, savedTask);
-    if (challenge) challenge.updateTask(savedTask);
+    if (challenge) {
+      challenge.updateTask(savedTask);
+    } else {
+      taskActivityWebhook.send(user.preferences.webhooks, {
+        type: 'updated',
+        task: savedTask,
+      });
+    }
 
     return null;
   },
@@ -951,7 +958,14 @@ api.deleteTask = {
     }
 
     res.respond(200, {});
-    if (challenge) challenge.removeTask(task);
+    if (challenge) {
+      challenge.removeTask(task);
+    } else {
+      taskActivityWebhook.send(user.preferences.webhooks, {
+        type: 'deleted',
+        task,
+      });
+    }
 
     return null;
   },

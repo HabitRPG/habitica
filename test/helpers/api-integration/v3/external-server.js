@@ -56,6 +56,9 @@ function close () {
 }
 
 function getWebhookData (id) {
+  if (!webhookData[id]) {
+    return null;
+  }
   return webhookData[id].pop();
 }
 
