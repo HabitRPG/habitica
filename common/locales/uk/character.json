@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Пам'ятайте - ваше ім'я, фото та опис профілю, не повинні порушувати <a href='https://habitica.com/static/community-guidelines' target='_blank'>правил спілльноти</a> (напр. лайок, образливих та \"дорослих\" тем, і т.д.). Якщо ви не певні щодо відповідності чого-небудь, не соромтеся, пишіть на електронку <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Герой і здобутки",
     "profile": "Профіль",
     "avatar": "Редагувати Аватар",
@@ -110,7 +110,7 @@
     "mage": "Чародій",
     "mystery": "Таємниця",
     "changeClass": "Змінити клас, перерозподілити пункти характеристик",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Досягніть 10-го рівня щоб змінити клас.",
     "levelPopover": "Кожен рівень надає Вам одне очко, яке можна призначити на характеристику на Ваш вибір. Ви можете це зробити самотужки, а можна дозволити грі вирішувати за Вас, обравши один з варіянтів автоматичного розподілу.",
     "unallocated": "Нерозподілені очки характеристик",
     "haveUnallocated": "Ви маєте <%= points %> нерозподілених очок характеристик",
@@ -167,6 +167,7 @@
     "showQuickAllocation": "Показати розподілення характеристик",
     "hideQuickAllocation": "Сховати розподілення характеристик",
     "quickAllocationLevelPopover": "Кожного рівню Ви отримуєте одне очко, яке можна призначити на характеристику на Ваш вибір. Ви можете зробити це самотужки, або ж дозволити грі зробити вибір за Вас, обравши один з варіантів автоматичного розподілу.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": "\"<%= attr %>\" це не правильний атрибут.",
+    "notEnoughAttrPoints": "Недостатньо балів атрибутів.",
+    "gearNotOwned": "Цей предмет не ваш."
 }

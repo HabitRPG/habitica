@@ -53,5 +53,5 @@
     "messageGroupChatAdminClearFlagCount": "Solo un amministratore può azzerare il conteggio flag!",
     "messageUserOperationProtected": "Il percorso `<%= operation %>` non è stato salvato, perchè è un percorso protetto.",
     "messageUserOperationNotFound": "Operazione <%= operation %> non trovata",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "Notifica non trovata."
 }

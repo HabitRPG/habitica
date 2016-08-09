@@ -53,5 +53,5 @@
     "messageGroupChatAdminClearFlagCount": "Kun en administrator kan rydde flagtælleren!",
     "messageUserOperationProtected": "stien `<%= operation %>` blev ikke gemt, da det er en beskyttet sti.",
     "messageUserOperationNotFound": "Funktionen <%= operation %> blev ikke fundet.",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "Notifikation ikke fundet."
 }

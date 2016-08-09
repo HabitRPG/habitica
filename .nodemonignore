@@ -5,6 +5,7 @@ node_modules/**
 website/client/**
 website/views/**
 website/build/**
+test/**
 .git/**
 Gruntfile.js
 CHANGELOG.md

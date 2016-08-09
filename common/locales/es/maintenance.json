@@ -9,7 +9,7 @@
   "veteranPetAward": "Cuando terminemos, ¡recibirás una mascota de veterano!",
 
   "maintenanceInfoTitle": "Información sobre próximas tareas de mantenimiento en Habitica",
-  "maintenanceInfoWhat": "¿Qué va a ocurrir?",
+  "maintenanceInfoWhat": "¿Qué está pasando?",
   "maintenanceInfoWhatText": "El 21 de mayo, Habitica estará fuera de servicio por mantenimiento la mayor parte del día. No sufrirás ningún daño ni nada perjudicará a tu cuenta durante ese fin de semana, aunque no puedas iniciar sesión para tachar tus tareas diarias a tiempo. Nosotros estaremos trabajando mucho para que esta interrupción dure lo menos posible e iremos publicando los avances en <a href='https://twitter.com/habitica' target='_blank'>nuestra cuenta de Twitter</a>. Cuando finalice este proceso, todos recibirán una mascota excepcional como gesto de agradecimiento por su paciencia.",
   "maintenanceInfoWhy": "¿Por qué ocurre esto?",
   "maintenanceInfoWhyText": "Hace varios meses que estamos realizando profundas mejoras en Habitica entre bambalinas. En concreto, hemos reescrito la API. Aunque tal vez por fuera no parezca muy distinto, por dentro es todo completamente nuevo. Esto nos permitirá tener MUCHÍSIMA más flexibilidad para añadir funciones de ahora en adelante, además de mejorar el rendimiento.",

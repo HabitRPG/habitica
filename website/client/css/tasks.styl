@@ -657,6 +657,15 @@ form
     padding-left: 0.2em
     text-align: left
     border:none
+
+    &.disabled
+      // bootstrap .btn.disabled styles
+      pointer-events: none
+      cursor: not-allowed
+      -webkit-box-shadow: none
+      box-shadow: none
+      opacity: .65
+
     span
       position: relative
       left: -2px

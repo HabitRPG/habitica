@@ -5,7 +5,7 @@
     "rebirthStartOver": "Återfödelse startar om din karaktär från nivå 1.",
     "rebirthAdvList1": "Du återvänder till full Hälsa.",
     "rebirthAdvList2": "Du har ingen erfarenhet, guld eller utrustning (utan gratis föremål t.ex mysterieföremål) ",
-    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
+    "rebirthAdvList3": "Dina Vanor, Dagliga Utmaningar och Att-göra återställs till gult. Likaså återställs dina följder, med undantag för uppgifter för utmaningar.",
     "rebirthAdvList4": "Du har startklassen Krigare tills du låser upp klass-systemet.",
     "rebirthInherit": "Din nya karaktär ärver vissa saker från dess föregångare:",
     "rebirthInList1": "Uppgifter, historik och inställningar är kvar.",
@@ -25,5 +25,5 @@
     "rebirthName": "Pånyttfödelsesfär",
     "reborn": "Pånyttfödd, max level <%= reLevel %>",
     "confirmReborn": "Är du säker?",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "Du har återfötts!"
 }

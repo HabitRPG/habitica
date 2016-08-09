@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import baseModel from '../libs/api-v3/baseModel';
+import baseModel from '../libs/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
 

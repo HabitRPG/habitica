@@ -353,6 +353,34 @@ let backgrounds = {
       notes: t('backgroundWaterfallRockNotes'),
     },
   },
+  backgrounds072016: {
+    aquarium: {
+      text: t('backgroundAquariumText'),
+      notes: t('backgroundAquariumNotes'),
+    },
+    dilatory_castle: {
+      text: t('backgroundDilatoryCastleText'),
+      notes: t('backgroundDilatoryCastleNotes'),
+    },
+    deep_sea: {
+      text: t('backgroundDeepSeaText'),
+      notes: t('backgroundDeepSeaNotes'),
+    },
+  },
+  backgrounds082016: {
+    idyllic_cabin: {
+      text: t('backgroundIdyllicCabinText'),
+      notes: t('backgroundIdyllicCabinNotes'),
+    },
+    mountain_pyramid: {
+      text: t('backgroundMountainPyramidText'),
+      notes: t('backgroundMountainPyramidNotes'),
+    },
+    stormy_ship: {
+      text: t('backgroundStormyShipText'),
+      notes: t('backgroundStormyShipNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 

@@ -1,6 +1,6 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import { sendTaskWebhook } from '../../libs/api-v3/webhook';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+import { authWithHeaders } from '../../middlewares/auth';
+import { sendTaskWebhook } from '../../libs/webhook';
+import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
@@ -8,13 +8,29 @@ import {
   NotFound,
   NotAuthorized,
   BadRequest,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import common from '../../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import logger from '../../libs/api-v3/logger';
+import logger from '../../libs/logger';
 
 let api = {};
+
+async function _validateTaskAlias (tasks, res) {
+  let tasksWithAliases = tasks.filter(task => task.alias);
+  let aliases = tasksWithAliases.map(task => task.alias);
+
+  // Compares the short names in tasks against
+  // a Set, where values cannot repeat. If the
+  // lengths are different, some name was duplicated
+  if (aliases.length !== [...new Set(aliases)].length) {
+    throw new BadRequest(res.t('taskAliasAlreadyUsed'));
+  }
+
+  await Bluebird.map(tasksWithAliases, (task) => {
+    return task.validate();
+  });
+}
 
 // challenge must be passed only when a challenge task is being created
 async function _createTasks (req, res, user, challenge) {
@@ -42,7 +58,12 @@ async function _createTasks (req, res, user, challenge) {
     (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
-  }).map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
+  });
+
+  // tasks with aliases need to be validated asyncronously
+  await _validateTaskAlias(toSave, res);
+
+  toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
     validateBeforeSave: false,
   }));
 
@@ -122,12 +143,17 @@ async function _getTasks (req, res, user, challenge) {
     if (type === 'todos') {
       query.completed = false; // Exclude completed todos
       query.type = 'todo';
-    } else if (type === 'completedTodos') {
+    } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
+      let limit = 30;
+
+      if (type === '_allCompletedTodos') {
+        limit = 0; // no limit
+      }
       query = Tasks.Task.find({
         userId: user._id,
         type: 'todo',
         completed: true,
-      }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
+      }).limit(limit).sort({
         dateCompleted: -1,
       });
     } else {
@@ -143,7 +169,7 @@ async function _getTasks (req, res, user, challenge) {
   let tasks = await Tasks.Task.find(query).exec();
 
   // Order tasks based on tasksOrder
-  if (type && type !== 'completedTodos') {
+  if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
     let order = (challenge || user).tasksOrder[type];
     let orderedTasks = new Array(tasks.length);
     let unorderedTasks = []; // what we want to add later
@@ -172,7 +198,7 @@ async function _getTasks (req, res, user, challenge) {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately.
+ * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
  *
  * @apiSuccess {Array} data An array of tasks
  */
@@ -182,7 +208,7 @@ api.getUserTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
-    types.push('completedTodos');
+    types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
@@ -228,14 +254,14 @@ api.getChallengeTasks = {
 };
 
 /**
- * @api {get} /api/v3/task/:taskId Get a task
+ * @api {get} /api/v3/tasks/:taskId Get a task
  * @apiVersion 3.0.0
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The task object
+ * @apiSuccess {Object} data The task object
  */
 api.getTask = {
   method: 'GET',
@@ -243,15 +269,8 @@ api.getTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -274,9 +293,9 @@ api.getTask = {
  * @apiName UpdateTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.updateTask = {
   method: 'PUT',
@@ -286,14 +305,13 @@ api.updateTask = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -307,7 +325,6 @@ api.updateTask = {
 
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
-
 
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
@@ -362,31 +379,28 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
- * @apiParam {string="up","down"} direction The direction for scoring the task
+ * @apiParam {String} taskId The task _id or alias
+ * @apiParam {String="up","down"} direction The direction for scoring the task
  *
- * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
- * @apiSuccess {number} data.delta
- * @apiSuccess {object} data The user stats
+ * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
+ * @apiSuccess {Number} data.delta The delta
+ * @apiSuccess {Object} data The user stats
  */
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
-    let direction = req.params.direction;
+    let {taskId} = req.params;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
+    let direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -448,29 +462,27 @@ api.scoreTask = {
  * @apiName MoveTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
- * @apiSuccess {array} data The new tasks order (user.tasksOrder.{task.type}s)
+ * @apiSuccess {Array} data The new tasks order (user.tasksOrder.{task.type}s)
  */
 api.moveTask = {
   method: 'POST',
   url: '/tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
+    let taskId = req.params.taskId;
     let to = Number(req.params.position);
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
@@ -503,9 +515,9 @@ api.moveTask = {
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.addChecklistItem = {
   method: 'POST',
@@ -515,14 +527,13 @@ api.addChecklistItem = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -552,10 +563,10 @@ api.addChecklistItem = {
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.scoreCheckListItem = {
   method: 'POST',
@@ -564,16 +575,14 @@ api.scoreCheckListItem = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -594,10 +603,10 @@ api.scoreCheckListItem = {
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.updateChecklistItem = {
   method: 'PUT',
@@ -607,15 +616,14 @@ api.updateChecklistItem = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -647,10 +655,10 @@ api.updateChecklistItem = {
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.removeChecklistItem = {
   method: 'DELETE',
@@ -660,15 +668,14 @@ api.removeChecklistItem = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -698,10 +705,10 @@ api.removeChecklistItem = {
  * @apiName AddTagToTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.addTagToTask = {
   method: 'POST',
@@ -710,17 +717,15 @@ api.addTagToTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     let userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     let tagId = req.params.tagId;
@@ -741,10 +746,10 @@ api.addTagToTask = {
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.removeTagFromTask = {
   method: 'DELETE',
@@ -753,16 +758,14 @@ api.removeTagFromTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let task = await Tasks.Task.findOne({
-      _id: req.params.taskId,
-      userId: user._id,
-    }).exec();
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -781,9 +784,9 @@ api.removeTagFromTask = {
  * @apiGroup Task
  *
  * @apiParam {UUID} challengeId The challenge _id
- * @apiParam {string} keep Query parameter - keep-all or remove-all
+ * @apiParam {String} keep Query parameter - keep-all or remove-all
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.unlinkAllTasks = {
   method: 'POST',
@@ -842,10 +845,10 @@ api.unlinkAllTasks = {
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
- * @apiParam {string} keep Query parameter - keep or remove
+ * @apiParam {String} taskId The task _id or alias
+ * @apiParam {String} keep Query parameter - keep or remove
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.unlinkOneTask = {
   method: 'POST',
@@ -862,10 +865,7 @@ api.unlinkOneTask = {
     let keep = req.query.keep;
     let taskId = req.params.taskId;
 
-    let task = await Tasks.Task.findOne({
-      _id: taskId,
-      userId: user._id,
-    }).exec();
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
@@ -893,7 +893,7 @@ api.unlinkOneTask = {
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.clearCompletedTodos = {
   method: 'POST',
@@ -924,9 +924,9 @@ api.clearCompletedTodos = {
  * @apiName DeleteTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The task _id
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.deleteTask = {
   method: 'DELETE',
@@ -936,13 +936,8 @@ api.deleteTask = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findById(taskId).exec();
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));

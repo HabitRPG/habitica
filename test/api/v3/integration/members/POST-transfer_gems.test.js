@@ -129,6 +129,7 @@ describe('POST /members/transfer-gems', () => {
       senderName: userToSendMessage.profile.name,
     });
     messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
+    messageSentContent =  `\`${messageSentContent}\` `;
     messageSentContent += message;
 
     expect(sendersMessageInReceiversInbox).to.exist;
@@ -162,6 +163,7 @@ describe('POST /members/transfer-gems', () => {
       senderName: userToSendMessage.profile.name,
     });
     messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
+    messageSentContent =  `\`${messageSentContent}\` `;
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
