@@ -22,11 +22,7 @@ describe('shops', () => {
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          if (item.addlNotes) {
-            expect(item).to.have.all.keys(['key', 'text', 'notes', 'addlNotes', 'value', 'currency', 'locked', 'purchaseType', 'class']);
-          } else {
-            expect(item).to.have.all.keys(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class']);
-          }
+          expect(item).to.have.all.keys(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class']);
         });
       });
     });

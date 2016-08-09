@@ -70,8 +70,7 @@ shops.getMarketCategories = function getMarket (user, language) {
       return {
         key: premiumHatchingPotion.key,
         text: premiumHatchingPotion.text(language),
-        notes: premiumHatchingPotion.notes(language),
-        addlNotes: premiumHatchingPotion.addlNotes(language),
+        notes: `${premiumHatchingPotion.notes(language)} ${premiumHatchingPotion._addlNotes(language)}`,
         class: `Pet_HatchingPotion_${premiumHatchingPotion.key}`,
         value: premiumHatchingPotion.value,
         locked: false,
