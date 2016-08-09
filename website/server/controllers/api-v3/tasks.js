@@ -12,7 +12,7 @@ import {
 import {
   createTasks,
   getTasks,
-} from '../../libs/api-v3/taskManager';
+} from '../../libs/taskManager';
 import common from '../../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';

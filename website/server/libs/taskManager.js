@@ -1,7 +1,7 @@
-import * as Tasks from '../../models/task';
+import * as Tasks from '../models/task';
 import {
   BadRequest,
-} from '../api-v3/errors';
+} from './errors';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 
