@@ -288,7 +288,7 @@ api.getTask = {
 };
 
 /**
- * @api {put} /api/v3/task/:taskId Update a task
+ * @api {put} /api/v3/tasks/:taskId Update a task
  * @apiVersion 3.0.0
  * @apiName UpdateTask
  * @apiGroup Task
