@@ -158,4 +158,57 @@ describe('Challenge Model', () => {
       });
     });
   });
+
+  context('type specific updates', () => {
+    it('updates habit specific field to challenge and challenge members', async () => {
+      task = new Tasks.habit(Tasks.Task.sanitize(tasksToTest.habit)); // eslint-disable-line babel/new-cap
+      task.challenge.id = challenge._id;
+      await task.save();
+
+      await challenge.addTasks([task]);
+
+      task.up = true;
+      task.down = false;
+
+      await challenge.updateTask(task);
+
+      let updatedLeader = await User.findOne({_id: leader._id});
+      let updatedUserTask = await Tasks.Task.findById(updatedLeader.tasksOrder.habits[0]);
+
+      expect(updatedUserTask.up).to.equal(true);
+      expect(updatedUserTask.down).to.equal(false);
+    });
+
+    it('updates todo specific field to challenge and challenge members', async () => {
+      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line babel/new-cap
+      task.challenge.id = challenge._id;
+      await task.save();
+
+      await challenge.addTasks([task]);
+
+      task.date = new Date();
+      await challenge.updateTask(task);
+
+      let updatedLeader = await User.findOne({_id: leader._id});
+      let updatedUserTask = await Tasks.Task.findById(updatedLeader.tasksOrder.todos[0]);
+
+      expect(updatedUserTask.date).to.exist;
+    });
+
+    it('updates daily specific field to challenge and challenge members', async () => {
+      task = new Tasks.daily(Tasks.Task.sanitize(tasksToTest.daily)); // eslint-disable-line babel/new-cap
+      task.challenge.id = challenge._id;
+      await task.save();
+
+      await challenge.addTasks([task]);
+
+      task.everyX = 2;
+      await challenge.updateTask(task);
+
+      let updatedLeader = await User.findOne({_id: leader._id});
+      let updatedUserTask = await Tasks.Task.findById(updatedLeader.tasksOrder.dailys[0]);
+
+      expect(updatedUserTask.everyX).to.eql(2);
+    });
+  });
 });

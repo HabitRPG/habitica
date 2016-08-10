@@ -209,8 +209,9 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
     updateCmd.$set[key] = syncableAttrs[key];
   }
 
+  let taskSchema = Tasks[task.type];
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await Tasks.Task.update({
+  await taskSchema.update({
     userId: {$exists: true},
     'challenge.id': challenge.id,
     'challenge.taskId': task._id,
