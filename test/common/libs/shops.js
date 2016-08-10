@@ -14,7 +14,7 @@ describe('shops', () => {
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)))
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
@@ -44,7 +44,7 @@ describe('shops', () => {
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)))
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
@@ -68,7 +68,7 @@ describe('shops', () => {
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)))
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
@@ -92,7 +92,7 @@ describe('shops', () => {
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)))
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
