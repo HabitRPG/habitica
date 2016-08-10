@@ -3,7 +3,7 @@
   "importantMaintenance": "We doen belangrijk onderhoud dat waarschijnlijk tot <%= localDate %> in jouw tijdzone zal duren.",
   "maintenance": "Onderhoud",
   "maintenanceMoreInfo": "Wil je meer informatie over het onderhoud? <%= linkStart %>Bekijk onze infopagina<%= linkEnd %>.",
-  "noDamageKeepStreaks": "Je zal GEEN schade ontvangen of series verliezen!",
+  "noDamageKeepStreaks": "Je zult GEEN schade ontvangen of series verliezen!",
   "thanksForPatience": "Bedankt voor je geduld!",
   "twitterMaintenanceUpdates": "Voor de meest recente updates, bekijk onze <a href='https://twitter.com/habitica'>Twitter</a>, waar we alle status informatie plaatsen",
   "veteranPetAward": "Aan het einde zul je een Veteraan dier ontvangen!",

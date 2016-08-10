@@ -329,11 +329,11 @@
     "questAxolotlUnlockText": "Sblocca l'acquisto delle uova di Axolotl nel Mercato",
     "questAxolotlRageTitle": "Rigenerazione Axolotl ",
     "questAxolotlRageDescription": "Questa barra si riempie quando non completate le vostre Dailiy. Quando è piena, il magico Axolotl guarirà il 30% della sua salute rimanente!",
-    "questAxolotlRageEffect": "`Magical Axolotl uses AXOLOTL REGENERATION!`\n\n`A curtain of colorful bubbles obscures the monster for a moment, and when it clears, some of its wounds have vanished!`",
-    "questTurtleText": "Guide the Turtle",
-    "questTurtleNotes": "Help! This giant sea turtle cannot find her way to her nesting beach. She returns there every year to lay her eggs, but this year Inkomplete Bay is filled with toxic Task Flotsam made of red dailies and unchecked to-dos. \"She's thrashing in a panic!\" @JessicaChase says.<br><br>@UncommonCriminal nods. \"It's because her guiding senses are fogged and confused.\"<br><br>@Scarabsi grabs your arm. \"Can you help clear the Task Flotsam blocking her path? It may be hazardous, but we have to help her!\"",
-    "questTurtleCompletion": "Your valiant work has cleared the waters for our sea turtle to find her beach. You, @Bambin, and @JaizakAripaik watch as she buries her brood of eggs deep in the sand so they can grow and hatch into hundreds of little sea turtles. Ever the lady, she gives you three eggs each, asking that you feed and nurture them so one day they become big sea turtles themselves.",
-    "questTurtleBoss": "Task Flotsam",
-    "questTurtleDropTurtleEgg": "Turtle (Egg)",
-    "questTurtleUnlockText": "Unlocks purchasable Turtle eggs in the Market"
+    "questAxolotlRageEffect": "`ll Magico Axolotl utilizza  RIGENERAZIONE AXOLOTL!`\n\n\n`Una cortina di bolle colorate nasconde il mostro per un attimo, e quando svanisce, alcune delle sue ferite sono scomparse!",
+    "questTurtleText": "Guida la tartaruga",
+    "questTurtleNotes": "Aiuto! Questa gigantesca tartaruga marina non riesce a trovare la sua strada per la sua spiaggia di nidificazione. Vi torna ogni anno per deporre le uova, ma quest'anno Inkomplete Bay è piena di Task Flotsam tossiche fatte di daylies rosse e cose da fare  incontrollate. \"si dibatte in preda al panico!\" Dice @JessicaChase . <br><br> E @UncommonCriminal concorda. \"E' perché i suoi sensi guida sono appannati e confusi.\" <br><br> @Scarabsi viv afferra il braccio. \"Potete aiutare a eliminare la Task Flotsam bloccando il suo cammino? Può essere pericoloso, ma dobbiamo aiutarla!\"",
+    "questTurtleCompletion": "Il vostro valente lavoro ha sgombrato le acque per aiutare la nostra tartaruga di mare a trovare la sua spiaggia. Voi, @Bambin, e @JaizakAripaik la guardate mentre seppellisce la sua covata di uova profondamente nella sabbia in modo che possano crescere e si schiudano in centinaia di piccole tartarughe marine. La signora, vi dà tre uova ciascuna, chiedendovi di alimentarli e curarli così che un giorno diventino esse stesse grandi tartarughe marine.",
+    "questTurtleBoss": "Melma compitosa",
+    "questTurtleDropTurtleEgg": "Tartaruga (uovo)",
+    "questTurtleUnlockText": "Sblocca l'acquisto delle uova di tartaruga nel Mercato"
 }

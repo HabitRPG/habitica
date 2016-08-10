@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Navio vidente (Mago)",
     "strappingSailorSet": "Forte Marinheiro (Curandeiro)",
     "reefRenegadeSet": "Recife Abandonado (Ladino)",
-    "fallEventAvailability": "Disponível até 31 de Outubro.",
-    "winterEventAvailability": "Disponível até 31 de Dezembro",
-    "springEventAvailability": "Disponível até 31 de Maio"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

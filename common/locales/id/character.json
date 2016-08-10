@@ -36,8 +36,8 @@
     "mustache": "Kumis",
     "flower": "Bunga",
     "wheelchair": "Kursi Roda",
-    "basicSkins": "Kulit Dasar",
-    "rainbowSkins": "Kulit Pelangi",
+    "basicSkins": "Warna Dasar",
+    "rainbowSkins": "Warna Pelangi",
     "pastelSkins": "Kulit Pucat",
     "spookySkins": "Kulit Seram",
     "supernaturalSkins": "Kulit Supernatural",
@@ -52,7 +52,7 @@
     "classBonus": "Bonus Perlengkapan Pekerjaan",
     "classBonusText": "Pekerjaanmu (prajurit, jika kamu belum membuka atau memilih pekerjaan lain) menggunakan perlengkapan khusus masing-masing pekerjaan. Perlengkapan yang digunakan dari pekerjaanmu sekarang mendapatkan tambahan atribut sebesar 50%.",
     "classEquipBonus": "Bonus Pekerjaan",
-    "battleGear": "Perlengkapan perang",
+    "battleGear": "Perlengkapan Perang",
     "battleGearText": "Ini adalah perlengkapan yang anda kenakan di dalam pertarungan; ia mempengaruhi nilai ketika berinteraksi dengan tugas anda.",
     "autoEquipBattleGear": "Menggunakan perlengkapan baru secara otomatis",
     "costume": "Kostum",
@@ -76,7 +76,7 @@
     "mp": "MP",
     "xp": "XP",
     "health": "Kesehatan",
-    "allocateStr": "Poin yang diberikan untuk Tenaga:",
+    "allocateStr": "Poin yang diberikan untuk Kekuatan:",
     "allocateStrPop": "Tambahkan satu poin ke Tenaga",
     "allocateCon": "Poin yang diberikan untuk Ketahanan:",
     "allocateConPop": "Tambahkan satu poin ke Ketahanan",
@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "Setiap level akan memberikanmu satu poin untuk ditambahkan ke atribut pilihanmu. Kamu dapat melakukannya secara manual, atau membiarkan permainan melakukannya untukmu dengan menggunakan salah satu pilihan Alokasi Otomatis yang dapat ditemukan di Pengguna -> Status.",
     "invalidAttribute": "\"<%= attr %>\" bukan merupakan atribut yang valid.",
     "notEnoughAttrPoints": "Kamu tidak memiliki cukup poin atribut.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Kamu tidak memiliki item ini."
 }

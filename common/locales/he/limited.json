@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "מגיד עתידות בספינה (מכשף)",
     "strappingSailorSet": "ימאי חסון (מרפא)",
     "reefRenegadeSet": "עריק שונית (נוכל)",
-    "fallEventAvailability": "זמין עד ה 31 באוקטובר",
-    "winterEventAvailability": "זמין עד ה 31 בדצמבר",
-    "springEventAvailability": "זמין עד ה 31 במאי"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

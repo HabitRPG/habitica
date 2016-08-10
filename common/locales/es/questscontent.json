@@ -329,11 +329,11 @@
     "questAxolotlUnlockText": "Desbloquear la compra de huevos de Ajolote en el Mercado",
     "questAxolotlRageTitle": "Regeneración de Ajolote",
     "questAxolotlRageDescription": "Esta barra se llena cuando no completas tus Diarias ¡Cuando esté llena, el Ajolote Mágico recuperará 30% de su salud restante!",
-    "questAxolotlRageEffect": "`Magical Axolotl uses AXOLOTL REGENERATION!`\n\n`A curtain of colorful bubbles obscures the monster for a moment, and when it clears, some of its wounds have vanished!`",
-    "questTurtleText": "Guide the Turtle",
-    "questTurtleNotes": "Help! This giant sea turtle cannot find her way to her nesting beach. She returns there every year to lay her eggs, but this year Inkomplete Bay is filled with toxic Task Flotsam made of red dailies and unchecked to-dos. \"She's thrashing in a panic!\" @JessicaChase says.<br><br>@UncommonCriminal nods. \"It's because her guiding senses are fogged and confused.\"<br><br>@Scarabsi grabs your arm. \"Can you help clear the Task Flotsam blocking her path? It may be hazardous, but we have to help her!\"",
-    "questTurtleCompletion": "Your valiant work has cleared the waters for our sea turtle to find her beach. You, @Bambin, and @JaizakAripaik watch as she buries her brood of eggs deep in the sand so they can grow and hatch into hundreds of little sea turtles. Ever the lady, she gives you three eggs each, asking that you feed and nurture them so one day they become big sea turtles themselves.",
-    "questTurtleBoss": "Task Flotsam",
-    "questTurtleDropTurtleEgg": "Turtle (Egg)",
-    "questTurtleUnlockText": "Unlocks purchasable Turtle eggs in the Market"
+    "questAxolotlRageEffect": "¡El Ajolote Mágico usa REGENERACIÓN AJOLOTE!\n\n¡Una cortina de coloridas burbujas oscurece al monstruo por un momento, y cuando se desvanecen, algunas de sus heridas han desaparecido!",
+    "questTurtleText": "Guía a la tortuga",
+    "questTurtleNotes": "¡Socorro! Esta tortuga marina gigante no sabe cómo llegar a su playa de anidación. Regresa a ella todos los años para poner sus huevos, pero este año, la Bahía Vagancia está repleta de desechos, como tareas diarias rojas y tareas pendientes sin completar. \"¡Ha entrado en pánico y no deja de dar bandazos!\" —dice @JessicaChase.<br><br>@UncommonCriminal asiente: \"Lo hace porque ha perdido el sentido de la orientación\".<br><br>@Scarabsi te agarra del brazo: \"¿Puedes ayudar a despejar los restos de tareas que bloquean su camino? Puede que sea peligroso, pero ¡tenemos que ayudarla!\".",
+    "questTurtleCompletion": "Con tu valentía y tu esfuerzo, has despejado las aguas para que la tortuga marina pueda encontrar la playa. @Bambin, @JaizakAripaik y tú la observáis mientras entierra los huevos bajo la arena, para que crezcan y nazcan cientos de pequeñas tortugas marinas. Y como no podía ser de otra manera, os da tres huevos a cada uno y os pide que los alimentéis y los criéis para que, algún día, lleguen a ser grandes tortugas marinas.",
+    "questTurtleBoss": "Restos de tareas",
+    "questTurtleDropTurtleEgg": "Tortuga (huevo)",
+    "questTurtleUnlockText": "Desbloquea la compra de huevos de tortuga en el Mercado"
 }

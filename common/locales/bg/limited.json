@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Корабен гадател (магьосник)",
     "strappingSailorSet": "Намотаващ моряк (лечител)",
     "reefRenegadeSet": "Рифов ренегат (мошеник)",
-    "fallEventAvailability": "Налично до 31-ви октомври",
-    "winterEventAvailability": "Налично до 31-ви декември",
-    "springEventAvailability": "Налично до 31-ви май"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }
