@@ -60,10 +60,11 @@ module.exports = function purchase (user, req = {}, analytics) {
     ];
   }
 
-  let acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear'];
+  let acceptedTypes = ['eggs', 'hatchingPotions', 'premiumHatchingPotions', 'food', 'quests', 'gear'];
   if (acceptedTypes.indexOf(type) === -1) {
     throw new NotFound(i18n.t('notAccteptedType', req.language));
   }
+  if (type === 'premiumHatchingPotions') type = 'hatchingPotions';
 
   if (type === 'gear') {
     item = content.gear.flat[key];

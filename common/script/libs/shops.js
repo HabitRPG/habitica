@@ -59,7 +59,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   categories.push(hatchingPotionsCategory);
 
   let premiumHatchingPotionsCategory = {
-    identifier: 'magicHatchingPotions',
+    identifier: 'premiumHatchingPotions',
     text: i18n.t('magicHatchingPotions', language),
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };

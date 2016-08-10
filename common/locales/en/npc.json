@@ -35,7 +35,7 @@
     "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>.",
     "typeRequired": "Type is required",
     "keyRequired": "Key is required",
-    "notAccteptedType": "Type must be in [eggs, hatchingPotions, food, quests, gear]",
+    "notAccteptedType": "Type must be in [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Key not found for Content <%= type %>",
     "plusOneGem": "+1 Gem",
     "typeNotSellable": "Type is not sellable. Must be one of the following <%= acceptedTypes %>",
