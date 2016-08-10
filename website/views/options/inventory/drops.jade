@@ -119,7 +119,7 @@
                 popover='{{item.notes}}', popover-append-to-body='true',
                 popover-title!='{{item.text}}',
                 popover-trigger='mouseenter', popover-placement='top',
-                ng-click='purchase(category.identifier, item)')
+                ng-click='purchase(item.purchaseType, item)')
               p {{item.value}}&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems(ng-if='item.currency === "gems"')
                 span(class='shop_gold', ng-if='item.currency === "gold"')
