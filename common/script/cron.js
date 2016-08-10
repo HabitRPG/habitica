@@ -5,6 +5,7 @@
   ------------------------------------------------------
  */
 import _ from 'lodash';
+import reverse from 'lodash.reverse';
 import moment from 'moment';
 
 export const DAY_MAPPING = {
@@ -88,17 +89,17 @@ export function daysSince (yesterday, options = {}) {
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
  */
 
-function _lastCompletedCheck (dailyHistory) {
-  _.reverse(dailyHistory); // Work in reverse chronological order
+function _missedLastDueCheck (dailyHistory) {
+  reverse(dailyHistory); // Work in reverse chronological order
   let nextIndex = 1;
   for (let entry of dailyHistory) {
     if (!dailyHistory[nextIndex]) {
-      return false; // History is empty or value static throughout; Daily was never completed or failed
+      return true; // History is empty or value static throughout; Daily was never completed or failed
     }
     if (entry.value < dailyHistory[nextIndex].value) {
-      return false; // We've found a value lower than the next older one in dailyHistory; Daily was failed
+      return true; // We've found a value lower than the next older one in dailyHistory; Daily was failed
     } else if (entry.value > dailyHistory[nextIndex].value) {
-      return true; // We've found a value higher than the next older one in dailyHistory; Daily was completed
+      return false; // We've found a value higher than the next older one in dailyHistory; Daily was completed
     } else nextIndex++; // Values are equal; Daily was skipped that day. Keep looking
   }
 }
@@ -132,7 +133,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     if (intervalsSinceTaskStart % dailyTask.everyX === 0) {
       return true;
     } else if (activeUntilCompleted) {
-      return _lastCompletedCheck(dailyTask.history);
+      return _missedLastDueCheck(dailyTask.history);
     } else {
       return false;
     }
