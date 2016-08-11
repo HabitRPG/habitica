@@ -350,7 +350,7 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found no Bars of Soap.`');
+          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 0 Bars of Soap.`');
         });
 
         it('sends a chat message if no progress is made on quest with multiple items', async () => {
@@ -366,7 +366,7 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found no Blue Fins and no Fire Coral.`');
+          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 0 Blue Fins, 0 Fire Coral.`');
         });
 
         it('handles collection quests with multiple items', async () => {
