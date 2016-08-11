@@ -135,6 +135,7 @@ api.inviteToQuest = {
       gaLabel: 'accept',
       questName: questKey,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };
@@ -191,6 +192,7 @@ api.acceptQuest = {
       gaLabel: 'accept',
       questName: group.quest.key,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };
@@ -247,6 +249,7 @@ api.rejectQuest = {
       gaLabel: 'reject',
       questName: group.quest.key,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };
@@ -300,6 +303,7 @@ api.forceStart = {
       gaLabel: 'force-start',
       questName: group.quest.key,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };

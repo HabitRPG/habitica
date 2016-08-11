@@ -53,7 +53,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
-            Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
             Analytics.updateUser({'party.id': $scope.group ._id, 'partySize': 1});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
@@ -64,7 +63,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           .then(function (response) {
             $rootScope.party = $scope.group = response.data.data;
             User.sync();
-            Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
             Analytics.updateUser({'partyID': party.id});
             $rootScope.hardRedirect('/#/options/groups/party');
           });

@@ -208,6 +208,7 @@ api.subscribeSuccess = {
       customerId: result.id,
       paymentMethod: 'Paypal',
       sub: block,
+      headers: req.headers,
     });
 
     res.redirect('/');

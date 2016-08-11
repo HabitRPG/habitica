@@ -27,6 +27,9 @@ describe('analyticsService', () => {
         uuid: 'unique-user-id',
         resting: true,
         cronCount: 5,
+        headers: {'x-client': 'habitica-web',
+        'user-agent': '',
+        },
       };
     });
 
@@ -50,14 +53,91 @@ describe('analyticsService', () => {
           });
       });
 
-      it('sets platform as server', () => {
-        amplitudeNock
-          .filteringPath(/httpapi.*platform.*server.*/g, '');
+      context('sets platform as', () => {
+        it('Web', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*Web.*/g, '');
 
-        return analyticsService.track(eventType, data)
-          .then(() => {
-            amplitudeNock.done();
-          });
+          data.headers = {'x-client': 'habitica-web'};
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('iOS', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*iOS.*/g, '');
+
+          data.headers = {'x-client': 'habitica-ios'};
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('Android', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*Android.*/g, '');
+
+          data.headers = {'x-client': 'habitica-android'};
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('3rd Party', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*3rd\%20Party.*/g, '');
+
+          data.headers = {};
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+      });
+
+      context('sets os for', () => {
+        it('Default', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*os.*name.*Other.*/g, '');
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('iOS', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*os.*name.*iOS.*/g, '');
+
+          data.headers = {'x-client': 'habitica-ios',
+            'user-agent': 'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)'};
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('Android', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*os.*name.*Android.*/g, '');
+
+          data.headers = {'x-client': 'habitica-android'};
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
       });
 
       it('sends details about event', () => {
@@ -205,6 +285,9 @@ describe('analyticsService', () => {
         purchaseType: 'checkout',
         gift: false,
         quantity: 1,
+        headers: {'x-client': 'habitica-web',
+          'user-agent': '',
+        },
       };
     });
 
@@ -228,14 +311,92 @@ describe('analyticsService', () => {
           });
       });
 
-      it('sets platform as server', () => {
-        amplitudeNock
-          .filteringPath(/httpapi.*platform.*server.*/g, '');
+      context('sets platform as', () => {
+        it('Web', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*Web.*/g, '');
 
-        return analyticsService.trackPurchase(data)
-          .then(() => {
-            amplitudeNock.done();
-          });
+          data.headers = {'x-client': 'habitica-web'};
+
+          return analyticsService.trackPurchase(data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('iOS', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*iOS.*/g, '');
+
+          data.headers = {'x-client': 'habitica-ios'};
+
+          return analyticsService.trackPurchase(data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('Android', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*Android.*/g, '');
+
+          data.headers = {'x-client': 'habitica-android'};
+
+          return analyticsService.trackPurchase(data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('3rd Party', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*3rd\%20Party.*/g, '');
+
+          data.headers = {};
+
+          return analyticsService.trackPurchase(data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+      });
+
+      context('sets os for', () => {
+        it('Default', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*os.*name.*Other.*/g, '');
+
+          return analyticsService.trackPurchase(data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('iOS', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*os.*name.*iOS.*/g, '');
+
+          data.headers = {'x-client': 'habitica-ios',
+            'user-agent': 'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)'};
+
+          return analyticsService.trackPurchase(data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('Android', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*os.*name.*Android.*/g, '');
+
+          data.headers = {'x-client': 'habitica-android',
+            'user-agent': ''};
+
+          return analyticsService.trackPurchase(data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
       });
 
       it('sends details about purchase', () => {

@@ -84,6 +84,7 @@ api.checkout = {
         customerId: response.id,
         paymentMethod: 'Stripe',
         sub,
+        headers: req.headers,
       });
     } else {
       let method = 'buyGems';

@@ -23,6 +23,10 @@ describe('payments/index', () => {
       },
       customerId: 'customer-id',
       paymentMethod: 'Payment Method',
+      headers: {
+        'x-client': 'habitica-web',
+        'user-agent': '',
+      },
     };
 
     plan = {
@@ -160,6 +164,10 @@ describe('payments/index', () => {
           quantity: 1,
           gift: true,
           purchaseValue: 15,
+          headers: {
+            'x-client': 'habitica-web',
+            'user-agent': '',
+          },
         });
       });
     });
@@ -227,6 +235,10 @@ describe('payments/index', () => {
           quantity: 1,
           gift: false,
           purchaseValue: 15,
+          headers: {
+            'x-client': 'habitica-web',
+            'user-agent': '',
+          },
         });
       });
     });
@@ -429,6 +441,10 @@ describe('payments/index', () => {
       data = {
         user,
         paymentMethod: 'payment',
+        headers: {
+          'x-client': 'habitica-web',
+          'user-agent': '',
+        },
       };
     });
 

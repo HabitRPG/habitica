@@ -26,6 +26,7 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
       acquireMethod: 'Gems',
       gemCost: 4,
       category: 'behavior',
+      headers: req.headers,
     });
   }
 
