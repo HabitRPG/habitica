@@ -139,7 +139,7 @@
     "hatchingPotionSpooky": "unheimlicher",
     "hatchingPotionPeppermint": "Pfefferminz",
     "hatchingPotionFloral": "Geblümt",
-    "hatchingPotionThunderstorm": "Thunderstorm",
+    "hatchingPotionThunderstorm": "Gewitter",
     "hatchingPotionNotes": "Gieße ihn über ein Ei und es wird ein <%= potText(locale) %> Haustier daraus schlüpfen.",
     "premiumPotionAddlNotes": "Nicht auf Eier von Quest-Haustieren anwendbar.",
     "foodMeat": "Fleisch",

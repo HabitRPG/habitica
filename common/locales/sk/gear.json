@@ -75,7 +75,7 @@
     "weaponSpecialCriticalText": "Kritické kladivo Bugobijec",
     "weaponSpecialCriticalNotes": "Tam kde mnoho bojovníkov padlo, tento šampión skolil problematického zloducha z Githubu. Vyrobené z kostí Bugov, toto kladivo udeľuje mocné kritické zásahy. Zvyšuje silu aj postreh o <%= attrs %>.",
     "weaponSpecialTakeThisText": "Take This Sword",
-    "weaponSpecialTakeThisNotes": "This sword was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
+    "weaponSpecialTakeThisNotes": "Tento meč si získal účasťou v sponzorovanej Výzve od Take This. Gratulujeme! Zvyšuje ti všetky vlastnosti o <%= attrs %>.",
     "weaponSpecialTridentOfCrashingTidesText": "Trojzubec lámajúci príliv",
     "weaponSpecialTridentOfCrashingTidesNotes": "Dáva ti schopnosť veliť rybám a tiež zoslať pár mocných úderov na tvoje úlohy. Zvyšuje inteligenciu o <%= int %>.",
     "weaponSpecialYetiText": "Kopija krotiteľa yetiov",

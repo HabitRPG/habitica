@@ -75,8 +75,8 @@
     "shipSoothsayerSet": "Schiffs-Wahrsager (Magier)",
     "strappingSailorSet": "Umgürteter Seefahrer (Heiler)",
     "reefRenegadeSet": "Abtrünniger des Riffs (Schurke)",
-    "fallEventAvailability": "Available for purchase until October 31.",
-    "winterEventAvailability": "Available for purchase until December 31.",
-    "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "fallEventAvailability": "Verfügbar bis zum 31. Oktober.",
+    "winterEventAvailability": "Verfügbar bis zum 31. Dezember.",
+    "springEventAvailability": "Verfügbar bis zum 31. Mai.",
+    "summerEventAvailability": "Verfügbar bis zum 31. August."
 }

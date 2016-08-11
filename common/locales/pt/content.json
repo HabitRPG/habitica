@@ -139,7 +139,7 @@
     "hatchingPotionSpooky": "Assustador",
     "hatchingPotionPeppermint": "Hortelã",
     "hatchingPotionFloral": "Floral",
-    "hatchingPotionThunderstorm": "Thunderstorm",
+    "hatchingPotionThunderstorm": "Tempestade",
     "hatchingPotionNotes": "Use-o em um ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missão.",
     "foodMeat": "Carne",

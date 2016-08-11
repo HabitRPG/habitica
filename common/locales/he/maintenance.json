@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "אל דאגה, האביטיקה תחזור בקרוב!",
-  "importantMaintenance": "אנו עוסקים בתחזוקה חשובה שאנו מעריכים כי תימשך עד <%= localDate %>  באזור הזמן שלך.",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
   "maintenance": "תחזוקה",
   "maintenanceMoreInfo": "רוצים עוד מידע בנוגע לתחזוקה? <%= linkStart %>העיפו מבט בדף המידע שלנו<%= linkEnd %>.",
   "noDamageKeepStreaks": "לא יהיה לך שום אובדן של רצפים או פגיעה בבריאות שלך!",

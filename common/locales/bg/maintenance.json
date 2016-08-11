@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Не се притеснявайте, Хабитика ще се върне скоро!",
-  "importantMaintenance": "Извършваме важна профилактика, която смятаме, че ще продължи до <%= localDate %> по Вашия часови пояс.",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
   "maintenance": "Профилактика",
   "maintenanceMoreInfo": "Искате повече информация относно профилактиката? <%= linkStart %>Вижте страницата с инфармацията<%= linkEnd %>.",
   "noDamageKeepStreaks": "НЯМА да получите щети или да нарушите сериите си!",

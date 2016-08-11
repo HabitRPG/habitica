@@ -139,7 +139,7 @@
     "hatchingPotionSpooky": "Призрачен цвят",
     "hatchingPotionPeppermint": "Ментов цвят",
     "hatchingPotionFloral": "Флорален цвят",
-    "hatchingPotionThunderstorm": "Thunderstorm",
+    "hatchingPotionThunderstorm": "Буреносен цвят",
     "hatchingPotionNotes": "Излейте това върху яйце и от него ще се излюпи любимец с(ъс) <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Не може да се използва върху яйца за любимци от мисии.",
     "foodMeat": "Месо",
