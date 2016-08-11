@@ -14,5 +14,6 @@ habitrpg.controller("TavernCtrl", ['$scope', 'Groups', 'User', 'Challenges',
       $scope.toggleUserTier = function($event) {
         $($event.target).next().toggle();
       }
+      window.scrollTo(0, 0);
     }
   ]);
