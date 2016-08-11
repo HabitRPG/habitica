@@ -600,7 +600,8 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   let questItems = Object.keys(this.quest.progress.collect).map((item) => {
     return quest.collect[item].text('en');
   });
-    
+  questItems.sort() // Make sure message is always reported in the same order
+   
   let noFoundQuestItems = '0 ';
   noFoundQuestItems += questItems.join(', 0 ')
 
