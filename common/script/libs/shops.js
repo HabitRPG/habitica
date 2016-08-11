@@ -58,6 +58,28 @@ shops.getMarketCategories = function getMarket (user, language) {
     }).sortBy('key').value();
   categories.push(hatchingPotionsCategory);
 
+  let premiumHatchingPotionsCategory = {
+    identifier: 'premiumHatchingPotions',
+    text: i18n.t('magicHatchingPotions', language),
+    notes: i18n.t('premiumPotionNoDropExplanation', language),
+  };
+  premiumHatchingPotionsCategory.items = _(content.hatchingPotions)
+    .values()
+    .filter(hp => hp.limited && hp.canBuy())
+    .map(premiumHatchingPotion => {
+      return {
+        key: premiumHatchingPotion.key,
+        text: premiumHatchingPotion.text(language),
+        notes: `${premiumHatchingPotion.notes(language)} ${premiumHatchingPotion._addlNotes(language)}`,
+        class: `Pet_HatchingPotion_${premiumHatchingPotion.key}`,
+        value: premiumHatchingPotion.value,
+        locked: false,
+        currency: 'gems',
+        purchaseType: 'hatchingPotions',
+      };
+    }).sortBy('key').value();
+  categories.push(premiumHatchingPotionsCategory);
+
   let foodCategory = {
     identifier: 'food',
     text: i18n.t('food', language),

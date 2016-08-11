@@ -37,7 +37,7 @@
     label(for='box-{{::obj._id}}_{{::task._id}}')
 
 // main content
-.task-text(ng-dblclick='task._editing ? saveTask(task) : editTask(task)')
+.task-text(ng-dblclick='doubleClickTask(obj, task)')
   markdown(text='task.text',target='_blank')
 
   div(ng-if='task.checklist && !$state.includes("options.social.challenges") && !task.collapseChecklist && !task._editing')

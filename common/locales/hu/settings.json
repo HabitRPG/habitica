@@ -66,7 +66,6 @@
     "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
     "API": "API",
     "APIv3": "API v3",
-    "APIv2": "API v2 - Deprecated",
     "APIText": "Másold ki ezt, külső alkalmazások használatához. Egyébiránt úgy gondolj az API Kulcsodra, mint egy jelszóra és ne oszd meg senkivel nyilvánosan. Előfordulhat, hogy a felhasználói azonosítódat kérik, de soha ne írd be sehova az API Kulcsodat, ahol mások esetleg láthatják, még a Githubra se.",
     "APIToken": "API Kulcs (ez egy jelszó - lásd a figyelmeztetést lejjebb)",
     "thirdPartyApps": "Harmadik féltől származó alkalmazások",

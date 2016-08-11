@@ -120,7 +120,7 @@
     "taskIdRequired": "\"taskId\" doit être un UUID valide.",
     "taskAliasAlreadyUsed": "Le nom de cette tâche est déjà utilisé pour une autre tâche",
     "taskNotFound": "Tâche non trouvée.",
-    "invalidTaskType": "Le type de la tâche doit être l'un des suivants : \"habit\", \"daily\", \"todo\" ou \"reward\".",
+    "invalidTaskType": "Le type de tâche doit être : \"habit\", \"daily\", \"todo\" ou \"reward\".",
     "cantDeleteChallengeTasks": "Une tâche de Défi ne peut pas être supprimée.",
     "checklistOnlyDailyTodo": "Les listes de vérification ne sont disponibles que sur les tâches Quotidiennes et À faire",
     "checklistItemNotFound": "Aucune liste de vérification n'a été trouvée pour l'ID fourni.",

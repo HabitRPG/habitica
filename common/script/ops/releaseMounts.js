@@ -29,6 +29,7 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
       acquireMethod: 'Gems',
       gemCost: 4,
       category: 'behavior',
+      headers: req.headers,
     });
   }
 

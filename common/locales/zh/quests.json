@@ -90,11 +90,11 @@
     "questAlreadyAccepted": "你已经接收探索任务邀请。",
     "noActiveQuestToLeave": "没有正进行的探索任务来退出",
     "questLeaderCannotLeaveQuest": "探索任务发起者不能离开探索任务",
-    "notPartOfQuest": "您不是任务的一部分",
+    "notPartOfQuest": "您没有参加这个任务",
     "noActiveQuestToAbort": "没有正进行的探索任务来放弃。",
     "onlyLeaderAbortQuest": "仅有小组长或任务发起者能放弃一个任务。",
     "questAlreadyRejected": "您已经拒绝了任务邀请。",
-    "cantCancelActiveQuest": "你不能取消一个正进行的探索任务，运用放弃功能。",
+    "cantCancelActiveQuest": "你不能取消一个正进行的探索任务，请放弃任务。",
     "onlyLeaderCancelQuest": "仅有小组长或任务发起者能取消一个任务。",
     "questNotPending": "现在没有开始的探索任务。",
     "questOrGroupLeaderOnlyStartQuest": "仅有小组长或任务发起者能强制开始一个任务"

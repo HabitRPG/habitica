@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Devin du Navire (Mage)",
     "strappingSailorSet": "Marin Costaud (Guérisseur)",
     "reefRenegadeSet": "Renégat du Récif (Voleur)",
-    "fallEventAvailability": "Disponible jusqu'au 31 octobre",
-    "winterEventAvailability": "Disponible jusqu'au 31 décembre",
-    "springEventAvailability": "Disponible jusqu'au 31 mai"
+    "fallEventAvailability": "Disponible à l'achat jusqu'au 31 octobre.",
+    "winterEventAvailability": "Disponible à l'achat jusqu'au 31 décembre.",
+    "springEventAvailability": "Disponible à l'achat jusqu'au 31 mai.",
+    "summerEventAvailability": "Disponible à l'achat jusqu'au 31 août."
 }

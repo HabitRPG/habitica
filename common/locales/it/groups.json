@@ -38,7 +38,7 @@
     "joinNewParty": "Unisciti ad una nuova squadra",
     "declineInvitation": "Rifiuta invito",
     "loadingNewParty": "La tua squadra si sta caricando, aspetta, per favore",
-    "systemMessage": "System Message",
+    "systemMessage": "Messaggio di sistema",
     "newMsg": "Nuovo messaggio in \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Invia messaggio",
@@ -94,7 +94,7 @@
     "send": "Invia",
     "messageSentAlert": "Messaggio inviato!",
     "pmHeading": "Messaggio privato a <%= name %>",
-    "pmsMarkedRead": "Il tuo messaggio stato segnato come letto",
+    "pmsMarkedRead": "I tuoi messaggi sono stati segnati come letti",
     "clearAll": "Cancella tutti i messaggi",
     "confirmDeleteAllMessages": "Vuoi davvero cancellare tutti i messaggi ricevuti? Gli altri utenti potranno ancora vedere i messaggi che gli hai inviato.",
     "optOutPopover": "Non ti piacciono i messaggi privati? Clicca per disattivare questa funzione.",
@@ -186,8 +186,8 @@
     "userAlreadyInAParty": "Utente già in una squadra.",
     "userWithIDNotFound": "Utente con id \"<%= userId %>\" non trovato.",
     "userHasNoLocalRegistration": "L'utente non ha una registrazione locale (nome utente, e-mail, password).",
-    "uuidsMustBeAnArray": "User ID invites must be an array.",
-    "emailsMustBeAnArray": "Email address invites must be an array.",
+    "uuidsMustBeAnArray": "ID Utente deve essere un vettore",
+    "emailsMustBeAnArray": "L' invito dell' Indirizzo email deve essere un vettore",
     "canOnlyInviteMaxInvites": "Puoi invitare solo \"<%= maxInvites %>\" alla volta",
     "onlyCreatorOrAdminCanDeleteChat": "Non autorizzato a rimuovere questo messaggio!"
 }

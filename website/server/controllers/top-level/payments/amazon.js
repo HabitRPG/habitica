@@ -212,6 +212,7 @@ api.subscribe = {
       customerId: billingAgreementId,
       paymentMethod: 'Amazon Payments',
       sub,
+      headers: req.headers,
     });
 
     res.respond(200);

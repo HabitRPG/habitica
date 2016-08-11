@@ -66,6 +66,23 @@ api.createGroup = {
       _id: user._id,
       profile: {name: user.profile.name},
     };
+
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: true,
+      groupType: savedGroup.type,
+      privacy: savedGroup.privacy,
+      headers: req.headers,
+    };
+
+    if (savedGroup.privacy === 'public') {
+      analyticsObject.groupName = savedGroup.name;
+    }
+
+    res.analytics.track('join group', analyticsObject);
+
     res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
 };
@@ -276,6 +293,23 @@ api.joinGroup = {
     if (leader) {
       response.leader = leader.toJSON({minimize: true});
     }
+
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: false,
+      groupType: group.type,
+      privacy: group.privacy,
+      headers: req.headers,
+    };
+
+    if (group.privacy === 'public') {
+      analyticsObject.groupName = group.name;
+    }
+
+    res.analytics.track('join group', analyticsObject);
+
     res.respond(200, response);
   },
 };
