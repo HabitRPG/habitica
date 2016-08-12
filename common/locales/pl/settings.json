@@ -63,7 +63,7 @@
     "dangerZone": "Strefa zagrożenia",
     "resetText1": "UWAGA! Ta opcja zresetuje wiele części twojego konta. Odradzamy taki krok, jednak niektórzy gracze mogą uznać tę funkcję za przydatną po wstępnym wypróbowaniu strony.",
     "resetText2": "Stracisz wszystkie poziomy, całe złoto i punkty doświadczenia. Wszystkie Twoje zadania (z wyjątkiem tych z Wyzwań) zostaną na zawsze usunięte, razem z historią ich wypełnienia. Stracisz także wyposażenie, choć będziesz mógł je kupić ponownie, włączając w to przedmioty limitowane i tylko dla subskrybentów, które już posiadasz (aby odkupić wyposażenie przeznaczone dla konkretnej klasy, musisz do niej przynależeć). Zachowasz swoją klasę, chowańce i wierzchowce. Być może lepiej będzie jeśli użyjesz Kuli Odrodzenia – to bezpieczniejsze i zachowa wszystkie Twoje zadania.",
-    "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
+    "deleteLocalAccountText": "Jesteś pewny? Usuniesz swoje konto bez możliwości powrotu! W celu ponownego użycia Habitica, będziesz musiał zarejestrować nowe konto. Posiadane oraz wydane diamenty nie zostaną zwrócone. Jeśli jesteś pewny, wpisz poniżej swoje hasło.",
     "API": "API",
     "APIv3": "API v3",
     "APIText": "Skopiuj, by używać w innych aplikacjach. Traktuj jednak swój token API jak hasło i nie dziel się nim z innymi. Czasem możesz zostać poproszony o swoje ID użytkownika, ale nigdy nie publikuj swojego tokenu API tam, gdzie mogą go zobaczyć inne osoby, włączając w to Github.",

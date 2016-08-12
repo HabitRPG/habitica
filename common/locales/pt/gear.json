@@ -2,7 +2,7 @@
     "set": "Conjunto",
     "equipmentType": "Tipo",
     "klass": "Classe",
-    "groupBy": "Agrupar por <%= type %>",
+    "groupBy": "Agrupar Por <%= type %>",
     "classBonus": "(Este item combina com a sua classe, então ele dá um multiplicador de status adicional de 1,5.)",
     "weapon": "arma",
     "weaponCapitalized": "Arma",
