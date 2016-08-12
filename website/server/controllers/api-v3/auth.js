@@ -532,6 +532,12 @@ api.updateEmail = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
+    let userSameEmail = await User.findOne({'auth.local.email': req.body.newEmail}).exec();
+    if (userSameEmail) {
+        console.log("email already taken by another user");
+        throw new NotAuthorized(res.t('emailTaken'));
+    }
+
     let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
 
