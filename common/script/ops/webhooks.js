@@ -18,7 +18,6 @@ const WEBHOOK_TYPES = {
   taskActivity (options = {}) {
     options = Object.assign({}, TASK_ACTIVITY_DEFAULT_OPTIONS, options);
 
-
     Object.keys(TASK_ACTIVITY_DEFAULT_OPTIONS).forEach((key) => {
       if (typeof options[key] !== 'boolean') {
         throw new BadRequest(i18n.t('webhookBooleanOption', {option: key}));
