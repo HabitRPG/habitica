@@ -15,12 +15,12 @@ const TASK_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
 });
 // Enumerates webhook types and provides functions for sanitizing options
 const WEBHOOK_TYPES = {
-  taskActivity (options = {}) {
+  taskActivity (options = {}, language) {
     options = Object.assign({}, TASK_ACTIVITY_DEFAULT_OPTIONS, options);
 
     Object.keys(TASK_ACTIVITY_DEFAULT_OPTIONS).forEach((key) => {
       if (typeof options[key] !== 'boolean') {
-        throw new BadRequest(i18n.t('webhookBooleanOption', {option: key}));
+        throw new BadRequest(i18n.t('webhookBooleanOption', {option: key}, language));
       }
     });
 
@@ -31,11 +31,11 @@ const WEBHOOK_TYPES = {
       scored: options.scored,
     };
   },
-  groupChatReceived (options = {}) {
+  groupChatReceived (options = {}, language) {
     let { groupId } = options;
 
     if (!(groupId && validator.isUUID(groupId))) {
-      throw new BadRequest(i18n.t('groupIdRequired'));
+      throw new BadRequest(i18n.t('groupIdRequired', language));
     }
 
     return {
@@ -58,7 +58,7 @@ function generateWebhookObject (webhook, req) {
     throw new BadRequest(i18n.t('invalidWebhookType', {type}, req.language));
   }
 
-  let options = WEBHOOK_TYPES[type](webhook.options);
+  let options = WEBHOOK_TYPES[type](webhook.options, req.language);
 
   return {
     id: webhook.id,
@@ -83,9 +83,10 @@ function addWebhook (user, req = {}) {
     id,
     url: body.url,
     enabled,
-    type: body.type || DEFAULT_WEBHOOK_TYPE,
+    type: body.type,
     options: body.options,
   }, req);
+
 
   user.markModified('preferences.webhooks');
 
