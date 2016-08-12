@@ -94,7 +94,7 @@
     "send": "Odoslať",
     "messageSentAlert": "Správa bola odoslaná",
     "pmHeading": "Súkromná správa pre <%= name %>",
-    "pmsMarkedRead": "Your private messages have been marked as read",
+    "pmsMarkedRead": "Tvoje súkromné správy boli označené ako prečítané",
     "clearAll": "Vymazať všetky správy",
     "confirmDeleteAllMessages": "Si si istý, že chceš vymazať všetky svoje správy v poštovej schránke? Ostatní užívatelia uvidia správy, ktoré si im poslal.",
     "optOutPopover": "Nemáš rád súkromné správy? Klikni sem aby si sa kompletne odhlásil z ich prijímania",
@@ -182,12 +182,12 @@
     "userAlreadyInGroup": "Používateľ už je v skupine.",
     "cannotInviteSelfToGroup": "Nemôžeš pozvať sám seba do skupiny.",
     "userAlreadyInvitedToGroup": "Používateľ už je pozvaný do skupiny.",
-    "userAlreadyPendingInvitation": "User already pending invitation.",
+    "userAlreadyPendingInvitation": "Používateľ už má pozvánku.",
     "userAlreadyInAParty": "Používateľ už je v družine.",
     "userWithIDNotFound": "Používateľ s ID \"<%= userId %>\" sa nenašiel.",
     "userHasNoLocalRegistration": "User does not have a local registration (username, email, password).",
     "uuidsMustBeAnArray": "User ID invites must be an array.",
     "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
-    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!"
+    "onlyCreatorOrAdminCanDeleteChat": "Nemáš povolenie zmazať túto správu!"
 }

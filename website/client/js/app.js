@@ -41,6 +41,8 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options/groups/hall', '/options/groups/hall/heroes')
         .when('/options/inventory', '/options/inventory/drops')
         .when('/options/settings', '/options/settings/settings')
+        // post cards with promo codes went out with this address
+        .when('/options/settings/coupon', '/options/settings/promo')
 
         // redirect states that don't match
         .otherwise("/tasks");

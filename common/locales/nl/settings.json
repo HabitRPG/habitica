@@ -66,7 +66,6 @@
     "deleteLocalAccountText": "Weet je het zeker? Dit verwijdert je account voorgoed en het kan nooit meer hersteld worden! Je zult een nieuw account moeten registreren om Habitica weer te gebruiken. Gespaarde of uitgegeven edelstenen zullen niet vergoed worden, Als je het absoluut zeker weet, typ dan je wachtwoord in het tekstvak hieronder.",
     "API": "API",
     "APIv3": "API v3",
-    "APIv2": "API v2 - Verouderd",
     "APIText": "Kopieer deze codes om ze in applicaties van derde partijen te gebruiken. Beschouw de codes echter als een soort wachtwoord en deel ze niet met anderen. Je kunt soms gevraagd worden naar je gebruikers-ID maar we raden aan nooit je API-sleutel op een openbare plek te delen, ook niet op Github.",
     "APIToken": "API-sleutel (dit is een persoonlijke code - zie waarschuwing hierboven!)",
     "thirdPartyApps": "Applicaties van derden",

@@ -72,10 +72,11 @@
     "comfortingKittySet": "Troostend Katje (Heler)",
     "sneakySqueakerSet": "Sneaky Pieper (Dief)",
     "sunfishWarriorSet": "Maanviskrijger (Krijger)",
-    "shipSoothsayerSet": "Waarzeggersschip (Magiër)",
+    "shipSoothsayerSet": "Schipswaarzegger (Magiër)",
     "strappingSailorSet": "Ontzagwekkende zeiler (Heler)",
-    "reefRenegadeSet": "Rif-overloper (Dief)",
-    "fallEventAvailability": "Beschikbaar tot 31 oktober",
-    "winterEventAvailability": "Beschikbaar tot 31 december",
-    "springEventAvailability": "Beschikbaar tot 31 mei"
+    "reefRenegadeSet": "Rif-rebel (Dief)",
+    "fallEventAvailability": "Verkrijgbaar voor aankoop tot 31 oktober.",
+    "winterEventAvailability": "Verkrijgbaar voor aankoop tot 31 december.",
+    "springEventAvailability": "Verkrijgbaar voor aankoop tot 31 mei.",
+    "summerEventAvailability": "Verkrijgbaar voor aankoop tot 31 augustus."
 }

@@ -179,7 +179,14 @@
     "backgroundAquariumText": "Aquarium",
     "backgroundAquariumNotes": "Bob in an Aquarium.",
     "backgroundDeepSeaText": "Deep Sea",
-    "backgroundDeepSeaNotes": "Dive to the Deep Sea.",
+    "backgroundDeepSeaNotes": "Dive t' th' Deep Sea.",
     "backgroundDilatoryCastleText": "Castle of Dilatory",
-    "backgroundDilatoryCastleNotes": "Swim past the Castle of Dilatory."
+    "backgroundDilatoryCastleNotes": "Swim past th' Castle o' Dilatory.",
+    "backgrounds082016": "SET 27: Released August 2016",
+    "backgroundIdyllicCabinText": "Idyllic Cabin",
+    "backgroundIdyllicCabinNotes": "Retreat to an Idyllic Cabin.",
+    "backgroundMountainPyramidText": "Mountain Pyramid",
+    "backgroundMountainPyramidNotes": "Climb the many steps of a Mountain Pyramid.",
+    "backgroundStormyShipText": "Stormy Ship",
+    "backgroundStormyShipNotes": "Hold steady against wind and wave aboard a Stormy Ship."
 }

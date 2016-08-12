@@ -518,24 +518,27 @@ api.premiumHatchingPotions = {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
-    canBuy: (function() {
-      return false;
-    })
+    _season: 'fall',
   },
   Peppermint: {
     value: 2,
     text: t('hatchingPotionPeppermint'),
     limited: true,
-    canBuy: (function() {
-      return false;
-    })
+    _season: 'winter',
   },
   Floral: {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
+    _season: 'spring',
+  },
+  Thunderstorm: {
+    value: 2,
+    text: t('hatchingPotionThunderstorm'),
+    limited: true,
+    _season: 'summer',
     canBuy: (function() {
-      return false;
+      return true;
     }),
   },
 };
@@ -562,11 +565,11 @@ _.each(api.premiumHatchingPotions, function(pot, key) {
     notes: t('hatchingPotionNotes', {
       potText: pot.text
     }),
-    addlNotes: t('premiumPotionAddlNotes'),
+    _addlNotes: t(`${pot._season}EventAvailability`),
     premium: true,
     limited: false,
     canBuy: (function() {
-      return true;
+      return false;
     })
   });
 });

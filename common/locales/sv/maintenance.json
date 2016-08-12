@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Oroa dig inte. Habitica kommer snart tillbaka!",
-  "importantMaintenance": "Vi håller på med viktigt underhåll som vi beräknar kommer pågå fram till <%= localDate %> i din tidszon.",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
   "maintenance": "Underhåll",
   "maintenanceMoreInfo": "Vill du ha mer information om underhållet?? <%= linkStart %>Spana in info-sidan<%= linkEnd %>.",
   "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",

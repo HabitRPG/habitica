@@ -66,7 +66,6 @@
     "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
     "API": "API",
     "APIv3": "API v3",
-    "APIv2": "API v2 - Deprecated",
     "APIText": "Kopirajte ove kodove u aplikacije razvijene za Habitica. Vaš API ključ ima funkciju lozinke, pazite kome ga šaljete i kome je dostupan. Povremeno od Vas može biti zatražen Lični Broj Korisnika (User ID, UID), ali nikada ne objavljujte svoj API ključ tamo gde ga bilo ko može videti, uključujući i Github.",
     "APIToken": "API ključ (ovo je lozinka – pročitajte objašnjenje iznad)",
     "thirdPartyApps": "Third Party Apps",

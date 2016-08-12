@@ -189,5 +189,5 @@
     "uuidsMustBeAnArray": "用户ID邀请必须是一个数组。",
     "emailsMustBeAnArray": "电子邮件地址邀请必须是一个数组。",
     "canOnlyInviteMaxInvites": "你仅能在同一时间邀请\"<%= maxInvites %>\"个",
-    "onlyCreatorOrAdminCanDeleteChat": "没有授权删除这个消息！"
+    "onlyCreatorOrAdminCanDeleteChat": "没有权利删除这个消息！"
 }

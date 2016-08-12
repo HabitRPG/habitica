@@ -18,13 +18,13 @@ div(ng-if='::task.type!="reward"')
 
         input.form-control(type='text', ng-model='task.startDate',
           datepicker-popup='{{::user.preferences.dateFormat}}', is-open='datepickerOpened',
-          ng-click='datepickerOpened = true', ng-disabled='task.challenge.id')
+          ng-click='datepickerOpened = true', ng-disabled='!canEdit(task)')
 
       hr
 
       .form-group
         legend.option-title=env.t('repeat')
-        select.form-control(ng-model='task.frequency', ng-disabled='task.challenge.id')
+        select.form-control(ng-model='task.frequency', ng-disabled='!canEdit(task)')
           option(value='weekly')=env.t('repeatWeek')
           option(value='daily')=env.t('repeatDays')
 
@@ -39,22 +39,22 @@ div(ng-if='::task.type!="reward"')
     ul.priority-multiplier
       li
         button(type='button', ng-class='{active: task.priority==0.1}',
-          ng-click='task.challenge.id || (task.priority=0.1)')
+          ng-click='!canEdit(task) || (task.priority=0.1)')
           =env.t('trivial')
       li
         button(type='button', ng-class='{active: task.priority==1 || !task.priority}',
-          ng-click='task.challenge.id || (task.priority=1)')
+          ng-click='!canEdit(task) || (task.priority=1)')
           =env.t('easy')
       li
         button(type='button', ng-class='{active: task.priority==1.5}',
-          ng-click='task.challenge.id || (task.priority=1.5)')
+          ng-click='!canEdit(task) || (task.priority=1.5)')
           =env.t('medium')
       li
         button(type='button', ng-class='{active: task.priority==2}',
-          ng-click='task.challenge.id || (task.priority=2)')
+          ng-click='!canEdit(task) || (task.priority=2)')
           =env.t('hard')
 
-    span(ng-if='task.type=="daily"')
+    span(ng-if='task.type=="daily" && !$state.includes("options.social.challenges")')
       legend.option-title.pull-left=env.t('restoreStreak')
       input.option-content(type='number', ng-model='task.streak')
 
