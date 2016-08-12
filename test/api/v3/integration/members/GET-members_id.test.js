@@ -38,7 +38,7 @@ describe('GET /members/:memberId', () => {
     expect(Object.keys(memberRes.preferences).sort()).to.eql(['size', 'hair', 'skin', 'shirt',
       'chair', 'costume', 'sleep', 'background'].sort());
 
-    expect(memberRes.stats.maxMP).to.exists;
+    expect(memberRes.stats.maxMP).to.exist;
     expect(memberRes.stats.maxHealth).to.equal(common.maxHealth);
     expect(memberRes.stats.toNextLevel).to.equal(common.tnl(memberRes.stats.lvl));
     expect(memberRes.inbox.optOut).to.exist;
