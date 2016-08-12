@@ -112,7 +112,7 @@ script(id='modals/achievements/contributor.html', type='text/ng-template')
       h3(style='margin-bottom:0')=env.t('modalContribAchievement')
       +achievementAvatar('boot',0)
       !=env.t('contribModal', {name: "{{user.profile.name}}", level: "{{user.contributor.level}}"}) + ' '
-      a(href=env.t('conLearnLink') target='_blank')=env.t('contribLink')
+      a(href=env.t('conRewardsURL') target='_blank')=env.t('contribLink')
       br
       button.btn.btn-primary(style='margin-top:1em' ng-click='$close()')=env.t('huzzah')
     +achievementFooter
