@@ -1,14 +1,11 @@
-mixin achiev(isEarned, spriteName)
-  div&attributes(attributes)
-    .achievement(class='#{spriteName}', ng-if='::#{isEarned}')
-    div(ng-class='::{muted: !(#{isEarned})}')
-      block
-    hr
-
 mixin simpleAchiev(isEarned, spriteName, titleText, descText)
-  +achiev(isEarned, spriteName)&attributes(attributes)
-    h5=titleText
-    small!=descText
+  div(popover-title='#{titleText}',
+    data-popover-html='#{descText}',
+    popover-trigger='mouseenter',
+    popover-placement='bottom')&attributes(attributes)
+
+    button.pet-button(ng-class='::{muted: !(#{isEarned})}')
+      .achievement(class='#{spriteName}')
 
 mixin achievWithSimpleCount(countVal, spriteName, title, desc)
   +simpleAchiev(countVal, spriteName, env.t(title), env.t(desc, {count: "0"}))(ng-if='::!(#{countVal})')
@@ -23,12 +20,27 @@ mixin achievWithSingularPlural(countVal, spriteName, sgTitle, sgDesc, plTitle, p
 if mobile
   .item.item-divider=env.t('achievements')
 
-include ./achievs/special-achievs
+.container-fluid
+  .row: .col-md-12
+    h4=env.t('basicAchievs')
+    menu.pets(type='list')
+      li.customize-menu
+        menu
+          include ./achievs/basic-achievs
+  .row: .col-md-12
+    h4=env.t('seasonalAchievs')
+    menu.pets(type='list')
+      li.customize-menu
+        menu
+          include ./achievs/seasonal-achievs
+  .row: .col-md-12
+    h4=env.t('specialAchievs')
+    menu.pets(type='list')
+      li.customize-menu
+        menu
+          include ./achievs/special-achievs
 
-include ./achievs/basic-achievs
-
-include ./achievs/seasonal-achievs
+hr
 
 include ./achievs/challenges
-
 include ./achievs/quests

@@ -1,9 +1,15 @@
-+achiev('profile.contributor.level', 'achievement-boot')
-  h5
-    span.label.label-default(ng-if='::profile.contributor.level', class='label-contributor-{{::profile.contributor.level}}') {{::contribText(profile.contributor, profile.backer)}}
-    span.label.label-default(ng-if='::!profile.contributor.level')=env.t('contribName')
-  small
-    !=env.t('contribText')
+mixin achievWithOptionalMasterCount(isEarned, spriteName, mType)
+  - var mCount = 'profile.achievements.' + mType + 'Count'
+  +simpleAchiev(isEarned, spriteName,
+    env.t(mType + 'Name'), env.t(mType + 'Text'))(ng-if='::!#{mCount}')
+  +simpleAchiev(isEarned, spriteName,
+    env.t(mType + 'Name'),
+    env.t(mType + 'Text') + env.t(mType + 'Text2', {count: '{{::' + mCount + '}}'}))(ng-if='::#{mCount}')
+
++simpleAchiev('profile.contributor.level', 'achievement-boot',
+  '{{::contribText(profile.contributor, profile.backer)}}', env.t('contribText'))(ng-if='::profile.contributor.level')
++simpleAchiev('profile.contributor.level', 'achievement-boot',
+  env.t('contribName'), env.t('contribText'))(ng-if='::!profile.contributor.level')
 
 +achievWithSingularPlural('profile.achievements.habitSurveys', 'achievement-tree',
   'helped', 'surveysSingle', 'helped', 'surveysMultiple')
@@ -18,23 +24,14 @@
 
 +simpleAchiev('profile.achievements.partyOn', 'achievement-partyOn', env.t('partyOnName'), env.t('partyOnAchievement'))
 
-+achiev('profile.achievements.beastMaster', 'achievement-rat')
-  h5=env.t('beastMasterName')
-  small=env.t('beastMasterText')
-  small(ng-if='::profile.achievements.beastMasterCount')
-    =env.t('beastMasterText2', {count: "{{::profile.achievements.beastMasterCount}}"})
-
-+achiev('profile.achievements.mountMaster', 'achievement-wolf')
-  h5=env.t('mountMasterName')
-  small=env.t('mountMasterText')
-  small(ng-if='::profile.achievements.mountMasterCount')
-    =env.t('mountMasterText2', {count: "{{::profile.achievements.mountMasterCount}}"})
-
-+achiev('profile.achievements.triadBingo', 'achievement-triadbingo')
-  h5=env.t('triadBingoName')
-  small=env.t('triadBingoText')
-  small(ng-if='::profile.achievements.triadBingoCount')
-    =env.t('triadBingoText2', {count: "{{::profile.achievements.triadBingoCount}}"})
+-
+  var masterTypes = {
+    beastMaster: {sprite:'achievement-rat'},
+    mountMaster: {sprite:'achievement-wolf'},
+    triadBingo: {sprite:'achievement-triadbingo'}
+  }
+each masterType, label in masterTypes
+  +achievWithOptionalMasterCount('profile.achievements.' + label, masterType.sprite, label)
 
 each ultClass in ['healer', 'rogue', 'warrior']
   +simpleAchiev('profile.achievements.ultimateGearSets.' + ultClass, 'achievement-ultimate-' + ultClass,
@@ -43,14 +40,33 @@ each ultClass in ['healer', 'rogue', 'warrior']
 +simpleAchiev('profile.achievements.ultimateGearSets.wizard', 'achievement-ultimate-mage',
   env.t('ultimGearName', {ultClass: env.t('mage')}), env.t('mageUltimGearText'))
 
-+achiev('profile.achievements.rebirths', 'achievement-sun')
-  h5(ng-if='::!(profile.achievements.rebirths > 1)')
-    =env.t('rebirthBegan')
-  h5(ng-if='::profile.achievements.rebirths > 1')
-    =env.t('rebirthText', {rebirths: "{{::profile.achievements.rebirths}}"})
-  small(ng-if='::!profile.achievements.rebirthLevel')
-    =env.t('rebirthOrbNoLevel')
-  small(ng-if='::profile.achievements.rebirthLevel < 100')
-    =env.t('rebirthOrb', {level: "{{::profile.achievements.rebirthLevel}}"})
-  small(ng-if='::profile.achievements.rebirthLevel >= 100')
-    =env.t('rebirthOrb100')
+-
+  var titleStates = {
+    singularCase: {
+      checkStr: '!(profile.achievements.rebirths > 1)',
+      displayStr: env.t('rebirthBegan')
+    },
+    pluralCase: {
+      checkStr: '(profile.achievements.rebirths > 1)',
+      displayStr: env.t('rebirthText', {rebirths: "{{::profile.achievements.rebirths}}"})
+    }
+  }
+-
+  var descStates = {
+    noLevel: {
+      checkStr: '!profile.achievements.rebirthLevel',
+      displayStr: env.t('rebirthOrbNoLevel')
+    },
+    lessThan100: {
+      checkStr: 'profile.achievements.rebirthLevel < 100',
+      displayStr: env.t('rebirthOrb', {level: "{{::profile.achievements.rebirthLevel}}"})
+    },
+    atLeast100: {
+      checkStr: 'profile.achievements.rebirthLevel >= 100',
+      displayStr: env.t('rebirthOrb100')
+    }
+  }
+each tInfo, tLabel in titleStates
+  each dInfo, dLabel in descStates
+    +simpleAchiev('profile.achievements.rebirths', 'achievement-sun',
+      tInfo.displayStr, dInfo.displayStr)(ng-if='::(#{tInfo.checkStr}) && (#{dInfo.checkStr})')

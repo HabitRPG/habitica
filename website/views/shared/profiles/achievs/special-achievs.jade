@@ -1,14 +1,11 @@
-+achiev('profile.backer.npc', 'achievement-helm')(ng-if='::profile.backer.npc')
-  h5
-    span.label.label-npc
-      | {{::profile.backer.npc}}
-      =env.t('npc')
-  small=env.t('npcText')
++simpleAchiev('profile.backer.npc', 'achievement-helm',
+  '{{::profile.backer.npc}}' + env.t('npc'), env.t('npcText'))(ng-if='::profile.backer.npc')
 
-+achiev('profile.backer.tier', 'achievement-heart')(ng-if='::profile.backer.tier')
-  h5=env.t('kickstartName', {tier: "{{::profile.backer.tier}}"})
-  small=env.t('kickstartText')
++simpleAchiev('profile.backer.tier', 'achievement-heart',
+  env.t('kickstartName', {tier: "{{::profile.backer.tier}}"}), env.t('kickstartText'))(ng-if='::profile.backer.tier')
 
-+simpleAchiev('profile.achievements.veteran', 'achievement-cake', env.t('veteran'), env.t('veteranText'))(ng-if='::profile.achievements.veteran')
++simpleAchiev('profile.achievements.veteran', 'achievement-cake',
+  env.t('veteran'), env.t('veteranText'))(ng-if='::profile.achievements.veteran')
 
-+simpleAchiev('profile.achievements.originalUser', 'achievement-alpha', env.t('originalUser'), env.t('originalUserText'))(ng-if='::profile.achievements.originalUser')
++simpleAchiev('profile.achievements.originalUser', 'achievement-alpha',
+  env.t('originalUser'), env.t('originalUserText'))(ng-if='::profile.achievements.originalUser')
