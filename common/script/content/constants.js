@@ -48,6 +48,7 @@ export const ITEM_LIST = {
   headAccessory:   { localeKey: 'headAccessory',  isEquipment: true  },
   eyewear:         { localeKey: 'eyewear',        isEquipment: true  },
   hatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
+  premiumHatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
   eggs:            { localeKey: 'eggSingular',    isEquipment: false },
   quests:          { localeKey: 'quest',          isEquipment: false },
   food:            { localeKey: 'foodText',       isEquipment: false },

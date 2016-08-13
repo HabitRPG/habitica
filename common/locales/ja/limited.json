@@ -28,8 +28,8 @@
     "seasonalShopClosedTitle": "<%= linkStart %>レズリー<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>期間限定の魔女<%= linkEnd %>",
     "seasonalShopClosedText": "期間限定マーケットは、現在閉店しています!!　いまどこに期間限定の魔女がいるのかはわかりませんが、きっと、次の<a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>大祭</a>の間には、戻ってくるでしょう!",
-    "seasonalShopText": "季節限定ショップへようこそ!! ただいま春の<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a>商品をとりそろえております。ここにあるものはすべて年に 1 度の春の元気なダンス イベント期間中にお買い上げいただけますが、4月30日までしかオープンしていませんのでこの期間を逃しますと、また 1 年お待ちいただくことになりますよ!",
-    "seasonalShopSummerText": "季節限定ショップへようこそ！ 夏の <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a>グッズを揃えています。ここにあるものはすべて毎年サマースプラッシュイベント期間中に買う事ができますが、7月31日までしかオープンしていません。ですので今買い備えないと、買うのにまた一年またなければなりませんよ！",
+    "seasonalShopText": "期間限定ショップへようこそ!! ただいま春の<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a>商品をとりそろえております。ここにあるものはすべて年に 1 度の春の元気なダンス イベント期間中にお買い上げいただけますが、4月30日までしかオープンしていませんのでこの期間を逃しますと、また 1 年お待ちいただくことになりますよ!",
+    "seasonalShopSummerText": "期間限定ショップへようこそ！ 夏の <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a>グッズを揃えています。ここにあるものはすべて毎年サマースプラッシュイベント期間中に買う事ができますが、7月31日までしかオープンしていません。ですので今買い備えないと、買うのにまた一年またなければなりませんよ！",
     "seasonalShopFallText": "いらっしゃいませ、ようこそ期間限定ショップへ!!　ただいま秋の<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>期間限定版</a>グッズをとりそろえております。こちらはいずれも、毎年の秋まつりイベント期間のみの商品で、当店は10月31日までの限定オープンです。今すぐお買い上げいただかないと、来年までお待ちいただくことになりますよ!",
     "seasonalShopWinterText": "いらっしゃいませ、期間限定ショップへようこそ!!　ただいま冬の<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>期間限定版</a>グッズをとりそろえております。こちらはいずれも、毎年の冬のワンダーランド イベント期間のみの商品で、当店は1月31日までの限定オープンです。今すぐお買い上げいただかないと、来年までお待ちいただくことになりますよ!",
     "seasonalShopFallTextBroken": "ああ......期間限定ショップへよくぞお越しを...いまは秋の期間限定版グッズやなんかをとりそろえ...こちらはどれも、毎年の秋まつりイベント期間のみの商品で、当店は10月31日までの限定オープン...今すぐ買っておかないと、ずっと...ずっと...ずっと待つことになる...<strong>（ため息）</strong>",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "船の占い師 (魔道士)",
     "strappingSailorSet": "がっしりした船乗り (治療師)",
     "reefRenegadeSet": "礁の裏切り者 (盗賊)",
-    "fallEventAvailability": "10月31日まで有効",
-    "winterEventAvailability": "12月31日まで有効",
-    "springEventAvailability": "5月31日まで有効"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

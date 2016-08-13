@@ -68,7 +68,7 @@ api.generateCoupons = {
 };
 
 /**
- * @api {post} /api/v3/user/coupon/:code Enter coupon code
+ * @api {post} /api/v3/coupons/enter/:code Enter coupon code
  * @apiVersion 3.0.0
  * @apiName EnterCouponCode
  * @apiGroup Coupon

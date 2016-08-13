@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Keine Sorge, Habitica ist bald zurück!",
-  "importantMaintenance": "Wir müssen wichtige Wartungen durchführen, die vermutlich bis <%= localDate %> in Deiner Zeitzone dauern.",
+  "importantMaintenance": "Wir müssen wichtige Wartungen durchführen, die vermutlich bis 7:00 Deutscher Zeit dauern.",
   "maintenance": "Wartungsarbeiten",
   "maintenanceMoreInfo": "Willst Du mehr über die Wartungsarbeiten wissen? <%= linkStart %>Schau auf unsere Infoseite<%= linkEnd %>.",
   "noDamageKeepStreaks": "Du wirst KEINEN Schaden erleiden oder Strähnen verlieren!",

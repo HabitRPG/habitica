@@ -135,6 +135,7 @@ api.inviteToQuest = {
       gaLabel: 'accept',
       questName: questKey,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };
@@ -161,6 +162,9 @@ api.acceptQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
+    user.party.quest.RSVPNeeded = false;
+    await user.save();
+
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -171,16 +175,12 @@ api.acceptQuest = {
 
     group.markModified('quest');
     group.quest.members[user._id] = true;
-    user.party.quest.RSVPNeeded = false;
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Bluebird.all([
-      group.save(),
-      user.save(),
-    ]);
+    let savedGroup = await group.save();
 
     res.respond(200, savedGroup.quest);
 
@@ -192,6 +192,7 @@ api.acceptQuest = {
       gaLabel: 'accept',
       questName: group.quest.key,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };
@@ -218,6 +219,10 @@ api.rejectQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
+    user.party.quest = Group.cleanQuestProgress();
+    user.markModified('party.quest');
+    await user.save();
+
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -229,17 +234,11 @@ api.rejectQuest = {
     group.quest.members[user._id] = false;
     group.markModified('quest.members');
 
-    user.party.quest = Group.cleanQuestProgress();
-    user.markModified('party.quest');
-
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Bluebird.all([
-      group.save(),
-      user.save(),
-    ]);
+    let savedGroup = await group.save();
 
     res.respond(200, savedGroup.quest);
 
@@ -250,6 +249,7 @@ api.rejectQuest = {
       gaLabel: 'reject',
       questName: group.quest.key,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };
@@ -303,6 +303,7 @@ api.forceStart = {
       gaLabel: 'force-start',
       questName: group.quest.key,
       uuid: user._id,
+      headers: req.headers,
     });
   },
 };

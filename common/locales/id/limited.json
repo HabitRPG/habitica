@@ -27,7 +27,7 @@
     "seasonalShop": "Toko musiman",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Penyihir Musiman<%= linkEnd %>",
-    "seasonalShopClosedText": "Toko musiman sudah tutup!! Aku tidak tahu dimana sang penyihir musiman saat ini, tapi aku bisa jamin ia akan kembali pada saat<a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala nanti</a>!",
+    "seasonalShopClosedText": "Toko musiman sudah tutup!! Aku tidak tahu dimana sang penyihir musiman saat ini, tapi aku bisa jamin ia akan kembali pada saat<a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'> Grand Gala berikutnya</a>!",
     "seasonalShopText": "Selamat datang di Toko Musiman!! Kami menyetok waktu barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musiman</a> Musim Semi sekarang ini. Semua yang ada disini bisa dibeli selama Musim Semi setiap tahun, tapi kami cuma buka sampai 30 April, jadi pastikan beli sekarang, atau kamu harus menunggu setahun lagi untuk beli barang-barang ini!",
     "seasonalShopSummerText": "Selamat datang di Toko Musiman!! Kami menyetok barang-barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musim</a> Panas sekarang ini. Semua yang ada disini bisa dibeli selama perayaan Musim Panas setiap tahun, tapi kami hanya buka sampai 31 Juli, jadi pastikan beli sekarang juga, atau kamu harus menunggu setahun lagi untuk beli barang-barang ini!",
     "seasonalShopFallText": "Selamat datang di Toko Musiman!! Kami menyetok barang-barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musim</a> Gugur sekarang ini. Semua yang ada disini bisa dibeli selama perayaan even Festival Musim Gugur setiap tahun, tapi kami hanya buka sampai 31 Oktober, jadi pastikan beli sekarang juga, atau kamu harus menunggu setahun lagi untuk beli barang-barang ini!",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Ship Soothsayer (Mage)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Tersedia hingga Oktober 31",
-    "winterEventAvailability": "Tersedia hingga 31 Desember ",
-    "springEventAvailability": "Tersedia hingga 31 Mei"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

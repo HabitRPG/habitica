@@ -7,9 +7,14 @@ describe('Notification Controller', function() {
     user = specHelper.newUser();
     user._id = "unique-user-id";
 
+    var userSync = sinon.stub().returns({
+      then: function then (f) { f(); }
+    });
+
     let User = {
       user,
-      readNotification: function noop () {}
+      readNotification: function noop () {},
+      sync: userSync
     };
 
     module(function($provide) {

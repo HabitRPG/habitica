@@ -326,6 +326,7 @@ export function cron (options = {}) {
     cronCount: user.flags.cronCount,
     progressUp: _.min([_progress.up, 900]),
     progressDown: _progress.down,
+    headers: options.headers,
   });
 
   return _progress;

@@ -288,7 +288,7 @@ api.getTask = {
 };
 
 /**
- * @api {put} /api/v3/task/:taskId Update a task
+ * @api {put} /api/v3/tasks/:taskId Update a task
  * @apiVersion 3.0.0
  * @apiName UpdateTask
  * @apiGroup Task
@@ -450,6 +450,17 @@ api.scoreTask = {
         logger.error(e);
       }
     }
+
+    /*
+     * TODO: enable score task analytics if desired
+    res.analytics.track('score task', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction
+    });
+    */
 
     return null;
   },

@@ -82,6 +82,7 @@ api.createSubscription = async function createSubscription (data) {
     quantity: 1,
     gift: Boolean(data.gift),
     purchaseValue: block.price,
+    headers: data.headers,
   });
 
   data.user.purchased.txnCount++;
@@ -166,6 +167,7 @@ api.buyGems = async function buyGems (data) {
     quantity: 1,
     gift: Boolean(data.gift),
     purchaseValue: amt,
+    headers: data.headers,
   });
 
   if (data.gift) {

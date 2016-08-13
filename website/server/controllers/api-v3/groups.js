@@ -66,6 +66,23 @@ api.createGroup = {
       _id: user._id,
       profile: {name: user.profile.name},
     };
+
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: true,
+      groupType: savedGroup.type,
+      privacy: savedGroup.privacy,
+      headers: req.headers,
+    };
+
+    if (savedGroup.privacy === 'public') {
+      analyticsObject.groupName = savedGroup.name;
+    }
+
+    res.analytics.track('join group', analyticsObject);
+
     res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
 };
@@ -124,8 +141,11 @@ api.getGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    let groupId = req.params.groupId;
+    let group = await Group.getGroup({user, groupId, populateLeader: false});
+    if (!group) {
+      throw new NotFound(res.t('groupNotFound'));
+    }
 
     group = Group.toJSONCleanChat(group, user);
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -273,6 +293,23 @@ api.joinGroup = {
     if (leader) {
       response.leader = leader.toJSON({minimize: true});
     }
+
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: false,
+      groupType: group.type,
+      privacy: group.privacy,
+      headers: req.headers,
+    };
+
+    if (group.privacy === 'public') {
+      analyticsObject.groupName = group.name;
+    }
+
+    res.analytics.track('join group', analyticsObject);
+
     res.respond(200, response);
   },
 };
@@ -347,8 +384,11 @@ api.leaveGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat', requireMembership: true});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
+    let groupId = req.params.groupId;
+    let group = await Group.getGroup({user, groupId, fields: '-chat', requireMembership: true});
+    if (!group) {
+      throw new NotFound(res.t('groupNotFound'));
+    }
 
     // During quests, checke wheter user can leave
     if (group.type === 'party') {
@@ -436,7 +476,7 @@ api.removeGroupMember = {
         group.quest.leader = undefined;
       } else if (group.quest && group.quest.members) {
         // remove member from quest
-        group.quest.members[member._id] = undefined;
+        delete group.quest.members[member._id];
         group.markModified('quest.members');
       }
 
@@ -466,8 +506,8 @@ api.removeGroupMember = {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') {
-        user.invitations.party = {};
-        user.markModified('invitations.party');
+        member.invitations.party = {};
+        member.markModified('invitations.party');
       }
     } else {
       throw new NotFound(res.t('groupMemberNotFound'));
@@ -510,7 +550,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
       // Allow user to be invited to a new party when they're partying solo
-      if (userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
 
     userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};

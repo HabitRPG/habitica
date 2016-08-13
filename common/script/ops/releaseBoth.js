@@ -22,6 +22,7 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
         acquireMethod: 'Gems',
         gemCost: 6,
         category: 'behavior',
+        headers: req.headers,
       });
     }
 

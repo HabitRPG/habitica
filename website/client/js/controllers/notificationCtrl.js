@@ -97,7 +97,9 @@ habitrpg.controller('NotificationCtrl',
             $rootScope.openModal('rebirthEnabled');
             break;
           case 'WON_CHALLENGE':
-            Achievement.displayAchievement('wonChallenge');
+            User.sync().then( function() {
+              Achievement.displayAchievement('wonChallenge');
+            });
             break;
           case 'STREAK_ACHIEVEMENT':
             Notification.streak(User.user.achievements.streak);

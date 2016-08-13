@@ -6,14 +6,18 @@ angular.module('habitrpg')
     var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
     var IS_PUSHER_ENABLED = window.env['PUSHER:ENABLED'] === 'true';
 
+    var partyId;
+    var onActivityEvent;
+
     var api = {
       pusher: undefined,
       socketId: undefined, // when defined the user is connected
     };
     var tabIdKey = 'habitica-active-tab';
+    var tabId = Shared.uuid();
 
     function connectToPusher (partyId) {
-      localStorage.setItem(tabIdKey, Shared.uuid());
+      localStorage.setItem(tabIdKey, tabId);
       window.onbeforeunload = function () {
         localStorage.removeItem(tabIdKey);
       }
@@ -29,6 +33,22 @@ angular.module('habitrpg')
         },
       });
 
+      // Disconnect after 30m of inactivity
+      var DISCONNECTION_AFTER = 1800000; // 30m
+      var disconnectionTimeout;
+
+      var awaitIdle = function() {
+        if(disconnectionTimeout) clearTimeout(disconnectionTimeout);
+        disconnectionTimeout = setTimeout(function () {
+          console.log('Disconnecting from Pusher.');
+          $(document).off('mousemove keydown mousedown touchstart', awaitIdle);
+          disconnectPusher();
+        }, DISCONNECTION_AFTER);
+      };
+
+      awaitIdle();
+      $(document).on('mousemove keydown mousedown touchstart', awaitIdle);
+
       api.pusher.connection.bind('error', function(err) {
         console.error(err);
         // TODO if( err.data.code === 4004 ) detected connection limit
@@ -37,6 +57,8 @@ angular.module('habitrpg')
       api.pusher.connection.bind('connected', function () {
         api.socketId = api.pusher.connection.socket_id;
       });
+
+      if (!partyId) return;
 
       var partyChannelName = 'presence-group-' + partyId;
       var partyChannel = api.pusher.subscribe(partyChannelName);
@@ -84,6 +106,21 @@ angular.module('habitrpg')
       });
     };
 
+    function disconnectPusher () {
+      api.pusher.disconnect();
+
+      var awaitActivity = function() {
+        console.log('Reconnecting to Pusher.');
+        $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
+        if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
+          connectToPusher(partyId);
+        }
+      };
+
+      $(document).on('mousemove keydown mousedown touchstart', awaitActivity);
+
+    };
+
     // Setup chat channels once app is ready, only for parties for now
     var clearAppLoadedListener = $rootScope.$watch('appLoaded', function (after) {
       if (!after) return;
@@ -94,8 +131,8 @@ angular.module('habitrpg')
       var user = $rootScope.user;
 
       // Connect the user to Pusher and to the party's chat channel
-      var partyId = user && $rootScope.user.party && $rootScope.user.party._id;
-      if (!partyId) return;
+      partyId = user && $rootScope.user.party && $rootScope.user.party._id;
+      // if (!partyId) return;
 
       // See if another tab is already connected to Pusher
       if (!localStorage.getItem(tabIdKey)) {
