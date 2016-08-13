@@ -220,9 +220,10 @@ api.flagChat = {
     let authorEmailContent;
     if (author) {
       authorEmailContent = getUserInfo(author, ['email']).email;
+    } else if (message.uuid === 'system') {
+      authorEmailContent = 'system';
     } else {
-      // if there's no author it's either a system message or a user who deleted their account
-      authorEmailContent = message.uuid === 'system' ? 'system' : 'Author Account Deleted';
+      authorEmailContent = 'Author Account Deleted';
     }
 
     let groupUrl = getGroupUrl(group);
