@@ -14,7 +14,7 @@ import shared from '../../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import sendPushNotification from '../libs/pushNotifications';
 import cwait from 'cwait';
-import { syncableAttrs } from '../libs/api-v3/taskManager';
+import { syncableAttrs } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
 

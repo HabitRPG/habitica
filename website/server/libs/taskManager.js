@@ -48,10 +48,12 @@ export async function createTasks (req, res, options = {}) {
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
-    } else if (group) {
-      newTask.group.id = group._id;
     } else {
       newTask.userId = user._id;
+    }
+
+    if (group) {
+      newTask.group.id = group._id;
     }
 
     // Validate that the task is valid and throw if it isn't
@@ -99,7 +101,7 @@ export async function getTasks (req, res, options = {}) {
   if (challenge) {
     query =  {'challenge.id': challenge.id, userId: {$exists: false}};
   } else if (group) {
-    query =  {'group.id': group._id, userId: {$exists: false}};
+    query =  {'group.id': group._id};
   }
 
   let type = req.query.type;
@@ -155,4 +157,14 @@ export async function getTasks (req, res, options = {}) {
   } else {
     return tasks;
   }
+}
+
+// Takes a Task document and return a plain object of attributes that can be synced to the user
+
+export function syncableAttrs (task) {
+  let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
+  // only sync/compare important attrs
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt'];
+  if (t.type !== 'reward') omitAttrs.push('value');
+  return _.omit(t, omitAttrs);
 }
