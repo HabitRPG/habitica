@@ -10,7 +10,6 @@ describe('POST /tasks/clearCompletedTodos', () => {
     let guild = await generateGroup(user);
     let challenge = await generateChallenge(user, guild);
 
-    let initialTodoCount = user.tasksOrder.todos.length;
     await user.post('/tasks/user', [
       {text: 'todo 1', type: 'todo'},
       {text: 'todo 2', type: 'todo'},
@@ -25,7 +24,7 @@ describe('POST /tasks/clearCompletedTodos', () => {
     });
 
     let tasks = await user.get('/tasks/user?type=todos');
-    expect(tasks.length).to.equal(initialTodoCount + 6);
+    expect(tasks.length).to.equal(6);
 
     for (let task of tasks) {
       if (['todo 2', 'todo 3', 'todo 6'].indexOf(task.text) !== -1) {
@@ -37,7 +36,7 @@ describe('POST /tasks/clearCompletedTodos', () => {
     let completedTodos = await user.get('/tasks/user?type=completedTodos');
     let todos = await user.get('/tasks/user?type=todos');
     let allTodos = todos.concat(completedTodos);
-    expect(allTodos.length).to.equal(initialTodoCount + 4); // + 6 - 3 completed (but one is from challenge)
+    expect(allTodos.length).to.equal(4); // + 6 - 3 completed (but one is from challenge)
     expect(allTodos[allTodos.length - 1].text).to.equal('todo 6');
   });
 });
