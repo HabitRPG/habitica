@@ -37,6 +37,6 @@ describe('GET /export/userdata.xml', () => {
     expect(res.tasks.rewards.length).to.equal(2);
     expect(res.tasks.rewards[0]._id).to.equal(tasks[2]._id);
     expect(res.tasks.todos.length).to.equal(2);
-    expect(res.tasks.todos[1]._id).to.equal(tasks[3]._id);
+    expect(res.tasks.todos[0]._id).to.equal(tasks[3]._id);
   });
 });
