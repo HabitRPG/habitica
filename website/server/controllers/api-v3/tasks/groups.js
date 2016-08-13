@@ -37,7 +37,7 @@ api.createGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
@@ -45,8 +45,6 @@ api.createGroupTasks = {
     let tasks = await createTasks(req, res, {user, undefined, group});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
-
-    return null;
   },
 };
 
@@ -76,7 +74,7 @@ api.getGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let tasks = await getTasks(req, res, {user, group});
@@ -118,20 +116,18 @@ api.assignTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    if (!task.group || !task.group.id) {
+    if (!task.group.id) {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    group.syncTask(task, assignedUser);
+    await group.syncTask(task, assignedUser);
 
     res.respond(201, task);
-
-    return null;
   },
 };
 
@@ -169,20 +165,18 @@ api.unassignTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    if (!task.group || !task.group.id) {
+    if (!task.group.id) {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    group.unlinkTask(task, assignedUser);
+    await group.unlinkTask(task, assignedUser);
 
     res.respond(201, task);
-
-    return null;
   },
 };
 

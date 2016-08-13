@@ -76,8 +76,6 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
-
-    return null;
   },
 };
 
@@ -236,7 +234,7 @@ api.updateTask = {
     let savedTask = await task.save();
 
     if (task.group.id && task.assignedUsers.length > 0) {
-      let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false});
+      let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.updateTask(savedTask);
@@ -244,8 +242,6 @@ api.updateTask = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -362,8 +358,6 @@ api.scoreTask = {
       direction
     });
     */
-
-    return null;
   },
 };
 
@@ -464,8 +458,6 @@ api.addChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -556,8 +548,6 @@ api.updateChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -606,8 +596,6 @@ api.removeChecklistItem = {
     let savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -865,10 +853,10 @@ api.deleteTask = {
 
     if (task.group.id) {
       //  @TODO: Abstract this access snippet
-      let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false});
+      let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-      group.removeTask(task);
+      await group.removeTask(task);
     }
 
     if (task.type !== 'todo' || !task.completed) {
@@ -880,8 +868,6 @@ api.deleteTask = {
 
     res.respond(200, {});
     if (challenge) challenge.removeTask(task);
-
-    return null;
   },
 };
 

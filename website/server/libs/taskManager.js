@@ -17,7 +17,7 @@ async function _validateTaskAlias (tasks, res) {
   }
 
   await Bluebird.map(tasksWithAliases, (task) => {
-    return task.validate();
+    return task.validateSync();
   });
 }
 
@@ -164,7 +164,7 @@ export async function getTasks (req, res, options = {}) {
 export function syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt'];
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'group', 'assignedUsers', 'linkedTaskId'];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }

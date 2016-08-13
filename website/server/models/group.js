@@ -831,9 +831,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
 
-  toSave.push(matchingTask.save());
-  toSave.push(taskToSync.save());
-  toSave.push(user.save());
+  toSave.push(matchingTask.save(), taskToSync.save(), user.save());
   return Bluebird.all(toSave);
 };
 
@@ -848,7 +846,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
-      $set: {'group.id': undefined},
+      $unset: {'group.id': ''},
     }).exec();
 
     await user.save();
