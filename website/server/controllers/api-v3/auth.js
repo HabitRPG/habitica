@@ -532,8 +532,8 @@ api.updateEmail = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let userSameEmail = await User.findOne({'auth.local.email': req.body.newEmail}).exec();
-    if (userSameEmail) throw new NotAuthorized(res.t('cannotFulfillReq'));
+    let emailAlreadyInUse = await User.findOne({'auth.local.email': req.body.newEmail}).select({_id: 1}).lean().exec();
+    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
 
     let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
