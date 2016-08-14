@@ -59,7 +59,7 @@ describe('PUT /user/auth/update-email', () => {
     it('rejects if email is already taken', async () => {
       await expect(user.put(ENDPOINT, {
         newEmail: user.auth.local.email,
-        password: oldPassword
+        password: oldPassword,
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
