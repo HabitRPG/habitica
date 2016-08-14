@@ -252,5 +252,6 @@
     "onlySocialAttachLocal": "Local authentication can be added to only a social account.",
     "invalidReqParams": "Invalid request parameters.",
     "memberIdRequired": "\"member\" must be a valid UUID.",
-    "heroIdRequired": "\"heroId\" must be a valid UUID."
+    "heroIdRequired": "\"heroId\" must be a valid UUID.",
+    "cannotFulfillReq":"Your request cannot be fulfilled.  Email admin@habitica.com if this error persists"
 }
