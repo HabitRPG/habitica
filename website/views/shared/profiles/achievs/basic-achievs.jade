@@ -6,14 +6,6 @@ mixin achievWithOptionalMasterCount(isEarned, spriteName, mType)
     env.t(mType + 'Name'),
     env.t(mType + 'Text') + env.t(mType + 'Text2', {count: '{{::' + mCount + '}}'}))(ng-if='::#{mCount}')
 
-+simpleAchiev('profile.contributor.level', 'achievement-boot',
-  '{{::contribText(profile.contributor, profile.backer)}}', env.t('contribText'))(ng-if='::profile.contributor.level')
-+simpleAchiev('profile.contributor.level', 'achievement-boot',
-  env.t('contribName'), env.t('contribText'))(ng-if='::!profile.contributor.level')
-
-+achievWithSingularPlural('profile.achievements.habitSurveys', 'achievement-tree',
-  'helped', 'surveysSingle', 'helped', 'surveysMultiple')
-
 +achievWithSingularPlural('profile.achievements.streak', 'achievement-thermometer',
   'streakSingular', 'streakSingularText', 'streakName', 'streakText')
 

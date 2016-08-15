@@ -1,3 +1,11 @@
++achievWithSingularPlural('profile.achievements.habitSurveys', 'achievement-tree',
+  'helped', 'surveysSingle', 'helped', 'surveysMultiple')
+
++simpleAchiev('profile.contributor.level', 'achievement-boot',
+  '{{::contribText(profile.contributor, profile.backer)}}', env.t('contribText'))(ng-if='::profile.contributor.level')
++simpleAchiev('profile.contributor.level', 'achievement-boot',
+  env.t('contribName'), env.t('contribText'))(ng-if='::!profile.contributor.level')
+
 +simpleAchiev('profile.backer.npc', 'achievement-ultimate-warrior',
   '{{::profile.backer.npc}}' + env.t('npc'), env.t('npcText'))(ng-if='::profile.backer.npc')
 
