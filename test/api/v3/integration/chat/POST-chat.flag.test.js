@@ -40,8 +40,7 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Flags a chat', async () => {
-    let message = await anotherUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
-    message = message.message;
+    let { message } = await anotherUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
 
     let flagResult = await user.post(`/groups/${group._id}/chat/${message.id}/flag`);
     expect(flagResult.flags[user._id]).to.equal(true);
@@ -55,8 +54,7 @@ describe('POST /chat/:chatId/flag', () => {
 
   it('Flags a chat when the author\'s account was deleted', async () => {
     let deletedUser = await generateUser();
-    let message = await deletedUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
-    message = message.message;
+    let { message } = await deletedUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
     await deletedUser.del('/user', {
       password: 'password',
     });
@@ -72,8 +70,7 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Flags a chat with a higher flag acount when an admin flags the message', async () => {
-    let message = await user.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
-    message = message.message;
+    let { message } = await user.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
 
     let flagResult = await admin.post(`/groups/${group._id}/chat/${message.id}/flag`);
     expect(flagResult.flags[admin._id]).to.equal(true);
@@ -87,8 +84,7 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Returns an error when user tries to flag a message that is already flagged', async () => {
-    let message = await anotherUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
-    message = message.message;
+    let { message } = await anotherUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
 
     await user.post(`/groups/${group._id}/chat/${message.id}/flag`);
 
