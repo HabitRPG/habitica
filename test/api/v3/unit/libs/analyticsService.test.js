@@ -94,7 +94,19 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*platform.*3rd\%20Party.*/g, '');
 
-          data.headers = {};
+          data.headers = {'x-client': 'some-third-party'};
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('logs unknown if headers are not passed in', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*platform.*Unknown.*/g, '');
+
+          delete data.headers;
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -108,6 +120,11 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*os.*name.*Other.*/g, '');
 
+          data.headers = {
+            'x-client': 'thrid-party',
+            'user-agent': 'foo',
+          };
+
           return analyticsService.track(eventType, data)
             .then(() => {
               amplitudeNock.done();
@@ -118,8 +135,10 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*os.*name.*iOS.*/g, '');
 
-          data.headers = {'x-client': 'habitica-ios',
-            'user-agent': 'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)'};
+          data.headers = {
+            'x-client': 'habitica-ios',
+            'user-agent': 'Habitica/148 (iPhone; iOS 9.3; Scale/2.00)',
+          };
 
           return analyticsService.track(eventType, data)
             .then(() => {
@@ -131,7 +150,22 @@ describe('analyticsService', () => {
           amplitudeNock
             .filteringPath(/httpapi.*os.*name.*Android.*/g, '');
 
-          data.headers = {'x-client': 'habitica-android'};
+          data.headers = {
+            'x-client': 'habitica-android',
+            'user-agent': 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19',
+          };
+
+          return analyticsService.track(eventType, data)
+            .then(() => {
+              amplitudeNock.done();
+            });
+        });
+
+        it('sets Unkown if headers are not passed in', () => {
+          amplitudeNock
+            .filteringPath(/httpapi.*Unknown.*/g, '');
+
+          delete data.headers;
 
           return analyticsService.track(eventType, data)
             .then(() => {
