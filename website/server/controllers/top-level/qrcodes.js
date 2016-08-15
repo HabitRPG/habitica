@@ -5,7 +5,7 @@ api.redirectProfileQRCode = {
   url: '/qr-code/user/:memberid',
   runCron: false,
   async handler (req, res) {
-    req.checkParams('memberid', res.t('memberIdRequired')).notEmpty();
+    req.checkParams('memberid', res.t('memberIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
