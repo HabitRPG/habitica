@@ -6,7 +6,7 @@ import superagent from 'superagent';
 import nconf from 'nconf';
 
 const API_TEST_SERVER_PORT = nconf.get('PORT');
-describe.only('GET /qr-code/user/:memberId', () => {
+describe('GET /qr-code/user/:memberId', () => {
   let user;
 
   before(async () => {
@@ -23,10 +23,11 @@ describe.only('GET /qr-code/user/:memberId', () => {
 
   it('redirects to profile page', async () => {
     let url = `http://localhost:${API_TEST_SERVER_PORT}/qr-code/user/${user._id}`;
-    let res = await superagent.get(url).end(function(err, res){
+    let response = await superagent.get(url).end(function (err, res) {
+      expect(err).to.be(undefined);
       return res;
     });
-    expect(res.status).to.eql(200);
-    expect(res.request.url).to.eql(`http://localhost:${API_TEST_SERVER_PORT}/static/front/#?memberId=${user._id}`)
+    expect(response.status).to.eql(200);
+    expect(response.request.url).to.eql(`http://localhost:${API_TEST_SERVER_PORT}/static/front/#?memberId=${user._id}`);
   });
 });
