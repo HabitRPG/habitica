@@ -18,6 +18,7 @@ let api = {};
  * @apiVersion 3.0.0
  * @apiName CreateGroupTasks
  * @apiGroup Task
+ * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group the new task(s) will belong to
  *
@@ -53,6 +54,7 @@ api.createGroupTasks = {
  * @apiVersion 3.0.0
  * @apiName GetGroupTasks
  * @apiGroup Task
+ * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group from which to retrieve the tasks
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks

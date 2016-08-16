@@ -79,7 +79,7 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user, undefined, group});
+    let newTasks = await createTasks(req, res, {user, group});
     let newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
@@ -94,14 +94,14 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user, undefined, group});
+    await createTasks(req, res, {user, group});
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user, undefined, group});
+    let tasks = await getTasks(req, res, {user, group});
     let task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
@@ -116,7 +116,7 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user, challenge, undefined});
+    let newTasks = await createTasks(req, res, {user, challenge});
     let newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
@@ -131,14 +131,14 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user, challenge, undefined});
+    await createTasks(req, res, {user, challenge});
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user, challenge, undefined});
+    let tasks = await getTasks(req, res, {user, challenge});
     let task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
