@@ -4,8 +4,9 @@ mixin simpleAchiev(isEarned, spriteName, titleText, descText)
     popover-trigger='mouseenter',
     popover-placement='bottom')&attributes(attributes)
 
-    button.pet-button(ng-class='::{muted: !(#{isEarned})}')
-      .achievement(class='#{spriteName}2x')
+    button.pet-button
+      .achievement(class='#{spriteName}2x')(ng-if='::#{isEarned}')
+      .achievement(class='#{spriteName}2x-muted')(ng-if='::!(#{isEarned})')
 
 mixin achievWithSimpleCount(countVal, spriteName, title, desc)
   +simpleAchiev(countVal, spriteName, env.t(title), env.t(desc, {count: "0"}))(ng-if='::!(#{countVal})')
