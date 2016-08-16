@@ -4,7 +4,7 @@ mixin achievWithOptionalMasterCount(isEarned, spriteName, mType)
     env.t(mType + 'Name'), env.t(mType + 'Text'))(ng-if='::!#{mCount}')
   +simpleAchiev(isEarned, spriteName,
     env.t(mType + 'Name'),
-    env.t(mType + 'Text') + env.t(mType + 'Text2', {count: '{{::' + mCount + '}}'}))(ng-if='::#{mCount}')
+    env.t(mType + 'Text') + env.t(mType + 'Text2', {count: '{{::' + mCount + '}}'}), mCount)(ng-if='::#{mCount}')
 
 +achievWithSingularPlural('profile.achievements.streak', 'achievement-thermometer',
   'streakSingular', 'streakSingularText', 'streakName', 'streakText')
@@ -61,4 +61,4 @@ each ultClass in ['healer', 'rogue', 'warrior']
 each tInfo, tLabel in titleStates
   each dInfo, dLabel in descStates
     +simpleAchiev('profile.achievements.rebirths', 'achievement-sun',
-      tInfo.displayStr, dInfo.displayStr)(ng-if='::(#{tInfo.checkStr}) && (#{dInfo.checkStr})')
+      tInfo.displayStr, dInfo.displayStr, 'profile.achievements.rebirths')(ng-if='::(#{tInfo.checkStr}) && (#{dInfo.checkStr})')
