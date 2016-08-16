@@ -21,7 +21,15 @@ async function _validateTaskAlias (tasks, res) {
   });
 }
 
-// challenge must be passed only when a challenge task is being created
+
+/**
+ * Creates tasks for a user, challenge or group.
+ *
+ * @param  req  The Express req variable
+ * @param  res  The Express res variable
+ * @param  options  Should be a user, user and challenge to create a challenge task or user and group to create a group task
+ * @return The created tasks
+ */
 export async function createTasks (req, res, options = {}) {
   let {
     user,
@@ -47,11 +55,11 @@ export async function createTasks (req, res, options = {}) {
     }
 
     // Validate that the task is valid and throw if it isn't
-    // otherwise since we're saving user/challenge and task in parallel it could save the user/challenge with a tasksOrder that doens't match reality
+    // otherwise since we're saving user/challenge/group and task in parallel it could save the user/challenge/group with a tasksOrder that doens't match reality
     let validationErrors = newTask.validateSync();
     if (validationErrors) throw validationErrors;
 
-    // Otherwise update the user/challenge
+    // Otherwise update the user/challenge/group
     (group || challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
@@ -67,11 +75,18 @@ export async function createTasks (req, res, options = {}) {
   toSave.unshift((challenge || user).save());
 
   let tasks = await Bluebird.all(toSave);
-  tasks.splice(0, 1); // Remove user or challenge
+  tasks.splice(0, 1); // Remove user, challenge, or group promise
   return tasks;
 }
 
-// challenge must be passed only when a challenge task is being created
+/**
+ * Gets tasks for a user, challenge or group.
+ *
+ * @param  req  The Express req variable
+ * @param  res  The Express res variable
+ * @param  options  Should be a user, user and challenge to get challenge tasks or user and group to get group tasks
+ * @return The tasks found
+ */
 export async function getTasks (req, res, options = {}) {
   let {
     user,
