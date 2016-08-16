@@ -21,6 +21,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
 import sendPushNotification from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
+import clearPartyInvitation from '../../libs/clearPartyInvitation';
 
 let api = {};
 
@@ -340,7 +341,7 @@ api.rejectGroupInvite = {
     let isUserInvited = false;
 
     if (groupId === user.invitations.party.id) {
-      clearPartyInvitation(user, group._id);
+      clearPartyInvitation(user, groupId);
       user.markModified('invitations.party');
       isUserInvited = true;
     } else {
@@ -542,7 +543,6 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
     userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
   } else if (group.type === 'party') {
-
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
@@ -714,20 +714,5 @@ api.inviteToGroup = {
     res.respond(200, results);
   },
 };
-
-// Transitioning invitation storage to an array of objects (see issue #7792 for reference)
-function clearPartyInvitation(user, groupID) {
-  user.invitations.parties.forEach(function(party, index, partiesArr) {
-    if (party.id === groupID){
-      partiesArr.splice(index, 1);
-    }
-  });
-
-  const lastInviteIndex = user.invitations.parties.length - 1;
-  user.invitations.party = user.invitations.parties[lastInviteIndex] || {};
-
-  user.markModified('invitations.party');
-  user.markModified('invitations.parties');
-}
 
 module.exports = api;
