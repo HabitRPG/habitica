@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Erfüllte Aufgaben entfernen",
     "lotOfToDos": "Erfüllte To-Dos werden automatisch nach 3 Tagen archiviert. Du kannst auf sie zugreifen unter Einstellungen > Exportieren.",
-    "deleteToDosExplanation": "Wenn Du den unteren Knopf klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
+    "deleteToDosExplanation": "Wenn Du den Knopf unten klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
     "addmultiple": "Mehrere hinzufügen",
     "addsingle": "Einzelne hinzufügen",
     "habit": "Gewohnheit",

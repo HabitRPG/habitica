@@ -139,7 +139,7 @@
     "hatchingPotionSpooky": "Escalofriante",
     "hatchingPotionPeppermint": "Menta",
     "hatchingPotionFloral": "Floral",
-    "hatchingPotionThunderstorm": "Thunderstorm",
+    "hatchingPotionThunderstorm": "Tormenta eléctrica",
     "hatchingPotionNotes": "Echa esto en un huevo, y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No es usable en huevos de mascota de misión.",
     "foodMeat": "Carne",

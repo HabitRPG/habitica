@@ -254,5 +254,6 @@
     "onlySocialAttachLocal": "Lokale Authentifizierung kann nur zu einem Social-Media-Konto hinzugefügt werden.",
     "invalidReqParams": "Ungültige Anfrageparameter.",
     "memberIdRequired": "\"member\" muss eine gültige UUID sein.",
-    "heroIdRequired": "\"herold\" muss eine gültige UUID sein."
+    "heroIdRequired": "\"herold\" muss eine gültige UUID sein.",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

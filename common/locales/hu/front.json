@@ -254,5 +254,6 @@
     "onlySocialAttachLocal": "Csak a szociális felhasználói fiókhoz adható helyi hitelesítés.",
     "invalidReqParams": "Hibás kérés paraméterek.",
     "memberIdRequired": "\"tag\" valódi UUID-nek kell lennie.",
-    "heroIdRequired": "\"hős azonosító\" valódi UUID-nek kell lennie."
+    "heroIdRequired": "\"hős azonosító\" valódi UUID-nek kell lennie.",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

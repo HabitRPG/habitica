@@ -52,7 +52,7 @@
     "spellSpecialSandNotes": "Anuluj skutki Piany Morskiej",
     "spellNotFound": "Nie znaleziono umiejętności \"<%= spellId %>\".",
     "partyNotFound": "Nie znaleziono drużyny.",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "targetIdUUID": "\"targetId\" musi być prawidłowym ID użytkownika.",
     "challengeTasksNoCast": "Rzucanie czaru na zadanie z wyzwań nie jest dozwolone.",
     "spellNotOwned": "Nie posiadasz tej umiejętności.",
     "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%= level %>."

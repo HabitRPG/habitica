@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Non ti preoccupare, Habitica tornerà presto!",
-  "importantMaintenance": "Stiamo effettuando un'importante manutenzione che stimiamo durerà fino alle 22:00 ora del Pacifico (5:00 GMT)",
+  "importantMaintenance": "Stiamo effettuando un'importante manutenzione che stimiamo durerà fino alle 22:00, ora del Pacifico (5:00 UTC)",
   "maintenance": "Manutenzione",
   "maintenanceMoreInfo": "Vuoi maggiori informazioni sulla manutenzione? <%= linkStart %>Guarda in questa pagina<%= linkEnd %>.",
   "noDamageKeepStreaks": "NON riceverai alcun danno o perderai le tue Serie!",
