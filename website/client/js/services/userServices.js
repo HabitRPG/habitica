@@ -532,15 +532,26 @@ angular.module('habitrpg')
         },
 
         addWebhook: function (data) {
-          callOpsFunctionAndRequest('addWebhook', 'webhook', "POST", '', data);
+          return $http({
+            method: 'POST',
+            url: '/api/v3/user/webhook',
+            data: data,
+          }).then(sync);
         },
 
-        updateWebhook: function (data) {
-          callOpsFunctionAndRequest('updateWebhook', 'webhook', "PUT", data.params.id, data);
+        updateWebhook: function (id, data) {
+          return $http({
+            method: 'PUT',
+            url: '/api/v3/user/webhook/' + id,
+            data: data,
+          }).then(sync);
         },
 
-        deleteWebhook: function (data) {
-          callOpsFunctionAndRequest('deleteWebhook', 'webhook', "DELETE", data.params.id, data);
+        deleteWebhook: function (id) {
+          return $http({
+            method: 'DELETE',
+            url: '/api/v3/user/webhook/' + id,
+          }).then(sync);
         },
 
         sleep: function () {

@@ -4,61 +4,200 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
-let user;
-let endpoint = '/user/webhook';
-
 describe('POST /user/webhook', () => {
+  let user, body;
+
   beforeEach(async () => {
     user = await generateUser();
+    body = {
+      id: generateUUID(),
+      url: 'https://example.com/endpoint',
+      type: 'taskActivity',
+      enabled: false,
+    };
   });
 
-  it('validates', async () => {
-    await expect(user.post(endpoint, { enabled: true })).to.eventually.be.rejected.and.eql({
+  it('requires a url', async () => {
+    delete body.url;
+
+    await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: t('invalidUrl'),
+      message: 'Webhook validation failed',
     });
+  });
+
+  it('requires custom id to be a uuid', async () => {
+    body.id = 'not-a-uuid';
+
+    await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: 'Webhook validation failed',
+    });
+  });
+
+  it('defaults id to a uuid', async () => {
+    delete body.id;
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.id).to.exist;
+  });
+
+  it('requires type to be of an accetable type', async () => {
+    body.type = 'not a valid type';
+
+    await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: 'Webhook validation failed',
+    });
+  });
+
+  it('defaults enabled to true', async () => {
+    delete body.enabled;
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.enabled).to.be.true;
+  });
+
+  it('defaults type to taskActivity', async () => {
+    delete body.type;
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.type).to.eql('taskActivity');
   });
 
   it('successfully adds the webhook', async () => {
-    expect(user.preferences.webhooks).to.eql({});
-    let response = await user.post(endpoint, { enabled: true, url: 'http://some-url.com'});
-    expect(response.id).to.exist;
+    expect(user.webhooks).to.eql([]);
+
+    let response = await user.post('/user/webhook', body);
+
+    expect(response.id).to.eql(body.id);
+    expect(response.type).to.eql(body.type);
+    expect(response.url).to.eql(body.url);
+    expect(response.enabled).to.eql(body.enabled);
+
     await user.sync();
 
-    expect(user.preferences.webhooks).to.not.eql({});
+    expect(user.webhooks).to.not.eql([]);
 
-    let webhookId = Object.keys(user.preferences.webhooks)[0];
-    let webhook = user.preferences.webhooks[webhookId];
+    let webhook = user.webhooks[0];
 
-    expect(webhook.enabled).to.be.true;
-    expect(webhook.type).to.eql('taskActivity'); // default value
-    expect(webhook.url).to.eql('http://some-url.com');
+    expect(webhook.enabled).to.be.false;
+    expect(webhook.type).to.eql('taskActivity');
+    expect(webhook.url).to.eql(body.url);
   });
 
-  it('successfully adds a webhook of a specific type', async () => {
-    expect(user.preferences.webhooks).to.eql({});
+  it('defaults taskActivity options', async () => {
+    body.type = 'taskActivity';
 
-    let groupId = generateUUID();
-    let response = await user.post(endpoint, {
-      enabled: true,
-      url: 'http://some-url.com',
-      type: 'groupChatReceived',
-      options: {
-        groupId,
-      },
-    });
+    let webhook = await user.post('/user/webhook', body);
 
-    expect(response.id).to.exist;
-
-    await user.sync();
-
-    let webhookId = Object.keys(user.preferences.webhooks)[0];
-    let webhook = user.preferences.webhooks[webhookId];
-
-    expect(webhook.type).to.eql('groupChatReceived');
     expect(webhook.options).to.eql({
-      groupId,
+      created: false,
+      updated: false,
+      deleted: false,
+      scored: true,
+    });
+  });
+
+  it('can set taskActivity options', async () => {
+    body.type = 'taskActivity';
+    body.options = {
+      created: true,
+      updated: true,
+      deleted: true,
+      scored: false,
+    };
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options).to.eql({
+      created: true,
+      updated: true,
+      deleted: true,
+      scored: false,
+    });
+  });
+
+  it('discards extra properties in taskActivity options', async () => {
+    body.type = 'taskActivity';
+    body.options = {
+      created: true,
+      updated: true,
+      deleted: true,
+      scored: false,
+      foo: 'bar',
+    };
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options.foo).to.not.exist;
+    expect(webhook.options).to.eql({
+      created: true,
+      updated: true,
+      deleted: true,
+      scored: false,
+    });
+  });
+
+  ['created', 'updated', 'deleted', 'scored'].forEach((option) => {
+    it(`requires taskActivity option ${option} to be a boolean`, async () => {
+      body.type = 'taskActivity';
+      body.options = {
+        [option]: 'not a boolean',
+      };
+
+      await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('webhookBooleanOption', { option }),
+      });
+    });
+  });
+
+  it('can set groupChatReceived options', async () => {
+    body.type = 'groupChatReceived';
+    body.options = {
+      groupId: generateUUID(),
+    };
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options).to.eql({
+      groupId: body.options.groupId,
+    });
+  });
+
+  it('groupChatReceived options requires a uuid for the groupId', async () => {
+    body.type = 'groupChatReceived';
+    body.options = {
+      groupId: 'not-a-uuid',
+    };
+
+    await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('groupIdRequired'),
+    });
+  });
+
+  it('discards extra properties in groupChatReceived options', async () => {
+    body.type = 'groupChatReceived';
+    body.options = {
+      groupId: generateUUID(),
+      foo: 'bar',
+    };
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options.foo).to.not.exist;
+    expect(webhook.options).to.eql({
+      groupId: body.options.groupId,
     });
   });
 });

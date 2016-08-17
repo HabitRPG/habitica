@@ -4,6 +4,7 @@ import _ from 'lodash';
 import validator from 'validator';
 import { schema as TagSchema } from '../tag';
 import { schema as PushDeviceSchema } from '../pushDevice';
+import { schema as WebhookSchema } from '../webhook';
 import {
   schema as UserNotificationSchema,
 } from '../userNotification';
@@ -518,6 +519,7 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
+  webhooks: [WebhookSchema],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

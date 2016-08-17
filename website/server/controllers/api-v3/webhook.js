@@ -1,5 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import common from '../../../../common';
+import { model as Webhook } from '../../models/webhook';
+import { removeFromArray } from '../../libs/collectionManipulators';
+import { NotFound } from '../../libs/errors';
 
 let api = {};
 
@@ -66,9 +68,17 @@ api.addWebhook = {
   url: '/user/webhook',
   async handler (req, res) {
     let user = res.locals.user;
-    let addWebhookRes = common.ops.addWebhook(user, req);
+    let webhook = new Webhook(req.body);
+
+    await webhook.validate();
+
+    webhook.formatOptions(res);
+
+    user.webhooks.push(webhook);
+
     await user.save();
-    res.respond(201, ...addWebhookRes);
+
+    res.respond(201, webhook);
   },
 };
 
@@ -115,9 +125,36 @@ api.updateWebhook = {
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    let updateWebhookRes = common.ops.updateWebhook(user, req);
+    let id = req.params.id;
+    let webhook = user.webhooks.find(hook => hook.id === id);
+    let { url, type, enabled, options } = req.body;
+
+    if (!webhook) {
+      throw new NotFound(res.t('noWebhookWithId', {id}));
+    }
+
+    if (url) {
+      webhook.url = url;
+    }
+
+    if (type) {
+      webhook.type = type;
+    }
+
+    if (enabled !== undefined) {
+      webhook.enabled = enabled;
+    }
+
+    if (options) {
+      webhook.options = Object.assign(webhook.options, options);
+    }
+
+    await webhook.validate();
+
+    webhook.formatOptions(res);
+
     await user.save();
-    res.respond(200, ...updateWebhookRes);
+    res.respond(200, webhook);
   },
 };
 
@@ -137,9 +174,19 @@ api.deleteWebhook = {
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    let deleteWebhookRes = common.ops.deleteWebhook(user, req);
+    let id = req.params.id;
+
+    let webhook = user.webhooks.find(hook => hook.id === id);
+
+    if (!webhook) {
+      throw new NotFound(res.t('noWebhookWithId', {id}));
+    }
+
+    removeFromArray(user.webhooks, webhook);
+
     await user.save();
-    res.respond(200, ...deleteWebhookRes);
+
+    res.respond(200, user.webhooks);
   },
 };
 

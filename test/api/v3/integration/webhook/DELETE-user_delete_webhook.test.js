@@ -23,19 +23,25 @@ describe('DELETE /user/webhook', () => {
   });
 
   it('deletes a webhook', async () => {
+    expect(user.webhooks).to.have.a.lengthOf(2);
     await user.del(`${endpoint}/${webhookToDelete.id}`);
 
     await user.sync();
 
-    expect(user.preferences.webhooks[webhookToDelete.id]).to.not.exist;
+    expect(user.webhooks).to.have.a.lengthOf(1);
   });
 
   it('returns the remaining webhooks', async () => {
-    let response = await user.del(`${endpoint}/${webhookToDelete.id}`);
+    let [remainingWebhook] = await user.del(`${endpoint}/${webhookToDelete.id}`);
 
     await user.sync();
 
-    expect(response).to.eql(user.preferences.webhooks);
+    let webhook = user.webhooks[0];
+
+    expect(remainingWebhook.id).to.eql(webhook.id);
+    expect(remainingWebhook.url).to.eql(webhook.url);
+    expect(remainingWebhook.type).to.eql(webhook.type);
+    expect(remainingWebhook.options).to.eql(webhook.options);
   });
 
   it('returns an error if webhook with id does not exist', async () => {

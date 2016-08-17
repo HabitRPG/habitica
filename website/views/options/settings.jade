@@ -262,14 +262,14 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
               th=env.t('webhookURL')
               th
           tbody
-            tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort'")
+            tr(ng-repeat="webhook in user.webhooks")
               td
-                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook.$key,webhook)')
+                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook.id,webhook)')
               td
-                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook.$key,webhook)'}")
+                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook.id,webhook)'}")
               td
                 span.pull-left(ng-show='webhook._editing') *
-                a.checklist-icons(ng-click='deleteWebhook(webhook.$key)')
+                a.checklist-icons(ng-click='deleteWebhook(webhook.id)')
                   span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
             tr
               td(colspan=2)
