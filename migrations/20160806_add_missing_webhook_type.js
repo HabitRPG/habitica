@@ -3,11 +3,11 @@
 /****************************************
  * Author: Blade Barringer @crookedneighbor
  *
- * Reason: Webhooks now support a type
- * property. Old webhooks are of type
- * "taskActivity", so this migration updates
- * the data to have the correct type.
- ***************************************/
+ * Reason: Webhooks have been moved from
+ * being an object on preferences.webhooks
+ * to being an array on webhooks. In addition
+ * they support a type and options
+* ***************************************/
 
 global.Promise = require('bluebird');
 const TaskQueue = require('cwait').TaskQueue;
@@ -18,6 +18,7 @@ const closeDb = require('./utils/connect').closeDb;
 const validator = require('validator');
 
 const timer = new Timer();
+const MIGRATION_NAME = '20160806_add_missing_webhook_type.js';
 
 // const DB_URI = 'mongodb://username:password@dsXXXXXX-a0.mlab.com:XXXXX,dsXXXXXX-a1.mlab.com:XXXXX/habitica?replicaSet=rs-dsXXXXXX';
 const DB_URI = 'mongodb://localhost/prod-copy-4';
@@ -90,7 +91,7 @@ function updateUserById (user) {
 
   return Users.findOneAndUpdate({
     _id: userId},
-    {$set: {'webhooks': webhooks}
+    {$set: {webhooks: webhooks, migration: MIGRATION_NAME}
   }, {returnOriginal: false})
 }
 
