@@ -11,6 +11,8 @@ import {
   getTasks,
 } from '../../../libs/taskManager';
 
+let requiredGroupFields = '_id leader tasksOrder name';
+
 let api = {};
 
 /**
@@ -37,12 +39,12 @@ api.createGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    let tasks = await createTasks(req, res, {user, undefined, group});
+    let tasks = await createTasks(req, res, {user, group});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
   },
@@ -74,7 +76,7 @@ api.getGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let tasks = await getTasks(req, res, {user, group});
@@ -120,7 +122,7 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
+    let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
@@ -169,7 +171,7 @@ api.unassignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: '_id'});
+    let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));

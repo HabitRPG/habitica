@@ -831,6 +831,8 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
 
+  user.party = {};
+
   toSave.push(matchingTask.save(), taskToSync.save(), user.save());
   return Bluebird.all(toSave);
 };
@@ -874,63 +876,6 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
 };
-
-// API v2 compatibility methods
-schema.methods.getTransformedData = function getTransformedData (options) {
-  let cb = options.cb;
-  let populateMembers = options.populateMembers;
-  let populateInvites = options.populateInvites;
-  let populateChallenges = options.populateChallenges;
-
-  let obj = this.toJSON();
-
-  let queryMembers = {};
-  let queryInvites = {};
-
-  if (this.type === 'guild') {
-    queryInvites['invitations.guilds.id'] = this._id;
-  } else {
-    queryInvites['invitations.party.id'] = this._id;
-  }
-
-  if (this.type === 'guild') {
-    queryMembers.guilds = this._id;
-  } else {
-    queryMembers['party._id'] = this._id;
-  }
-
-  let selectDataMembers = '_id';
-  let selectDataInvites = '_id';
-  let selectDataChallenges = '_id';
-
-  if (populateMembers) {
-    selectDataMembers += ` ${populateMembers}`;
-  }
-  if (populateInvites) {
-    selectDataInvites += ` ${populateInvites}`;
-  }
-  if (populateChallenges) {
-    selectDataChallenges += ` ${populateChallenges}`;
-  }
-
-  let membersQuery = User.find(queryMembers).select(selectDataMembers);
-  if (options.limitPopulation) membersQuery.limit(15);
-
-  Bluebird.all([
-    membersQuery.exec(),
-    User.find(queryInvites).select(populateInvites).exec(),
-    Challenge.find({group: obj._id}).select(populateMembers).exec(),
-  ])
-    .then((results) => {
-      obj.members = results[0];
-      obj.invites = results[1];
-      obj.challenges = results[2];
-
-      cb(null, obj);
-    })
-    .catch(cb);
-};
-// END API v2 compatibility methods
 
 export let model = mongoose.model('Group', schema);
 
