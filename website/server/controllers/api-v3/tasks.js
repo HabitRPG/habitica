@@ -97,7 +97,7 @@ api.createUserTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach((task) => {
-      taskActivityWebhook.send(user.preferences.webhooks, {
+      taskActivityWebhook.send(user.webhooks, {
         type: 'created',
         task,
       });
@@ -357,7 +357,7 @@ api.updateTask = {
     if (challenge) {
       challenge.updateTask(savedTask);
     } else {
-      taskActivityWebhook.send(user.preferences.webhooks, {
+      taskActivityWebhook.send(user.webhooks, {
         type: 'updated',
         task: savedTask,
       });
@@ -428,7 +428,7 @@ api.scoreTask = {
     let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
-    taskScoredWebhook.send(user.preferences.webhooks, {
+    taskScoredWebhook.send(user.webhooks, {
       task,
       direction,
       delta,
@@ -972,7 +972,7 @@ api.deleteTask = {
     if (challenge) {
       challenge.removeTask(task);
     } else {
-      taskActivityWebhook.send(user.preferences.webhooks, {
+      taskActivityWebhook.send(user.webhooks, {
         type: 'deleted',
         task,
       });

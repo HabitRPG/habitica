@@ -34,15 +34,13 @@ export class WebhookSender {
   }
 
   send (webhooks, data) {
-    let hooks = Object.keys(webhooks)
-      .map(hook => webhooks[hook])
+    let hooks = webhooks
       .filter(isValidWebhook)
       // Until the migration to add the taskActivity field to the webhooks is complete, we'll assume that any webhooks without a type are taskActivity
       // TODO: Change back to this when migration is complete
       // .filter(hook => this.type === hook.type)
       .filter((hook) => {
-        let type = hook.type || 'taskActivity';
-        return this.type === type;
+        return this.type === hook.type;
       })
       .filter(hook => this.webhookFilter(hook, data));
 
@@ -63,13 +61,7 @@ export let taskScoredWebhook = new WebhookSender({
   webhookFilter (hook) {
     let scored = hook.options && hook.options.scored;
 
-    if (scored === undefined) {
-      scored = true;
-    }
     return scored;
-    // Need to account for webhooks without options before the migration completes
-    // TODO remove the above and uncomment below
-    // return hook.options.scored;
   },
   transformData (data) {
     let { user, task, direction, delta } = data;

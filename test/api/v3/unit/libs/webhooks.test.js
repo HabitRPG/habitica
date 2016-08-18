@@ -12,27 +12,26 @@ describe('webhooks', () => {
   beforeEach(() => {
     sandbox.stub(request, 'post');
 
-    webhooks = {
-      taskActivity: {
-        url: 'http://task-scored.com',
-        enabled: true,
-        type: 'taskActivity',
-        options: {
-          created: true,
-          updated: true,
-          deleted: true,
-          scored: true,
-        },
+    webhooks = [{
+      id: 'taskActivity',
+      url: 'http://task-scored.com',
+      enabled: true,
+      type: 'taskActivity',
+      options: {
+        created: true,
+        updated: true,
+        deleted: true,
+        scored: true,
       },
-      groupChatReceived: {
-        url: 'http://group-chat-received.com',
-        enabled: true,
-        type: 'groupChatReceived',
-        options: {
-          groupId: 'group-id',
-        },
+    }, {
+      id: 'groupChatReceived',
+      url: 'http://group-chat-received.com',
+      enabled: true,
+      type: 'groupChatReceived',
+      options: {
+        groupId: 'group-id',
       },
-    };
+    }];
   });
 
   afterEach(() => {
@@ -57,7 +56,7 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({'custom-webhook': { url: 'http://custom-url.com', enabled: true, type: 'custom'}}, body);
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
 
       expect(WebhookSender.defaultTransformData).to.be.calledOnce;
       expect(request.post).to.be.calledOnce;
@@ -79,7 +78,7 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({'custom-webhook': { url: 'http://custom-url.com', enabled: true, type: 'custom'}}, body);
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
 
       expect(WebhookSender.defaultTransformData).to.not.be.called;
       expect(request.post).to.be.calledOnce;
@@ -99,7 +98,7 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({'custom-webhook': { url: 'http://custom-url.com', enabled: true, type: 'custom'}}, body);
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
 
       expect(WebhookSender.defaultWebhookFilter).to.be.calledOnce;
     });
@@ -115,7 +114,7 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({'custom-webhook': { url: 'http://custom-url.com', enabled: true, type: 'custom'}}, body);
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
 
       expect(WebhookSender.defaultWebhookFilter).to.not.be.called;
       expect(request.post).to.not.be.called;
@@ -132,10 +131,10 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({
-        'custom-webhook': { url: 'http://custom-url.com', enabled: true, type: 'custom', options: { foo: 'bar' }},
-        'other-custom-webhook': { url: 'http://other-custom-url.com', enabled: true, type: 'custom', options: { foo: 'foo' }},
-      }, body);
+      sendWebhook.send([
+        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom', options: { foo: 'bar' }},
+        { id: 'other-custom-webhook', url: 'http://other-custom-url.com', enabled: true, type: 'custom', options: { foo: 'foo' }},
+      ], body);
 
       expect(request.post).to.be.calledOnce;
       expect(request.post).to.be.calledWithMatch({
@@ -150,7 +149,7 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({'custom-webhook': { url: 'http://custom-url.com', enabled: false, type: 'custom'}}, body);
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: false, type: 'custom'}], body);
 
       expect(request.post).to.not.be.called;
     });
@@ -162,7 +161,7 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({'custom-webhook': { url: 'httxp://custom-url!!', enabled: true, type: 'custom'}}, body);
+      sendWebhook.send([{id: 'custom-webhook', url: 'httxp://custom-url!!', enabled: true, type: 'custom'}], body);
 
       expect(request.post).to.not.be.called;
     });
@@ -174,10 +173,10 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({
-        'custom-webhook': { url: 'http://custom-url.com', enabled: true, type: 'custom'},
-        'other-webhook': { url: 'http://other-url.com', enabled: true, type: 'other'},
-      }, body);
+      sendWebhook.send([
+        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
+        { id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other'},
+      ], body);
 
       expect(request.post).to.be.calledOnce;
       expect(request.post).to.be.calledWithMatch({
@@ -194,10 +193,10 @@ describe('webhooks', () => {
 
       let body = { foo: 'bar' };
 
-      sendWebhook.send({
-        'custom-webhook': { url: 'http://custom-url.com', enabled: true, type: 'custom'},
-        'other-custom-webhook': { url: 'http://other-url.com', enabled: true, type: 'custom'},
-      }, body);
+      sendWebhook.send([
+        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
+        { id: 'other-custom-webhook', url: 'http://other-url.com', enabled: true, type: 'custom'},
+      ], body);
 
       expect(request.post).to.be.calledTwice;
       expect(request.post).to.be.calledWithMatch({
@@ -279,7 +278,7 @@ describe('webhooks', () => {
     });
 
     it('does not send task scored data if scored option is not true', () => {
-      webhooks.taskActivity.options.scored = false;
+      webhooks[0].options.scored = false;
 
       taskScoredWebhook.send(webhooks, data);
 
@@ -315,7 +314,7 @@ describe('webhooks', () => {
 
       it(`does not send task ${type} data if ${type} option is not true`, () => {
         data.type = type;
-        webhooks.taskActivity.options[type] = false;
+        webhooks[0].options[type] = false;
 
         taskActivityWebhook.send(webhooks, data);
 

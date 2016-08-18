@@ -449,7 +449,12 @@ schema.methods.startQuest = async function startQuest (user) {
 
 schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
   let query = {
-    'preferences.webhooks': { $ne: {} },
+    webhooks: {
+      $elemMatch: {
+        type: 'groupChatReceived',
+        'options.groupId': this._id,
+      },
+    },
   };
 
   if (this.type === 'party') {
@@ -458,9 +463,9 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
     query.guilds = this._id;
   }
 
-  User.find(query).select({'preferences.webhooks': 1}).lean().then((users) => {
+  User.find(query).select({webhooks: 1}).lean().then((users) => {
     users.forEach((user) => {
-      let {webhooks} = user.preferences;
+      let { webhooks } = user;
       groupChatReceivedWebhook.send(webhooks, {
         group: this,
         chat,
