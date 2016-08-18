@@ -79,13 +79,19 @@ export let schema = new Schema({
       return {};
     }},
   },
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder'],
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
