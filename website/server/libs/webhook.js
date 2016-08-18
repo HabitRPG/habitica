@@ -34,15 +34,11 @@ export class WebhookSender {
   }
 
   send (webhooks, data) {
-    let hooks = webhooks
-      .filter(isValidWebhook)
-      // Until the migration to add the taskActivity field to the webhooks is complete, we'll assume that any webhooks without a type are taskActivity
-      // TODO: Change back to this when migration is complete
-      // .filter(hook => this.type === hook.type)
-      .filter((hook) => {
-        return this.type === hook.type;
-      })
-      .filter(hook => this.webhookFilter(hook, data));
+    let hooks = webhooks.filter((hook) => {
+      return isValidWebhook(hook) &&
+        this.type === hook.type &&
+        this.webhookFilter(hook, data);
+    });
 
     if (hooks.length < 1) {
       return; // prevents running the body creation code if there are no webhooks to send
