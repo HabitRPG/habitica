@@ -79,7 +79,7 @@ describe('POST /chat', () => {
       },
     });
 
-    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
     await sleep();
 
