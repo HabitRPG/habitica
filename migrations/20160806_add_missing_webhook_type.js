@@ -58,31 +58,39 @@ function findUsersWithWebhooks () {
   // return Users.find({'preferences.webhooks': {$ne: {} }}, ['preferences.webhooks']).toArray().then((docs) => {
   // TODO: Run this after the initial migration to catch any webhooks that may have been aded since the prod backup download
   // return Users.find({'preferences.webhooks': {$ne: {} }, 'auth.timestamps.loggedin': {$gte: new Date("2016-08-04T00:00:00.000Z")}}, ['preferences.webhooks']).toArray().then((docs) => {
-    docs.forEach((user) => {
-      let webhooks = user.preferences.webhooks;
-      Object.keys(webhooks).forEach((id) => {
-        let webhook = webhooks[id]
+    let updates = docs.map((user) => {
+      let oldWebhooks = user.preferences.webhooks;
+      let webhooks = Object.keys(oldWebhooks).map((id) => {
+        let webhook = oldWebhooks[id]
 
-        if (!webhook.type) {
-          webhook.type = 'taskActivity';
-          webhook.options = {
-            created: false,
-            updated: false,
-            deleted: false,
-            scored: true,
-          };
-        }
+        webhook.type = 'taskActivity';
+        webhook.options = {
+          created: false,
+          updated: false,
+          deleted: false,
+          scored: true,
+        };
+
+        return webhook;
       });
+
+      return {
+        webhooks,
+        id: user._id,
+      }
     });
 
-    return Promise.resolve(docs);
+    return Promise.resolve(updates);
   });
 }
 
 function updateUserById (user) {
+  let userId = user.id;
+  let webhooks = user.webhooks;
+
   return Users.findOneAndUpdate({
-    _id: user._id},
-    {$set: {'preferences.webhooks': user.preferences.webhooks}
+    _id: userId},
+    {$set: {'webhooks': webhooks}
   }, {returnOriginal: false})
 }
 
