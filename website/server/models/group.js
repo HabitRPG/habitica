@@ -848,7 +848,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
-      $unset: {'group.id': ''},
+      $set: {group: {}},
     }).exec();
 
     await user.save();

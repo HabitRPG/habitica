@@ -37,6 +37,7 @@ export async function createTasks (req, res, options = {}) {
     group,
   } = options;
 
+  let owner = group || challenge || user;
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
   toSave = toSave.map(taskData => {
@@ -62,7 +63,7 @@ export async function createTasks (req, res, options = {}) {
     if (validationErrors) throw validationErrors;
 
     // Otherwise update the user/challenge/group
-    (group || challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
+    owner.tasksOrder[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
@@ -74,7 +75,7 @@ export async function createTasks (req, res, options = {}) {
     validateBeforeSave: false,
   }));
 
-  toSave.unshift((challenge || user).save());
+  toSave.unshift(owner.save());
 
   let tasks = await Bluebird.all(toSave);
   tasks.splice(0, 1); // Remove user, challenge, or group promise
@@ -97,6 +98,7 @@ export async function getTasks (req, res, options = {}) {
   } = options;
 
   let query = {userId: user._id};
+  let owner = group || challenge || user;
 
   if (challenge) {
     query =  {'challenge.id': challenge.id, userId: {$exists: false}};
@@ -137,7 +139,7 @@ export async function getTasks (req, res, options = {}) {
 
   // Order tasks based on tasksOrder
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
-    let order = (challenge || user).tasksOrder[type];
+    let order = owner.tasksOrder[type];
     let orderedTasks = new Array(tasks.length);
     let unorderedTasks = []; // what we want to add later
 

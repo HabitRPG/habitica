@@ -235,7 +235,7 @@ api.updateTask = {
     let savedTask = await task.save();
 
     if (task.group.id && task.assignedUsers.length > 0) {
-      let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false, fields: requiredGroupFields});
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.updateTask(savedTask);
@@ -854,7 +854,7 @@ api.deleteTask = {
 
     if (task.group.id) {
       //  @TODO: Abstract this access snippet
-      let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false, fields: requiredGroupFields});
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);

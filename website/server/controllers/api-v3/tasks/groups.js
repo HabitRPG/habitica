@@ -12,7 +12,7 @@ import {
 } from '../../../libs/taskManager';
 
 let requiredGroupFields = '_id leader tasksOrder name';
-
+let types = Tasks.tasksTypes.map(type => `${type}s`);
 let api = {};
 
 /**
@@ -39,7 +39,7 @@ api.createGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: requiredGroupFields});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
@@ -68,7 +68,6 @@ api.getGroupTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
-    let types = Tasks.tasksTypes.map(type => `${type}s`);
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
@@ -76,7 +75,7 @@ api.getGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, populateLeader: false, fields: requiredGroupFields});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let tasks = await getTasks(req, res, {user, group});
@@ -122,14 +121,14 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false, fields: requiredGroupFields});
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.syncTask(task, assignedUser);
 
-    res.respond(201, task);
+    res.respond(200, task);
   },
 };
 
@@ -171,14 +170,14 @@ api.unassignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, populateLeader: false, fields: requiredGroupFields});
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
 
-    res.respond(201, task);
+    res.respond(200, task);
   },
 };
 
