@@ -785,7 +785,7 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
   await taskSchema.update({
     userId: {$exists: true},
     'group.id': group.id,
-    'group.linkedTaskId': taskToSync._id,
+    'group.taskId': taskToSync._id,
   }, updateCmd, {multi: true}).exec();
 };
 
@@ -814,7 +814,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   }
 
   let findQuery = {
-    'group.linkedTaskId': taskToSync._id,
+    'group.taskId': taskToSync._id,
     userId: user._id,
     'group.id': group._id,
   };
@@ -825,7 +825,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
-    matchingTask.group.linkedTaskId = taskToSync._id;
+    matchingTask.group.taskId = taskToSync._id;
     user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
   } else {
     _.merge(matchingTask, syncableAttrs(taskToSync));
@@ -843,7 +843,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 
 schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
   let findQuery = {
-    'group.linkedTaskId': unlinkingTask._id,
+    'group.taskId': unlinkingTask._id,
     userId: user._id,
   };
 
@@ -875,7 +875,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   await Tasks.Task.update({
     userId: {$exists: true},
     'group.id': group.id,
-    'group.linkedTaskId': task._id,
+    'group.taskId': task._id,
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();

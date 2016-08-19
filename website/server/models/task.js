@@ -68,7 +68,7 @@ export let TaskSchema = new Schema({
     id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
     broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
     assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
-    linkedTaskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
   },
 
   reminders: [{

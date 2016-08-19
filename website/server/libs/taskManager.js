@@ -17,7 +17,7 @@ async function _validateTaskAlias (tasks, res) {
   }
 
   await Bluebird.map(tasksWithAliases, (task) => {
-    return task.validateSync();
+    return task.validate();
   });
 }
 

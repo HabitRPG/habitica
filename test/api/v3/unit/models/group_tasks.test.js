@@ -31,7 +31,7 @@ describe('Group Task Methods', () => {
   };
 
   function findLinkedTask (updatedLeadersTask) {
-    return updatedLeadersTask.group.linkedTaskId === task._id;
+    return updatedLeadersTask.group.taskId === task._id;
   }
 
   beforeEach(async () => {
