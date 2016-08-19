@@ -772,23 +772,29 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
 schema.methods.updateTask = async function updateTask (taskToSync) {
   let group = this;
-  let listOfPromises = [];
 
-  let usersToSync = await User.find({_id: { $in: taskToSync.assignedUsers} });
+  let updateCmd = {$set: {}};
 
-  usersToSync.forEach(function syncAssignedUser (user) {
-    listOfPromises.push(group.syncTask(taskToSync, user));
-  });
+  let syncableAttributes = syncableAttrs(taskToSync);
+  for (let key in syncableAttributes) {
+    updateCmd.$set[key] = syncableAttributes[key];
+  }
 
-  return Bluebird.all(listOfPromises);
+  let taskSchema = Tasks[taskToSync.type];
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update({
+    userId: {$exists: true},
+    'group.id': group.id,
+    'group.linkedTaskId': taskToSync._id,
+  }, updateCmd, {multi: true}).exec();
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   let group = this;
   let toSave = [];
 
-  if (taskToSync.assignedUsers.indexOf(user._id) === -1) {
-    taskToSync.assignedUsers.push(user._id);
+  if (taskToSync.group.assignedUsers.indexOf(user._id) === -1) {
+    taskToSync.group.assignedUsers.push(user._id);
   }
 
   // Sync tags
@@ -808,7 +814,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   }
 
   let findQuery = {
-    linkedTaskId: taskToSync._id,
+    'group.linkedTaskId': taskToSync._id,
     userId: user._id,
     'group.id': group._id,
   };
@@ -819,7 +825,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
-    matchingTask.linkedTaskId = taskToSync._id;
+    matchingTask.group.linkedTaskId = taskToSync._id;
     user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
   } else {
     _.merge(matchingTask, syncableAttrs(taskToSync));
@@ -831,20 +837,18 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
 
-  user.party = {};
-
   toSave.push(matchingTask.save(), taskToSync.save(), user.save());
   return Bluebird.all(toSave);
 };
 
 schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
   let findQuery = {
-    linkedTaskId: unlinkingTask._id,
+    'group.linkedTaskId': unlinkingTask._id,
     userId: user._id,
   };
 
-  let assignedUserIndex = unlinkingTask.assignedUsers.indexOf(user._id);
-  unlinkingTask.assignedUsers.splice(assignedUserIndex, 1);
+  let assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
+  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -871,7 +875,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   await Tasks.Task.update({
     userId: {$exists: true},
     'group.id': group.id,
-    linkedTaskId: task._id,
+    'group.linkedTaskId': task._id,
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();

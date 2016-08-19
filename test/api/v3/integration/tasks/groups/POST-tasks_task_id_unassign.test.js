@@ -91,7 +91,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
-    expect(groupTask[0].assignedUsers).to.not.contain(member._id);
+    expect(groupTask[0].group.assignedUsers).to.not.contain(member._id);
     expect(syncedTask).to.not.exist;
   });
 
@@ -108,10 +108,10 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     let member2Tasks = await member2.get('/tasks/user');
     let member2SyncedTask = find(member2Tasks, findAssignedTask);
 
-    expect(groupTask[0].assignedUsers).to.not.contain(member._id);
+    expect(groupTask[0].group.assignedUsers).to.not.contain(member._id);
     expect(member1SyncedTask).to.not.exist;
 
-    expect(groupTask[0].assignedUsers).to.contain(member2._id);
+    expect(groupTask[0].group.assignedUsers).to.contain(member2._id);
     expect(member2SyncedTask).to.exist;
   });
 });

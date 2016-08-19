@@ -27,7 +27,10 @@ async function _validateTaskAlias (tasks, res) {
  *
  * @param  req  The Express req variable
  * @param  res  The Express res variable
- * @param  options  Should be a user, user and challenge to create a challenge task or user and group to create a group task
+ * @param  options
+ * @param  options.user  The user that these tasks belong to
+ * @param  options.challenge  The challenge that these tasks belong to
+ * @param  options.group  The group that these tasks belong to
  * @return The created tasks
  */
 export async function createTasks (req, res, options = {}) {
@@ -38,6 +41,7 @@ export async function createTasks (req, res, options = {}) {
   } = options;
 
   let owner = group || challenge || user;
+
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
   toSave = toSave.map(taskData => {
@@ -49,12 +53,10 @@ export async function createTasks (req, res, options = {}) {
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
+    } else if (group) {
+      newTask.group.id = group._id;
     } else {
       newTask.userId = user._id;
-    }
-
-    if (group) {
-      newTask.group.id = group._id;
     }
 
     // Validate that the task is valid and throw if it isn't
@@ -87,7 +89,10 @@ export async function createTasks (req, res, options = {}) {
  *
  * @param  req  The Express req variable
  * @param  res  The Express res variable
- * @param  options  Should be a user, user and challenge to get challenge tasks or user and group to get group tasks
+ * @param  options
+ * @param  options.user  The user that these tasks belong to
+ * @param  options.challenge  The challenge that these tasks belong to
+ * @param  options.group  The group that these tasks belong to
  * @return The tasks found
  */
 export async function getTasks (req, res, options = {}) {
@@ -103,7 +108,7 @@ export async function getTasks (req, res, options = {}) {
   if (challenge) {
     query =  {'challenge.id': challenge.id, userId: {$exists: false}};
   } else if (group) {
-    query =  {'group.id': group._id};
+    query =  {'group.id': group._id, userId: {$exists: false}};
   }
 
   let type = req.query.type;
@@ -166,7 +171,7 @@ export async function getTasks (req, res, options = {}) {
 export function syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'group', 'assignedUsers', 'linkedTaskId'];
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'group'];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }

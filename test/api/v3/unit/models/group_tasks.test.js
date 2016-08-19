@@ -31,7 +31,7 @@ describe('Group Task Methods', () => {
   };
 
   function findLinkedTask (updatedLeadersTask) {
-    return updatedLeadersTask.linkedTaskId === task._id;
+    return updatedLeadersTask.group.linkedTaskId === task._id;
   }
 
   beforeEach(async () => {
@@ -77,7 +77,7 @@ describe('Group Task Methods', () => {
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
         let syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-        expect(task.assignedUsers).to.contain(leader._id);
+        expect(task.group.assignedUsers).to.contain(leader._id);
         expect(syncedTask).to.exist;
       });
 
@@ -91,7 +91,7 @@ describe('Group Task Methods', () => {
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
         let syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-        expect(task.assignedUsers).to.contain(leader._id);
+        expect(task.group.assignedUsers).to.contain(leader._id);
         expect(syncedTask).to.exist;
         expect(syncedTask.text).to.equal(task.text);
       });
@@ -118,11 +118,11 @@ describe('Group Task Methods', () => {
         let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
         let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
-        expect(task.assignedUsers).to.contain(leader._id);
+        expect(task.group.assignedUsers).to.contain(leader._id);
         expect(syncedTask).to.exist;
         expect(syncedTask.text).to.equal(task.text);
 
-        expect(task.assignedUsers).to.contain(newMember._id);
+        expect(task.group.assignedUsers).to.contain(newMember._id);
         expect(syncedMemberTask).to.exist;
         expect(syncedMemberTask.text).to.equal(task.text);
       });
@@ -138,7 +138,7 @@ describe('Group Task Methods', () => {
         expect(syncedTask.group.broken).to.equal('TASK_DELETED');
       });
 
-      it('unlinks and deletes challenge tasks for a user when remove-all is specified', async () => {
+      it('unlinks and deletes group tasks for a user when remove-all is specified', async () => {
         await guild.syncTask(task, leader);
         await guild.unlinkTask(task, leader, 'remove-all');
 
@@ -146,21 +146,28 @@ describe('Group Task Methods', () => {
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
         let syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-        expect(task.assignedUsers).to.not.contain(leader._id);
+        expect(task.group.assignedUsers).to.not.contain(leader._id);
         expect(syncedTask).to.not.exist;
       });
 
-      it('unlinks and keeps challenge tasks for a user when keep-all is specified', async () => {
+      it('unlinks and keeps group tasks for a user when keep-all is specified', async () => {
         await guild.syncTask(task, leader);
-        await guild.unlinkTask(task, leader, 'keep-all');
 
         let updatedLeader = await User.findOne({_id: leader._id});
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
         let syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-        expect(task.assignedUsers).to.not.contain(leader._id);
-        expect(syncedTask).to.exist;
-        expect(syncedTask.challenge._id).to.be.empty;
+        await guild.unlinkTask(task, leader, 'keep-all');
+
+        updatedLeader = await User.findOne({_id: leader._id});
+        updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
+        let updatedSyncedTask = find(updatedLeadersTasks, function findUpdatedLinkedTask (updatedLeadersTask) {
+          return updatedLeadersTask._id === syncedTask._id;
+        });
+
+        expect(task.group.assignedUsers).to.not.contain(leader._id);
+        expect(updatedSyncedTask).to.exist;
+        expect(updatedSyncedTask.group._id).to.be.empty;
       });
     });
   });

@@ -31,6 +31,7 @@ describe('taskManager', () => {
       name: 'test group',
       type: 'guild',
       privacy: 'public',
+      leader: user._id,
     });
 
     challenge = generateChallenge({
@@ -154,7 +155,7 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let tasks = await createTasks(req, res, {user, challenge, undefined});
+    let tasks = await createTasks(req, res, {user, challenge});
 
     let syncableTask = syncableAttrs(tasks[0]);
 

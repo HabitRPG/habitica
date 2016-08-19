@@ -56,8 +56,6 @@ export let TaskSchema = new Schema({
   },
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
   userId: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set it belongs to a challenge
-  assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
-  linkedTaskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
 
   challenge: {
     id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
@@ -69,6 +67,8 @@ export let TaskSchema = new Schema({
   group: {
     id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
     broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
+    assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
+    linkedTaskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
   },
 
   reminders: [{

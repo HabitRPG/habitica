@@ -21,7 +21,7 @@ export function generateUser (options = {}) {
 }
 
 export function generateGroup (options = {}) {
-  return new Group(options).toObject();
+  return new Group(options);
 }
 
 export function generateChallenge (options = {}) {

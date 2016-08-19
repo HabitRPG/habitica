@@ -204,9 +204,15 @@ api.updateTask = {
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    let group;
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id) {
+      //  @TODO: Abstract this access snippet
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -234,10 +240,7 @@ api.updateTask = {
 
     let savedTask = await task.save();
 
-    if (task.group.id && task.assignedUsers.length > 0) {
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
       await group.updateTask(savedTask);
     }
 
@@ -842,6 +845,12 @@ api.deleteTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id) {
+      //  @TODO: Abstract this access snippet
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      await group.removeTask(task);
     } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -850,14 +859,6 @@ api.deleteTask = {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
-    }
-
-    if (task.group.id) {
-      //  @TODO: Abstract this access snippet
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-      await group.removeTask(task);
     }
 
     if (task.type !== 'todo' || !task.completed) {
