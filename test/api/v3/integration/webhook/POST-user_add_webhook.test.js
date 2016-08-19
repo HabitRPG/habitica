@@ -23,7 +23,7 @@ describe('POST /user/webhook', () => {
     await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: 'Webhook validation failed',
+      message: 'User validation failed',
     });
   });
 
@@ -33,7 +33,7 @@ describe('POST /user/webhook', () => {
     await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: 'Webhook validation failed',
+      message: 'User validation failed',
     });
   });
 
@@ -51,7 +51,7 @@ describe('POST /user/webhook', () => {
     await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: 'Webhook validation failed',
+      message: 'User validation failed',
     });
   });
 

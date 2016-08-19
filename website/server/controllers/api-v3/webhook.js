@@ -70,8 +70,6 @@ api.addWebhook = {
     let user = res.locals.user;
     let webhook = new Webhook(req.body);
 
-    await webhook.validate();
-
     webhook.formatOptions(res);
 
     user.webhooks.push(webhook);
@@ -148,8 +146,6 @@ api.updateWebhook = {
     if (options) {
       webhook.options = Object.assign(webhook.options, options);
     }
-
-    await webhook.validate();
 
     webhook.formatOptions(res);
 
