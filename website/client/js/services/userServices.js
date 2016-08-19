@@ -536,7 +536,10 @@ angular.module('habitrpg')
             method: 'POST',
             url: '/api/v3/user/webhook',
             data: data,
-          }).then(sync);
+          }).then(function (response) {
+            var webhook = response.data.data;
+            user.webhooks.push(webhook);
+          });
         },
 
         updateWebhook: function (id, data) {
