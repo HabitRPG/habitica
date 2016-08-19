@@ -254,5 +254,6 @@
     "onlySocialAttachLocal": "Autentikasi lokal dapat ditambahkan hanya pada akun sosial.",
     "invalidReqParams": "Parameter permintaan salah.",
     "memberIdRequired": "\"member\" harus merupakan UUID yang valid.",
-    "heroIdRequired": "\"heroId\" harus merupakan UUID yang valid."
+    "heroIdRequired": "\"heroId\" harus merupakan UUID yang valid.",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

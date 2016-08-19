@@ -3,14 +3,20 @@
 habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Pusher',
     function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher) {
 
+      var PARTY_LOADING_MESSAGES = 4;
+
       var user = User.user;
 
       $scope.type = 'party';
       $scope.text = window.env.t('party');
-      $scope.group = {loadingParty: true}
+      $scope.group = {loadingParty: true};
 
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
+
+      // Random message between 1 and PARTY_LOADING_MESSAGES
+      var partyMessageNumber = Math.floor(Math.random() * PARTY_LOADING_MESSAGES) + 1;
+      $scope.partyLoadingMessage = window.env.t('partyLoading' + partyMessageNumber);
 
       function handlePartyResponse (group) {
         $rootScope.party = $scope.group = group;

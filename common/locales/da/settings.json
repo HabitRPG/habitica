@@ -68,8 +68,8 @@
     "APIv3": "API v3",
     "APIText": "Kopiér disse til brug i tredjeparts-applikationer. Dog skal du tænke på din API Nøgle som et kodeord, og lade være med at dele den offentligt. Du kan nogen gange blive bedt om dit Bruger ID, men skriv aldrig din API Nøgle hvor andre kan se den, heller ikke på Github.",
     "APIToken": "API Nøgle (det er et kodeord - se advarsel ovenfor!)",
-    "thirdPartyApps": "Tredjeparts Apps",
-    "dataToolDesc": "En side som viser dig visse oplysninger om din Habitica bruger, såsom statistisk omkring dine opgaver, udstyr og skills.",
+    "thirdPartyApps": "Tredjeparts-Apps",
+    "dataToolDesc": "En side som viser dig visse oplysninger om din Habitica bruger, såsom statistisk omkring dine opgaver, udstyr og evner.",
     "beeminder": "Beeminder",
     "beeminderDesc": "Let Beeminder automatically monitor your Habitica To-Dos. You can commit to maintaining a target number of To-Dos completed per day or per week, or you can commit to gradually reducing your remaining number of uncompleted To-Dos. (By \"commit\" Beeminder means under threat of paying actual money! But you may also just like Beeminder's fancy graphs.)",
     "chromeChatExtension": "Chrome Chat Udvidelse",
@@ -171,7 +171,7 @@
     "paypal": "PayPal",
     "amazonPayments": "Amazon Payments",
     "timezone": "Tidszone",
-    "timezoneUTC": "Habitica bruger tidszonen sat på din PC, hvilken er: <strong><%= utc %></strong>",
+    "timezoneUTC": "Habitica bruger tidszonen sat på din PC, som er: <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
     "push": "Push"
 }
