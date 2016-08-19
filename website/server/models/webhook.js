@@ -20,9 +20,7 @@ export let schema = new Schema({
     type: String,
     required: true,
     validate: [validator.isUUID, shared.i18n.t('invalidWebhookId')],
-    default () {
-      return uuid();
-    },
+    default: uuid,
   },
   type: {
     type: String,
