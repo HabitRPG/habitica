@@ -243,9 +243,6 @@ habitrpg.controller('SettingsCtrl',
 
     // ---- Webhooks ------
     $scope._newWebhook = {url:''};
-    $scope.$watch('user.webhooks', function (webhooks){
-      $scope.hasWebhooks = webhooks.length;
-    })
     $scope.addWebhook = function(url) {
       User.addWebhook({
         id: Shared.uuid(),

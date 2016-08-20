@@ -256,7 +256,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
 
         h2=env.t('webhooks')
         table.table.table-striped
-          thead(ng-if='hasWebhooks')
+          thead(ng-if='user.webhooks.length')
             tr
               th=env.t('enabled')
               th=env.t('webhookURL')
