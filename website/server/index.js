@@ -14,13 +14,13 @@ require('babel-polyfill');
 global.Promise = require('bluebird');
 
 // Initialize configuration BEFORE anything
-const setupNconf = require('./libs/api-v3/setupNconf');
+const setupNconf = require('./libs/setupNconf');
 setupNconf();
 
 const nconf = require('nconf');
 
 const cluster = require('cluster');
-const logger = require('./libs/api-v3/logger');
+const logger = require('./libs/logger');
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');

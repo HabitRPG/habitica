@@ -1,5 +1,5 @@
 {
-    "limitedEdition": "Limitierte Edition",
+    "limitedEdition": "Begrenzte Auflage",
     "seasonalEdition": "Jahreszeiten-Edition",
     "winterColors": "Winterfarben",
     "annoyingFriends": "Nervige Freunde",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Schiffs-Wahrsager (Magier)",
     "strappingSailorSet": "Umgürteter Seefahrer (Heiler)",
     "reefRenegadeSet": "Abtrünniger des Riffs (Schurke)",
-    "fallEventAvailability": "Verfügbar bis zum 31. Oktober",
-    "winterEventAvailability": "Verfügbar bis zum 31. Dezember",
-    "springEventAvailability": "Verfügbar bis zum 31. Mai"
+    "fallEventAvailability": "Verfügbar bis zum 31. Oktober.",
+    "winterEventAvailability": "Verfügbar bis zum 31. Dezember.",
+    "springEventAvailability": "Verfügbar bis zum 31. Mai.",
+    "summerEventAvailability": "Verfügbar bis zum 31. August."
 }

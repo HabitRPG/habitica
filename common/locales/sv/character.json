@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "Varje nivå ger dig en poäng att lägga ut på ett valfritt attribut. Du kan gör så själv eller låta spelet bestämma åt dig genom en av inställningarna under Användare -> Statistik & Prestationer",
     "invalidAttribute": "\"<%= attr %>\" är inte en godkänd egenskap.",
     "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Du äger inte detta föremål"
 }

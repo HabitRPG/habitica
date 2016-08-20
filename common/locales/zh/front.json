@@ -67,6 +67,7 @@
     "goalSample4": "Duolingo上的日语课程",
     "goalSample5": "阅读一篇论文",
     "goals": "目标",
+    "guidanceForBlacksmiths": "铁匠的引导",
     "health": "健康",
     "healthSample1": "喝矿泉水/汽水",
     "healthSample2": "嚼口香糖/抽烟",
@@ -167,6 +168,7 @@
     "teams": "团队",
     "terms": "使用条款",
     "testimonialHeading": "看看大家怎么说……",
+    "tumblr": "Tumblr",
     "localStorageTryFirst": "如果你的Habitica出了问题，点击下方的按钮清空网站的本地存储(不影响其他网站)。在这么做之后，你需要重新登陆。请首先记住你的登陆信息，可以在设置中查到-> <%= linkStart %>Site<%= linkEnd %>。",
     "localStorageTryNext": "如果问题持续发生，如果你还没上报这个错误，请使用<%= linkStart %>报告一个错误<%= linkEnd %>。",
     "localStorageClearing": "结算本地存储",
@@ -187,7 +189,7 @@
     "subscriptionPaymentIssues": "捐助和支付问题",
     "generalQuestionsSite": "关于本站的常见问题",
     "businessInquiries": "业务咨询",
-    "merchandiseInquiries": "商业咨询",
+    "merchandiseInquiries": "实体商品(T恤，贴纸)询问",
     "marketingInquiries": "市场营销/媒体咨询",
     "tweet": "发布推特",
     "apps": "手机应用",
@@ -252,5 +254,6 @@
     "onlySocialAttachLocal": "本地认证仅能被添加到一个社交账号。",
     "invalidReqParams": "无效的请求参数。",
     "memberIdRequired": "\"member\"必须是一个有效的UUID。",
-    "heroIdRequired": "\"heroId\"必须是一个有效的UUID"
+    "heroIdRequired": "\"heroId\"必须是一个有效的UUID",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

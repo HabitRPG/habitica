@@ -29,7 +29,7 @@
     "eggSingular": "蛋",
     "noEggs": "你沒有任何寵物蛋。",
     "hatchingPotions": "孵化藥水",
-    "magicHatchingPotions": "<strong>魔法孵化藥水</strong>",
+    "magicHatchingPotions": "Magic Hatching Potions",
     "hatchingPotion": "孵化藥水",
     "noHatchingPotions": "你沒有任何孵化藥水。",
     "inventoryText": "點選一顆蛋後，可使用的藥水會亮起綠色的背景，然後點擊藥水，來孵化出寵物。如果沒有藥水亮起綠色背景，再點擊一次蛋，可以取消點選。然後先點擊藥水，看看可使用的寵物蛋，它們同樣會亮起綠色背景。你也可以在商人Alexander那裡，賣掉不想要的物品。",

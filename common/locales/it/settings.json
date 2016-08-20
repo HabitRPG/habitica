@@ -66,7 +66,6 @@
     "deleteLocalAccountText": "Sei sicuro? Questo cancellerà per sempre il tuo profilo, e non potrà mai essere ripristinato! dovrai registrarti con un nuovo profilo per usare ancora Habitica. Gemme provenienti risparmiate spes.ei non saranno rimborsat.ei. Se siete assolutamente certi, digitate la password nella casella di testo sottostante.",
     "API": "API",
     "APIv3": "API v3",
-    "APIv2": "API v2 - Deprecata",
     "APIText": "Copia questi valori per utilizzarli in applicazioni di terze parti. Ad ogni modo, pensa al tuo API Token come a una password: tienilo segreto. Occasionalmente potrebbe venirti richiesto l'ID Utente, ma non scrivere mai il tuo API Token dove può essere visto da altre persone, nemmeno su GitHub.",
     "APIToken": "API Token (questa è una password - leggi la nota sopra!)",
     "thirdPartyApps": "Applicazioni di terze parti",

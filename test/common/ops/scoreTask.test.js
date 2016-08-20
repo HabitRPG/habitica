@@ -48,9 +48,11 @@ let expectClosePoints = (beforeUser, afterUser, beforeTask, task) => {
   expect(Math.abs(task.value - beforeTask.value)).to.be.lessThan(EPSILON);
 };
 
-let _expectRoughlyEqualDates = (date1, date2) => {
-  expect(date1.toString()).to.eql(date2.toString());
-};
+function expectRoughlyEqualDates (date1, date2) {
+  date1 = date1.valueOf();
+  date2 = date2.valueOf();
+  expect(date1).to.be.within(date2 - 100, date2 + 100);
+}
 
 describe('shared.ops.scoreTask', () => {
   let ref;
@@ -81,7 +83,7 @@ describe('shared.ops.scoreTask', () => {
     let task = generateTodo({ userId: ref.afterUser._id, text: 'todo to complete', cron: false });
     scoreTask({ user: ref.afterUser, task, direction: 'up' });
     expect(task.completed).to.eql(true);
-    _expectRoughlyEqualDates(task.dateCompleted, new Date());
+    expectRoughlyEqualDates(task.dateCompleted, new Date());
   });
 
   it('uncompletes when the task direction is down', () => {

@@ -67,6 +67,7 @@
     "goalSample4": "Japanese lesson on Duolingo",
     "goalSample5": "Read an Informative Article",
     "goals": "Goals",
+    "guidanceForBlacksmiths": "Guidance for Blacksmiths",
     "health": "Health",
     "healthSample1": "Drink Water/Soda",
     "healthSample2": "Chew Gum/Smoke",
@@ -167,6 +168,7 @@
     "teams": "Teams",
     "terms": "Terms and Conditions",
     "testimonialHeading": "What people say...",
+    "tumblr": "Tumblr",
     "localStorageTryFirst": "If you are experiencing problems with Habitica, click the button below to clear local storage for this website (other websites will not be affected). You will need to log in again after doing this, so first be sure that you know your log-in details, which can be found at Settings -> <%= linkStart %>Site<%= linkEnd %>.",
     "localStorageTryNext": "If the problem persists, please <%= linkStart %>Report a Bug<%= linkEnd %> if you haven't already.",
     "localStorageClearing": "Clearing Local Storage",
@@ -252,5 +254,6 @@
     "onlySocialAttachLocal": "Local authentication can be added to only a social account.",
     "invalidReqParams": "Invalid request parameters.",
     "memberIdRequired": "\"member\" must be a valid UUID.",
-    "heroIdRequired": "\"heroId\" must be a valid UUID."
+    "heroIdRequired": "\"heroId\" must be a valid UUID.",
+    "cannotFulfillReq":"Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

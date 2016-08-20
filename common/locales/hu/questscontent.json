@@ -58,8 +58,8 @@
     "questSpiderBoss": "Pók",
     "questSpiderDropSpiderEgg": "Pók (tojás)",
     "questSpiderUnlockText": "Unlocks purchasable Spider eggs in the Market",
-    "questVice1Text": "Vice, Part 1: Free Yourself of the Dragon's Influence",
-    "questVice1Notes": "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves: Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you!</p>",
+    "questVice1Text": "Vétek, 1. rész: Szabadúlj meg a sárkány befolyásától",
+    "questVice1Notes": "<p>Mendemonda kering egy szörnyű gonoszról ami Habitica hegyének barlangjaiban tanyázik. A szörnyeteg puszta jelenléte a térségben megtöri az erős akaratú hősöket, akik rossz szokásokat kezdenek felvenni és eltunyulnak! A szörnyeteg egy hatalmas sárkány, mérhetetlen hatalommal, árnyakkal körbevéve: Vétek, az állságos Árnyék Wyrm. Bátor kalandorok kerekednek föl, és megkísérlik legyőzni egyszer és mindekorra, de csak akkor ha tényleg hisznek abban, hogy ellen tudnak állni hihetelen hatalmának.</p><h3>Vétek, 1. rész:: </h3><p>Mégis hogyan akartok küzdeni egy olyan szörnyeteggel szemben, ami máris átvette az uralmat felettetek? Ne essetek áldozatúl a lustaságnak és vétkezésnek! Kemény munkával küzdjetek a sárkány sötét befolyásával és rázzátok le azt magatokról!</p>",
     "questVice1Boss": "A Bűn Árnyékában",
     "questVice1DropVice2Quest": "Bűn 2. rész (tekercs)",
     "questVice2Text": "Vice, Part 2: Find the Lair of the Wyrm",
@@ -329,5 +329,11 @@
     "questAxolotlUnlockText": "Unlocks purchasable Axolotl eggs in the Market",
     "questAxolotlRageTitle": "Axolotl Regeneration",
     "questAxolotlRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Magical Axolotl will heal 30% of its remaining health!",
-    "questAxolotlRageEffect": "`Magical Axolotl uses AXOLOTL REGENERATION!`\n\nA curtain of colorful bubbles obscures the monster for a moment, and when it clears, some of its wounds have vanished!"
+    "questAxolotlRageEffect": "`Magical Axolotl uses AXOLOTL REGENERATION!`\n\n`A curtain of colorful bubbles obscures the monster for a moment, and when it clears, some of its wounds have vanished!`",
+    "questTurtleText": "Guide the Turtle",
+    "questTurtleNotes": "Help! This giant sea turtle cannot find her way to her nesting beach. She returns there every year to lay her eggs, but this year Inkomplete Bay is filled with toxic Task Flotsam made of red dailies and unchecked to-dos. \"She's thrashing in a panic!\" @JessicaChase says.<br><br>@UncommonCriminal nods. \"It's because her guiding senses are fogged and confused.\"<br><br>@Scarabsi grabs your arm. \"Can you help clear the Task Flotsam blocking her path? It may be hazardous, but we have to help her!\"",
+    "questTurtleCompletion": "Your valiant work has cleared the waters for our sea turtle to find her beach. You, @Bambin, and @JaizakAripaik watch as she buries her brood of eggs deep in the sand so they can grow and hatch into hundreds of little sea turtles. Ever the lady, she gives you three eggs each, asking that you feed and nurture them so one day they become big sea turtles themselves.",
+    "questTurtleBoss": "Task Flotsam",
+    "questTurtleDropTurtleEgg": "Turtle (Egg)",
+    "questTurtleUnlockText": "Unlocks purchasable Turtle eggs in the Market"
 }

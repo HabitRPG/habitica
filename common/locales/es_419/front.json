@@ -67,6 +67,7 @@
     "goalSample4": "Lección de japonés en Duolingo",
     "goalSample5": "Leer un artículo informativo",
     "goals": "Metas",
+    "guidanceForBlacksmiths": "Guidance for Blacksmiths",
     "health": "Salud",
     "healthSample1": "Tomar agua/soda",
     "healthSample2": "Mascar chicle/Fumar",
@@ -167,6 +168,7 @@
     "teams": "Equipos",
     "terms": "Términos y condiciones",
     "testimonialHeading": "Qué opina la gente...",
+    "tumblr": "Tumblr",
     "localStorageTryFirst": "Si estás experimentando problemas con Habitica, cliquea el botón de abajo para borrar el almacenamiento local de este sitio (no serán afectados otros sitios web). Necesitarás iniciar sesión nuevamente después de hacer esto, así que primero asegúrate de que recuerdas tu información de inicio de sesión, la cual puedes encontrar en Ajustes -> <%= linkStart %>Sitio<%= linkEnd %>.",
     "localStorageTryNext": "Si el problema persiste, por favor <%= linkStart %>reporta el error<%= linkEnd %> si es que todavía no lo has hecho.",
     "localStorageClearing": "Borrando almacenamiento local",
@@ -187,7 +189,7 @@
     "subscriptionPaymentIssues": "Problemas de Suscripción y Pago",
     "generalQuestionsSite": "Preguntas generales acerca del sitio",
     "businessInquiries": "Preguntas sobre negocios",
-    "merchandiseInquiries": "Preguntas sobre marketing y merchandising",
+    "merchandiseInquiries": "Physical Merchandise (T-Shirts, Stickers) Inquiries",
     "marketingInquiries": "Preguntas sobre marketing y redes sociales",
     "tweet": "Tweetear",
     "apps": "Aplicaciones",
@@ -252,5 +254,6 @@
     "onlySocialAttachLocal": "Local authentication can be added to only a social account.",
     "invalidReqParams": "Invalid request parameters.",
     "memberIdRequired": "\"member\" must be a valid UUID.",
-    "heroIdRequired": "\"heroId\" must be a valid UUID."
+    "heroIdRequired": "\"heroId\" must be a valid UUID.",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }
