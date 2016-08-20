@@ -70,14 +70,14 @@
     "cantAfford": "Nie stać cię na tę nagrodę. Kup więcej klejnotów lub obniż jej wysokość.",
     "challengeIdRequired": "\"challengeId\" musi być prawidłowym UUID.",
     "winnerIdRequired": "\"winnerId\" musi być prawidłowym UUID.",
-    "challengeNotFound": "Challenge not found or you don't have access.",
+    "challengeNotFound": "Wyzwanie nie znalezione lub nie masz dostępu.",
     "onlyLeaderDeleteChal": "Tylko przywódca wyzwania może je usunąć.",
     "onlyLeaderUpdateChal": "Tylko przywódca wyzwania może je zaktualizować.",
     "winnerNotFound": "Zwycięzca o numerze ID \"<%= userId %>\" nie znaleziony jako uczestnik wyzwania.",
-    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
-    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" nie jest wspierany podczas pobierania zadań wyzwania",
+    "userTasksNoChallengeId": "Kiedy \"tasksOwner\" to \"user\", \"challengeId\" nie jest przyjęte.",
     "onlyChalLeaderEditTasks": "Zadanie należące do wyzwania może być zmieniane jedynie przez przywódcę.",
     "userAlreadyInChallenge": "Użytkownik bierze już udział w tym wyzwaniu.",
-    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
+    "cantOnlyUnlinkChalTask": "Tylko zadania skończonych wyzwań mogą być odłączone.",
     "shortNameTooShort": "Nazwa tagu musi mieć co najmniej 3 znaki."
 }

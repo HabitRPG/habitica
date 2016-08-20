@@ -34,7 +34,7 @@
     "challengeDescr": "Beskrivning",
     "prize": "Vinst",
     "prizePop": "Om någon kan 'vinna' din utmaning så kan du välja att belöna vinnaren med Juveler som pris. Det högsta antalet du kan ge är antalet juveler du äger (plus antalet juveler gillet äger, om du skapade den här utmaningens gille). Obs: Detta pris kan inte ändras i efterhand.",
-    "prizePopTavern": "Om någon kan 'vinna' din utmaning så kan du belöna vinnaren med Juveler som pris. Max = antalet juveler du äger. Obs: Detta pris kan inte ändras i efterhand och utmaningar i Tavernan återbetalas inte om utmaningen blir inställd.",
+    "prizePopTavern": "Om någon kan 'vinna' din utmaning så kan du belöna vinnaren med Juveler som pris. Max = antalet juveler du äger. Obs: Detta pris kan inte ändras i efterhand och utmaningar i Värdshuset återbetalas inte om utmaningen blir inställd.",
     "publicChallenges": "Minst 1 Juvel för <strong>offentliga utmaningar</strong> (motverkar spam).",
     "officialChallenge": "Officiell Habitica-utmaning",
     "by": "av",

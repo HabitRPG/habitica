@@ -3,9 +3,9 @@ legend.option-title
     popover='{{env.t(task._edit.frequency + "RepeatHelpContent")}}')=env.t('repeatEvery')
 
 // If frequency is daily
-ng-form.form-group(name='everyX' ng-if='task._edit.frequency=="daily"')
+ng-form.form-group(name='everyX', ng-if='task._edit.frequency=="daily"')
   .input-group
-    input.form-control(type='number', ng-model='task._edit.everyX', ng-disabled='task._edit.challenge.id', min='0', required)
+    input.form-control(type='number', ng-model='task._edit.everyX', min='0', ng-disabled='!canEdit(task)', required)
     span.input-group-addon {{task._edit.everyX == 1 ? env.t('day') : env.t('days')}}
 
 // If frequency is weekly
@@ -15,7 +15,7 @@ ng-form.form-group(name='everyX' ng-if='task._edit.frequency=="daily"')
     mixin dayOfWeek(day, num)
       li
         button(type='button', ng-class='{active: task._edit.repeat.#{day}}',
-          ng-disabled='task._edit.challenge.id', ng-click='task._edit.repeat.#{day} = !task._edit.repeat.#{day}',
+          ng-disabled='!canEdit(task)', ng-click='task._edit.repeat.#{day} = !task._edit.repeat.#{day}',
           tooltip='{{env.t((task._edit.repeat.#{day}) ? "due" : "notDue")}}')
           | {{::moment.weekdaysMin(#{num})}}
 

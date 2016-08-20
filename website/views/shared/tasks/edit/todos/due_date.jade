@@ -1,4 +1,4 @@
-fieldset.option-group(ng-if='task.type=="todo" && !task.challenge.id')
+fieldset.option-group(ng-if='task.type=="todo" && canEdit(task)')
   legend.option-title=env.t('dueDate')
   input.option-content.datepicker(type='text', ng-model='task.date',
     datepicker-popup='{{::user.preferences.dateFormat}}', is-open='datepickerOpened',

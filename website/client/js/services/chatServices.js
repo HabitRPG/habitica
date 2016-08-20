@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Chat', ['$http', 'ApiUrl', 'User',
-  function($http, ApiUrl, User) {
+.factory('Chat', ['$http', 'ApiUrl', 'User', 'Pusher',
+  function($http, ApiUrl, User, Pusher) {
     var apiV3Prefix = '/api/v3';
 
     function getChat (groupId) {
@@ -24,6 +24,7 @@ angular.module('habitrpg')
         url: url,
         data: {
           message: message,
+          pusherSocketId: Pusher.socketId, // to make sure the send doesn't get notified of it's own message
         }
       });
     }

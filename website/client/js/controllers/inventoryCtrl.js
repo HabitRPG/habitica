@@ -62,6 +62,16 @@ habitrpg.controller("InventoryCtrl",
 
         var item = Content.gear.flat[key];
 
+        var bonusMultiplier = 1;
+        if (_isClassItem(item)) {
+          bonusMultiplier = 1.5;
+        }
+
+        item._effectiveStr = item.str * bonusMultiplier;
+        item._effectiveCon = item.con * bonusMultiplier;
+        item._effectivePer = item.per * bonusMultiplier;
+        item._effectiveInt = item.int * bonusMultiplier;
+
         if (!$scope.gearByClass[item.klass]) {
           $scope.gearByClass[item.klass] = [];
         }
@@ -307,6 +317,12 @@ habitrpg.controller("InventoryCtrl",
       });
     };
 
+    $scope.classBonusNotes = function (item) {
+      if (_isClassItem(item)) {
+        return window.env.t('classBonus');
+      }
+    };
+
     $scope.hasAllTimeTravelerItems = function() {
       return ($scope.hasAllTimeTravelerItemsOfType('mystery') &&
         $scope.hasAllTimeTravelerItemsOfType('pets') &&
@@ -336,6 +352,11 @@ habitrpg.controller("InventoryCtrl",
       User.hourglassPurchase({params:{type:type,key:key}});
     };
 
+    $scope.marketShopCategories = Shared.shops.getMarketCategories(user);
+    $scope.questShopCategories = Shared.shops.getQuestShopCategories(user);
+    $scope.timeTravelersCategories = Shared.shops.getTimeTravelersCategories(user);
+    $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories(user);
+
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);
       $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);
@@ -347,6 +368,12 @@ habitrpg.controller("InventoryCtrl",
       var random = Math.random() * numberOfVariations;
       var selection = Math.floor(random);
       return env.t(kind + selection);
+    }
+
+    function _isClassItem(item) {
+      var userClass = user.stats.class;
+
+      return item.klass === userClass || item.specialClass === userClass;
     }
   }
 ]);

@@ -94,6 +94,7 @@
     "confirmFortify": "Be ye positive?",
     "fortifyComplete": "Fortify complete!",
     "sureDelete": "Ye be sure ye want t' delete th' <%= taskType %> wi' th' text \"<%= taskText %>\"?",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "Streak Bonus!",
     "pushTaskToTop": "Push task t' top.  Hold ctrl or cmd t' push down t' Davey Jones' locker.",
     "emptyTask": "Enter t' task's title first.",

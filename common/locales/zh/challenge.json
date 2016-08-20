@@ -74,7 +74,7 @@
     "onlyLeaderDeleteChal": "仅有挑战发起者能删除它。",
     "onlyLeaderUpdateChal": "仅有挑战发起者能更新它。",
     "winnerNotFound": "获胜者ID \"<%= userId %>\"找不到或者不是挑战的一部分。",
-    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
+    "noCompletedTodosChallenge": "当你处于挑战时，不支持“完成所有任务”",
     "userTasksNoChallengeId": "当\"tasksOwner\"是\"user\" \"challengeId\"，则不会通过。",
     "onlyChalLeaderEditTasks": "属于一个挑战的任务仅能被发起者编辑。",
     "userAlreadyInChallenge": "用户已经加入此挑战。",

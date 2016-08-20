@@ -4,6 +4,7 @@
     "IP":"0.0.0.0",
     "CORES":1,
     "BASE_URL":"http://localhost:3000",
+    "FACEBOOK_ANALYTICS":"1234567890123456",
     "FACEBOOK_KEY":"123456789012345",
     "FACEBOOK_SECRET":"aaaabbbbccccddddeeeeffff00001111",
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
@@ -65,11 +66,13 @@
     "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
-        "APN_ENABLED": "true"
+        "APN_ENABLED": "true",
+        "FCM_SERVER_API_KEY": ""
     },
-    "FIREBASE": {
-        "APP": "app-name",
-        "SECRET": "secret",
-        "ENABLED": "false"
+    "PUSHER": {
+        "ENABLED": "false",
+        "APP_ID": "appId",
+        "KEY": "key",
+        "SECRET": "secret"
     }
 }

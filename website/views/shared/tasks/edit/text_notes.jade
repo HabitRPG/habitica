@@ -1,6 +1,6 @@
 fieldset.option-group
   label.option-title=env.t('text')
-  input.form-control(type='text', ng-model='task._edit.text', required, ng-disabled='task._edit.challenge.id')
+  input.form-control(type='text', ng-model='task._edit.text', ng-disabled='!canEdit(task)', required)
 
 fieldset.option-group
   label.option-title=env.t('extraNotes')

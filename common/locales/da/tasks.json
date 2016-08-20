@@ -94,6 +94,7 @@
     "confirmFortify": "Er du sikker?",
     "fortifyComplete": "Fortify complete!",
     "sureDelete": "Er du sikker på at du vil slette denne <%= taskType %> med teksten \"<%= taskText %>\"?",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "Stribebonus!",
     "pushTaskToTop": "Flyt opgave til toppen. Hold ctrl eller cmd nede for at flytte til bunden.",
     "emptyTask": "Indtast først opgavens titel.",

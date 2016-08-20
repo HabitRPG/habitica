@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Don't worry, Habitica will be back soon!",
-  "importantMaintenance": "We are doing important maintenance that we estimate will last until <%= localDate %> in your timezone.",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
   "maintenance": "Maintenance",
   "maintenanceMoreInfo": "Want more information about the maintenance? <%= linkStart %>Check out our info page<%= linkEnd %>.",
   "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",

@@ -155,11 +155,11 @@
     "unequipPetMountBackground": "Desequipar Mascote, Montaria, Planos de Fundo",
     "animalSkins": "Peles de Animais",
     "chooseClassHeading": "Escolha sua Classe! Ou deixe para escolher mais tarde.",
-    "warriorWiki": "<a href='http://habitica.wikia.com/wiki/Warrior' target='_blank'>Guerreiro</a>",
-    "mageWiki": "<a href='http://habitica.wikia.com/wiki/Mage' target='_blank'>Mago</a>",
-    "rogueWiki": "<a href='http://habitica.wikia.com/wiki/Rogue' target='_blank'>Ladino</a>",
-    "healerWiki": "<a href='http://habitica.wikia.com/wiki/Healer' target='_blank'>Curandeiro</a>",
-    "chooseClassLearn": "<a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Aprenda mais sobre classes</a>",
+    "warriorWiki": "<a href='http://pt-br.habitica.wikia.com/wiki/Warrior' target='_blank'>Guerreiro</a>",
+    "mageWiki": "<a href='http://pt-br.habitica.wikia.com/wiki/Mage' target='_blank'>Mago</a>",
+    "rogueWiki": "<a href='http://pt-br.habitica.wikia.com/wiki/Rogue' target='_blank'>Ladino</a>",
+    "healerWiki": "<a href='http://pt-br.habitica.wikia.com/wiki/Healer' target='_blank'>Curandeiro</a>",
+    "chooseClassLearn": "<a href='http://pt-br.habitica.wikia.com/wiki/Class_System' target='_blank'>Aprenda mais sobre classes</a>",
     "str": "FOR",
     "con": "CON",
     "per": "PER",
@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Esconder distribuição de status",
     "quickAllocationLevelPopover": "Cada nível concederá à você um ponto para distribuir em um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Status do Avatar.",
     "invalidAttribute": "\"<%= attr %>\" não é um atributo válido.",
-    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes."
+    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes.",
+    "gearNotOwned": "Você não possui este item."
 }

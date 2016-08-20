@@ -1,5 +1,5 @@
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks', 'TAVERN_ID',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks, TAVERN_ID) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Tasks', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks', 'TAVERN_ID',
+  function($rootScope, $scope, Shared, User, Tasks, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks, TAVERN_ID) {
 
     // Use presence of cid to determine whether to show a list or a single
     // challenge
@@ -36,6 +36,22 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.editTask = Tasks.editTask;
     $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
+
+    $scope.canEdit = function(task) {
+      return true;
+    }
+
+    $scope.doubleClickTask = function (obj, task) {
+      if (obj._locked) {
+        return false;
+      }
+
+      if (task._editing) {
+        $scope.saveTask(task);
+      } else {
+        $scope.editTask(task);
+      }
+    }
 
     /**
      * Create
@@ -278,7 +294,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       angular.copy(task._edit, task);
       task._edit = undefined;
       task._editing = false;
-      // TODO persist
+      Tasks.updateTask(task._id, task);
     }
 
     $scope.toggleBulk = function(list) {
@@ -361,7 +377,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       _calculateMaxPrize(gid);
 
-      if (gid == TAVERN_ID) {
+      if (gid == TAVERN_ID && !($scope.newChallenge.prize > 0)) {
         $scope.newChallenge.prize = 1;
       }
     })

@@ -18,20 +18,20 @@ include ../../shared/mixins
     .col-md-6.border-left
       li.customize-menu
         h3.equipment-title=env.t('questsForSale')
-        div(ng-repeat='type in Content.userCanOwnQuestCategories')
-          menu.pets-menu(label='{{env.t(type + "Quests")}}')
-            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy(user) && quest.category === type')
-              button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
-                data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
-                popover-title='{{::quest.text()}}', popover-append-to-body="true",
+        div(ng-repeat='category in questShopCategories')
+          menu.pets-menu(label='{{category.text}}')
+            div(ng-repeat='quest in category.items')
+              button.customize-option(ng-class='quest.class',
+                data-popover-html="{{quest.locked ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
+                popover-title='{{quest.text}}', popover-append-to-body="true",
                 popover-trigger='mouseenter', ng-click='buyQuest(quest.key)')
               p(ng-if='quest.unlockCondition')
                 |  {{::quest.unlockCondition.text()}}
-              p(ng-if='!quest.unlockCondition && quest.category !== "gold" && !lockQuest(quest)')
+              p(ng-if='!quest.unlockCondition && category.identifier !== "gold" && !quest.locked')
                 |  {{::quest.value}}&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems
-              p(ng-if='quest.category === "gold" && !lockQuest(quest)')
-                |  {{::quest.goldValue}}&nbsp;
+              p(ng-if='category.identifier === "gold" && !quest.locked')
+                |  {{::quest.value}}&nbsp;
                 span.shop_gold
-              p(ng-if='quest.lvl && lockQuest(quest)')=env.t('level')
+              p(ng-if='quest.lvl && quest.locked')=env.t('level')
                 |  {{::quest.lvl}}

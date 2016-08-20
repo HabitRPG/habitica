@@ -5,7 +5,7 @@
     "annoyingFriends": "Amigos Molestos",
     "annoyingFriendsText": "Fue alcanzado por <%= snowballs %> bolas de nieve lanzadas por sus compañeros de equipo.",
     "alarmingFriends": "Amigos Alarmantes",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "Fuiste espantado <%= spookySparkles %> veces, por tus compañeros de equipo.",
     "agriculturalFriends": "Amigos Agrícolas",
     "agriculturalFriendsText": "Fue transformado en una flor <%= seeds %> veces por sus compañeros de equipo.",
     "aquaticFriends": "Amigos Acuáticos",
@@ -71,7 +71,12 @@
     "magicianBunnySet": "Conejito de Mago (Mago)",
     "comfortingKittySet": "Gatito Reconfortante (Sanador)",
     "sneakySqueakerSet": "Chirriador Sigiloso (Pícaro)",
-    "fallEventAvailability": "Disponible hasta el 31 de octubre",
-    "winterEventAvailability": "Disponible hasta el 31 de diciembre",
-    "springEventAvailability": "Available until May 31"
+    "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
+    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
+    "strappingSailorSet": "Strapping Sailor (Healer)",
+    "reefRenegadeSet": "Reef Renegade (Rogue)",
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

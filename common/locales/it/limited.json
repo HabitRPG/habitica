@@ -71,7 +71,12 @@
     "magicianBunnySet": "Coniglio del Mago (Mago)",
     "comfortingKittySet": "Gattino Confortante (Guaritore)",
     "sneakySqueakerSet": "Roditore Furtivo (Assassino)",
-    "fallEventAvailability": "Disponibile fino al 31 ottobre",
+    "sunfishWarriorSet": "Guerriero manta (Guerriero)",
+    "shipSoothsayerSet": "Astrologo da nave (Mago)",
+    "strappingSailorSet": "Robusto Marinaio (Guaritore)",
+    "reefRenegadeSet": "Rinnegato delle scogliere (Assassino)",
+    "fallEventAvailability": "Disponibili fino al 31 ottobre",
     "winterEventAvailability": "Disponibili fino al 31 dicembre",
-    "springEventAvailability": "Disponibile fino al 31 maggio"
+    "springEventAvailability": "Disponibili fino al 31 maggio",
+    "summerEventAvailability": "Disponibili fino al 31 agosto"
 }

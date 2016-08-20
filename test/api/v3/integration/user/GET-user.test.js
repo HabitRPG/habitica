@@ -1,6 +1,7 @@
 import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
+import common from '../../../../../common';
 
 describe('GET /user', () => {
   let user;
@@ -9,9 +10,13 @@ describe('GET /user', () => {
     user = await generateUser();
   });
 
-  it('returns the authenticated user', async () => {
+  it('returns the authenticated user with computed stats', async () => {
     let returnedUser = await user.get('/user');
     expect(returnedUser._id).to.equal(user._id);
+
+    expect(returnedUser.stats.maxMP).to.exist;
+    expect(returnedUser.stats.maxHealth).to.equal(common.maxHealth);
+    expect(returnedUser.stats.toNextLevel).to.equal(common.tnl(returnedUser.stats.lvl));
   });
 
   it('does not return private paths (and apiToken)', async () => {

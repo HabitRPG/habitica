@@ -1,13 +1,14 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import _ from 'lodash';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/api-v3/email';
+import { removeFromArray } from '../../libs/collectionManipulators';
+import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
+import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 
@@ -23,7 +24,7 @@ let api = {};
  * @apiName GetChat
  * @apiGroup Chat
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Array} data An array of chat messages
  */
@@ -49,12 +50,12 @@ api.getChat = {
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiVersion 3.0.0
- * @apiName PostCat
+ * @apiName PostChat
  * @apiGroup Chat
  *
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {message} Body parameter - message The message to post
- * @apiParam {previousMsg} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
+ * @apiParam {String} message Body parameter - message The message to post
+ * @apiParam {UUID} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
  *
  * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
  */
@@ -83,7 +84,7 @@ api.postChat = {
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
-    group.sendChat(req.body.message, user);
+    let newChatMessage = group.sendChat(req.body.message, user);
 
     let toSave = [group.save()];
 
@@ -93,6 +94,14 @@ api.postChat = {
     }
 
     let [savedGroup] = await Bluebird.all(toSave);
+
+    // real-time chat is only enabled for private groups (for now only for parties)
+    if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
+      // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
+      // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
+      pusher.trigger(`presence-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
+    }
+
     if (chatUpdated) {
       res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {
@@ -107,8 +116,8 @@ api.postChat = {
  * @apiName LikeChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message _id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message _id
  *
  * @apiSuccess {Object} data The liked chat message
  */
@@ -154,10 +163,10 @@ api.likeChat = {
  * @apiName FlagChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
- * @apiSuccess {object} data The flagged chat message
+ * @apiSuccess {Object} data The flagged chat message
  */
 api.flagChat = {
   method: 'POST',
@@ -208,7 +217,14 @@ api.flagChat = {
 
     let reporterEmailContent = getUserInfo(user, ['email']).email;
 
-    let authorEmailContent = getUserInfo(author, ['email']).email;
+    let authorEmailContent;
+    if (author) {
+      authorEmailContent = getUserInfo(author, ['email']).email;
+    } else if (message.uuid === 'system') {
+      authorEmailContent = 'system';
+    } else {
+      authorEmailContent = 'Author Account Deleted';
+    }
 
     let groupUrl = getGroupUrl(group);
 
@@ -237,14 +253,14 @@ api.flagChat = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear a group chat message's flags
  * @apiDescription Admin-only
  * @apiVersion 3.0.0
  * @apiName ClearFlags
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data An empty object
  */
@@ -313,12 +329,12 @@ api.clearChatFlags = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/seen Seen a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/seen Mark all messages as read for a group
  * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data An empty object
  */
@@ -353,9 +369,9 @@ api.seenChat = {
  * @apiName DeleteChat
  * @apiGroup Chat
  *
- * @apiParam {string} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string} chatId The chat message id
+ * @apiParam {String} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess data The updated chat array or an empty object if no message was posted after previousMsg
  * @apiSuccess {Object} data An empty object when the previous message was deleted

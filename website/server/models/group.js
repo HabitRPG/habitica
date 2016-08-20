@@ -7,17 +7,17 @@ import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import validator from 'validator';
-import { removeFromArray } from '../libs/api-v3/collectionManipulators';
+import { removeFromArray } from '../libs/collectionManipulators';
 import {
   InternalServerError,
   BadRequest,
-} from '../libs/api-v3/errors';
-import * as firebase from '../libs/api-v2/firebase';
-import baseModel from '../libs/api-v3/baseModel';
-import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
+} from '../libs/errors';
+import baseModel from '../libs/baseModel';
+import { sendTxn as sendTxnEmail } from '../libs/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
-import sendPushNotification from '../libs/api-v3/pushNotifications';
+import sendPushNotification from '../libs/pushNotifications';
+import pusher from '../libs/pusher';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -31,8 +31,6 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
-// NOTE once Firebase is enabled any change to groups' members in MongoDB will have to be run through the API
-// changes made directly to the db will cause Firebase to get out of sync
 export let schema = new Schema({
   name: {type: String, required: true},
   description: String,
@@ -97,7 +95,7 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 };
 
 // Basic fields to fetch for populating a group info
-export let basicFields = 'name type privacy';
+export let basicFields = 'name type privacy leader';
 
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
@@ -107,10 +105,6 @@ schema.pre('remove', true, async function preRemoveGroup (next, done) {
   } catch (err) {
     done(err);
   }
-});
-
-schema.post('remove', function postRemoveGroup (group) {
-  firebase.deleteGroup(group._id);
 });
 
 // return a clean object for user.quest
@@ -165,6 +159,17 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   if (fields) mQuery.select(fields);
   if (populateLeader === true) mQuery.populate('leader', nameFields);
   let group = await mQuery.exec();
+
+  if (!group) {
+    if (groupId === user.party._id) {
+      // reset party object to default state
+      user.party = {};
+    } else {
+      removeFromArray(user.guilds, groupId);
+    }
+    await user.save();
+  }
+
   return group;
 };
 
@@ -239,13 +244,19 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // Not putting into toJSON because there we can't access user
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   let toJSON = group.toJSON();
+
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
       return chatMsg.flagCount >= 2;
     });
   }
+
   return toJSON;
+};
+
+schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
+  return Object.keys(this.quest.members).filter(member => this.quest.members[member]);
 };
 
 schema.methods.removeGroupInvitations = async function removeGroupInvitations () {
@@ -304,7 +315,9 @@ export function chatDefaults (msg, user) {
 }
 
 schema.methods.sendChat = function sendChat (message, user) {
-  this.chat.unshift(chatDefaults(message, user));
+  let newMessage = chatDefaults(message, user);
+
+  this.chat.unshift(newMessage);
   this.chat.splice(200);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
@@ -327,6 +340,8 @@ schema.methods.sendChat = function sendChat (message, user) {
   query._id = { $ne: user ? user._id : ''};
 
   User.update(query, lastSeenUpdate, {multi: true}).exec();
+
+  return newMessage;
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -450,11 +465,14 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
   let questK = quest.key;
-  let updates = {$inc: {}, $set: {}};
-
-  updates.$inc[`achievements.quests.${questK}`] = 1;
-  updates.$inc['stats.gp'] = Number(quest.drop.gp);
-  updates.$inc['stats.exp'] = Number(quest.drop.exp);
+  let updates = {
+    $inc: {
+      [`achievements.quests.${questK}`]: 1,
+      'stats.gp': Number(quest.drop.gp),
+      'stats.exp': Number(quest.drop.exp),
+    },
+    $set: {},
+  };
 
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
@@ -489,7 +507,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: _.keys(this.quest.members)}};
+  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
   this.quest = {};
   this.markModified('quest');
 
@@ -532,7 +550,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Everyone takes damage
   await User.update({
-    _id: {$in: _.keys(_.pick(group.quest.members, _.identity))},
+    _id: {$in: this.getParticipatingQuestMembers()},
   }, {
     $inc: {'stats.hp': down},
   }, {multi: true}).exec();
@@ -694,6 +712,9 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
+  let update = {
+    $inc: {memberCount: -1},
+  };
 
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
@@ -712,16 +733,19 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
+    // Tell the realtime clients that a user has left
+    // If the user that left is still connected, they'll get disconnected
+    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
+      userId: user._id,
+    });
+
+    update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     promises.push(group.remove());
   } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    let update = {
-      $inc: {memberCount: -1},
-    };
-
     if (group.leader === user._id) {
       let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
       query._id = {$ne: user._id};
@@ -733,67 +757,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     promises.push(group.update(update).exec());
   }
 
-  firebase.removeUserFromGroup(group._id, user._id);
-
   return await Bluebird.all(promises);
 };
-
-// API v2 compatibility methods
-schema.methods.getTransformedData = function getTransformedData (options) {
-  let cb = options.cb;
-  let populateMembers = options.populateMembers;
-  let populateInvites = options.populateInvites;
-  let populateChallenges = options.populateChallenges;
-
-  let obj = this.toJSON();
-
-  let queryMembers = {};
-  let queryInvites = {};
-
-  if (this.type === 'guild') {
-    queryInvites['invitations.guilds.id'] = this._id;
-  } else {
-    queryInvites['invitations.party.id'] = this._id;
-  }
-
-  if (this.type === 'guild') {
-    queryMembers.guilds = this._id;
-  } else {
-    queryMembers['party._id'] = this._id;
-  }
-
-  let selectDataMembers = '_id';
-  let selectDataInvites = '_id';
-  let selectDataChallenges = '_id';
-
-  if (populateMembers) {
-    selectDataMembers += ` ${populateMembers}`;
-  }
-  if (populateInvites) {
-    selectDataInvites += ` ${populateInvites}`;
-  }
-  if (populateChallenges) {
-    selectDataChallenges += ` ${populateChallenges}`;
-  }
-
-  let membersQuery = User.find(queryMembers).select(selectDataMembers);
-  if (options.limitPopulation) membersQuery.limit(15);
-
-  Bluebird.all([
-    membersQuery.exec(),
-    User.find(queryInvites).select(populateInvites).exec(),
-    Challenge.find({group: obj._id}).select(populateMembers).exec(),
-  ])
-    .then((results) => {
-      obj.members = results[0];
-      obj.invites = results[1];
-      obj.challenges = results[2];
-
-      cb(null, obj);
-    })
-    .catch(cb);
-};
-// END API v2 compatibility methods
 
 export let model = mongoose.model('Group', schema);
 

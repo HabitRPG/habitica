@@ -3,7 +3,7 @@
 import nconf from 'nconf';
 import moment from 'moment';
 import _ from 'lodash';
-import payments from '../../../libs/api-v3/payments';
+import payments from '../../../libs/payments';
 import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
 import shared from '../../../../../common';
@@ -14,11 +14,11 @@ import { model as User } from '../../../models/user';
 import {
   authWithUrl,
   authWithSession,
-} from '../../../middlewares/api-v3/auth';
+} from '../../../middlewares/auth';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../libs/api-v3/errors';
+} from '../../../libs/errors';
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -63,14 +63,14 @@ api.checkout = {
     req.session.gift = req.query.gift;
 
     let amount = 5.00;
-    let description = 'HabitRPG gems';
+    let description = 'Habitica Gems';
     if (gift) {
       if (gift.type === 'gems') {
         amount = Number(gift.gems.amount / 4).toFixed(2);
         description = `${description} (Gift)`;
       } else {
         amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
-        description = 'mo. HabitRPG Subscription (Gift)';
+        description = 'mo. Habitica Subscription (Gift)';
       }
     }
 
@@ -166,7 +166,7 @@ api.subscribe = {
       if (!coupon) throw new NotAuthorized(res.t('invalidCoupon'));
     }
 
-    let billingPlanTitle = `HabitRPG Subscription ($${sub.price} every ${sub.months} months, recurring)`;
+    let billingPlanTitle = `Habitica Subscription ($${sub.price} every ${sub.months} months, recurring)`;
     let billingAgreementAttributes = {
       name: billingPlanTitle,
       description: billingPlanTitle,
@@ -208,6 +208,7 @@ api.subscribeSuccess = {
       customerId: result.id,
       paymentMethod: 'Paypal',
       sub: block,
+      headers: req.headers,
     });
 
     res.redirect('/');
@@ -248,7 +249,7 @@ api.subscribeCancel = {
   },
 };
 
-// General IPN handler. We catch cancelled HabitRPG subscriptions for users who manually cancel their
+// General IPN handler. We catch cancelled Habitica subscriptions for users who manually cancel their
 // recurring paypal payments in their paypal dashboard. TODO ? Remove this when we can move to webhooks or some other solution
 
 /**

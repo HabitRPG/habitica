@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Houd er rekening mee dat je Zichbare Naam, profielfoto en flaptekst overeen moeten komen met de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (bijvoorbeeld geen godslastering, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over het wel of niet geschikt zijn van iets, voel je dan vrij om te emailen naar <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Houd er rekening mee dat je zichtbare naam, profielfoto en flaptekst overeen moeten komen met de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Richtlijnen</a> (bijvoorbeeld geen godslastering, geen volwassen onderwerpen, geen beledigingen, etc.). Als je je afvraagt of een bepaald onderwerp geschikt is, voel je dan vrij om een e-mail te sturen naar <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "statsAch": "Statistieken en prestaties",
     "profile": "Profiel",
     "avatar": "Avatar aanpassen",
@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
     "quickAllocationLevelPopover": "Met ieder level verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker.",
     "invalidAttribute": "\"<%= attr %>\" is geen geldige eigenschap.",
-    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten"
+    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten.",
+    "gearNotOwned": "Je bezit dit voorwerp niet."
 }

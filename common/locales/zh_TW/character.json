@@ -168,5 +168,6 @@
     "hideQuickAllocation": "關閉分配狀態",
     "quickAllocationLevelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統在使用者->屬性下幫你自動完成。",
     "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "notEnoughAttrPoints": "You don't have enough attribute points.",
+    "gearNotOwned": "You do not own this item."
 }

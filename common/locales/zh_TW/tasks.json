@@ -94,6 +94,7 @@
     "confirmFortify": "你確定嗎？",
     "fortifyComplete": "Fortify complete!",
     "sureDelete": "你確定要收回 <%= taskType %>  的挑戰 \"<%= taskText %>\" 嗎？",
+    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
     "streakCoins": "連擊獎勵",
     "pushTaskToTop": "按著 ctrl 或 cmd 來置頂。",
     "emptyTask": "請先輸入任務的標題",
