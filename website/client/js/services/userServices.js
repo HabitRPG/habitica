@@ -542,19 +542,23 @@ angular.module('habitrpg')
           });
         },
 
-        updateWebhook: function (id, data) {
+        updateWebhook: function (webhook, index) {
           return $http({
             method: 'PUT',
-            url: '/api/v3/user/webhook/' + id,
-            data: data,
-          }).then(sync);
+            url: '/api/v3/user/webhook/' + webhook.id,
+            data: webhook,
+          }).then(function (response) {
+            user.webhooks[index] = response.data.data;
+          });
         },
 
-        deleteWebhook: function (id) {
+        deleteWebhook: function (webhook, index) {
           return $http({
             method: 'DELETE',
-            url: '/api/v3/user/webhook/' + id,
-          }).then(sync);
+            url: '/api/v3/user/webhook/' + webhook.id,
+          }).then(function () {
+            user.webhooks.splice(index);
+          });
         },
 
         sleep: function () {

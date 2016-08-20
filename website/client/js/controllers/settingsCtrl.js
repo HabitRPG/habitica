@@ -258,13 +258,11 @@ habitrpg.controller('SettingsCtrl',
       });
       $scope._newWebhook.url = '';
     }
-    $scope.saveWebhook = function(id, webhook) {
+    $scope.saveWebhook = function(webhook) {
       delete webhook._editing;
-      User.updateWebhook(id, webhook);
+      User.updateWebhook(webhook);
     }
-    $scope.deleteWebhook = function(id) {
-      User.deleteWebhook(id);
-    }
+    $scope.deleteWebhook = User.deleteWebhook;
 
     $scope.applyCoupon = function(coupon){
       $http.post(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
