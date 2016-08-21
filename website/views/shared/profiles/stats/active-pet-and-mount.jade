@@ -1,5 +1,0 @@
-div(ng-if='user._id != profile._id')
-  h4=env.t('activePet') + '/' + env.t('activeMount')
-  table.table.table-striped
-    +basicRow('activePet', '{{::profile.items.currentPet ? costume.formatAnimal(profile.items.currentPet, \'pet\') : env.t(\'noActivePet\')}}')
-    +basicRow('activeMount', '{{::profile.items.currentMount ? costume.formatAnimal(profile.items.currentMount, \'mount\') : env.t(\'noActiveMount\')}}')
