@@ -210,15 +210,15 @@ function fillAchievements (member, res) {
   };
 
   // Basic Achievements
-  _addPluralAchievement(res, member, achievements, 'streak', 'achievements-thermometer', 'Basic');
-  _addPluralAchievement(res, member, achievements, 'perfect', 'achievements-perfect', 'Basic');
+  _addPluralAchievement(res, member, achievements, 'streak', 'achievement-thermometer', 'Basic');
+  _addPluralAchievement(res, member, achievements, 'perfect', 'achievement-perfect', 'Basic');
 
-  _addSimpleAchievement(res, member, achievements, 'partyUp', 'achievements-partyUp', 'Basic', 'Name');
-  _addSimpleAchievement(res, member, achievements, 'partyOn', 'achievements-partyOn', 'Basic', 'Name');
+  _addSimpleAchievement(res, member, achievements, 'partyUp', 'achievement-partyUp', 'Basic', 'Name');
+  _addSimpleAchievement(res, member, achievements, 'partyOn', 'achievement-partyOn', 'Basic', 'Name');
 
-  _addSimpleAchievementWithMasterCount(res, member, achievements, 'beastMaster', 'achievements-rat', 'Basic');
-  _addSimpleAchievementWithMasterCount(res, member, achievements, 'mountMaster', 'achievements-wolf', 'Basic');
-  _addSimpleAchievementWithMasterCount(res, member, achievements, 'triadBingo', 'achievements-triadbingo', 'Basic');
+  _addSimpleAchievementWithMasterCount(res, member, achievements, 'beastMaster', 'achievement-rat', 'Basic');
+  _addSimpleAchievementWithMasterCount(res, member, achievements, 'mountMaster', 'achievement-wolf', 'Basic');
+  _addSimpleAchievementWithMasterCount(res, member, achievements, 'triadBingo', 'achievement-triadbingo', 'Basic');
 
   _addUltimateGearAchievement(res, member, achievements, 'healer', 'achievement-ultimate-healer', 'Basic');
   _addUltimateGearAchievement(res, member, achievements, 'rogue', 'achievement-ultimate-rogue', 'Basic');
@@ -228,59 +228,59 @@ function fillAchievements (member, res) {
   // TODO Rebirth Achievement
 
   // Seasonal-Achievements
-  _addPluralAchievement(res, member, achievements, 'habiticaDay', 'achievements-habiticaDay', 'Seasonal', 'habiticaDays', {
+  _addPluralAchievement(res, member, achievements, 'habiticaDays', 'achievement-habiticaDay', 'Seasonal', 'habiticaDays', {
     singularTitle: 'habiticaDay',
     singularText: 'habiticaDaySingularText',
     pluralTitle: 'habiticaDay',
     pluralText: 'habiticaDayPluralText',
   });
 
-  _addPluralAchievement(res, member, achievements, 'habiticaDay', 'achievements-habiticaDay', 'Seasonal', 'habitBirthdays', {
+  _addPluralAchievement(res, member, achievements, 'habitBirthdays', 'achievement-habitBirthday', 'Seasonal', 'habitBirthdays', {
     singularTitle: 'habitBirthday',
     singularText: 'habitBirthdayText',
     pluralTitle: 'habitBirthday',
     pluralText: 'habitBirthdayPluralText',
   });
 
-  _addSimpleAchievementWithCount(res, member, achievements, 'snowball', 'achievements-snowball', 'Seasonal', {
+  _addSimpleAchievementWithCount(res, member, achievements, 'snowball', 'achievement-snowball', 'Seasonal', {
     title: 'annoyingFriends',
     text: 'annoyingFriendsText',
   });
 
-  _addSimpleAchievementWithCount(res, member, achievements, 'spookySparkles', 'achievements-spookySparkles', 'Seasonal', {
+  _addSimpleAchievementWithCount(res, member, achievements, 'spookySparkles', 'achievement-spookySparkles', 'Seasonal', {
     title: 'alarmingFriends',
     text: 'alarmingFriendsText',
   });
-  _addSimpleAchievementWithCount(res, member, achievements, 'shinySeed', 'achievements-shinySeed', 'Seasonal', {
+  _addSimpleAchievementWithCount(res, member, achievements, 'shinySeed', 'achievement-shinySeed', 'Seasonal', {
     title: 'agriculturalFriends',
     text: 'agriculturalFriendsText',
   });
-  _addSimpleAchievementWithCount(res, member, achievements, 'seafoam', 'achievements-seafoam', 'Seasonal', {
+  _addSimpleAchievementWithCount(res, member, achievements, 'seafoam', 'achievement-seafoam', 'Seasonal', {
     title: 'aquaticFriends',
     text: 'aquaticFriendsText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'dilatory', 'achievements-dilatory', 'Seasonal', {
+  _addSimpleAchievement(res, member, achievements, 'quests.dilatory', 'achievement-dilatory', 'Seasonal', {
     title: 'achievementDilatory',
     text: 'achievementDilatoryText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'stressbeast', 'achievements-stoikalm', 'Seasonal', {
+  _addSimpleAchievement(res, member, achievements, 'quests.stressbeast', 'achievement-stoikalm', 'Seasonal', {
     title: 'achievementStressbeast',
     text: 'achievementStressbeastText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'burnout', 'achievements-burnout', 'Seasonal', {
+  _addSimpleAchievement(res, member, achievements, 'quests.burnout', 'achievement-burnout', 'Seasonal', {
     title: 'achievementBurnout',
     text: 'achievementBurnoutText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'bewilder', 'achievements-bewilder', 'Seasonal', {
+  _addSimpleAchievement(res, member, achievements, 'quests.bewilder', 'achievement-bewilder', 'Seasonal', {
     title: 'achievementBewilder',
     text: 'achievementBewilderText',
   });
 
-  _addPluralAchievement(res, member, achievements, 'costumeContest', 'achievements-costumeContest', 'Seasonal', 'costumeContests', {
+  _addPluralAchievement(res, member, achievements, 'costumeContests', 'achievement-costumeContest', 'Seasonal', 'costumeContests', {
     singularTitle: 'costumeContest',
     singularText: 'costumeContestText',
     pluralTitle: 'costumeContest',
@@ -292,7 +292,7 @@ function fillAchievements (member, res) {
   for (let index in cardAchievements) {
     let key = cardAchievements[index];
 
-    _addSimpleAchievementWithCount(res, member, achievements, key, 'achievements-' + key, 'Seasonal', {
+    _addSimpleAchievementWithCount(res, member, achievements, key, 'achievement-' + key, 'Seasonal', {
       title: key + 'CardAchievementTitle',
       text: key + 'CardAchievementText',
     });
@@ -300,7 +300,7 @@ function fillAchievements (member, res) {
 
   // Special Achievements
   
-  _addPluralAchievement(res, member, achievements, 'habitSurveys', 'achievements-tree', 'Special', undefined, {
+  _addPluralAchievement(res, member, achievements, 'habitSurveys', 'achievement-tree', 'Special', undefined, {
     singularTitle: 'helped',
     singularText: 'surveysSingle',
     pluralTitle: 'helped',
@@ -310,30 +310,30 @@ function fillAchievements (member, res) {
 
   if(member.contributor.level) {
     _addAchievement(achievements, 'simple', 'contributor', contribText(member.contributor, member.backer, res), 
-      res.t('contribText'), 'achievements-boot', 'Seasonal', member.contributor.level, true);
+      res.t('contribText'), 'achievement-boot', 'Special', member.contributor.level, true);
   } else {
     _addAchievement(achievements, 'simple', 'contributor', res.t('contribName'), 
-      res.t('contribText'), 'achievements-boot', 'Seasonal', member.contributor.level, false);
+      res.t('contribText'), 'achievement-boot', 'Special', member.contributor.level, false);
   }
 
   if(member.backer.npc){
     _addAchievement(achievements, 'simple', 'npc', member.backer.npc + res.t('npc'), 
-      res.t('npcText'), 'achievement-ultimate-warrior', 'Seasonal', member.backer.npc);
+      res.t('npcText'), 'achievement-ultimate-warrior', 'Special', member.backer.npc);
   }
 
   if(member.backer.tier){
     _addAchievement(achievements, 'simple', 'tier', res.t('kickstartName', {tier: member.backer.tier}), 
-      res.t('kickstartText'), 'achievement-heart', 'Seasonal', member.backer.tier);
+      res.t('kickstartText'), 'achievement-heart', 'Special', member.backer.tier);
   }
 
   if(member.achievements.veteran){
     _addAchievement(achievements, 'simple', 'veteran', res.t('veteran'), 
-      res.t('veteranText'), 'achievement-cake', 'Seasonal', member.achievements.veteran);
+      res.t('veteranText'), 'achievement-cake', 'Special', member.achievements.veteran);
   }
 
   if(member.achievements.originalUser){
     _addAchievement(achievements, 'simple', 'veteran', res.t('originalUser'), 
-      res.t('originalUserText'), 'achievement-alpha', 'Seasonal', member.achievements.originalUser);
+      res.t('originalUserText'), 'achievement-alpha', 'Special', member.achievements.originalUser);
   }
 
   return achievements;
