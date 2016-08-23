@@ -8,7 +8,7 @@ mixin simpleAchiev(isEarned, spriteName, titleText, descText, optionalCount)
       .achievement(class='#{spriteName}2x')(ng-if='::#{isEarned}')
         span.counter(ng-if='::(#{optionalCount})')
           {{#{optionalCount}}}
-      .achievement(class='#{spriteName}2x-muted')(ng-if='::!(#{isEarned})')
+      .achievement(class='achievement-unearned2x')(ng-if='::!(#{isEarned})')
 
 mixin achievWithSimpleCount(countVal, spriteName, title, desc)
   +simpleAchiev(countVal, spriteName, env.t(title), env.t(desc, {count: "0"}))(ng-if='::!(#{countVal})')
