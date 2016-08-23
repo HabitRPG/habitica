@@ -121,7 +121,7 @@
     "classAllocation": "Distribui pontos de acordo com a Classe",
     "classAllocationPop": "Atribui mais pontos para os atributos importantes para sua Classe.",
     "taskAllocation": "Distribui pontos de acordo com o tipo de atividades de suas tarefas",
-    "taskAllocationPop": "Distribua pontos baseado nas categorias Físico (Força), Mental (Inteligência), Social (Constituição) e Outros (Percepção) associadas com as tarefas que você completa.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Distribuir Pontos não Distribuídos",
     "distributePointsPop": "Atribui todos pontos não distribuídos de acordo com o esquema de distribuição selecionado.",
     "warriorText": "Guerreiros causam melhores \"golpes críticos\" e com mais frequência, que aleatoriamente dão bônus de Ouro, Experiência e chance de drop ao cumprir uma tarefa. Eles também causam muito dano aos chefões Jogue de Guerreiro se encontra motivação em recompensas aleatórias, ou se gosta de acabar com chefões de Missões.",

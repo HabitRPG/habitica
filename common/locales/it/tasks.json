@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Elimina attività completate",
-    "lotOfToDos": "Le To-Do completate vengono automaticamente archiviate dopo 3 giorni. Puoi accedervi in Impostazioni > Esporta dati.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Cliccando il bottone qui sotto, tutti i tuoi To-Do completati e quelli archiviati verranno cancellati in modo permanente. Esportali dall'apposito menù nelle impostazioni se vuoi mantenerne una copia.",
     "addmultiple": "Aggiungi multiple",
     "addsingle": "Aggiungi singola",

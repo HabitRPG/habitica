@@ -121,7 +121,7 @@
     "classAllocation": "Distribue les points en fonction de la Classe",
     "classAllocationPop": "Affecte plus de points aux attributs importants pour votre Classe.",
     "taskAllocation": "Distribuer les points en fonction des catégories des tâches",
-    "taskAllocationPop": "Alloue les points en fonction du Physique (Force), du Mental (Intelligence), du Social (Constitution) et Autre (Perception) selon les catégories associées aux tâches que vous complétez.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Distribuer les points non-alloués",
     "distributePointsPop": "Affecte tous vos points non alloués selon le choix d'attribution sélectionné.",
     "warriorText": "Les Guerriers réalisent des \"coups critiques\" plus nombreux et plus efficaces qui augmentent aléatoirement l'Or et l'Expérience obtenus ainsi que les chances de trouver du butin en complétant une tâche. Ils infligent aussi des dommages lourds aux boss. Jouez un Guerrier si des récompenses imprévisibles du genre jackpot vous motivent ou si vous voulez distribuer des coups pendant les Quêtes !",

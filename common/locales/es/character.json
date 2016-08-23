@@ -121,7 +121,7 @@
     "classAllocation": "Distribuir los puntos basandose en la clase",
     "classAllocationPop": "Asignar más puntos a los atributos importantes para tu clase.",
     "taskAllocation": "Distribuir los puntos según la actividad de tus tareas",
-    "taskAllocationPop": "Asigna puntos basándose en las categorías de Físico (Fuerza), Mental (Inteligencia), Social (Constitución) y Otros (Percepción), asociadas a la tarea que completes.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Distribuir Puntos no Asignados",
     "distributePointsPop": "Asigna los puntos no distribuidos según el esquema de asignación seleccionado.",
     "warriorText": "Los Guerreros consiguen más y mejores «golpes críticos», los cuales otorgan bonus de Oro, Experiencia y probabilidad de botín al completar una tarea. También hacen mucho daño a mounstros jefe. ¡Juega como un Guerrero si te motivan las recompensas impredecibles como en un casino o si deseas ser la fuente de daño en las Misiones!",

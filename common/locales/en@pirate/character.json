@@ -121,7 +121,7 @@
     "classAllocation": "Distribute points based on Class",
     "classAllocationPop": "Assigns more points to th' attributes important to ye Class.",
     "taskAllocation": "Distribute yer points based on task activity",
-    "taskAllocationPop": "Assigns points based on th' Physical (Strength), Mental (Intelligence), Social (Constitution), 'n Other (Perception) categories associated wit' th' tasks ye complete.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Distribute Unallocated Points",
     "distributePointsPop": "Assigns all unallocated attribute points accordin' to th' selected allocation scheme.",
     "warriorText": "Warriors score more 'n better \"critical hits\", which randomly gift bonus Doubloons, Experience, 'n loot chance fer scorin' a task. They also deal heavy damage to boss monsters. Play a Warrior if ye find motivation from unpredictable jackpot-style rewards, or want to dish out th' hurt in boss Quests!",

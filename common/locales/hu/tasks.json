@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Törlés kész",
-    "lotOfToDos": "A befejezett tennivalók automatikusan arhiválásra kerülnek 3 nap után. A Beállítások>Exportálás menüpontban letöltheted őket.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Ha megnyomod a lenti gombot, akkor a már kész és archivált tennivalók végleg kitörlődnek. Exportáld ki őket, ha meg akarod őket őrizni.",
     "addmultiple": "Több hozzáadása",
     "addsingle": "Egy hozzáadása",

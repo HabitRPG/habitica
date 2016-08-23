@@ -255,5 +255,5 @@
     "invalidReqParams": "Parametri di richiesta non validi.",
     "memberIdRequired": "\"member\" deve essere un UUID valido.",
     "heroIdRequired": "\"herold\" deve essere un UUID valido.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "La tua richiesta non può essere soddisfatta.  Scrivi una e-mail ad admin@habitica.com se l'errore persiste."
 }

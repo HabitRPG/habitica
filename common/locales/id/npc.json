@@ -60,7 +60,7 @@
     "classGearText": "Pertama-tama: jangan panik! Perlengkapan lamamu ada di dalam inventori, dan kamu sekarang memakai perlengkapan pemula sesuai profesimu. Mengenakan perlengkapan sesuai profesi memberikanmu 50% bonus pada status. Tetapi, silakan mengenakan perlengkapan lamamu jika kamu menginginkannya.",
     "classStats": "Ini adalah status kemampuanmu; ini berpengaruh pada permainan. Setiap kamu naik level, kamu mendapat satu poin untuk dialokasikan pada status tertentu. Arahkan kursor pada setiap stat untuk informasi lebih lanjut.",
     "autoAllocate": "Alokasi Otomatis",
-    "autoAllocateText": "Jika 'Alokasi Otomatis' terpilih, avatarmu mendapatkan peningkatan status berdasarkan rincian tugasmu, yang dapat kamu temukan pada <strong> TUGAS > Ubah > Lanjutan > Atribut </strong>. Contohnya, jika kamu sering pergi ke gym, dan Keseharian Gym kamu terset ke 'Fisik' maka kamu akan mendapatkan nilai Kekuatan secara otomatis.",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "Mantera",
     "spellsText": "Kamu sekarang telah membuka mantra spesifik perkelas. Kamu akan melihat yang pertama pada level 11. Mana akan bertambah 10 poin per hari, di tambah 1 poin per selesai",
     "toDo": "Daftar Tugas",

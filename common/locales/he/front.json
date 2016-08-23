@@ -254,6 +254,6 @@
     "onlySocialAttachLocal": "אימות מקומי ניתן להוסיף אך ורק לחשבון שמקושר לרשת חברתית.",
     "invalidReqParams": "פרמטרי בקשה שגויים.",
     "memberIdRequired": "״משתמש״ חייב להיות מזהה משתמש תקין.",
-    "heroIdRequired": "״הרולד״ חייב להיות מזהה משתמש תקין.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "heroIdRequired": "״heroId״ חייב להיות מזהה משתמש תקין.",
+    "cannotFulfillReq": "הבקשה שלכם לא יכולה להתמלא. שלחו מייל ל admin@habitica.com אם הבעיה נמשכת."
 }

@@ -60,7 +60,7 @@
     "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Alocare automată",
-    "autoAllocateText": "Dacă 'alocarea automată' este bifată, atributele avatarului tău vor crește în funcție de atributele țelurilor tale, pe care le poți găsi la <strong>SARCINĂ > Modifică > Avansat > Atribute</strong>. Ex. dacă mergi la sală mai des și Cotidiana ta 'Sală' este setată ca 'Fizică' îți va crește automat Forța.",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "Vrăji",
     "spellsText": "Acum poți accesa vrăji specifice clasei. O vei vedea pe prima la nivelul 11. Mana ta se va reumple cu 10 puncte pe zi, plus 1 punct pentru fiecare",
     "toDo": "Sarcină",

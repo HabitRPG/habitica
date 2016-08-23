@@ -67,7 +67,7 @@
     "goalSample4": "Duolingo で英語を勉強する",
     "goalSample5": "役に立つ記事を読む",
     "goals": "目標",
-    "guidanceForBlacksmiths": "Guidance for Blacksmiths",
+    "guidanceForBlacksmiths": "かじ屋のためのガイド",
     "health": "体力",
     "healthSample1": "水を飲む・炭酸飲料を飲む",
     "healthSample2": "ガムを噛む・タバコを吸う",
@@ -255,5 +255,5 @@
     "invalidReqParams": "要求パラメータが不正です。",
     "memberIdRequired": "\"member\" の UUID が無効です。",
     "heroIdRequired": "\"heroId\" の UUID が無効です。",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "操作に対する処理を完了できませんでした。エラーをくり返す場合は、admin@habitica.com にメールしてください。"
 }

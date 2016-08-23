@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Изтриване на завършените",
-    "lotOfToDos": "Завършените задачи се архивират автоматично след 3 дни. Можете да ги намерите в Настройки -> Изнасяне.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Ако натиснете този бутон, всички завършени и архивирани задачи ще бъдат изтрити завинаги. Ако искате да запазите информацията за тях, първо ги изнесете.",
     "addmultiple": "Добавяне на няколко",
     "addsingle": "Добавяне поотделно",

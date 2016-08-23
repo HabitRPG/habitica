@@ -60,7 +60,7 @@
     "classGearText": "首先：別怕！你的舊裝備放在你的背包，你現在穿著你的新手裝備。穿你的職業裝備會為你提供50%額外屬性獎勵。但是，你仍然可以切換回原來的裝備。",
     "classStats": "這是你的職業的屬性；它們影響遊戲過程。每次升級時，你都可以得到一個可以自由分配到各屬性的點數。若想知道更多訊息，將游標移動到個屬性上。",
     "autoAllocate": "自動分配",
-    "autoAllocateText": "如果選了“自動分配”，你的角色會自動根據你的任務屬性分配點數，你可以在<strong>任務> 編輯> 高級> 屬性</strong>中看到他們。例如，如果你經常點'健身房'任務，而健身房日常屬性被設置為'物理'，那你會自動獲得力量點。",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "法術",
     "spellsText": "你現在可以解鎖職業法術了。你會在11級看到你的第一個法術。你的魔法值會每天自動補充10點，以及每完成一個待辦事項增加一點。",
     "toDo": "待辦事項",

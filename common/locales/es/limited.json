@@ -75,8 +75,8 @@
     "shipSoothsayerSet": "Barco Adivino (Mago)",
     "strappingSailorSet": "Marinero Fornido (Sanador)",
     "reefRenegadeSet": "Arrecife Renegado (Pícaro)",
-    "fallEventAvailability": "Available for purchase until October 31.",
-    "winterEventAvailability": "Available for purchase until December 31.",
-    "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "fallEventAvailability": "Disponible para la compra a partir del 31 de Octubre.",
+    "winterEventAvailability": "Disponible para la compra a partir del 31 de Diciembre.",
+    "springEventAvailability": "Disponible para la compra a partir del 31 de Mayo.",
+    "summerEventAvailability": "Disponible para la compra a partir del 31 de Agosto."
 }

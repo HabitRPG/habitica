@@ -255,5 +255,5 @@
     "invalidReqParams": "Грешни параметри на заявката.",
     "memberIdRequired": "„member“ трябва да бъде правилно форматиран идентификатор UUID.",
     "heroIdRequired": "„heroId“ трябва да бъде правилно форматиран идентификатор UUID.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "Заявката Ви не може да бъде изпълнена. Пишете на admin@habitica.com , ако тази грешка продължи да се повтаря."
 }

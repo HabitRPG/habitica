@@ -121,7 +121,7 @@
     "classAllocation": "根据职业分配属性点",
     "classAllocationPop": "分配更多的技能点到对你职业有用的属性.",
     "taskAllocation": "根据任务分配技能点",
-    "taskAllocationPop": "根据你所要完成的任务合理的分配力量、精神、社交以及其他相关属性点",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "配置未分配的属性点",
     "distributePointsPop": "根据你所选择的方法来分配所有未分配的属性点。",
     "warriorText": "战士们会有更大的机率触发暴击并在完成任务时随机获得额外的金币，经验和掉率。他们还能对boss造成严重的伤害。如果你希望获得随机性的奖励，或者在boss任务中重创boss，来玩战士吧！",

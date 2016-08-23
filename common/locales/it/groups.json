@@ -124,7 +124,7 @@
     "needsTextPlaceholder": "Scrivi il tuo messaggio qui.",
     "copyMessageAsToDo": "Copia messaggio come To-Do",
     "messageAddedAsToDo": "Messaggio copiato come To-Do.",
-    "messageWroteIn": "<%= user %> ha scritto in <%= group %>",
+    "messageWroteIn": "Scritto in <%= group %> da <%= user %>",
     "msgPreviewHeading": "Anteprima messaggio",
     "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
     "sendGift": "Invia regalo",

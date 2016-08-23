@@ -121,7 +121,7 @@
     "classAllocation": "Pontok elosztása Kaszt alapján",
     "classAllocationPop": "Ahhoz a tulajdonsághoz oszt több pontot, amely a kasztodnak fontos.",
     "taskAllocation": "Pontok elosztása a feladatok jellege szerint",
-    "taskAllocationPop": "Elosztja a pontokat a Fizikai (Erő), Mentális (Intelligencia), Szociális (Alkat) és Egyéb (Észlelés) kategóriák alapján, amiket az általad elvégzett feladatokhoz rendeltél.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Kiosztatlan pontok szétosztása",
     "distributePointsPop": "Elosztja az elosztatlan tulajdonság pontokat a kiválasztott séma szerint.",
     "warriorText": "A Harcosok több és jobb \"kritikus csapást\" mérnek, ami véletlenszerű bónuszt ad Aranyra, Tapasztalati pontra és zsákmányolási esélyre, amikor egy feladatot elvégeztél. Ezen kívül főellenségekre is keményen sebeznek. Játssz Harcosként, ha motiválnak a kiszámíthatatlan főnyeremény-szerű jutalmak, vagy ha kemény sebzéseket akarsz kiosztani a főellenség Küldetésekben!",

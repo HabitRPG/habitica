@@ -335,5 +335,11 @@
     "questTurtleCompletion": "你勇敢的行为清扫了水体，海龟能找到她的海滩了。你，@Bambin和@JaizakAripaik看着她把一窝的蛋埋在沙中，他们会成长并孵化出成百上千个小海龟。海龟小姐，她给了你三个蛋，请求你喂养并且教育他们，直到他们自己成为大海龟的那一天。",
     "questTurtleBoss": "任务漂浮物",
     "questTurtleDropTurtleEgg": "海龟(宠物蛋)",
-    "questTurtleUnlockText": "解锁海龟蛋购买功能"
+    "questTurtleUnlockText": "解锁海龟蛋购买功能",
+    "questArmadilloText": "The Indulgent Armadillo",
+    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
+    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
+    "questArmadilloBoss": "Indulgence Armadillo",
+    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
+    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
 }
