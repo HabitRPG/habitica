@@ -89,6 +89,10 @@ let _formatUserData = (user) => {
 };
 
 let _formatPlatformForAmplitude = (platform) => {
+  if (!platform) {
+    return 'Unknown';
+  }
+
   if (platform in PLATFORM_MAP) {
     return PLATFORM_MAP[platform];
   }
@@ -97,6 +101,10 @@ let _formatPlatformForAmplitude = (platform) => {
 };
 
 let _formatUserAgentForAmplitude = (platform, agentString) => {
+  if (!agentString) {
+    return 'Unknown';
+  }
+
   let agent = useragent.lookup(agentString).toJSON();
   let formattedAgent = {};
   if (platform === 'iOS' || platform === 'Android') {
@@ -115,8 +123,8 @@ let _formatUserAgentForAmplitude = (platform, agentString) => {
 
 let _formatDataForAmplitude = (data) => {
   let event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
-  let platform = _formatPlatformForAmplitude(data.headers['x-client']);
-  let agent = _formatUserAgentForAmplitude(platform, data.headers['user-agent']);
+  let platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
+  let agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
   let ampData = {
     user_id: data.uuid || 'no-user-id-was-provided',
     platform,

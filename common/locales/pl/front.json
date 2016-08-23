@@ -251,8 +251,9 @@
     "accountSuspended": "Konto zostało zawieszone. Aby uzyskać pomoc, napisz na leslie@habitica.com, zawierając w treści swoje ID użytkownika – „<%= userId %>”.",
     "onlyFbSupported": "Aktualnie tylko Facebook jest wpierany.",
     "cantDetachFb": "Account lacks another authentication method, can't detach Facebook.",
-    "onlySocialAttachLocal": "Local authentication can be added to only a social account.",
+    "onlySocialAttachLocal": "Lokalne uwierzytelnienie może być dodane tylko do kont społecznych. ",
     "invalidReqParams": "Nieprawidłowe parametry żądania.",
-    "memberIdRequired": "\"member\" must be a valid UUID.",
-    "heroIdRequired": "\"heroId\" must be a valid UUID."
+    "memberIdRequired": "\"member\" musi być prawidłowym UUID.",
+    "heroIdRequired": "\"heroId\" musi być prawidłowym UUID.",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

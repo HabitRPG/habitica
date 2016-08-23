@@ -34,7 +34,7 @@
     "mustPurchaseToSet": "É necessário comprar <%= val %> para colocar em <%= key %>.",
     "typeRequired": "Tipo é necessário",
     "keyRequired": "Chave é necessária",
-    "notAccteptedType": "Type must be in [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
+    "notAccteptedType": "Tipo deve ser em [ovos, poções de eclosão, poções de eclosão premium, comida, desafios, equipamento]",
     "contentKeyNotFound": "Chave não encontrada para Conteúdo <%= type %>",
     "plusOneGem": "+1 Gema",
     "typeNotSellable": "Tipo não é vendível. Precisa ser um dos seguintes <%= acceptedTypes %>",

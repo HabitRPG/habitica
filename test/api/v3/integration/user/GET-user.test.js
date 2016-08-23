@@ -14,7 +14,7 @@ describe('GET /user', () => {
     let returnedUser = await user.get('/user');
     expect(returnedUser._id).to.equal(user._id);
 
-    expect(returnedUser.stats.maxMP).to.exists;
+    expect(returnedUser.stats.maxMP).to.exist;
     expect(returnedUser.stats.maxHealth).to.equal(common.maxHealth);
     expect(returnedUser.stats.toNextLevel).to.equal(common.tnl(returnedUser.stats.lvl));
   });

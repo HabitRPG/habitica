@@ -178,6 +178,8 @@ let schema = new Schema({
         tavern: {type: Boolean, default: false},
         equipment: {type: Boolean, default: false},
         items: {type: Boolean, default: false},
+        mounts: {type: Boolean, default: false},
+        inbox: {type: Boolean, default: false},
       },
       ios: {
         addTask: {type: Boolean, default: false},
@@ -186,6 +188,7 @@ let schema = new Schema({
         filterTask: {type: Boolean, default: false},
         groupPets: {type: Boolean, default: false},
         inviteParty: {type: Boolean, default: false},
+        reorderTask: {type: Boolean, default: false},
       },
     },
     dropsEnabled: {type: Boolean, default: false},

@@ -75,8 +75,8 @@
     "shipSoothsayerSet": "船上预言者(法师)",
     "strappingSailorSet": "魁梧的水手(医师)",
     "reefRenegadeSet": "珊瑚礁的叛徒(盗贼)",
-    "fallEventAvailability": "Available for purchase until October 31.",
-    "winterEventAvailability": "Available for purchase until December 31.",
-    "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "fallEventAvailability": "10月31日前可购买",
+    "winterEventAvailability": "12月31日前可购买",
+    "springEventAvailability": "5月31日前可购买",
+    "summerEventAvailability": "8月31日前可购买"
 }

@@ -139,7 +139,7 @@
     "respawn": "Risorgi!",
     "youDied": "Sei morto!",
     "dieText": "Hai perso un livello, tutto il tuo oro, e un pezzo casuale dell'equipaggiamento. Risorgi, Habiteer, e provaci ancora! Metti un freno alle cattive abitudini, sii attento al completamento delle Daily, e tieni la morte a debita distanza con una Pozione di Salute se stai vacillando!",
-    "sureReset": "Sei sicuro? Questo resetterà la classe e i punti allocati del tuo personaggio (ti verranno ridati per poter essere ri-allocati), e ti costerà 3 gemme.",
+    "sureReset": "Sei sicuro? Questo resetterà la classe e i punti allocati del tuo personaggio (ti verranno restituiti per poter essere ri-allocati), e ti costerà 3 gemme.",
     "purchaseFor": "Comprare per <%= cost %> Gemme?",
     "notEnoughMana": "Non hai abbastanza Mana.",
     "invalidTarget": "Bersaglio non valido",

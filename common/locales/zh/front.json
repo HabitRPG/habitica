@@ -67,7 +67,7 @@
     "goalSample4": "Duolingo上的日语课程",
     "goalSample5": "阅读一篇论文",
     "goals": "目标",
-    "guidanceForBlacksmiths": "Guidance for Blacksmiths",
+    "guidanceForBlacksmiths": "铁匠的引导",
     "health": "健康",
     "healthSample1": "喝矿泉水/汽水",
     "healthSample2": "嚼口香糖/抽烟",
@@ -254,5 +254,6 @@
     "onlySocialAttachLocal": "本地认证仅能被添加到一个社交账号。",
     "invalidReqParams": "无效的请求参数。",
     "memberIdRequired": "\"member\"必须是一个有效的UUID。",
-    "heroIdRequired": "\"heroId\"必须是一个有效的UUID"
+    "heroIdRequired": "\"heroId\"必须是一个有效的UUID",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

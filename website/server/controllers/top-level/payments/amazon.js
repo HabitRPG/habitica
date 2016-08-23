@@ -131,7 +131,11 @@ api.checkout = {
 
     // execute payment
     let method = 'buyGems';
-    let data = { user, paymentMethod: 'Amazon Payments' };
+    let data = {
+      user,
+      paymentMethod: 'Amazon Payments',
+      headers: req.headers,
+    };
 
     if (gift) {
       if (gift.type === 'subscription') method = 'createSubscription';
@@ -247,6 +251,7 @@ api.subscribeCancel = {
       user,
       nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
+      headers: req.headers,
     });
 
     if (req.query.noRedirect) {

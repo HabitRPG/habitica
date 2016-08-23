@@ -146,6 +146,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     gaCategory: 'commerce',
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,
+    headers: data.headers,
   });
 };
 

@@ -11,7 +11,7 @@
     "danielText2Broken": "Oh... Si estás participando en una misión contra un jefe, el jefe seguirá dañándote por las Diarias que tus compañeros de equipo no completen... Además, el daño que tú le causes al Jefe (o los objetos recolectados) no será aplicado hasta que salgas de la Posada...",
     "alexander": "Alexander el Comerciante",
     "welcomeMarket": "¡Bienvenidos al Mercado! ¡Compra huevos difíciles de encontrar y pociones! ¡Vende tus extras! ¡Encarga servicios útiles! Ven a ver lo que tenemos para ofrecer.",
-    "welcomeMarketMobile": "Welcome to the Market! Buy hard-to-find eggs and potions! Come see what we have to offer.",
+    "welcomeMarketMobile": "¡Bienvenido al mercado! ¡Compra huevos y pociones dificiles de encontrar! Ven a ver lo que tenemos para ofrecer.",
     "displayItemForGold": "¿Quieres vender un/a <strong><%= itemType %></strong>?",
     "displayEggForGold": "¿Quieres vender un <strong>Huevo de <%= itemType %></strong>?",
     "displayPotionForGold": "¿Quieres vender una <strong>Poción <%= itemType %></strong>?",

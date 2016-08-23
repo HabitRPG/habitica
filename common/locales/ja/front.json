@@ -254,5 +254,6 @@
     "onlySocialAttachLocal": "ローカル認証は、外部認証しているアカウントにのみ追加できます。",
     "invalidReqParams": "要求パラメータが不正です。",
     "memberIdRequired": "\"member\" の UUID が無効です。",
-    "heroIdRequired": "\"heroId\" の UUID が無効です。"
+    "heroIdRequired": "\"heroId\" の UUID が無効です。",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }

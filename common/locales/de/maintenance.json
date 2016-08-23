@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Keine Sorge, Habitica ist bald zurück!",
-  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
+  "importantMaintenance": "Wir müssen wichtige Wartungen durchführen, die vermutlich bis 7:00 Deutscher Zeit dauern.",
   "maintenance": "Wartungsarbeiten",
   "maintenanceMoreInfo": "Willst Du mehr über die Wartungsarbeiten wissen? <%= linkStart %>Schau auf unsere Infoseite<%= linkEnd %>.",
   "noDamageKeepStreaks": "Du wirst KEINEN Schaden erleiden oder Strähnen verlieren!",
@@ -22,7 +22,7 @@
   "maintenanceInfoHowLong": "Wie lange werden die Wartungsarbeiten dauern?",
   "maintenanceInfoHowLongText": "Wir müssen die Aufgaben und Daten aller 1,3 Millionen Habitica-Benutzer migrieren -- keine einfache Aufgabe! Wir nehmen an, dass wir etwa von 13:00 Pacific Time (20:00 UTC) bis 22:00 Pacific Time (05:00 UTC) benötigen. Wir werden alles tun, um das so schnell wie möglich über die Bühne zu bringen! Du kannst den <a href='https://twitter.com/habitica' target='_blank'>Updates auf Twitter</a> folgen.",
   "maintenanceInfoStatsAffected": "Wie werden meine täglichen Aufgaben, Strähnen, aktivierte Boni und Quests beeinflusst?",
-  "maintenanceInfoStatsAffectedText1": "Du wirst an diesem Wochenende KEINEN Schaden erleiden oder Strähnen verlieren, ansonsten wird der Tag aber ganz normal abgehandelt! Tägliche Aufgaben, die Du erledigt hast, werden wieder geöffnet, aktivierte Boni zurückgesetzt usw. Wenn Du an einer Sammelquest teilnimmst, wirst Du weiterhin Gegenstände finden. In einem Bosskampf wirst Du dem Boss Schaden zufügen aber der Boss wird Dir dieses mal nichts anhaben (schließlich brauchen auch Monster mal eine Pause!).",
+  "maintenanceInfoStatsAffectedText1": "Du wirst an diesem Wochenende KEINEN Schaden erleiden oder Strähnen verlieren, ansonsten wird der Tag aber ganz normal abgehandelt! Tägliche Aufgaben, die Du erledigt hast, werden wieder geöffnet, aktivierte Boni zurückgesetzt usw. Wenn Du an einer Sammelquest teilnimmst, wirst Du weiterhin Gegenstände finden. In einem Bosskampf wirst Du dem Boss Schaden zufügen, aber der Boss wird Dir dieses mal nichts anhaben. (Schließlich brauchen auch Monster mal eine Pause!)",
   "maintenanceInfoStatsAffectedText2": "Nach reiflichen Überlegungen hat unser Team beschlossen, dass dies der fairste Weg ist, da viele Benutzer durch die Wartungsarbeiten ihre täglichen Aufgaben nicht normal abhaken können. Wir bedauern jegliche Unannehmlichkeiten, die dadurch entstehen!",
   "maintenanceInfoSeeTasks": "Aber was mache ich, wenn ich meine Aufgabenliste sehen möchte?",
   "maintenanceInfoSeeTasksText": "Wenn Du weißt, dass Du Deine Aufgabenliste am Samstag ansehen musst um Dich an Deine Pflichten zu erinnern, dann empfehlen wir Dir vor den Wartungsarbeiten einen Screenshot Deiner Aufgaben zu erstellen, damit Du nachsehen kannst.",

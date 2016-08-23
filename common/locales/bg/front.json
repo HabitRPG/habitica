@@ -254,5 +254,6 @@
     "onlySocialAttachLocal": "Местното удостоверяване може да бъде добавено само към профил от социална мрежа.",
     "invalidReqParams": "Грешни параметри на заявката.",
     "memberIdRequired": "„member“ трябва да бъде правилно форматиран идентификатор UUID.",
-    "heroIdRequired": "„heroId“ трябва да бъде правилно форматиран идентификатор UUID."
+    "heroIdRequired": "„heroId“ трябва да бъде правилно форматиран идентификатор UUID.",
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
 }
