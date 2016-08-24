@@ -1,7 +1,7 @@
 fieldset.option-group
   label.option-title=env.t('text')
-  input.form-control(type='text', ng-model='task._edit.text', ng-disabled='!canEdit(task)', required)
+  input.form-control(type='text', ng-model='task.text', ng-disabled='!canEdit(task)', required)
 
 fieldset.option-group
   label.option-title=env.t('extraNotes')
-  textarea.form-control(rows='3', ng-model='task._edit.notes')
+  textarea.form-control(rows='3', ng-model='task.notes', ng-model-options="{debounce: 1000}")
