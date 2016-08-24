@@ -57,47 +57,81 @@ api.getMember = {
   },
 };
 
-function _addAchievement(achievementsResult, type, key, title, text, icon, category, value, earned) {
-  achievementsResult[key] = {
-    type,
-    title,
-    text,
-    icon,
-    category,
-    key,
-    value,
-    earned,
+
+function _addAchievement (achievementsResult, data) {
+  achievementsResult[data.key] = {
+    type: data.type,
+    title: data.title,
+    text: data.text,
+    icon: data.icon,
+    category: data.category,
+    key: data.key,
+    value: data.value,
+    earned: data.earned,
     index: achievementsResult._count++,
   };
 }
 
+function _addQuestAchievement (res, memberObj, achievementsResult, key, icon, category, labels) {
+  let value;
+
+  if (memberObj.achievements.quests)
+  {
+    value = memberObj.achievements.quests[key];
+  }
+
+  let isEarned = Boolean(value);
+
+  _addAchievement(achievementsResult, {
+    type: 'simple',
+    title: res.t(labels.title),
+    text: res.t(labels.text),
+    icon,
+    category,
+    key,
+    value,
+    earned: isEarned,
+  });
+}
+
 function _addSimpleAchievement (res, memberObj, achievementsResult, key, icon, category, keySuffixOrLabels, alreadyParsed) {
   let value = memberObj.achievements[key];
-  let isEarned = !!value;
+  let isEarned = Boolean(value);
 
   let labels = {
     title: key,
     text: key + 'Text',
   };
 
-  if (keySuffixOrLabels instanceof Object) {
-    labels.title = keySuffixOrLabels.title;
-    labels.text = keySuffixOrLabels.text;
-  } else if (!keySuffixOrLabels) {
-    labels.title = key + keySuffixOrLabels;
+  if (keySuffixOrLabels) {
+    if (keySuffixOrLabels instanceof Object) {
+      labels.title = keySuffixOrLabels.title;
+      labels.text = keySuffixOrLabels.text;
+    } else {
+      labels.title = key + keySuffixOrLabels;
+    }
   }
 
-  if(!alreadyParsed){
+  if (!alreadyParsed) {
     labels.title = res.t(labels.title);
     labels.text = res.t(labels.text);
   }
 
-  _addAchievement(achievementsResult, 'simple', key, labels.title, labels.text, icon, category, value, isEarned);
+  _addAchievement(achievementsResult, {
+    type: 'simple',
+    title: labels.title,
+    text: labels.text,
+    icon,
+    category,
+    key,
+    value,
+    earned: isEarned,
+  });
 }
 
 function _addSimpleAchievementWithCount (res, memberObj, achievementsResult, key, icon, category, labels) {
   let value = memberObj.achievements[key];
-  let isEarned = !!value;
+  let isEarned = Boolean(value);
 
   if (!labels) {
     labels = {
@@ -106,16 +140,40 @@ function _addSimpleAchievementWithCount (res, memberObj, achievementsResult, key
     };
   }
 
-  _addAchievement(achievementsResult, 'simple', key, res.t(labels.title), res.t(labels.text, {count: value}), icon, category, value, isEarned);
+  if (!value) {
+    value = 0;
+  }
+
+  console.log(key + ' ' + labels.text + ' ' + value);
+
+  _addAchievement(achievementsResult, {
+    type: 'simple',
+    title: res.t(labels.title),
+    text: res.t(labels.text, {count: value}),
+    icon,
+    category,
+    key,
+    value,
+    earned: isEarned,
+  });
 }
 
 function _addSimpleAchievementWithMasterCount (res, memberObj, achievementsResult, key, icon, category) {
   let value = memberObj.achievements[key + 'Count'];
-  let isEarned = !!value;
+  let isEarned = Boolean(value);
 
   let text = res.t(key + 'Text') + (value == 0 ? '' : res.t(key + 'Text2', {count: value}));
 
-  _addAchievement(achievementsResult, 'simple', key, res.t(key + 'Name'), text, icon, category, value, isEarned);
+  _addAchievement(achievementsResult, {
+    type: 'simple',
+    title: res.t(key + 'Name'),
+    text,
+    icon,
+    category,
+    key,
+    value,
+    earned: isEarned,
+  });
 }
 
 
@@ -124,25 +182,34 @@ function _addPluralAchievement (res, memberObj, achievementsResult, key, icon, c
     keyToCheck = key;
 
   let value = memberObj.achievements[keyToCheck];
-  let isEarned = !!value;
+  let isEarned = Boolean(value);
 
   // value == 0, labels.singularTitle, labels.singularText
   // value != 0, labels.pluralTitle, labels.pluralText
 
-  if(!labels){
+  if (!labels) {
     labels = {
-      singularTitle: key+'Singular',
-      singularText: key+'SingularText',
+      singularTitle: key + 'Singular',
+      singularText: key + 'SingularText',
 
-      pluralTitle: key+'Name',
-      pluralText: key+'Text'
+      pluralTitle: key + 'Name',
+      pluralText: key + 'Text',
     };
   }
 
   let title = res.t(value == 0 ? labels.singularTitle : labels.pluralTitle, {count: value});
   let text = res.t(value == 0 ? labels.singularText : labels.pluralText, {count: value});
 
-  _addAchievement(achievementsResult, 'plural', key, title, text, icon, category, value, isEarned);
+  _addAchievement(achievementsResult, {
+    type: 'plural',
+    title,
+    text,
+    icon,
+    category,
+    key,
+    value,
+    earned: isEarned,
+  });
 }
 
 function _addUltimateGearAchievement (res, memberObj, achievementsResult, key, icon, category, keyToCheck) {
@@ -150,12 +217,21 @@ function _addUltimateGearAchievement (res, memberObj, achievementsResult, key, i
     keyToCheck = key;
 
   let value = memberObj.achievements.ultimateGearSets[keyToCheck];
-  let isEarned = !!value;
+  let isEarned = Boolean(value);
 
   let title = res.t('ultimGearName', {ultClass: res.t(key)});
   let text = res.t(key + 'UltimGearText');
 
-  _addAchievement(achievementsResult, 'ultimateGear', 'ultimateGear' + key, title, text, icon, category, value, isEarned);
+  _addAchievement(achievementsResult, {
+    type: 'ultimateGear',
+    title,
+    text,
+    icon,
+    category,
+    key: 'ultimateGear' + key,
+    value,
+    earned: isEarned,
+  });
 }
 
 /**
@@ -194,12 +270,27 @@ api.getMemberAchievements = {
 };
 
 // copy from rootCtrl => $scope.contribText
-function contribText(contrib, backer, res){
+function contribText (contrib, backer, res) {
   if (!contrib && !backer) return;
   if (backer && backer.npc) return backer.npc;
   var l = contrib && contrib.level;
   if (l && l > 0) {
-    var level = (l < 3) ? res.t('friend') : (l < 5) ? res.t('elite') : (l < 7) ? res.t('champion') : (l < 8) ? res.t('legendary') : (l < 9) ? res.t('guardian') : res.t('heroic');
+    var level = '';
+
+    if (l < 3) {
+      level = res.t('friend');
+    } else if (l < 5) {
+      level = res.t('elite');
+    } else if (l < 7) {
+      level = res.t('champion');
+    } else if (l < 8) {
+      level = res.t('legendary');
+    } else if (l < 9) {
+      level = res.t('guardian');
+    } else {
+      level = res.t('heroic');
+    }
+
     return level + ' ' + contrib.text;
   }
 }
@@ -260,22 +351,22 @@ function fillAchievements (member, res) {
     text: 'aquaticFriendsText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'quests.dilatory', 'achievement-dilatory', 'Seasonal', {
+  _addQuestAchievement(res, member, achievements, 'dilatory', 'achievement-dilatory', 'Seasonal', {
     title: 'achievementDilatory',
     text: 'achievementDilatoryText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'quests.stressbeast', 'achievement-stoikalm', 'Seasonal', {
+  _addQuestAchievement(res, member, achievements, 'stressbeast', 'achievement-stoikalm', 'Seasonal', {
     title: 'achievementStressbeast',
     text: 'achievementStressbeastText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'quests.burnout', 'achievement-burnout', 'Seasonal', {
+  _addQuestAchievement(res, member, achievements, 'burnout', 'achievement-burnout', 'Seasonal', {
     title: 'achievementBurnout',
     text: 'achievementBurnoutText',
   });
 
-  _addSimpleAchievement(res, member, achievements, 'quests.bewilder', 'achievement-bewilder', 'Seasonal', {
+  _addQuestAchievement(res, member, achievements, 'bewilder', 'achievement-bewilder', 'Seasonal', {
     title: 'achievementBewilder',
     text: 'achievementBewilderText',
   });
@@ -289,17 +380,16 @@ function fillAchievements (member, res) {
 
   let cardAchievements = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday'];
 
-  for (let index in cardAchievements) {
-    let key = cardAchievements[index];
-
+  cardAchievements.forEach(key => {
     _addSimpleAchievementWithCount(res, member, achievements, key, 'achievement-' + key, 'Seasonal', {
       title: key + 'CardAchievementTitle',
       text: key + 'CardAchievementText',
     });
-  }
+  });
+
 
   // Special Achievements
-  
+
   _addPluralAchievement(res, member, achievements, 'habitSurveys', 'achievement-tree', 'Special', undefined, {
     singularTitle: 'helped',
     singularText: 'surveysSingle',
@@ -307,33 +397,80 @@ function fillAchievements (member, res) {
     pluralText: 'surveysMultiple',
   });
 
-
-  if(member.contributor.level) {
-    _addAchievement(achievements, 'simple', 'contributor', contribText(member.contributor, member.backer, res), 
-      res.t('contribText'), 'achievement-boot', 'Special', member.contributor.level, true);
+  if (member.contributor.level) {
+    _addAchievement(achievements, {
+      type: 'simple',
+      title: contribText(member.contributor, member.backer, res),
+      text: res.t('contribText'),
+      icon: 'achievement-boot',
+      category: 'Special',
+      key: 'contributor',
+      value: member.contributor.level,
+      earned: true,
+    });
   } else {
-    _addAchievement(achievements, 'simple', 'contributor', res.t('contribName'), 
-      res.t('contribText'), 'achievement-boot', 'Special', member.contributor.level, false);
+    _addAchievement(achievements, {
+      type: 'simple',
+      title: res.t('contribName'),
+      text: res.t('contribText'),
+      icon: 'achievement-boot',
+      category: 'Special',
+      key: 'contributor',
+      value: member.contributor.level,
+      earned: false,
+    });
   }
 
-  if(member.backer.npc){
-    _addAchievement(achievements, 'simple', 'npc', member.backer.npc + res.t('npc'), 
-      res.t('npcText'), 'achievement-ultimate-warrior', 'Special', member.backer.npc);
+  if (member.backer.npc) {
+    _addAchievement(achievements, {
+      type: 'simple',
+      title: member.backer.npc + res.t('npc'),
+      text: res.t('npcText'),
+      icon: 'achievement-ultimate-warrior',
+      category: 'Special',
+      key: 'npc',
+      value: member.backer.npc,
+      earned: true,
+    });
   }
 
-  if(member.backer.tier){
-    _addAchievement(achievements, 'simple', 'tier', res.t('kickstartName', {tier: member.backer.tier}), 
-      res.t('kickstartText'), 'achievement-heart', 'Special', member.backer.tier);
+  if (member.backer.tier) {
+    _addAchievement(achievements, {
+      type: 'simple',
+      title: res.t('kickstartName', {tier: member.backer.tier}),
+      text: res.t('kickstartText'),
+      icon: 'achievement-heart',
+      category: 'Special',
+      key: 'tier',
+      value: member.backer.tier,
+      earned: true,
+    });
   }
 
-  if(member.achievements.veteran){
-    _addAchievement(achievements, 'simple', 'veteran', res.t('veteran'), 
-      res.t('veteranText'), 'achievement-cake', 'Special', member.achievements.veteran);
+  if (member.achievements.veteran) {
+    _addAchievement(achievements, {
+      type: 'simple',
+      title: res.t('veteran'),
+      text: res.t('veteranText'),
+      icon: 'achievement-cake',
+      category: 'Special',
+      key: 'veteran',
+      value: member.achievements.veteran,
+      earned: true,
+    });
   }
 
-  if(member.achievements.originalUser){
-    _addAchievement(achievements, 'simple', 'veteran', res.t('originalUser'), 
-      res.t('originalUserText'), 'achievement-alpha', 'Special', member.achievements.originalUser);
+  if (member.achievements.originalUser) {
+    _addAchievement(achievements, {
+      type: 'simple',
+      title: res.t('originalUser'),
+      text: res.t('originalUserText'),
+      icon: 'achievement-alpha',
+      category: 'Special',
+      key: 'originalUser',
+      value: member.achievements.originalUser,
+      earned: true,
+    });
   }
 
   return achievements;
