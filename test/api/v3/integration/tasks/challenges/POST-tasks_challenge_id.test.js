@@ -33,19 +33,14 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
   });
 
-  it('returns error when user does not have the challenge', async () => {
-    let userWithoutChallenge = await generateUser();
-
-    await expect(userWithoutChallenge.post(`/tasks/challenge/${challenge._id}`, {
+  it('allows leader to modify challenge when not a member', async () => {
+    await user.post(`/challenges/${challenge._id}/leave`);
+    await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit',
       type: 'habit',
       up: false,
       down: true,
       notes: 1976,
-    })).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: t('challengeNotFound'),
     });
   });
 
