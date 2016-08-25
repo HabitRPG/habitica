@@ -270,16 +270,20 @@ api.flagChat = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear a group chat message's flags
- * @apiDescription Admin-only
- * @apiVersion 3.0.0
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear flags
+ * @apiDescription Resets the flag count on a chat message. Retains the id of the user's that have flagged the message. (Only visible to moderators)
+ * @apiPermission Moderators
  * @apiName ClearFlags
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiError MustBeAdmin Must be a moderator to use this route
+ * @apiError GroupNotFound Group could not be found or you don't have access
+ * @apiError ChatNotFound Chat message with specified id could not be found
  */
 api.clearChatFlags = {
   method: 'Post',
@@ -300,7 +304,11 @@ api.clearChatFlags = {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
-    let group = await Group.getGroup({user, groupId});
+    let group = await Group.getGroup({
+      user,
+      groupId,
+      optionalMembership: user.contributor.admin,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let message = _.find(group.chat, {id: chatId});
