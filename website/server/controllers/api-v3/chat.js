@@ -182,7 +182,11 @@ api.flagChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId});
+    let group = await Group.getGroup({
+      user,
+      groupId,
+      optionalMembership: user.contributor.admin,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
     let message = _.find(group.chat, {id: req.params.chatId});
 
