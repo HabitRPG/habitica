@@ -1,8 +1,8 @@
 "use strict";
 
 habitrpg
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats', 'Content', 'Costume',
-    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats, Content, Costume) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats', 'Costume',
+    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats, Costume) {
 
       $controller('RootCtrl', {$scope: $scope});
       $rootScope.appLoaded = true;
