@@ -35,6 +35,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     }
 
     $scope.editTask = Tasks.editTask;
+    $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
 
     $scope.canEdit = function(task) {
       return true;
@@ -290,8 +291,10 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.saveTask = function(task){
-      Tasks.updateTask(task._id, task);
+      angular.copy(task._edit, task);
+      task._edit = undefined;
       task._editing = false;
+      Tasks.updateTask(task._id, task);
     }
 
     $scope.toggleBulk = function(list) {
