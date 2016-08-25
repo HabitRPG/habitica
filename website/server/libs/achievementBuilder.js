@@ -5,26 +5,25 @@ function contribText (contrib, backer, res) {
   if (backer && backer.npc) return backer.npc;
   let lvl = contrib && contrib.level;
   if (lvl && lvl > 0) {
-    let level = '';
+    let contribTitle = '';
 
     if (lvl < 3) {
-      level = res.t('friend');
+      contribTitle = res.t('friend');
     } else if (lvl < 5) {
-      level = res.t('elite');
+      contribTitle = res.t('elite');
     } else if (lvl < 7) {
-      level = res.t('champion');
+      contribTitle = res.t('champion');
     } else if (lvl < 8) {
-      level = res.t('legendary');
+      contribTitle = res.t('legendary');
     } else if (lvl < 9) {
-      level = res.t('guardian');
+      contribTitle = res.t('guardian');
     } else {
-      level = res.t('heroic');
+      contribTitle = res.t('heroic');
     }
 
-    return level + ' ' + contrib.text;
+    return contribTitle + ' ' + contrib.text;
   }
 }
-
 
 class AchievementBuilder {
   constructor (res, memberObj) {
@@ -487,5 +486,9 @@ class AchievementBuilder {
   }
 }
 
-
-module.exports = AchievementBuilder;
+// Build and return the given user's achievement data.
+export function buildAchievementsResult (res, member) {
+  let builder = new AchievementBuilder(res, member);
+  let achievements = builder.buildAchievementsResult();
+  return achievements;
+}

@@ -17,7 +17,7 @@ import {
 } from '../../libs/email';
 import Bluebird from 'bluebird';
 import sendPushNotification from '../../libs/pushNotifications';
-import AchievementBuilder from '../../libs/achievementBuilder';
+import { buildAchievementsResult } from '../../libs/achievementBuilder';
 
 let api = {};
 
@@ -87,9 +87,7 @@ api.getMemberAchievements = {
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
-    let builder = new AchievementBuilder(res, member);
-
-    let achievements = builder.buildAchievementsResult();
+    let achievements = buildAchievementsResult(res, member);
 
     res.respond(200, achievements);
   },
