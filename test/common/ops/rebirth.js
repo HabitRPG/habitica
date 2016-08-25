@@ -20,7 +20,7 @@ describe('shared.ops.rebirth', () => {
 
   beforeEach(() => {
     user = generateUser();
-    user.balance = 2;
+    user.balance = 1.5;
     tasks = [generateHabit(), generateDaily(), generateTodo(), generateReward()];
   });
 
