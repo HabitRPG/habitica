@@ -159,14 +159,27 @@ api.likeChat = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/flag Flag a group chat message
- * @apiVersion 3.0.0
+ * @apiDescription A message will be hidden from chat if two or more users flag a message. It will be hidden immediately if a moderator flags the message. An email is sent to the moderators about every flagged message.
  * @apiName FlagChat
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data The flagged chat message
+ * @apiSuccess {UUID} data.id The id of the message
+ * @apiSuccess {String} data.text The text of the message
+ * @apiSuccess {Number} data.timestamp The timestamp of the message in milliseconds
+ * @apiSuccess {Object} data.likes The likes of the message
+ * @apiSuccess {Object} data.flags The flags of the message
+ * @apiSuccess {Number} data.flagCount The number of flags the message has
+ * @apiSuccess {UUID} data.uuid The user id of the author of the message
+ * @apiSuccess {String} data.user The username of the author of the message
+ *
+ * @apiError GroupNotFound Group could not be found or you don't have access
+ * @apiError ChatNotFound Chat message with specified id could not be found
+ * @apiError FlagOwnMessage Chat messages cannot be flagged by the author of the message
+ * @apiError AlreadyFlagged Chat messages cannot be flagged more than once by a user
  */
 api.flagChat = {
   method: 'POST',
