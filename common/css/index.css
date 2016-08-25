@@ -45,15 +45,9 @@
   margin-right: 10px;
 }
 
-.achievement span.counter {
-  background: #428bca;
-  color: #fff;
-  position: absolute;
+.achievement .counter {
   bottom: 0;
   right: 10px;
-  font: bold 12px/12px "Lato", sans-serif;
-  border-radius: 50px;
-  padding: 3px 3px;
 }
 
 .multi-achievement {
