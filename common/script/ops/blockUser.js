@@ -14,6 +14,8 @@ module.exports = function blockUser (user, req = {}) {
     user.inbox.blocks.splice(i, 1);
   }
 
+  user.preferences.sleep = true;
+
   user.markModified('inbox.blocks');
   return [
     user.inbox.blocks,

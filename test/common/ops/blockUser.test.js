@@ -11,7 +11,11 @@ describe('shared.ops.blockUser', () => {
 
   beforeEach(() => {
     blockedUser = generateUser();
+    blockedUser.preferences.sleep = false;
+
     blockedUser2 = generateUser();
+    blockedUser2.preferences.sleep = true;
+
     user = generateUser();
     expect(user.inbox.blocks).to.eql([]);
   });
@@ -29,16 +33,20 @@ describe('shared.ops.blockUser', () => {
     let [result] = blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id]);
     expect(result).to.eql([blockedUser._id]);
+    expect(user.preferences.sleep).to.eql(true);
     [result] = blockUser(user, { params: { uuid: blockedUser2._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id, blockedUser2._id]);
     expect(result).to.eql([blockedUser._id, blockedUser2._id]);
+    expect(user.preferences.sleep).to.eql(true);
   });
 
   it('blocks, then unblocks user', () => {
     blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id]);
+    expect(user.preferences.sleep).to.eql(true);
     let [result] = blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([]);
     expect(result).to.eql([]);
+    expect(user.preferences.sleep).to.eql(true);
   });
 });
