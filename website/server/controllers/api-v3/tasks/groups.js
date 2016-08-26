@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../../middlewares/auth';
-import { ensureDevelpmentMode } from '../../../middlewares/ensureDevelpmentMode';
+import ensureDevelpmentMode from '../../../middlewares/ensureDevelpmentMode';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
