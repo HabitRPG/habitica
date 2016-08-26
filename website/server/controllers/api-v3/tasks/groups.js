@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../../middlewares/auth';
+import { ensureDevelpmentMode } from '../../../middlewares/ensureDevelpmentMode';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
@@ -30,7 +31,7 @@ let api = {};
 api.createGroupTasks = {
   method: 'POST',
   url: '/tasks/group/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
@@ -65,7 +66,7 @@ api.createGroupTasks = {
 api.getGroupTasks = {
   method: 'GET',
   url: '/tasks/group/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
@@ -98,7 +99,7 @@ api.getGroupTasks = {
 api.assignTask = {
   method: 'POST',
   url: '/tasks/:taskId/assign/:assignedUserId',
-  middlewares: [authWithHeaders()],
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -147,7 +148,7 @@ api.assignTask = {
 api.unassignTask = {
   method: 'POST',
   url: '/tasks/:taskId/unassign/:assignedUserId',
-  middlewares: [authWithHeaders()],
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
