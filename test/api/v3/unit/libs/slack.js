@@ -1,7 +1,10 @@
 /* eslint-disable camelcase */
 import { IncomingWebhook } from '@slack/client';
+import requireAgain from 'require-again';
 import slack from '../../../../../website/server/libs/slack';
+import logger from '../../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../../website/server/models/group';
+import nconf from 'nconf';
 
 describe('slack', () => {
   describe('sendFlagNotification', () => {
@@ -92,6 +95,22 @@ describe('slack', () => {
           title_link: sandbox.match(/.*\/#\/options\/groups\/tavern/),
         })],
       });
+    });
+
+    it('noops if no flagging url is provided', () => {
+      sandbox.stub(nconf, 'get').withArgs('SLACK:FLAGGING_URL').returns('');
+      sandbox.stub(logger, 'error');
+      let reRequiredSlack = requireAgain('../../../../../website/server/libs/slack');
+
+      expect(logger.error).to.be.calledOnce;
+
+      reRequiredSlack.sendFlagNotification({
+        flagger,
+        group,
+        message,
+      });
+
+      expect(IncomingWebhook.prototype.send).to.not.be.called;
     });
   });
 });
