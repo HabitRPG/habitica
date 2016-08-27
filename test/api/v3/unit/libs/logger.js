@@ -1,57 +1,46 @@
 import winston from 'winston';
-import requireAgain from 'require-again';
+import logger from '../../../../../website/server/libs/logger';
 
-/* eslint-disable global-require */
 describe('logger', () => {
-  let pathToLoggerLib = '../../../../../website/server/libs/logger';
-  let infoSpy;
-  let errorSpy;
+  let logSpy;
 
   beforeEach(() => {
-    infoSpy = sandbox.stub();
-    errorSpy = sandbox.stub();
-    sandbox.stub(winston, 'Logger').returns({
-      info: infoSpy,
-      error: errorSpy,
-    });
+    logSpy = sandbox.stub(winston.Logger.prototype, 'log');
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  it('info', () => {
-    let attachLogger = requireAgain(pathToLoggerLib);
-    attachLogger.info(1, 2, 3);
-    expect(infoSpy).to.be.calledOnce;
-    expect(infoSpy).to.be.calledWith(1, 2, 3);
+  describe('info', () => {
+    it('calls winston\'s info log', () => {
+      logger.info(1, 2, 3);
+      expect(logSpy).to.be.calledOnce;
+      expect(logSpy).to.be.calledWith('info', 1, 2, 3);
+    });
   });
 
   describe('error', () => {
-    it('with custom arguments', () => {
-      let attachLogger = requireAgain(pathToLoggerLib);
-      attachLogger.error(1, 2, 3, 4);
-      expect(errorSpy).to.be.calledOnce;
-      expect(errorSpy).to.be.calledWith(1, 2, 3, 4);
+    it('passes through arguments if the first arg is not an error object', () => {
+      logger.error(1, 2, 3, 4);
+      expect(logSpy).to.be.calledOnce;
+      expect(logSpy).to.be.calledWith('error', 1, 2, 3, 4);
     });
 
-    it('with error', () => {
-      let attachLogger = requireAgain(pathToLoggerLib);
+    it('parses the error and passes it to the logger when the first arg is an error object', () => {
       let errInstance = new Error('An error.');
-      attachLogger.error(errInstance, {
+      logger.error(errInstance, {
         data: 1,
       }, 2, 3);
-      expect(errorSpy).to.be.calledOnce;
-      // using calledWith doesn't work
-      let lastCallArgs = errorSpy.lastCall.args;
 
-      expect(lastCallArgs[3]).to.equal(3);
-      expect(lastCallArgs[2]).to.equal(2);
-      expect(lastCallArgs[1]).to.eql({
-        data: 1,
-        fullError: errInstance,
-      });
-      expect(lastCallArgs[0]).to.eql(errInstance.stack);
+      expect(logSpy).to.be.calledOnce;
+      expect(logSpy).to.be.calledWith(
+        'error',
+        errInstance.stack,
+        { data: 1, fullError: errInstance },
+        2,
+        3
+      );
     });
   });
 });
