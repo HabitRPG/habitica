@@ -74,5 +74,9 @@
         "APP_ID": "appId",
         "KEY": "key",
         "SECRET": "secret"
+    },
+    "SLACK": {
+        "FLAGGING_URL": "https://hooks.slack.com/services/id/id/id",
+        "FLAGGING_FOOTER_LINK": "https://crookedneighbor.github.io/flag-o-rama/"
     }
 }
