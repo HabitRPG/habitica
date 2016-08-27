@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { IncomingWebhook } from '@slack/client';
+import logger from './logger';
 import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
 
@@ -7,13 +8,22 @@ const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
 const BASE_URL = nconf.get('BASE_URL');
 
-let flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
+let flagSlack;
+
+try {
+  flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
+} catch (err) {
+  logger.error(err);
+}
 
 function sendFlagNotification ({
   flagger,
   group,
   message,
 }) {
+  if (!SLACK_FLAGGING_URL) {
+    return;
+  }
   let titleLink;
   let title = `Flag in ${group.name}`;
   let text = `${flagger.profile.name} (${flagger.id}) flagged a message`;
