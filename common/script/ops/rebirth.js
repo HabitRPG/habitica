@@ -5,7 +5,6 @@ import { MAX_LEVEL } from '../constants';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import resetGear from '../fns/resetGear';
 import equip from './equip';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
