@@ -58,8 +58,6 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     stats[value] = 0;
   });
 
-  resetGear(user);
-
   if (user.items.currentPet) {
     equip(user, {
       params: {
