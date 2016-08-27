@@ -8,6 +8,7 @@ import {
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
+import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
@@ -264,6 +265,12 @@ api.flagChat = {
       {name: 'GROUP_ID', content: group._id},
       {name: 'GROUP_URL', content: groupUrl},
     ]);
+
+    slack.sendFlagNotification({
+      flagger: user,
+      group,
+      message,
+    });
 
     res.respond(200, message);
   },
