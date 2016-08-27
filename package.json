@@ -150,7 +150,7 @@
     "mongoskin": "~2.1.0",
     "phantomjs": "^1.9",
     "protractor": "^3.1.1",
-    "require-again": "^1.0.1",
+    "require-again": "^2.0.0",
     "rewire": "^2.3.3",
     "shelljs": "^0.7.0",
     "sinon": "^1.17.2",
