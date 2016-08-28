@@ -8,8 +8,6 @@
         p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopSummerText')
         p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopSummerText')
 
-  .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
-
   li.customize-menu.inventory-gear
     // menu.pets-menu(label=env.t('quests'))
       div(ng-repeat='quest in ::getSeasonalShopQuests()')
