@@ -46,7 +46,7 @@ describe('DELETE /user', () => {
   it('deletes the user\'s tasks', async () => {
     // generates a few habits (because generateUser scrubs all tasks)
     await generateHabit({ userId: user._id });
-    await generateHabit({ userId: user._id, text: "text" });
+    await generateHabit({ userId: user._id, text: 'Test' });
 
     // gets the user's tasks ids
     let ids = [];
