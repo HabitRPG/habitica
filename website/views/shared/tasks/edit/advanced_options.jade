@@ -1,10 +1,10 @@
-div(ng-if='::task._edit.type!="reward"')
+div(ng-if='::task.type!="reward"')
   button.advanced-options-toggle.option-title.mega(type='button',
     ng-class='{active: task._edit._advanced}',
     ng-click='task._edit._advanced = !task._edit._advanced', tooltip=env.t('expandCollapse'))
     =env.t('advancedOptions')
 
-  fieldset.option-group.advanced-option(ng-if="task._edit.userId" ng-show="task._edit._advanced")
+  fieldset.option-group.advanced-option(ng-if="task.userId" ng-show="task._edit._advanced")
     legend.option-title
       a.hint(href='http://habitica.wikia.com/wiki/Task_Alias', target='_blank', popover-trigger='mouseenter', popover="{{::env.t('taskAliasPopover')}} {{::task._edit.alias ? '\n\n\' + env.t('taskAliasPopoverWarning') : ''}}")=env.t('taskAlias')
     input.form-control(ng-model='task._edit.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
