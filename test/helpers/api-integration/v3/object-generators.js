@@ -31,6 +31,7 @@ export async function generateUser (update = {}) {
   let apiUser = new ApiUser(user);
 
   await apiUser.post('/user/reset');
+  await apiUser.sync();
   await apiUser.update(update);
 
   return apiUser;
