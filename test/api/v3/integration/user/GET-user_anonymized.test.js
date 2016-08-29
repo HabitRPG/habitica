@@ -76,7 +76,7 @@ describe('GET /user/anonymized', () => {
     // tasks
     expect(tasks2).to.exist;
     expect(tasks2.length).to.eql(4);
-    expect(tasks2[0].checklist).to.exist;
+    expect(tasks2[2].checklist).to.exist;
     _.forEach(tasks2, (task) => {
       expect(task.text).to.eql('task text');
       expect(task.notes).to.eql('task notes');
