@@ -34,8 +34,12 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       if (!plan.dateUpdated) plan.dateUpdated = new Date();
+      if (moment(plan.dateTerminated).isAfter()) {
+        plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
+      } else {
+        plan.dateTerminated = moment().add({months}).toDate();
+      }
     }
 
     if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
