@@ -47,6 +47,7 @@ describe('DELETE /user', () => {
     // generates a few habits (because generateUser scrubs all tasks)
     await generateHabit({ userId: user._id });
     await generateHabit({ userId: user._id, text: 'Test' });
+    await user.sync();
 
     // gets the user's tasks ids
     let ids = [];
