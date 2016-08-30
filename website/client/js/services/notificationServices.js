@@ -56,6 +56,10 @@ angular.module("habitrpg").factory("Notification",
     _notify(val, 'drop', dropClass);
   }
 
+  function quest(type, val) {
+    _notify(window.env.t(type, { val: val }), 'success');
+  }
+
   function exp(val) {
     if (val < -50) return; // don't show when they level up (resetting their exp)
     _notify(_sign(val) + " " + _round(val) + " " + window.env.t('experience'), 'xp', 'glyphicon glyphicon-star');
@@ -141,6 +145,7 @@ angular.module("habitrpg").factory("Notification",
     markdown: markdown,
     mp: mp,
     streak: streak,
-    text: text
+    text: text,
+    quest: quest
   };
 }]);

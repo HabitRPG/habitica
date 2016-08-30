@@ -247,11 +247,23 @@ angular.module('habitrpg')
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
             var crit = tmp.crit;
             var drop = tmp.drop;
+            var quest = tmp.quest;
 
             if (crit) {
               var critBonus = crit * 100 - 100;
               Notification.crit(critBonus);
             }
+
+            if (quest && user.party.quest) {
+              var userQuest = Content.quests[ user.party.quest.key ];
+              if (quest.progressDelta && userQuest.boss) {
+                Notification.quest('questDamage', quest.progressDelta.toPrecision(2));
+              }
+              else if (quest.collection && userQuest.collect) {
+                Notification.quest('questCollection', quest.collection);
+              }
+            }
+
             if (drop) {
               var text, notes, type;
               $rootScope.playSound('Item_Drop');
