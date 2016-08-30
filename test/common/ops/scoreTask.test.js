@@ -142,6 +142,21 @@ describe('shared.ops.scoreTask', () => {
       expect(ref.beforeUser._id).to.eql(ref.afterUser._id);
     });
 
+    it('and increments quest progress', () => {
+      expect(ref.afterUser.party.quest.progress.up).to.eql(0);
+      ref.afterUser.party.quest.key = 'gryphon';
+
+      scoreTask({ user: ref.afterUser, task: habit, direction: 'up', cron: false });
+      let firstTaskDelta = ref.afterUser.party.quest.progress.up;
+      expect(firstTaskDelta).to.be.greaterThan(0);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(firstTaskDelta);
+
+      scoreTask({ user: ref.afterUser, task: habit, direction: 'up', cron: false });
+      let secondTaskDelta = ref.afterUser.party.quest.progress.up - firstTaskDelta;
+      expect(secondTaskDelta).to.be.greaterThan(0);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(secondTaskDelta);
+    });
+
     context('habits', () => {
       it('up', () => {
         options = { user: ref.afterUser, task: habit, direction: 'up', times: 5, cron: false };

@@ -29,8 +29,10 @@ describe('common.fns.randomDrop', () => {
     };
     randomDrop(user, { task, predictableRandom });
     expect(user.party.quest.progress.collectedItems).to.eql(1);
+    expect(user._tmp.quest.collection).to.eql(1);
     randomDrop(user, { task, predictableRandom });
     expect(user.party.quest.progress.collectedItems).to.eql(2);
+    expect(user._tmp.quest.collection).to.eql(1);
   });
 
   context('drops enabled', () => {
@@ -42,7 +44,7 @@ describe('common.fns.randomDrop', () => {
     it('does nothing if user.items.lastDrop.count is exceeded', () => {
       user.items.lastDrop.count = 100;
       randomDrop(user, { task, predictableRandom });
-      expect(user._tmp).to.eql({});
+      expect(user._tmp.drop).to.be.undefined;
     });
 
     it('drops something when the task is a todo', () => {
