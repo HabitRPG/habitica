@@ -10,7 +10,7 @@ div(ng-if='::task.type!="reward"')
     input.form-control(ng-model='task._edit.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
 
   div(ng-show='task._edit._advanced')
-    div(ng-if='::task._edit.type == "daily"')
+    div(ng-if='::task.type == "daily"')
       .form-group
         legend.option-title
           span.hint(popover-title=env.t('startDateHelpTitle'), popover=env.t("startDateHelp"), popover-trigger='mouseenter')
@@ -54,7 +54,7 @@ div(ng-if='::task.type!="reward"')
           ng-click='!canEdit(task) || (task._edit.priority=2)')
           =env.t('hard')
 
-    span(ng-if='task._edit.type=="daily" && !$state.includes("options.social.challenges")')
+    span(ng-if='task.type=="daily" && !$state.includes("options.social.challenges")')
       legend.option-title.pull-left=env.t('restoreStreak')
       input.option-content(type='number', ng-model='task._edit.streak')
 
