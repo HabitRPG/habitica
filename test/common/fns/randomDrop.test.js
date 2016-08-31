@@ -42,7 +42,7 @@ describe('common.fns.randomDrop', () => {
     it('does nothing if user.items.lastDrop.count is exceeded', () => {
       user.items.lastDrop.count = 100;
       randomDrop(user, { task, predictableRandom });
-      expect(user._tmp).to.eql({});
+      expect(user._tmp.drop).to.eql(undefined);
     });
 
     it('drops something when the task is a todo', () => {

@@ -151,11 +151,16 @@ function _changeTaskValue (user, task, direction, times, cron) {
       if (direction === 'up') { // Make progress on quest based on STR
         user.party.quest.progress.up = user.party.quest.progress.up || 0;
 
+        let prevProgress = user.party.quest.progress.up;
+
         if (task.type === 'todo' || task.type === 'daily') {
           user.party.quest.progress.up += nextDelta * (1 + user._statsComputed.str / 200);
         } else if (task.type === 'habit') {
           user.party.quest.progress.up += nextDelta * (0.5 + user._statsComputed.str / 400);
         }
+
+        if (!user._tmp.quest) user._tmp.quest = {};
+        user._tmp.quest.progressDelta = user.party.quest.progress.up - prevProgress;
       }
 
       task.value += nextDelta;
