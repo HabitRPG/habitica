@@ -84,11 +84,6 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: "partials/options.profile.stats.html",
           title: env.t('titleStats')
         })
-        .state('options.profile.achievements', {
-          url: "/achievements",
-          templateUrl: "partials/options.profile.achievements.html",
-          title: env.t('titleAchievs')
-        })
         .state('options.profile.profile', {
           url: "/profile",
           templateUrl: "partials/options.profile.profile.html",
@@ -102,9 +97,8 @@ window.habitrpg = angular.module('habitrpg',
         })
 
         .state('options.social.inbox', {
-          url: '/inbox',
-          templateUrl: 'partials/options.social.inbox.html',
-          controller: 'InboxCtrl',
+          url: "/inbox",
+          templateUrl: "partials/options.social.inbox.html",
           title: env.t('titleInbox')
         })
 
@@ -159,8 +153,8 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges',
-          function($scope, Groups, Chat, $stateParams, Members, Challenges){
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks',
+          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks) {
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
                 $scope.obj = $scope.group = response.data.data;
@@ -177,6 +171,15 @@ window.habitrpg = angular.module('habitrpg',
                   .then(function (response) {
                     $scope.group.challenges = response.data.data;
                   });
+
+                return Tasks.getGroupTasks($scope.group._id);
+              })
+              .then(function (response) {
+                var tasks = response.data.data;
+                tasks.forEach(function (element, index, array) {
+                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+                  $scope.group[element.type + 's'].push(element);
+                })
               });
           }]
         })
