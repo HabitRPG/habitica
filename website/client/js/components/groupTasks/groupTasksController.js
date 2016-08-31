@@ -53,4 +53,20 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', function ($s
     $scope.canEdit = function(task) {
       return true;
     };
+
+    /*
+    ------------------------
+    Tags
+    ------------------------
+    */
+    $scope.updateTaskTags = function (tagId, task) {
+      var tagIndex = task.tags.indexOf(tagId);
+      if (tagIndex === -1) {
+        Tasks.addTagToTask(task._id, tagId);
+        task.tags.push(tagId);
+      } else {
+        Tasks.removeTagFromTask(task._id, tagId);
+        task.tags.splice(tagIndex, 1);
+      }
+    };
   }]);
