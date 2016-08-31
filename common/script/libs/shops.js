@@ -78,7 +78,6 @@ shops.getMarketCategories = function getMarket (user, language) {
         purchaseType: 'hatchingPotions',
       };
     }).sortBy('key').value();
-  categories.push(premiumHatchingPotionsCategory);
 
   let foodCategory = {
     identifier: 'food',

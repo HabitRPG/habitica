@@ -31,10 +31,6 @@
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
-          menu.pets-menu(label=env.t('quests'))
-            p=env.t('whereAreMyQuests')
-
-        li.customize-menu
           menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
             p.muted(ng-show='foodCount < 1')=env.t('noFood')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')

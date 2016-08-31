@@ -544,9 +544,6 @@ api.premiumHatchingPotions = {
     text: t('hatchingPotionThunderstorm'),
     limited: true,
     _season: 'summer',
-    canBuy: (function() {
-      return true;
-    }),
   },
 };
 
