@@ -107,7 +107,7 @@
 
       menu.inventory-list(type='list')
         li.customize-menu(ng-repeat='category in marketShopCategories')
-          menu.pets-menu(label='{{category.text}}')
+          menu.pets-menu(label='{{category.text}}', ng-if='category.items.length > 0')
             p.muted(ng-bind-html='category.notes')
 
             div(ng-repeat='item in category.items')
