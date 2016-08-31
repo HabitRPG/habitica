@@ -104,7 +104,10 @@
             "js/controllers/sortableInventoryCtrl.js",
             "js/controllers/tavernCtrl.js",
             "js/controllers/tasksCtrl.js",
-            "js/controllers/userCtrl.js"
+            "js/controllers/userCtrl.js",
+
+            "js/components/groupTasksController.js",
+            "js/components/groupTasksDirective.js"
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",

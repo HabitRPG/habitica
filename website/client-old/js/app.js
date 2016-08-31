@@ -163,7 +163,7 @@ window.habitrpg = angular.module('habitrpg',
           function($scope, Groups, Chat, $stateParams, Members, Challenges){
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
-                $scope.group = response.data.data;
+                $scope.obj = $scope.group = response.data.data;
                 Chat.markChatSeen($scope.group._id);
                 Members.getGroupMembers($scope.group._id)
                   .then(function (response) {
