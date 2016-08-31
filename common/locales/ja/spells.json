@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "商売道具",
     "spellRogueToolsOfTradeNotes": "あなたの才能を仲間たちと共有します。パーティ全員の知覚に勢いボーナスがつきます!　( 基準 : 勢いなしの知覚値 )",
     "spellRogueStealthText": "ステルス",
-    "spellRogueStealthNotes": "忍びすぎて見当たらない！未完成いくつかの日課は今夜ダメージを与えない上、連続実行・色も変わらない。(唱える回数による影響される日課が増える。)",
+    "spellRogueStealthNotes": "うまく潜んで見つかりません。日課のいくつかをやり残しても、今夜はダメージを受けませんし、連続実行・色にも影響を与えません。( 何度か唱えることで、より多くの日課に対応できます )",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> のがれた日課 : <%= number %> 件",
     "spellRogueStealthMaxedOut": "すべての日課をのがれています。再度唱える必要はありません。",
     "spellHealerHealText": "ヒール",

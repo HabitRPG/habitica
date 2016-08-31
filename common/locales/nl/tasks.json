@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Verwijderen voltooid",
-    "lotOfToDos": "Voltooide To-do's worden na 3 dagen automatisch gearchiveerd. Je kunt ze hier inzien: Instellingen > Exporteren.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Als je op de knop hieronder klikt, worden al je voltooide en gearchiveerde To-do's permanent verwijderd. Als je ze wilt bewaren, exporteer ze dan eerst.",
     "addmultiple": "Voeg meerdere tegelijkertijd toe",
     "addsingle": "Voeg een enkele toe",

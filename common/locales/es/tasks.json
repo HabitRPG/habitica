@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borrado completado",
-    "lotOfToDos": "Las tareas finalizadas se archivan automáticamente después de 3 días. Puedes acceder a ellas desde Ajustes > Exportar.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Si le das clic al botón de abajo, todas sus tareas completadas y tareas archivadas se borrarán permanentemente. Expórtalas primero si quieres llevar un registro de ellas.",
     "addmultiple": "Añade varias",
     "addsingle": "Añade una",

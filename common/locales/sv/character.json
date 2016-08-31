@@ -121,7 +121,7 @@
     "classAllocation": "Dela ut poäng baserat på Klass",
     "classAllocationPop": "Tillderar fler poäng till attributen som är viktiga för din Klass",
     "taskAllocation": "Dela ut poäng baserat på uppgifts-aktivitet",
-    "taskAllocationPop": "Tilldelar poäng baserat på de fysiska (styrka), mentala (intelligens), sociala (tålighet), och andra (uppmärksamhet) kategorier associerade till uppgifterna du slutför.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Dela ut outdelade poäng",
     "distributePointsPop": "Dela ut alla outdelade egenskapspoäng enligt den valda utdelningsplanen.",
     "warriorText": "Krigare får fler och bättre \"kritiska träffar\", vilket slumpmässigt ger bonusar i form av guld, erfarenhet och fyndchanser efter att ha fullbordat en uppgift. De åsamkar också stor skada på bossar. Spela en krigare om du blir motiverad av oförutsägbara jackpot-liknande belöningar, eller om du vill göra mycket skada i bossuppdrag!",

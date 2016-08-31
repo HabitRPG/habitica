@@ -60,7 +60,7 @@
     "classGearText": "Zuallererst: Keine Panik! Deine alte Ausrüstung ist in Deinem Inventar und Du trägst jetzt die Lehrlingsausrüstung Deiner neuen Klasse. Die Ausrüstung Deiner Klasse zu tragen verleiht Dir einen 50% Bonus auf ihre Werte. Aber Du kannst jederzeit zu Deiner alten Ausrüstung zurückwechseln.",
     "classStats": "Dies sind die Statuswerte Deiner Klasse; sie beeinflussen das Spiel. Jedes Mal, wenn Du einen Level aufsteigst, erhältst Du einen Punkt, den Du einem Statuswert zuordnen kannst. Bewege die Maus über jeden der Statuswerte für weitere Informationen.",
     "autoAllocate": "Automatische Verteilung",
-    "autoAllocateText": "Falls Du eine automatische Verteilung wählst, werden die Punkte automatisch vergeben, abhängig von den Attributen Deiner Aufgaben, die Du unter <strong>Aufgabe > Bearbeiten > Erweitert > Attribute</strong> finden kannst. Ein Beispiel: Wenn Du oft im Fitnessstudio bist und die entsprechende Aufgabe auf \"körperlich\" gesetzt ist, bekommst Du automatisch Stärke.",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "Fähigkeiten",
     "spellsText": "Du kannst klassenspezifische Fähigkeiten freischalten. Du wirst die erste mit Level 11 kennenlernen. Dein Mana regeneriert sich 10 Punkte pro Tag plus 1 Punkt pro erfüllte",
     "toDo": "To-Do",

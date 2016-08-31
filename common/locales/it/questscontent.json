@@ -335,5 +335,11 @@
     "questTurtleCompletion": "Il vostro valente lavoro ha sgombrato le acque per aiutare la nostra tartaruga di mare a trovare la sua spiaggia. Voi, @Bambin, e @JaizakAripaik la guardate mentre seppellisce la sua covata di uova profondamente nella sabbia in modo che possano crescere e si schiudano in centinaia di piccole tartarughe marine. La signora, vi dà tre uova ciascuna, chiedendovi di alimentarli e curarli così che un giorno diventino esse stesse grandi tartarughe marine.",
     "questTurtleBoss": "Melma compitosa",
     "questTurtleDropTurtleEgg": "Tartaruga (uovo)",
-    "questTurtleUnlockText": "Sblocca l'acquisto delle uova di tartaruga nel Mercato"
+    "questTurtleUnlockText": "Sblocca l'acquisto delle uova di tartaruga nel Mercato",
+    "questArmadilloText": "The Indulgent Armadillo",
+    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
+    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
+    "questArmadilloBoss": "Indulgence Armadillo",
+    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
+    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
 }

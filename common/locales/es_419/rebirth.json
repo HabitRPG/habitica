@@ -25,5 +25,5 @@
     "rebirthName": "Esfera de Renacimiento",
     "reborn": "Renacido, nivel máximo <%= reLevel %>",
     "confirmReborn": "¿Estás seguro?",
-    "rebirthComplete": "You have been reborn!"
+    "rebirthComplete": "¡Haz sido revivido!"
 }

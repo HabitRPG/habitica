@@ -255,5 +255,5 @@
     "invalidReqParams": "无效的请求参数。",
     "memberIdRequired": "\"member\"必须是一个有效的UUID。",
     "heroIdRequired": "\"heroId\"必须是一个有效的UUID",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "您的请求不能被满足。如果这个错误仍然存在请给admin@habitica.com发邮件。"
 }

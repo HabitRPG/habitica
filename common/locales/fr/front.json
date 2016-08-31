@@ -255,5 +255,5 @@
     "invalidReqParams": "Paramètres de la requête invalides.",
     "memberIdRequired": "\"member\" doit être un UUID valide.",
     "heroIdRequired": "\"heroId\" doit être un UUID valide.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "Votre requête ne peut pas être complétée. Envoyez un courriel à admin@habitica.com si l'erreur persiste."
 }

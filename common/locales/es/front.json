@@ -67,7 +67,7 @@
     "goalSample4": "Lección de japonés en Duolingo",
     "goalSample5": "Leer un artículo informativo",
     "goals": "Metas",
-    "guidanceForBlacksmiths": "Guidance for Blacksmiths",
+    "guidanceForBlacksmiths": "Orientacion para Herreros",
     "health": "Salud",
     "healthSample1": "Beber agua/refresco",
     "healthSample2": "Masticar chicle / fumar",
@@ -189,7 +189,7 @@
     "subscriptionPaymentIssues": "Problemas en la suscripción o en los pagos.",
     "generalQuestionsSite": "Preguntas Generales sobre la Web",
     "businessInquiries": "Consultas de Empresas",
-    "merchandiseInquiries": "Physical Merchandise (T-Shirts, Stickers) Inquiries",
+    "merchandiseInquiries": "Consultas de material de merchandasing (camisetas, pegatinas) ",
     "marketingInquiries": "Consultas de Marketing/Social Media",
     "tweet": "Tuitear",
     "apps": "Aplicaciones",
@@ -255,5 +255,5 @@
     "invalidReqParams": "Parámetros de solicitud no válidos. ",
     "memberIdRequired": "\"member\" debe ser una UUID válida. ",
     "heroIdRequired": "\"herold\" debe ser una UUID válida.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "Tu petición no puede ser cumplida. Mánda un email a admin@habitica.com si el error persiste."
 }

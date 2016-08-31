@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Ловджията Дядо Коледа",
-    "questEvilSantaNotes": "Чуваш приглушен рев, идващ от някъде дълбоко в ледените полета. Следваш звука му, смесен с някакъв странен кикот, до едно голо място в гората, където откриваш голяма полярна мечка. Тя е окована и натъпкана в клетка, и се бори за живота си. Върху клетката танцува малко злобно дяволче, облечено в някакви дрипи. Победи ловджията Дядо Коледа и спаси мечката!",
+    "questEvilSantaNotes": "Чуваш приглушен рев, идващ някъде дълбоко от ледените полета. Следваш звука му, смесен с някакъв странен кикот, до едно голо място в гората, където откриваш голяма полярна мечка. Тя е окована, натъпкана в клетка и се бори за живота си. Върху клетката танцува малко злобно дяволче, облечено в някакви дрипи. Победи ловджията Дядо Коледа и спаси мечката!",
     "questEvilSantaCompletion": "Ловджията Дядо Коледа изревава от яд и изчезва в нощта. Благодарната мечка се опитва да ти каже нещо с рев и ръмжене. Отвеждаш я в конюшнята, където Мат Бош, господарят на зверовете, изслушва разказа ѝ със затаен дъх. Тя има малко мече! То е избягало в ледените полета когато мама мечка била заловена.",
     "questEvilSantaBoss": "Ловджията Дядо Коледа",
     "questEvilSantaDropBearCubPolarMount": "Полярна мечка (превоз)",
@@ -335,5 +335,11 @@
     "questTurtleCompletion": "Храбростта и усърдната ти работа прочистиха водата и нашата морска костенурка ще може да намери плажа си. Ти, @Bambin и @JaizakAripaik наблюдавате, докато тя заравя яйцата си дълбоко в пясъка, където от тях ще се излюпят стотици малки морски костенурки. Майката се обръща към вас и ви дава по три яйца на всекиго, с молбата да ги храните и гледате добре, за да могат един ден и те да се превърнат в големи морски костенурки.",
     "questTurtleBoss": "Плавеи от задачи",
     "questTurtleDropTurtleEgg": "Костенурка (яйце)",
-    "questTurtleUnlockText": "Отключва възможността за купуване на яйца на костенурка от пазара."
+    "questTurtleUnlockText": "Отключва възможността за купуване на яйца на костенурка от пазара.",
+    "questArmadilloText": "The Indulgent Armadillo",
+    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
+    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
+    "questArmadilloBoss": "Indulgence Armadillo",
+    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
+    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
 }

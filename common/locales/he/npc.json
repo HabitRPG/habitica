@@ -60,7 +60,7 @@
     "classGearText": "ראשית - לא להיבהל! הציוד הישן שלכם נמצא במלאי הציוד, ואתם כעת לובשים ציוד מתלמדים של מקצועכם החדש. לבישת בגדי המקצוע שלכם מקנה לכם תוספת של 50% לתכונות. עם זאת - הרגישו חופשיים לחזור לציודכם הישן.",
     "classStats": "אלו התכונות של המקצוע שלכם; הן משפיעות על המשחקיות. בכל פעם שתעלו בדרגה, תקבלו נקודה אחת לטובת תכונה ספציפית. רחפו מעל לכל אחת מהתכונות למידע נוסף.",
     "autoAllocate": "חלוקה אוטומטית",
-    "autoAllocateText": "אם סימנת 'חלוקה אוטומטית', הדמות שלך מקבלת תכונות באופן אוטומאטי התלוי בתכונות של המשימות שלך. אפשר לדבוק זאת ב  <strong>מטלה > ערוך > מתקדם > תכונות </strong>. כלומר, אם את/ה הולכ/ת למכון הכושר לעיתים קרובות, ומטלת מכון הכושר שלך נחשבת 'פיזית', תקבל/י כוח באופן אוטומאטי",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "לחשים",
     "spellsText": "כעת תוכלו להשתמש בלחשים ספציפיים למקצוע שלכם. תראו את הראשון בדרגה 11. המאנה שלכם  מתחדשת ב 10 נקודות ליום ועוד 1 לכל משימה שהושלמה",
     "toDo": "משימה",
