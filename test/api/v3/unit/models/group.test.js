@@ -366,7 +366,9 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 0 Blue Fins, 0 Fire Coral.`');
+          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
+          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Blue Fins/);
+          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Fire Coral/);
         });
 
         it('handles collection quests with multiple items', async () => {
