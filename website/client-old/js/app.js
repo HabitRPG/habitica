@@ -84,11 +84,6 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: "partials/options.profile.stats.html",
           title: env.t('titleStats')
         })
-        .state('options.profile.achievements', {
-          url: "/achievements",
-          templateUrl: "partials/options.profile.achievements.html",
-          title: env.t('titleAchievs')
-        })
         .state('options.profile.profile', {
           url: "/profile",
           templateUrl: "partials/options.profile.profile.html",
@@ -102,9 +97,8 @@ window.habitrpg = angular.module('habitrpg',
         })
 
         .state('options.social.inbox', {
-          url: '/inbox',
-          templateUrl: 'partials/options.social.inbox.html',
-          controller: 'InboxCtrl',
+          url: "/inbox",
+          templateUrl: "partials/options.social.inbox.html",
           title: env.t('titleInbox')
         })
 
@@ -177,16 +171,15 @@ window.habitrpg = angular.module('habitrpg',
                   .then(function (response) {
                     $scope.group.challenges = response.data.data;
                   });
-                //@TODO: Add this back when group tasks go live
-                // return Tasks.getGroupTasks($scope.group._id);
+                return Tasks.getGroupTasks($scope.group._id);
               })
-              // .then(function (response) {
-              //   var tasks = response.data.data;
-              //   tasks.forEach(function (element, index, array) {
-              //     if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-              //     $scope.group[element.type + 's'].push(element);
-              //   })
-              // });
+              .then(function (response) {
+                var tasks = response.data.data;
+                tasks.forEach(function (element, index, array) {
+                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+                  $scope.group[element.type + 's'].push(element);
+                })
+              });
           }]
         })
 
