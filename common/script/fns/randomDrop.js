@@ -40,6 +40,8 @@ module.exports = function randomDrop (user, options, req = {}) {
     if (!user.party.quest.progress.collectedItems) user.party.quest.progress.collectedItems = 0;
     user.party.quest.progress.collectedItems++;
     user.markModified('party.quest.progress');
+    if (!user._tmp.quest) user._tmp.quest = {};
+    user._tmp.quest.collection = 1;
   }
 
   if (user.purchased && user.purchased.plan && user.purchased.plan.customerId) {
