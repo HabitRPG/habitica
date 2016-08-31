@@ -336,10 +336,10 @@
     "questTurtleBoss": "Taak Drijfhout",
     "questTurtleDropTurtleEgg": "Schildpad (Ei)",
     "questTurtleUnlockText": "Speelt het kopen van Schildpadeieren vrij op de markt",
-    "questArmadilloText": "The Indulgent Armadillo",
-    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
-    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
-    "questArmadilloBoss": "Indulgence Armadillo",
-    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
-    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
+    "questArmadilloText": "Het Zwichtende Gordeldier",
+    "questArmadilloNotes": "Het is tijd om naar buiten te gaan en je dag te beginnen. Je zwaait de deur open en wordt gegroet door iets dat op een steen lijkt. \"Ik geef je enkel een dagje vrij!\" zegt een gedempte stem door de de geblokkeerde deur. \"Wees niet zo bedroefd, ontspan vandaag!\"<br><br>Plotseling, kloppen @Beffymaroo en @PainterProphet op je raam. \"Zo te zien heeft het zwichtende gordeldier een oogje op je! Kom, we helpen je om haar aan de kant te zetten!\"",
+    "questArmadilloCompletion": "Eindelijk, na een lange ochtend om het zwichtende gordeldier te overtuigen dat je wel degelijk wilt werken, geeft ze toe. \"Het spijt me!\" verontschuldigt ze zich. \"I wou alleen helpen. Ik dacht dat iedereen van luie dagen hield!\"<br><br>Je glimlacht en laat haar weten dat de volgende keer dat je een dagje vrij verdient, je haar zult uitnodigen. Ze glimlacht terug. Voorbijgangers @Tipsy en @krajzega feliciteren je voor je goed werk terwijl ze wegrolt en enkele eieren achterlaat als verontschuldiging.",
+    "questArmadilloBoss": "Zwichtende gordeldier",
+    "questArmadilloDropArmadilloEgg": "Gordeldier (Ei)",
+    "questArmadilloUnlockText": "Speelt het kopen van gordeldiereieren vrij op de markt"
 }

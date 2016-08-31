@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Изтриване на завършените",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Тук можете да видите последните си 30 завършени задачи. Можете да видите по-старите си завършени задачи от „Данни > Инструмент за показване на данните“ или „Данни > Изнасяне на данни > Потребителски данни.",
     "deleteToDosExplanation": "Ако натиснете този бутон, всички завършени и архивирани задачи ще бъдат изтрити завинаги. Ако искате да запазите информацията за тях, първо ги изнесете.",
     "addmultiple": "Добавяне на няколко",
     "addsingle": "Добавяне поотделно",

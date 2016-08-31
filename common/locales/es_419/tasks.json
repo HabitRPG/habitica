@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borrar hábitos completados",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Se ven las 30 tareas completadas más recientes aquí. Se pueden ver tareas completadas anteriores por Datos >  Exportar Datos > Datos de Usario.",
     "deleteToDosExplanation": "Si haces clic en el botón de abajo, todas tus Pendientes realizadas y tus Pendientes archivadas serán permanentemente borradas. Expórtalas primero si quieres mantener un registro de ellas.",
     "addmultiple": "Agregar múltiples",
     "addsingle": "Agregar sólo un@",

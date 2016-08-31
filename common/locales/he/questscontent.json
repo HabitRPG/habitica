@@ -336,10 +336,10 @@
     "questTurtleBoss": "פסולת משימות",
     "questTurtleDropTurtleEgg": "צב (ביצה)",
     "questTurtleUnlockText": "פותח אפשרות לקניית ביצי צב בשוק",
-    "questArmadilloText": "The Indulgent Armadillo",
-    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
-    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
-    "questArmadilloBoss": "Indulgence Armadillo",
-    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
-    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
+    "questArmadilloText": "הארמדיל המתפנקת",
+    "questArmadilloNotes": "הגיע הזמן לצאת החוצה ולהתחיל את היום. אתם פותחים לרווחה את הדלת רק כדי להתקל במה שנראה כמו גליון עשוי מסלע. ״אני רק נותן לכם היום חופש!״ אומר קול עמום דרך הדלת החסומה. ״אל תהיו כאלו עצלנים, פשוט תרגעו היום!״<br><br>פתאום, @Beffymaroo ו @PainerProphet דופקים על חלונכם. ״נראה שהארמדיל המתפנקת אוהבת אתכם! קדימה, נעזור לכם להזיז אותה מדרככם!״",
+    "questArmadilloCompletion": "סוף סוף, אחרי בוקר ניסיונות שכנוע של הארמדיל המתפנקת שאתם כן, באמת, רוצים לעבוד, היא נסוגה. ״אני מצטערת!״ היא מתנצלת. ״אני רק רוצה לעזור. חשבתי שכולם אוהבים ימים עצלים!״<br><br>אתם מחייכים, ומזמינים אותה לבוא בפעם הבאה שיהיה לכם יום חופש. היא מחייכת בחזרה אליכם. העוברים ושבים @Tipsy ו @krajzega מברכים אתכם על העבודה הטובה בזמן שהיא מתגלגלת לה לדרכה, משאירה מאחור כמה ביצים כהתנצלות.",
+    "questArmadilloBoss": "ארמדיל פינוקים",
+    "questArmadilloDropArmadilloEgg": "ארמדיל (ביצה)",
+    "questArmadilloUnlockText": "משחרר ביצי ארמדיל לרכישה בשוק"
 }

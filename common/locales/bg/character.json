@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Моля, имайте предвид, че вашето екранно име, профилна снимка и информация за Вас трябва да са в съгласие с <a href='https://habitica.com/static/community-guidelines' target='_blank'>обществените правила</a> (т.е. без ругатни, неприлични теми, обиди и т.н.). Ако имате някакви въпроси относно това дали нещо е приемливо или не, моля, пишете на <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Атрибути и постижения",
     "profile": "Профил",
     "avatar": "Персонализиране на героя",
@@ -121,7 +121,7 @@
     "classAllocation": "Разпределяне на точките според класа",
     "classAllocationPop": "Разпределяне на повече точки към атрибутите, важни за Вашия клас.",
     "taskAllocation": "Разпределяне на точките според дейността по задачите",
-    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
+    "taskAllocationPop": "Разпределяне на точките според категориите „сила“, „интелигентност“, „якост“ и „усет“, свързани със задачите, които изпълнявате.",
     "distributePoints": "Разпределяне на свободните точки",
     "distributePointsPop": "Разпределяне на всички свободни точки според избраната схема на разпределяне.",
     "warriorText": "Воините нанасят повече и по-силни „критични удари“, които на случаен принцип дават злато, опит и шанс за падане на предмет при изпълнение на задача. Те също така нанасят сериозни щети на чудовищата-главатари. Играйте като воин, ако Ви мотивират изненадващите награди, или ако искате да раздавате правосъдие в мисиите с главатари.",

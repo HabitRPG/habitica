@@ -336,10 +336,10 @@
     "questTurtleBoss": "Плавеи от задачи",
     "questTurtleDropTurtleEgg": "Костенурка (яйце)",
     "questTurtleUnlockText": "Отключва възможността за купуване на яйца на костенурка от пазара.",
-    "questArmadilloText": "The Indulgent Armadillo",
-    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
-    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
-    "questArmadilloBoss": "Indulgence Armadillo",
-    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
-    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
+    "questArmadilloText": "Снизходителната броненоска",
+    "questArmadilloNotes": "Време е да излизаш навън и да започнеш деня си. Отваряш вратата, но вместо обикновената гледка виждаш само нещо като парче скала, препречващо вратата. „Просто реших да ти дам почивен ден!“ — казва приглушен глас зад преградата. — „Не се притеснявай, просто си почини днес!“<br><br>Изведнъж, @Beffymaroo и @PainterProphet почукват на прозореца ти: „Изглежда Снизходителната броненоска те е харесала! Хайде, ще ти помогнем да я отместиш от вратата си!“",
+    "questArmadilloCompletion": "Най-накрая, след дълга сутрин, прекарана в убеждаване на Снизходителната броненоска в това, че ти наистина искаш да работиш, тя се премества: „Съжалявам!“ — извинява си тя. — „Просто исках да помогна. Помислих, че всички обичат да мързелуват!“<br><br>Ти се усмихваш и ѝ казваш, че следващия път, когато си заслужиш ден почивка, ще я поканиш да го прекарате заедно. Тя ти се усмихва. Минаващите наблизо @Tipsy и @krajzega те поздравяват за добрата работа, докато тя се изтъркулва нанякъде, оставяйки след себе си няколко яйца за извинение.",
+    "questArmadilloBoss": "Снизходителната броненоска",
+    "questArmadilloDropArmadilloEgg": "Броненосец (яйце)",
+    "questArmadilloUnlockText": "Отключва възможността за купуване на яйца на броненосец от пазара."
 }

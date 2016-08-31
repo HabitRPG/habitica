@@ -127,7 +127,7 @@
     "questEggTurtleAdjective": "una pacífica",
     "questEggArmadilloText": "Armadillo",
     "questEggArmadilloMountText": "Armadillo",
-    "questEggArmadilloAdjective": "an armored",
+    "questEggArmadilloAdjective": "con armadura",
     "eggNotes": "Encuentra una poción de eclosión para verter en este huevo y eclosionará en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

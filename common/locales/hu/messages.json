@@ -29,6 +29,7 @@
     "messageFoundQuest": "Megtaláltad a \"<%= questText %>\" küldetést!",
     "messageAlreadyPurchasedGear": "A múltban már megvetted ezt a felszerelést, de jelenleg nincs a birtokodban. Újra megvásárolhatod a jutalmak oszlopában a feladatok lapon.",
     "messageAlreadyOwnGear": "Már rendelkezel ezzel a tárggyal. A felszerelés lapon felszerelheted.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> Találtál egy ritka felszerelést a Szekrényben: <%= dropText %>! Hihetetlen!",
     "armoireFood": "<%= image %> Átkutattad a Szekrényt és találtál <%= dropArticle %><%= dropText %>. Mégis mit keresett ez itt?",
     "armoireExp": "Megküzdöttél a Szekrénnyel és értékes tapasztalatot szereztél. Erre varj gombot!",

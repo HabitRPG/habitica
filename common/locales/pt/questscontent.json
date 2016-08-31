@@ -336,10 +336,10 @@
     "questTurtleBoss": "Restos de Tarefas",
     "questTurtleDropTurtleEgg": "Tartaruga (Ovo)",
     "questTurtleUnlockText": "Desbloqueia ovos de Tartaruga para compra no Mercado",
-    "questArmadilloText": "The Indulgent Armadillo",
+    "questArmadilloText": "O Tatu indulgente",
     "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
-    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
-    "questArmadilloBoss": "Indulgence Armadillo",
-    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
-    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
+    "questArmadilloCompletion": "Finalmente, após uma longa manhã de convencimento ao Tatu da Indulgência, que você quer, de fato, que trabalhe, ela aceita. \"Estou arrependida!\" Ela se desculpa. \"Eu só queria ajudar. Eu pensei que todo mundo gostasse de dias preguiçosos! \"<br><br>Você sorri, e deixa ela saber que da próxima vez que você receber um dia de folga, você irá chamá-la. Ela sorri de volta para você. Os pedestres @Tipsy e @krajzega te parabenizam no bom trabalho enquanto ela rola embora, deixando alguns ovos como pedido de desculpas.",
+    "questArmadilloBoss": "Tatu da Indulgência",
+    "questArmadilloDropArmadilloEgg": "Tatu (Ovo)",
+    "questArmadilloUnlockText": "Desbloqueie ovos de Tatu compráveis no Mercado"
 }
