@@ -106,8 +106,8 @@
             "js/controllers/tasksCtrl.js",
             "js/controllers/userCtrl.js",
 
-            "js/components/groupTasksController.js",
-            "js/components/groupTasksDirective.js"
+            "js/components/groupTasks/groupTasksController.js",
+            "js/components/groupTasks/groupTasksDirective.js"
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
