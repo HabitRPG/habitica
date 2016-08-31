@@ -1,0 +1,11 @@
+# top level config
+root = true
+
+# all files
+[*]
+charset = utf-8
+end_of_line = lf # Unix-style
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
