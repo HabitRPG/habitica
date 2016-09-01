@@ -43,8 +43,9 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', '$rootScope', 'User', 'Group
       }
 
       Groups.Group.invite($scope.group._id, invitationDetails)
-        .then(function() {
-           if ((inviteMethod === 'email' && invitationDetails.emails.length > 1) || (inviteMethod === 'uuid' && invitationDetails.uuids.length > 1)) { // test if it's inviting more than 1 emails or uuid
+        .then(function () {
+           var invitesSent = invitationDetails.emails || invitationDetails.uuids;
+           if (invitesSent.length > 1){
                 Notification.text(window.env.t('invitationsSent'));
             }
             else {
