@@ -335,5 +335,11 @@
     "questTurtleCompletion": "Je moedig werk heeft het water opgehelderd voor onze zeeschildpad om haar strand te vinden. Jij, @Bambin en @JaizakAripaik kijken toe terwijl ze haar kroost van eieren diep in het zand begraaft, zodat ze kunnen groeien en uitkomen tot honderden kleine zeeschildpadjes. Altijd als de dame, geeft ze je elk drie eieren en vraagt om ze te voederen en er voor te zorgen zodat ze op een dag zelf grote zeeschildpadden worden.",
     "questTurtleBoss": "Taak Drijfhout",
     "questTurtleDropTurtleEgg": "Schildpad (Ei)",
-    "questTurtleUnlockText": "Speelt het kopen van Schildpadeieren vrij op de markt"
+    "questTurtleUnlockText": "Speelt het kopen van Schildpadeieren vrij op de markt",
+    "questArmadilloText": "Het Zwichtende Gordeldier",
+    "questArmadilloNotes": "Het is tijd om naar buiten te gaan en je dag te beginnen. Je zwaait de deur open en wordt gegroet door iets dat op een steen lijkt. \"Ik geef je enkel een dagje vrij!\" zegt een gedempte stem door de de geblokkeerde deur. \"Wees niet zo bedroefd, ontspan vandaag!\"<br><br>Plotseling, kloppen @Beffymaroo en @PainterProphet op je raam. \"Zo te zien heeft het zwichtende gordeldier een oogje op je! Kom, we helpen je om haar aan de kant te zetten!\"",
+    "questArmadilloCompletion": "Eindelijk, na een lange ochtend om het zwichtende gordeldier te overtuigen dat je wel degelijk wilt werken, geeft ze toe. \"Het spijt me!\" verontschuldigt ze zich. \"I wou alleen helpen. Ik dacht dat iedereen van luie dagen hield!\"<br><br>Je glimlacht en laat haar weten dat de volgende keer dat je een dagje vrij verdient, je haar zult uitnodigen. Ze glimlacht terug. Voorbijgangers @Tipsy en @krajzega feliciteren je voor je goed werk terwijl ze wegrolt en enkele eieren achterlaat als verontschuldiging.",
+    "questArmadilloBoss": "Zwichtende gordeldier",
+    "questArmadilloDropArmadilloEgg": "Gordeldier (Ei)",
+    "questArmadilloUnlockText": "Speelt het kopen van gordeldiereieren vrij op de markt"
 }

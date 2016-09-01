@@ -29,6 +29,7 @@
     "messageFoundQuest": "Вам трапився квест \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
     "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
     "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
     "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!",

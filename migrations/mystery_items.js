@@ -2,7 +2,7 @@ var _id = '';
 var update = {
   $addToSet: {
     'purchased.plan.mysteryItems':{
-      $each:['head_mystery_201607','armor_mystery_201607']
+      $each:['head_mystery_201608','back_mystery_201608']
     }
   }
 };

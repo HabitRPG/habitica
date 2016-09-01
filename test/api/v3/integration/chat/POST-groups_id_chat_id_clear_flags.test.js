@@ -54,6 +54,25 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       expect(messages[0].flagCount).to.eql(0);
       expect(messages[0].flags).to.have.property(admin._id, true);
     });
+
+    it('clears flags in a private group', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let privateMessage = await members[0].post(`/groups/${group._id}/chat`, { message: 'Some message' });
+      privateMessage = privateMessage.message;
+
+      await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/flag`);
+      await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/clearflags`);
+
+      let messages = await members[0].get(`/groups/${group._id}/chat`);
+      expect(messages[0].flagCount).to.eql(0);
+    });
   });
 
   context('admin user, group with multiple messages', () => {

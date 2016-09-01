@@ -95,7 +95,7 @@
     "onlyLeaderAbortQuest": "Nur der Gruppen- oder Quest-Leiter kann die Quest abbrechen.",
     "questAlreadyRejected": "Du hast die Questeinladung bereits abgelehnt.",
     "cantCancelActiveQuest": "Du kannst eine aktive Quest nicht zurückziehen, verwende die Funktion Abbrechen.",
-    "onlyLeaderCancelQuest": "Nur der Gruppen- oder Quest-Leiter kann die Quest zurückziehen.",
+    "onlyLeaderCancelQuest": "Nur der Gruppen- oder Quest-Leiter kann die Quest abbrechen.",
     "questNotPending": "Es ist keine Quest zum Start vorhanden.",
     "questOrGroupLeaderOnlyStartQuest": "Nur der Quest- oder Gruppen-Leiter kann den Quest-Start erzwingen"
 }

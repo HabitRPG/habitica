@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Delete Completed",
-    "lotOfToDos": "Completed T'-Dos be automatically archived after 3 days. Ye can access 'em from Settin's > Export.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "If ye click th' button below, all 'o ye completed T'-Dos 'n archived T'-Dos gunna be permanently deleted. Export 'em first if ye want t' keep a record 'o them.",
     "addmultiple": "Ard' Multiple",
     "addsingle": "Ard' Single",

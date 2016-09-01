@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Удалить завершенные",
-    "lotOfToDos": "Завершенные задачи автоматически архивируются через 3 дня. Вы можете найти их в меню Настройки > Экспорт данных.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Если вы нажмете кнопку ниже, все завершенные и находящиеся архиве задачи будут удалены навсегда. Если вы хотите сохранить их, экспортируйте их.",
     "addmultiple": "Добавить несколько",
     "addsingle": "Добавить одно",

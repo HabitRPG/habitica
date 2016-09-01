@@ -335,5 +335,11 @@
     "questTurtleCompletion": "Ваша доблесная работа очистила воды моря, и теперь наша черепаха найдет свой пляж. Вы, @Bambin и @JaizakAripaik наблюдаете, как она закапывает свою кладку яиц глубоко в песок, чтобы потом из них вылупились сотни маленьких морских черепашат. Как истинная леди, черепаха дает каждому из вас по три яйца, и просит вас кормить и воспитывать детенышей, чтобы однажды они и сами стали большими морскими черепахами.",
     "questTurtleBoss": "Рабочие Обломки",
     "questTurtleDropTurtleEgg": "Черепаха (Яйцо)",
-    "questTurtleUnlockText": "Позволяет покупать на Рынке яйца Черепах"
+    "questTurtleUnlockText": "Позволяет покупать на Рынке яйца Черепах",
+    "questArmadilloText": "Снисходительный броненосец",
+    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
+    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
+    "questArmadilloBoss": "Indulgence Armadillo",
+    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
+    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
 }

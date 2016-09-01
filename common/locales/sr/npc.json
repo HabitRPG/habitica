@@ -60,7 +60,7 @@
     "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Automatska raspodela",
-    "autoAllocateText": "Ako uključite automatsku raspodelu, Vaš avatar će birati osobine u koje će ulagati poene u skladu s osobinama zadataka, koje možete podesiti u <strong>ZADATAK > Izmeniti > Napredna podešavanja > Osobine</strong>. Npr, ako često idete u teretanu, i svakodnevni zadatak „Teretana”  je podešen kao „Fizički”, automatski ćete dobijati Snagu.",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "Veštine",
     "spellsText": "Sad možete da otključate veštine, koje su jedinstvene za svaku klasu. Prvu veštinu otključaćete kad dostignete 11. nivo. Svakog dana dobijate 10 poena mane, a još po jedan poen doneće Vam svaki uspešno obavljen",
     "toDo": "Jednokratni zadatak",

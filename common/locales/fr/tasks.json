@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Supprimer les tâches accomplies",
-    "lotOfToDos": "Les tâches À Faire accomplies sont archivées automatiquement au bout de 3 jours. Vous pouvez les consulter depuis Paramètres > Exporter",
+    "lotOfToDos": "Vos 30 tâches à faire terminées les plus récentes sont montrées ici. Vous pouvez consulter les tâches plus anciennes depuis Données > Outil d'affichage des données ou Données > Exporter les données > Données utilisateur.",
     "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches A Faire complétées et archivées seront supprimées définitivement. Exportez-les d'abord si vous souhaitez en garder une trace.",
     "addmultiple": "Ajout multiple",
     "addsingle": "Ajout unitaire",
