@@ -32,7 +32,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
   // Edit button
   div(bindonce='challenge', ng-if='challenge.leader._id==user._id || user.contributor.admin')
     div(ng-hide='challenge._locked==false')
-      // button.btn.btn-sm.btn-default(ng-click='edit(challenge)')=env.t('edit')
+      button.btn.btn-sm.btn-default(ng-click='edit(challenge)')=env.t('edit')
       button.btn.btn-sm.btn-success(ng-click='clone(challenge)')=env.t('clone')
       button.btn.btn-sm.btn-warning(ng-click='close(challenge, $event)', tooltip=env.t('deleteOrSelect'))=env.t('endChallenge')
 
