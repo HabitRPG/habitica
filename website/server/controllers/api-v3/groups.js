@@ -359,6 +359,13 @@ api.rejectGroupInvite = {
   },
 };
 
+function _removeMessagesFromMember (member, groupId) {
+  if (member.newMessages[groupId]) {
+    delete member.newMessages[groupId];
+    member.markModified('newMessages');
+  }
+}
+
 /**
  * @api {post} /api/v3/groups/:groupId/leave Leave a group
  * @apiVersion 3.0.0
@@ -376,7 +383,6 @@ api.leaveGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
     req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
@@ -390,7 +396,7 @@ api.leaveGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    // During quests, checke wheter user can leave
+    // During quests, check if user can leave
     if (group.type === 'party') {
       if (group.quest && group.quest.leader === user._id) {
         throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
@@ -402,6 +408,14 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep);
+
+    _removeMessagesFromMember(user, group._id);
+
+    await Bluebird.all([
+      user.save(),
+      group.save(),
+    ]);
+
     res.respond(200, {});
   },
 };
@@ -493,10 +507,7 @@ api.removeGroupMember = {
         member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
       }
 
-      if (member.newMessages[group._id]) {
-        member.newMessages[group._id] = undefined;
-        member.markModified('newMessages');
-      }
+      _removeMessagesFromMember(member, group._id);
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1;
