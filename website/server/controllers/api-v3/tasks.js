@@ -208,7 +208,7 @@ api.updateTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id) {
+    } else if (task.group.id && !task.userId) {
       //  @TODO: Abstract this access snippet
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -845,7 +845,7 @@ api.deleteTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id) {
+    } else if (task.group.id && !task.userId) {
       //  @TODO: Abstract this access snippet
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
