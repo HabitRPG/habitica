@@ -6,11 +6,11 @@ root = true
 # Unix-style newlines
 # Remove end-of-file newlines
 # Soft indents (2 spaces)
-# Trim tailing whitespace
+# Don't trim trailing whitespace
 [*]
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 indent_style = space
 indent_size = 2
-trim_trailing_whitespace
+trim_trailing_whitespace = false
