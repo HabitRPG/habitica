@@ -25,10 +25,10 @@
         var animal = {
           potion: Content.hatchingPotions[info.potion].text()
         };
-        animal[type == 'pet' ? 'egg' : 'mount'] = Content.eggs[info.egg].text();
+        animal[type === 'pet' ? 'egg' : 'mount'] = Content.eggs[info.egg].text();
         return window.env.t(type+'Name', animal);
       } else {
-        return type == 'pet' ? window.env.t(Content.specialPets[name]) : window.env.t(Content.specialMounts[name]);
+        return type === 'pet' ? window.env.t(Content.specialPets[name]) : window.env.t(Content.specialMounts[name]);
       }
     }
 
