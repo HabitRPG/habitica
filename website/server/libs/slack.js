@@ -25,6 +25,7 @@ function sendFlagNotification ({
     return;
   }
   let titleLink;
+  let authorName;
   let title = `Flag in ${group.name}`;
   let text = `${flagger.profile.name} (${flagger.id}) flagged a message`;
 
@@ -36,12 +37,18 @@ function sendFlagNotification ({
     title += ` - (${group.privacy} ${group.type})`;
   }
 
+  if (!message.user && message.uuid === 'system') {
+    authorName = 'System Message';
+  } else {
+    authorName = `${message.user} - ${message.uuid}`;
+  }
+
   flagSlack.send({
     text,
     attachments: [{
       fallback: 'Flag Message',
       color: 'danger',
-      author_name: `${message.user} - ${message.uuid}`,
+      author_name: authorName,
       title,
       title_link: titleLink,
       text: message.text,

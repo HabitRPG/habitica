@@ -97,6 +97,23 @@ describe('slack', () => {
       });
     });
 
+    it('provides name for system message', () => {
+      message.uuid = 'system';
+      delete message.user;
+
+      slack.sendFlagNotification({
+        flagger,
+        group,
+        message,
+      });
+
+      expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
+        attachments: [sandbox.match({
+          author_name: 'System Message',
+        })],
+      });
+    });
+
     it('noops if no flagging url is provided', () => {
       sandbox.stub(nconf, 'get').withArgs('SLACK:FLAGGING_URL').returns('');
       sandbox.stub(logger, 'error');
