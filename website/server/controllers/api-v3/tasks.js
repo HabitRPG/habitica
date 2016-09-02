@@ -166,7 +166,7 @@ api.getTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       let challenge = await Challenge.find({_id: task.challenge.id}).select('leader').exec();
       if (!challenge || (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
         throw new NotFound(res.t('taskNotFound'));
@@ -213,7 +213,7 @@ api.updateTask = {
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -447,7 +447,7 @@ api.addChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -535,7 +535,7 @@ api.updateChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -585,7 +585,7 @@ api.removeChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -851,7 +851,7 @@ api.deleteTask = {
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
