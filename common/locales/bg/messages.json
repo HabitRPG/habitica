@@ -29,7 +29,7 @@
     "messageFoundQuest": "Намерихте мисията „<%= questText %>“!",
     "messageAlreadyPurchasedGear": "Вие сте купували тази екипировка в миналото, но в момента не я притежавате. Можете да я купите отново от колоната с награди на страницата със задачи.",
     "messageAlreadyOwnGear": "Вече притежавате този предмет. Можете да го екипирате като отидете на страницата с екипировката.",
-    "messageHealthAlreadyMax": "You already have maximum health.",
+    "messageHealthAlreadyMax": "Здравето Ви вече е пълно.",
     "armoireEquipment": "<%= image %> Намерихте рядък предмет в гардероба: <%= dropText %>! Страхотно!",
     "armoireFood": "<%= image %> Тършувате из гардероба и намирате <%= dropText %>. Какво ли прави това там?",
     "armoireExp": "Сборвате се с гардероба и получавате опит. Така му се пада!",

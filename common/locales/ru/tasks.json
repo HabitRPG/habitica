@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Удалить завершенные",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Здесь показывается 30 ваших последних завершенных задач. Вы можете посмотреть более старые выполненные задачи, выбрав в меню Данные > Анализ данных или Данные > Экспорт данных > Пользовательские данные.",
     "deleteToDosExplanation": "Если вы нажмете кнопку ниже, все завершенные и находящиеся архиве задачи будут удалены навсегда. Если вы хотите сохранить их, экспортируйте их.",
     "addmultiple": "Добавить несколько",
     "addsingle": "Добавить одно",
