@@ -33,6 +33,7 @@
     "resetAccPop": "Start over, removing all levels, gold, gear, history, and tasks.",
     "deleteAccount": "Delete Account",
     "deleteAccPop": "Cancel and remove your Habitica account.",
+    "feedback": "Feedback(optional)",
     "qrCode": "QR Code",
     "dataExport": "Data Export",
     "saveData": "Here are a few options for saving your data.",

@@ -70,7 +70,7 @@ script(type='text/ng-template', id='modals/delete.html')
     .row
       .col-xs-12
         .form-group
-          label(for='feedback') Feedback(optional)
+          label(for='feedback')=env.t('feedback')
           textarea#feedback.form-control(ng-model="feedback")
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
