@@ -19,6 +19,22 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 
 let api = {};
 
+async function getAuthorEmailFromMessage (message) {
+  let authorId = message.uuid;
+
+  if (authorId === 'system') {
+    return 'system';
+  }
+
+  let author = await User.findOne({_id: authorId}, {auth: 1});
+
+  if (author) {
+    return getUserInfo(author, ['email']).email;
+  } else {
+    return 'Author Account Deleted';
+  }
+}
+
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
  * @apiVersion 3.0.0
@@ -208,8 +224,6 @@ api.flagChat = {
 
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatFlagOwnMessage'));
 
-    let author = await User.findOne({_id: message.uuid}, {auth: 1});
-
     let update = {$set: {}};
 
     // Log user ids that have flagged the message
@@ -234,16 +248,7 @@ api.flagChat = {
     );
 
     let reporterEmailContent = getUserInfo(user, ['email']).email;
-
-    let authorEmailContent;
-    if (author) {
-      authorEmailContent = getUserInfo(author, ['email']).email;
-    } else if (message.uuid === 'system') {
-      authorEmailContent = 'system';
-    } else {
-      authorEmailContent = 'Author Account Deleted';
-    }
-
+    let authorEmail = await getAuthorEmailFromMessage(message);
     let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
@@ -257,7 +262,7 @@ api.flagChat = {
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
-      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_EMAIL', content: authorEmail},
       {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
@@ -329,11 +334,7 @@ api.clearChatFlags = {
     );
 
     let adminEmailContent = getUserInfo(user, ['email']).email;
-
-    let author = await User.findOne({_id: message.uuid}, {auth: 1});
-
-    let authorEmailContent = getUserInfo(author, ['email']).email;
-
+    let authorEmail = getAuthorEmailFromMessage(message);
     let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
@@ -347,7 +348,7 @@ api.clearChatFlags = {
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
-      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_EMAIL', content: authorEmail},
       {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
