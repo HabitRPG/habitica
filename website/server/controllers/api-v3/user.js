@@ -14,6 +14,7 @@ import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
+import { send } from '../../libs/email';
 
 let api = {};
 
@@ -187,6 +188,7 @@ api.deleteUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
+
     let user = res.locals.user;
     let plan = user.purchased.plan;
 
@@ -222,6 +224,17 @@ api.deleteUser = {
     }).exec();
 
     await user.remove();
+
+    if (req.body.feedback) {
+      let mailOptions = {
+        from: '"Habitica" <noreply@habitica.com>',
+        to: 'admin@habitica.com',
+        subject: 'Feedback received from account deletion',
+        html: '<b>Feedback:</b> ' + req.body.feedback
+      };
+
+      send(mailOptions);
+    }
 
     res.respond(200, {});
   },

@@ -177,11 +177,11 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
-    $scope['delete'] = function(password) {
+    $scope.delete = function(password, feedback) {
       $http({
         url: ApiUrl.get() + '/api/v3/user',
         method: 'DELETE',
-        data: {password: password},
+        data: {password: password, feedback: feedback},
       })
       .then(function(res, code) {
         localStorage.clear();
