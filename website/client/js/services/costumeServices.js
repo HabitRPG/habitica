@@ -12,10 +12,11 @@
   function costumeFactory(Content) {
     function animalInfo(name, type) {
       var tmp = name.split('-');
-      var data = {};
-      data.egg = tmp[0];
-      data.potion = tmp[1];
-      data.isBasic = Content.hatchingPotions[data.potion] ? true : false;
+      var data = {
+        egg: tmp[0],
+        potion: tmp[1]
+      };
+      data.isBasic = Boolean(Content.hatchingPotions[data.potion]);
       return data;
     }
     
