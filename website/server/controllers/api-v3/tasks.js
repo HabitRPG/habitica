@@ -451,7 +451,7 @@ api.addChecklistItem = {
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -633,18 +633,9 @@ api.addTagToTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
-    if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id) {
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
-      throw new NotFound(res.t('taskNotFound'));
-    }
-
+    if (!task) throw new NotFound(res.t('taskNotFound'));
     let tagId = req.params.tagId;
 
     let alreadyTagged = task.tags.indexOf(tagId) !== -1;
@@ -682,17 +673,9 @@ api.removeTagFromTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
-    if (!task) {
-      throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id) {
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
-      throw new NotFound(res.t('taskNotFound'));
-    }
+    if (!task) throw new NotFound(res.t('taskNotFound'));
 
     let hasTag = removeFromArray(task.tags, req.params.tagId);
     if (!hasTag) throw new NotFound(res.t('tagNotFound'));
