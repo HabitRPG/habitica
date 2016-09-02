@@ -29,6 +29,7 @@
     "messageFoundQuest": "你找到了新任務《<%= questText %>》！",
     "messageAlreadyPurchasedGear": " 你曾經買過這個裝備，但是現在沒有了。你可在獎勵欄裡重買一次。",
     "messageAlreadyOwnGear": "你已經有這個了物品。到裝備頁裡裝備它吧。",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> 你在神祕寶箱裡找到稀有的裝備 <%= dropText %>！好棒！",
     "armoireFood": "<%= image %> 你在神祕寶箱裡找到 <%= dropArticle %><%= dropText %>. 這是什麼東西啊？",
     "armoireExp": "你打開神祕寶箱⋯⋯只得到經驗值。",

@@ -29,6 +29,7 @@
     "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText %>\" !",
     "messageAlreadyPurchasedGear": "Vous avez acheté cet équipement auparavant mais ne le possédez actuellement pas. Vous pouvez l'acheter à nouveau dans la colonne Récompenses sur la page des tâches.",
     "messageAlreadyOwnGear": "Vous possédez déjà cet objet. Équipez le depuis la page d'équipement.",
+    "messageHealthAlreadyMax": "Votre Santé est déjà à son maximum.",
     "armoireEquipment": "<%= image %> Vous avez trouvé une pièce d'équipement rare dans l'Armoire : <%= dropText %> ! Génial !",
     "armoireFood": "<%= image %> Vous farfouillez dans l'Armoire et trouvez du/de la <%= dropArticle %><%= dropText %>. Qu'est-ce que ça fait là ?",
     "armoireExp": "Vous luttez contre l'Armoire et gagnez de l'Expérience. Prends ça !",

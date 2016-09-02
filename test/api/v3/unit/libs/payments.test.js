@@ -78,14 +78,23 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.extraMonths).to.eql(3);
       });
 
-      it('updates date terminated for an existing plan with a terminated date', async () => {
-        let dateTerminated = new Date();
+      it('adds to date terminated for an existing plan with a future terminated date', async () => {
+        let dateTerminated = moment().add(1, 'months').toDate();
         recipient.purchased.plan = plan;
         recipient.purchased.plan.dateTerminated = dateTerminated;
 
         await api.createSubscription(data);
 
         expect(recipient.purchased.plan.dateTerminated).to.eql(moment(dateTerminated).add(3, 'months').toDate());
+      });
+
+      it('replaces date terminated for an account with a past terminated date', async () => {
+        let dateTerminated = moment().subtract(1, 'months').toDate();
+        recipient.purchased.plan.dateTerminated = dateTerminated;
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateTerminated).format('YYYY-MM-DD')).to.eql(moment().add(3, 'months').format('YYYY-MM-DD'));
       });
 
       it('sets a dateTerminated date for a user without an existing subscription', async () => {

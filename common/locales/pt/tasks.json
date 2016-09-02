@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Deletar Completos",
-    "lotOfToDos": "Afazeres completos são automaticamente arquivados depois de 3 dias. Você pode acessá-los através de Configurações > Exportar.",
+    "lotOfToDos": "Suas 30 mais recentes tarefas estão sendo mostradas aqui. Você pode ver as tarefas completadas mais velhas > Dados Ferramenta de Visualização ou Dados > Exportar Dados > Dados de Usuário.",
     "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completos e arquivados serão apagados permanentemente. Exporte-os primeiro se quiser manter um registro deles.",
     "addmultiple": "Adicionar Múltiplos",
     "addsingle": "Adicionar Único",

@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "屬性及成就",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
@@ -121,7 +121,7 @@
     "classAllocation": "依職業分配屬性點",
     "classAllocationPop": "把多一些點數分配到對你的職業比較重要的屬性裏。",
     "taskAllocation": "依照完成的任務分配屬性點",
-    "taskAllocationPop": "依照你完成的任務合理分配物理 ( 力量 )、精神 ( 智力 )、社交 ( 體質 )、和其他 ( 感知 ) 屬性點。",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "分配未使用的屬性點",
     "distributePointsPop": "根據所選擇的分配方法分配所有未分配的屬性點。",
     "warriorText": "戰士有更大的機率觸發「會心一擊」，並在完成任務時隨機獲得額外的金幣、經驗和掉落率。他們還能對 Boss造成嚴重的傷害。如果你希望獲得隨機的高額獎勵，或者在 Boss任務中重創 Boss，來玩戰士吧！",

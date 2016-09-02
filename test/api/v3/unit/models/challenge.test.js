@@ -6,32 +6,32 @@ import common from '../../../../../common/';
 import { each, find } from 'lodash';
 
 describe('Challenge Model', () => {
-  let guild, leader, challenge, task;
-  let tasksToTest = {
-    habit: {
-      text: 'test habit',
-      type: 'habit',
-      up: false,
-      down: true,
-    },
-    todo: {
-      text: 'test todo',
-      type: 'todo',
-    },
-    daily: {
-      text: 'test daily',
-      type: 'daily',
-      frequency: 'daily',
-      everyX: 5,
-      startDate: new Date(),
-    },
-    reward: {
-      text: 'test reward',
-      type: 'reward',
-    },
-  };
+  let guild, leader, challenge, task, tasksToTest;
 
   beforeEach(async () => {
+    tasksToTest = {
+      habit: {
+        text: 'test habit',
+        type: 'habit',
+        up: false,
+        down: true,
+      },
+      todo: {
+        text: 'test todo',
+        type: 'todo',
+      },
+      daily: {
+        text: 'test daily',
+        type: 'daily',
+        frequency: 'daily',
+        everyX: 5,
+        startDate: new Date(),
+      },
+      reward: {
+        text: 'test reward',
+        type: 'reward',
+      },
+    };
     guild = new Group({
       name: 'test party',
       type: 'guild',
@@ -193,6 +193,24 @@ describe('Challenge Model', () => {
       let updatedUserTask = await Tasks.Task.findById(updatedLeader.tasksOrder.todos[0]);
 
       expect(updatedUserTask.date).to.exist;
+    });
+
+    it('does not update checklists on the user task', async () => {
+      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line babel/new-cap
+      task.challenge.id = challenge._id;
+      await task.save();
+
+      await challenge.addTasks([task]);
+
+      task.checklist.push({
+        text: 'a new checklist',
+      });
+      await challenge.updateTask(task);
+
+      let updatedLeader = await User.findOne({_id: leader._id});
+      let updatedUserTask = await Tasks.Task.findById(updatedLeader.tasksOrder.todos[0]);
+
+      expect(updatedUserTask.checklist).to.deep.equal([]);
     });
 
     it('updates daily specific field to challenge and challenge members', async () => {

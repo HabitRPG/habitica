@@ -63,7 +63,7 @@
     "hatchedPet": "Du hast einen <%= potion %> <%= egg %> ausgebrütet!",
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",
-    "petNotOwned": "Du hast dieses Haustier noch nicht.",
+    "petNotOwned": "Du besitzt dieses Haustier nicht.",
     "earnedCompanion": "Durch all Deine Produktivität hast Du einen neuen Begleiter erhalten. Füttere ihn damit er wächst!",
     "feedPet": "'Verfüttere <%= article %> <%= text %> an <%= name %>?",
     "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?",

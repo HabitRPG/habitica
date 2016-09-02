@@ -132,7 +132,7 @@ api.createChallengeTasks = {
     let challenge = await Challenge.findOne({_id: challengeId}).exec();
 
     // If the challenge does not exist, or if it exists but user is not the leader -> throw error
-    if (!challenge || user.challenges.indexOf(challengeId) === -1) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
 
     let tasks = await _createTasks(req, res, user, challenge);

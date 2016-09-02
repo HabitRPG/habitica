@@ -11,7 +11,7 @@
     "aquaticFriends": "Teman Air",
     "aquaticFriendsText": "Disiram <%= seafoam %> kali oleh teman sekelompok.",
     "valentineCard": "Kartu Valentine",
-    "valentineCardExplanation": "Untuk dapat bertahan dalam membaca puisi yang kelewat manis, kalian berdua mendapatkan lencana \"Teman Tersayang\"!",
+    "valentineCardExplanation": "Karena mampu bertahan terhadap puisi yang kelewat manis, kalian berdua mendapatkan lencana \"Teman Tersayang\"!",
     "valentineCardNotes": "Kirim Kartu Valentine ke teman.",
     "valentine0": "\"Mawar itu merah \n\nKeseharianku biru\n\nAku senang bahwa aku\n\nSekelompok dengan dirimu!\"",
     "valentine1": "\"Mawar itu merah\n\nViolet itu indah\n\nMari kita bersama \n\nMembuat kebiasaan buruk kita kalah!\"",
@@ -28,7 +28,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Penyihir Musiman<%= linkEnd %>",
     "seasonalShopClosedText": "Toko musiman sudah tutup!! Aku tidak tahu dimana sang penyihir musiman saat ini, tapi aku bisa jamin ia akan kembali pada saat<a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'> Grand Gala berikutnya</a>!",
-    "seasonalShopText": "Selamat datang di Toko Musiman!! Kami menyetok waktu barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musiman</a> Musim Semi sekarang ini. Semua yang ada disini bisa dibeli selama Musim Semi setiap tahun, tapi kami cuma buka sampai 30 April, jadi pastikan beli sekarang, atau kamu harus menunggu setahun lagi untuk beli barang-barang ini!",
+    "seasonalShopText": "Selamat datang di Toko Musiman!! Saat ini kami menyediakan barang-barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musiman</a> musim semi. Semua yang ada disini bisa dibeli selama perayaan Spring Fling setiap tahunnya, tapi kami cuma buka sampai 30 April, jadi pastikan beli sekarang, atau kamu harus menunggu setahun lagi untuk membeli barang-barang ini!",
     "seasonalShopSummerText": "Selamat datang di Toko Musiman!! Kami menyetok barang-barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musim</a> Panas sekarang ini. Semua yang ada disini bisa dibeli selama perayaan Musim Panas setiap tahun, tapi kami hanya buka sampai 31 Juli, jadi pastikan beli sekarang juga, atau kamu harus menunggu setahun lagi untuk beli barang-barang ini!",
     "seasonalShopFallText": "Selamat datang di Toko Musiman!! Kami menyetok barang-barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musim</a> Gugur sekarang ini. Semua yang ada disini bisa dibeli selama perayaan even Festival Musim Gugur setiap tahun, tapi kami hanya buka sampai 31 Oktober, jadi pastikan beli sekarang juga, atau kamu harus menunggu setahun lagi untuk beli barang-barang ini!",
     "seasonalShopWinterText": "Selamat datang di Toko Musiman!! Kami menyetok barang-barang <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edisi Musim</a> Dingin sekarang ini. Semua yang ada disini bisa dibeli selama perayaan Musim Dingin setiap tahun, tapi kami hanya buka sampai 31 Januari, jadi pastikan beli sekarang juga, atau kamu harus menunggu setahun lagi untuk beli barang-barang ini!",
@@ -75,8 +75,8 @@
     "shipSoothsayerSet": "Ship Soothsayer (Mage)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Available for purchase until October 31.",
-    "winterEventAvailability": "Available for purchase until December 31.",
-    "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "fallEventAvailability": "Tersedia untuk dibeli hingga 31 Oktober.",
+    "winterEventAvailability": "Tersedia untuk dibeli hingga 31 Desember.",
+    "springEventAvailability": "Tersedia untuk dibeli hingga 31 Mei.",
+    "summerEventAvailability": "Tersedia untuk dibeli hingga 31 Agustus."
 }

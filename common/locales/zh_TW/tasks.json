@@ -1,6 +1,6 @@
 {
     "clearCompleted": "清除已完成任務",
-    "lotOfToDos": "已完成的待辦事項會在三天後自動歸檔。你能在 設定 > 匯出 裡找到他們。",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "如果你點選底下的按鈕，你所有已完成跟歸檔的待辦事項都將被永遠刪除。如果你想要留做紀錄，請先將它們匯出。",
     "addmultiple": "新增多項",
     "addsingle": "新增單項",

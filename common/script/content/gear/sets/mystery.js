@@ -184,6 +184,12 @@ let back = {
     mystery: '201602',
     value: 0,
   },
+  201608: {
+    text: t('backMystery201608Text'),
+    notes: t('backMystery201608Notes'),
+    mystery: '201608',
+    value: 0,
+  },
 };
 
 let eyewear = {
@@ -338,6 +344,12 @@ let head = {
     text: t('headMystery201607Text'),
     notes: t('headMystery201607Notes'),
     mystery: '201607',
+    value: 0,
+  },
+  201608: {
+    text: t('headMystery201608Text'),
+    notes: t('headMystery201608Notes'),
+    mystery: '201608',
     value: 0,
   },
   301404: {
