@@ -17,6 +17,10 @@ habitrpg
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
         if(member) {
           $scope.profile = member;
+
+          $scope.basicAchievements = Shared.achievs.getBasicAchievements($scope.profile);
+          $scope.seasonalAchievements = Shared.achievs.getSeasonalAchievements($scope.profile);
+          $scope.specialAchievements = Shared.achievs.getSpecialAchievements($scope.profile);
         }
       });
 
@@ -65,5 +69,6 @@ habitrpg
             $scope.$close();
           });
       }
+
     }
   ]);

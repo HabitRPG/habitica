@@ -1,23 +1,14 @@
-mixin simpleAchiev(isEarned, spriteName, titleText, descText, optionalCount)
-  div(popover-title='#{titleText}',
-    data-popover-html='#{descText}',
+mixin simpleAchiev(achiev)
+  div(popover-title='{{achiev.title}}',
+    data-popover-html='{{achiev.text}}',
     popover-trigger='mouseenter',
     popover-placement='bottom')&attributes(attributes)
 
     button.pet-button
-      .achievement(class='#{spriteName}2x', ng-if='::#{isEarned}')
-        .counter.badge.badge-info.stack-count(ng-if='::(#{optionalCount})')
-          {{#{optionalCount}}}
-      .achievement(class='achievement-unearned2x', ng-if='::!(#{isEarned})')
-
-mixin achievWithSimpleCount(countVal, spriteName, title, desc)
-  +simpleAchiev(countVal, spriteName, env.t(title), env.t(desc, {count: "0"}))(ng-if='::!(#{countVal})')
-  +simpleAchiev(countVal, spriteName, env.t(title), env.t(desc, {count: "{{::" + countVal + "}}"}), countVal)(ng-if='::#{countVal}')
-
-mixin achievWithSingularPlural(countVal, spriteName, sgTitle, sgDesc, plTitle, plDesc)
-  +simpleAchiev(countVal, spriteName, env.t(plTitle, {count: "{{::" + countVal + "}}"}),
-    env.t(plDesc, {count: "{{::" + countVal + "}}"}), countVal)(ng-if='::#{countVal} > 1')
-  +simpleAchiev(countVal, spriteName, env.t(sgTitle), env.t(sgDesc), countVal)(ng-if='::!(#{countVal} > 1)')
+      .achievement(ng-class='achiev.icon + "2x"', ng-if='achiev.earned')
+        .counter.badge.badge-info.stack-count(ng-if='(achiev.optionalCount)')
+          {{::achiev.optionalCount}}
+      .achievement(class='achievement-unearned2x', ng-if='!(achiev.earned)')
 
 
 if mobile
@@ -29,19 +20,22 @@ if mobile
     menu.pets.inventory-list(type='list')
       li.customize-menu
         menu
-          include ./achievs/basic-achievs
+          div(ng-repeat='achiev in basicAchievements')
+            +simpleAchiev('achiev')
   .row: .col-md-12
     h4=env.t('seasonalAchievs')
     menu.pets.inventory-list(type='list')
       li.customize-menu
         menu
-          include ./achievs/seasonal-achievs
+          div(ng-repeat='achiev in seasonalAchievements')
+            +simpleAchiev('achiev')
   .row: .col-md-12
     h4=env.t('specialAchievs')
     menu.pets.inventory-list(type='list')
       li.customize-menu
         menu
-          include ./achievs/special-achievs
+          div(ng-repeat='achiev in specialAchievements')
+            +simpleAchiev('achiev')
 
 hr
 
