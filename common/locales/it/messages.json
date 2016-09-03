@@ -29,6 +29,7 @@
     "messageFoundQuest": "Hai trovato la missione \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Hai già acquistato questo oggetto in passato, ma al momento non lo possiedi. Puoi comprarlo di nuovo nella colonna delle Ricompense, nella pagina delle attività.",
     "messageAlreadyOwnGear": "Possiedi già questo oggetto. Equipaggialo andando in Inventario > Equipaggiamento.",
+    "messageHealthAlreadyMax": "Hai già la salute massima.",
     "armoireEquipment": "<%= image %> Hai trovato dell'equipaggiamento raro nello Scrigno: <%= dropText %>! Fantastico!",
     "armoireFood": "<%= image %> Frughi nello Scrigno e trovi <%= dropArticle %><%= dropText %>. Cosa ci fa qui dentro?",
     "armoireExp": "Fai a botte con lo Scrigno e ottieni Esperienza. Prendi questo!",

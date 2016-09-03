@@ -75,8 +75,8 @@
     "shipSoothsayerSet": "Astrologo da nave (Mago)",
     "strappingSailorSet": "Robusto Marinaio (Guaritore)",
     "reefRenegadeSet": "Rinnegato delle scogliere (Assassino)",
-    "fallEventAvailability": "Disponibili fino al 31 ottobre",
-    "winterEventAvailability": "Disponibili fino al 31 dicembre",
-    "springEventAvailability": "Disponibili fino al 31 maggio",
-    "summerEventAvailability": "Disponibili fino al 31 agosto"
+    "fallEventAvailability": "Disponibile fino al 31 ottobre.",
+    "winterEventAvailability": "Disponibile fino al 31 dicembre.",
+    "springEventAvailability": "Disponibile fino al 31 maggio.",
+    "summerEventAvailability": "Disponibile fino al 31 agosto."
 }

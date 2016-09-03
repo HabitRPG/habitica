@@ -29,6 +29,7 @@
     "messageFoundQuest": "Ai găsit aventura \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Ai cumpărat acest echipament în trecut, dar momentan nu-l deții. Poți să-l cumperi din nou în coloana de răsplăți pe pagina cu sarcini.",
     "messageAlreadyOwnGear": "Deja deții acest articol. Echipează-l la pagina de echipamente.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> Ai găsit o piesă rară de echipament în șifonier: <%= dropText %>! Grozav!",
     "armoireFood": "<%= image %> Ai răscolit prin șifonier și ai găsit <%= dropArticle %><%= dropText %>. Ce caută asta aici?",
     "armoireExp": "Te-ai luptat cu șifonierul și ai câștigat experiență. Na!",

@@ -336,10 +336,10 @@
     "questTurtleBoss": "Épaves de tâches",
     "questTurtleDropTurtleEgg": "Tortue (Œuf)",
     "questTurtleUnlockText": "Déverrouille l'achat d’œufs de tortue au marché",
-    "questArmadilloText": "The Indulgent Armadillo",
-    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
-    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
-    "questArmadilloBoss": "Indulgence Armadillo",
-    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
-    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
+    "questArmadilloText": "Le Tatou Indulgent",
+    "questArmadilloNotes": "Il est temps de sortir de votre maison et de commencer votre journée. Vous ouvrez votre porte et vous retrouvez face à ce qui ressemble à un rideau de pierre. \"Je te donne congé pour la journée!\" dit une voix étouffée au travers de la porte bloquée. \"Ne sois pas si déçu•e, détends-toi aujourd'hui!\" <br><br> Soudain, @Beffymaroo et @PainterProphet toquent à votre fenêtre. \"On dirait que le tatou indulgent s'est pris d'affection pour toi! Allez, nous allons t'aider à l'enlever de ton chemin!\"",
+    "questArmadilloCompletion": "Finalement, après une longue matinée passée à convaincre le tatou indulgent que vous voulez, en fait, vraiment travailler, il abandonne. \"Je suis désolé!\" s'excuse-t-il. \"Je voulais seulement aider. Je pensais que tout le monde aimait les jours paresseux!\"<br><br>Vous souriez, et lui dites que la prochaine fois que vous aurez mérité un jour de congé, vous l'inviterez chez vous. Il sourit en retour. @Tipsy et @krajzega vous félicitent en passant pour votre bon travail pendant que le tatou s'éloigne en roulant, vous laissant quelques œufs en guise d'excuse.",
+    "questArmadilloBoss": "L'indulgence du tatou",
+    "questArmadilloDropArmadilloEgg": "Tatou (œuf)",
+    "questArmadilloUnlockText": "Déverrouille l'achat d'œufs de tatou au Marché"
 }

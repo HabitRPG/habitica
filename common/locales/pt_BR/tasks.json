@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Deletar Completos",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Seus 30 Afazeres completados mais recentemente são exibidos aqui. Você pode ver Afazeres mais antigos indo em Data > Ferramenta de Exibição ou Dados > Exportar Dados > Dados do Usuário.",
     "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completos e arquivados serão apagados permanentemente. Exporte-os primeiro se quiser manter um registro deles.",
     "addmultiple": "Adicionar Vários",
     "addsingle": "Adicionar Único",

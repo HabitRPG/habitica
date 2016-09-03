@@ -60,7 +60,7 @@
     "classGearText": "最初に : 驚かないで!　古い装備は所持品となっており、いま身についけているのは新しいクラスの初心者向けの装備です。クラスに適した装備は、能力値が50%アップします。それでも古い装備に切り替えるのならご自由にどうぞ。",
     "classStats": "クラス固有のステータスがあります : ゲームの進行に影響を与えます。レベルアップするたびに、特定のステータスに割りあてられる 1 ポイントを取得します。それぞれのステータスにマウスカーソルを当てると、詳しい情報が表示されます。",
     "autoAllocate": "自動割り当て",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
+    "autoAllocateText": "「自動割当」をチェックすると、タスクの属性をもとにアバターに自動的にステータスを割りあてます。タスクの属性は <strong>タスク > 編集 > 詳細設定 > 属性</strong> で確認できます。例えば、「スポーツジム」の日課に「肉体的」が設定されていて、あなたがよく「スポーツジム」のタスクを達成すれば、自動的に「力」が増えていきます。",
     "spells": "魔法",
     "spellsText": "クラス特定の魔法をアンロックできます。最初はレベル 11 で確認できます。マナは1日ごとに10 ポイント、タスク達成ごとに 1 ポイント補充されます。",
     "toDo": "To-Do",

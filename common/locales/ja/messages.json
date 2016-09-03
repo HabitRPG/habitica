@@ -29,6 +29,7 @@
     "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!",
     "messageAlreadyPurchasedGear": "以前にこの装備を購入しましたが、いまはもっていません。タスク ページの「ごほうび」からもう一度買えます。",
     "messageAlreadyOwnGear": "このアイテムをすでに持っています。所持品のページに行って装備して下さい。",
+    "messageHealthAlreadyMax": "体力はすでに最大です。",
     "armoireEquipment": "<%= image %>宝箱に貴重な装備を見つけました : <%= dropText %>! 素晴らしい!",
     "armoireFood": "<%= image %>宝箱をあさって<%= dropArticle %><%= dropText %>を見つけました。何でこんな所に?",
     "armoireExp": "宝箱と格闘して、経験値を得ました。どうぞっ!",

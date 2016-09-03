@@ -60,7 +60,7 @@
     "classGearText": "首先：不要慌！你原来的装备在你的仓库中，你现在穿着你新职业的学徒装备。穿戴职业装备给予50%的装备属性加成。但是，可以自由换上你原来的装备。",
     "classStats": "这是你职业的属性点：它们会影响游戏的操作和过程。每次升级时，你将获得一点自由分配点，用来给某一特定属性加成。将鼠标悬停在每个属性上来查看更多信息。",
     "autoAllocate": "自动分配",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
+    "autoAllocateText": "如果“自动分配”被选中，你的头像会自动根据你的任务的属性获得属性点，你可以在<strong>任务>编辑>高级>属性</strong>中找到它。例如，如果你经常点健身房任务，并且你的“健身房”每日任务设置为“力量”，你就会自动获得力量点。",
     "spells": "法术",
     "spellsText": "你现在可以解锁职业法术了。你会在11级看到你的第一个法术。你的魔法值会每天自动补充10点，以及每完成一个待办事项增加一点。",
     "toDo": "待办事项",

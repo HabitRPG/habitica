@@ -60,7 +60,7 @@
     "classGearText": "Primeiro: Não entre em pânico! Seu equipamento antigo está no seu inventário e agora você está usando um equipamento de aprendiz da sua nova classe. Usar o equipamento de sua classe lhe concede um bonus de 50% nos atributos. De qualquer modo, sinta-se livre para mudar para o seu equipamento antigo.",
     "classStats": "Esses são seus atributos da classe; eles afetam a jogabilidade. Cada vez que subir de nível, ganhará um ponto para distribuir em um atributo particular. Passe o mouse em cima de cada atributo para mais informações.",
     "autoAllocate": "Distribuição Automática",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
+    "autoAllocateText": "Se a \"Alocação Automática\" estiver marcado, seu avatar ganhar atributos automaticamente baseado nos atributos das suas tarefas, os quais podem ser encontrandos em <strong> TAREFA > Editar > Avançado > Atributos </strong>. Por exemplo, se você malhar com frequência e sua Diária de \"Malhar\" estiver programada para \"Força\", você ganhará Força automaticamente.",
     "spells": "Magias",
     "spellsText": "Agora você pode liberar magias específicas da sua classe. Você verá a sua primeira no nível 11. Você recupera 10 pontos de mana por dia, mais 1 ponto por completar",
     "toDo": "Afazeres",

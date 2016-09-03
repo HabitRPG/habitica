@@ -1,6 +1,6 @@
 {
     "clearCompleted": "ניקוי מטלות שבוצעו",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "30 המשימות האחרונות מוצגות כאן. אתם יכולים לראות משימות מושלמות ישנות יותר ב מידע > כלי-הצגת-מידע או מידע > ייצוא-מידע > מידע-משתמש.",
     "deleteToDosExplanation": "לחיצה על הכפתור למטה תמחק לצמיתות את כל המשימות הגנוזות שלכם שהושלמו. ייצאו אותן קודם לכן, אם הייתם רוצים לשמור תיעוד שלהן.",
     "addmultiple": "הוסיפו כמה",
     "addsingle": "הוסיפו אחד/ת",

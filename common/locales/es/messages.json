@@ -29,6 +29,7 @@
     "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Compraste este equipo en el pasado, pero no lo tienes actualmente. Puedes comprarlo de nuevo en la columna de recompensas de la página de tareas.",
     "messageAlreadyOwnGear": "Ya posees este objeto. Para equiparlo has de ir a la página de equipo.",
+    "messageHealthAlreadyMax": "Ya tienes el máximo de salud.",
     "armoireEquipment": "<%= image %> Has encontrado un objeto de equipamiento raro en  el armario: <%= dropText %>! ¡Genial!",
     "armoireFood": "<%= image %> Hurgas en el Ropero y encuentras <%= dropArticle %><%= dropText %>. ¿Qué hace eso aquí?",
     "armoireExp": "Luchas con el Ropero y ganas Experiencia. ¡Toma eso!",
