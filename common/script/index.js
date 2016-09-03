@@ -97,6 +97,9 @@ api.statsComputed = statsComputed;
 import shops from './libs/shops';
 api.shops = shops;
 
+import achievs from './libs/achievs';
+api.achievs = achievs;
+
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
 import handleTwoHanded from './fns/handleTwoHanded';

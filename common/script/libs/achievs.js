@@ -76,6 +76,7 @@ function _addSimpleWithMasterCount (result, user, data) {
     category: data.category,
     key: data.key,
     value,
+    optionalCount: value,
     earned: Boolean(value),
   });
 }
@@ -101,6 +102,7 @@ function _addSimpleWithCount (result, user, data) {
     category: data.category,
     key: data.key,
     value,
+    optionalCount: value,
     earned: Boolean(value),
   });
 }
@@ -135,6 +137,7 @@ function _addPlural (result, user, data) {
     category: data.category,
     key: data.key,
     value,
+    optionalCount: value,
     earned: Boolean(value),
   });
 }
@@ -146,7 +149,7 @@ function _addUltimateGear (result, user, data) {
 
   let value = user.achievements.ultimateGearSets[data.altKey];
 
-  let title = i18n.t('ultimGearName', {ultClass: i18n.t(data.key, language)}, data.language);
+  let title = i18n.t('ultimGearName', {ultClass: i18n.t(data.key, data.language)}, data.language);
   let text = i18n.t(data.key + 'UltimGearText', data.language);
 
   result.push({
@@ -211,7 +214,7 @@ achievs.getBasicAchievements = function getBasicAchievements (user, language) {
 
   _addSimpleWithMasterCount(result, user, {
     key: 'triadBingo',
-    icon: 'achievement-triadBingo',
+    icon: 'achievement-triadbingo',
     category: 'Basic',
     language,
   });
@@ -245,7 +248,30 @@ achievs.getBasicAchievements = function getBasicAchievements (user, language) {
     language,
   });
 
-  // TODO Rebirth Achievement
+  let rebirthTitle, rebirthText;
+
+  if (user.achievements.rebirths > 1) {
+    rebirthTitle = i18n.t('rebirthText', {rebirths: user.achievements.rebirths}, language);
+  } else {
+    rebirthTitle = i18n.t('rebirthBegan', language);
+  }
+
+  if (!user.achievements.rebirthLevel) {
+    rebirthText = i18n.t('rebirthOrbNoLevel', language);
+  } else if (user.achievements.rebirthLevel < 100) {
+    rebirthText = i18n.t('rebirthOrb', {level: user.achievements.rebirthLevel}, language);
+  } else {
+    rebirthText = i18n.t('rebirthOrb100', language);
+  }
+
+  result.push({
+    title: rebirthTitle,
+    text: rebirthText,
+    icon: 'achievement-sun',
+    category: 'Basic',
+    key: 'rebirth',
+    earned: Boolean(user.achievements.rebirths),
+  });
 
   return result;
 }
@@ -406,30 +432,24 @@ achievs.getSpecialAchievements = function getSpecialAchievements(user, language)
     language,
   });
 
-  
-  if (user.contributor.level) {
-    result.push({
-      title: contribText(user.contributor, user.backer, language),
-      text: i18n.t('contribText', language),
-      icon: 'achievement-boot',
-      category: 'Special',
-      key: 'contributor',
-      value: user.contributor.level,
-      earned: true,
-    });
+  let contributorAchiev = {
+    key: 'contributor',
+    icon: 'achievement-boot',
+    category: 'Special',
+    text: i18n.t('contribText', language),
+  };
+  if (user.contributor && user.contributor.level) {
+    contributorAchiev.value = user.contributor.level;
+    contributorAchiev.earned = true;
+    contributorAchiev.title = contribText(user.contributor, user.backer, language);
   } else {
-    result.push({
-      title: i18n.t('contribName', language),
-      text: i18n.t('contribText', language),
-      icon: 'achievement-boot',
-      category: 'Special',
-      key: 'contributor',
-      value: user.contributor.level,
-      earned: false,
-    });
+    contributorAchiev.value = 0;
+    contributorAchiev.earned = false;
+    contributorAchiev.title = i18n.t('contribName', language);
   }
+  result.push(contributorAchiev);
 
-  if (user.backer.npc) {
+  if (user.backer && user.backer.npc) {
     result.push({
       title: user.backer.npc + i18n.t('npc', language),
       text: i18n.t('npcText', language),
@@ -441,7 +461,7 @@ achievs.getSpecialAchievements = function getSpecialAchievements(user, language)
     });
   }
 
-  if (user.backer.tier) {
+  if (user.backer && user.backer.tier) {
     result.push({
       title: i18n.t('kickstartName', {tier: user.backer.tier}, language),
       text: i18n.t('kickstartText', language),
