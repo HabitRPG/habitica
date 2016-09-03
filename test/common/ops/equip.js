@@ -38,19 +38,19 @@ describe('shared.ops.equip', () => {
 
       // one-handed to one-handed
       let [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
 
       // one-handed to two-handed
       [, message] = equip(user, {params: {key: 'weapon_wizard_1'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
 
       // two-handed to two-handed
       [, message] = equip(user, {params: {key: 'weapon_wizard_2'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
 
       // two-handed to one-handed
       [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
     });
 
     it('should send messages if equipping a two-hander causes the off-hander to be unequipped', () => {

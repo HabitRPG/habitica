@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "あなたの表示名、プロフィル写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティー ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください(例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など)。適切な事象なのかどうかについてのご質問は、お気軽に <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a> へメールをお寄せください!",
+    "communityGuidelinesWarning": "あなたの表示名、プロフィル写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティー ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください(例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など)。適切かどうかについてのご質問は、お気軽に <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a> へメールをお寄せください!",
     "statsAch": "ステータスと実績",
     "profile": "プロフィール",
     "avatar": "アバターのカスタマイズ",
@@ -121,7 +121,7 @@
     "classAllocation": "クラス基準でポイントを割りあてる",
     "classAllocationPop": "あなたのクラスにとって重要な能力値に、多めにポイントを割りあてます。",
     "taskAllocation": "タスクの実践基準でポイントを割りあてる",
-    "taskAllocationPop": "達成するタスクに関連して、肉体的 (力)、知的(知能) 、社会的(体質)、そして、その他(知覚)にポイントを割りあてます。",
+    "taskAllocationPop": "達成したタスクの分類に関連して、肉体的 (力)、知的(知能) 、社会的(体質)、そして、その他(知覚)にポイントを割りあてます。",
     "distributePoints": "未割りあてのポイントをふりわける",
     "distributePointsPop": "選択した方法にもとづいて、すべての未割りあてポイントをふりわけます。",
     "warriorText": "戦士はタスクを完了したときに、「会心の一撃」が出やすく、その効果も高い。「会心の一撃」が出ると、ゴールド、経験値、アイテムドロップの確率にボーナスがつきます。また、戦士はボスに大きなダメージを与えます。予測できない一攫千金タイプの報酬でやる気が出る、もしくはボス クエストで活躍したいなら、戦士でプレーしましょう!",

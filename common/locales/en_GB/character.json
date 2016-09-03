@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Stats & Achievements",
     "profile": "Profile",
     "avatar": "Customise Avatar",
@@ -121,7 +121,7 @@
     "classAllocation": "Distribute points based on Class",
     "classAllocationPop": "Assigns more points to the attributes important to your Class.",
     "taskAllocation": "Distribute points based on task activity",
-    "taskAllocationPop": "Assigns points based on the Physical (Strength), Mental (Intelligence), Social (Constitution), and Other (Perception) categories associated with the tasks you complete.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Distribute Unallocated Points",
     "distributePointsPop": "Assigns all unallocated attribute points according to the selected allocation scheme.",
     "warriorText": "Warriors score more and better \"critical hits\", which randomly give bonus Gold, Experience, and drop chance for scoring a task. They also deal heavy damage to boss monsters. Play a Warrior if you find motivation from unpredictable jackpot-style rewards, or want to dish out the hurt in boss Quests!",

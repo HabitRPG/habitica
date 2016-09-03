@@ -335,5 +335,11 @@
     "questTurtleCompletion": "你勇敢的行为清扫了水体，海龟能找到她的海滩了。你，@Bambin和@JaizakAripaik看着她把一窝的蛋埋在沙中，他们会成长并孵化出成百上千个小海龟。海龟小姐，她给了你三个蛋，请求你喂养并且教育他们，直到他们自己成为大海龟的那一天。",
     "questTurtleBoss": "任务漂浮物",
     "questTurtleDropTurtleEgg": "海龟(宠物蛋)",
-    "questTurtleUnlockText": "解锁海龟蛋购买功能"
+    "questTurtleUnlockText": "解锁海龟蛋购买功能",
+    "questArmadilloText": "放纵的犰狳",
+    "questArmadilloNotes": "是时候出门开始你新的一天了。你摇晃着打开门却撞见了一个看起来像一堆岩石的东西。“我给你一天的休假！”压抑的声音从被挡住的门后传来。“别像个无赖，今天就休息吧！”<br><br>突然,，@Beffymaroo 和 @PainterProphet敲了敲你的窗户。“看起来那只放纵的犰狳喜欢上你了！来吧，我们会让她离开你的！”",
+    "questArmadilloCompletion": "最后，在一个漫长的早晨，你劝说放纵的犰狳你事实上很想去工作，之后她终于妥协了。“我很抱歉！”她道歉道。“我只是想要帮忙。我以为每个人都喜欢懒散的一天！”<br><br>你微笑着，并告诉她，下次你休假的时候你会再次邀请她。她对你露齿而笑。路人 @Tipsy 和 @krajzega 祝贺你在她离开后能好好的工作，她还留下了一些蛋作为歉礼。",
+    "questArmadilloBoss": "放纵的犰狳",
+    "questArmadilloDropArmadilloEgg": "犰狳(蛋)",
+    "questArmadilloUnlockText": "解锁犰狳蛋购买功能"
 }

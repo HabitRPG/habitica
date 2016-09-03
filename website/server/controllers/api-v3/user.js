@@ -1138,8 +1138,7 @@ api.userRebirth = {
 };
 
 /**
- * @api {post} /api/v3/user/block/:uuid Block and unblock a user
- * @apiDescription Must be an admin to make this request.
+ * @api {post} /api/v3/user/block/:uuid Block / unblock a user from sending you a PM
  * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User

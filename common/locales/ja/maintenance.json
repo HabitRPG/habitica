@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "ご心配なく!　Habiticaはすぐに復旧します!",
-  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
+  "importantMaintenance": "重要な保守作業の実施中です。日本時間で午後 2 時(UTC 午前 5 時) までには完了する見積もりです。",
   "maintenance": "メンテナンス",
   "maintenanceMoreInfo": "メンテナンスについてのより詳しい情報が必要ですか?　<%= linkStart %>公式情報をご参照ください<%= linkEnd %>。",
   "noDamageKeepStreaks": "ダメージを受けませんし、連続実行も途切れません!",

@@ -75,8 +75,8 @@
     "shipSoothsayerSet": "Предсказатель корабля (Маг)",
     "strappingSailorSet": "Здоровый матрос (Целитель)",
     "reefRenegadeSet": "Предатель Рифа (Разбойник)",
-    "fallEventAvailability": "Available for purchase until October 31.",
-    "winterEventAvailability": "Available for purchase until December 31.",
-    "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "fallEventAvailability": "Можно купить до 31 октября.",
+    "winterEventAvailability": "Можно купить до 31 декабря.",
+    "springEventAvailability": "Можно купить до 31 мая.",
+    "summerEventAvailability": "Можно купить до 31 августа."
 }

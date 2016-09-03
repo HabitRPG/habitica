@@ -29,6 +29,7 @@
     "messageFoundQuest": "Kamu menemukan misi \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Kamu pernah membeli perlengkapan ini, tetapi sekarang tidak memilikinya. Kamu bisa membelinya lagi di kolom hadiah pada halaman tugas.",
     "messageAlreadyOwnGear": "Kamu sudah memiliki item ini. Kamu bisa memakainya dengan pergi ke halaman perlengkapan.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> Kamu menemukan bagian dari perlengkapan yang langka di Armoire: <%= dropText %>! Keren!",
     "armoireFood": "<%= image %> Kamu mengobrak-abrik Airmore dan menemukan <%= dropArticle %><%= dropText %>. Kenapa bisa ada di sini?",
     "armoireExp": "Kamu menghajar Armoire dan mendapatkan Pengalaman. Rasakan itu!",

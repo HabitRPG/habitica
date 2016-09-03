@@ -408,6 +408,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.turtle != null) > 0;
     }),
   },
+  Armadillo: {
+    text: t('questEggArmadilloText'),
+    adjective: t('questEggArmadilloAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.armadillo != null) > 0;
+    }),
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -537,9 +544,6 @@ api.premiumHatchingPotions = {
     text: t('hatchingPotionThunderstorm'),
     limited: true,
     _season: 'summer',
-    canBuy: (function() {
-      return true;
-    }),
   },
 };
 
@@ -2791,6 +2795,38 @@ api.quests = {
       gp: 25,
       exp: 125,
       unlock: t('questTurtleUnlockText'),
+    },
+  },
+  armadillo: {
+    text: t('questArmadilloText'),
+    notes: t('questArmadilloNotes'),
+    completion: t('questArmadilloCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questArmadilloBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questArmadilloUnlockText'),
     },
   },
 };

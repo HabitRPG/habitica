@@ -67,19 +67,19 @@ describe('shared.ops.unlock', () => {
   });
 
   it('equips an item already owned', () => {
-    expect(user.purchased.background.giant_florals).to.not.exists;
+    expect(user.purchased.background.giant_florals).to.not.exist;
 
     unlock(user, {query: {path: backgroundUnlockPath}});
     let afterBalance = user.balance;
     let response = unlock(user, {query: {path: backgroundUnlockPath}});
     expect(user.balance).to.equal(afterBalance); // do not bill twice
 
-    expect(response.message).to.not.exists;
+    expect(response.message).to.not.exist;
     expect(user.preferences.background).to.equal('giant_florals');
   });
 
   it('un-equips an item already equipped', () => {
-    expect(user.purchased.background.giant_florals).to.not.exists;
+    expect(user.purchased.background.giant_florals).to.not.exist;
 
     unlock(user, {query: {path: backgroundUnlockPath}}); // unlock
     let afterBalance = user.balance;
@@ -87,7 +87,7 @@ describe('shared.ops.unlock', () => {
     let response = unlock(user, {query: {path: backgroundUnlockPath}});
     expect(user.balance).to.equal(afterBalance); // do not bill twice
 
-    expect(response.message).to.not.exists;
+    expect(response.message).to.not.exist;
     expect(user.preferences.background).to.equal('');
   });
 
