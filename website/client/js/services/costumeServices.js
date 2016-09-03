@@ -16,20 +16,21 @@
         egg: tmp[0],
         potion: tmp[1]
       };
-      data.isBasic = Boolean(Content.hatchingPotions[data.potion]);
+      data.isSpecial = !Content.hatchingPotions[data.potion];
       return data;
     }
     
     function formatAnimal(name, type) {
       var info = animalInfo(name, type);
-      if(info.isBasic) {
+      if(!info.isSpecial) {
         var animal = {
           potion: Content.hatchingPotions[info.potion].text()
         };
         animal[type === 'pet' ? 'egg' : 'mount'] = Content.eggs[info.egg].text();
         return window.env.t(type+'Name', animal);
       } else {
-        return type === 'pet' ? window.env.t(Content.specialPets[name]) : window.env.t(Content.specialMounts[name]);
+        var capitalizedType = type.charAt(0).toUpperCase() + type.slice(1); // pet -> Pet, mount -> Mount
+        return window.env.t(Content['special' + capitalizedType + 's'][name]);
       }
     }
 
@@ -43,9 +44,13 @@
     function formatBackground(background) {
       var backgrounds = Content.backgrounds;
       for (var set in backgrounds) {
-        for (var bg in backgrounds[set]) {
-          if (background === bg) {
-            return bgString(set, bg);
+        if (backgrounds.hasOwnProperty(set)) {
+          for (var bg in backgrounds[set]) {
+            if (backgrounds[set].hasOwnProperty(bg)) {
+              if (background === bg) {
+                return bgString(set, bg);
+              }
+            }
           }
         }
       }
