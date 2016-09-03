@@ -22,6 +22,12 @@ let schema = new Schema({
     facebook: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    google: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
+    twitter: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     local: {
       email: {
         type: String,

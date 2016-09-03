@@ -95,14 +95,30 @@ function _populateDefaultsForNewUser (user) {
   return _populateDefaultTasks(user, taskTypes);
 }
 
+function _getFacebookName (fb) {
+  if (!fb) {
+    return;
+  }
+  let possibleName = fb.displayName || fb.name || fb.username;
+
+  if (possibleName) {
+    return possibleName;
+  }
+
+  if (fb.first_name && fb.last_name) {
+    return `${fb.first_name} ${fb.last_name}`;
+  }
+}
+
 function _setProfileName (user) {
-  let fb = user.auth.facebook;
+  let google = user.auth.google;
 
   let localUsername = user.auth.local && user.auth.local.username;
-  let facebookUsername = fb && (fb.displayName || fb.name || fb.username || `${fb.first_name && fb.first_name} ${fb.last_name}`);
+  let facebookUsername = _getFacebookName(user.auth.facebook);
+  let googleUsername = google && google.displayName;
   let anonymous = 'Anonymous';
 
-  return localUsername || facebookUsername || anonymous;
+  return localUsername || facebookUsername || googleUsername || anonymous;
 }
 
 schema.pre('save', true, function preSaveUser (next, done) {

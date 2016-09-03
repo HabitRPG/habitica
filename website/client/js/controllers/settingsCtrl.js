@@ -2,13 +2,19 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', '$compile',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, $compile) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, Social, $compile) {
     var RELEASE_ANIMAL_TYPES = {
       pets: 'releasePets',
       mounts: 'releaseMounts',
       both: 'releaseBoth',
     };
+
+    var SOCIAL_AUTH_NETWORKS = [
+      {key: 'facebook', name: 'Facebook'},
+      {key: 'google', name: 'Google'},
+    ];
+    $scope.SOCIAL_AUTH_NETWORKS = SOCIAL_AUTH_NETWORKS;
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -286,6 +292,37 @@ habitrpg.controller('SettingsCtrl',
       var numberOfHourglasses = Content.subscriptionBlocks[subscription.key].months / 3;
       return Math.floor(numberOfHourglasses);
     };
+
+    $scope.hasSocialAuth = function(user) {
+      for (let id in SOCIAL_AUTH_NETWORKS) {
+        let network = SOCIAL_AUTH_NETWORKS[id];
+        if (user.auth.hasOwnProperty(network.key)) {
+          if (user.auth[network.key].id) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    $scope.hasBackupAuthOption = function(user, checkedNetworkKey) {
+      if (user.auth.local.username) {
+        return true;
+      }
+      for (let id in SOCIAL_AUTH_NETWORKS) {
+        let network = SOCIAL_AUTH_NETWORKS[id];
+        if (network.key !== checkedNetworkKey) {
+          if (user.auth.hasOwnProperty(network.key)) {
+            if (user.auth[network.key].id) {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    };
+
+    $scope.socialLogin = Social.socialLogin;
 
     function _calculateNextCron() {
       $scope.dayStart;

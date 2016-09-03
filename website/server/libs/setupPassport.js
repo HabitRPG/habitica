@@ -1,8 +1,10 @@
 import passport from 'passport';
 import nconf from 'nconf';
 import passportFacebook from 'passport-facebook';
+import passportGoogle from 'passport-google-oauth20';
 
 const FacebookStrategy = passportFacebook.Strategy;
+const GoogleStrategy = passportGoogle.Strategy;
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -21,4 +23,9 @@ passport.use(new FacebookStrategy({
   clientID: nconf.get('FACEBOOK_KEY'),
   clientSecret: nconf.get('FACEBOOK_SECRET'),
   // callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
+}, (accessToken, refreshToken, profile, done) => done(null, profile)));
+
+passport.use(new GoogleStrategy({
+  clientID: nconf.get('GOOGLE_CLIENT_ID'),
+  clientSecret: nconf.get('GOOGLE_CLIENT_SECRET'),
 }, (accessToken, refreshToken, profile, done) => done(null, profile)));
