@@ -24,7 +24,7 @@ function contribText (contrib, backer, language) {
       contribTitle = i18n.t('heroic', language);
     }
 
-    return contribTitle + ' ' + contrib.text;
+    return `${contribTitle} ${contrib.text}`;
   }
 }
 
@@ -62,15 +62,15 @@ function _addSimple (result, user, data) {
 
 function _addSimpleWithMasterCount (result, user, data) {
   let language = data.language;
-  let value = user.achievements[data.key + 'Count'];
+  let value = user.achievements[`${data.key}Count`];
 
-  let text = i18n.t(data.key + 'Text', language);
-  if (value == 0) {
-    text += i18n.t(data.key + 'Text2', {count: value}, language);
+  let text = i18n.t(`${data.key}Text`, language);
+  if (value === 0) {
+    text += i18n.t(`${data.key}Text2`, {count: value}, language);
   }
 
   result.push({
-    title: i18n.t(data.key + 'Name', language),
+    title: i18n.t(`${data.key}Name`, language),
     text,
     icon: data.icon,
     category: data.category,
@@ -86,8 +86,8 @@ function _addSimpleWithCount (result, user, data) {
 
   if (!data.labels) {
     data.labels = {
-      title: data.key + 'Name',
-      text: data.key + 'Text',
+      title: `${data.key}Name`,
+      text: `${data.key}Text`,
     };
   }
 
@@ -116,11 +116,11 @@ function _addPlural (result, user, data) {
 
   if (!data.labels) {
     data.labels = {
-      singularTitle: data.key + 'Singular',
-      singularText: data.key + 'SingularText',
+      singularTitle: `${data.key}Singular`,
+      singularText: `${data.key}SingularText`,
 
-      pluralTitle: data.key + 'Name',
-      pluralText: data.key + 'Text',
+      pluralTitle: `${data.key}Name`,
+      pluralText: `${data.key}Text`,
     };
   }
 
@@ -150,14 +150,14 @@ function _addUltimateGear (result, user, data) {
   let value = user.achievements.ultimateGearSets[data.altKey];
 
   let title = i18n.t('ultimGearName', {ultClass: i18n.t(data.key, data.language)}, data.language);
-  let text = i18n.t(data.key + 'UltimGearText', data.language);
+  let text = i18n.t(`${data.key}UltimGearText`, data.language);
 
   result.push({
     title,
     text,
     icon: data.icon,
     category: data.category,
-    key: 'ultimateGear' + data.key,
+    key: `ultimateGear${data.key}`,
     value,
     earned: Boolean(value),
   });
@@ -248,7 +248,8 @@ achievs.getBasicAchievements = function getBasicAchievements (user, language) {
     language,
   });
 
-  let rebirthTitle, rebirthText;
+  let rebirthTitle;
+  let rebirthText;
 
   if (user.achievements.rebirths > 1) {
     rebirthTitle = i18n.t('rebirthText', {rebirths: user.achievements.rebirths}, language);
@@ -274,7 +275,7 @@ achievs.getBasicAchievements = function getBasicAchievements (user, language) {
   });
 
   return result;
-}
+};
 
 achievs.getSeasonalAchievements = function getSeasonalAchievements (user, language) {
   let result = [];
@@ -309,7 +310,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
     key: 'snowball',
     icon: 'achievement-snowball',
     category: 'Seasonal',
-    labels:{
+    labels: {
       title: 'annoyingFriends',
       text: 'annoyingFriendsText',
     },
@@ -320,7 +321,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
     key: 'spookySparkles',
     icon: 'achievement-spookySparkles',
     category: 'Seasonal',
-    labels:{
+    labels: {
       title: 'alarmingFriends',
       text: 'alarmingFriendsText',
     },
@@ -331,7 +332,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
     key: 'shinySeed',
     icon: 'achievement-shinySeed',
     category: 'Seasonal',
-    labels:{
+    labels: {
       title: 'agriculturalFriends',
       text: 'agriculturalFriendsText',
     },
@@ -342,7 +343,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
     key: 'seafoam',
     icon: 'achievement-seafoam',
     category: 'Seasonal',
-    labels:{
+    labels: {
       title: 'aquaticFriends',
       text: 'aquaticFriendsText',
     },
@@ -352,7 +353,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
   _addQuest(result, user, {
     key: 'dilatory',
     icon: 'achievement-dilatory',
-    category: 'Seasonal',    
+    category: 'Seasonal',
     title: 'achievementDilatory',
     text: 'achievementDilatoryText',
     language,
@@ -361,7 +362,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
   _addQuest(result, user, {
     key: 'stressbeast',
     icon: 'achievement-stoikalm',
-    category: 'Seasonal',    
+    category: 'Seasonal',
     title: 'achievementStressbeast',
     text: 'achievementStressbeastText',
     language,
@@ -370,7 +371,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
   _addQuest(result, user, {
     key: 'burnout',
     icon: 'achievement-burnout',
-    category: 'Seasonal',    
+    category: 'Seasonal',
     title: 'achievementBurnout',
     text: 'achievementBurnoutText',
     language,
@@ -379,7 +380,7 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
   _addQuest(result, user, {
     key: 'bewilder',
     icon: 'achievement-bewilder',
-    category: 'Seasonal',    
+    category: 'Seasonal',
     title: 'achievementBewilder',
     text: 'achievementBewilderText',
     language,
@@ -402,21 +403,21 @@ achievs.getSeasonalAchievements = function getSeasonalAchievements (user, langua
 
   cardAchievements.forEach(key => {
     _addSimpleWithCount(result, user, {
-      key: key,
-      icon: 'achievement-' + key,
+      key,
+      icon: `achievement-${key}`,
       category: 'Seasonal',
-      labels:{
-        title: key + 'CardAchievementTitle',
-        text: key + 'CardAchievementText',
+      labels: {
+        title: `${key}CardAchievementTitle`,
+        text: `${key}CardAchievementText`,
       },
       language,
     });
   });
 
   return result;
-}
+};
 
-achievs.getSpecialAchievements = function getSpecialAchievements(user, language) {
+achievs.getSpecialAchievements = function getSpecialAchievements (user, language) {
   let result = [];
 
   _addPlural(result, user, {
@@ -498,15 +499,15 @@ achievs.getSpecialAchievements = function getSpecialAchievements(user, language)
   }
 
   return result;
-}
+};
 
 // Build and return the given user's achievement data.
 achievs.getAchievementsForProfile = function getAchievementsForProfile (user, language) {
-  let result = getBasicAchievements(user, language);
-  result = _.concat(result, getSeasonalAchievements(user, language));
-  result = _.concat(result, getSpecialAchievements(user, language));
+  let result = achievs.getBasicAchievements(user, language);
+  result = _.concat(result, achievs.getSeasonalAchievements(user, language));
+  result = _.concat(result, achievs.getSpecialAchievements(user, language));
 
   return result;
-}
+};
 
 module.exports = achievs;

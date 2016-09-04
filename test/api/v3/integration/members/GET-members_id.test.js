@@ -73,10 +73,10 @@ describe('GET /members/:memberId/achievements', () => {
   it('returns contributor and tier achievements', async () => {
     let member = await generateUser({ // make sure user has all the fields that can be returned by the getMember call
       contributor: {level: 1},
-      backer: {tier: 3}
+      backer: {tier: 3},
     });
     let achievementsRes = await user.get(`/members/${member._id}/achievements`);
-    
+
     expect(achievementsRes.contributor.earned).to.equal(true);
     expect(achievementsRes.contributor.value).to.equal(1);
 
