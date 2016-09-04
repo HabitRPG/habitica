@@ -294,8 +294,8 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.hasSocialAuth = function(user) {
-      for (let id in SOCIAL_AUTH_NETWORKS) {
-        let network = SOCIAL_AUTH_NETWORKS[id];
+      for (var id in SOCIAL_AUTH_NETWORKS) {
+        var network = SOCIAL_AUTH_NETWORKS[id];
         if (user.auth.hasOwnProperty(network.key)) {
           if (user.auth[network.key].id) {
             return true;
@@ -309,8 +309,8 @@ habitrpg.controller('SettingsCtrl',
       if (user.auth.local.username) {
         return true;
       }
-      for (let id in SOCIAL_AUTH_NETWORKS) {
-        let network = SOCIAL_AUTH_NETWORKS[id];
+      for (var id in SOCIAL_AUTH_NETWORKS) {
+        var network = SOCIAL_AUTH_NETWORKS[id];
         if (network.key !== checkedNetworkKey) {
           if (user.auth.hasOwnProperty(network.key)) {
             if (user.auth[network.key].id) {
