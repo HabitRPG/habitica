@@ -294,14 +294,11 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.hasSocialAuth = function(user) {
-      for (var id in SOCIAL_AUTH_NETWORKS) {
-        var network = SOCIAL_AUTH_NETWORKS[id];
+      SOCIAL_AUTH_NETWORKS.forEach(function (network) {
         if (user.auth.hasOwnProperty(network.key)) {
-          if (user.auth[network.key].id) {
-            return true;
-          }
+          return Boolean(user.auth[network.key].id)
         }
-      }
+      });
       return false;
     };
 
@@ -309,8 +306,7 @@ habitrpg.controller('SettingsCtrl',
       if (user.auth.local.username) {
         return true;
       }
-      for (var id in SOCIAL_AUTH_NETWORKS) {
-        var network = SOCIAL_AUTH_NETWORKS[id];
+      SOCIAL_AUTH_NETWORKS.forEach(function (network) {
         if (network.key !== checkedNetworkKey) {
           if (user.auth.hasOwnProperty(network.key)) {
             if (user.auth[network.key].id) {
@@ -318,7 +314,7 @@ habitrpg.controller('SettingsCtrl',
             }
           }
         }
-      }
+      });
       return false;
     };
 

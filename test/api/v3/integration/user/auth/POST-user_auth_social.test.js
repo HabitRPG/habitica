@@ -97,7 +97,7 @@ describe('POST /user/auth/social', () => {
     });
 
     it('logs an existing user in', async () => {
-      await user.update({ 'auth.facebook.id': facebookId });
+      await user.update({ 'auth.google.id': googleId });
 
       let response = await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase

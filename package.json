@@ -76,7 +76,6 @@
     "passport": "~0.2.1",
     "passport-facebook": "2.0.0",
     "passport-google-oauth20": "1.0.0",
-    "passport-twitter": "1.0.4",
     "paypal-ipn": "3.0.0",
     "paypal-rest-sdk": "^1.2.1",
     "pretty-data": "^0.40.0",

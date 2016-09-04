@@ -6,10 +6,10 @@
     .factory('Social', socialFactory);
 
   socialFactory.$inject = [
-    '$http'
+    '$http','ApiUrl'
   ];
 
-  function socialFactory($http) {
+  function socialFactory($http, ApiUrl) {
 
     function loadWidgets() {
       // Facebook
@@ -47,8 +47,8 @@
           .success(function(res, status, headers, config) {
             runAuth(res.data.id, res.data.apiToken);
           }).error(errorAlert);
-      }, function( e ){
-        alert("Signin error: " + e.message );
+      }, function( err ){
+        alert("Signin error: " + err.message );
       });
     };
 

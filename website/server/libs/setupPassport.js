@@ -1,10 +1,7 @@
 import passport from 'passport';
 import nconf from 'nconf';
-import passportFacebook from 'passport-facebook';
-import passportGoogle from 'passport-google-oauth20';
-
-const FacebookStrategy = passportFacebook.Strategy;
-const GoogleStrategy = passportGoogle.Strategy;
+import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to

@@ -21,6 +21,8 @@ import { decrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
 
+const SUPPORTED_SOCIAL_NETWORKS = Object.freeze(['facebook', 'google']);
+
 let api = {};
 
 // When the user signed up after having been invited to a group, invite them automatically to the group
@@ -227,37 +229,17 @@ api.loginLocal = {
   },
 };
 
-const supportedSocialNetworks = ['facebook', 'google'];
-
-function _passportFbProfile (accessToken) {
-  return new Bluebird((resolve, reject) => {
-    passport._strategies.facebook.userProfile(accessToken, (err, profile) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(profile);
-      }
-    });
-  });
-}
-
-function _passportGoogleProfile (accessToken) {
-  return new Bluebird((resolve, reject) => {
-    passport._strategies.google.userProfile(accessToken, (err, profile) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(profile);
-      }
-    });
-  });
-}
-
 function _passportProfile (network, accessToken) {
-  if (network === 'facebook') {
-    return _passportFbProfile(accessToken);
-  } else if (network === 'google') {
-    return _passportGoogleProfile(accessToken);
+  if (network in SUPPORTED_SOCIAL_NETWORKS) {
+    return new Promise.promisify((resolve, reject) => {
+      passport._strategies[network].userProfile(accessToken, (err, profile) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(profile);
+        }
+      });
+    });
   }
 }
 
@@ -270,7 +252,7 @@ api.loginSocial = {
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
 
-    if (supportedSocialNetworks.indexOf(network) === -1) throw new NotAuthorized(res.t('unsupportedNetwork'));
+    if (SUPPORTED_SOCIAL_NETWORKS.indexOf(network) === -1) throw new BadRequest(res.t('unsupportedNetwork'));
 
 
     let profile = await _passportProfile(network, accessToken);
@@ -609,10 +591,11 @@ api.deleteSocial = {
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;
-    if (supportedSocialNetworks.indexOf(network) === -1) throw new NotAuthorized(res.t('unsupportedNetwork'));
+    if (SUPPORTED_SOCIAL_NETWORKS.indexOf(network) === -1) throw new BadRequest(res.t('unsupportedNetwork'));
     if (!user.auth.local.username) throw new NotAuthorized(res.t('cantDetachSocial'));
-    let unset = {};
-    unset[`auth.${network}`] = 1;
+    let unset = {
+      [`auth.${network}`]: 1,
+    };
     await User.update({_id: user._id}, {$unset: unset}).exec();
 
     res.respond(200, {});
