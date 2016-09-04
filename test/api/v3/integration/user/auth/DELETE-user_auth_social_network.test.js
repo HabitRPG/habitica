@@ -12,12 +12,12 @@ describe('DELETE social registration', () => {
     expect(user.auth.local.username).to.not.be.empty;
     expect(user.auth.facebook).to.not.be.empty;
   });
-  context('of NOT-FACEBOOK', () => {
+  context('of NOT-SUPPORTED', () => {
     it('is not supported', async () => {
       await expect(user.del('/user/auth/social/SOME-OTHER-NETWORK')).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('onlyFbSupported'),
+        message: t('unsupportedNetwork'),
       });
     });
   });
@@ -27,7 +27,7 @@ describe('DELETE social registration', () => {
       await expect(user.del(endpoint)).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('cantDetachFb'),
+        message: t('cantDetachSocial'),
       });
     });
     it('succeeds', async () => {
