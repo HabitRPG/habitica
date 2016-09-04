@@ -4,9 +4,9 @@ root = true
 # All files:
 # utf-8
 # Unix-style newlines
-# Remove end-of-file newlines
+# Ensure end-of-file newline
 # Soft indents (2 spaces)
-# Don't trim trailing whitespace
+# Trim trailing whitespace
 [*]
 charset = utf-8
 end_of_line = lf
@@ -14,3 +14,8 @@ insert_final_newline = true
 indent_style = space
 indent_size = 2
 trim_trailing_whitespace = true
+
+# Jade/Pug files:
+# Don't trim trailing whitespace
+[*.jade]
+trim_trailing_whitespace = false
