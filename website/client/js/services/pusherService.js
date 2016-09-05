@@ -58,8 +58,6 @@ angular.module('habitrpg')
         api.socketId = api.pusher.connection.socket_id;
       });
 
-      if (!partyId) return;
-
       var partyChannelName = 'presence-group-' + partyId;
       var partyChannel = api.pusher.subscribe(partyChannelName);
 
@@ -132,7 +130,7 @@ angular.module('habitrpg')
 
       // Connect the user to Pusher and to the party's chat channel
       partyId = user && $rootScope.user.party && $rootScope.user.party._id;
-      // if (!partyId) return;
+      if (!partyId) return;
 
       // See if another tab is already connected to Pusher
       if (!localStorage.getItem(tabIdKey)) {
