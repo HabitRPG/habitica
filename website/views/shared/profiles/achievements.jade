@@ -15,27 +15,14 @@ if mobile
   .item.item-divider=env.t('achievements')
 
 .container-fluid
-  .row: .col-md-12
-    h4=env.t('basicAchievs')
-    menu.pets.inventory-list(type='list')
-      li.customize-menu
-        menu
-          div(ng-repeat='achiev in basicAchievements')
-            +simpleAchiev('achiev')
-  .row: .col-md-12
-    h4=env.t('seasonalAchievs')
-    menu.pets.inventory-list(type='list')
-      li.customize-menu
-        menu
-          div(ng-repeat='achiev in seasonalAchievements')
-            +simpleAchiev('achiev')
-  .row: .col-md-12
-    h4=env.t('specialAchievs')
-    menu.pets.inventory-list(type='list')
-      li.customize-menu
-        menu
-          div(ng-repeat='achiev in specialAchievements')
-            +simpleAchiev('achiev')
+  .row
+    .col-md-12(ng-repeat='(key,cat) in achievements', ng-init='heading=env.t(key+"Achievs")')
+      h4 {{heading}}
+      menu.pets.inventory-list(type='list')
+        li.customize-menu
+          menu
+            div(ng-repeat='achiev in cat.achievements')
+              +simpleAchiev('achiev')
 
 hr
 

@@ -18,9 +18,7 @@ habitrpg
         if(member) {
           $scope.profile = member;
 
-          $scope.basicAchievements = Shared.achievs.getBasicAchievements($scope.profile);
-          $scope.seasonalAchievements = Shared.achievs.getSeasonalAchievements($scope.profile);
-          $scope.specialAchievements = Shared.achievs.getSpecialAchievements($scope.profile);
+          $scope.achievements = Shared.achievs.getAchievementsForProfile($scope.profile);
         }
       });
 
