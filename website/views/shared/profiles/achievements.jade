@@ -2,7 +2,8 @@ mixin simpleAchiev(achiev)
   div(popover-title='{{achiev.title}}',
     data-popover-html='{{achiev.text}}',
     popover-trigger='mouseenter',
-    popover-placement='bottom')&attributes(attributes)
+    popover-placement='left',
+    popover-append-to-body='true')&attributes(attributes)
 
     button.pet-button
       .achievement(ng-class='achiev.icon + "2x"', ng-if='achiev.earned')
