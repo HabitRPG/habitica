@@ -272,7 +272,7 @@ function _getBasicAchievements (user, language) {
   });
 
   return result;
-};
+}
 
 function _getSeasonalAchievements (user, language) {
   let result = {};
@@ -401,7 +401,7 @@ function _getSeasonalAchievements (user, language) {
   });
 
   return result;
-};
+}
 
 function _getSpecialAchievements (user, language) {
   let result = {};
@@ -479,22 +479,22 @@ function _getSpecialAchievements (user, language) {
   }
 
   return result;
-};
+}
 
 // Build and return the given user's achievement data.
 achievs.getAchievementsForProfile = function getAchievementsForProfile (user, language) {
   let result = {
-    'basic': {
-      'label': 'Basic',
-      'achievements': _getBasicAchievements(user, language),
+    basic: {
+      label: 'Basic',
+      achievements: _getBasicAchievements(user, language),
     },
-    'seasonal': {
-      'label': 'Seasonal',
-      'achievements': _getSeasonalAchievements(user, language),
+    seasonal: {
+      label: 'Seasonal',
+      achievements: _getSeasonalAchievements(user, language),
     },
-    'special': {
-      'label': 'Special',
-      'achievements': _getSpecialAchievements(user, language),
+    special: {
+      label: 'Special',
+      achievements: _getSpecialAchievements(user, language),
     },
   };
 

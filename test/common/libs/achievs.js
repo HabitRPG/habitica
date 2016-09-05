@@ -7,7 +7,7 @@ describe('achievs', () => {
   describe('general well-formedness', () => {
     let user = generateUser();
     let achievements = shared.achievs.getAchievementsForProfile(user);
-    
+
     it('each category has \'label\' and \'achievements\' fields', () => {
       _.each(achievements, (category) => {
         expect(category).to.have.property('label')
@@ -16,7 +16,7 @@ describe('achievs', () => {
           .that.is.a('object');
       });
     });
-    
+
     it('each achievement has all required fields', () => {
       _.each(achievements, (category) => {
         _.each(category.achievements, (achiev) => {
@@ -44,7 +44,7 @@ describe('achievs', () => {
         });
       });
     });
-    
+
     it('all categories have at least 1 achievement', () => {
       _.each(achievements, (category) => {
         expect(_.size(category.achievements)).to.be.greaterThan(0);
@@ -93,9 +93,9 @@ describe('achievs', () => {
       expect(triadBingo).to.have.property('optionalCount')
         .that.is.a('number');
     });
-    
+
     it('ultimate gear achievements exist with no counts', () => {
-      let gearTypes = ['healer','rogue','warrior','mage'];
+      let gearTypes = ['healer', 'rogue', 'warrior', 'mage'];
       gearTypes.forEach((gear) => {
         let gearAchiev = basicAchievs[`${gear}UltimateGear`];
 
@@ -103,7 +103,7 @@ describe('achievs', () => {
         expect(gearAchiev.optionalCount).to.be.undefined;
       });
     });
-    
+
     it('rebirth achievement exists with no count', () => {
       let rebirth = basicAchievs.rebirth;
 
@@ -129,7 +129,7 @@ describe('achievs', () => {
     });
 
     it('spell achievements exist with counts', () => {
-      let spellTypes = ['snowball','spookySparkles','shinySeed','seafoam'];
+      let spellTypes = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
       spellTypes.forEach((spell) => {
         let spellAchiev = seasonalAchievs[spell];
 
@@ -140,7 +140,7 @@ describe('achievs', () => {
     });
 
     it('quest achievements exist with counts', () => {
-      let quests = ['dilatory','stressbeast','burnout','bewilder'];
+      let quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
       quests.forEach((quest) => {
         let questAchiev = seasonalAchievs[`${quest}Quest`];
 
@@ -148,7 +148,7 @@ describe('achievs', () => {
         expect(questAchiev.optionalCount).to.be.undefined;
       });
     });
-    
+
     it('costumeContests achievement exists with count', () => {
       let costumeContests = seasonalAchievs.costumeContests;
 
