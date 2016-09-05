@@ -70,18 +70,18 @@ describe('GET /members/:memberId/achievements', () => {
     });
   });
 
-  it('returns contributor and tier achievements', async () => {
+  it('returns contributor and kickstarter achievements', async () => {
     let member = await generateUser({ // make sure user has all the fields that can be returned by the getMember call
       contributor: {level: 1},
       backer: {tier: 3},
     });
     let achievementsRes = await user.get(`/members/${member._id}/achievements`);
 
-    expect(achievementsRes.contributor.earned).to.equal(true);
-    expect(achievementsRes.contributor.value).to.equal(1);
+    expect(achievementsRes.special.achievements.contributor.earned).to.equal(true);
+    expect(achievementsRes.special.achievements.contributor.value).to.equal(1);
 
-    expect(achievementsRes.tier.earned).to.equal(true);
-    expect(achievementsRes.tier.value).to.equal(3);
+    expect(achievementsRes.special.achievements.kickstarter.earned).to.equal(true);
+    expect(achievementsRes.special.achievements.kickstarter.value).to.equal(3);
   });
 
   it('handles non-existing members', async () => {
