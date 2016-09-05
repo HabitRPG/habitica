@@ -21,7 +21,7 @@ if mobile
       menu.pets.inventory-list(type='list')
         li.customize-menu
           menu
-            div(ng-repeat='achiev in cat.achievements')
+            div(ng-repeat='achiev in cat.achievements | toArray | orderBy: "index"')
               +simpleAchiev('achiev')
 
 hr

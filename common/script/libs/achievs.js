@@ -1,6 +1,7 @@
 import i18n from '../i18n';
 
 let achievs = {};
+let index;
 
 function contribText (contrib, backer, language) {
   if (!contrib && !backer) return;
@@ -34,6 +35,7 @@ function _add (result, data) {
     icon: data.icon,
     earned: data.earned,
     value: data.value,
+    index: index++,
     optionalCount: data.optionalCount,
   };
 }
@@ -483,6 +485,7 @@ function _getSpecialAchievements (user, language) {
 
 // Build and return the given user's achievement data.
 achievs.getAchievementsForProfile = function getAchievementsForProfile (user, language) {
+  index = 0;
   let result = {
     basic: {
       label: 'Basic',

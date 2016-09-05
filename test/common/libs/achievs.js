@@ -17,11 +17,16 @@ describe('achievs', () => {
       });
     });
 
-    it('each achievement has all required fields', () => {
+    it('each achievement has all required fields of correct types', () => {
       _.each(achievements, (category) => {
         _.each(category.achievements, (achiev) => {
           // May have additional fields (such as 'value' and 'optionalCount').
-          expect(achiev).to.contain.all.keys(['title', 'text', 'icon', 'earned']);
+          expect(achiev).to.contain.all.keys(['title', 'text', 'icon', 'earned', 'index']);
+          expect(achiev.title).to.be.a('string');
+          expect(achiev.text).to.be.a('string');
+          expect(achiev.icon).to.be.a('string');
+          expect(achiev.earned).to.be.a('boolean');
+          expect(achiev.index).to.be.a('number');
         });
       });
     });
@@ -41,6 +46,18 @@ describe('achievs', () => {
         _.keys(category.achievements).forEach((key) => {
           expect(keysSoFar[key]).to.be.undefined;
           keysSoFar[key] = key;
+        });
+      });
+    });
+
+    it('achievements have unique indices', () => {
+      let indicesSoFar = {};
+
+      _.each(achievements, (category) => {
+        _.each(category.achievements, (achiev) => {
+          let i = achiev.index;
+          expect(indicesSoFar[i]).to.be.undefined;
+          indicesSoFar[i] = i;
         });
       });
     });
