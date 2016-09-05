@@ -231,7 +231,7 @@ api.loginLocal = {
 
 function _passportProfile (network, accessToken) {
   if (network in SUPPORTED_SOCIAL_NETWORKS) {
-    return new Promise.promisify((resolve, reject) => {
+    return new Bluebird((resolve, reject) => {
       passport._strategies[network].userProfile(accessToken, (err, profile) => {
         if (err) {
           reject(err);

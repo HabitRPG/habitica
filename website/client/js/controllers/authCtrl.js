@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg')
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Alert', 'Analytics',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Alert, Analytics) {
       $scope.Analytics = Analytics;
 
       $scope.logout = function() {
@@ -21,21 +21,6 @@ angular.module('habitrpg')
           Analytics.updateUser();
           $window.location.href = ('/' + window.location.hash);
         });
-      };
-
-      function errorAlert(data, status, headers, config) {
-        $scope.registrationInProgress = false;
-        if (status === 0) {
-          $window.alert(window.env.t('noReachServer'));
-        } else if (status === 400 && data.errors && _.isArray(data.errors)) { // bad requests
-          data.errors.forEach(function (err) {
-            $window.alert(err.message);
-          }); 
-        } else if (!!data && !!data.error) {
-          $window.alert(data.message);
-        } else {
-          $window.alert(window.env.t('errorUpCase') + ' ' + status);
-        }
       };
 
       $scope.registrationInProgress = false;
@@ -62,7 +47,10 @@ angular.module('habitrpg')
         $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
           runAuth(res.data._id, res.data.apiToken);
           Analytics.register();
-        }).error(errorAlert);
+        }).error(function(data, status, headers, config) {
+          $scope.registrationInProgress = false;
+          Alert.authErrorAlert(data, status, headers, config)
+        });
       };
 
       $scope.auth = function() {
@@ -74,7 +62,7 @@ angular.module('habitrpg')
         $http.post(ApiUrl.get() + "/api/v3/user/auth/local/login", data)
           .success(function(res, status, headers, config) {
             runAuth(res.data.id, res.data.apiToken);
-          }).error(errorAlert);
+          }).error(Alert.authErrorAlert);
       };
 
       $scope.playButtonClick = function() {
@@ -114,7 +102,7 @@ angular.module('habitrpg')
           $http.post(ApiUrl.get() + "/api/v3/user/auth/social", auth)
             .success(function(res, status, headers, config) {
               runAuth(res.data.id, res.data.apiToken);
-            }).error(errorAlert);
+            }).error(Alert.authErrorAlert);
         }, function( e ){
           alert("Signin error: " + e.message );
         });
