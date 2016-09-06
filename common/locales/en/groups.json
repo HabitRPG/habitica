@@ -193,5 +193,6 @@
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
     "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
-    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned"
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "chatPrivilegesRevoked": "Your chat privileges have been revoked."
 }

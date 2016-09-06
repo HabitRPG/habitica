@@ -294,6 +294,8 @@ api.sendPrivateMessage = {
     let sender = res.locals.user;
     let message = req.body.message;
 
+    if (sender.flags.chatRevoked) throw new NotFound(res.t('chatPrivilegesRevoked'));
+
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 

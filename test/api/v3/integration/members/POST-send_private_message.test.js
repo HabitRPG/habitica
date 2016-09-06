@@ -82,6 +82,20 @@ describe('POST /members/send-private-message', () => {
     });
   });
 
+  it('returns an error when chat privileges are revoked', async () => {
+    let userWithChatRevoked = await generateUser({'flags.chatRevoked': true});
+    let receiver = await generateUser();
+
+    await expect(userWithChatRevoked.post('/members/send-private-message', {
+      message: messageToSend,
+      toUserId: receiver._id,
+    })).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: t('chatPrivilegesRevoked'),
+    });
+  });
+
   it('sends a private message to a user', async () => {
     let receiver = await generateUser();
 
