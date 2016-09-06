@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Nie martw się, Habitica niedługo wróci!",
-  "importantMaintenance": "Planujemy ważną przerwę techniczną, która potrwa do <%= localDate %> w twojej strefie czasowej.",
+  "importantMaintenance": "Przeprowadzamy ważne prace konserwacyjne. Prace prawdopodobnie zakończą się 10PM Czasu Pacyficznego (5AM UTC).",
   "maintenance": "Przerwa techniczna",
   "maintenanceMoreInfo": "Chcesz dowiedzieć się więcej o zmianach? <%= linkStart%>Zajrzyj tutaj.<%= linkEnd %>",
   "noDamageKeepStreaks": "NIE otrzymasz obrażeń ani nie stracisz serii!",

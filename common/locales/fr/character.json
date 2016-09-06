@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Veuillez grader à l'esprit que votre nom d'utilisateur, votre photo de profil et votre résumé doivent obéir aux <a href='https://habitica.com/static/community-guidelines' target='_blank'>Règles de Vie en Communauté</a> (par exemple, grossièretés, sujets adultes, insultes, etc. sont interdits). Si vous ne savez pas si quelque chose est inconvenant ou non, n'hésitez pas à envoyer un courriel à <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Veuillez garder à l'esprit que votre nom d'utilisateur, votre photo de profil et votre résumé doivent obéir aux <a href='https://habitica.com/static/community-guidelines' target='_blank'>Règles de Vie en Communauté</a> (par exemple, grossièretés, sujets adultes, insultes, etc. sont interdits). Si vous ne savez pas si quelque chose est inconvenant ou non, n'hésitez pas à envoyer un courriel à <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Caractéristiques & Succès",
     "profile": "Profil",
     "avatar": "Personnalisez votre avatar",
@@ -121,7 +121,7 @@
     "classAllocation": "Distribue les points en fonction de la Classe",
     "classAllocationPop": "Affecte plus de points aux attributs importants pour votre Classe.",
     "taskAllocation": "Distribuer les points en fonction des catégories des tâches",
-    "taskAllocationPop": "Alloue les points en fonction du Physique (Force), du Mental (Intelligence), du Social (Constitution) et Autre (Perception) selon les catégories associées aux tâches que vous complétez.",
+    "taskAllocationPop": "Alloue les points en fonction des catégories Force, Intelligence, Constitution et Perception associées aux tâches que vous complétez.",
     "distributePoints": "Distribuer les points non-alloués",
     "distributePointsPop": "Affecte tous vos points non alloués selon le choix d'attribution sélectionné.",
     "warriorText": "Les Guerriers réalisent des \"coups critiques\" plus nombreux et plus efficaces qui augmentent aléatoirement l'Or et l'Expérience obtenus ainsi que les chances de trouver du butin en complétant une tâche. Ils infligent aussi des dommages lourds aux boss. Jouez un Guerrier si des récompenses imprévisibles du genre jackpot vous motivent ou si vous voulez distribuer des coups pendant les Quêtes !",

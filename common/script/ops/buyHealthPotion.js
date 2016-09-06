@@ -15,6 +15,10 @@ module.exports = function buyHealthPotion (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('cannotBuyItem', req.language));
   }
 
+  if (user.stats.hp >= 50) {
+    throw new NotAuthorized(i18n.t('messageHealthAlreadyMax', req.language));
+  }
+
   user.stats.hp += 15;
   if (user.stats.hp > 50) {
     user.stats.hp = 50;
@@ -34,6 +38,7 @@ module.exports = function buyHealthPotion (user, req = {}, analytics) {
       acquireMethod: 'Gold',
       goldCost: item.value,
       category: 'behavior',
+      headers: req.headers,
     });
   }
 

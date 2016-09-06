@@ -1,6 +1,6 @@
 {
     "friend": "חבר",
-    "friendFirst": "כאשר תגישו את התרומה <strong>הראשונה</strong> שלכם, תקבלו את תג התורמים של האביטיקה. תג השם שלכם, בשיחות הפונדק, יגלה בגאווה את היותכם תורמים. כשכר עבור טרחתכם, תקבלו <strong>3 אבני חן</strong>.",
+    "friendFirst": "כאשר תגישו את התרומה <strong>הראשונה</strong> שלכם, תקבלו את עיטור התורמים של האביטיקה. תג השם שלכם, בשיחות הפונדק, יגלה בגאווה את היותכם תורמים. כשכר עבור טרחתכם, תקבלו <strong>3 אבני חן</strong>.",
     "friendSecond": "כאשר תגישו את תרומתכם <strong>השנייה</strong> ,<strong>שריון הקריסטל</strong> יהיה זמין עבורך בחנות הפרסים. כשכר עבור טרחתכם, תקבלו גם <strong>3 אבני חן</strong>.",
     "elite": "עילאי",
     "eliteThird": "כאשר תגיש את תרומתך <strong>השלישית</strong> ,<strong>קסדת הקריסטל</strong> תהיה זמינה עבורך בחנות הפרסים. כשכר עבור טרחתך, תקבל גם <strong>3 אבני חן</strong>.",
@@ -60,7 +60,7 @@
     "surveysMultiple": "סייעתם להאביטיקה לגדול ב <%= surveys %> הזדמנויות, באמצעות מילוי שאלון או במאמץ בדיקות גדול. תודה רבה!",
     "currentSurvey": "שאלון נוכחי",
     "surveyWhen": "התג ינתן כפרס לכל ממלאי השאלון בסוף מרץ, לאחר שעיבוד נתוני השאלונים יסתיים.",
-    "blurbInbox": "כאן נשמרות הודעותיכם הפרטיות! תוכלו לשלוח למישהו הודעה על ידי לחיצה על תמונת המעטפה ליד שמם בפונדק, בחבורה, או בשיחת גילדה. אם קיבלתם הודעה פרטית שהיא אינה ראוייה, עליכם לשלוח תמונת מסך שלה ללמונס (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
+    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to the staff (<a href=\"mailto:admin@habitica.com\">admin@habitica.com</a>)",
     "blurbGuildsPage": "גילדות הן קבוצות צ׳ט על בסיס תחומי עניין משותפים, אשר נוצרו ע״י שחקנים - עבור שחקנים. דפדף ברשימת הגילדות והצטרף לאלו שמעניינות אותך!",
     "blurbChallenges": "אתגרים נוצרים ע״י עמיתיך השחקנים. הצטרפות לאתגר תוסיף את מטלות האתגר לעמוד המשימות שלך. הניצחון באתגר יתן לך תג הישג ולעיתים רבות גם פרס של אבני חן!",
     "blurbHallPatrons": "זהו היכל התומכים, היכן שאנו מעניקים כבוד לשחקנים האדירים שתמכו ב״Kickstarter״ המקורי של האתר. אנו מודים להם שהביאו את האביטיקה לחיים!",

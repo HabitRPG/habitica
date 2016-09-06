@@ -29,6 +29,7 @@
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
     "messageAlreadyOwnGear": "Tento předmět už máš. Vybav se jím na stránce s Vybavením.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> V almaře jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
     "armoireFood": "<%= image %> Prohledáváš almaru a nacházíš <%= dropText %>. Co to tu dělá?",
     "armoireExp": "Zápasíš s Almarou a získáváš zkušenost. To jsi jí to nandal!",

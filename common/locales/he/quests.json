@@ -95,7 +95,7 @@
     "onlyLeaderAbortQuest": "רק מנהיג החבורה או ההרפתקה יכולים לבטל הרפתקה.",
     "questAlreadyRejected": "כבר דחיתם את ההזמנה להרפתקה.",
     "cantCancelActiveQuest": "אתם לא יכולים להפסיק הרפתקה שכבר החלה, השתמשו באפשרות הביטול.",
-    "onlyLeaderCancelQuest": "רק מנהיג החבורה או מוביל ההרפתקה יכולים לבטל אותה.",
+    "onlyLeaderCancelQuest": "רק מנהיגי החבורה או מובילי ההרפתקה יכולים לבטל אותה.",
     "questNotPending": "אין הרפתקאות זמינות.",
     "questOrGroupLeaderOnlyStartQuest": "רק מנהיג החבורה או מי שהזמין להרפתקה יכולים להכריח את כולם לצאת לדרך."
 }

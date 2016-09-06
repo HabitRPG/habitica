@@ -4,7 +4,7 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import cors from '../../../../../website/server/middlewares/api-v3/cors';
+import cors from '../../../../../website/server/middlewares/cors';
 
 describe('cors middleware', () => {
   let res, req, next;

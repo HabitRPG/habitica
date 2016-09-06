@@ -1,21 +1,21 @@
-import { authWithSession } from '../../middlewares/api-v3/auth';
+import { authWithSession } from '../../middlewares/auth';
 import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import _ from 'lodash';
-import csvStringify from '../../libs/api-v3/csvStringify';
+import csvStringify from '../../libs/csvStringify';
 import moment from 'moment';
 import js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
 import nconf from 'nconf';
 import got from 'got';
 import Bluebird from 'bluebird';
-import locals from '../../middlewares/api-v3/locals';
+import locals from '../../middlewares/locals';
 import {
   S3,
-} from '../../libs/api-v3/aws';
+} from '../../libs/aws';
 
 const S3_BUCKET = nconf.get('S3:bucket');
 
@@ -25,12 +25,12 @@ let api = {};
 
 /**
  * @api {get} /export/history.csv Export user tasks history in CSV format
- * @apiDescription History is only available for habits and dailys so todos and rewards won't be included. NOTE: Part of the private API that may change at any time.
+ * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. NOTE: Part of the private API that may change at any time.
  * @apiVersion 3.0.0
  * @apiName ExportUserHistory
  * @apiGroup DataExport
  *
- * @apiSuccess {string} A cvs file
+ * @apiSuccess {String} A csv file
  */
 api.exportUserHistory = {
   method: 'GET',
@@ -98,7 +98,7 @@ async function _getUserDataForExport (user) {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {string} A json file
+ * @apiSuccess {String} A json file
  */
 api.exportUserDataJson = {
   method: 'GET',
@@ -124,7 +124,7 @@ api.exportUserDataJson = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {string} A xml file
+ * @apiSuccess {String} A xml file
  */
 api.exportUserDataXml = {
   method: 'GET',
@@ -148,7 +148,7 @@ api.exportUserDataXml = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {string} An html page
+ * @apiSuccess {String} An html page
  */
 api.exportUserAvatarHtml = {
   method: 'GET',
@@ -181,7 +181,7 @@ api.exportUserAvatarHtml = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {string} A png file
+ * @apiSuccess {String} A png file
  */
 api.exportUserAvatarPng = {
   method: 'GET',

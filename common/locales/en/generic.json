@@ -3,7 +3,7 @@
     "stringNotFound": "String '<%= string %>' not found.",
     "titleIndex": "Habitica | Your Life The Role Playing Game",
     "habitica": "Habitica",
-    
+
     "titleTasks": "Tasks",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Backgrounds",
@@ -25,7 +25,7 @@
     "titleTimeTravelers": "Time Travelers",
     "titleSeasonalShop": "Seasonal Shop",
     "titleSettings": "Settings",
-    
+
     "expandToolbar": "Expand Toolbar",
     "collapseToolbar": "Collapse Toolbar",
     "markdownBlurb": "Habitica uses markdown for message formatting. See the <a href='http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet' target='_blank'>Markdown Cheat Sheet</a> for more info.",
@@ -117,6 +117,8 @@
     "audioTheme_wattsTheme": "Watts' Theme",
     "audioTheme_gokulTheme": "Gokul Theme",
     "audioTheme_luneFoxTheme": "LuneFox's Theme",
+    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Ask a Question",
     "reportBug": "Report a Bug",
     "HabiticaWiki": "The Habitica Wiki",

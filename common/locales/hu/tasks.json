@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Törlés kész",
-    "lotOfToDos": "A befejezett tennivalók automatikusan arhiválásra kerülnek 3 nap után. A Beállítások>Exportálás menüpontban letöltheted őket.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Ha megnyomod a lenti gombot, akkor a már kész és archivált tennivalók végleg kitörlődnek. Exportáld ki őket, ha meg akarod őket őrizni.",
     "addmultiple": "Több hozzáadása",
     "addsingle": "Egy hozzáadása",
@@ -20,7 +20,7 @@
     "extraNotes": "További feljegyzések",
     "direction/Actions": "Irány/Akció",
     "advancedOptions": "Haladó beállítások",
-    "taskAlias": "Task Alias",
+    "taskAlias": "Feladat álneve",
     "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
     "taskAliasPlaceholder": "your-task-alias-here",
     "taskAliasPopoverWarning": "WARNING: Changing this value will break any 3rd party integrations that rely on the task alias.",

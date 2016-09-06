@@ -1,6 +1,6 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import { sendTaskWebhook } from '../../libs/api-v3/webhook';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+import { authWithHeaders } from '../../middlewares/auth';
+import { sendTaskWebhook } from '../../libs/webhook';
+import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
@@ -8,71 +8,18 @@ import {
   NotFound,
   NotAuthorized,
   BadRequest,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
+import {
+  createTasks,
+  getTasks,
+} from '../../libs/taskManager';
 import common from '../../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import logger from '../../libs/api-v3/logger';
+import logger from '../../libs/logger';
 
 let api = {};
-
-async function _validateTaskAlias (tasks, res) {
-  let tasksWithAliases = tasks.filter(task => task.alias);
-  let aliases = tasksWithAliases.map(task => task.alias);
-
-  // Compares the short names in tasks against
-  // a Set, where values cannot repeat. If the
-  // lengths are different, some name was duplicated
-  if (aliases.length !== [...new Set(aliases)].length) {
-    throw new BadRequest(res.t('taskAliasAlreadyUsed'));
-  }
-
-  await Bluebird.map(tasksWithAliases, (task) => {
-    return task.validate();
-  });
-}
-
-// challenge must be passed only when a challenge task is being created
-async function _createTasks (req, res, user, challenge) {
-  let toSave = Array.isArray(req.body) ? req.body : [req.body];
-
-  toSave = toSave.map(taskData => {
-    // Validate that task.type is valid
-    if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
-
-    let taskType = taskData.type;
-    let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
-
-    if (challenge) {
-      newTask.challenge.id = challenge.id;
-    } else {
-      newTask.userId = user._id;
-    }
-
-    // Validate that the task is valid and throw if it isn't
-    // otherwise since we're saving user/challenge and task in parallel it could save the user/challenge with a tasksOrder that doens't match reality
-    let validationErrors = newTask.validateSync();
-    if (validationErrors) throw validationErrors;
-
-    // Otherwise update the user/challenge
-    (challenge || user).tasksOrder[`${taskType}s`].unshift(newTask._id);
-
-    return newTask;
-  });
-
-  // tasks with aliases need to be validated asyncronously
-  await _validateTaskAlias(toSave, res);
-
-  toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
-    validateBeforeSave: false,
-  }));
-
-  toSave.unshift((challenge || user).save());
-
-  let tasks = await Bluebird.all(toSave);
-  tasks.splice(0, 1); // Remove user or challenge
-  return tasks;
-}
+let requiredGroupFields = '_id leader tasksOrder name';
 
 /**
  * @api {post} /api/v3/tasks/user Create a new task belonging to the user
@@ -88,7 +35,8 @@ api.createUserTasks = {
   url: '/tasks/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let tasks = await _createTasks(req, res, res.locals.user);
+    let user = res.locals.user;
+    let tasks = await createTasks(req, res, {user});
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
   },
 };
@@ -120,72 +68,17 @@ api.createChallengeTasks = {
     let challenge = await Challenge.findOne({_id: challengeId}).exec();
 
     // If the challenge does not exist, or if it exists but user is not the leader -> throw error
-    if (!challenge || user.challenges.indexOf(challengeId) === -1) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
 
-    let tasks = await _createTasks(req, res, user, challenge);
+    let tasks = await createTasks(req, res, {user, challenge});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
-
-    return null;
   },
 };
-
-// challenge must be passed only when a challenge task is being created
-async function _getTasks (req, res, user, challenge) {
-  let query = challenge ? {'challenge.id': challenge.id, userId: {$exists: false}} : {userId: user._id};
-  let type = req.query.type;
-
-  if (type) {
-    if (type === 'todos') {
-      query.completed = false; // Exclude completed todos
-      query.type = 'todo';
-    } else if (type === 'completedTodos') {
-      query = Tasks.Task.find({
-        userId: user._id,
-        type: 'todo',
-        completed: true,
-      }).limit(30).sort({ // TODO add ability to pick more than 30 completed todos
-        dateCompleted: -1,
-      });
-    } else {
-      query.type = type.slice(0, -1); // removing the final "s"
-    }
-  } else {
-    query.$or = [ // Exclude completed todos
-      {type: 'todo', completed: false},
-      {type: {$in: ['habit', 'daily', 'reward']}},
-    ];
-  }
-
-  let tasks = await Tasks.Task.find(query).exec();
-
-  // Order tasks based on tasksOrder
-  if (type && type !== 'completedTodos') {
-    let order = (challenge || user).tasksOrder[type];
-    let orderedTasks = new Array(tasks.length);
-    let unorderedTasks = []; // what we want to add later
-
-    tasks.forEach((task, index) => {
-      let taskId = task._id;
-      let i = order[index] === taskId ? index : order.indexOf(taskId);
-      if (i === -1) {
-        unorderedTasks.push(task);
-      } else {
-        orderedTasks[i] = task;
-      }
-    });
-
-    // Remove empty values from the array and add any unordered task
-    orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
-    res.respond(200, orderedTasks);
-  } else {
-    res.respond(200, tasks);
-  }
-}
 
 /**
  * @api {get} /api/v3/tasks/user Get a user's tasks
@@ -193,7 +86,7 @@ async function _getTasks (req, res, user, challenge) {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately.
+ * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
  *
  * @apiSuccess {Array} data An array of tasks
  */
@@ -203,13 +96,16 @@ api.getUserTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
-    types.push('completedTodos');
+    types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    return await _getTasks(req, res, res.locals.user);
+    let user = res.locals.user;
+
+    let tasks = await getTasks(req, res, {user});
+    return res.respond(200, tasks);
   },
 };
 
@@ -244,7 +140,8 @@ api.getChallengeTasks = {
     let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    return await _getTasks(req, res, res.locals.user, challenge);
+    let tasks = await getTasks(req, res, {user, challenge});
+    return res.respond(200, tasks);
   },
 };
 
@@ -254,9 +151,9 @@ api.getChallengeTasks = {
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The task object
+ * @apiSuccess {Object} data The task object
  */
 api.getTask = {
   method: 'GET',
@@ -269,7 +166,7 @@ api.getTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       let challenge = await Challenge.find({_id: task.challenge.id}).select('leader').exec();
       if (!challenge || (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
         throw new NotFound(res.t('taskNotFound'));
@@ -283,14 +180,14 @@ api.getTask = {
 };
 
 /**
- * @api {put} /api/v3/task/:taskId Update a task
+ * @api {put} /api/v3/tasks/:taskId Update a task
  * @apiVersion 3.0.0
  * @apiName UpdateTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.updateTask = {
   method: 'PUT',
@@ -307,10 +204,16 @@ api.updateTask = {
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    let group;
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.group.id && !task.userId) {
+      //  @TODO: Abstract this access snippet
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -336,10 +239,13 @@ api.updateTask = {
     // see https://github.com/Automattic/mongoose/issues/2749
 
     let savedTask = await task.save();
+
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    }
+
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -374,12 +280,12 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
- * @apiParam {string="up","down"} direction The direction for scoring the task
+ * @apiParam {String} taskId The task _id or alias
+ * @apiParam {String="up","down"} direction The direction for scoring the task
  *
- * @apiSuccess {object} data._tmp If an item was dropped it'll be returned in te _tmp object
- * @apiSuccess {number} data.delta
- * @apiSuccess {object} data The user stats
+ * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
+ * @apiSuccess {Number} data.delta The delta
+ * @apiSuccess {Object} data The user stats
  */
 api.scoreTask = {
   method: 'POST',
@@ -446,7 +352,16 @@ api.scoreTask = {
       }
     }
 
-    return null;
+    /*
+     * TODO: enable score task analytics if desired
+    res.analytics.track('score task', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction
+    });
+    */
   },
 };
 
@@ -457,10 +372,10 @@ api.scoreTask = {
  * @apiName MoveTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
- * @apiSuccess {array} data The new tasks order (user.tasksOrder.{task.type}s)
+ * @apiSuccess {Array} data The new tasks order (user.tasksOrder.{task.type}s)
  */
 api.moveTask = {
   method: 'POST',
@@ -510,9 +425,9 @@ api.moveTask = {
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.addChecklistItem = {
   method: 'POST',
@@ -532,7 +447,7 @@ api.addChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -547,8 +462,6 @@ api.addChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -558,10 +471,10 @@ api.addChecklistItem = {
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.scoreCheckListItem = {
   method: 'POST',
@@ -598,10 +511,10 @@ api.scoreCheckListItem = {
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.updateChecklistItem = {
   method: 'PUT',
@@ -622,7 +535,7 @@ api.updateChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -639,8 +552,6 @@ api.updateChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -650,10 +561,10 @@ api.updateChecklistItem = {
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.removeChecklistItem = {
   method: 'DELETE',
@@ -674,7 +585,7 @@ api.removeChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -689,8 +600,6 @@ api.removeChecklistItem = {
     let savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
-
-    return null;
   },
 };
 
@@ -700,10 +609,10 @@ api.removeChecklistItem = {
  * @apiName AddTagToTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.addTagToTask = {
   method: 'POST',
@@ -741,10 +650,10 @@ api.addTagToTask = {
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
- * @apiSuccess {object} data The updated task
+ * @apiSuccess {Object} data The updated task
  */
 api.removeTagFromTask = {
   method: 'DELETE',
@@ -779,9 +688,9 @@ api.removeTagFromTask = {
  * @apiGroup Task
  *
  * @apiParam {UUID} challengeId The challenge _id
- * @apiParam {string} keep Query parameter - keep-all or remove-all
+ * @apiParam {String} keep Query parameter - keep-all or remove-all
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.unlinkAllTasks = {
   method: 'POST',
@@ -840,10 +749,10 @@ api.unlinkAllTasks = {
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
- * @apiParam {string} keep Query parameter - keep or remove
+ * @apiParam {String} taskId The task _id or alias
+ * @apiParam {String} keep Query parameter - keep or remove
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.unlinkOneTask = {
   method: 'POST',
@@ -888,7 +797,7 @@ api.unlinkOneTask = {
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.clearCompletedTodos = {
   method: 'POST',
@@ -919,9 +828,9 @@ api.clearCompletedTodos = {
  * @apiName DeleteTask
  * @apiGroup Task
  *
- * @apiParam {string} taskId The task _id or alias
+ * @apiParam {String} taskId The task _id or alias
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.deleteTask = {
   method: 'DELETE',
@@ -936,7 +845,13 @@ api.deleteTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (!task.userId) { // If the task belongs to a challenge make sure the user has rights
+    } else if (task.group.id && !task.userId) {
+      //  @TODO: Abstract this access snippet
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      await group.removeTask(task);
+    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
@@ -955,8 +870,6 @@ api.deleteTask = {
 
     res.respond(200, {});
     if (challenge) challenge.removeTask(task);
-
-    return null;
   },
 };
 

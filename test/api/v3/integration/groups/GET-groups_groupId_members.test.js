@@ -4,12 +4,21 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import common from '../../../../../common';
 
 describe('GET /groups/:groupId/members', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({
+      balance: 10,
+      contributor: {level: 1},
+      backer: {tier: 3},
+      preferences: {
+        costume: false,
+        background: 'volcano',
+      },
+    });
   });
 
   it('validates optional req.query.lastId to be an UUID', async () => {
@@ -55,6 +64,32 @@ describe('GET /groups/:groupId/members', () => {
     let res = await user.get('/groups/party/members');
     expect(res[0]).to.have.all.keys(['_id', 'id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
+  });
+
+  it('req.query.includeAllPublicFields === true only works with parties', async () => {
+    let group = await generateGroup(user, {type: 'guild', name: generateUUID()});
+    let res = await user.get(`/groups/${group._id}/members?includeAllPublicFields=true`);
+    expect(res[0]).to.have.all.keys(['_id', 'id', 'profile']);
+    expect(res[0].profile).to.have.all.keys(['name']);
+  });
+
+  it('populates all public fields if req.query.includeAllPublicFields === true and it is a party', async () => {
+    await generateGroup(user, {type: 'party', name: generateUUID()});
+    let [memberRes] = await user.get('/groups/party/members?includeAllPublicFields=true');
+
+    expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
+      '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
+      'backer', 'contributor', 'auth', 'items', 'inbox',
+    ]);
+    expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
+    expect(Object.keys(memberRes.preferences).sort()).to.eql(['size', 'hair', 'skin', 'shirt',
+      'chair', 'costume', 'sleep', 'background'].sort());
+
+    expect(memberRes.stats.maxMP).to.exist;
+    expect(memberRes.stats.maxHealth).to.equal(common.maxHealth);
+    expect(memberRes.stats.toNextLevel).to.equal(common.tnl(memberRes.stats.lvl));
+    expect(memberRes.inbox.optOut).to.exist;
+    expect(memberRes.inbox.messages).to.not.exist;
   });
 
   it('returns only first 30 members', async () => {

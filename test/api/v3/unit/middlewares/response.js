@@ -3,7 +3,7 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import responseMiddleware from '../../../../../website/server/middlewares/api-v3/response';
+import responseMiddleware from '../../../../../website/server/middlewares/response';
 
 describe('response middleware', () => {
   let res, req, next;

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import baseModel from '../libs/api-v3/baseModel';
+import baseModel from '../libs/baseModel';
 import validator from 'validator';
 
 const Schema = mongoose.Schema;

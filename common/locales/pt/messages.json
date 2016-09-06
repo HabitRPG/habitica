@@ -29,6 +29,7 @@
     "messageFoundQuest": "Você encontrou a missão \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Você comprou este equipamento no passado, mas não possuí mais o mesmo. Você pode comprá-lo novamente na coluna de recompensas na página de tarefas.",
     "messageAlreadyOwnGear": "Você já possui este item. Vista-o indo até a página de equipamentos.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> Você encontrou uma peça de Equipamento raro no Armário: <%= dropText %>! Incrível!",
     "armoireFood": "<%= image %> Você remexeu no Armário e encontrou <%= dropArticle %><%= dropText %>. O que aquilo estava fazendo lá?",
     "armoireExp": "Você se engalfinhou com o Armário e ganhou Experiência. Pega essa!",

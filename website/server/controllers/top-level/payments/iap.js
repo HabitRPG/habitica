@@ -1,14 +1,14 @@
 import {
   authWithHeaders,
   authWithUrl,
-} from '../../../middlewares/api-v3/auth';
-import iap from '../../../libs/api-v3/inAppPurchases';
-import payments from '../../../libs/api-v3/payments';
+} from '../../../middlewares/auth';
+import iap from '../../../libs/inAppPurchases';
+import payments from '../../../libs/payments';
 import {
   NotAuthorized,
-} from '../../../libs/api-v3/errors';
+} from '../../../libs/errors';
 import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
-import logger from '../../../libs/api-v3/logger';
+import logger from '../../../libs/logger';
 
 let api = {};
 
@@ -59,6 +59,7 @@ api.iapAndroidVerify = {
       user,
       paymentMethod: 'IAP GooglePlay',
       amount: 5.25,
+      headers: req.headers,
     });
 
     res.respond(200, googleRes);
@@ -117,17 +118,17 @@ api.iapiOSVerify = {
 
         switch (purchaseData.productId) {
           case 'com.habitrpg.ios.Habitica.4gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 1}); // eslint-disable-line babel/no-await-in-loop
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 1, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
             break;
           case 'com.habitrpg.ios.Habitica.8gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 2}); // eslint-disable-line babel/no-await-in-loop
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 2, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
             break;
           case 'com.habitrpg.ios.Habitica.20gems':
           case 'com.habitrpg.ios.Habitica.21gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 5.25}); // eslint-disable-line babel/no-await-in-loop
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 5.25, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
             break;
           case 'com.habitrpg.ios.Habitica.42gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 10.5}); // eslint-disable-line babel/no-await-in-loop
+            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 10.5, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
             break;
           default:
             correctReceipt = false;

@@ -31,10 +31,6 @@
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
-          menu.pets-menu(label=env.t('quests'))
-            p=env.t('whereAreMyQuests')
-
-        li.customize-menu
           menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
             p.muted(ng-show='foodCount < 1')=env.t('noFood')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
@@ -110,61 +106,19 @@
               button.btn.btn-primary.btn-block(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
 
       menu.inventory-list(type='list')
-        li.customize-menu
-          menu.pets-menu(label=env.t('eggs'))
-            p.muted!=env.t('dropsExplanation')
+        li.customize-menu(ng-repeat='category in marketShopCategories')
+          menu.pets-menu(label='{{category.text}}', ng-if='category.items.length > 0')
+            p.muted(ng-bind-html='category.notes')
 
-            div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy(user)')
-              button.customize-option(class='Pet_Egg_{{::egg.key}}',
-                popover='{{::egg.notes()}}', popover-append-to-body='true',
-                popover-title!=env.t("egg", {eggType: "{{::egg.text()}}"}),
+            div(ng-repeat='item in category.items')
+              button.customize-option(class='{{item.class}}',
+                popover='{{item.notes}}', popover-append-to-body='true',
+                popover-title!='{{item.text}}',
                 popover-trigger='mouseenter', popover-placement='top',
-                ng-click='purchase("eggs", egg)')
-              p {{::egg.value}}&nbsp;
-                span.Pet_Currency_Gem1x.inline-gems
-
-        li.customize-menu
-          menu.pets-menu(label=env.t('hatchingPotions'))
-            p.muted!=env.t('dropsExplanation')
-            div(ng-repeat='pot in Content.hatchingPotions', ng-if='!pot.premium')
-              button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
-                popover='{{::pot.notes()}}', popover-append-to-body='true',
-                popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
-                popover-trigger='mouseenter', popover-placement='top',
-                ng-click='purchase("hatchingPotions", pot)')
-              p
-                |  {{::pot.value}}&nbsp;
-                span.Pet_Currency_Gem1x.inline-gems
-
-        // li.customize-menu
-          menu.pets-menu!=env.t('magicHatchingPotions') + " - " + env.t('springEventAvailability')
-            p.muted=env.t('premiumPotionNoDropExplanation')
-            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy(user)')
-              button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
-                popover='{{::pot.notes()}} {{::pot.addlNotes()}}', popover-append-to-body='true',
-                popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
-                popover-trigger='mouseenter', popover-placement='top',
-                ng-click='purchase("hatchingPotions", pot)')
-              p
-                | {{::pot.value}}&nbsp;
-                span.Pet_Currency_Gem1x.inline-gems
-
-        li.customize-menu
-          menu.pets-menu(label=env.t('food'))
-            p.muted!=env.t('dropsExplanation')
-            div(ng-repeat='food in Content.food', ng-if='food.canBuy(user)')
-              button.customize-option(class='Pet_Food_{{::food.key}}',
-                popover='{{::food.notes()}}', popover-title='{{::food.text()}}',
-                popover-trigger='mouseenter', popover-placement='top',
-                popover-append-to-body='true',
-                ng-click='purchase("food", food)')
-              p
-                |  {{::food.value}}&nbsp;
-                span.Pet_Currency_Gem1x.inline-gems
-
-        li.customize-menu
-          menu.pets-menu(label=env.t('quests'))
-            p=env.t('whereAreMyQuests')
+                ng-click='purchase(item.purchaseType, item)')
+              p {{item.value}}&nbsp;
+                span.Pet_Currency_Gem1x.inline-gems(ng-if='item.currency === "gems"')
+                span(class='shop_gold', ng-if='item.currency === "gold"')
 
         li.customize-menu
           menu.pets-menu(label=env.t('special'))

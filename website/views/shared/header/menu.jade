@@ -181,6 +181,7 @@ nav.toolbar(ng-controller='MenuCtrl')
       li.toolbar-notifs
         a(data-expand-menu, menu='notifs')
           span.glyphicon(ng-class='iconClasses()')
+          span.notification-counter(ng-if='getNotificationsCount()') {{getNotificationsCount()}}
         div(ng-show='_expandedMenu.menu === "notifs"')
           h4=env.t('notifications')
           div
@@ -226,9 +227,9 @@ nav.toolbar(ng-controller='MenuCtrl')
           div
             ul.toolbar-submenu
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme']
                 li
-                  a(ng-class="{'bg-primary':user.preferences.sound === '# {theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
+                  a(ng-class="{'bg-info':user.preferences.sound === '#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
             li.toolbar-controls-button
               a(data-close-menu)=env.t('close')

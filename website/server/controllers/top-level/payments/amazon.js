@@ -1,14 +1,14 @@
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../libs/api-v3/errors';
-import amzLib from '../../../libs/api-v3/amazonPayments';
+} from '../../../libs/errors';
+import amzLib from '../../../libs/amazonPayments';
 import {
   authWithHeaders,
   authWithUrl,
-} from '../../../middlewares/api-v3/auth';
+} from '../../../middlewares/auth';
 import shared from '../../../../../common';
-import payments from '../../../libs/api-v3/payments';
+import payments from '../../../libs/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
@@ -46,7 +46,7 @@ api.verifyAccessToken = {
  * @apiName AmazonCreateOrderReferenceId
  * @apiGroup Payments
  *
- * @apiSuccess {string} data.orderReferenceId The order reference id.
+ * @apiSuccess {String} data.orderReferenceId The order reference id.
  **/
 api.createOrderReferenceId = {
   method: 'POST',
@@ -76,7 +76,7 @@ api.createOrderReferenceId = {
  * @apiName AmazonCheckout
  * @apiGroup Payments
  *
- * @apiSuccess {object} data Empty object
+ * @apiSuccess {Object} data Empty object
  **/
 api.checkout = {
   method: 'POST',
@@ -131,7 +131,11 @@ api.checkout = {
 
     // execute payment
     let method = 'buyGems';
-    let data = { user, paymentMethod: 'Amazon Payments' };
+    let data = {
+      user,
+      paymentMethod: 'Amazon Payments',
+      headers: req.headers,
+    };
 
     if (gift) {
       if (gift.type === 'subscription') method = 'createSubscription';
@@ -153,7 +157,7 @@ api.checkout = {
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  *
- * @apiSuccess {object} data Empty object
+ * @apiSuccess {Object} data Empty object
  **/
 api.subscribe = {
   method: 'POST',
@@ -212,6 +216,7 @@ api.subscribe = {
       customerId: billingAgreementId,
       paymentMethod: 'Amazon Payments',
       sub,
+      headers: req.headers,
     });
 
     res.respond(200);
@@ -246,6 +251,7 @@ api.subscribeCancel = {
       user,
       nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
+      headers: req.headers,
     });
 
     if (req.query.noRedirect) {
