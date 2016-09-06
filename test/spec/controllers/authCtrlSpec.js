@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Auth Controller', function() {
-  var scope, ctrl, user, $httpBackend, $window, $modal;
+  var scope, ctrl, user, $httpBackend, $window, $modal, alert;
 
   beforeEach(function(){
     module(function($provide) {
@@ -17,8 +17,9 @@ describe('Auth Controller', function() {
       $window = { location: { href: ""}, alert: sandbox.spy() };
       $modal = _$modal_;
       user = { user: {}, authenticate: sandbox.spy() };
+      alert = { authErrorAlert: sandbox.spy() };
 
-      ctrl = $controller('AuthCtrl', {$scope: scope, $window: $window, User: user});
+      ctrl = $controller('AuthCtrl', {$scope: scope, $window: $window, User: user, Alert: alert});
     })
   });
 
@@ -29,7 +30,7 @@ describe('Auth Controller', function() {
       scope.auth();
       $httpBackend.flush();
       expect(user.authenticate).to.be.calledOnce;
-      expect($window.alert).to.not.be.called;
+      expect(alert.authErrorAlert).to.not.be.called;
     });
 
     it('should not log in users with incorrect uname / pass', function() {
@@ -37,7 +38,7 @@ describe('Auth Controller', function() {
       scope.auth();
       $httpBackend.flush();
       expect(user.authenticate).to.not.be.called;
-      expect($window.alert).to.be.calledOnce;
+      expect(alert.authErrorAlert).to.be.calledOnce;
     });
   });
 

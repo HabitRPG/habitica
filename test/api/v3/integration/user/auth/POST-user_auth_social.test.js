@@ -17,10 +17,6 @@ describe('POST /user/auth/social', () => {
   before(async () => {
     api = requester();
     user = await generateUser();
-
-    let expectedResult = {id: facebookId};
-    let passportFacebookProfile = sinon.stub(passport._strategies.facebook, 'userProfile');
-    passportFacebookProfile.yields(null, expectedResult);
   });
 
   it('fails if network is not supported', async () => {
@@ -28,8 +24,8 @@ describe('POST /user/auth/social', () => {
       authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
       network,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 400,
+      error: 'BadRequest',
       message: t('unsupportedNetwork'),
     });
   });

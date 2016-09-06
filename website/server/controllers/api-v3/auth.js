@@ -10,7 +10,6 @@ import {
   BadRequest,
   NotFound,
 } from '../../libs/errors';
-import Bluebird from 'bluebird';
 import * as passwordUtils from '../../libs/password';
 import logger from '../../libs/logger';
 import { model as User } from '../../models/user';
@@ -230,17 +229,15 @@ api.loginLocal = {
 };
 
 function _passportProfile (network, accessToken) {
-  if (network in SUPPORTED_SOCIAL_NETWORKS) {
-    return new Bluebird((resolve, reject) => {
-      passport._strategies[network].userProfile(accessToken, (err, profile) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(profile);
-        }
-      });
+  return new Promise((resolve, reject) => {
+    passport._strategies[network].userProfile(accessToken, (err, profile) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(profile);
+      }
     });
-  }
+  });
 }
 
 // Called as a callback by Facebook (or other social providers). Internal route
@@ -253,7 +250,6 @@ api.loginSocial = {
     let network = req.body.network;
 
     if (SUPPORTED_SOCIAL_NETWORKS.indexOf(network) === -1) throw new BadRequest(res.t('unsupportedNetwork'));
-
 
     let profile = await _passportProfile(network, accessToken);
 

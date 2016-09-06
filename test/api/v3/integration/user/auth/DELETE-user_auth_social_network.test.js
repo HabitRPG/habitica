@@ -15,8 +15,8 @@ describe('DELETE social registration', () => {
   context('of NOT-SUPPORTED', () => {
     it('is not supported', async () => {
       await expect(user.del('/user/auth/social/SOME-OTHER-NETWORK')).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 400,
+        error: 'BadRequest',
         message: t('unsupportedNetwork'),
       });
     });
