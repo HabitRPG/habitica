@@ -98,8 +98,9 @@ angular.module('habitrpg')
       // When a new chat message is posted
       partyChannel.bind('new-chat', function (data) {
         Groups.party().then(function () {
-          // Groups.data.party.chat.unshift(data);
-          // Groups.data.party.chat.splice(200);
+          // Update the party data
+          Groups.data.party.chat.unshift(data);
+          Groups.data.party.chat.splice(200);
         });
       });
     };

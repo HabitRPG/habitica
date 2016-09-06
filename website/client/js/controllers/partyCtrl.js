@@ -28,7 +28,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       }
 
       if ($state.is('options.social.party') && $rootScope.party && $rootScope.party.id) {
-        Groups.party(true).then(handlePartyResponse, handlePartyError);
+        Groups.party().then(handlePartyResponse, handlePartyError);
       } else {
         Groups.Group.syncParty().then(handlePartyResponse, handlePartyError);
       }
