@@ -24,8 +24,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         $rootScope.pageTitle = $state.current.title;
-
-        $window.scrollTo(0, 0);
+        
+        if ($rootScope.pageTitle != 'Challenges') {
+            $window.scrollTo(0, 0);
+        }
 
         if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
         if (toState.name=='options.social.inbox' && User.user.inbox && User.user.inbox.newMessages > 0) {
