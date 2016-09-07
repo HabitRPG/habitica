@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID', 'Groups', 'Shared',
-  function($rootScope, STORAGE_SETTINGS_ID, Groups, Shared) {
+.factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID', 'Groups', 'Shared', '$state', 'Chat',
+  function($rootScope, STORAGE_SETTINGS_ID, Groups, Shared, $state, Chat) {
     var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
     var IS_PUSHER_ENABLED = window.env['PUSHER:ENABLED'] === 'true';
 
@@ -47,7 +47,7 @@ angular.module('habitrpg')
       });
 
       api.pusher.connection.bind('connected', function () {
-        api.socketId = api.pusher.connection.socket_id;
+        $rootScope.pusherSocketId = api.socketId = api.pusher.connection.socket_id;
       });
 
       var partyChannelName = 'presence-group-' + partyId;
@@ -113,6 +113,15 @@ angular.module('habitrpg')
               // Assign and not replace so that all the references get the modifications
               _.assign($rootScope.party, syncedParty);
             });
+          }
+
+          if ($state.is('options.social.party')) { // if we're on the party page, mark the chat as read
+            Chat.markChatSeen($rootScope.party._id);
+          } else { // show a notification
+            $rootScope.User.user.newMessages[$rootScope.party._id] = {
+              name: $rootScope.party.name,
+              value: true,
+            };
           }
         });
       });
