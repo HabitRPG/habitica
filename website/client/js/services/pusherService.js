@@ -14,17 +14,7 @@ angular.module('habitrpg')
       socketId: undefined, // when defined the user is connected
     };
 
-    // Limit of 1 connected tab is disabled for now
-    // var tabIdKey = 'habitica-active-tab';
-    // var tabId = Shared.uuid();
-
     function connectToPusher (partyId, reconnecting) {
-      // Limit of 1 connected tab is disabled for now
-      // localStorage.setItem(tabIdKey, tabId);
-      // window.onbeforeunload = function () {
-      //   localStorage.removeItem(tabIdKey);
-      // }
-
       api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
         authEndpoint: '/api/v3/user/auth/pusher',
@@ -153,24 +143,6 @@ angular.module('habitrpg')
       if (!partyId) return;
 
       connectToPusher(partyId);
-
-      // DISABLED FOR NOW
-      // See if another tab is already connected to Pusher
-      // if (!localStorage.getItem(tabIdKey)) {
-      //   connectToPusher(partyId);
-      // }
-
-      // when a tab is closed, connect the next one
-      // wait between 100 and 500ms to avoid two tabs connecting at the same time
-      // window.addEventListener('storage', function(e) {  
-      //   if (e.key === tabIdKey && e.newValue === null) {
-      //     setTimeout(function () {
-      //       if (!localStorage.getItem(tabIdKey)) {
-      //         connectToPusher(partyId, true);
-      //       }
-      //     }, Math.floor(Math.random() * 501) + 100);
-      //   }
-      // });      
     });
 
     return api;
