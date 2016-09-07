@@ -152,6 +152,8 @@ angular.module('habitrpg')
       partyId = user && $rootScope.user.party && $rootScope.user.party._id;
       if (!partyId) return;
 
+      connectToPusher(partyId);
+
       // DISABLED FOR NOW
       // See if another tab is already connected to Pusher
       // if (!localStorage.getItem(tabIdKey)) {
