@@ -112,6 +112,7 @@ angular.module('habitrpg')
 
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
+        connectToPusher(partyId);
         // Limit of 1 connected tab is disabled for now
         // if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
         //   connectToPusher(partyId);
