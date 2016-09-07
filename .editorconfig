@@ -1,15 +1,10 @@
 # top level config
 root = true
 
-# All files:
-# utf-8
-# Unix-style newlines
-# Ensure end-of-file newline
-# Soft indents (2 spaces)
-# Trim trailing whitespace
+# all files
 [*]
 charset = utf-8
-end_of_line = lf
+end_of_line = lf # Unix-style
 insert_final_newline = true
 indent_style = space
 indent_size = 2
