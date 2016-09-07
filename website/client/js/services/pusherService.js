@@ -16,7 +16,7 @@ angular.module('habitrpg')
     var tabIdKey = 'habitica-active-tab';
     var tabId = Shared.uuid();
 
-    function connectToPusher (partyId) {
+    function connectToPusher (partyId, reconnecting) {
       localStorage.setItem(tabIdKey, tabId);
       window.onbeforeunload = function () {
         localStorage.removeItem(tabIdKey);
@@ -69,6 +69,17 @@ angular.module('habitrpg')
       // When the user correctly enters the party channel
       partyChannel.bind('pusher:subscription_succeeded', function(members) {
         // TODO members = [{id, info}]
+
+        // If we just reconnected after some inactivity, sync the party
+        if (reconnecting === true) {
+          Groups.party(true).then(function (syncedParty) {
+            // Assign and not replace so that all the references get the modifications
+            if ($rootScope.party) {
+              _.assign($rootScope.party, syncedParty);
+              $rootScope.loadingParty = false; // make sure the party is set as loaded
+            }
+          });
+        }
       });
 
       // When a member enters the party channel
@@ -97,10 +108,20 @@ angular.module('habitrpg')
 
       // When a new chat message is posted
       partyChannel.bind('new-chat', function (data) {
-        Groups.party().then(function () {
+        Groups.party().then(function () { // wait for the party to be fully loaded
+          $rootScope.loadingParty = false; // make sure the party is set as loaded
+
           // Update the party data
           Groups.data.party.chat.unshift(data);
           Groups.data.party.chat.splice(200);
+
+          // If a system message comes in, sync the party as quest status may have changed
+          if (data.uuid === 'system') {
+            Groups.party(true).then(function (syncedParty) {
+              // Assign and not replace so that all the references get the modifications
+              _.assign($rootScope.party, syncedParty);
+            });
+          }
         });
       });
     };
@@ -112,12 +133,11 @@ angular.module('habitrpg')
         console.log('Reconnecting to Pusher.');
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
         if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
-          connectToPusher(partyId);
+          connectToPusher(partyId, true);
         }
       };
 
       $(document).on('mousemove keydown mousedown touchstart', awaitActivity);
-
     };
 
     // Setup chat channels once app is ready, only for parties for now
@@ -144,7 +164,7 @@ angular.module('habitrpg')
         if (e.key === tabIdKey && e.newValue === null) {
           setTimeout(function () {
             if (!localStorage.getItem(tabIdKey)) {
-              connectToPusher(partyId);
+              connectToPusher(partyId, true);
             }
           }, Math.floor(Math.random() * 501) + 100);
         }
