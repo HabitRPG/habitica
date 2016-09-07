@@ -145,7 +145,7 @@ angular.module('habitrpg')
 
       // when a tab is closed, connect the next one
       // wait between 100 and 500ms to avoid two tabs connecting at the same time
-      // window.addEventListener('storage', function(e) {  
+      // window.addEventListener('storage', function(e) {
       //   if (e.key === tabIdKey && e.newValue === null) {
       //     setTimeout(function () {
       //       if (!localStorage.getItem(tabIdKey)) {
@@ -153,7 +153,7 @@ angular.module('habitrpg')
       //       }
       //     }, Math.floor(Math.random() * 501) + 100);
       //   }
-      // });      
+      // });
     });
 
     return api;

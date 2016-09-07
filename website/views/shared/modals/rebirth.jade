@@ -1,6 +1,6 @@
 // Created by Sabe on 12/22/13.
 
-script(type='text/ng-template', id='modals/rebirthEnabled.html')  
+script(type='text/ng-template', id='modals/rebirthEnabled.html')
   .modal-header
     h4=env.t('rebirthNew')
   .modal-body
@@ -39,7 +39,7 @@ script(type='text/ng-template', id='modals/rebirth.html')
     p
       span.vertical-align.inline-block.achievement-sun
       |&nbsp;
-      =env.t('rebirthEarnAchievement')      
+      =env.t('rebirthEarnAchievement')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
     span(ng-if='user.balance < 2 && user.stats.lvl < 100')

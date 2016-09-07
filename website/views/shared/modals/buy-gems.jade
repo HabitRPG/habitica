@@ -45,7 +45,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
                     .arrow
                     .popover-content
                       p=env.t('buyGemsAllow1')
-                        | &nbsp;{{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}&nbsp; 
+                        | &nbsp;{{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}&nbsp;
                         =env.t('buyGemsAllow2')
             p!=env.t('seeSubscriptionDetails')
       div(ng-if='user.purchased.plan.customerId')

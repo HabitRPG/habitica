@@ -30,7 +30,7 @@ angular.module('habitrpg')
         } else if (status === 400 && data.errors && _.isArray(data.errors)) { // bad requests
           data.errors.forEach(function (err) {
             $window.alert(err.message);
-          }); 
+          });
         } else if (!!data && !!data.error) {
           $window.alert(data.message);
         } else {
