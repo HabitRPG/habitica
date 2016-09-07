@@ -26,6 +26,33 @@ angular.module('habitrpg')
         }
       }
 
+      $scope.hasQuestProgress = function() {
+        var user = $scope.user;
+        if (user.party.quest) {
+          var userQuest = $scope.Content.quests[user.party.quest.key];
+          if (userQuest && userQuest.boss && user.party.quest.progress.up > 0) return true;
+          if (userQuest && userQuest.collect && user.party.quest.progress.collectedItems > 0) return true;
+        }
+        return false;
+      };
+      
+      $scope.getQuestInfo = function() {
+        var user = $scope.user;
+        var questInfo = {};
+        if (user.party.quest) {
+          var userQuest = $scope.Content.quests[user.party.quest.key];
+          if (userQuest.boss) {
+            questInfo.title = userQuest.boss.name();
+            questInfo.body =  window.env.t('questTaskDamage', { damage: user.party.quest.progress.up.toPrecision(2) });
+          }
+          else if (userQuest.collect) {
+            questInfo.title = userQuest.collect.text();
+            questInfo.body = window.env.t('questTaskCollection', { items: user.party.quest.progress.collectedItems });
+          }
+        }
+        return questInfo;
+      };
+
       $scope.clearMessages = Chat.markChatSeen;
       $scope.clearCards = Chat.clearCards;
 
