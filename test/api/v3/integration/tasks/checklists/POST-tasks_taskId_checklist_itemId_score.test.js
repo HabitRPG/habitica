@@ -28,6 +28,24 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
     expect(savedTask.checklist[0].completed).to.equal(true);
   });
 
+  it('can use a alias to score a checklist item', async () => {
+    let task = await user.post('/tasks/user', {
+      type: 'daily',
+      text: 'Daily with checklist',
+      alias: 'daily-with-shortname',
+    });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
+      text: 'Checklist Item 1',
+      completed: false,
+    });
+
+    savedTask = await user.post(`/tasks/${task.alias}/checklist/${savedTask.checklist[0].id}/score`);
+
+    expect(savedTask.checklist.length).to.equal(1);
+    expect(savedTask.checklist[0].completed).to.equal(true);
+  });
+
   it('fails on habits', async () => {
     let habit = await user.post('/tasks/user', {
       type: 'habit',

@@ -289,16 +289,6 @@ function($rootScope, User, $timeout, $state, Analytics) {
         case 'options.inventory.equipment':  return goto('equipment', 0);
       }
     });
-    $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
-      if (alreadyShown(before,after)) return;
-      var eggs = User.user.items.eggs || {};
-      if (!eggs) eggs['Wolf'] = 1; // This is also set on the server
-      $rootScope.openModal('dropsEnabled');
-    });
-    $rootScope.$watch('user.flags.rebirthEnabled', function(after, before) {
-      if (alreadyShown(before, after)) return;
-      $rootScope.openModal('rebirthEnabled');
-    });
   });
 
   var Guide = {

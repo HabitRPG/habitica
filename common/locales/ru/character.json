@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Пожалуйста, помните: ваше имя, фото профиля, а также заметка о себе должны соответствовать <a href='https://habitica.com/static/community-guidelines' target='_blank'>Правилам сообщества</a>  (например, не содержать пошлости, материалы для взрослых, оскорбления, и тому подобное). Если у вас есть вопросы относительно того, что допустимо, а что нет, пишите нам на почту <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Характеристики и достижения",
     "profile": "Профиль",
     "avatar": "Персонализировать аватар",
@@ -110,7 +110,7 @@
     "mage": "Маг",
     "mystery": "Таинственный",
     "changeClass": "Сменить класс, перераспределить очки навыков",
-    "lvl10ChangeClass": "To change class you must be at least level 10.",
+    "lvl10ChangeClass": "Для того, что-бы изменить класс, вы должны быть, как минимум, на уровне 10.",
     "levelPopover": "Каждый уровень приносит вам одно очко, которое можно направить на улучшение характеристик по вашему выбору. Это можно сделать вручную, а можно позволить игре решать за вас, выбрав один из вариантов автоматического распределения.",
     "unallocated": "Осталось неиспользованных очков",
     "haveUnallocated": "Вы не распределили <%= points %> очков",
@@ -121,7 +121,7 @@
     "classAllocation": "Распределять очки на основе класса",
     "classAllocationPop": "Направлять больше очков на улучшение характеристик, важных для вашего класса.",
     "taskAllocation": "Распределять очки на основе вида заданий",
-    "taskAllocationPop": "Распределять очки в соответствии с категориями выполняемых заданий: физические (сила), умственные (интеллект), социальные (телосложение) и прочие (восприятие).",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Распределить свободные очки",
     "distributePointsPop": "Направляет все нераспределенные очки на улучшение характеристик в соответствии с выбранной схемой распределения.",
     "warriorText": "Воины чаще и лучше наносят «критические удары», которые случайным образом увеличивают награду за выполнение заданий: золото, опыт и шанс выпадения предметов. Кроме того, воины наносят значительный урон монстрам-боссам. Играйте за воина, если для вас существенным стимулом станет возможность сорвать джекпот, неожиданно получив больше наград, или осыпать сильнейшими ударами босса в квестах!",
@@ -167,6 +167,7 @@
     "showQuickAllocation": "Показать распределение характеристик",
     "hideQuickAllocation": "Спрятать распределение характеристик",
     "quickAllocationLevelPopover": "Каждый уровень приносит вам одно очко для распределения характеристики по вашему выбору. Вы можете сделать это вручную, или позволить игре решить за вас, используя параметры Автоматического распределения, которые находятся на странице Пользователь -> Характеристики аватара ",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points."
+    "invalidAttribute": " \"<%= attr %>\" не действительная характеристика.",
+    "notEnoughAttrPoints": "У вас не достаточно очков характеристики.",
+    "gearNotOwned": "У вас нет этого предмета."
 }

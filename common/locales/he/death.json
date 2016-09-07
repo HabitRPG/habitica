@@ -1,11 +1,11 @@
 {
-    "lostAllHealth": "אזלו לך נקודות הבריאות!",
-    "dontDespair": "אל תתייאש!",
-    "deathPenaltyDetails": "איבדת דרגה, את הזהב שלך, וחפץ כלשהו, אך תוכל לקבלם בחזרה באמצעות עבודה קשה! בהצלחה--יהיה בסדר.",
-    "refillHealthTryAgain": "מלא בריאות ונסה שוב",
+    "lostAllHealth": "אזלו לכם נקודות הבריאות!",
+    "dontDespair": "אל תתייאשו!",
+    "deathPenaltyDetails": "איבדתם דרגה, את הזהב שלכם, וחפץ כלשהו, אך תוכלו לקבלם בחזרה באמצעות עבודה קשה! בהצלחה--יהיה בסדר.",
+    "refillHealthTryAgain": "מלאו בריאות ונסו שוב",
     "dyingOftenTips": "זה קורה לעיתים קרובות? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>הנה כמה טיפים!</a>",
-    "losingHealthWarning": "היזהרו! -אתם מאבדים בריאות!",
-    "losingHealthWarning2": "אל תתנו לבריאות לרדת לאפס! אחרת תרדו רמה, תאבדו זהב ופריט ציוד.",
+    "losingHealthWarning": "היזהרו - אתם מאבדים בריאות!",
+    "losingHealthWarning2": "אל תתנו לבריאות לרדת לאפס! אחרת תרדו דרגה, תאבדו זהב ופריט ציוד.",
     "toRegainHealth": "כדי לצבור בריאות בחזרה:",
     "lowHealthTips1": "עלו בדרגה כדי להחלים לגמרי!",
     "lowHealthTips2": "רכשו שיקוי בריאות בעמודת הפרסים כדי להחזיר 15 נקודות בריאות.",
@@ -13,5 +13,5 @@
     "lowHealthTips3": "מטלות יומיות אשר לא הושלמו יפגעו בכם במשך הלילה, הזהרו שלא להתחיל עם יותר מידי!",
     "lowHealthTips4": "אם משימה יומית לא בתוקף ביום מסויים, תוכלו להשביתה על ידי לחיצה על העפרון.",
     "goodLuck": "בהצלחה!",
-    "cannotRevive": "Cannot revive if not dead"
+    "cannotRevive": "לא ניתן להחיות אם אינכם מתים"
 }

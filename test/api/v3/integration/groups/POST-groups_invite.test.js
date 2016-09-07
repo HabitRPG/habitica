@@ -33,6 +33,17 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('returns an error when inviting yourself to a group', async () => {
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        uuids: [inviter._id],
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('cannotInviteSelfToGroup'),
+      });
+    });
+
     it('returns an error when uuids is not an array', async () => {
       let fakeID = generateUUID();
 
@@ -316,11 +327,22 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('allow inviting a user to a party if he\'s partying solo', async () => {
+    it('allow inviting a user to a party if they are partying solo', async () => {
       let userToInvite = await generateUser();
       await userToInvite.post('/groups', { // add user to a party
         name: 'Another Test Party',
         type: 'party',
+      });
+
+      await inviter.post(`/groups/${party._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+    });
+
+    it('allow inviting a user if party id is not associated with a real party', async () => {
+      let userToInvite = await generateUser({
+        party: { _id: generateUUID() },
       });
 
       await inviter.post(`/groups/${party._id}/invite`, {

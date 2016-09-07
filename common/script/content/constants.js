@@ -24,6 +24,7 @@ export const EVENTS = {
   gaymerx:    { start: '2015-12-01', end: '2015-12-14' },
   winter2016: { start: '2015-12-18', end: '2016-02-02' },
   spring2016: { start: '2016-03-18', end: '2016-05-02' },
+  summer2016: { start: '2016-06-21', end: '2016-08-02' },
 };
 
 export const GEAR_TYPES = [
@@ -47,6 +48,7 @@ export const ITEM_LIST = {
   headAccessory:   { localeKey: 'headAccessory',  isEquipment: true  },
   eyewear:         { localeKey: 'eyewear',        isEquipment: true  },
   hatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
+  premiumHatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
   eggs:            { localeKey: 'eggSingular',    isEquipment: false },
   quests:          { localeKey: 'quest',          isEquipment: false },
   food:            { localeKey: 'foodText',       isEquipment: false },

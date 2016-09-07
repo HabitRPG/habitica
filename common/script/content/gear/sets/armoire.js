@@ -134,6 +134,38 @@ let armor = {
     set: 'graduate',
     canOwn: ownsItem('armor_armoire_graduateRobe'),
   },
+  stripedSwimsuit: {
+    text: t('armorArmoireStripedSwimsuitText'),
+    notes: t('armorArmoireStripedSwimsuitNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'seaside',
+    canOwn: ownsItem('armor_armoire_stripedSwimsuit'),
+  },
+  cannoneerRags: {
+    text: t('armorArmoireCannoneerRagsText'),
+    notes: t('armorArmoireCannoneerRagsNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'cannoneer',
+    canOwn: ownsItem('armor_armoire_cannoneerRags'),
+  },
+  falconerArmor: {
+    text: t('armorArmoireFalconerArmorText'),
+    notes: t('armorArmoireFalconerArmorNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    set: 'falconer',
+    canOwn: ownsItem('armor_armoire_falconerArmor'),
+  },
+  vermilionArcherArmor: {
+    text: t('armorArmoireVermilionArcherArmorText'),
+    notes: t('armorArmoireVermilionArcherArmorNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'vermilionArcher',
+    canOwn: ownsItem('armor_armoire_vermilionArcherArmor'),
+  },
 };
 
 let eyewear = {
@@ -346,6 +378,40 @@ let head = {
     set: 'graduate',
     canOwn: ownsItem('head_armoire_graduateCap'),
   },
+  greenFloppyHat: {
+    text: t('headArmoireGreenFloppyHatText'),
+    notes: t('headArmoireGreenFloppyHatNotes', { attrs: 8 }),
+    value: 100,
+    per: 8,
+    int: 8,
+    con: 8,
+    canOwn: ownsItem('head_armoire_greenFloppyHat'),
+  },
+  cannoneerBandanna: {
+    text: t('headArmoireCannoneerBandannaText'),
+    notes: t('headArmoireCannoneerBandannaNotes', { attrs: 15 }),
+    value: 100,
+    int: 15,
+    per: 15,
+    set: 'cannoneer',
+    canOwn: ownsItem('head_armoire_cannoneerBandanna'),
+  },
+  falconerCap: {
+    text: t('headArmoireFalconerCapText'),
+    notes: t('headArmoireFalconerCapNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'falconer',
+    canOwn: ownsItem('head_armoire_falconerCap'),
+  },
+  vermilionArcherHelm: {
+    text: t('headArmoireVermilionArcherHelmText'),
+    notes: t('headArmoireVermilionArcherHelmNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'vermilionArcher',
+    canOwn: ownsItem('head_armoire_vermilionArcherHelm'),
+  },
 };
 
 let shield = {
@@ -397,6 +463,22 @@ let shield = {
     value: 100,
     con: 3,
     canOwn: ownsItem('shield_armoire_floralBouquet'),
+  },
+  sandyBucket: {
+    text: t('shieldArmoireSandyBucketText'),
+    notes: t('shieldArmoireSandyBucketNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'seaside',
+    canOwn: ownsItem('shield_armoire_sandyBucket'),
+  },
+  perchingFalcon: {
+    text: t('shieldArmoirePerchingFalconText'),
+    notes: t('shieldArmoirePerchingFalconNotes', { str: 16 }),
+    value: 100,
+    str: 16,
+    set: 'falconer',
+    canOwn: ownsItem('shield_armoire_perchingFalcon'),
   },
 };
 
@@ -551,6 +633,31 @@ let weapon = {
     int: 11,
     set: 'graduate',
     canOwn: ownsItem('weapon_armoire_habiticanDiploma'),
+  },
+  sandySpade: {
+    text: t('weaponArmoireSandySpadeText'),
+    notes: t('weaponArmoireSandySpadeNotes', { str: 10 }),
+    value: 100,
+    str: 10,
+    set: 'seaside',
+    canOwn: ownsItem('weapon_armoire_sandySpade'),
+  },
+  cannon: {
+    text: t('weaponArmoireCannonText'),
+    notes: t('weaponArmoireCannonNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'cannoneer',
+    canOwn: ownsItem('weapon_armoire_cannon'),
+  },
+  vermilionArcherBow: {
+    text: t('weaponArmoireVermilionArcherBowText'),
+    notes: t('weaponArmoireVermilionArcherBowNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    twoHanded: true,
+    set: 'vermilionArcher',
+    canOwn: ownsItem('weapon_armoire_vermilionArcherBow'),
   },
 };
 

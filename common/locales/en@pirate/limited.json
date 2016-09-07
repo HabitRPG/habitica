@@ -5,7 +5,7 @@
     "annoyingFriends": "Annoyin' Mates",
     "annoyingFriendsText": "Got snowballed <%= snowballs %> times by crew-mates.",
     "alarmingFriends": "Alarmin' Buckos",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by crew mates.",
     "agriculturalFriends": "Agricultural Friends",
     "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "aquaticFriends": "Friends o' th' Sea",
@@ -71,7 +71,12 @@
     "magicianBunnySet": "Magician's Bunny (Wizard)",
     "comfortingKittySet": "Comfortin' Kitty (Doc)",
     "sneakySqueakerSet": "Sneaky Squeaker (Scallywag)",
-    "fallEventAvailability": "Available 'til October 31",
-    "winterEventAvailability": "Available until December 31",
-    "springEventAvailability": "Available until May 31"
+    "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
+    "shipSoothsayerSet": "Ship Soothsayer (Magician)",
+    "strappingSailorSet": "Strappin' Sailor (Doc)",
+    "reefRenegadeSet": "Reef Renegade (Scallywag)",
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

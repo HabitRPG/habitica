@@ -15,6 +15,10 @@ mixin avatar(opts)
     each klass, item in visualBuffs
       span(ng-if='profile.stats.buffs.#{item}', class='#{klass}')
 
+    // Show flower ALL THE TIME!!!
+    // See https://github.com/HabitRPG/habitrpg/issues/7133
+    span(class='hair_flower_{{profile.preferences.hair.flower}}')
+
     // Show avatar only if not currently affected by visual buff
     - var buffs = '!profile.stats.buffs'
     span(ng-if='#{buffs}.snowball && #{buffs}.spookySparkles && #{buffs}.shinySeed && #{buffs}.seafoam')

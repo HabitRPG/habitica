@@ -1,4 +1,4 @@
-import { preenHistory } from '../../../../../website/server/libs/api-v3/preening';
+import { preenHistory } from '../../../../../website/server/libs/preening';
 import moment from 'moment';
 import sinon from 'sinon'; // eslint-disable-line no-shadow
 import { generateHistory } from '../../../../helpers/api-unit.helper.js';

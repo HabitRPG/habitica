@@ -5,7 +5,6 @@ import reset from './reset';
 import reroll from './reroll';
 import rebirth from './rebirth';
 import allocateNow from './allocateNow';
-import clearCompleted from './clearCompleted';
 import sortTask from './sortTask';
 import updateTask from './updateTask';
 import deleteTask from './deleteTask';
@@ -19,7 +18,6 @@ import deleteTag from './deleteTag';
 import addWebhook from './addWebhook';
 import updateWebhook from './updateWebhook';
 import deleteWebhook from './deleteWebhook';
-import addPushDevice from './addPushDevice';
 import clearPMs from './clearPMs';
 import deletePM from './deletePM';
 import blockUser from './blockUser';
@@ -48,7 +46,6 @@ import openMysteryItem from './openMysteryItem';
 import scoreTask from './scoreTask';
 import markPmsRead from './markPMSRead';
 
-
 module.exports = {
   update,
   sleep,
@@ -57,7 +54,6 @@ module.exports = {
   reroll,
   rebirth,
   allocateNow,
-  clearCompleted,
   sortTask,
   updateTask,
   deleteTask,
@@ -71,7 +67,6 @@ module.exports = {
   addWebhook,
   updateWebhook,
   deleteWebhook,
-  addPushDevice,
   clearPMs,
   deletePM,
   blockUser,

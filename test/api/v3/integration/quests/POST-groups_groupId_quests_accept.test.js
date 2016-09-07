@@ -3,6 +3,7 @@ import {
   translate as t,
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
+import Bluebird from 'bluebird';
 
 describe('POST /groups/:groupId/quests/accept', () => {
   const PET_QUEST = 'whale';
@@ -73,6 +74,21 @@ describe('POST /groups/:groupId/quests/accept', () => {
       });
     });
 
+    it('clears the invalid invite from the user when the request fails', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('questAlreadyAccepted'),
+      });
+
+      await partyMembers[0].sync();
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
+    });
+
     it('does not accept invite for a quest already underway', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
@@ -114,6 +130,23 @@ describe('POST /groups/:groupId/quests/accept', () => {
 
       await questingGroup.sync();
       expect(questingGroup.quest.active).to.equal(true);
+    });
+
+    it('cleans up user quest data for non-quest members when last member accepts', async () => {
+      let rejectingMember = partyMembers[0];
+
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await rejectingMember.post(`/groups/${questingGroup._id}/quests/reject`);
+      // quest will start after everyone has accepted
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await Bluebird.delay(500);
+
+      await rejectingMember.sync();
+
+      expect(rejectingMember.party.quest.RSVPNeeded).to.eql(false);
+      expect(rejectingMember.party.quest.key).to.not.exist;
+      expect(rejectingMember.party.quest.completed).to.not.exist;
     });
   });
 });

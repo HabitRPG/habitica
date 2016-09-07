@@ -33,19 +33,30 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
   });
 
-  it('returns error when user does not have the challenge', async () => {
-    let userWithoutChallenge = await generateUser();
-
-    await expect(userWithoutChallenge.post(`/tasks/challenge/${challenge._id}`, {
+  it('allows leader to add tasks to a challenge when not a member', async () => {
+    await user.post(`/challenges/${challenge._id}/leave`);
+    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit',
       type: 'habit',
       up: false,
       down: true,
       notes: 1976,
+    });
+
+    let {tasksOrder} =  await user.get(`/challenges/${challenge._id}`);
+
+    expect(tasksOrder.habits).to.include(task.id);
+  });
+
+  it('returns error when user tries to create task with a alias', async () => {
+    await expect(user.post(`/tasks/challenge/${challenge._id}`, {
+      text: 'test habit',
+      type: 'habit',
+      alias: 'a-alias',
     })).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: t('challengeNotFound'),
+      code: 400,
+      error: 'BadRequest',
+      message: 'habit validation failed',
     });
   });
 

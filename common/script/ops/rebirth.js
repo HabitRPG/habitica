@@ -30,6 +30,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   }
 
   if (analytics) {
+    analyticsData.headers = req.headers;
     analytics.track('Rebirth', analyticsData);
   }
 
@@ -51,6 +52,8 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   stats.hp = 50;
   stats.lvl = 1;
   stats.class = 'warrior';
+
+  user.preferences.automaticAllocation = false;
 
   _.each(USERSTATSLIST, function resetStats (value) {
     stats[value] = 0;
@@ -92,6 +95,8 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     user.achievements.rebirths++;
     user.achievements.rebirthLevel = lvl;
   }
+
+  user.addNotification('REBIRTH_ACHIEVEMENT');
 
   user.stats.buffs = {};
 

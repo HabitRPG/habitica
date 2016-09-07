@@ -339,6 +339,62 @@ let backgrounds = {
       notes: t('backgroundTreeRootsNotes'),
     },
   },
+  backgrounds062016: {
+    lighthouse_shore: {
+      text: t('backgroundLighthouseShoreText'),
+      notes: t('backgroundLighthouseShoreNotes'),
+    },
+    lilypad: {
+      text: t('backgroundLilypadText'),
+      notes: t('backgroundLilypadNotes'),
+    },
+    waterfall_rock: {
+      text: t('backgroundWaterfallRockText'),
+      notes: t('backgroundWaterfallRockNotes'),
+    },
+  },
+  backgrounds072016: {
+    aquarium: {
+      text: t('backgroundAquariumText'),
+      notes: t('backgroundAquariumNotes'),
+    },
+    dilatory_castle: {
+      text: t('backgroundDilatoryCastleText'),
+      notes: t('backgroundDilatoryCastleNotes'),
+    },
+    deep_sea: {
+      text: t('backgroundDeepSeaText'),
+      notes: t('backgroundDeepSeaNotes'),
+    },
+  },
+  backgrounds082016: {
+    idyllic_cabin: {
+      text: t('backgroundIdyllicCabinText'),
+      notes: t('backgroundIdyllicCabinNotes'),
+    },
+    mountain_pyramid: {
+      text: t('backgroundMountainPyramidText'),
+      notes: t('backgroundMountainPyramidNotes'),
+    },
+    stormy_ship: {
+      text: t('backgroundStormyShipText'),
+      notes: t('backgroundStormyShipNotes'),
+    },
+  },
+  backgrounds092016: {
+    cornfields: {
+      text: t('backgroundCornfieldsText'),
+      notes: t('backgroundCornfieldsNotes'),
+    },
+    farmhouse: {
+      text: t('backgroundFarmhouseText'),
+      notes: t('backgroundFarmhouseNotes'),
+    },
+    orchard: {
+      text: t('backgroundOrchardText'),
+      notes: t('backgroundOrchardNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 

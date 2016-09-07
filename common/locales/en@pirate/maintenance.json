@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Don' ye worry, Habitica be back before before ye flash yer deadlights!",
-  "importantMaintenance": "We be doin' important maintenance that we estimate gunna last 'til <%= localDate %> in ye timezone.",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
   "maintenance": "Maintenance",
   "maintenanceMoreInfo": "Want more information 'bout th' maintenance? <%= linkStart %>Ye better check out the rutters<%= linkEnd %>.",
   "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",

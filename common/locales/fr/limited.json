@@ -5,7 +5,7 @@
     "annoyingFriends": "Amis Pénibles",
     "annoyingFriendsText": "A été touché·e <%= snowballs %> fois par des boules de neige lancées par un membre de l'équipe.",
     "alarmingFriends": "Amis Inquiétants",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "A été transformé·e en fantôme <%= spookySparkles %> fois par des membres de l'équipe.",
     "agriculturalFriends": "Amis Agricoles",
     "agriculturalFriendsText": "A été transformé·e en fleur <%= seeds %> fois par un membre de son équipe.",
     "aquaticFriends": "Amis Aquatiques",
@@ -71,7 +71,12 @@
     "magicianBunnySet": "Lapin de Magicien (Mage)",
     "comfortingKittySet": "Chaton rassurant (Guérisseur)",
     "sneakySqueakerSet": "Rongeur sournois (Voleur)",
-    "fallEventAvailability": "Disponible jusqu'au 31 octobre",
-    "winterEventAvailability": "Disponible jusqu'au 31 décembre",
-    "springEventAvailability": "Disponible jusqu'au 31 mai"
+    "sunfishWarriorSet": "Guerrier Poisson-Lune (Guerrier)",
+    "shipSoothsayerSet": "Devin du Navire (Mage)",
+    "strappingSailorSet": "Marin Costaud (Guérisseur)",
+    "reefRenegadeSet": "Renégat du Récif (Voleur)",
+    "fallEventAvailability": "Disponible à l'achat jusqu'au 31 octobre.",
+    "winterEventAvailability": "Disponible à l'achat jusqu'au 31 décembre.",
+    "springEventAvailability": "Disponible à l'achat jusqu'au 31 mai.",
+    "summerEventAvailability": "Disponible à l'achat jusqu'au 31 août."
 }

@@ -44,10 +44,7 @@ describe('POST /debug/quest-progress', () => {
 
     await user.sync();
 
-    expect(user.party.quest.progress.collect).to.eql({
-      tracks: 300,
-      branches: 300,
-    });
+    expect(user.party.quest.progress.collectedItems).to.eql(300);
   });
 
   it('returns error when not in production mode', async () => {

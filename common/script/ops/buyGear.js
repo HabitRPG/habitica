@@ -56,6 +56,7 @@ module.exports = function buyGear (user, req = {}, analytics) {
       acquireMethod: 'Gold',
       goldCost: item.value,
       category: 'behavior',
+      headers: req.headers,
     });
   }
 

@@ -5,7 +5,7 @@
     "annoyingFriends": "Złośliwi znajomi",
     "annoyingFriendsText": "Dostał <%= snowballs %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
-    "alarmingFriendsText": "Got spooked <%= spookySparkles %> times by party members.",
+    "alarmingFriendsText": "Przestraszony <%= spookySparkles %> razy przez członków drużyny.",
     "agriculturalFriends": "Rolniczy przyjaciele",
     "agriculturalFriendsText": "Przemieniony w kwiat <%= seeds %> razy przez członków drużyny.",
     "aquaticFriends": "Wodni przyjaciele",
@@ -71,7 +71,12 @@
     "magicianBunnySet": "Króliczek Maga (Mag)",
     "comfortingKittySet": "Wygodnicki Kotek (Uzdrowiciel)",
     "sneakySqueakerSet": "Przebiegły Kwikacz (Łotrzyk)",
-    "fallEventAvailability": "Dostępne do 31 października",
-    "winterEventAvailability": "Dostępne do 31 grudnia",
-    "springEventAvailability": "Dostępne do 31 maja"
+    "sunfishWarriorSet": "Błękitnoskrzeli Wojownik (Wojownik)",
+    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
+    "strappingSailorSet": "Strapping Sailor (Healer)",
+    "reefRenegadeSet": "Reef Renegade (Rogue)",
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Dostępne w sprzedaży do 31 grudnia.",
+    "springEventAvailability": "Dostępne w sprzedaży do 31 maja.",
+    "summerEventAvailability": "Dostępne w sprzedaży do 31 sierpnia."
 }

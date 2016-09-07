@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Pamiętaj, że Twoja Nazwa Gracza, zdjęcie profilowe i krótki opis muszą być zgodne z  <a href='https://habitica.com/static/community-guidelines' target='_blank'>Wytycznymi Społeczności</a> (np. żadnej profanacji, tematów dla dorosłych, nic obraźliwego itp.). Jeśli masz pytania odnośnie tego, czy coś jest właściwe czy nie, pisz na e-mail <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Statystyki i osiągnięcia",
     "profile": "Profil",
     "avatar": "Dostosuj Awatara",
@@ -110,7 +110,7 @@
     "mage": "Mag",
     "mystery": "Tajemniczy",
     "changeClass": "Zmień klasę i przywróć punkty atrybutów",
-    "lvl10ChangeClass": "Aby zmienić klasę musisz mieć co najmniej 10 level. ",
+    "lvl10ChangeClass": "Aby zmienić klasę musisz być na poziomie co najmniej 10. ",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",
     "haveUnallocated": "Nieprzydzielone Punkty Atrybutów: <%= points %>",
@@ -121,7 +121,7 @@
     "classAllocation": "Rozdzielaj punkty w oparciu o Klasę",
     "classAllocationPop": "Przydziela więcej punktów atrybutom, które są ważne dla Twojej Klasy.",
     "taskAllocation": "Rozdzielaj punkty w oparciu o typ zadań",
-    "taskAllocationPop": "Przydziela punkty według kategorii, które przypisałeś zadaniom: fizyczne (Siła), umysłowe (Inteligencja), społeczne (Kondycja) lub inne (Percepcja).",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Rozdziel nieprzypisane punkty",
     "distributePointsPop": "Rozdziela wszystkie nieprzypisane punkty w oparciu o wybraną przez Ciebie opcję.",
     "warriorText": "Wojownicy zadają \"trafienia krytyczne\" lepiej i wydajniej, co losowo daje im dodatkowe Złoto, Doświadczenie i szansę na łupy za ukończenie zadania. Zadają oni także duże obrażenia bossom. Graj Wojownikiem, jeśli motywują Cię nieprzewidywalne nagrody jak w hazardzie, lub chcesz serwować ból w Misjach z bossami!",
@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Ukryj przydział atrybutów",
     "quickAllocationLevelPopover": "Z każdym poziomem otrzymujesz jeden punkt, który możesz przydzielić wybranemu atrybutowi. Możesz to zrobić ręcznie, lub zdać się na jedną z możliwych opcji Automatycznej Alokacji, dostępnych w Użytkownik -> Statystyki Awatara.",
     "invalidAttribute": "\"<%= attr %>\" nie jest poprawnym atrybutem.",
-    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów."
+    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów.",
+    "gearNotOwned": "Nie posiadasz tego przedmiotu."
 }

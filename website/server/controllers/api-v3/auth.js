@@ -4,22 +4,22 @@ import passport from 'passport';
 import nconf from 'nconf';
 import {
   authWithHeaders,
-} from '../../middlewares/api-v3/auth';
+} from '../../middlewares/auth';
 import {
   NotAuthorized,
   BadRequest,
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import Bluebird from 'bluebird';
-import * as passwordUtils from '../../libs/api-v3/password';
-import logger from '../../libs/api-v3/logger';
+import * as passwordUtils from '../../libs/password';
+import logger from '../../libs/logger';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
-import { sendTxn as sendTxnEmail } from '../../libs/api-v3/email';
-import { decrypt } from '../../libs/api-v3/encryption';
-import FirebaseTokenGenerator from 'firebase-token-generator';
-import { send as sendEmail } from '../../libs/api-v3/email';
+import { sendTxn as sendTxnEmail } from '../../libs/email';
+import { decrypt } from '../../libs/encryption';
+import { send as sendEmail } from '../../libs/email';
+import pusher from '../../libs/pusher';
 
 let api = {};
 
@@ -154,6 +154,7 @@ api.registerLocal = {
         type: 'local',
         gaLabel: 'local',
         uuid: savedUser._id,
+        headers: req.headers,
       });
     }
 
@@ -163,7 +164,7 @@ api.registerLocal = {
 
 function _loginRes (user, req, res) {
   if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken});
+  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
 /**
@@ -178,6 +179,7 @@ function _loginRes (user, req, res) {
  *
  * @apiSuccess {String} data._id The user's unique identifier
  * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
+ * @apiSuccess {Boolean} data.newUser Returns true if the user was just created (always false for local login).
  */
 api.loginLocal = {
   method: 'POST',
@@ -212,6 +214,15 @@ api.loginLocal = {
     let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
     let isValidPassword = user && user.auth.local.hashed_password === passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+
+    res.analytics.track('login', {
+      category: 'behaviour',
+      type: 'local',
+      gaLabel: 'local',
+      uuid: user._id,
+      headers: req.headers,
+    });
+
     return _loginRes(user, ...arguments);
   },
 };
@@ -260,6 +271,7 @@ api.loginSocial = {
 
       let savedUser = await user.save();
 
+      user.newUser = true;
       _loginRes(user, ...arguments);
 
       // Clean previous email preferences
@@ -275,10 +287,81 @@ api.loginSocial = {
         type: network,
         gaLabel: network,
         uuid: savedUser._id,
+        headers: req.headers,
       });
 
       return null;
     }
+  },
+};
+
+/*
+ * @apiIgnore Private route
+ * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
+ * @apiDescription Authentication for Pusher.com private and presence channels
+ * @apiVersion 3.0.0
+ * @apiName UserAuthPusher
+ * @apiGroup User
+ *
+ * @apiParam {String} socket_id Body parameter
+ * @apiParam {String} channel_name Body parameter
+ *
+ * @apiSuccess {String} auth The authentication token
+ */
+api.pusherAuth = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/auth/pusher',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody('socket_id').notEmpty();
+    req.checkBody('channel_name').notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let socketId = req.body.socket_id;
+    let channelName = req.body.channel_name;
+
+    // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
+    let [channelType, resourceType, ...resourceId] = channelName.split('-');
+
+    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds too
+      throw new BadRequest('Invalid Pusher channel type.');
+    }
+
+    if (resourceType !== 'group') { // only groups are supported
+      throw new BadRequest('Invalid Pusher resource type.');
+    }
+
+    resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
+    if (!validator.isUUID(resourceId)) {
+      throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
+    }
+
+    // Only the user's party is supported for now
+    if (user.party._id !== resourceId) {
+      throw new NotFound('Resource id must be the user\'s party.');
+    }
+
+    let authResult;
+
+    // Max 100 members for presence channel - parties only
+    if (channelType === 'presence') {
+      let presenceData = {
+        user_id: user._id, // eslint-disable-line camelcase
+        // Max 1KB
+        user_info: {}, // eslint-disable-line camelcase
+      };
+
+      authResult = pusher.authenticate(socketId, channelName, presenceData);
+    } else {
+      authResult = pusher.authenticate(socketId, channelName);
+    }
+
+    // Not using res.respond because Pusher requires a different response format
+    res.status(200).json(authResult);
   },
 };
 
@@ -289,8 +372,8 @@ api.loginSocial = {
  * @apiName UpdateUsername
  * @apiGroup User
  *
- * @apiParam {string} password Body parameter - The current user password
- * @apiParam {string} username Body parameter - The new username
+ * @apiParam {String} password Body parameter - The current user password
+ * @apiParam {String} username Body parameter - The new username
 
  * @apiSuccess {String} data.username The new username
  **/
@@ -337,9 +420,9 @@ api.updateUsername = {
  * @apiName UpdatePassword
  * @apiGroup User
  *
- * @apiParam {string} password Body parameter - The old password
- * @apiParam {string} newPassword Body parameter - The new password
- * @apiParam {string} confirmPassword Body parameter - New password confirmation
+ * @apiParam {String} password Body parameter - The old password
+ * @apiParam {String} newPassword Body parameter - The new password
+ * @apiParam {String} confirmPassword Body parameter - New password confirmation
  *
  * @apiSuccess {Object} data An empty object
  **/
@@ -388,9 +471,9 @@ api.updatePassword = {
  * @apiName ResetPassword
  * @apiGroup User
  *
- * @apiParam {string} email Body parameter - The email address of the user
+ * @apiParam {String} email Body parameter - The email address of the user
  *
- * @apiSuccess {string} message The localized success message
+ * @apiSuccess {String} message The localized success message
  **/
 api.resetPassword = {
   method: 'POST',
@@ -410,7 +493,7 @@ api.resetPassword = {
     let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
     let hashedPassword = passwordUtils.encrypt(newPassword, salt);
 
-    let user = await User.findOne({ 'auth.local.email': email }, { 'auth.local': 1 });
+    let user = await User.findOne({ 'auth.local.email': email });
 
     if (user) {
       user.auth.local.salt = salt;
@@ -428,8 +511,10 @@ api.resetPassword = {
                                                 baseUrl: nconf.get('BASE_URL'),
                                               }),
       });
+
       await user.save();
     }
+
     res.respond(200, {}, res.t('passwordReset'));
   },
 };
@@ -441,10 +526,10 @@ api.resetPassword = {
  * @apiName UpdateEmail
  * @apiGroup User
  *
- * @apiParam {string} Body parameter - newEmail The new email address.
- * @apiParam {string} Body parameter - password The user password.
+ * @apiParam {String} Body parameter - newEmail The new email address.
+ * @apiParam {String} Body parameter - password The user password.
  *
- * @apiSuccess {string} data.email The updated email address
+ * @apiSuccess {String} data.email The updated email address
  */
 api.updateEmail = {
   method: 'PUT',
@@ -460,6 +545,9 @@ api.updateEmail = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
+    let emailAlreadyInUse = await User.findOne({'auth.local.email': req.body.newEmail}).select({_id: 1}).lean().exec();
+    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
+
     let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
 
@@ -467,28 +555,6 @@ api.updateEmail = {
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });
-  },
-};
-
-const firebaseTokenGenerator = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
-
-// Internal route
-api.getFirebaseToken = {
-  method: 'POST',
-  url: '/user/auth/firebase',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    let user = res.locals.user;
-    // Expires 24 hours from now (60*60*24*1000) (in milliseconds)
-    let expires = new Date();
-    expires.setTime(expires.getTime() + 86400000);
-
-    let token = firebaseTokenGenerator.createToken({
-      uid: user._id,
-      isHabiticaUser: true,
-    }, { expires });
-
-    res.respond(200, {token, expires});
   },
 };
 

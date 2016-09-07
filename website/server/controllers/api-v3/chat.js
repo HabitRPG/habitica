@@ -1,16 +1,15 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import {
-  model as Group,
-  TAVERN_ID,
-} from '../../models/group';
+import { authWithHeaders } from '../../middlewares/auth';
+import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import _ from 'lodash';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import { sendTxn } from '../../libs/api-v3/email';
+import { removeFromArray } from '../../libs/collectionManipulators';
+import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
+import slack from '../../libs/slack';
+import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 
@@ -20,13 +19,29 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 
 let api = {};
 
+async function getAuthorEmailFromMessage (message) {
+  let authorId = message.uuid;
+
+  if (authorId === 'system') {
+    return 'system';
+  }
+
+  let author = await User.findOne({_id: authorId}, {auth: 1});
+
+  if (author) {
+    return getUserInfo(author, ['email']).email;
+  } else {
+    return 'Author Account Deleted';
+  }
+}
+
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
  * @apiVersion 3.0.0
  * @apiName GetChat
  * @apiGroup Chat
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Array} data An array of chat messages
  */
@@ -52,12 +67,12 @@ api.getChat = {
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiVersion 3.0.0
- * @apiName PostCat
+ * @apiName PostChat
  * @apiGroup Chat
  *
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {message} Body parameter - message The message to post
- * @apiParam {previousMsg} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
+ * @apiParam {String} message Body parameter - message The message to post
+ * @apiParam {UUID} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
  *
  * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
  */
@@ -86,7 +101,7 @@ api.postChat = {
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
-    group.sendChat(req.body.message, user);
+    let newChatMessage = group.sendChat(req.body.message, user);
 
     let toSave = [group.save()];
 
@@ -96,6 +111,14 @@ api.postChat = {
     }
 
     let [savedGroup] = await Bluebird.all(toSave);
+
+    // real-time chat is only enabled for private groups (for now only for parties)
+    if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
+      // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
+      // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
+      pusher.trigger(`presence-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
+    }
+
     if (chatUpdated) {
       res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {
@@ -110,8 +133,8 @@ api.postChat = {
  * @apiName LikeChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message _id
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message _id
  *
  * @apiSuccess {Object} data The liked chat message
  */
@@ -152,15 +175,28 @@ api.likeChat = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
- * @apiVersion 3.0.0
- * @apiName LikeChat
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/flag Flag a group chat message
+ * @apiDescription A message will be hidden from chat if two or more users flag a message. It will be hidden immediately if a moderator flags the message. An email is sent to the moderators about every flagged message.
+ * @apiName FlagChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message id
+ * @apiParam {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
- * @apiSuccess {object} data The flagged chat message
+ * @apiSuccess {Object} data The flagged chat message
+ * @apiSuccess {UUID} data.id The id of the message
+ * @apiSuccess {String} data.text The text of the message
+ * @apiSuccess {Number} data.timestamp The timestamp of the message in milliseconds
+ * @apiSuccess {Object} data.likes The likes of the message
+ * @apiSuccess {Object} data.flags The flags of the message
+ * @apiSuccess {Number} data.flagCount The number of flags the message has
+ * @apiSuccess {UUID} data.uuid The user id of the author of the message
+ * @apiSuccess {String} data.user The username of the author of the message
+ *
+ * @apiError GroupNotFound Group could not be found or you don't have access
+ * @apiError ChatNotFound Chat message with specified id could not be found
+ * @apiError FlagOwnMessage Chat messages cannot be flagged by the author of the message
+ * @apiError AlreadyFlagged Chat messages cannot be flagged more than once by a user
  */
 api.flagChat = {
   method: 'POST',
@@ -176,15 +212,17 @@ api.flagChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId});
+    let group = await Group.getGroup({
+      user,
+      groupId,
+      optionalMembership: user.contributor.admin,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
     let message = _.find(group.chat, {id: req.params.chatId});
 
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatFlagOwnMessage'));
-
-    let author = await User.findOne({_id: message.uuid}, {auth: 1});
 
     let update = {$set: {}};
 
@@ -197,7 +235,7 @@ api.flagChat = {
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
     if (user.contributor.admin) {
-      // Arbitraty amount, higher than 2
+      // Arbitrary amount, higher than 2
       message.flagCount = 5;
     } else {
       message.flagCount++;
@@ -209,28 +247,9 @@ api.flagChat = {
       update
     );
 
-    let reporterEmailContent;
-    if (user.auth.local) {
-      reporterEmailContent = user.auth.local.email;
-    } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) {
-      reporterEmailContent = user.auth.facebook.emails[0].value;
-    }
-
-    let authorEmailContent;
-    if (author.auth.local) {
-      authorEmailContent = author.auth.local.email;
-    } else if (author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) {
-      authorEmailContent = author.auth.facebook.emails[0].value;
-    }
-
-    let groupUrl;
-    if (group._id === TAVERN_ID) {
-      groupUrl = '/#/options/groups/tavern';
-    } else if (group.type === 'guild') {
-      groupUrl = `/#/options/groups/guilds/${group._id}`;
-    } else {
-      groupUrl = 'party';
-    }
+    let reporterEmailContent = getUserInfo(user, ['email']).email;
+    let authorEmail = await getAuthorEmailFromMessage(message);
+    let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
@@ -243,7 +262,7 @@ api.flagChat = {
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
-      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_EMAIL', content: authorEmail},
       {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
@@ -252,21 +271,31 @@ api.flagChat = {
       {name: 'GROUP_URL', content: groupUrl},
     ]);
 
+    slack.sendFlagNotification({
+      flagger: user,
+      group,
+      message,
+    });
+
     res.respond(200, message);
   },
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/clear-flags Clear a group chat message's flags
- * @apiDescription Admin-only
- * @apiVersion 3.0.0
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear flags
+ * @apiDescription Resets the flag count on a chat message. Retains the id of the user's that have flagged the message. (Only visible to moderators)
+ * @apiPermission Moderators
  * @apiName ClearFlags
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {chatId} chatId The chat message id
+ * @apiParam {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiError MustBeAdmin Must be a moderator to use this route
+ * @apiError GroupNotFound Group could not be found or you don't have access
+ * @apiError ChatNotFound Chat message with specified id could not be found
  */
 api.clearChatFlags = {
   method: 'Post',
@@ -287,7 +316,11 @@ api.clearChatFlags = {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
-    let group = await Group.getGroup({user, groupId});
+    let group = await Group.getGroup({
+      user,
+      groupId,
+      optionalMembership: user.contributor.admin,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let message = _.find(group.chat, {id: chatId});
@@ -300,17 +333,41 @@ api.clearChatFlags = {
       {$set: {'chat.$.flagCount': message.flagCount}}
     );
 
+    let adminEmailContent = getUserInfo(user, ['email']).email;
+    let authorEmail = getAuthorEmailFromMessage(message);
+    let groupUrl = getGroupUrl(group);
+
+    sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
+      {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
+      {name: 'MESSAGE_TEXT', content: message.text},
+
+      {name: 'ADMIN_USERNAME', content: user.profile.name},
+      {name: 'ADMIN_UUID', content: user._id},
+      {name: 'ADMIN_EMAIL', content: adminEmailContent},
+      {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+
+      {name: 'AUTHOR_USERNAME', content: message.user},
+      {name: 'AUTHOR_UUID', content: message.uuid},
+      {name: 'AUTHOR_EMAIL', content: authorEmail},
+      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'GROUP_TYPE', content: group.type},
+      {name: 'GROUP_ID', content: group._id},
+      {name: 'GROUP_URL', content: groupUrl},
+    ]);
+
     res.respond(200, {});
   },
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/seen Seen a group chat message
+ * @api {post} /api/v3/groups/:groupId/chat/seen Mark all messages as read for a group
  * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
  *
- * @apiParam {groupId} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data An empty object
  */
@@ -345,9 +402,9 @@ api.seenChat = {
  * @apiName DeleteChat
  * @apiGroup Chat
  *
- * @apiParam {string} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string} chatId The chat message id
+ * @apiParam {String} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
+ * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam {UUID} chatId The chat message id
  *
  * @apiSuccess data The updated chat array or an empty object if no message was posted after previousMsg
  * @apiSuccess {Object} data An empty object when the previous message was deleted

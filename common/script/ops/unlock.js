@@ -100,6 +100,7 @@ module.exports = function unlock (user, req = {}, analytics) {
         acquireMethod: 'Gems',
         gemCost: cost / 0.25,
         category: 'behavior',
+        headers: req.headers,
       });
     }
   }

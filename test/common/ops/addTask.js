@@ -32,7 +32,7 @@ describe('shared.ops.addTask', () => {
     expect(habit.up).to.equal(true);
     expect(habit.down).to.equal(false);
     expect(habit.history).to.eql([]);
-    expect(habit.checklist).to.not.exists;
+    expect(habit.checklist).to.not.exist;
   });
 
   it('adds an habtit when type is invalid', () => {
@@ -53,7 +53,7 @@ describe('shared.ops.addTask', () => {
     expect(habit.up).to.equal(true);
     expect(habit.down).to.equal(false);
     expect(habit.history).to.eql([]);
-    expect(habit.checklist).to.not.exists;
+    expect(habit.checklist).to.not.exist;
   });
 
   it('adds a daily', () => {
@@ -73,7 +73,7 @@ describe('shared.ops.addTask', () => {
     expect(daily.history).to.eql([]);
     expect(daily.checklist).to.eql([]);
     expect(daily.completed).to.be.false;
-    expect(daily.up).to.not.exists;
+    expect(daily.up).to.not.exist;
   });
 
   it('adds a todo', () => {
@@ -92,7 +92,7 @@ describe('shared.ops.addTask', () => {
     expect(todo.text).to.equal('todo');
     expect(todo.checklist).to.eql([]);
     expect(todo.completed).to.be.false;
-    expect(todo.up).to.not.exists;
+    expect(todo.up).to.not.exist;
   });
 
   it('adds a reward', () => {
@@ -110,30 +110,32 @@ describe('shared.ops.addTask', () => {
     expect(reward.type).to.equal('reward');
     expect(reward.text).to.equal('reward');
     expect(reward.value).to.equal(10);
-    expect(reward.up).to.not.exists;
+    expect(reward.up).to.not.exist;
   });
 
-  context('respects preferences', () => {
-    it('true', () => {
+  context('user preferences', () => {
+    it('respects newTaskEdit preference', () => {
       user.preferences.newTaskEdit = true;
-      user.preferences.tagsCollapsed = true;
-      user.preferences.advancedCollapsed = false;
-      let task = addTask(user);
+      expect(addTask(user)._editing).to.be.ok;
 
-      expect(task._editing).to.be.true;
-      expect(task._tags).to.be.true;
-      expect(task._advanced).to.be.true;
+      user.preferences.newTaskEdit = false;
+      expect(addTask(user)._editing).not.be.ok;
     });
 
-    it('false', () => {
-      user.preferences.newTaskEdit = false;
-      user.preferences.tagsCollapsed = false;
-      user.preferences.advancedCollapsed = true;
-      let task = addTask(user);
+    it('respects tagsCollapsed preference', () => {
+      user.preferences.tagsCollapsed = true;
+      expect(addTask(user)._tags).to.not.be.ok;
 
-      expect(task._editing).to.not.exists;
-      expect(task._tags).to.not.exists;
-      expect(task._advanced).to.not.exists;
+      user.preferences.tagsCollapsed = false;
+      expect(addTask(user)._tags).to.be.ok;
+    });
+
+    it('respects advancedCollapsed preference', () => {
+      user.preferences.advancedCollapsed = true;
+      expect(addTask(user)._advanced).not.be.ok;
+
+      user.preferences.advancedCollapsed = false;
+      expect(addTask(user)._advanced).to.be.ok;
     });
   });
 });

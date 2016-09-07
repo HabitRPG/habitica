@@ -3,15 +3,24 @@
 describe('Filters Controller', function() {
   var scope, user, userService;
 
-  beforeEach(inject(function($rootScope, $controller, Shared, User) {
-    user = specHelper.newUser();
-    Shared.wrap(user);
-    scope = $rootScope.$new();
-    // user.filters = {};
-    User.setUser(user);
-    userService = User;
-    $controller('FiltersCtrl', {$scope: scope, User: User});
-  }));
+  beforeEach(function () {
+    module(function($provide) {
+      var mockWindow = {href: '', alert: sandbox.spy(), location: {search: '', pathname: '', href: ''}};
+
+      $provide.value('$window', mockWindow);
+    });
+
+    inject(function($rootScope, $controller, Shared, User) {
+      user = specHelper.newUser();
+      Shared.wrap(user);
+      scope = $rootScope.$new();
+      // user.filters = {};
+      User.setUser(user);
+      User.user.filters = {};
+      userService = User;
+      $controller('FiltersCtrl', {$scope: scope, User: User});
+    })
+  });
 
   describe('tags', function(){
     it('creates a tag', function(){
@@ -27,7 +36,7 @@ describe('Filters Controller', function() {
       scope.toggleFilter(tag);
       expect(userService.user.filters[tag.id]).to.eql(true);
       scope.toggleFilter(tag);
-      expect(userService.user.filters[tag.id]).to.eql(false);
+      expect(userService.user.filters[tag.id]).to.not.eql(true);
     }));
   });
 

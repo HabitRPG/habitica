@@ -2,17 +2,19 @@ import mongoose from 'mongoose';
 import shared from '../../../common';
 import validator from 'validator';
 import moment from 'moment';
-import baseModel from '../libs/api-v3/baseModel';
+import baseModel from '../libs/baseModel';
+import { InternalServerError } from '../libs/errors';
 import _ from 'lodash';
-import { preenHistory } from '../libs/api-v3/preening';
+import { preenHistory } from '../libs/preening';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+
 let discriminatorOptions = {
   discriminatorKey: 'type', // the key that distinguishes task types
 };
 let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {
   _id: false,
-  minimize: false,
+  minimize: false, // So empty objects are returned
 });
 
 export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
@@ -20,10 +22,24 @@ export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 // Important
 // When something changes here remember to update the client side model at common/script/libs/taskDefaults
 export let TaskSchema = new Schema({
-  _legacyId: String, // TODO Remove when v2 is deprecated
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
+  alias: {
+    type: String,
+    match: [/^[a-zA-Z0-9-_]+$/, 'Task short names can only contain alphanumeric characters, underscores and dashes.'],
+    validate: [{
+      validator () {
+        return Boolean(this.userId);
+      },
+      msg: 'Task short names can only be applied to tasks in a user\'s own task list.',
+    }, {
+      validator (val) {
+        return !validator.isUUID(val);
+      },
+      msg: 'Task short names cannot be uuids.',
+    }],
+  },
   tags: [{
     type: String,
     validate: [validator.isUUID, 'Invalid uuid.'],
@@ -48,6 +64,13 @@ export let TaskSchema = new Schema({
     winner: String, // user.profile.name of the winner
   },
 
+  group: {
+    id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
+    broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
+    assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
+  },
+
   reminders: [{
     _id: false,
     id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
@@ -60,7 +83,7 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId'],
+  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId', 'group'],
   sanitizeTransform (taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
@@ -71,6 +94,25 @@ TaskSchema.plugin(baseModel, {
   private: [],
   timestamps: true,
 });
+
+TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier, userId, additionalQueries = {}) {
+  // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
+  if (!identifier) throw new InternalServerError('Task identifier is a required argument');
+  if (!userId) throw new InternalServerError('User identifier is a required argument');
+
+  let query = _.cloneDeep(additionalQueries);
+
+  if (validator.isUUID(identifier)) {
+    query._id = identifier;
+  } else {
+    query.userId = userId;
+    query.alias = identifier;
+  }
+
+  let task = await this.findOne(query).exec();
+
+  return task;
+};
 
 // Sanitize user tasks linked to a challenge
 // See http://habitica.wikia.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
@@ -124,47 +166,21 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
   await chalTask.save();
 };
 
-
-// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
-// These will be removed once API v2 is discontinued
-
-// toJSON for API v2
-TaskSchema.methods.toJSONV2 = function toJSONV2 () {
-  let toJSON = this.toJSON();
-  if (toJSON._legacyId) {
-    toJSON.id = toJSON._legacyId;
-  } else {
-    toJSON.id = toJSON._id;
-  }
-
-  if (!toJSON.challenge) toJSON.challenge = {};
-
-  let v3Tags = this.tags;
-
-  toJSON.tags = {};
-  v3Tags.forEach(tag => {
-    toJSON.tags[tag] = true;
-  });
-
-  toJSON.dateCreated = this.createdAt;
-
-  return toJSON;
-};
-
-TaskSchema.statics.fromJSONV2 = function fromJSONV2 (taskObj) {
-  if (taskObj.id) taskObj._id = taskObj.id;
-
-  let v2Tags = taskObj.tags || {};
-
-  taskObj.tags = [];
-  taskObj.tags = _.map(v2Tags, (tag, key) => key);
-
-  return taskObj;
-};
-
-// END of API v2 methods
-
 export let Task = mongoose.model('Task', TaskSchema);
+
+Task.schema.path('alias').validate(function valiateAliasNotTaken (alias, respond) {
+  Task.findOne({
+    _id: { $ne: this._id },
+    userId: this.userId,
+    alias,
+  }).exec().then((task) => {
+    let aliasAvailable = !task;
+
+    respond(aliasAvailable);
+  }).catch(() => {
+    respond(false);
+  });
+}, 'Task alias already used on another task.');
 
 // habits and dailies shared fields
 let habitDailySchema = () => {
@@ -181,7 +197,7 @@ let dailyTodoSchema = () => {
       completed: {type: Boolean, default: false},
       text: {type: String, required: false, default: ''}, // required:false because it can be empty on creation
       _id: false,
-      id: {type: String, default: shared.uuid, validate: [validator.isUUID, 'Invalid uuid.']},
+      id: {type: String, default: shared.uuid, required: true, validate: [validator.isUUID, 'Invalid uuid.']},
     }],
   };
 };

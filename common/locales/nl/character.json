@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Houd er rekening mee dat je Zichbare Naam, profielfoto en flaptekst overeen moeten komen met de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (bijvoorbeeld geen godslastering, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over het wel of niet geschikt zijn van iets, voel je dan vrij om te emailen naar <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Statistieken en prestaties",
     "profile": "Profiel",
     "avatar": "Avatar aanpassen",
@@ -121,7 +121,7 @@
     "classAllocation": "Verdeel punten op basis van klasse",
     "classAllocationPop": "Wijst meer punten toe aan de eigenschappen die belangrijk zijn voor jouw klasse.",
     "taskAllocation": "Verdeel punten op basis van taakactiviteit",
-    "taskAllocationPop": "Wijst punten toe op basis van de fysieke (Kracht), mentale (Intelligentie), sociale (Lichaam) en andere (Perceptie) categorieën die horen bij de taken die je vervuld hebt.",
+    "taskAllocationPop": "Wijst punten toe op basis van de Kracht, Intelligentie, Lichaam en Perceptie categorieën die horen bij de taken die je vervuld hebt.",
     "distributePoints": "Verdeel niet toegekende punten",
     "distributePointsPop": "Verdeelt alle nog niet toegekende eigenschapspunten aan de hand van het gekozen toekenningsschema.",
     "warriorText": "Krijgers behalen meer en betere \"voltreffers\", die willekeurig extra goud, ervaringspunten, en kans op vondsten geven voor het afstrepen van een taak. Ook doen ze veel schade aan eindbazen. Speel een Krijger als je je gemotiveerd voelt door onvoorspelbare jackpot-achtige beloningen, of als je pijn aan eindbazen wil uitdelen in queesten!",
@@ -168,5 +168,6 @@
     "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
     "quickAllocationLevelPopover": "Met ieder level verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker.",
     "invalidAttribute": "\"<%= attr %>\" is geen geldige eigenschap.",
-    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschap punten"
+    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten.",
+    "gearNotOwned": "Je bezit dit voorwerp niet."
 }

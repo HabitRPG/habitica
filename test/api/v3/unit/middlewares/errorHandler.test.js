@@ -4,15 +4,15 @@ import {
   generateNext,
 } from '../../../../helpers/api-unit.helper';
 
-import errorHandler from '../../../../../website/server/middlewares/api-v3/errorHandler';
-import responseMiddleware from '../../../../../website/server/middlewares/api-v3/response';
+import errorHandler from '../../../../../website/server/middlewares/errorHandler';
+import responseMiddleware from '../../../../../website/server/middlewares/response';
 import {
   getUserLanguage,
   attachTranslateFunction,
-} from '../../../../../website/server/middlewares/api-v3/language';
+} from '../../../../../website/server/middlewares/language';
 
-import { BadRequest } from '../../../../../website/server/libs/api-v3/errors';
-import logger from '../../../../../website/server/libs/api-v3/logger';
+import { BadRequest } from '../../../../../website/server/libs/errors';
+import logger from '../../../../../website/server/libs/logger';
 
 describe('errorHandler', () => {
   let res, req, next;
@@ -165,9 +165,12 @@ describe('errorHandler', () => {
 
     expect(logger.error).to.be.calledOnce;
     expect(logger.error).to.be.calledWithExactly(error, {
+      method: req.method,
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,
+      httpCode: 400,
+      isHandledError: true,
     });
   });
 });
