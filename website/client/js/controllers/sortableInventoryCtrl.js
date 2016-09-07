@@ -18,7 +18,7 @@ habitrpg.controller('SortableInventoryController', ['$scope',
     $scope.setGrouping = function (grouping) {
       $scope.groupingChoice = grouping;
     };
-    
+
     $scope.orderChoice = 'set';
     $scope.setOrder($scope.orderChoice);
 }]);

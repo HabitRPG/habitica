@@ -36,7 +36,7 @@ future re: pets and whatnot, this is just temporary.
   margin: 0 // need this b/c of bootstrap, remove or reset later
   position: relative
   cursor: pointer
-  
+
   // Username and Level
   .avatar-level, .avatar-name
     position: absolute
@@ -56,17 +56,17 @@ future re: pets and whatnot, this is just temporary.
     left: 4px
     opacity: 0 // Hide username by default
     transition: opacity 0.2s ease-out
-  
+
   // Show username if not using mount or background
   &.isUser.noBackgroundImage:not(.hasMount)
     .avatar-name
       opacity: 1
-  
+
   // Show username on hover and focus
   &:hover, &:focus
     .avatar-name
       opacity: 1
-  
+
   // Sprite positioning – Base styles
   .character-sprites
     width: 6.428571429em // 90px
@@ -75,13 +75,13 @@ future re: pets and whatnot, this is just temporary.
     span
       position: absolute
   padding-top: 2em
-  
+
   // Sprite positioning – Position avatar sprite differently if they have a pet or a mount
   &.hasPet
-    padding-top: 1.75em    
+    padding-top: 1.75em
   &.hasMount
     padding-top:0em
-  
+
   // Backgrounds – Set a background color when no background image is set
   &.noBackgroundImage
     background: darken($color-herobox, 8%)

@@ -1,4 +1,4 @@
-small.btn-link(ng-init='showHelp = false', ng-click='showHelp = !showHelp') 
+small.btn-link(ng-init='showHelp = false', ng-click='showHelp = !showHelp')
   | {{showHelp ? env.t('hideFormattingHelp') : env.t('showFormattingHelp')}}
 
 .slight-vertical-padding(ng-if='showHelp')

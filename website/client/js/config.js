@@ -27,12 +27,12 @@ angular.module('habitrpg')
 
     function verifyNewNotifications (response) {
       // Ignore CRON notifications for manual syncs
-      var isUserLoaded = $rootScope.appLoaded === true; 
+      var isUserLoaded = $rootScope.appLoaded === true;
 
       if (response && response.data && response.data.notifications && response.data.notifications.length > 0) {
         $rootScope.userNotifications = response.data.notifications.filter(function (notification) {
           if (isUserLoaded && notification.type === 'CRON') {
-            // If the user is already loaded, do not show the notification, syncing will show it 
+            // If the user is already loaded, do not show the notification, syncing will show it
             // (the user will be synced automatically)
             $rootScope.User.readNotification(notification.id);
             return false;
