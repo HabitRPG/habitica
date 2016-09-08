@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Pusher',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social) {
 
       var PARTY_LOADING_MESSAGES = 4;
 
@@ -19,7 +19,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.partyLoadingMessage = window.env.t('partyLoading' + partyMessageNumber);
 
       function handlePartyResponse (group) {
-        $rootScope.party = $scope.group = group;
+        // Assign and not replace so that all the references get the modifications
+        _.assign($rootScope.party, group);
+        $scope.group = $rootScope.party;
+        $scope.group.loadingParty = false;
         checkForNotifications();
       }
 

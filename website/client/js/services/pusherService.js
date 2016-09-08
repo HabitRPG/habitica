@@ -59,29 +59,49 @@ angular.module('habitrpg')
       });
 
       // When the user correctly enters the party channel
-      partyChannel.bind('pusher:subscription_succeeded', function(members) {
-        // TODO members = [{id, info}]
+      partyChannel.bind('pusher:subscription_succeeded', function(pusherMembers) {
+        // Wait for the party to be loaded
+        Groups.party(reconnecting ? true : false).then(function (party) {
+          // If we just reconnected after some inactivity, sync the party
+          if (reconnecting === true) {
+            _.assign($rootScope.party, party);
+            $rootScope.loadingParty = false; // make sure the party is set as loaded
+          }
 
-        // If we just reconnected after some inactivity, sync the party
-        if (reconnecting === true) {
-          Groups.party(true).then(function (syncedParty) {
-            // Assign and not replace so that all the references get the modifications
-            if ($rootScope.party) {
-              _.assign($rootScope.party, syncedParty);
-              $rootScope.loadingParty = false; // make sure the party is set as loaded
+          $rootScope.party.onlineUsers = pusherMembers.count;
+          
+          $rootScope.party.members.forEach(function (member) {
+            if (pusherMembers.members[member._id]) {
+              member.online = true;
             }
           });
-        }
-      });
+        });
+        
+        // When a member enters the party channel
+        partyChannel.bind('pusher:member_added', function(pusherMember) {
+          $rootScope.$apply(function() {
+            $rootScope.party.members.find(function (partyMember) {
+              if (partyMember._id === pusherMember.id) {
+                partyMember.online = true;
+                return true;
+              }
+            });
+            $rootScope.party.onlineUsers++;
+          });
+        });
 
-      // When a member enters the party channel
-      partyChannel.bind('pusher:member_added', function(member) {
-        // TODO member = {id, info}
-      });
-
-      // When a member leaves the party channel
-      partyChannel.bind('pusher:member_removed', function(member) {
-        // TODO member = {id, info}
+        // When a member leaves the party channel
+        partyChannel.bind('pusher:member_removed', function(pusherMember) {
+          $rootScope.$apply(function() {
+            $rootScope.party.onlineUsers--;
+            $rootScope.party.members.find(function (partyMember) {
+              if (partyMember._id === pusherMember.id) {
+                partyMember.online = false;
+                return true;
+              }
+            });
+          }); 
+        });
       });
 
       // When the user is booted from the party, they get disconnected from Pusher
