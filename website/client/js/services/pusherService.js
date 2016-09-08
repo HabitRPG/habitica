@@ -110,7 +110,6 @@ angular.module('habitrpg')
 
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
-        connectToPusher(partyId);
         if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
           connectToPusher(partyId);
         }
