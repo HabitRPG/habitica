@@ -351,6 +351,12 @@ schema.methods.sendChat = function sendChat (message, user) {
 
   User.update(query, lastSeenUpdate, {multi: true}).exec();
 
+  // If the message being sent is a system message (not gone through the api.postChat controller)
+  // then notify Pusher about it (only parties for now)
+  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
+    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
+  }
+
   return newMessage;
 };
 
