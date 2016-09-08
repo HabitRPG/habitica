@@ -17,7 +17,7 @@ $(document).on('mousemove keydown mousedown touchstart', awaitIdle);
 /* Refresh page if idle > 6h */
 
 window.habitrpg = angular.module('habitrpg',
-    ['ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'infinite-scroll', 'ui.select2', 'angular.filter', 'ngResource', 'ngSanitize', 'ngTagsInput'])
+    ['ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'infinite-scroll', 'ui.select2', 'angular.filter', 'ngResource', 'ngSanitize'])
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
   // temporary hack until they have a better solution
