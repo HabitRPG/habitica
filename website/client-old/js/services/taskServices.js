@@ -359,7 +359,7 @@ angular.module('habitrpg')
       cloneTask: cloneTask,
       assignTask: assignTask,
       unAssignTask: unAssignTask,
-
+      
       addChecklist: addChecklist,
       addChecklistItemToUI: addChecklistItemToUI,
       removeChecklistItemFromUI: removeChecklistItemFromUI,

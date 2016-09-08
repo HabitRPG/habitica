@@ -7,22 +7,45 @@
 
   groupMembersAutocomplete.$inject = [
     '$parse',
+    '$rootScope',
   ];
 
-  function groupMembersAutocomplete($parse) {
+  function groupMembersAutocomplete($parse, $rootScope) {
 
     return {
-      // scope: true,
       templateUrl: 'partials/groups.members.autocomplete.html',
       compile: function (element, attrs) {
         var modelAccessor = $parse(attrs.ngModel);
 
         return function (scope, element, attrs, controller) {
-          var taggle = new Taggle('taggle');
+          var availableTags = _.pluck(scope.group.members, 'profile.name');
+          var memberProfileNameToIdMap = _.object(_.map(scope.group.members, function(item) {
+             return [item.profile.name, item.id]
+          }));
+          var memberIdToProfileNameMap = _.object(_.map(scope.group.members, function(item) {
+             return [item.id, item.profile.name]
+          }));
+
+          var currentTags = [];
+          _.each(scope.task.group.assignedUsers, function(userId) { currentTags.push(memberIdToProfileNameMap[userId]) })
+
+          var taggle = new Taggle('taggle', {
+            tags: currentTags,
+            onBeforeTagAdd: function(event, tag) {
+              return confirm('You really wanna add ' + tag + '?');
+            },
+            onTagAdd: function(event, tag) {
+              $rootScope.$broadcast('addedGroupMember', memberProfileNameToIdMap[tag]);
+            },
+            onBeforeTagRemove: function(event, tag) {
+              return confirm('You really wanna remove ' + tag + '?');
+            },
+            onTagRemove: function(event, tag) {
+              $rootScope.$broadcast('removedGroupMember', memberProfileNameToIdMap[tag]);
+            }
+          });
           var container = taggle.getContainer();
           var input = taggle.getInput();
-
-          var availableTags = _.pluck(scope.obj.members, 'profile.name');
 
           $(input).autocomplete({
               source: availableTags, // See jQuery UI documentaton for options

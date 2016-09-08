@@ -11,11 +11,12 @@
   function hrpgSortTags() {
 
     return {
-      scope: true,
+      scope: {
+        task: '=',
+        group: '=',
+      },
       templateUrl: 'partials/groups.tasks.actions.html',
       controller: 'GroupTaskActionsCtrl',
-      link: function($scope, element, attrs, ngModel) {
-      },
     };
   }
 }());
