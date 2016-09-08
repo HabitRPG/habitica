@@ -130,6 +130,14 @@ api.registerLocal = {
       newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
     }
 
+    // A/B Test 2016-09-12: Start with Sound Enabled?
+    if (Math.random() < 0.5) {
+      newUser.preferences.sound = 'rosstavoTheme';
+      newUser.ABtest = '20160912-soundEnabled';
+    } else {
+      newUser.ABtest = '20160912-soundDisabled';
+    }
+
     // we check for partyInvite for backward compatibility
     if (req.query.groupInvite || req.query.partyInvite) {
       await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
