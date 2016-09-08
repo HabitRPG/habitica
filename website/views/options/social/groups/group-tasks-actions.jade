@@ -1,4 +1,4 @@
 script(type='text/ng-template', id='partials/groups.tasks.actions.html')
-  strong Assign Task
-  tags-input(ng-model='tags')
-    auto-complete(source='loadTags(newTag.text)')
+  strong Assign Task {{assignedMembers}}
+  group-members-autocomplete(ng-model="assignedMembers")
+  
