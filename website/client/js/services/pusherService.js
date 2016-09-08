@@ -70,7 +70,7 @@ angular.module('habitrpg')
       // When the user correctly enters the party channel
       partyChannel.bind('pusher:subscription_succeeded', function(pusherMembers) {
         // Wait for the party to be loaded
-        Groups.party(reconnecting ? true : false).then(function (party) {
+        Groups.party(reconnecting).then(function (party) {
           // If we just reconnected after some inactivity, sync the party
           if (reconnecting === true) {
             _.assign($rootScope.party, party);
@@ -182,6 +182,7 @@ angular.module('habitrpg')
       partyId = user && $rootScope.user.party && $rootScope.user.party._id;
       if (!partyId) return;
 
+      // See if another tab is already connected to Pusher
       if (!localStorage.getItem(tabIdKey)) {
         connectToPusher(partyId);
       }
