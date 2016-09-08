@@ -7,7 +7,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
   function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments, $sce, $window, Analytics, TAVERN_ID) {
     var user = User.user;
     var IGNORE_SCROLL_PAGES = {
-        'options.social.challenges.detail': true
+        'options.social.challenges.detail': true,
+        'options.social.challenges': true
     };
 
     // Setup page once user is synced
