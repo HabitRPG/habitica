@@ -422,16 +422,30 @@ describe('cron', () => {
       expect(user.history.exp[0].value).to.equal(150);
     });
 
-    it('increments perfect day achievement', () => {
+    it('increments perfect day achievement if all (at least 1) due dailies were completed', () => {
+      daysMissed = 1;
       tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.achievements.perfect).to.equal(1);
     });
 
-    it('increments user buffs if they have a perfect day', () => {
+    it('does not increment perfect day achievement if no due dailies', () => {
+      daysMissed = 1;
       tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].startDate = moment(new Date()).add({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.achievements.perfect).to.equal(0);
+    });
+
+    it('increments user buffs if all (at least 1) due dailies were completed', () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
       let previousBuffs = clone(user.stats.buffs);
 
@@ -443,7 +457,31 @@ describe('cron', () => {
       expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
     });
 
-    it('clears buffs if user does not have a perfect day', () => {
+    it('clears buffs if user does not have a perfect day (no due dailys)', () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].startDate = moment(new Date()).add({days: 1});
+
+      user.stats.buffs = {
+        str: 1,
+        int: 1,
+        per: 1,
+        con: 1,
+        stealth: 0,
+        streaks: true,
+      };
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.equal(0);
+      expect(user.stats.buffs.int).to.equal(0);
+      expect(user.stats.buffs.per).to.equal(0);
+      expect(user.stats.buffs.con).to.equal(0);
+      expect(user.stats.buffs.stealth).to.equal(0);
+      expect(user.stats.buffs.streaks).to.be.false;
+    });
+
+    it('clears buffs if user does not have a perfect day (at least one due daily not completed)', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
