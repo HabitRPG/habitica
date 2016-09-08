@@ -302,20 +302,16 @@ habitrpg.controller('SettingsCtrl',
       return false;
     };
 
-    $scope.hasBackupAuthOption = function(user, checkedNetworkKey) {
-      if (user.auth.local.username) {
-        return true;
-      }
-      SOCIAL_AUTH_NETWORKS.forEach(function (network) {
-        if (network.key !== checkedNetworkKey) {
-          if (user.auth.hasOwnProperty(network.key)) {
-            if (user.auth[network.key].id) {
-              return true;
-            }
-          }
+    $scope.hasSocialAuth = function (user) {
+      return SOCIAL_AUTH_NETWORKS.find(function (network) {
+        if (user.auth.hasOwnProperty(network.key)) {
+          return user.auth[network.key].id;
         }
-      });
-      return false;
+      })
+    };
+
+    $scope.deleteSocialAuth = function (networkKey) {
+      $http("delete", ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey, null, "detachedSocial");
     };
 
     $scope.socialLogin = Social.socialLogin;

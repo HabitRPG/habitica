@@ -81,6 +81,7 @@ describe('POST /user/auth/social', () => {
       passportGoogleProfile.yields(null, expectedResult);
       network = 'google';
     });
+
     it('registers a new user', async () => {
       let response = await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase

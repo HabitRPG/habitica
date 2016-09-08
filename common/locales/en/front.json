@@ -250,7 +250,7 @@
     "invalidCredentials": "There is no account that uses those credentials.",
     "accountSuspended": "Account has been suspended, please contact admin@habitica.com with your User ID \"<%= userId %>\" for assistance.",
     "unsupportedNetwork": "This network is currently not supported.",
-    "cantDetachSocial": "Account lacks another authentication method, can't detach this authentication method.",
+    "cantDetachSocial": "Account lacks another authentication method; can't detach this authentication method.",
     "onlySocialAttachLocal": "Local authentication can be added to only a social account.",
     "invalidReqParams": "Invalid request parameters.",
     "memberIdRequired": "\"member\" must be a valid UUID.",

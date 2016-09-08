@@ -123,7 +123,12 @@ api.registerLocal = {
     };
 
     if (existingUser) {
-      if (!existingUser.auth.facebook.id && !existingUser.auth.google.id) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+      let hasSocialAuth = SUPPORTED_SOCIAL_NETWORKS.find(network => {
+        if (existingUser.auth.hasOwnProperty(network)) {
+          return existingUser.auth[network].id;
+        }
+      });
+      if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
       existingUser.auth.local = newUser.auth.local;
       newUser = existingUser;
     } else {

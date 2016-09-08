@@ -25,9 +25,6 @@ let schema = new Schema({
     google: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
-    twitter: {type: Schema.Types.Mixed, default: () => {
-      return {};
-    }},
     local: {
       email: {
         type: String,
