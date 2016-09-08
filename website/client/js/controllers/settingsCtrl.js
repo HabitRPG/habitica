@@ -293,13 +293,17 @@ habitrpg.controller('SettingsCtrl',
       return Math.floor(numberOfHourglasses);
     };
 
-    $scope.hasSocialAuth = function(user) {
-      SOCIAL_AUTH_NETWORKS.forEach(function (network) {
-        if (user.auth.hasOwnProperty(network.key)) {
-          return Boolean(user.auth[network.key].id)
+    $scope.hasBackupAuthOption = function(user, checkedNetworkKey) {
+      if (user.auth.local.username) {
+        return true;
+      }
+      return SOCIAL_AUTH_NETWORKS.find(function (network) {
+        if (network.key !== checkedNetworkKey) {
+          if (user.auth.hasOwnProperty(network.key)) {
+            return user.auth[network.key].id;
+          }
         }
       });
-      return false;
     };
 
     $scope.hasSocialAuth = function (user) {
@@ -307,7 +311,7 @@ habitrpg.controller('SettingsCtrl',
         if (user.auth.hasOwnProperty(network.key)) {
           return user.auth[network.key].id;
         }
-      })
+      });
     };
 
     $scope.deleteSocialAuth = function (networkKey) {
