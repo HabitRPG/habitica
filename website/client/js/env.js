@@ -2,7 +2,7 @@
 
 window.env = window.env || {}; //FIX tests
 
-// If Moment.js is loaded, 
+// If Moment.js is loaded,
 if(window.moment && window.env.language && window.env.language.momentLang && window.env.language.momentLangCode){
   var head = document.getElementsByTagName('head')[0];
   var script = document.createElement('script');
