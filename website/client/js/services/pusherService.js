@@ -13,16 +13,14 @@ angular.module('habitrpg')
       pusher: undefined,
       socketId: undefined, // when defined the user is connected
     };
-    // Limit of 1 connected tab is disabled for now
-    // var tabIdKey = 'habitica-active-tab';
-    // var tabId = Shared.uuid();
+    var tabIdKey = 'habitica-active-tab';
+    var tabId = Shared.uuid();
 
     function connectToPusher (partyId) {
-      // Limit of 1 connected tab is disabled for now
-      // localStorage.setItem(tabIdKey, tabId);
-      // window.onbeforeunload = function () {
-      //   localStorage.removeItem(tabIdKey);
-      // }
+      localStorage.setItem(tabIdKey, tabId);
+      window.onbeforeunload = function () {
+        localStorage.removeItem(tabIdKey);
+      }
 
       api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
@@ -113,10 +111,9 @@ angular.module('habitrpg')
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
         connectToPusher(partyId);
-        // Limit of 1 connected tab is disabled for now
-        // if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
-        //   connectToPusher(partyId);
-        // }
+        if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
+          connectToPusher(partyId);
+        }
       };
 
       $(document).on('mousemove keydown mousedown touchstart', awaitActivity);
@@ -137,23 +134,22 @@ angular.module('habitrpg')
 
       connectToPusher(partyId);
 
-      // DISABLED FOR NOW
       // See if another tab is already connected to Pusher
-      // if (!localStorage.getItem(tabIdKey)) {
-      //   connectToPusher(partyId);
-      // }
+      if (!localStorage.getItem(tabIdKey)) {
+        connectToPusher(partyId);
+      }
 
       // when a tab is closed, connect the next one
       // wait between 100 and 500ms to avoid two tabs connecting at the same time
-      // window.addEventListener('storage', function(e) {
-      //   if (e.key === tabIdKey && e.newValue === null) {
-      //     setTimeout(function () {
-      //       if (!localStorage.getItem(tabIdKey)) {
-      //         connectToPusher(partyId);
-      //       }
-      //     }, Math.floor(Math.random() * 501) + 100);
-      //   }
-      // });
+      window.addEventListener('storage', function(e) {
+        if (e.key === tabIdKey && e.newValue === null) {
+          setTimeout(function () {
+            if (!localStorage.getItem(tabIdKey)) {
+              connectToPusher(partyId);
+            }
+          }, Math.floor(Math.random() * 501) + 100);
+        }
+      });
     });
 
     return api;
