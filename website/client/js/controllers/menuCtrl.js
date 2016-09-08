@@ -53,7 +53,7 @@ angular.module('habitrpg')
           questInfo.title = userQuest.text();
 
           if (userQuest.boss) {
-            questInfo.body =  window.env.t('questTaskDamage', { damage: user.party.quest.progress.up.toPrecision(2) });
+            questInfo.body =  window.env.t('questTaskDamage', { damage: user.party.quest.progress.up.toFixed(1) });
           } else if (userQuest.collect) {
             questInfo.body = window.env.t('questTaskCollection', { items: user.party.quest.progress.collectedItems });
           }
