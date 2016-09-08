@@ -25,7 +25,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       function(event, toState, toParams, fromState, fromParams){
         $rootScope.pageTitle = $state.current.title;
         
-        if ($state.current.name != 'options.social.challenges.detail') {
+        if ($state.current.name !== 'options.social.challenges.detail') {
             $window.scrollTo(0, 0);
         }
 
