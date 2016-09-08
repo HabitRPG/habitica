@@ -190,6 +190,20 @@ angular.module('habitrpg')
       });
     };
 
+    function assignTask (taskId, userId) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/assign/' + userId,
+      });
+    };
+
+    function unAssignTask (taskId, userId) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/unassign/' + userId,
+      });
+    };
+
     function editTask(task, user) {
       task._editing = true;
       task._tags = !user.preferences.tagsCollapsed;
@@ -252,6 +266,8 @@ angular.module('habitrpg')
       clearCompletedTodos: clearCompletedTodos,
       editTask: editTask,
       cancelTaskEdit: cancelTaskEdit,
-      cloneTask: cloneTask
+      cloneTask: cloneTask,
+      assignTask: assignTask,
+      unAssignTask: unAssignTask,
     };
   }]);
