@@ -10,6 +10,9 @@ div(ng-if='::task.type!="reward"')
     input.form-control(ng-model='task._edit.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
 
   div(ng-show='task._edit._advanced')
+    group-tasks-actions
+
+  div(ng-show='task._edit._advanced')
     div(ng-if='::task.type == "daily"')
       .form-group
         legend.option-title

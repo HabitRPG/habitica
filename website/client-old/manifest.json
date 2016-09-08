@@ -23,6 +23,7 @@
             "bower_components/angular-ui-select2/src/select2.js",
             "bower_components/hello/dist/hello.all.min.js",
             "bower_components/angular-filter/dist/angular-filter.min.js",
+            "bower_components/ng-tags-input/ng-tags-input.js",
 
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
@@ -107,7 +108,9 @@
             "js/controllers/userCtrl.js",
 
             "js/components/groupTasks/groupTasksController.js",
-            "js/components/groupTasks/groupTasksDirective.js"
+            "js/components/groupTasks/groupTasksDirective.js",
+            "js/components/groupTaskActions/groupTaskActionsController.js",
+            "js/components/groupTaskActions/groupTaskActionsDirective.js"
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
@@ -118,6 +121,7 @@
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
             "css/habitrpg-shared.css",
             "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
+            "bower_components/ng-tags-input/ng-tags-input.bootstrap.css",
             "fontello/css/fontelico.css"
         ]
     },
