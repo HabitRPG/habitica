@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Kopirati poruku kao Jednokratni zadatak",
     "messageAddedAsToDo": "Poruka je kopirana kao jednokratni zadatak.",
     "messageWroteIn": "<%= user %> je napisao u <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Pregled poruke",
     "leaderOnlyChallenges": "Samo vođa grupe može da napravi izazov",
     "sendGift": "Poslati poklon",

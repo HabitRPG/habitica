@@ -49,8 +49,6 @@
     "equipment": "裝備",
     "equipmentBonus": "裝備",
     "equipmentBonusText": "穿上某些戰鬥裝備可獲得屬性加成。你可以從背包 > 裝備中查看你擁有的戰鬥裝備。",
-    "classBonus": "職業裝備加成",
-    "classBonusText": "你的職業 (如果你還沒解鎖或選擇其他職業，你是個戰士) 使用同職業的裝備時，比起其他職業的裝備會更有效。穿上你目前職業的裝備可以讓屬性加成上升 50%。",
     "classEquipBonus": "職業加成",
     "battleGear": "戰鬥裝備",
     "battleGearText": "這是你穿上戰場的裝備，在你做任務時會影響一些數值。",

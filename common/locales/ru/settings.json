@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "Пользователь уже имеет push устройство",
     "pushDeviceNotFound": "У пользователя нету push устройства с таким id.",
     "pushDeviceRemoved": "Push устройство успешно удалено.",
-    "add": "Добавить",
     "buyGemsGoldCap": "Предел повышен до <%= amount %>",
     "mysticHourglass": "Кол-во мистических песочных часов: <%= amount %>",
     "mysticHourglassText": "Мистические Песочные часы позволяют покупку Комплекта Таинственных предметов предыдущего месяца",

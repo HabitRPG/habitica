@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Copiar mensaje como Pendiente",
     "messageAddedAsToDo": "Mensaje copiado como Pendiente.",
     "messageWroteIn": "<%= user %> escribió en <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Vista previa del mensaje",
     "leaderOnlyChallenges": "Sólo el líder del grupo puede crear desafíos",
     "sendGift": "Enviar Regalo",

@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Скопировать сообщение как Задачу",
     "messageAddedAsToDo": "Сообщение скопировано как Задача",
     "messageWroteIn": "Cообщение от <%= user %> в чате: <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Предварительный просмотр сообщения",
     "leaderOnlyChallenges": "Только лидер группы может создавать испытания",
     "sendGift": "Отправить подарок",
@@ -196,6 +198,6 @@
     "onlyCreatorOrAdminCanDeleteChat": "Вы не авторизованы чтобы удаить это сообщение!",
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
-    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
-    "newChatMessageTitle": "New message in <%= groupName %>"
+    "newChatMessagePlainNotification": "Новое сообщение в <%= groupName %> от <%= authorName %>. Нажмите, чтобы открыть чат!",
+    "newChatMessageTitle": "Новое сообщение в <%= groupName %>"
 }

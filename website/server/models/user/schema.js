@@ -535,6 +535,7 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
+  _ABtest: {type: String},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

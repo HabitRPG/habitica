@@ -49,8 +49,6 @@
     "equipment": "Équipement",
     "equipmentBonus": "Équipement",
     "equipmentBonusText": "Bonus d'attribut de votre équipement. Voir l'onglet Équipement dans l'Inventaire pour choisir votre équipement.",
-    "classBonus": "Bonus d'équipement de classe",
-    "classBonusText": "Votre classe (Guerrier, si vous n'avez pas débloqué ou sélectionné d'autre classe) utilise mieux son équipement spécifique que celui d'autres classes. Le bonus conféré par l'équipement spécifique à votre classe actuelle est augmenté de 50%.",
     "classEquipBonus": "Bonus de Classe",
     "battleGear": "Équipement de combat",
     "battleGearText": "Voici l'équipement que vous portez au combat ; il affecte les chiffres obtenus lorsque vous interagissez avec vos tâches.",

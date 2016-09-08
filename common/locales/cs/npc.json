@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "Podpořil projekt na Kickstarteru, jak to jen bylo možné!",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matt Boch",
     "mattShall": "<%= name %>, cítíš se na projížďku? Jakmile dostatečně nakrmíš mazlíčka, objeví se tady a budeš se na něm moci projet. Klikni na zvíře, které si chceš osedlat.",
     "mattBochText1": "Vítej ve Stáji! Jsem Matt, Pán šelem. Až dosáhneš úrovně 3, budeš moci pomocí lektvarů líhnout vajíčka. Když se ti na Trhu vylíhne mazlíček, objeví se tady! Klikni na něj a objeví se u tvé postavy. Krm ho jídlem, které budeš nacházet, a on pak vyroste a budeš se na něm moci projet.",

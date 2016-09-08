@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Kopírovať správu do to-do",
     "messageAddedAsToDo": "Správa bola skopírovaná do to-do.",
     "messageWroteIn": "<%= user %> napísal v <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Prehľad správy",
     "leaderOnlyChallenges": "Len vodca družiny môže vytvárať výzvy",
     "sendGift": "Poslať darček",

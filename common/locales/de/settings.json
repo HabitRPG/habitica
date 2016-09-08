@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "Der Benutzer hat bereits ein Push-Gerät.",
     "pushDeviceNotFound": "Der Benutzer hat kein Push-Gerät mit dieser ID.",
     "pushDeviceRemoved": "Push-Gerät erfolgreich entfernt.",
-    "add": "Hinzufügen",
     "buyGemsGoldCap": "Obergrenze wurde auf <%= amount %> angehoben",
     "mysticHourglass": "<%= amount %> mystische Sanduhr",
     "mysticHourglassText": "Mystische Sanduhren erlauben Dir ein Überraschungsgegenstandsset früherer Monate zu kaufen.",

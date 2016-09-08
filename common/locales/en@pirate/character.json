@@ -49,8 +49,6 @@
     "equipment": "Slops",
     "equipmentBonus": "Equipment",
     "equipmentBonusText": "Attribute bonuses provided by ye equipped battle gear. See th' Equipment tab under Inventory to select ye battle gear.",
-    "classBonus": "Class Equipment Bonus",
-    "classBonusText": "Yer class (Mercenary, if ye haven't unlocked or picked another class) uses its own gear more effective-like than gear from other classes. Equipped gear from yer current class gets a 50% boost to the attribute bonus it gives ye.",
     "classEquipBonus": "Class Bonus",
     "battleGear": "Battle Gear",
     "battleGearText": "This be th' gear ye wear into battle; it affects numbers when interactin' with ye tasks.",

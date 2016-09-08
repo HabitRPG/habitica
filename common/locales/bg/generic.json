@@ -181,7 +181,7 @@
     "wonChallengeShare": "Спечелих предизвикателство в Хабитика!",
     "achievementShare": "Спечелих ново постижение в Хабитика!",
     "orderBy": "Подреждане по <%= item %>",
-    "you": "you",
-    "online": "online",
-    "onlineCount": "<%= count %> online"
+    "you": "Вие",
+    "online": "на линия",
+    "onlineCount": "<%= count %> на линия"
 }

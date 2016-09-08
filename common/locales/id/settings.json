@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "Pengguna telah memiliki perangkat tekan",
     "pushDeviceNotFound": "Pengguna tidak memiliki perangkat dengan id ini.",
     "pushDeviceRemoved": "Perangkat berhasil di hapus",
-    "add": "Tambahkan",
     "buyGemsGoldCap": "Batas maksmimal ditingkatkan sebesar <%= amount %>",
     "mysticHourglass": "<%= amount %> Jam Pasir Misti",
     "mysticHourglassText": "Jam Pasit Mistik membuatmu dapat membeli set Item Misteri bulan lalu.",

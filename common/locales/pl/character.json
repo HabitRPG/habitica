@@ -49,8 +49,6 @@
     "equipment": "Wyposażenie",
     "equipmentBonus": "Wyposażenie",
     "equipmentBonusText": "Premie do atrybutów zapewniane przez Twoje wyposażenie bojowe. Zajrzyj do zakładki \"Wyposażenie\" w dziale \"Ekwipunek\", żeby wybrać broń i zbroję.",
-    "classBonus": "Premia wyposażenia klasowego",
-    "classBonusText": "Twoja klasa postaci (Wojownik, jeśli nie wybrałeś innej klasy lub nie odblokowałeś jeszcze tej możliwości) o wiele skuteczniej włada wyposażeniem jej przypisanym niż przeznaczonym dla innych klas. Wyposażenie przypisane do twojej aktualnej klasy zwiększa premię do atrybutu o dodatkowe 50%.",
     "classEquipBonus": "Premia klasowa",
     "battleGear": "Wyposażenie bojowe",
     "battleGearText": "Z tym wyposażeniem ruszasz do boju. Ma ono wpływ na punkty podczas interakcji z zadaniami.",
