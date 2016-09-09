@@ -2940,6 +2940,14 @@ api.userDefaults = {
       name: t('defaultTag2')
     }, {
       name: t('defaultTag3')
+    }, {
+      name: t('defaultTag4')
+    }, {
+      name: t('defaultTag5')
+    }, {
+      name: t('defaultTag6')
+    }, {
+      name: t('defaultTag7')
     }
   ]
 };
