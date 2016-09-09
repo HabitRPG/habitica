@@ -21,51 +21,62 @@ mixin registrationForm
     .form-group
       input.btn.btn-block.btn-lg.btn-success(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('getStartedNow'))
 
+mixin externalSiteLogin
+  a.zocial.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
+  //-ul.list-inline
+    li
+      a.zocial.icon.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')
+    li
+      a.zocial.icon.googleplus(alt="Google", ng-click='socialLogin("google")') Google+
+    li
+      a.zocial.icon.twitter(alt="Twitter", ng-click='socialLogin("twitter")') Twitter
+
+mixin loginForm
+  form#loginForm(ng-submit='auth()', method='POST', name='loginForm')
+    .form-group
+      input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('usernameOrEmail'), name='username', spellcheck='false', required)
+    .form-group
+      input.form-control(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password', required)
+    .form-group
+       input.btn.btn-block.btn-lg.btn-primary(type='submit', ng-disabled='loginForm.$invalid', value=env.t('login'))
+
+    small=env.t('passMan')
+    br
+    br
+
+  // good god accordions have html ceremony
+  .panel-group#forgot-password
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title
+          a(data-toggle="collapse" data-parent="#forgot-password" href="#forgot-password-panel")=env.t('forgotPass')
+
+      .panel-body.collapse#forgot-password-panel
+        form(name='passwordResetForm', ng-submit='passwordReset(passwordResetEmail)', novalidate)
+        //.alert.alert-success {.success.passwordReset}
+        //.control-group.{#if..errors.passwordReset}error{/}
+        h3=env.t('emailNewPass')
+        .form-group
+          input.form-control(type='email', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
+          //span.help-inline {.errors.passwordReset}
+          .form-group
+            input.btn.btn-default(type='submit', value=env.t('submit'))
+
+
 script(id='modals/login.html', type='text/ng-template')
   .modal-header
     button.close(type='button', ng-click='$close()') ×
     h4.modal-title=env.t('loginAndReg')
   .modal-body(ng-controller='AuthCtrl')
-    a.zocial.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
-    //-ul.list-inline
-      li
-        a.zocial.icon.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')
-      li
-        a.zocial.icon.googleplus(alt="Google", ng-click='socialLogin("google")') Google+
-      li
-        a.zocial.icon.twitter(alt="Twitter", ng-click='socialLogin("twitter")') Twitter
+    +externalSiteLogin
+
     hr
+
     tabset(justified='true')
       tab(heading=env.t('login'))
-        form#loginForm(ng-submit='auth()', method='POST', name='loginForm')
-          .form-group
-            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('usernameOrEmail'), name='username', spellcheck='false', required)
-          .form-group
-            input.form-control(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password', required)
-          .form-group
-            input.btn.btn-block.btn-lg.btn-primary(type='submit', ng-disabled='loginForm.$invalid', value=env.t('login'))
-
-          small=env.t('passMan')
-          br
-          br
-
-        // good god accordions have html ceremony
-        .panel-group#forgot-password
-          .panel.panel-default
-            .panel-heading
-              h3.panel-title
-                a(data-toggle="collapse" data-parent="#forgot-password" href="#forgot-password-panel")=env.t('forgotPass')
-
-            .panel-body.collapse#forgot-password-panel
-              form(name='passwordResetForm', ng-submit='passwordReset(passwordResetEmail)', novalidate)
-                //.alert.alert-success {.success.passwordReset}
-                //.control-group.{#if..errors.passwordReset}error{/}
-                h3=env.t('emailNewPass')
-                .form-group
-                  input.form-control(type='email', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
-                  //span.help-inline {.errors.passwordReset}
-                .form-group
-                  input.btn.btn-default(type='submit', value=env.t('submit'))
+        +loginForm
+        hr
+        a.btn.btn-default.btn-block(href='/static/login' target='_blank')=env.t('loginTroubles')
 
       tab(heading=env.t('register'))
         +registrationForm

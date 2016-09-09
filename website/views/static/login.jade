@@ -1,0 +1,26 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title Habitica &VerticalLine;&nbsp;
+    =env.t('loginAndReg')
+
+block content
+  .row
+    .col-md-12
+      .page-header
+        .row
+          .col-md-8
+            h1=env.t('loginAndReg')
+          .col-md-4
+            +externalSiteLogin
+
+      .row(ng-controller='AuthCtrl')
+        .col-md-6
+          h2=env.t('login')
+          +loginForm
+        .col-md-6
+          h2=env.t('register')
+          +registrationForm
